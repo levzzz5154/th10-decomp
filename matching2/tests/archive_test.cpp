@@ -192,9 +192,24 @@ static bool TestLegacyStringAssignment() {
     for (uint32_t index = 0; index <= 10; ++index) {
         if (string.Data()[index] != erased[index]) return false;
     }
+    const char* owned = string.Data();
+    if (!string.OwnsPointer(owned) ||
+            !string.OwnsPointer(owned + string.Length() - 1) ||
+            string.OwnsPointer(owned + string.Length()) ||
+            string.OwnsPointer("external")) {
+        return false;
+    }
     string.AssignSubstring(&string, 2, 4);
     const char* substring = "cdep";
     bool passed = string.length == 4 && string.Data()[4] == 0;
+    for (uint32_t index = 0; passed && index < 4; ++index) {
+        if (string.Data()[index] != substring[index]) passed = false;
+    }
+    if (!string.Reserve(40, false) || string.capacity < 40 ||
+            string.length != 4 || !string.Reserve(8, true) ||
+            string.capacity != 15 || string.length != 4) {
+        passed = false;
+    }
     for (uint32_t index = 0; passed && index < 4; ++index) {
         if (string.Data()[index] != substring[index]) passed = false;
     }

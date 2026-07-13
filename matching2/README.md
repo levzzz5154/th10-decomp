@@ -59,7 +59,8 @@ deterministic back-reference vector and round-tripped through the decoder. A
 fully synthetic DAT archive additionally
 tests backend ownership, index loading, sentinel construction, reopening,
 named asset reads, and cleanup as one end-to-end path.
-The utility coverage also exercises inline `LegacyString` assignment and
+The utility coverage also exercises inline and allocated `LegacyString`
+assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.
 
 The supported original executable has SHA-256:
@@ -137,9 +138,12 @@ Current exact-overlay results with MSVC 7.1:
 | `BufferFile::GetSize` | 4 | 100% |
 | `ResourceFile` scalar deleting destructor | 22 | 100% |
 | `LegacyString_Clear` | 34 | 100% |
+| `LegacyString::Length` | 4 | 100% |
 | `LegacyString::Data` | 14 | 100% |
 | `LegacyAllocator::Deallocate` | 10 | 100% |
 | `LegacyAllocator::MaxSize` | 6 | 100% |
+| `LegacyString::OwnsPointer` | 57 | 100% |
+| `LegacyAllocator::Allocate` | 12 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
@@ -150,6 +154,7 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyString::Erase` | 103 | partial; exact validation and range clamp |
 | `LegacyString::SetLength` | 31 | partial; 29 matching bytes |
 | `LegacyString::Grow` | 160 | semantic; retail capacity policy and ownership |
+| `LegacyString::Reserve` | 181 | semantic; growth and heap-to-inline shrink paths |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.

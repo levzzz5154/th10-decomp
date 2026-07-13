@@ -4,11 +4,21 @@ extern "C" void __cdecl _free(void*);
 extern "C" void* __cdecl _memmove(void* destination, const void* source,
                                     uint32_t size);
 extern "C" void* operator_new(uint32_t size);
+#ifdef _MSC_VER
+void* __cdecl operator new(uint32_t size);
+#else
+void* operator new(unsigned long size);
+#endif
 extern "C" void LegacyString_ThrowLengthError(void);
 extern "C" void LegacyString_ThrowRangeError(void);
 
 // 0x004352C0 - Initialize an empty allocation owner.
 HeapBuffer::HeapBuffer() : data(0) {
+}
+
+// 0x00438840 - Allocate raw character storage.
+void* LegacyAllocator::Allocate(uint32_t count) {
+    return ::operator new(count);
 }
 
 // 0x00438690 - The element count is part of the allocator ABI but unused.
@@ -171,6 +181,48 @@ void LegacyString::SetLength(uint32_t new_length) {
     } else {
         storage.inline_data[new_length] = 0;
     }
+}
+
+// 0x00438250 - Return the current number of characters.
+uint32_t LegacyString::Length() const {
+    return length;
+}
+
+// 0x004385B0 - Ensure capacity, optionally moving short strings back inline.
+bool LegacyString::Reserve(uint32_t requested, bool shrink_to_inline) {
+    if (requested > 0xFFFFFFFE) {
+        LegacyString_ThrowLengthError();
+    }
+    if (capacity < requested) {
+        Grow(requested, length);
+        return requested != 0;
+    }
+
+    if (shrink_to_inline && requested < 16 && capacity >= 16) {
+        uint32_t preserved = length < requested ? length : requested;
+        char* allocated = (char*)storage.heap_data;
+        for (uint32_t index = 0; index < preserved; ++index) {
+            storage.inline_data[index] = allocated[index];
+        }
+        _free(allocated);
+        length = preserved;
+        capacity = 15;
+        storage.inline_data[preserved] = 0;
+        return requested != 0;
+    }
+
+    if (requested == 0) {
+        SetLength(0);
+    }
+    return requested != 0;
+}
+
+// 0x00438800 - Detect ranges which alias the string's active character data.
+bool LegacyString::OwnsPointer(const char* pointer) const {
+    if (pointer >= Data() && Data() + length > pointer) {
+        return true;
+    }
+    return false;
 }
 
 // 0x00438680 - Select inline or allocated character storage. The const and

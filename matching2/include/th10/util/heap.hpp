@@ -11,6 +11,7 @@ struct HeapBuffer {
 
 // Stateless allocator used by the retail basic_string implementation.
 struct LegacyAllocator {
+    void* Allocate(uint32_t count);
     void Deallocate(void* memory, uint32_t count);
     uint32_t MaxSize() const;
 };
@@ -33,6 +34,9 @@ struct LegacyString {
     void Grow(uint32_t requested, uint32_t old_length);
     LegacyString* Erase(uint32_t offset, uint32_t count);
     void SetLength(uint32_t new_length);
+    uint32_t Length() const;
+    bool Reserve(uint32_t requested, bool shrink_to_inline);
+    bool OwnsPointer(const char* pointer) const;
     char* Data();
     const char* Data() const;
 };
