@@ -23,6 +23,7 @@ public:
     HANDLE handle;
     DWORD access;
 
+    virtual BYTE Open(const char* path, const char* mode);
     virtual void Close();
     virtual DWORD Read(void* destination, DWORD size);
     virtual BYTE Write(const void* source, DWORD size);
@@ -31,3 +32,5 @@ public:
     virtual BYTE Seek(LONG distance, DWORD origin);
     virtual void* ReadWhole(DWORD capacity);
 };
+
+void File_ResolvePath(const char* path, char output[260]);

@@ -5,6 +5,8 @@
 // A minimal owner used by the allocation helpers around 0x00435220.
 struct HeapBuffer {
     void* data;
+
+    HeapBuffer();
 };
 
 // MSVC 7.1 basic_string-compatible storage used by 0x004381F0. Strings of up

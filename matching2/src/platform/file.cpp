@@ -10,6 +10,10 @@ extern "C" __declspec(dllimport) DWORD __stdcall SetFilePointer(
     HANDLE handle, LONG distance, LONG* distance_high, DWORD origin);
 extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(
     HANDLE handle, DWORD* size_high);
+extern "C" __declspec(dllimport) HANDLE __stdcall CreateFileA(
+    const char* path, DWORD access, DWORD share_mode, void* security,
+    DWORD creation_disposition, DWORD flags, HANDLE template_file);
+extern "C" __declspec(dllimport) BOOL __stdcall DeleteFileA(const char* path);
 extern "C" void* __cdecl _malloc(DWORD size);
 extern "C" void __cdecl _free(void* memory);
 
@@ -18,8 +22,99 @@ namespace {
 const DWORD kReadAccess = 0x80000000;
 const DWORD kWriteAccess = 0x40000000;
 const DWORD kCurrentPosition = 1;
+const DWORD kEndPosition = 2;
+const DWORD kShareRead = 1;
+const DWORD kCreateAlways = 2;
+const DWORD kOpenExisting = 3;
+const DWORD kOpenAlways = 4;
+const DWORD kSequentialNormalFile = 0x08000080;
 
 } // namespace
+
+void File_ResolvePath(const char* path, char output[260]) {
+    const char* cursor = path;
+    while (*cursor != 0 && *cursor != ':') {
+        ++cursor;
+    }
+    if (*cursor == ':') {
+        do {
+            *output++ = *path;
+        } while (*path++ != 0);
+        return;
+    }
+
+    GetModuleFileNameA(0, output, 260);
+    char* separator = output;
+    char* last_separator = 0;
+    while (*separator != 0) {
+        if (*separator == '\\') {
+            last_separator = separator;
+        }
+        ++separator;
+    }
+    if (last_separator) {
+        last_separator[1] = 0;
+    } else {
+        output[0] = 0;
+    }
+
+    while (*output != 0) {
+        ++output;
+    }
+    do {
+        *output++ = *path;
+    } while (*path++ != 0);
+}
+
+// 0x00435370 - Open a Win32 file using TH10's fopen-like mode parsing.
+BYTE FileHandle::Open(const char* path, const char* mode) {
+    DWORD creation_disposition = 0;
+    bool append = false;
+    Close();
+
+    const char* mode_cursor = mode;
+    while (*mode_cursor != 0) {
+        if (*mode_cursor == 'r') {
+            access = kReadAccess;
+            creation_disposition = kOpenExisting;
+            break;
+        }
+        if (*mode_cursor == 'w') {
+            DeleteFileA(path);
+            access = kWriteAccess;
+            creation_disposition = kCreateAlways;
+            break;
+        }
+        if (*mode_cursor == 'a') {
+            append = true;
+            access = kWriteAccess;
+            creation_disposition = kOpenAlways;
+            break;
+        }
+        ++mode_cursor;
+    }
+    if (*mode_cursor == 0) {
+        return 0;
+    }
+
+    char resolved_path[260];
+    File_ResolvePath(path, resolved_path);
+    handle = CreateFileA(
+        resolved_path,
+        access,
+        kShareRead,
+        0,
+        creation_disposition,
+        kSequentialNormalFile,
+        0);
+    if (handle == (HANDLE)-1) {
+        return 0;
+    }
+    if (append) {
+        SetFilePointer(handle, 0, 0, kEndPosition);
+    }
+    return 1;
+}
 
 // 0x00435460 - Close an open Win32 file handle and reset its state.
 void FileHandle::Close() {

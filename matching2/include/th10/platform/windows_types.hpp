@@ -52,7 +52,7 @@ extern "C" DWORD __security_cookie;
 extern "C" {
     HANDLE  __stdcall CreateMutexA(void*, BOOL, LPCSTR);
     DWORD   __stdcall GetLastError(void);
-    DWORD   __stdcall GetModuleFileNameA(HMODULE, LPSTR, DWORD);
+    __declspec(dllimport) DWORD __stdcall GetModuleFileNameA(HMODULE, LPSTR, DWORD);
     DWORD   __stdcall GetConsoleTitleA(LPSTR, DWORD);
     void    __stdcall GetStartupInfoA(void*);
     char*   __cdecl _strrchr(const char*, int);

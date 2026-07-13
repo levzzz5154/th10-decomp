@@ -2,6 +2,10 @@
 
 extern "C" void __cdecl _free(void*);
 
+// 0x004352C0 - Initialize an empty allocation owner.
+HeapBuffer::HeapBuffer() : data(0) {
+}
+
 // 0x00435250 - Release a nullable heap buffer.
 void __fastcall HeapBuffer_Release(HeapBuffer* buffer) {
     void* data = buffer->data;

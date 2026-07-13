@@ -93,7 +93,9 @@ operands are excluded because their final values are assigned by the linker.
 The Win32 file abstraction also has its retail nine-slot vtable typed in C++;
 the adjacent whole-file loader (`0x00435580`) is readable and functional, but
 is not overlaid yet because its optimized cleanup-block ordering is not an
-exact code-generation match.
+exact code-generation match. Module-relative/absolute path resolution
+(`0x00435610`) and the `r`/`w`/`a` open path (`0x00435370`) are reconstructed
+behind the same interface.
 
 Current MSVC 7.1 results for `entity.cpp`:
 
@@ -104,6 +106,7 @@ Current MSVC 7.1 results for `entity.cpp`:
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
+| `HeapBuffer::HeapBuffer` | 9 | 100% |
 | `FileHandle::Close` | 30 | 100% |
 | `FileHandle::Read` | 53 | 100% |
 | `FileHandle::Write` | 59 | 100% |
