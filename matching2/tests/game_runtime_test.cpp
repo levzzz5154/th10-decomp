@@ -32,9 +32,45 @@ Entity* Entity_Constructor(Entity* entity) {
 void Entity_Init(void*, Entity*) {}
 
 static int scriptRuns;
+static int scriptResult = 1;
 int FUN_0043ee30(AnimationObject*) {
     ++scriptRuns;
-    return scriptRuns;
+    return scriptResult;
+}
+
+static int renderedObjects;
+void AnimationObject_Render(void*, AnimationObject*) {
+    ++renderedObjects;
+}
+
+static int updateCallbacks;
+static int drawCallbacks;
+
+static int UpdateCallback(AnimationObject*) {
+    ++updateCallbacks;
+    return 0;
+}
+
+static int DrawCallback(AnimationObject*) {
+    ++drawCallbacks;
+    return 0;
+}
+
+static AnimationObject** RenderChainSlot(AnimationObject* animation) {
+    return (AnimationObject**)((unsigned char*)animation + 4 +
+                               2 * sizeof(AnimationListNode));
+}
+
+static int* RenderBucketSlot(AnimationObject* animation) {
+    return (int*)((unsigned char*)RenderChainSlot(animation) +
+                  sizeof(AnimationObject*));
+}
+
+static void SetCallbacks(AnimationObject* animation) {
+    *(AnimationUpdateCallback*)((unsigned char*)animation + 0x398) =
+        UpdateCallback;
+    *(AnimationDrawCallback*)((unsigned char*)animation + 0x398 +
+                              sizeof(AnimationUpdateCallback)) = DrawCallback;
 }
 
 static void TestFrameTimer() {
@@ -231,8 +267,82 @@ static void TestAnimationLookupAndPosition() {
             0x04000000u) != 0);
 }
 
+static void TestAnimationFrameLoops() {
+    const unsigned int managerSize = 0x732458;
+    std::vector<unsigned char> manager(managerSize, 0);
+    g_pGameStateManager = &manager[0];
+    scriptResult = 0;
+    updateCallbacks = 0;
+    drawCallbacks = 0;
+    renderedObjects = 0;
+
+    AnimationObject* first = AnimationManager_AllocateObject(&manager[0]);
+    AnimationObject* removed = AnimationManager_AllocateObject(&manager[0]);
+    AnimationObject* third = AnimationManager_AllocateObject(&manager[0]);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], first, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], removed, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], third, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+    *RenderBucketSlot(first) = 0;
+    *RenderBucketSlot(removed) = 1;
+    *RenderBucketSlot(third) = 2;
+    SetCallbacks(first);
+    SetCallbacks(removed);
+    SetCallbacks(third);
+    *(unsigned int*)((unsigned char*)removed + 0x35C) |= 0x04000000u;
+
+    assert(AnimationManager_UpdatePrimary(&manager[0]) == 1);
+    assert(updateCallbacks == 2);
+    assert(*(unsigned int*)(&manager[0x64]) == 3);
+    assert(manager[0x3AC068 + 1] == 0);
+
+    AnimationObject* bucketZeroSentinel =
+        (AnimationObject*)(&manager[0] + 0x72DAE4);
+    AnimationObject* bucketTwoSentinel =
+        (AnimationObject*)(&manager[0] + 0x72DAE4 + 2 * 0x3AC);
+    assert(*RenderChainSlot(bucketZeroSentinel) == first);
+    assert(*RenderChainSlot(first) == 0);
+    assert(*RenderChainSlot(bucketTwoSentinel) == third);
+
+    AnimationManager_RenderBucket(&manager[0], 0);
+    AnimationManager_RenderBucket(&manager[0], 2);
+    assert(drawCallbacks == 2);
+    assert(renderedObjects == 2);
+
+    AnimationObject* secondaryFirst =
+        AnimationManager_AllocateObject(&manager[0]);
+    AnimationObject* secondarySecond =
+        AnimationManager_AllocateObject(&manager[0]);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], secondaryFirst, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], secondarySecond, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+    SetCallbacks(secondaryFirst);
+    SetCallbacks(secondarySecond);
+    assert(AnimationManager_UpdateSecondary(&manager[0]) == 1);
+    assert(*(unsigned int*)(&manager[0x64]) == 2);
+    AnimationObject* bucketNineteenSentinel =
+        (AnimationObject*)(&manager[0] + 0x72DAE4 + 19 * 0x3AC);
+    assert(*RenderChainSlot(bucketNineteenSentinel) == secondaryFirst);
+    assert(*RenderChainSlot(secondaryFirst) == secondarySecond);
+    assert(*RenderChainSlot(secondarySecond) == 0);
+    AnimationManager_RenderBucket(&manager[0], 19);
+    assert(drawCallbacks == 4);
+    assert(renderedObjects == 4);
+
+    scriptResult = 1;
+}
+
 int main() {
     TestFrameTimer();
     TestAnimationLookupAndPosition();
+    TestAnimationFrameLoops();
     return 0;
 }

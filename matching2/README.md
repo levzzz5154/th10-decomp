@@ -74,6 +74,10 @@ generic flag changes, resource retirement, handle validation, child lookup,
 and pooled-object removal.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
+Per-frame coverage walks both active lists, removes retired objects without
+invalidating iteration, invokes update/draw callbacks, distributes primary
+objects into 19 render buckets, queues secondary objects in bucket 19, and
+renders the resulting chains.
 
 The supported original executable has SHA-256:
 
@@ -218,3 +222,8 @@ All four retail registration variants (`0x004489D0`, `0x00448A50`,
 state-preserving script loader at `0x0043E7E0` and child-object setup wrapper at
 `0x00449870` are reconstructed as well, preserving existing entity state while
 resetting script cursors, timers, transform fields, and interpreter markers.
+The manager update functions at `0x00448860` and `0x00448900` are now readable
+C++ too. They preserve the retail ordering of callback execution, script
+advancement, completion removal, active-object accounting, and render-chain
+construction. The adjacent `0x00448980` bucket walk dispatches draw callbacks
+and the downstream object renderer while skipping objects marked for removal.

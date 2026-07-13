@@ -1,6 +1,7 @@
 // =============================================================================
 // animation_manager.cpp - Handle lookup and position propagation
 // Functions: 0x004489D0/0x00448A50/0x00448AC0/0x00448B40 (Register),
+//            0x00448860/0x00448900 (Update), 0x00448980 (render bucket),
 //            0x00448DB0 (player creation), 0x0043E710/0x0043E7E0
 //            (LoadScript), 0x004491C0 (Find),
 //            0x004492F0 (SetPosition), 0x00449950 (Allocate)
@@ -18,6 +19,7 @@ extern unsigned int DAT_00476f78;
 Entity* __fastcall Entity_Constructor(Entity* entity);
 void __fastcall Entity_Init(void* unused, Entity* entity);
 int FUN_0043ee30(AnimationObject* animation);
+void AnimationObject_Render(void* manager, AnimationObject* animation);
 
 static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -154,6 +156,28 @@ static AnimationListNode* AnimationObject_ChildMembership(
     AnimationObject* animation) {
     return (AnimationListNode*)((uint8_t*)animation + 4 +
                                 sizeof(AnimationListNode));
+}
+
+static AnimationObject** AnimationObject_RenderChainSlot(
+    AnimationObject* animation) {
+    return (AnimationObject**)((uint8_t*)animation + 4 +
+                               2 * sizeof(AnimationListNode));
+}
+
+static int* AnimationObject_RenderBucketSlot(AnimationObject* animation) {
+    return (int*)((uint8_t*)AnimationObject_RenderChainSlot(animation) +
+                  sizeof(AnimationObject*));
+}
+
+static AnimationUpdateCallback AnimationObject_UpdateCallback(
+    AnimationObject* animation) {
+    return *(AnimationUpdateCallback*)((uint8_t*)animation + 0x398);
+}
+
+static AnimationDrawCallback AnimationObject_DrawCallback(
+    AnimationObject* animation) {
+    return *(AnimationDrawCallback*)((uint8_t*)animation + 0x398 +
+                                     sizeof(AnimationUpdateCallback));
 }
 
 void AnimationManager_RemoveObject(
@@ -457,6 +481,98 @@ void AnimationManager_MarkForRemovalAndClearHandle(
     AnimationManager_SetFlag(
         manager, *animationHandle, 0x04000000u);
     *animationHandle = 0;
+}
+
+static AnimationObject** AnimationManager_RenderBucketHead(
+    void* manager, unsigned int bucketIndex) {
+    AnimationObject* sentinel =
+        (AnimationObject*)((uint8_t*)manager + 0x72DAE4 +
+                           bucketIndex * 0x3AC);
+    return AnimationObject_RenderChainSlot(sentinel);
+}
+
+static bool AnimationManager_UpdateObject(
+    void* manager, AnimationObject* animation) {
+    uint8_t* bytes = (uint8_t*)animation;
+    if ((*(unsigned int*)(bytes + 0x35C) & 0x04000000u) != 0) {
+        AnimationManager_RemoveObject(manager, animation);
+        return false;
+    }
+
+    AnimationUpdateCallback callback =
+        AnimationObject_UpdateCallback(animation);
+    if (callback != 0) {
+        callback(animation);
+    }
+    if (FUN_0043ee30(animation) != 0) {
+        AnimationManager_RemoveObject(manager, animation);
+        return false;
+    }
+    return true;
+}
+
+int AnimationManager_UpdatePrimary(void* manager) {
+    AnimationObject* tails[19];
+    for (unsigned int index = 0; index != 19; ++index) {
+        AnimationObject* sentinel =
+            (AnimationObject*)((uint8_t*)manager + 0x72DAE4 +
+                               index * 0x3AC);
+        tails[index] = sentinel;
+        *AnimationObject_RenderChainSlot(sentinel) = 0;
+    }
+
+    AnimationListNode* node = AnimationManager_List(manager, 0);
+    while (node != 0) {
+        AnimationObject* animation = node->animation;
+        node = node->next;
+        if (AnimationManager_UpdateObject(manager, animation)) {
+            int bucket = *AnimationObject_RenderBucketSlot(animation);
+            *AnimationObject_RenderChainSlot(tails[bucket]) = animation;
+            tails[bucket] = animation;
+            *AnimationObject_RenderChainSlot(animation) = 0;
+        }
+        ++*(unsigned int*)((uint8_t*)manager + 0x64);
+    }
+    return 1;
+}
+
+int AnimationManager_UpdateSecondary(void* manager) {
+    AnimationObject* sentinel =
+        (AnimationObject*)((uint8_t*)manager + 0x72DAE4 + 19 * 0x3AC);
+    AnimationObject* tail = sentinel;
+    *AnimationObject_RenderChainSlot(sentinel) = 0;
+    *(unsigned int*)((uint8_t*)manager + 0x64) = 0;
+
+    AnimationListNode* node = AnimationManager_List(manager, 1);
+    while (node != 0) {
+        AnimationObject* animation = node->animation;
+        node = node->next;
+        if (AnimationManager_UpdateObject(manager, animation)) {
+            *AnimationObject_RenderChainSlot(tail) = animation;
+            tail = animation;
+            *AnimationObject_RenderChainSlot(animation) = 0;
+        }
+        ++*(unsigned int*)((uint8_t*)manager + 0x64);
+    }
+    return 1;
+}
+
+int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
+    AnimationObject* animation =
+        *AnimationManager_RenderBucketHead(manager, (unsigned int)bucketIndex);
+    while (animation != 0) {
+        uint8_t* bytes = (uint8_t*)animation;
+        if ((*(unsigned int*)(bytes + 0x35C) & 0x04000000u) == 0) {
+            AnimationDrawCallback callback =
+                AnimationObject_DrawCallback(animation);
+            if (callback != 0) {
+                callback(animation);
+            }
+            AnimationObject_Render(manager, animation);
+        }
+        animation = *AnimationObject_RenderChainSlot(animation);
+    }
+    return 1;
 }
 
 int AnimationManager_FindChildByScriptIndex(

@@ -21,6 +21,9 @@ enum AnimationListInsertion {
     AnimationListInsertion_Front = 1
 };
 
+typedef int (__fastcall *AnimationUpdateCallback)(AnimationObject* animation);
+typedef int (__fastcall *AnimationDrawCallback)(AnimationObject* animation);
+
 AnimationObject* AnimationManager_AllocateObject(void* manager);
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle);
@@ -54,6 +57,9 @@ void AnimationManager_SetTranslatedPosition(
 bool AnimationManager_ValidateHandle(void* manager, int* animationHandle);
 void AnimationManager_MarkForRemovalAndClearHandle(
     void* manager, int* animationHandle);
+int AnimationManager_UpdatePrimary(void* manager);
+int AnimationManager_UpdateSecondary(void* manager);
+int AnimationManager_RenderBucket(void* manager, int bucketIndex);
 int AnimationManager_FindChildByScriptIndex(
     void* manager, int animationHandle, short scriptIndex);
 int PlayerAnimation_Create(
