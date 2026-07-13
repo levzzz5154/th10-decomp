@@ -1,7 +1,8 @@
 // =============================================================================
 // animation_manager.cpp - Handle lookup and position propagation
-// Functions: 0x004489D0 (Register), 0x00448DB0 (player creation),
-//            0x0043E710 (LoadScript), 0x004491C0 (Find),
+// Functions: 0x004489D0/0x00448A50/0x00448AC0/0x00448B40 (Register),
+//            0x00448DB0 (player creation), 0x0043E710/0x0043E7E0
+//            (LoadScript), 0x004491C0 (Find),
 //            0x004492F0 (SetPosition), 0x00449950 (Allocate)
 // =============================================================================
 #include "th10/render/animation_manager.hpp"
@@ -60,6 +61,13 @@ static AnimationListNode* AnimationManager_List(
     return *(AnimationListNode**)((uint8_t*)manager + listOffset);
 }
 
+static AnimationListNode** AnimationManager_ListSlot(
+    void* manager, unsigned int listIndex, bool tail) {
+    const unsigned int slot = listIndex * 2 + (tail ? 1 : 0);
+    return (AnimationListNode**)((uint8_t*)manager + 0x72DAD4 +
+                                 slot * sizeof(AnimationListNode*));
+}
+
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle) {
     if (animationHandle == 0) {
@@ -86,6 +94,14 @@ AnimationObject* AnimationManager_Find(
 
 int AnimationManager_RegisterObject(
     void* manager, AnimationObject* animation) {
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+}
+
+int AnimationManager_RegisterObjectAt(
+    void* manager, AnimationObject* animation,
+    AnimationManagerList list, AnimationListInsertion insertion) {
     uint8_t* bytes = (uint8_t*)manager;
     AnimationListNode* node =
         (AnimationListNode*)((uint8_t*)animation + 4);
@@ -94,10 +110,15 @@ int AnimationManager_RegisterObject(
     node->previous = 0;
 
     AnimationListNode** head =
-        (AnimationListNode**)(bytes + 0x72DAD4);
+        AnimationManager_ListSlot(manager, (unsigned int)list, false);
     AnimationListNode** tail =
-        (AnimationListNode**)(bytes + 0x72DAD4 + sizeof(AnimationListNode*));
+        AnimationManager_ListSlot(manager, (unsigned int)list, true);
     if (*head == 0) {
+        *head = node;
+        *tail = node;
+    } else if (insertion == AnimationListInsertion_Front) {
+        node->next = *head;
+        (*head)->previous = node;
         *head = node;
     } else {
         if ((*tail)->next != 0) {
@@ -106,8 +127,8 @@ int AnimationManager_RegisterObject(
         }
         (*tail)->next = node;
         node->previous = *tail;
+        *tail = node;
     }
-    *tail = node;
 
     int* nextHandle = (int*)(bytes + 0x732454);
     ++*nextHandle;
@@ -313,8 +334,9 @@ void AnimationManager_MarkResourceForRemoval(
     }
 }
 
-void AnimationObject_LoadScript(
-    AnimationObject* animation, void* resource, int animationIndex) {
+static void AnimationObject_LoadScriptInternal(
+    AnimationObject* animation, void* resource, int animationIndex,
+    bool resetEntity) {
     uint8_t* animationBytes = (uint8_t*)animation;
     uint8_t* resourceBytes = (uint8_t*)resource;
     void** scripts = *(void***)(resourceBytes + 0x11C);
@@ -328,7 +350,9 @@ void AnimationObject_LoadScript(
         return;
     }
 
-    Entity_Init(0, (Entity*)animation);
+    if (resetEntity) {
+        Entity_Init(0, (Entity*)animation);
+    }
     *(short*)(animationBytes + 0x38A) = (short)animationIndex;
     *(unsigned short*)(animationBytes + 0x386) =
         *(unsigned short*)resourceBytes;
@@ -353,6 +377,38 @@ void AnimationObject_LoadScript(
 
     FUN_0043ee30(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
+}
+
+void AnimationObject_LoadScript(
+    AnimationObject* animation, void* resource, int animationIndex) {
+    AnimationObject_LoadScriptInternal(
+        animation, resource, animationIndex, true);
+}
+
+void AnimationObject_LoadScriptPreservingState(
+    AnimationObject* animation, void* resource, int animationIndex) {
+    AnimationObject_LoadScriptInternal(
+        animation, resource, animationIndex, false);
+}
+
+void AnimationObject_InitializeScriptState(
+    AnimationObject* animation, void* resource, int animationIndex) {
+    uint8_t* bytes = (uint8_t*)animation;
+    *(unsigned int*)(bytes + 0x340) = 0;
+    *(unsigned int*)(bytes + 0x344) = 0;
+    *(unsigned int*)(bytes + 0x348) = 0;
+    *(unsigned int*)(bytes + 0x334) = 0;
+    *(unsigned int*)(bytes + 0x338) = 0;
+    *(unsigned int*)(bytes + 0x33C) = 0;
+    *(unsigned int*)(bytes + 0x34C) = 0;
+    *(unsigned int*)(bytes + 0x350) = 0;
+    *(unsigned int*)(bytes + 0x35C) |= 0x40000000u;
+    *(short*)(bytes + 0x38A) = (short)animationIndex;
+    *(unsigned int*)(bytes + 0x354) = 0;
+    bytes[0x3A0] = 0x10;
+    bytes[0x3A1] = 0x10;
+    AnimationObject_LoadScriptPreservingState(
+        animation, resource, animationIndex);
 }
 
 void AnimationManager_SetPosition(
@@ -394,6 +450,13 @@ bool AnimationManager_ValidateHandle(
     }
     *animationHandle = 0;
     return false;
+}
+
+void AnimationManager_MarkForRemovalAndClearHandle(
+    void* manager, int* animationHandle) {
+    AnimationManager_SetFlag(
+        manager, *animationHandle, 0x04000000u);
+    *animationHandle = 0;
 }
 
 int AnimationManager_FindChildByScriptIndex(

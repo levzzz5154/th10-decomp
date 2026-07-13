@@ -62,6 +62,7 @@ static void TestFrameTimer() {
 static void TestAnimationLookupAndPosition() {
     const unsigned int managerSize = 0x732458;
     std::vector<unsigned char> manager(managerSize, 0);
+    g_pGameStateManager = &manager[0];
     unsigned char firstStorage[0x3AC] = {};
     unsigned char secondStorage[0x3AC] = {};
     AnimationObject* first = (AnimationObject*)firstStorage;
@@ -132,6 +133,22 @@ static void TestAnimationLookupAndPosition() {
     assert(AnimationManager_FindChildByScriptIndex(
                &manager[0], 17, 0x44) == 29);
 
+    unsigned char stateResource[0x128] = {};
+    void* stateScripts[4] = {};
+    stateScripts[2] = (void*)0x4321;
+    *(void***)(stateResource + 0x11C) = stateScripts;
+    *(unsigned short*)stateResource = 9;
+    *(unsigned int*)(firstStorage + 0x340) = 0xFFFFFFFFu;
+    *(unsigned int*)(firstStorage + 0x334) = 0xFFFFFFFFu;
+    AnimationObject_InitializeScriptState(
+        first, stateResource, 2);
+    assert(*(unsigned int*)(firstStorage + 0x340) == 0);
+    assert(*(unsigned int*)(firstStorage + 0x334) == 0);
+    assert(*(short*)(firstStorage + 0x38A) == 2);
+    assert(firstStorage[0x3A0] == 0x10);
+    assert(firstStorage[0x3A1] == 0x10);
+    assert(*(void**)(firstStorage + 0x308) == stateResource);
+
     std::memset(&manager[0], 0, manager.size());
     g_pGameStateManager = &manager[0];
     AnimationObject* pooled = AnimationManager_AllocateObject(&manager[0]);
@@ -153,7 +170,7 @@ static void TestAnimationLookupAndPosition() {
         resource, scratch, 0x1B9, playerPosition);
     assert(playerHandle == 2);
     assert(scratch[0] == playerHandle);
-    assert(scriptRuns == 2);
+    assert(scriptRuns == 3);
     AnimationObject* playerAnimation =
         AnimationManager_Find(&manager[0], playerHandle);
     assert(playerAnimation != 0);
@@ -166,6 +183,52 @@ static void TestAnimationLookupAndPosition() {
     AnimationManager_RemoveObject(&manager[0], playerAnimation);
     assert(AnimationManager_Find(&manager[0], playerHandle) == 0);
     assert(manager[0x3AC068 + 1] == 0);
+
+    AnimationObject* primaryFront =
+        AnimationManager_AllocateObject(&manager[0]);
+    int primaryFrontHandle = AnimationManager_RegisterObjectAt(
+        &manager[0], primaryFront, AnimationManagerList_Primary,
+        AnimationListInsertion_Front);
+    AnimationListNode* primaryHead =
+        *(AnimationListNode**)(&manager[0x72DAD4]);
+    AnimationListNode* primaryTail =
+        *(AnimationListNode**)(&manager[
+            0x72DAD4 + sizeof(AnimationListNode*)]);
+    assert(primaryHead->animation == primaryFront);
+    assert(primaryTail->animation == pooled);
+
+    AnimationObject* secondaryBack =
+        AnimationManager_AllocateObject(&manager[0]);
+    int secondaryBackHandle = AnimationManager_RegisterObjectAt(
+        &manager[0], secondaryBack, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+    AnimationObject* secondaryFront =
+        AnimationManager_AllocateObject(&manager[0]);
+    int secondaryFrontHandle = AnimationManager_RegisterObjectAt(
+        &manager[0], secondaryFront, AnimationManagerList_Secondary,
+        AnimationListInsertion_Front);
+    AnimationListNode** secondaryHead =
+        (AnimationListNode**)(&manager[
+            0x72DAD4 + 2 * sizeof(AnimationListNode*)]);
+    AnimationListNode** secondaryTail =
+        (AnimationListNode**)(&manager[
+            0x72DAD4 + 3 * sizeof(AnimationListNode*)]);
+    assert((*secondaryHead)->animation == secondaryFront);
+    assert((*secondaryTail)->animation == secondaryBack);
+    assert(AnimationManager_Find(
+               &manager[0], secondaryBackHandle) == secondaryBack);
+
+    AnimationManager_RemoveObject(&manager[0], secondaryFront);
+    assert((*secondaryHead)->animation == secondaryBack);
+    assert((*secondaryTail)->animation == secondaryBack);
+    assert(AnimationManager_Find(
+               &manager[0], secondaryFrontHandle) == 0);
+
+    AnimationManager_MarkForRemovalAndClearHandle(
+        &manager[0], &primaryFrontHandle);
+    assert(primaryFrontHandle == 0);
+    assert((*(unsigned int*)((unsigned char*)primaryFront + 0x35C) &
+            0x04000000u) != 0);
 }
 
 int main() {

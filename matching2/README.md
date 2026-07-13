@@ -72,6 +72,8 @@ updates, pool allocation, handle registration, and player animation creation.
 It also covers root-to-child propagation, stop-frame updates, script restart,
 generic flag changes, resource retirement, handle validation, child lookup,
 and pooled-object removal.
+Registration coverage now exercises front and back insertion in both the
+primary and secondary manager lists, including head/tail repair after removal.
 
 The supported original executable has SHA-256:
 
@@ -211,3 +213,8 @@ script, arbitrary object flags propagate through root child lists, resource
 owners can be retired across both manager lists, stale handles are cleared,
 children can be selected by script index, and removal detaches both embedded
 list memberships before releasing pooled or fallback storage.
+All four retail registration variants (`0x004489D0`, `0x00448A50`,
+`0x00448AC0`, and `0x00448B40`) share one typed list/insertion API. The
+state-preserving script loader at `0x0043E7E0` and child-object setup wrapper at
+`0x00449870` are reconstructed as well, preserving existing entity state while
+resetting script cursors, timers, transform fields, and interpreter markers.
