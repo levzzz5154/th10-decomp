@@ -47,6 +47,9 @@ OVERLAYS = (
     ("memory_file.obj", "GetSize@BufferFile", 0x004364E0),
     ("resource_file.obj", "??_GResourceFile", 0x00436660),
     ("heap.obj", "LegacyString_Clear", 0x004381F0),
+    ("heap.obj", "QAEPADXZ", 0x00438680),
+    ("heap.obj", "Deallocate@LegacyAllocator", 0x00438690),
+    ("heap.obj", "MaxSize@LegacyAllocator", 0x004386A0),
     ("entity.obj", "DestroyEntityList", 0x00438A30),
 )
 

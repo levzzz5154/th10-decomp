@@ -19,6 +19,20 @@ extern "C" void _free(void* memory) {
     free(memory);
 }
 
+extern "C" void* _memmove(void* destination, const void* source, uint32_t size) {
+    uint8_t* output = (uint8_t*)destination;
+    const uint8_t* input = (const uint8_t*)source;
+    if (output < input) {
+        for (uint32_t index = 0; index < size; ++index) output[index] = input[index];
+    } else if (output > input) {
+        while (size != 0) {
+            --size;
+            output[size] = input[size];
+        }
+    }
+    return destination;
+}
+
 extern "C" int _stricmp(const char* left, const char* right) {
     for (;;) {
         char a = *left++;
@@ -30,13 +44,8 @@ extern "C" int _stricmp(const char* left, const char* right) {
 }
 
 extern "C" void LegacyString_ThrowLengthError(void) {}
-
-LegacyString* LegacyString::AssignSubstring(
-        const LegacyString*, uint32_t, uint32_t) {
-    return 0;
-}
-
-void LegacyString::Grow(uint32_t, uint32_t) {}
+extern "C" void LegacyString_ThrowRangeError(void) {}
+extern "C" void* operator_new(uint32_t size) { return _malloc(size); }
 
 uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
 uint32_t Resource_GetFileSize(const char*) { return 0; }
@@ -156,9 +165,42 @@ static bool TestLegacyStringAssignment() {
         if (string.storage.inline_data[index] != expected[index]) return false;
     }
     string.AssignRange("faith", 5);
-    return string.length == 5 && string.storage.inline_data[5] == 0 &&
-        string.storage.inline_data[0] == 'f' &&
-        string.storage.inline_data[4] == 'h';
+    if (string.length != 5 || string.storage.inline_data[5] != 0 ||
+            string.storage.inline_data[0] != 'f' ||
+            string.storage.inline_data[4] != 'h') {
+        return false;
+    }
+
+    LegacyString source = {};
+    source.capacity = 15;
+    source.Assign("outside");
+    string.AssignSubstring(&source, 1, 3);
+    if (string.length != 3 || string.storage.inline_data[0] != 'u' ||
+            string.storage.inline_data[1] != 't' ||
+            string.storage.inline_data[2] != 's' ||
+            string.storage.inline_data[3] != 0) {
+        return false;
+    }
+
+    string.Assign("abcdefghijklmnopqrst");
+    if (string.length != 20 || string.capacity != 31 ||
+            string.Data()[19] != 't' || string.Data()[20] != 0) {
+        return false;
+    }
+    string.Erase(5, 10);
+    const char* erased = "abcdepqrst";
+    for (uint32_t index = 0; index <= 10; ++index) {
+        if (string.Data()[index] != erased[index]) return false;
+    }
+    string.AssignSubstring(&string, 2, 4);
+    const char* substring = "cdep";
+    bool passed = string.length == 4 && string.Data()[4] == 0;
+    for (uint32_t index = 0; passed && index < 4; ++index) {
+        if (string.Data()[index] != substring[index]) passed = false;
+    }
+    LegacyString_Clear(&string);
+    return passed && string.length == 0 && string.capacity == 15 &&
+        string.storage.inline_data[0] == 0;
 }
 
 static bool TestLiteralsAndAllocation() {

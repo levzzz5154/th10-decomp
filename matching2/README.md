@@ -137,12 +137,19 @@ Current exact-overlay results with MSVC 7.1:
 | `BufferFile::GetSize` | 4 | 100% |
 | `ResourceFile` scalar deleting destructor | 22 | 100% |
 | `LegacyString_Clear` | 34 | 100% |
+| `LegacyString::Data` | 14 | 100% |
+| `LegacyAllocator::Deallocate` | 10 | 100% |
+| `LegacyAllocator::MaxSize` | 6 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
 | `Vector2::SetPolar` | 28 | semantic; separate `FSIN`/`FCOS` scheduling |
 | `LegacyString::Assign` | 28 | semantic; equivalent null scan |
 | `LegacyString::AssignRange` | 213 | semantic; SSO, alias, growth, and copy paths |
+| `LegacyString::AssignSubstring` | 247 | semantic; external and self-substring paths |
+| `LegacyString::Erase` | 103 | partial; exact validation and range clamp |
+| `LegacyString::SetLength` | 31 | partial; 29 matching bytes |
+| `LegacyString::Grow` | 160 | semantic; retail capacity policy and ownership |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.
@@ -152,3 +159,6 @@ text parser. Polar-to-Cartesian vector initialization is readable C++ as well;
 the retail build combines the two trigonometric operations into `FSINCOS`.
 `LegacyString` now covers both null-terminated and explicit-range assignment,
 including self-referential input, small-string storage, growth, and termination.
+Its substring, erase, capacity-growth, storage-selection, and allocator helpers
+are reconstructed too, removing the remaining retail dependencies from normal
+string mutation paths.
