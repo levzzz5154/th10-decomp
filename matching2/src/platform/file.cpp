@@ -10,6 +10,8 @@ extern "C" __declspec(dllimport) DWORD __stdcall SetFilePointer(
     HANDLE handle, LONG distance, LONG* distance_high, DWORD origin);
 extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(
     HANDLE handle, DWORD* size_high);
+extern "C" void* __cdecl _malloc(DWORD size);
+extern "C" void __cdecl _free(void* memory);
 
 namespace {
 
@@ -20,11 +22,11 @@ const DWORD kCurrentPosition = 1;
 } // namespace
 
 // 0x00435460 - Close an open Win32 file handle and reset its state.
-void __fastcall FileHandle_Close(FileHandle* file) {
-    if (file->handle != (HANDLE)-1) {
-        CloseHandle(file->handle);
-        file->handle = (HANDLE)-1;
-        file->access = 0;
+void FileHandle::Close() {
+    if (handle != (HANDLE)-1) {
+        CloseHandle(handle);
+        handle = (HANDLE)-1;
+        access = 0;
     }
 }
 
@@ -65,10 +67,40 @@ DWORD FileHandle::GetSize() const {
 }
 
 // 0x00435550 - Move the Win32 file pointer.
-bool FileHandle::Seek(LONG distance, DWORD origin) {
+BYTE FileHandle::Seek(LONG distance, DWORD origin) {
     if (handle == (HANDLE)-1) {
-        return false;
+        return 0;
     }
     SetFilePointer(handle, distance, 0, origin);
-    return true;
+    return 1;
+}
+
+// 0x00435580 - Read an entire readable file without changing its position.
+void* FileHandle::ReadWhole(DWORD capacity) {
+    if (access != kReadAccess) {
+        return 0;
+    }
+
+    DWORD size = GetSize();
+    if (size > capacity) {
+        return 0;
+    }
+
+    void* data = _malloc(size);
+    if (!data) {
+        return 0;
+    }
+
+    DWORD position = Tell();
+    if (Seek(position, 0)) {
+        if (Read(data, size)) {
+            goto succeeded;
+        }
+        _free(data);
+    }
+    return 0;
+
+succeeded:
+    Seek(position, 0);
+    return data;
 }

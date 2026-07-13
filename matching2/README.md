@@ -90,6 +90,10 @@ python3 tools/compare_obj.py build/entity.obj DestroyEntityList 0x438A30
 
 The comparison length is the compiled function's section size. Relocation
 operands are excluded because their final values are assigned by the linker.
+The Win32 file abstraction also has its retail nine-slot vtable typed in C++;
+the adjacent whole-file loader (`0x00435580`) is readable and functional, but
+is not overlaid yet because its optimized cleanup-block ordering is not an
+exact code-generation match.
 
 Current MSVC 7.1 results for `entity.cpp`:
 
@@ -100,7 +104,7 @@ Current MSVC 7.1 results for `entity.cpp`:
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
-| `FileHandle_Close` | 30 | 100% |
+| `FileHandle::Close` | 30 | 100% |
 | `FileHandle::Read` | 53 | 100% |
 | `FileHandle::Write` | 59 | 100% |
 | `FileHandle::Tell` | 21 | 100% |

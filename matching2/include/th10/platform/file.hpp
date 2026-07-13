@@ -2,17 +2,32 @@
 
 #include "th10/platform/windows_types.hpp"
 
-// Partial Win32-backed file owner used by the archive/file subsystem.
-struct FileHandle {
-    void* vtable;
+// Retail vtable at 0x0046F230. Keeping this typed preserves the polymorphic
+// calls used by archive readers while documenting every slot.
+class FileInterface {
+public:
+    virtual BYTE Open(const char* path, const char* mode) = 0;
+    virtual void Close() = 0;
+    virtual DWORD Read(void* destination, DWORD size) = 0;
+    virtual BYTE Write(const void* source, DWORD size) = 0;
+    virtual DWORD Tell() const = 0;
+    virtual DWORD GetSize() const = 0;
+    virtual BYTE Seek(LONG distance, DWORD origin) = 0;
+    virtual void* Destroy(BYTE flags) = 0;
+    virtual void* ReadWhole(DWORD capacity) = 0;
+};
+
+// Win32-backed file owner used by the archive/file subsystem.
+class FileHandle : public FileInterface {
+public:
     HANDLE handle;
     DWORD access;
 
-    DWORD Read(void* destination, DWORD size);
-    BYTE Write(const void* source, DWORD size);
-    DWORD Tell() const;
-    DWORD GetSize() const;
-    bool Seek(LONG distance, DWORD origin);
+    virtual void Close();
+    virtual DWORD Read(void* destination, DWORD size);
+    virtual BYTE Write(const void* source, DWORD size);
+    virtual DWORD Tell() const;
+    virtual DWORD GetSize() const;
+    virtual BYTE Seek(LONG distance, DWORD origin);
+    virtual void* ReadWhole(DWORD capacity);
 };
-
-void __fastcall FileHandle_Close(FileHandle* file);
