@@ -20,6 +20,18 @@ void __fastcall Entity_Destructor(Entity* e) {
 }
 
 // ============================================================================
+// 0x0041AD60 - Release the entity-owned animation/resource allocation.
+// This second call site belongs to a different concrete entity class but has
+// the same base layout and destruction semantics as 0x00401FF0.
+// Pure C++: 100% byte match when relocation operands are excluded.
+// ============================================================================
+void __fastcall EntityAnimation_Release(Entity* e) {
+    void* resource = e->resource;
+    if (resource) _free(resource);
+    e->resource = 0;
+}
+
+// ============================================================================
 // 0x00402050 - Entity Constructor
 // Clears flag bits across the entity, zeroes 0xEB dwords, sets end marker.
 // __fastcall: ECX = this, returns this in EAX

@@ -141,6 +141,12 @@ th10Decomp/
   the module directory rather than the shell working directory.
 - Verified under Wine that `th10_reimpl.exe` opens both original archives and
   remains in the game loop for a 20-second bounded smoke test.
+- Added the pure-C++ `EntityAnimation_Release` implementation at `0x0041AD60`;
+  it matches 30/30 non-relocation bytes. The hybrid now verifies four overlays
+  totaling 191 comparable bytes.
+- Added a readable `ScoreCounter::AddScaled` reconstruction for `0x0041BE80`.
+  It is not yet overlaid because MSVC 7.1 selects a register-form multiply while
+  the retail function uses a stack-memory operand.
 
 ### What Works
 

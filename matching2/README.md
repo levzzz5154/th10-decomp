@@ -85,6 +85,7 @@ Current MSVC 7.1 results for `entity.cpp`:
 |---|---:|---:|
 | `Entity_Destructor` | 30 | 100% |
 | `Entity_Constructor` | 88 | 100% |
+| `EntityAnimation_Release` | 30 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 
