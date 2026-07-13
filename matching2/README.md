@@ -9,13 +9,13 @@ the original MSVC 7.1 code-generation settings.
 
 ```text
 include/th10/
-  archive/    DAT entry layouts and compression interfaces
+  archive/    DAT headers, entry layouts, cipher, and compression interfaces
   game/       Entity, game-state, player, and scoring layouts
   platform/   Win32-compatible types and ABI declarations
   script/     ECL instruction and VM layouts
   util/       ABI-compatible containers and allocation owners
 src/
-  archive/    DAT lookup and TH10 LZSS decompression
+  archive/    DAT decryption, index parsing, lookup, and LZSS decompression
   game/       Gameplay object lifecycle and state transitions
   math/       Timers, vectors, and numeric helpers
   platform/   Win32 window and process integration
@@ -50,8 +50,10 @@ configuration through symlinks beside the rebuilt executable, then starts it
 under Wine. Override the defaults with `TH10_ORIGINAL_EXE` and `TH10_GAME_DIR`.
 Every C++ translation unit under `src/` is compiled on each build; duplicate
 basenames are rejected so object selection remains deterministic.
-`test.sh` runs host-side semantic tests for cleaned portable algorithms; the
-current suite covers literal and overlapping-back-reference LZSS decoding.
+`test.sh` runs host-side semantic tests for cleaned portable algorithms. The
+current suite checks the retail `th10.dat` header cipher and decoded metadata,
+packed entry-table parsing and lookup, plus literal and overlapping-reference
+LZSS streams.
 
 The supported original executable has SHA-256:
 

@@ -167,8 +167,17 @@ th10Decomp/
   readable TH10 LZSS decoder (`0x00435DC0`). These compile with MSVC 7.1 but are
   not byte-matched overlays yet because their retail register ABI and codegen
   still need reconstruction.
-- Added `matching2/test.sh` and LZSS semantic tests covering allocated output,
-  literal streams, termination, and overlapping dictionary back-references.
+- Reconstructed the DAT block cipher (`0x0044B0D0`), archive-header decoding,
+  and packed entry-table ownership/parsing (`0x004350D0`) as typed C++. The
+  entry layout was corrected from assembly: the stored fields are data offset,
+  uncompressed size, and an unknown word; compressed size is derived from the
+  next entry's offset. The eight content cipher parameter rows are transcribed
+  directly from the retail table at `0x00474BD8` and covered by a regression
+  test.
+- Added `matching2/test.sh` semantic coverage for the real retail `th10.dat`
+  encrypted header, decoded archive metadata, packed entry lookup/ownership,
+  allocated LZSS output, termination, literals, and overlapping dictionary
+  back-references.
 
 ### What Works
 

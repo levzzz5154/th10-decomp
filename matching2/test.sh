@@ -8,8 +8,10 @@ mkdir -p "$TEST_BUILD"
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= \
     -I"$ROOT/include" \
+    "$ROOT/src/archive/crypt.cpp" \
+    "$ROOT/src/archive/dat.cpp" \
     "$ROOT/src/archive/lzss.cpp" \
-    "$ROOT/tests/lzss_test.cpp" \
-    -o "$TEST_BUILD/lzss_test"
+    "$ROOT/tests/archive_test.cpp" \
+    -o "$TEST_BUILD/archive_test"
 
-"$TEST_BUILD/lzss_test"
+"$TEST_BUILD/archive_test"
