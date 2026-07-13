@@ -7,11 +7,12 @@ struct FileHandle {
     void* vtable;
     HANDLE handle;
     DWORD access;
+
+    DWORD Read(void* destination, DWORD size);
+    BYTE Write(const void* source, DWORD size);
+    DWORD Tell() const;
+    DWORD GetSize() const;
+    bool Seek(LONG distance, DWORD origin);
 };
 
 void __fastcall FileHandle_Close(FileHandle* file);
-DWORD FileHandle_Read(FileHandle* file, void* destination, DWORD size);
-bool FileHandle_Write(FileHandle* file, const void* source, DWORD size);
-DWORD FileHandle_Tell(const FileHandle* file);
-DWORD FileHandle_GetSize(const FileHandle* file);
-bool FileHandle_Seek(FileHandle* file, LONG distance, DWORD origin);

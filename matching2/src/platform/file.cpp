@@ -29,46 +29,46 @@ void __fastcall FileHandle_Close(FileHandle* file) {
 }
 
 // 0x00435490 - Read bytes when the handle was opened for reading.
-DWORD FileHandle_Read(FileHandle* file, void* destination, DWORD size) {
+DWORD FileHandle::Read(void* destination, DWORD size) {
     DWORD bytes_read = 0;
-    if (file->access != kReadAccess) {
+    if (access != kReadAccess) {
         return 0;
     }
-    ReadFile(file->handle, destination, size, &bytes_read, 0);
+    ReadFile(handle, destination, size, &bytes_read, 0);
     return bytes_read;
 }
 
 // 0x004354D0 - Write a complete buffer when opened for writing.
-bool FileHandle_Write(FileHandle* file, const void* source, DWORD size) {
+BYTE FileHandle::Write(const void* source, DWORD size) {
     DWORD bytes_written = 0;
-    if (file->access != kWriteAccess) {
-        return false;
+    if (access != kWriteAccess) {
+        return 0;
     }
-    WriteFile(file->handle, source, size, &bytes_written, 0);
-    return bytes_written == size;
+    WriteFile(handle, source, size, &bytes_written, 0);
+    return (BYTE)(size == bytes_written);
 }
 
 // 0x00435510 - Return the current Win32 file pointer.
-DWORD FileHandle_Tell(const FileHandle* file) {
-    if (file->handle == (HANDLE)-1) {
+DWORD FileHandle::Tell() const {
+    if (handle == (HANDLE)-1) {
         return 0;
     }
-    return SetFilePointer(file->handle, 0, 0, kCurrentPosition);
+    return SetFilePointer(handle, 0, 0, kCurrentPosition);
 }
 
 // 0x00435530 - Return the low 32 bits of the file size.
-DWORD FileHandle_GetSize(const FileHandle* file) {
-    if (file->handle == (HANDLE)-1) {
+DWORD FileHandle::GetSize() const {
+    if (handle == (HANDLE)-1) {
         return 0;
     }
-    return GetFileSize(file->handle, 0);
+    return GetFileSize(handle, 0);
 }
 
 // 0x00435550 - Move the Win32 file pointer.
-bool FileHandle_Seek(FileHandle* file, LONG distance, DWORD origin) {
-    if (file->handle == (HANDLE)-1) {
+bool FileHandle::Seek(LONG distance, DWORD origin) {
+    if (handle == (HANDLE)-1) {
         return false;
     }
-    SetFilePointer(file->handle, distance, 0, origin);
+    SetFilePointer(handle, distance, 0, origin);
     return true;
 }

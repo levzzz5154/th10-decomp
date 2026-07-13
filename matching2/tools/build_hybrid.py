@@ -27,6 +27,11 @@ OVERLAYS = (
     ("entity.obj", "EntityAnimation_Release", 0x0041AD60),
     ("heap.obj", "HeapBuffer_Release", 0x00435250),
     ("file.obj", "FileHandle_Close", 0x00435460),
+    ("file.obj", "Read@FileHandle", 0x00435490),
+    ("file.obj", "Write@FileHandle", 0x004354D0),
+    ("file.obj", "Tell@FileHandle", 0x00435510),
+    ("file.obj", "GetSize@FileHandle", 0x00435530),
+    ("file.obj", "Seek@FileHandle", 0x00435550),
     ("heap.obj", "LegacyString_Clear", 0x004381F0),
     ("entity.obj", "DestroyEntityList", 0x00438A30),
 )

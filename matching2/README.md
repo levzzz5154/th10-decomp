@@ -101,6 +101,11 @@ Current MSVC 7.1 results for `entity.cpp`:
 | `EntityAnimation_Release` | 30 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
 | `FileHandle_Close` | 30 | 100% |
+| `FileHandle::Read` | 53 | 100% |
+| `FileHandle::Write` | 59 | 100% |
+| `FileHandle::Tell` | 21 | 100% |
+| `FileHandle::GetSize` | 17 | 100% |
+| `FileHandle::Seek` | 33 | 100% |
 | `LegacyString_Clear` | 34 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
