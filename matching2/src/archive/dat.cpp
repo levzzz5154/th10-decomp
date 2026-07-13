@@ -1,6 +1,7 @@
 #include "th10/archive/dat.hpp"
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/lzss.hpp"
+#include "th10/platform/file.hpp"
 
 extern "C" int __cdecl _stricmp(const char* left, const char* right);
 extern "C" void* __cdecl _malloc(uint32_t size);
@@ -38,7 +39,155 @@ char* DuplicateString(const char* text, uint32_t size) {
     return copy;
 }
 
+bool LoadArchiveIndex(DatArchive* archive, const char* path) {
+    if (!archive->file || !archive->file->Open(path, "r")) {
+        return false;
+    }
+
+    uint8_t encrypted_header[16];
+    if (archive->file->Read(encrypted_header, sizeof(encrypted_header)) !=
+            sizeof(encrypted_header)) {
+        return false;
+    }
+
+    DatArchiveHeader header;
+    if (!DatArchive_DecodeHeader(encrypted_header, &header)) {
+        return false;
+    }
+
+    uint32_t file_size = archive->file->GetSize();
+    if (header.entry_list_compressed_size > file_size) {
+        return false;
+    }
+    uint32_t table_offset = file_size - header.entry_list_compressed_size;
+    if (!archive->file->Seek((LONG)table_offset, 0)) {
+        return false;
+    }
+
+    uint8_t* compressed = (uint8_t*)_malloc(
+        header.entry_list_compressed_size);
+    if (!compressed) {
+        return false;
+    }
+    if (archive->file->Read(
+            compressed,
+            header.entry_list_compressed_size) !=
+            header.entry_list_compressed_size) {
+        _free(compressed);
+        return false;
+    }
+
+    Dat_Decrypt(
+        compressed,
+        header.entry_list_compressed_size,
+        0x3E,
+        0x9B,
+        0x80,
+        header.entry_list_compressed_size);
+    uint8_t* packed_entries = Dat_LzssDecompress(
+        compressed,
+        header.entry_list_compressed_size,
+        0,
+        header.entry_list_size);
+    _free(compressed);
+    if (!packed_entries) {
+        return false;
+    }
+
+    archive->entry_count = (int32_t)header.entry_count;
+    archive->entries = DatArchive_ParseEntries(
+        packed_entries,
+        header.entry_count,
+        table_offset);
+    _free(packed_entries);
+    if (!archive->entries) {
+        archive->entry_count = 0;
+        return false;
+    }
+    return true;
+}
+
 } // namespace
+
+void DatArchive_Initialize(DatArchive* archive) {
+    archive->entries = 0;
+    archive->entry_count = 0;
+    archive->filename = 0;
+    archive->file = 0;
+}
+
+// Clean reconstruction of 0x00434D10.
+void DatArchive_Close(DatArchive* archive) {
+    if (archive->filename) {
+        _free(archive->filename);
+        archive->filename = 0;
+    }
+    DatArchive_FreeEntries(
+        archive->entries,
+        (uint32_t)archive->entry_count);
+    archive->entries = 0;
+    archive->entry_count = 0;
+    if (archive->file) {
+        delete archive->file;
+        archive->file = 0;
+    }
+}
+
+// File-backed form of the initialization path at 0x00434C30.
+bool DatArchive_Open(
+        DatArchive* archive,
+        FileInterface* owned_file,
+        const char* path) {
+    DatArchive_Close(archive);
+    archive->file = owned_file;
+    if (!archive->file || !LoadArchiveIndex(archive, path)) {
+        DatArchive_Close(archive);
+        return false;
+    }
+
+    archive->filename = DuplicateString(path, StringSize(path));
+    if (!archive->filename ||
+            !archive->file->Open(archive->filename, "r")) {
+        DatArchive_Close(archive);
+        return false;
+    }
+    return true;
+}
+
+// Clean reconstruction of 0x00434DD0.
+uint8_t* DatArchive_Read(
+        DatArchive* archive,
+        const char* name,
+        uint8_t* output) {
+    if (!archive->file) {
+        return 0;
+    }
+    const DatEntry* entry = DatArchive_FindEntry(archive, name);
+    if (!entry) {
+        return 0;
+    }
+
+    uint32_t compressed_size = DatEntry_GetCompressedSize(entry);
+    uint8_t* encrypted = output;
+    if (compressed_size != entry->uncompressed_size || !encrypted) {
+        encrypted = (uint8_t*)_malloc(compressed_size);
+        if (!encrypted) {
+            return 0;
+        }
+    }
+
+    if (!archive->file->Seek((LONG)entry->offset, 0) ||
+            archive->file->Read(encrypted, compressed_size) == 0) {
+        _free(encrypted);
+        return 0;
+    }
+
+    uint8_t* decoded = DatArchive_DecodeEntryData(entry, encrypted, output);
+    if (encrypted != output && compressed_size != entry->uncompressed_size) {
+        _free(encrypted);
+    }
+    return decoded;
+}
 
 // Clean reconstruction of 0x00434F30. The retail function receives archive in
 // EAX and name in EBX; the typed implementation uses a conventional C++ API.

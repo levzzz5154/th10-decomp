@@ -1,6 +1,7 @@
 #include "th10/archive/lzss.hpp"
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/dat.hpp"
+#include "th10/platform/file.hpp"
 
 // Keep this harness free of host standard-library headers: the game headers
 // intentionally model MSVC 7.1's 32-bit fundamental typedefs.
@@ -165,6 +166,41 @@ static void EncryptBlockForTest(
     }
 }
 
+class MemoryFile : public FileInterface {
+public:
+    MemoryFile(uint8_t* data, uint32_t size)
+        : data_(data), size_(size), position_(0) {}
+
+    virtual BYTE Open(const char*, const char*) {
+        position_ = 0;
+        return 1;
+    }
+    virtual void Close() {}
+    virtual DWORD Read(void* destination, DWORD size) {
+        if (position_ + size > size_) return 0;
+        uint8_t* output = (uint8_t*)destination;
+        for (DWORD index = 0; index < size; ++index) {
+            output[index] = data_[position_ + index];
+        }
+        position_ += size;
+        return size;
+    }
+    virtual BYTE Write(const void*, DWORD) { return 0; }
+    virtual DWORD Tell() const { return position_; }
+    virtual DWORD GetSize() const { return size_; }
+    virtual BYTE Seek(LONG distance, DWORD origin) {
+        if (origin != 0 || distance < 0 || (DWORD)distance > size_) return 0;
+        position_ = (DWORD)distance;
+        return 1;
+    }
+    virtual void* ReadWhole(DWORD) { return 0; }
+
+private:
+    uint8_t* data_;
+    DWORD size_;
+    DWORD position_;
+};
+
 static bool TestEntryDataDecode() {
     uint8_t plain[64];
     uint8_t encrypted[64];
@@ -194,11 +230,111 @@ static bool TestEntryDataDecode() {
     return true;
 }
 
+static bool TestArchiveEntryRead() {
+    uint8_t plain[64];
+    uint8_t file_data[96] = {0};
+    uint8_t decoded[64] = {0};
+    for (uint32_t index = 0; index < sizeof(plain); ++index) {
+        plain[index] = (uint8_t)(0xA5 ^ index);
+    }
+
+    const char* name = "a";
+    const DatCryptParams* params = Dat_GetCryptParams(name);
+    EncryptBlockForTest(
+        plain,
+        file_data + 32,
+        sizeof(plain),
+        params->key,
+        params->step);
+
+    DatEntry entries[2] = {
+        {name, 32, sizeof(plain), 0},
+        {0, sizeof(file_data), 0, 0},
+    };
+    MemoryFile file(file_data, sizeof(file_data));
+    DatArchive archive;
+    DatArchive_Initialize(&archive);
+    archive.entries = entries;
+    archive.entry_count = 1;
+    archive.file = &file;
+
+    if (DatArchive_Read(&archive, "A", decoded) != decoded ||
+            file.Tell() != sizeof(file_data)) {
+        return false;
+    }
+    for (uint32_t index = 0; index < sizeof(plain); ++index) {
+        if (decoded[index] != plain[index]) return false;
+    }
+    return true;
+}
+
 static void WriteU32(uint8_t* destination, uint32_t value) {
     destination[0] = (uint8_t)value;
     destination[1] = (uint8_t)(value >> 8);
     destination[2] = (uint8_t)(value >> 16);
     destination[3] = (uint8_t)(value >> 24);
+}
+
+static bool TestArchiveOpenAndRead() {
+    uint8_t packed_entry[16] = {0};
+    packed_entry[0] = 'a';
+    WriteU32(packed_entry + 4, 16);
+    WriteU32(packed_entry + 8, 64);
+
+    BitWriter encoded_table;
+    for (uint32_t index = 0; index < sizeof(packed_entry); ++index) {
+        encoded_table.Literal(packed_entry[index]);
+    }
+    encoded_table.End();
+
+    uint8_t file_data[128] = {0};
+    uint8_t decoded[64] = {0};
+    uint8_t asset[64];
+    for (uint32_t index = 0; index < sizeof(asset); ++index) {
+        asset[index] = (uint8_t)(index + 0x31);
+    }
+
+    const DatCryptParams* asset_params = Dat_GetCryptParams("a");
+    EncryptBlockForTest(
+        asset,
+        file_data + 16,
+        sizeof(asset),
+        asset_params->key,
+        asset_params->step);
+
+    uint32_t table_offset = 80;
+    uint32_t table_compressed_size = (uint32_t)encoded_table.Size();
+    // The retail cipher deliberately leaves a trailing fragment smaller than
+    // one quarter of its 0x80-byte block untouched.
+    for (uint32_t index = 0; index < table_compressed_size; ++index) {
+        file_data[table_offset + index] = encoded_table.Bytes()[index];
+    }
+
+    uint8_t header[16];
+    WriteU32(header, 0x31414854);
+    WriteU32(header + 4, 123456789 + sizeof(packed_entry));
+    WriteU32(header + 8, 987654321 + table_compressed_size);
+    WriteU32(header + 12, 135792468 + 1);
+    EncryptBlockForTest(header, file_data, sizeof(header), 0x1B, 0x37);
+
+    MemoryFile* file = new MemoryFile(
+        file_data, table_offset + table_compressed_size);
+    DatArchive archive;
+    DatArchive_Initialize(&archive);
+    if (!DatArchive_Open(&archive, file, "synthetic.dat")) {
+        return false;
+    }
+    bool passed = archive.entry_count == 1 && archive.entries != 0 &&
+        archive.entries[0].offset == 16 &&
+        archive.entries[0].uncompressed_size == sizeof(asset) &&
+        archive.entries[1].offset == table_offset &&
+        DatArchive_Read(&archive, "A", decoded) == decoded;
+    for (uint32_t index = 0; passed && index < sizeof(asset); ++index) {
+        if (decoded[index] != asset[index]) passed = false;
+    }
+    DatArchive_Close(&archive);
+    return passed && archive.entries == 0 && archive.filename == 0 &&
+        archive.file == 0 && archive.entry_count == 0;
 }
 
 static bool TestPackedEntryTable() {
@@ -243,8 +379,14 @@ int main() {
     if (!TestEntryDataDecode()) {
         return 5;
     }
-    if (!TestPackedEntryTable()) {
+    if (!TestArchiveEntryRead()) {
         return 6;
+    }
+    if (!TestArchiveOpenAndRead()) {
+        return 7;
+    }
+    if (!TestPackedEntryTable()) {
+        return 8;
     }
     return 0;
 }

@@ -2,6 +2,8 @@
 
 #include "th10/game/entity.hpp"
 
+class FileInterface;
+
 // Entry layout used by the archive index search at 0x00434F30.
 struct DatEntry {
     const char* name;
@@ -21,6 +23,27 @@ struct DatArchiveIndex {
     DatEntry* entries;
     int32_t entry_count;
 };
+
+// Retail archive owner used by 0x00434C20-0x004350D0.
+struct DatArchive : DatArchiveIndex {
+    char* filename;
+    FileInterface* file;
+};
+
+void DatArchive_Initialize(DatArchive* archive);
+void DatArchive_Close(DatArchive* archive);
+
+bool DatArchive_Open(
+    DatArchive* archive,
+    FileInterface* owned_file,
+    const char* path);
+
+bool DatArchive_OpenFile(DatArchive* archive, const char* path);
+
+uint8_t* DatArchive_Read(
+    DatArchive* archive,
+    const char* name,
+    uint8_t* output);
 
 const DatEntry* DatArchive_FindEntry(
     const DatArchiveIndex* archive, const char* name);

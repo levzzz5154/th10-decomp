@@ -54,7 +54,9 @@ basenames are rejected so object selection remains deterministic.
 current suite checks the retail `th10.dat` header cipher and decoded metadata,
 the retail content-cipher parameter table, filename-based cipher selection and
 round-trip decoding, packed entry-table parsing and lookup, plus literal and
-overlapping-reference LZSS streams.
+overlapping-reference LZSS streams. A fully synthetic DAT archive additionally
+tests backend ownership, index loading, sentinel construction, reopening,
+named asset reads, and cleanup as one end-to-end path.
 
 The supported original executable has SHA-256:
 
@@ -95,9 +97,10 @@ the adjacent whole-file loader (`0x00435580`) is readable and functional, but
 is not overlaid yet because its optimized cleanup-block ordering is not an
 exact code-generation match. Module-relative/absolute path resolution
 (`0x00435610`) and the `r`/`w`/`a` open path (`0x00435370`) are reconstructed
-behind the same interface.
+behind the same interface. `DatArchive` now models the retail four-field owner
+layout and connects that backend to header/index loading and entry extraction.
 
-Current MSVC 7.1 results for `entity.cpp`:
+Current exact-overlay results with MSVC 7.1:
 
 | Function | Comparable bytes | Result |
 |---|---:|---:|
@@ -107,6 +110,8 @@ Current MSVC 7.1 results for `entity.cpp`:
 | `EntityAnimation_Release` | 30 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
 | `HeapBuffer::HeapBuffer` | 9 | 100% |
+| `FileHandle` scalar deleting destructor | 22 | 100% |
+| `FileHandle::~FileHandle` | 34 | 100% |
 | `FileHandle::Close` | 30 | 100% |
 | `FileHandle::Read` | 53 | 100% |
 | `FileHandle::Write` | 59 | 100% |

@@ -31,6 +31,15 @@ const DWORD kSequentialNormalFile = 0x08000080;
 
 } // namespace
 
+// Clean constructor corresponding to the initialization helper at 0x00435300.
+FileHandle::FileHandle() : handle((HANDLE)-1), access(0) {
+}
+
+// 0x00435340 - Restore the base vtable and release an open Win32 handle.
+__declspec(noinline) FileHandle::~FileHandle() {
+    Close();
+}
+
 void File_ResolvePath(const char* path, char output[260]) {
     const char* cursor = path;
     while (*cursor != 0 && *cursor != ':') {
