@@ -3,7 +3,7 @@
 // Functions: 0x0040CFB0 (Entity_Spawn), 0x0040D830 (Entity_InitHelper),
 //            0x0040CC70 (Entity_ClearAnims), 0x0040DC80 (Entity_UpdateTransform)
 // =============================================================================
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 extern "C" void* operator_new(uint32_t size);
 extern void* PTR_LAB_0046d0c0;       // vtable for bullet entities

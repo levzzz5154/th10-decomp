@@ -2,7 +2,7 @@
 // entity.cpp - Base entity lifecycle: destructor, constructor, init, destroy
 // Functions: 0x00401FF0, 0x00402050, 0x00401DE0, 0x00438A30
 // =============================================================================
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 extern "C" void __cdecl _free(void*);
 extern "C" void* __cdecl operator_new(uint32_t size);

@@ -2,7 +2,7 @@
 // ecl.hpp - ECL (Enemy Control Language) VM types and opcodes
 // =============================================================================
 #pragma once
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 // ============================================================================
 // ECL Opcodes (0x100-0x1B4)
 // Extracted from FUN_0040E770 switch dispatch

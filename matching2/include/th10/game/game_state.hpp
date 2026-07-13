@@ -2,7 +2,7 @@
 // game_state.hpp - Game state types
 // =============================================================================
 #pragma once
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 // ============================================================================
 // GameState - 0x2B64 bytes

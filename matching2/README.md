@@ -3,6 +3,28 @@
 This tree contains readable C++ reconstructions of game functions. Compile with
 the original MSVC 7.1 code-generation settings.
 
+## Source architecture
+
+`matching2` is organized by runtime subsystem rather than original address:
+
+```text
+include/th10/
+  game/       Entity, game-state, player, and scoring layouts
+  platform/   Win32-compatible types and ABI declarations
+  script/     ECL instruction and VM layouts
+src/
+  game/       Gameplay object lifecycle and state transitions
+  math/       Timers, vectors, and numeric helpers
+  platform/   Win32 window and process integration
+  render/     Direct3D initialization and rendering state
+  script/     ECL virtual machine implementation
+tools/        COFF comparison and fixed-address hybrid PE builder
+```
+
+The separate `matching/` tree remains address-oriented because it is the
+byte-exact assembly oracle. New readable implementations belong in `matching2`
+under their owning subsystem.
+
 ## Runnable hybrid build
 
 The current reimplementation is built as a hybrid PE. The original executable
@@ -41,7 +63,7 @@ mkdir -p build
 WINEDEBUG=-all wine "$HOME/.wine/drive_c/Program Files (x86)/Microsoft Visual C++ Toolkit 2003/bin/cl.exe" \
   /nologo /c /O2 /Gz /MT /Gy /G6 /GF \
   "/I$(winepath -w include)" "/Fo$(winepath -w build/entity.obj)" \
-  "$(winepath -w src/core/entity.cpp)"
+  "$(winepath -w src/game/entity.cpp)"
 ```
 
 Compare a single COFF COMDAT function against its original virtual address with

@@ -3,7 +3,7 @@
 // Functions: 0x00402160 (Construct), 0x00402230 (Init), 0x00402440 (Destroy),
 //            0x00402640 (Create)
 // =============================================================================
-#include "th10/game_state.hpp"
+#include "th10/game/game_state.hpp"
 
 extern "C" void* operator_new(uint32_t size);
 extern "C" void _free(void*);

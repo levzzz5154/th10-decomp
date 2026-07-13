@@ -12,7 +12,12 @@ export WINEDEBUG=-all
 wine "$CL" /nologo /c /O2 /Gz /MT /Gy /G6 /GF \
     "/I$(winepath -w "$ROOT/include")" \
     "/Fo$(winepath -w "$BUILD/entity.obj")" \
-    "$(winepath -w "$ROOT/src/core/entity.cpp")"
+    "$(winepath -w "$ROOT/src/game/entity.cpp")"
+
+wine "$CL" /nologo /c /O2 /Gz /MT /Gy /G6 /GF \
+    "/I$(winepath -w "$ROOT/include")" \
+    "/Fo$(winepath -w "$BUILD/score.obj")" \
+    "$(winepath -w "$ROOT/src/game/score.cpp")"
 
 python3 "$ROOT/tools/build_hybrid.py" \
     --original "$ORIGINAL" \

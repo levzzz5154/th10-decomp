@@ -4,7 +4,7 @@
 //            0x00404ED0 (Timer_Tick), 0x00405B60 (ClampValue),
 //            0x00404DA0 (Vec_Scale), 0x00404E10 (Vec_Add)
 // =============================================================================
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 extern uint32_t DAT_00476f78;     // sentinel
 extern float    _DAT_00470afc;    // 1.0f

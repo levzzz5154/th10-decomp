@@ -2,7 +2,7 @@
 // ecl_vm.cpp - ECL (Enemy Control Language) VM dispatch
 // Function: 0x0040E770 - 122 opcodes, 1826 lines decompiled
 // =============================================================================
-#include "th10/ecl.hpp"
+#include "th10/script/ecl.hpp"
 
 // VM helper functions
 extern "C" {

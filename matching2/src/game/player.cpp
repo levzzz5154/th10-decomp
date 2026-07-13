@@ -4,8 +4,8 @@
 //            0x004059F0 (Player_HitTest), 0x00405AC0 (Player_Draw),
 //            0x00405B60 (Player_AdjustPower)
 // =============================================================================
-#include "th10/entity.hpp"
-#include "th10/game_state.hpp"
+#include "th10/game/entity.hpp"
+#include "th10/game/game_state.hpp"
 
 extern void* g_pGameStateManager;
 extern uint32_t DAT_004776f4;    // player game state ptr

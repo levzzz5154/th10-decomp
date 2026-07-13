@@ -3,7 +3,7 @@
 // Functions: 0x004390E0 (WndProc), 0x00439730 (CreateWindow),
 //            0x004392E0 (SaveSystemSettings), 0x00439FF0 (InstanceCheck)
 // =============================================================================
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 // Windows API - using __declspec(dllimport) for correct import call pattern
 extern "C" {

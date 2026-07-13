@@ -1,5 +1,5 @@
 // =============================================================================
-// th10_types.hpp - Windows types stubs for MSVC 7.1 matching decomp
+// windows_types.hpp - Windows types required by the MSVC 7.1 decompilation
 // Only types actually used by th10.exe (not full windows.h)
 // =============================================================================
 #pragma once

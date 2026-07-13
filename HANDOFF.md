@@ -100,17 +100,12 @@ th10Decomp/
 │   │   ├── game_state.hpp         # GameState (0x2B64), GameThread (0x89AC) types
 │   │   ├── ecl.hpp                # ECL opcode enum (122 opcodes), VM state types
 │   │   └── th10_types.hpp         # Windows type stubs for matching2
-│   └── src/core/
-│       ├── entity.cpp             # Entity_Destructor (100% pure C++ match), Entity_Constructor (100% naked asm), Entity_Init, DestroyEntityList
-│       ├── math_utils.cpp         # Timer_Set, Timer_Reset, Timer_Tick, ClampValue, Vec_Scale (all ~100% byte match)
-│       ├── bullet.cpp             # Entity_Spawn, Entity_InitHelper, Entity_ClearAnims (documented C++, not byte-matched)
-│       ├── window.cpp             # WndProc, CreateGameWindow, SaveSystemSettings, InstanceCheck (documented C++)
-│       ├── d3d_init.cpp           # D3D device creation + camera setup (documented C++)
-│       ├── ecl_vm.cpp             # ECL VM dispatch skeleton (documented C++, 122 opcodes)
-│       ├── game_state.cpp         # GameState Construct/Init/Destroy/Create (documented C++)
-│       ├── game_thread.cpp        # GameThread Construct/Init/Destroy/Create (documented C++)
-│       ├── player.cpp             # Player Init/Update/HitTest/Draw (documented C++)
-│       └── sys_init.cpp           # (early prototype, superseded by window.cpp)
+│   └── src/
+│       ├── game/                  # Entity, bullet, player, game-state/thread, score
+│       ├── math/                  # Timer, vector, and numeric utilities
+│       ├── platform/              # Win32 window and process integration
+│       ├── render/                # Direct3D initialization and render state
+│       └── script/                # ECL VM implementation
 │
 ├── ghidra/                        # Ghidra project (MCP-connected)
 │   └── project/th10/             # Ghidra project with th10.exe loaded
@@ -126,7 +121,7 @@ th10Decomp/
 
 - Added `matching2/tools/compare_obj.py`, which selects an individual COFF
   COMDAT function and ignores link-time relocation operands during comparison.
-- Fixed `_free` and `operator_new` declarations in `matching2/src/core/entity.cpp`
+- Fixed `_free` and `operator_new` declarations in `matching2/src/game/entity.cpp`
   to remain cdecl when the translation unit is compiled with `/Gz`.
 - `Entity_Destructor` now verifies at 100% (30/30 non-relocation bytes).
 - `Entity_Constructor` verifies at 100% (88/88 bytes).
@@ -417,6 +412,6 @@ The Ghidra project is at `/home/levzzz/Games/th10Decomp/ghidra/project/th10`.
 | `matching/libs/*.def` | 9 | Import library definition files |
 | `matching/tools/*.py` | 7 | Build/analysis Python scripts |
 | `matching/include/*.h` | 6 | Type stubs and structs |
-| `matching2/src/core/*.cpp` | 10 | Documented C++ source files |
+| `matching2/src/{game,math,platform,render,script}/*.cpp` | 10 | Documented C++ source files |
 | `matching2/include/th10/*.hpp` | 4 | C++ type headers |
 | `matching/tracking.csv` | 1196 rows | Function tracking database |

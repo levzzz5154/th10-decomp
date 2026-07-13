@@ -2,7 +2,7 @@
 // d3d_init.cpp - Direct3D 9 device creation and render state setup
 // Function: 0x00439890
 // =============================================================================
-#include "th10/entity.hpp"
+#include "th10/game/entity.hpp"
 
 // D3D COM interface - vtable offsets used:
 // +0x08: IUnknown::Release
