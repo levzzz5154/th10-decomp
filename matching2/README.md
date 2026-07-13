@@ -144,6 +144,7 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyAllocator::MaxSize` | 6 | 100% |
 | `LegacyString::OwnsPointer` | 57 | 100% |
 | `LegacyAllocator::Allocate` | 12 | 100% |
+| `RuntimeAllocationPool_Initialize` | 22 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
@@ -155,6 +156,8 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyString::SetLength` | 31 | partial; 29 matching bytes |
 | `LegacyString::Grow` | 160 | semantic; retail capacity policy and ownership |
 | `LegacyString::Reserve` | 181 | semantic; growth and heap-to-inline shrink paths |
+| `D3DResourceList_ReleaseResources` | 78 | semantic; synchronized D3D release walk |
+| `D3DResourceManager_Destroy` | 51 | semantic; worker and two-list cleanup |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.
@@ -167,3 +170,7 @@ including self-referential input, small-string storage, growth, and termination.
 Its substring, erase, capacity-growth, storage-selection, and allocator helpers
 are reconstructed too, removing the remaining retail dependencies from normal
 string mutation paths.
+The `GameMain` allocation registry is now a typed 0xA004 owner with matching
+initialization and complete shutdown cleanup. The adjacent 0x48 D3D resource
+manager models both embedded lists, synchronized resource release, worker
+shutdown, and list reset behavior.

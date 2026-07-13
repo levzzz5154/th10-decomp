@@ -4,7 +4,9 @@
 #include "th10/archive/resource_manager.hpp"
 #include "th10/platform/file.hpp"
 #include "th10/platform/memory_file.hpp"
+#include "th10/render/resource_manager.hpp"
 #include "th10/util/heap.hpp"
+#include "th10/util/runtime_pool.hpp"
 
 // Keep this harness free of host standard-library headers: the game headers
 // intentionally model MSVC 7.1's 32-bit fundamental typedefs.
@@ -46,6 +48,19 @@ extern "C" int _stricmp(const char* left, const char* right) {
 extern "C" void LegacyString_ThrowLengthError(void) {}
 extern "C" void LegacyString_ThrowRangeError(void) {}
 extern "C" void* operator_new(uint32_t size) { return _malloc(size); }
+
+uint32_t DAT_00492274 = 0;
+uint8_t DAT_0049231c = 0;
+static uint32_t g_enter_count = 0;
+static uint32_t g_leave_count = 0;
+static uint32_t g_resource_release_count = 0;
+static uint32_t g_worker_stop_count = 0;
+
+extern "C" void EnterCriticalSection(void*) { ++g_enter_count; }
+extern "C" void LeaveCriticalSection(void*) { ++g_leave_count; }
+
+void D3DResource_Release(void*, void*) { ++g_resource_release_count; }
+void D3DResourceWorker_Stop(void) { ++g_worker_stop_count; }
 
 uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
 uint32_t Resource_GetFileSize(const char*) { return 0; }
@@ -216,6 +231,47 @@ static bool TestLegacyStringAssignment() {
     LegacyString_Clear(&string);
     return passed && string.length == 0 && string.capacity == 15 &&
         string.storage.inline_data[0] == 0;
+}
+
+static bool TestRuntimeOwners() {
+    RuntimeAllocationPool pool;
+    pool.allocations[0] = 1;
+    pool.allocations[0x27FF] = 2;
+    pool.has_allocations = 3;
+    RuntimeAllocationPool_Initialize(0, &pool);
+    if (pool.allocations[0] != 0 || pool.allocations[0x27FF] != 0 ||
+            pool.has_allocations != 0) {
+        return false;
+    }
+    pool.has_allocations = 1;
+    RuntimeAllocationPool_ReleaseAll(&pool);
+    if (pool.has_allocations != 0) return false;
+
+    D3DResourceManager manager = {};
+    manager.primary.flags = 0xFFFFFFFF;
+    manager.secondary.flags = 0xFFFFFFFF;
+    manager.primary.pending_008 = 1;
+    manager.secondary.pending_010 = 1;
+    D3DResourceManager_Initialize(&manager);
+    if (manager.primary.owner != &manager.primary ||
+            manager.secondary.owner != &manager.secondary ||
+            manager.primary.flags != 0xFFFFFFFE ||
+            manager.secondary.flags != 0xFFFFFFFE ||
+            manager.primary.pending_008 != 0 ||
+            manager.secondary.pending_010 != 0) {
+        return false;
+    }
+
+    D3DResourceNode tail = {(void*)2, 0};
+    D3DResourceNode skipped = {0, &tail};
+    D3DResourceNode head = {(void*)1, &skipped};
+    manager.primary.first = &head;
+    D3DResourceManager_Destroy(&manager);
+    return g_worker_stop_count == 1 && g_resource_release_count == 2 &&
+        g_enter_count == 2 && g_leave_count == 2 && DAT_0049231c == 0 &&
+        manager.primary.pending_008 == 0 &&
+        manager.primary.pending_00C == 0 &&
+        manager.primary.pending_010 == 0;
 }
 
 static bool TestLiteralsAndAllocation() {
@@ -566,6 +622,9 @@ int main() {
     }
     if (!TestLegacyStringAssignment()) {
         return 12;
+    }
+    if (!TestRuntimeOwners()) {
+        return 13;
     }
     return 0;
 }

@@ -53,6 +53,7 @@ OVERLAYS = (
     ("heap.obj", "MaxSize@LegacyAllocator", 0x004386A0),
     ("heap.obj", "OwnsPointer@LegacyString", 0x00438800),
     ("heap.obj", "Allocate@LegacyAllocator", 0x00438840),
+    ("runtime_pool.obj", "RuntimeAllocationPool_Initialize", 0x004388F0),
     ("entity.obj", "DestroyEntityList", 0x00438A30),
 )
 
