@@ -66,6 +66,9 @@ Render coverage exercises reset-target release, lost-device recovery, and
 numbered screenshot selection without launching the game.
 Scheduler coverage checks callback construction, replacement handling, and
 priority-ordered insertion into both retail callback lists.
+Gameplay-runtime coverage checks fractional/normal/reverse frame-timer
+advancement, animation lookup across both manager lists, shared-position
+updates, pool allocation, handle registration, and player animation creation.
 
 The supported original executable has SHA-256:
 
@@ -192,3 +195,10 @@ initialization failures. Player collision, update, draw, animation positioning,
 and bullet spawning likewise use explicit typed arguments; bullet allocation
 now runs the recovered 0x2518-byte initializer before copying spawn parameters
 and linking the entity into its manager.
+The player path no longer relies on retail shims for its five-word frame timer
+or basic animation-manager operations. The 4,096-object animation pool,
+fallback allocation, primary handle list, nonzero handle generation, script
+selection/reset, child-position propagation, and translated player-animation
+creation are readable C++ now. The large animation instruction interpreter at
+`0x0043EE30` remains the downstream dependency for actually executing the
+selected script.

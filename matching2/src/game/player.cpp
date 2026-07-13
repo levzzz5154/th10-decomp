@@ -7,6 +7,8 @@
 #include "th10/game/entity.hpp"
 #include "th10/game/game_state.hpp"
 #include "th10/game/player.hpp"
+#include "th10/math/timer.hpp"
+#include "th10/render/animation_manager.hpp"
 
 extern void* g_pGameStateManager;
 extern uint32_t DAT_004776f4;    // player game state ptr
@@ -24,10 +26,6 @@ extern float    _DAT_00470b48;   // render-space Y offset
 extern float    _DAT_00470b4c;   // render-space X offset
 extern uint32_t DAT_00476f78;     // timer sentinel
 
-void PlayerTimer_Tick(void* timer);
-void* AnimationManager_Find(void* manager, int animationHandle);
-void AnimationManager_SetPosition(
-    void* manager, int animationHandle, const float* position);
 void EnemyManager_CheckPlayerCollision(
     void* gameState, const float* position, float radius,
     int allowEffect, int focused);
@@ -37,10 +35,6 @@ void FUN_0043dd10(void);
 void FUN_0043e5a0(int handle, int idx);
 void FUN_004054b0(int val1, int val2, int val3);
 void FUN_00405500(void);
-int PlayerAnimation_Create(
-    void* resource, void* scratch, int animationIndex,
-    const float* position);
-
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)
 // param_1 = player object (contains position, power, state at various offsets)
@@ -240,7 +234,7 @@ int Player_Update(Player* player) {
             player->collisionRadius = *(float*)(animation + 0x40);
             Player_Draw(player);
         }
-        PlayerTimer_Tick(player->timer);
+        FrameTimer_Tick((FrameTimer*)player->timer);
     }
     return 1;
 }

@@ -31,3 +31,13 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -o "$TEST_BUILD/scheduler_test"
 
 "$TEST_BUILD/scheduler_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/math/timer.cpp" \
+    "$ROOT/src/render/animation_manager.cpp" \
+    "$ROOT/tests/game_runtime_test.cpp" \
+    -o "$TEST_BUILD/game_runtime_test"
+
+"$TEST_BUILD/game_runtime_test"
