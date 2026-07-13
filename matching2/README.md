@@ -62,6 +62,8 @@ named asset reads, and cleanup as one end-to-end path.
 The utility coverage also exercises inline and allocated `LegacyString`
 assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.
+Render coverage exercises reset-target release, lost-device recovery, and
+numbered screenshot selection without launching the game.
 
 The supported original executable has SHA-256:
 
@@ -158,6 +160,8 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyString::Reserve` | 181 | semantic; growth and heap-to-inline shrink paths |
 | `D3DResourceList_ReleaseResources` | 78 | semantic; synchronized D3D release walk |
 | `D3DResourceManager_Destroy` | 51 | semantic; worker and two-list cleanup |
+| `GameRenderTargets_Release` | 57 | semantic; capture and primary reset targets |
+| `Render_HandleDeviceResetAndSnapshot` | 156 | semantic; reset and snapshot dispatch |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.
@@ -174,3 +178,7 @@ The `GameMain` allocation registry is now a typed 0xA004 owner with matching
 initialization and complete shutdown cleanup. The adjacent 0x48 D3D resource
 manager models both embedded lists, synchronized resource release, worker
 shutdown, and list reset behavior.
+The first 0x4C bytes of `GameStateManager` are now modeled as the two signed
+render-target handles plus their recreation parameters. The device-reset path
+releases both targets, performs lost-device recovery, and selects the first
+free `snapshot/thNNN.bmp` filename before dispatching capture.

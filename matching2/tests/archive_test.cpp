@@ -5,6 +5,8 @@
 #include "th10/platform/file.hpp"
 #include "th10/platform/memory_file.hpp"
 #include "th10/render/resource_manager.hpp"
+#include "th10/render/device_reset.hpp"
+#include "th10/render/game_render_targets.hpp"
 #include "th10/util/heap.hpp"
 #include "th10/util/runtime_pool.hpp"
 
@@ -61,6 +63,54 @@ extern "C" void LeaveCriticalSection(void*) { ++g_leave_count; }
 
 void D3DResource_Release(void*, void*) { ++g_resource_release_count; }
 void D3DResourceWorker_Stop(void) { ++g_worker_stop_count; }
+
+static uint32_t g_capture_target_release_count = 0;
+static uint32_t g_primary_target_release_count = 0;
+static int32_t g_last_capture_handle = -1;
+static int32_t g_last_primary_handle = -1;
+static const uint32_t* g_last_capture_args = 0;
+static const uint32_t* g_last_primary_args = 0;
+
+void GameRender_ReleaseCaptureTarget(
+        GameRenderTargets*, int32_t handle, const uint32_t* arguments) {
+    ++g_capture_target_release_count;
+    g_last_capture_handle = handle;
+    g_last_capture_args = arguments;
+}
+
+void GameRender_ReleasePrimaryTarget(
+        GameRenderTargets*, int32_t handle, const uint32_t* arguments) {
+    ++g_primary_target_release_count;
+    g_last_primary_handle = handle;
+    g_last_primary_args = arguments;
+}
+
+void* g_pD3DDevice = (void*)1;
+void* g_pGameStateManager = 0;
+uint32_t DAT_00474e36 = 0;
+uint32_t DAT_00491fd4 = 0;
+static int g_device_test_result = 0;
+static uint32_t g_device_reset_count = 0;
+static uint32_t g_entity_reset_count = 0;
+static uint32_t g_render_reinitialize_count = 0;
+static uint32_t g_directory_create_count = 0;
+static uint32_t g_file_exists_count = 0;
+static uint32_t g_screenshot_count = 0;
+static char g_screenshot_path[32] = {0};
+
+int D3DDevice_TestCooperativeLevel(void*) { return g_device_test_result; }
+int D3DDevice_Reset(void*) { ++g_device_reset_count; return 0; }
+void GameStateManager_DestroyEntitiesForReset(void*) { ++g_entity_reset_count; }
+void Render_ReinitializeAfterReset(void) { ++g_render_reinitialize_count; }
+void Directory_Create(const char*) { ++g_directory_create_count; }
+int File_Exists(const char*) { return g_file_exists_count++ < 2; }
+void Screenshot_Capture(const char* path) {
+    ++g_screenshot_count;
+    uint32_t index = 0;
+    do {
+        g_screenshot_path[index] = path[index];
+    } while (path[index++] != 0);
+}
 
 uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
 uint32_t Resource_GetFileSize(const char*) { return 0; }
@@ -272,6 +322,65 @@ static bool TestRuntimeOwners() {
         manager.primary.pending_008 == 0 &&
         manager.primary.pending_00C == 0 &&
         manager.primary.pending_010 == 0;
+}
+
+static bool TestGameRenderTargets() {
+    GameRenderTargets targets;
+    targets.primary_handle = 4;
+    targets.capture_handle = 5;
+    targets.capture_args[0] = 1;
+    targets.primary_args[7] = 2;
+    GameRenderTargets_Initialize(&targets);
+    if (targets.primary_handle != -1 || targets.capture_handle != -1) {
+        return false;
+    }
+    for (uint32_t index = 0; index < 9; ++index) {
+        if (targets.capture_args[index] != 0) return false;
+    }
+    for (uint32_t index = 0; index < 8; ++index) {
+        if (targets.primary_args[index] != 0) return false;
+    }
+
+    targets.capture_handle = 7;
+    targets.primary_handle = 9;
+    targets.capture_args[0] = 11;
+    targets.primary_args[0] = 13;
+    GameRenderTargets_Release(&targets);
+    if (g_capture_target_release_count != 1 ||
+            g_primary_target_release_count != 1 ||
+            g_last_capture_handle != 7 || g_last_primary_handle != 9 ||
+            g_last_capture_args != targets.capture_args ||
+            g_last_primary_args != targets.primary_args ||
+            targets.capture_handle != -1 || targets.primary_handle != -1) {
+        return false;
+    }
+    GameRenderTargets_Release(&targets);
+    return g_capture_target_release_count == 1 &&
+        g_primary_target_release_count == 1;
+}
+
+static bool TestDeviceResetAndSnapshot() {
+    GameRenderTargets targets = {};
+    targets.primary_handle = 3;
+    targets.capture_handle = 4;
+    g_pGameStateManager = &targets;
+    g_device_test_result = -1;
+    DAT_00474e36 = 0x800;
+    uint32_t capture_before = g_capture_target_release_count;
+    uint32_t primary_before = g_primary_target_release_count;
+    Render_HandleDeviceResetAndSnapshot();
+    const char* expected = "snapshot/th002.bmp";
+    for (uint32_t index = 0;; ++index) {
+        if (g_screenshot_path[index] != expected[index]) return false;
+        if (expected[index] == 0) break;
+    }
+    return g_device_reset_count == 1 && g_entity_reset_count == 1 &&
+        g_render_reinitialize_count == 1 && DAT_00491fd4 == 2 &&
+        g_directory_create_count == 1 && g_file_exists_count == 3 &&
+        g_screenshot_count == 1 &&
+        g_capture_target_release_count == capture_before + 1 &&
+        g_primary_target_release_count == primary_before + 1 &&
+        targets.primary_handle == -1 && targets.capture_handle == -1;
 }
 
 static bool TestLiteralsAndAllocation() {
@@ -625,6 +734,12 @@ int main() {
     }
     if (!TestRuntimeOwners()) {
         return 13;
+    }
+    if (!TestGameRenderTargets()) {
+        return 14;
+    }
+    if (!TestDeviceResetAndSnapshot()) {
+        return 15;
     }
     return 0;
 }

@@ -14,6 +14,8 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/platform/memory_file.cpp" \
     "$ROOT/src/platform/path.cpp" \
     "$ROOT/src/render/d3d_resource_manager.cpp" \
+    "$ROOT/src/render/device_reset.cpp" \
+    "$ROOT/src/render/game_render_targets.cpp" \
     "$ROOT/src/util/heap.cpp" \
     "$ROOT/src/util/runtime_pool.cpp" \
     "$ROOT/tests/archive_test.cpp" \
