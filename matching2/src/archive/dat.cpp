@@ -1,5 +1,6 @@
 #include "th10/archive/dat.hpp"
 #include "th10/archive/crypt.hpp"
+#include "th10/archive/lzss.hpp"
 
 extern "C" int __cdecl _stricmp(const char* left, const char* right);
 extern "C" void* __cdecl _malloc(uint32_t size);
@@ -55,6 +56,50 @@ const DatEntry* DatArchive_FindEntry(
         }
     }
     return 0;
+}
+
+// Clean reconstruction of 0x00434EF0.
+uint32_t DatArchive_FindSize(
+        const DatArchiveIndex* archive, const char* name) {
+    const DatEntry* entry = DatArchive_FindEntry(archive, name);
+    return entry ? entry->uncompressed_size : 0;
+}
+
+uint32_t DatEntry_GetCompressedSize(const DatEntry* entry) {
+    return entry[1].offset - entry[0].offset;
+}
+
+// Data-transforming half of 0x00434DD0. File seek/read stays outside this
+// helper, making the archive cipher and decompressor independently testable.
+uint8_t* DatArchive_DecodeEntryData(
+        const DatEntry* entry,
+        uint8_t* encrypted_data,
+        uint8_t* output) {
+    uint32_t compressed_size = DatEntry_GetCompressedSize(entry);
+    const DatCryptParams* params = Dat_GetCryptParams(entry->name);
+    Dat_Decrypt(
+        encrypted_data,
+        compressed_size,
+        params->key,
+        params->step,
+        params->block_size,
+        params->byte_limit);
+
+    if (compressed_size != entry->uncompressed_size) {
+        return Dat_LzssDecompress(
+            encrypted_data,
+            compressed_size,
+            output,
+            entry->uncompressed_size);
+    }
+
+    if (output && output != encrypted_data) {
+        for (uint32_t index = 0; index < compressed_size; ++index) {
+            output[index] = encrypted_data[index];
+        }
+        return output;
+    }
+    return encrypted_data;
 }
 
 bool DatArchive_DecodeHeader(

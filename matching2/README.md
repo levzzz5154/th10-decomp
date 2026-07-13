@@ -52,8 +52,9 @@ Every C++ translation unit under `src/` is compiled on each build; duplicate
 basenames are rejected so object selection remains deterministic.
 `test.sh` runs host-side semantic tests for cleaned portable algorithms. The
 current suite checks the retail `th10.dat` header cipher and decoded metadata,
-packed entry-table parsing and lookup, plus literal and overlapping-reference
-LZSS streams.
+the retail content-cipher parameter table, filename-based cipher selection and
+round-trip decoding, packed entry-table parsing and lookup, plus literal and
+overlapping-reference LZSS streams.
 
 The supported original executable has SHA-256:
 

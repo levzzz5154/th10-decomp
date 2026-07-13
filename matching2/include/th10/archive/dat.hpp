@@ -25,6 +25,16 @@ struct DatArchiveIndex {
 const DatEntry* DatArchive_FindEntry(
     const DatArchiveIndex* archive, const char* name);
 
+uint32_t DatArchive_FindSize(
+    const DatArchiveIndex* archive, const char* name);
+
+uint32_t DatEntry_GetCompressedSize(const DatEntry* entry);
+
+uint8_t* DatArchive_DecodeEntryData(
+    const DatEntry* entry,
+    uint8_t* encrypted_data,
+    uint8_t* output);
+
 bool DatArchive_DecodeHeader(
     uint8_t encrypted_header[16], DatArchiveHeader* header);
 

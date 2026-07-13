@@ -141,6 +141,56 @@ static bool TestRetailCryptParameterTable() {
             return false;
         }
     }
+    return Dat_GetCryptParamIndex("a") == ('a' & 7) &&
+        Dat_GetCryptParams("a") ==
+            &g_dat_crypt_params[Dat_GetCryptParamIndex("a")];
+}
+
+static void EncryptBlockForTest(
+        const uint8_t* plain,
+        uint8_t* encrypted,
+        uint32_t size,
+        uint8_t key,
+        uint8_t step) {
+    uint32_t source = 0;
+    for (int32_t destination = (int32_t)size - 1;
+            destination >= 0; destination -= 2) {
+        encrypted[source++] = plain[destination] ^ key;
+        key = (uint8_t)(key + step);
+    }
+    for (int32_t destination = (int32_t)size - 2;
+            destination >= 0; destination -= 2) {
+        encrypted[source++] = plain[destination] ^ key;
+        key = (uint8_t)(key + step);
+    }
+}
+
+static bool TestEntryDataDecode() {
+    uint8_t plain[64];
+    uint8_t encrypted[64];
+    uint8_t decoded[64] = {0};
+    for (uint32_t index = 0; index < sizeof(plain); ++index) {
+        plain[index] = (uint8_t)(index * 3 + 1);
+    }
+    const char* name = "a";
+    const DatCryptParams* params = Dat_GetCryptParams(name);
+    EncryptBlockForTest(
+        plain, encrypted, sizeof(encrypted), params->key, params->step);
+
+    DatEntry entries[2] = {
+        {name, 0x20, sizeof(plain), 0},
+        {0, 0x60, 0, 0},
+    };
+    uint8_t* result = DatArchive_DecodeEntryData(entries, encrypted, decoded);
+    if (result != decoded ||
+            DatEntry_GetCompressedSize(entries) != sizeof(plain)) {
+        return false;
+    }
+    for (uint32_t index = 0; index < sizeof(plain); ++index) {
+        if (decoded[index] != plain[index]) {
+            return false;
+        }
+    }
     return true;
 }
 
@@ -170,6 +220,8 @@ static bool TestPackedEntryTable() {
     bool passed = found == entries && found->offset == 0x20 &&
         found->uncompressed_size == 3 && found->unknown == 7 &&
         entries[1].offset == 0x30 && entries[2].offset == 0x40 &&
+        DatArchive_FindSize(&archive, "B") == 4 &&
+        DatArchive_FindSize(&archive, "missing") == 0 &&
         DatArchive_FindEntry(&archive, "missing") == 0;
     DatArchive_FreeEntries(entries, 2);
     return passed;
@@ -188,8 +240,11 @@ int main() {
     if (!TestRetailCryptParameterTable()) {
         return 4;
     }
-    if (!TestPackedEntryTable()) {
+    if (!TestEntryDataDecode()) {
         return 5;
+    }
+    if (!TestPackedEntryTable()) {
+        return 6;
     }
     return 0;
 }

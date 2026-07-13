@@ -14,6 +14,20 @@ const DatCryptParams g_dat_crypt_params[8] = {
     {0x99, 0x37, 0x0400, 0x2000},
 };
 
+// The content cipher row is selected by the low three bits of an 8-bit sum
+// over the complete archive filename (the loop at 0x00434E54).
+uint8_t Dat_GetCryptParamIndex(const char* filename) {
+    uint8_t sum = 0;
+    while (*filename != 0) {
+        sum = (uint8_t)(sum + (uint8_t)*filename++);
+    }
+    return sum & 7;
+}
+
+const DatCryptParams* Dat_GetCryptParams(const char* filename) {
+    return &g_dat_crypt_params[Dat_GetCryptParamIndex(filename)];
+}
+
 uint8_t* __stdcall Dat_Decrypt(
         uint8_t* data,
         uint32_t size,
