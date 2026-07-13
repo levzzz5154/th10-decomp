@@ -155,9 +155,20 @@ th10Decomp/
   30/30), using a proper `dllimport` declaration so MSVC emits the original
   indirect IAT call.
 - The hybrid now verifies eight overlays totaling 307 comparable bytes.
-- `matching2/build.sh` now compiles all 12 subsystem translation units rather
+- `matching2/build.sh` now compiles every subsystem translation unit rather
   than maintaining a partial source list. Duplicate source basenames fail the
   build to keep COFF object selection deterministic.
+- Added `ghidra/ExportGameFunctions.java` and `tools/export_ghidra.sh`. The
+  reproducible headless export produced `decompiled/ghidra_raw/` with raw
+  pseudocode for all 703 tracked GAME addresses; `index.tsv` reports 703 `ok`
+  entries, zero failures, and 703 unique addresses.
+- Began cleanup of the archive subsystem in `matching2/src/archive/`: typed DAT
+  entry/index layouts, case-insensitive entry lookup (`0x00434F30`), and a
+  readable TH10 LZSS decoder (`0x00435DC0`). These compile with MSVC 7.1 but are
+  not byte-matched overlays yet because their retail register ABI and codegen
+  still need reconstruction.
+- Added `matching2/test.sh` and LZSS semantic tests covering allocated output,
+  literal streams, termination, and overlapping dictionary back-references.
 
 ### What Works
 
