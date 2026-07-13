@@ -1,0 +1,33 @@
+# Local environments and assistant state
+/.venv/
+/.opencode/
+
+# Generated build trees and binaries
+/build/
+/engine/build/
+/matching/build/
+/matching2/build/
+/engine/th10
+*.obj
+*.o
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.cod
+
+# Generated import libraries; the .def sources are versioned
+/matching/libs/*.lib
+
+# Extracted game archives and local reverse-engineering database
+/extracted/
+/ghidra/project/
+
+# Root-level compiler experiments
+/cpp_test.asm
+/test.asm
+/tmp.asm
+
+# Python cache
+__pycache__/
+*.py[cod]

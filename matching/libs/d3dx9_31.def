@@ -1,0 +1,18 @@
+LIBRARY d3dx9_31.dll
+EXPORTS
+  D3DXVec3Normalize
+  D3DXLoadSurfaceFromSurface
+  D3DXLoadSurfaceFromFileInMemory
+  D3DXCreateTextureFromFileInMemoryEx
+  D3DXVec3Transform
+  D3DXMatrixRotationZ
+  D3DXMatrixRotationY
+  D3DXMatrixMultiply
+  D3DXMatrixRotationX
+  D3DXLoadSurfaceFromMemory
+  D3DXCreateTexture
+  D3DXMatrixPerspectiveFovLH
+  D3DXMatrixLookAtLH
+  D3DXVec3Project
+  D3DXVec3ProjectArray
+  D3DXMatrixTranslation

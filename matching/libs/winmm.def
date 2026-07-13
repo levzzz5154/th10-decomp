@@ -1,0 +1,18 @@
+LIBRARY WINMM.dll
+EXPORTS
+  timeGetTime
+  timeEndPeriod
+  timeBeginPeriod
+  joyGetDevCapsA
+  joyGetPosEx
+  midiOutUnprepareHeader
+  timeKillEvent
+  timeSetEvent
+  timeGetDevCaps
+  midiOutGetDevCapsA
+  midiOutShortMsg
+  midiOutLongMsg
+  midiOutPrepareHeader
+  midiOutClose
+  midiOutReset
+  midiOutOpen
