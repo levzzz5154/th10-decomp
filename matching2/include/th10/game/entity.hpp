@@ -148,8 +148,21 @@ struct BulletSpawnParameters {
 };
 // sizeof(BulletSpawnParameters) == 0x1F8
 
+struct BulletEntityManager {
+    uint8_t pad_000[0x58];
+    void* listHead;                 // +0x58, points at entity +0x116C
+    void* listTail;                 // +0x5C
+    uint32_t entityCount;           // +0x60
+    uint32_t spawnSerial;           // +0x64
+};
+
 BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
     void* unused, BulletSpawnParameters* parameters);
+BulletEntity* BulletEntity_Initialize(
+    BulletEntity* entity, const uint8_t* templateData);
+BulletEntity* BulletEntity_Spawn(
+    BulletEntityManager* manager, const uint8_t* templateData,
+    const BulletSpawnParameters* parameters);
 
 // ============================================================================
 // Entity Manager / GameStateManager

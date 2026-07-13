@@ -4,6 +4,7 @@
 //            0x00402640 (Create)
 // =============================================================================
 #include "th10/game/game_state.hpp"
+#include "th10/game/scheduler.hpp"
 
 extern "C" void* operator_new(uint32_t size);
 extern "C" void _free(void*);
@@ -27,9 +28,6 @@ void __fastcall Entity_Init(void* unused, Entity* entity);
 int  FUN_00403850(void* this_);
 void FUN_0044b8e0(const char* msg);
 void FUN_004215a0(void);
-void FUN_00449ed0(void* callback);
-void FUN_00449ae0(int dev);
-void FUN_00449b70(int dev);
 void FUN_00449f60(void* handle, int dev);
 void FUN_00447810(void* mgr);
 
@@ -37,6 +35,22 @@ extern "C" void __stdcall EnterCriticalSection(void* cs);
 extern "C" void __stdcall LeaveCriticalSection(void* cs);
 extern uint32_t DAT_00492274;    // critical section
 extern uint8_t  DAT_0049231c;    // critical section count
+
+int GameState_Update(GameState* state);
+int GameState_Draw(GameState* state);
+int GameState_AfterDraw(GameState* state);
+
+static int __fastcall GameState_UpdateCallback(void* owner) {
+    return GameState_Update((GameState*)owner);
+}
+
+static int __fastcall GameState_DrawCallback(void* owner) {
+    return GameState_Draw((GameState*)owner);
+}
+
+static int __fastcall GameState_AfterDrawCallback(void* owner) {
+    return GameState_AfterDraw((GameState*)owner);
+}
 
 // ============================================================================
 // 0x00402160 - GameState Constructor
@@ -52,7 +66,8 @@ extern uint8_t  DAT_0049231c;    // critical section count
 //   Zero 0xAD9 dwords
 //   *param_1 |= 2;  (mark as constructed)
 // ============================================================================
-uint32_t* GameState_Construct(uint32_t* state) {
+GameState* GameState_Construct(GameState* gameState) {
+    uint32_t* state = (uint32_t*)gameState;
     // Clear construction flags
     state[0x0D]  &= 0xFFFFFFFE;
     state[0x12]  &= 0xFFFFFFFE;
@@ -87,7 +102,7 @@ uint32_t* GameState_Construct(uint32_t* state) {
     }
 
     *state |= 2;  // mark constructed
-    return state;
+    return gameState;
 }
 
 // ============================================================================
@@ -107,16 +122,16 @@ uint32_t* GameState_Construct(uint32_t* state) {
 //   Initialize scheduler chain at state+0x38..0x48
 //   state+0x2A18 |= 1; state+0x94 = 0; state+0xE0 = 0
 // ============================================================================
-int GameState_Init(void* manager, int stateId) {
-    int state = 0;  // would be EAX — set by caller
+int GameState_Init(void* manager, GameState* gameState, int stateId) {
+    uint8_t* state = (uint8_t*)gameState;
     int iVar1;
 
     if (stateId == 0) {
-        // EAX is the state pointer passed in EAX register
-        // DAT_004776e4 = state; DAT_004776e8 = state;
+        DAT_004776e8 = (uint32_t)gameState;
+    } else {
+        DAT_004776e4 = (uint32_t)gameState;
     }
-    // DAT_004776e4 = state;
-    // *(state + 0x2A30) = DAT_00474c7c;
+    *(uint32_t*)(state + 0x2A30) = DAT_00474c7c;
 
     iVar1 = FUN_00403850(manager);
     if (iVar1 == 0) {
@@ -142,9 +157,31 @@ int GameState_Init(void* manager, int stateId) {
         *(uint32_t*)(state + 0x2A90) = 0;
         *(uint32_t*)(state + 0x1EE0) = 0x4B12A310;
 
-        // Create callbacks
-        // FUN_00449ED0 creates timer/callback objects
-        // ... (complex callback registration)
+        SchedulerCallback* callback =
+            SchedulerCallback_Create(GameState_UpdateCallback);
+        if (callback == 0) return 0xFFFFFFFF;
+        callback->owner = gameState;
+        callback->flags &= ~2u;
+        Scheduler_RegisterPrimary(
+            callback, stateId + 0x0C, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(state + 8) = callback;
+
+        callback = SchedulerCallback_Create(GameState_DrawCallback);
+        if (callback == 0) return 0xFFFFFFFF;
+        callback->flags &= ~2u;
+        callback->owner = gameState;
+        Scheduler_RegisterSecondary(
+            callback, stateId + 7, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(state + 0x0C) = callback;
+
+        callback = SchedulerCallback_Create(GameState_AfterDrawCallback);
+        if (callback == 0) return 0xFFFFFFFF;
+        callback->owner = gameState;
+        callback->flags &= ~2u;
+        Scheduler_RegisterSecondary(
+            callback, stateId + 0x0A, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(state + 0x2A40) = callback;
+        *(uint32_t*)(state + 0x2A34) = 0;
 
         // Initialize scheduler chain
         if ((*(uint32_t*)(state + 0x48) & 1) == 0) {
@@ -179,7 +216,8 @@ int GameState_Init(void* manager, int stateId) {
 //   _eh_vector_destructor(state+0x1F08, 0x3AC, 3, Entity_Destructor)
 //   _eh_vector_destructor(state+0x180, 0x3AC, 8, Entity_Destructor)
 // ============================================================================
-void GameState_Destroy(int state) {
+void GameState_Destroy(GameState* gameState) {
+    uint8_t* state = (uint8_t*)gameState;
     // Release render target 1 (+0x08)
     void* rt1 = *(void**)(state + 8);
     if (rt1 != 0) {
@@ -235,8 +273,8 @@ void GameState_Destroy(int state) {
     }
 
     // Clear global state pointers
-    if (DAT_004776e8 == (uint32_t)state) DAT_004776e8 = 0;
-    if (DAT_004776e4 == (uint32_t)state) DAT_004776e4 = 0;
+    if (DAT_004776e8 == (uint32_t)gameState) DAT_004776e8 = 0;
+    if (DAT_004776e4 == (uint32_t)gameState) DAT_004776e4 = 0;
 
     // Destroy entity arrays (3 then 8, reverse order)
     _eh_vector_destructor_iterator_(
@@ -266,17 +304,17 @@ void GameState_Destroy(int state) {
 //     GameState_Destroy(ptr); _free(ptr); return NULL
 //   return ptr
 // ============================================================================
-uint32_t* GameState_Create(void* manager, int stateId) {
-    uint32_t* state = (uint32_t*)operator_new(0x2B64);
+GameState* GameState_Create(void* manager, int stateId) {
+    GameState* state = (GameState*)operator_new(sizeof(GameState));
     if (state == 0) {
         return 0;
     }
-    state = (uint32_t*)GameState_Construct(state);
+    state = GameState_Construct(state);
 
-    int result = GameState_Init(manager, stateId);
+    int result = GameState_Init(manager, state, stateId);
     if (result != 0) {
         if (state != 0) {
-            GameState_Destroy((int)state);
+            GameState_Destroy(state);
             _free(state);
         }
         return 0;

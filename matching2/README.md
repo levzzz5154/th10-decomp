@@ -64,6 +64,8 @@ assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.
 Render coverage exercises reset-target release, lost-device recovery, and
 numbered screenshot selection without launching the game.
+Scheduler coverage checks callback construction, replacement handling, and
+priority-ordered insertion into both retail callback lists.
 
 The supported original executable has SHA-256:
 
@@ -182,3 +184,11 @@ The first 0x4C bytes of `GameStateManager` are now modeled as the two signed
 render-target handles plus their recreation parameters. The device-reset path
 releases both targets, performs lost-device recovery, and selects the first
 free `snapshot/thNNN.bmp` filename before dispatching capture.
+The callback scheduler now has a typed 0x24-byte callback record and explicit
+primary/secondary priority-list insertion. `GameThread` and `GameState`
+creation pass their object pointers and priorities normally instead of relying
+on hidden EAX/ESI/EDI state, load their callback chains, and propagate
+initialization failures. Player collision, update, draw, animation positioning,
+and bullet spawning likewise use explicit typed arguments; bullet allocation
+now runs the recovered 0x2518-byte initializer before copying spawn parameters
+and linking the entity into its manager.

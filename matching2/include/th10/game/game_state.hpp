@@ -76,3 +76,13 @@ struct GameThread {
     uint8_t   pad_014[0x89AC - 0x014];
 };
 // sizeof(GameThread) should be 0x89AC
+
+GameThread* GameThread_Construct(GameThread* gameThread);
+int GameThread_Init(GameThread* gameThread);
+void GameThread_Destroy(GameThread* gameThread);
+GameThread* GameThread_Create();
+
+GameState* GameState_Construct(GameState* state);
+int GameState_Init(void* manager, GameState* state, int stateId);
+void GameState_Destroy(GameState* state);
+GameState* GameState_Create(void* manager, int stateId);

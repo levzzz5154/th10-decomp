@@ -12,7 +12,7 @@ extern uint32_t DAT_00474c74;         // global flag
 extern uint32_t DAT_00477704;         // global config pointer
 
 int __fastcall FUN_00450470(void* param_1);  // texture/sprite lookup
-void __fastcall Entity_ClearAnims(void* unused, int param_2);  // clear anim states
+void __fastcall Entity_ClearAnims(void* unused, uint8_t* data);
 int FUN_0040dc80(uint32_t* param_1);  // update transform
 
 // 0x0040CF40 - Initialize the complete spawn-parameter record.
@@ -61,19 +61,17 @@ void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
 // ============================================================================
 // 0x0040D830 - Bullet Entity Init Helper
 // Initializes a freshly allocated 0x2518-byte bullet entity.
-// __thiscall: ECX = this (param data), but uses ESI as entity pointer
-//   (ESI is set by caller before the call — non-standard register passing)
+// The retail ABI used ECX for template data and ESI for the entity. The clean
+// API exposes both inputs as ordinary typed parameters.
 //
 // Ghidra decompilation (unaff_ESI = entity pointer):
 //   Sets vtable, clears anim states, zeroes bullet data (0x537 dwords),
 //   initializes linked lists, timers, animation defaults (24.0f), 
 //   scheduler chains, texture lookup, and collision group markers.
 // ============================================================================
-void __fastcall Entity_InitHelper(void* thisptr, uint8_t* param_1) {
-    // unaff_ESI is the entity pointer — in the original code, ESI is loaded
-    // before this call. We use a local to represent it.
-    // In practice this function needs __asm for byte matching.
-    uint32_t* esi = (uint32_t*)thisptr;  // actually from ESI register
+BulletEntity* BulletEntity_Initialize(
+    BulletEntity* entity, const uint8_t* templateData) {
+    uint32_t* esi = (uint32_t*)entity;
 
     esi[0x404] = 0;
     esi[0x405] = 0;
@@ -181,7 +179,7 @@ void __fastcall Entity_InitHelper(void* thisptr, uint8_t* param_1) {
     esi[0x40B] = *(uint32_t*)(config + 0x54);
 
     // Texture/sprite lookup
-    int texId = FUN_00450470(param_1);
+    int texId = FUN_00450470((void*)templateData);
     *(int*)(esi[1] + 4) = texId;
     *(uint32_t*)esi[1] = 0;
 
@@ -202,6 +200,7 @@ void __fastcall Entity_InitHelper(void* thisptr, uint8_t* param_1) {
 
     esi[0x927] = 0; esi[0x92B] = 0; esi[0x92F] = 0; esi[0x933] = 0;
     esi[0x937] = 0; esi[0x93B] = 0; esi[0x93F] = 0; esi[0x943] = 0;
+    return entity;
 }
 
 // ============================================================================
@@ -210,11 +209,9 @@ void __fastcall Entity_InitHelper(void* thisptr, uint8_t* param_1) {
 // from the EAX array, updates transform, links into entity manager's list.
 //
 // Parameters:
-//   param_1: entity manager (contains list head/tail at +0x58/+0x5C, count at +0x60)
-//   param_2: template data (passed to init helper)
-//   in_EAX: spawn parameter array (position, velocity, flags, etc.)
-//
-// Non-standard: in_EAX is passed via EAX register (not a normal parameter)
+//   manager: list head/tail at +0x58/+0x5C and counters at +0x60/+0x64
+//   templateData: texture/template data passed to the initializer
+//   parameters: position, velocity, flags, and type fields
 //
 // Ghidra decompilation:
 //   alloc = operator_new(0x2518)
@@ -226,18 +223,17 @@ void __fastcall Entity_InitHelper(void* thisptr, uint8_t* param_1) {
 //   Link entity into manager's doubly-linked list
 //   Increment entity count
 // ============================================================================
-int Entity_Spawn(int* manager, void* template_data) {
-    // in_EAX is the spawn parameter array (non-standard register passing)
-    // In real code, EAX is loaded before this call
-    uint32_t* spawnParams = (uint32_t*)manager;  // placeholder — actually from EAX
-
-    void* alloc = operator_new(0x2518);
-    int entity;
-    if (alloc == 0) {
-        entity = 0;
+BulletEntity* BulletEntity_Spawn(
+    BulletEntityManager* manager, const uint8_t* templateData,
+    const BulletSpawnParameters* parameters) {
+    const uint32_t* spawnParams = parameters->fields;
+    BulletEntity* allocation =
+        (BulletEntity*)operator_new(sizeof(BulletEntity));
+    uint8_t* entity;
+    if (allocation == 0) {
+        return 0;
     } else {
-        // FUN_0040d830 initializes the entity (uses ESI = alloc internally)
-        entity = (int)alloc;  // simplified — actually calls init helper
+        entity = (uint8_t*)BulletEntity_Initialize(allocation, templateData);
     }
 
     // Copy spawn parameters from in_EAX array
@@ -255,7 +251,7 @@ int Entity_Spawn(int* manager, void* template_data) {
     *(char*)(entity + 0x1024) = (char)(1 << (*(uint8_t*)&DAT_00474c74 & 0x1F));
 
     // Copy 8 dwords from spawnParams[8..] to entity+0x1138
-    uint32_t* src = spawnParams + 8;
+    const uint32_t* src = spawnParams + 8;
     uint32_t* dst = (uint32_t*)(entity + 0x1138);
     for (int i = 8; i != 0; i--) {
         *dst++ = *src++;
@@ -291,7 +287,7 @@ int Entity_Spawn(int* manager, void* template_data) {
     }
 
     // Set difficulty-based flags
-    *(uint32_t*)(entity + 0x2444) = (*(uint32_t*)((uint8_t*)manager + 100) & 1) + 2;
+    *(uint32_t*)(entity + 0x2444) = (manager->spawnSerial & 1) + 2;
 
     // Determine sprite ID (default 0x167, varies by type/subtype)
     *(uint32_t*)(entity + 0x2448) = 0x167;
@@ -314,21 +310,21 @@ int Entity_Spawn(int* manager, void* template_data) {
     *(uint32_t*)(entity + 0x244C) = 0;
 
     // Link into entity manager's doubly-linked list
-    int node = entity + 0x116C;
-    if (*(int*)((uint8_t*)manager + 0x58) == 0) {
-        *(int*)((uint8_t*)manager + 0x58) = node;
+    uint8_t* node = entity + 0x116C;
+    if (manager->listHead == 0) {
+        manager->listHead = node;
     } else {
-        int tail = *(int*)((uint8_t*)manager + 0x5C);
-        if (*(int*)(tail + 4) != 0) {
-            *(int*)(entity + 0x1170) = *(int*)(tail + 4);
-            *(int*)(*(int*)(tail + 4) + 8) = node;
+        uint8_t* tail = (uint8_t*)manager->listTail;
+        if (*(uint8_t**)(tail + 4) != 0) {
+            *(uint8_t**)(entity + 0x1170) = *(uint8_t**)(tail + 4);
+            *(uint8_t**)(*(uint8_t**)(tail + 4) + 8) = node;
         }
-        *(int*)(tail + 4) = node;
-        *(int*)(entity + 0x1174) = tail;
+        *(uint8_t**)(tail + 4) = node;
+        *(uint8_t**)(entity + 0x1174) = tail;
     }
-    *(int*)((uint8_t*)manager + 0x5C) = node;
-    (*(int*)((uint8_t*)manager + 0x60))++;
-    (*(int*)((uint8_t*)manager + 100))++;
+    manager->listTail = node;
+    ++manager->entityCount;
+    ++manager->spawnSerial;
 
-    return entity;
+    return (BulletEntity*)entity;
 }

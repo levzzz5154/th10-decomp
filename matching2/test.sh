@@ -22,3 +22,12 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -o "$TEST_BUILD/archive_test"
 
 "$TEST_BUILD/archive_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/scheduler.cpp" \
+    "$ROOT/tests/scheduler_test.cpp" \
+    -o "$TEST_BUILD/scheduler_test"
+
+"$TEST_BUILD/scheduler_test"

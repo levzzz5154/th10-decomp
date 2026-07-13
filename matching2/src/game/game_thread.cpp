@@ -4,6 +4,7 @@
 //            0x00401440 (Create)
 // =============================================================================
 #include "th10/game/game_state.hpp"
+#include "th10/game/scheduler.hpp"
 
 extern "C" void* operator_new(uint32_t size);
 extern "C" void _free(void*);
@@ -21,13 +22,29 @@ extern uint8_t  DAT_0049231c;
 void __fastcall Entity_Init(void* unused, Entity* entity);
 void FUN_0044b810(char* buf, const char* msg);
 void FUN_0044b8e0(const char* msg);
-void FUN_00449ed0(void* callback);
-void FUN_00449ae0(int dev);
-void FUN_00449b70(int dev);
 void FUN_00449f60(void* handle, int dev);
 void FUN_00447810(void* mgr);
 void* FUN_00447280(int type, int mgr, const char* name);
 void FUN_0043e5a0(int handle, int idx);
+
+int GameThread_Update(GameThread* gameThread);
+int GameThread_Draw(GameThread* gameThread);
+
+static int __fastcall GameThread_BeginFrameCallback(void* owner) {
+    uint32_t* gameThread = (uint32_t*)owner;
+    *(uint32_t*)((uint8_t*)gameThread + 0x896C) = 0;
+    *(uint32_t*)((uint8_t*)gameThread + 0x8970) = 0;
+    ++*(uint32_t*)((uint8_t*)gameThread + 0x8990);
+    return 1;
+}
+
+static int __fastcall GameThread_UpdateCallback(void* owner) {
+    return GameThread_Update((GameThread*)owner);
+}
+
+static int __fastcall GameThread_DrawCallback(void* owner) {
+    return GameThread_Draw((GameThread*)owner);
+}
 
 // ============================================================================
 // 0x00401000 - GameThread Constructor
@@ -53,7 +70,8 @@ void FUN_0043e5a0(int handle, int idx);
 //   unaff_ESI[0x2261] = 0
 //   unaff_ESI[0x2263] = 9
 // ============================================================================
-void GameThread_Construct(uint32_t* gt) {
+GameThread* GameThread_Construct(GameThread* gameThread) {
+    uint32_t* gt = (uint32_t*)gameThread;
     *gt = (uint32_t)&PTR_LAB_0046cb14;  // vtable
 
     // Clear construction flags
@@ -106,6 +124,7 @@ void GameThread_Construct(uint32_t* gt) {
     gt[0x225F] = 0x3F800000;  // 1.0f
     gt[0x2261] = 0;
     gt[0x2263] = 9;
+    return gameThread;
 }
 
 // ============================================================================
@@ -122,9 +141,8 @@ void GameThread_Construct(uint32_t* gt) {
 //   Entity_Init(entity at +0x14, anim=ascii.anm slot 0)
 //   Entity_Init(entity at +0x3C0, anim=ascii.anm slot 0x62)
 // ============================================================================
-int GameThread_Init(void) {
-    // EAX is the game thread pointer (passed via EAX register)
-    int gt = 0;  // placeholder — actually from EAX
+int GameThread_Init(GameThread* gameThread) {
+    uint8_t* gt = (uint8_t*)gameThread;
 
     // Load animation resources
     void* asciiAnm = FUN_00447280(2, (int)g_pGameStateManager, "ascii.anm");
@@ -139,8 +157,27 @@ int GameThread_Init(void) {
     *(void**)(gt + 0x8998) = captureAnm;
     if (captureAnm == 0) goto fail;
 
-    // Create callback timers
-    // ... (complex callback registration)
+    SchedulerCallback* callback =
+        SchedulerCallback_Create(GameThread_BeginFrameCallback);
+    if (callback == 0) goto fail;
+    callback->flags &= ~2u;
+    callback->owner = gameThread;
+    Scheduler_RegisterPrimary(callback, 4, (void*)DAT_00491be4);
+    gameThread->callback1 = callback;
+
+    callback = SchedulerCallback_Create(GameThread_UpdateCallback);
+    if (callback == 0) goto fail;
+    callback->flags &= ~2u;
+    callback->owner = gameThread;
+    Scheduler_RegisterSecondary(callback, 0x30, (void*)DAT_00491be4);
+    gameThread->callback2 = callback;
+
+    callback = SchedulerCallback_Create(GameThread_DrawCallback);
+    if (callback == 0) goto fail;
+    callback->flags &= ~2u;
+    callback->owner = gameThread;
+    Scheduler_RegisterSecondary(callback, 0x26, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(gt + 0x89A8) = callback;
 
     // Initialize entities with animation data
     Entity_Init(0, (Entity*)(gt + 0x14));
@@ -171,7 +208,8 @@ fail:
 //   Free buffer at +0x1C6*4
 //   Free buffer at +0xDB*4
 // ============================================================================
-void GameThread_Destroy(uint32_t* gt) {
+void GameThread_Destroy(GameThread* gameThread) {
+    uint32_t* gt = (uint32_t*)gameThread;
     *gt = (uint32_t)&PTR_LAB_0046cb14;
 
     // Release callback handle 1 (gt[3])
@@ -241,16 +279,14 @@ void GameThread_Destroy(uint32_t* gt) {
 //     GameThread_Destroy(ptr); _free(ptr); return NULL
 //   return ptr
 // ============================================================================
-uint32_t* GameThread_Create(void) {
-    uint32_t* gt = (uint32_t*)operator_new(0x89AC);
+GameThread* GameThread_Create(void) {
+    GameThread* gt = (GameThread*)operator_new(sizeof(GameThread));
     if (gt == 0) {
         return 0;
     }
     GameThread_Construct(gt);
 
-    // GameThread_Init uses EAX = gt (non-standard register passing)
-    // In real code, we'd need to set EAX before calling
-    int result = 0;  // would call GameThread_Init with EAX=gt
+    int result = GameThread_Init(gt);
     if (result != 0) {
         if (gt != 0) {
             GameThread_Destroy(gt);

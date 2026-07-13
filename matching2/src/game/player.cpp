@@ -6,31 +6,40 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 #include "th10/game/game_state.hpp"
+#include "th10/game/player.hpp"
 
 extern void* g_pGameStateManager;
 extern uint32_t DAT_004776f4;    // player game state ptr
 extern uint32_t DAT_004776f0;    // another game state
 extern uint32_t DAT_00477704;    // global config
 extern uint32_t DAT_00477834;    // player position source
+extern uint32_t DAT_0047781c;    // item manager
 extern uint32_t DAT_00474c48;    // player power level
 extern uint32_t DAT_00474c68;    // player character (0=Reimu, 1=Marisa)
 extern int32_t  DAT_00474c98;    // player speed adjustment
 extern float    _DAT_00470afc;   // 1.0f
 extern float    _DAT_00470d34;   // alt speed
 extern float    _DAT_00470b0c;   // focused speed
-extern void*    PTR_LAB_0046d0c0;
+extern float    _DAT_00470b48;   // render-space Y offset
+extern float    _DAT_00470b4c;   // render-space X offset
+extern uint32_t DAT_00476f78;     // timer sentinel
 
-void Timer_Tick(void);
-void FUN_00408100(float radius, int flags, int param3);
-void FUN_0041c800(void);
-int FUN_004491c0(int param1, int mgr, int param3);
-void FUN_004492f0(int param1, int mgr, int param3);
+void PlayerTimer_Tick(void* timer);
+void* AnimationManager_Find(void* manager, int animationHandle);
+void AnimationManager_SetPosition(
+    void* manager, int animationHandle, const float* position);
+void EnemyManager_CheckPlayerCollision(
+    void* gameState, const float* position, float radius,
+    int allowEffect, int focused);
+void ItemManager_CollectNearPlayer(
+    void* itemManager, const float* position, float radius, int allowEffect);
 void FUN_0043dd10(void);
 void FUN_0043e5a0(int handle, int idx);
 void FUN_004054b0(int val1, int val2, int val3);
 void FUN_00405500(void);
-uint32_t* FUN_00448db0(void* param);
-void FUN_00405ac0(void);
+int PlayerAnimation_Create(
+    void* resource, void* scratch, int animationIndex,
+    const float* position);
 
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)
@@ -50,37 +59,48 @@ void FUN_00405ac0(void);
 //   Adjust speed: DAT_00474c98 -= 0x80; clamp to [-0x400, 0x400]
 //   Check if player is slow (grazing mode): set +0x44
 // ============================================================================
-int Player_Init(int* player) {
-    if (player[0xA] != 0) {  // +0x28
+int Player_Init(Player* player) {
+    int* words = (int*)player;
+    if (player->activeState != 0) {
         return -1;
     }
-    player[0xA] = 1;  // mark active
+    player->activeState = 1;
 
     // Initialize scheduler chain if needed
-    if ((player[9] & 1) == 0) {  // +0x24
-        player[6] = 0;           // +0x18
-        player[5] = 0xFFF0BDC1;  // +0x14
-        player[7] = 0;           // +0x1C
-        player[8] = (int)&PTR_LAB_0046d0c0;  // +0x20 = sentinel? actually &DAT_00476f78
-        player[9] |= 1;
+    if ((words[9] & 1) == 0) {  // +0x24
+        words[6] = 0;           // +0x18
+        words[5] = 0xFFF0BDC1;  // +0x14
+        words[7] = 0;           // +0x1C
+        words[8] = (int)&DAT_00476f78;
+        words[9] |= 1;
     }
-    player[6] = 0;
-    player[7] = 0;
-    player[5] = 0xFFFFFFFF;
+    words[6] = 0;
+    words[7] = 0;
+    words[5] = 0xFFFFFFFF;
 
     // Set hitbox sizes
-    *(float*)(player + 0xF) = 32.0f;   // +0x3C = 0x42000000
-    *(float*)(player + 0x10) = 4.0f;   // +0x40 = 0x40800000
+    player->collisionRadius = 32.0f;
+    player->secondaryRadius = 4.0f;
 
     // Copy position from global
     int src = DAT_00477834;
-    player[0xC] = *(int*)(src + 0x3C0);  // +0x30
-    player[0xD] = *(int*)(src + 0x3C4);  // +0x34
-    player[0xE] = *(int*)(src + 0x3C8);  // +0x38
+    player->position[0] = *(float*)(src + 0x3C0);
+    player->position[1] = *(float*)(src + 0x3C4);
+    player->position[2] = *(float*)(src + 0x3C8);
 
-    // Load sprite handle
-    uint32_t* spriteHandle = (uint32_t*)FUN_00448db0(*(void**)(DAT_004776f0 + 0x3E0B50));
-    player[0xB] = *spriteHandle;  // +0x2C
+    int animationIndex;
+    int inputState = *(int*)(DAT_004776f4 + 0x3788);
+    if (((*(uint8_t*)(DAT_004776f4 + 0x378C) & 1) != 0 &&
+         inputState >= 0x5D && inputState <= 0x60) || inputState == 0x6D) {
+        animationIndex = 0x1B9;
+    } else {
+        animationIndex = (DAT_00474c68 != 0 ? 7 : 0) + 0x190;
+    }
+
+    uint32_t animationScratch[3];
+    player->animationHandle = PlayerAnimation_Create(
+        *(void**)(DAT_004776f0 + 0x3E0B50), animationScratch,
+        animationIndex, player->position);
 
     // Initialize sprite
     FUN_0043dd10();
@@ -105,17 +125,17 @@ int Player_Init(int* player) {
     int playerState = DAT_004776f4;
     if ((*(uint8_t*)(playerState + 0x378C) & 1) != 0 &&
         *(int*)(playerState + 0x3738) > 0x3B) {
-        player[0x11] = 1;  // +0x44 = focused
+        player->focusedCollision = 1;
         return 0;
     }
-    player[0x11] = 0;
+    player->focusedCollision = 0;
     return 0;
 }
 
 // ============================================================================
 // 0x004059F0 - Player_HitTest: Check collision between player and bullets
-// param_1 (ECX) = player object
-// EAX = bullet/entity position (in_EAX)
+// The retail ABI used ECX for the player and EAX for the tested position. Both
+// are explicit in the clean interface.
 // Returns: 0 = no hit, 3/5/0x10/0x21/0x26 = different hit types
 //
 // Ghidra decompilation:
@@ -131,22 +151,19 @@ int Player_Init(int* player) {
 //       else: return 0x1A or 0x1D
 //   else: check for graze distance
 // ============================================================================
-int __fastcall Player_HitTest(int* player) {
-    // EAX = bullet position (in_EAX — non-standard)
-    float* bulletPos = (float*)player;  // placeholder — actually from EAX
-
-    if (player[0xA] == 0) {  // +0x28
+int Player_HitTest(Player* player, const float* bulletPos) {
+    if (player->activeState == 0) {
         return 0;
     }
 
     int result = 0;
-    float dx = bulletPos[0] - *(float*)(player + 0xC);  // +0x30
-    float dy = bulletPos[1] - *(float*)(player + 0xD);  // +0x34
-    float hitbox = *(float*)(player + 0xF);              // +0x3C
+    float dx = bulletPos[0] - player->position[0];
+    float dy = bulletPos[1] - player->position[1];
+    float hitbox = player->collisionRadius;
 
     if (dx * dx + dy * dy < hitbox * hitbox) {
         // Direct hit
-        if (player[0x11] == 0) {  // +0x44, not focused
+        if (player->focusedCollision == 0) {
             if ((*(uint8_t*)(DAT_004776f4 + 0x378C) & 1) != 0) {
                 return 3;
             }
@@ -160,10 +177,10 @@ int __fastcall Player_HitTest(int* player) {
 
     // Graze check
     if ((*(uint8_t*)(DAT_004776f4 + 0x378C) & 1) == 0) {
-        if (*(int*)(DAT_00477704 + 0x10) != 0 && player[0x11] == 0) {
+        if (*(int*)(DAT_00477704 + 0x10) != 0 && player->focusedCollision == 0) {
             result = (uint32_t)(DAT_00474c68 == 0) * 4 + 0x10;
         }
-    } else if (player[0x11] == 1) {
+    } else if (player->focusedCollision == 1) {
         return (-(uint32_t)(DAT_00474c68 != 0) & 0xFFFFFFFD) + 0x1A;
     }
 
@@ -172,7 +189,8 @@ int __fastcall Player_HitTest(int* player) {
 
 // ============================================================================
 // 0x00405750 - Player_Update: Update player state for this frame
-// param_1 (ECX) = unused, EAX = player state, EDI = player object
+// The retail callback wrapper copied ECX into EDI before entering this body;
+// the clean interface receives the player normally.
 // Handles movement, collision, timer ticking
 //
 // Ghidra decompilation:
@@ -183,17 +201,16 @@ int __fastcall Player_HitTest(int* player) {
 //     Call FUN_00405AC0 (draw)
 //   Call Timer_Tick (advance frame timer)
 // ============================================================================
-int __fastcall Player_Update(int param_1) {
-    // EDI = player object (unaff_EDI — non-standard)
-    int player = 0;  // from EDI
+int Player_Update(Player* player) {
     void* mgr = g_pGameStateManager;
 
-    if (*(int*)(player + 0x28) != 0) {
-        if (*(int*)(player + 0x28) == 1) {
-            int iVar4 = FUN_004491c0(param_1, (int)mgr, *(int*)(player + 0x2C));
-            if (iVar4 == 0) {
-                *(uint32_t*)(player + 0x2C) = 0;
-                *(uint32_t*)(player + 0x28) = 0;
+    if (player->activeState != 0) {
+        if (player->activeState == 1) {
+            uint8_t* animation = (uint8_t*)AnimationManager_Find(
+                mgr, player->animationHandle);
+            if (animation == 0) {
+                player->animationHandle = 0;
+                player->activeState = 0;
                 return 1;
             }
 
@@ -204,27 +221,34 @@ int __fastcall Player_Update(int param_1) {
                 (*(int*)(playerState + 0x3788) < 0x5D || *(int*)(playerState + 0x3788) > 0x60) &&
                 *(int*)(playerState + 0x3788) != 0x6D) {
                 if (DAT_00474c68 == 0) {
-                    speedAdjust = *(float*)(player + 0x34) - _DAT_00470afc;
+                    speedAdjust = player->position[1] - _DAT_00470afc;
                 } else {
-                    speedAdjust = *(float*)(player + 0x34) - _DAT_00470d34;
+                    speedAdjust = player->position[1] - _DAT_00470d34;
                 }
             } else {
-                speedAdjust = *(float*)(player + 0x34) - _DAT_00470b0c;
+                speedAdjust = player->position[1] - _DAT_00470b0c;
             }
-            *(float*)(player + 0x34) = speedAdjust;
+            player->position[1] = speedAdjust;
 
-            FUN_004492f0(*(uint32_t*)(player + 0x38), (int)mgr, *(int*)(player + 0x2C));
-            *(uint32_t*)(player + 0x3C) = *(uint32_t*)(iVar4 + 0x40);
-            FUN_00405ac0();
+            float renderPosition[3] = {
+                player->position[0] + _DAT_00470b4c,
+                player->position[1] + _DAT_00470b48,
+                player->position[2]
+            };
+            AnimationManager_SetPosition(
+                mgr, player->animationHandle, renderPosition);
+            player->collisionRadius = *(float*)(animation + 0x40);
+            Player_Draw(player);
         }
-        Timer_Tick();
+        PlayerTimer_Tick(player->timer);
     }
     return 1;
 }
 
 // ============================================================================
 // 0x00405AC0 - Player_Draw: Render the player sprite
-// ESI = player object (unaff_ESI)
+// The retail body received the player in ESI; the clean interface uses a
+// normal typed argument.
 // Calls FUN_00408100 with hitbox radius and flags
 //
 // Ghidra decompilation:
@@ -233,14 +257,11 @@ int __fastcall Player_Update(int param_1) {
 //     FUN_00408100(hitbox, ~flags & 1, focused)
 //     FUN_0041C800()
 // ============================================================================
-int Player_Draw(void) {
-    // ESI = player (unaff_ESI — non-standard)
-    int player = 0;  // from ESI
-
-    if (*(int*)(player + 0x28) != 0) {
+int Player_Draw(Player* player) {
+    if (player->activeState != 0) {
         int playerState = DAT_004776f4;
         int focused;
-        float hitbox = *(float*)(player + 0x3C);
+        float hitbox = player->collisionRadius;
 
         if ((*(uint8_t*)(playerState + 0x378C) & 1) == 0 ||
             *(int*)(playerState + 0x3788) < 0x5D ||
@@ -254,8 +275,12 @@ int Player_Draw(void) {
             focused = 0;
         }
 
-        FUN_00408100(hitbox, ~*(uint32_t*)(playerState + 0x378C) & 1, focused);
-        FUN_0041c800();
+        int allowEffect = ~*(uint32_t*)(playerState + 0x378C) & 1;
+        EnemyManager_CheckPlayerCollision(
+            (void*)DAT_004776f0, player->position, hitbox,
+            allowEffect, focused);
+        ItemManager_CollectNearPlayer(
+            (void*)DAT_0047781c, player->position, hitbox, allowEffect);
     }
     return 0;
 }
