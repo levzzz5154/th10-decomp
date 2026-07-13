@@ -4,6 +4,7 @@
 #include "th10/archive/resource_manager.hpp"
 #include "th10/platform/file.hpp"
 #include "th10/platform/memory_file.hpp"
+#include "th10/util/heap.hpp"
 
 // Keep this harness free of host standard-library headers: the game headers
 // intentionally model MSVC 7.1's 32-bit fundamental typedefs.
@@ -27,6 +28,15 @@ extern "C" int _stricmp(const char* left, const char* right) {
         if (a != b || a == 0) return (int)(uint8_t)a - (int)(uint8_t)b;
     }
 }
+
+extern "C" void LegacyString_ThrowLengthError(void) {}
+
+LegacyString* LegacyString::AssignSubstring(
+        const LegacyString*, uint32_t, uint32_t) {
+    return 0;
+}
+
+void LegacyString::Grow(uint32_t, uint32_t) {}
 
 uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
 uint32_t Resource_GetFileSize(const char*) { return 0; }
@@ -134,6 +144,21 @@ static bool TestBufferFileMethods() {
         !file.Seek(5, 0) && file.Seek(0, 2) && file.Tell() == 5 &&
         file.Seek(-2, 1) && file.Tell() == 3 &&
         file.Write(output, sizeof(output)) == 0;
+}
+
+static bool TestLegacyStringAssignment() {
+    LegacyString string = {};
+    string.capacity = 15;
+    string.Assign("mountain");
+    if (string.length != 8 || string.capacity != 15) return false;
+    const char* expected = "mountain";
+    for (uint32_t index = 0; index <= string.length; ++index) {
+        if (string.storage.inline_data[index] != expected[index]) return false;
+    }
+    string.AssignRange("faith", 5);
+    return string.length == 5 && string.storage.inline_data[5] == 0 &&
+        string.storage.inline_data[0] == 'f' &&
+        string.storage.inline_data[4] == 'h';
 }
 
 static bool TestLiteralsAndAllocation() {
@@ -481,6 +506,9 @@ int main() {
     }
     if (!TestPackedEntryTable()) {
         return 11;
+    }
+    if (!TestLegacyStringAssignment()) {
+        return 12;
     }
     return 0;
 }

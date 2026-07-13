@@ -19,6 +19,12 @@ struct LegacyString {
     } storage;
     uint32_t length;
     uint32_t capacity;
+
+    void Assign(const char* text);
+    LegacyString* AssignRange(const char* text, uint32_t length);
+    LegacyString* AssignSubstring(
+        const LegacyString* source, uint32_t offset, uint32_t length);
+    void Grow(uint32_t requested, uint32_t old_length);
 };
 
 void __fastcall HeapBuffer_Release(HeapBuffer* buffer);

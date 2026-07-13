@@ -59,6 +59,8 @@ deterministic back-reference vector and round-tripped through the decoder. A
 fully synthetic DAT archive additionally
 tests backend ownership, index loading, sentinel construction, reopening,
 named asset reads, and cleanup as one end-to-end path.
+The utility coverage also exercises inline `LegacyString` assignment and
+termination without depending on the retail CRT.
 
 The supported original executable has SHA-256:
 
@@ -139,6 +141,8 @@ Current exact-overlay results with MSVC 7.1:
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
 | `Vector2::SetPolar` | 28 | semantic; separate `FSIN`/`FCOS` scheduling |
+| `LegacyString::Assign` | 28 | semantic; equivalent null scan |
+| `LegacyString::AssignRange` | 213 | semantic; SSO, alias, growth, and copy paths |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.
@@ -146,3 +150,5 @@ The gameplay layouts now also include the complete 0x1F8-byte bullet spawn
 parameter record and the 0x88-byte linked stage-tip record used by the stage
 text parser. Polar-to-Cartesian vector initialization is readable C++ as well;
 the retail build combines the two trigonometric operations into `FSINCOS`.
+`LegacyString` now covers both null-terminated and explicit-range assignment,
+including self-referential input, small-string storage, growth, and termination.
