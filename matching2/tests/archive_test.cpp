@@ -1,7 +1,9 @@
 #include "th10/archive/lzss.hpp"
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/dat.hpp"
+#include "th10/archive/resource_manager.hpp"
 #include "th10/platform/file.hpp"
+#include "th10/platform/memory_file.hpp"
 
 // Keep this harness free of host standard-library headers: the game headers
 // intentionally model MSVC 7.1's 32-bit fundamental typedefs.
@@ -25,6 +27,24 @@ extern "C" int _stricmp(const char* left, const char* right) {
         if (a != b || a == 0) return (int)(uint8_t)a - (int)(uint8_t)b;
     }
 }
+
+uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
+uint32_t Resource_GetFileSize(const char*) { return 0; }
+
+class TestBufferFile : public BufferFile {
+public:
+    bool SetData(const uint8_t* source, DWORD size) {
+        Close();
+        data_ = (BYTE*)_malloc(size);
+        if (!data_) return false;
+        for (DWORD index = 0; index < size; ++index) {
+            data_[index] = source[index];
+        }
+        size_ = size;
+        position_ = data_;
+        return true;
+    }
+};
 
 class BitWriter {
 public:
@@ -84,8 +104,36 @@ static bool Equal(const uint8_t* left, const char* right, uint32_t size) {
 static bool TestPathComponentHelper() {
     const char* nested = "dir/sub/file.anm";
     const char* plain = "file.anm";
+    char archive_path[260];
+    Resource_ArchivePathForAsset(nested, archive_path);
     return File_AfterFirstSlash(nested) == nested + 4 &&
-        File_AfterFirstSlash(plain) == plain;
+        File_AfterFirstSlash(plain) == plain &&
+        archive_path[0] == 'd' && archive_path[1] == 'i' &&
+        archive_path[2] == 'r' && archive_path[3] == '.' &&
+        archive_path[4] == 'd' && archive_path[5] == 'a' &&
+        archive_path[6] == 't' && archive_path[7] == 0;
+}
+
+static bool TestBufferFileMethods() {
+    const uint8_t source[5] = {1, 2, 3, 4, 5};
+    uint8_t output[5] = {0};
+    TestBufferFile file;
+    if (!file.SetData(source, sizeof(source)) ||
+            file.GetSize() != sizeof(source) || file.Tell() != 0) {
+        return false;
+    }
+    if (file.Read(output, 3) != 3 || file.Tell() != 3 ||
+            file.Read(output + 3, 4) != 2 || file.Tell() != 5) {
+        return false;
+    }
+    for (uint32_t index = 0; index < sizeof(source); ++index) {
+        if (output[index] != source[index]) return false;
+    }
+    return file.Seek(0, 0) && file.Tell() == 0 &&
+        file.Seek(4, 0) && file.Tell() == 4 &&
+        !file.Seek(5, 0) && file.Seek(0, 2) && file.Tell() == 5 &&
+        file.Seek(-2, 1) && file.Tell() == 3 &&
+        file.Write(output, sizeof(output)) == 0;
 }
 
 static bool TestLiteralsAndAllocation() {
@@ -200,8 +248,6 @@ public:
         position_ = (DWORD)distance;
         return 1;
     }
-    virtual void* ReadWhole(DWORD) { return 0; }
-
 private:
     uint8_t* data_;
     DWORD size_;
@@ -374,29 +420,32 @@ int main() {
     if (!TestPathComponentHelper()) {
         return 1;
     }
-    if (!TestLiteralsAndAllocation()) {
+    if (!TestBufferFileMethods()) {
         return 2;
     }
-    if (!TestOverlappingBackReference()) {
+    if (!TestLiteralsAndAllocation()) {
         return 3;
     }
-    if (!TestRetailArchiveHeader()) {
+    if (!TestOverlappingBackReference()) {
         return 4;
     }
-    if (!TestRetailCryptParameterTable()) {
+    if (!TestRetailArchiveHeader()) {
         return 5;
     }
-    if (!TestEntryDataDecode()) {
+    if (!TestRetailCryptParameterTable()) {
         return 6;
     }
-    if (!TestArchiveEntryRead()) {
+    if (!TestEntryDataDecode()) {
         return 7;
     }
-    if (!TestArchiveOpenAndRead()) {
+    if (!TestArchiveEntryRead()) {
         return 8;
     }
-    if (!TestPackedEntryTable()) {
+    if (!TestArchiveOpenAndRead()) {
         return 9;
+    }
+    if (!TestPackedEntryTable()) {
+        return 10;
     }
     return 0;
 }

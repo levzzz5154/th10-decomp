@@ -39,6 +39,7 @@ bool DatArchive_Open(
     const char* path);
 
 bool DatArchive_OpenFile(DatArchive* archive, const char* path);
+bool DatArchive_OpenResource(DatArchive* archive, const char* resource_name);
 
 uint8_t* DatArchive_Read(
     DatArchive* archive,

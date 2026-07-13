@@ -16,7 +16,6 @@ public:
     virtual DWORD GetSize() const = 0;
     virtual BYTE Seek(LONG distance, DWORD origin) = 0;
     virtual ~FileInterface() {}
-    virtual void* ReadWhole(DWORD capacity) = 0;
 };
 
 // Win32-backed file owner used by the archive/file subsystem.
@@ -35,7 +34,7 @@ public:
     virtual DWORD Tell() const;
     virtual DWORD GetSize() const;
     virtual BYTE Seek(LONG distance, DWORD origin);
-    virtual void* ReadWhole(DWORD capacity);
+    void* ReadWhole(DWORD capacity);
 };
 
 void File_ResolvePath(const char* path, char output[260]);

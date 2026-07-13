@@ -92,13 +92,16 @@ python3 tools/compare_obj.py build/entity.obj DestroyEntityList 0x438A30
 
 The comparison length is the compiled function's section size. Relocation
 operands are excluded because their final values are assigned by the linker.
-The Win32 file abstraction also has its retail nine-slot vtable typed in C++;
+The Win32 file abstraction also has its retail eight-slot vtable typed in C++;
 the adjacent whole-file loader (`0x00435580`) is readable and functional, but
 is not overlaid yet because its optimized cleanup-block ordering is not an
 exact code-generation match. Module-relative/absolute path resolution
 (`0x00435610`) and the `r`/`w`/`a` open path (`0x00435370`) are reconstructed
 behind the same interface. `DatArchive` now models the retail four-field owner
 layout and connects that backend to header/index loading and entry extraction.
+The adjacent `BufferFile` and embedded `ResourceFile` vtables are typed too,
+and the 20-slot resource manager resolves `archive/entry` paths through loaded
+DAT files before falling back to ordinary disk files.
 
 Current exact-overlay results with MSVC 7.1:
 
@@ -120,6 +123,14 @@ Current exact-overlay results with MSVC 7.1:
 | `FileHandle::Seek` | 33 | 100% |
 | `FileInterface::~FileInterface` | 3 | 100% |
 | `FileInterface` scalar deleting destructor | 23 | 100% |
+| `BufferFile::Write` | 5 | 100% |
+| `BufferFile` scalar deleting destructor | 22 | 100% |
+| `BufferFile::~BufferFile` | 37 | 100% |
+| `BufferFile::Close` | 33 | 100% |
+| `BufferFile::Read` | 108 | 100% |
+| `BufferFile::Tell` | 7 | 100% |
+| `BufferFile::GetSize` | 4 | 100% |
+| `ResourceFile` scalar deleting destructor | 22 | 100% |
 | `LegacyString_Clear` | 34 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
