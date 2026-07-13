@@ -113,6 +113,7 @@ Current exact-overlay results with MSVC 7.1:
 | `Entity_Constructor` | 88 | 100% |
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
+| `BulletSpawnParameters_Initialize` | 23 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
 | `HeapBuffer::HeapBuffer` | 9 | 100% |
 | `FileHandle` scalar deleting destructor | 22 | 100% |
@@ -136,6 +137,12 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyString_Clear` | 34 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
+| `StageTip_Initialize` | 51 | partial; 45 matching bytes |
+| `Vector2::SetPolar` | 28 | semantic; separate `FSIN`/`FCOS` scheduling |
 
 `Entity_Init` is functionally reconstructed, but MSVC currently schedules its
 register restores and callee-save pops differently after the entity clear.
+The gameplay layouts now also include the complete 0x1F8-byte bullet spawn
+parameter record and the 0x88-byte linked stage-tip record used by the stage
+text parser. Polar-to-Cartesian vector initialization is readable C++ as well;
+the retail build combines the two trigonometric operations into `FSINCOS`.

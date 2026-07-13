@@ -141,6 +141,16 @@ struct BulletEntity {
 };
 // sizeof(BulletEntity) == 0x2518
 
+// Parameters copied into a BulletEntity by the spawn path. The constructor at
+// 0x0040CF40 clears all 0x1F8 bytes and gives the radius at +0x2C its default.
+struct BulletSpawnParameters {
+    uint32_t fields[0x7E];
+};
+// sizeof(BulletSpawnParameters) == 0x1F8
+
+BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
+    void* unused, BulletSpawnParameters* parameters);
+
 // ============================================================================
 // Entity Manager / GameStateManager
 // Contains global state including entity slot array at +0x3AD4E0

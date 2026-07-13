@@ -15,6 +15,16 @@ int __fastcall FUN_00450470(void* param_1);  // texture/sprite lookup
 void __fastcall Entity_ClearAnims(void* unused, int param_2);  // clear anim states
 int FUN_0040dc80(uint32_t* param_1);  // update transform
 
+// 0x0040CF40 - Initialize the complete spawn-parameter record.
+BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
+    void* unused, BulletSpawnParameters* parameters) {
+    for (int index = 0; index < 0x7E; ++index) {
+        parameters->fields[index] = 0;
+    }
+    parameters->fields[0x0B] = 0x41000000; // 8.0f
+    return parameters;
+}
+
 // ============================================================================
 // 0x0040CC70 - Clear Animation States
 // Clears flag bits at various offsets and zeroes 8 blocks of 0x84 dwords.
