@@ -17,9 +17,13 @@ extern float _DAT_00470b4c;
 extern unsigned int DAT_00476f78;
 
 Entity* __fastcall Entity_Constructor(Entity* entity);
+void __fastcall Entity_Destructor(Entity* entity);
 void __fastcall Entity_Init(void* unused, Entity* entity);
 int FUN_0043ee30(AnimationObject* animation);
 void AnimationObject_Render(void* manager, AnimationObject* animation);
+
+static AnimationListNode* AnimationManager_List(
+    void* manager, unsigned int listIndex);
 
 static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -27,6 +31,71 @@ static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
         next = ((next - 1) | 0xFFFFF000u) + 1;
     }
     return next;
+}
+
+void AnimationManager_InitializeStorage(void* manager) {
+    uint8_t* bytes = (uint8_t*)manager;
+
+    // GameStateInit's generated array constructors run before this clear.
+    // Their observable state is discarded, so express the resulting state
+    // directly and avoid reading uninitialized allocations.
+    unsigned int* word = (unsigned int*)bytes;
+    for (unsigned int count = 0x1CC918; count != 0; --count) {
+        *word++ = 0;
+    }
+
+    // The first two words are reset-sensitive render-target handles.
+    *(int*)(bytes + 0x00) = -1;
+    *(int*)(bytes + 0x04) = -1;
+
+    // Defaults established immediately before the pool initialization loop.
+    *(unsigned int*)(bytes + 0x3ADA60) = 1;
+    bytes[0x3ADA68] = 0;
+    bytes[0x3ADA69] = 0;
+    bytes[0x3ADA6A] = 0;
+    bytes[0x3ADA6B] = 0;
+    bytes[0x3ADA6C] = 0xFF;
+    *(unsigned int*)(bytes + 0x3ADA64) = 0;
+    *(unsigned int*)(bytes + 0x3ADA74) = 0;
+
+    Entity* entity = (Entity*)(bytes + 0x68);
+    for (unsigned int index = 0; index != 0x1000; ++index) {
+        Entity_Init(0, entity);
+        entity = (Entity*)((uint8_t*)entity + 0x3AC);
+    }
+}
+
+void AnimationManager_DestroyStorage(void* manager) {
+    uint8_t* bytes = (uint8_t*)manager;
+
+    // Save the next node before removal because pooled objects are reset by
+    // AnimationManager_RemoveObject and fallback objects are freed by it.
+    for (unsigned int listIndex = 0; listIndex != 2; ++listIndex) {
+        AnimationListNode* node = AnimationManager_List(manager, listIndex);
+        while (node != 0) {
+            AnimationListNode* next = node->next;
+            AnimationManager_RemoveObject(manager, node->animation);
+            node = next;
+        }
+    }
+
+    Entity* sentinel = (Entity*)(bytes + 0x72DAE4);
+    for (unsigned int index = 0; index != 20; ++index) {
+        Entity_Destructor(sentinel);
+        sentinel = (Entity*)((uint8_t*)sentinel + 0x3AC);
+    }
+
+    void** ownedBuffer = (void**)(bytes + 0x3AD488);
+    if (*ownedBuffer != 0) {
+        _free(*ownedBuffer);
+    }
+    *ownedBuffer = 0;
+
+    Entity* pooled = (Entity*)(bytes + 0x68);
+    for (unsigned int index = 0; index != 0x1000; ++index) {
+        Entity_Destructor(pooled);
+        pooled = (Entity*)((uint8_t*)pooled + 0x3AC);
+    }
 }
 
 AnimationObject* AnimationManager_AllocateObject(void* manager) {

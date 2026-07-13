@@ -24,6 +24,10 @@ enum AnimationListInsertion {
 typedef int (__fastcall *AnimationUpdateCallback)(AnimationObject* animation);
 typedef int (__fastcall *AnimationDrawCallback)(AnimationObject* animation);
 
+// Storage lifecycle recovered from the animation-owned portions of
+// GameStateInit (0x00445900) and the complete manager destructor (0x00446220).
+void AnimationManager_InitializeStorage(void* manager);
+void AnimationManager_DestroyStorage(void* manager);
 AnimationObject* AnimationManager_AllocateObject(void* manager);
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle);

@@ -227,3 +227,11 @@ C++ too. They preserve the retail ordering of callback execution, script
 advancement, completion removal, active-object accounting, and render-chain
 construction. The adjacent `0x00448980` bucket walk dispatches draw callbacks
 and the downstream object renderer while skipping objects marked for removal.
+The animation-owned lifecycle around those loops is reconstructed as well.
+Initialization now expresses the final state produced by `GameStateInit`'s
+full 0x732460-byte clear, establishes its render-target and runtime defaults,
+and initializes all 4,096 pooled entities. Shutdown reproduces `0x00446220`:
+both active lists are drained safely through the normal remover, the 20 render
+bucket sentinels and complete pool are destructed, and the manager-owned buffer
+at `+0x3AD488` is released. Scheduler callback registration remains in the
+larger `GameStateInit` function and is the next boundary around this lifecycle.

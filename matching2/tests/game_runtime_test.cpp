@@ -14,6 +14,8 @@ float _DAT_00470b48 = 10.0f;
 float _DAT_00470b4c = 20.0f;
 unsigned int DAT_00476f78;
 void* g_pGameStateManager;
+static int entityInitializations;
+static int entityDestructions;
 
 struct Entity;
 
@@ -29,7 +31,19 @@ Entity* Entity_Constructor(Entity* entity) {
     return entity;
 }
 
-void Entity_Init(void*, Entity*) {}
+void Entity_Init(void*, Entity*) {
+    ++entityInitializations;
+}
+
+void Entity_Destructor(Entity* entity) {
+    ++entityDestructions;
+    unsigned char* bytes = (unsigned char*)entity;
+    void** resource = (void**)(bytes + 0x35C - sizeof(void*));
+    if (*resource != 0) {
+        std::free(*resource);
+        *resource = 0;
+    }
+}
 
 static int scriptRuns;
 static int scriptResult = 1;
@@ -340,9 +354,59 @@ static void TestAnimationFrameLoops() {
     scriptResult = 1;
 }
 
+static void TestAnimationManagerLifecycle() {
+    const unsigned int managerSize = 0x732460;
+    std::vector<unsigned char> manager(managerSize, 0xA5);
+    entityInitializations = 0;
+    entityDestructions = 0;
+
+    AnimationManager_InitializeStorage(&manager[0]);
+    assert(entityInitializations == 0x1000);
+    assert(*(int*)(&manager[0]) == -1);
+    assert(*(int*)(&manager[4]) == -1);
+    assert(*(unsigned int*)(&manager[0x3ADA60]) == 1);
+    assert(manager[0x3ADA6C] == 0xFF);
+    assert(*(AnimationListNode**)(&manager[0x72DAD4]) == 0);
+    assert(*(unsigned int*)(&manager[0x3AD068]) == 0);
+
+    AnimationObject* primary = AnimationManager_AllocateObject(&manager[0]);
+    AnimationObject* secondary = AnimationManager_AllocateObject(&manager[0]);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], primary, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+    AnimationManager_RegisterObjectAt(
+        &manager[0], secondary, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+
+    void** primaryResource = (void**)((unsigned char*)primary + 0x35C -
+                                      sizeof(void*));
+    void** unusedPoolResource = (void**)(&manager[0] + 0x68 + 10 * 0x3AC +
+                                         0x35C - sizeof(void*));
+    void** sentinelResource = (void**)(&manager[0] + 0x72DAE4 +
+                                       0x35C - sizeof(void*));
+    *primaryResource = std::malloc(1);
+    *unusedPoolResource = std::malloc(1);
+    *sentinelResource = std::malloc(1);
+    *(void**)(&manager[0x3AD488]) = std::malloc(1);
+
+    AnimationManager_DestroyStorage(&manager[0]);
+    assert(entityInitializations == 0x1002);
+    assert(entityDestructions == 0x1000 + 20);
+    assert(*(AnimationListNode**)(&manager[0x72DAD4]) == 0);
+    assert(*(AnimationListNode**)(&manager[
+        0x72DAD4 + 2 * sizeof(AnimationListNode*)]) == 0);
+    assert(manager[0x3AC068] == 0);
+    assert(manager[0x3AC068 + 1] == 0);
+    assert(*(void**)(&manager[0x3AD488]) == 0);
+    assert(*primaryResource == 0);
+    assert(*unusedPoolResource == 0);
+    assert(*sentinelResource == 0);
+}
+
 int main() {
     TestFrameTimer();
     TestAnimationLookupAndPosition();
     TestAnimationFrameLoops();
+    TestAnimationManagerLifecycle();
     return 0;
 }
