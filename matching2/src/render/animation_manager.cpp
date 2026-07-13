@@ -8,6 +8,7 @@
 #include "th10/game/entity.hpp"
 
 extern "C" void* operator_new(unsigned int size);
+extern "C" void _free(void* allocation);
 extern void* g_pGameStateManager;
 extern float _DAT_00470b48;
 extern float _DAT_00470b4c;
@@ -15,7 +16,7 @@ extern unsigned int DAT_00476f78;
 
 Entity* __fastcall Entity_Constructor(Entity* entity);
 void __fastcall Entity_Init(void* unused, Entity* entity);
-void FUN_0043ee30(AnimationObject* animation);
+int FUN_0043ee30(AnimationObject* animation);
 
 static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -117,12 +118,199 @@ int AnimationManager_RegisterObject(
     return *nextHandle;
 }
 
+static void AnimationList_Unlink(AnimationListNode* node) {
+    if (node->next != 0) {
+        node->next->previous = node->previous;
+    }
+    if (node->previous != 0) {
+        node->previous->next = node->next;
+    }
+    node->next = 0;
+    node->previous = 0;
+}
+
+static AnimationListNode* AnimationObject_ChildMembership(
+    AnimationObject* animation) {
+    return (AnimationListNode*)((uint8_t*)animation + 4 +
+                                sizeof(AnimationListNode));
+}
+
+void AnimationManager_RemoveObject(
+    void* manager, AnimationObject* animation) {
+    if (animation == 0) {
+        return;
+    }
+
+    uint8_t* managerBytes = (uint8_t*)manager;
+    uint8_t* animationBytes = (uint8_t*)animation;
+    AnimationListNode* node =
+        (AnimationListNode*)(animationBytes + 4);
+    AnimationListNode** primaryHead =
+        (AnimationListNode**)(managerBytes + 0x72DAD4);
+    AnimationListNode** primaryTail =
+        (AnimationListNode**)(managerBytes + 0x72DAD4 +
+                              sizeof(AnimationListNode*));
+    AnimationListNode** secondaryHead =
+        (AnimationListNode**)(managerBytes + 0x72DAD4 +
+                              2 * sizeof(AnimationListNode*));
+    AnimationListNode** secondaryTail =
+        (AnimationListNode**)(managerBytes + 0x72DAD4 +
+                              3 * sizeof(AnimationListNode*));
+
+    if (*primaryTail == node) *primaryTail = node->previous;
+    if (*primaryHead == node) *primaryHead = node->next;
+    if (*secondaryTail == node) *secondaryTail = node->previous;
+    if (*secondaryHead == node) *secondaryHead = node->next;
+    AnimationList_Unlink(node);
+
+    // The object also embeds a node at +0x10 when it belongs to a parent's
+    // child list. The retail remover detaches both memberships.
+    AnimationListNode* childMembership =
+        AnimationObject_ChildMembership(animation);
+    AnimationList_Unlink(childMembership);
+
+    // The owned-resource pointer immediately precedes the 32-bit flags word.
+    // Expressing it relative to the flags keeps host semantic tests valid
+    // while producing retail +0x358 on the 32-bit target.
+    void** resource =
+        (void**)(animationBytes + 0x35C - sizeof(void*));
+    uint8_t* poolBegin = managerBytes + 0x68;
+    uint8_t* poolEnd = managerBytes + 0x3AC068;
+    if (poolBegin <= animationBytes && animationBytes < poolEnd) {
+        unsigned int index =
+            (unsigned int)(animationBytes - poolBegin) / 0x3AC;
+        managerBytes[0x3AC068 + index] = 0;
+        if (*resource != 0) {
+            _free(*resource);
+            *resource = 0;
+        }
+        Entity_Init(0, (Entity*)animation);
+        return;
+    }
+
+    if (*resource != 0) {
+        _free(*resource);
+        *resource = 0;
+    }
+    _free(animation);
+}
+
 static void AnimationObject_SetPosition(
     AnimationObject* animation, const float* position) {
     float* destination = (float*)((uint8_t*)animation + 0x340);
     destination[0] = position[0];
     destination[1] = position[1];
     destination[2] = position[2];
+}
+
+typedef void (*AnimationObjectOperation)(AnimationObject*, void* context);
+
+static void AnimationObject_ApplyToRootAndChildren(
+    AnimationObject* animation, AnimationObjectOperation operation,
+    void* context) {
+    operation(animation, context);
+    AnimationListNode* childMembership =
+        AnimationObject_ChildMembership(animation);
+    if (childMembership->previous != 0) {
+        return;
+    }
+    AnimationListNode* child = childMembership->next;
+    while (child != 0) {
+        operation(child->animation, context);
+        child = child->next;
+    }
+}
+
+static void AnimationObject_WriteStopFrame(
+    AnimationObject* animation, void* context) {
+    *(short*)((uint8_t*)animation + 0x304) = *(short*)context;
+}
+
+void AnimationManager_SetStopFrame(
+    void* manager, int animationHandle, short frame) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation != 0) {
+        AnimationObject_ApplyToRootAndChildren(
+            animation, AnimationObject_WriteStopFrame, &frame);
+    }
+}
+
+int AnimationManager_SetStopFrameAndRun(
+    void* manager, int animationHandle, short frame) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation == 0) {
+        return 0;
+    }
+
+    AnimationManager_SetStopFrame(manager, animationHandle, frame);
+    int result = FUN_0043ee30(animation);
+    AnimationListNode* childMembership =
+        AnimationObject_ChildMembership(animation);
+    if (childMembership->previous == 0) {
+        AnimationListNode* child = childMembership->next;
+        while (child != 0) {
+            result = FUN_0043ee30(child->animation);
+            child = child->next;
+        }
+    }
+    return result;
+}
+
+struct AnimationFlagChange {
+    unsigned int flag;
+    bool set;
+};
+
+static void AnimationObject_ChangeFlag(
+    AnimationObject* animation, void* context) {
+    AnimationFlagChange* change = (AnimationFlagChange*)context;
+    unsigned int* flags =
+        (unsigned int*)((uint8_t*)animation + 0x35C);
+    if (change->set) {
+        *flags |= change->flag;
+    } else {
+        *flags &= ~change->flag;
+    }
+}
+
+void AnimationManager_SetFlag(
+    void* manager, int animationHandle, unsigned int flag) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation != 0) {
+        AnimationFlagChange change = {flag, true};
+        AnimationObject_ApplyToRootAndChildren(
+            animation, AnimationObject_ChangeFlag, &change);
+    }
+}
+
+void AnimationManager_ClearFlag(
+    void* manager, int animationHandle, unsigned int flag) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation != 0) {
+        AnimationFlagChange change = {flag, false};
+        AnimationObject_ApplyToRootAndChildren(
+            animation, AnimationObject_ChangeFlag, &change);
+    }
+}
+
+void AnimationManager_MarkResourceForRemoval(
+    void* manager, void* resource) {
+    for (unsigned int listIndex = 0; listIndex != 2; ++listIndex) {
+        AnimationListNode* node =
+            AnimationManager_List(manager, listIndex);
+        while (node != 0) {
+            AnimationObject* animation = node->animation;
+            node = node->next;
+            uint8_t* bytes = (uint8_t*)animation;
+            if (*(void**)(bytes + 0x308) == resource) {
+                *(unsigned int*)(bytes + 0x35C) |= 0x04000000u;
+            }
+        }
+    }
 }
 
 void AnimationObject_LoadScript(
@@ -176,16 +364,56 @@ void AnimationManager_SetPosition(
     }
 
     AnimationObject_SetPosition(animation, position);
-    if (*(int*)((uint8_t*)animation + 0x18) != 0) {
+    AnimationListNode* childMembership =
+        AnimationObject_ChildMembership(animation);
+    if (childMembership->previous != 0) {
         return;
     }
 
-    AnimationListNode* child =
-        *(AnimationListNode**)((uint8_t*)animation + 0x14);
+    AnimationListNode* child = childMembership->next;
     while (child != 0) {
         AnimationObject_SetPosition(child->animation, position);
         child = child->next;
     }
+}
+
+void AnimationManager_SetTranslatedPosition(
+    void* manager, int animationHandle, const float* position) {
+    float translated[3] = {
+        position[0] + _DAT_00470b4c,
+        position[1] + _DAT_00470b48,
+        position[2]
+    };
+    AnimationManager_SetPosition(manager, animationHandle, translated);
+}
+
+bool AnimationManager_ValidateHandle(
+    void* manager, int* animationHandle) {
+    if (AnimationManager_Find(manager, *animationHandle) != 0) {
+        return true;
+    }
+    *animationHandle = 0;
+    return false;
+}
+
+int AnimationManager_FindChildByScriptIndex(
+    void* manager, int animationHandle, short scriptIndex) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation == 0) {
+        return 0;
+    }
+
+    AnimationListNode* child =
+        AnimationObject_ChildMembership(animation)->next;
+    while (child != 0) {
+        AnimationObject* childAnimation = child->animation;
+        if (*(short*)((uint8_t*)childAnimation + 0x38A) == scriptIndex) {
+            return *(int*)childAnimation;
+        }
+        child = child->next;
+    }
+    return 0;
 }
 
 int PlayerAnimation_Create(

@@ -21,6 +21,10 @@ extern "C" void* operator_new(unsigned int size) {
     return std::malloc(size);
 }
 
+extern "C" void _free(void* allocation) {
+    std::free(allocation);
+}
+
 Entity* Entity_Constructor(Entity* entity) {
     return entity;
 }
@@ -28,7 +32,10 @@ Entity* Entity_Constructor(Entity* entity) {
 void Entity_Init(void*, Entity*) {}
 
 static int scriptRuns;
-void FUN_0043ee30(AnimationObject*) { ++scriptRuns; }
+int FUN_0043ee30(AnimationObject*) {
+    ++scriptRuns;
+    return scriptRuns;
+}
 
 static void TestFrameTimer() {
     float speed = 1.0f;
@@ -55,8 +62,8 @@ static void TestFrameTimer() {
 static void TestAnimationLookupAndPosition() {
     const unsigned int managerSize = 0x732458;
     std::vector<unsigned char> manager(managerSize, 0);
-    unsigned char firstStorage[0x360] = {};
-    unsigned char secondStorage[0x360] = {};
+    unsigned char firstStorage[0x3AC] = {};
+    unsigned char secondStorage[0x3AC] = {};
     AnimationObject* first = (AnimationObject*)firstStorage;
     AnimationObject* second = (AnimationObject*)secondStorage;
     *(int*)firstStorage = 17;
@@ -82,6 +89,49 @@ static void TestAnimationLookupAndPosition() {
     assert(stored[1] == position[1]);
     assert(stored[2] == position[2]);
 
+    AnimationManager_SetStopFrame(&manager[0], 29, 12);
+    assert(*(short*)(secondStorage + 0x304) == 12);
+    int runResult =
+        AnimationManager_SetStopFrameAndRun(&manager[0], 29, 18);
+    assert(runResult == 1);
+    assert(*(short*)(secondStorage + 0x304) == 18);
+    AnimationManager_SetFlag(&manager[0], 29, 2);
+    assert((*(unsigned int*)(secondStorage + 0x35C) & 2) != 0);
+    AnimationManager_ClearFlag(&manager[0], 29, 2);
+    assert((*(unsigned int*)(secondStorage + 0x35C) & 2) == 0);
+
+    *(void**)(secondStorage + 0x308) = (void*)0xCAFE;
+    AnimationManager_MarkResourceForRemoval(
+        &manager[0], (void*)0xCAFE);
+    assert((*(unsigned int*)(secondStorage + 0x35C) & 0x04000000u) != 0);
+
+    int validHandle = 29;
+    assert(AnimationManager_ValidateHandle(&manager[0], &validHandle));
+    int invalidHandle = 77;
+    assert(!AnimationManager_ValidateHandle(&manager[0], &invalidHandle));
+    assert(invalidHandle == 0);
+
+    const float untranslated[3] = {1.0f, 2.0f, 3.0f};
+    AnimationManager_SetTranslatedPosition(&manager[0], 29, untranslated);
+    assert(stored[0] == 21.0f);
+    assert(stored[1] == 12.0f);
+    assert(stored[2] == 3.0f);
+
+    AnimationListNode* rootChildren =
+        (AnimationListNode*)(firstStorage + 4 + sizeof(AnimationListNode));
+    AnimationListNode childLink = {second, 0, rootChildren};
+    rootChildren->next = &childLink;
+    rootChildren->previous = 0;
+    *(short*)(secondStorage + 0x38A) = 0x44;
+    AnimationManager_SetStopFrame(&manager[0], 17, 33);
+    assert(*(short*)(firstStorage + 0x304) == 33);
+    assert(*(short*)(secondStorage + 0x304) == 33);
+    AnimationManager_SetFlag(&manager[0], 17, 0x80);
+    assert((*(unsigned int*)(firstStorage + 0x35C) & 0x80) != 0);
+    assert((*(unsigned int*)(secondStorage + 0x35C) & 0x80) != 0);
+    assert(AnimationManager_FindChildByScriptIndex(
+               &manager[0], 17, 0x44) == 29);
+
     std::memset(&manager[0], 0, manager.size());
     g_pGameStateManager = &manager[0];
     AnimationObject* pooled = AnimationManager_AllocateObject(&manager[0]);
@@ -103,7 +153,7 @@ static void TestAnimationLookupAndPosition() {
         resource, scratch, 0x1B9, playerPosition);
     assert(playerHandle == 2);
     assert(scratch[0] == playerHandle);
-    assert(scriptRuns == 1);
+    assert(scriptRuns == 2);
     AnimationObject* playerAnimation =
         AnimationManager_Find(&manager[0], playerHandle);
     assert(playerAnimation != 0);
@@ -112,6 +162,10 @@ static void TestAnimationLookupAndPosition() {
     assert(translated[0] == 22.0f);
     assert(translated[1] == 13.0f);
     assert(translated[2] == 4.0f);
+
+    AnimationManager_RemoveObject(&manager[0], playerAnimation);
+    assert(AnimationManager_Find(&manager[0], playerHandle) == 0);
+    assert(manager[0x3AC068 + 1] == 0);
 }
 
 int main() {

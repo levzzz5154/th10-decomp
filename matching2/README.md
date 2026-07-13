@@ -69,6 +69,9 @@ priority-ordered insertion into both retail callback lists.
 Gameplay-runtime coverage checks fractional/normal/reverse frame-timer
 advancement, animation lookup across both manager lists, shared-position
 updates, pool allocation, handle registration, and player animation creation.
+It also covers root-to-child propagation, stop-frame updates, script restart,
+generic flag changes, resource retirement, handle validation, child lookup,
+and pooled-object removal.
 
 The supported original executable has SHA-256:
 
@@ -202,3 +205,9 @@ selection/reset, child-position propagation, and translated player-animation
 creation are readable C++ now. The large animation instruction interpreter at
 `0x0043EE30` remains the downstream dependency for actually executing the
 selected script.
+The surrounding handle API is now broader than that initial creation path:
+animation stop frames can be changed with or without immediately running the
+script, arbitrary object flags propagate through root child lists, resource
+owners can be retired across both manager lists, stale handles are cleared,
+children can be selected by script index, and removal detaches both embedded
+list memberships before releasing pooled or fallback storage.
