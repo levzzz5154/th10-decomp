@@ -81,6 +81,13 @@ static bool Equal(const uint8_t* left, const char* right, uint32_t size) {
     return true;
 }
 
+static bool TestPathComponentHelper() {
+    const char* nested = "dir/sub/file.anm";
+    const char* plain = "file.anm";
+    return File_AfterFirstSlash(nested) == nested + 4 &&
+        File_AfterFirstSlash(plain) == plain;
+}
+
 static bool TestLiteralsAndAllocation() {
     BitWriter encoded;
     encoded.Literal('H');
@@ -364,29 +371,32 @@ static bool TestPackedEntryTable() {
 }
 
 int main() {
-    if (!TestLiteralsAndAllocation()) {
+    if (!TestPathComponentHelper()) {
         return 1;
     }
-    if (!TestOverlappingBackReference()) {
+    if (!TestLiteralsAndAllocation()) {
         return 2;
     }
-    if (!TestRetailArchiveHeader()) {
+    if (!TestOverlappingBackReference()) {
         return 3;
     }
-    if (!TestRetailCryptParameterTable()) {
+    if (!TestRetailArchiveHeader()) {
         return 4;
     }
-    if (!TestEntryDataDecode()) {
+    if (!TestRetailCryptParameterTable()) {
         return 5;
     }
-    if (!TestArchiveEntryRead()) {
+    if (!TestEntryDataDecode()) {
         return 6;
     }
-    if (!TestArchiveOpenAndRead()) {
+    if (!TestArchiveEntryRead()) {
         return 7;
     }
-    if (!TestPackedEntryTable()) {
+    if (!TestArchiveOpenAndRead()) {
         return 8;
+    }
+    if (!TestPackedEntryTable()) {
+        return 9;
     }
     return 0;
 }

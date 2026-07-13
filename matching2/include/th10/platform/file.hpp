@@ -39,3 +39,4 @@ public:
 };
 
 void File_ResolvePath(const char* path, char output[260]);
+const char* File_AfterFirstSlash(const char* path);

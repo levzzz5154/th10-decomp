@@ -11,6 +11,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/archive/crypt.cpp" \
     "$ROOT/src/archive/dat.cpp" \
     "$ROOT/src/archive/lzss.cpp" \
+    "$ROOT/src/platform/path.cpp" \
     "$ROOT/tests/archive_test.cpp" \
     -o "$TEST_BUILD/archive_test"
 

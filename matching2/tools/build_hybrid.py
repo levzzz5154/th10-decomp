@@ -35,6 +35,8 @@ OVERLAYS = (
     ("file.obj", "Tell@FileHandle", 0x00435510),
     ("file.obj", "GetSize@FileHandle", 0x00435530),
     ("file.obj", "Seek@FileHandle", 0x00435550),
+    ("file.obj", "??1FileInterface", 0x00435690),
+    ("file.obj", "??_GFileInterface", 0x004356A0),
     ("heap.obj", "LegacyString_Clear", 0x004381F0),
     ("entity.obj", "DestroyEntityList", 0x00438A30),
 )
