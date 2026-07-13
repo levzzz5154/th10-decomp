@@ -1,7 +1,40 @@
 # Documented matching reimplementation
 
 This tree contains readable C++ reconstructions of game functions. Compile with
-the original MSVC 7.1 code-generation settings:
+the original MSVC 7.1 code-generation settings.
+
+## Runnable hybrid build
+
+The current reimplementation is built as a hybrid PE. The original executable
+provides functions and data that have not been reconstructed yet; verified
+functions compiled from this directory are overlaid at their original virtual
+addresses. The builder rejects any overlay whose non-relocation bytes differ.
+This maintains a playable checkpoint throughout the decompilation instead of
+waiting for all 1,196 functions and the global data layout to be complete.
+
+```bash
+./build.sh
+./run.sh
+```
+
+`build.sh` verifies the supported retail executable by SHA-256 and writes
+`build/th10_reimpl.exe`. `run.sh` exposes the retail `th10.dat`, `thbgm.dat`, and
+configuration through symlinks beside the rebuilt executable, then starts it
+under Wine. Override the defaults with `TH10_ORIGINAL_EXE` and `TH10_GAME_DIR`.
+
+The supported original executable has SHA-256:
+
+```text
+2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
+```
+
+The current overlays are byte-identical, so the resulting PE is still identical
+to that retail executable. As readable implementations are completed, this
+provides the fixed-address integration point for replacing retail code safely.
+
+## Manual function comparison
+
+Compile an individual source file with:
 
 ```bash
 mkdir -p build

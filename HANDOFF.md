@@ -136,6 +136,16 @@ th10Decomp/
   first 45 bytes now match exactly; later code still differs because MSVC
   schedules register restores/pops differently.
 - Added reproducible compile and compare commands to `matching2/README.md`.
+- Initialized a Git repository on `main`; the initial checkpoint is `17f7817`.
+- Added `matching2/build.sh` and `matching2/tools/build_hybrid.py`. The hybrid
+  builder verifies the retail executable hash, overlays only byte-matched COFF
+  functions at their original virtual addresses, and preserves the original PE
+  data, imports, and resources for a continuously playable baseline.
+- Added `matching2/run.sh`. It links the original `th10.dat` and `thbgm.dat`
+  archives beside the rebuilt executable because TH10 resolves archives from
+  the module directory rather than the shell working directory.
+- Verified under Wine that `th10_reimpl.exe` opens both original archives and
+  remains in the game loop for a 20-second bounded smoke test.
 
 ### What Works
 
