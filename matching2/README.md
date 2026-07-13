@@ -12,12 +12,14 @@ include/th10/
   game/       Entity, game-state, player, and scoring layouts
   platform/   Win32-compatible types and ABI declarations
   script/     ECL instruction and VM layouts
+  util/       ABI-compatible containers and allocation owners
 src/
   game/       Gameplay object lifecycle and state transitions
   math/       Timers, vectors, and numeric helpers
   platform/   Win32 window and process integration
   render/     Direct3D initialization and rendering state
   script/     ECL virtual machine implementation
+  util/       Heap ownership and legacy container operations
 tools/        COFF comparison and fixed-address hybrid PE builder
 ```
 
@@ -43,6 +45,8 @@ waiting for all 1,196 functions and the global data layout to be complete.
 `build/th10_reimpl.exe`. `run.sh` exposes the retail `th10.dat`, `thbgm.dat`, and
 configuration through symlinks beside the rebuilt executable, then starts it
 under Wine. Override the defaults with `TH10_ORIGINAL_EXE` and `TH10_GAME_DIR`.
+Every C++ translation unit under `src/` is compiled on each build; duplicate
+basenames are rejected so object selection remains deterministic.
 
 The supported original executable has SHA-256:
 
@@ -85,7 +89,11 @@ Current MSVC 7.1 results for `entity.cpp`:
 |---|---:|---:|
 | `Entity_Destructor` | 30 | 100% |
 | `Entity_Constructor` | 88 | 100% |
+| `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
+| `HeapBuffer_Release` | 22 | 100% |
+| `FileHandle_Close` | 30 | 100% |
+| `LegacyString_Clear` | 34 | 100% |
 | `DestroyEntityList` | 43 | 100% |
 | `Entity_Init` | 273 | partial; exact first 45 bytes |
 

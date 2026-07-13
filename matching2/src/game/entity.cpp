@@ -32,6 +32,17 @@ void __fastcall EntityAnimation_Release(Entity* e) {
 }
 
 // ============================================================================
+// 0x00405DE0 - Release the secondary allocation at Entity +0x360.
+// Pure C++; the layout and unconditional null assignment reproduce the retail
+// destructor helper.
+// ============================================================================
+void __fastcall EntitySecondaryResource_Release(Entity* e) {
+    void* resource = e->secondary_resource;
+    if (resource) _free(resource);
+    e->secondary_resource = 0;
+}
+
+// ============================================================================
 // 0x00402050 - Entity Constructor
 // Clears flag bits across the entity, zeroes 0xEB dwords, sets end marker.
 // __fastcall: ECX = this, returns this in EAX

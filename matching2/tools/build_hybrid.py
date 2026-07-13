@@ -23,7 +23,11 @@ DEFAULT_EXE = Path("/home/levzzz/Games/TH10 - Mountain of Faith/th10.exe")
 OVERLAYS = (
     ("entity.obj", "Entity_Destructor", 0x00401FF0),
     ("entity.obj", "Entity_Constructor", 0x00402050),
+    ("entity.obj", "EntitySecondaryResource_Release", 0x00405DE0),
     ("entity.obj", "EntityAnimation_Release", 0x0041AD60),
+    ("heap.obj", "HeapBuffer_Release", 0x00435250),
+    ("file.obj", "FileHandle_Close", 0x00435460),
+    ("heap.obj", "LegacyString_Clear", 0x004381F0),
     ("entity.obj", "DestroyEntityList", 0x00438A30),
 )
 

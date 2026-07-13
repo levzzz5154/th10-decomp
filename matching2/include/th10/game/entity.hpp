@@ -117,8 +117,10 @@ struct Entity {
     // +0x35C  word = 7 (init) or 0xFFFF (constructor)
     uint16_t  end_marker;
     uint16_t  pad_35E;
-    // +0x360 - 0x3AB
-    uint8_t   pad_360[0x3AC - 0x360];
+    // +0x360  second owned resource used by another entity subsystem
+    void*     secondary_resource;
+    // +0x364 - 0x3AB
+    uint8_t   pad_364[0x3AC - 0x364];
 };
 // static_assert not available in MSVC 7.1
 // sizeof(Entity) == 0x3AC

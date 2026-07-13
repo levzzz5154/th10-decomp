@@ -147,6 +147,17 @@ th10Decomp/
 - Added a readable `ScoreCounter::AddScaled` reconstruction for `0x0041BE80`.
   It is not yet overlaid because MSVC 7.1 selects a register-form multiply while
   the retail function uses a stack-memory operand.
+- Added three more byte-exact ordinary-C++ implementations:
+  `EntitySecondaryResource_Release` (`0x00405DE0`, 30/30),
+  `HeapBuffer_Release` (`0x00435250`, 22/22), and
+  `LegacyString_Clear` (`0x004381F0`, 34/34).
+- Added the Win32-backed `FileHandle_Close` implementation (`0x00435460`,
+  30/30), using a proper `dllimport` declaration so MSVC emits the original
+  indirect IAT call.
+- The hybrid now verifies eight overlays totaling 307 comparable bytes.
+- `matching2/build.sh` now compiles all 12 subsystem translation units rather
+  than maintaining a partial source list. Duplicate source basenames fail the
+  build to keep COFF object selection deterministic.
 
 ### What Works
 
