@@ -75,23 +75,29 @@ DWORD BufferFile::GetSize() const {
 BYTE BufferFile::Seek(LONG distance, DWORD origin) {
     switch (origin) {
     case 0:
-        if (distance < 0 || (DWORD)distance >= size_) return 0;
-        position_ = data_ + distance;
-        return 1;
+        goto from_start;
     case 1: {
         DWORD remaining = (DWORD)((data_ + size_) - position_);
-        if ((LONG)remaining <= distance) return 0;
+        if ((LONG)remaining <= distance) goto failed;
         position_ += distance;
         return 1;
     }
     case 2: {
-        if (distance > 0) return 0;
+        if (distance > 0) goto failed;
         DWORD magnitude = distance < 0 ? (DWORD)-distance : (DWORD)distance;
-        if (magnitude >= size_) return 0;
+        if (magnitude >= size_) goto failed;
         position_ = data_ + size_ + distance;
         return 1;
     }
     default:
-        return 0;
+        goto failed;
     }
+
+failed:
+    return 0;
+
+from_start:
+    if (distance < 0 || (DWORD)distance >= size_) goto failed;
+    position_ = data_ + distance;
+    return 1;
 }

@@ -165,6 +165,38 @@ static bool TestOverlappingBackReference() {
     return result == decoded && Equal(decoded, "ABABAB", sizeof(decoded));
 }
 
+static bool TestCompressionRoundTrip() {
+    static const uint8_t input[6] = {'A', 'B', 'A', 'B', 'A', 'B'};
+    int32_t compressed_size = 0;
+    uint8_t* compressed = Dat_LzssCompress(
+        input, sizeof(input), &compressed_size);
+    if (!compressed) return false;
+
+    BitWriter expected;
+    expected.Literal('A');
+    expected.Literal('B');
+    expected.BackReference(1, 1);
+    expected.End();
+    bool passed = compressed_size == expected.Size();
+    for (int32_t index = 0; passed && index < compressed_size; ++index) {
+        if (compressed[index] != expected.Bytes()[index]) passed = false;
+    }
+
+    uint8_t decoded[sizeof(input)] = {0};
+    if (passed) {
+        passed = Dat_LzssDecompress(
+            compressed,
+            compressed_size,
+            decoded,
+            sizeof(decoded)) == decoded;
+    }
+    for (uint32_t index = 0; passed && index < sizeof(input); ++index) {
+        if (decoded[index] != input[index]) passed = false;
+    }
+    free(compressed);
+    return passed;
+}
+
 static bool TestRetailArchiveHeader() {
     uint8_t header[16] = {
         0x13, 0x55, 0xB3, 0xB0, 0xF0, 0xF4, 0x54, 0xD4,
@@ -429,23 +461,26 @@ int main() {
     if (!TestOverlappingBackReference()) {
         return 4;
     }
-    if (!TestRetailArchiveHeader()) {
+    if (!TestCompressionRoundTrip()) {
         return 5;
     }
-    if (!TestRetailCryptParameterTable()) {
+    if (!TestRetailArchiveHeader()) {
         return 6;
     }
-    if (!TestEntryDataDecode()) {
+    if (!TestRetailCryptParameterTable()) {
         return 7;
     }
-    if (!TestArchiveEntryRead()) {
+    if (!TestEntryDataDecode()) {
         return 8;
     }
-    if (!TestArchiveOpenAndRead()) {
+    if (!TestArchiveEntryRead()) {
         return 9;
     }
-    if (!TestPackedEntryTable()) {
+    if (!TestArchiveOpenAndRead()) {
         return 10;
+    }
+    if (!TestPackedEntryTable()) {
+        return 11;
     }
     return 0;
 }

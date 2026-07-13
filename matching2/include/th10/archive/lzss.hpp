@@ -9,3 +9,10 @@ uint8_t* __stdcall Dat_LzssDecompress(
     int32_t input_size,
     uint8_t* output,
     uint32_t output_size);
+
+// Reentrant cleaned form of the encoder at 0x004359B0. The returned buffer is
+// allocated with malloc and must be released by the caller.
+uint8_t* __stdcall Dat_LzssCompress(
+    const uint8_t* input,
+    int32_t input_size,
+    int32_t* output_size);

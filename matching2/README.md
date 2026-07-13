@@ -15,7 +15,7 @@ include/th10/
   script/     ECL instruction and VM layouts
   util/       ABI-compatible containers and allocation owners
 src/
-  archive/    DAT decryption, index parsing, lookup, and LZSS decompression
+  archive/    DAT ownership, registry, encryption, and LZSS codecs
   game/       Gameplay object lifecycle and state transitions
   math/       Timers, vectors, and numeric helpers
   platform/   Win32 window and process integration
@@ -54,7 +54,9 @@ basenames are rejected so object selection remains deterministic.
 current suite checks the retail `th10.dat` header cipher and decoded metadata,
 the retail content-cipher parameter table, filename-based cipher selection and
 round-trip decoding, packed entry-table parsing and lookup, plus literal and
-overlapping-reference LZSS streams. A fully synthetic DAT archive additionally
+overlapping-reference LZSS streams. The cleaned encoder is checked against a
+deterministic back-reference vector and round-tripped through the decoder. A
+fully synthetic DAT archive additionally
 tests backend ownership, index loading, sentinel construction, reopening,
 named asset reads, and cleanup as one end-to-end path.
 
