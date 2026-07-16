@@ -13,6 +13,7 @@ float _DAT_00470b68 = 0.99f;
 float _DAT_00470b64 = 1.01f;
 float _DAT_00470b48 = 10.0f;
 float _DAT_00470b4c = 20.0f;
+float _DAT_00470b60 = 0.5f;
 unsigned int DAT_00476f78;
 void* g_pGameStateManager;
 static int entityInitializations;
@@ -299,6 +300,34 @@ static void TestAnimationLookupAndPosition() {
     assert(firstStorage[0x3A0] == 0x10);
     assert(firstStorage[0x3A1] == 0x10);
     assert(*(void**)(firstStorage + 0x308) == stateResource);
+
+    stateScripts[3] = (void*)0x8765;
+    *(float*)(firstStorage + 0x3C) = 12.0f;
+    *(unsigned int*)(firstStorage + 0x35C) = 0x200u;
+    *(int*)(firstStorage + 0xB4) = 5;
+    *(int*)(firstStorage + 0x22C) = 6;
+    int scriptRunsBeforeChange = scriptRuns;
+    int firstHandle = 17;
+    AnimationManager_ChangeScript(&manager[0], &firstHandle, 3);
+    assert(*(short*)(firstStorage + 0x38A) == 3);
+    assert(*(float*)(firstStorage + 0x3C) == 6.0f);
+    assert((*(unsigned int*)(firstStorage + 0x35C) & 0x200u) == 0);
+    assert((*(unsigned int*)(firstStorage + 0x35C) & 0xFFFFu) == 6u);
+    assert(*(int*)(firstStorage + 0x2FC) == -1);
+    assert(*(int*)(firstStorage + 0xB4) == 0);
+    assert(*(int*)(firstStorage + 0x22C) == 0);
+    assert(*(unsigned short*)(firstStorage + 0x386) == 9);
+    assert(scriptRuns == scriptRunsBeforeChange + 1);
+    int entityInitializationsAfterChange = entityInitializations;
+
+    stateScripts[1] = 0;
+    AnimationManager_ChangeScript(&manager[0], &firstHandle, 1);
+    assert(*(short*)(firstStorage + 0x38A) == 3);
+    assert(scriptRuns == scriptRunsBeforeChange + 1);
+    int absentHandle = 404;
+    AnimationManager_ChangeScript(&manager[0], &absentHandle, 3);
+    assert(scriptRuns == scriptRunsBeforeChange + 1);
+    assert(entityInitializations == entityInitializationsAfterChange);
 
     std::memset(&manager[0], 0, manager.size());
     g_pGameStateManager = &manager[0];

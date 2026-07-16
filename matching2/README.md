@@ -303,6 +303,12 @@ primary/secondary front/back creation variants, positioned creation, pooled
 and fallback removal, both stop-frame forms, root/child flag propagation,
 translated positioning, resource retirement, sprite-selection wrappers,
 child lookup, script-state initialization, and complete manager teardown.
+The final bounded manager wrapper at `0x004496D0` and its dependency at
+`0x0043E8B0` now switch an existing object to another script while preserving
+the entity allocation. The semantic form retains the retail no-op behavior for
+missing scripts and resources that are still loading, resets the script runtime
+fields in retail order, runs the instruction interpreter, and updates the
+manager script-run counter.
 The Win32 boundary now uses typed `WNDCLASSA`, `STARTUPINFOA`, and a conventional
 four-argument window procedure. Window creation receives its `HINSTANCE`
 explicitly instead of relying on hidden EBX state, and MIDI output-completion

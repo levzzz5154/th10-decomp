@@ -67,6 +67,10 @@ void AnimationObject_LoadScript(
     AnimationObject* animation, void* resource, int animationIndex);
 void AnimationObject_LoadScriptPreservingState(
     AnimationObject* animation, void* resource, int animationIndex);
+void AnimationObject_ChangeScript(
+    AnimationObject* animation, void* resource, int animationIndex);
+void AnimationManager_ChangeScript(
+    void* manager, const int* animationHandle, int animationIndex);
 void AnimationObject_InitializeScriptState(
     AnimationObject* animation, void* resource, int animationIndex);
 void AnimationManager_SetPosition(

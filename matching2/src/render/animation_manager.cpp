@@ -14,6 +14,7 @@ extern "C" void _free(void* allocation);
 extern void* g_pGameStateManager;
 extern float _DAT_00470b48;
 extern float _DAT_00470b4c;
+extern float _DAT_00470b60;
 extern unsigned int DAT_00476f78;
 
 Entity* __fastcall Entity_Constructor(Entity* entity);
@@ -625,6 +626,72 @@ void AnimationObject_LoadScriptPreservingState(
     AnimationObject* animation, void* resource, int animationIndex) {
     AnimationObject_LoadScriptInternal(
         animation, resource, animationIndex, false);
+}
+
+// 0x0043E8B0 - Switch an existing object to another script without running
+// the entity constructor. Invalid or currently-loading resources are ignored.
+void AnimationObject_ChangeScript(
+    AnimationObject* animation, void* resource, int animationIndex) {
+    uint8_t* bytes = (uint8_t*)animation;
+    uint8_t* resourceBytes = (uint8_t*)resource;
+    void** scripts = *(void***)(resourceBytes + 0x11C);
+    void* script = scripts[animationIndex];
+    if (script == 0 || *(int*)(resourceBytes + 0x124) != 0) {
+        return;
+    }
+
+    Entity* entity = (Entity*)animation;
+    entity->ScriptIndex() = (short)animationIndex;
+    entity->ScriptResource() = resource;
+    if ((entity->AnimationFlags() & 0x200u) != 0) {
+        *(float*)(bytes + 0x3C) *= _DAT_00470b60;
+        entity->AnimationFlags() =
+            (entity->AnimationFlags() | 8u) ^ 0x200u;
+    }
+    *(unsigned short*)(bytes + 0x35C) = 7;
+    *(int*)(bytes + 0x2FC) = -1;
+    *(int*)(bytes + 0x60) = 0;
+    *(int*)(bytes + 0x64) = 0;
+    *(unsigned int*)(bytes + 0x5C) = 0xFFF0BDC1u;
+    const unsigned int resetOffsets[] = {
+        0xB4, 0x100, 0x12C, 0x178, 0x1B4, 0x200, 0x22C
+    };
+    for (unsigned int index = 0;
+         index != sizeof(resetOffsets) / sizeof(resetOffsets[0]); ++index) {
+        *(int*)(bytes + resetOffsets[index]) = 0;
+    }
+    entity->ScriptResourceId() = *(unsigned short*)resourceBytes;
+    entity->ScriptResource() = resource;
+    entity->AnimationFlags() &= 0xFFFFF9FFu;
+    entity->ScriptBase() = script;
+    entity->ScriptCursor() = script;
+
+    unsigned int* timerFlags = (unsigned int*)(bytes + 0x6C);
+    if ((*timerFlags & 1u) == 0) {
+        *(int*)(bytes + 0x60) = 0;
+        *(unsigned int*)(bytes + 0x5C) = 0xFFF0BDC1u;
+        *(int*)(bytes + 0x64) = 0;
+        *(unsigned int**)(bytes + 0x68) = &DAT_00476f78;
+        *timerFlags |= 1u;
+    }
+    *(int*)(bytes + 0x60) = 0;
+    *(int*)(bytes + 0x64) = 0;
+    *(int*)(bytes + 0x5C) = -1;
+    entity->AnimationFlags() &= ~1u;
+    FUN_0043ee30(animation);
+    ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
+}
+
+// 0x004496D0 - Handle-based script switch using the object's current resource.
+void AnimationManager_ChangeScript(
+    void* manager, const int* animationHandle, int animationIndex) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, *animationHandle);
+    if (animation != 0) {
+        AnimationObject_ChangeScript(
+            animation, ((Entity*)animation)->ScriptResource(),
+            animationIndex);
+    }
 }
 
 // 0x00449870 - Initialize position/script state before selecting a script.

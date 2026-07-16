@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 108,
-        "retail_bytes": 41465
+        "function_count": 110,
+        "retail_bytes": 42249
       },
       "exact-overlay": {
         "function_count": 32,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 29,
+        "implemented_functions": 31,
         "tracked_bytes": 123584,
-        "implemented_bytes": 11408
+        "implemented_bytes": 12192
       },
       {
         "name": "large",
@@ -3869,8 +3869,8 @@
       "address": "0x0043E8B0",
       "symbol": "FUN_0043e8b0",
       "size": 528,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043EAC0",
@@ -4522,8 +4522,8 @@
       "address": "0x004496D0",
       "symbol": "FUN_004496d0",
       "size": 256,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004497D0",
