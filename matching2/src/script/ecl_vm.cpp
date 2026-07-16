@@ -10,6 +10,7 @@ void FUN_004495e0(void);
 extern uint8_t PTR_caseD_14f_00411de0[];
 extern float DAT_00470b04; // zero: first local-variable encoding
 extern float DAT_00470b60; // -1: pop from the ECL argument stack
+extern void* g_pGameStateManager;
 
 namespace {
 
@@ -259,6 +260,35 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         const float minimum = ECL_ResolveFloatOperand(state->cursor, 0);
         EntityFloat(entity, 0x1400) = minimum;
         EntityFloat(entity, 0x1404) = maximum;
+        return 0;
+    }
+    case ECL_SET_CURRENT_DIFFICULTY: {
+        int32_t difficulty = ECL_ResolveIntOperand(state->cursor, 0);
+        if ((EntityFlags(entity) & 0x8000u) != 0) {
+            if (difficulty == 1)
+                difficulty = 10;
+            else if (difficulty == 4)
+                difficulty = 11;
+        }
+        EntityInt(entity, 0x13CC) = difficulty;
+        return 0;
+    }
+    case ECL_RESET_DIFFICULTY_STATE: {
+        const int32_t difficulty = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityInt(entity, 0x13C0) = difficulty;
+        EntityInt(entity, 0x13C4) = difficulty;
+        EntityInt(entity, 0x13C8) = difficulty;
+        if (g_pGameStateManager != 0) {
+            uint8_t* manager = (uint8_t*)g_pGameStateManager;
+            for (unsigned int offset = 0x9E94;
+                 offset <= 0x9EB0; offset += 4)
+                *(int32_t*)(manager + offset) = 0;
+        }
+        return 0;
+    }
+    case ECL_SET_DIFFICULTY_SQUARED: {
+        const float value = ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, 0x1454) = value * value;
         return 0;
     }
     default:

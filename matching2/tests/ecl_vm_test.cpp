@@ -8,6 +8,7 @@
 uint8_t PTR_caseD_14f_00411de0[0x200] = {};
 float DAT_00470b04 = 0.0f;
 float DAT_00470b60 = -1.0f;
+void* g_pGameStateManager = 0;
 
 extern "C" uint32_t FUN_0044fdb0(uint32_t, void*, int) { return 0; }
 extern "C" void FUN_00449590(void) {}
@@ -161,6 +162,31 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     for (int index = 0; index != 12; ++index)
         assert(*(int32_t*)(entity + 0x13D0 + index * 4) == 0);
+
+    fixture.instruction.instruction.opcode = ECL_SET_CURRENT_DIFFICULTY;
+    fixture.Operands()[0] = 4;
+    *(uint32_t*)(entity + 0x1444) = 0x8000u;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(entity + 0x13CC) == 11);
+
+    uint8_t manager[0x9F00] = {};
+    g_pGameStateManager = manager;
+    for (unsigned int offset = 0x9E94; offset <= 0x9EB0; offset += 4)
+        *(int32_t*)(manager + offset) = 99;
+    fixture.instruction.instruction.opcode = ECL_RESET_DIFFICULTY_STATE;
+    fixture.Operands()[0] = 6;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(entity + 0x13C0) == 6);
+    assert(*(int32_t*)(entity + 0x13C4) == 6);
+    assert(*(int32_t*)(entity + 0x13C8) == 6);
+    for (unsigned int offset = 0x9E94; offset <= 0x9EB0; offset += 4)
+        assert(*(int32_t*)(manager + offset) == 0);
+
+    fixture.instruction.instruction.opcode = ECL_SET_DIFFICULTY_SQUARED;
+    fixture.Operands()[0] = FloatBits(-3.5f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x1454) == 12.25f);
+    g_pGameStateManager = 0;
 }
 }
 

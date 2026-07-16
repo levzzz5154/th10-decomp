@@ -114,6 +114,10 @@ conversion, pop order, and empty-stack fallbacks.
 The large dispatcher at `0x0040E770` is explicitly tracked as partial while
 its recovered flag, boundary, difficulty, and range leaf cases coexist with
 the remaining retail-backed opcode families.
+The next stateful leaf batch covers opcodes `0x14A`, `0x14B`, and `0x15A`:
+high-bit difficulty remapping, shared difficulty-state reset, and squared
+float assignment. Tests exercise the manager-wide reset fields and negative
+input squaring through the real dispatcher entry point.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without
