@@ -291,6 +291,21 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         EntityFloat(entity, 0x1454) = value * value;
         return 0;
     }
+    case ECL_SET_DIFFICULTY_PARAMETER: {
+        // Retail evaluates the integer parameter, float parameter, then slot
+        // index in that order before touching the shared difficulty table.
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 2);
+        const float scale = ECL_ResolveFloatOperand(state->cursor, 1);
+        const int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t difficulty = EntityInt(entity, 0x13C4);
+        if (g_pGameStateManager != 0) {
+            uint8_t* manager = (uint8_t*)g_pGameStateManager;
+            *(int32_t*)(manager + 0x9E98 + slot * 8) = value;
+            *(float*)(manager + 0x9E94 + slot * 8) =
+                scale / (float)difficulty;
+        }
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.

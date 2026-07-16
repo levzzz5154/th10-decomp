@@ -118,6 +118,9 @@ The next stateful leaf batch covers opcodes `0x14A`, `0x14B`, and `0x15A`:
 high-bit difficulty remapping, shared difficulty-state reset, and squared
 float assignment. Tests exercise the manager-wide reset fields and negative
 input squaring through the real dispatcher entry point.
+Opcode `0x15B` is now included in that typed batch; it evaluates the integer,
+float, and slot operands in retail order and writes the normalized pair into
+the shared difficulty table.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

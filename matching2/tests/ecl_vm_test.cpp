@@ -186,6 +186,15 @@ void TestRecoveredLeafDispatcher() {
     fixture.Operands()[0] = FloatBits(-3.5f);
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(float*)(entity + 0x1454) == 12.25f);
+
+    fixture.instruction.instruction.opcode = ECL_SET_DIFFICULTY_PARAMETER;
+    fixture.Operands()[0] = 2;
+    fixture.Operands()[1] = FloatBits(4.5f);
+    fixture.Operands()[2] = 77;
+    *(int32_t*)(entity + 0x13C4) = 3;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(manager + 0x9E98 + 2 * 8) == 77);
+    assert(*(float*)(manager + 0x9E94 + 2 * 8) == 1.5f);
     g_pGameStateManager = 0;
 }
 }
