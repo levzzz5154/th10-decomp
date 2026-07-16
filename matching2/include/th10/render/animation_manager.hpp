@@ -23,12 +23,25 @@ enum AnimationListInsertion {
 
 typedef int (__fastcall *AnimationUpdateCallback)(AnimationObject* animation);
 typedef int (__fastcall *AnimationDrawCallback)(AnimationObject* animation);
+typedef int (*AnimationSpriteSelector)(
+    AnimationObject* animation, void* resource, int spriteIndex);
 
 // Storage lifecycle recovered from the animation-owned portions of
 // GameStateInit (0x00445900) and the complete manager destructor (0x00446220).
 void AnimationManager_InitializeStorage(void* manager);
 void AnimationManager_DestroyStorage(void* manager);
 AnimationObject* AnimationManager_AllocateObject(void* manager);
+int AnimationManager_CreatePrimaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket);
+int AnimationManager_CreatePrimaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket);
+int AnimationManager_CreateSecondaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket);
+int AnimationManager_CreateSecondaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket);
+int AnimationManager_CreatePositionedPrimary(
+    void* manager, void* resource, int animationIndex,
+    const float* position);
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle);
 int AnimationManager_RegisterObject(
@@ -40,6 +53,8 @@ void AnimationManager_RemoveObject(
     void* manager, AnimationObject* animation);
 void AnimationManager_SetStopFrame(
     void* manager, int animationHandle, short frame);
+void AnimationManager_SetStopFrameFromHandle(
+    void* manager, const int* animationHandle, short frame);
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame);
 void AnimationManager_SetFlag(
@@ -61,6 +76,12 @@ void AnimationManager_SetTranslatedPosition(
 bool AnimationManager_ValidateHandle(void* manager, int* animationHandle);
 void AnimationManager_MarkForRemovalAndClearHandle(
     void* manager, int* animationHandle);
+int AnimationManager_SelectSpriteFromCurrentResource(
+    void* manager, const int* animationHandle, int spriteIndex,
+    AnimationSpriteSelector selector);
+int AnimationManager_SelectSpriteFromResource(
+    void* manager, const int* animationHandle, void* resource,
+    int spriteIndex, AnimationSpriteSelector selector);
 int AnimationManager_UpdatePrimary(void* manager);
 int AnimationManager_UpdateSecondary(void* manager);
 int AnimationManager_RenderBucket(void* manager, int bucketIndex);

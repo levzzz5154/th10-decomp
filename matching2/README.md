@@ -283,6 +283,12 @@ both active lists are drained safely through the normal remover, the 20 render
 bucket sentinels and complete pool are destructed, and the manager-owned buffer
 at `+0x3AD488` is released. Scheduler callback registration remains in the
 larger `GameStateInit` function and is the next boundary around this lifecycle.
+The animation-manager boundary now also maps twenty additional retail entry
+points from `0x00446220` through `0x00449870`. These include the four
+primary/secondary front/back creation variants, positioned creation, pooled
+and fallback removal, both stop-frame forms, root/child flag propagation,
+translated positioning, resource retirement, sprite-selection wrappers,
+child lookup, script-state initialization, and complete manager teardown.
 The Win32 boundary now uses typed `WNDCLASSA`, `STARTUPINFOA`, and a conventional
 four-argument window procedure. Window creation receives its `HINSTANCE`
 explicitly instead of relying on hidden EBX state, and MIDI output-completion

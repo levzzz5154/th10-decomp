@@ -60,6 +60,9 @@ void AnimationObject_Render(void*, AnimationObject*) {
 
 static int updateCallbacks;
 static int drawCallbacks;
+static AnimationObject* selectedSpriteObject;
+static void* selectedSpriteResource;
+static int selectedSpriteIndex;
 
 static int UpdateCallback(AnimationObject*) {
     ++updateCallbacks;
@@ -69,6 +72,14 @@ static int UpdateCallback(AnimationObject*) {
 static int DrawCallback(AnimationObject*) {
     ++drawCallbacks;
     return 0;
+}
+
+static int SelectSprite(
+    AnimationObject* animation, void* resource, int spriteIndex) {
+    selectedSpriteObject = animation;
+    selectedSpriteResource = resource;
+    selectedSpriteIndex = spriteIndex;
+    return 73;
 }
 
 static AnimationObject** RenderChainSlot(AnimationObject* animation) {
@@ -212,6 +223,10 @@ static void TestAnimationLookupAndPosition() {
 
     AnimationManager_SetStopFrame(&manager[0], 29, 12);
     assert(*(short*)(secondStorage + 0x304) == 12);
+    int secondHandle = 29;
+    AnimationManager_SetStopFrameFromHandle(
+        &manager[0], &secondHandle, 14);
+    assert(*(short*)(secondStorage + 0x304) == 14);
     int runResult =
         AnimationManager_SetStopFrameAndRun(&manager[0], 29, 18);
     assert(runResult == 1);
@@ -225,6 +240,22 @@ static void TestAnimationLookupAndPosition() {
     AnimationManager_MarkResourceForRemoval(
         &manager[0], (void*)0xCAFE);
     assert((*(unsigned int*)(secondStorage + 0x35C) & 0x04000000u) != 0);
+
+    selectedSpriteObject = 0;
+    selectedSpriteResource = 0;
+    assert(AnimationManager_SelectSpriteFromCurrentResource(
+               &manager[0], &secondHandle, 6, SelectSprite) == 73);
+    assert(selectedSpriteObject == second);
+    assert(selectedSpriteResource == (void*)0xCAFE);
+    assert(selectedSpriteIndex == 6);
+    assert(AnimationManager_SelectSpriteFromResource(
+               &manager[0], &secondHandle, (void*)0xBEEF, 9,
+               SelectSprite) == 73);
+    assert(selectedSpriteResource == (void*)0xBEEF);
+    assert(selectedSpriteIndex == 9);
+    int missingSpriteHandle = 404;
+    assert(AnimationManager_SelectSpriteFromCurrentResource(
+               &manager[0], &missingSpriteHandle, 0, SelectSprite) == -1);
 
     int validHandle = 29;
     assert(AnimationManager_ValidateHandle(&manager[0], &validHandle));
@@ -286,11 +317,52 @@ static void TestAnimationLookupAndPosition() {
     scripts[0x1B9] = (void*)0x5678;
     *(void***)(resource + 0x11C) = scripts;
     *(unsigned short*)resource = 23;
+
+    const float positioned[3] = {7.0f, 8.0f, 9.0f};
+    int createdPrimaryBack = AnimationManager_CreatePrimaryBack(
+        &manager[0], resource, 0x1B9, 3);
+    int createdPrimaryFront = AnimationManager_CreatePrimaryFront(
+        &manager[0], resource, 0x1B9, 4);
+    int createdSecondaryBack = AnimationManager_CreateSecondaryBack(
+        &manager[0], resource, 0x1B9, 5);
+    int createdSecondaryFront = AnimationManager_CreateSecondaryFront(
+        &manager[0], resource, 0x1B9, 6);
+    int createdPositioned = AnimationManager_CreatePositionedPrimary(
+        &manager[0], resource, 0x1B9, positioned);
+    assert(createdPrimaryBack != 0);
+    assert(createdPrimaryFront != 0);
+    assert(createdSecondaryBack != 0);
+    assert(createdSecondaryFront != 0);
+    assert(createdPositioned != 0);
+    assert(*RenderBucketSlot(AnimationManager_Find(
+               &manager[0], createdPrimaryBack)) == 3);
+    assert(*RenderBucketSlot(AnimationManager_Find(
+               &manager[0], createdPrimaryFront)) == 4);
+    assert(*RenderBucketSlot(AnimationManager_Find(
+               &manager[0], createdSecondaryBack)) == 5);
+    assert(*RenderBucketSlot(AnimationManager_Find(
+               &manager[0], createdSecondaryFront)) == 6);
+    const float* positionedStored = (const float*)((unsigned char*)
+        AnimationManager_Find(&manager[0], createdPositioned) + 0x340);
+    assert(positionedStored[0] == positioned[0]);
+    assert(positionedStored[1] == positioned[1]);
+    assert(positionedStored[2] == positioned[2]);
+    const int createdHandles[5] = {
+        createdPrimaryBack, createdPrimaryFront, createdSecondaryBack,
+        createdSecondaryFront, createdPositioned
+    };
+    for (int index = 0; index != 5; ++index) {
+        AnimationManager_RemoveObject(
+            &manager[0], AnimationManager_Find(
+                &manager[0], createdHandles[index]));
+    }
+
+    int scriptRunsBeforePlayer = scriptRuns;
     int playerHandle = PlayerAnimation_Create(
         resource, scratch, 0x1B9, playerPosition);
-    assert(playerHandle == 2);
+    assert(playerHandle == 7);
     assert(scratch[0] == playerHandle);
-    assert(scriptRuns == 3);
+    assert(scriptRuns == scriptRunsBeforePlayer + 1);
     AnimationObject* playerAnimation =
         AnimationManager_Find(&manager[0], playerHandle);
     assert(playerAnimation != 0);

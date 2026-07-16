@@ -24,6 +24,9 @@ void AnimationObject_Render(void* manager, AnimationObject* animation);
 
 static AnimationListNode* AnimationManager_List(
     void* manager, unsigned int listIndex);
+static void AnimationObject_SetPosition(
+    AnimationObject* animation, const float* position);
+static int* AnimationObject_RenderBucketSlot(AnimationObject* animation);
 
 static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -127,6 +130,8 @@ void AnimationManager_InitializeStorage(void* manager) {
     }
 }
 
+// 0x00446220 - Drain both lists and destroy the render sentinels, manager-owned
+// buffer, and complete 4,096-object pool.
 void AnimationManager_DestroyStorage(void* manager) {
     uint8_t* bytes = (uint8_t*)manager;
 
@@ -185,6 +190,70 @@ AnimationObject* AnimationManager_AllocateObject(void* manager) {
     bytes[0x3AC068 + index] = 1;
     *cursor = AnimationManager_NextPoolIndex(*cursor);
     return animation;
+}
+
+static int AnimationManager_CreateObject(
+    void* manager, void* resource, int animationIndex, int renderBucket,
+    AnimationManagerList list, AnimationListInsertion insertion) {
+    AnimationObject* animation = AnimationManager_AllocateObject(manager);
+    if (animation == 0) {
+        return 0;
+    }
+    *AnimationObject_RenderBucketSlot(animation) = renderBucket;
+    ((Entity*)animation)->AnimationFlags() |= 0x40000000u;
+    AnimationObject_InitializeScriptState(animation, resource, animationIndex);
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, list, insertion);
+}
+
+// 0x00448D00 - Allocate and append an object to the primary animation list.
+int AnimationManager_CreatePrimaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    return AnimationManager_CreateObject(
+        manager, resource, animationIndex, renderBucket,
+        AnimationManagerList_Primary, AnimationListInsertion_Back);
+}
+
+// 0x00448E30 - Allocate and prepend an object to the primary animation list.
+int AnimationManager_CreatePrimaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    return AnimationManager_CreateObject(
+        manager, resource, animationIndex, renderBucket,
+        AnimationManagerList_Primary, AnimationListInsertion_Front);
+}
+
+// 0x00448F60 - Allocate and append an object to the secondary animation list.
+int AnimationManager_CreateSecondaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    return AnimationManager_CreateObject(
+        manager, resource, animationIndex, renderBucket,
+        AnimationManagerList_Secondary, AnimationListInsertion_Back);
+}
+
+// 0x00449090 - Allocate and prepend an object to the secondary animation list.
+int AnimationManager_CreateSecondaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    return AnimationManager_CreateObject(
+        manager, resource, animationIndex, renderBucket,
+        AnimationManagerList_Secondary, AnimationListInsertion_Front);
+}
+
+// 0x00448D50 - Allocate a primary object whose initial position is supplied by
+// the caller before its animation script is selected.
+int AnimationManager_CreatePositionedPrimary(
+    void* manager, void* resource, int animationIndex,
+    const float* position) {
+    AnimationObject* animation = AnimationManager_AllocateObject(manager);
+    if (animation == 0) {
+        return 0;
+    }
+    *AnimationObject_RenderBucketSlot(animation) = 0;
+    ((Entity*)animation)->AnimationFlags() |= 0x40000000u;
+    AnimationObject_SetPosition(animation, position);
+    AnimationObject_LoadScript(animation, resource, animationIndex);
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
 }
 
 static AnimationListNode* AnimationManager_List(
@@ -312,6 +381,7 @@ static AnimationDrawCallback AnimationObject_DrawCallback(
                                      sizeof(AnimationUpdateCallback));
 }
 
+// 0x00448BB0 - Unlink and retire a pooled or fallback animation object.
 void AnimationManager_RemoveObject(
     void* manager, AnimationObject* animation) {
     if (animation == 0) {
@@ -402,6 +472,7 @@ static void AnimationObject_WriteStopFrame(
     ((Entity*)animation)->StopFrame() = *(short*)context;
 }
 
+// 0x00449210 - Set the root stop frame and propagate it to direct children.
 void AnimationManager_SetStopFrame(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -412,6 +483,13 @@ void AnimationManager_SetStopFrame(
     }
 }
 
+// 0x00449470 - Pointer-handle form used by gameplay owners.
+void AnimationManager_SetStopFrameFromHandle(
+    void* manager, const int* animationHandle, short frame) {
+    AnimationManager_SetStopFrame(manager, *animationHandle, frame);
+}
+
+// 0x00449250 - Set a stop frame and immediately advance root and child scripts.
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -450,6 +528,8 @@ static void AnimationObject_ChangeFlag(
     }
 }
 
+// 0x004492A0 - Set an animation flag on a root and its direct children.
+// 0x00449590 - The fixed-flag entry point uses this operation with bit 1.
 void AnimationManager_SetFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -461,6 +541,7 @@ void AnimationManager_SetFlag(
     }
 }
 
+// 0x004495E0 - Clear an animation flag on a root and its direct children.
 void AnimationManager_ClearFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -472,6 +553,7 @@ void AnimationManager_ClearFlag(
     }
 }
 
+// 0x004493E0 - Mark objects using a retired script resource for removal.
 void AnimationManager_MarkResourceForRemoval(
     void* manager, void* resource) {
     for (unsigned int listIndex = 0; listIndex != 2; ++listIndex) {
@@ -545,6 +627,7 @@ void AnimationObject_LoadScriptPreservingState(
         animation, resource, animationIndex, false);
 }
 
+// 0x00449870 - Initialize position/script state before selecting a script.
 void AnimationObject_InitializeScriptState(
     AnimationObject* animation, void* resource, int animationIndex) {
     uint8_t* bytes = (uint8_t*)animation;
@@ -588,6 +671,7 @@ void AnimationManager_SetPosition(
     }
 }
 
+// 0x00449350 - Apply the gameplay-to-render translation and propagate it.
 void AnimationManager_SetTranslatedPosition(
     void* manager, int animationHandle, const float* position) {
     float translated[3] = {
@@ -608,11 +692,38 @@ bool AnimationManager_ValidateHandle(
     return false;
 }
 
+// 0x00449630 - Mark an object tree for removal and invalidate its owner handle.
 void AnimationManager_MarkForRemovalAndClearHandle(
     void* manager, int* animationHandle) {
     AnimationManager_SetFlag(
         manager, *animationHandle, 0x04000000u);
     *animationHandle = 0;
+}
+
+
+// 0x00449670 - Select a sprite from the object's current script resource.
+int AnimationManager_SelectSpriteFromCurrentResource(
+    void* manager, const int* animationHandle, int spriteIndex,
+    AnimationSpriteSelector selector) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, *animationHandle);
+    if (animation == 0) {
+        return -1;
+    }
+    return selector(
+        animation, ((Entity*)animation)->ScriptResource(), spriteIndex);
+}
+
+// 0x004496A0 - Select a sprite from an explicitly supplied resource.
+int AnimationManager_SelectSpriteFromResource(
+    void* manager, const int* animationHandle, void* resource,
+    int spriteIndex, AnimationSpriteSelector selector) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, *animationHandle);
+    if (animation == 0) {
+        return -1;
+    }
+    return selector(animation, resource, spriteIndex);
 }
 
 static AnimationObject** AnimationManager_RenderBucketHead(
@@ -705,6 +816,7 @@ int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     return 1;
 }
 
+// 0x004497D0 - Resolve a direct child by script index.
 int AnimationManager_FindChildByScriptIndex(
     void* manager, int animationHandle, short scriptIndex) {
     AnimationObject* animation =

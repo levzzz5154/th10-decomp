@@ -4094,8 +4094,8 @@
       "address": "0x00446220",
       "symbol": "FUN_00446220",
       "size": 208,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004462F0",
@@ -4325,22 +4325,22 @@
       "address": "0x00448BB0",
       "symbol": "FUN_00448bb0",
       "size": 336,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448D00",
       "symbol": "FUN_00448d00",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448D50",
       "symbol": "FUN_00448d50",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448DB0",
@@ -4353,22 +4353,22 @@
       "address": "0x00448E30",
       "symbol": "FUN_00448e30",
       "size": 304,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448F60",
       "symbol": "FUN_00448f60",
       "size": 304,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449090",
       "symbol": "FUN_00449090",
       "size": 304,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004491C0",
@@ -4381,22 +4381,22 @@
       "address": "0x00449210",
       "symbol": "FUN_00449210",
       "size": 64,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449250",
       "symbol": "FUN_00449250",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004492A0",
       "symbol": "FUN_004492a0",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004492F0",
@@ -4409,15 +4409,15 @@
       "address": "0x00449350",
       "symbol": "FUN_00449350",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004493E0",
       "symbol": "FUN_004493e0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449450",
@@ -4430,43 +4430,43 @@
       "address": "0x00449470",
       "symbol": "FUN_00449470",
       "size": 288,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449590",
       "symbol": "FUN_00449590",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004495E0",
       "symbol": "FUN_004495e0",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449630",
       "symbol": "FUN_00449630",
       "size": 64,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449670",
       "symbol": "FUN_00449670",
       "size": 48,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004496A0",
       "symbol": "FUN_004496a0",
       "size": 48,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004496D0",
@@ -4479,15 +4479,15 @@
       "address": "0x004497D0",
       "symbol": "FUN_004497d0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449870",
       "symbol": "FUN_00449870",
       "size": 224,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449950",
