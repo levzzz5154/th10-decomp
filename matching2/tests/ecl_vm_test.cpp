@@ -125,6 +125,45 @@ void TestTypedStackPops() {
     assert(ECL_ResolveFloatOperand(fixture.bytes, 0) == -1.0f);
 }
 
+void TestRecoveredLeafDispatcher() {
+    uint8_t entity[0x1600] = {};
+    uint8_t state_bytes[0x20] = {};
+    ECLVMState* state = (ECLVMState*)state_bytes;
+    CursorFixture fixture;
+    state->cursor = (ECLInstructionCursor*)fixture.bytes;
+    *(ECLVMState**)(entity + 0x14D8) = state;
+
+    fixture.instruction.instruction.opcode = ECL_SET_HITBOX_WIDTH;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = FloatBits(4.5f);
+    fixture.Operands()[1] = FloatBits(7.25f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0xB0) == 4.5f);
+    assert(*(float*)(entity + 0xB4) == 7.25f);
+
+    fixture.instruction.instruction.opcode = ECL_SET_MOVEMENT_BOUNDARY;
+    fixture.Operands()[0] = FloatBits(-1.0f);
+    fixture.Operands()[1] = FloatBits(2.0f);
+    fixture.Operands()[2] = FloatBits(3.0f);
+    fixture.Operands()[3] = FloatBits(4.0f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x200u) != 0);
+    assert(*(float*)(entity + 0x13AC) == -1.0f);
+    assert(*(float*)(entity + 0x13B8) == 4.0f);
+
+    fixture.instruction.instruction.opcode = ECL_CLEAR_MOVEMENT_BOUNDARY;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x200u) == 0);
+
+    fixture.instruction.instruction.opcode = ECL_RESET_DIFFICULTY_SLOTS;
+    for (int index = 0; index != 12; ++index)
+        *(int32_t*)(entity + 0x13D0 + index * 4) = index + 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    for (int index = 0; index != 12; ++index)
+        assert(*(int32_t*)(entity + 0x13D0 + index * 4) == 0);
+}
+}
+
 } // namespace
 
 int main() {
@@ -132,5 +171,6 @@ int main() {
     TestExternalVariables();
     TestDecodedValueResolvers();
     TestTypedStackPops();
+    TestRecoveredLeafDispatcher();
     return 0;
 }
