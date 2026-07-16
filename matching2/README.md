@@ -123,6 +123,9 @@ float, and slot operands in retail order and writes the normalized pair into
 the shared difficulty table.
 The batch now also covers `0x15D–0x15F`, including all stage-progress threshold
 branches, writable float destinations, and the normalized interpolation curve.
+It now extends through `0x164`, adding integer threshold selection,
+signed integer interpolation, and difficulty-mode integer/float selection with
+typed writable destinations.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

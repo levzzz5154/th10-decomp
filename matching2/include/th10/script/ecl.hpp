@@ -63,6 +63,7 @@ struct ECLMovementBoundary {
 struct ECLVariableResolver {
     virtual void Unknown0() = 0;
     virtual int32_t ResolveInt(int32_t variable) = 0;
+    virtual int32_t* ResolveIntPointer(int32_t variable) = 0;
     virtual void Unknown2() = 0;
     virtual float ResolveFloat(int32_t variable) = 0;
     virtual float* ResolveFloatPointer(int32_t variable) = 0;
@@ -84,5 +85,6 @@ float ECL_ResolveFloatValue(
 int32_t ECL_ResolveIntValue(
     void* cursor, unsigned int operand, int32_t value);
 float* ECL_ResolveFloatDestination(void* cursor, unsigned int operand);
+int32_t* ECL_ResolveIntDestination(void* cursor, unsigned int operand);
 
 int __fastcall ECL_VM_Dispatch(void* entity);

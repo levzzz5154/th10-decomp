@@ -198,8 +198,8 @@ void* FileHandle::ReadWhole(DWORD capacity) {
     }
 
     DWORD position = Tell();
-    if (Seek(position, 0)) {
-        if (Read(data, size)) {
+    if (Seek(0, 0)) {
+        if (Read(data, size) == size) {
             goto succeeded;
         }
         _free(data);

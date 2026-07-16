@@ -1,8 +1,6 @@
 #include "th10/script/ecl.hpp"
 
 #include <cassert>
-#include <cmath>
-#include <cstdint>
 #include <cstring>
 
 uint8_t PTR_caseD_14f_00411de0[0x200] = {};
@@ -10,6 +8,7 @@ float DAT_00470b04 = 0.0f;
 float DAT_00470b60 = -1.0f;
 void* g_pGameStateManager = 0;
 int32_t DAT_00474c98 = 0;
+int32_t DAT_00474c74 = 0;
 
 extern "C" uint32_t FUN_0044fdb0(uint32_t, void*, int) { return 0; }
 extern "C" void FUN_00449590(void) {}
@@ -21,13 +20,15 @@ struct Resolver : ECLVariableResolver {
     int32_t last_int;
     int32_t last_float;
     float external_value;
+    int32_t external_int;
 
-    Resolver() : last_int(0), last_float(0), external_value(0) {}
+    Resolver() : last_int(0), last_float(0), external_value(0), external_int(0) {}
     virtual void Unknown0() {}
     virtual int32_t ResolveInt(int32_t variable) {
         last_int = variable;
         return 700 + variable;
     }
+    virtual int32_t* ResolveIntPointer(int32_t) { return &external_int; }
     virtual void Unknown2() {}
     virtual float ResolveFloat(int32_t variable) {
         last_float = variable;
@@ -49,7 +50,7 @@ struct CursorFixture {
     CursorFixture() {
         std::memset(bytes, 0, sizeof(bytes));
         std::memset(&instruction, 0, sizeof(instruction));
-        *(ECLInstruction**)(bytes + 4) = &instruction.instruction;
+        *(ECLInstruction**)(bytes + 8) = &instruction.instruction;
         *(int32_t*)(bytes + 0x100C) = 0x20;
         *(ECLVariableResolver**)(bytes + 0x1014) = &resolver;
     }
@@ -64,8 +65,8 @@ uint32_t FloatBits(float value) {
 }
 
 void Push(CursorFixture& fixture, char type, uint32_t value) {
-    fixture.bytes[8] = (uint8_t)type;
-    *(uint32_t*)(fixture.bytes + 12) = value;
+    fixture.bytes[16] = (uint8_t)type;
+    *(uint32_t*)(fixture.bytes + 20) = value;
     *(int32_t*)(fixture.bytes + 0x1008) = 8;
 }
 
@@ -120,12 +121,15 @@ void TestTypedStackPops() {
     assert(ECL_ResolveIntOperand(fixture.bytes, 0) == 12);
     assert(*(int32_t*)(fixture.bytes + 0x1008) == 0);
 
+    fixture.Operands()[0] = FloatBits(-1.0f);
     Push(fixture, 'i', 37);
     assert(ECL_ResolveFloatOperand(fixture.bytes, 0) == 37.0f);
     assert(*(int32_t*)(fixture.bytes + 0x1008) == 0);
 
+    fixture.Operands()[0] = (uint32_t)-1;
     *(int32_t*)(fixture.bytes + 0x1008) = 0;
     assert(ECL_ResolveIntOperand(fixture.bytes, 0) == -1);
+    fixture.Operands()[0] = FloatBits(-1.0f);
     assert(ECL_ResolveFloatOperand(fixture.bytes, 0) == -1.0f);
 }
 
@@ -200,35 +204,63 @@ void TestRecoveredLeafDispatcher() {
     assert(*(float*)(manager + 0x9E94 + 2 * 8) == 1.5f);
 
     fixture.instruction.instruction.param_mask = 1;
-    fixture.Operands()[0] = 0x100;
+    fixture.Operands()[0] = FloatBits(256.0f);
     fixture.Operands()[1] = FloatBits(10.0f);
     fixture.Operands()[2] = FloatBits(20.0f);
     float* destination = (float*)(fixture.bytes + 0x20 + 8 + 0x100);
+    *destination = 10.0f;
     fixture.instruction.instruction.opcode = 0x15D;
     DAT_00474c98 = -512;
     assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
     DAT_00474c98 = 0;
-    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
-    DAT_00474c98 = 512;
     assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+    DAT_00474c98 = 512;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
 
     fixture.instruction.instruction.opcode = 0x15E;
+    fixture.Operands()[3] = FloatBits(40.0f);
+    fixture.Operands()[4] = FloatBits(50.0f);
     DAT_00474c98 = -500;
-    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
     DAT_00474c98 = 0;
     assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
     DAT_00474c98 = 300;
-    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 40.0f);
     DAT_00474c98 = 700;
-    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 50.0f);
 
     fixture.instruction.instruction.opcode = 0x15F;
     fixture.Operands()[1] = FloatBits(10.0f);
     fixture.Operands()[2] = FloatBits(30.0f);
     DAT_00474c98 = 0;
     assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
+
+    int32_t* int_destination =
+        (int32_t*)(fixture.bytes + 0x20 + 8 + 0x104);
+    fixture.Operands()[0] = 0x104;
+    fixture.Operands()[1] = 10;
+    fixture.Operands()[2] = 30;
+    fixture.Operands()[3] = 40;
+    fixture.Operands()[4] = 50;
+    fixture.Operands()[5] = 60;
+    fixture.instruction.instruction.opcode = 0x160;
+    DAT_00474c98 = 512;
+    assert(ECL_VM_Dispatch(entity) == 0 && *int_destination == 30);
+    fixture.instruction.instruction.opcode = 0x161;
+    DAT_00474c98 = 700;
+    assert(ECL_VM_Dispatch(entity) == 0 && *int_destination == 50);
+    fixture.instruction.instruction.opcode = 0x162;
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0 && *int_destination == 20);
+    fixture.instruction.instruction.opcode = 0x163;
+    DAT_00474c74 = 2;
+    assert(ECL_VM_Dispatch(entity) == 0 && *int_destination == 40);
+    fixture.instruction.instruction.opcode = 0x164;
+    DAT_00474c74 = 4;
+    fixture.Operands()[0] = FloatBits(256.0f);
+    fixture.Operands()[5] = FloatBits(60.0f);
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 60.0f);
     g_pGameStateManager = 0;
-}
 }
 
 } // namespace
