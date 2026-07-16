@@ -22,6 +22,7 @@ ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 PARTIAL = {
     0x00418D00: "Remaining code-generation mismatch",
     0x00445900: "Full GameStateInit boundary is not reconstructed",
+    0x0040E770: "Only the bounded leaf-opcode subset is reconstructed",
 }
 
 # Address mentions matching these entries describe a known dependency rather

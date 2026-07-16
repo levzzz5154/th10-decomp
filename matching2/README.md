@@ -111,6 +111,9 @@ uses conventional typed entry points for instruction-backed and pre-decoded
 integer/float values. Its dedicated harness verifies mask-controlled literals,
 local-variable addressing, virtual external-variable resolution, typed stack
 conversion, pop order, and empty-stack fallbacks.
+The large dispatcher at `0x0040E770` is explicitly tracked as partial while
+its recovered flag, boundary, difficulty, and range leaf cases coexist with
+the remaining retail-backed opcode families.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

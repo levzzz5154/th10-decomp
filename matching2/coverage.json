@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 117,
-        "retail_bytes": 43753
+        "function_count": 116,
+        "retail_bytes": 27449
       },
       "exact-overlay": {
         "function_count": 32,
@@ -50,9 +50,9 @@
         "minimum_size": 1024,
         "maximum_size_exclusive": null,
         "tracked_functions": 69,
-        "implemented_functions": 4,
+        "implemented_functions": 3,
         "tracked_bytes": 159312,
-        "implemented_bytes": 21072
+        "implemented_bytes": 4768
       }
     ]
   },
@@ -1073,8 +1073,9 @@
       "address": "0x0040E770",
       "symbol": "FUN_0040e770",
       "size": 16304,
-      "status": "semantic",
-      "source": "src/script/ecl_vm.cpp"
+      "status": "partial",
+      "source": "src/script/ecl_vm.cpp",
+      "blocker": "Only the bounded leaf-opcode subset is reconstructed"
     },
     {
       "address": "0x00412720",
