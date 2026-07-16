@@ -3,6 +3,7 @@
 
 extern "C" {
 uint32_t FUN_0044fdb0(uint32_t dispatch_index, void* cursor, int operand);
+void FUN_00405410(int value);
 void FUN_00449590(void);
 void FUN_004495e0(void);
 }
@@ -435,6 +436,14 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             *destination = ECL_ResolveFloatOperand(state->cursor, operand);
         return 0;
     }
+    case ECL_SET_GLOBAL_DIFFICULTY:
+        if (g_pGameStateManager != 0)
+            *(int32_t*)((uint8_t*)g_pGameStateManager + 0x9E90) =
+                ECL_ResolveIntOperand(state->cursor, 0);
+        return 0;
+    case ECL_APPLY_DIFFICULTY_ACTION:
+        FUN_00405410(ECL_ResolveIntOperand(state->cursor, 0));
+        return 0;
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.

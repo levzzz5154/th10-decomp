@@ -126,6 +126,9 @@ branches, writable float destinations, and the normalized interpolation curve.
 It now extends through `0x164`, adding integer threshold selection,
 signed integer interpolation, and difficulty-mode integer/float selection with
 typed writable destinations.
+The bounded global/action pair `0x168–0x169` is also reconstructed: the first
+writes the shared difficulty slot and the second resolves and forwards its
+integer operand to the gameplay action hook.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

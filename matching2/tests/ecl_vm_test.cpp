@@ -13,6 +13,8 @@ int32_t DAT_00474c74 = 0;
 extern "C" uint32_t FUN_0044fdb0(uint32_t, void*, int) { return 0; }
 extern "C" void FUN_00449590(void) {}
 extern "C" void FUN_004495e0(void) {}
+static int g_difficulty_action = -1;
+extern "C" void FUN_00405410(int value) { g_difficulty_action = value; }
 
 namespace {
 
@@ -260,6 +262,15 @@ void TestRecoveredLeafDispatcher() {
     fixture.Operands()[0] = FloatBits(256.0f);
     fixture.Operands()[5] = FloatBits(60.0f);
     assert(ECL_VM_Dispatch(entity) == 0 && *destination == 60.0f);
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 27;
+    fixture.instruction.instruction.opcode = ECL_SET_GLOBAL_DIFFICULTY;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(manager + 0x9E90) == 27);
+    fixture.instruction.instruction.opcode = ECL_APPLY_DIFFICULTY_ACTION;
+    g_difficulty_action = -1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(g_difficulty_action == 27);
     g_pGameStateManager = 0;
 }
 
