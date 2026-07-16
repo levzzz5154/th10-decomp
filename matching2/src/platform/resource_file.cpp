@@ -14,6 +14,8 @@ extern "C" __declspec(dllimport) BOOL __stdcall FreeResource(HANDLE resource);
 ResourceFile::ResourceFile() {
 }
 
+// 0x00436680 - Restore the BufferFile boundary, release its owned bytes, then
+// complete the FileInterface destructor chain.
 __declspec(noinline) ResourceFile::~ResourceFile() {
 }
 

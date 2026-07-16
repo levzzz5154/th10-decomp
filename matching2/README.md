@@ -86,6 +86,11 @@ deterministic back-reference vector and round-tripped through the decoder. A
 fully synthetic DAT archive additionally
 tests backend ownership, index loading, sentinel construction, reopening,
 named asset reads, and cleanup as one end-to-end path.
+The file/resource boundary now also tracks executable-relative path resolution
+at `0x00435610`, the retail LZSS decoder at `0x00435DC0`, and the complete
+ResourceFile destructor chain at `0x00436680`. Focused tests cover drive-qualified
+paths, executables without a directory component, copied RCDATA ownership,
+missing resources, and exactly-once buffer release.
 The utility coverage also exercises inline and allocated `LegacyString`
 assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.

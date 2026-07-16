@@ -40,6 +40,8 @@ __declspec(noinline) FileHandle::~FileHandle() {
     Close();
 }
 
+// 0x00435610 - Preserve absolute drive paths or resolve relative paths beside
+// the executable.
 void File_ResolvePath(const char* path, char output[260]) {
     const char* cursor = path;
     while (*cursor != 0 && *cursor != ':') {

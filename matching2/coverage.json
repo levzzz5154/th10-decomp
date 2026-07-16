@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 110,
-        "retail_bytes": 42249
+        "function_count": 113,
+        "retail_bytes": 43113
       },
       "exact-overlay": {
         "function_count": 32,
@@ -32,18 +32,18 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 72,
+        "implemented_functions": 74,
         "tracked_bytes": 47943,
-        "implemented_bytes": 9801
+        "implemented_bytes": 10089
       },
       {
         "name": "medium",
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 31,
+        "implemented_functions": 32,
         "tracked_bytes": 123584,
-        "implemented_bytes": 12192
+        "implemented_bytes": 12768
       },
       {
         "name": "large",
@@ -3056,8 +3056,8 @@
       "address": "0x00435610",
       "symbol": "FUN_00435610",
       "size": 224,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435690",
@@ -3109,8 +3109,8 @@
       "address": "0x00435DC0",
       "symbol": "FUN_00435dc0",
       "size": 576,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/archive/lzss.cpp"
     },
     {
       "address": "0x00436000",
@@ -3230,8 +3230,8 @@
       "address": "0x00436680",
       "symbol": "FUN_00436680",
       "size": 64,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/resource_file.cpp"
     },
     {
       "address": "0x004366C0",

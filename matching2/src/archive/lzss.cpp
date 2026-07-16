@@ -147,6 +147,7 @@ uint8_t* __stdcall Dat_LzssCompress(
     return output;
 }
 
+// 0x00435DC0 - Decode TH10's bit-packed 0x2000-byte sliding-window stream.
 uint8_t* __stdcall Dat_LzssDecompress(
         const uint8_t* input,
         int32_t input_size,

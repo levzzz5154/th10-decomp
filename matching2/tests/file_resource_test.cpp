@@ -1,4 +1,5 @@
 #include "th10/platform/file.hpp"
+#include "th10/platform/memory_file.hpp"
 #include "th10/archive/dat.hpp"
 #include "th10/archive/resource_manager.hpp"
 
@@ -17,6 +18,11 @@ struct MockFile {
 };
 
 MockFile g_file = {};
+const char* g_module_path = "C:\\games\\th10\\th10.exe";
+DWORD g_free_count = 0;
+DWORD g_free_resource_count = 0;
+bool g_resource_available = true;
+static const unsigned char g_resource_bytes[] = {11, 22, 33, 44};
 
 void ResetMock(const unsigned char* bytes, DWORD size) {
     g_file.bytes = bytes;
@@ -77,6 +83,59 @@ bool TestResourceFallbackOpenFailure() {
         g_file.close_count == 0;
 }
 
+bool EqualText(const char* left, const char* right) {
+    while (*left == *right) {
+        if (*left == 0) return true;
+        ++left;
+        ++right;
+    }
+    return false;
+}
+
+bool TestResolvePath() {
+    char output[260];
+    File_ResolvePath("data\\score.dat", output);
+    if (!EqualText(output, "C:\\games\\th10\\data\\score.dat")) {
+        return false;
+    }
+    File_ResolvePath("D:\\custom\\score.dat", output);
+    if (!EqualText(output, "D:\\custom\\score.dat")) return false;
+
+    g_module_path = "th10.exe";
+    File_ResolvePath("score.dat", output);
+    g_module_path = "C:\\games\\th10\\th10.exe";
+    return EqualText(output, "score.dat");
+}
+
+bool TestResourceFileOwnership() {
+    DWORD frees_before = g_free_count;
+    DWORD resource_frees_before = g_free_resource_count;
+    {
+        ResourceFile file;
+        if (file.Open("TEST", "r") != 1 ||
+                file.GetSize() != sizeof(g_resource_bytes) ||
+                file.Tell() != 0) {
+            return false;
+        }
+        unsigned char output[sizeof(g_resource_bytes)] = {};
+        if (file.Read(output, sizeof(output)) != sizeof(output)) return false;
+        for (DWORD index = 0; index < sizeof(output); ++index) {
+            if (output[index] != g_resource_bytes[index]) return false;
+        }
+    }
+    if (g_free_count != frees_before + 1 ||
+            g_free_resource_count != resource_frees_before + 1) {
+        return false;
+    }
+
+    g_resource_available = false;
+    ResourceFile missing;
+    bool passed = missing.Open("MISSING", "r") == 1 &&
+        missing.GetSize() == 0;
+    g_resource_available = true;
+    return passed;
+}
+
 } // namespace
 
 extern "C" BOOL __stdcall CloseHandle(HANDLE handle) {
@@ -125,12 +184,37 @@ extern "C" HANDLE __stdcall CreateFileA(
 
 extern "C" BOOL __stdcall DeleteFileA(const char*) { return 1; }
 
-extern "C" DWORD __stdcall GetModuleFileNameA(HANDLE, char*, DWORD) {
-    return 0;
+extern "C" DWORD __stdcall GetModuleFileNameA(HANDLE, char* output, DWORD) {
+    DWORD length = 0;
+    do {
+        output[length] = g_module_path[length];
+    } while (g_module_path[length++] != 0);
+    return length - 1;
 }
 
 extern "C" void* __cdecl _malloc(DWORD size) { return malloc(size); }
-extern "C" void __cdecl _free(void* memory) { free(memory); }
+extern "C" void __cdecl _free(void* memory) {
+    if (memory) ++g_free_count;
+    free(memory);
+}
+
+extern "C" HANDLE __stdcall FindResourceA(
+        HANDLE, const char*, const char*) {
+    return g_resource_available ? (HANDLE)1 : 0;
+}
+extern "C" HANDLE __stdcall LoadResource(HANDLE, HANDLE resource) {
+    return resource;
+}
+extern "C" void* __stdcall LockResource(HANDLE resource) {
+    return resource ? (void*)g_resource_bytes : 0;
+}
+extern "C" DWORD __stdcall SizeofResource(HANDLE, HANDLE) {
+    return sizeof(g_resource_bytes);
+}
+extern "C" BOOL __stdcall FreeResource(HANDLE) {
+    ++g_free_resource_count;
+    return 1;
+}
 
 void DatArchive_Initialize(DatArchive*) {}
 void DatArchive_Close(DatArchive*) {}
@@ -143,5 +227,7 @@ int main() {
     if (!TestReadWholeFailureLeavesReadPosition()) return 2;
     if (!TestReadWholeRejectsCapacityAndWriteHandle()) return 3;
     if (!TestResourceFallbackOpenFailure()) return 4;
+    if (!TestResolvePath()) return 5;
+    if (!TestResourceFileOwnership()) return 6;
     return 0;
 }

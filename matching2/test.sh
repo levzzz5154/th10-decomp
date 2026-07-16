@@ -65,6 +65,8 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/platform/file.cpp" \
+    "$ROOT/src/platform/memory_file.cpp" \
+    "$ROOT/src/platform/resource_file.cpp" \
     "$ROOT/src/archive/resource_manager.cpp" \
     "$ROOT/src/platform/path.cpp" \
     "$ROOT/tests/file_resource_test.cpp" \
