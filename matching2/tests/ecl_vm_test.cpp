@@ -102,6 +102,9 @@ void TestEncryptedStringTransform() {
     ECL_DecodeEncryptedString(
         decoded, encrypted, (unsigned int)(sizeof(plaintext) - 1));
     assert(std::strcmp(decoded, plaintext) == 0);
+    ECL_DecodeEncryptedString(
+        encrypted, encrypted, (unsigned int)(sizeof(plaintext) - 1));
+    assert(std::strcmp(encrypted, plaintext) == 0);
     ECL_DecodeEncryptedString(decoded, encrypted, 0);
     assert(decoded[0] == plaintext[0]);
 }
