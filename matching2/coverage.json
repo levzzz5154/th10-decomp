@@ -1,10 +1,60 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "target": {
     "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
     "compiler": "MSVC 7.1",
     "tracked_function_source": "decompiled/ghidra_raw/index.tsv",
     "inventory_policy": "union of Ghidra index and verified overlays"
+  },
+  "coverage_summary": {
+    "by_status": {
+      "semantic": {
+        "function_count": 108,
+        "retail_bytes": 41465
+      },
+      "exact-overlay": {
+        "function_count": 32,
+        "retail_bytes": 1424
+      }
+    },
+    "size_bands": [
+      {
+        "name": "tiny",
+        "minimum_size": 0,
+        "maximum_size_exclusive": 64,
+        "tracked_functions": 52,
+        "implemented_functions": 16,
+        "tracked_bytes": 1961,
+        "implemented_bytes": 608
+      },
+      {
+        "name": "small",
+        "minimum_size": 64,
+        "maximum_size_exclusive": 256,
+        "tracked_functions": 325,
+        "implemented_functions": 72,
+        "tracked_bytes": 47943,
+        "implemented_bytes": 9801
+      },
+      {
+        "name": "medium",
+        "minimum_size": 256,
+        "maximum_size_exclusive": 1024,
+        "tracked_functions": 257,
+        "implemented_functions": 29,
+        "tracked_bytes": 123584,
+        "implemented_bytes": 11408
+      },
+      {
+        "name": "large",
+        "minimum_size": 1024,
+        "maximum_size_exclusive": null,
+        "tracked_functions": 69,
+        "implemented_functions": 4,
+        "tracked_bytes": 159312,
+        "implemented_bytes": 21072
+      }
+    ]
   },
   "verified_overlay_summary": {
     "function_count": 32,

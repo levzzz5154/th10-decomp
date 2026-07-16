@@ -30,6 +30,43 @@ RESEARCHED = {
     0x0043EE30: "Animation instruction interpreter remains retail-backed",
 }
 
+SIZE_BANDS = (
+    ("tiny", 0, 64),
+    ("small", 64, 256),
+    ("medium", 256, 1024),
+    ("large", 1024, None),
+)
+
+
+def coverage_summary(entries):
+    implemented_statuses = {"semantic", "exact-overlay"}
+    by_status = {}
+    for status in ("semantic", "exact-overlay"):
+        selected = [entry for entry in entries if entry["status"] == status]
+        by_status[status] = {
+            "function_count": len(selected),
+            "retail_bytes": sum(entry["size"] or 0 for entry in selected),
+        }
+
+    bands = []
+    for name, minimum, maximum in SIZE_BANDS:
+        selected = [entry for entry in entries
+                    if entry["size"] is not None
+                    and entry["size"] >= minimum
+                    and (maximum is None or entry["size"] < maximum)]
+        implemented = [entry for entry in selected
+                       if entry["status"] in implemented_statuses]
+        bands.append({
+            "name": name,
+            "minimum_size": minimum,
+            "maximum_size_exclusive": maximum,
+            "tracked_functions": len(selected),
+            "implemented_functions": len(implemented),
+            "tracked_bytes": sum(entry["size"] for entry in selected),
+            "implemented_bytes": sum(entry["size"] for entry in implemented),
+        })
+    return {"by_status": by_status, "size_bands": bands}
+
 
 def tracked_functions():
     with INDEX.open(newline="") as stream:
@@ -118,7 +155,7 @@ def generate():
         entries.append(entry)
 
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "target": {
             "executable_sha256":
                 "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
@@ -126,6 +163,7 @@ def generate():
             "tracked_function_source": "decompiled/ghidra_raw/index.tsv",
             "inventory_policy": "union of Ghidra index and verified overlays",
         },
+        "coverage_summary": coverage_summary(entries),
         "verified_overlay_summary": {
             "function_count": len(overlays),
             # Byte totals belong to build output and are intentionally not
@@ -149,6 +187,19 @@ def print_summary(document):
     print("  readable implementations: {} ({:.1f}%)".format(
         implemented, implemented * 100.0 / len(entries)))
     print("  not fully implemented: {}".format(remaining))
+    coverage = document["coverage_summary"]
+    semantic = coverage["by_status"]["semantic"]
+    exact = coverage["by_status"]["exact-overlay"]
+    print("  semantic bytes: {} across {} functions".format(
+        semantic["retail_bytes"], semantic["function_count"]))
+    print("  exact-overlay bytes: {} across {} functions".format(
+        exact["retail_bytes"], exact["function_count"]))
+    print("  size-band progress:")
+    for band in coverage["size_bands"]:
+        print("    {}: {}/{} functions, {}/{} bytes".format(
+            band["name"], band["implemented_functions"],
+            band["tracked_functions"], band["implemented_bytes"],
+            band["tracked_bytes"]))
     summary = document["verified_overlay_summary"]
     if summary["compared_bytes"] is None:
         print("  verified overlays: {} functions (byte total is build-only)".format(

@@ -55,7 +55,21 @@ python3 tools/coverage_report.py --check
 The generated `coverage.json` classifies every tracked address as unrecovered,
 researched, partial, semantic C++, or an exact overlay. Source annotations and
 the overlay tuple are authoritative; build artifacts are deliberately excluded
-so the ledger is reproducible from a clean checkout.
+so the ledger is reproducible from a clean checkout. It also reports semantic
+and exact retail-byte totals plus progress in tiny, small, medium, and large
+function-size bands.
+
+Use the repository-evidence candidate ranker to select a dependency-first batch:
+
+```bash
+python3 tools/rank_candidates.py --limit 30
+python3 tools/rank_candidates.py --subsystem animation_manager
+```
+
+The score favors bounded leaf functions, recovered address neighborhoods,
+matching assembly, and an existing subsystem test harness, while penalizing
+unresolved Ghidra callees. Its subsystem label is inferred from the nearest
+recovered function and is a triage hint rather than a recovered symbol name.
 
 `build.sh` verifies the supported retail executable by SHA-256 and writes
 `build/th10_reimpl.exe`. `run.sh` exposes the retail `th10.dat`, `thbgm.dat`, and
