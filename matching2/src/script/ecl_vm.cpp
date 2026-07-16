@@ -81,11 +81,12 @@ void ECL_ResetDifficultySlots(void* entity) {
         slots[i] = 0;
 }
 
-float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
+// 0x0044FF80 - Resolve an already-decoded float using an operand's mask bit.
+float ECL_ResolveFloatValue(
+    void* cursor_pointer, unsigned int operand, float encoded) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
         *reinterpret_cast<ECLInstruction**>(cursor + 4);
-    const float encoded = BitsFloat(instruction->operands[operand]);
 
     if ((instruction->param_mask & (1u << (operand & 31))) == 0)
         return encoded;
@@ -126,11 +127,21 @@ float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     return converted.as_float;
 }
 
-int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
+// 0x0044FE40 - Resolve a float stored in the current instruction.
+float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
         *reinterpret_cast<ECLInstruction**>(cursor + 4);
-    int32_t value = static_cast<int32_t>(instruction->operands[operand]);
+    return ECL_ResolveFloatValue(
+        cursor_pointer, operand, BitsFloat(instruction->operands[operand]));
+}
+
+// 0x0044FF00 - Resolve an already-decoded integer using an operand's mask bit.
+int32_t ECL_ResolveIntValue(
+    void* cursor_pointer, unsigned int operand, int32_t value) {
+    uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
+    ECLInstruction* instruction =
+        *reinterpret_cast<ECLInstruction**>(cursor + 4);
 
     if ((instruction->param_mask & (1u << (operand & 31))) == 0)
         return value;
@@ -162,6 +173,16 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
     if (type == 'f')
         return static_cast<int32_t>(BitsFloat(raw));
     return static_cast<int32_t>(raw);
+}
+
+// 0x0044FDB0 - Resolve an integer stored in the current instruction.
+int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
+    uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
+    ECLInstruction* instruction =
+        *reinterpret_cast<ECLInstruction**>(cursor + 4);
+    return ECL_ResolveIntValue(
+        cursor_pointer, operand,
+        static_cast<int32_t>(instruction->operands[operand]));
 }
 
 int __fastcall ECL_VM_Dispatch(void* entity) {

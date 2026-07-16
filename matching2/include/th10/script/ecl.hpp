@@ -71,5 +71,9 @@ void ECL_ClearMovementBoundary(void* entity);
 void ECL_ResetDifficultySlots(void* entity);
 float ECL_ResolveFloatOperand(void* cursor, unsigned int operand);
 int32_t ECL_ResolveIntOperand(void* cursor, unsigned int operand);
+float ECL_ResolveFloatValue(
+    void* cursor, unsigned int operand, float value);
+int32_t ECL_ResolveIntValue(
+    void* cursor, unsigned int operand, int32_t value);
 
 int __fastcall ECL_VM_Dispatch(void* entity);

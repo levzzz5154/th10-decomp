@@ -106,6 +106,11 @@ generic flag changes, resource retirement, handle validation, child lookup,
 and pooled-object removal. Ghidra-guided tests also cover the animation
 interpreter's integer and float variable banks, writable operand resolution,
 base-position operands, and literal/fallback behavior.
+The standalone ECL operand family at `0x0044FDB0` through `0x0044FF80` now
+uses conventional typed entry points for instruction-backed and pre-decoded
+integer/float values. Its dedicated harness verifies mask-controlled literals,
+local-variable addressing, virtual external-variable resolution, typed stack
+conversion, pop order, and empty-stack fallbacks.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

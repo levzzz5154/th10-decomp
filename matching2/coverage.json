@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 113,
-        "retail_bytes": 43113
+        "function_count": 117,
+        "retail_bytes": 43753
       },
       "exact-overlay": {
         "function_count": 32,
@@ -32,9 +32,9 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 74,
+        "implemented_functions": 78,
         "tracked_bytes": 47943,
-        "implemented_bytes": 10089
+        "implemented_bytes": 10729
       },
       {
         "name": "medium",
@@ -5075,29 +5075,29 @@
       "address": "0x0044FDB0",
       "symbol": "FUN_0044fdb0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x0044FE40",
       "symbol": "FUN_0044fe40",
       "size": 192,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x0044FF00",
       "symbol": "FUN_0044ff00",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x0044FF80",
       "symbol": "FUN_0044ff80",
       "size": 176,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x00450030",
