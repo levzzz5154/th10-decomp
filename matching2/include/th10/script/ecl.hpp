@@ -45,7 +45,10 @@ enum ECLLeafOpcode {
     ECL_SET_CURRENT_DIFFICULTY = 0x14A,
     ECL_RESET_DIFFICULTY_STATE = 0x14B,
     ECL_SET_DIFFICULTY_SQUARED = 0x15A,
-    ECL_SET_DIFFICULTY_PARAMETER = 0x15B
+    ECL_SET_DIFFICULTY_PARAMETER = 0x15B,
+    ECL_SELECT_DIFFICULTY_VALUE = 0x15D,
+    ECL_SELECT_DIFFICULTY_CURVE = 0x15E,
+    ECL_INTERPOLATE_DIFFICULTY  = 0x15F
 };
 
 struct ECLMovementBoundary {
@@ -62,6 +65,7 @@ struct ECLVariableResolver {
     virtual int32_t ResolveInt(int32_t variable) = 0;
     virtual void Unknown2() = 0;
     virtual float ResolveFloat(int32_t variable) = 0;
+    virtual float* ResolveFloatPointer(int32_t variable) = 0;
 };
 
 // Readable leaf operations extracted from the retail dispatcher.  Keeping the
@@ -79,5 +83,6 @@ float ECL_ResolveFloatValue(
     void* cursor, unsigned int operand, float value);
 int32_t ECL_ResolveIntValue(
     void* cursor, unsigned int operand, int32_t value);
+float* ECL_ResolveFloatDestination(void* cursor, unsigned int operand);
 
 int __fastcall ECL_VM_Dispatch(void* entity);

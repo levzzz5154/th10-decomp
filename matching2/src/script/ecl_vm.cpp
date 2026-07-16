@@ -11,6 +11,7 @@ extern uint8_t PTR_caseD_14f_00411de0[];
 extern float DAT_00470b04; // zero: first local-variable encoding
 extern float DAT_00470b60; // -1: pop from the ECL argument stack
 extern void* g_pGameStateManager;
+extern int32_t DAT_00474c98;
 
 namespace {
 
@@ -186,6 +187,28 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
         static_cast<int32_t>(instruction->operands[operand]));
 }
 
+// 0x00450070 - Resolve a writable float local/external variable destination.
+float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
+    uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
+    ECLInstruction* instruction =
+        *reinterpret_cast<ECLInstruction**>(cursor + 4);
+    if ((instruction->param_mask & (1u << (operand & 31))) == 0)
+        return 0;
+    const int32_t encoded = (int32_t)instruction->operands[operand];
+    if (encoded >= 0) {
+        const int32_t locals_offset =
+            *reinterpret_cast<int32_t*>(cursor + kLocalVariablesOffset);
+        return reinterpret_cast<float*>(cursor + locals_offset + 8 + encoded);
+    }
+    if (encoded != -1) {
+        ECLVariableResolver* resolver =
+            *reinterpret_cast<ECLVariableResolver**>(
+                cursor + kVariableResolverOffset);
+        return resolver->ResolveFloatPointer(encoded);
+    }
+    return 0;
+}
+
 int __fastcall ECL_VM_Dispatch(void* entity) {
     ECLVMState* state = *reinterpret_cast<ECLVMState**>(
         static_cast<uint8_t*>(entity) + 0x14d8);
@@ -304,6 +327,37 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             *(float*)(manager + 0x9E94 + slot * 8) =
                 scale / (float)difficulty;
         }
+        return 0;
+    }
+    case ECL_SELECT_DIFFICULTY_VALUE:
+    case ECL_SELECT_DIFFICULTY_CURVE: {
+        int operand = 0;
+        if (opcode == ECL_SELECT_DIFFICULTY_VALUE) {
+            operand = DAT_00474c98 >= 0x200 ? 2 :
+                (DAT_00474c98 < -0x1FF ? 0 : 1);
+        } else if (DAT_00474c98 > 599) {
+            operand = 4;
+        } else if (DAT_00474c98 > 199) {
+            operand = 3;
+        } else if (DAT_00474c98 < -400) {
+            operand = 0;
+        } else if (DAT_00474c98 < -200) {
+            operand = 1;
+        } else {
+            operand = 2;
+        }
+        float* destination = ECL_ResolveFloatDestination(state->cursor, 0);
+        if (destination != 0)
+            *destination = ECL_ResolveFloatOperand(state->cursor, operand);
+        return 0;
+    }
+    case ECL_INTERPOLATE_DIFFICULTY: {
+        float* destination = ECL_ResolveFloatDestination(state->cursor, 0);
+        const float lower = ECL_ResolveFloatOperand(state->cursor, 1);
+        const float upper = ECL_ResolveFloatOperand(state->cursor, 2);
+        if (destination != 0)
+            *destination = (upper - lower) *
+                ((float)DAT_00474c98 + 1024.0f) * (1.0f / 1024.0f) + lower;
         return 0;
     }
     default:

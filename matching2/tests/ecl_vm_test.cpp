@@ -9,6 +9,7 @@ uint8_t PTR_caseD_14f_00411de0[0x200] = {};
 float DAT_00470b04 = 0.0f;
 float DAT_00470b60 = -1.0f;
 void* g_pGameStateManager = 0;
+int32_t DAT_00474c98 = 0;
 
 extern "C" uint32_t FUN_0044fdb0(uint32_t, void*, int) { return 0; }
 extern "C" void FUN_00449590(void) {}
@@ -19,8 +20,9 @@ namespace {
 struct Resolver : ECLVariableResolver {
     int32_t last_int;
     int32_t last_float;
+    float external_value;
 
-    Resolver() : last_int(0), last_float(0) {}
+    Resolver() : last_int(0), last_float(0), external_value(0) {}
     virtual void Unknown0() {}
     virtual int32_t ResolveInt(int32_t variable) {
         last_int = variable;
@@ -31,6 +33,7 @@ struct Resolver : ECLVariableResolver {
         last_float = variable;
         return 20.5f + (float)variable;
     }
+    virtual float* ResolveFloatPointer(int32_t) { return &external_value; }
 };
 
 struct InstructionStorage {
@@ -195,6 +198,35 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(int32_t*)(manager + 0x9E98 + 2 * 8) == 77);
     assert(*(float*)(manager + 0x9E94 + 2 * 8) == 1.5f);
+
+    fixture.instruction.instruction.param_mask = 1;
+    fixture.Operands()[0] = 0x100;
+    fixture.Operands()[1] = FloatBits(10.0f);
+    fixture.Operands()[2] = FloatBits(20.0f);
+    float* destination = (float*)(fixture.bytes + 0x20 + 8 + 0x100);
+    fixture.instruction.instruction.opcode = 0x15D;
+    DAT_00474c98 = -512;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
+    DAT_00474c98 = 512;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+
+    fixture.instruction.instruction.opcode = 0x15E;
+    DAT_00474c98 = -500;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
+    DAT_00474c98 = 300;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
+    DAT_00474c98 = 700;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 10.0f);
+
+    fixture.instruction.instruction.opcode = 0x15F;
+    fixture.Operands()[1] = FloatBits(10.0f);
+    fixture.Operands()[2] = FloatBits(30.0f);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0 && *destination == 20.0f);
     g_pGameStateManager = 0;
 }
 }

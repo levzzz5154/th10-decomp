@@ -121,6 +121,8 @@ input squaring through the real dispatcher entry point.
 Opcode `0x15B` is now included in that typed batch; it evaluates the integer,
 float, and slot operands in retail order and writes the normalized pair into
 the shared difficulty table.
+The batch now also covers `0x15D–0x15F`, including all stage-progress threshold
+branches, writable float destinations, and the normalized interpolation curve.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without
