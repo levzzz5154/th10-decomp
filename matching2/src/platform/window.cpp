@@ -3,54 +3,122 @@
 // Functions: 0x004390E0 (WndProc), 0x00439730 (CreateWindow),
 //            0x004392E0 (SaveSystemSettings), 0x00439FF0 (InstanceCheck)
 // =============================================================================
-#include "th10/game/entity.hpp"
+#include "th10/platform/window.hpp"
+#include "th10/platform/midi.hpp"
 
 // Windows API - using __declspec(dllimport) for correct import call pattern
 extern "C" {
-    __declspec(dllimport) int     __stdcall SystemParametersInfoA(uint32_t, uint32_t, void*, uint32_t);
-    __declspec(dllimport) int     __stdcall QueryPerformanceFrequency(int64_t*);
-    __declspec(dllimport) int     __stdcall QueryPerformanceCounter(int64_t*);
-    __declspec(dllimport) void*   __stdcall GetStockObject(int);
-    __declspec(dllimport) void*   __stdcall LoadCursorA(void*, const char*);
-    __declspec(dllimport) uint16_t __stdcall RegisterClassA(void*);
-    __declspec(dllimport) void*   __stdcall CreateWindowExA(uint32_t, const char*, const char*,
-                                                            uint32_t, int, int, int, int,
-                                                            void*, void*, void*, void*);
-    __declspec(dllimport) void*   __stdcall SendMessageA(void*, uint32_t, uint32_t, uint32_t);
-    __declspec(dllimport) void    __stdcall Sleep(uint32_t);
-    __declspec(dllimport) int     __stdcall GetSystemMetrics(int);
-    __declspec(dllimport) void*   __stdcall CreateMutexA(void*, int, const char*);
-    __declspec(dllimport) uint32_t __stdcall GetLastError(void);
-    __declspec(dllimport) uint32_t __stdcall GetModuleFileNameA(void*, char*, uint32_t);
-    __declspec(dllimport) uint32_t __stdcall GetConsoleTitleA(char*, uint32_t);
-    __declspec(dllimport) void    __stdcall GetStartupInfoA(void*);
-    __declspec(dllimport) void*   __stdcall SetForegroundWindow(void*);
+    __declspec(dllimport) int     __stdcall SetForegroundWindow(void*);
     __declspec(dllimport) int     __stdcall ShowCursor(int);
     __declspec(dllimport) void*   __stdcall SetCursor(void*);
-    __declspec(dllimport) int     __stdcall DefWindowProcA(void*, uint32_t, uint32_t, uint32_t);
+    __declspec(dllimport) LRESULT __stdcall DefWindowProcA(HWND, UINT, WPARAM, LPARAM);
+    __declspec(dllimport) LONG    __stdcall CoInitialize(LPVOID reserved);
+    __declspec(dllimport) LONG    __stdcall CoCreateInstance(const void* class_id,
+                                                              void* outer,
+                                                              DWORD context,
+                                                              const void* interface_id,
+                                                              void** object);
+    __declspec(dllimport) void    __stdcall CoUninitialize();
+    __declspec(dllimport) int     __stdcall MultiByteToWideChar(UINT code_page,
+                                                                DWORD flags,
+                                                                const char* source,
+                                                                int source_length,
+                                                                WORD* destination,
+                                                                int destination_length);
+    __declspec(dllimport) UINT    __stdcall timeKillEvent(UINT timer_id);
+    __declspec(dllimport) UINT    __stdcall timeEndPeriod(UINT period);
+    __declspec(dllimport) UINT    __stdcall midiOutUnprepareHeader(
+        HANDLE output, MidiHeader* header, UINT header_size);
+    __declspec(dllimport) UINT    __stdcall midiOutReset(HANDLE output);
+    __declspec(dllimport) UINT    __stdcall midiOutClose(HANDLE output);
 }
 
+extern "C" void* operator_new(DWORD size);
+extern "C" void __cdecl _free(void* allocation);
+
 // Globals
-extern uint8_t  DAT_00491d65;    // fullscreen flag
-extern uint32_t DAT_00492500;    // cursor visible flag
-extern uint32_t DAT_004924fc;    // cursor state
+extern BYTE     DAT_00491d65;    // fullscreen flag
+extern DWORD    DAT_00492500;    // cursor visible flag
+extern DWORD    DAT_004924fc;    // cursor state
 extern void*    DAT_00491c70;    // HWND
 extern void*    g_pWnd;
-extern uint32_t DAT_00491ff4;    // status flags
-extern uint32_t DAT_00491fe8;    // device change notify handle
-extern uint32_t DAT_0049251c;    // saved work area
-extern uint32_t DAT_00492520;    // saved SPI_53
-extern uint32_t DAT_00492524;    // saved SPI_54
-extern int64_t  DAT_00492508;    // perf frequency
-extern int64_t  DAT_00492510;    // perf counter
+extern DWORD    DAT_00491ff4;    // status flags
+extern MidiManager* DAT_00491fe8; // active MIDI manager
+extern DWORD    DAT_0049251c;    // saved work area
+extern DWORD    DAT_00492520;    // saved SPI_53
+extern DWORD    DAT_00492524;    // saved SPI_54
+extern LONGLONG DAT_00492508;    // perf frequency
+extern LONGLONG DAT_00492510;    // perf counter
 extern char     DAT_0046f66c[];  // window title
 extern void*    DAT_00497ba8;    // mutex handle
-extern uint8_t  DAT_00492518;    // replay flag
+extern BYTE     DAT_00492518;    // replay flag
 
-void FUN_0043aeb0(void* this_, uint32_t param);
 void FUN_0044b8e0(const char* msg);
 int  FUN_0044b4d0(const char* str);
-void FUN_0043a290(char* path);
+
+struct Guid {
+    DWORD data1;
+    WORD data2;
+    WORD data3;
+    BYTE data4[8];
+};
+
+struct ShellLink;
+struct PersistFile;
+
+struct ShellLinkVtable {
+    LONG (__stdcall *QueryInterface)(ShellLink*, const Guid*, void**);
+    DWORD (__stdcall *AddRef)(ShellLink*);
+    DWORD (__stdcall *Release)(ShellLink*);
+    LONG (__stdcall *GetPath)(ShellLink*, char*, int, void*, DWORD);
+};
+
+struct ShellLink {
+    ShellLinkVtable* vtable;
+};
+
+struct PersistFileVtable {
+    LONG (__stdcall *QueryInterface)(PersistFile*, const Guid*, void**);
+    DWORD (__stdcall *AddRef)(PersistFile*);
+    DWORD (__stdcall *Release)(PersistFile*);
+    LONG (__stdcall *GetClassID)(PersistFile*, Guid*);
+    LONG (__stdcall *IsDirty)(PersistFile*);
+    LONG (__stdcall *Load)(PersistFile*, const WORD*, DWORD);
+};
+
+struct PersistFile {
+    PersistFileVtable* vtable;
+};
+
+static const Guid kShellLinkClass = {
+    0x00021401, 0, 0, {0xC0, 0, 0, 0, 0, 0, 0, 0x46}
+};
+static const Guid kShellLinkInterface = {
+    0x000214EE, 0, 0, {0xC0, 0, 0, 0, 0, 0, 0, 0x46}
+};
+static const Guid kPersistFileInterface = {
+    0x0000010B, 0, 0, {0xC0, 0, 0, 0, 0, 0, 0, 0x46}
+};
+
+static BOOL Succeeded(LONG result) {
+    return result >= 0;
+}
+
+static void CopyString(char* destination, const char* source) {
+    while ((*destination++ = *source++) != '\0') {
+    }
+}
+
+static BOOL StringsEqual(const char* left, const char* right) {
+    while (*left == *right) {
+        if (*left == '\0') {
+            return TRUE;
+        }
+        ++left;
+        ++right;
+    }
+    return FALSE;
+}
 
 // ============================================================================
 // 0x004392E0 - Save System Settings + Init Performance Counters
@@ -82,37 +150,36 @@ void SaveSystemSettings(void) {
 // 0x004390E0 - Window Procedure
 // Handles WM_SETCURSOR (0x20), WM_CLOSE (0x10), WM_QUIT (0x14),
 // WM_ENTERIDLE (0x1C), WM_LBUTTONDOWN (0x201), WM_DEVICECHANGE (0x3C9).
-// __thiscall: ECX = this, but this is a window proc (HWND-based)
-//
 // Ghidra decompilation:
-//   if (param_2 > 0x20): check 0x201 (SetForeground) and 0x3C9 (device change)
+//   if (param_2 > 0x20): check 0x201 (SetForeground) and
+//   0x3C9/MM_MOM_DONE (release the completed MIDI header)
 //   if (param_2 == 0x20): show/hide cursor based on fullscreen flag
 //   if (param_2 == 0x10): set close flag (DAT_00491ff4 |= 0x80)
 //   if (param_2 == 0x14): return 1 (swallow WM_QUIT)
 //   if (param_2 == 0x1C): track cursor visibility
 //   else: DefWindowProcA
 // ============================================================================
-void* __fastcall WndProc(void* this_, void* hwnd, uint32_t msg, uint32_t wParam, uint32_t lParam) {
+LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     if (msg > 0x20) {
         if (msg == 0x201) {
             SetForegroundWindow(hwnd);
         } else if (msg == 0x3C9 && DAT_00491fe8 != 0) {
-            FUN_0043aeb0(this_, DAT_00491fe8);
-            return (void*)DefWindowProcA(hwnd, 0x3C9, wParam, lParam);
+            MidiHeaderRelease(DAT_00491fe8, (MidiHeader*)lParam);
+            return DefWindowProcA(hwnd, 0x3C9, wParam, lParam);
         }
-        return (void*)DefWindowProcA(hwnd, msg, wParam, lParam);
+        return DefWindowProcA(hwnd, msg, wParam, lParam);
     }
 
     if (msg == 0x20) {  // WM_SETCURSOR
         if (DAT_00491d65 == 0 && DAT_00492500 == 0) {
             ShowCursor(0);
             SetCursor(0);
-            return (void*)1;
+            return 1;
         }
         void* hCursor = LoadCursorA(0, (const char*)0x7F00);
         SetCursor(hCursor);
         ShowCursor(1);
-        return (void*)1;
+        return 1;
     }
 
     if (msg == 0x10) {  // WM_CLOSE
@@ -121,11 +188,11 @@ void* __fastcall WndProc(void* this_, void* hwnd, uint32_t msg, uint32_t wParam,
         if (msg == 0x1C) {  // WM_ENTERIDLE
             DAT_00492500 = (wParam == 0);
             DAT_004924fc = wParam;
-            return (void*)DefWindowProcA(hwnd, 0x1C, wParam, lParam);
+            return DefWindowProcA(hwnd, 0x1C, wParam, lParam);
         }
-        return (void*)DefWindowProcA(hwnd, msg, wParam, lParam);
+        return DefWindowProcA(hwnd, msg, wParam, lParam);
     }
-    return (void*)1;  // swallow WM_QUIT
+    return 1;  // swallow WM_QUIT
 }
 
 // ============================================================================
@@ -133,7 +200,8 @@ void* __fastcall WndProc(void* this_, void* hwnd, uint32_t msg, uint32_t wParam,
 // Registers "BASE" window class and creates the game window.
 // Windowed mode: 640x480 with WS_VISIBLE|WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX
 // Fullscreen: extended borderless window using GetSystemMetrics for sizing.
-// Uses unaff_EBX = HINSTANCE (non-standard register passing)
+// The retail caller supplied HINSTANCE in EBX; the readable interface makes it
+// an ordinary explicit argument.
 //
 // Ghidra decompilation:
 //   GetStockObject(4)  // NULL_BRUSH
@@ -148,26 +216,16 @@ void* __fastcall WndProc(void* this_, void* hwnd, uint32_t msg, uint32_t wParam,
 //   Sleep(16)
 //   SendMessageA(hwnd, WM_SYSCOMMAND, SC_RESTORE, 0)
 // ============================================================================
-uint32_t CreateGameWindow(void* hInstance) {
-    // WNDCLASSA structure (40 bytes = 10 dwords)
-    uint32_t wndclass[10];
-    wndclass[0] = 0;  // style
-    wndclass[1] = 0;  // lpfnWndProc (set below)
-    wndclass[2] = 0;  // cbClsExtra
-    wndclass[3] = 0;  // cbWndExtra
-    wndclass[4] = 0;  // hInstance
-    wndclass[5] = 0;  // hIcon
-    wndclass[6] = 0;  // hCursor (set below)
-    wndclass[7] = 0;  // hbrBackground
-    wndclass[8] = 0;  // lpszMenuName
-    wndclass[9] = 0;  // lpszClassName
-
-    GetStockObject(4);  // NULL_BRUSH
-    void* hCursor = LoadCursorA(0, (const char*)0x7F00);  // IDC_ARROW
-    wndclass[1] = (uint32_t)WndProc;  // lpfnWndProc
+DWORD CreateGameWindow(HINSTANCE hInstance) {
+    WNDCLASSA windowClass = {};
+    windowClass.lpfnWndProc = WindowProcedure;
+    windowClass.hInstance = hInstance;
+    windowClass.hCursor = LoadCursorA(0, (const char*)0x7F00);
+    windowClass.hbrBackground = (HBRUSH)GetStockObject(4);
+    windowClass.lpszClassName = "BASE";
     DAT_004924fc = 1;
     DAT_00492500 = 0;
-    RegisterClassA(wndclass);
+    RegisterClassA(&windowClass);
 
     if (DAT_00491d65 == 0) {
         // Windowed mode
@@ -203,6 +261,139 @@ uint32_t CreateGameWindow(void* hInstance) {
 }
 
 // ============================================================================
+// 0x0043AA60 - Release the MIDI file/buffer table
+// Retail received manager in ESI.
+// ============================================================================
+void MidiBuffersRelease(MidiManager* manager) {
+    if (manager == 0) {
+        return;
+    }
+
+    for (int index = 0; index < manager->buffer_count; ++index) {
+        void*& allocation = manager->buffers[index].allocation;
+        if (allocation != 0) {
+            _free(allocation);
+            allocation = 0;
+        }
+    }
+
+    if (manager->buffers != 0) {
+        _free(manager->buffers);
+    }
+    manager->buffers = 0;
+    manager->buffer_count = 0;
+}
+
+// ============================================================================
+// 0x0043AEB0 - Retire a completed MIDI output header
+// Retail received manager in EDX and header in ESI.
+// ============================================================================
+int MidiHeaderRelease(MidiManager* manager, MidiHeader* header) {
+    if (manager == 0 || header == 0) {
+        return -1;
+    }
+
+    int slot = 0;
+    while (slot < 32 && manager->active_headers[slot] != header) {
+        ++slot;
+    }
+    if (slot == 32) {
+        return -1;
+    }
+
+    manager->active_headers[slot] = 0;
+    midiOutUnprepareHeader(manager->output, header, sizeof(MidiHeader));
+    if (header->data != 0) {
+        _free(header->data);
+        header->data = 0;
+    }
+    _free(header);
+    return 0;
+}
+
+// ============================================================================
+// 0x0043AE20 - Stop MIDI playback and release all queued headers
+// Retail received manager in EDI.
+// ============================================================================
+int MidiManagerShutdown(MidiManager* manager) {
+    if (manager == 0 || manager->buffers == 0) {
+        return -1;
+    }
+
+    for (int slot = 0; slot < 32; ++slot) {
+        MidiHeader* header = manager->active_headers[slot];
+        if (header != 0) {
+            MidiHeaderRelease(manager, header);
+        }
+    }
+
+    if (manager->timer_event != 0) {
+        timeKillEvent(manager->timer_event);
+    }
+    timeEndPeriod(manager->timer_period);
+    manager->timer_event = 0;
+
+    if (manager->output != 0) {
+        midiOutReset(manager->output);
+        midiOutClose(manager->output);
+        manager->output = 0;
+    }
+
+    manager->state = -1;
+    return 0;
+}
+
+// ============================================================================
+// 0x0043A290 - Resolve a Windows shortcut
+//
+// Retail supplied target_path in EBX and target_capacity in EDI, leaving only
+// shortcut_path on the stack.  The readable interface makes all three inputs
+// explicit.  The COM calls and their cleanup order follow the retail body.
+// ============================================================================
+BOOL ResolveShortcutTarget(const char* shortcut_path, char* target_path,
+                           DWORD target_capacity) {
+    if (target_path == 0 || shortcut_path == 0 || target_capacity == 0) {
+        return FALSE;
+    }
+
+    CoInitialize(0);
+
+    ShellLink* shell_link = 0;
+    PersistFile* persist_file = 0;
+    BOOL resolved = FALSE;
+
+    LONG result = CoCreateInstance(&kShellLinkClass, 0, 1,
+                                   &kShellLinkInterface,
+                                   (void**)&shell_link);
+    if (Succeeded(result)) {
+        result = shell_link->vtable->QueryInterface(
+            shell_link, &kPersistFileInterface, (void**)&persist_file);
+        if (Succeeded(result)) {
+            WORD* wide_path = (WORD*)operator_new(target_capacity * sizeof(WORD));
+            MultiByteToWideChar(0, 0, shortcut_path, -1, wide_path,
+                                target_capacity);
+
+            result = persist_file->vtable->Load(persist_file, wide_path, 0);
+            if (Succeeded(result)) {
+                // WIN32_FIND_DATAA is 320 bytes on the 32-bit target.  GetPath
+                // accepts it as optional output; retail supplied stack storage.
+                BYTE find_data[320];
+                result = shell_link->vtable->GetPath(
+                    shell_link, target_path, target_capacity, find_data, 0);
+                resolved = Succeeded(result);
+            }
+
+            _free(wide_path);
+            persist_file->vtable->Release(persist_file);
+        }
+        shell_link->vtable->Release(shell_link);
+    }
+
+    CoUninitialize();
+    return resolved;
+}
+
+// ============================================================================
 // 0x00439FF0 - Instance Check (Mutex + LNK Resolution)
 // Creates a named mutex to prevent multiple instances. Checks if launched
 // via a .lnk shortcut (for replay drag-drop support). Uses security cookie.
@@ -225,40 +416,46 @@ uint32_t CreateGameWindow(void* hInstance) {
 // ============================================================================
 int InstanceCheck(void) {
     DAT_00497ba8 = CreateMutexA(0, 1, "Touhou 10 App");
-    uint32_t err = GetLastError();
+    DWORD err = GetLastError();
     if (err == 0xB7) {  // ERROR_ALREADY_EXISTS
         FUN_0044b8e0("already running");
         return -1;
     }
 
     // STARTUPINFOA (0x44 bytes)
-    char startupInfo[0x44];
+    STARTUPINFOA startupInfo = {};
     char modulePath[0x105];
     char consoleTitle[0x105];
 
-    // Zero out STARTUPINFOA
-    uint32_t* p = (uint32_t*)startupInfo;
-    for (int i = 0x11; i != 0; i--) {
-        *p++ = 0;
-    }
-    *(uint32_t*)startupInfo = 0x44;  // cb = sizeof(STARTUPINFOA)
+    startupInfo.cb = sizeof(startupInfo);
 
     GetModuleFileNameA(0, modulePath, 0x105);
     GetConsoleTitleA(consoleTitle, 0x105);
-    GetStartupInfoA(startupInfo);
+    GetStartupInfoA(&startupInfo);
 
-    char* lpTitle = *(char**)(startupInfo + 0x3C);  // STARTUPINFOA.lpTitle at offset 60
+    char* lpTitle = startupInfo.lpTitle;
 
     if (lpTitle == 0) {
         DAT_00491ff4 |= 0x40;
     } else {
-        char* dot = 0;
-        // Check for .lnk extension
-        // ... (complex shortcut resolution logic)
-        // If .lnk: resolve recursively via FUN_0043a290
-        // If not .lnk: copy title to consoleTitle
-        // Compare modulePath vs consoleTitle
-        // If different: DAT_00492518 = 1 (replay launched)
+        char* extension = _strrchr(lpTitle, '.');
+        if (FUN_0044b4d0(lpTitle) && extension != 0) {
+            if (__stricmp(extension, ".lnk") == 0) {
+                const char* shortcut_path = lpTitle;
+                do {
+                    ResolveShortcutTarget(shortcut_path, consoleTitle, 0x104);
+                    shortcut_path = consoleTitle;
+                    extension = _strrchr(consoleTitle, '.');
+                } while (extension != 0 &&
+                         __stricmp(extension, ".lnk") == 0);
+            } else {
+                CopyString(consoleTitle, lpTitle);
+            }
+
+            if (!StringsEqual(modulePath, consoleTitle)) {
+                DAT_00492518 = 1;
+            }
+        }
         DAT_00491ff4 &= 0xFFFFFFBF;
     }
 

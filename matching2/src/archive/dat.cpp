@@ -39,7 +39,12 @@ char* DuplicateString(const char* text, uint32_t size) {
     return copy;
 }
 
-bool LoadArchiveIndex(DatArchive* archive, const char* path) {
+} // namespace
+
+// Clean reconstruction of 0x00434F70. The retail routine opens the selected
+// FileInterface, decodes the 16-byte THA1 header, then reads the compressed
+// entry table from the end of the file and installs the parsed entries.
+bool DatArchive_LoadIndex(DatArchive* archive, const char* path) {
     if (!archive->file || !archive->file->Open(path, "r")) {
         return false;
     }
@@ -107,8 +112,6 @@ bool LoadArchiveIndex(DatArchive* archive, const char* path) {
     return true;
 }
 
-} // namespace
-
 void DatArchive_Initialize(DatArchive* archive) {
     archive->entries = 0;
     archive->entry_count = 0;
@@ -140,7 +143,7 @@ bool DatArchive_Open(
         const char* path) {
     DatArchive_Close(archive);
     archive->file = owned_file;
-    if (!archive->file || !LoadArchiveIndex(archive, path)) {
+    if (!archive->file || !DatArchive_LoadIndex(archive, path)) {
         DatArchive_Close(archive);
         return false;
     }
@@ -268,6 +271,9 @@ bool DatArchive_DecodeHeader(
     return true;
 }
 
+// Clean reconstruction of 0x004350D0. Retail allocates entry_count + 1
+// records, copies each aligned packed name and its three metadata words, then
+// appends a sentinel whose offset marks the end of the final data payload.
 DatEntry* DatArchive_ParseEntries(
         const uint8_t* packed_entries,
         uint32_t entry_count,

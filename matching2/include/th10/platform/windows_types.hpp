@@ -32,12 +32,46 @@ typedef unsigned long long  ULONGLONG;
 typedef void*               HGDIOBJ;
 typedef unsigned short      ATOM;
 typedef long                LRESULT;
-typedef void*               WNDPROC;
 typedef void*               PVOID;
 typedef int                 BOOL_;
 typedef unsigned int        UINT_;
 typedef unsigned int        WPARAM;
 typedef long                LPARAM;
+typedef LRESULT (__stdcall *WNDPROC)(HWND, UINT, WPARAM, LPARAM);
+
+struct WNDCLASSA {
+    UINT style;
+    WNDPROC lpfnWndProc;
+    int cbClsExtra;
+    int cbWndExtra;
+    HINSTANCE hInstance;
+    HICON hIcon;
+    HCURSOR hCursor;
+    HBRUSH hbrBackground;
+    LPCSTR lpszMenuName;
+    LPCSTR lpszClassName;
+};
+
+struct STARTUPINFOA {
+    DWORD cb;
+    LPSTR lpReserved;
+    LPSTR lpDesktop;
+    LPSTR lpTitle;
+    DWORD dwX;
+    DWORD dwY;
+    DWORD dwXSize;
+    DWORD dwYSize;
+    DWORD dwXCountChars;
+    DWORD dwYCountChars;
+    DWORD dwFillAttribute;
+    DWORD dwFlags;
+    WORD wShowWindow;
+    WORD cbReserved2;
+    BYTE* lpReserved2;
+    HANDLE hStdInput;
+    HANDLE hStdOutput;
+    HANDLE hStdError;
+};
 
 #define NULL    0
 #define TRUE    1
@@ -62,7 +96,7 @@ extern "C" {
     BOOL    __stdcall QueryPerformanceCounter(long long*);
     HGDIOBJ __stdcall GetStockObject(int);
     HCURSOR __stdcall LoadCursorA(HINSTANCE, LPCSTR);
-    ATOM    __stdcall RegisterClassA(const void*);
+    ATOM    __stdcall RegisterClassA(const WNDCLASSA*);
     HWND    __stdcall CreateWindowExA(DWORD, LPCSTR, LPCSTR, DWORD, int, int, int, int, HWND, HMENU, HINSTANCE, LPVOID);
     void*   __stdcall SendMessageA(HWND, UINT, DWORD, DWORD);
     void    __stdcall Sleep(DWORD);

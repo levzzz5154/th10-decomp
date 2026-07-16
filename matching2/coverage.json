@@ -1,0 +1,5137 @@
+{
+  "schema_version": 2,
+  "target": {
+    "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "compiler": "MSVC 7.1",
+    "tracked_function_source": "decompiled/ghidra_raw/index.tsv",
+    "inventory_policy": "union of Ghidra index and verified overlays"
+  },
+  "verified_overlay_summary": {
+    "function_count": 32,
+    "compared_bytes": null,
+    "source": "tools/build_hybrid.py"
+  },
+  "functions": [
+    {
+      "address": "0x00401000",
+      "symbol": "FUN_00401000",
+      "size": 272,
+      "status": "semantic",
+      "source": "src/game/game_thread.cpp"
+    },
+    {
+      "address": "0x00401110",
+      "symbol": "FUN_00401110",
+      "size": 336,
+      "status": "semantic",
+      "source": "src/game/game_thread.cpp"
+    },
+    {
+      "address": "0x00401260",
+      "symbol": "FUN_00401260",
+      "size": 480,
+      "status": "semantic",
+      "source": "src/game/game_thread.cpp"
+    },
+    {
+      "address": "0x00401440",
+      "symbol": "FUN_00401440",
+      "size": 224,
+      "status": "semantic",
+      "source": "src/game/game_thread.cpp"
+    },
+    {
+      "address": "0x00401520",
+      "symbol": "FUN_00401520",
+      "size": 16,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401530",
+      "symbol": "FUN_00401530",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401630",
+      "symbol": "FUN_00401630",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401690",
+      "symbol": "FUN_00401690",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401760",
+      "symbol": "FUN_00401760",
+      "size": 752,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401A50",
+      "symbol": "FUN_00401a50",
+      "size": 720,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401D20",
+      "symbol": "FUN_00401d20",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00401DE0",
+      "symbol": "FUN_00401de0",
+      "size": 528,
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
+    },
+    {
+      "address": "0x00401FF0",
+      "symbol": "FUN_00401ff0",
+      "size": 96,
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "Entity_Destructor"
+    },
+    {
+      "address": "0x00402050",
+      "symbol": "FUN_00402050",
+      "size": 272,
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
+    },
+    {
+      "address": "0x00402160",
+      "symbol": "FUN_00402160",
+      "size": 208,
+      "status": "semantic",
+      "source": "src/game/game_state.cpp"
+    },
+    {
+      "address": "0x00402230",
+      "symbol": "FUN_00402230",
+      "size": 528,
+      "status": "semantic",
+      "source": "src/game/game_state.cpp"
+    },
+    {
+      "address": "0x00402440",
+      "symbol": "FUN_00402440",
+      "size": 512,
+      "status": "semantic",
+      "source": "src/game/game_state.cpp"
+    },
+    {
+      "address": "0x00402640",
+      "symbol": "FUN_00402640",
+      "size": 224,
+      "status": "semantic",
+      "source": "src/game/game_state.cpp"
+    },
+    {
+      "address": "0x00402720",
+      "symbol": "FUN_00402720",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00402850",
+      "symbol": "FUN_00402850",
+      "size": 1104,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00402CA0",
+      "symbol": "FUN_00402ca0",
+      "size": 1008,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00403090",
+      "symbol": "FUN_00403090",
+      "size": 1984,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00403850",
+      "symbol": "FUN_00403850",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00403990",
+      "symbol": "FUN_00403990",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00403A30",
+      "symbol": "FUN_00403a30",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00403C80",
+      "symbol": "FUN_00403c80",
+      "size": 2000,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404450",
+      "symbol": "FUN_00404450",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404530",
+      "symbol": "FUN_00404530",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004045B0",
+      "symbol": "FUN_004045b0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404610",
+      "symbol": "FUN_00404610",
+      "size": 912,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004049A0",
+      "symbol": "FUN_004049a0",
+      "size": 928,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404D40",
+      "symbol": "FUN_00404d40",
+      "size": 96,
+      "status": "semantic",
+      "source": "src/math/math_utils.cpp"
+    },
+    {
+      "address": "0x00404DA0",
+      "symbol": "FUN_00404da0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404E10",
+      "symbol": "FUN_00404e10",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00404ED0",
+      "symbol": "FUN_00404ed0",
+      "size": 96,
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
+    },
+    {
+      "address": "0x00404F30",
+      "symbol": "FUN_00404f30",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405040",
+      "symbol": "FUN_00405040",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004050D0",
+      "symbol": "FUN_004050d0",
+      "size": 560,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405300",
+      "symbol": "FUN_00405300",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405410",
+      "symbol": "FUN_00405410",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004054B0",
+      "symbol": "FUN_004054b0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405500",
+      "symbol": "FUN_00405500",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004055C0",
+      "symbol": "FUN_004055c0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405620",
+      "symbol": "FUN_00405620",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004056B0",
+      "symbol": "FUN_004056b0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405750",
+      "symbol": "FUN_00405750",
+      "size": 272,
+      "status": "semantic",
+      "source": "src/game/player.cpp"
+    },
+    {
+      "address": "0x00405860",
+      "symbol": "FUN_00405860",
+      "size": 400,
+      "status": "semantic",
+      "source": "src/game/player.cpp"
+    },
+    {
+      "address": "0x004059F0",
+      "symbol": "FUN_004059f0",
+      "size": 208,
+      "status": "semantic",
+      "source": "src/game/player.cpp"
+    },
+    {
+      "address": "0x00405AC0",
+      "symbol": "FUN_00405ac0",
+      "size": 160,
+      "status": "semantic",
+      "source": "src/game/player.cpp"
+    },
+    {
+      "address": "0x00405B60",
+      "symbol": "FUN_00405b60",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/game/player.cpp"
+    },
+    {
+      "address": "0x00405BE0",
+      "symbol": "FUN_00405be0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405D00",
+      "symbol": "FUN_00405d00",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405DE0",
+      "symbol": "FUN_00405de0",
+      "size": 64,
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "EntitySecondaryResource_Release"
+    },
+    {
+      "address": "0x00405E20",
+      "symbol": "FUN_00405e20",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405ED0",
+      "symbol": "FUN_00405ed0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00405F70",
+      "symbol": "FUN_00405f70",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00406060",
+      "symbol": "FUN_00406060",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00406160",
+      "symbol": "FUN_00406160",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004061D0",
+      "symbol": "FUN_004061d0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00406240",
+      "symbol": "FUN_00406240",
+      "size": 896,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004065C0",
+      "symbol": "FUN_004065c0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004066E0",
+      "symbol": "FUN_004066e0",
+      "size": 174,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040678E",
+      "symbol": "FUN_0040678e",
+      "size": 66,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004067D0",
+      "symbol": "FUN_004067d0",
+      "size": 1472,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00406D90",
+      "symbol": "FUN_00406d90",
+      "size": 1616,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004073E0",
+      "symbol": "FUN_004073e0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004074B0",
+      "symbol": "FUN_004074b0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407560",
+      "symbol": "FUN_00407560",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004076A0",
+      "symbol": "FUN_004076a0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407780",
+      "symbol": "FUN_00407780",
+      "size": 352,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004078E0",
+      "symbol": "FUN_004078e0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407A30",
+      "symbol": "FUN_00407a30",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407BE0",
+      "symbol": "FUN_00407be0",
+      "size": 448,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407DA0",
+      "symbol": "FUN_00407da0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407E40",
+      "symbol": "FUN_00407e40",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00407EF0",
+      "symbol": "FUN_00407ef0",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408030",
+      "symbol": "FUN_00408030",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408100",
+      "symbol": "FUN_00408100",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408210",
+      "symbol": "FUN_00408210",
+      "size": 1104,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408660",
+      "symbol": "FUN_00408660",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004086B0",
+      "symbol": "FUN_004086b0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408750",
+      "symbol": "FUN_00408750",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004088C0",
+      "symbol": "FUN_004088c0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408910",
+      "symbol": "FUN_00408910",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004089C0",
+      "symbol": "FUN_004089c0",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408AF0",
+      "symbol": "FUN_00408af0",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408C90",
+      "symbol": "FUN_00408c90",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00408D60",
+      "symbol": "FUN_00408d60",
+      "size": 1120,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004091C0",
+      "symbol": "FUN_004091c0",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x00409230",
+      "symbol": "FUN_00409230",
+      "size": 64,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x00409270",
+      "symbol": "FUN_00409270",
+      "size": 16,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x00409280",
+      "symbol": "FUN_00409280",
+      "size": 2432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00409C00",
+      "symbol": "FUN_00409c00",
+      "size": 400,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00409D90",
+      "symbol": "FUN_00409d90",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x00409E20",
+      "symbol": "FUN_00409e20",
+      "size": 48,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x00409E50",
+      "symbol": "FUN_00409e50",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00409F90",
+      "symbol": "FUN_00409f90",
+      "size": 2480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040A940",
+      "symbol": "FUN_0040a940",
+      "size": 736,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AC20",
+      "symbol": "FUN_0040ac20",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AC90",
+      "symbol": "FUN_0040ac90",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040ACE0",
+      "symbol": "FUN_0040ace0",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AD20",
+      "symbol": "FUN_0040ad20",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AE70",
+      "symbol": "FUN_0040ae70",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AF00",
+      "symbol": "FUN_0040af00",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040AF90",
+      "symbol": "FUN_0040af90",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B110",
+      "symbol": "FUN_0040b110",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B250",
+      "symbol": "FUN_0040b250",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B3A0",
+      "symbol": "FUN_0040b3a0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B480",
+      "symbol": "FUN_0040b480",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B560",
+      "symbol": "FUN_0040b560",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B7B0",
+      "symbol": "FUN_0040b7b0",
+      "size": 400,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B940",
+      "symbol": "FUN_0040b940",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B9D0",
+      "symbol": "FUN_0040b9d0",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040B9F0",
+      "symbol": "FUN_0040b9f0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040BA90",
+      "symbol": "FUN_0040ba90",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040BD20",
+      "symbol": "FUN_0040bd20",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040BD80",
+      "symbol": "FUN_0040bd80",
+      "size": 1600,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C3C0",
+      "symbol": "FUN_0040c3c0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C480",
+      "symbol": "FUN_0040c480",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C4D0",
+      "symbol": "FUN_0040c4d0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C540",
+      "symbol": "FUN_0040c540",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C6E0",
+      "symbol": "FUN_0040c6e0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C730",
+      "symbol": "FUN_0040c730",
+      "size": 624,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C9A0",
+      "symbol": "FUN_0040c9a0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040C9D0",
+      "symbol": "FUN_0040c9d0",
+      "size": 640,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CC50",
+      "symbol": "FUN_0040cc50",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CC70",
+      "symbol": "FUN_0040cc70",
+      "size": 176,
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "address": "0x0040CD20",
+      "symbol": "FUN_0040cd20",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CEA0",
+      "symbol": "FUN_0040cea0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CF40",
+      "symbol": "FUN_0040cf40",
+      "size": 32,
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "BulletSpawnParameters_Initialize"
+    },
+    {
+      "address": "0x0040CF60",
+      "symbol": "FUN_0040cf60",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CF90",
+      "symbol": "FUN_0040cf90",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040CFB0",
+      "symbol": "FUN_0040cfb0",
+      "size": 720,
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "address": "0x0040D280",
+      "symbol": "FUN_0040d280",
+      "size": 688,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040D530",
+      "symbol": "FUN_0040d530",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040D680",
+      "symbol": "FUN_0040d680",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040D6B0",
+      "symbol": "FUN_0040d6b0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040D750",
+      "symbol": "FUN_0040d750",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040D830",
+      "symbol": "FUN_0040d830",
+      "size": 688,
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "address": "0x0040DAE0",
+      "symbol": "FUN_0040dae0",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040DC80",
+      "symbol": "FUN_0040dc80",
+      "size": 2416,
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "address": "0x0040E5F0",
+      "symbol": "FUN_0040e5f0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040E6A0",
+      "symbol": "FUN_0040e6a0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0040E770",
+      "symbol": "FUN_0040e770",
+      "size": 16304,
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
+    },
+    {
+      "address": "0x00412720",
+      "symbol": "FUN_00412720",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004127A0",
+      "symbol": "FUN_004127a0",
+      "size": 608,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412A00",
+      "symbol": "FUN_00412a00",
+      "size": 16,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412A10",
+      "symbol": "FUN_00412a10",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412AA0",
+      "symbol": "FUN_00412aa0",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412AC0",
+      "symbol": "FUN_00412ac0",
+      "size": 752,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412DB0",
+      "symbol": "FUN_00412db0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412E70",
+      "symbol": "FUN_00412e70",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412ED0",
+      "symbol": "FUN_00412ed0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00412FF0",
+      "symbol": "FUN_00412ff0",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413170",
+      "symbol": "FUN_00413170",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413200",
+      "symbol": "FUN_00413200",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413270",
+      "symbol": "FUN_00413270",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413350",
+      "symbol": "FUN_00413350",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413450",
+      "symbol": "FUN_00413450",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004134B0",
+      "symbol": "FUN_004134b0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004135D0",
+      "symbol": "FUN_004135d0",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004136C0",
+      "symbol": "FUN_004136c0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413790",
+      "symbol": "FUN_00413790",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413810",
+      "symbol": "FUN_00413810",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413980",
+      "symbol": "FUN_00413980",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413A20",
+      "symbol": "FUN_00413a20",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00413BC0",
+      "symbol": "FUN_00413bc0",
+      "size": 1968,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00414370",
+      "symbol": "FUN_00414370",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00414570",
+      "symbol": "FUN_00414570",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004145F0",
+      "symbol": "FUN_004145f0",
+      "size": 576,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00414830",
+      "symbol": "FUN_00414830",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00414900",
+      "symbol": "FUN_00414900",
+      "size": 3840,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00415800",
+      "symbol": "FUN_00415800",
+      "size": 768,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00415B00",
+      "symbol": "FUN_00415b00",
+      "size": 688,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00415DB0",
+      "symbol": "FUN_00415db0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00415E90",
+      "symbol": "FUN_00415e90",
+      "size": 4480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417010",
+      "symbol": "FUN_00417010",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417040",
+      "symbol": "FUN_00417040",
+      "size": 672,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004172E0",
+      "symbol": "FUN_004172e0",
+      "size": 768,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004175E0",
+      "symbol": "FUN_004175e0",
+      "size": 400,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417770",
+      "symbol": "FUN_00417770",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417800",
+      "symbol": "FUN_00417800",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417870",
+      "symbol": "FUN_00417870",
+      "size": 1040,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00417C80",
+      "symbol": "FUN_00417c80",
+      "size": 1120,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004180E0",
+      "symbol": "FUN_004180e0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418150",
+      "symbol": "FUN_00418150",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418190",
+      "symbol": "FUN_00418190",
+      "size": 1664,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418810",
+      "symbol": "FUN_00418810",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004188A0",
+      "symbol": "FUN_004188a0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418930",
+      "symbol": "FUN_00418930",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418A00",
+      "symbol": "FUN_00418a00",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418A90",
+      "symbol": "FUN_00418a90",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418B80",
+      "symbol": "FUN_00418b80",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418C40",
+      "symbol": "FUN_00418c40",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418D00",
+      "symbol": "FUN_00418d00",
+      "size": 64,
+      "status": "partial",
+      "source": "src/game/stage_tips.cpp",
+      "blocker": "Remaining code-generation mismatch"
+    },
+    {
+      "address": "0x00418D40",
+      "symbol": "FUN_00418d40",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418E30",
+      "symbol": "FUN_00418e30",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00418EE0",
+      "symbol": "FUN_00418ee0",
+      "size": 352,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419040",
+      "symbol": "FUN_00419040",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419090",
+      "symbol": "FUN_00419090",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419120",
+      "symbol": "FUN_00419120",
+      "size": 1328,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419650",
+      "symbol": "FUN_00419650",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004198A0",
+      "symbol": "FUN_004198a0",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004198C0",
+      "symbol": "FUN_004198c0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419960",
+      "symbol": "FUN_00419960",
+      "size": 1504,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00419F40",
+      "symbol": "FUN_00419f40",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041A050",
+      "symbol": "FUN_0041a050",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041A0A0",
+      "symbol": "FUN_0041a0a0",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041A120",
+      "symbol": "FUN_0041a120",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041A200",
+      "symbol": "FUN_0041a200",
+      "size": 2320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041AB10",
+      "symbol": "FUN_0041ab10",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041AB70",
+      "symbol": "FUN_0041ab70",
+      "size": 496,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041AD60",
+      "symbol": "FUN_0041ad60",
+      "size": 48,
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "EntityAnimation_Release"
+    },
+    {
+      "address": "0x0041AD90",
+      "symbol": "FUN_0041ad90",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041ADF0",
+      "symbol": "FUN_0041adf0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041AED0",
+      "symbol": "FUN_0041aed0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041AFD0",
+      "symbol": "FUN_0041afd0",
+      "size": 2688,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041BA50",
+      "symbol": "FUN_0041ba50",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041BB00",
+      "symbol": "FUN_0041bb00",
+      "size": 896,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041BE80",
+      "symbol": "FUN_0041be80",
+      "size": 48,
+      "status": "semantic",
+      "source": "src/game/score.cpp"
+    },
+    {
+      "address": "0x0041BEB0",
+      "symbol": "FUN_0041beb0",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C030",
+      "symbol": "FUN_0041c030",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C120",
+      "symbol": "FUN_0041c120",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C1C0",
+      "symbol": "FUN_0041c1c0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C290",
+      "symbol": "FUN_0041c290",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C330",
+      "symbol": "FUN_0041c330",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C510",
+      "symbol": "FUN_0041c510",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C5B0",
+      "symbol": "FUN_0041c5b0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C680",
+      "symbol": "FUN_0041c680",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C7D0",
+      "symbol": "FUN_0041c7d0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C800",
+      "symbol": "FUN_0041c800",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041C850",
+      "symbol": "FUN_0041c850",
+      "size": 1920,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041CFD0",
+      "symbol": "FUN_0041cfd0",
+      "size": 752,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041D2C0",
+      "symbol": "FUN_0041d2c0",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041D3D0",
+      "symbol": "FUN_0041d3d0",
+      "size": 1008,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041D7C0",
+      "symbol": "FUN_0041d7c0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041D880",
+      "symbol": "FUN_0041d880",
+      "size": 1280,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041DD80",
+      "symbol": "FUN_0041dd80",
+      "size": 1248,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041E260",
+      "symbol": "FUN_0041e260",
+      "size": 624,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041E4D0",
+      "symbol": "FUN_0041e4d0",
+      "size": 560,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041E700",
+      "symbol": "FUN_0041e700",
+      "size": 1024,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041EB00",
+      "symbol": "FUN_0041eb00",
+      "size": 1184,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041EFA0",
+      "symbol": "FUN_0041efa0",
+      "size": 1120,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F400",
+      "symbol": "FUN_0041f400",
+      "size": 928,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F7A0",
+      "symbol": "FUN_0041f7a0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F800",
+      "symbol": "FUN_0041f800",
+      "size": 80,
+      "status": "semantic",
+      "source": "src/math/vector.cpp"
+    },
+    {
+      "address": "0x0041F850",
+      "symbol": "FUN_0041f850",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F8D0",
+      "symbol": "FUN_0041f8d0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F930",
+      "symbol": "FUN_0041f930",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041F990",
+      "symbol": "FUN_0041f990",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041FAC0",
+      "symbol": "FUN_0041fac0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041FB50",
+      "symbol": "FUN_0041fb50",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041FD00",
+      "symbol": "FUN_0041fd00",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041FDD0",
+      "symbol": "FUN_0041fdd0",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0041FF80",
+      "symbol": "FUN_0041ff80",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420100",
+      "symbol": "FUN_00420100",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420270",
+      "symbol": "FUN_00420270",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004203C0",
+      "symbol": "FUN_004203c0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004203F0",
+      "symbol": "FUN_004203f0",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420470",
+      "symbol": "FUN_00420470",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420670",
+      "symbol": "FUN_00420670",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420870",
+      "symbol": "FUN_00420870",
+      "size": 544,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420A90",
+      "symbol": "FUN_00420a90",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420B10",
+      "symbol": "FUN_00420b10",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420C00",
+      "symbol": "FUN_00420c00",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420C30",
+      "symbol": "FUN_00420c30",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420CD0",
+      "symbol": "FUN_00420cd0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420DD0",
+      "symbol": "FUN_00420dd0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00420EA0",
+      "symbol": "FUN_00420ea0",
+      "size": 464,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421070",
+      "symbol": "FUN_00421070",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421300",
+      "symbol": "FUN_00421300",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421480",
+      "symbol": "FUN_00421480",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004215A0",
+      "symbol": "FUN_004215a0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004216F0",
+      "symbol": "FUN_004216f0",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004218D0",
+      "symbol": "FUN_004218d0",
+      "size": 704,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421B90",
+      "symbol": "FUN_00421b90",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421C50",
+      "symbol": "FUN_00421c50",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421D20",
+      "symbol": "FUN_00421d20",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421E00",
+      "symbol": "FUN_00421e00",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421F00",
+      "symbol": "FUN_00421f00",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421F60",
+      "symbol": "FUN_00421f60",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00421FA0",
+      "symbol": "FUN_00421fa0",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004220E0",
+      "symbol": "FUN_004220e0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422150",
+      "symbol": "FUN_00422150",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422220",
+      "symbol": "FUN_00422220",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422360",
+      "symbol": "FUN_00422360",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004223F0",
+      "symbol": "FUN_004223f0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004224C0",
+      "symbol": "FUN_004224c0",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422660",
+      "symbol": "FUN_00422660",
+      "size": 1072,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422A90",
+      "symbol": "FUN_00422a90",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422AB0",
+      "symbol": "FUN_00422ab0",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422C30",
+      "symbol": "FUN_00422c30",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00422C80",
+      "symbol": "FUN_00422c80",
+      "size": 1360,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004231D0",
+      "symbol": "FUN_004231d0",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00423370",
+      "symbol": "FUN_00423370",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00423510",
+      "symbol": "FUN_00423510",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00423570",
+      "symbol": "FUN_00423570",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004236F0",
+      "symbol": "FUN_004236f0",
+      "size": 3328,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004243F0",
+      "symbol": "FUN_004243f0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00424480",
+      "symbol": "FUN_00424480",
+      "size": 464,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00424650",
+      "symbol": "FUN_00424650",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004246C0",
+      "symbol": "FUN_004246c0",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004247F0",
+      "symbol": "FUN_004247f0",
+      "size": 1440,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00424D90",
+      "symbol": "FUN_00424d90",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00424ED0",
+      "symbol": "FUN_00424ed0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00425020",
+      "symbol": "FUN_00425020",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004250B0",
+      "symbol": "FUN_004250b0",
+      "size": 1664,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00425730",
+      "symbol": "FUN_00425730",
+      "size": 3120,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426360",
+      "symbol": "FUN_00426360",
+      "size": 448,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426520",
+      "symbol": "FUN_00426520",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426610",
+      "symbol": "FUN_00426610",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426660",
+      "symbol": "FUN_00426660",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004266B0",
+      "symbol": "FUN_004266b0",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004267F0",
+      "symbol": "FUN_004267f0",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004269D0",
+      "symbol": "FUN_004269d0",
+      "size": 800,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426CF0",
+      "symbol": "FUN_00426cf0",
+      "size": 640,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00426F70",
+      "symbol": "FUN_00426f70",
+      "size": 2528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427950",
+      "symbol": "FUN_00427950",
+      "size": 16,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427960",
+      "symbol": "FUN_00427960",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427AE0",
+      "symbol": "FUN_00427ae0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427B50",
+      "symbol": "FUN_00427b50",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427C50",
+      "symbol": "FUN_00427c50",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427C70",
+      "symbol": "FUN_00427c70",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427D80",
+      "symbol": "FUN_00427d80",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00427E90",
+      "symbol": "FUN_00427e90",
+      "size": 720,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428160",
+      "symbol": "FUN_00428160",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004281D0",
+      "symbol": "FUN_004281d0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428280",
+      "symbol": "FUN_00428280",
+      "size": 944,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428630",
+      "symbol": "FUN_00428630",
+      "size": 1520,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428C20",
+      "symbol": "FUN_00428c20",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428D70",
+      "symbol": "FUN_00428d70",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428DD0",
+      "symbol": "FUN_00428dd0",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428E10",
+      "symbol": "FUN_00428e10",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00428F60",
+      "symbol": "FUN_00428f60",
+      "size": 1344,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004294A0",
+      "symbol": "FUN_004294a0",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00429610",
+      "symbol": "FUN_00429610",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004296F0",
+      "symbol": "FUN_004296f0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004297B0",
+      "symbol": "FUN_004297b0",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004297D0",
+      "symbol": "FUN_004297d0",
+      "size": 912,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00429B60",
+      "symbol": "FUN_00429b60",
+      "size": 1696,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042A200",
+      "symbol": "FUN_0042a200",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042A450",
+      "symbol": "FUN_0042a450",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042A6A0",
+      "symbol": "FUN_0042a6a0",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042A8A0",
+      "symbol": "FUN_0042a8a0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042A930",
+      "symbol": "FUN_0042a930",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042AA50",
+      "symbol": "FUN_0042aa50",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042AB20",
+      "symbol": "FUN_0042ab20",
+      "size": 400,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042ACB0",
+      "symbol": "FUN_0042acb0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042ADD0",
+      "symbol": "FUN_0042add0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042AE60",
+      "symbol": "FUN_0042ae60",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042AF20",
+      "symbol": "FUN_0042af20",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B030",
+      "symbol": "FUN_0042b030",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B1E0",
+      "symbol": "FUN_0042b1e0",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B430",
+      "symbol": "FUN_0042b430",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B4D0",
+      "symbol": "FUN_0042b4d0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B570",
+      "symbol": "FUN_0042b570",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B660",
+      "symbol": "FUN_0042b660",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B6F0",
+      "symbol": "FUN_0042b6f0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B780",
+      "symbol": "FUN_0042b780",
+      "size": 576,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042B9C0",
+      "symbol": "FUN_0042b9c0",
+      "size": 2464,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C360",
+      "symbol": "FUN_0042c360",
+      "size": 608,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C5C0",
+      "symbol": "FUN_0042c5c0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C620",
+      "symbol": "FUN_0042c620",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C670",
+      "symbol": "FUN_0042c670",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C6D0",
+      "symbol": "FUN_0042c6d0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C730",
+      "symbol": "FUN_0042c730",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C750",
+      "symbol": "FUN_0042c750",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C770",
+      "symbol": "FUN_0042c770",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C850",
+      "symbol": "FUN_0042c850",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C8C0",
+      "symbol": "FUN_0042c8c0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042C920",
+      "symbol": "FUN_0042c920",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042CAA0",
+      "symbol": "FUN_0042caa0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042CB60",
+      "symbol": "FUN_0042cb60",
+      "size": 496,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042CD50",
+      "symbol": "FUN_0042cd50",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042CDB0",
+      "symbol": "FUN_0042cdb0",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042CDF0",
+      "symbol": "FUN_0042cdf0",
+      "size": 1296,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042D300",
+      "symbol": "FUN_0042d300",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042D420",
+      "symbol": "FUN_0042d420",
+      "size": 1280,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042D920",
+      "symbol": "FUN_0042d920",
+      "size": 3200,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042E5A0",
+      "symbol": "FUN_0042e5a0",
+      "size": 4000,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042F540",
+      "symbol": "FUN_0042f540",
+      "size": 880,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0042F8B0",
+      "symbol": "FUN_0042f8b0",
+      "size": 2464,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00430250",
+      "symbol": "FUN_00430250",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00430320",
+      "symbol": "FUN_00430320",
+      "size": 896,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004306A0",
+      "symbol": "FUN_004306a0",
+      "size": 960,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00430A60",
+      "symbol": "FUN_00430a60",
+      "size": 1424,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00430FF0",
+      "symbol": "FUN_00430ff0",
+      "size": 1056,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00431410",
+      "symbol": "FUN_00431410",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004315C0",
+      "symbol": "FUN_004315c0",
+      "size": 1504,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00431BA0",
+      "symbol": "FUN_00431ba0",
+      "size": 832,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00431EE0",
+      "symbol": "FUN_00431ee0",
+      "size": 1968,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00432690",
+      "symbol": "FUN_00432690",
+      "size": 864,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004329F0",
+      "symbol": "FUN_004329f0",
+      "size": 704,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00432CB0",
+      "symbol": "FUN_00432cb0",
+      "size": 1408,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00433230",
+      "symbol": "FUN_00433230",
+      "size": 832,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00433570",
+      "symbol": "FUN_00433570",
+      "size": 1472,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00433B30",
+      "symbol": "FUN_00433b30",
+      "size": 960,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00433EF0",
+      "symbol": "FUN_00433ef0",
+      "size": 2800,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004349E0",
+      "symbol": "FUN_004349e0",
+      "size": 64,
+      "status": "semantic",
+      "source": "src/game/stage_text.cpp"
+    },
+    {
+      "address": "0x00434A20",
+      "symbol": "FUN_00434a20",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00434A80",
+      "symbol": "FUN_00434a80",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00434C20",
+      "symbol": "FUN_00434c20",
+      "size": 16,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00434C30",
+      "symbol": "FUN_00434c30",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00434CA0",
+      "symbol": "FUN_00434ca0",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/archive/dat_file.cpp"
+    },
+    {
+      "address": "0x00434D10",
+      "symbol": "FUN_00434d10",
+      "size": 192,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00434DD0",
+      "symbol": "FUN_00434dd0",
+      "size": 288,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00434EF0",
+      "symbol": "FUN_00434ef0",
+      "size": 64,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00434F30",
+      "symbol": "FUN_00434f30",
+      "size": 64,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00434F70",
+      "symbol": "FUN_00434f70",
+      "size": 352,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x004350D0",
+      "symbol": "FUN_004350d0",
+      "size": 336,
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
+    },
+    {
+      "address": "0x00435220",
+      "symbol": "FUN_00435220",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00435250",
+      "symbol": "FUN_00435250",
+      "size": 208,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "HeapBuffer_Release"
+    },
+    {
+      "address": "0x004352C0",
+      "symbol": "0HeapBuffer",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "0HeapBuffer"
+    },
+    {
+      "address": "0x00435320",
+      "symbol": "FUN_00435320",
+      "size": 32,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "??_GFileHandle"
+    },
+    {
+      "address": "0x00435340",
+      "symbol": "FUN_00435340",
+      "size": 48,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "??1FileHandle"
+    },
+    {
+      "address": "0x00435370",
+      "symbol": "FUN_00435370",
+      "size": 240,
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
+    },
+    {
+      "address": "0x00435460",
+      "symbol": "FUN_00435460",
+      "size": 288,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "Close@FileHandle"
+    },
+    {
+      "address": "0x00435490",
+      "symbol": "Read@FileHandle",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "Read@FileHandle"
+    },
+    {
+      "address": "0x004354D0",
+      "symbol": "Write@FileHandle",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "Write@FileHandle"
+    },
+    {
+      "address": "0x00435510",
+      "symbol": "Tell@FileHandle",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "Tell@FileHandle"
+    },
+    {
+      "address": "0x00435530",
+      "symbol": "GetSize@FileHandle",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "GetSize@FileHandle"
+    },
+    {
+      "address": "0x00435550",
+      "symbol": "Seek@FileHandle",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "Seek@FileHandle"
+    },
+    {
+      "address": "0x00435580",
+      "symbol": "FUN_00435580",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
+    },
+    {
+      "address": "0x00435610",
+      "symbol": "FUN_00435610",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00435690",
+      "symbol": "??1FileInterface",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "??1FileInterface"
+    },
+    {
+      "address": "0x004356A0",
+      "symbol": "??_GFileInterface",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "??_GFileInterface"
+    },
+    {
+      "address": "0x004356F0",
+      "symbol": "FUN_004356f0",
+      "size": 272,
+      "status": "semantic",
+      "source": "src/archive/resource_manager.cpp"
+    },
+    {
+      "address": "0x00435800",
+      "symbol": "FUN_00435800",
+      "size": 224,
+      "status": "semantic",
+      "source": "src/archive/resource_manager.cpp"
+    },
+    {
+      "address": "0x004358E0",
+      "symbol": "FUN_004358e0",
+      "size": 208,
+      "status": "semantic",
+      "source": "src/archive/resource_manager.cpp"
+    },
+    {
+      "address": "0x004359B0",
+      "symbol": "FUN_004359b0",
+      "size": 1040,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00435DC0",
+      "symbol": "FUN_00435dc0",
+      "size": 576,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436000",
+      "symbol": "FUN_00436000",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436210",
+      "symbol": "FUN_00436210",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436260",
+      "symbol": "FUN_00436260",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004362B0",
+      "symbol": "FUN_004362b0",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436330",
+      "symbol": "FUN_00436330",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436370",
+      "symbol": "Write@BufferFile",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "Write@BufferFile"
+    },
+    {
+      "address": "0x004363A0",
+      "symbol": "FUN_004363a0",
+      "size": 32,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "??_GBufferFile"
+    },
+    {
+      "address": "0x004363C0",
+      "symbol": "FUN_004363c0",
+      "size": 112,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "??1BufferFile"
+    },
+    {
+      "address": "0x00436430",
+      "symbol": "FUN_00436430",
+      "size": 320,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "Close@BufferFile"
+    },
+    {
+      "address": "0x00436460",
+      "symbol": "Read@BufferFile",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "Read@BufferFile"
+    },
+    {
+      "address": "0x004364D0",
+      "symbol": "Tell@BufferFile",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "Tell@BufferFile"
+    },
+    {
+      "address": "0x004364E0",
+      "symbol": "GetSize@BufferFile",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "GetSize@BufferFile"
+    },
+    {
+      "address": "0x00436570",
+      "symbol": "FUN_00436570",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436660",
+      "symbol": "FUN_00436660",
+      "size": 32,
+      "status": "exact-overlay",
+      "source": "src/platform/resource_file.cpp",
+      "overlay_object": "resource_file.obj",
+      "overlay_symbol": "??_GResourceFile"
+    },
+    {
+      "address": "0x00436680",
+      "symbol": "FUN_00436680",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004366C0",
+      "symbol": "FUN_004366c0",
+      "size": 880,
+      "status": "semantic",
+      "source": "src/platform/resource_file.cpp"
+    },
+    {
+      "address": "0x00436A30",
+      "symbol": "FUN_00436a30",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436AF0",
+      "symbol": "FUN_00436af0",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436CA0",
+      "symbol": "FUN_00436ca0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00436DA0",
+      "symbol": "FUN_00436da0",
+      "size": 960,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437160",
+      "symbol": "FUN_00437160",
+      "size": 1520,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437750",
+      "symbol": "FUN_00437750",
+      "size": 688,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437A00",
+      "symbol": "FUN_00437a00",
+      "size": 784,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437D10",
+      "symbol": "FUN_00437d10",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437DB0",
+      "symbol": "FUN_00437db0",
+      "size": 560,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00437FE0",
+      "symbol": "FUN_00437fe0",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004381F0",
+      "symbol": "FUN_004381f0",
+      "size": 112,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "LegacyString_Clear"
+    },
+    {
+      "address": "0x00438250",
+      "symbol": "?Length@LegacyString",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Length@LegacyString"
+    },
+    {
+      "address": "0x00438260",
+      "symbol": "FUN_00438260",
+      "size": 240,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438350",
+      "symbol": "FUN_00438350",
+      "size": 48,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438380",
+      "symbol": "FUN_00438380",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00438420",
+      "symbol": "FUN_00438420",
+      "size": 240,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438510",
+      "symbol": "FUN_00438510",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438590",
+      "symbol": "FUN_00438590",
+      "size": 288,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438680",
+      "symbol": "QAEPADXZ",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "QAEPADXZ"
+    },
+    {
+      "address": "0x00438690",
+      "symbol": "Deallocate@LegacyAllocator",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "Deallocate@LegacyAllocator"
+    },
+    {
+      "address": "0x004386A0",
+      "symbol": "MaxSize@LegacyAllocator",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "MaxSize@LegacyAllocator"
+    },
+    {
+      "address": "0x004386B0",
+      "symbol": "FUN_004386b0",
+      "size": 115,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x00438723",
+      "symbol": "Catch@00438723",
+      "size": 41,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043874C",
+      "symbol": "FUN_0043874c",
+      "size": 118,
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
+    },
+    {
+      "address": "0x004387C2",
+      "symbol": "Catch@004387c2",
+      "size": 190,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00438800",
+      "symbol": "OwnsPointer@LegacyString",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "OwnsPointer@LegacyString"
+    },
+    {
+      "address": "0x00438840",
+      "symbol": "Allocate@LegacyAllocator",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "Allocate@LegacyAllocator"
+    },
+    {
+      "address": "0x00438880",
+      "symbol": "FUN_00438880",
+      "size": 432,
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
+    },
+    {
+      "address": "0x004388F0",
+      "symbol": "RuntimeAllocationPool_Initialize",
+      "size": null,
+      "status": "exact-overlay",
+      "source": "src/util/runtime_pool.cpp",
+      "overlay_object": "runtime_pool.obj",
+      "overlay_symbol": "RuntimeAllocationPool_Initialize"
+    },
+    {
+      "address": "0x00438A30",
+      "symbol": "FUN_00438a30",
+      "size": 48,
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
+    },
+    {
+      "address": "0x00438A60",
+      "symbol": "FUN_00438a60",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/render/game_render_targets.cpp"
+    },
+    {
+      "address": "0x00438AD0",
+      "symbol": "GameMain",
+      "size": 1552,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004390E0",
+      "symbol": "FUN_004390e0",
+      "size": 272,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x004391F0",
+      "symbol": "FUN_004391f0",
+      "size": 240,
+      "status": "semantic",
+      "source": "src/render/device_reset.cpp"
+    },
+    {
+      "address": "0x004392E0",
+      "symbol": "FUN_004392e0",
+      "size": 176,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x00439390",
+      "symbol": "FUN_00439390",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00439540",
+      "symbol": "FUN_00439540",
+      "size": 496,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00439730",
+      "symbol": "FUN_00439730",
+      "size": 352,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x00439890",
+      "symbol": "FUN_00439890",
+      "size": 1168,
+      "status": "semantic",
+      "source": "src/render/d3d_init.cpp"
+    },
+    {
+      "address": "0x00439D20",
+      "symbol": "FUN_00439d20",
+      "size": 720,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00439FF0",
+      "symbol": "FUN_00439ff0",
+      "size": 464,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x0043A1C0",
+      "symbol": "FUN_0043a1c0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043A290",
+      "symbol": "FUN_0043a290",
+      "size": 1184,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x0043A730",
+      "symbol": "FUN_0043a730",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043A910",
+      "symbol": "FUN_0043a910",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043AA60",
+      "symbol": "FUN_0043aa60",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x0043AAD0",
+      "symbol": "FUN_0043aad0",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043ACE0",
+      "symbol": "FUN_0043ace0",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043AE20",
+      "symbol": "FUN_0043ae20",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x0043AEB0",
+      "symbol": "FUN_0043aeb0",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
+    },
+    {
+      "address": "0x0043AF30",
+      "symbol": "FUN_0043af30",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043B110",
+      "symbol": "FUN_0043b110",
+      "size": 1680,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043B7A0",
+      "symbol": "FUN_0043b7a0",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043B8D0",
+      "symbol": "FUN_0043b8d0",
+      "size": 880,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043BC40",
+      "symbol": "FUN_0043bc40",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043BCD0",
+      "symbol": "FUN_0043bcd0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043BDA0",
+      "symbol": "FUN_0043bda0",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043BFA0",
+      "symbol": "FUN_0043bfa0",
+      "size": 512,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C1A0",
+      "symbol": "FUN_0043c1a0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C2C0",
+      "symbol": "FUN_0043c2c0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C410",
+      "symbol": "FUN_0043c410",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C500",
+      "symbol": "FUN_0043c500",
+      "size": 880,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C870",
+      "symbol": "FUN_0043c870",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C8B0",
+      "symbol": "FUN_0043c8b0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043C970",
+      "symbol": "FUN_0043c970",
+      "size": 400,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043CB00",
+      "symbol": "FUN_0043cb00",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043CB80",
+      "symbol": "FUN_0043cb80",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043CC40",
+      "symbol": "FUN_0043cc40",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043CD30",
+      "symbol": "FUN_0043cd30",
+      "size": 1008,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D120",
+      "symbol": "FUN_0043d120",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D250",
+      "symbol": "FUN_0043d250",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D2A0",
+      "symbol": "FUN_0043d2a0",
+      "size": 240,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D390",
+      "symbol": "FUN_0043d390",
+      "size": 768,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D690",
+      "symbol": "FUN_0043d690",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D790",
+      "symbol": "FUN_0043d790",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D7D0",
+      "symbol": "FUN_0043d7d0",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043D950",
+      "symbol": "FUN_0043d950",
+      "size": 352,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043DAB0",
+      "symbol": "FUN_0043dab0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043DB60",
+      "symbol": "FUN_0043db60",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043DC90",
+      "symbol": "FUN_0043dc90",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043DD10",
+      "symbol": "FUN_0043dd10",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043DDF0",
+      "symbol": "FUN_0043ddf0",
+      "size": 1456,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043E3A0",
+      "symbol": "FUN_0043e3a0",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043E460",
+      "symbol": "FUN_0043e460",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043E5A0",
+      "symbol": "FUN_0043e5a0",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043E710",
+      "symbol": "FUN_0043e710",
+      "size": 208,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x0043E7E0",
+      "symbol": "FUN_0043e7e0",
+      "size": 208,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x0043E8B0",
+      "symbol": "FUN_0043e8b0",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043EAC0",
+      "symbol": "FUN_0043eac0",
+      "size": 432,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0043EC70",
+      "symbol": "FUN_0043ec70",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x0043ED00",
+      "symbol": "FUN_0043ed00",
+      "size": 160,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x0043EDA0",
+      "symbol": "FUN_0043eda0",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x0043EE30",
+      "symbol": "FUN_0043ee30",
+      "size": 10192,
+      "status": "researched",
+      "source": "unrecovered",
+      "blocker": "Animation instruction interpreter remains retail-backed"
+    },
+    {
+      "address": "0x00441600",
+      "symbol": "FUN_00441600",
+      "size": 848,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00441950",
+      "symbol": "FUN_00441950",
+      "size": 384,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00441AD0",
+      "symbol": "FUN_00441ad0",
+      "size": 896,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00441E50",
+      "symbol": "FUN_00441e50",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00441EF0",
+      "symbol": "FUN_00441ef0",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00441F50",
+      "symbol": "FUN_00441f50",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442050",
+      "symbol": "FUN_00442050",
+      "size": 464,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442220",
+      "symbol": "FUN_00442220",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442300",
+      "symbol": "FUN_00442300",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004423C0",
+      "symbol": "FUN_004423c0",
+      "size": 32,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x004423E0",
+      "symbol": "FUN_004423e0",
+      "size": 448,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004425A0",
+      "symbol": "FUN_004425a0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442670",
+      "symbol": "FUN_00442670",
+      "size": 2272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442F50",
+      "symbol": "FUN_00442f50",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00442FE0",
+      "symbol": "FUN_00442fe0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00443080",
+      "symbol": "FUN_00443080",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00443290",
+      "symbol": "FUN_00443290",
+      "size": 2256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00443B60",
+      "symbol": "FUN_00443b60",
+      "size": 1056,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00443F80",
+      "symbol": "FUN_00443f80",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00443FB0",
+      "symbol": "FUN_00443fb0",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444240",
+      "symbol": "FUN_00444240",
+      "size": 832,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444580",
+      "symbol": "FUN_00444580",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004445C0",
+      "symbol": "FUN_004445c0",
+      "size": 416,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444760",
+      "symbol": "FUN_00444760",
+      "size": 944,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444B10",
+      "symbol": "FUN_00444b10",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444BE0",
+      "symbol": "FUN_00444be0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00444CE0",
+      "symbol": "FUN_00444ce0",
+      "size": 1024,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004450E0",
+      "symbol": "FUN_004450e0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004451C0",
+      "symbol": "FUN_004451c0",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004452F0",
+      "symbol": "FUN_004452f0",
+      "size": 816,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00445620",
+      "symbol": "FUN_00445620",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004458B0",
+      "symbol": "FUN_004458b0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00445900",
+      "symbol": "GameStateInit",
+      "size": 2336,
+      "status": "partial",
+      "source": "src/render/game_render_targets.cpp",
+      "blocker": "Full GameStateInit boundary is not reconstructed"
+    },
+    {
+      "address": "0x00446220",
+      "symbol": "FUN_00446220",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004462F0",
+      "symbol": "FUN_004462f0",
+      "size": 704,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004465B0",
+      "symbol": "FUN_004465b0",
+      "size": 1728,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00446C70",
+      "symbol": "FUN_00446c70",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00446D70",
+      "symbol": "FUN_00446d70",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00446EB0",
+      "symbol": "FUN_00446eb0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00446F40",
+      "symbol": "FUN_00446f40",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447050",
+      "symbol": "FUN_00447050",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004470C0",
+      "symbol": "FUN_004470c0",
+      "size": 448,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447280",
+      "symbol": "FUN_00447280",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004472E0",
+      "symbol": "FUN_004472e0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004473C0",
+      "symbol": "FUN_004473c0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447470",
+      "symbol": "FUN_00447470",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447700",
+      "symbol": "FUN_00447700",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004477D0",
+      "symbol": "FUN_004477d0",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447810",
+      "symbol": "FUN_00447810",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447940",
+      "symbol": "FUN_00447940",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004479D0",
+      "symbol": "FUN_004479d0",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447A50",
+      "symbol": "FUN_00447a50",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447AE0",
+      "symbol": "FUN_00447ae0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447BB0",
+      "symbol": "FUN_00447bb0",
+      "size": 960,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447F70",
+      "symbol": "FUN_00447f70",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00447FD0",
+      "symbol": "FUN_00447fd0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448120",
+      "symbol": "FUN_00448120",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448270",
+      "symbol": "FUN_00448270",
+      "size": 480,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448450",
+      "symbol": "FUN_00448450",
+      "size": 1040,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448860",
+      "symbol": "FUN_00448860",
+      "size": 160,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448900",
+      "symbol": "FUN_00448900",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448980",
+      "symbol": "FUN_00448980",
+      "size": 80,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x004489D0",
+      "symbol": "FUN_004489d0",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448A50",
+      "symbol": "FUN_00448a50",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448AC0",
+      "symbol": "FUN_00448ac0",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448B40",
+      "symbol": "FUN_00448b40",
+      "size": 112,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448BB0",
+      "symbol": "FUN_00448bb0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448D00",
+      "symbol": "FUN_00448d00",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448D50",
+      "symbol": "FUN_00448d50",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448DB0",
+      "symbol": "FUN_00448db0",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00448E30",
+      "symbol": "FUN_00448e30",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00448F60",
+      "symbol": "FUN_00448f60",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449090",
+      "symbol": "FUN_00449090",
+      "size": 304,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004491C0",
+      "symbol": "FUN_004491c0",
+      "size": 80,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00449210",
+      "symbol": "FUN_00449210",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449250",
+      "symbol": "FUN_00449250",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004492A0",
+      "symbol": "FUN_004492a0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004492F0",
+      "symbol": "FUN_004492f0",
+      "size": 96,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00449350",
+      "symbol": "FUN_00449350",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004493E0",
+      "symbol": "FUN_004493e0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449450",
+      "symbol": "FUN_00449450",
+      "size": 32,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00449470",
+      "symbol": "FUN_00449470",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449590",
+      "symbol": "FUN_00449590",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004495E0",
+      "symbol": "FUN_004495e0",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449630",
+      "symbol": "FUN_00449630",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449670",
+      "symbol": "FUN_00449670",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004496A0",
+      "symbol": "FUN_004496a0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004496D0",
+      "symbol": "FUN_004496d0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004497D0",
+      "symbol": "FUN_004497d0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449870",
+      "symbol": "FUN_00449870",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449950",
+      "symbol": "FUN_00449950",
+      "size": 320,
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
+    },
+    {
+      "address": "0x00449A90",
+      "symbol": "FUN_00449a90",
+      "size": 16,
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
+    },
+    {
+      "address": "0x00449AA0",
+      "symbol": "FUN_00449aa0",
+      "size": 64,
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
+    },
+    {
+      "address": "0x00449AE0",
+      "symbol": "FUN_00449ae0",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "address": "0x00449B70",
+      "symbol": "FUN_00449b70",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "address": "0x00449C00",
+      "symbol": "FUN_00449c00",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449D40",
+      "symbol": "FUN_00449d40",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00449E50",
+      "symbol": "FUN_00449e50",
+      "size": 128,
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
+    },
+    {
+      "address": "0x00449ED0",
+      "symbol": "FUN_00449ed0",
+      "size": 144,
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "address": "0x00449F60",
+      "symbol": "FUN_00449f60",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A000",
+      "symbol": "FUN_0044a000",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A030",
+      "symbol": "FUN_0044a030",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A0C0",
+      "symbol": "FUN_0044a0c0",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A190",
+      "symbol": "FUN_0044a190",
+      "size": 848,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A4E0",
+      "symbol": "FUN_0044a4e0",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044A5F0",
+      "symbol": "FUN_0044a5f0",
+      "size": 2592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B010",
+      "symbol": "FUN_0044b010",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B080",
+      "symbol": "FUN_0044b080",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B0D0",
+      "symbol": "FUN_0044b0d0",
+      "size": 336,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B220",
+      "symbol": "FUN_0044b220",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B360",
+      "symbol": "FUN_0044b360",
+      "size": 368,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B4D0",
+      "symbol": "FUN_0044b4d0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B540",
+      "symbol": "FUN_0044b540",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B620",
+      "symbol": "FUN_0044b620",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B6B0",
+      "symbol": "FUN_0044b6b0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B740",
+      "symbol": "FUN_0044b740",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B790",
+      "symbol": "FUN_0044b790",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B7E0",
+      "symbol": "FUN_0044b7e0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B810",
+      "symbol": "FUN_0044b810",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B8E0",
+      "symbol": "FUN_0044b8e0",
+      "size": 256,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044B9E0",
+      "symbol": "FUN_0044b9e0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BA80",
+      "symbol": "FUN_0044ba80",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BB20",
+      "symbol": "FUN_0044bb20",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BB90",
+      "symbol": "FUN_0044bb90",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BC10",
+      "symbol": "FUN_0044bc10",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BC70",
+      "symbol": "FUN_0044bc70",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BD10",
+      "symbol": "FUN_0044bd10",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BE20",
+      "symbol": "FUN_0044be20",
+      "size": 80,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BE70",
+      "symbol": "FUN_0044be70",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BEA0",
+      "symbol": "FUN_0044bea0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044BF40",
+      "symbol": "FUN_0044bf40",
+      "size": 448,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C100",
+      "symbol": "FUN_0044c100",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C130",
+      "symbol": "FUN_0044c130",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C150",
+      "symbol": "FUN_0044c150",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C1C0",
+      "symbol": "FUN_0044c1c0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C2A0",
+      "symbol": "FUN_0044c2a0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C350",
+      "symbol": "FUN_0044c350",
+      "size": 640,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C5D0",
+      "symbol": "FUN_0044c5d0",
+      "size": 528,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C7E0",
+      "symbol": "FUN_0044c7e0",
+      "size": 272,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044C8F0",
+      "symbol": "FUN_0044c8f0",
+      "size": 768,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044CBF0",
+      "symbol": "FUN_0044cbf0",
+      "size": 656,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044CE80",
+      "symbol": "FUN_0044ce80",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044CF00",
+      "symbol": "FUN_0044cf00",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044CF20",
+      "symbol": "FUN_0044cf20",
+      "size": 352,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D080",
+      "symbol": "FUN_0044d080",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D110",
+      "symbol": "FUN_0044d110",
+      "size": 496,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D300",
+      "symbol": "FUN_0044d300",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D370",
+      "symbol": "FUN_0044d370",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D440",
+      "symbol": "FUN_0044d440",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D4E0",
+      "symbol": "FUN_0044d4e0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D550",
+      "symbol": "FUN_0044d550",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D5B0",
+      "symbol": "FUN_0044d5b0",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D5D0",
+      "symbol": "FUN_0044d5d0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D600",
+      "symbol": "FUN_0044d600",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D6A0",
+      "symbol": "FUN_0044d6a0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D710",
+      "symbol": "FUN_0044d710",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D730",
+      "symbol": "FUN_0044d730",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044D850",
+      "symbol": "FUN_0044d850",
+      "size": 640,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DAD0",
+      "symbol": "FUN_0044dad0",
+      "size": 288,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DBF0",
+      "symbol": "FUN_0044dbf0",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DCA0",
+      "symbol": "FUN_0044dca0",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DD40",
+      "symbol": "FUN_0044dd40",
+      "size": 208,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DE10",
+      "symbol": "FUN_0044de10",
+      "size": 352,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044DF70",
+      "symbol": "FUN_0044df70",
+      "size": 560,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044E1A0",
+      "symbol": "FUN_0044e1a0",
+      "size": 7024,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044FD10",
+      "symbol": "FUN_0044fd10",
+      "size": 160,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044FDB0",
+      "symbol": "FUN_0044fdb0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044FE40",
+      "symbol": "FUN_0044fe40",
+      "size": 192,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044FF00",
+      "symbol": "FUN_0044ff00",
+      "size": 128,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x0044FF80",
+      "symbol": "FUN_0044ff80",
+      "size": 176,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450030",
+      "symbol": "FUN_00450030",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450070",
+      "symbol": "FUN_00450070",
+      "size": 96,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004500D0",
+      "symbol": "FUN_004500d0",
+      "size": 144,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450160",
+      "symbol": "FUN_00450160",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450190",
+      "symbol": "FUN_00450190",
+      "size": 32,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004501B0",
+      "symbol": "FUN_004501b0",
+      "size": 112,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450220",
+      "symbol": "FUN_00450220",
+      "size": 592,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450470",
+      "symbol": "FUN_00450470",
+      "size": 320,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004505B0",
+      "symbol": "FUN_004505b0",
+      "size": 224,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450690",
+      "symbol": "FUN_00450690",
+      "size": 64,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x004506D0",
+      "symbol": "FUN_004506d0",
+      "size": 48,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    },
+    {
+      "address": "0x00450700",
+      "symbol": "FUN_00450700",
+      "size": 7424,
+      "status": "unrecovered",
+      "source": "unrecovered"
+    }
+  ]
+}

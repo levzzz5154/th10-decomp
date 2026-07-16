@@ -112,7 +112,8 @@ GameState* GameState_Construct(GameState* gameState) {
 // this (ECX) = manager, param_1 (EAX) = game state, param_2 (stack) = state ID
 //
 // Ghidra decompilation:
-//   if (param_2 == 0): DAT_004776e4 = EAX; DAT_004776e8 = EAX
+//   if (param_2 == 0): DAT_004776e8 = EAX; preserve DAT_004776e4
+//   otherwise: DAT_004776e4 = EAX
 //   state+0x2A30 = DAT_00474c7c (state type)
 //   FUN_00403850(this) — check device
 //   Copy 0x46 dwords from DAT_00491d7c to state+0x2A4C
@@ -126,6 +127,9 @@ int GameState_Init(void* manager, GameState* gameState, int stateId) {
     uint8_t* state = (uint8_t*)gameState;
     int iVar1;
 
+    // 0x0040223C keeps the active state in DAT_004776e4 when creating
+    // state zero, and records the newly created state in DAT_004776e8.
+    // Other state IDs replace the active-state pointer directly.
     if (stateId == 0) {
         DAT_004776e8 = (uint32_t)gameState;
     } else {

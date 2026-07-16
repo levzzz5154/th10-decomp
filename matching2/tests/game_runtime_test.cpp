@@ -1,5 +1,6 @@
 #include "th10/math/timer.hpp"
 #include "th10/render/animation_manager.hpp"
+#include "th10/game/stage_text.hpp"
 
 #include <cassert>
 #include <cmath>
@@ -107,6 +108,75 @@ static void TestFrameTimer() {
     FrameTimer_Tick(&timer);
     assert(timer.current == -2);
     assert(std::fabs(timer.elapsed - -2.25f) < 0.0001f);
+}
+
+static void TestAnimationColorMultiplyChannel() {
+    assert(AnimationColor_MultiplyChannel(0, 255) == 0);
+    assert(AnimationColor_MultiplyChannel(64, 128) == 64);
+    assert(AnimationColor_MultiplyChannel(128, 128) == 128);
+    assert(AnimationColor_MultiplyChannel(255, 255) == 255);
+    assert(AnimationColor_MultiplyChannel(0x12345680, 0xABCDEF40) == 64);
+}
+
+static void TestStageTextSkipLine() {
+    char text[] = "first\r\n\nsecond";
+    int remaining = sizeof(text) - 1;
+    char* second = StageText_SkipLine(text, &remaining);
+    assert(second == text + 8);
+    assert(remaining == (int)(sizeof(text) - 1 - 8));
+
+    char unterminated[] = {'a', 'b', 'c'};
+    remaining = 3;
+    assert(StageText_SkipLine(unterminated, &remaining) == unterminated + 3);
+    assert(remaining == 0);
+
+    remaining = 0;
+    assert(StageText_SkipLine(text, &remaining) == text);
+}
+
+static void TestAnimationScriptVariables() {
+    unsigned char storage[0x3AC] = {};
+    AnimationObject* animation = (AnimationObject*)storage;
+    int integerFallback = 91;
+    float floatFallback = 3.5f;
+
+    int* integerVariable = AnimationObject_ResolveIntegerVariable(
+        animation, 10000, &integerFallback, true);
+    *integerVariable = 42;
+    assert(integerVariable == (int*)(storage + 0x30C));
+    assert(AnimationObject_ReadIntegerVariable(animation, 10000) == 42);
+
+    int* extraIntegerVariable = AnimationObject_ResolveIntegerVariable(
+        animation, 10009, &integerFallback, true);
+    *extraIntegerVariable = -17;
+    assert(extraIntegerVariable == (int*)(storage + 0x330));
+    assert(AnimationObject_ReadIntegerVariable(animation, 10009) == -17);
+
+    float* floatVariable = AnimationObject_ResolveFloatVariable(
+        animation, 10004, &floatFallback, true);
+    *floatVariable = 7.75f;
+    assert(floatVariable == (float*)(storage + 0x31C));
+    assert(AnimationObject_ReadIntegerVariable(animation, 10004) == 7);
+
+    float* basePositionVariable = AnimationObject_ResolveFloatVariable(
+        animation, 10015, &floatFallback, true);
+    *basePositionVariable = -2.0f;
+    assert(basePositionVariable == (float*)(storage + 0x33C));
+    assert(*(float*)(storage + 0x33C) == -2.0f);
+
+    assert(AnimationObject_ResolveIntegerVariable(
+               animation, 10000, &integerFallback, false) ==
+           &integerFallback);
+    assert(AnimationObject_ResolveIntegerVariable(
+               animation, 12345, &integerFallback, true) ==
+           &integerFallback);
+    assert(AnimationObject_ResolveFloatVariable(
+               animation, 10004, &floatFallback, false) ==
+           &floatFallback);
+    assert(AnimationObject_ResolveFloatVariable(
+               animation, 12345, &floatFallback, true) ==
+           &floatFallback);
+    assert(AnimationObject_ReadIntegerVariable(animation, 12345) == 12345);
 }
 
 static void TestAnimationLookupAndPosition() {
@@ -405,6 +475,9 @@ static void TestAnimationManagerLifecycle() {
 
 int main() {
     TestFrameTimer();
+    TestAnimationColorMultiplyChannel();
+    TestStageTextSkipLine();
+    TestAnimationScriptVariables();
     TestAnimationLookupAndPosition();
     TestAnimationFrameLoops();
     TestAnimationManagerLifecycle();

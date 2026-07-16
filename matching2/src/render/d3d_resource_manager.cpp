@@ -9,12 +9,18 @@ extern uint8_t DAT_0049231c;
 void __fastcall D3DResource_Release(void* resource, void* device_owner);
 void D3DResourceWorker_Stop(void);
 
-void D3DResourceList_Initialize(D3DResourceList* list) {
-    list->field_000 = 0;
-    list->flags &= 0xFFFFFFFE;
+// 0x00449A90 - Clear the three deferred resource-operation slots. Retail
+// also uses this helper from constructor-unwind cleanup.
+void D3DResourceList_ClearPending(D3DResourceList* list) {
     list->pending_008 = 0;
     list->pending_00C = 0;
     list->pending_010 = 0;
+}
+
+void D3DResourceList_Initialize(D3DResourceList* list) {
+    list->field_000 = 0;
+    list->flags &= 0xFFFFFFFE;
+    D3DResourceList_ClearPending(list);
     list->owner = list;
     list->first = 0;
     list->last = 0;
@@ -48,10 +54,6 @@ void D3DResourceManager_Destroy(D3DResourceManager* manager) {
     D3DResourceWorker_Stop();
     D3DResourceList_ReleaseResources(&manager->primary, manager);
     D3DResourceList_ReleaseResources(&manager->secondary, manager);
-    manager->primary.pending_008 = 0;
-    manager->primary.pending_00C = 0;
-    manager->primary.pending_010 = 0;
-    manager->secondary.pending_008 = 0;
-    manager->secondary.pending_00C = 0;
-    manager->secondary.pending_010 = 0;
+    D3DResourceList_ClearPending(&manager->primary);
+    D3DResourceList_ClearPending(&manager->secondary);
 }

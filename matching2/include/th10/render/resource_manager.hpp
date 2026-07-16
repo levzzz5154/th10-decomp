@@ -27,6 +27,7 @@ struct D3DResourceManager {
 // sizeof(D3DResourceManager) == 0x48
 
 void D3DResourceList_Initialize(D3DResourceList* list);
+void D3DResourceList_ClearPending(D3DResourceList* list);
 void D3DResourceList_ReleaseResources(
     D3DResourceList* list, void* device_owner);
 void D3DResourceManager_Initialize(D3DResourceManager* manager);

@@ -69,3 +69,13 @@ int AnimationManager_FindChildByScriptIndex(
 int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,
     const float* position);
+int AnimationObject_ReadIntegerVariable(
+    AnimationObject* animation, int variableId);
+int* AnimationObject_ResolveIntegerVariable(
+    AnimationObject* animation, int variableId, int* fallback,
+    bool variableEncoded);
+float* AnimationObject_ResolveFloatVariable(
+    AnimationObject* animation, int variableId, float* fallback,
+    bool variableEncoded);
+unsigned int AnimationColor_MultiplyChannel(
+    unsigned int left, unsigned int right);

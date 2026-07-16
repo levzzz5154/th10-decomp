@@ -36,13 +36,26 @@ provides functions and data that have not been reconstructed yet; verified
 functions compiled from this directory are overlaid at their original virtual
 addresses. The builder rejects any overlay whose non-relocation bytes differ.
 This maintains a playable checkpoint throughout the decompilation instead of
-waiting for all 1,196 functions and the global data layout to be complete.
+waiting for the complete function and global-data layout to be recovered.
 
 ```bash
 ./build.sh
 ./test.sh
 ./run.sh
 ```
+
+Coverage is generated from the union of Ghidra's tracked-function index and
+the verified hybrid overlay list:
+
+```bash
+python3 tools/coverage_report.py --write
+python3 tools/coverage_report.py --check
+```
+
+The generated `coverage.json` classifies every tracked address as unrecovered,
+researched, partial, semantic C++, or an exact overlay. Source annotations and
+the overlay tuple are authoritative; build artifacts are deliberately excluded
+so the ledger is reproducible from a clean checkout.
 
 `build.sh` verifies the supported retail executable by SHA-256 and writes
 `build/th10_reimpl.exe`. `run.sh` exposes the retail `th10.dat`, `thbgm.dat`, and
@@ -71,7 +84,9 @@ advancement, animation lookup across both manager lists, shared-position
 updates, pool allocation, handle registration, and player animation creation.
 It also covers root-to-child propagation, stop-frame updates, script restart,
 generic flag changes, resource retirement, handle validation, child lookup,
-and pooled-object removal.
+and pooled-object removal. Ghidra-guided tests also cover the animation
+interpreter's integer and float variable banks, writable operand resolution,
+base-position operands, and literal/fallback behavior.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without
@@ -129,7 +144,7 @@ Current exact-overlay results with MSVC 7.1:
 | Function | Comparable bytes | Result |
 |---|---:|---:|
 | `Entity_Destructor` | 30 | 100% |
-| `Entity_Constructor` | 88 | 100% |
+| `Entity_Constructor` | 88 | semantic C++ |
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
 | `BulletSpawnParameters_Initialize` | 23 | 100% |
@@ -161,8 +176,8 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyString::OwnsPointer` | 57 | 100% |
 | `LegacyAllocator::Allocate` | 12 | 100% |
 | `RuntimeAllocationPool_Initialize` | 22 | 100% |
-| `DestroyEntityList` | 43 | 100% |
-| `Entity_Init` | 273 | partial; exact first 45 bytes |
+| `DestroyEntityList` | 43 | semantic C++ |
+| `Entity_Init` | 273 | semantic C++ |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
 | `Vector2::SetPolar` | 28 | semantic; separate `FSIN`/`FCOS` scheduling |
 | `LegacyString::Assign` | 28 | semantic; equivalent null scan |
@@ -177,12 +192,23 @@ Current exact-overlay results with MSVC 7.1:
 | `GameRenderTargets_Release` | 57 | semantic; capture and primary reset targets |
 | `Render_HandleDeviceResetAndSnapshot` | 156 | semantic; reset and snapshot dispatch |
 
-`Entity_Init` is functionally reconstructed, but MSVC currently schedules its
-register restores and callee-save pops differently after the entity clear.
+`Entity_Constructor`, `Entity_Init`, and `DestroyEntityList` are kept as
+readable semantic C++. They are not hybrid overlays because reproducing their
+retail register allocation would require handwritten naked assembly; the
+hybrid executable continues to use the verified retail bodies at those
+addresses.
 The gameplay layouts now also include the complete 0x1F8-byte bullet spawn
 parameter record and the 0x88-byte linked stage-tip record used by the stage
 text parser. Polar-to-Cartesian vector initialization is readable C++ as well;
 the retail build combines the two trigonometric operations into `FSINCOS`.
+The entity block at `+0x23C` is now a named 4x4 local transformation matrix,
+followed by its world and backup matrices, rather than sixteen unrelated offset
+stores. Identity initialization retains retail's reverse store order so the
+MSVC function extent remains 273 bytes with limited scheduling differences.
+The six-component math record at `0x00404DA0/0x00404D40` is typed as a float
+vector with four quantized trailing bytes. Earlier notes incorrectly called
+the helper at `0x00463B2C` a random-number generator and misnamed
+`0x00404D40` as addition; it is float-to-int conversion after subtraction.
 `LegacyString` now covers both null-terminated and explicit-range assignment,
 including self-referential input, small-string storage, growth, and termination.
 Its substring, erase, capacity-growth, storage-selection, and allocator helpers
@@ -211,6 +237,28 @@ selection/reset, child-position propagation, and translated player-animation
 creation are readable C++ now. The large animation instruction interpreter at
 `0x0043EE30` remains the downstream dependency for actually executing the
 selected script.
+The three operand helpers immediately before that interpreter are now readable
+C++: `0x0043EC70` reads IDs 10000 through 10009 from four integer variables,
+four float variables, and two extra integer variables; `0x0043EDA0` resolves
+writable integer operands; and `0x0043ED00` resolves writable float operands,
+including IDs 10013 through 10015 for the base-position vector. These names
+replace unexplained accesses at entity offsets `+0x30C` through `+0x33C` while
+retaining explicit retail-offset accessors for 32/64-bit test portability.
+Cross-checking the interpreter with the renderer and sprite-selection helper
+also identifies the early transform/timing block: rotation and angular
+velocity at `+0x24..+0x38`, scale and scale velocity at `+0x3C..+0x48`, sprite
+dimensions at `+0x4C/+0x50`, wrapped UV scroll at `+0x54/+0x58`, and frame
+timing at `+0x5C..+0x68`. The late runtime block now names the start frame,
+sprite/script indices, script base and instruction cursor, and sprite metadata
+at `+0x380..+0x394`.
+The ECL dispatcher now has the verified 0x14-byte TH10 instruction header and
+typed cursor indirection and readable float-operand resolution for literals,
+locals, external variables, and argument-stack values. Hitbox dimensions,
+flag set/clear, movement-boundary setup/clear, and difficulty-slot reset
+(`0x140` through `0x146`) are readable leaf operations. Integer operand
+resolution, difficulty-slot assignment, and range parameters extend that
+contiguous cluster through `0x148`; the remaining opcode families still
+execute from the retail image.
 The surrounding handle API is now broader than that initial creation path:
 animation stop frames can be changed with or without immediately running the
 script, arbitrary object flags propagate through root child lists, resource
@@ -235,3 +283,22 @@ both active lists are drained safely through the normal remover, the 20 render
 bucket sentinels and complete pool are destructed, and the manager-owned buffer
 at `+0x3AD488` is released. Scheduler callback registration remains in the
 larger `GameStateInit` function and is the next boundary around this lifecycle.
+The Win32 boundary now uses typed `WNDCLASSA`, `STARTUPINFOA`, and a conventional
+four-argument window procedure. Window creation receives its `HINSTANCE`
+explicitly instead of relying on hidden EBX state, and MIDI output-completion
+cleanup likewise exposes the retail EDX/ESI inputs as ordinary arguments.
+Run-score accumulation at `0x00409D90` is modeled by `GameScore::AddScaled`,
+including divide-by-ten awards and saturation at 999,999,999. The adjacent
+`0x00409E20` callback retirement helper is typed too. Startup handling now
+models the shell-link COM interfaces, resolves chained `.lnk` targets with
+explicit arguments instead of hidden EBX/EDI state, and detects replay paths
+relative to the running executable.
+The adjacent MIDI lifecycle now has explicit layouts and conventional APIs for
+buffer-table cleanup (`0x0043AA60`), playback shutdown (`0x0043AE20`), and
+completed-header retirement (`0x0043AEB0`). The window procedure dispatches
+`MM_MOM_DONE` through that readable header-retirement path. Gameplay teardown
+at `0x00409230` likewise exposes its manager and entity-release callback rather
+than relying on the retail global and hidden EAX input. The adjacent
+`0x004091C0` callback now releases the eight- and five-entity trailing arrays
+at `+0x778` and `+0x24D8`; `0x00409270` is its typed scheduler wrapper. This
+corrects the raw decompiler's loss of the entity pointer passed through EAX.

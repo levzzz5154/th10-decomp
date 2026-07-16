@@ -669,6 +669,20 @@ static bool TestArchiveOpenAndRead() {
         archive.file == 0 && archive.entry_count == 0;
 }
 
+static bool TestArchiveIndexLoaderRejectsBadHeader() {
+    uint8_t file_data[16] = {0};
+    MemoryFile file(file_data, sizeof(file_data));
+    DatArchive archive;
+    DatArchive_Initialize(&archive);
+    archive.file = &file;
+
+    bool passed = !DatArchive_LoadIndex(&archive, "invalid.dat") &&
+        archive.entries == 0 && archive.entry_count == 0 &&
+        archive.file == &file;
+    archive.file = 0;
+    return passed;
+}
+
 static bool TestPackedEntryTable() {
     uint8_t packed[36] = {0};
     packed[0] = 'a'; packed[1] = '.'; packed[2] = 't'; packed[3] = 'x';
@@ -728,6 +742,9 @@ int main() {
     }
     if (!TestPackedEntryTable()) {
         return 11;
+    }
+    if (!TestArchiveIndexLoaderRejectsBadHeader()) {
+        return 16;
     }
     if (!TestLegacyStringAssignment()) {
         return 12;

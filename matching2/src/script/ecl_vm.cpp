@@ -1,123 +1,248 @@
-// =============================================================================
-// ecl_vm.cpp - ECL (Enemy Control Language) VM dispatch
-// Function: 0x0040E770 - 122 opcodes, 1826 lines decompiled
-// =============================================================================
+// ECL (Enemy Control Language) VM dispatch, retail address 0x0040E770.
 #include "th10/script/ecl.hpp"
 
-// VM helper functions
 extern "C" {
-    uint32_t FUN_0044fdb0(uint32_t a, void* instr, int mode);  // read operand
-    uint32_t FUN_0044ff00(void* vm, void* instr, int idx, int val);  // read indexed operand
-    void*    FUN_00448e30(uint32_t table, int idx, int type);  // resource lookup
-    int      FUN_00449450(uint32_t handle);                    // get resource data
-    void     FUN_00449630(uint32_t handle);                    // release resource
-    void     FUN_004495e0(void);                               // update anim
-    float    FUN_00412aa0(int type, float val);                // float convert
-    float    FUN_00412ac0(void);                               // rand float
-    uint32_t FUN_0044bc70(float val);                          // float trunc
-    void     FUN_0044c5d0(float* out, float a, float b);       // vec2 set
-    void     FUN_0044c2a0(void);                               // vec normalize
-    float*   FUN_00404610(void);                               // get player pos
+uint32_t FUN_0044fdb0(uint32_t dispatch_index, void* cursor, int operand);
+void FUN_00449590(void);
+void FUN_004495e0(void);
 }
 
-extern uint32_t DAT_00473660;     // security cookie
-extern uint32_t DAT_00477704;     // global config
-extern uint8_t  PTR_caseD_14f_00411de0[];  // opcode jump table
+extern uint8_t PTR_caseD_14f_00411de0[];
+extern float DAT_00470b04; // zero: first local-variable encoding
+extern float DAT_00470b60; // -1: pop from the ECL argument stack
 
-// ============================================================================
-// 0x0040E770 - ECL VM Dispatch
-// __fastcall: ECX = param_1 (entity, passed as float for FPU access)
-//
-// Reads the current ECL instruction from entity+0x14D8, dispatches based on
-// the 16-bit opcode (0x100-0x1B4). Uses a 181-entry jump table at 0x00411DE0.
-//
-// This is the heart of the bullet pattern/scripting engine. Each opcode
-// manipulates entity state (position, animation, collision, bullets, sound).
-//
-// The function uses extraout_ECX extensively (ECX is repurposed as a scratch
-// register between calls), making it impossible to decompile to clean C++.
-// The __asm version from the naked generator handles byte matching.
-//
-// Below is the documented dispatch structure:
-// ============================================================================
-int __fastcall ECL_VM_Dispatch(void* entity) {
-    // Get VM state from entity
-    int vmState = *(int*)((int)entity + 0x14D8);
-    int instrPtr = *(int*)(*(int*)(vmState + 4) + 4);
-    short opcode = *(short*)(instrPtr + 4);
+namespace {
 
-    // Range check: opcodes 0x100-0x1B4 (181 entries)
-    if (opcode < 0x100 || opcode > 0x1B4) {
-        return 0;
+const unsigned int kFlagsOffset = 0x1444;
+const unsigned int kBoundaryOffset = 0x13ac;
+const unsigned int kDifficultySlotsOffset = 0x13d0;
+const unsigned int kArgumentStackTopOffset = 0x1008;
+const unsigned int kLocalVariablesOffset = 0x100c;
+const unsigned int kVariableResolverOffset = 0x1014;
+const uint32_t kMovementBoundaryEnabled = 0x200;
+
+float& EntityFloat(void* entity, unsigned int offset) {
+    return *reinterpret_cast<float*>(static_cast<uint8_t*>(entity) + offset);
+}
+
+float BitsFloat(uint32_t value) {
+    union FloatAndBits {
+        float as_float;
+        uint32_t as_bits;
+    } converted;
+    converted.as_bits = value;
+    return converted.as_float;
+}
+
+uint32_t& EntityFlags(void* entity) {
+    return *reinterpret_cast<uint32_t*>(
+        static_cast<uint8_t*>(entity) + kFlagsOffset);
+}
+
+ECLMovementBoundary& EntityBoundary(void* entity) {
+    return *reinterpret_cast<ECLMovementBoundary*>(
+        static_cast<uint8_t*>(entity) + kBoundaryOffset);
+}
+
+uint32_t* EntityDifficultySlots(void* entity) {
+    return reinterpret_cast<uint32_t*>(
+        static_cast<uint8_t*>(entity) + kDifficultySlotsOffset);
+}
+
+int32_t& EntityInt(void* entity, unsigned int offset) {
+    return *reinterpret_cast<int32_t*>(static_cast<uint8_t*>(entity) + offset);
+}
+
+} // namespace
+
+uint32_t ECL_SetFlags(void* entity, uint32_t flags) {
+    EntityFlags(entity) |= flags;
+    return EntityFlags(entity);
+}
+
+uint32_t ECL_ClearFlags(void* entity, uint32_t flags) {
+    EntityFlags(entity) &= ~flags;
+    return EntityFlags(entity);
+}
+
+void ECL_SetMovementBoundary(void* entity,
+                             const ECLMovementBoundary& boundary) {
+    EntityFlags(entity) |= kMovementBoundaryEnabled;
+    EntityBoundary(entity) = boundary;
+}
+
+void ECL_ClearMovementBoundary(void* entity) {
+    EntityFlags(entity) &= ~kMovementBoundaryEnabled;
+}
+
+void ECL_ResetDifficultySlots(void* entity) {
+    uint32_t* slots = EntityDifficultySlots(entity);
+    for (int i = 0; i < 12; ++i)
+        slots[i] = 0;
+}
+
+float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
+    uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
+    ECLInstruction* instruction =
+        *reinterpret_cast<ECLInstruction**>(cursor + 4);
+    const float encoded = BitsFloat(instruction->operands[operand]);
+
+    if ((instruction->param_mask & (1u << (operand & 31))) == 0)
+        return encoded;
+
+    if (encoded >= DAT_00470b04) {
+        const int32_t byte_offset = static_cast<int32_t>(encoded);
+        const int32_t locals_offset =
+            *reinterpret_cast<int32_t*>(cursor + kLocalVariablesOffset);
+        return *reinterpret_cast<float*>(cursor + locals_offset + 8 + byte_offset);
     }
 
-    // Dispatch via jump table
-    uint8_t jumpIndex = PTR_caseD_14f_00411de0[opcode - 0x100];
+    if (encoded != DAT_00470b60) {
+        ECLVariableResolver* resolver =
+            *reinterpret_cast<ECLVariableResolver**>(
+                cursor + kVariableResolverOffset);
+        return resolver->ResolveFloat(static_cast<int32_t>(encoded));
+    }
 
-    // The actual implementation is a massive switch statement with 122 cases.
-    // Each case reads operands from the instruction stream and modifies
-    // entity state. Key opcode groups:
-    //
-    // 0x100-0x111: Entity setup (slot, anim, position, speed, target)
-    // 0x118-0x12A: Visual properties (hitbox, color, scale, rotation, UV)
-    // 0x140-0x156: Bullet firing (patterns, aim, spread, circle, burst)
-    // 0x157-0x170: Variables and control flow (set, math, jump, call, wait)
-    // 0x191-0x1B4: Audio (SFX, BGM, 3D sound, volume, effects)
-    //
-    // Due to the extensive use of extraout_ECX (ECX as scratch register),
-    // this function cannot be expressed in portable C++. The __asm version
-    // from the naked asm generator is used for byte-matching.
+    int32_t stack_top =
+        *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) - 4;
+    if (stack_top < 0)
+        return encoded;
 
-    (void)jumpIndex;
-    return 0;
+    *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) = stack_top;
+    const uint32_t value = *reinterpret_cast<uint32_t*>(cursor + stack_top + 8);
+    stack_top -= 4;
+    *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) = stack_top;
+
+    const char type = *reinterpret_cast<char*>(cursor + stack_top + 8);
+    if (type == 'i')
+        return static_cast<float>(static_cast<int32_t>(value));
+
+    union FloatAndBits {
+        uint32_t as_bits;
+        float as_float;
+    } converted;
+    converted.as_bits = value;
+    return converted.as_float;
 }
 
-// ============================================================================
-// Key opcode implementations (documented from Ghidra decompilation):
-//
-// case 0x101 (ECL_SET_SLOT):
-//   Reads slot index from instruction, stores at entity+0xE8
-//
-// case 0x102 (ECL_LOAD_ANIM):
-//   Reads animation ID, stores at entity+0xE8
-//
-// case 0x103 (ECL_SET_ANIM_VAR):
-//   Reads slot + variable index, looks up in anim table,
-//   stores result at entity+0xC0 + slot*4
-//   If slot 0: also sets entity+0xF0 and entity+0xEC
-//
-// case 0x104 (ECL_SET_POS):
-//   Reads 6 floats (x, y, z, with base offsets), stores to entity position
-//   Sets local_90[0..3] = position data, copies 8 dwords from entity+0xFC
-//
-// case 0x105 (ECL_SET_POS_REL):
-//   Similar to 0x104 but sets relative position
-//
-// case 0x106 (ECL_SET_ANIM_SLOT):
-//   Reads slot + anim ID, looks up in resource table
-//   Sets entity+0xC0 + slot*4 = anim handle
-//   If slot 0: sets entity+0x13A4 and +0x13A8 from anim bounds
-//   If flag 0x10 set: calls FUN_004495E0 (update anim)
-//
-// case 0x107 (ECL_LOAD_TEXTURE):
-//   Reads texture index + slot, calls FUN_00448E30 with type 6
-//
-// case 0x109 (ECL_SET_FLAG):
-//   Checks DAT_00477704+0x10, if set returns 0
-//   Falls through to 0x100 (NOP/defaults)
-//
-// case 0x15C (ECL_CALL_SCRIPT):
-//   Reads script ID + args, pushes current state, jumps to new script
-//
-// case 0x165 (ECL_RETURN):
-//   Pops script stack, returns to caller script
-//
-// case 0x166 (ECL_JUMP):
-//   Reads offset, sets instruction pointer
-//
-// case 0x167 (ECL_JUMP_IF):
-//   Reads condition + offset, jumps if condition true
-//
-// case 0x168 (ECL_WAIT):
-//   Reads frame count, sets wait timer, suspends execution
-// ============================================================================
+int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
+    uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
+    ECLInstruction* instruction =
+        *reinterpret_cast<ECLInstruction**>(cursor + 4);
+    int32_t value = static_cast<int32_t>(instruction->operands[operand]);
+
+    if ((instruction->param_mask & (1u << (operand & 31))) == 0)
+        return value;
+
+    if (value >= 0) {
+        const int32_t locals_offset =
+            *reinterpret_cast<int32_t*>(cursor + kLocalVariablesOffset);
+        return *reinterpret_cast<int32_t*>(cursor + locals_offset + 8 + value);
+    }
+
+    if (value != -1) {
+        ECLVariableResolver* resolver =
+            *reinterpret_cast<ECLVariableResolver**>(
+                cursor + kVariableResolverOffset);
+        return resolver->ResolveInt(value);
+    }
+
+    int32_t stack_top =
+        *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) - 4;
+    if (stack_top < 0)
+        return value;
+
+    *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) = stack_top;
+    const uint32_t raw = *reinterpret_cast<uint32_t*>(cursor + stack_top + 8);
+    stack_top -= 4;
+    *reinterpret_cast<int32_t*>(cursor + kArgumentStackTopOffset) = stack_top;
+
+    const char type = *reinterpret_cast<char*>(cursor + stack_top + 8);
+    if (type == 'f')
+        return static_cast<int32_t>(BitsFloat(raw));
+    return static_cast<int32_t>(raw);
+}
+
+int __fastcall ECL_VM_Dispatch(void* entity) {
+    ECLVMState* state = *reinterpret_cast<ECLVMState**>(
+        static_cast<uint8_t*>(entity) + 0x14d8);
+    ECLInstruction* instruction = state->cursor->instruction;
+    const int opcode = instruction->opcode;
+
+    if (static_cast<unsigned int>(opcode - 0x100) > 0xb4)
+        return 0;
+
+    // Ghidra names the symbol 0x100 bytes before the actual byte-index table;
+    // indexing it by the full opcode reaches the retail table at 0x00411EE0.
+    const uint32_t dispatch_index = PTR_caseD_14f_00411de0[opcode];
+
+    switch (opcode) {
+    case ECL_SET_HITBOX_WIDTH:
+        EntityFloat(entity, 0xb0) = ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, 0xb4) = ECL_ResolveFloatOperand(state->cursor, 1);
+        return 0;
+    case ECL_SET_HITBOX_HEIGHT:
+        EntityFloat(entity, 0xb8) = ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, 0xbc) = ECL_ResolveFloatOperand(state->cursor, 1);
+        return 0;
+    case ECL_SET_FLAGS: {
+        const uint32_t flags = FUN_0044fdb0(dispatch_index, state->cursor, 0);
+        if ((ECL_SetFlags(entity, flags) & 0x10) != 0) {
+            for (int i = 0; i < 10; ++i)
+                FUN_004495e0();
+        }
+        return 0;
+    }
+    case ECL_CLEAR_FLAGS: {
+        const uint32_t flags = FUN_0044fdb0(dispatch_index, state->cursor, 0);
+        if ((ECL_ClearFlags(entity, flags) & 0x10) == 0) {
+            for (int i = 0; i < 10; ++i)
+                FUN_00449590();
+        }
+        return 0;
+    }
+    case ECL_CLEAR_MOVEMENT_BOUNDARY:
+        ECL_ClearMovementBoundary(entity);
+        return 0;
+    case ECL_SET_MOVEMENT_BOUNDARY: {
+        ECLMovementBoundary boundary;
+        boundary.left = ECL_ResolveFloatOperand(state->cursor, 0);
+        boundary.top = ECL_ResolveFloatOperand(state->cursor, 1);
+        boundary.right = ECL_ResolveFloatOperand(state->cursor, 2);
+        boundary.bottom = ECL_ResolveFloatOperand(state->cursor, 3);
+        ECL_SetMovementBoundary(entity, boundary);
+        return 0;
+    }
+    case ECL_RESET_DIFFICULTY_SLOTS:
+        ECL_ResetDifficultySlots(entity);
+        return 0;
+    case ECL_SET_DIFFICULTY_SLOT: {
+        int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
+        // The high-bit mode substitutes the two extra difficulty slots used
+        // by the retail script tables.
+        if ((EntityFlags(entity) & 0x8000) != 0) {
+            if (slot == 1)
+                slot = 10;
+            else if (slot == 4)
+                slot = 11;
+        }
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 1);
+        EntityInt(entity, 0x13cc + slot * 4) = value;
+        return 0;
+    }
+    case ECL_SET_RANGE_PARAMETERS: {
+        // Retail resolves operand 1 first.  This is observable when both
+        // operands pop values from the ECL argument stack.
+        const float maximum = ECL_ResolveFloatOperand(state->cursor, 1);
+        const float minimum = ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, 0x1400) = minimum;
+        EntityFloat(entity, 0x1404) = maximum;
+        return 0;
+    }
+    default:
+        // The remaining opcode families still execute from the retail image.
+        // Their behavior is being moved here in independently verified groups.
+        return 0;
+    }
+}

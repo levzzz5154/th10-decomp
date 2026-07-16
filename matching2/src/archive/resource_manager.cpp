@@ -61,9 +61,10 @@ uint8_t* Resource_LoadFile(const char* path, uint8_t* output) {
     }
 
     FileHandle file;
-    if (!file.Open(path, "r")) {
-        return 0;
-    }
+    // Retail deliberately follows the same size/load path after a failed
+    // open.  FileHandle::GetSize and ReadWhole turn the invalid handle into a
+    // null result, and the stack owner performs the single cleanup path.
+    file.Open(path, "r");
     return (uint8_t*)file.ReadWhole(file.GetSize());
 }
 
@@ -76,8 +77,8 @@ uint32_t Resource_GetFileSize(const char* path) {
     }
 
     FileHandle file;
-    if (!file.Open(path, "r")) {
-        return 0;
-    }
+    // Keep the failed-open cleanup and return path identical to the retail
+    // stack owner: GetSize returns zero for INVALID_HANDLE_VALUE.
+    file.Open(path, "r");
     return file.GetSize();
 }

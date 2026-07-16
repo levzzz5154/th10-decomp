@@ -33,6 +33,68 @@ static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     return next;
 }
 
+// 0x004423C0 - Multiply two 7-bit-normalized color channels and saturate the
+// result to the byte range used by the animation renderer.
+uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {
+    uint32_t result = (left & 0xFF) * (right & 0xFF) >> 7;
+    return result > 0xFF ? 0xFF : result;
+}
+
+// 0x0043EC70 - Read one of the animation interpreter's integer-valued
+// variables. Float variables use the same truncating conversion as retail's
+// x87 helper at 0x00463B2C.
+int AnimationObject_ReadIntegerVariable(
+    AnimationObject* animation, int variableId) {
+    Entity* entity = (Entity*)animation;
+    if (10000 <= variableId && variableId <= 10003) {
+        return entity->ScriptIntegerVariables()[variableId - 10000];
+    }
+    if (10004 <= variableId && variableId <= 10007) {
+        return (int)entity->ScriptFloatVariables()[variableId - 10004];
+    }
+    if (10008 <= variableId && variableId <= 10009) {
+        return entity->ScriptExtraIntegerVariables()[variableId - 10008];
+    }
+    return variableId;
+}
+
+// 0x0043EDA0 - Resolve a writable integer-variable operand. The retail helper
+// receives the candidate value in EAX and uses the instruction parameter mask
+// to decide whether it is an encoded variable or a literal fallback address.
+int* AnimationObject_ResolveIntegerVariable(
+    AnimationObject* animation, int variableId, int* fallback,
+    bool variableEncoded) {
+    if (!variableEncoded) {
+        return fallback;
+    }
+    Entity* entity = (Entity*)animation;
+    if (10000 <= variableId && variableId <= 10003) {
+        return &entity->ScriptIntegerVariables()[variableId - 10000];
+    }
+    if (10008 <= variableId && variableId <= 10009) {
+        return &entity->ScriptExtraIntegerVariables()[variableId - 10008];
+    }
+    return fallback;
+}
+
+// 0x0043ED00 - Resolve a writable floating-point variable. IDs 10013..10015
+// expose the base-position vector directly to animation scripts.
+float* AnimationObject_ResolveFloatVariable(
+    AnimationObject* animation, int variableId, float* fallback,
+    bool variableEncoded) {
+    if (!variableEncoded) {
+        return fallback;
+    }
+    Entity* entity = (Entity*)animation;
+    if (10004 <= variableId && variableId <= 10007) {
+        return &entity->ScriptFloatVariables()[variableId - 10004];
+    }
+    if (10013 <= variableId && variableId <= 10015) {
+        return &entity->BasePosition().x + (variableId - 10013);
+    }
+    return fallback;
+}
+
 void AnimationManager_InitializeStorage(void* manager) {
     uint8_t* bytes = (uint8_t*)manager;
 
@@ -139,6 +201,7 @@ static AnimationListNode** AnimationManager_ListSlot(
                                  slot * sizeof(AnimationListNode*));
 }
 
+// 0x004491C0 - Find a registered animation by its nonzero handle.
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle) {
     if (animationHandle == 0) {
@@ -286,8 +349,7 @@ void AnimationManager_RemoveObject(
     // The owned-resource pointer immediately precedes the 32-bit flags word.
     // Expressing it relative to the flags keeps host semantic tests valid
     // while producing retail +0x358 on the 32-bit target.
-    void** resource =
-        (void**)(animationBytes + 0x35C - sizeof(void*));
+    void** resource = &((Entity*)animation)->OwnedResource();
     uint8_t* poolBegin = managerBytes + 0x68;
     uint8_t* poolEnd = managerBytes + 0x3AC068;
     if (poolBegin <= animationBytes && animationBytes < poolEnd) {
@@ -311,10 +373,10 @@ void AnimationManager_RemoveObject(
 
 static void AnimationObject_SetPosition(
     AnimationObject* animation, const float* position) {
-    float* destination = (float*)((uint8_t*)animation + 0x340);
-    destination[0] = position[0];
-    destination[1] = position[1];
-    destination[2] = position[2];
+    Entity* entity = (Entity*)animation;
+    entity->Position().x = position[0];
+    entity->Position().y = position[1];
+    entity->Position().z = position[2];
 }
 
 typedef void (*AnimationObjectOperation)(AnimationObject*, void* context);
@@ -337,7 +399,7 @@ static void AnimationObject_ApplyToRootAndChildren(
 
 static void AnimationObject_WriteStopFrame(
     AnimationObject* animation, void* context) {
-    *(short*)((uint8_t*)animation + 0x304) = *(short*)context;
+    ((Entity*)animation)->StopFrame() = *(short*)context;
 }
 
 void AnimationManager_SetStopFrame(
@@ -380,8 +442,7 @@ struct AnimationFlagChange {
 static void AnimationObject_ChangeFlag(
     AnimationObject* animation, void* context) {
     AnimationFlagChange* change = (AnimationFlagChange*)context;
-    unsigned int* flags =
-        (unsigned int*)((uint8_t*)animation + 0x35C);
+    unsigned int* flags = &((Entity*)animation)->AnimationFlags();
     if (change->set) {
         *flags |= change->flag;
     } else {
@@ -419,9 +480,9 @@ void AnimationManager_MarkResourceForRemoval(
         while (node != 0) {
             AnimationObject* animation = node->animation;
             node = node->next;
-            uint8_t* bytes = (uint8_t*)animation;
-            if (*(void**)(bytes + 0x308) == resource) {
-                *(unsigned int*)(bytes + 0x35C) |= 0x04000000u;
+            Entity* entity = (Entity*)animation;
+            if (entity->ScriptResource() == resource) {
+                entity->AnimationFlags() |= 0x04000000u;
             }
         }
     }
@@ -432,6 +493,7 @@ static void AnimationObject_LoadScriptInternal(
     bool resetEntity) {
     uint8_t* animationBytes = (uint8_t*)animation;
     uint8_t* resourceBytes = (uint8_t*)resource;
+    Entity* entity = (Entity*)animation;
     void** scripts = *(void***)(resourceBytes + 0x11C);
     void* script = scripts[animationIndex];
 
@@ -446,13 +508,12 @@ static void AnimationObject_LoadScriptInternal(
     if (resetEntity) {
         Entity_Init(0, (Entity*)animation);
     }
-    *(short*)(animationBytes + 0x38A) = (short)animationIndex;
-    *(unsigned short*)(animationBytes + 0x386) =
-        *(unsigned short*)resourceBytes;
-    *(void**)(animationBytes + 0x308) = resource;
-    *(unsigned int*)(animationBytes + 0x35C) &= 0xFFFFF9FFu;
-    *(void**)(animationBytes + 0x38C) = script;
-    *(void**)(animationBytes + 0x390) = script;
+    entity->ScriptIndex() = (short)animationIndex;
+    entity->ScriptResourceId() = *(unsigned short*)resourceBytes;
+    entity->ScriptResource() = resource;
+    entity->AnimationFlags() &= 0xFFFFF9FFu;
+    entity->ScriptBase() = script;
+    entity->ScriptCursor() = script;
 
     unsigned int* timerFlags =
         (unsigned int*)(animationBytes + 0x6C);
@@ -466,7 +527,7 @@ static void AnimationObject_LoadScriptInternal(
     *(int*)(animationBytes + 0x60) = 0;
     *(int*)(animationBytes + 0x64) = 0;
     *(int*)(animationBytes + 0x5C) = -1;
-    *(unsigned int*)(animationBytes + 0x35C) &= ~1u;
+    entity->AnimationFlags() &= ~1u;
 
     FUN_0043ee30(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
@@ -487,17 +548,18 @@ void AnimationObject_LoadScriptPreservingState(
 void AnimationObject_InitializeScriptState(
     AnimationObject* animation, void* resource, int animationIndex) {
     uint8_t* bytes = (uint8_t*)animation;
-    *(unsigned int*)(bytes + 0x340) = 0;
-    *(unsigned int*)(bytes + 0x344) = 0;
-    *(unsigned int*)(bytes + 0x348) = 0;
-    *(unsigned int*)(bytes + 0x334) = 0;
-    *(unsigned int*)(bytes + 0x338) = 0;
-    *(unsigned int*)(bytes + 0x33C) = 0;
-    *(unsigned int*)(bytes + 0x34C) = 0;
-    *(unsigned int*)(bytes + 0x350) = 0;
-    *(unsigned int*)(bytes + 0x35C) |= 0x40000000u;
-    *(short*)(bytes + 0x38A) = (short)animationIndex;
-    *(unsigned int*)(bytes + 0x354) = 0;
+    Entity* entity = (Entity*)animation;
+    entity->Position().x = 0.0f;
+    entity->Position().y = 0.0f;
+    entity->Position().z = 0.0f;
+    entity->BasePosition().x = 0.0f;
+    entity->BasePosition().y = 0.0f;
+    entity->BasePosition().z = 0.0f;
+    entity->RenderOffset().x = 0.0f;
+    entity->RenderOffset().y = 0.0f;
+    entity->AnimationFlags() |= 0x40000000u;
+    entity->ScriptIndex() = (short)animationIndex;
+    entity->RenderOffset().z = 0.0f;
     bytes[0x3A0] = 0x10;
     bytes[0x3A1] = 0x10;
     AnimationObject_LoadScriptPreservingState(
@@ -536,6 +598,7 @@ void AnimationManager_SetTranslatedPosition(
     AnimationManager_SetPosition(manager, animationHandle, translated);
 }
 
+// 0x00449450 - Clear a stale animation handle after a failed lookup.
 bool AnimationManager_ValidateHandle(
     void* manager, int* animationHandle) {
     if (AnimationManager_Find(manager, *animationHandle) != 0) {
@@ -562,8 +625,7 @@ static AnimationObject** AnimationManager_RenderBucketHead(
 
 static bool AnimationManager_UpdateObject(
     void* manager, AnimationObject* animation) {
-    uint8_t* bytes = (uint8_t*)animation;
-    if ((*(unsigned int*)(bytes + 0x35C) & 0x04000000u) != 0) {
+    if ((((Entity*)animation)->AnimationFlags() & 0x04000000u) != 0) {
         AnimationManager_RemoveObject(manager, animation);
         return false;
     }
@@ -630,8 +692,7 @@ int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     AnimationObject* animation =
         *AnimationManager_RenderBucketHead(manager, (unsigned int)bucketIndex);
     while (animation != 0) {
-        uint8_t* bytes = (uint8_t*)animation;
-        if ((*(unsigned int*)(bytes + 0x35C) & 0x04000000u) == 0) {
+        if ((((Entity*)animation)->AnimationFlags() & 0x04000000u) == 0) {
             AnimationDrawCallback callback =
                 AnimationObject_DrawCallback(animation);
             if (callback != 0) {
@@ -656,7 +717,7 @@ int AnimationManager_FindChildByScriptIndex(
         AnimationObject_ChildMembership(animation)->next;
     while (child != 0) {
         AnimationObject* childAnimation = child->animation;
-        if (*(short*)((uint8_t*)childAnimation + 0x38A) == scriptIndex) {
+        if (((Entity*)childAnimation)->ScriptIndex() == scriptIndex) {
             return *(int*)childAnimation;
         }
         child = child->next;
@@ -675,7 +736,7 @@ int PlayerAnimation_Create(
 
     uint8_t* bytes = (uint8_t*)animation;
     *(unsigned int*)(bytes + 0x20) = 0;
-    *(unsigned int*)(bytes + 0x35C) |= 0x40000000u;
+    ((Entity*)animation)->AnimationFlags() |= 0x40000000u;
     float translated[3] = {
         position[0] + _DAT_00470b4c,
         position[1] + _DAT_00470b48,

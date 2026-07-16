@@ -36,8 +36,50 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/math/timer.cpp" \
+    "$ROOT/src/game/stage_text.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/tests/game_runtime_test.cpp" \
     -o "$TEST_BUILD/game_runtime_test"
 
 "$TEST_BUILD/game_runtime_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/score.cpp" \
+    "$ROOT/tests/score_runtime_test.cpp" \
+    -o "$TEST_BUILD/score_runtime_test"
+
+"$TEST_BUILD/score_runtime_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/render/d3d_resource_manager.cpp" \
+    "$ROOT/tests/d3d_resource_manager_test.cpp" \
+    -o "$TEST_BUILD/d3d_resource_manager_test"
+
+"$TEST_BUILD/d3d_resource_manager_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/platform/file.cpp" \
+    "$ROOT/src/archive/resource_manager.cpp" \
+    "$ROOT/src/platform/path.cpp" \
+    "$ROOT/tests/file_resource_test.cpp" \
+    -o "$TEST_BUILD/file_resource_test"
+
+"$TEST_BUILD/file_resource_test"
+
+# GameState stores 32-bit retail pointers in its ABI fields, so exercise its
+# device-failure state transitions in a 32-bit host binary.
+g++ -m32 -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/game_state.cpp" \
+    "$ROOT/src/game/scheduler.cpp" \
+    "$ROOT/tests/game_state_test.cpp" \
+    -o "$TEST_BUILD/game_state_test"
+
+"$TEST_BUILD/game_state_test"

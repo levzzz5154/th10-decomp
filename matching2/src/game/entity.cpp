@@ -46,33 +46,16 @@ void __fastcall EntitySecondaryResource_Release(Entity* e) {
 // 0x00402050 - Entity Constructor
 // Clears flag bits across the entity, zeroes 0xEB dwords, sets end marker.
 // __fastcall: ECX = this, returns this in EAX
-// Documented asm (inlined base-class constructor pattern)
+// The flag clears visible before the bulk clear are compiler artifacts; the
+// observable result is a zeroed base record with an invalid end marker.
 // ============================================================================
-__declspec(naked) Entity* __fastcall Entity_Constructor(Entity* e) {
-    __asm {
-        mov edx, ecx
-        mov ecx, [edx+6Ch]
-        mov eax, 0FFFFFFFEh
-        and ecx, eax
-        mov [edx+6Ch], ecx
-        push edi
-        and [edx+0B0h], eax
-        and [edx+0FCh], eax
-        and [edx+128h], eax
-        and [edx+174h], eax
-        and [edx+1B0h], eax
-        and [edx+1FCh], eax
-        and [edx+228h], eax
-        and [edx+378h], eax
-        xor eax, eax
-        mov ecx, 0EBh
-        mov edi, edx
-        rep stosd
-        mov word ptr [edx+384h], 0FFFFh
-        mov eax, edx
-        pop edi
-        ret
+Entity* __fastcall Entity_Constructor(Entity* e) {
+    uint32_t* destination = (uint32_t*)e;
+    for (int remaining = 0xEB; remaining != 0; --remaining) {
+        *destination++ = 0;
     }
+    e->end_marker = 0xFFFF;
+    return e;
 }
 
 // ============================================================================
@@ -88,7 +71,7 @@ __declspec(naked) Entity* __fastcall Entity_Constructor(Entity* e) {
 //   ECX = [EDX+0x348], EAX = [EDX+0x20]
 //   PUSH EDI
 //   [ESP+0x1c] = ECX (field_348)
-//   [ESP+0x10] = EAX (field_020)
+//   [ESP+0x10] = EAX (render_bucket)
 //   XOR EAX,EAX; MOV ECX,0xEB; MOV EDI,EDX; REP STOSD
 //   Restore: [EDX+0x340]=EBX, [EDX+0x344]=EBP, [EDX+0x20]=[ESP+0x10], [EDX+0x348]=[ESP+0x1c]
 //   Set defaults: 0xFFFFFFFF at +0x2FC, 1.0f at +0x3C/+0x40,
@@ -102,13 +85,17 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
     // Keeping that shape is significant: MSVC 7.1 then holds the first two
     // words in EBX/EBP and spills the third, matching the original register
     // allocation.
-    struct PreservedFields {
-        uint32_t field_340;
-        uint32_t field_344;
-        uint32_t field_348;
+    struct PreservedPositionBits {
+        uint32_t x;
+        uint32_t y;
+        uint32_t z;
     };
-    PreservedFields saved = *(PreservedFields*)((uint8_t*)entity + 0x340);
-    uint32_t saved_flags = entity->field_020;
+    // Preserve the aggregate bit-for-bit. Using integer words here reproduces
+    // retail's EBX/EBP/spill allocation; a float Vector3 copy makes old MSVC
+    // generate a substantially different prologue and store schedule.
+    PreservedPositionBits saved_position =
+        *(PreservedPositionBits*)&entity->position;
+    int32_t saved_render_bucket = entity->render_bucket;
 
     // Zero entire entity (0xEB dwords = 0x3AC bytes)
     uint32_t* p = (uint32_t*)entity;
@@ -117,58 +104,59 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
     }
 
     // Restore saved fields
-    PreservedFields* destination =
-        (PreservedFields*)((uint8_t*)entity + 0x340);
-    destination->field_340 = saved.field_340;
-    destination->field_344 = saved.field_344;
-    entity->field_020 = saved_flags;
-    destination->field_348 = saved.field_348;
+    PreservedPositionBits* destination =
+        (PreservedPositionBits*)&entity->position;
+    destination->x = saved_position.x;
+    destination->y = saved_position.y;
+    entity->render_bucket = saved_render_bucket;
+    destination->z = saved_position.z;
 
     // Set defaults
-    *(uint32_t*)((uint8_t*)entity + 0x2FC) = 0xFFFFFFFF;
-    entity->scaleX = 1.0f;    // +0x3C
-    entity->scaleY = 1.0f;    // +0x40
+    entity->primary_color = 0xFFFFFFFF;
+    entity->scale_x = 1.0f;    // +0x3C
+    entity->scale_y = 1.0f;    // +0x40
 
-    // Zero groups and set 1.0f defaults
-    *(uint32_t*)((uint8_t*)entity + 0x274) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x270) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x26C) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x268) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x260) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x25C) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x258) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x254) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x24C) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x248) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x244) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x240) = 0;
-
-    *(float*)((uint8_t*)entity + 0x278) = 1.0f;
-    *(float*)((uint8_t*)entity + 0x264) = 1.0f;
-    *(float*)((uint8_t*)entity + 0x250) = 1.0f;
-    *(float*)((uint8_t*)entity + 0x23C) = 1.0f;
+    // Construct the local D3D transform as an identity matrix. The reverse
+    // store order mirrors retail MSVC code generation without obscuring the
+    // fact that these sixteen fields are one matrix.
+    entity->local_transform.values[3][2] = 0.0f;
+    entity->local_transform.values[3][1] = 0.0f;
+    entity->local_transform.values[3][0] = 0.0f;
+    entity->local_transform.values[2][3] = 0.0f;
+    entity->local_transform.values[2][1] = 0.0f;
+    entity->local_transform.values[2][0] = 0.0f;
+    entity->local_transform.values[1][3] = 0.0f;
+    entity->local_transform.values[1][2] = 0.0f;
+    entity->local_transform.values[1][0] = 0.0f;
+    entity->local_transform.values[0][3] = 0.0f;
+    entity->local_transform.values[0][2] = 0.0f;
+    entity->local_transform.values[0][1] = 0.0f;
+    entity->local_transform.values[3][3] = 1.0f;
+    entity->local_transform.values[2][2] = 1.0f;
+    entity->local_transform.values[1][1] = 1.0f;
+    entity->local_transform.values[0][0] = 1.0f;
 
     entity->end_marker = 7;                 // +0x35C
-    entity->field_060 = 0;                  // +0x60
-    entity->scheduler_timer = 0xFFF0BDC1;   // +0x5C
-    entity->field_064 = 0;                  // +0x64
+    entity->current_frame = 0;              // +0x60
+    entity->previous_frame = 0xFFF0BDC1;    // +0x5C sentinel
+    entity->frame_elapsed = 0.0f;           // +0x64
 
     // Zero timer/scheduler slots
-    *(uint32_t*)((uint8_t*)entity + 0xB4) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x100) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x12C) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x178) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x1B4) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x200) = 0;
-    *(uint32_t*)((uint8_t*)entity + 0x22C) = 0;
+    entity->pad_0B4[0] = 0;
+    entity->pad_100[0] = 0;
+    entity->pad_12C[0] = 0;
+    entity->pad_178[0] = 0;
+    entity->pad_1B4[0] = 0;
+    entity->pad_200[0] = 0;
+    entity->pad_22C[0] = 0;
 
-    // Self-referencing linked lists (empty list sentinel)
-    entity->list1_prev = entity;   // +0x004 = self
-    entity->list1_next = 0;        // +0x008 = 0
-    entity->field_00C = 0;         // +0x00C = 0
-    entity->list2_prev = entity;   // +0x010 = self
-    entity->list2_next = 0;        // +0x014 = 0
-    entity->field_018 = 0;         // +0x018 = 0
+    // Empty embedded list nodes retain their owning animation pointer.
+    entity->manager_node_animation = entity;
+    entity->manager_node_next = 0;
+    entity->manager_node_previous = 0;
+    entity->child_node_animation = entity;
+    entity->child_node_next = 0;
+    entity->child_node_previous = 0;
 }
 
 // ============================================================================
@@ -187,28 +175,15 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
 //   skip: ADD ESI,4; DEC EDI; JNZ loop
 //   POP EDI; POP ESI; RET
 // ============================================================================
-__declspec(naked) void __cdecl DestroyEntityList(void* base) {
-    __asm {
-        push esi
-        mov esi, eax
-        push edi
-        add esi, 0x3AD4E0
-        mov edi, 0x20
-        nop
-    loop_start:
-        mov eax, [esi]
-        test eax, eax
-        jz skip
-        mov ecx, [eax]
-        push eax
-        call dword ptr [ecx + 8]
-        mov dword ptr [esi], 0
-    skip:
-        add esi, 4
-        dec edi
-        jnz loop_start
-        pop edi
-        pop esi
-        ret
+void __cdecl DestroyEntityList(void* base) {
+    void** slots = (void**)((uint8_t*)base + 0x3AD4E0);
+    for (int index = 0; index < 0x20; ++index) {
+        void* object = slots[index];
+        if (object) {
+            void** vtable = *(void***)object;
+            typedef void (__stdcall *DestroyFunction)(void*);
+            ((DestroyFunction)vtable[2])(object);
+            slots[index] = 0;
+        }
     }
 }

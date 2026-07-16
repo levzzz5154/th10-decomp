@@ -38,6 +38,11 @@ bool DatArchive_Open(
     FileInterface* owned_file,
     const char* path);
 
+// Decode and install the index from archive->file (retail 0x00434F70).
+// The caller retains ownership of the file and is responsible for cleanup
+// when loading fails.
+bool DatArchive_LoadIndex(DatArchive* archive, const char* path);
+
 bool DatArchive_OpenFile(DatArchive* archive, const char* path);
 bool DatArchive_OpenResource(DatArchive* archive, const char* resource_name);
 

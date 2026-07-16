@@ -9,45 +9,50 @@ typedef short               int16_t;
 typedef int                 int32_t;
 typedef long long           int64_t;
 
+// Row-major D3D transformation matrix. Entity initialization and animation
+// setup both construct this as an identity matrix before render code copies it
+// into the derived world matrices.
+struct Matrix4x4 {
+    float values[4][4];
+};
+
+struct Vector3 {
+    float x;
+    float y;
+    float z;
+};
+
 // ============================================================================
 // Base Entity - 0x3AC bytes (0xEB dwords + 2 bytes)
 // Used by Entity_Destructor (0x401FF0), Entity_Constructor (0x402050),
 // Entity_Init (0x401DE0)
 // ============================================================================
 struct Entity {
-    // +0x000
-    void*     vtable;
-    // +0x004  linked list (self-referencing)
-    Entity*   list1_prev;
-    Entity*   list1_next;
-    void*     field_00C;
-    // +0x010  second linked list
-    Entity*   list2_prev;
-    Entity*   list2_next;
-    // +0x018
-    uint32_t  field_018;
-    // +0x01C
-    uint32_t  field_01C;
-    // +0x020  flags (bit 0 = movement mode)
-    uint32_t  field_020;
-    // +0x024 - 0x033  (various state)
-    uint32_t  pad_024[4];
-    // +0x034  saved across init
-    uint32_t  field_034;
-    uint32_t  field_038;
-    // +0x03C  scale = 1.0f
-    float     scaleX;
-    // +0x040  scale = 1.0f
-    float     scaleY;
-    // +0x044 - 0x05B
-    uint32_t  pad_044[6];
-    // +0x05C  scheduler timer = 0xfff0bdc1
-    uint32_t  scheduler_timer;
-    // +0x060
-    uint32_t  field_060;
-    uint32_t  field_064;
-    // +0x068  (various)
-    uint32_t  pad_068[1];
+    int32_t   animation_handle;    // +0x000, nonzero while registered
+    // +0x004  embedded manager-list node
+    Entity*   manager_node_animation;
+    Entity*   manager_node_next;
+    Entity*   manager_node_previous;
+    // +0x010  embedded parent/child-list node
+    Entity*   child_node_animation;
+    Entity*   child_node_next;
+    Entity*   child_node_previous;
+    Entity*   render_chain_next;    // +0x01C
+    int32_t   render_bucket;        // +0x020
+    Vector3   rotation;             // +0x024, radians around X/Y/Z
+    Vector3   angular_velocity;     // +0x030, radians per script tick
+    float     scale_x;              // +0x03C, 1.0f by default
+    float     scale_y;              // +0x040, 1.0f by default
+    float     scale_velocity_x;     // +0x044
+    float     scale_velocity_y;     // +0x048
+    float     sprite_width;         // +0x04C, copied from sprite metadata
+    float     sprite_height;        // +0x050, copied from sprite metadata
+    float     uv_scroll_x;          // +0x054, wrapped to [0, 1)
+    float     uv_scroll_y;          // +0x058, wrapped to [0, 1)
+    int32_t   previous_frame;       // +0x05C
+    int32_t   current_frame;        // +0x060
+    float     frame_elapsed;        // +0x064
+    float*    time_scale;           // +0x068, normally DAT_00476f78
     // +0x06C  flags (bit 0 cleared by constructor)
     uint32_t  flags_06C;
     // +0x070 - 0x0AF
@@ -80,47 +85,98 @@ struct Entity {
     uint32_t  flags_228;
     // +0x22C - 0x23B
     uint32_t  pad_22C[4];
-    // +0x23C  = 1.0f
-    float     field_23C;
-    // +0x240
-    uint32_t  field_240;
-    uint32_t  field_244;
-    uint32_t  field_248;
-    uint32_t  field_24C;
-    // +0x250  = 1.0f
-    float     field_250;
-    // +0x254 - 0x263
-    uint32_t  pad_254[4];
-    // +0x264  = 1.0f
-    float     field_264;
-    // +0x268
-    uint32_t  field_268;
-    uint32_t  field_26C;
-    uint32_t  field_270;
-    uint32_t  field_274;
-    // +0x278  = 1.0f
-    float     field_278;
-    // +0x27C - 0x2FB
-    uint32_t  pad_27C[32];
-    // +0x2FC  = 0xFFFFFFFF
-    uint32_t  field_2FC;
-    // +0x300 - 0x33F
-    uint32_t  pad_300[16];
-    // +0x340  saved across init (3 dwords)
-    uint32_t  field_340;
-    uint32_t  field_344;
-    uint32_t  field_348;
-    // +0x34C
-    uint32_t  pad_34C[3];
+    Matrix4x4 local_transform;   // +0x23C, identity by default
+    Matrix4x4 world_transform;   // +0x27C, derived during rendering
+    Matrix4x4 backup_transform;  // +0x2BC
+    uint32_t  primary_color;        // +0x2FC, ARGB; white by default
+    uint32_t  secondary_color;      // +0x300, alternate ARGB color
+    int16_t   stop_frame;          // +0x304
+    uint16_t  reserved_306;
+    void*     script_resource;     // +0x308
+    // Interpreter variable banks occupy this region in the 32-bit layout:
+    // four integers at +0x30C, four floats at +0x31C, then two integers at
+    // +0x32C. Keep raw storage here because the preceding native pointer is
+    // wider in host tests; the named accessors below preserve retail offsets.
+    uint8_t   script_variable_storage[0x334 - 0x30C];
+    Vector3   base_position;       // +0x334
+    Vector3   position;            // +0x340, preserved across Entity_Init
+    Vector3   render_offset;       // +0x34C
     // +0x358  resource pointer (freed by destructor)
     void*     resource;
-    // +0x35C  word = 7 (init) or 0xFFFF (constructor)
-    uint16_t  end_marker;
-    uint16_t  pad_35E;
+    // Animation code treats the complete word as flags while constructors
+    // initialize its low 16-bit end marker.
+    union {
+        uint32_t flags_35C;
+        struct {
+            uint16_t end_marker;   // +0x35C, 7 or 0xFFFF at construction
+            uint16_t flags_high;
+        };
+    };
     // +0x360  second owned resource used by another entity subsystem
     void*     secondary_resource;
-    // +0x364 - 0x3AB
-    uint8_t   pad_364[0x3AC - 0x364];
+    // Script execution state is documented here as raw storage for the same
+    // native-pointer portability reason as script_variable_storage above:
+    // +0x380 start frame, +0x384 sprite index, +0x386 resource ID,
+    // +0x38A script index, +0x38C script base, +0x390 instruction cursor,
+    // +0x394 sprite metadata, +0x398 update callback, +0x39C draw callback.
+    uint8_t   animation_runtime_storage[0x3AC - 0x364];
+
+    // Accessors use retail byte offsets deliberately. Native pointers are
+    // eight bytes in host-side tests but four bytes in the target ABI, so
+    // direct late-structure fields are not portable between those builds.
+    int16_t& StopFrame() {
+        return *(int16_t*)((uint8_t*)this + 0x304);
+    }
+    void*& ScriptResource() {
+        return *(void**)((uint8_t*)this + 0x308);
+    }
+    int32_t* ScriptIntegerVariables() {
+        return (int32_t*)((uint8_t*)this + 0x30C);
+    }
+    float* ScriptFloatVariables() {
+        return (float*)((uint8_t*)this + 0x31C);
+    }
+    int32_t* ScriptExtraIntegerVariables() {
+        return (int32_t*)((uint8_t*)this + 0x32C);
+    }
+    Vector3& BasePosition() {
+        return *(Vector3*)((uint8_t*)this + 0x334);
+    }
+    Vector3& Position() {
+        return *(Vector3*)((uint8_t*)this + 0x340);
+    }
+    Vector3& RenderOffset() {
+        return *(Vector3*)((uint8_t*)this + 0x34C);
+    }
+    void*& OwnedResource() {
+        // Target offset is +0x358. Express it relative to the following flags
+        // word so a native 64-bit host pointer does not overlap that word.
+        return *(void**)((uint8_t*)this + 0x35C - sizeof(void*));
+    }
+    uint32_t& AnimationFlags() {
+        return *(uint32_t*)((uint8_t*)this + 0x35C);
+    }
+    uint16_t& ScriptResourceId() {
+        return *(uint16_t*)((uint8_t*)this + 0x386);
+    }
+    int16_t& SpriteIndex() {
+        return *(int16_t*)((uint8_t*)this + 0x384);
+    }
+    int16_t& ScriptIndex() {
+        return *(int16_t*)((uint8_t*)this + 0x38A);
+    }
+    int32_t& ScriptStartFrame() {
+        return *(int32_t*)((uint8_t*)this + 0x380);
+    }
+    void*& ScriptBase() {
+        return *(void**)((uint8_t*)this + 0x38C);
+    }
+    void*& ScriptCursor() {
+        return *(void**)((uint8_t*)this + 0x390);
+    }
+    void*& SpriteMetadata() {
+        return *(void**)((uint8_t*)this + 0x394);
+    }
 };
 // static_assert not available in MSVC 7.1
 // sizeof(Entity) == 0x3AC
