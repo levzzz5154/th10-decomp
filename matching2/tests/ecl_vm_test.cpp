@@ -88,6 +88,24 @@ void TestDirectAndLocalOperands() {
     assert(ECL_ResolveFloatOperand(fixture.bytes, 1) == -6.5f);
 }
 
+void TestEncryptedStringTransform() {
+    static const char plaintext[] = "ECL text";
+    char encrypted[sizeof(plaintext)] = {};
+    char decoded[sizeof(plaintext)] = {};
+    unsigned int key = 0x77;
+    unsigned int step = 7;
+    for (unsigned int index = 0; index != sizeof(plaintext) - 1; ++index) {
+        encrypted[index] = (char)((unsigned char)plaintext[index] ^ key);
+        key = (key + step) & 0xFF;
+        step = (step + 0x10) & 0xFF;
+    }
+    ECL_DecodeEncryptedString(
+        decoded, encrypted, (unsigned int)(sizeof(plaintext) - 1));
+    assert(std::strcmp(decoded, plaintext) == 0);
+    ECL_DecodeEncryptedString(decoded, encrypted, 0);
+    assert(decoded[0] == plaintext[0]);
+}
+
 void TestExternalVariables() {
     CursorFixture fixture;
     fixture.instruction.instruction.param_mask = 3;
@@ -278,6 +296,7 @@ void TestRecoveredLeafDispatcher() {
 
 int main() {
     TestDirectAndLocalOperands();
+    TestEncryptedStringTransform();
     TestExternalVariables();
     TestDecodedValueResolvers();
     TestTypedStackPops();

@@ -129,6 +129,11 @@ typed writable destinations.
 The bounded global/action pair `0x168–0x169` is also reconstructed: the first
 writes the shared difficulty slot and the second resolves and forwards its
 integer operand to the gameplay action hook.
+The shared encrypted-text transform used by `0x165–0x167` is now available as
+`ECL_DecodeEncryptedString`, with the retail `0x77` seed and increasing-step
+XOR sequence covered by a deterministic round-trip test. The surrounding
+branches remain partial because they orchestrate animation, score, and external
+text-state dependencies.
 Registration coverage now exercises front and back insertion in both the
 primary and secondary manager lists, including head/tail repair after removal.
 Per-frame coverage walks both active lists, removes retired objects without

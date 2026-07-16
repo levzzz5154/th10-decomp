@@ -88,5 +88,7 @@ int32_t ECL_ResolveIntValue(
     void* cursor, unsigned int operand, int32_t value);
 float* ECL_ResolveFloatDestination(void* cursor, unsigned int operand);
 int32_t* ECL_ResolveIntDestination(void* cursor, unsigned int operand);
+void ECL_DecodeEncryptedString(
+    char* destination, const char* encrypted, unsigned int length);
 
 int __fastcall ECL_VM_Dispatch(void* entity);

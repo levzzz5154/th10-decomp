@@ -241,6 +241,20 @@ int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     return 0;
 }
 
+// Shared by the encrypted text branches at 0x0040E770 cases 0x165–0x167.
+// The retail key starts at 0x77 and advances by an increasing 0x10-step after
+// each byte (the step itself starts at 7).
+void ECL_DecodeEncryptedString(
+    char* destination, const char* encrypted, unsigned int length) {
+    unsigned int key = 0x77;
+    unsigned int step = 7;
+    for (unsigned int index = 0; index != length; ++index) {
+        destination[index] = (char)((unsigned char)encrypted[index] ^ key);
+        key = (key + step) & 0xFF;
+        step = (step + 0x10) & 0xFF;
+    }
+}
+
 int __fastcall ECL_VM_Dispatch(void* entity) {
     ECLVMState* state = *reinterpret_cast<ECLVMState**>(
         static_cast<uint8_t*>(entity) + 0x14d8);
