@@ -1,19 +1,36 @@
 // =============================================================================
 // bullet.cpp - Bullet/enemy entity spawning and initialization
 // Functions: 0x0040CFB0 (Entity_Spawn), 0x0040D830 (Entity_InitHelper),
-//            0x0040CC70 (Entity_ClearAnims), 0x0040DC80 (Entity_UpdateTransform)
+//            0x0040CC70 (Entity_ClearAnims), 0x0040DC80 (Entity_UpdateTransform),
+//            0x0040AF90 (BulletManager_Create), 0x0040AF00 (BulletManager_Release),
+//            0x0040AE70 (BulletManager_LoadScripts)
 // =============================================================================
 #include "th10/game/entity.hpp"
+#include "th10/game/scheduler.hpp"
 
-extern "C" void* operator_new(uint32_t size);
+extern "C" void* __cdecl operator_new(uint32_t size);
+extern "C" void __cdecl _free(void* memory);
+extern "C" void __stdcall EnterCriticalSection(void* criticalSection);
+extern "C" void __stdcall LeaveCriticalSection(void* criticalSection);
 extern void* PTR_LAB_0046d0c0;       // vtable for bullet entities
 extern uint32_t DAT_00476f78;         // scheduler sentinel
 extern uint32_t DAT_00474c74;         // global flag
 extern uint32_t DAT_00477704;         // global config pointer
+extern uint32_t DAT_004776fc;         // global bullet manager state
+extern uint32_t DAT_00491be4;         // scheduler device
+extern uint32_t DAT_00492274;         // scheduler critical section
+extern unsigned char DAT_0049231c;    // scheduler reentrancy counter
+extern void* g_pGameStateManager;     // typed alias for DAT_00491c10
 
-int __fastcall FUN_00450470(void* param_1);  // texture/sprite lookup
+int __fastcall ResourceManager_FindTexture(void* resource_template);
 void __fastcall Entity_ClearAnims(void* unused, uint8_t* data);
-int FUN_0040dc80(uint32_t* param_1);  // update transform
+int BulletEntity_UpdateTransform(uint32_t* bullet_transform);
+void __fastcall AnimationManager_RemoveHandle(void* unused, void* manager, int handle);
+
+// Resource-manager lookup: returns a typed resource pointer (or NULL). The
+// retail name is loaded through this entry point so bullet manager setup can
+// be exercised independently of the resource manager.
+int* ResourceManager_FindResource(int type, void* manager, const char* name);
 
 // 0x0040CF40 - Initialize the complete spawn-parameter record.
 BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
@@ -25,14 +42,85 @@ BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
     return parameters;
 }
 
+// 0x0040CF60 - Copy the three-component animation vector into a bullet.
+void BulletEntity_SetAnimationVector(BulletEntity* entity, const float* value) {
+    float* destination = reinterpret_cast<float*>(
+        reinterpret_cast<uint8_t*>(entity) + 0x430);
+    destination[0] = value[0];
+    destination[1] = value[1];
+    destination[2] = value[2];
+}
+
+// 0x0040CF90 - Find a linked bullet by its runtime identifier.
+BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id) {
+    uint8_t* owner = reinterpret_cast<uint8_t*>(manager);
+    uint8_t* node = *reinterpret_cast<uint8_t**>(owner + 0x18);
+    while (node != 0) {
+        if (*reinterpret_cast<int32_t*>(node + 0x54) == id)
+            return reinterpret_cast<BulletEntity*>(node);
+        node = *reinterpret_cast<uint8_t**>(node + 8);
+    }
+    return 0;
+}
+
+// 0x0040CEA0 - Mark the bullet's active animation for deferred resource
+// removal, then invalidate the local handle. The retail animation manager
+// performs the root/child flag propagation behind AnimationManager_RemoveHandle.
+void BulletEntity_MarkAnimationForRemoval(BulletEntity* entity) {
+    uint8_t* bytes = (uint8_t*)entity;
+    *(uint32_t*)(bytes + 0x378C) |= 0x10;
+    AnimationManager_RemoveHandle(0, g_pGameStateManager,
+                 *(int*)(bytes + 0x774));
+    *(uint32_t*)(bytes + 0x774) = 0;
+}
+
+// 0x0040B250 - Give an entity its private copy of a 0x2c-byte resource
+// record. Retail immediately mirrors the record's leading vector into the
+// entity position, leaving the remaining eight words owned by the resource.
+int __fastcall Entity_AttachResourceSnapshot(
+    Entity* entity, const EntityResourceSnapshot* snapshot) {
+    EntityResourceSnapshot* copy = (EntityResourceSnapshot*)operator_new(
+        sizeof(EntityResourceSnapshot));
+    *(EntityResourceSnapshot**)((uint8_t*)entity + 0x358) = copy;
+    *copy = *snapshot;
+    entity->Position() = *(const Vector3*)copy;
+    return 0;
+}
+
+// 0x0040D680 - Restore the bullet vtable and release its owned resource.
+void BulletEntity_ReleaseResource(BulletEntity* entity, void* vtable) {
+    uint8_t* bytes = reinterpret_cast<uint8_t*>(entity);
+    *reinterpret_cast<void**>(bytes) = vtable;
+    void*& resource = *reinterpret_cast<void**>(bytes + 0x8c);
+    if (resource != 0) {
+        _free(resource);
+        resource = 0;
+    }
+}
+
+// 0x0040C6E0 - Release the bullet's linked resource records.
+// Each record stores an owned resource pointer at +0 and the next record at
+// +4; the head pointer is retained at the retail entity offset +0x1034.
+void BulletEntity_ClearResourceList(BulletEntity* entity) {
+    uint8_t* bytes = reinterpret_cast<uint8_t*>(entity);
+    uint8_t* record = *reinterpret_cast<uint8_t**>(bytes + 0x1034);
+    while (record != 0) {
+        uint8_t* next = *reinterpret_cast<uint8_t**>(record + 4);
+        _free(*reinterpret_cast<void**>(record));
+        _free(record);
+        record = next;
+    }
+    *reinterpret_cast<uint8_t**>(bytes + 0x1034) = 0;
+}
+
 // ============================================================================
 // 0x0040CC70 - Clear Animation States
 // Clears flag bits at various offsets and zeroes 8 blocks of 0x84 dwords.
-// __fastcall: ECX = this (unused), EDX = param_2 (bullet data pointer)
+// __fastcall: ECX = this (unused), EDX = bullet_data pointer
 //
 // Ghidra decompilation:
 //   Clears bit 0 at offsets: +300, +0x17C, +0x1C8, +0x204, +0x240, +0x27C, +0x2B8
-//   Then zeroes 8 blocks of 0x84 dwords starting at param_2 + 0x2C4
+//   Then zeroes 8 blocks of 0x84 dwords starting at bullet_data + 0x2C4
 //   Each block ends with a 0xFFFFFFFF marker at offset +0x204 within block
 //   Clears bit 0 at +0x142C and +0x1440
 // ============================================================================
@@ -64,7 +152,7 @@ void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
 // The retail ABI used ECX for template data and ESI for the entity. The clean
 // API exposes both inputs as ordinary typed parameters.
 //
-// Ghidra decompilation (unaff_ESI = entity pointer):
+// Ghidra decompilation (ESI = bullet entity pointer):
 //   Sets vtable, clears anim states, zeroes bullet data (0x537 dwords),
 //   initializes linked lists, timers, animation defaults (24.0f), 
 //   scheduler chains, texture lookup, and collision group markers.
@@ -179,7 +267,7 @@ BulletEntity* BulletEntity_Initialize(
     esi[0x40B] = *(uint32_t*)(config + 0x54);
 
     // Texture/sprite lookup
-    int texId = FUN_00450470((void*)templateData);
+    int texId = ResourceManager_FindTexture((void*)templateData);
     *(int*)(esi[1] + 4) = texId;
     *(uint32_t*)esi[1] = 0;
 
@@ -216,9 +304,9 @@ BulletEntity* BulletEntity_Initialize(
 // Ghidra decompilation:
 //   alloc = operator_new(0x2518)
 //   if alloc == NULL: return 0
-//   entity = Entity_InitHelper(param_2, param_2)  // ESI = alloc
+//   entity = Entity_InitHelper(templateData, allocation)  // ESI = alloc
 //   Copy spawn params from in_EAX to entity fields
-//   Update transform via FUN_0040DC80
+//   Update transform via BulletEntity_UpdateTransform
 //   Determine sprite ID based on entity type/subtype
 //   Link entity into manager's doubly-linked list
 //   Increment entity count
@@ -273,7 +361,7 @@ BulletEntity* BulletEntity_Spawn(
     *(uint32_t*)(entity + 0x2480) ^= (spawnParams[7] << 18 ^ *(uint32_t*)(entity + 0x2480)) & 0x40000;
 
     // Update transform
-    FUN_0040dc80((uint32_t*)(entity + 0x103C));
+    BulletEntity_UpdateTransform((uint32_t*)(entity + 0x103C));
 
     // Adjust sprite type based on flags
     if ((char)(*(uint32_t*)(entity + 0x2480) >> 8) < 0) {
@@ -327,4 +415,115 @@ BulletEntity* BulletEntity_Spawn(
     ++manager->spawnSerial;
 
     return (BulletEntity*)entity;
+}
+
+// ============================================================================
+// 0x0040AF00 - BulletManager_Release
+// Retire the bullet manager's two scheduler callbacks and clear the global
+// state pointer. Each release is wrapped in the scheduler critical section
+// so it stays safe against the primary/secondary list being walked
+// concurrently. The retail helper uses the device global (DAT_00491BE4) and
+// the EnterCriticalSection/LeaveCriticalSection imports the scheduler keeps
+// in its own import slots. __fastcall so ECX is the manager state.
+// ============================================================================
+void __fastcall BulletManager_Release(BulletManagerState* state) {
+    void* device = (void*)DAT_00491be4;
+
+    SchedulerCallback* primary = state->primary_callback;
+    if (primary != 0) {
+        EnterCriticalSection(&DAT_00492274);
+        ++DAT_0049231c;
+        Scheduler_Remove(primary, device);
+        LeaveCriticalSection(&DAT_00492274);
+        --DAT_0049231c;
+    }
+
+    SchedulerCallback* secondary = state->secondary_callback;
+    if (secondary != 0) {
+        EnterCriticalSection(&DAT_00492274);
+        ++DAT_0049231c;
+        Scheduler_Remove(secondary, device);
+        LeaveCriticalSection(&DAT_00492274);
+        --DAT_0049231c;
+    }
+
+    DAT_004776fc = 0;
+}
+
+// ============================================================================
+// 0x0040B050 / 0x0040B060 - Scheduler callback stubs
+// The bullet manager registers two "return 1" callbacks; the scheduler fires
+// them on each tick and the engine just uses the success return value to
+// keep ticking the manager. The clean C++ form replaces the retail naked
+// stubs that live at the named addresses.
+// ============================================================================
+static int __fastcall BulletManager_PrimaryStub(void* /*owner*/) {
+    return 1;
+}
+static int __fastcall BulletManager_SecondaryStub(void* /*owner*/) {
+    return 1;
+}
+
+// ============================================================================
+// 0x0040AE70 - BulletManager_LoadScripts
+// Load "bullet.anm" from the game-state manager and register a primary and a
+// secondary scheduler callback that both point at the success-stub. The
+// retail ABI hides the manager pointer in EBX; the clean C++ form takes it
+// as an explicit argument. Returns 0 on success, -1 if the resource lookup
+// fails.
+// ============================================================================
+int BulletManager_LoadScripts(BulletManagerState* state) {
+    int* resource = ResourceManager_FindResource(7, g_pGameStateManager, "bullet.anm");
+    state->bullet_resource = resource;
+    if (resource == 0) {
+        return -1;
+    }
+
+    SchedulerCallback* primary = SchedulerCallback_Create(
+        (SchedulerFunction)BulletManager_PrimaryStub);
+    primary->flags &= ~2u;
+    primary->owner = state;
+    Scheduler_RegisterPrimary(primary, 0x17, (void*)DAT_00491be4);
+    state->primary_callback = primary;
+
+    SchedulerCallback* secondary = SchedulerCallback_Create(
+        (SchedulerFunction)BulletManager_SecondaryStub);
+    secondary->flags &= ~2u;
+    secondary->owner = state;
+    Scheduler_RegisterSecondary(secondary, 0x20, (void*)DAT_00491be4);
+    state->secondary_callback = secondary;
+
+    return 0;
+}
+
+// ============================================================================
+// 0x0040AF90 - BulletManager_Create
+// Allocate a fresh 0x18-byte manager state, zero it, mark it initialized,
+// publish it through the global pointer, and load its scripts. The retail
+// helper returns NULL on script-load failure after releasing the allocation
+// so callers can distinguish "not yet created" from "created and live".
+// ============================================================================
+BulletManagerState* BulletManager_Create() {
+    BulletManagerState* state =
+        (BulletManagerState*)operator_new(sizeof(BulletManagerState));
+    if (state == 0) {
+        return 0;
+    }
+    state->flags = 0;
+    state->reserved_004 = 0;
+    state->primary_callback = 0;
+    state->secondary_callback = 0;
+    state->bullet_resource = 0;
+    state->reserved_014 = 0;
+    state->flags |= 2u;
+    DAT_004776fc = (uint32_t)state;
+
+    if (BulletManager_LoadScripts(state) != 0) {
+        if (state != 0) {
+            BulletManager_Release(state);
+            _free(state);
+        }
+        return 0;
+    }
+    return state;
 }

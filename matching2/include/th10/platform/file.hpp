@@ -39,3 +39,15 @@ public:
 
 void File_ResolvePath(const char* path, char output[260]);
 const char* File_AfterFirstSlash(const char* path);
+bool File_ProbeExists(const char* path,
+                      void* (*open_file)(const char*),
+                      void (*close_file)(void*));
+int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
+                          unsigned char* critical_depth);
+int File_WriteShared(void* handle, const void* source, DWORD size,
+                     DWORD (*write_file)(void*, const void*, DWORD),
+                     void (*close_file)(void*), unsigned char* critical_depth);
+void* File_ReadShared(void* handle, DWORD size,
+                      void* (*allocate)(DWORD),
+                      DWORD (*read_file)(void*, void*, DWORD),
+                      void (*close_file)(void*));

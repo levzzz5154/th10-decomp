@@ -8,7 +8,7 @@ struct D3DResourceNode {
 };
 
 struct D3DResourceList {
-    uint32_t field_000;
+    uint32_t reserved_header;
     uint32_t flags;
     uint32_t pending_008;
     uint32_t pending_00C;
@@ -16,7 +16,7 @@ struct D3DResourceList {
     D3DResourceList* owner;
     D3DResourceNode* first;
     D3DResourceNode* last;
-    uint32_t field_020;
+    uint32_t reserved_tail;
 };
 // sizeof(D3DResourceList) == 0x24
 

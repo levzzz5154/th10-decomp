@@ -10,11 +10,11 @@ void* g_pGameStateManager = 0;
 int32_t DAT_00474c98 = 0;
 int32_t DAT_00474c74 = 0;
 
-extern "C" uint32_t FUN_0044fdb0(uint32_t, void*, int) { return 0; }
-extern "C" void FUN_00449590(void) {}
-extern "C" void FUN_004495e0(void) {}
+extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
+extern "C" void AnimationManager_SetEclFlag(void) {}
+extern "C" void AnimationManager_ClearEclFlag(void) {}
 static int g_difficulty_action = -1;
-extern "C" void FUN_00405410(int value) { g_difficulty_action = value; }
+extern "C" void ECL_SetTimerTarget(int value) { g_difficulty_action = value; }
 
 namespace {
 
@@ -107,6 +107,43 @@ void TestEncryptedStringTransform() {
     assert(std::strcmp(encrypted, plaintext) == 0);
     ECL_DecodeEncryptedString(decoded, encrypted, 0);
     assert(decoded[0] == plaintext[0]);
+}
+
+void TestScratchStackHelpers() {
+    uint8_t vm[0x1100] = {};
+    *(int32_t*)(vm + 0x1000) = 0;
+    *(int32_t*)(vm + 0x1004) = 0;
+    assert(ECL_PushScratchValue(vm, 8) == 0);
+    assert(*(int32_t*)(vm + 0x1000) == 12);
+    assert(*(int32_t*)(vm + 0x1004) == 0);
+    assert(ECL_PopScratchValue(vm) == 0);
+    assert(*(int32_t*)(vm + 0x1000) == 0);
+}
+
+void TestScratchWriterAndPolarVector() {
+    uint8_t vm[0x1100] = {};
+    int32_t value = 0x12345678;
+    assert(ECL_WriteScratch(vm, 'i', sizeof(value), &value) == 0);
+    assert(*(char*)vm == 'i');
+    assert(*(int32_t*)(vm + 4) == value);
+    float vector[2] = {};
+    ECL_SetPolarVector(vector, 0.0f, 3.0f);
+    assert(vector[0] == 3.0f && vector[1] == 0.0f);
+}
+
+void TestScriptLabelLookup() {
+    struct Entry { const unsigned short* name; void* value; };
+    static const unsigned short alpha[] = {'a','l','p','h','a',0};
+    static const unsigned short beta[] = {'b','e','t','a',0};
+    uint8_t vm[0x100] = {};
+    uint8_t record_a[0x20] = {};
+    Entry entries[2] = {{alpha, record_a}, {beta, record_a}};
+    *(int32_t*)(vm + 8) = 2;
+    *(Entry**)(vm + 0x8c) = entries;
+    static const unsigned short query[] = {'b','e','t','a',0};
+    assert(ECL_FindScriptLabel(vm, query) == record_a + 0x10);
+    static const unsigned short missing[] = {'z',0};
+    assert(ECL_FindScriptLabel(vm, missing) == 0);
 }
 
 void TestExternalVariables() {
@@ -300,6 +337,9 @@ void TestRecoveredLeafDispatcher() {
 int main() {
     TestDirectAndLocalOperands();
     TestEncryptedStringTransform();
+    TestScratchStackHelpers();
+    TestScratchWriterAndPolarVector();
+    TestScriptLabelLookup();
     TestExternalVariables();
     TestDecodedValueResolvers();
     TestTypedStackPops();

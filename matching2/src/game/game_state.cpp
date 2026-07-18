@@ -25,11 +25,11 @@ void __fastcall Entity_Constructor(Entity* e);
 void __fastcall Entity_Destructor(Entity* e);
 void __fastcall Entity_Init(void* unused, Entity* entity);
 
-int  FUN_00403850(void* this_);
-void FUN_0044b8e0(const char* msg);
-void FUN_004215a0(void);
-void FUN_00449f60(void* handle, int dev);
-void FUN_00447810(void* mgr);
+int  GameState_InitializeRenderResources(void* this_);
+void Platform_LogMessage(const char* msg);
+void Render_UpdateCameraMatrices(void);
+void Scheduler_UnregisterCallback(void* handle, int dev);
+void ResourceManager_DestroyContents(void* mgr);
 
 extern "C" void __stdcall EnterCriticalSection(void* cs);
 extern "C" void __stdcall LeaveCriticalSection(void* cs);
@@ -55,16 +55,16 @@ static int __fastcall GameState_AfterDrawCallback(void* owner) {
 // ============================================================================
 // 0x00402160 - GameState Constructor
 // Clears flags, constructs 8+3 entity arrays, zeroes 0xAD9 dwords, sets flag
-// param_1 (EAX) = game state pointer
+// state (EAX) = game state pointer
 //
 // Ghidra decompilation:
-//   param_1[0xD]  &= ~1; param_1[0x12] &= ~1; param_1[0x24] &= ~1;
-//   param_1[0x37] &= ~1; param_1[0x5A] &= ~1;
-//   _eh_vector_constructor(param_1+0x60, 0x3AC, 8, Entity_Constructor, Entity_Destructor)
-//   _eh_vector_constructor(param_1+0x7C2, 0x3AC, 3, Entity_Constructor, Entity_Destructor)
-//   param_1[0xA8B] &= ~1;
+//   state[0xD]  &= ~1; state[0x12] &= ~1; state[0x24] &= ~1;
+//   state[0x37] &= ~1; state[0x5A] &= ~1;
+//   _eh_vector_constructor(state+0x60, 0x3AC, 8, Entity_Constructor, Entity_Destructor)
+//   _eh_vector_constructor(state+0x7C2, 0x3AC, 3, Entity_Constructor, Entity_Destructor)
+//   state[0xA8B] &= ~1;
 //   Zero 0xAD9 dwords
-//   *param_1 |= 2;  (mark as constructed)
+//   *state |= 2;  (mark as constructed)
 // ============================================================================
 GameState* GameState_Construct(GameState* gameState) {
     uint32_t* state = (uint32_t*)gameState;
@@ -75,7 +75,7 @@ GameState* GameState_Construct(GameState* gameState) {
     state[0x37]  &= 0xFFFFFFFE;
     state[0x5A]  &= 0xFFFFFFFE;
 
-    // Construct 8 entities at offset 0x180 (param_1 + 0x60 dwords)
+    // Construct 8 entities at offset 0x180 (state + 0x60 dwords)
     _eh_vector_constructor_iterator_(
         state + 0x60,    // base = +0x180
         0x3AC,           // element size
@@ -84,7 +84,7 @@ GameState* GameState_Construct(GameState* gameState) {
         (void*)Entity_Destructor
     );
 
-    // Construct 3 entities at offset 0x1F08 (param_1 + 0x7C2 dwords)
+    // Construct 3 entities at offset 0x1F08 (state + 0x7C2 dwords)
     _eh_vector_constructor_iterator_(
         state + 0x7C2,   // base = +0x1F08
         0x3AC,           // element size
@@ -109,13 +109,13 @@ GameState* GameState_Construct(GameState* gameState) {
 // 0x00402230 - GameState Init
 // Initializes the game state: registers callbacks, creates render targets,
 // copies default render config, initializes scheduler chain.
-// this (ECX) = manager, param_1 (EAX) = game state, param_2 (stack) = state ID
+// this (ECX) = manager, state (EAX) = game state, state_id (stack)
 //
 // Ghidra decompilation:
-//   if (param_2 == 0): DAT_004776e8 = EAX; preserve DAT_004776e4
+//   if (state_id == 0): DAT_004776e8 = EAX; preserve DAT_004776e4
 //   otherwise: DAT_004776e4 = EAX
 //   state+0x2A30 = DAT_00474c7c (state type)
-//   FUN_00403850(this) — check device
+//   GameState_InitializeRenderResources(this) — check device
 //   Copy 0x46 dwords from DAT_00491d7c to state+0x2A4C
 //   Set default render params (300.0f, 0.0f, 600.0f, 600.0f, etc.)
 //   state+0x1EE0 = 0x4B12A310 (frame timer)
@@ -125,7 +125,7 @@ GameState* GameState_Construct(GameState* gameState) {
 // ============================================================================
 int GameState_Init(void* manager, GameState* gameState, int stateId) {
     uint8_t* state = (uint8_t*)gameState;
-    int iVar1;
+    int initialization_result;
 
     // 0x0040223C keeps the active state in DAT_004776e4 when creating
     // state zero, and records the newly created state in DAT_004776e8.
@@ -137,8 +137,8 @@ int GameState_Init(void* manager, GameState* gameState, int stateId) {
     }
     *(uint32_t*)(state + 0x2A30) = DAT_00474c7c;
 
-    iVar1 = FUN_00403850(manager);
-    if (iVar1 == 0) {
+    initialization_result = GameState_InitializeRenderResources(manager);
+    if (initialization_result == 0) {
         // Copy default render config (0x46 dwords)
         uint32_t* src = &DAT_00491d7c[0];
         uint32_t* dst = (uint32_t*)(state + 0x2A4C);
@@ -203,14 +203,14 @@ int GameState_Init(void* manager, GameState* gameState, int stateId) {
         *(uint32_t*)(state + 0xE0) = 0;
         return 0;
     }
-    FUN_0044b8e0("D3D device creation failed");
+    Platform_LogMessage("D3D device creation failed");
     return 0xFFFFFFFF;
 }
 
 // ============================================================================
 // 0x00402440 - GameState Destroy
 // Releases render targets, frees buffers, destroys entity arrays.
-// param_1 (stack) = game state pointer
+// state (stack) = game state pointer
 //
 // Ghidra decompilation:
 //   Release 3 render target handles (with critical section)
@@ -227,7 +227,7 @@ void GameState_Destroy(GameState* gameState) {
     if (rt1 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(rt1, DAT_00491be4);
+        Scheduler_UnregisterCallback(rt1, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -237,7 +237,7 @@ void GameState_Destroy(GameState* gameState) {
     if (rt2 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(rt2, DAT_00491be4);
+        Scheduler_UnregisterCallback(rt2, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -247,7 +247,7 @@ void GameState_Destroy(GameState* gameState) {
     if (rt3 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(rt3, DAT_00491be4);
+        Scheduler_UnregisterCallback(rt3, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -269,7 +269,7 @@ void GameState_Destroy(GameState* gameState) {
         if (slot < 0x21) {
             uint32_t* slotPtr = (uint32_t*)((int)g_pGameStateManager + slot * 4 + 0x3AD06C);
             if (*slotPtr != 0) {
-                FUN_00447810(g_pGameStateManager);
+                ResourceManager_DestroyContents(g_pGameStateManager);
                 _free((void*)*slotPtr);
                 *slotPtr = 0;
             }
@@ -296,14 +296,14 @@ void GameState_Destroy(GameState* gameState) {
 // ============================================================================
 // 0x00402640 - GameState Create
 // Allocates 0x2B64 bytes, constructs, and initializes a game state.
-// param_1 = manager, param_2 = state ID
+// manager = state manager, state_id = requested state ID
 // Returns pointer or NULL on failure
 //
 // Ghidra decompilation:
 //   ptr = operator_new(0x2B64)
 //   if (ptr == NULL): return NULL
 //   ptr = GameState_Construct(ptr)
-//   result = GameState_Init(param_1, param_2)
+//   result = GameState_Init(manager, state_id)
 //   if (result != 0):
 //     GameState_Destroy(ptr); _free(ptr); return NULL
 //   return ptr

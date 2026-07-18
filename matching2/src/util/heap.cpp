@@ -1,6 +1,7 @@
 #include "th10/util/heap.hpp"
 
 extern "C" void __cdecl _free(void*);
+extern "C" void* __cdecl _malloc(uint32_t);
 extern "C" void* __cdecl _memmove(void* destination, const void* source,
                                     uint32_t size);
 extern "C" void* operator_new(uint32_t size);
@@ -41,6 +42,28 @@ void __fastcall HeapBuffer_Release(HeapBuffer* buffer) {
     }
 }
 
+// 0x00418150 - Run an owned object's cleanup and release its allocation.
+void Heap_DestroyOwned(void* object, void (*cleanup)(void*),
+                       void (*free_memory)(void*)) {
+    if (object == 0)
+        return;
+    if (cleanup != 0)
+        cleanup(object);
+    if (free_memory != 0)
+        free_memory(object);
+}
+
+// 0x0042CDB0 - Secondary owned-object destructor with the same cleanup order.
+void Heap_DestroyOwnedSecondary(void* object, void (*cleanup)(void*),
+                                void (*free_memory)(void*)) {
+    if (object == 0)
+        return;
+    if (cleanup != 0)
+        cleanup(object);
+    if (free_memory != 0)
+        free_memory(object);
+}
+
 // 0x004381F0 - Reset an MSVC 7.1 small-string object to its empty state.
 void __fastcall LegacyString_Clear(LegacyString* string) {
     if (string->capacity >= 16) {
@@ -51,7 +74,22 @@ void __fastcall LegacyString_Clear(LegacyString* string) {
     string->storage.inline_data[0] = 0;
 }
 
+// 0x00435220 - Allocate and copy a null-terminated legacy string.
+char* LegacyString_Duplicate(const char* text) {
+    const char* end = text;
+    while (*end != 0)
+        ++end;
+    uint32_t size = (uint32_t)(end - text) + 1;
+    char* copy = (char*)_malloc(size);
+    if (copy != 0) {
+        for (uint32_t index = 0; index != size; ++index)
+            copy[index] = text[index];
+    }
+    return copy;
+}
+
 // 0x00438350 - Assign a null-terminated byte string.
+// 0x00438350 - Assign a null-terminated string.
 void LegacyString::Assign(const char* text) {
     const char* end = text;
     char current;
@@ -64,6 +102,7 @@ void LegacyString::Assign(const char* text) {
 
 // 0x00438420 - Assign an explicit byte range, preserving small-string storage
 // and handling ranges which point back into this string.
+// 0x00438420 - Assign an explicit byte range with alias-safe handling.
 LegacyString* LegacyString::AssignRange(const char* text, uint32_t count) {
     char* current = capacity < 16
         ? storage.inline_data
@@ -157,6 +196,7 @@ LegacyString* LegacyString::AssignSubstring(
 }
 
 // 0x00438510 - Remove a bounded range and close the gap in place.
+// 0x00438510 - Erase a bounded range and close the gap.
 LegacyString* LegacyString::Erase(uint32_t offset, uint32_t count) {
     if (length < offset) {
         LegacyString_ThrowRangeError();
@@ -174,6 +214,7 @@ LegacyString* LegacyString::Erase(uint32_t offset, uint32_t count) {
 }
 
 // 0x00438590 - Update the logical length and write its terminator.
+// 0x00438590 - Set the logical length and maintain the terminator.
 void LegacyString::SetLength(uint32_t new_length) {
     length = new_length;
     if (capacity >= 16) {
@@ -189,6 +230,7 @@ uint32_t LegacyString::Length() const {
 }
 
 // 0x004385B0 - Ensure capacity, optionally moving short strings back inline.
+// 0x00438380 - Adjust capacity and optionally move a short string inline.
 bool LegacyString::Reserve(uint32_t requested, bool shrink_to_inline) {
     if (requested > 0xFFFFFFFE) {
         LegacyString_ThrowLengthError();
@@ -243,6 +285,7 @@ const char* LegacyString::Data() const {
 
 // 0x004386B0 + 0x0043874C - Grow using the retail 1.5x capacity policy while
 // preserving the requested prefix and switching cleanly out of inline mode.
+// 0x004386B0/0x0043874C - Grow storage using the retail capacity policy.
 void LegacyString::Grow(uint32_t requested, uint32_t old_length) {
     uint32_t new_capacity = requested | 15;
     if (new_capacity > 0xFFFFFFFE) {

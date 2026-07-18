@@ -178,6 +178,10 @@ struct Entity {
         return *(void**)((uint8_t*)this + 0x394);
     }
 };
+
+bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y);
+bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y);
+Entity* Entity_ResetRuntimeState(Entity* entity);
 // static_assert not available in MSVC 7.1
 // sizeof(Entity) == 0x3AC
 
@@ -212,13 +216,54 @@ struct BulletEntityManager {
     uint32_t spawnSerial;           // +0x64
 };
 
+// Fixed-size resource/template record copied by the entity attachment helper
+// at 0x0040B250. The first three words are also the entity's initial position.
+struct EntityResourceSnapshot {
+    uint32_t fields[11];
+};
+
+// Runtime bullet manager state used by the bullet subsystem. Constructed
+// lazily by BulletManager_Create (0x0040AF90) and torn down by
+// BulletManager_Release (0x0040AF00). The retail layout exposes the primary
+// and secondary scheduler callbacks and the loaded bullet.anm resource
+// pointer used by the spawn path.
+struct SchedulerCallback;
+struct BulletManagerState {
+    uint32_t flags;                // +0x00, bit 1 = initialized
+    uint32_t reserved_004;
+    SchedulerCallback* primary_callback;   // +0x08
+    SchedulerCallback* secondary_callback; // +0x0C
+    void* bullet_resource;         // +0x10, "bullet.anm" archive
+    uint32_t reserved_014;
+};
+// sizeof(BulletManagerState) == 0x18
+
 BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
     void* unused, BulletSpawnParameters* parameters);
+void BulletEntity_SetAnimationVector(BulletEntity* entity, const float* value);
+BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id);
+void BulletEntity_ReleaseResource(BulletEntity* entity, void* vtable);
+void BulletEntity_ClearResourceList(BulletEntity* entity);
 BulletEntity* BulletEntity_Initialize(
     BulletEntity* entity, const uint8_t* templateData);
 BulletEntity* BulletEntity_Spawn(
     BulletEntityManager* manager, const uint8_t* templateData,
     const BulletSpawnParameters* parameters);
+void BulletEntity_MarkAnimationForRemoval(BulletEntity* entity);
+int __fastcall Entity_AttachResourceSnapshot(
+    Entity* entity, const EntityResourceSnapshot* snapshot);
+
+// 0x0040AF00 - Retire the bullet manager's two scheduler callbacks and clear
+// the global pointer. Safe against null callback slots.
+void __fastcall BulletManager_Release(BulletManagerState* state);
+// 0x0040AF90 - Allocate a fresh 0x18-byte bullet manager state, mark it
+// initialized, store it in the global slot, and load its scripts. Returns
+// NULL when the script load fails and releases the allocation.
+BulletManagerState* BulletManager_Create();
+// 0x0040AE70 - Look up "bullet.anm" in the game-state manager and register
+// the primary/secondary scheduler callbacks. The "this" pointer lives in EBX
+// in the original ABI; the clean API exposes it as the first argument.
+int BulletManager_LoadScripts(BulletManagerState* state);
 
 // ============================================================================
 // Entity Manager / GameStateManager
@@ -234,13 +279,13 @@ struct EntityManager {
 struct SchedulerTask {
     SchedulerTask* next;
     SchedulerTask* prev;
-    uint32_t       field_008;
+    uint32_t       reserved_008;
     uint32_t       timer;
-    uint32_t       field_010;
-    uint32_t       field_014;
-    uint32_t       field_018;
-    uint32_t       field_01C;
-    uint32_t       field_020;
+    uint32_t       reserved_010;
+    uint32_t       reserved_014;
+    uint32_t       reserved_018;
+    uint32_t       reserved_01C;
+    uint32_t       reserved_020;
 };
 // sizeof(SchedulerTask) == 0x24
 

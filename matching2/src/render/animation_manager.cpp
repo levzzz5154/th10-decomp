@@ -16,11 +16,17 @@ extern float _DAT_00470b48;
 extern float _DAT_00470b4c;
 extern float _DAT_00470b60;
 extern unsigned int DAT_00476f78;
+extern void* g_pD3DDevice;
+
+extern "C" int __stdcall D3DXCreateTexture(
+    void* device, unsigned int width, unsigned int height,
+    unsigned int mip_levels, unsigned int usage, unsigned int format,
+    unsigned int pool, void* output);
 
 Entity* __fastcall Entity_Constructor(Entity* entity);
 void __fastcall Entity_Destructor(Entity* entity);
 void __fastcall Entity_Init(void* unused, Entity* entity);
-int FUN_0043ee30(AnimationObject* animation);
+int AnimationObject_ExecuteScript(AnimationObject* animation);
 void AnimationObject_Render(void* manager, AnimationObject* animation);
 
 static AnimationListNode* AnimationManager_List(
@@ -37,11 +43,40 @@ static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
     return next;
 }
 
+// 0x00447050 - Allocate a one-level managed texture in one of the six retail
+// pixel formats and retain the corresponding byte stride in its owner record.
+int AnimationTexture_Create(unsigned int width, unsigned int height,
+                            unsigned int format_index,
+                            AnimationTextureRecord* output) {
+    static const unsigned int formats[6] = {0, 21, 25, 23, 20, 26};
+    static const unsigned int bytes_per_pixel[6] = {4, 4, 2, 2, 3, 2};
+    D3DXCreateTexture(g_pD3DDevice, width, height, 1, 0,
+                      formats[format_index], 1, output);
+    output->bytes_per_pixel = bytes_per_pixel[format_index];
+    return 0;
+}
+
 // 0x004423C0 - Multiply two 7-bit-normalized color channels and saturate the
 // result to the byte range used by the animation renderer.
 uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {
     uint32_t result = (left & 0xFF) * (right & 0xFF) >> 7;
     return result > 0xFF ? 0xFF : result;
+}
+
+// 0x00447940 - Copy one animation position record and derive its normalized
+// coordinates and extents. The retail record is 0x44 bytes (17 floats).
+void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
+                                         const float* source) {
+    uint8_t* bytes = (uint8_t*)manager;
+    float* destination = (float*)(bytes + 0x118 + index * 0x44);
+    for (unsigned int field = 0; field != 17; ++field)
+        destination[field] = source[field];
+    destination[8] = destination[2] / destination[7];
+    destination[10] = destination[4] / destination[7];
+    destination[9] = destination[3] / destination[6];
+    destination[11] = destination[5] / destination[6];
+    destination[13] = (destination[4] - destination[2]) / source[14];
+    destination[12] = (destination[5] - destination[3]) / source[15];
 }
 
 // 0x0043EC70 - Read one of the animation interpreter's integer-valued
@@ -490,6 +525,20 @@ void AnimationManager_SetStopFrameFromHandle(
     AnimationManager_SetStopFrame(manager, *animationHandle, frame);
 }
 
+// 0x0040C480 - Gameplay shorthand for stopping an animation at frame 2.
+// The retail entry receives its handle pointer in EAX and obtains the manager
+// from the global game-state owner; the cleaned API makes the handle explicit.
+void AnimationManager_StopAtFrame2(const int* animationHandle) {
+    AnimationManager_SetStopFrame(
+        g_pGameStateManager, *animationHandle, 2);
+}
+
+// 0x0040C4D0 - Companion shorthand that stops at frame 3.
+void AnimationManager_StopAtFrame3(const int* animationHandle) {
+    AnimationManager_SetStopFrame(
+        g_pGameStateManager, *animationHandle, 3);
+}
+
 // 0x00449250 - Set a stop frame and immediately advance root and child scripts.
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame) {
@@ -500,13 +549,13 @@ int AnimationManager_SetStopFrameAndRun(
     }
 
     AnimationManager_SetStopFrame(manager, animationHandle, frame);
-    int result = FUN_0043ee30(animation);
+    int result = AnimationObject_ExecuteScript(animation);
     AnimationListNode* childMembership =
         AnimationObject_ChildMembership(animation);
     if (childMembership->previous == 0) {
         AnimationListNode* child = childMembership->next;
         while (child != 0) {
-            result = FUN_0043ee30(child->animation);
+            result = AnimationObject_ExecuteScript(child->animation);
             child = child->next;
         }
     }
@@ -612,7 +661,7 @@ static void AnimationObject_LoadScriptInternal(
     *(int*)(animationBytes + 0x5C) = -1;
     entity->AnimationFlags() &= ~1u;
 
-    FUN_0043ee30(animation);
+    AnimationObject_ExecuteScript(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
 
@@ -678,7 +727,7 @@ void AnimationObject_ChangeScript(
     *(int*)(bytes + 0x64) = 0;
     *(int*)(bytes + 0x5C) = -1;
     entity->AnimationFlags() &= ~1u;
-    FUN_0043ee30(animation);
+    AnimationObject_ExecuteScript(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
 
@@ -714,6 +763,49 @@ void AnimationObject_InitializeScriptState(
     bytes[0x3A1] = 0x10;
     AnimationObject_LoadScriptPreservingState(
         animation, resource, animationIndex);
+}
+
+// 0x0043E5A0 - Apply one resource position record to an animation object.
+// The clean entry makes the hidden object/resource/index registers explicit.
+int AnimationObject_ConfigureFromResource(
+    void* animation, void* resource, int animationIndex) {
+    unsigned char* object = (unsigned char*)animation;
+    unsigned char* resourceBytes = (unsigned char*)resource;
+    if (*(uint32_t*)(resourceBytes + 0x108) == 0 ||
+        *(uint32_t*)(resourceBytes + 0x124) != 0)
+        return -1;
+
+    *(int16_t*)(object + 0x384) = (int16_t)animationIndex;
+    *(void**)(object + 0x308) = resource;
+    unsigned char* record = *(unsigned char**)(resourceBytes + 0x118) +
+        animationIndex * 0x44;
+    *(void**)(object + 0x394) = record;
+    *(uint32_t*)(object + 0x4C) = *(uint32_t*)(record + 0x34);
+    *(uint32_t*)(object + 0x50) = *(uint32_t*)(record + 0x30);
+
+    for (unsigned int offset = 0x23C; offset <= 0x2F4; offset += 4)
+        *(uint32_t*)(object + offset) = 0;
+    *(uint32_t*)(object + 0x23C) = 0x3F800000;
+    *(uint32_t*)(object + 0x250) = 0x3F800000;
+    *(uint32_t*)(object + 0x264) = 0x3F800000;
+    *(uint32_t*)(object + 0x278) = 0x3F800000;
+    *(uint32_t*)(object + 0x2D0) = 0x3F800000;
+    *(uint32_t*)(object + 0x2E4) = 0x3F800000;
+    *(uint32_t*)(object + 0x2F8) = 0x3F800000;
+
+    float width = *(float*)(object + 0x4C);
+    float height = *(float*)(object + 0x50);
+    const float textureScale = 1.0f;
+    *(float*)(object + 0x23C) = width * textureScale;
+    *(float*)(object + 0x250) = height * textureScale;
+    *(float*)(object + 0x2BC) =
+        (*(float*)(record + 0x38) / *(float*)(record + 0x1C)) * width;
+    *(float*)(object + 0x2D0) =
+        (*(float*)(record + 0x3C) / *(float*)(record + 0x18)) * height;
+    for (unsigned int offset = 0; offset != 0x40; offset += 4)
+        *(uint32_t*)(object + 0x27C + offset) =
+            *(uint32_t*)(object + 0x23C + offset);
+    return 0;
 }
 
 void AnimationManager_SetPosition(
@@ -813,7 +905,7 @@ static bool AnimationManager_UpdateObject(
     if (callback != 0) {
         callback(animation);
     }
-    if (FUN_0043ee30(animation) != 0) {
+    if (AnimationObject_ExecuteScript(animation) != 0) {
         AnimationManager_RemoveObject(manager, animation);
         return false;
     }
@@ -928,4 +1020,85 @@ int PlayerAnimation_Create(
         AnimationManager_RegisterObject(g_pGameStateManager, animation);
     *(int*)scratch = handle;
     return handle;
+}
+
+// 0x00447F70 - Release the three indexed resource slots owned by a manager.
+void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
+        void (*release)(void*), void (*free_memory)(void*)) {
+    uint8_t* bytes = (uint8_t*)manager;
+    void** first = (void**)(bytes + 0x3AD4E0 + index * 4);
+    void** second = (void**)(bytes + 0x3AD560 + index * 4);
+    void** memory = (void**)(bytes + 0x3AD5E0 + index * 4);
+    if (*first != 0) { if (release) release(*first); *first = 0; }
+    if (*second != 0) { if (release) release(*second); *second = 0; }
+    if (*memory != 0) { if (free_memory) free_memory(*memory); *memory = 0; }
+}
+
+// 0x004477D0 - Release and free one of the manager's 33 resource slots.
+void AnimationManager_ClearResourceSlot(void* manager, int index,
+                                        void (*release)(void*),
+                                        void (*free_memory)(void*)) {
+    if (index < 0 || index >= 0x21)
+        return;
+    void** slot = (void**)((uint8_t*)manager + 0x3AD06C + index * 4);
+    if (*slot == 0)
+        return;
+    void* resource = *slot;
+    if (release != 0)
+        release(resource);
+    if (free_memory != 0)
+        free_memory(resource);
+    *slot = 0;
+}
+
+// 0x0043E460 - Install a resource record in the first free manager slot.
+void AnimationManager_RegisterResource(void* manager, unsigned int index,
+        const char* name, int value, int flags) {
+    uint8_t* bytes = (uint8_t*)manager;
+    for (unsigned int slot = 0; slot != 0x1f; ++slot) {
+        uint8_t* record = bytes + 0x1f88 + slot * 0x10c;
+        if (*(int*)record == 0) {
+            *(int*)record = value;
+            *(int*)(record + 4) = flags;
+            char* destination = (char*)(record + 0xc);
+            while ((*destination++ = *name++) != 0) {}
+            *(int*)(record + 8) = 0;
+            return;
+        }
+    }
+    (void)index;
+}
+
+// 0x0043DC90 - Queue a resource pointer in the matching indexed bucket.
+void AnimationManager_QueueResource(void* manager, int resource_id,
+                                    void* resource) {
+    uint8_t* bytes = (uint8_t*)manager;
+    for (int bucket = 0; bucket != 12; ++bucket) {
+        int* id = (int*)(bytes + 0x620 + bucket * 4);
+        int* count = (int*)(bytes + 0x650 + bucket * 4);
+        if (*id < 0) {
+            *id = resource_id;
+            *count = 0;
+            *(void**)(bytes + 0x680 + bucket * 0x200) = resource;
+            return;
+        }
+        if (*id == resource_id) {
+            if (*count < 0x80)
+                *(void**)(bytes + 0x680 + bucket * 0x200 + *count * 4) = resource;
+            ++*count;
+            return;
+        }
+    }
+}
+
+// 0x004054B0 - Configure the resource manager with the requested value and
+// its decimal tens/ones digits, in retail call order.
+void AnimationManager_ConfigureDigitTriplet(
+    void* resource_manager, int value, int number,
+    int (*configure)(void*, int)) {
+    if (configure == 0)
+        return;
+    configure(resource_manager, value);
+    configure(resource_manager, number / 10 + 8);
+    configure(resource_manager, number % 10 + 8);
 }

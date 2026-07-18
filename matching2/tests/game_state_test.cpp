@@ -32,11 +32,11 @@ void __fastcall Entity_Constructor(Entity*) {}
 void __fastcall Entity_Destructor(Entity*) {}
 void __fastcall Entity_Init(void*, Entity*) {}
 
-int FUN_00403850(void*) { return 1; }
-void FUN_0044b8e0(const char*) {}
-void FUN_004215a0(void) {}
-void FUN_00449f60(void*, int) {}
-void FUN_00447810(void*) {}
+int GameState_InitializeRenderResources(void*) { return 1; }
+void Platform_LogMessage(const char*) {}
+void Render_UpdateCameraMatrices(void) {}
+void Scheduler_UnregisterCallback(void*, int) {}
+void ResourceManager_DestroyContents(void*) {}
 extern "C" void __stdcall EnterCriticalSection(void*) {}
 extern "C" void __stdcall LeaveCriticalSection(void*) {}
 

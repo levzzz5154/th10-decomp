@@ -12,3 +12,7 @@ struct FrameTimer {
 };
 
 void FrameTimer_Tick(FrameTimer* timer);
+void FrameTimer_Advance(FrameTimer* timer, float delta);
+void GameState_SetTimerTarget(unsigned char* state, int owner_value,
+                              int target, const float* speed);
+void GameState_DisableTimerWithOwner(void* state, int owner);

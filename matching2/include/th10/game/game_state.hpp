@@ -75,6 +75,11 @@ struct GameThread {
     void*     callback2;         // +0x010
     uint8_t   pad_014[0x89AC - 0x014];
 };
+
+// Append a named 0x68-byte game-thread record while the thread's queue has
+// room for another entry.
+void GameThread_AppendRecord(GameThread* gameThread, const char* name,
+                             const uint32_t* vector);
 // sizeof(GameThread) should be 0x89AC
 
 GameThread* GameThread_Construct(GameThread* gameThread);

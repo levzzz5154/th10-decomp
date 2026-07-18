@@ -15,21 +15,21 @@ struct MidiHeader {
 };
 
 struct MidiBufferRecord {
-    BYTE unknown[0x10];
+    BYTE reserved_header[0x10];
     void* allocation;
     BYTE tail[0x0C];
 };
 
 struct MidiManager {
-    DWORD unknown_00;
+    DWORD reserved_header;
     DWORD timer_event;
     DWORD timer_period;
-    DWORD unknown_0c;
+    DWORD reserved_flags;
     int state;
     MidiHeader* active_headers[32];
-    BYTE unknown_94[0x84];
+    BYTE reserved_094[0x84];
     int buffer_count;
-    BYTE unknown_11c[0x1C];
+    BYTE reserved_11C[0x1C];
     MidiBufferRecord* buffers;
     HANDLE output;
 };

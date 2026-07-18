@@ -53,8 +53,8 @@ extern char     DAT_0046f66c[];  // window title
 extern void*    DAT_00497ba8;    // mutex handle
 extern BYTE     DAT_00492518;    // replay flag
 
-void FUN_0044b8e0(const char* msg);
-int  FUN_0044b4d0(const char* str);
+void Platform_LogMessage(const char* msg);
+int  File_ProbePath(const char* str);
 
 struct Guid {
     DWORD data1;
@@ -151,12 +151,12 @@ void SaveSystemSettings(void) {
 // Handles WM_SETCURSOR (0x20), WM_CLOSE (0x10), WM_QUIT (0x14),
 // WM_ENTERIDLE (0x1C), WM_LBUTTONDOWN (0x201), WM_DEVICECHANGE (0x3C9).
 // Ghidra decompilation:
-//   if (param_2 > 0x20): check 0x201 (SetForeground) and
+//   if (message > 0x20): check 0x201 (SetForeground) and
 //   0x3C9/MM_MOM_DONE (release the completed MIDI header)
-//   if (param_2 == 0x20): show/hide cursor based on fullscreen flag
-//   if (param_2 == 0x10): set close flag (DAT_00491ff4 |= 0x80)
-//   if (param_2 == 0x14): return 1 (swallow WM_QUIT)
-//   if (param_2 == 0x1C): track cursor visibility
+//   if (message == 0x20): show/hide cursor based on fullscreen flag
+//   if (message == 0x10): set close flag (DAT_00491ff4 |= 0x80)
+//   if (message == 0x14): return 1 (swallow WM_QUIT)
+//   if (message == 0x1C): track cursor visibility
 //   else: DefWindowProcA
 // ============================================================================
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -206,8 +206,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 // Ghidra decompilation:
 //   GetStockObject(4)  // NULL_BRUSH
 //   LoadCursorA(NULL, IDC_ARROW)
-//   local_24 = FUN_004390e0  // wndproc
-//   RegisterClassA(&local_28)
+//   window_class.lpfnWndProc = FUN_004390e0
+//   RegisterClassA(&window_class)
 //   if (fullscreen):
 //     CreateWindowExA(0, "BASE", title, 0x100A0000, ...)
 //   else:
@@ -401,7 +401,7 @@ BOOL ResolveShortcutTarget(const char* shortcut_path, char* target_path,
 // Ghidra decompilation:
 //   CreateMutexA(NULL, TRUE, "Touhou 10 App")
 //   if (GetLastError() == ERROR_ALREADY_EXISTS):
-//     FUN_0044b8e0("already running message")
+//     Platform_LogMessage("already running message")
 //     return -1
 //   GetModuleFileNameA(NULL, path, 0x105)
 //   GetConsoleTitleA(title, 0x105)
@@ -418,7 +418,7 @@ int InstanceCheck(void) {
     DAT_00497ba8 = CreateMutexA(0, 1, "Touhou 10 App");
     DWORD err = GetLastError();
     if (err == 0xB7) {  // ERROR_ALREADY_EXISTS
-        FUN_0044b8e0("already running");
+        Platform_LogMessage("already running");
         return -1;
     }
 
@@ -439,7 +439,7 @@ int InstanceCheck(void) {
         DAT_00491ff4 |= 0x40;
     } else {
         char* extension = _strrchr(lpTitle, '.');
-        if (FUN_0044b4d0(lpTitle) && extension != 0) {
+        if (File_ProbePath(lpTitle) && extension != 0) {
             if (__stricmp(extension, ".lnk") == 0) {
                 const char* shortcut_path = lpTitle;
                 do {

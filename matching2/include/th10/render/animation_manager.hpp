@@ -5,6 +5,13 @@
 
 struct AnimationObject;
 
+struct AnimationTextureRecord {
+    unsigned int texture;
+    unsigned int reserved_004;
+    unsigned int reserved_008;
+    unsigned int bytes_per_pixel;
+};
+
 struct AnimationListNode {
     AnimationObject* animation;
     AnimationListNode* next;
@@ -55,6 +62,8 @@ void AnimationManager_SetStopFrame(
     void* manager, int animationHandle, short frame);
 void AnimationManager_SetStopFrameFromHandle(
     void* manager, const int* animationHandle, short frame);
+void AnimationManager_StopAtFrame2(const int* animationHandle);
+void AnimationManager_StopAtFrame3(const int* animationHandle);
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame);
 void AnimationManager_SetFlag(
@@ -73,6 +82,8 @@ void AnimationManager_ChangeScript(
     void* manager, const int* animationHandle, int animationIndex);
 void AnimationObject_InitializeScriptState(
     AnimationObject* animation, void* resource, int animationIndex);
+int AnimationObject_ConfigureFromResource(
+    void* animation, void* resource, int animationIndex);
 void AnimationManager_SetPosition(
     void* manager, int animationHandle, const float* position);
 void AnimationManager_SetTranslatedPosition(
@@ -104,3 +115,22 @@ float* AnimationObject_ResolveFloatVariable(
     bool variableEncoded);
 unsigned int AnimationColor_MultiplyChannel(
     unsigned int left, unsigned int right);
+void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
+                                             void (*release)(void*),
+                                             void (*free_memory)(void*));
+void AnimationManager_ClearResourceSlot(void* manager, int index,
+                                        void (*release)(void*),
+                                        void (*free_memory)(void*));
+void AnimationManager_ConfigureDigitTriplet(
+    void* resource_manager, int value, int number,
+    int (*configure)(void*, int));
+void AnimationManager_RegisterResource(void* manager, unsigned int index,
+                                       const char* name, int value,
+                                       int flags);
+void AnimationManager_QueueResource(void* manager, int resource_id,
+                                    void* resource);
+void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
+                                         const float* source);
+int AnimationTexture_Create(unsigned int width, unsigned int height,
+                            unsigned int format_index,
+                            AnimationTextureRecord* output);

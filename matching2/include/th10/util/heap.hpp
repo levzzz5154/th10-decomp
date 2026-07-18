@@ -19,7 +19,7 @@ struct LegacyAllocator {
 // MSVC 7.1 basic_string-compatible storage used by 0x004381F0. Strings of up
 // to 15 bytes live inline at +0x04; larger strings store a heap pointer there.
 struct LegacyString {
-    uint32_t field_000;
+    uint32_t allocator_cookie;
     union {
         char inline_data[16];
         void* heap_data;
@@ -42,4 +42,9 @@ struct LegacyString {
 };
 
 void __fastcall HeapBuffer_Release(HeapBuffer* buffer);
+void Heap_DestroyOwned(void* object, void (*cleanup)(void*),
+                       void (*free_memory)(void*));
+void Heap_DestroyOwnedSecondary(void* object, void (*cleanup)(void*),
+                                void (*free_memory)(void*));
 void __fastcall LegacyString_Clear(LegacyString* string);
+char* LegacyString_Duplicate(const char* text);

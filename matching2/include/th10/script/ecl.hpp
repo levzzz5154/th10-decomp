@@ -21,12 +21,12 @@ struct ECLInstruction {
 // current instruction from cursor->instruction rather than treating +0x04 as
 // an instruction pointer directly.
 struct ECLInstructionCursor {
-    uint32_t field_000;
+    uint32_t reserved_header;
     ECLInstruction* instruction;
 };
 
 struct ECLVMState {
-    uint32_t field_000;
+    uint32_t reserved_state;
     ECLInstructionCursor* cursor;
 };
 
@@ -82,12 +82,23 @@ void ECL_ClearMovementBoundary(void* entity);
 void ECL_ResetDifficultySlots(void* entity);
 float ECL_ResolveFloatOperand(void* cursor, unsigned int operand);
 int32_t ECL_ResolveIntOperand(void* cursor, unsigned int operand);
+int32_t ECL_ResolveIntFromEntity(void* entity, unsigned int operand);
 float ECL_ResolveFloatValue(
     void* cursor, unsigned int operand, float value);
 int32_t ECL_ResolveIntValue(
     void* cursor, unsigned int operand, int32_t value);
 float* ECL_ResolveFloatDestination(void* cursor, unsigned int operand);
 int32_t* ECL_ResolveIntDestination(void* cursor, unsigned int operand);
+// ECL variable-table and scratch-stack helpers (0x00450030, 0x00450160,
+// 0x00450190, 0x00450690, 0x004506D0), expressed with a normal C++ ABI.
+void* ECL_ResolveVariableValue(void* vm, int32_t variable);
+void ECL_ResetVariableBindings(void* vm);
+int32_t ECL_PushScratchValue(void* vm, int32_t value);
+int32_t ECL_PopScratchValue(void* vm);
+void ECL_SetPolarVector(float* destination, float angle, float magnitude);
+int32_t ECL_WriteScratch(void* vm, char type, unsigned int size,
+                         const void* data);
+void* ECL_FindScriptLabel(void* vm, const unsigned short* name);
 void ECL_DecodeEncryptedString(
     char* destination, const char* encrypted, unsigned int length);
 

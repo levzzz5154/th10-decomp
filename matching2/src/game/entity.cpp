@@ -6,6 +6,54 @@
 
 extern "C" void __cdecl _free(void*);
 extern "C" void* __cdecl operator_new(uint32_t size);
+extern float DAT_00470b04;
+extern float DAT_00470b0c;
+extern float DAT_00470b38;
+extern float DAT_00470b3c;
+extern float DAT_00470b40;
+extern float DAT_00470b5c;
+
+static bool Entity_AxisContains(float coordinate, float radius,
+                                float lower, float upper) {
+    const float expanded = coordinate + radius * DAT_00470b0c;
+    if (expanded < lower || expanded > upper) return false;
+    const float contracted = coordinate - radius * DAT_00470b0c;
+    return contracted >= lower && contracted <= upper;
+}
+
+// 0x00405D00 - Reset the derived entity runtime state while preserving the
+// outer allocation and clearing the low flag bit on each animation slot.
+Entity* Entity_ResetRuntimeState(Entity* entity) {
+    uint8_t* bytes = (uint8_t*)entity;
+    uint32_t* flags = (uint32_t*)(bytes + 0x74);
+    const uint32_t mask = 0xFFFFFFFEu;
+    *flags &= mask;
+    for (unsigned int offset = 0x6C; offset <= 0x228; offset += 0x2C)
+        *(uint32_t*)(bytes + 8 + offset) &= mask;
+    *(uint32_t*)(bytes + 0x380) &= mask;
+    for (unsigned int index = 0; index != 0xEB; ++index)
+        ((uint32_t*)(bytes + 8))[index] = 0;
+    *(uint16_t*)(bytes + 0x38C) = 0xFFFF;
+    *(uint32_t*)(bytes + 0x408) &= mask;
+    *(uint32_t*)(bytes + 0x41C) &= mask;
+    for (unsigned int index = 0; index != 8; ++index)
+        *(uint32_t*)(bytes + 0x624 + index * 0x34) &= mask;
+    return entity;
+}
+
+// 0x00406160 - Test a point against the entity's two-axis bounds.
+bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y) {
+    return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
+                               DAT_00470b40) &&
+        Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b5c);
+}
+
+// 0x004061D0 - Variant using the zero lower X limit used by the renderer.
+bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y) {
+    return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
+                               DAT_00470b40) &&
+        Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b04);
+}
 
 // ============================================================================
 // 0x00401FF0 - Entity Destructor
@@ -62,7 +110,7 @@ Entity* __fastcall Entity_Constructor(Entity* e) {
 // 0x00401DE0 - Entity Full Init
 // Saves 4 fields, zeroes entire entity (0xEB dwords), restores saved fields,
 // sets default values (scales=1.0f, timers, linked list self-refs).
-// __fastcall: ECX = param_1 (unused), EDX = entity pointer
+// __fastcall: ECX is unused, EDX = entity pointer
 //
 // Disassembly:
 //   SUB ESP,0x10; PUSH EBX,EBP,ESI
@@ -70,7 +118,7 @@ Entity* __fastcall Entity_Constructor(Entity* e) {
 //   EBX = [EDX+0x340], EBP = [EDX+0x344]
 //   ECX = [EDX+0x348], EAX = [EDX+0x20]
 //   PUSH EDI
-//   [ESP+0x1c] = ECX (field_348)
+//   [ESP+0x1c] = ECX (entity field at +0x348)
 //   [ESP+0x10] = EAX (render_bucket)
 //   XOR EAX,EAX; MOV ECX,0xEB; MOV EDI,EDX; REP STOSD
 //   Restore: [EDX+0x340]=EBX, [EDX+0x344]=EBP, [EDX+0x20]=[ESP+0x10], [EDX+0x348]=[ESP+0x1c]

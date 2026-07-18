@@ -77,6 +77,71 @@ void File_ResolvePath(const char* path, char output[260]) {
     } while (*path++ != 0);
 }
 
+// 0x0044B4D0 - Probe a path under the file-system critical-section boundary.
+// The clean form accepts provider hooks so handle ownership is testable on a
+// host without importing CreateFileA/CloseHandle.
+bool File_ProbeExists(const char* path,
+                      void* (*open_file)(const char*),
+                      void (*close_file)(void*)) {
+    if (open_file == 0)
+        return false;
+    void* handle = open_file(path);
+    if (handle == (void*)-1)
+        return false;
+    if (close_file != 0)
+        close_file(handle);
+    return true;
+}
+
+// 0x0044B7E0 - Close the shared probe handle and leave its critical section.
+int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
+                          unsigned char* critical_depth) {
+    if (handle != (void*)-1) {
+        if (close_file != 0)
+            close_file(handle);
+        if (critical_depth != 0 && *critical_depth != 0)
+            --*critical_depth;
+    }
+    return 0;
+}
+
+// 0x0044B740 - Write a complete shared diagnostic record, retiring the
+// handle and critical-section depth when the provider reports a short write.
+int File_WriteShared(void* handle, const void* source, DWORD size,
+                     DWORD (*write_file)(void*, const void*, DWORD),
+                     void (*close_file)(void*), unsigned char* critical_depth) {
+    if (handle == (void*)-1 || write_file == 0)
+        return -1;
+    DWORD written = write_file(handle, source, size);
+    if (written != size) {
+        if (close_file != 0)
+            close_file(handle);
+        if (critical_depth != 0 && *critical_depth != 0)
+            --*critical_depth;
+        return -2;
+    }
+    return 0;
+}
+
+// 0x0044B790 - Allocate and fill one record from the shared diagnostic file.
+// Allocation failure retires the shared handle; the retail leaf leaves the
+// read count to the caller's surrounding protocol.
+void* File_ReadShared(void* handle, DWORD size,
+                      void* (*allocate)(DWORD),
+                      DWORD (*read_file)(void*, void*, DWORD),
+                      void (*close_file)(void*)) {
+    if (handle == (void*)-1 || allocate == 0 || read_file == 0)
+        return 0;
+    void* buffer = allocate(size);
+    if (buffer == 0) {
+        if (close_file != 0)
+            close_file(handle);
+        return 0;
+    }
+    read_file(handle, buffer, size);
+    return buffer;
+}
+
 // 0x00435370 - Open a Win32 file using TH10's fopen-like mode parsing.
 BYTE FileHandle::Open(const char* path, const char* mode) {
     DWORD creation_disposition = 0;

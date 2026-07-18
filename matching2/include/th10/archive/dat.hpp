@@ -9,7 +9,7 @@ struct DatEntry {
     const char* name;
     uint32_t offset;
     uint32_t uncompressed_size;
-    uint32_t unknown;
+    uint32_t reserved_metadata;
 };
 
 struct DatArchiveHeader {
@@ -31,6 +31,7 @@ struct DatArchive : DatArchiveIndex {
 };
 
 void DatArchive_Initialize(DatArchive* archive);
+void DatArchive_Reset(DatArchive* archive);
 void DatArchive_Close(DatArchive* archive);
 
 bool DatArchive_Open(

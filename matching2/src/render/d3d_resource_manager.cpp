@@ -18,7 +18,7 @@ void D3DResourceList_ClearPending(D3DResourceList* list) {
 }
 
 void D3DResourceList_Initialize(D3DResourceList* list) {
-    list->field_000 = 0;
+    list->reserved_header = 0;
     list->flags &= 0xFFFFFFFE;
     D3DResourceList_ClearPending(list);
     list->owner = list;

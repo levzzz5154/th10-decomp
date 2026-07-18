@@ -26,30 +26,80 @@ extern float    _DAT_00470b48;   // render-space Y offset
 extern float    _DAT_00470b4c;   // render-space X offset
 extern uint32_t DAT_00476f78;     // timer sentinel
 
+// 0x004045B0 - Arm the player's startup scheduler and set its first value.
+void Player_ArmSchedulerValue(void* scheduler, int) {
+    uint8_t* bytes = (uint8_t*)scheduler;
+    uint32_t flags = *(uint32_t*)(bytes + 0x2a2c);
+    if ((flags & 1) == 0) {
+        *(uint32_t*)(bytes + 0x2a20) = 0;
+        *(uint32_t*)(bytes + 0x2a1c) = 0xFFF0BDC1;
+        *(uint32_t*)(bytes + 0x2a24) = 0;
+        *(uint32_t*)(bytes + 0x2a28) = (uint32_t)&DAT_00476f78;
+        *(uint32_t*)(bytes + 0x2a2c) = flags | 1;
+    }
+    *(uint32_t*)(bytes + 0x2a20) = 0x3c;
+    *(uint32_t*)(bytes + 0x2a24) = 0x42700000;
+    *(uint32_t*)(bytes + 0x2a1c) = 0x3b;
+    *(uint32_t*)(bytes + 0x2a18) |= 4;
+}
+
 void EnemyManager_CheckPlayerCollision(
     void* gameState, const float* position, float radius,
     int allowEffect, int focused);
 void ItemManager_CollectNearPlayer(
     void* itemManager, const float* position, float radius, int allowEffect);
-void FUN_0043dd10(void);
-void FUN_0043e5a0(int handle, int idx);
-void FUN_004054b0(int val1, int val2, int val3);
-void FUN_00405500(void);
+void AnimationManager_QueueGeneratedResource(void);
+void AnimationObject_SelectScript(int handle, int idx);
+void Player_UpdatePowerDisplay(int major_digits, int major_value, int minor_digits);
+void Player_ClearPowerDisplayFlags(void);
+
+// 0x00405410 - Arm a scheduler node and store its integer/float value.
+void Player_SetSchedulerValue(void* scheduler, int value) {
+    uint8_t* bytes = (uint8_t*)scheduler;
+    uint32_t flags = *(uint32_t*)(bytes + 0x10);
+    if ((flags & 1) == 0) {
+        *(uint32_t*)(bytes + 0x04) = 0;
+        *(uint32_t*)(bytes + 0x00) = 0xFFF0BDC1;
+        *(uint32_t*)(bytes + 0x08) = 0;
+        *(uint32_t*)(bytes + 0x0C) =
+            (uint32_t)(unsigned long)&DAT_00476f78;
+        *(uint32_t*)(bytes + 0x10) = flags | 1;
+    }
+    *(uint32_t*)(bytes + 0x04) = (uint32_t)value;
+    *(uint32_t*)(bytes + 0x00) = (uint32_t)(value - 1);
+    *(float*)(bytes + 0x08) = (float)value;
+}
+
+// 0x00405500 - Clear transient player flags once the startup timer expires.
+void Player_ClearExpiredFlags(Player* player) {
+    uint8_t* bytes = (uint8_t*)player;
+    if (*(int*)(bytes + 0x3738) < 0x3C) return;
+    const uint32_t mask = 0xFFFFFFFDu;
+    *(uint32_t*)(bytes + 0x378C) &= mask;
+    *(uint32_t*)(bytes + 0x3790) = 0;
+    *(uint32_t*)(bytes + 0x0AD4) &= mask;
+    *(uint32_t*)(bytes + 0x0E80) &= mask;
+    *(uint32_t*)(bytes + 0x15D8) &= mask;
+    *(uint32_t*)(bytes + 0x1984) &= mask;
+    *(uint32_t*)(bytes + 0x1D30) &= mask;
+    *(uint32_t*)(bytes + 0x20DC) &= mask;
+    *(uint32_t*)(bytes + 0x2488) &= mask;
+}
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)
-// param_1 = player object (contains position, power, state at various offsets)
+// player = player object (contains position, power, state at various offsets)
 // Returns 0 on success, -1 if already active
 //
 // Ghidra decompilation:
-//   if (param_1+0x28 != 0): return -1  (already active)
-//   param_1+0x28 = 1  (mark active)
+//   if (player+0x28 != 0): return -1  (already active)
+//   player+0x28 = 1  (mark active)
 //   Initialize scheduler at +0x24 (if not already)
 //   Set timer: +0x18=0, +0x1C=0, +0x14=0xFFFFFFFF
 //   Set hitbox: +0x3C=32.0f (0x42000000), +0x40=4.0f (0x40800000)
 //   Copy position from DAT_00477834 (+0x3C0..+0x3C8)
 //   Load sprite handle from player state
 //   Set +0x2C = sprite handle
-//   Calculate power display: FUN_004054b0(power/20, power/20, (power%20)*100/20)
+//   Calculate power display: Player_UpdatePowerDisplay(power/20, power/20, (power%20)*100/20)
 //   Adjust speed: DAT_00474c98 -= 0x80; clamp to [-0x400, 0x400]
 //   Check if player is slow (grazing mode): set +0x44
 // ============================================================================
@@ -97,13 +147,13 @@ int Player_Init(Player* player) {
         animationIndex, player->position);
 
     // Initialize sprite
-    FUN_0043dd10();
+    AnimationManager_QueueGeneratedResource();
 
     // Calculate power display
     int power = (int)DAT_00474c48;
     int powerMajor = power / 0x14;
     int powerMinor = (power % 0x14) * 100 / 0x14;
-    FUN_004054b0(powerMajor, powerMajor, powerMinor);
+    Player_UpdatePowerDisplay(powerMajor, powerMajor, powerMinor);
 
     // Adjust speed
     DAT_00474c98 -= 0x80;

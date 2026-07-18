@@ -1,11 +1,14 @@
 // ECL (Enemy Control Language) VM dispatch, retail address 0x0040E770.
 #include "th10/script/ecl.hpp"
 
+extern "C" float cosf(float);
+extern "C" float sinf(float);
+
 extern "C" {
-uint32_t FUN_0044fdb0(uint32_t dispatch_index, void* cursor, int operand);
-void FUN_00405410(int value);
-void FUN_00449590(void);
-void FUN_004495e0(void);
+uint32_t ECL_DispatchOpcode(uint32_t dispatch_index, void* cursor, int operand);
+void ECL_SetTimerTarget(int value);
+void AnimationManager_SetEclFlag(void);
+void AnimationManager_ClearEclFlag(void);
 }
 
 extern uint8_t PTR_caseD_14f_00411de0[];
@@ -197,6 +200,15 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
         static_cast<int32_t>(instruction->operands[operand]));
 }
 
+// 0x00412A00 - ECL_ResolveIntOperand wrapper that pulls the cursor from the
+// VM state stored at entity+0x14D8. Retail hides the manager pointer in EAX
+// and the operand index in ECX; the clean API takes both explicitly.
+int32_t ECL_ResolveIntFromEntity(void* entity, unsigned int operand) {
+    void* vm_state = *(void**)((uint8_t*)entity + 0x14D8);
+    void* cursor = *(void**)((uint8_t*)vm_state + 4);
+    return ECL_ResolveIntOperand(cursor, operand);
+}
+
 // 0x00450070 - Resolve a writable float local/external variable destination.
 float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
@@ -241,6 +253,131 @@ int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     return 0;
 }
 
+// 0x00450030 - Resolve a variable encoded in the ECL local-variable table.
+// Positive entries point into the VM's inline local area; negative entries
+// are delegated to the external variable resolver.
+void* ECL_ResolveVariableValue(void* vm_pointer, int32_t variable) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    const uint16_t mask = *reinterpret_cast<uint16_t*>(
+        *reinterpret_cast<uint8_t**>(vm + 4) + 8);
+    if ((mask & (1u << (static_cast<uint32_t>(variable) & 31))) == 0)
+        return 0;
+    const int32_t entry = *reinterpret_cast<int32_t*>(
+        *reinterpret_cast<uint8_t**>(vm + 4) + 0x10 + variable * 4);
+    if (entry >= 0)
+        return vm + 8 + *reinterpret_cast<int32_t*>(vm + 0x100c) + entry;
+    ECLVariableResolver* resolver = *reinterpret_cast<ECLVariableResolver**>(
+        vm + 0x1014);
+    return resolver == 0 ? 0 : resolver->ResolveIntPointer(entry);
+}
+
+// 0x00450160 - Find a linked external variable record by its retail id.
+void* ECL_FindVariable(void* vm_pointer, int32_t variable) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    struct Node { void* object; Node* next; };
+    Node* node = *reinterpret_cast<Node**>(vm + 0x1030);
+    while (node != 0) {
+        uint8_t* object = static_cast<uint8_t*>(node->object);
+        if (object != 0 && *reinterpret_cast<int32_t*>(object + 0x1010) == variable)
+            return node;
+        node = node->next;
+    }
+    return 0;
+}
+
+// 0x00450190 - Clear the bound object pointer in every linked variable node.
+void ECL_ResetVariableBindings(void* vm_pointer) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    struct Node { void* object; Node* next; };
+    for (Node* node = *reinterpret_cast<Node**>(vm + 0x1034);
+         node != 0; node = node->next) {
+        if (node->object != 0)
+            *reinterpret_cast<void**>(static_cast<uint8_t*>(node->object) + 4) = 0;
+    }
+}
+
+// 0x00450690 - Reserve scratch space and save the previous top marker.
+int32_t ECL_PushScratchValue(void* vm_pointer, int32_t value) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    const int32_t old_top = *reinterpret_cast<int32_t*>(vm + 0x1000);
+    const int32_t new_top = old_top + value;
+    if (new_top > 0xfff)
+        return -1;
+    *reinterpret_cast<int32_t*>(vm + 0x1000) = new_top;
+    if (new_top + 4 < 0x1000) {
+        *reinterpret_cast<int32_t*>(vm + new_top) =
+            *reinterpret_cast<int32_t*>(vm + 0x1004);
+        *reinterpret_cast<int32_t*>(vm + 0x1000) = new_top + 4;
+    }
+    *reinterpret_cast<int32_t*>(vm + 0x1004) = old_top;
+    return 0;
+}
+
+// 0x004506D0 - Restore the previous scratch marker.
+int32_t ECL_PopScratchValue(void* vm_pointer) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    const int32_t prior = *reinterpret_cast<int32_t*>(vm + 0x1000) - 4;
+    const int32_t saved = *reinterpret_cast<int32_t*>(vm + 0x1004);
+    if (prior >= 0) {
+        *reinterpret_cast<int32_t*>(vm + 0x1000) = prior;
+        *reinterpret_cast<int32_t*>(vm + 0x1004) =
+            *reinterpret_cast<int32_t*>(vm + prior);
+    }
+    *reinterpret_cast<int32_t*>(vm + 0x1000) = saved;
+    return 0;
+}
+
+// 0x004501B0 - Convert polar coordinates to a two-component vector.
+void ECL_SetPolarVector(float* destination, float angle, float magnitude) {
+    destination[0] = cosf(angle) * magnitude;
+    destination[1] = sinf(angle) * magnitude;
+}
+
+// 0x004505B0 - Append a typed value to the VM scratch area.
+int32_t ECL_WriteScratch(void* vm_pointer, char type, unsigned int size,
+                         const void* data) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    int32_t& top = *reinterpret_cast<int32_t*>(vm + 0x1000);
+    if (top + static_cast<int32_t>(size) > 0xfff)
+        return -1;
+    if (type != 0) {
+        *reinterpret_cast<char*>(vm + top) = type;
+        top += 4;
+    }
+    const unsigned char* source = static_cast<const unsigned char*>(data);
+    for (unsigned int index = 0; index != size; ++index)
+        vm[top + index] = source[index];
+    top += static_cast<int32_t>(size);
+    return 0;
+}
+
+// 0x00450470 - Binary-search the sorted UTF-16 script-label table.
+void* ECL_FindScriptLabel(void* vm_pointer, const unsigned short* name) {
+    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
+    const int32_t count = *reinterpret_cast<int32_t*>(vm + 8);
+    struct Entry { const unsigned short* name; void* value; };
+    Entry* entries = *reinterpret_cast<Entry**>(vm + 0x8c);
+    int32_t first = 0;
+    int32_t last = count - 1;
+    while (first <= last) {
+        const int32_t middle = first + (last - first) / 2;
+        const unsigned short* left = name;
+        const unsigned short* right = entries[middle].name;
+        int comparison = 0;
+        while (*left == *right && *left != 0) {
+            ++left;
+            ++right;
+        }
+        if (*left < *right) comparison = -1;
+        else if (*left > *right) comparison = 1;
+        if (comparison == 0)
+            return static_cast<uint8_t*>(entries[middle].value) + 0x10;
+        if (comparison < 0) last = middle - 1;
+        else first = middle + 1;
+    }
+    return 0;
+}
+
 // Shared by the encrypted text branches at 0x0040E770 cases 0x165–0x167.
 // The retail key starts at 0x77 and advances by an increasing 0x10-step after
 // each byte (the step itself starts at 7).
@@ -278,18 +415,18 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         EntityFloat(entity, 0xbc) = ECL_ResolveFloatOperand(state->cursor, 1);
         return 0;
     case ECL_SET_FLAGS: {
-        const uint32_t flags = FUN_0044fdb0(dispatch_index, state->cursor, 0);
+        const uint32_t flags = ECL_DispatchOpcode(dispatch_index, state->cursor, 0);
         if ((ECL_SetFlags(entity, flags) & 0x10) != 0) {
             for (int i = 0; i < 10; ++i)
-                FUN_004495e0();
+                AnimationManager_ClearEclFlag();
         }
         return 0;
     }
     case ECL_CLEAR_FLAGS: {
-        const uint32_t flags = FUN_0044fdb0(dispatch_index, state->cursor, 0);
+        const uint32_t flags = ECL_DispatchOpcode(dispatch_index, state->cursor, 0);
         if ((ECL_ClearFlags(entity, flags) & 0x10) == 0) {
             for (int i = 0; i < 10; ++i)
-                FUN_00449590();
+                AnimationManager_SetEclFlag();
         }
         return 0;
     }
@@ -456,7 +593,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
                 ECL_ResolveIntOperand(state->cursor, 0);
         return 0;
     case ECL_APPLY_DIFFICULTY_ACTION:
-        FUN_00405410(ECL_ResolveIntOperand(state->cursor, 0));
+        ECL_SetTimerTarget(ECL_ResolveIntOperand(state->cursor, 0));
         return 0;
     default:
         // The remaining opcode families still execute from the retail image.

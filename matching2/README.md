@@ -52,6 +52,19 @@ python3 tools/coverage_report.py --write
 python3 tools/coverage_report.py --check
 ```
 
+The machine-readable raw-function registry connects every successful Ghidra
+export to its address, pseudocode file, current recovery status, promoted C++
+source, and exact overlay metadata when applicable:
+
+```bash
+python3 tools/function_registry.py --write
+python3 tools/function_registry.py --check
+```
+
+`function_registry.json` is generated directly from the Ghidra index and the
+same in-memory evidence used by the coverage ledger. This makes it safe to use
+for tooling without treating raw pseudocode as a build input.
+
 The generated `coverage.json` classifies every tracked address as unrecovered,
 researched, partial, semantic C++, or an exact overlay. Source annotations and
 the overlay tuple are authoritative; build artifacts are deliberately excluded
@@ -98,14 +111,43 @@ Render coverage exercises reset-target release, lost-device recovery, and
 numbered screenshot selection without launching the game.
 Scheduler coverage checks callback construction, replacement handling, and
 priority-ordered insertion into both retail callback lists.
+The secondary scheduler factory at `0x0044A030` is also reconstructed; its
+owned zero-priority callback path is covered through registration and teardown.
+Primary and secondary scheduler dispatch (`0x00449C00` / `0x00449D40`) now walk
+live callback chains, honor callback result codes, and safely retire callbacks
+while preserving iteration.
 Gameplay-runtime coverage checks fractional/normal/reverse frame-timer
 advancement, animation lookup across both manager lists, shared-position
 updates, pool allocation, handle registration, and player animation creation.
+The owner-aware timer disable at `0x0042C5C0` is now available as
+`GameState_DisableTimerWithOwner`, complementing the existing
+`0x0042C620` target setter; the test exercises both the first-call sentinel
+initialization and the post-init field reset.
+The game-thread queue append at `0x00401530` is now typed with bounded 256-entry
+insertion, record-name copying, and propagation of the thread's state words.
+Its formatted companions at `0x00401630` and `0x00401690` now cover bounded
+formatted names and the marked-record variant.
 It also covers root-to-child propagation, stop-frame updates, script restart,
 generic flag changes, resource retirement, handle validation, child lookup,
 and pooled-object removal. Ghidra-guided tests also cover the animation
 interpreter's integer and float variable banks, writable operand resolution,
 base-position operands, and literal/fallback behavior.
+The score gauge add-with-minimum at `0x00412E70` is now exposed as
+`ScoreGauge_AddWithMinimum`, clamping the result to 5000 so the gauge
+never empties below the retail baseline. The score-runtime test exercises
+the clamp with a sub-baseline value, a healthy add, and a second drop.
+The two byte-identical viewport predicates at `0x0041F7A0` and `0x00428D70`
+are now available as `Position_IsPartiallyInViewport`, returning 0 when a
+position with the supplied radii is at least partially on screen and 1
+when every edge is off-screen. The dedicated harness exercises the four
+off-screen edges and confirms a tightly-bound position straddling the
+left/top border is still reported as visible.
+The ECL operand wrapper at `0x00412A00` is now available as
+`ECL_ResolveIntFromEntity`, pulling the cursor from the VM state stored
+at `entity+0x14D8` and delegating to the existing `ECL_ResolveIntOperand`.
+The clean API removes the hidden manager pointer convention.
+Animation resource-record configuration at `0x0043E5A0` is now typed, including
+readiness gating, metadata selection, transform defaults, and derived extents.
 The standalone ECL operand family at `0x0044FDB0` through `0x0044FF80` now
 uses conventional typed entry points for instruction-backed and pre-decoded
 integer/float values. Its dedicated harness verifies mask-controlled literals,
@@ -129,6 +171,9 @@ typed writable destinations.
 The bounded global/action pair `0x168–0x169` is also reconstructed: the first
 writes the shared difficulty slot and the second resolves and forwards its
 integer operand to the gameplay action hook.
+The gameplay animation shorthands at `0x0040C480` and `0x0040C4D0` now resolve
+their handle through the global animation manager and propagate stop frames 2
+and 3 across root animations and their direct children.
 The shared encrypted-text transform used by `0x165–0x167` is now available as
 `ECL_DecodeEncryptedString`, with the retail `0x77` seed and increasing-step
 XOR sequence covered by a deterministic round-trip test. The surrounding
@@ -140,6 +185,21 @@ Per-frame coverage walks both active lists, removes retired objects without
 invalidating iteration, invokes update/draw callbacks, distributes primary
 objects into 19 render buckets, queues secondary objects in bucket 19, and
 renders the resulting chains.
+The bullet subsystem now also has a typed 0x18-byte `BulletManagerState` that
+the matching2 recovery tracks end-to-end. `BulletManager_Create` (`0x0040AF90`)
+zeroes the state, marks it initialized, publishes it through the global
+pointer, and asks `BulletManager_LoadScripts` (`0x0040AE70`) to look up
+`bullet.anm` and register the primary/secondary scheduler callbacks that
+fire on every tick. `BulletManager_Release` (`0x0040AF00`) retires both
+callbacks inside the scheduler critical section and clears the global
+pointer. A dedicated host harness drives the success path (resource
+present, both callbacks linked into the correct primary/secondary lists at
+the right priorities, the manager-wide flag set, the global pointer
+published) and the missing-resource path (no callbacks registered, global
+pointer cleared) without depending on the retail binary.
+Bullet animation-resource retirement at `0x0040CEA0` is now typed as well: it
+sets the bullet state bit, forwards the active animation handle to the shared
+removal hook, and clears that handle after dispatch.
 
 The supported original executable has SHA-256:
 
@@ -194,6 +254,7 @@ Current exact-overlay results with MSVC 7.1:
 | `Entity_Constructor` | 88 | semantic C++ |
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
+| `Entity_AttachResourceSnapshot` | 56 | 100% |
 | `BulletSpawnParameters_Initialize` | 23 | 100% |
 | `HeapBuffer_Release` | 22 | 100% |
 | `HeapBuffer::HeapBuffer` | 9 | 100% |
@@ -225,6 +286,9 @@ Current exact-overlay results with MSVC 7.1:
 | `RuntimeAllocationPool_Initialize` | 22 | 100% |
 | `DestroyEntityList` | 43 | semantic C++ |
 | `Entity_Init` | 273 | semantic C++ |
+| `BulletManager_Release` | 144 | semantic C++ |
+| `BulletManager_Create` | 384 | semantic C++ |
+| `BulletManager_LoadScripts` | 144 | semantic C++ |
 | `StageTip_Initialize` | 51 | partial; 45 matching bytes |
 | `Vector2::SetPolar` | 28 | semantic; separate `FSIN`/`FCOS` scheduling |
 | `LegacyString::Assign` | 28 | semantic; equivalent null scan |
@@ -336,6 +400,32 @@ primary/secondary front/back creation variants, positioned creation, pooled
 and fallback removal, both stop-frame forms, root/child flag propagation,
 translated positioning, resource retirement, sprite-selection wrappers,
 child lookup, script-state initialization, and complete manager teardown.
+The single-slot resource cleanup at `0x004477D0` now validates its 33-entry
+index, releases and frees populated slots, and clears their ownership pointer.
+The render preparation wrapper at `0x00443F80` now returns `-1` on preparation
+failure and forwards successful setup to the normal draw callback.
+The resource chunk walker at `0x0043D250` now scans bounded length-prefixed
+four-byte records, returning the matching payload and size safely.
+The render reset leaf at `0x00444580` now restores all four scale factors to
+identity, with direct coverage of the reset values.
+The embedded timer target setter at `0x0042C620` now stores the owner value,
+initializes the timer sentinel on first use, and applies the requested target.
+The paired animation-slot leaves at `0x0042C730` and `0x0042C750` now forward
+indexed handles from the state block at `+0x2C4` through typed dispatch hooks.
+The nullable owner cleanup at `0x00418150` now runs an injected cleanup hook
+before releasing the allocation, while preserving null no-op behavior.
+The explicit-delta timer advance behind `0x00428DD0`/`0x0044BF40` now preserves
+previous/current ordering and applies speed-scaled accumulation.
+The worker deleting destructor at `0x0044C100` now restores its vtable, stops
+the worker, and conditionally releases the object allocation.
+The resource basename lookup at `0x0043D2A0` now strips slash/backslash
+prefixes and searches fixed-stride name tables with bounded comparisons.
+The secondary nullable destructor at `0x0042CDB0` now has an address-specific
+typed cleanup/free wrapper with the same null-safe ownership ordering.
+The COM interface leaf at `0x0044D5B0` now returns `0x800401F0` for missing
+interfaces, clears its status field, and invokes present interfaces via a hook.
+The small digit-triplet dispatcher at `0x004054B0` now emits the requested
+value followed by its decimal tens and ones animation indices.
 The final bounded manager wrapper at `0x004496D0` and its dependency at
 `0x0043E8B0` now switch an existing object to another script while preserving
 the entity allocation. The semantic form retains the retail no-op behavior for
@@ -352,6 +442,50 @@ including divide-by-ten awards and saturation at 999,999,999. The adjacent
 models the shell-link COM interfaces, resolves chained `.lnk` targets with
 explicit arguments instead of hidden EBX/EDI state, and detects replay paths
 relative to the running executable.
+The score-object constructor at `0x0041C030` is also reconstructed, including
+its bulk state clear and scheduler-sentinel initialization.
+The extended score/entity constructor at `0x0041C5B0` now clears both embedded
+entity blocks and restores their end markers and construction flags.
+Its paired teardown at `0x0041C1C0` now retires the two callback slots and
+drains owned score records through explicit cleanup hooks.
+The score activation transition at `0x00408030` now models phase gating,
+geometry-result branching, spawn dispatch, and scheduler-link initialization.
+The deterministic joystick-button encoding core of `0x0044A4E0` is exposed as a
+typed helper, mapping all 32 button bits to the engine's 0x80 input markers.
+Keyboard-state update at `0x0044B010` now clears the full 256-byte buffer and
+routes enabled input through injectable keyboard or direct-input providers.
+The companion normalization leaf at `0x0044B080` strips transient high bits
+from the keyboard buffer before publishing it through an injectable setter.
+The input-history step at `0x0044BE70` now clamps the history index, restores
+both paired state words, and clears the transient field after each step.
+Its companion save leaf at `0x0044BE20` now records both current input words,
+saturates the history cursor at slot 15, and clears the same transient field.
+The file-existence probe at `0x0044B4D0` now models successful handle closure
+and failure ownership through injectable open/close providers.
+The paired probe-handle close path at `0x0044B7E0` now guards invalid handles,
+closes valid ones, and decrements the critical-section depth exactly once.
+The shared diagnostic writer at `0x0044B740` now reports complete versus short
+writes through injectable providers and retires the handle on failure.
+The matching reader at `0x0044B790` now models shared-buffer allocation,
+allocation-failure handle retirement, and provider-backed reads.
+The XOR string decoder at `0x00417010` is now exposed as a bounded-independent
+typed helper with coverage for its advancing key and terminator handling.
+The adjacent polar-vector leaf at `0x0041BEB0` is exposed as a typed score
+helper and covered at cardinal-angle inputs.
+The render-side polar-vector leaf at `0x004458B0` now shares the typed
+`Vector2_SetPolar` implementation and has its own cardinal-angle coverage.
+The worker shutdown pair at `0x0044C130`/`0x0044C150` now polls pending waits,
+resets worker state, and closes the handle through injectable platform hooks.
+The paired entity-angle leaves at `0x00426610` and `0x00426660` now compute
+forward and inverse displacement angles, returning π for coincident points.
+The flag-dependent dummy dispatcher at `0x00420C00` now emits the `dummy`
+request with index 3 or 4 according to the state flag.
+The frame-value snapshot at `0x00421F60` now updates its object slot and raises
+the retained maximum only when the current value exceeds it.
+The unpause transition at `0x00422C30` now clears the pause bit, emits the
+`UnPause` request, retires its animation handle, and restores the saved frame.
+Player scheduler-link reset at `0x00405BE0` is now typed too, covering both
+inactive sentinel chains and their shared timer-state initialization.
 The adjacent MIDI lifecycle now has explicit layouts and conventional APIs for
 buffer-table cleanup (`0x0043AA60`), playback shutdown (`0x0043AE20`), and
 completed-header retirement (`0x0043AEB0`). The window procedure dispatches

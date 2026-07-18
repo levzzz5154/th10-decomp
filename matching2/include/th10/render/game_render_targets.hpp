@@ -15,3 +15,6 @@ struct GameRenderTargets {
 
 void GameRenderTargets_Initialize(GameRenderTargets* targets);
 void GameRenderTargets_Release(GameRenderTargets* targets);
+int Render_PrepareAndDraw(void* object, int (*prepare)(),
+                          int (*draw)(void*, int));
+void Render_ResetScaleFactors(float factors[4]);

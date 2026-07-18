@@ -20,12 +20,12 @@ extern uint32_t DAT_00492274;
 extern uint8_t  DAT_0049231c;
 
 void __fastcall Entity_Init(void* unused, Entity* entity);
-void FUN_0044b810(char* buf, const char* msg);
-void FUN_0044b8e0(const char* msg);
-void FUN_00449f60(void* handle, int dev);
-void FUN_00447810(void* mgr);
-void* FUN_00447280(int type, int mgr, const char* name);
-void FUN_0043e5a0(int handle, int idx);
+void Logger_AppendFormatted(char* buf, const char* msg);
+void Platform_LogMessage(const char* msg);
+void Scheduler_UnregisterCallback(void* handle, int dev);
+void ResourceManager_DestroyContents(void* mgr);
+void* ResourceManager_FindResource(int type, int mgr, const char* name);
+void AnimationObject_SelectScript(int handle, int idx);
 
 int GameThread_Update(GameThread* gameThread);
 int GameThread_Draw(GameThread* gameThread);
@@ -48,27 +48,27 @@ static int __fastcall GameThread_DrawCallback(void* owner) {
 
 // ============================================================================
 // 0x00401000 - GameThread Constructor
-// ESI = game thread pointer (unaff_ESI — set by caller)
+// ESI = game_thread pointer (hidden register input set by caller)
 // Constructs two entity blocks (0x3AC each), zeroes 0x226B dwords,
 // sets default values.
 //
 // Ghidra decompilation:
-//   *unaff_ESI = &PTR_LAB_0046cb14  (vtable)
+//   *game_thread = &PTR_LAB_0046cb14  (vtable)
 //   Clear construction flags at offsets: 0x20, 0x31, 0x44, 0x4F, 0x62, 0x71,
 //     0x84, 0x8F, 0xE3
-//   Zero 0xEB dwords from unaff_ESI+5 (first entity block)
-//   Set word at unaff_ESI+0xE6 = 0xFFFF
+//   Zero 0xEB dwords from game_thread+5 (first entity block)
+//   Set word at game_thread+0xE6 = 0xFFFF
 //   Clear flags at 0x10B, 0x11C, 0x12F, 0x13A, 0x14D, 0x15C, 0x16F, 0x17A, 0x1CE
-//   Zero 0xEB dwords from unaff_ESI+0xF0 (second entity block)
-//   Set word at unaff_ESI+0x1D1 = 0xFFFF
+//   Zero 0xEB dwords from game_thread+0xF0 (second entity block)
+//   Set word at game_thread+0x1D1 = 0xFFFF
 //   Zero 0x226B dwords total
-//   *unaff_ESI |= 2 (mark constructed)
-//   g_pGameThread = unaff_ESI
-//   unaff_ESI[0x225D] = 0xFFFFFFFF
-//   unaff_ESI[0x225E] = 0x3F800000 (1.0f)
-//   unaff_ESI[0x225F] = 0x3F800000 (1.0f)
-//   unaff_ESI[0x2261] = 0
-//   unaff_ESI[0x2263] = 9
+//   *game_thread |= 2 (mark constructed)
+//   g_pGameThread = game_thread
+//   game_thread[0x225D] = 0xFFFFFFFF
+//   game_thread[0x225E] = 0x3F800000 (1.0f)
+//   game_thread[0x225F] = 0x3F800000 (1.0f)
+//   game_thread[0x2261] = 0
+//   game_thread[0x2263] = 9
 // ============================================================================
 GameThread* GameThread_Construct(GameThread* gameThread) {
     uint32_t* gt = (uint32_t*)gameThread;
@@ -145,15 +145,15 @@ int GameThread_Init(GameThread* gameThread) {
     uint8_t* gt = (uint8_t*)gameThread;
 
     // Load animation resources
-    void* asciiAnm = FUN_00447280(2, (int)g_pGameStateManager, "ascii.anm");
+    void* asciiAnm = ResourceManager_FindResource(2, (int)g_pGameStateManager, "ascii.anm");
     *(void**)(gt + 0x8994) = asciiAnm;
     if (asciiAnm == 0) goto fail;
 
-    void* textAnm = FUN_00447280(0, (int)g_pGameStateManager, "text.anm");
+    void* textAnm = ResourceManager_FindResource(0, (int)g_pGameStateManager, "text.anm");
     *(void**)(gt + 0x899C) = textAnm;
     if (textAnm == 0) goto fail;
 
-    void* captureAnm = FUN_00447280(3, (int)g_pGameStateManager, "capture.anm");
+    void* captureAnm = ResourceManager_FindResource(3, (int)g_pGameStateManager, "capture.anm");
     *(void**)(gt + 0x8998) = captureAnm;
     if (captureAnm == 0) goto fail;
 
@@ -182,22 +182,22 @@ int GameThread_Init(GameThread* gameThread) {
     // Initialize entities with animation data
     Entity_Init(0, (Entity*)(gt + 0x14));
     *(uint32_t*)(gt + 0x31C) = (uint32_t)asciiAnm;
-    FUN_0043e5a0((int)asciiAnm, 0);
+    AnimationObject_SelectScript((int)asciiAnm, 0);
 
     Entity_Init(0, (Entity*)(gt + 0x3C0));
     *(uint32_t*)(gt + 0x6C8) = (uint32_t)asciiAnm;
-    FUN_0043e5a0((int)asciiAnm, 0x62);
+    AnimationObject_SelectScript((int)asciiAnm, 0x62);
 
     return 0;
 
 fail:
-    FUN_0044b810((char*)0x00474F70, (const char*)0x0046CB68);
+    Logger_AppendFormatted((char*)0x00474F70, (const char*)0x0046CB68);
     return 0xFFFFFFFF;
 }
 
 // ============================================================================
 // 0x00401260 - GameThread Destroy
-// param_1 = game thread pointer
+// game_thread = game thread pointer
 // Releases animation resources, frees buffers, destroys entities.
 //
 // Ghidra decompilation:
@@ -217,7 +217,7 @@ void GameThread_Destroy(GameThread* gameThread) {
     if (h1 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(h1, DAT_00491be4);
+        Scheduler_UnregisterCallback(h1, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -227,7 +227,7 @@ void GameThread_Destroy(GameThread* gameThread) {
     if (h2 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(h2, DAT_00491be4);
+        Scheduler_UnregisterCallback(h2, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -237,7 +237,7 @@ void GameThread_Destroy(GameThread* gameThread) {
     if (h3 != 0) {
         EnterCriticalSection(&DAT_00492274);
         DAT_0049231c++;
-        FUN_00449f60(h3, DAT_00491be4);
+        Scheduler_UnregisterCallback(h3, DAT_00491be4);
         LeaveCriticalSection(&DAT_00492274);
         DAT_0049231c--;
     }
@@ -245,13 +245,13 @@ void GameThread_Destroy(GameThread* gameThread) {
     // Free game state slots from manager
     uint32_t* slot;
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD074);
-    if (*slot != 0) { FUN_00447810(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
 
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD06C);
-    if (*slot != 0) { FUN_00447810(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
 
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD078);
-    if (*slot != 0) { FUN_00447810(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
 
     g_pGameThread = 0;
 

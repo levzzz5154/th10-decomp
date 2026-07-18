@@ -119,6 +119,11 @@ void DatArchive_Initialize(DatArchive* archive) {
     archive->file = 0;
 }
 
+// 0x00434C20 - Thin reset entry point used by the archive owner.
+void DatArchive_Reset(DatArchive* archive) {
+    DatArchive_Close(archive);
+}
+
 // Clean reconstruction of 0x00434D10.
 void DatArchive_Close(DatArchive* archive) {
     if (archive->filename) {
@@ -291,14 +296,14 @@ DatEntry* DatArchive_ParseEntries(
         source += (name_size + 3) & ~3U;
         entries[index].offset = ReadU32(source);
         entries[index].uncompressed_size = ReadU32(source + 4);
-        entries[index].unknown = ReadU32(source + 8);
+        entries[index].reserved_metadata = ReadU32(source + 8);
         source += 12;
     }
 
     entries[entry_count].name = 0;
     entries[entry_count].offset = data_end_offset;
     entries[entry_count].uncompressed_size = 0;
-    entries[entry_count].unknown = 0;
+    entries[entry_count].reserved_metadata = 0;
     return entries;
 }
 

@@ -13,6 +13,45 @@
 // Keep this harness free of host standard-library headers: the game headers
 // intentionally model MSVC 7.1's 32-bit fundamental typedefs.
 extern "C" void* malloc(unsigned long size);
+
+static int g_prepare_result;
+static int g_draw_calls;
+static int TestPrepareRender() { return g_prepare_result; }
+static int TestDrawRender(void*, int flags) {
+    ++g_draw_calls;
+    return flags == 0 ? 27 : -2;
+}
+static bool TestPrepareAndDraw() {
+    g_prepare_result = 1;
+    g_draw_calls = 0;
+    if (Render_PrepareAndDraw((void*)1, TestPrepareRender, TestDrawRender) != -1 ||
+        g_draw_calls != 0) return false;
+    g_prepare_result = 0;
+    return Render_PrepareAndDraw((void*)1, TestPrepareRender, TestDrawRender) == 27 &&
+        g_draw_calls == 1;
+}
+static bool TestRenderScaleReset() {
+    float factors[4] = {2.0f, -1.0f, 0.0f, 9.0f};
+    Render_ResetScaleFactors(factors);
+    return factors[0] == 1.0f && factors[1] == 1.0f &&
+        factors[2] == 1.0f && factors[3] == 1.0f;
+}
+static int g_owned_cleanup;
+static int g_owned_free;
+static void OwnedCleanup(void*) { ++g_owned_cleanup; }
+static void OwnedFree(void*) { ++g_owned_free; }
+static bool TestOwnedDestroy() {
+    g_owned_cleanup = g_owned_free = 0;
+    Heap_DestroyOwned(0, OwnedCleanup, OwnedFree);
+    if (g_owned_cleanup != 0 || g_owned_free != 0) return false;
+    Heap_DestroyOwned((void*)1, OwnedCleanup, OwnedFree);
+    return g_owned_cleanup == 1 && g_owned_free == 1;
+}
+static bool TestSecondaryOwnedDestroy() {
+    g_owned_cleanup = g_owned_free = 0;
+    Heap_DestroyOwnedSecondary((void*)1, OwnedCleanup, OwnedFree);
+    return g_owned_cleanup == 1 && g_owned_free == 1;
+}
 extern "C" void free(void* memory);
 
 extern "C" void* _malloc(uint32_t size) {
@@ -86,6 +125,11 @@ void GameRender_ReleasePrimaryTarget(
 }
 
 void* g_pD3DDevice = (void*)1;
+extern "C" void* __stdcall SelectObject(void* dc, void* object) {
+    return dc != 0 ? object : 0;
+}
+extern "C" int __stdcall DeleteDC(void*) { return 1; }
+extern "C" int __stdcall DeleteObject(void*) { return 1; }
 void* g_pGameStateManager = 0;
 uint32_t DAT_00474e36 = 0;
 uint32_t DAT_00491fd4 = 0;
@@ -700,7 +744,7 @@ static bool TestPackedEntryTable() {
     DatArchiveIndex archive = {entries, 2};
     const DatEntry* found = DatArchive_FindEntry(&archive, "A.TXT");
     bool passed = found == entries && found->offset == 0x20 &&
-        found->uncompressed_size == 3 && found->unknown == 7 &&
+        found->uncompressed_size == 3 && found->reserved_metadata == 7 &&
         entries[1].offset == 0x30 && entries[2].offset == 0x40 &&
         DatArchive_FindSize(&archive, "B") == 4 &&
         DatArchive_FindSize(&archive, "missing") == 0 &&
@@ -710,6 +754,10 @@ static bool TestPackedEntryTable() {
 }
 
 int main() {
+    if (!TestPrepareAndDraw()) return 17;
+    if (!TestRenderScaleReset()) return 18;
+    if (!TestOwnedDestroy()) return 19;
+    if (!TestSecondaryOwnedDestroy()) return 20;
     if (!TestPathComponentHelper()) {
         return 1;
     }

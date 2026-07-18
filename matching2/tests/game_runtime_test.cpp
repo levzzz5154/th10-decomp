@@ -1,9 +1,9 @@
 #include "th10/math/timer.hpp"
+#include "th10/math/vector.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_text.hpp"
 
 #include <cassert>
-#include <cmath>
 #include <cstring>
 #include <vector>
 #include <cstdlib>
@@ -14,10 +14,48 @@ float _DAT_00470b64 = 1.01f;
 float _DAT_00470b48 = 10.0f;
 float _DAT_00470b4c = 20.0f;
 float _DAT_00470b60 = 0.5f;
+float DAT_00470b04 = 0.0f;
+float DAT_00470b38 = 448.0f;
+float DAT_00470b3c = 192.0f;
+float DAT_00470b40 = -192.0f;
+
+unsigned int DAT_00492274;
+unsigned char DAT_0049231c;
+
+extern "C" void __stdcall EnterCriticalSection(void*) {}
+extern "C" void __stdcall LeaveCriticalSection(void*) {}
+
+void* PTR_LAB_0046dab0 = (void*)0x1234;
+void* PTR_LAB_0046da60 = (void*)0x5678;
+
+int Position_IsPartiallyInViewport(const void* center, float radius_x,
+                                    float radius_y);
 unsigned int DAT_00476f78;
 void* g_pGameStateManager;
+void* g_pD3DDevice = (void*)0x1234;
 static int entityInitializations;
 static int entityDestructions;
+static unsigned int textureWidth;
+static unsigned int textureHeight;
+static unsigned int textureFormat;
+static unsigned int textureMipLevels;
+static unsigned int textureUsage;
+static unsigned int texturePool;
+
+extern "C" int __stdcall D3DXCreateTexture(
+        void* device, unsigned int width, unsigned int height,
+        unsigned int mip_levels, unsigned int usage, unsigned int format,
+        unsigned int pool, void* output) {
+    assert(device == g_pD3DDevice);
+    textureWidth = width;
+    textureHeight = height;
+    textureMipLevels = mip_levels;
+    textureUsage = usage;
+    textureFormat = format;
+    texturePool = pool;
+    *(unsigned int*)output = 0xAABBCCDD;
+    return -1;
+}
 
 struct Entity;
 
@@ -49,7 +87,7 @@ void Entity_Destructor(Entity* entity) {
 
 static int scriptRuns;
 static int scriptResult = 1;
-int FUN_0043ee30(AnimationObject*) {
+int AnimationObject_ExecuteScript(AnimationObject*) {
     ++scriptRuns;
     return scriptResult;
 }
@@ -119,7 +157,7 @@ static void TestFrameTimer() {
     timer.elapsed = -1.5f;
     FrameTimer_Tick(&timer);
     assert(timer.current == -2);
-    assert(std::fabs(timer.elapsed - -2.25f) < 0.0001f);
+    assert(timer.elapsed > -2.26f && timer.elapsed < -2.24f);
 }
 
 static void TestAnimationColorMultiplyChannel() {
@@ -128,6 +166,33 @@ static void TestAnimationColorMultiplyChannel() {
     assert(AnimationColor_MultiplyChannel(128, 128) == 128);
     assert(AnimationColor_MultiplyChannel(255, 255) == 255);
     assert(AnimationColor_MultiplyChannel(0x12345680, 0xABCDEF40) == 64);
+}
+
+static void TestAnimationTextureCreate() {
+    static const unsigned int formats[6] = {0, 21, 25, 23, 20, 26};
+    static const unsigned int strides[6] = {4, 4, 2, 2, 3, 2};
+    for (unsigned int index = 0; index != 6; ++index) {
+        AnimationTextureRecord record = {};
+        assert(AnimationTexture_Create(320, 240, index, &record) == 0);
+        assert(record.texture == 0xAABBCCDD);
+        assert(record.bytes_per_pixel == strides[index]);
+        assert(textureWidth == 320 && textureHeight == 240);
+        assert(textureMipLevels == 1 && textureUsage == 0);
+        assert(textureFormat == formats[index] && texturePool == 1);
+    }
+}
+
+static void TestAnimationPositionRecordCopy() {
+    std::vector<unsigned char> manager(0x200, 0);
+    const float source[17] = {1.0f, 2.0f, 10.0f, 6.0f, 18.0f, 12.0f,
+        3.0f, 9.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        4.0f, 6.0f, 0.0f};
+    AnimationManager_CopyPositionRecord(manager.data(), 0, source);
+    const float* record = (const float*)(manager.data() + 0x118);
+    assert(record[0] == 1.0f && record[5] == 12.0f);
+    assert(record[8] == 10.0f / 9.0f);
+    assert(record[9] == 2.0f && record[10] == 2.0f && record[11] == 4.0f);
+    assert(record[12] == 1.0f && record[13] == 2.0f);
 }
 
 static void TestStageTextSkipLine() {
@@ -144,6 +209,17 @@ static void TestStageTextSkipLine() {
 
     remaining = 0;
     assert(StageText_SkipLine(text, &remaining) == text);
+}
+
+static void TestStageTextInitialize() {
+    StageTextState state = {};
+    const float first[3] = {1.0f, 2.0f, 3.0f};
+    const float second[3] = {4.0f, 5.0f, 6.0f};
+    const float defaults[3] = {0.25f, 0.5f, 0.75f};
+    StageText_Initialize(&state, first, second, 9, 3, defaults);
+    assert(state.resource == 9 && state.mode == 3);
+    assert(state.first[2] == 3.0f && state.second[0] == 4.0f);
+    assert(state.defaults_b[1] == 0.5f && state.selection == -1);
 }
 
 static void TestAnimationScriptVariables() {
@@ -228,6 +304,10 @@ static void TestAnimationLookupAndPosition() {
     AnimationManager_SetStopFrameFromHandle(
         &manager[0], &secondHandle, 14);
     assert(*(short*)(secondStorage + 0x304) == 14);
+    AnimationManager_StopAtFrame2(&secondHandle);
+    assert(*(short*)(secondStorage + 0x304) == 2);
+    AnimationManager_StopAtFrame3(&secondHandle);
+    assert(*(short*)(secondStorage + 0x304) == 3);
     int runResult =
         AnimationManager_SetStopFrameAndRun(&manager[0], 29, 18);
     assert(runResult == 1);
@@ -452,6 +532,29 @@ static void TestAnimationLookupAndPosition() {
             0x04000000u) != 0);
 }
 
+static void TestAnimationResourceConfiguration() {
+    unsigned char object[0x3AC] = {};
+    unsigned char resource[0x180] = {};
+    unsigned char records[0x44] = {};
+    *(unsigned int*)(resource + 0x108) = 1;
+    *(unsigned char**)(resource + 0x118) = records;
+    *(float*)(records + 0x18) = 2.0f;
+    *(float*)(records + 0x1C) = 4.0f;
+    *(float*)(records + 0x30) = 20.0f;
+    *(float*)(records + 0x34) = 10.0f;
+    *(float*)(records + 0x38) = 8.0f;
+    *(float*)(records + 0x3C) = 6.0f;
+    assert(AnimationObject_ConfigureFromResource(object, resource, 0) == 0);
+    assert(*(short*)(object + 0x384) == 0);
+    assert(*(void**)(object + 0x308) == resource);
+    assert(*(float*)(object + 0x4C) == 10.0f);
+    assert(*(float*)(object + 0x50) == 20.0f);
+    assert(*(float*)(object + 0x2BC) == 20.0f);
+    assert(*(float*)(object + 0x2D0) == 60.0f);
+    *(unsigned int*)(resource + 0x124) = 1;
+    assert(AnimationObject_ConfigureFromResource(object, resource, 0) == -1);
+}
+
 static void TestAnimationFrameLoops() {
     const unsigned int managerSize = 0x732458;
     std::vector<unsigned char> manager(managerSize, 0);
@@ -574,13 +677,120 @@ static void TestAnimationManagerLifecycle() {
     assert(*sentinelResource == 0);
 }
 
+static void TestAnimationDigitTriplet();
+static void TestVector2PolarLeaf();
+static void TestAnimationResourceSlotClear();
+static void TestGameStateTimerTarget();
+static void TestGameStateDisableTimerWithOwner();
+static void TestFrameTimerAdvance();
+static void TestPositionInViewport();
+
 int main() {
     TestFrameTimer();
     TestAnimationColorMultiplyChannel();
+    TestAnimationTextureCreate();
+    TestAnimationPositionRecordCopy();
     TestStageTextSkipLine();
+    TestStageTextInitialize();
     TestAnimationScriptVariables();
     TestAnimationLookupAndPosition();
+    TestAnimationResourceConfiguration();
     TestAnimationFrameLoops();
     TestAnimationManagerLifecycle();
+    TestAnimationDigitTriplet();
+    TestVector2PolarLeaf();
+    TestAnimationResourceSlotClear();
+    TestGameStateTimerTarget();
+    TestGameStateDisableTimerWithOwner();
+    TestFrameTimerAdvance();
+    TestPositionInViewport();
     return 0;
+}
+
+static int g_digit_calls[3];
+static int g_digit_count;
+static int CaptureDigit(void*, int value) {
+    g_digit_calls[g_digit_count++] = value;
+    return 0;
+}
+static void TestAnimationDigitTriplet() {
+    g_digit_count = 0;
+    AnimationManager_ConfigureDigitTriplet((void*)1, 3, 47, CaptureDigit);
+    assert(g_digit_count == 3);
+    assert(g_digit_calls[0] == 3 && g_digit_calls[1] == 12 &&
+           g_digit_calls[2] == 15);
+}
+
+static void TestVector2PolarLeaf() {
+    Vector2 value = {};
+    Vector2_SetPolar(&value, 1.57079632679f, 2.0f);
+    assert(value.x > -0.001f && value.x < 0.001f);
+    assert(value.y > 1.999f && value.y < 2.001f);
+}
+
+static int g_slot_release_count;
+static int g_slot_free_count;
+static void SlotRelease(void*) { ++g_slot_release_count; }
+static void SlotFree(void*) { ++g_slot_free_count; }
+static void TestAnimationResourceSlotClear() {
+    std::vector<unsigned char> manager(0x3AD100, 0);
+    void** slot = (void**)(&manager[0x3AD06C + 4 * 32]);
+    *slot = (void*)0x1234;
+    g_slot_release_count = g_slot_free_count = 0;
+    AnimationManager_ClearResourceSlot(&manager[0], 32, SlotRelease, SlotFree);
+    assert(*slot == 0 && g_slot_release_count == 1 && g_slot_free_count == 1);
+    AnimationManager_ClearResourceSlot(&manager[0], -1, SlotRelease, SlotFree);
+    assert(g_slot_release_count == 1 && g_slot_free_count == 1);
+}
+
+static void TestPositionInViewport() {
+    float center_on_screen[2] = {0.0f, 200.0f};
+    assert(Position_IsPartiallyInViewport(center_on_screen, 50.0f, 50.0f) == 0);
+    float center_near_left[2] = {-180.0f, 200.0f};
+    assert(Position_IsPartiallyInViewport(center_near_left, 50.0f, 50.0f) == 0);
+    float center_offscreen_left[2] = {-300.0f, 200.0f};
+    assert(Position_IsPartiallyInViewport(center_offscreen_left, 50.0f, 50.0f) == 1);
+    float center_offscreen_right[2] = {300.0f, 200.0f};
+    assert(Position_IsPartiallyInViewport(center_offscreen_right, 50.0f, 50.0f) == 1);
+    float center_offscreen_top[2] = {0.0f, -300.0f};
+    assert(Position_IsPartiallyInViewport(center_offscreen_top, 50.0f, 50.0f) == 1);
+    float center_offscreen_bottom[2] = {0.0f, 600.0f};
+    assert(Position_IsPartiallyInViewport(center_offscreen_bottom, 50.0f, 50.0f) == 1);
+    float center_edge[2] = {-100.0f, 0.0f};
+    assert(Position_IsPartiallyInViewport(center_edge, 100.0f, 100.0f) == 0);
+}
+
+static void TestGameStateTimerTarget() {
+    unsigned char state[0x300] = {};
+    float speed = 1.0f;
+    GameState_SetTimerTarget(state, 9, 27, &speed);
+    assert(*(int*)(state + 0x20) == 9 && *(int*)(state + 0x2B0) == 26);
+    assert(*(int*)(state + 0x2B4) == 0 && *(int*)(state + 0x2B8) == 0);
+    assert((*(unsigned int*)(state + 0x2C0) & 1u) != 0);
+}
+
+static void TestGameStateDisableTimerWithOwner() {
+    unsigned char state[0x300] = {};
+    GameState_DisableTimerWithOwner(state, 7);
+    assert(*(int*)(state + 0x1C) == 7 && *(int*)(state + 0x20) == 0);
+    assert(*(int*)(state + 0x2B0) == -1);
+    assert(*(int*)(state + 0x2B4) == 0 && *(int*)(state + 0x2B8) == 0);
+    assert((*(unsigned int*)(state + 0x2C0) & 1u) != 0);
+    // Re-call should leave the flags set and reset current/next/previous.
+    *(int*)(state + 0x1C) = 0;
+    *(int*)(state + 0x2B0) = 12;
+    *(int*)(state + 0x2B4) = 99;
+    GameState_DisableTimerWithOwner(state, 5);
+    assert(*(int*)(state + 0x1C) == 5 && *(int*)(state + 0x2B0) == -1);
+    assert(*(int*)(state + 0x2B4) == 0);
+}
+
+static void TestFrameTimerAdvance() {
+    float speed = 1.0f;
+    FrameTimer timer = {4, 5, 5.0f, &speed, 1};
+    FrameTimer_Advance(&timer, -2.0f);
+    assert(timer.previous == 5 && timer.current == 3 && timer.elapsed == 3.0f);
+    speed = 2.0f;
+    FrameTimer_Advance(&timer, 1.5f);
+    assert(timer.previous == 3 && timer.current == 6 && timer.elapsed == 6.0f);
 }

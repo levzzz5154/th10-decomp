@@ -5,6 +5,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_BUILD="$ROOT/build/tests"
 mkdir -p "$TEST_BUILD"
 
+python3 "$ROOT/tools/function_registry.py" --check
+
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
@@ -32,10 +34,13 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/scheduler_test"
 
-g++ -std=c++17 -Wall -Wextra -Werror \
+g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/math/timer.cpp" \
+    "$ROOT/src/math/vector.cpp" \
+    "$ROOT/src/game/score.cpp" \
+    "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/game/stage_text.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/tests/game_runtime_test.cpp" \
@@ -77,6 +82,15 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
+    "$ROOT/src/platform/process.cpp" \
+    "$ROOT/tests/process_test.cpp" \
+    -o "$TEST_BUILD/process_test"
+
+"$TEST_BUILD/process_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
     "$ROOT/src/script/ecl_vm.cpp" \
     "$ROOT/tests/ecl_vm_test.cpp" \
     -o "$TEST_BUILD/ecl_vm_test"
@@ -94,3 +108,33 @@ g++ -m32 -std=c++17 -Wall -Wextra -Werror \
     -o "$TEST_BUILD/game_state_test"
 
 "$TEST_BUILD/game_state_test"
+
+# The bullet manager is laid out with 32-bit retail pointers, so exercise
+# the create / load-scripts / release lifecycle on a 32-bit host binary.
+g++ -m32 -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/bullet.cpp" \
+    "$ROOT/src/game/scheduler.cpp" \
+    "$ROOT/tests/bullet_manager_test.cpp" \
+    -o "$TEST_BUILD/bullet_manager_test"
+
+"$TEST_BUILD/bullet_manager_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/game_thread_queue.cpp" \
+    "$ROOT/tests/game_thread_queue_test.cpp" \
+    -o "$TEST_BUILD/game_thread_queue_test"
+
+"$TEST_BUILD/game_thread_queue_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/player_scheduler.cpp" \
+    "$ROOT/tests/player_scheduler_test.cpp" \
+    -o "$TEST_BUILD/player_scheduler_test"
+
+"$TEST_BUILD/player_scheduler_test"

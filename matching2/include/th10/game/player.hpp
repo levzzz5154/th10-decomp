@@ -4,7 +4,7 @@
 #pragma once
 
 struct Player {
-    unsigned char unknown000[0x14];
+    unsigned char reserved_000[0x14];
     unsigned char timer[0x14];       // +0x14
     int activeState;                 // +0x28
     int animationHandle;             // +0x2C
@@ -18,3 +18,7 @@ int Player_Init(Player* player);
 int Player_HitTest(Player* player, const float* position);
 int Player_Update(Player* player);
 int Player_Draw(Player* player);
+void Player_SetSchedulerValue(void* scheduler, int value);
+void Player_ArmSchedulerValue(void* scheduler, int value);
+void Player_ClearExpiredFlags(Player* player);
+void Player_ResetSchedulerLinks(void* player);

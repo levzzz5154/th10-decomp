@@ -10,3 +10,8 @@ void Vector2::SetPolar(float angle, float length) {
     x = cosine * length;
     y = sine * length;
 }
+
+// 0x004458B0 - Standalone polar-vector leaf used by the render helpers.
+void Vector2_SetPolar(Vector2* destination, float angle, float length) {
+    destination->SetPolar(angle, length);
+}

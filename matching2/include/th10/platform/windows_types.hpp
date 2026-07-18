@@ -73,6 +73,13 @@ struct STARTUPINFOA {
     HANDLE hStdError;
 };
 
+struct PROCESS_INFORMATION {
+    HANDLE hProcess;
+    HANDLE hThread;
+    DWORD dwProcessId;
+    DWORD dwThreadId;
+};
+
 #define NULL    0
 #define TRUE    1
 #define FALSE   0
@@ -102,4 +109,8 @@ extern "C" {
     void    __stdcall Sleep(DWORD);
     int     __stdcall GetSystemMetrics(int);
     void*   __stdcall Direct3DCreate9(UINT);
+    BOOL    __stdcall CreateProcessA(LPCSTR, LPSTR, LPSECURITY_ATTRIBUTES,
+                                    LPSECURITY_ATTRIBUTES, BOOL, DWORD, LPVOID,
+                                    LPCSTR, STARTUPINFOA*, PROCESS_INFORMATION*);
+    BOOL    __stdcall GetExitCodeProcess(HANDLE, LPDWORD);
 }

@@ -28,3 +28,24 @@ int Scheduler_RegisterPrimary(
     SchedulerCallback* callback, int priority, void* device);
 int Scheduler_RegisterSecondary(
     SchedulerCallback* callback, int priority, void* device);
+void Scheduler_Remove(SchedulerCallback* callback, void* device);
+SchedulerCallback* Scheduler_CreateAndRegister(
+    SchedulerFunction function, int priority, void* device);
+SchedulerCallback* Scheduler_CreateAndRegisterSecondary(
+    SchedulerFunction function, void* owner, void* device);
+int Scheduler_RunPrimary(void* device);
+int Scheduler_RunSecondary(void* device);
+int GameState_DispatchDummy(void* target, unsigned int state_flags,
+                            int (*configure)(void*, const char*, int, int));
+void GameState_UpdateFrameMaximum(int current_value, int* object_value,
+                                  int* maximum_value);
+void GameState_Unpause(unsigned int* state_flags, void* target,
+                       int* animation_handle, int saved_frame,
+                       int* current_frame,
+                       int (*configure)(void*, const char*, int, int),
+                       void (*remove_animation)(void*, int));
+void GameState_DispatchAnimationSlot(void* state, int index, void* manager,
+                                     void (*dispatch)(int, void*, int));
+void GameState_DispatchAnimationSlotSecondary(void* state, int index,
+                                              void* manager,
+                                              void (*dispatch)(int, void*, int));

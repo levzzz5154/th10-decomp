@@ -14,9 +14,19 @@ extern "C" __declspec(dllimport) BOOL __stdcall FreeResource(HANDLE resource);
 ResourceFile::ResourceFile() {
 }
 
+// 0x00436CA0 - Fill the resource palette with the packed retail color.
+void ResourceFile_FillPalette(unsigned short* palette, unsigned int count,
+                              unsigned int color) {
+    const unsigned short packed = (unsigned short)((((color >> 0x14) & 0x0f) << 8) |
+        (((color >> 0x0c) & 0x0f) << 4) | ((color >> 4) & 0x0f));
+    for (unsigned int index = 0; index != count; ++index)
+        palette[index] = packed;
+}
+
 // 0x00436680 - Restore the BufferFile boundary, release its owned bytes, then
 // complete the FileInterface destructor chain.
 __declspec(noinline) ResourceFile::~ResourceFile() {
+    Close();
 }
 
 // 0x004366C0 - Copy a Win32 RCDATA resource into an owned memory buffer.
@@ -28,7 +38,7 @@ BYTE ResourceFile::Open(const char* resource_name, const char*) {
     if (!loaded) return 1;
     const BYTE* source = (const BYTE*)LockResource(loaded);
     if (!source) {
-        FreeResource(0);
+        FreeResource(loaded);
         Close();
         return 1;
     }

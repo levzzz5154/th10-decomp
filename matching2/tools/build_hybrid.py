@@ -24,6 +24,7 @@ OVERLAYS = (
     ("entity.obj", "Entity_Destructor", 0x00401FF0),
     ("entity.obj", "EntitySecondaryResource_Release", 0x00405DE0),
     ("entity.obj", "EntityAnimation_Release", 0x0041AD60),
+    ("bullet.obj", "Entity_AttachResourceSnapshot", 0x0040B250),
     ("bullet.obj", "BulletSpawnParameters_Initialize", 0x0040CF40),
     ("heap.obj", "HeapBuffer_Release", 0x00435250),
     ("heap.obj", "0HeapBuffer", 0x004352C0),

@@ -51,10 +51,10 @@ extern char     DAT_0046f458[];
 extern char     DAT_0046f408[];
 extern char     DAT_0046f3c0[];
 
-void FUN_0044b810(char* buf, const char* msg);
-void FUN_0044b8e0(const char* msg);
-void FUN_00439d20(int param);
-void FUN_0043bcd0(void);
+void Logger_AppendFormatted(char* buf, const char* msg);
+void Platform_LogMessage(const char* msg);
+void D3D_ApplyDefaultRenderState(int initialization_mode);
+void D3D_InitializeViewport(void);
 
 extern "C" float tanf(float);
 extern "C" void D3DXMatrixLookAtLH(float* out, float* eye, float* at, float* up);
@@ -75,7 +75,7 @@ extern "C" void D3DXMatrixPerspectiveFovLH(float* out, float fov, float aspect, 
 // Uses extraout_ECX (non-standard register output) — needs __asm for matching
 // ============================================================================
 int D3D_Init(void) {
-    // D3DPRESENT_PARAMETERS (14 dwords = 56 bytes starting at local_48+1)
+    // D3DPRESENT_PARAMETERS (14 dwords = 56 bytes in presentation_parameters)
     // Layout: BackBufferWidth, BackBufferHeight, BackBufferFormat, BackBufferCount,
     //         MultiSampleType, MultiSampleQuality, SwapEffect, hDeviceWindow,
     //         Windowed, EnableAutoDepthStencil, AutoDepthStencilFormat,
@@ -101,7 +101,7 @@ int D3D_Init(void) {
             if (DAT_00491d62 == -1) {
                 pp[3] = 0x16;  // D3DFMT_R5G6B5
                 DAT_00491d62 = 0;
-                FUN_0044b810(DAT_00474f70, DAT_0046f640);
+                Logger_AppendFormatted(DAT_00474f70, DAT_0046f640);
             } else {
                 pp[3] = (DAT_00491d62 != 0) + 0x16;  // 0x16 or 0x17
             }
@@ -114,16 +114,16 @@ int D3D_Init(void) {
             if (DAT_00491fdc == 0) {
                 extra[4] = 0x3C;   // 60Hz
                 extra[5] = 1;      // PresentationInterval = D3DPRESENT_INTERVAL_ONE
-                FUN_0044b810(DAT_00474f70, DAT_0046f614);
+                Logger_AppendFormatted(DAT_00474f70, DAT_0046f614);
                 goto lab_windowed_vsync;
             }
         } else {
             DAT_00491fdc = 1;
         }
         extra[4] = 0;
-        extra[3] = 1;    // Windowed = true (local_38[3] -> pp+windowed offset)
+        extra[3] = 1;    // Windowed = true
         extra[5] = (uint32_t)0x80000000;  // D3DPRESENT_INTERVAL_IMMEDIATE
-        FUN_0044b810(DAT_00474f70, DAT_0046f5f0);
+                Logger_AppendFormatted(DAT_00474f70, DAT_0046f5f0);
     } else {
         // Fullscreen mode
         pp[3] = pp[0];   // use display mode format
@@ -152,20 +152,20 @@ int D3D_Init(void) {
             // Try hardware vertex processing
             result = createDev(g_pD3D9, 0, 1, g_pWnd, 0x40, pp + 1, &g_pD3DDevice);
             if (result >= 0) {
-                FUN_0044b810(DAT_00474f70, DAT_0046f4a8);
+                Logger_AppendFormatted(DAT_00474f70, DAT_0046f4a8);
                 DAT_00491ff4 |= 1;
                 goto d3d_setup;
             }
-            if (bVar1) FUN_0044b810(DAT_00474f70, DAT_0046f5cc);
+            if (bVar1) Logger_AppendFormatted(DAT_00474f70, DAT_0046f5cc);
 
             // Try mixed vertex processing
             result = createDev(g_pD3D9, 0, 1, g_pWnd, 0x20, pp + 1, &g_pD3DDevice);
             if (result >= 0) {
-                FUN_0044b810(DAT_00474f70, DAT_0046f4c4);
+                Logger_AppendFormatted(DAT_00474f70, DAT_0046f4c4);
                 DAT_00491ff4 &= 0xFFFFFFFE;
                 goto d3d_setup;
             }
-            if (bVar1) FUN_0044b810(DAT_00474f70, DAT_0046f5ac);
+            if (bVar1) Logger_AppendFormatted(DAT_00474f70, DAT_0046f5ac);
         }
 
         // Try software vertex processing, windowed
@@ -173,13 +173,13 @@ int D3D_Init(void) {
         if (result >= 0) break;
 
         if (DAT_00491fdc == 0) {
-            FUN_0044b810(DAT_00474f70, DAT_0046f584);
+            Logger_AppendFormatted(DAT_00474f70, DAT_0046f584);
             extra[4] = 0;
             _DAT_00491fe0 = 0;
             bVar1 = true;
         } else {
             if (extra[5] != (uint32_t)0x80000000) {
-                FUN_0044b8e0(DAT_0046f514);
+                Platform_LogMessage(DAT_0046f514);
                 if (g_pD3D9 != 0) {
                     typedef void (__stdcall *Release_t)(void*);
                     Release_t release = *(Release_t*)(*(uint32_t*)g_pD3D9 + 8);
@@ -188,13 +188,13 @@ int D3D_Init(void) {
                 }
                 return 1;
             }
-            FUN_0044b810(DAT_00474f70, DAT_0046f54c);
+            Logger_AppendFormatted(DAT_00474f70, DAT_0046f54c);
             extra[5] = 1;
             extra[3] = 3;
         }
     }
 
-    FUN_0044b810(DAT_00474f70, DAT_0046f4d8);
+    Logger_AppendFormatted(DAT_00474f70, DAT_0046f4d8);
     DAT_00491ff4 &= 0xFFFFFFFE;
 
 d3d_setup:
@@ -244,10 +244,10 @@ d3d_setup:
 
     // Check device caps
     if (((uint32_t)DAT_00492090 & 0x40) == 0) {
-        FUN_0044b810(DAT_00474f70, DAT_0046f458);
+    Logger_AppendFormatted(DAT_00474f70, DAT_0046f458);
     }
     if ((int32_t)DAT_00492058 < 0x101) {
-        FUN_0044b810(DAT_00474f70, DAT_0046f408);
+    Logger_AppendFormatted(DAT_00474f70, DAT_0046f408);
     }
 
     // Check format conversion for fullscreen AA
@@ -260,12 +260,12 @@ d3d_setup:
         } else {
             DAT_00491d78 |= 1;
             DAT_00491ff4 &= 0xFFFFFFFB;
-            FUN_0044b810(DAT_00474f70, DAT_0046f3c0);
+    Logger_AppendFormatted(DAT_00474f70, DAT_0046f3c0);
         }
     }
 
-    FUN_00439d20(0);
-    FUN_0043bcd0();
+    D3D_ApplyDefaultRenderState(0);
+    D3D_InitializeViewport();
     DAT_004924f4 = 0;
     _DAT_00491fe4 = 0;
     return 0;

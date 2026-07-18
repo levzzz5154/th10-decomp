@@ -1,5 +1,22 @@
 #include "th10/render/game_render_targets.hpp"
 
+// 0x00443F80 - Prepare projected render state before invoking the normal draw
+// path. Preparation failures use the retail -1 result.
+int Render_PrepareAndDraw(void* object, int (*prepare)(),
+                          int (*draw)(void*, int)) {
+    if (prepare == 0 || prepare() != 0)
+        return -1;
+    return draw != 0 ? draw(object, 0) : -1;
+}
+
+// 0x00444580 - Restore the four render scale factors to identity.
+void Render_ResetScaleFactors(float factors[4]) {
+    factors[0] = 1.0f;
+    factors[1] = 1.0f;
+    factors[2] = 1.0f;
+    factors[3] = 1.0f;
+}
+
 void GameRender_ReleaseCaptureTarget(
     GameRenderTargets* targets, int32_t handle, const uint32_t* arguments);
 void GameRender_ReleasePrimaryTarget(
