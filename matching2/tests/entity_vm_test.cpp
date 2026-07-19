@@ -110,7 +110,7 @@ int main() {
     resolver.floats[3] = 2.0f;
     EntityScriptCursor cursor = {
         reinterpret_cast<const unsigned char*>(stream), sizeof(stream), 0,
-        false, {}, 0
+        false, {}, 0, 0
     };
     assert(EntityScript_ExecuteOne(&cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);
@@ -159,6 +159,18 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 77);
     assert(EntityScript_ExecuteServiceOpcode(&services, 0x150, 88) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.resource == 88);
+    EntityScriptInstruction service_instruction = {};
+    service_instruction.opcode = 0x14f;
+    service_instruction.size = sizeof(EntityScriptInstruction);
+    service_instruction.operand = 123;
+    EntityScriptCursor service_cursor = {
+        reinterpret_cast<const unsigned char*>(&service_instruction),
+        sizeof(service_instruction), 0, false, {}, 0, &services
+    };
+    assert(EntityScript_ExecuteOne(&service_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(log.timer == 123 && service_cursor.offset ==
+           sizeof(EntityScriptInstruction));
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;
@@ -170,7 +182,7 @@ int main() {
     flow[2].size = sizeof(EntityScriptInstruction);
     EntityScriptCursor call_cursor = {
         reinterpret_cast<const unsigned char*>(flow), sizeof(flow), 0,
-        false, {}, 0
+        false, {}, 0, 0
     };
     assert(EntityScript_ExecuteOne(&call_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);

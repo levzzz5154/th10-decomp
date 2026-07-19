@@ -109,6 +109,14 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         }
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode == 0x14d || instruction->opcode == 0x14f ||
+        instruction->opcode == 0x150) {
+        const EntityScriptStepResult result = EntityScript_ExecuteServiceOpcode(
+            cursor->services, instruction->opcode, (int)instruction->operand);
+        if (result == ENTITY_SCRIPT_STEP_APPLIED)
+            cursor->offset += instruction->size;
+        return result;
+    }
 
     const bool operand_indirect =
         (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;

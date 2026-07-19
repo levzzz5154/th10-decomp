@@ -68,6 +68,7 @@ struct EntityScriptCursor {
     bool halted;
     unsigned int call_stack[16];
     unsigned int call_depth;
+    const EntityScriptServices* services;
 };
 
 EntityScriptStepResult EntityScript_ApplyIntegerArithmetic(
