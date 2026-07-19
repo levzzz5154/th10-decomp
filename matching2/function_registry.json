@@ -9,9 +9,9 @@
     "by_recovery_status": {
       "exact-overlay": 14,
       "partial": 4,
-      "researched": 1,
-      "semantic": 330,
-      "unrecovered": 354
+      "researched": 2,
+      "semantic": 331,
+      "unrecovered": 352
     }
   },
   "functions": [
@@ -1649,8 +1649,8 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004136C0_FUN_004136c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00413790",
@@ -1709,8 +1709,8 @@
       "size": 512,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00414370_FUN_00414370.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "researched",
+      "promoted_source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00414570",

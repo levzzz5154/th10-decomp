@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 330,
-        "retail_bytes": 56857
+        "function_count": 331,
+        "retail_bytes": 57065
       },
       "exact-overlay": {
         "function_count": 33,
@@ -32,9 +32,9 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 233,
+        "implemented_functions": 234,
         "tracked_bytes": 47943,
-        "implemented_bytes": 30313
+        "implemented_bytes": 30521
       },
       {
         "name": "medium",
@@ -1202,8 +1202,8 @@
       "address": "0x004136C0",
       "symbol": "FUN_004136c0",
       "size": 208,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00413790",
@@ -1244,8 +1244,8 @@
       "address": "0x00414370",
       "symbol": "FUN_00414370",
       "size": 512,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "researched",
+      "source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00414570",

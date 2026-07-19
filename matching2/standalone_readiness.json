@@ -21,20 +21,21 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 109,
-    "blocking_functions": 70,
-    "source_function_readiness_percent": 60.89,
+    "source_ready_functions": 110,
+    "blocking_functions": 69,
+    "source_function_readiness_percent": 61.45,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 22592,
-    "source_byte_readiness_percent": 32.13,
+    "source_ready_retail_bytes": 22800,
+    "source_byte_readiness_percent": 32.42,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
     "standalone_ready": false,
     "by_recovery_status": {
       "partial": 2,
-      "semantic": 109,
-      "unrecovered": 68
+      "researched": 1,
+      "semantic": 110,
+      "unrecovered": 66
     }
   },
   "integration_gates": {
@@ -248,19 +249,6 @@
       "impact_score": 700368
     },
     {
-      "address": "0x004136C0",
-      "symbol": "FUN_004136c0",
-      "size": 208,
-      "distance_from_root": 5,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 7,
-      "impact_score": 700208
-    },
-    {
       "address": "0x004359B0",
       "symbol": "FUN_004359b0",
       "size": 1040,
@@ -332,9 +320,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
+      "recovery_status": "researched",
       "source_ready": false,
-      "source": "unrecovered",
+      "source": "src/render/animation_slot.cpp",
       "reachable_callers": 5,
       "impact_score": 500512
     },
@@ -376,6 +364,19 @@
       "source": "unrecovered",
       "reachable_callers": 4,
       "impact_score": 400656
+    },
+    {
+      "address": "0x004145F0",
+      "symbol": "FUN_004145f0",
+      "size": 576,
+      "distance_from_root": 4,
+      "direct_internal_callees": 4,
+      "dynamic_call_sites": 0,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400576
     }
   ],
   "functions": [
@@ -595,9 +596,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00414370",
@@ -606,9 +607,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
+      "recovery_status": "researched",
       "source_ready": false,
-      "source": "unrecovered"
+      "source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00414570",
