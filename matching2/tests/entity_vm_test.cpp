@@ -10,6 +10,7 @@ struct ServiceLog {
     int resource;
     int event;
 };
+struct PairLog { int opcode; float x; float y; };
 
 void ResetTimer(void* context, int value) {
     static_cast<ServiceLog*>(context)->timer = value;
@@ -22,6 +23,10 @@ void EmitEvent(void* context, int event, int value) {
 }
 float FixedRandom(void*) { return 0.25f; }
 int FixedIntegerRandom(void*, int bound) { return bound - 1; }
+void SetPair(void* context, int opcode, float x, float y) {
+    PairLog* log = static_cast<PairLog*>(context);
+    log->opcode = opcode; log->x = x; log->y = y;
+}
 
 struct TestResolver : EntityScriptResolver {
     int integers[4];
@@ -193,9 +198,10 @@ int main() {
            ENTITY_SCRIPT_STEP_MALFORMED);
 
     ServiceLog log = {-1, -1, -1};
+    PairLog pair = {};
     EntityScriptServices services = {
         ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom,
-        FixedIntegerRandom, 0, 0
+        FixedIntegerRandom, 0, SetPair
     };
     assert(EntityScript_InvokeService(&services, 0, 12) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
@@ -250,6 +256,23 @@ int main() {
     assert(EntityScript_ExecuteOne(&integer_random_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(resolver.integers[2] == 8);
+
+    EntityScriptInstruction pair_instruction = {};
+    pair_instruction.opcode = 0x32;
+    pair_instruction.size = sizeof(EntityScriptInstruction);
+    pair_instruction.operand = 1;
+    pair_instruction.operand2 = 0;
+    pair_instruction.flags = ENTITY_SCRIPT_OPERAND_INDIRECT;
+    resolver.floats[1] = 1.5f;
+    resolver.floats[0] = 2.5f;
+    services.context = &pair;
+    EntityScriptCursor pair_cursor = {
+        reinterpret_cast<const unsigned char*>(&pair_instruction),
+        sizeof(pair_instruction), 0, false, {}, 0, &services
+    };
+    assert(EntityScript_ExecuteOne(&pair_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(pair.opcode == 0x32 && pair.x == 1.5f && pair.y == 2.5f);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;
