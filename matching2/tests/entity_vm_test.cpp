@@ -11,6 +11,7 @@ struct ServiceLog {
     int event;
 };
 struct PairLog { int opcode; float x; float y; };
+struct ByteWriteLog { int opcode; unsigned int target; unsigned int offset; unsigned char value; };
 
 void ResetTimer(void* context, int value) {
     static_cast<ServiceLog*>(context)->timer = value;
@@ -26,6 +27,12 @@ int FixedIntegerRandom(void*, int bound) { return bound - 1; }
 void SetPair(void* context, int opcode, float x, float y) {
     PairLog* log = static_cast<PairLog*>(context);
     log->opcode = opcode; log->x = x; log->y = y;
+}
+void WriteByte(void* context, int opcode, unsigned int target,
+               unsigned int offset, unsigned char value) {
+    ByteWriteLog* log = static_cast<ByteWriteLog*>(context);
+    log->opcode = opcode; log->target = target; log->offset = offset;
+    log->value = value;
 }
 
 struct TestResolver : EntityScriptResolver {
@@ -201,7 +208,7 @@ int main() {
     PairLog pair = {};
     EntityScriptServices services = {
         ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom,
-        FixedIntegerRandom, 0, SetPair, 0, 0
+        FixedIntegerRandom, 0, SetPair, 0, WriteByte
     };
     assert(EntityScript_InvokeService(&services, 0, 12) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
@@ -285,6 +292,25 @@ int main() {
     assert(EntityScript_ExecuteOne(&pair_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(pair.opcode == 0x32 && pair.x == 1.5f && pair.y == 2.5f);
+
+    ByteWriteLog write = {};
+    EntityScriptInstruction write_instruction = {};
+    write_instruction.opcode = 0x37;
+    write_instruction.size = sizeof(EntityScriptInstruction);
+    write_instruction.flags = ENTITY_SCRIPT_OPERAND_INDIRECT;
+    write_instruction.operand = 2;
+    write_instruction.operand2 = 3;
+    resolver.integers[2] = 0x7f;
+    resolver.integers[3] = 0x1234;
+    services.context = &write;
+    EntityScriptCursor write_cursor = {
+        reinterpret_cast<const unsigned char*>(&write_instruction),
+        sizeof(write_instruction), 0, false, {}, 0, &services
+    };
+    assert(EntityScript_ExecuteOne(&write_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(write.opcode == 0x37 && write.target == 0x1234 &&
+           write.offset == 0 && write.value == 0x7f);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;
