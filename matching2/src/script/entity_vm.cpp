@@ -97,6 +97,16 @@ EntityScriptStepResult EntityScript_ApplyBinaryFloat(
     return ENTITY_SCRIPT_STEP_APPLIED;
 }
 
+EntityScriptStepResult EntityScript_AssignRandomFloat(
+    float* destination, float minimum, float maximum,
+    EntityScriptRandomFloat random, void* context) {
+    if (destination == 0 || random == 0)
+        return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    const float unit = random(context);
+    *destination = minimum + (maximum - minimum) * unit;
+    return ENTITY_SCRIPT_STEP_APPLIED;
+}
+
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver) {
     if (cursor == 0 || resolver == 0 || cursor->stream == 0)

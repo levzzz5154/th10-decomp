@@ -79,6 +79,10 @@ EntityScriptStepResult EntityScript_ApplyBinaryInteger(
     int opcode, int* destination, int left, int right);
 EntityScriptStepResult EntityScript_ApplyBinaryFloat(
     int opcode, float* destination, float left, float right);
+typedef float (*EntityScriptRandomFloat)(void* context);
+EntityScriptStepResult EntityScript_AssignRandomFloat(
+    float* destination, float minimum, float maximum,
+    EntityScriptRandomFloat random, void* context);
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
 EntityScriptStepResult EntityScript_JumpRelative(

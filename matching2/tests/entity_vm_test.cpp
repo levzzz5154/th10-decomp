@@ -20,6 +20,7 @@ void TransitionResource(void* context, int value) {
 void EmitEvent(void* context, int event, int value) {
     static_cast<ServiceLog*>(context)->event = event * 1000 + value;
 }
+float FixedRandom(void*) { return 0.25f; }
 
 struct TestResolver : EntityScriptResolver {
     int integers[4];
@@ -115,6 +116,9 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && floating == 7.0f);
     assert(EntityScript_ApplyBinaryFloat(0x19, &floating, 1.0f, 0.0f) ==
            ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO);
+    assert(EntityScript_AssignRandomFloat(
+               &floating, 4.0f, 12.0f, FixedRandom, 0) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 6.0f);
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;
