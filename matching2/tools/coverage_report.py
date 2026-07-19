@@ -23,13 +23,12 @@ PARTIAL = {
     0x00418D00: "Remaining code-generation mismatch",
     0x00445900: "Full GameStateInit boundary is not reconstructed",
     0x0040E770: "Only the bounded leaf-opcode subset is reconstructed",
+    0x0043EE30: "Portable opcode core reconstructed; retail host state operations remain",
 }
 
 # Address mentions matching these entries describe a known dependency rather
 # than a readable implementation in the named translation unit.
-RESEARCHED = {
-    0x0043EE30: "Animation instruction interpreter remains retail-backed",
-}
+RESEARCHED = {}
 
 SIZE_BANDS = (
     ("tiny", 0, 64),

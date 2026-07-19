@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+// Partial readable reconstruction of retail interpreter 0x0043EE30.
+
 EntityScriptStepResult EntityScript_ApplyIntegerArithmetic(
     int opcode, int* destination, int operand) {
     if (destination == 0)

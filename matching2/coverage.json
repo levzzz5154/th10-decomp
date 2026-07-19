@@ -3907,9 +3907,9 @@
       "address": "0x0043EE30",
       "symbol": "FUN_0043ee30",
       "size": 10192,
-      "status": "researched",
-      "source": "src/math/rng.cpp",
-      "blocker": "Animation instruction interpreter remains retail-backed"
+      "status": "partial",
+      "source": "src/script/entity_vm.cpp",
+      "blocker": "Portable opcode core reconstructed; retail host state operations remain"
     },
     {
       "address": "0x00441600",

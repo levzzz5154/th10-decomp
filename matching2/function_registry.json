@@ -8,8 +8,8 @@
     "function_count": 703,
     "by_recovery_status": {
       "exact-overlay": 14,
-      "partial": 3,
-      "researched": 2,
+      "partial": 4,
+      "researched": 1,
       "semantic": 329,
       "unrecovered": 355
     }
@@ -5280,9 +5280,9 @@
       "size": 10192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043EE30_FUN_0043ee30.c",
-      "recovery_status": "researched",
-      "promoted_source": "src/math/rng.cpp",
-      "blocker": "Animation instruction interpreter remains retail-backed"
+      "recovery_status": "partial",
+      "promoted_source": "src/script/entity_vm.cpp",
+      "blocker": "Portable opcode core reconstructed; retail host state operations remain"
     },
     {
       "address": "0x00441600",

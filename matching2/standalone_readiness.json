@@ -32,8 +32,7 @@
     "unaudited_dynamic_call_sites": 144,
     "standalone_ready": false,
     "by_recovery_status": {
-      "partial": 1,
-      "researched": 1,
+      "partial": 2,
       "semantic": 108,
       "unrecovered": 69
     }
@@ -60,9 +59,9 @@
       "distance_from_root": 6,
       "direct_internal_callees": 29,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
+      "recovery_status": "partial",
       "source_ready": false,
-      "source": "src/math/rng.cpp",
+      "source": "src/script/entity_vm.cpp",
       "reachable_callers": 14,
       "impact_score": 1410192
     },
@@ -1487,9 +1486,9 @@
       "distance_from_root": 6,
       "direct_internal_callees": 29,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
+      "recovery_status": "partial",
       "source_ready": false,
-      "source": "src/math/rng.cpp"
+      "source": "src/script/entity_vm.cpp"
     },
     {
       "address": "0x00441600",
