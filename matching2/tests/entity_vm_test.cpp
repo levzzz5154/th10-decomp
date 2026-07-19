@@ -131,6 +131,12 @@ int main() {
     assert(EntityScript_CompareFloat(0x23, 2.0f, 3.0f));
     assert(EntityScript_CompareFloat(0x25, 2.0f, 2.0f));
     assert(EntityScript_CompareFloat(0x27, 2.0f, 2.0f));
+    assert(EntityScript_ApplyUnaryFloat(0x2a, &floating, 0.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 0.0f);
+    assert(EntityScript_ApplyUnaryFloat(0x2b, &floating, 0.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 1.0f);
+    assert(EntityScript_ApplyUnaryFloat(0x2c, &floating, 0.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 0.0f);
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;

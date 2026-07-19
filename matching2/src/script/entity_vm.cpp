@@ -1,5 +1,7 @@
 #include "th10/script/entity_vm.hpp"
 
+#include <cmath>
+
 EntityScriptStepResult EntityScript_ApplyIntegerArithmetic(
     int opcode, int* destination, int operand) {
     if (destination == 0)
@@ -129,6 +131,18 @@ bool EntityScript_CompareFloat(int opcode, float left, float right) {
     case 0x27: return left >= right;
     default: return false;
     }
+}
+
+EntityScriptStepResult EntityScript_ApplyUnaryFloat(
+    int opcode, float* destination, float operand) {
+    if (destination == 0) return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    switch (opcode) {
+    case 0x2a: *destination = std::sin(operand); break;
+    case 0x2b: *destination = std::cos(operand); break;
+    case 0x2c: *destination = std::tan(operand); break;
+    default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    }
+    return ENTITY_SCRIPT_STEP_APPLIED;
 }
 
 EntityScriptStepResult EntityScript_ExecuteOne(

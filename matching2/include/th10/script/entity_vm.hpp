@@ -85,6 +85,8 @@ EntityScriptStepResult EntityScript_AssignRandomFloat(
     EntityScriptRandomFloat random, void* context);
 bool EntityScript_CompareInteger(int opcode, int left, int right);
 bool EntityScript_CompareFloat(int opcode, float left, float right);
+EntityScriptStepResult EntityScript_ApplyUnaryFloat(
+    int opcode, float* destination, float operand);
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
 EntityScriptStepResult EntityScript_JumpRelative(
