@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 334,
-      "unrecovered": 349
+      "semantic": 335,
+      "unrecovered": 348
     }
   },
   "functions": [
@@ -1234,8 +1234,8 @@
       "size": 416,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C540_FUN_0040c540.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/animation_resource_lazy_fetch.cpp"
     },
     {
       "address": "0x0040C6E0",

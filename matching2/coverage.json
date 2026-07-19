@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 334,
-        "retail_bytes": 58425
+        "function_count": 335,
+        "retail_bytes": 58841
       },
       "exact-overlay": {
         "function_count": 33,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 61,
+        "implemented_functions": 62,
         "tracked_bytes": 123584,
-        "implemented_bytes": 23008
+        "implemented_bytes": 23424
       },
       {
         "name": "large",
@@ -912,8 +912,8 @@
       "address": "0x0040C540",
       "symbol": "FUN_0040c540",
       "size": 416,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/animation_resource_lazy_fetch.cpp"
     },
     {
       "address": "0x0040C6E0",
