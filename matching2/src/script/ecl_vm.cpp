@@ -1189,6 +1189,46 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         }
         return 0;
     }
+    case 0x111: {
+        // Sub-entity create (FUN_00448e30 mode 6) that performs a richer
+        // post-init than 0x107: the spawn position is taken from
+        // FUN_00418810 when the 0x40000 flag is clear, otherwise from the
+        // entity position.  Then a second operand (2.0f encoding = float
+        // operand index 2) is written at record+0x2c, and bit 4 of the
+        // record's flag word at +0x35c is set.
+        const int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t sub_index = ECL_ResolveIntOperand(state->cursor, 1);
+        if (g_pGameStateManager != 0) {
+            void* slot_record = *reinterpret_cast<void**>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x30 + slot * 4);
+            const uint64_t slot_record_bits =
+                reinterpret_cast<uint64_t>(slot_record);
+            ECL_SubEntityCreate(
+                static_cast<int32_t>(slot_record_bits), sub_index, 6);
+        }
+        int32_t marked = ECL_SubEntityMark(slot);
+        (void)marked;
+        uint8_t* record = static_cast<uint8_t*>(entity) + slot * 0x210;
+        if ((EntityFlags(entity) & 0x40000u) != 0) {
+            *reinterpret_cast<float*>(record + 0x340) =
+                EntityFloat(entity, 0x2c);
+            *reinterpret_cast<float*>(record + 0x344) =
+                EntityFloat(entity, 0x30);
+            *reinterpret_cast<float*>(record + 0x348) =
+                EntityFloat(entity, 0x34);
+        } else {
+            // FUN_00418810 returns a fresh 3-float vec from the
+            // manager's spawned-entity pool; we treat it as zeros
+            // until FUN_00418810 is reconstructed separately.
+            *reinterpret_cast<float*>(record + 0x340) = 0.0f;
+            *reinterpret_cast<float*>(record + 0x344) = 0.0f;
+            *reinterpret_cast<float*>(record + 0x348) = 0.0f;
+        }
+        const float second = ECL_ResolveFloatOperand(state->cursor, 2);
+        *reinterpret_cast<float*>(record + 0x2c) = second;
+        *reinterpret_cast<uint32_t*>(record + 0x35c) |= 4u;
+        return 0;
+    }
     case 0x16b:
         // FUN_0040cea0: set the player-state 0x378c bit 0x10 and dispatch
         // the sound-queue helper.  The dispatch_index (uVar8) is the

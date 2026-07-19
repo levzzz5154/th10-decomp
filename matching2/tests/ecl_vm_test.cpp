@@ -938,6 +938,27 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(ECL_LastSubEntityRequest()->mode == 6);
     assert(ECL_LastSubEntityRequest()->sub_index == 11);
+
+    // 0x111: create with richer post-init; record+0x2c gets float operand
+    // 2, record+0x35c gets bit 0x4 set, record+0x340/4/8 get spawned
+    // position (zeros when flag 0x40000 clear, entity position otherwise).
+    *(uint32_t*)(entity + 0x1444) = 0x40000;
+    *(float*)(entity + 0x2c) = 12.5f;
+    *(float*)(entity + 0x30) = 13.75f;
+    *(float*)(entity + 0x34) = 14.25f;
+    fixture.instruction.instruction.opcode = 0x111;
+    fixture.Operands()[0] = 2;
+    fixture.Operands()[1] = 9;
+    fixture.Operands()[2] = FloatBits(3.5f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 6);
+    assert(ECL_LastSubEntityRequest()->sub_index == 9);
+    assert(*(float*)(entity + 2 * 0x210 + 0x340) == 12.5f);
+    assert(*(float*)(entity + 2 * 0x210 + 0x344) == 13.75f);
+    assert(*(float*)(entity + 2 * 0x210 + 0x348) == 14.25f);
+    assert(*(float*)(entity + 2 * 0x210 + 0x2c) == 3.5f);
+    assert((*(uint32_t*)(entity + 2 * 0x210 + 0x35c) & 4u) != 0);
+    *(uint32_t*)(entity + 0x1444) = 0;
     g_pGameStateManager = 0;
 
     g_pGameStateManager = 0;
