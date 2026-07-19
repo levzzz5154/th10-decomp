@@ -326,7 +326,8 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
-    if (instruction->opcode >= 0x41 && instruction->opcode <= 0x43) {
+    if ((instruction->opcode >= 0x41 && instruction->opcode <= 0x43) ||
+        (instruction->opcode >= 0x48 && instruction->opcode <= 0x4a)) {
         if (cursor->services == 0 || cursor->services->set_flags == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
         cursor->services->set_flags(cursor->services->context,
@@ -334,6 +335,19 @@ EntityScriptStepResult EntityScript_ExecuteOne(
             (unsigned int)resolver->ResolveInteger(
                 instruction->operand,
                 (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0));
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
+    if (instruction->opcode == 0x4c || instruction->opcode == 0x4d) {
+        if (cursor->services == 0 || cursor->services->set_bytes == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        const bool indirect = (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
+        const unsigned char a = (unsigned char)resolver->ResolveInteger(instruction->operand, indirect);
+        const unsigned char b = instruction->opcode == 0x4c
+            ? (unsigned char)resolver->ResolveInteger(instruction->operand2, indirect) : 0;
+        const unsigned char c = instruction->opcode == 0x4c
+            ? (unsigned char)resolver->ResolveInteger(instruction->operand3, indirect) : 0;
+        cursor->services->set_bytes(cursor->services->context, instruction->opcode, a, b, c);
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
