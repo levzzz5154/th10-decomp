@@ -219,6 +219,28 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode >= 0x1c && instruction->opcode <= 0x27) {
+        const bool operand_indirect =
+            (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
+        int* destination = resolver->ResolveIntegerDestination(
+            instruction->destination,
+            (instruction->flags & ENTITY_SCRIPT_DESTINATION_INDIRECT) != 0);
+        if (destination == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        if ((instruction->opcode & 1u) == 0) {
+            *destination = EntityScript_CompareInteger(
+                instruction->opcode,
+                resolver->ResolveInteger(instruction->operand, operand_indirect),
+                resolver->ResolveInteger(instruction->operand2, operand_indirect));
+        } else {
+            *destination = EntityScript_CompareFloat(
+                instruction->opcode,
+                resolver->ResolveFloat(instruction->operand, operand_indirect),
+                resolver->ResolveFloat(instruction->operand2, operand_indirect));
+        }
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x12 || instruction->opcode == 0x13 ||
         instruction->opcode == 0x14 || instruction->opcode == 0x15 ||
         instruction->opcode == 0x16 || instruction->opcode == 0x17 ||
