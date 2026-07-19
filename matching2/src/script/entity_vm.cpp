@@ -114,6 +114,7 @@ bool EntityScript_CompareInteger(int opcode, int left, int right) {
     case 0x20: return left > right;
     case 0x22: return left < right;
     case 0x24: return left <= right;
+    case 0x26: return left >= right;
     default: return false;
     }
 }
@@ -125,6 +126,7 @@ bool EntityScript_CompareFloat(int opcode, float left, float right) {
     case 0x21: return left > right;
     case 0x23: return left < right;
     case 0x25: return left <= right;
+    case 0x27: return left >= right;
     default: return false;
     }
 }
