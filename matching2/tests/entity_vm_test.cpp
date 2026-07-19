@@ -201,7 +201,7 @@ int main() {
     PairLog pair = {};
     EntityScriptServices services = {
         ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom,
-        FixedIntegerRandom, 0, SetPair, 0
+        FixedIntegerRandom, 0, SetPair, 0, 0
     };
     assert(EntityScript_InvokeService(&services, 0, 12) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
