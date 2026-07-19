@@ -80,3 +80,5 @@ EntityScriptStepResult EntityScript_JumpRelative(
     EntityScriptCursor* cursor, int relative_bytes);
 EntityScriptStepResult EntityScript_InvokeService(
     const EntityScriptServices* services, int service, int value);
+EntityScriptStepResult EntityScript_ExecuteServiceOpcode(
+    const EntityScriptServices* services, int opcode, int value);

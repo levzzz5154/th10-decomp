@@ -153,6 +153,12 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && log.event == 2056);
     assert(EntityScript_InvokeService(&services, 3, 1) ==
            ENTITY_SCRIPT_STEP_UNSUPPORTED);
+    assert(EntityScript_ExecuteServiceOpcode(&services, 0x14d, 99) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.timer == 0);
+    assert(EntityScript_ExecuteServiceOpcode(&services, 0x14f, 77) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.timer == 77);
+    assert(EntityScript_ExecuteServiceOpcode(&services, 0x150, 88) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.resource == 88);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;

@@ -169,3 +169,17 @@ EntityScriptStepResult EntityScript_InvokeService(
         return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
 }
+
+EntityScriptStepResult EntityScript_ExecuteServiceOpcode(
+    const EntityScriptServices* services, int opcode, int value) {
+    switch (opcode) {
+    case 0x14d:
+        return EntityScript_InvokeService(services, 0, 0);
+    case 0x14f:
+        return EntityScript_InvokeService(services, 0, value);
+    case 0x150:
+        return EntityScript_InvokeService(services, 1, value);
+    default:
+        return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    }
+}
