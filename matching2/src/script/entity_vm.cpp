@@ -355,6 +355,19 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode == 0x4e) {
+        if (cursor->services == 0 || cursor->services->set_color == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        const bool indirect = (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
+        cursor->services->set_color(cursor->services->context,
+            resolver->ResolveInteger(instruction->operand, indirect),
+            (unsigned char)resolver->ResolveInteger(instruction->operand2, indirect),
+            (unsigned char)resolver->ResolveInteger(instruction->operand3, indirect),
+            (unsigned char)resolver->ResolveInteger(instruction->operand4, indirect),
+            0);
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x4b || instruction->opcode == 0x58 ||
         instruction->opcode == 0x5a ||
         instruction->opcode == 0x5b || instruction->opcode == 0x5c) {

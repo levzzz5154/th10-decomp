@@ -40,6 +40,7 @@ struct EntityScriptInstruction {
     unsigned int operand;
     unsigned int operand2;
     unsigned int operand3;
+    unsigned int operand4;
 };
 #pragma pack(pop)
 
@@ -77,6 +78,8 @@ struct EntityScriptServices {
     void (*invoke_action)(void* context, unsigned int value);
     void (*commit_vector)(void* context);
     void (*restore_vector)(void* context);
+    void (*set_color)(void* context, unsigned int target, unsigned char r,
+                      unsigned char g, unsigned char b, unsigned char a);
 };
 
 struct EntityScriptCursor {
