@@ -39,6 +39,7 @@ struct EntityScriptInstruction {
     unsigned short flags;
     unsigned int operand;
     unsigned int operand2;
+    unsigned int operand3;
 };
 #pragma pack(pop)
 
