@@ -159,6 +159,8 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 77);
     assert(EntityScript_ExecuteServiceOpcode(&services, 0x150, 88) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.resource == 88);
+    assert(EntityScript_ExecuteServiceOpcode(&services, 0x151, 99) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.event == 2099);
     EntityScriptInstruction service_instruction = {};
     service_instruction.opcode = 0x14f;
     service_instruction.size = sizeof(EntityScriptInstruction);

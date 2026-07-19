@@ -110,7 +110,7 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
     if (instruction->opcode == 0x14d || instruction->opcode == 0x14f ||
-        instruction->opcode == 0x150) {
+        instruction->opcode == 0x150 || instruction->opcode == 0x151) {
         const EntityScriptStepResult result = EntityScript_ExecuteServiceOpcode(
             cursor->services, instruction->opcode, (int)instruction->operand);
         if (result == ENTITY_SCRIPT_STEP_APPLIED)
@@ -187,6 +187,8 @@ EntityScriptStepResult EntityScript_ExecuteServiceOpcode(
         return EntityScript_InvokeService(services, 0, value);
     case 0x150:
         return EntityScript_InvokeService(services, 1, value);
+    case 0x151:
+        return EntityScript_InvokeService(services, 2, value);
     default:
         return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
