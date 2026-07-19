@@ -5,6 +5,22 @@
 
 namespace {
 
+struct ServiceLog {
+    int timer;
+    int resource;
+    int event;
+};
+
+void ResetTimer(void* context, int value) {
+    static_cast<ServiceLog*>(context)->timer = value;
+}
+void TransitionResource(void* context, int value) {
+    static_cast<ServiceLog*>(context)->resource = value;
+}
+void EmitEvent(void* context, int event, int value) {
+    static_cast<ServiceLog*>(context)->event = event * 1000 + value;
+}
+
 struct TestResolver : EntityScriptResolver {
     int integers[4];
     float floats[4];
@@ -124,6 +140,19 @@ int main() {
     assert(cursor.offset == sizeof(EntityScriptInstruction) - 1);
     assert(EntityScript_JumpRelative(&cursor, -100) ==
            ENTITY_SCRIPT_STEP_MALFORMED);
+
+    ServiceLog log = {-1, -1, -1};
+    EntityScriptServices services = {
+        ResetTimer, TransitionResource, EmitEvent, &log
+    };
+    assert(EntityScript_InvokeService(&services, 0, 12) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
+    assert(EntityScript_InvokeService(&services, 1, 34) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.resource == 34);
+    assert(EntityScript_InvokeService(&services, 2, 56) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.event == 2056);
+    assert(EntityScript_InvokeService(&services, 3, 1) ==
+           ENTITY_SCRIPT_STEP_UNSUPPORTED);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;

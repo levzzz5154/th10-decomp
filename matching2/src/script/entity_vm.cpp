@@ -145,3 +145,27 @@ EntityScriptStepResult EntityScript_JumpRelative(
     cursor->offset = (unsigned int)target;
     return ENTITY_SCRIPT_STEP_APPLIED;
 }
+
+EntityScriptStepResult EntityScript_InvokeService(
+    const EntityScriptServices* services, int service, int value) {
+    if (services == 0)
+        return ENTITY_SCRIPT_STEP_MALFORMED;
+    switch (service) {
+    case 0:
+        if (services->reset_timer == 0) return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        services->reset_timer(services->context, value);
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    case 1:
+        if (services->resource_transition == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        services->resource_transition(services->context, value);
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    case 2:
+        if (services->emit_animation_event == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        services->emit_animation_event(services->context, service, value);
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    default:
+        return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    }
+}

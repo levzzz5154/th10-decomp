@@ -54,6 +54,13 @@ struct EntityScriptResolver {
     virtual float* ResolveFloatDestination(short encoded, bool indirect) = 0;
 };
 
+struct EntityScriptServices {
+    void (*reset_timer)(void* context, int value);
+    void (*resource_transition)(void* context, int value);
+    void (*emit_animation_event)(void* context, int event, int value);
+    void* context;
+};
+
 struct EntityScriptCursor {
     const unsigned char* stream;
     unsigned int stream_size;
@@ -71,3 +78,5 @@ EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
 EntityScriptStepResult EntityScript_JumpRelative(
     EntityScriptCursor* cursor, int relative_bytes);
+EntityScriptStepResult EntityScript_InvokeService(
+    const EntityScriptServices* services, int service, int value);
