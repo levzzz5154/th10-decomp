@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 331,
-      "unrecovered": 352
+      "semantic": 332,
+      "unrecovered": 351
     }
   },
   "functions": [
@@ -2150,8 +2150,8 @@
       "size": 496,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041AB70_FUN_0041ab70.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/entity_movement_slot.cpp"
     },
     {
       "address": "0x0041AD60",

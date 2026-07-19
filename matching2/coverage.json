@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 331,
-        "retail_bytes": 57065
+        "function_count": 332,
+        "retail_bytes": 57561
       },
       "exact-overlay": {
         "function_count": 33,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 58,
+        "implemented_functions": 59,
         "tracked_bytes": 123584,
-        "implemented_bytes": 21648
+        "implemented_bytes": 22144
       },
       {
         "name": "large",
@@ -1553,8 +1553,8 @@
       "address": "0x0041AB70",
       "symbol": "FUN_0041ab70",
       "size": 496,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/entity_movement_slot.cpp"
     },
     {
       "address": "0x0041AD60",

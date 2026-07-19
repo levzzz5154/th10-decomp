@@ -21,12 +21,12 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 110,
-    "blocking_functions": 69,
-    "source_function_readiness_percent": 61.45,
+    "source_ready_functions": 111,
+    "blocking_functions": 68,
+    "source_function_readiness_percent": 62.01,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 22800,
-    "source_byte_readiness_percent": 32.42,
+    "source_ready_retail_bytes": 23296,
+    "source_byte_readiness_percent": 33.13,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
@@ -34,8 +34,8 @@
     "by_recovery_status": {
       "partial": 2,
       "researched": 1,
-      "semantic": 110,
-      "unrecovered": 66
+      "semantic": 111,
+      "unrecovered": 65
     }
   },
   "integration_gates": {
@@ -117,19 +117,6 @@
       "source": "unrecovered",
       "reachable_callers": 14,
       "impact_score": 1400816
-    },
-    {
-      "address": "0x0041AB70",
-      "symbol": "FUN_0041ab70",
-      "size": 496,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400496
     },
     {
       "address": "0x00442050",
@@ -377,6 +364,19 @@
       "source": "unrecovered",
       "reachable_callers": 4,
       "impact_score": 400576
+    },
+    {
+      "address": "0x00448270",
+      "symbol": "FUN_00448270",
+      "size": 480,
+      "distance_from_root": 4,
+      "direct_internal_callees": 1,
+      "dynamic_call_sites": 4,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400480
     }
   ],
   "functions": [
@@ -706,9 +706,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/entity_movement_slot.cpp"
     },
     {
       "address": "0x0041ADF0",
