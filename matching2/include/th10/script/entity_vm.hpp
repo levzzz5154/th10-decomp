@@ -62,6 +62,8 @@ struct EntityScriptServices {
     void* context;
     float (*random_float)(void* context);
     int (*random_integer)(void* context, int bound);
+    void (*set_vector)(void* context, int opcode, float x, float y, float z);
+    void (*set_pair)(void* context, int opcode, float x, float y);
 };
 
 struct EntityScriptCursor {
