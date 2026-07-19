@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 333,
-      "unrecovered": 350
+      "semantic": 334,
+      "unrecovered": 349
     }
   },
   "functions": [
@@ -3504,8 +3504,8 @@
       "size": 400,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042AB20_FUN_0042ab20.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/linked_pool_release.cpp"
     },
     {
       "address": "0x0042ACB0",

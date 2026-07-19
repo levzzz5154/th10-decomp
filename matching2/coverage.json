@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 333,
-        "retail_bytes": 58025
+        "function_count": 334,
+        "retail_bytes": 58425
       },
       "exact-overlay": {
         "function_count": 33,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 60,
+        "implemented_functions": 61,
         "tracked_bytes": 123584,
-        "implemented_bytes": 22608
+        "implemented_bytes": 23008
       },
       {
         "name": "large",
@@ -2500,8 +2500,8 @@
       "address": "0x0042AB20",
       "symbol": "FUN_0042ab20",
       "size": 400,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/linked_pool_release.cpp"
     },
     {
       "address": "0x0042ACB0",

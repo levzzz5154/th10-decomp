@@ -21,12 +21,12 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 112,
-    "blocking_functions": 67,
-    "source_function_readiness_percent": 62.57,
+    "source_ready_functions": 113,
+    "blocking_functions": 66,
+    "source_function_readiness_percent": 63.13,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 23760,
-    "source_byte_readiness_percent": 33.79,
+    "source_ready_retail_bytes": 24160,
+    "source_byte_readiness_percent": 34.36,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
@@ -34,8 +34,8 @@
     "by_recovery_status": {
       "partial": 2,
       "researched": 1,
-      "semantic": 112,
-      "unrecovered": 64
+      "semantic": 113,
+      "unrecovered": 63
     }
   },
   "integration_gates": {
@@ -195,19 +195,6 @@
       "source": "unrecovered",
       "reachable_callers": 7,
       "impact_score": 700528
-    },
-    {
-      "address": "0x0042AB20",
-      "symbol": "FUN_0042ab20",
-      "size": 400,
-      "distance_from_root": 4,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 7,
-      "impact_score": 700400
     },
     {
       "address": "0x0044B360",
@@ -371,6 +358,19 @@
       "size": 416,
       "distance_from_root": 4,
       "direct_internal_callees": 2,
+      "dynamic_call_sites": 0,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400416
+    },
+    {
+      "address": "0x0040C540",
+      "symbol": "FUN_0040c540",
+      "size": 416,
+      "distance_from_root": 4,
+      "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
       "recovery_status": "unrecovered",
       "source_ready": false,
@@ -893,9 +893,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/linked_pool_release.cpp"
     },
     {
       "address": "0x0042B1E0",
