@@ -21,6 +21,7 @@ void EmitEvent(void* context, int event, int value) {
     static_cast<ServiceLog*>(context)->event = event * 1000 + value;
 }
 float FixedRandom(void*) { return 0.25f; }
+int FixedIntegerRandom(void*, int bound) { return bound - 1; }
 
 struct TestResolver : EntityScriptResolver {
     int integers[4];
@@ -193,7 +194,8 @@ int main() {
 
     ServiceLog log = {-1, -1, -1};
     EntityScriptServices services = {
-        ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom
+        ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom,
+        FixedIntegerRandom
     };
     assert(EntityScript_InvokeService(&services, 0, 12) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
@@ -235,6 +237,19 @@ int main() {
     assert(EntityScript_ExecuteOne(&random_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(resolver.floats[1] == 0.25f);
+
+    EntityScriptInstruction integer_random_instruction = {};
+    integer_random_instruction.opcode = 0x28;
+    integer_random_instruction.size = sizeof(EntityScriptInstruction);
+    integer_random_instruction.destination = 2;
+    integer_random_instruction.operand = 9;
+    EntityScriptCursor integer_random_cursor = {
+        reinterpret_cast<const unsigned char*>(&integer_random_instruction),
+        sizeof(integer_random_instruction), 0, false, {}, 0, &services
+    };
+    assert(EntityScript_ExecuteOne(&integer_random_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(resolver.integers[2] == 8);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;
