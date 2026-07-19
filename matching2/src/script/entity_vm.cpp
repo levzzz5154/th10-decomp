@@ -93,7 +93,8 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         instruction->opcode == ENTITY_SCRIPT_BRANCH_NONZERO) {
         const int relative = (int)instruction->operand;
         if (instruction->opcode == ENTITY_SCRIPT_BRANCH_NONZERO &&
-            relative == 0)
+            resolver->ResolveInteger((unsigned short)instruction->destination,
+                (instruction->flags & ENTITY_SCRIPT_DESTINATION_INDIRECT) != 0) == 0)
             cursor->offset += instruction->size;
         else {
             if (instruction->opcode == ENTITY_SCRIPT_CALL) {

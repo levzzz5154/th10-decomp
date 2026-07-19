@@ -197,5 +197,28 @@ int main() {
     assert(EntityScript_ExecuteOne(&call_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_FINISHED);
     assert(call_cursor.halted);
+    EntityScriptInstruction branch[3] = {};
+    branch[0].opcode = ENTITY_SCRIPT_BRANCH_NONZERO;
+    branch[0].size = sizeof(EntityScriptInstruction);
+    branch[0].destination = 1;
+    branch[0].flags = ENTITY_SCRIPT_DESTINATION_INDIRECT;
+    branch[0].operand = sizeof(EntityScriptInstruction) * 2;
+    branch[1].opcode = ENTITY_SCRIPT_END;
+    branch[1].size = sizeof(EntityScriptInstruction);
+    branch[2].opcode = ENTITY_SCRIPT_END;
+    branch[2].size = sizeof(EntityScriptInstruction);
+    EntityScriptCursor branch_cursor = {
+        reinterpret_cast<const unsigned char*>(branch), sizeof(branch), 0,
+        false, {}, 0, &services
+    };
+    resolver.integers[1] = 0;
+    assert(EntityScript_ExecuteOne(&branch_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(branch_cursor.offset == sizeof(EntityScriptInstruction));
+    branch_cursor.offset = 0;
+    resolver.integers[1] = 1;
+    assert(EntityScript_ExecuteOne(&branch_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(branch_cursor.offset == sizeof(EntityScriptInstruction) * 2);
     return 0;
 }
