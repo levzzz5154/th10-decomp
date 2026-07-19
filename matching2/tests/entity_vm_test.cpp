@@ -93,6 +93,18 @@ int main() {
            ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO && floating == 4.0f);
     assert(EntityScript_ApplyFloatArithmetic(99, &floating, 1.0f) ==
            ENTITY_SCRIPT_STEP_UNSUPPORTED);
+    assert(EntityScript_ApplyBinaryInteger(0x12, &integer, 7, 5) ==
+           ENTITY_SCRIPT_STEP_APPLIED && integer == 12);
+    assert(EntityScript_ApplyBinaryInteger(0x14, &integer, 7, 5) ==
+           ENTITY_SCRIPT_STEP_APPLIED && integer == 2);
+    assert(EntityScript_ApplyBinaryInteger(0x16, &integer, 7, 5) ==
+           ENTITY_SCRIPT_STEP_APPLIED && integer == 35);
+    assert(EntityScript_ApplyBinaryFloat(0x13, &floating, 7.0f, 5.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 12.0f);
+    assert(EntityScript_ApplyBinaryFloat(0x15, &floating, 7.0f, 5.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 2.0f);
+    assert(EntityScript_ApplyBinaryFloat(0x17, &floating, 7.0f, 5.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 35.0f);
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;

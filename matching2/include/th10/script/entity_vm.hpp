@@ -75,6 +75,10 @@ EntityScriptStepResult EntityScript_ApplyIntegerArithmetic(
     int opcode, int* destination, int operand);
 EntityScriptStepResult EntityScript_ApplyFloatArithmetic(
     int opcode, float* destination, float operand);
+EntityScriptStepResult EntityScript_ApplyBinaryInteger(
+    int opcode, int* destination, int left, int right);
+EntityScriptStepResult EntityScript_ApplyBinaryFloat(
+    int opcode, float* destination, float left, float right);
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
 EntityScriptStepResult EntityScript_JumpRelative(

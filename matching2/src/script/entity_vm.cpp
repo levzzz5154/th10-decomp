@@ -61,6 +61,30 @@ EntityScriptStepResult EntityScript_ApplyFloatArithmetic(
     return ENTITY_SCRIPT_STEP_APPLIED;
 }
 
+EntityScriptStepResult EntityScript_ApplyBinaryInteger(
+    int opcode, int* destination, int left, int right) {
+    if (destination == 0) return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    switch (opcode) {
+    case 0x12: *destination = left + right; break;
+    case 0x14: *destination = left - right; break;
+    case 0x16: *destination = left * right; break;
+    default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    }
+    return ENTITY_SCRIPT_STEP_APPLIED;
+}
+
+EntityScriptStepResult EntityScript_ApplyBinaryFloat(
+    int opcode, float* destination, float left, float right) {
+    if (destination == 0) return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    switch (opcode) {
+    case 0x13: *destination = left + right; break;
+    case 0x15: *destination = left - right; break;
+    case 0x17: *destination = left * right; break;
+    default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+    }
+    return ENTITY_SCRIPT_STEP_APPLIED;
+}
+
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver) {
     if (cursor == 0 || resolver == 0 || cursor->stream == 0)
