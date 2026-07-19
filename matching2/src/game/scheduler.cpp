@@ -73,7 +73,7 @@ SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
     callback->flags &= ~1u;
     callback->function = function;
     callback->onReplace = 0;
-    callback->reserved = 0;
+    callback->onResultSeven = 0;
     callback->node.owner = callback;
     callback->node.next = 0;
     callback->node.previous = 0;
@@ -234,8 +234,8 @@ static int Scheduler_RunList(void* device, unsigned int listOffset) {
             node = (SchedulerNode*)((unsigned char*)device + listOffset);
             continue;
         }
-        if (callbackResult == 7 && callback->reserved != 0)
-            ((SchedulerFunction)callback->reserved)(callback->owner);
+        if (callbackResult == 7 && callback->onResultSeven != 0)
+            callback->onResultSeven(callback->owner);
         node = currentNode;
         ++resultCount;
     }

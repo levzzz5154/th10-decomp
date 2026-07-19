@@ -119,7 +119,7 @@ GameState* GameState_Construct(GameState* gameState) {
 //   Copy 0x46 dwords from DAT_00491d7c to state+0x2A4C
 //   Set default render params (300.0f, 0.0f, 600.0f, 600.0f, etc.)
 //   state+0x1EE0 = 0x4B12A310 (frame timer)
-//   Create 3 callback handles via FUN_00449ED0
+//   Create 3 callback handles via SchedulerCallback_Create (0x00449ED0)
 //   Initialize scheduler chain at state+0x38..0x48
 //   state+0x2A18 |= 1; state+0x94 = 0; state+0xE0 = 0
 // ============================================================================

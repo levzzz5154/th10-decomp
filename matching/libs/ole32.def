@@ -1,5 +1,0 @@
-LIBRARY ole32.dll
-EXPORTS
-  CoUninitialize
-  CoCreateInstance
-  CoInitialize

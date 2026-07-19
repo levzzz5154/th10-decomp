@@ -525,6 +525,42 @@ static bool TestRetailCryptParameterTable() {
             &g_dat_crypt_params[Dat_GetCryptParamIndex("a")];
 }
 
+static bool TestRetailCryptLeaves() {
+    uint8_t decoded[6] = {10, 20, 30, 40, 50, 60};
+    Dat_Decrypt(decoded, sizeof(decoded), 0x10, 1, 4, sizeof(decoded));
+    const uint8_t expected[6] = {0x3B, 0x05, 0x0C, 0x1A, 0x29, 0x26};
+    for (uint32_t index = 0; index < sizeof(decoded); ++index) {
+        if (decoded[index] != expected[index]) return false;
+    }
+    Dat_Encrypt(decoded, sizeof(decoded), 0x10, 1, 4, sizeof(decoded));
+    for (uint32_t index = 0; index < sizeof(decoded); ++index) {
+        if (decoded[index] != (uint8_t)((index + 1) * 10)) return false;
+    }
+
+    uint8_t parity_edge[69];
+    for (uint32_t index = 0; index < sizeof(parity_edge); ++index)
+        parity_edge[index] = (uint8_t)index;
+    Dat_Decrypt(parity_edge, sizeof(parity_edge), 0, 0, 64,
+                sizeof(parity_edge));
+    if (parity_edge[62] != 0 || parity_edge[63] != 63 ||
+        parity_edge[68] != 68) return false;
+
+    uint8_t round_trip[0x123];
+    uint8_t original[sizeof(round_trip)];
+    for (uint32_t index = 0; index < sizeof(round_trip); ++index) {
+        round_trip[index] = (uint8_t)(index * 13 + 7);
+        original[index] = round_trip[index];
+    }
+    Dat_Encrypt(round_trip, sizeof(round_trip), 0x3D, 0x7A, 0x80, 0x400);
+    Dat_Encrypt(round_trip, sizeof(round_trip), 0xAA, 0xE1, 0x400, 0x1000);
+    Dat_Decrypt(round_trip, sizeof(round_trip), 0xAA, 0xE1, 0x400, 0x1000);
+    Dat_Decrypt(round_trip, sizeof(round_trip), 0x3D, 0x7A, 0x80, 0x400);
+    for (uint32_t index = 0; index < sizeof(round_trip); ++index) {
+        if (round_trip[index] != original[index]) return false;
+    }
+    return true;
+}
+
 static void EncryptBlockForTest(
         const uint8_t* plain,
         uint8_t* encrypted,
@@ -778,6 +814,9 @@ int main() {
     }
     if (!TestRetailCryptParameterTable()) {
         return 7;
+    }
+    if (!TestRetailCryptLeaves()) {
+        return 21;
     }
     if (!TestEntryDataDecode()) {
         return 8;

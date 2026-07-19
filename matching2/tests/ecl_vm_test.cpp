@@ -14,7 +14,18 @@ extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
 extern "C" void AnimationManager_SetEclFlag(void) {}
 extern "C" void AnimationManager_ClearEclFlag(void) {}
 static int g_difficulty_action = -1;
+static int g_string_index;
+static char g_string_text[256];
+static unsigned int g_string_length;
 extern "C" void ECL_SetTimerTarget(int value) { g_difficulty_action = value; }
+
+static void CaptureEncryptedString(int index, const char* text,
+                                   unsigned int length) {
+    g_string_index = index;
+    g_string_length = length;
+    std::memcpy(g_string_text, text, length);
+    g_string_text[length] = '\0';
+}
 
 namespace {
 
@@ -107,6 +118,22 @@ void TestEncryptedStringTransform() {
     assert(std::strcmp(encrypted, plaintext) == 0);
     ECL_DecodeEncryptedString(decoded, encrypted, 0);
     assert(decoded[0] == plaintext[0]);
+
+    char encoded_again[sizeof(plaintext)] = {};
+    key = 0x77;
+    step = 7;
+    for (unsigned int index = 0; index != sizeof(plaintext) - 1; ++index) {
+        encoded_again[index] = (char)((unsigned char)plaintext[index] ^ key);
+        key = (key + step) & 0xFF;
+        step = (step + 0x10) & 0xFF;
+    }
+    g_string_index = -1;
+    ECL_ExecuteEncryptedStringOpcode(0x165, 20, 3, encoded_again,
+                                      (unsigned int)(sizeof(plaintext) - 1),
+                                      CaptureEncryptedString);
+    assert(g_string_index == 23);
+    assert(g_string_length == sizeof(plaintext) - 1);
+    assert(std::strcmp(g_string_text, plaintext) == 0);
 }
 
 void TestScratchStackHelpers() {
@@ -194,7 +221,9 @@ void TestTypedStackPops() {
 }
 
 void TestRecoveredLeafDispatcher() {
+    assert(ECL_VM_Dispatch(0) == 0);
     uint8_t entity[0x1600] = {};
+    assert(ECL_VM_Dispatch(entity) == 0);
     uint8_t state_bytes[0x20] = {};
     ECLVMState* state = (ECLVMState*)state_bytes;
     CursorFixture fixture;
@@ -329,6 +358,106 @@ void TestRecoveredLeafDispatcher() {
     g_difficulty_action = -1;
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(g_difficulty_action == 27);
+    fixture.instruction.instruction.opcode = 0x158;
+    fixture.Operands()[0] = 9;
+    *(int32_t*)((uint8_t*)entity + 0x44) = 3;
+    *(uint32_t*)((uint8_t*)entity + 0x4c) = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)((uint8_t*)entity + 0x44) == 9);
+    assert(*(uint32_t*)((uint8_t*)entity + 0x4c) == 0);
+    fixture.instruction.instruction.opcode = 0x14e;
+    fixture.Operands()[0] = 2;
+    fixture.Operands()[1] = 17;
+    fixture.Operands()[2] = 0x12345678u;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)((uint8_t*)entity + 0x2494 + 2 * 0x10) == 17);
+    assert(*(uint32_t*)((uint8_t*)entity + 0x2498 + 2 * 0x10) == 0x12345678u);
+    fixture.instruction.instruction.opcode = 0x14c;
+    fixture.Operands()[0] = 3;
+    void* vm_marker = state;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)((uint8_t*)entity + 0x1444) & 0x8000u) != 0);
+    assert(*(int32_t*)((uint8_t*)entity + 0x1450) == 3);
+    assert(*(uint32_t*)((uint8_t*)manager + 0x10 + 3 * 4) ==
+           static_cast<uint32_t>(reinterpret_cast<unsigned long long>(vm_marker)));
+    fixture.Operands()[0] = (uint32_t)-1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)((uint8_t*)entity + 0x1444) & 0x8000u) == 0);
+    fixture.instruction.instruction.opcode = 0x128;
+    fixture.Operands()[0] = FloatBits(1.5f);
+    fixture.Operands()[1] = FloatBits(-2.0f);
+    fixture.Operands()[2] = FloatBits(3.25f);
+    *(float*)(entity + 0x58) = 10.0f;
+    *(float*)(entity + 0x5c) = 20.0f;
+    *(float*)(entity + 0x60) = 30.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x58) == 11.5f);
+    assert(*(float*)(entity + 0x5c) == 18.0f);
+    assert(*(float*)(entity + 0x60) == 33.25f);
+    fixture.instruction.instruction.opcode = 0x129;
+    fixture.Operands()[0] = FloatBits(-1.0f);
+    fixture.Operands()[1] = FloatBits(2.0f);
+    fixture.Operands()[2] = FloatBits(-3.0f);
+    *(float*)(entity + 0x84) = 4.0f;
+    *(float*)(entity + 0x88) = 5.0f;
+    *(float*)(entity + 0x8c) = 6.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x84) == 3.0f);
+    assert(*(float*)(entity + 0x88) == 7.0f);
+    assert(*(float*)(entity + 0x8c) == 3.0f);
+    fixture.instruction.instruction.opcode = 0x127;
+    uint8_t manager_state[0x1080] = {};
+    *(void**)(manager + 0x10) = manager_state;
+    *(float*)(manager_state + 0x1068) = 7.0f;
+    *(float*)(manager_state + 0x106c) = -8.0f;
+    *(float*)(manager_state + 0x1070) = 9.5f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x84) == 7.0f);
+    assert(*(float*)(entity + 0x88) == -8.0f);
+    assert(*(float*)(entity + 0x8c) == 9.5f);
+    fixture.instruction.instruction.opcode = 0x126;
+    *(float*)(manager_state + 0x1068) = -10.0f;
+    *(float*)(manager_state + 0x106c) = 11.0f;
+    *(float*)(manager_state + 0x1070) = -12.5f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x58) == -10.0f);
+    assert(*(float*)(entity + 0x5c) == 11.0f);
+    assert(*(float*)(entity + 0x60) == -12.5f);
+    fixture.instruction.instruction.opcode = 0x12a;
+    fixture.Operands()[0] = FloatBits(2.25f);
+    fixture.Operands()[1] = FloatBits(-4.5f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x64) == 2.25f);
+    assert(*(float*)(entity + 0x68) == -4.5f);
+    fixture.instruction.instruction.opcode = 0x12b;
+    fixture.Operands()[0] = FloatBits(-6.0f);
+    fixture.Operands()[1] = FloatBits(8.0f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x90) == -6.0f);
+    assert(*(float*)(entity + 0x94) == 8.0f);
+    fixture.instruction.instruction.opcode = 0x120;
+    fixture.Operands()[0] = FloatBits(1.0f);
+    fixture.Operands()[1] = FloatBits(2.0f);
+    fixture.Operands()[2] = FloatBits(3.0f);
+    fixture.Operands()[3] = FloatBits(4.0f);
+    *(uint32_t*)(entity + 0x80) = 0;
+    *(float*)(entity + 0x58) = 20.0f;
+    *(float*)(entity + 0x5c) = 21.0f;
+    *(float*)(entity + 0x60) = 22.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x64) == 20.0f);
+    assert(*(float*)(entity + 0x68) == 21.0f);
+    assert(*(float*)(entity + 0x6c) == 22.0f);
+    assert(*(float*)(entity + 0x70) == 2.0f);
+    assert(*(float*)(entity + 0x78) == 3.0f);
+    assert(*(float*)(entity + 0x7c) == 4.0f);
+    fixture.instruction.instruction.opcode = 0x122;
+    fixture.Operands()[0] = FloatBits(0.0f);
+    fixture.Operands()[1] = FloatBits(0.0f);
+    fixture.Operands()[2] = FloatBits(5.0f);
+    fixture.Operands()[3] = FloatBits(0.0f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0xa4) == 5.0f);
     g_pGameStateManager = 0;
 }
 

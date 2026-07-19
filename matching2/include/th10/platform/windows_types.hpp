@@ -80,6 +80,15 @@ struct PROCESS_INFORMATION {
     DWORD dwThreadId;
 };
 
+struct OSVERSIONINFOA {
+    DWORD dwOSVersionInfoSize;
+    DWORD dwMajorVersion;
+    DWORD dwMinorVersion;
+    DWORD dwBuildNumber;
+    DWORD dwPlatformId;
+    char  szCSDVersion[128];
+};
+
 #define NULL    0
 #define TRUE    1
 #define FALSE   0

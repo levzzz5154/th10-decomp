@@ -241,8 +241,8 @@ int Player_HitTest(Player* player, const float* bulletPos) {
 //   if (player+0x28 == 1):
 //     Play sound, update timer
 //     Adjust speed based on character/focus state
-//     Call FUN_004492F0 (animation update)
-//     Call FUN_00405AC0 (draw)
+//     Call AnimationManager_SetPosition (0x004492F0, animation update)
+//     Call Player_Draw (0x00405AC0)
 //   Call Timer_Tick (advance frame timer)
 // ============================================================================
 int Player_Update(Player* player) {
@@ -293,13 +293,13 @@ int Player_Update(Player* player) {
 // 0x00405AC0 - Player_Draw: Render the player sprite
 // The retail body received the player in ESI; the clean interface uses a
 // normal typed argument.
-// Calls FUN_00408100 with hitbox radius and flags
+// Calls EnemyManager_CheckPlayerCollision (0x00408100) with hitbox radius and flags.
 //
 // Ghidra decompilation:
 //   if (player+0x28 != 0):
 //     Determine focus state
-//     FUN_00408100(hitbox, ~flags & 1, focused)
-//     FUN_0041C800()
+//     EnemyManager_CheckPlayerCollision(hitbox, ~flags & 1, focused)
+//     ScoreRecords_CopyVectorAndEvaluate (0x0041C800)
 // ============================================================================
 int Player_Draw(Player* player) {
     if (player->activeState != 0) {

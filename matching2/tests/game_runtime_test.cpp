@@ -2,6 +2,8 @@
 #include "th10/math/vector.hpp"
 #include "th10/math/rng.hpp"
 #include "th10/math/angle.hpp"
+#include "th10/math/easing.hpp"
+#include "th10/math/random_vector.hpp"
 #include "th10/game/menu.hpp"
 #include "th10/game/progress.hpp"
 #include "th10/render/animation_manager.hpp"
@@ -698,6 +700,9 @@ static void TestRngSequence();
 static void TestAngleNormalize();
 static void TestMenuCursorAdvance();
 static void TestGameProgressRecords();
+static void TestEasingEvaluate();
+static void TestAnimationResourceBatchRelease();
+static void TestRandomVectorAndEmbeddedTimer();
 
 int main() {
     TestFrameTimer();
@@ -722,6 +727,9 @@ int main() {
     TestAngleNormalize();
     TestMenuCursorAdvance();
     TestGameProgressRecords();
+    TestEasingEvaluate();
+    TestAnimationResourceBatchRelease();
+    TestRandomVectorAndEmbeddedTimer();
     return 0;
 }
 
@@ -933,4 +941,64 @@ static void TestGameProgressRecords() {
         assert(progress[base + 1] == 0);
         assert(progress[base + 6 * 8] == 0);
     }
+}
+
+static void TestEasingEvaluate() {
+    assert(Easing_Evaluate(1, 1.0f, 2.0f) == 0.25f);
+    assert(Easing_Evaluate(2, 1.0f, 2.0f) == 0.125f);
+    assert(Easing_Evaluate(3, 1.0f, 2.0f) == 0.0625f);
+    assert(Easing_Evaluate(4, 0.5f, 1.0f) == 0.75f);
+    assert(Easing_Evaluate(5, 0.5f, 1.0f) == 0.875f);
+    assert(Easing_Evaluate(6, 0.5f, 1.0f) == 0.9375f);
+    assert(Easing_Evaluate(9, 0.25f, 1.0f) == 0.125f);
+    assert(Easing_Evaluate(9, 0.75f, 1.0f) == 0.875f);
+    assert(Easing_Evaluate(12, 0.25f, 1.0f) == 0.375f);
+    assert(Easing_Evaluate(12, 0.75f, 1.0f) == 0.625f);
+    assert(Easing_Evaluate(15, 3.0f, 4.0f) == 0.0f);
+    assert(Easing_Evaluate(16, 3.0f, 4.0f) == 1.0f);
+    assert(Easing_Evaluate(0, 3.0f, 4.0f) == 0.75f);
+}
+
+static int g_batch_prepare;
+static int g_batch_releases;
+static int g_batch_frees;
+static void BatchPrepare(void*, void*) { ++g_batch_prepare; }
+static void BatchRelease(void*) { ++g_batch_releases; }
+static void BatchFree(void*) { ++g_batch_frees; }
+
+static void TestAnimationResourceBatchRelease() {
+    AnimationResourceBatchEntry entries[2] = {
+        {(void*)1, (void*)2}, {(void*)3, (void*)4}
+    };
+    AnimationResourceBatch batch = {
+        (void*)5, entries, 2, (void*)6, (void*)7, (void*)8
+    };
+    g_batch_prepare = g_batch_releases = g_batch_frees = 0;
+    AnimationManager_ReleaseResourceBatch(&batch, (void*)9, BatchPrepare,
+                                          BatchRelease, BatchFree);
+    assert(g_batch_prepare == 1 && g_batch_releases == 2 &&
+           g_batch_frees == 6 && batch.active == 0 && batch.entries == 0 &&
+           batch.auxiliary_a == 0 && batch.auxiliary_b == 0 &&
+           batch.auxiliary_c == 0 && entries[0].resource == 0 &&
+           entries[1].allocation == 0);
+    AnimationManager_ReleaseResourceBatch(&batch, (void*)9, BatchPrepare,
+                                          BatchRelease, BatchFree);
+    assert(g_batch_prepare == 1 && g_batch_frees == 6);
+}
+
+static void TestRandomVectorAndEmbeddedTimer() {
+    int lanes[3] = {0, 0, 0};
+    RandomVector_StoreRoundedScalar(lanes, 2.49);
+    assert(lanes[0] == 2 && lanes[1] == 2 && lanes[2] == 2);
+    RandomVector_StoreRoundedScalar(lanes, -2.51);
+    assert(lanes[0] == -3 && lanes[1] == -3 && lanes[2] == -3);
+
+    float speed = 1.0f;
+    EmbeddedTimerState timer = {7, 8, 9, 0, 0};
+    EmbeddedTimer_Reset(&timer, &speed);
+    assert(timer.target == -1 && timer.current == 0 && timer.previous == 0 &&
+           timer.speed == &speed && (timer.flags & 1u) != 0);
+    timer.target = 42;
+    EmbeddedTimer_Reset(&timer, &speed);
+    assert(timer.target == -1 && timer.current == 0 && timer.previous == 0);
 }

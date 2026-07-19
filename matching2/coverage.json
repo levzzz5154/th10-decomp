@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 236,
-        "retail_bytes": 43529
+        "function_count": 329,
+        "retail_bytes": 56665
       },
       "exact-overlay": {
         "function_count": 33,
@@ -23,27 +23,27 @@
         "minimum_size": 0,
         "maximum_size_exclusive": 64,
         "tracked_functions": 52,
-        "implemented_functions": 38,
+        "implemented_functions": 50,
         "tracked_bytes": 1961,
-        "implemented_bytes": 1488
+        "implemented_bytes": 1888
       },
       {
         "name": "small",
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 160,
+        "implemented_functions": 232,
         "tracked_bytes": 47943,
-        "implemented_bytes": 20617
+        "implemented_bytes": 30121
       },
       {
         "name": "medium",
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 49,
+        "implemented_functions": 58,
         "tracked_bytes": 123584,
-        "implemented_bytes": 18416
+        "implemented_bytes": 21648
       },
       {
         "name": "large",
@@ -94,8 +94,8 @@
       "address": "0x00401520",
       "symbol": "FUN_00401520",
       "size": 16,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00401530",
@@ -257,8 +257,8 @@
       "address": "0x00404530",
       "symbol": "FUN_00404530",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004045B0",
@@ -292,8 +292,8 @@
       "address": "0x00404DA0",
       "symbol": "FUN_00404da0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00404E10",
@@ -320,15 +320,15 @@
       "address": "0x00405040",
       "symbol": "FUN_00405040",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004050D0",
       "symbol": "FUN_004050d0",
       "size": 560,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
     },
     {
       "address": "0x00405300",
@@ -362,22 +362,22 @@
       "address": "0x004055C0",
       "symbol": "FUN_004055c0",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00405620",
       "symbol": "FUN_00405620",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004056B0",
       "symbol": "FUN_004056b0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00405750",
@@ -609,8 +609,8 @@
       "address": "0x00408100",
       "symbol": "FUN_00408100",
       "size": 272,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "researched",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00408210",
@@ -849,8 +849,8 @@
       "address": "0x0040B940",
       "symbol": "FUN_0040b940",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040B9D0",
@@ -863,8 +863,8 @@
       "address": "0x0040B9F0",
       "symbol": "FUN_0040b9f0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BA90",
@@ -877,8 +877,8 @@
       "address": "0x0040BD20",
       "symbol": "FUN_0040bd20",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BD80",
@@ -933,8 +933,8 @@
       "address": "0x0040C9A0",
       "symbol": "FUN_0040c9a0",
       "size": 48,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040C9D0",
@@ -947,8 +947,8 @@
       "address": "0x0040CC50",
       "symbol": "FUN_0040cc50",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040CC70",
@@ -1083,8 +1083,8 @@
       "address": "0x00412720",
       "symbol": "FUN_00412720",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004127A0",
@@ -1111,8 +1111,8 @@
       "address": "0x00412AA0",
       "symbol": "FUN_00412aa0",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412AC0",
@@ -1125,8 +1125,8 @@
       "address": "0x00412DB0",
       "symbol": "FUN_00412db0",
       "size": 192,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412E70",
@@ -1139,8 +1139,8 @@
       "address": "0x00412ED0",
       "symbol": "FUN_00412ed0",
       "size": 288,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412FF0",
@@ -1153,22 +1153,22 @@
       "address": "0x00413170",
       "symbol": "FUN_00413170",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413200",
       "symbol": "FUN_00413200",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413270",
       "symbol": "FUN_00413270",
       "size": 224,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413350",
@@ -1181,8 +1181,8 @@
       "address": "0x00413450",
       "symbol": "FUN_00413450",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004134B0",
@@ -1209,8 +1209,8 @@
       "address": "0x00413790",
       "symbol": "FUN_00413790",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413810",
@@ -1251,8 +1251,8 @@
       "address": "0x00414570",
       "symbol": "FUN_00414570",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004145F0",
@@ -1335,15 +1335,15 @@
       "address": "0x00417770",
       "symbol": "FUN_00417770",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417800",
       "symbol": "FUN_00417800",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417870",
@@ -1384,15 +1384,15 @@
       "address": "0x00418810",
       "symbol": "FUN_00418810",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004188A0",
       "symbol": "FUN_004188a0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418930",
@@ -1405,8 +1405,8 @@
       "address": "0x00418A00",
       "symbol": "FUN_00418a00",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418A90",
@@ -1462,15 +1462,15 @@
       "address": "0x00419040",
       "symbol": "FUN_00419040",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419090",
       "symbol": "FUN_00419090",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419120",
@@ -1490,15 +1490,15 @@
       "address": "0x004198A0",
       "symbol": "FUN_004198a0",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004198C0",
       "symbol": "FUN_004198c0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419960",
@@ -1518,15 +1518,15 @@
       "address": "0x0041A050",
       "symbol": "FUN_0041a050",
       "size": 80,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A0A0",
       "symbol": "FUN_0041a0a0",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A120",
@@ -1546,8 +1546,8 @@
       "address": "0x0041AB10",
       "symbol": "FUN_0041ab10",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041AB70",
@@ -1569,8 +1569,8 @@
       "address": "0x0041AD90",
       "symbol": "FUN_0041ad90",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041ADF0",
@@ -1800,22 +1800,22 @@
       "address": "0x0041F850",
       "symbol": "FUN_0041f850",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F8D0",
       "symbol": "FUN_0041f8d0",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F930",
       "symbol": "FUN_0041f930",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F990",
@@ -1828,8 +1828,8 @@
       "address": "0x0041FAC0",
       "symbol": "FUN_0041fac0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041FB50",
@@ -1877,15 +1877,15 @@
       "address": "0x004203C0",
       "symbol": "FUN_004203c0",
       "size": 48,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/win32_timer.cpp"
     },
     {
       "address": "0x004203F0",
       "symbol": "FUN_004203f0",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420470",
@@ -1912,8 +1912,8 @@
       "address": "0x00420A90",
       "symbol": "FUN_00420a90",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420B10",
@@ -2031,8 +2031,8 @@
       "address": "0x00421F00",
       "symbol": "FUN_00421f00",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00421F60",
@@ -2052,8 +2052,8 @@
       "address": "0x004220E0",
       "symbol": "FUN_004220e0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422150",
@@ -2073,8 +2073,8 @@
       "address": "0x00422360",
       "symbol": "FUN_00422360",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004223F0",
@@ -2101,8 +2101,8 @@
       "address": "0x00422A90",
       "symbol": "FUN_00422a90",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422AB0",
@@ -2143,8 +2143,8 @@
       "address": "0x00423510",
       "symbol": "FUN_00423510",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00423570",
@@ -2164,8 +2164,8 @@
       "address": "0x004243F0",
       "symbol": "FUN_004243f0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00424480",
@@ -2213,8 +2213,8 @@
       "address": "0x00425020",
       "symbol": "FUN_00425020",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004250B0",
@@ -2297,8 +2297,8 @@
       "address": "0x00427950",
       "symbol": "FUN_00427950",
       "size": 16,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427960",
@@ -2311,8 +2311,8 @@
       "address": "0x00427AE0",
       "symbol": "FUN_00427ae0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427B50",
@@ -2353,8 +2353,8 @@
       "address": "0x00428160",
       "symbol": "FUN_00428160",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004281D0",
@@ -2437,8 +2437,8 @@
       "address": "0x004297B0",
       "symbol": "FUN_004297b0",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004297D0",
@@ -2479,8 +2479,8 @@
       "address": "0x0042A8A0",
       "symbol": "FUN_0042a8a0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042A930",
@@ -2514,8 +2514,8 @@
       "address": "0x0042ADD0",
       "symbol": "FUN_0042add0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042AE60",
@@ -2570,8 +2570,8 @@
       "address": "0x0042B660",
       "symbol": "FUN_0042b660",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042B6F0",
@@ -2619,15 +2619,15 @@
       "address": "0x0042C670",
       "symbol": "FUN_0042c670",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C6D0",
       "symbol": "FUN_0042c6d0",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C730",
@@ -3641,8 +3641,8 @@
       "address": "0x0043BC40",
       "symbol": "FUN_0043bc40",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043BCD0",
@@ -3697,8 +3697,8 @@
       "address": "0x0043C870",
       "symbol": "FUN_0043c870",
       "size": 64,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043C8B0",
@@ -3718,8 +3718,8 @@
       "address": "0x0043CB00",
       "symbol": "FUN_0043cb00",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043CB80",
@@ -3781,8 +3781,8 @@
       "address": "0x0043D790",
       "symbol": "FUN_0043d790",
       "size": 64,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043D7D0",
@@ -3936,22 +3936,22 @@
       "address": "0x00441E50",
       "symbol": "FUN_00441e50",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/random_vector.cpp"
     },
     {
       "address": "0x00441EF0",
       "symbol": "FUN_00441ef0",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00441F50",
       "symbol": "FUN_00441f50",
       "size": 256,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442050",
@@ -3964,15 +3964,15 @@
       "address": "0x00442220",
       "symbol": "FUN_00442220",
       "size": 224,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442300",
       "symbol": "FUN_00442300",
       "size": 192,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004423C0",
@@ -4006,8 +4006,8 @@
       "address": "0x00442F50",
       "symbol": "FUN_00442f50",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442FE0",
@@ -4182,8 +4182,8 @@
       "address": "0x00446EB0",
       "symbol": "FUN_00446eb0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00446F40",
@@ -4210,8 +4210,8 @@
       "address": "0x00447280",
       "symbol": "FUN_00447280",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004472E0",
@@ -4252,8 +4252,8 @@
       "address": "0x00447810",
       "symbol": "FUN_00447810",
       "size": 304,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00447940",
@@ -4266,15 +4266,15 @@
       "address": "0x004479D0",
       "symbol": "FUN_004479d0",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447A50",
       "symbol": "FUN_00447a50",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447AE0",
@@ -4672,15 +4672,15 @@
       "address": "0x0044B0D0",
       "symbol": "FUN_0044b0d0",
       "size": 336,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/archive/crypt.cpp"
     },
     {
       "address": "0x0044B220",
       "symbol": "FUN_0044b220",
       "size": 320,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/archive/crypt.cpp"
     },
     {
       "address": "0x0044B360",
@@ -4700,8 +4700,8 @@
       "address": "0x0044B540",
       "symbol": "FUN_0044b540",
       "size": 224,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B620",
@@ -4742,15 +4742,15 @@
       "address": "0x0044B810",
       "symbol": "FUN_0044b810",
       "size": 208,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B8E0",
       "symbol": "FUN_0044b8e0",
       "size": 256,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B9E0",
@@ -4798,8 +4798,8 @@
       "address": "0x0044BD10",
       "symbol": "FUN_0044bd10",
       "size": 272,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044BE20",
@@ -4868,8 +4868,8 @@
       "address": "0x0044C350",
       "symbol": "FUN_0044c350",
       "size": 640,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/easing.cpp"
     },
     {
       "address": "0x0044C5D0",
@@ -4903,15 +4903,15 @@
       "address": "0x0044CE80",
       "symbol": "FUN_0044ce80",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF00",
       "symbol": "FUN_0044cf00",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF20",
@@ -4924,8 +4924,8 @@
       "address": "0x0044D080",
       "symbol": "FUN_0044d080",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D110",
@@ -4938,15 +4938,15 @@
       "address": "0x0044D300",
       "symbol": "FUN_0044d300",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D370",
       "symbol": "FUN_0044d370",
       "size": 208,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D440",
@@ -4959,15 +4959,15 @@
       "address": "0x0044D4E0",
       "symbol": "FUN_0044d4e0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D550",
       "symbol": "FUN_0044d550",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D5B0",
@@ -4980,29 +4980,29 @@
       "address": "0x0044D5D0",
       "symbol": "FUN_0044d5d0",
       "size": 48,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D600",
       "symbol": "FUN_0044d600",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D6A0",
       "symbol": "FUN_0044d6a0",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D710",
       "symbol": "FUN_0044d710",
       "size": 32,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D730",
@@ -5036,8 +5036,8 @@
       "address": "0x0044DCA0",
       "symbol": "FUN_0044dca0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044DD40",

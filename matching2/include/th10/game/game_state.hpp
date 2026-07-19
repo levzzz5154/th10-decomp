@@ -7,7 +7,7 @@
 // ============================================================================
 // GameState - 0x2B64 bytes
 // Per-game-state object (menu, playing, pause, etc.)
-// Created by FUN_00402640, destroyed by FUN_00402440
+// Created by GameState_Create (0x00402640), destroyed by GameState_Destroy (0x00402440)
 //
 // Layout:
 // +0x000: flags (bit 1 = constructed)
@@ -47,7 +47,7 @@ struct GameState {
 // ============================================================================
 // GameThread - 0x89AC bytes (0x226B dwords)
 // Main game object, contains all game state
-// Created by FUN_00401440, destroyed by FUN_00401260
+// Created by GameThread_Create (0x00401440), destroyed by GameThread_Destroy (0x00401260)
 //
 // Layout:
 // +0x000: vtable pointer

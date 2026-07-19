@@ -11,3 +11,4 @@ void Platform_DestroyWorker(void* state, void* vtable, unsigned char flags,
                             void (*sleep)(unsigned int),
                             void (*close)(void*), void (*free_memory)(void*));
 int Platform_InvokeInterface(void* state, int (*invoke)(void*));
+int Platform_GetOsVersionCode(void);

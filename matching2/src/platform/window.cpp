@@ -206,7 +206,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 // Ghidra decompilation:
 //   GetStockObject(4)  // NULL_BRUSH
 //   LoadCursorA(NULL, IDC_ARROW)
-//   window_class.lpfnWndProc = FUN_004390e0
+//   window_class.lpfnWndProc = WindowProcedure (0x004390e0)
 //   RegisterClassA(&window_class)
 //   if (fullscreen):
 //     CreateWindowExA(0, "BASE", title, 0x100A0000, ...)

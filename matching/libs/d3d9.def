@@ -1,3 +1,0 @@
-LIBRARY d3d9.dll
-EXPORTS
-  Direct3DCreate9

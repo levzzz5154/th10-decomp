@@ -18,7 +18,8 @@ struct SchedulerCallback {
     unsigned int flags;              // +0x04
     SchedulerFunction function;      // +0x08
     SchedulerFunction onReplace;     // +0x0C
-    void* reserved;                  // +0x10
+    // Optional callback invoked after the primary callback returns 7.
+    SchedulerFunction onResultSeven; // +0x10
     SchedulerNode node;              // +0x14
     void* owner;                     // +0x20
 };

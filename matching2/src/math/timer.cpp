@@ -70,3 +70,18 @@ void GameState_DisableTimerWithOwner(void* state, int owner) {
     *(int*)(bytes + 0x2B8) = 0;
     *(int*)(bytes + 0x2B0) = -1;
 }
+
+// 0x004050D0 - Lazily initialize and then disable the embedded timer at the
+// +0x30 state offset, preserving the retail sentinel and flag transitions.
+void EmbeddedTimer_Reset(EmbeddedTimerState* timer, const float* speed) {
+    if ((timer->flags & 1u) == 0) {
+        timer->current = 0;
+        timer->target = (int)0xFFF0BDC1;
+        timer->previous = 0;
+        timer->speed = speed;
+        timer->flags |= 1u;
+    }
+    timer->current = 0;
+    timer->previous = 0;
+    timer->target = -1;
+}

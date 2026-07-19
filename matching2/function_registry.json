@@ -9,9 +9,9 @@
     "by_recovery_status": {
       "exact-overlay": 14,
       "partial": 3,
-      "researched": 1,
-      "semantic": 236,
-      "unrecovered": 449
+      "researched": 2,
+      "semantic": 329,
+      "unrecovered": 355
     }
   },
   "functions": [
@@ -62,8 +62,8 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401520_FUN_00401520.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00401530",
@@ -296,8 +296,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404530_FUN_00404530.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004045B0",
@@ -346,8 +346,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404DA0_FUN_00404da0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00404E10",
@@ -386,8 +386,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405040_FUN_00405040.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004050D0",
@@ -396,8 +396,8 @@
       "size": 560,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004050D0_FUN_004050d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/timer.cpp"
     },
     {
       "address": "0x00405300",
@@ -446,8 +446,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004055C0_FUN_004055c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00405620",
@@ -456,8 +456,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405620_FUN_00405620.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004056B0",
@@ -466,8 +466,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004056B0_FUN_004056b0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00405750",
@@ -800,8 +800,8 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408100_FUN_00408100.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "researched",
+      "promoted_source": "src/game/player.cpp"
     },
     {
       "address": "0x00408210",
@@ -1144,8 +1144,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B940_FUN_0040b940.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040B9D0",
@@ -1164,8 +1164,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B9F0_FUN_0040b9f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BA90",
@@ -1184,8 +1184,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040BD20_FUN_0040bd20.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BD80",
@@ -1264,8 +1264,8 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C9A0_FUN_0040c9a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040C9D0",
@@ -1284,8 +1284,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040CC50_FUN_0040cc50.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040CC70",
@@ -1479,8 +1479,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412720_FUN_00412720.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004127A0",
@@ -1519,8 +1519,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412AA0_FUN_00412aa0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412AC0",
@@ -1539,8 +1539,8 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412DB0_FUN_00412db0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412E70",
@@ -1559,8 +1559,8 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412ED0_FUN_00412ed0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412FF0",
@@ -1579,8 +1579,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413170_FUN_00413170.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413200",
@@ -1589,8 +1589,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413200_FUN_00413200.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413270",
@@ -1599,8 +1599,8 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413270_FUN_00413270.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413350",
@@ -1619,8 +1619,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413450_FUN_00413450.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004134B0",
@@ -1659,8 +1659,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413790_FUN_00413790.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413810",
@@ -1719,8 +1719,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00414570_FUN_00414570.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004145F0",
@@ -1839,8 +1839,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00417770_FUN_00417770.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417800",
@@ -1849,8 +1849,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00417800_FUN_00417800.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417870",
@@ -1909,8 +1909,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418810_FUN_00418810.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004188A0",
@@ -1919,8 +1919,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004188A0_FUN_004188a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418930",
@@ -1939,8 +1939,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418A00_FUN_00418a00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418A90",
@@ -2020,8 +2020,8 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419040_FUN_00419040.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419090",
@@ -2030,8 +2030,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419090_FUN_00419090.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419120",
@@ -2060,8 +2060,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004198A0_FUN_004198a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004198C0",
@@ -2070,8 +2070,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004198C0_FUN_004198c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419960",
@@ -2100,8 +2100,8 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041A050_FUN_0041a050.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A0A0",
@@ -2110,8 +2110,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041A0A0_FUN_0041a0a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A120",
@@ -2140,8 +2140,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041AB10_FUN_0041ab10.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041AB70",
@@ -2174,8 +2174,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041AD90_FUN_0041ad90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041ADF0",
@@ -2504,8 +2504,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041F850_FUN_0041f850.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F8D0",
@@ -2514,8 +2514,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041F8D0_FUN_0041f8d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F930",
@@ -2524,8 +2524,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041F930_FUN_0041f930.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F990",
@@ -2544,8 +2544,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041FAC0_FUN_0041fac0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041FB50",
@@ -2614,8 +2614,8 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004203C0_FUN_004203c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/win32_timer.cpp"
     },
     {
       "address": "0x004203F0",
@@ -2624,8 +2624,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004203F0_FUN_004203f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420470",
@@ -2664,8 +2664,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420A90_FUN_00420a90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420B10",
@@ -2834,8 +2834,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421F00_FUN_00421f00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00421F60",
@@ -2864,8 +2864,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004220E0_FUN_004220e0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422150",
@@ -2894,8 +2894,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422360_FUN_00422360.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004223F0",
@@ -2934,8 +2934,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422A90_FUN_00422a90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422AB0",
@@ -2994,8 +2994,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00423510_FUN_00423510.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00423570",
@@ -3024,8 +3024,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004243F0_FUN_004243f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00424480",
@@ -3094,8 +3094,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00425020_FUN_00425020.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004250B0",
@@ -3214,8 +3214,8 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427950_FUN_00427950.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427960",
@@ -3234,8 +3234,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427AE0_FUN_00427ae0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427B50",
@@ -3294,8 +3294,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00428160_FUN_00428160.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004281D0",
@@ -3414,8 +3414,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004297B0_FUN_004297b0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004297D0",
@@ -3474,8 +3474,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042A8A0_FUN_0042a8a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042A930",
@@ -3524,8 +3524,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042ADD0_FUN_0042add0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042AE60",
@@ -3604,8 +3604,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042B660_FUN_0042b660.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042B6F0",
@@ -3674,8 +3674,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C670_FUN_0042c670.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C6D0",
@@ -3684,8 +3684,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C6D0_FUN_0042c6d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C730",
@@ -4900,8 +4900,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043BC40_FUN_0043bc40.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043BCD0",
@@ -4980,8 +4980,8 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043C870_FUN_0043c870.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043C8B0",
@@ -5010,8 +5010,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043CB00_FUN_0043cb00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043CB80",
@@ -5100,8 +5100,8 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043D790_FUN_0043d790.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043D7D0",
@@ -5321,8 +5321,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00441E50_FUN_00441e50.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/random_vector.cpp"
     },
     {
       "address": "0x00441EF0",
@@ -5331,8 +5331,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00441EF0_FUN_00441ef0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00441F50",
@@ -5341,8 +5341,8 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00441F50_FUN_00441f50.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442050",
@@ -5361,8 +5361,8 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442220_FUN_00442220.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442300",
@@ -5371,8 +5371,8 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442300_FUN_00442300.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004423C0",
@@ -5421,8 +5421,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442F50_FUN_00442f50.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442FE0",
@@ -5672,8 +5672,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00446EB0_FUN_00446eb0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00446F40",
@@ -5712,8 +5712,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447280_FUN_00447280.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004472E0",
@@ -5772,8 +5772,8 @@
       "size": 304,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447810_FUN_00447810.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00447940",
@@ -5792,8 +5792,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004479D0_FUN_004479d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447A50",
@@ -5802,8 +5802,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447A50_FUN_00447a50.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447AE0",
@@ -6372,8 +6372,8 @@
       "size": 336,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B0D0_FUN_0044b0d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/archive/crypt.cpp"
     },
     {
       "address": "0x0044B220",
@@ -6382,8 +6382,8 @@
       "size": 320,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B220_FUN_0044b220.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/archive/crypt.cpp"
     },
     {
       "address": "0x0044B360",
@@ -6412,8 +6412,8 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B540_FUN_0044b540.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B620",
@@ -6472,8 +6472,8 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B810_FUN_0044b810.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B8E0",
@@ -6482,8 +6482,8 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B8E0_FUN_0044b8e0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B9E0",
@@ -6552,8 +6552,8 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BD10_FUN_0044bd10.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044BE20",
@@ -6652,8 +6652,8 @@
       "size": 640,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C350_FUN_0044c350.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/easing.cpp"
     },
     {
       "address": "0x0044C5D0",
@@ -6702,8 +6702,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044CE80_FUN_0044ce80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF00",
@@ -6712,8 +6712,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044CF00_FUN_0044cf00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF20",
@@ -6732,8 +6732,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D080_FUN_0044d080.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D110",
@@ -6752,8 +6752,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D300_FUN_0044d300.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D370",
@@ -6762,8 +6762,8 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D370_FUN_0044d370.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D440",
@@ -6782,8 +6782,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D4E0_FUN_0044d4e0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D550",
@@ -6792,8 +6792,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D550_FUN_0044d550.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D5B0",
@@ -6812,8 +6812,8 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D5D0_FUN_0044d5d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D600",
@@ -6822,8 +6822,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D600_FUN_0044d600.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D6A0",
@@ -6832,8 +6832,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D6A0_FUN_0044d6a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D710",
@@ -6842,8 +6842,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D710_FUN_0044d710.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D730",
@@ -6892,8 +6892,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DCA0_FUN_0044dca0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044DD40",

@@ -6,6 +6,7 @@ TEST_BUILD="$ROOT/build/tests"
 mkdir -p "$TEST_BUILD"
 
 python3 "$ROOT/tools/function_registry.py" --check
+python3 "$ROOT/tools/standalone_readiness.py" --check
 
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
@@ -41,6 +42,8 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/math/vector.cpp" \
     "$ROOT/src/math/rng.cpp" \
     "$ROOT/src/math/angle.cpp" \
+    "$ROOT/src/math/easing.cpp" \
+    "$ROOT/src/math/random_vector.cpp" \
     "$ROOT/src/game/menu.cpp" \
     "$ROOT/src/game/progress.cpp" \
     "$ROOT/src/game/score.cpp" \
@@ -87,6 +90,8 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/platform/process.cpp" \
+    "$ROOT/src/platform/text_log.cpp" \
+    "$ROOT/src/platform/win32_timer.cpp" \
     "$ROOT/tests/process_test.cpp" \
     -o "$TEST_BUILD/process_test"
 
@@ -95,7 +100,17 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
+    "$ROOT/src/game/recovery_leaves.cpp" \
+    "$ROOT/tests/recovery_leaves_test.cpp" \
+    -o "$TEST_BUILD/recovery_leaves_test"
+
+"$TEST_BUILD/recovery_leaves_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
     "$ROOT/src/script/ecl_vm.cpp" \
+    "$ROOT/src/game/recovery_leaves.cpp" \
     "$ROOT/tests/ecl_vm_test.cpp" \
     -o "$TEST_BUILD/ecl_vm_test"
 

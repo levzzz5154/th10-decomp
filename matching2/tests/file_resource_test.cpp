@@ -8,6 +8,7 @@
 static void TestSharedOpenLeaves();
 static void TestSharedWrite();
 static void TestSharedRead();
+static void TestWriteWholeFile();
 static void TestPathDecode();
 static void TestResourceChunkLookup();
 static void TestBasenameSlotLookup();
@@ -286,6 +287,7 @@ int main() {
     TestSharedOpenLeaves();
     TestSharedWrite();
     TestSharedRead();
+    TestWriteWholeFile();
     TestPathDecode();
     TestResourceChunkLookup();
     TestBasenameSlotLookup();
@@ -382,6 +384,40 @@ static void TestSharedRead() {
     result = File_ReadShared((void*)1, 64, TestAllocate, TestRead, TestClose);
     assert(result == 0 && g_closed == 1);
     assert(File_ReadShared((void*)-1, 4, TestAllocate, TestRead, TestClose) == 0);
+}
+
+static unsigned char* g_whole_depth;
+static int g_whole_reports;
+static DWORD g_whole_written;
+static int g_whole_closes;
+static void* WholeOpen(const char* path) {
+    assert(g_whole_depth && *g_whole_depth == 1);
+    return path[0] == '!' ? (void*)-1 : (void*)0x4321;
+}
+static DWORD WholeWrite(void* handle, const void*, DWORD size) {
+    assert(handle == (void*)0x4321 && *g_whole_depth == 1);
+    return g_whole_written == (DWORD)-1 ? size : g_whole_written;
+}
+static void WholeClose(void* handle) {
+    assert(handle == (void*)0x4321 && *g_whole_depth == 1);
+    ++g_whole_closes;
+}
+static void WholeReport() { ++g_whole_reports; }
+static void TestWriteWholeFile() {
+    unsigned char depth = 0;
+    g_whole_depth = &depth;
+    g_whole_reports = g_whole_closes = 0;
+    g_whole_written = (DWORD)-1;
+    assert(File_WriteWholeFile("ok", "data", 4, WholeOpen, WholeWrite,
+                              WholeClose, WholeReport, &depth) == 0);
+    assert(depth == 0 && g_whole_closes == 1 && g_whole_reports == 0);
+    g_whole_written = 3;
+    assert(File_WriteWholeFile("ok", "data", 4, WholeOpen, WholeWrite,
+                              WholeClose, WholeReport, &depth) == -2);
+    assert(depth == 0 && g_whole_closes == 2 && g_whole_reports == 0);
+    assert(File_WriteWholeFile("!bad", "data", 4, WholeOpen, WholeWrite,
+                              WholeClose, WholeReport, &depth) == -1);
+    assert(depth == 0 && g_whole_closes == 2 && g_whole_reports == 1);
 }
 
 static void TestPathDecode() {

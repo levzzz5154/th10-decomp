@@ -56,6 +56,40 @@ int AnimationTexture_Create(unsigned int width, unsigned int height,
     return 0;
 }
 
+// 0x00447810 - Retire a populated animation-resource batch. The retail leaf
+// first synchronizes the owner, releases each interface/resource pair, then
+// frees the entry table and four auxiliary allocations in deterministic
+// address order.
+void AnimationManager_ReleaseResourceBatch(
+        AnimationResourceBatch* batch, void* context,
+        void (*prepare)(void*, void*),
+        void (*release)(void*), void (*free_memory)(void*)) {
+    if (batch->active == 0)
+        return;
+    if (prepare != 0)
+        prepare(context, batch);
+    for (int index = 0; index < batch->entry_count; ++index) {
+        AnimationResourceBatchEntry* entry = &batch->entries[index];
+        if (entry->resource != 0 && release != 0)
+            release(entry->resource);
+        entry->resource = 0;
+        if (entry->allocation != 0 && free_memory != 0)
+            free_memory(entry->allocation);
+        entry->allocation = 0;
+    }
+    if (free_memory != 0) {
+        if (batch->entries != 0) free_memory(batch->entries);
+        if (batch->auxiliary_a != 0) free_memory(batch->auxiliary_a);
+        if (batch->auxiliary_b != 0) free_memory(batch->auxiliary_b);
+        if (batch->auxiliary_c != 0) free_memory(batch->auxiliary_c);
+    }
+    batch->entries = 0;
+    batch->auxiliary_a = 0;
+    batch->auxiliary_b = 0;
+    batch->auxiliary_c = 0;
+    batch->active = 0;
+}
+
 // 0x004423C0 - Multiply two 7-bit-normalized color channels and saturate the
 // result to the byte range used by the animation renderer.
 uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {

@@ -74,3 +74,31 @@ int Platform_InvokeInterface(void* state, int (*invoke)(void*)) {
     *(int*)(bytes + 0x30) = 0;
     return invoke != 0 ? invoke(interface_ptr) : 0;
 }
+
+extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(
+    OSVERSIONINFOA* version_info);
+
+// 0x0044BD10 - Map the GetVersionExA result onto the game's numeric OS
+// codes: Win32s reports 31, Windows 95/98 report 95/98 (any other 9x 4.x
+// minor collapses to 98), NT 5.x reports 2000, other NT releases report
+// (major * 100 + minor) * 10, non-4.x 9x releases report major * 100 +
+// minor, and unknown platforms report -1. No surviving retail caller.
+int Platform_GetOsVersionCode(void) {
+    OSVERSIONINFOA info = {};
+    info.dwOSVersionInfoSize = sizeof(info);
+    GetVersionExA(&info);
+    switch (info.dwPlatformId) {
+    case 0:
+        return 31;
+    case 1:
+        if (info.dwMajorVersion == 4)
+            return info.dwMinorVersion == 0 ? 95 : 98;
+        return (int)(info.dwMajorVersion * 100 + info.dwMinorVersion);
+    case 2:
+        if (info.dwMajorVersion == 5)
+            return 2000;
+        return (int)(info.dwMajorVersion * 100 + info.dwMinorVersion) * 10;
+    default:
+        return -1;
+    }
+}

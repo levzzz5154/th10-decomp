@@ -65,6 +65,27 @@ python3 tools/function_registry.py --check
 same in-memory evidence used by the coverage ledger. This makes it safe to use
 for tooling without treating raw pseudocode as a build input.
 
+Standalone progress is tracked separately from broad recovery coverage:
+
+```bash
+python3 tools/standalone_readiness.py --write
+python3 tools/standalone_readiness.py --check
+```
+
+The generated `standalone_readiness.json` follows the direct game-owned call
+closure from `GameMain` and the indirectly scheduled title initializer. A
+reachable function counts as source-ready only when it has semantic C++ or an
+exact overlay. The report gives both function-count and retail-byte-weighted scores,
+ranks unresolved functions by the number of reachable callers they block, and
+counts indirect/virtual call sites that still require manual target auditing.
+Standalone completion requires zero retail-backed functions, zero unaudited
+indirect sites, a retail-free link target and executable, and a passing runtime
+smoke test. System DLL imports remain ordinary host dependencies.
+Because retail `GameMain` contains initialization, the main loop, and teardown
+in one function, its static closure conservatively includes some shutdown work
+that execution does not reach before the title screen; the report records this
+deliberate over-approximation rather than presenting it as an exact trace.
+
 The generated `coverage.json` classifies every tracked address as unrecovered,
 researched, partial, semantic C++, or an exact overlay. Source annotations and
 the overlay tuple are authoritative; build artifacts are deliberately excluded
@@ -238,6 +259,53 @@ record flags at `+0x1D882` and marks the first six 8-byte stage records in
 every per-shot-type 0x437C-byte table at `+0x4E9`, reproducing the hidden
 key-sequence effect from the practice menu; retail's four redundant store
 passes per table are preserved.
+The archive cipher recovery now covers both directions. `Dat_Decrypt`
+(`0x0044B0D0`) uses the retail signed processed-prefix calculation, including
+the odd-size trailing-fragment case, while `Dat_Encrypt` (`0x0044B220`)
+implements its inverse interleaving and rolling XOR. Exact small vectors,
+multi-layer round trips, and the 69-byte parity edge are covered by the host
+harness. The file family also includes `File_WriteWholeFile` (`0x0044B540`),
+which models create, complete/short write, error reporting, close ownership,
+and critical-section depth unwinding on every path.
+The startup diagnostics buffer at `DAT_00474F70` is represented by the typed
+`TextLog`: `TextLog_Append` (`0x0044B810`) and `TextLog_AppendLine`
+(`0x0044B8E0`) format and append under the retail lock, enforce the cursor's
+0x2000-byte boundary, and preserve the dirty-flag behavior. Two additional
+platform leaves are readable: `Platform_GetOsVersionCode` (`0x0044BD10`)
+maps `GetVersionExA` results to the game's legacy numeric codes, and
+`TimerWin32_Release` (`0x004203C0`) kills an active multimedia timer and
+reproduces retail's duplicated `timeEndPeriod` call.
+A final low-dependency leaf batch raises readable coverage past 40%. It
+includes the game-thread and ECL forwarding wrappers at `0x00401520` and
+`0x00412AA0`; deleting-destructor wrappers at `0x0040CC50` and `0x0044CF00`;
+the score intrusive-list insertion at `0x00413200`; ECL resource-slot setup
+at `0x00412720`; nine-record animation activation at `0x00413790`; embedded
+timer and path resets at `0x00412DB0` and `0x00417800`; circular and
+elliptical polar-vector leaves at `0x00441EF0` and `0x00413270`; and the
+platform interface invocation/aggregation leaves at `0x0044D5D0` and
+`0x0044D550`. A focused host harness covers callback ordering, ownership
+flags, list repair, conditional slot writes, record boundaries, reset
+sentinels, vector results, missing-interface errors, and aggregated statuses.
+The next blocker-focused pass adds the complete piecewise animation easing
+table at `0x0044C350` as `Easing_Evaluate`, including quadratic through
+quartic ease-in/ease-out modes and the constant/default selectors. It also
+adds `AnimationManager_ReleaseResourceBatch` (`0x00447810`), which performs
+owner synchronization, per-entry interface/resource retirement, and the
+auxiliary allocation releases in retail order. Runtime tests pin the easing
+branches and verify release/free ordering and idempotent empty cleanup.
+The following timer-adjacent leaves are now typed as well: the rounded
+three-lane scalar sampler at `0x00441E50` (`RandomVector_StoreRoundedScalar`)
+and the embedded timer disable/reset at `0x004050D0`
+(`EmbeddedTimer_Reset`). Their tests cover positive and negative rounding,
+sentinel initialization, speed-pointer publication, and repeat-reset behavior.
+
+The current recovery pass reaches the 50% function-count milestone: 361 of
+the 722 tracked retail functions are readable semantic C++ or verified
+overlays. The added low-dependency leaves cover timer/state setters, interface
+array selection and teardown, resource/path helpers, animation slot lifecycle,
+packet and schedule dispatch, color/tint setup, and callback-backed allocation
+and device-reset paths. The standalone-readiness report remains separate: the
+retail-free link, executable, and startup-to-title smoke gates are still open.
 
 The supported original executable has SHA-256:
 

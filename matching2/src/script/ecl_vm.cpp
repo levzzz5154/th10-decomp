@@ -1,6 +1,7 @@
 // ECL (Enemy Control Language) VM dispatch, retail address 0x0040E770.
 #include "th10/script/ecl.hpp"
 
+
 extern "C" float cosf(float);
 extern "C" float sinf(float);
 
@@ -392,9 +393,37 @@ void ECL_DecodeEncryptedString(
     }
 }
 
+// 0x0040E770 cases 0x156/0x15c/0x165-0x167.  Retail applies the difficulty
+// offset only to the three difficulty-sensitive variants; 0x156 and 0x15c
+// use the encoded resource index unchanged.
+void ECL_ExecuteEncryptedStringOpcode(
+    int opcode, int base_index, int difficulty, const char* encrypted,
+    unsigned int length,
+    void (*emit)(int resource_index, const char* text, unsigned int length)) {
+    if (emit == 0 || encrypted == 0) return;
+    int resource_index = base_index;
+    if (opcode == 0x165)
+        resource_index += difficulty;
+    else if (opcode == 0x166)
+        resource_index += difficulty - 1;
+    else if (opcode == 0x167)
+        resource_index += difficulty - 2;
+    // ECL strings are short instruction payloads.  Keep the temporary buffer
+    // bounded while preserving the exact byte-wise retail transform.
+    char decoded[256];
+    const unsigned int decoded_length = length < sizeof(decoded) ? length :
+        (unsigned int)sizeof(decoded);
+    ECL_DecodeEncryptedString(decoded, encrypted, decoded_length);
+    emit(resource_index, decoded, decoded_length);
+}
+
 int __fastcall ECL_VM_Dispatch(void* entity) {
+    if (entity == 0)
+        return 0;
     ECLVMState* state = *reinterpret_cast<ECLVMState**>(
         static_cast<uint8_t*>(entity) + 0x14d8);
+    if (state == 0 || state->cursor == 0 || state->cursor->instruction == 0)
+        return 0;
     ECLInstruction* instruction = state->cursor->instruction;
     const int opcode = instruction->opcode;
 
@@ -595,6 +624,100 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     case ECL_APPLY_DIFFICULTY_ACTION:
         ECL_SetTimerTarget(ECL_ResolveIntOperand(state->cursor, 0));
         return 0;
+    case 0x158:
+        Score_SetMode(entity, ECL_ResolveIntOperand(state->cursor, 0));
+        return 0;
+    case 0x14e: {
+        // Resource-slot assignment (retail helper 0x00412720).  The opcode
+        // supplies the slot, resource id, and packed metadata in that order.
+        const int slot = ECL_ResolveIntOperand(state->cursor, 0);
+        const int resource = ECL_ResolveIntOperand(state->cursor, 1);
+        const uint32_t metadata = static_cast<uint32_t>(
+            ECL_ResolveIntOperand(state->cursor, 2));
+        Ecl_SetResourceSlot(entity, slot, resource, metadata, metadata);
+        return 0;
+    }
+    case 0x14c: {
+        // Bind this entity's VM to a manager slot, or clear the binding when
+        // the script supplies a negative slot.  This mirrors the retail
+        // 0x0040E770 case without invoking the manager's external callbacks.
+        const int slot = ECL_ResolveIntOperand(state->cursor, 0);
+        if (slot < 0) {
+            EntityFlags(entity) &= ~0x8000u;
+            return 0;
+        }
+        EntityFlags(entity) |= 0x8000u;
+        EntityInt(entity, 0x1450) = slot;
+        if (g_pGameStateManager != 0) {
+            void* vm = *reinterpret_cast<void**>(
+                static_cast<uint8_t*>(entity) + 0x14d8);
+            *reinterpret_cast<uint32_t*>(static_cast<uint8_t*>(
+                g_pGameStateManager) + 0x10 + slot * 4) =
+                static_cast<uint32_t>(reinterpret_cast<unsigned long long>(vm));
+        }
+        return 0;
+    }
+    case 0x128:
+    case 0x129: {
+        const unsigned int offset = opcode == 0x128 ? 0x58u : 0x84u;
+        EntityFloat(entity, offset) += ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, offset + 4) +=
+            ECL_ResolveFloatOperand(state->cursor, 1);
+        EntityFloat(entity, offset + 8) +=
+            ECL_ResolveFloatOperand(state->cursor, 2);
+        return 0;
+    }
+    case 0x126:
+    case 0x127:
+        if (g_pGameStateManager != 0) {
+            void* manager_state = *reinterpret_cast<void**>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x10);
+            if (manager_state != 0) {
+                const uint8_t* source = static_cast<const uint8_t*>(manager_state);
+                const unsigned int offset = opcode == 0x126 ? 0x58u : 0x84u;
+                EntityFloat(entity, offset) = *reinterpret_cast<const float*>(source + 0x1068);
+                EntityFloat(entity, offset + 4) = *reinterpret_cast<const float*>(source + 0x106c);
+                EntityFloat(entity, offset + 8) = *reinterpret_cast<const float*>(source + 0x1070);
+            }
+        }
+        return 0;
+    case 0x12a:
+    case 0x12b: {
+        const unsigned int offset = opcode == 0x12a ? 0x58u : 0x84u;
+        EntityFloat(entity, offset + 0x0c) =
+            ECL_ResolveFloatOperand(state->cursor, 0);
+        EntityFloat(entity, offset + 0x10) =
+            ECL_ResolveFloatOperand(state->cursor, 1);
+        return 0;
+    }
+    case 0x120:
+    case 0x122: {
+        const unsigned int offset = opcode == 0x120 ? 0x58u : 0x84u;
+        uint8_t* record = static_cast<uint8_t*>(entity) + offset;
+        const uint32_t flags = *reinterpret_cast<uint32_t*>(record + 0x28);
+        if ((flags & 1u) == 0) {
+            *reinterpret_cast<float*>(record + 0x0c) =
+                *reinterpret_cast<float*>(record + 0x00);
+            *reinterpret_cast<float*>(record + 0x10) =
+                *reinterpret_cast<float*>(record + 0x04);
+            *reinterpret_cast<float*>(record + 0x14) =
+                *reinterpret_cast<float*>(record + 0x08);
+        }
+        const float angle = ECL_ResolveFloatOperand(state->cursor, 0);
+        const float speed = ECL_ResolveFloatOperand(state->cursor, 1);
+        const float duration = ECL_ResolveFloatOperand(state->cursor, 2);
+        const float delay = ECL_ResolveFloatOperand(state->cursor, 3);
+        if (angle > 0.0f)
+            Score_SetNormalizedAngle(record, angle);
+        if (speed > 0.0f)
+            *reinterpret_cast<float*>(record + 0x18) = speed;
+        if (duration > 0.0f)
+            *reinterpret_cast<float*>(record + 0x20) = duration;
+        if (delay > 0.0f)
+            *reinterpret_cast<float*>(record + 0x24) = delay;
+        *reinterpret_cast<uint32_t*>(record + 0x28) |= 1u;
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.

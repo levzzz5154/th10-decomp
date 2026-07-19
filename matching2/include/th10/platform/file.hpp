@@ -50,6 +50,12 @@ int File_OpenSharedWrite(const char* path, void* (*open_file)(const char*),
 int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
                         void (*report_error)(void),
                         void** shared_handle, unsigned char* critical_depth);
+int File_WriteWholeFile(const char* path, const void* source, DWORD size,
+                        void* (*open_file)(const char*),
+                        DWORD (*write_file)(void*, const void*, DWORD),
+                        void (*close_file)(void*),
+                        void (*report_error)(void),
+                        unsigned char* critical_depth);
 int File_WriteShared(void* handle, const void* source, DWORD size,
                      DWORD (*write_file)(void*, const void*, DWORD),
                      void (*close_file)(void*), unsigned char* critical_depth);

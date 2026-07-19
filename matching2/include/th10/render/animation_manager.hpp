@@ -12,6 +12,20 @@ struct AnimationTextureRecord {
     unsigned int bytes_per_pixel;
 };
 
+struct AnimationResourceBatchEntry {
+    void* resource;
+    void* allocation;
+};
+
+struct AnimationResourceBatch {
+    void* active;
+    AnimationResourceBatchEntry* entries;
+    int entry_count;
+    void* auxiliary_a;
+    void* auxiliary_b;
+    void* auxiliary_c;
+};
+
 struct AnimationListNode {
     AnimationObject* animation;
     AnimationListNode* next;
@@ -134,3 +148,7 @@ void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
 int AnimationTexture_Create(unsigned int width, unsigned int height,
                             unsigned int format_index,
                             AnimationTextureRecord* output);
+void AnimationManager_ReleaseResourceBatch(
+    AnimationResourceBatch* batch, void* context,
+    void (*prepare)(void*, void*),
+    void (*release)(void*), void (*free_memory)(void*));

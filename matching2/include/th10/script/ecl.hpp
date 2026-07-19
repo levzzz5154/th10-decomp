@@ -60,7 +60,7 @@ struct ECLMovementBoundary {
     float bottom;
 };
 
-// Interface stored at cursor+0x1014.  FUN_0044FE40 calls vtable slot 3 for
+// Interface stored at cursor+0x1014.  ECL_ResolveFloatOperand calls vtable slot 3 for
 // negative variable identifiers other than -1.
 struct ECLVariableResolver {
     virtual void Unknown0() = 0;
@@ -89,6 +89,11 @@ int32_t ECL_ResolveIntValue(
     void* cursor, unsigned int operand, int32_t value);
 float* ECL_ResolveFloatDestination(void* cursor, unsigned int operand);
 int32_t* ECL_ResolveIntDestination(void* cursor, unsigned int operand);
+// 0x00412ED0: update score mode and invalidate its cached result.
+void Score_SetMode(void* state, int mode);
+void Score_SetNormalizedAngle(void* state, float angle);
+void Ecl_SetResourceSlot(void* state, int slot, int resource,
+                         unsigned int first, unsigned int second);
 // ECL variable-table and scratch-stack helpers (0x00450030, 0x00450160,
 // 0x00450190, 0x00450690, 0x004506D0), expressed with a normal C++ ABI.
 void* ECL_ResolveVariableValue(void* vm, int32_t variable);
@@ -101,5 +106,12 @@ int32_t ECL_WriteScratch(void* vm, char type, unsigned int size,
 void* ECL_FindScriptLabel(void* vm, const unsigned short* name);
 void ECL_DecodeEncryptedString(
     char* destination, const char* encrypted, unsigned int length);
+
+// Execute the common encrypted-string opcode family (0x156/0x15c/0x165-0x167).
+// The callback owns the decoded buffer only for the duration of the call.
+void ECL_ExecuteEncryptedStringOpcode(
+    int opcode, int base_index, int difficulty, const char* encrypted,
+    unsigned int length,
+    void (*emit)(int resource_index, const char* text, unsigned int length));
 
 int __fastcall ECL_VM_Dispatch(void* entity);
