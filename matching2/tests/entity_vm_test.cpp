@@ -99,12 +99,22 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && integer == 2);
     assert(EntityScript_ApplyBinaryInteger(0x16, &integer, 7, 5) ==
            ENTITY_SCRIPT_STEP_APPLIED && integer == 35);
+    assert(EntityScript_ApplyBinaryInteger(0x18, &integer, 35, 5) ==
+           ENTITY_SCRIPT_STEP_APPLIED && integer == 7);
+    assert(EntityScript_ApplyBinaryInteger(0x1a, &integer, 37, 5) ==
+           ENTITY_SCRIPT_STEP_APPLIED && integer == 2);
+    assert(EntityScript_ApplyBinaryInteger(0x18, &integer, 1, 0) ==
+           ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO);
     assert(EntityScript_ApplyBinaryFloat(0x13, &floating, 7.0f, 5.0f) ==
            ENTITY_SCRIPT_STEP_APPLIED && floating == 12.0f);
     assert(EntityScript_ApplyBinaryFloat(0x15, &floating, 7.0f, 5.0f) ==
            ENTITY_SCRIPT_STEP_APPLIED && floating == 2.0f);
     assert(EntityScript_ApplyBinaryFloat(0x17, &floating, 7.0f, 5.0f) ==
            ENTITY_SCRIPT_STEP_APPLIED && floating == 35.0f);
+    assert(EntityScript_ApplyBinaryFloat(0x19, &floating, 35.0f, 5.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating == 7.0f);
+    assert(EntityScript_ApplyBinaryFloat(0x19, &floating, 1.0f, 0.0f) ==
+           ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO);
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;

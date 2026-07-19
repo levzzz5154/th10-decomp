@@ -68,6 +68,14 @@ EntityScriptStepResult EntityScript_ApplyBinaryInteger(
     case 0x12: *destination = left + right; break;
     case 0x14: *destination = left - right; break;
     case 0x16: *destination = left * right; break;
+    case 0x18:
+        if (right == 0) return ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO;
+        *destination = left / right;
+        break;
+    case 0x1a:
+        if (right == 0) return ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO;
+        *destination = left % right;
+        break;
     default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
     return ENTITY_SCRIPT_STEP_APPLIED;
@@ -80,6 +88,10 @@ EntityScriptStepResult EntityScript_ApplyBinaryFloat(
     case 0x13: *destination = left + right; break;
     case 0x15: *destination = left - right; break;
     case 0x17: *destination = left * right; break;
+    case 0x19:
+        if (right == 0.0f) return ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO;
+        *destination = left / right;
+        break;
     default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
     return ENTITY_SCRIPT_STEP_APPLIED;
