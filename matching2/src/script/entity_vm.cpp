@@ -373,6 +373,13 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode == 0x51) {
+        if (cursor->services == 0 || cursor->services->restore_vector == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        cursor->services->restore_vector(cursor->services->context);
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x45) {
         if (cursor->services == 0 || cursor->services->reset_state == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;

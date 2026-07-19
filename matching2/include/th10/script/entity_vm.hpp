@@ -76,6 +76,7 @@ struct EntityScriptServices {
     void (*reset_state)(void* context);
     void (*invoke_action)(void* context, unsigned int value);
     void (*commit_vector)(void* context);
+    void (*restore_vector)(void* context);
 };
 
 struct EntityScriptCursor {
