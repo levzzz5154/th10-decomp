@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 336,
-        "retail_bytes": 59033
+        "function_count": 337,
+        "retail_bytes": 59241
       },
       "exact-overlay": {
         "function_count": 33,
@@ -32,9 +32,9 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 235,
+        "implemented_functions": 236,
         "tracked_bytes": 47943,
-        "implemented_bytes": 30713
+        "implemented_bytes": 30921
       },
       {
         "name": "medium",
@@ -5043,8 +5043,8 @@
       "address": "0x0044DD40",
       "symbol": "FUN_0044dd40",
       "size": 208,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/archive_cursor.cpp"
     },
     {
       "address": "0x0044DE10",

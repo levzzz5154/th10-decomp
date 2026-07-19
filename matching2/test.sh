@@ -191,6 +191,15 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/vector3_cross_test"
 
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/archive_cursor.cpp" \
+    "$ROOT/tests/archive_cursor_test.cpp" \
+    -o "$TEST_BUILD/archive_cursor_test"
+
+"$TEST_BUILD/archive_cursor_test"
+
 # GameState stores 32-bit retail pointers in its ABI fields, so exercise its
 # device-failure state transitions in a 32-bit host binary.
 g++ -m32 -std=c++17 -Wall -Wextra -Werror \
