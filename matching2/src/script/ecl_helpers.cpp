@@ -222,6 +222,10 @@ ECLSubEntityRequest* ECL_SubEntityCreate(int32_t slot, int32_t sub_index,
     return &g_last_sub_entity;
 }
 
+const ECLSubEntityRequest* ECL_LastSubEntityRequest(void) {
+    return &g_last_sub_entity;
+}
+
 namespace {
 
 int32_t g_last_mark_slot = -1;

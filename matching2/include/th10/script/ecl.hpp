@@ -148,6 +148,7 @@ struct ECLSubEntityRequest {
 };
 ECLSubEntityRequest* ECL_SubEntityCreate(int32_t slot, int32_t sub_index,
                                          int32_t mode);
+const ECLSubEntityRequest* ECL_LastSubEntityRequest(void);
 // Sub-entity markers (FUN_00449450 / FUN_004495e0 / FUN_00449590).
 int32_t ECL_SubEntityMark(int32_t slot);
 void ECL_AnimationFlagSet(void);

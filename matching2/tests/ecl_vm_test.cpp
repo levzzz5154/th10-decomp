@@ -866,6 +866,29 @@ void TestRecoveredLeafDispatcher() {
     assert(*(short*)(entity + 0x4b8) == 40);
     assert(*(short*)(entity + 0x4ba) == 45);
 
+    // 0x107 / 0x108: sub-entity create (mode 6).  The stub records
+    // (slot, sub_index, 6) for assertion.
+    g_pGameStateManager = manager;
+    uint8_t slot_record[0x20] = {};
+    *(void**)(manager + 0x30 + 2 * 4) = slot_record;
+    fixture.instruction.instruction.opcode = 0x107;
+    fixture.Operands()[0] = 2;
+    fixture.Operands()[1] = 5;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    ECLSubEntityRequest* last = const_cast<ECLSubEntityRequest*>(
+        ECL_LastSubEntityRequest());
+    assert(last != 0);
+    assert(last->mode == 6);
+    assert(last->sub_index == 5);
+
+    fixture.instruction.instruction.opcode = 0x108;
+    fixture.Operands()[0] = 3;
+    fixture.Operands()[1] = 7;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 6);
+    assert(ECL_LastSubEntityRequest()->sub_index == 7);
+    g_pGameStateManager = 0;
+
     g_pGameStateManager = 0;
 }
 
