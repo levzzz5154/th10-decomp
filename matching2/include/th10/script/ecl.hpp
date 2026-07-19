@@ -114,4 +114,52 @@ void ECL_ExecuteEncryptedStringOpcode(
     unsigned int length,
     void (*emit)(int resource_index, const char* text, unsigned int length));
 
+// Readable reconstructions of the ECL retail helper functions.  The simple
+// resolvers wrap the existing variable-resolution API; the more complex
+// state writers are best-effort stubs that record enough state for the
+// dispatcher to exercise the leaf opcode shape without depending on the
+// sub-entity / animation manager state machine.  Callers that need the
+// full retail behavior should provide a more complete implementation.
+float ECL_ResolveFloatAtCursor(void* cursor, unsigned int bit_index,
+                               float encoded);
+int32_t ECL_ResolveIntAtCursor(void* cursor, unsigned int bit_index,
+                                int32_t encoded);
+float ECL_PrngFloat(void* state);
+void ECL_WrapValue(float* value);
+void ECL_PrngSeed(void* state, unsigned short seed);
+// Init a movement/laser record (the 0x10-byte block the retail sets up
+// before populating speeds / positions).  `record` points at the record
+// base; `offset_24`, `offset_28`, etc. are the record's field offsets.
+void ECL_InitMovementRecord(void* record);
+// Init a "bullet" record variant: same shape but the active-flag lives
+// at +0x40 instead of +0x30.
+void ECL_InitBulletRecord(void* record);
+// Set a movement record's primary Z value (offset 0x1c) with retail wrap.
+void ECL_SetPositionZWithWrap(void* record, float value);
+// Sub-entity creation (FUN_00448e30 / FUN_00448d00).  These stubs record
+// the call so a test can assert that the dispatcher invoked the right
+// helper with the right arguments; the actual entity state machine is
+// the next reconstruction pass.
+struct ECLSubEntityRequest {
+    int32_t slot;
+    int32_t sub_index;
+    int32_t mode;  // 5 (FUN_00448e30) or 6 (FUN_00448d00) or 7 (FUN_00448e30 alt)
+    void* record;
+};
+ECLSubEntityRequest* ECL_SubEntityCreate(int32_t slot, int32_t sub_index,
+                                         int32_t mode);
+// Sub-entity markers (FUN_00449450 / FUN_004495e0 / FUN_00449590).
+int32_t ECL_SubEntityMark(int32_t slot);
+void ECL_AnimationFlagSet(void);
+void ECL_AnimationFlagClear(void);
+// Manager operations (FUN_0040cfb0, FUN_0040cf90, FUN_0040cf60, etc.).
+void ECL_AddToActiveList(void* manager, void* sub_entity);
+void* ECL_FindByID(int32_t id);
+void ECL_ReleaseByID(int32_t id);
+void ECL_ApplyEclFlag(void);
+void ECL_ApplyEclFlagAlt(void);
+void ECL_RangeReset(void);
+// Score mode / curve setters (FUN_00412ed0 family).  Already covered by
+// Score_SetMode above.
+
 int __fastcall ECL_VM_Dispatch(void* entity);

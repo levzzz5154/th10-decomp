@@ -124,6 +124,15 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/entity_vm_test"
 
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/script/ecl_helpers.cpp" \
+    "$ROOT/tests/ecl_helpers_test.cpp" \
+    -o "$TEST_BUILD/ecl_helpers_test"
+
+"$TEST_BUILD/ecl_helpers_test"
+
 # GameState stores 32-bit retail pointers in its ABI fields, so exercise its
 # device-failure state transitions in a 32-bit host binary.
 g++ -m32 -std=c++17 -Wall -Wextra -Werror \
