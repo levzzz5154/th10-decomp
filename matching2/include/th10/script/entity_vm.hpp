@@ -60,6 +60,7 @@ struct EntityScriptServices {
     void (*resource_transition)(void* context, int value);
     void (*emit_animation_event)(void* context, int event, int value);
     void* context;
+    float (*random_float)(void* context);
 };
 
 struct EntityScriptCursor {

@@ -206,6 +206,19 @@ EntityScriptStepResult EntityScript_ExecuteOne(
             cursor->offset += instruction->size;
         return result;
     }
+    if (instruction->opcode == 0x2d) {
+        if (cursor->services == 0 || cursor->services->random_float == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        const bool indirect =
+            (instruction->flags & ENTITY_SCRIPT_DESTINATION_INDIRECT) != 0;
+        float* destination = resolver->ResolveFloatDestination(
+            instruction->destination, indirect);
+        if (destination == 0)
+            return ENTITY_SCRIPT_STEP_MALFORMED;
+        *destination = cursor->services->random_float(cursor->services->context);
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x12 || instruction->opcode == 0x13 ||
         instruction->opcode == 0x14 || instruction->opcode == 0x15 ||
         instruction->opcode == 0x16 || instruction->opcode == 0x17 ||
