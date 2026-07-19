@@ -842,6 +842,248 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         EntityInt(entity, 0xe8) = value;
         return 0;
     }
+    case 0x118:
+    case 0x11a: {
+        // Copy the per-axis position from operand 0/1 to the entity's
+        // primary (0x118 -> +0x58) or secondary (0x11a -> +0x84) movement
+        // record, clear its active flag, and refresh the composite entity
+        // position by adding the two records together.
+        const unsigned int offset = opcode == 0x118 ? 0x58u : 0x84u;
+        uint8_t* record = static_cast<uint8_t*>(entity) + offset;
+        const float first = ECL_ResolveFloatOperand(state->cursor, 0);
+        const float second = ECL_ResolveFloatOperand(state->cursor, 1);
+        if (first > 0.0f)
+            *reinterpret_cast<float*>(record) = first;
+        if (second > 0.0f)
+            *reinterpret_cast<float*>(record + 4) = second;
+        *reinterpret_cast<uint32_t*>(record + 0x28) &= ~1u;
+        EntityFloat(entity, 0x2c) =
+            EntityFloat(entity, 0x84) + EntityFloat(entity, 0x58);
+        EntityFloat(entity, 0x30) =
+            EntityFloat(entity, 0x88) + EntityFloat(entity, 0x5c);
+        EntityFloat(entity, 0x34) =
+            EntityFloat(entity, 0x8c) + EntityFloat(entity, 0x60);
+        return 0;
+    }
+    case 0x193: {
+        // Initialise the per-slot laser/anchor record with 1.0/2.0 base
+        // values.  Retail writes 1.0f at (index * 3 + 0x4d1) * 4 and 2.0f
+        // at 0x1348 + index * 0xc.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityFloat(entity, (index * 3 + 0x4d1) * 4) = 1.0f;
+        EntityFloat(entity, 0x1348 + index * 0xc) = 2.0f;
+        return 0;
+    }
+    case 0x194: {
+        // Initialise the per-slot laser speed record with 1.0/2.0 base
+        // values, written at offset 0x210 * index + 0x2d4 / 0x2d8.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        EntityFloat(entity, base + 0x2d4) = 1.0f;
+        EntityFloat(entity, base + 0x2d8) = 2.0f;
+        return 0;
+    }
+    case 0x192: {
+        // Initialise the per-slot laser image count (short) from operands
+        // 1 and 2.  Operand 0 selects the slot.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t count_x = ECL_ResolveIntOperand(state->cursor, 1);
+        const int32_t count_y = ECL_ResolveIntOperand(state->cursor, 2);
+        const unsigned int base = index * 0x210u;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x2c4) = (short)count_x;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x2c6) = (short)count_y;
+        return 0;
+    }
+    case 0x196: {
+        // Initialise the per-slot laser angle/curvature counts from
+        // operands 1 and 2.  Operand 0 selects the slot.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t angle = ECL_ResolveIntOperand(state->cursor, 1);
+        const int32_t curve = ECL_ResolveIntOperand(state->cursor, 2);
+        const unsigned int base = index * 0x210u;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)angle;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)curve;
+        return 0;
+    }
+    case 0x197: {
+        // Set the per-slot laser extension delay (single short) from
+        // operand 1.  Operand 0 selects the slot.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 1);
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + index * 0x210u + 0x4bc) =
+            (short)value;
+        return 0;
+    }
+    case 0x198: {
+        // Set the per-slot laser timing parameters (two ints) from
+        // operands 1 and 2.  Operand 0 selects the slot.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t a = ECL_ResolveIntOperand(state->cursor, 1);
+        const int32_t b = ECL_ResolveIntOperand(state->cursor, 2);
+        const unsigned int base = index * 0x210u;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + base + 0x4c4) = a;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + base + 0x4c8) = b;
+        return 0;
+    }
+    case 0x199: {
+        // Set the per-slot laser timing sub-record (five ints + two floats)
+        // from operands 0..5.  The slot is selected by operands 0 and 1.
+        const int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t sub = ECL_ResolveIntOperand(state->cursor, 1);
+        const int32_t v2 = ECL_ResolveIntOperand(state->cursor, 2);
+        const int32_t v3 = ECL_ResolveIntOperand(state->cursor, 3);
+        const int32_t v4 = ECL_ResolveIntOperand(state->cursor, 4);
+        const int32_t v5 = ECL_ResolveIntOperand(state->cursor, 5);
+        const int32_t record_index = slot * 0x16 + sub;
+        const unsigned int record_base = record_index * 0x18u;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + record_base + 0x2f8) = v2;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + record_base + 0x2f4) = v3;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + record_base + 0x2ec) = v4;
+        *reinterpret_cast<int32_t*>(
+            static_cast<uint8_t*>(entity) + record_base + 0x2f0) = v5;
+        EntityFloat(entity, record_base + 0x2e4) = 8.40779e-45f;
+        EntityFloat(entity, (record_index * 3 + 0x5d) * 8) = 9.80909e-45f;
+        return 0;
+    }
+    case 0x19b: {
+        // Copy the 0x210-byte laser record from slot src (operand 1) to
+        // slot dst (operand 0).  Each record is 0x84 ints.
+        const int32_t dst = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t src = ECL_ResolveIntOperand(state->cursor, 1);
+        const uint32_t* src_record = reinterpret_cast<const uint32_t*>(
+            static_cast<uint8_t*>(entity) + src * 0x210u + 0x2c4);
+        uint32_t* dst_record = reinterpret_cast<uint32_t*>(
+            static_cast<uint8_t*>(entity) + dst * 0x210u + 0x2c4);
+        for (int i = 0; i < 0x84; ++i)
+            dst_record[i] = src_record[i];
+        return 0;
+    }
+    case 0x1a6: {
+        // Difficulty-conditional per-slot float pair (2 tiers).  Tier 0
+        // writes (7, 8) and tier 1 writes (1, 2).  The retail uses -0x200
+        // as the second boundary and falls through to the (4, 5) write at
+        // LAB_00410738, then to the (1, 2) baseline at LAB_00410408.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        if (DAT_00474c98 > 0x1FF) {
+            EntityFloat(entity, base + 0x2dc) = 7.0f;
+            EntityFloat(entity, base + 0x2e0) = 8.0f;
+        } else if (DAT_00474c98 > -0x200) {
+            EntityFloat(entity, base + 0x2dc) = 4.0f;
+            EntityFloat(entity, base + 0x2e0) = 5.0f;
+        } else {
+            EntityFloat(entity, base + 0x2dc) = 1.0f;
+            EntityFloat(entity, base + 0x2e0) = 2.0f;
+        }
+        return 0;
+    }
+    case 0x1a7: {
+        // Difficulty-conditional per-slot float pair (3 tiers).  Tiers are
+        // bound by DAT_00474c98 > 599, 199, -199, -400.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        if (DAT_00474c98 > 599) {
+            EntityFloat(entity, base + 0x2dc) = 14.0f;
+            EntityFloat(entity, base + 0x2e0) = 16.0f;
+        } else if (DAT_00474c98 > 199) {
+            EntityFloat(entity, base + 0x2dc) = 10.0f;
+            EntityFloat(entity, base + 0x2e0) = 12.0f;
+        } else if (DAT_00474c98 > -200) {
+            EntityFloat(entity, base + 0x2dc) = 7.0f;
+            EntityFloat(entity, base + 0x2e0) = 8.0f;
+        } else if (DAT_00474c98 > -400) {
+            EntityFloat(entity, base + 0x2dc) = 4.0f;
+            EntityFloat(entity, base + 0x2e0) = 5.0f;
+        } else {
+            EntityFloat(entity, base + 0x2dc) = 1.0f;
+            EntityFloat(entity, base + 0x2e0) = 2.0f;
+        }
+        return 0;
+    }
+    case 0x1a8: {
+        // Linear-interpolation float pair (per-slot 0x2dc, 0x2e0).  Retail
+        // applies the same DAT_00474c98 -> [0, 1] range used by 0x15f.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        const float scale = (float)(DAT_00474c98 + 0x400) * (1.0f / 2048.0f);
+        EntityFloat(entity, base + 0x2dc) = (2.0f - 1.0f) * scale + 1.0f;
+        EntityFloat(entity, base + 0x2e0) = (4.0f - 2.0f) * scale + 2.0f;
+        return 0;
+    }
+    case 0x1a9: {
+        // Difficulty-conditional per-slot short pair (2 tiers, operand 5/6).
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        if (DAT_00474c98 > 0x1FF) {
+            const int32_t a = ECL_ResolveIntOperand(state->cursor, 5);
+            const int32_t b = ECL_ResolveIntOperand(state->cursor, 6);
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
+        } else if (DAT_00474c98 > -0x200) {
+            const int32_t a = ECL_ResolveIntOperand(state->cursor, 3);
+            const int32_t b = ECL_ResolveIntOperand(state->cursor, 4);
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
+        } else {
+            const int32_t a = ECL_ResolveIntOperand(state->cursor, 1);
+            const int32_t b = ECL_ResolveIntOperand(state->cursor, 2);
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
+            *reinterpret_cast<short*>(
+                static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
+        }
+        return 0;
+    }
+    case 0x1aa: {
+        // Difficulty-conditional per-slot short pair (3 tiers, operand 1..10).
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        const int operand_pair =
+            DAT_00474c98 > 599 ? 9 :
+            DAT_00474c98 > 199 ? 7 :
+            DAT_00474c98 > -200 ? 5 :
+            DAT_00474c98 > -400 ? 3 : 1;
+        const int32_t a = ECL_ResolveIntOperand(state->cursor, operand_pair);
+        const int32_t b = ECL_ResolveIntOperand(state->cursor, operand_pair + 1);
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
+        return 0;
+    }
+    case 0x1ab: {
+        // Linear-interpolation short pair (per-slot 0x4b8, 0x4ba).  Uses
+        // operand 1/2 for the lower-bound and 3/4 for the upper-bound pair.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        const int32_t lo_x = ECL_ResolveIntOperand(state->cursor, 1);
+        const int32_t lo_y = ECL_ResolveIntOperand(state->cursor, 2);
+        const int32_t hi_x = ECL_ResolveIntOperand(state->cursor, 3);
+        const int32_t hi_y = ECL_ResolveIntOperand(state->cursor, 4);
+        const int32_t delta_x = (hi_x - lo_x) * (DAT_00474c98 + 0x400);
+        const int32_t delta_y = (hi_y - lo_y) * (DAT_00474c98 + 0x400);
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4b8) =
+            (short)(((delta_x + (delta_x >> 31 & 0x7FF)) >> 11) + lo_x);
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4ba) =
+            (short)(((delta_y + (delta_y >> 31 & 0x7FF)) >> 11) + lo_y);
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.

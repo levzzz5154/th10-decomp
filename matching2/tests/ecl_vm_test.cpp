@@ -588,6 +588,240 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(int32_t*)(entity + 0xe8) == 7);
 
+    // 0x118 / 0x11a: per-axis position copy and composite refresh.
+    fixture.instruction.instruction.opcode = 0x118;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = FloatBits(11.0f);
+    fixture.Operands()[1] = FloatBits(22.0f);
+    *(uint32_t*)(entity + 0x58 + 0x28) = 1u;
+    *(float*)(entity + 0x58) = 0.0f;
+    *(float*)(entity + 0x5c) = 0.0f;
+    *(float*)(entity + 0x84) = 100.0f;
+    *(float*)(entity + 0x88) = 200.0f;
+    *(float*)(entity + 0x8c) = 5.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x58) == 11.0f);
+    assert(*(float*)(entity + 0x5c) == 22.0f);
+    assert((*(uint32_t*)(entity + 0x58 + 0x28) & 1u) == 0);
+    assert(*(float*)(entity + 0x2c) == 111.0f);
+    assert(*(float*)(entity + 0x30) == 222.0f);
+
+    fixture.instruction.instruction.opcode = 0x11a;
+    fixture.Operands()[0] = FloatBits(33.0f);
+    fixture.Operands()[1] = FloatBits(44.0f);
+    *(uint32_t*)(entity + 0x84 + 0x28) = 1u;
+    *(float*)(entity + 0x84) = 0.0f;
+    *(float*)(entity + 0x88) = 0.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x84) == 33.0f);
+    assert(*(float*)(entity + 0x88) == 44.0f);
+    assert((*(uint32_t*)(entity + 0x84 + 0x28) & 1u) == 0);
+
+    // 0x193: per-slot laser record init (1.0/2.0).
+    fixture.instruction.instruction.opcode = 0x193;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + (2 * 3 + 0x4d1) * 4) == 1.0f);
+    assert(*(float*)(entity + 0x1348 + 2 * 0xc) == 2.0f);
+
+    // 0x194: per-slot laser speed init (1.0/2.0).
+    fixture.instruction.instruction.opcode = 0x194;
+    fixture.Operands()[0] = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x210 + 0x2d4) == 1.0f);
+    assert(*(float*)(entity + 0x210 + 0x2d8) == 2.0f);
+
+    // 0x192: per-slot image counts (shorts) from operands 1/2.
+    fixture.instruction.instruction.opcode = 0x192;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 7;
+    fixture.Operands()[2] = 9;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x210 + 0x2c4) == 7);
+    assert(*(short*)(entity + 0x210 + 0x2c6) == 9);
+
+    // 0x196: per-slot angle/curve counts (shorts) from operands 1/2.
+    fixture.instruction.instruction.opcode = 0x196;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 11;
+    fixture.Operands()[2] = 13;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x210 + 0x4b8) == 11);
+    assert(*(short*)(entity + 0x210 + 0x4ba) == 13);
+
+    // 0x197: per-slot extension delay (short) from operand 1.
+    fixture.instruction.instruction.opcode = 0x197;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 17;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x210 + 0x4bc) == 17);
+
+    // 0x198: per-slot timing ints from operands 1/2.
+    fixture.instruction.instruction.opcode = 0x198;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 21;
+    fixture.Operands()[2] = 22;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(entity + 0x210 + 0x4c4) == 21);
+    assert(*(int32_t*)(entity + 0x210 + 0x4c8) == 22);
+
+    // 0x199: per-slot laser timing sub-record (5 ints + 2 floats).
+    fixture.instruction.instruction.opcode = 0x199;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 2;
+    fixture.Operands()[2] = 100;
+    fixture.Operands()[3] = 101;
+    fixture.Operands()[4] = 102;
+    fixture.Operands()[5] = 103;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    int32_t record_index = 1 * 0x16 + 2;
+    unsigned int record_base = record_index * 0x18u;
+    assert(*(int32_t*)(entity + record_base + 0x2f8) == 100);
+    assert(*(int32_t*)(entity + record_base + 0x2f4) == 101);
+    assert(*(int32_t*)(entity + record_base + 0x2ec) == 102);
+    assert(*(int32_t*)(entity + record_base + 0x2f0) == 103);
+    assert(*(float*)(entity + record_base + 0x2e4) == 8.40779e-45f);
+    assert(*(float*)(entity + (record_index * 3 + 0x5d) * 8) ==
+           9.80909e-45f);
+
+    // 0x19b: copy the 0x210-byte laser record from slot src to slot dst.
+    fixture.instruction.instruction.opcode = 0x19b;
+    fixture.Operands()[0] = 3;
+    fixture.Operands()[1] = 1;
+    for (int i = 0; i < 0x84; ++i)
+        *(uint32_t*)(entity + 0x210 + 0x2c4 + i * 4) = 0x100 + i;
+    for (int i = 0; i < 0x84; ++i)
+        *(uint32_t*)(entity + 3 * 0x210 + 0x2c4 + i * 4) = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    for (int i = 0; i < 0x84; ++i)
+        assert(*(uint32_t*)(entity + 3 * 0x210 + 0x2c4 + i * 4) ==
+               (uint32_t)(0x100 + i));
+
+    // 0x1a6: 2-tier difficulty-conditional per-slot float pair.
+    fixture.instruction.instruction.opcode = 0x1a6;
+    fixture.Operands()[0] = 0;
+    DAT_00474c98 = 1024;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 7.0f);
+    assert(*(float*)(entity + 0x2e0) == 8.0f);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 5.0f);
+    DAT_00474c98 = -1024;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 1.0f);
+    assert(*(float*)(entity + 0x2e0) == 2.0f);
+
+    // 0x1a7: 3-tier difficulty-conditional per-slot float pair.
+    fixture.instruction.instruction.opcode = 0x1a7;
+    fixture.Operands()[0] = 0;
+    DAT_00474c98 = 800;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 14.0f);
+    assert(*(float*)(entity + 0x2e0) == 16.0f);
+    DAT_00474c98 = 300;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 10.0f);
+    assert(*(float*)(entity + 0x2e0) == 12.0f);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 7.0f);
+    assert(*(float*)(entity + 0x2e0) == 8.0f);
+    DAT_00474c98 = -300;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 5.0f);
+    DAT_00474c98 = -500;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 1.0f);
+    assert(*(float*)(entity + 0x2e0) == 2.0f);
+
+    // 0x1a8: linear-interpolation per-slot float pair.
+    fixture.instruction.instruction.opcode = 0x1a8;
+    fixture.Operands()[0] = 0;
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 1.5f);
+    assert(*(float*)(entity + 0x2e0) == 3.0f);
+    DAT_00474c98 = 1024;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 2.0f);
+    assert(*(float*)(entity + 0x2e0) == 4.0f);
+
+    // 0x1a9: 2-tier difficulty-conditional per-slot short pair.
+    fixture.instruction.instruction.opcode = 0x1a9;
+    fixture.Operands()[0] = 0;
+    fixture.Operands()[1] = 11;
+    fixture.Operands()[2] = 12;
+    fixture.Operands()[3] = 21;
+    fixture.Operands()[4] = 22;
+    fixture.Operands()[5] = 31;
+    fixture.Operands()[6] = 32;
+    DAT_00474c98 = 1024;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 31);
+    assert(*(short*)(entity + 0x4ba) == 32);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 21);
+    assert(*(short*)(entity + 0x4ba) == 22);
+    DAT_00474c98 = -1024;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 11);
+    assert(*(short*)(entity + 0x4ba) == 12);
+
+    // 0x1aa: 3-tier difficulty-conditional per-slot short pair.
+    fixture.instruction.instruction.opcode = 0x1aa;
+    fixture.Operands()[0] = 0;
+    fixture.Operands()[1] = 11;
+    fixture.Operands()[2] = 12;
+    fixture.Operands()[3] = 21;
+    fixture.Operands()[4] = 22;
+    fixture.Operands()[5] = 31;
+    fixture.Operands()[6] = 32;
+    fixture.Operands()[7] = 41;
+    fixture.Operands()[8] = 42;
+    fixture.Operands()[9] = 51;
+    fixture.Operands()[10] = 52;
+    DAT_00474c98 = 800;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 51);
+    assert(*(short*)(entity + 0x4ba) == 52);
+    DAT_00474c98 = 300;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 41);
+    assert(*(short*)(entity + 0x4ba) == 42);
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 31);
+    assert(*(short*)(entity + 0x4ba) == 32);
+    DAT_00474c98 = -300;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 21);
+    assert(*(short*)(entity + 0x4ba) == 22);
+    DAT_00474c98 = -500;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 11);
+    assert(*(short*)(entity + 0x4ba) == 12);
+
+    // 0x1ab: linear-interpolation per-slot short pair.
+    fixture.instruction.instruction.opcode = 0x1ab;
+    fixture.Operands()[0] = 0;
+    fixture.Operands()[1] = 100;
+    fixture.Operands()[2] = 200;
+    fixture.Operands()[3] = 300;
+    fixture.Operands()[4] = 400;
+    DAT_00474c98 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 200);
+    assert(*(short*)(entity + 0x4ba) == 300);
+    DAT_00474c98 = 0x400;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 300);
+    assert(*(short*)(entity + 0x4ba) == 400);
+
     g_pGameStateManager = 0;
 }
 
