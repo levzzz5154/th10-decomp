@@ -200,6 +200,16 @@ EntityScriptStepResult EntityScript_ExecuteOne(
     }
     if (instruction->opcode == 0x14d || instruction->opcode == 0x14f ||
         instruction->opcode == 0x150 || instruction->opcode == 0x151) {
+        if (instruction->opcode == 0x151) {
+            if (cursor->services == 0 ||
+                cursor->services->emit_animation_event == 0)
+                return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+            cursor->services->emit_animation_event(
+                cursor->services->context, (int)instruction->operand,
+                (int)instruction->operand2);
+            cursor->offset += instruction->size;
+            return ENTITY_SCRIPT_STEP_APPLIED;
+        }
         const EntityScriptStepResult result = EntityScript_ExecuteServiceOpcode(
             cursor->services, instruction->opcode, (int)instruction->operand);
         if (result == ENTITY_SCRIPT_STEP_APPLIED)

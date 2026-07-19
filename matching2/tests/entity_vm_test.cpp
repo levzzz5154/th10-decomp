@@ -231,6 +231,18 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(log.timer == 123 && service_cursor.offset ==
            sizeof(EntityScriptInstruction));
+    EntityScriptInstruction event_instruction = {};
+    event_instruction.opcode = 0x151;
+    event_instruction.size = sizeof(EntityScriptInstruction);
+    event_instruction.operand = 7;
+    event_instruction.operand2 = 8;
+    EntityScriptCursor event_cursor = {
+        reinterpret_cast<const unsigned char*>(&event_instruction),
+        sizeof(event_instruction), 0, false, {}, 0, &services
+    };
+    services.context = &log;
+    assert(EntityScript_ExecuteOne(&event_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED && log.event == 7008);
 
     EntityScriptInstruction random_instruction = {};
     random_instruction.opcode = 0x2d;
