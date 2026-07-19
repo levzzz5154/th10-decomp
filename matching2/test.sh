@@ -110,6 +110,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/script/ecl_vm.cpp" \
+    "$ROOT/src/script/ecl_helpers.cpp" \
     "$ROOT/src/game/recovery_leaves.cpp" \
     "$ROOT/tests/ecl_vm_test.cpp" \
     -o "$TEST_BUILD/ecl_vm_test"
