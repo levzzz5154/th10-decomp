@@ -69,6 +69,7 @@ struct EntityScriptServices {
                       unsigned char b, unsigned char c);
     void (*write_byte)(void* context, int opcode, unsigned int target,
                        unsigned int offset, unsigned char value);
+    void (*scale_pair)(void* context, int opcode, float factor);
 };
 
 struct EntityScriptCursor {
