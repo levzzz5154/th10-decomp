@@ -21,20 +21,20 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 108,
-    "blocking_functions": 71,
-    "source_function_readiness_percent": 60.34,
+    "source_ready_functions": 109,
+    "blocking_functions": 70,
+    "source_function_readiness_percent": 60.89,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 22400,
-    "source_byte_readiness_percent": 31.85,
+    "source_ready_retail_bytes": 22592,
+    "source_byte_readiness_percent": 32.13,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
     "standalone_ready": false,
     "by_recovery_status": {
       "partial": 2,
-      "semantic": 108,
-      "unrecovered": 69
+      "semantic": 109,
+      "unrecovered": 68
     }
   },
   "integration_gates": {
@@ -168,19 +168,6 @@
       "source": "unrecovered",
       "reachable_callers": 14,
       "impact_score": 1400384
-    },
-    {
-      "address": "0x0043CB80",
-      "symbol": "FUN_0043cb80",
-      "size": 192,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400192
     },
     {
       "address": "0x0044DE10",
@@ -376,6 +363,19 @@
       "source": "unrecovered",
       "reachable_callers": 4,
       "impact_score": 400720
+    },
+    {
+      "address": "0x0044CBF0",
+      "symbol": "FUN_0044cbf0",
+      "size": 656,
+      "distance_from_root": 3,
+      "direct_internal_callees": 1,
+      "dynamic_call_sites": 5,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400656
     }
   ],
   "functions": [
@@ -1299,9 +1299,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/script/prng.cpp"
     },
     {
       "address": "0x0043CC40",

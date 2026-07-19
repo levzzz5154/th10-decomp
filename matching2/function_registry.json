@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 1,
-      "semantic": 329,
-      "unrecovered": 355
+      "semantic": 330,
+      "unrecovered": 354
     }
   },
   "functions": [
@@ -5020,8 +5020,8 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043CB80_FUN_0043cb80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/script/prng.cpp"
     },
     {
       "address": "0x0043CC40",
