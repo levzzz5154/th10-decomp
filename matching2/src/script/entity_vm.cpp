@@ -351,6 +351,15 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode == 0x4b) {
+        if (cursor->services == 0 || cursor->services->invoke_action == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        cursor->services->invoke_action(cursor->services->context,
+            resolver->ResolveInteger(instruction->operand,
+                (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0));
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x45) {
         if (cursor->services == 0 || cursor->services->reset_state == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
