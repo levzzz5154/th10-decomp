@@ -289,5 +289,14 @@ int main() {
     run_cursor.halted = false;
     assert(EntityScript_Run(&run_cursor, &resolver, 1, &executed) ==
            ENTITY_SCRIPT_STEP_MALFORMED && executed == 1);
+    stream[0].opcode = 0x12;
+    stream[0].destination = 0;
+    stream[0].flags = 0;
+    stream[0].operand = 7;
+    stream[0].operand2 = 5;
+    run_cursor.offset = 0;
+    run_cursor.halted = false;
+    assert(EntityScript_ExecuteOne(&run_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED && resolver.integers[0] == 12);
     return 0;
 }

@@ -206,6 +206,39 @@ EntityScriptStepResult EntityScript_ExecuteOne(
             cursor->offset += instruction->size;
         return result;
     }
+    if (instruction->opcode == 0x12 || instruction->opcode == 0x13 ||
+        instruction->opcode == 0x14 || instruction->opcode == 0x15 ||
+        instruction->opcode == 0x16 || instruction->opcode == 0x17 ||
+        instruction->opcode == 0x18 || instruction->opcode == 0x19 ||
+        instruction->opcode == 0x1a || instruction->opcode == 0x2f) {
+        const bool indirect =
+            (instruction->flags & ENTITY_SCRIPT_DESTINATION_INDIRECT) != 0;
+        const bool operand_indirect =
+            (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
+        EntityScriptStepResult result;
+        if ((instruction->opcode & 1u) == 0) {
+            int* destination = resolver->ResolveIntegerDestination(
+                instruction->destination, indirect);
+            const int left = resolver->ResolveInteger(
+                instruction->operand, operand_indirect);
+            const int right = resolver->ResolveInteger(
+                instruction->operand2, operand_indirect);
+            result = EntityScript_ApplyBinaryInteger(
+                instruction->opcode, destination, left, right);
+        } else {
+            float* destination = resolver->ResolveFloatDestination(
+                instruction->destination, indirect);
+            const float left = resolver->ResolveFloat(
+                instruction->operand, operand_indirect);
+            const float right = resolver->ResolveFloat(
+                instruction->operand2, operand_indirect);
+            result = EntityScript_ApplyBinaryFloat(
+                instruction->opcode, destination, left, right);
+        }
+        if (result == ENTITY_SCRIPT_STEP_APPLIED)
+            cursor->offset += instruction->size;
+        return result;
+    }
 
     const bool operand_indirect =
         (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
