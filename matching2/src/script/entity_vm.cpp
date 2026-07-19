@@ -356,7 +356,7 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
     if (instruction->opcode == 0x4b || instruction->opcode == 0x5a ||
-        instruction->opcode == 0x5b) {
+        instruction->opcode == 0x5b || instruction->opcode == 0x5c) {
         if (cursor->services == 0 || cursor->services->invoke_action == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
         cursor->services->invoke_action(cursor->services->context,
