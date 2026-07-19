@@ -242,6 +242,21 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
+    if (instruction->opcode == 0x33 || instruction->opcode == 0x34) {
+        if (cursor->services == 0 || cursor->services->set_bytes == 0)
+            return ENTITY_SCRIPT_STEP_UNSUPPORTED;
+        const bool indirect =
+            (instruction->flags & ENTITY_SCRIPT_OPERAND_INDIRECT) != 0;
+        const unsigned char a = (unsigned char)resolver->ResolveInteger(
+            instruction->operand, indirect);
+        const unsigned char b = instruction->opcode == 0x34
+            ? (unsigned char)resolver->ResolveInteger(instruction->operand2, indirect)
+            : 0;
+        cursor->services->set_bytes(cursor->services->context,
+            instruction->opcode, a, b, 0);
+        cursor->offset += instruction->size;
+        return ENTITY_SCRIPT_STEP_APPLIED;
+    }
     if (instruction->opcode == 0x29 || instruction->opcode == 0x2d) {
         if (cursor->services == 0 || cursor->services->random_float == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
