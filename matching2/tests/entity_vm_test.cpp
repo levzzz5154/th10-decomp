@@ -137,6 +137,9 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED && floating == 1.0f);
     assert(EntityScript_ApplyUnaryFloat(0x2c, &floating, 0.0f) ==
            ENTITY_SCRIPT_STEP_APPLIED && floating == 0.0f);
+    assert(EntityScript_ApplyUnaryFloat(0x2e, &floating, 1.0f) ==
+           ENTITY_SCRIPT_STEP_APPLIED && floating > 0.7853f &&
+           floating < 0.7855f);
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;

@@ -140,6 +140,7 @@ EntityScriptStepResult EntityScript_ApplyUnaryFloat(
     case 0x2a: *destination = std::sin(operand); break;
     case 0x2b: *destination = std::cos(operand); break;
     case 0x2c: *destination = std::tan(operand); break;
+    case 0x2e: *destination = std::atan(operand); break;
     default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
     return ENTITY_SCRIPT_STEP_APPLIED;
