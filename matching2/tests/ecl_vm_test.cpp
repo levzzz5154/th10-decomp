@@ -581,6 +581,13 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(fixture.Operands()[0] == FloatBits(50.0f));
 
+    // 0x102: store operand 0 to entity+0xe8 (active enemy-type slot).
+    fixture.instruction.instruction.opcode = 0x102;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 7;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(int32_t*)(entity + 0xe8) == 7);
+
     g_pGameStateManager = 0;
 }
 

@@ -834,6 +834,14 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         }
         return 0;
     }
+    case 0x102: {
+        // Select the active enemy-type slot from operand 0.  The retail
+        // stores the resolved integer at entity+0xe8 so subsequent opcodes
+        // (0x103, 0x106, 0x10d) can refer to the same slot.
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityInt(entity, 0xe8) = value;
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.
