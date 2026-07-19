@@ -9,6 +9,7 @@ float DAT_00470b60 = -1.0f;
 void* g_pGameStateManager = 0;
 int32_t DAT_00474c98 = 0;
 int32_t DAT_00474c74 = 0;
+uint32_t DAT_00476f78 = 0x3F800000u; // 1.0f as bits
 
 extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
 extern "C" void AnimationManager_SetEclFlag(void) {}
@@ -458,6 +459,128 @@ void TestRecoveredLeafDispatcher() {
     fixture.Operands()[3] = FloatBits(0.0f);
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(float*)(entity + 0xa4) == 5.0f);
+    g_pGameStateManager = 0;
+
+    // 0x14d / 0x14f: reset / assign timer target.
+    fixture.instruction.instruction.opcode = 0x14d;
+    fixture.instruction.instruction.param_mask = 0;
+    g_difficulty_action = -1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(g_difficulty_action == 0);
+    fixture.instruction.instruction.opcode = 0x14f;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 73;
+    g_difficulty_action = -1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(g_difficulty_action == 73);
+
+    // 0x153: 64-bit-safe paths.  The retail binary stores a 32-bit pointer
+    // at manager+0x9eb8, so the live-boss dereference can only be exercised
+    // on a 32-bit build (see the bullet_manager_test pattern).  The empty
+    // paths still let us confirm the dispatcher routes through the gate.
+    fixture.instruction.instruction.opcode = 0x153;
+    fixture.instruction.instruction.param_mask = 0;
+    g_pGameStateManager = manager;
+    *(int32_t*)(manager + 0x9eb8) = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    *(int32_t*)(manager + 0x9eb8) = 0;
+
+    fixture.instruction.instruction.opcode = 0x154;
+    *(int32_t*)(manager + 0x10) = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    *(int32_t*)(manager + 0x10) = 1;
+    assert(ECL_VM_Dispatch(entity) == (int)0xFFFFFFFFu);
+    *(int32_t*)(manager + 0x10) = 0;
+
+    // 0x155: label-table entry.  The VM state cursor holds a
+    // 32-bit instruction pointer; the label slot at
+    // (index + 0x24a) * 0x10 receives ip + 0x18.
+    fixture.instruction.instruction.opcode = 0x155;
+    fixture.instruction.instruction.param_mask = 1;
+    fixture.Operands()[0] = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint32_t label_base = (uint32_t)(0x24a * 0x10);
+    ECLInstruction* ip = *reinterpret_cast<ECLInstruction**>(
+        fixture.bytes + 8);
+    assert(*(uint32_t*)(fixture.bytes + label_base) ==
+           (uint32_t)(uint64_t)ip + 0x18u);
+
+    // 0x16a: set bit 3 of manager + 0x378c.
+    fixture.instruction.instruction.opcode = 0x16a;
+    fixture.instruction.instruction.param_mask = 0;
+    *(uint32_t*)(manager + 0x378c) = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(manager + 0x378c) & 8u) != 0);
+    *(uint32_t*)(manager + 0x378c) = 0xFF;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(manager + 0x378c) & 8u) != 0);
+
+    // 0x16c: set bit 0x80000 from operand 0's bit 0x13.  When the operand
+    // is zero the bit clears; a non-zero operand sets it.
+    fixture.instruction.instruction.opcode = 0x16c;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 1;
+    *(uint32_t*)(entity + 0x1444) = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x80000u) == 0x80000u);
+    fixture.Operands()[0] = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x80000u) == 0);
+    fixture.Operands()[0] = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x80000u) == 0x80000u);
+
+    // 0x16e: set 0x100000 bit, write secondary operand to +0x1448, set +0x144c
+    // from +0xf4, and clear 0x200000.
+    fixture.instruction.instruction.opcode = 0x16e;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = 1;
+    fixture.Operands()[1] = 42;
+    *(uint32_t*)(entity + 0x1444) = 0;
+    *(int32_t*)(entity + 0xf4) = 0xABCDEF12;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x100000u) == 0x100000u);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x200000u) == 0);
+    assert(*(int32_t*)(entity + 0x1448) == 42);
+    assert(*(uint32_t*)(entity + 0x144c) == 0xABCDEF12u);
+    fixture.Operands()[0] = 0;
+    *(uint32_t*)(entity + 0x1444) = 0x100000u | 0x200000u;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x100000u) == 0);
+    assert((*(uint32_t*)(entity + 0x1444) & 0x200000u) == 0);
+
+    // 0x16f: replace DAT_00476f78 with operand 0.
+    fixture.instruction.instruction.opcode = 0x16f;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = FloatBits(0.5f);
+    DAT_00476f78 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(DAT_00476f78 == FloatBits(0.5f));
+
+    // 0x170: subtract difficulty-tier constant from the float the script
+    // points to.  The retail cursor stores a 32-bit float pointer in its
+    // first 4 bytes; on 64-bit hosts the truncated address is rarely a
+    // valid pointer, so we exercise the no-op path (cursor[0] == 0) here
+    // and rely on a 32-bit test for the live-subtraction path.
+    fixture.instruction.instruction.opcode = 0x170;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = FloatBits(50.0f);
+    fixture.Operands()[1] = 7;
+    fixture.Operands()[2] = 25;
+    fixture.Operands()[3] = 40;
+    DAT_00474c74 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(fixture.Operands()[0] == FloatBits(50.0f));
+    DAT_00474c74 = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(fixture.Operands()[0] == FloatBits(50.0f));
+    DAT_00474c74 = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(fixture.Operands()[0] == FloatBits(50.0f));
+    DAT_00474c74 = 3;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(fixture.Operands()[0] == FloatBits(50.0f));
+
     g_pGameStateManager = 0;
 }
 

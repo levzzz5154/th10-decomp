@@ -18,6 +18,7 @@ extern float DAT_00470b60; // -1: pop from the ECL argument stack
 extern void* g_pGameStateManager;
 extern int32_t DAT_00474c98;
 extern int32_t DAT_00474c74;
+extern uint32_t DAT_00476f78; // script-time scale, shared with player/bullet
 
 namespace {
 
@@ -716,6 +717,121 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         if (delay > 0.0f)
             *reinterpret_cast<float*>(record + 0x24) = delay;
         *reinterpret_cast<uint32_t*>(record + 0x28) |= 1u;
+        return 0;
+    }
+    case 0x14d:
+        // Retail helper FUN_00405410 with 0; this is the same timer setter
+        // used by ECL_APPLY_DIFFICULTY_ACTION (0x169) but with a literal zero.
+        ECL_SetTimerTarget(0);
+        return 0;
+    case 0x14f: {
+        // Same as 0x169; supplied as a separate opcode so the script can
+        // force the timer target without re-reading operand 0.
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 0);
+        ECL_SetTimerTarget(value);
+        return 0;
+    }
+    case 0x153:
+        // Conditional script exit (return 0xffffffff).  The retail gate is
+        // (DAT_0047770c + 0x9eb8)->0x78 == 0; when the manager has no live
+        // boss entry the script should terminate immediately.  The retail
+        // binary stores the boss pointer as a 32-bit value, so on 64-bit
+        // hosts we treat the manager field as a small handle and only
+        // dereference it when the value looks like a valid 32-bit address.
+        if (g_pGameStateManager != 0) {
+            const uint32_t boss_address = *reinterpret_cast<uint32_t*>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x9eb8);
+            if (boss_address != 0) {
+                const int32_t live_value = *reinterpret_cast<const int32_t*>(
+                    reinterpret_cast<const void*>(
+                        static_cast<unsigned long long>(boss_address + 0x78)));
+                if (live_value == 0)
+                    return 0xffffffff;
+            }
+        }
+        return 0;
+    case 0x154:
+        // Conditional script exit (return 0xffffffff) when the global config
+        // has a non-null +0x10 pointer, mirroring the retail 0x0040E770 case.
+        if (g_pGameStateManager != 0 &&
+            *reinterpret_cast<int32_t*>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x10) != 0)
+            return 0xffffffff;
+        return 0;
+    case 0x155: {
+        // Label-table entry.  Operand 0 selects the script-local label index;
+        // retail stores the address of the next instruction header (iVar27 +
+        // 0x18) at the VM-owned label table.  The retail binary stores the
+        // raw 32-bit pointer (this is a 32-bit retail binary), so we keep the
+        // instruction pointer in a uint32_t for storage.
+        const int32_t label = ECL_ResolveIntOperand(state->cursor, 0);
+        if (state->cursor == 0) return 0;
+        ECLInstruction* instruction =
+            *reinterpret_cast<ECLInstruction**>(
+                reinterpret_cast<uint8_t*>(state->cursor) +
+                kInstructionPointerOffset);
+        const uint64_t instruction_address =
+            reinterpret_cast<uint64_t>(instruction);
+        *reinterpret_cast<uint32_t*>(
+            reinterpret_cast<uint8_t*>(state->cursor) +
+            (label + 0x24a) * 0x10) =
+            static_cast<uint32_t>(instruction_address) + 0x18;
+        return 0;
+    }
+    case 0x16a:
+        // Set the global "play sound" pending bit on the player state block.
+        if (g_pGameStateManager != 0)
+            *reinterpret_cast<uint32_t*>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x378c) |= 8u;
+        return 0;
+    case 0x16c: {
+        // XOR the 0x80000 flag with the LSB of the resolved integer operand.
+        // The retail expression `(value << 0x13 ^ flags) & 0x80000` selects
+        // bit 0x80000 only when the operand is non-zero.
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityFlags(entity) ^= (uint32_t)(
+            ((int)value << 0x13) ^ EntityFlags(entity)) & 0x80000u;
+        return 0;
+    }
+    case 0x16e: {
+        // Same bit-twiddling as 0x16c but for 0x100000.  After the XOR the
+        // script also writes the next two operands into entity+0x1448 and
+        // entity+0x144c, and clears bit 0x200000.
+        const int32_t bit_value = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityFlags(entity) ^= (uint32_t)(
+            (bit_value << 0x14) ^ EntityFlags(entity)) & 0x100000u;
+        const int32_t secondary = ECL_ResolveIntOperand(state->cursor, 1);
+        EntityInt(entity, 0x1448) = secondary;
+        EntityFlags(entity) &= ~0x200000u;
+        EntityInt(entity, 0x144c) = EntityInt(entity, 0xf4);
+        return 0;
+    }
+    case 0x16f: {
+        // Replace DAT_00476f78 (the script-time scale) with operand 0.
+        const float value = ECL_ResolveFloatOperand(state->cursor, 0);
+        DAT_00476f78 = *reinterpret_cast<const uint32_t*>(&value);
+        return 0;
+    }
+    case 0x170: {
+        // Subtract a difficulty-tier constant from the float that the
+        // script's operand 0 points to.  Retail treats the cursor's first
+        // 4 bytes as a 32-bit float pointer; on 64-bit hosts we also
+        // support a 64-bit pointer stored at offset 0 (the script loader
+        // writes whichever pointer size matches the host).
+        int operand_index = 0;
+        if (DAT_00474c74 == 1) operand_index = 1;
+        else if (DAT_00474c74 == 2) operand_index = 2;
+        else if (DAT_00474c74 >= 3) operand_index = 3;
+        const int32_t value = ECL_ResolveIntOperand(state->cursor, operand_index);
+        if (state->cursor != 0) {
+            const uint32_t target_address = *reinterpret_cast<uint32_t*>(
+                reinterpret_cast<uint8_t*>(state->cursor));
+            if (target_address != 0) {
+                float* target = reinterpret_cast<float*>(
+                    static_cast<unsigned long long>(target_address));
+                *target = *target - (float)value;
+            }
+        }
         return 0;
     }
     default:
