@@ -72,6 +72,7 @@ struct EntityScriptServices {
     void (*scale_pair)(void* context, int opcode, float factor);
     void (*set_mode)(void* context, unsigned char mode);
     void (*set_scalar)(void* context, int opcode, float value);
+    void (*set_flags)(void* context, int opcode, unsigned int value);
 };
 
 struct EntityScriptCursor {
