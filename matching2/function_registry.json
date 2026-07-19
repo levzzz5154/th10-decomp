@@ -1470,7 +1470,7 @@
       "raw_source": "decompiled/ghidra_raw/0040E770_FUN_0040e770.c",
       "recovery_status": "partial",
       "promoted_source": "src/script/ecl_vm.cpp",
-      "blocker": "Only the bounded leaf-opcode subset is reconstructed"
+      "blocker": "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs"
     },
     {
       "address": "0x00412720",

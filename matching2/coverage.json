@@ -1077,7 +1077,7 @@
       "size": 16304,
       "status": "partial",
       "source": "src/script/ecl_vm.cpp",
-      "blocker": "Only the bounded leaf-opcode subset is reconstructed"
+      "blocker": "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs"
     },
     {
       "address": "0x00412720",
