@@ -21,12 +21,12 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 115,
-    "blocking_functions": 64,
-    "source_function_readiness_percent": 64.25,
+    "source_ready_functions": 116,
+    "blocking_functions": 63,
+    "source_function_readiness_percent": 64.8,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 24784,
-    "source_byte_readiness_percent": 35.24,
+    "source_ready_retail_bytes": 25136,
+    "source_byte_readiness_percent": 35.75,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
@@ -34,8 +34,8 @@
     "by_recovery_status": {
       "partial": 2,
       "researched": 1,
-      "semantic": 115,
-      "unrecovered": 61
+      "semantic": 116,
+      "unrecovered": 60
     }
   },
   "integration_gates": {
@@ -143,19 +143,6 @@
       "source": "unrecovered",
       "reachable_callers": 14,
       "impact_score": 1400384
-    },
-    {
-      "address": "0x0044DE10",
-      "symbol": "FUN_0044de10",
-      "size": 352,
-      "distance_from_root": 3,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 9,
-      "impact_score": 900352
     },
     {
       "address": "0x0044D110",
@@ -371,6 +358,19 @@
       "size": 336,
       "distance_from_root": 4,
       "direct_internal_callees": 4,
+      "dynamic_call_sites": 0,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400336
+    },
+    {
+      "address": "0x00424ED0",
+      "symbol": "FUN_00424ed0",
+      "size": 336,
+      "distance_from_root": 4,
+      "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
       "recovery_status": "unrecovered",
       "source_ready": false,
@@ -2345,9 +2345,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/archive_cursor_read.cpp"
     }
   ]
 }

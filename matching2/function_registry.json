@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 337,
-      "unrecovered": 346
+      "semantic": 338,
+      "unrecovered": 345
     }
   },
   "functions": [
@@ -6912,8 +6912,8 @@
       "size": 352,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DE10_FUN_0044de10.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/archive_cursor_read.cpp"
     },
     {
       "address": "0x0044DF70",

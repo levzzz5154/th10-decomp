@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 337,
-        "retail_bytes": 59241
+        "function_count": 338,
+        "retail_bytes": 59593
       },
       "exact-overlay": {
         "function_count": 33,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 62,
+        "implemented_functions": 63,
         "tracked_bytes": 123584,
-        "implemented_bytes": 23424
+        "implemented_bytes": 23776
       },
       {
         "name": "large",
@@ -5050,8 +5050,8 @@
       "address": "0x0044DE10",
       "symbol": "FUN_0044de10",
       "size": 352,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/archive_cursor_read.cpp"
     },
     {
       "address": "0x0044DF70",
