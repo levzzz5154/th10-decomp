@@ -928,6 +928,16 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(ECL_LastSubEntityRequest()->mode == 6);
     assert(ECL_LastSubEntityRequest()->sub_index == 7);
+
+    // 0x110: same sub-entity create shape (FUN_00448d00), also falls
+    // through to the post-init block.  We assert mode 6 + the sub_index
+    // from operand 1 just like 0x107.
+    fixture.instruction.instruction.opcode = 0x110;
+    fixture.Operands()[0] = 2;
+    fixture.Operands()[1] = 11;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 6);
+    assert(ECL_LastSubEntityRequest()->sub_index == 11);
     g_pGameStateManager = 0;
 
     g_pGameStateManager = 0;

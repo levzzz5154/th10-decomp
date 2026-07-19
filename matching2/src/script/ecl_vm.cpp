@@ -1152,11 +1152,13 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         return 0;
     }
     case 0x107:
-    case 0x108: {
+    case 0x108:
+    case 0x110: {
         // Sub-entity create (mode 6).  Operand 0 is the slot index in the
         // manager's slot table (DAT_00477704 + 0x30), operand 1 is the
-        // sub-slot index.  0x107 falls through to the post-init block
-        // (LAB_0040ee5b), 0x108 returns directly.
+        // sub-slot index.  0x107 (FUN_00448e30) and 0x110 (FUN_00448d00)
+        // both fall through to the post-init block (LAB_0040ee5b);
+        // 0x108 returns directly without the post-init walk.
         const int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
         const int32_t sub_index = ECL_ResolveIntOperand(state->cursor, 1);
         if (g_pGameStateManager != 0) {
@@ -1167,18 +1169,15 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             ECL_SubEntityCreate(
                 static_cast<int32_t>(slot_record_bits), sub_index, 6);
         }
-        if (opcode == 0x107) {
-            // 0x107 falls through to LAB_0040ee5b which records the
-            // sub-entity position and (when the 0x40000 flag is clear)
-            // copies it from FUN_00418810.  The position comes from
-            // entity+0x2c/0x30/0x34 in the no-flag case.
+        if (opcode == 0x107 || opcode == 0x110) {
+            // LAB_0040ee5b: mark the sub-entity via ECL_SubEntityMark and
+            // (when the entity flag 0x40000 is clear) copy its spawn
+            // position from FUN_00418810.  The readable version of
+            // FUN_00418810 is a separate reconstruction pass; for now we
+            // mirror the entity's composite position at +0x2c/0x30/0x34.
             int32_t marked = ECL_SubEntityMark(slot);
             (void)marked;
             if ((EntityFlags(entity) & 0x40000u) == 0) {
-                // Retail would pull a 3-float vec from FUN_00418810
-                // (the manager's spawned-entity pool).  The readable
-                // version of FUN_00418810 is a separate reconstruction
-                // pass; for now we mirror the entity position.
                 uint8_t* record = static_cast<uint8_t*>(entity) + slot * 0x210;
                 *reinterpret_cast<float*>(record + 0x340) =
                     EntityFloat(entity, 0x2c);
