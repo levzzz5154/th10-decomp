@@ -89,6 +89,9 @@ EntityScriptStepResult EntityScript_ApplyUnaryFloat(
     int opcode, float* destination, float operand);
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
+EntityScriptStepResult EntityScript_Run(
+    EntityScriptCursor* cursor, EntityScriptResolver* resolver,
+    unsigned int max_steps, unsigned int* executed_steps);
 EntityScriptStepResult EntityScript_JumpRelative(
     EntityScriptCursor* cursor, int relative_bytes);
 EntityScriptStepResult EntityScript_InvokeService(

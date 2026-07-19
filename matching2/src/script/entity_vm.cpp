@@ -232,6 +232,23 @@ EntityScriptStepResult EntityScript_ExecuteOne(
     return result;
 }
 
+EntityScriptStepResult EntityScript_Run(
+    EntityScriptCursor* cursor, EntityScriptResolver* resolver,
+    unsigned int max_steps, unsigned int* executed_steps) {
+    if (executed_steps != 0) *executed_steps = 0;
+    if (cursor == 0 || resolver == 0 || max_steps == 0)
+        return ENTITY_SCRIPT_STEP_MALFORMED;
+    for (unsigned int step = 0; step < max_steps; ++step) {
+        const EntityScriptStepResult result =
+            EntityScript_ExecuteOne(cursor, resolver);
+        if (executed_steps != 0) *executed_steps = step + 1;
+        if (result == ENTITY_SCRIPT_STEP_APPLIED)
+            continue;
+        return result;
+    }
+    return ENTITY_SCRIPT_STEP_MALFORMED;
+}
+
 EntityScriptStepResult EntityScript_JumpRelative(
     EntityScriptCursor* cursor, int relative_bytes) {
     if (cursor == 0 || cursor->stream == 0 || cursor->offset > cursor->stream_size)

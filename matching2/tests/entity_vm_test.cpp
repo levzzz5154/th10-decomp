@@ -270,5 +270,24 @@ int main() {
     assert(EntityScript_ExecuteOne(&branch_cursor, &resolver) ==
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(branch_cursor.offset == sizeof(EntityScriptInstruction) * 2);
+    EntityScriptCursor run_cursor = {
+        reinterpret_cast<const unsigned char*>(stream), sizeof(stream), 0,
+        false, {}, 0, &services
+    };
+    stream[0].opcode = ENTITY_SCRIPT_SET_INT;
+    stream[0].size = sizeof(EntityScriptInstruction);
+    stream[0].destination = 0;
+    stream[0].flags = 0;
+    stream[0].operand = 9;
+    stream[1].opcode = ENTITY_SCRIPT_END;
+    stream[1].size = sizeof(EntityScriptInstruction);
+    unsigned int executed = 0;
+    assert(EntityScript_Run(&run_cursor, &resolver, 4, &executed) ==
+           ENTITY_SCRIPT_STEP_FINISHED);
+    assert(executed == 2 && resolver.integers[0] == 9);
+    run_cursor.offset = 0;
+    run_cursor.halted = false;
+    assert(EntityScript_Run(&run_cursor, &resolver, 1, &executed) ==
+           ENTITY_SCRIPT_STEP_MALFORMED && executed == 1);
     return 0;
 }
