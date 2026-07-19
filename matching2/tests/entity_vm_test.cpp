@@ -193,7 +193,7 @@ int main() {
 
     ServiceLog log = {-1, -1, -1};
     EntityScriptServices services = {
-        ResetTimer, TransitionResource, EmitEvent, &log, 0
+        ResetTimer, TransitionResource, EmitEvent, &log, FixedRandom
     };
     assert(EntityScript_InvokeService(&services, 0, 12) ==
            ENTITY_SCRIPT_STEP_APPLIED && log.timer == 12);
@@ -223,6 +223,18 @@ int main() {
            ENTITY_SCRIPT_STEP_APPLIED);
     assert(log.timer == 123 && service_cursor.offset ==
            sizeof(EntityScriptInstruction));
+
+    EntityScriptInstruction random_instruction = {};
+    random_instruction.opcode = 0x2d;
+    random_instruction.size = sizeof(EntityScriptInstruction);
+    random_instruction.destination = 1;
+    EntityScriptCursor random_cursor = {
+        reinterpret_cast<const unsigned char*>(&random_instruction),
+        sizeof(random_instruction), 0, false, {}, 0, &services
+    };
+    assert(EntityScript_ExecuteOne(&random_cursor, &resolver) ==
+           ENTITY_SCRIPT_STEP_APPLIED);
+    assert(resolver.floats[1] == 0.25f);
 
     EntityScriptInstruction flow[3] = {};
     flow[0].opcode = ENTITY_SCRIPT_CALL;
