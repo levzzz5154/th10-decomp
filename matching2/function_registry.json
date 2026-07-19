@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 3,
       "researched": 1,
-      "semantic": 225,
-      "unrecovered": 460
+      "semantic": 236,
+      "unrecovered": 449
     }
   },
   "functions": [
@@ -3724,8 +3724,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C850_FUN_0042c850.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C8C0",
@@ -3734,8 +3734,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C8C0_FUN_0042c8c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C920",
@@ -5281,7 +5281,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043EE30_FUN_0043ee30.c",
       "recovery_status": "researched",
-      "promoted_source": null,
+      "promoted_source": "src/math/rng.cpp",
       "blocker": "Animation instruction interpreter remains retail-backed"
     },
     {
@@ -6422,8 +6422,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B620_FUN_0044b620.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B6B0",
@@ -6432,8 +6432,8 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B6B0_FUN_0044b6b0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B740",
@@ -6492,8 +6492,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B9E0_FUN_0044b9e0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BA80",
@@ -6502,8 +6502,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BA80_FUN_0044ba80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB20",
@@ -6512,8 +6512,8 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BB20_FUN_0044bb20.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB90",
@@ -6522,8 +6522,8 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BB90_FUN_0044bb90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BC10",
@@ -6532,8 +6532,8 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BC10_FUN_0044bc10.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BC70",
@@ -6542,8 +6542,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BC70_FUN_0044bc70.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BD10",
@@ -6582,8 +6582,8 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BEA0_FUN_0044bea0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/menu.cpp"
     },
     {
       "address": "0x0044BF40",

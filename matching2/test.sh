@@ -39,6 +39,10 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/math/timer.cpp" \
     "$ROOT/src/math/vector.cpp" \
+    "$ROOT/src/math/rng.cpp" \
+    "$ROOT/src/math/angle.cpp" \
+    "$ROOT/src/game/menu.cpp" \
+    "$ROOT/src/game/progress.cpp" \
     "$ROOT/src/game/score.cpp" \
     "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/game/stage_text.cpp" \

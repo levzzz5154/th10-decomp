@@ -105,6 +105,51 @@ int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
     return 0;
 }
 
+// Shared body of the two retail open leaves. Entering the file-system
+// critical section increments the depth byte; a failed open reports the Win32
+// error through the hook, unwinds the depth, and returns -1. A successful
+// open intentionally keeps the section held and the depth incremented for
+// the paired read/write and close leaves.
+static int File_OpenSharedImpl(const char* path, void* (*open_file)(const char*),
+                               void (*report_error)(void),
+                               void** shared_handle,
+                               unsigned char* critical_depth) {
+    if (critical_depth != 0)
+        ++*critical_depth;
+    void* handle = 0;
+    if (open_file != 0)
+        handle = open_file(path);
+    if (shared_handle != 0)
+        *shared_handle = handle;
+    if (handle == (void*)-1 || handle == 0) {
+        if (report_error != 0)
+            report_error();
+        if (critical_depth != 0 && *critical_depth != 0)
+            --*critical_depth;
+        return -1;
+    }
+    return 0;
+}
+
+// 0x0044B620 - Create/truncate the shared output file (GENERIC_WRITE,
+// CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL) inside the critical section.
+int File_OpenSharedWrite(const char* path, void* (*open_file)(const char*),
+                         void (*report_error)(void),
+                         void** shared_handle, unsigned char* critical_depth) {
+    return File_OpenSharedImpl(
+        path, open_file, report_error, shared_handle, critical_depth);
+}
+
+// 0x0044B6B0 - Open the shared input file (GENERIC_READ, OPEN_EXISTING,
+// FILE_FLAG_SEQUENTIAL_SCAN | FILE_ATTRIBUTE_NORMAL) inside the critical
+// section.
+int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
+                        void (*report_error)(void),
+                        void** shared_handle, unsigned char* critical_depth) {
+    return File_OpenSharedImpl(
+        path, open_file, report_error, shared_handle, critical_depth);
+}
+
 // 0x0044B740 - Write a complete shared diagnostic record, retiring the
 // handle and critical-section depth when the provider reports a short write.
 int File_WriteShared(void* handle, const void* source, DWORD size,

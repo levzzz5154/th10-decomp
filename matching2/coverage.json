@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 225,
-        "retail_bytes": 42057
+        "function_count": 236,
+        "retail_bytes": 43529
       },
       "exact-overlay": {
         "function_count": 33,
@@ -32,9 +32,9 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 149,
+        "implemented_functions": 160,
         "tracked_bytes": 47943,
-        "implemented_bytes": 19145
+        "implemented_bytes": 20617
       },
       {
         "name": "medium",
@@ -2654,15 +2654,15 @@
       "address": "0x0042C850",
       "symbol": "FUN_0042c850",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C8C0",
       "symbol": "FUN_0042c8c0",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C920",
@@ -3908,7 +3908,7 @@
       "symbol": "FUN_0043ee30",
       "size": 10192,
       "status": "researched",
-      "source": "unrecovered",
+      "source": "src/math/rng.cpp",
       "blocker": "Animation instruction interpreter remains retail-backed"
     },
     {
@@ -4707,15 +4707,15 @@
       "address": "0x0044B620",
       "symbol": "FUN_0044b620",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B6B0",
       "symbol": "FUN_0044b6b0",
       "size": 144,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B740",
@@ -4756,43 +4756,43 @@
       "address": "0x0044B9E0",
       "symbol": "FUN_0044b9e0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BA80",
       "symbol": "FUN_0044ba80",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB20",
       "symbol": "FUN_0044bb20",
       "size": 112,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB90",
       "symbol": "FUN_0044bb90",
       "size": 128,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BC10",
       "symbol": "FUN_0044bc10",
       "size": 96,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BC70",
       "symbol": "FUN_0044bc70",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BD10",
@@ -4819,8 +4819,8 @@
       "address": "0x0044BEA0",
       "symbol": "FUN_0044bea0",
       "size": 160,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/menu.cpp"
     },
     {
       "address": "0x0044BF40",

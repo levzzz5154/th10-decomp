@@ -5,6 +5,7 @@
 #include "th10/archive/resource_manager.hpp"
 #include <cassert>
 
+static void TestSharedOpenLeaves();
 static void TestSharedWrite();
 static void TestSharedRead();
 static void TestPathDecode();
@@ -282,6 +283,7 @@ static void* ProbeOpen(const char* path) {
 static void ProbeClose(void*) { ++probeCloses; }
 
 int main() {
+    TestSharedOpenLeaves();
     TestSharedWrite();
     TestSharedRead();
     TestPathDecode();
@@ -311,6 +313,47 @@ int main() {
 
 static DWORD g_written;
 static int g_closed;
+static int g_open_errors;
+static const char* g_opened_path;
+static void* g_open_result;
+static void* TestOpen(const char* path) {
+    g_opened_path = path;
+    return g_open_result;
+}
+static void TestReportError(void) { ++g_open_errors; }
+
+// Both open leaves publish the handle, hold the critical-section depth on
+// success, and unwind it through the error hook on failure.
+static void TestSharedOpenLeaves() {
+    void* handle = 0;
+    unsigned char depth = 0;
+    g_open_errors = 0;
+    g_open_result = (void*)0x1234;
+    assert(File_OpenSharedWrite("out.log", TestOpen, TestReportError,
+                                &handle, &depth) == 0);
+    assert(handle == (void*)0x1234 && depth == 1 && g_open_errors == 0);
+    assert(g_opened_path != 0 && g_opened_path[0] == 'o');
+
+    depth = 1;
+    g_open_result = (void*)-1;
+    assert(File_OpenSharedWrite("bad", TestOpen, TestReportError,
+                                &handle, &depth) == -1);
+    assert(handle == (void*)-1 && depth == 1 && g_open_errors == 1);
+
+    depth = 0;
+    g_open_errors = 0;
+    g_open_result = (void*)0x5678;
+    assert(File_OpenSharedRead("in.dat", TestOpen, TestReportError,
+                               &handle, &depth) == 0);
+    assert(handle == (void*)0x5678 && depth == 1 && g_open_errors == 0);
+
+    depth = 2;
+    g_open_result = (void*)-1;
+    assert(File_OpenSharedRead("missing", TestOpen, TestReportError,
+                               &handle, &depth) == -1);
+    assert(handle == (void*)-1 && depth == 2 && g_open_errors == 1);
+}
+
 static DWORD TestWrite(void*, const void*, DWORD size) { return g_written ? g_written : size; }
 static void TestClose(void*) { ++g_closed; }
 

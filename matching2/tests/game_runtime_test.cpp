@@ -1,5 +1,9 @@
 #include "th10/math/timer.hpp"
 #include "th10/math/vector.hpp"
+#include "th10/math/rng.hpp"
+#include "th10/math/angle.hpp"
+#include "th10/game/menu.hpp"
+#include "th10/game/progress.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_text.hpp"
 
@@ -18,6 +22,12 @@ float DAT_00470b04 = 0.0f;
 float DAT_00470b38 = 448.0f;
 float DAT_00470b3c = 192.0f;
 float DAT_00470b40 = -192.0f;
+float _DAT_00470b98 = 4294967296.0f;
+float _DAT_00470bec = 4.6566128730773926e-10f;
+float _DAT_00470bf0 = 2.3283064365386963e-10f;
+float DAT_00470b10 = -3.1415927f;
+float DAT_00470b14 = 6.2831855f;
+float DAT_00470b18 = 3.1415927f;
 
 unsigned int DAT_00492274;
 unsigned char DAT_0049231c;
@@ -684,6 +694,10 @@ static void TestGameStateTimerTarget();
 static void TestGameStateDisableTimerWithOwner();
 static void TestFrameTimerAdvance();
 static void TestPositionInViewport();
+static void TestRngSequence();
+static void TestAngleNormalize();
+static void TestMenuCursorAdvance();
+static void TestGameProgressRecords();
 
 int main() {
     TestFrameTimer();
@@ -704,6 +718,10 @@ int main() {
     TestGameStateDisableTimerWithOwner();
     TestFrameTimerAdvance();
     TestPositionInViewport();
+    TestRngSequence();
+    TestAngleNormalize();
+    TestMenuCursorAdvance();
+    TestGameProgressRecords();
     return 0;
 }
 
@@ -793,4 +811,126 @@ static void TestFrameTimerAdvance() {
     speed = 2.0f;
     FrameTimer_Advance(&timer, 1.5f);
     assert(timer.previous == 3 && timer.current == 6 && timer.elapsed == 6.0f);
+}
+
+// Retail generator sequence from a zero seed, computed from the verified
+// 16-bit LCG steps (XOR 0x9630, subtract 0x6553, multiply-and-fold).
+static void TestRngSequence() {
+    RngState state = {0, 0, 0};
+    assert(Rng_NextU32(&state) == 0xC374BFC7u);
+    assert(state.seed == 0xBFC7 && state.generation == 2);
+    assert(Rng_NextU32(&state) == 0x12937D40u);
+    assert(state.seed == 0x7D40 && state.generation == 4);
+    assert(Rng_NextU32(&state) == 0x1876A3CCu);
+    assert(state.generation == 6);
+
+    RngState floatState = {0, 0, 0};
+    unsigned int bits = 0;
+    float value = Rng_NextFloat(&floatState);
+    std::memcpy(&bits, &value, sizeof(bits));
+    assert(bits == 0x3F4374C0u);  // 0.7635002 in [0, 1)
+    assert(floatState.generation == 2);
+    value = Rng_NextFloat(&floatState);
+    std::memcpy(&bits, &value, sizeof(bits));
+    assert(bits == 0x3D949BEAu);  // 0.0725630 in [0, 1)
+
+    RngState signedState = {0, 0, 0};
+    value = Rng_NextFloatSigned(&signedState);
+    std::memcpy(&bits, &value, sizeof(bits));
+    assert(bits == 0x3F06E980u);  // 0.5270004 in [-1, 1)
+    value = Rng_NextFloatSigned(&signedState);
+    std::memcpy(&bits, &value, sizeof(bits));
+    assert(bits == 0xBF5AD906u);  // -0.8548740 in [-1, 1)
+
+    // The double-step leaf returns the first pair while advancing four steps.
+    RngState doubleState = {0, 0, 0};
+    assert(Rng_NextU32DoubleStep(&doubleState) == 0xC374BFC7u);
+    assert(doubleState.seed == 0x7D40 && doubleState.generation == 4);
+}
+
+static void TestAngleNormalize() {
+    // Values already inside [-pi, pi] pass through unchanged.
+    assert(Angle_Normalize(1.5f) == 1.5f);
+    assert(Angle_Normalize(-3.1415927f) == -3.1415927f);
+    // Positive overflow folds by 2*pi per pass.
+    float wrapped = Angle_Normalize(3.1415927f * 4.0f);
+    assert(wrapped > -0.0001f && wrapped < 0.0001f);
+    wrapped = Angle_NormalizeSum(3.0f, 1.0f);
+    assert(wrapped > -2.2833f && wrapped < -2.2831f);
+    // Negative overflow folds upward.
+    wrapped = Angle_Normalize(-3.1415927f * 1.5f);
+    assert(wrapped > 1.5707f && wrapped < 1.5709f);
+    // The shared 0x20 iteration cap keeps huge inputs bounded.
+    assert(Angle_Normalize(1.0e30f) > 1.0e29f);
+    assert(Angle_Normalize(-1.0e30f) < -1.0e29f);
+}
+
+static void TestMenuCursorAdvance() {
+    MenuCursor cursor = {};
+    cursor.itemCount = 5;
+    cursor.wrap = 1;
+    cursor.value = 1;
+    assert(MenuCursor_Advance(&cursor, 1) == 2);
+    // Wrap past the last item back to the first.
+    cursor.value = 4;
+    assert(MenuCursor_Advance(&cursor, 1) == 0);
+    // Wrap below the first item up to the last.
+    cursor.value = 0;
+    assert(MenuCursor_Advance(&cursor, -1) == 4);
+    // Clamp mode stops at the edges instead of wrapping.
+    cursor.wrap = 0;
+    cursor.value = 4;
+    assert(MenuCursor_Advance(&cursor, 1) == 4);
+    cursor.value = 0;
+    assert(MenuCursor_Advance(&cursor, -1) == 0);
+    // Skipped positions are bypassed with another step in the same direction.
+    cursor.wrap = 1;
+    cursor.skipValues[0] = 2;
+    cursor.skipCount = 1;
+    cursor.value = 1;
+    assert(MenuCursor_Advance(&cursor, 1) == 3);
+    cursor.value = 3;
+    assert(MenuCursor_Advance(&cursor, -1) == 1);
+    // Consecutive skips keep advancing until a free position is found.
+    cursor.skipValues[1] = 3;
+    cursor.skipCount = 2;
+    cursor.value = 1;
+    assert(MenuCursor_Advance(&cursor, 1) == 4);
+    // A skip right after the wrap boundary is bypassed too.
+    cursor.itemCount = 3;
+    cursor.skipValues[0] = 0;
+    cursor.skipCount = 1;
+    cursor.value = 2;
+    assert(MenuCursor_Advance(&cursor, 1) == 1);
+    // An empty list never moves the cursor.
+    cursor.itemCount = 0;
+    cursor.skipCount = 0;
+    cursor.value = 7;
+    assert(MenuCursor_Advance(&cursor, 1) == 7);
+}
+
+static void TestGameProgressRecords() {
+    std::vector<unsigned char> progress(0x1D892, 0);
+    assert(GameProgress_HasAnyPlayRecord(&progress[0]) == 0);
+    // Bytes outside the six checked flags do not count as a record.
+    progress[0x1D882] = 1;
+    progress[0x1D88E] = 1;
+    assert(GameProgress_HasAnyPlayRecord(&progress[0]) == 0);
+    for (int index = 0; index < 6; ++index) {
+        std::vector<unsigned char> single(0x1D892, 0);
+        single[0x1D888 + index] = 1;
+        assert(GameProgress_HasAnyPlayRecord(&single[0]) == 1);
+    }
+
+    GameProgress_UnlockAllStages(&progress[0]);
+    for (int index = 0; index < 16; ++index)
+        assert(progress[0x1D882 + index] == 1);
+    for (int table = 0; table < 6; ++table) {
+        unsigned int base = 0x4E9 + table * 0x437C;
+        for (int stage = 0; stage < 6; ++stage)
+            assert(progress[base + stage * 8] == 1);
+        // Untouched neighbors stay clear.
+        assert(progress[base + 1] == 0);
+        assert(progress[base + 6 * 8] == 0);
+    }
 }

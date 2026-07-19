@@ -104,6 +104,10 @@ at `0x00435610`, the retail LZSS decoder at `0x00435DC0`, and the complete
 ResourceFile destructor chain at `0x00436680`. Focused tests cover drive-qualified
 paths, executables without a directory component, copied RCDATA ownership,
 missing resources, and exactly-once buffer release.
+The shared-file open leaves at `0x0044B620` (create/truncate for writing) and
+`0x0044B6B0` (sequential open for reading) complete the probe/write/read
+family; both publish the shared handle, hold the file-system critical-section
+depth on success, and unwind it through the error hook on failure.
 The utility coverage also exercises inline and allocated `LegacyString`
 assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.
@@ -200,6 +204,40 @@ pointer cleared) without depending on the retail binary.
 Bullet animation-resource retirement at `0x0040CEA0` is now typed as well: it
 sets the bullet state bit, forwards the active animation handle to the shared
 removal hook, and clears that handle after dispatch.
+The math subsystem now includes the complete retail random-number generator
+family behind a typed six-byte `RngState` (16-bit seed at +0x00, 32-bit
+generation counter at +0x04). Every entry performs the 16-bit
+linear-congruential step (XOR `0x9630`, subtract `0x6553`, multiply-and-fold)
+verified against the retail disassembly: `Rng_NextU32` (`0x0044B9E0`) advances
+twice and returns both outputs packed as `(first << 16) | second`,
+`Rng_NextU32DoubleStep` (`0x0044BA80`, no surviving retail caller) advances
+four steps while returning the first pair, `Rng_NextFloat` (`0x0044BB20`)
+scales the unsigned output by 2^-32 for `[0, 1)`, and `Rng_NextFloatSigned`
+(`0x0044BB90`) scales by 2^-31 and shifts by 1.0 for `[-1, 1)`. The float
+leaves reproduce the retail x87 conversion (signed load with a 2^32 bias for
+negative values, exact power-of-two scaling, single final rounding) by
+evaluating in double; the dedicated harness checks the full zero-seed
+sequence and the exact result bit patterns. The adjacent angle-wrapping pair
+is typed as `Angle_Normalize` (`0x0044BC70`) and `Angle_NormalizeSum`
+(`0x0044BC10`), folding their input into `[-pi, pi]` with the retail 0x20
+iteration cap shared across both adjustment loops.
+Menu navigation now has a typed 0xD8-byte `MenuCursor`:
+`MenuCursor_Advance` (`0x0044BEA0`) moves the position by the requested
+delta, wraps or clamps at the item-count boundary according to the mode flag,
+and bypasses any position listed in the 16-entry skip table by advancing
+again. The pause, title, and practice menu handlers drive their selection
+through this leaf on every up/down input edge; coverage exercises wrapping,
+clamping, single and consecutive skips, skip entries at the wrap boundary,
+and the empty-list no-op.
+The persistent progress block at `DAT_0047783c` gains its first two typed
+leaves. `GameProgress_HasAnyPlayRecord` (`0x0042C850`) reports whether any of
+the six main shot-type record flags at `+0x1D888` is set — the main-menu gate
+disables its stage-practice item while the answer is no.
+`GameProgress_UnlockAllStages` (`0x0042C8C0`) sets all sixteen shot-type
+record flags at `+0x1D882` and marks the first six 8-byte stage records in
+every per-shot-type 0x437C-byte table at `+0x4E9`, reproducing the hidden
+key-sequence effect from the practice menu; retail's four redundant store
+passes per table are preserved.
 
 The supported original executable has SHA-256:
 

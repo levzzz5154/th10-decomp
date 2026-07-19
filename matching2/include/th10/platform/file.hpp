@@ -44,6 +44,12 @@ bool File_ProbeExists(const char* path,
                       void (*close_file)(void*));
 int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
                           unsigned char* critical_depth);
+int File_OpenSharedWrite(const char* path, void* (*open_file)(const char*),
+                         void (*report_error)(void),
+                         void** shared_handle, unsigned char* critical_depth);
+int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
+                        void (*report_error)(void),
+                        void** shared_handle, unsigned char* critical_depth);
 int File_WriteShared(void* handle, const void* source, DWORD size,
                      DWORD (*write_file)(void*, const void*, DWORD),
                      void (*close_file)(void*), unsigned char* critical_depth);
