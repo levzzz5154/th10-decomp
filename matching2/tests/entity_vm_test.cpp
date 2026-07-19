@@ -119,6 +119,16 @@ int main() {
     assert(EntityScript_AssignRandomFloat(
                &floating, 4.0f, 12.0f, FixedRandom, 0) ==
            ENTITY_SCRIPT_STEP_APPLIED && floating == 6.0f);
+    assert(EntityScript_CompareInteger(0x1c, 2, 3));
+    assert(!EntityScript_CompareInteger(0x1e, 2, 3));
+    assert(EntityScript_CompareInteger(0x20, 3, 2));
+    assert(EntityScript_CompareInteger(0x22, 2, 3));
+    assert(EntityScript_CompareInteger(0x24, 2, 2));
+    assert(EntityScript_CompareFloat(0x1d, 2.0f, 3.0f));
+    assert(EntityScript_CompareFloat(0x1f, 2.0f, 2.0f));
+    assert(EntityScript_CompareFloat(0x21, 3.0f, 2.0f));
+    assert(EntityScript_CompareFloat(0x23, 2.0f, 3.0f));
+    assert(EntityScript_CompareFloat(0x25, 2.0f, 2.0f));
 
     EntityScriptInstruction stream[2] = {};
     stream[0].opcode = ENTITY_SCRIPT_SET_INT;

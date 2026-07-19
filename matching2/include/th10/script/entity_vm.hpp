@@ -83,6 +83,8 @@ typedef float (*EntityScriptRandomFloat)(void* context);
 EntityScriptStepResult EntityScript_AssignRandomFloat(
     float* destination, float minimum, float maximum,
     EntityScriptRandomFloat random, void* context);
+bool EntityScript_CompareInteger(int opcode, int left, int right);
+bool EntityScript_CompareFloat(int opcode, float left, float right);
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver);
 EntityScriptStepResult EntityScript_JumpRelative(

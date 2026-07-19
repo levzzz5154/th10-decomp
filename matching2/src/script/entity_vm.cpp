@@ -107,6 +107,28 @@ EntityScriptStepResult EntityScript_AssignRandomFloat(
     return ENTITY_SCRIPT_STEP_APPLIED;
 }
 
+bool EntityScript_CompareInteger(int opcode, int left, int right) {
+    switch (opcode) {
+    case 0x1c: return left != right;
+    case 0x1e: return left == right;
+    case 0x20: return left > right;
+    case 0x22: return left < right;
+    case 0x24: return left <= right;
+    default: return false;
+    }
+}
+
+bool EntityScript_CompareFloat(int opcode, float left, float right) {
+    switch (opcode) {
+    case 0x1d: return left != right;
+    case 0x1f: return left == right;
+    case 0x21: return left > right;
+    case 0x23: return left < right;
+    case 0x25: return left <= right;
+    default: return false;
+    }
+}
+
 EntityScriptStepResult EntityScript_ExecuteOne(
     EntityScriptCursor* cursor, EntityScriptResolver* resolver) {
     if (cursor == 0 || resolver == 0 || cursor->stream == 0)
