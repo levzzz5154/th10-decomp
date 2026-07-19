@@ -1162,6 +1162,110 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         }
         return 0;
     }
+    case 0x16b:
+        // FUN_0040cea0: set the player-state 0x378c bit 0x10 and dispatch
+        // the sound-queue helper.  The dispatch_index (uVar8) is the
+        // sound-resource id.
+        ECL_ApplyEclFlag();
+        return 0;
+    case 0x16d:
+        // FUN_0041c7d0: walk the entity's secondary script list and mark
+        // every entry whose 0x50 byte is zero.  The readable version
+        // is a no-op until the entity script list is reconstructed.
+        return 0;
+    case 0x149:
+        // FUN_0040c9a0: play an in-game sound by id.  The readable
+        // version is a no-op until the sound queue is reconstructed.
+        ECL_ApplyEclFlagAlt();
+        return 0;
+    case 0x19e:
+    case 0x1a0:
+    case 0x1a1:
+    case 0x1a2:
+    case 0x1a3: {
+        // FUN_0040cf90 + 0xcf60 (0x19f): per-bullet init from operand 0.
+        // The retail writes (0.0, 1.0, 2.0, etc.) into specific
+        // offsets of the bullet record; the readable version looks up
+        // the record by id and either initializes it (0x19e, 0x1a0,
+        // 0x1a1, 0x1a2, 0x1a3) or marks it (0x19f).
+        const int32_t bullet_id = ECL_ResolveIntOperand(state->cursor, 0);
+        void* record = ECL_FindByID(bullet_id);
+        if (record != 0) {
+            if (opcode == 0x19e) {
+                *reinterpret_cast<float*>(
+                    static_cast<uint8_t*>(record) + 0x24) = 1.0f;
+                *reinterpret_cast<float*>(
+                    static_cast<uint8_t*>(record) + 0x28) = 2.0f;
+                *reinterpret_cast<int32_t*>(
+                    static_cast<uint8_t*>(record) + 0x2c) = 0;
+            } else {
+                *reinterpret_cast<float*>(
+                    static_cast<uint8_t*>(record) +
+                    (opcode == 0x1a0 ? 0x48 :
+                     opcode == 0x1a1 ? 0x44 :
+                     opcode == 0x1a2 ? 0x3c : 0x440)) = 1.0f;
+            }
+        }
+        return 0;
+    }
+    case 0x19f: {
+        // FUN_0040cf90 + FUN_0040cf60: look up a bullet by id and mark
+        // it for release.  The readable version records the id so a
+        // test can assert the right lookup happened.
+        const int32_t bullet_id = ECL_ResolveIntOperand(state->cursor, 0);
+        ECL_ReleaseByID(bullet_id);
+        return 0;
+    }
+    case 0x150: {
+        // FUN_0043dd10: read operand 0 and dispatch the script-time
+        // animation tick.  The readable version is a no-op until the
+        // animation manager is reconstructed.
+        ECL_ResolveIntOperand(state->cursor, 0);
+        return 0;
+    }
+    case 0x151: {
+        // FUN_0043c8b0: 5-argument script call (mode 1, op, x, y, 0).
+        // The readable version is a no-op until the animation manager
+        // is reconstructed.
+        ECL_ResolveIntOperand(state->cursor, 0);
+        ECL_ResolveIntOperand(state->cursor, 1);
+        ECL_ResolveIntOperand(state->cursor, 2);
+        return 0;
+    }
+    case 0x152: {
+        // FUN_00415db0 + FUN_00408210(0) + FUN_0041c850 + FUN_0040e6a0:
+        // full state reset (clear scripts, hide sprites, reset ranges).
+        ECL_ResolveIntOperand(state->cursor, 0);
+        ECL_RangeReset();
+        return 0;
+    }
+    case 0x157: {
+        // FUN_00409c00: dispatch the ECL sound helper with the
+        // dispatch_index.  The readable version is a no-op until the
+        // sound queue is reconstructed.
+        return 0;
+    }
+    case 0x159: {
+        // FUN_0040e6a0: clear the manager's range state.  The
+        // readable version is a no-op until the range state machine
+        // is reconstructed.
+        ECL_RangeReset();
+        return 0;
+    }
+    case 0x1a4: {
+        // FUN_00408100(operand 0, 1, 0) + FUN_0041c800: enable the
+        // boss range.  The readable version is a no-op until the
+        // range state machine is reconstructed.
+        ECL_ResolveFloatOperand(state->cursor, 0);
+        return 0;
+    }
+    case 0x1a5: {
+        // FUN_00408100(operand 0, 0, 0) + FUN_0041c800: disable the
+        // boss range.  The readable version is a no-op until the
+        // range state machine is reconstructed.
+        ECL_ResolveFloatOperand(state->cursor, 0);
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.
