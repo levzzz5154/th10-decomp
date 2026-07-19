@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 332,
-      "unrecovered": 351
+      "semantic": 333,
+      "unrecovered": 350
     }
   },
   "functions": [
@@ -5351,8 +5351,8 @@
       "size": 464,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442050_FUN_00442050.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/entity_color_slot.cpp"
     },
     {
       "address": "0x00442220",

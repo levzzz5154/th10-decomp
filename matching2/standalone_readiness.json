@@ -21,12 +21,12 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 111,
-    "blocking_functions": 68,
-    "source_function_readiness_percent": 62.01,
+    "source_ready_functions": 112,
+    "blocking_functions": 67,
+    "source_function_readiness_percent": 62.57,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 23296,
-    "source_byte_readiness_percent": 33.13,
+    "source_ready_retail_bytes": 23760,
+    "source_byte_readiness_percent": 33.79,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 0,
     "unaudited_dynamic_call_sites": 144,
@@ -34,8 +34,8 @@
     "by_recovery_status": {
       "partial": 2,
       "researched": 1,
-      "semantic": 111,
-      "unrecovered": 65
+      "semantic": 112,
+      "unrecovered": 64
     }
   },
   "integration_gates": {
@@ -117,19 +117,6 @@
       "source": "unrecovered",
       "reachable_callers": 14,
       "impact_score": 1400816
-    },
-    {
-      "address": "0x00442050",
-      "symbol": "FUN_00442050",
-      "size": 464,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400464
     },
     {
       "address": "0x0043EAC0",
@@ -377,6 +364,19 @@
       "source": "unrecovered",
       "reachable_callers": 4,
       "impact_score": 400480
+    },
+    {
+      "address": "0x00408AF0",
+      "symbol": "FUN_00408af0",
+      "size": 416,
+      "distance_from_root": 4,
+      "direct_internal_callees": 2,
+      "dynamic_call_sites": 0,
+      "recovery_status": "unrecovered",
+      "source_ready": false,
+      "source": "unrecovered",
+      "reachable_callers": 4,
+      "impact_score": 400416
     }
   ],
   "functions": [
@@ -1564,9 +1564,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/entity_color_slot.cpp"
     },
     {
       "address": "0x00442220",

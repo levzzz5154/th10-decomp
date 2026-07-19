@@ -159,6 +159,14 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/entity_movement_slot_test"
 
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/entity_color_slot.cpp" \
+    "$ROOT/tests/entity_color_slot_test.cpp" \
+    -o "$TEST_BUILD/entity_color_slot_test"
+
+"$TEST_BUILD/entity_color_slot_test"
+
 # GameState stores 32-bit retail pointers in its ABI fields, so exercise its
 # device-failure state transitions in a 32-bit host binary.
 g++ -m32 -std=c++17 -Wall -Wextra -Werror \

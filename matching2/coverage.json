@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 332,
-        "retail_bytes": 57561
+        "function_count": 333,
+        "retail_bytes": 58025
       },
       "exact-overlay": {
         "function_count": 33,
@@ -41,9 +41,9 @@
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 59,
+        "implemented_functions": 60,
         "tracked_bytes": 123584,
-        "implemented_bytes": 22144
+        "implemented_bytes": 22608
       },
       {
         "name": "large",
@@ -3957,8 +3957,8 @@
       "address": "0x00442050",
       "symbol": "FUN_00442050",
       "size": 464,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/game/entity_color_slot.cpp"
     },
     {
       "address": "0x00442220",
