@@ -822,6 +822,50 @@ void TestRecoveredLeafDispatcher() {
     assert(*(short*)(entity + 0x4b8) == 300);
     assert(*(short*)(entity + 0x4ba) == 400);
 
+    // 0x1b3: tier-conditional per-slot float pair (4 tiers).
+    fixture.instruction.instruction.opcode = 0x1b3;
+    fixture.Operands()[0] = 0;
+    DAT_00474c74 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 1.0f);
+    assert(*(float*)(entity + 0x2e0) == 7.0f);
+    DAT_00474c74 = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 2.0f);
+    assert(*(float*)(entity + 0x2e0) == 8.0f);
+    DAT_00474c74 = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 10.0f);
+    DAT_00474c74 = 4;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 5.0f);
+    assert(*(float*)(entity + 0x2e0) == 12.0f);
+
+    // 0x1b4: tier-conditional per-slot short pair (4 tiers).
+    fixture.instruction.instruction.opcode = 0x1b4;
+    fixture.Operands()[0] = 0;
+    for (int i = 1; i <= 4; ++i) {
+        fixture.Operands()[i] = i * 10;
+        fixture.Operands()[i + 4] = i * 10 + 5;
+    }
+    DAT_00474c74 = 0;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 10);
+    assert(*(short*)(entity + 0x4ba) == 15);
+    DAT_00474c74 = 1;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 20);
+    assert(*(short*)(entity + 0x4ba) == 25);
+    DAT_00474c74 = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 30);
+    assert(*(short*)(entity + 0x4ba) == 35);
+    DAT_00474c74 = 4;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 40);
+    assert(*(short*)(entity + 0x4ba) == 45);
+
     g_pGameStateManager = 0;
 }
 

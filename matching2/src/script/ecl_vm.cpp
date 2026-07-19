@@ -1084,6 +1084,45 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             (short)(((delta_y + (delta_y >> 31 & 0x7FF)) >> 11) + lo_y);
         return 0;
     }
+    case 0x1b3: {
+        // Tier-conditional per-slot float pair (4 tiers via DAT_00474c74).
+        // Tiers 0/1/2/3 (or 4) write (1, 7), (2, 8), (4, 10), (5, 12).
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        float first;
+        float second;
+        switch (DAT_00474c74) {
+        case 0:  first = 1.0f;  second = 7.0f;  break;
+        case 1:  first = 2.0f;  second = 8.0f;  break;
+        case 2:  first = 4.0f;  second = 10.0f; break;
+        default: first = 5.0f;  second = 12.0f; break;
+        }
+        EntityFloat(entity, base + 0x2dc) = first;
+        EntityFloat(entity, base + 0x2e0) = second;
+        return 0;
+    }
+    case 0x1b4: {
+        // Tier-conditional per-slot short pair (4 tiers via DAT_00474c74).
+        // Each tier pulls a different pair of operands: (1, 5), (2, 6),
+        // (3, 7), (4, 8) for tiers 0..3 (tier 4 reuses tier 3).
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        const unsigned int base = index * 0x210u;
+        int pair_index;
+        switch (DAT_00474c74) {
+        case 0:  pair_index = 1; break;
+        case 1:  pair_index = 2; break;
+        case 2:  pair_index = 3; break;
+        default: pair_index = 4; break;
+        }
+        const int32_t a = ECL_ResolveIntOperand(state->cursor, pair_index);
+        const int32_t b =
+            ECL_ResolveIntOperand(state->cursor, pair_index + 4);
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
+        *reinterpret_cast<short*>(
+            static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.
