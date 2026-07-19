@@ -94,6 +94,9 @@ EntityScriptStepResult EntityScript_ApplyBinaryFloat(
         if (right == 0.0f) return ENTITY_SCRIPT_STEP_DIVIDE_BY_ZERO;
         *destination = left / right;
         break;
+    case 0x2f:
+        *destination = std::atan2(left, right);
+        break;
     default: return ENTITY_SCRIPT_STEP_UNSUPPORTED;
     }
     return ENTITY_SCRIPT_STEP_APPLIED;
