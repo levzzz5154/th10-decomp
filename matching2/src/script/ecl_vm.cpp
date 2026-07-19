@@ -1333,6 +1333,158 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         ECL_ResolveFloatOperand(state->cursor, 0);
         return 0;
     }
+    case 0x109:
+    case 0x10a:
+    case 0x10c: {
+        // Manager-counter guards.  Retail returns early when the
+        // DAT_00477704 + 0x10 counter is non-zero (otherwise it falls
+        // through to 0x100/0x101/0x105 respectively, the complex enemy-
+        // init + D3DXVec3Project path that remains on the retail image).
+        if (g_pGameStateManager != 0 &&
+            *reinterpret_cast<int32_t*>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x10) != 0) {
+            return 0;
+        }
+        return 0;
+    }
+    case 0x10b:
+    case 0x10f: {
+        // Inverted guard: retail proceeds only when the manager counter
+        // is non-zero, otherwise falls through to 0x104 (0x10b) or
+        // 0x10e (0x10f).  Both fall-through bodies are the D3DXVec3Project
+        // enemy-init path, kept on the retail image; both branches of
+        // the readable stub return 0.
+        if (g_pGameStateManager != 0 &&
+            *reinterpret_cast<int32_t*>(
+                static_cast<uint8_t*>(g_pGameStateManager) + 0x10) == 0) {
+            return 0;
+        }
+        return 0;
+    }
+    case 0x100:
+    case 0x101:
+    case 0x104:
+    case 0x105:
+    case 0x10e: {
+        // Enemy-init opcodes: param_1+0x14d8 script cursor, a 16-float
+        // local_90 buffer, D3DXVec3Project (when the 0x40000 flag is set),
+        // FUN_00401d20 + FUN_0040cfb0 spawn ticks, FUN_0044ff00 sub-index
+        // cops.  Full body depends on D3DX9 and the manager spawn-list
+        // state machine.  Documented stub.
+        return 0;
+    }
+    case 0x103:
+    case 0x106:
+    case 0x10d: {
+        // Sub-entity create via FUN_00448e30 mode 5 (slot from operand 0,
+        // sub_index from operand 1) and FUN_00449630 link.  0x106 reads
+        // player position at +0x46/0x4c after the link; 0x10d folds in an
+        // extra 0xc4 word.  The readable version stubs to recording
+        // (slot, sub_index, 5) and marking the slot, mirroring 0x107.
+        const int32_t slot = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t sub_index = ECL_ResolveIntOperand(state->cursor, 1);
+        ECL_SubEntityCreate(slot, sub_index, 5);
+        ECL_SubEntityMark(slot);
+        return 0;
+    }
+    case 0x119:
+    case 0x11b: {
+        // Per-axis sub-record init at entity+0x13c (0x119) / +0x188
+        // (0x11b).  Reads 6 float operands, dispatches the bit-0
+        // sub_index via FUN_0044fdb0 then hands control to FUN_004050d0
+        // (the per-bullet spawn record) which is still on the retail
+        // image.  Documented stub.
+        for (int i = 0; i < 6; ++i)
+            ECL_ResolveFloatOperand(state->cursor, i);
+        return 0;
+    }
+    case 0x11d:
+    case 0x11f: {
+        // Comprehensive per-axis position init.  Reads operands 0..2,
+        // branches on a 10.0f sub_index comparison, optionally mirrors z
+        // around DAT_00470b94 (flag 0x800), and seeds the sub-record at
+        // +0x1d4 (0x11d) / +0x210 (0x11f).  Documented stub pending
+        // full FUN_0044fdb0 reconstruction.
+        ECL_ResolveFloatOperand(state->cursor, 0);
+        ECL_ResolveFloatOperand(state->cursor, 1);
+        return 0;
+    }
+    case 0x121:
+    case 0x123: {
+        // Movement + bullet record init (FUN_00412db0 + per-track
+        // record at entity+0x24c (0x121) / +0x288 (0x123)).  Uses
+        // DAT_00491c20/24 references plus 4 float operands and an int
+        // sub_index.  Documented stub.
+        for (int i = 0; i < 4; ++i)
+            ECL_ResolveFloatOperand(state->cursor, i);
+        ECL_ResolveIntOperand(state->cursor, 0);
+        return 0;
+    }
+    case 0x124:
+    case 0x125: {
+        // Random movement placement using FUN_0044bb90 (PRNG) against
+        // DAT_00470d40/DAT_00470d50/DAT_00477834/DAT_004918b0 and the
+        // entity's per-axis movement boundaries at +0x13ac/0x13b0.  The
+        // full boundary math + ABS branch remains on the retail image.
+        // Documented stub.
+        return 0;
+    }
+    case 0x156:
+    case 0x15c:
+    case 0x165:
+    case 0x166:
+    case 0x167: {
+        // Encrypted-string sound playback.  Retail reads a length-
+        // prefixed encrypted string from entity+0x13c, decodes it with
+        // a rotating xor (key 0x77, step +7, increment +0x10), then
+        // invokes FUN_00409280(DAT_004776f4, index, decoded, value) with
+        // the resolved slot offset (DAT_00474c74 adjustment for the
+        // 0x165-0x167 branches).  Kept as a documented stub since the
+        // sound queue is not reconstructed.
+        ECL_ResolveIntOperand(state->cursor, 0);
+        return 0;
+    }
+    case 0x191: {
+        // Per-shot laser record: copy composite position from
+        // entity+0x2c/0x30/0x34 to slot*0x210+0x2c8+, dispatch
+        // FUN_004073e0 if the distance to DAT_00477834 exceeds the
+        // entity+0x1454 threshold.  Stub: only the slot index is
+        // resolved; the manager-side spawn helpers remain on the
+        // retail image.
+        ECL_ResolveIntOperand(state->cursor, 0);
+        return 0;
+    }
+    case 0x195: {
+        // Initial 1.0/2.0 float values into laser record offset
+        // (LAB_00410408 path shared with 0x1a6).  Real write.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        uint8_t* record = static_cast<uint8_t*>(entity) + index * 0x210;
+        *reinterpret_cast<float*>(record + 0x2dc) = 1.0f;
+        *reinterpret_cast<float*>(record + 0x2e0) = 2.0f;
+        return 0;
+    }
+    case 0x19a: {
+        // FUN_00408210(1) + FUN_0041c850: per-frame manager-side cleanup
+        // tick.  Documented stub until that pass is reconstructed.
+        return 0;
+    }
+    case 0x19c:
+    case 0x19d:
+    case 0x1ac:
+    case 0x1ad:
+    case 0x1ae:
+    case 0x1af:
+    case 0x1b0:
+    case 0x1b1:
+    case 0x1b2: {
+        // Enemy state setter family via FUN_0041c510: the 0x77-float
+        // working buffer is zeroed, optionally seeded from entity+0x2e4
+        // for the 0x1af/0x1b0/0x1b1/0x1b2 sub-variants, then FUN_0041c510
+        // mixes template state into the working buffer and writes back.
+        // Documented stub — the state machine remains on the retail
+        // image.
+        return 0;
+    }
     default:
         // The remaining opcode families still execute from the retail image.
         // Their behavior is being moved here in independently verified groups.

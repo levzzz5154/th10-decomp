@@ -961,6 +961,51 @@ void TestRecoveredLeafDispatcher() {
     *(uint32_t*)(entity + 0x1444) = 0;
     g_pGameStateManager = 0;
 
+    // 0x103/0x106/0x10d: sub-entity create mode 5 paths.
+    fixture.instruction.instruction.opcode = 0x103;
+    fixture.Operands()[0] = 4;
+    fixture.Operands()[1] = 8;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 5);
+    assert(ECL_LastSubEntityRequest()->sub_index == 8);
+
+    fixture.instruction.instruction.opcode = 0x106;
+    fixture.Operands()[0] = 5;
+    fixture.Operands()[1] = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 5);
+    assert(ECL_LastSubEntityRequest()->sub_index == 2);
+
+    fixture.instruction.instruction.opcode = 0x10d;
+    fixture.Operands()[0] = 6;
+    fixture.Operands()[1] = 3;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(ECL_LastSubEntityRequest()->mode == 5);
+    assert(ECL_LastSubEntityRequest()->sub_index == 3);
+
+    // 0x195: laser record 1.0/2.0 init at slot*0x210+0x2dc/0x2e0.
+    fixture.instruction.instruction.opcode = 0x195;
+    fixture.Operands()[0] = 3;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 3 * 0x210 + 0x2dc) == 1.0f);
+    assert(*(float*)(entity + 3 * 0x210 + 0x2e0) == 2.0f);
+
+    // Stubs (0x100, 0x101, 0x104, 0x105, 0x10e) — exercise the documented
+    // stub path so any future regression in the dispatch table fails.
+    static const unsigned short stub_opcodes[] = {
+        0x100, 0x101, 0x104, 0x105, 0x10e, 0x109, 0x10a, 0x10b, 0x10c, 0x10f,
+        0x119, 0x11b, 0x11d, 0x11f, 0x121, 0x123, 0x124, 0x125, 0x156, 0x15c,
+        0x165, 0x166, 0x167, 0x191, 0x19a, 0x19c, 0x19d,
+        0x1ac, 0x1ad, 0x1ae, 0x1af, 0x1b0, 0x1b1, 0x1b2
+    };
+    for (unsigned i = 0; i < sizeof(stub_opcodes)/sizeof(stub_opcodes[0]); ++i) {
+        fixture.instruction.instruction.opcode = stub_opcodes[i];
+        fixture.instruction.instruction.param_mask = 0;
+        fixture.Operands()[0] = 0;
+        fixture.Operands()[1] = 0;
+        assert(ECL_VM_Dispatch(entity) == 0);
+    }
+
     g_pGameStateManager = 0;
 }
 
