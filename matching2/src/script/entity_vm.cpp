@@ -355,7 +355,8 @@ EntityScriptStepResult EntityScript_ExecuteOne(
         cursor->offset += instruction->size;
         return ENTITY_SCRIPT_STEP_APPLIED;
     }
-    if (instruction->opcode == 0x4b || instruction->opcode == 0x5a ||
+    if (instruction->opcode == 0x4b || instruction->opcode == 0x58 ||
+        instruction->opcode == 0x5a ||
         instruction->opcode == 0x5b || instruction->opcode == 0x5c) {
         if (cursor->services == 0 || cursor->services->invoke_action == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
