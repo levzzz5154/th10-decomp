@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 4,
       "researched": 2,
-      "semantic": 335,
-      "unrecovered": 348
+      "semantic": 336,
+      "unrecovered": 347
     }
   },
   "functions": [
@@ -2794,8 +2794,8 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421B90_FUN_00421b90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/vector3_cross.cpp"
     },
     {
       "address": "0x00421C50",

@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 335,
-        "retail_bytes": 58841
+        "function_count": 336,
+        "retail_bytes": 59033
       },
       "exact-overlay": {
         "function_count": 33,
@@ -32,9 +32,9 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 234,
+        "implemented_functions": 235,
         "tracked_bytes": 47943,
-        "implemented_bytes": 30521
+        "implemented_bytes": 30713
       },
       {
         "name": "medium",
@@ -2003,8 +2003,8 @@
       "address": "0x00421B90",
       "symbol": "FUN_00421b90",
       "size": 192,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "semantic",
+      "source": "src/math/vector3_cross.cpp"
     },
     {
       "address": "0x00421C50",

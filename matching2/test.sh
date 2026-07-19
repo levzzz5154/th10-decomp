@@ -183,6 +183,14 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/animation_resource_lazy_fetch_test"
 
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -I"$ROOT/include" \
+    "$ROOT/src/math/vector3_cross.cpp" \
+    "$ROOT/tests/vector3_cross_test.cpp" \
+    -o "$TEST_BUILD/vector3_cross_test"
+
+"$TEST_BUILD/vector3_cross_test"
+
 # GameState stores 32-bit retail pointers in its ABI fields, so exercise its
 # device-failure state transitions in a 32-bit host binary.
 g++ -m32 -std=c++17 -Wall -Wextra -Werror \
