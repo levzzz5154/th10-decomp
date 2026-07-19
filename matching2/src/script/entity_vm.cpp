@@ -328,7 +328,8 @@ EntityScriptStepResult EntityScript_ExecuteOne(
     }
     if ((instruction->opcode >= 0x41 && instruction->opcode <= 0x43) ||
         (instruction->opcode >= 0x48 && instruction->opcode <= 0x4a) ||
-        instruction->opcode == 0x50 || instruction->opcode == 0x52) {
+        instruction->opcode == 0x50 || instruction->opcode == 0x52 ||
+        instruction->opcode == 0x54) {
         if (cursor->services == 0 || cursor->services->set_flags == 0)
             return ENTITY_SCRIPT_STEP_UNSUPPORTED;
         cursor->services->set_flags(cursor->services->context,
