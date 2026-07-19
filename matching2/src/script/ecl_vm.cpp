@@ -19,6 +19,8 @@ extern void* g_pGameStateManager;
 extern int32_t DAT_00474c98;
 extern int32_t DAT_00474c74;
 extern uint32_t DAT_00476f78; // script-time scale, shared with player/bullet
+extern float DAT_00470d58;   // tiny positive comparison constant (0.0f)
+extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 
 namespace {
 
@@ -863,6 +865,32 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             EntityFloat(entity, 0x88) + EntityFloat(entity, 0x5c);
         EntityFloat(entity, 0x34) =
             EntityFloat(entity, 0x8c) + EntityFloat(entity, 0x60);
+        return 0;
+    }
+    case 0x11c:
+    case 0x11e: {
+        // Mirror-and-set the Z position.  Operand 0 = z, operand 1 = y.
+        // Z is run through ECL_SetPositionZWithWrap (FUN_00413170),
+        // optionally pre-mirrored around DAT_00470b94 when the entity
+        // flag 0x800 is set.  Y is stored at record+0x18, then bit 0 of
+        // the record's flag word (record+0x28) is cleared.
+        const unsigned int offset = opcode == 0x11c ? 0x58u : 0x84u;
+        uint8_t* record = static_cast<uint8_t*>(entity) + offset;
+        float z = ECL_ResolveFloatOperand(state->cursor, 0);
+        const float y = ECL_ResolveFloatOperand(state->cursor, 1);
+        if (DAT_00470d58 < z) {
+            if ((EntityFlags(entity) & 0x800u) != 0) {
+                float temp = z - DAT_00470b94;
+                ECL_WrapValue(&temp);
+                temp = DAT_00470b94 - temp;
+                ECL_WrapValue(&temp);
+                z = temp;
+            }
+            ECL_SetPositionZWithWrap(record, z);
+        }
+        if (DAT_00470d58 < y)
+            *reinterpret_cast<float*>(record + 0x18) = y;
+        *reinterpret_cast<uint32_t*>(record + 0x28) &= ~1u;
         return 0;
     }
     case 0x193: {

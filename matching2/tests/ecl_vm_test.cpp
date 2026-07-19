@@ -10,6 +10,8 @@ void* g_pGameStateManager = 0;
 int32_t DAT_00474c98 = 0;
 int32_t DAT_00474c74 = 0;
 uint32_t DAT_00476f78 = 0x3F800000u; // 1.0f as bits
+float DAT_00470d58 = 0.0f;
+float DAT_00470b94 = 3.1415927f;
 
 extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
 extern "C" void AnimationManager_SetEclFlag(void) {}
@@ -616,6 +618,45 @@ void TestRecoveredLeafDispatcher() {
     assert(*(float*)(entity + 0x84) == 33.0f);
     assert(*(float*)(entity + 0x88) == 44.0f);
     assert((*(uint32_t*)(entity + 0x84 + 0x28) & 1u) == 0);
+
+    // 0x11c: mirror-and-set Z (no flag 0x800 -> straight store at +0x1c).
+    fixture.instruction.instruction.opcode = 0x11c;
+    fixture.instruction.instruction.param_mask = 0;
+    fixture.Operands()[0] = FloatBits(1.5f);
+    fixture.Operands()[1] = FloatBits(2.5f);
+    *(uint32_t*)(entity + 0x1444) = 0;
+    *(uint32_t*)(entity + 0x58 + 0x28) = 1u;
+    *(float*)(entity + 0x58 + 0x1c) = 0.0f;
+    *(float*)(entity + 0x58 + 0x18) = 0.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x58 + 0x1c) == 1.5f);
+    assert(*(float*)(entity + 0x58 + 0x18) == 2.5f);
+    assert((*(uint32_t*)(entity + 0x58 + 0x28) & 1u) == 0);
+
+    // 0x11e: same shape targeting the secondary record at +0x84.
+    fixture.instruction.instruction.opcode = 0x11e;
+    fixture.Operands()[0] = FloatBits(0.5f);
+    fixture.Operands()[1] = FloatBits(0.75f);
+    *(uint32_t*)(entity + 0x84 + 0x28) = 1u;
+    *(float*)(entity + 0x84 + 0x1c) = 0.0f;
+    *(float*)(entity + 0x84 + 0x18) = 0.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x84 + 0x1c) == 0.5f);
+    assert(*(float*)(entity + 0x84 + 0x18) == 0.75f);
+    assert((*(uint32_t*)(entity + 0x84 + 0x28) & 1u) == 0);
+
+    // 0x11c with flag 0x800 set: z is pre-mirrored around pi before the
+    // final wrap-and-store.  For z = 0.5 the double-mirror yields -0.5.
+    fixture.instruction.instruction.opcode = 0x11c;
+    fixture.Operands()[0] = FloatBits(0.5f);
+    fixture.Operands()[1] = FloatBits(0.0f);
+    *(uint32_t*)(entity + 0x1444) = 0x800;
+    *(uint32_t*)(entity + 0x58 + 0x28) = 1u;
+    *(float*)(entity + 0x58 + 0x1c) = 0.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    const float mirrored_z = *(float*)(entity + 0x58 + 0x1c);
+    assert(mirrored_z > -0.501f && mirrored_z < -0.499f);
+    *(uint32_t*)(entity + 0x1444) = 0;
 
     // 0x193: per-slot laser record init (1.0/2.0).
     fixture.instruction.instruction.opcode = 0x193;
