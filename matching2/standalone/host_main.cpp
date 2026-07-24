@@ -110,6 +110,11 @@ struct HostContext {
     HostAnmVm player_vm = {};
     int player_vm_ready = 0;
     int player_vm_attempted = 0;
+    unsigned char* front_anm_bytes = nullptr;
+    unsigned int front_anm_size = 0;
+    HostAnmVm front_vms[2] = {};
+    int front_vm_ready = 0;
+    int front_vm_attempted = 0;
     float player_x = 224.0f;
     float player_y = 400.0f;
     // Sound
@@ -150,6 +155,7 @@ struct HostContext {
     unsigned char previous_keyboard[256] = {};
     IDirectSound8* direct_sound = nullptr;
     IDirectSoundBuffer* bgm_buffer = nullptr;
+    char bgm_track[16] = {};
     IDirectSoundBuffer* menu_sound_buffers[3] = {};
     const uint8_t* anm_texture_entry_bases[32] = {};
     IDirect3DTexture9* anm_textures[32] = {};
@@ -678,7 +684,7 @@ void HostApplyAudioVolumes() {
             buffer->SetVolume(sound_volume);
 }
 
-bool HostStartTitleBgm() {
+bool HostStartBgm(const char* track_name) {
     unsigned int fmt_size = Resource_GetFileSize("th10/thbgm.fmt");
     if (fmt_size < 52)
         return false;
@@ -689,11 +695,25 @@ bool HostStartTitleBgm() {
         std::free(metadata);
         return false;
     }
-    // First retail record is title track th10_02.wav.
-    unsigned int offset = HostReadLe32(metadata + 0x10);
-    unsigned int length = HostReadLe32(metadata + 0x14);
+    const unsigned char* record = nullptr;
+    for (unsigned int cursor = 0; cursor + 52 <= fmt_size; cursor += 52) {
+        if (std::strncmp(
+                reinterpret_cast<const char*>(metadata + cursor),
+                track_name, 16) == 0) {
+            record = metadata + cursor;
+            break;
+        }
+    }
+    if (record == nullptr) {
+        std::free(metadata);
+        return false;
+    }
+    unsigned int offset = HostReadLe32(record + 0x10);
+    // +0x1c is the complete PCM extent. +0x14/+0x18 are the retail
+    // intro/loop extents used by the streaming worker.
+    unsigned int length = HostReadLe32(record + 0x1c);
     WAVEFORMATEX format = {};
-    std::memcpy(&format, metadata + 0x20, 16);
+    std::memcpy(&format, record + 0x20, 16);
     std::free(metadata);
 
     std::FILE* file = std::fopen("thbgm.dat", "rb");
@@ -710,6 +730,11 @@ bool HostStartTitleBgm() {
     }
     bool read = std::fread(pcm, 1, length, file) == length;
     std::fclose(file);
+    if (g_host.bgm_buffer != nullptr) {
+        g_host.bgm_buffer->Stop();
+        g_host.bgm_buffer->Release();
+        g_host.bgm_buffer = nullptr;
+    }
     if (read)
         g_host.bgm_buffer = HostCreatePcmBuffer(format, pcm, length);
     std::free(pcm);
@@ -717,8 +742,14 @@ bool HostStartTitleBgm() {
         return false;
     g_host.bgm_buffer->SetVolume(
         HostDirectSoundVolume(g_host.options_config.music_volume));
-    return SUCCEEDED(g_host.bgm_buffer->Play(0, 0, DSBPLAY_LOOPING));
+    if (FAILED(g_host.bgm_buffer->Play(0, 0, DSBPLAY_LOOPING)))
+        return false;
+    std::snprintf(g_host.bgm_track, sizeof(g_host.bgm_track), "%s",
+                  track_name);
+    return true;
 }
+
+bool HostStartTitleBgm() { return HostStartBgm("th10_02.wav"); }
 
 void HostPlayMenuSound(int index) {
     if (index < 0 || index >= 3 ||
@@ -1117,6 +1148,140 @@ bool HostEnsurePlayerVm() {
     return g_host.player_vm_ready;
 }
 
+bool HostEnsureFrontVm() {
+    if (g_host.front_vm_ready)
+        return true;
+    if (g_host.front_vm_attempted)
+        return false;
+    g_host.front_vm_attempted = 1;
+    const char* path = "th10/front.anm";
+    const unsigned int size = Resource_GetFileSize(path);
+    if (size == 0)
+        return false;
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(size));
+    if (bytes == nullptr || Resource_LoadFile(path, bytes) == nullptr) {
+        std::free(bytes);
+        return false;
+    }
+    g_host.front_anm_bytes = bytes;
+    g_host.front_anm_size = size;
+    const int child_count_before = g_host.title_child_vm_count;
+    int visible = 0;
+    for (int script_id = 0; script_id < 2; ++script_id) {
+        AnmFileScript script = {};
+        if (!AnmFile_FindGlobalScript(
+                bytes, size, script_id, nullptr, &script))
+            continue;
+        HostAnmVm* vm = &g_host.front_vms[script_id];
+        HostInitializeAnmVm(vm, script.instructions);
+        vm->script_id = script_id;
+        vm->resource_index = -1;
+        vm->resource_bytes = bytes;
+        vm->resource_size = size;
+        AnmVmHooks hooks = HostAnmHooks(vm);
+        // Retail creates both persistent panel VMs here. Permit their opening
+        // delay to elapse before requiring a drawable sprite.
+        for (int frame = 0; frame < 120 && vm->active &&
+                            vm->state.sprite < 0; ++frame)
+            AnmVm_Tick(&vm->state, &hooks);
+        if (vm->state.sprite >= 0)
+            ++visible;
+    }
+    g_host.front_vm_ready =
+        visible != 0 || g_host.title_child_vm_count > child_count_before;
+    if (g_host.front_vm_ready)
+        HostTrace("minimal front.anm HUD VM initialized");
+    return g_host.front_vm_ready;
+}
+
+const unsigned char* HostHudGlyph(char value) {
+    static const unsigned char blank[7] = {};
+    static const unsigned char glyphs[][7] = {
+        {2, 5, 5, 7, 5, 5, 5}, // A
+        {6, 5, 6, 5, 5, 5, 6}, // B
+        {3, 4, 4, 4, 4, 4, 3}, // C
+        {6, 5, 5, 5, 5, 5, 6}, // D
+        {7, 4, 6, 4, 4, 4, 7}, // E
+        {7, 4, 6, 4, 4, 4, 4}, // F
+        {3, 4, 4, 5, 5, 5, 3}, // G
+        {5, 5, 7, 5, 5, 5, 5}, // H
+        {7, 2, 2, 2, 2, 2, 7}, // I
+        {1, 1, 1, 1, 5, 5, 2}, // J
+        {5, 5, 6, 4, 6, 5, 5}, // K
+        {4, 4, 4, 4, 4, 4, 7}, // L
+        {5, 7, 7, 5, 5, 5, 5}, // M
+        {5, 7, 7, 7, 5, 5, 5}, // N
+        {2, 5, 5, 5, 5, 5, 2}, // O
+        {6, 5, 5, 6, 4, 4, 4}, // P
+        {2, 5, 5, 5, 7, 3, 1}, // Q
+        {6, 5, 5, 6, 6, 5, 5}, // R
+        {3, 4, 4, 2, 1, 1, 6}, // S
+        {7, 2, 2, 2, 2, 2, 2}, // T
+        {5, 5, 5, 5, 5, 5, 2}, // U
+        {5, 5, 5, 5, 5, 2, 2}, // V
+        {5, 5, 5, 5, 7, 7, 5}, // W
+        {5, 5, 2, 2, 2, 5, 5}, // X
+        {5, 5, 5, 2, 2, 2, 2}, // Y
+        {7, 1, 1, 2, 4, 4, 7}, // Z
+    };
+    static const unsigned char digits[][7] = {
+        {2, 5, 5, 5, 5, 5, 2}, {2, 6, 2, 2, 2, 2, 7},
+        {6, 1, 1, 2, 4, 4, 7}, {6, 1, 1, 2, 1, 1, 6},
+        {5, 5, 5, 7, 1, 1, 1}, {7, 4, 4, 6, 1, 1, 6},
+        {3, 4, 4, 6, 5, 5, 2}, {7, 1, 1, 2, 2, 2, 2},
+        {2, 5, 5, 2, 5, 5, 2}, {2, 5, 5, 3, 1, 1, 6},
+    };
+    static const unsigned char colon[7] = {0, 2, 2, 0, 2, 2, 0};
+    static const unsigned char dot[7] = {0, 0, 0, 0, 0, 2, 2};
+    if (value >= 'A' && value <= 'Z') return glyphs[value - 'A'];
+    if (value >= '0' && value <= '9') return digits[value - '0'];
+    if (value == ':') return colon;
+    if (value == '.') return dot;
+    return blank;
+}
+
+void HostDrawHudText(unsigned int* frame, int x, int y, const char* text,
+                     unsigned int color, int scale = 2) {
+    for (; *text != 0; ++text, x += 4 * scale) {
+        const unsigned char* glyph = HostHudGlyph(*text);
+        for (int row = 0; row < 7; ++row)
+            for (int column = 0; column < 3; ++column)
+                if ((glyph[row] & (4 >> column)) != 0)
+                    for (int py = 0; py < scale; ++py)
+                        for (int px = 0; px < scale; ++px) {
+                            const int dx = x + column * scale + px;
+                            const int dy = y + row * scale + py;
+                            if (dx >= 0 && dx < 640 && dy >= 0 && dy < 480)
+                                frame[dy * 640 + dx] = color;
+                        }
+    }
+}
+
+void HostDrawMinimalHud(unsigned int* frame) {
+    for (int y = 0; y < 480; ++y)
+        for (int x = 416; x < 640; ++x)
+            frame[y * 640 + x] = 0x00081018u;
+    for (int y = 16; y < 464; ++y) {
+        frame[y * 640 + 30] = 0x00A0A0A0u;
+        frame[y * 640 + 31] = 0x00FFFFFFu;
+        frame[y * 640 + 416] = 0x00FFFFFFu;
+        frame[y * 640 + 417] = 0x00A0A0A0u;
+    }
+    for (int x = 30; x <= 417; ++x) {
+        frame[14 * 640 + x] = 0x00A0A0A0u;
+        frame[15 * 640 + x] = 0x00FFFFFFu;
+        frame[464 * 640 + x] = 0x00FFFFFFu;
+        frame[465 * 640 + x] = 0x00A0A0A0u;
+    }
+    HostDrawHudText(frame, 440, 42, "SCORE", 0x00D8D8D8u);
+    HostDrawHudText(frame, 440, 64, "000000000", 0x00FFFFFFu);
+    HostDrawHudText(frame, 440, 104, "PLAYER 3", 0x00E8B8B8u);
+    HostDrawHudText(frame, 440, 128, "BOMB 2", 0x00B8D8E8u);
+    HostDrawHudText(frame, 440, 168, "POWER 0.00", 0x00FFFFFFu);
+    HostDrawHudText(frame, 440, 192, "GRAZE 0", 0x00FFFFFFu);
+}
+
 bool HostProjectStagePoint(const float world[3], float* screen_x,
                            float* screen_y, float* scale) {
     const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
@@ -1233,10 +1398,8 @@ void HostRenderStage(unsigned int* frame) {
                 g_host.player_x - sprite.width * 0.5f,
                 g_host.player_y - sprite.height * 0.5f, 1.0f, 1.0f);
     }
-    for (int y = 0; y < 480; ++y)
-        for (int x = 0; x < 640; ++x)
-            if (x < 32 || x >= 416 || y < 16 || y >= 464)
-                frame[y * 640 + x] = 0;
+    HostEnsureFrontVm();
+    HostDrawMinimalHud(frame);
 }
 
 void HostRenderMenu() {
@@ -1597,6 +1760,7 @@ int HostRunSchedulerFrame(void*) {
 #if defined(_WIN32)
         HostEnsureStageVms();
         HostEnsurePlayerVm();
+        HostEnsureFrontVm();
 #endif
     }
 #if defined(_WIN32)
@@ -1612,6 +1776,10 @@ int HostRunSchedulerFrame(void*) {
     if (!g_host.smoke_mode)
         HostPollKeyboard();
     if (!g_host.smoke_mode && HostStage_IsActive()) {
+        if (std::strcmp(g_host.bgm_track, "th10_00.wav") != 0)
+            HostTrace(HostStartBgm("th10_00.wav") ?
+                          "Stage 1 BGM playing" :
+                          "Stage 1 BGM unavailable");
         HostStage_RunFrames(1);
         if (HostEnsureStageVms()) {
             for (int index = 0; index < g_host.stage_vm_count; ++index) {
@@ -1628,6 +1796,13 @@ int HostRunSchedulerFrame(void*) {
             if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0)
                 g_host.player_vm.active = 0;
         }
+        if (HostEnsureFrontVm())
+            for (HostAnmVm& vm : g_host.front_vms)
+                if (vm.active) {
+                    AnmVmHooks hooks = HostAnmHooks(&vm);
+                    if (AnmVm_Tick(&vm.state, &hooks) != 0)
+                        vm.active = 0;
+                }
     }
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
