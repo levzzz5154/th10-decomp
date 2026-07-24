@@ -117,7 +117,10 @@ struct HostContext {
     IDirect3DDevice9* device = nullptr;
     IDirectInput8A* direct_input = nullptr;
     IDirectInputDevice8A* keyboard = nullptr;
+    unsigned char previous_keyboard[256] = {};
     IDirectSound8* direct_sound = nullptr;
+    IDirectSoundBuffer* bgm_buffer = nullptr;
+    IDirectSoundBuffer* menu_sound_buffers[3] = {};
     const uint8_t* anm_texture_entry_bases[16] = {};
     IDirect3DTexture9* anm_textures[16] = {};
 #endif
@@ -346,6 +349,156 @@ LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
         return 0;
     }
     return DefWindowProcA(window, message, wparam, lparam);
+}
+
+unsigned int HostReadLe32(const unsigned char* bytes) {
+    return static_cast<unsigned int>(bytes[0]) |
+           (static_cast<unsigned int>(bytes[1]) << 8) |
+           (static_cast<unsigned int>(bytes[2]) << 16) |
+           (static_cast<unsigned int>(bytes[3]) << 24);
+}
+
+IDirectSoundBuffer* HostCreatePcmBuffer(const WAVEFORMATEX& format,
+                                        const unsigned char* pcm,
+                                        unsigned int size) {
+    if (g_host.direct_sound == nullptr || pcm == nullptr || size == 0)
+        return nullptr;
+    DSBUFFERDESC description = {};
+    description.dwSize = sizeof(description);
+    description.dwFlags = DSBCAPS_CTRLVOLUME | DSBCAPS_GLOBALFOCUS;
+    description.dwBufferBytes = size;
+    description.lpwfxFormat = const_cast<WAVEFORMATEX*>(&format);
+    IDirectSoundBuffer* buffer = nullptr;
+    if (FAILED(g_host.direct_sound->CreateSoundBuffer(
+            &description, &buffer, nullptr)))
+        return nullptr;
+    void* first = nullptr;
+    void* second = nullptr;
+    DWORD first_size = 0;
+    DWORD second_size = 0;
+    if (FAILED(buffer->Lock(0, size, &first, &first_size, &second,
+                            &second_size, 0))) {
+        buffer->Release();
+        return nullptr;
+    }
+    std::memcpy(first, pcm, first_size);
+    if (second != nullptr)
+        std::memcpy(second, pcm + first_size, second_size);
+    buffer->Unlock(first, first_size, second, second_size);
+    return buffer;
+}
+
+IDirectSoundBuffer* HostLoadArchiveWave(const char* name) {
+    char path[64];
+    std::snprintf(path, sizeof(path), "th10/%s", name);
+    unsigned int size = Resource_GetFileSize(path);
+    if (size < 44)
+        return nullptr;
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(size));
+    if (bytes == nullptr || Resource_LoadFile(path, bytes) == nullptr) {
+        std::free(bytes);
+        return nullptr;
+    }
+    const unsigned char* format_chunk = nullptr;
+    const unsigned char* pcm = nullptr;
+    unsigned int pcm_size = 0;
+    for (unsigned int offset = 12; offset + 8 <= size;) {
+        unsigned int chunk_size = HostReadLe32(bytes + offset + 4);
+        if (chunk_size > size - offset - 8)
+            break;
+        if (std::memcmp(bytes + offset, "fmt ", 4) == 0 &&
+            chunk_size >= 16)
+            format_chunk = bytes + offset + 8;
+        else if (std::memcmp(bytes + offset, "data", 4) == 0) {
+            pcm = bytes + offset + 8;
+            pcm_size = chunk_size;
+        }
+        offset += 8 + ((chunk_size + 1) & ~1u);
+    }
+    IDirectSoundBuffer* result = nullptr;
+    if (format_chunk != nullptr && pcm != nullptr) {
+        WAVEFORMATEX format = {};
+        std::memcpy(&format, format_chunk, 16);
+        result = HostCreatePcmBuffer(format, pcm, pcm_size);
+    }
+    std::free(bytes);
+    return result;
+}
+
+bool HostStartTitleBgm() {
+    unsigned int fmt_size = Resource_GetFileSize("th10/thbgm.fmt");
+    if (fmt_size < 52)
+        return false;
+    unsigned char* metadata =
+        static_cast<unsigned char*>(std::malloc(fmt_size));
+    if (metadata == nullptr ||
+        Resource_LoadFile("th10/thbgm.fmt", metadata) == nullptr) {
+        std::free(metadata);
+        return false;
+    }
+    // First retail record is title track th10_02.wav.
+    unsigned int offset = HostReadLe32(metadata + 0x10);
+    unsigned int length = HostReadLe32(metadata + 0x14);
+    WAVEFORMATEX format = {};
+    std::memcpy(&format, metadata + 0x20, 16);
+    std::free(metadata);
+
+    std::FILE* file = std::fopen("thbgm.dat", "rb");
+    if (file == nullptr || std::fseek(file, offset, SEEK_SET) != 0) {
+        if (file != nullptr)
+            std::fclose(file);
+        return false;
+    }
+    unsigned char* pcm =
+        static_cast<unsigned char*>(std::malloc(length));
+    if (pcm == nullptr) {
+        std::fclose(file);
+        return false;
+    }
+    bool read = std::fread(pcm, 1, length, file) == length;
+    std::fclose(file);
+    if (read)
+        g_host.bgm_buffer = HostCreatePcmBuffer(format, pcm, length);
+    std::free(pcm);
+    if (g_host.bgm_buffer == nullptr)
+        return false;
+    g_host.bgm_buffer->SetVolume(DSBVOLUME_MAX);
+    return SUCCEEDED(g_host.bgm_buffer->Play(0, 0, DSBPLAY_LOOPING));
+}
+
+void HostPlayMenuSound(int index) {
+    if (index < 0 || index >= 3 ||
+        g_host.menu_sound_buffers[index] == nullptr)
+        return;
+    g_host.menu_sound_buffers[index]->Stop();
+    g_host.menu_sound_buffers[index]->SetCurrentPosition(0);
+    g_host.menu_sound_buffers[index]->Play(0, 0, 0);
+}
+
+void HostPollKeyboard() {
+    if (g_host.keyboard == nullptr)
+        return;
+    unsigned char keys[256] = {};
+    HRESULT result = g_host.keyboard->GetDeviceState(sizeof(keys), keys);
+    if (FAILED(result)) {
+        g_host.keyboard->Acquire();
+        result = g_host.keyboard->GetDeviceState(sizeof(keys), keys);
+    }
+    if (FAILED(result))
+        return;
+    struct Binding { int key; uint32_t flag; };
+    static const Binding bindings[] = {
+        {DIK_UP, TITLE_MENU_UP}, {DIK_DOWN, TITLE_MENU_DOWN},
+        {DIK_LEFT, TITLE_OPTIONS_LEFT}, {DIK_RIGHT, TITLE_OPTIONS_RIGHT},
+        {DIK_RETURN, TITLE_MENU_CONFIRM}, {DIK_Z, TITLE_MENU_CONFIRM},
+        {DIK_ESCAPE, TITLE_MENU_CANCEL}, {DIK_X, TITLE_MENU_CANCEL},
+    };
+    for (const Binding& binding : bindings)
+        if ((keys[binding.key] & 0x80) != 0 &&
+            (g_host.previous_keyboard[binding.key] & 0x80) == 0)
+            g_host.menu_input |= binding.flag;
+    std::memcpy(g_host.previous_keyboard, keys, sizeof(keys));
 }
 
 IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
@@ -689,6 +842,17 @@ int HostRunSchedulerFrame(void*) {
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
 #if defined(_WIN32)
+    if (!g_host.smoke_mode && g_host.title_frames_completed == 60) {
+        std::fprintf(
+            stderr,
+            "[th10-recon] title entry complete: background alpha=%u, "
+            "child VMs=%d\n",
+            g_host.title_vms[0].state.color[3],
+            g_host.title_child_vm_count);
+        std::fflush(stderr);
+    }
+    if (!g_host.smoke_mode)
+        HostPollKeyboard();
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
@@ -707,23 +871,42 @@ int HostRunSchedulerFrame(void*) {
     }
     if (!g_host.smoke_mode && g_host.menu_screen == 0) {
         int old_selection = g_host.menu_state.selection;
+        int old_phase = g_host.menu_state.phase;
         TitleMenuAction action =
             TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
         if (old_selection != g_host.menu_state.selection &&
+            g_host.menu_state.phase == 2 &&
             g_host.title_vm_ready) {
             int interrupt = g_host.menu_state.selection + 7;
             HostBroadcastTitleInterrupt(interrupt);
+            HostPlayMenuSound(0);
         }
+        if (old_phase == 1 && g_host.menu_state.phase == 2)
+            HostBroadcastTitleInterrupt(
+                g_host.menu_state.selection + 17);
+        if (old_phase == 2 && g_host.menu_state.phase == 4)
+            HostPlayMenuSound(
+                (g_host.menu_input & TITLE_MENU_CANCEL) != 0 ? 2 : 1);
         g_host.menu_input = 0;
         HostDispatchTitleMenuAction(action);
     } else if (!g_host.smoke_mode && g_host.menu_screen == 4) {
         int old_selection = g_host.options_state.selection;
+        int old_phase = g_host.options_state.phase;
         TitleOptionsAction action = TitleOptions_Update(
             &g_host.options_state, &g_host.options_config,
             g_host.menu_input);
-        if (old_selection != g_host.options_state.selection)
+        if (old_selection != g_host.options_state.selection &&
+            g_host.options_state.phase == 2) {
             HostBroadcastTitleInterrupt(
                 g_host.options_state.selection + 7);
+            HostPlayMenuSound(0);
+        }
+        if (old_phase == 1 && g_host.options_state.phase == 2)
+            HostBroadcastTitleInterrupt(
+                g_host.options_state.selection + 17);
+        if (old_phase == 2 && g_host.options_state.phase == 4)
+            HostPlayMenuSound(
+                (g_host.menu_input & TITLE_OPTIONS_CANCEL) != 0 ? 2 : 1);
         g_host.menu_input = 0;
         HostDispatchOptionsAction(action);
     } else if (!g_host.smoke_mode && g_host.menu_screen == 5) {
@@ -881,6 +1064,14 @@ void* HostSpawnSoundWorker(void*) {
         if (FAILED(g_host.direct_sound->SetCooperativeLevel(
                 g_host.window, DSSCL_NORMAL)))
             return nullptr;
+        g_host.menu_sound_buffers[0] =
+            HostLoadArchiveWave("se_select00.wav");
+        g_host.menu_sound_buffers[1] =
+            HostLoadArchiveWave("se_ok00.wav");
+        g_host.menu_sound_buffers[2] =
+            HostLoadArchiveWave("se_cancel00.wav");
+        HostTrace(HostStartTitleBgm() ? "title BGM playing" :
+                                        "title BGM unavailable");
     }
     if (!g_host.smoke_mode)
         HostTrace("DirectSound device ready");
@@ -1146,6 +1337,17 @@ void HostDestroySound(void*) {
     };
     SoundManager_Shutdown(0, &hooks);
 #if defined(_WIN32)
+    if (g_host.bgm_buffer != nullptr) {
+        g_host.bgm_buffer->Stop();
+        g_host.bgm_buffer->Release();
+        g_host.bgm_buffer = nullptr;
+    }
+    for (int index = 0; index < 3; ++index) {
+        if (g_host.menu_sound_buffers[index] != nullptr) {
+            g_host.menu_sound_buffers[index]->Release();
+            g_host.menu_sound_buffers[index] = nullptr;
+        }
+    }
     if (g_host.direct_sound != nullptr) {
         g_host.direct_sound->Release();
         g_host.direct_sound = nullptr;

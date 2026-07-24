@@ -692,6 +692,13 @@ creates their child scripts, and the D3D9 backend draws the resulting retail
 sprites. Selection interrupts are broadcast to the spawned VMs as in
 `0x0042C770`.
 
+The interactive PE32 polls the DirectInput keyboard in addition to processing
+Win32 key messages, so Wine accepts both arrow/Enter/Escape and the retail
+Z/X confirm/cancel bindings. The title screen plays the original
+`th10_02.wav` PCM range described by `th10/thbgm.fmt` from `thbgm.dat`, and
+cursor, confirm, and cancel actions use the original WAV assets extracted
+through the reconstructed `th10.dat` resource manager.
+
 The Options action now enters dispatcher state 4 and executes retail ANM
 script 1. Its six-entry state machine is reconstructed from `0x0042D920`,
 including the six-frame entry, cursor wrap, three-way BGM mode, five-point
