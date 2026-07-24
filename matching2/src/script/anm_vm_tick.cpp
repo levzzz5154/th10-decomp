@@ -117,6 +117,8 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
                                                              : vm->speed;
     if (vm->pending_interrupt != 0)
         DispatchInterrupt(vm, hooks);
+    if ((vm->flags & ANM_FLAG_WAITING) != 0)
+        return 0;
 
     int alt_rng = (vm->flags & ANM_FLAG_ALT_RNG) != 0;
     bool run = true;
@@ -415,6 +417,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             if (vm->pending_interrupt == 0) {
                 vm->flags |= ANM_FLAG_WAITING;
                 hooks->set_time(hooks->context, vm, -1.0f);
+                next = vm->pc;
                 run = false;
             } else {
                 DispatchInterrupt(vm, hooks);

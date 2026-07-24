@@ -727,6 +727,11 @@ creates the interactive main menu over the still-running script-88
 background. The title BGM begins when the loading phase hands off to the
 title phase.
 
+ANM opcode `0x3F` retains its program counter and freezes the VM clock until
+an interrupt handler is dispatched. This is required for script 88 to hold
+the full-colour background, and for the press/main overlays to remain in
+their retail resting states instead of continuing into their exit fades.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit

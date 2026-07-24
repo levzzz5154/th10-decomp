@@ -82,5 +82,30 @@ int main() {
     vm.speed = 1.0f;
     assert(AnmVm_Tick(&vm, &hooks) == 1);
     assert(vm.sprite == 123);
+
+    unsigned char waiting_script[52] = {};
+    cursor = waiting_script;
+    cursor = Instruction(cursor, 0x3F, 8);
+    Write32(cursor + 8, 6);
+    cursor = Instruction(cursor, 0x40, 12);
+    Write32(cursor + 8, 55);
+    cursor = Instruction(cursor, 3, 12);
+    cursor = Instruction(cursor, 1, 8);
+    Instruction(cursor, 0xFFFF, 0);
+
+    vm = {};
+    vm.script_base = waiting_script;
+    vm.pc = waiting_script;
+    vm.speed = 1.0f;
+    assert(AnmVm_Tick(&vm, &hooks) == 0);
+    assert((vm.flags & ANM_FLAG_WAITING) != 0);
+    const unsigned char* waiting_pc = vm.pc;
+    for (int frame = 0; frame < 180; ++frame) {
+        assert(AnmVm_Tick(&vm, &hooks) == 0);
+        assert(vm.pc == waiting_pc);
+    }
+    vm.pending_interrupt = 6;
+    assert(AnmVm_Tick(&vm, &hooks) == 1);
+    assert(vm.sprite == 55);
     return 0;
 }

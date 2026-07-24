@@ -577,10 +577,18 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
         entry.width != 0 ? entry.width : payload.width;
     unsigned int texture_height =
         entry.height != 0 ? entry.height : payload.height;
-    if (FAILED(g_host.device->CreateTexture(
-            texture_width, texture_height, 1, 0, format, D3DPOOL_MANAGED,
-            &texture, nullptr)))
+    HRESULT create_result = g_host.device->CreateTexture(
+        texture_width, texture_height, 1, 0, format, D3DPOOL_MANAGED,
+        &texture, nullptr);
+    if (FAILED(create_result)) {
+        std::fprintf(stderr,
+                     "[th10-recon] texture creation failed: fmt=%u "
+                     "%ux%u hr=%08lx\n",
+                     payload.format, texture_width, texture_height,
+                     static_cast<unsigned long>(create_result));
+        std::fflush(stderr);
         return nullptr;
+    }
     D3DLOCKED_RECT locked;
     if (FAILED(texture->LockRect(0, &locked, nullptr, 0))) {
         texture->Release();
