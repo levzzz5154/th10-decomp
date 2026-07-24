@@ -126,6 +126,11 @@ struct HostContext {
 HostContext g_host;
 
 #if defined(_WIN32)
+void HostTrace(const char* message) {
+    std::fprintf(stderr, "[th10-recon] %s\n", message);
+    std::fflush(stderr);
+}
+
 int HostAnmIntArg(void* context, AnmVmState*, const void* slot,
                   int is_variable) {
     int value;
@@ -430,6 +435,9 @@ void HostRenderMenu() {
     if (g_host.smoke_mode || g_host.device == nullptr ||
         g_host.window == nullptr)
         return;
+    static bool trace_render = true;
+    if (trace_render)
+        HostTrace("beginning first title render");
     g_host.device->Clear(0, nullptr, D3DCLEAR_TARGET,
                          D3DCOLOR_XRGB(12, 20, 36), 1.0f, 0);
     g_host.device->BeginScene();
@@ -441,8 +449,14 @@ void HostRenderMenu() {
     for (int index = 0; index < g_host.title_child_vm_count; ++index)
         if (g_host.title_child_vms[index].active)
             HostDrawAnmVm(g_host.title_child_vms[index].state);
+    if (trace_render)
+        HostTrace("first title sprites submitted");
     g_host.device->EndScene();
     g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
+    if (trace_render) {
+        HostTrace("first title frame presented");
+        trace_render = false;
+    }
 }
 
 void HostDispatchTitleMenuAction(TitleMenuAction action) {
@@ -639,6 +653,13 @@ FrameClockHooks g_clock_hooks = {
 // ---------------------------------------------------------------------------
 void HostNop(void*) {}
 int HostRunSchedulerFrame(void*) {
+#if defined(_WIN32)
+    static bool traced_first_frame = false;
+    if (!traced_first_frame) {
+        HostTrace("first reconstructed scheduler frame");
+        traced_first_frame = true;
+    }
+#endif
     // All twenty GameStateInit callbacks plus the four main-task callbacks
     // execute here. Once the title task has been registered, each frame
     // counts toward the title-visible milestone.
@@ -738,6 +759,7 @@ int HostCreateWindow(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
+    HostTrace("creating Win32 window");
     HINSTANCE instance = GetModuleHandleA(nullptr);
     WNDCLASSA window_class = {};
     window_class.lpfnWndProc = HostWindowProc;
@@ -755,6 +777,8 @@ int HostCreateWindow(void*) {
         ShowWindow(g_host.window, SW_SHOW);
         UpdateWindow(g_host.window);
     }
+    HostTrace(g_host.window == nullptr ? "window creation failed" :
+                                        "window created");
     return g_host.window == nullptr ? -1 : 0;
 #else
     return 0;
@@ -764,6 +788,7 @@ int HostCreateInput(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
+    HostTrace("creating DirectInput keyboard");
     HRESULT result = DirectInput8Create(
         GetModuleHandleA(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
         reinterpret_cast<void**>(&g_host.direct_input), nullptr);
@@ -781,6 +806,7 @@ int HostCreateInput(void*) {
     if (FAILED(result))
         return -1;
     g_host.keyboard->Acquire();
+    HostTrace("DirectInput keyboard ready");
 #endif
     return 0;
 }
@@ -791,7 +817,10 @@ void* HostCreateD3d(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return &g_host;
+    HostTrace("creating Direct3D9 interface");
     g_host.direct3d = Direct3DCreate9(D3D_SDK_VERSION);
+    HostTrace(g_host.direct3d == nullptr ? "Direct3D9 interface failed" :
+                                          "Direct3D9 interface ready");
     return g_host.direct3d;
 #else
     return &g_host;
@@ -801,6 +830,7 @@ int HostCreateDevice(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
+    HostTrace("creating Direct3D9 HAL device");
     D3DPRESENT_PARAMETERS parameters = {};
     parameters.Windowed = TRUE;
     parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -811,6 +841,8 @@ int HostCreateDevice(void*) {
     HRESULT result = g_host.direct3d->CreateDevice(
         D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
         D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
+    HostTrace(FAILED(result) ? "Direct3D9 HAL device failed" :
+                               "Direct3D9 HAL device ready");
     return FAILED(result) ? -1 : 0;
 #else
     return 0;
@@ -819,6 +851,7 @@ int HostCreateDevice(void*) {
 void* HostSpawnSoundWorker(void*) {
 #if defined(_WIN32)
     if (!g_host.smoke_mode) {
+        HostTrace("creating DirectSound device");
         if (FAILED(DirectSoundCreate8(
                 nullptr, &g_host.direct_sound, nullptr)))
             return nullptr;
@@ -826,6 +859,8 @@ void* HostSpawnSoundWorker(void*) {
                 g_host.window, DSSCL_NORMAL)))
             return nullptr;
     }
+    if (!g_host.smoke_mode)
+        HostTrace("DirectSound device ready");
 #endif
     g_host.sound.initialized = 1;
     g_host.sound.sfx_enabled = 0;
@@ -1157,6 +1192,7 @@ void HostRestartPump(void*) {}
 
 int main(int argc, char** argv) {
 #if defined(_WIN32)
+    HostTrace("process entry");
     g_host.smoke_mode = argc > 1 &&
         (std::strcmp(argv[1], "--smoke") == 0 ||
          std::strcmp(argv[1], "--dump-anm") == 0);
@@ -1168,10 +1204,12 @@ int main(int argc, char** argv) {
     g_host.smoke_mode = 1;
 #endif
 #if defined(_WIN32)
+    HostTrace("mounting th10.dat");
     if (!Resource_RegisterArchive("th10.dat")) {
         std::fprintf(stderr, "failed to mount th10.dat\n");
         return 1;
     }
+    HostTrace("th10.dat mounted");
 #endif
     GameMainState state = {};
     state.instance = &g_host;

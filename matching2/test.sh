@@ -31,6 +31,14 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/anm_file_test"
 
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/math/interpolators.cpp" \
+    "$ROOT/src/script/anm_vm_tick.cpp" \
+    "$ROOT/tests/anm_vm_interrupt_test.cpp" \
+    -o "$TEST_BUILD/anm_vm_interrupt_test"
+
+"$TEST_BUILD/anm_vm_interrupt_test"
+
 g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \

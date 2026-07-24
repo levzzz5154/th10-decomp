@@ -40,8 +40,10 @@ void DispatchInterrupt(AnmVmState* vm, const AnmVmHooks* hooks) {
     const unsigned char* fallback = 0;
     const unsigned char* cursor = vm->script_base;
     AnmInstructionView view;
-    while (cursor != 0 && (cursor[0] | (cursor[1] << 8)) != 0) {
+    while (cursor != 0) {
         const unsigned char* next = InstructionAt(cursor, &view);
+        if (view.opcode == 0xFFFF || view.size < 8)
+            break;
         if (view.opcode == 0x40) {
             int label = static_cast<int>(view.args[0]) |
                         (static_cast<int>(view.args[1]) << 8) |
