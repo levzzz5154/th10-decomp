@@ -51,7 +51,11 @@ struct GameConfig {
     unsigned char windowed;    // DAT_00491D65, < 2
     unsigned char skip_limit;  // DAT_00491D66, < 3
     unsigned char slow_mode;   // DAT_00491D67, < 3
+    unsigned char reserved_tail[20]; // remainder of the 0x34-byte disk image
 };
+
+static_assert(sizeof(GameConfig) == 0x34,
+              "GameConfig must preserve the retail on-disk layout");
 
 struct ConfigLoadHooks {
     void* context;

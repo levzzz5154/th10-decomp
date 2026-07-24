@@ -673,9 +673,13 @@ The harness has both a native developer build and a genuine, self-contained
 ```
 
 `build/pe32/th10_standalone.exe` is a PE32 console executable and runs under
-Wine without copying or overlaying the retail executable. It still uses the
-headless host services described below; this target proves the reconstructed
-C++ startup slice and its 32-bit ABI before graphics/audio adapters are added.
+Wine without copying or overlaying the retail executable. The PE target uses a
+real Win32 window/message pump, performance counter, critical sections and
+configuration file, plus Direct3D 9, DirectInput, and DirectSound devices.
+`run_pe32.sh` exposes the original `th10.dat` beside the executable; the
+reconstructed archive, cipher, and LZSS code mounts it and extracts the real
+`title.anm` and `title_v.anm`. The scheduler/render callbacks remain a smoke
+harness rather than the complete playable title implementation.
 
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
@@ -702,10 +706,10 @@ surfaces to a stub platform layer, `standalone/build.sh` (or
 `build/standalone/th10_standalone`, and `./run_standalone.sh` runs it. The
 runner boots through config load, device defaults, arena construction (2
 primary + 18 secondary scheduler callbacks), invokes `Title_RegisterTasks`,
-resolves the synthetic host resources for `title.anm` and `title_v.anm`, runs
-60 title frames, and shuts down cleanly; `test.sh` requires this smoke test to
-print `SMOKE_PASS`. The conservative source audit currently reports 5/179
-reachable functions source-ready and 174 blockers. All three integration
+resolves real archive resources in the PE target (synthetic resources in the
+portable native test), runs 60 title frames, and shuts down cleanly; `test.sh`
+requires this smoke test to print `SMOKE_PASS`. The conservative source audit
+currently reports 18/179 reachable functions source-ready and 161 blockers. All three integration
 gates pass, but the milestone is not declared retail-code-independent until
 the remaining functions receive explicit completion evidence.
 

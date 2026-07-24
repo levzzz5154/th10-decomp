@@ -120,7 +120,7 @@ int32_t FrontAnm_RegisterTasks(
     return 0;
 }
 
-// 0x0042CAA0 - Initialize the title screen.
+// Semantic reconstruction 0x0042CAA0 - initialize the title screen.
 int32_t Title_RegisterTasks(
         void* owner, TitleInitState* state,
         int32_t* (*find_resource)(int32_t slot, const char* name),

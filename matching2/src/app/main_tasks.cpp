@@ -3,7 +3,7 @@
 // =============================================================================
 #include "th10/app/main_tasks.hpp"
 
-// 0x00420470 - MainTasks_Register: prime the mode state machine and insert
+// Semantic reconstruction 0x00420470 - prime and register the main tasks.
 // the four root callbacks (input poll on the primary list, three helpers on
 // the secondary list). Returns the primary-list insertion status.
 int MainTasks_Register(MainTaskState* state, const MainTaskHooks* hooks) {
@@ -22,7 +22,7 @@ int MainTasks_Register(MainTaskState* state, const MainTaskHooks* hooks) {
     return 0;
 }
 
-// 0x00420270 - MainTasks_Shutdown: tear the root task state down in retail
+// Semantic reconstruction 0x00420270 - tear down root task state in retail
 // order. Sets the sound-worker stop flag between the two frame markers.
 int MainTasks_Shutdown(int* sound_worker_stop,
                        const MainTaskShutdownHooks* hooks) {
@@ -52,7 +52,7 @@ bool ConfigImageIsValid(const GameConfig* config) {
 
 } // namespace
 
-// 0x00420870 - Config_LoadAndValidate: load th10.cfg, validate every field,
+// Semantic reconstruction 0x00420870 - load and validate th10.cfg,
 // fall back to defaults on any mismatch, then write the image back. Returns
 // -1 when the write-back fails (retail aborts the boot in that case).
 int Config_LoadAndValidate(GameConfig* config, const char* file_name,

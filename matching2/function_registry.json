@@ -9,8 +9,8 @@
     "by_recovery_status": {
       "exact-overlay": 14,
       "partial": 3,
-      "researched": 608,
-      "semantic": 15,
+      "researched": 595,
+      "semantic": 28,
       "unrecovered": 63
     }
   },
@@ -2604,7 +2604,7 @@
       "size": 336,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420270_FUN_00420270.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/main_tasks.cpp"
     },
     {
@@ -2634,7 +2634,7 @@
       "size": 512,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420470_FUN_00420470.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/main_tasks.cpp"
     },
     {
@@ -2654,7 +2654,7 @@
       "size": 544,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420870_FUN_00420870.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/main_tasks.cpp"
     },
     {
@@ -2754,8 +2754,8 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421480_FUN_00421480.c",
-      "recovery_status": "researched",
-      "promoted_source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x004215A0",
@@ -3754,7 +3754,7 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042CAA0_FUN_0042caa0.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/game/task_registration.cpp"
     },
     {
@@ -4670,7 +4670,7 @@
       "size": 1552,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438AD0_GameMain.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/game_main.cpp"
     },
     {
@@ -4710,7 +4710,7 @@
       "size": 432,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00439390_FUN_00439390.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/frame_clock.cpp"
     },
     {
@@ -4720,7 +4720,7 @@
       "size": 496,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00439540_FUN_00439540.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/frame_clock.cpp"
     },
     {
@@ -4750,7 +4750,7 @@
       "size": 720,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00439D20_FUN_00439d20.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/frame_clock.cpp"
     },
     {
@@ -4800,7 +4800,7 @@
       "size": 336,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043A910_FUN_0043a910.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/platform/sound_commands.cpp"
     },
     {
@@ -4910,7 +4910,7 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043BCD0_FUN_0043bcd0.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/render/camera_setup.cpp"
     },
     {
@@ -5050,7 +5050,7 @@
       "size": 304,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043D120_FUN_0043d120.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/platform/sound_commands.cpp"
     },
     {
@@ -5170,8 +5170,8 @@
       "size": 1456,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043DDF0_FUN_0043ddf0.c",
-      "recovery_status": "researched",
-      "promoted_source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043E3A0",

@@ -3,7 +3,7 @@
 // =============================================================================
 #include "th10/app/frame_clock.hpp"
 
-// 0x00439540 - Time_ReadSeconds: sample the frame clock under the timing lock.
+// Semantic reconstruction 0x00439540 - sample the frame clock under its lock.
 // Uses timeGetTime (millisecond path) when no QPC frequency was captured,
 // otherwise QueryPerformanceCounter deltas; both paths clamp against the
 // lowest observed sample so the clock never runs backwards.
@@ -28,7 +28,7 @@ double Time_ReadSeconds(FrameClockState* state, const FrameClockHooks* hooks) {
     return result;
 }
 
-// 0x00439390 - Frame_Advance: run one frame if the clock crossed the next
+// Semantic reconstruction 0x00439390 - run one frame when the clock crosses
 // deadline. Returns 0 (frame ran or slept), 1 (scheduler asked to quit), or
 // 2 (scheduler asked for a full restart).
 int Frame_Advance(FrameAdvanceState* state, const FrameAdvanceHooks* hooks) {
@@ -79,7 +79,7 @@ int Frame_Advance(FrameAdvanceState* state, const FrameAdvanceHooks* hooks) {
     return 0;
 }
 
-// 0x00439D20 - Device_ApplyDefaultState: reapply every fixed-function render,
+// Semantic reconstruction 0x00439D20 - reapply fixed-function device state,
 // texture-stage, and sampler state the game relies on after reset/boot.
 void Device_ApplyDefaultState(const DeviceStateHooks* hooks,
                               unsigned char* manager_flags) {

@@ -20,7 +20,7 @@ void ZeroTrackerPool(void* pool) {
 
 } // namespace
 
-// 0x00438AD0 - GameMain: boot, run, and tear down one game session.
+// Semantic reconstruction 0x00438AD0 - GameMain boot/run/teardown.
 // The retail function loops so that "exit mode 2" (restart after device or
 // display-mode change) re-runs the whole boot without writing th10.cfg back.
 int GameMain_Run(GameMainState* state, const GameMainHooks* hooks) {

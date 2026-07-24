@@ -3,7 +3,7 @@
 // =============================================================================
 #include "th10/render/camera_setup.hpp"
 
-// 0x00421480 - Camera_Apply: rebuild the view/projection matrices from the
+// Semantic reconstruction 0x00421480 - rebuild view/projection matrices.
 // camera block and hand both to the device (SetTransform states 2 and 3),
 // then publish the clip-rect pointers into the manager.
 void Camera_Apply(CameraState* camera, const CameraHooks* hooks) {
@@ -18,7 +18,7 @@ void Camera_Apply(CameraState* camera, const CameraHooks* hooks) {
     hooks->publish_clip_rect(hooks->context);
 }
 
-// 0x0043BCD0 - Viewport_ApplyDefault: write the 640x480 full-screen viewport
+// Semantic reconstruction 0x0043BCD0 - apply the 640x480 viewport.
 // into the caller's six-dword block, apply it, and reset clip state. The
 // storage parameter replaces retail's fixed DAT_00491CF4 block.
 void Viewport_ApplyDefault(ViewportBlock* storage,

@@ -21,20 +21,20 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 5,
-    "blocking_functions": 174,
-    "source_function_readiness_percent": 2.79,
+    "source_ready_functions": 18,
+    "blocking_functions": 161,
+    "source_function_readiness_percent": 10.06,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 10976,
-    "source_byte_readiness_percent": 15.61,
+    "source_ready_retail_bytes": 18352,
+    "source_byte_readiness_percent": 26.1,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 144,
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": false,
     "by_recovery_status": {
       "partial": 1,
-      "researched": 173,
-      "semantic": 5
+      "researched": 160,
+      "semantic": 18
     }
   },
   "integration_gates": {
@@ -760,8 +760,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 7,
       "dynamic_call_sites": 6,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -793,8 +793,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -815,8 +815,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -837,9 +837,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x00422220",
@@ -925,8 +925,8 @@
       "distance_from_root": 0,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/task_registration.cpp"
     },
     {
@@ -1112,8 +1112,8 @@
       "distance_from_root": 0,
       "direct_internal_callees": 26,
       "dynamic_call_sites": 5,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/game_main.cpp"
     },
     {
@@ -1145,8 +1145,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 9,
       "dynamic_call_sites": 4,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/frame_clock.cpp"
     },
     {
@@ -1156,8 +1156,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/frame_clock.cpp"
     },
     {
@@ -1189,8 +1189,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 33,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/frame_clock.cpp"
     },
     {
@@ -1233,8 +1233,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -1288,8 +1288,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },
     {
@@ -1321,8 +1321,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 5,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -1387,9 +1387,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 13,
       "dynamic_call_sites": 7,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043E460",

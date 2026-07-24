@@ -13,7 +13,7 @@ void PopCommand(SoundWorkerState* state) {
 
 } // namespace
 
-// 0x0043DDF0 - SoundWorker_DrainCommands: execute the head of the command
+// Semantic reconstruction 0x0043DDF0 - drain the sound command queue.
 // queue (retail entries are 0x43 dwords at ctx+0x7E2, up to 0x1F pending).
 // Returns the code of the command left at the head (0 when idle), which the
 // boot/teardown paths poll until the queue reports empty.
@@ -89,7 +89,7 @@ int SoundWorker_DrainCommands(SoundWorkerState* state,
     return state->queue_length > 0 ? state->queue[0].code : 0;
 }
 
-// 0x0043D120 - SoundManager_Shutdown: release every DirectSound object the
+// Semantic reconstruction 0x0043D120 - release all sound-manager objects.
 // manager owns, stop the MIDI worker, and destroy the streamer.
 void SoundManager_Shutdown(int has_update_timer,
                            const SoundShutdownHooks* hooks) {
@@ -107,7 +107,7 @@ void SoundManager_Shutdown(int has_update_timer,
     hooks->release_name_slots(hooks->context);
 }
 
-// 0x0043A910 - MidiPlayer_Shutdown: destructor body for the MIDI player.
+// Semantic reconstruction 0x0043A910 - shut down the MIDI player.
 // Stops playback, frees the 0x20 track blocks, closes the midiOut handle,
 // then kills the timer callback and ends both timer periods.
 void MidiPlayer_Shutdown(const MidiShutdownHooks* hooks) {

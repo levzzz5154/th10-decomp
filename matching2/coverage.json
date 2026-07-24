@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 15,
-        "retail_bytes": 12928
+        "function_count": 28,
+        "retail_bytes": 20304
       },
       "exact-overlay": {
         "function_count": 33,
@@ -32,27 +32,27 @@
         "minimum_size": 64,
         "maximum_size_exclusive": 256,
         "tracked_functions": 325,
-        "implemented_functions": 15,
+        "implemented_functions": 17,
         "tracked_bytes": 47943,
-        "implemented_bytes": 2080
+        "implemented_bytes": 2480
       },
       {
         "name": "medium",
         "minimum_size": 256,
         "maximum_size_exclusive": 1024,
         "tracked_functions": 257,
-        "implemented_functions": 7,
+        "implemented_functions": 16,
         "tracked_bytes": 123584,
-        "implemented_bytes": 2192
+        "implemented_bytes": 6160
       },
       {
         "name": "large",
         "minimum_size": 1024,
         "maximum_size_exclusive": null,
         "tracked_functions": 69,
-        "implemented_functions": 1,
+        "implemented_functions": 3,
         "tracked_bytes": 159312,
-        "implemented_bytes": 10192
+        "implemented_bytes": 13200
       }
     ]
   },
@@ -1870,7 +1870,7 @@
       "address": "0x00420270",
       "symbol": "FUN_00420270",
       "size": 336,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -1891,7 +1891,7 @@
       "address": "0x00420470",
       "symbol": "FUN_00420470",
       "size": 512,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -1905,7 +1905,7 @@
       "address": "0x00420870",
       "symbol": "FUN_00420870",
       "size": 544,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -1975,8 +1975,8 @@
       "address": "0x00421480",
       "symbol": "FUN_00421480",
       "size": 288,
-      "status": "researched",
-      "source": "src/app/frame_clock.cpp"
+      "status": "semantic",
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x004215A0",
@@ -2675,7 +2675,7 @@
       "address": "0x0042CAA0",
       "symbol": "FUN_0042caa0",
       "size": 192,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/game/task_registration.cpp"
     },
     {
@@ -3480,7 +3480,7 @@
       "address": "0x00438AD0",
       "symbol": "GameMain",
       "size": 1552,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/game_main.cpp"
     },
     {
@@ -3508,14 +3508,14 @@
       "address": "0x00439390",
       "symbol": "FUN_00439390",
       "size": 432,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/frame_clock.cpp"
     },
     {
       "address": "0x00439540",
       "symbol": "FUN_00439540",
       "size": 496,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/frame_clock.cpp"
     },
     {
@@ -3536,7 +3536,7 @@
       "address": "0x00439D20",
       "symbol": "FUN_00439d20",
       "size": 720,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/app/frame_clock.cpp"
     },
     {
@@ -3571,7 +3571,7 @@
       "address": "0x0043A910",
       "symbol": "FUN_0043a910",
       "size": 336,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -3648,7 +3648,7 @@
       "address": "0x0043BCD0",
       "symbol": "FUN_0043bcd0",
       "size": 208,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/render/camera_setup.cpp"
     },
     {
@@ -3746,7 +3746,7 @@
       "address": "0x0043D120",
       "symbol": "FUN_0043d120",
       "size": 304,
-      "status": "researched",
+      "status": "semantic",
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -3830,8 +3830,8 @@
       "address": "0x0043DDF0",
       "symbol": "FUN_0043ddf0",
       "size": 1456,
-      "status": "researched",
-      "source": "src/app/frame_clock.cpp"
+      "status": "semantic",
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043E3A0",

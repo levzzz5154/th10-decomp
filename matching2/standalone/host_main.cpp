@@ -15,6 +15,7 @@
 #include "th10/app/game_state_init.hpp"
 #include "th10/app/frame_clock.hpp"
 #include "th10/app/main_tasks.hpp"
+#include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
 #include "th10/render/camera_setup.hpp"
 #include "th10/platform/sound_commands.hpp"
@@ -23,6 +24,15 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+
+#if defined(_WIN32)
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <d3d9.h>
+#include <dinput.h>
+#include <mmsystem.h>
+#include <dsound.h>
+#endif
 
 static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
               "unsupported host pointer size");
@@ -54,6 +64,9 @@ struct HostContext {
     int secondary_callbacks = 0;
     int title_task_registered = 0;
     int title_resources_loaded = 0;
+    int title_resources_from_archive = 0;
+    int title_resource_error = 0;
+    unsigned char* title_resource_bytes[2] = {};
     int title_frames_completed = 0;
     // Sound
     SoundWorkerState sound = {};
@@ -64,6 +77,16 @@ struct HostContext {
     int frames_requested = 0;
     int clean_shutdown = 0;
     double fake_clock_ms = 0.0;
+#if defined(_WIN32)
+    CRITICAL_SECTION critical_section_storage[7] = {};
+    HWND window = nullptr;
+    LARGE_INTEGER performance_frequency = {};
+    IDirect3D9* direct3d = nullptr;
+    IDirect3DDevice9* device = nullptr;
+    IDirectInput8A* direct_input = nullptr;
+    IDirectInputDevice8A* keyboard = nullptr;
+    IDirectSound8* direct_sound = nullptr;
+#endif
 };
 
 HostContext g_host;
@@ -72,6 +95,7 @@ HostContext g_host;
 // Stub device state application (drives Device_ApplyDefaultState).
 // ---------------------------------------------------------------------------
 int g_render_state_writes = 0;
+#if !defined(_WIN32)
 void StubSetRenderState(void*, unsigned int, unsigned int) {
     g_render_state_writes += 1;
 }
@@ -81,6 +105,7 @@ void StubSetStageState(void*, unsigned int, unsigned int, unsigned int) {
 void StubSetSamplerState(void*, unsigned int, unsigned int, unsigned int) {
     g_render_state_writes += 1;
 }
+#endif
 
 // ---------------------------------------------------------------------------
 // GameStateInit hook implementations.
@@ -109,13 +134,54 @@ void HostConfigDefaults(void*, GameConfig* config) {
     config->skip_limit = 0;
     config->windowed = 1;
 }
-void* HostConfigLoad(void*, const char*, unsigned int*) {
-    return nullptr; // first boot: no th10.cfg, defaults win
+void* HostConfigLoad(void*, const char* file_name, unsigned int* size_out) {
+#if defined(_WIN32)
+    std::FILE* file = std::fopen(file_name, "rb");
+    if (file == nullptr)
+        return nullptr;
+    if (std::fseek(file, 0, SEEK_END) != 0) {
+        std::fclose(file);
+        return nullptr;
+    }
+    long length = std::ftell(file);
+    if (length < 0 || std::fseek(file, 0, SEEK_SET) != 0) {
+        std::fclose(file);
+        return nullptr;
+    }
+    void* bytes = std::malloc(static_cast<size_t>(length));
+    if (bytes == nullptr ||
+        std::fread(bytes, 1, static_cast<size_t>(length), file) !=
+            static_cast<size_t>(length)) {
+        std::free(bytes);
+        std::fclose(file);
+        return nullptr;
+    }
+    std::fclose(file);
+    *size_out = static_cast<unsigned int>(length);
+    return bytes;
+#else
+    (void)file_name;
+    (void)size_out;
+    return nullptr;
+#endif
 }
 void HostConfigRelease(void*, void* memory) { std::free(memory); }
 void HostConfigLogInvalid(void*) {}
 void HostConfigLogFlags(void*, unsigned int) {}
-int HostConfigWrite(void*, const char*, const GameConfig*) { return 0; }
+int HostConfigWrite(void*, const char* file_name, const GameConfig* config) {
+#if defined(_WIN32)
+    std::FILE* file = std::fopen(file_name, "wb");
+    if (file == nullptr)
+        return -1;
+    bool written = std::fwrite(config, 1, 0x34u, file) == 0x34u;
+    bool closed = std::fclose(file) == 0;
+    return written && closed ? 0 : -1;
+#else
+    (void)file_name;
+    (void)config;
+    return 0;
+#endif
+}
 void HostConfigLogWriteFail(void*) {}
 
 // ---------------------------------------------------------------------------
@@ -124,8 +190,17 @@ void HostConfigLogWriteFail(void*) {}
 void HostClockLock(void*) {}
 void HostClockUnlock(void*) {}
 double HostReadMs(void*) {
+#if defined(_WIN32)
+    LARGE_INTEGER counter;
+    if (g_host.performance_frequency.QuadPart == 0)
+        QueryPerformanceFrequency(&g_host.performance_frequency);
+    QueryPerformanceCounter(&counter);
+    return static_cast<double>(counter.QuadPart) * 1000.0 /
+           static_cast<double>(g_host.performance_frequency.QuadPart);
+#else
     g_host.fake_clock_ms += 17.0; // ~60fps steps
     return g_host.fake_clock_ms;
+#endif
 }
 double HostReadQpc(void*) { return 0.0; }
 
@@ -157,28 +232,111 @@ int HostDrainSound(void*) {
 // ---------------------------------------------------------------------------
 void* HostAlloc(unsigned int size) { return std::calloc(1, size); }
 void HostFree(void* memory) { std::free(memory); }
-void HostCsInit(void*, int count) { g_host.critical_sections = count; }
-void HostCsDestroy(void*, int) { g_host.critical_sections = 0; }
+void HostCsInit(void*, int count) {
+#if defined(_WIN32)
+    for (int index = 0; index < count; ++index)
+        InitializeCriticalSection(&g_host.critical_section_storage[index]);
+#endif
+    g_host.critical_sections = count;
+}
+void HostCsDestroy(void*, int count) {
+#if defined(_WIN32)
+    for (int index = 0; index < count; ++index)
+        DeleteCriticalSection(&g_host.critical_section_storage[index]);
+#else
+    (void)count;
+#endif
+    g_host.critical_sections = 0;
+}
 void HostLogOpen(void*, const char*) { g_host.log_open_count += 1; }
 void HostLogClose(void*) {}
-int HostLoadConfigStage(void*) { return 0; }
-int HostCreateWindow(void*) { return 0; }
-int HostCreateInput(void*) {
+int HostLoadConfigStage(void*) {
     ConfigLoadHooks hooks = {
         nullptr, HostConfigDefaults, HostConfigLoad, HostConfigRelease,
         HostConfigLogInvalid, HostConfigLogFlags, HostConfigWrite,
         HostConfigLogWriteFail,
     };
     unsigned int flags = 0;
-    return Config_LoadAndValidate(&g_host.config, "th10.cfg", &flags,
-                                  &hooks);
+    return Config_LoadAndValidate(&g_host.config, "th10.cfg", &flags, &hooks);
+}
+int HostCreateWindow(void*) {
+#if defined(_WIN32)
+    HINSTANCE instance = GetModuleHandleA(nullptr);
+    WNDCLASSA window_class = {};
+    window_class.lpfnWndProc = DefWindowProcA;
+    window_class.hInstance = instance;
+    window_class.lpszClassName = "TH10ReconstructedWindow";
+    if (RegisterClassA(&window_class) == 0 &&
+        GetLastError() != ERROR_CLASS_ALREADY_EXISTS)
+        return -1;
+    g_host.window = CreateWindowA(
+        window_class.lpszClassName, "TH10 reconstructed startup",
+        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480,
+        nullptr, nullptr, instance, nullptr);
+    return g_host.window == nullptr ? -1 : 0;
+#else
+    return 0;
+#endif
+}
+int HostCreateInput(void*) {
+#if defined(_WIN32)
+    HRESULT result = DirectInput8Create(
+        GetModuleHandleA(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
+        reinterpret_cast<void**>(&g_host.direct_input), nullptr);
+    if (FAILED(result))
+        return -1;
+    result = g_host.direct_input->CreateDevice(
+        GUID_SysKeyboard, &g_host.keyboard, nullptr);
+    if (FAILED(result))
+        return -1;
+    result = g_host.keyboard->SetDataFormat(&c_dfDIKeyboard);
+    if (FAILED(result))
+        return -1;
+    result = g_host.keyboard->SetCooperativeLevel(
+        g_host.window, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+    if (FAILED(result))
+        return -1;
+    g_host.keyboard->Acquire();
+#endif
+    return 0;
 }
 int HostConfirmDialog(void*) { return 6; } // IDYES
 void HostChecksum(void*) {}
 void* HostCreateScheduler(void*) { return &g_host; }
-void* HostCreateD3d(void*) { return &g_host; }
-int HostCreateDevice(void*) { return 0; }
+void* HostCreateD3d(void*) {
+#if defined(_WIN32)
+    g_host.direct3d = Direct3DCreate9(D3D_SDK_VERSION);
+    return g_host.direct3d;
+#else
+    return &g_host;
+#endif
+}
+int HostCreateDevice(void*) {
+#if defined(_WIN32)
+    D3DPRESENT_PARAMETERS parameters = {};
+    parameters.Windowed = TRUE;
+    parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    parameters.hDeviceWindow = g_host.window;
+    parameters.BackBufferWidth = 640;
+    parameters.BackBufferHeight = 480;
+    parameters.BackBufferFormat = D3DFMT_UNKNOWN;
+    HRESULT result = g_host.direct3d->CreateDevice(
+        D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
+        D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
+    return FAILED(result) ? -1 : 0;
+#else
+    return 0;
+#endif
+}
 void* HostSpawnSoundWorker(void*) {
+#if defined(_WIN32)
+    if (FAILED(DirectSoundCreate8(
+            nullptr, &g_host.direct_sound, nullptr)))
+        return nullptr;
+    if (FAILED(g_host.direct_sound->SetCooperativeLevel(
+            g_host.window, DSSCL_NORMAL)))
+        return nullptr;
+#endif
     g_host.sound.initialized = 1;
     g_host.sound.sfx_enabled = 0;
     return &g_host;
@@ -213,6 +371,36 @@ double HostReadClock(void*) {
     return Time_ReadSeconds(&g_host.clock, &g_clock_hooks);
 }
 void HostSetForeground(void*) {}
+
+int32_t* HostFindTitleResource(int32_t slot, const char* name) {
+#if defined(_WIN32)
+    int index = slot == 0x19 ? 0 : slot == 0x1A ? 1 : -1;
+    if (index < 0)
+        return nullptr;
+    char path[64];
+    std::snprintf(path, sizeof(path), "th10/%s", name);
+    unsigned int size = Resource_GetFileSize(path);
+    if (size == 0)
+        return nullptr;
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(static_cast<size_t>(size)));
+    if (bytes == nullptr || Resource_LoadFile(path, bytes) == nullptr) {
+        std::free(bytes);
+        return nullptr;
+    }
+    g_host.title_resource_bytes[index] = bytes;
+    g_host.title_resources_from_archive = 1;
+    return reinterpret_cast<int32_t*>(bytes);
+#else
+    static int32_t title_resources[2] = {};
+    if (slot == 0x19 && std::strcmp(name, "title.anm") == 0)
+        return &title_resources[0];
+    if (slot == 0x1A && std::strcmp(name, "title_v.anm") == 0)
+        return &title_resources[1];
+    return nullptr;
+#endif
+}
+
 int HostRegisterMainTasks(void*) {
     static MainTaskState task_state;
     MainTaskHooks hooks = {
@@ -231,18 +419,11 @@ int HostRegisterMainTasks(void*) {
     static TitleInitState title_state = {};
     static SchedulerCallback title_callbacks[2] = {};
     static int callback_index = 0;
-    static int32_t title_resources[2] = {};
     callback_index = 0;
     int title_status = Title_RegisterTasks(
         &g_host, &title_state,
-        [](int32_t slot, const char* name) -> int32_t* {
-            if (slot == 0x19 && std::strcmp(name, "title.anm") == 0)
-                return &title_resources[0];
-            if (slot == 0x1A && std::strcmp(name, "title_v.anm") == 0)
-                return &title_resources[1];
-            return nullptr;
-        },
-        []() {},
+        HostFindTitleResource,
+        []() { g_host.title_resource_error = 1; },
         [](SchedulerFunction function) -> SchedulerCallback* {
             SchedulerCallback* callback = &title_callbacks[callback_index++];
             *callback = {};
@@ -256,11 +437,20 @@ int HostRegisterMainTasks(void*) {
         title_state.update_task != nullptr && title_state.render_task != nullptr;
     g_host.title_resources_loaded =
         title_state.ready_flag == 1 &&
-        title_state.title_resource == &title_resources[0] &&
-        title_state.title_v_resource == &title_resources[1];
+        title_state.title_resource != nullptr &&
+        title_state.title_v_resource != nullptr;
     return title_status;
 }
 int HostPumpMessages(void*) {
+#if defined(_WIN32)
+    MSG message;
+    while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
+        if (message.message == WM_QUIT)
+            return 1;
+        TranslateMessage(&message);
+        DispatchMessageA(&message);
+    }
+#endif
     // Quit after enough frames for the title milestone (smoke budget).
     return g_host.title_frames_completed >= 60 ? 1 : 0;
 }
@@ -323,7 +513,27 @@ void HostReleaseResources(void*) {}
 int HostDeviceReset(void*) { return 0; }
 void HostApplyDefaults(void*) {
     DeviceStateHooks hooks = {
-        nullptr, StubSetRenderState, StubSetStageState, StubSetSamplerState,
+        nullptr,
+#if defined(_WIN32)
+        [](void*, unsigned int state, unsigned int value) {
+            g_render_state_writes += 1;
+            g_host.device->SetRenderState(
+                static_cast<D3DRENDERSTATETYPE>(state), value);
+        },
+        [](void*, unsigned int stage, unsigned int state, unsigned int value) {
+            g_render_state_writes += 1;
+            g_host.device->SetTextureStageState(
+                stage, static_cast<D3DTEXTURESTAGESTATETYPE>(state), value);
+        },
+        [](void*, unsigned int sampler, unsigned int state,
+           unsigned int value) {
+            g_render_state_writes += 1;
+            g_host.device->SetSamplerState(
+                sampler, static_cast<D3DSAMPLERSTATETYPE>(state), value);
+        },
+#else
+        StubSetRenderState, StubSetStageState, StubSetSamplerState,
+#endif
     };
     static unsigned char manager_flags[16];
     Device_ApplyDefaultState(&hooks, manager_flags);
@@ -349,10 +559,52 @@ void HostDestroySound(void*) {
         [](void*) {},
     };
     SoundManager_Shutdown(0, &hooks);
+#if defined(_WIN32)
+    if (g_host.direct_sound != nullptr) {
+        g_host.direct_sound->Release();
+        g_host.direct_sound = nullptr;
+    }
+#endif
 }
-void HostDestroyGameState(void*, void* manager) { std::free(manager); }
-void HostReleaseDeviceChain(void*) {}
-void HostDestroyWindow(void*) {}
+void HostDestroyGameState(void*, void* manager) {
+#if defined(_WIN32)
+    for (int index = 0; index < 2; ++index) {
+        std::free(g_host.title_resource_bytes[index]);
+        g_host.title_resource_bytes[index] = nullptr;
+    }
+    Resource_CloseArchives();
+#endif
+    std::free(manager);
+}
+void HostReleaseDeviceChain(void*) {
+#if defined(_WIN32)
+    if (g_host.keyboard != nullptr) {
+        g_host.keyboard->Unacquire();
+        g_host.keyboard->Release();
+        g_host.keyboard = nullptr;
+    }
+    if (g_host.direct_input != nullptr) {
+        g_host.direct_input->Release();
+        g_host.direct_input = nullptr;
+    }
+    if (g_host.device != nullptr) {
+        g_host.device->Release();
+        g_host.device = nullptr;
+    }
+    if (g_host.direct3d != nullptr) {
+        g_host.direct3d->Release();
+        g_host.direct3d = nullptr;
+    }
+#endif
+}
+void HostDestroyWindow(void*) {
+#if defined(_WIN32)
+    if (g_host.window != nullptr) {
+        DestroyWindow(g_host.window);
+        g_host.window = nullptr;
+    }
+#endif
+}
 void HostShutdownMidi(void*) {
     MidiShutdownHooks hooks = {
         nullptr, [](void*) {}, [](void*) {}, [](void*) {}, [](void*) {},
@@ -367,6 +619,12 @@ void HostRestartPump(void*) {}
 } // namespace
 
 int main() {
+#if defined(_WIN32)
+    if (!Resource_RegisterArchive("th10.dat")) {
+        std::fprintf(stderr, "failed to mount th10.dat\n");
+        return 1;
+    }
+#endif
     GameMainState state = {};
     state.instance = &g_host;
     state.config_flags = 0; // no confirm dialog on the standalone host
@@ -407,6 +665,9 @@ int main() {
                 g_host.title_task_registered ? "yes" : "no");
     std::printf("  title resources resolved: %s\n",
                 g_host.title_resources_loaded ? "yes" : "no");
+    std::printf("  title resource source: %s\n",
+                g_host.title_resources_from_archive ? "th10.dat" :
+                                                      "synthetic host");
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
     std::printf("  clean shutdown: %s\n",

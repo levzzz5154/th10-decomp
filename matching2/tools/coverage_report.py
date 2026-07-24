@@ -90,7 +90,8 @@ def source_annotations():
     mentions = defaultdict(set)
     semantic = defaultdict(set)
     semantic_phrases = (
-        "clean reconstruction", "readable reconstruction",
+        "semantic reconstruction", "clean reconstruction",
+        "readable reconstruction",
         "readable frame", "conventional-abi form", "backed form",
         "corresponding to", "retail address", "retail function",
     )
