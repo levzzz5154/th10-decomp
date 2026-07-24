@@ -226,6 +226,7 @@ char g_script_name_sink[512];
 char g_pending_script[260];
 StageScript g_stage_script;
 StageStdRawView g_std_view;
+StageTimelineView g_timeline_view;
 unsigned char* g_companion_anm;
 unsigned int g_companion_anm_size;
 HostStageRuntimeView g_runtime_view;
@@ -365,6 +366,12 @@ int HostLoadStageScript(const char* name, int flag) {
 		        : 0;
 		if (g_report.std_raw_view_valid == 0) {
 			Log("bounded raw STD view rejected DAT-backed %s", name);
+			return false;
+		}
+		g_report.timeline_initialized =
+		    StageTimeline_Initialize(&g_std_view, &g_timeline_view) ? 1 : 0;
+		if (g_report.timeline_initialized == 0) {
+			Log("bounded timeline view rejected DAT-backed %s", name);
 			return false;
 		}
 		Log("StageScript_Load(0x00403850): %s parsed - %d background objects, "
@@ -910,6 +917,7 @@ void HostRunStageEntry() {
 		g_runtime_view.companion_anm_data = g_companion_anm;
 		g_runtime_view.companion_anm_size = g_companion_anm_size;
 		g_runtime_view.std_view = &g_std_view;
+		g_runtime_view.timeline_view = &g_timeline_view;
 		g_runtime_view.context = &g_context;
 		g_runtime_view.camera_words = g_camera_words;
 		g_runtime_view.stage_frame = 0;
@@ -957,6 +965,7 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	std::memset(&g_report, 0, sizeof(g_report));
 	std::memset(&g_runtime_view, 0, sizeof(g_runtime_view));
 	std::memset(&g_std_view, 0, sizeof(g_std_view));
+	std::memset(&g_timeline_view, 0, sizeof(g_timeline_view));
 	g_companion_anm = 0;
 	g_companion_anm_size = 0;
 	g_report.archive_available = archive_available;
@@ -1059,6 +1068,19 @@ int HostStage_RunFrames(int frames) {
 		}
 		Scheduler_RunPrimary(g_scheduler_device);   // 0x00449C00
 		Scheduler_RunSecondary(g_scheduler_device); // 0x00449D40
+		g_timeline_view.frame =
+		    static_cast<unsigned int>(g_report.stage_frame);
+		for (;;) {
+			StageTimelineEvent event = {};
+			const StageTimelineDecodeResult decode =
+			    StageTimeline_DecodeDue(&g_timeline_view, &event);
+			if (decode == kStageTimelineDecoded) continue;
+			if (decode == kStageTimelineRejected)
+				Log("timeline decoder rejected cursor 0x%X at frame %u",
+				    (unsigned int)g_timeline_view.cursor,
+				    g_timeline_view.frame);
+			break;
+		}
 		g_report.frames_run += 1;
 	}
 	Log("scheduler advanced %d frames through the retail run lists: "
@@ -1066,6 +1088,19 @@ int HostStage_RunFrames(int frames) {
 	    g_report.frames_run, g_report.update_ticks, g_report.draw_ticks,
 		    g_report.stage_frame, g_report.last_update_result);
 	g_report.owned_allocations = g_owned_allocation_count;
+	g_report.timeline_decoded = g_timeline_view.stats.decoded;
+	g_report.timeline_stopped_events = g_timeline_view.stats.stopped_events;
+	g_report.timeline_cursor_jumps = g_timeline_view.stats.cursor_jumps;
+	g_report.timeline_rejected = g_timeline_view.stats.rejected;
+	g_report.timeline_budget_rejections =
+	    g_timeline_view.stats.budget_rejections;
+	g_report.timeline_maximum_accessed_offset =
+	    g_timeline_view.stats.maximum_accessed_offset;
+	g_report.timeline_maximum_record_extent =
+	    g_timeline_view.stats.maximum_record_extent;
+	for (int opcode = 0; opcode < 15; ++opcode)
+		g_report.timeline_opcode_histogram[opcode] =
+		    g_timeline_view.stats.opcode_histogram[opcode];
 	return frames;
 }
 

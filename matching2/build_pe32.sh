@@ -36,6 +36,7 @@ mkdir -p "$BUILD"
     "$ROOT/src/game/title_options_menu.cpp" \
     "$ROOT/src/game/stage_entry.cpp" \
     "$ROOT/src/game/stage_std.cpp" \
+    "$ROOT/src/game/stage_timeline.cpp" \
     "$ROOT/src/game/stage_update.cpp" \
     "$ROOT/src/game/game_mode_switch.cpp" \
     "$ROOT/src/game/scheduler.cpp" \

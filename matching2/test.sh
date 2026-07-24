@@ -816,6 +816,13 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -o "$TEST_BUILD/stage_std_test"
 "$TEST_BUILD/stage_std_test"
 
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/stage_std.cpp" \
+    "$ROOT/src/game/stage_timeline.cpp" \
+    "$ROOT/tests/stage_timeline_test.cpp" \
+    -o "$TEST_BUILD/stage_timeline_test"
+"$TEST_BUILD/stage_timeline_test"
+
 # ---------------------------------------------------------------------------
 # Retail-free standalone runner: build it and require the startup-to-title
 # smoke test to pass (SMOKE_PASS + exit 0).

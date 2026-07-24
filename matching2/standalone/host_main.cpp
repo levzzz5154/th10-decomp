@@ -2066,7 +2066,9 @@ int main(int argc, char** argv) {
         archive_available && stage.mode_apply_result == 1 &&
         stage.leave_gameplay_fired && stage.enter_result == 0 &&
         stage.update_task_registered && stage.draw_task_registered &&
-        stage.std_raw_view_valid && stage.std_size == 2536u &&
+        stage.std_raw_view_valid && stage.timeline_initialized &&
+        stage.timeline_decoded > 0 && stage.timeline_rejected == 0 &&
+        stage.std_size == 2536u &&
         stage.std_objects == 8 &&
         stage.std_quads == 19 && stage.ecl_size == 47924u &&
         stage.ecl_sub_count == 68 && stage.frames_run == 120 &&
@@ -2080,6 +2082,19 @@ int main(int argc, char** argv) {
         stage.stage_frame);
     std::printf("stage std raw view: valid=%d\n",
                 stage.std_raw_view_valid);
+    std::printf(
+        "stage timeline: initialized=%d decoded=%u stopped=%u jumps=%u "
+        "max_access=%zu max_extent=%zu rejected=%u budget_rejected=%u "
+        "histogram=",
+        stage.timeline_initialized, stage.timeline_decoded,
+        stage.timeline_stopped_events, stage.timeline_cursor_jumps,
+        stage.timeline_maximum_accessed_offset,
+        stage.timeline_maximum_record_extent, stage.timeline_rejected,
+        stage.timeline_budget_rejections);
+    for (int opcode = 0; opcode < 15; ++opcode)
+        std::printf("%s%u", opcode != 0 ? "," : "",
+                    stage.timeline_opcode_histogram[opcode]);
+    std::printf("\n");
     std::printf("STAGE_BRIDGE_%s\n", stage_ok ? "PASS" : "FAIL");
 #if defined(_WIN32)
     return ok && stage_ok ? 0 : 1;

@@ -18,6 +18,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -O2 \
     src/game/title_options_menu.cpp \
     src/game/stage_entry.cpp \
     src/game/stage_std.cpp \
+    src/game/stage_timeline.cpp \
     src/game/stage_update.cpp \
     src/game/game_mode_switch.cpp \
     src/game/scheduler.cpp \

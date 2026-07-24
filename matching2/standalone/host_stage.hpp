@@ -2,6 +2,7 @@
 
 #include "th10/game/stage_entry.hpp"
 #include "th10/game/stage_std.hpp"
+#include "th10/game/stage_timeline.hpp"
 #include "th10/script/stage_ecl_load.hpp"
 
 // =============================================================================
@@ -64,6 +65,15 @@ struct HostStageReport {
 	int stage_frame;            // StageContext frame word (+0x14)
 	int last_update_result;
 	int std_raw_view_valid;     // real DAT-backed STD passed bounded validation
+	int timeline_initialized;
+	unsigned int timeline_decoded;
+	unsigned int timeline_stopped_events;
+	unsigned int timeline_cursor_jumps;
+	unsigned int timeline_rejected;
+	unsigned int timeline_budget_rejections;
+	size_t timeline_maximum_accessed_offset;
+	size_t timeline_maximum_record_extent;
+	unsigned int timeline_opcode_histogram[15];
 };
 
 struct HostStageRuntimeView {
@@ -73,6 +83,7 @@ struct HostStageRuntimeView {
 	const unsigned char* companion_anm_data;
 	unsigned int companion_anm_size;
 	const StageStdRawView* std_view;
+	const StageTimelineView* timeline_view;
 	const StageContext* context;
 	const int* camera_words;
 	int stage_frame;
