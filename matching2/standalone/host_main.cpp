@@ -116,6 +116,10 @@ struct HostContext {
     TitleMainMenuState menu_state = {};
     TitleOptionsState options_state = {};
     TitleOptionsConfig options_config = {0, 100, 80};
+    int difficulty_selection = 0;
+    int character_selection = 0;
+    int weapon_selection = 0;
+    int selection_phase_frame = 0;
     const char* menu_status = "Arrow keys: move    Enter: select    Esc: back";
 #if defined(_WIN32)
     CRITICAL_SECTION critical_section_storage[7] = {};
@@ -364,6 +368,83 @@ void HostPrimeMainMenuOverlay() {
     }
 }
 
+bool HostAddIndependentTitleScript(unsigned int script_id) {
+    AnmFileScript script;
+    if (g_host.title_resource_bytes[0] == nullptr ||
+        g_host.title_child_vm_count >= 64 ||
+        !AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[0],
+            g_host.title_resource_sizes[0], script_id, nullptr, &script))
+        return false;
+    HostAnmVm* vm =
+        &g_host.title_child_vms[g_host.title_child_vm_count++];
+    HostInitializeAnmVm(vm, script.instructions);
+    vm->script_id = static_cast<int>(script_id);
+    vm->resource_index = 0;
+    return true;
+}
+
+void HostSetOverlayChildInterrupt(int script_id, int interrupt) {
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        if (child->script_id == script_id) {
+            child->active = 1;
+            child->state.pending_interrupt = interrupt;
+        }
+    }
+}
+
+bool HostStartSelectionScreen(unsigned int heading_script,
+                              unsigned int overlay_script) {
+    if (!HostStartTitleScripts(94, overlay_script) ||
+        !HostAddIndependentTitleScript(heading_script))
+        return false;
+    AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[1]);
+    AnmVm_Tick(&g_host.title_vms[1].state, &hooks);
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        AnmVmHooks child_hooks = HostAnmHooks(child);
+        if (AnmVm_Tick(&child->state, &child_hooks) != 0)
+            child->active = 0;
+    }
+    g_host.selection_phase_frame = 0;
+    return true;
+}
+
+void HostStartDifficultySelection() {
+    g_host.menu_screen = 6;
+    g_host.difficulty_selection = 0;
+    HostStartSelectionScreen(98, 119);
+    HostSetOverlayChildInterrupt(109, 17);
+    g_host.menu_status =
+        "Difficulty: arrows move, Enter confirms, Esc returns";
+}
+
+void HostStartCharacterSelection() {
+    g_host.menu_screen = 7;
+    g_host.character_selection = 0;
+    HostStartSelectionScreen(99, 125);
+    HostSetOverlayChildInterrupt(121, 7);
+    HostSetOverlayChildInterrupt(123, 7);
+    g_host.menu_status =
+        "Character: arrows choose Reimu/Marisa, Enter confirms, Esc returns";
+}
+
+void HostStartWeaponSelection() {
+    g_host.menu_screen = 8;
+    g_host.weapon_selection = 0;
+    unsigned int overlay =
+        g_host.character_selection == 0 ? 150u : 151u;
+    HostStartSelectionScreen(100, overlay);
+    int selected_script =
+        g_host.character_selection == 0 ? 126 : 129;
+    HostSetOverlayChildInterrupt(selected_script, 17);
+    HostSetOverlayChildInterrupt(
+        144 + g_host.character_selection * 3, 17);
+    g_host.menu_status =
+        "Weapon: arrows choose type, Enter accepts, Esc returns";
+}
+
 void HostRestoreMainMenuLogo() {
     AnmFileScript script;
     if (g_host.title_resource_bytes[0] == nullptr ||
@@ -383,6 +464,14 @@ void HostRestoreMainMenuLogo() {
     for (int frame = 0; frame <= 80; ++frame)
         AnmVm_Tick(&logo.state, &hooks);
     g_host.title_child_vms[g_host.title_child_vm_count++] = logo;
+}
+
+void HostReturnToMainMenu() {
+    g_host.menu_screen = 0;
+    TitleMainMenu_Initialize(&g_host.menu_state);
+    HostStartTitleScripts(88, 0);
+    HostRestoreMainMenuLogo();
+    HostPrimeMainMenuOverlay();
 }
 
 void HostRefreshOptionsSprites() {
@@ -409,6 +498,20 @@ void HostRefreshOptionsSprites() {
         }
         if (digit >= 0)
             child->state.sprite = base + digit;
+    }
+}
+
+void HostRefreshCharacterVisual() {
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        bool reimu = child->script_id == 121 || child->script_id == 123;
+        bool marisa = child->script_id == 122 || child->script_id == 124;
+        if (!reimu && !marisa)
+            continue;
+        bool selected =
+            (g_host.character_selection == 0 && reimu) ||
+            (g_host.character_selection == 1 && marisa);
+        child->state.color[3] = selected ? 255 : 0;
     }
 }
 
@@ -897,9 +1000,8 @@ void HostRenderMenu() {
 void HostDispatchTitleMenuAction(TitleMenuAction action) {
     switch (action) {
     case TITLE_MENU_ACTION_START:
-        g_host.menu_status =
-            "START dispatched; character/difficulty state is not linked yet";
-        break;
+        HostStartDifficultySelection();
+        return;
     case TITLE_MENU_ACTION_EXTRA:
         g_host.menu_status =
             "EXTRA dispatched; unlock and character state is not linked yet";
@@ -955,12 +1057,91 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
         return;
     }
     if (action == TITLE_OPTIONS_ACTION_RETURN) {
-        g_host.menu_screen = 0;
-        TitleMainMenu_Initialize(&g_host.menu_state);
-        HostStartTitleScripts(88, 0);
-        HostRestoreMainMenuLogo();
-        HostPrimeMainMenuOverlay();
+        HostReturnToMainMenu();
     }
+}
+
+void HostUpdateSelectionScreen() {
+    if (++g_host.selection_phase_frame <= 10) {
+        g_host.menu_input = 0;
+        return;
+    }
+    bool cancel = (g_host.menu_input & TITLE_MENU_CANCEL) != 0;
+    bool confirm = (g_host.menu_input & TITLE_MENU_CONFIRM) != 0;
+    int direction = 0;
+    if ((g_host.menu_input &
+         (TITLE_MENU_UP | TITLE_OPTIONS_LEFT)) != 0)
+        direction = -1;
+    if ((g_host.menu_input &
+         (TITLE_MENU_DOWN | TITLE_OPTIONS_RIGHT)) != 0)
+        direction = 1;
+
+    if (g_host.menu_screen == 6) {
+        if (cancel) {
+            HostPlayMenuSound(2);
+            HostReturnToMainMenu();
+        } else if (confirm) {
+            HostPlayMenuSound(1);
+            HostStartCharacterSelection();
+        } else if (direction != 0) {
+            int old = g_host.difficulty_selection;
+            g_host.difficulty_selection =
+                (g_host.difficulty_selection + direction + 4) % 4;
+            HostSetOverlayChildInterrupt(109 + old, 27);
+            HostSetOverlayChildInterrupt(
+                109 + g_host.difficulty_selection,
+                17 + g_host.difficulty_selection);
+            HostPlayMenuSound(0);
+        }
+    } else if (g_host.menu_screen == 7) {
+        if (cancel) {
+            HostPlayMenuSound(2);
+            HostStartDifficultySelection();
+        } else if (confirm) {
+            HostPlayMenuSound(1);
+            HostStartWeaponSelection();
+        } else if (direction != 0) {
+            int old = g_host.character_selection;
+            g_host.character_selection =
+                (g_host.character_selection + direction + 2) % 2;
+            HostSetOverlayChildInterrupt(121 + old, 3);
+            HostSetOverlayChildInterrupt(123 + old, 3);
+            HostSetOverlayChildInterrupt(
+                121 + g_host.character_selection,
+                7 + g_host.character_selection);
+            HostSetOverlayChildInterrupt(
+                123 + g_host.character_selection,
+                7 + g_host.character_selection);
+            HostPlayMenuSound(0);
+        }
+    } else if (g_host.menu_screen == 8) {
+        int base = g_host.character_selection == 0 ? 126 : 129;
+        int description_base =
+            144 + g_host.character_selection * 3;
+        if (cancel) {
+            HostPlayMenuSound(2);
+            HostStartCharacterSelection();
+        } else if (confirm) {
+            HostPlayMenuSound(1);
+            g_host.menu_status =
+                "Character, difficulty, and weapon selected; "
+                "gameplay loading is the next reconstruction target";
+        } else if (direction != 0) {
+            int old = g_host.weapon_selection;
+            g_host.weapon_selection =
+                (g_host.weapon_selection + direction + 3) % 3;
+            HostSetOverlayChildInterrupt(base + old, 27);
+            HostSetOverlayChildInterrupt(description_base + old, 27);
+            HostSetOverlayChildInterrupt(
+                base + g_host.weapon_selection,
+                17 + g_host.weapon_selection);
+            HostSetOverlayChildInterrupt(
+                description_base + g_host.weapon_selection,
+                17 + g_host.weapon_selection);
+            HostPlayMenuSound(0);
+        }
+    }
+    g_host.menu_input = 0;
 }
 #endif
 
@@ -1129,6 +1310,8 @@ int HostRunSchedulerFrame(void*) {
         }
         if (g_host.menu_screen == 4)
             HostRefreshOptionsSprites();
+        else if (g_host.menu_screen == 7)
+            HostRefreshCharacterVisual();
     }
     if (g_host.title_flow != 0 && g_host.title_version_vm_ready) {
         AnmVmHooks hooks = HostAnmHooks(&g_host.title_version_vm);
@@ -1220,6 +1403,9 @@ int HostRunSchedulerFrame(void*) {
             HostBroadcastTitleInterrupt(17);
         }
         g_host.menu_input = 0;
+    } else if (!g_host.smoke_mode && g_host.menu_screen >= 6 &&
+               g_host.menu_screen <= 8) {
+        HostUpdateSelectionScreen();
     }
     HostRenderMenu();
 #endif
