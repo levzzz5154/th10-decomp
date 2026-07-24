@@ -518,8 +518,12 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     if (format == D3DFMT_UNKNOWN)
         return nullptr;
     IDirect3DTexture9* texture = nullptr;
+    unsigned int texture_width =
+        entry.width != 0 ? entry.width : payload.width;
+    unsigned int texture_height =
+        entry.height != 0 ? entry.height : payload.height;
     if (FAILED(g_host.device->CreateTexture(
-            payload.width, payload.height, 1, 0, format, D3DPOOL_MANAGED,
+            texture_width, texture_height, 1, 0, format, D3DPOOL_MANAGED,
             &texture, nullptr)))
         return nullptr;
     D3DLOCKED_RECT locked;
@@ -529,10 +533,26 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     }
     unsigned int source_pitch =
         payload.height == 0 ? 0 : payload.data_size / payload.height;
-    for (unsigned int row = 0; row < payload.height; ++row) {
+    unsigned int bytes_per_pixel = payload.format == 1 ? 4u : 2u;
+    unsigned int destination_pitch =
+        texture_width * bytes_per_pixel;
+    unsigned int rows =
+        payload.height < texture_height ? payload.height : texture_height;
+    unsigned int copy_pitch =
+        source_pitch < destination_pitch ? source_pitch : destination_pitch;
+    if (copy_pitch > static_cast<unsigned int>(locked.Pitch))
+        copy_pitch = static_cast<unsigned int>(locked.Pitch);
+    unsigned int clear_pitch =
+        static_cast<unsigned int>(locked.Pitch) < destination_pitch
+            ? static_cast<unsigned int>(locked.Pitch) : destination_pitch;
+    for (unsigned int row = 0; row < texture_height; ++row)
+        std::memset(static_cast<unsigned char*>(locked.pBits) +
+                        row * locked.Pitch,
+                    0, clear_pitch);
+    for (unsigned int row = 0; row < rows; ++row) {
         std::memcpy(static_cast<unsigned char*>(locked.pBits) +
                         row * locked.Pitch,
-                    payload.pixels + row * source_pitch, source_pitch);
+                    payload.pixels + row * source_pitch, copy_pitch);
     }
     texture->UnlockRect(0);
     for (int index = 0; index < 16; ++index) {
