@@ -107,5 +107,28 @@ int main() {
     vm.pending_interrupt = 6;
     assert(AnmVm_Tick(&vm, &hooks) == 1);
     assert(vm.sprite == 55);
+
+    unsigned char animated_wait_script[36] = {};
+    cursor = animated_wait_script;
+    unsigned char* alpha = cursor;
+    cursor = Instruction(cursor, 0x3A, 20);
+    Write32(alpha + 8, 10);
+    Write32(alpha + 12, 0);
+    Write32(alpha + 16, 255);
+    cursor = Instruction(cursor, 0x3F, 8);
+    Instruction(cursor, 0xFFFF, 0);
+
+    vm = {};
+    vm.script_base = animated_wait_script;
+    vm.pc = animated_wait_script;
+    vm.speed = 1.0f;
+    assert(AnmVm_Tick(&vm, &hooks) == 0);
+    waiting_pc = vm.pc;
+    for (int frame = 0; frame < 15; ++frame) {
+        assert(AnmVm_Tick(&vm, &hooks) == 0);
+        assert(vm.pc == waiting_pc);
+        assert(vm.time == -1);
+    }
+    assert(vm.color[3] == 255);
     return 0;
 }

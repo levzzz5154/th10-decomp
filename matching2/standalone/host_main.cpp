@@ -324,8 +324,12 @@ bool HostSwitchTitleOverlay(unsigned int script_id) {
         HostAnmVm* ancestor = g_host.title_child_vms[index].parent;
         while (ancestor != nullptr && ancestor != &g_host.title_vms[1])
             ancestor = ancestor->parent;
-        if (ancestor == &g_host.title_vms[1])
-            g_host.title_child_vms[index].active = 0;
+        if (ancestor == &g_host.title_vms[1]) {
+            if (g_host.title_child_vms[index].script_id == 92)
+                g_host.title_child_vms[index].parent = nullptr;
+            else
+                g_host.title_child_vms[index].active = 0;
+        }
     }
     HostInitializeAnmVm(&g_host.title_vms[1], script.instructions);
     return true;
@@ -340,6 +344,22 @@ void HostBroadcastTitleInterrupt(int interrupt) {
         if (g_host.title_child_vms[index].active &&
             ancestor == &g_host.title_vms[1])
             g_host.title_child_vms[index].state.pending_interrupt = interrupt;
+    }
+}
+
+void HostPrimeMainMenuOverlay() {
+    // Script 0 creates the eight normal and eight selected menu-item VMs on
+    // its first tick. Retail then sends interrupt 28 to put every child in
+    // its inactive-but-visible state before interrupt 17 selects Game Start.
+    AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[1]);
+    AnmVm_Tick(&g_host.title_vms[1].state, &hooks);
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* ancestor = g_host.title_child_vms[index].parent;
+        while (ancestor != nullptr && ancestor != &g_host.title_vms[1])
+            ancestor = ancestor->parent;
+        if (g_host.title_child_vms[index].active &&
+            ancestor == &g_host.title_vms[1])
+            g_host.title_child_vms[index].state.pending_interrupt = 28;
     }
 }
 
@@ -1090,6 +1110,7 @@ int HostRunSchedulerFrame(void*) {
             g_host.title_transition_frame += 1;
             if (g_host.title_transition_frame >= 30) {
                 HostSwitchTitleOverlay(0);
+                HostPrimeMainMenuOverlay();
                 TitleMainMenu_Initialize(&g_host.menu_state);
                 g_host.title_flow = 2;
                 g_host.title_flow_frame = 0;

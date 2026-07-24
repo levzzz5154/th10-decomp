@@ -38,6 +38,8 @@ void DispatchInterrupt(AnmVmState* vm, const AnmVmHooks* hooks) {
     int id = vm->pending_interrupt;
     const unsigned char* handler = 0;
     const unsigned char* fallback = 0;
+    short handler_time = 0;
+    short fallback_time = 0;
     const unsigned char* cursor = vm->script_base;
     AnmInstructionView view;
     while (cursor != 0) {
@@ -49,15 +51,20 @@ void DispatchInterrupt(AnmVmState* vm, const AnmVmHooks* hooks) {
                         (static_cast<int>(view.args[1]) << 8) |
                         (static_cast<int>(view.args[2]) << 16) |
                         (static_cast<int>(view.args[3]) << 24);
-            if (label == id)
+            if (label == id) {
                 handler = next;
-            else if (label == -1 && fallback == 0)
+                handler_time = view.time;
+            } else if (label == -1 && fallback == 0) {
                 fallback = next;
+                fallback_time = view.time;
+            }
         }
         cursor = next;
     }
-    if (handler == 0)
+    if (handler == 0) {
         handler = fallback;
+        handler_time = fallback_time;
+    }
     vm->pending_interrupt = 0;
     if (handler == 0) {
         if (id == 0)
@@ -69,7 +76,7 @@ void DispatchInterrupt(AnmVmState* vm, const AnmVmHooks* hooks) {
     vm->saved_accumulator = vm->time_accumulator;
     vm->saved_previous_time = vm->previous_time;
     vm->saved_pc = vm->pc;
-    hooks->set_sprite(hooks->context, vm, vm->sprite);
+    hooks->set_time(hooks->context, vm, static_cast<float>(handler_time));
     vm->pc = handler;
     vm->flags |= ANM_FLAG_INTERRUPTED;
     vm->flags &= ~static_cast<unsigned int>(ANM_FLAG_WAITING);
@@ -117,11 +124,10 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
                                                              : vm->speed;
     if (vm->pending_interrupt != 0)
         DispatchInterrupt(vm, hooks);
-    if ((vm->flags & ANM_FLAG_WAITING) != 0)
-        return 0;
+    bool hold_time = (vm->flags & ANM_FLAG_WAITING) != 0;
 
     int alt_rng = (vm->flags & ANM_FLAG_ALT_RNG) != 0;
-    bool run = true;
+    bool run = !hold_time;
     while (run && vm->pc != 0) {
         AnmInstructionView ins;
         const unsigned char* next = InstructionAt(vm->pc, &ins);
@@ -418,6 +424,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
                 vm->flags |= ANM_FLAG_WAITING;
                 hooks->set_time(hooks->context, vm, -1.0f);
                 next = vm->pc;
+                hold_time = true;
                 run = false;
             } else {
                 DispatchInterrupt(vm, hooks);
@@ -599,6 +606,10 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
     }
     if ((vm->flags & ANM_FLAG_RING_MODE_MASK) == ANM_FLAG_RING_MODE)
         hooks->update_ring_vertices(hooks->context, vm);
+
+    // Wait freezes the script clock but not the per-frame interpolators.
+    if (hold_time)
+        return 0;
 
     // Timer advance: fractional speeds accumulate; unit speed steps by one.
     vm->previous_time = vm->time;
