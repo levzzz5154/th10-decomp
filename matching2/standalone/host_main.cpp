@@ -363,6 +363,27 @@ void HostPrimeMainMenuOverlay() {
     }
 }
 
+void HostRestoreMainMenuLogo() {
+    AnmFileScript script;
+    if (g_host.title_resource_bytes[0] == nullptr ||
+        !AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[0],
+            g_host.title_resource_sizes[0], 92, nullptr, &script) ||
+        g_host.title_child_vm_count >= 64)
+        return;
+    HostAnmVm logo;
+    HostInitializeAnmVm(&logo, script.instructions);
+    logo.script_id = 92;
+    logo.resource_index = 0;
+    AnmVmHooks hooks = HostAnmHooks(&logo);
+    for (int frame = 0; frame <= 60; ++frame)
+        AnmVm_Tick(&logo.state, &hooks);
+    logo.state.pending_interrupt = 6;
+    for (int frame = 0; frame <= 80; ++frame)
+        AnmVm_Tick(&logo.state, &hooks);
+    g_host.title_child_vms[g_host.title_child_vm_count++] = logo;
+}
+
 void HostRefreshOptionsSprites() {
     int music = g_host.options_config.music_volume;
     int sound = g_host.options_config.sound_volume;
@@ -907,7 +928,8 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
         g_host.menu_screen = 0;
         TitleMainMenu_Initialize(&g_host.menu_state);
         HostStartTitleScripts(88, 0);
-        HostBroadcastTitleInterrupt(17);
+        HostRestoreMainMenuLogo();
+        HostPrimeMainMenuOverlay();
     }
 }
 #endif
