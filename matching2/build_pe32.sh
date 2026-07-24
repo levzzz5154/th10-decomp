@@ -32,6 +32,7 @@ mkdir -p "$BUILD"
     "$ROOT/src/archive/resource_manager.cpp" \
     "$ROOT/src/game/task_registration.cpp" \
     "$ROOT/src/game/title_main_menu.cpp" \
+    "$ROOT/src/game/title_options_menu.cpp" \
     "$ROOT/src/platform/file.cpp" \
     "$ROOT/src/platform/memory_file.cpp" \
     "$ROOT/src/platform/path.cpp" \

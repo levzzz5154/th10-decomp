@@ -16,6 +16,13 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$TEST_BUILD/title_main_menu_test"
 
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/title_options_menu.cpp" \
+    "$ROOT/tests/title_options_menu_test.cpp" \
+    -o "$TEST_BUILD/title_options_menu_test"
+
+"$TEST_BUILD/title_options_menu_test"
+
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/render/anm_file.cpp" \

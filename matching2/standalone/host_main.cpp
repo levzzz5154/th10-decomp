@@ -18,6 +18,7 @@
 #include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
 #include "th10/game/title_main_menu.hpp"
+#include "th10/game/title_options_menu.hpp"
 #include "th10/render/camera_setup.hpp"
 #include "th10/render/anm_file.hpp"
 #include "th10/script/anm_vm_tick.hpp"
@@ -54,6 +55,7 @@ namespace {
 struct HostAnmVm {
     AnmVmState state = {};
     int active = 0;
+    int script_id = -1;
     int integer_variables[6] = {};
     float float_variables[4] = {};
     int integer_fallback = 0;
@@ -104,6 +106,8 @@ struct HostContext {
     int menu_windowed = 1;
     uint32_t menu_input = 0;
     TitleMainMenuState menu_state = {};
+    TitleOptionsState options_state = {};
+    TitleOptionsConfig options_config = {0, 100, 80};
     const char* menu_status = "Arrow keys: move    Enter: select    Esc: back";
 #if defined(_WIN32)
     CRITICAL_SECTION critical_section_storage[7] = {};
@@ -216,6 +220,7 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
         HostAnmVm* child =
             &g_host.title_child_vms[g_host.title_child_vm_count++];
         HostInitializeAnmVm(child, script.instructions);
+        child->script_id = script_id;
         for (int axis = 0; axis < 3; ++axis)
             child->state.position[axis] = parent->position[axis];
     };
@@ -245,19 +250,72 @@ void HostInitializeAnmVm(HostAnmVm* runtime,
     runtime->state.speed = 1.0f;
 }
 
-void HostApplyWindowMode() {
-    if (g_host.window == nullptr)
-        return;
-    if (g_host.menu_windowed) {
-        SetWindowLongA(g_host.window, GWL_STYLE, WS_OVERLAPPEDWINDOW);
-        SetWindowPos(g_host.window, nullptr, CW_USEDEFAULT, CW_USEDEFAULT,
-                     656, 519, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
-    } else {
-        SetWindowLongA(g_host.window, GWL_STYLE, WS_POPUP);
-        SetWindowPos(g_host.window, HWND_TOP, 0, 0,
-                     GetSystemMetrics(SM_CXSCREEN),
-                     GetSystemMetrics(SM_CYSCREEN),
-                     SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+bool HostStartTitleScripts(unsigned int first, unsigned int second) {
+    if (g_host.title_resource_bytes[0] == nullptr)
+        return false;
+    AnmFileScript scripts[2];
+    if (!AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[0], g_host.title_resource_sizes[0],
+            first, nullptr, &scripts[0]) ||
+        !AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[0], g_host.title_resource_sizes[0],
+            second, nullptr, &scripts[1]))
+        return false;
+    g_host.title_child_vm_count = 0;
+    std::memset(g_host.title_child_vms, 0,
+                sizeof(g_host.title_child_vms));
+    HostInitializeAnmVm(&g_host.title_vms[0], scripts[0].instructions);
+    HostInitializeAnmVm(&g_host.title_vms[1], scripts[1].instructions);
+    g_host.title_vm_ready = 1;
+    return true;
+}
+
+void HostBroadcastTitleInterrupt(int interrupt) {
+    g_host.title_vms[1].state.pending_interrupt = interrupt;
+    for (int index = 0; index < g_host.title_child_vm_count; ++index)
+        if (g_host.title_child_vms[index].active)
+            g_host.title_child_vms[index].state.pending_interrupt = interrupt;
+}
+
+void HostRefreshOptionsSprites() {
+    int music = g_host.options_config.music_volume;
+    int sound = g_host.options_config.sound_volume;
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        int digit = -1;
+        int base = 51;
+        switch (child->script_id) {
+        case 37: digit = music / 100; break;
+        case 38: digit = music / 10 % 10; break;
+        case 39: digit = music % 10; break;
+        case 41: digit = music / 100; base = 61; break;
+        case 42: digit = music / 10 % 10; base = 61; break;
+        case 43: digit = music % 10; base = 61; break;
+        case 45: digit = sound / 100; break;
+        case 46: digit = sound / 10 % 10; break;
+        case 47: digit = sound % 10; break;
+        case 49: digit = sound / 100; base = 61; break;
+        case 50: digit = sound / 10 % 10; base = 61; break;
+        case 51: digit = sound % 10; base = 61; break;
+        default: break;
+        }
+        if (digit >= 0)
+            child->state.sprite = base + digit;
+    }
+}
+
+void HostRefreshBgmModeVisual() {
+    static const int interrupts[3][2] = {
+        {46, 47}, {48, 49}, {44, 45},
+    };
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        if (child->script_id == 31)
+            child->state.pending_interrupt =
+                interrupts[g_host.options_config.bgm_mode][0];
+        else if (child->script_id == 32)
+            child->state.pending_interrupt =
+                interrupts[g_host.options_config.bgm_mode][1];
     }
 }
 
@@ -268,29 +326,18 @@ LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
         return 0;
     }
     if (message == WM_KEYDOWN && !g_host.smoke_mode) {
-        if (g_host.menu_screen == 0) {
-            if (wparam == VK_UP)
-                g_host.menu_input |= TITLE_MENU_UP;
-            else if (wparam == VK_DOWN)
-                g_host.menu_input |= TITLE_MENU_DOWN;
-            else if (wparam == VK_RETURN)
-                g_host.menu_input |= TITLE_MENU_CONFIRM;
-            else if (wparam == VK_ESCAPE)
-                g_host.menu_input |= TITLE_MENU_CANCEL;
-        } else {
-            if (wparam == VK_RETURN || wparam == VK_LEFT ||
-                wparam == VK_RIGHT) {
-                g_host.menu_windowed = !g_host.menu_windowed;
-                g_host.config.windowed =
-                    static_cast<unsigned char>(g_host.menu_windowed);
-                HostApplyWindowMode();
-            } else if (wparam == VK_ESCAPE) {
-                g_host.menu_screen = 0;
-                TitleMainMenu_Initialize(&g_host.menu_state);
-                g_host.menu_status =
-                    "Arrow keys: move    Enter: select    Esc: quit";
-            }
-        }
+        if (wparam == VK_UP)
+            g_host.menu_input |= TITLE_MENU_UP;
+        else if (wparam == VK_DOWN)
+            g_host.menu_input |= TITLE_MENU_DOWN;
+        else if (wparam == VK_LEFT)
+            g_host.menu_input |= TITLE_OPTIONS_LEFT;
+        else if (wparam == VK_RIGHT)
+            g_host.menu_input |= TITLE_OPTIONS_RIGHT;
+        else if (wparam == VK_RETURN)
+            g_host.menu_input |= TITLE_MENU_CONFIRM;
+        else if (wparam == VK_ESCAPE)
+            g_host.menu_input |= TITLE_MENU_CANCEL;
         return 0;
     }
     return DefWindowProcA(window, message, wparam, lparam);
@@ -423,8 +470,12 @@ void HostDispatchTitleMenuAction(TitleMenuAction action) {
         g_host.menu_status = "RESULTS dispatched; result state is not linked yet";
         break;
     case TITLE_MENU_ACTION_OPTIONS:
-        g_host.menu_screen = 1;
-        g_host.menu_status = "Enter: toggle window mode    Esc: main menu";
+        g_host.menu_screen = 4;
+        TitleOptions_Initialize(&g_host.options_state);
+        HostStartTitleScripts(88, 1);
+        HostBroadcastTitleInterrupt(17);
+        g_host.menu_status =
+            "Options: arrows adjust, Enter selects, Esc returns";
         return;
     case TITLE_MENU_ACTION_QUIT:
         g_host.menu_quit = 1;
@@ -433,6 +484,32 @@ void HostDispatchTitleMenuAction(TitleMenuAction action) {
         return;
     }
     TitleMainMenu_Initialize(&g_host.menu_state);
+}
+
+void HostDispatchOptionsAction(TitleOptionsAction action) {
+    if (action == TITLE_OPTIONS_ACTION_VALUE_CHANGED ||
+        action == TITLE_OPTIONS_ACTION_DEFAULTS) {
+        g_host.config.bgm_mode =
+            static_cast<unsigned char>(g_host.options_config.bgm_mode);
+        HostRefreshOptionsSprites();
+        HostRefreshBgmModeVisual();
+        return;
+    }
+    if (action == TITLE_OPTIONS_ACTION_KEY_CONFIG) {
+        // Retail dispatcher state 5 is the key-configuration handler
+        // (0x0042F540), whose reconstruction is the next child state.
+        g_host.menu_screen = 5;
+        HostStartTitleScripts(88, 2);
+        g_host.menu_status =
+            "Key configuration state entered; Esc returns to Options";
+        return;
+    }
+    if (action == TITLE_OPTIONS_ACTION_RETURN) {
+        g_host.menu_screen = 0;
+        TitleMainMenu_Initialize(&g_host.menu_state);
+        HostStartTitleScripts(88, 0);
+        HostBroadcastTitleInterrupt(17);
+    }
 }
 #endif
 
@@ -581,6 +658,8 @@ int HostRunSchedulerFrame(void*) {
             if (AnmVm_Tick(&child->state, &hooks) != 0)
                 child->active = 0;
         }
+        if (g_host.menu_screen == 4)
+            HostRefreshOptionsSprites();
     }
     if (!g_host.smoke_mode && g_host.menu_screen == 0) {
         int old_selection = g_host.menu_state.selection;
@@ -589,14 +668,28 @@ int HostRunSchedulerFrame(void*) {
         if (old_selection != g_host.menu_state.selection &&
             g_host.title_vm_ready) {
             int interrupt = g_host.menu_state.selection + 7;
-            g_host.title_vms[1].state.pending_interrupt = interrupt;
-            for (int index = 0; index < g_host.title_child_vm_count; ++index)
-                if (g_host.title_child_vms[index].active)
-                    g_host.title_child_vms[index].state.pending_interrupt =
-                        interrupt;
+            HostBroadcastTitleInterrupt(interrupt);
         }
         g_host.menu_input = 0;
         HostDispatchTitleMenuAction(action);
+    } else if (!g_host.smoke_mode && g_host.menu_screen == 4) {
+        int old_selection = g_host.options_state.selection;
+        TitleOptionsAction action = TitleOptions_Update(
+            &g_host.options_state, &g_host.options_config,
+            g_host.menu_input);
+        if (old_selection != g_host.options_state.selection)
+            HostBroadcastTitleInterrupt(
+                g_host.options_state.selection + 7);
+        g_host.menu_input = 0;
+        HostDispatchOptionsAction(action);
+    } else if (!g_host.smoke_mode && g_host.menu_screen == 5) {
+        if ((g_host.menu_input & TITLE_OPTIONS_CANCEL) != 0) {
+            g_host.menu_screen = 4;
+            TitleOptions_Initialize(&g_host.options_state);
+            HostStartTitleScripts(88, 1);
+            HostBroadcastTitleInterrupt(17);
+        }
+        g_host.menu_input = 0;
     }
     HostRenderMenu();
 #endif
@@ -791,18 +884,18 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
     if (AnmFile_ParseEntry(bytes, size, 0, &g_host.title_entries[index])) {
         if (index == 0) {
             AnmFileScript main_script;
-            AnmFileScript cursor_script;
+            AnmFileScript menu_script;
             g_host.title_anm_parsed =
                 AnmFile_FindGlobalScript(bytes, size, 88, nullptr,
                                          &main_script) &&
-                AnmFile_FindGlobalScript(bytes, size, 90, nullptr,
-                                         &cursor_script);
+                AnmFile_FindGlobalScript(bytes, size, 0, nullptr,
+                                         &menu_script);
             if (g_host.title_anm_parsed) {
                 HostInitializeAnmVm(&g_host.title_vms[0],
                                     main_script.instructions);
                 HostInitializeAnmVm(&g_host.title_vms[1],
-                                    cursor_script.instructions);
-                g_host.title_vms[1].state.pending_interrupt = 7;
+                                    menu_script.instructions);
+                g_host.title_vms[1].state.pending_interrupt = 17;
                 g_host.title_vm_ready = 1;
             }
         }
@@ -1124,7 +1217,7 @@ int main(int argc, char** argv) {
                 g_host.title_resources_from_archive ? "th10.dat" :
                                                       "synthetic host");
     std::printf("  retail title ANM layout: %s\n",
-                g_host.title_anm_parsed ? "scripts 88/90 ready" :
+                g_host.title_anm_parsed ? "scripts 88/0 ready" :
                                           "not parsed");
     std::printf("  retail title VM sprites: %d / %d\n",
                 g_host.title_vms[0].state.sprite,

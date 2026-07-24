@@ -14,6 +14,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -O2 \
     src/app/main_tasks.cpp \
     src/game/task_registration.cpp \
     src/game/title_main_menu.cpp \
+    src/game/title_options_menu.cpp \
     src/platform/sound_commands.cpp \
     src/render/anm_file.cpp \
     src/render/camera_setup.cpp \

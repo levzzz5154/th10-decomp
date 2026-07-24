@@ -686,12 +686,20 @@ main-menu control state from `0x0042D420`: eight retail entries, phased
 entry/input/exit timing, wrapped cursor movement, cancel-to-Quit, and the
 original action mapping. Its presentation now comes from the real
 `title.anm`: the reconstructed parser resolves linked entries, sprites,
-scripts, and THTX textures; the recovered ANM VM executes scripts 88 and 90,
+scripts, and THTX textures; the recovered ANM VM executes background script
+88 and interactive main-menu script 0,
 creates their child scripts, and the D3D9 backend draws the resulting retail
 sprites. Selection interrupts are broadcast to the spawned VMs as in
-`0x0042C770`. The actions beyond the main menu still stop at reconstructed
-dispatch boundaries; their retail submenu/state implementations are the next
-playability milestone. For deterministic automation,
+`0x0042C770`.
+
+The Options action now enters dispatcher state 4 and executes retail ANM
+script 1. Its six-entry state machine is reconstructed from `0x0042D920`,
+including the six-frame entry, cursor wrap, three-way BGM mode, five-point
+music/SFX volume changes with retail bounds, defaults, key-configuration
+transition, cancel/return, and ten-frame exit. Numeric child sprites and BGM
+mode interrupts are updated through the real spawned ANM VMs. The remaining
+main-menu actions and the key-configuration child handler still stop at their
+reconstructed dispatch boundaries. For deterministic automation,
 `./run_pe32.sh --smoke` remains available and avoids host graphics, input, and
 audio initialization while exercising archive loading, ANM parsing, child-VM
 creation, and script execution.
