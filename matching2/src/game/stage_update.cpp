@@ -4,10 +4,14 @@
 
 namespace {
 
+const int kScoreRecordStride = 17276;
+const int kFramesPlayedOffset = 0x4CC;
+
 int StageFrame(const StageContext* context) {
     int value;
-    std::memcpy(&value,
-                reinterpret_cast<const unsigned char*>(context) + 0x14, 4);
+    // Retail +0x14 is the second word in the spawn/timer block. Address the
+    // typed member so native 64-bit validation does not corrupt a pointer.
+    std::memcpy(&value, &context->spawn[1], 4);
     return value;
 }
 
@@ -41,15 +45,17 @@ void ResetForStageStart(StageContext* context, const StageUpdateEnv* env,
 
     if (delayed) {
         env->create_delayed_stage_effect(
-            (globals->ui_flags & 0x10u) != 0 ? 4 : 3);
+            (globals->descriptor_flags & 0x10u) != 0 ? 4 : 3);
         env->start_stage_music();
         env->reset_thread_timer(1);
+        env->clear_thread_pending();
         env->reset_player_spawn(context);
     } else {
         if ((globals->game_flags & 0x20u) == 0)
             env->start_stage_music();
         env->reset_thread_timer(0);
         env->reset_thread_timer(1);
+        env->clear_thread_pending();
     }
 }
 
@@ -110,9 +116,18 @@ int StageContext_Update(StageContext* context, const StageUpdateEnv* env) {
     if ((context->flags & 0x70u) != 0)
         return 3;
 
-    if (globals->session_mode != 1 &&
-        globals->score_play_count < 215999999) {
-        ++globals->score_play_count;
+    if (globals->session_mode != 1 && globals->score_file != 0) {
+        unsigned char* slot =
+            globals->score_file +
+            kScoreRecordStride *
+                (3 * globals->character + globals->stage) +
+            kFramesPlayedOffset;
+        int frames_played = 0;
+        std::memcpy(&frames_played, slot, 4);
+        if (frames_played < 215999999) {
+            ++frames_played;
+            std::memcpy(slot, &frames_played, 4);
+        }
     }
     if (!globals->practice_active && !globals->game_thread_busy &&
         frame >= 90) {

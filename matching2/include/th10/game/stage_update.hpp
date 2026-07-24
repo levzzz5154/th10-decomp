@@ -13,6 +13,7 @@ struct StageUpdateTaskPair {
 struct StageUpdateGlobals {
     unsigned int game_flags;
     unsigned int ui_flags;
+    unsigned int descriptor_flags;
     unsigned int transition_mask;
     int transition_result;
     int character;
@@ -22,7 +23,7 @@ struct StageUpdateGlobals {
     int session_mode;
     int practice_active;
     int game_thread_busy;
-    int score_play_count;
+    unsigned char* score_file;
     void* player;
 };
 
@@ -37,6 +38,7 @@ struct StageUpdateEnv {
     void (*arm_player_timer)();
     void (*start_player_mode)();
     void (*reset_thread_timer)(int index);
+    void (*clear_thread_pending)();
     void (*stop_player_runtime)();
     void (*reset_stage_runtime)();
     void (*clear_stage_arena)();

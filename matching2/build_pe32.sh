@@ -20,6 +20,7 @@ mkdir -p "$BUILD"
 "$COMPILER" -std=c++17 -Wall -Wextra -Werror -O2 -static \
     -I"$ROOT/include" \
     "$ROOT/standalone/host_main.cpp" \
+    "$ROOT/standalone/host_stage.cpp" \
     "$ROOT/standalone/win32_compat.cpp" \
     "$ROOT/src/app/game_main.cpp" \
     "$ROOT/src/app/game_state_init.cpp" \
@@ -33,6 +34,16 @@ mkdir -p "$BUILD"
     "$ROOT/src/game/task_registration.cpp" \
     "$ROOT/src/game/title_main_menu.cpp" \
     "$ROOT/src/game/title_options_menu.cpp" \
+    "$ROOT/src/game/stage_entry.cpp" \
+    "$ROOT/src/game/stage_update.cpp" \
+    "$ROOT/src/game/game_mode_switch.cpp" \
+    "$ROOT/src/game/scheduler.cpp" \
+    "$ROOT/src/game/manager_factories.cpp" \
+    "$ROOT/src/game/object_factories.cpp" \
+    "$ROOT/src/game/recovery_leaves.cpp" \
+    "$ROOT/src/game/bullet_manager.cpp" \
+    "$ROOT/src/script/stage_ecl_load.cpp" \
+    "$ROOT/src/platform/pack_file_loader.cpp" \
     "$ROOT/src/platform/file.cpp" \
     "$ROOT/src/platform/memory_file.cpp" \
     "$ROOT/src/platform/path.cpp" \

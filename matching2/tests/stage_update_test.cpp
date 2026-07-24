@@ -18,6 +18,7 @@ int WantsDestroy(void*) { return destroy_requested; }
 void Destroy(void*) { ++calls[7]; }
 void Free(void*) { ++calls[8]; }
 void TickTimer(StageContext*) { ++calls[9]; }
+void ClearPending() { ++calls[10]; }
 
 StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
                        StageUpdateTaskPair* pairs) {
@@ -30,6 +31,7 @@ StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
     env.arm_player_timer = Call0;
     env.start_player_mode = Call0;
     env.reset_thread_timer = Timer;
+    env.clear_thread_pending = ClearPending;
     env.stop_player_runtime = Call0;
     env.reset_stage_runtime = Call0;
     env.clear_stage_arena = Call0;
@@ -54,7 +56,7 @@ StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
 }
 
 void SetFrame(StageContext* context, int frame) {
-    std::memcpy(reinterpret_cast<unsigned char*>(context) + 0x14, &frame, 4);
+    std::memcpy(&context->spawn[1], &frame, 4);
 }
 
 } // namespace
@@ -62,6 +64,8 @@ void SetFrame(StageContext* context, int frame) {
 int main() {
     StageContext context = {};
     StageUpdateGlobals globals = {};
+    static unsigned char score_file[12 * 17276] = {};
+    globals.score_file = score_file;
     StageTaskNode nodes[5] = {};
     StageUpdateTaskPair pairs[2] = {
         {&nodes[0], &nodes[1]}, {&nodes[2], &nodes[3]},

@@ -815,9 +815,11 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 # smoke test to pass (SMOKE_PASS + exit 0).
 # ---------------------------------------------------------------------------
 "$ROOT/standalone/build.sh"
+ln -sfn "${TH10_GAME_DIR:-$HOME/Games/TH10 - Mountain of Faith}/th10.dat" \
+  "$ROOT/th10.dat"
 SMOKE_OUTPUT="$("$ROOT/build/standalone/th10_standalone")"
 echo "$SMOKE_OUTPUT"
-if ! grep -q '^SMOKE_PASS$' <<<"$SMOKE_OUTPUT"; then
-    echo "standalone startup-to-title smoke test failed" >&2
+if ! grep -q '^STAGE_BRIDGE_PASS$' <<<"$SMOKE_OUTPUT"; then
+    echo "standalone Stage 1 bridge smoke test failed" >&2
     exit 1
 fi

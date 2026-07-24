@@ -24,6 +24,8 @@
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/platform/sound_commands.hpp"
 
+#include "host_stage.hpp"
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -1124,9 +1126,12 @@ void HostUpdateSelectionScreen() {
             HostStartCharacterSelection();
         } else if (confirm) {
             HostPlayMenuSound(1);
-            g_host.menu_status =
-                "Character, difficulty, and weapon selected; "
-                "gameplay loading is the next reconstruction target";
+            int result = HostStage_ConfirmWeapon(
+                g_host.character_selection, g_host.weapon_selection,
+                g_host.difficulty_selection);
+            g_host.menu_status = result == 0
+                ? "Stage 1 resources loaded; gameplay scheduler active"
+                : "Stage 1 bridge failed";
         } else if (direction != 0) {
             int old = g_host.weapon_selection;
             g_host.weapon_selection =
@@ -1284,6 +1289,12 @@ int HostRunSchedulerFrame(void*) {
     // counts toward the title-visible milestone.
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
+    if (g_host.smoke_mode && g_host.title_frames_completed == 60 &&
+        HostStage_GetReport().archive_available &&
+        !HostStage_GetReport().confirm_invoked) {
+        HostStage_ConfirmWeapon(0, 0, 1);
+        HostStage_RunFrames(120);
+    }
 #if defined(_WIN32)
     if (!g_host.smoke_mode && g_host.title_frames_completed == 60) {
         std::fprintf(
@@ -1296,6 +1307,8 @@ int HostRunSchedulerFrame(void*) {
     }
     if (!g_host.smoke_mode)
         HostPollKeyboard();
+    if (!g_host.smoke_mode && HostStage_IsActive())
+        HostStage_RunFrames(1);
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
@@ -1964,9 +1977,11 @@ int main(int argc, char** argv) {
     (void)argv;
     g_host.smoke_mode = 1;
 #endif
+    const int archive_available =
+        Resource_RegisterArchive("th10.dat") ? 1 : 0;
+    HostStage_SetArchiveAvailable(archive_available);
 #if defined(_WIN32)
-    HostTrace("mounting th10.dat");
-    if (!Resource_RegisterArchive("th10.dat")) {
+    if (!archive_available) {
         std::fprintf(stderr, "failed to mount th10.dat\n");
         return 1;
     }
@@ -1996,7 +2011,6 @@ int main(int argc, char** argv) {
     };
 
     int exit_code = GameMain_Run(&state, &hooks);
-
     std::printf("standalone startup-to-title smoke report\n");
     std::printf("  boot: log=%d critical_sections_seen=%d config_magic=0x%X\n",
                 g_host.log_open_count, 7, g_host.config.magic);
@@ -2047,5 +2061,28 @@ int main(int argc, char** argv) {
              g_host.clean_shutdown &&
              exit_code == 0;
     std::printf("SMOKE_%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    const HostStageReport& stage = HostStage_GetReport();
+    const int stage_ok =
+        archive_available && stage.mode_apply_result == 1 &&
+        stage.leave_gameplay_fired && stage.enter_result == 0 &&
+        stage.update_task_registered && stage.draw_task_registered &&
+        stage.std_size == 2536u && stage.std_objects == 8 &&
+        stage.std_quads == 19 && stage.ecl_size == 47924u &&
+        stage.ecl_sub_count == 68 && stage.frames_run == 120 &&
+        stage.update_ticks == 120 && stage.draw_ticks == 120 &&
+        stage.stage_frame == 120;
+    std::printf(
+        "stage bridge: enter=%d factory_wrappers=%d resources=%u/%u "
+        "ticks=%d/%d frame=%d\n",
+        stage.enter_result, stage.factories_created, stage.std_size,
+        stage.ecl_size, stage.update_ticks, stage.draw_ticks,
+        stage.stage_frame);
+    std::printf("STAGE_BRIDGE_%s\n", stage_ok ? "PASS" : "FAIL");
+#if defined(_WIN32)
+    return ok && stage_ok ? 0 : 1;
+#else
+    // The portable host intentionally has no title renderer. Its independent
+    // gate is the real DAT-backed stage bridge.
+    return stage_ok ? 0 : 1;
+#endif
 }
