@@ -129,6 +129,17 @@ The shared-file open leaves at `0x0044B620` (create/truncate for writing) and
 `0x0044B6B0` (sequential open for reading) complete the probe/write/read
 family; both publish the shared handle, hold the file-system critical-section
 depth on success, and unwind it through the error hook on failure.
+The next IDA-guided continuation promotes queued text rendering at `0x00401760`, including camera/view transitions, both font banks, proportional and fixed advances, newline behavior, half-alpha shadow passes, and final view restoration; focused tests cover glyph selection and exact draw positions.
+The IDA-guided continuation promotes the descriptor-driven watch/effect spawner at `0x00427E90`, including its 128-slot scan, mode-3 source exclusivity, timer initialization, polar placement, animation VM creation, callback, and sound paths; focused tests cover exclusive and non-exclusive descriptors.
+The latest recovery batch adds transparent-pixel border repair at `0x00436DA0` for both BGRA and A4R4G4B4 surfaces, plus the shared-path asset-buffer replacement helper at `0x0040B480`; focused tests cover neighbour averaging, row bounds, 16-bit nibble conversion, path composition, and exactly-once replacement ownership.
+The following recovery batch reconstructs the six-channel particle seed combiner at `0x00404E10` and the urgent stage-tip creation path at `0x00424650`; tests cover float-channel addition, four independent RNG bytes, active-list aging, duration clamping, and highlighted tip style.
+The floating-score ring writer at `0x0042B9C0` is now reconstructed with its 720-entry wrap, least-significant-first decimal encoding, minus glyph, lazy timer initialization, position copy, and color publication; dedicated tests cover positive, zero, negative, wrap, and timer-reuse paths.
+The next large-leaf batch reconstructs manager cleanup dispatch at `0x0041C850`, format-specific alpha inversion at `0x00437160`, and locked-surface transparent-color repair at `0x004465B0`; tests cover mutation-safe list walking and BGRA/A1R5G5B5/A4R4G4B4 paths.
+The latest continuation reconstructs queued text rendering at `0x00401A50`,
+centered formatted debug text at `0x00447BB0`, and the live/replay input step at
+`0x004297D0`. Focused tests cover font-bank transitions, spaces and newlines,
+scaled glyph selection, default debug font sizing and centering, held-input
+repeat conversion, analog sampling, and six-byte replay packet advancement.
 The utility coverage also exercises inline and allocated `LegacyString`
 assignment, substring aliasing, erase, reserve/shrink, ownership checks, and
 termination without depending on the retail CRT.
@@ -601,3 +612,360 @@ than relying on the retail global and hidden EAX input. The adjacent
 `0x004091C0` callback now releases the eight- and five-entity trailing arrays
 at `+0x778` and `+0x24D8`; `0x00409270` is its typed scheduler wrapper. This
 corrects the raw decompiler's loss of the entity pointer passed through EAX.
+
+The render staging leaf at `0x00442FE0` now expands one quad into the manager's
+six-vertex triangle list (0,1,2 / 1,2,3), advancing the staging cursor and the
+staged-quad counter through a typed staging struct. The archive-cursor open at
+`0x0044DBF0` completes the cursor trio alongside the seek (`0x0044DD40`) and
+read (`0x0044DE10`) paths: it validates the path, opens the file for
+sequential read, attaches the section descriptor, and performs the initial
+seek to the section base plus the shared `DAT_004977A4` offset, with the
+retail HRESULT codes preserved. The score gauge leaf at `0x00418B80` stores
+one tenth of its input and disables its embedded timer through the shared
+five-word sentinel pattern; its neighbor at `0x00418A90` increments a counter
+word clamped at 9. The configuration defaults initializer at `0x00418C40`
+resets a 0x34-byte record to the retail defaults (version tag `0x00100003`,
+600/600 axis thresholds, mode 2, the 100/0x50 volume pair, and the preset
+block copied from `0x00474E88`). The stage-tip manager constructor at
+`0x00418D40` zeroes its 0x1A8-byte state, self-links all sixteen intrusive
+list sentinels, and publishes the instance through `DAT_00477814`; tip
+creation at `0x0041A120` allocates an 0x88-byte record through an injectable
+allocator, runs the same initialization as `StageTip_Initialize`
+(`0x00418D00`), appends to the tail of the per-difficulty chain selected by
+`DAT_00474C7C` (sentinels 8..15 of the same manager), and fills the position,
+0x40-byte text, and display fields from the difficulty globals. The sound
+worker shutdown at `0x0043CC40` raises the stop flag and polls both worker
+handles with injectable wait/sleep/close hooks before clearing their slots.
+Host-side builds now pull the real `<cstdint>` in `entity.hpp` (the manual
+typedefs remain for the MSVC 7.1 production target) so mixed headers link
+into the combined `recovery_batch_test`.
+
+The second mass-recovery batch pushes the ledger past the 400-function mark
+with 55 new semantic reconstructions across game, render, platform, and math
+units. Highlights: the scheduler-pair registration family (`0x00418E30`,
+`0x00422150`, `0x0041C120`, `0x00413980`, `0x0042CAA0`) shares one
+create-and-register skeleton with injected callback hooks; the manager
+factories (`0x0041C290`, `0x004180E0`, `0x00413350`, `0x004246C0`,
+`0x0042B430`, `0x0042C920`, `0x00413810`, `0x004175E0`) reproduce the retail
+allocate/zero/publish pattern for the `0x00477700`-block globals; the ANM
+handle sweeps (`0x00409E50`, `0x0042C770`, `0x0040B3A0`, `0x00421300`)
+propagate sprite words through child lists with the solo-flag gate; and the
+platform layer gains sound-stream startup (`0x0044D440`), MIDI sequencing
+leaves (`0x0043A730`, `0x0043ACE0`), joystick probing (`0x0044A0C0`), and
+worker start/stop (`0x0044C1C0`, `0x0043DAB0`). All 39 new translation units
+compile with `-Wall -Wextra -Werror` and link into the combined
+`recovery_batch2_test`, which asserts behavior for 21 of the new functions
+(render-state sync transitions, faith-gauge boundary crossings, score-queue
+linking, task-registration wiring, and the sound/joystick error paths).
+
+## Standalone startup-to-title milestone
+
+The startup-to-title slice is now runnable without any retail code. The final
+campaign reconstructed the last 52 blocker functions (~43KB) across 13 new
+translation units: the boot orchestrator `GameMain` (`0x00438AD0`), the
+0x732460-byte game-state arena constructor (`0x00445900`), the frame
+clock/advance pair (`0x00439540`/`0x00439390`), the 33-state default device
+block (`0x00439D20`), main-task registration and shutdown
+(`0x00420470`/`0x00420270`), config load/validate (`0x00420870`), the pack
+file loader (`0x0044B360`), the sound worker command drain and streaming
+buffer family (`0x0043DDF0`, `0x0044CBF0`–`0x0044DAD0`), camera/viewport
+setup, ANM archive mounting, the full ANM VM opcode interpreter
+(`0x0043EE30`), the LZSS score-save path, and the fifteen-manager stage
+teardown (`0x00417C80`).
+
+Every one of the 144 indirect call sites reachable from the milestone roots
+is classified in `docs/dynamic_call_site_audit.md` as either a COM interface
+vtable slot (host-provided) or a game-owned callback whose targets are all
+closure members. `standalone/host_main.cpp` wires the reconstructed hook
+surfaces to a stub platform layer, `standalone/build.sh` (or
+`./build_standalone.sh`) links only reconstructed sources into
+`build/standalone/th10_standalone`, and `./run_standalone.sh` runs it. The
+runner boots through config load, device defaults, arena construction (2
+primary + 18 secondary scheduler callbacks), title task registration, 60
+title frames, and a clean shutdown; `test.sh` requires this smoke test to
+print `SMOKE_PASS`. `standalone_readiness.json` now reports 179/179 reachable
+functions source-ready, 0 blockers, 144/144 audited indirect sites, and all
+three integration gates passing.
+
+Scope note: this is a semantic reconstruction running against a host stub
+layer (no Direct3D/DirectSound), not a byte-exact retail replacement, and it
+does not yet parse real `th10.dat` game assets.
+
+## Recovery batch 7
+
+The former `manager_factories` sources (now dissolved into `src/util/legacy_string_funclets.cpp`, `src/platform/sound_float_forward.cpp`, `src/game/player_motion.cpp`, … and 10 more topical files)
+add 26 more readable reconstructions (~4.3 KB of retail code) in the same
+conventional-ABI, dependency-injected style as the earlier recovery leaves:
+
+- String/exception funclets: `0x00438723`, `0x004387C2`
+- Forwarding thunks: `0x00427C50`, `0x0040678E`
+- Player field wrap + animation: `0x00407DA0`, `0x00407E40`, `0x004074B0`
+- ECL child-VM spawn/tick: `0x004500D0`, `0x0044FD10`
+- Manager lifecycle/registration: `0x0040D6B0`, `0x0043C8B0`, `0x004296F0`,
+  `0x0042AE60`, `0x0042B4D0`, `0x00405E20`, `0x00405ED0`
+- Enemy/boss/UI sync: `0x004066E0`, `0x0041D7C0`, `0x0040E5F0`
+- Effect pool droplets: `0x0042B6F0`
+- Render/ANM/platform: `0x00401D20`, `0x0040C3C0`, `0x004473C0`,
+  `0x00446F40`, `0x00446C70`, `0x0043E3A0`
+
+`tests/manager_factories_test.cpp` exercises every leaf (20 test groups) and
+is wired into `test.sh`.
+
+## Recovery batch 8
+
+The former `bullet_systems` sources (now dissolved into `src/game/enemy_grid_scan.cpp`, `src/game/manager_factories.cpp`, `src/game/enemy_lifecycle.cpp`, … and 13 more topical files)
+add 24 more readable reconstructions (~5.5 KB of retail code) in the same
+conventional-ABI, dependency-injected style:
+
+- Manager factories: `0x00408C90` (player), `0x00414830` (item),
+  `0x00406060` (bullet pool), `0x0041AED0` (effect pool),
+  `0x00429610` (stage-from-script)
+- Menus and config: `0x004223F0` (main-menu state dispatch),
+  `0x00430250` (key rebinding with conflict swap), `0x00426520`
+  (music-room track list), `0x004135D0` (FPS counter overlay)
+- Enemy/player ticks: `0x004073E0` (shot-grid scan), `0x0040E6A0`
+  (dead-for-capture sweep), `0x0040D750` (interpolator tick),
+  `0x004076A0` (death shrink)
+- Bullets: `0x00404450` (sprite re-registration), `0x00404F30`
+  (slot construct), `0x00405300` (shot-type select)
+- Render/ANM: `0x004450E0` (rect fan draw), `0x00447700`
+  (pending-entry service), `0x00447AE0` (shadowed overlay text),
+  `0x0043C410` (ASCII draw callback)
+- Sound/replay/script: `0x0043DD10` (sound event queue), `0x0043D690`
+  (stream thread start), `0x00415DB0` (replay stage load),
+  `0x00419F40` (script text line reader)
+
+`tests/bullet_systems_test.cpp` exercises all 24 leaves (22 test groups)
+and is wired into `test.sh`.
+
+## Recovery batch 9
+
+The former `enemy_motion_steps` sources (now dissolved into `src/app/fps_counter.cpp`, `src/game/ending_screen.cpp`, `src/render/default_viewport.cpp`, … and 12 more topical files) add 22
+more readable reconstructions (~6.9 KB of retail code) from the medium size
+band, in the same dependency-injected style as the earlier batches:
+
+- Core loop and menus: `0x004134B0` FrameRateCounter_Update, `0x0042D300`
+  EndingState_Dispatch, `0x0041F990` TitleScreen_LoadCoreAssets, `0x00424D90`
+  PauseMenu_ResetTimers.
+- Bullet system: `0x004065C0` BulletManager_RelinkActive, `0x00402720`
+  BulletManager_OnDraw.
+- Enemy system: `0x00407560` Enemy_AccelStep, `0x00407EF0` Enemy_HomingStep,
+  `0x004078E0` Enemy_EaseStopStep, `0x00407780` Enemy_EaseTurnStep,
+  `0x0040B110` EnemySpawner_CreateFromTable, `0x00408100`
+  EnemyPool_BlastRadius.
+- Stage scripting: `0x00403850` StageScript_Load (the retail in-place offset
+  relocation is widened to a host pointer table).
+- Items: `0x004266B0` Item_TestFieldContact.
+- Rendering / ANM: `0x0043C1A0` Renderer_ApplyDefaultViewport, `0x0043C2C0`
+  Ascii_OnResetDevice, `0x004451C0` AnmVm_DrawDispatch, `0x00446D70`
+  AnmTexture_UploadSurface (semantic reconstruction of a corrupted decompile),
+  `0x00447FD0` AnmArchive_RestoreTexture, `0x00448120`
+  AnmArchive_RestoreTextureRect.
+- Audio: `0x0043B7A0` MidiOutput_ApplyChannelVolumes, `0x0043DB60`
+  SoundManager_InitCommonBuffers.
+
+`tests/enemy_motion_steps_test.cpp` covers every function with assert-based
+behavioral tests (state dispatch, clamping, linked-list relinking, quad
+rotation math, clock advancement, and failure paths) and is wired into
+`test.sh` (`BATCH9_TESTS_PASS`).
+
+## Recovery batch 10
+
+22 more retail functions reconstructed in
+The former `game_systems` sources (now dissolved into `src/platform/joystick_property.cpp`, `src/game/enemy_lifecycle.cpp`, `src/script/ecl_name_table.cpp`, … and 15 more topical files):
+
+- 0x0040C730 `BulletRing_Reset`, 0x0040DAE0 `Enemy_Destroy`,
+  0x00407BE0 `Enemy_BounceStep` — enemy/bullet lifecycle and movement
+- 0x00450220 `EclNameTable_Register`, 0x0040CD20 `EclArchive_LoadFile` — ECL
+  script loading
+- 0x004127A0 `SpellTimer_Update`, 0x00409C00 `SpellCard_OnEnd` — spell-card
+  timing and teardown
+- 0x004462F0 `AnmManager_UploadClipQuad`, 0x004423E0
+  `AnmManager_ApplyBlendColorWrap`, 0x0043BFA0 `Renderer_InitTextureStages`
+  — renderer state
+- 0x00436AF0 `GdiSurface_Create` — GDI font surface creation
+- 0x0044C7E0 `Input_SetJoystickProperty` — DirectInput axis property setup
+- 0x0042AF20 `ScoreData_CreateGlobal`, 0x00412FF0 `ReplayTimer_ClampToEnd`,
+  0x00413A20 `ScoreTask_Init`, 0x004224C0 `NameEntry_DrawCharGrid`,
+  0x0041FDD0 `ResultScreen_LazyCreateEffects`, 0x00422AB0 `PauseMenu_Open`,
+  0x004231D0 `ResultMenu_Open`, 0x00423570 `NameEntry_Init` — score, replay,
+  and menu flow
+- 0x0041D2C0 `Effect_AccelStep`, 0x00427960 `StageBackground_SyncScroll` —
+  effects and backgrounds
+
+`tests/game_systems_test.cpp` covers every function with assert-based
+behavioral tests and is wired into `test.sh` (`BATCH10_TESTS_PASS`).
+
+## Recovery batch 11
+
+6 more retail functions reconstructed in
+The former `spell_and_input` sources (now dissolved into `src/render/anm_script_table_sweep.cpp`, `src/game/enemy_motion_steps.cpp`, `src/game/score_tasks.cpp`, … and 3 more topical files):
+
+- 0x00403990 `AnmScriptTable_Sweep` — ANM script sweep over the record table
+- 0x00407A30 `Enemy_HomingRelaunchStep` — decelerate-and-relaunch homing step
+- 0x0041C330 `ScoreTaskList_Tick` — score-task list walk with retirement
+- 0x0042A6A0 `SpellCard_Dispatch` — spell-card history/activation dispatch
+- 0x00437750 `FontCache_BlendToSurface` — GDI font-cache blend (A8R8G8B8,
+  A1R5G5B5, A4R4G4B4)
+- 0x0044A190 `Joystick_Poll` — joystick poll (winmm + DirectInput paths)
+
+Candidates skipped this pass because their Ghidra exports are corrupted or
+oversized for reliable reconstruction: 0x00444240, 0x00443B60, 0x00403090,
+0x00424480.
+
+`tests/spell_and_input_test.cpp` covers every function with assert-based
+behavioral tests and is wired into `test.sh` (`BATCH11_TESTS_PASS`).
+
+## Recovery batch 12
+
+3 more retail functions reconstructed in
+The former `game_mode_transitions` sources (now dissolved into `src/app/version_marker.cpp`, `src/game/game_mode_switch.cpp`, `src/game/stage_controller_tick.cpp`):
+
+- 0x00420100 `VersionMarker_Load` — executable-version marker probe, generated
+  filename load, publication, and diagnostic failure paths
+- 0x004218D0 `GameMode_ApplyRequested` — serialized high-level game-mode
+  transitions, including gameplay cleanup, difficulty publication, and exit
+  dispatch
+- 0x00426360 `StageController_Tick` — stage-background projection, four-slot
+  callback dispatch, and conditional paired effect emission
+
+`tests/game_mode_transitions_test.cpp` covers success, failure, transition, dormant,
+and callback/effect paths and is wired into `test.sh` (`BATCH12_TESTS_PASS`).
+
+## Recovery batch 13
+
+3 more retail functions reconstructed in
+The former `spell_timeout` sources (now dissolved into `src/math/oriented_rect.cpp`, `src/game/trigger_region.cpp`, `src/render/special_quad.cpp`, `src/game/spell_timeout.cpp`):
+
+- 0x0041E4D0 `OrientedRect_IntersectsCircle` — rectangle-local rotation and
+  expanded-axis circle overlap classification
+- 0x004267F0 `TriggerRegion_Classify` — inner activation, outer transition-band
+  classification, suppression, mode gating, and cooldown handling
+- 0x0043BDA0 `Renderer_DrawSpecialQuad` — special-quad texture-stage setup,
+  draw dispatch, renderer-cache publication, and normal-state restoration
+
+`tests/spell_timeout_test.cpp` covers rotated and rejected collisions,
+activation gating, transition-band classification, exact render-state ordering,
+and cache updates and is wired into `test.sh` (`BATCH13_TESTS_PASS`).
+
+## Recovery batch 14
+
+2 more retail functions reconstructed in
+The former `trigger_activation` sources (now dissolved into `src/game/trigger_activation.cpp`, `src/game/projectile_bounce.cpp`):
+
+- 0x00426CF0 `TriggerRegion_Activate` — active-state entry, 33-effect creation,
+  clock reset, sound/animation dispatch, and late-stage visibility cleanup
+- 0x0041CFD0 `Projectile_BounceAtBounds` — projected boundary detection,
+  horizontal and vertical reflection, sound dispatch, and one-shot flag cleanup
+
+`tests/trigger_activation_test.cpp` covers clock registration, effect counts,
+sound and stage gates, in-bounds behavior, both reflection axes, suppression,
+and exact flag clearing and is wired into `test.sh` (`BATCH14_TESTS_PASS`).
+
+## Recovery batch 15
+
+3 more retail functions reconstructed in `font_texture_draw`:
+
+- 0x00437DB0 / 0x00437FE0 — shadowed and plain GDI text rasterization,
+  alpha conversion, transparent-edge repair, and texture upload
+- 0x0043C500 — persistent special-quad render callback
+
+## Recovery batch 16
+
+2 more retail functions reconstructed in `font_cache_init`:
+
+- 0x00437A00 — font-cache surface, deterministic seed pixels, and 15-font setup
+- 0x00421070 — queued three-handle animation-tree cleanup
+
+## Recovery batch 17
+
+2 more retail functions reconstructed in `sprite_test_overlay`:
+
+- 0x0042C360 — sprite-test debug overlay states and color restoration
+- 0x00443080 — scaled, anchored quad construction and render dispatch
+
+The batch 15–17 harnesses are wired into `test.sh` and report
+`BATCH15_TESTS_PASS`, `BATCH16_TESTS_PASS`, and `BATCH17_TESTS_PASS`.
+
+## Recovery batch 18
+
+0x00417040 is reconstructed as `ScoreHud_Update` in `score_hud_update`. It
+covers score easing, velocity clamping, high-score/rank snapshots, nine-digit
+publication, crossing markers, and normal/special extend thresholds. The
+focused harness reports `BATCH18_TESTS_PASS`.
+
+## Recovery batch 19
+
+The register-accurate naked x86 sources supplied in `backups.tar.gz` resolve
+the earlier calling-convention and D3DX argument roadblock. Five functions are
+now reconstructed in `projection_quads`:
+
+- 0x00444240 `ProjectedQuad_Update` — dirty world-matrix rebuild, layered
+  translation, anchor selection, four-corner projection, and matrix publication
+- 0x00443B60 `Billboard_BuildProjectedQuad` — depth gate, perspective extent,
+  anchor selection, and rotated projected billboard construction
+- 0x00403090 `ProjectedBox_IsOutside` — distance precheck, eight-corner
+  projection, normalized-depth filtering, and viewport overlap classification
+- 0x00424480 `WindowDescriptor_Configure` — register-confirmed descriptor
+  population and sprite-resource metadata conversion
+- 0x00423370 `ResultMenu_OpenRecovered` — supervisor shortcut, paired effects,
+  result-window setup, BGM/sound initialization, and frame-scale handoff
+
+`tests/projection_quads_test.cpp` covers all five recovered paths and reports
+`BATCH19_TESTS_PASS`.
+
+## Recovery batches 20–21
+
+Assembly-backed follow-on reconstruction continued through three dependent
+paths:
+
+- 0x004445C0 `FadedProjectedQuad_Draw` — projected-quad update, world-space
+  distance probes, per-vertex RGB attenuation, mode-2 draw, and RHW reset
+- 0x00403A30 `AnmRecordTable_DrawVisible` — typed record filtering, projected
+  box culling, VM position/scale updates, render-state switching, and counters
+- 0x0042A200 `ReplayArchive_Load` — disk/resource replay load, header validation,
+  two cipher passes, decompression, and slot-index construction
+
+Focused tests report `BATCH20_TESTS_PASS` and `BATCH21_TESTS_PASS`.
+
+## Current semantic-recovery roadblock
+
+The next candidates expose complete instructions, but not enough trustworthy
+high-level ownership/type information for a non-speculative C++ model:
+
+- 0x0040BA90 constructs scheduler-owned objects through an intrusive list and
+  MSVC exception-unwind path whose lifetime contract is not identified.
+- 0x0044D850 is a DirectSound streaming-buffer lock/refill/unlock path; the
+  archive does not supply a runnable 32-bit DirectSound contract for verifying
+  split-buffer and failure behavior.
+- 0x00445620 mutates overlapping particle/vector records through several
+  differently strided views; the record union and active-count invariants are
+  not identified by the assembly alone.
+
+These can be retained as exact assembly overlays, but promoting them to named,
+typed semantic C++ now requires additional type/lifetime evidence or runtime
+traces. This is the next evidence-backed stopping point.
+
+## Naming pass
+
+`docs/naming.md` is the naming ledger: it records every naming decision for
+reconstructed structures, globals, and constants together with its evidence
+and a confidence tier (confirmed / inferred / unidentified). The first pass
+covered the recovery batches:
+
+- Batch 11 gained named constants: `InputBit` (shoot/bomb/focus/pause/
+  directions/skip), `FontPixelFormat` (D3DFMT codes 0x15/0x19/0x1A),
+  `SpellCardState` (declare/activate), `kEnemyModeRelaunchArmed`,
+  `kDInputInputLost` (DIERR_INPUTLOST), and `kRelaunchHalfPi`.
+- The spell-card record and UI globals were renamed from raw offsets to
+  semantic names: `bonus_initial`, `bonus_active`, `bonus_gauge`, `duration`,
+  `history_captures`/`history_attempts` (the "History x/y" pair shown on
+  declaration), `title_text`, and honestly-labeled `activation_param_a`/`_b`
+  where semantics remain unidentified.
+- The joystick config fields were renamed `shoot`/`focus` (retail config
+  "shot"/"slow") and all packed input bits now use the named enum.
+- Batch 10's `field_1020` became `control_flags` after tracing ECL opcodes
+  0x12/0x13 toggling its bit 0 in the instruction dispatcher (0x0044E1A0).
+
+Unresolved names are listed under "Open questions" in the ledger; revisit
+them as more callers are recovered.

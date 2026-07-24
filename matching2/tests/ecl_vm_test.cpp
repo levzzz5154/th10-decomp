@@ -225,7 +225,10 @@ void TestTypedStackPops() {
 
 void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(0) == 0);
-    uint8_t entity[0x1600] = {};
+    // The dispatcher's largest entity field is the resource-slot table at
+    // +0x2494 (16 bytes per slot), so the fixture must cover it: the old
+    // 0x1600-byte buffer let opcode 0x14E smash the stack.
+    uint8_t entity[0x2800] = {};
     assert(ECL_VM_Dispatch(entity) == 0);
     uint8_t state_bytes[0x20] = {};
     ECLVMState* state = (ECLVMState*)state_bytes;

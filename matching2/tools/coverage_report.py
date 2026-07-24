@@ -21,9 +21,7 @@ ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 # documents that only part of the retail function has been recovered.
 PARTIAL = {
     0x00418D00: "Remaining code-generation mismatch",
-    0x00445900: "Full GameStateInit boundary is not reconstructed",
     0x0040E770: "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs",
-    0x0043EE30: "Portable opcode core reconstructed; retail host state operations remain",
 }
 
 # Address mentions matching these entries describe a known dependency rather

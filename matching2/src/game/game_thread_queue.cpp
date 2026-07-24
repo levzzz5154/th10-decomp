@@ -126,3 +126,58 @@ void GameThread_AppendFormattedMarked(GameThread* gameThread,
                           (const char*)&format + sizeof(format), true);
 #endif
 }
+
+
+// 0x00401760 - Render the bounded queue written at game-thread +0x76C.
+int GameThread_DrawQueuedText(const GameThreadTextRecord* records, int count,
+                              int proportional_advance_multiplier,
+                              const GameThreadGlyph* glyph_table,
+                              const GameThreadTextDrawEnvironment* environment) {
+    unsigned int current_view = 1;
+    for (int record_index = 0; record_index < count; ++record_index) {
+        const GameThreadTextRecord& record = records[record_index];
+        if (current_view != record.view_mode) {
+            environment->switch_view(environment->context, record.view_mode);
+            current_view = record.view_mode;
+        }
+
+        float x = record.x;
+        float y = record.y;
+        const float advance = record.font_mode == 1
+                                  ? 7.0f
+                                  : proportional_advance_multiplier *
+                                        record.horizontal_scale;
+        const float line_height = record.font_mode == 1 ? 9.0f : 14.0f;
+        const unsigned char* cursor =
+            reinterpret_cast<const unsigned char*>(record.text);
+        while (*cursor != 0) {
+            const unsigned char character = *cursor++;
+            if (character == '\n') {
+                y += line_height * record.vertical_scale;
+                x = record.x;
+            } else if (character != ' ') {
+                const unsigned int glyph_index =
+                    record.font_mode * 98u + (unsigned int)character - 0x20u;
+                const GameThreadGlyph* glyph = &glyph_table[glyph_index];
+                environment->bind_glyph(environment->context, glyph);
+                if (record.shadow != 0) {
+                    // Retail keeps RGB at zero and halves the top alpha byte.
+                    const unsigned int shadow_color =
+                        (record.color >> 1) & 0x7F000000u;
+                    environment->draw_glyph(environment->context, x + 2.0f,
+                                            y + 2.0f, record.z,
+                                            shadow_color);
+                }
+                environment->draw_glyph(environment->context, x, y, record.z,
+                                        record.color);
+            }
+            // Retail advances for ordinary glyphs, spaces, and newlines.
+            x += advance;
+        }
+    }
+
+    if (current_view != 0) {
+        environment->switch_view(environment->context, 0);
+    }
+    return 1;
+}

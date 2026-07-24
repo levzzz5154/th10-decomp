@@ -1,0 +1,149 @@
+#include "th10/game/task_registration.hpp"
+
+extern uint32_t DAT_00491be4;  // scheduler device token
+extern uint8_t DAT_00491d6a;   // demo-tips enabled flag
+extern float DAT_00476f78;     // shared unit timer speed (1.0f)
+extern uint32_t DAT_004918a4;  // title-screen selection latch
+
+namespace {
+
+// One callback creation + registration, matching the retail skeleton
+// (clear flag bit 1, set the owner, register with the device token).
+SchedulerCallback* CreateAndRegister(void* owner, SchedulerCreateFn create,
+                                     SchedulerRegisterFn register_edge,
+                                     SchedulerFunction function) {
+    SchedulerCallback* callback = create(function);
+    callback->flags &= ~2u;
+    callback->owner = owner;
+    if (register_edge != 0) {
+        register_edge(callback, DAT_00491be4);
+    }
+    return callback;
+}
+
+}  // namespace
+
+// 0x00418E30 - Register the stage-tip manager's scheduler callbacks and
+// optionally spawn the two demo tips.
+uint32_t StageTip_RegisterTasks(
+        void* owner, TaskPairSlots* slots, uint32_t* counter,
+        SchedulerCreateFn create, SchedulerRegisterFn register_primary,
+        SchedulerRegisterFn register_secondary, SchedulerFunction update_proc,
+        SchedulerFunction render_proc,
+        void (*spawn_tip)(void* owner, uint32_t text_address, int32_t slot)) {
+    slots->update_task =
+        CreateAndRegister(owner, create, register_primary, update_proc);
+    slots->render_task =
+        CreateAndRegister(owner, create, register_secondary, render_proc);
+    *counter = 0;
+    if (DAT_00491d6a != 0 && spawn_tip != 0) {
+        spawn_tip(owner, 0x0046D6D8u, 0);
+        spawn_tip(owner, 0x0046D6C4u, 1);
+    }
+    return 0;
+}
+
+// 0x00422150 - Register a callback pair and reset the embedded timer.
+uint32_t TimedTask_RegisterPair(void* owner, TimedTaskState* state,
+                                SchedulerCreateFn create,
+                                SchedulerRegisterFn register_primary,
+                                SchedulerRegisterFn register_secondary,
+                                SchedulerFunction update_proc,
+                                SchedulerFunction render_proc) {
+    state->update_task =
+        CreateAndRegister(owner, create, register_primary, update_proc);
+    state->render_task =
+        CreateAndRegister(owner, create, register_secondary, render_proc);
+    if ((state->timer.flags & 1u) == 0) {
+        state->timer.current = 0;
+        state->timer.target = (int)0xFFF0BDC1;
+        state->timer.previous = 0;
+        state->timer.speed = &DAT_00476f78;
+        state->timer.flags |= 1u;
+    }
+    state->timer.current = 0;
+    state->timer.previous = 0;
+    state->timer.target = -1;
+    return 0;
+}
+
+// 0x0041C120 - Initialize the score display.
+int32_t ScoreDisplay_RegisterTasks(
+        void* owner, TaskPairSlots* slots, int32_t** resource_slot,
+        ScorePopupNode** queue_tail, ScorePopupNode* queue_head,
+        int32_t* (*find_resource)(int32_t slot, const char* name),
+        void (*report_error)(), SchedulerCreateFn create,
+        SchedulerRegisterFn register_primary,
+        SchedulerRegisterFn register_secondary, SchedulerFunction update_proc,
+        SchedulerFunction render_proc) {
+    int32_t* resource =
+        find_resource != 0 ? find_resource(7, "bullet.anm") : 0;
+    *resource_slot = resource;
+    if (resource == 0) {
+        if (report_error != 0) {
+            report_error();
+        }
+        return -1;
+    }
+    slots->update_task =
+        CreateAndRegister(owner, create, register_primary, update_proc);
+    slots->render_task =
+        CreateAndRegister(owner, create, register_secondary, render_proc);
+    *queue_tail = queue_head;
+    return 0;
+}
+
+// 0x00413980 - Initialize the front UI overlay.
+int32_t FrontAnm_RegisterTasks(
+        void* owner, TaskPairSlots* slots, int32_t** resource_slot,
+        int32_t* (*find_resource)(int32_t slot, const char* name),
+        void (*report_error)(), int32_t (*initialize)(void* owner),
+        SchedulerCreateFn create, SchedulerRegisterFn register_primary,
+        SchedulerRegisterFn register_secondary, SchedulerFunction update_proc,
+        SchedulerFunction render_proc) {
+    int32_t* resource =
+        find_resource != 0 ? find_resource(6, "front.anm") : 0;
+    *resource_slot = resource;
+    if (resource == 0) {
+        if (report_error != 0) {
+            report_error();
+        }
+        return -1;
+    }
+    if (initialize != 0 && initialize(owner) != 0) {
+        return -1;
+    }
+    slots->update_task =
+        CreateAndRegister(owner, create, register_primary, update_proc);
+    slots->render_task =
+        CreateAndRegister(owner, create, register_secondary, render_proc);
+    return 0;
+}
+
+// 0x0042CAA0 - Initialize the title screen.
+int32_t Title_RegisterTasks(
+        void* owner, TitleInitState* state,
+        int32_t* (*find_resource)(int32_t slot, const char* name),
+        void (*report_error)(), SchedulerCreateFn create,
+        SchedulerRegisterFn register_primary,
+        SchedulerRegisterFn register_secondary, SchedulerFunction update_proc,
+        SchedulerFunction render_proc) {
+    state->update_task =
+        CreateAndRegister(owner, create, register_primary, update_proc);
+    state->render_task =
+        CreateAndRegister(owner, create, register_secondary, render_proc);
+    state->title_resource =
+        find_resource != 0 ? find_resource(0x19, "title.anm") : 0;
+    if (state->title_resource != 0) {
+        state->title_v_resource = find_resource(0x1A, "title_v.anm");
+        if (state->title_v_resource != 0) {
+            state->ready_flag = 1;
+            DAT_004918a4 = 0;
+            return 0;
+        }
+    }
+    if (report_error != 0) {
+        report_error();
+    }
+    return -1;
+}

@@ -171,6 +171,17 @@ static int deviceRestores;
 static void SetDevice(void*) { ++deviceSets; }
 static int DrawDevice(void*) { return ++deviceDraws == 1 ? -1 : 0; }
 static void RestoreDevice(void*) { ++deviceRestores; }
+static int stageDispatches;
+static int stageSetCalls;
+static int stageSetValue;
+static int stageResets;
+static float stageResetValue;
+static int stageContinues;
+static void DispatchStage(void*) { ++stageDispatches; }
+static void SetStage(int value) { ++stageSetCalls; stageSetValue = value; }
+static void ResetStage(float value) { ++stageResets; stageResetValue = value; }
+static void ContinueStage(void*) { ++stageContinues; }
+static float QuantizeMotion(float value) { return (float)(int)value; }
 
 int main() {
     g_calls = 0;
@@ -692,5 +703,57 @@ int main() {
     deviceSets = deviceDraws = deviceRestores = 0;
     Recovery_ResetDeviceStreams((void*)1, SetDevice, DrawDevice, RestoreDevice);
     assert(deviceSets == 2 && deviceDraws == 2 && deviceRestores == 1);
+
+    unsigned char* stageState = (unsigned char*)std::calloc(1, 0x3510);
+    *(RecoveryWord*)(stageState + 0x3504) = 0x1234;
+    stageState[0x3508] = 1;
+    Recovery_UpdateStageSequence(stageState, false, DispatchStage, SetStage,
+                                 ResetStage, ContinueStage);
+    assert(*(RecoveryWord*)(stageState + 0x3504) == 0 &&
+           stageState[0x3508] == 0);
+
+    *(int*)(stageState + 0x458) = 1;
+    *(int*)(stageState + 0x460) = 2;
+    *(int*)(stageState + 0x464) = -1;
+    stageDispatches = stageSetCalls = stageResets = stageContinues = 0;
+    Recovery_UpdateStageSequence(stageState, false, DispatchStage, SetStage,
+                                 ResetStage, ContinueStage);
+    assert(stageDispatches == 0 && stageSetCalls == 0 && stageContinues == 0);
+
+    Recovery_UpdateStageSequence(stageState, true, DispatchStage, SetStage,
+                                 ResetStage, ContinueStage);
+    assert(stageSetCalls == 1 && stageSetValue == 0 && stageDispatches == 1 &&
+           stageContinues == 1);
+
+    *(int*)(stageState + 0x460) = 14;
+    *(int*)(stageState + 0x464) = 15;
+    stageDispatches = stageSetCalls = stageResets = stageContinues = 0;
+    Recovery_UpdateStageSequence(stageState, true, DispatchStage, SetStage,
+                                 ResetStage, ContinueStage);
+    assert(stageDispatches == 1 && stageResets == 1 &&
+           stageResetValue == -15.0f && stageContinues == 0);
+
+    stageDispatches = stageSetCalls = stageResets = stageContinues = 0;
+    Recovery_UpdateStageSequence(stageState, false, DispatchStage, SetStage,
+                                 ResetStage, ContinueStage);
+    assert(stageDispatches == 1 && stageSetCalls == 1 && stageSetValue == -1 &&
+           stageResets == 0 && stageContinues == 0);
+    std::free(stageState);
+
+    float linearMotion[11] = {1.5f, 2.5f, 3.0f, 2.0f, -1.0f, 4.0f};
+    Recovery_AdvancePolarMotion(linearMotion, QuantizeMotion);
+    assert(linearMotion[0] == 3.0f && linearMotion[1] == 1.0f &&
+           linearMotion[2] == 7.0f);
+
+    float polarMotion[11] = {};
+    polarMotion[3] = 10.0f;
+    polarMotion[4] = 20.0f;
+    polarMotion[5] = 30.0f;
+    polarMotion[7] = 0.0f;
+    polarMotion[8] = 2.0f;
+    ((RecoveryWord*)polarMotion)[10] = 1;
+    Recovery_AdvancePolarMotion(polarMotion, QuantizeMotion);
+    assert(polarMotion[0] == 12.0f && polarMotion[1] == 20.0f &&
+           polarMotion[2] == 30.0f);
     return 0;
 }

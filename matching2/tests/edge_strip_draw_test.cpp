@@ -1,0 +1,3 @@
+#include "th10/render/edge_strip_draw.hpp"
+#include <cstdio>
+static int f,b,v,s,d,start,pc,stride;static void F(){f++;}static void B(void*){b++;}static void V(unsigned x){v=x;}static void A(const EdgeStripRecord*){}static void S(int,int,int){s++;}static void D(int,int x,int y,int z){d++;start=x;pc=y;stride=z;}int main(){EdgeStripRecord q={3,1,(void*)1,9,4};EdgeStripRenderer r={1,0,0};EdgeStripDrawEnv e={F,B,V,A,S,D};if(Renderer_DrawTexturedEdgeStrip(&q,&r,&e)||f!=1||b!=1||v!=0x144||s!=2||d!=1||start!=7||pc!=4||stride!=28)return 1;if(Renderer_DrawTexturedEdgeStrip(&q,&r,&e)||b!=1)return 1;q.drawable=0;if(Renderer_DrawTexturedEdgeStrip(&q,&r,&e)!=-1)return 1;std::puts("recovery_batch32_test passed");}

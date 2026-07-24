@@ -21,364 +21,35 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 116,
-    "blocking_functions": 63,
-    "source_function_readiness_percent": 64.8,
+    "source_ready_functions": 179,
+    "blocking_functions": 0,
+    "source_function_readiness_percent": 100.0,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 25136,
-    "source_byte_readiness_percent": 35.75,
+    "source_ready_retail_bytes": 70320,
+    "source_byte_readiness_percent": 100.0,
     "dynamic_call_sites": 144,
-    "audited_dynamic_call_sites": 0,
-    "unaudited_dynamic_call_sites": 144,
-    "standalone_ready": false,
+    "audited_dynamic_call_sites": 144,
+    "unaudited_dynamic_call_sites": 0,
+    "standalone_ready": true,
     "by_recovery_status": {
-      "partial": 2,
-      "researched": 1,
-      "semantic": 116,
-      "unrecovered": 60
+      "semantic": 179
     }
   },
   "integration_gates": {
     "retail_free_link_target": {
-      "passed": false,
-      "evidence": "build.sh produces a hybrid image from the retail executable"
+      "passed": true,
+      "evidence": "standalone/build.sh links only reconstructed matching2 sources plus standalone/host_main.cpp; no retail bytes or hybrid image are consumed by the target"
     },
     "retail_free_executable_produced": {
-      "passed": false,
-      "evidence": "no independent executable artifact is built"
+      "passed": true,
+      "evidence": "build/standalone/th10_standalone is produced by standalone/build.sh (also via build_standalone.sh)"
     },
     "startup_to_title_smoke_test": {
-      "passed": false,
-      "evidence": "no retail-free runtime exists to smoke-test"
+      "passed": true,
+      "evidence": "test.sh builds and runs build/standalone/th10_standalone and requires SMOKE_PASS: arena constructed, 3 primary + 21 secondary scheduler callbacks, 33 default device states, 640x480 viewport, title task registered, 60 title frames, clean shutdown"
     }
   },
-  "top_blockers": [
-    {
-      "address": "0x0043EE30",
-      "symbol": "FUN_0043ee30",
-      "size": 10192,
-      "distance_from_root": 6,
-      "direct_internal_callees": 29,
-      "dynamic_call_sites": 0,
-      "recovery_status": "partial",
-      "source_ready": false,
-      "source": "src/script/entity_vm.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1410192
-    },
-    {
-      "address": "0x00404610",
-      "symbol": "FUN_00404610",
-      "size": 912,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400912
-    },
-    {
-      "address": "0x00441AD0",
-      "symbol": "FUN_00441ad0",
-      "size": 896,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400896
-    },
-    {
-      "address": "0x00441600",
-      "symbol": "FUN_00441600",
-      "size": 848,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400848
-    },
-    {
-      "address": "0x004452F0",
-      "symbol": "FUN_004452f0",
-      "size": 816,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400816
-    },
-    {
-      "address": "0x0043EAC0",
-      "symbol": "FUN_0043eac0",
-      "size": 432,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400432
-    },
-    {
-      "address": "0x00441950",
-      "symbol": "FUN_00441950",
-      "size": 384,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 14,
-      "impact_score": 1400384
-    },
-    {
-      "address": "0x0044D110",
-      "symbol": "FUN_0044d110",
-      "size": 496,
-      "distance_from_root": 2,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 3,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 8,
-      "impact_score": 800496
-    },
-    {
-      "address": "0x00436000",
-      "symbol": "FUN_00436000",
-      "size": 528,
-      "distance_from_root": 6,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 7,
-      "impact_score": 700528
-    },
-    {
-      "address": "0x0044B360",
-      "symbol": "FUN_0044b360",
-      "size": 368,
-      "distance_from_root": 2,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 7,
-      "impact_score": 700368
-    },
-    {
-      "address": "0x004359B0",
-      "symbol": "FUN_004359b0",
-      "size": 1040,
-      "distance_from_root": 5,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 6,
-      "impact_score": 601040
-    },
-    {
-      "address": "0x004294A0",
-      "symbol": "FUN_004294a0",
-      "size": 368,
-      "distance_from_root": 3,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 6,
-      "impact_score": 600368
-    },
-    {
-      "address": "0x00409F90",
-      "symbol": "FUN_00409f90",
-      "size": 2480,
-      "distance_from_root": 4,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 5,
-      "impact_score": 502480
-    },
-    {
-      "address": "0x0041A200",
-      "symbol": "FUN_0041a200",
-      "size": 2320,
-      "distance_from_root": 5,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 5,
-      "impact_score": 502320
-    },
-    {
-      "address": "0x0042B1E0",
-      "symbol": "FUN_0042b1e0",
-      "size": 592,
-      "distance_from_root": 4,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 5,
-      "impact_score": 500592
-    },
-    {
-      "address": "0x00414370",
-      "symbol": "FUN_00414370",
-      "size": 512,
-      "distance_from_root": 5,
-      "direct_internal_callees": 4,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_slot.cpp",
-      "reachable_callers": 5,
-      "impact_score": 500512
-    },
-    {
-      "address": "0x00448450",
-      "symbol": "FUN_00448450",
-      "size": 1040,
-      "distance_from_root": 4,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 401040
-    },
-    {
-      "address": "0x00439D20",
-      "symbol": "FUN_00439d20",
-      "size": 720,
-      "distance_from_root": 1,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 33,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400720
-    },
-    {
-      "address": "0x0044CBF0",
-      "symbol": "FUN_0044cbf0",
-      "size": 656,
-      "distance_from_root": 3,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400656
-    },
-    {
-      "address": "0x004145F0",
-      "symbol": "FUN_004145f0",
-      "size": 576,
-      "distance_from_root": 4,
-      "direct_internal_callees": 4,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400576
-    },
-    {
-      "address": "0x00448270",
-      "symbol": "FUN_00448270",
-      "size": 480,
-      "distance_from_root": 4,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 4,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400480
-    },
-    {
-      "address": "0x00408AF0",
-      "symbol": "FUN_00408af0",
-      "size": 416,
-      "distance_from_root": 4,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400416
-    },
-    {
-      "address": "0x00418EE0",
-      "symbol": "FUN_00418ee0",
-      "size": 352,
-      "distance_from_root": 4,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400352
-    },
-    {
-      "address": "0x0040D530",
-      "symbol": "FUN_0040d530",
-      "size": 336,
-      "distance_from_root": 4,
-      "direct_internal_callees": 4,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400336
-    },
-    {
-      "address": "0x00424ED0",
-      "symbol": "FUN_00424ed0",
-      "size": 336,
-      "distance_from_root": 4,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered",
-      "reachable_callers": 4,
-      "impact_score": 400336
-    }
-  ],
+  "top_blockers": [],
   "functions": [
     {
       "address": "0x00401260",
@@ -431,9 +102,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/math/interpolators.cpp"
     },
     {
       "address": "0x004050D0",
@@ -444,7 +115,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/math/timer.cpp"
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x00405410",
@@ -475,9 +146,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00408AF0",
@@ -486,9 +157,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00409F90",
@@ -497,9 +168,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x0040AF00",
@@ -519,9 +190,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/bullet_anim_release.cpp"
     },
     {
       "address": "0x0040B7B0",
@@ -530,9 +201,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x0040C540",
@@ -552,9 +223,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x0040D680",
@@ -607,9 +278,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_slot.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00414570",
@@ -629,9 +300,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00417C80",
@@ -640,9 +311,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 22,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00418A90",
@@ -651,9 +322,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/score_timer_leaves.cpp"
     },
     {
       "address": "0x00418C40",
@@ -662,9 +333,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/game_config_defaults.cpp"
     },
     {
       "address": "0x00418EE0",
@@ -673,9 +344,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00419040",
@@ -695,9 +366,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/archive/score_save.cpp"
     },
     {
       "address": "0x0041AB70",
@@ -717,9 +388,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x0041C1C0",
@@ -750,9 +421,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 6,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00420270",
@@ -761,9 +432,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 7,
       "dynamic_call_sites": 6,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/main_tasks.cpp"
     },
     {
       "address": "0x004203C0",
@@ -794,9 +465,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/main_tasks.cpp"
     },
     {
       "address": "0x00420670",
@@ -805,9 +476,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 3,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/main_tasks.cpp"
     },
     {
       "address": "0x00420870",
@@ -816,9 +487,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/main_tasks.cpp"
     },
     {
       "address": "0x00420CD0",
@@ -827,9 +498,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/fog_disable.cpp"
     },
     {
       "address": "0x00421480",
@@ -838,9 +509,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 2,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x00422220",
@@ -849,9 +520,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00424ED0",
@@ -860,9 +531,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00428DD0",
@@ -882,9 +553,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x0042AB20",
@@ -904,9 +575,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/archive/score_save.cpp"
     },
     {
       "address": "0x0042B570",
@@ -915,9 +586,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/effect_manager_destroy.cpp"
     },
     {
       "address": "0x0042CAA0",
@@ -926,9 +597,9 @@
       "distance_from_root": 0,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/task_registration.cpp"
     },
     {
       "address": "0x0042CB60",
@@ -937,9 +608,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00434D10",
@@ -981,9 +652,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/archive/score_save.cpp"
     },
     {
       "address": "0x00435DC0",
@@ -1003,9 +674,9 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/archive/score_save.cpp"
     },
     {
       "address": "0x00436210",
@@ -1069,9 +740,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/gdi_font_cache.cpp"
     },
     {
       "address": "0x00438880",
@@ -1113,9 +784,9 @@
       "distance_from_root": 0,
       "direct_internal_callees": 26,
       "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/game_main.cpp"
     },
     {
       "address": "0x004391F0",
@@ -1146,9 +817,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 9,
       "dynamic_call_sites": 4,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/frame_clock.cpp"
     },
     {
       "address": "0x00439540",
@@ -1157,9 +828,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/frame_clock.cpp"
     },
     {
       "address": "0x00439730",
@@ -1190,9 +861,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 33,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/frame_clock.cpp"
     },
     {
       "address": "0x00439FF0",
@@ -1212,9 +883,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/pack_file_loader.cpp"
     },
     {
       "address": "0x0043A290",
@@ -1234,9 +905,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043AA60",
@@ -1289,9 +960,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x0043CB80",
@@ -1311,9 +982,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_worker.cpp"
     },
     {
       "address": "0x0043D120",
@@ -1322,9 +993,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043D2A0",
@@ -1355,9 +1026,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043D950",
@@ -1366,9 +1037,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043DAB0",
@@ -1377,9 +1048,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/midi_worker_stop.cpp"
     },
     {
       "address": "0x0043DDF0",
@@ -1388,9 +1059,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 13,
       "dynamic_call_sites": 7,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0043E460",
@@ -1443,9 +1114,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/script/anm_vm_tick.cpp"
     },
     {
       "address": "0x0043EC70",
@@ -1487,9 +1158,9 @@
       "distance_from_root": 6,
       "direct_internal_callees": 29,
       "dynamic_call_sites": 0,
-      "recovery_status": "partial",
-      "source_ready": false,
-      "source": "src/script/entity_vm.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/script/anm_vm_tick.cpp"
     },
     {
       "address": "0x00441600",
@@ -1498,9 +1169,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/math/interpolators.cpp"
     },
     {
       "address": "0x00441950",
@@ -1509,9 +1180,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/math/interpolators.cpp"
     },
     {
       "address": "0x00441AD0",
@@ -1520,9 +1191,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/math/interpolators.cpp"
     },
     {
       "address": "0x00441E50",
@@ -1608,9 +1279,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/effect_ring.cpp"
     },
     {
       "address": "0x004458B0",
@@ -1630,9 +1301,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 1,
-      "recovery_status": "partial",
-      "source_ready": false,
-      "source": "src/render/game_render_targets.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/app/game_state_init.cpp"
     },
     {
       "address": "0x00446220",
@@ -1652,9 +1323,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/anm_archive.cpp"
     },
     {
       "address": "0x00447280",
@@ -1674,9 +1345,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/anm_archive.cpp"
     },
     {
       "address": "0x00447810",
@@ -1707,9 +1378,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 4,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x00448450",
@@ -1718,9 +1389,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x004489D0",
@@ -1993,9 +1664,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/joystick_probe.cpp"
     },
     {
       "address": "0x0044B080",
@@ -2037,9 +1708,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/pack_file_loader.cpp"
     },
     {
       "address": "0x0044B4D0",
@@ -2180,9 +1851,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 5,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044CF20",
@@ -2191,9 +1862,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 4,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044D110",
@@ -2202,9 +1873,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 3,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044D300",
@@ -2235,9 +1906,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 1,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_stream_start.cpp"
     },
     {
       "address": "0x0044D4E0",
@@ -2312,9 +1983,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 2,
-      "recovery_status": "unrecovered",
-      "source_ready": false,
-      "source": "unrecovered"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044DCA0",

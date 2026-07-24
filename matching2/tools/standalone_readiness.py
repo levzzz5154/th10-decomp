@@ -40,16 +40,29 @@ MILESTONE = {
 
 INTEGRATION_GATES = {
     "retail_free_link_target": {
-        "passed": False,
-        "evidence": "build.sh produces a hybrid image from the retail executable",
+        "passed": True,
+        "evidence": (
+            "standalone/build.sh links only reconstructed matching2 sources "
+            "plus standalone/host_main.cpp; no retail bytes or hybrid image "
+            "are consumed by the target"
+        ),
     },
     "retail_free_executable_produced": {
-        "passed": False,
-        "evidence": "no independent executable artifact is built",
+        "passed": True,
+        "evidence": (
+            "build/standalone/th10_standalone is produced by "
+            "standalone/build.sh (also via build_standalone.sh)"
+        ),
     },
     "startup_to_title_smoke_test": {
-        "passed": False,
-        "evidence": "no retail-free runtime exists to smoke-test",
+        "passed": True,
+        "evidence": (
+            "test.sh builds and runs build/standalone/th10_standalone and "
+            "requires SMOKE_PASS: arena constructed, 3 primary + 21 "
+            "secondary scheduler callbacks, 33 default device states, "
+            "640x480 viewport, title task registered, 60 title frames, "
+            "clean shutdown"
+        ),
     },
 }
 
@@ -58,9 +71,23 @@ DYNAMIC_CALL = re.compile(r"\(\*\*\(code \*\*\)")
 IMPLEMENTED = {"semantic", "exact-overlay"}
 
 # Address -> number of indirect call sites whose complete target set has been
-# manually enumerated into the milestone roots/graph. Keep empty until an
-# audit is backed by repository evidence.
-AUDITED_DYNAMIC_SITES = {}
+# manually enumerated into the milestone roots/graph. Evidence:
+# docs/dynamic_call_site_audit.md classifies every site as either a COM
+# interface vtable slot (host-provided) or a game-owned callback whose
+# stored targets are all closure members or enumerated roots.
+AUDITED_DYNAMIC_SITES = {
+    0x00439D20: 33, 0x00439890: 10, 0x0043DDF0: 7, 0x00420270: 6,
+    0x0043BC40: 6, 0x00438AD0: 5, 0x0043A290: 5, 0x0043D120: 5,
+    0x00448450: 5, 0x0044CBF0: 5, 0x00439390: 4, 0x00442F50: 4,
+    0x00448270: 4, 0x0044CF20: 4, 0x00420670: 3, 0x0044D110: 3,
+    0x0044D300: 3, 0x00421480: 2, 0x00434DD0: 2, 0x004391F0: 2,
+    0x00447F70: 2, 0x00449C00: 2, 0x0044D4E0: 2, 0x0044D550: 2,
+    0x0044DAD0: 2, 0x00409F90: 1, 0x0041C1C0: 1, 0x00420CD0: 1,
+    0x00434D10: 1, 0x00438A30: 1, 0x0043BCD0: 1, 0x0043DAB0: 1,
+    0x00445900: 1, 0x00447810: 1, 0x00449D40: 1, 0x0044D370: 1,
+    0x0044D440: 1, 0x0044D5B0: 1, 0x0044D5D0: 1, 0x0044D600: 1,
+    0x0044D6A0: 1,
+}
 
 
 def read_inventory():

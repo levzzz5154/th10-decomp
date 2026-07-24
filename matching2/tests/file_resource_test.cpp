@@ -4,6 +4,7 @@
 #include "th10/archive/dat.hpp"
 #include "th10/archive/resource_manager.hpp"
 #include <cassert>
+#include <cstring>
 
 static void TestSharedOpenLeaves();
 static void TestSharedWrite();
@@ -11,6 +12,7 @@ static void TestSharedRead();
 static void TestWriteWholeFile();
 static void TestPathDecode();
 static void TestResourceChunkLookup();
+static void TestSoundWaveLoadPending();
 static void TestBasenameSlotLookup();
 
 extern "C" void* malloc(unsigned long size);
@@ -290,6 +292,7 @@ int main() {
     TestWriteWholeFile();
     TestPathDecode();
     TestResourceChunkLookup();
+    TestSoundWaveLoadPending();
     TestBasenameSlotLookup();
     probeCloses = 0;
     if (!File_ProbeExists("ok", ProbeOpen, ProbeClose) ||
@@ -436,6 +439,80 @@ static void TestResourceChunkLookup() {
     const unsigned char* payload = Resource_FindChunk(data, sizeof(data), "TEST", &size);
     assert(payload == data + 18 && size == 3 && payload[0] == 1);
     assert(Resource_FindChunk(data, sizeof(data), "NONE", &size) == 0 && size == 0);
+}
+
+
+static int g_wave_releases;
+static int g_wave_buffer_releases;
+static int g_wave_errors;
+static int g_wave_waits;
+static unsigned char g_wave_pcm[8];
+static int g_wave_buffer_cookie;
+static SoundWaveFormat g_wave_format;
+
+static void TestSoundWaveLoadPending() {
+    // RIFF size is file size - 8: WAVE + fmt chunk + data chunk.
+    unsigned char wave[] = {
+        'R','I','F','F', 40,0,0,0, 'W','A','V','E',
+        'f','m','t',' ', 16,0,0,0,
+        1,0, 2,0, 0x44,0xAC,0,0, 0x10,0xB1,2,0, 4,0, 16,0,
+        'd','a','t','a', 4,0,0,0, 9,8,7,6
+    };
+    void* old_buffer = (void*)0x55;
+    unsigned char* pending = wave;
+    g_wave_releases = g_wave_buffer_releases = g_wave_errors = g_wave_waits = 0;
+    memset(g_wave_pcm, 0, sizeof(g_wave_pcm));
+    SoundWaveLoadEnvironment env = {};
+    env.release_buffer = [](void*, void* buffer) {
+        assert(buffer == (void*)0x55);
+        ++g_wave_buffer_releases;
+    };
+    env.wait_10ms = [](void*) { ++g_wave_waits; };
+    env.cancelled = [](void*) { return 0; };
+    env.create_buffer = [](void*, const SoundWaveFormat* format,
+                           unsigned int bytes, unsigned int flags, void** out) {
+        assert(bytes == 4 && flags == 0x80C8u);
+        g_wave_format = *format;
+        *out = &g_wave_buffer_cookie;
+        return 0;
+    };
+    env.lock_buffer = [](void*, void* buffer, unsigned int bytes,
+                         unsigned char** first, unsigned int* first_bytes,
+                         unsigned char** second, unsigned int* second_bytes) {
+        assert(buffer == &g_wave_buffer_cookie && bytes == 4);
+        *first = g_wave_pcm; *first_bytes = 3;
+        *second = g_wave_pcm + 3; *second_bytes = 1;
+        return 0;
+    };
+    env.unlock_buffer = [](void*, void* buffer, unsigned char* first,
+                           unsigned int first_bytes, unsigned char* second,
+                           unsigned int second_bytes) {
+        assert(buffer == &g_wave_buffer_cookie && first == g_wave_pcm);
+        assert(first_bytes == 3 && second == g_wave_pcm + 3 && second_bytes == 1);
+    };
+    env.release_owned_wave = [](void*, unsigned char*) { ++g_wave_releases; };
+    env.report_error = [](void*, const char*) { ++g_wave_errors; };
+
+    assert(SoundWave_LoadPending(1, &old_buffer, &pending, &env) == 0);
+    assert(old_buffer == &g_wave_buffer_cookie && pending == 0);
+    assert(g_wave_buffer_releases == 1 && g_wave_releases == 1);
+    assert(g_wave_errors == 0 && g_wave_waits == 0);
+    assert(g_wave_format.format_tag == 1 && g_wave_format.channels == 2);
+    assert(g_wave_format.samples_per_second == 44100);
+    assert(g_wave_format.bits_per_sample == 16);
+    assert(g_wave_pcm[0] == 9 && g_wave_pcm[1] == 8 &&
+           g_wave_pcm[2] == 7 && g_wave_pcm[3] == 6);
+
+    unsigned char bad[] = {'N','O','P','E', 4,0,0,0, 'W','A','V','E'};
+    pending = bad;
+    old_buffer = 0;
+    assert(SoundWave_LoadPending(1, &old_buffer, &pending, &env) == -1);
+    assert(g_wave_errors == 1 && g_wave_releases == 2);
+
+    // Disabled banks do not consume or release pending input.
+    pending = wave;
+    assert(SoundWave_LoadPending(0, &old_buffer, &pending, &env) == 0);
+    assert(pending == wave && g_wave_releases == 2);
 }
 
 static void TestBasenameSlotLookup() {

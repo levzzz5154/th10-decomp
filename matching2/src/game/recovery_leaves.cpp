@@ -1098,3 +1098,63 @@ void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
         if (draw != 0 && draw(device) < 0 && restore != 0) restore(device);
     }
 }
+
+// 0x004281D0 - Advance the stage sequence.  The retail function clears the
+// published owner when the sequence is inactive, repairs a negative stage
+// only when the feature flag permits it, dispatches a changed schedule, and
+// selects the normal or terminal update path at stage fifteen.
+int Recovery_UpdateStageSequence(
+        void* state, bool feature_enabled,
+        void (*dispatch_schedule)(void*), void (*set_stage)(int),
+        void (*reset_timer)(float), void (*continue_update)(void*)) {
+    if (state == 0) return 0;
+    RecoveryByte* bytes = (RecoveryByte*)state;
+    int& active = *(int*)(bytes + 0x458);
+    int& previous_stage = *(int*)(bytes + 0x460);
+    int& stage = *(int*)(bytes + 0x464);
+    if (active != 1) {
+        *(RecoveryWord*)(bytes + 0x3504) = 0;
+        bytes[0x3508] = 0;
+        return 0;
+    }
+    if (stage < 0) {
+        if (!feature_enabled) return 0;
+        if (set_stage != 0) set_stage(0);
+    }
+    if (stage != previous_stage && dispatch_schedule != 0)
+        dispatch_schedule(state);
+    if (stage > 14) {
+        if (feature_enabled) {
+            if (reset_timer != 0) reset_timer(-15.0f);
+        } else if (set_stage != 0) {
+            set_stage(-1);
+        }
+        return 0;
+    }
+    if (continue_update != 0) continue_update(state);
+    return 0;
+}
+
+// 0x0044C2A0 - Advance a three-axis motion record.  Linear records add their
+// velocity directly; polar records derive the horizontal displacement from
+// angle/radius before applying the same base velocity.  Retail then snaps the
+// horizontal coordinates through its floating-point quantizer.
+void Recovery_AdvancePolarMotion(float state[11],
+                                 float (*quantize)(float)) {
+    if (state == 0) return;
+    if ((((RecoveryWord*)state)[10] & 1u) == 0) {
+        state[0] += state[3];
+        state[1] += state[4];
+        state[2] += state[5];
+    } else {
+        const float angle = state[7];
+        const float radius = state[8];
+        state[0] = state[3] + radius * (float)cos((double)angle);
+        state[1] = state[4] + radius * (float)sin((double)angle);
+        state[2] = state[5];
+    }
+    if (quantize != 0) {
+        state[0] = quantize(state[0]);
+        state[1] = quantize(state[1]);
+    }
+}

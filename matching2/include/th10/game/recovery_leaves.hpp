@@ -285,3 +285,9 @@ void* Recovery_CreateHugeResourceState(
     void (*destroy)(void*), void (*free_memory)(void*));
 void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
                                  int (*draw)(void*), void (*restore)(void*));
+int Recovery_UpdateStageSequence(
+    void* state, bool feature_enabled,
+    void (*dispatch_schedule)(void*), void (*set_stage)(int),
+    void (*reset_timer)(float), void (*continue_update)(void*));
+void Recovery_AdvancePolarMotion(float state[11],
+                                 float (*quantize)(float));

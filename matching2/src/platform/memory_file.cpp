@@ -209,3 +209,76 @@ from_start:
     position_ = data_ + distance;
     return 1;
 }
+
+
+// 0x0043D390 - Build one secondary sound buffer from an owned RIFF/WAVE image.
+int SoundWave_LoadPending(int enabled, void** buffer_slot,
+                          unsigned char** pending_wave_slot,
+                          const SoundWaveLoadEnvironment* environment) {
+    if (enabled == 0) {
+        return 0;
+    }
+    if (*buffer_slot != 0) {
+        environment->release_buffer(environment->context, *buffer_slot);
+        *buffer_slot = 0;
+    }
+    while (*pending_wave_slot == 0) {
+        environment->wait_10ms(environment->context);
+        if (environment->cancelled(environment->context) != 0) {
+            return 0;
+        }
+    }
+
+    unsigned char* wave = *pending_wave_slot;
+    *pending_wave_slot = 0;
+    if (wave == 0) {
+        return -1;
+    }
+
+    int result = -1;
+    const unsigned int riff_size = *(const unsigned int*)(wave + 4);
+    if (wave[0] != 'R' || wave[1] != 'I' || wave[2] != 'F' || wave[3] != 'F') {
+        environment->report_error(environment->context, "RIFF");
+    } else if (wave[8] != 'W' || wave[9] != 'A' || wave[10] != 'V' ||
+               wave[11] != 'E') {
+        environment->report_error(environment->context, "WAVE");
+    } else {
+        const unsigned int chunk_bytes = riff_size >= 4 ? riff_size - 4 : 0;
+        unsigned int format_bytes = 0;
+        const unsigned char* format_data =
+            Resource_FindChunk(wave + 12, chunk_bytes, "fmt ", &format_bytes);
+        unsigned int pcm_bytes = 0;
+        const unsigned char* pcm =
+            Resource_FindChunk(wave + 12, chunk_bytes, "data", &pcm_bytes);
+        if (format_data == 0 || format_bytes < 16 || pcm == 0) {
+            environment->report_error(environment->context, "WAVE chunks");
+        } else {
+            SoundWaveFormat format = {};
+            const unsigned int copy_bytes =
+                format_bytes < sizeof(format) ? format_bytes : sizeof(format);
+            memcpy(&format, format_data, copy_bytes);
+            if (environment->create_buffer(environment->context, &format,
+                                           pcm_bytes, 0x80C8u,
+                                           buffer_slot) >= 0) {
+                unsigned char* first = 0;
+                unsigned char* second = 0;
+                unsigned int first_bytes = 0;
+                unsigned int second_bytes = 0;
+                if (environment->lock_buffer(
+                        environment->context, *buffer_slot, pcm_bytes, &first,
+                        &first_bytes, &second, &second_bytes) >= 0) {
+                    memcpy(first, pcm, first_bytes);
+                    if (second_bytes != 0) {
+                        memcpy(second, pcm + first_bytes, second_bytes);
+                    }
+                    environment->unlock_buffer(
+                        environment->context, *buffer_slot, first, first_bytes,
+                        second, second_bytes);
+                    result = 0;
+                }
+            }
+        }
+    }
+    environment->release_owned_wave(environment->context, wave);
+    return result;
+}

@@ -1,0 +1,141 @@
+#include "th10/game/player_motion.hpp"
+#include "th10/util/scalars.hpp"
+
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+
+// Each routine mirrors one retail function; the comment above each body
+// names the retail address it was recovered from.
+
+// Shared per-frame clock advance used by the update callbacks below. When
+// the global frame-scale control sits inside the normal span the frame
+// counter simply increments; otherwise the scaled control value is
+// accumulated and the frame is re-derived by truncation.
+static void AdvanceFrameClock(PlayerDeathClock* clock, float span_low,
+                              float span_high, float frame_step,
+                              long long (*float_to_long)(float value)) {
+	float control = *clock->control;
+	clock->previous = clock->frame;
+	if (span_low < control && control < span_high) {
+		clock->timer += frame_step;
+		clock->frame += 1;
+	} else {
+		clock->timer += control;
+		clock->frame = (int)float_to_long(clock->timer);
+	}
+}
+
+// 0x0040678E - Register-thunk onto the player axis wrap helper. Retail only
+// moves the fastcall registers into the callee frame and jumps to 0x004065C0.
+void Player_ForwardAxisWrap(float* axis, float delta,
+                            void (*wrap)(float* axis, float delta)) {
+    if (wrap != 0) wrap(axis, delta);
+}
+
+// --- Player field-wrap leaves ------------------------------------------------
+
+// Shared body of the horizontal/vertical player wrap leaves: when the probe
+// admits a wrap check and the coordinate leaves [low_bound, high_bound], the
+// coordinate is folded back across the field extent plus margin, the wrap
+// sound plays with a hard -1.0 pan, and the wrap effect spawns when the
+// effect slot is armed. Returns nonzero when the coordinate wrapped.
+int Player_WrapAxisCore(float* axis, float field_extent, float low_bound,
+                        float high_bound, float margin, int (*probe)(void),
+                        void (*play_wrap_sound)(float pan), int effect_slot,
+                        void (*spawn_wrap_effect)(void)) {
+    if (probe != 0 && probe() == 0) return 0;
+    float value = *axis;
+    if (low_bound <= value) {
+        if (value <= high_bound) return 0;
+        value = value - (field_extent + margin);
+    } else {
+        value = field_extent + value + margin;
+    }
+    *axis = value;
+    if (play_wrap_sound != 0) play_wrap_sound(-1.0f);
+    if (-1 < effect_slot && spawn_wrap_effect != 0) spawn_wrap_effect();
+    return 1;
+}
+
+// 0x00407DA0 - Wrap the player's horizontal coordinate across the playfield.
+// After the wrap check, retail toggles pose-flag bit 0x100000 whenever the
+// focus counter (+0x750) is not positive.
+void Player_WrapHorizontal(float* axis, float field_extent, float low_bound,
+                           float high_bound, float margin, int (*probe)(void),
+                           void (*play_wrap_sound)(float pan), int effect_slot,
+                           void (*spawn_wrap_effect)(void), int focus_count,
+                           unsigned int* pose_flags) {
+    Player_WrapAxisCore(axis, field_extent, low_bound, high_bound, margin,
+                        probe, play_wrap_sound, effect_slot,
+                        spawn_wrap_effect);
+    if (focus_count < 1) *pose_flags = *pose_flags ^ 0x100000u;
+}
+
+// 0x00407E40 - Wrap the player's vertical coordinate across the playfield.
+// Identical frame to the horizontal leaf, but the focus counter lives at
+// +0x784 and the toggled pose-flag bit is 0x200000.
+void Player_WrapVertical(float* axis, float field_extent, float low_bound,
+                         float high_bound, float margin, int (*probe)(void),
+                         void (*play_wrap_sound)(float pan), int effect_slot,
+                         void (*spawn_wrap_effect)(void), int focus_count,
+                         unsigned int* pose_flags) {
+    Player_WrapAxisCore(axis, field_extent, low_bound, high_bound, margin,
+                        probe, play_wrap_sound, effect_slot,
+                        spawn_wrap_effect);
+    if (focus_count < 1) *pose_flags = *pose_flags ^ 0x200000u;
+}
+
+// --- Frame-timer leaves -------------------------------------------------------
+
+// 0x004074B0 - Advance the player animation frame timer. While the frame
+// counter stays below the trail limit (retail 0x11) the motion-trail sprite
+// is emitted; afterwards pose-flag bit 0 toggles each tick instead. The
+// counter then advances exactly like the droplet timers: inside the control
+// span it increments by one and the timer gains one frame step; outside, the
+// timer absorbs the control value and the counter is retruncated from it.
+void PlayerAnimation_AdvanceFrame(PlayerFrameTimer* timer,
+                                  unsigned int* pose_flags, float span_low,
+                                  float span_high, float frame_step,
+                                  int trail_frame_limit,
+                                  void (*emit_trail)(void),
+                                  long long (*float_to_long)(float value)) {
+    if (timer->frame < trail_frame_limit) {
+        if (emit_trail != 0) emit_trail();
+    } else {
+        *pose_flags = *pose_flags ^ 1u;
+    }
+    timer->previous = timer->frame;
+    float control = *timer->control;
+    if (span_low < control && control < span_high) {
+        timer->timer = timer->timer + frame_step;
+        timer->frame = timer->frame + 1;
+        return;
+    }
+    timer->timer = control + timer->timer;
+    timer->frame = (int)float_to_long(timer->timer);
+}
+
+// --- ECL child-VM list leaves -------------------------------------------------
+
+// 0x004076A0 - Player death shrink: until the deadline frame the collision
+// radius eases toward zero and the sprite falls, after which the shrink
+// status bit (0x20) clears. The player's frame clock always advances.
+void Player_DeathShrink(PlayerDeathClock* clock, int deadline_frame,
+                        float* radius, float* fall_y, float shrink_rate,
+                        float fall_rate, float delta,
+                        Word* status_flags, void* hitbox,
+                        float (*approach)(float value, float step),
+                        void (*move_hitbox)(void* hitbox, float radius,
+                                            float y),
+                        float span_low, float span_high, float frame_step,
+                        long long (*float_to_long)(float value)) {
+	if (clock->frame < deadline_frame) {
+		*radius = approach(*radius, delta * shrink_rate);
+		*fall_y += delta * fall_rate;
+		move_hitbox(hitbox, *radius, *fall_y);
+	} else {
+		*status_flags &= ~0x20u;
+	}
+	AdvanceFrameClock(clock, span_low, span_high, frame_step, float_to_long);
+}
