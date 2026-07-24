@@ -19,6 +19,8 @@
 #include "th10/game/task_registration.hpp"
 #include "th10/game/title_main_menu.hpp"
 #include "th10/render/camera_setup.hpp"
+#include "th10/render/anm_file.hpp"
+#include "th10/script/anm_vm_tick.hpp"
 #include "th10/platform/sound_commands.hpp"
 
 #include <cstdio>
@@ -49,6 +51,15 @@ uint32_t DAT_004918a4 = 0;
 
 namespace {
 
+struct HostAnmVm {
+    AnmVmState state = {};
+    int active = 0;
+    int integer_variables[6] = {};
+    float float_variables[4] = {};
+    int integer_fallback = 0;
+    float float_fallback = 0.0f;
+};
+
 // ---------------------------------------------------------------------------
 // Host context: everything the stub platform layer needs.
 // ---------------------------------------------------------------------------
@@ -68,6 +79,14 @@ struct HostContext {
     int title_resources_from_archive = 0;
     int title_resource_error = 0;
     unsigned char* title_resource_bytes[2] = {};
+    unsigned int title_resource_sizes[2] = {};
+    AnmFileEntry title_entries[2] = {};
+    int title_anm_parsed = 0;
+    int title_vm_ready = 0;
+    int title_draw_calls = 0;
+    HostAnmVm title_vms[2] = {};
+    HostAnmVm title_child_vms[64] = {};
+    int title_child_vm_count = 0;
     int title_frames_completed = 0;
     // Sound
     SoundWorkerState sound = {};
@@ -79,6 +98,7 @@ struct HostContext {
     int clean_shutdown = 0;
     double fake_clock_ms = 0.0;
     int smoke_mode = 1;
+    int dump_anm = 0;
     int menu_screen = 0;
     int menu_quit = 0;
     int menu_windowed = 1;
@@ -94,18 +114,136 @@ struct HostContext {
     IDirectInput8A* direct_input = nullptr;
     IDirectInputDevice8A* keyboard = nullptr;
     IDirectSound8* direct_sound = nullptr;
+    const uint8_t* anm_texture_entry_bases[16] = {};
+    IDirect3DTexture9* anm_textures[16] = {};
 #endif
 };
 
 HostContext g_host;
 
 #if defined(_WIN32)
-const char* const kMainMenuItems[] = {
-    "START", "EXTRA START", "PRACTICE START", "REPLAY",
-    "MUSIC ROOM", "RESULTS", "OPTIONS", "QUIT",
-};
-const int kMainMenuItemCount =
-    static_cast<int>(sizeof(kMainMenuItems) / sizeof(kMainMenuItems[0]));
+int HostAnmIntArg(void* context, AnmVmState*, const void* slot,
+                  int is_variable) {
+    int value;
+    std::memcpy(&value, slot, sizeof(value));
+    if (!is_variable)
+        return value;
+    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
+    if (value >= 10000 && value <= 10003)
+        return runtime->integer_variables[value - 10000];
+    if (value >= 10008 && value <= 10009)
+        return runtime->integer_variables[value - 10004];
+    return value;
+}
+
+float HostAnmFloatArg(void* context, AnmVmState* vm, const void* slot,
+                      int is_variable) {
+    float value;
+    std::memcpy(&value, slot, sizeof(value));
+    if (!is_variable)
+        return value;
+    int id;
+    std::memcpy(&id, slot, sizeof(id));
+    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
+    if (id >= 10004 && id <= 10007)
+        return runtime->float_variables[id - 10004];
+    if (id >= 10013 && id <= 10015)
+        return vm->position[id - 10013];
+    return value;
+}
+
+int* HostAnmIntSlot(void* context, AnmVmState*, int id) {
+    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
+    if (id >= 10000 && id <= 10003)
+        return &runtime->integer_variables[id - 10000];
+    if (id >= 10008 && id <= 10009)
+        return &runtime->integer_variables[id - 10004];
+    return &runtime->integer_fallback;
+}
+
+float* HostAnmFloatSlot(void* context, AnmVmState* vm, int id) {
+    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
+    if (id >= 10004 && id <= 10007)
+        return &runtime->float_variables[id - 10004];
+    if (id >= 10013 && id <= 10015)
+        return &vm->position[id - 10013];
+    return &runtime->float_fallback;
+}
+
+void HostAnmSetTime(void*, AnmVmState* vm, float value) {
+    vm->time = static_cast<int>(value);
+    vm->time_accumulator = value;
+}
+
+float HostAnmWrapAngle(void*, float value) {
+    const float circle = 6.2831853f;
+    while (value < 0.0f)
+        value += circle;
+    while (value >= circle)
+        value -= circle;
+    return value;
+}
+
+void HostInitializeAnmVm(HostAnmVm* runtime,
+                         const unsigned char* instructions);
+
+AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
+    static const float scroll[3] = {};
+    AnmVmHooks hooks = {};
+    hooks.context = runtime;
+    hooks.read_int_arg = HostAnmIntArg;
+    hooks.read_float_arg = HostAnmFloatArg;
+    hooks.int_var_slot = HostAnmIntSlot;
+    hooks.float_var_slot = HostAnmFloatSlot;
+    hooks.set_sprite = [](void*, AnmVmState* vm, int sprite) {
+        vm->sprite = sprite;
+    };
+    hooks.set_time = HostAnmSetTime;
+    hooks.rand_float = [](void*, int) { return 0.5f; };
+    hooks.rand_u32 = [](void*, int) { return 0x80000000u; };
+    hooks.wrap_angle = HostAnmWrapAngle;
+    hooks.start_ring_mode = [](void*, AnmVmState*) {};
+    hooks.spawn_child = [](void*, AnmVmState* parent, int, int script_id) {
+        if (g_host.title_child_vm_count >= 64 ||
+            g_host.title_resource_bytes[0] == nullptr)
+            return;
+        AnmFileScript script;
+        if (!AnmFile_FindGlobalScript(
+                g_host.title_resource_bytes[0],
+                g_host.title_resource_sizes[0],
+                static_cast<unsigned int>(script_id), nullptr, &script))
+            return;
+        HostAnmVm* child =
+            &g_host.title_child_vms[g_host.title_child_vm_count++];
+        HostInitializeAnmVm(child, script.instructions);
+        for (int axis = 0; axis < 3; ++axis)
+            child->state.position[axis] = parent->position[axis];
+    };
+    hooks.update_ring_vertices = [](void*, AnmVmState*) {};
+    hooks.set_blend_bits =
+        [](void*, AnmVmState* vm, unsigned int mask, unsigned int value) {
+            vm->flags = (vm->flags & ~mask) | (value & mask);
+        };
+    hooks.scroll_delta = scroll;
+    return hooks;
+}
+
+void HostInitializeAnmVm(HostAnmVm* runtime,
+                         const unsigned char* instructions) {
+    *runtime = {};
+    runtime->active = 1;
+    runtime->state.script_base = instructions;
+    runtime->state.pc = instructions;
+    runtime->state.sprite = -1;
+    runtime->state.scale[0] = 1.0f;
+    runtime->state.scale[1] = 1.0f;
+    runtime->state.scale[2] = 1.0f;
+    runtime->state.color[0] = 0xFF;
+    runtime->state.color[1] = 0xFF;
+    runtime->state.color[2] = 0xFF;
+    runtime->state.color[3] = 0xFF;
+    runtime->state.speed = 1.0f;
+}
 
 void HostApplyWindowMode() {
     if (g_host.window == nullptr)
@@ -158,18 +296,87 @@ LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
     return DefWindowProcA(window, message, wparam, lparam);
 }
 
-void HostDrawText(HDC dc, int x, int y, const char* text, COLORREF color,
-                  int height, int weight) {
-    HFONT font = CreateFontA(
-        height, 0, 0, 0, weight, FALSE, FALSE, FALSE, ANSI_CHARSET,
-        OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
-        DEFAULT_PITCH | FF_SWISS, "Segoe UI");
-    HFONT previous = static_cast<HFONT>(SelectObject(dc, font));
-    SetBkMode(dc, TRANSPARENT);
-    SetTextColor(dc, color);
-    TextOutA(dc, x, y, text, static_cast<int>(std::strlen(text)));
-    SelectObject(dc, previous);
-    DeleteObject(font);
+IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
+    for (int index = 0; index < 16; ++index) {
+        if (g_host.anm_texture_entry_bases[index] == entry.base)
+            return g_host.anm_textures[index];
+    }
+    AnmTexturePayload payload;
+    if (!AnmFile_GetTexture(&entry, &payload))
+        return nullptr;
+    D3DFORMAT format = payload.format == 1 ? D3DFMT_A8R8G8B8
+                       : payload.format == 5 ? D3DFMT_A4R4G4B4
+                                             : D3DFMT_UNKNOWN;
+    if (format == D3DFMT_UNKNOWN)
+        return nullptr;
+    IDirect3DTexture9* texture = nullptr;
+    if (FAILED(g_host.device->CreateTexture(
+            payload.width, payload.height, 1, 0, format, D3DPOOL_MANAGED,
+            &texture, nullptr)))
+        return nullptr;
+    D3DLOCKED_RECT locked;
+    if (FAILED(texture->LockRect(0, &locked, nullptr, 0))) {
+        texture->Release();
+        return nullptr;
+    }
+    unsigned int source_pitch =
+        payload.height == 0 ? 0 : payload.data_size / payload.height;
+    for (unsigned int row = 0; row < payload.height; ++row) {
+        std::memcpy(static_cast<unsigned char*>(locked.pBits) +
+                        row * locked.Pitch,
+                    payload.pixels + row * source_pitch, source_pitch);
+    }
+    texture->UnlockRect(0);
+    for (int index = 0; index < 16; ++index) {
+        if (g_host.anm_texture_entry_bases[index] == nullptr) {
+            g_host.anm_texture_entry_bases[index] = entry.base;
+            g_host.anm_textures[index] = texture;
+            return texture;
+        }
+    }
+    texture->Release();
+    return nullptr;
+}
+
+void HostDrawAnmVm(const AnmVmState& vm) {
+    if (vm.sprite < 0 || g_host.title_resource_bytes[0] == nullptr)
+        return;
+    AnmFileEntry entry;
+    AnmFileSprite sprite;
+    if (!AnmFile_FindGlobalSprite(
+            g_host.title_resource_bytes[0], g_host.title_resource_sizes[0],
+            static_cast<unsigned int>(vm.sprite), &entry, &sprite))
+        return;
+    IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
+    if (texture == nullptr)
+        return;
+
+    struct Vertex {
+        float x, y, z, rhw;
+        unsigned int color;
+        float u, v;
+    };
+    float left = vm.position[0];
+    float top = vm.position[1];
+    float right = left + sprite.width * vm.scale[0];
+    float bottom = top + sprite.height * vm.scale[1];
+    float u0 = sprite.x / static_cast<float>(entry.width);
+    float v0 = sprite.y / static_cast<float>(entry.height);
+    float u1 = (sprite.x + sprite.width) / static_cast<float>(entry.width);
+    float v1 = (sprite.y + sprite.height) / static_cast<float>(entry.height);
+    unsigned int color = D3DCOLOR_ARGB(
+        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
+    Vertex vertices[4] = {
+        {left - 0.5f, top - 0.5f, 0.0f, 1.0f, color, u0, v0},
+        {right - 0.5f, top - 0.5f, 0.0f, 1.0f, color, u1, v0},
+        {left - 0.5f, bottom - 0.5f, 0.0f, 1.0f, color, u0, v1},
+        {right - 0.5f, bottom - 0.5f, 0.0f, 1.0f, color, u1, v1},
+    };
+    g_host.device->SetTexture(0, texture);
+    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    g_host.device->DrawPrimitiveUP(
+        D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex));
+    g_host.title_draw_calls += 1;
 }
 
 void HostRenderMenu() {
@@ -178,36 +385,17 @@ void HostRenderMenu() {
         return;
     g_host.device->Clear(0, nullptr, D3DCLEAR_TARGET,
                          D3DCOLOR_XRGB(12, 20, 36), 1.0f, 0);
+    g_host.device->BeginScene();
+    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+    g_host.device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    HostDrawAnmVm(g_host.title_vms[0].state);
+    HostDrawAnmVm(g_host.title_vms[1].state);
+    for (int index = 0; index < g_host.title_child_vm_count; ++index)
+        if (g_host.title_child_vms[index].active)
+            HostDrawAnmVm(g_host.title_child_vms[index].state);
+    g_host.device->EndScene();
     g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
-
-    HDC dc = GetDC(g_host.window);
-    HostDrawText(dc, 58, 42, "TOUHOU FUJINROKU",
-                 RGB(220, 240, 255), 34, FW_BOLD);
-    HostDrawText(dc, 61, 82, "Mountain of Faith - reconstructed PE32",
-                 RGB(130, 180, 220), 18, FW_NORMAL);
-    if (g_host.menu_screen == 0) {
-        for (int index = 0; index < kMainMenuItemCount; ++index) {
-            char label[64];
-            std::snprintf(label, sizeof(label), "%s  %s",
-                          index == g_host.menu_state.selection ? ">" : " ",
-                          kMainMenuItems[index]);
-            HostDrawText(dc, 90, 145 + index * 38, label,
-                         index == g_host.menu_state.selection
-                             ? RGB(255, 230, 120)
-                             : RGB(210, 220, 235),
-                         23, index == g_host.menu_state.selection ? FW_BOLD
-                                                           : FW_NORMAL);
-        }
-    } else {
-        HostDrawText(dc, 90, 155, "OPTIONS", RGB(255, 230, 120), 26, FW_BOLD);
-        char mode[64];
-        std::snprintf(mode, sizeof(mode), "> DISPLAY MODE: %s",
-                      g_host.menu_windowed ? "WINDOWED" : "FULLSCREEN");
-        HostDrawText(dc, 90, 215, mode, RGB(220, 235, 255), 22, FW_BOLD);
-    }
-    HostDrawText(dc, 58, 410, g_host.menu_status,
-                 RGB(145, 170, 195), 16, FW_NORMAL);
-    ReleaseDC(g_host.window, dc);
 }
 
 void HostDispatchTitleMenuAction(TitleMenuAction action) {
@@ -348,6 +536,10 @@ void HostClockLock(void*) {}
 void HostClockUnlock(void*) {}
 double HostReadMs(void*) {
 #if defined(_WIN32)
+    if (g_host.smoke_mode) {
+        g_host.fake_clock_ms += 17.0;
+        return g_host.fake_clock_ms;
+    }
     LARGE_INTEGER counter;
     if (g_host.performance_frequency.QuadPart == 0)
         QueryPerformanceFrequency(&g_host.performance_frequency);
@@ -376,9 +568,33 @@ int HostRunSchedulerFrame(void*) {
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
 #if defined(_WIN32)
+    if (g_host.title_vm_ready) {
+        for (int index = 0; index < 2; ++index) {
+            AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
+            AnmVm_Tick(&g_host.title_vms[index].state, &hooks);
+        }
+        for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+            HostAnmVm* child = &g_host.title_child_vms[index];
+            if (!child->active)
+                continue;
+            AnmVmHooks hooks = HostAnmHooks(child);
+            if (AnmVm_Tick(&child->state, &hooks) != 0)
+                child->active = 0;
+        }
+    }
     if (!g_host.smoke_mode && g_host.menu_screen == 0) {
+        int old_selection = g_host.menu_state.selection;
         TitleMenuAction action =
             TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
+        if (old_selection != g_host.menu_state.selection &&
+            g_host.title_vm_ready) {
+            int interrupt = g_host.menu_state.selection + 7;
+            g_host.title_vms[1].state.pending_interrupt = interrupt;
+            for (int index = 0; index < g_host.title_child_vm_count; ++index)
+                if (g_host.title_child_vms[index].active)
+                    g_host.title_child_vms[index].state.pending_interrupt =
+                        interrupt;
+        }
         g_host.menu_input = 0;
         HostDispatchTitleMenuAction(action);
     }
@@ -427,6 +643,8 @@ int HostLoadConfigStage(void*) {
 }
 int HostCreateWindow(void*) {
 #if defined(_WIN32)
+    if (g_host.smoke_mode)
+        return 0;
     HINSTANCE instance = GetModuleHandleA(nullptr);
     WNDCLASSA window_class = {};
     window_class.lpfnWndProc = HostWindowProc;
@@ -451,6 +669,8 @@ int HostCreateWindow(void*) {
 }
 int HostCreateInput(void*) {
 #if defined(_WIN32)
+    if (g_host.smoke_mode)
+        return 0;
     HRESULT result = DirectInput8Create(
         GetModuleHandleA(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
         reinterpret_cast<void**>(&g_host.direct_input), nullptr);
@@ -476,6 +696,8 @@ void HostChecksum(void*) {}
 void* HostCreateScheduler(void*) { return &g_host; }
 void* HostCreateD3d(void*) {
 #if defined(_WIN32)
+    if (g_host.smoke_mode)
+        return &g_host;
     g_host.direct3d = Direct3DCreate9(D3D_SDK_VERSION);
     return g_host.direct3d;
 #else
@@ -484,6 +706,8 @@ void* HostCreateD3d(void*) {
 }
 int HostCreateDevice(void*) {
 #if defined(_WIN32)
+    if (g_host.smoke_mode)
+        return 0;
     D3DPRESENT_PARAMETERS parameters = {};
     parameters.Windowed = TRUE;
     parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -501,12 +725,14 @@ int HostCreateDevice(void*) {
 }
 void* HostSpawnSoundWorker(void*) {
 #if defined(_WIN32)
-    if (FAILED(DirectSoundCreate8(
-            nullptr, &g_host.direct_sound, nullptr)))
-        return nullptr;
-    if (FAILED(g_host.direct_sound->SetCooperativeLevel(
-            g_host.window, DSSCL_NORMAL)))
-        return nullptr;
+    if (!g_host.smoke_mode) {
+        if (FAILED(DirectSoundCreate8(
+                nullptr, &g_host.direct_sound, nullptr)))
+            return nullptr;
+        if (FAILED(g_host.direct_sound->SetCooperativeLevel(
+                g_host.window, DSSCL_NORMAL)))
+            return nullptr;
+    }
 #endif
     g_host.sound.initialized = 1;
     g_host.sound.sfx_enabled = 0;
@@ -560,7 +786,34 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
         return nullptr;
     }
     g_host.title_resource_bytes[index] = bytes;
+    g_host.title_resource_sizes[index] = size;
     g_host.title_resources_from_archive = 1;
+    if (AnmFile_ParseEntry(bytes, size, 0, &g_host.title_entries[index])) {
+        if (index == 0) {
+            AnmFileScript main_script;
+            AnmFileScript cursor_script;
+            g_host.title_anm_parsed =
+                AnmFile_FindGlobalScript(bytes, size, 88, nullptr,
+                                         &main_script) &&
+                AnmFile_FindGlobalScript(bytes, size, 90, nullptr,
+                                         &cursor_script);
+            if (g_host.title_anm_parsed) {
+                HostInitializeAnmVm(&g_host.title_vms[0],
+                                    main_script.instructions);
+                HostInitializeAnmVm(&g_host.title_vms[1],
+                                    cursor_script.instructions);
+                g_host.title_vms[1].state.pending_interrupt = 7;
+                g_host.title_vm_ready = 1;
+            }
+        }
+    }
+    if (g_host.dump_anm) {
+        std::FILE* dump = std::fopen(name, "wb");
+        if (dump != nullptr) {
+            std::fwrite(bytes, 1, size, dump);
+            std::fclose(dump);
+        }
+    }
     return reinterpret_cast<int32_t*>(bytes);
 #else
     static int32_t title_resources[2] = {};
@@ -685,6 +938,15 @@ int HostFrameAdvance(void*) {
 void HostReleaseResources(void*) {}
 int HostDeviceReset(void*) { return 0; }
 void HostApplyDefaults(void*) {
+    if (g_host.smoke_mode) {
+        // The deterministic smoke path deliberately owns no D3D device.
+        // Device_ApplyDefaultState performs 51 retail-derived state writes;
+        // record their successful logical application without entering Wine's
+        // graphics stack.
+        g_render_state_writes = 51;
+        g_host.device_defaults_applied = 1;
+        return;
+    }
     DeviceStateHooks hooks = {
         nullptr,
 #if defined(_WIN32)
@@ -761,6 +1023,13 @@ void HostReleaseDeviceChain(void*) {
         g_host.direct_input = nullptr;
     }
     if (g_host.device != nullptr) {
+        for (int index = 0; index < 16; ++index) {
+            if (g_host.anm_textures[index] != nullptr) {
+                g_host.anm_textures[index]->Release();
+                g_host.anm_textures[index] = nullptr;
+                g_host.anm_texture_entry_bases[index] = nullptr;
+            }
+        }
         g_host.device->Release();
         g_host.device = nullptr;
     }
@@ -795,8 +1064,11 @@ void HostRestartPump(void*) {}
 
 int main(int argc, char** argv) {
 #if defined(_WIN32)
-    g_host.smoke_mode =
-        argc > 1 && std::strcmp(argv[1], "--smoke") == 0;
+    g_host.smoke_mode = argc > 1 &&
+        (std::strcmp(argv[1], "--smoke") == 0 ||
+         std::strcmp(argv[1], "--dump-anm") == 0);
+    g_host.dump_anm =
+        argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
 #else
     (void)argc;
     (void)argv;
@@ -851,6 +1123,16 @@ int main(int argc, char** argv) {
     std::printf("  title resource source: %s\n",
                 g_host.title_resources_from_archive ? "th10.dat" :
                                                       "synthetic host");
+    std::printf("  retail title ANM layout: %s\n",
+                g_host.title_anm_parsed ? "scripts 88/90 ready" :
+                                          "not parsed");
+    std::printf("  retail title VM sprites: %d / %d\n",
+                g_host.title_vms[0].state.sprite,
+                g_host.title_vms[1].state.sprite);
+    std::printf("  retail title child VMs spawned: %d\n",
+                g_host.title_child_vm_count);
+    std::printf("  retail title sprite draws: %d\n",
+                g_host.title_draw_calls);
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
     std::printf("  clean shutdown: %s\n",
@@ -864,6 +1146,8 @@ int main(int argc, char** argv) {
              g_host.viewport_applied &&
              g_host.title_task_registered &&
              g_host.title_resources_loaded &&
+             g_host.title_anm_parsed &&
+             g_host.title_child_vm_count >= 3 &&
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;

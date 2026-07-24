@@ -38,6 +38,9 @@ mkdir -p "$BUILD"
     "$ROOT/src/platform/resource_file.cpp" \
     "$ROOT/src/platform/sound_commands.cpp" \
     "$ROOT/src/render/camera_setup.cpp" \
+    "$ROOT/src/render/anm_file.cpp" \
+    "$ROOT/src/math/interpolators.cpp" \
+    "$ROOT/src/script/anm_vm_tick.cpp" \
     "$BUILD/th10_standalone_resources.o" \
     -ld3d9 -ldinput8 -ldxguid -ldsound -lgdi32 \
     -o "$BUILD/th10_standalone.exe"

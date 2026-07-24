@@ -15,6 +15,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -O2 \
     src/game/task_registration.cpp \
     src/game/title_main_menu.cpp \
     src/platform/sound_commands.cpp \
+    src/render/anm_file.cpp \
     src/render/camera_setup.cpp \
     -o build/standalone/th10_standalone
 echo "built build/standalone/th10_standalone"

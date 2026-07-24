@@ -684,10 +684,17 @@ harness rather than the complete playable title implementation.
 Running `./run_pe32.sh` without arguments opens the reconstructed retail
 main-menu control state from `0x0042D420`: eight retail entries, phased
 entry/input/exit timing, wrapped cursor movement, cancel-to-Quit, and the
-original action mapping. The current text drawing is explicitly a temporary
-host presentation backend; executing the `title.anm`/`title_v.anm` scripts
-through the recovered ANM VM and renderer is the next fidelity milestone.
-For deterministic automation, `./run_pe32.sh --smoke` remains available.
+original action mapping. Its presentation now comes from the real
+`title.anm`: the reconstructed parser resolves linked entries, sprites,
+scripts, and THTX textures; the recovered ANM VM executes scripts 88 and 90,
+creates their child scripts, and the D3D9 backend draws the resulting retail
+sprites. Selection interrupts are broadcast to the spawned VMs as in
+`0x0042C770`. The actions beyond the main menu still stop at reconstructed
+dispatch boundaries; their retail submenu/state implementations are the next
+playability milestone. For deterministic automation,
+`./run_pe32.sh --smoke` remains available and avoids host graphics, input, and
+audio initialization while exercising archive loading, ANM parsing, child-VM
+creation, and script execution.
 
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a

@@ -17,6 +17,14 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 "$TEST_BUILD/title_main_menu_test"
 
 g++ -std=c++17 -Wall -Wextra -Werror \
+    -I"$ROOT/include" \
+    "$ROOT/src/render/anm_file.cpp" \
+    "$ROOT/tests/anm_file_test.cpp" \
+    -o "$TEST_BUILD/anm_file_test"
+
+"$TEST_BUILD/anm_file_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/archive/crypt.cpp" \
