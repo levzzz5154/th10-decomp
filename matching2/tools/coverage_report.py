@@ -21,6 +21,7 @@ ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 # documents that only part of the retail function has been recovered.
 PARTIAL = {
     0x00418D00: "Remaining code-generation mismatch",
+    0x00445900: "Game-state matrix/global initialization remains incomplete",
     0x0040E770: "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs",
 }
 
@@ -103,10 +104,10 @@ def source_annotations():
             mentions.update((address, mentions[address] | {relative})
                             for address in addresses)
             stripped = line.strip().lower()
-            is_function_header = bool(re.match(
-                r"//\s*(?:functions?\s*:\s*)?0x004[0-9a-f]{5}", stripped))
-            is_semantic = is_function_header or any(
-                phrase in stripped for phrase in semantic_phrases)
+            # An address header is useful provenance, but is not evidence that
+            # the entire retail function has been reconstructed.
+            is_semantic = any(phrase in stripped
+                              for phrase in semantic_phrases)
             if is_semantic:
                 for address in addresses:
                     semantic[address].add(relative)

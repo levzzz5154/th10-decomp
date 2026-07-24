@@ -15,6 +15,7 @@
 #include "th10/app/game_state_init.hpp"
 #include "th10/app/frame_clock.hpp"
 #include "th10/app/main_tasks.hpp"
+#include "th10/game/task_registration.hpp"
 #include "th10/render/camera_setup.hpp"
 #include "th10/platform/sound_commands.hpp"
 
@@ -22,6 +23,11 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+
+uint32_t DAT_00491be4 = 0;
+uint8_t DAT_00491d6a = 0;
+float DAT_00476f78 = 1.0f;
+uint32_t DAT_004918a4 = 0;
 
 namespace {
 
@@ -40,6 +46,7 @@ struct HostContext {
     int primary_callbacks = 0;
     int secondary_callbacks = 0;
     int title_task_registered = 0;
+    int title_resources_loaded = 0;
     int title_frames_completed = 0;
     // Sound
     SoundWorkerState sound = {};
@@ -204,17 +211,47 @@ int HostRegisterMainTasks(void*) {
     MainTaskHooks hooks = {
         nullptr,
         [](void*, int callback_index) -> void* {
-            // Callback 0 is the input poll; callbacks 1..3 are the title/
-            // fade/text helpers that schedule title.anm / title_v.anm.
-            if (callback_index >= 1)
-                g_host.title_task_registered = 1;
             static int node_storage[4];
             return &node_storage[callback_index];
         },
         [](void*, void*) { g_host.primary_callbacks += 1; return 0; },
         [](void*, void*) { g_host.secondary_callbacks += 1; return 0; },
     };
-    return MainTasks_Register(&task_state, &hooks);
+    int status = MainTasks_Register(&task_state, &hooks);
+    if (status != 0)
+        return status;
+
+    static TitleInitState title_state = {};
+    static SchedulerCallback title_callbacks[2] = {};
+    static int callback_index = 0;
+    static int32_t title_resources[2] = {};
+    callback_index = 0;
+    int title_status = Title_RegisterTasks(
+        &g_host, &title_state,
+        [](int32_t slot, const char* name) -> int32_t* {
+            if (slot == 0x19 && std::strcmp(name, "title.anm") == 0)
+                return &title_resources[0];
+            if (slot == 0x1A && std::strcmp(name, "title_v.anm") == 0)
+                return &title_resources[1];
+            return nullptr;
+        },
+        []() {},
+        [](SchedulerFunction function) -> SchedulerCallback* {
+            SchedulerCallback* callback = &title_callbacks[callback_index++];
+            *callback = {};
+            callback->function = function;
+            return callback;
+        },
+        [](SchedulerCallback*, uint32_t) { g_host.primary_callbacks += 1; },
+        [](SchedulerCallback*, uint32_t) { g_host.secondary_callbacks += 1; },
+        nullptr, nullptr);
+    g_host.title_task_registered =
+        title_state.update_task != nullptr && title_state.render_task != nullptr;
+    g_host.title_resources_loaded =
+        title_state.ready_flag == 1 &&
+        title_state.title_resource == &title_resources[0] &&
+        title_state.title_v_resource == &title_resources[1];
+    return title_status;
 }
 int HostPumpMessages(void*) {
     // Quit after enough frames for the title milestone (smoke budget).
@@ -361,6 +398,8 @@ int main() {
                 g_host.viewport_applied ? "yes" : "no");
     std::printf("  title task registered: %s\n",
                 g_host.title_task_registered ? "yes" : "no");
+    std::printf("  title resources resolved: %s\n",
+                g_host.title_resources_loaded ? "yes" : "no");
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
     std::printf("  clean shutdown: %s\n",
@@ -368,11 +407,12 @@ int main() {
     std::printf("  GameMain_Run exit code: %d\n", exit_code);
 
     int ok = g_host.game_state_constructed &&
-             g_host.primary_callbacks >= 3 &&      // 2 init + 1 input task
-             g_host.secondary_callbacks >= 21 &&   // 18 init + 3 main tasks
+             g_host.primary_callbacks >= 4 &&      // init + input + title
+             g_host.secondary_callbacks >= 22 &&   // init + roots + title
              g_host.device_defaults_applied &&
              g_host.viewport_applied &&
              g_host.title_task_registered &&
+             g_host.title_resources_loaded &&
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;

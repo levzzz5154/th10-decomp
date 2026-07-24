@@ -660,8 +660,11 @@ linking, task-registration wiring, and the sound/joystick error paths).
 
 ## Standalone startup-to-title milestone
 
-The startup-to-title slice is now runnable without any retail code. The final
-campaign reconstructed the last 52 blocker functions (~43KB) across 13 new
+The retail-free integration harness now exercises the reconstructed boot
+orchestrator and title-task initializer. The latest audit no longer treats a
+source address comment as proof that a function is complete: only explicit
+semantic-completion annotations and verified overlays count as source-ready.
+The recovery campaign added 52 candidate blocker implementations across 13 new
 translation units: the boot orchestrator `GameMain` (`0x00438AD0`), the
 0x732460-byte game-state arena constructor (`0x00445900`), the frame
 clock/advance pair (`0x00439540`/`0x00439390`), the 33-state default device
@@ -681,11 +684,13 @@ surfaces to a stub platform layer, `standalone/build.sh` (or
 `./build_standalone.sh`) links only reconstructed sources into
 `build/standalone/th10_standalone`, and `./run_standalone.sh` runs it. The
 runner boots through config load, device defaults, arena construction (2
-primary + 18 secondary scheduler callbacks), title task registration, 60
-title frames, and a clean shutdown; `test.sh` requires this smoke test to
-print `SMOKE_PASS`. `standalone_readiness.json` now reports 179/179 reachable
-functions source-ready, 0 blockers, 144/144 audited indirect sites, and all
-three integration gates passing.
+primary + 18 secondary scheduler callbacks), invokes `Title_RegisterTasks`,
+resolves the synthetic host resources for `title.anm` and `title_v.anm`, runs
+60 title frames, and shuts down cleanly; `test.sh` requires this smoke test to
+print `SMOKE_PASS`. The conservative source audit currently reports 5/179
+reachable functions source-ready and 174 blockers. All three integration
+gates pass, but the milestone is not declared retail-code-independent until
+the remaining functions receive explicit completion evidence.
 
 Scope note: this is a semantic reconstruction running against a host stub
 layer (no Direct3D/DirectSound), not a byte-exact retail replacement, and it

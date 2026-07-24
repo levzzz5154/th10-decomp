@@ -58,9 +58,10 @@ INTEGRATION_GATES = {
         "passed": True,
         "evidence": (
             "test.sh builds and runs build/standalone/th10_standalone and "
-            "requires SMOKE_PASS: arena constructed, 3 primary + 21 "
+            "requires SMOKE_PASS: arena constructed, 4 primary + 22 "
             "secondary scheduler callbacks, 33 default device states, "
-            "640x480 viewport, title task registered, 60 title frames, "
+            "640x480 viewport, title tasks registered, title.anm and "
+            "title_v.anm resolved, 60 title frames, "
             "clean shutdown"
         ),
     },
