@@ -227,6 +227,11 @@ char g_pending_script[260];
 StageScript g_stage_script;
 StageStdRawView g_std_view;
 StageTimelineView g_timeline_view;
+HostStageCameraView g_stage_camera;
+Interp3F g_eye_interpolator;
+Interp3F g_target_interpolator;
+bool g_eye_interpolating;
+bool g_target_interpolating;
 unsigned char* g_companion_anm;
 unsigned int g_companion_anm_size;
 HostStageRuntimeView g_runtime_view;
@@ -372,6 +377,46 @@ int HostLoadStageScript(const char* name, int flag) {
 		    StageTimeline_Initialize(&g_std_view, &g_timeline_view) ? 1 : 0;
 		if (g_report.timeline_initialized == 0) {
 			Log("bounded timeline view rejected DAT-backed %s", name);
+			return false;
+		}
+		int subrecords = 0;
+		bool objects_valid = true;
+		for (uint16_t object_index = 0;
+		     object_index < g_std_view.count_00; ++object_index) {
+			StageStdObjectView object = {};
+			if (!StageStd_GetObject(
+			        &g_std_view, object_index, &object)) {
+				objects_valid = false;
+				break;
+			}
+			for (uint16_t subrecord_index = 0;; ++subrecord_index) {
+				StageStdSubrecordView subrecord = {};
+				if (!StageStd_GetSubrecord(
+				        &object, subrecord_index, &subrecord))
+					break;
+				++subrecords;
+			}
+		}
+		int placements = 0;
+		for (;; ++placements) {
+			StageStdPlacementView placement = {};
+			if (!StageStd_GetPlacement(
+			        &g_std_view, static_cast<uint16_t>(placements),
+			        &placement))
+				break;
+			if (placement.object_index < 0 ||
+			    placement.object_index >= g_std_view.count_00) {
+				objects_valid = false;
+				break;
+			}
+		}
+		g_report.std_subrecords = subrecords;
+		g_report.std_placements = placements;
+		g_report.std_geometry_valid =
+		    objects_valid && subrecords == g_std_view.count_02 &&
+		    placements > 0;
+		if (g_report.std_geometry_valid == 0) {
+			Log("bounded STD geometry rejected DAT-backed %s", name);
 			return false;
 		}
 		Log("StageScript_Load(0x00403850): %s parsed - %d background objects, "
@@ -812,6 +857,90 @@ void HostTickStageTimer(StageContext* context) {
 	g_runtime_view.stage_frame = frame;
 }
 
+uint32_t ReadTimelineWord(size_t offset) {
+	uint32_t value = 0;
+	if (offset <= g_std_view.size &&
+	    sizeof(value) <= g_std_view.size - offset)
+		std::memcpy(&value, g_std_view.data + offset, sizeof(value));
+	return value;
+}
+
+float ReadTimelineFloat(size_t offset) {
+	const uint32_t bits = ReadTimelineWord(offset);
+	float value = 0.0f;
+	std::memcpy(&value, &bits, sizeof(value));
+	return value;
+}
+
+void StartCameraInterpolation(Interp3F* interpolation, float current[3],
+                              const StageTimelineEvent& event) {
+	std::memset(interpolation, 0, sizeof(*interpolation));
+	for (int axis = 0; axis < 3; ++axis) {
+		interpolation->position[axis] = current[axis];
+		interpolation->start[axis] = current[axis];
+		interpolation->target[axis] =
+		    ReadTimelineFloat(event.argument_offset + 8 + axis * 4);
+	}
+	interpolation->duration =
+	    static_cast<int>(ReadTimelineWord(event.argument_offset));
+	interpolation->mode =
+	    static_cast<int>(ReadTimelineWord(event.argument_offset + 4));
+	interpolation->speed = 1.0f;
+}
+
+void ApplyTimelineEvent(const StageTimelineEvent& event) {
+	switch (event.opcode) {
+	case 2:
+		for (int axis = 0; axis < 3; ++axis)
+			g_stage_camera.eye[axis] =
+			    ReadTimelineFloat(event.argument_offset + axis * 4);
+		g_eye_interpolating = false;
+		break;
+	case 3:
+		StartCameraInterpolation(
+		    &g_eye_interpolator, g_stage_camera.eye, event);
+		g_eye_interpolating = g_eye_interpolator.duration > 0;
+		break;
+	case 4:
+		for (int axis = 0; axis < 3; ++axis)
+			g_stage_camera.target[axis] =
+			    ReadTimelineFloat(event.argument_offset + axis * 4);
+		g_target_interpolating = false;
+		break;
+	case 5:
+		StartCameraInterpolation(
+		    &g_target_interpolator, g_stage_camera.target, event);
+		g_target_interpolating = g_target_interpolator.duration > 0;
+		break;
+	case 6:
+		for (int axis = 0; axis < 3; ++axis)
+			g_stage_camera.up[axis] =
+			    ReadTimelineFloat(event.argument_offset + axis * 4);
+		break;
+	case 7:
+		g_stage_camera.field_of_view =
+		    ReadTimelineFloat(event.argument_offset);
+		break;
+	default:
+		break;
+	}
+}
+
+void TickStageCamera() {
+	if (g_eye_interpolating) {
+		g_eye_interpolating = Interp3F_Tick(&g_eye_interpolator) != 0;
+		for (int axis = 0; axis < 3; ++axis)
+			g_stage_camera.eye[axis] = g_eye_interpolator.position[axis];
+	}
+	if (g_target_interpolating) {
+		g_target_interpolating =
+		    Interp3F_Tick(&g_target_interpolator) != 0;
+		for (int axis = 0; axis < 3; ++axis)
+			g_stage_camera.target[axis] =
+			    g_target_interpolator.position[axis];
+	}
+}
+
 void BuildUpdateEnv() {
 	std::memset(&g_update_env, 0, sizeof(g_update_env));
 	g_update_env.globals = &g_update_globals;
@@ -918,6 +1047,7 @@ void HostRunStageEntry() {
 		g_runtime_view.companion_anm_size = g_companion_anm_size;
 		g_runtime_view.std_view = &g_std_view;
 		g_runtime_view.timeline_view = &g_timeline_view;
+		g_runtime_view.camera = &g_stage_camera;
 		g_runtime_view.context = &g_context;
 		g_runtime_view.camera_words = g_camera_words;
 		g_runtime_view.stage_frame = 0;
@@ -966,6 +1096,13 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	std::memset(&g_runtime_view, 0, sizeof(g_runtime_view));
 	std::memset(&g_std_view, 0, sizeof(g_std_view));
 	std::memset(&g_timeline_view, 0, sizeof(g_timeline_view));
+	std::memset(&g_stage_camera, 0, sizeof(g_stage_camera));
+	g_stage_camera.up[2] = 1.0f;
+	g_stage_camera.field_of_view = 0.62831855f;
+	std::memset(&g_eye_interpolator, 0, sizeof(g_eye_interpolator));
+	std::memset(&g_target_interpolator, 0, sizeof(g_target_interpolator));
+	g_eye_interpolating = false;
+	g_target_interpolating = false;
 	g_companion_anm = 0;
 	g_companion_anm_size = 0;
 	g_report.archive_available = archive_available;
@@ -1074,13 +1211,17 @@ int HostStage_RunFrames(int frames) {
 			StageTimelineEvent event = {};
 			const StageTimelineDecodeResult decode =
 			    StageTimeline_DecodeDue(&g_timeline_view, &event);
-			if (decode == kStageTimelineDecoded) continue;
+			if (decode == kStageTimelineDecoded) {
+				ApplyTimelineEvent(event);
+				continue;
+			}
 			if (decode == kStageTimelineRejected)
 				Log("timeline decoder rejected cursor 0x%X at frame %u",
 				    (unsigned int)g_timeline_view.cursor,
 				    g_timeline_view.frame);
 			break;
 		}
+		TickStageCamera();
 		g_report.frames_run += 1;
 	}
 	Log("scheduler advanced %d frames through the retail run lists: "

@@ -60,6 +60,8 @@ struct HostAnmVm {
     int active = 0;
     int script_id = -1;
     int resource_index = 0;
+    const unsigned char* resource_bytes = nullptr;
+    unsigned int resource_size = 0;
     HostAnmVm* parent = nullptr;
     int integer_variables[6] = {};
     float float_variables[4] = {};
@@ -98,6 +100,18 @@ struct HostContext {
     HostAnmVm title_child_vms[64] = {};
     int title_child_vm_count = 0;
     int title_frames_completed = 0;
+    HostAnmVm stage_vms[32] = {};
+    StageStdSubrecordView stage_subrecords[32] = {};
+    int stage_vm_object_indices[32] = {};
+    int stage_vm_count = 0;
+    int stage_vms_ready = 0;
+    unsigned char* player_anm_bytes = nullptr;
+    unsigned int player_anm_size = 0;
+    HostAnmVm player_vm = {};
+    int player_vm_ready = 0;
+    int player_vm_attempted = 0;
+    float player_x = 224.0f;
+    float player_y = 400.0f;
     // Sound
     SoundWorkerState sound = {};
     // Milestone ledger, printed by the smoke test.
@@ -109,6 +123,7 @@ struct HostContext {
     double fake_clock_ms = 0.0;
     int smoke_mode = 1;
     int dump_anm = 0;
+    int dump_stage = 0;
     int menu_screen = 0;
     int title_flow = 0; // 0=sig/loading, 1=press, 2=main/submenus
     int title_flow_frame = 0;
@@ -233,13 +248,17 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
     hooks.spawn_child = [](void* context, AnmVmState*, int, int script_id) {
         HostAnmVm* parent = static_cast<HostAnmVm*>(context);
         int resource = parent->resource_index;
-        if (resource < 0 || resource >= 3 ||
-            g_host.title_resource_bytes[resource] == nullptr)
+        const unsigned char* resource_bytes = parent->resource_bytes;
+        unsigned int resource_size = parent->resource_size;
+        if (resource_bytes == nullptr && resource >= 0 && resource < 3) {
+            resource_bytes = g_host.title_resource_bytes[resource];
+            resource_size = g_host.title_resource_sizes[resource];
+        }
+        if (resource_bytes == nullptr)
             return;
         AnmFileScript script;
         if (!AnmFile_FindGlobalScript(
-                g_host.title_resource_bytes[resource],
-                g_host.title_resource_sizes[resource],
+                resource_bytes, resource_size,
                 static_cast<unsigned int>(script_id), nullptr, &script))
             return;
         int slot = -1;
@@ -257,6 +276,8 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
         HostInitializeAnmVm(child, script.instructions);
         child->script_id = script_id;
         child->resource_index = resource;
+        child->resource_bytes = resource_bytes;
+        child->resource_size = resource_size;
         child->parent = parent;
     };
     hooks.update_ring_vertices = [](void*, AnmVmState*) {};
@@ -721,6 +742,17 @@ void HostPollKeyboard() {
     }
     if (FAILED(result))
         return;
+    if (HostStage_IsActive()) {
+        float speed = (keys[DIK_LSHIFT] & 0x80) != 0 ? 2.0f : 4.0f;
+        if ((keys[DIK_LEFT] & 0x80) != 0) g_host.player_x -= speed;
+        if ((keys[DIK_RIGHT] & 0x80) != 0) g_host.player_x += speed;
+        if ((keys[DIK_UP] & 0x80) != 0) g_host.player_y -= speed;
+        if ((keys[DIK_DOWN] & 0x80) != 0) g_host.player_y += speed;
+        if (g_host.player_x < 40.0f) g_host.player_x = 40.0f;
+        if (g_host.player_x > 408.0f) g_host.player_x = 408.0f;
+        if (g_host.player_y < 24.0f) g_host.player_y = 24.0f;
+        if (g_host.player_y > 456.0f) g_host.player_y = 456.0f;
+    }
     struct Binding { int key; uint32_t flag; };
     static const Binding bindings[] = {
         {DIK_UP, TITLE_MENU_UP}, {DIK_DOWN, TITLE_MENU_DOWN},
@@ -859,15 +891,19 @@ void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
                            unsigned int* frame) {
     const AnmVmState& vm = runtime.state;
     int resource = runtime.resource_index;
-    if (vm.sprite < 0 || resource < 0 || resource >= 3 ||
-        g_host.title_resource_bytes[resource] == nullptr)
+    const unsigned char* resource_bytes = runtime.resource_bytes;
+    unsigned int resource_size = runtime.resource_size;
+    if (resource_bytes == nullptr && resource >= 0 && resource < 3) {
+        resource_bytes = g_host.title_resource_bytes[resource];
+        resource_size = g_host.title_resource_sizes[resource];
+    }
+    if (vm.sprite < 0 || resource_bytes == nullptr)
         return;
     AnmFileEntry entry;
     AnmFileSprite sprite;
     AnmTexturePayload payload;
     if (!AnmFile_FindGlobalSprite(
-            g_host.title_resource_bytes[resource],
-            g_host.title_resource_sizes[resource],
+            resource_bytes, resource_size,
             static_cast<unsigned int>(vm.sprite), &entry, &sprite) ||
         !AnmFile_GetTexture(&entry, &payload))
         return;
@@ -907,8 +943,9 @@ void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
             if (destination_x < 0 || destination_x >= 640)
                 continue;
             int source_x = source_left + x * source_width / width;
-            if (source_x < 0 || source_x >= payload.width)
+            if (source_x < 0)
                 continue;
+            source_x %= payload.width;
             const unsigned char* pixel =
                 payload.pixels + source_y * source_pitch +
                 source_x * bytes_per_pixel;
@@ -951,6 +988,257 @@ void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
     g_host.title_draw_calls += 1;
 }
 
+void HostDrawAnmVmSoftwareAt(const HostAnmVm& source,
+                             unsigned int* frame, float x, float y,
+                             float scale_x, float scale_y) {
+    HostAnmVm placed = source;
+    placed.parent = nullptr;
+    placed.state.position[0] = x;
+    placed.state.position[1] = y;
+    placed.state.scale[0] = scale_x;
+    placed.state.scale[1] = scale_y;
+    HostDrawAnmVmSoftware(placed, frame);
+}
+
+bool HostEnsureStageVms() {
+    if (g_host.stage_vms_ready)
+        return true;
+    const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
+    if (runtime.std_view == nullptr ||
+        runtime.companion_anm_data == nullptr) {
+        HostTrace("Stage 1 VM init missing runtime resources");
+        return false;
+    }
+    g_host.stage_vm_count = 0;
+    for (uint16_t object_index = 0;
+         object_index < runtime.std_view->count_00; ++object_index) {
+        StageStdObjectView object = {};
+        if (!StageStd_GetObject(
+                runtime.std_view, object_index, &object)) {
+            HostTrace("Stage 1 VM init rejected an STD object");
+            return false;
+        }
+        for (uint16_t subrecord_index = 0;; ++subrecord_index) {
+            StageStdSubrecordView subrecord = {};
+            if (!StageStd_GetSubrecord(
+                    &object, subrecord_index, &subrecord))
+                break;
+            if (g_host.stage_vm_count >= 32) {
+                HostTrace("Stage 1 VM set exceeds host capacity");
+                return false;
+            }
+            AnmFileScript script = {};
+            if (!AnmFile_FindGlobalScript(
+                    runtime.companion_anm_data,
+                    runtime.companion_anm_size, subrecord.field_04,
+                    nullptr, &script)) {
+                std::fprintf(
+                    stderr,
+                    "[th10-recon] Stage 1 ANM script %u missing\n",
+                    subrecord.field_04);
+                return false;
+            }
+            const int slot = g_host.stage_vm_count++;
+            HostAnmVm* vm = &g_host.stage_vms[slot];
+            HostInitializeAnmVm(vm, script.instructions);
+            vm->script_id = subrecord.field_04;
+            vm->resource_index = -1;
+            vm->resource_bytes = runtime.companion_anm_data;
+            vm->resource_size = runtime.companion_anm_size;
+            g_host.stage_subrecords[slot] = subrecord;
+            g_host.stage_vm_object_indices[slot] = object_index;
+            AnmVmHooks hooks = HostAnmHooks(vm);
+            AnmVm_Tick(&vm->state, &hooks);
+        }
+    }
+    g_host.stage_vms_ready =
+        g_host.stage_vm_count ==
+        static_cast<int>(runtime.std_view->count_02);
+    if (g_host.stage_vms_ready)
+        HostTrace("Stage 1 ANM VM set initialized from stage01.std");
+    else
+        std::fprintf(stderr,
+                     "[th10-recon] Stage 1 VM count mismatch: %d/%u\n",
+                     g_host.stage_vm_count, runtime.std_view->count_02);
+    return g_host.stage_vms_ready;
+}
+
+bool HostEnsurePlayerVm() {
+    if (g_host.player_vm_ready)
+        return true;
+    if (g_host.player_vm_attempted)
+        return false;
+    g_host.player_vm_attempted = 1;
+    const char* name =
+        g_host.character_selection == 0 ? "pl00.anm" : "pl01.anm";
+    char candidate0[64], candidate1[64];
+    std::snprintf(candidate0, sizeof(candidate0), "th10/%s", name);
+    std::snprintf(candidate1, sizeof(candidate1), "th10/player/%s", name);
+    const char* path = candidate0;
+    unsigned int size = Resource_GetFileSize(path);
+    if (size == 0) {
+        path = candidate1;
+        size = Resource_GetFileSize(path);
+    }
+    if (size == 0) {
+        std::fprintf(stderr, "[th10-recon] player ANM missing: %s\n", path);
+        return false;
+    }
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(size));
+    if (bytes == nullptr || Resource_LoadFile(path, bytes) == nullptr) {
+        std::fprintf(stderr, "[th10-recon] player ANM load failed: %s\n", path);
+        std::free(bytes);
+        return false;
+    }
+    g_host.player_anm_bytes = bytes;
+    g_host.player_anm_size = size;
+    AnmFileScript script = {};
+    if (!AnmFile_FindGlobalScript(bytes, size, 0, nullptr, &script))
+        return false;
+    HostInitializeAnmVm(&g_host.player_vm, script.instructions);
+    g_host.player_vm.script_id = 0;
+    g_host.player_vm.resource_index = -1;
+    g_host.player_vm.resource_bytes = bytes;
+    g_host.player_vm.resource_size = size;
+    AnmVmHooks hooks = HostAnmHooks(&g_host.player_vm);
+    AnmVm_Tick(&g_host.player_vm.state, &hooks);
+    g_host.player_vm_ready = g_host.player_vm.state.sprite >= 0;
+    if (g_host.player_vm_ready)
+        std::fprintf(stderr,
+                     "[th10-recon] selected player ANM VM initialized "
+                     "(script %d sprite %d)\n",
+                     g_host.player_vm.script_id,
+                     g_host.player_vm.state.sprite);
+    else
+        std::fprintf(stderr,
+                     "[th10-recon] no visible player script found in %s "
+                     "(%u bytes)\n", path, size);
+    return g_host.player_vm_ready;
+}
+
+bool HostProjectStagePoint(const float world[3], float* screen_x,
+                           float* screen_y, float* scale) {
+    const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
+    if (runtime.camera == nullptr)
+        return false;
+    const HostStageCameraView& camera = *runtime.camera;
+    float forward[3] = {
+        camera.target[0] - camera.eye[0],
+        camera.target[1] - camera.eye[1],
+        camera.target[2] - camera.eye[2],
+    };
+    float forward_length = std::sqrt(
+        forward[0] * forward[0] + forward[1] * forward[1] +
+        forward[2] * forward[2]);
+    if (forward_length <= 0.0001f)
+        return false;
+    for (float& component : forward) component /= forward_length;
+    float right[3] = {
+        forward[1] * camera.up[2] - forward[2] * camera.up[1],
+        forward[2] * camera.up[0] - forward[0] * camera.up[2],
+        forward[0] * camera.up[1] - forward[1] * camera.up[0],
+    };
+    float right_length = std::sqrt(
+        right[0] * right[0] + right[1] * right[1] +
+        right[2] * right[2]);
+    if (right_length <= 0.0001f)
+        return false;
+    for (float& component : right) component /= right_length;
+    float up[3] = {
+        right[1] * forward[2] - right[2] * forward[1],
+        right[2] * forward[0] - right[0] * forward[2],
+        right[0] * forward[1] - right[1] * forward[0],
+    };
+    float delta[3] = {
+        world[0] - camera.eye[0],
+        world[1] - camera.eye[1],
+        world[2] - camera.eye[2],
+    };
+    float camera_x =
+        delta[0] * right[0] + delta[1] * right[1] +
+        delta[2] * right[2];
+    float camera_y =
+        delta[0] * up[0] + delta[1] * up[1] + delta[2] * up[2];
+    float camera_z =
+        delta[0] * forward[0] + delta[1] * forward[1] +
+        delta[2] * forward[2];
+    if (camera_z <= 1.0f)
+        return false;
+    const float focal =
+        224.0f / std::tan(camera.field_of_view * 0.5f);
+    *scale = focal / camera_z;
+    *screen_x = 224.0f + camera_x * *scale;
+    *screen_y = 240.0f - camera_y * *scale;
+    return true;
+}
+
+void HostRenderStage(unsigned int* frame) {
+    if (!HostEnsureStageVms())
+        return;
+    const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
+    for (int placement_index = 0;; ++placement_index) {
+        StageStdPlacementView placement = {};
+        if (!StageStd_GetPlacement(
+                runtime.std_view,
+                static_cast<uint16_t>(placement_index), &placement))
+            break;
+        StageStdObjectView object = {};
+        if (!StageStd_GetObject(
+                runtime.std_view,
+                static_cast<uint16_t>(placement.object_index), &object))
+            continue;
+        for (int slot = 0; slot < g_host.stage_vm_count; ++slot) {
+            if (g_host.stage_vm_object_indices[slot] !=
+                    placement.object_index ||
+                g_host.stage_subrecords[slot].kind != 0)
+                continue;
+            const StageStdSubrecordView& subrecord =
+                g_host.stage_subrecords[slot];
+            float world[3];
+            for (int axis = 0; axis < 3; ++axis)
+                world[axis] = placement.position[axis] +
+                              object.position[axis] +
+                              subrecord.position[axis];
+            float x = 0.0f, y = 0.0f, projection_scale = 0.0f;
+            if (!HostProjectStagePoint(
+                    world, &x, &y, &projection_scale))
+                continue;
+            AnmFileEntry entry = {};
+            AnmFileSprite sprite = {};
+            const HostAnmVm& vm = g_host.stage_vms[slot];
+            if (vm.state.sprite < 0 ||
+                !AnmFile_FindGlobalSprite(
+                    vm.resource_bytes, vm.resource_size,
+                    static_cast<unsigned int>(vm.state.sprite),
+                    &entry, &sprite))
+                continue;
+            float width = subrecord.size[0] * projection_scale;
+            float height = subrecord.size[1] * projection_scale;
+            HostDrawAnmVmSoftwareAt(
+                vm, frame, x - width * 0.5f, y - height * 0.5f,
+                width / sprite.width, height / sprite.height);
+        }
+    }
+    if (HostEnsurePlayerVm() && g_host.player_vm.state.sprite >= 0) {
+        AnmFileEntry entry = {};
+        AnmFileSprite sprite = {};
+        if (AnmFile_FindGlobalSprite(
+                g_host.player_vm.resource_bytes,
+                g_host.player_vm.resource_size,
+                static_cast<unsigned int>(g_host.player_vm.state.sprite),
+                &entry, &sprite))
+            HostDrawAnmVmSoftwareAt(
+                g_host.player_vm, frame,
+                g_host.player_x - sprite.width * 0.5f,
+                g_host.player_y - sprite.height * 0.5f, 1.0f, 1.0f);
+    }
+    for (int y = 0; y < 480; ++y)
+        for (int x = 0; x < 640; ++x)
+            if (x < 32 || x >= 416 || y < 16 || y >= 464)
+                frame[y * 640 + x] = 0;
+}
+
 void HostRenderMenu() {
     if (g_host.smoke_mode || g_host.device == nullptr ||
         g_host.window == nullptr)
@@ -959,6 +1247,9 @@ void HostRenderMenu() {
     static unsigned int frame[640 * 480];
     for (unsigned int& pixel : frame)
         pixel = 0x000C1424u;
+    if (HostStage_IsActive()) {
+        HostRenderStage(frame);
+    } else {
     const HostAnmVm* draw_list[67] = {};
     int draw_count = 0;
     draw_list[draw_count++] = &g_host.title_vms[0];
@@ -981,6 +1272,7 @@ void HostRenderMenu() {
     }
     for (int index = 0; index < draw_count; ++index)
         HostDrawAnmVmSoftware(*draw_list[index], frame);
+    }
     BITMAPINFO bitmap = {};
     bitmap.bmiHeader.biSize = sizeof(bitmap.bmiHeader);
     bitmap.bmiHeader.biWidth = 640;
@@ -1129,6 +1421,14 @@ void HostUpdateSelectionScreen() {
             int result = HostStage_ConfirmWeapon(
                 g_host.character_selection, g_host.weapon_selection,
                 g_host.difficulty_selection);
+            if (result == 0) {
+                g_host.stage_vms_ready = 0;
+                g_host.stage_vm_count = 0;
+                g_host.player_vm_ready = 0;
+                g_host.player_vm_attempted = 0;
+                g_host.player_x = 224.0f;
+                g_host.player_y = 400.0f;
+            }
             g_host.menu_status = result == 0
                 ? "Stage 1 resources loaded; gameplay scheduler active"
                 : "Stage 1 bridge failed";
@@ -1294,6 +1594,10 @@ int HostRunSchedulerFrame(void*) {
         !HostStage_GetReport().confirm_invoked) {
         HostStage_ConfirmWeapon(0, 0, 1);
         HostStage_RunFrames(120);
+#if defined(_WIN32)
+        HostEnsureStageVms();
+        HostEnsurePlayerVm();
+#endif
     }
 #if defined(_WIN32)
     if (!g_host.smoke_mode && g_host.title_frames_completed == 60) {
@@ -1307,8 +1611,24 @@ int HostRunSchedulerFrame(void*) {
     }
     if (!g_host.smoke_mode)
         HostPollKeyboard();
-    if (!g_host.smoke_mode && HostStage_IsActive())
+    if (!g_host.smoke_mode && HostStage_IsActive()) {
         HostStage_RunFrames(1);
+        if (HostEnsureStageVms()) {
+            for (int index = 0; index < g_host.stage_vm_count; ++index) {
+                HostAnmVm* vm = &g_host.stage_vms[index];
+                if (!vm->active)
+                    continue;
+                AnmVmHooks hooks = HostAnmHooks(vm);
+                if (AnmVm_Tick(&vm->state, &hooks) != 0)
+                    vm->active = 0;
+            }
+        }
+        if (HostEnsurePlayerVm() && g_host.player_vm.active) {
+            AnmVmHooks hooks = HostAnmHooks(&g_host.player_vm);
+            if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0)
+                g_host.player_vm.active = 0;
+        }
+    }
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
@@ -1969,9 +2289,12 @@ int main(int argc, char** argv) {
     HostTrace("process entry");
     g_host.smoke_mode = argc > 1 &&
         (std::strcmp(argv[1], "--smoke") == 0 ||
-         std::strcmp(argv[1], "--dump-anm") == 0);
+         std::strcmp(argv[1], "--dump-anm") == 0 ||
+         std::strcmp(argv[1], "--dump-stage") == 0);
     g_host.dump_anm =
         argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
+    g_host.dump_stage =
+        argc > 1 && std::strcmp(argv[1], "--dump-stage") == 0;
 #else
     (void)argc;
     (void)argv;
@@ -2060,13 +2383,34 @@ int main(int argc, char** argv) {
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;
+#if defined(_WIN32)
+    if (g_host.dump_stage && HostStage_IsActive()) {
+        static unsigned int stage_frame[640 * 480] = {};
+        HostRenderStage(stage_frame);
+        std::FILE* output = std::fopen("stage1.ppm", "wb");
+        if (output != nullptr) {
+            std::fprintf(output, "P6\n640 480\n255\n");
+            for (unsigned int pixel : stage_frame) {
+                const unsigned char rgb[3] = {
+                    static_cast<unsigned char>((pixel >> 16) & 0xFF),
+                    static_cast<unsigned char>((pixel >> 8) & 0xFF),
+                    static_cast<unsigned char>(pixel & 0xFF),
+                };
+                std::fwrite(rgb, 1, sizeof(rgb), output);
+            }
+            std::fclose(output);
+            HostTrace("wrote stage1.ppm");
+        }
+    }
+#endif
     std::printf("SMOKE_%s\n", ok ? "PASS" : "FAIL");
     const HostStageReport& stage = HostStage_GetReport();
     const int stage_ok =
         archive_available && stage.mode_apply_result == 1 &&
         stage.leave_gameplay_fired && stage.enter_result == 0 &&
         stage.update_task_registered && stage.draw_task_registered &&
-        stage.std_raw_view_valid && stage.timeline_initialized &&
+        stage.std_raw_view_valid && stage.std_geometry_valid &&
+        stage.timeline_initialized &&
         stage.timeline_decoded > 0 && stage.timeline_rejected == 0 &&
         stage.std_size == 2536u &&
         stage.std_objects == 8 &&
@@ -2082,6 +2426,9 @@ int main(int argc, char** argv) {
         stage.stage_frame);
     std::printf("stage std raw view: valid=%d\n",
                 stage.std_raw_view_valid);
+    std::printf("stage geometry: valid=%d subrecords=%d placements=%d\n",
+                stage.std_geometry_valid, stage.std_subrecords,
+                stage.std_placements);
     std::printf(
         "stage timeline: initialized=%d decoded=%u stopped=%u jumps=%u "
         "max_access=%zu max_extent=%zu rejected=%u budget_rejected=%u "
@@ -2095,6 +2442,16 @@ int main(int argc, char** argv) {
         std::printf("%s%u", opcode != 0 ? "," : "",
                     stage.timeline_opcode_histogram[opcode]);
     std::printf("\n");
+    const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
+    if (runtime.camera != nullptr)
+        std::printf(
+            "stage camera: eye=%.2f,%.2f,%.2f target=%.2f,%.2f,%.2f "
+            "up=%.2f,%.2f,%.2f fov=%.6f\n",
+            runtime.camera->eye[0], runtime.camera->eye[1],
+            runtime.camera->eye[2], runtime.camera->target[0],
+            runtime.camera->target[1], runtime.camera->target[2],
+            runtime.camera->up[0], runtime.camera->up[1],
+            runtime.camera->up[2], runtime.camera->field_of_view);
     std::printf("STAGE_BRIDGE_%s\n", stage_ok ? "PASS" : "FAIL");
 #if defined(_WIN32)
     return ok && stage_ok ? 0 : 1;
