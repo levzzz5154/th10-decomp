@@ -2066,7 +2066,8 @@ int main(int argc, char** argv) {
         archive_available && stage.mode_apply_result == 1 &&
         stage.leave_gameplay_fired && stage.enter_result == 0 &&
         stage.update_task_registered && stage.draw_task_registered &&
-        stage.std_size == 2536u && stage.std_objects == 8 &&
+        stage.std_raw_view_valid && stage.std_size == 2536u &&
+        stage.std_objects == 8 &&
         stage.std_quads == 19 && stage.ecl_size == 47924u &&
         stage.ecl_sub_count == 68 && stage.frames_run == 120 &&
         stage.update_ticks == 120 && stage.draw_ticks == 120 &&
@@ -2077,6 +2078,8 @@ int main(int argc, char** argv) {
         stage.enter_result, stage.factories_created, stage.std_size,
         stage.ecl_size, stage.update_ticks, stage.draw_ticks,
         stage.stage_frame);
+    std::printf("stage std raw view: valid=%d\n",
+                stage.std_raw_view_valid);
     std::printf("STAGE_BRIDGE_%s\n", stage_ok ? "PASS" : "FAIL");
 #if defined(_WIN32)
     return ok && stage_ok ? 0 : 1;

@@ -43,6 +43,7 @@
 #include "th10/game/object_factories.hpp"
 #include "th10/game/recovery_leaves.hpp"
 #include "th10/game/bullet_manager.hpp"
+#include "th10/game/stage_std.hpp"
 #include "th10/script/stage_ecl_load.hpp"
 #include "th10/archive/resource_manager.hpp"
 // windows_types.hpp defines NULL unconditionally; glibc headers included
@@ -224,6 +225,10 @@ int g_exit_reason;
 char g_script_name_sink[512];
 char g_pending_script[260];
 StageScript g_stage_script;
+StageStdRawView g_std_view;
+unsigned char* g_companion_anm;
+unsigned int g_companion_anm_size;
+HostStageRuntimeView g_runtime_view;
 
 void* g_enemy_manager_slot;
 void* g_effect_manager_slot;
@@ -318,6 +323,8 @@ void* HostOpenScriptEntry(int mode, void* archive_manager, const char* name) {
 	std::snprintf(g_report.std_companion_anm, sizeof(g_report.std_companion_anm),
 	              "%s", name);
 	g_report.companion_anm_size = size;
+	g_companion_anm = buffer;
+	g_companion_anm_size = size;
 	Log("companion stage ANM %s loaded from th10.dat (%u bytes, open_entry mode %d)",
 	    path, size, mode);
 	return buffer;
@@ -350,6 +357,16 @@ int HostLoadStageScript(const char* name, int flag) {
 		std::memcpy(&quads, g_stage_script.buffer + 2, sizeof(quads));
 		g_report.std_objects = objects;
 		g_report.std_quads = quads;
+		g_report.std_raw_view_valid =
+		    StageStd_ParseRaw(
+		        reinterpret_cast<const uint8_t*>(g_stage_script.buffer),
+		        g_stage_script.cached_size, &g_std_view)
+		        ? 1
+		        : 0;
+		if (g_report.std_raw_view_valid == 0) {
+			Log("bounded raw STD view rejected DAT-backed %s", name);
+			return false;
+		}
 		Log("StageScript_Load(0x00403850): %s parsed - %d background objects, "
 		    "%d quads, companion '%s' (flag %d)",
 		    name, (int)objects, (int)quads, g_stage_script.buffer + 0x10, flag);
@@ -785,6 +802,7 @@ void HostTickStageTimer(StageContext* context) {
 	frame += 1;
 	std::memcpy(&context->spawn[1], &frame, sizeof(frame));
 	g_report.stage_frame = frame;
+	g_runtime_view.stage_frame = frame;
 }
 
 void BuildUpdateEnv() {
@@ -885,7 +903,17 @@ void HostRunStageEntry() {
 		if (g_context.draw_task != 0)
 			g_context.draw_task->flags |= 2u;
 		BuildUpdateEnv();
-			Log("StageContext_Enter(0x00417870) returned 0: %d factory wrappers, "
+		g_runtime_view.script = &g_stage_script;
+		g_runtime_view.std_data =
+		    reinterpret_cast<const unsigned char*>(g_stage_script.buffer);
+		g_runtime_view.std_size = g_stage_script.cached_size;
+		g_runtime_view.companion_anm_data = g_companion_anm;
+		g_runtime_view.companion_anm_size = g_companion_anm_size;
+		g_runtime_view.std_view = &g_std_view;
+		g_runtime_view.context = &g_context;
+		g_runtime_view.camera_words = g_camera_words;
+		g_runtime_view.stage_frame = 0;
+		Log("StageContext_Enter(0x00417870) returned 0: %d factory wrappers, "
 		    "%d failures, update/draw tasks registered",
 		    g_report.factories_created, g_report.factory_failures);
 	} else {
@@ -927,6 +955,10 @@ void HostStage_SetArchiveAvailable(int available) {
 int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	const int archive_available = g_report.archive_available;
 	std::memset(&g_report, 0, sizeof(g_report));
+	std::memset(&g_runtime_view, 0, sizeof(g_runtime_view));
+	std::memset(&g_std_view, 0, sizeof(g_std_view));
+	g_companion_anm = 0;
+	g_companion_anm_size = 0;
 	g_report.archive_available = archive_available;
 	g_owned_allocation_count = 0;
 #if defined(_WIN32)
@@ -1038,6 +1070,7 @@ int HostStage_RunFrames(int frames) {
 }
 
 const HostStageReport& HostStage_GetReport() { return g_report; }
+const HostStageRuntimeView& HostStage_GetRuntimeView() { return g_runtime_view; }
 
 int HostStage_IsActive() {
 	return g_report.enter_attempted != 0 && g_report.enter_result == 0;

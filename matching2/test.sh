@@ -810,6 +810,12 @@ g++ -std=c++17 -Wall -Wextra -Werror \
   -o "$TEST_BUILD/stage_update_test"
 "$TEST_BUILD/stage_update_test"
 
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/stage_std.cpp" \
+    "$ROOT/tests/stage_std_test.cpp" \
+    -o "$TEST_BUILD/stage_std_test"
+"$TEST_BUILD/stage_std_test"
+
 # ---------------------------------------------------------------------------
 # Retail-free standalone runner: build it and require the startup-to-title
 # smoke test to pass (SMOKE_PASS + exit 0).
@@ -821,5 +827,9 @@ SMOKE_OUTPUT="$("$ROOT/build/standalone/th10_standalone")"
 echo "$SMOKE_OUTPUT"
 if ! grep -q '^STAGE_BRIDGE_PASS$' <<<"$SMOKE_OUTPUT"; then
     echo "standalone Stage 1 bridge smoke test failed" >&2
+    exit 1
+fi
+if ! grep -q 'stage std raw view: valid=1' <<<"$SMOKE_OUTPUT"; then
+    echo "DAT-backed Stage 1 STD raw-view validation failed" >&2
     exit 1
 fi

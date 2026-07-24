@@ -1,5 +1,9 @@
 #pragma once
 
+#include "th10/game/stage_entry.hpp"
+#include "th10/game/stage_std.hpp"
+#include "th10/script/stage_ecl_load.hpp"
+
 // =============================================================================
 // host_stage.hpp - Weapon Select -> stage-entry bridge (host side)
 //
@@ -59,6 +63,19 @@ struct HostStageReport {
 	int draw_ticks;             // StageTask_ClearCameraOnIdle calls observed
 	int stage_frame;            // StageContext frame word (+0x14)
 	int last_update_result;
+	int std_raw_view_valid;     // real DAT-backed STD passed bounded validation
+};
+
+struct HostStageRuntimeView {
+	const StageScript* script;
+	const unsigned char* std_data;
+	unsigned int std_size;
+	const unsigned char* companion_anm_data;
+	unsigned int companion_anm_size;
+	const StageStdRawView* std_view;
+	const StageContext* context;
+	const int* camera_words;
+	int stage_frame;
 };
 
 // Record whether th10.dat was mounted (host_main calls this at startup).
@@ -75,3 +92,4 @@ int HostStage_RunFrames(int frames);
 int HostStage_IsActive();
 
 const HostStageReport& HostStage_GetReport();
+const HostStageRuntimeView& HostStage_GetRuntimeView();
