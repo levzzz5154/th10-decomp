@@ -711,6 +711,13 @@ reconstructed dispatch boundaries. For deterministic automation,
 audio initialization while exercising archive loading, ANM parsing, child-VM
 creation, and script execution.
 
+Title rendering preserves the ANM object hierarchy: child positions remain
+local to their script-0/script-88 parents, producing the retail right-side
+menu and the 512+128 background composition. Draws are stably ordered by the
+VM layer field, `title_v.anm` runs as a separate version-overlay VM, and the
+window dimensions are adjusted to provide an exact 640x480 client/backbuffer
+pair.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit
