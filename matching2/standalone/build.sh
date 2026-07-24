@@ -13,6 +13,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -O2 \
     src/app/frame_clock.cpp \
     src/app/main_tasks.cpp \
     src/game/task_registration.cpp \
+    src/game/title_main_menu.cpp \
     src/platform/sound_commands.cpp \
     src/render/camera_setup.cpp \
     -o build/standalone/th10_standalone

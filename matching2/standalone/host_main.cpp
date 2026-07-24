@@ -17,6 +17,7 @@
 #include "th10/app/main_tasks.hpp"
 #include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
+#include "th10/game/title_main_menu.hpp"
 #include "th10/render/camera_setup.hpp"
 #include "th10/platform/sound_commands.hpp"
 
@@ -77,6 +78,13 @@ struct HostContext {
     int frames_requested = 0;
     int clean_shutdown = 0;
     double fake_clock_ms = 0.0;
+    int smoke_mode = 1;
+    int menu_screen = 0;
+    int menu_quit = 0;
+    int menu_windowed = 1;
+    uint32_t menu_input = 0;
+    TitleMainMenuState menu_state = {};
+    const char* menu_status = "Arrow keys: move    Enter: select    Esc: back";
 #if defined(_WIN32)
     CRITICAL_SECTION critical_section_storage[7] = {};
     HWND window = nullptr;
@@ -90,6 +98,155 @@ struct HostContext {
 };
 
 HostContext g_host;
+
+#if defined(_WIN32)
+const char* const kMainMenuItems[] = {
+    "START", "EXTRA START", "PRACTICE START", "REPLAY",
+    "MUSIC ROOM", "RESULTS", "OPTIONS", "QUIT",
+};
+const int kMainMenuItemCount =
+    static_cast<int>(sizeof(kMainMenuItems) / sizeof(kMainMenuItems[0]));
+
+void HostApplyWindowMode() {
+    if (g_host.window == nullptr)
+        return;
+    if (g_host.menu_windowed) {
+        SetWindowLongA(g_host.window, GWL_STYLE, WS_OVERLAPPEDWINDOW);
+        SetWindowPos(g_host.window, nullptr, CW_USEDEFAULT, CW_USEDEFAULT,
+                     656, 519, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+    } else {
+        SetWindowLongA(g_host.window, GWL_STYLE, WS_POPUP);
+        SetWindowPos(g_host.window, HWND_TOP, 0, 0,
+                     GetSystemMetrics(SM_CXSCREEN),
+                     GetSystemMetrics(SM_CYSCREEN),
+                     SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+    }
+}
+
+LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
+                                WPARAM wparam, LPARAM lparam) {
+    if (message == WM_CLOSE) {
+        g_host.menu_quit = 1;
+        return 0;
+    }
+    if (message == WM_KEYDOWN && !g_host.smoke_mode) {
+        if (g_host.menu_screen == 0) {
+            if (wparam == VK_UP)
+                g_host.menu_input |= TITLE_MENU_UP;
+            else if (wparam == VK_DOWN)
+                g_host.menu_input |= TITLE_MENU_DOWN;
+            else if (wparam == VK_RETURN)
+                g_host.menu_input |= TITLE_MENU_CONFIRM;
+            else if (wparam == VK_ESCAPE)
+                g_host.menu_input |= TITLE_MENU_CANCEL;
+        } else {
+            if (wparam == VK_RETURN || wparam == VK_LEFT ||
+                wparam == VK_RIGHT) {
+                g_host.menu_windowed = !g_host.menu_windowed;
+                g_host.config.windowed =
+                    static_cast<unsigned char>(g_host.menu_windowed);
+                HostApplyWindowMode();
+            } else if (wparam == VK_ESCAPE) {
+                g_host.menu_screen = 0;
+                TitleMainMenu_Initialize(&g_host.menu_state);
+                g_host.menu_status =
+                    "Arrow keys: move    Enter: select    Esc: quit";
+            }
+        }
+        return 0;
+    }
+    return DefWindowProcA(window, message, wparam, lparam);
+}
+
+void HostDrawText(HDC dc, int x, int y, const char* text, COLORREF color,
+                  int height, int weight) {
+    HFONT font = CreateFontA(
+        height, 0, 0, 0, weight, FALSE, FALSE, FALSE, ANSI_CHARSET,
+        OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
+        DEFAULT_PITCH | FF_SWISS, "Segoe UI");
+    HFONT previous = static_cast<HFONT>(SelectObject(dc, font));
+    SetBkMode(dc, TRANSPARENT);
+    SetTextColor(dc, color);
+    TextOutA(dc, x, y, text, static_cast<int>(std::strlen(text)));
+    SelectObject(dc, previous);
+    DeleteObject(font);
+}
+
+void HostRenderMenu() {
+    if (g_host.smoke_mode || g_host.device == nullptr ||
+        g_host.window == nullptr)
+        return;
+    g_host.device->Clear(0, nullptr, D3DCLEAR_TARGET,
+                         D3DCOLOR_XRGB(12, 20, 36), 1.0f, 0);
+    g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
+
+    HDC dc = GetDC(g_host.window);
+    HostDrawText(dc, 58, 42, "TOUHOU FUJINROKU",
+                 RGB(220, 240, 255), 34, FW_BOLD);
+    HostDrawText(dc, 61, 82, "Mountain of Faith - reconstructed PE32",
+                 RGB(130, 180, 220), 18, FW_NORMAL);
+    if (g_host.menu_screen == 0) {
+        for (int index = 0; index < kMainMenuItemCount; ++index) {
+            char label[64];
+            std::snprintf(label, sizeof(label), "%s  %s",
+                          index == g_host.menu_state.selection ? ">" : " ",
+                          kMainMenuItems[index]);
+            HostDrawText(dc, 90, 145 + index * 38, label,
+                         index == g_host.menu_state.selection
+                             ? RGB(255, 230, 120)
+                             : RGB(210, 220, 235),
+                         23, index == g_host.menu_state.selection ? FW_BOLD
+                                                           : FW_NORMAL);
+        }
+    } else {
+        HostDrawText(dc, 90, 155, "OPTIONS", RGB(255, 230, 120), 26, FW_BOLD);
+        char mode[64];
+        std::snprintf(mode, sizeof(mode), "> DISPLAY MODE: %s",
+                      g_host.menu_windowed ? "WINDOWED" : "FULLSCREEN");
+        HostDrawText(dc, 90, 215, mode, RGB(220, 235, 255), 22, FW_BOLD);
+    }
+    HostDrawText(dc, 58, 410, g_host.menu_status,
+                 RGB(145, 170, 195), 16, FW_NORMAL);
+    ReleaseDC(g_host.window, dc);
+}
+
+void HostDispatchTitleMenuAction(TitleMenuAction action) {
+    switch (action) {
+    case TITLE_MENU_ACTION_START:
+        g_host.menu_status =
+            "START dispatched; character/difficulty state is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_EXTRA:
+        g_host.menu_status =
+            "EXTRA dispatched; unlock and character state is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_PRACTICE:
+        g_host.menu_status =
+            "PRACTICE dispatched; stage selection is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_REPLAY:
+        g_host.menu_status = "REPLAY dispatched; browser state is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_MUSIC_ROOM:
+        g_host.menu_status =
+            "MUSIC ROOM dispatched; browser state is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_RESULTS:
+        g_host.menu_status = "RESULTS dispatched; result state is not linked yet";
+        break;
+    case TITLE_MENU_ACTION_OPTIONS:
+        g_host.menu_screen = 1;
+        g_host.menu_status = "Enter: toggle window mode    Esc: main menu";
+        return;
+    case TITLE_MENU_ACTION_QUIT:
+        g_host.menu_quit = 1;
+        return;
+    case TITLE_MENU_ACTION_NONE:
+        return;
+    }
+    TitleMainMenu_Initialize(&g_host.menu_state);
+}
+#endif
 
 // ---------------------------------------------------------------------------
 // Stub device state application (drives Device_ApplyDefaultState).
@@ -218,6 +375,15 @@ int HostRunSchedulerFrame(void*) {
     // counts toward the title-visible milestone.
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
+#if defined(_WIN32)
+    if (!g_host.smoke_mode && g_host.menu_screen == 0) {
+        TitleMenuAction action =
+            TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
+        g_host.menu_input = 0;
+        HostDispatchTitleMenuAction(action);
+    }
+    HostRenderMenu();
+#endif
     return 1; // keep running
 }
 int HostDrainSound(void*) {
@@ -263,7 +429,7 @@ int HostCreateWindow(void*) {
 #if defined(_WIN32)
     HINSTANCE instance = GetModuleHandleA(nullptr);
     WNDCLASSA window_class = {};
-    window_class.lpfnWndProc = DefWindowProcA;
+    window_class.lpfnWndProc = HostWindowProc;
     window_class.hInstance = instance;
     window_class.lpszClassName = "TH10ReconstructedWindow";
     if (RegisterClassA(&window_class) == 0 &&
@@ -273,6 +439,11 @@ int HostCreateWindow(void*) {
         window_class.lpszClassName, "TH10 reconstructed startup",
         WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480,
         nullptr, nullptr, instance, nullptr);
+    if (g_host.window != nullptr && !g_host.smoke_mode) {
+        g_host.menu_windowed = g_host.config.windowed != 0;
+        ShowWindow(g_host.window, SW_SHOW);
+        UpdateWindow(g_host.window);
+    }
     return g_host.window == nullptr ? -1 : 0;
 #else
     return 0;
@@ -439,6 +610,7 @@ int HostRegisterMainTasks(void*) {
         title_state.ready_flag == 1 &&
         title_state.title_resource != nullptr &&
         title_state.title_v_resource != nullptr;
+    TitleMainMenu_Initialize(&g_host.menu_state);
     return title_status;
 }
 int HostPumpMessages(void*) {
@@ -451,7 +623,8 @@ int HostPumpMessages(void*) {
         DispatchMessageA(&message);
     }
 #endif
-    // Quit after enough frames for the title milestone (smoke budget).
+    if (!g_host.smoke_mode)
+        return g_host.menu_quit;
     return g_host.title_frames_completed >= 60 ? 1 : 0;
 }
 int HostProbeDevice(void*) { return GAME_MAIN_DEVICE_READY; }
@@ -612,13 +785,23 @@ void HostShutdownMidi(void*) {
     };
     MidiPlayer_Shutdown(&hooks);
 }
-int HostSaveConfig(void*) { return 0; }
+int HostSaveConfig(void*) {
+    return HostConfigWrite(nullptr, "th10.cfg", &g_host.config);
+}
 void HostRestoreSpi(void*) {}
 void HostRestartPump(void*) {}
 
 } // namespace
 
-int main() {
+int main(int argc, char** argv) {
+#if defined(_WIN32)
+    g_host.smoke_mode =
+        argc > 1 && std::strcmp(argv[1], "--smoke") == 0;
+#else
+    (void)argc;
+    (void)argv;
+    g_host.smoke_mode = 1;
+#endif
 #if defined(_WIN32)
     if (!Resource_RegisterArchive("th10.dat")) {
         std::fprintf(stderr, "failed to mount th10.dat\n");

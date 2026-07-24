@@ -681,6 +681,14 @@ reconstructed archive, cipher, and LZSS code mounts it and extracts the real
 `title.anm` and `title_v.anm`. The scheduler/render callbacks remain a smoke
 harness rather than the complete playable title implementation.
 
+Running `./run_pe32.sh` without arguments opens the reconstructed retail
+main-menu control state from `0x0042D420`: eight retail entries, phased
+entry/input/exit timing, wrapped cursor movement, cancel-to-Quit, and the
+original action mapping. The current text drawing is explicitly a temporary
+host presentation backend; executing the `title.anm`/`title_v.anm` scripts
+through the recovered ANM VM and renderer is the next fidelity milestone.
+For deterministic automation, `./run_pe32.sh --smoke` remains available.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit

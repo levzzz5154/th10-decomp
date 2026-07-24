@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 3,
       "researched": 595,
-      "semantic": 28,
-      "unrecovered": 63
+      "semantic": 29,
+      "unrecovered": 62
     }
   },
   "functions": [
@@ -3814,8 +3814,8 @@
       "size": 1280,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042D420_FUN_0042d420.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/title_main_menu.cpp"
     },
     {
       "address": "0x0042D920",

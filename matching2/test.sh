@@ -9,6 +9,14 @@ python3 "$ROOT/tools/function_registry.py" --check
 python3 "$ROOT/tools/standalone_readiness.py" --check
 
 g++ -std=c++17 -Wall -Wextra -Werror \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/title_main_menu.cpp" \
+    "$ROOT/tests/title_main_menu_test.cpp" \
+    -o "$TEST_BUILD/title_main_menu_test"
+
+"$TEST_BUILD/title_main_menu_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/archive/crypt.cpp" \
