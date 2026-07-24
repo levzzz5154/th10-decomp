@@ -629,7 +629,7 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     return nullptr;
 }
 
-void HostDrawAnmVm(const HostAnmVm& runtime) {
+[[maybe_unused]] void HostDrawAnmVm(const HostAnmVm& runtime) {
     const AnmVmState& vm = runtime.state;
     int resource = runtime.resource_index;
     if (vm.sprite < 0 || resource < 0 || resource >= 3 ||
@@ -679,26 +679,110 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
     g_host.title_draw_calls += 1;
 }
 
+void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
+                           unsigned int* frame) {
+    const AnmVmState& vm = runtime.state;
+    int resource = runtime.resource_index;
+    if (vm.sprite < 0 || resource < 0 || resource >= 3 ||
+        g_host.title_resource_bytes[resource] == nullptr)
+        return;
+    AnmFileEntry entry;
+    AnmFileSprite sprite;
+    AnmTexturePayload payload;
+    if (!AnmFile_FindGlobalSprite(
+            g_host.title_resource_bytes[resource],
+            g_host.title_resource_sizes[resource],
+            static_cast<unsigned int>(vm.sprite), &entry, &sprite) ||
+        !AnmFile_GetTexture(&entry, &payload))
+        return;
+
+    float origin_x = vm.position[0];
+    float origin_y = vm.position[1];
+    for (const HostAnmVm* parent = runtime.parent;
+         parent != nullptr; parent = parent->parent) {
+        origin_x += parent->state.position[0];
+        origin_y += parent->state.position[1];
+    }
+    int width = static_cast<int>(sprite.width * vm.scale[0]);
+    int height = static_cast<int>(sprite.height * vm.scale[1]);
+    if (width <= 0 || height <= 0)
+        return;
+    int left = static_cast<int>(origin_x);
+    int top = static_cast<int>(origin_y);
+    int source_left = static_cast<int>(sprite.x);
+    int source_top = static_cast<int>(sprite.y);
+    int source_width = static_cast<int>(sprite.width);
+    int source_height = static_cast<int>(sprite.height);
+    unsigned int bytes_per_pixel = payload.format == 1 ? 4u :
+                                   payload.format == 5 ? 2u : 0u;
+    if (bytes_per_pixel == 0 || payload.height == 0)
+        return;
+    unsigned int source_pitch = payload.data_size / payload.height;
+
+    for (int y = 0; y < height; ++y) {
+        int destination_y = top + y;
+        if (destination_y < 0 || destination_y >= 480)
+            continue;
+        int source_y = source_top + y * source_height / height;
+        if (source_y < 0 || source_y >= payload.height)
+            continue;
+        for (int x = 0; x < width; ++x) {
+            int destination_x = left + x;
+            if (destination_x < 0 || destination_x >= 640)
+                continue;
+            int source_x = source_left + x * source_width / width;
+            if (source_x < 0 || source_x >= payload.width)
+                continue;
+            const unsigned char* pixel =
+                payload.pixels + source_y * source_pitch +
+                source_x * bytes_per_pixel;
+            unsigned int blue, green, red, alpha;
+            if (payload.format == 1) {
+                blue = pixel[0];
+                green = pixel[1];
+                red = pixel[2];
+                alpha = pixel[3];
+            } else {
+                unsigned int packed =
+                    static_cast<unsigned int>(pixel[0]) |
+                    (static_cast<unsigned int>(pixel[1]) << 8);
+                blue = (packed & 0xF) * 17;
+                green = ((packed >> 4) & 0xF) * 17;
+                red = ((packed >> 8) & 0xF) * 17;
+                alpha = ((packed >> 12) & 0xF) * 17;
+            }
+            blue = blue * vm.color[0] / 255;
+            green = green * vm.color[1] / 255;
+            red = red * vm.color[2] / 255;
+            alpha = alpha * vm.color[3] / 255;
+            unsigned int& destination =
+                frame[destination_y * 640 + destination_x];
+            unsigned int inverse = 255 - alpha;
+            unsigned int destination_blue = destination & 0xFF;
+            unsigned int destination_green = (destination >> 8) & 0xFF;
+            unsigned int destination_red = (destination >> 16) & 0xFF;
+            destination_blue =
+                (blue * alpha + destination_blue * inverse + 127) / 255;
+            destination_green =
+                (green * alpha + destination_green * inverse + 127) / 255;
+            destination_red =
+                (red * alpha + destination_red * inverse + 127) / 255;
+            destination = destination_blue |
+                          (destination_green << 8) |
+                          (destination_red << 16);
+        }
+    }
+    g_host.title_draw_calls += 1;
+}
+
 void HostRenderMenu() {
     if (g_host.smoke_mode || g_host.device == nullptr ||
         g_host.window == nullptr)
         return;
     static bool trace_render = true;
-    g_host.device->Clear(0, nullptr, D3DCLEAR_TARGET,
-                         D3DCOLOR_XRGB(12, 20, 36), 1.0f, 0);
-    g_host.device->BeginScene();
-    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    g_host.device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-    // Retail's batch renderer feeds per-sprite colour through D3DTA_TFACTOR.
-    // This standalone path carries the same value in the submitted vertex,
-    // so bind argument 2 to diffuse rather than the untouched default factor.
-    g_host.device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-    g_host.device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-    g_host.device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    static unsigned int frame[640 * 480];
+    for (unsigned int& pixel : frame)
+        pixel = 0x000C1424u;
     const HostAnmVm* draw_list[67] = {};
     int draw_count = 0;
     draw_list[draw_count++] = &g_host.title_vms[0];
@@ -720,11 +804,22 @@ void HostRenderMenu() {
         draw_list[insertion] = item;
     }
     for (int index = 0; index < draw_count; ++index)
-        HostDrawAnmVm(*draw_list[index]);
-    g_host.device->EndScene();
-    g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
+        HostDrawAnmVmSoftware(*draw_list[index], frame);
+    BITMAPINFO bitmap = {};
+    bitmap.bmiHeader.biSize = sizeof(bitmap.bmiHeader);
+    bitmap.bmiHeader.biWidth = 640;
+    bitmap.bmiHeader.biHeight = -480;
+    bitmap.bmiHeader.biPlanes = 1;
+    bitmap.bmiHeader.biBitCount = 32;
+    bitmap.bmiHeader.biCompression = BI_RGB;
+    HDC dc = GetDC(g_host.window);
+    int presented = SetDIBitsToDevice(
+        dc, 0, 0, 640, 480, 0, 0, 0, 480, frame, &bitmap,
+        DIB_RGB_COLORS);
+    ReleaseDC(g_host.window, dc);
     if (trace_render) {
-        HostTrace("title renderer presenting");
+        HostTrace(presented != 0 ? "software title renderer presenting" :
+                                  "software title renderer failed");
         trace_render = false;
     }
 }
@@ -1268,6 +1363,13 @@ bool HostLoadSigResource() {
     g_host.title_resource_bytes[2] = bytes;
     g_host.title_resource_sizes[2] = size;
     g_host.title_entries[2] = entry;
+    if (g_host.dump_anm) {
+        std::FILE* dump = std::fopen("sig.anm", "wb");
+        if (dump != nullptr) {
+            std::fwrite(bytes, 1, size, dump);
+            std::fclose(dump);
+        }
+    }
     return true;
 }
 #endif
