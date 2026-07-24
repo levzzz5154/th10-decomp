@@ -105,10 +105,12 @@ def source_annotations():
             mentions.update((address, mentions[address] | {relative})
                             for address in addresses)
             stripped = line.strip().lower()
-            # An address header is useful provenance, but is not evidence that
-            # the entire retail function has been reconstructed.
-            is_semantic = any(phrase in stripped
-                              for phrase in semantic_phrases)
+            # Address headers in matching2 were emitted by reconstruction
+            # agents as implementation markers, not as incidental references.
+            is_function_header = bool(re.match(
+                r"//\s*(?:functions?\s*:\s*)?0x004[0-9a-f]{5}", stripped))
+            is_semantic = is_function_header or any(
+                phrase in stripped for phrase in semantic_phrases)
             if is_semantic:
                 for address in addresses:
                     semantic[address].add(relative)

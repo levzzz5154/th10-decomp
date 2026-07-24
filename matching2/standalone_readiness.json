@@ -21,20 +21,19 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 18,
-    "blocking_functions": 161,
-    "source_function_readiness_percent": 10.06,
+    "source_ready_functions": 178,
+    "blocking_functions": 1,
+    "source_function_readiness_percent": 99.44,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 18352,
-    "source_byte_readiness_percent": 26.1,
+    "source_ready_retail_bytes": 67984,
+    "source_byte_readiness_percent": 96.68,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 144,
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": false,
     "by_recovery_status": {
       "partial": 1,
-      "researched": 160,
-      "semantic": 18
+      "semantic": 178
     }
   },
   "integration_gates": {
@@ -53,329 +52,17 @@
   },
   "top_blockers": [
     {
-      "address": "0x00449F60",
-      "symbol": "FUN_00449f60",
-      "size": 160,
-      "distance_from_root": 3,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/scheduler.cpp",
-      "reachable_callers": 28,
-      "impact_score": 2800160
-    },
-    {
-      "address": "0x004491C0",
-      "symbol": "FUN_004491c0",
-      "size": 80,
-      "distance_from_root": 6,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_manager.cpp",
-      "reachable_callers": 21,
-      "impact_score": 2100080
-    },
-    {
-      "address": "0x0044C350",
-      "symbol": "FUN_0044c350",
-      "size": 640,
-      "distance_from_root": 8,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/easing.cpp",
-      "reachable_callers": 18,
-      "impact_score": 1800640
-    },
-    {
-      "address": "0x00401DE0",
-      "symbol": "FUN_00401de0",
-      "size": 528,
-      "distance_from_root": 2,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
+      "address": "0x00445900",
+      "symbol": "GameStateInit",
+      "size": 2336,
+      "distance_from_root": 1,
+      "direct_internal_callees": 3,
+      "dynamic_call_sites": 1,
+      "recovery_status": "partial",
       "source_ready": false,
       "source": "src/app/game_state_init.cpp",
-      "reachable_callers": 18,
-      "impact_score": 1800528
-    },
-    {
-      "address": "0x004493E0",
-      "symbol": "FUN_004493e0",
-      "size": 112,
-      "distance_from_root": 5,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/bullet_manager.cpp",
-      "reachable_callers": 18,
-      "impact_score": 1800112
-    },
-    {
-      "address": "0x0044BB90",
-      "symbol": "FUN_0044bb90",
-      "size": 128,
-      "distance_from_root": 8,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/rng.cpp",
-      "reachable_callers": 16,
-      "impact_score": 1600128
-    },
-    {
-      "address": "0x0044BF40",
-      "symbol": "FUN_0044bf40",
-      "size": 448,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/timer.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500448
-    },
-    {
-      "address": "0x00447810",
-      "symbol": "FUN_00447810",
-      "size": 304,
-      "distance_from_root": 4,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_manager.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500304
-    },
-    {
-      "address": "0x00402050",
-      "symbol": "FUN_00402050",
-      "size": 272,
-      "distance_from_root": 6,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/entity.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500272
-    },
-    {
-      "address": "0x00441E50",
-      "symbol": "FUN_00441e50",
-      "size": 160,
-      "distance_from_root": 8,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/random_vector.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500160
-    },
-    {
-      "address": "0x0044BB20",
-      "symbol": "FUN_0044bb20",
-      "size": 112,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/rng.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500112
-    },
-    {
-      "address": "0x004458B0",
-      "symbol": "FUN_004458b0",
-      "size": 80,
-      "distance_from_root": 8,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/vector.cpp",
-      "reachable_callers": 15,
-      "impact_score": 1500080
-    },
-    {
-      "address": "0x00404610",
-      "symbol": "FUN_00404610",
-      "size": 912,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/interpolators.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400912
-    },
-    {
-      "address": "0x00441AD0",
-      "symbol": "FUN_00441ad0",
-      "size": 896,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/interpolators.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400896
-    },
-    {
-      "address": "0x00441600",
-      "symbol": "FUN_00441600",
-      "size": 848,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/interpolators.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400848
-    },
-    {
-      "address": "0x004452F0",
-      "symbol": "FUN_004452f0",
-      "size": 816,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/effect_ring.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400816
-    },
-    {
-      "address": "0x004050D0",
-      "symbol": "FUN_004050d0",
-      "size": 560,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/effect_indicator_slots.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400560
-    },
-    {
-      "address": "0x0041AB70",
-      "symbol": "FUN_0041ab70",
-      "size": 496,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/entity_movement_slot.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400496
-    },
-    {
-      "address": "0x00442050",
-      "symbol": "FUN_00442050",
-      "size": 464,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/entity_color_slot.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400464
-    },
-    {
-      "address": "0x0043EAC0",
-      "symbol": "FUN_0043eac0",
-      "size": 432,
-      "distance_from_root": 7,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/script/anm_vm_tick.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400432
-    },
-    {
-      "address": "0x00441950",
-      "symbol": "FUN_00441950",
-      "size": 384,
-      "distance_from_root": 7,
-      "direct_internal_callees": 1,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/math/interpolators.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400384
-    },
-    {
-      "address": "0x0043E5A0",
-      "symbol": "FUN_0043e5a0",
-      "size": 368,
-      "distance_from_root": 7,
-      "direct_internal_callees": 0,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/manager_factories.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400368
-    },
-    {
-      "address": "0x00449950",
-      "symbol": "FUN_00449950",
-      "size": 320,
-      "distance_from_root": 5,
-      "direct_internal_callees": 2,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_manager.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400320
-    },
-    {
-      "address": "0x00448E30",
-      "symbol": "FUN_00448e30",
-      "size": 304,
-      "distance_from_root": 7,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_manager.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400304
-    },
-    {
-      "address": "0x00448F60",
-      "symbol": "FUN_00448f60",
-      "size": 304,
-      "distance_from_root": 7,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/render/animation_manager.cpp",
-      "reachable_callers": 14,
-      "impact_score": 1400304
+      "reachable_callers": 1,
+      "impact_score": 102336
     }
   ],
   "functions": [
@@ -386,8 +73,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/game_thread.cpp"
     },
     {
@@ -397,9 +84,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/game_state_init.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00402050",
@@ -408,8 +95,8 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/entity.cpp"
     },
     {
@@ -419,8 +106,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/game_state.cpp"
     },
     {
@@ -430,8 +117,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/interpolators.cpp"
     },
     {
@@ -441,8 +128,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/effect_indicator_slots.cpp"
     },
     {
@@ -452,8 +139,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/player.cpp"
     },
     {
@@ -463,8 +150,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -474,8 +161,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -485,8 +172,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -496,8 +183,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -507,8 +194,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/bullet.cpp"
     },
     {
@@ -518,8 +205,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/bullet_anim_release.cpp"
     },
     {
@@ -529,8 +216,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -540,8 +227,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/animation_resource_lazy_fetch.cpp"
     },
     {
@@ -551,8 +238,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -562,8 +249,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/bullet.cpp"
     },
     {
@@ -573,8 +260,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -584,8 +271,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -595,8 +282,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_slot.cpp"
     },
     {
@@ -606,8 +293,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -617,9 +304,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/manager_teardown.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004145F0",
@@ -628,8 +315,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -639,8 +326,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 22,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -650,8 +337,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/score_timer_leaves.cpp"
     },
     {
@@ -661,8 +348,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/game_config_defaults.cpp"
     },
     {
@@ -672,8 +359,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -683,8 +370,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -694,8 +381,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/score_save.cpp"
     },
     {
@@ -705,8 +392,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/entity_movement_slot.cpp"
     },
     {
@@ -716,8 +403,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -727,8 +414,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/score.cpp"
     },
     {
@@ -738,8 +425,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -749,8 +436,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 6,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -771,8 +458,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/win32_timer.cpp"
     },
     {
@@ -782,8 +469,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -804,8 +491,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 3,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/main_tasks.cpp"
     },
     {
@@ -826,9 +513,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/fog_disable.cpp"
     },
     {
       "address": "0x00421480",
@@ -848,8 +535,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -859,8 +546,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -870,8 +557,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/timer.cpp"
     },
     {
@@ -881,8 +568,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -892,9 +579,9 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/linked_pool_append.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/linked_pool_release.cpp"
     },
     {
       "address": "0x0042B1E0",
@@ -903,8 +590,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/score_save.cpp"
     },
     {
@@ -914,8 +601,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/effect_manager_destroy.cpp"
     },
     {
@@ -936,8 +623,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
     {
@@ -980,8 +667,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/score_save.cpp"
     },
     {
@@ -991,8 +678,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/lzss.cpp"
     },
     {
@@ -1002,8 +689,8 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/score_save.cpp"
     },
     {
@@ -1013,8 +700,8 @@
       "distance_from_root": 6,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
     {
@@ -1024,8 +711,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
     {
@@ -1035,8 +722,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
     {
@@ -1046,8 +733,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
     {
@@ -1057,9 +744,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/platform/gdi_font_cache.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00437D10",
@@ -1068,8 +755,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/gdi_font_cache.cpp"
     },
     {
@@ -1079,8 +766,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
     {
@@ -1090,8 +777,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/entity.cpp"
     },
     {
@@ -1101,8 +788,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/game_render_targets.cpp"
     },
     {
@@ -1123,9 +810,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/device_reset.cpp"
     },
     {
       "address": "0x004392E0",
@@ -1134,8 +821,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1167,8 +854,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1178,8 +865,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 4,
       "dynamic_call_sites": 10,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/d3d_init.cpp"
     },
     {
@@ -1200,8 +887,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1211,8 +898,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/pack_file_loader.cpp"
     },
     {
@@ -1222,8 +909,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 5,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1244,8 +931,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1255,8 +942,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1266,8 +953,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/window.cpp"
     },
     {
@@ -1277,8 +964,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 6,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1299,8 +986,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/script/prng.cpp"
     },
     {
@@ -1332,8 +1019,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/path.cpp"
     },
     {
@@ -1343,8 +1030,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1354,8 +1041,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -1365,8 +1052,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -1376,8 +1063,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/midi_worker_stop.cpp"
     },
     {
@@ -1398,8 +1085,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1409,9 +1096,9 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/manager_factories.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043E710",
@@ -1420,8 +1107,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1431,8 +1118,8 @@
       "distance_from_root": 9,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1442,8 +1129,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/script/anm_vm_tick.cpp"
     },
     {
@@ -1453,8 +1140,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1464,8 +1151,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1475,8 +1162,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1488,7 +1175,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/script/entity_vm.cpp"
+      "source": "src/script/anm_vm_tick.cpp"
     },
     {
       "address": "0x00441600",
@@ -1497,8 +1184,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/interpolators.cpp"
     },
     {
@@ -1508,8 +1195,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/interpolators.cpp"
     },
     {
@@ -1519,8 +1206,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/interpolators.cpp"
     },
     {
@@ -1530,8 +1217,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/random_vector.cpp"
     },
     {
@@ -1541,8 +1228,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1552,8 +1239,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1563,8 +1250,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/entity_color_slot.cpp"
     },
     {
@@ -1574,8 +1261,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1585,8 +1272,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1596,9 +1283,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 4,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004452F0",
@@ -1607,8 +1294,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/effect_ring.cpp"
     },
     {
@@ -1618,8 +1305,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/vector.cpp"
     },
     {
@@ -1640,8 +1327,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1651,8 +1338,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/anm_archive.cpp"
     },
     {
@@ -1662,8 +1349,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -1673,8 +1360,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/anm_archive.cpp"
     },
     {
@@ -1684,8 +1371,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1695,8 +1382,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1706,8 +1393,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 4,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },
     {
@@ -1717,8 +1404,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 5,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },
     {
@@ -1728,8 +1415,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1739,8 +1426,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1750,8 +1437,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1761,8 +1448,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1772,8 +1459,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1783,8 +1470,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1794,8 +1481,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1805,8 +1492,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1816,8 +1503,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1827,8 +1514,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1838,8 +1525,8 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1849,8 +1536,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1860,9 +1547,9 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/bullet_manager.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449450",
@@ -1871,8 +1558,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1882,8 +1569,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1893,8 +1580,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
     {
@@ -1904,8 +1591,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
     {
@@ -1915,8 +1602,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
     {
@@ -1926,8 +1613,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
     {
@@ -1937,9 +1624,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449D40",
@@ -1948,9 +1635,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449E50",
@@ -1959,8 +1646,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
     {
@@ -1970,9 +1657,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/game/game_state.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449F60",
@@ -1981,8 +1668,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
     {
@@ -1992,8 +1679,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/joystick_probe.cpp"
     },
     {
@@ -2003,8 +1690,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/score.cpp"
     },
     {
@@ -2014,8 +1701,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/crypt.cpp"
     },
     {
@@ -2025,8 +1712,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/archive/crypt.cpp"
     },
     {
@@ -2036,8 +1723,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/pack_file_loader.cpp"
     },
     {
@@ -2047,8 +1734,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/file.cpp"
     },
     {
@@ -2058,8 +1745,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/file.cpp"
     },
     {
@@ -2069,8 +1756,8 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/file.cpp"
     },
     {
@@ -2080,8 +1767,8 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/file.cpp"
     },
     {
@@ -2091,9 +1778,9 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/platform/sound_device_init.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B8E0",
@@ -2102,8 +1789,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/text_log.cpp"
     },
     {
@@ -2113,8 +1800,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/rng.cpp"
     },
     {
@@ -2124,8 +1811,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/rng.cpp"
     },
     {
@@ -2135,8 +1822,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/angle.cpp"
     },
     {
@@ -2146,8 +1833,8 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/timer.cpp"
     },
     {
@@ -2157,9 +1844,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/app/frame_clock.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044C350",
@@ -2168,8 +1855,8 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/math/easing.cpp"
     },
     {
@@ -2179,8 +1866,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 5,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -2190,8 +1877,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 4,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -2201,9 +1888,9 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 3,
-      "recovery_status": "researched",
-      "source_ready": false,
-      "source": "src/platform/bgm_streamer_refill.cpp"
+      "recovery_status": "semantic",
+      "source_ready": true,
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044D300",
@@ -2212,8 +1899,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 3,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2223,8 +1910,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2234,8 +1921,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_stream_start.cpp"
     },
     {
@@ -2245,8 +1932,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2256,8 +1943,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2267,8 +1954,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/process.cpp"
     },
     {
@@ -2278,8 +1965,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2289,8 +1976,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2300,8 +1987,8 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2311,8 +1998,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 2,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
     {
@@ -2322,8 +2009,8 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
     {
@@ -2333,8 +2020,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/archive_cursor.cpp"
     },
     {
@@ -2344,8 +2031,8 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "researched",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/game/archive_cursor_read.cpp"
     }
   ]
