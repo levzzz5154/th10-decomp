@@ -28,6 +28,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <cmath>
 
 #if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN
@@ -525,6 +526,31 @@ IDirectSoundBuffer* HostLoadArchiveWave(const char* name) {
     return result;
 }
 
+LONG HostDirectSoundVolume(int percent) {
+    if (percent <= 0)
+        return DSBVOLUME_MIN;
+    if (percent >= 100)
+        return DSBVOLUME_MAX;
+    // DirectSound volume is measured in hundredths of a decibel. The retail
+    // options store linear amplitude percentages, so convert 20*log10(p).
+    double attenuation =
+        2000.0 * std::log10(static_cast<double>(percent) / 100.0);
+    if (attenuation < static_cast<double>(DSBVOLUME_MIN))
+        attenuation = static_cast<double>(DSBVOLUME_MIN);
+    return static_cast<LONG>(attenuation);
+}
+
+void HostApplyAudioVolumes() {
+    if (g_host.bgm_buffer != nullptr)
+        g_host.bgm_buffer->SetVolume(
+            HostDirectSoundVolume(g_host.options_config.music_volume));
+    LONG sound_volume =
+        HostDirectSoundVolume(g_host.options_config.sound_volume);
+    for (IDirectSoundBuffer* buffer : g_host.menu_sound_buffers)
+        if (buffer != nullptr)
+            buffer->SetVolume(sound_volume);
+}
+
 bool HostStartTitleBgm() {
     unsigned int fmt_size = Resource_GetFileSize("th10/thbgm.fmt");
     if (fmt_size < 52)
@@ -562,7 +588,8 @@ bool HostStartTitleBgm() {
     std::free(pcm);
     if (g_host.bgm_buffer == nullptr)
         return false;
-    g_host.bgm_buffer->SetVolume(DSBVOLUME_MAX);
+    g_host.bgm_buffer->SetVolume(
+        HostDirectSoundVolume(g_host.options_config.music_volume));
     return SUCCEEDED(g_host.bgm_buffer->Play(0, 0, DSBPLAY_LOOPING));
 }
 
@@ -570,6 +597,8 @@ void HostPlayMenuSound(int index) {
     if (index < 0 || index >= 3 ||
         g_host.menu_sound_buffers[index] == nullptr)
         return;
+    g_host.menu_sound_buffers[index]->SetVolume(
+        HostDirectSoundVolume(g_host.options_config.sound_volume));
     g_host.menu_sound_buffers[index]->Stop();
     g_host.menu_sound_buffers[index]->SetCurrentPosition(0);
     g_host.menu_sound_buffers[index]->Play(0, 0, 0);
@@ -911,6 +940,7 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
         action == TITLE_OPTIONS_ACTION_DEFAULTS) {
         g_host.config.bgm_mode =
             static_cast<unsigned char>(g_host.options_config.bgm_mode);
+        HostApplyAudioVolumes();
         HostRefreshOptionsSprites();
         HostRefreshBgmModeVisual();
         return;
