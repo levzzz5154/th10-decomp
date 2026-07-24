@@ -718,6 +718,15 @@ VM layer field, `title_v.anm` runs as a separate version-overlay VM, and the
 window dimensions are adjusted to provide an exact 640x480 client/backbuffer
 pair.
 
+Startup follows the retail visual order captured in `retail-screenshots/`.
+The host first loads and executes `sig.anm` scripts 0/1, then replaces that
+tree with title scripts 88/90 and waits at the retail “Press Any Button”
+screen. Confirm/cancel input sends interrupt 6 to script 90; after its
+30-frame exit animation, only that overlay tree is retired and script 0
+creates the interactive main menu over the still-running script-88
+background. The title BGM begins when the loading phase hands off to the
+title phase.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit

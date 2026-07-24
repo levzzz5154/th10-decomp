@@ -82,9 +82,9 @@ struct HostContext {
     int title_resources_loaded = 0;
     int title_resources_from_archive = 0;
     int title_resource_error = 0;
-    unsigned char* title_resource_bytes[2] = {};
-    unsigned int title_resource_sizes[2] = {};
-    AnmFileEntry title_entries[2] = {};
+    unsigned char* title_resource_bytes[3] = {};
+    unsigned int title_resource_sizes[3] = {};
+    AnmFileEntry title_entries[3] = {};
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
@@ -106,6 +106,9 @@ struct HostContext {
     int smoke_mode = 1;
     int dump_anm = 0;
     int menu_screen = 0;
+    int title_flow = 0; // 0=sig/loading, 1=press, 2=main/submenus
+    int title_flow_frame = 0;
+    int title_transition_frame = 0;
     int menu_quit = 0;
     int menu_windowed = 1;
     uint32_t menu_input = 0;
@@ -125,8 +128,8 @@ struct HostContext {
     IDirectSound8* direct_sound = nullptr;
     IDirectSoundBuffer* bgm_buffer = nullptr;
     IDirectSoundBuffer* menu_sound_buffers[3] = {};
-    const uint8_t* anm_texture_entry_bases[16] = {};
-    IDirect3DTexture9* anm_textures[16] = {};
+    const uint8_t* anm_texture_entry_bases[32] = {};
+    IDirect3DTexture9* anm_textures[32] = {};
 #endif
 };
 
@@ -220,20 +223,33 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
     hooks.wrap_angle = HostAnmWrapAngle;
     hooks.start_ring_mode = [](void*, AnmVmState*) {};
     hooks.spawn_child = [](void* context, AnmVmState*, int, int script_id) {
-        if (g_host.title_child_vm_count >= 64 ||
-            g_host.title_resource_bytes[0] == nullptr)
+        HostAnmVm* parent = static_cast<HostAnmVm*>(context);
+        int resource = parent->resource_index;
+        if (resource < 0 || resource >= 3 ||
+            g_host.title_resource_bytes[resource] == nullptr)
             return;
         AnmFileScript script;
         if (!AnmFile_FindGlobalScript(
-                g_host.title_resource_bytes[0],
-                g_host.title_resource_sizes[0],
+                g_host.title_resource_bytes[resource],
+                g_host.title_resource_sizes[resource],
                 static_cast<unsigned int>(script_id), nullptr, &script))
             return;
-        HostAnmVm* child =
-            &g_host.title_child_vms[g_host.title_child_vm_count++];
+        int slot = -1;
+        for (int index = 0; index < g_host.title_child_vm_count; ++index)
+            if (!g_host.title_child_vms[index].active) {
+                slot = index;
+                break;
+            }
+        if (slot < 0) {
+            if (g_host.title_child_vm_count >= 64)
+                return;
+            slot = g_host.title_child_vm_count++;
+        }
+        HostAnmVm* child = &g_host.title_child_vms[slot];
         HostInitializeAnmVm(child, script.instructions);
         child->script_id = script_id;
-        child->parent = static_cast<HostAnmVm*>(context);
+        child->resource_index = resource;
+        child->parent = parent;
     };
     hooks.update_ring_vertices = [](void*, AnmVmState*) {};
     hooks.set_blend_bits =
@@ -281,11 +297,50 @@ bool HostStartTitleScripts(unsigned int first, unsigned int second) {
     return true;
 }
 
+bool HostStartSigScript() {
+    AnmFileScript script;
+    if (g_host.title_resource_bytes[2] == nullptr ||
+        !AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[2],
+            g_host.title_resource_sizes[2], 0, nullptr, &script))
+        return false;
+    g_host.title_child_vm_count = 0;
+    std::memset(g_host.title_child_vms, 0,
+                sizeof(g_host.title_child_vms));
+    HostInitializeAnmVm(&g_host.title_vms[0], script.instructions);
+    g_host.title_vms[0].resource_index = 2;
+    g_host.title_vms[1] = {};
+    g_host.title_vm_ready = 1;
+    return true;
+}
+
+bool HostSwitchTitleOverlay(unsigned int script_id) {
+    AnmFileScript script;
+    if (!AnmFile_FindGlobalScript(
+            g_host.title_resource_bytes[0],
+            g_host.title_resource_sizes[0], script_id, nullptr, &script))
+        return false;
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* ancestor = g_host.title_child_vms[index].parent;
+        while (ancestor != nullptr && ancestor != &g_host.title_vms[1])
+            ancestor = ancestor->parent;
+        if (ancestor == &g_host.title_vms[1])
+            g_host.title_child_vms[index].active = 0;
+    }
+    HostInitializeAnmVm(&g_host.title_vms[1], script.instructions);
+    return true;
+}
+
 void HostBroadcastTitleInterrupt(int interrupt) {
     g_host.title_vms[1].state.pending_interrupt = interrupt;
-    for (int index = 0; index < g_host.title_child_vm_count; ++index)
-        if (g_host.title_child_vms[index].active)
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* ancestor = g_host.title_child_vms[index].parent;
+        while (ancestor != nullptr && ancestor != &g_host.title_vms[1])
+            ancestor = ancestor->parent;
+        if (g_host.title_child_vms[index].active &&
+            ancestor == &g_host.title_vms[1])
             g_host.title_child_vms[index].state.pending_interrupt = interrupt;
+    }
 }
 
 void HostRefreshOptionsSprites() {
@@ -505,7 +560,7 @@ void HostPollKeyboard() {
 }
 
 IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
-    for (int index = 0; index < 16; ++index) {
+    for (int index = 0; index < 32; ++index) {
         if (g_host.anm_texture_entry_bases[index] == entry.base)
             return g_host.anm_textures[index];
     }
@@ -555,7 +610,7 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
                     payload.pixels + row * source_pitch, copy_pitch);
     }
     texture->UnlockRect(0);
-    for (int index = 0; index < 16; ++index) {
+    for (int index = 0; index < 32; ++index) {
         if (g_host.anm_texture_entry_bases[index] == nullptr) {
             g_host.anm_texture_entry_bases[index] = entry.base;
             g_host.anm_textures[index] = texture;
@@ -569,7 +624,7 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
 void HostDrawAnmVm(const HostAnmVm& runtime) {
     const AnmVmState& vm = runtime.state;
     int resource = runtime.resource_index;
-    if (vm.sprite < 0 || resource < 0 || resource >= 2 ||
+    if (vm.sprite < 0 || resource < 0 || resource >= 3 ||
         g_host.title_resource_bytes[resource] == nullptr)
         return;
     AnmFileEntry entry;
@@ -643,7 +698,7 @@ void HostRenderMenu() {
     for (int index = 0; index < g_host.title_child_vm_count; ++index)
         if (g_host.title_child_vms[index].active)
             draw_list[draw_count++] = &g_host.title_child_vms[index];
-    if (g_host.title_version_vm_ready)
+    if (g_host.title_flow != 0 && g_host.title_version_vm_ready)
         draw_list[draw_count++] = &g_host.title_version_vm;
     for (int index = 1; index < draw_count; ++index) {
         const HostAnmVm* item = draw_list[index];
@@ -900,11 +955,48 @@ int HostRunSchedulerFrame(void*) {
         if (g_host.menu_screen == 4)
             HostRefreshOptionsSprites();
     }
-    if (g_host.title_version_vm_ready) {
+    if (g_host.title_flow != 0 && g_host.title_version_vm_ready) {
         AnmVmHooks hooks = HostAnmHooks(&g_host.title_version_vm);
         AnmVm_Tick(&g_host.title_version_vm.state, &hooks);
     }
-    if (!g_host.smoke_mode && g_host.menu_screen == 0) {
+    if (g_host.title_flow == 0) {
+        g_host.title_flow_frame += 1;
+        int sig_frames = g_host.smoke_mode ? 1 : 90;
+        if (g_host.title_flow_frame >= sig_frames) {
+            HostStartTitleScripts(88, 90);
+            if (!g_host.smoke_mode)
+                HostTrace(HostStartTitleBgm() ? "title BGM playing" :
+                                                "title BGM unavailable");
+            if (!g_host.smoke_mode)
+                HostTrace("entered Press Any Button title phase");
+            g_host.title_flow = 1;
+            g_host.title_flow_frame = 0;
+            g_host.menu_input = 0;
+        }
+    } else if (g_host.title_flow == 1) {
+        g_host.title_flow_frame += 1;
+        bool pressed = g_host.menu_input != 0 ||
+                       (g_host.smoke_mode &&
+                        g_host.title_flow_frame >= 1);
+        if (g_host.title_transition_frame == 0 && pressed) {
+            HostBroadcastTitleInterrupt(6);
+            if (!g_host.smoke_mode)
+                HostPlayMenuSound(1);
+            g_host.title_transition_frame = 1;
+        } else if (g_host.title_transition_frame > 0) {
+            g_host.title_transition_frame += 1;
+            if (g_host.title_transition_frame >= 30) {
+                HostSwitchTitleOverlay(0);
+                TitleMainMenu_Initialize(&g_host.menu_state);
+                g_host.title_flow = 2;
+                g_host.title_flow_frame = 0;
+                g_host.title_transition_frame = 0;
+                if (!g_host.smoke_mode)
+                    HostTrace("entered interactive main-menu phase");
+            }
+        }
+        g_host.menu_input = 0;
+    } else if (!g_host.smoke_mode && g_host.menu_screen == 0) {
         int old_selection = g_host.menu_state.selection;
         int old_phase = g_host.menu_state.phase;
         TitleMenuAction action =
@@ -1109,8 +1201,6 @@ void* HostSpawnSoundWorker(void*) {
             HostLoadArchiveWave("se_ok00.wav");
         g_host.menu_sound_buffers[2] =
             HostLoadArchiveWave("se_cancel00.wav");
-        HostTrace(HostStartTitleBgm() ? "title BGM playing" :
-                                        "title BGM unavailable");
     }
     if (!g_host.smoke_mode)
         HostTrace("DirectSound device ready");
@@ -1150,6 +1240,30 @@ double HostReadClock(void*) {
 }
 void HostSetForeground(void*) {}
 
+#if defined(_WIN32)
+bool HostLoadSigResource() {
+    unsigned int size = Resource_GetFileSize("th10/sig.anm");
+    if (size == 0)
+        return false;
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(size));
+    if (bytes == nullptr ||
+        Resource_LoadFile("th10/sig.anm", bytes) == nullptr) {
+        std::free(bytes);
+        return false;
+    }
+    AnmFileEntry entry;
+    if (!AnmFile_ParseEntry(bytes, size, 0, &entry)) {
+        std::free(bytes);
+        return false;
+    }
+    g_host.title_resource_bytes[2] = bytes;
+    g_host.title_resource_sizes[2] = size;
+    g_host.title_entries[2] = entry;
+    return true;
+}
+#endif
+
 int32_t* HostFindTitleResource(int32_t slot, const char* name) {
 #if defined(_WIN32)
     int index = slot == 0x19 ? 0 : slot == 0x1A ? 1 : -1;
@@ -1172,20 +1286,15 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
     if (AnmFile_ParseEntry(bytes, size, 0, &g_host.title_entries[index])) {
         if (index == 0) {
             AnmFileScript main_script;
+            AnmFileScript press_script;
             AnmFileScript menu_script;
             g_host.title_anm_parsed =
                 AnmFile_FindGlobalScript(bytes, size, 88, nullptr,
                                          &main_script) &&
+                AnmFile_FindGlobalScript(bytes, size, 90, nullptr,
+                                         &press_script) &&
                 AnmFile_FindGlobalScript(bytes, size, 0, nullptr,
                                          &menu_script);
-            if (g_host.title_anm_parsed) {
-                HostInitializeAnmVm(&g_host.title_vms[0],
-                                    main_script.instructions);
-                HostInitializeAnmVm(&g_host.title_vms[1],
-                                    menu_script.instructions);
-                g_host.title_vms[1].state.pending_interrupt = 17;
-                g_host.title_vm_ready = 1;
-            }
         } else {
             AnmFileScript version_script;
             if (AnmFile_FindGlobalScript(
@@ -1254,6 +1363,14 @@ int HostRegisterMainTasks(void*) {
         title_state.title_resource != nullptr &&
         title_state.title_v_resource != nullptr;
     TitleMainMenu_Initialize(&g_host.menu_state);
+    g_host.title_flow = 0;
+    g_host.title_flow_frame = 0;
+#if defined(_WIN32)
+    if (!HostLoadSigResource() || !HostStartSigScript())
+        return -1;
+    if (!g_host.smoke_mode)
+        HostTrace("entered sig.anm loading phase");
+#endif
     return title_status;
 }
 int HostPumpMessages(void*) {
@@ -1404,7 +1521,7 @@ void HostDestroySound(void*) {
 }
 void HostDestroyGameState(void*, void* manager) {
 #if defined(_WIN32)
-    for (int index = 0; index < 2; ++index) {
+    for (int index = 0; index < 3; ++index) {
         std::free(g_host.title_resource_bytes[index]);
         g_host.title_resource_bytes[index] = nullptr;
     }
@@ -1424,7 +1541,7 @@ void HostReleaseDeviceChain(void*) {
         g_host.direct_input = nullptr;
     }
     if (g_host.device != nullptr) {
-        for (int index = 0; index < 16; ++index) {
+        for (int index = 0; index < 32; ++index) {
             if (g_host.anm_textures[index] != nullptr) {
                 g_host.anm_textures[index]->Release();
                 g_host.anm_textures[index] = nullptr;
@@ -1539,6 +1656,8 @@ int main(int argc, char** argv) {
                 g_host.title_draw_calls);
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
+    std::printf("  ordered title flow reached: %s\n",
+                g_host.title_flow == 2 ? "main menu" : "incomplete");
     std::printf("  clean shutdown: %s\n",
                 g_host.clean_shutdown ? "yes" : "no");
     std::printf("  GameMain_Run exit code: %d\n", exit_code);
@@ -1552,6 +1671,7 @@ int main(int argc, char** argv) {
              g_host.title_resources_loaded &&
              g_host.title_anm_parsed &&
              g_host.title_child_vm_count >= 3 &&
+             g_host.title_flow == 2 &&
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;
