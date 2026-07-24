@@ -438,12 +438,35 @@ void HostRenderMenu() {
     static bool trace_render = true;
     if (trace_render)
         HostTrace("beginning first title render");
+    if (trace_render) {
+        std::fprintf(stderr,
+                     "[th10-recon] root sprites: %d %d; children:",
+                     g_host.title_vms[0].state.sprite,
+                     g_host.title_vms[1].state.sprite);
+        for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+            const HostAnmVm& child = g_host.title_child_vms[index];
+            if (child.active)
+                std::fprintf(stderr, " %d:%d", child.script_id,
+                             child.state.sprite);
+        }
+        std::fprintf(stderr, "\n");
+        std::fflush(stderr);
+    }
     g_host.device->Clear(0, nullptr, D3DCLEAR_TARGET,
                          D3DCOLOR_XRGB(12, 20, 36), 1.0f, 0);
     g_host.device->BeginScene();
     g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     g_host.device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    // Retail's batch renderer feeds per-sprite colour through D3DTA_TFACTOR.
+    // This standalone path carries the same value in the submitted vertex,
+    // so bind argument 2 to diffuse rather than the untouched default factor.
+    g_host.device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    g_host.device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    g_host.device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    g_host.device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
     HostDrawAnmVm(g_host.title_vms[0].state);
     HostDrawAnmVm(g_host.title_vms[1].state);
     for (int index = 0; index < g_host.title_child_vm_count; ++index)
