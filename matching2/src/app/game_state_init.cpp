@@ -17,10 +17,6 @@ unsigned short* WordAt(void* arena, unsigned int offset) {
     return reinterpret_cast<unsigned short*>(ByteAt(arena, offset));
 }
 
-inline float* FloatAt(void* arena, unsigned int offset) {
-    return reinterpret_cast<float*>(ByteAt(arena, offset));
-}
-
 } // namespace
 
 // 0x00445900 - GameStateInit: construct the 0x732460-byte game-state arena.

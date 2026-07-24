@@ -660,6 +660,23 @@ linking, task-registration wiring, and the sound/joystick error paths).
 
 ## Standalone startup-to-title milestone
 
+The harness has both a native developer build and a genuine, self-contained
+32-bit Windows build:
+
+```bash
+./build_standalone.sh
+./run_standalone.sh
+
+# Requires LLVM-MinGW (set LLVM_MINGW_ROOT when it is not in /opt/llvm-mingw).
+./build_pe32.sh
+./run_pe32.sh
+```
+
+`build/pe32/th10_standalone.exe` is a PE32 console executable and runs under
+Wine without copying or overlaying the retail executable. It still uses the
+headless host services described below; this target proves the reconstructed
+C++ startup slice and its 32-bit ABI before graphics/audio adapters are added.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit

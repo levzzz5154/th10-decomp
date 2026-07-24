@@ -24,6 +24,13 @@
 #include <cstring>
 #include <ctime>
 
+static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
+              "unsupported host pointer size");
+#if defined(_WIN32)
+static_assert(sizeof(void*) == 4,
+              "the Windows standalone target must preserve the retail PE32 ABI");
+#endif
+
 uint32_t DAT_00491be4 = 0;
 uint8_t DAT_00491d6a = 0;
 float DAT_00476f78 = 1.0f;
