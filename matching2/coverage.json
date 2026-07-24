@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 620,
-        "retail_bytes": 202656
+        "function_count": 621,
+        "retail_bytes": 204992
       },
       "exact-overlay": {
         "function_count": 33,
@@ -50,9 +50,9 @@
         "minimum_size": 1024,
         "maximum_size_exclusive": null,
         "tracked_functions": 69,
-        "implemented_functions": 24,
+        "implemented_functions": 25,
         "tracked_bytes": 159312,
-        "implemented_bytes": 46800
+        "implemented_bytes": 49136
       }
     ]
   },
@@ -1377,8 +1377,9 @@
       "address": "0x00418190",
       "symbol": "FUN_00418190",
       "size": 1664,
-      "status": "unrecovered",
-      "source": "unrecovered"
+      "status": "partial",
+      "source": "src/game/stage_update.cpp",
+      "blocker": "Core stage-update flow recovered; remaining retail transition branches require cross-checking"
     },
     {
       "address": "0x00418810",
@@ -4138,9 +4139,8 @@
       "address": "0x00445900",
       "symbol": "GameStateInit",
       "size": 2336,
-      "status": "partial",
-      "source": "src/app/game_state_init.cpp",
-      "blocker": "Game-state matrix/global initialization remains incomplete"
+      "status": "semantic",
+      "source": "src/app/game_state_init.cpp"
     },
     {
       "address": "0x00446220",

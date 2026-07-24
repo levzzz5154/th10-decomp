@@ -25,7 +25,8 @@ unsigned short* WordAt(void* arena, unsigned int offset) {
 // registers the twenty scheduler callbacks (2 primary + 18 secondary).
 void* GameStateInit_Construct(void* arena, unsigned int arena_bytes,
                               const GameStateInitHooks* hooks,
-                              const GameStateCallbackPlan* plan) {
+                              const GameStateCallbackPlan* plan,
+                              GameStateMatrixGlobals* matrices) {
     if (arena == 0 || arena_bytes < 0x732460u)
         return 0;
 
@@ -75,10 +76,24 @@ void* GameStateInit_Construct(void* arena, unsigned int arena_bytes,
         0x497870u, 0x497874u, 0x49788Cu, 0x4978A0u,
         0x4978D4u, 0x4978D8u, 0x4978F4u, 0x49790Cu,
     };
-    // Retail writes these through absolute globals that alias the arena
-    // owner; the reconstruction keeps them relative to a 0x497000 base.
-    (void)kIdentitySlots;
-    (void)kZeroSlots;
+    // Retail writes these through absolute globals. Publish the initialized
+    // range separately because the standalone arena is not based at the
+    // retail image address.
+    if (matrices != 0) {
+        for (int index = 0; index < 49; ++index)
+            matrices->values[index] = 0.0f;
+        for (unsigned int index = 0;
+             index < sizeof(kIdentitySlots) / sizeof(kIdentitySlots[0]);
+             ++index) {
+            matrices->values[
+                (kIdentitySlots[index] - 0x49786Cu) / 4u] = 1.0f;
+        }
+        for (unsigned int index = 0;
+             index < sizeof(kZeroSlots) / sizeof(kZeroSlots[0]); ++index) {
+            matrices->values[
+                (kZeroSlots[index] - 0x49786Cu) / 4u] = 0.0f;
+        }
+    }
 
     // Slot bookkeeping header: active entity list starts empty.
     *DwordAt(arena, 0xEB69Du * 4u) = 0;

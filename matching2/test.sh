@@ -2,6 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CXX="${CXX:-g++}"
+CXXFLAGS=(-std=c++17 -Wall -Wextra -Werror "-I$ROOT/include")
 TEST_BUILD="$ROOT/build/tests"
 mkdir -p "$TEST_BUILD"
 
@@ -793,6 +795,20 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
   "$ROOT/tests/input_recorder_test.cpp" \
   -o "$TEST_BUILD/input_recorder_test"
 "$TEST_BUILD/input_recorder_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+  -I"$ROOT/include" \
+  "$ROOT/src/app/game_state_init.cpp" \
+  "$ROOT/tests/game_state_init_test.cpp" \
+  -o "$TEST_BUILD/game_state_init_test"
+"$TEST_BUILD/game_state_init_test"
+
+g++ -std=c++17 -Wall -Wextra -Werror \
+  -I"$ROOT/include" \
+  "$ROOT/src/game/stage_update.cpp" \
+  "$ROOT/tests/stage_update_test.cpp" \
+  -o "$TEST_BUILD/stage_update_test"
+"$TEST_BUILD/stage_update_test"
 
 # ---------------------------------------------------------------------------
 # Retail-free standalone runner: build it and require the startup-to-title

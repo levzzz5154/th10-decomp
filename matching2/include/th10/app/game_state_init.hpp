@@ -22,6 +22,11 @@ struct GameStateCallbackPlan {
     int secondary_count;  // registered through 0x00449B70 (18 in retail)
 };
 
+struct GameStateMatrixGlobals {
+    // Absolute retail range 0x0049786C..0x0049792C.
+    float values[49];
+};
+
 struct GameStateInitHooks {
     void* context;
     // _eh_vector_constructor_iterator_ replacement: construct `count`
@@ -40,6 +45,7 @@ struct GameStateInitHooks {
 
 void* GameStateInit_Construct(void* arena, unsigned int arena_bytes,
                               const GameStateInitHooks* hooks,
-                              const GameStateCallbackPlan* plan);
+                              const GameStateCallbackPlan* plan,
+                              GameStateMatrixGlobals* matrices = 0);
 
 #endif // TH10_APP_GAME_STATE_INIT_HPP

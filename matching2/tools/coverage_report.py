@@ -21,7 +21,7 @@ ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 # documents that only part of the retail function has been recovered.
 PARTIAL = {
     0x00418D00: "Remaining code-generation mismatch",
-    0x00445900: "Game-state matrix/global initialization remains incomplete",
+    0x00418190: "Core stage-update flow recovered; remaining retail transition branches require cross-checking",
     0x0040E770: "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs",
 }
 

@@ -10,8 +10,8 @@
       "exact-overlay": 14,
       "partial": 3,
       "researched": 5,
-      "semantic": 620,
-      "unrecovered": 61
+      "semantic": 621,
+      "unrecovered": 60
     }
   },
   "functions": [
@@ -1899,8 +1899,9 @@
       "size": 1664,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418190_FUN_00418190.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "partial",
+      "promoted_source": "src/game/stage_update.cpp",
+      "blocker": "Core stage-update flow recovered; remaining retail transition branches require cross-checking"
     },
     {
       "address": "0x00418810",
@@ -5610,9 +5611,8 @@
       "size": 2336,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00445900_GameStateInit.c",
-      "recovery_status": "partial",
-      "promoted_source": "src/app/game_state_init.cpp",
-      "blocker": "Game-state matrix/global initialization remains incomplete"
+      "recovery_status": "semantic",
+      "promoted_source": "src/app/game_state_init.cpp"
     },
     {
       "address": "0x00446220",

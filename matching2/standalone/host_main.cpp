@@ -73,6 +73,7 @@ struct HostContext {
     int log_open_count = 0;
     int critical_sections = 0;
     GameConfig config = {};
+    GameStateMatrixGlobals game_state_matrices = {};
     // Frame machinery
     FrameClockState clock = {};
     FrameAdvanceState frame = {};
@@ -1590,7 +1591,8 @@ void* HostCreateGameState(void*, void* arena) {
         HostRegisterSecondary, HostDisableSoftwareVp,
     };
     GameStateCallbackPlan plan = {2, 18};
-    void* result = GameStateInit_Construct(arena, 0x732460u, &hooks, &plan);
+    void* result = GameStateInit_Construct(
+        arena, 0x732460u, &hooks, &plan, &g_host.game_state_matrices);
     g_host.game_state_constructed = result != nullptr;
     if (result == nullptr)
         std::free(arena);

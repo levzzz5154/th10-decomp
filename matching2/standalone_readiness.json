@@ -21,19 +21,18 @@
   },
   "summary": {
     "reachable_functions": 179,
-    "source_ready_functions": 178,
-    "blocking_functions": 1,
-    "source_function_readiness_percent": 99.44,
+    "source_ready_functions": 179,
+    "blocking_functions": 0,
+    "source_function_readiness_percent": 100.0,
     "reachable_retail_bytes": 70320,
-    "source_ready_retail_bytes": 67984,
-    "source_byte_readiness_percent": 96.68,
+    "source_ready_retail_bytes": 70320,
+    "source_byte_readiness_percent": 100.0,
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 144,
     "unaudited_dynamic_call_sites": 0,
-    "standalone_ready": false,
+    "standalone_ready": true,
     "by_recovery_status": {
-      "partial": 1,
-      "semantic": 178
+      "semantic": 179
     }
   },
   "integration_gates": {
@@ -50,21 +49,7 @@
       "evidence": "test.sh builds and runs build/standalone/th10_standalone and requires SMOKE_PASS: arena constructed, 4 primary + 22 secondary scheduler callbacks, 33 default device states, 640x480 viewport, title tasks registered, title.anm and title_v.anm resolved, 60 title frames, clean shutdown"
     }
   },
-  "top_blockers": [
-    {
-      "address": "0x00445900",
-      "symbol": "GameStateInit",
-      "size": 2336,
-      "distance_from_root": 1,
-      "direct_internal_callees": 3,
-      "dynamic_call_sites": 1,
-      "recovery_status": "partial",
-      "source_ready": false,
-      "source": "src/app/game_state_init.cpp",
-      "reachable_callers": 1,
-      "impact_score": 102336
-    }
-  ],
+  "top_blockers": [],
   "functions": [
     {
       "address": "0x00401260",
@@ -1316,8 +1301,8 @@
       "distance_from_root": 1,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 1,
-      "recovery_status": "partial",
-      "source_ready": false,
+      "recovery_status": "semantic",
+      "source_ready": true,
       "source": "src/app/game_state_init.cpp"
     },
     {
