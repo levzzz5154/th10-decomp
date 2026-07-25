@@ -23,7 +23,6 @@
 # Extracted game archives and local reverse-engineering database
 /extracted/
 /ghidra/project/
-/ida/
 
 # Root-level compiler experiments
 /cpp_test.asm
