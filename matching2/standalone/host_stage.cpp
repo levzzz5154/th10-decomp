@@ -234,6 +234,10 @@ bool g_eye_interpolating;
 bool g_target_interpolating;
 unsigned char* g_companion_anm;
 unsigned int g_companion_anm_size;
+unsigned char* g_enemy_ecl;
+unsigned int g_enemy_ecl_size;
+const unsigned int* g_enemy_ecl_sub_offsets;
+unsigned int g_enemy_ecl_sub_count;
 HostStageRuntimeView g_runtime_view;
 
 void* g_enemy_manager_slot;
@@ -452,6 +456,34 @@ int HostEnemyScriptInit(void* script_name) {
 		std::memcpy(&include_offset, data + 0x08, 4);
 		std::memcpy(&sub_count, data + 0x10, 4);
 		g_report.ecl_sub_count = (int)sub_count;
+		const unsigned int sub_table_offset = 0x58;
+		bool sub_table_valid =
+		    sub_count <= (size - sub_table_offset) / sizeof(unsigned int);
+		unsigned int previous = 0;
+		for (unsigned int index = 0; sub_table_valid && index < sub_count;
+		     ++index) {
+			unsigned int offset = 0;
+			std::memcpy(
+			    &offset, data + sub_table_offset + index * 4, 4);
+			if (offset < sub_table_offset + sub_count * 4 ||
+			    offset + 0x10 > size ||
+			    std::memcmp(data + offset, "ECLH", 4) != 0 ||
+			    (index != 0 && offset <= previous))
+				sub_table_valid = false;
+			previous = offset;
+		}
+		if (!sub_table_valid) {
+			Log("enemy script %s rejected: invalid bounded subroutine table",
+			    name);
+			std::free(data);
+			return -1;
+		}
+		g_enemy_ecl = data;
+		g_enemy_ecl_size = size;
+		g_enemy_ecl_sub_offsets =
+		    reinterpret_cast<const unsigned int*>(
+		        data + sub_table_offset);
+		g_enemy_ecl_sub_count = sub_count;
 		Log("enemy script %s loaded from th10.dat (%u bytes, SCPT container, "
 		    "%u subroutines, include list @0x%X)",
 		    name, size, sub_count, include_offset);
@@ -492,7 +524,8 @@ int HostEnemyScriptInit(void* script_name) {
 	} else {
 		Log("enemy script %s loaded (%u bytes) but header is not SCPT", name, size);
 	}
-	std::free(data);
+	if (data != g_enemy_ecl)
+		std::free(data);
 	return 0; // 0 = success for the factory initializer convention
 }
 

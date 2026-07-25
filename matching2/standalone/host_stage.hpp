@@ -86,6 +86,10 @@ struct HostStageRuntimeView {
 	unsigned int std_size;
 	const unsigned char* companion_anm_data;
 	unsigned int companion_anm_size;
+	const unsigned char* ecl_data;
+	unsigned int ecl_size;
+	const unsigned int* ecl_sub_offsets;
+	unsigned int ecl_sub_count;
 	const StageStdRawView* std_view;
 	const StageTimelineView* timeline_view;
 	const struct HostStageCameraView* camera;
