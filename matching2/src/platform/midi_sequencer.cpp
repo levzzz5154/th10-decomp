@@ -1,33 +1,73 @@
 #include "th10/platform/midi_sequencer.hpp"
 
-// 0x0043AF30 and 0x0043B110 - the MIDI sequencer pump and its event
-// dispatcher. See th10/platform/midi_sequencer.hpp for the field map, the
-// tick-clock model and the evidence that identified the subsystem.
+// See th10/platform/midi_sequencer.hpp for the field map, the tick-clock model
+// and the evidence that identified the subsystem.
+
+// 0x0043A730 - Read one standard MIDI variable-length quantity:
+// accumulate seven payload bits per byte while the continuation bit
+// (0x80) is set, advancing the cursor past every byte read.
+int32_t Midi_ReadVariableLength(const uint8_t** cursor) {
+	int32_t value = 0;
+	uint8_t byte;
+	do {
+		byte = **cursor;
+		*cursor += 1;
+		value = value * 0x80 + (byte & 0x7F);
+	} while ((byte & 0x80) != 0);
+	return value;
+}
+
+// 0x0043ACE0 - Rewind the sequencer. Retail clears the pair at
+// +0x2DC/+0x2E0 and the four position words at +0x128..+0x134, resets
+// the scale at +0x2C8 to 1.0, and walks the track table at +0x138
+// (count at +0x118): each track's cursor and loop pointer rewind to the
+// chunk start, the active word becomes 1, and the first event delta is
+// primed with the inlined variable-length read (the same loop as
+// 0x0043A730).
+void MidiSequencer_ResetTracks(MidiSequencer* sequencer) {
+	sequencer->volume_scale = 1.0f;
+	sequencer->reset_scratch_2dc = 0;
+	// The second word of the cleared pair is the pump's fade enable, so a
+	// rewind also cancels an in-flight fade.
+	sequencer->fade_enabled = 0;
+	sequencer->frame_counter_lo = 0;
+	sequencer->frame_counter_hi = 0;
+	// Retail zeroes +0x130 and +0x134 as two words; they are the halves of
+	// the 64-bit tick base.
+	sequencer->base_ticks = 0;
+	for (int32_t index = 0; index < sequencer->track_count; ++index) {
+		MidiTrack* track = &sequencer->tracks[index];
+		track->cursor = track->data;
+		track->loop_start = track->data;
+		track->active = 1;
+		track->next_event_tick = Midi_ReadVariableLength(&track->cursor);
+	}
+}
 
 // Retail inlines __allmul(tick_scale, counter), a second __allmul by 1000 and
 // an unsigned __aulldiv by the tempo. The unsigned divide is preserved
 // deliberately: a negative tempo would wrap here exactly as it does in the
 // original.
-long long MidiSequencer_ElapsedTicks(const MidiSequencer* sequencer) {
-	long long counter =
-	    (long long)(((unsigned long long)sequencer->frame_counter_hi << 32) |
-	                (unsigned long long)sequencer->frame_counter_lo);
-	long long product = (long long)sequencer->tick_scale * counter;
+int64_t MidiSequencer_ElapsedTicks(const MidiSequencer* sequencer) {
+	int64_t counter =
+	    (int64_t)(((uint64_t)sequencer->frame_counter_hi << 32) |
+	              (uint64_t)sequencer->frame_counter_lo);
+	int64_t product = (int64_t)sequencer->tick_scale * counter;
 	product *= 1000;
-	return (long long)((unsigned long long)product /
-	                   (unsigned long long)(long long)sequencer->tempo);
+	return (int64_t)((uint64_t)product /
+	                 (uint64_t)(int64_t)sequencer->tempo);
 }
 
-long long MidiSequencer_CurrentTick(const MidiSequencer* sequencer) {
+int64_t MidiSequencer_CurrentTick(const MidiSequencer* sequencer) {
 	return MidiSequencer_ElapsedTicks(sequencer) + sequencer->base_ticks;
 }
 
 // 0x0043B110 - decode and perform one event on a single track.
 void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
                                  MidiSequencerEnv* env) {
-	unsigned char status = *track->cursor;
-	unsigned char data1 = 0;
-	unsigned char data2 = 0;
+	uint8_t status = *track->cursor;
+	uint8_t data1 = 0;
+	uint8_t data2 = 0;
 
 	// Running status: a byte below 0x80 is already the first data byte, so
 	// the cached status is reused and the cursor is left alone.
@@ -36,7 +76,7 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 	else
 		++track->cursor;
 
-	unsigned char channel = (unsigned char)(status & 0x0Fu);
+	uint8_t channel = (uint8_t)(status & 0x0Fu);
 
 	switch (status & 0xF0u) {
 	case 0x80:
@@ -63,7 +103,7 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 
 			MidiHeader* header = env->allocate_header();
 			sequencer->sysex_headers[sequencer->sysex_index] = header;
-			int length = env->read_varint(track);
+			int32_t length = Midi_ReadVariableLength(&track->cursor);
 
 			// Retail zeroes all sixteen dwords of the MIDIHDR here.
 			header->data = 0;
@@ -72,12 +112,12 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 
 			// The 0xF0 status is re-emitted as the first payload byte, so
 			// the buffer is one byte longer than the declared length.
-			unsigned char* buffer = env->allocate_buffer(length + 1);
+			uint8_t* buffer = env->allocate_buffer(length + 1);
 			header->data = buffer;
 			buffer[0] = 0xF0;
 			header->flags = 0;
-			header->buffer_length = (unsigned int)(length + 1);
-			for (int index = 0; index < length; ++index) {
+			header->buffer_length = (uint32_t)(length + 1);
+			for (int32_t index = 0; index < length; ++index) {
 				buffer[index + 1] = *track->cursor;
 				++track->cursor;
 			}
@@ -102,14 +142,15 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 			// ((index + 1) & 0x8000001F with a negative fixup).
 			sequencer->sysex_index = (sequencer->sysex_index + 1) % 32;
 		} else if (status == 0xFF) {
-			unsigned char meta_type = *track->cursor;
+			uint8_t meta_type = *track->cursor;
 			++track->cursor;
-			int length = env->read_varint(track);
+			int32_t length = Midi_ReadVariableLength(&track->cursor);
 
 			if (meta_type == 0x2F) {
 				// End of track. Retires the track and returns without
 				// storing running status or reading a delta time; this is
-				// what breaks the pump's re-dispatch loop.
+				// what breaks the pump's re-dispatch loop, and only
+				// 0x0043ACE0 sets the flag back.
 				track->active = 0;
 				return;
 			}
@@ -117,15 +158,16 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 				// Set tempo: fold the ticks played at the old tempo into
 				// the base, restart the frame counter, then accumulate the
 				// new tempo.
-				sequencer->base_ticks += MidiSequencer_ElapsedTicks(sequencer);
+				sequencer->base_ticks +=
+				    MidiSequencer_ElapsedTicks(sequencer);
 				sequencer->frame_counter_lo = 0;
 				sequencer->frame_counter_hi = 0;
 				sequencer->tempo = 0;
 				// Retail multiplies by 0x101 rather than 0x100 on each
-				// byte. Reproduced verbatim; see the header's open item.
+				// byte. Reproduced verbatim; see the header's open items.
 				for (; length > 0; --length) {
 					sequencer->tempo =
-					    sequencer->tempo * 0x101 + (int)*track->cursor;
+					    sequencer->tempo * 0x101 + (int32_t)*track->cursor;
 					++track->cursor;
 				}
 			} else {
@@ -143,17 +185,17 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 			// Note on. The transpose is folded into the note number before
 			// the bitmap update, and the transposed value is what goes out
 			// on the wire.
-			data1 = (unsigned char)(data1 + sequencer->transpose);
+			data1 = (uint8_t)(data1 + sequencer->transpose);
 			sequencer->channels[channel].notes[data1 >> 3] |=
-			    (unsigned char)(1u << (data1 & 7u));
+			    (uint8_t)(1u << (data1 & 7u));
 			break;
 		}
 		// Velocity zero is a note-off; retail falls into the 0x80 case.
 		[[fallthrough]];
 	case 0x80:
-		data1 = (unsigned char)(data1 + sequencer->transpose);
+		data1 = (uint8_t)(data1 + sequencer->transpose);
 		sequencer->channels[channel].notes[data1 >> 3] &=
-		    (unsigned char)~(1u << (data1 & 7u));
+		    (uint8_t)~(1u << (data1 & 7u));
 		break;
 	case 0xB0:
 		switch (data1) {
@@ -161,11 +203,14 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 			sequencer->channels[channel].bank = data2;
 			break;
 		case 2:
-			// Loop point: snapshot every track cursor plus the clock.
-			for (int index = 0; index < sequencer->track_count; ++index) {
-				sequencer->tracks[index].saved_cursor =
+			// Loop point: snapshot every track cursor plus the clock. The
+			// snapshot is taken here, before the trailing delta time is
+			// consumed below.
+			for (int32_t index = 0; index < sequencer->track_count;
+			     ++index) {
+				sequencer->tracks[index].loop_start =
 				    sequencer->tracks[index].cursor;
-				sequencer->tracks[index].saved_next_event_tick =
+				sequencer->tracks[index].loop_next_event_tick =
 				    sequencer->tracks[index].next_event_tick;
 			}
 			sequencer->loop_tempo = sequencer->tempo;
@@ -175,11 +220,12 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 			break;
 		case 4:
 			// Loop back: restore the snapshot taken by CC 2.
-			for (int index = 0; index < sequencer->track_count; ++index) {
+			for (int32_t index = 0; index < sequencer->track_count;
+			     ++index) {
 				sequencer->tracks[index].cursor =
-				    sequencer->tracks[index].saved_cursor;
+				    sequencer->tracks[index].loop_start;
 				sequencer->tracks[index].next_event_tick =
-				    sequencer->tracks[index].saved_next_event_tick;
+				    sequencer->tracks[index].loop_next_event_tick;
 			}
 			sequencer->tempo = sequencer->loop_tempo;
 			sequencer->frame_counter_lo = sequencer->loop_counter_lo;
@@ -190,14 +236,14 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 			// Channel volume, scaled by the master level before it is sent.
 			MidiChannelState* state = &sequencer->channels[channel];
 			state->volume_raw = data2;
-			int scaled = env->volume_from_cc((int)data2);
+			int32_t scaled = env->volume_from_cc((int32_t)data2);
 			if (scaled < 0) {
 				state->volume_effective = 0;
 				data2 = 0;
 			} else {
 				if (scaled > 0x7F)
 					scaled = 0x7F;
-				data2 = (unsigned char)scaled;
+				data2 = (uint8_t)scaled;
 				state->volume_effective = data2;
 			}
 			break;
@@ -226,50 +272,50 @@ void MidiSequencer_DispatchEvent(MidiSequencer* sequencer, MidiTrack* track,
 	// messages never do; SysEx already went out as a long message.
 	if (status < 0xF0 && sequencer->midi_out != 0) {
 		env->midi_short_msg(sequencer->midi_out,
-		                    (unsigned int)status |
-		                        ((unsigned int)data1 << 8) |
-		                        ((unsigned int)data2 << 16));
+		                    (uint32_t)status | ((uint32_t)data1 << 8) |
+		                        ((uint32_t)data2 << 16));
 	}
 
 	track->running_status = status;
 
-	// Delta time to the next event, as a variable-length quantity.
-	int delta = 0;
-	unsigned char byte;
+	// Delta time to the next event. Retail inlines the same loop as
+	// 0x0043A730 here rather than calling it.
+	int32_t delta = 0;
+	uint8_t byte;
 	do {
 		byte = *track->cursor;
 		++track->cursor;
-		delta = delta * 0x80 + (int)(byte & 0x7Fu);
-	} while ((signed char)byte < 0);
+		delta = delta * 0x80 + (byte & 0x7F);
+	} while ((byte & 0x80) != 0);
 	track->next_event_tick += delta;
 }
 
 // 0x0043AF30 - one pump step per frame.
 void MidiSequencer_Pump(MidiSequencer* sequencer, MidiSequencerEnv* env) {
 	bool any_track_registered = false;
-	long long now = MidiSequencer_CurrentTick(sequencer);
+	int64_t now = MidiSequencer_CurrentTick(sequencer);
 
 	if (sequencer->fade_enabled != 0) {
 		if (sequencer->fade_current >= sequencer->fade_total) {
 			// Ramp finished: clear the level and stop pumping entirely, so
 			// no events fire and the frame counter does not advance.
-			sequencer->fade_level = 0.0f;
+			sequencer->volume_scale = 0.0f;
 			return;
 		}
-		sequencer->fade_level = 1.0f - (float)sequencer->fade_current /
-		                                   (float)sequencer->fade_total;
+		sequencer->volume_scale = 1.0f - (float)sequencer->fade_current /
+		                                     (float)sequencer->fade_total;
 
 		// Retail converts the level twice through _ftol and only pushes the
 		// device when the integer level actually changed.
-		int level = env->volume_from_fade(sequencer->fade_level);
-		if (level != sequencer->fade_volume_cached)
+		int32_t level = env->volume_from_fade(sequencer->volume_scale);
+		if (level != sequencer->volume_cached)
 			env->apply_volume(0);
-		sequencer->fade_volume_cached =
-		    env->volume_from_fade(sequencer->fade_level);
+		sequencer->volume_cached =
+		    env->volume_from_fade(sequencer->volume_scale);
 		sequencer->fade_current += 1;
 	}
 
-	for (int index = 0; index < sequencer->track_count; ++index) {
+	for (int32_t index = 0; index < sequencer->track_count; ++index) {
 		MidiTrack* track = &sequencer->tracks[index];
 		if (track->active == 0)
 			continue;
@@ -278,8 +324,7 @@ void MidiSequencer_Pump(MidiSequencer* sequencer, MidiSequencerEnv* env) {
 		// it fires this step.
 		any_track_registered = true;
 		do {
-			if ((unsigned long long)now <
-			    (unsigned long long)(long long)track->next_event_tick)
+			if ((uint64_t)now < (uint64_t)(int64_t)track->next_event_tick)
 				break;
 			MidiSequencer_DispatchEvent(sequencer, track, env);
 			// A tempo change inside the callback rebases the clock, so the
@@ -288,11 +333,13 @@ void MidiSequencer_Pump(MidiSequencer* sequencer, MidiSequencerEnv* env) {
 		} while (track->active != 0);
 	}
 
-	unsigned int previous = sequencer->frame_counter_lo;
+	uint32_t previous = sequencer->frame_counter_lo;
 	sequencer->frame_counter_lo = previous + 1;
 	if (previous > 0xFFFFFFFEu)
 		sequencer->frame_counter_hi += 1;
 
+	// Every track has hit its end-of-track marker: rewind and start over.
+	// This is what makes playback loop.
 	if (!any_track_registered)
-		env->idle();
+		MidiSequencer_ResetTracks(sequencer);
 }
