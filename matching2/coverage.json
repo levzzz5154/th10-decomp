@@ -123,14 +123,14 @@
       "symbol": "FUN_00401760",
       "size": 752,
       "status": "semantic",
-      "source": "src/game/game_thread_queue.cpp"
+      "source": "src/game/game_thread.cpp"
     },
     {
       "address": "0x00401A50",
       "symbol": "FUN_00401a50",
       "size": 720,
       "status": "semantic",
-      "source": "src/game/game_thread_text_draw.cpp"
+      "source": "src/game/game_thread.cpp"
     },
     {
       "address": "0x00401D20",
@@ -202,14 +202,14 @@
       "symbol": "FUN_00402850",
       "size": 1104,
       "status": "semantic",
-      "source": "src/game/gameplay_render_pass.cpp"
+      "source": "src/game/game_state.cpp"
     },
     {
       "address": "0x00402CA0",
       "symbol": "FUN_00402ca0",
       "size": 1008,
       "status": "semantic",
-      "source": "src/render/composite_passes.cpp"
+      "source": "src/game/game_state.cpp"
     },
     {
       "address": "0x00403090",
@@ -258,7 +258,7 @@
       "symbol": "FUN_00404530",
       "size": 128,
       "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x004045B0",
@@ -349,7 +349,7 @@
       "symbol": "FUN_004054b0",
       "size": 80,
       "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x00405500",
@@ -363,14 +363,14 @@
       "symbol": "FUN_004055c0",
       "size": 96,
       "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405620",
       "symbol": "FUN_00405620",
       "size": 144,
       "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x004056B0",
@@ -652,7 +652,7 @@
       "symbol": "FUN_00408910",
       "size": 176,
       "status": "semantic",
-      "source": "src/game/score.cpp"
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x004089C0",
@@ -1216,7 +1216,7 @@
       "symbol": "FUN_00413810",
       "size": 368,
       "status": "semantic",
-      "source": "src/game/pool_constructors.cpp"
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x00413980",
@@ -1447,7 +1447,7 @@
       "symbol": "FUN_00418e30",
       "size": 176,
       "status": "semantic",
-      "source": "src/game/task_registration.cpp"
+      "source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x00418EE0",
@@ -2058,7 +2058,7 @@
       "symbol": "FUN_00422150",
       "size": 208,
       "status": "semantic",
-      "source": "src/game/task_registration.cpp"
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422220",
@@ -4844,7 +4844,7 @@
       "symbol": "FUN_0044c150",
       "size": 112,
       "status": "semantic",
-      "source": "src/platform/process.cpp"
+      "source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x0044C1C0",
@@ -5152,7 +5152,7 @@
       "symbol": "FUN_00450470",
       "size": 320,
       "status": "semantic",
-      "source": "src/script/ecl_vm.cpp"
+      "source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x004505B0",

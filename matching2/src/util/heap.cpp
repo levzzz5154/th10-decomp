@@ -8,7 +8,9 @@ extern "C" void* operator_new(uint32_t size);
 #ifdef _MSC_VER
 void* __cdecl operator new(uint32_t size);
 #else
-void* operator new(unsigned int size);
+// size_t exactly: unsigned int on the i686 PE32 target, unsigned long on the
+// 64-bit host used by test.sh. Spelling either one directly breaks the other.
+void* operator new(decltype(sizeof(0)) size);
 #endif
 extern "C" void LegacyString_ThrowLengthError(void);
 extern "C" void LegacyString_ThrowRangeError(void);

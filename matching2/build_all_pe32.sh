@@ -161,7 +161,8 @@ PY
 
 mapfile -d '' OBJECTS < <(find "$BUILD/objects" -type f -name '*.o' \
                           -print0 | sort -z)
-"$CXX" -static "${OBJECTS[@]}" \
+# -mwindows: retail th10.exe is a GUI-subsystem image entered at WinMain.
+"$CXX" -static -mwindows "${OBJECTS[@]}" \
     -Wl,-Map,"$BUILD/th10_all_sources.map" \
     -ld3d9 -ldinput8 -ldxguid -ldsound -ld3dx9 -lole32 -lwinmm -lgdi32 \
     -o "$BUILD/th10_all_sources.exe"

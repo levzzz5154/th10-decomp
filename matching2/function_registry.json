@@ -100,7 +100,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401760_FUN_00401760.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/game_thread_queue.cpp"
+      "promoted_source": "src/game/game_thread.cpp"
     },
     {
       "address": "0x00401A50",
@@ -110,7 +110,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401A50_FUN_00401a50.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/game_thread_text_draw.cpp"
+      "promoted_source": "src/game/game_thread.cpp"
     },
     {
       "address": "0x00401D20",
@@ -214,7 +214,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00402850_FUN_00402850.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/gameplay_render_pass.cpp"
+      "promoted_source": "src/game/game_state.cpp"
     },
     {
       "address": "0x00402CA0",
@@ -224,7 +224,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00402CA0_FUN_00402ca0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/render/composite_passes.cpp"
+      "promoted_source": "src/game/game_state.cpp"
     },
     {
       "address": "0x00403090",
@@ -294,7 +294,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404530_FUN_00404530.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "promoted_source": "src/game/player.cpp"
     },
     {
       "address": "0x004045B0",
@@ -424,7 +424,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004054B0_FUN_004054b0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "promoted_source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x00405500",
@@ -444,7 +444,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004055C0_FUN_004055c0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "promoted_source": "src/game/player.cpp"
     },
     {
       "address": "0x00405620",
@@ -454,7 +454,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405620_FUN_00405620.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "promoted_source": "src/game/player.cpp"
     },
     {
       "address": "0x004056B0",
@@ -858,7 +858,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408910_FUN_00408910.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "promoted_source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x004089C0",
@@ -1666,7 +1666,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413810_FUN_00413810.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/pool_constructors.cpp"
+      "promoted_source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x00413980",
@@ -1996,7 +1996,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418E30_FUN_00418e30.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/task_registration.cpp"
+      "promoted_source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x00418EE0",
@@ -2870,7 +2870,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422150_FUN_00422150.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/task_registration.cpp"
+      "promoted_source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422220",
@@ -6616,7 +6616,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C150_FUN_0044c150.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "promoted_source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x0044C1C0",
@@ -7056,7 +7056,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450470_FUN_00450470.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x004505B0",

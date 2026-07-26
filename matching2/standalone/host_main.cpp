@@ -49,6 +49,14 @@
 int* ResourceManager_FindResource(
     int slot, void* manager, const char* name);
 extern void* g_pGameStateManager;
+#if defined(_WIN32)
+// Retail window creation (0x004392E0 / 0x00439730), reconstructed in
+// src/platform/window.cpp. g_pWnd receives the created HWND.
+void SaveSystemSettings();
+unsigned long CreateGameWindow(void* instance);
+extern void* g_pWnd;
+extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
+#endif
 
 static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
               "unsupported host pointer size");
@@ -152,6 +160,14 @@ struct HostContext {
     TitleMenuRuntime title_runtime = {};
     TitleMenuGlobals title_globals = {};
     int menu_quit = 0;
+    // Back-buffer capture: --capture N PATH presents N frames, writes a P6
+    // PPM of the back buffer, then quits. The desktop compositor is Wayland,
+    // so X11 root capture returns black; reading the surface inside the
+    // process is the only way to see what the reconstruction actually draws.
+    int capture_after = -1;
+    int presented_frames = 0;
+    int capture_done = 0;
+    const char* capture_path = nullptr;
     int menu_windowed = 1;
     uint32_t menu_input = 0;
     TitleMainMenuState menu_state = {};
@@ -610,33 +626,9 @@ void HostRefreshBgmModeVisual() {
     }
 }
 
-LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
-                                WPARAM wparam, LPARAM lparam) {
-    if (message == WM_CLOSE) {
-        g_host.menu_quit = 1;
-        return 0;
-    }
-    if (message == WM_KEYDOWN && !g_host.smoke_mode) {
-        // Retail's title gate accepts any newly-pressed input. Once the main
-        // menu is open, keep the narrower navigation mapping below.
-        if (g_host.title_runtime.phase == 1)
-            g_host.menu_input |= TITLE_MENU_CONFIRM;
-        if (wparam == VK_UP)
-            g_host.menu_input |= TITLE_MENU_UP;
-        else if (wparam == VK_DOWN)
-            g_host.menu_input |= TITLE_MENU_DOWN;
-        else if (wparam == VK_LEFT)
-            g_host.menu_input |= TITLE_OPTIONS_LEFT;
-        else if (wparam == VK_RIGHT)
-            g_host.menu_input |= TITLE_OPTIONS_RIGHT;
-        else if (wparam == VK_RETURN)
-            g_host.menu_input |= TITLE_MENU_CONFIRM;
-        else if (wparam == VK_ESCAPE)
-            g_host.menu_input |= TITLE_MENU_CANCEL;
-        return 0;
-    }
-    return DefWindowProcA(window, message, wparam, lparam);
-}
+// The window now runs the retail WndProc (0x004390E0) registered by
+// CreateGameWindow; the host no longer supplies one. Keyboard input comes
+// from DirectInput in HostPollKeyboard, which is how retail reads it too.
 
 unsigned int HostReadLe32(const unsigned char* bytes) {
     return static_cast<unsigned int>(bytes[0]) |
@@ -1006,6 +998,11 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
          color, u1, v1},
     };
     const unsigned int blend = (vm.flags >> 4) & 3u;
+    // Device_ApplyDefaultState (retail 0x00439D20) leaves D3DRS_FOGENABLE on
+    // with FOGCOLOR 0xFFA0A0A0 for the 3D stage passes. Transformed (XYZRHW)
+    // sprite vertices carry no fog coordinate, so every sprite came out as
+    // flat 0xA0A0A0 grey. The 2D pass runs unfogged.
+    g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
     g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     g_host.device->SetRenderState(
@@ -1412,6 +1409,70 @@ void HostRenderStage() {
         HostDrawFrontHud();
 }
 
+#if defined(_WIN32)
+// Copy the just-presented back buffer into system memory and write it out as
+// a binary PPM. Uses GetRenderTargetData because the back buffer lives in
+// D3DPOOL_DEFAULT and cannot be locked directly.
+void HostMaybeCaptureFrame() {
+    if (g_host.capture_after < 0 || g_host.capture_done ||
+        g_host.device == nullptr)
+        return;
+    if (++g_host.presented_frames < g_host.capture_after)
+        return;
+    g_host.capture_done = 1;
+    // Read the surface actually being rendered into, not the swap-chain back
+    // buffer: if anything redirected the render target we want to see that.
+    IDirect3DSurface9* back = nullptr;
+    if (FAILED(g_host.device->GetRenderTarget(0, &back)) || back == nullptr) {
+        HostTrace("capture: GetRenderTarget failed");
+        return;
+    }
+    D3DSURFACE_DESC desc = {};
+    back->GetDesc(&desc);
+    IDirect3DSurface9* copy = nullptr;
+    HRESULT status = g_host.device->CreateOffscreenPlainSurface(
+        desc.Width, desc.Height, desc.Format, D3DPOOL_SYSTEMMEM, &copy,
+        nullptr);
+    if (SUCCEEDED(status))
+        status = g_host.device->GetRenderTargetData(back, copy);
+    D3DLOCKED_RECT locked = {};
+    if (SUCCEEDED(status))
+        status = copy->LockRect(&locked, nullptr, D3DLOCK_READONLY);
+    if (SUCCEEDED(status)) {
+        std::FILE* out = std::fopen(g_host.capture_path, "wb");
+        if (out != nullptr) {
+            std::fprintf(out, "P6\n%u %u\n255\n", desc.Width, desc.Height);
+            for (unsigned int y = 0; y < desc.Height; ++y) {
+                const unsigned char* row =
+                    static_cast<const unsigned char*>(locked.pBits) +
+                    static_cast<size_t>(y) * locked.Pitch;
+                for (unsigned int x = 0; x < desc.Width; ++x) {
+                    // Both X8R8G8B8 and A8R8G8B8 are BGRA in memory.
+                    const unsigned char* pixel = row + x * 4;
+                    std::fputc(pixel[2], out);
+                    std::fputc(pixel[1], out);
+                    std::fputc(pixel[0], out);
+                }
+            }
+            std::fclose(out);
+            std::fprintf(stderr,
+                         "[th10-recon] captured frame %d to %s (%ux%u fmt=%d)\n",
+                         g_host.presented_frames, g_host.capture_path,
+                         desc.Width, desc.Height, (int)desc.Format);
+            std::fflush(stderr);
+        }
+        copy->UnlockRect();
+    } else {
+        HostTrace("capture: surface copy failed");
+    }
+    if (copy != nullptr) copy->Release();
+    back->Release();
+    g_host.menu_quit = 1; // exit once the frame is on disk
+}
+#else
+void HostMaybeCaptureFrame() {}
+#endif
+
 void HostRenderMenu() {
     if (g_host.smoke_mode || g_host.device == nullptr ||
         g_host.window == nullptr)
@@ -1529,6 +1590,9 @@ void HostRenderMenu() {
         }
         result = g_host.device->EndScene();
     }
+    // Capture before the flip: the swap chain is D3DSWAPEFFECT_DISCARD, so
+    // the back buffer contents are undefined once Present returns.
+    HostMaybeCaptureFrame();
     if (SUCCEEDED(result))
         result = g_host.device->Present(
             nullptr, nullptr, nullptr, nullptr);
@@ -2147,21 +2211,24 @@ int HostCreateWindow(void*) {
         return 0;
     HostTrace("creating Win32 window");
     HINSTANCE instance = GetModuleHandleA(nullptr);
-    WNDCLASSA window_class = {};
-    window_class.lpfnWndProc = HostWindowProc;
-    window_class.hInstance = instance;
-    window_class.lpszClassName = "TH10ReconstructedWindow";
-    if (RegisterClassA(&window_class) == 0 &&
-        GetLastError() != ERROR_CLASS_ALREADY_EXISTS)
+    // Retail 0x004392E0 then 0x00439730: save the system settings, then
+    // register class "BASE" with the retail WndProc (0x004390E0) and create
+    // the 640x480 window titled from DAT_0046F66C in retail .rdata.
+    SaveSystemSettings();
+    if (CreateGameWindow(instance) != 0) {
+        HostTrace("CreateGameWindow(0x00439730) failed");
         return -1;
-    RECT window_rect = {0, 0, 640, 480};
-    AdjustWindowRect(&window_rect, WS_OVERLAPPEDWINDOW, FALSE);
-    g_host.window = CreateWindowA(
-        window_class.lpszClassName, "TH10 reconstructed startup",
-        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-        window_rect.right - window_rect.left,
-        window_rect.bottom - window_rect.top,
-        nullptr, nullptr, instance, nullptr);
+    }
+    g_host.window = static_cast<HWND>(g_pWnd);
+    if (g_host.window != nullptr) {
+        char title[128] = {};
+        char cls[64] = {};
+        GetWindowTextA(g_host.window, title, sizeof(title) - 1);
+        GetClassNameA(g_host.window, cls, sizeof(cls) - 1);
+        std::fprintf(stderr, "[th10-recon] window class=\"%s\" title=\"%s\"\n",
+                     cls, title);
+        std::fflush(stderr);
+    }
     if (g_host.window != nullptr && !g_host.smoke_mode) {
         g_host.menu_windowed = g_host.config.windowed != 0;
         ShowWindow(g_host.window, SW_SHOW);
@@ -2226,13 +2293,20 @@ int HostCreateDevice(void*) {
     if (g_host.smoke_mode)
         return 0;
     HostTrace("creating Direct3D9 HAL device");
+    // Retail 0x00439890 builds these exact parameters. The depth buffer is
+    // not optional: Device_ApplyDefaultState (0x00439D20) turns on
+    // D3DRS_ZENABLE, and with no depth surface attached every draw is
+    // discarded, which is why the reconstruction presented an empty frame.
     D3DPRESENT_PARAMETERS parameters = {};
-    parameters.Windowed = TRUE;
-    parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    parameters.hDeviceWindow = g_host.window;
     parameters.BackBufferWidth = 640;
     parameters.BackBufferHeight = 480;
-    parameters.BackBufferFormat = D3DFMT_UNKNOWN;
+    parameters.BackBufferFormat = D3DFMT_X8R8G8B8;      // retail 22
+    parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;      // retail 1
+    parameters.hDeviceWindow = g_host.window;
+    parameters.Windowed = TRUE;
+    parameters.EnableAutoDepthStencil = TRUE;           // retail 1
+    parameters.AutoDepthStencilFormat = D3DFMT_D16;     // retail 80
+    parameters.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;  // retail 1
     HRESULT result = g_host.direct3d->CreateDevice(
         D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
         D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
@@ -2458,8 +2532,15 @@ int HostPumpMessages(void*) {
         DispatchMessageA(&message);
     }
 #endif
-    if (!g_host.smoke_mode)
+    if (!g_host.smoke_mode) {
+        // The retail WndProc (0x004390E0) reports a close request by setting
+        // bit 0x80 of DAT_00491FF4, which is the same flag the reconstructed
+        // stage and title code already tests. Honour it alongside the host's
+        // own menu-driven quit.
+        if ((DAT_00491ff4 & 0x80u) != 0)
+            g_host.menu_quit = 1;
         return g_host.menu_quit;
+    }
     return g_host.title_frames_completed >= 60 ? 1 : 0;
 }
 int HostProbeDevice(void*) { return GAME_MAIN_DEVICE_READY; }
@@ -2655,7 +2736,35 @@ void HostRestartPump(void*) {}
 
 } // namespace
 
-int main(int argc, char** argv) {
+static int HostRun(int argc, char** argv);
+
+#if defined(_WIN32)
+// Retail's entry point is WinMain in a GUI-subsystem image (th10.exe has
+// subsystem 2), not a console main. Matching that removes the console window
+// the reconstruction used to open and puts the process on the same footing as
+// retail. The diagnostic modes still need a stdout, so those attach to the
+// launching shell's console on demand.
+// __argc / __argv come from the CRT via <stdlib.h>.
+int __stdcall WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int) {
+    bool diagnostic = false;
+    for (int index = 1; index < __argc; ++index)
+        if (__argv[index][0] == '-')
+            diagnostic = true;
+    if (diagnostic && AttachConsole(ATTACH_PARENT_PROCESS)) {
+        std::freopen("CONOUT$", "w", stdout);
+        std::freopen("CONOUT$", "w", stderr);
+    }
+    // Retail stashes the instance in DAT_004924F8 here; CreateGameWindow is
+    // handed the same value via GetModuleHandleA(nullptr), which is the main
+    // image's instance, so there is nothing extra to publish.
+    (void)instance;
+    return HostRun(__argc, __argv);
+}
+#else
+int main(int argc, char** argv) { return HostRun(argc, argv); }
+#endif
+
+static int HostRun(int argc, char** argv) {
 #if defined(_WIN32)
     HostTrace("process entry");
     const bool resource_smoke =
@@ -2669,6 +2778,13 @@ int main(int argc, char** argv) {
         argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
     g_host.dump_stage =
         argc > 1 && std::strcmp(argv[1], "--dump-stage") == 0;
+    for (int index = 1; index + 2 < argc + 1; ++index) {
+        if (std::strcmp(argv[index], "--capture") == 0 && index + 2 < argc) {
+            g_host.capture_after = std::atoi(argv[index + 1]);
+            g_host.capture_path = argv[index + 2];
+            break;
+        }
+    }
 #else
     (void)argc;
     (void)argv;
