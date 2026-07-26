@@ -30,6 +30,8 @@
 #include "th10/render/anm_file.hpp"
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
+#include "th10/render/anm_vm_draw_dispatch.hpp"
+#include "th10/render/quad_build_anchored.hpp"
 #include "th10/platform/sound_commands.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
@@ -944,6 +946,103 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     return nullptr;
 }
 
+// ---------------------------------------------------------------------------
+// Retail render path. Geometry and draw-mode selection belong to the recovered
+// code: AnmVm_DrawDispatch (0x004451C0) picks the mode, and mode 0 routes to
+// Quad_BuildAndRenderAnchored (0x00443080), which owns the anchor decode and
+// the three-term origin sum. The host supplies only the D3D submission at the
+// bottom - texture, UVs, colour, blend state - which is genuine platform work.
+// This replaces the host's own copy of the anchor/rotation maths, whose
+// vertical anchor decode was wrong for months.
+// ---------------------------------------------------------------------------
+struct HostQuadSubmission {
+    IDirect3DTexture9* texture;
+    float u0, v0, u1, v1;
+    unsigned int color;
+    unsigned int flags;
+    unsigned int blend;
+    bool submitted;
+};
+HostQuadSubmission g_quad_submission;
+
+float HostRoundCenterEdge(float edge, float extent) {
+    // Retail floors the centred near-edge (the listing's `floor(... - w*0.5)`).
+    (void)extent;
+    return std::floor(edge);
+}
+
+void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
+    (void)mode;
+    if (g_host.device == nullptr || g_quad_submission.texture == nullptr)
+        return;
+    struct Vertex {
+        float x, y, z, rhw;
+        unsigned int color;
+        float u, v;
+    };
+    const HostQuadSubmission& q = g_quad_submission;
+    // Retail emits the corners as {near,near} {far,near} {near,far} {far,far},
+    // which is the triangle-strip order the host already submits.
+    const float u[4] = {q.u0, q.u1, q.u0, q.u1};
+    const float v[4] = {q.v0, q.v0, q.v1, q.v1};
+    Vertex strip[4];
+    for (int index = 0; index < 4; ++index) {
+        strip[index].x = vertices[index].x - 0.5f;
+        strip[index].y = vertices[index].y - 0.5f;
+        strip[index].z = 0.0f;
+        strip[index].rhw = 1.0f;
+        strip[index].color = q.color;
+        strip[index].u = u[index];
+        strip[index].v = v[index];
+    }
+    // Device_ApplyDefaultState leaves fog on for the 3D passes; transformed
+    // sprite vertices carry no fog coordinate, so the 2D pass runs unfogged.
+    g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
+    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+    g_host.device->SetRenderState(
+        D3DRS_DESTBLEND,
+        q.blend == 1 || q.blend == 2 ? D3DBLEND_ONE : D3DBLEND_INVSRCALPHA);
+    const DWORD address = (q.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP
+                                                       : D3DTADDRESS_CLAMP;
+    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, address);
+    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, address);
+    g_host.device->SetTexture(0, q.texture);
+    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    g_host.device->DrawPrimitiveUP(
+        D3DPT_TRIANGLESTRIP, 2, strip, sizeof(Vertex));
+    g_host.title_draw_calls += 1;
+    g_quad_submission.submitted = true;
+}
+
+// The source block the recovered builder consumes. The host keeps the origin
+// in base_* and leaves layer_*/offset_* zero, which is the same three-term sum
+// retail performs.
+AnchoredQuadSource g_quad_source;
+
+int HostDrawStandardQuad(void*) {
+    AnchoredQuadEnv env = {HostRoundCenterEdge, HostSubmitQuad};
+    Quad_BuildAndRenderAnchored(&g_quad_source, &env);
+    return 0;
+}
+
+int HostDrawCornerQuad(void* context, int) {
+    // Modes 1 and 3 hand the rotated corners through the shared buffer.
+    (void)context;
+    extern AnmQuad g_anm_corner_quad;
+    AnchoredQuadVertex corners[4];
+    for (int index = 0; index < 4; ++index) {
+        corners[index].x = g_anm_corner_quad.corners[index][0];
+        corners[index].y = g_anm_corner_quad.corners[index][1];
+        corners[index].z = g_anm_corner_quad.corners[index][2];
+        corners[index].w = 1.0f;
+    }
+    HostSubmitQuad(corners, 1);
+    return 0;
+}
+
+AnmQuad g_anm_corner_quad;
+
 void HostDrawAnmVm(const HostAnmVm& runtime) {
     const AnmVmState& vm = runtime.state;
     int resource = runtime.resource_index;
@@ -966,17 +1065,8 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
     if (texture == nullptr)
         return;
 
-    struct Vertex {
-        float x, y, z, rhw;
-        unsigned int color;
-        float u, v;
-    };
-    // Retail's mode-0 quad builder (0x00443080) sums VM offsets +0x334,
-    // +0x340 and +0x34C for the origin. All three read zero for the title
-    // VMs here, so the backdrop's 240px vertical offset comes from upstream
-    // VM state, not from this sum; adding them changed nothing and summing
-    // the +0x340 vector (named velocity in our header) would misplace any
-    // moving sprite. Left as the single term until the VM state is right.
+    // Retail's three-term origin: the host carries its own position plus the
+    // parent chain in base_*, matching position + layer + offset.
     float origin_x = vm.position[0];
     float origin_y = vm.position[1];
     for (const HostAnmVm* parent = runtime.parent;
@@ -984,70 +1074,62 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
         origin_x += parent->state.position[0];
         origin_y += parent->state.position[1];
     }
-    const float width = sprite.width * vm.scale[0];
-    const float height = sprite.height * vm.scale[1];
-    float left;
-    float right;
-    switch ((vm.flags >> 18) & 3u) {
-    case 1: left = 0.0f; right = width; break;
-    case 2: left = -width; right = 0.0f; break;
-    default: left = width * -0.5f; right = width * 0.5f; break;
-    }
-    float top;
-    float bottom;
-    switch ((vm.flags >> 20) & 3u) {
-    case 1: top = 0.0f; bottom = height; break;
-    case 2: top = -height; bottom = 0.0f; break;
-    default: top = height * -0.5f; bottom = height * 0.5f; break;
-    }
-    const float cosine = std::cos(vm.rotation[2]);
-    const float sine = std::sin(vm.rotation[2]);
-    auto draw_x = [=](float x, float y) {
-        return x * cosine - y * sine + origin_x - 0.5f;
-    };
-    auto draw_y = [=](float x, float y) {
-        return x * sine + y * cosine + origin_y - 0.5f;
-    };
-    float u0 = sprite.x / static_cast<float>(entry.width);
-    float v0 = sprite.y / static_cast<float>(entry.height);
-    float u1 = (sprite.x + sprite.width) / static_cast<float>(entry.width);
-    float v1 = (sprite.y + sprite.height) / static_cast<float>(entry.height);
-    unsigned int color = D3DCOLOR_ARGB(
+
+    g_quad_source = AnchoredQuadSource{};
+    g_quad_source.base_x = origin_x;
+    g_quad_source.base_y = origin_y;
+    g_quad_source.scale_x = vm.scale[0];
+    g_quad_source.scale_y = vm.scale[1];
+    g_quad_source.width = sprite.width;
+    g_quad_source.height = sprite.height;
+    g_quad_source.anchor_x = (vm.flags >> 0x12) & 3u;
+    g_quad_source.anchor_y = (vm.flags >> 0x14) & 3u;
+
+    g_quad_submission = HostQuadSubmission{};
+    g_quad_submission.texture = texture;
+    g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
+    g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
+    g_quad_submission.u1 =
+        (sprite.x + sprite.width) / static_cast<float>(entry.width);
+    g_quad_submission.v1 =
+        (sprite.y + sprite.height) / static_cast<float>(entry.height);
+    g_quad_submission.color = D3DCOLOR_ARGB(
         vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
-    Vertex vertices[4] = {
-        {draw_x(left, top), draw_y(left, top), 0.0f, 1.0f,
-         color, u0, v0},
-        {draw_x(right, top), draw_y(right, top), 0.0f, 1.0f,
-         color, u1, v0},
-        {draw_x(left, bottom), draw_y(left, bottom), 0.0f, 1.0f,
-         color, u0, v1},
-        {draw_x(right, bottom), draw_y(right, bottom), 0.0f, 1.0f,
-         color, u1, v1},
+    g_quad_submission.flags = vm.flags;
+    g_quad_submission.blend = (vm.flags >> 4) & 3u;
+
+    AnmDrawVm draw = {};
+    draw.rotation = vm.rotation[2];
+    draw.scale_x = vm.scale[0];
+    draw.scale_y = vm.scale[1];
+    draw.size_x = sprite.width;
+    draw.size_y = sprite.height;
+    draw.visible = 1;
+    draw.origin_x = origin_x;
+    draw.origin_y = origin_y;
+    draw.origin_z = 0.0f;
+    // The dispatch gate wants bits 0 and 1 of the flags word. The host has
+    // already made its own liveness decision above (active, sprite, alpha),
+    // so those two bits carry that decision in; every other bit - draw mode
+    // at 22..25 and the anchors at 18..21 - is the VM's own.
+    draw.flags = vm.flags | 3u;
+
+    AnmDrawEnv env = {};
+    env.draw_standard = HostDrawStandardQuad;
+    env.draw_unrotated = HostDrawStandardQuad;
+    env.draw_corner_quad = HostDrawCornerQuad;
+    env.draw_mode4 = HostDrawStandardQuad;
+    env.draw_mode5 = HostDrawStandardQuad;
+    env.draw_mode6 = HostDrawStandardQuad;
+    env.draw_mode7 = [](void* context, AnmDrawVm*) {
+        return HostDrawStandardQuad(context);
     };
-    const unsigned int blend = (vm.flags >> 4) & 3u;
-    // Device_ApplyDefaultState (retail 0x00439D20) leaves D3DRS_FOGENABLE on
-    // with FOGCOLOR 0xFFA0A0A0 for the 3D stage passes. Transformed (XYZRHW)
-    // sprite vertices carry no fog coordinate, so every sprite came out as
-    // flat 0xA0A0A0 grey. The 2D pass runs unfogged.
-    g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
-    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    g_host.device->SetRenderState(
-        D3DRS_DESTBLEND,
-        blend == 1 || blend == 2 ? D3DBLEND_ONE : D3DBLEND_INVSRCALPHA);
-    g_host.device->SetSamplerState(
-        0, D3DSAMP_ADDRESSU,
-        (vm.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP :
-                                        D3DTADDRESS_CLAMP);
-    g_host.device->SetSamplerState(
-        0, D3DSAMP_ADDRESSV,
-        (vm.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP :
-                                        D3DTADDRESS_CLAMP);
-    g_host.device->SetTexture(0, texture);
-    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-    g_host.device->DrawPrimitiveUP(
-        D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex));
-    g_host.title_draw_calls += 1;
+    env.draw_mode8 = HostDrawStandardQuad;
+    env.draw_mode9 = HostDrawStandardQuad;
+    env.quad = &g_anm_corner_quad;
+    env.anchor_low = -0.5f;
+    env.anchor_high = 0.5f;
+    AnmVm_DrawDispatch(&draw, nullptr, &env);
 }
 
 void HostDrawAnmVmAt(const HostAnmVm& source, float x, float y,
