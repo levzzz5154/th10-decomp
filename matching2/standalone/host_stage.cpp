@@ -1500,6 +1500,18 @@ EclCoreHooks g_ecl_hooks;
 int g_ecl_started;
 int g_ecl_enabled;
 int g_ecl_calls;
+int g_ecl_spawns;
+// Retail's async spawn (0x004500D0) allocates a 0x1024 VM record, links it
+// onto the owner's child list at owner+0x1030/+0x1034 and tail-calls the call
+// edge. The host owns a fixed pool and a flat live list instead of the
+// intrusive one; EclVm_TickChildren (0x0044FD10) walks the same set.
+const int kEclChildMax = 64;
+EclCoreVm g_ecl_children[64];
+int g_ecl_child_live[64];
+int g_ecl_child_count;
+// The VM currently being ticked: retail reads it from owner+0x04, which the
+// call edge saves and restores around each dispatch.
+EclCoreVm* g_ecl_active;
 int g_ecl_instructions;
 int g_ecl_stopped;
 
@@ -1553,15 +1565,162 @@ int HostEclFindSub(const char* name) {
 // by the name stored at instruction+0x14 and plants vm+0x04 at its entry
 // (0x00450470 returns the sub body, i.e. past the 16-byte ECLH header).
 // Returns 0 on success; non-zero leaves vm+0x04 untouched and stops the VM.
+int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument);
+
+// ECL global variable storage. Retail reaches negative operand encodings
+// through the owner object's ECLVariableResolver vtable (slots 4/5); that
+// object is the enemy entity, whose resolver the host does not implement.
+// ECL_ResolveFloatDestination delegates straight into that vtable, so binding
+// it here would call through a table this host does not provide - the read of
+// a wild pointer that faulted inside it. The local case below is retail's
+// exactly; the global case is backed by host storage and is flagged as such.
+float g_ecl_globals[256];
+
+// Retail 0x00450070. A clear mask bit yields null and retail stores through it
+// unchecked; the host refuses that store instead of faulting.
+float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
+	if (vm == 0 || vm->ip == 0)
+		return 0;
+	// The ip can leave the image mid-tick when the call/ret frame protocol
+	// desyncs; refuse rather than dereference it.
+	{
+		const unsigned char* ip =
+		    reinterpret_cast<const unsigned char*>(vm->ip);
+		if (ip < g_enemy_ecl || ip + 16 > g_enemy_ecl + g_enemy_ecl_size)
+			return 0;
+	}
+	const EclCoreInstruction* instruction = vm->ip;
+	if ((instruction->param_mask & (1u << (operand & 31))) == 0)
+		return 0;
+	int encoded = 0;
+	std::memcpy(&encoded, &instruction->arguments[operand], sizeof(encoded));
+	float bits = 0.0f;
+	std::memcpy(&bits, &encoded, sizeof(bits));
+	encoded = static_cast<int>(bits);
+	if (encoded >= 0) {
+		const int offset = vm->locals_offset + 8 + encoded;
+		if (offset < 0 || offset + 4 > 0x1000)
+			return 0;
+		return reinterpret_cast<float*>(vm->scratch + offset);
+	}
+	const int slot = -encoded;
+	if (slot < 0 || slot >= (int)(sizeof(g_ecl_globals) / sizeof(float)))
+		return 0;
+	return &g_ecl_globals[slot];
+}
+
+// Retail 0x004500D0, opcodes 0x0F/0x10. The callee name is taken from the
+// CALLER's instruction by the call edge, so this only has to produce a child
+// record, inherit the rank mask, and hand it to that edge.
+int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
+	(void)owner;
+	EclCoreVm* parent = g_ecl_active;
+	if (parent == 0)
+		return -1;
+	int slot = -1;
+	for (int index = 0; index < g_ecl_child_count; ++index)
+		if (!g_ecl_child_live[index]) { slot = index; break; }
+	if (slot < 0) {
+		if (g_ecl_child_count >= kEclChildMax) {
+			Log("ecl async: child pool exhausted (%d)", kEclChildMax);
+			return -1;
+		}
+		slot = g_ecl_child_count++;
+	}
+	EclCoreVm* child = &g_ecl_children[slot];
+	std::memset(child, 0, sizeof(*child));
+	child->owner = parent->owner;
+	child->rank_mask = parent->rank_mask;   // child+0x101C
+	child->async_id = async_id;             // child+0x1010
+	if (HostEclStartChild(child, parent, first_argument) != 0)
+		return -1;
+	g_ecl_child_live[slot] = 1;
+	g_ecl_spawns += 1;
+	Log("ecl spawn #%d: slot %d id=%d ip=%p top=%d", g_ecl_spawns, slot,
+	    async_id, (const void*)child->ip, child->scratch_top);
+	return 0;
+}
+
 int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
-	(void)first_argument;
 	if (child == 0 || parent == 0 || parent->ip == 0)
 		return -1;
 	const EclCoreInstruction* instruction = parent->ip;
 	if (instruction->size <= 20)
 		return -1;
-	const char* target = reinterpret_cast<const char*>(
-	    reinterpret_cast<const unsigned char*>(instruction) + 20);
+	const unsigned char* parent_bytes =
+	    reinterpret_cast<const unsigned char*>(instruction);
+
+	// Retail computes the callee frame base from the CURRENT top before any
+	// linkage is written: v7 = old_top + 8, or 12 for a fresh record. The
+	// copied arguments land at scratch + v7, above the linkage words, which is
+	// why the copy has to be positioned from old_top and not from the moving
+	// scratch_top.
+	const int old_top = child->scratch_top;         // child+0x1008
+	const int frame_base = old_top == 0 ? 12 : old_top + 8;
+
+	int arg_cursor = 0;
+	std::memcpy(&arg_cursor, parent_bytes + 16, sizeof(arg_cursor));
+	arg_cursor += 4 * first_argument + 4;
+	int value_cursor = arg_cursor + 4;
+	int arg_index = first_argument + 1;
+	const int param_count = parent_bytes[11];
+	unsigned char* destination = child->scratch + frame_base;
+	while (arg_index < param_count &&
+	       destination + 4 <= child->scratch + 0x1000 &&
+	       16 + arg_cursor + 1 < (int)instruction->size) {
+		const unsigned char source_tag = parent_bytes[16 + arg_cursor];
+		const unsigned char dest_tag = parent_bytes[17 + arg_cursor];
+		if (source_tag == 'f' || source_tag == 'g') {
+			float raw = 0.0f;
+			std::memcpy(&raw, parent_bytes + 16 + 4 * (value_cursor >> 2),
+			            sizeof(raw));
+			const float resolved =
+			    ECL_ResolveFloatValue(parent, arg_index, raw);
+			if (dest_tag == 'f')
+				std::memcpy(destination, &resolved, sizeof(resolved));
+			else {
+				const int truncated = (int)resolved;
+				std::memcpy(destination, &truncated, sizeof(truncated));
+			}
+		} else {
+			int raw = 0;
+			std::memcpy(&raw, parent_bytes + 16 + 4 * (value_cursor >> 2),
+			            sizeof(raw));
+			const int resolved = ECL_ResolveIntValue(parent, arg_index, raw);
+			if (dest_tag == 'f') {
+				const float widened = (float)resolved;
+				std::memcpy(destination, &widened, sizeof(widened));
+			} else
+				std::memcpy(destination, &resolved, sizeof(resolved));
+		}
+		destination += 4;
+		++arg_index;
+		arg_cursor += 8;
+		value_cursor += 8;
+	}
+
+	// Linkage. Opcode 0x0A pops exactly two words: the return ip then the
+	// caller clock as raw bits. A fresh record gets two zeros so its `ret`
+	// ends the VM; an already-framed one gets the caller's clock and ip.
+	if (old_top == 0) {
+		*reinterpret_cast<int*>(child->scratch + 4) = 0;
+		*reinterpret_cast<int*>(child->scratch + 8) = 0;
+		child->scratch_top = 12;
+	} else {
+		child->scratch_top = old_top;
+		if (child->scratch_top + 4 < 0x1000) {
+			std::memcpy(child->scratch + child->scratch_top,
+			            &parent->time, sizeof(parent->time));
+			child->scratch_top += 4;
+		}
+		if (child->scratch_top + 4 < 0x1000) {
+			std::memcpy(child->scratch + child->scratch_top,
+			            &parent->ip, sizeof(parent->ip));
+			child->scratch_top += 4;
+		}
+	}
+
+	const char* target = reinterpret_cast<const char*>(parent_bytes + 20);
 	const int index = HostEclFindSub(target);
 	if (index < 0) {
 		Log("ecl call: sub \"%s\" not found in stage01.ecl", target);
@@ -1570,12 +1729,6 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 	const unsigned int entry = g_enemy_ecl_sub_offsets[index];
 	if (entry + 16 >= g_enemy_ecl_size)
 		return -1;
-	// Push the return address so opcode 0x0A can come back.
-	if (child->scratch_top + 4 < 0x1000) {
-		std::memcpy(child->scratch + child->scratch_top,
-		            &parent->ip, sizeof(parent->ip));
-		child->scratch_top += 4;
-	}
 	child->ip = reinterpret_cast<EclCoreInstruction*>(
 	    g_enemy_ecl + entry + 16);
 	child->time = 0.0f;
@@ -1619,27 +1772,59 @@ void HostStartMainEcl() {
 	g_ecl_hooks = EclCoreHooks{};
 	g_ecl_started = 1;
 	g_ecl_hooks.start_child = HostEclStartChild;
-	// 0x00450070. The hook's note said ecl_vm.cpp's version read the operand
-	// at instruction+0x14; that was the ECLInstruction layout defect, now
-	// corrected, so the recovered resolver is usable. Its remaining
-	// divergences are confined to external variable references (encoded < 0).
-	g_ecl_hooks.resolve_float_destination =
-	    [](EclCoreVm* vm, unsigned int operand) -> float* {
-		return ECL_ResolveFloatDestination(vm, operand);
-	};
+	g_ecl_hooks.spawn_child = HostEclSpawnChild;
+	g_ecl_hooks.resolve_float_destination = HostEclResolveFloatDestination;
 	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \"main\" "
 	    "(sub %d, entry 0x%X, %u subs)", main_index, entry,
 	    g_enemy_ecl_sub_count);
 }
 
 // One frame of the stage script, the tick edge EclVm_TickChildren injects.
+// A VM whose ip is not inside the loaded ECL image means the call/ret frame
+// protocol desynced. Retiring it loudly beats dereferencing a wild pointer,
+// and it keeps the failure visible instead of turning into a page fault.
+bool HostEclVmSane(const EclCoreVm* vm) {
+	if (vm->ip == 0)
+		return false;
+	const unsigned char* ip = reinterpret_cast<const unsigned char*>(vm->ip);
+	return ip >= g_enemy_ecl && ip + 16 <= g_enemy_ecl + g_enemy_ecl_size;
+}
+
 void HostTickStageEcl() {
 	if (!g_ecl_started || g_ecl_stopped)
 		return;
+	if (!HostEclVmSane(&g_ecl_vm)) {
+		Log("ecl: root VM ip left the script image (%p); stopping",
+		    (const void*)g_ecl_vm.ip);
+		g_ecl_stopped = 1;
+		return;
+	}
 	const EclCoreInstruction* before = g_ecl_vm.ip;
+	g_ecl_active = &g_ecl_vm;
 	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
 	if (g_ecl_vm.ip != before)
 		g_ecl_instructions += 1;
+	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
+	// retires a child whose tick reports completion.
+	for (int index = 0; index < g_ecl_child_count; ++index) {
+		if (!g_ecl_child_live[index])
+			continue;
+		if (!HostEclVmSane(&g_ecl_children[index])) {
+			Log("ecl: child %d ip left the script image (%p); retiring",
+			    index, (const void*)g_ecl_children[index].ip);
+			g_ecl_child_live[index] = 0;
+			continue;
+		}
+		g_ecl_active = &g_ecl_children[index];
+		if (g_ecl_spawns < 4)
+			Log("ecl child %d tick: ip=%p top=%d locals=%d", index,
+			    (const void*)g_ecl_children[index].ip,
+			    g_ecl_children[index].scratch_top,
+			    g_ecl_children[index].locals_offset);
+		if (EclVm_TickCore(&g_ecl_children[index], 1.0f, &g_ecl_hooks) != 0)
+			g_ecl_child_live[index] = 0;
+	}
+	g_ecl_active = &g_ecl_vm;
 	if (result != 0) {
 		g_ecl_stopped = 1;
 		Log("EclVm_TickCore: stage script finished after %d advances",
