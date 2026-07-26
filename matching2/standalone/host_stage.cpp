@@ -1590,8 +1590,11 @@ float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
 	if (ip_value < image || ip_value - image + 16 > g_enemy_ecl_size)
 		return 0;
 	const EclCoreInstruction* instruction = vm->ip;
+	// Retail stores through a null here unchecked; a sink keeps the host from
+	// faulting on a case retail never reaches with a clear mask bit.
+	static float sink;
 	if ((instruction->param_mask & (1u << (operand & 31))) == 0)
-		return 0;
+		return &sink;
 	int encoded = 0;
 	std::memcpy(&encoded, &instruction->arguments[operand], sizeof(encoded));
 	float bits = 0.0f;
@@ -1600,12 +1603,12 @@ float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
 	if (encoded >= 0) {
 		const int offset = vm->locals_offset + 8 + encoded;
 		if (offset < 0 || offset + 4 > 0x1000)
-			return 0;
+			return &sink;
 		return reinterpret_cast<float*>(vm->scratch + offset);
 	}
 	const int slot = -encoded;
 	if (slot < 0 || slot >= (int)(sizeof(g_ecl_globals) / sizeof(float)))
-		return 0;
+		return &sink;
 	return &g_ecl_globals[slot];
 }
 
@@ -1636,8 +1639,6 @@ int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
 		return -1;
 	g_ecl_child_live[slot] = 1;
 	g_ecl_spawns += 1;
-	Log("ecl spawn #%d: slot %d id=%d ip=%p top=%d", g_ecl_spawns, slot,
-	    async_id, (const void*)child->ip, child->scratch_top);
 	return 0;
 }
 
@@ -1831,11 +1832,6 @@ void HostTickStageEcl() {
 			continue;
 		}
 		g_ecl_active = &g_ecl_children[index];
-		if (g_ecl_spawns < 4)
-			Log("ecl child %d tick: ip=%p top=%d locals=%d", index,
-			    (const void*)g_ecl_children[index].ip,
-			    g_ecl_children[index].scratch_top,
-			    g_ecl_children[index].locals_offset);
 		if (EclVm_TickCore(&g_ecl_children[index], 1.0f, &g_ecl_hooks) != 0)
 			g_ecl_child_live[index] = 0;
 	}
