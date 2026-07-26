@@ -69,6 +69,8 @@ unsigned long CreateGameWindow(void* instance);
 int InstanceCheck();
 extern void* g_pWnd;
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
+extern unsigned int DAT_00474ca0;  // retail global flags; bit 0x10 = practice
+extern int DAT_00474c74;           // retail selected difficulty (4 = Extra)
 // Retail's shared ANM format tables (0x0046F288 / 0x0046F2A0), aliased out of
 // the retail .rdata by build_all_pe32.sh.
 extern unsigned int DAT_0046f288[];
@@ -207,6 +209,7 @@ struct HostContext {
     TitleOptionsState options_state = {};
     TitleOptionsConfig options_config = {0, 100, 80};
     int difficulty_selection = 0;
+    int saved_difficulty = 0;   // retail a3[5692]: difficulty parked by Extra
     int character_selection = 0;
     int weapon_selection = 0;
     int selection_phase_frame = 0;
@@ -537,6 +540,25 @@ bool HostStartSelectionScreen(unsigned int heading_script,
             child->active = 0;
     }
     g_host.selection_phase_frame = 0;
+    return true;
+}
+
+// The three remaining main-menu destinations are plain title sub-screens: a
+// frame script plus a heading script, both started out of title.anm. The
+// script pairs are retail's own - state 12 (Replay) is sub_4315C0 starting 94
+// and 101, state 11 (Player Data) is sub_431EE0 starting 94 and 102, and
+// state 14 (Music Room) is sub_433EF0 starting 95 and 103. Music Room is the
+// one that does not share frame 94.
+bool HostStartTitleSubScreen(int screen, unsigned int frame_script,
+                             unsigned int heading_script,
+                             const char* status) {
+    if (!HostStartTitleScripts(frame_script, heading_script))
+        return false;
+    g_host.menu_screen = screen;
+    AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[1]);
+    AnmVm_Tick(&g_host.title_vms[1].state, &hooks);
+    g_host.selection_phase_frame = 0;
+    g_host.menu_status = status;
     return true;
 }
 
@@ -2006,28 +2028,51 @@ void HostRenderMenu() {
     }
 }
 
+// Retail 0x0042D420 leaves the main menu for selections 0, 1 and 2 into the
+// same title state 6 - the shared selection flow - and separates them purely
+// by two globals. Selection 0 clears the practice bit 0x10 in DAT_00474CA0,
+// selection 2 sets it, and selection 1 clears it but first saves DAT_00474C74
+// and forces it to 4, the Extra difficulty. Only selections 0 and 2 go on to
+// call retail 0x0040AD20, which is what opens the difficulty sub-screen, so
+// Extra Start enters the flow one screen further along - straight into
+// character select, with nothing left to choose about difficulty.
 void HostDispatchTitleMenuAction(TitleMenuAction action) {
     switch (action) {
     case TITLE_MENU_ACTION_START:
+        DAT_00474ca0 &= ~0x10u;
+        DAT_00474c74 = g_host.difficulty_selection;
         HostStartDifficultySelection();
         return;
     case TITLE_MENU_ACTION_EXTRA:
+        DAT_00474ca0 &= ~0x10u;
+        g_host.saved_difficulty = static_cast<int>(DAT_00474c74);
+        DAT_00474c74 = 4;
+        g_host.difficulty_selection = 4;
+        HostStartCharacterSelection();
         g_host.menu_status =
-            "EXTRA dispatched; unlock and character state is not linked yet";
-        break;
+            "Extra: arrows choose Reimu/Marisa, Enter confirms, Esc returns";
+        return;
     case TITLE_MENU_ACTION_PRACTICE:
+        DAT_00474ca0 |= 0x10u;
+        DAT_00474c74 = g_host.difficulty_selection;
+        HostStartDifficultySelection();
         g_host.menu_status =
-            "PRACTICE dispatched; stage selection is not linked yet";
-        break;
+            "Practice: arrows move, Enter confirms, Esc returns";
+        return;
     case TITLE_MENU_ACTION_REPLAY:
-        g_host.menu_status = "REPLAY dispatched; browser state is not linked yet";
+        if (HostStartTitleSubScreen(9, 94, 101, "Replay: Esc returns"))
+            return;
+        g_host.menu_status = "Replay: title.anm scripts 94/101 not found";
         break;
     case TITLE_MENU_ACTION_MUSIC_ROOM:
-        g_host.menu_status =
-            "MUSIC ROOM dispatched; browser state is not linked yet";
+        if (HostStartTitleSubScreen(11, 95, 103, "Music Room: Esc returns"))
+            return;
+        g_host.menu_status = "Music Room: title.anm scripts 95/103 not found";
         break;
     case TITLE_MENU_ACTION_RESULTS:
-        g_host.menu_status = "RESULTS dispatched; result state is not linked yet";
+        if (HostStartTitleSubScreen(10, 94, 102, "Player Data: Esc returns"))
+            return;
+        g_host.menu_status = "Player Data: title.anm scripts 94/102 not found";
         break;
     case TITLE_MENU_ACTION_OPTIONS:
         g_host.menu_screen = 4;
@@ -2556,6 +2601,16 @@ int HostRunSchedulerFrame(void*) {
     } else if (!g_host.smoke_mode && g_host.menu_screen >= 6 &&
                g_host.menu_screen <= 8) {
         HostUpdateSelectionScreen();
+    } else if (!g_host.smoke_mode && g_host.menu_screen >= 9 &&
+               g_host.menu_screen <= 11) {
+        // Replay, Player Data and Music Room. Retail leaves each of these
+        // back to the main menu on cancel; their own list navigation is not
+        // reconstructed yet, so cancel is the only edge they answer.
+        if ((g_host.menu_input & TITLE_MENU_CANCEL) != 0) {
+            HostPlayMenuSound(2);
+            HostReturnToMainMenu();
+        }
+        g_host.menu_input = 0;
     }
     HostRenderMenu();
 #endif

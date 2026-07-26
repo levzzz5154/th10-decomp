@@ -8,8 +8,12 @@ TitleMenuAction ActionForSelection(int selection) {
         TITLE_MENU_ACTION_EXTRA,
         TITLE_MENU_ACTION_PRACTICE,
         TITLE_MENU_ACTION_REPLAY,
-        TITLE_MENU_ACTION_MUSIC_ROOM,
+        // Retail's fifth entry is Player Data and its sixth is Music Room -
+        // 0x0042D420 sends selection 4 to title state 11 and selection 5 to
+        // state 14. These two were the wrong way round, so choosing Player
+        // Data ran Music Room and vice versa.
         TITLE_MENU_ACTION_RESULTS,
+        TITLE_MENU_ACTION_MUSIC_ROOM,
         TITLE_MENU_ACTION_OPTIONS,
         TITLE_MENU_ACTION_QUIT,
     };
