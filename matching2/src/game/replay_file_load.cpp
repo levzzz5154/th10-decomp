@@ -18,8 +18,8 @@ int ReplayArchive_Load(ReplayFileState* state, const char* name,
 	   state->header->version!=5){if(payload_owned&&payload)env->release_payload(payload);return -1;}
 	state->decompressed=env->allocate(state->header->unpacked_size);
 	if(state->decompressed==0){if(payload_owned&&payload)env->release_payload(payload);return -1;}
-	env->decrypt(payload,state->header->packed_size,0xAA,0xE1);
-	env->decrypt(payload,state->header->packed_size,0x3D,0x7A);
+	env->decrypt(payload,state->header->packed_size,0xAA,0xE1,1024);
+	env->decrypt(payload,state->header->packed_size,0x3D,0x7A,128);
 	env->decompress(payload,state->header->packed_size,state->decompressed,
 	                state->header->unpacked_size);
 	state->active_data=state->decompressed;

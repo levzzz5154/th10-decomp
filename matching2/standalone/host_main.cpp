@@ -21,6 +21,9 @@
 #include "th10/game/score_file.hpp"
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/lzss.hpp"
+#include "th10/game/replay_file_load.hpp"
+#include "th10/game/replay_menu_draw.hpp"
+#include <ctime>
 #include "th10/platform/pack_file_loader.hpp"
 #include "th10/platform/joystick_probe.hpp"
 #include "th10/render/resource_manager.hpp"
@@ -1350,36 +1353,130 @@ void HostBuildMusicTrackList() {
     std::free(metadata);
 }
 
+// Retail's replay screen (sub_4315C0) walks th10_01.rpy..th10_25.rpy inside
+// the replay directory, handing each name to sub_4296F0, which allocates the
+// state and calls ReplayArchive_Load (0x0042A200) on it. A file that fails to
+// load leaves an empty slot, which the renderer draws as a dashed row.
+//
+// The metadata the list shows lives at the head of the decompressed replay,
+// at the offsets 0x00433B30 reads: the player name at +0, the timestamp at
+// +12, the completion percentage at +72, and the character, shot, difficulty
+// and stage words at +80, +84, +88 and +92.
+struct HostReplaySlot {
+    ReplayMenuSlot slot;
+    ReplayMenuInfo info;
+    char name[16];
+    ReplayFileState state;
+};
+HostReplaySlot g_replay_slots[25];
+// ReplayManager_Draw stores each row's colour in its render block before
+// calling draw_text; the glyph drawer reads it back through these.
+ReplayMenuDrawState* g_replay_render = nullptr;
+#define g_replay_row_color (g_replay_render != nullptr \
+    ? static_cast<D3DCOLOR>(g_replay_render->color) : 0xFFFFFFFFu)
+ReplayMenu g_replay_menu;
+
+// The payload ReplayArchive_Load receives points 0x24 bytes into the file
+// allocation, so releasing it means releasing the base. One load runs at a
+// time, so the base is parked here for the duration.
+unsigned char* g_replay_file_base = nullptr;
+
+bool HostLoadOneReplay(HostReplaySlot* target, const char* path) {
+    ReplayFileEnv env = {};
+    env.embedded_mode = false;
+    env.load_source = [](const char* name, bool, ReplayFileHeader** header,
+                         unsigned char** payload, bool* payload_owned) -> bool {
+        std::FILE* file = std::fopen(name, "rb");
+        if (file == nullptr)
+            return false;
+        std::fseek(file, 0, SEEK_END);
+        const long size = std::ftell(file);
+        std::fseek(file, 0, SEEK_SET);
+        if (size <= 0x24) {
+            std::fclose(file);
+            return false;
+        }
+        unsigned char* bytes =
+            static_cast<unsigned char*>(std::malloc(size));
+        const bool read = bytes != nullptr &&
+            std::fread(bytes, 1, size, file) == static_cast<size_t>(size);
+        std::fclose(file);
+        if (!read) {
+            std::free(bytes);
+            return false;
+        }
+        *header = reinterpret_cast<ReplayFileHeader*>(bytes);
+        *payload = bytes + 0x24;   // retail's sub_44B790(v6, header[7])
+        *payload_owned = true;
+        g_replay_file_base = bytes;
+        return true;
+    };
+    env.allocate = [](unsigned size) -> unsigned char* {
+        return static_cast<unsigned char*>(std::calloc(1, size));
+    };
+    env.decrypt = [](unsigned char* payload, unsigned size,
+                     unsigned char seed, unsigned step, unsigned block) {
+        Dat_Decrypt(payload, size, seed, static_cast<uint8_t>(step), block,
+                    size);
+    };
+    env.decompress = [](const unsigned char* packed, unsigned packed_size,
+                        unsigned char* output, unsigned output_size) {
+        Dat_LzssDecompress(packed, static_cast<int32_t>(packed_size), output,
+                           output_size);
+    };
+    env.release_payload = [](unsigned char*) {
+        std::free(g_replay_file_base);
+        g_replay_file_base = nullptr;
+    };
+
+    const int loaded = ReplayArchive_Load(&target->state, path, &env);
+    std::free(g_replay_file_base);
+    g_replay_file_base = nullptr;
+    if (loaded != 0)
+        return false;
+    const unsigned char* meta = target->state.active_data;
+    if (meta == nullptr)
+        return false;
+    std::snprintf(target->name, sizeof(target->name), "%.8s",
+                  reinterpret_cast<const char*>(meta));
+    std::memcpy(&target->info.timestamp, meta + 12, 4);
+    std::memcpy(&target->info.clear_percent, meta + 72, 4);
+    std::memcpy(&target->info.character, meta + 80, 4);
+    std::memcpy(&target->info.shot, meta + 84, 4);
+    std::memcpy(&target->info.difficulty, meta + 88, 4);
+    std::memcpy(&target->info.stage, meta + 92, 4);
+    // A record whose indices fall outside the label tables would index them
+    // out of bounds, so it is treated as an unreadable slot instead.
+    if (target->info.character < 0 || target->info.character > 11 ||
+        target->info.shot < 0 || target->info.shot > 2 ||
+        target->info.difficulty < 0 || target->info.difficulty > 4 ||
+        target->info.stage < 0 || target->info.stage > 9)
+        return false;
+    target->info.name = target->name;
+    target->slot.payload = &target->info;
+    return true;
+}
+
 void HostBuildReplayList() {
     if (g_host.replay_scanned)
         return;
     g_host.replay_scanned = 1;
-#if defined(_WIN32)
-    WIN32_FIND_DATAA found;
-    HANDLE search = FindFirstFileA("replay\\*.rpy", &found);
-    if (search == INVALID_HANDLE_VALUE)
-        search = FindFirstFileA("*.rpy", &found);
-    if (search == INVALID_HANDLE_VALUE)
-        return;
-    do {
-        if (g_host.replay_count >= HostContext::kReplayMax)
-            break;
-        std::snprintf(g_host.replay_files[g_host.replay_count],
-                      sizeof(g_host.replay_files[0]), "%.47s",
-                      found.cFileName);
-        g_host.replay_count += 1;
-    } while (FindNextFileA(search, &found) != 0);
-    FindClose(search);
-#endif
+    g_replay_menu.state = 2;
+    g_replay_menu.selected_index = 0;
+    for (int index = 0; index < 25; ++index) {
+        char path[64];
+        // ReplayArchive_Load prepends the replay directory itself, which is
+        // how retail's chdir into it is modelled; the name goes in bare.
+        std::snprintf(path, sizeof(path), "th10_%.2d.rpy", index + 1);
+        if (HostLoadOneReplay(&g_replay_slots[index], path)) {
+            g_replay_menu.replay_slots[index] = &g_replay_slots[index].slot;
+            g_host.replay_count += 1;
+        } else {
+            g_replay_menu.replay_slots[index] = nullptr;
+        }
+    }
 }
 
-// scoreth10.dat is a TH10 container: a 0x18-byte header, then a body that is
-// enciphered with retail's 0x0044B0D0 layer and LZSS-compressed. Both are
-// recovered, so the decode is retail's end to end -
-// ScoreArchive_LoadSections (0x0042B030) drives Dat_Decrypt and
-// Dat_LzssDecompress and hands back the checksummed 0x437C CR sections. Each
-// difficulty block holds ten 0x18-byte records whose score is the first word;
-// record 0 is the block's best.
 void HostBuildScoreTable() {
     if (g_host.score_present != 0)
         return;
@@ -1532,21 +1629,56 @@ void HostRenderSubScreenList() {
 
     if (g_host.menu_screen == 9) {           // Replay
         HostBuildReplayList();
-        if (g_host.replay_count == 0) {
-            HostDrawAsciiText(110.0f, 200.0f, kDim, 1.0f, "NO REPLAY DATA");
-            HostDrawAsciiText(110.0f, 224.0f, kDim, 1.0f,
-                              "PLAY A GAME TO RECORD ONE");
-            return;
-        }
-        for (int row = 0; row < g_host.replay_count && row < 14; ++row) {
-            std::snprintf(line, sizeof(line), "%c%02d %s",
-                          row == g_host.replay_selection ? '>' : ' ',
-                          row + 1, g_host.replay_files[row]);
-            HostDrawAsciiText(
-                110.0f, 130.0f + row * 18.0f,
-                row == g_host.replay_selection ? kSelected : kNormal,
-                1.0f, line);
-        }
+        // The rows are drawn by retail's own ReplayManager_Draw (0x00433B30):
+        // its layout, its row format, its dashed placeholder for an empty
+        // slot, and its highlight colour for the selected line. The label
+        // tables are retail's, transcribed - the originals are arrays of
+        // pointers into retail's .rdata, and those pointers do not survive
+        // being aliased at a different address in this image.
+        static const char* const kShotLabels[36] = {
+            "ReimuA ", "ReimuB ", "ReimuC ",
+            "MarisaA", "MarisaB", "MarisaC",
+            "", "", "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", ""};
+        static const char* const kDifficultyLabels[5] = {
+            "Easy   ", "Normal ", "Hard   ", "Lunatic", "Extra  "};
+        static const char* const kStageLabels[10] = {
+            "tst", "St1", "St2", "St3", "St4",
+            "St5", "St6", "Ex ", "All", "ExA"};
+        ReplayMenuDrawState render = {kNormal, 0};
+        ReplayMenuDrawEnv env = {};
+        env.render = &render;
+        env.selected_replay =
+            g_replay_menu.replay_slots[g_replay_menu.selected_index] != nullptr
+                ? g_replay_menu.replay_slots[g_replay_menu.selected_index]
+                      ->payload
+                : nullptr;
+        env.charset = "";
+        env.character_shot_labels = kShotLabels;
+        env.difficulty_labels = kDifficultyLabels;
+        env.stage_labels = kStageLabels;
+        env.all_stages_label = "All";
+        env.decode_date = [](int timestamp) -> ReplayMenuDate {
+            const std::time_t when = static_cast<std::time_t>(timestamp);
+            const std::tm* broken = std::localtime(&when);
+            ReplayMenuDate date = {};
+            if (broken != nullptr) {
+                date.year = broken->tm_year + 1900;
+                date.month = broken->tm_mon + 1;
+                date.day = broken->tm_mday;
+                date.hour = broken->tm_hour;
+                date.minute = broken->tm_min;
+            }
+            return date;
+        };
+        env.draw_text = [](const ReplayMenuPoint* point, const char* text) {
+            HostDrawAsciiText(point->x, point->y, g_replay_row_color, 0.75f,
+                              text);
+        };
+        g_replay_render = &render;
+        ReplayManager_Draw(&g_replay_menu, &env);
+        g_replay_render = nullptr;
         return;
     }
 
