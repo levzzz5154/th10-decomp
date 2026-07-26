@@ -2979,6 +2979,10 @@ static int HostRun(int argc, char** argv) {
             }
             continue;
         }
+        if (std::strcmp(argv[index], "--ecl") == 0) {
+            HostStage_EnableEcl(1);
+            continue;
+        }
         if (std::strcmp(argv[index], "--boot-real") == 0) {
             g_host.capture_after =
                 index + 1 < argc ? std::atoi(argv[index + 1]) : 300;

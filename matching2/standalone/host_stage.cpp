@@ -67,6 +67,8 @@
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_std.hpp"
 #include "th10/script/stage_ecl_load.hpp"
+#include "th10/script/ecl_core_interpreter.hpp"
+#include "th10/script/ecl.hpp"
 #include "th10/archive/resource_manager.hpp"
 // windows_types.hpp defines NULL unconditionally; glibc headers included
 // above already define it, so drop theirs first to stay -Werror clean.
@@ -1476,9 +1478,91 @@ void HostResetGameplayAction() {
 	    "pending cleared", g_slot_owner.mode, g_slot_owner.active_slot,
 	    g_slot_owner.summary);
 }
+// ---------------------------------------------------------------------------
+// Stage ECL runtime. Retail spawns the stage's controlling entity with
+// Entity_Spawn(params, enemy_manager, "main") (0x0040CFB0) and ticks it every
+// frame through EclVm_TickChildren (0x0044FD10), whose injected tick edge is
+// the core interpreter at 0x0044E1A0. The host owns the 0x1024-byte VM record
+// and the owner object whose vtable slot 0 reaches ECL_VM_Dispatch.
+// ---------------------------------------------------------------------------
+EclCoreVm g_ecl_vm;
+// Retail's owner at vm+0x1014 is the 0x2518-byte enemy entity created by
+// Entity_Spawn (0x0040CFB0): its vtable sits at +0x00, the ECL interpreter is
+// embedded at +0x103C, and slot 0's thunk biases `this` by that amount before
+// entering the dispatcher. ECL_VM_Dispatch then reads the VM state pointer at
+// biased+0x14D8, i.e. entity+0x2514. A bare vtable-only struct is not enough:
+// the bias walked off the end of it.
+unsigned char g_ecl_entity[0x2518];
+ECLInstructionCursor g_ecl_cursor;
+ECLVMState g_ecl_state;
+EclCoreOwnerVtable g_ecl_owner_vtable;
+EclCoreHooks g_ecl_hooks;
+int g_ecl_started;
+int g_ecl_enabled;
+int g_ecl_instructions;
+int g_ecl_stopped;
+
+// Retail's loc_40E760 thunk adds 0x103C to `this` before entering the
+// dispatcher, so the recovered ECL_VM_Dispatch expects the biased pointer.
+int HostEclDispatchExtended(EclCoreOwner* owner) {
+	(void)owner;
+	// Publish the core VM's current instruction through the retail cursor the
+	// dispatcher reads, then enter it with the biased pointer retail's
+	// loc_40E760 thunk produces.
+	g_ecl_cursor.instruction =
+	    reinterpret_cast<ECLInstruction*>(g_ecl_vm.ip);
+	g_ecl_state.cursor = &g_ecl_cursor;
+	*reinterpret_cast<ECLVMState**>(g_ecl_entity + 0x2514) = &g_ecl_state;
+	return ECL_VM_Dispatch(g_ecl_entity + 0x103C);
+}
+
 void HostStartMainEcl() {
-	Log("main ECL start requested (0x0040CFB0) - the ECL VM dispatcher is "
-	    "step-6 scope; Stage 1 script bytes are already resident");
+	if (!g_ecl_enabled) {
+		Log("main ECL start (0x0040CFB0): interpreter present but not armed; "
+		    "pass --ecl to run stage01.ecl through EclVm_TickCore");
+		return;
+	}
+	if (g_enemy_ecl == 0 || g_enemy_ecl_sub_offsets == 0 ||
+	    g_enemy_ecl_sub_count == 0) {
+		Log("main ECL start (0x0040CFB0) skipped: stage01.ecl is not resident");
+		return;
+	}
+	// Sub 0 is the entry: the ECL name block ends with "main" immediately
+	// before the first ECLH header, and sub 0 opens with the stage frame
+	// enter (op 0x28) rather than an enemy body.
+	const unsigned int entry = g_enemy_ecl_sub_offsets[0];
+	if (entry + 16 >= g_enemy_ecl_size) {
+		Log("main ECL start skipped: sub 0 offset 0x%X is out of range", entry);
+		return;
+	}
+	std::memset(&g_ecl_vm, 0, sizeof(g_ecl_vm));
+	std::memset(g_ecl_entity, 0, sizeof(g_ecl_entity));
+	g_ecl_owner_vtable.DispatchExtendedOpcode = HostEclDispatchExtended;
+	*reinterpret_cast<EclCoreOwnerVtable**>(g_ecl_entity) = &g_ecl_owner_vtable;
+	// The ECLH block is 16 bytes; instructions follow it.
+	g_ecl_vm.ip = reinterpret_cast<EclCoreInstruction*>(
+	    g_enemy_ecl + entry + 16);
+	g_ecl_vm.owner = reinterpret_cast<EclCoreOwner*>(g_ecl_entity);
+	g_ecl_vm.rank_mask = 0xFF;  // retail masks per difficulty; run every rank
+	g_ecl_hooks = EclCoreHooks{};
+	g_ecl_started = 1;
+	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl sub 0 "
+	    "(entry 0x%X, %u subs)", entry, g_enemy_ecl_sub_count);
+}
+
+// One frame of the stage script, the tick edge EclVm_TickChildren injects.
+void HostTickStageEcl() {
+	if (!g_ecl_started || g_ecl_stopped)
+		return;
+	const EclCoreInstruction* before = g_ecl_vm.ip;
+	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
+	if (g_ecl_vm.ip != before)
+		g_ecl_instructions += 1;
+	if (result != 0) {
+		g_ecl_stopped = 1;
+		Log("EclVm_TickCore: stage script finished after %d advances",
+		    g_ecl_instructions);
+	}
 }
 // Retail 0x00413BC0 rebuilds the front/HUD state: the update and draw tasks,
 // the nine life icons, the three power digits, and the animation list whose
@@ -1930,6 +2014,7 @@ int HostStage_RunFrames(int frames) {
 				    (g_stage_task_nodes[task].flags & 2u);
 		}
 		Scheduler_RunPrimary(g_scheduler_device);   // 0x00449C00
+		HostTickStageEcl();
 		Scheduler_RunSecondary(g_scheduler_device); // 0x00449D40
 		g_timeline_view.frame =
 		    static_cast<unsigned int>(g_report.stage_frame);
@@ -1977,6 +2062,8 @@ static void* g_pending_effect_ring;
 // segment. The bridge lives in this translation unit because effect_ring.hpp
 // and effect_ring_update.hpp declare two different models of the same retail
 // block under one type name and cannot be included together.
+void HostStage_EnableEcl(int enabled) { g_ecl_enabled = enabled; }
+
 void* HostStage_CreateEffectRing() {
 	EffectRingHooks hooks = {};
 	hooks.context = 0;

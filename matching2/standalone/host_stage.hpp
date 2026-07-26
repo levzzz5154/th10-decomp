@@ -118,6 +118,11 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty);
 int HostStage_RunFrames(int frames);
 int HostStage_IsActive();
 
+// Opt in to running stage01.ecl through the recovered core interpreter
+// (0x0044E1A0). Off by default: the script halts at its first `call`, whose
+// retail edge 0x0044DF70 is not yet recovered, and that halt is a loud abort.
+void HostStage_EnableEcl(int enabled);
+
 // Construct one 0x4B0-byte ripple-ring block through the recovered retail
 // constructor (0x004452F0). Returned storage is owned by the caller and is
 // the block the recovered per-frame updater (0x00445620) expects.
