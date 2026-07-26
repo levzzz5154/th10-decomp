@@ -76,7 +76,16 @@ TitleOptionsAction TitleOptions_Update(TitleOptionsState* state,
         }
 
         if ((input_flags & TITLE_OPTIONS_CANCEL) != 0) {
-            state->selection = 5;
+            // Retail 0x0042D920 does not leave on the first cancel. Unless the
+            // cursor is already on the last entry it only carries it there and
+            // returns; a second cancel is what commits. This is the same idiom
+            // 0x0042D420 uses on the main menu:
+            //   if (selection != 5) { sound 11; selection = clamp(count, 5);
+            //                         ...; return 1; }
+            if (state->selection != 5) {
+                state->selection = 5;
+                return TITLE_OPTIONS_ACTION_NONE;
+            }
             state->pending_action = TITLE_OPTIONS_ACTION_RETURN;
             state->phase = 4;
             state->phase_frame = 0;

@@ -10,12 +10,12 @@
 // names the retail address it was recovered from.
 
 
-// 0x00426520 - Load the music-room track list file. The header's base
+// 0x00426520 - Load a per-shot parameter file and relocate it. The header's base
 // extents (+0x10/+0x14) are pre-scaled by the given sine into +0x18/+0x1C,
 // then every entry in the 8-byte-stride table at +0x110 has its payload
 // offset relocated into a pointer and each 0x34-byte track record's four
 // accent indices resolved through the color/parameter lookup tables.
-int MusicRoom_LoadTrackList(Byte** slot,
+int ParameterFile_LoadAndRelocate(Byte** slot,
                             Byte* (*load_file)(unsigned int* size_out,
                                                      int bank),
                             float sine_value,
