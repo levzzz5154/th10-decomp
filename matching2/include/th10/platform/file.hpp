@@ -50,12 +50,17 @@ int File_OpenSharedWrite(const char* path, void* (*open_file)(const char*),
 int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
                         void (*report_error)(void),
                         void** shared_handle, unsigned char* critical_depth);
+// enter_section/leave_section are the retail file-system critical section
+// (0x004922A4); retail holds it across the whole open/write/close and drops
+// it before unwinding the depth byte on every exit.
 int File_WriteWholeFile(const char* path, const void* source, DWORD size,
                         void* (*open_file)(const char*),
                         DWORD (*write_file)(void*, const void*, DWORD),
                         void (*close_file)(void*),
                         void (*report_error)(void),
-                        unsigned char* critical_depth);
+                        unsigned char* critical_depth,
+                        void (*enter_section)(void),
+                        void (*leave_section)(void));
 int File_WriteShared(void* handle, const void* source, DWORD size,
                      DWORD (*write_file)(void*, const void*, DWORD),
                      void (*close_file)(void*), unsigned char* critical_depth);

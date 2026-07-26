@@ -406,21 +406,33 @@ static void WholeClose(void* handle) {
     ++g_whole_closes;
 }
 static void WholeReport() { ++g_whole_reports; }
+static int g_whole_section;
+static int g_whole_enters;
+static void WholeEnter() { ++g_whole_section; ++g_whole_enters; }
+static void WholeLeave() { --g_whole_section; }
 static void TestWriteWholeFile() {
     unsigned char depth = 0;
     g_whole_depth = &depth;
     g_whole_reports = g_whole_closes = 0;
+    g_whole_section = g_whole_enters = 0;
     g_whole_written = (DWORD)-1;
     assert(File_WriteWholeFile("ok", "data", 4, WholeOpen, WholeWrite,
-                              WholeClose, WholeReport, &depth) == 0);
+                              WholeClose, WholeReport, &depth,
+                              WholeEnter, WholeLeave) == 0);
     assert(depth == 0 && g_whole_closes == 1 && g_whole_reports == 0);
+    assert(g_whole_section == 0 && g_whole_enters == 1);
     g_whole_written = 3;
     assert(File_WriteWholeFile("ok", "data", 4, WholeOpen, WholeWrite,
-                              WholeClose, WholeReport, &depth) == -2);
+                              WholeClose, WholeReport, &depth,
+                              WholeEnter, WholeLeave) == -2);
     assert(depth == 0 && g_whole_closes == 2 && g_whole_reports == 0);
+    assert(g_whole_section == 0 && g_whole_enters == 2);
     assert(File_WriteWholeFile("!bad", "data", 4, WholeOpen, WholeWrite,
-                              WholeClose, WholeReport, &depth) == -1);
+                              WholeClose, WholeReport, &depth,
+                              WholeEnter, WholeLeave) == -1);
     assert(depth == 0 && g_whole_closes == 2 && g_whole_reports == 1);
+    // The failed-open path still balances the section it took.
+    assert(g_whole_section == 0 && g_whole_enters == 3);
 }
 
 static void TestPathDecode() {

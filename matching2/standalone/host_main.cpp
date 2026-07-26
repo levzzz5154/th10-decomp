@@ -24,6 +24,7 @@
 #include "th10/game/replay_file_load.hpp"
 #include "th10/game/replay_menu_draw.hpp"
 #include "th10/game/replay_score_draw.hpp"
+#include "th10/game/game_config_defaults.hpp"
 #include "th10/game/key_config.hpp"
 #include <ctime>
 #include "th10/platform/pack_file_loader.hpp"
@@ -87,8 +88,10 @@ extern unsigned char DAT_00491d6a; // hint mode, 0..2, default 0
 // The five key-config slots: shorts from 0x00474E88 holding joypad button
 // indices. Retail's defaults are 0, 1, 2, 3 and -1, which is what
 // dword_474E88 = 0x00010000, dword_474E8C = 0x00030002 and
-// dword_474E90 = -1 spell out.
-extern int DAT_00474e88[3];
+// dword_474E90 = -1 spell out. 0x00420870 republishes the 0x12 bytes at
+// 0x00474E88..0x00474E98 out of an accepted th10.cfg, so the alias has to
+// cover that whole span.
+extern int DAT_00474e88[5];
 extern uint32_t DAT_00491d78;      // retail caps/flags word; bit 0x100 gates
                                    // the startup dialog
 extern unsigned char DAT_00491d65; // "startup dialog was not accepted"
@@ -96,7 +99,71 @@ extern unsigned char DAT_00491d65; // "startup dialog was not accepted"
 // the retail .rdata by build_all_pe32.sh.
 extern unsigned int DAT_0046f288[];
 extern unsigned int DAT_0046f2a0[];
+
+// --- Config / log stage, bound to the retail globals it belongs to. -------
+// The 0x34-byte config record. 0x00420870 loads into this block in place;
+// DAT_00491D62..67, DAT_00491D65, DAT_00491D68/69/6A and DAT_00491D78 are all
+// fields of it, so a host-private copy would leave every retail reader stale.
+extern GameConfig DAT_00491d48;
+// 0x00491FDC - the "vsync disabled" marker 0x00420870 clears and then sets
+// from flag bit 0x20; src/render/d3d_init.cpp reads it back.
+extern uint32_t DAT_00491fdc;
+// The seven CRITICAL_SECTIONs WinMain initialises at 0x00492274 (stride
+// 0x18): index 2 is the file-system section 0x004922A4 used by 0x0044B360 /
+// 0x0044B540, index 3 the text-log section 0x004922BC used by 0x0044B810.
+extern unsigned char DAT_00492274[];
+extern unsigned char DAT_0049231e; // file-section recursion depth byte
+// The retail text log object: 0x2000 bytes of text, an append cursor at
+// 0x00476F70 and the dirty byte at 0x00476F74.
+extern char DAT_00474f70[];
+// 0x00438AD0 log banners and the exit flush.
+extern char DAT_0046f77c[]; // boot banner
+extern char DAT_0046f6f0[]; // "restart required" banner
+extern char DAT_0046f7cc[]; // closing rule
+extern char DAT_0046f7bc[]; // "./log.txt"
+extern char DAT_0046f7c8[]; // "log" (message-box caption)
+// 0x00420870 diagnostics.
+extern char DAT_0046de7c[]; // config file not found
+extern char DAT_0046de48[]; // config file rejected
+extern char DAT_0046de2c[]; // flag 0x04: fog suppressed
+extern char DAT_0046de04[]; // flag 0x01: force 16-bit textures
+extern char DAT_0046dde4[]; // config +0x1D: windowed
+extern char DAT_0046ddbc[]; // flag 0x02: reference rasteriser
+extern char DAT_0046dd84[]; // flag 0x08: no DirectInput
+extern char DAT_0046dd64[]; // flag 0x10: BGM into memory
+extern char DAT_0046dd4c[]; // flag 0x20: no vsync
+extern char DAT_0046dd28[]; // flag 0x40: no font autodetection
+extern char DAT_0046dd08[]; // "cannot write %s"
+extern char DAT_0046dcb0[]; // write-failure hint
 #endif
+
+// ---------------------------------------------------------------------------
+// Bindings for the recovered file/log leaves. th10/platform/text_log.hpp and
+// th10/platform/file.hpp both pull in windows_types.hpp, whose NULL/WNDCLASSA
+// definitions collide with <windows.h>, so the two surfaces are redeclared
+// here at namespace scope. The layouts and parameter types are the ones those
+// headers declare: TextLog must stay byte-identical or the retail object at
+// 0x00474F70 would be addressed wrongly, and DWORD is unsigned int there,
+// which is what keeps the File_WriteWholeFile mangling in step.
+// ---------------------------------------------------------------------------
+struct TextLog {
+    char text[0x2000];   // +0x0000 accumulated log text
+    char* cursor;        // +0x2000 retail's 0x00476F70
+    unsigned char dirty; // +0x2004 retail's 0x00476F74
+};
+static_assert(sizeof(TextLog) == 0x2008,
+              "TextLog must match the retail 0x00474F70 object");
+void TextLog_Append(TextLog* log, const char* format, ...);      // 0x0044B810
+void TextLog_AppendLine(TextLog* log, const char* format, ...);  // 0x0044B8E0
+int File_WriteWholeFile(const char* path, const void* source, unsigned int size,
+                        void* (*open_file)(const char*),
+                        unsigned int (*write_file)(void*, const void*,
+                                                   unsigned int),
+                        void (*close_file)(void*),
+                        void (*report_error)(void),
+                        unsigned char* critical_depth,
+                        void (*enter_section)(void),
+                        void (*leave_section)(void));            // 0x0044B540
 
 static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
               "unsupported host pointer size");
@@ -106,7 +173,11 @@ static_assert(sizeof(void*) == 4,
 #endif
 
 uint32_t DAT_00491be4 = 0;
-uint8_t DAT_00491d6a = 0;
+// 0x00491D6A is the config record's +0x22 byte. It gets no host-private
+// definition: the build's data alias binds it to the retail block so the
+// options screen, the stage-tip tasks and the th10.cfg image all share
+// retail's single copy.
+extern uint8_t DAT_00491d6a;
 float DAT_00476f78 = 1.0f;
 uint32_t DAT_004918a4 = 0;
 
@@ -136,7 +207,8 @@ struct HostContext {
     // Boot bookkeeping
     int log_open_count = 0;
     int critical_sections = 0;
-    GameConfig config = {};
+    // No config member: retail's single record lives at 0x00491D48 and is
+    // reached through HostConfig().
     GameStateMatrixGlobals game_state_matrices = {};
     // Frame machinery
     FrameClockState clock = {};
@@ -257,7 +329,8 @@ struct HostContext {
     int selection_phase_frame = 0;
     const char* menu_status = "Arrow keys: move    Enter: select    Esc: back";
 #if defined(_WIN32)
-    CRITICAL_SECTION critical_section_storage[7] = {};
+    // No critical-section storage: the seven sections are retail's own, at
+    // 0x00492274.
     HWND window = nullptr;
     LARGE_INTEGER performance_frequency = {};
     IDirect3D9* direct3d = nullptr;
@@ -276,11 +349,28 @@ struct HostContext {
 
 HostContext g_host;
 
+#if !defined(_WIN32)
+// The POSIX harness has no retail data image behind it, so the config record
+// falls back to ordinary storage there.
+GameConfig g_host_config_fallback;
+GameConfig& HostConfig() { return g_host_config_fallback; }
+#endif
+
 #if defined(_WIN32)
 void HostTrace(const char* message) {
     std::fprintf(stderr, "[th10-recon] %s\n", message);
     std::fflush(stderr);
 }
+
+// The seven sections WinMain initialises from 0x00492274 upwards, stride
+// 0x18 (`add esi, 18h` in the 0x00438AD0 init and teardown loops).
+static_assert(sizeof(CRITICAL_SECTION) == 0x18,
+              "the retail critical-section array assumes the PE32 layout");
+CRITICAL_SECTION* HostRetailSection(int index) {
+    return reinterpret_cast<CRITICAL_SECTION*>(DAT_00492274 + index * 0x18);
+}
+TextLog* HostTextLog() { return reinterpret_cast<TextLog*>(DAT_00474f70); }
+GameConfig& HostConfig() { return DAT_00491d48; }
 
 int HostAnmIntArg(void* context, AnmVmState*, const void* slot,
                   int is_variable) {
@@ -2799,7 +2889,7 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
     if (action == TITLE_OPTIONS_ACTION_VALUE_CHANGED ||
         action == TITLE_OPTIONS_ACTION_DEFAULTS) {
         HostPublishOptionValues();
-        g_host.config.bgm_mode =
+        HostConfig().bgm_mode =
             static_cast<unsigned char>(g_host.options_config.bgm_mode);
         HostApplyAudioVolumes();
         HostRefreshOptionsSprites();
@@ -2956,39 +3046,107 @@ void HostDisableSoftwareVp(void*) {
 }
 
 // ---------------------------------------------------------------------------
-// Config hooks (reconstructed loader with an in-memory default file).
+// Config hooks. The policy lives in the reconstructions - 0x00418C40 in
+// src/game/game_config_defaults.cpp, 0x0044B360 in
+// src/platform/pack_file_loader.cpp, 0x0044B540 in src/platform/file.cpp and
+// 0x0044B810 in src/platform/text_log.cpp - so everything below is the Win32
+// leaves those functions call out to.
 // ---------------------------------------------------------------------------
+
+// 0x00418C40 - the retail defaults initializer. GameConfigRecord and
+// GameConfig are two descriptions of the same 0x34-byte record, so the
+// loader's block goes straight through.
 void HostConfigDefaults(void*, GameConfig* config) {
-    std::memset(config, 0, sizeof(*config));
-    config->magic = 0x100003u;
-    config->skip_limit = 0;
-    config->windowed = 1;
+    static_assert(sizeof(GameConfigRecord) == sizeof(GameConfig),
+                  "the two config views must describe the same record");
+    GameConfig_InitializeDefaults(reinterpret_cast<GameConfigRecord*>(config));
 }
+
+#if defined(_WIN32)
+// The file-system critical section (0x004922A4) and its recursion depth byte
+// (0x0049231E), held by 0x0044B360 and 0x0044B540 for the whole operation.
+void HostEnterFileSection() {
+    EnterCriticalSection(HostRetailSection(2));
+}
+void HostLeaveFileSection() {
+    LeaveCriticalSection(HostRetailSection(2));
+}
+void HostFileLock(void*) {
+    HostEnterFileSection();
+    ++DAT_0049231e;
+}
+void HostFileUnlock(void*) {
+    HostLeaveFileSection();
+    if (DAT_0049231e != 0)
+        --DAT_0049231e;
+}
+void* HostOpenForRead(void*, const char* name) {
+    // CreateFileA(name, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING,
+    // FILE_FLAG_SEQUENTIAL_SCAN | FILE_ATTRIBUTE_NORMAL, 0)
+    HANDLE handle = CreateFileA(name, 0x80000000u, 1u, nullptr, 3u,
+                                0x08000080u, nullptr);
+    return handle == INVALID_HANDLE_VALUE ? nullptr : handle;
+}
+unsigned int HostFileSize(void*, void* handle) {
+    return GetFileSize(handle, nullptr);
+}
+unsigned int HostFileRead(void*, void* handle, void* buffer,
+                          unsigned int size) {
+    DWORD transferred = 0;
+    ReadFile(handle, buffer, size, &transferred, nullptr);
+    return static_cast<unsigned int>(transferred);
+}
+void HostFileClose(void*, void* handle) { CloseHandle(handle); }
+void* HostFileAlloc(void*, unsigned int size) { return std::malloc(size); }
+void HostFileRelease(void*, void* memory) { std::free(memory); }
+void HostExtractEntry(void*, const PackFileEntry*, void*) {
+    // The archive branch of 0x0044B360 is unreachable here: every host caller
+    // asks for the disk branch, and the mounted-table pointer 0x00497990 that
+    // selects this branch is never populated by the standalone runner.
+    HostTrace("PackFile_Load archive branch reached without a mounted table");
+}
+void* HostOpenForWrite(const char* name) {
+    // CreateFileA(name, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS,
+    // FILE_ATTRIBUTE_NORMAL, 0)
+    return CreateFileA(name, 0x40000000u, 1u, nullptr, 2u, 0x80u, nullptr);
+}
+unsigned int HostWriteFile(void* handle, const void* source,
+                           unsigned int size) {
+    DWORD transferred = 0;
+    WriteFile(handle, source, size, &transferred, nullptr);
+    return static_cast<unsigned int>(transferred);
+}
+void HostCloseFile(void* handle) { CloseHandle(handle); }
+void HostReportFileError() {
+    // Retail formats the Win32 error into a LocalAlloc'd buffer and frees it
+    // again without ever showing it: FormatMessageA(0x1300, 0, GetLastError(),
+    // 0x400, &buffer, 0, 0) then LocalFree.
+    char* message = nullptr;
+    FormatMessageA(0x1300u, nullptr, GetLastError(), 0x400u,
+                   reinterpret_cast<LPSTR>(&message), 0, nullptr);
+    LocalFree(message);
+}
+
+// 0x0044B540 over the host's Win32 leaves.
+int HostWriteWholeFile(const char* name, const void* source,
+                       unsigned int size) {
+    return File_WriteWholeFile(name, source, size, HostOpenForWrite,
+                               HostWriteFile, HostCloseFile,
+                               HostReportFileError, &DAT_0049231e,
+                               HostEnterFileSection, HostLeaveFileSection);
+}
+#endif
+
+// 0x0044B360 with a3 = 1: the plain-file branch of the shared loader.
 void* HostConfigLoad(void*, const char* file_name, unsigned int* size_out) {
 #if defined(_WIN32)
-    std::FILE* file = std::fopen(file_name, "rb");
-    if (file == nullptr)
-        return nullptr;
-    if (std::fseek(file, 0, SEEK_END) != 0) {
-        std::fclose(file);
-        return nullptr;
-    }
-    long length = std::ftell(file);
-    if (length < 0 || std::fseek(file, 0, SEEK_SET) != 0) {
-        std::fclose(file);
-        return nullptr;
-    }
-    void* bytes = std::malloc(static_cast<size_t>(length));
-    if (bytes == nullptr ||
-        std::fread(bytes, 1, static_cast<size_t>(length), file) !=
-            static_cast<size_t>(length)) {
-        std::free(bytes);
-        std::fclose(file);
-        return nullptr;
-    }
-    std::fclose(file);
-    *size_out = static_cast<unsigned int>(length);
-    return bytes;
+    const PackFileTable table = { nullptr, 0 };
+    const PackFileHooks hooks = {
+        nullptr, HostFileLock, HostFileUnlock, HostFileAlloc, HostFileRelease,
+        HostExtractEntry, HostOpenForRead, HostFileSize, HostFileRead,
+        HostFileClose,
+    };
+    return PackFile_Load(file_name, size_out, 1, &table, &hooks);
 #else
     (void)file_name;
     (void)size_out;
@@ -2996,23 +3154,82 @@ void* HostConfigLoad(void*, const char* file_name, unsigned int* size_out) {
 #endif
 }
 void HostConfigRelease(void*, void* memory) { std::free(memory); }
-void HostConfigLogInvalid(void*) {}
-void HostConfigLogFlags(void*, unsigned int) {}
+
+void HostConfigLogMissing(void*) {
+#if defined(_WIN32)
+    TextLog_Append(HostTextLog(), DAT_0046de7c);
+#endif
+}
+void HostConfigLogInvalid(void*) {
+#if defined(_WIN32)
+    TextLog_Append(HostTextLog(), DAT_0046de48);
+#endif
+}
+
+// 0x00420870 LABEL_14 predecessor: an accepted image republishes its key
+// block (config +0x04..+0x15) into the live table at 0x00474E88..0x00474E98.
+void HostConfigPublishKeys(void*, const GameConfig* config) {
+#if defined(_WIN32)
+    unsigned char* table = reinterpret_cast<unsigned char*>(DAT_00474e88);
+    std::memcpy(table, config->key_config, sizeof(config->key_config));
+    std::memcpy(table + sizeof(config->key_config), &config->key_config_tail,
+                sizeof(config->key_config_tail));
+#else
+    (void)config;
+#endif
+}
+
+// 0x00420870 - clear the vsync marker, then echo the runtime bits of the
+// config flag word in retail's order. The windowed line is driven by the
+// config byte at +0x1D (0x00491D65), not by a flag bit.
+void HostConfigLogRuntimeFlags(void*, const GameConfig* config) {
+#if defined(_WIN32)
+    TextLog* log = HostTextLog();
+    DAT_00491fdc = 0;
+    if ((config->flags & 0x04u) != 0)
+        TextLog_Append(log, DAT_0046de2c);
+    if ((config->flags & 0x01u) != 0)
+        TextLog_Append(log, DAT_0046de04);
+    if (config->windowed != 0)
+        TextLog_Append(log, DAT_0046dde4);
+    if ((config->flags & 0x02u) != 0)
+        TextLog_Append(log, DAT_0046ddbc);
+    if ((config->flags & 0x08u) != 0)
+        TextLog_Append(log, DAT_0046dd84);
+    if ((config->flags & 0x10u) != 0)
+        TextLog_Append(log, DAT_0046dd64);
+    if ((config->flags & 0x20u) != 0) {
+        TextLog_Append(log, DAT_0046dd4c);
+        DAT_00491fdc = 1;
+    }
+    if ((config->flags & 0x40u) != 0)
+        TextLog_Append(log, DAT_0046dd28);
+#else
+    (void)config;
+#endif
+}
+
+// 0x0044B540 with the retail 0x34-byte length.
 int HostConfigWrite(void*, const char* file_name, const GameConfig* config) {
 #if defined(_WIN32)
-    std::FILE* file = std::fopen(file_name, "wb");
-    if (file == nullptr)
-        return -1;
-    bool written = std::fwrite(config, 1, 0x34u, file) == 0x34u;
-    bool closed = std::fclose(file) == 0;
-    return written && closed ? 0 : -1;
+    return HostWriteWholeFile(file_name, config, 0x34u);
 #else
     (void)file_name;
     (void)config;
     return 0;
 #endif
 }
-void HostConfigLogWriteFail(void*) {}
+
+// 0x00420870 write-failure tail: two 0x0044B8E0 lines. AppendLine raises the
+// log's dirty byte, which is what makes 0x00438AD0 show the log box on exit.
+void HostConfigLogWriteFail(void*, const char* file_name) {
+#if defined(_WIN32)
+    TextLog_AppendLine(HostTextLog(), DAT_0046dd08, file_name);
+    TextLog_AppendLine(HostTextLog(), DAT_0046dcb0);
+#else
+    (void)file_name;
+#endif
+}
 
 // ---------------------------------------------------------------------------
 // Clock hooks: deterministic monotonic clock for the smoke test.
@@ -3360,32 +3577,68 @@ int HostDrainSound(void*) {
 // ---------------------------------------------------------------------------
 void* HostAlloc(unsigned int size) { return std::calloc(1, size); }
 void HostFree(void* memory) { std::free(memory); }
+// 0x00438AD0 initialises and deletes the seven sections in place at
+// 0x00492274; the file (0x004922A4) and text-log (0x004922BC) sections that
+// 0x0044B360 / 0x0044B540 / 0x0044B810 take are entries 2 and 3 of that
+// array, so a host-private array would leave them uninitialised.
 void HostCsInit(void*, int count) {
 #if defined(_WIN32)
     for (int index = 0; index < count; ++index)
-        InitializeCriticalSection(&g_host.critical_section_storage[index]);
+        InitializeCriticalSection(HostRetailSection(index));
 #endif
     g_host.critical_sections = count;
 }
 void HostCsDestroy(void*, int count) {
 #if defined(_WIN32)
     for (int index = 0; index < count; ++index)
-        DeleteCriticalSection(&g_host.critical_section_storage[index]);
+        DeleteCriticalSection(HostRetailSection(index));
 #else
     (void)count;
 #endif
     g_host.critical_sections = 0;
 }
-void HostLogOpen(void*, const char*) { g_host.log_open_count += 1; }
-void HostLogClose(void*) {}
+
+// 0x00438AD0 - one 0x0044B810 line into the log object at 0x00474F70: the
+// boot banner 0x0046F77C, or 0x0046F6F0 when the exit-mode-2 loop re-enters
+// the boot. Retail's cursor is static-initialised to &Text and reset by hand
+// on the restart edge; the imported .data image carries the retail VA in that
+// slot, so the host re-seeds it on both edges.
+void HostLogOpen(void*, int restart) {
+#if defined(_WIN32)
+    TextLog* log = HostTextLog();
+    log->cursor = log->text;
+    log->text[0] = '\0';
+    TextLog_Append(log, restart != 0 ? DAT_0046f6f0 : DAT_0046f77c);
+#else
+    (void)restart;
+#endif
+    g_host.log_open_count += 1;
+}
+
+// 0x00438AD0 tail - nothing to flush while the cursor has not moved; else
+// append the closing rule (0x0046F7CC), raise the modal only when a
+// 0x0044B8E0 line set the dirty byte, and write the text to ./log.txt
+// (0x0046F7BC) through the 0x0044B540 writer.
+void HostLogClose(void*) {
+#if defined(_WIN32)
+    TextLog* log = HostTextLog();
+    if (log->cursor == log->text)
+        return;
+    TextLog_Append(log, DAT_0046f7cc);
+    if (log->dirty != 0)
+        MessageBoxA(nullptr, log->text, DAT_0046f7c8, 0x10u);
+    HostWriteWholeFile(DAT_0046f7bc, log->text,
+                       static_cast<unsigned int>(std::strlen(log->text)));
+#endif
+}
+
 int HostLoadConfigStage(void*) {
     ConfigLoadHooks hooks = {
         nullptr, HostConfigDefaults, HostConfigLoad, HostConfigRelease,
-        HostConfigLogInvalid, HostConfigLogFlags, HostConfigWrite,
-        HostConfigLogWriteFail,
+        HostConfigLogMissing, HostConfigLogInvalid, HostConfigPublishKeys,
+        HostConfigLogRuntimeFlags, HostConfigWrite, HostConfigLogWriteFail,
     };
-    unsigned int flags = 0;
-    return Config_LoadAndValidate(&g_host.config, "th10.cfg", &flags, &hooks);
+    return Config_LoadAndValidate(&HostConfig(), "th10.cfg", &hooks);
 }
 int HostCreateDirectInput();
 int HostCreateD3dDevice();
@@ -3428,7 +3681,7 @@ int HostCreateGameWindow(void*) {
     std::fprintf(stderr, "[th10-recon] window class=\"%s\" title=\"%s\"\n",
                  cls, title);
     std::fflush(stderr);
-    g_host.menu_windowed = g_host.config.windowed != 0;
+    g_host.menu_windowed = HostConfig().windowed != 0;
     ShowWindow(g_host.window, SW_SHOW);
     UpdateWindow(g_host.window);
     HostTrace("window created");
@@ -4126,7 +4379,7 @@ void HostShutdownMidi(void*) {
     MidiPlayer_Shutdown(&hooks);
 }
 int HostSaveConfig(void*) {
-    return HostConfigWrite(nullptr, "th10.cfg", &g_host.config);
+    return HostConfigWrite(nullptr, "th10.cfg", &HostConfig());
 }
 void HostRestoreSpi(void*) {}
 void HostRestartPump(void*) {}
@@ -4340,7 +4593,7 @@ static int HostRun(int argc, char** argv) {
     int exit_code = GameMain_Run(&state, &hooks);
     std::printf("standalone startup-to-title smoke report\n");
     std::printf("  boot: log=%d critical_sections_seen=%d config_magic=0x%X\n",
-                g_host.log_open_count, 7, g_host.config.magic);
+                g_host.log_open_count, 7, HostConfig().magic);
     std::printf("  game state arena constructed: %s\n",
                 g_host.game_state_constructed ? "yes" : "no");
     std::printf("  scheduler callbacks registered: %d primary, %d secondary\n",

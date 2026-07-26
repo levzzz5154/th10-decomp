@@ -57,11 +57,14 @@ int MainTasks_Shutdown(int* sound_worker_stop,
 
 namespace {
 
-bool ConfigImageIsValid(const GameConfig* config) {
-    return config->magic == 0x100003u &&
-           config->difficulty < 2 && config->bgm_mode < 3 &&
+// Retail's acceptance test, in its own order: the six mode bytes at +0x1A
+// through +0x1F are range-checked first, then the version tag at +0x00, then
+// the byte count the loader reported.
+bool ConfigImageIsValid(const GameConfig* config, unsigned int size) {
+    return config->difficulty < 2 && config->bgm_mode < 3 &&
            config->sfx_mode < 2 && config->windowed < 2 &&
-           config->skip_limit < 3 && config->slow_mode < 3;
+           config->skip_limit < 3 && config->slow_mode < 3 &&
+           config->magic == 0x100003u && size == 0x34u;
 }
 
 } // namespace
@@ -70,33 +73,42 @@ bool ConfigImageIsValid(const GameConfig* config) {
 // fall back to defaults on any mismatch, then write the image back. Returns
 // -1 when the write-back fails (retail aborts the boot in that case).
 int Config_LoadAndValidate(GameConfig* config, const char* file_name,
-                           unsigned int* runtime_flags,
                            const ConfigLoadHooks* hooks) {
     hooks->apply_defaults(hooks->context, config);
 
     unsigned int size = 0;
     void* image = hooks->load_file(hooks->context, file_name, &size);
     if (image != 0) {
-        // Copy the 0xD dwords of the on-disk image over the defaults.
+        // qmemcpy(&DAT_00491D48, image, 0x34) - retail copies the whole
+        // record before it validates anything. The length clamp keeps a
+        // short file from reading past the loader's buffer; such a file
+        // fails the size test below regardless.
         const unsigned char* bytes = static_cast<const unsigned char*>(image);
         unsigned char* out = reinterpret_cast<unsigned char*>(config);
         for (unsigned int index = 0; index < 0x34u && index < size; ++index)
             out[index] = bytes[index];
         hooks->release(hooks->context, image);
 
-        if (size != 0x34u || !ConfigImageIsValid(config)) {
+        if (ConfigImageIsValid(config, size)) {
+            // Only an accepted image reaches retail's LABEL_14, which first
+            // copies +0x04..+0x15 into the live key table at 0x00474E88.
+            hooks->publish_key_config(hooks->context, config);
+        } else {
             hooks->log_invalid(hooks->context);
             hooks->apply_defaults(hooks->context, config);
         }
+    } else {
+        // No file at all: retail logs a different line and reruns 0x00418C40
+        // through the same fall-through as the rejected-image case.
+        hooks->log_missing(hooks->context);
+        hooks->apply_defaults(hooks->context, config);
     }
 
-    // Runtime flag echo: retail logs each debug bit (0x04/0x01/0x02/0x08/
-    // 0x10/0x20/0x40) it finds in the loaded flag byte.
-    if (runtime_flags != 0)
-        hooks->log_flag_bits(hooks->context, *runtime_flags);
+    // Runtime-flag echo out of the record's own flag word at +0x30.
+    hooks->log_runtime_flags(hooks->context, config);
 
     if (hooks->write_file(hooks->context, file_name, config) != 0) {
-        hooks->log_write_failure(hooks->context);
+        hooks->log_write_failure(hooks->context, file_name);
         return -1;
     }
     return 0;

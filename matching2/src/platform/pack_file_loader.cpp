@@ -28,7 +28,8 @@ bool NamesEqualNoCase(const char* left, const char* right) {
 // 0x0044B360 - PackFile_Load: load a file either from the mounted archive
 // table (DAT_00497990, stride four dwords: name/data/size/flags) or straight
 // from disk. The whole operation runs under the file critical section.
-// Returns a caller-owned buffer, or null with *size_out untouched.
+// Returns a caller-owned buffer, or null. size_out is optional: retail tests
+// its pointer before every store.
 void* PackFile_Load(const char* name, unsigned int* size_out, int from_disk,
                     const PackFileTable* table, const PackFileHooks* hooks) {
     hooks->lock(hooks->context);
@@ -37,28 +38,39 @@ void* PackFile_Load(const char* name, unsigned int* size_out, int from_disk,
         // Archive path: strip any directory prefix, then look the entry up
         // case-insensitively in the mounted table.
         const char* base_name = StripPath(name);
+        const PackFileEntry* found = 0;
+        unsigned int entry_size = 0;
         for (unsigned int index = 0; index < table->entry_count; ++index) {
             const PackFileEntry* entry = &table->entries[index];
             if (!NamesEqualNoCase(entry->name, base_name))
                 continue;
-            *size_out = entry->size;
-            buffer = hooks->alloc(hooks->context, entry->size);
-            if (buffer != 0)
-                hooks->extract_entry(hooks->context, entry, buffer);
+            found = entry;
+            entry_size = entry->size;
             break;
         }
+        // A miss leaves retail's v11 at zero and still publishes it, so a
+        // caller that reuses its size variable sees 0 rather than stale data.
+        if (size_out != 0)
+            *size_out = entry_size;
+        if (entry_size != 0) {
+            buffer = hooks->alloc(hooks->context, entry_size);
+            if (buffer != 0)
+                hooks->extract_entry(hooks->context, found, buffer);
+        }
     } else {
-        // Disk path: open/measure/read/close through the host layer.
+        // Disk path: CreateFileA / GetFileSize / ReadFile / CloseHandle.
+        // Retail ignores ReadFile's status and publishes the byte count it
+        // actually transferred, handing the buffer back either way; only a
+        // failed open or a failed allocation produce a null result.
         void* handle = hooks->open_for_read(hooks->context, name);
         if (handle != 0) {
             unsigned int size = hooks->file_size(hooks->context, handle);
             buffer = hooks->alloc(hooks->context, size);
-            if (buffer != 0 &&
-                hooks->read(hooks->context, handle, buffer, size) != 0) {
-                *size_out = size;
-            } else if (buffer != 0) {
-                hooks->release(hooks->context, buffer);
-                buffer = 0;
+            if (buffer != 0) {
+                const unsigned int read =
+                    hooks->read(hooks->context, handle, buffer, size);
+                if (size_out != 0)
+                    *size_out = read;
             }
             hooks->close(hooks->context, handle);
         }

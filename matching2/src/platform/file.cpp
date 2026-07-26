@@ -152,16 +152,21 @@ int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
 
 // 0x0044B540 - Create/truncate a file and write one buffer under the
 // file-system critical section (GENERIC_WRITE, FILE_SHARE_READ,
-// CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL). Every path unwinds the depth byte:
-// an open failure additionally reports the Win32 error through the hook
-// (retail formats the system message and discards it), a short write
-// returns -2 after closing, and a complete write returns 0.
+// CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL). Retail enters 0x004922A4 first and
+// only then raises the depth byte; every exit leaves the section and unwinds
+// the depth. An open failure additionally reports the Win32 error through the
+// hook (retail formats the system message and discards it) and returns -1, a
+// short write returns -2 after closing, a complete write returns 0.
 int File_WriteWholeFile(const char* path, const void* source, DWORD size,
                         void* (*open_file)(const char*),
                         DWORD (*write_file)(void*, const void*, DWORD),
                         void (*close_file)(void*),
                         void (*report_error)(void),
-                        unsigned char* critical_depth) {
+                        unsigned char* critical_depth,
+                        void (*enter_section)(void),
+                        void (*leave_section)(void)) {
+    if (enter_section != 0)
+        enter_section();
     if (critical_depth != 0)
         ++*critical_depth;
     void* handle = 0;
@@ -170,6 +175,8 @@ int File_WriteWholeFile(const char* path, const void* source, DWORD size,
     if (handle == (void*)-1 || handle == 0) {
         if (report_error != 0)
             report_error();
+        if (leave_section != 0)
+            leave_section();
         if (critical_depth != 0 && *critical_depth != 0)
             --*critical_depth;
         return -1;
@@ -179,6 +186,8 @@ int File_WriteWholeFile(const char* path, const void* source, DWORD size,
         written = write_file(handle, source, size);
     if (close_file != 0)
         close_file(handle);
+    if (leave_section != 0)
+        leave_section();
     if (critical_depth != 0 && *critical_depth != 0)
         --*critical_depth;
     return written == size ? 0 : -2;

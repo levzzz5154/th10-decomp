@@ -32,7 +32,7 @@ int GameMain_Run(GameMainState* state, const GameMainHooks* hooks) {
         ZeroTrackerPool(state->tracker_pool);
     state->critical_sections = kCriticalSectionCount;
     hooks->critical_sections_init(ctx, kCriticalSectionCount);
-    hooks->log_open(ctx, "log opened");
+    hooks->log_open(ctx, 0); // banner 0x0046F77C
 
     int exit_mode = GAME_MAIN_EXIT_NORMAL;
     for (;;) { // retail restart loop (LAB back-edge for exit mode 2)
@@ -138,9 +138,10 @@ int GameMain_Run(GameMainState* state, const GameMainHooks* hooks) {
 
         if (exit_mode != GAME_MAIN_EXIT_RESTART)
             break;
-        // Restart: reopen the log and pump 0x3C grace iterations so the
-        // display mode change settles before the next boot.
-        hooks->log_open(ctx, "restart");
+        // Restart: reset the log and reopen it with the "restart required"
+        // banner, then pump 0x3C grace iterations so the display mode change
+        // settles before the next boot.
+        hooks->log_open(ctx, 1); // banner 0x0046F6F0
         hooks->restart_grace_pump(ctx);
     }
 

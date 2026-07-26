@@ -63,18 +63,30 @@ struct MainTaskShutdownHooks {
 int MainTasks_Shutdown(int* sound_worker_stop,
                        const MainTaskShutdownHooks* hooks);
 
-// Config image written to / read from th10.cfg (0x34 bytes on disk).
+// Config image written to / read from th10.cfg (0x34 bytes on disk). Retail
+// keeps exactly one copy of it, the block at 0x00491D48, and every consumer
+// addresses that block directly - which is why 0x00420870 loads into it in
+// place instead of handing a copy back to its caller. The field offsets are
+// the ones 0x00418C40 seeds and 0x00420870 range-checks.
 struct GameConfig {
-    unsigned int magic;        // DAT_00491D48, must equal 0x100003
-    unsigned int score_seed[5];// DAT_00491D4C..5C -> DAT_00474E88..98
-    unsigned char reserved[2]; // DAT_00491D60..61
-    unsigned char difficulty;  // DAT_00491D62, < 2
-    unsigned char bgm_mode;    // DAT_00491D63, < 3
-    unsigned char sfx_mode;    // DAT_00491D64, < 2
-    unsigned char windowed;    // DAT_00491D65, < 2
-    unsigned char skip_limit;  // DAT_00491D66, < 3
-    unsigned char slow_mode;   // DAT_00491D67, < 3
-    unsigned char reserved_tail[20]; // remainder of the 0x34-byte disk image
+    unsigned int magic;             // +0x00 DAT_00491D48, must be 0x00100003
+    unsigned int key_config[4];     // +0x04 published to DAT_00474E88..94
+    unsigned short key_config_tail; // +0x14 published to DAT_00474E98
+    unsigned short threshold_16;    // +0x16 axis threshold, default 600
+    unsigned short threshold_18;    // +0x18 axis threshold, default 600
+    unsigned char difficulty;  // +0x1A DAT_00491D62, < 2
+    unsigned char bgm_mode;    // +0x1B DAT_00491D63, < 3 (default 1)
+    unsigned char sfx_mode;    // +0x1C DAT_00491D64, < 2 (default 1)
+    unsigned char windowed;    // +0x1D DAT_00491D65, < 2
+    unsigned char skip_limit;  // +0x1E DAT_00491D66, < 3
+    unsigned char slow_mode;   // +0x1F DAT_00491D67, < 3 (default 2)
+    unsigned char music_volume;      // +0x20 DAT_00491D68, default 100
+    unsigned char sound_volume;      // +0x21 DAT_00491D69, default 0x50
+    unsigned char hint_mode;         // +0x22 DAT_00491D6A, default 0
+    unsigned char reserved_23[13];   // +0x23..+0x2F cleared by 0x00418C40
+    // +0x30 DAT_00491D78. 0x00420870 reads the runtime bits out of this word
+    // (retail addresses it as appobj+0x150); 0x00418C40 defaults it to 0x100.
+    unsigned int flags;
 };
 
 static_assert(sizeof(GameConfig) == 0x34,
@@ -87,15 +99,24 @@ struct ConfigLoadHooks {
     void* (*load_file)(void* context, const char* name,
                        unsigned int* size_out);
     void (*release)(void* context, void* memory);
-    void (*log_invalid)(void* context);   // &DAT_0046DE48 / &DAT_0046DE7C
-    void (*log_flag_bits)(void* context, unsigned int flags);
+    // 0x0044B810 with &DAT_0046DE7C - "config data not found, initialised".
+    void (*log_missing)(void* context);
+    // 0x0044B810 with &DAT_0046DE48 - "config data invalid, reinitialised".
+    void (*log_invalid)(void* context);
+    // An accepted image republishes its key block into the live input table
+    // at 0x00474E88..0x00474E98.
+    void (*publish_key_config)(void* context, const GameConfig* config);
+    // The runtime-flag echo: clears 0x00491FDC, then logs the 0x04 / 0x01 /
+    // windowed / 0x02 / 0x08 / 0x10 / 0x20 / 0x40 lines in retail's order.
+    void (*log_runtime_flags)(void* context, const GameConfig* config);
     int (*write_file)(void* context, const char* name,
                       const GameConfig* config); // 0x0044B540
-    void (*log_write_failure)(void* context);    // 0x0044B8E0 x2
+    // 0x0044B8E0 x2 - &DAT_0046DD08 takes the file name, &DAT_0046DCB0 does
+    // not.
+    void (*log_write_failure)(void* context, const char* name);
 };
 
 int Config_LoadAndValidate(GameConfig* config, const char* file_name,
-                           unsigned int* runtime_flags,
                            const ConfigLoadHooks* hooks);
 
 struct ScreenshotHooks {

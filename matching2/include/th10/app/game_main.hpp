@@ -52,7 +52,12 @@ struct GameMainHooks {
     void  (*release)(void* memory);
     void  (*critical_sections_init)(void* context, int count);
     void  (*critical_sections_destroy)(void* context, int count);
-    void  (*log_open)(void* context, const char* banner);
+    // 0x0044B810 into the text log at 0x00474F70. Retail passes two different
+    // banners: 0x0046F77C when the process opens the log and 0x0046F6F0 when
+    // the exit-mode-2 loop reopens it, which is what `restart` selects.
+    void  (*log_open)(void* context, int restart);
+    // 0x00438AD0 tail: closing rule, the log box when the dirty byte is set,
+    // then ./log.txt through 0x0044B540.
     void  (*log_flush_and_close)(void* context);
     int   (*load_config)(void* context);            // 0x00439FF0
     int   (*create_window)(void* context);          // 0x004392E0

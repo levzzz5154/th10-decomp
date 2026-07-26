@@ -28,8 +28,10 @@ struct PackFileHooks {
                           void* buffer);
     void* (*open_for_read)(void* context, const char* name);
     unsigned int (*file_size)(void* context, void* handle);
-    int (*read)(void* context, void* handle, void* buffer,
-                unsigned int size);
+    // ReadFile: returns the byte count actually transferred, which is what
+    // retail stores through size_out.
+    unsigned int (*read)(void* context, void* handle, void* buffer,
+                         unsigned int size);
     void (*close)(void* context, void* handle);
 };
 

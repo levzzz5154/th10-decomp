@@ -128,8 +128,11 @@ extern "C" void LeaveCriticalSection(void* criticalSection) {
 }
 unsigned int DAT_00492274 = 0;
 #else
-extern "C" void __stdcall InitializeCriticalSection(void*);
-unsigned int DAT_00492274[6] = {};
+// 0x00492274 is the first of the seven CRITICAL_SECTIONs 0x00438AD0
+// initialises (stride 0x18). Giving it host-private storage here detached it
+// from the file (0x004922A4) and text-log (0x004922BC) sections that share
+// that array, so it stays a plain reference into the retail block.
+extern unsigned int DAT_00492274;
 #endif
 unsigned char DAT_0049231c = 0; // scheduler critical-section init flag
 
@@ -2303,13 +2306,9 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	g_companion_anm_size = 0;
 	g_report.archive_available = archive_available;
 	g_owned_allocation_count = 0;
-#if defined(_WIN32)
-	static int scheduler_critical_ready = 0;
-	if (!scheduler_critical_ready) {
-		InitializeCriticalSection(DAT_00492274);
-		scheduler_critical_ready = 1;
-	}
-#endif
+	// The scheduler section no longer needs a lazy initialiser here: it is
+	// entry 0 of the retail array that 0x00438AD0 - and now the host's
+	// critical_sections_init hook - initialises during boot.
 	g_report.confirm_invoked = 1;
 	g_report.character = character;
 	g_report.weapon = weapon;
