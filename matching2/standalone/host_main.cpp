@@ -176,6 +176,14 @@ struct HostContext {
     int boot_device_ok = 0;
     int boot_sound_ok = 0;
     int joystick_present = 0;
+    // Scripted input: --input FRAME:KEY[,...] injects menu bits on the given
+    // title frame so the menu and stage entry can be driven headlessly.
+    // Without it the real boot sits on "Press Any Button" forever, which is
+    // why boot-real spawned 3 child VMs where the scripted smoke path made 18.
+    static const int kScriptedInputMax = 16;
+    int scripted_frames[16] = {};
+    unsigned int scripted_keys[16] = {};
+    int scripted_count = 0;
     int presented_frames = 0;
     int capture_done = 0;
     const char* capture_path = nullptr;
@@ -1609,6 +1617,20 @@ void HostRenderMenu() {
                 std::fflush(stderr);
                 traced_title_draw_list = true;
             }
+    {
+        static float last_x = -1e9f, last_y = -1e9f;
+        const AnmVmState& root = g_host.title_vms[0].state;
+        if (root.position[0] != last_x || root.position[1] != last_y) {
+            std::fprintf(stderr,
+                "[th10-recon] root VM pos -> (%.1f,%.1f) alt=(%.1f,%.1f) "
+                "flags=%08X sprite=%d\n",
+                root.position[0], root.position[1],
+                root.alt_position[0], root.alt_position[1],
+                root.flags, root.sprite);
+            std::fflush(stderr);
+            last_x = root.position[0]; last_y = root.position[1];
+        }
+    }
             for (int index = 0; index < draw_count; ++index)
                 HostDrawAnmVm(*draw_list[index]);
         }
@@ -2045,6 +2067,9 @@ int HostRunSchedulerFrame(void*) {
     // counts toward the title-visible milestone.
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
+    for (int index = 0; index < g_host.scripted_count; ++index)
+        if (g_host.scripted_frames[index] == g_host.title_frames_completed)
+            g_host.menu_input |= g_host.scripted_keys[index];
     if (g_host.smoke_mode && g_host.title_frames_completed == 60 &&
         HostStage_GetReport().archive_available &&
         !HostStage_GetReport().confirm_invoked) {
@@ -2920,6 +2945,40 @@ static int HostRun(int argc, char** argv) {
         }
         // --boot-real [frames]: full real boot, no smoke early-outs, quit
         // after the given frame count (default 300) with the report printed.
+        if (std::strcmp(argv[index], "--input") == 0 && index + 1 < argc) {
+            const char* spec = argv[index + 1];
+            while (*spec != '\0' &&
+                   g_host.scripted_count < HostContext::kScriptedInputMax) {
+                const int frame = std::atoi(spec);
+                const char* colon = std::strchr(spec, ':');
+                if (colon == nullptr)
+                    break;
+                const char* key = colon + 1;
+                unsigned int bit = 0;
+                if (std::strncmp(key, "confirm", 7) == 0)
+                    bit = TITLE_MENU_CONFIRM;
+                else if (std::strncmp(key, "cancel", 6) == 0)
+                    bit = TITLE_MENU_CANCEL;
+                else if (std::strncmp(key, "up", 2) == 0)
+                    bit = TITLE_MENU_UP;
+                else if (std::strncmp(key, "down", 4) == 0)
+                    bit = TITLE_MENU_DOWN;
+                else if (std::strncmp(key, "left", 4) == 0)
+                    bit = TITLE_OPTIONS_LEFT;
+                else if (std::strncmp(key, "right", 5) == 0)
+                    bit = TITLE_OPTIONS_RIGHT;
+                if (bit != 0) {
+                    g_host.scripted_frames[g_host.scripted_count] = frame;
+                    g_host.scripted_keys[g_host.scripted_count] = bit;
+                    g_host.scripted_count += 1;
+                }
+                const char* comma = std::strchr(key, ',');
+                if (comma == nullptr)
+                    break;
+                spec = comma + 1;
+            }
+            continue;
+        }
         if (std::strcmp(argv[index], "--boot-real") == 0) {
             g_host.capture_after =
                 index + 1 < argc ? std::atoi(argv[index + 1]) : 300;

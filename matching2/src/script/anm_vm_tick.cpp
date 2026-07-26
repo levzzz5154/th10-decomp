@@ -433,13 +433,21 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             break;
         case 0x40: // interrupt label: skipped during normal execution
             break;
-        case 0x41:
+        case 0x41: {
+            // Anchor modes. Retail reads two 16-bit halves of the SINGLE
+            // dword argument: instruction+8 -> bits 18-19 (horizontal),
+            // instruction+10 -> bits 20-21 (vertical). Reading two separate
+            // dword arguments made the vertical read run past the end of a
+            // 12-byte instruction, so every script that anchored top-left
+            // (arg 0x00010001) got a centred vertical anchor instead - which
+            // is why the title backdrop drew half off the top of the screen.
+            const unsigned int packed =
+                static_cast<unsigned int>(IntArg(hooks, vm, &ins, 0));
             hooks->set_blend_bits(hooks->context, vm, 0xC0000u | 0x300000u,
-                                  (static_cast<unsigned int>(
-                                       IntArg(hooks, vm, &ins, 0)) << 0x12) |
-                                  (static_cast<unsigned int>(
-                                       IntArg(hooks, vm, &ins, 1)) << 0x14));
+                                  ((packed & 0xFFFFu) << 0x12) |
+                                  ((packed >> 16) << 0x14));
             break;
+        }
         case 0x42:
             hooks->set_blend_bits(hooks->context, vm, 0x30u,
                                   static_cast<unsigned int>(
