@@ -63,12 +63,17 @@
 #include "th10/game/linked_pool_release.hpp"
 #include "th10/game/linked_pool_append.hpp"
 #include "th10/game/boss_gauge.hpp"
+#include "th10/math/angle.hpp"
+#include "th10/math/timer.hpp"
+#include "th10/platform/sound_dummy.hpp"
 #include "th10/render/effect_ring.hpp"
 #include "th10/render/anm_propagate.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_std.hpp"
 #include "th10/script/stage_ecl_load.hpp"
 #include "th10/script/ecl_core_interpreter.hpp"
+#include "th10/script/ecl_name_table.hpp"
+#include "th10/script/ecl_vm_children.hpp"
 #include "th10/script/ecl.hpp"
 #include "th10/archive/resource_manager.hpp"
 // windows_types.hpp defines NULL unconditionally; glibc headers included
@@ -98,6 +103,14 @@ extern uint32_t DAT_00477834;
 extern uint32_t DAT_00477704;
 extern uint8_t DAT_00491d78;
 extern float DAT_00476f78;
+// Retail score/faith globals block (dword_474C40..dword_474CAC) and the
+// FrameTimer embedded at dword_474C54; both are linked straight out of the
+// original .data section, so 0x00418A00 gets retail's own argument.
+extern unsigned char DAT_00474c40[];
+extern unsigned char DAT_00474c54[];
+// Retail dword_47783C: the published score-file image (0x0042AF20 allocates
+// 0x1DCB4 bytes and stores the pointer here).
+extern uint8_t* DAT_0047783c;
 void D3DResourceWorker_Stop();
 
 // -----------------------------------------------------------------------------
@@ -258,6 +271,11 @@ int g_anm_slots[0x200];
 int g_thread_pending;
 StageContext g_context;
 StageRecord g_stage_record;
+// The retail stage table (dword_477848 -> 0x00474788, 48-byte rows) carries
+// two music indices per row at +36 and +40. The Stage 1 row at 0x004747B8
+// holds 1 and 2; StageRecord models only the first 24 bytes, so the value
+// 0x00418190 reads for its sub_420B10(0, ...) call is named here.
+const int kStageOneMusicIndex = 1;
 StageUpdateTaskPair g_task_pairs[1];
 StageUpdateEnv g_update_env;
 StageEntryEnv g_entry_env;
@@ -702,12 +720,18 @@ int __fastcall HostBulletPoolUpdate(void* owner) {
 	return 1;
 }
 
-// Retail 0x004067A0: unless the player is in the capture state, walk the six
-// per-layer rows and refresh each node's collision snapshot through
-// 0x004066E0. That is the pass that keeps bullet hitboxes in step with their
-// positions, so collision has something current to test against.
+// Retail 0x004067A0:
+//   if (!dword_477810 || (*((_BYTE *)dword_477810 + 88) & 4) == 0)
+//       for (i = 0; i < 6; ++i) sub_4066E0(this, i, this);
+// dword_477810 is the stage context (0x00417870's argument) and +88 is its
+// flag word, so the pass is skipped while the stage-entry bit is still set.
+// 0x004066E0 walks one per-layer row from this+0x14+4*layer and refreshes
+// each node's collision snapshot.
 int __fastcall HostBulletPoolDraw(void* owner) {
 	if (owner == 0)
+		return 1;
+	// Retail's guard byte is StageContext::flags (+0x58) bit 2.
+	if ((g_context.flags & 4u) != 0)
 		return 1;
 	unsigned char* pool = static_cast<unsigned char*>(owner);
 	BulletLinkManager* manager =
@@ -717,12 +741,16 @@ int __fastcall HostBulletPoolDraw(void* owner) {
 		    reinterpret_cast<HitboxEnemy*>(manager->heads[layer]);
 		if (head == 0)
 			continue;
-		EnemyList_SyncHitboxes(head, 0.0f, 0.0f,
-		                       [](float angle, float quarter) -> float {
-			                       (void)quarter;
-			                       return angle;
-		                       },
-		                       [](void*) {}, 0);
+		// 0x004066E0 adds flt_470B4C (224.0, at 0x00470B4C) to x and
+		// flt_470B48 (16.0, at 0x00470B48) to y, and recomputes the
+		// sprite angle as sub_44BC10(facing, 1.5707964) - the
+		// add-and-wrap leaf recovered as Angle_NormalizeSum.
+		// Retail's per-node tail is sub_4451C0(node + 8, dword_491C10,
+		// pool, node), the four-argument ANM draw dispatcher; the
+		// recovered leaf's two-parameter mark_dirty hook cannot carry
+		// the node, so it is left unbound rather than faked.
+		EnemyList_SyncHitboxes(head, 224.0f, 16.0f, Angle_NormalizeSum, 0,
+		                       0);
 	}
 	return 1;
 }
@@ -1578,6 +1606,14 @@ ECLVMState g_ecl_state;
 //               (thiscall, `this` in ECX)
 // A one-entry table made every negative operand encoding read slot 4 or 5 off
 // the end of it.
+//
+// The variable policy behind slots 1..4 is retail's off_46D0C0 entries
+// loc_411FC0 / loc_412300 / loc_412350 / loc_4126D0: 51-case switches over
+// the variable ids -10000..-9950 that read the enemy entity's own fields
+// (+0x1068..+0x1160, +0x23FC, +0x2482), the player object at dword_477834,
+// the game object at dword_477704 and the RNG at dword_4918B0. The bridge
+// instantiates none of those, so the flat storage below stands in for them
+// and is NOT retail's rule set.
 float g_ecl_globals[256];
 int g_ecl_int_globals[256];
 
@@ -1597,7 +1633,13 @@ float* __thiscall HostEclResolveFloatPointer(void*, int variable) {
 	const int slot = variable < 0 ? -variable : variable;
 	return &g_ecl_globals[slot < 256 ? slot : 0];
 }
-void __thiscall HostEclResolverUnknown(void*) {}
+// Retail slot 5 is sub_40CC50, the scalar deleting destructor: it runs the
+// entity teardown (sub_40DAE0) and frees the block when bit 0 of the flag
+// byte is set. The bridge owns g_ecl_entity statically, so it must never free.
+void __thiscall HostEclDestroyEntity(void*, char free_storage) {
+	Log("ECL owner destructor (0x0040CC50) reached with flag %d; the bridge "
+	    "owns g_ecl_entity statically", (int)free_storage);
+}
 
 void* g_ecl_owner_vtable[6];
 EclCoreHooks g_ecl_hooks;
@@ -1605,19 +1647,29 @@ int g_ecl_started;
 int g_ecl_enabled;
 int g_ecl_calls;
 int g_ecl_spawns;
-// Retail's async spawn (0x004500D0) allocates a 0x1024 VM record, links it
-// onto the owner's child list at owner+0x1030/+0x1034 and tail-calls the call
-// edge. The host owns a fixed pool and a flat live list instead of the
-// intrusive one; EclVm_TickChildren (0x0044FD10) walks the same set.
-const int kEclChildMax = 64;
-EclCoreVm g_ecl_children[64];
-int g_ecl_child_live[64];
-int g_ecl_child_count;
+// Retail's async spawn (0x004500D0) allocates a 0x1024 VM record and a
+// 12-byte link, pushes the link at the head of the owner's child list
+// (anchor +0x1030, head +0x1034) and tail-calls the call edge. The walk is
+// EclVm_TickChildren (0x0044FD10, src/script/ecl_vm_children.cpp), whose
+// EclOwner models exactly those three fields, so the bridge keeps the real
+// intrusive list rather than a flat pool the recovered walk cannot see.
+EclOwner g_ecl_child_owner;
 // The VM currently being ticked: retail reads it from owner+0x04, which the
 // call edge saves and restores around each dispatch.
 EclCoreVm* g_ecl_active;
 int g_ecl_instructions;
 int g_ecl_stopped;
+
+void HostEclReleaseChildren() {
+	EclChildLink* node = g_ecl_child_owner.anchor.next;
+	while (node != 0) {
+		EclChildLink* next = node->next;
+		std::free(node->vm);
+		std::free(node);
+		node = next;
+	}
+	g_ecl_child_owner.anchor.next = 0;
+}
 
 // Retail's loc_40E760 thunk adds 0x103C to `this` before entering the
 // dispatcher, so the recovered ECL_VM_Dispatch expects the biased pointer.
@@ -1638,34 +1690,56 @@ int HostEclDispatchExtended(EclCoreOwner* owner) {
 	return ECL_VM_Dispatch(g_ecl_entity + 0x103C);
 }
 
-// stage01.ecl sub table: `count` code offsets at 0x58 followed by the same
-// number of NUL-terminated names, sorted, paired index-wise. Retail resolves a
-// call target through 0x00450470 against a label object at owner+0x102C; the
-// host binds the same lookup against the file it already loaded.
-const char* HostEclSubName(unsigned int index) {
-	if (g_enemy_ecl == 0 || index >= g_enemy_ecl_sub_count)
-		return 0;
-	const unsigned char* cursor =
-	    g_enemy_ecl + 0x58 + 4u * g_enemy_ecl_sub_count;
-	for (unsigned int seen = 0; seen < index; ++seen) {
-		while (cursor < g_enemy_ecl + g_enemy_ecl_size && *cursor != 0)
-			++cursor;
-		if (cursor >= g_enemy_ecl + g_enemy_ecl_size)
-			return 0;
-		++cursor;
+// Retail resolves a call target through 0x00450470 (ECL_FindScriptLabel in
+// src/script/ecl_vm.cpp) against the sorted name table 0x00450220 builds from
+// the SCPT container (EclNameTable_Register in src/script/ecl_name_table.cpp),
+// so the bridge registers the stage script it already loaded and searches
+// that table instead of re-deriving the file layout by hand.
+EclTable g_ecl_table;
+EclNameEnv g_ecl_name_env;
+// The object 0x00450470 searches, in retail's own shape: the entry count at
+// +8 and the 8-byte {name, body} table at +140. Retail hands it over as
+// dword_477704[21]; the bridge fills the two fields 0x00450220 produced.
+unsigned char g_ecl_label_object[0x90];
+
+int HostEclBuildNameTable() {
+	if (g_ecl_table.entries != 0) {
+		std::free(g_ecl_table.entries);
+		g_ecl_table.entries = 0;
 	}
-	return reinterpret_cast<const char*>(cursor);
+	std::memset(&g_ecl_table, 0, sizeof(g_ecl_table));
+	std::memset(g_ecl_label_object, 0, sizeof(g_ecl_label_object));
+	if (g_enemy_ecl == 0)
+		return -1;
+	g_ecl_name_env.allocate = [](unsigned int size) -> void* {
+		return std::malloc(size);
+	};
+	g_ecl_name_env.release = [](void* block) { std::free(block); };
+	const int status =
+	    EclNameTable_Register(&g_ecl_table, g_enemy_ecl, &g_ecl_name_env);
+	if (status == 0) {
+		*reinterpret_cast<int*>(g_ecl_label_object + 8) =
+		    g_ecl_table.total_count;
+		*reinterpret_cast<EclEntry**>(g_ecl_label_object + 0x8C) =
+		    g_ecl_table.entries;
+	}
+	Log("EclNameTable_Register(0x00450220): %d subs registered (status %d)",
+	    g_ecl_table.total_count, status);
+	return status;
 }
 
-int HostEclFindSub(const char* name) {
-	if (name == 0)
-		return -1;
-	for (unsigned int index = 0; index < g_enemy_ecl_sub_count; ++index) {
-		const char* candidate = HostEclSubName(index);
-		if (candidate != 0 && std::strcmp(candidate, name) == 0)
-			return static_cast<int>(index);
-	}
-	return -1;
+// 0x00450470 returns the sub body, i.e. the ECLH header's 16 bytes already
+// skipped. A body outside the loaded image is a corrupt table, not a target.
+EclCoreInstruction* HostEclFindSubBody(const char* name) {
+	Byte* body = static_cast<Byte*>(
+	    ECL_FindScriptLabel(g_ecl_label_object, name));
+	if (body == 0 || g_enemy_ecl == 0)
+		return 0;
+	const uintptr_t base = reinterpret_cast<uintptr_t>(g_enemy_ecl);
+	const uintptr_t value = reinterpret_cast<uintptr_t>(body);
+	if (value < base || value - base + 16 > g_enemy_ecl_size)
+		return 0;
+	return reinterpret_cast<EclCoreInstruction*>(body);
 }
 
 // Retail 0x0044DF70, reached from opcode 0x0B. For an ECL `call` the child and
@@ -1718,32 +1792,51 @@ float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
 	return &g_ecl_globals[slot];
 }
 
-// Retail 0x004500D0, opcodes 0x0F/0x10. The callee name is taken from the
-// CALLER's instruction by the call edge, so this only has to produce a child
-// record, inherit the rank mask, and hand it to that edge.
+// Retail 0x004500D0, opcodes 0x0F/0x10:
+//   v3 = operator new(0x1024); v3[1026] = 0; v3[1027] = 0;
+//   v5 = operator new(0xC);
+//   v4[1028] = async_id; v4[1029] = owner; *v4 = 0; v4[1] = 0;
+//   *((_BYTE *)v4 + 4124) = *(_BYTE *)(*(_DWORD *)(owner + 4) + 4124);
+//   *v5 = v4; v5[1] = 0; v5[2] = 0;
+//   v6 = *(owner + 4148);
+//   if (v6) { v5[1] = v6; *(_DWORD *)(*(owner + 4148) + 8) = v5; }
+//   *(owner + 4148) = v5; v5[2] = owner + 4144;
+//   return sub_44DF70(v4, *(_DWORD **)(owner + 4), first_argument);
+// i.e. the child is pushed at the head of the list the tick walk reads and
+// the parent is the OWNER's active VM, not the spawner's record.
 int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
 	(void)owner;
-	EclCoreVm* parent = g_ecl_active;
+	EclCoreVm* parent =
+	    static_cast<EclCoreVm*>(g_ecl_child_owner.active_vm);
 	if (parent == 0)
 		return -1;
-	int slot = -1;
-	for (int index = 0; index < g_ecl_child_count; ++index)
-		if (!g_ecl_child_live[index]) { slot = index; break; }
-	if (slot < 0) {
-		if (g_ecl_child_count >= kEclChildMax) {
-			Log("ecl async: child pool exhausted (%d)", kEclChildMax);
-			return -1;
-		}
-		slot = g_ecl_child_count++;
+	EclCoreVm* child = static_cast<EclCoreVm*>(std::malloc(sizeof(*child)));
+	EclChildLink* link =
+	    static_cast<EclChildLink*>(std::malloc(sizeof(*link)));
+	if (child == 0 || link == 0) {
+		std::free(child);
+		std::free(link);
+		return -1;
 	}
-	EclCoreVm* child = &g_ecl_children[slot];
 	std::memset(child, 0, sizeof(*child));
 	child->owner = parent->owner;
 	child->rank_mask = parent->rank_mask;   // child+0x101C
 	child->async_id = async_id;             // child+0x1010
-	if (HostEclStartChild(child, parent, first_argument) != 0)
+	link->vm = child;
+	link->next = 0;
+	link->previous = 0;
+	if (g_ecl_child_owner.anchor.next != 0) {
+		link->next = g_ecl_child_owner.anchor.next;
+		g_ecl_child_owner.anchor.next->previous = link;
+	}
+	g_ecl_child_owner.anchor.next = link;
+	link->previous = &g_ecl_child_owner.anchor;
+	if (HostEclStartChild(child, parent, first_argument) != 0) {
+		// Retail leaves the record linked and lets the walk retire it; the
+		// bridge does the same so the list stays the one 0x0044FD10 owns.
+		child->ip = 0;
 		return -1;
-	g_ecl_child_live[slot] = 1;
+	}
 	g_ecl_spawns += 1;
 	return 0;
 }
@@ -1842,17 +1935,14 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 
 	// --- retarget: owner->active_vm is set to the child for the lookup ----
 	const char* target = reinterpret_cast<const char*>(parent_bytes + 20);
-	const int index = HostEclFindSub(target);
-	unsigned int entry = 0;
-	if (index >= 0)
-		entry = g_enemy_ecl_sub_offsets[index];
-	if (index < 0 || entry + 16 >= g_enemy_ecl_size) {
+	EclCoreInstruction* body = HostEclFindSubBody(target);
+	if (body == 0) {
 		// Retail's failure tail: the CALLER's ip is cleared and -1 returned.
 		Log("ecl call: sub \"%s\" unresolved; stopping caller", target);
 		parent->ip = 0;
 		return -1;
 	}
-	child->ip = reinterpret_cast<EclCoreInstruction*>(g_enemy_ecl + entry + 16);
+	child->ip = body;
 	child->time = 0.0f;                                       // **(v21 + 4) = 0
 	g_ecl_calls += 1;
 	return 0;
@@ -1869,41 +1959,53 @@ void HostStartMainEcl() {
 		Log("main ECL start (0x0040CFB0) skipped: stage01.ecl is not resident");
 		return;
 	}
-	// The entry point is the sub named "main". The name table is sorted, so
-	// it is the last entry in stage01.ecl - NOT sub 0, which is "BGirl00".
-	const int main_index = HostEclFindSub("main");
-	if (main_index < 0) {
-		Log("main ECL start skipped: no sub named \"main\"");
+	if (HostEclBuildNameTable() != 0) {
+		Log("main ECL start skipped: 0x00450220 rejected stage01.ecl");
 		return;
 	}
-	const unsigned int entry =
-	    g_enemy_ecl_sub_offsets[static_cast<unsigned int>(main_index)];
-	if (entry + 16 >= g_enemy_ecl_size) {
-		Log("main ECL start skipped: sub 0 offset 0x%X is out of range", entry);
+	HostEclReleaseChildren();
+	// The entry point is the sub named "main", resolved exactly the way
+	// retail's 0x00450500 resolves an interpreter's entry label.
+	EclCoreInstruction* entry_body = HostEclFindSubBody("main");
+	if (entry_body == 0) {
+		Log("main ECL start skipped: no sub named \"main\"");
 		return;
 	}
 	std::memset(&g_ecl_vm, 0, sizeof(g_ecl_vm));
 	std::memset(g_ecl_entity, 0, sizeof(g_ecl_entity));
+	// Retail off_46D0C0 order (0x0046D0C0): dispatch, int, int address,
+	// float, float address, destructor.
 	g_ecl_owner_vtable[0] = reinterpret_cast<void*>(HostEclDispatchExtended);
 	g_ecl_owner_vtable[1] = reinterpret_cast<void*>(HostEclResolveInt);
 	g_ecl_owner_vtable[2] = reinterpret_cast<void*>(HostEclResolveIntPointer);
-	g_ecl_owner_vtable[3] = reinterpret_cast<void*>(HostEclResolverUnknown);
-	g_ecl_owner_vtable[4] = reinterpret_cast<void*>(HostEclResolveFloat);
-	g_ecl_owner_vtable[5] = reinterpret_cast<void*>(HostEclResolveFloatPointer);
+	g_ecl_owner_vtable[3] = reinterpret_cast<void*>(HostEclResolveFloat);
+	g_ecl_owner_vtable[4] = reinterpret_cast<void*>(HostEclResolveFloatPointer);
+	g_ecl_owner_vtable[5] = reinterpret_cast<void*>(HostEclDestroyEntity);
 	*reinterpret_cast<void***>(g_ecl_entity) = g_ecl_owner_vtable;
-	// The ECLH block is 16 bytes; instructions follow it.
-	g_ecl_vm.ip = reinterpret_cast<EclCoreInstruction*>(
-	    g_enemy_ecl + entry + 16);
+	// The ECLH block is 16 bytes; 0x00450470 already skipped it.
+	g_ecl_vm.ip = entry_body;
 	g_ecl_vm.owner = reinterpret_cast<EclCoreOwner*>(g_ecl_entity);
-	g_ecl_vm.rank_mask = 0xFF;  // retail masks per difficulty; run every rank
+	// Retail 0x0040CFB0 derives the rank mask when it constructs the enemy
+	// entity: *((_BYTE *)entity + 4132) = 1 << dword_474C74, and 4132 is
+	// 0x1024 - the rank byte of the VM embedded at entity+8, i.e. vm+0x101C.
+	// dword_474C74 is the difficulty word StageGlobals mirrors.
+	g_ecl_vm.rank_mask =
+	    static_cast<unsigned char>(1 << (g_globals.difficulty & 7));
 	g_ecl_hooks = EclCoreHooks{};
 	g_ecl_started = 1;
 	g_ecl_hooks.start_child = HostEclStartChild;
 	g_ecl_hooks.spawn_child = HostEclSpawnChild;
 	g_ecl_hooks.resolve_float_destination = HostEclResolveFloatDestination;
+	// Retail 0x0044FD10 walks the anchor at owner+0x1030 first, and that
+	// anchor's VM is the interpreter's embedded root at owner+8.
+	g_ecl_child_owner.active_vm = &g_ecl_vm;
+	g_ecl_child_owner.root_vm = &g_ecl_vm;
+	g_ecl_child_owner.anchor.vm = &g_ecl_vm;
+	g_ecl_child_owner.anchor.next = 0;
+	g_ecl_child_owner.anchor.previous = 0;
 	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \"main\" "
-	    "(sub %d, entry 0x%X, %u subs)", main_index, entry,
-	    g_enemy_ecl_sub_count);
+	    "(body %p, %d subs, rank mask 0x%02X)", (const void*)entry_body,
+	    g_ecl_table.total_count, g_ecl_vm.rank_mask);
 }
 
 // One frame of the stage script, the tick edge EclVm_TickChildren injects.
@@ -1917,40 +2019,58 @@ bool HostEclVmSane(const EclCoreVm* vm) {
 	return ip >= g_enemy_ecl && ip + 16 <= g_enemy_ecl + g_enemy_ecl_size;
 }
 
+// Retail 0x0044FD10 calls sub_44E1A0(node->vm, delta) after publishing that
+// VM through owner+0x04; the recovered walk keeps the publish and injects the
+// tick, so this is the injected edge for both the anchor's root VM and every
+// child. Returning non-zero is retail's "this VM is finished": the walk aborts
+// the frame for the anchor and frees/unlinks the node for a child.
+int HostEclTickListEntry(EclOwner* owner, float delta) {
+	EclCoreVm* vm = static_cast<EclCoreVm*>(owner->active_vm);
+	if (vm == 0)
+		return -1;
+	if (!HostEclVmSane(vm)) {
+		Log("ecl: VM %p ip left the script image (%p); retiring",
+		    (const void*)vm, (const void*)vm->ip);
+		return -1;
+	}
+	g_ecl_active = vm;
+	const EclCoreInstruction* before = vm->ip;
+	const int result = EclVm_TickCore(vm, delta, &g_ecl_hooks);
+	if (vm->ip != before)
+		g_ecl_instructions += 1;
+	return result;
+}
+
+// Retail's j__free. The anchor's VM is the interpreter's embedded root and
+// the walk never hands it here, but the guard keeps a modelling slip from
+// turning into a free of static storage.
+void HostEclFreeChild(void* memory) {
+	if (memory != 0 && memory != &g_ecl_vm)
+		std::free(memory);
+}
+
+int HostEclLiveChildren() {
+	int live = 0;
+	for (EclChildLink* node = g_ecl_child_owner.anchor.next; node != 0;
+	     node = node->next)
+		live += 1;
+	return live;
+}
+
 void HostTickStageEcl() {
 	if (!g_ecl_started || g_ecl_stopped)
 		return;
-	if (!HostEclVmSane(&g_ecl_vm)) {
-		Log("ecl: root VM ip left the script image (%p); stopping",
-		    (const void*)g_ecl_vm.ip);
-		g_ecl_stopped = 1;
-		return;
-	}
-	const EclCoreInstruction* before = g_ecl_vm.ip;
-	g_ecl_active = &g_ecl_vm;
-	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
-	if (g_ecl_vm.ip != before)
-		g_ecl_instructions += 1;
-	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
-	// retires a child whose tick reports completion.
-	for (int index = 0; index < g_ecl_child_count; ++index) {
-		if (!g_ecl_child_live[index])
-			continue;
-		if (!HostEclVmSane(&g_ecl_children[index])) {
-			Log("ecl: child %d ip left the script image (%p); retiring",
-			    index, (const void*)g_ecl_children[index].ip);
-			g_ecl_child_live[index] = 0;
-			continue;
-		}
-		g_ecl_active = &g_ecl_children[index];
-		if (EclVm_TickCore(&g_ecl_children[index], 1.0f, &g_ecl_hooks) != 0)
-			g_ecl_child_live[index] = 0;
-	}
-	g_ecl_active = &g_ecl_vm;
+	// The whole per-frame walk is retail 0x0044FD10: anchor first (a failing
+	// anchor aborts the frame with -1), then every linked child, then the
+	// active-VM slot is restored to the interpreter's embedded root.
+	const int result = EclVm_TickChildren(&g_ecl_child_owner, 1.0f,
+	                                      HostEclTickListEntry,
+	                                      HostEclFreeChild);
+	g_ecl_active = static_cast<EclCoreVm*>(g_ecl_child_owner.active_vm);
 	if (result != 0) {
 		g_ecl_stopped = 1;
-		Log("EclVm_TickCore: stage script finished after %d advances",
-		    g_ecl_instructions);
+		Log("EclVm_TickChildren(0x0044FD10): stage script finished after %d "
+		    "advances", g_ecl_instructions);
 	}
 }
 // Retail 0x00413BC0 rebuilds the front/HUD state: the update and draw tasks,
@@ -1963,11 +2083,14 @@ void HostInitializeStageRuntime() {
 	input.lives = g_globals.lives;
 	input.counter = g_globals.power_seed;
 	input.mode = g_globals.mode;
-	input.stage = g_globals.stage;
+	input.stage = g_globals.stage;  // dword_474C6C; InitializeFront ignores it
 	input.difficulty = g_active_difficulty;
 	input.special = (g_globals.game_flags & 8u) != 0;
 	input.extra_overlay = (g_globals.game_flags & 0x10u) != 0;
-	input.stage_one_clear = g_globals.stage > 0;
+	// The bridge runs the Stage 1 row of dword_477848, so the "stage one
+	// already cleared" overlay is off. It used to be derived from
+	// g_globals.stage, which is retail's shot-type word, not a stage number.
+	input.stage_one_clear = g_stage_record.number > 1;
 	th10::player_front::InitializeFront(g_front_state, input);
 	Log("InitializeFront(0x00413BC0): %d life icons, digits %d/%d/%d, "
 	    "%d animations, linked pair %d/%d",
@@ -1986,8 +2109,28 @@ void HostRefreshSidePanel(StageUpdateTaskPair* pair) {
 	    g_attached_effects.counter,
 	    static_cast<int>(g_attached_effects.events.size()));
 }
+// Retail 0x00420B10's injected cue edge is sub_43E460(&unk_492590, name,
+// mode, value) - the same animation-manager resource registration the host
+// already drives for the delayed stage effect.
+void HostPlayStageCue(void* context, const char* name, int32_t mode,
+                      uint32_t value) {
+	AnimationManager_RegisterResource(context, 0, name, mode,
+	                                  static_cast<int>(value));
+}
+
 void HostStartStageMusic() {
-	Log("stage BGM start requested (0x00420B10): %s @ %u Hz",
+	// Retail 0x00418190 calls sub_420B10(0, *(dword_477848 + 36)): slot 0
+	// is the stage BGM cue and the second argument is the stage row's
+	// music index. The Stage 1 row (dword_477848 entry 1, 48-byte stride)
+	// carries +36 = 1 and +40 = 2 in the retail image at 0x004747B8.
+	if (g_pGameStateManager == 0) {
+		Log("Sound_PlayDummy(0x00420B10) skipped: no animation manager");
+		return;
+	}
+	Sound_PlayDummy(g_pGameStateManager, 0, kStageOneMusicIndex,
+	                HostPlayStageCue);
+	Log("Sound_PlayDummy(0x00420B10): stage cue slot 0, music index %d "
+	    "marked heard; track %s @ %u Hz", kStageOneMusicIndex,
 	    g_report.bgm_track[0] != 0 ? g_report.bgm_track : "(no record)",
 	    g_report.bgm_rate);
 }
@@ -2045,14 +2188,36 @@ void HostRunTransitionAction() {
 	    *reinterpret_cast<const unsigned int*>(g_input_mode_state + 0x390));
 }
 void HostTickGame() {}
-void HostUpdateScoreThreshold() {}
+
+// Retail's counter-decay arm is sub_44BF40(&dword_474C54, -1.0), i.e. the
+// five-word FrameTimer embedded at &dword_474C40 + 0x14. The timer is only
+// reached when dword_474C58 is positive, which in the retail image it is not;
+// the speed-pointer test keeps a never-armed timer from being dereferenced.
+void HostDecayCounterTimer(float delta) {
+	FrameTimer* timer = reinterpret_cast<FrameTimer*>(DAT_00474c54);
+	if (timer->speed == 0) {
+		Log("Recovery_DecayCounter(0x00418A00): timer at 0x00474C54 has no "
+		    "speed pointer; 0x0044BF40 not entered");
+		return;
+	}
+	FrameTimer_Advance(timer, delta);
+}
+
+void HostUpdateScoreThreshold() {
+	// Retail 0x00418190 tail: sub_418A00(&dword_474C40). The argument is
+	// the retail globals block itself, which the all-source image links
+	// from the original .data section, so the call site is retail's.
+	Recovery_DecayCounter(DAT_00474c40, HostDecayCounterTimer);
+}
+
 void HostTickStageTimer(StageContext* context) {
-	int frame = 0;
-	std::memcpy(&frame, &context->spawn[1], sizeof(frame));
-	frame += 1;
-	std::memcpy(&context->spawn[1], &frame, sizeof(frame));
-	g_report.stage_frame = frame;
-	g_runtime_view.stage_frame = frame;
+	// Retail 0x00418190 tail: sub_404ED0(context + 16). The five words at
+	// context+0x10 are the FrameTimer that 0x00405410 armed during entry
+	// (previous, current, elapsed, &flt_476F78, flags).
+	FrameTimer* timer = reinterpret_cast<FrameTimer*>(context->spawn);
+	FrameTimer_Tick(timer);
+	g_report.stage_frame = timer->current;
+	g_runtime_view.stage_frame = timer->current;
 }
 
 uint32_t ReadTimelineWord(size_t offset) {
@@ -2296,8 +2461,18 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	std::memset(&g_std_view, 0, sizeof(g_std_view));
 	std::memset(&g_timeline_view, 0, sizeof(g_timeline_view));
 	std::memset(&g_stage_camera, 0, sizeof(g_stage_camera));
-	g_stage_camera.up[2] = 1.0f;
-	g_stage_camera.field_of_view = 0.62831855f;
+	// Retail 0x004216F0 seeds the stage/background camera block at
+	// 0x00491D7C: position (0, 0, 1000) - flt_491D84 = 1000.0 - looking at
+	// the origin with up = (0, 1, 0) - dword_491D98 = 1065353216 (1.0f) -
+	// and dword_491DC4 = 1057360530, the raw bit pattern 0x3F060A92 (pi/6).
+	// The 0.62831855f the bridge used to plant here is not in the image.
+	g_stage_camera.eye[2] = 1000.0f;
+	g_stage_camera.up[1] = 1.0f;
+	{
+		const unsigned int fov_bits = 0x3F060A92u;
+		std::memcpy(&g_stage_camera.field_of_view, &fov_bits,
+		            sizeof(g_stage_camera.field_of_view));
+	}
 	std::memset(&g_eye_interpolator, 0, sizeof(g_eye_interpolator));
 	std::memset(&g_target_interpolator, 0, sizeof(g_target_interpolator));
 	g_eye_interpolating = false;
@@ -2326,8 +2501,13 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	g_globals.ui_flags = 0;       // dword_491FF4: no abort bit
 	g_globals.sync[0] = -1;       // dword_491C10 pair: render/loader ready
 	g_globals.sync[1] = -1;
-	g_globals.character = character * 2 + weapon; // retail shot-type encoding
-	g_globals.stage = 0;          // Stage 1 score-record index
+	// Retail keeps the character in dword_474C68 and the shot type in
+	// dword_474C6C; the 0x00418190 tail indexes the score file with
+	// 17276 * (dword_474C68 + dword_474C6C + 2 * dword_474C68), i.e.
+	// 3 * character + shot. The character * 2 + weapon the bridge used to
+	// publish here is not an encoding retail has.
+	g_globals.character = character;  // dword_474C68
+	g_globals.stage = weapon;         // dword_474C6C (shot type, 0..2)
 	g_globals.difficulty = difficulty;
 	g_globals.mode = 0;
 	g_globals.game_flags = 0;
@@ -2335,8 +2515,8 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	g_globals.loader_busy = 0;    // dword_494518: loader idle
 
 	std::memset(&g_update_globals, 0, sizeof(g_update_globals));
-	g_update_globals.character = g_globals.character;
-	g_update_globals.stage = 0;
+	g_update_globals.character = g_globals.character;  // dword_474C68
+	g_update_globals.stage = g_globals.stage;          // dword_474C6C
 	g_update_globals.score_file = g_score_file;
 	g_update_globals.player = 0;
 
@@ -2353,6 +2533,9 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	std::memset(g_camera_words, 0, sizeof(g_camera_words));
 	std::memset(g_anm_slots, 0, sizeof(g_anm_slots));
 	std::memset(g_score_file, 0, sizeof(g_score_file));
+	// Retail 0x0042AF20 publishes the score-file image through dword_47783C;
+	// 0x00420B10 latches its music-heard byte at image + 0x1D892 + index.
+	DAT_0047783c = g_score_file;
 
 	// Requested/current mode words (retail +0x38C/+0x390 of the state block).
 	std::memset(&g_mode_state, 0, sizeof(g_mode_state));
@@ -2434,9 +2617,10 @@ int HostStage_RunFrames(int frames) {
 	g_report.timeline_maximum_accessed_offset =
 	    g_timeline_view.stats.maximum_accessed_offset;
 	if (g_ecl_enabled)
-		Log("ecl: %d ticks-with-progress, %d calls, %d spawns, %s "
-		    "(ip=%p, scratch_top=%d); bullets_active=%d",
+		Log("ecl: %d ticks-with-progress, %d calls, %d spawns, %d children "
+		    "linked, %s (ip=%p, scratch_top=%d); bullets_active=%d",
 		    g_ecl_instructions, g_ecl_calls, g_ecl_spawns,
+		    HostEclLiveChildren(),
 		    g_ecl_stopped ? "stopped" : "running",
 		    (const void*)g_ecl_vm.ip, g_ecl_vm.scratch_top,
 		    g_report.bullets_active);

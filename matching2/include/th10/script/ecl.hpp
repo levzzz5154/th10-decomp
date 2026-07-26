@@ -69,15 +69,24 @@ struct ECLMovementBoundary {
     float bottom;
 };
 
-// Interface stored at cursor+0x1014.  ECL_ResolveFloatOperand calls vtable slot 3 for
-// negative variable identifiers other than -1.
+// Interface stored at cursor+0x1014.  This is the enemy entity's own vtable,
+// retail off_46D0C0 at 0x0046D0C0, and the slot order below is that table's:
+//   +0x00 loc_40E760  extended-opcode dispatch (biases `this` by 0x103C)
+//   +0x04 loc_411FC0  read an int variable       (sub_44FF00 / sub_44FDB0)
+//   +0x08 loc_412300  address of an int variable (sub_450030)
+//   +0x0C loc_412350  read a float variable      (sub_44FF80 / sub_44FE40)
+//   +0x10 loc_4126D0  address of a float variable(sub_450070)
+//   +0x14 sub_40CC50  scalar deleting destructor
+// The float pair used to sit one slot too far down (ResolveFloat at +0x10 and
+// ResolveFloatPointer at +0x14, i.e. on the destructor); every operand helper
+// in the listing contradicts that.
 struct ECLVariableResolver {
-    virtual void Unknown0() = 0;
+    virtual void DispatchExtendedOpcode() = 0;
     virtual int32_t ResolveInt(int32_t variable) = 0;
     virtual int32_t* ResolveIntPointer(int32_t variable) = 0;
-    virtual void Unknown2() = 0;
     virtual float ResolveFloat(int32_t variable) = 0;
     virtual float* ResolveFloatPointer(int32_t variable) = 0;
+    virtual void Destroy(char free_storage) = 0;
 };
 
 // Readable leaf operations extracted from the retail dispatcher.  Keeping the
@@ -112,7 +121,10 @@ int32_t ECL_PopScratchValue(void* vm);
 void ECL_SetPolarVector(float* destination, float angle, float magnitude);
 int32_t ECL_WriteScratch(void* vm, char type, unsigned int size,
                          const void* data);
-void* ECL_FindScriptLabel(void* vm, const unsigned short* name);
+// 0x00450470. The label object is the one dword_477704[21] hands over: a
+// count at +8 and an 8-byte {const char* name, void* body} table at +140.
+// Returns the sub body, i.e. the match's body plus the 16-byte ECLH header.
+void* ECL_FindScriptLabel(void* labels, const char* name);
 void ECL_DecodeEncryptedString(
     char* destination, const char* encrypted, unsigned int length);
 

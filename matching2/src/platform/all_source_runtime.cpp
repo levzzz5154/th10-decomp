@@ -240,12 +240,13 @@ void Screenshot_Capture(const char* path) {
         D3DXSaveSurfaceToFileA(path, 0, surface, nullptr, nullptr);
 }
 
-void* ECL_FindScriptLabel(
-    void* vm_pointer, const unsigned short* name);
+void* ECL_FindScriptLabel(void* labels, const char* name);
 
 // 0x0040DA17 is a call to the recovered 0x00450470 label lookup.  Retail
-// supplies the lookup owner in EAX from config+0x54 and the UTF-16 name on
-// the stack; expose that hidden input explicitly here.
+// supplies the lookup owner in EAX from dword_477704[21] (config+0x54) and
+// the sub name on the stack; expose that hidden input explicitly here.  The
+// name is the plain 8-bit string sub_450470 hands to strcmp - the same one
+// 0x0040CFB0 passes as its third argument ("main") - not a UTF-16 buffer.
 int __fastcall ResourceManager_FindTexture(void* resource_name) {
     extern unsigned int DAT_00477704;
     const auto* config = reinterpret_cast<const unsigned char*>(
@@ -255,7 +256,7 @@ int __fastcall ResourceManager_FindTexture(void* resource_name) {
     void* labels = *reinterpret_cast<void* const*>(config + 0x54);
     return static_cast<int>(reinterpret_cast<unsigned long>(
         ECL_FindScriptLabel(
-            labels, static_cast<const unsigned short*>(resource_name))));
+            labels, static_cast<const char*>(resource_name))));
 }
 
 void ItemManager_CollectNearPlayer(

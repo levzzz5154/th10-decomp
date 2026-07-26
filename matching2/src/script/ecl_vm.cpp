@@ -3,6 +3,7 @@
 #include "th10/render/animation_manager.hpp"
 #include "th10/math/timer.hpp"
 
+#include <cstring>
 
 extern "C" float cosf(float);
 extern "C" float sinf(float);
@@ -355,31 +356,40 @@ int32_t ECL_WriteScratch(void* vm_pointer, char type, unsigned int size,
     return 0;
 }
 
-// 0x00450470 - Binary-search the sorted UTF-16 script-label table.
-void* ECL_FindScriptLabel(void* vm_pointer, const unsigned short* name) {
+// 0x00450470 - Binary-search the sorted script-label table:
+//   v2 = 0; v3 = *(a1 + 8) - 1; if (v3 < 0) return 0;
+//   v7 = *(a1 + 140);
+//   for (;;) {
+//       v4 = v2 + (v3 - v2) / 2;
+//       v5 = strcmp(a2, *(const char **)(v7 + 8 * v4));
+//       if (!v5) break;
+//       if (v5 >= 0) v2 = v4 + 1; else v3 = v4 - 1;
+//       if (v2 > v3) return 0;
+//   }
+//   return *(_DWORD *)(v7 + 8 * v4 + 4) + 16;
+// The names are the NUL-terminated 8-bit sub names 0x00450220 registers out
+// of the SCPT container and retail compares them with plain strcmp; the
+// UTF-16 model this used to carry has no support in the listing. The +16
+// skips each sub's 16-byte ECLH header.
+void* ECL_FindScriptLabel(void* vm_pointer, const char* name) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const int32_t count = *reinterpret_cast<int32_t*>(vm + 8);
-    struct Entry { const unsigned short* name; void* value; };
+    struct Entry { const char* name; void* value; };
     Entry* entries = *reinterpret_cast<Entry**>(vm + 0x8c);
     int32_t first = 0;
     int32_t last = count - 1;
-    while (first <= last) {
+    if (last < 0 || entries == 0 || name == 0)
+        return 0;
+    for (;;) {
         const int32_t middle = first + (last - first) / 2;
-        const unsigned short* left = name;
-        const unsigned short* right = entries[middle].name;
-        int comparison = 0;
-        while (*left == *right && *left != 0) {
-            ++left;
-            ++right;
-        }
-        if (*left < *right) comparison = -1;
-        else if (*left > *right) comparison = 1;
+        const int comparison = std::strcmp(name, entries[middle].name);
         if (comparison == 0)
             return static_cast<uint8_t*>(entries[middle].value) + 0x10;
-        if (comparison < 0) last = middle - 1;
-        else first = middle + 1;
+        if (comparison >= 0) first = middle + 1;
+        else last = middle - 1;
+        if (first > last)
+            return 0;
     }
-    return 0;
 }
 
 // Shared by the encrypted text branches at 0x0040E770 cases 0x165–0x167.

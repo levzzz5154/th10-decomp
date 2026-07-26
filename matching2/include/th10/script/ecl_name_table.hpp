@@ -23,6 +23,11 @@ struct EclNameEnv {
 int EclNameTable_Register(EclTable* table, Byte* script,
                           EclNameEnv* env);
 
+// The rows EclTable::entries holds are byte-for-byte the 8-byte
+// {const char* name, void* body} rows retail 0x00450470 binary-searches; a
+// lookup object with the count at +8 and this table at +140 can be handed
+// straight to ECL_FindScriptLabel (th10/script/ecl.hpp).
+
 struct EclLoadEnv {
 	char* path_buffer;
 	Byte* (*read_file)(unsigned int* size_out, int mode);

@@ -7056,7 +7056,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450470_FUN_00450470.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/platform/all_source_runtime.cpp"
+      "promoted_source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x004505B0",
