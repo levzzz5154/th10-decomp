@@ -32,6 +32,7 @@
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
 #include "th10/render/anm_blend_state.hpp"
+#include "th10/render/anm_script_table_sweep.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
 #include "th10/platform/sound_commands.hpp"
@@ -1573,31 +1574,89 @@ void HostDrawFrontHud() {
         HostDrawAnmVm(*draw_list[index]);
 }
 
+// ---------------------------------------------------------------------------
+// VM lifetime. Running a group of VMs and deciding when the group as a whole
+// is finished is AnmScriptTable_Sweep (retail 0x00403990), not the host's.
+// Retail models it as a record whose active bit lives in bit 0 of record+0x03
+// and whose packed sprite-slot list at record+0x1C names a VM pool index per
+// slot; the sweep runs every slot's script, counts how many are still live,
+// and clears the record's active bit only when none are. The host had that
+// loop hand-written once per VM group.
+//
+// The pool and the per-slot script run stay injected, which is what retail's
+// own AnmSweepEnv expects: run_script ticks pool slot `vm_index` and reports
+// whether it is still live afterwards.
+// ---------------------------------------------------------------------------
+struct HostVmGroup {
+    Byte flags;      // retail record+0x03; bit 0 is the group's active bit
+    int last_count;  // grows when new VMs join, which re-arms the group
+};
+
+int HostSweepRunScript(void* pool, int vm_index) {
+    HostAnmVm* vm = &static_cast<HostAnmVm*>(pool)[vm_index];
+    if (!vm->active)
+        return 0;
+    AnmVmHooks hooks = HostAnmHooks(vm);
+    if (AnmVm_Tick(&vm->state, &hooks) != 0) {
+        vm->active = 0;
+        return 0;
+    }
+    return 1;
+}
+
+const int kSweepSlotMax = 128;
+
+void HostSweepVmGroup(HostVmGroup* group, HostAnmVm* pool, int count) {
+    if (count > kSweepSlotMax)
+        count = kSweepSlotMax;
+    if (count <= 0) {
+        group->flags = static_cast<Byte>(group->flags & 0xFEu);
+        group->last_count = 0;
+        return;
+    }
+    // A group that gained VMs is live again; retail re-arms a record the same
+    // way when a script is planted into one of its slots.
+    if (count > group->last_count)
+        group->flags |= 1u;
+    group->last_count = count;
+
+    AnmSpriteSlot slots[kSweepSlotMax + 1];
+    for (int index = 0; index < count; ++index) {
+        slots[index].id = 0;
+        slots[index].step = static_cast<short>(sizeof(AnmSpriteSlot));
+        slots[index].reserved = 0;
+        slots[index].vm_index = static_cast<short>(index);
+    }
+    slots[count].id = -1;  // retail terminates the packed list on a negative id
+
+    AnmSweepRecord record;
+    record.flags = group->flags;
+    record.slots = slots;
+    AnmSweepRecord* records[1] = {&record};
+    const short record_count = 1;
+    AnmSweepEnv env;
+    env.count = &record_count;
+    env.records = records;
+    env.vm_pool = pool;
+    env.run_script = HostSweepRunScript;
+    AnmScriptTable_Sweep(&env);
+    group->flags = record.flags;
+}
+
+HostVmGroup g_front_group;
+HostVmGroup g_stage_group;
+HostVmGroup g_title_child_group;
+HostVmGroup g_front_static_group;
+HostVmGroup g_front_child_group;
+
 void HostTickFrontHud() {
     if (!HostEnsureFrontVm())
         return;
-    for (HostAnmVm& vm : g_host.front_vms)
-        if (vm.active) {
-            AnmVmHooks hooks = HostAnmHooks(&vm);
-            if (AnmVm_Tick(&vm.state, &hooks) != 0)
-                vm.active = 0;
-        }
-    for (int index = 0; index < g_host.front_static_vm_count; ++index) {
-        HostAnmVm* vm = &g_host.front_static_vms[index];
-        if (vm->active) {
-            AnmVmHooks hooks = HostAnmHooks(vm);
-            if (AnmVm_Tick(&vm->state, &hooks) != 0)
-                vm->active = 0;
-        }
-    }
-    for (int index = 0; index < g_host.front_child_vm_count; ++index) {
-        HostAnmVm* vm = &g_host.front_child_vms[index];
-        if (vm->active) {
-            AnmVmHooks hooks = HostAnmHooks(vm);
-            if (AnmVm_Tick(&vm->state, &hooks) != 0)
-                vm->active = 0;
-        }
-    }
+    HostSweepVmGroup(&g_front_group, g_host.front_vms, 2);
+    HostSweepVmGroup(&g_front_static_group, g_host.front_static_vms,
+                     g_host.front_static_vm_count);
+    HostSweepVmGroup(&g_front_child_group, g_host.front_child_vms,
+                     g_host.front_child_vm_count);
 }
 
 bool HostProjectStagePoint(const float world[3], float* screen_x,
@@ -2359,16 +2418,9 @@ int HostRunSchedulerFrame(void*) {
                           "Stage 1 BGM playing" :
                           "Stage 1 BGM unavailable");
         HostStage_RunFrames(1);
-        if (HostEnsureStageVms()) {
-            for (int index = 0; index < g_host.stage_vm_count; ++index) {
-                HostAnmVm* vm = &g_host.stage_vms[index];
-                if (!vm->active)
-                    continue;
-                AnmVmHooks hooks = HostAnmHooks(vm);
-                if (AnmVm_Tick(&vm->state, &hooks) != 0)
-                    vm->active = 0;
-            }
-        }
+        if (HostEnsureStageVms())
+            HostSweepVmGroup(&g_stage_group, g_host.stage_vms,
+                             g_host.stage_vm_count);
         if (HostEnsurePlayerVm() && g_host.player_vm.active) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.player_vm);
             if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0)
@@ -2381,14 +2433,8 @@ int HostRunSchedulerFrame(void*) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
             AnmVm_Tick(&g_host.title_vms[index].state, &hooks);
         }
-        for (int index = 0; index < g_host.title_child_vm_count; ++index) {
-            HostAnmVm* child = &g_host.title_child_vms[index];
-            if (!child->active)
-                continue;
-            AnmVmHooks hooks = HostAnmHooks(child);
-            if (AnmVm_Tick(&child->state, &hooks) != 0)
-                child->active = 0;
-        }
+        HostSweepVmGroup(&g_title_child_group, g_host.title_child_vms,
+                         g_host.title_child_vm_count);
         if (g_host.menu_screen == 4)
             HostRefreshOptionsSprites();
         else if (g_host.menu_screen == 7)

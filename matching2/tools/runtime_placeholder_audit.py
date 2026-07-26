@@ -90,11 +90,17 @@ if BASELINE.is_file():
     # reviewable diff rather than a silent count bump.
     exemptions = _baseline.get("exempt", {})
 
-exempt_hits = [r for r in empty_functions if f"{r[1]}:{r[2]}" in exemptions]
+# Keyed by "<path>\t<declaration>" rather than by line number: an exemption
+# has to survive unrelated edits above it, and the declaration is also what a
+# reviewer needs to see to judge the reason.
+def exemption_key(row):
+    return f"{row[1]}\t{' '.join(row[3].split())}"
+
+exempt_hits = [r for r in empty_functions if exemption_key(r) in exemptions]
 empty_functions = [r for r in empty_functions
-                   if f"{r[1]}:{r[2]}" not in exemptions]
+                   if exemption_key(r) not in exemptions]
 for row in exempt_hits:
-    print(f"exempt\t{row[1]}:{row[2]}\t{exemptions[f'{row[1]}:{row[2]}']}")
+    print(f"exempt\t{row[1]}:{row[2]}\t{exemptions[exemption_key(row)]}")
 
 print(f"RUNTIME_PLACEHOLDER_COUNT={len(strict)}")
 print(f"SOFTWARE_RENDERER_COUNT={len(software_render_rows)}")
