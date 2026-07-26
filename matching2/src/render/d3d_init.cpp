@@ -18,7 +18,10 @@ extern void*    g_pD3D9;
 extern void*    g_pD3DDevice;
 extern void*    g_pWnd;
 extern uint8_t  DAT_00491d65;    // fullscreen flag
-extern uint8_t  DAT_00491d78;    // device caps flags
+// Retail treats this as a dword: 0x00438AD0 tests bit 0x100 of it to decide
+// whether to raise the startup dialog. Declaring it as a byte made that bit
+// unreachable. The low two bits this file tests are unaffected.
+extern uint32_t DAT_00491d78;    // device caps flags
 extern int8_t   DAT_00491d62;    // display mode index
 extern uint32_t DAT_00491ff4;    // status flags
 extern uint32_t DAT_00491fdc;    // vsync flag

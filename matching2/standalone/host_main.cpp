@@ -89,6 +89,9 @@ extern unsigned char DAT_00491d6a; // hint mode, 0..2, default 0
 // dword_474E88 = 0x00010000, dword_474E8C = 0x00030002 and
 // dword_474E90 = -1 spell out.
 extern int DAT_00474e88[3];
+extern uint32_t DAT_00491d78;      // retail caps/flags word; bit 0x100 gates
+                                   // the startup dialog
+extern unsigned char DAT_00491d65; // "startup dialog was not accepted"
 // Retail's shared ANM format tables (0x0046F288 / 0x0046F2A0), aliased out of
 // the retail .rdata by build_all_pe32.sh.
 extern unsigned int DAT_0046f288[];
@@ -3473,7 +3476,25 @@ int HostInstanceCheck(void*) {
     return 0;
 #endif
 }
-int HostConfirmDialog(void*) { return 6; } // IDYES
+// Retail 0x00438AD0 raises the startup dialog only when bit 0x100 of
+// DAT_00491D78 is set, and records the answer as byte_491D65 = (result != 6),
+// i.e. "the user did not choose IDYES". The host returned a hardcoded IDYES
+// unconditionally and never published the answer, so both the gate and the
+// record were missing. With the bit clear - which is the case on this boot -
+// retail raises no dialog at all, which is what happens here.
+int HostConfirmDialog(void*) {
+    if ((DAT_00491d78 & 0x100u) == 0)
+        return 6;
+#if defined(_WIN32)
+    const int result = static_cast<int>(DialogBoxParamA(
+        GetModuleHandleA(nullptr), MAKEINTRESOURCEA(0xCB), nullptr,
+        nullptr, 0));
+    DAT_00491d65 = static_cast<unsigned char>(result != 6 ? 1 : 0);
+    return result;
+#else
+    return 6;
+#endif
+}
 // Retail 0x0043A1C0: sum the module file's dwords and publish the total and
 // size into DAT_00492380 / DAT_00492384.
 unsigned int g_executable_checksum;
