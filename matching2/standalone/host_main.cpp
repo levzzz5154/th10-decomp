@@ -1127,15 +1127,23 @@ AnmQuad g_anm_corner_quad;
 // 0 and 1 stay clear so retail's own AnimationObject_Render bails out and the
 // host's callback does the drawing.
 // ---------------------------------------------------------------------------
+// The objects themselves come out of retail's own pool. Retail keeps 4096
+// 0x3AC-byte slots at manager+0x68 with an occupancy byte array at +0x3AC068
+// and a round-robin cursor at +0x3AD068; AnimationManager_AllocateObject
+// (0x00445A50) is what claims a slot and marks it taken. The host used to
+// carry a private array of 128 blocks instead, which meant host-published
+// objects and anything retail code allocated were drawn from two disjoint
+// supplies - the occupancy map never knew about the host's, so the two could
+// describe the same object identity differently. Going through the pool makes
+// object identity and lifetime retail's.
 const int kAnimObjectMax = 128;
-unsigned char g_anim_objects[kAnimObjectMax][0x3AC];
+AnimationObject* g_anim_objects[kAnimObjectMax];
 const HostAnmVm* g_anim_object_vm[kAnimObjectMax];
 int g_anim_object_count;
 
 int __fastcall HostAnimDrawCallback(AnimationObject* animation) {
     for (int index = 0; index < g_anim_object_count; ++index) {
-        if (reinterpret_cast<void*>(g_anim_objects[index]) ==
-            reinterpret_cast<void*>(animation)) {
+        if (g_anim_objects[index] == animation) {
             if (g_anim_object_vm[index] != nullptr)
                 HostDrawAnmVm(*g_anim_object_vm[index]);
             return 1;
@@ -1150,19 +1158,27 @@ void HostPublishDrawList(const HostAnmVm* const* list, int count) {
     if (count > kAnimObjectMax)
         count = kAnimObjectMax;
     for (int index = 0; index < count; ++index) {
-        unsigned char* object = g_anim_objects[index];
         if (index >= g_anim_object_count) {
-            std::memset(object, 0, 0x3AC);
-            *reinterpret_cast<unsigned int*>(object + 0x35C) = 0x20000u;
-            *reinterpret_cast<void**>(object + 0x390) = object;
-            *reinterpret_cast<AnimationDrawCallback*>(object + 0x39C) =
+            AnimationObject* allocated =
+                AnimationManager_AllocateObject(g_pGameStateManager);
+            if (allocated == nullptr) {
+                count = index;
+                break;
+            }
+            unsigned char* fresh = reinterpret_cast<unsigned char*>(allocated);
+            std::memset(fresh, 0, 0x3AC);
+            *reinterpret_cast<unsigned int*>(fresh + 0x35C) = 0x20000u;
+            *reinterpret_cast<void**>(fresh + 0x390) = fresh;
+            *reinterpret_cast<AnimationDrawCallback*>(fresh + 0x39C) =
                 HostAnimDrawCallback;
+            g_anim_objects[index] = allocated;
             g_anim_object_count = index + 1;
             AnimationManager_RegisterObjectAt(
-                g_pGameStateManager,
-                reinterpret_cast<AnimationObject*>(object),
+                g_pGameStateManager, allocated,
                 AnimationManagerList_Primary, AnimationListInsertion_Back);
         }
+        unsigned char* object =
+            reinterpret_cast<unsigned char*>(g_anim_objects[index]);
         g_anim_object_vm[index] = list[index];
         int bucket = list[index] != nullptr ? list[index]->state.layer : 0;
         if (bucket < 0) bucket = 0;
