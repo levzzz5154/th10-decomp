@@ -24,6 +24,7 @@
 #include "th10/game/replay_file_load.hpp"
 #include "th10/game/replay_menu_draw.hpp"
 #include "th10/game/replay_score_draw.hpp"
+#include "th10/game/key_config.hpp"
 #include <ctime>
 #include "th10/platform/pack_file_loader.hpp"
 #include "th10/platform/joystick_probe.hpp"
@@ -78,6 +79,15 @@ extern void* g_pWnd;
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
 extern unsigned int DAT_00474ca0;  // retail global flags; bit 0x10 = practice
 extern int DAT_00474c74;           // retail selected difficulty (4 = Extra)
+// The three option values 0x0042D920 edits, in retail's own storage.
+extern unsigned char DAT_00491d68; // BGM volume, 0..100 step 5, default 100
+extern unsigned char DAT_00491d69; // SE volume, 0..100 step 5, default 80
+extern unsigned char DAT_00491d6a; // hint mode, 0..2, default 0
+// The five key-config slots: shorts from 0x00474E88 holding joypad button
+// indices. Retail's defaults are 0, 1, 2, 3 and -1, which is what
+// dword_474E88 = 0x00010000, dword_474E8C = 0x00030002 and
+// dword_474E90 = -1 spell out.
+extern int DAT_00474e88[3];
 // Retail's shared ANM format tables (0x0046F288 / 0x0046F2A0), aliased out of
 // the retail .rdata by build_all_pe32.sh.
 extern unsigned int DAT_0046f288[];
@@ -155,6 +165,9 @@ struct HostContext {
     // Player data: per-difficulty high scores out of scoreth10.dat.
     int score_present = 0;
     int player_data_selection = 0;
+    int keyconfig_selection = 0;
+    int keyconfig_snapshot[3] = {};
+    unsigned int keyconfig_previous_buttons = 0;
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
@@ -1561,6 +1574,108 @@ void HostBuildScoreTable() {
     std::free(stats);
 }
 
+// ---------------------------------------------------------------------------
+// Key config, retail title state 5 (0x0042F540). Rows 0..4 are the five button
+// slots, row 5 restores the defaults and row 6 leaves - retail's back test is
+// `selection == 6`. Cancel restores the dwords snapshotted on entry, which is
+// what 0x0042F540 does with dword_474E88 and its neighbours before returning.
+// ---------------------------------------------------------------------------
+void HostReturnToOptions() {
+    g_host.menu_screen = 4;
+    TitleOptions_Initialize(&g_host.options_state);
+    HostStartTitleScripts(88, 1);
+    HostBroadcastTitleInterrupt(17);
+}
+
+short* HostKeyConfigSlots() {
+    return reinterpret_cast<short*>(DAT_00474e88);
+}
+
+void HostKeyConfigEnter() {
+    // Rows are retail's: Shot, Special, Slow, Pause, Skip, Default, Quit.
+    g_host.keyconfig_selection = 0;
+    std::memcpy(g_host.keyconfig_snapshot, DAT_00474e88,
+                sizeof(g_host.keyconfig_snapshot));
+    g_host.keyconfig_previous_buttons = 0;
+}
+
+void HostKeyConfigDefaults() {
+    short* slots = HostKeyConfigSlots();
+    slots[0] = 0; slots[1] = 1; slots[2] = 2; slots[3] = 3; slots[4] = -1;
+}
+
+// Retail reads the pressed button through 0x0044A4E0; the host reads the same
+// thing out of joyGetPosEx. With no joypad attached nothing can be pressed, so
+// the binding rows do not change - which is what retail does in that case too.
+unsigned int HostKeyConfigPressedButton() {
+#if defined(_WIN32)
+    JOYINFOEX info = {};
+    info.dwSize = sizeof(info);
+    info.dwFlags = JOY_RETURNBUTTONS;
+    if (joyGetPosEx(JOYSTICKID1, &info) != JOYERR_NOERROR) {
+        g_host.keyconfig_previous_buttons = 0;
+        return 0xFFFFFFFFu;
+    }
+    const unsigned int fresh =
+        info.dwButtons & ~g_host.keyconfig_previous_buttons;
+    g_host.keyconfig_previous_buttons = info.dwButtons;
+    for (unsigned int button = 0; button < 32; ++button)
+        if ((fresh & (1u << button)) != 0)
+            return button;
+#endif
+    return 0xFFFFFFFFu;
+}
+
+void HostUpdateKeyConfig() {
+    const bool cancel = (g_host.menu_input & TITLE_MENU_CANCEL) != 0;
+    const bool confirm = (g_host.menu_input & TITLE_MENU_CONFIRM) != 0;
+    int direction = 0;
+    if ((g_host.menu_input & TITLE_MENU_UP) != 0)
+        direction = -1;
+    else if ((g_host.menu_input & TITLE_MENU_DOWN) != 0)
+        direction = 1;
+    g_host.menu_input = 0;
+
+    if (direction != 0) {
+        g_host.keyconfig_selection =
+            (g_host.keyconfig_selection + direction + 7) % 7;
+        HostPlayMenuSound(0);
+        HostBroadcastTitleInterrupt(g_host.keyconfig_selection + 7);
+    }
+    if (cancel) {
+        // Retail leaves only from the back row; anywhere else cancel just
+        // carries the cursor there, the same idiom the other menus use.
+        if (g_host.keyconfig_selection != 6) {
+            g_host.keyconfig_selection = 6;
+            HostPlayMenuSound(2);
+            return;
+        }
+        std::memcpy(DAT_00474e88, g_host.keyconfig_snapshot,
+                    sizeof(g_host.keyconfig_snapshot));
+        HostPlayMenuSound(2);
+        HostReturnToOptions();
+        return;
+    }
+    if (confirm && g_host.keyconfig_selection == 5) {
+        HostKeyConfigDefaults();
+        HostPlayMenuSound(1);
+        return;
+    }
+    if (confirm && g_host.keyconfig_selection == 6) {
+        HostPlayMenuSound(1);
+        HostReturnToOptions();
+        return;
+    }
+    if (g_host.keyconfig_selection < 5) {
+        const unsigned int button = HostKeyConfigPressedButton();
+        if (button != 0xFFFFFFFFu)
+            KeyConfig_ReassignSlot(
+                HostKeyConfigSlots(), g_host.keyconfig_selection,
+                static_cast<short>(button), [](int) {}, nullptr,
+                [](void*, int index) { HostPlayMenuSound(index); });
+    }
+}
+
 // Draw the active sub-screen's list. Retail highlights the selected row and
 // dims the rest; the two colours here are its 0xFFFFFF and 0x8080FF.
 // Navigation for the three sub-screens. Each wraps its own list, cancel
@@ -2574,6 +2689,9 @@ void HostRenderMenu() {
             HostRenderStage();
         else
             HostRenderThroughBuckets(draw_list, draw_count);
+        // menu_screen 5, the key config, is drawn entirely by retail's
+        // title.anm script 2 - the seven rows and each slot's button value -
+        // so the host contributes nothing to it.
         if (g_host.menu_screen >= 9 && g_host.menu_screen <= 11)
             HostRenderSubScreenList();
         HostAnmStateFlush();  // draw whatever is still staged
@@ -2656,9 +2774,22 @@ void HostDispatchTitleMenuAction(TitleMenuAction action) {
     TitleMainMenu_Initialize(&g_host.menu_state);
 }
 
+// Retail keeps these three in byte_491D68/69/6A and every other reader takes
+// them from there, so the menu's values are mirrored into retail storage
+// rather than living only in the host's copy.
+void HostPublishOptionValues() {
+    DAT_00491d68 =
+        static_cast<unsigned char>(g_host.options_config.music_volume);
+    DAT_00491d69 =
+        static_cast<unsigned char>(g_host.options_config.sound_volume);
+    DAT_00491d6a =
+        static_cast<unsigned char>(g_host.options_config.bgm_mode);
+}
+
 void HostDispatchOptionsAction(TitleOptionsAction action) {
     if (action == TITLE_OPTIONS_ACTION_VALUE_CHANGED ||
         action == TITLE_OPTIONS_ACTION_DEFAULTS) {
+        HostPublishOptionValues();
         g_host.config.bgm_mode =
             static_cast<unsigned char>(g_host.options_config.bgm_mode);
         HostApplyAudioVolumes();
@@ -2670,6 +2801,7 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
         // Retail dispatcher state 5 is the key-configuration handler
         // (0x0042F540), whose reconstruction is the next child state.
         g_host.menu_screen = 5;
+        HostKeyConfigEnter();
         HostStartTitleScripts(88, 2);
         g_host.menu_status =
             "Key configuration state entered; Esc returns to Options";
@@ -3179,13 +3311,7 @@ int HostRunSchedulerFrame(void*) {
         g_host.menu_input = 0;
         HostDispatchOptionsAction(action);
     } else if (!g_host.smoke_mode && g_host.menu_screen == 5) {
-        if ((g_host.menu_input & TITLE_OPTIONS_CANCEL) != 0) {
-            g_host.menu_screen = 4;
-            TitleOptions_Initialize(&g_host.options_state);
-            HostStartTitleScripts(88, 1);
-            HostBroadcastTitleInterrupt(17);
-        }
-        g_host.menu_input = 0;
+        HostUpdateKeyConfig();
     } else if (!g_host.smoke_mode && g_host.menu_screen >= 6 &&
                g_host.menu_screen <= 8) {
         HostUpdateSelectionScreen();

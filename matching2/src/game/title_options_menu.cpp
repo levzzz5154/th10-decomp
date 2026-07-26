@@ -2,14 +2,6 @@
 
 namespace {
 
-int ClampStep(int value, int delta) {
-    value += delta;
-    if (value < 0)
-        return 0;
-    if (value > 100)
-        return 100;
-    return value;
-}
 
 } // namespace
 
@@ -49,28 +41,43 @@ TitleOptionsAction TitleOptions_Update(TitleOptionsState* state,
             state->selection = (state->selection + 1) % 6;
 
         TitleOptionsAction action = TITLE_OPTIONS_ACTION_NONE;
+        // Retail 0x0042D920's phase 2, exactly. The three adjustable rows are
+        // 0 = the hint mode in byte_491D6A, 1 = BGM volume in byte_491D68 and
+        // 2 = SE volume in byte_491D69; retail selects between the two volumes
+        // with `v30 = selection - 1`, taking BGM when it is zero and SE when
+        // it is one.
         if ((input_flags & TITLE_OPTIONS_LEFT) != 0) {
-            if (state->selection == 0)
-                config->bgm_mode =
-                    (config->bgm_mode + 2) % 3;
-            else if (state->selection == 1)
+            if (state->selection == 0) {
+                // Left clamps at zero. It does NOT wrap - only right does.
+                //   if ( byte_491D6A ) { v31 = byte_491D6A - 1; ... }
+                if (config->bgm_mode > 0)
+                    config->bgm_mode -= 1;
+            } else if (state->selection == 1) {
+                //   if ( byte_491D68 >= 5 ) byte_491D68 -= 5; else = 0;
                 config->music_volume =
-                    ClampStep(config->music_volume, -5);
-            else if (state->selection == 2)
+                    config->music_volume >= 5 ? config->music_volume - 5 : 0;
+            } else if (state->selection == 2) {
                 config->sound_volume =
-                    ClampStep(config->sound_volume, -5);
+                    config->sound_volume >= 5 ? config->sound_volume - 5 : 0;
+            }
             if (state->selection <= 2)
                 action = TITLE_OPTIONS_ACTION_VALUE_CHANGED;
         }
         if ((input_flags & TITLE_OPTIONS_RIGHT) != 0) {
-            if (state->selection == 0)
-                config->bgm_mode = (config->bgm_mode + 1) % 3;
-            else if (state->selection == 1)
-                config->music_volume =
-                    ClampStep(config->music_volume, 5);
-            else if (state->selection == 2)
-                config->sound_volume =
-                    ClampStep(config->sound_volume, 5);
+            if (state->selection == 0) {
+                //   if ( byte_491D6A >= 2 ) byte_491D6A = 0; else ++;
+                config->bgm_mode =
+                    config->bgm_mode >= 2 ? 0 : config->bgm_mode + 1;
+            } else if (state->selection == 1) {
+                //   byte_491D68 += 5; if ( byte_491D68 > 100 ) = 100;
+                config->music_volume += 5;
+                if (config->music_volume > 100)
+                    config->music_volume = 100;
+            } else if (state->selection == 2) {
+                config->sound_volume += 5;
+                if (config->sound_volume > 100)
+                    config->sound_volume = 100;
+            }
             if (state->selection <= 2)
                 action = TITLE_OPTIONS_ACTION_VALUE_CHANGED;
         }
@@ -95,6 +102,7 @@ TitleOptionsAction TitleOptions_Update(TitleOptionsState* state,
                 state->phase = 4;
                 state->phase_frame = 0;
             } else if (state->selection == 4) {
+                // byte_491D68 = 100; byte_491D69 = 80; byte_491D6A = 0;
                 config->bgm_mode = 0;
                 config->music_volume = 100;
                 config->sound_volume = 80;
