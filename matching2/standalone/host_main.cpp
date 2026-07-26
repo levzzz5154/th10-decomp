@@ -2944,6 +2944,10 @@ static int HostRun(int argc, char** argv) {
         argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
     g_host.dump_stage =
         argc > 1 && std::strcmp(argv[1], "--dump-stage") == 0;
+    // The stage script runs by default now that it completes cleanly;
+    // --no-ecl restores the script-less stage bridge.
+    HostStage_EnableEcl(1);
+    g_host.ecl_frames = 900;
     for (int index = 1; index < argc; ++index) {
         if (std::strcmp(argv[index], "--capture") == 0 && index + 2 < argc) {
             g_host.capture_after = std::atoi(argv[index + 1]);
@@ -2984,6 +2988,11 @@ static int HostRun(int argc, char** argv) {
                     break;
                 spec = comma + 1;
             }
+            continue;
+        }
+        if (std::strcmp(argv[index], "--no-ecl") == 0) {
+            HostStage_EnableEcl(0);
+            g_host.ecl_frames = 0;
             continue;
         }
         if (std::strcmp(argv[index], "--ecl") == 0) {

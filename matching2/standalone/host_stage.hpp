@@ -78,6 +78,7 @@ struct HostStageReport {
 	size_t timeline_maximum_accessed_offset;
 	size_t timeline_maximum_record_extent;
 	unsigned int timeline_opcode_histogram[15];
+	int bullets_active;         // live bullets after the relink pass
 };
 
 struct HostStageRuntimeView {

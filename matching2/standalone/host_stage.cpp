@@ -43,6 +43,7 @@
 #include "th10/game/object_factories.hpp"
 #include "th10/game/recovery_leaves.hpp"
 #include "th10/game/bullet_manager.hpp"
+#include "th10/game/enemy_lifecycle.hpp"
 #include "th10/game/entity.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/main_menu_dispatch.hpp"
@@ -672,8 +673,79 @@ int HostInitLargeResource() {
 	return state != 0;
 }
 
+// Retail 0x004065C0: clear the six per-layer draw lists, update every live
+// bullet, relink survivors into their layer list and advance each bullet's
+// interpolator clock. The pool object is the 0x3E0B54-byte block the factory
+// produced; the retail field offsets are named in BulletLinkManager.
+int __fastcall HostBulletPoolUpdate(void* owner) {
+	if (owner == 0)
+		return 1;
+	unsigned char* pool = static_cast<unsigned char*>(owner);
+	BulletLinkManager manager = {};
+	manager.active_count = 0;
+	BulletLinkEnv env = {};
+	env.player_flags = 0;                 // no capture state in the host yet
+	env.update_bullet = [](LinkBullet* bullet) -> int {
+		// Retail's per-bullet update is 0x004067A0's sibling and is not
+		// recovered; a bullet with a zero state word is already free, so
+		// reporting "keep" leaves the pool's own bookkeeping in charge.
+		return bullet != 0 && bullet->state == 0 ? 1 : 0;
+	};
+	env.clock_env.frame_step = 1.0f;
+	BulletManager_RelinkActive(
+	    &manager, reinterpret_cast<LinkBullet*>(pool + 0x60), 0x7D1, &env);
+	*reinterpret_cast<int*>(pool + 0x5C) = manager.active_count;
+	g_report.bullets_active = manager.active_count;
+	return 1;
+}
+
+// Retail 0x004067A0: unless the player is in the capture state, walk the six
+// per-layer rows and refresh each node's collision snapshot through
+// 0x004066E0. That is the pass that keeps bullet hitboxes in step with their
+// positions, so collision has something current to test against.
+int __fastcall HostBulletPoolDraw(void* owner) {
+	if (owner == 0)
+		return 1;
+	unsigned char* pool = static_cast<unsigned char*>(owner);
+	BulletLinkManager* manager =
+	    reinterpret_cast<BulletLinkManager*>(pool + 0x14);
+	for (int layer = 0; layer < 6; ++layer) {
+		HitboxEnemy* head =
+		    reinterpret_cast<HitboxEnemy*>(manager->heads[layer]);
+		if (head == 0)
+			continue;
+		EnemyList_SyncHitboxes(head, 0.0f, 0.0f,
+		                       [](float angle, float quarter) -> float {
+			                       (void)quarter;
+			                       return angle;
+		                       },
+		                       [](void*) {}, 0);
+	}
+	return 1;
+}
+
 int HostInitBulletPoolRuntime() {
-	return BulletPoolRuntime_Initialize((void*)DAT_004776f0);
+	BulletPoolRuntimeBindings bindings = {};
+	bindings.update = HostBulletPoolUpdate;
+	bindings.draw = HostBulletPoolDraw;
+	BulletPoolRuntime_SetBindings(&bindings);
+	const int status = BulletPoolRuntime_Initialize((void*)DAT_004776f0);
+	// Retail registers the pool's callbacks disarmed and the loading owner
+	// arms them once streaming completes. The host loads synchronously, so
+	// arm them here or the scheduler never runs the bullet pass.
+	if (status == 0 && DAT_004776f0 != 0) {
+		unsigned char* pool = reinterpret_cast<unsigned char*>(
+		    static_cast<uintptr_t>(DAT_004776f0));
+		SchedulerCallback* update =
+		    *reinterpret_cast<SchedulerCallback**>(pool + 8);
+		SchedulerCallback* draw =
+		    *reinterpret_cast<SchedulerCallback**>(pool + 0xC);
+		if (update != 0) update->flags |= 2u;
+		if (draw != 0) draw->flags |= 2u;
+		Log("bullet pool callbacks armed (update=%p draw=%p)",
+		    (void*)update, (void*)draw);
+	}
+	return status;
 }
 
 int HostInitBulletPool() {
@@ -2364,10 +2436,11 @@ int HostStage_RunFrames(int frames) {
 	    g_timeline_view.stats.maximum_accessed_offset;
 	if (g_ecl_enabled)
 		Log("ecl: %d ticks-with-progress, %d calls, %d spawns, %s "
-		    "(ip=%p, scratch_top=%d)",
+		    "(ip=%p, scratch_top=%d); bullets_active=%d",
 		    g_ecl_instructions, g_ecl_calls, g_ecl_spawns,
 		    g_ecl_stopped ? "stopped" : "running",
-		    (const void*)g_ecl_vm.ip, g_ecl_vm.scratch_top);
+		    (const void*)g_ecl_vm.ip, g_ecl_vm.scratch_top,
+		    g_report.bullets_active);
 	g_report.timeline_maximum_record_extent =
 	    g_timeline_view.stats.maximum_record_extent;
 	for (int opcode = 0; opcode < 15; ++opcode)
