@@ -3,6 +3,20 @@
 // =============================================================================
 #include "th10/app/main_tasks.hpp"
 
+// Semantic reconstruction 0x0041FF80 - primary input/mode callback.
+int MainInputTask_Run(const MainInputTaskState* state,
+                      const MainInputTaskHooks* hooks) {
+    if (state->replay_state < 0 && state->replay_handle == 0)
+        *hooks->mode = 3;
+    hooks->advance_input(hooks->context);
+    hooks->poll_devices(hooks->context);
+    if (hooks->resource_busy(hooks->context) != 0)
+        return 4;
+    if (state->callback_result != 0)
+        return state->callback_result == 2 ? 4 : 1;
+    return hooks->apply_requested_mode(hooks->context);
+}
+
 // Semantic reconstruction 0x00420470 - prime and register the main tasks.
 // the four root callbacks (input poll on the primary list, three helpers on
 // the secondary list). Returns the primary-list insertion status.

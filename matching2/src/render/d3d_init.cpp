@@ -81,7 +81,7 @@ int D3D_Init(void) {
     //         Windowed, EnableAutoDepthStencil, AutoDepthStencilFormat,
     //         Flags, FullScreen_RefreshRateInHz, PresentationInterval
     uint32_t pp[15];  // includes extra dword at front for alignment
-    uint32_t extra[5]; // additional params (uStack_24..iStack_10)
+    uint32_t extra[6]; // additional params (uStack_24..iStack_10)
 
     // Zero the tail of present params
     uint32_t* p = pp + 4;

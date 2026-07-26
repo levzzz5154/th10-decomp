@@ -89,5 +89,6 @@ GameThread* GameThread_Create();
 
 GameState* GameState_Construct(GameState* state);
 int GameState_Init(void* manager, GameState* state, int stateId);
+int GameState_LoadStageScript(GameState* state, const char* path);
 void GameState_Destroy(GameState* state);
 GameState* GameState_Create(void* manager, int stateId);

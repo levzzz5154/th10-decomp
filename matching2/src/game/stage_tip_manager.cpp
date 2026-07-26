@@ -1,4 +1,6 @@
 #include "th10/game/stage_tips.hpp"
+#include "th10/game/scheduler.hpp"
+#include "th10/runtime/missing_edge.hpp"
 
 #ifndef _MSC_VER
 #include <cstring>
@@ -14,6 +16,31 @@ extern int32_t DAT_00474c7c;  // difficulty setting
 extern int32_t DAT_00474c84;  // tip display mode
 extern int32_t DAT_00474c88;  // display value used while mode == 0
 extern int32_t DAT_00474c8c;  // display value used while mode != 0
+extern uint32_t DAT_00491be4;
+extern uint8_t DAT_00491d6a;
+
+namespace {
+StageTipRuntimeBindings g_stage_tip_bindings = {};
+
+int __fastcall StageTipRuntime_Update(void* owner) {
+    if (g_stage_tip_bindings.update == 0)
+        Runtime_MissingEdge(0x00419650u, "stage-tip/focus update");
+    return g_stage_tip_bindings.update(owner);
+}
+
+int __fastcall StageTipRuntime_Render(void* owner) {
+    if (g_stage_tip_bindings.render == 0)
+        Runtime_MissingEdge(0x004198B0u, "stage-tip render");
+    return g_stage_tip_bindings.render(owner);
+}
+
+void StageTipRuntime_SpawnTip(void* owner, uint32_t text_address,
+                              int32_t slot) {
+    if (g_stage_tip_bindings.spawn_tip == 0)
+        Runtime_MissingEdge(0x0041A120u, "stage-tip spawn");
+    g_stage_tip_bindings.spawn_tip(owner, text_address, slot);
+}
+}  // namespace
 
 // strncpy with the exact retail semantics (copy up to ``limit`` bytes,
 // zero-fill the remainder, no forced terminator), written out so the
@@ -44,6 +71,51 @@ StageTipManager* StageTipManager_Construct(StageTipManager* state) {
     }
     DAT_00477814 = state;
     return state;
+}
+
+void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings) {
+    if (bindings != 0)
+        g_stage_tip_bindings = *bindings;
+    else
+        memset(&g_stage_tip_bindings, 0, sizeof(g_stage_tip_bindings));
+}
+
+// 0x00418E30 - Register the manager's update/render pair, clear its counter,
+// and create the two built-in tips when the retail tips option is enabled.
+int StageTipRuntime_Initialize(void* state) {
+    if (state == 0 || DAT_00491be4 == 0)
+        return -1;
+    unsigned char* bytes = (unsigned char*)state;
+    SchedulerCallback* update =
+        SchedulerCallback_Create(StageTipRuntime_Update);
+    if (update == 0)
+        return -1;
+    update->flags &= ~2u;
+    update->owner = state;
+    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 8) = update;
+
+    SchedulerCallback* render =
+        SchedulerCallback_Create(StageTipRuntime_Render);
+    if (render == 0) {
+        Scheduler_Remove(update, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(bytes + 8) = 0;
+        return -1;
+    }
+    render->flags &= ~2u;
+    render->owner = state;
+    Scheduler_RegisterSecondary(render, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 12) = render;
+    *(uint32_t*)(bytes + 0x10) = 0;
+
+    // Retail gates the two startup tips on the display flag only; the spawn
+    // edge itself is mandatory, so a missing binding is a build error rather
+    // than a silently skipped pair.
+    if (DAT_00491d6a != 0) {
+        StageTipRuntime_SpawnTip(state, 0x0046D6D8u, 0);
+        StageTipRuntime_SpawnTip(state, 0x0046D6C4u, 1);
+    }
+    return 0;
 }
 
 // 0x0041A120 - Allocate one 0x88-byte stage-tip record, run the same

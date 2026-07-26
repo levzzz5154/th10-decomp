@@ -8,7 +8,7 @@ extern "C" void* operator_new(uint32_t size);
 #ifdef _MSC_VER
 void* __cdecl operator new(uint32_t size);
 #else
-void* operator new(unsigned long size);
+void* operator new(unsigned int size);
 #endif
 extern "C" void LegacyString_ThrowLengthError(void);
 extern "C" void LegacyString_ThrowRangeError(void);

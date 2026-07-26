@@ -8,6 +8,7 @@
 // =============================================================================
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/entity.hpp"
+#include "th10/render/anm_entry_load.hpp"
 
 extern "C" void* operator_new(unsigned int size);
 extern "C" void _free(void* allocation);
@@ -105,12 +106,9 @@ void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
     float* destination = (float*)(bytes + 0x118 + index * 0x44);
     for (unsigned int field = 0; field != 17; ++field)
         destination[field] = source[field];
-    destination[8] = destination[2] / destination[7];
-    destination[10] = destination[4] / destination[7];
-    destination[9] = destination[3] / destination[6];
-    destination[11] = destination[5] / destination[6];
-    destination[13] = (destination[4] - destination[2]) / source[14];
-    destination[12] = (destination[5] - destination[3]) / source[15];
+    // The trailing arithmetic is byte-identical to the tail of the archive
+    // entry loader at 0x00447470, so both callers share one implementation.
+    AnmSprite_DeriveRecord(destination);
 }
 
 // 0x0043EC70 - Read one of the animation interpreter's integer-valued

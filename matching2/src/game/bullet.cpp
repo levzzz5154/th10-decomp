@@ -7,6 +7,11 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/math/timer.hpp"
+#include "th10/render/animation_manager.hpp"
+
+#include <cmath>
+#include <cstring>
 
 extern "C" void* __cdecl operator_new(uint32_t size);
 extern "C" void __cdecl _free(void* memory);
@@ -21,11 +26,51 @@ extern uint32_t DAT_00491be4;         // scheduler device
 extern uint32_t DAT_00492274;         // scheduler critical section
 extern unsigned char DAT_0049231c;    // scheduler reentrancy counter
 extern void* g_pGameStateManager;     // typed alias for DAT_00491c10
+extern float _DAT_00470b0c;
+extern float _DAT_00470b04;
+extern float _DAT_00470b38;
+extern float _DAT_00470b3c;
+extern float _DAT_00470b40;
 
 int __fastcall ResourceManager_FindTexture(void* resource_template);
 void __fastcall Entity_ClearAnims(void* unused, uint8_t* data);
 int BulletEntity_UpdateTransform(uint32_t* bullet_transform);
 void __fastcall AnimationManager_RemoveHandle(void* unused, void* manager, int handle);
+
+namespace {
+
+float Entity_NormalizeAngle(float angle) {
+    const float turn = 6.2831853071795864769f;
+    angle = std::fmod(angle, turn);
+    if (angle < 0.0f)
+        angle += turn;
+    return angle;
+}
+
+void Entity_AdvanceMotion(unsigned char* state, unsigned int offset) {
+    float* position = reinterpret_cast<float*>(state + offset);
+    float* velocity = reinterpret_cast<float*>(state + offset + 0x0c);
+    float& speed = *reinterpret_cast<float*>(state + offset + 0x18);
+    float& angle = *reinterpret_cast<float*>(state + offset + 0x1c);
+    const unsigned int motion_flags =
+        *reinterpret_cast<unsigned int*>(state + offset + 0x28);
+    if ((motion_flags & 1u) == 0) {
+        velocity[0] = std::cos(angle) * speed;
+        velocity[1] = std::sin(angle) * speed;
+        velocity[2] = 0.0f;
+    } else {
+        speed += *reinterpret_cast<float*>(state + offset + 0x24);
+        angle = Entity_NormalizeAngle(
+            angle + *reinterpret_cast<float*>(state + offset + 0x20));
+        velocity[0] = std::cos(angle) * speed;
+        velocity[1] = std::sin(angle) * speed;
+    }
+    position[0] += velocity[0] * _DAT_00470b0c;
+    position[1] += velocity[1] * _DAT_00470b0c;
+    position[2] += velocity[2] * _DAT_00470b0c;
+}
+
+} // namespace
 
 // Resource-manager lookup: returns a typed resource pointer (or NULL). The
 // retail name is loaded through this entry point so bullet manager setup can
@@ -35,6 +80,7 @@ int* ResourceManager_FindResource(int type, void* manager, const char* name);
 // 0x0040CF40 - Initialize the complete spawn-parameter record.
 BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
     void* unused, BulletSpawnParameters* parameters) {
+    (void)unused;
     for (int index = 0; index < 0x7E; ++index) {
         parameters->fields[index] = 0;
     }
@@ -125,6 +171,7 @@ void BulletEntity_ClearResourceList(BulletEntity* entity) {
 //   Clears bit 0 at +0x142C and +0x1440
 // ============================================================================
 void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
+    (void)unused;
     *(uint32_t*)(data + 300)   &= 0xFFFFFFFE;
     *(uint32_t*)(data + 0x17C) &= 0xFFFFFFFE;
     *(uint32_t*)(data + 0x1C8) &= 0xFFFFFFFE;
@@ -144,6 +191,90 @@ void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
 
     *(uint32_t*)(data + 0x142C) &= 0xFFFFFFFE;
     *(uint32_t*)(data + 0x1440) &= 0xFFFFFFFE;
+}
+
+// 0x0040DC80 - per-entity transform, lifetime and ANM synchronization.
+int BulletEntity_UpdateTransform(uint32_t* bullet_transform) {
+    if (bullet_transform == nullptr)
+        return -1;
+    auto* state = reinterpret_cast<unsigned char*>(bullet_transform);
+    unsigned int& flags =
+        *reinterpret_cast<unsigned int*>(state + 0x1444);
+    if ((flags & 0x400u) != 0)
+        return 0;
+    flags |= 0x400u;
+
+    std::memcpy(state, state + 0x2c, 0x2c);
+    Entity_AdvanceMotion(state, 0x58);
+    Entity_AdvanceMotion(state, 0x84);
+
+    float* current = reinterpret_cast<float*>(state + 0x2c);
+    const float* primary = reinterpret_cast<const float*>(state + 0x58);
+    const float* secondary = reinterpret_cast<const float*>(state + 0x84);
+    current[0] = primary[0] + secondary[0];
+    current[1] = primary[1] + secondary[1];
+    current[2] = primary[2] + secondary[2];
+    float* delta = reinterpret_cast<float*>(state + 0x38);
+    const float* previous = reinterpret_cast<const float*>(state);
+    delta[0] = current[0] - previous[0];
+    delta[1] = current[1] - previous[1];
+    delta[2] = current[2] - previous[2];
+
+    if ((flags & 0x200u) != 0) {
+        const float center_x =
+            *reinterpret_cast<float*>(state + 0x13ac);
+        const float center_y =
+            *reinterpret_cast<float*>(state + 0x13b0);
+        const float half_x =
+            *reinterpret_cast<float*>(state + 0x13b4) * _DAT_00470b0c;
+        const float half_y =
+            *reinterpret_cast<float*>(state + 0x13b8) * _DAT_00470b0c;
+        if (current[0] < center_x - half_x) current[0] = center_x - half_x;
+        if (current[0] > center_x + half_x) current[0] = center_x + half_x;
+        if (current[1] < center_y - half_y) current[1] = center_y - half_y;
+        if (current[1] > center_y + half_y) current[1] = center_y + half_y;
+        reinterpret_cast<float*>(state + 0x58)[0] =
+            current[0] - secondary[0];
+        reinterpret_cast<float*>(state + 0x58)[1] =
+            current[1] - secondary[1];
+    }
+
+    const float half_width =
+        *reinterpret_cast<float*>(state + 0x13a4) * _DAT_00470b0c;
+    const float half_height =
+        *reinterpret_cast<float*>(state + 0x13a8) * _DAT_00470b0c;
+    const bool outside =
+        current[0] + half_width < _DAT_00470b3c ||
+        current[0] - half_width > _DAT_00470b40 ||
+        current[1] + half_height < _DAT_00470b38 ||
+        current[1] - half_height > _DAT_00470b04;
+    if (outside) {
+        if ((flags & 0x100u) != 0 && (flags & 4u) == 0)
+            return -1;
+    } else {
+        flags |= 0x100u;
+    }
+
+    int* handles = reinterpret_cast<int*>(state + 0xc0);
+    for (unsigned int index = 0; index < 8; ++index) {
+        if (handles[index] != 0)
+            AnimationManager_SetPosition(
+                g_pGameStateManager, handles[index], current);
+    }
+    const float* speed =
+        *reinterpret_cast<const float**>(state + 0x128);
+    if (speed != nullptr) {
+        int& previous_frame =
+            *reinterpret_cast<int*>(state + 0x11c);
+        int& current_frame =
+            *reinterpret_cast<int*>(state + 0x120);
+        float& elapsed =
+            *reinterpret_cast<float*>(state + 0x124);
+        previous_frame = current_frame;
+        elapsed += *speed;
+        current_frame = static_cast<int>(elapsed);
+    }
+    return 0;
 }
 
 // ============================================================================

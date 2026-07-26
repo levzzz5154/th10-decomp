@@ -5,6 +5,9 @@
 // =============================================================================
 #include "th10/game/game_state.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/render/animation_manager.hpp"
+
+#include <cstdint>
 
 extern "C" void* operator_new(uint32_t size);
 extern "C" void _free(void*);
@@ -23,12 +26,105 @@ void __fastcall Entity_Init(void* unused, Entity* entity);
 void Logger_AppendFormatted(char* buf, const char* msg);
 void Platform_LogMessage(const char* msg);
 void Scheduler_UnregisterCallback(void* handle, int dev);
-void ResourceManager_DestroyContents(void* mgr);
+void ResourceManager_DestroyResource(void* manager, void* resource);
 void* ResourceManager_FindResource(int type, int mgr, const char* name);
-void AnimationObject_SelectScript(int handle, int idx);
 
 int GameThread_Update(GameThread* gameThread);
 int GameThread_Draw(GameThread* gameThread);
+
+namespace {
+
+int GameThread_RenderTextQueue(GameThread* gameThread,
+                               unsigned int queue_offset,
+                               unsigned int count_offset,
+                               bool proportional_font_one) {
+    if (gameThread == nullptr)
+        return 1;
+    auto* thread = reinterpret_cast<unsigned char*>(gameThread);
+    auto* animation = reinterpret_cast<AnimationObject*>(thread + 0x14);
+    auto* object = thread + 0x14;
+    auto* resource = *reinterpret_cast<unsigned char**>(thread + 0x8994);
+    if (resource == nullptr)
+        return 1;
+    auto* sprites = *reinterpret_cast<unsigned char**>(resource + 0x118);
+    if (sprites == nullptr)
+        return 1;
+
+    auto& flags = *reinterpret_cast<unsigned int*>(object + 0x35c);
+    flags = (flags & ~0x00280000u) | 0x00140001u;
+    const int count = *reinterpret_cast<int*>(thread + count_offset);
+    const int glyph_scale =
+        *reinterpret_cast<int*>(thread + 0x898c);
+    for (int record_index = 0; record_index < count; ++record_index) {
+        unsigned char* record =
+            thread + queue_offset + record_index * 0x68;
+        float start_x = *reinterpret_cast<float*>(record + 0x40);
+        float x = start_x;
+        float y = *reinterpret_cast<float*>(record + 0x44);
+        const float z = *reinterpret_cast<float*>(record + 0x48);
+        const float scale_x = *reinterpret_cast<float*>(record + 0x50);
+        const float scale_y = *reinterpret_cast<float*>(record + 0x54);
+        const int font = *reinterpret_cast<int*>(record + 0x60);
+        const float advance =
+            proportional_font_one && font == 1 ? 7.0f :
+            static_cast<float>(glyph_scale) * scale_x;
+        const float line_height =
+            proportional_font_one && font == 1 ? 9.0f : 14.0f;
+        for (const unsigned char* text = record; *text != 0; ++text) {
+            if (*text == '\n') {
+                x = start_x;
+                y += line_height * scale_y;
+                continue;
+            }
+            if (*text != ' ') {
+                const unsigned int glyph =
+                    static_cast<unsigned int>(
+                        font * 0x62 + static_cast<int>(*text) - 0x20);
+                unsigned char* sprite = sprites + glyph * 0x44;
+                *reinterpret_cast<void**>(object + 0x394) = sprite;
+                *reinterpret_cast<float*>(object + 0x4c) =
+                    *reinterpret_cast<float*>(sprite + 0x30);
+                *reinterpret_cast<float*>(object + 0x50) =
+                    *reinterpret_cast<float*>(sprite + 0x34);
+                *reinterpret_cast<float*>(object + 0x3c) = scale_x;
+                *reinterpret_cast<float*>(object + 0x40) = scale_y;
+                *reinterpret_cast<float*>(object + 0x334) = x;
+                *reinterpret_cast<float*>(object + 0x338) = y;
+                *reinterpret_cast<float*>(object + 0x33c) = z;
+                const unsigned int color =
+                    *reinterpret_cast<unsigned int*>(record + 0x4c);
+                if (*reinterpret_cast<int*>(record + 0x64) != 0) {
+                    *reinterpret_cast<unsigned int*>(object + 0x2fc) =
+                        color & 0xff000000u;
+                    *reinterpret_cast<float*>(object + 0x334) = x + 1.0f;
+                    *reinterpret_cast<float*>(object + 0x338) = y + 1.0f;
+                    AnimationObject_Render(
+                        g_pGameStateManager, animation);
+                    *reinterpret_cast<float*>(object + 0x334) = x;
+                    *reinterpret_cast<float*>(object + 0x338) = y;
+                }
+                *reinterpret_cast<unsigned int*>(object + 0x2fc) = color;
+                AnimationObject_Render(g_pGameStateManager, animation);
+            }
+            x += advance;
+        }
+    }
+    return 1;
+}
+
+} // namespace
+
+int GameThread_Update(GameThread* gameThread) {
+    // 0x00401760: first text queue, 0x100 records at +0x76C.
+    return GameThread_RenderTextQueue(
+        gameThread, 0x76c, 0x896c, true);
+}
+
+int GameThread_Draw(GameThread* gameThread) {
+    // 0x00401A50: second text queue, 0x40 records at +0x6F6C.
+    return GameThread_RenderTextQueue(
+        gameThread, 0x6f6c, 0x8970, false);
+}
 
 static int __fastcall GameThread_BeginFrameCallback(void* owner) {
     uint32_t* gameThread = (uint32_t*)owner;
@@ -143,22 +239,24 @@ GameThread* GameThread_Construct(GameThread* gameThread) {
 // ============================================================================
 int GameThread_Init(GameThread* gameThread) {
     uint8_t* gt = (uint8_t*)gameThread;
+    void* textAnm = 0;
+    void* captureAnm = 0;
+    SchedulerCallback* callback = 0;
 
     // Load animation resources
     void* asciiAnm = ResourceManager_FindResource(2, (int)g_pGameStateManager, "ascii.anm");
     *(void**)(gt + 0x8994) = asciiAnm;
     if (asciiAnm == 0) goto fail;
 
-    void* textAnm = ResourceManager_FindResource(0, (int)g_pGameStateManager, "text.anm");
+    textAnm = ResourceManager_FindResource(0, (int)g_pGameStateManager, "text.anm");
     *(void**)(gt + 0x899C) = textAnm;
     if (textAnm == 0) goto fail;
 
-    void* captureAnm = ResourceManager_FindResource(3, (int)g_pGameStateManager, "capture.anm");
+    captureAnm = ResourceManager_FindResource(3, (int)g_pGameStateManager, "capture.anm");
     *(void**)(gt + 0x8998) = captureAnm;
     if (captureAnm == 0) goto fail;
 
-    SchedulerCallback* callback =
-        SchedulerCallback_Create(GameThread_BeginFrameCallback);
+    callback = SchedulerCallback_Create(GameThread_BeginFrameCallback);
     if (callback == 0) goto fail;
     callback->flags &= ~2u;
     callback->owner = gameThread;
@@ -182,11 +280,11 @@ int GameThread_Init(GameThread* gameThread) {
     // Initialize entities with animation data
     Entity_Init(0, (Entity*)(gt + 0x14));
     *(uint32_t*)(gt + 0x31C) = (uint32_t)asciiAnm;
-    AnimationObject_SelectScript((int)asciiAnm, 0);
+    AnimationObject_ConfigureFromResource(gt + 0x14, asciiAnm, 0);
 
     Entity_Init(0, (Entity*)(gt + 0x3C0));
     *(uint32_t*)(gt + 0x6C8) = (uint32_t)asciiAnm;
-    AnimationObject_SelectScript((int)asciiAnm, 0x62);
+    AnimationObject_ConfigureFromResource(gt + 0x3C0, asciiAnm, 0x62);
 
     return 0;
 
@@ -245,13 +343,13 @@ void GameThread_Destroy(GameThread* gameThread) {
     // Free game state slots from manager
     uint32_t* slot;
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD074);
-    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyResource(g_pGameStateManager, (void*)*slot); _free((void*)*slot); *slot = 0; }
 
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD06C);
-    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyResource(g_pGameStateManager, (void*)*slot); _free((void*)*slot); *slot = 0; }
 
     slot = (uint32_t*)((int)g_pGameStateManager + 0x3AD078);
-    if (*slot != 0) { ResourceManager_DestroyContents(g_pGameStateManager); _free((void*)*slot); *slot = 0; }
+    if (*slot != 0) { ResourceManager_DestroyResource(g_pGameStateManager, (void*)*slot); _free((void*)*slot); *slot = 0; }
 
     g_pGameThread = 0;
 

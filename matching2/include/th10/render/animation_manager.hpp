@@ -4,6 +4,7 @@
 #pragma once
 
 struct AnimationObject;
+void AnimationObject_Render(void* manager, AnimationObject* animation);
 
 struct AnimationTextureRecord {
     unsigned int texture;

@@ -258,6 +258,26 @@ static int Tick(EclOwner* owner, float delta) {
     return g_tick_calls >= g_tick_failures_from ? 1 : 0;
 }
 
+static float ResolveStartFloat(EclStartVm*, unsigned int index, float value) {
+    assert(index == 1);
+    return value + 0.5f;
+}
+
+static int ResolveStartInt(EclStartVm*, unsigned int index, int value) {
+    assert(index == 2);
+    return value + 2;
+}
+
+static void* FindStartLabel(const unsigned short* label) {
+    return label != 0 && label[0] == 'm' ? (void*)0x12345678 : 0;
+}
+
+static unsigned int ReadStartWord(const EclStartVm& vm, unsigned int offset) {
+    unsigned int value;
+    memcpy(&value, vm.stack + offset, sizeof(value));
+    return value;
+}
+
 static void TestEclChildVmLeaves() {
     EclOwner owner;
     std::memset(&owner, 0, sizeof(owner));
@@ -309,6 +329,47 @@ static void TestEclChildVmLeaves() {
     g_tick_failures_from = 1;
     result = EclVm_TickChildren(&owner, 1.0f, Tick, FreeMemory);
     assert(result == -1);
+
+    const unsigned short label[] = {'m', 'a', 'i', 'n', 0};
+    EclStartArgument arguments[3] = {};
+    arguments[1].source_type = 'f';
+    arguments[1].destination_type = 'i';
+    arguments[1].value.float_value = 4.75f;
+    arguments[2].source_type = 'i';
+    arguments[2].destination_type = 'f';
+    arguments[2].value.int_value = 5;
+    EclStartInstruction call = {label, arguments, 3};
+    EclStartVm parent = {};
+    parent.instruction_offset = 0x44;
+    parent.instruction = (void*)0x11223344;
+    EclStartVm child = {};
+    EclStartOwner start_owner = {&parent};
+    EclStartHooks hooks = {
+        &ResolveStartFloat, &ResolveStartInt, &FindStartLabel,
+    };
+    assert(EclVm_StartChild(&child, &parent, &start_owner, &call, 0,
+                            &hooks) == 0);
+    assert(child.instruction == (void*)0x12345678);
+    assert(child.instruction_offset == 0);
+    assert(start_owner.active_vm == &parent);
+    assert(child.stack_top == 16);
+    assert(ReadStartWord(child, 0) == 0);
+    assert(ReadStartWord(child, 4) == 0x11223344);
+    assert(ReadStartWord(child, 8) == 5);
+    float converted_float;
+    unsigned int float_word = ReadStartWord(child, 12);
+    memcpy(&converted_float, &float_word, sizeof(converted_float));
+    assert(converted_float == 7.0f);
+
+    const unsigned short missing[] = {'x', 0};
+    call.label = missing;
+    parent.instruction = (void*)0x55667788;
+    child = {};
+    start_owner.active_vm = &parent;
+    assert(EclVm_StartChild(&child, &parent, &start_owner, &call, 2,
+                            &hooks) == -1);
+    assert(parent.instruction == 0);
+    assert(start_owner.active_vm == &child);
 }
 
 // --- Manager lifecycle leaves --------------------------------------------------------
@@ -757,16 +818,19 @@ static void TestStageBackgroundRebindTexture() {
 
 static int g_entries_loaded;
 static int g_load_result;
-static int g_loaded_x;
-static int g_loaded_y;
+static int g_loaded_index;
+static int g_loaded_sprite_base;
+static int g_loaded_script_base;
 static AnmArchiveEntry* g_loaded_entry;
-static int LoadEntry(void* context, AnmCursorOwner* owner, int offset_x,
-                     int offset_y, AnmArchiveEntry* entry) {
+static int LoadEntry(void* context, AnmCursorOwner* owner, int entry_index,
+                     int sprite_base, int script_base,
+                     AnmArchiveEntry* entry) {
     (void)context;
     (void)owner;
     ++g_entries_loaded;
-    g_loaded_x = offset_x;
-    g_loaded_y = offset_y;
+    g_loaded_index = entry_index;
+    g_loaded_sprite_base = sprite_base;
+    g_loaded_script_base = script_base;
     g_loaded_entry = entry;
     return g_load_result;
 }
@@ -775,14 +839,14 @@ static void TestAnmArchiveAdvanceScriptCursor() {
     // Chain of three entries laid out back to back.
     static AnmArchiveEntry entries[3];
     std::memset(entries, 0, sizeof(entries));
-    entries[0].width = 32;
-    entries[0].height = 16;
+    entries[0].sprite_count = 32;
+    entries[0].script_count = 16;
     entries[0].next_offset = (int)sizeof(AnmArchiveEntry);
-    entries[1].width = 64;
-    entries[1].height = 8;
+    entries[1].sprite_count = 64;
+    entries[1].script_count = 8;
     entries[1].next_offset = (int)sizeof(AnmArchiveEntry);
-    entries[2].width = 128;
-    entries[2].height = 4;
+    entries[2].sprite_count = 128;
+    entries[2].script_count = 4;
     entries[2].next_offset = 0;
 
     AnmCursorOwner owner;
@@ -797,8 +861,9 @@ static void TestAnmArchiveAdvanceScriptCursor() {
     assert(result == &owner);
     assert(g_entries_loaded == 1);
     assert(g_loaded_entry == &entries[1]);
-    assert(g_loaded_x == 32);
-    assert(g_loaded_y == 16);
+    assert(g_loaded_index == 1);
+    assert(g_loaded_sprite_base == 32);
+    assert(g_loaded_script_base == 16);
     assert(owner.cursor == 3);
 
     // A failed load resets the cursor and reports null.

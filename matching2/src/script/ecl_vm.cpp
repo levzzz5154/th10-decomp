@@ -1,18 +1,12 @@
 // ECL (Enemy Control Language) VM dispatch, retail address 0x0040E770.
 #include "th10/script/ecl.hpp"
+#include "th10/render/animation_manager.hpp"
+#include "th10/math/timer.hpp"
 
 
 extern "C" float cosf(float);
 extern "C" float sinf(float);
 
-extern "C" {
-uint32_t ECL_DispatchOpcode(uint32_t dispatch_index, void* cursor, int operand);
-void ECL_SetTimerTarget(int value);
-void AnimationManager_SetEclFlag(void);
-void AnimationManager_ClearEclFlag(void);
-}
-
-extern uint8_t PTR_caseD_14f_00411de0[];
 extern float DAT_00470b04; // zero: first local-variable encoding
 extern float DAT_00470b60; // -1: pop from the ECL argument stack
 extern void* g_pGameStateManager;
@@ -66,6 +60,12 @@ uint32_t* EntityDifficultySlots(void* entity) {
 
 int32_t& EntityInt(void* entity, unsigned int offset) {
     return *reinterpret_cast<int32_t*>(static_cast<uint8_t*>(entity) + offset);
+}
+
+void SetEntityTimer(void* entity, unsigned int offset, int target) {
+    auto* timer = reinterpret_cast<FrameTimer*>(
+        static_cast<uint8_t*>(entity) + offset);
+    Timer_Set(timer, target);
 }
 
 } // namespace
@@ -433,10 +433,6 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     if (static_cast<unsigned int>(opcode - 0x100) > 0xb4)
         return 0;
 
-    // Ghidra names the symbol 0x100 bytes before the actual byte-index table;
-    // indexing it by the full opcode reaches the retail table at 0x00411EE0.
-    const uint32_t dispatch_index = PTR_caseD_14f_00411de0[opcode];
-
     switch (opcode) {
     case ECL_SET_HITBOX_WIDTH:
         EntityFloat(entity, 0xb0) = ECL_ResolveFloatOperand(state->cursor, 0);
@@ -447,18 +443,24 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         EntityFloat(entity, 0xbc) = ECL_ResolveFloatOperand(state->cursor, 1);
         return 0;
     case ECL_SET_FLAGS: {
-        const uint32_t flags = ECL_DispatchOpcode(dispatch_index, state->cursor, 0);
+        const uint32_t flags = static_cast<uint32_t>(
+            ECL_ResolveIntOperand(state->cursor, 0));
         if ((ECL_SetFlags(entity, flags) & 0x10) != 0) {
-            for (int i = 0; i < 10; ++i)
-                AnimationManager_ClearEclFlag();
+            for (int i = 0; i < 10; ++i) {
+                AnimationManager_ClearFlag(
+                    g_pGameStateManager, EntityInt(entity, 0xC0 + i * 4), 2);
+            }
         }
         return 0;
     }
     case ECL_CLEAR_FLAGS: {
-        const uint32_t flags = ECL_DispatchOpcode(dispatch_index, state->cursor, 0);
+        const uint32_t flags = static_cast<uint32_t>(
+            ECL_ResolveIntOperand(state->cursor, 0));
         if ((ECL_ClearFlags(entity, flags) & 0x10) == 0) {
-            for (int i = 0; i < 10; ++i)
-                AnimationManager_SetEclFlag();
+            for (int i = 0; i < 10; ++i) {
+                AnimationManager_SetFlag(
+                    g_pGameStateManager, EntityInt(entity, 0xC0 + i * 4), 2);
+            }
         }
         return 0;
     }
@@ -625,7 +627,9 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
                 ECL_ResolveIntOperand(state->cursor, 0);
         return 0;
     case ECL_APPLY_DIFFICULTY_ACTION:
-        ECL_SetTimerTarget(ECL_ResolveIntOperand(state->cursor, 0));
+        // 0x0041004C: retail passes entity+0x1430 in EAX to 0x00405410.
+        SetEntityTimer(entity, 0x1430,
+                       ECL_ResolveIntOperand(state->cursor, 0));
         return 0;
     case 0x158:
         Score_SetMode(entity, ECL_ResolveIntOperand(state->cursor, 0));
@@ -722,15 +726,13 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         return 0;
     }
     case 0x14d:
-        // Retail helper FUN_00405410 with 0; this is the same timer setter
-        // used by ECL_APPLY_DIFFICULTY_ACTION (0x169) but with a literal zero.
-        ECL_SetTimerTarget(0);
+        // 0x00410C58: reset the movement timer at entity+0x11C.
+        SetEntityTimer(entity, 0x11c, 0);
         return 0;
     case 0x14f: {
-        // Same as 0x169; supplied as a separate opcode so the script can
-        // force the timer target without re-reading operand 0.
+        // 0x0041001F: the other embedded timer lives at entity+0x141C.
         const int32_t value = ECL_ResolveIntOperand(state->cursor, 0);
-        ECL_SetTimerTarget(value);
+        SetEntityTimer(entity, 0x141c, value);
         return 0;
     }
     case 0x153:

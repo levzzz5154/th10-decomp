@@ -13,6 +13,17 @@ constexpr uint32_t kEntityBlockPoolDwords = 0x27B4; // 0x9ED0 bytes
 // the instance through the retail global at 0x00477840.
 void EffectManager_ResetAndPublish(uint32_t* state);
 
+struct EffectManagerRuntimeBindings {
+    int (__fastcall *update)(void* owner);
+    int (__fastcall *render)(void* owner);
+    void (*preload)(int frame_stamp, int argument);
+};
+
+void EffectManagerRuntime_SetBindings(
+    const EffectManagerRuntimeBindings* bindings);
+int EffectManagerRuntime_Initialize(void* state);
+void EffectManagerRuntime_Destroy(void* state);
+
 // 0x0042C920 - Construct the 0x5ACC-byte progress manager: clear the
 // whole block, set bit 1 in the flags word at +0x04, and publish the
 // instance through the retail global at 0x0047784C.

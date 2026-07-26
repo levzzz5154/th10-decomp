@@ -81,6 +81,16 @@ int32_t FrontAnm_RegisterTasks(
     SchedulerRegisterFn register_secondary, SchedulerFunction update_proc,
     SchedulerFunction render_proc);
 
+struct ItemFrontRuntimeBindings {
+    int (*initialize_score_task)(void* owner);
+    SchedulerFunction update;
+    SchedulerFunction render;
+};
+
+void ItemFrontRuntime_SetBindings(
+    const ItemFrontRuntimeBindings* bindings);
+int ItemFrontRuntime_Initialize(void* owner);
+
 // State fragment for 0x0042CAA0 (retail offsets in comments; the title
 // screen keeps its callbacks one word later than the other managers).
 struct TitleInitState {

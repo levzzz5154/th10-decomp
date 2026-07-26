@@ -54,6 +54,15 @@ StageTip* __fastcall StageTip_Initialize(void* unused, StageTip* tip);
 // sixteen sentinels, and publish it through DAT_00477814.
 StageTipManager* StageTipManager_Construct(StageTipManager* state);
 
+struct StageTipRuntimeBindings {
+    int (__fastcall *update)(void* owner);
+    int (__fastcall *render)(void* owner);
+    void (*spawn_tip)(void* owner, uint32_t text_address, int32_t slot);
+};
+
+void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings);
+int StageTipRuntime_Initialize(void* state);
+
 // 0x0041A120 - Allocate and initialize one tip record, append it to the
 // tail of the current difficulty's chain, and populate its position,
 // text, and display fields from the difficulty globals.

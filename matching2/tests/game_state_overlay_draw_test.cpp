@@ -1,0 +1,6 @@
+#include "th10/game/game_state_overlay_draw.hpp"
+#include <cstdio>
+static int fail,an,rn;static void* ap[80];static OverlayRect rr[16];static unsigned cc[16];
+#define C(x) do{if(!(x)){std::printf("FAIL %d %s\n",__LINE__,#x);++fail;}}while(0)
+static void A(void*p){ap[an++]=p;}static void R(const OverlayRect&r,unsigned c){rr[rn]=r;cc[rn++]=c;}
+int main(){GameStateOverlay s={};int v[64];int k=0;for(int i=0;i<10;++i){s.primary[i]=&v[k++];s.secondary[i]=&v[k++];}for(int i=0;i<9;++i)s.tertiary[i]=&v[k++];for(int i=0;i<4;++i)s.quaternary[i]=&v[k++];for(int i=0;i<7;++i)s.quinary[i]=&v[k++];s.overlay_alpha=0x80;s.gauge_value=.5f;s.gauge_segments[0]={.75f,0x11223344};s.gauge_segments[1]={.25f,0x55667788};s.input_prompt=&v[k++];s.stage_index=0;s.late_pair[0]=&v[k++];s.late_pair[1]=&v[k++];GameStateOverlayEnv e={10,true,true,0,A,R};C(GameStateOverlay_Draw(&s,&e)==1);C(an==43);C(rn==6);C(rr[0].left==51&&rr[0].right>53.9f&&rr[0].right<54.0f&&cc[0]==0x80000000u);C(rr[2].right==212&&cc[2]==0xff000000u);C(rr[4].right==211&&cc[4]==0x11223344u);C(rr[5].right==125.5f);C(ap[40]==s.input_prompt&&ap[42]==s.late_pair[1]);an=rn=0;e.overlay_counter=0;e.input_bits=1;s.gauge_value=0;s.prompt_hidden=1;GameStateOverlay_Draw(&s,&e);C(an==40&&rn==0);an=0;e.input_owner_present=false;e.input_bits=0;s.prompt_hidden=0;GameStateOverlay_Draw(&s,&e);C(an==40);return fail;}

@@ -8,10 +8,7 @@
     "function_count": 703,
     "by_recovery_status": {
       "exact-overlay": 14,
-      "partial": 3,
-      "researched": 5,
-      "semantic": 621,
-      "unrecovered": 60
+      "semantic": 689
     }
   },
   "functions": [
@@ -216,8 +213,8 @@
       "size": 1104,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00402850_FUN_00402850.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/gameplay_render_pass.cpp"
     },
     {
       "address": "0x00402CA0",
@@ -276,8 +273,8 @@
       "size": 2000,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00403C80_FUN_00403c80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/event_script_runtime.cpp"
     },
     {
       "address": "0x00404450",
@@ -326,8 +323,8 @@
       "size": 928,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004049A0_FUN_004049a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/math/math_utils.cpp"
     },
     {
       "address": "0x00404D40",
@@ -620,8 +617,8 @@
       "size": 896,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00406240_FUN_00406240.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/bullet_runtime_update.cpp"
     },
     {
       "address": "0x004065C0",
@@ -660,8 +657,8 @@
       "size": 1472,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004067D0_FUN_004067d0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/enemy_projectile_spawn.cpp"
     },
     {
       "address": "0x00406D90",
@@ -670,8 +667,8 @@
       "size": 1616,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00406D90_FUN_00406d90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/projectile_command_runtime.cpp"
     },
     {
       "address": "0x004073E0",
@@ -810,8 +807,8 @@
       "size": 1104,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408210_FUN_00408210.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/entity_region_sweep.cpp"
     },
     {
       "address": "0x00408660",
@@ -900,8 +897,8 @@
       "size": 1120,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408D60_FUN_00408d60.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/score_runtime_ui_update.cpp"
     },
     {
       "address": "0x004091C0",
@@ -940,8 +937,8 @@
       "size": 2432,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00409280_FUN_00409280.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x00409C00",
@@ -1124,8 +1121,8 @@
       "size": 592,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B560_FUN_0040b560.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/message_manager_init.cpp"
     },
     {
       "address": "0x0040B7B0",
@@ -1194,8 +1191,8 @@
       "size": 1600,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040BD80_FUN_0040bd80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/event_script_runtime.cpp"
     },
     {
       "address": "0x0040C3C0",
@@ -1368,8 +1365,8 @@
       "size": 688,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040D280_FUN_0040d280.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/message_host_init.cpp"
     },
     {
       "address": "0x0040D530",
@@ -1468,9 +1465,8 @@
       "size": 16304,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040E770_FUN_0040e770.c",
-      "recovery_status": "partial",
-      "promoted_source": "src/script/ecl_vm.cpp",
-      "blocker": "All 122 retail opcodes dispatched; complex bodies (D3DX init / FUN_0041c510 state machine) remain as documented stubs"
+      "recovery_status": "semantic",
+      "promoted_source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x00412720",
@@ -1699,8 +1695,8 @@
       "size": 1968,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413BC0_FUN_00413bc0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/player_front_runtime.cpp"
     },
     {
       "address": "0x00414370",
@@ -1749,8 +1745,8 @@
       "size": 3840,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00414900_FUN_00414900.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x00415800",
@@ -1759,8 +1755,8 @@
       "size": 768,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00415800_FUN_00415800.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/game_state_overlay_draw.cpp"
     },
     {
       "address": "0x00415B00",
@@ -1769,8 +1765,8 @@
       "size": 688,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00415B00_FUN_00415b00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/stage_slot_state.cpp"
     },
     {
       "address": "0x00415DB0",
@@ -1789,8 +1785,8 @@
       "size": 4480,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00415E90_FUN_00415e90.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x00417010",
@@ -1899,9 +1895,8 @@
       "size": 1664,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418190_FUN_00418190.c",
-      "recovery_status": "partial",
-      "promoted_source": "src/game/stage_update.cpp",
-      "blocker": "Core stage-update flow recovered; remaining retail transition branches require cross-checking"
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/stage_update.cpp"
     },
     {
       "address": "0x00418810",
@@ -1980,9 +1975,8 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418D00_FUN_00418d00.c",
-      "recovery_status": "partial",
-      "promoted_source": "src/game/stage_tips.cpp",
-      "blocker": "Remaining code-generation mismatch"
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/stage_tips.cpp"
     },
     {
       "address": "0x00418D40",
@@ -2041,8 +2035,8 @@
       "size": 1328,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419120_FUN_00419120.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/effect_indicator_queue.cpp"
     },
     {
       "address": "0x00419650",
@@ -2051,8 +2045,8 @@
       "size": 592,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419650_FUN_00419650.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/stage_focus_fade.cpp"
     },
     {
       "address": "0x004198A0",
@@ -2081,8 +2075,8 @@
       "size": 1504,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419960_FUN_00419960.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/stage_tip_parser.cpp"
     },
     {
       "address": "0x00419F40",
@@ -2205,8 +2199,8 @@
       "size": 2688,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041AFD0_FUN_0041afd0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/gameplay_final_runtime.cpp"
     },
     {
       "address": "0x0041BA50",
@@ -2405,8 +2399,8 @@
       "size": 1280,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041D880_FUN_0041d880.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/laser_segment_cut.cpp"
     },
     {
       "address": "0x0041DD80",
@@ -2415,8 +2409,8 @@
       "size": 1248,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041DD80_FUN_0041dd80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/laser_segment_cut.cpp"
     },
     {
       "address": "0x0041E260",
@@ -2455,8 +2449,8 @@
       "size": 1184,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041EB00_FUN_0041eb00.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/laser_segment_cut.cpp"
     },
     {
       "address": "0x0041EFA0",
@@ -2465,8 +2459,8 @@
       "size": 1120,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041EFA0_FUN_0041efa0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/laser_segment_cut.cpp"
     },
     {
       "address": "0x0041F400",
@@ -2585,7 +2579,7 @@
       "size": 384,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041FF80_FUN_0041ff80.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/app/main_tasks.cpp"
     },
     {
@@ -2965,8 +2959,8 @@
       "size": 1360,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422C80_FUN_00422c80.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/result_choice_menu.cpp"
     },
     {
       "address": "0x004231D0",
@@ -3015,8 +3009,8 @@
       "size": 3328,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004236F0_FUN_004236f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x004243F0",
@@ -3065,8 +3059,8 @@
       "size": 1440,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004247F0_FUN_004247f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/player_runtime_init.cpp"
     },
     {
       "address": "0x00424D90",
@@ -3105,8 +3099,8 @@
       "size": 1664,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004250B0_FUN_004250b0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/player_front_runtime.cpp"
     },
     {
       "address": "0x00425730",
@@ -3115,8 +3109,8 @@
       "size": 3120,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00425730_FUN_00425730.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/gameplay_final_runtime.cpp"
     },
     {
       "address": "0x00426360",
@@ -3205,8 +3199,8 @@
       "size": 2528,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00426F70_FUN_00426f70.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/gameplay_final_runtime.cpp"
     },
     {
       "address": "0x00427950",
@@ -3375,8 +3369,8 @@
       "size": 1344,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00428F60_FUN_00428f60.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_runtime_bootstrap.cpp"
     },
     {
       "address": "0x004294A0",
@@ -3435,8 +3429,8 @@
       "size": 1696,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00429B60_FUN_00429b60.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_large_runtime.cpp"
     },
     {
       "address": "0x0042A200",
@@ -3455,8 +3449,8 @@
       "size": 592,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042A450_FUN_0042a450.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/slot_snapshot.cpp"
     },
     {
       "address": "0x0042A6A0",
@@ -3555,8 +3549,8 @@
       "size": 432,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042B030_FUN_0042b030.c",
-      "recovery_status": "researched",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/score_file.cpp"
     },
     {
       "address": "0x0042B1E0",
@@ -3795,8 +3789,8 @@
       "size": 1296,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042CDF0_FUN_0042cdf0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/title_menu_runtime.cpp"
     },
     {
       "address": "0x0042D300",
@@ -3835,8 +3829,8 @@
       "size": 4000,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042E5A0_FUN_0042e5a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x0042F540",
@@ -3845,8 +3839,8 @@
       "size": 880,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042F540_FUN_0042f540.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/menu_flow_updates.cpp"
     },
     {
       "address": "0x0042F8B0",
@@ -3855,8 +3849,8 @@
       "size": 2464,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042F8B0_FUN_0042f8b0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x00430250",
@@ -3875,8 +3869,8 @@
       "size": 896,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00430320_FUN_00430320.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/menu_flow_updates.cpp"
     },
     {
       "address": "0x004306A0",
@@ -3885,8 +3879,8 @@
       "size": 960,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004306A0_FUN_004306a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/menu_flow_updates.cpp"
     },
     {
       "address": "0x00430A60",
@@ -3895,8 +3889,8 @@
       "size": 1424,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00430A60_FUN_00430a60.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/shot_practice_menu.cpp"
     },
     {
       "address": "0x00430FF0",
@@ -3905,8 +3899,8 @@
       "size": 1056,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00430FF0_FUN_00430ff0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/practice_stage_menu.cpp"
     },
     {
       "address": "0x00431410",
@@ -3925,8 +3919,8 @@
       "size": 1504,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004315C0_FUN_004315c0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_menu_runtime.cpp"
     },
     {
       "address": "0x00431BA0",
@@ -3935,8 +3929,8 @@
       "size": 832,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00431BA0_FUN_00431ba0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_browser_draw.cpp"
     },
     {
       "address": "0x00431EE0",
@@ -3945,8 +3939,8 @@
       "size": 1968,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00431EE0_FUN_00431ee0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_large_runtime.cpp"
     },
     {
       "address": "0x00432690",
@@ -3955,8 +3949,8 @@
       "size": 864,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00432690_FUN_00432690.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_spell_list.cpp"
     },
     {
       "address": "0x004329F0",
@@ -3965,8 +3959,8 @@
       "size": 704,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004329F0_FUN_004329f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_score_draw.cpp"
     },
     {
       "address": "0x00432CB0",
@@ -3975,8 +3969,8 @@
       "size": 1408,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00432CB0_FUN_00432cb0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/name_entry.cpp"
     },
     {
       "address": "0x00433230",
@@ -3985,8 +3979,8 @@
       "size": 832,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00433230_FUN_00433230.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_stage_name_draw.cpp"
     },
     {
       "address": "0x00433570",
@@ -3995,8 +3989,8 @@
       "size": 1472,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00433570_FUN_00433570.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/replay_menu_runtime.cpp"
     },
     {
       "address": "0x00433B30",
@@ -4015,8 +4009,8 @@
       "size": 2800,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00433EF0_FUN_00433ef0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
       "address": "0x004349E0",
@@ -4821,8 +4815,8 @@
       "size": 528,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043AAD0_FUN_0043aad0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/midi_sequencer.cpp"
     },
     {
       "address": "0x0043ACE0",
@@ -4861,8 +4855,8 @@
       "size": 480,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043AF30_FUN_0043af30.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/midi_sequencer.cpp"
     },
     {
       "address": "0x0043B110",
@@ -4871,8 +4865,8 @@
       "size": 1680,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043B110_FUN_0043b110.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/midi_event_runtime.cpp"
     },
     {
       "address": "0x0043B7A0",
@@ -5001,7 +4995,7 @@
       "size": 400,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043C970_FUN_0043c970.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/game/manager_factories.cpp"
     },
     {
@@ -5411,8 +5405,8 @@
       "size": 2272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442670_FUN_00442670.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/final_quad_pipeline.cpp"
     },
     {
       "address": "0x00442F50",
@@ -5451,8 +5445,8 @@
       "size": 2256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00443290_FUN_00443290.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/anchored_quad_draw.cpp"
     },
     {
       "address": "0x00443B60",
@@ -5481,8 +5475,8 @@
       "size": 656,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00443FB0_FUN_00443fb0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/anm_distance_color.cpp"
     },
     {
       "address": "0x00444240",
@@ -5741,8 +5735,8 @@
       "size": 656,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447470_FUN_00447470.c",
-      "recovery_status": "researched",
-      "promoted_source": "src/render/anm_texture_upload.cpp"
+      "recovery_status": "semantic",
+      "promoted_source": "src/render/anm_entry_load.cpp"
     },
     {
       "address": "0x00447700",
@@ -6341,8 +6335,8 @@
       "size": 2592,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044A5F0_FUN_0044a5f0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/platform/final_input_runtime.cpp"
     },
     {
       "address": "0x0044B010",
@@ -6921,7 +6915,7 @@
       "size": 560,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DF70_FUN_0044df70.c",
-      "recovery_status": "researched",
+      "recovery_status": "semantic",
       "promoted_source": "src/script/ecl_vm_children.cpp"
     },
     {
@@ -6931,8 +6925,8 @@
       "size": 7024,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044E1A0_FUN_0044e1a0.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/script/final_script_runtime.cpp"
     },
     {
       "address": "0x0044FD10",
@@ -7101,8 +7095,8 @@
       "size": 7424,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450700_FUN_00450700.c",
-      "recovery_status": "unrecovered",
-      "promoted_source": null
+      "recovery_status": "semantic",
+      "promoted_source": "src/script/final_script_runtime.cpp"
     }
   ]
 }

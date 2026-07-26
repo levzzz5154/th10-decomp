@@ -129,6 +129,7 @@ Entity* __fastcall Entity_Constructor(Entity* e) {
 //     self-ref: [EDX+4]=EDX, [EDX+8]=0, [EDX+0xC]=0, [EDX+0x10]=EDX, [EDX+0x14]=0, [EDX+0x18]=0
 // ============================================================================
 void __fastcall Entity_Init(void* unused, Entity* entity) {
+    (void)unused;
     // These three fields are copied as one aggregate in the original source.
     // Keeping that shape is significant: MSVC 7.1 then holds the first two
     // words in EBX/EBP and spills the third, matching the original register

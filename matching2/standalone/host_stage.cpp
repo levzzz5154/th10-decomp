@@ -43,6 +43,28 @@
 #include "th10/game/object_factories.hpp"
 #include "th10/game/recovery_leaves.hpp"
 #include "th10/game/bullet_manager.hpp"
+#include "th10/game/entity.hpp"
+#include "th10/game/player.hpp"
+#include "th10/game/main_menu_dispatch.hpp"
+#include "th10/game/stage_tips.hpp"
+#include "th10/game/pool_constructors.hpp"
+#include "th10/game/score.hpp"
+#include "th10/game/task_registration.hpp"
+#include "th10/game/player_runtime_init.hpp"
+#include "th10/game/score_timer_leaves.hpp"
+#include "th10/game/spell_card_dispatch.hpp"
+#include "th10/game/registered_clock.hpp"
+#include "th10/game/pause_menu_reset.hpp"
+#include "th10/game/manager_teardown.hpp"
+#include "th10/game/slot_snapshot.hpp"
+#include "th10/game/player_front_runtime.hpp"
+#include "th10/game/gameplay_final_runtime.hpp"
+#include "th10/game/linked_pool_release.hpp"
+#include "th10/game/linked_pool_append.hpp"
+#include "th10/game/boss_gauge.hpp"
+#include "th10/render/effect_ring.hpp"
+#include "th10/render/anm_propagate.hpp"
+#include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_std.hpp"
 #include "th10/script/stage_ecl_load.hpp"
 #include "th10/archive/resource_manager.hpp"
@@ -51,11 +73,29 @@
 #undef NULL
 #include "th10/platform/file.hpp"
 
+#include <algorithm>
 #include <cstdarg>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+
+extern void* g_pGameStateManager;
+extern uint32_t DAT_00477824;
+extern uint32_t DAT_00477828;
+extern uint32_t DAT_0047782c;
+extern uint32_t DAT_00491bec;
+extern uint32_t DAT_004776f0;
+extern uint32_t DAT_004776f4;
+extern uint32_t DAT_0047770c;
+extern uint32_t DAT_00477818;
+extern uint32_t DAT_004776e8;
+extern uint32_t DAT_00477830;
+extern uint32_t DAT_00477834;
+extern uint32_t DAT_00477704;
+extern uint8_t DAT_00491d78;
+extern float DAT_00476f78;
+void D3DResourceWorker_Stop();
 
 // -----------------------------------------------------------------------------
 // CRT / synchronization shims. The reconstructed TUs import the retail CRT
@@ -208,7 +248,7 @@ StageUpdateGlobals g_update_globals;
 unsigned char g_score_file[16 * 17276];
 unsigned char g_stage_descriptor[52];
 int g_camera_words[32];
-int g_anm_slots[64];
+int g_anm_slots[0x200];
 int g_thread_pending;
 StageContext g_context;
 StageRecord g_stage_record;
@@ -243,6 +283,7 @@ HostStageRuntimeView g_runtime_view;
 void* g_enemy_manager_slot;
 void* g_effect_manager_slot;
 void* g_bullet_pool_slot;
+BulletManagerState* g_bullet_manager;
 void* g_stage_manager;
 void* g_item_manager;
 void* g_large_resource_state;
@@ -270,6 +311,10 @@ void Log(const char* format, ...) {
 // -----------------------------------------------------------------------------
 void* g_owned_allocations[64];
 int g_owned_allocation_count;
+// Retail 0x00426F70; defined with the StageUpdateEnv edges below.
+void HostRunAttachedEffects();
+void* HostPoolAlloc(uint32_t size);
+
 void* HostAlloc(unsigned int size) {
 	void* memory = std::malloc(size);
 	if (memory != 0 && g_owned_allocation_count < 64)
@@ -280,10 +325,7 @@ void HostFreeMem(void* memory) { std::free(memory); }
 void HostConstructSlots(void* slots, int stride, int count) {
 	std::memset(slots, 0, (size_t)stride * (size_t)count);
 }
-void* HostConstruct(void* memory) { return memory; }
 void HostDestroyNoop(void* manager) { (void)manager; }
-int HostInitOk() { return 0; }             // factory initializer: 0 = success
-int HostStateInitOk(void* state) { (void)state; return 0; }
 void HostSleep(unsigned int milliseconds) { (void)milliseconds; }
 
 // -----------------------------------------------------------------------------
@@ -539,6 +581,31 @@ int HostStageManagerScriptInit(const char* script_path) {
 	return Resource_GetFileSize(script_path) != 0 ? 0 : -1;
 }
 
+int HostAdoptItemScoreTask(void* owner) {
+	if (owner == 0)
+		return -1;
+	unsigned char* bytes = (unsigned char*)owner;
+	// Retail 0x00413A20 adopts DAT_00491BE8 when a score image is already
+	// resident, then resets the +0x9E60 clock and both HUD cache slots.
+	*(unsigned char**)(bytes + 0x9EBC) = g_score_file;
+	unsigned int* flags = (unsigned int*)(bytes + 0x9E70);
+	if ((*flags & 1u) == 0) {
+		*(int*)(bytes + 0x9E64) = 0;
+		*(int*)(bytes + 0x9E60) = (int)0xFFF0BDC1u;
+		*(int*)(bytes + 0x9E68) = 0;
+		*(uint32_t*)(bytes + 0x9E6C) =
+		    (uint32_t)(uintptr_t)&DAT_00476f78;
+		*flags |= 1u;
+	}
+	*(int*)(bytes + 0x9E64) = 0;
+	*(int*)(bytes + 0x9E68) = 0;
+	*(int*)(bytes + 0x9E60) = -1;
+	*(int*)(bytes + 0x9EC0) = -1;
+	*(int*)(bytes + 0x9EC4) = -1;
+	*(int*)(bytes + 0x9E78) = g_globals.score_current;
+	return 0;
+}
+
 int HostInitSidePanel(void* replay_handle, void* key_buffer) {
 	(void)replay_handle;
 	(void)key_buffer;
@@ -554,7 +621,13 @@ int HostInitSidePanel(void* replay_handle, void* key_buffer) {
 }
 
 int HostInitItemManager() {
-	void* manager = ItemManager_Create(HostAlloc, HostConstruct, HostInitOk,
+	ItemFrontRuntimeBindings bindings = {};
+	bindings.initialize_score_task = HostAdoptItemScoreTask;
+	ItemFrontRuntime_SetBindings(&bindings);
+	auto initialize = []() -> int {
+		return ItemFrontRuntime_Initialize((void*)DAT_0047770c);
+	};
+	void* manager = ItemManager_Create(HostAlloc, ItemManager_Construct, initialize,
 		                                   HostDestroyNoop, HostFreeMem);
 	g_item_manager = manager;
 	if (manager != 0) g_report.factories_created += 1;
@@ -565,8 +638,30 @@ int HostInitItemManager() {
 }
 
 int HostInitLargeResource() {
-	void* state = Recovery_CreateLargeResourceState(HostAlloc, HostStateInitOk,
-		                                                HostDestroyNoop, HostFreeMem);
+	LargePlayerRuntimeBindings bindings = {};
+	bindings.create_player_object = []() -> void* { return HostAlloc(0x10); };
+	// Retail's edge here is FUN_00404f30(player_object, state+0x10). Its
+	// recovered body (BulletSlot_Construct) was reconstructed for the
+	// bullet-pool caller and writes through +0x334..+0x3A1, far past the
+	// player object this call site owns, so it is not a drop-in. What the
+	// edge establishes for the player runtime is the archive binding, which
+	// is done here directly.
+	bindings.initialize_animation = [](void* state, void* archive) {
+		if (state != 0)
+			*reinterpret_cast<void**>(state) = archive;
+	};
+	bindings.random_int = []() -> int { return std::rand(); };
+	// Retail's tail call at 0x00426F70.
+	bindings.refresh_derived = [](void*) { HostRunAttachedEffects(); };
+	LargePlayerRuntime_SetBindings(&bindings);
+	void* state = HostAlloc(0x4478);
+	if (state != 0) {
+		LargePlayerRuntime_Construct(state);
+		if (LargePlayerRuntime_Initialize(state) != 0) {
+			HostFreeMem(state);
+			state = 0;
+		}
+	}
 	g_large_resource_state = state;
 	if (state != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
@@ -575,10 +670,16 @@ int HostInitLargeResource() {
 	return state != 0;
 }
 
+int HostInitBulletPoolRuntime() {
+	return BulletPoolRuntime_Initialize((void*)DAT_004776f0);
+}
+
 int HostInitBulletPool() {
 	void* pool = BulletManager_Create(HostAlloc, HostConstructSlots,
-	                                  &g_bullet_pool_slot, HostInitOk,
+	                                  (void**)&DAT_004776f0,
+	                                  HostInitBulletPoolRuntime,
 	                                  HostDestroyNoop, HostFreeMem);
+	g_bullet_pool_slot = pool;
 	if (pool != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
 	Log("BulletManager_Create(0x00406060): %s",
@@ -587,9 +688,13 @@ int HostInitBulletPool() {
 }
 
 int HostInitEffectManager() {
+	auto initialize = []() -> int {
+		return ParticleEffectRuntime_Initialize((void*)DAT_00477818);
+	};
 	void* manager = EffectManager_Create(HostAlloc, HostConstructSlots,
-	                                     &g_effect_manager_slot, HostInitOk,
+	                                     (void**)&DAT_00477818, initialize,
 	                                     HostDestroyNoop, HostFreeMem);
+	g_effect_manager_slot = manager;
 	if (manager != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
 	Log("EffectManager_Create(0x0041AED0): %s",
@@ -613,7 +718,8 @@ int HostCreateScoreManager() {
 }
 
 int HostInitTimerState() {
-	void* state = Recovery_CreateTimerState(HostAlloc, HostStateInitOk,
+	void* state = Recovery_CreateTimerState(HostAlloc,
+	                                        MenuTimerRuntime_Initialize,
 		                                        HostDestroyNoop, HostFreeMem);
 	g_timer_state = state;
 	if (state != 0) g_report.factories_created += 1;
@@ -623,9 +729,34 @@ int HostInitTimerState() {
 	return state != 0;
 }
 
+// Retail 0x0041A120 allocates one 0x88-byte tip record, appends it to the
+// current difficulty's chain and fills in its position and text. The two
+// startup tips are spawned at the screen-centre origin retail uses.
+void HostSpawnStageTip(void* owner, uint32_t text_address, int32_t slot) {
+	static const float origin[3] = {0.0f, 0.0f, 0.0f};
+	// The text pointers are retail .rdata addresses; the all-source build
+	// aliases that section, so the strings resolve for real.
+	const char* text = reinterpret_cast<const char*>(
+	    static_cast<uintptr_t>(text_address));
+	StageTip* tip = StageTip_Create(static_cast<StageTipManager*>(owner),
+	                                origin, text, HostPoolAlloc);
+	Log("StageTip_Create(0x0041A120): slot %d tip %s", slot,
+	    tip != 0 ? "appended" : "FAILED");
+}
+
 int HostInitResourceState() {
-	void* state = Recovery_CreateResourceState(0x1A8, HostAlloc, HostStateInitOk,
-		                                           HostDestroyNoop, HostFreeMem);
+	StageTipRuntimeBindings tip_bindings = {};
+	tip_bindings.spawn_tip = HostSpawnStageTip;
+	StageTipRuntime_SetBindings(&tip_bindings);
+	StageTipManager* state =
+	    (StageTipManager*)HostAlloc(sizeof(StageTipManager));
+	if (state != 0) {
+		StageTipManager_Construct(state);
+		if (StageTipRuntime_Initialize(state) != 0) {
+			HostFreeMem(state);
+			state = 0;
+		}
+	}
 	g_resource_state = state;
 	if (state != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
@@ -634,9 +765,41 @@ int HostInitResourceState() {
 	return state != 0;
 }
 
+// Retail's tail edge is FUN_0043e5a0(stamp, 0xC4) with the just-initialized
+// entity in ECX. The stamp is the game thread's frame word copied into the
+// manager at +0x10; it identifies the animation whose resource record the
+// configure pass applies. Resolving it through the recovered handle lookup
+// keeps the call real: an unresolved stamp is a data condition, not a
+// skipped edge.
+void HostPreloadEffectResource(int frame_stamp, int argument) {
+	AnimationObject* object =
+	    g_pGameStateManager != 0
+	        ? AnimationManager_Find(g_pGameStateManager, frame_stamp)
+	        : 0;
+	if (object == 0) {
+		Log("AnimationObject_ConfigureFromResource(0x0043E5A0): stamp %d "
+		    "does not resolve to a live animation yet", frame_stamp);
+		return;
+	}
+	const int result = AnimationObject_ConfigureFromResource(
+	    object, g_pGameStateManager, argument);
+	Log("AnimationObject_ConfigureFromResource(0x0043E5A0): stamp %d, "
+	    "index 0x%X, result %d", frame_stamp, argument, result);
+}
+
 int HostCreateStageState() {
-	void* state = Recovery_CreateHugeResourceState(HostAlloc, HostStateInitOk,
-		                                               HostDestroyNoop, HostFreeMem);
+	EffectManagerRuntimeBindings effect_bindings = {};
+	effect_bindings.preload = HostPreloadEffectResource;
+	EffectManagerRuntime_SetBindings(&effect_bindings);
+	uint32_t* state = (uint32_t*)HostAlloc(0xB884);
+	if (state != 0) {
+		EffectManager_ResetAndPublish(state);
+		if (EffectManagerRuntime_Initialize(state) != 0) {
+			EffectManagerRuntime_Destroy(state);
+			HostFreeMem(state);
+			state = 0;
+		}
+	}
 	g_stage_state = state;
 	if (state != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
@@ -657,17 +820,20 @@ int HostCreateEnemyManager(void* enemy_script) {
 }
 
 int HostCreateBulletManager() {
-	// Retail 0x0040AF90 (full bullet manager) is a heavy TU outside this
-	// bridge's link set; host adapter records the real bullet ANM instead.
-	const unsigned int size = Resource_GetFileSize("th10/bullet.anm");
-	Log("host adapter for 0x0040AF90: th10/bullet.anm present in th10.dat "
-	    "(%u bytes); full bullet manager is step-7 scope", size);
-	return 1;
+	g_bullet_manager = BulletManager_Create();
+	if (g_bullet_manager != 0) g_report.factories_created += 1;
+	else g_report.factory_failures += 1;
+	Log("BulletManager_Create(0x0040AF90): %s",
+	    g_bullet_manager != 0 ?
+	        "created; bullet.anm mounted and callbacks registered" :
+	        "FAILED");
+	return g_bullet_manager != 0;
 }
 
 int HostInitFixedState() {
-	void* state = Recovery_CreateFixedState(0x48, HostAlloc, HostStateInitOk,
-		                                        HostDestroyNoop, HostFreeMem);
+	void* state = Recovery_CreateFixedState(0x48, HostAlloc,
+	                                        PlayerRuntime_Initialize,
+	                                        PlayerRuntime_Destroy, HostFreeMem);
 	g_fixed_state = state;
 	if (state != 0) g_report.factories_created += 1;
 	else g_report.factory_failures += 1;
@@ -677,7 +843,11 @@ int HostInitFixedState() {
 }
 
 int HostInitPlayerManager() {
-	void* manager = PlayerManager_Create(HostAlloc, HostConstruct, HostInitOk,
+	auto initialize = []() -> int {
+		return PlayerScoreRuntime_Initialize((void*)DAT_004776f4);
+	};
+	void* manager = PlayerManager_Create(HostAlloc, PlayerManager_Construct,
+	                                     initialize,
 		                                     HostDestroyNoop, HostFreeMem);
 	g_player_manager = manager;
 	if (manager != 0) g_report.factories_created += 1;
@@ -733,8 +903,22 @@ void HostSubmitBgmTrack(void* context, const char* wav_path) {
 	Log("BGM %s: no matching thbgm.fmt record", base);
 }
 
+// Retail 0x00420C00 selects the dummy resource index from bit 4 of
+// DAT_00491D78 and installs it through 0x0043E460 on the animation manager.
+int HostConfigureDummyResource(void* target, const char* name, int value,
+                               int flags) {
+	if (target == 0)
+		return 0;
+	AnimationManager_RegisterResource(target, 0, name, value, flags);
+	return 0;
+}
+
 void HostMusicReset() {
-	Log("music_reset (0x00420C00 edge): stage BGM channel cleared");
+	GameState_DispatchDummy(g_pGameStateManager, DAT_00491d78,
+	                        HostConfigureDummyResource);
+	Log("GameState_DispatchDummy(0x00420C00): dummy resource index %d "
+	    "installed through AnimationManager_RegisterResource(0x0043E460)",
+	    (DAT_00491d78 & 0x10) != 0 ? 4 : 3);
 }
 
 void HostMusicLoad(int slot, const char* name) {
@@ -749,33 +933,159 @@ void HostMusicLoad(int slot, const char* name) {
 }
 
 // -----------------------------------------------------------------------------
-// Remaining stage-entry edges whose retail callees are still unrecovered.
+// Stage-entry edges. Every edge below runs the recovered retail body against
+// host-owned storage laid out at the retail offsets, so the log lines report
+// work that actually happened.
 // -----------------------------------------------------------------------------
-void HostSeedExtendThreshold(int* score_seed, int amount) {
-	(void)score_seed;
-	Log("host adapter for 0x00418B80: extend gauge target seeded from %d", amount);
+
+// Retail calls FUN_00418b80(&DAT_00474C40, 50000): the score seed word is the
+// head of the gauge record, its tenth-target sits at +0x0C and the embedded
+// frame timer at +0x14. StageGlobals is a field-named mirror rather than a
+// retail-laid-out block, so the gauge record is owned here and the seed word
+// is copied through it.
+ScoreGaugeTimedValue g_score_gauge;
+
+void HostStoreScoreGauge(void* gauge, int value) {
+	ScoreGauge_SetTargetTenthAndDisableTimer(
+	    static_cast<ScoreGaugeTimedValue*>(gauge), value);
 }
-void HostReplayReset() { Log("host adapter: replay reset (0x0042A6A0)"); }
+
+void HostSeedExtendThreshold(int* score_seed, int amount) {
+	if (score_seed == 0)
+		return;
+	g_score_gauge.reserved_00[0] = static_cast<unsigned int>(*score_seed);
+	ScoreGauge_SetTargetTenthAndDisableTimer(&g_score_gauge, amount);
+	*score_seed = static_cast<int>(g_score_gauge.reserved_00[0]);
+	Log("ScoreGauge_SetTargetTenthAndDisableTimer(0x00418B80): seed %d, "
+	    "gauge target %d, timer flags 0x%X", *score_seed,
+	    g_score_gauge.target_tenth, g_score_gauge.timer.flags);
+}
+
+// Retail 0x0042A6A0 runs on the spell-card manager carried in EBX: state word
+// at +0x10, per-difficulty history table at +0x1C, slot table at +0xA0. The
+// host owns one so the recovered dispatcher runs for real on the replay path.
+const int kSpellDifficultyCount = 8;
+SpellRecord* g_spell_history[kSpellDifficultyCount];
+SpellSlot g_spell_slots[kSpellDifficultyCount];
+SpellManager g_spell_manager;
+short g_spell_active_id;
+int g_spell_active_aux;
+RegisteredClock g_spell_clock;      // retail 0x00474C54..0x00474C64
+Word g_spell_capture_flag;
+
+SpellRecord* HostAllocateSpellRecord() {
+	SpellRecord* record =
+	    static_cast<SpellRecord*>(HostAlloc(sizeof(SpellRecord)));
+	if (record != 0)
+		std::memset(record, 0, sizeof(SpellRecord));
+	return record;
+}
+
+void HostReplayReset() {
+	const int difficulty = g_globals.mode;
+	if (difficulty < 0 || difficulty >= kSpellDifficultyCount) {
+		Log("SpellCard_Dispatch(0x0042A6A0) skipped: slot index %d is outside "
+		    "the %d-entry host table", difficulty, kSpellDifficultyCount);
+		return;
+	}
+	// The activate state dereferences the slot's record; the declare state
+	// publishes one. Retail reaches activate only after a declare, so the
+	// host mirrors that ordering instead of faulting on a null record.
+	if (g_spell_manager.state == kSpellStateActivate &&
+	    g_spell_slots[difficulty].record == 0) {
+		g_spell_manager.state = kSpellStateDeclare;
+	}
+	g_spell_manager.history = g_spell_history;
+	g_spell_manager.slots = g_spell_slots;
+	g_spell_capture_flag = static_cast<Word>(g_globals.fresh_run);
+
+	SpellDispatchEnv env = {};
+	env.difficulty = &g_globals.mode;              // DAT_00474C7C
+	env.allocate_record = HostAllocateSpellRecord; // operator new + wipe
+	env.ui.active_spell_id = &g_spell_active_id;   // DAT_004918B0
+	env.ui.active_spell_aux = &g_spell_active_aux; // DAT_004918B4
+	env.ui.bonus_value = &g_globals.score_current; // DAT_00474C44
+	env.ui.bonus_active = &g_globals.bomb_fragments; // DAT_00474C48
+	env.ui.gauge = &g_score_gauge;                 // &DAT_00474C40
+	env.ui.store_gauge = HostStoreScoreGauge;      // 0x00418B80
+	env.ui.spell_clock = &g_spell_clock;
+	env.ui.frame_scale = &g_globals.frame_scale;   // &DAT_00476F78
+	env.ui.activation_param_a = &g_globals.lives;  // DAT_00474C70
+	env.ui.activation_param_b = &g_globals.counter_474c98;
+	env.ui.history_captures = &g_globals.power_474c90;
+	env.ui.history_attempts = &g_globals.counter_474c9c;
+	env.ui.capture_flag = &g_spell_capture_flag;   // DAT_00491FC4
+
+	const int state = g_spell_manager.state;
+	SpellCard_Dispatch(&g_spell_manager, &env);
+	Log("SpellCard_Dispatch(0x0042A6A0): state %d, slot %d, record %p, "
+	    "spell id %d", state, difficulty,
+	    (const void*)g_spell_history[difficulty], (int)g_spell_active_id);
+}
 void HostReplaySeed(void* game) { (void)game; }
+
+// Retail 0x00417800 resets the path cursor/timer pair at +0x40..+0x5C of the
+// spell-practice state carried in EAX (retail dword_477704's practice block).
+unsigned char g_spell_practice_state[0x60];
+
 void HostSpellPracticeReset(void* state) {
-	(void)state;
-	Log("host adapter: spell practice reset (0x00417800 path)");
+	if (state == 0)
+		return;
+	PathState_Reset(state, static_cast<RecoveryWord>(
+	                           reinterpret_cast<uintptr_t>(&DAT_00476f78)));
+	Log("PathState_Reset(0x00417800): practice cursor rearmed "
+	    "(flags 0x%X, cursor 0x%X)",
+	    *reinterpret_cast<const unsigned int*>(
+	        static_cast<const unsigned char*>(state) + 0x50),
+	    *reinterpret_cast<const unsigned int*>(
+	        static_cast<const unsigned char*>(state) + 0x40));
 }
 void HostResetPlayerSpawn(float* spawn, int value) {
-	if (spawn != 0) spawn[4] = (float)value;
-	Log("host adapter for 0x00405410: player spawn node armed (value %d)", value);
+	if (spawn != 0) Player_SetSchedulerValue(spawn, value);
 }
 void HostReleaseOverlayAnm(void* slots) {
-	(void)slots;
-	Log("host adapter for 0x00421300: overlay ANM handles released");
+	if (slots == 0) return;
+	unsigned int& phase = *reinterpret_cast<unsigned int*>(
+	    static_cast<unsigned char*>(slots) + 0x6fc);
+	if (phase == 1) {
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_00477824, 2);
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_00477828, 2);
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_0047782c, 2);
+		DAT_00477824 = DAT_00477828 = DAT_0047782c = 0;
+		phase = 2;
+	}
+	DAT_00491bec = 0;
 }
 void HostReleasePendingAnm(void* slots) {
-	(void)slots;
-	Log("host adapter for 0x00421070: pending ANM handles released");
+	if (slots == 0) return;
+	unsigned int& phase = *reinterpret_cast<unsigned int*>(
+	    static_cast<unsigned char*>(slots) + 0x6fc);
+	if (phase == 1) {
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_00477824, 1);
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_00477828, 1);
+		AnimationManager_SetStopFrame(
+		    g_pGameStateManager, DAT_0047782c, 1);
+		DAT_00477824 = DAT_00477828 = DAT_0047782c = 0;
+		phase = 0;
+	}
+	DAT_00491bec = 0;
 }
 void HostRequestCallbackRemoval(void* context) {
-	(void)context;
-	Log("host adapter for 0x00409E20: loading-callback retirement requested");
+	if (context == 0) return;
+	unsigned char* owner = static_cast<unsigned char*>(context);
+	void* update = *reinterpret_cast<void**>(owner + 8);
+	void* draw = *reinterpret_cast<void**>(owner + 0xc);
+	if (update != 0)
+		*reinterpret_cast<unsigned int*>(
+		    static_cast<unsigned char*>(update) + 4) |= 2u;
+	if (draw != 0)
+		*reinterpret_cast<unsigned int*>(
+		    static_cast<unsigned char*>(draw) + 4) |= 2u;
 }
 
 // -----------------------------------------------------------------------------
@@ -838,30 +1148,370 @@ void HostRegisterDraw(int priority, StageTaskNode* node, void* scheduler) {
 // -----------------------------------------------------------------------------
 // StageUpdateEnv edges (0x00418190 environment)
 // -----------------------------------------------------------------------------
-void HostEnterTransitionLock() { Log("host adapter: transition lock (0x0044C150)"); }
-void HostActivateBullets() { Log("host adapter: bullet pool activation (0x00404450)"); }
-void HostArmPlayerTimer() { Log("host adapter: player timer armed (0x00404530)"); }
-void HostStartPlayerMode() { Log("host adapter: player mode start (0x004045B0)"); }
+void HostEnterTransitionLock() {
+	D3DResourceWorker_Stop();
+}
+// Retail 0x00404450 re-arms the bullet manager's three scheduler nodes and
+// re-registers every sprite in every script bank. The host owns no parsed
+// sprite banks yet, so bank_count is zero and only the node re-arm and cursor
+// rewind run - which is exactly what the recovered body does for an empty
+// bank table.
+short g_bullet_bank_count;
+
+void HostRegisterBulletSprite(void* pool) { (void)pool; }
+
+void HostActivateBullets() {
+	if (g_bullet_pool_slot == 0) {
+		Log("BulletManager_ActivateSprites(0x00404450) skipped: no pool");
+		return;
+	}
+	unsigned char* pool = static_cast<unsigned char*>(g_bullet_pool_slot);
+	SchedulerCallback* update =
+	    *reinterpret_cast<SchedulerCallback**>(pool + 8);
+	SchedulerCallback* draw =
+	    *reinterpret_cast<SchedulerCallback**>(pool + 0xC);
+	if (update == 0 || draw == 0) {
+		Log("BulletManager_ActivateSprites(0x00404450) skipped: pool "
+		    "callbacks are not registered");
+		return;
+	}
+	// Retail's overlay node lives at +0x2A40; the host pool has no third
+	// node, so the draw node stands in for it and is re-armed twice rather
+	// than letting the recovered body write through a null pointer.
+	BulletHost host = {};
+	host.bank_count = &g_bullet_bank_count;
+	host.banks = 0;
+	host.update = reinterpret_cast<BulletSchedulerNode*>(&update->flags);
+	host.draw = reinterpret_cast<BulletSchedulerNode*>(&draw->flags);
+	host.overlay = host.draw;
+	host.sprite_pool = pool + 0x178;
+	host.pool_base = pool + 0x60;
+	BulletManager_ActivateSprites(&host, HostRegisterBulletSprite);
+	*reinterpret_cast<void**>(pool + 0x10) = host.cursor;
+	Log("BulletManager_ActivateSprites(0x00404450): scheduler nodes re-armed "
+	    "(update flags 0x%X, draw flags 0x%X), cursor rewound to the pool base",
+	    update->flags, draw->flags);
+}
+void HostArmPlayerTimer() {
+	PlayerManager_ArmIntroTimer(g_player_manager, 0);
+}
+void HostStartPlayerMode() {
+	PlayerManager_StartMode(g_player_manager);
+}
+// Retail 0x00409E50 resolves an animation handle through 0x004491C0 against
+// the global game-state manager and marks the object plus its children.
+// AnimationObject and AnmObject are two headers over the same retail record;
+// the resolver bridges them.
+AnmObject* HostResolveAnmHandle(uint32_t handle) {
+	if (g_pGameStateManager == 0)
+		return 0;
+	return reinterpret_cast<AnmObject*>(
+	    AnimationManager_Find(g_pGameStateManager, static_cast<int>(handle)));
+}
+
+// The two handle slots retail clears alongside the game thread's +0x89A4
+// word. They stay zero until a stage animation claims them, and a zero
+// handle resolves to nothing - the same no-op retail performs.
+uint32_t g_thread_timer_handles[2];
+
 void HostResetThreadTimer(int index) {
-	Log("host adapter: thread timer %d reset (0x00409E50)", index);
+	if (index < 0 || index > 1)
+		return;
+	Anm_MarkHandleAndChildren(&g_thread_timer_handles[index],
+	                          HostResolveAnmHandle);
+	Log("Anm_MarkHandleAndChildren(0x00409E50): thread timer slot %d "
+	    "(handle %u) marked", index, g_thread_timer_handles[index]);
 }
 void HostClearThreadPending() { g_thread_pending = 0; }
-void HostStopPlayerRuntime() { Log("host adapter: player runtime stop (0x00405ED0)"); }
-void HostResetStageRuntime() { Log("host adapter: stage runtime reset (0x00424D90)"); }
-void HostClearStageArena() { Log("host adapter: stage arena cleared"); }
-void HostResetEnemyRuntime() { Log("host adapter: enemy runtime reset (0x00409F90)"); }
-void HostReleaseCleanupChain() { Log("host adapter: cleanup chain released (0x00417770)"); }
-void HostResetGameplayAction() { Log("host adapter: gameplay action reset (0x0042A450)"); }
+void HostStopPlayerRuntime() {
+	if (g_bullet_pool_slot == 0)
+		return;
+	unsigned char* manager =
+	    static_cast<unsigned char*>(g_bullet_pool_slot);
+	auto retire_resource = [](void*, void* resource) {
+		if (g_pGameStateManager != 0 && resource != 0)
+			AnimationManager_MarkResourceForRemoval(
+			    g_pGameStateManager, resource);
+	};
+	BulletManager_ResetPool(
+	    retire_resource, manager,
+	    *reinterpret_cast<void**>(manager + 0x3E0B50),
+	    reinterpret_cast<Word*>(manager + 0x60), 0xF82BC,
+	    reinterpret_cast<void**>(manager + 0x10), manager + 0x60,
+	    reinterpret_cast<unsigned short*>(manager + 0x3E07A6));
+}
+// Retail 0x00424D90 runs on the pause-menu owner in ESI: the active flag at
+// +0x458, three embedded frame clocks at +0x460/+0x474/+0x488, and the menu
+// script handle at +0x329C. The host owns the record.
+PauseMenu g_pause_menu;
+
+void HostReleasePauseScript(float* frame_scale, void* state_manager,
+                            int script) {
+	(void)frame_scale;
+	if (state_manager == 0 || script == 0)
+		return;
+	// Retail 0x004492A0 sets the animation flag on the root and its children.
+	AnimationManager_SetFlag(state_manager, script, 2u);
+}
+
+void HostSetLifeIconCount(int count) {
+	// Retail 0x00413790 enables the first `count` records of the fixed
+	// nine-record life-icon table on the item/front manager.
+	if (DAT_0047770c != 0)
+		Animation_SetActiveCount(
+		    reinterpret_cast<void*>(
+		        static_cast<uintptr_t>(DAT_0047770c)), count);
+}
+
+void HostResetStageRuntime() {
+	PauseResetEnv env = {};
+	env.frame_scale = &DAT_00476f78;
+	env.state_manager = g_pGameStateManager;
+	env.release_script = HostReleasePauseScript;
+	env.play_music = HostSetLifeIconCount;   // 0x00413790(DAT_00474C70)
+	env.music_track = g_globals.lives;
+	PauseMenu_ResetTimers(&g_pause_menu, &env);
+	Log("PauseMenu_ResetTimers(0x00424D90): active=%d, fade/cursor/slide "
+	    "clocks rearmed, script handle cleared, %d life icons enabled",
+	    g_pause_menu.active, env.music_track);
+}
+
+// Retail clears the effect manager's pool arena inline: 0x873A8 dwords
+// starting at DAT_00477818 + 0x14.
+const unsigned int kEffectArenaDwords = 0x873A8;
+
+void HostClearStageArena() {
+	if (DAT_00477818 == 0) {
+		Log("stage arena clear skipped: the effect manager is not resident");
+		return;
+	}
+	unsigned char* arena =
+	    reinterpret_cast<unsigned char*>(
+	        static_cast<uintptr_t>(DAT_00477818)) + 0x14;
+	std::memset(arena, 0, kEffectArenaDwords * sizeof(uint32_t));
+	Log("effect arena cleared: %u dwords at DAT_00477818 + 0x14",
+	    kEffectArenaDwords);
+}
+
+// Retail 0x00409F90 detaches the four aux VM slots at
+// g_pGameStateManager + 0x3AD090, releases every live enemy through the
+// vtable, and clears the manager's counters and node active bits.
+void HostReleaseEnemyVmEntry(void* context, void* vm) {
+	(void)context;
+	if (vm != 0)
+		*reinterpret_cast<unsigned int*>(
+		    static_cast<unsigned char*>(vm) + 0x35C) |= 2u;
+}
+
+void HostReleaseEnemyNode(void* context, void* enemy) {
+	(void)context;
+	if (enemy != 0)
+		HostFreeMem(enemy);
+}
+
+void HostResetEnemyRuntime() {
+	if (g_enemy_manager_slot == 0) {
+		Log("EnemyManager_ReleaseLists(0x00409F90) skipped: no manager");
+		return;
+	}
+	unsigned char* manager =
+	    static_cast<unsigned char*>(g_enemy_manager_slot);
+	TeardownHooks hooks = {};
+	hooks.context = g_pGameStateManager;
+	hooks.release = HostReleaseEnemyNode;
+	hooks.release_vm_list_entry = HostReleaseEnemyVmEntry;
+	ManagerNodePair nodes = {};
+	SchedulerCallback* update =
+	    *reinterpret_cast<SchedulerCallback**>(manager + 8);
+	SchedulerCallback* draw =
+	    *reinterpret_cast<SchedulerCallback**>(manager + 0xC);
+	if (update != 0) nodes.update_node_flags = &update->flags;
+	if (draw != 0) nodes.render_node_flags = &draw->flags;
+	void* vm_slots[4] = {};
+	if (g_pGameStateManager != 0)
+		std::memcpy(vm_slots,
+		            static_cast<unsigned char*>(g_pGameStateManager) + 0x3AD090,
+		            sizeof(vm_slots));
+	EnemyManager_ReleaseLists(
+	    manager, &nodes, &hooks, vm_slots, 4,
+	    reinterpret_cast<void**>(manager + 0x58),
+	    reinterpret_cast<int*>(manager + 0x64),
+	    reinterpret_cast<int*>(manager + 0x10));
+	Log("EnemyManager_ReleaseLists(0x00409F90): live list drained, counters "
+	    "cleared, four aux VM slots detached");
+}
+
+// Retail 0x00417770 walks the intrusive cleanup chain, runs each node's
+// cleanup and hands the storage back to the allocator. The host owns the
+// chain head that stage teardown appends to.
+RecoveryCleanupNode* g_cleanup_chain;
+
+void HostReleaseCleanupChain() {
+	RecoveryLinkedCleanup(&g_cleanup_chain, HostFreeMem);
+	Log("RecoveryLinkedCleanup(0x00417770): cleanup chain drained (head %p)",
+	    (const void*)g_cleanup_chain);
+}
+
+// Retail 0x00426F70 refreshes the four effects attached to the live player
+// state. The recovered body models the four handles, their per-frame state
+// words and the shot/difficulty event map; the host keeps one instance and
+// feeds it the live selection.
+th10::gameplay_final::AttachedEffects g_attached_effects;
+
+void HostRunAttachedEffects() {
+	g_attached_effects.difficulty = g_active_difficulty;
+	g_attached_effects.shot = g_globals.character;
+	th10::gameplay_final::UpdateAttachedEffects(g_attached_effects,
+	                                            g_report.stage_frame);
+}
+
+void* HostPoolAlloc(uint32_t size) { return HostAlloc(size); }
+
+// Retail snapshot record size (the same 0x1C4-byte record the spell history
+// uses); the highest index the capture half touches is +0x1BC.
+const unsigned int kSnapshotRecordBytes = 0x1C4;
+
+// Retail 0x0042A450 captures or restores the per-slot game-state snapshot.
+// The live block is the 0x4478-byte state published at DAT_00477834 (the
+// 0x00425020 allocation); the snapshots are 0x1C4-byte records.
+const int kSnapshotSlotCount = 8;
+unsigned char* g_slot_snapshots[kSnapshotSlotCount];
+SlotSnapshotRecordSlot g_slot_records[kSnapshotSlotCount];
+SlotSnapshotOwner g_slot_owner;
+
+void HostPrepareSnapshotSlot(void* context, int slot,
+                             SlotSnapshotOwner* owner) {
+	(void)owner;
+	// Retail 0x0042AB20 releases the indexed linked pool before the capture.
+	LinkedPool_ReleaseByIndex(context, static_cast<uint32_t>(slot));
+}
+
+int HostCaptureSnapshotSummary(void* context, int slot,
+                               SlotSnapshotOwner* owner) {
+	(void)owner;
+	// Retail 0x0042AA50 appends one pool payload and reports its pointer.
+	LinkedPoolPayload* payload = LinkedPool_AllocateAndAppend(
+	    static_cast<LinkedPoolManager*>(context),
+	    static_cast<uint32_t>(slot), HostPoolAlloc);
+	return static_cast<int>(reinterpret_cast<uintptr_t>(payload));
+}
+
+void HostRestoreSnapshotScores(void* context, unsigned char* live,
+                               unsigned char* record_block) {
+	(void)context;
+	if (live == 0 || record_block == 0)
+		return;
+	int cell[2] = {};
+	std::memcpy(cell, record_block, sizeof(cell));
+	// Retail 0x00428E10 stores the cell pair and refreshes the four gauges.
+	Boss_SetGridCell(live, cell);
+}
+
+void HostRefreshDerivedState(void* context, unsigned char* live) {
+	(void)context;
+	(void)live;
+	// Retail 0x00426F70; see HostRefreshSidePanel for the shared body.
+	HostRunAttachedEffects();
+}
+
+void HostCommitSnapshotRestore(void* context, unsigned char* live) {
+	(void)context;
+	(void)live;
+	HostResetStageRuntime();  // retail 0x00424D90
+}
+
+void HostResetGameplayAction() {
+	unsigned char* live =
+	    static_cast<unsigned char*>(g_large_resource_state);
+	if (live == 0) {
+		Log("SlotSnapshot_Run(0x0042A450) skipped: the 0x4478-byte live "
+		    "state (DAT_00477834) is not resident");
+		return;
+	}
+	int slot = g_globals.mode;
+	if (slot < 0 || slot >= kSnapshotSlotCount)
+		slot = 0;
+	if (g_slot_snapshots[slot] == 0) {
+		g_slot_snapshots[slot] =
+		    static_cast<unsigned char*>(HostAlloc(kSnapshotRecordBytes));
+		if (g_slot_snapshots[slot] != 0)
+			std::memset(g_slot_snapshots[slot], 0, kSnapshotRecordBytes);
+		g_slot_records[slot].record = g_slot_snapshots[slot];
+	}
+	if (g_slot_snapshots[slot] == 0) {
+		Log("SlotSnapshot_Run(0x0042A450) skipped: snapshot allocation failed");
+		return;
+	}
+
+	SlotSnapshotDefaults defaults = {};
+	defaults.field_0c = static_cast<unsigned int>(g_globals.score_current);
+	defaults.field_10 = static_cast<unsigned short>(g_globals.bomb_fragments);
+	defaults.field_14 = static_cast<unsigned int>(g_score_gauge.target_tenth);
+	defaults.field_18 = static_cast<unsigned int>(g_spell_clock.clock.frame);
+	defaults.field_1c = static_cast<unsigned int>(g_globals.lives);
+	defaults.field_20 = static_cast<unsigned int>(g_globals.counter_474c98);
+	defaults.field_1b4 = static_cast<unsigned int>(g_globals.power_474c90);
+	defaults.field_1b8 = static_cast<unsigned int>(g_globals.counter_474c9c);
+
+	SlotSnapshotEnv env = {};
+	env.live = live;
+	env.slot = slot;
+	env.suppress_defaults = g_globals.fresh_run == 0 ? 1 : 0;
+	env.shot_type = g_globals.character;
+	env.shot_variant = g_globals.stage;
+	env.defaults = &defaults;
+
+	SlotSnapshotHooks hooks = {};
+	hooks.context = g_stage_state;
+	hooks.prepare_slot = HostPrepareSnapshotSlot;
+	hooks.capture_summary = HostCaptureSnapshotSummary;
+	hooks.restore_scores = HostRestoreSnapshotScores;
+	hooks.refresh_derived = HostRefreshDerivedState;
+	hooks.commit_restore = HostCommitSnapshotRestore;
+
+	g_slot_owner.snapshots = g_slot_snapshots;
+	g_slot_owner.records = g_slot_records;
+	SlotSnapshot_Run(&g_slot_owner, &env, &hooks);
+	Log("SlotSnapshot_Run(0x0042A450): mode %d, slot %d, summary 0x%X, "
+	    "pending cleared", g_slot_owner.mode, g_slot_owner.active_slot,
+	    g_slot_owner.summary);
+}
 void HostStartMainEcl() {
 	Log("main ECL start requested (0x0040CFB0) - the ECL VM dispatcher is "
 	    "step-6 scope; Stage 1 script bytes are already resident");
 }
+// Retail 0x00413BC0 rebuilds the front/HUD state: the update and draw tasks,
+// the nine life icons, the three power digits, and the animation list whose
+// last two entries are linked together.
+th10::player_front::Front g_front_state;
+
 void HostInitializeStageRuntime() {
-	Log("host adapter: stage runtime init (0x00413BC0)");
+	th10::player_front::FrontInput input;
+	input.lives = g_globals.lives;
+	input.counter = g_globals.power_seed;
+	input.mode = g_globals.mode;
+	input.stage = g_globals.stage;
+	input.difficulty = g_active_difficulty;
+	input.special = (g_globals.game_flags & 8u) != 0;
+	input.extra_overlay = (g_globals.game_flags & 0x10u) != 0;
+	input.stage_one_clear = g_globals.stage > 0;
+	th10::player_front::InitializeFront(g_front_state, input);
+	Log("InitializeFront(0x00413BC0): %d life icons, digits %d/%d/%d, "
+	    "%d animations, linked pair %d/%d",
+	    static_cast<int>(std::count(g_front_state.lives.begin(),
+	                                g_front_state.lives.end(), true)),
+	    g_front_state.digits[0], g_front_state.digits[1],
+	    g_front_state.digits[2],
+	    static_cast<int>(g_front_state.animations.size()),
+	    g_front_state.linked_a, g_front_state.linked_b);
 }
+
 void HostRefreshSidePanel(StageUpdateTaskPair* pair) {
 	(void)pair;
-	Log("host adapter: side panel refresh (0x00426F70)");
+	HostRunAttachedEffects();
+	Log("UpdateAttachedEffects(0x00426F70): counter %d, %d events published",
+	    g_attached_effects.counter,
+	    static_cast<int>(g_attached_effects.events.size()));
 }
 void HostStartStageMusic() {
 	Log("stage BGM start requested (0x00420B10): %s @ %u Hz",
@@ -869,7 +1519,17 @@ void HostStartStageMusic() {
 	    g_report.bgm_rate);
 }
 void HostCreateDelayedStageEffect(int variant) {
-	Log("host adapter: delayed stage effect variant %d (0x0043E460)", variant);
+	// Retail FUN_0043e460(manager, "dummy", 3|4, 0): install the dummy record
+	// in the first free animation-manager slot.
+	if (g_pGameStateManager == 0) {
+		Log("AnimationManager_RegisterResource(0x0043E460) skipped: no "
+		    "animation manager");
+		return;
+	}
+	AnimationManager_RegisterResource(g_pGameStateManager, 0, "dummy",
+	                                  variant, 0);
+	Log("AnimationManager_RegisterResource(0x0043E460): dummy record "
+	    "variant %d installed", variant);
 }
 void HostResetPlayerSpawnUpdate(StageContext* context) {
 	if (context != 0) HostResetPlayerSpawn(context->spawn, 0);
@@ -877,8 +1537,40 @@ void HostResetPlayerSpawnUpdate(StageContext* context) {
 int HostPlayerRequestsDestroy(void* player) { (void)player; return 0; }
 void HostDestroyPlayer(void* player) { (void)player; }
 void HostFreePlayer(void* player) { std::free(player); }
-void HostSpawnTransitionEffect() { Log("host adapter: transition effect (0x0043C8B0)"); }
-void HostRunTransitionAction() { Log("host adapter: transition action (0x0040AC90)"); }
+// Retail FUN_0043c8b0(5, 0x3c, 0, 0, 0) constructs the 0x44-byte overlay text
+// manager and forwards the five creation arguments to its initializer
+// (0x0043C970).
+void* g_transition_overlay;
+
+void HostInitializeTransitionOverlay(void* manager) {
+	AsciiManagerInitHooks hooks = {};
+	hooks.context = g_pGameStateManager;
+	hooks.frame_speed = &DAT_00476f78;
+	AsciiManager_Initialize(static_cast<AsciiManagerInitState*>(manager),
+	                        g_pGameStateManager, 5, 0x3c, 0, 0, 0, &hooks);
+}
+
+void HostSpawnTransitionEffect() {
+	if (g_transition_overlay != 0) {
+		HostFreeMem(g_transition_overlay);
+		g_transition_overlay = 0;
+	}
+	g_transition_overlay =
+	    AsciiManager_Create(HostAlloc, HostInitializeTransitionOverlay);
+	Log("AsciiManager_Create(0x0043C8B0): overlay text manager %s "
+	    "(mode 5, argument 0x3C)",
+	    g_transition_overlay != 0 ? "constructed" : "FAILED");
+}
+
+// Retail 0x0040AC90 stores the requested input mode on the input state,
+// honoring the forced-mode bit at +0x3CC. The host owns the block.
+unsigned char g_input_mode_state[0x3D0];
+
+void HostRunTransitionAction() {
+	SetInputMode(g_input_mode_state, 4);
+	Log("SetInputMode(0x0040AC90): input mode %u published",
+	    *reinterpret_cast<const unsigned int*>(g_input_mode_state + 0x390));
+}
 void HostTickGame() {}
 void HostUpdateScoreThreshold() {}
 void HostTickStageTimer(StageContext* context) {
@@ -1025,7 +1717,7 @@ void HostRunStageEntry() {
 	g_entry_env.scheduler = g_scheduler_device;
 	g_entry_env.anm_slots = g_anm_slots;
 	g_entry_env.game = 0;
-	g_entry_env.spell_practice_state = 0;
+	g_entry_env.spell_practice_state = g_spell_practice_state;
 	g_entry_env.key_buffer = 0;
 	g_entry_env.sleep = HostSleep;
 	g_entry_env.seed_extend_threshold = HostSeedExtendThreshold;
@@ -1063,6 +1755,7 @@ void HostRunStageEntry() {
 	const int result = StageContext_Enter(&g_context, &g_entry_env);
 	g_report.enter_result = result;
 	if (result == 0) {
+		g_update_globals.player = g_fixed_state;
 		// Enter creates both task nodes disarmed (flags &= ~2u); in retail the
 		// loading owner arms them once resource streaming completes. The host
 		// loads synchronously inside Enter, so arm both nodes here and let
@@ -1276,6 +1969,40 @@ int HostStage_RunFrames(int frames) {
 		g_report.timeline_opcode_histogram[opcode] =
 		    g_timeline_view.stats.opcode_histogram[opcode];
 	return frames;
+}
+
+static void* g_pending_effect_ring;
+
+// Retail 0x004452F0 allocates the 0x4B0-byte ripple ring and seeds every
+// segment. The bridge lives in this translation unit because effect_ring.hpp
+// and effect_ring_update.hpp declare two different models of the same retail
+// block under one type name and cannot be included together.
+void* HostStage_CreateEffectRing() {
+	EffectRingHooks hooks = {};
+	hooks.context = 0;
+	hooks.alloc = [](void*, unsigned int size) -> void* {
+		return HostAlloc(size);
+	};
+	hooks.rand_float = [](void*) -> float {
+		return static_cast<float>(std::rand()) /
+		       (static_cast<float>(RAND_MAX) + 1.0f);
+	};
+	hooks.rand_u16 = [](void*) -> unsigned int {
+		return static_cast<unsigned int>(std::rand()) & 0xFFFFu;
+	};
+	hooks.polar_sample = [](void*, float radius, float* out_xy) {
+		Vector2_SetAnimationPolar(reinterpret_cast<Vector2*>(out_xy),
+		                          0.0f, radius);
+	};
+	// Retail publishes the update/draw callbacks into the owner at
+	// +0x398/+0x39C. The host drives EffectRing_Update directly from the
+	// ANM tick, so the bind step records the block the caller must own.
+	hooks.bind_callbacks = [](void*, void* ring) {
+		g_pending_effect_ring = ring;
+	};
+	hooks.angle_step = 0.2026834f;    // _DAT_00470B6C = 2*pi/31
+	hooks.speed_scale = 0.00833333f;  // _DAT_00470C7C = 1/120
+	return EffectRing_Create(&hooks);
 }
 
 const HostStageReport& HostStage_GetReport() { return g_report; }

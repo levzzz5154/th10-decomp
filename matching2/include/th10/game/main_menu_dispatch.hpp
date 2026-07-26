@@ -12,3 +12,13 @@ int MainMenu_DispatchState(void* context, int state, int skip_demo_config,
                            PlayerDeathClock* clock, float span_low,
                            float span_high, float frame_step,
                            long long (*float_to_long)(float value));
+
+struct MenuTimerRuntimeBindings {
+	void (*open_game_menu)(void*);
+	void (*run_pause_menu)(void*);
+	void (*run_sub_menu)(void*);
+	int (*draw_menu)(void*);
+};
+
+void MenuTimerRuntime_SetBindings(const MenuTimerRuntimeBindings* bindings);
+int MenuTimerRuntime_Initialize(void* state);

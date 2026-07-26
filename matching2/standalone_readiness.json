@@ -137,7 +137,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405F70",
@@ -1831,7 +1831,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/platform/process.cpp"
+      "source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x0044C350",

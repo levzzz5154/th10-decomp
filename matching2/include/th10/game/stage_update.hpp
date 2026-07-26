@@ -3,8 +3,7 @@
 #include "th10/game/stage_entry.hpp"
 
 // Dependency-injected reconstruction of the retail 0x00418190 stage
-// update/state machine. It is kept partial until all transition branches have
-// been cross-checked against the retail function.
+// update/state machine.
 struct StageUpdateTaskPair {
     StageTaskNode* update;
     StageTaskNode* draw;

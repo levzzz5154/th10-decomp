@@ -7,6 +7,8 @@ namespace {
 
 int calls[24];
 int destroy_requested;
+int transition_effect_calls;
+int transition_action_calls;
 
 void Call0() { ++calls[0]; }
 void Activate() { ++calls[1]; }
@@ -19,6 +21,8 @@ void Destroy(void*) { ++calls[7]; }
 void Free(void*) { ++calls[8]; }
 void TickTimer(StageContext*) { ++calls[9]; }
 void ClearPending() { ++calls[10]; }
+void TransitionEffect() { ++transition_effect_calls; }
+void TransitionAction() { ++transition_action_calls; }
 
 StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
                        StageUpdateTaskPair* pairs) {
@@ -47,8 +51,8 @@ StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
     env.player_requests_destroy = WantsDestroy;
     env.destroy_player = Destroy;
     env.free_player = Free;
-    env.spawn_transition_effect = Call0;
-    env.run_transition_action = Call0;
+    env.spawn_transition_effect = TransitionEffect;
+    env.run_transition_action = TransitionAction;
     env.tick_game = Call0;
     env.update_score_threshold = Call0;
     env.tick_stage_timer = TickTimer;
@@ -107,5 +111,50 @@ int main() {
     assert(StageContext_Update(&context, &env) == 1);
     assert(globals.player == 0);
     assert(calls[7] == 1 && calls[8] == 1);
+
+    // The player-start branch holds until frame 30, then performs the same
+    // reset chain with the delayed effect/music/spawn tail.
+    std::memset(calls, 0, sizeof(calls));
+    context = {};
+    context.flags = 0x800;
+    globals.player = &nodes[0];
+    destroy_requested = 0;
+    globals.descriptor_flags = 0x10;
+    SetFrame(&context, 30);
+    assert(StageContext_Update(&context, &env) == 1);
+    assert((context.flags & 0x800u) == 0);
+    assert(calls[5] == 4);
+    assert(calls[6] == 1);
+    assert(calls[3] == 1);
+
+    // End-of-stage flag handling and the two exact frame triggers.
+    globals.game_flags = 0x20;
+    globals.transition_mask = 0x1600;
+    globals.ui_flags = 0;
+    context = {};
+    SetFrame(&context, 2940);
+    transition_effect_calls = transition_action_calls = 0;
+    assert(StageContext_Update(&context, &env) == 1);
+    assert(globals.transition_result == 4);
+    assert(transition_effect_calls == 1 && transition_action_calls == 0);
+    SetFrame(&context, 3000);
+    assert(StageContext_Update(&context, &env) == 1);
+    assert(transition_action_calls == 1);
+
+    // Retail saturates the per-character/stage play counter.
+    globals.game_flags = 0;
+    globals.character = 1;
+    globals.stage = 2;
+    unsigned char* counter =
+        score_file + 17276 * (3 * globals.character + globals.stage) + 0x4CC;
+    int value = 215999998;
+    std::memcpy(counter, &value, 4);
+    SetFrame(&context, 100);
+    assert(StageContext_Update(&context, &env) == 1);
+    std::memcpy(&value, counter, 4);
+    assert(value == 215999999);
+    assert(StageContext_Update(&context, &env) == 1);
+    std::memcpy(&value, counter, 4);
+    assert(value == 215999999);
     return 0;
 }

@@ -22,3 +22,8 @@ void Player_SetSchedulerValue(void* scheduler, int value);
 void Player_ArmSchedulerValue(void* scheduler, int value);
 void Player_ClearExpiredFlags(Player* player);
 void Player_ResetSchedulerLinks(void* player);
+void PlayerManager_ArmIntroTimer(void* manager,
+                                 void (*create_overlay)(void));
+void PlayerManager_StartMode(void* manager);
+int PlayerRuntime_Initialize(void* player);
+void PlayerRuntime_Destroy(void* player);

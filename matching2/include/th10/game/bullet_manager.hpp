@@ -20,6 +20,15 @@ int BulletManager_OnRegister(ManagerRegistration* manager,
                              void (*enqueue_update)(void* queue),
                              void (*enqueue_draw)(void* queue), void* queue);
 
+struct BulletPoolRuntimeBindings {
+    int (__fastcall *update)(void* owner);
+    int (__fastcall *draw)(void* owner);
+};
+
+void BulletPoolRuntime_SetBindings(
+    const BulletPoolRuntimeBindings* bindings);
+int BulletPoolRuntime_Initialize(void* manager);
+
 void BulletManager_ResetPool(void (*rebind_animation)(void* handle,
                                                       void* animation),
                              void* handle, void* animation,

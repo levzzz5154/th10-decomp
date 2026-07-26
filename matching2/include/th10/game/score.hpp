@@ -119,3 +119,13 @@ struct ScoreRuntimeState {
 };
 
 ScoreRuntimeState* ScoreRuntimeState_Initialize(ScoreRuntimeState* state);
+
+struct PlayerScoreRuntimeBindings {
+    SchedulerFunction update;
+    SchedulerFunction release_primary;
+    SchedulerFunction release_arrays;
+};
+
+void PlayerScoreRuntime_SetBindings(
+    const PlayerScoreRuntimeBindings* bindings);
+int PlayerScoreRuntime_Initialize(void* state);

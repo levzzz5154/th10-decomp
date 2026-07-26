@@ -1,5 +1,93 @@
 #include "th10/script/ecl_vm_children.hpp"
 
+#include <cstdint>
+#include <cstring>
+#include <vector>
+
+namespace {
+
+void PushStartWord(EclStartVm* vm, unsigned int value) {
+    if (vm->stack_top + 4 >= sizeof(vm->stack)) return;
+    memcpy(vm->stack + vm->stack_top, &value, sizeof(value));
+    vm->stack_top += 4;
+}
+
+unsigned int PopStartWord(EclStartVm* vm) {
+    if (vm->stack_top < 4) return 0;
+    vm->stack_top -= 4;
+    unsigned int value;
+    memcpy(&value, vm->stack + vm->stack_top, sizeof(value));
+    return value;
+}
+
+}  // namespace
+
+// 0x0044DF70 - Start a child at the label embedded in the parent's call
+// instruction. Retail keeps a zero/link word at the base, converts every
+// remaining argument to its declared destination type, appends the parent's
+// return offset and instruction pointer, and temporarily publishes the child
+// as the active VM while resolving its label.
+int EclVm_StartChild(EclStartVm* child, EclStartVm* parent,
+                     EclStartOwner* owner,
+                     const EclStartInstruction* instruction,
+                     unsigned int first_argument,
+                     const EclStartHooks* hooks) {
+    const unsigned int original_top = child->stack_top;
+    std::vector<unsigned int> converted;
+    for (unsigned int index = first_argument + 1;
+         index < instruction->argument_count; ++index) {
+        const EclStartArgument& argument = instruction->arguments[index];
+        EclStartValue value = {};
+        if (argument.source_type == 'f' || argument.source_type == 'g') {
+            const float resolved =
+                hooks->resolve_float(parent, index, argument.value.float_value);
+            if (argument.destination_type == 'f') {
+                value.float_value = resolved;
+            } else {
+                value.int_value = static_cast<int>(resolved);
+            }
+        } else {
+            const int resolved =
+                hooks->resolve_int(parent, index, argument.value.int_value);
+            if (argument.destination_type == 'f') {
+                value.float_value = static_cast<float>(resolved);
+            } else {
+                value.int_value = resolved;
+            }
+        }
+        unsigned int word;
+        memcpy(&word, &value, sizeof(word));
+        converted.push_back(word);
+    }
+
+    if (original_top == 0) {
+        PushStartWord(child, 0);
+    } else {
+        const unsigned int link = PopStartWord(child);
+        child->stack_top = original_top;
+        PushStartWord(child, link);
+        PushStartWord(child, parent->instruction_offset);
+    }
+    const uintptr_t return_instruction =
+        reinterpret_cast<uintptr_t>(parent->instruction);
+    PushStartWord(child, static_cast<unsigned int>(return_instruction));
+    for (std::vector<unsigned int>::const_iterator it = converted.begin();
+         it != converted.end(); ++it) {
+        PushStartWord(child, *it);
+    }
+
+    EclStartVm* previous = owner->active_vm;
+    owner->active_vm = child;
+    child->instruction = hooks->find_label(instruction->label);
+    child->instruction_offset = 0;
+    if (child->instruction == 0) {
+        parent->instruction = 0;
+        return -1;
+    }
+    owner->active_vm = previous;
+    return 0;
+}
+
 // 0x004500D0 - Spawn a child ECL VM. Retail allocates the 0x1024-byte VM
 // record and a 12-byte list link, clears the VM's instruction offset, wait
 // counter, and both interpolator slots, binds the script handle and owning

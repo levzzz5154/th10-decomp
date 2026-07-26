@@ -1,0 +1,35 @@
+{
+  "comment": "Known unfaithful reconstructions. This list may only shrink; see tools/reconstruction_fidelity_audit.py.",
+  "files": {
+    "src/game/gameplay_final_runtime.cpp": {
+      "ratio": 11.88,
+      "functions": 3,
+      "retail_bytes": 8336,
+      "text_idioms": 0
+    },
+    "src/game/player_front_runtime.cpp": {
+      "ratio": 8.14,
+      "functions": 2,
+      "retail_bytes": 3632,
+      "text_idioms": 0
+    },
+    "src/game/stage_tip_parser.cpp": {
+      "ratio": 1.49,
+      "functions": 1,
+      "retail_bytes": 1504,
+      "text_idioms": 9
+    },
+    "src/game/ui_final_runtime.cpp": {
+      "ratio": 22.45,
+      "functions": 7,
+      "retail_bytes": 23344,
+      "text_idioms": 2
+    },
+    "src/script/final_script_runtime.cpp": {
+      "ratio": 7.24,
+      "functions": 2,
+      "retail_bytes": 14448,
+      "text_idioms": 5
+    }
+  }
+}

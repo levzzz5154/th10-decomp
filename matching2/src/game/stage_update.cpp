@@ -61,7 +61,7 @@ void ResetForStageStart(StageContext* context, const StageUpdateEnv* env,
 
 } // namespace
 
-// 0x00418190 - partial reconstruction of the main stage update state machine.
+// Semantic reconstruction 0x00418190 - main stage update state machine.
 int StageContext_Update(StageContext* context, const StageUpdateEnv* env) {
     StageUpdateGlobals* globals = env->globals;
     const int frame = StageFrame(context);

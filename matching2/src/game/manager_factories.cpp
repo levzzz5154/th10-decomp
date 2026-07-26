@@ -1,10 +1,33 @@
 #include "th10/game/manager_factories.hpp"
+#include "th10/game/entity.hpp"
 #include "th10/game/player_motion.hpp"
+#include "th10/runtime/missing_edge.hpp"
 #include "th10/util/scalars.hpp"
 
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+
+extern Entity* __fastcall Entity_Constructor(Entity* entity);
+extern unsigned int DAT_004776f4;
+extern unsigned int DAT_0047770c;
+extern unsigned int DAT_00491be4;
+
+namespace {
+ParticleEffectRuntimeBindings g_particle_effect_bindings = {};
+
+int __fastcall ParticleEffect_Update(void* owner) {
+	if (g_particle_effect_bindings.update == 0)
+		Runtime_MissingEdge(0x0041AFD0u, "particle/effect update");
+	return g_particle_effect_bindings.update(owner);
+}
+
+int __fastcall ParticleEffect_Draw(void* owner) {
+	if (g_particle_effect_bindings.draw == 0)
+		Runtime_MissingEdge(0x0041B8E0u, "particle/effect draw");
+	return g_particle_effect_bindings.draw(owner);
+}
+}  // namespace
 
 // Each routine mirrors one retail function; the comment above each body
 // names the retail address it was recovered from.
@@ -71,6 +94,50 @@ void* AsciiManager_Create(void* (*allocate)(unsigned int size),
     return manager;
 }
 
+// Semantic reconstruction 0x0043C970 - initialize an ASCII overlay manager.
+int AsciiManager_Initialize(AsciiManagerInitState* state, void* draw_queue,
+                            int mode, int argument_4, int argument_5,
+                            int argument_6, int argument_7,
+                            const AsciiManagerInitHooks* hooks) {
+    static const int update_kinds[9] = {
+        kAsciiUpdateBasic, kAsciiUpdateMode1, kAsciiUpdateMode2,
+        kAsciiUpdateBasic, kAsciiUpdateMode4, kAsciiUpdateMode2,
+        kAsciiUpdateMode6, kAsciiUpdateMode6, kAsciiUpdateMode8,
+    };
+    static const int draw_kinds[9] = {
+        kAsciiDrawMode0, -1, kAsciiDrawMode2, kAsciiDrawMode2,
+        kAsciiDrawMode4, kAsciiDrawMode0, kAsciiDrawMode6,
+        kAsciiDrawMode7, -1,
+    };
+    if (mode < 0 || mode > 8)
+        return -1;
+    if (mode == 3)
+        state->color = 255;
+    state->update_task = hooks->create_update(
+        hooks->context, update_kinds[mode], 14, state);
+    if (draw_kinds[mode] >= 0)
+        state->draw_task = hooks->create_draw(
+            hooks->context, draw_kinds[mode], draw_queue, state);
+    hooks->set_finish_callback(hooks->context, state->update_task);
+
+    if ((state->timer_flags & 1u) == 0) {
+        state->timer_current = 0;
+        state->timer_target = static_cast<int>(0xFFF0BDC1u);
+        state->timer_previous = 0;
+        state->timer_speed = hooks->frame_speed;
+        state->timer_flags |= 1u;
+    }
+    state->timer_current = 0;
+    state->timer_previous = 0;
+    state->timer_target = -1;
+    state->argument_4 = argument_4;
+    state->mode = mode;
+    state->argument_5 = argument_5;
+    state->argument_6 = argument_6;
+    state->argument_7 = argument_7;
+    return argument_6;
+}
+
 // 0x004296F0 - Construct the 0x2D4-byte stage manager under an SEH frame.
 // Retail vector-constructs the eight 0x24-byte interpolator slots at +0xA0,
 // zeroes the whole 0xB5-dword block, arms the state word (+0x10) with 2, and
@@ -101,7 +168,7 @@ void* StageManager_Create(const char* stage_path,
 // 0x772D-dword block, loads the shared effect table into the first slot,
 // initializes the trailing shared block (+0x1D86C), constructs the seven
 // 0x437C-byte effect pools that start at +0x08, and finishes with the
-// pool-registration helper (retail 0x0042B030).
+// archive-section finalizer.
 void EffectManager_InitializePools(Word* manager_words,
                                    unsigned int word_count,
                                    const Byte* (*load_effect_table)(
@@ -170,8 +237,63 @@ int EffectManager_OnRegister(ManagerRegistration* manager, int frame_stamp,
     return 0;
 }
 
+void ParticleEffectRuntime_SetBindings(
+        const ParticleEffectRuntimeBindings* bindings) {
+	if (bindings != 0)
+		g_particle_effect_bindings = *bindings;
+	else
+		std::memset(&g_particle_effect_bindings, 0,
+		            sizeof(g_particle_effect_bindings));
+}
+
+// 0x0041ADA0 - Install the particle/effect pool's update and draw callbacks.
+int ParticleEffectRuntime_Initialize(void* manager) {
+	if (manager == 0 || DAT_00491be4 == 0)
+		return -1;
+	Byte* bytes = (Byte*)manager;
+	SchedulerCallback* update =
+	    SchedulerCallback_Create(ParticleEffect_Update);
+	if (update == 0)
+		return -1;
+	update->flags &= ~2u;
+	update->owner = manager;
+	Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+	*(SchedulerCallback**)(bytes + 8) = update;
+
+	SchedulerCallback* draw =
+	    SchedulerCallback_Create(ParticleEffect_Draw);
+	if (draw == 0) {
+		Scheduler_Remove(update, (void*)DAT_00491be4);
+		*(SchedulerCallback**)(bytes + 8) = 0;
+		return -1;
+	}
+	draw->flags &= ~2u;
+	draw->owner = manager;
+	Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+	*(SchedulerCallback**)(bytes + 12) = draw;
+	return 0;
+}
+
 // 0x00408C90 - Player manager factory: 0x37B0-byte object, in-place
 // constructor, then the resource initializer; failure destroys and frees.
+// 0x00408910 - Construct the 15 embedded entity records. Retail subsequently
+// clears the complete object, sets its live bit, and publishes it. Calling the
+// entity constructors preserves their construction-time behavior even though
+// all of their field stores are deliberately erased by the following clear.
+void* PlayerManager_Construct(void* memory) {
+	Byte* bytes = (Byte*)memory;
+	for (int index = 0; index != 2; ++index)
+		Entity_Constructor((Entity*)(bytes + 0x10 + index * 0x3AC));
+	for (int index = 0; index != 8; ++index)
+		Entity_Constructor((Entity*)(bytes + 0x778 + index * 0x3AC));
+	for (int index = 0; index != 5; ++index)
+		Entity_Constructor((Entity*)(bytes + 0x24D8 + index * 0x3AC));
+	std::memset(memory, 0, 0x37B0);
+	*(Word*)memory |= 2u;
+	DAT_004776f4 = (unsigned int)(unsigned long)memory;
+	return memory;
+}
+
 void* PlayerManager_Create(void* (*allocate)(unsigned int size),
                            void* (*construct)(void* memory),
                            int (*initialize)(void),
@@ -183,6 +305,25 @@ void* PlayerManager_Create(void* (*allocate)(unsigned int size),
 
 // 0x00414830 - Item manager factory: identical frame with a 0x9ED0-byte
 // object and the item-side constructor/initializer pair.
+// 0x00413810 - Construct the six retail entity banks, then apply the bulk
+// clear/live-bit/publication tail. The intermediate flag and sentinel stores
+// in retail are all overwritten by that same bulk clear.
+void* ItemManager_Construct(void* memory) {
+	static const unsigned int offsets[] = {
+		0x10, 0x24C8, 0x4980, 0x6A8C, 0x793C, 0x8094
+	};
+	static const int counts[] = { 10, 10, 9, 4, 2, 7 };
+	Byte* bytes = (Byte*)memory;
+	for (unsigned int bank = 0; bank != 6; ++bank)
+		for (int index = 0; index != counts[bank]; ++index)
+			Entity_Constructor(
+			    (Entity*)(bytes + offsets[bank] + index * 0x3AC));
+	std::memset(memory, 0, 0x9ED0);
+	*(Word*)memory |= 2u;
+	DAT_0047770c = (unsigned int)(unsigned long)memory;
+	return memory;
+}
+
 void* ItemManager_Create(void* (*allocate)(unsigned int size),
                          void* (*construct)(void* memory),
                          int (*initialize)(void),

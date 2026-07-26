@@ -2,31 +2,35 @@
 #include "th10/util/scalars.hpp"
 
 // 0x004473C0 - Advance the ANM script cursor one entry per call. The walk
-// accumulates each entry's width/height origin offsets; when it reaches the
-// entry just before the cursor, the entry is loaded at the accumulated
-// offset (retail 0x00447470) and a failed load resets the cursor and stops
+// accumulates each entry's sprite/script counts; when it reaches the entry
+// just before the cursor, the entry is loaded with the accumulated table
+// bases (retail 0x00447470) and a failed load resets the cursor and stops
 // the walk. Reaching the cursor position (or having just loaded) advances
 // the cursor and reports the owner; running off the chain end resets the
 // cursor to the first entry.
 AnmCursorOwner* AnmArchive_AdvanceScriptCursor(
     void* context, AnmCursorOwner* owner,
-    int (*load_entry)(void* context, AnmCursorOwner* owner, int offset_x,
-                      int offset_y, AnmArchiveEntry* entry)) {
+    int (*load_entry)(void* context, AnmCursorOwner* owner, int entry_index,
+                      int sprite_base, int script_base,
+                      AnmArchiveEntry* entry)) {
     AnmArchiveEntry* entry = owner->entries;
     int loaded = 0;
-    int offset_x = 0;
-    int offset_y = 0;
+    // The running totals are the sprite and script table bases for the entry
+    // currently under the cursor; AnmEntry_Load publishes its records there.
+    int sprite_base = 0;
+    int script_base = 0;
     int position = 0;
     for (;;) {
         if (position == owner->cursor - 1) {
-            if (load_entry(context, owner, offset_x, offset_y, entry) < 0) {
+            if (load_entry(context, owner, position, sprite_base, script_base,
+                           entry) < 0) {
                 owner->cursor = 0;
                 return 0;
             }
             loaded = 1;
         }
-        offset_x = offset_x + entry->width;
-        offset_y = offset_y + entry->height;
+        sprite_base = sprite_base + entry->sprite_count;
+        script_base = script_base + entry->script_count;
         if (entry->next_offset == 0) break;
         entry = (AnmArchiveEntry*)((char*)entry + entry->next_offset);
         position = position + 1;

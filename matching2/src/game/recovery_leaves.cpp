@@ -252,10 +252,12 @@ void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
 // 0x004220E0 - Clear the 0x2c8-byte object and install its enabled flag in
 // the first word, matching the constructor's final visible state.
 void* g_recovery_global_state;
+extern RecoveryWord DAT_00477830;
 void* RecoveryState_Initialize(void* state) {
     memset(state, 0, 0x2C8);
     *(RecoveryWord*)state |= 2;
     g_recovery_global_state = state;
+    DAT_00477830 = (RecoveryWord)(unsigned long)state;
     return state;
 }
 

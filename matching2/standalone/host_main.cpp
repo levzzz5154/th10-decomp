@@ -18,11 +18,16 @@
 #include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
 #include "th10/game/title_main_menu.hpp"
+#include "th10/game/title_menu_runtime.hpp"
 #include "th10/game/title_options_menu.hpp"
+#include "th10/game/game_state.hpp"
 #include "th10/render/camera_setup.hpp"
+#include "th10/render/animation_manager.hpp"
 #include "th10/render/anm_file.hpp"
 #include "th10/script/anm_vm_tick.hpp"
+#include "th10/render/effect_ring_update.hpp"
 #include "th10/platform/sound_commands.hpp"
+#include "th10/runtime/missing_edge.hpp"
 
 #include "host_stage.hpp"
 
@@ -40,6 +45,10 @@
 #include <mmsystem.h>
 #include <dsound.h>
 #endif
+
+int* ResourceManager_FindResource(
+    int slot, void* manager, const char* name);
+extern void* g_pGameStateManager;
 
 static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
               "unsupported host pointer size");
@@ -67,6 +76,9 @@ struct HostAnmVm {
     float float_variables[4] = {};
     int integer_fallback = 0;
     float float_fallback = 0.0f;
+    // Ripple-ring block owned by this VM once opcode 0x43/0x54 puts it in
+    // ring mode (retail owner+0x358, allocated by 0x004452F0).
+    EffectRingOwner ring_owner = {};
 };
 
 // ---------------------------------------------------------------------------
@@ -113,6 +125,10 @@ struct HostContext {
     unsigned char* front_anm_bytes = nullptr;
     unsigned int front_anm_size = 0;
     HostAnmVm front_vms[2] = {};
+    HostAnmVm front_static_vms[42] = {};
+    int front_static_vm_count = 0;
+    HostAnmVm front_child_vms[64] = {};
+    int front_child_vm_count = 0;
     int front_vm_ready = 0;
     int front_vm_attempted = 0;
     float player_x = 224.0f;
@@ -130,9 +146,11 @@ struct HostContext {
     int dump_anm = 0;
     int dump_stage = 0;
     int menu_screen = 0;
-    int title_flow = 0; // 0=sig/loading, 1=press, 2=main/submenus
-    int title_flow_frame = 0;
+    int title_sig_frame = 0;
     int title_transition_frame = 0;
+    unsigned int title_owner_flags = 0;
+    TitleMenuRuntime title_runtime = {};
+    TitleMenuGlobals title_globals = {};
     int menu_quit = 0;
     int menu_windowed = 1;
     uint32_t menu_input = 0;
@@ -250,7 +268,19 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
     hooks.rand_float = [](void*, int) { return 0.5f; };
     hooks.rand_u32 = [](void*, int) { return 0x80000000u; };
     hooks.wrap_angle = HostAnmWrapAngle;
-    hooks.start_ring_mode = [](void*, AnmVmState*) {};
+    // Retail 0x004452F0 allocates and seeds the 0x4B0-byte ripple ring the
+    // per-frame updater at 0x00445620 consumes.
+    hooks.start_ring_mode = [](void* context, AnmVmState* vm) {
+        HostAnmVm* owner = static_cast<HostAnmVm*>(context);
+        if (owner == nullptr || owner->ring_owner.ring != nullptr)
+            return;
+        owner->ring_owner.ring = static_cast<EffectRingState*>(
+            HostStage_CreateEffectRing());
+        if (owner->ring_owner.ring == nullptr)
+            return;
+        for (int axis = 0; axis < 3; ++axis)
+            owner->ring_owner.base_position[axis] = vm->position[axis];
+    };
     hooks.spawn_child = [](void* context, AnmVmState*, int, int script_id) {
         HostAnmVm* parent = static_cast<HostAnmVm*>(context);
         int resource = parent->resource_index;
@@ -267,18 +297,25 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
                 resource_bytes, resource_size,
                 static_cast<unsigned int>(script_id), nullptr, &script))
             return;
+        HostAnmVm* children = g_host.title_child_vms;
+        int* child_count = &g_host.title_child_vm_count;
+        int child_capacity = 64;
+        if (resource_bytes == g_host.front_anm_bytes) {
+            children = g_host.front_child_vms;
+            child_count = &g_host.front_child_vm_count;
+        }
         int slot = -1;
-        for (int index = 0; index < g_host.title_child_vm_count; ++index)
-            if (!g_host.title_child_vms[index].active) {
+        for (int index = 0; index < *child_count; ++index)
+            if (!children[index].active) {
                 slot = index;
                 break;
             }
         if (slot < 0) {
-            if (g_host.title_child_vm_count >= 64)
+            if (*child_count >= child_capacity)
                 return;
-            slot = g_host.title_child_vm_count++;
+            slot = (*child_count)++;
         }
-        HostAnmVm* child = &g_host.title_child_vms[slot];
+        HostAnmVm* child = &children[slot];
         HostInitializeAnmVm(child, script.instructions);
         child->script_id = script_id;
         child->resource_index = resource;
@@ -286,7 +323,20 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
         child->resource_size = resource_size;
         child->parent = parent;
     };
-    hooks.update_ring_vertices = [](void*, AnmVmState*) {};
+    // Retail 0x00445620: pin the center vertex, scroll the uv columns, tint
+    // the fan, grow every rim radius, and close the fan.
+    hooks.update_ring_vertices = [](void* context, AnmVmState* vm) {
+        HostAnmVm* owner = static_cast<HostAnmVm*>(context);
+        if (owner == nullptr || owner->ring_owner.ring == nullptr)
+            return;
+        for (int axis = 0; axis < 3; ++axis)
+            owner->ring_owner.base_position[axis] = vm->position[axis];
+        // Retail reads the owner's diffuse straight out of +0x2FC, which is
+        // the same word the VM keeps its colour in.
+        std::memcpy(&owner->ring_owner.diffuse, vm->color,
+                    sizeof(owner->ring_owner.diffuse));
+        EffectRing_Update(&owner->ring_owner);
+    };
     hooks.set_blend_bits =
         [](void*, AnmVmState* vm, unsigned int mask, unsigned int value) {
             vm->flags = (vm->flags & ~mask) | (value & mask);
@@ -567,6 +617,10 @@ LRESULT CALLBACK HostWindowProc(HWND window, UINT message,
         return 0;
     }
     if (message == WM_KEYDOWN && !g_host.smoke_mode) {
+        // Retail's title gate accepts any newly-pressed input. Once the main
+        // menu is open, keep the narrower navigation mapping below.
+        if (g_host.title_runtime.phase == 1)
+            g_host.menu_input |= TITLE_MENU_CONFIRM;
         if (wparam == VK_UP)
             g_host.menu_input |= TITLE_MENU_UP;
         else if (wparam == VK_DOWN)
@@ -791,6 +845,15 @@ void HostPollKeyboard() {
         {DIK_RETURN, TITLE_MENU_CONFIRM}, {DIK_Z, TITLE_MENU_CONFIRM},
         {DIK_ESCAPE, TITLE_MENU_CANCEL}, {DIK_X, TITLE_MENU_CANCEL},
     };
+    bool any_new_key = false;
+    for (int key = 0; key != 256; ++key)
+        if ((keys[key] & 0x80) != 0 &&
+            (g_host.previous_keyboard[key] & 0x80) == 0) {
+            any_new_key = true;
+            break;
+        }
+    if (g_host.title_runtime.phase == 1 && any_new_key)
+        g_host.menu_input |= TITLE_MENU_CONFIRM;
     for (const Binding& binding : bindings)
         if ((keys[binding.key] & 0x80) != 0 &&
             (g_host.previous_keyboard[binding.key] & 0x80) == 0)
@@ -868,17 +931,22 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     return nullptr;
 }
 
-[[maybe_unused]] void HostDrawAnmVm(const HostAnmVm& runtime) {
+void HostDrawAnmVm(const HostAnmVm& runtime) {
     const AnmVmState& vm = runtime.state;
     int resource = runtime.resource_index;
-    if (vm.sprite < 0 || resource < 0 || resource >= 3 ||
-        g_host.title_resource_bytes[resource] == nullptr)
+    const unsigned char* resource_bytes = runtime.resource_bytes;
+    unsigned int resource_size = runtime.resource_size;
+    if (resource_bytes == nullptr && resource >= 0 && resource < 3) {
+        resource_bytes = g_host.title_resource_bytes[resource];
+        resource_size = g_host.title_resource_sizes[resource];
+    }
+    if (!runtime.active || vm.sprite < 0 || resource_bytes == nullptr ||
+        vm.color[3] == 0)
         return;
     AnmFileEntry entry;
     AnmFileSprite sprite;
     if (!AnmFile_FindGlobalSprite(
-            g_host.title_resource_bytes[resource],
-            g_host.title_resource_sizes[resource],
+            resource_bytes, resource_size,
             static_cast<unsigned int>(vm.sprite), &entry, &sprite))
         return;
     IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
@@ -890,55 +958,6 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
         unsigned int color;
         float u, v;
     };
-    float left = vm.position[0];
-    float top = vm.position[1];
-    for (const HostAnmVm* parent = runtime.parent;
-         parent != nullptr; parent = parent->parent) {
-        left += parent->state.position[0];
-        top += parent->state.position[1];
-    }
-    float right = left + sprite.width * vm.scale[0];
-    float bottom = top + sprite.height * vm.scale[1];
-    float u0 = sprite.x / static_cast<float>(entry.width);
-    float v0 = sprite.y / static_cast<float>(entry.height);
-    float u1 = (sprite.x + sprite.width) / static_cast<float>(entry.width);
-    float v1 = (sprite.y + sprite.height) / static_cast<float>(entry.height);
-    unsigned int color = D3DCOLOR_ARGB(
-        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
-    Vertex vertices[4] = {
-        {left - 0.5f, top - 0.5f, 0.0f, 1.0f, color, u0, v0},
-        {right - 0.5f, top - 0.5f, 0.0f, 1.0f, color, u1, v0},
-        {left - 0.5f, bottom - 0.5f, 0.0f, 1.0f, color, u0, v1},
-        {right - 0.5f, bottom - 0.5f, 0.0f, 1.0f, color, u1, v1},
-    };
-    g_host.device->SetTexture(0, texture);
-    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-    g_host.device->DrawPrimitiveUP(
-        D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex));
-    g_host.title_draw_calls += 1;
-}
-
-void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
-                           unsigned int* frame) {
-    const AnmVmState& vm = runtime.state;
-    int resource = runtime.resource_index;
-    const unsigned char* resource_bytes = runtime.resource_bytes;
-    unsigned int resource_size = runtime.resource_size;
-    if (resource_bytes == nullptr && resource >= 0 && resource < 3) {
-        resource_bytes = g_host.title_resource_bytes[resource];
-        resource_size = g_host.title_resource_sizes[resource];
-    }
-    if (vm.sprite < 0 || resource_bytes == nullptr)
-        return;
-    AnmFileEntry entry;
-    AnmFileSprite sprite;
-    AnmTexturePayload payload;
-    if (!AnmFile_FindGlobalSprite(
-            resource_bytes, resource_size,
-            static_cast<unsigned int>(vm.sprite), &entry, &sprite) ||
-        !AnmFile_GetTexture(&entry, &payload))
-        return;
-
     float origin_x = vm.position[0];
     float origin_y = vm.position[1];
     for (const HostAnmVm* parent = runtime.parent;
@@ -946,89 +965,76 @@ void HostDrawAnmVmSoftware(const HostAnmVm& runtime,
         origin_x += parent->state.position[0];
         origin_y += parent->state.position[1];
     }
-    int width = static_cast<int>(sprite.width * vm.scale[0]);
-    int height = static_cast<int>(sprite.height * vm.scale[1]);
-    if (width <= 0 || height <= 0)
-        return;
-    int left = static_cast<int>(origin_x);
-    int top = static_cast<int>(origin_y);
-    int source_left = static_cast<int>(sprite.x);
-    int source_top = static_cast<int>(sprite.y);
-    int source_width = static_cast<int>(sprite.width);
-    int source_height = static_cast<int>(sprite.height);
-    unsigned int bytes_per_pixel = payload.format == 1 ? 4u :
-                                   payload.format == 5 ? 2u : 0u;
-    if (bytes_per_pixel == 0 || payload.height == 0)
-        return;
-    unsigned int source_pitch = payload.data_size / payload.height;
-
-    for (int y = 0; y < height; ++y) {
-        int destination_y = top + y;
-        if (destination_y < 0 || destination_y >= 480)
-            continue;
-        int source_y = source_top + y * source_height / height;
-        if (source_y < 0 || source_y >= payload.height)
-            continue;
-        for (int x = 0; x < width; ++x) {
-            int destination_x = left + x;
-            if (destination_x < 0 || destination_x >= 640)
-                continue;
-            int source_x = source_left + x * source_width / width;
-            if (source_x < 0)
-                continue;
-            source_x %= payload.width;
-            const unsigned char* pixel =
-                payload.pixels + source_y * source_pitch +
-                source_x * bytes_per_pixel;
-            unsigned int blue, green, red, alpha;
-            if (payload.format == 1) {
-                blue = pixel[0];
-                green = pixel[1];
-                red = pixel[2];
-                alpha = pixel[3];
-            } else {
-                unsigned int packed =
-                    static_cast<unsigned int>(pixel[0]) |
-                    (static_cast<unsigned int>(pixel[1]) << 8);
-                blue = (packed & 0xF) * 17;
-                green = ((packed >> 4) & 0xF) * 17;
-                red = ((packed >> 8) & 0xF) * 17;
-                alpha = ((packed >> 12) & 0xF) * 17;
-            }
-            blue = blue * vm.color[0] / 255;
-            green = green * vm.color[1] / 255;
-            red = red * vm.color[2] / 255;
-            alpha = alpha * vm.color[3] / 255;
-            unsigned int& destination =
-                frame[destination_y * 640 + destination_x];
-            unsigned int inverse = 255 - alpha;
-            unsigned int destination_blue = destination & 0xFF;
-            unsigned int destination_green = (destination >> 8) & 0xFF;
-            unsigned int destination_red = (destination >> 16) & 0xFF;
-            destination_blue =
-                (blue * alpha + destination_blue * inverse + 127) / 255;
-            destination_green =
-                (green * alpha + destination_green * inverse + 127) / 255;
-            destination_red =
-                (red * alpha + destination_red * inverse + 127) / 255;
-            destination = destination_blue |
-                          (destination_green << 8) |
-                          (destination_red << 16);
-        }
+    const float width = sprite.width * vm.scale[0];
+    const float height = sprite.height * vm.scale[1];
+    float left;
+    float right;
+    switch ((vm.flags >> 18) & 3u) {
+    case 1: left = 0.0f; right = width; break;
+    case 2: left = -width; right = 0.0f; break;
+    default: left = width * -0.5f; right = width * 0.5f; break;
     }
+    float top;
+    float bottom;
+    switch ((vm.flags >> 20) & 3u) {
+    case 1: top = 0.0f; bottom = height; break;
+    case 2: top = -height; bottom = 0.0f; break;
+    default: top = height * -0.5f; bottom = height * 0.5f; break;
+    }
+    const float cosine = std::cos(vm.rotation[2]);
+    const float sine = std::sin(vm.rotation[2]);
+    auto draw_x = [=](float x, float y) {
+        return x * cosine - y * sine + origin_x - 0.5f;
+    };
+    auto draw_y = [=](float x, float y) {
+        return x * sine + y * cosine + origin_y - 0.5f;
+    };
+    float u0 = sprite.x / static_cast<float>(entry.width);
+    float v0 = sprite.y / static_cast<float>(entry.height);
+    float u1 = (sprite.x + sprite.width) / static_cast<float>(entry.width);
+    float v1 = (sprite.y + sprite.height) / static_cast<float>(entry.height);
+    unsigned int color = D3DCOLOR_ARGB(
+        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
+    Vertex vertices[4] = {
+        {draw_x(left, top), draw_y(left, top), 0.0f, 1.0f,
+         color, u0, v0},
+        {draw_x(right, top), draw_y(right, top), 0.0f, 1.0f,
+         color, u1, v0},
+        {draw_x(left, bottom), draw_y(left, bottom), 0.0f, 1.0f,
+         color, u0, v1},
+        {draw_x(right, bottom), draw_y(right, bottom), 0.0f, 1.0f,
+         color, u1, v1},
+    };
+    const unsigned int blend = (vm.flags >> 4) & 3u;
+    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+    g_host.device->SetRenderState(
+        D3DRS_DESTBLEND,
+        blend == 1 || blend == 2 ? D3DBLEND_ONE : D3DBLEND_INVSRCALPHA);
+    g_host.device->SetSamplerState(
+        0, D3DSAMP_ADDRESSU,
+        (vm.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP :
+                                        D3DTADDRESS_CLAMP);
+    g_host.device->SetSamplerState(
+        0, D3DSAMP_ADDRESSV,
+        (vm.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP :
+                                        D3DTADDRESS_CLAMP);
+    g_host.device->SetTexture(0, texture);
+    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    g_host.device->DrawPrimitiveUP(
+        D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex));
     g_host.title_draw_calls += 1;
 }
 
-void HostDrawAnmVmSoftwareAt(const HostAnmVm& source,
-                             unsigned int* frame, float x, float y,
-                             float scale_x, float scale_y) {
+void HostDrawAnmVmAt(const HostAnmVm& source, float x, float y,
+                     float scale_x, float scale_y) {
     HostAnmVm placed = source;
     placed.parent = nullptr;
     placed.state.position[0] = x;
     placed.state.position[1] = y;
     placed.state.scale[0] = scale_x;
     placed.state.scale[1] = scale_y;
-    HostDrawAnmVmSoftware(placed, frame);
+    HostDrawAnmVm(placed);
 }
 
 bool HostEnsureStageVms() {
@@ -1166,7 +1172,8 @@ bool HostEnsureFrontVm() {
     }
     g_host.front_anm_bytes = bytes;
     g_host.front_anm_size = size;
-    const int child_count_before = g_host.title_child_vm_count;
+    g_host.front_child_vm_count = 0;
+    g_host.front_static_vm_count = 0;
     int visible = 0;
     for (int script_id = 0; script_id < 2; ++script_id) {
         AnmFileScript script = {};
@@ -1180,106 +1187,110 @@ bool HostEnsureFrontVm() {
         vm->resource_bytes = bytes;
         vm->resource_size = size;
         AnmVmHooks hooks = HostAnmHooks(vm);
-        // Retail creates both persistent panel VMs here. Permit their opening
-        // delay to elapse before requiring a drawable sprite.
-        for (int frame = 0; frame < 120 && vm->active &&
-                            vm->state.sprite < 0; ++frame)
-            AnmVm_Tick(&vm->state, &hooks);
+        // These two scripts spawn the persistent frame/label children and
+        // then wait for interrupts from the front manager.
+        AnmVm_Tick(&vm->state, &hooks);
         if (vm->state.sprite >= 0)
             ++visible;
     }
+    // Retail 0x00413BC0 constructs these fixed banks after scripts 0/1:
+    // high score + score, life icons, power value, counter/message glyphs,
+    // and the two upper-left indicator digits.
+    static const struct {
+        int first;
+        int count;
+    } banks[] = {{10, 20}, {30, 9}, {47, 4}, {80, 2}, {51, 7}};
+    for (const auto& bank : banks)
+        for (int offset = 0; offset < bank.count; ++offset) {
+            const int script_id = bank.first + offset;
+            AnmFileScript script = {};
+            if (!AnmFile_FindGlobalScript(
+                    bytes, size, script_id, nullptr, &script))
+                continue;
+            if (g_host.front_static_vm_count >= 42)
+                break;
+            HostAnmVm* vm =
+                &g_host.front_static_vms[g_host.front_static_vm_count++];
+            HostInitializeAnmVm(vm, script.instructions);
+            vm->script_id = script_id;
+            vm->resource_index = -1;
+            vm->resource_bytes = bytes;
+            vm->resource_size = size;
+            AnmVmHooks hooks = HostAnmHooks(vm);
+            AnmVm_Tick(&vm->state, &hooks);
+            // StageEntry seeds a fresh run with two spare lives. The retail
+            // front update enables exactly that many of the nine life VMs.
+            if (script_id >= 30 && script_id <= 38 &&
+                script_id >= 30 + 2)
+                vm->active = 0;
+            if (vm->state.sprite >= 0)
+                ++visible;
+        }
     g_host.front_vm_ready =
-        visible != 0 || g_host.title_child_vm_count > child_count_before;
+        visible != 0 || g_host.front_child_vm_count != 0;
     if (g_host.front_vm_ready)
-        HostTrace("minimal front.anm HUD VM initialized");
+        std::fprintf(stderr,
+                     "[th10-recon] front.anm HUD initialized "
+                     "(2 roots, %d fixed, %d children)\n",
+                     g_host.front_static_vm_count,
+                     g_host.front_child_vm_count);
     return g_host.front_vm_ready;
 }
 
-const unsigned char* HostHudGlyph(char value) {
-    static const unsigned char blank[7] = {};
-    static const unsigned char glyphs[][7] = {
-        {2, 5, 5, 7, 5, 5, 5}, // A
-        {6, 5, 6, 5, 5, 5, 6}, // B
-        {3, 4, 4, 4, 4, 4, 3}, // C
-        {6, 5, 5, 5, 5, 5, 6}, // D
-        {7, 4, 6, 4, 4, 4, 7}, // E
-        {7, 4, 6, 4, 4, 4, 4}, // F
-        {3, 4, 4, 5, 5, 5, 3}, // G
-        {5, 5, 7, 5, 5, 5, 5}, // H
-        {7, 2, 2, 2, 2, 2, 7}, // I
-        {1, 1, 1, 1, 5, 5, 2}, // J
-        {5, 5, 6, 4, 6, 5, 5}, // K
-        {4, 4, 4, 4, 4, 4, 7}, // L
-        {5, 7, 7, 5, 5, 5, 5}, // M
-        {5, 7, 7, 7, 5, 5, 5}, // N
-        {2, 5, 5, 5, 5, 5, 2}, // O
-        {6, 5, 5, 6, 4, 4, 4}, // P
-        {2, 5, 5, 5, 7, 3, 1}, // Q
-        {6, 5, 5, 6, 6, 5, 5}, // R
-        {3, 4, 4, 2, 1, 1, 6}, // S
-        {7, 2, 2, 2, 2, 2, 2}, // T
-        {5, 5, 5, 5, 5, 5, 2}, // U
-        {5, 5, 5, 5, 5, 2, 2}, // V
-        {5, 5, 5, 5, 7, 7, 5}, // W
-        {5, 5, 2, 2, 2, 5, 5}, // X
-        {5, 5, 5, 2, 2, 2, 2}, // Y
-        {7, 1, 1, 2, 4, 4, 7}, // Z
-    };
-    static const unsigned char digits[][7] = {
-        {2, 5, 5, 5, 5, 5, 2}, {2, 6, 2, 2, 2, 2, 7},
-        {6, 1, 1, 2, 4, 4, 7}, {6, 1, 1, 2, 1, 1, 6},
-        {5, 5, 5, 7, 1, 1, 1}, {7, 4, 4, 6, 1, 1, 6},
-        {3, 4, 4, 6, 5, 5, 2}, {7, 1, 1, 2, 2, 2, 2},
-        {2, 5, 5, 2, 5, 5, 2}, {2, 5, 5, 3, 1, 1, 6},
-    };
-    static const unsigned char colon[7] = {0, 2, 2, 0, 2, 2, 0};
-    static const unsigned char dot[7] = {0, 0, 0, 0, 0, 2, 2};
-    if (value >= 'A' && value <= 'Z') return glyphs[value - 'A'];
-    if (value >= '0' && value <= '9') return digits[value - '0'];
-    if (value == ':') return colon;
-    if (value == '.') return dot;
-    return blank;
+void HostDrawFrontHud() {
+    const HostAnmVm* draw_list[108] = {};
+    int draw_count = 0;
+    for (const HostAnmVm& vm : g_host.front_vms)
+        if (vm.active)
+            draw_list[draw_count++] = &vm;
+    for (int index = 0; index < g_host.front_child_vm_count; ++index)
+        if (g_host.front_child_vms[index].active)
+            draw_list[draw_count++] = &g_host.front_child_vms[index];
+    // Retail registers the fixed digit/icon banks after the roots have
+    // spawned their panel children. Preserve that stable order within a
+    // shared layer so values remain above the decorative frame.
+    for (int index = 0; index < g_host.front_static_vm_count; ++index)
+        if (g_host.front_static_vms[index].active)
+            draw_list[draw_count++] = &g_host.front_static_vms[index];
+    for (int index = 1; index < draw_count; ++index) {
+        const HostAnmVm* item = draw_list[index];
+        int insertion = index;
+        while (insertion > 0 &&
+               draw_list[insertion - 1]->state.layer > item->state.layer) {
+            draw_list[insertion] = draw_list[insertion - 1];
+            --insertion;
+        }
+        draw_list[insertion] = item;
+    }
+    for (int index = 0; index < draw_count; ++index)
+        HostDrawAnmVm(*draw_list[index]);
 }
 
-void HostDrawHudText(unsigned int* frame, int x, int y, const char* text,
-                     unsigned int color, int scale = 2) {
-    for (; *text != 0; ++text, x += 4 * scale) {
-        const unsigned char* glyph = HostHudGlyph(*text);
-        for (int row = 0; row < 7; ++row)
-            for (int column = 0; column < 3; ++column)
-                if ((glyph[row] & (4 >> column)) != 0)
-                    for (int py = 0; py < scale; ++py)
-                        for (int px = 0; px < scale; ++px) {
-                            const int dx = x + column * scale + px;
-                            const int dy = y + row * scale + py;
-                            if (dx >= 0 && dx < 640 && dy >= 0 && dy < 480)
-                                frame[dy * 640 + dx] = color;
-                        }
+void HostTickFrontHud() {
+    if (!HostEnsureFrontVm())
+        return;
+    for (HostAnmVm& vm : g_host.front_vms)
+        if (vm.active) {
+            AnmVmHooks hooks = HostAnmHooks(&vm);
+            if (AnmVm_Tick(&vm.state, &hooks) != 0)
+                vm.active = 0;
+        }
+    for (int index = 0; index < g_host.front_static_vm_count; ++index) {
+        HostAnmVm* vm = &g_host.front_static_vms[index];
+        if (vm->active) {
+            AnmVmHooks hooks = HostAnmHooks(vm);
+            if (AnmVm_Tick(&vm->state, &hooks) != 0)
+                vm->active = 0;
+        }
     }
-}
-
-void HostDrawMinimalHud(unsigned int* frame) {
-    for (int y = 0; y < 480; ++y)
-        for (int x = 416; x < 640; ++x)
-            frame[y * 640 + x] = 0x00081018u;
-    for (int y = 16; y < 464; ++y) {
-        frame[y * 640 + 30] = 0x00A0A0A0u;
-        frame[y * 640 + 31] = 0x00FFFFFFu;
-        frame[y * 640 + 416] = 0x00FFFFFFu;
-        frame[y * 640 + 417] = 0x00A0A0A0u;
+    for (int index = 0; index < g_host.front_child_vm_count; ++index) {
+        HostAnmVm* vm = &g_host.front_child_vms[index];
+        if (vm->active) {
+            AnmVmHooks hooks = HostAnmHooks(vm);
+            if (AnmVm_Tick(&vm->state, &hooks) != 0)
+                vm->active = 0;
+        }
     }
-    for (int x = 30; x <= 417; ++x) {
-        frame[14 * 640 + x] = 0x00A0A0A0u;
-        frame[15 * 640 + x] = 0x00FFFFFFu;
-        frame[464 * 640 + x] = 0x00FFFFFFu;
-        frame[465 * 640 + x] = 0x00A0A0A0u;
-    }
-    HostDrawHudText(frame, 440, 42, "SCORE", 0x00D8D8D8u);
-    HostDrawHudText(frame, 440, 64, "000000000", 0x00FFFFFFu);
-    HostDrawHudText(frame, 440, 104, "PLAYER 3", 0x00E8B8B8u);
-    HostDrawHudText(frame, 440, 128, "BOMB 2", 0x00B8D8E8u);
-    HostDrawHudText(frame, 440, 168, "POWER 0.00", 0x00FFFFFFu);
-    HostDrawHudText(frame, 440, 192, "GRAZE 0", 0x00FFFFFFu);
 }
 
 bool HostProjectStagePoint(const float world[3], float* screen_x,
@@ -1338,7 +1349,7 @@ bool HostProjectStagePoint(const float world[3], float* screen_x,
     return true;
 }
 
-void HostRenderStage(unsigned int* frame) {
+void HostRenderStage() {
     if (!HostEnsureStageVms())
         return;
     const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
@@ -1380,8 +1391,8 @@ void HostRenderStage(unsigned int* frame) {
                 continue;
             float width = subrecord.size[0] * projection_scale;
             float height = subrecord.size[1] * projection_scale;
-            HostDrawAnmVmSoftwareAt(
-                vm, frame, x - width * 0.5f, y - height * 0.5f,
+            HostDrawAnmVmAt(
+                vm, x, y,
                 width / sprite.width, height / sprite.height);
         }
     }
@@ -1393,13 +1404,12 @@ void HostRenderStage(unsigned int* frame) {
                 g_host.player_vm.resource_size,
                 static_cast<unsigned int>(g_host.player_vm.state.sprite),
                 &entry, &sprite))
-            HostDrawAnmVmSoftwareAt(
-                g_host.player_vm, frame,
-                g_host.player_x - sprite.width * 0.5f,
-                g_host.player_y - sprite.height * 0.5f, 1.0f, 1.0f);
+            HostDrawAnmVmAt(
+                g_host.player_vm, g_host.player_x, g_host.player_y,
+                1.0f, 1.0f);
     }
-    HostEnsureFrontVm();
-    HostDrawMinimalHud(frame);
+    if (HostEnsureFrontVm())
+        HostDrawFrontHud();
 }
 
 void HostRenderMenu() {
@@ -1407,12 +1417,7 @@ void HostRenderMenu() {
         g_host.window == nullptr)
         return;
     static bool trace_render = true;
-    static unsigned int frame[640 * 480];
-    for (unsigned int& pixel : frame)
-        pixel = 0x000C1424u;
-    if (HostStage_IsActive()) {
-        HostRenderStage(frame);
-    } else {
+
     const HostAnmVm* draw_list[67] = {};
     int draw_count = 0;
     draw_list[draw_count++] = &g_host.title_vms[0];
@@ -1420,7 +1425,7 @@ void HostRenderMenu() {
     for (int index = 0; index < g_host.title_child_vm_count; ++index)
         if (g_host.title_child_vms[index].active)
             draw_list[draw_count++] = &g_host.title_child_vms[index];
-    if (g_host.title_flow != 0 && g_host.title_version_vm_ready)
+    if (g_host.title_runtime.phase != 0 && g_host.title_version_vm_ready)
         draw_list[draw_count++] = &g_host.title_version_vm;
     for (int index = 1; index < draw_count; ++index) {
         const HostAnmVm* item = draw_list[index];
@@ -1433,24 +1438,104 @@ void HostRenderMenu() {
         }
         draw_list[insertion] = item;
     }
-    for (int index = 0; index < draw_count; ++index)
-        HostDrawAnmVmSoftware(*draw_list[index], frame);
+
+    D3DVIEWPORT9 viewport = {};
+    viewport.X = 0;
+    viewport.Y = 0;
+    viewport.Width = 640;
+    viewport.Height = 480;
+    viewport.MinZ = 0.0f;
+    viewport.MaxZ = 1.0f;
+    HRESULT result = g_host.device->SetViewport(&viewport);
+    if (SUCCEEDED(result))
+        result = g_host.device->SetRenderState(
+            D3DRS_SCISSORTESTENABLE, FALSE);
+    RECT full_frame = {0, 0, 640, 480};
+    if (SUCCEEDED(result))
+        result = g_host.device->SetScissorRect(&full_frame);
+    static bool traced_viewport = false;
+    if (!traced_viewport) {
+        D3DVIEWPORT9 active = {};
+        DWORD scissor_enabled = TRUE;
+        RECT scissor = {};
+        if (SUCCEEDED(g_host.device->GetViewport(&active))) {
+            g_host.device->GetRenderState(
+                D3DRS_SCISSORTESTENABLE, &scissor_enabled);
+            g_host.device->GetScissorRect(&scissor);
+            std::fprintf(
+                stderr,
+                "[th10-recon] D3D viewport %lu,%lu %lux%lu z %.1f..%.1f; "
+                "scissor=%lu rect=%ld,%ld..%ld,%ld\n",
+                static_cast<unsigned long>(active.X),
+                static_cast<unsigned long>(active.Y),
+                static_cast<unsigned long>(active.Width),
+                static_cast<unsigned long>(active.Height),
+                active.MinZ, active.MaxZ,
+                static_cast<unsigned long>(scissor_enabled),
+                static_cast<long>(scissor.left),
+                static_cast<long>(scissor.top),
+                static_cast<long>(scissor.right),
+                static_cast<long>(scissor.bottom));
+            std::fflush(stderr);
+        }
+        traced_viewport = true;
     }
-    BITMAPINFO bitmap = {};
-    bitmap.bmiHeader.biSize = sizeof(bitmap.bmiHeader);
-    bitmap.bmiHeader.biWidth = 640;
-    bitmap.bmiHeader.biHeight = -480;
-    bitmap.bmiHeader.biPlanes = 1;
-    bitmap.bmiHeader.biBitCount = 32;
-    bitmap.bmiHeader.biCompression = BI_RGB;
-    HDC dc = GetDC(g_host.window);
-    int presented = SetDIBitsToDevice(
-        dc, 0, 0, 640, 480, 0, 0, 0, 480, frame, &bitmap,
-        DIB_RGB_COLORS);
-    ReleaseDC(g_host.window, dc);
+    if (SUCCEEDED(result))
+        result = g_host.device->Clear(
+            0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_XRGB(12, 20, 36),
+            1.0f, 0);
+    if (SUCCEEDED(result))
+        result = g_host.device->BeginScene();
+    if (SUCCEEDED(result)) {
+        g_host.device->SetRenderState(D3DRS_ZENABLE, FALSE);
+        g_host.device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+        g_host.device->SetTextureStageState(
+            0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+        if (HostStage_IsActive())
+            HostRenderStage();
+        else {
+            static bool traced_title_draw_list = false;
+            if (!traced_title_draw_list &&
+                g_host.title_runtime.phase == 1 &&
+                g_host.title_runtime.clock.frame >= 60) {
+                for (int index = 0; index < draw_count; ++index) {
+                    const HostAnmVm* vm = draw_list[index];
+                    std::fprintf(
+                        stderr,
+                        "[th10-recon] title draw %d: script=%d sprite=%d "
+                        "layer=%d pos=%.1f,%.1f scale=%.2f,%.2f "
+                        "flags=%08x alpha=%u\n",
+                        index, vm->script_id, vm->state.sprite,
+                        vm->state.layer, vm->state.position[0],
+                        vm->state.position[1], vm->state.scale[0],
+                        vm->state.scale[1], vm->state.flags,
+                        vm->state.color[3]);
+                }
+                std::fflush(stderr);
+                traced_title_draw_list = true;
+            }
+            for (int index = 0; index < draw_count; ++index)
+                HostDrawAnmVm(*draw_list[index]);
+        }
+        result = g_host.device->EndScene();
+    }
+    if (SUCCEEDED(result))
+        result = g_host.device->Present(
+            nullptr, nullptr, nullptr, nullptr);
     if (trace_render) {
-        HostTrace(presented != 0 ? "software title renderer presenting" :
-                                  "software title renderer failed");
+        HostTrace(SUCCEEDED(result) ?
+                      "D3D9 ANM title renderer presenting" :
+                      "D3D9 ANM title renderer failed");
         trace_render = false;
     }
 }
@@ -1646,7 +1731,12 @@ int HostRegisterSecondary(void*, int) {
     g_host.secondary_callbacks += 1;
     return 0;
 }
-void HostDisableSoftwareVp(void*) {}
+void HostDisableSoftwareVp(void*) {
+#if defined(_WIN32)
+    if (g_host.device != nullptr)
+        g_host.device->SetSoftwareVertexProcessing(FALSE);
+#endif
+}
 
 // ---------------------------------------------------------------------------
 // Config hooks (reconstructed loader with an in-memory default file).
@@ -1735,6 +1825,121 @@ FrameClockHooks g_clock_hooks = {
     nullptr, HostClockLock, HostClockUnlock, HostReadMs, HostReadQpc,
 };
 
+bool HostLoadTitleDemo(void*, const char*, DemoReplayInfo*) {
+    Runtime_MissingEdge(0x0042CDF0, "TitleMenuRuntime attract replay loader");
+}
+
+void HostHideTitleVm(void*, int index) {
+    if (index >= 0 && index < 2)
+        g_host.title_vms[index].state.color[3] = 0;
+    else if (index == 2 && g_host.title_version_vm_ready)
+        g_host.title_version_vm.state.color[3] = 0;
+}
+
+void HostResetTitleStageUi(void*) {
+    g_host.menu_screen = 0;
+    g_host.title_transition_frame = 0;
+}
+
+void HostPlayRecoveredTitleMusic(void*) {
+#if defined(_WIN32)
+    if (!g_host.smoke_mode)
+        HostTrace(HostStartTitleBgm() ? "title BGM playing" :
+                                        "title BGM unavailable");
+#endif
+}
+
+void HostSetRecoveredTitlePhase(void*, int phase) {
+    g_host.title_runtime.phase = phase;
+    g_host.title_transition_frame = 0;
+}
+
+void HostResetRecoveredTitleSelection(void*) {
+    g_host.title_runtime.selection = 0;
+}
+
+void HostOpenRecoveredTitleView(void*, int view) {
+    if (view == 91)
+        HostSwitchTitleOverlay(0);
+}
+
+void HostCloseRecoveredTitleView(void*, int view) {
+    if (view == 91)
+        HostBroadcastTitleInterrupt(6);
+}
+
+void HostDispatchRecoveredTitlePhase(
+    void*, int phase, TitleMenuRuntime*) {
+    if (phase == 1) {
+        bool pressed = g_host.menu_input != 0 ||
+                       (g_host.smoke_mode &&
+                        g_host.title_runtime.clock.frame >= 1);
+        if (g_host.title_transition_frame == 0 && pressed) {
+            HostBroadcastTitleInterrupt(6);
+#if defined(_WIN32)
+            if (!g_host.smoke_mode)
+                HostPlayMenuSound(1);
+#endif
+            g_host.title_transition_frame = 1;
+        } else if (g_host.title_transition_frame > 0) {
+            g_host.title_transition_frame += 1;
+            if (g_host.title_transition_frame >= 30) {
+                HostSwitchTitleOverlay(0);
+                HostPrimeMainMenuOverlay();
+                TitleMainMenu_Initialize(&g_host.menu_state);
+                HostSetRecoveredTitlePhase(nullptr, 2);
+#if defined(_WIN32)
+                if (!g_host.smoke_mode)
+                    HostTrace("entered interactive main-menu phase");
+#endif
+            }
+        }
+        return;
+    }
+    if (phase != 2 || g_host.smoke_mode || g_host.menu_screen != 0)
+        return;
+
+    int old_selection = g_host.menu_state.selection;
+    int old_phase = g_host.menu_state.phase;
+    TitleMenuAction action =
+        TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
+#if defined(_WIN32)
+    static bool traced_recovered_menu = false;
+    if (!traced_recovered_menu && g_host.menu_state.phase == 2) {
+        HostTrace("recovered TitleMainMenu_Update input phase active");
+        traced_recovered_menu = true;
+    }
+#endif
+    if (old_selection != g_host.menu_state.selection &&
+        g_host.menu_state.phase == 2 && g_host.title_vm_ready) {
+        HostBroadcastTitleInterrupt(g_host.menu_state.selection + 7);
+#if defined(_WIN32)
+        HostPlayMenuSound(0);
+#endif
+    }
+    if (old_phase == 1 && g_host.menu_state.phase == 2)
+        HostBroadcastTitleInterrupt(g_host.menu_state.selection + 17);
+#if defined(_WIN32)
+    if (old_phase == 2 && g_host.menu_state.phase == 4)
+        HostPlayMenuSound(
+            (g_host.menu_input & TITLE_MENU_CANCEL) != 0 ? 2 : 1);
+#endif
+    HostDispatchTitleMenuAction(action);
+}
+
+TitleMenuOps g_title_menu_ops = {
+    nullptr,
+    HostLoadTitleDemo,
+    HostHideTitleVm,
+    HostResetTitleStageUi,
+    HostPlayRecoveredTitleMusic,
+    HostSetRecoveredTitlePhase,
+    HostResetRecoveredTitleSelection,
+    HostOpenRecoveredTitleView,
+    HostCloseRecoveredTitleView,
+    HostDispatchRecoveredTitlePhase,
+};
+
 // ---------------------------------------------------------------------------
 // Frame hooks: the scheduler stub runs the registered title tasks.
 // ---------------------------------------------------------------------------
@@ -1796,13 +2001,7 @@ int HostRunSchedulerFrame(void*) {
             if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0)
                 g_host.player_vm.active = 0;
         }
-        if (HostEnsureFrontVm())
-            for (HostAnmVm& vm : g_host.front_vms)
-                if (vm.active) {
-                    AnmVmHooks hooks = HostAnmHooks(&vm);
-                    if (AnmVm_Tick(&vm.state, &hooks) != 0)
-                        vm.active = 0;
-                }
+        HostTickFrontHud();
     }
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
@@ -1822,69 +2021,36 @@ int HostRunSchedulerFrame(void*) {
         else if (g_host.menu_screen == 7)
             HostRefreshCharacterVisual();
     }
-    if (g_host.title_flow != 0 && g_host.title_version_vm_ready) {
+    if (g_host.title_runtime.phase != 0 &&
+        g_host.title_version_vm_ready) {
         AnmVmHooks hooks = HostAnmHooks(&g_host.title_version_vm);
         AnmVm_Tick(&g_host.title_version_vm.state, &hooks);
     }
-    if (g_host.title_flow == 0) {
-        g_host.title_flow_frame += 1;
+    if (g_host.title_sig_frame >= 0) {
+        g_host.title_sig_frame += 1;
         int sig_frames = g_host.smoke_mode ? 1 : 90;
-        if (g_host.title_flow_frame >= sig_frames) {
+        if (g_host.title_sig_frame >= sig_frames) {
             HostStartTitleScripts(88, 90);
-            if (!g_host.smoke_mode)
-                HostTrace(HostStartTitleBgm() ? "title BGM playing" :
-                                                "title BGM unavailable");
+            g_host.title_sig_frame = -1;
+            g_host.menu_input = 0;
+            g_host.title_globals.input_mask = 0;
+            TitleMenuRuntime_Update(
+                &g_host.title_runtime, &g_host.title_globals,
+                &g_title_menu_ops);
             if (!g_host.smoke_mode)
                 HostTrace("entered Press Any Button title phase");
-            g_host.title_flow = 1;
-            g_host.title_flow_frame = 0;
+        }
+    } else {
+        int menu_screen_before_update = g_host.menu_screen;
+        g_host.title_globals.input_mask =
+            static_cast<int>(g_host.menu_input);
+        TitleMenuRuntime_Update(
+            &g_host.title_runtime, &g_host.title_globals,
+            &g_title_menu_ops);
+        if (menu_screen_before_update == 0)
             g_host.menu_input = 0;
-        }
-    } else if (g_host.title_flow == 1) {
-        g_host.title_flow_frame += 1;
-        bool pressed = g_host.menu_input != 0 ||
-                       (g_host.smoke_mode &&
-                        g_host.title_flow_frame >= 1);
-        if (g_host.title_transition_frame == 0 && pressed) {
-            HostBroadcastTitleInterrupt(6);
-            if (!g_host.smoke_mode)
-                HostPlayMenuSound(1);
-            g_host.title_transition_frame = 1;
-        } else if (g_host.title_transition_frame > 0) {
-            g_host.title_transition_frame += 1;
-            if (g_host.title_transition_frame >= 30) {
-                HostSwitchTitleOverlay(0);
-                HostPrimeMainMenuOverlay();
-                TitleMainMenu_Initialize(&g_host.menu_state);
-                g_host.title_flow = 2;
-                g_host.title_flow_frame = 0;
-                g_host.title_transition_frame = 0;
-                if (!g_host.smoke_mode)
-                    HostTrace("entered interactive main-menu phase");
-            }
-        }
-        g_host.menu_input = 0;
-    } else if (!g_host.smoke_mode && g_host.menu_screen == 0) {
-        int old_selection = g_host.menu_state.selection;
-        int old_phase = g_host.menu_state.phase;
-        TitleMenuAction action =
-            TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
-        if (old_selection != g_host.menu_state.selection &&
-            g_host.menu_state.phase == 2 &&
-            g_host.title_vm_ready) {
-            int interrupt = g_host.menu_state.selection + 7;
-            HostBroadcastTitleInterrupt(interrupt);
-            HostPlayMenuSound(0);
-        }
-        if (old_phase == 1 && g_host.menu_state.phase == 2)
-            HostBroadcastTitleInterrupt(
-                g_host.menu_state.selection + 17);
-        if (old_phase == 2 && g_host.menu_state.phase == 4)
-            HostPlayMenuSound(
-                (g_host.menu_input & TITLE_MENU_CANCEL) != 0 ? 2 : 1);
-        g_host.menu_input = 0;
-        HostDispatchTitleMenuAction(action);
-    } else if (!g_host.smoke_mode && g_host.menu_screen == 4) {
+    }
+    if (!g_host.smoke_mode && g_host.menu_screen == 4) {
         int old_selection = g_host.options_state.selection;
         int old_phase = g_host.options_state.phase;
         TitleOptionsAction action = TitleOptions_Update(
@@ -1922,8 +2088,24 @@ int HostRunSchedulerFrame(void*) {
 }
 int HostDrainSound(void*) {
     SoundWorkerHooks hooks = {};
-    hooks.effect_pending = [](void*, int) { return 0; };
-    hooks.play_effect = [](void*, int) {};
+    // The three resident menu cues are the host's effect bank; a slot with
+    // no loaded buffer reports "not pending" and plays nothing, which is the
+    // same answer retail gives for an unloaded cue.
+    hooks.effect_pending = [](void*, int slot) -> int {
+#if defined(_WIN32)
+        if (slot < 0 || slot >= 3 ||
+            g_host.menu_sound_buffers[slot] == nullptr)
+            return 0;
+        DWORD status = 0;
+        if (FAILED(g_host.menu_sound_buffers[slot]->GetStatus(&status)))
+            return 0;
+        return (status & DSBSTATUS_PLAYING) != 0 ? 1 : 0;
+#else
+        (void)slot;
+        return 0;
+#endif
+    };
+    hooks.play_effect = [](void*, int slot) { HostPlayMenuSound(slot); };
     return SoundWorker_DrainCommands(&g_host.sound, &hooks);
 }
 
@@ -2020,7 +2202,12 @@ int HostCreateInput(void*) {
 }
 int HostConfirmDialog(void*) { return 6; } // IDYES
 void HostChecksum(void*) {}
-void* HostCreateScheduler(void*) { return &g_host; }
+void* HostCreateScheduler(void*) {
+    static unsigned char scheduler_state[0x60] = {};
+    DAT_00491be4 = static_cast<uint32_t>(
+        reinterpret_cast<uintptr_t>(scheduler_state));
+    return scheduler_state;
+}
 void* HostCreateD3d(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
@@ -2101,6 +2288,7 @@ void* HostCreateGameState(void*, void* arena) {
     GameStateCallbackPlan plan = {2, 18};
     void* result = GameStateInit_Construct(
         arena, 0x732460u, &hooks, &plan, &g_host.game_state_matrices);
+    g_pGameStateManager = result;
     g_host.game_state_constructed = result != nullptr;
     if (result == nullptr)
         std::free(arena);
@@ -2242,8 +2430,16 @@ int HostRegisterMainTasks(void*) {
         title_state.title_resource != nullptr &&
         title_state.title_v_resource != nullptr;
     TitleMainMenu_Initialize(&g_host.menu_state);
-    g_host.title_flow = 0;
-    g_host.title_flow_frame = 0;
+    g_host.title_sig_frame = 0;
+    g_host.title_owner_flags = 0;
+    g_host.title_runtime = {};
+    g_host.title_runtime.owner_flags = &g_host.title_owner_flags;
+    g_host.title_runtime.clock.scale = &DAT_00476f78;
+    g_host.title_globals = {};
+    g_host.title_globals.demo_names[0] = "demo0.rpy";
+    g_host.title_globals.demo_names[1] = "demo1.rpy";
+    g_host.title_globals.demo_names[2] = "demo2.rpy";
+    g_host.title_globals.demo_names[3] = "demo3.rpy";
 #if defined(_WIN32)
     if (!HostLoadSigResource() || !HostStartSigScript())
         return -1;
@@ -2462,10 +2658,13 @@ void HostRestartPump(void*) {}
 int main(int argc, char** argv) {
 #if defined(_WIN32)
     HostTrace("process entry");
+    const bool resource_smoke =
+        argc > 1 && std::strcmp(argv[1], "--resource-smoke") == 0;
     g_host.smoke_mode = argc > 1 &&
         (std::strcmp(argv[1], "--smoke") == 0 ||
          std::strcmp(argv[1], "--dump-anm") == 0 ||
-         std::strcmp(argv[1], "--dump-stage") == 0);
+         std::strcmp(argv[1], "--dump-stage") == 0 ||
+         resource_smoke);
     g_host.dump_anm =
         argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
     g_host.dump_stage =
@@ -2484,6 +2683,58 @@ int main(int argc, char** argv) {
         return 1;
     }
     HostTrace("th10.dat mounted");
+    if (resource_smoke) {
+        unsigned char* manager = static_cast<unsigned char*>(
+            std::calloc(1, 0x3AD100));
+        g_pGameStateManager = manager;
+        int* resource = ResourceManager_FindResource(
+            2, manager, "ascii.anm");
+        const unsigned int entries = resource == nullptr ? 0 :
+            *reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(resource) + 0x10C);
+        const unsigned int scripts = resource == nullptr ? 0 :
+            *reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(resource) + 0x110);
+        const unsigned int sprites = resource == nullptr ? 0 :
+            *reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(resource) + 0x114);
+        const bool valid = resource != nullptr &&
+            *reinterpret_cast<void**>(
+                reinterpret_cast<unsigned char*>(resource) + 0x108) !=
+                nullptr &&
+            entries != 0 && scripts != 0 && sprites > 0x62 &&
+            *reinterpret_cast<void**>(
+                reinterpret_cast<unsigned char*>(resource) + 0x11C) !=
+                nullptr;
+        auto* animation = static_cast<AnimationObject*>(
+            std::calloc(1, 0x3AC));
+        if (valid && animation != nullptr)
+            AnimationObject_LoadScript(animation, resource, 0);
+        const bool vm_valid = animation != nullptr &&
+            reinterpret_cast<Entity*>(animation)->ScriptResource() ==
+                resource &&
+            reinterpret_cast<Entity*>(animation)->SpriteMetadata() !=
+                nullptr;
+        auto* stage_state = static_cast<GameState*>(
+            std::calloc(1, sizeof(GameState)));
+        const int stage_load = stage_state == nullptr ? -1 :
+            GameState_LoadStageScript(stage_state, "th10/stage01.std");
+        const auto* stage_bytes = reinterpret_cast<const unsigned char*>(
+            stage_state);
+        const bool stage_valid = stage_load == 0 &&
+            *reinterpret_cast<void* const*>(stage_bytes + 0x10) != nullptr &&
+            *reinterpret_cast<void* const*>(stage_bytes + 0x178) != nullptr &&
+            *reinterpret_cast<void* const*>(stage_bytes + 0x17c) != nullptr;
+        std::printf("resource runtime: descriptor=%p entries=%u scripts=%u "
+                    "sprites=%u\n", resource, entries, scripts, sprites);
+        std::printf("resource ANM VM: %s\n",
+                    vm_valid ? "script 0 initialized" : "failed");
+        std::printf("stage script runtime: %s\n",
+                    stage_valid ? "stage01.std initialized" : "failed");
+        std::printf("RESOURCE_RUNTIME_%s\n",
+                    valid && vm_valid && stage_valid ? "PASS" : "FAIL");
+        return valid && vm_valid && stage_valid ? 0 : 1;
+    }
 #endif
     GameMainState state = {};
     state.instance = &g_host;
@@ -2540,7 +2791,7 @@ int main(int argc, char** argv) {
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
     std::printf("  ordered title flow reached: %s\n",
-                g_host.title_flow == 2 ? "main menu" : "incomplete");
+                g_host.title_runtime.phase == 2 ? "main menu" : "incomplete");
     std::printf("  clean shutdown: %s\n",
                 g_host.clean_shutdown ? "yes" : "no");
     std::printf("  GameMain_Run exit code: %d\n", exit_code);
@@ -2554,30 +2805,10 @@ int main(int argc, char** argv) {
              g_host.title_resources_loaded &&
              g_host.title_anm_parsed &&
              g_host.title_child_vm_count >= 3 &&
-             g_host.title_flow == 2 &&
+             g_host.title_runtime.phase == 2 &&
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;
-#if defined(_WIN32)
-    if (g_host.dump_stage && HostStage_IsActive()) {
-        static unsigned int stage_frame[640 * 480] = {};
-        HostRenderStage(stage_frame);
-        std::FILE* output = std::fopen("stage1.ppm", "wb");
-        if (output != nullptr) {
-            std::fprintf(output, "P6\n640 480\n255\n");
-            for (unsigned int pixel : stage_frame) {
-                const unsigned char rgb[3] = {
-                    static_cast<unsigned char>((pixel >> 16) & 0xFF),
-                    static_cast<unsigned char>((pixel >> 8) & 0xFF),
-                    static_cast<unsigned char>(pixel & 0xFF),
-                };
-                std::fwrite(rgb, 1, sizeof(rgb), output);
-            }
-            std::fclose(output);
-            HostTrace("wrote stage1.ppm");
-        }
-    }
-#endif
     std::printf("SMOKE_%s\n", ok ? "PASS" : "FAIL");
     const HostStageReport& stage = HostStage_GetReport();
     const int stage_ok =
@@ -2592,7 +2823,9 @@ int main(int argc, char** argv) {
         stage.std_quads == 19 && stage.ecl_size == 47924u &&
         stage.ecl_sub_count == 68 && stage.frames_run == 120 &&
         stage.update_ticks == 120 && stage.draw_ticks == 120 &&
-        stage.stage_frame == 120;
+        // The live player runtime takes retail's delayed-entry branch:
+        // frame 30 resets the Stage timer before the remaining 90 ticks.
+        stage.stage_frame == 90;
     std::printf(
         "stage bridge: enter=%d factory_wrappers=%d resources=%u/%u "
         "ticks=%d/%d frame=%d\n",

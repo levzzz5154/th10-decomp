@@ -1,5 +1,6 @@
 // 0x0041BE80 - Add one tenth of amount to the counter, saturating at 99,999.
 #include "th10/game/score.hpp"
+#include "th10/runtime/missing_edge.hpp"
 
 extern Entity* __fastcall Entity_Constructor(Entity* entity);
 extern "C" float cosf(float);
@@ -9,6 +10,29 @@ extern "C" void _free(void*);
 extern void* PTR_LAB_0046dab0;
 extern void* PTR_LAB_0046da60;
 extern uint32_t DAT_00476f78;
+extern uint32_t DAT_00491be4;
+
+namespace {
+PlayerScoreRuntimeBindings g_player_score_bindings = {};
+
+int __fastcall PlayerScore_Update(void* owner) {
+    if (g_player_score_bindings.update == 0)
+        Runtime_MissingEdge(0x00408D60u, "player/score UI update");
+    return g_player_score_bindings.update(owner);
+}
+
+int __fastcall PlayerScore_ReleasePrimary(void* owner) {
+    if (g_player_score_bindings.release_primary == 0)
+        Runtime_MissingEdge(0x00409230u, "player/score primary release");
+    return g_player_score_bindings.release_primary(owner);
+}
+
+int __fastcall PlayerScore_ReleaseArrays(void* owner) {
+    if (g_player_score_bindings.release_arrays == 0)
+        Runtime_MissingEdge(0x00409270u, "player/score array release");
+    return g_player_score_bindings.release_arrays(owner);
+}
+}  // namespace
 
 // 0x0040B9D0 - Run the owned-object cleanup and release its allocation.
 void ScoreOwnedObject_Destroy(void* object, void (*cleanup)(void*)) {
@@ -74,6 +98,70 @@ int ScoreRuntimeCallbacks_Initialize(
         tertiary_function, 0, scheduler_device);
     return callbacks->primary != 0 && callbacks->secondary != 0 &&
            callbacks->tertiary != 0;
+}
+
+void PlayerScoreRuntime_SetBindings(
+        const PlayerScoreRuntimeBindings* bindings) {
+    if (bindings != 0)
+        g_player_score_bindings = *bindings;
+    else
+        g_player_score_bindings = PlayerScoreRuntimeBindings{};
+}
+
+// 0x004089C0 - Register the three player/score callbacks and initialize the
+// trailing frame timer at +0x3734.
+int PlayerScoreRuntime_Initialize(void* state) {
+    if (state == 0 || DAT_00491be4 == 0)
+        return -1;
+    unsigned char* bytes = (unsigned char*)state;
+    SchedulerCallback* primary =
+        SchedulerCallback_Create(PlayerScore_Update);
+    if (primary == 0)
+        return -1;
+    primary->flags &= ~2u;
+    primary->owner = state;
+    Scheduler_RegisterPrimary(primary, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 8) = primary;
+
+    SchedulerCallback* secondary =
+        SchedulerCallback_Create(PlayerScore_ReleasePrimary);
+    if (secondary == 0) {
+        Scheduler_Remove(primary, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(bytes + 8) = 0;
+        return -1;
+    }
+    secondary->flags &= ~2u;
+    secondary->owner = state;
+    Scheduler_RegisterSecondary(secondary, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 12) = secondary;
+
+    SchedulerCallback* tertiary =
+        SchedulerCallback_Create(PlayerScore_ReleaseArrays);
+    if (tertiary == 0) {
+        Scheduler_Remove(primary, (void*)DAT_00491be4);
+        Scheduler_Remove(secondary, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(bytes + 8) = 0;
+        *(SchedulerCallback**)(bytes + 12) = 0;
+        return -1;
+    }
+    tertiary->flags &= ~2u;
+    tertiary->owner = state;
+    Scheduler_RegisterSecondary(tertiary, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 0x37AC) = tertiary;
+
+    unsigned int* flags = (unsigned int*)(bytes + 0x3744);
+    if ((*flags & 1u) == 0) {
+        *(int*)(bytes + 0x3738) = 0;
+        *(int*)(bytes + 0x3734) = (int)0xFFF0BDC1u;
+        *(int*)(bytes + 0x373C) = 0;
+        *(unsigned int*)(bytes + 0x3740) =
+            (unsigned int)(unsigned long)&DAT_00476f78;
+        *flags |= 1u;
+    }
+    *(int*)(bytes + 0x3738) = 0;
+    *(int*)(bytes + 0x373C) = 0;
+    *(int*)(bytes + 0x3734) = -1;
+    return 0;
 }
 
 // 0x004086B0 - Report whether two axis-aligned extents are disjoint.

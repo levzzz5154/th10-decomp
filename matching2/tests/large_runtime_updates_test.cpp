@@ -1,0 +1,11 @@
+#include <cassert>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+#include "th10/game/title_menu_runtime.hpp"
+#include "th10/game/effect_indicator_queue.hpp"
+namespace{std::vector<int> hidden,phases,opened,closed,dispatched,retired,scripts,alphas,anchors;int music,resets,released;bool Load(void*,const char*n,DemoReplayInfo*r){assert(std::strcmp(n,"d1")==0);*r={3,1,0,2};return true;}void Hide(void*,int x){hidden.push_back(x);}void Reset(void*){++resets;}void Music(void*){++music;}void Phase(void*,int x){phases.push_back(x);}void Open(void*,int x){opened.push_back(x);}void Close(void*,int x){closed.push_back(x);}void Dispatch(void*,int x,TitleMenuRuntime*){dispatched.push_back(x);}void Retire(void*,int h){retired.push_back(h);}EffectIndicatorSpawn Spawn(void*,const EffectIndicatorNode*n,int sc,int al,float a,float b){scripts.push_back(sc);alphas.push_back(al);assert(a>0&&b>0);return {100+sc,{n->x,20,30}};}void Format(void*,int,const int a,const char*){anchors.push_back(a);}void Release(void*,EffectIndicatorNode*){++released;} }
+int main(){TitleMenuOps mo={0,Load,Hide,Reset,Music,Phase,Reset,Open,Close,Dispatch};const char*names[4]={"d1","d2","d3","d4"};float one=1;unsigned owner=0;TitleMenuRuntime m={1,0,0,&owner,{0,0,0,&one}};TitleMenuGlobals g={0,899,0,0,0,0,0,0,0,0,0,{names[0],names[1],names[2],names[3]}};assert(TitleMenuRuntime_Update(&m,&g,&mo)==1);assert(g.demo_index==1&&g.stage==3&&g.character==1&&g.difficulty==2&&g.launch_state==12&&g.attract_mode==0);assert(dispatched.size()==1&&dispatched[0]==1&&m.clock.frame==1);
+ hidden.clear();m.phase=0;g.attract_mode=2;TitleMenuRuntime_Update(&m,&g,&mo);assert(hidden.size()==5&&m.selection==3&&m.selection_count==10&&phases.back()==12&&(owner&2));
+ EffectIndicatorOps eo={0,Retire,Spawn,Format,Release};EffectIndicatorState s={};s.handles[0]=7;EffectIndicatorNode a={},b={};a.next=&b;b.previous=&a;a.countdown=1;a.intensity=.5f;a.anchor_mode=1;a.offset=20;std::strcpy(a.text,"a");b.countdown=2;b.intensity=3;b.owner_tag=9;EffectIndicatorQueue_Drain(&a,&s,9,true,&eo);assert(retired.size()==1&&retired[0]==7);assert(s.slot==1&&s.handles[0]==102&&s.positions[0][0]==14&&scripts[0]==2&&alphas[0]==15&&released==1);assert(b.previous==0&&b.countdown==1);
+ std::puts("LARGE_RUNTIME_UPDATES_TESTS_PASS");}

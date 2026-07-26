@@ -46,3 +46,19 @@ struct NameInitEnv {
 };
 
 void NameEntry_Init(NameEntry* entry, NameInitEnv* env);
+
+struct NameEntryMenuInput { unsigned held, pressed; };
+struct NameEntryMenuOps {
+	void* context;
+	const char* charset;
+	void (*set_phase)(void*, int);
+	void (*move_cursor)(void*, NameEntry*, int);
+	void (*play_sound)(void*, int);
+	void (*commit_name)(void*, const char*);
+	void (*close_view)(void*, int);
+};
+
+// 0x00432CB0 - high-score name-entry update state machine.
+int NameEntry_UpdateMenu(NameEntry* entry, int* phase, int phase_timer,
+	                    const NameEntryMenuInput* input,
+	                    const NameEntryMenuOps* ops);

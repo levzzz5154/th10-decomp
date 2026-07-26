@@ -1,11 +1,16 @@
 #include "th10/game/task_registration.hpp"
+#include "th10/runtime/missing_edge.hpp"
 
 extern uint32_t DAT_00491be4;  // scheduler device token
 extern uint8_t DAT_00491d6a;   // demo-tips enabled flag
 extern float DAT_00476f78;     // shared unit timer speed (1.0f)
 extern uint32_t DAT_004918a4;  // title-screen selection latch
+extern void* g_pGameStateManager;
+extern int* ResourceManager_FindResource(int type, void* manager,
+                                         const char* name);
 
 namespace {
+ItemFrontRuntimeBindings g_item_front_bindings = {};
 
 // One callback creation + registration, matching the retail skeleton
 // (clear flag bit 1, set the owner, register with the device token).
@@ -19,6 +24,18 @@ SchedulerCallback* CreateAndRegister(void* owner, SchedulerCreateFn create,
         register_edge(callback, DAT_00491be4);
     }
     return callback;
+}
+
+int __fastcall ItemFront_Update(void* owner) {
+    if (g_item_front_bindings.update == 0)
+        Runtime_MissingEdge(0x00415AE0u, "item/front update");
+    return g_item_front_bindings.update(owner);
+}
+
+int __fastcall ItemFront_Render(void* owner) {
+    if (g_item_front_bindings.render == 0)
+        Runtime_MissingEdge(0x00415AF0u, "item/front render");
+    return g_item_front_bindings.render(owner);
 }
 
 }  // namespace
@@ -117,6 +134,52 @@ int32_t FrontAnm_RegisterTasks(
         CreateAndRegister(owner, create, register_primary, update_proc);
     slots->render_task =
         CreateAndRegister(owner, create, register_secondary, render_proc);
+    return 0;
+}
+
+void ItemFrontRuntime_SetBindings(
+        const ItemFrontRuntimeBindings* bindings) {
+    if (bindings != 0)
+        g_item_front_bindings = *bindings;
+    else
+        g_item_front_bindings = ItemFrontRuntimeBindings{};
+}
+
+// 0x00413980 - Resolve front.anm, construct the score/front task through the
+// explicit runtime edge, and register the item manager callback pair.
+int ItemFrontRuntime_Initialize(void* owner) {
+    if (owner == 0 || DAT_00491be4 == 0 ||
+        g_item_front_bindings.initialize_score_task == 0)
+        return -1;
+    unsigned char* bytes = (unsigned char*)owner;
+    int* resource =
+        ResourceManager_FindResource(6, g_pGameStateManager, "front.anm");
+    *(int**)(bytes + 0x9EC8) = resource;
+    if (resource == 0)
+        return -1;
+    if (g_item_front_bindings.initialize_score_task(owner) != 0)
+        return -1;
+
+    SchedulerCallback* update =
+        SchedulerCallback_Create(ItemFront_Update);
+    if (update == 0)
+        return -1;
+    update->flags &= ~2u;
+    update->owner = owner;
+    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 8) = update;
+
+    SchedulerCallback* render =
+        SchedulerCallback_Create(ItemFront_Render);
+    if (render == 0) {
+        Scheduler_Remove(update, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(bytes + 8) = 0;
+        return -1;
+    }
+    render->flags &= ~2u;
+    render->owner = owner;
+    Scheduler_RegisterSecondary(render, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 12) = render;
     return 0;
 }
 

@@ -3,6 +3,7 @@
 // executable until their call sites receive typed interfaces too.
 #include "th10/game/entity.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/math/quantized_vector.hpp"
 
 extern uint32_t DAT_00476f78;
 
@@ -43,20 +44,9 @@ void ClampValue(ClampedValueOwner* owner, int delta) {
     owner->value = value;
 }
 
-// Six floating-point components followed by byte-quantized forms of the final
-// four. Retail leaves components 2..5 on the x87 stack and invokes MSVC's
-// float-to-integer helper (0x00463B2C) four times.
-struct QuantizedVector {
-    float components[6];
-    uint8_t quantized[4];
-};
-
-static void QuantizedVector_UpdateBytes(QuantizedVector* vector) {
-    for (int index = 0; index < 4; ++index) {
-        vector->quantized[index] =
-            (uint8_t)(int)vector->components[index + 2];
-    }
-}
+// QuantizedVector and its byte-refresh helper now live in
+// th10/math/quantized_vector.hpp so the parameter-block interpolator at
+// 0x004049A0 can reuse these same two leaves.
 
 QuantizedVector* Vec_Scale(
         QuantizedVector* destination, const QuantizedVector* source,

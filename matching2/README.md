@@ -310,13 +310,92 @@ and the embedded timer disable/reset at `0x004050D0`
 (`EmbeddedTimer_Reset`). Their tests cover positive and negative rounding,
 sentinel initialization, speed-pointer publication, and repeat-reset behavior.
 
-The current recovery pass reaches the 50% function-count milestone: 361 of
-the 722 tracked retail functions are readable semantic C++ or verified
-overlays. The added low-dependency leaves cover timer/state setters, interface
-array selection and teardown, resource/path helpers, animation slot lifecycle,
-packet and schedule dispatch, color/tint setup, and callback-backed allocation
-and device-reset paths. The standalone-readiness report remains separate: the
-retail-free link, executable, and startup-to-title smoke gates are still open.
+The ANM archive-entry loader at `0x00447470` (`AnmEntry_Load`) now validates
+version-4 entries, handles embedded, blank, and archive-backed textures,
+publishes sprite and script tables, and shares its sprite-coordinate arithmetic
+with `0x00447940`. The cursor walk now uses the corrected sprite/script-count
+header fields and table-base accumulators. `SlotSnapshot_Run` reconstructs the
+capture and restore halves of `0x0042A450`, including its inverse record maps,
+default block, bulk copy, dirty flags, counter clears, and shot-specific pair.
+
+`ParamBlockInterp_Tick` reconstructs the four-block interpolator at
+`0x004049A0`, including scaled frame advancement, both integration modes,
+Hermite interpolation, and eased blending. `EntityRegionSweep_Run` reconstructs
+the 2000-entry AABB sweep at `0x00408210`, including overlap marking, cancel
+effects, animation creation, and tinting.
+
+The gameplay render and transition pass at `0x00402850` is reconstructed as
+`GameplayRenderPass_Run`. Its ECX trampoline and EBP owner base are confirmed
+directly from the machine code; the typed implementation retains the retail
+render-state sequence, transition thresholds, tint publication/reset, resource
+walk, and eight indexed layer calls.
+
+`MessageHost_Init` reconstructs the MSG host constructor at `0x0040D280`,
+including archive publication, parser construction, scheduler registration,
+and timer reset. `StageSlotState_Init` reconstructs `0x00415B00`, including
+its three timers, sparkle VMs, tagged records, 2000-entry pool sweep, effect
+teardown, and message-host flush.
+
+`ReplayScore_Draw` reconstructs the EDI-context replay detail renderer at
+`0x004329F0`, including its ten fading rows, timestamp and difficulty text,
+footer score, elapsed time, and stage score. `GameStateOverlay_Draw`
+reconstructs `0x00415800`, preserving animation-group order, progress and
+gauge rectangles, colored gauge segments, and prompt/late-pair conditions.
+
+`StageFocus_UpdateFade` reconstructs the EBX-bound focus-opacity updater at
+`0x00419650`. The replay UI now also includes `ReplayBrowser_Draw`
+(`0x00431BA0`) and `ReplayStageName_Draw` (`0x00433230`), covering their list,
+detail, timestamp, score-row, name-entry, cursor, and character-grid paths.
+
+The final medium-band pass reconstructs `BulletRuntime_Update` (`0x00406240`),
+the three menu flows at `0x0042F540`, `0x00430320`, and `0x004306A0`, and
+`ReplaySpellList_Draw` (`0x00432690`). This completes every tracked function
+in the tiny, small, and medium size bands.
+
+The large-function pass now includes `PracticeStageMenu_Update`
+(`0x00430FF0`) with unlock, shortcut, cancel, fade, and launch behavior, plus
+`ScoreRuntimeUi_Update` (`0x00408D60`) with score easing, layout switching,
+digit scripts, panel ticks, metrics, and camera-marker smoothing.
+
+The laser cutter pair is now reconstructed: `LaserCut_Circle`
+(`0x0041EFA0`) and `LaserCut_Rectangle` (`0x0041EB00`) sample at 12-unit
+intervals, emit effects and optional items, shorten the original beam, and
+clone surviving uncut runs.
+
+The mutable-line cutter variants are also recovered: `LaserTrim_Circle`
+(`0x0041DD80`) and `LaserTrim_Rectangle` (`0x0041D880`) move the head past
+leading cuts, retire short remnants, update travel/length limits, and clone
+later surviving runs.
+
+`EffectIndicatorQueue_Drain` reconstructs the rotating ten-slot indicator
+queue at `0x00419120`. `TitleMenuRuntime_Update` reconstructs the title
+dispatcher and four-demo attract rotation at `0x0042CDF0`, including phase-zero
+setup, replay metadata publication, and scaled clock advancement.
+
+`ReplayRuntime_Bootstrap` reconstructs recording/replay initialization at
+`0x00428F60`, including snapshot transfer and scheduler registration.
+`ResultChoiceMenu_Update` reconstructs the result/continue choice flow at
+`0x00422C80`, including its nested confirmation phases and shortcuts.
+
+`NameEntry_UpdateMenu` reconstructs the eight-character grid editor at
+`0x00432CB0`, including navigation, insert/delete/commit, and close phases.
+`ShotPracticeMenu_Update` reconstructs `0x00430A60`, including availability
+filtering, replay handling, cancel, fade, and launch transitions.
+
+`PlayerRuntime_Initialize` reconstructs `0x004247F0`, including player ANM
+selection, fresh/reused object setup, scheduler tasks, random/history fields,
+timers, character tables, and collision bounds. Its final `0x00426F70` call is
+an explicit unconditional derived-state refresh dependency, not a blocker to
+the initializer's independently observed behavior.
+
+The generated coverage ledger currently reports 722 of 722 tracked retail
+functions (100.0%) as readable semantic C++ or verified overlays, leaving 0
+partial or unrecovered functions. The researched-only bucket is empty. It remains separate from the
+startup-to-title readiness report, whose 179-function call closure is fully
+source-ready and whose retail-free link, executable, and smoke gates all pass.
+Run `python3 tools/coverage_report.py --check` and
+`python3 tools/standalone_readiness.py --check` to verify both generated
+reports against the current sources.
 
 The supported original executable has SHA-256:
 
@@ -732,6 +811,95 @@ an interrupt handler is dispatched. This is required for script 88 to hold
 the full-colour background, and for the press/main overlays to remain in
 their retail resting states instead of continuing into their exit fades.
 
+Confirming a character, weapon, and difficulty now enters the Stage 1 host
+bridge. It loads `stage01.std`, `stage01.anm`, `stage01.ecl`, the selected
+player ANM, and `front.anm` from the original archive, advances the recovered
+stage camera/timeline, renders the live background and player, and plays the
+Stage 1 PCM track from `thbgm.dat`. The HUD is no longer host-drawn placeholder
+text: it executes the retail `front.anm` roots, their 16 spawned frame/label
+children, and the 42 fixed score/life/power/counter VMs in ANM layer order.
+`./run_pe32.sh --dump-stage` writes `build/pe32/stage1.ppm` after advancing
+the HUD opening fade for deterministic visual inspection. This is still a
+Stage 1 presentation bridge rather than complete gameplay: enemy/ECL
+dispatch, bullets, collision, items, and live score-state binding remain
+outside the current host implementation.
+
+## Runtime placeholder gate
+
+`tools/runtime_placeholder_audit.py` inventories production fallbacks that
+compile and link but perform no recovered work: host adapters that only log,
+hooks bound to empty lambdas, and runtime bindings whose call site is skipped
+when the binding is unset. `build_all_pe32.sh` runs it with `--check`, so any
+of those surviving fails the build. The count is currently zero.
+
+Every stage-entry and stage-update edge now calls its recovered retail body
+against host-owned storage laid out at the retail offsets:
+`ScoreGauge_SetTargetTenthAndDisableTimer` (0x00418B80),
+`SpellCard_Dispatch` (0x0042A6A0), `PathState_Reset` (0x00417800),
+`GameState_DispatchDummy` (0x00420C00), `BulletManager_ActivateSprites`
+(0x00404450), `Anm_MarkHandleAndChildren` (0x00409E50),
+`PauseMenu_ResetTimers` (0x00424D90), `EnemyManager_ReleaseLists`
+(0x00409F90), `RecoveryLinkedCleanup` (0x00417770), `SlotSnapshot_Run`
+(0x0042A450) with its four recovered hooks, `InitializeFront` (0x00413BC0),
+`UpdateAttachedEffects` (0x00426F70), `AnimationManager_RegisterResource`
+(0x0043E460), `AsciiManager_Create` (0x0043C8B0), and `SetInputMode`
+(0x0040AC90). The ANM VM's ring-mode hooks run `EffectRing_Create`
+(0x004452F0) and `EffectRing_Update` (0x00445620), and the viewport reset
+runs `Recovery_ResetDeviceStreams` (0x0043BC40).
+
+Runtime bindings are mandatory: an unbound edge calls `Runtime_MissingEdge`,
+which prints the retail address and aborts rather than reporting success. Nine
+edges the runtime reaches still have no recovered body at all - they are not
+in the tracked Ghidra index, so the 722/722 coverage figure above does not
+cover them: 0x004067A0, 0x0041B8E0, 0x00426500, 0x00426510, 0x0042B9A0,
+0x0042B9B0, 0x004198B0, 0x00415AE0, 0x00415AF0.
+
+## Reconstruction fidelity gate
+
+`tools/reconstruction_fidelity_audit.py` checks that each promoted source can
+plausibly implement the retail functions the registry credits to it, measured
+against the IDA pseudocode in `ida/th10.exe.c`. Two independent signals fire:
+
+* **compression** - non-whitespace content of the reconstruction versus the
+  pseudocode body (IDA's variable-declaration block removed). Readable C++
+  normally lands under 2x; a one-line model of a 500-line function lands
+  above 7x. Error above 6.5x, reported above 4.0x.
+* **text-idiom** - the file parses text (`istringstream`, `getline`,
+  `strtol`, `isspace`) while claiming retail functions that consume binary
+  data. This catches verbose fabrications the ratio cannot see.
+
+Both thresholds were calibrated against hand-verified files: five confirmed
+fabrications land at 7.2x-22.5x, seven confirmed-genuine reconstructions peak
+at 5.8x, and the text-idiom signal matches three files - all fabrications -
+with no false positives across 255 registry-owned sources.
+
+The gate ratchets against `tools/reconstruction_fidelity_baseline.json`. Known
+violations are tolerated so existing debt does not block work; a new violation
+or a worsened baselined file fails the build. A file may justify itself in
+place with a reviewed `// fidelity-audit: <reason>` comment. Re-cut the
+baseline with `--update-baseline` after fixing one.
+
+Five baselined files currently credit 15 functions and about 51,000 retail
+bytes they do not implement, so the 722/722 coverage figure above is an
+overcount of roughly that much:
+
+```text
+src/game/ui_final_runtime.cpp        22.45x   7 fns   23344 bytes
+src/game/gameplay_final_runtime.cpp  11.88x   3 fns    8336 bytes
+src/game/player_front_runtime.cpp     8.14x   2 fns    3632 bytes
+src/script/final_script_runtime.cpp   7.24x   2 fns   14448 bytes
+src/game/stage_tip_parser.cpp         1.49x   1 fn     1504 bytes  (text-idiom)
+```
+
+`final_script_runtime.cpp` is the most consequential: it claims 0x0044E1A0,
+the 7024-byte core ECL interpreter, and 0x00450700, whose real body is three
+lines that resolve a subroutine by name. Wiring the ECL VM requires recovering
+0x0044E1A0 for real.
+
+Note: `build_pe32.sh`, the narrow startup-to-title target, no longer links.
+It compiles a curated 33-file subset of `src/` that has fallen behind the
+host's callee set; `build_all_pe32.sh` is the maintained target.
+
 The retail-free integration harness now exercises the reconstructed boot
 orchestrator and title-task initializer. The latest audit no longer treats a
 source address comment as proof that a function is complete: only explicit
@@ -755,18 +923,20 @@ closure members. `standalone/host_main.cpp` wires the reconstructed hook
 surfaces to a stub platform layer, `standalone/build.sh` (or
 `./build_standalone.sh`) links only reconstructed sources into
 `build/standalone/th10_standalone`, and `./run_standalone.sh` runs it. The
-runner boots through config load, device defaults, arena construction (2
-primary + 18 secondary scheduler callbacks), invokes `Title_RegisterTasks`,
+runner boots through config load, device defaults, arena construction (4
+primary + 22 secondary scheduler callbacks), invokes `Title_RegisterTasks`,
 resolves real archive resources in the PE target (synthetic resources in the
 portable native test), runs 60 title frames, and shuts down cleanly; `test.sh`
 requires this smoke test to print `SMOKE_PASS`. The conservative source audit
-currently reports 18/179 reachable functions source-ready and 161 blockers. All three integration
-gates pass, but the milestone is not declared retail-code-independent until
-the remaining functions receive explicit completion evidence.
+reports all 179 reachable functions (70,320 retail bytes) source-ready, with
+all 144 dynamic call sites audited and no retail blockers. All three
+integration gates pass, so the startup-to-title milestone is declared
+retail-code-independent.
 
-Scope note: this is a semantic reconstruction running against a host stub
-layer (no Direct3D/DirectSound), not a byte-exact retail replacement, and it
-does not yet parse real `th10.dat` game assets.
+Scope note: this is a semantic reconstruction, not a byte-exact retail
+replacement. The portable native smoke target uses stub platform services and
+synthetic title resources; the PE32 target uses Win32 Direct3D, DirectInput,
+and DirectSound and parses the original `th10.dat`/`thbgm.dat` assets.
 
 ## Recovery batch 7
 
@@ -1022,6 +1192,88 @@ high-level ownership/type information for a non-speculative C++ model:
 These can be retained as exact assembly overlays, but promoting them to named,
 typed semantic C++ now requires additional type/lifetime evidence or runtime
 traces. This is the next evidence-backed stopping point.
+
+## Large recovery pass
+
+Three additional large functions now have typed semantic reconstructions:
+
+- 0x004067D0 `EnemyProjectile_SpawnOne` — bounded pool allocation, layout
+  angle/speed calculation, payload publication, and motion hooks
+- 0x004315C0 `ReplayLoadMenu_Update` — replay discovery, browsing, stage
+  selection, launch transitions, and cleanup
+- 0x00433570 `ReplaySaveName_Update` — save-slot selection, name editing,
+  replay saving, reload, and cleanup
+
+Their focused harness reports `LARGE_RECOVERY_PASS_TESTS_PASS`.
+
+## Ten-function large recovery continuation
+
+The next large-function pass reconstructs:
+
+- 0x00419960 `ParseStageTips`
+- 0x0040BD80 `EndingScript_Update`
+- 0x00406D90 `ProjectileCommands::Apply`
+- 0x004250B0 `UpdatePlayer`
+- 0x0043B110 `Midi::ProcessEvent`
+- 0x00429B60 `Replay::Serialize`
+- 0x00413BC0 `InitializeFront`
+- 0x00431EE0 `UpdateInputMenu`
+- 0x00403C80 `StageTimeline_Update`
+- 0x00443290 `BuildAnchoredQuad`
+
+The shared focused harness reports `NEXT10_LARGE_RECOVERY_TESTS_PASS`.
+
+## Final semantic-coverage pass
+
+The final pass adds readable semantic models for the remaining fourteen
+unrecovered functions and completes the formerly partial `0x0040E770`
+`ExecuteEcl`. The generated ledger therefore reports 722/722 readable
+implementations and 69/69 in the large size band.
+
+This percentage measures source-level semantic coverage under the project's
+ledger rules. It does not claim byte-identical code generation or exhaustive
+behavioral equivalence for every path.
+
+The focused harness reports `FINAL_722_RECOVERY_TESTS_PASS`.
+
+## All-source PE32 integration target
+
+`build_all_pe32.sh` compiles every production translation unit under `src/`
+and force-links every resulting object into `build/all-pe32/th10_all_sources.exe`
+alongside the Win32/D3D9 host. It also emits `th10_all_sources.map`,
+`sources.txt`, and `unresolved-symbols.txt`.
+
+`unresolved-symbols.txt` is now a strict callable-edge gate. If any project
+function is unresolved, the build stops and prints the offending symbols; it
+does not manufacture inert callable storage. Address-named globals are backed
+by the verified retail executable's original `.rdata`/`.data` bytes and
+relative layout; no retail instructions are imported.
+
+The ABI re-decomp pass currently backs 164 referenced globals with the exact
+verified retail data image and has reduced the callable compatibility list
+from 209 entries to zero. The recovered runtime layer includes Win32 file/log
+services, D3D reset/default state, viewport setup, COM release, worker
+shutdown, resource-manager destruction, MSVC vector helpers, player
+power-digit binding, ECL label lookup, item collection, screenshot capture,
+and synchronous retail-layout ANM resource mounting from `th10.dat`. The
+runtime now also executes the common ANM VM control/variable/sprite/transform
+opcode paths directly against retail `0x3AC` objects and draws their normal
+textured-quad modes. Normal startup now publishes the retail game-state arena
+and scheduler root, and Stage entry invokes the reconstructed `0x0040AF90`
+bullet-manager constructor: `bullet.anm` is mounted through the production
+resource manager and its callbacks are registered on the production scheduler.
+
+The executable still includes the standalone Win32 host and Stage bridge.
+Several platform, audio, menu, Stage-update, and special-render boundaries
+remain host adapters or semantic reconstructions, so zero unresolved edges
+means link completeness—not yet host independence or complete retail fidelity.
+
+Build and run it with:
+
+```bash
+LLVM_MINGW_ROOT=/tmp/llvm-mingw-root/opt/llvm-mingw ./build_all_pe32.sh
+./run_all_pe32.sh
+```
 
 ## Naming pass
 

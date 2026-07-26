@@ -15,6 +15,30 @@
 // offsets hold on the 64-bit host as well.
 
 constexpr uint32_t kScoreFileBytes = 0x437C;
+constexpr uint32_t kScoreStatsBytes = 0x448;
+
+struct ScoreArchiveLoadState {
+    uint8_t* packed;
+    uint8_t* unpacked;
+    uint8_t* score_sections;
+    uint8_t* stats_section;
+};
+
+struct ScoreArchiveLoadHooks {
+    void (*decrypt)(uint8_t* data, uint32_t size, uint8_t key,
+                    uint8_t step, uint32_t length);
+    void (*decompress)(const uint8_t* source, uint32_t source_size,
+                       uint8_t* destination, uint32_t destination_size);
+    void* (*allocate)(uint32_t size);
+    void (*free_memory)(void* memory);
+};
+
+// 0x0042B030 - Validate and unpack a TH10 score archive, copying valid
+// checksummed CR sections into their indexed 0x437C-byte slots and the ST
+// section into its 0x448-byte destination. Invalid input is replaced with a
+// minimal 24-byte TH10/version-3 header.
+int ScoreArchive_LoadSections(ScoreArchiveLoadState* state,
+                              const ScoreArchiveLoadHooks* hooks);
 
 // 0x0042ACB0 - Reset a score file to the retail defaults: wipe the
 // whole blob, write the 'CR' header, seed each difficulty with scores

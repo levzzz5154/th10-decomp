@@ -21,6 +21,12 @@ struct EmbeddedTimerState {
 
 void FrameTimer_Tick(FrameTimer* timer);
 void FrameTimer_Advance(FrameTimer* timer, float delta);
+
+// Defined in src/math/math_utils.cpp. Both install the shared time scale and
+// the initialized bit on first use, then overwrite the sentinel they just
+// wrote; callers such as 0x0040D280 and 0x00415B00 reuse them directly.
+void Timer_Set(FrameTimer* timer, int target);
+void Timer_Reset(FrameTimer* timer);
 void GameState_SetTimerTarget(unsigned char* state, int owner_value,
                               int target, const float* speed);
 void GameState_DisableTimerWithOwner(void* state, int owner);

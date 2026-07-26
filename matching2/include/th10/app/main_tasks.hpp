@@ -23,6 +23,29 @@ struct MainTaskState {
 
 int MainTasks_Register(MainTaskState* state, const MainTaskHooks* hooks);
 
+// Host-facing view of the fields read by the primary input callback at
+// 0x0041FF80. The retail fields live at owner+0x3CC, +0x63C, and +0x648.
+struct MainInputTaskState {
+    signed char replay_state;
+    void* replay_handle;
+    int callback_result;
+};
+
+struct MainInputTaskHooks {
+    void* context;
+    int* mode; // DAT_00491FB8
+    void (*advance_input)(void* context); // 0x00421E00
+    void (*poll_devices)(void* context);  // 0x0044A5F0
+    int (*resource_busy)(void* context);  // 0x00447700
+    int (*apply_requested_mode)(void* context); // 0x004218D0
+};
+
+// Semantic reconstruction of the primary scheduler callback. Returns the
+// retail scheduler status: 4 while resources/transition state are busy,
+// 1 for a non-special callback result, or the mode-apply result otherwise.
+int MainInputTask_Run(const MainInputTaskState* state,
+                      const MainInputTaskHooks* hooks);
+
 struct MainTaskShutdownHooks {
     void* context;
     void (*log_frame_marker)(void* context);        // 0x0044C150

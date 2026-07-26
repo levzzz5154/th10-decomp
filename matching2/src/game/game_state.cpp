@@ -5,10 +5,16 @@
 // =============================================================================
 #include "th10/game/game_state.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/archive/resource_manager.hpp"
+#include "th10/render/animation_manager.hpp"
+
+#include <cstring>
+#include <cmath>
 
 extern "C" void* operator_new(uint32_t size);
 extern "C" void _free(void*);
 extern void* g_pGameStateManager;
+extern void* g_pD3DDevice;
 extern uint32_t DAT_00476f78;
 extern uint32_t DAT_004776e4;    // current game state
 extern uint32_t DAT_004776e8;    // previous game state
@@ -25,11 +31,12 @@ void __fastcall Entity_Constructor(Entity* e);
 void __fastcall Entity_Destructor(Entity* e);
 void __fastcall Entity_Init(void* unused, Entity* entity);
 
-int  GameState_InitializeRenderResources(void* this_);
+int GameState_LoadStageScript(GameState* state, const char* path);
 void Platform_LogMessage(const char* msg);
 void Render_UpdateCameraMatrices(void);
 void Scheduler_UnregisterCallback(void* handle, int dev);
-void ResourceManager_DestroyContents(void* mgr);
+void ResourceManager_DestroyResource(void* manager, void* resource);
+int* ResourceManager_FindResource(int type, void* manager, const char* name);
 
 extern "C" void __stdcall EnterCriticalSection(void* cs);
 extern "C" void __stdcall LeaveCriticalSection(void* cs);
@@ -39,6 +46,25 @@ extern uint8_t  DAT_0049231c;    // critical section count
 int GameState_Update(GameState* state);
 int GameState_Draw(GameState* state);
 int GameState_AfterDraw(GameState* state);
+
+namespace {
+
+void GameState_SetRenderState(unsigned int state, unsigned int value) {
+#if defined(_WIN32)
+    if (g_pD3DDevice != nullptr) {
+        using Method = long(__stdcall*)(
+            void*, unsigned int, unsigned int);
+        auto** table = *reinterpret_cast<void***>(g_pD3DDevice);
+        reinterpret_cast<Method>(table[57])(
+            g_pD3DDevice, state, value);
+    }
+#else
+    (void)state;
+    (void)value;
+#endif
+}
+
+} // namespace
 
 static int __fastcall GameState_UpdateCallback(void* owner) {
     return GameState_Update((GameState*)owner);
@@ -50,6 +76,263 @@ static int __fastcall GameState_DrawCallback(void* owner) {
 
 static int __fastcall GameState_AfterDrawCallback(void* owner) {
     return GameState_AfterDraw((GameState*)owner);
+}
+
+// 0x00402720 - primary gameplay ANM draw pass. The retail callback receives
+// the owner in EAX through the 0x00403050 adapter.
+int GameState_Update(GameState* gameState) {
+    if (gameState == nullptr)
+        return 1;
+    auto* state = reinterpret_cast<unsigned char*>(gameState);
+    const unsigned int flags =
+        *reinterpret_cast<unsigned int*>(state + 0x2a18);
+    if ((flags & 8u) != 0 ||
+        ((flags & 4u) != 0 &&
+         *reinterpret_cast<int*>(state + 0x2a20) >= 60))
+        return 1;
+
+    std::memset(state + 0x2b34, 0, 5 * sizeof(float));
+    const float* source = reinterpret_cast<const float*>(state + 0x2a58);
+    float* normalized = reinterpret_cast<float*>(state + 0x2a70);
+    const float length = std::sqrt(
+        source[0] * source[0] + source[1] * source[1] +
+        source[2] * source[2]);
+    if (length > 0.0f) {
+        normalized[0] = source[0] / length;
+        normalized[1] = source[1] / length;
+        normalized[2] = source[2] / length;
+    } else {
+        normalized[0] = normalized[1] = normalized[2] = 0.0f;
+    }
+    *reinterpret_cast<unsigned int*>(state + 0x1ee8) = 0x00808080u;
+    for (unsigned int index = 0; index < 8; ++index) {
+        auto* animation = reinterpret_cast<AnimationObject*>(
+            state + 0x180 + index * 0x3ac);
+        AnimationObject_Render(g_pGameStateManager, animation);
+    }
+    const unsigned int saved_speed = DAT_00476f78;
+    if (*reinterpret_cast<int*>(state + 0x1eec) != 0) {
+        DAT_00476f78 = 0x3f800000u;
+        for (unsigned int index = 0; index < 3; ++index) {
+            auto* animation = reinterpret_cast<AnimationObject*>(
+                state + 0x1f08 + index * 0x3ac);
+            AnimationObject_Render(g_pGameStateManager, animation);
+        }
+    }
+    DAT_00476f78 = saved_speed;
+    *reinterpret_cast<int*>(state + 0x1eec) = 0;
+    std::memcpy(DAT_00491d7c, state + 0x2a4c,
+                0x46 * sizeof(unsigned int));
+    ++*reinterpret_cast<int*>(state + 0x2a34);
+    return 1;
+}
+
+// 0x00402850 - main gameplay composite and transition pass.
+int GameState_Draw(GameState* gameState) {
+    if (gameState == nullptr)
+        return 1;
+    auto* state = reinterpret_cast<unsigned char*>(gameState);
+    unsigned int& flags =
+        *reinterpret_cast<unsigned int*>(state + 0x2a18);
+    if ((flags & 8u) != 0)
+        return 1;
+
+    const bool normal_pass =
+        (flags & 4u) == 0 ||
+        *reinterpret_cast<int*>(state + 0x2a20) < 60;
+    if (normal_pass) {
+        std::memcpy(DAT_00491d7c, state + 0x2a4c,
+                    0x46 * sizeof(unsigned int));
+        GameState_SetRenderState(23, 4); // ZFUNC, LESSEQUAL
+        GameState_SetRenderState(
+            34, *reinterpret_cast<unsigned int*>(state + 0x2b60));
+        GameState_SetRenderState(
+            36, *reinterpret_cast<unsigned int*>(state + 0x2b48));
+        GameState_SetRenderState(
+            37, *reinterpret_cast<unsigned int*>(state + 0x2b4c));
+    }
+
+    int& transition = *reinterpret_cast<int*>(state + 0x2a20);
+    if ((flags & 4u) != 0) {
+        if (transition < 30) {
+            flags |= 1u;
+            if (transition < 1)
+                transition = 1;
+        } else {
+            state[0x1eeb] = 0;
+            flags &= ~1u;
+        }
+    }
+
+    if (g_pGameStateManager != nullptr) {
+        auto* manager =
+            static_cast<unsigned char*>(g_pGameStateManager);
+        if (state[0x1eeb] != 0) {
+            *reinterpret_cast<unsigned int*>(manager + 0x73245c) = 1;
+            *reinterpret_cast<unsigned int*>(manager + 0x732458) =
+                *reinterpret_cast<unsigned int*>(state + 0x1ee8);
+        }
+    }
+    std::memset(state + 0x2a0c, 0, 3 * sizeof(unsigned int));
+
+    if ((flags & 1u) != 0) {
+        GameState_SetRenderState(14, 0); // ZWRITEENABLE
+        GameState_SetRenderState(23, 4);
+        for (int bucket = 0; bucket < 8; ++bucket)
+            AnimationManager_RenderBucket(g_pGameStateManager, bucket);
+        if (*reinterpret_cast<int*>(state + 0x514) != 0) {
+            for (unsigned int index = 0; index < 8; ++index) {
+                auto* animation = reinterpret_cast<AnimationObject*>(
+                    state + 0x180 + index * 0x3ac);
+                auto* object =
+                    reinterpret_cast<unsigned char*>(animation);
+                if (*reinterpret_cast<void**>(object + 0x394) != nullptr)
+                    AnimationObject_Render(
+                        g_pGameStateManager, animation);
+            }
+        }
+        if (*reinterpret_cast<int*>(state + 0x1ee4) != 0)
+            ++*reinterpret_cast<int*>(state + 0x1ee4);
+    }
+
+    if (g_pGameStateManager != nullptr) {
+        auto* manager =
+            static_cast<unsigned char*>(g_pGameStateManager);
+        *reinterpret_cast<unsigned int*>(manager + 0x73245c) =
+            *reinterpret_cast<int*>(state + 0x1eec) != 0 ? 1u : 0u;
+        *reinterpret_cast<unsigned int*>(manager + 0x732458) =
+            *reinterpret_cast<int*>(state + 0x1eec) != 0 ?
+                0xff404040u : 0x80808080u;
+    }
+    GameState_SetRenderState(14, 0);
+    GameState_SetRenderState(23, 4);
+    return 1;
+}
+
+// 0x00402CA0 - late composite/transition pass.
+int GameState_AfterDraw(GameState* gameState) {
+    if (gameState == nullptr)
+        return 1;
+    auto* state = reinterpret_cast<unsigned char*>(gameState);
+    const unsigned int flags =
+        *reinterpret_cast<unsigned int*>(state + 0x2a18);
+    if ((flags & 8u) != 0)
+        return 1;
+
+    const bool normal_pass =
+        (flags & 4u) == 0 ||
+        *reinterpret_cast<int*>(state + 0x2a20) < 60;
+    if (normal_pass) {
+        std::memcpy(DAT_00491d7c, state + 0x2a4c,
+                    0x46 * sizeof(unsigned int));
+        GameState_SetRenderState(14, 0); // ZWRITEENABLE
+        GameState_SetRenderState(23, 8); // ZFUNC, ALWAYS
+        GameState_SetRenderState(27, 1); // ALPHABLENDENABLE
+        AnimationManager_RenderBucket(g_pGameStateManager, 8);
+        GameState_SetRenderState(23, 4); // ZFUNC, LESSEQUAL
+        GameState_SetRenderState(27, 0);
+        AnimationManager_RenderBucket(g_pGameStateManager, 4);
+        GameState_SetRenderState(
+            24, // ALPHAREF
+            *reinterpret_cast<unsigned int*>(state + 0x2b60));
+        GameState_SetRenderState(
+            7, // ZENABLE
+            *reinterpret_cast<unsigned int*>(state + 0x2b48));
+        GameState_SetRenderState(
+            8, // FILLMODE
+            *reinterpret_cast<unsigned int*>(state + 0x2b4c));
+    }
+
+    if ((flags & 4u) != 0 &&
+        *reinterpret_cast<int*>(state + 0x2a20) > 29)
+        state[0x1eeb] = 0;
+    if ((flags & 1u) != 0) {
+        GameState_SetRenderState(14, 0);
+        GameState_SetRenderState(27, 1);
+        AnimationManager_RenderBucket(g_pGameStateManager, 4);
+    }
+    if (g_pGameStateManager != nullptr) {
+        auto* manager =
+            static_cast<unsigned char*>(g_pGameStateManager);
+        *reinterpret_cast<unsigned int*>(manager + 0x73245c) = 0;
+        *reinterpret_cast<unsigned int*>(manager + 0x732458) =
+            *reinterpret_cast<int*>(state + 0x1eec) != 0 ?
+                0xff404040u : 0x80808080u;
+        if (*reinterpret_cast<int*>(state + 0x1eec) != 0)
+            *reinterpret_cast<unsigned int*>(manager + 0x73245c) = 1;
+    }
+    GameState_SetRenderState(14, 0);
+    GameState_SetRenderState(23, 8);
+    int& transition = *reinterpret_cast<int*>(state + 0x2a20);
+    if (transition > 0 && --transition < 1) {
+        state[0x1eeb] = 0xff;
+        unsigned int& mutable_flags =
+            *reinterpret_cast<unsigned int*>(state + 0x2a18);
+        if ((mutable_flags & 2u) != 0)
+            mutable_flags |= 8u;
+        *reinterpret_cast<unsigned int*>(state + 0x1ee8) = 0x00ffffffu;
+        mutable_flags &= ~6u;
+    }
+    GameState_SetRenderState(27, 0);
+    return 1;
+}
+
+// Runtime binding of retail 0x00403850. The original receives the GameState
+// in EBX and the stage path on the stack; keeping both explicit avoids the
+// incorrect one-argument "render resource" shim previously used here.
+int GameState_LoadStageScript(GameState* gameState, const char* path) {
+    if (gameState == nullptr || path == nullptr)
+        return -1;
+    auto* state = reinterpret_cast<unsigned char*>(gameState);
+    auto*& cached = *reinterpret_cast<unsigned char**>(state + 0x2a44);
+    auto& cached_size = *reinterpret_cast<unsigned int*>(state + 0x2a48);
+    if (cached == nullptr) {
+        cached_size = Resource_GetFileSize(path);
+        if (cached_size == 0)
+            return -1;
+        cached = Resource_LoadFile(path, nullptr);
+        if (cached == nullptr)
+            return -1;
+    }
+
+    auto* image = static_cast<unsigned char*>(operator_new(cached_size));
+    if (image == nullptr)
+        return -1;
+    std::memcpy(image, cached, cached_size);
+    *reinterpret_cast<unsigned char**>(state + 0x10) = image;
+
+    if (cached_size < 0x90)
+        return -1;
+    const int resource_mode =
+        static_cast<int>(*reinterpret_cast<unsigned int*>(
+            state + 0x2a30) & 1u) + 4;
+    int* companion = ResourceManager_FindResource(
+        resource_mode, g_pGameStateManager,
+        reinterpret_cast<const char*>(image + 0x10));
+    *reinterpret_cast<int**>(state + 0x178) = companion;
+    if (companion == nullptr)
+        return -1;
+
+    const unsigned int sub_count =
+        *reinterpret_cast<const unsigned short*>(image);
+    const unsigned int object_count =
+        *reinterpret_cast<const unsigned short*>(image + 2);
+    if (sub_count > (cached_size - 0x90) / 4)
+        return -1;
+    auto* sub_table = reinterpret_cast<unsigned int*>(image + 0x90);
+    *reinterpret_cast<unsigned int**>(state + 0x14) = sub_table;
+    *reinterpret_cast<unsigned char**>(state + 0x18) =
+        image + *reinterpret_cast<unsigned int*>(image + 4);
+    *reinterpret_cast<unsigned char**>(state + 0x1c) =
+        image + *reinterpret_cast<unsigned int*>(image + 8);
+    for (unsigned int index = 0; index < sub_count; ++index) {
+        if (sub_table[index] >= cached_size)
+            return -1;
+        sub_table[index] += reinterpret_cast<unsigned int>(image);
+    }
+    void* pool = operator_new(object_count * 0x3acu);
+    *reinterpret_cast<void**>(state + 0x17c) = pool;
+    return pool != nullptr || object_count == 0 ? 0 : -1;
 }
 
 // ============================================================================
@@ -123,7 +406,7 @@ GameState* GameState_Construct(GameState* gameState) {
 //   Initialize scheduler chain at state+0x38..0x48
 //   state+0x2A18 |= 1; state+0x94 = 0; state+0xE0 = 0
 // ============================================================================
-int GameState_Init(void* manager, GameState* gameState, int stateId) {
+int GameState_Init(void* stagePath, GameState* gameState, int stateId) {
     uint8_t* state = (uint8_t*)gameState;
     int initialization_result;
 
@@ -137,7 +420,8 @@ int GameState_Init(void* manager, GameState* gameState, int stateId) {
     }
     *(uint32_t*)(state + 0x2A30) = DAT_00474c7c;
 
-    initialization_result = GameState_InitializeRenderResources(manager);
+    initialization_result = GameState_LoadStageScript(
+        gameState, static_cast<const char*>(stagePath));
     if (initialization_result == 0) {
         // Copy default render config (0x46 dwords)
         uint32_t* src = &DAT_00491d7c[0];
@@ -269,7 +553,8 @@ void GameState_Destroy(GameState* gameState) {
         if (slot < 0x21) {
             uint32_t* slotPtr = (uint32_t*)((int)g_pGameStateManager + slot * 4 + 0x3AD06C);
             if (*slotPtr != 0) {
-                ResourceManager_DestroyContents(g_pGameStateManager);
+                ResourceManager_DestroyResource(
+                    g_pGameStateManager, (void*)*slotPtr);
                 _free((void*)*slotPtr);
                 *slotPtr = 0;
             }

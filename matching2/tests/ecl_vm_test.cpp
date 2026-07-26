@@ -1,4 +1,5 @@
 #include "th10/script/ecl.hpp"
+#include "th10/math/timer.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -16,11 +17,21 @@ float DAT_00470b94 = 3.1415927f;
 extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
 extern "C" void AnimationManager_SetEclFlag(void) {}
 extern "C" void AnimationManager_ClearEclFlag(void) {}
-static int g_difficulty_action = -1;
 static int g_string_index;
 static char g_string_text[256];
 static unsigned int g_string_length;
-extern "C" void ECL_SetTimerTarget(int value) { g_difficulty_action = value; }
+void Timer_Set(FrameTimer* timer, int target) {
+    if ((timer->flags & 1u) == 0) {
+        timer->previous = -1;
+        timer->current = 0;
+        timer->elapsed = 0.0f;
+        timer->speed = reinterpret_cast<const float*>(&DAT_00476f78);
+        timer->flags |= 1u;
+    }
+    timer->current = target;
+    timer->previous = target - 1;
+    timer->elapsed = static_cast<float>(target);
+}
 
 static void CaptureEncryptedString(int index, const char* text,
                                    unsigned int length) {
@@ -469,15 +480,13 @@ void TestRecoveredLeafDispatcher() {
     // 0x14d / 0x14f: reset / assign timer target.
     fixture.instruction.instruction.opcode = 0x14d;
     fixture.instruction.instruction.param_mask = 0;
-    g_difficulty_action = -1;
     assert(ECL_VM_Dispatch(entity) == 0);
-    assert(g_difficulty_action == 0);
+    assert(reinterpret_cast<FrameTimer*>(entity + 0x11c)->current == 0);
     fixture.instruction.instruction.opcode = 0x14f;
     fixture.instruction.instruction.param_mask = 0;
     fixture.Operands()[0] = 73;
-    g_difficulty_action = -1;
     assert(ECL_VM_Dispatch(entity) == 0);
-    assert(g_difficulty_action == 73);
+    assert(reinterpret_cast<FrameTimer*>(entity + 0x141c)->current == 73);
 
     // 0x153: 64-bit-safe paths.  The retail binary stores a 32-bit pointer
     // at manager+0x9eb8, so the live-boss dereference can only be exercised

@@ -83,6 +83,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/game/stage_text.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
+    "$ROOT/src/render/anm_entry_load.cpp" \
     "$ROOT/tests/game_runtime_test.cpp" \
     -o "$TEST_BUILD/game_runtime_test"
 
@@ -183,6 +184,74 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -o "$TEST_BUILD/animation_slot_test"
 
 "$TEST_BUILD/animation_slot_test"
+
+# ANM archive-entry loader (0x00447470) and shared sprite arithmetic.
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/render/anm_entry_load.cpp" \
+    "$ROOT/tests/anm_entry_load_test.cpp" \
+    -o "$TEST_BUILD/anm_entry_load_test"
+"$TEST_BUILD/anm_entry_load_test"
+
+# Per-slot game-state snapshot capture/restore (0x0042A450).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/slot_snapshot.cpp" \
+    "$ROOT/tests/slot_snapshot_test.cpp" \
+    -o "$TEST_BUILD/slot_snapshot_test"
+"$TEST_BUILD/slot_snapshot_test"
+
+# Four-block parameter interpolator (0x004049A0).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/math/param_block_interp.cpp" \
+    "$ROOT/src/math/math_utils.cpp" \
+    "$ROOT/src/math/easing.cpp" \
+    "$ROOT/tests/param_block_interp_test.cpp" \
+    -o "$TEST_BUILD/param_block_interp_test"
+"$TEST_BUILD/param_block_interp_test"
+
+# Rectangular entity-pool region sweep (0x00408210).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/entity_region_sweep.cpp" \
+    "$ROOT/tests/entity_region_sweep_test.cpp" \
+    -o "$TEST_BUILD/entity_region_sweep_test"
+"$TEST_BUILD/entity_region_sweep_test"
+
+# Gameplay render/transition pass (0x00402850).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/gameplay_render_pass.cpp" \
+    "$ROOT/tests/gameplay_render_pass_test.cpp" \
+    -o "$TEST_BUILD/gameplay_render_pass_test"
+"$TEST_BUILD/gameplay_render_pass_test"
+
+# Message host construction (0x0040D280).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/message_host_init.cpp" \
+    "$ROOT/src/math/math_utils.cpp" \
+    "$ROOT/tests/message_host_init_test.cpp" \
+    -o "$TEST_BUILD/message_host_init_test"
+"$TEST_BUILD/message_host_init_test"
+
+# Per-stage slot construction (0x00415B00).
+g++ -std=c++17 -Wall -Wextra -Werror \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    -I"$ROOT/include" \
+    "$ROOT/src/game/stage_slot_state.cpp" \
+    "$ROOT/src/game/entity_region_sweep.cpp" \
+    "$ROOT/src/math/math_utils.cpp" \
+    "$ROOT/tests/stage_slot_state_test.cpp" \
+    -o "$TEST_BUILD/stage_slot_state_test"
+"$TEST_BUILD/stage_slot_state_test"
 
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
@@ -402,6 +471,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/weather_pool.cpp" \
     "$ROOT/src/script/ecl_vm_children.cpp" \
     "$ROOT/src/game/manager_factories.cpp" \
+    "$ROOT/src/game/message_manager_init.cpp" \
     "$ROOT/src/game/bullet_manager.cpp" \
     "$ROOT/src/game/enemy_lifecycle.cpp" \
     "$ROOT/src/game/boss_overlays.cpp" \
@@ -822,6 +892,147 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/tests/stage_timeline_test.cpp" \
     -o "$TEST_BUILD/stage_timeline_test"
 "$TEST_BUILD/stage_timeline_test"
+
+"$CXX" "${CXXFLAGS[@]}" \
+    -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
+    "$ROOT/src/app/main_tasks.cpp" \
+    "$ROOT/src/game/manager_factories.cpp" \
+    "$ROOT/src/game/message_manager_init.cpp" \
+    "$ROOT/src/game/stage_tips.cpp" \
+    "$ROOT/src/platform/midi_sequencer.cpp" \
+    "$ROOT/src/render/anm_distance_color.cpp" \
+    "$ROOT/tests/coverage_completion_test.cpp" \
+    -o "$TEST_BUILD/coverage_completion_test"
+"$TEST_BUILD/coverage_completion_test"
+
+# Replay-score detail page (0x004329F0).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/replay_score_draw.cpp" \
+    "$ROOT/tests/replay_score_draw_test.cpp" \
+    -o "$TEST_BUILD/replay_score_draw_test"
+"$TEST_BUILD/replay_score_draw_test"
+
+# Game-state animation/overlay pass (0x00415800).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/game_state_overlay_draw.cpp" \
+    "$ROOT/tests/game_state_overlay_draw_test.cpp" \
+    -o "$TEST_BUILD/game_state_overlay_draw_test"
+"$TEST_BUILD/game_state_overlay_draw_test"
+
+# Stage focus fade updater (0x00419650).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/stage_focus_fade.cpp" \
+    "$ROOT/tests/stage_focus_fade_test.cpp" \
+    -o "$TEST_BUILD/stage_focus_fade_test"
+"$TEST_BUILD/stage_focus_fade_test"
+
+# Replay browser list/detail renderer (0x00431BA0).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/replay_browser_draw.cpp" \
+    "$ROOT/tests/replay_browser_draw_test.cpp" \
+    -o "$TEST_BUILD/replay_browser_draw_test"
+"$TEST_BUILD/replay_browser_draw_test"
+
+# Replay stage/name-entry renderer (0x00433230).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/replay_stage_name_draw.cpp" \
+    "$ROOT/tests/replay_stage_name_draw_test.cpp" \
+    -o "$TEST_BUILD/replay_stage_name_draw_test"
+"$TEST_BUILD/replay_stage_name_draw_test"
+
+# Final medium-band recovery set.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/bullet_runtime_update.cpp" \
+    "$ROOT/src/game/menu_flow_updates.cpp" \
+    "$ROOT/src/game/replay_spell_list.cpp" \
+    "$ROOT/tests/medium_completion_test.cpp" \
+    -o "$TEST_BUILD/medium_completion_test"
+"$TEST_BUILD/medium_completion_test"
+
+# Practice-stage selection state machine (0x00430FF0).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/practice_stage_menu.cpp" \
+    "$ROOT/tests/practice_stage_menu_test.cpp" \
+    -o "$TEST_BUILD/practice_stage_menu_test"
+"$TEST_BUILD/practice_stage_menu_test"
+
+# Runtime score-panel updater (0x00408D60).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/score_runtime_ui_update.cpp" \
+    "$ROOT/tests/score_runtime_ui_update_test.cpp" \
+    -o "$TEST_BUILD/score_runtime_ui_update_test"
+"$TEST_BUILD/score_runtime_ui_update_test"
+
+# Laser segment circle/rectangle cutters (0x0041EFA0, 0x0041EB00).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/laser_segment_cut.cpp" \
+    "$ROOT/tests/laser_segment_cut_test.cpp" \
+    -o "$TEST_BUILD/laser_segment_cut_test"
+"$TEST_BUILD/laser_segment_cut_test"
+
+# Title runtime and effect-indicator queue updates.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/effect_indicator_queue.cpp" \
+    "$ROOT/src/game/title_menu_runtime.cpp" \
+    "$ROOT/tests/large_runtime_updates_test.cpp" \
+    -o "$TEST_BUILD/large_runtime_updates_test"
+"$TEST_BUILD/large_runtime_updates_test"
+
+# Replay bootstrap and result-choice state machines.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/replay_runtime_bootstrap.cpp" \
+    "$ROOT/src/game/result_choice_menu.cpp" \
+    "$ROOT/tests/replay_result_runtime_test.cpp" \
+    -o "$TEST_BUILD/replay_result_runtime_test"
+"$TEST_BUILD/replay_result_runtime_test"
+
+# Name-entry and shot-practice menu completion.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/name_entry.cpp" \
+    "$ROOT/src/game/shot_practice_menu.cpp" \
+    "$ROOT/tests/menu_completion_test.cpp" \
+    -o "$TEST_BUILD/menu_completion_test"
+"$TEST_BUILD/menu_completion_test"
+
+# Player runtime initializer (0x004247F0).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/player_runtime_init.cpp" \
+    "$ROOT/tests/player_runtime_init_test.cpp" \
+    -o "$TEST_BUILD/player_runtime_init_test"
+"$TEST_BUILD/player_runtime_init_test"
+
+# Enemy-projectile spawn and replay load/save menu runtimes
+# (0x004067D0, 0x004315C0, 0x00433570).
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/enemy_projectile_spawn.cpp" \
+    "$ROOT/src/game/replay_menu_runtime.cpp" \
+    "$ROOT/tests/large_recovery_pass_test.cpp" \
+    -o "$TEST_BUILD/large_recovery_pass_test"
+"$TEST_BUILD/large_recovery_pass_test"
+
+# Ten-function large recovery continuation.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/stage_tip_parser.cpp" \
+    "$ROOT/src/game/event_script_runtime.cpp" \
+    "$ROOT/src/game/projectile_command_runtime.cpp" \
+    "$ROOT/src/game/player_front_runtime.cpp" \
+    "$ROOT/src/platform/midi_event_runtime.cpp" \
+    "$ROOT/src/game/replay_large_runtime.cpp" \
+    "$ROOT/src/render/anchored_quad_draw.cpp" \
+    "$ROOT/tests/next10_large_recovery_test.cpp" \
+    -o "$TEST_BUILD/next10_large_recovery_test"
+"$TEST_BUILD/next10_large_recovery_test"
+
+# Final 15-function pass, including completion of ExecuteEcl.
+"$CXX" "${CXXFLAGS[@]}" \
+    "$ROOT/src/game/ui_final_runtime.cpp" \
+    "$ROOT/src/game/gameplay_final_runtime.cpp" \
+    "$ROOT/src/render/final_quad_pipeline.cpp" \
+    "$ROOT/src/platform/final_input_runtime.cpp" \
+    "$ROOT/src/script/final_script_runtime.cpp" \
+    "$ROOT/tests/final_722_recovery_test.cpp" \
+    -o "$TEST_BUILD/final_722_recovery_test"
+"$TEST_BUILD/final_722_recovery_test"
 
 # ---------------------------------------------------------------------------
 # Retail-free standalone runner: build it and require the startup-to-title

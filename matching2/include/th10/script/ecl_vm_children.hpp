@@ -39,3 +39,47 @@ EclChildVm* EclVm_SpawnChild(EclOwner* owner, void* script,
 int EclVm_TickChildren(EclOwner* owner, float frame_delta,
                        int (*tick)(EclOwner* owner, float delta),
                        void (*free_memory)(void* memory));
+
+union EclStartValue {
+    int int_value;
+    float float_value;
+};
+
+struct EclStartArgument {
+    char source_type;
+    char destination_type;
+    EclStartValue value;
+};
+
+struct EclStartInstruction {
+    const unsigned short* label;
+    const EclStartArgument* arguments;
+    unsigned int argument_count;
+};
+
+struct EclStartVm {
+    unsigned int instruction_offset;
+    void* instruction;
+    Byte stack[0x1000];
+    unsigned int stack_top;
+};
+
+struct EclStartOwner {
+    EclStartVm* active_vm;
+};
+
+struct EclStartHooks {
+    float (*resolve_float)(EclStartVm* parent, unsigned int argument_index,
+                           float encoded);
+    int (*resolve_int)(EclStartVm* parent, unsigned int argument_index,
+                       int encoded);
+    void* (*find_label)(const unsigned short* label);
+};
+
+// 0x0044DF70 - Marshal an ECL call's remaining arguments into a child VM,
+// install its entry label, and preserve/restore the owner's active VM.
+int EclVm_StartChild(EclStartVm* child, EclStartVm* parent,
+                     EclStartOwner* owner,
+                     const EclStartInstruction* instruction,
+                     unsigned int first_argument,
+                     const EclStartHooks* hooks);

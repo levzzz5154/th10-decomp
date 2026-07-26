@@ -93,3 +93,61 @@ void NameEntry_Init(NameEntry* entry, NameInitEnv* env) {
 	entry->name_len = length;
 	entry->failed = 0;
 }
+
+// 0x00432CB0 - edit the eight-character score name on a 13-column grid.
+// The PE32 body receives the menu object as its sole stack argument; the
+// apparent EAX/EDX inputs in Hex-Rays are scratch values for callees.
+int NameEntry_UpdateMenu(NameEntry* entry, int* phase, int phase_timer,
+                         const NameEntryMenuInput* input,
+                         const NameEntryMenuOps* ops) {
+	if (*phase == 1) {
+		if (phase_timer > 6) ops->set_phase(ops->context, 2);
+		return 1;
+	}
+	if (*phase == 2) {
+		if (!entry->failed) {
+			int old = entry->cursor;
+			if (input->held & 0x10u) ops->move_cursor(ops->context, entry, -13);
+			if (input->held & 0x20u) ops->move_cursor(ops->context, entry, 13);
+			if (input->held & 0x40u)
+				ops->move_cursor(ops->context, entry,
+				                   entry->cursor % 13 == 0 ? 12 : -1);
+			if (input->held & 0x80u)
+				ops->move_cursor(ops->context, entry,
+				                   entry->cursor % 13 == 12 ? -12 : 1);
+			if (old != entry->cursor) ops->play_sound(ops->context, 12);
+		}
+		if (input->pressed & 0x1001u) {
+			if (entry->failed) {
+				ops->set_phase(ops->context, 3);
+			} else {
+				const int normal = entry->charset_len - 3;
+				if (entry->cursor < normal) {
+					if (entry->name_len < 8)
+						entry->name[entry->name_len++] =
+							ops->charset[entry->cursor];
+				} else if (entry->cursor == normal) {
+					if (entry->name_len < 8) entry->name[entry->name_len++] = ' ';
+				} else if (entry->cursor == normal + 1) {
+					if (entry->name_len > 0) entry->name[--entry->name_len] = ' ';
+				} else {
+					entry->name[8] = '\0';
+					ops->commit_name(ops->context, entry->name);
+					ops->set_phase(ops->context, 3);
+				}
+			}
+			ops->play_sound(ops->context, 10);
+		}
+		if (input->pressed & 0xAu) {
+			if (entry->failed) ops->set_phase(ops->context, 3);
+			else if (entry->name_len > 0) {
+				entry->name[--entry->name_len] = ' ';
+				ops->play_sound(ops->context, 11);
+			}
+		}
+	} else if (*phase == 3 && phase_timer >= 6) {
+		ops->close_view(ops->context, 104);
+		ops->set_phase(ops->context, 16);
+	}
+	return 1;
+}

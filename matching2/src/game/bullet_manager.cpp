@@ -4,11 +4,34 @@
 #include "th10/game/player_motion.hpp"
 #include "th10/game/registered_clock.hpp"
 #include "th10/game/result_screen_effects.hpp"
+#include "th10/game/scheduler.hpp"
+#include "th10/runtime/missing_edge.hpp"
 #include "th10/util/scalars.hpp"
 
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+
+extern void* g_pGameStateManager;
+extern unsigned int DAT_00491be4;
+extern int* ResourceManager_FindResource(int type, void* manager,
+                                         const char* name);
+
+namespace {
+BulletPoolRuntimeBindings g_bullet_pool_bindings = {};
+
+int __fastcall BulletPool_UpdateCallback(void* owner) {
+    if (g_bullet_pool_bindings.update == 0)
+        Runtime_MissingEdge(0x004065C0u, "bullet-pool update");
+    return g_bullet_pool_bindings.update(owner);
+}
+
+int __fastcall BulletPool_DrawCallback(void* owner) {
+    if (g_bullet_pool_bindings.draw == 0)
+        Runtime_MissingEdge(0x004067A0u, "bullet-pool draw");
+    return g_bullet_pool_bindings.draw(owner);
+}
+}  // namespace
 
 // Each routine mirrors one retail function; the comment above each body
 // names the retail address it was recovered from.
@@ -81,6 +104,52 @@ int BulletManager_OnRegister(ManagerRegistration* manager,
         manager, update_callback, create, enqueue_update, queue);
     manager->draw = Scheduler_RegisterOwnedCallback(
         manager, draw_callback, create, enqueue_draw, queue);
+    return 0;
+}
+
+void BulletPoolRuntime_SetBindings(
+        const BulletPoolRuntimeBindings* bindings) {
+    if (bindings != 0)
+        g_bullet_pool_bindings = *bindings;
+    else
+        std::memset(&g_bullet_pool_bindings, 0,
+                    sizeof(g_bullet_pool_bindings));
+}
+
+// 0x00405E20 - Resolve bullet.anm, initialize the free cursor/state word, and
+// install the retail update/draw callback pair.
+int BulletPoolRuntime_Initialize(void* manager) {
+    if (manager == 0 || DAT_00491be4 == 0)
+        return -1;
+    unsigned char* bytes = (unsigned char*)manager;
+    int* animation =
+        ResourceManager_FindResource(7, g_pGameStateManager, "bullet.anm");
+    *(int**)(bytes + 0x3E0B50) = animation;
+    if (animation == 0)
+        return -1;
+    *(void**)(bytes + 0x10) = bytes + 0x60;
+    *(unsigned short*)(bytes + 0x3E07A6) = 5;
+
+    SchedulerCallback* update =
+        SchedulerCallback_Create(BulletPool_UpdateCallback);
+    if (update == 0)
+        return -1;
+    update->flags &= ~2u;
+    update->owner = manager;
+    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 8) = update;
+
+    SchedulerCallback* draw =
+        SchedulerCallback_Create(BulletPool_DrawCallback);
+    if (draw == 0) {
+        Scheduler_Remove(update, (void*)DAT_00491be4);
+        *(SchedulerCallback**)(bytes + 8) = 0;
+        return -1;
+    }
+    draw->flags &= ~2u;
+    draw->owner = manager;
+    Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)(bytes + 12) = draw;
     return 0;
 }
 

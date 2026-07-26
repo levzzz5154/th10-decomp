@@ -7,11 +7,14 @@
 #include "th10/game/entity.hpp"
 #include "th10/game/game_state.hpp"
 #include "th10/game/player.hpp"
+#include "th10/game/scheduler.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/render/animation_manager.hpp"
 
 extern void* g_pGameStateManager;
 extern uint32_t DAT_004776f4;    // player game state ptr
+extern uint32_t DAT_004776ec;    // live 0x48-byte player runtime
+extern uint32_t DAT_00491be4;    // scheduler device
 extern uint32_t DAT_004776f0;    // another game state
 extern uint32_t DAT_00477704;    // global config
 extern uint32_t DAT_00477834;    // player position source
@@ -24,6 +27,10 @@ extern float    _DAT_00470d34;   // alt speed
 extern float    _DAT_00470b0c;   // focused speed
 extern float    _DAT_00470b48;   // render-space Y offset
 extern float    _DAT_00470b4c;   // render-space X offset
+extern float    _DAT_00470b40;   // right gameplay bound
+extern float    _DAT_00470b3c;   // left gameplay bound
+extern float    _DAT_00470b04;   // lower gameplay bound
+extern float    _DAT_00470b38;   // upper gameplay bound
 extern uint32_t DAT_00476f78;     // timer sentinel
 
 // 0x004045B0 - Arm the player's startup scheduler and set its first value.
@@ -45,11 +52,54 @@ void Player_ArmSchedulerValue(void* scheduler, int) {
 
 void EnemyManager_CheckPlayerCollision(
     void* gameState, const float* position, float radius,
-    int allowEffect, int focused);
+    int allowEffect, int focused) {
+    if (gameState == nullptr || position == nullptr)
+        return;
+    auto* entry = static_cast<unsigned char*>(gameState) + 0x60;
+    for (int index = 0; index < 2000; ++index, entry += 0x7f0) {
+        const unsigned short phase =
+            *reinterpret_cast<unsigned short*>(entry + 0x446);
+        if (phase == 0 || phase == 3)
+            continue;
+        if (focused != 0 &&
+            *reinterpret_cast<int*>(entry + 4) != 0)
+            continue;
+        const float dx =
+            *reinterpret_cast<float*>(entry + 0x3b4) - position[0];
+        const float dy =
+            *reinterpret_cast<float*>(entry + 0x3b8) - position[1];
+        const float combined =
+            *reinterpret_cast<float*>(entry + 0x3f0) *
+                _DAT_00470b0c + radius;
+        if (dx * dx + dy * dy > combined * combined)
+            continue;
+
+        if (phase != 1 && phase != 2)
+            continue;
+        *reinterpret_cast<unsigned short*>(entry + 0x30c) = 1;
+        *reinterpret_cast<unsigned short*>(entry + 0x446) = 3;
+        const float x = *reinterpret_cast<float*>(entry + 0x3b4);
+        const float y = *reinterpret_cast<float*>(entry + 0x3b8);
+        const bool outside =
+            x + 8.0f > _DAT_00470b40 ||
+            x - 8.0f < _DAT_00470b3c ||
+            y + 8.0f > _DAT_00470b04 ||
+            y - 8.0f < _DAT_00470b38;
+        if (outside) {
+            *reinterpret_cast<unsigned int*>(entry) |= 8u;
+        } else {
+            auto* timer =
+                reinterpret_cast<FrameTimer*>(entry + 0x3f8);
+            Timer_Reset(timer);
+        }
+        // Retail optionally emits kind-8 feedback here through 0x0041BB00.
+        // The collision and lifetime transition do not depend on allocation
+        // succeeding (the item pool silently drops a full-pool request).
+        (void)allowEffect;
+    }
+}
 void ItemManager_CollectNearPlayer(
     void* itemManager, const float* position, float radius, int allowEffect);
-void AnimationManager_QueueGeneratedResource(void);
-void AnimationObject_SelectScript(int handle, int idx);
 void Player_UpdatePowerDisplay(int major_digits, int major_value, int minor_digits);
 void Player_ClearPowerDisplayFlags(void);
 
@@ -145,9 +195,6 @@ int Player_Init(Player* player) {
     player->animationHandle = PlayerAnimation_Create(
         *(void**)(DAT_004776f0 + 0x3E0B50), animationScratch,
         animationIndex, player->position);
-
-    // Initialize sprite
-    AnimationManager_QueueGeneratedResource();
 
     // Calculate power display
     int power = (int)DAT_00474c48;
@@ -262,8 +309,9 @@ int Player_Update(Player* player) {
             float speedAdjust;
             int playerState = DAT_004776f4;
             if ((*(uint8_t*)(playerState + 0x378C) & 1) == 0 ||
-                (*(int*)(playerState + 0x3788) < 0x5D || *(int*)(playerState + 0x3788) > 0x60) &&
-                *(int*)(playerState + 0x3788) != 0x6D) {
+                ((*(int*)(playerState + 0x3788) < 0x5D ||
+                  *(int*)(playerState + 0x3788) > 0x60) &&
+                 *(int*)(playerState + 0x3788) != 0x6D)) {
                 if (DAT_00474c68 == 0) {
                     speedAdjust = player->position[1] - _DAT_00470afc;
                 } else {
@@ -327,4 +375,104 @@ int Player_Draw(Player* player) {
             (void*)DAT_0047781c, player->position, hitbox, allowEffect);
     }
     return 0;
+}
+namespace {
+
+void PlayerManager_SetModeTimer(void* manager, int frames,
+                                unsigned int mode_bit) {
+    unsigned char* bytes = (unsigned char*)manager;
+    unsigned int* timer_flags = (unsigned int*)(bytes + 0x2A2C);
+    if ((*timer_flags & 1u) == 0) {
+        *(int*)(bytes + 0x2A20) = 0;
+        *(int*)(bytes + 0x2A1C) = (int)0xFFF0BDC1u;
+        *(int*)(bytes + 0x2A24) = 0;
+        *(uint32_t*)(bytes + 0x2A28) =
+            (uint32_t)(unsigned long)&DAT_00476f78;
+        *timer_flags |= 1u;
+    }
+    *(int*)(bytes + 0x2A20) = frames;
+    *(float*)(bytes + 0x2A24) = (float)frames;
+    *(int*)(bytes + 0x2A1C) = frames - 1;
+    *(unsigned int*)(bytes + 0x2A18) |= mode_bit;
+}
+
+}  // namespace
+
+// 0x00404530 - Create the stage-entry overlay and arm the 30-frame player
+// transition. The callback keeps the overlay factory as an honest boundary;
+// the timer block itself is an exact reconstruction.
+void PlayerManager_ArmIntroTimer(void* manager,
+                                 void (*create_overlay)(void)) {
+    if (create_overlay != 0)
+        create_overlay();
+    if (manager != 0)
+        PlayerManager_SetModeTimer(manager, 30, 2u);
+}
+
+// 0x004045B0 - Arm the companion 60-frame player mode.
+void PlayerManager_StartMode(void* manager) {
+    if (manager != 0)
+        PlayerManager_SetModeTimer(manager, 60, 4u);
+}
+
+namespace {
+
+int __fastcall PlayerRuntime_UpdateCallback(void* owner) {
+    return Player_Update((Player*)owner);
+}
+
+int __fastcall PlayerRuntime_DrawCallback(void*) {
+    return 1;
+}
+
+}  // namespace
+
+// 0x004055C0 - Publish the live player runtime and install its retail update
+// and draw callback pair. Both nodes are scheduler-owned (flag bit 1 set).
+int PlayerRuntime_Initialize(void* player) {
+    if (player == 0 || DAT_00491be4 == 0)
+        return -1;
+    DAT_004776ec = (uint32_t)(unsigned long)player;
+    SchedulerCallback* update =
+        SchedulerCallback_Create(PlayerRuntime_UpdateCallback);
+    if (update == 0)
+        return -1;
+    update->flags |= 2u;
+    update->owner = player;
+    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)((unsigned char*)player + 8) = update;
+
+    SchedulerCallback* draw =
+        SchedulerCallback_Create(PlayerRuntime_DrawCallback);
+    if (draw == 0) {
+        Scheduler_Remove(update, (void*)DAT_00491be4);
+        *(SchedulerCallback**)((unsigned char*)player + 8) = 0;
+        DAT_004776ec = 0;
+        return -1;
+    }
+    draw->flags |= 2u;
+    draw->owner = player;
+    Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+    *(SchedulerCallback**)((unsigned char*)player + 12) = draw;
+    return 0;
+}
+
+// 0x00405620 - Unregister both owned callbacks and clear the retail player
+// publication slot.
+void PlayerRuntime_Destroy(void* player) {
+    if (player == 0)
+        return;
+    SchedulerCallback** update =
+        (SchedulerCallback**)((unsigned char*)player + 8);
+    SchedulerCallback** draw =
+        (SchedulerCallback**)((unsigned char*)player + 12);
+    if (DAT_00491be4 != 0) {
+        if (*update != 0)
+            Scheduler_Remove(*update, (void*)DAT_00491be4);
+        if (*draw != 0)
+            Scheduler_Remove(*draw, (void*)DAT_00491be4);
+    }
+    *update = 0;
+    *draw = 0;
+    DAT_004776ec = 0;
 }

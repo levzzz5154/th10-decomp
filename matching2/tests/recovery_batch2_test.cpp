@@ -14,6 +14,7 @@
 #include "th10/game/game_ui_create.hpp"
 #include "th10/game/object_factories.hpp"
 #include "th10/game/player_reset.hpp"
+#include "th10/game/score_file.hpp"
 #include "th10/game/score_queue.hpp"
 #include "th10/game/stats_task.hpp"
 #include "th10/game/task_registration.hpp"
@@ -106,6 +107,96 @@ extern uint32_t* DAT_0047770c;  // entity block pool (pool_constructors.cpp)
 // ---------------------------------------------------------------------------
 
 static int g_enterCount, g_leaveCount, g_freeCount;
+
+static std::vector<uint8_t> g_archivePayload;
+static int g_archiveDecryptCount;
+static int g_archiveFreeCount;
+
+static void ArchiveDecrypt(uint8_t*, uint32_t, uint8_t key, uint8_t step,
+                           uint32_t) {
+    assert(key == '5' && step == 0x10);
+    ++g_archiveDecryptCount;
+}
+
+static void ArchiveDecompress(const uint8_t*, uint32_t, uint8_t* destination,
+                              uint32_t destination_size) {
+    assert(destination_size == g_archivePayload.size());
+    memcpy(destination, g_archivePayload.data(), destination_size);
+}
+
+static void* ArchiveAllocate(uint32_t size) {
+    return calloc(1, size);
+}
+
+static void ArchiveFree(void* memory) {
+    ++g_archiveFreeCount;
+    free(memory);
+}
+
+static void StoreU16(uint8_t* out, uint16_t value) {
+    memcpy(out, &value, sizeof(value));
+}
+
+static void StoreU32(uint8_t* out, uint32_t value) {
+    memcpy(out, &value, sizeof(value));
+}
+
+static uint32_t SumBytes(const uint8_t* bytes, uint32_t size) {
+    uint32_t sum = 0;
+    for (uint32_t index = 0; index < size; ++index) sum += bytes[index];
+    return sum;
+}
+
+static void TestScoreArchiveLoadSections() {
+    g_archivePayload.assign(kScoreFileBytes + kScoreStatsBytes, 0);
+    uint8_t* cr = g_archivePayload.data();
+    StoreU16(cr, 0x5243);
+    StoreU32(cr + 8, kScoreFileBytes);
+    StoreU32(cr + 12, 2);
+    cr[0x20] = 0xA5;
+    StoreU32(cr + 4, SumBytes(cr + 8, kScoreFileBytes - 8));
+    uint8_t* st = cr + kScoreFileBytes;
+    StoreU16(st, 0x5453);
+    StoreU32(st + 8, kScoreStatsBytes);
+    st[0x20] = 0x5A;
+    StoreU32(st + 4, SumBytes(st + 8, kScoreStatsBytes - 8));
+
+    uint8_t* packed = static_cast<uint8_t*>(calloc(1, 0x20));
+    StoreU32(packed, 0x30314854);
+    StoreU16(packed + 8, 3);
+    StoreU32(packed + 0x10, 8);
+    StoreU32(packed + 0x14,
+             static_cast<uint32_t>(g_archivePayload.size()));
+    std::vector<uint8_t> score_slots(kScoreFileBytes * 3, 0);
+    std::vector<uint8_t> stats(kScoreStatsBytes, 0);
+    ScoreArchiveLoadState state = {
+        packed, 0, score_slots.data(), stats.data(),
+    };
+    ScoreArchiveLoadHooks hooks = {
+        &ArchiveDecrypt, &ArchiveDecompress, &ArchiveAllocate, &ArchiveFree,
+    };
+    g_archiveDecryptCount = 0;
+    assert(ScoreArchive_LoadSections(&state, &hooks) == 0);
+    assert(g_archiveDecryptCount == 1);
+    assert(score_slots[kScoreFileBytes * 2 + 0x20] == 0xA5);
+    assert(stats[0x20] == 0x5A);
+    free(state.unpacked);
+    free(state.packed);
+
+    packed = static_cast<uint8_t*>(calloc(1, 12));
+    state = {packed, 0, score_slots.data(), stats.data()};
+    g_archiveFreeCount = 0;
+    assert(ScoreArchive_LoadSections(&state, &hooks) == 0);
+    assert(g_archiveFreeCount == 1);
+    uint32_t signature = 0;
+    uint16_t version = 0;
+    uint32_t seed = 0;
+    memcpy(&signature, state.packed, sizeof(signature));
+    memcpy(&version, state.packed + 8, sizeof(version));
+    memcpy(&seed, state.packed + 0x0C, sizeof(seed));
+    assert(signature == 0x30314854 && version == 3 && seed == 0x100);
+    free(state.packed);
+}
 
 extern "C" void EnterCriticalSection(void* critical_section) {
     (void)critical_section;
@@ -916,6 +1007,7 @@ static void TestAnmHandleRelease() {
 }
 
 int main() {
+    TestScoreArchiveLoadSections();
     TestRenderStateSync();
     TestBulletAnimRelease();
     TestEffectWatchSpawn();
