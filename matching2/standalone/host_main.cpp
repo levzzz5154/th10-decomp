@@ -2814,31 +2814,54 @@ void HostDispatchRecoveredTitlePhase(
     if (phase != 2 || g_host.smoke_mode || g_host.menu_screen != 0)
         return;
 
-    int old_selection = g_host.menu_state.selection;
-    int old_phase = g_host.menu_state.phase;
+    // The sound cues and script interrupts are 0x0042D420's own, taken at the
+    // points it takes them, rather than inferred afterwards from what changed.
+    TitleMainMenuEnv env = {};
+    env.play_sound = [](void*, int id) {
+#if defined(_WIN32)
+        // Retail's 12/11/10 are the cursor, cancel and confirm cues; the
+        // host's resident bank numbers them 0/2/1.
+        HostPlayMenuSound(id == 12 ? 0 : id == 11 ? 2 : 1);
+#else
+        (void)id;
+#endif
+    };
+    env.broadcast = [](void*, int script, int interrupt) {
+        if (interrupt < 0)
+            return;  // phase 0's script starts are the host's boot path
+        if (script == 0 && g_host.title_vm_ready)
+            HostBroadcastTitleInterrupt(interrupt);
+    };
+    env.broadcast_and_run = [](void*, int script, int interrupt) {
+        if (script != 0 || !g_host.title_vm_ready)
+            return;
+        HostBroadcastTitleInterrupt(interrupt);
+        // Retail ticks in the same call (0x00449250 runs 0x0043EE30 itself),
+        // so the interrupt lands on this frame rather than the next.
+        AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[1]);
+        AnmVm_Tick(&g_host.title_vms[1].state, &hooks);
+        for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+            HostAnmVm* child = &g_host.title_child_vms[index];
+            if (!child->active)
+                continue;
+            AnmVmHooks child_hooks = HostAnmHooks(child);
+            if (AnmVm_Tick(&child->state, &child_hooks) != 0)
+                child->active = 0;
+        }
+    };
+    env.extra_unlocked = [](void*) -> int {
+        // Extra needs a cleared run recorded; nothing reads that yet, so the
+        // entry stays selectable and reports its own unfinished state.
+        return 1;
+    };
+    env.take_practice_flag = [](void*) -> int {
+        if ((DAT_00474ca0 & 0x10u) == 0)
+            return 0;
+        DAT_00474ca0 &= ~0x10u;
+        return 1;
+    };
     TitleMenuAction action =
-        TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input);
-#if defined(_WIN32)
-    static bool traced_recovered_menu = false;
-    if (!traced_recovered_menu && g_host.menu_state.phase == 2) {
-        HostTrace("recovered TitleMainMenu_Update input phase active");
-        traced_recovered_menu = true;
-    }
-#endif
-    if (old_selection != g_host.menu_state.selection &&
-        g_host.menu_state.phase == 2 && g_host.title_vm_ready) {
-        HostBroadcastTitleInterrupt(g_host.menu_state.selection + 7);
-#if defined(_WIN32)
-        HostPlayMenuSound(0);
-#endif
-    }
-    if (old_phase == 1 && g_host.menu_state.phase == 2)
-        HostBroadcastTitleInterrupt(g_host.menu_state.selection + 17);
-#if defined(_WIN32)
-    if (old_phase == 2 && g_host.menu_state.phase == 4)
-        HostPlayMenuSound(
-            (g_host.menu_input & TITLE_MENU_CANCEL) != 0 ? 2 : 1);
-#endif
+        TitleMainMenu_Update(&g_host.menu_state, g_host.menu_input, &env);
     HostDispatchTitleMenuAction(action);
 }
 
