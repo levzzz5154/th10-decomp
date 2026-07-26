@@ -28,6 +28,7 @@
 #include "th10/render/camera_setup.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/render/anm_file.hpp"
+#include "th10/render/anm_texture_upload.hpp"
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
@@ -36,6 +37,8 @@
 #include "th10/runtime/missing_edge.hpp"
 
 #include "host_stage.hpp"
+
+#include <d3dx9tex.h>
 
 #include <cstdio>
 #include <cstdlib>
@@ -63,6 +66,10 @@ unsigned long CreateGameWindow(void* instance);
 int InstanceCheck();
 extern void* g_pWnd;
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
+// Retail's shared ANM format tables (0x0046F288 / 0x0046F2A0), aliased out of
+// the retail .rdata by build_all_pe32.sh.
+extern unsigned int DAT_0046f288[];
+extern unsigned int DAT_0046f2a0[];
 #endif
 
 static_assert(sizeof(void*) == 4 || sizeof(void*) == 8,
@@ -876,6 +883,78 @@ void HostPollKeyboard() {
     std::memcpy(g_host.previous_keyboard, keys, sizeof(keys));
 }
 
+// ---------------------------------------------------------------------------
+// Texture upload. The decision-making - which D3DFORMAT to create, which
+// source format and pitch to read the payload with, what bytes-per-line to
+// record - belongs to the recovered AnmTexture_CreateAndUpload (retail
+// 0x00446F40) driving retail's own tables. Everything below is the D3D9 leaf
+// work retail does inline: CreateTexture, GetSurfaceLevel(0) and
+// D3DXLoadSurfaceFromMemory. Retail's callback list carries no context word,
+// so the in-flight upload is parked in these file statics for the duration of
+// the one call.
+// ---------------------------------------------------------------------------
+namespace {
+
+struct PendingUpload {
+    IDirect3DTexture9* texture;
+    unsigned int width;
+    unsigned int height;
+    unsigned int source_width;
+    unsigned int source_height;
+    unsigned int source_pitch;
+    HRESULT last_error;
+};
+PendingUpload g_pending_upload;
+
+int HostUploadCreateTexture(unsigned int format) {
+    g_pending_upload.texture = nullptr;
+    g_pending_upload.last_error = g_host.device->CreateTexture(
+        g_pending_upload.width, g_pending_upload.height, 1, 0,
+        static_cast<D3DFORMAT>(format), D3DPOOL_MANAGED,
+        &g_pending_upload.texture, nullptr);
+    return FAILED(g_pending_upload.last_error) ? -1 : 0;
+}
+
+int HostUploadGetSurface(void** surface_out) {
+    IDirect3DSurface9* surface = nullptr;
+    if (g_pending_upload.texture != nullptr)
+        g_pending_upload.texture->GetSurfaceLevel(0, &surface);
+    *surface_out = surface;
+    return surface != nullptr ? 0 : -1;
+}
+
+int HostUploadLoadSurface(void* surface, const Byte* pixels,
+                          unsigned int source_format, unsigned int pitch) {
+    if (surface == nullptr || pixels == nullptr)
+        return -1;
+    RECT source = {0, 0, static_cast<LONG>(g_pending_upload.source_width),
+                   static_cast<LONG>(g_pending_upload.source_height)};
+    // The payload's real stride wins over the computed one when the archive
+    // stored a tighter row; retail's tables give width * bytes-per-pixel,
+    // which is the same number for every THTX in th10.dat.
+    if (g_pending_upload.source_pitch != 0)
+        pitch = g_pending_upload.source_pitch;
+    g_pending_upload.last_error = D3DXLoadSurfaceFromMemory(
+        static_cast<IDirect3DSurface9*>(surface), nullptr, nullptr, pixels,
+        static_cast<D3DFORMAT>(source_format), pitch, nullptr, &source,
+        D3DX_FILTER_NONE, 0);
+    return FAILED(g_pending_upload.last_error) ? -1 : 0;
+}
+
+void HostUploadReleaseSurface(void* surface) {
+    if (surface != nullptr)
+        static_cast<IDirect3DSurface9*>(surface)->Release();
+}
+
+void HostUploadReleaseTexture() {
+    if (g_pending_upload.texture != nullptr) {
+        g_pending_upload.texture->Release();
+        g_pending_upload.texture = nullptr;
+    }
+}
+
+}  // namespace
+
 IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     for (int index = 0; index < 32; ++index) {
         if (g_host.anm_texture_entry_bases[index] == entry.base)
@@ -884,63 +963,45 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     AnmTexturePayload payload;
     if (!AnmFile_GetTexture(&entry, &payload))
         return nullptr;
-    // THTX pixel formats actually present in th10.dat, measured from the
-    // archive: format 1 is 4 bytes/px, formats 3 and 5 are 2 bytes/px.
-    // Format 3 (R5G6B5) covers 69 of the 284 textures - every e00..e07 enemy
-    // sheet among them - and used to fall through to D3DFMT_UNKNOWN, so
-    // CreateTexture failed and HostDrawAnmVm dropped the sprite entirely.
-    D3DFORMAT format = payload.format == 1 ? D3DFMT_A8R8G8B8
-                       : payload.format == 3 ? D3DFMT_R5G6B5
-                       : payload.format == 5 ? D3DFMT_A4R4G4B4
-                                             : D3DFMT_UNKNOWN;
-    if (format == D3DFMT_UNKNOWN)
+    if (payload.format == 0 || payload.format >= 6)
         return nullptr;
-    IDirect3DTexture9* texture = nullptr;
-    unsigned int texture_width =
-        entry.width != 0 ? entry.width : payload.width;
-    unsigned int texture_height =
-        entry.height != 0 ? entry.height : payload.height;
-    HRESULT create_result = g_host.device->CreateTexture(
-        texture_width, texture_height, 1, 0, format, D3DPOOL_MANAGED,
-        &texture, nullptr);
-    if (FAILED(create_result)) {
-        std::fprintf(stderr,
-                     "[th10-recon] texture creation failed: fmt=%u "
-                     "%ux%u hr=%08lx\n",
-                     payload.format, texture_width, texture_height,
-                     static_cast<unsigned long>(create_result));
-        std::fflush(stderr);
-        return nullptr;
-    }
-    D3DLOCKED_RECT locked;
-    if (FAILED(texture->LockRect(0, &locked, nullptr, 0))) {
-        texture->Release();
-        return nullptr;
-    }
-    unsigned int source_pitch =
+
+    g_pending_upload = PendingUpload();
+    g_pending_upload.width = entry.width != 0 ? entry.width : payload.width;
+    g_pending_upload.height = entry.height != 0 ? entry.height : payload.height;
+    g_pending_upload.source_width = payload.width;
+    g_pending_upload.source_height = payload.height;
+    g_pending_upload.source_pitch =
         payload.height == 0 ? 0 : payload.data_size / payload.height;
-    unsigned int bytes_per_pixel = payload.format == 1 ? 4u : 2u;
-    unsigned int destination_pitch =
-        texture_width * bytes_per_pixel;
-    unsigned int rows =
-        payload.height < texture_height ? payload.height : texture_height;
-    unsigned int copy_pitch =
-        source_pitch < destination_pitch ? source_pitch : destination_pitch;
-    if (copy_pitch > static_cast<unsigned int>(locked.Pitch))
-        copy_pitch = static_cast<unsigned int>(locked.Pitch);
-    unsigned int clear_pitch =
-        static_cast<unsigned int>(locked.Pitch) < destination_pitch
-            ? static_cast<unsigned int>(locked.Pitch) : destination_pitch;
-    for (unsigned int row = 0; row < texture_height; ++row)
-        std::memset(static_cast<unsigned char*>(locked.pBits) +
-                        row * locked.Pitch,
-                    0, clear_pitch);
-    for (unsigned int row = 0; row < rows; ++row) {
-        std::memcpy(static_cast<unsigned char*>(locked.pBits) +
-                        row * locked.Pitch,
-                    payload.pixels + row * source_pitch, copy_pitch);
+    if (g_pending_upload.width == 0 || g_pending_upload.height == 0 ||
+        payload.width == 0 || payload.height == 0)
+        return nullptr;
+
+    // The THTX's own format index is both the destination format and the
+    // source format here, which is what AnmImage carries at +0x06.
+    AnmImage image = {};
+    image.format = static_cast<short>(payload.format);
+    image.width = static_cast<short>(payload.width);
+    image.height = static_cast<short>(payload.height);
+
+    unsigned int slot_pitch = 0;
+    const int result = AnmTexture_CreateAndUpload(
+        &image, payload.pixels, static_cast<int>(payload.format),
+        /*force_sixteen_bit=*/0, DAT_0046f288, DAT_0046f2a0, &slot_pitch,
+        HostUploadCreateTexture, HostUploadGetSurface, HostUploadLoadSurface,
+        HostUploadReleaseSurface, HostUploadReleaseTexture);
+    IDirect3DTexture9* texture = g_pending_upload.texture;
+    if (result != 0 || texture == nullptr) {
+        std::fprintf(stderr,
+                     "[th10-recon] texture upload failed: fmt=%u %ux%u "
+                     "hr=%08lx\n",
+                     payload.format, g_pending_upload.width,
+                     g_pending_upload.height,
+                     static_cast<unsigned long>(g_pending_upload.last_error));
+        std::fflush(stderr);
+        HostUploadReleaseTexture();
+        return nullptr;
     }
-    texture->UnlockRect(0);
     for (int index = 0; index < 32; ++index) {
         if (g_host.anm_texture_entry_bases[index] == nullptr) {
             g_host.anm_texture_entry_bases[index] = entry.base;
