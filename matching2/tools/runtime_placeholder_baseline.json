@@ -1,0 +1,29 @@
+{
+  "comment": "Named empty host functions. This count may only fall; see tools/runtime_placeholder_audit.py.",
+  "empty_function_count": 23,
+  "files": [
+    "src/game/manager_teardown.cpp:203",
+    "standalone/host_main.cpp:1479",
+    "standalone/host_main.cpp:1795",
+    "standalone/host_main.cpp:1852",
+    "standalone/host_main.cpp:1853",
+    "standalone/host_main.cpp:1868",
+    "standalone/host_main.cpp:1873",
+    "standalone/host_main.cpp:1874",
+    "standalone/host_main.cpp:2016",
+    "standalone/host_main.cpp:2204",
+    "standalone/host_main.cpp:2277",
+    "standalone/host_main.cpp:2357",
+    "standalone/host_main.cpp:2358",
+    "standalone/host_main.cpp:2377",
+    "standalone/host_main.cpp:2381",
+    "standalone/host_main.cpp:2607",
+    "standalone/host_main.cpp:2656",
+    "standalone/host_main.cpp:2740",
+    "standalone/host_main.cpp:2741",
+    "standalone/host_stage.cpp:1574",
+    "standalone/host_stage.cpp:1575",
+    "standalone/host_stage.cpp:1793",
+    "standalone/host_stage.cpp:1794"
+  ]
+}

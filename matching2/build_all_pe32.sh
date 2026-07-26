@@ -179,6 +179,8 @@ grep '^RUNTIME_PLACEHOLDER_COUNT=0$' \
     "$BUILD/runtime-placeholder-audit.txt"
 grep '^SOFTWARE_RENDERER_COUNT=0$' \
     "$BUILD/runtime-placeholder-audit.txt"
+grep '^EMPTY_FUNCTION_COUNT=' \
+    "$BUILD/runtime-placeholder-audit.txt"
 
 # Reconstruction fidelity: a promoted source must plausibly implement the
 # retail functions it is credited with, measured against the IDA pseudocode.
