@@ -1599,40 +1599,6 @@ void HostRenderMenu() {
         if (HostStage_IsActive())
             HostRenderStage();
         else {
-            static bool traced_title_draw_list = false;
-            if (!traced_title_draw_list &&
-                g_host.title_runtime.phase == 1 &&
-                g_host.title_runtime.clock.frame >= 60) {
-                for (int index = 0; index < draw_count; ++index) {
-                    const HostAnmVm* vm = draw_list[index];
-                    std::fprintf(
-                        stderr,
-                        "[th10-recon] title draw %d: script=%d sprite=%d "
-                        "layer=%d pos=%.1f,%.1f scale=%.2f,%.2f "
-                        "flags=%08x alpha=%u\n",
-                        index, vm->script_id, vm->state.sprite,
-                        vm->state.layer, vm->state.position[0],
-                        vm->state.position[1], vm->state.scale[0],
-                        vm->state.scale[1], vm->state.flags,
-                        vm->state.color[3]);
-                }
-                std::fflush(stderr);
-                traced_title_draw_list = true;
-            }
-    {
-        static float last_x = -1e9f, last_y = -1e9f;
-        const AnmVmState& root = g_host.title_vms[0].state;
-        if (root.position[0] != last_x || root.position[1] != last_y) {
-            std::fprintf(stderr,
-                "[th10-recon] root VM pos -> (%.1f,%.1f) alt=(%.1f,%.1f) "
-                "flags=%08X sprite=%d\n",
-                root.position[0], root.position[1],
-                root.alt_position[0], root.alt_position[1],
-                root.flags, root.sprite);
-            std::fflush(stderr);
-            last_x = root.position[0]; last_y = root.position[1];
-        }
-    }
             for (int index = 0; index < draw_count; ++index)
                 HostDrawAnmVm(*draw_list[index]);
         }
@@ -1937,8 +1903,22 @@ FrameClockHooks g_clock_hooks = {
     nullptr, HostClockLock, HostClockUnlock, HostReadMs, HostReadQpc,
 };
 
-bool HostLoadTitleDemo(void*, const char*, DemoReplayInfo*) {
-    Runtime_MissingEdge(0x0042CDF0, "TitleMenuRuntime attract replay loader");
+// Attract-mode demo loader. After 900 idle title frames TitleMenuRuntime_Update
+// tries to launch one of four demo replays; the caller treats a false return as
+// "no replay available" and simply resets the counter, which is the honest
+// answer here because the host ships no replay files. Aborting instead meant
+// the title screen killed the process after roughly fifteen idle seconds.
+bool HostLoadTitleDemo(void*, const char* name, DemoReplayInfo*) {
+    static bool reported;
+    if (!reported) {
+        reported = true;
+        std::fprintf(stderr,
+                     "[th10-recon] attract demo \"%s\" unavailable; "
+                     "staying on the title\n",
+                     name != nullptr ? name : "(null)");
+        std::fflush(stderr);
+    }
+    return false;
 }
 
 void HostHideTitleVm(void*, int index) {
