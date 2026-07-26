@@ -1579,16 +1579,16 @@ float g_ecl_globals[256];
 // Retail 0x00450070. A clear mask bit yields null and retail stores through it
 // unchecked; the host refuses that store instead of faulting.
 float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
-	if (vm == 0 || vm->ip == 0)
+	// Validate with integer arithmetic before any pointer is formed: the ip
+	// can leave the image mid-tick when the call/ret frame protocol desyncs,
+	// and a pointer-comparison guard is free to be reordered past the load
+	// that faults.
+	if (vm == 0 || g_enemy_ecl == 0)
 		return 0;
-	// The ip can leave the image mid-tick when the call/ret frame protocol
-	// desyncs; refuse rather than dereference it.
-	{
-		const unsigned char* ip =
-		    reinterpret_cast<const unsigned char*>(vm->ip);
-		if (ip < g_enemy_ecl || ip + 16 > g_enemy_ecl + g_enemy_ecl_size)
-			return 0;
-	}
+	const uintptr_t ip_value = reinterpret_cast<uintptr_t>(vm->ip);
+	const uintptr_t image = reinterpret_cast<uintptr_t>(g_enemy_ecl);
+	if (ip_value < image || ip_value - image + 16 > g_enemy_ecl_size)
+		return 0;
 	const EclCoreInstruction* instruction = vm->ip;
 	if ((instruction->param_mask & (1u << (operand & 31))) == 0)
 		return 0;
@@ -1641,39 +1641,40 @@ int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
 	return 0;
 }
 
+// Retail 0x0044DF70, transcribed from the IDA listing rather than paraphrased.
+// Pointer notation there is _DWORD*: a1[1026] is child+0x1008 (scratch_top),
+// and (char*)a1 + X + 8 is child->scratch + X, because scratch starts at
+// child+0x08.  For an ECL `call` a1 == a2 == the same record.
 int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 	if (child == 0 || parent == 0 || parent->ip == 0)
 		return -1;
-	const EclCoreInstruction* instruction = parent->ip;
-	if (instruction->size <= 20)
-		return -1;
+	const EclCoreInstruction* instruction = parent->ip;      // *v3
 	const unsigned char* parent_bytes =
 	    reinterpret_cast<const unsigned char*>(instruction);
+	if (instruction->size <= 20)
+		return -1;
 
-	// Retail computes the callee frame base from the CURRENT top before any
-	// linkage is written: v7 = old_top + 8, or 12 for a fresh record. The
-	// copied arguments land at scratch + v7, above the linkage words, which is
-	// why the copy has to be positioned from old_top and not from the moving
-	// scratch_top.
-	const int old_top = child->scratch_top;         // child+0x1008
-	const int frame_base = old_top == 0 ? 12 : old_top + 8;
+	const int old_top = child->scratch_top;                  // v5 = a1[1026]
+	const int frame_base = old_top == 0 ? 12 : old_top + 8;  // v7
 
-	int arg_cursor = 0;
+	// --- argument copy: operands [first_argument+1, param_count) ----------
+	int arg_cursor = 0;                                      // v6
 	std::memcpy(&arg_cursor, parent_bytes + 16, sizeof(arg_cursor));
 	arg_cursor += 4 * first_argument + 4;
-	int value_cursor = arg_cursor + 4;
-	int arg_index = first_argument + 1;
-	const int param_count = parent_bytes[11];
-	unsigned char* destination = child->scratch + frame_base;
+	int value_cursor = arg_cursor + 4;                       // v9 / i
+	int arg_index = first_argument + 1;                      // v8
+	const int param_count = parent_bytes[11];                // *(*v3 + 11)
+	unsigned char* destination = child->scratch + frame_base;  // v26
 	while (arg_index < param_count &&
 	       destination + 4 <= child->scratch + 0x1000 &&
-	       16 + arg_cursor + 1 < (int)instruction->size) {
+	       17 + arg_cursor < (int)instruction->size) {
 		const unsigned char source_tag = parent_bytes[16 + arg_cursor];
 		const unsigned char dest_tag = parent_bytes[17 + arg_cursor];
+		const unsigned char* word =
+		    parent_bytes + 16 + 4 * (value_cursor >> 2);
 		if (source_tag == 'f' || source_tag == 'g') {
 			float raw = 0.0f;
-			std::memcpy(&raw, parent_bytes + 16 + 4 * (value_cursor >> 2),
-			            sizeof(raw));
+			std::memcpy(&raw, word, sizeof(raw));
 			const float resolved =
 			    ECL_ResolveFloatValue(parent, arg_index, raw);
 			if (dest_tag == 'f')
@@ -1684,8 +1685,7 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 			}
 		} else {
 			int raw = 0;
-			std::memcpy(&raw, parent_bytes + 16 + 4 * (value_cursor >> 2),
-			            sizeof(raw));
+			std::memcpy(&raw, word, sizeof(raw));
 			const int resolved = ECL_ResolveIntValue(parent, arg_index, raw);
 			if (dest_tag == 'f') {
 				const float widened = (float)resolved;
@@ -1699,39 +1699,54 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 		value_cursor += 8;
 	}
 
-	// Linkage. Opcode 0x0A pops exactly two words: the return ip then the
-	// caller clock as raw bits. A fresh record gets two zeros so its `ret`
-	// ends the VM; an already-framed one gets the caller's clock and ip.
+	// --- frame linkage ----------------------------------------------------
 	if (old_top == 0) {
+		// Fresh record: a1[1026]=4; a1[3]=0; +=4; then scratch[8]=0; +=4.
+		child->scratch_top = 4;
 		*reinterpret_cast<int*>(child->scratch + 4) = 0;
-		*reinterpret_cast<int*>(child->scratch + 8) = 0;
-		child->scratch_top = 12;
-	} else {
-		child->scratch_top = old_top;
+		child->scratch_top = 8;
 		if (child->scratch_top + 4 < 0x1000) {
+			*reinterpret_cast<int*>(child->scratch + child->scratch_top) = 0;
+			child->scratch_top += 4;
+		}
+	} else {
+		// v15/v24: pop one word, then rewind to old_top and write it back at
+		// scratch[old_top - 4]. Omitting this write was the desync.
+		int popped = 0;                                       // v24
+		const int probe = child->scratch_top - 4;             // v15
+		if (probe >= 0) {
+			child->scratch_top = probe;
+			std::memcpy(&popped, child->scratch + probe, sizeof(popped));
+		}
+		child->scratch_top = old_top;                         // a1[1026] = v5
+		if (old_top >= 4)
+			std::memcpy(child->scratch + old_top - 4, &popped, sizeof(popped));
+		if (child->scratch_top + 4 < 0x1000) {                // push *a2 (clock bits)
 			std::memcpy(child->scratch + child->scratch_top,
 			            &parent->time, sizeof(parent->time));
 			child->scratch_top += 4;
 		}
-		if (child->scratch_top + 4 < 0x1000) {
+		if (child->scratch_top + 4 < 0x1000) {                // push *v3 (caller ip)
 			std::memcpy(child->scratch + child->scratch_top,
 			            &parent->ip, sizeof(parent->ip));
 			child->scratch_top += 4;
 		}
 	}
 
+	// --- retarget: owner->active_vm is set to the child for the lookup ----
 	const char* target = reinterpret_cast<const char*>(parent_bytes + 20);
 	const int index = HostEclFindSub(target);
-	if (index < 0) {
-		Log("ecl call: sub \"%s\" not found in stage01.ecl", target);
+	unsigned int entry = 0;
+	if (index >= 0)
+		entry = g_enemy_ecl_sub_offsets[index];
+	if (index < 0 || entry + 16 >= g_enemy_ecl_size) {
+		// Retail's failure tail: the CALLER's ip is cleared and -1 returned.
+		Log("ecl call: sub \"%s\" unresolved; stopping caller", target);
+		parent->ip = 0;
 		return -1;
 	}
-	const unsigned int entry = g_enemy_ecl_sub_offsets[index];
-	if (entry + 16 >= g_enemy_ecl_size)
-		return -1;
-	child->ip = reinterpret_cast<EclCoreInstruction*>(
-	    g_enemy_ecl + entry + 16);
-	child->time = 0.0f;
+	child->ip = reinterpret_cast<EclCoreInstruction*>(g_enemy_ecl + entry + 16);
+	child->time = 0.0f;                                       // **(v21 + 4) = 0
 	g_ecl_calls += 1;
 	return 0;
 }
