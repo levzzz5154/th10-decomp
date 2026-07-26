@@ -107,6 +107,8 @@ extern float DAT_00476f78;
 // FrameTimer embedded at dword_474C54; both are linked straight out of the
 // original .data section, so 0x00418A00 gets retail's own argument.
 extern unsigned char DAT_00474c40[];
+extern int DAT_00474c7c;   // retail stage index (off_474744[...] labels)
+extern int DAT_00474c90;   // retail 0x00413BC0 gate word
 extern unsigned char DAT_00474c54[];
 // Retail dword_47783C: the published score-file image (0x0042AF20 allocates
 // 0x1DCB4 bytes and stores the pointer here).
@@ -1636,10 +1638,6 @@ float* __thiscall HostEclResolveFloatPointer(void*, int variable) {
 // Retail slot 5 is sub_40CC50, the scalar deleting destructor: it runs the
 // entity teardown (sub_40DAE0) and frees the block when bit 0 of the flag
 // byte is set. The bridge owns g_ecl_entity statically, so it must never free.
-void __thiscall HostEclDestroyEntity(void*, char free_storage) {
-	Log("ECL owner destructor (0x0040CC50) reached with flag %d; the bridge "
-	    "owns g_ecl_entity statically", (int)free_storage);
-}
 
 void* g_ecl_owner_vtable[6];
 EclCoreHooks g_ecl_hooks;
@@ -1735,10 +1733,10 @@ EclCoreInstruction* HostEclFindSubBody(const char* name) {
 	    ECL_FindScriptLabel(g_ecl_label_object, name));
 	if (body == 0 || g_enemy_ecl == 0)
 		return 0;
-	const uintptr_t base = reinterpret_cast<uintptr_t>(g_enemy_ecl);
-	const uintptr_t value = reinterpret_cast<uintptr_t>(body);
-	if (value < base || value - base + 16 > g_enemy_ecl_size)
-		return 0;
+	// Retail 0x00450470 range-tests nothing: `v3 = *(a1 + 8) - 1; if (v3 < 0)
+	// return 0;` and then returns *(v7 + 8 * v4 + 4) + 16 unconditionally.
+	// The bounds test that used to be here was the host's, and it was also
+	// off by 16 because the returned pointer already has the ECLH skip.
 	return reinterpret_cast<EclCoreInstruction*>(body);
 }
 
@@ -1980,7 +1978,12 @@ void HostStartMainEcl() {
 	g_ecl_owner_vtable[2] = reinterpret_cast<void*>(HostEclResolveIntPointer);
 	g_ecl_owner_vtable[3] = reinterpret_cast<void*>(HostEclResolveFloat);
 	g_ecl_owner_vtable[4] = reinterpret_cast<void*>(HostEclResolveFloatPointer);
-	g_ecl_owner_vtable[5] = reinterpret_cast<void*>(HostEclDestroyEntity);
+	// Slot 5 is retail's scalar deleting destructor sub_40CC50, which runs
+	// sub_40DAE0 and then frees the block when bit 0 of the flag byte is set.
+	// The bridge owns g_ecl_entity as static storage and never destroys it, so
+	// nothing reaches this slot; it is left null rather than pointed at a body
+	// that performs none of that work.
+	g_ecl_owner_vtable[5] = 0;
 	*reinterpret_cast<void***>(g_ecl_entity) = g_ecl_owner_vtable;
 	// The ECLH block is 16 bytes; 0x00450470 already skipped it.
 	g_ecl_vm.ip = entry_body;
@@ -1990,7 +1993,9 @@ void HostStartMainEcl() {
 	// 0x1024 - the rank byte of the VM embedded at entity+8, i.e. vm+0x101C.
 	// dword_474C74 is the difficulty word StageGlobals mirrors.
 	g_ecl_vm.rank_mask =
-	    static_cast<unsigned char>(1 << (g_globals.difficulty & 7));
+	    // Retail is `*((_BYTE *)v5 + 4132) = 1 << dword_474C74` with no mask
+	    // (th10.exe.c:21001); the & 7 was an introduced value decision.
+	    static_cast<unsigned char>(1 << g_globals.difficulty);
 	g_ecl_hooks = EclCoreHooks{};
 	g_ecl_started = 1;
 	g_ecl_hooks.start_child = HostEclStartChild;
@@ -2087,10 +2092,15 @@ void HostInitializeStageRuntime() {
 	input.difficulty = g_active_difficulty;
 	input.special = (g_globals.game_flags & 8u) != 0;
 	input.extra_overlay = (g_globals.game_flags & 0x10u) != 0;
-	// The bridge runs the Stage 1 row of dword_477848, so the "stage one
-	// already cleared" overlay is off. It used to be derived from
-	// g_globals.stage, which is retail's shot-type word, not a stage number.
-	input.stage_one_clear = g_stage_record.number > 1;
+	// Retail 0x00413BC0 pushes animation 0x4F only when all three of its
+	// gates are clear (th10.exe.c:23602):
+	//   if (dword_474C7C != 1 || *((_DWORD *)dword_477810 + 23) || dword_474C90)
+	// dword_474C7C is the stage INDEX - off_474744[dword_474C7C] is what
+	// indexes the "St1".."St6" labels - so the test is "we are on stage 1",
+	// not "stage 1 was cleared", and `> 1` had it inverted. dword_477810 is a
+	// manager the bridge never creates; its word is taken as clear, which is
+	// stated here rather than folded into the expression.
+	input.stage_one_clear = DAT_00474c7c == 1 && DAT_00474c90 == 0;
 	th10::player_front::InitializeFront(g_front_state, input);
 	Log("InitializeFront(0x00413BC0): %d life icons, digits %d/%d/%d, "
 	    "%d animations, linked pair %d/%d",
@@ -2194,12 +2204,10 @@ void HostTickGame() {}
 // reached when dword_474C58 is positive, which in the retail image it is not;
 // the speed-pointer test keeps a never-armed timer from being dereferenced.
 void HostDecayCounterTimer(float delta) {
+	// sub_418A00 tail-calls sub_44BF40(result + 5, -1.0), which dereferences
+	// *(float **)(a1 + 12) unconditionally (th10.exe.c:67618). There is no
+	// speed-pointer test in retail, so there is none here either.
 	FrameTimer* timer = reinterpret_cast<FrameTimer*>(DAT_00474c54);
-	if (timer->speed == 0) {
-		Log("Recovery_DecayCounter(0x00418A00): timer at 0x00474C54 has no "
-		    "speed pointer; 0x0044BF40 not entered");
-		return;
-	}
 	FrameTimer_Advance(timer, delta);
 }
 

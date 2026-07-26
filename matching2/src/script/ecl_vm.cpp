@@ -378,7 +378,9 @@ void* ECL_FindScriptLabel(void* vm_pointer, const char* name) {
     Entry* entries = *reinterpret_cast<Entry**>(vm + 0x8c);
     int32_t first = 0;
     int32_t last = count - 1;
-    if (last < 0 || entries == 0 || name == 0)
+    // Retail 0x00450470 tests only `*(a1 + 8) - 1 < 0`; the null checks that
+    // were here are not in the listing.
+    if (last < 0)
         return 0;
     for (;;) {
         const int32_t middle = first + (last - first) / 2;
