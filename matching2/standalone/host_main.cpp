@@ -884,7 +884,13 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     AnmTexturePayload payload;
     if (!AnmFile_GetTexture(&entry, &payload))
         return nullptr;
+    // THTX pixel formats actually present in th10.dat, measured from the
+    // archive: format 1 is 4 bytes/px, formats 3 and 5 are 2 bytes/px.
+    // Format 3 (R5G6B5) covers 69 of the 284 textures - every e00..e07 enemy
+    // sheet among them - and used to fall through to D3DFMT_UNKNOWN, so
+    // CreateTexture failed and HostDrawAnmVm dropped the sprite entirely.
     D3DFORMAT format = payload.format == 1 ? D3DFMT_A8R8G8B8
+                       : payload.format == 3 ? D3DFMT_R5G6B5
                        : payload.format == 5 ? D3DFMT_A4R4G4B4
                                              : D3DFMT_UNKNOWN;
     if (format == D3DFMT_UNKNOWN)
