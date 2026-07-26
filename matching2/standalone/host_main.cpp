@@ -17,6 +17,10 @@
 #include "th10/app/main_tasks.hpp"
 #include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
+#include "th10/game/score.hpp"
+#include "th10/platform/pack_file_loader.hpp"
+#include "th10/platform/joystick_probe.hpp"
+#include "th10/render/resource_manager.hpp"
 #include "th10/game/title_main_menu.hpp"
 #include "th10/game/title_menu_runtime.hpp"
 #include "th10/game/title_options_menu.hpp"
@@ -170,6 +174,7 @@ struct HostContext {
     int boot_window_ok = 0;
     int boot_device_ok = 0;
     int boot_sound_ok = 0;
+    int joystick_present = 0;
     int presented_frames = 0;
     int capture_done = 0;
     const char* capture_path = nullptr;
@@ -2287,12 +2292,56 @@ int HostCreateInput(void*) {
     return 0;
 }
 int HostConfirmDialog(void*) { return 6; } // IDYES
-void HostChecksum(void*) {}
+// Retail 0x0043A1C0: sum the module file's dwords and publish the total and
+// size into DAT_00492380 / DAT_00492384.
+unsigned int g_executable_checksum;
+unsigned int g_executable_size;
+
+void HostChecksum(void*) {
+#if defined(_WIN32)
+    ExecutableChecksumHooks hooks = {};
+    hooks.module_file_name = [](void*, char* buffer,
+                                unsigned int capacity) -> unsigned int {
+        return GetModuleFileNameA(nullptr, buffer, capacity);
+    };
+    hooks.load_file = [](void*, const char* name,
+                         unsigned int* size_out) -> void* {
+        std::FILE* file = std::fopen(name, "rb");
+        if (file == nullptr)
+            return nullptr;
+        std::fseek(file, 0, SEEK_END);
+        const long length = std::ftell(file);
+        std::fseek(file, 0, SEEK_SET);
+        void* image = length > 0 ? std::malloc(static_cast<size_t>(length))
+                                 : nullptr;
+        if (image != nullptr &&
+            std::fread(image, 1, static_cast<size_t>(length), file) !=
+                static_cast<size_t>(length)) {
+            std::free(image);
+            image = nullptr;
+        }
+        std::fclose(file);
+        if (image != nullptr)
+            *size_out = static_cast<unsigned int>(length);
+        return image;
+    };
+    hooks.release = [](void*, void* memory) { std::free(memory); };
+    Executable_Checksum(&g_executable_checksum, &g_executable_size, &hooks);
+#endif
+}
+// Retail: `v9 = operator new(0x48); if (v9) v10 = sub_449AA0(v9); ...;
+// dword_491BE4 = v10;`. The allocation and the publish stay here, as they do
+// in retail's WinMain; 0x00449AA0 itself is the list initializer. The old
+// stand-in used an uninitialised 0x60 buffer, so both list heads and the
+// owner self-pointers were left zero.
 void* HostCreateScheduler(void*) {
-    static unsigned char scheduler_state[0x60] = {};
+    static D3DResourceManager scheduler_state;
+    static_assert(sizeof(D3DResourceManager) == 0x48,
+                  "retail allocates 0x48 bytes for the resource manager");
+    D3DResourceManager_Initialize(&scheduler_state);
     DAT_00491be4 = static_cast<uint32_t>(
-        reinterpret_cast<uintptr_t>(scheduler_state));
-    return scheduler_state;
+        reinterpret_cast<uintptr_t>(&scheduler_state));
+    return &scheduler_state;
 }
 void* HostCreateD3d(void*) {
 #if defined(_WIN32)
@@ -2369,8 +2418,41 @@ int HostInitDeviceObjects(void*) {
     HostApplyDefaults(nullptr);
     return 0;
 }
-void HostProbeJoystick(void*) {}
-void HostInitTextLayer(void*) {}
+// Retail 0x0044A0C0: try joystick 0 then 1, and on success capture device
+// 0's capabilities into DAT_004918B8. joyGetPosEx/joyGetDevCapsA are
+// __stdcall and the recovered function takes __cdecl pointers, so the
+// lambdas below are the ABI bridge, not decoration.
+void HostProbeJoystick(void*) {
+#if defined(_WIN32)
+    const uint32_t result = Joystick_Probe(
+        [](uint32_t device_id, JoystickProbeInfo* info) -> uint32_t {
+            return joyGetPosEx(device_id, reinterpret_cast<JOYINFOEX*>(info));
+        },
+        [](uint32_t device_id, void* capabilities,
+           uint32_t size) -> uint32_t {
+            return joyGetDevCapsA(device_id,
+                                  static_cast<JOYCAPSA*>(capabilities), size);
+        },
+        nullptr);  // retail logs here; joystick_probe.cpp guards the null
+    g_host.joystick_present = result == 0;
+#endif
+}
+// Retail 0x0044B080. The hook is named init_text_layer but the address is a
+// stuck-key clear: read the keyboard state, strip the transient high bit
+// from all 256 bytes, publish it back. Retail discards the BOOL.
+void HostInitTextLayer(void*) {
+#if defined(_WIN32)
+    static unsigned char keyboard_state[256];
+    Input_NormalizeKeyboardState(
+        keyboard_state,
+        [](unsigned char* state) -> int {
+            return GetKeyboardState(state) ? 1 : 0;
+        },
+        [](const unsigned char* state) -> int {
+            return SetKeyboardState(const_cast<unsigned char*>(state)) ? 1 : 0;
+        });
+#endif
+}
 void* HostCreateGameState(void*, void* arena) {
     // Retail allocates the 0x732460-byte arena immediately before calling
     // the constructor; the standalone host does the same.
@@ -2967,6 +3049,8 @@ static int HostRun(int argc, char** argv) {
             g_host.title_resources_loaded && g_host.title_anm_parsed &&
             g_host.title_draw_calls > 0 && g_host.clean_shutdown &&
             exit_code == 0;
+        std::printf("  real boot: checksum=0x%08X size=%u\n",
+                    g_executable_checksum, g_executable_size);
         std::printf("  real boot: window=%s device=%s sound=%s draws=%d\n",
                     g_host.boot_window_ok ? "yes" : "no",
                     g_host.boot_device_ok ? "yes" : "no",

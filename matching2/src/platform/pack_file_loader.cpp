@@ -81,7 +81,11 @@ int Executable_Checksum(unsigned int* checksum_out, unsigned int* size_out,
         return -1;
     const unsigned int* words = static_cast<const unsigned int*>(image);
     unsigned int sum = 0;
-    for (unsigned int index = 0; index + 1 < (size + 3) / 4; ++index)
+    // Retail is `v5 = size / 4 - 1; if (v5 > 0) do { ... } while (--v5);` -
+    // a truncating divide, so exactly size/4 - 1 dwords are summed. Rounding
+    // up with (size + 3) / 4 summed one extra dword whenever size was not a
+    // multiple of four, reading up to three bytes past the buffer.
+    for (unsigned int index = 0; index + 1 < size / 4; ++index)
         sum += words[index];
     hooks->release(hooks->context, image);
     *size_out = size;      // _DAT_00492384
