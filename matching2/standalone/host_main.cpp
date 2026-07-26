@@ -49,6 +49,7 @@
 
 #include "host_stage.hpp"
 
+#include <d3dx9math.h>
 #include <d3dx9tex.h>
 
 #include <cstdio>
@@ -3835,20 +3836,63 @@ int HostFrameAdvance(void*) {
         HostNop,                        // flush_sprite_batch
         HostNop,                        // select_primary_camera
         [](void*) {                     // apply_camera (0x00421480)
+            // Every value here is retail 0x00421480's, read from the listing
+            // and the disassembly at .text:00421480:
+            //   eye    = (w * flt_470B0C, h * flt_470B0C,
+            //             h * flt_470B0C / tan(dbl_470BA0))
+            //   at     = (w * flt_470B0C, h * flt_470B0C, 0)
+            //   up     = (0, -1, 0)                      [Camera_Apply's kUp]
+            //   fov    = 0x3EA0D97C, aspect = w / h
+            //   near   = 0x3F800000 (1.0), far = 0x461C4000 (10000.0)
+            // with flt_470B0C = 0.5 and dbl_470BA0 = 0.15707963705062866,
+            // both read out of the retail image. The two D3DX calls and the
+            // two SetTransform states (2 = view, 3 = projection) are retail's
+            // as well. This block previously carried an invented eye of
+            // (0, 0, -1), never set `at` at all, and its matrix hooks wrote
+            // out[0] = 1.0f instead of building a matrix - so no view or
+            // projection transform ever reached the device.
+            static const float kHalf = 0.5f;
+            static const double kHalfFov = 0.15707963705062866;
+            const float width = 640.0f;
+            const float height = 480.0f;
             static CameraState camera;
-            camera.eye[2] = -1.0f;
-            camera.fov_y = 0.31415927f;
-            camera.aspect = 640.0f / 480.0f;
+            camera.eye[0] = width * kHalf;
+            camera.eye[1] = height * kHalf;
+            camera.eye[2] = static_cast<float>(
+                (height * kHalf) / std::tan(kHalfFov));
+            camera.at[0] = camera.eye[0];
+            camera.at[1] = camera.eye[1];
+            camera.at[2] = 0.0f;
+            camera.fov_y = 0.3141592741012573f;
+            camera.aspect = width / height;
             camera.near_plane = 1.0f;
             camera.far_plane = 10000.0f;
             static CameraHooks camera_hooks = {
                 nullptr,
-                [](void*, float* out, const float*, const float*,
-                   const float*) { out[0] = 1.0f; },
-                [](void*, float* out, float, float, float, float) {
-                    out[0] = 1.0f;
+                [](void*, float* out, const float* eye, const float* at,
+                   const float* up) {
+                    D3DXMatrixLookAtLH(
+                        reinterpret_cast<D3DXMATRIX*>(out),
+                        reinterpret_cast<const D3DXVECTOR3*>(eye),
+                        reinterpret_cast<const D3DXVECTOR3*>(at),
+                        reinterpret_cast<const D3DXVECTOR3*>(up));
                 },
-                [](void*, int, const float*) {},
+                [](void*, float* out, float fov_y, float aspect,
+                   float near_plane, float far_plane) {
+                    D3DXMatrixPerspectiveFovLH(
+                        reinterpret_cast<D3DXMATRIX*>(out), fov_y, aspect,
+                        near_plane, far_plane);
+                },
+                [](void*, int state, const float* matrix) {
+                    if (g_host.device != nullptr)
+                        g_host.device->SetTransform(
+                            static_cast<D3DTRANSFORMSTATETYPE>(state),
+                            reinterpret_cast<const D3DMATRIX*>(matrix));
+                },
+                // Retail publishes two dwords from its camera context into
+                // the manager at +0x5C/+0x60. The recovered CameraState does
+                // not model those fields, so this edge stays unbound rather
+                // than being filled with a guess.
                 [](void*) {},
             };
             Camera_Apply(&camera, &camera_hooks);
@@ -3860,6 +3904,18 @@ int HostFrameAdvance(void*) {
                 [](void*, const ViewportBlock* viewport) {
                     g_host.viewport_applied =
                         viewport->width == 0x280 && viewport->height == 0x1E0;
+                    if (g_host.device == nullptr)
+                        return;
+                    // The block Viewport_ApplyDefault fills is retail's, so
+                    // it goes to the device rather than only being inspected.
+                    D3DVIEWPORT9 applied = {};
+                    applied.X = viewport->x;
+                    applied.Y = viewport->y;
+                    applied.Width = viewport->width;
+                    applied.Height = viewport->height;
+                    applied.MinZ = viewport->min_z;
+                    applied.MaxZ = viewport->max_z;
+                    g_host.device->SetViewport(&applied);
                 },
                 [](void*) {},
             };
