@@ -2656,8 +2656,13 @@ void HostRenderMenu() {
         traced_viewport = true;
     }
     if (SUCCEEDED(result))
+        // Retail clears through 0x0043BC40, whose only caller passes
+        // sub_43BCD0(-16777216) - 0xFF000000, opaque black - and whose flag
+        // word is 3, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, with Z = 1.0f. The
+        // host had an invented dark blue and never cleared the depth buffer
+        // it asks the device to create.
         result = g_host.device->Clear(
-            0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_XRGB(12, 20, 36),
+            0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xFF000000u,
             1.0f, 0);
     if (SUCCEEDED(result))
         result = g_host.device->BeginScene();
@@ -3988,31 +3993,56 @@ void HostShutdownMainTasks(void*) {
 }
 void HostDestroyScheduler(void*, void*) {}
 void HostStopSoundWorker(void*) { g_host.sound.initialized = 0; }
-void HostDestroySound(void*) {
-    SoundShutdownHooks hooks = {
-        nullptr,
-        [](void*, int) {}, [](void*) {}, [](void*) {}, [](void*) {},
-        [](void*) {}, [](void*) {}, [](void*) {}, [](void*) {},
-        [](void*) {},
-    };
-    SoundManager_Shutdown(0, &hooks);
+// SoundManager_Shutdown is retail 0x0043D3E0 and its whole value is the ORDER
+// it releases things in. The host was calling it with nine do-nothing hooks and
+// then tearing everything down itself afterwards, in its own order - so retail's
+// sequence governed nothing. The releases now happen inside the hooks.
+//
+// The host's audio layer is a strict subset of retail's: it owns the three menu
+// buffers, the BGM buffer and the IDirectSound8, and never creates a track
+// table, BGM header set, update timer, MIDI player, streamer, notify event or
+// name slots, so those edges have nothing to act on.
+void HostReleaseMenuSoundBuffer(void*, int slot) {
+#if defined(_WIN32)
+    if (slot < 0 || slot >= 3 || g_host.menu_sound_buffers[slot] == nullptr)
+        return;
+    g_host.menu_sound_buffers[slot]->Release();
+    g_host.menu_sound_buffers[slot] = nullptr;
+#else
+    (void)slot;
+#endif
+}
+
+void HostReleaseDirectSound(void*) {
 #if defined(_WIN32)
     if (g_host.bgm_buffer != nullptr) {
         g_host.bgm_buffer->Stop();
         g_host.bgm_buffer->Release();
         g_host.bgm_buffer = nullptr;
     }
-    for (int index = 0; index < 3; ++index) {
-        if (g_host.menu_sound_buffers[index] != nullptr) {
-            g_host.menu_sound_buffers[index]->Release();
-            g_host.menu_sound_buffers[index] = nullptr;
-        }
-    }
     if (g_host.direct_sound != nullptr) {
         g_host.direct_sound->Release();
         g_host.direct_sound = nullptr;
     }
 #endif
+}
+
+void HostSoundNothingToRelease(void*) {}
+
+void HostDestroySound(void*) {
+    SoundShutdownHooks hooks = {
+        nullptr,
+        HostReleaseMenuSoundBuffer,
+        HostSoundNothingToRelease,   // track table: host allocates none
+        HostSoundNothingToRelease,   // BGM headers: host allocates none
+        HostSoundNothingToRelease,   // update timer: host installs none
+        HostSoundNothingToRelease,   // MIDI: host has no player
+        HostReleaseDirectSound,
+        HostSoundNothingToRelease,   // streamer: host creates none
+        HostSoundNothingToRelease,   // notify event: host creates none
+        HostSoundNothingToRelease,   // name slots: host allocates none
+    };
+    SoundManager_Shutdown(0, &hooks);
 }
 void HostDestroyGameState(void*, void* manager) {
 #if defined(_WIN32)
@@ -4060,10 +4090,17 @@ void HostDestroyWindow(void*) {
     }
 #endif
 }
+// The host has no MIDI player at all - no output device, no timer event, no
+// track blocks - so every edge of retail's MIDI teardown (0x0043AD40) has
+// nothing to act on. The sequence itself is still retail's.
+void HostMidiNothingToRelease(void*) {}
+
 void HostShutdownMidi(void*) {
     MidiShutdownHooks hooks = {
-        nullptr, [](void*) {}, [](void*) {}, [](void*) {}, [](void*) {},
-        [](void*) {}, [](void*) {},
+        nullptr,
+        HostMidiNothingToRelease, HostMidiNothingToRelease,
+        HostMidiNothingToRelease, HostMidiNothingToRelease,
+        HostMidiNothingToRelease, HostMidiNothingToRelease,
     };
     MidiPlayer_Shutdown(&hooks);
 }

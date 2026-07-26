@@ -23,6 +23,12 @@ FILES = [
 PATTERNS = (
     ("host-adapter", re.compile(r'Log\(\s*"host adapter', re.DOTALL)),
     ("empty-lambda", re.compile(r'=\s*\[\][^{;]*\{\s*\}\s*;', re.DOTALL)),
+    # The pattern above only sees a lambda that is ASSIGNED. An inert lambda
+    # passed straight into a hook struct or a call argument - which is how most
+    # of them are actually written - slipped past it entirely, hiding fifteen
+    # do-nothing sound and MIDI teardown edges from this gate.
+    ("empty-lambda-arg", re.compile(
+        r'\[\]\s*\([^)]*\)\s*(?:->\s*[A-Za-z_][\w:<>*&\s]*?)?\{\s*\}')),
     ("optional-binding", re.compile(
         r'g_[A-Za-z0-9_]+_bindings\.[A-Za-z0-9_]+\s*!=\s*0')),
     # A named function with an empty body is the same inert edge as an empty
@@ -73,8 +79,9 @@ for kind, path, line_no, line in rows + software_render_rows:
 # added and has a standing population, so it ratchets against a baseline: the
 # count may fall but never rise.
 BASELINE = ROOT / "tools" / "runtime_placeholder_baseline.json"
-empty_functions = [r for r in rows if r[0] == "empty-function"]
-strict = [r for r in rows if r[0] != "empty-function"]
+RATCHETED = ("empty-function", "empty-lambda-arg")
+empty_functions = [r for r in rows if r[0] in RATCHETED]
+strict = [r for r in rows if r[0] not in RATCHETED]
 
 baseline_count = 0
 exemptions = {}
@@ -110,7 +117,12 @@ print(f"EMPTY_FUNCTION_EXEMPT={len(exempt_hits)}")
 
 if "--update-baseline" in sys.argv:
     BASELINE.write_text(json.dumps({
-        "comment": "Named empty host functions. This count may only fall; "
+        "comment": "Named empty host functions and inert hook lambdas. This "
+                   "count may only fall. It was re-established when the "
+                   "empty-lambda-arg pattern was added: that pattern exposed "
+                   "19 do-nothing hook edges the assigned-lambda pattern had "
+                   "never seen. Thirteen of those were fixed on the spot; the "
+                   "rest are edges whose subsystem the host does not build. "
                    "see tools/runtime_placeholder_audit.py.",
         "empty_function_count": len(empty_functions),
         "files": sorted(f"{r[1]}:{r[2]}" for r in empty_functions),
