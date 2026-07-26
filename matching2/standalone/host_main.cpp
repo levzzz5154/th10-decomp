@@ -165,6 +165,11 @@ struct HostContext {
     // so X11 root capture returns black; reading the surface inside the
     // process is the only way to see what the reconstruction actually draws.
     int capture_after = -1;
+    // Sticky boot evidence: the live handles are nulled by teardown before
+    // the report prints, so record creation as it happens.
+    int boot_window_ok = 0;
+    int boot_device_ok = 0;
+    int boot_sound_ok = 0;
     int presented_frames = 0;
     int capture_done = 0;
     const char* capture_path = nullptr;
@@ -1426,6 +1431,13 @@ void HostMaybeCaptureFrame() {
     if (++g_host.presented_frames < g_host.capture_after)
         return;
     g_host.capture_done = 1;
+    if (g_host.capture_path == nullptr) {
+        // --boot-real: run the genuine boot for N frames and stop. No frame
+        // is written; the point is that the boot edges actually execute,
+        // which they never do under --smoke.
+        g_host.menu_quit = 1;
+        return;
+    }
     // Read the surface actually being rendered into, not the swap-chain back
     // buffer: if anything redirected the render target we want to see that.
     IDirect3DSurface9* back = nullptr;
@@ -2226,6 +2238,7 @@ int HostCreateWindow(void*) {
         return -1;
     }
     g_host.window = static_cast<HWND>(g_pWnd);
+    g_host.boot_window_ok = g_host.window != nullptr;
     if (g_host.window != nullptr) {
         char title[128] = {};
         char cls[64] = {};
@@ -2316,6 +2329,7 @@ int HostCreateDevice(void*) {
     HRESULT result = g_host.direct3d->CreateDevice(
         D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
         D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
+    g_host.boot_device_ok = SUCCEEDED(result);
     HostTrace(FAILED(result) ? "Direct3D9 HAL device failed" :
                                "Direct3D9 HAL device ready");
     return FAILED(result) ? -1 : 0;
@@ -2342,6 +2356,7 @@ void* HostSpawnSoundWorker(void*) {
     }
     if (!g_host.smoke_mode)
         HostTrace("DirectSound device ready");
+    g_host.boot_sound_ok = 1;
 #endif
     g_host.sound.initialized = 1;
     g_host.sound.sfx_enabled = 0;
@@ -2784,10 +2799,20 @@ static int HostRun(int argc, char** argv) {
         argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
     g_host.dump_stage =
         argc > 1 && std::strcmp(argv[1], "--dump-stage") == 0;
-    for (int index = 1; index + 2 < argc + 1; ++index) {
+    for (int index = 1; index < argc; ++index) {
         if (std::strcmp(argv[index], "--capture") == 0 && index + 2 < argc) {
             g_host.capture_after = std::atoi(argv[index + 1]);
             g_host.capture_path = argv[index + 2];
+            break;
+        }
+        // --boot-real [frames]: full real boot, no smoke early-outs, quit
+        // after the given frame count (default 300) with the report printed.
+        if (std::strcmp(argv[index], "--boot-real") == 0) {
+            g_host.capture_after =
+                index + 1 < argc ? std::atoi(argv[index + 1]) : 300;
+            if (g_host.capture_after <= 0)
+                g_host.capture_after = 300;
+            g_host.capture_path = nullptr;
             break;
         }
     }
@@ -2931,6 +2956,25 @@ static int HostRun(int argc, char** argv) {
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;
+    if (g_host.capture_after >= 0 && g_host.capture_path == nullptr) {
+        // --boot-real asserts the genuine boot path, which --smoke skips
+        // entirely via its early-outs. The scripted title/stage flow the
+        // smoke verdict checks does not apply here, so it gets its own.
+        const int boot_ok =
+            g_host.boot_window_ok && g_host.boot_device_ok &&
+            g_host.game_state_constructed && g_host.device_defaults_applied &&
+            g_host.viewport_applied && g_host.title_task_registered &&
+            g_host.title_resources_loaded && g_host.title_anm_parsed &&
+            g_host.title_draw_calls > 0 && g_host.clean_shutdown &&
+            exit_code == 0;
+        std::printf("  real boot: window=%s device=%s sound=%s draws=%d\n",
+                    g_host.boot_window_ok ? "yes" : "no",
+                    g_host.boot_device_ok ? "yes" : "no",
+                    g_host.boot_sound_ok ? "yes" : "no",
+                    g_host.title_draw_calls);
+        std::printf("BOOT_REAL_%s\n", boot_ok ? "PASS" : "FAIL");
+        return boot_ok ? 0 : 1;
+    }
     std::printf("SMOKE_%s\n", ok ? "PASS" : "FAIL");
     const HostStageReport& stage = HostStage_GetReport();
     const int stage_ok =
