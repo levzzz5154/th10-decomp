@@ -1495,7 +1495,36 @@ EclCoreVm g_ecl_vm;
 unsigned char g_ecl_entity[0x2518];
 ECLInstructionCursor g_ecl_cursor;
 ECLVMState g_ecl_state;
-EclCoreOwnerVtable g_ecl_owner_vtable;
+
+// The owner is consumed through TWO interfaces sharing one vtable:
+//   slot 0      the core interpreter's default arm - a plain function pointer
+//               taking the owner explicitly (cdecl)
+//   slots 1..5  ECLVariableResolver, which ecl_vm.cpp calls as C++ virtuals
+//               (thiscall, `this` in ECX)
+// A one-entry table made every negative operand encoding read slot 4 or 5 off
+// the end of it.
+float g_ecl_globals[256];
+int g_ecl_int_globals[256];
+
+int __thiscall HostEclResolveInt(void*, int variable) {
+	const int slot = variable < 0 ? -variable : variable;
+	return slot < 256 ? g_ecl_int_globals[slot] : 0;
+}
+int* __thiscall HostEclResolveIntPointer(void*, int variable) {
+	const int slot = variable < 0 ? -variable : variable;
+	return &g_ecl_int_globals[slot < 256 ? slot : 0];
+}
+float __thiscall HostEclResolveFloat(void*, int variable) {
+	const int slot = variable < 0 ? -variable : variable;
+	return slot < 256 ? g_ecl_globals[slot] : 0.0f;
+}
+float* __thiscall HostEclResolveFloatPointer(void*, int variable) {
+	const int slot = variable < 0 ? -variable : variable;
+	return &g_ecl_globals[slot < 256 ? slot : 0];
+}
+void __thiscall HostEclResolverUnknown(void*) {}
+
+void* g_ecl_owner_vtable[6];
 EclCoreHooks g_ecl_hooks;
 int g_ecl_started;
 int g_ecl_enabled;
@@ -1519,11 +1548,16 @@ int g_ecl_stopped;
 // dispatcher, so the recovered ECL_VM_Dispatch expects the biased pointer.
 int HostEclDispatchExtended(EclCoreOwner* owner) {
 	(void)owner;
-	// Publish the core VM's current instruction through the retail cursor the
-	// dispatcher reads, then enter it with the biased pointer retail's
-	// loc_40E760 thunk produces.
+	// Publish the ACTIVE VM's current instruction through the retail cursor
+	// the dispatcher reads, then enter it with the biased pointer retail's
+	// loc_40E760 thunk produces. Retail keeps the active VM in owner+0x04 and
+	// every 0x100+ opcode is dispatched against it; publishing the root VM's
+	// ip unconditionally meant a spawned enemy executed the stage script's
+	// instruction instead of its own, with operands read from the wrong
+	// instruction entirely.
+	EclCoreVm* active = g_ecl_active != 0 ? g_ecl_active : &g_ecl_vm;
 	g_ecl_cursor.instruction =
-	    reinterpret_cast<ECLInstruction*>(g_ecl_vm.ip);
+	    reinterpret_cast<ECLInstruction*>(active->ip);
 	g_ecl_state.cursor = &g_ecl_cursor;
 	*reinterpret_cast<ECLVMState**>(g_ecl_entity + 0x2514) = &g_ecl_state;
 	return ECL_VM_Dispatch(g_ecl_entity + 0x103C);
@@ -1570,11 +1604,8 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument);
 // ECL global variable storage. Retail reaches negative operand encodings
 // through the owner object's ECLVariableResolver vtable (slots 4/5); that
 // object is the enemy entity, whose resolver the host does not implement.
-// ECL_ResolveFloatDestination delegates straight into that vtable, so binding
-// it here would call through a table this host does not provide - the read of
-// a wild pointer that faulted inside it. The local case below is retail's
-// exactly; the global case is backed by host storage and is flagged as such.
-float g_ecl_globals[256];
+// The local case below is retail's exactly; the global case uses the host
+// storage declared alongside the resolver vtable above.
 
 // Retail 0x00450070. A clear mask bit yields null and retail stores through it
 // unchecked; the host refuses that store instead of faulting.
@@ -1778,8 +1809,13 @@ void HostStartMainEcl() {
 	}
 	std::memset(&g_ecl_vm, 0, sizeof(g_ecl_vm));
 	std::memset(g_ecl_entity, 0, sizeof(g_ecl_entity));
-	g_ecl_owner_vtable.DispatchExtendedOpcode = HostEclDispatchExtended;
-	*reinterpret_cast<EclCoreOwnerVtable**>(g_ecl_entity) = &g_ecl_owner_vtable;
+	g_ecl_owner_vtable[0] = reinterpret_cast<void*>(HostEclDispatchExtended);
+	g_ecl_owner_vtable[1] = reinterpret_cast<void*>(HostEclResolveInt);
+	g_ecl_owner_vtable[2] = reinterpret_cast<void*>(HostEclResolveIntPointer);
+	g_ecl_owner_vtable[3] = reinterpret_cast<void*>(HostEclResolverUnknown);
+	g_ecl_owner_vtable[4] = reinterpret_cast<void*>(HostEclResolveFloat);
+	g_ecl_owner_vtable[5] = reinterpret_cast<void*>(HostEclResolveFloatPointer);
+	*reinterpret_cast<void***>(g_ecl_entity) = g_ecl_owner_vtable;
 	// The ECLH block is 16 bytes; instructions follow it.
 	g_ecl_vm.ip = reinterpret_cast<EclCoreInstruction*>(
 	    g_enemy_ecl + entry + 16);
@@ -2327,8 +2363,9 @@ int HostStage_RunFrames(int frames) {
 	g_report.timeline_maximum_accessed_offset =
 	    g_timeline_view.stats.maximum_accessed_offset;
 	if (g_ecl_enabled)
-		Log("ecl: %d advances, %d calls, %s (ip=%p, scratch_top=%d)",
-		    g_ecl_instructions, g_ecl_calls,
+		Log("ecl: %d ticks-with-progress, %d calls, %d spawns, %s "
+		    "(ip=%p, scratch_top=%d)",
+		    g_ecl_instructions, g_ecl_calls, g_ecl_spawns,
 		    g_ecl_stopped ? "stopped" : "running",
 		    (const void*)g_ecl_vm.ip, g_ecl_vm.scratch_top);
 	g_report.timeline_maximum_record_extent =
