@@ -79,7 +79,13 @@ int ScoreArchive_LoadSections(ScoreArchiveLoadState* state,
         ReadU16(packed + 8) == 3) {
         const uint32_t packed_size = ReadU32(packed + 0x10);
         const uint32_t unpacked_words = ReadU32(packed + 0x14);
-        hooks->decrypt(packed + 0x18, packed_size, '5', 0x10, packed_size);
+        // Retail: sub_44B0D0(172, packed + 0x18, packed_size, 53, 16,
+        // packed_size), whose parameters are (key, data, size, step, block,
+        // limit). The key is 172 and the step is 53; the 16 is the block
+        // size, which the hook fixes. This previously passed 53 as the key
+        // and 16 as the step, so the container never decoded and every score
+        // section failed its checksum.
+        hooks->decrypt(packed + 0x18, packed_size, 172, 53, packed_size);
         state->unpacked =
             static_cast<uint8_t*>(hooks->allocate(unpacked_words * 4));
         hooks->decompress(packed + 0x18, packed_size, state->unpacked,

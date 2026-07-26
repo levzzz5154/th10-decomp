@@ -18,6 +18,9 @@
 #include "th10/archive/resource_manager.hpp"
 #include "th10/game/task_registration.hpp"
 #include "th10/game/score.hpp"
+#include "th10/game/score_file.hpp"
+#include "th10/archive/crypt.hpp"
+#include "th10/archive/lzss.hpp"
 #include "th10/platform/pack_file_loader.hpp"
 #include "th10/platform/joystick_probe.hpp"
 #include "th10/render/resource_manager.hpp"
@@ -130,6 +133,25 @@ struct HostContext {
     unsigned char* title_resource_bytes[3] = {};
     unsigned int title_resource_sizes[3] = {};
     AnmFileEntry title_entries[3] = {};
+    // ascii.anm: the sprite font every menu list is drawn with.
+    unsigned char* ascii_bytes = nullptr;
+    unsigned int ascii_size = 0;
+    // Music room: every track in th10/thbgm.fmt, in file order.
+    static const int kMusicTrackMax = 32;
+    char music_tracks[kMusicTrackMax][20] = {};
+    int music_track_count = 0;
+    int music_selection = 0;
+    int music_playing = -1;
+    // Replay browser: the .rpy files next to the executable.
+    static const int kReplayMax = 24;
+    char replay_files[kReplayMax][48] = {};
+    int replay_count = 0;
+    int replay_selection = 0;
+    int replay_scanned = 0;
+    // Player data: per-difficulty high scores out of scoreth10.dat.
+    int score_present = 0;
+    unsigned int score_values[5] = {};
+    int player_data_selection = 0;
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
@@ -1189,6 +1211,372 @@ void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
     g_quad_submission.submitted = true;
 }
 
+// ---------------------------------------------------------------------------
+// Sprite-font text. Every list in the title sub-screens - the music room's
+// track names, the score table, the replay list - is drawn from ascii.anm,
+// one sprite per character.
+//
+// Retail lays these out in TextQueue_Draw (0x00401A50), but its glyph handle
+// is a pointer: `*(a1+936) = *(*(a1+35220) + 280) + 68 * (c - 32)` walks a
+// 68-byte-per-glyph descriptor array hanging off an ANM resource runtime that
+// the host does not build. Rather than fabricate that table, the layout here
+// is the host's and only the glyph geometry comes from the real ascii.anm.
+// The character-to-sprite mapping is retail's own `c - 32`.
+// ---------------------------------------------------------------------------
+bool HostEnsureAsciiFont() {
+    if (g_host.ascii_bytes != nullptr)
+        return true;
+    unsigned int size = Resource_GetFileSize("th10/ascii.anm");
+    if (size == 0)
+        return false;
+    unsigned char* bytes =
+        static_cast<unsigned char*>(std::malloc(static_cast<size_t>(size)));
+    if (bytes == nullptr ||
+        Resource_LoadFile("th10/ascii.anm", bytes) == nullptr) {
+        std::free(bytes);
+        return false;
+    }
+    g_host.ascii_bytes = bytes;
+    g_host.ascii_size = size;
+    return true;
+}
+
+// Route a colour change through the same cache the blend applier uses, so a
+// batch that depended on the old colour is drawn before the new one lands.
+void HostSetTextColor(D3DCOLOR color) {
+    if (g_anm_state_cache.cached_color != color) {
+        HostAnmStateFlush();
+        g_anm_state_cache.cached_color = color;
+        HostAnmSetTextureFactor(color);
+    }
+    if (g_anm_state_cache.cached_blend != 0) {
+        HostAnmStateFlush();
+        g_anm_state_cache.cached_blend = 0;
+        HostAnmSetBlendMode(6);  // D3DBLEND_INVSRCALPHA
+    }
+}
+
+float HostDrawAsciiText(float x, float y, D3DCOLOR color, float scale,
+                        const char* text) {
+    if (!HostEnsureAsciiFont() || text == nullptr || g_host.device == nullptr)
+        return x;
+    HostSetTextColor(color);
+    const float start_x = x;
+    float width = 0.0f;
+    for (const unsigned char* cursor =
+             reinterpret_cast<const unsigned char*>(text);
+         *cursor != 0; ++cursor) {
+        const unsigned char character = *cursor;
+        if (character == '\n') {
+            y += 16.0f * scale;
+            x = start_x;
+            continue;
+        }
+        AnmFileEntry entry;
+        AnmFileSprite sprite;
+        if (character != ' ' &&
+            AnmFile_FindGlobalSprite(
+                g_host.ascii_bytes, g_host.ascii_size,
+                static_cast<unsigned int>(character) - 32u, &entry, &sprite)) {
+            IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
+            if (texture != nullptr) {
+                if (texture != g_staged_texture) {
+                    HostAnmStateFlush();
+                    g_staged_texture = texture;
+                }
+                const float w = sprite.width * scale;
+                const float h = sprite.height * scale;
+                g_quad_submission = HostQuadSubmission{};
+                g_quad_submission.texture = texture;
+                g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
+                g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
+                g_quad_submission.u1 =
+                    (sprite.x + sprite.width) / static_cast<float>(entry.width);
+                g_quad_submission.v1 =
+                    (sprite.y + sprite.height) / static_cast<float>(entry.height);
+                // Retail advances by a font-width field rather than by the
+                // sprite: `v10 = *(int *)(a1 + 35212) * record.advance` in
+                // 0x00401A50. ascii.anm stores each glyph in a 16-wide cell
+                // whose ink fills the left half, so the cell width is twice
+                // the advance.
+                AnchoredQuadVertex corners[4] = {
+                    {x, y, 0.0f, 1.0f}, {x + w, y, 0.0f, 1.0f},
+                    {x, y + h, 0.0f, 1.0f}, {x + w, y + h, 0.0f, 1.0f}};
+                HostSubmitQuad(corners, 0);
+                x += w * 0.5f;
+                width = x - start_x > width ? x - start_x : width;
+                continue;
+            }
+        }
+        // A space, or a glyph ascii.anm does not carry, still advances.
+        x += 8.0f * scale;
+        width = x - start_x > width ? x - start_x : width;
+    }
+    return width;
+}
+
+// ---------------------------------------------------------------------------
+// Contents for the three title sub-screens. Every list below is built from a
+// real file: the track list from th10/thbgm.fmt inside th10.dat, the replay
+// list from the .rpy files on disk, and the score table from scoreth10.dat.
+// ---------------------------------------------------------------------------
+void HostBuildMusicTrackList() {
+    if (g_host.music_track_count != 0)
+        return;
+    const unsigned int size = Resource_GetFileSize("th10/thbgm.fmt");
+    if (size == 0)
+        return;
+    unsigned char* metadata =
+        static_cast<unsigned char*>(std::malloc(size));
+    if (metadata == nullptr ||
+        Resource_LoadFile("th10/thbgm.fmt", metadata) == nullptr) {
+        std::free(metadata);
+        return;
+    }
+    // 52-byte records: a 16-byte name, then the PCM offset at +0x10 and the
+    // extent at +0x1C. A record with an empty name terminates the table.
+    for (unsigned int cursor = 0;
+         cursor + 52 <= size &&
+         g_host.music_track_count < HostContext::kMusicTrackMax;
+         cursor += 52) {
+        const char* name =
+            reinterpret_cast<const char*>(metadata + cursor);
+        if (name[0] == '\0')
+            break;
+        std::snprintf(g_host.music_tracks[g_host.music_track_count],
+                      sizeof(g_host.music_tracks[0]), "%.16s", name);
+        g_host.music_track_count += 1;
+    }
+    std::free(metadata);
+}
+
+void HostBuildReplayList() {
+    if (g_host.replay_scanned)
+        return;
+    g_host.replay_scanned = 1;
+#if defined(_WIN32)
+    WIN32_FIND_DATAA found;
+    HANDLE search = FindFirstFileA("replay\\*.rpy", &found);
+    if (search == INVALID_HANDLE_VALUE)
+        search = FindFirstFileA("*.rpy", &found);
+    if (search == INVALID_HANDLE_VALUE)
+        return;
+    do {
+        if (g_host.replay_count >= HostContext::kReplayMax)
+            break;
+        std::snprintf(g_host.replay_files[g_host.replay_count],
+                      sizeof(g_host.replay_files[0]), "%.47s",
+                      found.cFileName);
+        g_host.replay_count += 1;
+    } while (FindNextFileA(search, &found) != 0);
+    FindClose(search);
+#endif
+}
+
+// scoreth10.dat is a TH10 container: a 0x18-byte header, then a body that is
+// enciphered with retail's 0x0044B0D0 layer and LZSS-compressed. Both are
+// recovered, so the decode is retail's end to end -
+// ScoreArchive_LoadSections (0x0042B030) drives Dat_Decrypt and
+// Dat_LzssDecompress and hands back the checksummed 0x437C CR sections. Each
+// difficulty block holds ten 0x18-byte records whose score is the first word;
+// record 0 is the block's best.
+void HostBuildScoreTable() {
+    if (g_host.score_present != 0)
+        return;
+    g_host.score_present = -1;
+    std::FILE* file = std::fopen("scoreth10.dat", "rb");
+    if (file == nullptr)
+        return;
+    std::fseek(file, 0, SEEK_END);
+    const long size = std::ftell(file);
+    std::fseek(file, 0, SEEK_SET);
+    if (size <= 0x18) {
+        std::fclose(file);
+        return;
+    }
+    uint8_t* packed = static_cast<uint8_t*>(std::malloc(size));
+    const bool read = packed != nullptr &&
+        std::fread(packed, 1, size, file) == static_cast<size_t>(size);
+    std::fclose(file);
+    if (!read) {
+        std::free(packed);
+        return;
+    }
+
+    uint8_t* sections = static_cast<uint8_t*>(
+        std::calloc(5, kScoreFileBytes));
+    uint8_t* stats =
+        static_cast<uint8_t*>(std::calloc(1, kScoreStatsBytes));
+    if (sections == nullptr || stats == nullptr) {
+        std::free(packed);
+        std::free(sections);
+        std::free(stats);
+        return;
+    }
+    ScoreArchiveLoadState state = {packed, nullptr, sections, stats};
+    ScoreArchiveLoadHooks hooks = {};
+    hooks.decrypt = [](uint8_t* data, uint32_t bytes, uint8_t key,
+                       uint8_t step, uint32_t length) {
+        Dat_Decrypt(data, bytes, key, step, 0x10, length);
+    };
+    hooks.decompress = [](const uint8_t* source, uint32_t source_size,
+                          uint8_t* destination, uint32_t destination_size) {
+        Dat_LzssDecompress(source, static_cast<int32_t>(source_size),
+                           destination, destination_size);
+    };
+    hooks.allocate = [](uint32_t bytes) -> void* {
+        return std::calloc(1, bytes);
+    };
+    hooks.free_memory = [](void* memory) { std::free(memory); };
+    ScoreArchive_LoadSections(&state, &hooks);
+
+    int found = 0;
+    for (int block = 0; block < 5; ++block) {
+        const uint8_t* section = sections + block * kScoreFileBytes;
+        // A slot that never decoded keeps its zeroed 'CR' signature.
+        if (section[0] != 'C' || section[1] != 'R')
+            continue;
+        std::memcpy(&g_host.score_values[block], section + 0x10, 4);
+        found += 1;
+    }
+    g_host.score_present = found != 0 ? 1 : -1;
+    std::free(state.unpacked);
+    std::free(packed);
+    std::free(sections);
+    std::free(stats);
+}
+
+// Draw the active sub-screen's list. Retail highlights the selected row and
+// dims the rest; the two colours here are its 0xFFFFFF and 0x8080FF.
+// Navigation for the three sub-screens. Each wraps its own list, cancel
+// leaves for the main menu, and the music room's confirm starts the selected
+// track through the same BGM path the stage uses.
+void HostUpdateSubScreenList() {
+    const bool cancel = (g_host.menu_input & TITLE_MENU_CANCEL) != 0;
+    const bool confirm = (g_host.menu_input & TITLE_MENU_CONFIRM) != 0;
+    int direction = 0;
+    if ((g_host.menu_input & TITLE_MENU_UP) != 0)
+        direction = -1;
+    else if ((g_host.menu_input & TITLE_MENU_DOWN) != 0)
+        direction = 1;
+    g_host.menu_input = 0;
+
+    if (cancel) {
+        HostPlayMenuSound(2);
+        HostReturnToMainMenu();
+        return;
+    }
+
+    int* selection = nullptr;
+    int count = 0;
+    if (g_host.menu_screen == 11) {
+        HostBuildMusicTrackList();
+        selection = &g_host.music_selection;
+        count = g_host.music_track_count;
+    } else if (g_host.menu_screen == 9) {
+        HostBuildReplayList();
+        selection = &g_host.replay_selection;
+        count = g_host.replay_count;
+    } else {
+        selection = &g_host.player_data_selection;
+        count = 5;
+    }
+
+    if (direction != 0 && count > 0) {
+        *selection = (*selection + direction + count) % count;
+        HostPlayMenuSound(0);
+    }
+    if (confirm && g_host.menu_screen == 11 && count > 0) {
+        HostPlayMenuSound(1);
+        if (HostStartBgm(g_host.music_tracks[*selection]))
+            g_host.music_playing = *selection;
+        else
+            g_host.music_playing = -1;
+    }
+}
+
+void HostRenderSubScreenList() {
+    const D3DCOLOR kNormal = 0xFFC8C8FFu;
+    const D3DCOLOR kSelected = 0xFFFFFFFFu;
+    const D3DCOLOR kDim = 0xFF808080u;
+    char line[80];
+
+    if (g_host.menu_screen == 11) {          // Music Room
+        HostBuildMusicTrackList();
+        if (g_host.music_track_count == 0) {
+            HostDrawAsciiText(120.0f, 200.0f, kDim, 1.0f, "NO BGM DATA");
+            return;
+        }
+        const int visible = 14;
+        int first = g_host.music_selection - visible / 2;
+        if (first > g_host.music_track_count - visible)
+            first = g_host.music_track_count - visible;
+        if (first < 0)
+            first = 0;
+        for (int row = 0; row < visible &&
+                          first + row < g_host.music_track_count; ++row) {
+            const int index = first + row;
+            std::snprintf(line, sizeof(line), "%c%02d %s",
+                          index == g_host.music_selection ? '>' : ' ',
+                          index + 1, g_host.music_tracks[index]);
+            HostDrawAsciiText(
+                110.0f, 130.0f + row * 18.0f,
+                index == g_host.music_selection ? kSelected : kNormal,
+                1.0f, line);
+        }
+        std::snprintf(line, sizeof(line), "ENTER PLAYS%s",
+                      g_host.music_playing >= 0 ? "   [PLAYING]" : "");
+        HostDrawAsciiText(110.0f, 400.0f, kDim, 1.0f, line);
+        return;
+    }
+
+    if (g_host.menu_screen == 9) {           // Replay
+        HostBuildReplayList();
+        if (g_host.replay_count == 0) {
+            HostDrawAsciiText(110.0f, 200.0f, kDim, 1.0f, "NO REPLAY DATA");
+            HostDrawAsciiText(110.0f, 224.0f, kDim, 1.0f,
+                              "PLAY A GAME TO RECORD ONE");
+            return;
+        }
+        for (int row = 0; row < g_host.replay_count && row < 14; ++row) {
+            std::snprintf(line, sizeof(line), "%c%02d %s",
+                          row == g_host.replay_selection ? '>' : ' ',
+                          row + 1, g_host.replay_files[row]);
+            HostDrawAsciiText(
+                110.0f, 130.0f + row * 18.0f,
+                row == g_host.replay_selection ? kSelected : kNormal,
+                1.0f, line);
+        }
+        return;
+    }
+
+    if (g_host.menu_screen == 10) {          // Player Data
+        HostBuildScoreTable();
+        static const char* const kDifficulty[5] = {
+            "EASY", "NORMAL", "HARD", "LUNATIC", "EXTRA"};
+        HostDrawAsciiText(110.0f, 130.0f, kNormal, 1.0f,
+                          "RANK        HIGH SCORE");
+        for (int row = 0; row < 5; ++row) {
+            if (g_host.score_present == 1)
+                std::snprintf(line, sizeof(line), "%c%-10s %10u",
+                              row == g_host.player_data_selection ? '>' : ' ',
+                              kDifficulty[row], g_host.score_values[row]);
+            else
+                std::snprintf(line, sizeof(line), "%c%-10s %10s",
+                              row == g_host.player_data_selection ? '>' : ' ',
+                              kDifficulty[row], "NO DATA");
+            HostDrawAsciiText(
+                110.0f, 165.0f + row * 20.0f,
+                row == g_host.player_data_selection ? kSelected : kNormal,
+                1.0f, line);
+        }
+        if (g_host.score_present != 1)
+            HostDrawAsciiText(110.0f, 300.0f, kDim, 1.0f,
+                              "scoreth10.dat NOT PRESENT");
+        return;
+    }
+}
+
 // The source block the recovered builder consumes. The host keeps the origin
 // in base_* and leaves layer_*/offset_* zero, which is the same three-term sum
 // retail performs.
@@ -2011,6 +2399,8 @@ void HostRenderMenu() {
             HostRenderStage();
         else
             HostRenderThroughBuckets(draw_list, draw_count);
+        if (g_host.menu_screen >= 9 && g_host.menu_screen <= 11)
+            HostRenderSubScreenList();
         HostAnmStateFlush();  // draw whatever is still staged
         result = g_host.device->EndScene();
     }
@@ -2603,14 +2993,7 @@ int HostRunSchedulerFrame(void*) {
         HostUpdateSelectionScreen();
     } else if (!g_host.smoke_mode && g_host.menu_screen >= 9 &&
                g_host.menu_screen <= 11) {
-        // Replay, Player Data and Music Room. Retail leaves each of these
-        // back to the main menu on cancel; their own list navigation is not
-        // reconstructed yet, so cancel is the only edge they answer.
-        if ((g_host.menu_input & TITLE_MENU_CANCEL) != 0) {
-            HostPlayMenuSound(2);
-            HostReturnToMainMenu();
-        }
-        g_host.menu_input = 0;
+        HostUpdateSubScreenList();
     }
     HostRenderMenu();
 #endif
