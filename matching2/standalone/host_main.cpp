@@ -58,6 +58,7 @@ extern void* g_pGameStateManager;
 // src/platform/window.cpp. g_pWnd receives the created HWND.
 void SaveSystemSettings();
 unsigned long CreateGameWindow(void* instance);
+int InstanceCheck();
 extern void* g_pWnd;
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
 #endif
@@ -2228,44 +2229,57 @@ int HostLoadConfigStage(void*) {
     unsigned int flags = 0;
     return Config_LoadAndValidate(&g_host.config, "th10.cfg", &flags, &hooks);
 }
+int HostCreateDirectInput();
+int HostCreateD3dDevice();
+
 int HostCreateWindow(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
-    HostTrace("creating Win32 window");
-    HINSTANCE instance = GetModuleHandleA(nullptr);
-    // Retail 0x004392E0 then 0x00439730: save the system settings, then
-    // register class "BASE" with the retail WndProc (0x004390E0) and create
-    // the 640x480 window titled from DAT_0046F66C in retail .rdata.
+    // Retail 0x004392E0 - save the work area / screensaver / power settings
+    // and start the high-resolution timer. Retail discards its BOOL; the
+    // reconstruction put this slot in a short-circuit chain, so returning
+    // that BOOL would abort the boot. Hardcode success.
     SaveSystemSettings();
-    if (CreateGameWindow(instance) != 0) {
+#endif
+    return 0;
+}
+// Retail 0x00439730 sits in the create_device slot: register class "BASE"
+// with the retail WndProc (0x004390E0) and create the 640x480 window titled
+// from DAT_0046F66C. DirectInput follows here because it needs the HWND and
+// retail's WinMain has no DirectInput of its own.
+int HostCreateGameWindow(void*) {
+#if defined(_WIN32)
+    if (g_host.smoke_mode)
+        return 0;
+    HostTrace("creating Win32 window");
+    if (CreateGameWindow(GetModuleHandleA(nullptr)) != 0) {
         HostTrace("CreateGameWindow(0x00439730) failed");
         return -1;
     }
     g_host.window = static_cast<HWND>(g_pWnd);
     g_host.boot_window_ok = g_host.window != nullptr;
-    if (g_host.window != nullptr) {
-        char title[128] = {};
-        char cls[64] = {};
-        GetWindowTextA(g_host.window, title, sizeof(title) - 1);
-        GetClassNameA(g_host.window, cls, sizeof(cls) - 1);
-        std::fprintf(stderr, "[th10-recon] window class=\"%s\" title=\"%s\"\n",
-                     cls, title);
-        std::fflush(stderr);
+    if (g_host.window == nullptr) {
+        HostTrace("window creation failed");
+        return -1;
     }
-    if (g_host.window != nullptr && !g_host.smoke_mode) {
-        g_host.menu_windowed = g_host.config.windowed != 0;
-        ShowWindow(g_host.window, SW_SHOW);
-        UpdateWindow(g_host.window);
-    }
-    HostTrace(g_host.window == nullptr ? "window creation failed" :
-                                        "window created");
-    return g_host.window == nullptr ? -1 : 0;
+    char title[128] = {};
+    char cls[64] = {};
+    GetWindowTextA(g_host.window, title, sizeof(title) - 1);
+    GetClassNameA(g_host.window, cls, sizeof(cls) - 1);
+    std::fprintf(stderr, "[th10-recon] window class=\"%s\" title=\"%s\"\n",
+                 cls, title);
+    std::fflush(stderr);
+    g_host.menu_windowed = g_host.config.windowed != 0;
+    ShowWindow(g_host.window, SW_SHOW);
+    UpdateWindow(g_host.window);
+    HostTrace("window created");
+    return HostCreateDirectInput();
 #else
     return 0;
 #endif
 }
-int HostCreateInput(void*) {
+int HostCreateDirectInput() {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
@@ -2290,6 +2304,19 @@ int HostCreateInput(void*) {
     HostTrace("DirectInput keyboard ready");
 #endif
     return 0;
+}
+// Retail 0x00439FF0 - the single-instance mutex and shortcut-launch check,
+// despite the hook being named load_config. Returns -1 when another copy
+// already holds "Touhou 10 App", which is a genuine retail refusal to boot.
+int HostInstanceCheck(void*) {
+#if defined(_WIN32)
+    const int status = InstanceCheck();
+    if (status == -1)
+        HostTrace("InstanceCheck(0x00439FF0): another instance is running");
+    return status;
+#else
+    return 0;
+#endif
 }
 int HostConfirmDialog(void*) { return 6; } // IDYES
 // Retail 0x0043A1C0: sum the module file's dwords and publish the total and
@@ -2356,7 +2383,7 @@ void* HostCreateD3d(void*) {
     return &g_host;
 #endif
 }
-int HostCreateDevice(void*) {
+int HostCreateD3dDevice() {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
@@ -2413,8 +2440,12 @@ void* HostSpawnSoundWorker(void*) {
 }
 void HostApplyDefaults(void*); // forward: defined with the reset path
 int HostInitDeviceObjects(void*) {
-    // Retail 0x00439890 applies the default device state (0x00439D20)
-    // while creating device-owned objects.
+    // Retail 0x00439890 is the D3D9 CreateDevice, and it applies the default
+    // device state (0x00439D20) on the way out. It runs after 0x00439730 has
+    // produced the window, which is why the device creation lives here and
+    // not in the create_device slot.
+    if (HostCreateD3dDevice() != 0)
+        return -1;
     HostApplyDefaults(nullptr);
     return 0;
 }
@@ -2974,9 +3005,13 @@ static int HostRun(int argc, char** argv) {
         &g_host,
         HostAlloc, HostFree, HostCsInit, HostCsDestroy,
         HostLogOpen, HostLogClose,
-        HostLoadConfigStage, HostCreateWindow, HostCreateInput,
+        // Retail WinMain order: 0x00439FF0 InstanceCheck, 0x004392E0
+        // SaveSystemSettings, 0x00420870 config load, then after
+        // Direct3DCreate9 the 0x00439730 window. The hook NAMES disagree
+        // with their addresses; the binding follows the address.
+        HostInstanceCheck, HostCreateWindow, HostLoadConfigStage,
         HostConfirmDialog, HostChecksum,
-        HostCreateScheduler, HostCreateD3d, HostCreateDevice,
+        HostCreateScheduler, HostCreateD3d, HostCreateGameWindow,
         HostSpawnSoundWorker, HostInitDeviceObjects,
         HostProbeJoystick, HostInitTextLayer, HostCreateGameState,
         HostDisableIme, HostReadClock, HostSetForeground,
