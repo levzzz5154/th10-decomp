@@ -23,6 +23,7 @@
 #include "th10/archive/lzss.hpp"
 #include "th10/game/replay_file_load.hpp"
 #include "th10/game/replay_menu_draw.hpp"
+#include "th10/game/replay_score_draw.hpp"
 #include <ctime>
 #include "th10/platform/pack_file_loader.hpp"
 #include "th10/platform/joystick_probe.hpp"
@@ -153,7 +154,6 @@ struct HostContext {
     int replay_scanned = 0;
     // Player data: per-difficulty high scores out of scoreth10.dat.
     int score_present = 0;
-    unsigned int score_values[5] = {};
     int player_data_selection = 0;
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
@@ -1477,6 +1477,14 @@ void HostBuildReplayList() {
     }
 }
 
+// Retail's score file holds ten records per difficulty. Each 0x18-byte record
+// is score at +0x00, a flag byte at +0x04, the shot at +0x05, a nine-byte name
+// at +0x06, the timestamp at +0x10 and the completion float at +0x14, with the
+// first record at section +0x10.
+ReplayScoreEntry g_score_entries[5][10];
+char g_score_names[5][10][12];
+int g_score_stage_scores[4][8];
+
 void HostBuildScoreTable() {
     if (g_host.score_present != 0)
         return;
@@ -1499,11 +1507,8 @@ void HostBuildScoreTable() {
         std::free(packed);
         return;
     }
-
-    uint8_t* sections = static_cast<uint8_t*>(
-        std::calloc(5, kScoreFileBytes));
-    uint8_t* stats =
-        static_cast<uint8_t*>(std::calloc(1, kScoreStatsBytes));
+    uint8_t* sections = static_cast<uint8_t*>(std::calloc(5, kScoreFileBytes));
+    uint8_t* stats = static_cast<uint8_t*>(std::calloc(1, kScoreStatsBytes));
     if (sections == nullptr || stats == nullptr) {
         std::free(packed);
         std::free(sections);
@@ -1530,11 +1535,24 @@ void HostBuildScoreTable() {
     int found = 0;
     for (int block = 0; block < 5; ++block) {
         const uint8_t* section = sections + block * kScoreFileBytes;
-        // A slot that never decoded keeps its zeroed 'CR' signature.
         if (section[0] != 'C' || section[1] != 'R')
             continue;
-        std::memcpy(&g_host.score_values[block], section + 0x10, 4);
         found += 1;
+        for (int record = 0; record < 10; ++record) {
+            const uint8_t* row = section + 0x10 + record * 0x18;
+            ReplayScoreEntry& entry = g_score_entries[block][record];
+            std::snprintf(g_score_names[block][record],
+                          sizeof(g_score_names[0][0]), "%.9s",
+                          reinterpret_cast<const char*>(row + 6));
+            entry.name = g_score_names[block][record];
+            std::memcpy(&entry.score, row, 4);
+            entry.difficulty = static_cast<signed char>(block);
+            entry.stage = static_cast<signed char>(row[4]);
+            long timestamp = 0;
+            std::memcpy(&timestamp, row + 0x10, 4);
+            entry.timestamp = timestamp;
+            std::memcpy(&entry.clear_percent, row + 0x14, 4);
+        }
     }
     g_host.score_present = found != 0 ? 1 : -1;
     std::free(state.unpacked);
@@ -1684,27 +1702,52 @@ void HostRenderSubScreenList() {
 
     if (g_host.menu_screen == 10) {          // Player Data
         HostBuildScoreTable();
-        static const char* const kDifficulty[5] = {
-            "EASY", "NORMAL", "HARD", "LUNATIC", "EXTRA"};
-        HostDrawAsciiText(110.0f, 130.0f, kNormal, 1.0f,
-                          "RANK        HIGH SCORE");
-        for (int row = 0; row < 5; ++row) {
-            if (g_host.score_present == 1)
-                std::snprintf(line, sizeof(line), "%c%-10s %10u",
-                              row == g_host.player_data_selection ? '>' : ' ',
-                              kDifficulty[row], g_host.score_values[row]);
-            else
-                std::snprintf(line, sizeof(line), "%c%-10s %10s",
-                              row == g_host.player_data_selection ? '>' : ' ',
-                              kDifficulty[row], "NO DATA");
-            HostDrawAsciiText(
-                110.0f, 165.0f + row * 20.0f,
-                row == g_host.player_data_selection ? kSelected : kNormal,
-                1.0f, line);
-        }
-        if (g_host.score_present != 1)
-            HostDrawAsciiText(110.0f, 300.0f, kDim, 1.0f,
+        static const char* const kDifficultyLabels[5] = {
+            "Easy   ", "Normal ", "Hard   ", "Lunatic", "Extra  "};
+        HostDrawAsciiText(58.0f, 100.0f, kNormal, 0.75f,
+                          kDifficultyLabels[g_host.player_data_selection]);
+        if (g_host.score_present != 1) {
+            HostDrawAsciiText(58.0f, 200.0f, kDim, 0.75f,
                               "scoreth10.dat NOT PRESENT");
+            return;
+        }
+        // The ten ranking rows are drawn by retail's ReplayScore_Draw
+        // (0x004329F0): its columns, its date format and its dashed row for
+        // an entry with no timestamp.
+        ReplayScorePage page = {};
+        page.state = 2;
+        page.page = g_host.player_data_selection;
+        // current_score/elapsed_seconds/stage_scores are four-wide in retail,
+        // so Extra reads the last of the four rather than off the end.
+        page.difficulty = g_host.player_data_selection > 3
+                              ? 3 : g_host.player_data_selection;
+        ReplayScoreData data = {};
+        data.entries = &g_score_entries[0][0];
+        for (int index = 0; index < 4; ++index)
+            data.stage_scores[index] = g_score_stage_scores[index];
+        ReplayScoreDrawState render = {58.0f, 130.0f, 0, kNormal, 0};
+        ReplayScoreDrawEnv env = {};
+        env.render = &render;
+        env.data = &data;
+        env.difficulty_labels = kDifficultyLabels;
+        env.decode_time = [](long timestamp) -> ReplayScoreDate {
+            const std::time_t when = static_cast<std::time_t>(timestamp);
+            const std::tm* broken = std::localtime(&when);
+            ReplayScoreDate date = {};
+            if (broken != nullptr) {
+                date.year = broken->tm_year + 1900;
+                date.month = broken->tm_mon + 1;
+                date.day = broken->tm_mday;
+                date.hour = broken->tm_hour;
+                date.minute = broken->tm_min;
+            }
+            return date;
+        };
+        env.draw_text = [](const ReplayScoreDrawState* s, const char* text) {
+            HostDrawAsciiText(s->x, s->y, static_cast<D3DCOLOR>(s->color),
+                              0.75f, text);
+        };
+        ReplayScore_Draw(&page, &env);
         return;
     }
 }
