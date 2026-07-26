@@ -31,6 +31,7 @@
 #include "th10/render/anm_texture_upload.hpp"
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
+#include "th10/render/anm_blend_state.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
 #include "th10/platform/sound_commands.hpp"
@@ -1040,6 +1041,43 @@ float HostRoundCenterEdge(float edge, float extent) {
     return std::floor(edge);
 }
 
+// ---------------------------------------------------------------------------
+// Blend, color and wrap selection belong to retail's AnmManager_ApplyBlendColorWrap
+// (0x004423E0), not to the host. It reads bits 4-5 of the VM flag word for the
+// destination blend (0 -> D3DBLEND_INVSRCALPHA, 1 and 2 -> D3DBLEND_ONE, 3
+// leaves the device alone), bit 15 to choose between the VM's two colour
+// registers - vm+0x2FC and vm+0x300 - applies the fade scale, and bit 31 for
+// the address mode. The host previously derived the blend itself and always
+// used the first colour register, so any VM that selected its second one drew
+// with the wrong colour and alpha.
+//
+// The cache is retail's: a callback only fires when the chosen value actually
+// changes, so the last value has to persist. These three globals are that
+// persisted device state, seeded so the first quad of a frame agrees with the
+// cache it is compared against.
+AnmStateCache g_anm_state_cache = {0xFF, 0xFF, 0xFFFFFFFFu, 0, {0, 0, 0, 0}, 0};
+DWORD g_anm_destination_blend = D3DBLEND_INVSRCALPHA;
+DWORD g_anm_address_mode = D3DTADDRESS_CLAMP;
+D3DCOLOR g_anm_texture_factor = 0xFFFFFFFFu;
+
+void HostAnmStateFlush() {}
+
+void HostAnmSetBlendMode(Word value) {
+    // Retail's selector is the D3DRS_DESTBLEND value itself: 6 is
+    // D3DBLEND_INVSRCALPHA and 2 is D3DBLEND_ONE.
+    g_anm_destination_blend = static_cast<DWORD>(value);
+}
+
+void HostAnmSetTextureFactor(Word color) {
+    // Delivered as the vertex diffuse colour rather than D3DRS_TEXTUREFACTOR;
+    // both modulate against the texture identically under D3DTOP_MODULATE.
+    g_anm_texture_factor = static_cast<D3DCOLOR>(color);
+}
+
+void HostAnmSetAddressMode(Word value) {
+    g_anm_address_mode = value == 1 ? D3DTADDRESS_WRAP : D3DTADDRESS_CLAMP;
+}
+
 void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
     (void)mode;
     if (g_host.device == nullptr || g_quad_submission.texture == nullptr)
@@ -1060,7 +1098,7 @@ void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
         strip[index].y = vertices[index].y - 0.5f;
         strip[index].z = 0.0f;
         strip[index].rhw = 1.0f;
-        strip[index].color = q.color;
+        strip[index].color = g_anm_texture_factor;
         strip[index].u = u[index];
         strip[index].v = v[index];
     }
@@ -1069,11 +1107,10 @@ void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
     g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
     g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    g_host.device->SetRenderState(
-        D3DRS_DESTBLEND,
-        q.blend == 1 || q.blend == 2 ? D3DBLEND_ONE : D3DBLEND_INVSRCALPHA);
-    const DWORD address = (q.flags & 0x80000000u) != 0 ? D3DTADDRESS_WRAP
-                                                       : D3DTADDRESS_CLAMP;
+    // Destination blend and addressing were both chosen by
+    // AnmManager_ApplyBlendColorWrap when the quad was staged.
+    g_host.device->SetRenderState(D3DRS_DESTBLEND, g_anm_destination_blend);
+    const DWORD address = g_anm_address_mode;
     g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, address);
     g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, address);
     g_host.device->SetTexture(0, q.texture);
@@ -1246,10 +1283,21 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
         (sprite.x + sprite.width) / static_cast<float>(entry.width);
     g_quad_submission.v1 =
         (sprite.y + sprite.height) / static_cast<float>(entry.height);
-    g_quad_submission.color = D3DCOLOR_ARGB(
-        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
     g_quad_submission.flags = vm.flags;
     g_quad_submission.blend = (vm.flags >> 4) & 3u;
+
+    // Hand both colour registers to retail and let it pick.
+    AnmBlendVmState blend_state = {};
+    blend_state.flags = vm.flags;
+    blend_state.color_primary = D3DCOLOR_ARGB(
+        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
+    blend_state.color_secondary = D3DCOLOR_ARGB(
+        vm.color2[3], vm.color2[2], vm.color2[1], vm.color2[0]);
+    AnmStateEnv blend_env = {HostAnmStateFlush, HostAnmSetBlendMode,
+                             HostAnmSetTextureFactor, HostAnmSetAddressMode};
+    AnmManager_ApplyBlendColorWrap(&g_anm_state_cache, &blend_state,
+                                   &blend_env);
+    g_quad_submission.color = g_anm_texture_factor;
 
     AnmDrawVm draw = {};
     draw.rotation = vm.rotation[2];

@@ -22,5 +22,8 @@
     "standalone/host_stage.cpp:1575",
     "standalone/host_stage.cpp:1793",
     "standalone/host_stage.cpp:1794"
-  ]
+  ],
+  "exempt": {
+    "standalone/host_main.cpp:1063": "AnmStateEnv::flush for AnmManager_ApplyBlendColorWrap (retail 0x004423E0). Retail flushes staged geometry before a state change so already-batched quads keep the old state. The host draws each quad immediately in HostSubmitQuad, so at this call nothing is ever staged and there is genuinely nothing to flush. Retail calls the hook unconditionally, so it cannot be null."
+  }
 }

@@ -77,13 +77,30 @@ empty_functions = [r for r in rows if r[0] == "empty-function"]
 strict = [r for r in rows if r[0] != "empty-function"]
 
 baseline_count = 0
+exemptions = {}
 if BASELINE.is_file():
-    baseline_count = json.loads(BASELINE.read_text()).get("empty_function_count", 0)
+    _baseline = json.loads(BASELINE.read_text())
+    baseline_count = _baseline.get("empty_function_count", 0)
+    # A named empty function is normally an inert edge standing in for work
+    # that has not been recovered, which is exactly what the ratchet is for.
+    # A few are empty because the host genuinely has no work to do at that
+    # edge - a retail callback whose retail-side job does not exist in an
+    # immediate-mode host, for instance. Those may be exempted, but only by
+    # naming the exact function and writing down why, so that adding one is a
+    # reviewable diff rather than a silent count bump.
+    exemptions = _baseline.get("exempt", {})
+
+exempt_hits = [r for r in empty_functions if f"{r[1]}:{r[2]}" in exemptions]
+empty_functions = [r for r in empty_functions
+                   if f"{r[1]}:{r[2]}" not in exemptions]
+for row in exempt_hits:
+    print(f"exempt\t{row[1]}:{row[2]}\t{exemptions[f'{row[1]}:{row[2]}']}")
 
 print(f"RUNTIME_PLACEHOLDER_COUNT={len(strict)}")
 print(f"SOFTWARE_RENDERER_COUNT={len(software_render_rows)}")
 print(f"EMPTY_FUNCTION_COUNT={len(empty_functions)}")
 print(f"EMPTY_FUNCTION_BASELINE={baseline_count}")
+print(f"EMPTY_FUNCTION_EXEMPT={len(exempt_hits)}")
 
 if "--update-baseline" in sys.argv:
     BASELINE.write_text(json.dumps({
@@ -91,6 +108,7 @@ if "--update-baseline" in sys.argv:
                    "see tools/runtime_placeholder_audit.py.",
         "empty_function_count": len(empty_functions),
         "files": sorted(f"{r[1]}:{r[2]}" for r in empty_functions),
+        "exempt": exemptions,
     }, indent=2) + "\n")
     print(f"baseline written: {len(empty_functions)} empty functions")
     sys.exit(0)
