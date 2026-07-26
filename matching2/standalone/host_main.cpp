@@ -946,6 +946,8 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     return nullptr;
 }
 
+void HostDrawAnmVm(const HostAnmVm& runtime);
+
 // ---------------------------------------------------------------------------
 // Retail render path. Geometry and draw-mode selection belong to the recovered
 // code: AnmVm_DrawDispatch (0x004451C0) picks the mode, and mode 0 routes to
@@ -1042,6 +1044,74 @@ int HostDrawCornerQuad(void* context, int) {
 }
 
 AnmQuad g_anm_corner_quad;
+
+
+// ---------------------------------------------------------------------------
+// Retail draw list. AnimationManager_UpdatePrimary (0x00448F80-ish) walks the
+// manager's primary list, chains each survivor into one of nineteen render
+// buckets by its bucket slot, and AnimationManager_RenderBucket then walks a
+// bucket in order calling each object's draw callback. That is retail's
+// ordering machinery; the host used to hand-roll an insertion sort by layer.
+//
+// The host still owns object lifetime and the sprite draw itself, so each
+// registered object is marked PAUSED (flags 0x20000) with a non-null script
+// cursor: AnimationObject_ExecuteScript then returns "keep, do not execute",
+// which is precisely what pausing means when the VM is ticked elsewhere. Bits
+// 0 and 1 stay clear so retail's own AnimationObject_Render bails out and the
+// host's callback does the drawing.
+// ---------------------------------------------------------------------------
+const int kAnimObjectMax = 128;
+unsigned char g_anim_objects[kAnimObjectMax][0x3AC];
+const HostAnmVm* g_anim_object_vm[kAnimObjectMax];
+int g_anim_object_count;
+
+int __fastcall HostAnimDrawCallback(AnimationObject* animation) {
+    for (int index = 0; index < g_anim_object_count; ++index) {
+        if (reinterpret_cast<void*>(g_anim_objects[index]) ==
+            reinterpret_cast<void*>(animation)) {
+            if (g_anim_object_vm[index] != nullptr)
+                HostDrawAnmVm(*g_anim_object_vm[index]);
+            return 1;
+        }
+    }
+    return 1;
+}
+
+void HostPublishDrawList(const HostAnmVm* const* list, int count) {
+    if (g_pGameStateManager == nullptr)
+        return;
+    if (count > kAnimObjectMax)
+        count = kAnimObjectMax;
+    for (int index = 0; index < count; ++index) {
+        unsigned char* object = g_anim_objects[index];
+        if (index >= g_anim_object_count) {
+            std::memset(object, 0, 0x3AC);
+            *reinterpret_cast<unsigned int*>(object + 0x35C) = 0x20000u;
+            *reinterpret_cast<void**>(object + 0x390) = object;
+            *reinterpret_cast<AnimationDrawCallback*>(object + 0x39C) =
+                HostAnimDrawCallback;
+            g_anim_object_count = index + 1;
+            AnimationManager_RegisterObjectAt(
+                g_pGameStateManager,
+                reinterpret_cast<AnimationObject*>(object),
+                AnimationManagerList_Primary, AnimationListInsertion_Back);
+        }
+        g_anim_object_vm[index] = list[index];
+        int bucket = list[index] != nullptr ? list[index]->state.layer : 0;
+        if (bucket < 0) bucket = 0;
+        if (bucket > 18) bucket = 18;
+        *reinterpret_cast<int*>(object + 0x20) = bucket;
+    }
+    for (int index = count; index < g_anim_object_count; ++index)
+        g_anim_object_vm[index] = nullptr;
+}
+
+void HostRenderThroughBuckets(const HostAnmVm* const* list, int count) {
+    HostPublishDrawList(list, count);
+    AnimationManager_UpdatePrimary(g_pGameStateManager);
+    for (int bucket = 0; bucket < 19; ++bucket)
+        AnimationManager_RenderBucket(g_pGameStateManager, bucket);
+}
 
 void HostDrawAnmVm(const HostAnmVm& runtime) {
     const AnmVmState& vm = runtime.state;
@@ -1604,17 +1674,9 @@ void HostRenderMenu() {
             draw_list[draw_count++] = &g_host.title_child_vms[index];
     if (g_host.title_runtime.phase != 0 && g_host.title_version_vm_ready)
         draw_list[draw_count++] = &g_host.title_version_vm;
-    for (int index = 1; index < draw_count; ++index) {
-        const HostAnmVm* item = draw_list[index];
-        int insertion = index;
-        while (insertion > 0 &&
-               draw_list[insertion - 1]->state.layer >
-                   item->state.layer) {
-            draw_list[insertion] = draw_list[insertion - 1];
-            --insertion;
-        }
-        draw_list[insertion] = item;
-    }
+    // Ordering belongs to retail: HostRenderThroughBuckets publishes the list
+    // into the animation manager and lets UpdatePrimary chain it into render
+    // buckets, which RenderBucket then walks in order.
 
     D3DVIEWPORT9 viewport = {};
     viewport.X = 0;
@@ -1680,10 +1742,8 @@ void HostRenderMenu() {
             0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
         if (HostStage_IsActive())
             HostRenderStage();
-        else {
-            for (int index = 0; index < draw_count; ++index)
-                HostDrawAnmVm(*draw_list[index]);
-        }
+        else
+            HostRenderThroughBuckets(draw_list, draw_count);
         result = g_host.device->EndScene();
     }
     // Capture before the flip: the swap chain is D3DSWAPEFFECT_DISCARD, so
