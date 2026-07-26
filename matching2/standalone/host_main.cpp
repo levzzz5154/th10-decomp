@@ -950,6 +950,12 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
         unsigned int color;
         float u, v;
     };
+    // Retail's mode-0 quad builder (0x00443080) sums VM offsets +0x334,
+    // +0x340 and +0x34C for the origin. All three read zero for the title
+    // VMs here, so the backdrop's 240px vertical offset comes from upstream
+    // VM state, not from this sum; adding them changed nothing and summing
+    // the +0x340 vector (named velocity in our header) would misplace any
+    // moving sprite. Left as the single term until the VM state is right.
     float origin_x = vm.position[0];
     float origin_y = vm.position[1];
     for (const HostAnmVm* parent = runtime.parent;
