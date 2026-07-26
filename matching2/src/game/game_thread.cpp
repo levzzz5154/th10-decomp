@@ -260,21 +260,21 @@ int GameThread_Init(GameThread* gameThread) {
     if (callback == 0) goto fail;
     callback->flags &= ~2u;
     callback->owner = gameThread;
-    Scheduler_RegisterPrimary(callback, 4, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(callback, 4, (void*)(uintptr_t)DAT_00491be4);
     gameThread->callback1 = callback;
 
     callback = SchedulerCallback_Create(GameThread_UpdateCallback);
     if (callback == 0) goto fail;
     callback->flags &= ~2u;
     callback->owner = gameThread;
-    Scheduler_RegisterSecondary(callback, 0x30, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(callback, 0x30, (void*)(uintptr_t)DAT_00491be4);
     gameThread->callback2 = callback;
 
     callback = SchedulerCallback_Create(GameThread_DrawCallback);
     if (callback == 0) goto fail;
     callback->flags &= ~2u;
     callback->owner = gameThread;
-    Scheduler_RegisterSecondary(callback, 0x26, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(callback, 0x26, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(gt + 0x89A8) = callback;
 
     // Initialize entities with animation data

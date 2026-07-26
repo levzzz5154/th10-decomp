@@ -13,6 +13,7 @@ python3 "$ROOT/tools/standalone_readiness.py" --check
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/title_main_menu.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/title_main_menu_test.cpp" \
     -o "$TEST_BUILD/title_main_menu_test"
 
@@ -28,6 +29,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/render/anm_file.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/anm_file_test.cpp" \
     -o "$TEST_BUILD/anm_file_test"
 
@@ -54,6 +56,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/render/game_render_targets.cpp" \
     "$ROOT/src/util/heap.cpp" \
     "$ROOT/src/util/runtime_pool.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/archive_test.cpp" \
     -o "$TEST_BUILD/archive_test"
 
@@ -63,6 +66,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/scheduler.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/scheduler_test.cpp" \
     -o "$TEST_BUILD/scheduler_test"
 
@@ -80,6 +84,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/menu.cpp" \
     "$ROOT/src/game/progress.cpp" \
     "$ROOT/src/game/score.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/game/stage_text.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
@@ -93,6 +98,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/score.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/score_runtime_test.cpp" \
     -o "$TEST_BUILD/score_runtime_test"
 
@@ -102,6 +108,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/render/d3d_resource_manager.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/d3d_resource_manager_test.cpp" \
     -o "$TEST_BUILD/d3d_resource_manager_test"
 
@@ -115,6 +122,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/platform/resource_file.cpp" \
     "$ROOT/src/archive/resource_manager.cpp" \
     "$ROOT/src/platform/path.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/file_resource_test.cpp" \
     -o "$TEST_BUILD/file_resource_test"
 
@@ -126,6 +134,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/platform/process.cpp" \
     "$ROOT/src/platform/text_log.cpp" \
     "$ROOT/src/platform/win32_timer.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/process_test.cpp" \
     -o "$TEST_BUILD/process_test"
 
@@ -135,6 +144,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/recovery_leaves.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/recovery_leaves_test.cpp" \
     -o "$TEST_BUILD/recovery_leaves_test"
 
@@ -146,6 +156,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/script/ecl_vm.cpp" \
     "$ROOT/src/script/ecl_helpers.cpp" \
     "$ROOT/src/game/recovery_leaves.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/ecl_vm_test.cpp" \
     -o "$TEST_BUILD/ecl_vm_test"
 
@@ -154,6 +165,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/script/entity_vm.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/entity_vm_test.cpp" \
     -o "$TEST_BUILD/entity_vm_test"
 
@@ -163,6 +175,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/script/ecl_helpers.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/ecl_helpers_test.cpp" \
     -o "$TEST_BUILD/ecl_helpers_test"
 
@@ -171,6 +184,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/script/prng.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/prng_test.cpp" \
     -o "$TEST_BUILD/prng_test"
 
@@ -180,6 +194,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/render/animation_slot.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/animation_slot_test.cpp" \
     -o "$TEST_BUILD/animation_slot_test"
 
@@ -190,6 +205,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/render/anm_entry_load.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/anm_entry_load_test.cpp" \
     -o "$TEST_BUILD/anm_entry_load_test"
 "$TEST_BUILD/anm_entry_load_test"
@@ -199,6 +215,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/slot_snapshot.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/slot_snapshot_test.cpp" \
     -o "$TEST_BUILD/slot_snapshot_test"
 "$TEST_BUILD/slot_snapshot_test"
@@ -210,6 +227,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/math/param_block_interp.cpp" \
     "$ROOT/src/math/math_utils.cpp" \
     "$ROOT/src/math/easing.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/param_block_interp_test.cpp" \
     -o "$TEST_BUILD/param_block_interp_test"
 "$TEST_BUILD/param_block_interp_test"
@@ -219,6 +237,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/entity_region_sweep.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/entity_region_sweep_test.cpp" \
     -o "$TEST_BUILD/entity_region_sweep_test"
 "$TEST_BUILD/entity_region_sweep_test"
@@ -228,6 +247,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/gameplay_render_pass.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/gameplay_render_pass_test.cpp" \
     -o "$TEST_BUILD/gameplay_render_pass_test"
 "$TEST_BUILD/gameplay_render_pass_test"
@@ -238,6 +258,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/message_host_init.cpp" \
     "$ROOT/src/math/math_utils.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/message_host_init_test.cpp" \
     -o "$TEST_BUILD/message_host_init_test"
 "$TEST_BUILD/message_host_init_test"
@@ -249,6 +270,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/game/stage_slot_state.cpp" \
     "$ROOT/src/game/entity_region_sweep.cpp" \
     "$ROOT/src/math/math_utils.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/stage_slot_state_test.cpp" \
     -o "$TEST_BUILD/stage_slot_state_test"
 "$TEST_BUILD/stage_slot_state_test"
@@ -256,6 +278,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/entity_movement_slot.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/entity_movement_slot_test.cpp" \
     -o "$TEST_BUILD/entity_movement_slot_test"
 
@@ -264,6 +287,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/entity_color_slot.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/entity_color_slot_test.cpp" \
     -o "$TEST_BUILD/entity_color_slot_test"
 
@@ -272,6 +296,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/linked_pool_release.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/linked_pool_release_test.cpp" \
     -o "$TEST_BUILD/linked_pool_release_test"
 
@@ -280,6 +305,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/animation_resource_lazy_fetch.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/animation_resource_lazy_fetch_test.cpp" \
     -o "$TEST_BUILD/animation_resource_lazy_fetch_test"
 
@@ -288,6 +314,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/math/vector3_cross.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/vector3_cross_test.cpp" \
     -o "$TEST_BUILD/vector3_cross_test"
 
@@ -297,6 +324,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/archive_cursor.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/archive_cursor_test.cpp" \
     -o "$TEST_BUILD/archive_cursor_test"
 
@@ -306,6 +334,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/archive_cursor_read.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/archive_cursor_read_test.cpp" \
     -o "$TEST_BUILD/archive_cursor_read_test"
 
@@ -315,6 +344,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/asset_buffer.cpp" \
     "$ROOT/src/render/transparent_pixel_fill.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/recovery_batch3_test.cpp" \
     -o "$TEST_BUILD/recovery_batch3_test"
 
@@ -326,6 +356,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/particle_seed.cpp" \
     "$ROOT/src/game/stage_tip_manager.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/recovery_batch4_test.cpp" \
     -o "$TEST_BUILD/recovery_batch4_test"
 
@@ -335,6 +366,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 g++ -std=c++17 -Wall -Wextra -Werror \
     -I"$ROOT/include" \
     "$ROOT/src/game/score_popup.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/score_popup_test.cpp" \
     -o "$TEST_BUILD/score_popup_test"
 
@@ -347,6 +379,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/render/image_alpha_transform.cpp" \
     "$ROOT/src/render/transparent_pixel_fill.cpp" \
     "$ROOT/src/render/transparent_pixel_fill_locked.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/large_easy_functions_test.cpp" \
     -o "$TEST_BUILD/large_easy_functions_test"
 
@@ -386,6 +419,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/game_thread_queue.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/game_thread_queue_test.cpp" \
     -o "$TEST_BUILD/game_thread_queue_test"
 
@@ -395,6 +429,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/player_scheduler.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/player_scheduler_test.cpp" \
     -o "$TEST_BUILD/player_scheduler_test"
 
@@ -409,6 +444,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/game/game_config_defaults.cpp" \
     "$ROOT/src/game/stage_tip_manager.cpp" \
     "$ROOT/src/platform/sound_worker.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/recovery_batch_test.cpp" \
     -o "$TEST_BUILD/recovery_batch_test"
 
@@ -457,6 +493,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
     "$ROOT/src/render/fog_disable.cpp" \
     "$ROOT/src/render/render_state_sync.cpp" \
     "$ROOT/src/game/game_config_defaults.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/recovery_batch2_test.cpp" \
     -o "$TEST_BUILD/recovery_batch2_test"
 
@@ -479,6 +516,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/stage_background.cpp" \
     "$ROOT/src/render/anm_texture_upload.cpp" \
     "$ROOT/src/platform/midi_worker.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/manager_factories_test.cpp" \
     -o "$TEST_BUILD/manager_factories_test"
 
@@ -503,6 +541,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/music_room.cpp" \
     "$ROOT/src/platform/sound_stream_thread.cpp" \
     "$ROOT/src/script/script_text_reader.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/bullet_systems_test.cpp" \
     -o "$TEST_BUILD/bullet_systems_test"
 
@@ -527,6 +566,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/pause_menu_reset.cpp" \
     "$ROOT/src/game/item_field_contact.cpp" \
     "$ROOT/src/render/anm_surface_restore.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/enemy_motion_steps_test.cpp" \
     -o "$TEST_BUILD/enemy_motion_steps_test"
 
@@ -554,6 +594,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/pause_result_open.cpp" \
     "$ROOT/src/game/stage_background.cpp" \
     "$ROOT/src/game/spell_card_end.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/game_systems_test.cpp" \
     -o "$TEST_BUILD/game_systems_test"
 
@@ -568,6 +609,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/spell_card_dispatch.cpp" \
     "$ROOT/src/platform/font_surface_blend.cpp" \
     "$ROOT/src/platform/joystick_poll.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/spell_and_input_test.cpp" \
     -o "$TEST_BUILD/spell_and_input_test"
 
@@ -579,6 +621,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/app/version_marker.cpp" \
     "$ROOT/src/game/game_mode_switch.cpp" \
     "$ROOT/src/game/stage_controller_tick.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/game_mode_transitions_test.cpp" \
     -o "$TEST_BUILD/game_mode_transitions_test"
 
@@ -591,6 +634,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/trigger_region.cpp" \
     "$ROOT/src/render/special_quad.cpp" \
     "$ROOT/src/game/spell_timeout.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/spell_timeout_test.cpp" \
     -o "$TEST_BUILD/spell_timeout_test"
 
@@ -601,6 +645,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/game/trigger_activation.cpp" \
     "$ROOT/src/game/projectile_bounce.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/trigger_activation_test.cpp" \
     -o "$TEST_BUILD/trigger_activation_test"
 
@@ -611,6 +656,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/platform/font_texture_draw.cpp" \
     "$ROOT/src/render/special_quad.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/font_texture_draw_test.cpp" \
     -o "$TEST_BUILD/font_texture_draw_test"
 
@@ -621,6 +667,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/platform/font_cache_init.cpp" \
     "$ROOT/src/render/queued_anm_cleanup.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/font_cache_init_test.cpp" \
     -o "$TEST_BUILD/font_cache_init_test"
 
@@ -631,6 +678,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/game/sprite_test_overlay.cpp" \
     "$ROOT/src/render/quad_build_anchored.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/sprite_test_overlay_test.cpp" \
     -o "$TEST_BUILD/sprite_test_overlay_test"
 
@@ -640,6 +688,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/score_hud_update.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/score_hud_update_test.cpp" \
     -o "$TEST_BUILD/score_hud_update_test"
 
@@ -651,6 +700,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/render/projection_quads.cpp" \
     "$ROOT/src/game/sprite_descriptor.cpp" \
     "$ROOT/src/game/result_menu_open.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/projection_quads_test.cpp" \
     -o "$TEST_BUILD/projection_quads_test"
 
@@ -664,6 +714,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/result_menu_open.cpp" \
     "$ROOT/src/render/faded_quad_draw.cpp" \
     "$ROOT/src/render/anm_record_walk.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/faded_quad_draw_test.cpp" \
     -o "$TEST_BUILD/faded_quad_draw_test"
 
@@ -673,6 +724,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/game/replay_file_load.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/replay_file_load_test.cpp" \
     -o "$TEST_BUILD/replay_file_load_test"
 
@@ -684,6 +736,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     "$ROOT/src/game/ending_text.cpp" \
     "$ROOT/src/platform/bgm_streamer_refill.cpp" \
     "$ROOT/src/render/effect_ring_update.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/ending_streamer_ring_test.cpp" \
     -o "$TEST_BUILD/ending_streamer_ring_test"
 
@@ -694,6 +747,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -I"$ROOT/include" \
     "$ROOT/src/game/laser_line.cpp" \
     "$ROOT/src/game/effect_pool_update.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/laser_line_test.cpp" \
     -o "$TEST_BUILD/laser_line_test"
 
@@ -703,6 +757,7 @@ g++ -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter \
     -D__stdcall= -D__fastcall= -D__cdecl= '-D__declspec(x)=' \
     -I"$ROOT/include" \
     "$ROOT/src/platform/sound_device_init.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/sound_device_init_test.cpp" \
     -o "$TEST_BUILD/sound_device_init_test"
 
@@ -882,6 +937,7 @@ g++ -std=c++17 -Wall -Wextra -Werror \
 
 "$CXX" "${CXXFLAGS[@]}" \
     "$ROOT/src/game/stage_std.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/stage_std_test.cpp" \
     -o "$TEST_BUILD/stage_std_test"
 "$TEST_BUILD/stage_std_test"

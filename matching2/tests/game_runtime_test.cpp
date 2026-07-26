@@ -14,6 +14,10 @@
 #include <vector>
 #include <cstdlib>
 
+// Retail scheduler global; the PE32 build gets it from the aliased .data,
+// the host test build has to supply storage.
+uint32_t DAT_00491be4;
+
 float _DAT_00470afc = 1.0f;
 float _DAT_00470b68 = 0.99f;
 float _DAT_00470b64 = 1.01f;

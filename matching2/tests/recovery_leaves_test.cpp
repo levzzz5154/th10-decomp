@@ -4,6 +4,10 @@
 #include <cstdlib>
 #include <cstring>
 
+// recovery_leaves.cpp publishes the large-state instance here. The PE32
+// build aliases it from retail .data; the host test build supplies storage.
+unsigned int DAT_00477830;
+
 static int g_calls;
 static int g_frees;
 static RecoveryByte g_opcode;

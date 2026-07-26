@@ -81,19 +81,19 @@ int EffectManagerRuntime_Initialize(void* state) {
         return -1;
     update->flags &= ~2u;
     update->owner = state;
-    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = update;
 
     SchedulerCallback* render =
         SchedulerCallback_Create(EffectRuntime_Render);
     if (render == 0) {
-        Scheduler_Remove(update, (void*)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     render->flags &= ~2u;
     render->owner = state;
-    Scheduler_RegisterSecondary(render, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(render, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = render;
     Entity_Init(0, (Entity*)(bytes + 0x18));
     *(int*)(bytes + 0x320) = stamp;
@@ -111,9 +111,9 @@ void EffectManagerRuntime_Destroy(void* state) {
     SchedulerCallback** render = (SchedulerCallback**)(bytes + 12);
     if (DAT_00491be4 != 0) {
         if (*update != 0)
-            Scheduler_Remove(*update, (void*)DAT_00491be4);
+            Scheduler_Remove(*update, (void*)(uintptr_t)DAT_00491be4);
         if (*render != 0)
-            Scheduler_Remove(*render, (void*)DAT_00491be4);
+            Scheduler_Remove(*render, (void*)(uintptr_t)DAT_00491be4);
     }
     *update = 0;
     *render = 0;

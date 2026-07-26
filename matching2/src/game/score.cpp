@@ -120,33 +120,33 @@ int PlayerScoreRuntime_Initialize(void* state) {
         return -1;
     primary->flags &= ~2u;
     primary->owner = state;
-    Scheduler_RegisterPrimary(primary, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(primary, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = primary;
 
     SchedulerCallback* secondary =
         SchedulerCallback_Create(PlayerScore_ReleasePrimary);
     if (secondary == 0) {
-        Scheduler_Remove(primary, (void*)DAT_00491be4);
+        Scheduler_Remove(primary, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     secondary->flags &= ~2u;
     secondary->owner = state;
-    Scheduler_RegisterSecondary(secondary, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(secondary, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = secondary;
 
     SchedulerCallback* tertiary =
         SchedulerCallback_Create(PlayerScore_ReleaseArrays);
     if (tertiary == 0) {
-        Scheduler_Remove(primary, (void*)DAT_00491be4);
-        Scheduler_Remove(secondary, (void*)DAT_00491be4);
+        Scheduler_Remove(primary, (void*)(uintptr_t)DAT_00491be4);
+        Scheduler_Remove(secondary, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         *(SchedulerCallback**)(bytes + 12) = 0;
         return -1;
     }
     tertiary->flags &= ~2u;
     tertiary->owner = state;
-    Scheduler_RegisterSecondary(tertiary, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(tertiary, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 0x37AC) = tertiary;
 
     unsigned int* flags = (unsigned int*)(bytes + 0x3744);

@@ -4,6 +4,10 @@
 #include <cassert>
 #include <cstring>
 
+// recovery_leaves.cpp publishes the large-state instance here. The PE32
+// build aliases it from retail .data; the host test build supplies storage.
+unsigned int DAT_00477830;
+
 uint8_t PTR_caseD_14f_00411de0[0x200] = {};
 float DAT_00470b04 = 0.0f;
 float DAT_00470b60 = -1.0f;
@@ -16,6 +20,10 @@ float DAT_00470b94 = 3.1415927f;
 
 extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int) { return 0; }
 extern "C" void AnimationManager_SetEclFlag(void) {}
+// ECL_SET_FLAGS / ECL_CLEAR_FLAGS reach the animation manager; the host test
+// build has no render subsystem, so these record nothing.
+void AnimationManager_SetFlag(void*, int, unsigned int) {}
+void AnimationManager_ClearFlag(void*, int, unsigned int) {}
 extern "C" void AnimationManager_ClearEclFlag(void) {}
 static int g_string_index;
 static char g_string_text[256];
@@ -371,10 +379,14 @@ void TestRecoveredLeafDispatcher() {
     fixture.instruction.instruction.opcode = ECL_SET_GLOBAL_DIFFICULTY;
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(int32_t*)(manager + 0x9E90) == 27);
+    // 0x0041004C sets the frame timer embedded at entity+0x1430 (retail
+    // passes that address to 0x00405410). The test previously asserted a
+    // g_difficulty_action global that no code ever wrote, so this case has
+    // never compiled; assert the timer the opcode actually drives.
     fixture.instruction.instruction.opcode = ECL_APPLY_DIFFICULTY_ACTION;
-    g_difficulty_action = -1;
+    std::memset((uint8_t*)entity + 0x1430, 0, sizeof(FrameTimer));
     assert(ECL_VM_Dispatch(entity) == 0);
-    assert(g_difficulty_action == 27);
+    assert(((FrameTimer*)((uint8_t*)entity + 0x1430))->current == 27);
     fixture.instruction.instruction.opcode = 0x158;
     fixture.Operands()[0] = 9;
     *(int32_t*)((uint8_t*)entity + 0x44) = 3;

@@ -197,17 +197,17 @@ int LargePlayerRuntime_Initialize(void* state) {
         return -1;
     update->flags &= ~2u;
     update->owner = state;
-    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = update;
     SchedulerCallback* draw = SchedulerCallback_Create(LargePlayer_Draw);
     if (draw == 0) {
-        Scheduler_Remove(update, (void*)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     draw->flags &= ~2u;
     draw->owner = state;
-    Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(draw, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = draw;
     g_large_player_bindings.initialize_animation(state, archive);
 

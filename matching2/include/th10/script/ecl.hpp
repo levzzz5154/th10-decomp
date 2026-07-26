@@ -3,19 +3,28 @@
 #include "th10/game/entity.hpp"
 
 // TH10 ECL instruction header as consumed by the dispatcher at 0x0040E770.
-// Operands follow the 0x14-byte header.  Their interpretation is controlled by
-// param_mask and by the VM's variable-resolution helpers.
+// The header is 0x10 bytes and operands begin at +0x10. Verified by walking
+// every ECLH sub of th10.dat's stage01.ecl: chaining instructions by the +0x06
+// size field only closes with a 16-byte header, and the first argument of
+// `op 0x28 size 0x14` sits at +0x10.
+//
+// This previously declared a 0x14-byte header with param_mask, rank_mask and
+// param_count all 32 bits wide, which put operands[] at +0x14 - so every
+// operand read in the dispatcher was four bytes past its argument.
 #pragma pack(push, 1)
 struct ECLInstruction {
-    int32_t time;
-    int16_t opcode;
-    int16_t size;
-    uint32_t param_mask;
-    uint32_t rank_mask;
-    int32_t param_count;
-    uint32_t operands[1];
+    int32_t time;            // +0x00 scheduled script time
+    int16_t opcode;          // +0x04 read sign-extended by the dispatcher
+    uint16_t size;           // +0x06 header + arguments, in bytes
+    uint16_t param_mask;     // +0x08 bit N: argument N is a variable reference
+    uint8_t rank_mask;       // +0x0A ANDed with the VM's difficulty mask
+    uint8_t param_count;     // +0x0B
+    uint32_t reserved_0c;    // +0x0C always zero in shipped scripts
+    uint32_t operands[1];    // +0x10
 };
 #pragma pack(pop)
+static_assert(sizeof(ECLInstruction) == 0x14,
+              "0x10-byte header plus one operand word");
 
 // The execution state owns a cursor object.  The retail dispatcher obtains the
 // current instruction from cursor->instruction rather than treating +0x04 as

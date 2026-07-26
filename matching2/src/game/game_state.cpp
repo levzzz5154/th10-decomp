@@ -451,7 +451,7 @@ int GameState_Init(void* stagePath, GameState* gameState, int stateId) {
         callback->owner = gameState;
         callback->flags &= ~2u;
         Scheduler_RegisterPrimary(
-            callback, stateId + 0x0C, (void*)DAT_00491be4);
+            callback, stateId + 0x0C, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(state + 8) = callback;
 
         callback = SchedulerCallback_Create(GameState_DrawCallback);
@@ -459,7 +459,7 @@ int GameState_Init(void* stagePath, GameState* gameState, int stateId) {
         callback->flags &= ~2u;
         callback->owner = gameState;
         Scheduler_RegisterSecondary(
-            callback, stateId + 7, (void*)DAT_00491be4);
+            callback, stateId + 7, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(state + 0x0C) = callback;
 
         callback = SchedulerCallback_Create(GameState_AfterDrawCallback);
@@ -467,7 +467,7 @@ int GameState_Init(void* stagePath, GameState* gameState, int stateId) {
         callback->owner = gameState;
         callback->flags &= ~2u;
         Scheduler_RegisterSecondary(
-            callback, stateId + 0x0A, (void*)DAT_00491be4);
+            callback, stateId + 0x0A, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(state + 0x2A40) = callback;
         *(uint32_t*)(state + 0x2A34) = 0;
 

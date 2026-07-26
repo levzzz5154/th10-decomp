@@ -439,20 +439,20 @@ int PlayerRuntime_Initialize(void* player) {
         return -1;
     update->flags |= 2u;
     update->owner = player;
-    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)((unsigned char*)player + 8) = update;
 
     SchedulerCallback* draw =
         SchedulerCallback_Create(PlayerRuntime_DrawCallback);
     if (draw == 0) {
-        Scheduler_Remove(update, (void*)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)((unsigned char*)player + 8) = 0;
         DAT_004776ec = 0;
         return -1;
     }
     draw->flags |= 2u;
     draw->owner = player;
-    Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(draw, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)((unsigned char*)player + 12) = draw;
     return 0;
 }
@@ -468,9 +468,9 @@ void PlayerRuntime_Destroy(void* player) {
         (SchedulerCallback**)((unsigned char*)player + 12);
     if (DAT_00491be4 != 0) {
         if (*update != 0)
-            Scheduler_Remove(*update, (void*)DAT_00491be4);
+            Scheduler_Remove(*update, (void*)(uintptr_t)DAT_00491be4);
         if (*draw != 0)
-            Scheduler_Remove(*draw, (void*)DAT_00491be4);
+            Scheduler_Remove(*draw, (void*)(uintptr_t)DAT_00491be4);
     }
     *update = 0;
     *draw = 0;

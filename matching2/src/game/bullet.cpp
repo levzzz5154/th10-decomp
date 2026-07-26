@@ -558,7 +558,7 @@ BulletEntity* BulletEntity_Spawn(
 // in its own import slots. __fastcall so ECX is the manager state.
 // ============================================================================
 void __fastcall BulletManager_Release(BulletManagerState* state) {
-    void* device = (void*)DAT_00491be4;
+    void* device = (void*)(uintptr_t)DAT_00491be4;
 
     SchedulerCallback* primary = state->primary_callback;
     if (primary != 0) {
@@ -614,14 +614,14 @@ int BulletManager_LoadScripts(BulletManagerState* state) {
         (SchedulerFunction)BulletManager_PrimaryStub);
     primary->flags &= ~2u;
     primary->owner = state;
-    Scheduler_RegisterPrimary(primary, 0x17, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(primary, 0x17, (void*)(uintptr_t)DAT_00491be4);
     state->primary_callback = primary;
 
     SchedulerCallback* secondary = SchedulerCallback_Create(
         (SchedulerFunction)BulletManager_SecondaryStub);
     secondary->flags &= ~2u;
     secondary->owner = state;
-    Scheduler_RegisterSecondary(secondary, 0x20, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(secondary, 0x20, (void*)(uintptr_t)DAT_00491be4);
     state->secondary_callback = secondary;
 
     return 0;

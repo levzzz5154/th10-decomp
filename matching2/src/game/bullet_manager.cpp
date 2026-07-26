@@ -136,19 +136,19 @@ int BulletPoolRuntime_Initialize(void* manager) {
         return -1;
     update->flags &= ~2u;
     update->owner = manager;
-    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = update;
 
     SchedulerCallback* draw =
         SchedulerCallback_Create(BulletPool_DrawCallback);
     if (draw == 0) {
-        Scheduler_Remove(update, (void*)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     draw->flags &= ~2u;
     draw->owner = manager;
-    Scheduler_RegisterSecondary(draw, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(draw, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = draw;
     return 0;
 }

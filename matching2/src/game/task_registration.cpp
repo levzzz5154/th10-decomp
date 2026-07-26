@@ -166,19 +166,19 @@ int ItemFrontRuntime_Initialize(void* owner) {
         return -1;
     update->flags &= ~2u;
     update->owner = owner;
-    Scheduler_RegisterPrimary(update, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = update;
 
     SchedulerCallback* render =
         SchedulerCallback_Create(ItemFront_Render);
     if (render == 0) {
-        Scheduler_Remove(update, (void*)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     render->flags &= ~2u;
     render->owner = owner;
-    Scheduler_RegisterSecondary(render, 0, (void*)DAT_00491be4);
+    Scheduler_RegisterSecondary(render, 0, (void*)(uintptr_t)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = render;
     return 0;
 }

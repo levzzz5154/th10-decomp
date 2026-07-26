@@ -19,6 +19,22 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include "th10/game/scheduler.hpp"
+// Scheduler and difficulty globals reached by the runtime initializers in the
+// TUs this test links. The PE32 build resolves them through the retail .data
+// aliasing and the real scheduler; the host test build supplies inert storage.
+unsigned int DAT_00491be4;
+unsigned char DAT_00491d6a;
+static SchedulerCallback g_test_callbacks[16];
+static int g_test_callback_count;
+SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
+    if (g_test_callback_count >= 16) return 0;
+    SchedulerCallback* c = &g_test_callbacks[g_test_callback_count++];
+    *c = SchedulerCallback{}; c->function = function; return c;
+}
+int Scheduler_RegisterPrimary(SchedulerCallback*, int, void*) { return 0; }
+int Scheduler_RegisterSecondary(SchedulerCallback*, int, void*) { return 0; }
+void Scheduler_Remove(SchedulerCallback*, void*) {}
 
 // ---------------------------------------------------------------------------
 // Retail globals referenced by the reconstructions.

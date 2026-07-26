@@ -3,6 +3,36 @@
 #include <cassert>
 #include <cstring>
 
+// Retail scheduler global; the PE32 build gets it from the aliased .data,
+// the host test build has to supply storage.
+uint32_t DAT_00491be4;
+// scheduler.cpp's Win32 critical-section edges. The PE32 build resolves these
+// through the retail .data aliasing and the real kernel32 imports; the host
+// test build supplies inert storage and no-ops.
+// PlayerScoreRuntime_Initialize (retail 0x004089C0) registers three callbacks
+// through the scheduler. This test fakes the scheduler rather than linking it,
+// so the entry points it reaches are recorded here.
+static int g_registered_primary;
+static int g_registered_secondary;
+static int g_removed_callbacks;
+static SchedulerCallback g_fake_callbacks[8];
+static int g_fake_callback_count;
+
+SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
+    if (g_fake_callback_count >= 8) return 0;
+    SchedulerCallback* callback = &g_fake_callbacks[g_fake_callback_count++];
+    *callback = SchedulerCallback{};
+    callback->function = function;
+    return callback;
+}
+int Scheduler_RegisterPrimary(SchedulerCallback*, int, void*) {
+    ++g_registered_primary; return 0;
+}
+int Scheduler_RegisterSecondary(SchedulerCallback*, int, void*) {
+    ++g_registered_secondary; return 0;
+}
+void Scheduler_Remove(SchedulerCallback*, void*) { ++g_removed_callbacks; }
+
 extern "C" void* malloc(unsigned long size);
 extern "C" void free(void* memory);
 extern "C" void _free(void* memory) { free(memory); }
