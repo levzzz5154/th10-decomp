@@ -1499,6 +1499,7 @@ EclCoreOwnerVtable g_ecl_owner_vtable;
 EclCoreHooks g_ecl_hooks;
 int g_ecl_started;
 int g_ecl_enabled;
+int g_ecl_calls;
 int g_ecl_instructions;
 int g_ecl_stopped;
 
@@ -1516,6 +1517,72 @@ int HostEclDispatchExtended(EclCoreOwner* owner) {
 	return ECL_VM_Dispatch(g_ecl_entity + 0x103C);
 }
 
+// stage01.ecl sub table: `count` code offsets at 0x58 followed by the same
+// number of NUL-terminated names, sorted, paired index-wise. Retail resolves a
+// call target through 0x00450470 against a label object at owner+0x102C; the
+// host binds the same lookup against the file it already loaded.
+const char* HostEclSubName(unsigned int index) {
+	if (g_enemy_ecl == 0 || index >= g_enemy_ecl_sub_count)
+		return 0;
+	const unsigned char* cursor =
+	    g_enemy_ecl + 0x58 + 4u * g_enemy_ecl_sub_count;
+	for (unsigned int seen = 0; seen < index; ++seen) {
+		while (cursor < g_enemy_ecl + g_enemy_ecl_size && *cursor != 0)
+			++cursor;
+		if (cursor >= g_enemy_ecl + g_enemy_ecl_size)
+			return 0;
+		++cursor;
+	}
+	return reinterpret_cast<const char*>(cursor);
+}
+
+int HostEclFindSub(const char* name) {
+	if (name == 0)
+		return -1;
+	for (unsigned int index = 0; index < g_enemy_ecl_sub_count; ++index) {
+		const char* candidate = HostEclSubName(index);
+		if (candidate != 0 && std::strcmp(candidate, name) == 0)
+			return static_cast<int>(index);
+	}
+	return -1;
+}
+
+// Retail 0x0044DF70, reached from opcode 0x0B. For an ECL `call` the child and
+// parent are the same record. Retail copies the caller's operands into the
+// callee's scratch frame, pushes the return linkage, then resolves the target
+// by the name stored at instruction+0x14 and plants vm+0x04 at its entry
+// (0x00450470 returns the sub body, i.e. past the 16-byte ECLH header).
+// Returns 0 on success; non-zero leaves vm+0x04 untouched and stops the VM.
+int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
+	(void)first_argument;
+	if (child == 0 || parent == 0 || parent->ip == 0)
+		return -1;
+	const EclCoreInstruction* instruction = parent->ip;
+	if (instruction->size <= 20)
+		return -1;
+	const char* target = reinterpret_cast<const char*>(
+	    reinterpret_cast<const unsigned char*>(instruction) + 20);
+	const int index = HostEclFindSub(target);
+	if (index < 0) {
+		Log("ecl call: sub \"%s\" not found in stage01.ecl", target);
+		return -1;
+	}
+	const unsigned int entry = g_enemy_ecl_sub_offsets[index];
+	if (entry + 16 >= g_enemy_ecl_size)
+		return -1;
+	// Push the return address so opcode 0x0A can come back.
+	if (child->scratch_top + 4 < 0x1000) {
+		std::memcpy(child->scratch + child->scratch_top,
+		            &parent->ip, sizeof(parent->ip));
+		child->scratch_top += 4;
+	}
+	child->ip = reinterpret_cast<EclCoreInstruction*>(
+	    g_enemy_ecl + entry + 16);
+	child->time = 0.0f;
+	g_ecl_calls += 1;
+	return 0;
+}
+
 void HostStartMainEcl() {
 	if (!g_ecl_enabled) {
 		Log("main ECL start (0x0040CFB0): interpreter present but not armed; "
@@ -1527,10 +1594,15 @@ void HostStartMainEcl() {
 		Log("main ECL start (0x0040CFB0) skipped: stage01.ecl is not resident");
 		return;
 	}
-	// Sub 0 is the entry: the ECL name block ends with "main" immediately
-	// before the first ECLH header, and sub 0 opens with the stage frame
-	// enter (op 0x28) rather than an enemy body.
-	const unsigned int entry = g_enemy_ecl_sub_offsets[0];
+	// The entry point is the sub named "main". The name table is sorted, so
+	// it is the last entry in stage01.ecl - NOT sub 0, which is "BGirl00".
+	const int main_index = HostEclFindSub("main");
+	if (main_index < 0) {
+		Log("main ECL start skipped: no sub named \"main\"");
+		return;
+	}
+	const unsigned int entry =
+	    g_enemy_ecl_sub_offsets[static_cast<unsigned int>(main_index)];
 	if (entry + 16 >= g_enemy_ecl_size) {
 		Log("main ECL start skipped: sub 0 offset 0x%X is out of range", entry);
 		return;
@@ -1546,8 +1618,18 @@ void HostStartMainEcl() {
 	g_ecl_vm.rank_mask = 0xFF;  // retail masks per difficulty; run every rank
 	g_ecl_hooks = EclCoreHooks{};
 	g_ecl_started = 1;
-	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl sub 0 "
-	    "(entry 0x%X, %u subs)", entry, g_enemy_ecl_sub_count);
+	g_ecl_hooks.start_child = HostEclStartChild;
+	// 0x00450070. The hook's note said ecl_vm.cpp's version read the operand
+	// at instruction+0x14; that was the ECLInstruction layout defect, now
+	// corrected, so the recovered resolver is usable. Its remaining
+	// divergences are confined to external variable references (encoded < 0).
+	g_ecl_hooks.resolve_float_destination =
+	    [](EclCoreVm* vm, unsigned int operand) -> float* {
+		return ECL_ResolveFloatDestination(vm, operand);
+	};
+	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \"main\" "
+	    "(sub %d, entry 0x%X, %u subs)", main_index, entry,
+	    g_enemy_ecl_sub_count);
 }
 
 // One frame of the stage script, the tick edge EclVm_TickChildren injects.
@@ -2048,6 +2130,11 @@ int HostStage_RunFrames(int frames) {
 	    g_timeline_view.stats.budget_rejections;
 	g_report.timeline_maximum_accessed_offset =
 	    g_timeline_view.stats.maximum_accessed_offset;
+	if (g_ecl_enabled)
+		Log("ecl: %d advances, %d calls, %s (ip=%p, scratch_top=%d)",
+		    g_ecl_instructions, g_ecl_calls,
+		    g_ecl_stopped ? "stopped" : "running",
+		    (const void*)g_ecl_vm.ip, g_ecl_vm.scratch_top);
 	g_report.timeline_maximum_record_extent =
 	    g_timeline_view.stats.maximum_record_extent;
 	for (int opcode = 0; opcode < 15; ++opcode)

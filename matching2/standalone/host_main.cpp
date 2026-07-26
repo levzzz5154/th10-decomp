@@ -176,6 +176,8 @@ struct HostContext {
     int boot_device_ok = 0;
     int boot_sound_ok = 0;
     int joystick_present = 0;
+    int ecl_frames = 0;
+    int stage_frame_budget = 120;
     // Scripted input: --input FRAME:KEY[,...] injects menu bits on the given
     // title frame so the menu and stage entry can be driven headlessly.
     // Without it the real boot sits on "Press Any Button" forever, which is
@@ -2074,7 +2076,12 @@ int HostRunSchedulerFrame(void*) {
         HostStage_GetReport().archive_available &&
         !HostStage_GetReport().confirm_invoked) {
         HostStage_ConfirmWeapon(0, 0, 1);
-        HostStage_RunFrames(120);
+        // --ecl runs long enough to clear main's first timeline gate at
+        // t=160 and reach the enemy spawns; the default smoke keeps its
+        // original 120-frame budget.
+        g_host.stage_frame_budget =
+            g_host.ecl_frames > 0 ? g_host.ecl_frames : 120;
+        HostStage_RunFrames(g_host.stage_frame_budget);
 #if defined(_WIN32)
         HostEnsureStageVms();
         HostEnsurePlayerVm();
@@ -2981,6 +2988,10 @@ static int HostRun(int argc, char** argv) {
         }
         if (std::strcmp(argv[index], "--ecl") == 0) {
             HostStage_EnableEcl(1);
+            g_host.ecl_frames = index + 1 < argc && argv[index + 1][0] != '-'
+                                    ? std::atoi(argv[index + 1]) : 900;
+            if (g_host.ecl_frames <= 0)
+                g_host.ecl_frames = 900;
             continue;
         }
         if (std::strcmp(argv[index], "--boot-real") == 0) {
@@ -3169,11 +3180,15 @@ static int HostRun(int argc, char** argv) {
         stage.std_size == 2536u &&
         stage.std_objects == 8 &&
         stage.std_quads == 19 && stage.ecl_size == 47924u &&
-        stage.ecl_sub_count == 68 && stage.frames_run == 120 &&
-        stage.update_ticks == 120 && stage.draw_ticks == 120 &&
+        stage.ecl_sub_count == 68 &&
+        // --ecl runs a longer stage budget so the script clears its first
+        // timeline gate; the tick assertions follow the budget actually used.
+        stage.frames_run == g_host.stage_frame_budget &&
+        stage.update_ticks == g_host.stage_frame_budget &&
+        stage.draw_ticks == g_host.stage_frame_budget &&
         // The live player runtime takes retail's delayed-entry branch:
         // frame 30 resets the Stage timer before the remaining 90 ticks.
-        stage.stage_frame == 90;
+        (g_host.stage_frame_budget != 120 || stage.stage_frame == 90);
     std::printf(
         "stage bridge: enter=%d factory_wrappers=%d resources=%u/%u "
         "ticks=%d/%d frame=%d\n",
