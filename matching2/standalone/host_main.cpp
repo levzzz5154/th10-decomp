@@ -32,6 +32,7 @@
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
 #include "th10/render/anm_blend_state.hpp"
+#include "th10/render/quad_vertex_append.hpp"
 #include "th10/render/anm_script_table_sweep.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
@@ -1061,64 +1062,108 @@ DWORD g_anm_destination_blend = D3DBLEND_INVSRCALPHA;
 DWORD g_anm_address_mode = D3DTADDRESS_CLAMP;
 D3DCOLOR g_anm_texture_factor = 0xFFFFFFFFu;
 
-void HostAnmStateFlush() {}
+// Retail stages quads into a vertex buffer and draws them in batches; the
+// write cursor is manager+0x72DACC and the staged count manager+0x3ADAC8.
+// AnimationManager_AppendQuadVertices (retail 0x00442D50) is what expands one
+// four-corner quad into the two triangles 0,1,2 and 1,2,3 and advances both.
+// The host draws whatever is staged when the state that geometry depends on -
+// destination blend, texture factor, address mode or texture - is about to
+// change, which is exactly when retail calls its flush hook.
+const int kStagedQuadMax = 4096;
+QuadRenderVertex g_staged_vertices[kStagedQuadMax * 6];
+QuadVertexStaging g_staging = {g_staged_vertices, 0};
+IDirect3DTexture9* g_staged_texture = nullptr;
+
+void HostAnmStateFlush() {
+    if (g_staging.quad_count == 0)
+        return;
+    g_host.device->SetTexture(0, g_staged_texture);
+    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    g_host.device->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+                                   g_staging.quad_count * 2,
+                                   g_staged_vertices,
+                                   sizeof(QuadRenderVertex));
+    g_host.title_draw_calls += 1;
+    g_staging.cursor = g_staged_vertices;
+    g_staging.quad_count = 0;
+}
+
+// Re-announce the cached device state and drop any stale batch. Called once
+// per frame because the cache only fires a callback when a value changes.
+void HostAnmResetStateCache() {
+    g_staging.cursor = g_staged_vertices;
+    g_staging.quad_count = 0;
+    g_staged_texture = nullptr;
+    g_host.device->SetRenderState(D3DRS_DESTBLEND, g_anm_destination_blend);
+    g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR, g_anm_texture_factor);
+    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, g_anm_address_mode);
+    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, g_anm_address_mode);
+}
 
 void HostAnmSetBlendMode(Word value) {
     // Retail's selector is the D3DRS_DESTBLEND value itself: 6 is
-    // D3DBLEND_INVSRCALPHA and 2 is D3DBLEND_ONE.
+    // D3DBLEND_INVSRCALPHA and 2 is D3DBLEND_ONE. Retail has already flushed
+    // the quads that depended on the old value before calling this.
     g_anm_destination_blend = static_cast<DWORD>(value);
+    if (g_host.device != nullptr)
+        g_host.device->SetRenderState(D3DRS_DESTBLEND,
+                                      g_anm_destination_blend);
 }
 
 void HostAnmSetTextureFactor(Word color) {
-    // Delivered as the vertex diffuse colour rather than D3DRS_TEXTUREFACTOR;
-    // both modulate against the texture identically under D3DTOP_MODULATE.
+    // Retail's own D3DRS_TEXTUREFACTOR, which is why a colour change has to
+    // flush first: the staged quads carry no colour of their own.
     g_anm_texture_factor = static_cast<D3DCOLOR>(color);
+    if (g_host.device != nullptr)
+        g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR,
+                                      g_anm_texture_factor);
 }
 
 void HostAnmSetAddressMode(Word value) {
     g_anm_address_mode = value == 1 ? D3DTADDRESS_WRAP : D3DTADDRESS_CLAMP;
+    if (g_host.device != nullptr) {
+        g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, g_anm_address_mode);
+        g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, g_anm_address_mode);
+    }
 }
 
 void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
     (void)mode;
     if (g_host.device == nullptr || g_quad_submission.texture == nullptr)
         return;
+    const HostQuadSubmission& q = g_quad_submission;
+    // A different texture cannot share a batch with what is already staged.
+    if (q.texture != g_staged_texture) {
+        HostAnmStateFlush();
+        g_staged_texture = q.texture;
+    }
+    if (g_staging.quad_count >= kStagedQuadMax)
+        HostAnmStateFlush();
+
+    // Retail emits the corners as {near,near} {far,near} {near,far} {far,far},
+    // and its append expands them into triangles 0,1,2 and 1,2,3.
     struct Vertex {
         float x, y, z, rhw;
         unsigned int color;
         float u, v;
     };
-    const HostQuadSubmission& q = g_quad_submission;
-    // Retail emits the corners as {near,near} {far,near} {near,far} {far,far},
-    // which is the triangle-strip order the host already submits.
+    static_assert(sizeof(Vertex) == sizeof(QuadRenderVertex),
+                  "host vertex must match retail's 28-byte render vertex");
     const float u[4] = {q.u0, q.u1, q.u0, q.u1};
     const float v[4] = {q.v0, q.v0, q.v1, q.v1};
-    Vertex strip[4];
+    Vertex corners[4];
     for (int index = 0; index < 4; ++index) {
-        strip[index].x = vertices[index].x - 0.5f;
-        strip[index].y = vertices[index].y - 0.5f;
-        strip[index].z = 0.0f;
-        strip[index].rhw = 1.0f;
-        strip[index].color = g_anm_texture_factor;
-        strip[index].u = u[index];
-        strip[index].v = v[index];
+        corners[index].x = vertices[index].x - 0.5f;
+        corners[index].y = vertices[index].y - 0.5f;
+        corners[index].z = 0.0f;
+        corners[index].rhw = 1.0f;
+        // Colour arrives through D3DRS_TEXTUREFACTOR, as it does in retail.
+        corners[index].color = 0xFFFFFFFFu;
+        corners[index].u = u[index];
+        corners[index].v = v[index];
     }
-    // Device_ApplyDefaultState leaves fog on for the 3D passes; transformed
-    // sprite vertices carry no fog coordinate, so the 2D pass runs unfogged.
-    g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
-    g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    // Destination blend and addressing were both chosen by
-    // AnmManager_ApplyBlendColorWrap when the quad was staged.
-    g_host.device->SetRenderState(D3DRS_DESTBLEND, g_anm_destination_blend);
-    const DWORD address = g_anm_address_mode;
-    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, address);
-    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, address);
-    g_host.device->SetTexture(0, q.texture);
-    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-    g_host.device->DrawPrimitiveUP(
-        D3DPT_TRIANGLESTRIP, 2, strip, sizeof(Vertex));
-    g_host.title_draw_calls += 1;
+    AnimationManager_AppendQuadVertices(
+        &g_staging, reinterpret_cast<const QuadRenderVertex*>(corners));
     g_quad_submission.submitted = true;
 }
 
@@ -1918,22 +1963,33 @@ void HostRenderMenu() {
     if (SUCCEEDED(result)) {
         g_host.device->SetRenderState(D3DRS_ZENABLE, FALSE);
         g_host.device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        // Constant for every sprite quad, so they belong here rather than in
+        // the per-quad path now that quads batch. Device_ApplyDefaultState
+        // leaves fog on for the 3D passes and transformed sprite vertices
+        // carry no fog coordinate, so the 2D pass runs unfogged.
+        g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
+        g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+        g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
         g_host.device->SetTextureStageState(
             0, D3DTSS_COLOROP, D3DTOP_MODULATE);
         g_host.device->SetTextureStageState(
             0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
         g_host.device->SetTextureStageState(
-            0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+            0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
         g_host.device->SetTextureStageState(
             0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
         g_host.device->SetTextureStageState(
             0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
         g_host.device->SetTextureStageState(
-            0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+            0, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
+        // The cached state has to be re-announced each frame: the device is
+        // reset above and the cache only fires a callback on change.
+        HostAnmResetStateCache();
         if (HostStage_IsActive())
             HostRenderStage();
         else
             HostRenderThroughBuckets(draw_list, draw_count);
+        HostAnmStateFlush();  // draw whatever is still staged
         result = g_host.device->EndScene();
     }
     // Capture before the flip: the swap chain is D3DSWAPEFFECT_DISCARD, so
