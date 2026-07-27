@@ -127,7 +127,10 @@ void D3D_InitializeViewport() {
         D3DMethod<Method>(device, 47)(device, viewport);
     };
     // Retail 0x0043BC40 runs two clear/present passes and resets the device
-    // with the stored present parameters whenever a present fails.
+    // with the stored present parameters whenever a present fails. Its clear
+    // colour is 0x0043BCD0's argument, and 0x00439890 is the only caller of
+    // 0x0043BCD0: it passes 0xFF000000, opaque black. The reconstruction
+    // cleared to 0, which drops the alpha byte retail writes.
     hooks.reset_clip_state = [](void* device) {
         Recovery_ResetDeviceStreams(
             device,
@@ -136,8 +139,8 @@ void D3D_InitializeViewport() {
                                                 const void*, unsigned long,
                                                 unsigned long, float,
                                                 unsigned long);
-                D3DMethod<Method>(target, 43)(target, 0, nullptr, 3, 0,
-                                              1.0f, 0);
+                D3DMethod<Method>(target, 43)(target, 0, nullptr, 3,
+                                              0xFF000000u, 1.0f, 0);
             },
             [](void* target) -> int {
                 using Method = long(__stdcall*)(void*, const void*,

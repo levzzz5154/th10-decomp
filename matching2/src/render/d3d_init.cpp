@@ -1,274 +1,278 @@
 // =============================================================================
-// d3d_init.cpp - Direct3D 9 device creation and render state setup
+// d3d_init.cpp - Direct3D 9 device creation, camera and caps probe
 // Function: 0x00439890
 // =============================================================================
 #include "th10/game/entity.hpp"
 
-// D3D COM interface - vtable offsets used:
-// +0x08: IUnknown::Release
-// +0x20: IDirect3D9::GetAdapterDisplayMode (idx 8)
-// +0x28: IDirect3D9::CheckDeviceFormatConversion (idx 10)
-// +0x40: IDirect3D9::CreateDevice (idx 16)
-// Device vtable:
-// +0x1C: IDirect3DDevice9::SetRenderState (idx 7)
-// +0xB0: IDirect3DDevice9::SetTransform (idx 44)
-// +0xC0: IDirect3DDevice9::SetViewport (idx 48)
+#include <cmath>
 
-extern void*    g_pD3D9;
-extern void*    g_pD3DDevice;
-extern void*    g_pWnd;
-extern uint8_t  DAT_00491d65;    // fullscreen flag
+// IDirect3D9 vtable offsets used here:
+// +0x20: GetAdapterDisplayMode (idx 8)
+// +0x28: CheckDeviceFormat     (idx 10)
+// +0x40: CreateDevice          (idx 16)
+// +0x08: IUnknown::Release     (idx 2)
+// IDirect3DDevice9 vtable offsets used here:
+// +0x1C: GetDeviceCaps         (idx 7)
+// +0xB0: SetTransform          (idx 44)
+// +0xC0: GetViewport           (idx 48)
+
+extern void*    g_pD3D9;         // 0x00491C2C
+extern void*    g_pD3DDevice;    // 0x00491C30
+extern void*    g_pWnd;          // 0x00491C70 (retail hWnd)
+// byte_491D65: set from the startup dialog. Non-zero selects retail's
+// borderless window, whose present parameters are Windowed with the desktop
+// back-buffer format; zero selects the exclusive 640x480 device.
+extern uint8_t  DAT_00491d65;
 // Retail treats this as a dword: 0x00438AD0 tests bit 0x100 of it to decide
 // whether to raise the startup dialog. Declaring it as a byte made that bit
 // unreachable. The low two bits this file tests are unaffected.
-extern uint32_t DAT_00491d78;    // device caps flags
-extern int8_t   DAT_00491d62;    // display mode index
+extern uint32_t DAT_00491d78;    // bit 0 = force 16-bit, bit 1 = skip HAL
+extern int8_t   DAT_00491d62;    // back-buffer depth selector (-1 = unset)
 extern uint32_t DAT_00491ff4;    // status flags
-extern uint32_t DAT_00491fdc;    // vsync flag
-extern uint32_t _DAT_00491fe0;   // windowed flag
-extern uint32_t DAT_00492518;    // replay flag
+extern uint32_t DAT_00491fdc;    // "vsync disabled" marker
+extern uint32_t _DAT_00491fe0;   // refresh-rate honoured marker
+extern uint8_t  DAT_00492518;    // byte_492518 - replay launch
 extern uint32_t DAT_004924f4;
 extern uint32_t _DAT_00491fe4;
-extern float    DAT_00491d0c[14];   // D3DPRESENT_PARAMETERS copy
+extern uint32_t DAT_00491d0c[14];   // unk_491D0C - D3DPRESENT_PARAMETERS copy
 extern float    DAT_00491c74[16];   // view matrix
 extern float    DAT_00491cb4[16];   // projection matrix
-extern float    DAT_00491cf4[4];    // viewport
-extern float    DAT_00492000[36];   // render state block
-extern float    DAT_00492090;       // caps bit
-extern uint32_t DAT_00492058;       // caps value
-extern float    _DAT_00470c00;      // FOV angle (radians)
-extern float    _DAT_00470bfc;      // camera distance
-extern char     DAT_00474f70[];     // log buffer
-extern char     DAT_0046f640[];
-extern char     DAT_0046f614[];
-extern char     DAT_0046f5f0[];
-extern char     DAT_0046f4a8[];
-extern char     DAT_0046f5cc[];
-extern char     DAT_0046f4c4[];
-extern char     DAT_0046f5ac[];
-extern char     DAT_0046f584[];
-extern char     DAT_0046f514[];
-extern char     DAT_0046f54c[];
-extern char     DAT_0046f4d8[];
-extern char     DAT_0046f458[];
-extern char     DAT_0046f408[];
-extern char     DAT_0046f3c0[];
+extern uint32_t DAT_00491cf4[6];    // D3DVIEWPORT9 read back after creation
+extern uint8_t  DAT_00492000[];     // D3DCAPS9 filled by GetDeviceCaps
+extern uint8_t  DAT_00492090;       // caps +0x90 - TextureOpCaps low byte
+extern uint32_t DAT_00492058;       // caps +0x58 - MaxTextureWidth
+extern double   DAT_00470c00;       // dbl_470C00 = 0.2617993950843811
+extern float    DAT_00470bfc;       // flt_470BFC = 240.0
+extern char     DAT_00474f70[];     // the retail text log object
+extern char     DAT_0046f640[];     // depth-selector defaulted
+extern char     DAT_0046f614[];     // refresh-rate line
+extern char     DAT_0046f5f0[];     // "VSync..."
+extern char     DAT_0046f4a8[];     // "T&L HAL " (created)
+extern char     DAT_0046f5cc[];     // "T&L HAL " (retry failed)
+extern char     DAT_0046f4c4[];     // "HAL " (created)
+extern char     DAT_0046f5ac[];     // "HAL " (retry failed)
+extern char     DAT_0046f584[];     // refresh-rate retry notice
+extern char     DAT_0046f514[];     // "Direct3D ..." (fatal)
+extern char     DAT_0046f54c[];     // vsync retry notice
+extern char     DAT_0046f4d8[];     // "REF " (created)
+extern char     DAT_0046f458[];     // "D3DTEXOPCAPS_ADD "
+extern char     DAT_0046f408[];     // "512 "
+extern char     DAT_0046f3c0[];     // "D3DFMT_A8R8G8B8 "
 
-void Logger_AppendFormatted(char* buf, const char* msg);
-void Platform_LogMessage(const char* msg);
-void D3D_ApplyDefaultRenderState(int initialization_mode);
-void D3D_InitializeViewport(void);
+struct TextLog;
+void TextLog_Append(TextLog* log, const char* format, ...);      // 0x0044B810
+void TextLog_AppendLine(TextLog* log, const char* format, ...);  // 0x0044B8E0
+void D3D_ApplyDefaultRenderState(int initialization_mode);       // 0x00439D20
+void D3D_InitializeViewport(void);                               // 0x0043BCD0
 
-extern "C" float tanf(float);
-extern "C" void D3DXMatrixLookAtLH(float* out, float* eye, float* at, float* up);
-extern "C" void D3DXMatrixPerspectiveFovLH(float* out, float fov, float aspect, float znear, float zfar);
+extern "C" void D3DXMatrixLookAtLH(float* out, float* eye, float* at,
+                                   float* up);
+extern "C" void D3DXMatrixPerspectiveFovLH(float* out, float fov, float aspect,
+                                           float znear, float zfar);
+
+namespace {
+
+TextLog* RetailLog() {
+    return reinterpret_cast<TextLog*>(DAT_00474f70);
+}
+
+void* const* VTable(void* object) {
+    return *reinterpret_cast<void* const* const*>(object);
+}
+
+} // namespace
 
 // ============================================================================
-// 0x00439890 - D3D Device Creation + Camera/Render State Setup
+// 0x00439890
 //
-// 1. GetAdapterDisplayMode to fill D3DPRESENT_PARAMETERS
-// 2. Determine refresh rate / vsync mode based on config
-// 3. Try CreateDevice with hardware VP (0x40), then mixed VP (0x20),
-//    then software VP with windowed fallback (0x20 + windowed=2)
-// 4. Copy present params to global, set up view/projection matrices
-// 5. Set viewport, render state block
-// 6. Check device format conversion for fullscreen anti-aliasing
-// 7. Call post-init functions
-//
-// Uses extraout_ECX (non-standard register output) — needs __asm for matching
+// 1. GetAdapterDisplayMode, so the windowed back buffer takes the desktop
+//    format instead of a fixed one.
+// 2. Pick the back-buffer format, refresh rate and presentation interval.
+// 3. CreateDevice ladder: HAL + hardware vertex processing (0x40), HAL +
+//    mixed (0x20), then REF + mixed (0x20), retrying the whole ladder once
+//    without the refresh rate and once without vsync.
+// 4. Copy the accepted present parameters to unk_491D0C - every later
+//    IDirect3DDevice9::Reset presents that block.
+// 5. Build the view/projection matrices and hand them to SetTransform.
+// 6. Read back the viewport and the device caps, logging the two caps the
+//    game depends on.
+// 7. CheckDeviceFormat drives bit 4 of dword_491FF4 (A8R8G8B8 textures).
+// 8. Apply the default device state (0x00439D20) and the default viewport
+//    with the opaque-black clear (0x0043BCD0).
 // ============================================================================
 int D3D_Init(void) {
-    // D3DPRESENT_PARAMETERS (14 dwords = 56 bytes in presentation_parameters)
-    // Layout: BackBufferWidth, BackBufferHeight, BackBufferFormat, BackBufferCount,
-    //         MultiSampleType, MultiSampleQuality, SwapEffect, hDeviceWindow,
-    //         Windowed, EnableAutoDepthStencil, AutoDepthStencilFormat,
-    //         Flags, FullScreen_RefreshRateInHz, PresentationInterval
-    uint32_t pp[15];  // includes extra dword at front for alignment
-    uint32_t extra[6]; // additional params (uStack_24..iStack_10)
+    // D3DPRESENT_PARAMETERS, 14 dwords / 0x38 bytes (retail v10):
+    //  0 BackBufferWidth        7 hDeviceWindow
+    //  1 BackBufferHeight       8 Windowed
+    //  2 BackBufferFormat       9 EnableAutoDepthStencil
+    //  3 BackBufferCount       10 AutoDepthStencilFormat
+    //  4 MultiSampleType       11 Flags
+    //  5 MultiSampleQuality    12 FullScreen_RefreshRateInHz
+    //  6 SwapEffect            13 PresentationInterval
+    uint32_t present[14];
+    uint32_t display_mode[4];   // D3DDISPLAYMODE (retail v9)
+    // Retail v5: cleared only when the REF device is the one that came back,
+    // and read again by the CheckDeviceFormat guard below.
+    uint8_t hardware_device = 1;
 
-    // Zero the tail of present params
-    uint32_t* p = pp + 4;
-    for (int i = 0xE; i != 0; i--) {
-        *p++ = 0;
-    }
+    for (int index = 0; index < 14; ++index)
+        present[index] = 0;
 
-    // GetAdapterDisplayMode(0, &displayMode) -> fills pp[0..2]
-    // vtable offset 0x20 = method index 8
     typedef void (__stdcall *GetAdapterDisplayMode_t)(void*, uint32_t, void*);
-    GetAdapterDisplayMode_t getMode = *(GetAdapterDisplayMode_t*)(*(uint32_t*)g_pD3D9 + 0x20);
-    getMode(g_pD3D9, 0, pp);
+    ((GetAdapterDisplayMode_t)VTable(g_pD3D9)[8])(g_pD3D9, 0, display_mode);
 
-    if (DAT_00491d65 == 0) {
-        // Windowed mode
-        if ((DAT_00491d78 & 1) == 0) {
-            if (DAT_00491d62 == -1) {
-                pp[3] = 0x16;  // D3DFMT_R5G6B5
-                DAT_00491d62 = 0;
-                Logger_AppendFormatted(DAT_00474f70, DAT_0046f640);
-            } else {
-                pp[3] = (DAT_00491d62 != 0) + 0x16;  // 0x16 or 0x17
-            }
-        } else {
-            pp[3] = 0x17;  // D3DFMT_X8R8G8B8
-            DAT_00491d62 = 1;
-        }
-
-        if (DAT_00492518 == 0) {
-            if (DAT_00491fdc == 0) {
-                extra[4] = 0x3C;   // 60Hz
-                extra[5] = 1;      // PresentationInterval = D3DPRESENT_INTERVAL_ONE
-                Logger_AppendFormatted(DAT_00474f70, DAT_0046f614);
-                goto lab_windowed_vsync;
-            }
-        } else {
-            DAT_00491fdc = 1;
-        }
-        extra[4] = 0;
-        extra[3] = 1;    // Windowed = true
-        extra[5] = (uint32_t)0x80000000;  // D3DPRESENT_INTERVAL_IMMEDIATE
-                Logger_AppendFormatted(DAT_00474f70, DAT_0046f5f0);
+    if (DAT_00491d65 != 0) {
+        present[2] = display_mode[3];   // D3DDISPLAYMODE::Format
+        present[6] = 1;                 // D3DSWAPEFFECT_DISCARD
+        present[8] = 1;                 // Windowed
     } else {
-        // Fullscreen mode
-        pp[3] = pp[0];   // use display mode format
-        extra[0] = 1;     // uStack_24 = 1 (BackBufferCount?)
-    lab_windowed_vsync:
-        extra[3] = 1;     // windowed
+        if ((DAT_00491d78 & 1) != 0) {
+            present[2] = 23;            // D3DFMT_R5G6B5
+            DAT_00491d62 = 1;
+        } else if (DAT_00491d62 == -1) {
+            present[2] = 22;            // D3DFMT_X8R8G8B8
+            DAT_00491d62 = 0;
+            TextLog_Append(RetailLog(), DAT_0046f640);
+        } else {
+            present[2] = (DAT_00491d62 != 0) + 22;
+        }
+
+        if (DAT_00492518 != 0)
+            DAT_00491fdc = 1;
+        if (DAT_00491fdc != 0) {
+            present[12] = 0;
+            present[6] = 1;             // D3DSWAPEFFECT_DISCARD
+            present[13] = 0x80000000u;  // D3DPRESENT_INTERVAL_IMMEDIATE
+            TextLog_Append(RetailLog(), DAT_0046f5f0);
+        } else {
+            present[12] = 60;           // FullScreen_RefreshRateInHz
+            present[13] = 1;            // D3DPRESENT_INTERVAL_ONE
+            TextLog_Append(RetailLog(), DAT_0046f614);
+            present[6] = 1;             // D3DSWAPEFFECT_DISCARD
+        }
     }
 
+    present[0] = 640;
+    present[1] = 480;
+    present[9] = 1;    // EnableAutoDepthStencil
+    present[10] = 80;  // D3DFMT_D16
+    present[11] = 1;   // D3DPRESENTFLAG_LOCKABLE_BACKBUFFER
     DAT_00491ff4 |= 2;
-    pp[1] = 0x280;  // BackBufferWidth = 640
-    pp[2] = 0x1E0;  // BackBufferHeight = 480
-    extra[1] = 1;    // uStack_20 (SwapEffect?)
-    extra[2] = 0x50; // uStack_1c (???)
-    extra[0] = 1;    // uStack_18 (EnableAutoDepthStencil?)
     _DAT_00491fe0 = 1;
 
-    // CreateDevice attempts with fallback
-    typedef int (__stdcall *CreateDevice_t)(void*, uint32_t, int, void*, uint32_t, void*, void**);
-    CreateDevice_t createDev = *(CreateDevice_t*)(*(uint32_t*)g_pD3D9 + 0x40);
+    typedef int (__stdcall *CreateDevice_t)(void*, uint32_t, int, void*,
+                                            uint32_t, void*, void**);
+    CreateDevice_t create_device = (CreateDevice_t)VTable(g_pD3D9)[16];
+    int retried = 0;   // retail v0: only the second lap logs the failures
 
-    bool bVar1 = false;
-    int result;
-
-    while (true) {
+    for (;;) {
         if ((DAT_00491d78 & 2) == 0) {
-            // Try hardware vertex processing
-            result = createDev(g_pD3D9, 0, 1, g_pWnd, 0x40, pp + 1, &g_pD3DDevice);
-            if (result >= 0) {
-                Logger_AppendFormatted(DAT_00474f70, DAT_0046f4a8);
+            if (create_device(g_pD3D9, 0, 1, g_pWnd, 0x40, present,
+                              &g_pD3DDevice) >= 0) {
+                TextLog_Append(RetailLog(), DAT_0046f4a8);
                 DAT_00491ff4 |= 1;
-                goto d3d_setup;
+                break;
             }
-            if (bVar1) Logger_AppendFormatted(DAT_00474f70, DAT_0046f5cc);
-
-            // Try mixed vertex processing
-            result = createDev(g_pD3D9, 0, 1, g_pWnd, 0x20, pp + 1, &g_pD3DDevice);
-            if (result >= 0) {
-                Logger_AppendFormatted(DAT_00474f70, DAT_0046f4c4);
-                DAT_00491ff4 &= 0xFFFFFFFE;
-                goto d3d_setup;
+            if (retried)
+                TextLog_Append(RetailLog(), DAT_0046f5cc);
+            if (create_device(g_pD3D9, 0, 1, g_pWnd, 0x20, present,
+                              &g_pD3DDevice) >= 0) {
+                TextLog_Append(RetailLog(), DAT_0046f4c4);
+                DAT_00491ff4 &= 0xFFFFFFFEu;
+                break;
             }
-            if (bVar1) Logger_AppendFormatted(DAT_00474f70, DAT_0046f5ac);
+            if (retried)
+                TextLog_Append(RetailLog(), DAT_0046f5ac);
         }
-
-        // Try software vertex processing, windowed
-        result = createDev(g_pD3D9, 0, 2, g_pWnd, 0x20, pp + 1, &g_pD3DDevice);
-        if (result >= 0) break;
-
-        if (DAT_00491fdc == 0) {
-            Logger_AppendFormatted(DAT_00474f70, DAT_0046f584);
-            extra[4] = 0;
-            _DAT_00491fe0 = 0;
-            bVar1 = true;
-        } else {
-            if (extra[5] != (uint32_t)0x80000000) {
-                Platform_LogMessage(DAT_0046f514);
+        if (create_device(g_pD3D9, 0, 2, g_pWnd, 0x20, present,
+                          &g_pD3DDevice) >= 0) {
+            TextLog_Append(RetailLog(), DAT_0046f4d8);
+            DAT_00491ff4 &= 0xFFFFFFFEu;
+            hardware_device = 0;
+            break;
+        }
+        if (DAT_00491fdc != 0) {
+            if (present[13] != 0x80000000u) {
+                TextLog_AppendLine(RetailLog(), DAT_0046f514);
                 if (g_pD3D9 != 0) {
                     typedef void (__stdcall *Release_t)(void*);
-                    Release_t release = *(Release_t*)(*(uint32_t*)g_pD3D9 + 8);
-                    release(g_pD3D9);
+                    ((Release_t)VTable(g_pD3D9)[2])(g_pD3D9);
                     g_pD3D9 = 0;
                 }
                 return 1;
             }
-            Logger_AppendFormatted(DAT_00474f70, DAT_0046f54c);
-            extra[5] = 1;
-            extra[3] = 3;
-        }
-    }
-
-    Logger_AppendFormatted(DAT_00474f70, DAT_0046f4d8);
-    DAT_00491ff4 &= 0xFFFFFFFE;
-
-d3d_setup:
-    // Copy present params to global storage
-    uint32_t* src = pp;
-    uint32_t* dst = (uint32_t*)&DAT_00491d0c;
-    for (int i = 0xE; i != 0; i--) {
-        *dst++ = *src++;
-    }
-
-    // Camera setup
-    // Eye:    (320.0, -560.0, 0.0)
-    // LookAt: (320.0, -560.0, -dist/tan(fov/2))
-    // Up:     (0.0, 1.0, 0.0)
-    float eye[3]     = { 320.0f, -560.0f, 0.0f };        // 0x43A00000, 0xC3700000, 0
-    float lookAt[3]  = { 320.0f, -560.0f, 0.0f };
-    float up[3]      = { 0.0f, 1.0f, 0.0f };
-
-    // fptan(FOV) -> camera Z offset
-    float fov = _DAT_00470c00;
-    float camZ = -(_DAT_00470bfc / tanf(fov));
-    lookAt[2] = camZ;
-
-    D3DXMatrixLookAtLH(DAT_00491c74, eye, lookAt, up);
-    D3DXMatrixPerspectiveFovLH(DAT_00491cb4,
-        0.3f,     // 0x3F060A92 ≈ 0.5236 rad (30 degrees)
-        1.333f,   // 0x3FAAAAAB ≈ 4/3 aspect
-        100.0f,   // 0x42C80000 near plane
-        10000.0f  // 0x461C4000 far plane
-    );
-
-    // SetTransform(D3DTS_VIEW, &viewMatrix)
-    typedef void (__stdcall *SetTransform_t)(void*, uint32_t, void*);
-    SetTransform_t setTransform = *(SetTransform_t*)(*(uint32_t*)g_pD3DDevice + 0xB0);
-    setTransform(g_pD3DDevice, 2, DAT_00491c74);   // D3DTS_VIEW = 2
-    setTransform(g_pD3DDevice, 3, DAT_00491cb4);   // D3DTS_PROJECTION = 3
-
-    // SetViewport
-    typedef void (__stdcall *SetViewport_t)(void*, void*);
-    SetViewport_t setViewport = *(SetViewport_t*)(*(uint32_t*)g_pD3DDevice + 0xC0);
-    setViewport(g_pD3DDevice, DAT_00491cf4);
-
-    // SetRenderState block
-    typedef void (__stdcall *SetRenderState_t)(void*, void*);
-    SetRenderState_t setRenderState = *(SetRenderState_t*)(*(uint32_t*)g_pD3DDevice + 0x1C);
-    setRenderState(g_pD3DDevice, DAT_00492000);
-
-    // Check device caps
-    if (((uint32_t)DAT_00492090 & 0x40) == 0) {
-    Logger_AppendFormatted(DAT_00474f70, DAT_0046f458);
-    }
-    if ((int32_t)DAT_00492058 < 0x101) {
-    Logger_AppendFormatted(DAT_00474f70, DAT_0046f408);
-    }
-
-    // Check format conversion for fullscreen AA
-    if ((DAT_00491d78 & 1) == 0 && ((char)((uint32_t)g_pD3DDevice >> 24) != 0)) {
-        typedef int (__stdcall *CheckFormat_t)(void*, uint32_t, int, uint32_t, void*, uint32_t, uint32_t);
-        CheckFormat_t checkFormat = *(CheckFormat_t*)(*(uint32_t*)g_pD3D9 + 0x28);
-        int fmtResult = checkFormat(g_pD3D9, 0, 1, 0, 0, 3, 0x15);
-        if (fmtResult == 0) {
-            DAT_00491ff4 |= 4;
+            TextLog_Append(RetailLog(), DAT_0046f54c);
+            present[13] = 1;            // D3DPRESENT_INTERVAL_ONE
+            present[6] = 3;             // D3DSWAPEFFECT_COPY
         } else {
-            DAT_00491d78 |= 1;
-            DAT_00491ff4 &= 0xFFFFFFFB;
-    Logger_AppendFormatted(DAT_00474f70, DAT_0046f3c0);
+            TextLog_Append(RetailLog(), DAT_0046f584);
+            present[12] = 0;
+            _DAT_00491fe0 = 0;
+            retried = 1;
         }
     }
 
-    D3D_ApplyDefaultRenderState(0);
-    D3D_InitializeViewport();
+    // qmemcpy(&unk_491D0C, v10, 0x38): the block every later Reset presents.
+    for (int index = 0; index < 14; ++index)
+        DAT_00491d0c[index] = present[index];
+
+    // 439B68..439BE7: eye (320.0, -240.0, -(flt_470BFC / tan(dbl_470C00))),
+    // look-at (320.0, -240.0, 0.0), up (0.0, 1.0, 0.0).
+    float eye[3];
+    float at[3];
+    float up[3];
+    eye[0] = 320.0f;
+    eye[1] = -240.0f;
+    eye[2] = (float)-((double)DAT_00470bfc / std::tan(DAT_00470c00));
+    at[0] = 320.0f;
+    at[1] = -240.0f;
+    at[2] = 0.0f;
+    up[0] = 0.0f;
+    up[1] = 1.0f;
+    up[2] = 0.0f;
+
+    D3DXMatrixLookAtLH(DAT_00491c74, eye, at, up);
+    D3DXMatrixPerspectiveFovLH(DAT_00491cb4,
+                               0.5235988f,   // 3F060A92h
+                               1.3333334f,   // 3FAAAAABh
+                               100.0f,       // 42C80000h
+                               10000.0f);    // 461C4000h
+
+    typedef void (__stdcall *SetTransform_t)(void*, uint32_t, void*);
+    SetTransform_t set_transform = (SetTransform_t)VTable(g_pD3DDevice)[44];
+    set_transform(g_pD3DDevice, 2, DAT_00491c74);   // D3DTS_VIEW
+    set_transform(g_pD3DDevice, 3, DAT_00491cb4);   // D3DTS_PROJECTION
+
+    typedef void (__stdcall *GetViewport_t)(void*, void*);
+    ((GetViewport_t)VTable(g_pD3DDevice)[48])(g_pD3DDevice, DAT_00491cf4);
+
+    typedef void (__stdcall *GetDeviceCaps_t)(void*, void*);
+    ((GetDeviceCaps_t)VTable(g_pD3DDevice)[7])(g_pD3DDevice, DAT_00492000);
+
+    if ((DAT_00492090 & 0x40) == 0)       // D3DTEXOPCAPS_ADD
+        TextLog_Append(RetailLog(), DAT_0046f458);
+    if (DAT_00492058 <= 0x100)            // MaxTextureWidth
+        TextLog_Append(RetailLog(), DAT_0046f408);
+
+    if ((DAT_00491d78 & 1) == 0 && hardware_device != 0) {
+        // CheckDeviceFormat(0, D3DDEVTYPE_HAL, BackBufferFormat, 0,
+        //                   D3DRTYPE_TEXTURE, D3DFMT_A8R8G8B8)
+        typedef int (__stdcall *CheckDeviceFormat_t)(void*, uint32_t, int,
+                                                     uint32_t, uint32_t,
+                                                     uint32_t, uint32_t);
+        CheckDeviceFormat_t check_format =
+            (CheckDeviceFormat_t)VTable(g_pD3D9)[10];
+        if (check_format(g_pD3D9, 0, 1, present[2], 0, 3, 21) != 0) {
+            DAT_00491ff4 &= 0xFFFFFFFBu;
+            DAT_00491d78 |= 1;
+            TextLog_Append(RetailLog(), DAT_0046f3c0);
+        } else {
+            DAT_00491ff4 |= 4;
+        }
+    }
+
+    D3D_ApplyDefaultRenderState(0);   // sub_439D20
+    D3D_InitializeViewport();         // sub_43BCD0(0FF000000h)
     DAT_004924f4 = 0;
     _DAT_00491fe4 = 0;
     return 0;

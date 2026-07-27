@@ -78,6 +78,16 @@ void SaveSystemSettings();
 unsigned long CreateGameWindow(void* instance);
 int InstanceCheck();
 extern void* g_pWnd;
+// Retail 0x00439890 (src/render/d3d_init.cpp) and the two interface globals
+// it owns: 0x00491C2C (IDirect3D9) and 0x00491C30 (IDirect3DDevice9).
+int D3D_Init();
+extern void* g_pD3D9;
+extern void* g_pD3DDevice;
+// 0x00438A30, reconstructed as DestroyEntityList in src/game/entity.cpp:
+// release the 32 device-owned objects at manager+0x3AD4E0.
+void DestroyEntityList(void* base);
+int D3DDevice_TestCooperativeLevel(void* device);   // vtable +0x0C
+int D3DDevice_Reset(void* device);                  // vtable +0x40
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
 extern unsigned int DAT_00474ca0;  // retail global flags; bit 0x10 = practice
 extern int DAT_00474c74;           // retail selected difficulty (4 = Extra)
@@ -3007,20 +3017,51 @@ void HostUpdateSelectionScreen() {
 #endif
 
 // ---------------------------------------------------------------------------
-// Stub device state application (drives Device_ApplyDefaultState).
+// Device state application (drives Device_ApplyDefaultState, retail
+// 0x00439D20). Every write is mirrored into a shadow table so the boot report
+// can be checked against the values the retail listing sets, whether or not
+// the run owns a device. The table is not a substitute for the device: when
+// there is one, the same hook drives it.
 // ---------------------------------------------------------------------------
 int g_render_state_writes = 0;
-#if !defined(_WIN32)
-void StubSetRenderState(void*, unsigned int, unsigned int) {
+// D3D9 render states run to 209, texture-stage states to 32 and sampler
+// states to 13; these are host bookkeeping arrays, sized to cover them.
+unsigned int g_shadow_render_state[256];
+unsigned int g_shadow_stage_state[64];
+unsigned int g_shadow_sampler_state[32];
+
+void HostRecordRenderState(void*, unsigned int state, unsigned int value) {
     g_render_state_writes += 1;
-}
-void StubSetStageState(void*, unsigned int, unsigned int, unsigned int) {
-    g_render_state_writes += 1;
-}
-void StubSetSamplerState(void*, unsigned int, unsigned int, unsigned int) {
-    g_render_state_writes += 1;
-}
+    if (state < 256)
+        g_shadow_render_state[state] = value;
+#if defined(_WIN32)
+    if (g_host.device != nullptr)
+        g_host.device->SetRenderState(
+            static_cast<D3DRENDERSTATETYPE>(state), value);
 #endif
+}
+void HostRecordStageState(void*, unsigned int stage, unsigned int state,
+                          unsigned int value) {
+    g_render_state_writes += 1;
+    if (stage == 0 && state < 64)
+        g_shadow_stage_state[state] = value;
+#if defined(_WIN32)
+    if (g_host.device != nullptr)
+        g_host.device->SetTextureStageState(
+            stage, static_cast<D3DTEXTURESTAGESTATETYPE>(state), value);
+#endif
+}
+void HostRecordSamplerState(void*, unsigned int sampler, unsigned int state,
+                            unsigned int value) {
+    g_render_state_writes += 1;
+    if (sampler == 0 && state < 32)
+        g_shadow_sampler_state[state] = value;
+#if defined(_WIN32)
+    if (g_host.device != nullptr)
+        g_host.device->SetSamplerState(
+            sampler, static_cast<D3DSAMPLERSTATETYPE>(state), value);
+#endif
+}
 
 // ---------------------------------------------------------------------------
 // GameStateInit hook implementations.
@@ -3812,32 +3853,30 @@ void* HostCreateD3d(void*) {
     return &g_host;
 #endif
 }
+// Retail 0x00439890, reconstructed in src/render/d3d_init.cpp. It owns the
+// interfaces through the retail globals at 0x00491C2C / 0x00491C30, so the
+// host seeds g_pD3D9 with the interface it created and reads both back.
+// The host's own present parameters were a fabrication: they hardcoded
+// BackBufferFormat 22 and Windowed, skipped GetAdapterDisplayMode, tried a
+// single HAL + software-vertex-processing CreateDevice instead of retail's
+// three-step ladder, left the refresh rate and presentation interval at 0,
+// never filled unk_491D0C (so every later Reset presented zeroes), and never
+// built the view/projection matrices or read the device caps.
 int HostCreateD3dDevice() {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
-    HostTrace("creating Direct3D9 HAL device");
-    // Retail 0x00439890 builds these exact parameters. The depth buffer is
-    // not optional: Device_ApplyDefaultState (0x00439D20) turns on
-    // D3DRS_ZENABLE, and with no depth surface attached every draw is
-    // discarded, which is why the reconstruction presented an empty frame.
-    D3DPRESENT_PARAMETERS parameters = {};
-    parameters.BackBufferWidth = 640;
-    parameters.BackBufferHeight = 480;
-    parameters.BackBufferFormat = D3DFMT_X8R8G8B8;      // retail 22
-    parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;      // retail 1
-    parameters.hDeviceWindow = g_host.window;
-    parameters.Windowed = TRUE;
-    parameters.EnableAutoDepthStencil = TRUE;           // retail 1
-    parameters.AutoDepthStencilFormat = D3DFMT_D16;     // retail 80
-    parameters.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;  // retail 1
-    HRESULT result = g_host.direct3d->CreateDevice(
-        D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
-        D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
-    g_host.boot_device_ok = SUCCEEDED(result);
-    HostTrace(FAILED(result) ? "Direct3D9 HAL device failed" :
-                               "Direct3D9 HAL device ready");
-    return FAILED(result) ? -1 : 0;
+    HostTrace("creating Direct3D9 device (0x00439890)");
+    g_pD3D9 = g_host.direct3d;
+    const int status = D3D_Init();
+    // 0x00439890 releases the IDirect3D9 and clears 0x00491C2C on its fatal
+    // path, so the host mirrors both globals back either way.
+    g_host.direct3d = static_cast<IDirect3D9*>(g_pD3D9);
+    g_host.device = static_cast<IDirect3DDevice9*>(g_pD3DDevice);
+    g_host.boot_device_ok = status == 0 && g_host.device != nullptr;
+    HostTrace(status == 0 ? "Direct3D9 device ready" :
+                            "Direct3D9 device failed");
+    return status == 0 ? 0 : -1;
 #else
     return 0;
 #endif
@@ -3868,6 +3907,7 @@ void* HostSpawnSoundWorker(void*) {
     return &g_host;
 }
 void HostApplyDefaults(void*); // forward: defined with the reset path
+bool HostDefaultDeviceStateLanded();
 int HostInitDeviceObjects(void*) {
     // Retail 0x00439890 is the D3D9 CreateDevice, and it applies the default
     // device state (0x00439D20) on the way out. It runs after 0x00439730 has
@@ -3875,7 +3915,14 @@ int HostInitDeviceObjects(void*) {
     // not in the create_device slot.
     if (HostCreateD3dDevice() != 0)
         return -1;
-    HostApplyDefaults(nullptr);
+    if (g_host.smoke_mode) {
+        // --smoke returns from HostCreateD3dDevice before 0x00439890 runs, so
+        // its 0x00439D20 tail has to be issued here. With a device D3D_Init
+        // has already issued it and repeating it would be 33 writes retail
+        // does not make.
+        HostApplyDefaults(nullptr);
+    }
+    g_host.device_defaults_applied = HostDefaultDeviceStateLanded();
     return 0;
 }
 // Retail 0x0044A0C0: try joystick 0 then 1, and on success capture device
@@ -4106,7 +4153,29 @@ int HostPumpMessages(void*) {
     }
     return g_host.title_frames_completed >= 60 ? 1 : 0;
 }
-int HostProbeDevice(void*) { return GAME_MAIN_DEVICE_READY; }
+// Retail 0x00438D24 - the message pump's device gate is
+// IDirect3DDevice9::TestCooperativeLevel (vtable +0x0C). D3D_OK advances the
+// frame and clears bit 4 of dword_491FF4; D3DERR_DEVICENOTRESET (0x88760869)
+// takes the 0x00438A30 / Reset / 0x00439D20 edge; every other value
+// (D3DERR_DEVICELOST) only keeps pumping messages. The host answered "ready"
+// unconditionally, so the reset edge below was unreachable.
+int HostProbeDevice(void*) {
+#if defined(_WIN32)
+    if (g_host.smoke_mode) {
+        // --smoke deliberately owns no device: HostCreateD3dDevice returns
+        // before Direct3DCreate9, so there is no cooperative level to read.
+        return GAME_MAIN_DEVICE_READY;
+    }
+    const int level = D3DDevice_TestCooperativeLevel(g_pD3DDevice);
+    if (level == 0)
+        return GAME_MAIN_DEVICE_READY;
+    if (level == static_cast<int>(0x88760869u))
+        return GAME_MAIN_DEVICE_NEEDS_RESET;
+    return GAME_MAIN_DEVICE_LOST;
+#else
+    return GAME_MAIN_DEVICE_READY;
+#endif
+}
 int HostFrameAdvance(void*) {
     g_host.frames_requested += 1;
     static FrameAdvanceHooks hooks = {
@@ -4216,44 +4285,59 @@ int HostFrameAdvance(void*) {
     }
     return Frame_Advance(state, &hooks);
 }
-void HostReleaseResources(void*) {}
-int HostDeviceReset(void*) { return 0; }
+// Retail 0x00438D24's D3DERR_DEVICENOTRESET edge is three calls:
+// sub_438A30(dword_491C10), IDirect3DDevice9::Reset(&unk_491D0C), and
+// sub_439D20. The first two were empty host stubs, so the reset edge
+// released nothing and reset nothing.
+void HostReleaseResources(void*) {
+    DestroyEntityList(g_pGameStateManager);
+}
+int HostDeviceReset(void*) {
+    // D3DDevice_Reset presents unk_491D0C, which 0x00439890 filled with the
+    // present parameters the device was actually created from.
+    return D3DDevice_Reset(g_pD3DDevice);
+}
 void HostApplyDefaults(void*) {
-    if (g_host.smoke_mode) {
-        // The deterministic smoke path deliberately owns no D3D device.
-        // Device_ApplyDefaultState performs 51 retail-derived state writes;
-        // record their successful logical application without entering Wine's
-        // graphics stack.
-        g_render_state_writes = 51;
-        g_host.device_defaults_applied = 1;
-        return;
-    }
     DeviceStateHooks hooks = {
-        nullptr,
-#if defined(_WIN32)
-        [](void*, unsigned int state, unsigned int value) {
-            g_render_state_writes += 1;
-            g_host.device->SetRenderState(
-                static_cast<D3DRENDERSTATETYPE>(state), value);
-        },
-        [](void*, unsigned int stage, unsigned int state, unsigned int value) {
-            g_render_state_writes += 1;
-            g_host.device->SetTextureStageState(
-                stage, static_cast<D3DTEXTURESTAGESTATETYPE>(state), value);
-        },
-        [](void*, unsigned int sampler, unsigned int state,
-           unsigned int value) {
-            g_render_state_writes += 1;
-            g_host.device->SetSamplerState(
-                sampler, static_cast<D3DSAMPLERSTATETYPE>(state), value);
-        },
-#else
-        StubSetRenderState, StubSetStageState, StubSetSamplerState,
-#endif
+        nullptr, HostRecordRenderState, HostRecordStageState,
+        HostRecordSamplerState,
     };
     static unsigned char manager_flags[16];
+    g_render_state_writes = 0;
     Device_ApplyDefaultState(&hooks, manager_flags);
-    g_host.device_defaults_applied = g_render_state_writes >= 33;
+}
+// 0x00439D20 issues 19 SetRenderState + 8 SetTextureStageState + 6
+// SetSamplerState = 33 writes. Sample five of them where they landed: off the
+// device when the boot produced one (0x00439890 applies them itself, through
+// D3D_ApplyDefaultRenderState, so the host never sees those calls), otherwise
+// out of the shadow table the hooks above fill.
+bool HostDefaultDeviceStateLanded() {
+#if defined(_WIN32)
+    if (g_host.device != nullptr) {
+        DWORD depth = 0;
+        DWORD cull = 0;
+        DWORD alpha_func = 0;
+        DWORD alpha_op = 0;
+        DWORD address_u = 0;
+        if (FAILED(g_host.device->GetRenderState(D3DRS_ZENABLE, &depth)) ||
+            FAILED(g_host.device->GetRenderState(D3DRS_CULLMODE, &cull)) ||
+            FAILED(g_host.device->GetRenderState(
+                D3DRS_ALPHAFUNC, &alpha_func)) ||
+            FAILED(g_host.device->GetTextureStageState(
+                0, D3DTSS_ALPHAOP, &alpha_op)) ||
+            FAILED(g_host.device->GetSamplerState(
+                0, D3DSAMP_ADDRESSU, &address_u)))
+            return false;
+        return depth == 1 && cull == 1 && alpha_func == 7 &&
+               alpha_op == 4 && address_u == 1;
+    }
+#endif
+    return g_render_state_writes == 33 &&
+           g_shadow_render_state[7] == 1 &&    // D3DRS_ZENABLE
+           g_shadow_render_state[22] == 1 &&   // D3DRS_CULLMODE
+           g_shadow_render_state[25] == 7 &&   // D3DRS_ALPHAFUNC
+           g_shadow_stage_state[4] == 4 &&     // stage 0 D3DTSS_ALPHAOP
+           g_shadow_sampler_state[1] == 1;     // sampler 0 D3DSAMP_ADDRESSU
 }
 int HostDrainSoundHook(void*) { return HostDrainSound(nullptr); }
 void HostShutdownMainTasks(void*) {
@@ -4347,12 +4431,19 @@ void HostReleaseDeviceChain(void*) {
                 g_host.anm_texture_entry_bases[index] = nullptr;
             }
         }
+        // Retail 0x00438AD0's teardown resets the device with unk_491D0C
+        // before releasing it, then clears 0x00491C30 and 0x00491C2C. Those
+        // two globals are the ones 0x00439890 published, so they have to be
+        // cleared here as well or the pump would still see a dead device.
+        D3DDevice_Reset(g_pD3DDevice);
         g_host.device->Release();
         g_host.device = nullptr;
+        g_pD3DDevice = nullptr;
     }
     if (g_host.direct3d != nullptr) {
         g_host.direct3d->Release();
         g_host.direct3d = nullptr;
+        g_pD3D9 = nullptr;
     }
 #endif
 }
