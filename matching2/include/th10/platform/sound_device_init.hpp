@@ -110,9 +110,9 @@ struct SoundInitEnv {
 	// SetTimer(window, id, milliseconds, 0); retail (hWnd, 0, 250).
 	void (*set_timer)(void* window, unsigned int timer_id,
 	                  unsigned int milliseconds);
-	// 0x0044B810 debug log; argument is null for the plain
-	// "DirectSound " messages and the filename for "error : Sound %s".
-	void (*log)(const char* message, const char* argument);
+	// 0x0044B810 debug log; argument is null for the two plain lines and
+	// the file name for the "error : Sound %s" one.
+	void (*log)(int message, const char* argument);
 	// 0x0043D390 (SoundWave_LoadPending path): nonzero on failure.
 	int (*load_wave)(int index, const char* filename);
 	// off_474B40: the 37 retail WAV filenames.
@@ -121,10 +121,13 @@ struct SoundInitEnv {
 	const volatile int* shutdown_flag;
 };
 
-// Retail log strings (0x0044B810 arguments in 0x0043CD30).
-extern const char kSoundInitLogDirectSoundError[]; // aDirectsound_0
-extern const char kSoundInitLogDirectSoundReady[]; // aDirectsound
-extern const char kSoundInitLogSoundError[];       // aErrorSound
+// The three lines 0x0043CD30 hands to 0x0044B810, with the .rdata VA of the
+// string retail pushes for each.
+enum SoundInitMessage {
+	kSoundInitDeviceFailed = 1,  // 0x0046FE0C, the bring-up failure
+	kSoundInitFileFailed = 2,    // 0x0046FDD4, "error : Sound ..." + name
+	kSoundInitReady = 3,         // 0x0046FDAC, all 37 effects loaded
+};
 
 // 0x0043CD30 - Bring up the DirectSound device, streaming buffer, and
 // WAV preload for the sound worker thread. Returns 0 on full success

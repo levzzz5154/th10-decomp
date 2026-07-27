@@ -26,5 +26,7 @@ void KeyConfig_ReassignSlot(short* slots, int slot_index, short new_key,
 	}
 	slots[slot_index] = new_key;
 	on_changed(slot_index);
-	play_sound(sound_block, 0);
+	// 0x0043DC90(0x00492590, 10, 0): retail queues sound id 10, which the
+	// descriptor table at 0x004749C8 maps to se_ok00.wav.
+	play_sound(sound_block, 10);
 }

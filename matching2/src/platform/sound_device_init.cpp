@@ -2,14 +2,6 @@
 
 #include <cstring>
 
-// Retail addresses 0x00474AF4 (aDirectsound_0), 0x00474AE8
-// (aDirectsound), and 0x00474B14 (aErrorSound). Both DirectSound log
-// strings are the identical text "DirectSound "; the logger 0x0044B810
-// appends them to the debug log on the failure and success paths.
-const char kSoundInitLogDirectSoundError[] = "DirectSound ";
-const char kSoundInitLogDirectSoundReady[] = "DirectSound ";
-const char kSoundInitLogSoundError[] = "error : Sound ";
-
 namespace {
 
 // Number of preloaded WAV entries in off_474B40 (retail loop bound 37).
@@ -62,7 +54,7 @@ int SoundDevice_InitializeWorker(SoundDevice* device, void* window,
 	// DirectSoundCreate8(0, cell, 0) then SetCooperativeLevel(hWnd, 2).
 	if (env->create_device(cell) < 0 ||
 	    env->set_cooperative_level(*cell, window, 2) < 0) {
-		env->log(kSoundInitLogDirectSoundError, 0);
+		env->log(kSoundInitDeviceFailed, 0);
 		ReleaseDeviceCell(device, env);
 		return -1;
 	}
@@ -124,11 +116,11 @@ int SoundDevice_InitializeWorker(SoundDevice* device, void* window,
 	int index = 0;
 	while (*env->shutdown_flag != 2) {
 		if (env->load_wave(index, env->filenames[index])) {
-			env->log(kSoundInitLogSoundError, env->filenames[index]);
+			env->log(kSoundInitFileFailed, env->filenames[index]);
 			return -1;
 		}
 		if (++index >= kPreloadCount) {
-			env->log(kSoundInitLogDirectSoundReady, 0);
+			env->log(kSoundInitReady, 0);
 			return 0;
 		}
 	}

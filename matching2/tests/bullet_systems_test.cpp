@@ -320,7 +320,8 @@ static void TestKeyConfigReassignSlot() {
     assert(slots[1] == 20 && slots[3] == 40 && slots[4] == 50);
     assert(g_change_count == 1 && g_changed_slot == 2);
     assert(g_sounds_played == 1);
-    assert(g_sound_block_seen == &sound_block && g_sound_index == 0);
+    // 0x00430250 queues sound id 10 (se_ok00.wav via 0x004749C8).
+    assert(g_sound_block_seen == &sound_block && g_sound_index == 10);
 
     // Re-assigning the same key is a no-op.
     KeyConfig_ReassignSlot(slots, 2, 10, OnChanged, &sound_block, PlaySound);

@@ -46,6 +46,11 @@
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
 #include "th10/platform/sound_commands.hpp"
+#include "th10/platform/dinput_device_setup.hpp"
+#include "th10/platform/joystick_buttons.hpp"
+#include "th10/platform/sound_device_init.hpp"
+#include "th10/platform/sound_wave_load.hpp"
+#include "th10/game/player_front_runtime.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
 #include "host_stage.hpp"
@@ -99,6 +104,26 @@ extern unsigned char DAT_00491d65; // "startup dialog was not accepted"
 // the retail .rdata by build_all_pe32.sh.
 extern unsigned int DAT_0046f288[];
 extern unsigned int DAT_0046f2a0[];
+// The five lines 0x0043B8D0 writes to the text log, at their .rdata VAs.
+extern char DAT_0046f934[];  // "...pad found..."
+extern char DAT_0046f954[];  // "DirectInput ...initialised..."
+extern char DAT_0046f97c[];  // "DirectInput SetCooperativeLevel ..."
+extern char DAT_0046f9b0[];  // "DirectInput SetDataFormat ..."
+extern char DAT_0046f9e0[];  // "DirectInput ...unavailable..."
+// The three lines 0x0043CD30 writes, at their .rdata VAs.
+extern char DAT_0046fdac[];  // all 37 effects loaded
+extern char DAT_0046fdd4[];  // "error : Sound ..." with the file name
+extern char DAT_0046fe0c[];  // the DirectSound bring-up failure
+// off_474B40 - the 37 effect file names 0x0043CD30 preloads, in order. The
+// stored values are retail .rdata VAs, so they need rebasing before use.
+extern unsigned int DAT_00474b40[];
+// The effect descriptor table 0x0043DC90 indexes with a queued sound id.
+extern unsigned char DAT_004749c8[];
+// byte_497BB0 - the 128-byte per-button joystick state 0x0044A4E0 fills.
+extern unsigned char DAT_00497bb0[];
+// dword_491C44 - the DIDEVCAPS block 0x0043B8D0 stamps with dwSize 44 and
+// fills from the pad. It ends at 0x00491C70, where g_pWnd starts.
+extern unsigned char DAT_00491c44[];
 
 // --- Config / log stage, bound to the retail globals it belongs to. -------
 // The 0x34-byte config record. 0x00420870 loads into this block in place;
@@ -243,7 +268,6 @@ struct HostContext {
     int player_data_selection = 0;
     int keyconfig_selection = 0;
     int keyconfig_snapshot[3] = {};
-    unsigned int keyconfig_previous_buttons = 0;
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
@@ -335,13 +359,15 @@ struct HostContext {
     LARGE_INTEGER performance_frequency = {};
     IDirect3D9* direct3d = nullptr;
     IDirect3DDevice9* device = nullptr;
-    IDirectInput8A* direct_input = nullptr;
-    IDirectInputDevice8A* keyboard = nullptr;
+    // The IDirectInput8 / keyboard / joystick triple 0x0043B8D0 fills. Retail
+    // keeps it at 0x00491C34/38/3C inside the input object at 0x00491C28.
+    DirectInputDevices input_devices = {};
     unsigned char previous_keyboard[256] = {};
     IDirectSound8* direct_sound = nullptr;
     IDirectSoundBuffer* bgm_buffer = nullptr;
     char bgm_track[16] = {};
-    IDirectSoundBuffer* menu_sound_buffers[3] = {};
+    // The 37 preloaded effect buffers of off_474B40, in retail's own order.
+    void* sound_buffers[37] = {};
     const uint8_t* anm_texture_entry_bases[32] = {};
     IDirect3DTexture9* anm_textures[32] = {};
 #endif
@@ -854,44 +880,6 @@ IDirectSoundBuffer* HostCreatePcmBuffer(const WAVEFORMATEX& format,
     return buffer;
 }
 
-IDirectSoundBuffer* HostLoadArchiveWave(const char* name) {
-    char path[64];
-    std::snprintf(path, sizeof(path), "th10/%s", name);
-    unsigned int size = Resource_GetFileSize(path);
-    if (size < 44)
-        return nullptr;
-    unsigned char* bytes =
-        static_cast<unsigned char*>(std::malloc(size));
-    if (bytes == nullptr || Resource_LoadFile(path, bytes) == nullptr) {
-        std::free(bytes);
-        return nullptr;
-    }
-    const unsigned char* format_chunk = nullptr;
-    const unsigned char* pcm = nullptr;
-    unsigned int pcm_size = 0;
-    for (unsigned int offset = 12; offset + 8 <= size;) {
-        unsigned int chunk_size = HostReadLe32(bytes + offset + 4);
-        if (chunk_size > size - offset - 8)
-            break;
-        if (std::memcmp(bytes + offset, "fmt ", 4) == 0 &&
-            chunk_size >= 16)
-            format_chunk = bytes + offset + 8;
-        else if (std::memcmp(bytes + offset, "data", 4) == 0) {
-            pcm = bytes + offset + 8;
-            pcm_size = chunk_size;
-        }
-        offset += 8 + ((chunk_size + 1) & ~1u);
-    }
-    IDirectSoundBuffer* result = nullptr;
-    if (format_chunk != nullptr && pcm != nullptr) {
-        WAVEFORMATEX format = {};
-        std::memcpy(&format, format_chunk, 16);
-        result = HostCreatePcmBuffer(format, pcm, pcm_size);
-    }
-    std::free(bytes);
-    return result;
-}
-
 LONG HostDirectSoundVolume(int percent) {
     if (percent <= 0)
         return DSBVOLUME_MIN;
@@ -912,9 +900,9 @@ void HostApplyAudioVolumes() {
             HostDirectSoundVolume(g_host.options_config.music_volume));
     LONG sound_volume =
         HostDirectSoundVolume(g_host.options_config.sound_volume);
-    for (IDirectSoundBuffer* buffer : g_host.menu_sound_buffers)
-        if (buffer != nullptr)
-            buffer->SetVolume(sound_volume);
+    for (void* slot : g_host.sound_buffers)
+        if (slot != nullptr)
+            static_cast<IDirectSoundBuffer*>(slot)->SetVolume(sound_volume);
 }
 
 bool HostStartBgm(const char* track_name) {
@@ -984,39 +972,156 @@ bool HostStartBgm(const char* track_name) {
 
 bool HostStartTitleBgm() { return HostStartBgm("th10_02.wav"); }
 
-void HostPlayMenuSound(int index) {
-    if (index < 0 || index >= 3 ||
-        g_host.menu_sound_buffers[index] == nullptr)
+// Retail's effect descriptor table at 0x004749C8: eight bytes per queued
+// sound id, of which the first short is the index into off_474B40 and the
+// third is the attenuation the mixer applies. 0x0043DC90 takes the id -
+// 12 for a cursor move, 10 for a confirm, 11 for a cancel - and 0x00430250
+// queues 10 when a key-config row is rebound.
+struct RetailSoundDescriptor {
+    short file_index;
+    short reserved;
+    short volume;
+    short priority;
+};
+static_assert(sizeof(RetailSoundDescriptor) == 8,
+              "0x004749C8 has an eight-byte stride");
+
+// The three ids every retail menu queues, and what 0x004749C8 maps them to.
+const int kSoundConfirm = 10;     // -> file 8, se_ok00.wav
+const int kSoundCancel = 11;      // -> file 9, se_cancel00.wav
+const int kSoundCursorMove = 12;  // -> file 10, se_select00.wav
+
+void HostPlayMenuSound(int sound_id) {
+    if (sound_id < 0)
         return;
-    g_host.menu_sound_buffers[index]->SetVolume(
+    const RetailSoundDescriptor* descriptor =
+        reinterpret_cast<const RetailSoundDescriptor*>(DAT_004749c8) +
+        sound_id;
+    const int file_index = descriptor->file_index;
+    // The bound is on the host's own 37-slot bank, not a retail test.
+    if (file_index < 0 || file_index >= 37)
+        return;
+    IDirectSoundBuffer* buffer = static_cast<IDirectSoundBuffer*>(
+        g_host.sound_buffers[file_index]);
+    if (buffer == nullptr)
+        return;
+    buffer->SetVolume(
         HostDirectSoundVolume(g_host.options_config.sound_volume));
-    g_host.menu_sound_buffers[index]->Stop();
-    g_host.menu_sound_buffers[index]->SetCurrentPosition(0);
-    g_host.menu_sound_buffers[index]->Play(0, 0, 0);
+    buffer->Stop();
+    buffer->SetCurrentPosition(0);
+    buffer->Play(0, 0, 0);
+}
+
+IDirectInputDevice8A* HostKeyboardDevice() {
+    return static_cast<IDirectInputDevice8A*>(g_host.input_devices.keyboard);
+}
+
+// 0x0044A5F0 builds retail's key word out of exactly these keys: the arrows
+// and the numeric keypad for the four directions and the four diagonals,
+// left shift for focus, Z and X for shot and bomb, escape for pause.
+unsigned int HostRetailKeyWord(const unsigned char* keys) {
+    unsigned int word = 0;
+    if (((keys[DIK_UP] | keys[DIK_NUMPAD8]) & 0x80) != 0) word |= 0x10;
+    if (((keys[DIK_DOWN] | keys[DIK_NUMPAD2]) & 0x80) != 0) word |= 0x20;
+    if (((keys[DIK_LEFT] | keys[DIK_NUMPAD4]) & 0x80) != 0) word |= 0x40;
+    if (((keys[DIK_RIGHT] | keys[DIK_NUMPAD6]) & 0x80) != 0) word |= 0x80;
+    if ((keys[DIK_NUMPAD7] & 0x80) != 0) word |= 0x50;
+    if ((keys[DIK_NUMPAD9] & 0x80) != 0) word |= 0x90;
+    if ((keys[DIK_NUMPAD1] & 0x80) != 0) word |= 0x60;
+    if ((keys[DIK_NUMPAD3] & 0x80) != 0) word |= 0xA0;
+    if ((keys[DIK_Z] & 0x80) != 0) word |= 0x01;
+    if ((keys[DIK_X] & 0x80) != 0) word |= 0x02;
+    if ((keys[DIK_LSHIFT] & 0x80) != 0) word |= 0x04;
+    if ((keys[DIK_ESCAPE] & 0x80) != 0) word |= 0x08;
+    return word;
+}
+
+// The player object 0x004250B0 steps, and the four speeds 0x00426520
+// derives from the selected character's .sht.
+th10::player_front::Player g_stage_player;
+th10::player_front::PlayerSpeeds g_stage_player_speeds;
+int g_stage_player_speeds_ready = 0;
+
+// 0x00426520 - load the shot file retail would have loaded for the current
+// character and weapon (off_476FC0, keyed by 3 * character + weapon), then
+// derive the two diagonal speeds from the straight ones. 0x004247F0 turns
+// the four floats into the hundredths-of-a-pixel steps 0x004250B0 uses.
+void HostLoadStagePlayerSpeeds() {
+    if (g_stage_player_speeds_ready)
+        return;
+    g_stage_player_speeds_ready = 1;
+    static const char* const kShotFiles[6] = {
+        "th10/pl00a.sht", "th10/pl00b.sht", "th10/pl00c.sht",
+        "th10/pl01a.sht", "th10/pl01b.sht", "th10/pl01c.sht",
+    };
+    int shot_index = 3 * g_host.character_selection + g_host.weapon_selection;
+    if (shot_index < 0 || shot_index >= 6)
+        shot_index = 0;
+    const char* name = kShotFiles[shot_index];
+    unsigned int size = Resource_GetFileSize(name);
+    if (size < 32)
+        return;
+    unsigned char* bytes = static_cast<unsigned char*>(std::malloc(size));
+    if (bytes == nullptr || Resource_LoadFile(name, bytes) == nullptr) {
+        std::free(bytes);
+        return;
+    }
+    float straight = 0.0f;
+    float focus_straight = 0.0f;
+    std::memcpy(&straight, bytes + 16, sizeof(straight));
+    std::memcpy(&focus_straight, bytes + 20, sizeof(focus_straight));
+    std::free(bytes);
+    const double diagonal_scale = std::sin(0.7853981852531433);
+    const float diagonal = static_cast<float>(diagonal_scale * straight);
+    const float focus_diagonal =
+        static_cast<float>(diagonal_scale * focus_straight);
+    g_stage_player_speeds.straight = static_cast<int>(straight * 100.0);
+    g_stage_player_speeds.focus_straight =
+        static_cast<int>(focus_straight * 100.0);
+    g_stage_player_speeds.diagonal = static_cast<int>(diagonal * 100.0);
+    g_stage_player_speeds.focus_diagonal =
+        static_cast<int>(focus_diagonal * 100.0);
+    std::fprintf(stderr,
+                 "[th10-recon] %s player speeds: %d/%d straight, %d/%d "
+                 "diagonal (hundredths)\n",
+                 name, g_stage_player_speeds.straight,
+                 g_stage_player_speeds.focus_straight,
+                 g_stage_player_speeds.diagonal,
+                 g_stage_player_speeds.focus_diagonal);
+    std::fflush(stderr);
+}
+
+// One frame of retail 0x004250B0. Retail draws the player at
+// x * 0.01 + 224 / y * 0.01, which is where the host's two screen
+// coordinates come from.
+void HostStepStagePlayer(unsigned int key_word) {
+    HostLoadStagePlayerSpeeds();
+    th10::player_front::PlayerEdges edges = {};
+    // Retail's edge here is 0x0043E710 on the player's own ANM VM, which
+    // plays the lean animation; the host's stage player is a single sprite
+    // with no such script, so the slot stays null rather than pointing at a
+    // body that does nothing.
+    th10::player_front::UpdatePlayer(
+        g_stage_player, key_word, /*control_enabled=*/true,
+        3 * g_host.character_selection + g_host.weapon_selection,
+        g_stage_player_speeds, edges);
+    g_host.player_x = static_cast<float>(g_stage_player.x) * 0.01f + 224.0f;
+    g_host.player_y = static_cast<float>(g_stage_player.y) * 0.01f;
 }
 
 void HostPollKeyboard() {
-    if (g_host.keyboard == nullptr)
+    if (HostKeyboardDevice() == nullptr)
         return;
     unsigned char keys[256] = {};
-    HRESULT result = g_host.keyboard->GetDeviceState(sizeof(keys), keys);
+    HRESULT result = HostKeyboardDevice()->GetDeviceState(sizeof(keys), keys);
     if (FAILED(result)) {
-        g_host.keyboard->Acquire();
-        result = g_host.keyboard->GetDeviceState(sizeof(keys), keys);
+        HostKeyboardDevice()->Acquire();
+        result = HostKeyboardDevice()->GetDeviceState(sizeof(keys), keys);
     }
     if (FAILED(result))
         return;
-    if (HostStage_IsActive()) {
-        float speed = (keys[DIK_LSHIFT] & 0x80) != 0 ? 2.0f : 4.0f;
-        if ((keys[DIK_LEFT] & 0x80) != 0) g_host.player_x -= speed;
-        if ((keys[DIK_RIGHT] & 0x80) != 0) g_host.player_x += speed;
-        if ((keys[DIK_UP] & 0x80) != 0) g_host.player_y -= speed;
-        if ((keys[DIK_DOWN] & 0x80) != 0) g_host.player_y += speed;
-        if (g_host.player_x < 40.0f) g_host.player_x = 40.0f;
-        if (g_host.player_x > 408.0f) g_host.player_x = 408.0f;
-        if (g_host.player_y < 24.0f) g_host.player_y = 24.0f;
-        if (g_host.player_y > 456.0f) g_host.player_y = 456.0f;
-    }
+    if (HostStage_IsActive())
+        HostStepStagePlayer(HostRetailKeyWord(keys));
     struct Binding { int key; uint32_t flag; };
     static const Binding bindings[] = {
         {DIK_UP, TITLE_MENU_UP}, {DIK_DOWN, TITLE_MENU_DOWN},
@@ -1690,7 +1795,6 @@ void HostKeyConfigEnter() {
     g_host.keyconfig_selection = 0;
     std::memcpy(g_host.keyconfig_snapshot, DAT_00474e88,
                 sizeof(g_host.keyconfig_snapshot));
-    g_host.keyconfig_previous_buttons = 0;
 }
 
 void HostKeyConfigDefaults() {
@@ -1698,25 +1802,48 @@ void HostKeyConfigDefaults() {
     slots[0] = 0; slots[1] = 1; slots[2] = 2; slots[3] = 3; slots[4] = -1;
 }
 
-// Retail reads the pressed button through 0x0044A4E0; the host reads the same
-// thing out of joyGetPosEx. With no joypad attached nothing can be pressed, so
-// the binding rows do not change - which is what retail does in that case too.
-unsigned int HostKeyConfigPressedButton() {
+// joyGetPosEx(0, &pji) with retail's dwSize 52 and dwFlags 0xFF, which is
+// the leaf 0x0044A4E0 uses when no DirectInput pad was created.
+unsigned int HostJoystickLegacyPosition(unsigned int* buttons) {
 #if defined(_WIN32)
     JOYINFOEX info = {};
-    info.dwSize = sizeof(info);
-    info.dwFlags = JOY_RETURNBUTTONS;
-    if (joyGetPosEx(JOYSTICKID1, &info) != JOYERR_NOERROR) {
-        g_host.keyconfig_previous_buttons = 0;
-        return 0xFFFFFFFFu;
-    }
-    const unsigned int fresh =
-        info.dwButtons & ~g_host.keyconfig_previous_buttons;
-    g_host.keyconfig_previous_buttons = info.dwButtons;
-    for (unsigned int button = 0; button < 32; ++button)
-        if ((fresh & (1u << button)) != 0)
-            return button;
+    info.dwSize = 52;
+    info.dwFlags = 0xFF;
+    const MMRESULT status = joyGetPosEx(0, &info);
+    if (status == JOYERR_NOERROR)
+        *buttons = info.dwButtons;
+    return status;
+#else
+    (void)buttons;
+    return 1;
 #endif
+}
+
+// 0x0044A4E0 fills byte_497BB0 with a 0x80 for every pressed button; the
+// key-config row of 0x0042F540 then takes the first of buttons 0..30 whose
+// byte is negative and rebinds the selected slot to it. Retail runs that
+// scan every frame with no edge detection: 0x00430250 already returns
+// without a sound when the slot is not actually changing.
+unsigned int HostKeyConfigPressedButton() {
+    JoystickButtonEnv env = {};
+    env.status_flags = DAT_00491ff4;
+    env.devices = &g_host.input_devices.joystick;
+    env.poll = [](void* device) -> int {
+        return static_cast<IDirectInputDevice8A*>(device)->Poll();
+    };
+    env.device_state = [](void* device, unsigned int bytes,
+                          void* state) -> int {
+        return static_cast<IDirectInputDevice8A*>(device)->GetDeviceState(
+            bytes, state);
+    };
+    env.acquire = [](void* device) -> int {
+        return static_cast<IDirectInputDevice8A*>(device)->Acquire();
+    };
+    env.legacy_position = HostJoystickLegacyPosition;
+    Input_ReadJoystickButtons(0, DAT_00497bb0, &env);
+    for (unsigned int button = 0; button < 31; ++button)
+        if ((DAT_00497bb0[button] & 0x80) != 0)
+            return button;
     return 0xFFFFFFFFu;
 }
 
@@ -1733,7 +1860,7 @@ void HostUpdateKeyConfig() {
     if (direction != 0) {
         g_host.keyconfig_selection =
             (g_host.keyconfig_selection + direction + 7) % 7;
-        HostPlayMenuSound(0);
+        HostPlayMenuSound(kSoundCursorMove);
         HostBroadcastTitleInterrupt(g_host.keyconfig_selection + 7);
     }
     if (cancel) {
@@ -1741,22 +1868,22 @@ void HostUpdateKeyConfig() {
         // carries the cursor there, the same idiom the other menus use.
         if (g_host.keyconfig_selection != 6) {
             g_host.keyconfig_selection = 6;
-            HostPlayMenuSound(2);
+            HostPlayMenuSound(kSoundCancel);
             return;
         }
         std::memcpy(DAT_00474e88, g_host.keyconfig_snapshot,
                     sizeof(g_host.keyconfig_snapshot));
-        HostPlayMenuSound(2);
+        HostPlayMenuSound(kSoundCancel);
         HostReturnToOptions();
         return;
     }
     if (confirm && g_host.keyconfig_selection == 5) {
         HostKeyConfigDefaults();
-        HostPlayMenuSound(1);
+        HostPlayMenuSound(kSoundConfirm);
         return;
     }
     if (confirm && g_host.keyconfig_selection == 6) {
-        HostPlayMenuSound(1);
+        HostPlayMenuSound(kSoundConfirm);
         HostReturnToOptions();
         return;
     }
@@ -1786,7 +1913,7 @@ void HostUpdateSubScreenList() {
     g_host.menu_input = 0;
 
     if (cancel) {
-        HostPlayMenuSound(2);
+        HostPlayMenuSound(kSoundCancel);
         HostReturnToMainMenu();
         return;
     }
@@ -1808,10 +1935,10 @@ void HostUpdateSubScreenList() {
 
     if (direction != 0 && count > 0) {
         *selection = (*selection + direction + count) % count;
-        HostPlayMenuSound(0);
+        HostPlayMenuSound(kSoundCursorMove);
     }
     if (confirm && g_host.menu_screen == 11 && count > 0) {
-        HostPlayMenuSound(1);
+        HostPlayMenuSound(kSoundConfirm);
         if (HostStartBgm(g_host.music_tracks[*selection]))
             g_host.music_playing = *selection;
         else
@@ -2928,10 +3055,10 @@ void HostUpdateSelectionScreen() {
 
     if (g_host.menu_screen == 6) {
         if (cancel) {
-            HostPlayMenuSound(2);
+            HostPlayMenuSound(kSoundCancel);
             HostReturnToMainMenu();
         } else if (confirm) {
-            HostPlayMenuSound(1);
+            HostPlayMenuSound(kSoundConfirm);
             HostStartCharacterSelection();
         } else if (direction != 0) {
             int old = g_host.difficulty_selection;
@@ -2941,14 +3068,14 @@ void HostUpdateSelectionScreen() {
             HostSetOverlayChildInterrupt(
                 109 + g_host.difficulty_selection,
                 17 + g_host.difficulty_selection);
-            HostPlayMenuSound(0);
+            HostPlayMenuSound(kSoundCursorMove);
         }
     } else if (g_host.menu_screen == 7) {
         if (cancel) {
-            HostPlayMenuSound(2);
+            HostPlayMenuSound(kSoundCancel);
             HostStartDifficultySelection();
         } else if (confirm) {
-            HostPlayMenuSound(1);
+            HostPlayMenuSound(kSoundConfirm);
             HostStartWeaponSelection();
         } else if (direction != 0) {
             int old = g_host.character_selection;
@@ -2962,17 +3089,17 @@ void HostUpdateSelectionScreen() {
             HostSetOverlayChildInterrupt(
                 123 + g_host.character_selection,
                 7 + g_host.character_selection);
-            HostPlayMenuSound(0);
+            HostPlayMenuSound(kSoundCursorMove);
         }
     } else if (g_host.menu_screen == 8) {
         int base = g_host.character_selection == 0 ? 126 : 129;
         int description_base =
             144 + g_host.character_selection * 3;
         if (cancel) {
-            HostPlayMenuSound(2);
+            HostPlayMenuSound(kSoundCancel);
             HostStartCharacterSelection();
         } else if (confirm) {
-            HostPlayMenuSound(1);
+            HostPlayMenuSound(kSoundConfirm);
             int result = HostStage_ConfirmWeapon(
                 g_host.character_selection, g_host.weapon_selection,
                 g_host.difficulty_selection);
@@ -2981,6 +3108,11 @@ void HostUpdateSelectionScreen() {
                 g_host.stage_vm_count = 0;
                 g_host.player_vm_ready = 0;
                 g_host.player_vm_attempted = 0;
+                // 0x004247F0 spawns the player at x = 0, y = 40000 in the
+                // hundredths accumulators, which is screen (224, 400), and
+                // the shot file has to be re-read for the new weapon.
+                g_stage_player = th10::player_front::Player();
+                g_stage_player_speeds_ready = 0;
                 g_host.player_x = 224.0f;
                 g_host.player_y = 400.0f;
             }
@@ -2999,7 +3131,7 @@ void HostUpdateSelectionScreen() {
             HostSetOverlayChildInterrupt(
                 description_base + g_host.weapon_selection,
                 17 + g_host.weapon_selection);
-            HostPlayMenuSound(0);
+            HostPlayMenuSound(kSoundCursorMove);
         }
     }
     g_host.menu_input = 0;
@@ -3326,7 +3458,7 @@ void HostDispatchRecoveredTitlePhase(
             HostBroadcastTitleInterrupt(6);
 #if defined(_WIN32)
             if (!g_host.smoke_mode)
-                HostPlayMenuSound(1);
+                HostPlayMenuSound(kSoundConfirm);
 #endif
             g_host.title_transition_frame = 1;
         } else if (g_host.title_transition_frame > 0) {
@@ -3526,7 +3658,7 @@ int HostRunSchedulerFrame(void*) {
             g_host.options_state.phase == 2) {
             HostBroadcastTitleInterrupt(
                 g_host.options_state.selection + 7);
-            HostPlayMenuSound(0);
+            HostPlayMenuSound(kSoundCursorMove);
         }
         if (old_phase == 1 && g_host.options_state.phase == 2)
             HostBroadcastTitleInterrupt(
@@ -3551,16 +3683,17 @@ int HostRunSchedulerFrame(void*) {
 }
 int HostDrainSound(void*) {
     SoundWorkerHooks hooks = {};
-    // The three resident menu cues are the host's effect bank; a slot with
+    // The effect bank is the 37 buffers 0x0043CD30 preloaded; a slot with
     // no loaded buffer reports "not pending" and plays nothing, which is the
     // same answer retail gives for an unloaded cue.
     hooks.effect_pending = [](void*, int slot) -> int {
 #if defined(_WIN32)
-        if (slot < 0 || slot >= 3 ||
-            g_host.menu_sound_buffers[slot] == nullptr)
+        if (slot < 0 || slot >= 37 ||
+            g_host.sound_buffers[slot] == nullptr)
             return 0;
         DWORD status = 0;
-        if (FAILED(g_host.menu_sound_buffers[slot]->GetStatus(&status)))
+        if (FAILED(static_cast<IDirectSoundBuffer*>(
+                g_host.sound_buffers[slot])->GetStatus(&status)))
             return 0;
         return (status & DSBSTATUS_PLAYING) != 0 ? 1 : 0;
 #else
@@ -3690,29 +3823,137 @@ int HostCreateGameWindow(void*) {
     return 0;
 #endif
 }
+#if defined(_WIN32)
+// --- The COM leaves 0x0043B8D0 is built out of. --------------------------
+namespace {
+
+IDirectInputDevice8A* g_enumerated_pad;
+
+void* HostInputWindowInstance() {
+    return reinterpret_cast<void*>(static_cast<uintptr_t>(
+        GetWindowLongA(g_host.window, GWL_HINSTANCE)));
+}
+void* HostInputWindowHandle() { return g_host.window; }
+void* HostInputCreate(void* instance) {
+    IDirectInput8A* input = nullptr;
+    DirectInput8Create(static_cast<HINSTANCE>(instance), 0x0800,
+                       IID_IDirectInput8A,
+                       reinterpret_cast<void**>(&input), nullptr);
+    return input;
+}
+void* HostInputCreateKeyboard(void* direct_input) {
+    IDirectInputDevice8A* device = nullptr;
+    static_cast<IDirectInput8A*>(direct_input)->CreateDevice(
+        GUID_SysKeyboard, &device, nullptr);
+    return device;
+}
+int HostInputKeyboardFormat(void* device) {
+    return FAILED(static_cast<IDirectInputDevice8A*>(device)->SetDataFormat(
+               &c_dfDIKeyboard))
+               ? -1
+               : 0;
+}
+int HostInputCooperative(void* device, void* window, int level) {
+    return FAILED(
+               static_cast<IDirectInputDevice8A*>(device)->SetCooperativeLevel(
+                   static_cast<HWND>(window), static_cast<DWORD>(level)))
+               ? -1
+               : 0;
+}
+int HostInputAcquire(void* device) {
+    return static_cast<IDirectInputDevice8A*>(device)->Acquire();
+}
+// 0x0043BAF0 - stop the enumeration once a pad exists, otherwise create one
+// from the reported instance GUID and stop when that succeeded.
+BOOL CALLBACK HostInputEnumPad(const DIDEVICEINSTANCEA* instance,
+                               void* context) {
+    (void)context;
+    if (g_enumerated_pad != nullptr)
+        return DIENUM_STOP;
+    IDirectInput8A* input =
+        static_cast<IDirectInput8A*>(g_host.input_devices.direct_input);
+    return FAILED(input->CreateDevice(instance->guidInstance,
+                                      &g_enumerated_pad, nullptr))
+               ? DIENUM_CONTINUE
+               : DIENUM_STOP;
+}
+void* HostInputEnumerateController(void* direct_input) {
+    g_enumerated_pad = nullptr;
+    static_cast<IDirectInput8A*>(direct_input)->EnumDevices(
+        DI8DEVCLASS_GAMECTRL, HostInputEnumPad, nullptr, DIEDFL_ATTACHEDONLY);
+    return g_enumerated_pad;
+}
+void HostInputJoystickFormat(void* device) {
+    static_cast<IDirectInputDevice8A*>(device)->SetDataFormat(
+        &c_dfDIJoystick2);
+}
+void HostInputCapabilities(void* device, int caps_size) {
+    static_assert(sizeof(DIDEVCAPS) == 44,
+                  "retail stamps dwSize with 44 before GetCapabilities");
+    DIDEVCAPS* caps = reinterpret_cast<DIDEVCAPS*>(DAT_00491c44);
+    caps->dwSize = static_cast<DWORD>(caps_size);
+    static_cast<IDirectInputDevice8A*>(device)->GetCapabilities(caps);
+}
+// 0x0043BB30 - put every axis object on the -1000..1000 range property.
+BOOL CALLBACK HostInputEnumObject(const DIDEVICEOBJECTINSTANCEA* object,
+                                  void* context) {
+    (void)context;
+    if ((object->dwType & 3) == 0)
+        return DIENUM_CONTINUE;
+    DIPROPRANGE range;
+    range.diph.dwSize = 24;
+    range.diph.dwHeaderSize = 16;
+    range.diph.dwObj = object->dwType;
+    range.diph.dwHow = 2;
+    range.lMin = -1000;
+    range.lMax = 1000;
+    IDirectInputDevice8A* pad =
+        static_cast<IDirectInputDevice8A*>(g_host.input_devices.joystick);
+    return FAILED(pad->SetProperty(DIPROP_RANGE, &range.diph)) ? DIENUM_STOP
+                                                               : DIENUM_CONTINUE;
+}
+void HostInputObjects(void* device) {
+    static_cast<IDirectInputDevice8A*>(device)->EnumObjects(
+        HostInputEnumObject, nullptr, 0);
+}
+void HostInputRelease(void* device) {
+    static_cast<IUnknown*>(device)->Release();
+}
+void HostInputLog(int message) {
+    const char* text = DAT_0046f9e0;
+    if (message == kDirectInputDataFormatFailed) text = DAT_0046f9b0;
+    else if (message == kDirectInputCooperativeFailed) text = DAT_0046f97c;
+    else if (message == kDirectInputReady) text = DAT_0046f954;
+    else if (message == kDirectInputPadFound) text = DAT_0046f934;
+    TextLog_Append(HostTextLog(), text);
+}
+
+}  // namespace
+#endif
+
+// Retail 0x0043BA90 runs 0x0043B8D0 over the input object at 0x00491C28 and
+// republishes the two device-present bits of 0x00491FF4. The host owns the
+// same four fields and the same status word, so the whole edge is the
+// recovered pair driving the DirectInput leaves above.
 int HostCreateDirectInput() {
 #if defined(_WIN32)
     if (g_host.smoke_mode)
         return 0;
-    HostTrace("creating DirectInput keyboard");
-    HRESULT result = DirectInput8Create(
-        GetModuleHandleA(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
-        reinterpret_cast<void**>(&g_host.direct_input), nullptr);
-    if (FAILED(result))
-        return -1;
-    result = g_host.direct_input->CreateDevice(
-        GUID_SysKeyboard, &g_host.keyboard, nullptr);
-    if (FAILED(result))
-        return -1;
-    result = g_host.keyboard->SetDataFormat(&c_dfDIKeyboard);
-    if (FAILED(result))
-        return -1;
-    result = g_host.keyboard->SetCooperativeLevel(
-        g_host.window, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-    if (FAILED(result))
-        return -1;
-    g_host.keyboard->Acquire();
-    HostTrace("DirectInput keyboard ready");
+    HostTrace("creating DirectInput devices");
+    DirectInputSetupEnv env = {
+        HostInputWindowInstance, HostInputWindowHandle, HostInputCreate,
+        HostInputCreateKeyboard, HostInputKeyboardFormat,
+        HostInputCooperative, HostInputAcquire,
+        HostInputEnumerateController, HostInputJoystickFormat,
+        HostInputCapabilities, HostInputObjects, HostInputRelease,
+        HostInputLog,
+    };
+    Input_InitializeAndPublishFlags(&g_host.input_devices, &DAT_00491ff4,
+                                   &env);
+    // 0x0043BA90 discards the result: a boot with no keyboard is a retail
+    // outcome, recorded in the two flag bits rather than an abort.
+    HostTrace((DAT_00491ff4 & 0x200u) != 0 ? "DirectInput keyboard ready"
+                                           : "DirectInput keyboard missing");
 #endif
     return 0;
 }
@@ -3842,25 +4083,245 @@ int HostCreateD3dDevice() {
     return 0;
 #endif
 }
+#if defined(_WIN32)
+// --- The Win32/COM leaves 0x0043CD30 is built out of. --------------------
+namespace {
+
+SoundDevice g_sound_device;
+// this[2 + index] in retail's context: the buffer 0x0043D390 fills for the
+// file at off_474B40[index].
+unsigned char* g_pending_wave;
+
+// The build imports retail's .rdata as a blob instead of mapping it at its
+// original virtual address, so a pointer stored inside that blob - every
+// entry of off_474B40 is one - has to be rebased before it is followed.
+// DAT_0046F288 is an alias into the same blob, which is what fixes the base.
+const char* HostRetailRdataString(unsigned int retail_address) {
+    return reinterpret_cast<const char*>(DAT_0046f288) - 0x0046F288u +
+           retail_address;
+}
+
+void** HostSoundAllocateCell() {
+    void** cell = static_cast<void**>(std::calloc(1, sizeof(void*)));
+    return cell;
+}
+void HostSoundFreeCell(void** cell) { std::free(cell); }
+void HostSoundReleaseDevice(void* device) {
+    static_cast<IUnknown*>(device)->Release();
+}
+int HostSoundCreateDevice(void** cell) {
+    IDirectSound8* device = nullptr;
+    const HRESULT status = DirectSoundCreate8(nullptr, &device, nullptr);
+    *cell = device;
+    return FAILED(status) ? -1 : 0;
+}
+int HostSoundCooperativeLevel(void* device, void* window, int level) {
+    return FAILED(static_cast<IDirectSound8*>(device)->SetCooperativeLevel(
+               static_cast<HWND>(window), static_cast<DWORD>(level)))
+               ? -1
+               : 0;
+}
+// 0x0044C7E0 - create the primary buffer (dwSize 36, dwFlags 1), set the
+// format retail asks for, and release it again. nBlockAlign is
+// channels * (bits >> 3) and nAvgBytesPerSec is rate * nBlockAlign, exactly
+// as retail computes them.
+int HostSoundPrimaryFormat(int bits, int channels, int rate, void** cell) {
+    if (*cell == nullptr)
+        return -1;
+    DSBUFFERDESC description = {};
+    description.dwSize = 36;
+    description.dwFlags = DSBCAPS_PRIMARYBUFFER;
+    IDirectSoundBuffer* primary = nullptr;
+    if (FAILED(static_cast<IDirectSound8*>(*cell)->CreateSoundBuffer(
+            &description, &primary, nullptr)))
+        return -1;
+    WAVEFORMATEX format = {};
+    format.wFormatTag = 1;
+    format.nChannels = static_cast<WORD>(channels);
+    format.nSamplesPerSec = static_cast<DWORD>(rate);
+    format.nBlockAlign = static_cast<WORD>(channels * (bits >> 3));
+    format.nAvgBytesPerSec =
+        static_cast<DWORD>(rate) * format.nBlockAlign;
+    format.wBitsPerSample = static_cast<WORD>(bits);
+    format.cbSize = 0;
+    const HRESULT status = primary->SetFormat(&format);
+    primary->Release();
+    return FAILED(status) ? -1 : 0;
+}
+int HostSoundCreateBuffer(void* device, const SoundInitBufferDesc* desc,
+                          void** buffer_out) {
+    WAVEFORMATEX format = {};
+    format.wFormatTag = desc->format->tag;
+    format.nChannels = desc->format->channels;
+    format.nSamplesPerSec = desc->format->rate;
+    format.nAvgBytesPerSec = desc->format->avg_bytes;
+    format.nBlockAlign = desc->format->block_align;
+    format.wBitsPerSample = desc->format->bits;
+    format.cbSize = desc->format->cb_size;
+    DSBUFFERDESC description = {};
+    description.dwSize = desc->size;
+    description.dwFlags = desc->flags;
+    description.dwBufferBytes = desc->bytes;
+    description.dwReserved = desc->reserved;
+    description.lpwfxFormat = &format;
+    IDirectSoundBuffer* buffer = nullptr;
+    const HRESULT status =
+        static_cast<IDirectSound8*>(device)->CreateSoundBuffer(
+            &description, &buffer, nullptr);
+    *buffer_out = buffer;
+    return FAILED(status) ? -1 : 0;
+}
+int HostSoundLock(void* buffer, unsigned int offset, unsigned int bytes,
+                  void** region1, unsigned int* length1, void** region2,
+                  unsigned int* length2, unsigned int flags) {
+    return FAILED(static_cast<IDirectSoundBuffer*>(buffer)->Lock(
+               offset, bytes, region1, reinterpret_cast<DWORD*>(length1),
+               region2, reinterpret_cast<DWORD*>(length2), flags))
+               ? -1
+               : 0;
+}
+void HostSoundUnlock(void* buffer, void* region1, unsigned int length1,
+                     void* region2, unsigned int length2) {
+    static_cast<IDirectSoundBuffer*>(buffer)->Unlock(region1, length1,
+                                                     region2, length2);
+}
+void HostSoundPlay(void* buffer, int reserved1, int reserved2, int flags) {
+    static_cast<IDirectSoundBuffer*>(buffer)->Play(
+        static_cast<DWORD>(reserved1), static_cast<DWORD>(reserved2),
+        static_cast<DWORD>(flags));
+}
+void HostSoundSetTimer(void* window, unsigned int timer_id,
+                       unsigned int milliseconds) {
+    SetTimer(static_cast<HWND>(window), timer_id, milliseconds, nullptr);
+}
+void HostSoundLog(int message, const char* argument) {
+    if (message == kSoundInitFileFailed)
+        TextLog_Append(HostTextLog(), DAT_0046fdd4, argument);
+    else
+        TextLog_Append(HostTextLog(), message == kSoundInitDeviceFailed
+                                          ? DAT_0046fe0c
+                                          : DAT_0046fdac);
+}
+// 0x0043D390 consumes an image the loader thread (0x0043D080) parked in the
+// context. The host has no second thread, so it does that thread's one job -
+// pull the file out of th10.dat with the archive reader - and then hands the
+// image to the recovered consumer.
+int HostSoundLoadWave(int index, const char* filename) {
+    char path[64];
+    std::snprintf(path, sizeof(path), "th10/%s", filename);
+    const unsigned int size = Resource_GetFileSize(path);
+    if (size == 0)
+        return -1;
+    g_pending_wave = static_cast<unsigned char*>(std::malloc(size));
+    if (g_pending_wave == nullptr ||
+        Resource_LoadFile(path, g_pending_wave) == nullptr) {
+        std::free(g_pending_wave);
+        g_pending_wave = nullptr;
+        return -1;
+    }
+    SoundWaveLoadEnvironment environment = {};
+    environment.release_buffer = [](void*, void* buffer) {
+        static_cast<IDirectSoundBuffer*>(buffer)->Release();
+    };
+    environment.wait_10ms = [](void*) { Sleep(10); };
+    environment.cancelled = [](void*) -> int { return g_host.menu_quit; };
+    environment.create_buffer =
+        [](void*, const SoundWaveFormat* format, unsigned int pcm_bytes,
+           unsigned int flags, void** buffer_out) -> int {
+        WAVEFORMATEX wave = {};
+        wave.wFormatTag = format->format_tag;
+        wave.nChannels = format->channels;
+        wave.nSamplesPerSec = format->samples_per_second;
+        wave.nAvgBytesPerSec = format->average_bytes_per_second;
+        wave.nBlockAlign = format->block_align;
+        wave.wBitsPerSample = format->bits_per_sample;
+        wave.cbSize = 0;
+        DSBUFFERDESC description = {};
+        description.dwSize = 36;
+        description.dwFlags = flags;
+        description.dwBufferBytes = pcm_bytes;
+        description.lpwfxFormat = &wave;
+        IDirectSoundBuffer* buffer = nullptr;
+        // this[0], published by 0x0043CD30 before the preload starts.
+        const HRESULT status =
+            static_cast<IDirectSound8*>(g_sound_device.device)
+                ->CreateSoundBuffer(&description, &buffer, nullptr);
+        *buffer_out = buffer;
+        return FAILED(status) ? -1 : 0;
+    };
+    environment.lock_buffer =
+        [](void*, void* buffer, unsigned int pcm_bytes,
+           unsigned char** first, unsigned int* first_bytes,
+           unsigned char** second, unsigned int* second_bytes) -> int {
+        return FAILED(static_cast<IDirectSoundBuffer*>(buffer)->Lock(
+                   0, pcm_bytes, reinterpret_cast<void**>(first),
+                   reinterpret_cast<DWORD*>(first_bytes),
+                   reinterpret_cast<void**>(second),
+                   reinterpret_cast<DWORD*>(second_bytes), 0))
+                   ? -1
+                   : 0;
+    };
+    environment.unlock_buffer = [](void*, void* buffer, unsigned char* first,
+                                   unsigned int first_bytes,
+                                   unsigned char* second,
+                                   unsigned int second_bytes) {
+        static_cast<IDirectSoundBuffer*>(buffer)->Unlock(
+            first, first_bytes, second, second_bytes);
+    };
+    environment.release_owned_wave = [](void*, unsigned char* wave) {
+        std::free(wave);
+    };
+    environment.report_error = [](void*, const char* operation) {
+        std::fprintf(stderr, "[th10-recon] wave %s rejected\n", operation);
+    };
+    return SoundWave_LoadPending(1, &g_host.sound_buffers[index],
+                                 &g_pending_wave, &environment);
+}
+
+}  // namespace
+#endif
+
+// Retail's sound worker thread body, 0x0043CD30, entered from 0x0043CCF0.
+// The host runs it inline on the boot thread: it brings up DirectSound at
+// cooperative level 2, sets the primary format, creates and starts the
+// 0x8000-byte looping stream buffer, arms the 250 ms timer and preloads all
+// 37 effects from off_474B40.
 void* HostSpawnSoundWorker(void*) {
 #if defined(_WIN32)
     if (!g_host.smoke_mode) {
         HostTrace("creating DirectSound device");
-        if (FAILED(DirectSoundCreate8(
-                nullptr, &g_host.direct_sound, nullptr)))
+        static const volatile int shutdown_flag = 0;
+        const char* filenames[37];
+        for (int index = 0; index < 37; ++index)
+            filenames[index] = HostRetailRdataString(DAT_00474b40[index]);
+        SoundInitEnv env = {};
+        env.allocate_cell = HostSoundAllocateCell;
+        env.free_cell = HostSoundFreeCell;
+        env.release_device = HostSoundReleaseDevice;
+        env.create_device = HostSoundCreateDevice;
+        env.set_cooperative_level = HostSoundCooperativeLevel;
+        env.set_primary_format = HostSoundPrimaryFormat;
+        env.create_buffer = HostSoundCreateBuffer;
+        env.lock_buffer = HostSoundLock;
+        env.unlock_buffer = HostSoundUnlock;
+        env.play_buffer = HostSoundPlay;
+        env.set_timer = HostSoundSetTimer;
+        env.log = HostSoundLog;
+        env.load_wave = HostSoundLoadWave;
+        env.filenames = filenames;
+        env.shutdown_flag = &shutdown_flag;
+        const int status = SoundDevice_InitializeWorker(
+            &g_sound_device, g_host.window, &env);
+        // this[0] is the raw IDirectSound8 the rest of the host plays
+        // through; 0x0043CD30 publishes it there.
+        g_host.direct_sound =
+            static_cast<IDirectSound8*>(g_sound_device.device);
+        if (status != 0) {
+            HostTrace("DirectSound bring-up failed");
             return nullptr;
-        if (FAILED(g_host.direct_sound->SetCooperativeLevel(
-                g_host.window, DSSCL_NORMAL)))
-            return nullptr;
-        g_host.menu_sound_buffers[0] =
-            HostLoadArchiveWave("se_select00.wav");
-        g_host.menu_sound_buffers[1] =
-            HostLoadArchiveWave("se_ok00.wav");
-        g_host.menu_sound_buffers[2] =
-            HostLoadArchiveWave("se_cancel00.wav");
-    }
-    if (!g_host.smoke_mode)
+        }
         HostTrace("DirectSound device ready");
+    }
     g_host.boot_sound_ok = 1;
 #endif
     g_host.sound.initialized = 1;
@@ -4272,16 +4733,16 @@ void HostStopSoundWorker(void*) { g_host.sound.initialized = 0; }
 // then tearing everything down itself afterwards, in its own order - so retail's
 // sequence governed nothing. The releases now happen inside the hooks.
 //
-// The host's audio layer is a strict subset of retail's: it owns the three menu
-// buffers, the BGM buffer and the IDirectSound8, and never creates a track
-// table, BGM header set, update timer, MIDI player, streamer, notify event or
-// name slots, so those edges have nothing to act on.
+// The host's audio layer is a strict subset of retail's: it owns the 37
+// preloaded effect buffers, the BGM buffer and the IDirectSound8, and never
+// creates a track table, BGM header set, update timer, MIDI player, streamer,
+// notify event or name slots, so those edges have nothing to act on.
 void HostReleaseMenuSoundBuffer(void*, int slot) {
 #if defined(_WIN32)
-    if (slot < 0 || slot >= 3 || g_host.menu_sound_buffers[slot] == nullptr)
+    if (slot < 0 || slot >= 37 || g_host.sound_buffers[slot] == nullptr)
         return;
-    g_host.menu_sound_buffers[slot]->Release();
-    g_host.menu_sound_buffers[slot] = nullptr;
+    static_cast<IDirectSoundBuffer*>(g_host.sound_buffers[slot])->Release();
+    g_host.sound_buffers[slot] = nullptr;
 #else
     (void)slot;
 #endif
@@ -4330,14 +4791,22 @@ void HostDestroyGameState(void*, void* manager) {
 }
 void HostReleaseDeviceChain(void*) {
 #if defined(_WIN32)
-    if (g_host.keyboard != nullptr) {
-        g_host.keyboard->Unacquire();
-        g_host.keyboard->Release();
-        g_host.keyboard = nullptr;
+    if (g_host.input_devices.keyboard != nullptr) {
+        IDirectInputDevice8A* keyboard = static_cast<IDirectInputDevice8A*>(
+            g_host.input_devices.keyboard);
+        keyboard->Unacquire();
+        keyboard->Release();
+        g_host.input_devices.keyboard = nullptr;
     }
-    if (g_host.direct_input != nullptr) {
-        g_host.direct_input->Release();
-        g_host.direct_input = nullptr;
+    if (g_host.input_devices.joystick != nullptr) {
+        static_cast<IDirectInputDevice8A*>(
+            g_host.input_devices.joystick)->Release();
+        g_host.input_devices.joystick = nullptr;
+    }
+    if (g_host.input_devices.direct_input != nullptr) {
+        static_cast<IDirectInput8A*>(
+            g_host.input_devices.direct_input)->Release();
+        g_host.input_devices.direct_input = nullptr;
     }
     if (g_host.device != nullptr) {
         for (int index = 0; index < 32; ++index) {
