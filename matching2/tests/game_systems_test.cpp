@@ -783,28 +783,28 @@ void TestEnemyBounceStep() {
 int g_flush_calls = 0;
 int g_blend_mode = -1;
 Word g_texture_factor = 0;
-int g_address_mode = -1;
+int g_texture_filter = -1;
 
 void StateFlush() { ++g_flush_calls; }
 void SetBlendMode(Word mode) { g_blend_mode = (int)mode; }
 void SetTextureFactor(Word color) { g_texture_factor = color; }
-void SetAddressMode(Word mode) { g_address_mode = (int)mode; }
+void SetTextureFilter(Word mode) { g_texture_filter = (int)mode; }
 
 void TestApplyBlendColorWrap() {
 	AnmStateCache cache = {};
 	cache.cached_blend = 3;
-	cache.cached_wrap = 0;
+	cache.cached_filter = 0;
 	cache.cached_color = 0;
 
 	AnmStateEnv env = {};
 	env.flush = &StateFlush;
 	env.set_blend_mode = &SetBlendMode;
 	env.set_texture_factor = &SetTextureFactor;
-	env.set_address_mode = &SetAddressMode;
+	env.set_texture_filter = &SetTextureFilter;
 
-	// blend 0, primary color, wrap bit set.
+	// blend 0, primary color, bit 31 set.
 	AnmBlendVmState vm = {};
-	vm.flags = 0x80000000u; // blend bits 0, wrap 1
+	vm.flags = 0x80000000u; // blend bits 0, bit 31 set
 	vm.color_primary = 0x11223344u;
 	vm.color_secondary = 0x99887766u;
 
@@ -812,7 +812,7 @@ void TestApplyBlendColorWrap() {
 	assert(cache.cached_blend == 0 && g_blend_mode == 6);
 	assert(cache.cached_color == 0x11223344u);
 	assert(g_texture_factor == 0x11223344u);
-	assert(cache.cached_wrap == 1 && g_address_mode == 1);
+	assert(cache.cached_filter == 1 && g_texture_filter == 1);
 	assert(g_flush_calls == 3);
 	assert(cache.state_changes == 1);
 
@@ -821,12 +821,12 @@ void TestApplyBlendColorWrap() {
 	assert(g_flush_calls == 3);
 	assert(cache.state_changes == 2);
 
-	// Secondary color select + blend 1 -> mode 2; wrap cleared -> mode 2.
+	// Secondary color select + blend 1 -> mode 2; bit 31 cleared -> 2.
 	vm.flags = 0x8010u; // secondary color, blend bits = 1
 	AnmManager_ApplyBlendColorWrap(&cache, &vm, &env);
 	assert(g_blend_mode == 2);
 	assert(g_texture_factor == 0x99887766u);
-	assert(g_address_mode == 2);
+	assert(g_texture_filter == 2);
 
 	// Fade modulation: 0x80 = identity on one channel, 0xFF saturates.
 	cache.fade_enabled = 1;

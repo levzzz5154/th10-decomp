@@ -9,12 +9,15 @@ struct QuadRenderVertex {
 };
 
 // Vertex staging state embedded in the animation manager. In retail the
-// write cursor lives at manager+0x72DACC and the staged-quad counter at
-// manager+0x3ADAC8; the readable form groups the two fields the append
-// path touches.
+// write cursor lives at manager+0x72DACC, the first vertex of the open
+// batch at manager+0x72DAD0 and the staged-quad counter at
+// manager+0x3ADAC8; the readable form groups the three fields the append
+// and flush paths touch. 0x00439473 seeds all three from the buffer base
+// at manager+0x3ADACC once per presented frame.
 struct QuadVertexStaging {
-    QuadRenderVertex* cursor;  // retail manager+0x72DACC
-    int quad_count;            // retail manager+0x3ADAC8
+    QuadRenderVertex* cursor;       // retail manager+0x72DACC
+    int quad_count;                 // retail manager+0x3ADAC8
+    QuadRenderVertex* batch_start;  // retail manager+0x72DAD0
 };
 
 // Expand one four-vertex quad into the staging buffer as two triangles

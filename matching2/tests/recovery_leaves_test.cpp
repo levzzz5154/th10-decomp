@@ -150,10 +150,6 @@ static int CreateTexture(void*, int format, int mip_levels) {
 }
 static int textureFinalizes;
 static void FinalizeTexture(void*) { ++textureFinalizes; }
-static int flushCalls;
-static int advanceCalls;
-static void FlushRender(void*) { ++flushCalls; }
-static void AdvanceRender(void*) { ++advanceCalls; }
 static int logWrites;
 static const char* loggedText;
 static void WriteLog(void*, const char* text) { ++logWrites; loggedText = text; }
@@ -653,9 +649,6 @@ int main() {
     assert(Recovery_CreateTextureFromMemory((void*)1, 4, 2,
                                             CreateTexture, FinalizeTexture) == 0);
     assert(textureCreates == 1 && textureFinalizes == 1);
-    flushCalls = advanceCalls = 0;
-    Recovery_FlushRenderStaging((void*)1, FlushRender, AdvanceRender);
-    assert(flushCalls == 1 && advanceCalls == 1);
     unsigned char logState[0x360] = {};
     logWrites = 0;
     Recovery_MarkLogState(logState, WriteLog, "hello");

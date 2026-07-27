@@ -993,13 +993,6 @@ int Recovery_CreateTextureFromMemory(
     return 0;
 }
 
-// 0x00442F50 - Flush staged render data and advance the frame counters.
-void Recovery_FlushRenderStaging(void* state, void (*flush)(void*),
-                                 void (*advance)(void*)) {
-    if (flush != 0) flush(state);
-    if (advance != 0) advance(state);
-}
-
 // 0x00447A50 - Forward a formatted log line and set the owner's active bit.
 void Recovery_MarkLogState(void* state, void (*write)(void*, const char*),
                            const char* text) {

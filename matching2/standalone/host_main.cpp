@@ -42,6 +42,9 @@
 #include "th10/render/effect_ring_update.hpp"
 #include "th10/render/anm_blend_state.hpp"
 #include "th10/render/quad_vertex_append.hpp"
+#include "th10/render/anm_batch_flush.hpp"
+#include "th10/render/final_quad_pipeline.hpp"
+#include "th10/render/render_state_sync.hpp"
 #include "th10/render/anm_script_table_sweep.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
@@ -77,9 +80,24 @@ extern void* g_pGameStateManager;
 void SaveSystemSettings();
 unsigned long CreateGameWindow(void* instance);
 int InstanceCheck();
+// The Win32 leaves WinMain (0x00438AD0) runs inline, transcribed alongside
+// the two above in src/platform/window.cpp.
+void RestoreSystemSettings();
+void DisableImeAndCursor();
+void SetForegroundGameWindow();
+void DestroyGameWindow();
+void RestartGracePump();
 extern void* g_pWnd;
 extern unsigned int DAT_00491ff4;  // retail status flags; bit 0x80 = close
 extern unsigned int DAT_00474ca0;  // retail global flags; bit 0x10 = practice
+// Retail's captured performance-counter pair, written by SaveSystemSettings
+// (0x004392E0) into .data at 0x00492508 / 0x00492510 and read straight back
+// by 0x00439540. `fild qword ptr` is a signed 64-bit load in both places.
+extern long long DAT_00492508;     // Frequency.QuadPart
+extern long long DAT_00492510;     // PerformanceCount.QuadPart
+// Cached D3DRS_FOGENABLE value; 0x00439390 stores 0xFF into it once per
+// presented frame to invalidate the cache.
+extern unsigned int DAT_00492378;
 extern int DAT_00474c74;           // retail selected difficulty (4 = Extra)
 // The three option values 0x0042D920 edits, in retail's own storage.
 extern unsigned char DAT_00491d68; // BGM volume, 0..100 step 5, default 100
@@ -332,7 +350,9 @@ struct HostContext {
     // No critical-section storage: the seven sections are retail's own, at
     // 0x00492274.
     HWND window = nullptr;
-    LARGE_INTEGER performance_frequency = {};
+    // BeginScene succeeded for the frame currently being built, so the
+    // matching EndScene edge has something to close.
+    bool frame_scene_open = false;
     IDirect3D9* direct3d = nullptr;
     IDirect3DDevice9* device = nullptr;
     IDirectInput8A* direct_input = nullptr;
@@ -437,6 +457,15 @@ float HostAnmWrapAngle(void*, float value) {
 void HostInitializeAnmVm(HostAnmVm* runtime,
                          const unsigned char* instructions);
 
+// Retail 0x00404450 sets a record's active bit at the moment it plants
+// scripts into that record's slots. The five host VM groups are declared
+// with the sweep below; these are the arming edges the plant sites need.
+void HostArmTitleChildGroup();
+void HostArmFrontChildGroup();
+void HostArmStageGroup();
+void HostArmFrontRootGroup();
+void HostArmFrontStaticGroup();
+
 AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
     static const float scroll[3] = {};
     AnmVmHooks hooks = {};
@@ -501,6 +530,11 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
         }
         HostAnmVm* child = &children[slot];
         HostInitializeAnmVm(child, script.instructions);
+        // Planting a script arms the record that owns the slot.
+        if (children == g_host.front_child_vms)
+            HostArmFrontChildGroup();
+        else
+            HostArmTitleChildGroup();
         child->script_id = script_id;
         child->resource_index = resource;
         child->resource_bytes = resource_bytes;
@@ -643,6 +677,7 @@ bool HostAddIndependentTitleScript(unsigned int script_id) {
     HostAnmVm* vm =
         &g_host.title_child_vms[g_host.title_child_vm_count++];
     HostInitializeAnmVm(vm, script.instructions);
+    HostArmTitleChildGroup();
     vm->script_id = static_cast<int>(script_id);
     vm->resource_index = 0;
     return true;
@@ -747,6 +782,7 @@ void HostRestoreMainMenuLogo() {
     for (int frame = 0; frame <= 80; ++frame)
         AnmVm_Tick(&logo.state, &hooks);
     g_host.title_child_vms[g_host.title_child_vm_count++] = logo;
+    HostArmTitleChildGroup();
 }
 
 void HostReturnToMainMenu() {
@@ -1058,7 +1094,6 @@ struct PendingUpload {
     unsigned int height;
     unsigned int source_width;
     unsigned int source_height;
-    unsigned int source_pitch;
     HRESULT last_error;
 };
 PendingUpload g_pending_upload;
@@ -1086,11 +1121,13 @@ int HostUploadLoadSurface(void* surface, const Byte* pixels,
         return -1;
     RECT source = {0, 0, static_cast<LONG>(g_pending_upload.source_width),
                    static_cast<LONG>(g_pending_upload.source_height)};
-    // The payload's real stride wins over the computed one when the archive
-    // stored a tighter row; retail's tables give width * bytes-per-pixel,
-    // which is the same number for every THTX in th10.dat.
-    if (g_pending_upload.source_pitch != 0)
-        pitch = g_pending_upload.source_pitch;
+    // The pitch is retail's, not the host's. 0x00446F40 passes
+    // `dword_46F2A0[image->format] * image->width` - the bytes-per-pixel
+    // table at 0x0046F2A0 indexed by the image's own format word times its
+    // width - straight to D3DXLoadSurfaceFromMemory, and that is exactly
+    // what AnmTexture_CreateAndUpload computes and hands to this leaf. The
+    // host used to override it with data_size / height derived from the
+    // payload, which is a guess about how the archive packed the rows.
     g_pending_upload.last_error = D3DXLoadSurfaceFromMemory(
         static_cast<IDirect3DSurface9*>(surface), nullptr, nullptr, pixels,
         static_cast<D3DFORMAT>(source_format), pitch, nullptr, &source,
@@ -1128,8 +1165,6 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     g_pending_upload.height = entry.height != 0 ? entry.height : payload.height;
     g_pending_upload.source_width = payload.width;
     g_pending_upload.source_height = payload.height;
-    g_pending_upload.source_pitch =
-        payload.height == 0 ? 0 : payload.data_size / payload.height;
     if (g_pending_upload.width == 0 || g_pending_upload.height == 0 ||
         payload.width == 0 || payload.height == 0)
         return nullptr;
@@ -1203,7 +1238,7 @@ float HostRoundCenterEdge(float edge, float extent) {
 // destination blend (0 -> D3DBLEND_INVSRCALPHA, 1 and 2 -> D3DBLEND_ONE, 3
 // leaves the device alone), bit 15 to choose between the VM's two colour
 // registers - vm+0x2FC and vm+0x300 - applies the fade scale, and bit 31 for
-// the address mode. The host previously derived the blend itself and always
+// the texture filter. The host previously derived the blend itself and always
 // used the first colour register, so any VM that selected its second one drew
 // with the wrong colour and alpha.
 //
@@ -1213,45 +1248,87 @@ float HostRoundCenterEdge(float edge, float extent) {
 // cache it is compared against.
 AnmStateCache g_anm_state_cache = {0xFF, 0xFF, 0xFFFFFFFFu, 0, {0, 0, 0, 0}, 0};
 DWORD g_anm_destination_blend = D3DBLEND_INVSRCALPHA;
-DWORD g_anm_address_mode = D3DTADDRESS_CLAMP;
+DWORD g_anm_texture_filter = D3DTEXF_LINEAR;
 D3DCOLOR g_anm_texture_factor = 0xFFFFFFFFu;
 
 // Retail stages quads into a vertex buffer and draws them in batches; the
-// write cursor is manager+0x72DACC and the staged count manager+0x3ADAC8.
-// AnimationManager_AppendQuadVertices (retail 0x00442D50) is what expands one
-// four-corner quad into the two triangles 0,1,2 and 1,2,3 and advances both.
-// The host draws whatever is staged when the state that geometry depends on -
-// destination blend, texture factor, address mode or texture - is about to
+// write cursor is manager+0x72DACC, the open batch's first vertex
+// manager+0x72DAD0 and the staged count manager+0x3ADAC8.
+// AnimationManager_AppendQuadVertices (retail 0x00442FE0) is what expands one
+// four-corner quad into the two triangles 0,1,2 and 1,2,3 and advances both,
+// and AnimationManager_FlushQuadBatch (retail 0x00442F50) draws what is
+// staged. The host draws when the state that geometry depends on -
+// destination blend, texture factor, texture filter or texture - is about to
 // change, which is exactly when retail calls its flush hook.
 const int kStagedQuadMax = 4096;
 QuadRenderVertex g_staged_vertices[kStagedQuadMax * 6];
-QuadVertexStaging g_staging = {g_staged_vertices, 0};
-IDirect3DTexture9* g_staged_texture = nullptr;
+QuadVertexStaging g_staging = {g_staged_vertices, 0, g_staged_vertices};
+
+// The manager fields 0x00442670 reads and updates. clip_* is the 640x480
+// viewport HostRenderMenu installs, which is what dword_491FAC+0xCC carries
+// in retail. fade_enabled stays 0 because nothing in the host arms retail's
+// screen fade at manager+0x73245C.
+QuadSubmitManager g_quad_manager = {
+    0.0f, 0.0f, 0u, 0xFF, 0, {0, 0, 0, 0}, 0u, 0u, 640u, 480u};
+
+void HostDeviceSetTextureStageState(unsigned int stage, unsigned int type,
+                                    unsigned int value) {
+    if (g_host.device != nullptr)
+        g_host.device->SetTextureStageState(
+            stage, static_cast<D3DTEXTURESTAGESTATETYPE>(type), value);
+}
+
+void HostDeviceSetFvf(unsigned int fvf) {
+    if (g_host.device != nullptr)
+        g_host.device->SetFVF(fvf);
+}
+
+void HostDeviceDrawPrimitiveUp(unsigned int primitive_type,
+                               unsigned int primitive_count,
+                               const QuadRenderVertex* vertices,
+                               unsigned int stride) {
+    if (g_host.device != nullptr)
+        g_host.device->DrawPrimitiveUP(
+            static_cast<D3DPRIMITIVETYPE>(primitive_type), primitive_count,
+            vertices, stride);
+}
+
+const QuadBatchEnv g_quad_batch_env = {HostDeviceSetTextureStageState,
+                                       HostDeviceSetFvf,
+                                       HostDeviceDrawPrimitiveUp};
 
 void HostAnmStateFlush() {
-    if (g_staging.quad_count == 0)
+    if (g_host.device == nullptr)
         return;
-    g_host.device->SetTexture(0, g_staged_texture);
-    g_host.device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-    g_host.device->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
-                                   g_staging.quad_count * 2,
-                                   g_staged_vertices,
-                                   sizeof(QuadRenderVertex));
-    g_host.title_draw_calls += 1;
+    AnimationManager_FlushQuadBatch(&g_staging, &g_host.title_draw_calls,
+                                    &g_quad_batch_env);
+}
+
+// Retail 0x00439473 resets the manager's staged quad count and both vertex
+// cursors to the buffer base at manager+0x3ADACC once per presented frame;
+// this is that reset.
+void HostAnmResetBatch() {
     g_staging.cursor = g_staged_vertices;
+    g_staging.batch_start = g_staged_vertices;
     g_staging.quad_count = 0;
 }
 
 // Re-announce the cached device state and drop any stale batch. Called once
 // per frame because the cache only fires a callback when a value changes.
+// Invalidating the manager's texture and pipeline cache words is retail's own
+// 0x00439D20. The offsets do not appear literally in the dump - Hex-Rays
+// writes them as indices - so for a reader checking this: the store is
+// `*((_DWORD *)result + 964249) = 0`, and 964249 * 4 = 0x3ADA64, while
+// `result[3857001]` and `result[3857002]` are the byte stores of -1 at
+// +0x3ADA69 and +0x3ADA6A.
 void HostAnmResetStateCache() {
-    g_staging.cursor = g_staged_vertices;
-    g_staging.quad_count = 0;
-    g_staged_texture = nullptr;
+    HostAnmResetBatch();
+    g_quad_manager.cached_texture = 0u;
+    g_quad_manager.textured = 0xFF;
     g_host.device->SetRenderState(D3DRS_DESTBLEND, g_anm_destination_blend);
     g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR, g_anm_texture_factor);
-    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, g_anm_address_mode);
-    g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, g_anm_address_mode);
+    g_host.device->SetSamplerState(0, D3DSAMP_MAGFILTER, g_anm_texture_filter);
+    g_host.device->SetSamplerState(0, D3DSAMP_MINFILTER, g_anm_texture_filter);
 }
 
 void HostAnmSetBlendMode(Word value) {
@@ -1265,59 +1342,120 @@ void HostAnmSetBlendMode(Word value) {
 }
 
 void HostAnmSetTextureFactor(Word color) {
-    // Retail's own D3DRS_TEXTUREFACTOR, which is why a colour change has to
-    // flush first: the staged quads carry no colour of their own.
+    // Retail's own D3DRS_TEXTUREFACTOR (0x004423E0's SetRenderState(60, v)).
     g_anm_texture_factor = static_cast<D3DCOLOR>(color);
     if (g_host.device != nullptr)
         g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR,
                                       g_anm_texture_factor);
 }
 
-void HostAnmSetAddressMode(Word value) {
-    g_anm_address_mode = value == 1 ? D3DTADDRESS_WRAP : D3DTADDRESS_CLAMP;
+void HostAnmSetTextureFilter(Word value) {
+    // 0x004423E0 loc_442571/loc_442580 and 0x004425A0 both issue
+    // SetSamplerState(0, 5, v) then SetSamplerState(0, 6, v) - D3DSAMP_MAG-
+    // and MINFILTER - with 1 for D3DTEXF_POINT and 2 for D3DTEXF_LINEAR.
+    // The selector is passed straight through; it was never an address mode.
+    g_anm_texture_filter = static_cast<DWORD>(value);
     if (g_host.device != nullptr) {
-        g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSU, g_anm_address_mode);
-        g_host.device->SetSamplerState(0, D3DSAMP_ADDRESSV, g_anm_address_mode);
+        g_host.device->SetSamplerState(0, D3DSAMP_MAGFILTER,
+                                       g_anm_texture_filter);
+        g_host.device->SetSamplerState(0, D3DSAMP_MINFILTER,
+                                       g_anm_texture_filter);
     }
 }
 
+void HostDeviceSetRenderState(uint32_t state_id, uint32_t value) {
+    if (g_host.device != nullptr)
+        g_host.device->SetRenderState(static_cast<D3DRENDERSTATETYPE>(state_id),
+                                      value);
+}
+
+void HostDeviceSetSamplerState(uint32_t stage, uint32_t state_id,
+                               uint32_t value) {
+    if (g_host.device != nullptr)
+        g_host.device->SetSamplerState(
+            stage, static_cast<D3DSAMPLERSTATETYPE>(state_id), value);
+}
+
+// 0x004425A0, the blend/filter sync 0x00442670 calls just before it stages
+// the quad. Retail shares one cache with 0x004423E0 - the manager's blend
+// byte at +0x3ADA68 and filter byte at +0x3ADA6E - so the two recovered
+// views of that cache are copied in and back out around the call.
+void HostSyncQuadRenderState(unsigned int vm_flags) {
+    RenderStateCache cache;
+    cache.blend_mode = g_anm_state_cache.cached_blend;
+    cache.filter_mode = static_cast<int8_t>(g_anm_state_cache.cached_filter);
+    cache.sync_counter = g_anm_state_cache.state_changes;
+    AnmManager_SyncEntityRenderState(&cache, vm_flags, HostAnmStateFlush,
+                                     HostDeviceSetRenderState,
+                                     HostDeviceSetSamplerState);
+    g_anm_state_cache.cached_blend = cache.blend_mode;
+    g_anm_state_cache.cached_filter = static_cast<Byte>(cache.filter_mode);
+    g_anm_state_cache.state_changes = cache.sync_counter;
+}
+
+void HostQuadSetTexture(unsigned int texture) {
+    if (g_host.device != nullptr)
+        g_host.device->SetTexture(
+            0, reinterpret_cast<IDirect3DTexture9*>(
+                   static_cast<uintptr_t>(texture)));
+}
+
+void HostQuadAppend(const QuadSubmitVertex vertices[4]) {
+    static_assert(sizeof(QuadSubmitVertex) == sizeof(QuadRenderVertex),
+                  "host vertex must match retail's 28-byte render vertex");
+    // Retail's buffer is drained once per frame by 0x00439473; the host's is
+    // finite, so a full buffer is drawn and reopened at its base.
+    if (g_staging.quad_count >= kStagedQuadMax) {
+        HostAnmStateFlush();
+        HostAnmResetBatch();
+    }
+    AnimationManager_AppendQuadVertices(
+        &g_staging, reinterpret_cast<const QuadRenderVertex*>(vertices));
+}
+
+const QuadSubmitEnv g_quad_submit_env = {HostAnmStateFlush, HostQuadSetTexture,
+                                         HostSyncQuadRenderState,
+                                         HostQuadAppend};
+
 void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
-    (void)mode;
     if (g_host.device == nullptr || g_quad_submission.texture == nullptr)
         return;
     const HostQuadSubmission& q = g_quad_submission;
-    // A different texture cannot share a batch with what is already staged.
-    if (q.texture != g_staged_texture) {
-        HostAnmStateFlush();
-        g_staged_texture = q.texture;
-    }
-    if (g_staging.quad_count >= kStagedQuadMax)
-        HostAnmStateFlush();
 
-    // Retail emits the corners as {near,near} {far,near} {near,far} {far,far},
-    // and its append expands them into triangles 0,1,2 and 1,2,3.
-    struct Vertex {
-        float x, y, z, rhw;
-        unsigned int color;
-        float u, v;
-    };
-    static_assert(sizeof(Vertex) == sizeof(QuadRenderVertex),
-                  "host vertex must match retail's 28-byte render vertex");
-    const float u[4] = {q.u0, q.u1, q.u0, q.u1};
-    const float v[4] = {q.v0, q.v0, q.v1, q.v1};
-    Vertex corners[4];
+    // Retail emits the corners as {left,top} {right,top} {left,bottom}
+    // {right,bottom}; the sprite descriptor and the two colour registers are
+    // what 0x00442670 reads out of the VM.
+    QuadSubmitSprite sprite;
+    sprite.texture = static_cast<unsigned int>(
+        reinterpret_cast<uintptr_t>(q.texture));
+    sprite.u0 = q.u0;
+    sprite.v0 = q.v0;
+    sprite.u1 = q.u1;
+    sprite.v1 = q.v1;
+
+    QuadSubmitVm vm = {};
+    vm.uv_scroll_x = 0.0f;
+    vm.uv_scroll_y = 0.0f;
+    vm.flags = q.flags;
+    // The host has already resolved which of the VM's two colour registers
+    // applies (0x004423E0 does the same select), so both slots carry it and
+    // bit 15 cannot pick the wrong one.
+    vm.color_primary = q.color;
+    vm.color_secondary = q.color;
+    vm.sprite = &sprite;
+
+    QuadSubmitVertex corners[4];
     for (int index = 0; index < 4; ++index) {
-        corners[index].x = vertices[index].x - 0.5f;
-        corners[index].y = vertices[index].y - 0.5f;
+        corners[index].x = vertices[index].x;
+        corners[index].y = vertices[index].y;
         corners[index].z = 0.0f;
         corners[index].rhw = 1.0f;
-        // Colour arrives through D3DRS_TEXTUREFACTOR, as it does in retail.
         corners[index].color = 0xFFFFFFFFu;
-        corners[index].u = u[index];
-        corners[index].v = v[index];
+        corners[index].u = 0.0f;
+        corners[index].v = 0.0f;
     }
-    AnimationManager_AppendQuadVertices(
-        &g_staging, reinterpret_cast<const QuadRenderVertex*>(corners));
+    Quad_SubmitFinal(corners, &vm, &g_quad_manager, &g_quad_submit_env,
+                     static_cast<unsigned int>(mode));
     g_quad_submission.submitted = true;
 }
 
@@ -1353,6 +1491,9 @@ bool HostEnsureAsciiFont() {
 
 // Route a colour change through the same cache the blend applier uses, so a
 // batch that depended on the old colour is drawn before the new one lands.
+// The colour itself reaches the vertices through 0x00442670's override, not
+// through D3DRS_TEXTUREFACTOR: 0x00442F50 pins both ARG2 selectors to
+// D3DTA_DIFFUSE. Retail sets the texture factor too, so it stays cached.
 void HostSetTextColor(D3DCOLOR color) {
     if (g_anm_state_cache.cached_color != color) {
         HostAnmStateFlush();
@@ -1390,14 +1531,11 @@ float HostDrawAsciiText(float x, float y, D3DCOLOR color, float scale,
                 static_cast<unsigned int>(character) - 32u, &entry, &sprite)) {
             IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
             if (texture != nullptr) {
-                if (texture != g_staged_texture) {
-                    HostAnmStateFlush();
-                    g_staged_texture = texture;
-                }
                 const float w = sprite.width * scale;
                 const float h = sprite.height * scale;
                 g_quad_submission = HostQuadSubmission{};
                 g_quad_submission.texture = texture;
+                g_quad_submission.color = color;
                 g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
                 g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
                 g_quad_submission.u1 =
@@ -1412,7 +1550,10 @@ float HostDrawAsciiText(float x, float y, D3DCOLOR color, float scale,
                 AnchoredQuadVertex corners[4] = {
                     {x, y, 0.0f, 1.0f}, {x + w, y, 0.0f, 1.0f},
                     {x, y + h, 0.0f, 1.0f}, {x + w, y + h, 0.0f, 1.0f}};
-                HostSubmitQuad(corners, 0);
+                // Retail's glyph VMs reach 0x00442670 through the anchored
+                // builder 0x00443080, whose call site passes mode 1 - the
+                // axis-aligned snap. These quads are the same shape.
+                HostSubmitQuad(corners, 1);
                 x += w * 0.5f;
                 width = x - start_x > width ? x - start_x : width;
                 continue;
@@ -1983,7 +2124,10 @@ int HostDrawCornerQuad(void* context, int) {
         corners[index].z = g_anm_corner_quad.corners[index][2];
         corners[index].w = 1.0f;
     }
-    HostSubmitQuad(corners, 1);
+    // The rotated builders 0x004436C0 and 0x00443910 pass mode 0: the snap
+    // in 0x00442670 rounds four coordinates and mirrors them onto the
+    // opposite corners, which only holds for an axis-aligned quad.
+    HostSubmitQuad(corners, 0);
     return 0;
 }
 
@@ -2134,7 +2278,7 @@ void HostDrawAnmVm(const HostAnmVm& runtime) {
     blend_state.color_secondary = D3DCOLOR_ARGB(
         vm.color2[3], vm.color2[2], vm.color2[1], vm.color2[0]);
     AnmStateEnv blend_env = {HostAnmStateFlush, HostAnmSetBlendMode,
-                             HostAnmSetTextureFactor, HostAnmSetAddressMode};
+                             HostAnmSetTextureFactor, HostAnmSetTextureFilter};
     AnmManager_ApplyBlendColorWrap(&g_anm_state_cache, &blend_state,
                                    &blend_env);
     g_quad_submission.color = g_anm_texture_factor;
@@ -2229,6 +2373,7 @@ bool HostEnsureStageVms() {
             vm->resource_index = -1;
             vm->resource_bytes = runtime.companion_anm_data;
             vm->resource_size = runtime.companion_anm_size;
+            HostArmStageGroup();
             g_host.stage_subrecords[slot] = subrecord;
             g_host.stage_vm_object_indices[slot] = object_index;
             AnmVmHooks hooks = HostAnmHooks(vm);
@@ -2329,6 +2474,7 @@ bool HostEnsureFrontVm() {
             continue;
         HostAnmVm* vm = &g_host.front_vms[script_id];
         HostInitializeAnmVm(vm, script.instructions);
+        HostArmFrontRootGroup();
         vm->script_id = script_id;
         vm->resource_index = -1;
         vm->resource_bytes = bytes;
@@ -2359,6 +2505,7 @@ bool HostEnsureFrontVm() {
             HostAnmVm* vm =
                 &g_host.front_static_vms[g_host.front_static_vm_count++];
             HostInitializeAnmVm(vm, script.instructions);
+            HostArmFrontStaticGroup();
             vm->script_id = script_id;
             vm->resource_index = -1;
             vm->resource_bytes = bytes;
@@ -2427,9 +2574,18 @@ void HostDrawFrontHud() {
 // whether it is still live afterwards.
 // ---------------------------------------------------------------------------
 struct HostVmGroup {
-    Byte flags;      // retail record+0x03; bit 0 is the group's active bit
-    int last_count;  // grows when new VMs join, which re-arms the group
+    Byte flags;  // retail record+0x03; bit 0 is the group's active bit
 };
+
+// Retail arms a record when it plants scripts into it, not when its slot
+// count changes: 0x00404450's per-record loop opens with
+// `mov byte ptr [ecx+3], 1` before it walks the slot list assigning VM pool
+// entries. Nothing else in the binary sets that bit - the sweep 0x00403990
+// only ever clears it with `and byte ptr [ebp+3], 0FEh`. The host used to
+// re-arm whenever the VM count grew, which both invented a rule retail does
+// not have and missed the case it does cover: a child planted into a slot
+// that a dead VM had freed leaves the count unchanged.
+void HostArmVmGroup(HostVmGroup* group) { group->flags |= 1u; }
 
 int HostSweepRunScript(void* pool, int vm_index) {
     HostAnmVm* vm = &static_cast<HostAnmVm*>(pool)[vm_index];
@@ -2449,15 +2605,12 @@ void HostSweepVmGroup(HostVmGroup* group, HostAnmVm* pool, int count) {
     if (count > kSweepSlotMax)
         count = kSweepSlotMax;
     if (count <= 0) {
+        // An empty slot list is retail's `cmp word ptr [ebp+1Ch], 0 / jl
+        // loc_403A0A` arm: the record's active bit is cleared without any
+        // script running.
         group->flags = static_cast<Byte>(group->flags & 0xFEu);
-        group->last_count = 0;
         return;
     }
-    // A group that gained VMs is live again; retail re-arms a record the same
-    // way when a script is planted into one of its slots.
-    if (count > group->last_count)
-        group->flags |= 1u;
-    group->last_count = count;
 
     AnmSpriteSlot slots[kSweepSlotMax + 1];
     for (int index = 0; index < count; ++index) {
@@ -2487,6 +2640,12 @@ HostVmGroup g_stage_group;
 HostVmGroup g_title_child_group;
 HostVmGroup g_front_static_group;
 HostVmGroup g_front_child_group;
+
+void HostArmTitleChildGroup() { HostArmVmGroup(&g_title_child_group); }
+void HostArmFrontChildGroup() { HostArmVmGroup(&g_front_child_group); }
+void HostArmStageGroup() { HostArmVmGroup(&g_stage_group); }
+void HostArmFrontRootGroup() { HostArmVmGroup(&g_front_group); }
+void HostArmFrontStaticGroup() { HostArmVmGroup(&g_front_static_group); }
 
 void HostTickFrontHud() {
     if (!HostEnsureFrontVm())
@@ -2688,9 +2847,79 @@ void HostMaybeCaptureFrame() {
 void HostMaybeCaptureFrame() {}
 #endif
 
+// True when this host owns a device it can actually issue frame commands to.
+// --smoke deliberately owns none, so every frame edge below is inert there,
+// exactly as it already was when the whole render lived in one function.
+bool HostFrameDeviceLive() {
+    return !g_host.smoke_mode && g_host.device != nullptr &&
+           g_host.window != nullptr;
+}
+
+// Retail 0x00439390 opens the presented frame with the device vtable slot at
+// +0xA4, IDirect3DDevice9::BeginScene, and closes it with +0xA8, EndScene.
+// Both used to be buried inside the host's own render function, so
+// Frame_Advance's two scene edges pointed at HostNop.
+void HostFrameBeginScene(void*) {
+    if (!HostFrameDeviceLive())
+        return;
+    g_host.frame_scene_open = SUCCEEDED(g_host.device->BeginScene());
+}
+
+void HostFrameEndScene(void*) {
+    if (!HostFrameDeviceLive() || !g_host.frame_scene_open)
+        return;
+    g_host.device->EndScene();
+    g_host.frame_scene_open = false;
+}
+
+// 0x00442F50: when the manager's staged quad count at +0x3ADAC8 is non-zero,
+// clear texture stage 0's ALPHAARG2/COLORARG2, SetFVF(324) and
+// DrawPrimitiveUP(D3DPT_TRIANGLELIST, 2 * quads, buffer, 28) - the host's
+// staged-quad flush is the same batch with the same 28-byte stride.
+void HostFrameFlushSpriteBatch(void*) {
+    if (!HostFrameDeviceLive())
+        return;
+    HostAnmStateFlush();
+}
+
+// The manager writes in 0x00439390's loc_439473 block: quad count at
+// +0x3ADAC8 = 0, and both vertex write cursors +0x72DACC / +0x72DAD0 back to
+// the buffer base at +0x3ADACC. HostAnmResetBatch performs those three and
+// nothing else - retail's texture cache word is invalidated separately, by
+// 0x00439D20, which HostAnmResetStateCache does.
+void HostFrameResetSpriteBatch(void*) { HostAnmResetBatch(); }
+
+// dword_492378 is retail's cached D3DRS_FOGENABLE value, not a fade level:
+// every fog site reads it as `if (dword_492378 != 1) { flush; = 1;
+// SetRenderState(28, 1); }` (inside 0x00402850) or the matching clear-to-0
+// form (inside 0x00402CA0). Storing 0xFF at the top of the frame is a cache
+// invalidation - neither 0 nor 1, so the next fog write always reaches the
+// device. Retail's own storage, so the host writes retail's own value.
+void HostFrameInvalidateFogCache(void*) { DAT_00492378 = 0xFF; }
+
+// 0x00420CD0: when the app object's fog flag at +0x750 is set, flush the
+// sprite batch (0x00442F50) and issue SetRenderState(28 = D3DRS_FOGENABLE,
+// 0) through vtable +0xE4, clearing the flag. The host's 2D sprite pass is
+// unconditionally unfogged - transformed vertices carry no fog coordinate -
+// so it performs the body every frame rather than tracking a flag nothing
+// else in the host sets.
+void HostFrameDisableFog(void*) {
+    if (!HostFrameDeviceLive())
+        return;
+    HostAnmStateFlush();
+    g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
+}
+
+// Vtable +0x104, SetTexture(0, 0), issued between the last flush and
+// EndScene, in 0x00439390's loc_439473 block.
+void HostFrameClearTextureStage(void*) {
+    if (!HostFrameDeviceLive())
+        return;
+    g_host.device->SetTexture(0, nullptr);
+}
+
 void HostRenderMenu() {
-    if (g_host.smoke_mode || g_host.device == nullptr ||
-        g_host.window == nullptr)
+    if (!HostFrameDeviceLive())
         return;
     static bool trace_render = true;
 
@@ -2757,30 +2986,30 @@ void HostRenderMenu() {
         result = g_host.device->Clear(
             0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xFF000000u,
             1.0f, 0);
-    if (SUCCEEDED(result))
-        result = g_host.device->BeginScene();
     if (SUCCEEDED(result)) {
         g_host.device->SetRenderState(D3DRS_ZENABLE, FALSE);
         g_host.device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-        // Constant for every sprite quad, so they belong here rather than in
-        // the per-quad path now that quads batch. Device_ApplyDefaultState
-        // leaves fog on for the 3D passes and transformed sprite vertices
-        // carry no fog coordinate, so the 2D pass runs unfogged.
-        g_host.device->SetRenderState(D3DRS_FOGENABLE, FALSE);
+        // D3DRS_FOGENABLE is no longer set here: Frame_Advance's disable_fog
+        // edge (retail 0x00420CD0) issues it just ahead of this pass, which
+        // is where 0x00439390 has it.
         g_host.device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
         g_host.device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
         g_host.device->SetTextureStageState(
             0, D3DTSS_COLOROP, D3DTOP_MODULATE);
         g_host.device->SetTextureStageState(
             0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+        // 0x00442F50 issues SetTextureStageState(0, 3, 0) and
+        // (0, 6, 0) - both ARG2 selectors to D3DTA_DIFFUSE - on every batch
+        // it draws, because 0x00442670 writes the modulation colour into the
+        // four vertices. The frame setup agrees with the flush.
         g_host.device->SetTextureStageState(
-            0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+            0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
         g_host.device->SetTextureStageState(
             0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
         g_host.device->SetTextureStageState(
             0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
         g_host.device->SetTextureStageState(
-            0, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
+            0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
         // The cached state has to be re-announced each frame: the device is
         // reset above and the cache only fires a callback on change.
         HostAnmResetStateCache();
@@ -2793,20 +3022,37 @@ void HostRenderMenu() {
         // so the host contributes nothing to it.
         if (g_host.menu_screen >= 9 && g_host.menu_screen <= 11)
             HostRenderSubScreenList();
-        HostAnmStateFlush();  // draw whatever is still staged
-        result = g_host.device->EndScene();
+        // Retail's last secondary callback is 0x004200D0 at priority 50,
+        // which is nothing but sub_442F50(dword_491C10) plus two counter
+        // clears - a flush at the tail of the render pass, ahead of the
+        // second flush 0x00439390 does once the pass returns.
+        HostAnmStateFlush();
     }
-    // Capture before the flip: the swap chain is D3DSWAPEFFECT_DISCARD, so
-    // the back buffer contents are undefined once Present returns.
-    HostMaybeCaptureFrame();
-    if (SUCCEEDED(result))
-        result = g_host.device->Present(
-            nullptr, nullptr, nullptr, nullptr);
     if (trace_render) {
         HostTrace(SUCCEEDED(result) ?
-                      "D3D9 ANM title renderer presenting" :
+                      "D3D9 ANM title renderer drawing" :
                       "D3D9 ANM title renderer failed");
         trace_render = false;
+    }
+}
+
+// Retail 0x004391F0: Present through vtable +0x44, and on failure walk the
+// device-lost recovery (0x00438A30, Reset, 0x00439D20, dword_491FD4 = 2).
+// The host has its own reset path in HostDeviceReset, so this leaf is the
+// Present itself plus the frame capture, which has to read the back buffer
+// before the flip because the swap chain is D3DSWAPEFFECT_DISCARD.
+void HostFramePresent(void*) {
+    if (!HostFrameDeviceLive())
+        return;
+    HostMaybeCaptureFrame();
+    static bool traced_present = true;
+    const HRESULT result =
+        g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
+    if (traced_present) {
+        HostTrace(SUCCEEDED(result) ?
+                      "D3D9 ANM title renderer presenting" :
+                      "D3D9 ANM title renderer present failed");
+        traced_present = false;
     }
 }
 
@@ -3232,32 +3478,73 @@ void HostConfigLogWriteFail(void*, const char* file_name) {
 }
 
 // ---------------------------------------------------------------------------
-// Clock hooks: deterministic monotonic clock for the smoke test.
+// Clock hooks. 0x00439540 picks its path from the QueryPerformanceFrequency
+// result 0x004392E0 captured; both leaves below are the ones retail calls.
 // ---------------------------------------------------------------------------
 void HostClockLock(void*) {}
 void HostClockUnlock(void*) {}
 double HostReadMs(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode) {
+        // --smoke never runs 0x004392E0, so DAT_00492508 stays zero and this
+        // is the path retail itself would take. The deterministic 17 ms steps
+        // keep the harness reproducible.
         g_host.fake_clock_ms += 17.0;
         return g_host.fake_clock_ms;
     }
-    LARGE_INTEGER counter;
-    if (g_host.performance_frequency.QuadPart == 0)
-        QueryPerformanceFrequency(&g_host.performance_frequency);
-    QueryPerformanceCounter(&counter);
-    return static_cast<double>(counter.QuadPart) * 1000.0 /
-           static_cast<double>(g_host.performance_frequency.QuadPart);
+    // 0x00439540, loc_4395DF: timeBeginPeriod(1) / timeGetTime() /
+    // timeEndPeriod(1), with the DWORD result loaded by `fild dword ptr`
+    // - a SIGNED 32-bit
+    // load, which is why 0x00439540 adds dbl_470B30 (2^32) when it comes out
+    // negative. Time_ReadSeconds owns that correction, so hand it the signed
+    // value unchanged. The old body fabricated a QPC-derived millisecond
+    // count, which is not a leaf retail has.
+    timeBeginPeriod(1);
+    const double now = static_cast<double>(
+        static_cast<int>(timeGetTime()));
+    timeEndPeriod(1);
+    return now;
 #else
     g_host.fake_clock_ms += 17.0; // ~60fps steps
     return g_host.fake_clock_ms;
 #endif
 }
-double HostReadQpc(void*) { return 0.0; }
+double HostReadQpc(void*) {
+#if defined(_WIN32)
+    // 0x00439540's Frequency-non-zero arm: QueryPerformanceCounter into a
+    // local, then `fild` of (local - ::PerformanceCount). The base
+    // subtraction and the
+    // divide by Frequency belong to Time_ReadSeconds, so this leaf is just
+    // the counter.
+    LARGE_INTEGER counter = {};
+    QueryPerformanceCounter(&counter);
+    return static_cast<double>(counter.QuadPart);
+#else
+    return 0.0;
+#endif
+}
 
 FrameClockHooks g_clock_hooks = {
     nullptr, HostClockLock, HostClockUnlock, HostReadMs, HostReadQpc,
 };
+
+// Retail 0x00438AD0, loc_438C82: `fld ds:dbl_470B70 / fstp dbl_492540` -
+// dbl_470B70 is dq 0.0 - then `call sub_439540 / fst dbl_492540`, a few
+// instructions before its `call sub_420470`. That pair is the clock's
+// epoch; the host used to prime the minimum to 1e18,
+// which is not a value that appears anywhere in the image.
+void HostSeedFrameClock() {
+    g_host.clock.wrap_bias = 4294967296.0;     // dbl_470B30
+    g_host.clock.millisecond_scale = 0.001;    // dbl_470B28
+    g_host.clock.minimum_scale = 1000.0;       // dbl_470B88
+#if defined(_WIN32)
+    g_host.clock.qpc_frequency = static_cast<double>(DAT_00492508);
+    g_host.clock.qpc_base = static_cast<double>(DAT_00492510);
+#endif
+    g_host.clock.minimum_sample = 0.0;
+    g_host.clock.minimum_sample =
+        Time_ReadSeconds(&g_host.clock, &g_clock_hooks);
+}
 
 // Attract-mode demo loader. After 900 idle title frames TitleMenuRuntime_Update
 // tries to launch one of four demo replays; the caller treats a false return as
@@ -3494,7 +3781,16 @@ int HostRunSchedulerFrame(void*) {
     }
     if (g_host.title_sig_frame >= 0) {
         g_host.title_sig_frame += 1;
-        int sig_frames = g_host.smoke_mode ? 1 : 90;
+        // Retail 0x0042C9F0 holds the boot in the sig.anm phase until the
+        // loader object's own frame counter reaches 300: 0x0042C9F0's
+        // loc_42CA19 arm loads `mov edi, 12Ch` and spins on
+        // `cmp [ecx+3ECh], edi / jl` around Sleep(16).
+        // dword_477820[+0x3EC] is incremented once per frame by the loader's
+        // update callback 0x0041FDD0 (loc_41FE91), so the wait is 300
+        // frames, not the 90 the host used to fabricate.
+        // --smoke only ever runs 60 scheduler frames, so the deterministic
+        // harness keeps its own single-frame handover.
+        int sig_frames = g_host.smoke_mode ? 1 : 300;
         if (g_host.title_sig_frame >= sig_frames) {
             HostStartTitleScripts(88, 90);
             g_host.title_sig_frame = -1;
@@ -3545,7 +3841,10 @@ int HostRunSchedulerFrame(void*) {
                g_host.menu_screen <= 11) {
         HostUpdateSubScreenList();
     }
-    HostRenderMenu();
+    // The drawing used to happen here, inside the scheduler slot. Retail's
+    // 0x00449C00 slot is update-only: 0x00439390 runs the render pass
+    // afterwards, between BeginScene and EndScene, through 0x00449D40. The
+    // host's render is now bound to that Frame_Advance edge instead.
 #endif
     return 1; // keep running
 }
@@ -3931,11 +4230,25 @@ void* HostCreateGameState(void*, void* arena) {
         std::free(arena);
     return result;
 }
-void HostDisableIme(void*) {}
+// Retail 0x00438C6D, inline in WinMain: WINNLSEnableIME(0, 0), ShowCursor(0),
+// SetCursor(0). Transcribed in src/platform/window.cpp; GameMain_Run already
+// carries retail's `byte_491D65 == 0` guard, so this edge is unconditional.
+void HostDisableIme(void*) {
+#if defined(_WIN32)
+    DisableImeAndCursor();
+#endif
+}
 double HostReadClock(void*) {
     return Time_ReadSeconds(&g_host.clock, &g_clock_hooks);
 }
-void HostSetForeground(void*) {}
+// Retail WinMain loc_438C82: SetForegroundWindow(hWnd) once the four clock
+// doubles have been seeded. src/platform/window.cpp reads the same 0x004924F0
+// handle 0x00439730 publishes, so there is nothing for the host to pass in.
+void HostSetForeground(void*) {
+#if defined(_WIN32)
+    SetForegroundGameWindow();
+#endif
+}
 
 #if defined(_WIN32)
 bool HostLoadSigResource() {
@@ -4029,6 +4342,9 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
 }
 
 int HostRegisterMainTasks(void*) {
+    // Retail WinMain seeds the frame clock in the two statements that sit
+    // immediately in front of its call to 0x00420470, which is this slot.
+    HostSeedFrameClock();
     static MainTaskState task_state;
     MainTaskHooks hooks = {
         nullptr,
@@ -4036,8 +4352,8 @@ int HostRegisterMainTasks(void*) {
             static int node_storage[4];
             return &node_storage[callback_index];
         },
-        [](void*, void*) { g_host.primary_callbacks += 1; return 0; },
-        [](void*, void*) { g_host.secondary_callbacks += 1; return 0; },
+        [](void*, void*, int) { g_host.primary_callbacks += 1; return 0; },
+        [](void*, void*, int) { g_host.secondary_callbacks += 1; return 0; },
     };
     int status = MainTasks_Register(&task_state, &hooks);
     if (status != 0)
@@ -4073,10 +4389,15 @@ int HostRegisterMainTasks(void*) {
     g_host.title_runtime.owner_flags = &g_host.title_owner_flags;
     g_host.title_runtime.clock.scale = &DAT_00476f78;
     g_host.title_globals = {};
-    g_host.title_globals.demo_names[0] = "demo0.rpy";
-    g_host.title_globals.demo_names[1] = "demo1.rpy";
-    g_host.title_globals.demo_names[2] = "demo2.rpy";
-    g_host.title_globals.demo_names[3] = "demo3.rpy";
+    // Retail's attract-mode table is off_476FF8 (.data at 0x00476FF8), read
+    // out of the listing: demo1, demo2, demo3, demo0 - in that order, each
+    // with the "demo/" prefix. 0x0042CDF0 indexes it with dword_474CA8 and
+    // steps that index (index + 1) % 4, so the first attract replay retail
+    // ever plays is demo/demo1.rpy, not demo0.
+    g_host.title_globals.demo_names[0] = "demo/demo1.rpy";
+    g_host.title_globals.demo_names[1] = "demo/demo2.rpy";
+    g_host.title_globals.demo_names[2] = "demo/demo3.rpy";
+    g_host.title_globals.demo_names[3] = "demo/demo0.rpy";
 #if defined(_WIN32)
     if (!HostLoadSigResource() || !HostStartSigScript())
         return -1;
@@ -4111,8 +4432,14 @@ int HostFrameAdvance(void*) {
     g_host.frames_requested += 1;
     static FrameAdvanceHooks hooks = {
         nullptr, &g_clock_hooks,
-        HostNop,                        // sleep_zero
-        HostNop,                        // flush_sprite_batch
+        // 0x00439390, loc_439527: push 0 / call ds:__imp_Sleep - a frame
+        // that arrives early yields its slice instead of spinning.
+        [](void*) {
+#if defined(_WIN32)
+            Sleep(0);
+#endif
+        },
+        HostFrameFlushSpriteBatch,      // flush_sprite_batch (0x00442F50)
         HostNop,                        // select_primary_camera
         [](void*) {                     // apply_camera (0x00421480)
             // Every value here is retail 0x00421480's, read from the listing
@@ -4202,15 +4529,33 @@ int HostFrameAdvance(void*) {
         },
         HostRunSchedulerFrame,
         [](void*) { HostDrainSound(nullptr); },
-        HostNop, HostNop, HostNop, HostNop, HostNop, HostNop, HostNop,
-        HostNop, HostNop,
+        // stop_game_thread - 0x0044C150 joins the worker thread recorded at
+        // 0x00492254 before 0x00439390 reports quit or restart. This host
+        // runs its frame on the calling thread and starts no such worker, so
+        // there is no handle to signal, wait on or close.
+        HostNop,
+        HostFrameBeginScene,            // vtable +0xA4
+        HostFrameResetSpriteBatch,      // manager +0x3ADAC8 / +0x72DACC/D0
+        HostFrameInvalidateFogCache,    // dword_492378 = 0xFF
+        HostFrameDisableFog,            // 0x00420CD0
+        // run_render_pass - retail 0x00449D40 walks the secondary callback
+        // list, which is where every draw callback in the image lives. The
+        // host keeps its draw list in one function instead of on that list,
+        // so the pass is the function; it now runs here, inside the scene,
+        // rather than inside the 0x00449C00 update slot.
+        [](void*) { HostRenderMenu(); },
+        HostFrameClearTextureStage,     // SetTexture(0, 0)
+        HostFrameEndScene,              // vtable +0xA8
+        HostFramePresent,               // 0x004391F0
     };
     static FrameAdvanceState* state = nullptr;
     if (state == nullptr) {
-        g_host.clock.millisecond_scale = 0.001;
-        g_host.clock.minimum_sample = 1e18;
+        // The clock itself is seeded by HostSeedFrameClock at retail's own
+        // point in the boot (WinMain, just before 0x00420470).
         g_host.frame.clock = &g_host.clock;
-        g_host.frame.frame_interval = 1.0 / 60.0;
+        // 0x00439390, loc_4393D0: fadd ds:dbl_470C90, and dbl_470C90 is
+        // dq 0.01666666666666667 in .rdata.
+        g_host.frame.frame_interval = 0.01666666666666667;
         g_host.frame.skip_limit = 0;
         state = &g_host.frame;
     }
@@ -4356,12 +4701,14 @@ void HostReleaseDeviceChain(void*) {
     }
 #endif
 }
+// Retail WinMain loc_438E4A..loc_438E7F: hide the window, collapse it to
+// nothing, destroy it, clear `hWnd`, then ShowCursor(1). Transcribed in
+// src/platform/window.cpp over the same 0x004924F0 handle; g_host.window is
+// only the host's cached copy of it.
 void HostDestroyWindow(void*) {
 #if defined(_WIN32)
-    if (g_host.window != nullptr) {
-        DestroyWindow(g_host.window);
-        g_host.window = nullptr;
-    }
+    DestroyGameWindow();
+    g_host.window = nullptr;
 #endif
 }
 // The host has no MIDI player at all - no output device, no timer event, no
@@ -4381,8 +4728,27 @@ void HostShutdownMidi(void*) {
 int HostSaveConfig(void*) {
     return HostConfigWrite(nullptr, "th10.cfg", &HostConfig());
 }
-void HostRestoreSpi(void*) {}
-void HostRestartPump(void*) {}
+// Retail WinMain tail (after loc_438F9A): the three SPI values 0x004392E0
+// saved go back and WINNLSEnableIME(0, 1) lets the IME in again. Transcribed
+// in src/platform/window.cpp.
+//
+// It is gated on the save having run. HostCreateWindow skips 0x004392E0 in
+// smoke mode, and pushing the never-written zeros back would switch the
+// host's screensaver and power timeouts off instead of restoring them.
+void HostRestoreSpi(void*) {
+#if defined(_WIN32)
+    if (!g_host.smoke_mode)
+        RestoreSystemSettings();
+#endif
+}
+// Retail WinMain loc_438EAE..loc_438EEE: re-enable the IME when the startup
+// dialog was accepted, then run 0x3C PeekMessage/Translate/Dispatch
+// iterations so the display-mode change settles before the boot is retried.
+void HostRestartPump(void*) {
+#if defined(_WIN32)
+    RestartGracePump();
+#endif
+}
 
 } // namespace
 

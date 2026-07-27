@@ -8,11 +8,21 @@
 struct MainTaskHooks {
     void* context;
     // Scheduler node creation (retail 0x00449ED0): wraps `callback_index`
-    // (0 = input poll 0x0041FF80, 1..3 = LAB_00420000/C0/D0) into a node,
-    // sets flag bit 1, and stores the owner pointer.
+    // (0 = input poll 0x0041FF80, 1..3 = 0x00420000 / 0x004200C0 /
+    // 0x004200D0) into a 0x24-byte node. 0x00420470 then shapes the node
+    // itself, and the host owns the node type, so those writes belong here:
+    //   [node+0x04] |= 2              (`or esi, ebx` with ebx = 2)
+    //   [node+0x20]  = &DAT_00491C28  (`mov [eax+20h], ebp`)
+    //   [node+0x0C]  = 0x004201B0, on callback_index 0 only - the one-shot
+    //                  replace hook 0x00449AE0 runs and clears at
+    //                  registration.
+    // All three are in 0x00420470's own body, around its four 0x00449ED0
+    // calls.
     void* (*create_node)(void* context, int callback_index);
-    int (*register_primary)(void* context, void* node);   // 0x00449AE0
-    int (*register_secondary)(void* context, void* node); // 0x00449B70
+    // 0x00449AE0 / 0x00449B70. Retail passes the list priority in EDI; the
+    // reconstruction used to drop it entirely.
+    int (*register_primary)(void* context, void* node, int priority);
+    int (*register_secondary)(void* context, void* node, int priority);
 };
 
 struct MainTaskState {

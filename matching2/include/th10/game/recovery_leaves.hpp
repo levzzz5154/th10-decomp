@@ -259,8 +259,6 @@ void Recovery_IncrementAnimationCount(
 int Recovery_CreateTextureFromMemory(
     void* state, int format, int mip_levels,
     int (*create)(void*, int, int), void (*finalize)(void*));
-void Recovery_FlushRenderStaging(void* state, void (*flush)(void*),
-                                 void (*advance)(void*));
 void Recovery_MarkLogState(void* state, void (*write)(void*, const char*),
                            const char* text);
 void* Recovery_CreateResourceState(

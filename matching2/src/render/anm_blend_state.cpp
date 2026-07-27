@@ -16,7 +16,7 @@ namespace {
 } // namespace
 
 // 0x004423E0 - applies the cached blend mode, texture-factor color (with
-// optional fade modulation), and texture address mode for the next draw,
+// optional fade modulation), and texture filter for the next draw,
 // flushing the queued primitives whenever a cached state changes.
 void AnmManager_ApplyBlendColorWrap(AnmStateCache* cache,
                                     const AnmBlendVmState* vm,
@@ -56,11 +56,16 @@ void AnmManager_ApplyBlendColorWrap(AnmStateCache* cache,
 		env->set_texture_factor(color);
 	}
 
-	Byte wrap = (Byte)((vm->flags >> 31) & 1u);
-	if (cache->cached_wrap != wrap) {
+	// Retail 0x004423E0: bit 31 of the flag word picks the texture filter.
+	// loc_442571 pushes 1 (D3DTEXF_POINT) when the bit is set, loc_442580's
+	// fallthrough pushes 2 (D3DTEXF_LINEAR) when it is clear, and each arm
+	// issues SetSamplerState(0, 5 /* MAGFILTER */, v) followed by
+	// SetSamplerState(0, 6 /* MINFILTER */, v) through vtable +0x114.
+	Byte filter = (Byte)((vm->flags >> 31) & 1u);
+	if (cache->cached_filter != filter) {
 		env->flush();
-		cache->cached_wrap = wrap;
-		env->set_address_mode(wrap != 0 ? 1 : 2);
+		cache->cached_filter = filter;
+		env->set_texture_filter(filter != 0 ? 1 : 2);
 	}
 
 	cache->state_changes += 1;

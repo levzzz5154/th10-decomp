@@ -31,7 +31,36 @@ extern "C" {
         HANDLE output, MidiHeader* header, UINT header_size);
     __declspec(dllimport) UINT    __stdcall midiOutReset(HANDLE output);
     __declspec(dllimport) UINT    __stdcall midiOutClose(HANDLE output);
+    __declspec(dllimport) BOOL    __stdcall ShowWindow(HWND window, int show);
+    __declspec(dllimport) BOOL    __stdcall MoveWindow(HWND window, int x,
+                                                       int y, int width,
+                                                       int height,
+                                                       BOOL repaint);
+    __declspec(dllimport) BOOL    __stdcall DestroyWindow(HWND window);
+    __declspec(dllimport) BOOL    __stdcall PeekMessageA(struct MSG* message,
+                                                         HWND window,
+                                                         UINT filter_min,
+                                                         UINT filter_max,
+                                                         UINT remove);
+    __declspec(dllimport) BOOL    __stdcall TranslateMessage(
+        const struct MSG* message);
+    __declspec(dllimport) LRESULT __stdcall DispatchMessageA(
+        const struct MSG* message);
+    // Undocumented user32 export; retail reaches it through a plain thunk
+    // (`call WINNLSEnableIME`), not through an __imp_ slot.
+    BOOL __stdcall WINNLSEnableIME(HWND window, BOOL enable);
 }
+
+// tagMSG as WinMain declares it on its own stack (0x1C bytes).
+struct MSG {
+    HWND   hwnd;
+    UINT   message;
+    WPARAM wParam;
+    LPARAM lParam;
+    DWORD  time;
+    LONG   pt_x;
+    LONG   pt_y;
+};
 
 extern "C" void* operator_new(DWORD size);
 extern "C" void __cdecl _free(void* allocation);
@@ -40,13 +69,18 @@ extern "C" void __cdecl _free(void* allocation);
 extern BYTE     DAT_00491d65;    // fullscreen flag
 extern DWORD    DAT_00492500;    // cursor visible flag
 extern DWORD    DAT_004924fc;    // cursor state
-extern void*    DAT_00491c70;    // HWND
+// 0x00491C70 is IDA's `lpParameter`; Ghidra named the same slot g_pWnd.
+extern void*    DAT_00491c70;    // HWND (second copy)
 extern void*    g_pWnd;
+// 0x004924F0 is IDA's `hWnd`: the copy WinMain and 0x00439390 actually read,
+// and the base of the block those two index off (+0x38/+0x40/+0x48 are the
+// clock doubles at 0x00492528/30/38).
+extern void*    DAT_004924f0;    // HWND (retail `hWnd`)
 extern DWORD    DAT_00491ff4;    // status flags
 extern MidiManager* DAT_00491fe8; // active MIDI manager
-extern DWORD    DAT_0049251c;    // saved work area
-extern DWORD    DAT_00492520;    // saved SPI_53
-extern DWORD    DAT_00492524;    // saved SPI_54
+extern DWORD    DAT_0049251c;    // saved SPI_GETSCREENSAVEACTIVE (0x10)
+extern DWORD    DAT_00492520;    // saved SPI_GETLOWPOWERTIMEOUT (0x53)
+extern DWORD    DAT_00492524;    // saved SPI_GETPOWEROFFTIMEOUT (0x54)
 extern LONGLONG DAT_00492508;    // perf frequency
 extern LONGLONG DAT_00492510;    // perf counter
 extern char     DAT_0046f66c[];  // window title
@@ -122,16 +156,17 @@ static BOOL StringsEqual(const char* left, const char* right) {
 
 // ============================================================================
 // 0x004392E0 - Save System Settings + Init Performance Counters
-// Saves current system settings (work area, screen save, power-off), then
-// sets new values. Initializes high-resolution timer.
+// Saves the screensaver / low-power / power-off settings, switches all three
+// off, then starts the high-resolution timer. WinMain's tail puts the saved
+// values back (RestoreSystemSettings below).
 //
 // Ghidra decompilation:
-//   SystemParametersInfoA(0x10, 0, &DAT_0049251c, 0)  // SPI_GETWORKAREA
-//   SystemParametersInfoA(0x53, 0, &DAT_00492520, 0)
-//   SystemParametersInfoA(0x54, 0, &DAT_00492524, 0)
-//   SystemParametersInfoA(0x11, 0, NULL, 2)           // SPI_SETWORKAREA
-//   SystemParametersInfoA(0x55, 0, NULL, 2)
-//   SystemParametersInfoA(0x56, 0, NULL, 2)
+//   SystemParametersInfoA(0x10, 0, &DAT_0049251c, 0)  // SPI_GETSCREENSAVEACTIVE
+//   SystemParametersInfoA(0x53, 0, &DAT_00492520, 0)  // SPI_GETLOWPOWERTIMEOUT
+//   SystemParametersInfoA(0x54, 0, &DAT_00492524, 0)  // SPI_GETPOWEROFFTIMEOUT
+//   SystemParametersInfoA(0x11, 0, NULL, 2)           // SPI_SETSCREENSAVEACTIVE
+//   SystemParametersInfoA(0x55, 0, NULL, 2)           // SPI_SETLOWPOWERTIMEOUT
+//   SystemParametersInfoA(0x56, 0, NULL, 2)           // SPI_SETPOWEROFFTIMEOUT
 //   QueryPerformanceFrequency(&DAT_00492508)
 //   QueryPerformanceCounter(&DAT_00492510)
 // ============================================================================
@@ -144,6 +179,29 @@ void SaveSystemSettings(void) {
     SystemParametersInfoA(0x56, 0, 0, 2);
     QueryPerformanceFrequency(&DAT_00492508);
     QueryPerformanceCounter(&DAT_00492510);
+}
+
+// ============================================================================
+// 0x00438AD0 WinMain, tail (the block after the DeleteCriticalSection loop at
+// loc_438F9A) - undo everything 0x004392E0 changed and let the IME back in.
+//
+// IDA pseudocode:
+//   SystemParametersInfoA(0x11u, pvParam, 0, 2u);
+//   SystemParametersInfoA(0x55u, dword_492520, 0, 2u);
+//   SystemParametersInfoA(0x56u, dword_492524, 0, 2u);
+//   WINNLSEnableIME(0, 1);
+//
+// The saved value travels in uiParam, not pvParam - the asm is
+// `mov ecx, pvParam` / `push 2 ; fWinIni` / `push 0 ; pvParam` /
+// `push ecx ; uiParam` / `push 11h ; uiAction`. `pvParam` is the IDA name of
+// 0x0049251C, the slot the 0x10 query above wrote. fWinIni is 2
+// (SPIF_SENDCHANGE) on all three, matching the save side.
+// ============================================================================
+void RestoreSystemSettings(void) {
+    SystemParametersInfoA(0x11, DAT_0049251c, 0, 2);  // SPI_SETSCREENSAVEACTIVE
+    SystemParametersInfoA(0x55, DAT_00492520, 0, 2);  // SPI_SETLOWPOWERTIMEOUT
+    SystemParametersInfoA(0x56, DAT_00492524, 0, 2);  // SPI_SETPOWEROFFTIMEOUT
+    WINNLSEnableIME(0, 1);
 }
 
 // ============================================================================
@@ -247,6 +305,15 @@ DWORD CreateGameWindow(HINSTANCE hInstance) {
             0, 0, hInstance, 0);
     }
 
+    // Retail publishes the handle twice, in this order:
+    //   hWnd = Window;          // 0x004924F0
+    //   lpParameter = Window;   // 0x00491C70
+    // 0x004924F0 is the copy WinMain reads (SetForegroundWindow, the
+    // teardown), the one 0x00439890 hands to CreateDevice, and the base
+    // 0x00439390 indexes its clock doubles off. 0x00491C70 is the copy retail
+    // passes as CreateThread's lpParameter for the sound worker. Only the
+    // second was being written, so every edge that reads `hWnd` saw null.
+    DAT_004924f0 = DAT_00491c70;
     g_pWnd = DAT_00491c70;
     if (DAT_00491c70 == 0) {
         return 1;
@@ -258,6 +325,99 @@ DWORD CreateGameWindow(HINSTANCE hInstance) {
     SendMessageA(g_pWnd, 0x112, 0xF120, 0);  // WM_SYSCOMMAND, SC_RESTORE
 
     return 0;
+}
+
+// ============================================================================
+// 0x00438C6D - WinMain, inline: switch the IME off and hide the pointer.
+// Runs straight after the 0x732460-byte game-state arena is built. Retail's
+// guard (`cmp byte_491D65, bl` / `jnz short loc_438C82`, i.e. only when the
+// startup dialog was accepted) lives in the caller - GameMain_Run's
+// `dialog_declined == 0`.
+//
+// IDA pseudocode:
+//   WINNLSEnableIME(0, 0);
+//   ShowCursor(0);
+//   SetCursor(0);
+// ============================================================================
+void DisableImeAndCursor(void) {
+    WINNLSEnableIME(0, 0);
+    ShowCursor(0);
+    SetCursor(0);
+}
+
+// ============================================================================
+// 0x00438AD0 WinMain, loc_438C82 - raise the game window once the frame clock
+// has been seeded: `mov eax, hWnd` ... `push eax` / `call SetForegroundWindow`.
+// The handle comes from 0x004924F0, the copy 0x00439730 published.
+// ============================================================================
+void SetForegroundGameWindow(void) {
+    SetForegroundWindow(DAT_004924f0);
+}
+
+// ============================================================================
+// 0x00438AD0 WinMain, loc_438E4A .. loc_438E7F - window teardown.
+//
+// IDA pseudocode:
+//   if ( hWnd )
+//   {
+//     ShowWindow(hWnd, 0);
+//     MoveWindow(hWnd, 0, 0, 0, 0, 0);
+//     DestroyWindow(hWnd);
+//     hWnd = 0;
+//   }
+//   ShowCursor(1);
+//
+// ShowCursor(1) is at loc_438E7F, outside the guard, and balances the
+// ShowCursor(0) in DisableImeAndCursor. Retail clears 0x004924F0 only -
+// lpParameter / g_pWnd keeps the stale handle - so this does the same.
+// ============================================================================
+void DestroyGameWindow(void) {
+    if (DAT_004924f0 != 0) {
+        ShowWindow(DAT_004924f0, 0);              // SW_HIDE
+        MoveWindow(DAT_004924f0, 0, 0, 0, 0, 0);  // bRepaint = FALSE
+        DestroyWindow(DAT_004924f0);
+        DAT_004924f0 = 0;
+    }
+    ShowCursor(1);
+}
+
+// ============================================================================
+// 0x00438AD0 WinMain, loc_438EAE .. loc_438EEE - the grace pump the
+// exit-mode-2 restart runs between the "restart required" log banner and the
+// next boot attempt.
+//
+// IDA pseudocode:
+//   if ( !byte_491D65 )
+//     WINNLSEnableIME(0, 1);
+//   v18 = 60;
+//   do
+//   {
+//     if ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
+//     {
+//       TranslateMessage(&Msg);
+//       DispatchMessageA(&Msg);
+//     }
+//     --v18;
+//   }
+//   while ( v18 );
+//
+// The counter is `mov esi, 3Ch` - 60 iterations, not 60 messages: the loop
+// decrements whether or not a message was waiting. The IME is re-enabled here
+// as well as in the process tail because the restart path never reaches the
+// tail.
+// ============================================================================
+void RestartGracePump(void) {
+    if (DAT_00491d65 == 0) {
+        WINNLSEnableIME(0, 1);
+    }
+
+    MSG message;
+    for (int remaining = 0x3C; remaining != 0; --remaining) {
+        if (PeekMessageA(&message, 0, 0, 0, 1)) {  // PM_REMOVE
+            TranslateMessage(&message);
+            DispatchMessageA(&message);
+        }
+    }
 }
 
 // ============================================================================

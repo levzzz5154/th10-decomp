@@ -25,13 +25,22 @@ int MainTasks_Register(MainTaskState* state, const MainTaskHooks* hooks) {
     state->mode = 0;                // DAT_00491FB8
     state->transition_pending = 0;  // _DAT_00491FC0
 
+    // Retail's list priorities travel in EDI. 0x00420470 loads it once per
+    // registration, in this order:
+    //   mov edi, 1    -> 0x00449AE0 for the 0x0041FF80 node
+    //   mov edi, 1    -> 0x00449B70 for the 0x00420000 node
+    //   mov edi, 28h  -> 0x00449B70 for the 0x004200C0 node
+    //   mov edi, 32h  -> 0x00449B70 for the 0x004200D0 node
+    static const int kSecondaryPriorities[3] = {1, 40, 50};
+
     void* input_node = hooks->create_node(hooks->context, 0); // 0x0041FF80
-    int status = hooks->register_primary(hooks->context, input_node);
+    int status = hooks->register_primary(hooks->context, input_node, 1);
     if (status != 0)
         return status;
     for (int callback_index = 1; callback_index <= 3; ++callback_index) {
         void* node = hooks->create_node(hooks->context, callback_index);
-        hooks->register_secondary(hooks->context, node);
+        hooks->register_secondary(hooks->context, node,
+                                  kSecondaryPriorities[callback_index - 1]);
     }
     return 0;
 }

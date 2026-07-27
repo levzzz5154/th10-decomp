@@ -13,10 +13,15 @@ double Time_ReadSeconds(FrameClockState* state, const FrameClockHooks* hooks) {
     if (state->qpc_frequency == 0.0) {
         double now = hooks->read_millisecond_clock(hooks->context);
         if (now < 0.0)
-            now += state->wrap_bias; // retail adds _DAT_00470B30 on wrap
+            now += state->wrap_bias; // retail adds dbl_470B30 on wrap
         if (now < state->minimum_sample)
             state->minimum_sample = now;
-        result = (now - state->minimum_sample) * state->millisecond_scale;
+        // 0x00439540, loc_439622: fld dbl_492540 / fmul ds:dbl_470B88 /
+        // fsubr [esp+var_14] / fmul ds:dbl_470B28 - the stored minimum is
+        // scaled by 1000.0 before the subtraction. The reconstruction used
+        // to drop that factor, which is not what 0x00439540 computes.
+        result = (now - state->minimum_sample * state->minimum_scale) *
+                 state->millisecond_scale;
     } else {
         double counter = hooks->read_performance_counter(hooks->context);
         double delta = (counter - state->qpc_base) / state->qpc_frequency;
@@ -53,25 +58,25 @@ int Frame_Advance(FrameAdvanceState* state, const FrameAdvanceHooks* hooks) {
     int verdict = hooks->run_scheduler_frame(hooks->context); // 0x00449C00
     hooks->drain_sound_commands(hooks->context);              // 0x0043DDF0
     if (verdict == 0) {
-        hooks->log_frame_marker(hooks->context); // 0x0044C150
+        hooks->stop_game_thread(hooks->context); // 0x0044C150(&unk_492254)
         return 1;
     }
     if (verdict == -1) {
-        hooks->log_frame_marker(hooks->context);
+        hooks->stop_game_thread(hooks->context);
         return 2;
     }
 
     // Frame-skip accounting: present only every (skip_limit + 1) frames.
     state->skip_counter += 1;
     if (state->skip_counter >= state->skip_limit + 1) {
-        hooks->end_scene(hooks->context);          // vtable +0xA4
+        hooks->begin_scene(hooks->context);        // vtable +0xA4 BeginScene
         hooks->reset_sprite_batch(hooks->context); // manager +0x3ADAC8/..
-        hooks->fade_reset(hooks->context);         // DAT_00492378 = 0xFF
+        hooks->invalidate_fog_cache(hooks->context);  // DAT_00492378 = 0xFF
         hooks->disable_fog(hooks->context);        // 0x00420CD0
         hooks->run_render_pass(hooks->context);    // 0x00449D40
         hooks->flush_sprite_batch(hooks->context); // 0x00442F50
         hooks->clear_texture_stage(hooks->context); // SetTexture(0, 0)
-        hooks->begin_scene(hooks->context);        // vtable +0xA8
+        hooks->end_scene(hooks->context);          // vtable +0xA8 EndScene
         state->skip_counter = 0;
         hooks->present(hooks->context);            // 0x004391F0
     }
