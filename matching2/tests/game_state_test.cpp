@@ -1,4 +1,6 @@
 #include "th10/game/game_state.hpp"
+#include "th10/archive/resource_manager.hpp"
+#include "th10/render/animation_manager.hpp"
 
 #include <cassert>
 #include <cstdlib>
@@ -40,9 +42,15 @@ void ResourceManager_DestroyContents(void*) {}
 extern "C" void __stdcall EnterCriticalSection(void*) {}
 extern "C" void __stdcall LeaveCriticalSection(void*) {}
 
-int GameState_Update(GameState*) { return 0; }
-int GameState_Draw(GameState*) { return 0; }
-int GameState_AfterDraw(GameState*) { return 0; }
+// game_state.cpp now carries the real 0x00402850/0x00402CA0 passes, so these
+// link-level shims only stand in for the render and archive edges those
+// passes reach; the tests below never run a pass, only GameState_Init.
+void AnimationObject_Render(void*, AnimationObject*) {}
+int AnimationManager_RenderBucket(void*, int) { return 0; }
+uint8_t* Resource_LoadFile(const char*, uint8_t*) { return 0; }
+uint32_t Resource_GetFileSize(const char*) { return 0; }
+int* ResourceManager_FindResource(int, void*, const char*) { return 0; }
+void ResourceManager_DestroyResource(void*, void*) {}
 
 static void TestStateZeroPreservesCurrentStateOnDeviceFailure() {
     GameState state = {};

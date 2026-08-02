@@ -1,9 +1,39 @@
 #include "th10/game/player_runtime_init.hpp"
 
 #include <cassert>
+#include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <string>
 #include <vector>
+
+// Retail globals consumed by the linked player-runtime source.
+uint32_t DAT_00491be4 = 0;
+uint32_t DAT_00491bf0 = 0;
+uint32_t DAT_00474c68 = 0;
+uint32_t DAT_00477834 = 0;
+uint32_t DAT_00476f78 = 0;
+uint32_t DAT_00492274 = 0;
+unsigned char DAT_0049231c = 0;
+void* g_pGameStateManager = 0;
+float _DAT_00470b0c = 1.0f;
+float DAT_00476fa0[2] = {0.0f, 0.0f};
+float DAT_00476fa8[2] = {0.0f, 0.0f};
+float DAT_00476fb0[2] = {0.0f, 0.0f};
+float DAT_00476fb8[2] = {0.0f, 0.0f};
+
+extern "C" void* operator_new(uint32_t size) {
+    return std::malloc(size);
+}
+extern "C" void _free(void* memory) {
+    std::free(memory);
+}
+extern "C" void __stdcall EnterCriticalSection(void*) {}
+extern "C" void __stdcall LeaveCriticalSection(void*) {}
+
+int* ResourceManager_FindResource(int, void*, const char*) {
+    return 0;
+}
 
 namespace {
 

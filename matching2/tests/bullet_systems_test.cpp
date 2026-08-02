@@ -17,8 +17,43 @@
 #include "th10/util/scalars.hpp"
 
 #include <cassert>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
+
+// Retail globals consumed by the linked manager/scheduler/entity sources.
+uint32_t DAT_00491be4 = 0;
+uint32_t DAT_00492274 = 0;
+uint32_t DAT_004776f4 = 0;
+uint32_t DAT_0047770c = 0;
+uint32_t DAT_00477810 = 0;
+uint32_t DAT_00474e36 = 0;
+uint32_t DAT_00491ff4 = 0;
+uint32_t DAT_00474ca0 = 0;
+uint32_t DAT_00476f78 = 0;
+unsigned char DAT_0049231c = 0;
+void* g_pGameStateManager = 0;
+float DAT_00470b04 = 0.0f;
+float DAT_00470b0c = 1.0f;
+float _DAT_00470b64 = 1.01f;
+float _DAT_00470b68 = 0.99f;
+float DAT_00470b38 = 448.0f;
+float DAT_00470b3c = 192.0f;
+float DAT_00470b40 = -192.0f;
+float DAT_00470b5c = 384.0f;
+
+extern "C" void* operator_new(uint32_t size) {
+    return std::malloc(size);
+}
+extern "C" void _free(void* memory) {
+    std::free(memory);
+}
+extern "C" void __stdcall EnterCriticalSection(void*) {}
+extern "C" void __stdcall LeaveCriticalSection(void*) {}
+
+int* ResourceManager_FindResource(int, void*, const char*) {
+    return 0;
+}
 
 // --- Shared scaffolding ------------------------------------------------------
 
@@ -733,7 +768,7 @@ static void TestFpsCounterRender() {
     assert(accumulator == 14);
 }
 
-// --- 0x00426520 MusicRoom_LoadTrackList -------------------------------------------------------
+// --- 0x00426520 ParameterFile_LoadAndRelocate -------------------------------------------------------
 
 static Byte g_track_file[0x200];
 static Byte* g_load_result_data;
@@ -766,8 +801,9 @@ static void TestMusicRoomLoadTrackList() {
 
     Byte* slot = 0;
     g_load_result_data = g_track_file;
-    int result = MusicRoom_LoadTrackList(&slot, LoadTrackFile, 0.5f, table_a,
-                                         table_b, table_c, table_d);
+    int result = ParameterFile_LoadAndRelocate(&slot, LoadTrackFile, 0.5f,
+                                               table_a, table_b, table_c,
+                                               table_d);
     assert(result == 0);
     assert(slot == g_track_file);
     assert(*(float*)(g_track_file + 0x18) == 2.0f);
@@ -780,8 +816,9 @@ static void TestMusicRoomLoadTrackList() {
 
     // A missing file reports -1.
     g_load_result_data = 0;
-    result = MusicRoom_LoadTrackList(&slot, LoadTrackFile, 0.5f, table_a,
-                                     table_b, table_c, table_d);
+    result = ParameterFile_LoadAndRelocate(&slot, LoadTrackFile, 0.5f,
+                                           table_a, table_b, table_c,
+                                           table_d);
     assert(result == -1);
     assert(slot == 0);
 }

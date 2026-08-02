@@ -9,6 +9,7 @@
 #include "th10/util/scalars.hpp"
 
 #include <cstdarg>
+#include <cstdint>
 #include <cstdio>
 #include <cstring>
 

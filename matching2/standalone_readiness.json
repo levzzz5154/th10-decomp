@@ -38,15 +38,15 @@
   "integration_gates": {
     "retail_free_link_target": {
       "passed": true,
-      "evidence": "standalone/build.sh links only reconstructed matching2 sources plus standalone/host_main.cpp; no retail bytes or hybrid image are consumed by the target"
+      "evidence": "build_all_pe32.sh links only reconstructed matching2 sources plus the standalone host layer; no retail bytes or hybrid image are consumed by the target"
     },
     "retail_free_executable_produced": {
       "passed": true,
-      "evidence": "build/standalone/th10_standalone is produced by standalone/build.sh (also via build_standalone.sh)"
+      "evidence": "build/pe32/th10_standalone.exe is produced by build_all_pe32.sh"
     },
     "startup_to_title_smoke_test": {
       "passed": true,
-      "evidence": "test.sh builds and runs build/standalone/th10_standalone and requires SMOKE_PASS: arena constructed, 4 primary + 22 secondary scheduler callbacks, 33 default device states, 640x480 viewport, title tasks registered, title.anm and title_v.anm resolved, 60 title frames, clean shutdown"
+      "evidence": "the PE32 runner under Wine reports SMOKE_PASS: arena constructed, 4 primary + 22 secondary scheduler callbacks, 33 default device states, 640x480 viewport, title tasks registered, title.anm and title_v.anm resolved, 60 title frames, clean shutdown"
     }
   },
   "top_blockers": [],
@@ -1270,7 +1270,7 @@
       "dynamic_call_sites": 4,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/render/anm_batch_flush.cpp"
     },
     {
       "address": "0x004452F0",

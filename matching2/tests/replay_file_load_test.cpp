@@ -8,7 +8,8 @@ namespace {
 ReplayFileHeader header;unsigned char payload[32];unsigned char unpacked[0x500];bool load_ok=true,released;int decrypts,decompresses;
 bool Load(const char* path,bool embedded,ReplayFileHeader** h,unsigned char** p,bool* owned){assert(std::strcmp(path,"replay/demo.rpy")==0);assert(!embedded);if(!load_ok)return false;*h=&header;*p=payload;*owned=true;return true;}
 unsigned char* Allocate(unsigned size){assert(size==sizeof(unpacked));return unpacked;}
-void Decrypt(unsigned char*,unsigned,unsigned char seed,unsigned int step){if(decrypts==0){assert(seed==0xAA&&step==0xE1);}else{assert(seed==0x3D&&step==0x7A);}++decrypts;}
+void Decrypt(unsigned char*,unsigned,unsigned char seed,unsigned int step,
+             unsigned int block){if(decrypts==0){assert(seed==0xAA&&step==0xE1&&block==1024);}else{assert(seed==0x3D&&step==0x7A&&block==128);}++decrypts;}
 void Decompress(const unsigned char*,unsigned,unsigned char* out,unsigned){std::memset(out,0,sizeof(unpacked));*(int*)(out+0x4C)=2;ReplayFileEntry* a=(ReplayFileEntry*)(out+0x64);a->slot=2;a->script_count=3;a->extra_size=4;ReplayFileEntry* b=(ReplayFileEntry*)((unsigned char*)a+0x1C4+4);b->slot=5;b->script_count=1;b->extra_size=0;++decompresses;}
 void Release(unsigned char* p){assert(p==payload);released=true;}
 void TestLoad(){std::memset(&header,0,sizeof(header));header.magic=0x72303174;header.version=5;header.packed_size=sizeof(payload);header.unpacked_size=sizeof(unpacked);ReplayFileState state={};ReplayFileEnv env={false,Load,Allocate,Decrypt,Decompress,Release};released=false;decrypts=decompresses=0;assert(ReplayArchive_Load(&state,"demo.rpy",&env)==0);assert(std::strcmp(state.name,"demo.rpy")==0);assert(decrypts==2&&decompresses==1&&released);assert(state.entries[2]&&state.entries[5]);assert(state.script_data[2]==(unsigned char*)state.entries[2]+0x1C4);assert(state.script_end[2]==state.script_data[2]+18);assert(state.script_end[5]==state.script_data[5]+6);}

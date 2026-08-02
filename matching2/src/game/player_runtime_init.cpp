@@ -2,6 +2,7 @@
 #include "th10/game/scheduler.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
+#include <cstdint>
 #include <cstring>
 
 extern void* g_pGameStateManager;
@@ -182,7 +183,8 @@ int LargePlayerRuntime_Initialize(void* state) {
     if (archive == 0)
         return -1;
 
-    void* player_object = (void*)DAT_00491bf0;
+    void* player_object = reinterpret_cast<void*>(
+        static_cast<uintptr_t>(DAT_00491bf0));
     if (player_object != 0) {
         DAT_00491bf0 = 0;
     } else {

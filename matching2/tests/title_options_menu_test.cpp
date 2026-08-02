@@ -30,8 +30,12 @@ int main() {
            TITLE_OPTIONS_ACTION_DEFAULTS);
     assert(config.music_volume == 100 && config.sound_volume == 80);
 
+    // Retail 0x0042D920: a cancel away from the last entry only carries the
+    // cursor there; the second cancel is what commits the return.
     TitleOptions_Update(&state, &config, TITLE_OPTIONS_CANCEL);
-    assert(state.selection == 5 && state.phase == 4);
+    assert(state.selection == 5 && state.phase == 2);
+    TitleOptions_Update(&state, &config, TITLE_OPTIONS_CANCEL);
+    assert(state.phase == 4);
     TitleOptionsAction action = TITLE_OPTIONS_ACTION_NONE;
     for (int frame = 0; frame < 10; ++frame)
         action = TitleOptions_Update(&state, &config, 0);

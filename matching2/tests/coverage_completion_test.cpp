@@ -6,8 +6,31 @@
 #include "th10/render/anm_distance_color.hpp"
 
 #include <cassert>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
+
+// Retail globals consumed by the linked manager/scheduler/entity sources.
+uint32_t DAT_00491be4 = 0;
+uint32_t DAT_004776f4 = 0;
+uint32_t DAT_0047770c = 0;
+uint32_t DAT_00492274 = 0;
+unsigned char DAT_0049231c = 0;
+float DAT_00470b04 = 0.0f;
+float DAT_00470b0c = 1.0f;
+float DAT_00470b38 = 448.0f;
+float DAT_00470b3c = 192.0f;
+float DAT_00470b40 = -192.0f;
+float DAT_00470b5c = 384.0f;
+
+extern "C" void* operator_new(uint32_t size) {
+    return std::malloc(size);
+}
+extern "C" void _free(void* memory) {
+    std::free(memory);
+}
+extern "C" void __stdcall EnterCriticalSection(void*) {}
+extern "C" void __stdcall LeaveCriticalSection(void*) {}
 
 namespace {
 

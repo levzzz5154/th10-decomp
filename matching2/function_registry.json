@@ -1466,7 +1466,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040E770_FUN_0040e770.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00412720",
@@ -5416,7 +5416,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442F50_FUN_00442f50.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "promoted_source": "src/render/anm_batch_flush.cpp"
     },
     {
       "address": "0x00442FE0",
@@ -6916,7 +6916,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DF70_FUN_0044df70.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm_children.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044E1A0",
@@ -6926,7 +6926,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044E1A0_FUN_0044e1a0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/final_script_runtime.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FD10",
@@ -6946,7 +6946,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FDB0_FUN_0044fdb0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FE40",
@@ -6956,7 +6956,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FE40_FUN_0044fe40.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FF00",
@@ -6966,7 +6966,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FF00_FUN_0044ff00.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FF80",
@@ -6976,7 +6976,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FF80_FUN_0044ff80.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450030",
@@ -6986,7 +6986,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450030_FUN_00450030.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450070",
@@ -6996,7 +6996,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450070_FUN_00450070.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004500D0",
@@ -7006,7 +7006,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004500D0_FUN_004500d0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm_children.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450160",
@@ -7016,7 +7016,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450160_FUN_00450160.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450190",
@@ -7026,7 +7026,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450190_FUN_00450190.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004501B0",
@@ -7036,7 +7036,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004501B0_FUN_004501b0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450220",
@@ -7066,7 +7066,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004505B0_FUN_004505b0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450690",
@@ -7076,7 +7076,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450690_FUN_00450690.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004506D0",
@@ -7086,7 +7086,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004506D0_FUN_004506d0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "promoted_source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450700",

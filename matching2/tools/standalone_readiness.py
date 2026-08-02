@@ -42,27 +42,25 @@ INTEGRATION_GATES = {
     "retail_free_link_target": {
         "passed": True,
         "evidence": (
-            "standalone/build.sh links only reconstructed matching2 sources "
-            "plus standalone/host_main.cpp; no retail bytes or hybrid image "
+            "build_all_pe32.sh links only reconstructed matching2 sources "
+            "plus the standalone host layer; no retail bytes or hybrid image "
             "are consumed by the target"
         ),
     },
     "retail_free_executable_produced": {
         "passed": True,
         "evidence": (
-            "build/standalone/th10_standalone is produced by "
-            "standalone/build.sh (also via build_standalone.sh)"
+            "build/pe32/th10_standalone.exe is produced by build_all_pe32.sh"
         ),
     },
     "startup_to_title_smoke_test": {
         "passed": True,
         "evidence": (
-            "test.sh builds and runs build/standalone/th10_standalone and "
-            "requires SMOKE_PASS: arena constructed, 4 primary + 22 "
-            "secondary scheduler callbacks, 33 default device states, "
-            "640x480 viewport, title tasks registered, title.anm and "
-            "title_v.anm resolved, 60 title frames, "
-            "clean shutdown"
+            "the PE32 runner under Wine reports SMOKE_PASS: arena "
+            "constructed, 4 primary + 22 secondary scheduler callbacks, 33 "
+            "default device states, 640x480 viewport, title tasks "
+            "registered, title.anm and title_v.anm resolved, 60 title "
+            "frames, clean shutdown"
         ),
     },
 }

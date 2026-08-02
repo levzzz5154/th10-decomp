@@ -3,6 +3,7 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/render/animation_manager.hpp"
 
 #include <cassert>
 #include <cstdlib>
@@ -40,11 +41,35 @@ void* PTR_LAB_0046d0c0 = (void*)0;
 uint32_t DAT_00476f78 = 0;
 uint32_t DAT_00474c74 = 0;
 uint32_t DAT_00477704 = 0;
+void* g_pD3DDevice = (void*)0x1234;
+float _DAT_00470b0c = 1.0f;
+float _DAT_00470b04 = 0.0f;
+float _DAT_00470b38 = 448.0f;
+float _DAT_00470b3c = 192.0f;
+float _DAT_00470b40 = -192.0f;
+float _DAT_00470b48 = 10.0f;
+float _DAT_00470b4c = 20.0f;
+float _DAT_00470b60 = 0.5f;
 int __fastcall ResourceManager_FindTexture(void* /*resource_template*/) {
     return 0;
 }
-int BulletEntity_UpdateTransform(uint32_t* /*bullet_transform*/) {
-    return 0;
+Entity* Entity_Constructor(Entity* entity) { return entity; }
+void Entity_Init(void*, Entity*) {}
+void Entity_Destructor(Entity* entity) {
+    unsigned char* bytes = (unsigned char*)entity;
+    void** resource = (void**)(bytes + 0x35C - sizeof(void*));
+    if (*resource != 0) {
+        std::free(*resource);
+        *resource = 0;
+    }
+}
+int AnimationObject_ExecuteScript(AnimationObject*) { return 1; }
+void AnimationObject_Render(void*, AnimationObject*) {}
+extern "C" int __stdcall D3DXCreateTexture(
+    void*, unsigned int, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned int, void* output) {
+    *(unsigned int*)output = 0;
+    return -1;
 }
 static void* g_mark_manager;
 static int g_mark_handle;

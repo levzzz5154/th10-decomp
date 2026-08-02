@@ -3,6 +3,7 @@
 #include "th10/game/scheduler.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
+#include <cstdint>
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
@@ -28,10 +29,13 @@ int __fastcall MenuTimerRuntime_UpdateCallback(void* owner) {
 	const int state = *(int*)(bytes + 4);
 	int replay_ready = 0;
 	if (DAT_00477810 != 0) {
-		unsigned char* replay = (unsigned char*)DAT_00477810;
+		unsigned char* replay = reinterpret_cast<unsigned char*>(
+		    static_cast<uintptr_t>(DAT_00477810));
 		unsigned int callback = *(unsigned int*)(replay + 8);
-		replay_ready =
-		    callback != 0 && (*(unsigned char*)(callback + 4) & 2u) != 0;
+		replay_ready = callback != 0 &&
+		    (*reinterpret_cast<unsigned char*>(
+		         static_cast<uintptr_t>(callback + 4)) &
+		     2u) != 0;
 	}
 	const int demo_input =
 	    (DAT_00474e36 & 8u) != 0 || (DAT_00491ff4 & 0x10u) != 0;

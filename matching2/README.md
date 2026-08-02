@@ -743,9 +743,6 @@ The harness has both a native developer build and a genuine, self-contained
 32-bit Windows build:
 
 ```bash
-./build_standalone.sh
-./run_standalone.sh
-
 # Requires LLVM-MinGW (set LLVM_MINGW_ROOT when it is not in /opt/llvm-mingw).
 ./build_pe32.sh
 ./run_pe32.sh
@@ -920,23 +917,21 @@ Every one of the 144 indirect call sites reachable from the milestone roots
 is classified in `docs/dynamic_call_site_audit.md` as either a COM interface
 vtable slot (host-provided) or a game-owned callback whose targets are all
 closure members. `standalone/host_main.cpp` wires the reconstructed hook
-surfaces to a stub platform layer, `standalone/build.sh` (or
-`./build_standalone.sh`) links only reconstructed sources into
-`build/standalone/th10_standalone`, and `./run_standalone.sh` runs it. The
-runner boots through config load, device defaults, arena construction (4
+surfaces to a stub platform layer, `build_all_pe32.sh` links only
+reconstructed sources into
+`build/pe32/th10_standalone.exe`, and `./run_pe32.sh` runs it under Wine.
+The runner boots through config load, device defaults, arena construction (4
 primary + 22 secondary scheduler callbacks), invokes `Title_RegisterTasks`,
-resolves real archive resources in the PE target (synthetic resources in the
-portable native test), runs 60 title frames, and shuts down cleanly; `test.sh`
-requires this smoke test to print `SMOKE_PASS`. The conservative source audit
+resolves the real archive resources, runs 60 title frames, and shuts down
+cleanly; the Wine run reports `SMOKE_PASS`. The conservative source audit
 reports all 179 reachable functions (70,320 retail bytes) source-ready, with
 all 144 dynamic call sites audited and no retail blockers. All three
 integration gates pass, so the startup-to-title milestone is declared
 retail-code-independent.
 
 Scope note: this is a semantic reconstruction, not a byte-exact retail
-replacement. The portable native smoke target uses stub platform services and
-synthetic title resources; the PE32 target uses Win32 Direct3D, DirectInput,
-and DirectSound and parses the original `th10.dat`/`thbgm.dat` assets.
+replacement. The PE32 target uses Win32 Direct3D, DirectInput, and
+DirectSound and parses the original `th10.dat`/`thbgm.dat` assets.
 
 ## Recovery batch 7
 

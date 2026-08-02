@@ -75,6 +75,17 @@ float DAT_00476f78 = 1.0f;
 uint32_t DAT_00491be4 = 0x51AB;
 uint32_t DAT_00492274;
 uint8_t DAT_0049231c;
+void* g_pGameThread = 0;
+void* g_pGameStateManager = 0;
+
+// Motion/entity constants the linked pool-constructor and entity sources
+// reach; the batch-2 tests do not exercise them.
+float DAT_00470b04 = 0.0f;
+float DAT_00470b0c = 1.0f;
+float DAT_00470b38 = 448.0f;
+float DAT_00470b3c = 192.0f;
+float DAT_00470b40 = -192.0f;
+float DAT_00470b5c = 384.0f;
 
 // Flags and latches.
 uint8_t DAT_00491d6a;
@@ -114,7 +125,9 @@ static int g_archiveFreeCount;
 
 static void ArchiveDecrypt(uint8_t*, uint32_t, uint8_t key, uint8_t step,
                            uint32_t) {
-    assert(key == '5' && step == 0x10);
+    // Retail 0x0042B030 calls sub_44B0D0 with key 172 and step 53; the 16 is
+    // the block size the hook fixes.
+    assert(key == 172 && step == 53);
     ++g_archiveDecryptCount;
 }
 
@@ -211,6 +224,14 @@ extern "C" void LeaveCriticalSection(void* critical_section) {
 extern "C" void _free(void* memory) {
     ++g_freeCount;
     free(memory);
+}
+
+extern "C" void* operator_new(uint32_t size) {
+    return calloc(1, size);
+}
+
+int* ResourceManager_FindResource(int, void*, const char*) {
+    return 0;
 }
 
 // ---------------------------------------------------------------------------
