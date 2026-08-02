@@ -131,6 +131,7 @@ extern uint32_t DAT_00491fdc;
 // 0x0044B540, index 3 the text-log section 0x004922BC used by 0x0044B810.
 extern unsigned char DAT_00492274[];
 extern unsigned char DAT_0049231e; // file-section recursion depth byte
+extern unsigned char DAT_00492321; // clock-section recursion depth byte
 // The retail text log object: 0x2000 bytes of text, an append cursor at
 // 0x00476F70 and the dirty byte at 0x00476F74.
 extern char DAT_00474f70[];
@@ -3480,9 +3481,20 @@ void HostConfigLogWriteFail(void*, const char* file_name) {
 // ---------------------------------------------------------------------------
 // Clock hooks. 0x00439540 picks its path from the QueryPerformanceFrequency
 // result 0x004392E0 captured; both leaves below are the ones retail calls.
+// The lock arm is 0x00439540's own opening: EnterCriticalSection on the
+// clock section at 0x004922EC (the fifth of the seven stride-0x18 sections)
+// followed by the recursion byte at 0x00492321, with the unlock arm closing
+// both before the sample is returned.
 // ---------------------------------------------------------------------------
-void HostClockLock(void*) {}
-void HostClockUnlock(void*) {}
+void HostClockLock(void*) {
+    EnterCriticalSection(HostRetailSection(5));
+    ++DAT_00492321;
+}
+void HostClockUnlock(void*) {
+    LeaveCriticalSection(HostRetailSection(5));
+    if (DAT_00492321 != 0)
+        --DAT_00492321;
+}
 double HostReadMs(void*) {
 #if defined(_WIN32)
     if (g_host.smoke_mode) {

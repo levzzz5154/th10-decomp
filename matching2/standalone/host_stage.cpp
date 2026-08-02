@@ -67,10 +67,13 @@
 #include "th10/render/anm_propagate.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/game/stage_std.hpp"
+#include "th10/game/score_hud_update.hpp"
 #include "th10/script/stage_ecl_load.hpp"
 #include "th10/script/ecl_core_interpreter.hpp"
 #include "th10/script/ecl.hpp"
+#include "th10/script/anm_vm_tick.hpp"
 #include "th10/archive/resource_manager.hpp"
+#include "th10/math/timer.hpp"
 // windows_types.hpp defines NULL unconditionally; glibc headers included
 // above already define it, so drop theirs first to stay -Werror clean.
 #undef NULL
@@ -631,7 +634,8 @@ int HostInitItemManager() {
 	bindings.initialize_score_task = HostAdoptItemScoreTask;
 	ItemFrontRuntime_SetBindings(&bindings);
 	auto initialize = []() -> int {
-		return ItemFrontRuntime_Initialize((void*)DAT_0047770c);
+		return ItemFrontRuntime_Initialize(reinterpret_cast<void*>(
+		    static_cast<uintptr_t>(DAT_0047770c)));
 	};
 	void* manager = ItemManager_Create(HostAlloc, ItemManager_Construct, initialize,
 		                                   HostDestroyNoop, HostFreeMem);
@@ -722,7 +726,19 @@ int __fastcall HostBulletPoolDraw(void* owner) {
 			                       (void)quarter;
 			                       return angle;
 		                       },
-		                       [](void*) {}, 0);
+		                       [](void*) {
+			                       // Retail 0x004066E0's per-node tail calls
+			                       // AnmVm_DrawDispatch(manager), which keeps
+			                       // the collision snapshot current for the
+			                       // render. The host's render pass re-reads
+			                       // every animation object's VM state each
+			                       // frame, so the dispatch has no separate
+			                       // host draw effect; the callback counts
+			                       // the synced nodes so the pass stays
+			                       // observable.
+			                       g_report.hitboxes_synced += 1;
+		                       },
+		                       0);
 	}
 	return 1;
 }
@@ -732,7 +748,8 @@ int HostInitBulletPoolRuntime() {
 	bindings.update = HostBulletPoolUpdate;
 	bindings.draw = HostBulletPoolDraw;
 	BulletPoolRuntime_SetBindings(&bindings);
-	const int status = BulletPoolRuntime_Initialize((void*)DAT_004776f0);
+	const int status = BulletPoolRuntime_Initialize(reinterpret_cast<void*>(
+	    static_cast<uintptr_t>(DAT_004776f0)));
 	// Retail registers the pool's callbacks disarmed and the loading owner
 	// arms them once streaming completes. The host loads synchronously, so
 	// arm them here or the scheduler never runs the bullet pass.
@@ -766,7 +783,8 @@ int HostInitBulletPool() {
 
 int HostInitEffectManager() {
 	auto initialize = []() -> int {
-		return ParticleEffectRuntime_Initialize((void*)DAT_00477818);
+		return ParticleEffectRuntime_Initialize(reinterpret_cast<void*>(
+		    static_cast<uintptr_t>(DAT_00477818)));
 	};
 	void* manager = EffectManager_Create(HostAlloc, HostConstructSlots,
 	                                     (void**)&DAT_00477818, initialize,
@@ -921,7 +939,8 @@ int HostInitFixedState() {
 
 int HostInitPlayerManager() {
 	auto initialize = []() -> int {
-		return PlayerScoreRuntime_Initialize((void*)DAT_004776f4);
+		return PlayerScoreRuntime_Initialize(reinterpret_cast<void*>(
+		    static_cast<uintptr_t>(DAT_004776f4)));
 	};
 	void* manager = PlayerManager_Create(HostAlloc, PlayerManager_Construct,
 	                                     initialize,
@@ -1021,6 +1040,13 @@ void HostMusicLoad(int slot, const char* name) {
 // retail-laid-out block, so the gauge record is owned here and the seed word
 // is copied through it.
 ScoreGaugeTimedValue g_score_gauge;
+
+// Retail extend thresholds: DAT_00474474 (normal) and DAT_00474488 (Extra),
+// indexed by the rank word at 0x00474C9C.
+const int g_rank_thresholds_normal[5] = {
+    2000000, 4000000, 8000000, 15000000, 1000000000};
+const int g_rank_thresholds_special[3] = {
+    3000000, 10000000, 1000000000};
 
 void HostStoreScoreGauge(void* gauge, int value) {
 	ScoreGauge_SetTargetTenthAndDisableTimer(
@@ -1567,7 +1593,10 @@ EclCoreVm g_ecl_vm;
 // entering the dispatcher. ECL_VM_Dispatch then reads the VM state pointer at
 // biased+0x14D8, i.e. entity+0x2514. A bare vtable-only struct is not enough:
 // the bias walked off the end of it.
-unsigned char g_ecl_entity[0x2518];
+// Retail's entity is 0x2518 bytes with a 32-bit pointer at +0x2514; the
+// host stores a native pointer there, so the buffer is wider on 64-bit
+// hosts. The +0x103C bias and the +0x2514 VM slot are unaffected.
+unsigned char g_ecl_entity[0x2514 + sizeof(void*)];
 ECLInstructionCursor g_ecl_cursor;
 ECLVMState g_ecl_state;
 
@@ -2044,8 +2073,284 @@ void HostRunTransitionAction() {
 	Log("SetInputMode(0x0040AC90): input mode %u published",
 	    *reinterpret_cast<const unsigned int*>(g_input_mode_state + 0x390));
 }
-void HostTickGame() {}
-void HostUpdateScoreThreshold() {}
+// Retail 0x00417040's digit leaves. FUN_0043E5A0 applies one resource
+// position record to a digit entity; FUN_0043EE30 ticks the digit's ANM VM.
+// The score digits live at +0x2BC and the high-score digits at +0x2874, nine
+// 0x3AC-byte entities each, and both share the front.anm resource recorded
+// at +0x9EC8.
+static void HostScoreConfigureDigit(int slot, int script, int base_offset) {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return;
+	void* resource = *(void**)(block + 0x9EC8);
+	if (resource == 0) {
+		Log("digit %d configure skipped: no front.anm resource mounted",
+		    slot);
+		return;
+	}
+	Entity* digit =
+	    reinterpret_cast<Entity*>(block + base_offset + slot * 0x3AC);
+	AnimationObject_ConfigureFromResource(digit, resource, script);
+}
+
+static void HostScoreSetHighDigit(int slot, int script) {
+	HostScoreConfigureDigit(slot, script, 0x2BC);
+}
+static void HostScoreSetScoreDigit(int slot, int script) {
+	HostScoreConfigureDigit(slot, script, 0x2874);
+}
+
+static int StageDigitReadInt(void* context, AnmVmState* vm,
+                             const void* slot, int is_variable) {
+	(void)context;
+	(void)vm;
+	(void)is_variable;
+	int value = 0;
+	std::memcpy(&value, slot, sizeof(value));
+	return value;
+}
+static float StageDigitReadFloat(void* context, AnmVmState* vm,
+                                 const void* slot, int is_variable) {
+	(void)context;
+	(void)vm;
+	(void)is_variable;
+	float value = 0.0f;
+	std::memcpy(&value, slot, sizeof(value));
+	return value;
+}
+static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {
+	(void)context;
+	(void)vm;
+	(void)id;
+	static int fallback;
+	return &fallback;
+}
+static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {
+	(void)context;
+	(void)vm;
+	(void)id;
+	static float fallback;
+	return &fallback;
+}
+static void StageDigitSetSprite(void* context, AnmVmState* vm, int sprite) {
+	(void)context;
+	vm->sprite = sprite;
+}
+static void StageDigitSetTime(void* context, AnmVmState* vm, float value) {
+	(void)context;
+	vm->time = static_cast<int>(value);
+	vm->time_accumulator = value;
+}
+static float StageDigitRandFloat(void* context, int alt_rng) {
+	(void)context;
+	(void)alt_rng;
+	return static_cast<float>(std::rand()) / RAND_MAX;
+}
+static unsigned int StageDigitRandU32(void* context, int alt_rng) {
+	(void)context;
+	(void)alt_rng;
+	return static_cast<unsigned int>(std::rand());
+}
+static float StageDigitWrapAngle(void* context, float value) {
+	(void)context;
+	const float circle = 6.2831853f;
+	while (value < 0.0f)
+		value += circle;
+	while (value >= circle)
+		value -= circle;
+	return value;
+}
+static void StageDigitNoRing(void* context, AnmVmState* vm) {
+	(void)context;
+	(void)vm;
+}
+static void StageDigitNoChild(void* context, AnmVmState* vm, int variant,
+                              int index) {
+	(void)context;
+	(void)vm;
+	(void)variant;
+	(void)index;
+}
+static void StageDigitNoRingUpdate(void* context, AnmVmState* vm) {
+	(void)context;
+	(void)vm;
+}
+static void StageDigitSetBlendBits(void* context, AnmVmState* vm,
+                                   unsigned int mask, unsigned int value) {
+	(void)context;
+	vm->flags = (vm->flags & ~mask) | (value & mask);
+}
+static const float g_stage_digit_scroll[3] = {};
+
+// The digit scripts only use the sprite/time/end opcodes; the ring and child
+// leaves are never reached, so they are present as harmless non-ops.
+static AnmVmHooks g_stage_digit_vm_hooks = {
+    nullptr,
+    StageDigitReadInt,
+    StageDigitReadFloat,
+    StageDigitIntSlot,
+    StageDigitFloatSlot,
+    StageDigitSetSprite,
+    StageDigitSetTime,
+    StageDigitRandFloat,
+    StageDigitRandU32,
+    StageDigitWrapAngle,
+    StageDigitNoRing,
+    StageDigitNoChild,
+    StageDigitNoRingUpdate,
+    StageDigitSetBlendBits,
+    g_stage_digit_scroll,
+};
+
+static void HostScoreTickDigit(int slot, int base_offset) {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return;
+	AnmVmState* vm =
+	    reinterpret_cast<AnmVmState*>(block + base_offset + slot * 0x3AC);
+	AnmVm_Tick(vm, &g_stage_digit_vm_hooks);
+}
+static void HostScoreTickHighDigit(int slot) {
+	HostScoreTickDigit(slot, 0x2BC);
+}
+static void HostScoreTickScoreDigit(int slot) {
+	HostScoreTickDigit(slot, 0x2874);
+}
+
+// The rank digits are the two byte slots at 0x00474C90/0x00474C94; the host
+// mirrors them in StageGlobals' power words.
+static void HostScoreSetRankDigit(bool previous, int script) {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return;
+	void* resource = *(void**)(block + 0x9EC8);
+	if (resource == 0) {
+		Log("rank digit configure skipped: no front.anm resource mounted");
+		return;
+	}
+	Entity* digit = reinterpret_cast<Entity*>(
+	    block + (previous ? 0x10 : 0x24C8));
+	AnimationObject_ConfigureFromResource(digit, resource, script);
+}
+static void HostScoreTickRankDigit(bool previous) {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return;
+	AnmVmState* vm = reinterpret_cast<AnmVmState*>(
+	    block + (previous ? 0x10 : 0x24C8));
+	AnmVm_Tick(vm, &g_stage_digit_vm_hooks);
+}
+
+// 0x004188A0's tail, run when an extend is awarded below the cap: retire the
+// previous extend animation at +0x9E18, create animation 0x4B on layer 0xF
+// from the front resource and republish its handle.
+static void HostReloadExtendAnimation(void* state) {
+	unsigned char* block = static_cast<unsigned char*>(state);
+	void* resource = *(void**)(block + 0x9EC8);
+	if (g_pGameStateManager == 0 || resource == 0) {
+		Log("extend animation reload skipped: no manager/front resource");
+		return;
+	}
+	int* extend_slot = reinterpret_cast<int*>(block + 0x9E18);
+	if (*extend_slot != 0) {
+		AnimationManager_SetFlag(g_pGameStateManager, *extend_slot, 2u);
+		*extend_slot = 0;
+	}
+	*extend_slot = AnimationManager_CreatePrimaryBack(
+	    g_pGameStateManager, resource, 0x4B, 0xF);
+	Log("extend animation reloaded at +0x9E18: handle %d", *extend_slot);
+}
+
+static int HostScoreAwardExtend(int count) {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return 0;
+	Recovery_IncrementAnimationCount(block, count,
+	                                 HostReloadExtendAnimation);
+	return *reinterpret_cast<int*>(block + 0x30);
+}
+
+// Retail 0x00417040 (ScoreHud_Update): ease the visible score toward the
+// live score, snapshot the high score and rank, rewrite the digit VMs, and
+// award the next extend when its threshold is crossed. The hud fields live
+// on the item-score block (DAT_0047770C) at the retail offsets; the score,
+// rank, and threshold state is the StageGlobals mirror of the 0x00474C40
+// block. Retail keys the extend table off difficulty (DAT_00474C74).
+void HostTickGame() {
+	unsigned char* block = reinterpret_cast<unsigned char*>(
+	    static_cast<uintptr_t>(DAT_0047770c));
+	if (block == 0)
+		return;
+	ScoreHud hud = {};
+	std::memcpy(&hud.displayed_score, block + 0x9E78, sizeof(int));
+	std::memcpy(&hud.score_velocity, block + 0x9E7C, sizeof(int));
+	std::memcpy(&hud.previous_high_score, block + 0x9E74, sizeof(int));
+	std::memcpy(&hud.stage_frame, block + 0x9E64, sizeof(int));
+	std::memcpy(&hud.displayed_crossing_script, block + 0x48D8,
+	            sizeof(unsigned short));
+	std::memcpy(&hud.high_score_crossing_script, block + 0x2420,
+	            sizeof(unsigned short));
+
+	ScoreHudEnv env = {};
+	env.target_score = g_globals.score_current;      // DAT_00474C44
+	env.high_score = g_globals.score_seed;           // DAT_00474C40
+	env.current_rank = (int)(g_globals.power_474c90 & 0xFFu);  // _DAT_00474C90
+	env.previous_rank = (int)(g_globals.power_seed & 0xFFu);   // DAT_00474C94
+	env.flags = g_globals.game_flags;                // DAT_00474CA0
+	env.game_mode = g_globals.difficulty;            // DAT_00474C74
+	env.threshold_index = g_globals.counter_474c9c;  // DAT_00474C9C
+	env.normal_thresholds = g_rank_thresholds_normal;   // DAT_00474474
+	env.special_thresholds = g_rank_thresholds_special; // DAT_00474488
+	env.set_high_digit = HostScoreSetHighDigit;
+	env.set_score_digit = HostScoreSetScoreDigit;
+	env.tick_high_digit = HostScoreTickHighDigit;
+	env.tick_score_digit = HostScoreTickScoreDigit;
+	env.set_rank_digit = HostScoreSetRankDigit;
+	env.tick_rank_digit = HostScoreTickRankDigit;
+	env.award_extend = HostScoreAwardExtend;
+
+	const int result = ScoreHud_Update(&hud, &env);
+
+	std::memcpy(block + 0x9E78, &hud.displayed_score, sizeof(int));
+	std::memcpy(block + 0x9E7C, &hud.score_velocity, sizeof(int));
+	std::memcpy(block + 0x9E74, &hud.previous_high_score, sizeof(int));
+	std::memcpy(block + 0x9E64, &hud.stage_frame, sizeof(int));
+	std::memcpy(block + 0x48D8, &hud.displayed_crossing_script,
+	            sizeof(unsigned short));
+	std::memcpy(block + 0x2420, &hud.high_score_crossing_script,
+	            sizeof(unsigned short));
+	g_globals.score_seed = env.high_score;
+	g_globals.power_474c90 =
+	    (g_globals.power_474c90 & ~0xFFu) | (unsigned int)env.current_rank;
+	g_globals.power_seed =
+	    (g_globals.power_seed & ~0xFFu) | (unsigned int)env.previous_rank;
+	g_globals.counter_474c9c = env.threshold_index;
+	Log("ScoreHud_Update(0x00417040): displayed %d -> %d, high %d, "
+	    "rank %d/%d, threshold %d, extend %d",
+	    hud.displayed_score,
+	    *reinterpret_cast<int*>(block + 0x9E78),
+	    env.high_score, env.current_rank, env.previous_rank,
+	    env.threshold_index, result);
+}
+
+// Retail 0x00418A00 (Recovery_DecayCounter) on the score-gauge record: when
+// the embedded timer target at +0x18 is positive, retail advances that timer
+// by -1.0 through 0x0044BF40 and stops; otherwise the tenth-target at +0x0C
+// decays by the +0x10 step, flooring the step at 0x12 and the target at 5000.
+static void HostDecayScoreGaugeTimer(float delta) {
+	// The gauge's embedded timer at +0x14 is byte-identical to the retail
+	// five-word FrameTimer 0x0044BF40 advances.
+	FrameTimer_Advance(reinterpret_cast<FrameTimer*>(&g_score_gauge.timer),
+	                   delta);
+}
+void HostUpdateScoreThreshold() {
+	Recovery_DecayCounter(&g_score_gauge, HostDecayScoreGaugeTimer);
+}
 void HostTickStageTimer(StageContext* context) {
 	int frame = 0;
 	std::memcpy(&frame, &context->spawn[1], sizeof(frame));

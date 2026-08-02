@@ -11,6 +11,8 @@ int transition_effect_calls;
 int transition_action_calls;
 
 void Call0() { ++calls[0]; }
+void CountTickGame() { ++calls[11]; }
+void CountScoreThreshold() { ++calls[12]; }
 void Activate() { ++calls[1]; }
 void Timer(int index) { ++calls[2 + index]; }
 void Refresh(StageUpdateTaskPair*) { ++calls[4]; }
@@ -53,8 +55,8 @@ StageUpdateEnv MakeEnv(StageUpdateGlobals* globals,
     env.free_player = Free;
     env.spawn_transition_effect = TransitionEffect;
     env.run_transition_action = TransitionAction;
-    env.tick_game = Call0;
-    env.update_score_threshold = Call0;
+    env.tick_game = CountTickGame;
+    env.update_score_threshold = CountScoreThreshold;
     env.tick_stage_timer = TickTimer;
     return env;
 }
@@ -80,6 +82,10 @@ int main() {
     SetFrame(&context, 0);
     assert(StageContext_Update(&context, &env) == 1);
     assert(calls[1] == 1);
+    // tick_game runs every frame; the score-threshold decay waits until
+    // frame 90 with practice inactive and the game thread idle.
+    assert(calls[11] == 1);
+    assert(calls[12] == 0);
     for (StageTaskNode& node : nodes)
         assert((node.flags & 2u) != 0);
     assert(globals.frame_counter_a == 1);
@@ -103,6 +109,8 @@ int main() {
     context.flags = 0x10;
     SetFrame(&context, 100);
     assert(StageContext_Update(&context, &env) == 3);
+    assert(calls[11] == 1);  // tick_game precedes the early return
+    assert(calls[12] == 0);  // the threshold edge is after the return
 
     context = {};
     globals.player = &nodes[0];
@@ -153,8 +161,17 @@ int main() {
     assert(StageContext_Update(&context, &env) == 1);
     std::memcpy(&value, counter, 4);
     assert(value == 215999999);
+    assert(calls[12] == 3);  // frame 100, practice inactive, thread idle
     assert(StageContext_Update(&context, &env) == 1);
     std::memcpy(&value, counter, 4);
     assert(value == 215999999);
+
+    // Practice mode suppresses the score-threshold decay entirely.
+    globals.practice_active = 1;
+    std::memset(calls, 0, sizeof(calls));
+    SetFrame(&context, 100);
+    assert(StageContext_Update(&context, &env) == 1);
+    assert(calls[11] == 1);
+    assert(calls[12] == 0);
     return 0;
 }
