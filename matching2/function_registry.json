@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 226,
-      "semantic": 477
+      "exact-overlay": 231,
+      "semantic": 472
     }
   },
   "functions": [
@@ -497,8 +497,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405620_FUN_00405620.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_ReleaseRawPairAndReset"
+      }
     },
     {
       "address": "0x004056B0",
@@ -6335,8 +6339,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447940_FUN_00447940.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_CopyPositionRecord@@"
+      }
     },
     {
       "address": "0x004479D0",
@@ -6439,8 +6447,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00448860_FUN_00448860.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_UpdatePrimary@@"
+      }
     },
     {
       "address": "0x00448900",
@@ -6449,8 +6461,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00448900_FUN_00448900.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_UpdateSecondary@@"
+      }
     },
     {
       "address": "0x00448980",
@@ -6825,8 +6841,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004497D0_FUN_004497d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_FindChildByScriptIndex@@"
+      }
     },
     {
       "address": "0x00449870",

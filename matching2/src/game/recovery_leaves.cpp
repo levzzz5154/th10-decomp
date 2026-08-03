@@ -96,6 +96,9 @@ extern "C" void sub_44B810(void*, const char*);
 extern "C" void* sub_449ED0(void*);
 extern "C" void sub_41BA00(void*);
 extern "C" void sub_41BA30(void*);
+extern "C" void* dword_4660B0;
+extern "C" void* dword_4660B4;
+extern "C" unsigned char byte_49231C;
 extern "C" void sub_449AE0(void*, void*, void*);
 extern "C" void sub_449B70(void*, void*, void*);
 extern "C" void* sub_449950(void*);
@@ -2629,12 +2632,63 @@ void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
 }
 
 // 0x00405620 - Release the pair and clear the owner's external marker.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ReleaseRawPairAndReset(
+        void* state, void (*release)(void*),
+        void (*free_memory)(void*), RecoveryWord* global_flag) {
+    __asm {
+        mov eax, [esp+4]
+        push ebx
+        mov ebx, dword_4660B0
+        push ebp
+        mov ebp, dword_4660B4
+        push esi
+        mov esi, [eax+8]
+        test esi, esi
+        push edi
+        mov edi, dword_491BE4
+        je second
+        push 492274h
+        call ebx
+        inc byte ptr byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr byte_49231C
+second:
+        mov ecx, [esp+14h]
+        mov esi, [ecx+0Ch]
+        test esi, esi
+        mov edi, dword_491BE4
+        je clear_marker
+        push 492274h
+        call ebx
+        inc byte ptr byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr byte_49231C
+clear_marker:
+        pop edi
+        pop esi
+        pop ebp
+        mov dword_4776EC, 0
+        pop ebx
+        ret 4
+    }
+}
+#else
 void Recovery_ReleaseRawPairAndReset(void* state, void (*release)(void*),
                                      void (*free_memory)(void*),
                                      RecoveryWord* global_flag) {
     Recovery_ReleaseRawPair(state, release, free_memory);
     if (global_flag != 0) *global_flag = 0;
 }
+#endif
 
 // 0x0040B940 - Allocate, initialize, and publish the small ten-word state.
 void* g_recovery_small_state;

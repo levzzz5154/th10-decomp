@@ -39,6 +39,8 @@ extern "C" void _free(void*);
 extern "C" float flt_470B4C;
 extern "C" float flt_470B48;
 extern "C" unsigned short word_4749CE;
+extern "C" void sub_448BB0(void);
+extern "C" void sub_43EE30(void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -139,6 +141,56 @@ uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {
 
 // 0x00447940 - Copy one animation position record and derive its normalized
 // coordinates and extents. The retail record is 0x44 bytes (17 floats).
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_CopyPositionRecord(
+        void* manager, unsigned int index, const float* source) {
+    __asm {
+        imul eax, eax, 44h
+        push esi
+        push edi
+        mov edi, [edx+118h]
+        add edi, eax
+        mov ecx, 11h
+        mov esi, ebx
+        rep movsd
+        mov ecx, [edx+118h]
+        add ecx, eax
+        pop edi
+        pop esi
+        fld dword ptr [ecx+8]
+        fdiv dword ptr [ecx+1Ch]
+        fstp dword ptr [ecx+20h]
+        mov ecx, [edx+118h]
+        fld dword ptr [ecx+eax+10h]
+        fdiv dword ptr [ecx+eax+1Ch]
+        add ecx, eax
+        fstp dword ptr [ecx+28h]
+        mov ecx, [edx+118h]
+        fld dword ptr [ecx+eax+0Ch]
+        fdiv dword ptr [ecx+eax+18h]
+        add ecx, eax
+        fstp dword ptr [ecx+24h]
+        mov ecx, [edx+118h]
+        fld dword ptr [ecx+eax+14h]
+        fdiv dword ptr [ecx+eax+18h]
+        add ecx, eax
+        fstp dword ptr [ecx+2Ch]
+        mov ecx, [edx+118h]
+        fld dword ptr [ecx+eax+10h]
+        fsub dword ptr [ecx+eax+8]
+        add ecx, eax
+        fdiv dword ptr [ebx+38h]
+        fstp dword ptr [ecx+34h]
+        mov edx, [edx+118h]
+        fld dword ptr [eax+edx+14h]
+        fsub dword ptr [eax+edx+0Ch]
+        add eax, edx
+        fdiv dword ptr [ebx+3Ch]
+        fstp dword ptr [eax+30h]
+        ret
+    }
+}
+#else
 void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
                                          const float* source) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -149,6 +201,7 @@ void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
     // entry loader at 0x00447470, so both callers share one implementation.
     AnmSprite_DeriveRecord(destination);
 }
+#endif
 
 // 0x0043EC70 - Read one of the animation interpreter's integer-valued
 // variables. Float variables use the same truncating conversion as retail's
@@ -1851,6 +1904,73 @@ static bool AnimationManager_UpdateObject(
     return true;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_UpdatePrimary(void* manager) {
+    __asm {
+        sub esp, 50h
+        push ebp
+        push edi
+        mov edi, eax
+        xor ebp, ebp
+        xor eax, eax
+        lea ecx, [edi+72DAE4h]
+init_loop:
+        mov [esp+eax*4+8], ecx
+        mov [ecx+1Ch], ebp
+        inc eax
+        add ecx, 3ACh
+        cmp eax, 13h
+        jl init_loop
+        mov eax, [edi+72DAD4h]
+        cmp eax, ebp
+        je done
+        push ebx
+        push esi
+update_loop:
+        mov esi, [eax]
+        mov ebx, [eax+4]
+        test dword ptr [esi+35Ch], 4000000h
+        je not_flagged
+        call sub_448BB0
+        jmp next
+not_flagged:
+        mov eax, [esi+398h]
+        cmp eax, ebp
+        je no_callback
+        mov ecx, esi
+        call eax
+no_callback:
+        push esi
+        call sub_43EE30
+        test eax, eax
+        je keep
+        call sub_448BB0
+        jmp next
+keep:
+        mov eax, [esi+20h]
+        mov ecx, [esp+eax*4+10h]
+        mov [ecx+1Ch], esi
+        mov edx, [esi+20h]
+        mov [esp+edx*4+10h], esi
+        mov [esi+1Ch], ebp
+next:
+        mov edx, [edi+64h]
+        inc edx
+        cmp ebx, ebp
+        mov [edi+64h], edx
+        mov eax, ebx
+        jne update_loop
+        pop esi
+        pop ebx
+done:
+        pop edi
+        mov eax, 1
+        pop ebp
+        add esp, 50h
+        ret
+    }
+}
+#else
 int AnimationManager_UpdatePrimary(void* manager) {
     AnimationObject* tails[19];
     for (unsigned int index = 0; index != 19; ++index) {
@@ -1875,7 +1995,64 @@ int AnimationManager_UpdatePrimary(void* manager) {
     }
     return 1;
 }
+#endif
 
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_UpdateSecondary(void* manager) {
+    __asm {
+        push ebp
+        push edi
+        mov edi, eax
+        mov eax, [edi+72DADCh]
+        xor ecx, ecx
+        cmp eax, ecx
+        mov [edi+7320C4h], ecx
+        lea ebp, [edi+7320A8h]
+        mov [edi+64h], ecx
+        je done
+        push ebx
+        push esi
+update_loop:
+        mov esi, [eax]
+        mov ebx, [eax+4]
+        test dword ptr [esi+35Ch], 4000000h
+        je not_flagged
+        call sub_448BB0
+        jmp next
+not_flagged:
+        mov eax, [esi+398h]
+        test eax, eax
+        je no_callback
+        mov ecx, esi
+        call eax
+no_callback:
+        push esi
+        call sub_43EE30
+        test eax, eax
+        je keep
+        call sub_448BB0
+        jmp next
+keep:
+        mov [ebp+1Ch], esi
+        mov ebp, esi
+        mov dword ptr [esi+1Ch], 0
+next:
+        mov edx, [edi+64h]
+        inc edx
+        test ebx, ebx
+        mov [edi+64h], edx
+        mov eax, ebx
+        jne update_loop
+        pop esi
+        pop ebx
+done:
+        pop edi
+        mov eax, 1
+        pop ebp
+        ret
+    }
+}
+#else
 int AnimationManager_UpdateSecondary(void* manager) {
     AnimationObject* sentinel =
         (AnimationObject*)((uint8_t*)manager + 0x72DAE4 + 19 * 0x3AC);
@@ -1896,6 +2073,7 @@ int AnimationManager_UpdateSecondary(void* manager) {
     }
     return 1;
 }
+#endif
 
 #ifdef _MSC_VER
 __declspec(naked) int AnimationManager_RenderBucket(
@@ -1948,6 +2126,48 @@ int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
 #endif
 
 // 0x004497D0 - Resolve a direct child by script index.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_FindChildByScriptIndex(
+        void* manager, int animationHandle, short scriptIndex) {
+    __asm {
+        mov eax, [esi]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jne after_find
+        mov [esi], eax
+after_find:
+        add eax, 10h
+        je not_found
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+search_loop:
+        mov ecx, [eax]
+        movsx edx, word ptr [ecx+38Ah]
+        cmp edx, ebx
+        je found
+        mov eax, [eax+4]
+        test eax, eax
+        jne search_loop
+not_found:
+        mov dword ptr [edi], 0
+        mov eax, edi
+        ret
+found:
+        mov eax, [eax]
+        mov ecx, [eax]
+        mov [edi], ecx
+        mov eax, edi
+        ret
+    }
+}
+#else
 int AnimationManager_FindChildByScriptIndex(
     void* manager, int animationHandle, short scriptIndex) {
     AnimationObject* animation =
@@ -1967,6 +2187,7 @@ int AnimationManager_FindChildByScriptIndex(
     }
     return 0;
 }
+#endif
 
 #ifdef _MSC_VER
 __declspec(naked) int PlayerAnimation_Create(
