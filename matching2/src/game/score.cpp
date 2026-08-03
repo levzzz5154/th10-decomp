@@ -2,6 +2,8 @@
 #include "th10/game/score.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
+#include <cstring>
+
 extern Entity* __fastcall Entity_Constructor(Entity* entity);
 extern "C" float cosf(float);
 extern "C" float sinf(float);
@@ -11,6 +13,12 @@ extern void* PTR_LAB_0046dab0;
 extern void* PTR_LAB_0046da60;
 extern uint32_t DAT_00476f78;
 extern uint32_t DAT_00491be4;
+
+#ifdef _MSC_VER
+extern "C" void sub_4091C0(void*);
+extern "C" void sub_40B7B0(void*);
+extern "C" void j__free(void*);
+#endif
 
 namespace {
 PlayerScoreRuntimeBindings g_player_score_bindings = {};
@@ -35,6 +43,22 @@ int __fastcall PlayerScore_ReleaseArrays(void* owner) {
 }  // namespace
 
 // 0x0040B9D0 - Run the owned-object cleanup and release its allocation.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreOwnedObject_Destroy(
+        void* object, void (*cleanup)(void*)) {
+    __asm {
+        test esi, esi
+        jz locret_40B9E1
+        push esi
+        call sub_40B7B0
+        push esi
+        call j__free
+        pop ecx
+locret_40B9E1:
+        ret
+    }
+}
+#else
 void ScoreOwnedObject_Destroy(void* object, void (*cleanup)(void*)) {
     if (object != 0) {
         if (cleanup != 0)
@@ -42,6 +66,7 @@ void ScoreOwnedObject_Destroy(void* object, void (*cleanup)(void*)) {
         _free(object);
     }
 }
+#endif
 
 // 0x00408660 - Return the shortest signed difference on a periodic axis.
 float WrappedAngleDifference(float angle, float reference,
@@ -104,8 +129,11 @@ void PlayerScoreRuntime_SetBindings(
         const PlayerScoreRuntimeBindings* bindings) {
     if (bindings != 0)
         g_player_score_bindings = *bindings;
-    else
-        g_player_score_bindings = PlayerScoreRuntimeBindings{};
+    else {
+        PlayerScoreRuntimeBindings empty;
+        std::memset(&empty, 0, sizeof(empty));
+        g_player_score_bindings = empty;
+    }
 }
 
 // 0x004089C0 - Register the three player/score callbacks and initialize the
@@ -120,33 +148,33 @@ int PlayerScoreRuntime_Initialize(void* state) {
         return -1;
     primary->flags &= ~2u;
     primary->owner = state;
-    Scheduler_RegisterPrimary(primary, 0, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterPrimary(primary, 0, (void*)(unsigned long)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 8) = primary;
 
     SchedulerCallback* secondary =
         SchedulerCallback_Create(PlayerScore_ReleasePrimary);
     if (secondary == 0) {
-        Scheduler_Remove(primary, (void*)(uintptr_t)DAT_00491be4);
+        Scheduler_Remove(primary, (void*)(unsigned long)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         return -1;
     }
     secondary->flags &= ~2u;
     secondary->owner = state;
-    Scheduler_RegisterSecondary(secondary, 0, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterSecondary(secondary, 0, (void*)(unsigned long)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 12) = secondary;
 
     SchedulerCallback* tertiary =
         SchedulerCallback_Create(PlayerScore_ReleaseArrays);
     if (tertiary == 0) {
-        Scheduler_Remove(primary, (void*)(uintptr_t)DAT_00491be4);
-        Scheduler_Remove(secondary, (void*)(uintptr_t)DAT_00491be4);
+        Scheduler_Remove(primary, (void*)(unsigned long)DAT_00491be4);
+        Scheduler_Remove(secondary, (void*)(unsigned long)DAT_00491be4);
         *(SchedulerCallback**)(bytes + 8) = 0;
         *(SchedulerCallback**)(bytes + 12) = 0;
         return -1;
     }
     tertiary->flags &= ~2u;
     tertiary->owner = state;
-    Scheduler_RegisterSecondary(tertiary, 0, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterSecondary(tertiary, 0, (void*)(unsigned long)DAT_00491be4);
     *(SchedulerCallback**)(bytes + 0x37AC) = tertiary;
 
     unsigned int* flags = (unsigned int*)(bytes + 0x3744);
@@ -175,11 +203,34 @@ bool OutsideAxisAlignedBounds(float center_x, float center_y,
 }
 
 // 0x0040ACE0 - Test a query against both held and newly-pressed input masks.
+#ifdef _MSC_VER
+__declspec(naked) bool InputMaskActive(uint16_t held_mask,
+                                       uint16_t pressed_mask,
+                                       uint16_t query_mask) {
+    __asm {
+        xor edx, edx
+        mov dx, [ecx+6]
+        and edx, eax
+        test dx, dx
+        jnz loc_40ACFB
+        movzx ecx, word ptr [ecx+4]
+        and ecx, eax
+        test cx, cx
+        jnz loc_40ACFB
+        xor eax, eax
+        ret
+loc_40ACFB:
+        mov eax, 1
+        ret
+    }
+}
+#else
 bool InputMaskActive(uint16_t held_mask, uint16_t pressed_mask,
                      uint16_t query_mask) {
     return (held_mask & query_mask) != 0 ||
            (pressed_mask & query_mask) != 0;
 }
+#endif
 
 // 0x0044A4E0 - Encode the low 32 joystick button bits into the engine's
 // byte-per-button input buffer. Pressed buttons use the retail 0x80 marker.
@@ -222,6 +273,26 @@ void Input_NormalizeKeyboardState(
 
 // 0x0044BE70 - Pop one input-history entry and restore its paired state
 // values. The history index clamps at zero rather than wrapping.
+#ifdef _MSC_VER
+__declspec(naked) void Score_InputHistoryStep(void* state) {
+    __asm {
+        dec dword ptr [eax+8Ch]
+        mov edx, 0
+        jns loc_44BE83
+        mov [eax+8Ch], edx
+loc_44BE83:
+        mov ecx, [eax+8Ch]
+        push esi
+        mov esi, [eax+ecx*4+0Ch]
+        mov [eax], esi
+        mov ecx, [eax+ecx*4+4Ch]
+        mov [eax+8], ecx
+        mov [eax+0D4h], edx
+        pop esi
+        ret
+    }
+}
+#else
 void Score_InputHistoryStep(void* state) {
     unsigned char* bytes = (unsigned char*)state;
     uint32_t index = *(uint32_t*)(bytes + 0x8C);
@@ -233,8 +304,31 @@ void Score_InputHistoryStep(void* state) {
         *(uint32_t*)(bytes + 0x4C + index * 4);
     *(uint32_t*)(bytes + 0xD4) = 0;
 }
+#endif
 
 // 0x0044BE20 - Save the current input pair into the bounded history ring.
+#ifdef _MSC_VER
+__declspec(naked) void Score_InputHistorySave(void* state) {
+    __asm {
+        mov ecx, [eax+8Ch]
+        mov edx, [eax]
+        mov [eax+ecx*4+0Ch], edx
+        mov ecx, [eax+8Ch]
+        mov edx, [eax+8]
+        mov [eax+ecx*4+4Ch], edx
+        mov edx, [eax+8Ch]
+        inc edx
+        mov ecx, edx
+        cmp ecx, 10h
+        mov [eax+8Ch], edx
+        mov dword ptr [eax+0D4h], 0
+        jl locret_44BE61
+        mov dword ptr [eax+8Ch], 0Fh
+locret_44BE61:
+        ret
+    }
+}
+#else
 void Score_InputHistorySave(void* state) {
     unsigned char* bytes = (unsigned char*)state;
     uint32_t index = *(uint32_t*)(bytes + 0x8C);
@@ -246,6 +340,7 @@ void Score_InputHistorySave(void* state) {
     *(uint32_t*)(bytes + 0x8C) = index;
     *(uint32_t*)(bytes + 0xD4) = 0;
 }
+#endif
 
 // 0x004088C0 - Count occurrences of a byte in each fixed-width pattern.
 unsigned int CountPatternMatches(const unsigned char* table,
@@ -300,6 +395,22 @@ unsigned int UpdateBoundedCounter(unsigned int requested,
 }
 
 // 0x0040AC90 - Store the requested input mode, honoring the forced-mode bit.
+#ifdef _MSC_VER
+__declspec(naked) void SetInputMode(void* input_state,
+                                    unsigned int requested_mode) {
+    __asm {
+        mov ecx, [eax+3CCh]
+        test ch, 10h
+        jnz loc_40ACA8
+        mov ecx, [esp+4]
+        mov [eax+390h], ecx
+        ret 4
+loc_40ACA8:
+        mov dword ptr [eax+390h], 2
+        ret 4
+    }
+}
+#else
 void SetInputMode(void* input_state, unsigned int requested_mode) {
     unsigned char* bytes = (unsigned char*)input_state;
     if ((*(unsigned int*)(bytes + 0x3cc) & 0x1000) == 0)
@@ -307,6 +418,7 @@ void SetInputMode(void* input_state, unsigned int requested_mode) {
     else
         *(unsigned int*)(bytes + 0x390) = 2;
 }
+#endif
 
 // 0x00408750 - Convert polar input to a two-component score vector.
 void Score_SetPolarVector(float* destination, float angle, float magnitude) {
@@ -453,12 +565,34 @@ int ScoreRecords_CopyVectorAndEvaluate(
     return result;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) void ScoreCounter::AddScaled(int32_t amount) {
+    __asm {
+        mov eax, 66666667h
+        imul dword ptr [esp+4]
+        sar edx, 2
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        mov edx, [ecx+0Ch]
+        add edx, eax
+        mov eax, edx
+        cmp eax, 1869Fh
+        mov [ecx+0Ch], edx
+        jle locret_41BEAB
+        mov dword ptr [ecx+0Ch], 1869Fh
+locret_41BEAB:
+        ret 4
+    }
+}
+#else
 void ScoreCounter::AddScaled(int32_t amount) {
     value += amount / 10;
     if (value > 99999) {
         value = 99999;
     }
 }
+#endif
 
 // 0x00409D90 - Add one tenth of an award to the current run score.
 void GameScore::AddScaled(int32_t amount) {
@@ -472,6 +606,27 @@ void GameScore::AddScaled(int32_t amount) {
 // clamp the result to a minimum of 5000 so the gauge never empties below
 // the retail baseline. The retail entry receives the gauge pointer through
 // EAX, but the only field it touches is the integer at +0x0C.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreGauge_AddWithMinimum(void* gauge, int award) {
+    __asm {
+        mov eax, 99999999h
+        imul dword ptr [esp+4]
+        sar edx, 2
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        mov edx, [ecx+0Ch]
+        add edx, eax
+        mov eax, edx
+        cmp eax, 1388h
+        mov [ecx+0Ch], edx
+        jge locret_412E9B
+        mov dword ptr [ecx+0Ch], 1388h
+locret_412E9B:
+        ret 4
+    }
+}
+#else
 void ScoreGauge_AddWithMinimum(void* gauge, int award) {
     int* field = (int*)((uint8_t*)gauge + 0x0C);
     *field += award / 10;
@@ -479,6 +634,7 @@ void ScoreGauge_AddWithMinimum(void* gauge, int award) {
         *field = 5000;
     }
 }
+#endif
 
 // 0x0041F7A0 / 0x00428D70 - Test a position with a radius against the play
 // area, returning 0 when the point is at least partially in the viewport and
@@ -506,6 +662,25 @@ int Position_IsPartiallyInViewport(const void* center, float radius_x,
 }
 
 // 0x00409E20 - Request removal of both registered runtime callbacks.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreRuntimeCallbacks::Retire() {
+    __asm {
+        mov ecx, [eax+8]
+        test ecx, ecx
+        mov edx, 2
+        jz loc_409E2F
+        or [ecx+4], edx
+loc_409E2F:
+        mov ecx, [eax+0Ch]
+        test ecx, ecx
+        jz locret_409E3B
+        mov eax, ecx
+        or [eax+4], edx
+locret_409E3B:
+        ret
+    }
+}
+#else
 void ScoreRuntimeCallbacks::Retire() {
     if (primary != 0) {
         primary->flags |= 2;
@@ -517,6 +692,7 @@ void ScoreRuntimeCallbacks::Retire() {
         tertiary->flags |= 2;
     }
 }
+#endif
 
 // 0x00409230 - Release the runtime's first two entities during teardown.
 int ScoreRuntimeState::ReleaseFlaggedEntities(
@@ -546,7 +722,20 @@ int ScoreRuntimeState::ReleaseFlaggedEntityArrays(
 
 // 0x00409270 - Secondary scheduler callback wrapper. Retail preserves the
 // callback owner in EBX before entering the shared array-release routine.
+#ifdef _MSC_VER
+__declspec(naked) int ScoreRuntimeState::RunArrayReleaseCallback(
+    ScoreEntityRelease releaseEntity, void* entityManager) {
+    __asm {
+        push ebx
+        mov ebx, ecx
+        call sub_4091C0
+        pop ebx
+        ret
+    }
+}
+#else
 int ScoreRuntimeState::RunArrayReleaseCallback(
     ScoreEntityRelease releaseEntity, void* entityManager) {
     return ReleaseFlaggedEntityArrays(releaseEntity, entityManager);
 }
+#endif

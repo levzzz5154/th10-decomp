@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 571,
-        "retail_bytes": 319424
+        "function_count": 562,
+        "retail_bytes": 318912
       },
       "exact-overlay": {
-        "function_count": 151,
-        "retail_bytes": 13376
+        "function_count": 160,
+        "retail_bytes": 13888
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 151,
+    "function_count": 160,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -710,8 +710,10 @@
       "address": "0x00409270",
       "symbol": "FUN_00409270",
       "size": 16,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?RunArrayReleaseCallback@ScoreRuntimeState@@"
     },
     {
       "address": "0x00409280",
@@ -738,8 +740,10 @@
       "address": "0x00409E20",
       "symbol": "FUN_00409e20",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Retire@ScoreRuntimeCallbacks@@"
     },
     {
       "address": "0x00409E50",
@@ -773,15 +777,19 @@
       "address": "0x0040AC90",
       "symbol": "FUN_0040ac90",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?SetInputMode@@"
     },
     {
       "address": "0x0040ACE0",
       "symbol": "FUN_0040ace0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?InputMaskActive@@"
     },
     {
       "address": "0x0040AD20",
@@ -866,8 +874,10 @@
       "address": "0x0040B9D0",
       "symbol": "FUN_0040b9d0",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ScoreOwnedObject_Destroy@@"
     },
     {
       "address": "0x0040B9F0",
@@ -1165,8 +1175,10 @@
       "address": "0x00412E70",
       "symbol": "FUN_00412e70",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ScoreGauge_AddWithMinimum@@"
     },
     {
       "address": "0x00412ED0",
@@ -1681,8 +1693,10 @@
       "address": "0x0041BE80",
       "symbol": "FUN_0041be80",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?AddScaled@ScoreCounter@@"
     },
     {
       "address": "0x0041BEB0",
@@ -5013,15 +5027,19 @@
       "address": "0x0044BE20",
       "symbol": "FUN_0044be20",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Score_InputHistorySave@@"
     },
     {
       "address": "0x0044BE70",
       "symbol": "FUN_0044be70",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Score_InputHistoryStep@@"
     },
     {
       "address": "0x0044BEA0",

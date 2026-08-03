@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 132,
-      "semantic": 571
+      "exact-overlay": 141,
+      "semantic": 562
     }
   },
   "functions": [
@@ -947,8 +947,12 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00409270_FUN_00409270.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?RunArrayReleaseCallback@ScoreRuntimeState@@"
+      }
     },
     {
       "address": "0x00409280",
@@ -987,8 +991,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00409E20_FUN_00409e20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?Retire@ScoreRuntimeCallbacks@@"
+      }
     },
     {
       "address": "0x00409E50",
@@ -1037,8 +1045,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040AC90_FUN_0040ac90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?SetInputMode@@"
+      }
     },
     {
       "address": "0x0040ACE0",
@@ -1047,8 +1059,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040ACE0_FUN_0040ace0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?InputMaskActive@@"
+      }
     },
     {
       "address": "0x0040AD20",
@@ -1171,8 +1187,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B9D0_FUN_0040b9d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?ScoreOwnedObject_Destroy@@"
+      }
     },
     {
       "address": "0x0040B9F0",
@@ -1613,8 +1633,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412E70_FUN_00412e70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?ScoreGauge_AddWithMinimum@@"
+      }
     },
     {
       "address": "0x00412ED0",
@@ -2373,8 +2397,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041BE80_FUN_0041be80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?AddScaled@ScoreCounter@@"
+      }
     },
     {
       "address": "0x0041BEB0",
@@ -6979,8 +7007,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BE20_FUN_0044be20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?Score_InputHistorySave@@"
+      }
     },
     {
       "address": "0x0044BE70",
@@ -6989,8 +7021,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BE70_FUN_0044be70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?Score_InputHistoryStep@@"
+      }
     },
     {
       "address": "0x0044BEA0",

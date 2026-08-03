@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (151 of them
+functions (100.0%) as readable semantic C++ or verified overlays (160 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -599,6 +599,15 @@ Current exact-overlay results with MSVC 7.1:
 | `AnimationManager_MarkForRemovalAndClearHandle` | 13 | 100% |
 | `AnimationManager_RenderBucket` | 63 | 100% |
 | `AnimationManager_ClearIndexedResources` | 83 | 100% |
+| `ScoreOwnedObject_Destroy` | 10 | 100% |
+| `InputMaskActive` | 25 | 100% |
+| `SetInputMode` | 29 | 100% |
+| `Score_InputHistoryStep` | 47 | 100% |
+| `Score_InputHistorySave` | 58 | 100% |
+| `ScoreCounter::AddScaled` | 38 | 100% |
+| `ScoreGauge_AddWithMinimum` | 38 | 100% |
+| `ScoreRuntimeCallbacks::Retire` | 20 | 100% |
+| `ScoreRuntimeState::RunArrayReleaseCallback` | 6 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |
