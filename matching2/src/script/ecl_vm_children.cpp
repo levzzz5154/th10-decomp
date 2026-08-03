@@ -11,6 +11,8 @@
 #ifdef _MSC_VER
 extern "C" void* sub_452493(unsigned long);
 extern "C" void sub_44DF70(void*, void*, void*);
+extern "C" int sub_44E1A0(void*);
+extern "C" void sub_4524A1(void*);
 #endif
 
 namespace {
@@ -198,6 +200,81 @@ EclChildVm* EclVm_SpawnChild(EclOwner* owner, void* script,
 // fails. Every following node runs its child VM; children whose tick
 // reports completion are freed and unlinked in place. When the walk ends,
 // the active-VM slot is restored to the interpreter's embedded root VM.
+#ifdef _MSC_VER
+__declspec(naked) int EclVm_TickChildren(
+        EclOwner* owner, float frame_delta,
+        int (*tick)(EclOwner* owner, float delta),
+        void (*free_memory)(void* memory)) {
+    __asm {
+        push ebx
+        push ebp
+        push esi
+        lea esi, [edi+1030h]
+        test esi, esi
+        mov ebp, 1
+        je finish
+walk_loop:
+        test ebp, ebp
+        mov eax, [esi]
+        mov ebx, [esi+4]
+        mov [edi+4], eax
+        je first_pass
+        mov ecx, [esp+10h]
+        push ecx
+        call sub_44E1A0
+        test eax, eax
+        jne fail
+        xor ebp, ebp
+        jmp next
+first_pass:
+        mov edx, [esp+10h]
+        push edx
+        call sub_44E1A0
+        test eax, eax
+        je next
+        mov eax, [edi+4]
+        push eax
+        call sub_4524A1
+        mov eax, [esi+4]
+        xor ecx, ecx
+        add esp, 4
+        cmp eax, ecx
+        je unlink_previous
+        mov edx, [esi+8]
+        mov [eax+8], edx
+unlink_previous:
+        mov eax, [esi+8]
+        cmp eax, ecx
+        je free_link
+        mov edx, [esi+4]
+        mov [eax+4], edx
+free_link:
+        push esi
+        mov [esi+4], ecx
+        mov [esi+8], ecx
+        call sub_4524A1
+        add esp, 4
+next:
+        test ebx, ebx
+        mov esi, ebx
+        jne walk_loop
+finish:
+        pop esi
+        lea eax, [edi+8]
+        pop ebp
+        mov [edi+4], eax
+        xor eax, eax
+        pop ebx
+        ret 4
+fail:
+        pop esi
+        pop ebp
+        or eax, 0FFFFFFFFh
+        pop ebx
+        ret 4
+    }
+}
+#else
 int EclVm_TickChildren(EclOwner* owner, float frame_delta,
                        int (*tick)(EclOwner* owner, float delta),
                        void (*free_memory)(void* memory)) {
@@ -224,5 +301,6 @@ int EclVm_TickChildren(EclOwner* owner, float frame_delta,
     owner->active_vm = owner->root_vm;
     return 0;
 }
+#endif
 
 // --- Manager lifecycle leaves ---------------------------------------------------

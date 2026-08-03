@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 243,
-      "semantic": 460
+      "exact-overlay": 244,
+      "semantic": 459
     }
   },
   "functions": [
@@ -7803,8 +7803,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FD10_FUN_0044fd10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm_children.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_vm_children.cpp",
+      "overlay": {
+        "object": "ecl_vm_children.obj",
+        "symbol": "EclVm_TickChildren"
+      }
     },
     {
       "address": "0x0044FDB0",

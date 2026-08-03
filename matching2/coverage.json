@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 460,
-        "retail_bytes": 304011
+        "function_count": 459,
+        "retail_bytes": 303851
       },
       "exact-overlay": {
-        "function_count": 262,
-        "retail_bytes": 28789
+        "function_count": 263,
+        "retail_bytes": 28949
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 262,
+    "function_count": 263,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5501,8 +5501,10 @@
       "address": "0x0044FD10",
       "symbol": "FUN_0044fd10",
       "size": 160,
-      "status": "semantic",
-      "source": "src/script/ecl_vm_children.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_vm_children.cpp",
+      "overlay_object": "ecl_vm_children.obj",
+      "overlay_symbol": "EclVm_TickChildren"
     },
     {
       "address": "0x0044FDB0",

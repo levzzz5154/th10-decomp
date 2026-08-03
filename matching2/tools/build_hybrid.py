@@ -194,6 +194,7 @@ OVERLAYS = (
     ("archive_cursor_open.obj", "ArchiveCursor_Open", 0x0044DBF0),
     ("menu.obj", "MenuCursor_Advance", 0x0044BEA0),
     ("ecl_vm_children.obj", "EclVm_SpawnChild", 0x004500D0),
+    ("ecl_vm_children.obj", "EclVm_TickChildren", 0x0044FD10),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
     ("progress_worker.obj", "?ProgressManager_CreateAndStartWorker@@", 0x0042CD50),
     ("player.obj", "?PlayerManager_StartMode@@", 0x004045B0),
