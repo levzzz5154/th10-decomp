@@ -35,6 +35,11 @@ extern uint32_t DAT_00476f78;     // timer sentinel
 
 #ifdef _MSC_VER
 extern "C" float flt_476F78;
+extern "C" unsigned long dword_4776F4;
+extern "C" unsigned long dword_4776F0;
+extern "C" unsigned long dword_47781C;
+extern "C" void sub_408100(void*, void*, float, int, int);
+extern "C" void sub_41C800(void*, void*, int);
 #endif
 
 // 0x004045B0 - Arm the player's startup scheduler and set its first value.
@@ -401,6 +406,60 @@ int Player_Update(Player* player) {
 //     EnemyManager_CheckPlayerCollision(hitbox, ~flags & 1, focused)
 //     ScoreRecords_CopyVectorAndEvaluate (0x0041C800)
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) int Player_Draw(Player* player) {
+    __asm {
+        mov eax, [esi+28h]
+        test eax, eax
+        je done
+        mov ecx, dword_4776F4
+        mov eax, [ecx+378Ch]
+        test al, 1
+        push ebx
+        je check_six
+        mov edx, [ecx+3788h]
+        cmp edx, 5Dh
+        jl check_six
+        cmp edx, 60h
+        jle focused_zero
+check_six:
+        cmp dword ptr [ecx+3788h], 6Dh
+        jne focused_one
+focused_zero:
+        not eax
+        push 0
+        and eax, 1
+        push eax
+        mov eax, [esi+3Ch]
+        push eax
+        jmp call_collision
+focused_one:
+        mov ecx, [esi+3Ch]
+        not eax
+        push 1
+        and eax, 1
+        push eax
+        push ecx
+call_collision:
+        mov eax, dword_4776F0
+        lea ebx, [esi+30h]
+        call sub_408100
+        mov edx, dword_4776F4
+        mov eax, [edx+378Ch]
+        mov ecx, [esi+3Ch]
+        not eax
+        and eax, 1
+        push eax
+        mov eax, dword_47781C
+        push ecx
+        call sub_41C800
+        pop ebx
+done:
+        xor eax, eax
+        ret
+    }
+}
+#else
 int Player_Draw(Player* player) {
     if (player->activeState != 0) {
         int playerState = DAT_004776f4;
@@ -428,6 +487,7 @@ int Player_Draw(Player* player) {
     }
     return 0;
 }
+#endif
 namespace {
 
 void PlayerManager_SetModeTimer(void* manager, int frames,

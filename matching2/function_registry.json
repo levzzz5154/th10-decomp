@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 291,
-      "semantic": 412
+      "exact-overlay": 292,
+      "semantic": 411
     }
   },
   "functions": [
@@ -563,8 +563,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405AC0_FUN_00405ac0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player.cpp",
+      "overlay": {
+        "object": "player.obj",
+        "symbol": "Player_Draw"
+      }
     },
     {
       "address": "0x00405B60",

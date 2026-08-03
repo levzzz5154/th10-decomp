@@ -225,6 +225,7 @@ OVERLAYS = (
     ("player.obj", "?PlayerManager_StartMode@@", 0x004045B0),
     ("player.obj", "Player_SetSchedulerValue", 0x00405410),
     ("player.obj", "Player_AdjustPower", 0x00405B60),
+    ("player.obj", "Player_Draw", 0x00405AC0),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("score.obj", "?ScoreOwnedObject_Destroy@@", 0x0040B9D0),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),
