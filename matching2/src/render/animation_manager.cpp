@@ -48,6 +48,7 @@ extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void
 extern "C" void sub_463B2C(void);
 extern "C" void sub_401DE0(void*, void*);
 extern "C" float flt_470B7C;
+extern "C" float flt_470B60;
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -1929,6 +1930,83 @@ void AnimationObject_LoadScriptPreservingState(
 
 // 0x0043E8B0 - Switch an existing object to another script without running
 // the entity constructor. Invalid or currently-loading resources are ignored.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationObject_ChangeScript(
+        AnimationObject* animation, void* resource, int animationIndex) {
+    __asm {
+        push esi
+        push edi
+        mov edi, ecx
+        mov ecx, [edx+11Ch]
+        mov esi, [ecx+edi*4]
+        xor ecx, ecx
+        cmp esi, ecx
+        je done
+        push ebp
+        cmp [edx+124h], ecx
+        jne done_ebp
+        mov word ptr [eax+38Ah], di
+        mov edi, [eax+35Ch]
+        test edi, 200h
+        mov [eax+308h], edx
+        je no_scale
+        fld dword ptr [eax+3Ch]
+        or edi, 8
+        fmul dword ptr [flt_470B60]
+        xor edi, 200h
+        mov [eax+35Ch], edi
+        fstp dword ptr [eax+3Ch]
+no_scale:
+        mov word ptr [eax+35Ch], 7
+        mov dword ptr [eax+2FCh], 0FFFFFFFFh
+        mov [eax+60h], ecx
+        mov [eax+64h], ecx
+        mov edi, 0FFF0BDC1h
+        mov [eax+5Ch], edi
+        mov [eax+0B4h], ecx
+        mov [eax+100h], ecx
+        mov [eax+12Ch], ecx
+        mov [eax+178h], ecx
+        mov [eax+1B4h], ecx
+        mov [eax+200h], ecx
+        mov [eax+22Ch], ecx
+        mov bp, word ptr [edx]
+        mov word ptr [eax+386h], bp
+        mov ebp, [eax+35Ch]
+        and ebp, 0FFFFF9FFh
+        mov [eax+308h], edx
+        mov [eax+35Ch], ebp
+        mov [eax+38Ch], esi
+        mov [eax+390h], esi
+        mov edx, [eax+6Ch]
+        test dl, 1
+        jne after_timer
+        or edx, 1
+        mov [eax+60h], ecx
+        mov [eax+5Ch], edi
+        mov [eax+64h], ecx
+        mov dword ptr [eax+68h], 476F78h
+        mov [eax+6Ch], edx
+after_timer:
+        mov [eax+60h], ecx
+        mov [eax+64h], ecx
+        mov dword ptr [eax+5Ch], 0FFFFFFFFh
+        mov esi, [eax+35Ch]
+        and esi, 0FFFFFFFEh
+        push eax
+        mov [eax+35Ch], esi
+        call sub_43EE30
+        mov eax, dword_491C10
+        inc dword ptr [eax+4Ch]
+done_ebp:
+        pop ebp
+done:
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void AnimationObject_ChangeScript(
     AnimationObject* animation, void* resource, int animationIndex) {
     uint8_t* bytes = (uint8_t*)animation;
@@ -1980,6 +2058,7 @@ void AnimationObject_ChangeScript(
     AnimationObject_ExecuteScript(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
+#endif
 
 // 0x004496D0 - Handle-based script switch using the object's current resource.
 void AnimationManager_ChangeScript(
