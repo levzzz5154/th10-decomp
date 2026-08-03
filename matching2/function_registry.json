@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 219,
-      "semantic": 484
+      "exact-overlay": 221,
+      "semantic": 482
     }
   },
   "functions": [
@@ -5123,8 +5123,12 @@
       "size": 432,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438880_FUN_00438880.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/d3d_resource_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/d3d_resource_manager.cpp",
+      "overlay": {
+        "object": "d3d_resource_manager.obj",
+        "symbol": "?D3DResourceManager_Destroy@@"
+      }
     },
     {
       "address": "0x00438A30",
@@ -5565,8 +5569,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043D2A0_FUN_0043d2a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/path.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/path.cpp",
+      "overlay": {
+        "object": "path.obj",
+        "symbol": "?Path_FindBasenameSlot@@"
+      }
     },
     {
       "address": "0x0043D390",

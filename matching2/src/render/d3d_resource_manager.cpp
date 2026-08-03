@@ -8,6 +8,8 @@ extern "C" void* dword_4660B0;
 extern "C" void* dword_4660B4;
 extern "C" unsigned char byte_49231C;
 extern "C" void sub_449F60(void*, void*);
+extern "C" void sub_44C150(void);
+extern "C" void sub_449E50(void*, void*);
 #endif
 
 extern uint32_t DAT_00492274;
@@ -139,6 +141,44 @@ void D3DResourceManager_Initialize(D3DResourceManager* manager) {
 #endif
 
 // 0x00438880 - Stop the worker and release both classes of D3D resources.
+#ifdef _MSC_VER
+__declspec(naked) void D3DResourceManager_Destroy(
+        D3DResourceManager* manager) {
+    __asm {
+        mov eax, fs:[0]
+        push 0FFFFFFFFh
+        push 465363h
+        push eax
+        mov fs:[0], esp
+        push esi
+        push edi
+        mov edi, [esp+18h]
+        mov esi, 492254h
+        mov dword ptr [esp+10h], 1
+        call sub_44C150
+        push edi
+        mov eax, edi
+        call sub_449E50
+        lea esi, [edi+24h]
+        push edi
+        mov eax, esi
+        call sub_449E50
+        mov ecx, [esp+8]
+        xor eax, eax
+        mov [esi+8], eax
+        mov [esi+0Ch], eax
+        mov [esi+10h], eax
+        mov [edi+8], eax
+        mov [edi+0Ch], eax
+        mov [edi+10h], eax
+        pop edi
+        mov fs:[0], ecx
+        pop esi
+        add esp, 0Ch
+        ret 4
+    }
+}
+#else
 void D3DResourceManager_Destroy(D3DResourceManager* manager) {
     D3DResourceWorker_Stop();
     D3DResourceList_ReleaseResources(&manager->primary, manager);
@@ -146,3 +186,4 @@ void D3DResourceManager_Destroy(D3DResourceManager* manager) {
     D3DResourceList_ClearPending(&manager->primary);
     D3DResourceList_ClearPending(&manager->secondary);
 }
+#endif

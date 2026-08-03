@@ -4,6 +4,9 @@
 
 #ifdef _MSC_VER
 extern "C" char unk_497D40[];
+extern "C" void* sub_452930(void*, int);
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
 #endif
 
 // 0x00417010 - Decode bytes with the advancing retail XOR key sequence.
@@ -54,6 +57,117 @@ const char* Path_DecodeXor(const unsigned char* encoded, char* decoded) {
 #endif
 
 // 0x0043D2A0 - Find a path basename in a fixed-stride resource-name table.
+#ifdef _MSC_VER
+__declspec(naked) unsigned int Path_FindBasenameSlot(
+        const char* path, const char* table,
+        unsigned int count, unsigned int stride) {
+    __asm {
+        sub esp, 84h
+        mov eax, ___security_cookie
+        xor eax, esp
+        push ebp
+        push esi
+        mov esi, ecx
+        push 2Fh
+        push esi
+        mov [esp+90h], eax
+        xor ebp, ebp
+        call sub_452930
+        add esp, 8
+        test eax, eax
+        jne have_slash
+        push 5Ch
+        push esi
+        call sub_452930
+        add esp, 8
+        test eax, eax
+        jne have_slash
+        lea edx, [esp+8]
+        mov eax, esi
+        sub edx, esi
+copy_full:
+        mov cl, [eax]
+        mov [edx+eax], cl
+        inc eax
+        test cl, cl
+        jne copy_full
+        jmp compare
+have_slash:
+        inc eax
+        lea edx, [esp+8]
+        sub edx, eax
+copy_slash:
+        mov cl, [eax]
+        mov [edx+eax], cl
+        inc eax
+        test cl, cl
+        jne copy_slash
+compare:
+        mov eax, [esp+90h]
+        push edi
+        mov edi, [eax+1F84h]
+        cmp byte ptr [edi], 0
+        je no_table
+        mov eax, edi
+        push ebx
+loop_reload:
+        lea esi, [esp+10h]
+outer_loop:
+        mov dl, [eax]
+        mov bl, [esi]
+        mov cl, dl
+        cmp dl, bl
+        jne mismatch
+        test cl, cl
+        je equal_zero
+        mov dl, [eax+1]
+        mov bl, [esi+1]
+        mov cl, dl
+        cmp dl, bl
+        jne mismatch
+        add eax, 2
+        add esi, 2
+        test cl, cl
+        jne outer_loop
+equal_zero:
+        xor eax, eax
+        jmp compare_result
+mismatch:
+        sbb eax, eax
+        sbb eax, 0FFFFFFFFh
+compare_result:
+        test eax, eax
+        je found
+        inc ebp
+        mov eax, ebp
+        imul eax, eax, 34h
+        mov cl, [eax+edi]
+        add eax, edi
+        test cl, cl
+        jne loop_reload
+found:
+        pop ebx
+no_table:
+        mov ecx, ebp
+        imul ecx, ecx, 34h
+        cmp byte ptr [ecx+edi], 0
+        pop edi
+        jne return_ebp
+        xor eax, eax
+        jmp epilogue
+return_ebp:
+        mov eax, ebp
+epilogue:
+        mov ecx, [esp+88h]
+        pop esi
+        pop ebp
+        xor ecx, esp
+        call security_check_cookie
+        add esp, 84h
+        ret 4
+    }
+}
+#else
 unsigned int Path_FindBasenameSlot(const char* path, const char* table,
                                    unsigned int count, unsigned int stride) {
     const char* slash = path;
@@ -76,6 +190,7 @@ unsigned int Path_FindBasenameSlot(const char* path, const char* table,
     }
     return 0;
 }
+#endif
 
 // Clean conventional-ABI form of 0x004356D0.
 const char* File_AfterFirstSlash(const char* path) {

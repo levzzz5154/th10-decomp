@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 484,
-        "retail_bytes": 308651
+        "function_count": 482,
+        "retail_bytes": 307979
       },
       "exact-overlay": {
-        "function_count": 238,
-        "retail_bytes": 24149
+        "function_count": 240,
+        "retail_bytes": 24821
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 238,
+    "function_count": 240,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3692,8 +3692,10 @@
       "address": "0x00438880",
       "symbol": "FUN_00438880",
       "size": 432,
-      "status": "semantic",
-      "source": "src/render/d3d_resource_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/d3d_resource_manager.cpp",
+      "overlay_object": "d3d_resource_manager.obj",
+      "overlay_symbol": "?D3DResourceManager_Destroy@@"
     },
     {
       "address": "0x004388F0",
@@ -4008,8 +4010,10 @@
       "address": "0x0043D2A0",
       "symbol": "FUN_0043d2a0",
       "size": 240,
-      "status": "semantic",
-      "source": "src/platform/path.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/path.cpp",
+      "overlay_object": "path.obj",
+      "overlay_symbol": "?Path_FindBasenameSlot@@"
     },
     {
       "address": "0x0043D390",
