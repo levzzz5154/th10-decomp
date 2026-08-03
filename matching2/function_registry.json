@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 44,
-      "semantic": 659
+      "exact-overlay": 48,
+      "semantic": 655
     }
   },
   "functions": [
@@ -2557,8 +2557,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041F800_FUN_0041f800.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/vector.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/vector.cpp",
+      "overlay": {
+        "object": "vector.obj",
+        "symbol": "?SetPolar@Vector2@@"
+      }
     },
     {
       "address": "0x0041F850",
@@ -5683,8 +5687,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004458B0_FUN_004458b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/vector.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/vector.cpp",
+      "overlay": {
+        "object": "vector.obj",
+        "symbol": "Vector2_SetPolar"
+      }
     },
     {
       "address": "0x00445900",
@@ -6597,8 +6605,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BB20_FUN_0044bb20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/rng.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/rng.cpp",
+      "overlay": {
+        "object": "rng.obj",
+        "symbol": "?Rng_NextFloat@@"
+      }
     },
     {
       "address": "0x0044BB90",
@@ -6607,8 +6619,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BB90_FUN_0044bb90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/rng.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/rng.cpp",
+      "overlay": {
+        "object": "rng.obj",
+        "symbol": "?Rng_NextFloatSigned@@"
+      }
     },
     {
       "address": "0x0044BC10",

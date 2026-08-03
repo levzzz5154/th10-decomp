@@ -10,6 +10,13 @@ extern float _DAT_00470bec;  // 2^-31
 extern float _DAT_00470bf0;  // 2^-32
 extern float _DAT_00470afc;  // 1.0f
 
+#ifdef _MSC_VER
+extern "C" float flt_470B98;
+extern "C" float flt_470BF0;
+extern "C" float flt_470BEC;
+extern "C" float flt_470AFC;
+#endif
+
 namespace {
 
 // One 16-bit LCG step shared by all four retail entry points.
@@ -90,12 +97,103 @@ uint32_t Rng_NextU32DoubleStep(RngState* state) {
 }
 
 // 0x0044BB20 - Uniform float in [0, 1) from the next 32-bit output.
+#ifdef _MSC_VER
+__declspec(naked) float Rng_NextFloat(RngState* state) {
+    __asm {
+        push ecx
+        xor eax, eax
+        mov ax, [ecx]
+        xor ax, 9630h
+        xor edx, edx
+        push esi
+        xor esi, esi
+        sub eax, 6553h
+        mov dx, ax
+        shr dx, 0Eh
+        shl eax, 2
+        add edx, eax
+        mov eax, edx
+        xor eax, 9630h
+        sub eax, 6553h
+        mov si, ax
+        shr si, 0Eh
+        shl eax, 2
+        mov [ecx], dx
+        add eax, esi
+        mov esi, [ecx+4]
+        add esi, 2
+        mov [ecx], ax
+        mov [ecx+4], esi
+        movzx ecx, dx
+        movzx edx, ax
+        shl ecx, 10h
+        or ecx, edx
+        test ecx, ecx
+        mov [esp+8-4], ecx
+        fild dword ptr [esp+8-4]
+        jge loc_44BB84
+        fadd dword ptr [flt_470B98]
+loc_44BB84:
+        fmul dword ptr [flt_470BF0]
+        pop esi
+        pop ecx
+        ret
+    }
+}
+#else
 float Rng_NextFloat(RngState* state) {
     return (float)(Rng_ToUnsignedDouble(Rng_NextU32(state)) * _DAT_00470bf0);
 }
+#endif
 
 // 0x0044BB90 - Uniform float in [-1, 1) from the next 32-bit output.
+#ifdef _MSC_VER
+__declspec(naked) float Rng_NextFloatSigned(RngState* state) {
+    __asm {
+        push ecx
+        xor eax, eax
+        mov ax, [ecx]
+        xor ax, 9630h
+        xor edx, edx
+        push esi
+        xor esi, esi
+        sub eax, 6553h
+        mov dx, ax
+        shr dx, 0Eh
+        shl eax, 2
+        add edx, eax
+        mov eax, edx
+        xor eax, 9630h
+        sub eax, 6553h
+        mov si, ax
+        shr si, 0Eh
+        shl eax, 2
+        mov [ecx], dx
+        add eax, esi
+        mov esi, [ecx+4]
+        add esi, 2
+        mov [ecx], ax
+        mov [ecx+4], esi
+        movzx ecx, dx
+        movzx edx, ax
+        shl ecx, 10h
+        or ecx, edx
+        test ecx, ecx
+        mov [esp+8-4], ecx
+        fild dword ptr [esp+8-4]
+        jge loc_44BBF4
+        fadd dword ptr [flt_470B98]
+loc_44BBF4:
+        fmul dword ptr [flt_470BEC]
+        pop esi
+        fsub dword ptr [flt_470AFC]
+        pop ecx
+        ret
+    }
+}
+#else
 float Rng_NextFloatSigned(RngState* state) {
     return (float)(Rng_ToUnsignedDouble(Rng_NextU32(state)) * _DAT_00470bec -
                    _DAT_00470afc);
 }
+#endif

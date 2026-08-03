@@ -25,6 +25,7 @@ OVERLAY_SOURCES=(
     src/util/runtime_pool.cpp
     src/math/angle.cpp
     src/math/rng.cpp
+    src/math/vector.cpp
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
 )

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 659,
-        "retail_bytes": 327408
+        "function_count": 655,
+        "retail_bytes": 327008
       },
       "exact-overlay": {
-        "function_count": 63,
-        "retail_bytes": 5392
+        "function_count": 67,
+        "retail_bytes": 5792
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 63,
+    "function_count": 67,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1825,8 +1825,10 @@
       "address": "0x0041F800",
       "symbol": "FUN_0041f800",
       "size": 80,
-      "status": "semantic",
-      "source": "src/math/vector.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/vector.cpp",
+      "overlay_object": "vector.obj",
+      "overlay_symbol": "?SetPolar@Vector2@@"
     },
     {
       "address": "0x0041F850",
@@ -4173,8 +4175,10 @@
       "address": "0x004458B0",
       "symbol": "FUN_004458b0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/math/vector.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/vector.cpp",
+      "overlay_object": "vector.obj",
+      "overlay_symbol": "Vector2_SetPolar"
     },
     {
       "address": "0x00445900",
@@ -4812,15 +4816,19 @@
       "address": "0x0044BB20",
       "symbol": "FUN_0044bb20",
       "size": 112,
-      "status": "semantic",
-      "source": "src/math/rng.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/rng.cpp",
+      "overlay_object": "rng.obj",
+      "overlay_symbol": "?Rng_NextFloat@@"
     },
     {
       "address": "0x0044BB90",
       "symbol": "FUN_0044bb90",
       "size": 128,
-      "status": "semantic",
-      "source": "src/math/rng.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/rng.cpp",
+      "overlay_object": "rng.obj",
+      "overlay_symbol": "?Rng_NextFloatSigned@@"
     },
     {
       "address": "0x0044BC10",
