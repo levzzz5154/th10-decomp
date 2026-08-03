@@ -306,6 +306,44 @@ int PlayerScoreRuntime_Initialize(void* state) {
 }
 
 // 0x004086B0 - Report whether two axis-aligned extents are disjoint.
+#ifdef _MSC_VER
+__declspec(naked) bool OutsideAxisAlignedBounds(
+        float center_x, float center_y,
+        float offset_x, float offset_y,
+        float half_width, float half_height) {
+    __asm {
+        fld dword ptr [esp+4]
+        fadd dword ptr [ecx]
+        fcomp dword ptr [flt_470B40]
+        fnstsw ax
+        test ah, 41h
+        jnp return_true
+        fld dword ptr [ecx]
+        fsub dword ptr [esp+4]
+        fcomp dword ptr [flt_470B3C]
+        fnstsw ax
+        test ah, 1
+        je return_true
+        fld dword ptr [esp+8]
+        fadd dword ptr [ecx+4]
+        fcomp dword ptr [flt_470B04]
+        fnstsw ax
+        test ah, 41h
+        jnp return_true
+        fld dword ptr [ecx+4]
+        fsub dword ptr [esp+8]
+        fcomp dword ptr [flt_470B38]
+        fnstsw ax
+        test ah, 1
+        je return_true
+        xor eax, eax
+        ret 8
+return_true:
+        mov eax, 1
+        ret 8
+    }
+}
+#else
 bool OutsideAxisAlignedBounds(float center_x, float center_y,
                               float offset_x, float offset_y,
                               float half_width, float half_height) {
@@ -314,6 +352,7 @@ bool OutsideAxisAlignedBounds(float center_x, float center_y,
             center_y + offset_y > half_height ||
             center_y - offset_y > half_height);
 }
+#endif
 
 // 0x0040ACE0 - Test a query against both held and newly-pressed input masks.
 #ifdef _MSC_VER

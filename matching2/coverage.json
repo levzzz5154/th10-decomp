@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 411,
-        "retail_bytes": 295627
+        "function_count": 410,
+        "retail_bytes": 295467
       },
       "exact-overlay": {
-        "function_count": 311,
-        "retail_bytes": 37173
+        "function_count": 312,
+        "retail_bytes": 37333
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 311,
+    "function_count": 312,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -672,8 +672,10 @@
       "address": "0x004086B0",
       "symbol": "FUN_004086b0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "OutsideAxisAlignedBounds"
     },
     {
       "address": "0x00408750",
