@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 122,
-      "semantic": 581
+      "exact-overlay": 125,
+      "semantic": 578
     }
   },
   "functions": [
@@ -1249,8 +1249,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C4D0_FUN_0040c4d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_StopAtFrame3@@"
+      }
     },
     {
       "address": "0x0040C540",
@@ -6437,8 +6441,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449590_FUN_00449590.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SetFlagBit1@@"
+      }
     },
     {
       "address": "0x004495E0",
@@ -6447,8 +6455,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004495E0_FUN_004495e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_ClearFlag@@"
+      }
     },
     {
       "address": "0x00449630",

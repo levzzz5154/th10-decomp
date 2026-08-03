@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 581,
-        "retail_bytes": 320288
+        "function_count": 578,
+        "retail_bytes": 320016
       },
       "exact-overlay": {
-        "function_count": 141,
-        "retail_bytes": 12512
+        "function_count": 144,
+        "retail_bytes": 12784
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 141,
+    "function_count": 144,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -919,8 +919,10 @@
       "address": "0x0040C4D0",
       "symbol": "FUN_0040c4d0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_StopAtFrame3@@"
     },
     {
       "address": "0x0040C540",
@@ -4652,15 +4654,19 @@
       "address": "0x00449590",
       "symbol": "FUN_00449590",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SetFlagBit1@@"
     },
     {
       "address": "0x004495E0",
       "symbol": "FUN_004495e0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_ClearFlag@@"
     },
     {
       "address": "0x00449630",

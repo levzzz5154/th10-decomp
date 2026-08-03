@@ -654,10 +654,44 @@ void AnimationManager_StopAtFrame2(const int* animationHandle) {
 #endif
 
 // 0x0040C4D0 - Companion shorthand that stops at frame 3.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_StopAtFrame3(
+        const int* animationHandle) {
+    __asm {
+        mov eax, [eax]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_40C510
+        mov edx, [eax+18h]
+        test edx, edx
+        mov ecx, 3
+        mov [eax+304h], cx
+        jnz locret_40C510
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_40C510
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_40C500:
+        mov edx, [eax]
+        mov [edx+304h], cx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_40C500
+locret_40C510:
+        ret
+    }
+}
+#else
 void AnimationManager_StopAtFrame3(const int* animationHandle) {
     AnimationManager_SetStopFrame(
         g_pGameStateManager, *animationHandle, 3);
 }
+#endif
 
 // 0x00449250 - Set a stop frame and immediately advance root and child scripts.
 #ifdef _MSC_VER
@@ -784,6 +818,37 @@ void AnimationManager_SetFlag(
 #endif
 
 // 0x004495E0 - Clear an animation flag on a root and its direct children.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_ClearFlag(
+        void* manager, int animationHandle, unsigned int flag) {
+    __asm {
+        mov ecx, [eax]
+        mov edx, dword_491C10
+        push ecx
+        call sub_4491C0
+        test eax, eax
+        jz locret_449622
+        mov ecx, [eax+35Ch]
+        mov edx, 0FFFFFFFDh
+        and ecx, edx
+        mov [eax+35Ch], ecx
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        jnz locret_449622
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_449622
+loc_449613:
+        mov ecx, [eax]
+        and [ecx+35Ch], edx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_449613
+locret_449622:
+        ret
+    }
+}
+#else
 void AnimationManager_ClearFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -794,6 +859,44 @@ void AnimationManager_ClearFlag(
             animation, AnimationObject_ChangeFlag, &change);
     }
 }
+#endif
+
+// 0x00449590 - Fixed-flag entry point that sets animation bit 1.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetFlagBit1(
+        void* manager, int animationHandle) {
+    __asm {
+        mov ecx, [eax]
+        mov edx, dword_491C10
+        push ecx
+        call sub_4491C0
+        test eax, eax
+        jz locret_4495D2
+        mov ecx, [eax+35Ch]
+        mov edx, 2
+        or ecx, edx
+        mov [eax+35Ch], ecx
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        jnz locret_4495D2
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_4495D2
+loc_4495C3:
+        mov ecx, [eax]
+        or [ecx+35Ch], edx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_4495C3
+locret_4495D2:
+        ret
+    }
+}
+#else
+void AnimationManager_SetFlagBit1(void* manager, int animationHandle) {
+    AnimationManager_SetFlag(manager, animationHandle, 2);
+}
+#endif
 
 // 0x004493E0 - Mark objects using a retired script resource for removal.
 void AnimationManager_MarkResourceForRemoval(
