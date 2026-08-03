@@ -197,6 +197,7 @@ OVERLAYS = (
     ("sound_stream_start.obj", "SoundStream_Start", 0x0044D440),
     ("sound_commands.obj", "Streamer_FillBufferRetail", 0x0044D110),
     ("sound_worker.obj", "Platform_StopSoundWorkersRetail", 0x0043CC40),
+    ("joystick_property_overlay.obj", "Input_SetJoystickPropertyRetail", 0x0044C7E0),
     ("text_log.obj", "?TextLog_Append@@", 0x0044B810),
     ("text_log.obj", "TextLog_AppendLine", 0x0044B8E0),
     ("effect_indicator_slots.obj", "CellPair_Scale", 0x00427D80),

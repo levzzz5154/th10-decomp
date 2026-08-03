@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 387,
-        "retail_bytes": 289371
+        "function_count": 386,
+        "retail_bytes": 289099
       },
       "exact-overlay": {
-        "function_count": 335,
-        "retail_bytes": 43429
+        "function_count": 336,
+        "retail_bytes": 43701
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 335,
+    "function_count": 336,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5418,8 +5418,10 @@
       "address": "0x0044C7E0",
       "symbol": "FUN_0044c7e0",
       "size": 272,
-      "status": "semantic",
-      "source": "src/platform/joystick_property.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/joystick_property.cpp",
+      "overlay_object": "joystick_property_overlay.obj",
+      "overlay_symbol": "Input_SetJoystickPropertyRetail"
     },
     {
       "address": "0x0044C8F0",

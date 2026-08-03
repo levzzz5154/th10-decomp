@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 316,
-      "semantic": 387
+      "exact-overlay": 317,
+      "semantic": 386
     }
   },
   "functions": [
@@ -7745,8 +7745,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C7E0_FUN_0044c7e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/joystick_property.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/joystick_property.cpp",
+      "overlay": {
+        "object": "joystick_property_overlay.obj",
+        "symbol": "Input_SetJoystickPropertyRetail"
+      }
     },
     {
       "address": "0x0044C8F0",

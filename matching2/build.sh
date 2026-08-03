@@ -50,6 +50,7 @@ OVERLAY_SOURCES=(
     src/platform/sound_stream_start.cpp
     src/platform/sound_commands.cpp
     src/platform/text_log.cpp
+    src/platform/joystick_property_overlay.cpp
     src/game/archive_cursor_open.cpp
     src/game/archive_cursor.cpp
     src/game/archive_cursor_read.cpp
