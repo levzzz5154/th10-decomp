@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 274,
-      "semantic": 429
+      "exact-overlay": 276,
+      "semantic": 427
     }
   },
   "functions": [
@@ -649,8 +649,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00406160_FUN_00406160.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/entity.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/entity.cpp",
+      "overlay": {
+        "object": "entity.obj",
+        "symbol": "?Entity_PointWithinBounds@@"
+      }
     },
     {
       "address": "0x004061D0",
@@ -659,8 +663,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004061D0_FUN_004061d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/entity.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/entity.cpp",
+      "overlay": {
+        "object": "entity.obj",
+        "symbol": "?Entity_PointWithinBoundsInclusive@@"
+      }
     },
     {
       "address": "0x00406240",

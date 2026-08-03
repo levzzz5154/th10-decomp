@@ -20,6 +20,15 @@ extern float DAT_00470b3c;
 extern float DAT_00470b40;
 extern float DAT_00470b5c;
 
+#ifdef _MSC_VER
+extern "C" float flt_470B0C;
+extern "C" float flt_470B40;
+extern "C" float flt_470B3C;
+extern "C" float flt_470B5C;
+extern "C" float flt_470B38;
+extern "C" float flt_470B04;
+#endif
+
 static bool Entity_AxisContains(float coordinate, float radius,
                                 float lower, float upper) {
     const float expanded = coordinate + radius * DAT_00470b0c;
@@ -49,18 +58,108 @@ Entity* Entity_ResetRuntimeState(Entity* entity) {
 }
 
 // 0x00406160 - Test a point against the entity's two-axis bounds.
+#ifdef _MSC_VER
+__declspec(naked) bool Entity_PointWithinBounds(
+        const Vector3* bounds, float x, float y) {
+    __asm {
+        fld dword ptr [esp+4]
+        fmul dword ptr [flt_470B0C]
+        fld st(0)
+        fadd dword ptr [ecx]
+        fcomp dword ptr [flt_470B40]
+        fnstsw ax
+        test ah, 41h
+        jnp cleanup
+        fld dword ptr [ecx]
+        fsub st, st(1)
+        fcomp dword ptr [flt_470B3C]
+        fnstsw ax
+        fstp st(0)
+        test ah, 1
+        je return_true
+        fld dword ptr [esp+8]
+        fmul dword ptr [flt_470B0C]
+        fld st(0)
+        fadd dword ptr [ecx+4]
+        fcomp dword ptr [flt_470B5C]
+        fnstsw ax
+        test ah, 41h
+        jnp cleanup
+        fld dword ptr [ecx+4]
+        fsub st, st(1)
+        fcomp dword ptr [flt_470B38]
+        fnstsw ax
+        fstp st(0)
+        test ah, 1
+        je return_true
+        xor eax, eax
+        ret 8
+cleanup:
+        fstp st(0)
+return_true:
+        mov eax, 1
+        ret 8
+    }
+}
+#else
 bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y) {
     return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
                                DAT_00470b40) &&
         Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b5c);
 }
+#endif
 
 // 0x004061D0 - Variant using the zero lower X limit used by the renderer.
+#ifdef _MSC_VER
+__declspec(naked) bool Entity_PointWithinBoundsInclusive(
+        const Vector3* bounds, float x, float y) {
+    __asm {
+        fld dword ptr [esp+4]
+        fmul dword ptr [flt_470B0C]
+        fld st(0)
+        fadd dword ptr [ecx]
+        fcomp dword ptr [flt_470B40]
+        fnstsw ax
+        test ah, 41h
+        jnp cleanup
+        fld dword ptr [ecx]
+        fsub st, st(1)
+        fcomp dword ptr [flt_470B3C]
+        fnstsw ax
+        fstp st(0)
+        test ah, 1
+        je return_true
+        fld dword ptr [esp+8]
+        fmul dword ptr [flt_470B0C]
+        fld st(0)
+        fadd dword ptr [ecx+4]
+        fcomp dword ptr [flt_470B04]
+        fnstsw ax
+        test ah, 41h
+        jnp cleanup
+        fld dword ptr [ecx+4]
+        fsub st, st(1)
+        fcomp dword ptr [flt_470B38]
+        fnstsw ax
+        fstp st(0)
+        test ah, 1
+        je return_true
+        xor eax, eax
+        ret 8
+cleanup:
+        fstp st(0)
+return_true:
+        mov eax, 1
+        ret 8
+    }
+}
+#else
 bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y) {
     return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
                                DAT_00470b40) &&
         Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b04);
 }
+#endif
 
 // ============================================================================
 // 0x00401FF0 - Entity Destructor

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 429,
-        "retail_bytes": 298347
+        "function_count": 427,
+        "retail_bytes": 298123
       },
       "exact-overlay": {
-        "function_count": 293,
-        "retail_bytes": 34453
+        "function_count": 295,
+        "retail_bytes": 34677
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 293,
+    "function_count": 295,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -495,15 +495,19 @@
       "address": "0x00406160",
       "symbol": "FUN_00406160",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/entity.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "?Entity_PointWithinBounds@@"
     },
     {
       "address": "0x004061D0",
       "symbol": "FUN_004061d0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/entity.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "?Entity_PointWithinBoundsInclusive@@"
     },
     {
       "address": "0x00406240",
