@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 591,
-        "retail_bytes": 320880
+        "function_count": 586,
+        "retail_bytes": 320656
       },
       "exact-overlay": {
-        "function_count": 131,
-        "retail_bytes": 11920
+        "function_count": 136,
+        "retail_bytes": 12144
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 131,
+    "function_count": 136,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4123,8 +4123,10 @@
       "address": "0x004423C0",
       "symbol": "FUN_004423c0",
       "size": 32,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationColor_MultiplyChannel@@"
     },
     {
       "address": "0x004423E0",
@@ -4624,8 +4626,10 @@
       "address": "0x00449450",
       "symbol": "FUN_00449450",
       "size": 32,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_ValidateHandle@@"
     },
     {
       "address": "0x00449470",
@@ -4659,15 +4663,19 @@
       "address": "0x00449670",
       "symbol": "FUN_00449670",
       "size": 48,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SelectSpriteFromCurrentResource@@"
     },
     {
       "address": "0x004496A0",
       "symbol": "FUN_004496a0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SelectSpriteFromResource@@"
     },
     {
       "address": "0x004496D0",
@@ -4708,8 +4716,10 @@
       "address": "0x00449AA0",
       "symbol": "FUN_00449aa0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/render/d3d_resource_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/d3d_resource_manager.cpp",
+      "overlay_object": "d3d_resource_manager.obj",
+      "overlay_symbol": "?D3DResourceManager_Initialize@@"
     },
     {
       "address": "0x00449AE0",

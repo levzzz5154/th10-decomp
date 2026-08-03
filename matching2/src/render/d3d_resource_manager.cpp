@@ -44,10 +44,39 @@ void D3DResourceList_ReleaseResources(
 }
 
 // 0x00449AA0 - Initialize both embedded resource lists.
+#ifdef _MSC_VER
+__declspec(naked) void D3DResourceManager_Initialize(
+        D3DResourceManager* manager) {
+    __asm {
+        mov ecx, [eax+4]
+        xor edx, edx
+        mov [eax+8], edx
+        mov [eax+0Ch], edx
+        mov [eax+10h], edx
+        mov [eax], edx
+        and ecx, 0FFFFFFFEh
+        mov [eax+4], ecx
+        lea ecx, [eax+24h]
+        mov [eax+14h], eax
+        mov [eax+18h], edx
+        mov [eax+1Ch], edx
+        and dword ptr [ecx+4], 0FFFFFFFEh
+        mov [ecx+8], edx
+        mov [ecx+0Ch], edx
+        mov [ecx+10h], edx
+        mov [ecx], edx
+        mov [ecx+14h], ecx
+        mov [ecx+18h], edx
+        mov [ecx+1Ch], edx
+        ret
+    }
+}
+#else
 void D3DResourceManager_Initialize(D3DResourceManager* manager) {
     D3DResourceList_Initialize(&manager->primary);
     D3DResourceList_Initialize(&manager->secondary);
 }
+#endif
 
 // 0x00438880 - Stop the worker and release both classes of D3D resources.
 void D3DResourceManager_Destroy(D3DResourceManager* manager) {

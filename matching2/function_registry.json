@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 112,
-      "semantic": 591
+      "exact-overlay": 117,
+      "semantic": 586
     }
   },
   "functions": [
@@ -5671,8 +5671,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004423C0_FUN_004423c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationColor_MultiplyChannel@@"
+      }
     },
     {
       "address": "0x004423E0",
@@ -6389,8 +6393,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449450_FUN_00449450.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_ValidateHandle@@"
+      }
     },
     {
       "address": "0x00449470",
@@ -6439,8 +6447,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449670_FUN_00449670.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SelectSpriteFromCurrentResource@@"
+      }
     },
     {
       "address": "0x004496A0",
@@ -6449,8 +6461,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004496A0_FUN_004496a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SelectSpriteFromResource@@"
+      }
     },
     {
       "address": "0x004496D0",
@@ -6509,8 +6525,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449AA0_FUN_00449aa0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/d3d_resource_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/d3d_resource_manager.cpp",
+      "overlay": {
+        "object": "d3d_resource_manager.obj",
+        "symbol": "?D3DResourceManager_Initialize@@"
+      }
     },
     {
       "address": "0x00449AE0",

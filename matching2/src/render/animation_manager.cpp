@@ -19,6 +19,12 @@ extern float _DAT_00470b60;
 extern unsigned int DAT_00476f78;
 extern void* g_pD3DDevice;
 
+#ifdef _MSC_VER
+extern "C" unsigned long dword_491C10;
+extern "C" void* sub_4491C0(void*);
+extern "C" void sub_43E5A0(void*, void*);
+#endif
+
 extern "C" int __stdcall D3DXCreateTexture(
     void* device, unsigned int width, unsigned int height,
     unsigned int mip_levels, unsigned int usage, unsigned int format,
@@ -93,10 +99,27 @@ void AnimationManager_ReleaseResourceBatch(
 
 // 0x004423C0 - Multiply two 7-bit-normalized color channels and saturate the
 // result to the byte range used by the animation renderer.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t AnimationColor_MultiplyChannel(
+        uint32_t left, uint32_t right) {
+    __asm {
+        movzx eax, al
+        movzx ecx, cl
+        imul eax, ecx
+        shr eax, 7
+        cmp eax, 100h
+        jb locret_4423D8
+        mov eax, 0FFh
+locret_4423D8:
+        ret
+    }
+}
+#else
 uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {
     uint32_t result = (left & 0xFF) * (right & 0xFF) >> 7;
     return result > 0xFF ? 0xFF : result;
 }
+#endif
 
 // 0x00447940 - Copy one animation position record and derive its normalized
 // coordinates and extents. The retail record is 0x44 bytes (17 floats).
@@ -874,6 +897,22 @@ void AnimationManager_SetTranslatedPosition(
 }
 
 // 0x00449450 - Clear a stale animation handle after a failed lookup.
+#ifdef _MSC_VER
+__declspec(naked) bool AnimationManager_ValidateHandle(
+        void* manager, int* animationHandle) {
+    __asm {
+        mov eax, [esi]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jnz locret_449464
+        mov [esi], eax
+locret_449464:
+        ret
+    }
+}
+#else
 bool AnimationManager_ValidateHandle(
     void* manager, int* animationHandle) {
     if (AnimationManager_Find(manager, *animationHandle) != 0) {
@@ -882,6 +921,7 @@ bool AnimationManager_ValidateHandle(
     *animationHandle = 0;
     return false;
 }
+#endif
 
 // 0x00449630 - Mark an object tree for removal and invalidate its owner handle.
 void AnimationManager_MarkForRemovalAndClearHandle(
@@ -893,6 +933,25 @@ void AnimationManager_MarkForRemovalAndClearHandle(
 
 
 // 0x00449670 - Select a sprite from the object's current script resource.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_SelectSpriteFromCurrentResource(
+        void* manager, const int* animationHandle, int spriteIndex,
+        AnimationSpriteSelector selector) {
+    __asm {
+        mov ecx, [eax]
+        mov edx, dword_491C10
+        push ecx
+        call sub_4491C0
+        test eax, eax
+        jz locret_449691
+        mov edx, [esp+4]
+        mov ecx, [eax+308h]
+        call sub_43E5A0
+locret_449691:
+        ret 4
+    }
+}
+#else
 int AnimationManager_SelectSpriteFromCurrentResource(
     void* manager, const int* animationHandle, int spriteIndex,
     AnimationSpriteSelector selector) {
@@ -904,8 +963,28 @@ int AnimationManager_SelectSpriteFromCurrentResource(
     return selector(
         animation, ((Entity*)animation)->ScriptResource(), spriteIndex);
 }
+#endif
 
 // 0x004496A0 - Select a sprite from an explicitly supplied resource.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_SelectSpriteFromResource(
+        void* manager, const int* animationHandle, void* resource,
+        int spriteIndex, AnimationSpriteSelector selector) {
+    __asm {
+        mov ecx, [eax]
+        mov edx, dword_491C10
+        push ecx
+        call sub_4491C0
+        test eax, eax
+        jz locret_4496BF
+        mov edx, [esp+8]
+        mov ecx, [esp+4]
+        call sub_43E5A0
+locret_4496BF:
+        ret 8
+    }
+}
+#else
 int AnimationManager_SelectSpriteFromResource(
     void* manager, const int* animationHandle, void* resource,
     int spriteIndex, AnimationSpriteSelector selector) {
@@ -916,6 +995,7 @@ int AnimationManager_SelectSpriteFromResource(
     }
     return selector(animation, resource, spriteIndex);
 }
+#endif
 
 static AnimationObject** AnimationManager_RenderBucketHead(
     void* manager, unsigned int bucketIndex) {
