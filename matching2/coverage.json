@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 408,
-        "retail_bytes": 294939
+        "function_count": 407,
+        "retail_bytes": 294763
       },
       "exact-overlay": {
-        "function_count": 314,
-        "retail_bytes": 37861
+        "function_count": 315,
+        "retail_bytes": 38037
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 314,
+    "function_count": 315,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -630,8 +630,10 @@
       "address": "0x00407E40",
       "symbol": "FUN_00407e40",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/player_motion.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player_motion.cpp",
+      "overlay_object": "player_motion.obj",
+      "overlay_symbol": "Player_WrapVertical"
     },
     {
       "address": "0x00407EF0",

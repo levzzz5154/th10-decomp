@@ -7,7 +7,9 @@ extern "C" void sub_44BF40(float);
 extern "C" void sub_43DC90(void*, int, void*);
 extern "C" float flt_470B40;
 extern "C" float flt_470B3C;
+extern "C" float flt_470B38;
 extern "C" float flt_470B54;
+extern "C" double dbl_470B70;
 #endif
 #include "th10/util/scalars.hpp"
 
@@ -159,6 +161,66 @@ void Player_WrapHorizontal(float* axis, float field_extent, float low_bound,
 // 0x00407E40 - Wrap the player's vertical coordinate across the playfield.
 // Identical frame to the horizontal leaf, but the focus counter lives at
 // +0x784 and the toggled pose-flag bit is 0x200000.
+#ifdef _MSC_VER
+__declspec(naked) void Player_WrapVertical(
+        float* axis, float field_extent, float low_bound,
+        float high_bound, float margin, int (*probe)(void),
+        void (*play_wrap_sound)(float pan), int effect_slot,
+        void (*spawn_wrap_effect)(void), int focus_count,
+        unsigned int* pose_flags) {
+    __asm {
+        mov edx, [ebx+39Ch]
+        mov eax, [edx+30h]
+        mov ecx, [edx+34h]
+        push eax
+        push ecx
+        lea ecx, [ebx+3B4h]
+        call sub_4061D0
+        test eax, eax
+        je done
+        fld dword ptr [ebx+3B8h]
+        push esi
+        fcomp qword ptr [dbl_470B70]
+        push edi
+        fnstsw ax
+        test ah, 5
+        jp wrap_low
+        fld dword ptr [edx+30h]
+        fadd dword ptr [ebx+3B8h]
+        fadd dword ptr [flt_470B38]
+        jmp store_wrap
+wrap_low:
+        fld dword ptr [ebx+3B8h]
+        fcomp dword ptr [flt_470B38]
+        fnstsw ax
+        test ah, 41h
+        jne after_effect
+        fld dword ptr [edx+30h]
+        fadd dword ptr [flt_470B38]
+        fsubr dword ptr [ebx+3B8h]
+store_wrap:
+        lea esi, [ebx+780h]
+        fstp dword ptr [ebx+3B8h]
+        push 0BF800000h
+        call sub_44BF40
+        mov edi, [ebx+458h]
+        test edi, edi
+        jl after_effect
+        mov ecx, 492590h
+        push 0
+        call sub_43DC90
+after_effect:
+        mov eax, [ebx+784h]
+        test eax, eax
+        pop edi
+        pop esi
+        jg done
+        xor dword ptr [ebx+43Ch], 200000h
+done:
+        ret
+    }
+}
+#else
 void Player_WrapVertical(float* axis, float field_extent, float low_bound,
                          float high_bound, float margin, int (*probe)(void),
                          void (*play_wrap_sound)(float pan), int effect_slot,
@@ -169,6 +231,7 @@ void Player_WrapVertical(float* axis, float field_extent, float low_bound,
                         spawn_wrap_effect);
     if (focus_count < 1) *pose_flags = *pose_flags ^ 0x200000u;
 }
+#endif
 
 // --- Frame-timer leaves -------------------------------------------------------
 
