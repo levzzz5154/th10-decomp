@@ -27,6 +27,7 @@ OVERLAY_SOURCES=(
     src/math/rng.cpp
     src/math/vector.cpp
     src/math/timer.cpp
+    src/game/scheduler.cpp
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
 )

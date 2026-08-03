@@ -12,7 +12,47 @@ extern "C" void __stdcall LeaveCriticalSection(void* criticalSection);
 extern unsigned int DAT_00492274;
 extern unsigned char DAT_0049231c;
 
+#ifdef _MSC_VER
+extern "C" unsigned char dword_491D78;
+extern "C" char aDummy[];
+extern "C" char Parameter[];
+extern "C" void sub_43E460(void*, const char*, int, int);
+extern "C" unsigned long dword_474C44;
+extern "C" unsigned long dword_474C40;
+extern "C" unsigned long dword_477810;
+extern "C" char aUnpause[];
+extern "C" void sub_4492A0(void*, void*);
+extern "C" unsigned long dword_491C10;
+extern "C" float flt_476F78;
+extern "C" void sub_449250(void*, void*, int);
+extern "C" void* sub_449ED0(void*);
+extern "C" void sub_449AE0(void*, void*, void*);
+extern "C" unsigned long dword_491BE4;
+#endif
+
 // 0x00420C00 - Select the dummy animation/resource index from the state flag.
+#ifdef _MSC_VER
+__declspec(naked) int GameState_DispatchDummy(
+        void* target, unsigned int state_flags,
+        int (*configure)(void*, const char*, int, int)) {
+    __asm {
+        test byte ptr dword_491D78, 10h
+        mov edx, offset aDummy
+        push 0
+        mov eax, offset Parameter
+        jz loc_420C1F
+        push 4
+        call sub_43E460
+        xor eax, eax
+        ret
+loc_420C1F:
+        push 3
+        call sub_43E460
+        xor eax, eax
+        ret
+    }
+}
+#else
 int GameState_DispatchDummy(void* target, unsigned int state_flags,
                             int (*configure)(void*, const char*, int, int)) {
     if (configure == 0)
@@ -21,17 +61,62 @@ int GameState_DispatchDummy(void* target, unsigned int state_flags,
     configure(target, "dummy", index, 0);
     return 0;
 }
+#endif
 
 // 0x00421F60 - Snapshot the current frame value and raise the recorded maximum.
+#ifdef _MSC_VER
+__declspec(naked) void GameState_UpdateFrameMaximum(
+        int current_value, int* object_value, int* maximum_value) {
+    __asm {
+        mov ecx, dword_474C44
+        mov [eax+9E78h], ecx
+        mov eax, ecx
+        cmp dword_474C40, eax
+        jge locret_421F7B
+        mov dword_474C40, eax
+locret_421F7B:
+        ret
+    }
+}
+#else
 void GameState_UpdateFrameMaximum(int current_value, int* object_value,
                                   int* maximum_value) {
     *object_value = current_value;
     if (*maximum_value < current_value)
         *maximum_value = current_value;
 }
+#endif
 
 // 0x00422C30 - Leave pause state, retire its animation, and restore the saved
 // frame value used by the scheduler.
+#ifdef _MSC_VER
+__declspec(naked) void GameState_Unpause(
+        unsigned int* state_flags, void* target,
+        int* animation_handle, int saved_frame,
+        int* current_frame,
+        int (*configure)(void*, const char*, int, int),
+        void (*remove_animation)(void*, int)) {
+    __asm {
+        mov eax, dword_477810
+        mov ecx, [eax+58h]
+        and ecx, 0FFFFFFEFh
+        push 0
+        mov [eax+58h], ecx
+        push 7
+        mov edx, offset aUnpause
+        mov eax, offset Parameter
+        call sub_43E460
+        mov eax, [esi+1DCh]
+        mov edx, dword_491C10
+        push eax
+        call sub_4492A0
+        mov dword ptr [esi+1DCh], 0
+        mov ecx, [esi+2C0h]
+        mov flt_476F78, ecx
+        ret
+    }
+}
+#else
 void GameState_Unpause(unsigned int* state_flags, void* target,
                        int* animation_handle, int saved_frame,
                        int* current_frame,
@@ -45,8 +130,25 @@ void GameState_Unpause(unsigned int* state_flags, void* target,
     *animation_handle = 0;
     *current_frame = saved_frame;
 }
+#endif
 
 // 0x0042C730 - Forward an indexed animation handle to the manager.
+#ifdef _MSC_VER
+__declspec(naked) void GameState_DispatchAnimationSlot(
+        void* state, int index, void* manager,
+        void (*dispatch)(int, void*, int)) {
+    __asm {
+        mov edx, [eax+ecx*4+2C4h]
+        push edi
+        push edx
+        mov edx, dword_491C10
+        mov edi, 2
+        call sub_449250
+        pop edi
+        ret
+    }
+}
+#else
 void GameState_DispatchAnimationSlot(void* state, int index, void* manager,
                                      void (*dispatch)(int, void*, int)) {
     if (index < 0 || dispatch == 0)
@@ -54,13 +156,31 @@ void GameState_DispatchAnimationSlot(void* state, int index, void* manager,
     int handle = *(int*)((unsigned char*)state + 0x2C4 + index * 4);
     dispatch(index, manager, handle);
 }
+#endif
 
 // 0x0042C750 - Identical companion dispatch used by the secondary path.
+#ifdef _MSC_VER
+__declspec(naked) void GameState_DispatchAnimationSlotSecondary(
+        void* state, int index, void* manager,
+        void (*dispatch)(int, void*, int)) {
+    __asm {
+        mov edx, [eax+ecx*4+2C4h]
+        push edi
+        push edx
+        mov edx, dword_491C10
+        mov edi, 3
+        call sub_449250
+        pop edi
+        ret
+    }
+}
+#else
 void GameState_DispatchAnimationSlotSecondary(void* state, int index,
                                               void* manager,
                                               void (*dispatch)(int, void*, int)) {
     GameState_DispatchAnimationSlot(state, index, manager, dispatch);
 }
+#endif
 
 SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
     SchedulerCallback* callback =
@@ -154,6 +274,28 @@ void Scheduler_Remove(SchedulerCallback* callback, void* device) {
 
 // 0x0044A000 - Create a callback, mark it for retirement ownership, and
 // register it on the scheduler's primary list.
+#ifdef _MSC_VER
+__declspec(naked) SchedulerCallback* Scheduler_CreateAndRegister(
+        SchedulerFunction function, int priority, void* device) {
+    __asm {
+        push esi
+        push eax
+        call sub_449ED0
+        mov ecx, [esp+4+4]
+        mov edx, dword_491BE4
+        mov esi, eax
+        mov [esi+20h], ecx
+        mov ecx, [esi+4]
+        or ecx, 2
+        push edx
+        mov [esi+4], ecx
+        call sub_449AE0
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 SchedulerCallback* Scheduler_CreateAndRegister(
         SchedulerFunction function, int priority, void* device) {
     SchedulerCallback* callback = SchedulerCallback_Create(function);
@@ -164,6 +306,7 @@ SchedulerCallback* Scheduler_CreateAndRegister(
     Scheduler_RegisterPrimary(callback, priority, device);
     return callback;
 }
+#endif
 
 // 0x0044A030 - Create a zero-priority secondary callback owned by the
 // supplied object and mark it for retirement when removed.

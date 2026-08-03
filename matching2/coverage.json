@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 613,
-        "retail_bytes": 322304
+        "function_count": 607,
+        "retail_bytes": 322000
       },
       "exact-overlay": {
-        "function_count": 109,
-        "retail_bytes": 10496
+        "function_count": 115,
+        "retail_bytes": 10800
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 109,
+    "function_count": 115,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1998,8 +1998,10 @@
       "address": "0x00420C00",
       "symbol": "FUN_00420c00",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?GameState_DispatchDummy@@"
     },
     {
       "address": "0x00420C30",
@@ -2112,8 +2114,10 @@
       "address": "0x00421F60",
       "symbol": "FUN_00421f60",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?GameState_UpdateFrameMaximum@@"
     },
     {
       "address": "0x00421FA0",
@@ -2193,8 +2197,10 @@
       "address": "0x00422C30",
       "symbol": "FUN_00422c30",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?GameState_Unpause@@"
     },
     {
       "address": "0x00422C80",
@@ -2727,15 +2733,19 @@
       "address": "0x0042C730",
       "symbol": "FUN_0042c730",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?GameState_DispatchAnimationSlot@@"
     },
     {
       "address": "0x0042C750",
       "symbol": "FUN_0042c750",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?GameState_DispatchAnimationSlotSecondary@@"
     },
     {
       "address": "0x0042C770",
@@ -4730,8 +4740,10 @@
       "address": "0x0044A000",
       "symbol": "FUN_0044a000",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?Scheduler_CreateAndRegister@@"
     },
     {
       "address": "0x0044A030",

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 90,
-      "semantic": 613
+      "exact-overlay": 96,
+      "semantic": 607
     }
   },
   "functions": [
@@ -2827,8 +2827,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420C00_FUN_00420c00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?GameState_DispatchDummy@@"
+      }
     },
     {
       "address": "0x00420C30",
@@ -2991,8 +2995,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421F60_FUN_00421f60.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?GameState_UpdateFrameMaximum@@"
+      }
     },
     {
       "address": "0x00421FA0",
@@ -3109,8 +3117,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422C30_FUN_00422c30.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?GameState_Unpause@@"
+      }
     },
     {
       "address": "0x00422C80",
@@ -3881,8 +3893,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C730_FUN_0042c730.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?GameState_DispatchAnimationSlot@@"
+      }
     },
     {
       "address": "0x0042C750",
@@ -3891,8 +3907,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C750_FUN_0042c750.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?GameState_DispatchAnimationSlotSecondary@@"
+      }
     },
     {
       "address": "0x0042C770",
@@ -6521,8 +6541,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044A000_FUN_0044a000.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?Scheduler_CreateAndRegister@@"
+      }
     },
     {
       "address": "0x0044A030",
