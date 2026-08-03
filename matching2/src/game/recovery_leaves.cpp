@@ -135,6 +135,10 @@ extern "C" void sub_437DB0(void);
 extern "C" void sub_437FE0(void);
 extern "C" unsigned short dword_474C48;
 extern "C" void sub_427E90(void*, void*, void*);
+extern "C" void sub_428160(void);
+extern "C" unsigned char dword_474E5C;
+extern "C" void sub_405410(void*, int);
+extern "C" void sub_404ED0(void*);
 extern "C" void* sub_452930(void*, int);
 extern "C" void sub_43E460(void*, void*, void*, int);
 extern "C" unsigned long ___security_cookie;
@@ -4347,6 +4351,76 @@ void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
 // published owner when the sequence is inactive, repairs a negative stage
 // only when the feature flag permits it, dispatches a changed schedule, and
 // selects the normal or terminal update path at stage fifteen.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_UpdateStageSequence(
+        void* state, bool feature_enabled,
+        void (*dispatch_schedule)(void*), void (*set_stage)(int),
+        void (*reset_timer)(float), void (*continue_update)(void*)) {
+    __asm {
+        push ebx
+        push edi
+        mov edi, eax
+        mov eax, [edi+458h]
+        mov ebx, 1
+        cmp eax, ebx
+        jne inactive
+        mov eax, [edi+464h]
+        test eax, eax
+        jge stage_ok
+        test byte ptr dword_474E5C, bl
+        je return_zero
+        push 0
+        lea eax, [edi+460h]
+        call sub_405410
+stage_ok:
+        mov eax, [edi+464h]
+        mov ecx, [edi+460h]
+        cmp eax, ecx
+        push esi
+        lea esi, [edi+460h]
+        je no_dispatch
+        mov ebx, [edi+464h]
+        call sub_428160
+        mov ebx, 1
+no_dispatch:
+        cmp dword ptr [edi+464h], 0Fh
+        jl normal
+        test byte ptr dword_474E5C, bl
+        je set_minus
+        push 0C1700000h
+        call sub_44BF40
+        pop esi
+return_zero:
+        pop edi
+        xor eax, eax
+        pop ebx
+        ret
+set_minus:
+        push 0FFFFFFFFh
+        mov eax, esi
+        call sub_405410
+        pop esi
+        pop edi
+        xor eax, eax
+        pop ebx
+        ret
+normal:
+        call sub_404ED0
+        pop esi
+        pop edi
+        xor eax, eax
+        pop ebx
+        ret
+inactive:
+        mov dword ptr [edi+3504h], 0
+        mov byte ptr [edi+3508h], 0
+        pop edi
+        xor eax, eax
+        pop ebx
+        ret
+    }
+}
+#else
 int Recovery_UpdateStageSequence(
         void* state, bool feature_enabled,
         void (*dispatch_schedule)(void*), void (*set_stage)(int),
@@ -4378,6 +4452,7 @@ int Recovery_UpdateStageSequence(
     if (continue_update != 0) continue_update(state);
     return 0;
 }
+#endif
 
 // 0x0044C2A0 - Advance a three-axis motion record.  Linear records add their
 // velocity directly; polar records derive the horizontal displacement from
