@@ -196,6 +196,8 @@ OVERLAYS = (
     ("sound_float_forward.obj", "?Sound_ForwardFloatAsDouble@@", 0x00427C50),
     ("sound_stream_start.obj", "SoundStream_Start", 0x0044D440),
     ("sound_commands.obj", "Streamer_FillBufferRetail", 0x0044D110),
+    ("sound_worker.obj", "Platform_StopSoundWorkersRetail", 0x0043CC40),
+    ("text_log.obj", "?TextLog_Append@@", 0x0044B810),
     ("process.obj", "?Platform_DestroyWorker@@", 0x0044C100),
     ("process.obj", "?Platform_StopWorkerNoDelete@@", 0x0044C130),
     ("process.obj", "?Platform_LaunchProcess@@", 0x00436570),

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 309,
-      "semantic": 394
+      "exact-overlay": 311,
+      "semantic": 392
     }
   },
   "functions": [
@@ -5717,8 +5717,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043CC40_FUN_0043cc40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/sound_worker.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/sound_worker.cpp",
+      "overlay": {
+        "object": "sound_worker.obj",
+        "symbol": "Platform_StopSoundWorkersRetail"
+      }
     },
     {
       "address": "0x0043CD30",
@@ -7453,8 +7457,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B810_FUN_0044b810.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/text_log.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/text_log.cpp",
+      "overlay": {
+        "object": "text_log.obj",
+        "symbol": "?TextLog_Append@@"
+      }
     },
     {
       "address": "0x0044B8E0",

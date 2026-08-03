@@ -49,6 +49,7 @@ OVERLAY_SOURCES=(
     src/game/stage_tips.cpp
     src/platform/sound_stream_start.cpp
     src/platform/sound_commands.cpp
+    src/platform/text_log.cpp
     src/game/archive_cursor_open.cpp
     src/game/archive_cursor.cpp
     src/game/archive_cursor_read.cpp

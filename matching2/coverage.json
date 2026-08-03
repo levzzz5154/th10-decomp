@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 394,
-        "retail_bytes": 291115
+        "function_count": 392,
+        "retail_bytes": 290667
       },
       "exact-overlay": {
-        "function_count": 328,
-        "retail_bytes": 41685
+        "function_count": 330,
+        "retail_bytes": 42133
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 328,
+    "function_count": 330,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4076,8 +4076,10 @@
       "address": "0x0043CC40",
       "symbol": "FUN_0043cc40",
       "size": 240,
-      "status": "semantic",
-      "source": "src/platform/sound_worker.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_worker.cpp",
+      "overlay_object": "sound_worker.obj",
+      "overlay_symbol": "Platform_StopSoundWorkersRetail"
     },
     {
       "address": "0x0043CD30",
@@ -5232,8 +5234,10 @@
       "address": "0x0044B810",
       "symbol": "FUN_0044b810",
       "size": 208,
-      "status": "semantic",
-      "source": "src/platform/text_log.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/text_log.cpp",
+      "overlay_object": "text_log.obj",
+      "overlay_symbol": "?TextLog_Append@@"
     },
     {
       "address": "0x0044B8E0",
