@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 383,
-        "retail_bytes": 288443
+        "function_count": 381,
+        "retail_bytes": 287899
       },
       "exact-overlay": {
-        "function_count": 339,
-        "retail_bytes": 44357
+        "function_count": 341,
+        "retail_bytes": 44901
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 339,
+    "function_count": 341,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2746,8 +2746,10 @@
       "address": "0x0042A930",
       "symbol": "FUN_0042a930",
       "size": 288,
-      "status": "semantic",
-      "source": "src/game/effect_indicator_slots.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/effect_indicator_slots.cpp",
+      "overlay_object": "effect_indicator_slots.obj",
+      "overlay_symbol": "EmbeddedTimer_SetCountdownRetail"
     },
     {
       "address": "0x0042AA50",
@@ -4487,8 +4489,10 @@
       "address": "0x00444BE0",
       "symbol": "FUN_00444be0",
       "size": 256,
-      "status": "semantic",
-      "source": "src/render/edge_strips.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/edge_strips.cpp",
+      "overlay_object": "edge_strips.obj",
+      "overlay_symbol": "RenderTarget_FillVerticalEdgeStripRetail"
     },
     {
       "address": "0x00444CE0",

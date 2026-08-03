@@ -18,6 +18,33 @@ void StoreFloatImage(int* slot, float value) {
 // the shared five-word sentinel pattern (see EmbeddedTimer_Reset at
 // 0x004050D0): seed target with -999999, wire the speed pointer to the
 // global default, and set the initialized bit.
+#ifdef _MSC_VER
+__declspec(naked) void EmbeddedTimer_SetCountdownRetail() {
+    __asm {
+        mov ecx, [eax+24h]
+        test cl, 1
+        push esi
+        mov esi, [esp+8]
+        jnz loc_42A959
+        xor edx, edx
+        or ecx, 1
+        mov [eax+18h], edx
+        mov dword ptr [eax+14h], 0FFF0BDC1h
+        mov [eax+1Ch], edx
+        mov dword ptr [eax+20h], 476F78h
+        mov [eax+24h], ecx
+loc_42A959:
+        fild dword ptr [esp+8]
+        mov [eax+18h], esi
+        dec esi
+        mov [eax+14h], esi
+        fstp dword ptr [eax+1Ch]
+        pop esi
+        ret 4
+    }
+}
+#endif
+
 void EmbeddedTimer_SetCountdown(EmbeddedTimerState* timer, int32_t frames) {
     if ((timer->flags & 1u) == 0) {
         timer->current = 0;

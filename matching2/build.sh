@@ -60,6 +60,7 @@ OVERLAY_SOURCES=(
     src/math/random_vector.cpp
     src/render/quad_vertex_append.cpp
     src/render/anm_batch_flush.cpp
+    src/render/edge_strips.cpp
     src/game/game_ui_create.cpp
     src/game/stage_tip_manager.cpp
     src/game/frame_counter.cpp

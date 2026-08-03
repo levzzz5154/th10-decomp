@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 320,
-      "semantic": 383
+      "exact-overlay": 322,
+      "semantic": 381
     }
   },
   "functions": [
@@ -4003,8 +4003,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042A930_FUN_0042a930.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/effect_indicator_slots.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/effect_indicator_slots.cpp",
+      "overlay": {
+        "object": "effect_indicator_slots.obj",
+        "symbol": "EmbeddedTimer_SetCountdownRetail"
+      }
     },
     {
       "address": "0x0042AA50",
@@ -6335,8 +6339,12 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00444BE0_FUN_00444be0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/edge_strips.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/edge_strips.cpp",
+      "overlay": {
+        "object": "edge_strips.obj",
+        "symbol": "RenderTarget_FillVerticalEdgeStripRetail"
+      }
     },
     {
       "address": "0x00444CE0",
