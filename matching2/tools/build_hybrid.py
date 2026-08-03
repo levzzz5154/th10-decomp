@@ -104,6 +104,8 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Recovery_SelectArchiveEntry@@", 0x0043D790),
     ("recovery_leaves.obj", "?Platform_ReleaseOwnedHandle@@", 0x00413450),
     ("recovery_leaves.obj", "?Recovery_SwitchPlaybackState@@", 0x00427AE0),
+    ("recovery_leaves.obj", "?Platform_SetOperationDeadline@@", 0x0044D4E0),
+    ("recovery_leaves.obj", "?Recovery_TickState@@", 0x0040BD20),
 )
 
 

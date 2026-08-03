@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 17,
-      "semantic": 162
+      "exact-overlay": 18,
+      "semantic": 161
     }
   },
   "integration_gates": {
@@ -1918,7 +1918,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },

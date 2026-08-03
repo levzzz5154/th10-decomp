@@ -49,6 +49,14 @@ extern "C" void* __imp_LeaveCriticalSection;
 extern "C" unsigned char byte_49231C;
 extern "C" void sub_449F60(void*, void*);
 extern "C" unsigned long dword_477708;
+extern "C" unsigned long dword_497854;
+extern "C" float flt_470B00;
+extern "C" float flt_470B68;
+extern "C" float flt_470B64;
+extern "C" float flt_470AFC;
+extern "C" float _flt_470AFC;
+extern "C" long __cdecl __ftol2(void);
+extern "C" void sub_40BD80(void*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1209,6 +1217,49 @@ void* Platform_DeletingDestructorVtable(
 
 // 0x0044D4E0 - Install either the fixed fallback deadline or the randomized
 // interval used by the retail presentation path.
+#ifdef _MSC_VER
+__declspec(naked) int Platform_SetOperationDeadline(
+        bool randomized, RecoveryWord (*random_value)(void*),
+        void* random_state, void (*set_deadline)(int)) {
+    __asm {
+        mov ecx, dword_497854
+        test ecx, ecx
+        jz loc_44D537
+        fild dword_497854
+        mov ecx, [esp+4]
+        mov eax, [eax+4]
+        add ecx, 1388h
+        fmul dword ptr [flt_470B00]
+        mov [esp+4], ecx
+        push esi
+        mov esi, [eax]
+        fsubr dword ptr [_flt_470AFC]
+        push edi
+        mov edi, [esi]
+        fld st
+        fmul st, st(1)
+        fsubr dword ptr [_flt_470AFC]
+        fimul dword ptr [esp+8+4]
+        call __ftol2
+        fstp st
+        sub eax, 1388h
+        push eax
+        push esi
+        call dword ptr [edi+3Ch]
+        pop edi
+        pop esi
+        ret 4
+loc_44D537:
+        mov edx, [eax+4]
+        mov eax, [edx]
+        mov ecx, [eax]
+        push 0FFFFD8F0h
+        push eax
+        call dword ptr [ecx+3Ch]
+        ret 4
+    }
+}
+#else
 int Platform_SetOperationDeadline(
         bool randomized, RecoveryWord (*random_value)(void*), void* random_state,
         void (*set_deadline)(int)) {
@@ -1218,6 +1269,7 @@ int Platform_SetOperationDeadline(
     if (set_deadline != 0) set_deadline(deadline);
     return deadline;
 }
+#endif
 
 static void ClearOwnedChain(RecoveryOwnedLink* link,
                             void (*free_memory)(void*)) {
@@ -1337,6 +1389,50 @@ void Platform_ReleaseOwnedHandle(
 
 // 0x0040BD20 - Advance the frame counter, using the fast path near unit
 // speed and the rounded elapsed-time path for all other speed values.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_TickState(
+        RecoveryTickState* state, int (*update)(void*),
+        float stable_speed, RecoveryWord (*random_round)(void*),
+        void* random_state) {
+    __asm {
+        push esi
+        call sub_40BD80
+        test eax, eax
+        jz loc_40BD30
+        mov eax, 1
+        ret
+loc_40BD30:
+        mov edx, [esi+8]
+        mov ecx, [esi+10h]
+        mov [esi+4], edx
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B68]
+        fnstsw ax
+        test ah, 41h
+        jnz loc_40BD6A
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B64]
+        fnstsw ax
+        test ah, 5
+        jp loc_40BD6A
+        fld dword ptr [esi+0Ch]
+        inc edx
+        fadd dword ptr [flt_470AFC]
+        mov [esi+8], edx
+        xor eax, eax
+        fstp dword ptr [esi+0Ch]
+        ret
+loc_40BD6A:
+        fld dword ptr [esi+0Ch]
+        fadd dword ptr [ecx]
+        fst dword ptr [esi+0Ch]
+        call __ftol2
+        mov [esi+8], eax
+        xor eax, eax
+        ret
+    }
+}
+#else
 int Recovery_TickState(RecoveryTickState* state, int (*update)(void*),
                        float stable_speed, RecoveryWord (*random_round)(void*),
                        void* random_state) {
@@ -1353,6 +1449,7 @@ int Recovery_TickState(RecoveryTickState* state, int (*update)(void*),
     state->current = random_round != 0 ? random_round(random_state) : 0;
     return 0;
 }
+#endif
 
 // 0x00427AE0 - Switch between the direct and buffered playback coordinates.
 #ifdef _MSC_VER
