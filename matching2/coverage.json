@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 575,
-        "retail_bytes": 319744
+        "function_count": 571,
+        "retail_bytes": 319424
       },
       "exact-overlay": {
-        "function_count": 147,
-        "retail_bytes": 13056
+        "function_count": 151,
+        "retail_bytes": 13376
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 147,
+    "function_count": 151,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4450,8 +4450,10 @@
       "address": "0x00447F70",
       "symbol": "FUN_00447f70",
       "size": 96,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_ClearIndexedResources@@"
     },
     {
       "address": "0x00447FD0",
@@ -4499,8 +4501,10 @@
       "address": "0x00448980",
       "symbol": "FUN_00448980",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_RenderBucket@@"
     },
     {
       "address": "0x004489D0",
@@ -4587,8 +4591,10 @@
       "address": "0x004491C0",
       "symbol": "FUN_004491c0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_Find@@"
     },
     {
       "address": "0x00449210",
@@ -4678,8 +4684,10 @@
       "address": "0x00449630",
       "symbol": "FUN_00449630",
       "size": 64,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_MarkForRemovalAndClearHandle@@"
     },
     {
       "address": "0x00449670",

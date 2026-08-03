@@ -30,6 +30,9 @@ extern "C" void* sub_449950(void*);
 extern "C" void sub_449870(void*, void*);
 extern "C" void sub_4489D0(void*, void*);
 extern "C" void sub_43E710(void*, void*);
+extern "C" void sub_4451C0(void*, void*);
+extern "C" void sub_4492A0(void*, void*);
+extern "C" void _free(void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -435,6 +438,50 @@ static AnimationListNode** AnimationManager_ListSlot(
 }
 
 // 0x004491C0 - Find a registered animation by its nonzero handle.
+#ifdef _MSC_VER
+__declspec(naked) AnimationObject* AnimationManager_Find(
+    void* manager, int animationHandle) {
+    __asm {
+        mov ecx, [esp+4]
+        test ecx, ecx
+        jnz loc_4491CD
+        xor eax, eax
+        ret 4
+loc_4491CD:
+        mov eax, [edx+72DAD4h]
+        test eax, eax
+        push esi
+        jz loc_4491E5
+loc_4491D8:
+        mov esi, [eax]
+        cmp [esi], ecx
+        jz loc_449203
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_4491D8
+loc_4491E5:
+        mov eax, [edx+72DADCh]
+        test eax, eax
+        jz loc_4491FD
+        nop
+loc_4491F0:
+        mov edx, [eax]
+        cmp [edx], ecx
+        jz loc_449203
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_4491F0
+loc_4491FD:
+        xor eax, eax
+        pop esi
+        ret 4
+loc_449203:
+        mov eax, [eax]
+        pop esi
+        ret 4
+    }
+}
+#else
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle) {
     if (animationHandle == 0) {
@@ -458,6 +505,7 @@ AnimationObject* AnimationManager_Find(
     }
     return 0;
 }
+#endif
 
 int AnimationManager_RegisterObject(
     void* manager, AnimationObject* animation) {
@@ -1279,12 +1327,26 @@ bool AnimationManager_ValidateHandle(
 #endif
 
 // 0x00449630 - Mark an object tree for removal and invalidate its owner handle.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_MarkForRemovalAndClearHandle(
+    void* manager, int* animationHandle) {
+    __asm {
+        mov eax, [esi]
+        mov edx, dword_491C10
+        push eax
+        call sub_4492A0
+        mov dword ptr [esi], 0
+        ret
+    }
+}
+#else
 void AnimationManager_MarkForRemovalAndClearHandle(
     void* manager, int* animationHandle) {
     AnimationManager_SetFlag(
         manager, *animationHandle, 0x04000000u);
     *animationHandle = 0;
 }
+#endif
 
 
 // 0x00449670 - Select a sprite from the object's current script resource.
@@ -1425,6 +1487,38 @@ int AnimationManager_UpdateSecondary(void* manager) {
     return 1;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_RenderBucket(
+    void* manager, int bucketIndex) {
+    __asm {
+        imul eax, 3ACh
+        push esi
+        mov esi, [eax+edi+72DB00h]
+        test esi, esi
+        jz loc_4489BC
+loc_448992:
+        test dword ptr [esi+35Ch], 4000000h
+        jnz loc_4489B5
+        mov eax, [esi+39Ch]
+        test eax, eax
+        jz loc_4489AC
+        mov ecx, esi
+        call eax
+loc_4489AC:
+        mov eax, esi
+        mov ecx, edi
+        call sub_4451C0
+loc_4489B5:
+        mov esi, [esi+1Ch]
+        test esi, esi
+        jnz loc_448992
+loc_4489BC:
+        mov eax, 1
+        pop esi
+        ret
+    }
+}
+#else
 int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     AnimationObject* animation =
         *AnimationManager_RenderBucketHead(manager, (unsigned int)bucketIndex);
@@ -1441,6 +1535,7 @@ int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     }
     return 1;
 }
+#endif
 
 // 0x004497D0 - Resolve a direct child by script index.
 int AnimationManager_FindChildByScriptIndex(
@@ -1490,6 +1585,43 @@ int PlayerAnimation_Create(
 }
 
 // 0x00447F70 - Release the three indexed resource slots owned by a manager.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_ClearIndexedResources(
+    void* manager, unsigned int index,
+    void (*release)(void*), void (*free_memory)(void*)) {
+    __asm {
+        mov eax, [edi+esi*4+3AD4E0h]
+        push ebx
+        xor ebx, ebx
+        cmp eax, ebx
+        jz loc_447F8B
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+8]
+        mov [edi+esi*4+3AD4E0h], ebx
+loc_447F8B:
+        mov eax, [edi+esi*4+3AD560h]
+        cmp eax, ebx
+        jz loc_447FA3
+        mov edx, [eax]
+        push eax
+        call dword ptr [edx+8]
+        mov [edi+esi*4+3AD560h], ebx
+loc_447FA3:
+        mov eax, [edi+esi*4+3AD5E0h]
+        cmp eax, ebx
+        jz loc_447FBE
+        push eax
+        call _free
+        add esp, 4
+        mov [edi+esi*4+3AD5E0h], ebx
+loc_447FBE:
+        mov [edi+esi*4+3AD5E0h], ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
         void (*release)(void*), void (*free_memory)(void*)) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -1500,6 +1632,7 @@ void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
     if (*second != 0) { if (release) release(*second); *second = 0; }
     if (*memory != 0) { if (free_memory) free_memory(*memory); *memory = 0; }
 }
+#endif
 
 // 0x004477D0 - Release and free one of the manager's 33 resource slots.
 #ifdef _MSC_VER
