@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 307,
-      "semantic": 396
+      "exact-overlay": 309,
+      "semantic": 394
     }
   },
   "functions": [
@@ -19,8 +19,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401000_FUN_00401000.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/game_thread.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/game_thread.cpp",
+      "overlay": {
+        "object": "game_thread_overlay.obj",
+        "symbol": "GameThread_ConstructOverlay"
+      }
     },
     {
       "address": "0x00401110",
@@ -3981,8 +3985,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042AA50_FUN_0042aa50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/linked_pool_append.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/linked_pool_append.cpp",
+      "overlay": {
+        "object": "linked_pool_append.obj",
+        "symbol": "LinkedPool_AllocateAndAppendRetail"
+      }
     },
     {
       "address": "0x0042AB20",

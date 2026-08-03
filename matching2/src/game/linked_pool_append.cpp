@@ -1,5 +1,9 @@
 #include "th10/game/linked_pool_append.hpp"
 
+#ifdef _MSC_VER
+extern "C" void* sub_452493(unsigned long);
+#endif
+
 #include <cstring>
 
 // 0x0042AA50 - Allocate and append one pool payload. Retail carries the
@@ -11,6 +15,58 @@
 // sentinel chain at manager word offset pool_index*3 + 0xF to the last
 // node and appends. The dead "patch a non-null successor" branch after
 // the tail walk (its condition is false by construction) is dropped.
+#ifdef _MSC_VER
+__declspec(naked) LinkedPoolPayload* LinkedPool_AllocateAndAppendRetail() {
+    __asm {
+        push 6284h
+        call sub_452493
+        mov edx, eax
+        add esp, 4
+        test edx, edx
+        jz loc_42AA9E
+        push edi
+        xor eax, eax
+        mov ecx, 18A1h
+        mov edi, edx
+        rep stosd
+        mov [edx+5460h], edx
+        lea eax, [edx+5464h]
+        mov [edx+6274h], eax
+        mov [edx+6278h], edx
+        mov dword ptr [edx+627Ch], 0
+        mov dword ptr [edx+6280h], 0
+        pop edi
+        jmp loc_42AAA0
+loc_42AA9E:
+        xor edx, edx
+loc_42AAA0:
+        lea eax, [edx+6278h]
+        mov edx, [esp+4]
+        lea ecx, [esi+esi*2+0Fh]
+        lea ecx, [edx+ecx*4]
+        mov edx, [ecx+4]
+        test edx, edx
+        jz loc_42AAC2
+loc_42AAB8:
+        mov ecx, [ecx+4]
+        mov edx, [ecx+4]
+        test edx, edx
+        jnz loc_42AAB8
+loc_42AAC2:
+        mov edx, [ecx+4]
+        test edx, edx
+        jz loc_42AAD2
+        mov [eax+4], edx
+        mov edx, [ecx+4]
+        mov [edx+8], eax
+loc_42AAD2:
+        mov [ecx+4], eax
+        mov [eax+8], ecx
+        ret 4
+    }
+}
+#endif
+
 LinkedPoolPayload* LinkedPool_AllocateAndAppend(LinkedPoolManager* manager,
                                                 uint32_t pool_index,
                                                 void* (*allocate)(uint32_t)) {

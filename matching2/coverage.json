@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 396,
-        "retail_bytes": 291595
+        "function_count": 394,
+        "retail_bytes": 291115
       },
       "exact-overlay": {
-        "function_count": 326,
-        "retail_bytes": 41205
+        "function_count": 328,
+        "retail_bytes": 41685
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 326,
+    "function_count": 328,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -66,8 +66,10 @@
       "address": "0x00401000",
       "symbol": "FUN_00401000",
       "size": 272,
-      "status": "semantic",
-      "source": "src/game/game_thread.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/game_thread.cpp",
+      "overlay_object": "game_thread_overlay.obj",
+      "overlay_symbol": "GameThread_ConstructOverlay"
     },
     {
       "address": "0x00401110",
@@ -2737,8 +2739,10 @@
       "address": "0x0042AA50",
       "symbol": "FUN_0042aa50",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/linked_pool_append.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/linked_pool_append.cpp",
+      "overlay_object": "linked_pool_append.obj",
+      "overlay_symbol": "LinkedPool_AllocateAndAppendRetail"
     },
     {
       "address": "0x0042AB20",

@@ -203,6 +203,8 @@ OVERLAYS = (
     ("process.obj", "?Platform_StopWorker@@", 0x0044C150),
     ("game_thread_queue.obj", "?GameThread_AppendFormatted@@", 0x00401630),
     ("game_thread_queue.obj", "?GameThread_AppendRecord@@", 0x00401530),
+    ("game_thread_overlay.obj", "GameThread_ConstructOverlay", 0x00401000),
+    ("linked_pool_append.obj", "LinkedPool_AllocateAndAppendRetail", 0x0042AA50),
     ("archive_cursor_open.obj", "ArchiveCursor_Open", 0x0044DBF0),
     ("archive_cursor.obj", "ArchiveCursor_SeekRetail", 0x0044DD40),
     ("archive_cursor_read.obj", "ArchiveCursor_ReadRetail", 0x0044DE10),

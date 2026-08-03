@@ -33,6 +33,7 @@ OVERLAY_SOURCES=(
     src/game/player_motion.cpp
     src/game/stage_text.cpp
     src/game/game_thread_queue.cpp
+    src/game/game_thread_overlay.cpp
     src/game/progress.cpp
     src/game/progress_worker.cpp
     src/archive/dat.cpp
