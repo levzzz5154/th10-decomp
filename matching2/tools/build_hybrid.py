@@ -137,6 +137,7 @@ OVERLAYS = (
     ("game_thread_queue.obj", "?GameThread_AppendFormatted@@", 0x00401630),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
     ("player.obj", "?PlayerManager_StartMode@@", 0x004045B0),
+    ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("score.obj", "?ScoreOwnedObject_Destroy@@", 0x0040B9D0),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),
     ("score.obj", "?SetInputMode@@", 0x0040AC90),

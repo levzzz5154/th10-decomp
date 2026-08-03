@@ -30,6 +30,7 @@ OVERLAY_SOURCES=(
     src/math/math_utils.cpp
     src/game/scheduler.cpp
     src/game/player.cpp
+    src/game/player_motion.cpp
     src/game/stage_text.cpp
     src/game/game_thread_queue.cpp
     src/game/progress.cpp

@@ -1,4 +1,8 @@
 #include "th10/game/player_motion.hpp"
+
+#ifdef _MSC_VER
+extern "C" void sub_4065C0(void*);
+#endif
 #include "th10/util/scalars.hpp"
 
 #include <cstdarg>
@@ -28,10 +32,23 @@ static void AdvanceFrameClock(PlayerDeathClock* clock, float span_low,
 
 // 0x0040678E - Register-thunk onto the player axis wrap helper. Retail only
 // moves the fastcall registers into the callee frame and jumps to 0x004065C0.
+#ifdef _MSC_VER
+__declspec(naked) void Player_ForwardAxisWrap(
+        float* axis, float delta, void (*wrap)(float* axis, float delta)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_4065C0
+        pop esi
+        ret
+    }
+}
+#else
 void Player_ForwardAxisWrap(float* axis, float delta,
                             void (*wrap)(float* axis, float delta)) {
     if (wrap != 0) wrap(axis, delta);
 }
+#endif
 
 // --- Player field-wrap leaves ------------------------------------------------
 

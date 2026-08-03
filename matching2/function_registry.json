@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 167,
-      "semantic": 536
+      "exact-overlay": 168,
+      "semantic": 535
     }
   },
   "functions": [
@@ -679,8 +679,12 @@
       "size": 66,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040678E_FUN_0040678e.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player_motion.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player_motion.cpp",
+      "overlay": {
+        "object": "player_motion.obj",
+        "symbol": "?Player_ForwardAxisWrap@@"
+      }
     },
     {
       "address": "0x004067D0",
