@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 183,
-      "semantic": 520
+      "exact-overlay": 187,
+      "semantic": 516
     }
   },
   "functions": [
@@ -6947,8 +6947,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B4D0_FUN_0044b4d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_ProbeExists@@"
+      }
     },
     {
       "address": "0x0044B540",
@@ -6957,8 +6961,12 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B540_FUN_0044b540.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_WriteWholeFile@@"
+      }
     },
     {
       "address": "0x0044B620",
@@ -6967,8 +6975,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B620_FUN_0044b620.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_OpenSharedWrite@@"
+      }
     },
     {
       "address": "0x0044B6B0",
@@ -6977,8 +6989,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B6B0_FUN_0044b6b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_OpenSharedRead@@"
+      }
     },
     {
       "address": "0x0044B740",

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 520,
-        "retail_bytes": 314798
+        "function_count": 516,
+        "retail_bytes": 314174
       },
       "exact-overlay": {
-        "function_count": 202,
-        "retail_bytes": 18002
+        "function_count": 206,
+        "retail_bytes": 18626
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 202,
+    "function_count": 206,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4965,29 +4965,37 @@
       "address": "0x0044B4D0",
       "symbol": "FUN_0044b4d0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_ProbeExists@@"
     },
     {
       "address": "0x0044B540",
       "symbol": "FUN_0044b540",
       "size": 224,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_WriteWholeFile@@"
     },
     {
       "address": "0x0044B620",
       "symbol": "FUN_0044b620",
       "size": 144,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_OpenSharedWrite@@"
     },
     {
       "address": "0x0044B6B0",
       "symbol": "FUN_0044b6b0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_OpenSharedRead@@"
     },
     {
       "address": "0x0044B740",

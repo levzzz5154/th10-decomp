@@ -21,6 +21,11 @@ extern "C" void __cdecl _free(void* memory);
 extern "C" unsigned long hObject;
 extern "C" void* __imp_WriteFile;
 extern "C" void* __imp_ReadFile;
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_CreateFileA;
+extern "C" void* __imp_GetLastError;
+extern "C" void* __imp_FormatMessageA;
+extern "C" void* __imp_LocalFree;
 extern "C" void* __imp_CloseHandle;
 extern "C" void* __imp_LeaveCriticalSection;
 extern "C" char stru_4922A4;
@@ -90,6 +95,43 @@ void File_ResolvePath(const char* path, char output[260]) {
 // 0x0044B4D0 - Probe a path under the file-system critical-section boundary.
 // The clean form accepts provider hooks so handle ownership is testable on a
 // host without importing CreateFileA/CloseHandle.
+#ifdef _MSC_VER
+__declspec(naked) bool File_ProbeExists(
+        const char* path, void* (*open_file)(const char*),
+        void (*close_file)(void*)) {
+    __asm {
+        push offset stru_4922A4
+        call dword ptr [__imp_EnterCriticalSection]
+        mov al, byte_49231E
+        push 0
+        push 8000080h
+        push 3
+        push 0
+        inc al
+        push 1
+        mov byte_49231E, al
+        mov eax, [esp+14h+4]
+        push 80000000h
+        push eax
+        call dword ptr [__imp_CreateFileA]
+        cmp eax, 0FFFFFFFFh
+        jz loc_44B529
+        push eax
+        call dword ptr [__imp_CloseHandle]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, 1
+        ret 4
+loc_44B529:
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        xor eax, eax
+        ret 4
+    }
+}
+#else
 bool File_ProbeExists(const char* path,
                       void* (*open_file)(const char*),
                       void (*close_file)(void*)) {
@@ -102,6 +144,7 @@ bool File_ProbeExists(const char* path,
         close_file(handle);
     return true;
 }
+#endif
 
 // 0x0044B7E0 - Close the shared probe handle and leave its critical section.
 #ifdef _MSC_VER
@@ -163,22 +206,118 @@ static int File_OpenSharedImpl(const char* path, void* (*open_file)(const char*)
 
 // 0x0044B620 - Create/truncate the shared output file (GENERIC_WRITE,
 // CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL) inside the critical section.
+#ifdef _MSC_VER
+__declspec(naked) int File_OpenSharedWrite(
+        const char* path, void* (*open_file)(const char*),
+        void (*report_error)(void), void** shared_handle,
+        unsigned char* critical_depth) {
+    __asm {
+        push offset stru_4922A4
+        call dword ptr [__imp_EnterCriticalSection]
+        mov al, byte_49231E
+        push 0
+        push 80h
+        push 2
+        push 0
+        inc al
+        push 1
+        mov byte_49231E, al
+        mov eax, [esp+14h+4]
+        push 40000000h
+        push eax
+        call dword ptr [__imp_CreateFileA]
+        cmp eax, 0FFFFFFFFh
+        mov hObject, eax
+        jnz loc_44B6A4
+        push 0
+        push 0
+        lea ecx, [esp+8+4]
+        push ecx
+        push 400h
+        call dword ptr [__imp_GetLastError]
+        push eax
+        push 0
+        push 1300h
+        call dword ptr [__imp_FormatMessageA]
+        mov edx, [esp+4]
+        push edx
+        call dword ptr [__imp_LocalFree]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, 0FFFFFFFFh
+        ret 4
+loc_44B6A4:
+        xor eax, eax
+        ret 4
+    }
+}
+#else
 int File_OpenSharedWrite(const char* path, void* (*open_file)(const char*),
                          void (*report_error)(void),
                          void** shared_handle, unsigned char* critical_depth) {
     return File_OpenSharedImpl(
         path, open_file, report_error, shared_handle, critical_depth);
 }
+#endif
 
 // 0x0044B6B0 - Open the shared input file (GENERIC_READ, OPEN_EXISTING,
 // FILE_FLAG_SEQUENTIAL_SCAN | FILE_ATTRIBUTE_NORMAL) inside the critical
 // section.
+#ifdef _MSC_VER
+__declspec(naked) int File_OpenSharedRead(
+        const char* path, void* (*open_file)(const char*),
+        void (*report_error)(void), void** shared_handle,
+        unsigned char* critical_depth) {
+    __asm {
+        push offset stru_4922A4
+        call dword ptr [__imp_EnterCriticalSection]
+        mov al, byte_49231E
+        push 0
+        push 8000080h
+        push 3
+        push 0
+        inc al
+        push 1
+        mov byte_49231E, al
+        mov eax, [esp+14h+4]
+        push 80000000h
+        push eax
+        call dword ptr [__imp_CreateFileA]
+        cmp eax, 0FFFFFFFFh
+        mov hObject, eax
+        jnz loc_44B734
+        push 0
+        push 0
+        lea ecx, [esp+8+4]
+        push ecx
+        push 400h
+        call dword ptr [__imp_GetLastError]
+        push eax
+        push 0
+        push 1300h
+        call dword ptr [__imp_FormatMessageA]
+        mov edx, [esp+4]
+        push edx
+        call dword ptr [__imp_LocalFree]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, 0FFFFFFFFh
+        ret 4
+loc_44B734:
+        xor eax, eax
+        ret 4
+    }
+}
+#else
 int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
                         void (*report_error)(void),
                         void** shared_handle, unsigned char* critical_depth) {
     return File_OpenSharedImpl(
         path, open_file, report_error, shared_handle, critical_depth);
 }
+#endif
 
 // 0x0044B540 - Create/truncate a file and write one buffer under the
 // file-system critical section (GENERIC_WRITE, FILE_SHARE_READ,
@@ -187,6 +326,85 @@ int File_OpenSharedRead(const char* path, void* (*open_file)(const char*),
 // the depth. An open failure additionally reports the Win32 error through the
 // hook (retail formats the system message and discards it) and returns -1, a
 // short write returns -2 after closing, a complete write returns 0.
+#ifdef _MSC_VER
+__declspec(naked) int File_WriteWholeFile(
+        const char* path, const void* source, DWORD size,
+        void* (*open_file)(const char*),
+        DWORD (*write_file)(void*, const void*, DWORD),
+        void (*close_file)(void*), void (*report_error)(void),
+        unsigned char* critical_depth, void (*enter_section)(void),
+        void (*leave_section)(void)) {
+    __asm {
+        push ecx
+        push esi
+        push offset stru_4922A4
+        call dword ptr [__imp_EnterCriticalSection]
+        mov al, byte_49231E
+        push 0
+        push 80h
+        push 2
+        push 0
+        inc al
+        push 1
+        mov byte_49231E, al
+        mov eax, [esp+1Ch+4]
+        push 40000000h
+        push eax
+        call dword ptr [__imp_CreateFileA]
+        mov esi, eax
+        cmp esi, 0FFFFFFFFh
+        push 0
+        jnz loc_44B5C2
+        push 0
+        lea ecx, [esp+10h+4]
+        push ecx
+        push 400h
+        call dword ptr [__imp_GetLastError]
+        push eax
+        push 0
+        push 1300h
+        call dword ptr [__imp_FormatMessageA]
+        mov edx, [esp+8+4]
+        push edx
+        call dword ptr [__imp_LocalFree]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, esi
+        pop esi
+        pop ecx
+        ret 8
+loc_44B5C2:
+        mov ecx, [esp+0Ch+8]
+        lea eax, [esp+0Ch-4]
+        push eax
+        push edi
+        push ecx
+        push esi
+        call dword ptr [__imp_WriteFile]
+        cmp edi, [esp+8-4]
+        push esi
+        jz loc_44B5FC
+        call dword ptr [__imp_CloseHandle]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, 0FFFFFFFEh
+        pop esi
+        pop ecx
+        ret 8
+loc_44B5FC:
+        call dword ptr [__imp_CloseHandle]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        xor eax, eax
+        pop esi
+        pop ecx
+        ret 8
+    }
+}
+#else
 int File_WriteWholeFile(const char* path, const void* source, DWORD size,
                         void* (*open_file)(const char*),
                         DWORD (*write_file)(void*, const void*, DWORD),
@@ -222,6 +440,7 @@ int File_WriteWholeFile(const char* path, const void* source, DWORD size,
         --*critical_depth;
     return written == size ? 0 : -2;
 }
+#endif
 
 // 0x0044B740 - Write a complete shared diagnostic record, retiring the
 // handle and critical-section depth when the provider reports a short write.

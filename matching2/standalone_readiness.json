@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 46,
-      "semantic": 133
+      "exact-overlay": 49,
+      "semantic": 130
     }
   },
   "integration_gates": {
@@ -1720,7 +1720,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1731,7 +1731,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1742,7 +1742,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
