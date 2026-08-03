@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 280,
-      "semantic": 423
+      "exact-overlay": 281,
+      "semantic": 422
     }
   },
   "functions": [
@@ -2111,8 +2111,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004180E0_FUN_004180e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/game_ui_create.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/game_ui_create.cpp",
+      "overlay": {
+        "object": "game_ui_create.obj",
+        "symbol": "GameUi_CreateAndPublish"
+      }
     },
     {
       "address": "0x00418150",

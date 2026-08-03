@@ -54,6 +54,7 @@ OVERLAY_SOURCES=(
     src/math/random_vector.cpp
     src/render/quad_vertex_append.cpp
     src/render/anm_batch_flush.cpp
+    src/game/game_ui_create.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do
