@@ -66,6 +66,9 @@ OVERLAY_SOURCES=(
     src/game/frame_counter.cpp
     src/game/effect_indicator_slots.cpp
     src/game/slot_lock_leaves.cpp
+    src/game/player_scheduler.cpp
+    src/game/score_file.cpp
+    src/platform/sound_leaves.cpp
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp
     src/script/prng.cpp

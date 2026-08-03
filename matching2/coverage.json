@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 381,
-        "retail_bytes": 287899
+        "function_count": 378,
+        "retail_bytes": 287035
       },
       "exact-overlay": {
-        "function_count": 341,
-        "retail_bytes": 44901
+        "function_count": 344,
+        "retail_bytes": 45765
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 341,
+    "function_count": 344,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -454,8 +454,10 @@
       "address": "0x00405BE0",
       "symbol": "FUN_00405be0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/game/player_scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player_scheduler.cpp",
+      "overlay_object": "player_scheduler.obj",
+      "overlay_symbol": "Player_ResetSchedulerLinksRetail"
     },
     {
       "address": "0x00405D00",
@@ -2771,8 +2773,10 @@
       "address": "0x0042ACB0",
       "symbol": "FUN_0042acb0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/game/score_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score_file.cpp",
+      "overlay_object": "score_file.obj",
+      "overlay_symbol": "ScoreFile_InitializeDefaultsRetail"
     },
     {
       "address": "0x0042ADD0",
@@ -5584,8 +5588,10 @@
       "address": "0x0044D730",
       "symbol": "FUN_0044d730",
       "size": 288,
-      "status": "semantic",
-      "source": "src/platform/sound_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_leaves.cpp",
+      "overlay_object": "sound_leaves.obj",
+      "overlay_symbol": "SoundBuffer_DestructBaseRetail"
     },
     {
       "address": "0x0044D850",

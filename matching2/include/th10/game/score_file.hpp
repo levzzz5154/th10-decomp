@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // The retail score file is a 0x437C-byte blob:
 //   +0x00  : 'CR' signature half-word, then a zero half-word
@@ -14,8 +18,12 @@
 // Both recovered functions treat the file as raw bytes so the retail
 // offsets hold on the 64-bit host as well.
 
+#ifdef _MSC_VER
+enum { kScoreFileBytes = 0x437C, kScoreStatsBytes = 0x448 };
+#else
 constexpr uint32_t kScoreFileBytes = 0x437C;
 constexpr uint32_t kScoreStatsBytes = 0x448;
+#endif
 
 struct ScoreArchiveLoadState {
     uint8_t* packed;

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 322,
-      "semantic": 381
+      "exact-overlay": 325,
+      "semantic": 378
     }
   },
   "functions": [
@@ -595,8 +595,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405BE0_FUN_00405be0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player_scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player_scheduler.cpp",
+      "overlay": {
+        "object": "player_scheduler.obj",
+        "symbol": "Player_ResetSchedulerLinksRetail"
+      }
     },
     {
       "address": "0x00405D00",
@@ -4041,8 +4045,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042ACB0_FUN_0042acb0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score_file.cpp",
+      "overlay": {
+        "object": "score_file.obj",
+        "symbol": "ScoreFile_InitializeDefaultsRetail"
+      }
     },
     {
       "address": "0x0042ADD0",
@@ -8005,8 +8013,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D730_FUN_0044d730.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/sound_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/sound_leaves.cpp",
+      "overlay": {
+        "object": "sound_leaves.obj",
+        "symbol": "SoundBuffer_DestructBaseRetail"
+      }
     },
     {
       "address": "0x0044D850",

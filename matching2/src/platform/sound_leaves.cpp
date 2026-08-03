@@ -1,5 +1,9 @@
 #include "th10/platform/sound_leaves.hpp"
 
+#ifdef _MSC_VER
+extern "C" void sub_44D080(void**);
+#endif
+
 // 0x00420C30 - Play the random voice cue. The 64-bit random draw and
 // the sound-play edge are injected; retail truncates the draw to its
 // low 32 bits for the play argument.
@@ -16,6 +20,15 @@ uint32_t Sound_PlayRandomVoice(uint64_t (*random)(),
 // 0x0044D730 - Sound-buffer destructor leaf. Retail overwrites the
 // object's vtable slot with the base image at 0x004705D4 and tail-calls
 // the shared release body at 0x0044D080.
+#ifdef _MSC_VER
+__declspec(naked) void SoundBuffer_DestructBaseRetail() {
+    __asm {
+        mov dword ptr [ecx], 4705D4h
+        jmp sub_44D080
+    }
+}
+#endif
+
 void SoundBuffer_DestructBase(void** object, void (*release)(void** object)) {
     *object = (void*)&PTR_FUN_004705d4;
     if (release != 0) {

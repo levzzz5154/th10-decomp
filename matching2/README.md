@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (341 of them
+functions (100.0%) as readable semantic C++ or verified overlays (344 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -789,6 +789,9 @@ Current exact-overlay results with MSVC 7.1:
 | `StageTip_CreateRetail` | 220 | 100% |
 | `EmbeddedTimer_SetCountdownRetail` | 59 | 100% |
 | `RenderTarget_FillVerticalEdgeStripRetail` | 201 | 100% |
+| `Player_ResetSchedulerLinksRetail` | 158 | 100% |
+| `ScoreFile_InitializeDefaultsRetail` | 274 | 100% |
+| `SoundBuffer_DestructBaseRetail` | 11 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

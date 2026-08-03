@@ -1,5 +1,14 @@
 #include "th10/game/score_file.hpp"
 
+#ifdef _MSC_VER
+extern "C" unsigned long dword_46E858;
+extern "C" unsigned long dword_46E85C;
+extern "C" unsigned char byte_46E860;
+extern "C" char byte_4743C0[];
+extern "C" char byte_4743C2[];
+extern "C" char byte_4743C4[];
+#endif
+
 #include <cstring>
 
 // Default player name (9 bytes, retail 0x0046E858).
@@ -132,6 +141,104 @@ int ScoreArchive_LoadSections(ScoreArchiveLoadState* state,
 // and the default name), then the practice/spell groups, where group k
 // holds five {id = 5k + j, unlock = table[5k + j + 1]} pairs copied
 // from the byte table at 0x004743BF.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreFile_InitializeDefaultsRetail() {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+0Ch]
+        push esi
+        push edi
+        xor eax, eax
+        mov ecx, 10DFh
+        mov edi, ebp
+        rep stosd
+        xor edx, edx
+        mov word ptr [ebp], 5243h
+        mov word ptr [ebp+2], dx
+        mov dword ptr [ebp+8], 437Ch
+        lea eax, [ebp+14h]
+        mov esi, 5
+        _emit 8Bh
+        _emit 0FFh
+loc_42ACE0:
+        mov ecx, 0F4240h
+        jmp loc_42ACF0
+        _emit 8Dh
+        _emit 0A4h
+        _emit 24h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 8Bh
+        _emit 0FFh
+loc_42ACF0:
+        mov [eax-4], ecx
+        mov byte ptr [eax], 1
+        mov ebx, dword ptr [dword_46E858]
+        lea edi, [eax+2]
+        mov [edi], ebx
+        mov ebx, dword ptr [dword_46E85C]
+        mov [edi+4], ebx
+        mov bl, byte ptr [byte_46E860]
+        mov [eax+0Ch], edx
+        mov [eax+1], dl
+        sub ecx, 186A0h
+        add eax, 18h
+        cmp ecx, edx
+        mov [edi+8], bl
+        jg loc_42ACF0
+        dec esi
+        jnz loc_42ACE0
+        xor esi, esi
+        mov edi, offset byte_4743C0
+        mov edx, 3
+        mov ebx, offset byte_4743C2
+        dec edi
+        mov ecx, 1
+        lea eax, [ebp+628h]
+        sub ebx, edx
+        jmp loc_42AD50
+        _emit 8Dh
+        _emit 9Bh
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+loc_42AD50:
+        mov [eax-4], esi
+        movsx ebp, byte ptr [ecx+edi]
+        mov [eax], ebp
+        mov [eax+8Ch], ecx
+        movsx ebp, byte ptr byte_4743C0[ecx]
+        mov [eax+90h], ebp
+        lea ebp, [edx-1]
+        mov [eax+11Ch], ebp
+        movsx ebp, byte ptr [edx+ebx]
+        mov [eax+120h], ebp
+        mov [eax+1ACh], edx
+        movsx ebp, byte ptr byte_4743C0[edx]
+        mov [eax+1B0h], ebp
+        lea ebp, [esi+4]
+        mov [eax+23Ch], ebp
+        movsx ebp, byte ptr byte_4743C4[esi]
+        mov [eax+240h], ebp
+        add ecx, 5
+        add esi, 5
+        add edx, 5
+        add eax, 2D0h
+        cmp ecx, 6Fh
+        jl loc_42AD50
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        ret 4
+    }
+}
+#endif
+
 void ScoreFile_InitializeDefaults(uint8_t* file) {
     memset(file, 0, kScoreFileBytes);
     file[0] = 'C';
