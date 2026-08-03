@@ -28,6 +28,8 @@ OVERLAY_SOURCES=(
     src/math/vector.cpp
     src/math/timer.cpp
     src/game/scheduler.cpp
+    src/game/stage_text.cpp
+    src/archive/dat.cpp
     src/platform/path.cpp
     src/platform/process.cpp
     src/platform/win32_timer.cpp

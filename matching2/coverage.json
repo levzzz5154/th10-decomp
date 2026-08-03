@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 599,
-        "retail_bytes": 321504
+        "function_count": 594,
+        "retail_bytes": 321200
       },
       "exact-overlay": {
-        "function_count": 123,
-        "retail_bytes": 11296
+        "function_count": 128,
+        "retail_bytes": 11600
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 123,
+    "function_count": 128,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2974,15 +2974,19 @@
       "address": "0x004349E0",
       "symbol": "FUN_004349e0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/stage_text.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_text.cpp",
+      "overlay_object": "stage_text.obj",
+      "overlay_symbol": "?StageText_SkipLine@@"
     },
     {
       "address": "0x00434A20",
       "symbol": "FUN_00434a20",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/stage_text.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_text.cpp",
+      "overlay_object": "stage_text.obj",
+      "overlay_symbol": "?StageText_ExtractLine@@"
     },
     {
       "address": "0x00434A80",
@@ -2995,8 +2999,10 @@
       "address": "0x00434C20",
       "symbol": "FUN_00434c20",
       "size": 16,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_Reset@@"
     },
     {
       "address": "0x00434C30",
@@ -3030,15 +3036,19 @@
       "address": "0x00434EF0",
       "symbol": "FUN_00434ef0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_FindSize@@"
     },
     {
       "address": "0x00434F30",
       "symbol": "FUN_00434f30",
       "size": 64,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_FindEntry@@"
     },
     {
       "address": "0x00434F70",

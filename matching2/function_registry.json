@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 104,
-      "semantic": 599
+      "exact-overlay": 109,
+      "semantic": 594
     }
   },
   "functions": [
@@ -4243,8 +4243,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004349E0_FUN_004349e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_text.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_text.cpp",
+      "overlay": {
+        "object": "stage_text.obj",
+        "symbol": "?StageText_SkipLine@@"
+      }
     },
     {
       "address": "0x00434A20",
@@ -4253,8 +4257,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434A20_FUN_00434a20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_text.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_text.cpp",
+      "overlay": {
+        "object": "stage_text.obj",
+        "symbol": "?StageText_ExtractLine@@"
+      }
     },
     {
       "address": "0x00434A80",
@@ -4273,8 +4281,12 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434C20_FUN_00434c20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_Reset@@"
+      }
     },
     {
       "address": "0x00434C30",
@@ -4323,8 +4335,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434EF0_FUN_00434ef0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_FindSize@@"
+      }
     },
     {
       "address": "0x00434F30",
@@ -4333,8 +4349,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434F30_FUN_00434f30.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_FindEntry@@"
+      }
     },
     {
       "address": "0x00434F70",

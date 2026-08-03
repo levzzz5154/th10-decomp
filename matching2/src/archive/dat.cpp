@@ -7,6 +7,10 @@ extern "C" int __cdecl _stricmp(const char* left, const char* right);
 extern "C" void* __cdecl _malloc(uint32_t size);
 extern "C" void __cdecl _free(void* memory);
 
+#ifdef _MSC_VER
+extern "C" void sub_434D10(void*);
+#endif
+
 namespace {
 
 const uint32_t kArchiveMagic = 0x31414854; // "THA1"
@@ -120,9 +124,21 @@ void DatArchive_Initialize(DatArchive* archive) {
 }
 
 // 0x00434C20 - Thin reset entry point used by the archive owner.
+#ifdef _MSC_VER
+__declspec(naked) void DatArchive_Reset(DatArchive* archive) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_434D10
+        pop esi
+        ret
+    }
+}
+#else
 void DatArchive_Reset(DatArchive* archive) {
     DatArchive_Close(archive);
 }
+#endif
 
 // Clean reconstruction of 0x00434D10.
 void DatArchive_Close(DatArchive* archive) {
@@ -199,6 +215,47 @@ uint8_t* DatArchive_Read(
 
 // Clean reconstruction of 0x00434F30. The retail function receives archive in
 // EAX and name in EBX; the typed implementation uses a conventional C++ API.
+#ifdef _MSC_VER
+__declspec(naked) const DatEntry* DatArchive_FindEntry(
+        const DatArchiveIndex* archive, const char* name) {
+    __asm {
+        push edi
+        mov edi, [eax]
+        test edi, edi
+        jnz loc_434F3B
+        xor eax, eax
+        pop edi
+        ret
+loc_434F3B:
+        push esi
+        mov esi, [eax+4]
+        test esi, esi
+        jle loc_434F5B
+loc_434F43:
+        mov eax, [edi]
+        push eax
+        push ebx
+        call __stricmp
+        add esp, 8
+        test eax, eax
+        jz loc_434F60
+        dec esi
+        add edi, 10h
+        test esi, esi
+        jg loc_434F43
+loc_434F5B:
+        pop esi
+        xor eax, eax
+        pop edi
+        ret
+loc_434F60:
+        pop esi
+        mov eax, edi
+        pop edi
+        ret
+    }
+}
+#else
 const DatEntry* DatArchive_FindEntry(
         const DatArchiveIndex* archive, const char* name) {
     if (!archive->entries) {
@@ -214,13 +271,53 @@ const DatEntry* DatArchive_FindEntry(
     }
     return 0;
 }
+#endif
 
 // Clean reconstruction of 0x00434EF0.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t DatArchive_FindSize(
+        const DatArchiveIndex* archive, const char* name) {
+    __asm {
+        push esi
+        push edi
+        mov edi, [eax]
+        test edi, edi
+        jz loc_434F18
+        mov esi, [eax+4]
+        test esi, esi
+        jle loc_434F18
+        nop
+loc_434F00:
+        mov eax, [edi]
+        push eax
+        push ebx
+        call __stricmp
+        add esp, 8
+        test eax, eax
+        jz loc_434F1D
+        dec esi
+        add edi, 10h
+        test esi, esi
+        jg loc_434F00
+loc_434F18:
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+loc_434F1D:
+        mov eax, [edi+8]
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 uint32_t DatArchive_FindSize(
         const DatArchiveIndex* archive, const char* name) {
     const DatEntry* entry = DatArchive_FindEntry(archive, name);
     return entry ? entry->uncompressed_size : 0;
 }
+#endif
 
 uint32_t DatEntry_GetCompressedSize(const DatEntry* entry) {
     return entry[1].offset - entry[0].offset;
