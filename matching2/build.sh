@@ -47,6 +47,7 @@ OVERLAY_SOURCES=(
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
     src/platform/sound_stream_start.cpp
+    src/platform/sound_commands.cpp
     src/game/archive_cursor_open.cpp
     src/game/menu.cpp
     src/script/ecl_vm_children.cpp

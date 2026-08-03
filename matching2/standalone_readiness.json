@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 83,
-      "semantic": 96
+      "exact-overlay": 84,
+      "semantic": 95
     }
   },
   "integration_gates": {
@@ -1874,7 +1874,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 3,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },

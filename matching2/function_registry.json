@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 304,
-      "semantic": 399
+      "exact-overlay": 305,
+      "semantic": 398
     }
   },
   "functions": [
@@ -7791,8 +7791,12 @@
       "size": 496,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D110_FUN_0044d110.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/sound_commands.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/sound_commands.cpp",
+      "overlay": {
+        "object": "sound_commands.obj",
+        "symbol": "Streamer_FillBufferRetail"
+      }
     },
     {
       "address": "0x0044D300",
