@@ -336,6 +336,85 @@ int AnimationObject_ReadIntegerVariable(
 // 0x0043EDA0 - Resolve a writable integer-variable operand. The retail helper
 // receives the candidate value in EAX and uses the instruction parameter mask
 // to decide whether it is an encoded variable or a literal fallback address.
+#ifdef _MSC_VER
+__declspec(naked) int* AnimationObject_ResolveIntegerVariable(
+        AnimationObject* animation, int variableId, int* fallback,
+        bool variableEncoded) {
+    __asm {
+        push esi
+        mov esi, 1
+        shl esi, cl
+        movzx ecx, word ptr [esp+8]
+        test esi, ecx
+        pop esi
+        je default_case
+        mov ecx, [eax]
+        add ecx, 0FFFFD8F0h
+        cmp ecx, 9
+        ja default_case
+        jmp dword ptr [ecx*4+43EDFCh]
+case_zero:
+        lea eax, [edx+30Ch]
+        ret 4
+case_one:
+        lea eax, [edx+310h]
+        ret 4
+case_two:
+        lea eax, [edx+314h]
+        ret 4
+case_three:
+        lea eax, [edx+318h]
+        ret 4
+case_four:
+        lea eax, [edx+32Ch]
+        ret 4
+case_five:
+        lea eax, [edx+330h]
+default_case:
+        ret 4
+        _emit 0xC6
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xCF
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xD8
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xE1
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xF9
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xF9
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xF9
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xF9
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xEA
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0xF3
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+    }
+}
+#else
 int* AnimationObject_ResolveIntegerVariable(
     AnimationObject* animation, int variableId, int* fallback,
     bool variableEncoded) {
@@ -351,9 +430,101 @@ int* AnimationObject_ResolveIntegerVariable(
     }
     return fallback;
 }
+#endif
 
 // 0x0043ED00 - Resolve a writable floating-point variable. IDs 10013..10015
 // expose the base-position vector directly to animation scripts.
+#ifdef _MSC_VER
+__declspec(naked) float* AnimationObject_ResolveFloatVariable(
+        AnimationObject* animation, int variableId, float* fallback,
+        bool variableEncoded) {
+    __asm {
+        mov eax, 1
+        shl eax, cl
+        movzx ecx, word ptr [esp+4]
+        test eax, ecx
+        je default_case
+        fld dword ptr [edi]
+        call sub_463B2C
+        add eax, 0FFFFD8ECh
+        cmp eax, 0Bh
+        ja default_case
+        jmp dword ptr [eax*4+43ED6Ch]
+case_zero:
+        lea eax, [esi+31Ch]
+        ret 4
+case_one:
+        lea eax, [esi+320h]
+        ret 4
+case_two:
+        lea eax, [esi+324h]
+        ret 4
+case_three:
+        lea eax, [esi+328h]
+        ret 4
+case_four:
+        lea eax, [esi+334h]
+        ret 4
+case_five:
+        lea eax, [esi+338h]
+        ret 4
+case_six:
+        lea eax, [esi+33Ch]
+        ret 4
+default_case:
+        mov eax, edi
+        ret 4
+        _emit 0x28
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x31
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x3A
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x43
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x4C
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x55
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+        _emit 0x5E
+        _emit 0xED
+        _emit 0x43
+        _emit 0x00
+    }
+}
+#else
 float* AnimationObject_ResolveFloatVariable(
     AnimationObject* animation, int variableId, float* fallback,
     bool variableEncoded) {
@@ -369,6 +540,7 @@ float* AnimationObject_ResolveFloatVariable(
     }
     return fallback;
 }
+#endif
 
 void AnimationManager_InitializeStorage(void* manager) {
     uint8_t* bytes = (uint8_t*)manager;

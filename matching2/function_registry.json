@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 265,
-      "semantic": 438
+      "exact-overlay": 267,
+      "semantic": 436
     }
   },
   "functions": [
@@ -5855,8 +5855,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043ED00_FUN_0043ed00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationObject_ResolveFloatVariable@@"
+      }
     },
     {
       "address": "0x0043EDA0",
@@ -5865,8 +5869,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043EDA0_FUN_0043eda0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationObject_ResolveIntegerVariable@@"
+      }
     },
     {
       "address": "0x0043EE30",
