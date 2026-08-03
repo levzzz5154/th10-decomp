@@ -33,6 +33,10 @@ extern float    _DAT_00470b04;   // lower gameplay bound
 extern float    _DAT_00470b38;   // upper gameplay bound
 extern uint32_t DAT_00476f78;     // timer sentinel
 
+#ifdef _MSC_VER
+extern "C" float flt_476F78;
+#endif
+
 // 0x004045B0 - Arm the player's startup scheduler and set its first value.
 void Player_ArmSchedulerValue(void* scheduler, int) {
     uint8_t* bytes = (uint8_t*)scheduler;
@@ -53,9 +57,9 @@ void Player_ArmSchedulerValue(void* scheduler, int) {
 void EnemyManager_CheckPlayerCollision(
     void* gameState, const float* position, float radius,
     int allowEffect, int focused) {
-    if (gameState == nullptr || position == nullptr)
+    if (gameState == 0 || position == 0)
         return;
-    auto* entry = static_cast<unsigned char*>(gameState) + 0x60;
+    unsigned char* entry = static_cast<unsigned char*>(gameState) + 0x60;
     for (int index = 0; index < 2000; ++index, entry += 0x7f0) {
         const unsigned short phase =
             *reinterpret_cast<unsigned short*>(entry + 0x446);
@@ -88,7 +92,7 @@ void EnemyManager_CheckPlayerCollision(
         if (outside) {
             *reinterpret_cast<unsigned int*>(entry) |= 8u;
         } else {
-            auto* timer =
+            FrameTimer* timer =
                 reinterpret_cast<FrameTimer*>(entry + 0x3f8);
             Timer_Reset(timer);
         }
@@ -410,10 +414,33 @@ void PlayerManager_ArmIntroTimer(void* manager,
 }
 
 // 0x004045B0 - Arm the companion 60-frame player mode.
+#ifdef _MSC_VER
+__declspec(naked) void PlayerManager_StartMode(void* manager) {
+    __asm {
+        mov ecx, [eax+2A2Ch]
+        test cl, 1
+        jnz loc_4045E6
+        xor edx, edx
+        or ecx, 1
+        mov [eax+2A20h], edx
+        mov dword ptr [eax+2A1Ch], 0FFF0BDC1h
+        mov [eax+2A24h], edx
+        mov dword ptr [eax+2A28h], offset flt_476F78
+        mov [eax+2A2Ch], ecx
+loc_4045E6:
+        mov dword ptr [eax+2A20h], 3Ch
+        mov dword ptr [eax+2A24h], 42700000h
+        mov dword ptr [eax+2A1Ch], 3Bh
+        or dword ptr [eax+2A18h], 4
+        ret
+    }
+}
+#else
 void PlayerManager_StartMode(void* manager) {
     if (manager != 0)
         PlayerManager_SetModeTimer(manager, 60, 4u);
 }
+#endif
 
 namespace {
 
@@ -439,20 +466,20 @@ int PlayerRuntime_Initialize(void* player) {
         return -1;
     update->flags |= 2u;
     update->owner = player;
-    Scheduler_RegisterPrimary(update, 0, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterPrimary(update, 0, (void*)(unsigned long)DAT_00491be4);
     *(SchedulerCallback**)((unsigned char*)player + 8) = update;
 
     SchedulerCallback* draw =
         SchedulerCallback_Create(PlayerRuntime_DrawCallback);
     if (draw == 0) {
-        Scheduler_Remove(update, (void*)(uintptr_t)DAT_00491be4);
+        Scheduler_Remove(update, (void*)(unsigned long)DAT_00491be4);
         *(SchedulerCallback**)((unsigned char*)player + 8) = 0;
         DAT_004776ec = 0;
         return -1;
     }
     draw->flags |= 2u;
     draw->owner = player;
-    Scheduler_RegisterSecondary(draw, 0, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterSecondary(draw, 0, (void*)(unsigned long)DAT_00491be4);
     *(SchedulerCallback**)((unsigned char*)player + 12) = draw;
     return 0;
 }
@@ -468,9 +495,9 @@ void PlayerRuntime_Destroy(void* player) {
         (SchedulerCallback**)((unsigned char*)player + 12);
     if (DAT_00491be4 != 0) {
         if (*update != 0)
-            Scheduler_Remove(*update, (void*)(uintptr_t)DAT_00491be4);
+            Scheduler_Remove(*update, (void*)(unsigned long)DAT_00491be4);
         if (*draw != 0)
-            Scheduler_Remove(*draw, (void*)(uintptr_t)DAT_00491be4);
+            Scheduler_Remove(*draw, (void*)(unsigned long)DAT_00491be4);
     }
     *update = 0;
     *draw = 0;
