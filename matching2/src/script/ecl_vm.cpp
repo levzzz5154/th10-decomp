@@ -18,6 +18,8 @@ extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 
 #ifdef _MSC_VER
 extern "C" void sub_44FDB0(void*);
+extern "C" float flt_470B04;
+extern "C" long __cdecl __ftol2(void);
 #endif
 
 namespace {
@@ -231,6 +233,52 @@ int32_t ECL_ResolveIntFromEntity(void* entity, unsigned int operand) {
 #endif
 
 // 0x00450070 - Resolve a writable float local/external variable destination.
+#ifdef _MSC_VER
+__declspec(naked) float* ECL_ResolveFloatDestination(
+        void* cursor_pointer, unsigned int operand) {
+    __asm {
+        push esi
+        push edi
+        mov esi, eax
+        mov edx, [esi+4]
+        movzx eax, word ptr [edx+8]
+        mov edi, 1
+        shl edi, cl
+        test eax, edi
+        jz loc_4500C8
+        fld dword ptr [edx+ecx*4+10h]
+        fcomp [flt_470B04]
+        fld dword ptr [edx+ecx*4+10h]
+        fnstsw ax
+        test ah, 1
+        jnz loc_4500B2
+        add esi, 8
+        call __ftol2
+        mov ecx, eax
+        mov eax, [esi+1004h]
+        add eax, ecx
+        pop edi
+        add eax, esi
+        pop esi
+        ret
+loc_4500B2:
+        mov esi, [esi+1014h]
+        mov edi, [esi]
+        call __ftol2
+        push eax
+        mov ecx, esi
+        call dword ptr [edi+10h]
+        pop edi
+        pop esi
+        ret
+loc_4500C8:
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -251,6 +299,7 @@ float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
     }
     return 0;
 }
+#endif
 
 // 0x00412A10 - Resolve a writable integer local/external variable destination.
 int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
@@ -277,6 +326,38 @@ int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
 // 0x00450030 - Resolve a variable encoded in the ECL local-variable table.
 // Positive entries point into the VM's inline local area; negative entries
 // are delegated to the external variable resolver.
+#ifdef _MSC_VER
+__declspec(naked) void* ECL_ResolveVariableValue(
+        void* vm_pointer, int32_t variable) {
+    __asm {
+        mov eax, [esi+4]
+        movzx edx, word ptr [eax+8]
+        push edi
+        mov edi, 1
+        shl edi, cl
+        test edx, edi
+        pop edi
+        jz loc_450067
+        mov edx, [eax+ecx*4+10h]
+        test edx, edx
+        jl loc_45005A
+        mov eax, [esi+100Ch]
+        lea ecx, [esi+8]
+        add eax, edx
+        add eax, ecx
+        ret
+loc_45005A:
+        mov ecx, [esi+1014h]
+        mov eax, [ecx]
+        push edx
+        call dword ptr [eax+8]
+        ret
+loc_450067:
+        xor eax, eax
+        ret
+    }
+}
+#else
 void* ECL_ResolveVariableValue(void* vm_pointer, int32_t variable) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const uint16_t mask = *reinterpret_cast<uint16_t*>(
@@ -291,8 +372,37 @@ void* ECL_ResolveVariableValue(void* vm_pointer, int32_t variable) {
         vm + 0x1014);
     return resolver == 0 ? 0 : resolver->ResolveIntPointer(entry);
 }
+#endif
 
 // 0x00450160 - Find a linked external variable record by its retail id.
+#ifdef _MSC_VER
+__declspec(naked) void* ECL_FindVariable(
+        void* vm_pointer, int32_t variable) {
+    __asm {
+        add eax, 1030h
+        jz loc_450181
+        jmp loc_450170
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_450170:
+        mov edx, [eax]
+        cmp [edx+1010h], ecx
+        jz locret_450183
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_450170
+loc_450181:
+        xor eax, eax
+locret_450183:
+        ret
+    }
+}
+#else
 void* ECL_FindVariable(void* vm_pointer, int32_t variable) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     struct Node { void* object; Node* next; };
@@ -305,8 +415,32 @@ void* ECL_FindVariable(void* vm_pointer, int32_t variable) {
     }
     return 0;
 }
+#endif
 
 // 0x00450190 - Clear the bound object pointer in every linked variable node.
+#ifdef _MSC_VER
+__declspec(naked) void ECL_ResetVariableBindings(void* vm_pointer) {
+    __asm {
+        mov eax, [eax+1034h]
+        xor edx, edx
+        cmp eax, edx
+        jz locret_4501AE
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_4501A0:
+        mov ecx, [eax+4]
+        cmp ecx, edx
+        mov eax, [eax]
+        mov [eax+4], edx
+        mov eax, ecx
+        jnz loc_4501A0
+locret_4501AE:
+        ret
+    }
+}
+#else
 void ECL_ResetVariableBindings(void* vm_pointer) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     struct Node { void* object; Node* next; };
@@ -316,8 +450,36 @@ void ECL_ResetVariableBindings(void* vm_pointer) {
             *reinterpret_cast<void**>(static_cast<uint8_t*>(node->object) + 4) = 0;
     }
 }
+#endif
 
 // 0x00450690 - Reserve scratch space and save the previous top marker.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ECL_PushScratchValue(
+        void* vm_pointer, int32_t value) {
+    __asm {
+        mov edx, [eax+1000h]
+        add ecx, edx
+        cmp ecx, 1000h
+        jl loc_4506A4
+        or eax, 0FFFFFFFFh
+        ret
+loc_4506A4:
+        push esi
+        lea esi, [ecx+4]
+        cmp esi, 1000h
+        mov [eax+1000h], ecx
+        jge loc_4506C6
+        mov esi, [eax+1004h]
+        mov [ecx+eax], esi
+        add dword ptr [eax+1000h], 4
+loc_4506C6:
+        mov [eax+1004h], edx
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int32_t ECL_PushScratchValue(void* vm_pointer, int32_t value) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const int32_t old_top = *reinterpret_cast<int32_t*>(vm + 0x1000);
@@ -333,8 +495,26 @@ int32_t ECL_PushScratchValue(void* vm_pointer, int32_t value) {
     *reinterpret_cast<int32_t*>(vm + 0x1004) = old_top;
     return 0;
 }
+#endif
 
 // 0x004506D0 - Restore the previous scratch marker.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ECL_PopScratchValue(void* vm_pointer) {
+    __asm {
+        mov ecx, [eax+1000h]
+        add ecx, 0FFFFFFFCh
+        mov edx, [eax+1004h]
+        js loc_4506F0
+        mov [eax+1000h], ecx
+        mov ecx, [ecx+eax]
+        mov [eax+1004h], ecx
+loc_4506F0:
+        mov [eax+1000h], edx
+        xor eax, eax
+        ret
+    }
+}
+#else
 int32_t ECL_PopScratchValue(void* vm_pointer) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const int32_t prior = *reinterpret_cast<int32_t*>(vm + 0x1000) - 4;
@@ -347,6 +527,7 @@ int32_t ECL_PopScratchValue(void* vm_pointer) {
     *reinterpret_cast<int32_t*>(vm + 0x1000) = saved;
     return 0;
 }
+#endif
 
 // 0x004501B0 - Convert polar coordinates to a two-component vector.
 void ECL_SetPolarVector(float* destination, float angle, float magnitude) {

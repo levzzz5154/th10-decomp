@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 158,
-      "semantic": 545
+      "exact-overlay": 164,
+      "semantic": 539
     }
   },
   "functions": [
@@ -7561,8 +7561,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450030_FUN_00450030.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveVariableValue@@"
+      }
     },
     {
       "address": "0x00450070",
@@ -7571,8 +7575,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450070_FUN_00450070.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveFloatDestination@@"
+      }
     },
     {
       "address": "0x004500D0",
@@ -7591,8 +7599,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450160_FUN_00450160.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_FindVariable@@"
+      }
     },
     {
       "address": "0x00450190",
@@ -7601,8 +7613,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450190_FUN_00450190.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResetVariableBindings@@"
+      }
     },
     {
       "address": "0x004501B0",
@@ -7651,8 +7667,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450690_FUN_00450690.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_PushScratchValue@@"
+      }
     },
     {
       "address": "0x004506D0",
@@ -7661,8 +7681,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004506D0_FUN_004506d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_PopScratchValue@@"
+      }
     },
     {
       "address": "0x00450700",

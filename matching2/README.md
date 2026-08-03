@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (177 of them
+functions (100.0%) as readable semantic C++ or verified overlays (183 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -625,6 +625,12 @@ Current exact-overlay results with MSVC 7.1:
 | `Platform_StopWorkerNoDelete` | 8 | 100% |
 | `GameThread_AppendFormatted` | 69 | 100% |
 | `GameProgress_UnlockAllStages` | 93 | 100% |
+| `ECL_ResolveVariableValue` | 58 | 100% |
+| `ECL_ResolveFloatDestination` | 93 | 100% |
+| `ECL_FindVariable` | 32 | 100% |
+| `ECL_ResetVariableBindings` | 31 | 100% |
+| `ECL_PushScratchValue` | 64 | 100% |
+| `ECL_PopScratchValue` | 41 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

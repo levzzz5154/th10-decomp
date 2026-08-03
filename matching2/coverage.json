@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 545,
-        "retail_bytes": 317792
+        "function_count": 539,
+        "retail_bytes": 317440
       },
       "exact-overlay": {
-        "function_count": 177,
-        "retail_bytes": 15008
+        "function_count": 183,
+        "retail_bytes": 15360
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 177,
+    "function_count": 183,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5390,15 +5390,19 @@
       "address": "0x00450030",
       "symbol": "FUN_00450030",
       "size": 64,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveVariableValue@@"
     },
     {
       "address": "0x00450070",
       "symbol": "FUN_00450070",
       "size": 96,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveFloatDestination@@"
     },
     {
       "address": "0x004500D0",
@@ -5411,15 +5415,19 @@
       "address": "0x00450160",
       "symbol": "FUN_00450160",
       "size": 48,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_FindVariable@@"
     },
     {
       "address": "0x00450190",
       "symbol": "FUN_00450190",
       "size": 32,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResetVariableBindings@@"
     },
     {
       "address": "0x004501B0",
@@ -5453,15 +5461,19 @@
       "address": "0x00450690",
       "symbol": "FUN_00450690",
       "size": 64,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_PushScratchValue@@"
     },
     {
       "address": "0x004506D0",
       "symbol": "FUN_004506d0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_PopScratchValue@@"
     },
     {
       "address": "0x00450700",
