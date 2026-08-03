@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 547,
-        "retail_bytes": 317984
+        "function_count": 545,
+        "retail_bytes": 317792
       },
       "exact-overlay": {
-        "function_count": 175,
-        "retail_bytes": 14816
+        "function_count": 177,
+        "retail_bytes": 15008
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 175,
+    "function_count": 177,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -110,8 +110,10 @@
       "address": "0x00401630",
       "symbol": "FUN_00401630",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/game_thread_queue.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/game_thread_queue.cpp",
+      "overlay_object": "game_thread_queue.obj",
+      "overlay_symbol": "?GameThread_AppendFormatted@@"
     },
     {
       "address": "0x00401690",
@@ -2809,8 +2811,10 @@
       "address": "0x0042C8C0",
       "symbol": "FUN_0042c8c0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/progress.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/progress.cpp",
+      "overlay_object": "progress.obj",
+      "overlay_symbol": "?GameProgress_UnlockAllStages@@"
     },
     {
       "address": "0x0042C920",

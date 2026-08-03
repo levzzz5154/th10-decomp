@@ -2,6 +2,11 @@
 #ifndef _MSC_VER
 #include <cstdarg>
 #include <cstdio>
+#else
+extern "C" int _vsprintf(char*, const char*, char*);
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
+extern "C" void sub_401530(void*);
 #endif
 // 0x00401530 - Append one bounded game-thread work record. The retail ABI
 // supplies the name and three-word vector through hidden registers; the clean
@@ -98,19 +103,43 @@ static void GameThread_AppendPortable(GameThread* gameThread,
 #endif
 
 // 0x00401630 - Format a work-record name before appending it.
+#ifdef _MSC_VER
+__declspec(naked) void GameThread_AppendFormatted(
+        GameThread* gameThread, const GameThreadQueueWord* vector,
+        const char* format, ...) {
+    __asm {
+        sub esp, 204h
+        mov eax, ___security_cookie
+        mov ecx, [esp+20Ch]
+        xor eax, esp
+        mov [esp+200h], eax
+        lea eax, [esp+210h]
+        push eax
+        push ecx
+        lea edx, [esp+8]
+        push edx
+        call _vsprintf
+        mov ecx, [esp+214h]
+        add esp, 0Ch
+        lea eax, [esp]
+        call sub_401530
+        mov ecx, [esp+200h]
+        xor ecx, esp
+        call security_check_cookie
+        add esp, 204h
+        ret
+    }
+}
+#else
 void GameThread_AppendFormatted(GameThread* gameThread,
                                 const GameThreadQueueWord* vector,
                                 const char* format, ...) {
-#ifndef _MSC_VER
     va_list arguments;
     va_start(arguments, format);
     GameThread_AppendPortable(gameThread, vector, format, arguments, false);
     va_end(arguments);
-#else
-    GameThread_AppendText(gameThread, vector, format,
-                          (const char*)&format + sizeof(format), false);
-#endif
 }
+#endif
 
 // 0x00401690 - Formatted append variant that marks the inserted record.
 void GameThread_AppendFormattedMarked(GameThread* gameThread,

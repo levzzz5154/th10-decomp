@@ -23,6 +23,53 @@ int GameProgress_HasAnyPlayRecord(const void* progress) {
 // the first six 8-byte stage records in every per-shot-type table. Retail
 // repeats the six stage stores four times per table; the dead passes are
 // preserved for faithfulness.
+#ifdef _MSC_VER
+__declspec(naked) void GameProgress_UnlockAllStages(void* progress) {
+    __asm {
+        mov ecx, 1010101h
+        mov [eax+1D882h], ecx
+        mov [eax+1D886h], ecx
+        push esi
+        mov [eax+1D88Ah], ecx
+        push edi
+        mov [eax+1D88Eh], ecx
+        lea esi, [eax+4E9h]
+        mov edi, 6
+        _emit 0x8D
+        _emit 0x9B
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_42C8F0:
+        mov eax, esi
+        mov edx, 4
+        jmp loc_42C900
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_42C900:
+        mov ecx, 6
+loc_42C905:
+        mov byte ptr [eax], 1
+        add eax, 8
+        dec ecx
+        jnz loc_42C905
+        dec edx
+        jnz loc_42C900
+        add esi, 437Ch
+        dec edi
+        jnz loc_42C8F0
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void GameProgress_UnlockAllStages(void* progress) {
     uint8_t* bytes = (uint8_t*)progress;
     for (int index = 0; index < 4; ++index)
@@ -34,3 +81,4 @@ void GameProgress_UnlockAllStages(void* progress) {
                 stages[stage * 8] = 1;
     }
 }
+#endif

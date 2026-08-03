@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 156,
-      "semantic": 547
+      "exact-overlay": 158,
+      "semantic": 545
     }
   },
   "functions": [
@@ -83,8 +83,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401630_FUN_00401630.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/game_thread_queue.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/game_thread_queue.cpp",
+      "overlay": {
+        "object": "game_thread_queue.obj",
+        "symbol": "?GameThread_AppendFormatted@@"
+      }
     },
     {
       "address": "0x00401690",
@@ -4029,8 +4033,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C8C0_FUN_0042c8c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/progress.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/progress.cpp",
+      "overlay": {
+        "object": "progress.obj",
+        "symbol": "?GameProgress_UnlockAllStages@@"
+      }
     },
     {
       "address": "0x0042C920",
