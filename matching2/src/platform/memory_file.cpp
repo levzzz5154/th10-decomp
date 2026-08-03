@@ -5,6 +5,10 @@ extern "C" int _strncmp(const char*, const char*, unsigned long);
 extern "C" unsigned long dword_477858[];
 extern "C" unsigned long dword_47785C[];
 extern "C" unsigned long dword_477860[];
+extern "C" void sub_436260(void*, void*);
+extern "C" unsigned long sub_436330(void*);
+extern "C" void sub_4362B0(void*, void*);
+extern "C" void sub_436210(void*, void*);
 #endif
 
 // 0x0043D250 - Walk length-prefixed four-byte resource chunks.
@@ -136,6 +140,51 @@ void MemoryFile_RelinkChild(MemoryFileLink* links, unsigned int source,
 #endif
 
 // 0x004362B0 - Replace a node and reconnect both of its child branches.
+#ifdef _MSC_VER
+__declspec(naked) void MemoryFile_ReplaceNode(
+        MemoryFileLink* links, unsigned int source,
+        unsigned int replacement) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, eax
+        lea eax, [esi+esi*2]
+        lea edx, dword_477858[eax*4]
+        mov eax, [edx]
+        lea eax, [eax+eax*2]
+        shl eax, 2
+        push edi
+        cmp dword_47785C[eax], esi
+        jnz loc_4362D7
+        mov dword_47785C[eax], ecx
+        jmp loc_4362DD
+loc_4362D7:
+        mov dword_477860[eax], ecx
+loc_4362DD:
+        lea eax, [ecx+ecx*2]
+        shl eax, 2
+        lea esi, dword_477858[eax]
+        mov edi, edx
+        mov ebx, [edi]
+        mov [esi], ebx
+        mov ebx, [edi+4]
+        mov [esi+4], ebx
+        mov edi, [edi+8]
+        mov [esi+8], edi
+        mov esi, dword_47785C[eax]
+        lea esi, [esi+esi*2]
+        mov dword_477858[esi*4], ecx
+        mov eax, dword_477860[eax]
+        pop edi
+        lea eax, [eax+eax*2]
+        pop esi
+        mov dword_477858[eax*4], ecx
+        mov dword ptr [edx], 0
+        pop ebx
+        ret
+    }
+}
+#else
 void MemoryFile_ReplaceNode(MemoryFileLink* links, unsigned int source,
                             unsigned int replacement) {
     const int parent = links[source].parent;
@@ -148,8 +197,37 @@ void MemoryFile_ReplaceNode(MemoryFileLink* links, unsigned int source,
     links[links[replacement].right].parent = (int)replacement;
     links[source].parent = 0;
 }
+#endif
 
 // 0x00436330 - Find the rightmost node in this node's left branch.
+#ifdef _MSC_VER
+__declspec(naked) unsigned int MemoryFile_FindPredecessor(
+        const MemoryFileLink* links, unsigned int node) {
+    __asm {
+        lea eax, [eax+eax*2]
+        mov eax, dword_47785C[eax*4]
+        lea ecx, [eax+eax*2]
+        mov ecx, dword_477860[ecx*4]
+        test ecx, ecx
+        jz locret_436360
+        jmp loc_436350
+        _emit 0x8D
+        _emit 0x9B
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_436350:
+        mov eax, ecx
+        lea edx, [eax+eax*2]
+        mov ecx, dword_477860[edx*4]
+        test ecx, ecx
+        jnz loc_436350
+locret_436360:
+        ret
+    }
+}
+#else
 unsigned int MemoryFile_FindPredecessor(const MemoryFileLink* links,
                                         unsigned int node) {
     unsigned int predecessor = (unsigned int)links[node].left;
@@ -160,9 +238,48 @@ unsigned int MemoryFile_FindPredecessor(const MemoryFileLink* links,
     }
     return predecessor;
 }
+#endif
 
 // 0x00436210 - Remove a linked tree node, using its in-order predecessor when
 // both branches are populated. Index zero is the retail null-link sentinel.
+#ifdef _MSC_VER
+__declspec(naked) void MemoryFile_RemoveNode(
+        MemoryFileLink* links, unsigned int node) {
+    __asm {
+        push esi
+        mov esi, ecx
+        lea eax, [esi+esi*2]
+        shl eax, 2
+        mov ecx, dword_477858[eax]
+        test ecx, ecx
+        jz loc_436238
+        mov edx, dword_477860[eax]
+        test edx, edx
+        jnz loc_43623A
+        mov edx, dword_47785C[eax]
+loc_436233:
+        call sub_436260
+loc_436238:
+        pop esi
+        ret
+loc_43623A:
+        mov ecx, dword_47785C[eax]
+        test ecx, ecx
+        jz loc_436233
+        push edi
+        mov eax, esi
+        call sub_436330
+        mov edi, eax
+        mov ecx, edi
+        call sub_436210
+        mov ecx, edi
+        pop edi
+        mov eax, esi
+        pop esi
+        jmp sub_4362B0
+    }
+}
+#else
 void MemoryFile_RemoveNode(MemoryFileLink* links, unsigned int node) {
     if (links[node].parent == 0)
         return;
@@ -184,6 +301,7 @@ void MemoryFile_RemoveNode(MemoryFileLink* links, unsigned int node) {
     MemoryFile_RemoveNode(links, predecessor);
     MemoryFile_ReplaceNode(links, node, predecessor);
 }
+#endif
 
 // 0x00436A30 - Release the optional GDI surface owned by a resource window.
 void ResourceWindow_Reset(void* window) {

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 109,
-      "semantic": 594
+      "exact-overlay": 112,
+      "semantic": 591
     }
   },
   "functions": [
@@ -4543,8 +4543,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436210_FUN_00436210.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/memory_file.cpp",
+      "overlay": {
+        "object": "memory_file.obj",
+        "symbol": "?MemoryFile_RemoveNode@@"
+      }
     },
     {
       "address": "0x00436260",
@@ -4567,8 +4571,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004362B0_FUN_004362b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/memory_file.cpp",
+      "overlay": {
+        "object": "memory_file.obj",
+        "symbol": "?MemoryFile_ReplaceNode@@"
+      }
     },
     {
       "address": "0x00436330",
@@ -4577,8 +4585,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436330_FUN_00436330.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/memory_file.cpp",
+      "overlay": {
+        "object": "memory_file.obj",
+        "symbol": "?MemoryFile_FindPredecessor@@"
+      }
     },
     {
       "address": "0x004363A0",

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 594,
-        "retail_bytes": 321200
+        "function_count": 591,
+        "retail_bytes": 320880
       },
       "exact-overlay": {
-        "function_count": 128,
-        "retail_bytes": 11600
+        "function_count": 131,
+        "retail_bytes": 11920
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 128,
+    "function_count": 131,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3248,8 +3248,10 @@
       "address": "0x00436210",
       "symbol": "FUN_00436210",
       "size": 80,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "?MemoryFile_RemoveNode@@"
     },
     {
       "address": "0x00436260",
@@ -3264,15 +3266,19 @@
       "address": "0x004362B0",
       "symbol": "FUN_004362b0",
       "size": 128,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "?MemoryFile_ReplaceNode@@"
     },
     {
       "address": "0x00436330",
       "symbol": "FUN_00436330",
       "size": 112,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "?MemoryFile_FindPredecessor@@"
     },
     {
       "address": "0x00436370",
