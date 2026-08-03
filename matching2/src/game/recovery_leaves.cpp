@@ -27,6 +27,7 @@ extern "C" int _rand(void);
 extern "C" unsigned long dword_477830;
 extern "C" char off_4705D8;
 extern "C" void* __imp_CloseHandle;
+extern "C" void* __imp_Sleep;
 extern "C" void sub_43CB00(void*);
 extern "C" void sub_44D730(void*);
 extern "C" unsigned long dword_477818;
@@ -1102,6 +1103,64 @@ void Platform_ReleaseOwnedArray(
 
 // 0x0044D300 - Start an interface operation, optionally polling until the
 // operation reports completion. The busy HRESULT is retried after 10 ms.
+#ifdef _MSC_VER
+__declspec(naked) int Platform_RunInterface(
+        void* interface_object, RecoveryWord* completed,
+        int (*begin)(void*), int (*poll)(void*),
+        void (*sleep_ms)(unsigned)) {
+    __asm {
+        push ecx
+        test esi, esi
+        jnz loc_44D30C
+        mov eax, 800401F0h
+        pop ecx
+        ret
+loc_44D30C:
+        test ebx, ebx
+        jz loc_44D316
+        mov dword ptr [ebx], 0
+loc_44D316:
+        mov eax, [esi]
+        lea ecx, [esp+4-4]
+        push ecx
+        push esi
+        call dword ptr [eax+24h]
+        test eax, eax
+        jl loc_44D360
+        test byte ptr [esp+4-4], 2
+        jz loc_44D35B
+        push edi
+        mov edi, dword ptr [__imp_Sleep]
+loc_44D331:
+        mov edx, [esi]
+        push esi
+        call dword ptr [edx+50h]
+        cmp eax, 88780096h
+        jnz loc_44D342
+        push 0Ah
+        call edi
+loc_44D342:
+        mov eax, [esi]
+        push esi
+        call dword ptr [eax+50h]
+        test eax, eax
+        jnz loc_44D331
+        test ebx, ebx
+        pop edi
+        jz loc_44D357
+        mov dword ptr [ebx], 1
+loc_44D357:
+        xor eax, eax
+        pop ecx
+        ret
+loc_44D35B:
+        mov eax, 1
+loc_44D360:
+        pop ecx
+        ret
+    }
+}
+#else
 int Platform_RunInterface(void* interface_object, RecoveryWord* completed,
                           int (*begin)(void*), int (*poll)(void*),
                           void (*sleep_ms)(unsigned)) {
@@ -1121,6 +1180,7 @@ int Platform_RunInterface(void* interface_object, RecoveryWord* completed,
         return 0;
     }
 }
+#endif
 
 // 0x004297B0 - Release a resource object and free its storage when present.
 void* Platform_DeletingDestructorWithRelease(
