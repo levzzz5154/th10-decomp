@@ -9,6 +9,13 @@ extern "C" void __cdecl _free(void* memory);
 
 #ifdef _MSC_VER
 extern "C" void sub_434D10(void*);
+extern "C" void* sub_452493(unsigned long);
+extern "C" int sub_434F70(void*, void*);
+extern "C" void* sub_435220(void);
+extern "C" char* dword_474908;
+extern "C" void sub_452422(void*);
+extern "C" void sub_4524A1(void*);
+extern "C" void sub_4525FF(void*, void*, int, void*);
 #endif
 
 namespace {
@@ -141,6 +148,51 @@ void DatArchive_Reset(DatArchive* archive) {
 #endif
 
 // Clean reconstruction of 0x00434D10.
+#ifdef _MSC_VER
+__declspec(naked) void DatArchive_Close(DatArchive* archive) {
+    __asm {
+        mov eax, [esi+8]
+        push edi
+        xor edi, edi
+        cmp eax, edi
+        je skip_filename
+        push eax
+        call sub_452422
+        add esp, 4
+        mov [esi+8], edi
+skip_filename:
+        mov eax, [esi]
+        cmp eax, edi
+        mov [esi+8], edi
+        je skip_entries
+        mov ecx, [eax-4]
+        push ebx
+        lea ebx, [eax-4]
+        push 435250h
+        push ecx
+        push 10h
+        push eax
+        call sub_4525FF
+        push ebx
+        call sub_4524A1
+        add esp, 4
+        pop ebx
+skip_entries:
+        mov ecx, [esi+0Ch]
+        cmp ecx, edi
+        mov [esi], edi
+        je skip_file
+        mov edx, [ecx]
+        push 1
+        call dword ptr [edx+1Ch]
+skip_file:
+        mov [esi+0Ch], edi
+        mov [esi+4], edi
+        pop edi
+        ret
+    }
+}
+#else
 void DatArchive_Close(DatArchive* archive) {
     if (archive->filename) {
         _free(archive->filename);
@@ -156,8 +208,62 @@ void DatArchive_Close(DatArchive* archive) {
         archive->file = 0;
     }
 }
+#endif
 
 // File-backed form of the initialization path at 0x00434C30.
+#ifdef _MSC_VER
+__declspec(naked) bool DatArchive_Open(
+        DatArchive* archive, FileInterface* owned_file,
+        const char* path) {
+    __asm {
+        push esi
+        push edi
+        mov esi, ecx
+        mov edi, eax
+        call sub_434D10
+        push 0Ch
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je null_file
+        mov dword ptr [eax], 46F230h
+        mov dword ptr [eax+4], 0FFFFFFFFh
+        mov dword ptr [eax+8], 0
+        jmp after_alloc
+null_file:
+        xor eax, eax
+after_alloc:
+        test eax, eax
+        mov [esi+0Ch], eax
+        je no_close
+        push edi
+        call sub_434F70
+        test al, al
+        je fail
+        call sub_435220
+        test eax, eax
+        mov [esi+8], eax
+        je fail
+        mov ecx, [esi+0Ch]
+        mov esi, dword_474908
+        mov edx, [ecx]
+        push esi
+        push eax
+        call dword ptr [edx]
+        pop edi
+        mov al, 1
+        pop esi
+        ret
+fail:
+        call sub_434D10
+no_close:
+        pop edi
+        xor al, al
+        pop esi
+        ret
+    }
+}
+#else
 bool DatArchive_Open(
         DatArchive* archive,
         FileInterface* owned_file,
@@ -177,6 +283,7 @@ bool DatArchive_Open(
     }
     return true;
 }
+#endif
 
 // Clean reconstruction of 0x00434DD0.
 uint8_t* DatArchive_Read(

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 497,
-        "retail_bytes": 310974
+        "function_count": 489,
+        "retail_bytes": 309534
       },
       "exact-overlay": {
-        "function_count": 225,
-        "retail_bytes": 21826
+        "function_count": 233,
+        "retail_bytes": 23266
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 225,
+    "function_count": 233,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3096,8 +3096,10 @@
       "address": "0x00434C30",
       "symbol": "FUN_00434c30",
       "size": 112,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_Open@@"
     },
     {
       "address": "0x00434CA0",
@@ -3110,8 +3112,10 @@
       "address": "0x00434D10",
       "symbol": "FUN_00434d10",
       "size": 192,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_Close@@"
     },
     {
       "address": "0x00434DD0",
@@ -3262,15 +3266,19 @@
       "address": "0x00435580",
       "symbol": "FUN_00435580",
       "size": 144,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?ReadWhole@FileHandle@@"
     },
     {
       "address": "0x00435610",
       "symbol": "FUN_00435610",
       "size": 224,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_ResolvePath@@"
     },
     {
       "address": "0x00435690",
@@ -3435,8 +3443,10 @@
       "address": "0x00436570",
       "symbol": "FUN_00436570",
       "size": 240,
-      "status": "semantic",
-      "source": "src/platform/process.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/process.cpp",
+      "overlay_object": "process.obj",
+      "overlay_symbol": "?Platform_LaunchProcess@@"
     },
     {
       "address": "0x00436660",
@@ -4046,8 +4056,10 @@
       "address": "0x0043DC90",
       "symbol": "FUN_0043dc90",
       "size": 128,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_QueueResource@@"
     },
     {
       "address": "0x0043DD10",
@@ -4893,8 +4905,10 @@
       "address": "0x00449E50",
       "symbol": "FUN_00449e50",
       "size": 128,
-      "status": "semantic",
-      "source": "src/render/d3d_resource_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/d3d_resource_manager.cpp",
+      "overlay_object": "d3d_resource_manager.obj",
+      "overlay_symbol": "?D3DResourceList_ReleaseResources@@"
     },
     {
       "address": "0x00449ED0",
@@ -5134,8 +5148,10 @@
       "address": "0x0044BD10",
       "symbol": "FUN_0044bd10",
       "size": 272,
-      "status": "semantic",
-      "source": "src/platform/process.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/process.cpp",
+      "overlay_object": "process.obj",
+      "overlay_symbol": "?Platform_GetOsVersionCode@@"
     },
     {
       "address": "0x0044BE20",

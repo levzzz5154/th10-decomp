@@ -3,6 +3,13 @@
 extern "C" void __stdcall EnterCriticalSection(void* critical_section);
 extern "C" void __stdcall LeaveCriticalSection(void* critical_section);
 
+#ifdef _MSC_VER
+extern "C" void* dword_4660B0;
+extern "C" void* dword_4660B4;
+extern "C" unsigned char byte_49231C;
+extern "C" void sub_449F60(void*, void*);
+#endif
+
 extern uint32_t DAT_00492274;
 extern uint8_t DAT_0049231c;
 
@@ -39,6 +46,46 @@ void D3DResourceList_Initialize(D3DResourceList* list) {
 }
 
 // 0x00449E50 - Release each D3D object tracked by one resource list.
+#ifdef _MSC_VER
+__declspec(naked) void D3DResourceList_ReleaseResources(
+        D3DResourceList* list, void* device_owner) {
+    __asm {
+        mov eax, [eax+18h]
+        test eax, eax
+        je done
+        push ebx
+        mov ebx, dword_4660B0
+        push ebp
+        mov ebp, dword_4660B4
+        push esi
+        push edi
+release_loop:
+        mov esi, [eax]
+        test esi, esi
+        mov edi, [eax+4]
+        je next
+        push 492274h
+        call ebx
+        inc byte ptr byte_49231C
+        mov edx, [esp+14h]
+        mov ecx, esi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr byte_49231C
+next:
+        test edi, edi
+        mov eax, edi
+        jne release_loop
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+done:
+        ret 4
+    }
+}
+#else
 void D3DResourceList_ReleaseResources(
         D3DResourceList* list, void* device_owner) {
     D3DResourceNode* node = list->first;
@@ -54,6 +101,7 @@ void D3DResourceList_ReleaseResources(
         }
     }
 }
+#endif
 
 // 0x00449AA0 - Initialize both embedded resource lists.
 #ifdef _MSC_VER

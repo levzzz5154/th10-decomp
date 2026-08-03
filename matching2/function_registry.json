@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 206,
-      "semantic": 497
+      "exact-overlay": 214,
+      "semantic": 489
     }
   },
   "functions": [
@@ -4471,8 +4471,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434C30_FUN_00434c30.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_Open@@"
+      }
     },
     {
       "address": "0x00434CA0",
@@ -4491,8 +4495,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434D10_FUN_00434d10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_Close@@"
+      }
     },
     {
       "address": "0x00434DD0",
@@ -4639,8 +4647,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00435580_FUN_00435580.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?ReadWhole@FileHandle@@"
+      }
     },
     {
       "address": "0x00435610",
@@ -4649,8 +4661,12 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00435610_FUN_00435610.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_ResolvePath@@"
+      }
     },
     {
       "address": "0x004356F0",
@@ -4817,8 +4833,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436570_FUN_00436570.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/process.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_LaunchProcess@@"
+      }
     },
     {
       "address": "0x00436660",
@@ -5609,8 +5629,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043DC90_FUN_0043dc90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_QueueResource@@"
+      }
     },
     {
       "address": "0x0043DD10",
@@ -6859,8 +6883,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449E50_FUN_00449e50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/d3d_resource_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/d3d_resource_manager.cpp",
+      "overlay": {
+        "object": "d3d_resource_manager.obj",
+        "symbol": "?D3DResourceList_ReleaseResources@@"
+      }
     },
     {
       "address": "0x00449ED0",
@@ -7225,8 +7253,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BD10_FUN_0044bd10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/process.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_GetOsVersionCode@@"
+      }
     },
     {
       "address": "0x0044BE20",

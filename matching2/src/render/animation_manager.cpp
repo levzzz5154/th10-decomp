@@ -38,6 +38,7 @@ extern "C" void sub_4492A0(void*, void*);
 extern "C" void _free(void*);
 extern "C" float flt_470B4C;
 extern "C" float flt_470B48;
+extern "C" unsigned short word_4749CE;
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -2146,6 +2147,58 @@ void AnimationManager_RegisterResource(void* manager, unsigned int index,
 }
 
 // 0x0043DC90 - Queue a resource pointer in the matching indexed bucket.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_QueueResource(
+        void* manager, int resource_id, void* resource) {
+    __asm {
+        push ebx
+        movsx ebx, word ptr [edi*8+word_4749CE]
+        push ebp
+        mov ebp, [esp+0Ch]
+        push esi
+        xor eax, eax
+        lea edx, [ecx+620h]
+search_loop:
+        mov esi, [edx]
+        test esi, esi
+        jl new_bucket
+        cmp esi, edi
+        je existing_bucket
+        inc eax
+        add edx, 4
+        cmp eax, 0Ch
+        jl search_loop
+        pop esi
+        pop ebp
+        pop ebx
+        ret 4
+existing_bucket:
+        mov edx, [ecx+eax*4+650h]
+        cmp edx, 80h
+        jge done
+        mov esi, eax
+        shl esi, 7
+        add esi, edx
+        mov [ecx+esi*4+680h], ebp
+        jmp inc_count
+new_bucket:
+        cmp eax, 0Ch
+        jge done
+        mov edx, eax
+        mov [ecx+eax*4+620h], edi
+        shl edx, 9
+        mov [ecx+edi*4+408h], ebx
+        mov [edx+ecx+680h], ebp
+inc_count:
+        inc dword ptr [ecx+eax*4+650h]
+done:
+        pop esi
+        pop ebp
+        pop ebx
+        ret 4
+    }
+}
+#else
 void AnimationManager_QueueResource(void* manager, int resource_id,
                                     void* resource) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -2166,6 +2219,7 @@ void AnimationManager_QueueResource(void* manager, int resource_id,
         }
     }
 }
+#endif
 
 // 0x004054B0 - Configure the resource manager with the requested value and
 // its decimal tens/ones digits, in retail call order.

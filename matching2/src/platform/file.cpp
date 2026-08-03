@@ -28,8 +28,13 @@ extern "C" void* __imp_FormatMessageA;
 extern "C" void* __imp_LocalFree;
 extern "C" void* __imp_CloseHandle;
 extern "C" void* __imp_LeaveCriticalSection;
+extern "C" void* __imp_GetModuleFileNameA;
 extern "C" char stru_4922A4;
 extern "C" unsigned char byte_49231E;
+extern "C" void* sub_452730(void*, int);
+extern "C" void* sub_452930(void*, int);
+extern "C" void* sub_452706(unsigned long);
+extern "C" void sub_452422(void*);
 #endif
 
 namespace {
@@ -57,6 +62,78 @@ __declspec(noinline) FileHandle::~FileHandle() {
 
 // 0x00435610 - Preserve absolute drive paths or resolve relative paths beside
 // the executable.
+#ifdef _MSC_VER
+__declspec(naked) void File_ResolvePath(const char* path, char output[260]) {
+    __asm {
+        push esi
+        push edi
+        mov esi, eax
+        push 3Ah
+        push esi
+        mov edi, ecx
+        call sub_452730
+        add esp, 8
+        test eax, eax
+        je no_colon
+        mov eax, esi
+        sub edi, esi
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+copy_colon:
+        mov cl, [eax]
+        mov [edi+eax], cl
+        inc eax
+        test cl, cl
+        jne copy_colon
+        pop edi
+        pop esi
+        ret
+no_colon:
+        push 104h
+        push edi
+        push 0
+        call dword ptr [__imp_GetModuleFileNameA]
+        push 5Ch
+        push edi
+        call sub_452930
+        add esp, 8
+        test eax, eax
+        jne skip_zero
+        mov byte ptr [edi], al
+skip_zero:
+        mov byte ptr [eax+1], 0
+        mov eax, esi
+        mov ecx, esi
+path_len:
+        mov dl, [eax]
+        inc eax
+        test dl, dl
+        jne path_len
+        sub eax, ecx
+        mov esi, ecx
+        dec edi
+output_len:
+        mov cl, [edi+1]
+        inc edi
+        test cl, cl
+        jne output_len
+        mov ecx, eax
+        shr ecx, 2
+        rep movsd
+        mov ecx, eax
+        and ecx, 3
+        rep movsb
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void File_ResolvePath(const char* path, char output[260]) {
     const char* cursor = path;
     while (*cursor != 0 && *cursor != ':') {
@@ -91,6 +168,7 @@ void File_ResolvePath(const char* path, char output[260]) {
         *output++ = *path;
     } while (*path++ != 0);
 }
+#endif
 
 // 0x0044B4D0 - Probe a path under the file-system critical-section boundary.
 // The clean form accepts provider hooks so handle ownership is testable on a
@@ -669,6 +747,85 @@ BYTE FileHandle::Seek(LONG distance, DWORD origin) {
 }
 
 // 0x00435580 - Read an entire readable file without changing its position.
+#ifdef _MSC_VER
+__declspec(naked) void* FileHandle::ReadWhole(DWORD capacity) {
+    __asm {
+        push esi
+        mov esi, ecx
+        cmp dword ptr [esi+8], 80000000h
+        je size_ok
+        xor eax, eax
+        pop esi
+        ret 4
+size_ok:
+        mov eax, [esi]
+        push ebp
+        mov ecx, esi
+        call dword ptr [eax+14h]
+        mov ebp, eax
+        cmp ebp, [esp+0Ch]
+        jbe allocate
+        pop ebp
+        xor eax, eax
+        pop esi
+        ret 4
+allocate:
+        push edi
+        push ebp
+        call sub_452706
+        mov edi, eax
+        add esp, 4
+        test edi, edi
+        jne continue
+        pop edi
+        pop ebp
+        pop esi
+        ret 4
+continue:
+        mov edx, [esi]
+        push ebx
+        mov ecx, esi
+        call dword ptr [edx+10h]
+        mov ebx, eax
+        mov eax, [esi]
+        push 0
+        push ebx
+        mov ecx, esi
+        call dword ptr [eax+18h]
+        test al, al
+        je fail
+        mov edx, [esi]
+        push ebp
+        push edi
+        mov ecx, esi
+        call dword ptr [edx+8]
+        test eax, eax
+        jne success
+        push edi
+        call sub_452422
+        add esp, 4
+fail:
+        pop ebx
+        pop edi
+        pop ebp
+        xor eax, eax
+        pop esi
+        ret 4
+success:
+        mov eax, [esi]
+        push 0
+        push ebx
+        mov ecx, esi
+        call dword ptr [eax+18h]
+        pop ebx
+        mov eax, edi
+        pop edi
+        pop ebp
+        pop esi
+        ret 4
+    }
+}
+#else
 void* FileHandle::ReadWhole(DWORD capacity) {
     if (access != kReadAccess) {
         return 0;
@@ -697,3 +854,4 @@ succeeded:
     Seek(position, 0);
     return data;
 }
+#endif
