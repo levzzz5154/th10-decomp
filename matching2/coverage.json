@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 415,
-        "retail_bytes": 296267
+        "function_count": 414,
+        "retail_bytes": 296075
       },
       "exact-overlay": {
-        "function_count": 307,
-        "retail_bytes": 36533
+        "function_count": 308,
+        "retail_bytes": 36725
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 307,
+    "function_count": 308,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -313,8 +313,10 @@
       "address": "0x00404E10",
       "symbol": "FUN_00404e10",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/particle_seed.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/particle_seed.cpp",
+      "overlay_object": "particle_seed.obj",
+      "overlay_symbol": "ParticleSeed_Combine"
     },
     {
       "address": "0x00404ED0",

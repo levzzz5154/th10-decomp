@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 288,
-      "semantic": 415
+      "exact-overlay": 289,
+      "semantic": 414
     }
   },
   "functions": [
@@ -381,8 +381,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404E10_FUN_00404e10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/particle_seed.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/particle_seed.cpp",
+      "overlay": {
+        "object": "particle_seed.obj",
+        "symbol": "ParticleSeed_Combine"
+      }
     },
     {
       "address": "0x00404ED0",
