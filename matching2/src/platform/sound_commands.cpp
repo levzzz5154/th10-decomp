@@ -6,9 +6,12 @@
 #ifdef _MSC_VER
 extern "C" int sub_44DE10(void*, void*);
 extern "C" int sub_44DD40(void*);
+extern "C" int sub_44D300(void*);
+extern "C" int sub_44D110(void*, void*);
 extern "C" void* dword_4660AC;
 extern "C" void* dword_4660C8;
 extern "C" unsigned long dword_4977A4;
+extern "C" void* __imp_SetFilePointer;
 #endif
 
 namespace {
@@ -396,6 +399,99 @@ int Streamer_FillBuffer(unsigned int bytes, const StreamerFormat* format,
 
 // 0x0044DAD0 - Streamer_Restart: rewind the reader to the start of the PCM
 // data, optionally refill the front buffer, and park the play cursor at 0.
+#ifdef _MSC_VER
+__declspec(naked) int Streamer_RestartRetail() {
+    __asm {
+        push ecx
+        mov eax, [edi+4]
+        mov ecx, [eax]
+        push ebp
+        xor ebp, ebp
+        cmp ecx, ebp
+        je loc_44DB9D
+        cmp [edi+0Ch], ebp
+        je loc_44DB9D
+        push ebx
+        push esi
+        mov [edi+5Ch], ebp
+        mov [edi+60h], ebp
+        mov [edi+64h], ebp
+        mov [edi+68h], ebp
+        mov esi, [eax]
+        lea ebx, [esp+0Ch]
+        call sub_44D300
+        cmp eax, ebp
+        jl loc_44DB98
+        cmp [esp+0Ch], ebp
+        je loc_44DB23
+        mov eax, [edi+4]
+        mov ecx, [eax]
+        push ebp
+        push ecx
+        mov eax, edi
+        call sub_44D110
+        cmp eax, ebp
+        jl loc_44DB98
+loc_44DB23:
+        mov esi, [edi+0Ch]
+        cmp [esi+7Ch], ebp
+        je loc_44DB5B
+        mov edx, [esi+80h]
+        mov eax, [esi+90h]
+        mov [esi+84h], edx
+        mov eax, [eax+1Ch]
+        cmp eax, ebp
+        jle loc_44DB8C
+        mov [esi+88h], eax
+        mov edx, [edi+4]
+        mov eax, [edx]
+        mov ecx, [eax]
+        push ebp
+        push eax
+        call dword ptr [ecx+34h]
+        pop esi
+        pop ebx
+        pop ebp
+        pop ecx
+        ret
+loc_44DB5B:
+        mov eax, [esi+8Ch]
+        cmp eax, ebp
+        je loc_44DB8C
+        mov ecx, [esi+90h]
+        mov edx, [ecx+10h]
+        mov ecx, dword ptr [dword_4977A4]
+        push ebp
+        push ebp
+        add edx, ecx
+        push edx
+        push eax
+        call dword ptr [__imp_SetFilePointer]
+        mov eax, [esi+90h]
+        mov ecx, [eax+1Ch]
+        mov [esi+8], ecx
+loc_44DB8C:
+        mov edx, [edi+4]
+        mov eax, [edx]
+        mov ecx, [eax]
+        push ebp
+        push eax
+        call dword ptr [ecx+34h]
+loc_44DB98:
+        pop esi
+        pop ebx
+        pop ebp
+        pop ecx
+        ret
+loc_44DB9D:
+        mov eax, 800401F0h
+        pop ebp
+        pop ecx
+        ret
+    }
+}
+#endif
+
 int Streamer_Restart(int refill, unsigned int bytes,
                      const StreamerFormat* format,
                      const StreamerHooks* hooks) {

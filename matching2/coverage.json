@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 378,
-        "retail_bytes": 287035
+        "function_count": 377,
+        "retail_bytes": 286747
       },
       "exact-overlay": {
-        "function_count": 344,
-        "retail_bytes": 45765
+        "function_count": 345,
+        "retail_bytes": 46053
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 344,
+    "function_count": 345,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5604,8 +5604,10 @@
       "address": "0x0044DAD0",
       "symbol": "FUN_0044dad0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/platform/sound_commands.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_commands.cpp",
+      "overlay_object": "sound_commands.obj",
+      "overlay_symbol": "Streamer_RestartRetail"
     },
     {
       "address": "0x0044DBF0",
