@@ -17,6 +17,16 @@ extern "C" __declspec(dllimport) BOOL __stdcall DeleteFileA(const char* path);
 extern "C" void* __cdecl _malloc(DWORD size);
 extern "C" void __cdecl _free(void* memory);
 
+#ifdef _MSC_VER
+extern "C" unsigned long hObject;
+extern "C" void* __imp_WriteFile;
+extern "C" void* __imp_ReadFile;
+extern "C" void* __imp_CloseHandle;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" char stru_4922A4;
+extern "C" unsigned char byte_49231E;
+#endif
+
 namespace {
 
 const DWORD kReadAccess = 0x80000000;
@@ -94,6 +104,25 @@ bool File_ProbeExists(const char* path,
 }
 
 // 0x0044B7E0 - Close the shared probe handle and leave its critical section.
+#ifdef _MSC_VER
+__declspec(naked) int File_CloseProbeHandle(
+        void* handle, void (*close_file)(void*),
+        unsigned char* critical_depth) {
+    __asm {
+        mov eax, hObject
+        cmp eax, 0FFFFFFFFh
+        jz loc_44B802
+        push eax
+        call dword ptr [__imp_CloseHandle]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+loc_44B802:
+        xor eax, eax
+        ret
+    }
+}
+#else
 int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
                           unsigned char* critical_depth) {
     if (handle != (void*)-1) {
@@ -104,6 +133,7 @@ int File_CloseProbeHandle(void* handle, void (*close_file)(void*),
     }
     return 0;
 }
+#endif
 
 // Shared body of the two retail open leaves. Entering the file-system
 // critical section increments the depth byte; a failed open reports the Win32
@@ -195,6 +225,45 @@ int File_WriteWholeFile(const char* path, const void* source, DWORD size,
 
 // 0x0044B740 - Write a complete shared diagnostic record, retiring the
 // handle and critical-section depth when the provider reports a short write.
+#ifdef _MSC_VER
+__declspec(naked) int File_WriteShared(
+        void* handle, const void* source, DWORD size,
+        DWORD (*write_file)(void*, const void*, DWORD),
+        void (*close_file)(void*), unsigned char* critical_depth) {
+    __asm {
+        push ecx
+        mov eax, hObject
+        cmp eax, 0FFFFFFFFh
+        jnz loc_44B74F
+        or eax, eax
+        pop ecx
+        ret
+loc_44B74F:
+        push 0
+        lea ecx, [esp+8-4]
+        push ecx
+        push esi
+        push edx
+        push eax
+        call dword ptr [__imp_WriteFile]
+        cmp esi, [esp+4-4]
+        jz loc_44B788
+        mov eax, hObject
+        push eax
+        call dword ptr [__imp_CloseHandle]
+        push offset stru_4922A4
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231E
+        mov eax, 0FFFFFFFEh
+        pop ecx
+        ret
+loc_44B788:
+        xor eax, eax
+        pop ecx
+        ret
+    }
+}
+#else
 int File_WriteShared(void* handle, const void* source, DWORD size,
                      DWORD (*write_file)(void*, const void*, DWORD),
                      void (*close_file)(void*), unsigned char* critical_depth) {
@@ -210,10 +279,55 @@ int File_WriteShared(void* handle, const void* source, DWORD size,
     }
     return 0;
 }
+#endif
 
 // 0x0044B790 - Allocate and fill one record from the shared diagnostic file.
 // Allocation failure retires the shared handle; the retail leaf leaves the
 // read count to the caller's surrounding protocol.
+#ifdef _MSC_VER
+__declspec(naked) void* File_ReadShared(
+        void* handle, DWORD size,
+        void* (*allocate)(DWORD),
+        DWORD (*read_file)(void*, void*, DWORD),
+        void (*close_file)(void*)) {
+    __asm {
+        push ecx
+        cmp hObject, 0FFFFFFFFh
+        jnz loc_44B79E
+        xor eax, eax
+        pop ecx
+        ret
+loc_44B79E:
+        push esi
+        push edi
+        call _malloc
+        mov esi, eax
+        add esp, 4
+        test esi, esi
+        jnz loc_44B7BF
+        mov eax, hObject
+        push eax
+        call dword ptr [__imp_CloseHandle]
+        xor eax, eax
+        pop esi
+        pop ecx
+        ret
+loc_44B7BF:
+        mov edx, hObject
+        push 0
+        lea ecx, [esp+0Ch-4]
+        push ecx
+        push edi
+        push esi
+        push edx
+        call dword ptr [__imp_ReadFile]
+        mov eax, esi
+        pop esi
+        pop ecx
+        ret
+    }
+}
+#else
 void* File_ReadShared(void* handle, DWORD size,
                       void* (*allocate)(DWORD),
                       DWORD (*read_file)(void*, void*, DWORD),
@@ -229,6 +343,7 @@ void* File_ReadShared(void* handle, DWORD size,
     read_file(handle, buffer, size);
     return buffer;
 }
+#endif
 
 // 0x00435370 - Open a Win32 file using TH10's fopen-like mode parsing.
 BYTE FileHandle::Open(const char* path, const char* mode) {

@@ -30,6 +30,7 @@ OVERLAY_SOURCES=(
     src/game/scheduler.cpp
     src/platform/path.cpp
     src/platform/process.cpp
+    src/platform/win32_timer.cpp
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
 )

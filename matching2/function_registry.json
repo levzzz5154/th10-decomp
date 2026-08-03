@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 98,
-      "semantic": 605
+      "exact-overlay": 102,
+      "semantic": 601
     }
   },
   "functions": [
@@ -2761,8 +2761,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004203C0_FUN_004203c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/win32_timer.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/win32_timer.cpp",
+      "overlay": {
+        "object": "win32_timer.obj",
+        "symbol": "?TimerWin32_Release@@"
+      }
     },
     {
       "address": "0x004203F0",
@@ -6699,8 +6703,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B740_FUN_0044b740.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_WriteShared@@"
+      }
     },
     {
       "address": "0x0044B790",
@@ -6709,8 +6717,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B790_FUN_0044b790.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_ReadShared@@"
+      }
     },
     {
       "address": "0x0044B7E0",
@@ -6719,8 +6731,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B7E0_FUN_0044b7e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "?File_CloseProbeHandle@@"
+      }
     },
     {
       "address": "0x0044B810",

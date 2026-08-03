@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (117 of them
+functions (100.0%) as readable semantic C++ or verified overlays (121 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -565,6 +565,10 @@ Current exact-overlay results with MSVC 7.1:
 | `Scheduler_CreateAndRegister` | 31 | 100% |
 | `Path_DecodeXor` | 33 | 100% |
 | `Platform_InvokeInterface` | 29 | 100% |
+| `TimerWin32_Release` | 36 | 100% |
+| `File_CloseProbeHandle` | 17 | 100% |
+| `File_WriteShared` | 48 | 100% |
+| `File_ReadShared` | 50 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

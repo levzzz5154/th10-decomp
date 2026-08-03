@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 605,
-        "retail_bytes": 321920
+        "function_count": 601,
+        "retail_bytes": 321664
       },
       "exact-overlay": {
-        "function_count": 117,
-        "retail_bytes": 10880
+        "function_count": 121,
+        "retail_bytes": 11136
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 117,
+    "function_count": 121,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1951,8 +1951,10 @@
       "address": "0x004203C0",
       "symbol": "FUN_004203c0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/platform/win32_timer.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/win32_timer.cpp",
+      "overlay_object": "win32_timer.obj",
+      "overlay_symbol": "?TimerWin32_Release@@"
     },
     {
       "address": "0x004203F0",
@@ -4849,22 +4851,28 @@
       "address": "0x0044B740",
       "symbol": "FUN_0044b740",
       "size": 80,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_WriteShared@@"
     },
     {
       "address": "0x0044B790",
       "symbol": "FUN_0044b790",
       "size": 80,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_ReadShared@@"
     },
     {
       "address": "0x0044B7E0",
       "symbol": "FUN_0044b7e0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "?File_CloseProbeHandle@@"
     },
     {
       "address": "0x0044B810",
