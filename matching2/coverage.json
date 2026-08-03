@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 626,
-        "retail_bytes": 324016
+        "function_count": 623,
+        "retail_bytes": 323392
       },
       "exact-overlay": {
-        "function_count": 96,
-        "retail_bytes": 8784
+        "function_count": 99,
+        "retail_bytes": 9408
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 96,
+    "function_count": 99,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2677,15 +2677,19 @@
       "address": "0x0042C5C0",
       "symbol": "FUN_0042c5c0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/score_timer_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score_timer_leaves.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?GameState_DisableTimerWithOwner@@"
     },
     {
       "address": "0x0042C620",
       "symbol": "FUN_0042c620",
       "size": 80,
-      "status": "semantic",
-      "source": "src/math/timer.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/timer.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?GameState_SetTimerTarget@@"
     },
     {
       "address": "0x0042C670",
@@ -4928,8 +4932,10 @@
       "address": "0x0044BF40",
       "symbol": "FUN_0044bf40",
       "size": 448,
-      "status": "semantic",
-      "source": "src/math/timer.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/timer.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?FrameTimer_Advance@@"
     },
     {
       "address": "0x0044C100",
