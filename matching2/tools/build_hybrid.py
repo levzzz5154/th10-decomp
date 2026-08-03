@@ -107,6 +107,10 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Platform_SetOperationDeadline@@", 0x0044D4E0),
     ("recovery_leaves.obj", "?Recovery_TickState@@", 0x0040BD20),
     ("recovery_leaves.obj", "?Platform_RunInterface@@", 0x0044D300),
+    ("recovery_leaves.obj", "?Platform_DeletingDestructorWithRelease@@", 0x004297B0),
+    ("recovery_leaves.obj", "?Recovery_ReleasePair@@", 0x0041F930),
+    ("recovery_leaves.obj", "?Recovery_InitializeTimedState@@", 0x00423510),
+    ("recovery_leaves.obj", "?Recovery_LoadCachedResource@@", 0x00447280),
 )
 
 

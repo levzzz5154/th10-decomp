@@ -58,6 +58,12 @@ extern "C" float flt_470AFC;
 extern "C" float _flt_470AFC;
 extern "C" long __cdecl __ftol2(void);
 extern "C" void sub_40BD80(void*);
+extern "C" void sub_4294A0(void*);
+extern "C" unsigned long dword_491C10;
+extern "C" void sub_447810(void*);
+extern "C" void sub_409E50(void*);
+extern "C" void sub_4470C0(void*);
+extern "C" unsigned char dword_491FF4;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1183,6 +1189,23 @@ int Platform_RunInterface(void* interface_object, RecoveryWord* completed,
 #endif
 
 // 0x004297B0 - Release a resource object and free its storage when present.
+#ifdef _MSC_VER
+__declspec(naked) void* Platform_DeletingDestructorWithRelease(
+        void* object, RecoveryByte flags, void (*release)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        test esi, esi
+        jz locret_4297C1
+        push esi
+        call sub_4294A0
+        push esi
+        call j__free
+        pop ecx
+locret_4297C1:
+        ret
+    }
+}
+#else
 void* Platform_DeletingDestructorWithRelease(
         void* object, RecoveryByte flags, void (*release)(void*),
         void (*free_memory)(void*)) {
@@ -1191,6 +1214,7 @@ void* Platform_DeletingDestructorWithRelease(
         free_memory(object);
     return object;
 }
+#endif
 
 // 0x0044DCA0 - Select a stream record and update the logical cursor. A real
 // file handle is represented by the nonzero handle token in the clean ABI.
@@ -1618,6 +1642,44 @@ int Recovery_InstallPairClearFlags(
 }
 
 // 0x0041F930 - Release both cached resource slots and clear their ownership.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_ReleasePair(
+        void** first_slot, void** second_slot,
+        void (*release)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, dword_491C10
+        add esi, 3AD084h
+        push edi
+        mov edi, [esi]
+        test edi, edi
+        jz loc_41F95A
+        call sub_447810
+        mov eax, [esi]
+        push eax
+        call j__free
+        add esp, 4
+        mov dword ptr [esi], 0
+loc_41F95A:
+        mov esi, dword_491C10
+        mov edi, [esi+3AD088h]
+        add esi, 3AD088h
+        test edi, edi
+        jz loc_41F986
+        call sub_447810
+        mov ecx, [esi]
+        push ecx
+        call j__free
+        add esp, 4
+        mov dword ptr [esi], 0
+loc_41F986:
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_ReleasePair(void** first_slot, void** second_slot,
                          void (*release)(void*), void (*free_memory)(void*)) {
     if (first_slot == 0 || second_slot == 0) return -1;
@@ -1630,6 +1692,7 @@ int Recovery_ReleasePair(void** first_slot, void** second_slot,
     *second_slot = 0;
     return 0;
 }
+#endif
 
 // 0x00421F00 - Reset the fixed-size state object after initializing its
 // embedded subobject, then install the two retail mode bits.
@@ -1645,6 +1708,35 @@ void* Recovery_InitializeLargeState(void* state,
 
 // 0x00423510 - Set the initial mode, reset the timer, run the two update
 // notifications, and publish the state's trailing speed word.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InitializeTimedState(
+        void* state, void (*tick)(void), RecoveryWord* default_speed) {
+    __asm {
+        mov dword ptr [esi+4], 0Dh
+        mov eax, [esi+20h]
+        xor ecx, ecx
+        test al, 1
+        jnz loc_42353A
+        or eax, 1
+        mov [esi+14h], ecx
+        mov dword ptr [esi+10h], 0FFF0BDC1h
+        mov [esi+18h], ecx
+        mov dword ptr [esi+1Ch], offset flt_476F78
+        mov [esi+20h], eax
+loc_42353A:
+        lea eax, [esi+1D8h]
+        mov [esi+14h], ecx
+        mov [esi+18h], ecx
+        mov dword ptr [esi+10h], 0FFFFFFFFh
+        call sub_409E50
+        lea eax, [esi+1D4h]
+        call sub_409E50
+        mov eax, [esi+2C0h]
+        mov flt_476F78, eax
+        ret
+    }
+}
+#else
 void Recovery_InitializeTimedState(void* state, void (*tick)(void),
                                     RecoveryWord* default_speed) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -1657,6 +1749,7 @@ void Recovery_InitializeTimedState(void* state, void (*tick)(void),
     if (default_speed != 0)
         *default_speed = *(RecoveryWord*)(bytes + 0x2C0);
 }
+#endif
 
 // 0x0041F8D0 - Load the front and bullet startup resources, reporting the
 // matching retail fallback string when either load fails.
@@ -1709,6 +1802,48 @@ void Recovery_ClearAnimationSlot(
 
 // 0x00447280 - Resolve a cached resource or load it asynchronously and wait
 // for its loading flag to clear, matching the one-millisecond polling loop.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_LoadCachedResource(
+        void** slots, RecoveryWord count, int index, void* context,
+        const char* name, void* (*load)(void*, int, const char*),
+        RecoveryWord* loading, bool cancelled, void (*sleep_ms)(unsigned)) {
+    __asm {
+        mov eax, [edx+ecx*4+3AD06Ch]
+        test eax, eax
+        jnz locret_4472CE
+        mov eax, [esp+4]
+        push esi
+        push eax
+        push ecx
+        push edx
+        call sub_4470C0
+        mov esi, eax
+        test esi, esi
+        jnz loc_4472A2
+        pop esi
+        ret 4
+loc_4472A2:
+        push edi
+        mov edi, dword ptr [__imp_Sleep]
+        mov dword ptr [esi+124h], 1
+loc_4472B3:
+        mov al, byte ptr dword_491FF4
+        test al, al
+        js loc_4472CA
+        push 1
+        call edi
+        mov eax, [esi+124h]
+        test eax, eax
+        jnz loc_4472B3
+loc_4472CA:
+        pop edi
+        mov eax, esi
+        pop esi
+locret_4472CE:
+        ret 4
+    }
+}
+#else
 void* Recovery_LoadCachedResource(
         void** slots, RecoveryWord count, int index, void* context,
         const char* name, void* (*load)(void*, int, const char*),
@@ -1727,6 +1862,7 @@ void* Recovery_LoadCachedResource(
     }
     return resource;
 }
+#endif
 
 // 0x0043D790 - Find an archive record and hand it to the stream selector.
 #ifdef _MSC_VER
