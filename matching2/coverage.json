@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 623,
-        "retail_bytes": 323392
+        "function_count": 621,
+        "retail_bytes": 322736
       },
       "exact-overlay": {
-        "function_count": 99,
-        "retail_bytes": 9408
+        "function_count": 101,
+        "retail_bytes": 10064
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 99,
+    "function_count": 101,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -310,8 +310,10 @@
       "address": "0x00404ED0",
       "symbol": "FUN_00404ed0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/math/timer.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/timer.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?FrameTimer_Tick@@"
     },
     {
       "address": "0x00404F30",
@@ -331,8 +333,10 @@
       "address": "0x004050D0",
       "symbol": "FUN_004050d0",
       "size": 560,
-      "status": "semantic",
-      "source": "src/game/effect_indicator_slots.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/effect_indicator_slots.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?EmbeddedTimer_Reset@@"
     },
     {
       "address": "0x00405300",

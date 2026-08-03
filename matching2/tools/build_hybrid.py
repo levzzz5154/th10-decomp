@@ -69,6 +69,8 @@ OVERLAYS = (
     ("timer.obj", "?GameState_SetTimerTarget@@", 0x0042C620),
     ("timer.obj", "?GameState_DisableTimerWithOwner@@", 0x0042C5C0),
     ("timer.obj", "?FrameTimer_Advance@@", 0x0044BF40),
+    ("timer.obj", "?FrameTimer_Tick@@", 0x00404ED0),
+    ("timer.obj", "?EmbeddedTimer_Reset@@", 0x004050D0),
     ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
     ("recovery_leaves.obj", "GameThread_RunQueueLeaf", 0x00401520),
     ("recovery_leaves.obj", "Recovery_InvokeZero", 0x00427950),

@@ -11,10 +11,43 @@ extern float DAT_00476f78;       // default speed (1.0f)
 #ifdef _MSC_VER
 extern "C" float flt_470B68;
 extern "C" float flt_470B64;
+extern "C" float flt_470AFC;
 extern "C" float flt_476F78;
 extern "C" long __cdecl __ftol2(void);
 #endif
 
+#ifdef _MSC_VER
+__declspec(naked) void FrameTimer_Tick(FrameTimer* timer) {
+    __asm {
+        mov edx, [esi+4]
+        mov ecx, [esi+0Ch]
+        mov [esi], edx
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B68]
+        fnstsw ax
+        test ah, 41h
+        jnz loc_404F07
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B64]
+        fnstsw ax
+        test ah, 5
+        jp loc_404F07
+        fld dword ptr [esi+8]
+        inc edx
+        fadd dword ptr [flt_470AFC]
+        mov [esi+4], edx
+        fstp dword ptr [esi+8]
+        ret
+loc_404F07:
+        fld dword ptr [ecx]
+        fadd dword ptr [esi+8]
+        fst dword ptr [esi+8]
+        call __ftol2
+        mov [esi+4], eax
+        ret
+    }
+}
+#else
 void FrameTimer_Tick(FrameTimer* timer) {
     timer->previous = timer->current;
 
@@ -28,6 +61,7 @@ void FrameTimer_Tick(FrameTimer* timer) {
     timer->elapsed += speed;
     timer->current = (int)timer->elapsed;
 }
+#endif
 
 // 0x0044BF40 / 0x00428DD0 - Advance a timer by an explicit delta while
 // retaining the retail previous/current and speed-dependent accumulation.
@@ -165,6 +199,28 @@ void GameState_DisableTimerWithOwner(void* state, int owner) {
 
 // 0x004050D0 - Lazily initialize and then disable the embedded timer at the
 // +0x30 state offset, preserving the retail sentinel and flag transitions.
+#ifdef _MSC_VER
+__declspec(naked) void EmbeddedTimer_Reset(EmbeddedTimerState* timer,
+                                           const float* speed) {
+    __asm {
+        mov ecx, [eax+40h]
+        xor edx, edx
+        test cl, 1
+        jnz loc_4050F4
+        or ecx, 1
+        mov [eax+34h], edx
+        mov dword ptr [eax+30h], 0FFF0BDC1h
+        mov [eax+38h], edx
+        mov dword ptr [eax+3Ch], offset flt_476F78
+        mov [eax+40h], ecx
+loc_4050F4:
+        mov [eax+34h], edx
+        mov [eax+38h], edx
+        mov dword ptr [eax+30h], 0FFFFFFFFh
+        ret
+    }
+}
+#else
 void EmbeddedTimer_Reset(EmbeddedTimerState* timer, const float* speed) {
     if ((timer->flags & 1u) == 0) {
         timer->current = 0;
@@ -177,3 +233,4 @@ void EmbeddedTimer_Reset(EmbeddedTimerState* timer, const float* speed) {
     timer->previous = 0;
     timer->target = -1;
 }
+#endif

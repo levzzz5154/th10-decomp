@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 22,
-      "semantic": 157
+      "exact-overlay": 23,
+      "semantic": 156
     }
   },
   "integration_gates": {
@@ -114,7 +114,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/effect_indicator_slots.cpp"
     },
