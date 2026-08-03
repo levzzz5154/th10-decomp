@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 388,
-        "retail_bytes": 289627
+        "function_count": 387,
+        "retail_bytes": 289371
       },
       "exact-overlay": {
-        "function_count": 334,
-        "retail_bytes": 43173
+        "function_count": 335,
+        "retail_bytes": 43429
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 334,
+    "function_count": 335,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2552,8 +2552,10 @@
       "address": "0x00427B50",
       "symbol": "FUN_00427b50",
       "size": 256,
-      "status": "semantic",
-      "source": "src/game/effect_indicator_slots.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/effect_indicator_slots.cpp",
+      "overlay_object": "effect_indicator_slots.obj",
+      "overlay_symbol": "EffectIndicatorPool_AllocateRetail"
     },
     {
       "address": "0x00427C50",

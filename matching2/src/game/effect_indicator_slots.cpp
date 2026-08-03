@@ -38,6 +38,79 @@ void EmbeddedTimer_SetCountdown(EmbeddedTimerState* timer, int32_t frames) {
 // copy the position triple, store kind and argument, arm the embedded
 // timer (its flags were just wiped, so the sentinel branch always
 // runs), and apply the mode / counter / limit / phase defaults.
+#ifdef _MSC_VER
+__declspec(naked) EffectIndicatorSlot* EffectIndicatorPool_AllocateRetail() {
+    __asm {
+        push ebp
+        mov ebp, [esp+8]
+        add edx, 350Ch
+        xor eax, eax
+        _emit 8Dh
+        _emit 49h
+        _emit 00h
+loc_427B60:
+        test byte ptr [edx+68h], 1
+        jz loc_427B75
+        inc eax
+        add edx, 6Ch
+        cmp eax, 20h
+        jl loc_427B60
+        mov eax, edx
+        pop ebp
+        ret 14h
+loc_427B75:
+        push esi
+        push edi
+        xor eax, eax
+        mov ecx, 1Bh
+        mov edi, edx
+        rep stosd
+        or dword ptr [edx+68h], 3
+        lea esi, [edx+18h]
+        mov edi, esi
+        mov ecx, 0Bh
+        rep stosd
+        mov eax, [ebp]
+        mov [esi], eax
+        mov ecx, [ebp+4]
+        mov [esi+4], ecx
+        mov eax, [ebp+8]
+        mov ecx, [esp+14h]
+        mov [esi+8], eax
+        mov eax, [esp+18h]
+        mov [edx], ecx
+        mov [edx+4], eax
+        mov eax, [edx+54h]
+        pop edi
+        xor ecx, ecx
+        test al, 1
+        pop esi
+        jnz loc_427BD5
+        or eax, 1
+        mov [edx+48h], ecx
+        mov dword ptr [edx+44h], 0FFF0BDC1h
+        mov [edx+4Ch], ecx
+        mov dword ptr [edx+50h], 476F78h
+        mov [edx+54h], eax
+loc_427BD5:
+        mov eax, [esp+14h]
+        fild dword ptr [esp+14h]
+        mov [edx+48h], eax
+        dec eax
+        mov [edx+44h], eax
+        fstp dword ptr [edx+4Ch]
+        mov eax, [esp+18h]
+        mov [edx+58h], eax
+        mov [edx+5Ch], ecx
+        mov dword ptr [edx+60h], 0F423Fh
+        mov dword ptr [edx+64h], 4
+        mov eax, edx
+        pop ebp
+        ret 14h
+    }
+}
+#endif
+
 EffectIndicatorSlot* EffectIndicatorPool_Allocate(EffectIndicatorPool* pool,
                                                   const float position[3],
                                                   uint32_t kind,

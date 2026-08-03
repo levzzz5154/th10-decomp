@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 315,
-      "semantic": 388
+      "exact-overlay": 316,
+      "semantic": 387
     }
   },
   "functions": [
@@ -3711,8 +3711,12 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427B50_FUN_00427b50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/effect_indicator_slots.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/effect_indicator_slots.cpp",
+      "overlay": {
+        "object": "effect_indicator_slots.obj",
+        "symbol": "EffectIndicatorPool_AllocateRetail"
+      }
     },
     {
       "address": "0x00427C50",

@@ -200,6 +200,7 @@ OVERLAYS = (
     ("text_log.obj", "?TextLog_Append@@", 0x0044B810),
     ("text_log.obj", "TextLog_AppendLine", 0x0044B8E0),
     ("effect_indicator_slots.obj", "CellPair_Scale", 0x00427D80),
+    ("effect_indicator_slots.obj", "EffectIndicatorPool_AllocateRetail", 0x00427B50),
     ("process.obj", "?Platform_DestroyWorker@@", 0x0044C100),
     ("process.obj", "?Platform_StopWorkerNoDelete@@", 0x0044C130),
     ("process.obj", "?Platform_LaunchProcess@@", 0x00436570),
