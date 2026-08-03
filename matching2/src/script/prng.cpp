@@ -29,6 +29,46 @@
 
 #include "th10/script/prng.hpp"
 
+#ifdef _MSC_VER
+__declspec(naked) uint32_t EntityScript_NextRandomModulo(
+        void* state, uint32_t modulo) {
+    __asm {
+        xor eax, eax
+        test edi, edi
+        je done
+        mov ax, [ecx]
+        xor ax, 9630h
+        xor edx, edx
+        push esi
+        xor esi, esi
+        sub eax, 6553h
+        mov dx, ax
+        shl eax, 2
+        shr dx, 0Eh
+        add edx, eax
+        mov eax, edx
+        xor eax, 9630h
+        sub eax, 6553h
+        mov si, ax
+        shr si, 0Eh
+        shl eax, 2
+        mov word ptr [ecx], dx
+        add esi, eax
+        add dword ptr [ecx+4], 2
+        movzx eax, dx
+        mov word ptr [ecx], si
+        movzx ecx, si
+        shl eax, 10h
+        or eax, ecx
+        xor edx, edx
+        div edi
+        pop esi
+        mov eax, edx
+done:
+        ret
+    }
+}
+#else
 uint32_t EntityScript_NextRandomModulo(void* state, uint32_t modulo) {
     if (modulo == 0)
         return 0;
@@ -46,3 +86,4 @@ uint32_t EntityScript_NextRandomModulo(void* state, uint32_t modulo) {
     uint32_t combined = (step << 16) | static_cast<uint32_t>(next_reg);
     return combined % modulo;
 }
+#endif

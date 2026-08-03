@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 80,
-      "semantic": 99
+      "exact-overlay": 81,
+      "semantic": 98
     }
   },
   "integration_gates": {
@@ -972,7 +972,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/script/prng.cpp"
     },

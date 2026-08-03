@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 417,
-        "retail_bytes": 296651
+        "function_count": 416,
+        "retail_bytes": 296459
       },
       "exact-overlay": {
-        "function_count": 305,
-        "retail_bytes": 36149
+        "function_count": 306,
+        "retail_bytes": 36341
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 305,
+    "function_count": 306,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4033,8 +4033,10 @@
       "address": "0x0043CB80",
       "symbol": "FUN_0043cb80",
       "size": 192,
-      "status": "semantic",
-      "source": "src/script/prng.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/prng.cpp",
+      "overlay_object": "prng.obj",
+      "overlay_symbol": "EntityScript_NextRandomModulo"
     },
     {
       "address": "0x0043CC40",

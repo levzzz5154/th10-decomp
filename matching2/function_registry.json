@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 286,
-      "semantic": 417
+      "exact-overlay": 287,
+      "semantic": 416
     }
   },
   "functions": [
@@ -5635,8 +5635,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043CB80_FUN_0043cb80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/prng.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/prng.cpp",
+      "overlay": {
+        "object": "prng.obj",
+        "symbol": "EntityScript_NextRandomModulo"
+      }
     },
     {
       "address": "0x0043CC40",
