@@ -2,6 +2,15 @@
 #include "th10/game/scheduler.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#endif
+
+#ifdef _MSC_VER
+extern "C" int dword_474C7C;
+extern "C" void* sub_41A120(void*, void*, void*);
+#endif
+
 #ifndef _MSC_VER
 #include <cstring>
 #else
@@ -172,6 +181,51 @@ StageTip* StageTip_Create(StageTipManager* manager, const float position[3],
 // 0x00424650 - Age every selected tip in the current difficulty chain, create
 // a replacement through the common 0x0041A120 path, shorten its lifetime by
 // sixty frames with a one-frame floor, and install the highlighted style.
+#ifdef _MSC_VER
+__declspec(naked) StageTip* StageTip_CreateUrgent(
+        StageTipManager* manager, const float position[3], const char* text,
+        void* (*allocate)(uint32_t)) {
+    __asm {
+        mov eax, dword_474C7C
+        lea eax, [eax+eax*2]
+        mov eax, [esi+eax*4+7Ch]
+        test eax, eax
+        je spawn
+age_loop:
+        mov edx, [eax+4]
+        mov eax, [eax]
+        mov ecx, [eax+70h]
+        test ecx, ecx
+        jle next
+        dec ecx
+        mov [eax+70h], ecx
+next:
+        test edx, edx
+        mov eax, edx
+        jne age_loop
+spawn:
+        mov ecx, [esp+4]
+        push ebx
+        mov ebx, [esp+0Ch]
+        push ecx
+        push esi
+        call sub_41A120
+        mov edx, [eax+60h]
+        add edx, 0FFFFFFC4h
+        mov ecx, edx
+        test ecx, ecx
+        mov [eax+60h], edx
+        pop ebx
+        jg set_fields
+        mov dword ptr [eax+60h], 1
+set_fields:
+        mov dword ptr [eax+6Ch], 5Ah
+        mov dword ptr [eax+84h], 0FFFF8080h
+        mov dword ptr [eax+70h], 1Eh
+        ret 8
+    }
+}
+#else
 StageTip* StageTip_CreateUrgent(StageTipManager* manager,
                                 const float position[3], const char* text,
                                 void* (*allocate)(uint32_t)) {
@@ -196,3 +250,4 @@ StageTip* StageTip_CreateUrgent(StageTipManager* manager,
     tip->selection = 30;
     return tip;
 }
+#endif

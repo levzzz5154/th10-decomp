@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 281,
-      "semantic": 422
+      "exact-overlay": 282,
+      "semantic": 421
     }
   },
   "functions": [
@@ -3415,8 +3415,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00424650_FUN_00424650.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_tip_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_tip_manager.cpp",
+      "overlay": {
+        "object": "stage_tip_manager.obj",
+        "symbol": "StageTip_CreateUrgent"
+      }
     },
     {
       "address": "0x004246C0",

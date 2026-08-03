@@ -55,6 +55,7 @@ OVERLAY_SOURCES=(
     src/render/quad_vertex_append.cpp
     src/render/anm_batch_flush.cpp
     src/game/game_ui_create.cpp
+    src/game/stage_tip_manager.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

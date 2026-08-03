@@ -212,6 +212,7 @@ OVERLAYS = (
     ("quad_vertex_append.obj", "AnimationManager_AppendQuadVertices", 0x00442FE0),
     ("anm_batch_flush.obj", "AnimationManager_FlushQuadBatch", 0x00442F50),
     ("game_ui_create.obj", "GameUi_CreateAndPublish", 0x004180E0),
+    ("stage_tip_manager.obj", "StageTip_CreateUrgent", 0x00424650),
     ("recovery_leaves.obj", "EffectManager_ResetAndPublishRetail", 0x0042B430),
     ("recovery_leaves.obj", "EffectManagerRuntime_InitializeRetail", 0x0042B4D0),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
