@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 168,
-      "semantic": 535
+      "exact-overlay": 169,
+      "semantic": 534
     }
   },
   "functions": [
@@ -4093,8 +4093,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042CD50_FUN_0042cd50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/progress_worker.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/progress_worker.cpp",
+      "overlay": {
+        "object": "progress_worker.obj",
+        "symbol": "?ProgressManager_CreateAndStartWorker@@"
+      }
     },
     {
       "address": "0x0042CDB0",

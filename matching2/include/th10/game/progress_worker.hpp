@@ -2,6 +2,7 @@
 
 #ifdef _MSC_VER
 typedef unsigned long uintptr_t;
+typedef unsigned int uint32_t;
 #else
 #include <cstdint>
 #endif

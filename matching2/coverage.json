@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 535,
-        "retail_bytes": 317118
+        "function_count": 534,
+        "retail_bytes": 317022
       },
       "exact-overlay": {
-        "function_count": 187,
-        "retail_bytes": 15682
+        "function_count": 188,
+        "retail_bytes": 15778
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 187,
+    "function_count": 188,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2849,8 +2849,10 @@
       "address": "0x0042CD50",
       "symbol": "FUN_0042cd50",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/progress_worker.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/progress_worker.cpp",
+      "overlay_object": "progress_worker.obj",
+      "overlay_symbol": "?ProgressManager_CreateAndStartWorker@@"
     },
     {
       "address": "0x0042CDB0",
