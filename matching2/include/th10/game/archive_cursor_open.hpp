@@ -33,7 +33,11 @@
 #ifndef TH10_GAME_ARCHIVE_CURSOR_OPEN_HPP
 #define TH10_GAME_ARCHIVE_CURSOR_OPEN_HPP
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // Open ``path`` on ``cursor`` for the requested ``mode`` and seek to the
 // base of ``section``. Only mode 1 (read) performs any file work; other

@@ -46,6 +46,8 @@ OVERLAY_SOURCES=(
     src/platform/win32_timer.cpp
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
+    src/platform/sound_stream_start.cpp
+    src/game/archive_cursor_open.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

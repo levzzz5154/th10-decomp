@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 468,
-        "retail_bytes": 305339
+        "function_count": 465,
+        "retail_bytes": 304827
       },
       "exact-overlay": {
-        "function_count": 254,
-        "retail_bytes": 27461
+        "function_count": 257,
+        "retail_bytes": 27973
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 254,
+    "function_count": 257,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5259,8 +5259,10 @@
       "address": "0x0044C2A0",
       "symbol": "FUN_0044c2a0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_AdvancePolarMotion"
     },
     {
       "address": "0x0044C350",
@@ -5358,8 +5360,10 @@
       "address": "0x0044D440",
       "symbol": "FUN_0044d440",
       "size": 160,
-      "status": "semantic",
-      "source": "src/platform/sound_stream_start.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_stream_start.cpp",
+      "overlay_object": "sound_stream_start.obj",
+      "overlay_symbol": "SoundStream_Start"
     },
     {
       "address": "0x0044D4E0",
@@ -5449,8 +5453,10 @@
       "address": "0x0044DBF0",
       "symbol": "FUN_0044dbf0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/archive_cursor_open.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/archive_cursor_open.cpp",
+      "overlay_object": "archive_cursor_open.obj",
+      "overlay_symbol": "ArchiveCursor_Open"
     },
     {
       "address": "0x0044DCA0",

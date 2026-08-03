@@ -52,6 +52,7 @@ extern "C" void sub_449F60(void*, void*);
 extern "C" unsigned long dword_477708;
 extern "C" unsigned long dword_497854;
 extern "C" float flt_470B00;
+extern "C" float flt_470B44;
 extern "C" float flt_470B68;
 extern "C" float flt_470B64;
 extern "C" float flt_470AFC;
@@ -88,6 +89,8 @@ extern "C" void* sub_418D40(void*);
 extern "C" int sub_418E30(void);
 extern "C" void sub_418EE0(void*);
 extern "C" void sub_418C40(void*);
+extern "C" void sub_44C5D0(void*, void*);
+extern "C" float sub_452FF0(float);
 extern "C" char aFrontAnm[];
 extern "C" char aBulletAnm[];
 extern "C" char byte_46CB68[];
@@ -3362,6 +3365,67 @@ int Recovery_UpdateStageSequence(
 // velocity directly; polar records derive the horizontal displacement from
 // angle/radius before applying the same base velocity.  Retail then snaps the
 // horizontal coordinates through its floating-point quantizer.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_AdvancePolarMotion(
+        float state[11], float (*quantize)(float)) {
+    __asm {
+        mov al, [esi+28h]
+        sub esp, 18h
+        test al, 1
+        jne polar
+        fld dword ptr [esi]
+        fadd dword ptr [esi+0Ch]
+        fstp dword ptr [esi]
+        fld dword ptr [esi+10h]
+        fadd dword ptr [esi+4]
+        fstp dword ptr [esi+4]
+        fld dword ptr [esi+14h]
+        fadd dword ptr [esi+8]
+        fstp dword ptr [esi+8]
+        jmp snap
+polar:
+        mov eax, [esi+20h]
+        mov ecx, [esi+1Ch]
+        push eax
+        push ecx
+        lea ecx, [esp+14h]
+        call sub_44C5D0
+        fld dword ptr [esp+0Ch]
+        fadd dword ptr [esi+0Ch]
+        mov edx, [esi+14h]
+        mov [esp+8], edx
+        mov eax, esi
+        fstp dword ptr [esp]
+        mov ecx, [esp]
+        fld dword ptr [esp+10h]
+        mov dword ptr [esp+14h], 0
+        fadd dword ptr [esi+10h]
+        mov [eax], ecx
+        mov ecx, [esp+8]
+        fstp dword ptr [esp+4]
+        mov edx, [esp+4]
+        mov [eax+4], edx
+        mov [eax+8], ecx
+snap:
+        fld dword ptr [esi]
+        sub esp, 8
+        fmul dword ptr [flt_470B44]
+        fstp qword ptr [esp]
+        call sub_452FF0
+        fmul dword ptr [flt_470B00]
+        fstp dword ptr [esi]
+        fld dword ptr [esi+4]
+        fmul dword ptr [flt_470B44]
+        fstp qword ptr [esp]
+        call sub_452FF0
+        fmul dword ptr [flt_470B00]
+        add esp, 8
+        fstp dword ptr [esi+4]
+        add esp, 18h
+        ret
+    }
+}
+#else
 void Recovery_AdvancePolarMotion(float state[11],
                                  float (*quantize)(float)) {
     if (state == 0) return;
@@ -3381,3 +3445,4 @@ void Recovery_AdvancePolarMotion(float state[11],
         state[1] = quantize(state[1]);
     }
 }
+#endif
