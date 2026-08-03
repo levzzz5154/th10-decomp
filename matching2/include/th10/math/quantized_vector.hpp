@@ -1,7 +1,11 @@
 #ifndef TH10_MATH_QUANTIZED_VECTOR_HPP
 #define TH10_MATH_QUANTIZED_VECTOR_HPP
 
+#ifdef _MSC_VER
+typedef unsigned char uint8_t;
+#else
 #include <cstdint>
+#endif
 
 // The 0x1C-byte parameter block shared by the retail leaves at 0x00404D40
 // (subtract), 0x00404DA0 (scale) and 0x00404E10 (add). Six float channels are
@@ -10,13 +14,13 @@
 // at 0x00463B2C before storing the low byte.
 struct QuantizedVector {
     float components[6];
-    std::uint8_t quantized[4];
+    uint8_t quantized[4];
 };
 
 inline void QuantizedVector_UpdateBytes(QuantizedVector* vector) {
     for (int index = 0; index < 4; ++index) {
         vector->quantized[index] =
-            (std::uint8_t)(int)vector->components[index + 2];
+            (uint8_t)(int)vector->components[index + 2];
     }
 }
 

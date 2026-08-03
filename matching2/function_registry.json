@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 165,
-      "semantic": 538
+      "exact-overlay": 166,
+      "semantic": 537
     }
   },
   "functions": [
@@ -345,8 +345,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404D40_FUN_00404d40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/math_utils.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/math_utils.cpp",
+      "overlay": {
+        "object": "math_utils.obj",
+        "symbol": "?Vec_Subtract@@"
+      }
     },
     {
       "address": "0x00404DA0",
