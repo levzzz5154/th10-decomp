@@ -1006,6 +1006,39 @@ static void ResetRawTimer(RecoveryByte* bytes, RecoveryWord target_offset,
 }
 
 // 0x00442300 - Configure the state bytes and reset its embedded timer.
+#ifdef _MSC_VER
+__declspec(naked) void RecoveryState_Configure42300(
+        void* state, const void* owner,
+        RecoveryByte first, RecoveryByte second,
+        RecoveryByte third, RecoveryWord speed) {
+    __asm {
+        mov [eax+12Ch], ecx
+        movzx ecx, byte ptr [esp+4]
+        mov [eax+130h], ecx
+        movzx ecx, byte ptr [esp+8]
+        mov [eax+108h], ecx
+        movzx ecx, byte ptr [esp+0Ch]
+        xor edx, edx
+        mov [eax+110h], edx
+        mov [eax+114h], edx
+        mov [eax+10Ch], ecx
+        mov ecx, [eax+128h]
+        test cl, 1
+        jne after_timer
+        or ecx, 1
+        mov [eax+11Ch], edx
+        mov dword ptr [eax+118h], 0FFF0BDC1h
+        mov [eax+120h], edx
+        mov dword ptr [eax+124h], 476F78h
+        mov [eax+128h], ecx
+after_timer:
+        mov [eax+11Ch], edx
+        mov [eax+120h], edx
+        mov dword ptr [eax+118h], 0FFFFFFFFh
+        ret 0Ch
+    }
+}
+#else
 void RecoveryState_Configure42300(void* state, const void* owner,
                                   RecoveryByte first, RecoveryByte second,
                                   RecoveryByte third, RecoveryWord speed) {
@@ -1019,6 +1052,7 @@ void RecoveryState_Configure42300(void* state, const void* owner,
     *(RecoveryWord*)(bytes + 0x10C) = third;
     ResetRawTimer(bytes, 0x118, 0x11C, 0x120, 0x124, 0x128, speed);
 }
+#endif
 
 // 0x00442220 - Copy the two RGB-like triples, clear transient fields, and
 // reset the object's embedded timer.

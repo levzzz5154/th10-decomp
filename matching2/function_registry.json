@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 283,
-      "semantic": 420
+      "exact-overlay": 284,
+      "semantic": 419
     }
   },
   "functions": [
@@ -6037,8 +6037,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442300_FUN_00442300.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "RecoveryState_Configure42300"
+      }
     },
     {
       "address": "0x004423C0",
