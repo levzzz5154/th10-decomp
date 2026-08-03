@@ -35,6 +35,27 @@ extern float _DAT_00470b40;
 #ifdef _MSC_VER
 extern "C" void j__free(void*);
 extern "C" char off_46D0F0;
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" char CriticalSection;
+extern "C" unsigned char byte_49231C;
+extern "C" unsigned long dword_491BE4;
+extern "C" unsigned long dword_491C10;
+extern "C" unsigned long dword_4776FC;
+extern "C" char aBulletAnm[];
+extern "C" char byte_46CF74[];
+extern "C" char Text[];
+extern "C" void sub_44B810(void*, const char*);
+extern "C" void sub_40B050(void*);
+extern "C" void sub_40B060(void*);
+extern "C" void* sub_449ED0(void*);
+extern "C" void sub_449AE0(void*, void*, void*);
+extern "C" void sub_449B70(void*, void*, void*);
+extern "C" void sub_447280(void*);
+extern "C" void sub_4492A0(void*, void*);
+extern "C" void sub_449F60(void*, void*);
+extern "C" void sub_40AE70(void*);
+extern "C" void sub_40AF00(void*);
 #endif
 
 int __fastcall ResourceManager_FindTexture(void* resource_template);
@@ -154,6 +175,20 @@ BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id) {
 // 0x0040CEA0 - Mark the bullet's active animation for deferred resource
 // removal, then invalidate the local handle. The retail animation manager
 // performs the root/child flag propagation behind AnimationManager_RemoveHandle.
+#ifdef _MSC_VER
+__declspec(naked) void BulletEntity_MarkAnimationForRemoval(
+        BulletEntity* entity) {
+    __asm {
+        or dword ptr [esi+378Ch], 10h
+        mov eax, [esi+774h]
+        mov edx, dword_491C10
+        push eax
+        call sub_4492A0
+        mov dword ptr [esi+774h], 0
+        ret
+    }
+}
+#else
 void BulletEntity_MarkAnimationForRemoval(BulletEntity* entity) {
     uint8_t* bytes = (uint8_t*)entity;
     *(uint32_t*)(bytes + 0x378C) |= 0x10;
@@ -161,6 +196,7 @@ void BulletEntity_MarkAnimationForRemoval(BulletEntity* entity) {
                  *(int*)(bytes + 0x774));
     *(uint32_t*)(bytes + 0x774) = 0;
 }
+#endif
 
 // 0x0040B250 - Give an entity its private copy of a 0x2c-byte resource
 // record. Retail immediately mirrors the record's leading vector into the
@@ -261,6 +297,53 @@ void BulletEntity_ClearResourceList(BulletEntity* entity) {
 //   Each block ends with a 0xFFFFFFFF marker at offset +0x204 within block
 //   Clears bit 0 at +0x142C and +0x1440
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) void __fastcall Entity_ClearAnims(void* unused,
+                                                    uint8_t* data) {
+    __asm {
+        mov ecx, [edx+12Ch]
+        push ebx
+        push ebp
+        mov ebp, 0FFFFFFFEh
+        and ecx, ebp
+        mov [edx+12Ch], ecx
+        and [edx+17Ch], ebp
+        mov ebx, [edx+1C8h]
+        push esi
+        and ebx, ebp
+        mov [edx+1C8h], ebx
+        push edi
+        and [edx+204h], ebp
+        and [edx+240h], ebp
+        and [edx+27Ch], ebp
+        and [edx+2B8h], ebp
+        lea esi, [edx+2C4h]
+        mov ebx, 8
+        mov edi, edi
+loc_40CCC0:
+        xor eax, eax
+        mov edi, esi
+        mov ecx, 84h
+        rep stosd
+        mov dword ptr [esi+204h], 0FFFFFFFFh
+        add esi, 210h
+        dec ebx
+        jnz loc_40CCC0
+        mov ecx, [edx+142Ch]
+        and ecx, ebp
+        pop edi
+        mov [edx+142Ch], ecx
+        mov eax, [edx+1440h]
+        and eax, ebp
+        pop esi
+        pop ebp
+        mov [edx+1440h], eax
+        mov eax, edx
+        pop ebx
+        ret
+    }
+}
+#else
 void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
     (void)unused;
     *(uint32_t*)(data + 300)   &= 0xFFFFFFFE;
@@ -283,6 +366,7 @@ void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
     *(uint32_t*)(data + 0x142C) &= 0xFFFFFFFE;
     *(uint32_t*)(data + 0x1440) &= 0xFFFFFFFE;
 }
+#endif
 
 // 0x0040DC80 - per-entity transform, lifetime and ANM synchronization.
 int BulletEntity_UpdateTransform(uint32_t* bullet_transform) {
@@ -649,6 +733,55 @@ BulletEntity* BulletEntity_Spawn(
 // the EnterCriticalSection/LeaveCriticalSection imports the scheduler keeps
 // in its own import slots. __fastcall so ECX is the manager state.
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) void __fastcall BulletManager_Release(
+        BulletManagerState* state) {
+    __asm {
+        mov eax, [esp+4]
+        push ebx
+        mov ebx, dword ptr [__imp_EnterCriticalSection]
+        push ebp
+        mov ebp, dword ptr [__imp_LeaveCriticalSection]
+        push esi
+        mov esi, [eax+8]
+        test esi, esi
+        push edi
+        mov edi, dword_491BE4
+        jz loc_40AF44
+        push offset CriticalSection
+        call ebx
+        inc byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push offset CriticalSection
+        call ebp
+        dec byte_49231C
+loc_40AF44:
+        mov ecx, [esp+10h+4]
+        mov esi, [ecx+0Ch]
+        test esi, esi
+        mov edi, dword_491BE4
+        jz loc_40AF78
+        push offset CriticalSection
+        call ebx
+        inc byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push offset CriticalSection
+        call ebp
+        dec byte_49231C
+loc_40AF78:
+        pop edi
+        pop esi
+        pop ebp
+        mov dword_4776FC, 0
+        pop ebx
+        ret 4
+    }
+}
+#else
 void __fastcall BulletManager_Release(BulletManagerState* state) {
     void* device = (void*)(unsigned long)DAT_00491be4;
 
@@ -672,6 +805,7 @@ void __fastcall BulletManager_Release(BulletManagerState* state) {
 
     DAT_004776fc = 0;
 }
+#endif
 
 // ============================================================================
 // 0x0040B050 / 0x0040B060 - Scheduler callback stubs
@@ -695,6 +829,52 @@ static int __fastcall BulletManager_SecondaryStub(void* /*owner*/) {
 // as an explicit argument. Returns 0 on success, -1 if the resource lookup
 // fails.
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) int BulletManager_LoadScripts(BulletManagerState* state) {
+    __asm {
+        mov edx, dword_491C10
+        push offset aBulletAnm
+        mov ecx, 7
+        call sub_447280
+        test eax, eax
+        mov [ebx+10h], eax
+        jnz loc_40AEA2
+        push offset byte_46CF74
+        mov ecx, offset Text
+        call sub_44B810
+        add esp, 4
+        or eax, 0FFFFFFFFh
+        ret
+loc_40AEA2:
+        push esi
+        push edi
+        push offset sub_40B050
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov eax, dword_491BE4
+        push eax
+        mov edi, 17h
+        mov [esi+20h], ebx
+        call sub_449AE0
+        push offset sub_40B060
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov ecx, dword_491BE4
+        push ecx
+        mov edi, 20h
+        mov [esi+20h], ebx
+        call sub_449B70
+        pop edi
+        mov [ebx+0Ch], esi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int BulletManager_LoadScripts(BulletManagerState* state) {
     int* resource = ResourceManager_FindResource(7, g_pGameStateManager, "bullet.anm");
     state->bullet_resource = resource;
@@ -718,6 +898,7 @@ int BulletManager_LoadScripts(BulletManagerState* state) {
 
     return 0;
 }
+#endif
 
 // ============================================================================
 // 0x0040AF90 - BulletManager_Create
@@ -726,6 +907,51 @@ int BulletManager_LoadScripts(BulletManagerState* state) {
 // helper returns NULL on script-load failure after releasing the allocation
 // so callers can distinguish "not yet created" from "created and live".
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) BulletManagerState* BulletManager_Create() {
+    __asm {
+        push ebx
+        push 18h
+        call operator_new
+        add esp, 4
+        test eax, eax
+        jz loc_40AFC0
+        xor ecx, ecx
+        mov edx, eax
+        mov [edx], ecx
+        mov [edx+4], ecx
+        mov [edx+8], ecx
+        mov [edx+0Ch], ecx
+        mov [edx+10h], ecx
+        mov [edx+14h], ecx
+        or dword ptr [eax], 2
+        mov dword_4776FC, eax
+        mov ebx, eax
+        jmp loc_40AFC2
+loc_40AFC0:
+        xor ebx, ebx
+loc_40AFC2:
+        call sub_40AE70
+        test eax, eax
+        jz loc_40AFE2
+        test ebx, ebx
+        jz loc_40AFDE
+        push ebx
+        call sub_40AF00
+        push ebx
+        call j__free
+        add esp, 4
+loc_40AFDE:
+        xor eax, eax
+        pop ebx
+        ret
+loc_40AFE2:
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 BulletManagerState* BulletManager_Create() {
     BulletManagerState* state =
         (BulletManagerState*)operator_new(sizeof(BulletManagerState));
@@ -750,3 +976,4 @@ BulletManagerState* BulletManager_Create() {
     }
     return state;
 }
+#endif

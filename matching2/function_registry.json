@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 173,
-      "semantic": 530
+      "exact-overlay": 178,
+      "semantic": 525
     }
   },
   "functions": [
@@ -1123,8 +1123,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040AE70_FUN_0040ae70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "?BulletManager_LoadScripts@@"
+      }
     },
     {
       "address": "0x0040AF00",
@@ -1133,8 +1137,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040AF00_FUN_0040af00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "?BulletManager_Release@@"
+      }
     },
     {
       "address": "0x0040AF90",
@@ -1143,8 +1151,12 @@
       "size": 384,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040AF90_FUN_0040af90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "?BulletManager_Create@@"
+      }
     },
     {
       "address": "0x0040B110",
@@ -1395,8 +1407,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040CC70_FUN_0040cc70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "?Entity_ClearAnims@@"
+      }
     },
     {
       "address": "0x0040CD20",
@@ -1415,8 +1431,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040CEA0_FUN_0040cea0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "?BulletEntity_MarkAnimationForRemoval@@"
+      }
     },
     {
       "address": "0x0040CF40",

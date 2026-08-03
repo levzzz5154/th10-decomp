@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 530,
-        "retail_bytes": 316542
+        "function_count": 525,
+        "retail_bytes": 315534
       },
       "exact-overlay": {
-        "function_count": 192,
-        "retail_bytes": 16258
+        "function_count": 197,
+        "retail_bytes": 17266
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 192,
+    "function_count": 197,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -822,22 +822,28 @@
       "address": "0x0040AE70",
       "symbol": "FUN_0040ae70",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "?BulletManager_LoadScripts@@"
     },
     {
       "address": "0x0040AF00",
       "symbol": "FUN_0040af00",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "?BulletManager_Release@@"
     },
     {
       "address": "0x0040AF90",
       "symbol": "FUN_0040af90",
       "size": 384,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "?BulletManager_Create@@"
     },
     {
       "address": "0x0040B110",
@@ -1006,8 +1012,10 @@
       "address": "0x0040CC70",
       "symbol": "FUN_0040cc70",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "?Entity_ClearAnims@@"
     },
     {
       "address": "0x0040CD20",
@@ -1020,8 +1028,10 @@
       "address": "0x0040CEA0",
       "symbol": "FUN_0040cea0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "?BulletEntity_MarkAnimationForRemoval@@"
     },
     {
       "address": "0x0040CF40",
