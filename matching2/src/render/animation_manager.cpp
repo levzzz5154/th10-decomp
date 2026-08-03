@@ -2634,6 +2634,54 @@ void AnimationManager_ClearResourceSlot(void* manager, int index,
 #endif
 
 // 0x0043E460 - Install a resource record in the first free manager slot.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_RegisterResource(
+        void* manager, unsigned int index,
+        const char* name, int value, int flags) {
+    __asm {
+        push esi
+        mov esi, eax
+        xor eax, eax
+        lea ecx, [esi+1F88h]
+        jmp search_loop
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+search_loop:
+        cmp dword ptr [ecx], 0
+        je found
+        inc eax
+        add ecx, 10Ch
+        cmp eax, 1Fh
+        jl search_loop
+        pop esi
+        ret 8
+found:
+        imul eax, eax, 10Ch
+        lea ecx, [eax+esi]
+        mov eax, [esp+8]
+        mov [ecx+1F88h], eax
+        mov eax, [esp+0Ch]
+        lea esi, [ecx+1F94h]
+        mov [ecx+1F8Ch], eax
+        mov eax, edx
+        sub esi, edx
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+copy_name:
+        mov dl, [eax]
+        mov [esi+eax], dl
+        inc eax
+        test dl, dl
+        jne copy_name
+        mov dword ptr [ecx+1F90h], 0
+        pop esi
+        ret 8
+    }
+}
+#else
 void AnimationManager_RegisterResource(void* manager, unsigned int index,
         const char* name, int value, int flags) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -2650,6 +2698,7 @@ void AnimationManager_RegisterResource(void* manager, unsigned int index,
     }
     (void)index;
 }
+#endif
 
 // 0x0043DC90 - Queue a resource pointer in the matching indexed bucket.
 #ifdef _MSC_VER
