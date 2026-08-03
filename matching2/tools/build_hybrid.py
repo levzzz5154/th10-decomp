@@ -91,6 +91,8 @@ OVERLAYS = (
     ("file.obj", "?File_CloseProbeHandle@@", 0x0044B7E0),
     ("file.obj", "?File_WriteShared@@", 0x0044B740),
     ("file.obj", "?File_ReadShared@@", 0x0044B790),
+    ("memory_file.obj", "?Resource_FindChunk@@", 0x0043D250),
+    ("memory_file.obj", "?MemoryFile_RelinkChild@@", 0x00436260),
     ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
     ("recovery_leaves.obj", "GameThread_RunQueueLeaf", 0x00401520),
     ("recovery_leaves.obj", "Recovery_InvokeZero", 0x00427950),

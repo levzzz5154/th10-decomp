@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 102,
-      "semantic": 601
+      "exact-overlay": 104,
+      "semantic": 599
     }
   },
   "functions": [
@@ -4533,8 +4533,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436260_FUN_00436260.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/memory_file.cpp",
+      "overlay": {
+        "object": "memory_file.obj",
+        "symbol": "?MemoryFile_RelinkChild@@"
+      }
     },
     {
       "address": "0x004362B0",
@@ -5299,8 +5303,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043D250_FUN_0043d250.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/memory_file.cpp",
+      "overlay": {
+        "object": "memory_file.obj",
+        "symbol": "?Resource_FindChunk@@"
+      }
     },
     {
       "address": "0x0043D2A0",

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 601,
-        "retail_bytes": 321664
+        "function_count": 599,
+        "retail_bytes": 321504
       },
       "exact-overlay": {
-        "function_count": 121,
-        "retail_bytes": 11136
+        "function_count": 123,
+        "retail_bytes": 11296
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 121,
+    "function_count": 123,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3245,8 +3245,10 @@
       "address": "0x00436260",
       "symbol": "FUN_00436260",
       "size": 80,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "?MemoryFile_RelinkChild@@"
     },
     {
       "address": "0x004362B0",
@@ -3873,8 +3875,10 @@
       "address": "0x0043D250",
       "symbol": "FUN_0043d250",
       "size": 80,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/memory_file.cpp",
+      "overlay_object": "memory_file.obj",
+      "overlay_symbol": "?Resource_FindChunk@@"
     },
     {
       "address": "0x0043D2A0",

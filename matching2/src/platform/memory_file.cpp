@@ -1,6 +1,58 @@
 #include "th10/platform/memory_file.hpp"
 
+#ifdef _MSC_VER
+extern "C" int _strncmp(const char*, const char*, unsigned long);
+extern "C" unsigned long dword_477858[];
+extern "C" unsigned long dword_47785C[];
+extern "C" unsigned long dword_477860[];
+#endif
+
 // 0x0043D250 - Walk length-prefixed four-byte resource chunks.
+#ifdef _MSC_VER
+__declspec(naked) const unsigned char* Resource_FindChunk(
+        const unsigned char* data, unsigned int size, const char tag[4],
+        unsigned int* payload_size) {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+8+4]
+        mov ebx, eax
+        test ebx, ebx
+        push esi
+        mov esi, ecx
+        jbe loc_43D286
+        nop
+loc_43D260:
+        mov eax, [esi+4]
+        push 4
+        push ebp
+        push esi
+        mov [edi], eax
+        call _strncmp
+        add esp, 0Ch
+        test eax, eax
+        jz loc_43D28E
+        mov eax, [edi]
+        mov ecx, 0FFFFFFF8h
+        sub ecx, eax
+        add ebx, ecx
+        lea esi, [esi+eax+8]
+        jnz loc_43D260
+loc_43D286:
+        pop esi
+        pop ebp
+        xor eax, eax
+        pop ebx
+        ret 4
+loc_43D28E:
+        lea eax, [esi+8]
+        pop esi
+        pop ebp
+        pop ebx
+        ret 4
+    }
+}
+#else
 const unsigned char* Resource_FindChunk(const unsigned char* data,
                                         unsigned int size, const char tag[4],
                                         unsigned int* payload_size) {
@@ -23,6 +75,7 @@ const unsigned char* Resource_FindChunk(const unsigned char* data,
         *payload_size = 0;
     return 0;
 }
+#endif
 #include "th10/archive/resource_manager.hpp"
 
 extern "C" void* __stdcall SelectObject(void*, void*);
@@ -44,6 +97,32 @@ BufferFile::BufferFile() : size_(0), position_(0), data_(0) {
 }
 
 // 0x00436260 - Replace one child link while preserving its parent's branch.
+#ifdef _MSC_VER
+__declspec(naked) void MemoryFile_RelinkChild(
+        MemoryFileLink* links, unsigned int source,
+        unsigned int replacement) {
+    __asm {
+        push edi
+        lea ecx, [esi+esi*2]
+        mov edi, dword_477858[ecx*4]
+        lea eax, [edx+edx*2]
+        mov dword_477858[eax*4], edi
+        mov eax, dword_477858[ecx*4]
+        lea eax, [eax+eax*2]
+        shl eax, 2
+        cmp dword_477860[eax], esi
+        pop edi
+        jnz loc_43629D
+        mov dword_477860[eax], edx
+        mov dword_477858[ecx*4], 0
+        ret
+loc_43629D:
+        mov dword_47785C[eax], edx
+        mov dword_477858[ecx*4], 0
+        ret
+    }
+}
+#else
 void MemoryFile_RelinkChild(MemoryFileLink* links, unsigned int source,
                             unsigned int replacement) {
     const int parent = links[source].parent;
@@ -54,6 +133,7 @@ void MemoryFile_RelinkChild(MemoryFileLink* links, unsigned int source,
         links[parent].right = (int)replacement;
     links[source].parent = 0;
 }
+#endif
 
 // 0x004362B0 - Replace a node and reconnect both of its child branches.
 void MemoryFile_ReplaceNode(MemoryFileLink* links, unsigned int source,
