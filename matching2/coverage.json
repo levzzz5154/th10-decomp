@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 651,
-        "retail_bytes": 326448
+        "function_count": 647,
+        "retail_bytes": 326000
       },
       "exact-overlay": {
-        "function_count": 71,
-        "retail_bytes": 6352
+        "function_count": 75,
+        "retail_bytes": 6800
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 71,
+    "function_count": 75,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1580,8 +1580,10 @@
       "address": "0x0041AB10",
       "symbol": "FUN_0041ab10",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_AppendNode"
     },
     {
       "address": "0x0041AB70",
@@ -3743,8 +3745,10 @@
       "address": "0x0043C870",
       "symbol": "FUN_0043c870",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Platform_DeletingDestructorNoReturn@@"
     },
     {
       "address": "0x0043C8B0",
@@ -3997,8 +4001,10 @@
       "address": "0x00441F50",
       "symbol": "FUN_00441f50",
       "size": 256,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?RecoveryState_Configure41F50@@"
     },
     {
       "address": "0x00442050",
@@ -5073,8 +5079,10 @@
       "address": "0x0044D710",
       "symbol": "FUN_0044d710",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Platform_DeletingDestructorVtable@@"
     },
     {
       "address": "0x0044D730",

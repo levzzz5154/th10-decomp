@@ -27,6 +27,8 @@ extern "C" int _rand(void);
 extern "C" unsigned long dword_477830;
 extern "C" char off_4705D8;
 extern "C" void* __imp_CloseHandle;
+extern "C" void sub_43CB00(void*);
+extern "C" void sub_44D730(void*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -843,6 +845,36 @@ void RecoveryState_Configure42220(void* state, const RecoveryByte first[3],
 }
 
 // 0x00441F50 - Set the four compact state parameters and reset its timer.
+#ifdef _MSC_VER
+__declspec(naked) void RecoveryState_Configure41F50(
+        void* state, RecoveryWord value, RecoveryWord mode,
+        RecoveryByte first, RecoveryByte second, RecoveryWord speed) {
+    __asm {
+        movzx edx, dl
+        mov [eax+230h], edx
+        movzx edx, [esp+8]
+        mov [eax+22Ch], ecx
+        movzx ecx, [esp+4]
+        mov [eax+20Ch], edx
+        mov [eax+208h], ecx
+        mov ecx, [eax+228h]
+        xor edx, edx
+        test cl, 1
+        jnz loc_441FAB
+        or ecx, 1
+        mov [eax+21Ch], edx
+        mov dword ptr [eax+218h], 0FFF0BDC1h
+        mov [eax+220h], edx
+        mov dword ptr [eax+224h], offset flt_476F78
+        mov [eax+228h], ecx
+loc_441FAB:
+        mov [eax+21Ch], edx
+        mov [eax+220h], edx
+        mov dword ptr [eax+218h], 0FFFFFFFFh
+        ret 8
+    }
+}
+#else
 void RecoveryState_Configure41F50(void* state, RecoveryWord value,
                                   RecoveryWord mode, RecoveryByte first,
                                   RecoveryByte second, RecoveryWord speed) {
@@ -853,6 +885,7 @@ void RecoveryState_Configure41F50(void* state, RecoveryWord value,
     *(RecoveryWord*)(bytes + 0x208) = first;
     ResetRawTimer(bytes, 0x218, 0x21C, 0x220, 0x224, 0x228, speed);
 }
+#endif
 
 // 0x00427950 - Invoke the downstream update leaf and return its zero status.
 #ifdef _MSC_VER
@@ -910,6 +943,42 @@ unsigned long long Recovery_InvokePair(
 #endif
 
 // 0x0041AB10 - Append a node to the tail of the doubly-linked chain.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_AppendNode(RecoveryAppendNode* list,
+                                           RecoveryAppendNode* node) {
+    __asm {
+        lea ecx, [eax+4]
+        push esi
+        cmp dword ptr [ecx], 0
+        jz loc_41AB2C
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_41AB20:
+        mov eax, [ecx]
+        mov esi, [eax+4]
+        test esi, esi
+        lea ecx, [eax+4]
+        jnz loc_41AB20
+loc_41AB2C:
+        mov ecx, [eax+4]
+        test ecx, ecx
+        pop esi
+        jz loc_41AB3D
+        mov [edx+4], ecx
+        mov ecx, [eax+4]
+        mov [ecx+8], edx
+loc_41AB3D:
+        mov [eax+4], edx
+        mov [edx+8], eax
+        ret
+    }
+}
+#else
 void Recovery_AppendNode(RecoveryAppendNode* list,
                          RecoveryAppendNode* node) {
     if (list == 0 || node == 0) return;
@@ -919,6 +988,7 @@ void Recovery_AppendNode(RecoveryAppendNode* list,
     node->previous = tail;
     tail->next = node;
 }
+#endif
 
 // 0x0044D080 - Release every interface entry and the optional auxiliary
 // stream, leaving the owner in its post-destruction empty state.
@@ -1050,6 +1120,26 @@ int Platform_SelectStreamRecord(
 }
 
 // 0x0044D710 - Run the final virtual cleanup and honor the deleting flag.
+#ifdef _MSC_VER
+__declspec(naked) void* Platform_DeletingDestructorVtable(
+        void* object, RecoveryByte flags, void (*destroy)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_44D730
+        test byte ptr [esp+8], 1
+        jz loc_44D728
+        push esi
+        call j__free
+        add esp, 4
+loc_44D728:
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 void* Platform_DeletingDestructorVtable(
         void* object, RecoveryByte flags, void (*destroy)(void*),
         void (*free_memory)(void*)) {
@@ -1057,6 +1147,7 @@ void* Platform_DeletingDestructorVtable(
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
+#endif
 
 // 0x0044D4E0 - Install either the fixed fallback deadline or the randomized
 // interval used by the retail presentation path.
@@ -1347,12 +1438,33 @@ int Recovery_DispatchSchedule(
 }
 
 // 0x0043C870 - Release a resource and always return the retail null status.
+#ifdef _MSC_VER
+__declspec(naked) void* Platform_DeletingDestructorNoReturn(
+        void* object, void (*release)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        test esi, esi
+        jz loc_43C886
+        push esi
+        call sub_43CB00
+        push esi
+        call j__free
+        add esp, 4
+loc_43C886:
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 void* Platform_DeletingDestructorNoReturn(
         void* object, void (*release)(void*), void (*free_memory)(void*)) {
     if (object != 0 && release != 0) release(object);
     if (object != 0 && free_memory != 0) free_memory(object);
     return 0;
 }
+#endif
 
 // 0x0040C9A0 - Flush the pending emitter count through the spawn callback,
 // reset the emitter, and clear the count.
