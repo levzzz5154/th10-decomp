@@ -46,6 +46,7 @@ extern "C" unsigned long dword_46F2A0;
 extern "C" unsigned long dword_491C30;
 extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void*);
 extern "C" void sub_463B2C(void);
+extern "C" void sub_401DE0(void*, void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -1782,11 +1783,78 @@ static void AnimationObject_LoadScriptInternal(
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
 
+#ifdef _MSC_VER
+__declspec(naked) void AnimationObject_LoadScript(
+        AnimationObject* animation, void* resource, int animationIndex) {
+    __asm {
+        push ebp
+        push esi
+        mov esi, ecx
+        push edi
+        mov edi, eax
+        mov eax, [esi+11Ch]
+        mov ecx, [eax+ebx*4]
+        xor ebp, ebp
+        cmp ecx, ebp
+        je zero_object
+        cmp [esi+124h], ebp
+        jne zero_object
+        mov edx, edi
+        call sub_401DE0
+        mov edx, [edi+35Ch]
+        mov word ptr [edi+38Ah], bx
+        mov cx, word ptr [esi]
+        and edx, 0FFFFF9FFh
+        mov word ptr [edi+386h], cx
+        mov [edi+308h], esi
+        mov [edi+35Ch], edx
+        mov edx, [esi+11Ch]
+        mov eax, [edx+ebx*4]
+        mov [edi+38Ch], eax
+        mov [edi+390h], eax
+        mov eax, [edi+6Ch]
+        test al, 1
+        jne after_timer
+        or eax, 1
+        mov [edi+60h], ebp
+        mov dword ptr [edi+5Ch], 0FFF0BDC1h
+        mov [edi+64h], ebp
+        mov dword ptr [edi+68h], 476F78h
+        mov [edi+6Ch], eax
+after_timer:
+        mov [edi+60h], ebp
+        mov [edi+64h], ebp
+        mov dword ptr [edi+5Ch], 0FFFFFFFFh
+        mov esi, [edi+35Ch]
+        and esi, 0FFFFFFFEh
+        push edi
+        mov [edi+35Ch], esi
+        call sub_43EE30
+        mov eax, dword_491C10
+        mov ecx, [eax+4Ch]
+        pop edi
+        inc ecx
+        pop esi
+        mov [eax+4Ch], ecx
+        pop ebp
+        ret
+zero_object:
+        mov ecx, 0EBh
+        xor eax, eax
+        rep stosd
+        pop edi
+        pop esi
+        pop ebp
+        ret
+    }
+}
+#else
 void AnimationObject_LoadScript(
     AnimationObject* animation, void* resource, int animationIndex) {
     AnimationObject_LoadScriptInternal(
         animation, resource, animationIndex, true);
 }
+#endif
 
 void AnimationObject_LoadScriptPreservingState(
     AnimationObject* animation, void* resource, int animationIndex) {

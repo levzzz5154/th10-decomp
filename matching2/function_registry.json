@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 270,
-      "semantic": 433
+      "exact-overlay": 271,
+      "semantic": 432
     }
   },
   "functions": [
@@ -5813,8 +5813,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043E710_FUN_0043e710.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationObject_LoadScript@@"
+      }
     },
     {
       "address": "0x0043E7E0",
