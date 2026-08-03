@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 410,
-        "retail_bytes": 295467
+        "function_count": 409,
+        "retail_bytes": 295099
       },
       "exact-overlay": {
-        "function_count": 312,
-        "retail_bytes": 37333
+        "function_count": 313,
+        "retail_bytes": 37701
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 312,
+    "function_count": 313,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -681,8 +681,10 @@
       "address": "0x00408750",
       "symbol": "FUN_00408750",
       "size": 368,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "Score_SetPolarVector"
     },
     {
       "address": "0x004088C0",

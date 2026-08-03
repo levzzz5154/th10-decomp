@@ -229,6 +229,7 @@ OVERLAYS = (
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("score.obj", "?ScoreOwnedObject_Destroy@@", 0x0040B9D0),
     ("score.obj", "OutsideAxisAlignedBounds", 0x004086B0),
+    ("score.obj", "Score_SetPolarVector", 0x00408750),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),
     ("score.obj", "?SetInputMode@@", 0x0040AC90),
     ("score.obj", "?Score_InputHistoryStep@@", 0x0044BE70),

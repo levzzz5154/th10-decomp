@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 293,
-      "semantic": 410
+      "exact-overlay": 294,
+      "semantic": 409
     }
   },
   "functions": [
@@ -925,8 +925,12 @@
       "size": 368,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408750_FUN_00408750.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "Score_SetPolarVector"
+      }
     },
     {
       "address": "0x004088C0",

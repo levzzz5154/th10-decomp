@@ -748,10 +748,29 @@ void SetInputMode(void* input_state, unsigned int requested_mode) {
 #endif
 
 // 0x00408750 - Convert polar input to a two-component score vector.
+#ifdef _MSC_VER
+__declspec(naked) void Score_SetPolarVector(
+        float* destination, float angle, float magnitude) {
+    __asm {
+        push ecx
+        mov [esp], ecx
+        mov eax, [esp]
+        fld dword ptr [esp+8]
+        fsincos
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax]
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax+4]
+        pop ecx
+        ret 8
+    }
+}
+#else
 void Score_SetPolarVector(float* destination, float angle, float magnitude) {
     destination[0] = cosf(angle) * magnitude;
     destination[1] = sinf(angle) * magnitude;
 }
+#endif
 
 // 0x0041BEB0 - Construct the same two-component vector used by score
 // rendering from an angle and radius.
