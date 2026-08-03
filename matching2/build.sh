@@ -61,6 +61,7 @@ OVERLAY_SOURCES=(
     src/render/anm_batch_flush.cpp
     src/game/game_ui_create.cpp
     src/game/stage_tip_manager.cpp
+    src/game/frame_counter.cpp
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp
     src/script/prng.cpp

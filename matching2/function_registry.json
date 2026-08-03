@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 311,
-      "semantic": 392
+      "exact-overlay": 313,
+      "semantic": 390
     }
   },
   "functions": [
@@ -2301,8 +2301,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418D40_FUN_00418d40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_tip_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_tip_manager.cpp",
+      "overlay": {
+        "object": "stage_tip_manager.obj",
+        "symbol": "StageTipManager_Construct"
+      }
     },
     {
       "address": "0x00418E30",
@@ -3731,8 +3735,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427C70_FUN_00427c70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/frame_counter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/frame_counter.cpp",
+      "overlay": {
+        "object": "frame_counter.obj",
+        "symbol": "FrameCounter_AtInterval"
+      }
     },
     {
       "address": "0x00427D80",

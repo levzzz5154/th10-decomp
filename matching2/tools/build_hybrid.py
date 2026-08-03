@@ -226,6 +226,8 @@ OVERLAYS = (
     ("anm_batch_flush.obj", "AnimationManager_FlushQuadBatch", 0x00442F50),
     ("game_ui_create.obj", "GameUi_CreateAndPublish", 0x004180E0),
     ("stage_tip_manager.obj", "StageTip_CreateUrgent", 0x00424650),
+    ("stage_tip_manager.obj", "StageTipManager_Construct", 0x00418D40),
+    ("frame_counter.obj", "FrameCounter_AtInterval", 0x00427C70),
     ("recovery_leaves.obj", "EffectManager_ResetAndPublishRetail", 0x0042B430),
     ("recovery_leaves.obj", "EffectManagerRuntime_InitializeRetail", 0x0042B4D0),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),

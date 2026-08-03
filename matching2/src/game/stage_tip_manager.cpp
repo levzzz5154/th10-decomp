@@ -70,6 +70,72 @@ static void CopyTipText(char* destination, const char* source,
 // sixteen intrusive list sentinels back at the manager with empty
 // next/previous links, and publish the instance through the retail
 // global at 0x00477814.
+#ifdef _MSC_VER
+__declspec(naked) StageTipManager* StageTipManager_Construct(
+        StageTipManager* state) {
+    __asm {
+        xor eax, eax
+        push edi
+        mov ecx, 6Ah
+        mov edi, edx
+        rep stosd
+        or dword ptr [edx], 2
+        mov [edx+18h], edx
+        mov [edx+24h], edx
+        xor eax, eax
+        mov [edx+1Ch], eax
+        mov [edx+20h], eax
+        mov [edx+28h], eax
+        mov [edx+2Ch], eax
+        mov [edx+30h], edx
+        mov [edx+34h], eax
+        mov [edx+38h], eax
+        mov [edx+3Ch], edx
+        mov [edx+40h], eax
+        mov [edx+44h], eax
+        mov [edx+48h], edx
+        mov [edx+4Ch], eax
+        mov [edx+50h], eax
+        mov [edx+54h], edx
+        mov [edx+58h], eax
+        mov [edx+5Ch], eax
+        mov [edx+60h], edx
+        mov [edx+64h], eax
+        mov [edx+68h], eax
+        mov [edx+6Ch], edx
+        mov [edx+70h], eax
+        mov [edx+74h], eax
+        mov [edx+78h], edx
+        mov [edx+84h], edx
+        mov [edx+7Ch], eax
+        mov [edx+80h], eax
+        mov [edx+88h], eax
+        mov [edx+8Ch], eax
+        mov [edx+90h], edx
+        mov [edx+94h], eax
+        mov [edx+98h], eax
+        mov [edx+9Ch], edx
+        mov [edx+0A0h], eax
+        mov [edx+0A4h], eax
+        mov [edx+0A8h], edx
+        mov [edx+0ACh], eax
+        mov [edx+0B0h], eax
+        mov [edx+0B4h], edx
+        mov [edx+0B8h], eax
+        mov [edx+0BCh], eax
+        mov [edx+0C0h], edx
+        mov [edx+0C4h], eax
+        mov [edx+0C8h], eax
+        mov [edx+0CCh], edx
+        mov [edx+0D0h], eax
+        mov [edx+0D4h], eax
+        mov [DAT_00477814], edx
+        mov eax, edx
+        pop edi
+        ret
+    }
+}
+#else
 StageTipManager* StageTipManager_Construct(StageTipManager* state) {
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
@@ -81,6 +147,7 @@ StageTipManager* StageTipManager_Construct(StageTipManager* state) {
     DAT_00477814 = state;
     return state;
 }
+#endif
 
 void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings) {
     if (bindings != 0)

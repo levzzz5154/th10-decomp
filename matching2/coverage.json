@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 392,
-        "retail_bytes": 290667
+        "function_count": 390,
+        "retail_bytes": 290155
       },
       "exact-overlay": {
-        "function_count": 330,
-        "retail_bytes": 42133
+        "function_count": 332,
+        "retail_bytes": 42645
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 330,
+    "function_count": 332,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1597,8 +1597,10 @@
       "address": "0x00418D40",
       "symbol": "FUN_00418d40",
       "size": 240,
-      "status": "semantic",
-      "source": "src/game/stage_tip_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_tip_manager.cpp",
+      "overlay_object": "stage_tip_manager.obj",
+      "overlay_symbol": "StageTipManager_Construct"
     },
     {
       "address": "0x00418E30",
@@ -2566,8 +2568,10 @@
       "address": "0x00427C70",
       "symbol": "FUN_00427c70",
       "size": 272,
-      "status": "semantic",
-      "source": "src/game/frame_counter.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/frame_counter.cpp",
+      "overlay_object": "frame_counter.obj",
+      "overlay_symbol": "FrameCounter_AtInterval"
     },
     {
       "address": "0x00427D80",
