@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 282,
-      "semantic": 421
+      "exact-overlay": 283,
+      "semantic": 420
     }
   },
   "functions": [
@@ -4573,8 +4573,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434CA0_FUN_00434ca0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat_file.cpp",
+      "overlay": {
+        "object": "dat_file.obj",
+        "symbol": "DatArchive_OpenResource"
+      }
     },
     {
       "address": "0x00434D10",
