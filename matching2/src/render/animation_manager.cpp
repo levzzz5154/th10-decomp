@@ -26,6 +26,10 @@ extern "C" void sub_43E5A0(void*, void*);
 extern "C" void sub_43EE30(void*);
 extern "C" void sub_447810(void*);
 extern "C" void j__free(void*);
+extern "C" void* sub_449950(void*);
+extern "C" void sub_449870(void*, void*);
+extern "C" void sub_4489D0(void*, void*);
+extern "C" void sub_43E710(void*, void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -301,12 +305,41 @@ static int AnimationManager_CreateObject(
 }
 
 // 0x00448D00 - Allocate and append an object to the primary animation list.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_CreatePrimaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov ecx, [esp+8+8]
+        mov ebx, eax
+        mov esi, [ebx+35Ch]
+        mov eax, [esp+8+0Ch]
+        push ecx
+        mov ecx, [esp+0Ch+4]
+        or esi, 40000000h
+        push ebx
+        mov [ebx+20h], eax
+        mov [ebx+35Ch], esi
+        call sub_449870
+        mov edx, dword_491C10
+        mov eax, edi
+        call sub_4489D0
+        pop esi
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int AnimationManager_CreatePrimaryBack(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Primary, AnimationListInsertion_Back);
 }
+#endif
 
 // 0x00448E30 - Allocate and prepend an object to the primary animation list.
 int AnimationManager_CreatePrimaryFront(
@@ -334,6 +367,42 @@ int AnimationManager_CreateSecondaryFront(
 
 // 0x00448D50 - Allocate a primary object whose initial position is supplied by
 // the caller before its animation script is selected.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_CreatePositionedPrimary(
+    void* manager, void* resource, int animationIndex,
+    const float* position) {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+8+8]
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov ebx, [esp+0Ch+0Ch]
+        mov esi, eax
+        or dword ptr [esi+35Ch], 40000000h
+        mov dword ptr [esi+20h], 0
+        mov ecx, [edi]
+        lea eax, [esi+340h]
+        mov [eax], ecx
+        mov edx, [edi+4]
+        mov [eax+4], edx
+        mov ecx, [edi+8]
+        mov [eax+8], ecx
+        mov ecx, [esp+0Ch+4]
+        mov eax, esi
+        call sub_43E710
+        mov edx, dword_491C10
+        mov ebx, esi
+        mov eax, ebp
+        call sub_4489D0
+        pop esi
+        pop ebp
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int AnimationManager_CreatePositionedPrimary(
     void* manager, void* resource, int animationIndex,
     const float* position) {
@@ -349,6 +418,7 @@ int AnimationManager_CreatePositionedPrimary(
         manager, animation, AnimationManagerList_Primary,
         AnimationListInsertion_Back);
 }
+#endif
 
 static AnimationListNode* AnimationManager_List(
     void* manager, unsigned int listIndex) {

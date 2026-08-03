@@ -114,6 +114,8 @@ OVERLAYS = (
     ("animation_manager.obj", "?AnimationManager_ClearFlag@@", 0x004495E0),
     ("animation_manager.obj", "?AnimationManager_SetFlagBit1@@", 0x00449590),
     ("animation_manager.obj", "?AnimationManager_SetPosition@@", 0x004492F0),
+    ("animation_manager.obj", "?AnimationManager_CreatePrimaryBack@@", 0x00448D00),
+    ("animation_manager.obj", "?AnimationManager_CreatePositionedPrimary@@", 0x00448D50),
     ("d3d_resource_manager.obj", "?D3DResourceManager_Initialize@@", 0x00449AA0),
     ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
     ("recovery_leaves.obj", "GameThread_RunQueueLeaf", 0x00401520),
