@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 244,
-      "semantic": 459
+      "exact-overlay": 245,
+      "semantic": 458
     }
   },
   "functions": [
@@ -7467,8 +7467,12 @@
       "size": 528,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C5D0_FUN_0044c5d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/vector2_polar.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/vector2_polar.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_PolarToVectorRetail"
+      }
     },
     {
       "address": "0x0044C7E0",

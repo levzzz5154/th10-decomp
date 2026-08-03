@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 459,
-        "retail_bytes": 303851
+        "function_count": 458,
+        "retail_bytes": 303323
       },
       "exact-overlay": {
-        "function_count": 263,
-        "retail_bytes": 28949
+        "function_count": 264,
+        "retail_bytes": 29477
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 263,
+    "function_count": 264,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5277,8 +5277,10 @@
       "address": "0x0044C5D0",
       "symbol": "FUN_0044c5d0",
       "size": 528,
-      "status": "semantic",
-      "source": "src/math/vector2_polar.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/vector2_polar.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_PolarToVectorRetail"
     },
     {
       "address": "0x0044C7E0",

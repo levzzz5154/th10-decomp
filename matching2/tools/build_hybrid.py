@@ -280,6 +280,7 @@ OVERLAYS = (
     ("recovery_leaves.obj", "Recovery_ReleaseRawPairAndReset", 0x00405620),
     ("recovery_leaves.obj", "Recovery_InitializeSingleInterface", 0x0044D6A0),
     ("recovery_leaves.obj", "Recovery_AdvancePolarMotion", 0x0044C2A0),
+    ("recovery_leaves.obj", "Recovery_PolarToVectorRetail", 0x0044C5D0),
     ("recovery_leaves.obj", "Recovery_UpdateEmitterDecision", 0x0040B9F0),
     ("recovery_leaves.obj", "Recovery_IncrementAnimationCount", 0x004188A0),
     ("recovery_leaves.obj", "Recovery_CreateResourceState", 0x00419090),

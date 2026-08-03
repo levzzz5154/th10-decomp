@@ -3366,6 +3366,25 @@ int Recovery_UpdateStageSequence(
 // angle/radius before applying the same base velocity.  Retail then snaps the
 // horizontal coordinates through its floating-point quantizer.
 #ifdef _MSC_VER
+extern "C" __declspec(naked) void Recovery_PolarToVectorRetail(
+        float* destination, float angle, float radius) {
+    __asm {
+        push ecx
+        mov [esp], ecx
+        mov eax, [esp]
+        fld dword ptr [esp+8]
+        fsincos
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax]
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax+4]
+        pop ecx
+        ret 8
+    }
+}
+#endif
+
+#ifdef _MSC_VER
 __declspec(naked) void Recovery_AdvancePolarMotion(
         float state[11], float (*quantize)(float)) {
     __asm {
