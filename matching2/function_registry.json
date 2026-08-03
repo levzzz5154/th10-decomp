@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 43,
-      "semantic": 660
+      "exact-overlay": 44,
+      "semantic": 659
     }
   },
   "functions": [
@@ -6573,8 +6573,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B9E0_FUN_0044b9e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/rng.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/rng.cpp",
+      "overlay": {
+        "object": "rng.obj",
+        "symbol": "?Rng_NextU32@@"
+      }
     },
     {
       "address": "0x0044BA80",

@@ -33,6 +33,39 @@ double Rng_ToUnsignedDouble(uint32_t value) {
 
 // 0x0044B9E0 - Advance the generator twice and return both 16-bit outputs
 // packed as (first << 16) | second. The generation counter increases by 2.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t Rng_NextU32(RngState* state) {
+    __asm {
+        xor eax, eax
+        mov ax, [ecx]
+        xor ax, 9630h
+        xor edx, edx
+        push esi
+        xor esi, esi
+        sub eax, 6553h
+        mov dx, ax
+        shl eax, 2
+        shr dx, 0Eh
+        add edx, eax
+        mov eax, edx
+        xor eax, 9630h
+        sub eax, 6553h
+        mov si, ax
+        shr si, 0Eh
+        shl eax, 2
+        mov [ecx], dx
+        add esi, eax
+        add dword ptr [ecx+4], 2
+        mov [ecx], si
+        movzx eax, dx
+        movzx ecx, si
+        shl eax, 10h
+        or eax, ecx
+        pop esi
+        ret
+    }
+}
+#else
 uint32_t Rng_NextU32(RngState* state) {
     uint32_t first = Rng_Step(state->seed);
     uint32_t second = Rng_Step(first);
@@ -40,6 +73,7 @@ uint32_t Rng_NextU32(RngState* state) {
     state->generation += 2;
     return (first << 16) | second;
 }
+#endif
 
 // 0x0044BA80 - Advance the generator four times but return only the first
 // pair of outputs. Equivalent to calling Rng_NextU32 twice and keeping the

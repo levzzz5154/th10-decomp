@@ -60,6 +60,7 @@ OVERLAYS = (
     ("stage_tips.obj", "StageTip_Initialize", 0x00418D00),
     ("angle.obj", "?Angle_Normalize@@", 0x0044BC70),
     ("angle.obj", "?Angle_NormalizeSum@@", 0x0044BC10),
+    ("rng.obj", "?Rng_NextU32@@", 0x0044B9E0),
     ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
     ("recovery_leaves.obj", "GameThread_RunQueueLeaf", 0x00401520),
     ("recovery_leaves.obj", "Recovery_InvokeZero", 0x00427950),
