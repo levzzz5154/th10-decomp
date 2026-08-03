@@ -302,6 +302,47 @@ float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
 #endif
 
 // 0x00412A10 - Resolve a writable integer local/external variable destination.
+#ifdef _MSC_VER
+__declspec(naked) int32_t* ECL_ResolveIntDestination(
+        void* cursor_pointer, unsigned int operand) {
+    __asm {
+        mov edx, [eax+14D8h]
+        mov eax, [edx+4]
+        mov edx, [eax+4]
+        push esi
+        movzx esi, word ptr [edx+8]
+        push edi
+        mov edi, 1
+        shl edi, cl
+        test esi, edi
+        je null_result
+        mov edx, [edx+ecx*4+10h]
+        test edx, edx
+        jl external_result
+        lea ecx, [eax+8]
+        mov eax, [ecx+1004h]
+        add eax, edx
+        pop edi
+        add eax, ecx
+        pop esi
+        ret
+external_result:
+        mov eax, [eax+1014h]
+        mov esi, [eax]
+        push edx
+        mov ecx, eax
+        call dword ptr [esi+8]
+        pop edi
+        pop esi
+        ret
+null_result:
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -322,6 +363,7 @@ int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     }
     return 0;
 }
+#endif
 
 // 0x00450030 - Resolve a variable encoded in the ECL local-variable table.
 // Positive entries point into the VM's inline local area; negative entries

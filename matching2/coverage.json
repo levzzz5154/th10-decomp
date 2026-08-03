@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 479,
-        "retail_bytes": 307099
+        "function_count": 477,
+        "retail_bytes": 306539
       },
       "exact-overlay": {
-        "function_count": 243,
-        "retail_bytes": 25701
+        "function_count": 245,
+        "retail_bytes": 26261
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 243,
+    "function_count": 245,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1187,8 +1187,10 @@
       "address": "0x00412A10",
       "symbol": "FUN_00412a10",
       "size": 144,
-      "status": "semantic",
-      "source": "src/script/ecl_vm.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_vm.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveIntDestination@@"
     },
     {
       "address": "0x00412AA0",
@@ -3080,8 +3082,10 @@
       "address": "0x00434A80",
       "symbol": "FUN_00434a80",
       "size": 416,
-      "status": "semantic",
-      "source": "src/game/stage_text.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_text.cpp",
+      "overlay_object": "stage_text.obj",
+      "overlay_symbol": "?StageText_Initialize@@"
     },
     {
       "address": "0x00434C20",

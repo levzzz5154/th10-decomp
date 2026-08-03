@@ -1,5 +1,11 @@
 #include "th10/game/stage_text.hpp"
 
+#ifdef _MSC_VER
+extern "C" unsigned long dword_491C14;
+extern "C" unsigned long dword_491C18;
+extern "C" unsigned long dword_491C1C;
+#endif
+
 // 0x004349E0 - Advance past the current text line and all immediately
 // following CR/LF bytes while maintaining the parser's remaining-byte count.
 #ifdef _MSC_VER
@@ -136,6 +142,65 @@ void StageText_ExtractLine(char* cursor, char* destination, int* remaining) {
 #endif
 
 // 0x00434A80 - Initialize the stage-text layout and reset its parser state.
+#ifdef _MSC_VER
+__declspec(naked) void StageText_Initialize(
+        StageTextState* state, const float* first, const float* second,
+        int resource, unsigned char mode, const float* defaults) {
+    __asm {
+        push esi
+        mov esi, [esp+8]
+        mov [eax+0B4h], esi
+        push edi
+        mov edi, dword_491C14
+        lea esi, [eax+88h]
+        mov [esi], edi
+        mov edi, dword_491C18
+        mov [esi+4], edi
+        mov edi, dword_491C1C
+        mov [esi+8], edi
+        mov edi, dword_491C14
+        lea esi, [eax+94h]
+        mov [esi], edi
+        mov edi, dword_491C18
+        mov [esi+4], edi
+        mov edi, dword_491C1C
+        mov [esi+8], edi
+        movzx esi, byte ptr [esp+10h]
+        mov [eax+0B8h], esi
+        mov edi, [edx]
+        lea esi, [eax+70h]
+        mov [esi], edi
+        mov edi, [edx+4]
+        mov [esi+4], edi
+        mov edx, [edx+8]
+        mov [esi+8], edx
+        mov esi, [ecx]
+        lea edx, [eax+7Ch]
+        mov [edx], esi
+        mov esi, [ecx+4]
+        mov [edx+4], esi
+        mov ecx, [ecx+8]
+        mov [edx+8], ecx
+        mov ecx, [eax+0B0h]
+        xor edx, edx
+        test cl, 1
+        pop edi
+        pop esi
+        jne skip_init
+        or ecx, 1
+        mov [eax+0A4h], edx
+        mov dword ptr [eax+0A0h], 0FFF0BDC1h
+        mov [eax+0A8h], edx
+        mov dword ptr [eax+0ACh], 476F78h
+        mov [eax+0B0h], ecx
+skip_init:
+        mov [eax+0A4h], edx
+        mov [eax+0A8h], edx
+        mov dword ptr [eax+0A0h], 0FFFFFFFFh
+        ret 8
+    }
+}
+#else
 void StageText_Initialize(
         StageTextState* state, const float* first, const float* second,
         int resource, unsigned char mode, const float* defaults) {
@@ -151,3 +216,4 @@ void StageText_Initialize(
     state->length = 0;
     state->selection = -1;
 }
+#endif

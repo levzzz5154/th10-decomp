@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 224,
-      "semantic": 479
+      "exact-overlay": 226,
+      "semantic": 477
     }
   },
   "functions": [
@@ -1673,8 +1673,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412A10_FUN_00412a10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_vm.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveIntDestination@@"
+      }
     },
     {
       "address": "0x00412AA0",
@@ -4447,8 +4451,12 @@
       "size": 416,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434A80_FUN_00434a80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_text.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_text.cpp",
+      "overlay": {
+        "object": "stage_text.obj",
+        "symbol": "?StageText_Initialize@@"
+      }
     },
     {
       "address": "0x00434C20",
