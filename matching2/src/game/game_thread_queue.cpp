@@ -11,6 +11,62 @@ extern "C" void sub_401530(void*);
 // 0x00401530 - Append one bounded game-thread work record. The retail ABI
 // supplies the name and three-word vector through hidden registers; the clean
 // API exposes both values explicitly.
+#ifdef _MSC_VER
+__declspec(naked) void GameThread_AppendRecord(GameThread* gameThread,
+                                               const char* name,
+                                               const uint32_t* vector) {
+    __asm {
+        mov edx, [ecx+896Ch]
+        cmp edx, 100h
+        push esi
+        mov esi, eax
+        jge done
+        mov eax, edx
+        imul eax, eax, 68h
+        push edi
+        lea eax, [eax+ecx+76Ch]
+        inc edx
+        mov edi, eax
+        mov [ecx+896Ch], edx
+        sub edi, esi
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+copy_loop:
+        mov dl, [esi]
+        mov [edi+esi], dl
+        inc esi
+        test dl, dl
+        jne copy_loop
+        mov esi, [ebx]
+        lea edx, [eax+40h]
+        mov [edx], esi
+        mov esi, [ebx+4]
+        mov [edx+4], esi
+        mov esi, [ebx+8]
+        mov [edx+8], esi
+        mov edx, [ecx+8974h]
+        mov [eax+4Ch], edx
+        mov edx, [ecx+8978h]
+        mov [eax+50h], edx
+        mov edx, [ecx+897Ch]
+        mov [eax+54h], edx
+        mov edx, [ecx+8980h]
+        mov [eax+5Ch], edx
+        mov dword ptr [eax+60h], 0
+        mov ecx, [ecx+8988h]
+        mov [eax+64h], ecx
+        pop edi
+done:
+        pop esi
+        ret
+    }
+}
+#else
 void GameThread_AppendRecord(GameThread* gameThread, const char* name,
                              const uint32_t* vector) {
     unsigned char* bytes = (unsigned char*)gameThread;
@@ -37,6 +93,7 @@ void GameThread_AppendRecord(GameThread* gameThread, const char* name,
     *(uint32_t*)(record + 0x60) = 0;
     *(uint32_t*)(record + 0x64) = *(uint32_t*)(bytes + 0x8988);
 }
+#endif
 
 #ifdef _MSC_VER
 static unsigned int GameThread_CopyText(char* destination, unsigned int at,

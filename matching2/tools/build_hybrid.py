@@ -159,6 +159,7 @@ OVERLAYS = (
     ("process.obj", "?Platform_DestroyWorker@@", 0x0044C100),
     ("process.obj", "?Platform_StopWorkerNoDelete@@", 0x0044C130),
     ("game_thread_queue.obj", "?GameThread_AppendFormatted@@", 0x00401630),
+    ("game_thread_queue.obj", "?GameThread_AppendRecord@@", 0x00401530),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
     ("progress_worker.obj", "?ProgressManager_CreateAndStartWorker@@", 0x0042CD50),
     ("player.obj", "?PlayerManager_StartMode@@", 0x004045B0),
@@ -237,6 +238,14 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Recovery_ClearAnimationSlot@@", 0x0042C6D0),
     ("recovery_leaves.obj", "?Recovery_InstallPairSetFlags@@", 0x004055C0),
     ("recovery_leaves.obj", "?Recovery_InstallPairClearFlags@@", 0x0041AD90),
+    ("recovery_leaves.obj", "Recovery_ScaleColor", 0x00404DA0),
+    ("recovery_leaves.obj", "Recovery_InitializeWordColor", 0x00405040),
+    ("recovery_leaves.obj", "Recovery_CreateFixedState", 0x004056B0),
+    ("recovery_leaves.obj", "Recovery_CreateSmallState", 0x0040B940),
+    ("recovery_leaves.obj", "Recovery_UpdateEmitterDecision", 0x0040B9F0),
+    ("recovery_leaves.obj", "Recovery_IncrementAnimationCount", 0x004188A0),
+    ("recovery_leaves.obj", "Recovery_CreateResourceState", 0x00419090),
+    ("recovery_leaves.obj", "Recovery_FindNamedValue", 0x004198C0),
 )
 
 

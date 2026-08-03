@@ -64,7 +64,28 @@ extern "C" void sub_447810(void*);
 extern "C" void sub_409E50(void*);
 extern "C" void sub_4470C0(void*);
 extern "C" void sub_447280(void*);
-extern "C" unsigned char dword_491FF4;
+extern "C" unsigned long dword_491FF4;
+extern "C" unsigned long dword_491FB8;
+extern "C" unsigned long dword_474E30;
+extern "C" unsigned long dword_4776EC;
+extern "C" unsigned long dword_477700;
+extern "C" unsigned long dword_47770C;
+extern "C" unsigned long dword_474C70;
+extern "C" unsigned char sub_463B2C(void);
+extern "C" void* sub_452493(unsigned long);
+extern "C" void sub_4524A1(void*);
+extern "C" int sub_4055C0(void);
+extern "C" void sub_405620(void*);
+extern "C" int sub_40B560(void*);
+extern "C" void sub_40B7B0(void*);
+extern "C" int sub_40BD20(void);
+extern "C" void sub_413790(void*, int);
+extern "C" void sub_43DC90(void*, int, void*);
+extern "C" void sub_4492A0(void*, void*);
+extern "C" void* sub_448D00(void*, int, int);
+extern "C" void* sub_418D40(void*);
+extern "C" int sub_418E30(void);
+extern "C" void sub_418EE0(void*);
 extern "C" void sub_418C40(void*);
 extern "C" char aFrontAnm[];
 extern "C" char aBulletAnm[];
@@ -100,6 +121,67 @@ static float NormalizeRecoveryAngle(float angle) {
 
 // 0x004198C0 - Linear lookup of a UTF-16 name, returning the matching entry's
 // value (the second word in each eight-byte table record).
+#ifdef _MSC_VER
+__declspec(naked) unsigned long Recovery_FindNamedValue(
+        const unsigned short* name, const void* entries, int count) {
+    __asm {
+        mov eax, [esp+8]
+        push ebx
+        push ebp
+        mov ebp, [esp+0Ch]
+        push esi
+        push edi
+        xor edi, edi
+        test eax, eax
+        jle done
+outer_loop:
+        mov esi, [ebp+edi*8]
+        mov eax, edx
+inner_loop:
+        mov bl, [eax]
+        mov cl, bl
+        cmp bl, [esi]
+        jne char_mismatch
+        test cl, cl
+        je equal_zero
+        mov bl, [eax+1]
+        mov cl, bl
+        cmp bl, [esi+1]
+        jne char_mismatch
+        add eax, 2
+        add esi, 2
+        test cl, cl
+        jne inner_loop
+equal_zero:
+        xor eax, eax
+        jmp compare_done
+char_mismatch:
+        sbb eax, eax
+        sbb eax, 0FFFFFFFFh
+compare_done:
+        test eax, eax
+        je found
+        mov eax, [esp+18h]
+        inc edi
+        cmp edi, eax
+        jl outer_loop
+done:
+        pop edi
+        pop esi
+        pop ebp
+        xor eax, eax
+        pop ebx
+        ret 8
+found:
+        mov eax, [ebp+edi*8+4]
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        ret 8
+    }
+}
+#else
 unsigned long Recovery_FindNamedValue(const unsigned short* name,
                                       const void* entries, int count) {
     if (name == 0 || entries == 0 || count <= 0) return 0;
@@ -118,6 +200,7 @@ unsigned long Recovery_FindNamedValue(const unsigned short* name,
     }
     return 0;
 }
+#endif
 
 // 0x00401520 - One-instruction game-thread queue dispatch wrapper.
 #ifdef _MSC_VER
@@ -1619,6 +1702,46 @@ void Recovery_SwitchPlaybackState(void* state, bool secondary_active,
 
 // 0x00404DA0 - Scale six color channels and fill the four byte tint fields
 // from the same rounded random source used by the retail animation path.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ScaleColor(
+        const float source[6], RecoveryColorRecord* destination,
+        float scale, RecoveryWord (*random_byte)(void*),
+        void* random_state) {
+    __asm {
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax+14h]
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax+10h]
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax+0Ch]
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax+8]
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax+4]
+        fld dword ptr [esp+4]
+        fmul dword ptr [eax]
+        fstp dword ptr [esi]
+        fstp dword ptr [esi+4]
+        fst dword ptr [esi+8]
+        fld st(1)
+        fstp dword ptr [esi+0Ch]
+        fld st(2)
+        fstp dword ptr [esi+10h]
+        fld st(3)
+        fstp dword ptr [esi+14h]
+        call sub_463B2C
+        mov byte ptr [esi+18h], al
+        call sub_463B2C
+        mov byte ptr [esi+19h], al
+        call sub_463B2C
+        mov byte ptr [esi+1Ah], al
+        call sub_463B2C
+        mov byte ptr [esi+1Bh], al
+        mov eax, esi
+        ret 4
+    }
+}
+#else
 void Recovery_ScaleColor(const float source[6], RecoveryColorRecord* destination,
                          float scale, RecoveryWord (*random_byte)(void*),
                          void* random_state) {
@@ -1629,6 +1752,7 @@ void Recovery_ScaleColor(const float source[6], RecoveryColorRecord* destination
         destination->random_channels[index] = (RecoveryByte)(
             random_byte != 0 ? random_byte(random_state) : 0);
 }
+#endif
 
 static int InstallPair(void** first_slot, void** second_slot,
                        void* first_resource, void* second_resource,
@@ -2449,6 +2573,40 @@ int Recovery_ReplaceExtensionWav(void* context, char* path,
 }
 
 // 0x00405040 - Copy six word color fields and fill four random tint bytes.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InitializeWordColor(
+        const RecoveryWord values[6], RecoveryWordColorRecord* destination,
+        RecoveryWord (*random_byte)(void*), void* random_state) {
+    __asm {
+        mov eax, [esp+4]
+        fld dword ptr [esp+0Ch]
+        mov ecx, [esp+8]
+        mov edx, [esp+0Ch]
+        mov [esi], eax
+        mov eax, [esp+10h]
+        mov [esi+4], ecx
+        mov ecx, [esp+14h]
+        mov [esi+8], edx
+        mov edx, [esp+18h]
+        mov [esi+0Ch], eax
+        mov [esi+10h], ecx
+        mov [esi+14h], edx
+        call sub_463B2C
+        fld dword ptr [esp+10h]
+        mov byte ptr [esi+18h], al
+        call sub_463B2C
+        fld dword ptr [esp+14h]
+        mov byte ptr [esi+19h], al
+        call sub_463B2C
+        fld dword ptr [esp+18h]
+        mov byte ptr [esi+1Ah], al
+        call sub_463B2C
+        mov byte ptr [esi+1Bh], al
+        mov eax, esi
+        ret 18h
+    }
+}
+#else
 void Recovery_InitializeWordColor(
         const RecoveryWord values[6], RecoveryWordColorRecord* destination,
         RecoveryWord (*random_byte)(void*), void* random_state) {
@@ -2459,6 +2617,7 @@ void Recovery_InitializeWordColor(
         destination->random_channels[index] = (RecoveryByte)(
             random_byte != 0 ? random_byte(random_state) : 0);
 }
+#endif
 
 // 0x0043CB00 - Release the two raw resource slots at offsets +8 and +c.
 void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
@@ -2479,6 +2638,58 @@ void Recovery_ReleaseRawPairAndReset(void* state, void (*release)(void*),
 
 // 0x0040B940 - Allocate, initialize, and publish the small ten-word state.
 void* g_recovery_small_state;
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateSmallState(
+        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
+        void (*destroy)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        push 28h
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je skip_alloc
+        xor ecx, ecx
+        mov edx, eax
+        mov [edx], ecx
+        mov [edx+4], ecx
+        mov [edx+8], ecx
+        mov [edx+0Ch], ecx
+        mov [edx+10h], ecx
+        mov [edx+14h], ecx
+        mov [edx+18h], ecx
+        mov [edx+1Ch], ecx
+        mov [edx+20h], ecx
+        mov [edx+24h], ecx
+        or dword ptr [eax], 2
+        mov dword_477700, eax
+        mov esi, eax
+        jmp after_alloc
+skip_alloc:
+        xor esi, esi
+after_alloc:
+        push esi
+        call sub_40B560
+        test eax, eax
+        je success
+        test esi, esi
+        je fail
+        push esi
+        call sub_40B7B0
+        push esi
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop esi
+        ret
+success:
+        mov eax, esi
+        pop esi
+        ret
+    }
+}
+#else
 void* Recovery_CreateSmallState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
@@ -2496,6 +2707,7 @@ void* Recovery_CreateSmallState(
     }
     return state;
 }
+#endif
 
 // 0x0044CE80 - Copy an interface array into an owner and query each entry.
 void Recovery_InitializeInterfaceArray(
@@ -2662,6 +2874,54 @@ void Recovery_MarkAnimationTree(RecoveryWord* root_status,
 }
 
 // 0x004056B0 - Allocate a fixed state, zero it, and run its initializer.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateFixedState(
+        RecoveryWord size, void* (*allocate)(RecoveryWord),
+        int (*initialize)(void*), void (*destroy)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        push ebx
+        push 48h
+        call sub_452493
+        mov edx, eax
+        add esp, 4
+        test edx, edx
+        je skip_alloc
+        and dword ptr [edx+24h], 0FFFFFFFEh
+        push edi
+        xor eax, eax
+        mov ecx, 12h
+        mov edi, edx
+        rep stosd
+        or dword ptr [edx], 2
+        mov dword_4776EC, edx
+        mov ebx, edx
+        pop edi
+        jmp after_alloc
+skip_alloc:
+        xor ebx, ebx
+after_alloc:
+        call sub_4055C0
+        test eax, eax
+        je success
+        test ebx, ebx
+        je fail
+        push ebx
+        call sub_405620
+        push ebx
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop ebx
+        ret
+success:
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void* Recovery_CreateFixedState(
         RecoveryWord size, void* (*allocate)(RecoveryWord),
         int (*initialize)(void*), void (*destroy)(void*),
@@ -2678,9 +2938,60 @@ void* Recovery_CreateFixedState(
     }
     return state;
 }
+#endif
 
 // 0x0040B9F0 - Update the emitter's frame count and select the occasional
 // six-frame cadence when the state flags permit it.
+#ifdef _MSC_VER
+__declspec(naked) RecoveryWord Recovery_UpdateEmitterDecision(
+        void* state, int (*tick)(void*), RecoveryWord flags,
+        bool twelve_frame_mode) {
+    __asm {
+        push esi
+        mov esi, [edi+18h]
+        call sub_40BD20
+        test eax, eax
+        je continue
+        mov eax, dword_491FF4
+        and eax, 1000h
+        neg eax
+        sbb eax, eax
+        and eax, 0FFFFFFF3h
+        add eax, 0Fh
+        mov dword_491FB8, eax
+        mov eax, 1
+        pop esi
+        ret
+continue:
+        mov esi, [edi+24h]
+        mov ecx, [edi+18h]
+        inc esi
+        mov [edi+24h], esi
+        mov ecx, [ecx+74h]
+        test cl, 4
+        mov eax, esi
+        jne one
+        test byte ptr [edi+20h], 2
+        jne one
+        test cl, 2
+        je one
+        mov ecx, dword_474E30
+        test ch, 1
+        je one
+        cdq
+        mov ecx, 0Ch
+        idiv ecx
+        mov eax, 6
+        test edx, edx
+        jne popret
+one:
+        mov eax, 1
+popret:
+        pop esi
+        ret
+    }
+}
+#else
 RecoveryWord Recovery_UpdateEmitterDecision(
         void* state, int (*tick)(void*), RecoveryWord flags,
         bool twelve_frame_mode) {
@@ -2691,9 +3002,60 @@ RecoveryWord Recovery_UpdateEmitterDecision(
         return 1;
     return count % 12 == 0 ? 6 : 1;
 }
+#endif
 
 // 0x004188A0 - Increment the animation count, clamping at nine and asking
 // the resource manager to reload the active record below that cap.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_IncrementAnimationCount(
+        void* state, int delta, void (*reload)(void*)) {
+    __asm {
+        push ecx
+        push esi
+        mov esi, [eax+30h]
+        add esi, ecx
+        mov ecx, esi
+        cmp ecx, 9
+        mov [eax+30h], esi
+        jle load
+        mov dword ptr [eax+30h], 9
+        mov ecx, dword_474C70
+        mov eax, dword_47770C
+        call sub_413790
+        pop esi
+        pop ecx
+        ret
+load:
+        push edi
+        push 0
+        mov edi, 2Ch
+        mov ecx, 492590h
+        call sub_43DC90
+        mov edi, dword_47770C
+        mov edx, [edi+9E18h]
+        lea esi, [edi+9E18h]
+        push edx
+        mov edx, dword_491C10
+        call sub_4492A0
+        push 0Fh
+        mov dword ptr [esi], 0
+        mov eax, [edi+9EC8h]
+        push 4Bh
+        push eax
+        lea edi, [esp+14h]
+        call sub_448D00
+        mov ecx, [eax]
+        mov eax, dword_47770C
+        mov [esi], ecx
+        mov ecx, dword_474C70
+        pop edi
+        call sub_413790
+        pop esi
+        pop ecx
+        ret
+    }
+}
+#else
 void Recovery_IncrementAnimationCount(void* state, int delta,
                                       void (*reload)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -2705,6 +3067,7 @@ void Recovery_IncrementAnimationCount(void* state, int delta,
     }
     if (reload != 0) reload(state);
 }
+#endif
 
 // 0x00446EB0 - Create a texture through the platform callback and finalize
 // its format metadata on success.
@@ -2724,6 +3087,46 @@ void Recovery_MarkLogState(void* state, void (*write)(void*, const char*),
 }
 
 // 0x00419090 - Allocate and initialize the 0x1a8-byte resource state.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateResourceState(
+        RecoveryWord size, void* (*allocate)(RecoveryWord),
+        int (*initialize)(void*), void (*destroy)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        push ebx
+        push 1A8h
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je skip_alloc
+        mov edx, eax
+        call sub_418D40
+        mov ebx, eax
+        jmp after_alloc
+skip_alloc:
+        xor ebx, ebx
+after_alloc:
+        call sub_418E30
+        test eax, eax
+        je success
+        test ebx, ebx
+        je fail
+        push ebx
+        call sub_418EE0
+        push ebx
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop ebx
+        ret
+success:
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void* Recovery_CreateResourceState(
         RecoveryWord size, void* (*allocate)(RecoveryWord),
         int (*initialize)(void*), void (*destroy)(void*),
@@ -2738,6 +3141,7 @@ void* Recovery_CreateResourceState(
     }
     return state;
 }
+#endif
 
 // 0x0041FAC0 - Install the worker callback and publish its handle/id pair.
 int Recovery_StartWorker(void* state, void (*start)(void*),

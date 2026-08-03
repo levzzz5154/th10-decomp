@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 197,
-      "semantic": 506
+      "exact-overlay": 206,
+      "semantic": 497
     }
   },
   "functions": [
@@ -73,8 +73,12 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401530_FUN_00401530.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/game_thread_queue.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/game_thread_queue.cpp",
+      "overlay": {
+        "object": "game_thread_queue.obj",
+        "symbol": "?GameThread_AppendRecord@@"
+      }
     },
     {
       "address": "0x00401630",
@@ -363,8 +367,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404DA0_FUN_00404da0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_ScaleColor"
+      }
     },
     {
       "address": "0x00404E10",
@@ -407,8 +415,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405040_FUN_00405040.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_InitializeWordColor"
+      }
     },
     {
       "address": "0x004050D0",
@@ -495,8 +507,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004056B0_FUN_004056b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_CreateFixedState"
+      }
     },
     {
       "address": "0x00405750",
@@ -1229,8 +1245,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B940_FUN_0040b940.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_CreateSmallState"
+      }
     },
     {
       "address": "0x0040B9D0",
@@ -1253,8 +1273,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040B9F0_FUN_0040b9f0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_UpdateEmitterDecision"
+      }
     },
     {
       "address": "0x0040BA90",
@@ -2115,8 +2139,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004188A0_FUN_004188a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_IncrementAnimationCount"
+      }
     },
     {
       "address": "0x00418930",
@@ -2237,8 +2265,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00419090_FUN_00419090.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_CreateResourceState"
+      }
     },
     {
       "address": "0x00419120",
@@ -2281,8 +2313,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004198C0_FUN_004198c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_FindNamedValue"
+      }
     },
     {
       "address": "0x00419960",
