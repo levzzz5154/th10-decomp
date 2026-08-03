@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (270 of them
+functions (100.0%) as readable semantic C++ or verified overlays (275 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -718,6 +718,11 @@ Current exact-overlay results with MSVC 7.1:
 | `Recovery_ReplaceExtensionWav` | 104 | 100% |
 | `Recovery_ReleaseCompositeState` | 93 | 100% |
 | `Recovery_ReleaseGlobalStates` | 68 | 100% |
+| `Recovery_ReleaseRawPair` | 87 | 100% |
+| `Recovery_MarkAnimationTree` | 57 | 100% |
+| `Recovery_AppendPacket` | 85 | 100% |
+| `Recovery_CreateTimerState` | 47 | 100% |
+| `Recovery_CreateLargeResourceState` | 49 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

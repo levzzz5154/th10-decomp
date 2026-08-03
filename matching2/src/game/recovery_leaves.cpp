@@ -85,6 +85,12 @@ extern "C" unsigned long dword_477838;
 extern "C" void sub_417C80(void*);
 extern "C" void sub_42CB60(void*);
 extern "C" void sub_41FB50(void*);
+extern "C" void* sub_4220E0(void*);
+extern "C" int sub_422150(void);
+extern "C" void sub_422220(void*);
+extern "C" void* sub_4246C0(void*);
+extern "C" int sub_4247F0(void);
+extern "C" void sub_424ED0(void*);
 extern "C" int sub_4055C0(void);
 extern "C" void sub_405620(void*);
 extern "C" int sub_40B560(void*);
@@ -2683,6 +2689,55 @@ void Recovery_InitializeWordColor(
 #endif
 
 // 0x0043CB00 - Release the two raw resource slots at offsets +8 and +c.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ReleaseRawPair(
+        void* state, void (*release)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        mov eax, [esp+4]
+        push ebx
+        mov ebx, dword_4660B0
+        push ebp
+        mov ebp, dword_4660B4
+        push esi
+        mov esi, [eax+8]
+        test esi, esi
+        push edi
+        mov edi, dword_491BE4
+        je second
+        push 492274h
+        call ebx
+        inc byte ptr byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr byte_49231C
+second:
+        mov ecx, [esp+14h]
+        mov esi, [ecx+0Ch]
+        test esi, esi
+        mov edi, dword_491BE4
+        je done
+        push 492274h
+        call ebx
+        inc byte ptr byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr byte_49231C
+done:
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        ret 4
+    }
+}
+#else
 void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
                              void (*free_memory)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -2690,6 +2745,7 @@ void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
     void** second = (void**)(bytes + 0xC);
     Recovery_ReleasePair(first, second, release, free_memory);
 }
+#endif
 
 // 0x00405620 - Release the pair and clear the owner's external marker.
 #ifdef _MSC_VER
@@ -3036,6 +3092,36 @@ void Recovery_DecayCounter(void* state, void (*reset)(float)) {
 
 // 0x0042A8A0 - Append three 16-bit packet fields and report when the packet
 // buffer has crossed the retail 0xe0f-entry threshold.
+#ifdef _MSC_VER
+__declspec(naked) bool Recovery_AppendPacket(
+        RecoveryPacketBuffer* buffer, RecoveryWord first,
+        RecoveryWord second, RecoveryWord third) {
+    __asm {
+        mov ecx, [eax+5460h]
+        mov word ptr [ecx], dx
+        mov ecx, [eax+5460h]
+        mov dx, word ptr [esp+4]
+        mov word ptr [ecx+2], dx
+        mov ecx, [eax+5460h]
+        mov dx, word ptr [esp+8]
+        mov word ptr [ecx+4], dx
+        mov ecx, [eax+5460h]
+        add ecx, 6
+        mov [eax+5460h], ecx
+        sub ecx, eax
+        mov eax, 2AAAAAABh
+        imul ecx
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        xor ecx, ecx
+        cmp eax, 0E10h
+        setge cl
+        mov eax, ecx
+        ret 8
+    }
+}
+#else
 bool Recovery_AppendPacket(RecoveryPacketBuffer* buffer, RecoveryWord first,
                            RecoveryWord second, RecoveryWord third) {
     if (buffer == 0 || buffer->cursor == 0 || buffer->begin == 0 ||
@@ -3047,6 +3133,7 @@ bool Recovery_AppendPacket(RecoveryPacketBuffer* buffer, RecoveryWord first,
     buffer->cursor += 6;
     return (RecoveryWord)((buffer->cursor - buffer->begin) / 6) > 0xE0Fu;
 }
+#endif
 
 // 0x0042ADD0 - Clear the state header and fill the 0x200-entry random table.
 void Recovery_InitializeRandomTable(void* state,
@@ -3065,6 +3152,45 @@ void Recovery_InitializeRandomTable(void* state,
 
 // 0x00422360 - Allocate and initialize the timer state, cleaning it up if
 // the downstream initialization reports failure.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateTimerState(
+        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
+        void (*destroy)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push ebx
+        push 2C8h
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je skip_init
+        mov edx, eax
+        call sub_4220E0
+        mov ebx, eax
+        jmp after_init
+skip_init:
+        xor ebx, ebx
+after_init:
+        call sub_422150
+        test eax, eax
+        je success
+        test ebx, ebx
+        je fail
+        push ebx
+        call sub_422220
+        push ebx
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop ebx
+        ret
+success:
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void* Recovery_CreateTimerState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
@@ -3079,8 +3205,43 @@ void* Recovery_CreateTimerState(
     }
     return state;
 }
+#endif
 
 // 0x004243F0 - Mark an animation root and its children with state six.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_MarkAnimationTree(
+        RecoveryWord* root_status, RecoveryWord* child_status,
+        RecoveryWord child_count) {
+    __asm {
+        mov eax, [eax]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        je done
+        mov edx, [eax+18h]
+        test edx, edx
+        mov ecx, 6
+        mov word ptr [eax+304h], cx
+        jne done
+        mov eax, [eax+14h]
+        test eax, eax
+        je done
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+mark_loop:
+        mov edx, [eax]
+        mov word ptr [edx+304h], cx
+        mov eax, [eax+4]
+        test eax, eax
+        jne mark_loop
+done:
+        ret
+    }
+}
+#else
 void Recovery_MarkAnimationTree(RecoveryWord* root_status,
                                 RecoveryWord* child_status,
                                 RecoveryWord child_count) {
@@ -3089,6 +3250,7 @@ void Recovery_MarkAnimationTree(RecoveryWord* root_status,
         for (RecoveryWord index = 0; index < child_count; ++index)
             child_status[index] = 6;
 }
+#endif
 
 // 0x004056B0 - Allocate a fixed state, zero it, and run its initializer.
 #ifdef _MSC_VER
@@ -3580,12 +3742,54 @@ int Recovery_DispatchRandomText(int count, void* context,
 #endif
 
 // 0x00425020 - Allocate and initialize the large 0x4478-byte resource state.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateLargeResourceState(
+        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
+        void (*destroy)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push ebx
+        push 4478h
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je skip_init
+        push esi
+        mov esi, eax
+        call sub_4246C0
+        mov ebx, eax
+        pop esi
+        jmp after_init
+skip_init:
+        xor ebx, ebx
+after_init:
+        call sub_4247F0
+        test eax, eax
+        je success
+        test ebx, ebx
+        je fail
+        push ebx
+        call sub_424ED0
+        push ebx
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop ebx
+        ret
+success:
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void* Recovery_CreateLargeResourceState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
     return Recovery_CreateResourceState(0x4478, allocate, initialize, destroy,
                                         free_memory);
 }
+#endif
 
 // 0x0042B660 - Allocate and initialize the huge 0xb884-byte resource state.
 void* Recovery_CreateHugeResourceState(
