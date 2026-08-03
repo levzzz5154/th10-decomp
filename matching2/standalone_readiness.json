@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 40,
-      "semantic": 139
+      "exact-overlay": 41,
+      "semantic": 138
     }
   },
   "integration_gates": {
@@ -543,7 +543,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/math/timer.cpp"
     },

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 164,
-      "semantic": 539
+      "exact-overlay": 165,
+      "semantic": 538
     }
   },
   "functions": [
@@ -3625,8 +3625,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00428DD0_FUN_00428dd0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/timer.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/timer.cpp",
+      "overlay": {
+        "object": "timer.obj",
+        "symbol": "?FrameTimer_Decrement@@"
+      }
     },
     {
       "address": "0x00428E10",

@@ -14,6 +14,7 @@ extern "C" float flt_470B64;
 extern "C" float flt_470AFC;
 extern "C" float flt_476F78;
 extern "C" long __cdecl __ftol2(void);
+extern "C" void sub_44BF40(void*);
 #endif
 
 #ifdef _MSC_VER
@@ -108,6 +109,28 @@ void FrameTimer_Advance(FrameTimer* timer, float delta) {
     else
         timer->elapsed += delta * speed;
     timer->current = (int)timer->elapsed;
+}
+#endif
+
+// 0x00428DD0 - Decrement variant used by the replay/input path. Retail
+// negates the caller-supplied count and forwards it to 0x0044BF40.
+#ifdef _MSC_VER
+__declspec(naked) void FrameTimer_Decrement(FrameTimer* timer) {
+    __asm {
+        push ecx
+        neg eax
+        mov [esp], eax
+        fild dword ptr [esp]
+        push ecx
+        fstp dword ptr [esp]
+        call sub_44BF40
+        pop ecx
+        ret
+    }
+}
+#else
+void FrameTimer_Decrement(FrameTimer* timer) {
+    FrameTimer_Advance(timer, -1.0f);
 }
 #endif
 

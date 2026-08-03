@@ -79,6 +79,7 @@ OVERLAYS = (
     ("timer.obj", "?FrameTimer_Advance@@", 0x0044BF40),
     ("timer.obj", "?FrameTimer_Tick@@", 0x00404ED0),
     ("timer.obj", "?EmbeddedTimer_Reset@@", 0x004050D0),
+    ("timer.obj", "?FrameTimer_Decrement@@", 0x00428DD0),
     ("scheduler.obj", "?GameState_DispatchDummy@@", 0x00420C00),
     ("scheduler.obj", "?GameState_UpdateFrameMaximum@@", 0x00421F60),
     ("scheduler.obj", "?GameState_Unpause@@", 0x00422C30),

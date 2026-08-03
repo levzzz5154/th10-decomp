@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 539,
-        "retail_bytes": 317440
+        "function_count": 538,
+        "retail_bytes": 317376
       },
       "exact-overlay": {
-        "function_count": 183,
-        "retail_bytes": 15360
+        "function_count": 184,
+        "retail_bytes": 15424
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 183,
+    "function_count": 184,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2531,8 +2531,10 @@
       "address": "0x00428DD0",
       "symbol": "FUN_00428dd0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/math/timer.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/timer.cpp",
+      "overlay_object": "timer.obj",
+      "overlay_symbol": "?FrameTimer_Decrement@@"
     },
     {
       "address": "0x00428E10",
