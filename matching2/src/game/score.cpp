@@ -782,6 +782,44 @@ void Score_VectorFromPolar(float* destination, float angle, float magnitude) {
 // 0x0041C030 - Initialize the score object's scheduler links and clear its
 // 0x424-byte state block. The retail constructor intentionally restores the
 // sentinel link fields after the bulk clear.
+#ifdef _MSC_VER
+__declspec(naked) void* ScoreObject_Initialize(void*, void* object) {
+    __asm {
+        mov dword ptr [edx], 46DAB0h
+        and dword ptr [edx+20h], 0FFFFFFFEh
+        lea eax, [edx+68h]
+        mov ecx, 12h
+        push edi
+clear_slots:
+        and dword ptr [eax], 0FFFFFFFEh
+        add eax, 34h
+        dec ecx
+        jne clear_slots
+        and dword ptr [edx+420h], 0FFFFFFFEh
+        xor eax, eax
+        mov ecx, 109h
+        mov edi, edx
+        rep stosd
+        mov eax, [edx+20h]
+        xor ecx, ecx
+        test al, 1
+        pop edi
+        jne after_init
+        or eax, 1
+        mov [edx+14h], ecx
+        mov dword ptr [edx+10h], 0FFF0BDC1h
+        mov [edx+18h], ecx
+        mov dword ptr [edx+1Ch], 476F78h
+        mov [edx+20h], eax
+after_init:
+        mov [edx+14h], ecx
+        mov [edx+18h], ecx
+        mov dword ptr [edx+10h], 0FFFFFFFFh
+        mov eax, edx
+        ret
+    }
+}
+#else
 void* ScoreObject_Initialize(void*, void* object) {
     unsigned char* bytes = (unsigned char*)object;
     *(void**)bytes = PTR_LAB_0046dab0;
@@ -806,6 +844,7 @@ void* ScoreObject_Initialize(void*, void* object) {
     *(uint32_t*)(bytes + 0x10) = 0xFFFFFFFF;
     return object;
 }
+#endif
 
 // 0x0041C5B0 - Extend the score object constructor with the two embedded
 // entity blocks and their construction sentinels.
