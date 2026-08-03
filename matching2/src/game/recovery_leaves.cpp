@@ -91,6 +91,12 @@ extern "C" void sub_418EE0(void*);
 extern "C" void sub_418C40(void*);
 extern "C" void sub_44C5D0(void*, void*);
 extern "C" float sub_452FF0(float);
+extern "C" void sub_437DB0(void);
+extern "C" void sub_437FE0(void);
+extern "C" void* sub_452930(void*, int);
+extern "C" void sub_43E460(void*, void*, void*, int);
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
 extern "C" char aFrontAnm[];
 extern "C" char aBulletAnm[];
 extern "C" char byte_46CB68[];
@@ -2566,6 +2572,46 @@ void* Recovery_InitializeStateTable(void* state) {
 #endif
 
 // 0x00420A90 - Replace a resource extension with .wav and submit it.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_ReplaceExtensionWav(
+        void* context, char* path, void (*load)(void*, const char*)) {
+    __asm {
+        sub esp, 104h
+        mov eax, ___security_cookie
+        xor eax, esp
+        mov [esp+100h], eax
+        mov eax, [esp+10Ch]
+        lea edx, [esp]
+        sub edx, eax
+copy_path:
+        mov cl, [eax]
+        mov [edx+eax], cl
+        inc eax
+        test cl, cl
+        jne copy_path
+        lea eax, [esp]
+        push 2Eh
+        push eax
+        call sub_452930
+        mov ecx, [esp+110h]
+        add esp, 8
+        push ecx
+        mov byte ptr [eax+1], 77h
+        mov byte ptr [eax+2], 61h
+        mov byte ptr [eax+3], 76h
+        push 1
+        lea edx, [esp+8]
+        mov eax, 492590h
+        call sub_43E460
+        mov ecx, [esp+100h]
+        xor ecx, esp
+        mov eax, 1
+        call security_check_cookie
+        add esp, 104h
+        ret 8
+    }
+}
+#else
 int Recovery_ReplaceExtensionWav(void* context, char* path,
                                  void (*load)(void*, const char*)) {
     if (path == 0) return 0;
@@ -2578,6 +2624,7 @@ int Recovery_ReplaceExtensionWav(void* context, char* path,
     if (load != 0) load(context, path);
     return 1;
 }
+#endif
 
 // 0x00405040 - Copy six word color fields and fill four random tint bytes.
 #ifdef _MSC_VER
@@ -2768,6 +2815,62 @@ void* Recovery_CreateSmallState(
 #endif
 
 // 0x0044CE80 - Copy an interface array into an owner and query each entry.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InitializeInterfaceArray(
+        RecoveryOwnedArrayState* state, void** source, RecoveryWord count,
+        void* argument, RecoveryWord (*query)(void*, RecoveryWord)) {
+    __asm {
+        push ebx
+        mov ebx, eax
+        lea eax, [edi*4]
+        push eax
+        mov dword ptr [esi], 4705D8h
+        call sub_452493
+        mov [esi+4], eax
+        add esp, 4
+        xor eax, eax
+        test edi, edi
+        jbe after_copy
+copy_loop:
+        mov edx, [ebx+eax*4]
+        mov ecx, [esi+4]
+        mov [ecx+eax*4], edx
+        inc eax
+        cmp eax, edi
+        jb copy_loop
+after_copy:
+        mov eax, [esp+8]
+        mov ecx, [esp+0Ch]
+        mov edx, [esi+4]
+        mov [esi+8], eax
+        mov [esi+10h], edi
+        mov [esi+0Ch], ecx
+        mov eax, [edx]
+        push 0
+        push eax
+        mov eax, esi
+        call sub_44D110
+        xor ebx, ebx
+        test edi, edi
+        jbe done
+query_loop:
+        mov ecx, [esi+4]
+        mov eax, [ecx+ebx*4]
+        mov edx, [eax]
+        push 0
+        push eax
+        call dword ptr [edx+34h]
+        inc ebx
+        cmp ebx, edi
+        jb query_loop
+done:
+        mov dword ptr [esi+30h], 0
+        mov eax, esi
+        pop ebx
+        ret 8
+    }
+}
+#else
 void Recovery_InitializeInterfaceArray(
         RecoveryOwnedArrayState* state, void** source, RecoveryWord count,
         void* argument, RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -2780,6 +2883,7 @@ void Recovery_InitializeInterfaceArray(
         for (RecoveryWord index = 0; index < count; ++index)
             if (source[index] != 0) query(source[index], 0);
 }
+#endif
 
 // 0x0044D6A0 - Initialize the one-entry interface owner and query it once.
 #ifdef _MSC_VER
@@ -3287,6 +3391,64 @@ void Recovery_ReleaseGlobalStates(void** states, RecoveryWord count,
 
 // 0x004479D0 - Normalize the requested text count, draw four random color
 // words, and dispatch the appropriate text renderer variant.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_DispatchRandomText(
+        int count, void* context,
+        RecoveryWord (*random_value)(void*),
+        void (*dispatch)(void*, const RecoveryWord[4], int)) {
+    __asm {
+        sub esp, 10h
+        push ebp
+        mov ebp, [esp+20h]
+        push esi
+        mov esi, eax
+        test esi, esi
+        jg count_ok
+        mov esi, 11h
+        jmp after_count
+count_ok:
+        cmp esi, 8
+        jle done_early
+after_count:
+        fld dword ptr [edi+8]
+        call sub_463B2C
+        fld dword ptr [edi+0Ch]
+        mov [esp+8], eax
+        call sub_463B2C
+        fld dword ptr [edi+10h]
+        mov [esp+0Ch], eax
+        call sub_463B2C
+        fld dword ptr [edi+14h]
+        mov [esp+10h], eax
+        call sub_463B2C
+        mov ecx, [esp+20h]
+        mov [esp+14h], eax
+        mov eax, [esp+28h]
+        test eax, eax
+        mov eax, [esp+1Ch]
+        push eax
+        push ebx
+        push ebp
+        push esi
+        lea edx, [esp+18h]
+        push ecx
+        push edx
+        jne use_alt
+        call sub_437DB0
+        pop esi
+        pop ebp
+        add esp, 10h
+        ret 10h
+use_alt:
+        call sub_437FE0
+done_early:
+        pop esi
+        pop ebp
+        add esp, 10h
+        ret 10h
+    }
+}
+#else
 int Recovery_DispatchRandomText(int count, void* context,
                                 RecoveryWord (*random_value)(void*),
                                 void (*dispatch)(void*, const RecoveryWord[4], int)) {
@@ -3298,6 +3460,7 @@ int Recovery_DispatchRandomText(int count, void* context,
     if (dispatch != 0) dispatch(context, colors, count);
     return 1;
 }
+#endif
 
 // 0x00425020 - Allocate and initialize the large 0x4478-byte resource state.
 void* Recovery_CreateLargeResourceState(

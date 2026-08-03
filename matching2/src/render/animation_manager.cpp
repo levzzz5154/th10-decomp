@@ -41,6 +41,10 @@ extern "C" float flt_470B48;
 extern "C" unsigned short word_4749CE;
 extern "C" void sub_448BB0(void);
 extern "C" void sub_43EE30(void*);
+extern "C" unsigned long dword_46F288;
+extern "C" unsigned long dword_46F2A0;
+extern "C" unsigned long dword_491C30;
+extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -70,6 +74,29 @@ static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
 
 // 0x00447050 - Allocate a one-level managed texture in one of the six retail
 // pixel formats and retain the corresponding byte stride in its owner record.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationTexture_Create(
+        unsigned int width, unsigned int height,
+        unsigned int format_index, AnimationTextureRecord* output) {
+    __asm {
+        mov eax, [esi*4+dword_46F288]
+        push edi
+        push 1
+        push eax
+        mov eax, dword_491C30
+        push 0
+        push 1
+        push ecx
+        push edx
+        push eax
+        call sub_4521A0
+        mov ecx, [esi*4+dword_46F2A0]
+        mov [edi+0Ch], ecx
+        xor eax, eax
+        ret
+    }
+}
+#else
 int AnimationTexture_Create(unsigned int width, unsigned int height,
                             unsigned int format_index,
                             AnimationTextureRecord* output) {
@@ -80,6 +107,7 @@ int AnimationTexture_Create(unsigned int width, unsigned int height,
     output->bytes_per_pixel = bytes_per_pixel[format_index];
     return 0;
 }
+#endif
 
 // 0x00447810 - Retire a populated animation-resource batch. The retail leaf
 // first synchronizes the owner, releases each interface/resource pair, then
