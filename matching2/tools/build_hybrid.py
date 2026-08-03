@@ -111,6 +111,10 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Recovery_ReleasePair@@", 0x0041F930),
     ("recovery_leaves.obj", "?Recovery_InitializeTimedState@@", 0x00423510),
     ("recovery_leaves.obj", "?Recovery_LoadCachedResource@@", 0x00447280),
+    ("recovery_leaves.obj", "?Recovery_InitializeLargeState@@", 0x00421F00),
+    ("recovery_leaves.obj", "?Recovery_LoadStartupResources@@", 0x0041F8D0),
+    ("recovery_leaves.obj", "?Recovery_InstallAnimationSlot@@", 0x0042C670),
+    ("recovery_leaves.obj", "?Recovery_ClearAnimationSlot@@", 0x0042C6D0),
 )
 
 

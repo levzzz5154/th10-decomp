@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 71,
-      "semantic": 632
+      "exact-overlay": 75,
+      "semantic": 628
     }
   },
   "functions": [
@@ -2613,8 +2613,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041F8D0_FUN_0041f8d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Recovery_LoadStartupResources@@"
+      }
     },
     {
       "address": "0x0041F930",
@@ -2937,8 +2941,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421F00_FUN_00421f00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Recovery_InitializeLargeState@@"
+      }
     },
     {
       "address": "0x00421F60",
@@ -3801,8 +3809,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C670_FUN_0042c670.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Recovery_InstallAnimationSlot@@"
+      }
     },
     {
       "address": "0x0042C6D0",
@@ -3811,8 +3823,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C6D0_FUN_0042c6d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Recovery_ClearAnimationSlot@@"
+      }
     },
     {
       "address": "0x0042C730",

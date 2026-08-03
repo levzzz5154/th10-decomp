@@ -63,7 +63,24 @@ extern "C" unsigned long dword_491C10;
 extern "C" void sub_447810(void*);
 extern "C" void sub_409E50(void*);
 extern "C" void sub_4470C0(void*);
+extern "C" void sub_447280(void*);
 extern "C" unsigned char dword_491FF4;
+extern "C" void sub_418C40(void*);
+extern "C" char aFrontAnm[];
+extern "C" char aBulletAnm[];
+extern "C" char byte_46CB68[];
+extern "C" char byte_46CD54[];
+extern "C" char Text[];
+extern "C" void sub_44B810(void*, const char*);
+extern "C" void* sub_449ED0(void*);
+extern "C" void sub_41BA00(void*);
+extern "C" void sub_41BA30(void*);
+extern "C" void sub_449AE0(void*, void*, void*);
+extern "C" void sub_449B70(void*, void*, void*);
+extern "C" void* sub_449950(void*);
+extern "C" void sub_449870(void*, void*);
+extern "C" void sub_4489D0(void*, void*);
+extern "C" void* sub_4491C0(void*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1696,6 +1713,29 @@ int Recovery_ReleasePair(void** first_slot, void** second_slot,
 
 // 0x00421F00 - Reset the fixed-size state object after initializing its
 // embedded subobject, then install the two retail mode bits.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_InitializeLargeState(
+        void* state, void (*initialize_subobject)(void*)) {
+    __asm {
+        push edi
+        lea edx, [esi+120h]
+        call sub_418C40
+        xor eax, eax
+        mov [esi+630h], eax
+        mov [esi+634h], eax
+        mov [esi+638h], eax
+        mov [esi+63Ch], eax
+        mov dword ptr [esi+62Ch], offset off_4703E4
+        mov ecx, 1E1h
+        mov edi, esi
+        rep stosd
+        or dword ptr [esi+3CCh], 140h
+        mov eax, esi
+        pop edi
+        ret
+    }
+}
+#else
 void* Recovery_InitializeLargeState(void* state,
                                     void (*initialize_subobject)(void*)) {
     if (state == 0) return 0;
@@ -1705,6 +1745,7 @@ void* Recovery_InitializeLargeState(void* state,
     *(RecoveryWord*)((RecoveryByte*)state + 0x3CC) |= 0x140;
     return state;
 }
+#endif
 
 // 0x00423510 - Set the initial mode, reset the timer, run the two update
 // notifications, and publish the state's trailing speed word.
@@ -1753,6 +1794,39 @@ void Recovery_InitializeTimedState(void* state, void (*tick)(void),
 
 // 0x0041F8D0 - Load the front and bullet startup resources, reporting the
 // matching retail fallback string when either load fails.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_LoadStartupResources(
+        void* context, void* (*load)(void*, int, const char*),
+        void (*report_missing)(const char*)) {
+    __asm {
+        mov edx, dword_491C10
+        push offset aFrontAnm
+        mov ecx, 6
+        call sub_447280
+        test eax, eax
+        jnz loc_41F8F0
+        push offset byte_46CB68
+        jmp loc_41F90E
+loc_41F8F0:
+        mov edx, dword_491C10
+        push offset aBulletAnm
+        mov ecx, 7
+        call sub_447280
+        test eax, eax
+        jnz loc_41F91F
+        push offset byte_46CD54
+loc_41F90E:
+        mov ecx, offset Text
+        call sub_44B810
+        add esp, 4
+        or eax, 0FFFFFFFFh
+        ret
+loc_41F91F:
+        xor eax, eax
+        ret
+    }
+}
+#else
 int Recovery_LoadStartupResources(
         void* context, void* (*load)(void*, int, const char*),
         void (*report_missing)(const char*)) {
@@ -1765,9 +1839,46 @@ int Recovery_LoadStartupResources(
     if (report_missing != 0) report_missing("bullet.anm");
     return -1;
 }
+#endif
 
 // 0x0042C670 - Create and register one animation slot, preserving the
 // source resource token in the owner's indexed table.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_InstallAnimationSlot(
+        void* owner, int index, RecoveryWord resource,
+        void* (*create)(void), void (*configure)(void*, int),
+        void (*register_object)(void*),
+        void (*store)(void*, int, RecoveryWord)) {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+8+4]
+        mov eax, [ebp+14h]
+        push esi
+        mov esi, dword_491C10
+        mov [esp+0Ch+4], eax
+        call sub_449950
+        mov ecx, [esp+0Ch+4]
+        mov ebx, eax
+        mov edx, [ebx+35Ch]
+        push edi
+        or edx, 40000000h
+        push ebx
+        mov dword ptr [ebx+20h], 0Fh
+        mov [ebx+35Ch], edx
+        call sub_449870
+        mov edx, dword_491C10
+        lea eax, [esp+0Ch+4]
+        call sub_4489D0
+        mov ecx, [esp+0Ch+4]
+        pop esi
+        mov [ebp+edi*4+2C4h], ecx
+        pop ebp
+        pop ebx
+        ret 4
+    }
+}
+#else
 int Recovery_InstallAnimationSlot(
         void* owner, int index, RecoveryWord resource,
         void* (*create)(void), void (*configure)(void*, int),
@@ -1781,9 +1892,47 @@ int Recovery_InstallAnimationSlot(
     store(owner, index, resource);
     return 0;
 }
+#endif
 
 // 0x0042C6D0 - Mark the selected animation and its children as pending
 // removal, then release the owner's slot token.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ClearAnimationSlot(
+        RecoveryWord* slot, void* lookup_key,
+        void* (*lookup)(void*, void*), void (*mark)(void*),
+        void** children, RecoveryWord child_count) {
+    __asm {
+        mov eax, [edi+esi*4+2C4h]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        xor ecx, ecx
+        cmp eax, ecx
+        jz loc_42C71B
+        push ebx
+        cmp [eax+18h], ecx
+        mov edx, 1
+        mov [eax+304h], dx
+        jnz loc_42C712
+        mov eax, [eax+14h]
+        cmp eax, ecx
+        jz loc_42C712
+loc_42C702:
+        mov ebx, [eax]
+        mov [ebx+304h], dx
+        mov eax, [eax+4]
+        cmp eax, ecx
+        jnz loc_42C702
+loc_42C712:
+        mov [edi+esi*4+2C4h], ecx
+        pop ebx
+        ret
+loc_42C71B:
+        mov [edi+esi*4+2C4h], ecx
+        ret
+    }
+}
+#else
 void Recovery_ClearAnimationSlot(
         RecoveryWord* slot, void* lookup_key,
         void* (*lookup)(void*, void*), void (*mark)(void*),
@@ -1799,6 +1948,7 @@ void Recovery_ClearAnimationSlot(
     }
     *slot = 0;
 }
+#endif
 
 // 0x00447280 - Resolve a cached resource or load it asynchronously and wait
 // for its loading flag to clear, matching the one-millisecond polling loop.
