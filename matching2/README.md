@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (39 of them
+functions (100.0%) as readable semantic C++ or verified overlays (55 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -487,7 +487,22 @@ Current exact-overlay results with MSVC 7.1:
 | `Angle_Normalize` | 70 | 100% |
 | `Angle_NormalizeSum` | 70 | 100% |
 | `Score_SetNormalizedAngle` | 16 | 100% |
-| `DestroyEntityList` | 43 | semantic C++ |
+| `DestroyEntityList` | 43 | 100% |
+| `GameThread_RunQueueLeaf` | 6 | 100% |
+| `Recovery_InvokeZero` | 8 | 100% |
+| `Recovery_InvokeVoid` | 6 | 100% |
+| `Recovery_InvokePair` | 6 | 100% |
+| `Score_SetMode` | 16 | 100% |
+| `RecoveryTimer_Reset` | 46 | 100% |
+| `ScoreList_InsertAfter` | 23 | 100% |
+| `Vector2_SetEllipticPolar` | 30 | 100% |
+| `Vector2_SetAnimationPolar` | 30 | 100% |
+| `PathState_Reset` | 54 | 100% |
+| `Bullet_DeletingDestructor` | 23 | 100% |
+| `Platform_DeletingDestructor` | 22 | 100% |
+| `Ecl_ForwardFloat` | 22 | 100% |
+| `Ecl_SetResourceSlot` | 48 | 100% |
+| `Animation_SetActiveCount` | 77 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |
@@ -506,10 +521,10 @@ Current exact-overlay results with MSVC 7.1:
 | `GameRenderTargets_Release` | 57 | semantic; capture and primary reset targets |
 | `Render_HandleDeviceResetAndSnapshot` | 156 | semantic; reset and snapshot dispatch |
 
-`Entity_Init` and `DestroyEntityList` are kept as readable semantic C++. They
-are not hybrid overlays because reproducing their retail register allocation
-would require handwritten naked assembly; the hybrid executable continues to
-use the verified retail bodies at those addresses.
+`Entity_Init` is kept as readable semantic C++. It is not a hybrid overlay
+because reproducing its retail register allocation would require handwritten
+naked assembly; the hybrid executable continues to use the verified retail
+body at that address.
 The gameplay layouts now also include the complete 0x1F8-byte bullet spawn
 parameter record and the 0x88-byte linked stage-tip record used by the stage
 text parser. Polar-to-Cartesian vector initialization is readable C++ as well;

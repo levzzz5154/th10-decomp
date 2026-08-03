@@ -7,8 +7,8 @@
 #ifndef _MSC_VER
 #include <cstring>
 #else
-#pragma intrinsic(memset)
 extern "C" void* memset(void*, int, unsigned long);
+#pragma intrinsic(memset)
 #endif
 
 extern "C" void __cdecl _free(void*);
@@ -271,6 +271,36 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
 //   skip: ADD ESI,4; DEC EDI; JNZ loop
 //   POP EDI; POP ESI; RET
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) void __cdecl DestroyEntityList(void* base) {
+    // Retail reaches this helper with the base pointer in EAX rather than on
+    // the stack. The naked form transcribes the exact 53-byte body; the
+    // readable form below keeps the conventional stack ABI for host tests.
+    __asm {
+        push esi
+        mov esi, eax
+        push edi
+        add esi, 3AD4E0h
+        mov edi, 20h
+        nop
+loc_438A52:
+        mov eax, [esi]
+        test eax, eax
+        jz short loc_438A64
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+8]
+        mov dword ptr [esi], 0
+loc_438A64:
+        add esi, 4
+        dec edi
+        jnz short loc_438A52
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void __cdecl DestroyEntityList(void* base) {
     void** slots = (void**)((uint8_t*)base + 0x3AD4E0);
     for (int index = 0; index < 0x20; ++index) {
@@ -283,3 +313,4 @@ void __cdecl DestroyEntityList(void* base) {
         }
     }
 }
+#endif

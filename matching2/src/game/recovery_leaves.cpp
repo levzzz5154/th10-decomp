@@ -7,6 +7,15 @@ extern "C" void* memset(void*, int, unsigned long);
 extern "C" void* memmove(void*, const void*, unsigned long);
 extern "C" unsigned int strlen(const char*);
 extern "C" char* strrchr(const char*, int);
+extern "C" void sub_401A50(void);
+extern "C" void sub_419650(void);
+extern "C" void sub_427960(void);
+extern "C" void sub_4223F0(void);
+extern "C" void sub_40DAE0(void);
+extern "C" void j__free(void*);
+extern "C" void sub_44D080(void);
+extern "C" void sub_44FF80(void);
+extern "C" float flt_476F78;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -44,11 +53,47 @@ unsigned long Recovery_FindNamedValue(const unsigned short* name,
 }
 
 // 0x00401520 - One-instruction game-thread queue dispatch wrapper.
+#ifdef _MSC_VER
+__declspec(naked) void GameThread_RunQueueLeaf(void (*run)(void)) {
+    // Retail is a two-instruction thunk: it forwards ECX through EBX to
+    // 0x00401A50 without touching the stack argument.
+    __asm {
+        push ebx
+        mov ebx, ecx
+        call sub_401A50
+        pop ebx
+        ret
+    }
+}
+#else
 void GameThread_RunQueueLeaf(void (*run)(void)) {
     if (run != 0) run();
 }
+#endif
 
 // 0x0040CC50 - Bullet deleting destructor wrapper.
+#ifdef _MSC_VER
+__declspec(naked) void* Bullet_DeletingDestructor(void* object,
+                                                  RecoveryByte flags,
+                                                  void (*destroy)(void*),
+                                                  void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        push esi
+        call sub_40DAE0
+        test byte ptr [esp+8], 1
+        jz loc_40CC69
+        push esi
+        call j__free
+        add esp, 4
+loc_40CC69:
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 void* Bullet_DeletingDestructor(void* object, RecoveryByte flags,
                                 void (*destroy)(void*),
                                 void (*free_memory)(void*)) {
@@ -56,8 +101,30 @@ void* Bullet_DeletingDestructor(void* object, RecoveryByte flags,
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
+#endif
 
 // 0x0044CF00 - Platform collection deleting destructor wrapper.
+#ifdef _MSC_VER
+__declspec(naked) void* Platform_DeletingDestructor(void* object,
+                                                    RecoveryByte flags,
+                                                    void (*destroy)(void*),
+                                                    void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_44D080
+        test byte ptr [esp+8], 1
+        jz loc_44CF18
+        push esi
+        call j__free
+        add esp, 4
+loc_44CF18:
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 void* Platform_DeletingDestructor(void* object, RecoveryByte flags,
                                   void (*destroy)(void*),
                                   void (*free_memory)(void*)) {
@@ -65,14 +132,47 @@ void* Platform_DeletingDestructor(void* object, RecoveryByte flags,
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
+#endif
 
 // 0x00412AA0 - Forward an opcode and float operand to the ECL runtime leaf.
+#ifdef _MSC_VER
+__declspec(naked) void Ecl_ForwardFloat(RecoveryByte opcode, float value,
+                                        void (*forward)(RecoveryByte, float)) {
+    __asm {
+        mov ecx, [esp+8]
+        mov eax, [eax+14D8h]
+        mov eax, [eax+4]
+        push ecx
+        mov ecx, [esp+4+4]
+        call sub_44FF80
+        ret 8
+    }
+}
+#else
 void Ecl_ForwardFloat(RecoveryByte opcode, float value,
                       void (*forward)(RecoveryByte, float)) {
     if (forward != 0) forward(opcode, value);
 }
+#endif
 
 // 0x00413200 - Insert a node immediately after an intrusive-list position.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreList_InsertAfter(RecoveryListNode* position,
+                                             RecoveryListNode* node) {
+    __asm {
+        mov edx, [ecx+4]
+        test edx, edx
+        jz loc_413210
+        mov [eax+4], edx
+        mov edx, [ecx+4]
+        mov [edx+8], eax
+loc_413210:
+        mov [ecx+4], eax
+        mov [eax+8], ecx
+        ret
+    }
+}
+#else
 void ScoreList_InsertAfter(RecoveryListNode* position, RecoveryListNode* node) {
     if (position->next != 0) {
         node->next = position->next;
@@ -81,9 +181,32 @@ void ScoreList_InsertAfter(RecoveryListNode* position, RecoveryListNode* node) {
     position->next = node;
     node->previous = position;
 }
+#endif
 
 // 0x00412720 - Publish one 16-byte ECL resource slot. Negative resource
 // identifiers only replace the identifier, preserving the other words.
+#ifdef _MSC_VER
+__declspec(naked) void Ecl_SetResourceSlot(void* state, int slot,
+                                           int resource, RecoveryWord first,
+                                           RecoveryWord second) {
+    __asm {
+        mov eax, edx
+        shl eax, 4
+        add eax, esi
+        test ecx, ecx
+        mov [eax+2494h], ecx
+        jl locret_41274D
+        mov ecx, [esp+4]
+        add edx, 24Ah
+        shl edx, 4
+        mov [eax+2498h], ecx
+        mov [eax+249Ch], edi
+        mov [edx+esi], edi
+locret_41274D:
+        ret 4
+    }
+}
+#else
 void Ecl_SetResourceSlot(void* state, int slot, int resource,
                          RecoveryWord first, RecoveryWord second) {
     RecoveryByte* record = (RecoveryByte*)state + 0x2494 + slot * 0x10;
@@ -94,9 +217,49 @@ void Ecl_SetResourceSlot(void* state, int slot, int resource,
         *(RecoveryWord*)(record + 12) = second;
     }
 }
+#endif
 
 // 0x00413790 - Enable the first count animation records and disable the
 // remainder of the fixed nine-record table.
+#ifdef _MSC_VER
+__declspec(naked) void Animation_SetActiveCount(void* state, int count) {
+    __asm {
+        xor edx, edx
+        test ecx, ecx
+        push edi
+        mov edi, eax
+        jle loc_4137B5
+        push esi
+        lea eax, [edi+4CDCh]
+        mov esi, ecx
+        mov edx, ecx
+loc_4137A4:
+        or dword ptr [eax], 2
+        add eax, 3ACh
+        dec esi
+        jnz loc_4137A4
+        cmp ecx, 9
+        pop esi
+        jge loc_4137DB
+loc_4137B5:
+        mov eax, edx
+        imul eax, 3ACh
+        mov ecx, 9
+        lea eax, [eax+edi+4CDCh]
+        sub ecx, edx
+        jmp loc_4137D0
+        align 10h
+loc_4137D0:
+        and dword ptr [eax], 0FFFFFFFDh
+        add eax, 3ACh
+        dec ecx
+        jnz loc_4137D0
+loc_4137DB:
+        pop edi
+        ret
+    }
+}
+#else
 void Animation_SetActiveCount(void* state, int count) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     int index = 0;
@@ -106,8 +269,31 @@ void Animation_SetActiveCount(void* state, int count) {
     for (; index < 9; ++index)
         *(RecoveryWord*)(bytes + 0x4CDC + index * 0x3AC) &= ~2u;
 }
+#endif
 
 // 0x00412DB0 - Lazily initialize, then reset, an embedded timer record.
+#ifdef _MSC_VER
+__declspec(naked) void RecoveryTimer_Reset(RecoveryTimerState* timer,
+                                           const void* default_speed) {
+    __asm {
+        mov ecx, [eax+30h]
+        xor edx, edx
+        test cl, 1
+        jnz loc_412DD4
+        or ecx, 1
+        mov [eax+24h], edx
+        mov dword ptr [eax+20h], 0FFF0BDC1h
+        mov [eax+28h], edx
+        mov dword ptr [eax+2Ch], offset flt_476F78
+        mov [eax+30h], ecx
+loc_412DD4:
+        mov [eax+24h], edx
+        mov [eax+28h], edx
+        mov dword ptr [eax+20h], 0FFFFFFFFh
+        ret
+    }
+}
+#else
 void RecoveryTimer_Reset(RecoveryTimerState* timer, const void* default_speed) {
     if ((timer->initialized & 1) == 0) {
         timer->current = 0;
@@ -120,25 +306,90 @@ void RecoveryTimer_Reset(RecoveryTimerState* timer, const void* default_speed) {
     timer->previous = 0;
     timer->value = 0xFFFFFFFFu;
 }
+#endif
 
 extern "C" double __cdecl cos(double value);
 extern "C" double __cdecl sin(double value);
 
 // 0x00413270 - Elliptical polar conversion with independent X/Y radii.
+#ifdef _MSC_VER
+__declspec(naked) void Vector2_SetEllipticPolar(Vector2* destination,
+                                                float angle, float x_radius,
+                                                float y_radius) {
+    __asm {
+        push ecx
+        mov [esp], ecx
+        mov eax, [esp]
+        fld [esp+8]
+        fsincos
+        fmul [esp+0Ch]
+        fstp dword ptr [eax]
+        fmul [esp+10h]
+        fstp dword ptr [eax+4]
+        pop ecx
+        ret 0Ch
+    }
+}
+#else
 void Vector2_SetEllipticPolar(Vector2* destination, float angle,
                              float x_radius, float y_radius) {
     destination->x = (float)cos(angle) * x_radius;
     destination->y = (float)sin(angle) * y_radius;
 }
+#endif
 
 // 0x00441EF0 - Animation-side circular polar conversion leaf.
+#ifdef _MSC_VER
+__declspec(naked) void Vector2_SetAnimationPolar(Vector2* destination,
+                                                  float angle, float length) {
+    __asm {
+        push ecx
+        mov [esp], ecx
+        mov eax, [esp]
+        fld [esp+8]
+        fsincos
+        fmul [esp+0Ch]
+        fstp dword ptr [eax]
+        fmul [esp+0Ch]
+        fstp dword ptr [eax+4]
+        pop ecx
+        ret 8
+    }
+}
+#else
 void Vector2_SetAnimationPolar(Vector2* destination, float angle, float length) {
     destination->x = (float)cos(angle) * length;
     destination->y = (float)sin(angle) * length;
 }
+#endif
 
 // 0x00417800 - Reset the path cursor/timer pair and clear its two trailing
 // state words. The clean form exposes retail's global default-speed pointer.
+#ifdef _MSC_VER
+__declspec(naked) int PathState_Reset(void* state,
+                                      RecoveryWord default_speed) {
+    __asm {
+        mov ecx, [eax+50h]
+        xor edx, edx
+        test cl, 1
+        jnz loc_417824
+        or ecx, 1
+        mov [eax+44h], edx
+        mov dword ptr [eax+40h], 0FFF0BDC1h
+        mov [eax+48h], edx
+        mov dword ptr [eax+4Ch], offset flt_476F78
+        mov [eax+50h], ecx
+loc_417824:
+        mov [eax+44h], edx
+        mov [eax+48h], edx
+        mov dword ptr [eax+40h], 0FFFFFFFFh
+        mov [eax+58h], edx
+        mov [eax+5Ch], edx
+        xor eax, eax
+        ret
+    }
+}
+#else
 int PathState_Reset(void* state, RecoveryWord default_speed) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     RecoveryWord* flags = (RecoveryWord*)(bytes + 0x50);
@@ -156,6 +407,7 @@ int PathState_Reset(void* state, RecoveryWord default_speed) {
     *(RecoveryWord*)(bytes + 0x5C) = 0;
     return 0;
 }
+#endif
 
 // 0x0044D5D0 - Invoke the configured interface operation, setting the
 // in-progress marker first; missing owners return retail's initialization
@@ -185,12 +437,25 @@ RecoveryWord Platform_AggregateInterfaces(
 }
 
 // 0x00412ED0 - Change the score mode and invalidate the cached mode result.
+#ifdef _MSC_VER
+__declspec(naked) void Score_SetMode(void* state, int mode) {
+    __asm {
+        cmp [eax+44h], ecx
+        mov [eax+44h], ecx
+        jz locret_412EDF
+        mov dword ptr [eax+4Ch], 0
+locret_412EDF:
+        ret
+    }
+}
+#else
 void Score_SetMode(void* state, int mode) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     int old_mode = *(int*)(bytes + 0x44);
     *(int*)(bytes + 0x44) = mode;
     if (old_mode != mode) *(RecoveryWord*)(bytes + 0x4C) = 0;
 }
+#endif
 
 // 0x00413170 - Store an angle after folding it into the retail range.
 void Score_SetNormalizedAngle(void* state, float angle) {
@@ -322,21 +587,59 @@ void RecoveryState_Configure41F50(void* state, RecoveryWord value,
 }
 
 // 0x00427950 - Invoke the downstream update leaf and return its zero status.
+#ifdef _MSC_VER
+__declspec(naked) RecoveryWord Recovery_InvokeZero(void (*invoke)(void)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_427960
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 RecoveryWord Recovery_InvokeZero(void (*invoke)(void)) {
     if (invoke != 0) invoke();
     return 0;
 }
+#endif
 
 // 0x004198A0 - Forward the update call without changing its void result.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InvokeVoid(void (*invoke)(void)) {
+    __asm {
+        push ebx
+        mov ebx, ecx
+        call sub_419650
+        pop ebx
+        ret
+    }
+}
+#else
 void Recovery_InvokeVoid(void (*invoke)(void)) {
     if (invoke != 0) invoke();
 }
+#endif
 
 // 0x00422A90 - Preserve the two-word result of the downstream state update.
+#ifdef _MSC_VER
+__declspec(naked) unsigned long long Recovery_InvokePair(
+        void* argument, unsigned long long (*invoke)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        call sub_4223F0
+        pop esi
+        ret
+    }
+}
+#else
 unsigned long long Recovery_InvokePair(
         void* argument, unsigned long long (*invoke)(void*)) {
     return invoke != 0 ? invoke(argument) : 0;
 }
+#endif
 
 // 0x0041AB10 - Append a node to the tail of the doubly-linked chain.
 void Recovery_AppendNode(RecoveryAppendNode* list,

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 683,
-        "retail_bytes": 330016
+        "function_count": 667,
+        "retail_bytes": 328496
       },
       "exact-overlay": {
-        "function_count": 39,
-        "retail_bytes": 2784
+        "function_count": 55,
+        "retail_bytes": 4304
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 39,
+    "function_count": 55,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -94,8 +94,10 @@
       "address": "0x00401520",
       "symbol": "FUN_00401520",
       "size": 16,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "GameThread_RunQueueLeaf"
     },
     {
       "address": "0x00401530",
@@ -949,8 +951,10 @@
       "address": "0x0040CC50",
       "symbol": "FUN_0040cc50",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Bullet_DeletingDestructor"
     },
     {
       "address": "0x0040CC70",
@@ -1084,8 +1088,10 @@
       "address": "0x00412720",
       "symbol": "FUN_00412720",
       "size": 128,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Ecl_SetResourceSlot"
     },
     {
       "address": "0x004127A0",
@@ -1112,8 +1118,10 @@
       "address": "0x00412AA0",
       "symbol": "FUN_00412aa0",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Ecl_ForwardFloat"
     },
     {
       "address": "0x00412AC0",
@@ -1126,8 +1134,10 @@
       "address": "0x00412DB0",
       "symbol": "FUN_00412db0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "RecoveryTimer_Reset"
     },
     {
       "address": "0x00412E70",
@@ -1140,8 +1150,10 @@
       "address": "0x00412ED0",
       "symbol": "FUN_00412ed0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Score_SetMode"
     },
     {
       "address": "0x00412FF0",
@@ -1163,15 +1175,19 @@
       "address": "0x00413200",
       "symbol": "FUN_00413200",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "ScoreList_InsertAfter"
     },
     {
       "address": "0x00413270",
       "symbol": "FUN_00413270",
       "size": 224,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Vector2_SetEllipticPolar"
     },
     {
       "address": "0x00413350",
@@ -1212,8 +1228,10 @@
       "address": "0x00413790",
       "symbol": "FUN_00413790",
       "size": 128,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Animation_SetActiveCount"
     },
     {
       "address": "0x00413810",
@@ -1345,8 +1363,10 @@
       "address": "0x00417800",
       "symbol": "FUN_00417800",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "PathState_Reset"
     },
     {
       "address": "0x00417870",
@@ -1494,8 +1514,10 @@
       "address": "0x004198A0",
       "symbol": "FUN_004198a0",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_InvokeVoid"
     },
     {
       "address": "0x004198C0",
@@ -2105,8 +2127,10 @@
       "address": "0x00422A90",
       "symbol": "FUN_00422a90",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_InvokePair"
     },
     {
       "address": "0x00422AB0",
@@ -2301,8 +2325,10 @@
       "address": "0x00427950",
       "symbol": "FUN_00427950",
       "size": 16,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_InvokeZero"
     },
     {
       "address": "0x00427960",
@@ -3472,8 +3498,10 @@
       "address": "0x00438A30",
       "symbol": "FUN_00438a30",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/entity.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "DestroyEntityList"
     },
     {
       "address": "0x00438A60",
@@ -3948,8 +3976,10 @@
       "address": "0x00441EF0",
       "symbol": "FUN_00441ef0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Vector2_SetAnimationPolar"
     },
     {
       "address": "0x00441F50",
@@ -4918,8 +4948,10 @@
       "address": "0x0044CF00",
       "symbol": "FUN_0044cf00",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Platform_DeletingDestructor@@"
     },
     {
       "address": "0x0044CF20",
