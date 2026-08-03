@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 628,
-        "retail_bytes": 324208
+        "function_count": 626,
+        "retail_bytes": 324016
       },
       "exact-overlay": {
-        "function_count": 94,
-        "retail_bytes": 8592
+        "function_count": 96,
+        "retail_bytes": 8784
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 94,
+    "function_count": 96,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -366,8 +366,10 @@
       "address": "0x004055C0",
       "symbol": "FUN_004055c0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/player.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Recovery_InstallPairSetFlags@@"
     },
     {
       "address": "0x00405620",
@@ -1615,8 +1617,10 @@
       "address": "0x0041AD90",
       "symbol": "FUN_0041ad90",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Recovery_InstallPairClearFlags@@"
     },
     {
       "address": "0x0041ADF0",

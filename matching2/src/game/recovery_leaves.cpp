@@ -81,6 +81,8 @@ extern "C" void* sub_449950(void*);
 extern "C" void sub_449870(void*, void*);
 extern "C" void sub_4489D0(void*, void*);
 extern "C" void* sub_4491C0(void*);
+extern "C" void sub_405840(void*);
+extern "C" void sub_405850(void*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1643,20 +1645,90 @@ static int InstallPair(void** first_slot, void** second_slot,
 }
 
 // 0x004055C0 - Install the pair of enabled animation registrations.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_InstallPairSetFlags(
+        void** first_slot, void** second_slot, void* first_resource,
+        void* second_resource, void (*configure)(void*, RecoveryWord)) {
+    __asm {
+        push esi
+        push edi
+        push offset sub_405840
+        call sub_449ED0
+        mov esi, eax
+        or dword ptr [esi+4], 2
+        mov eax, dword_491BE4
+        push eax
+        mov edi, 11h
+        mov [esi+20h], ebx
+        call sub_449AE0
+        push offset sub_405850
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        or dword ptr [esi+4], 2
+        mov ecx, dword_491BE4
+        push ecx
+        mov edi, 22h
+        mov [esi+20h], ebx
+        call sub_449B70
+        pop edi
+        mov [ebx+0Ch], esi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_InstallPairSetFlags(
         void** first_slot, void** second_slot, void* first_resource,
         void* second_resource, void (*configure)(void*, RecoveryWord)) {
     return InstallPair(first_slot, second_slot, first_resource, second_resource,
                        2, 2, configure);
 }
+#endif
 
 // 0x0041AD90 - Install the pair of registrations with their disabled flags.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_InstallPairClearFlags(
+        void** first_slot, void** second_slot, void* first_resource,
+        void* second_resource, void (*configure)(void*, RecoveryWord)) {
+    __asm {
+        push esi
+        push edi
+        push offset sub_41BA00
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov eax, dword_491BE4
+        push eax
+        mov edi, 15h
+        mov [esi+20h], ebx
+        call sub_449AE0
+        push offset sub_41BA30
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov ecx, dword_491BE4
+        push ecx
+        mov edi, 19h
+        mov [esi+20h], ebx
+        call sub_449B70
+        pop edi
+        mov [ebx+0Ch], esi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_InstallPairClearFlags(
         void** first_slot, void** second_slot, void* first_resource,
         void* second_resource, void (*configure)(void*, RecoveryWord)) {
     return InstallPair(first_slot, second_slot, first_resource, second_resource,
                        0, 0, configure);
 }
+#endif
 
 // 0x0041F930 - Release both cached resource slots and clear their ownership.
 #ifdef _MSC_VER
