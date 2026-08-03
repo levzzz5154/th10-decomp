@@ -89,6 +89,8 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Platform_AggregateInterfaces@@", 0x0044D550),
     ("recovery_leaves.obj", "?Platform_QueryInterfaces@@", 0x0044D600),
     ("recovery_leaves.obj", "?Platform_FindAvailable@@", 0x0044D370),
+    ("recovery_leaves.obj", "RecoveryLinkedCleanup", 0x00417770),
+    ("recovery_leaves.obj", "RecoveryState_Initialize", 0x004220E0),
 )
 
 

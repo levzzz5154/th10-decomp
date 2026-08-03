@@ -24,6 +24,7 @@ extern "C" float flt_497D80;
 extern "C" float flt_497D84;
 extern "C" unsigned long dword_497D88;
 extern "C" int _rand(void);
+extern "C" unsigned long dword_477830;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -689,6 +690,49 @@ void* Platform_FindAvailable(
 
 // 0x00417770 - Release every node in the intrusive cleanup chain, unlinking
 // each node before handing its storage to the platform allocator.
+#ifdef _MSC_VER
+__declspec(naked) void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
+                                             void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, [eax+18h]
+        test esi, esi
+        jz loc_4177B0
+        push edi
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_417780:
+        mov edx, [esi]
+        mov edi, [esi+8]
+        mov ecx, esi
+        call dword ptr [edx+10h]
+        mov eax, [esi+4]
+        mov ecx, [esi+8]
+        mov [eax+8], ecx
+        mov eax, [esi+8]
+        test eax, eax
+        jz loc_4177A0
+        mov edx, [esi+4]
+        mov [eax+4], edx
+loc_4177A0:
+        push esi
+        call j__free
+        add esp, 4
+        test edi, edi
+        mov esi, edi
+        jnz loc_417780
+        pop edi
+loc_4177B0:
+        pop esi
+        ret
+    }
+}
+#else
 void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
                            void (*free_memory)(void*)) {
     if (head == 0) return;
@@ -703,9 +747,40 @@ void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
         node = next;
     }
 }
+#endif
 
 // 0x004220E0 - Clear the 0x2c8-byte object and install its enabled flag in
 // the first word, matching the constructor's final visible state.
+#ifdef _MSC_VER
+__declspec(naked) void* RecoveryState_Initialize(void* state) {
+    __asm {
+        mov ecx, [edx+20h]
+        xor eax, eax
+        and ecx, 0FFFFFFFEh
+        mov [edx+20h], ecx
+        mov [edx+0B0h], eax
+        mov [edx+24h], eax
+        mov [edx+0F8h], eax
+        mov dword ptr [edx+0F4h], 1
+        mov ecx, 3E7h
+        mov [edx+2Ch], ecx
+        mov [edx+104h], ecx
+        push edi
+        mov [edx+188h], eax
+        mov [edx+0FCh], eax
+        mov [edx+1D0h], eax
+        mov dword ptr [edx+1CCh], 1
+        mov ecx, 0B2h
+        mov edi, edx
+        rep stosd
+        or dword ptr [edx], 2
+        mov dword_477830, edx
+        mov eax, edx
+        pop edi
+        ret
+    }
+}
+#else
 void* g_recovery_global_state;
 extern RecoveryWord DAT_00477830;
 void* RecoveryState_Initialize(void* state) {
@@ -715,6 +790,7 @@ void* RecoveryState_Initialize(void* state) {
     DAT_00477830 = (RecoveryWord)(unsigned long)state;
     return state;
 }
+#endif
 
 static void ResetRawTimer(RecoveryByte* bytes, RecoveryWord target_offset,
                           RecoveryWord current_offset, RecoveryWord previous_offset,

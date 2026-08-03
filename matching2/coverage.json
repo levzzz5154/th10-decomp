@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 654,
-        "retail_bytes": 326848
+        "function_count": 652,
+        "retail_bytes": 326592
       },
       "exact-overlay": {
-        "function_count": 68,
-        "retail_bytes": 5952
+        "function_count": 70,
+        "retail_bytes": 6208
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 68,
+    "function_count": 70,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1356,8 +1356,10 @@
       "address": "0x00417770",
       "symbol": "FUN_00417770",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "RecoveryLinkedCleanup"
     },
     {
       "address": "0x00417800",
@@ -2086,8 +2088,10 @@
       "address": "0x004220E0",
       "symbol": "FUN_004220e0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "RecoveryState_Initialize"
     },
     {
       "address": "0x00422150",
