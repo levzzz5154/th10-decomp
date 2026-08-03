@@ -35,6 +35,12 @@ extern "C" void* sub_452730(void*, int);
 extern "C" void* sub_452930(void*, int);
 extern "C" void* sub_452706(unsigned long);
 extern "C" void sub_452422(void*);
+extern "C" void* dword_4660C0;
+extern "C" void* dword_4660C4;
+extern "C" void* dword_4660C8;
+extern "C" void sub_435610(void*, void*);
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
 #endif
 
 namespace {
@@ -643,6 +649,106 @@ void* File_ReadShared(void* handle, DWORD size,
 #endif
 
 // 0x00435370 - Open a Win32 file using TH10's fopen-like mode parsing.
+#ifdef _MSC_VER
+__declspec(naked) BYTE FileHandle_OpenRetail(
+        const char* path, const char* mode) {
+    __asm {
+        sub esp, 10Ch
+        mov eax, ___security_cookie
+        xor eax, esp
+        push ebx
+        push ebp
+        mov ebp, [esp+118h]
+        push esi
+        push edi
+        mov esi, ecx
+        mov [esp+118h], eax
+        mov eax, [esi]
+        xor edi, edi
+        mov [esp+10h], edi
+        call dword ptr [eax+4]
+        mov eax, [esp+124h]
+        mov ebx, eax
+        mov al, [eax]
+        test al, al
+        je after_mode
+        jmp mode_loop
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+mode_loop:
+        cmp al, 72h
+        je read_mode
+        cmp al, 77h
+        je write_mode
+        cmp al, 61h
+        je append_mode
+        mov al, [ebx+1]
+        inc ebx
+        test al, al
+        jne mode_loop
+        jmp epilogue
+read_mode:
+        mov dword ptr [esi+8], 80000000h
+        mov edi, 3
+        jmp after_mode
+write_mode:
+        push ebp
+        call dword ptr [dword_4660C0]
+        mov edi, 2
+        jmp set_access
+append_mode:
+        mov dword ptr [esp+10h], 1
+        mov edi, 4
+set_access:
+        mov dword ptr [esi+8], 40000000h
+after_mode:
+        cmp byte ptr [ebx], 0
+        je fail
+        mov eax, ebp
+        lea ecx, [esp+14h]
+        call sub_435610
+        mov ecx, [esi+8]
+        push 0
+        push 8000080h
+        push edi
+        push 0
+        push 1
+        push ecx
+        lea edx, [esp+2Ch]
+        push edx
+        call dword ptr [dword_4660C4]
+        cmp eax, 0FFFFFFFFh
+        mov [esi+4], eax
+        jne after_create
+invalid:
+fail:
+        xor al, al
+        jmp epilogue
+after_create:
+        mov ecx, [esp+10h]
+        test ecx, ecx
+        je success
+        push 2
+        push 0
+        push 0
+        push eax
+        call dword ptr [dword_4660C8]
+success:
+        mov al, 1
+epilogue:
+        mov ecx, [esp+118h]
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        xor ecx, esp
+        call security_check_cookie
+        add esp, 10Ch
+        ret 8
+    }
+}
+#else
 BYTE FileHandle::Open(const char* path, const char* mode) {
     DWORD creation_disposition = 0;
     bool append = false;
@@ -691,6 +797,7 @@ BYTE FileHandle::Open(const char* path, const char* mode) {
     }
     return 1;
 }
+#endif
 
 // 0x00435460 - Close an open Win32 file handle and reset its state.
 void FileHandle::Close() {

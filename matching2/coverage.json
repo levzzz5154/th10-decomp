@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 482,
-        "retail_bytes": 307979
+        "function_count": 479,
+        "retail_bytes": 307099
       },
       "exact-overlay": {
-        "function_count": 240,
-        "retail_bytes": 24821
+        "function_count": 243,
+        "retail_bytes": 25701
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 240,
+    "function_count": 243,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3121,8 +3121,10 @@
       "address": "0x00434DD0",
       "symbol": "FUN_00434dd0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_Read@@"
     },
     {
       "address": "0x00434EF0",
@@ -3146,8 +3148,10 @@
       "address": "0x00434F70",
       "symbol": "FUN_00434f70",
       "size": 352,
-      "status": "semantic",
-      "source": "src/archive/dat.cpp"
+      "status": "exact-overlay",
+      "source": "src/archive/dat.cpp",
+      "overlay_object": "dat.obj",
+      "overlay_symbol": "?DatArchive_LoadIndex@@"
     },
     {
       "address": "0x004350D0",
@@ -3205,8 +3209,10 @@
       "address": "0x00435370",
       "symbol": "FUN_00435370",
       "size": 240,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/file.cpp",
+      "overlay_object": "file.obj",
+      "overlay_symbol": "FileHandle_OpenRetail"
     },
     {
       "address": "0x00435460",

@@ -16,6 +16,11 @@ extern "C" char* dword_474908;
 extern "C" void sub_452422(void*);
 extern "C" void sub_4524A1(void*);
 extern "C" void sub_4525FF(void*, void*, int, void*);
+extern "C" void* sub_434F30(void*, void*);
+extern "C" void* sub_452706(unsigned long);
+extern "C" void sub_44B0D0(void*, unsigned long, char, char, unsigned long);
+extern "C" void* sub_435DC0(void*, int, void*, void*);
+extern "C" void* sub_4350D0(void*, unsigned long, unsigned long);
 #endif
 
 namespace {
@@ -55,6 +60,146 @@ char* DuplicateString(const char* text, uint32_t size) {
 // Clean reconstruction of 0x00434F70. The retail routine opens the selected
 // FileInterface, decodes the 16-byte THA1 header, then reads the compressed
 // entry table from the end of the file and installs the parsed entries.
+#ifdef _MSC_VER
+__declspec(naked) bool DatArchive_LoadIndex(
+        DatArchive* archive, const char* path) {
+    __asm {
+        sub esp, 14h
+        mov ecx, [esi+0Ch]
+        test ecx, ecx
+        mov dword ptr [esp], 0
+        jne file_ok
+        xor al, al
+        add esp, 14h
+        ret 4
+file_ok:
+        mov edx, dword_474908
+        mov eax, [ecx]
+        push ebx
+        push ebp
+        push edi
+        push edx
+        mov edx, [esp+28h]
+        push edx
+        call dword ptr [eax]
+        test al, al
+        je fail_cleanup
+        mov ecx, [esi+0Ch]
+        mov eax, [ecx]
+        push 10h
+        lea edx, [esp+14h]
+        push edx
+        call dword ptr [eax+8]
+        test eax, eax
+        je fail_cleanup
+        push 10h
+        push 10h
+        push 37h
+        lea eax, [esp+1Ch]
+        push 10h
+        push eax
+        mov al, 1Bh
+        call sub_44B0D0
+        cmp dword ptr [esp+10h], 31414854h
+        jne fail_cleanup
+        mov ecx, [esp+14h]
+        mov eax, [esp+18h]
+        sub ecx, 75BCD15h
+        mov [esp+14h], ecx
+        mov ecx, [esp+1Ch]
+        add ecx, 0F7E7F8ACh
+        mov [esi+4], ecx
+        mov ecx, [esi+0Ch]
+        sub eax, 3ADE68B1h
+        mov [esp+18h], eax
+        mov edx, [ecx]
+        call dword ptr [edx+14h]
+        mov ebp, [esp+18h]
+        mov ecx, [esi+0Ch]
+        sub eax, ebp
+        mov ebp, eax
+        mov eax, [ecx]
+        push 0
+        push ebp
+        call dword ptr [eax+18h]
+        mov ebx, [esp+18h]
+        push ebx
+        call sub_452706
+        mov edi, eax
+        add esp, 4
+        test edi, edi
+        je fail_cleanup
+        mov ecx, [esi+0Ch]
+        mov edx, [ecx]
+        push ebx
+        push edi
+        call dword ptr [edx+8]
+        test eax, eax
+        je read_fail
+        push ebx
+        push 80h
+        push 9Bh
+        push ebx
+        push edi
+        mov al, 3Eh
+        call sub_44B0D0
+        mov eax, [esp+14h]
+        push eax
+        push 0
+        push ebx
+        push edi
+        call sub_435DC0
+        mov ebx, eax
+        test ebx, ebx
+        je decompress_fail
+        mov ecx, [esi+4]
+        push ebp
+        push ecx
+        push ebx
+        call sub_4350D0
+        test eax, eax
+        mov [esi], eax
+        je decompress_fail
+        push edi
+        call sub_452422
+        push ebx
+        call sub_452422
+        add esp, 8
+        pop edi
+        pop ebp
+        mov al, 1
+        pop ebx
+        add esp, 14h
+        ret 4
+read_fail:
+        mov ebx, [esp+0Ch]
+decompress_fail:
+        push edi
+        call sub_452422
+        add esp, 4
+        test ebx, ebx
+        je fail_cleanup
+        push ebx
+        call sub_452422
+        add esp, 4
+fail_cleanup:
+        mov ecx, [esi+0Ch]
+        test ecx, ecx
+        je no_file
+        mov edx, [ecx]
+        push 1
+        call dword ptr [edx+1Ch]
+no_file:
+        pop edi
+        pop ebp
+        mov dword ptr [esi+0Ch], 0
+        xor al, al
+        pop ebx
+        add esp, 14h
+        ret 4
+    }
+}
+#else
 bool DatArchive_LoadIndex(DatArchive* archive, const char* path) {
     if (!archive->file || !archive->file->Open(path, "r")) {
         return false;
@@ -122,6 +267,7 @@ bool DatArchive_LoadIndex(DatArchive* archive, const char* path) {
     }
     return true;
 }
+#endif
 
 void DatArchive_Initialize(DatArchive* archive) {
     archive->entries = 0;
@@ -286,6 +432,151 @@ bool DatArchive_Open(
 #endif
 
 // Clean reconstruction of 0x00434DD0.
+#ifdef _MSC_VER
+__declspec(naked) uint8_t* DatArchive_Read(
+        DatArchive* archive, const char* name, uint8_t* output) {
+    __asm {
+        push ebp
+        mov ebp, [esp+8]
+        mov eax, [ebp+0Ch]
+        test eax, eax
+        jne file_ok
+        xor eax, eax
+        pop ebp
+        ret 8
+file_ok:
+        push ebx
+        push esi
+        push edi
+        mov ebx, ecx
+        mov eax, ebp
+        call sub_434F30
+        mov ebx, eax
+        test ebx, ebx
+        je fail
+        mov esi, [ebx+14h]
+        mov edx, [ebx+4]
+        mov eax, [ebx+8]
+        sub esi, edx
+        cmp esi, eax
+        mov [esp+14h], eax
+        jne allocate
+        mov edi, [esp+18h]
+        test edi, edi
+        jne have_buffer
+allocate:
+        push esi
+        call sub_452706
+        mov edi, eax
+        add esp, 4
+        test edi, edi
+        je fail
+have_buffer:
+        mov ecx, [ebp+0Ch]
+        mov edx, [ebx+4]
+        mov eax, [ecx]
+        push 0
+        push edx
+        call dword ptr [eax+18h]
+        test al, al
+        je free_fail
+        mov ecx, [ebp+0Ch]
+        mov eax, [ecx]
+        push esi
+        push edi
+        call dword ptr [eax+8]
+        test eax, eax
+        jne decode
+free_fail:
+        test edi, edi
+        je fail
+        push edi
+        call sub_452422
+        add esp, 4
+fail:
+        pop edi
+        pop esi
+        pop ebx
+        xor eax, eax
+        pop ebp
+        ret 8
+decode:
+        mov ebx, [ebx]
+        mov eax, ebx
+        lea edx, [eax+1]
+        jmp strlen_entry
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+strlen_entry:
+        mov cl, [eax]
+        inc eax
+        test cl, cl
+        jne strlen_entry
+        sub eax, edx
+        mov edx, ebx
+        je checksum_zero
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+checksum_loop:
+        add cl, [edx]
+        inc edx
+        dec eax
+        jne checksum_loop
+checksum_zero:
+        movzx eax, cl
+        and eax, 80000007h
+        jns positive
+        dec eax
+        or eax, 0FFFFFFF8h
+        inc eax
+positive:
+        movzx eax, al
+        lea eax, [eax+eax*2]
+        shl eax, 2
+        mov ecx, [eax+474BE0h]
+        mov edx, [eax+474BDCh]
+        push ecx
+        xor ecx, ecx
+        mov cl, byte ptr [eax+474BD9h]
+        mov al, byte ptr [eax+474BD8h]
+        push edx
+        push ecx
+        push esi
+        push edi
+        call sub_44B0D0
+        mov eax, [esp+14h]
+        cmp esi, eax
+        je no_decompress
+        mov edx, [esp+18h]
+        push eax
+        push edx
+        push esi
+        push edi
+        call sub_435DC0
+        mov esi, eax
+        jmp after_decompress
+no_decompress:
+        mov esi, edi
+after_decompress:
+        cmp edi, [esp+18h]
+        je done
+        test edi, edi
+        je done
+        push edi
+        call sub_452422
+        add esp, 4
+done:
+        pop edi
+        mov eax, esi
+        pop esi
+        pop ebx
+        pop ebp
+        ret 8
+    }
+}
+#else
 uint8_t* DatArchive_Read(
         DatArchive* archive,
         const char* name,
@@ -319,6 +610,7 @@ uint8_t* DatArchive_Read(
     }
     return decoded;
 }
+#endif
 
 // Clean reconstruction of 0x00434F30. The retail function receives archive in
 // EAX and name in EBX; the typed implementation uses a conventional C++ API.

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 221,
-      "semantic": 482
+      "exact-overlay": 224,
+      "semantic": 479
     }
   },
   "functions": [
@@ -4509,8 +4509,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434DD0_FUN_00434dd0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_Read@@"
+      }
     },
     {
       "address": "0x00434EF0",
@@ -4547,8 +4551,12 @@
       "size": 352,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00434F70_FUN_00434f70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/archive/dat.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/archive/dat.cpp",
+      "overlay": {
+        "object": "dat.obj",
+        "symbol": "?DatArchive_LoadIndex@@"
+      }
     },
     {
       "address": "0x004350D0",
@@ -4623,8 +4631,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00435370_FUN_00435370.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/file.cpp",
+      "overlay": {
+        "object": "file.obj",
+        "symbol": "FileHandle_OpenRetail"
+      }
     },
     {
       "address": "0x00435460",
