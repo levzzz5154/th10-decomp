@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 258,
-      "semantic": 445
+      "exact-overlay": 260,
+      "semantic": 443
     }
   },
   "functions": [
@@ -4007,8 +4007,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042B660_FUN_0042b660.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_CreateHugeResourceState"
+      }
     },
     {
       "address": "0x0042B6F0",
@@ -5451,8 +5455,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043BC40_FUN_0043bc40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_ResetDeviceStreams"
+      }
     },
     {
       "address": "0x0043BCD0",

@@ -91,6 +91,10 @@ extern "C" void sub_422220(void*);
 extern "C" void* sub_4246C0(void*);
 extern "C" int sub_4247F0(void);
 extern "C" void sub_424ED0(void*);
+extern "C" void* sub_42B430(void*);
+extern "C" int sub_42B4D0(void*);
+extern "C" void sub_42B570(void*);
+extern "C" unsigned long dword_491C30;
 extern "C" void sub_44C150(void);
 extern "C" void* sub_453683(void*, void*, void*, void*, void*, void*, void*);
 extern "C" unsigned long dword_46E354;
@@ -3908,15 +3912,119 @@ void* Recovery_CreateLargeResourceState(
 #endif
 
 // 0x0042B660 - Allocate and initialize the huge 0xb884-byte resource state.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_CreateHugeResourceState(
+        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
+        void (*destroy)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        push 0B884h
+        call sub_452493
+        add esp, 4
+        test eax, eax
+        je skip_init
+        push ebx
+        mov ebx, eax
+        call sub_42B430
+        mov esi, eax
+        pop ebx
+        jmp after_init
+skip_init:
+        xor esi, esi
+after_init:
+        mov eax, esi
+        call sub_42B4D0
+        test eax, eax
+        je success
+        test esi, esi
+        je fail
+        push esi
+        call sub_42B570
+        push esi
+        call sub_4524A1
+        add esp, 4
+fail:
+        xor eax, eax
+        pop esi
+        ret
+success:
+        mov eax, esi
+        pop esi
+        ret
+    }
+}
+#else
 void* Recovery_CreateHugeResourceState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
     return Recovery_CreateResourceState(0xB884, allocate, initialize, destroy,
                                         free_memory);
 }
+#endif
 
 // 0x0043BC40 - Reset the device streams, restoring state after each draw
 // attempt when the draw callback reports failure.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ResetDeviceStreams(
+        void* device, void (*set_stream)(void*),
+        int (*draw)(void*), void (*restore)(void*)) {
+    __asm {
+        mov eax, dword_491C30
+        mov ecx, [eax]
+        push 0
+        push 3F800000h
+        push esi
+        push 3
+        push 0
+        push 0
+        push eax
+        call dword ptr [ecx+0ACh]
+        mov eax, dword_491C30
+        mov edx, [eax]
+        push 0
+        push 0
+        push 0
+        push 0
+        push eax
+        call dword ptr [edx+44h]
+        test eax, eax
+        jge skip_first
+        mov eax, dword_491C30
+        mov ecx, [eax]
+        push 491D0Ch
+        push eax
+        call dword ptr [ecx+40h]
+skip_first:
+        mov eax, dword_491C30
+        mov edx, [eax]
+        push 0
+        push 3F800000h
+        push esi
+        push 3
+        push 0
+        push 0
+        push eax
+        call dword ptr [edx+0ACh]
+        mov eax, dword_491C30
+        mov ecx, [eax]
+        push 0
+        push 0
+        push 0
+        push 0
+        push eax
+        call dword ptr [ecx+44h]
+        test eax, eax
+        jge skip_second
+        mov eax, dword_491C30
+        mov edx, [eax]
+        push 491D0Ch
+        push eax
+        call dword ptr [edx+40h]
+skip_second:
+        ret
+    }
+}
+#else
 void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
                                  int (*draw)(void*), void (*restore)(void*)) {
     for (int index = 0; index < 2; ++index) {
@@ -3924,6 +4032,7 @@ void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
         if (draw != 0 && draw(device) < 0 && restore != 0) restore(device);
     }
 }
+#endif
 
 // 0x004281D0 - Advance the stage sequence.  The retail function clears the
 // published owner when the sequence is inactive, repairs a negative stage

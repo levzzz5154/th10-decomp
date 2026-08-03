@@ -294,6 +294,8 @@ OVERLAYS = (
     ("recovery_leaves.obj", "Recovery_CreateLargeResourceState", 0x00425020),
     ("recovery_leaves.obj", "Recovery_StartWorker", 0x0041FAC0),
     ("recovery_leaves.obj", "Recovery_InitializeRandomTable", 0x0042ADD0),
+    ("recovery_leaves.obj", "Recovery_CreateHugeResourceState", 0x0042B660),
+    ("recovery_leaves.obj", "Recovery_ResetDeviceStreams", 0x0043BC40),
     ("recovery_leaves.obj", "Recovery_UpdateEmitterDecision", 0x0040B9F0),
     ("recovery_leaves.obj", "Recovery_IncrementAnimationCount", 0x004188A0),
     ("recovery_leaves.obj", "Recovery_CreateResourceState", 0x00419090),
