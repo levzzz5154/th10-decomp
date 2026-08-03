@@ -223,6 +223,7 @@ OVERLAYS = (
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
     ("progress_worker.obj", "?ProgressManager_CreateAndStartWorker@@", 0x0042CD50),
     ("player.obj", "?PlayerManager_StartMode@@", 0x004045B0),
+    ("player.obj", "Player_SetSchedulerValue", 0x00405410),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("score.obj", "?ScoreOwnedObject_Destroy@@", 0x0040B9D0),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),

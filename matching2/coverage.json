@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 414,
-        "retail_bytes": 296075
+        "function_count": 413,
+        "retail_bytes": 295915
       },
       "exact-overlay": {
-        "function_count": 308,
-        "retail_bytes": 36725
+        "function_count": 309,
+        "retail_bytes": 36885
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 308,
+    "function_count": 309,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -363,8 +363,10 @@
       "address": "0x00405410",
       "symbol": "FUN_00405410",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/player.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player.cpp",
+      "overlay_object": "player.obj",
+      "overlay_symbol": "Player_SetSchedulerValue"
     },
     {
       "address": "0x004054B0",

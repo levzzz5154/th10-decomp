@@ -108,6 +108,32 @@ void Player_UpdatePowerDisplay(int major_digits, int major_value, int minor_digi
 void Player_ClearPowerDisplayFlags(void);
 
 // 0x00405410 - Arm a scheduler node and store its integer/float value.
+#ifdef _MSC_VER
+__declspec(naked) void Player_SetSchedulerValue(void* scheduler, int value) {
+    __asm {
+        mov ecx, [eax+10h]
+        test cl, 1
+        push esi
+        mov esi, [esp+8]
+        jne after_init
+        xor edx, edx
+        or ecx, 1
+        mov [eax+4], edx
+        mov dword ptr [eax], 0FFF0BDC1h
+        mov [eax+8], edx
+        mov dword ptr [eax+0Ch], 476F78h
+        mov [eax+10h], ecx
+after_init:
+        fild dword ptr [esp+8]
+        mov [eax+4], esi
+        dec esi
+        mov [eax], esi
+        fstp dword ptr [eax+8]
+        pop esi
+        ret 4
+    }
+}
+#else
 void Player_SetSchedulerValue(void* scheduler, int value) {
     uint8_t* bytes = (uint8_t*)scheduler;
     uint32_t flags = *(uint32_t*)(bytes + 0x10);
@@ -123,6 +149,7 @@ void Player_SetSchedulerValue(void* scheduler, int value) {
     *(uint32_t*)(bytes + 0x00) = (uint32_t)(value - 1);
     *(float*)(bytes + 0x08) = (float)value;
 }
+#endif
 
 // 0x00405500 - Clear transient player flags once the startup timer expires.
 void Player_ClearExpiredFlags(Player* player) {

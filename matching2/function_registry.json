@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 289,
-      "semantic": 414
+      "exact-overlay": 290,
+      "semantic": 413
     }
   },
   "functions": [
@@ -457,8 +457,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405410_FUN_00405410.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player.cpp",
+      "overlay": {
+        "object": "player.obj",
+        "symbol": "Player_SetSchedulerValue"
+      }
     },
     {
       "address": "0x004054B0",
