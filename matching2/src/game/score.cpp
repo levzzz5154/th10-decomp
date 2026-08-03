@@ -32,6 +32,9 @@ extern "C" float flt_470B38;
 extern "C" float flt_470B3C;
 extern "C" float flt_470B40;
 extern "C" float flt_470B94;
+extern "C" unsigned long dword_4924FC;
+extern "C" unsigned long dword_491FF4;
+extern "C" void* dword_491C38;
 #endif
 
 namespace {
@@ -353,6 +356,55 @@ void Input_EncodeJoystickButtons(uint32_t buttons,
 
 // 0x0044B010 - Clear the 256-byte keyboard buffer and acquire a fresh state
 // through either the platform keyboard provider or the active input device.
+#ifdef _MSC_VER
+__declspec(naked) int Input_UpdateKeyboardState(
+        unsigned char* destination, bool inputEnabled,
+        bool directInputMode, int (*pollKeyboard)(unsigned char*)) {
+    __asm {
+        push edi
+        xor eax, eax
+        mov ecx, 40h
+        mov edi, edx
+        rep stosd
+        mov eax, dword_4924FC
+        test eax, eax
+        pop edi
+        jz loc_44B037
+        mov eax, dword_491FF4
+        test ah, 2
+        push edx
+        jnz loc_44B03A
+        call dword ptr [__imp_GetKeyboardState]
+loc_44B037:
+        xor eax, eax
+        ret
+loc_44B03A:
+        mov eax, dword_491C38
+        mov ecx, [eax]
+        push 100h
+        push eax
+        call dword ptr [ecx+24h]
+        cmp eax, 8007001Eh
+        jnz loc_44B062
+        mov eax, dword_491C38
+        mov edx, [eax]
+        push eax
+        call dword ptr [edx+1Ch]
+        mov eax, 1
+        ret
+loc_44B062:
+        test eax, eax
+        jz loc_44B071
+        mov eax, dword_491C38
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+1Ch]
+loc_44B071:
+        mov eax, 1
+        ret
+    }
+}
+#else
 int Input_UpdateKeyboardState(unsigned char* destination, bool inputEnabled,
                               bool directInputMode,
                               int (*pollKeyboard)(unsigned char*)) {
@@ -367,6 +419,7 @@ int Input_UpdateKeyboardState(unsigned char* destination, bool inputEnabled,
     }
     return pollKeyboard != 0 ? pollKeyboard(destination) : 0;
 }
+#endif
 
 // 0x0044B080 - Strip the transient high bit from every keyboard-state byte
 // and publish the normalized 256-byte state.
@@ -540,6 +593,57 @@ unsigned int CountPatternMatches(const unsigned char* table,
 #endif
 
 // 0x0040AC20 - Advance per-button repeat counters and derive edge masks.
+#ifdef _MSC_VER
+__declspec(naked) void UpdateInputState(void* input_state) {
+    __asm {
+        push ecx
+        xor eax, eax
+        mov ax, [ecx+2Ch]
+        push ebx
+        push esi
+        mov word ptr [ecx+4], 0
+        mov edx, 10h
+        mov ebx, 1
+        mov [esp+0Ch-4], eax
+        lea eax, [ecx+38h]
+loc_40AC40:
+        test byte ptr [esp+0Ch-4], bl
+        jz loc_40AC5A
+        inc word ptr [eax]
+        cmp word ptr [eax], 1Ah
+        jb loc_40AC5F
+        or [ecx+30h], bx
+        _emit 0x66
+        _emit 0x81
+        _emit 0x00
+        _emit 0xF8
+        _emit 0xFF
+        jmp loc_40AC5F
+loc_40AC5A:
+        mov word ptr [eax], 0
+loc_40AC5F:
+        shr word ptr [esp+0Ch-4], 1
+        add eax, 2
+        dec edx
+        jnz loc_40AC40
+        xor eax, eax
+        mov ax, [ecx+2Ch]
+        xor edx, edx
+        mov dx, [ecx+2Eh]
+        xor dx, ax
+        mov esi, edx
+        and esi, eax
+        not eax
+        mov [ecx+32h], si
+        and eax, edx
+        pop esi
+        mov [ecx+34h], ax
+        pop ebx
+        pop ecx
+        ret
+    }
+}
+#else
 void UpdateInputState(void* input_state) {
     unsigned char* bytes = (unsigned char*)input_state;
     unsigned short held = *(unsigned short*)(bytes + 0x2c);
@@ -559,6 +663,7 @@ void UpdateInputState(void* input_state) {
     *(unsigned short*)(bytes + 0x32) = changed & held;
     *(unsigned short*)(bytes + 0x34) = (unsigned short)(~held & changed);
 }
+#endif
 
 // 0x0040AD20 - Update a bounded counter while preserving unsigned wrap rules.
 unsigned int UpdateBoundedCounter(unsigned int requested,
@@ -855,12 +960,34 @@ void ScoreCounter::AddScaled(int32_t amount) {
 #endif
 
 // 0x00409D90 - Add one tenth of an award to the current run score.
+#ifdef _MSC_VER
+__declspec(naked) void GameScore::AddScaled(int32_t amount) {
+    __asm {
+        mov eax, 66666667h
+        imul dword ptr [esp+4]
+        sar edx, 2
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        mov edx, [ecx+4]
+        add edx, eax
+        mov eax, edx
+        cmp eax, 3B9ACA00h
+        mov [ecx+4], edx
+        jl locret_409DBB
+        mov dword ptr [ecx+4], 3B9AC9FFh
+locret_409DBB:
+        ret 4
+    }
+}
+#else
 void GameScore::AddScaled(int32_t amount) {
     value += amount / 10;
     if (value >= 1000000000) {
         value = 999999999;
     }
 }
+#endif
 
 // 0x00412E70 - Add a tenth of the award to the global gauge at +0x0C and
 // clamp the result to a minimum of 5000 so the gauge never empties below
@@ -1070,6 +1197,49 @@ int ScoreRuntimeState::ReleaseFlaggedEntities(
 // 0x004091C0 - Release the two trailing entity arrays while this runtime's
 // release flag is set. The retail function receives this object through EBX
 // and each Entity argument through EAX, which the raw decompiler omits.
+#ifdef _MSC_VER
+__declspec(naked) int ScoreRuntimeState::ReleaseFlaggedEntityArrays(
+    ScoreEntityRelease releaseEntity, void* entityManager) {
+    __asm {
+        test byte ptr [ebx+378Ch], 1
+        jz loc_409219
+        push esi
+        push edi
+        lea esi, [ebx+778h]
+        mov edi, 8
+        jmp loc_4091E0
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
+loc_4091E0:
+        mov ecx, dword_491C10
+        mov eax, esi
+        call sub_4451C0
+        add esi, 3ACh
+        dec edi
+        jnz loc_4091E0
+        lea esi, [ebx+24D8h]
+        mov edi, 5
+loc_409201:
+        mov ecx, dword_491C10
+        mov eax, esi
+        call sub_4451C0
+        add esi, 3ACh
+        dec edi
+        jnz loc_409201
+        pop edi
+        pop esi
+loc_409219:
+        mov eax, 1
+        ret
+    }
+}
+#else
 int ScoreRuntimeState::ReleaseFlaggedEntityArrays(
     ScoreEntityRelease releaseEntity, void* entityManager) {
     if ((flags & 1) != 0) {
@@ -1082,6 +1252,7 @@ int ScoreRuntimeState::ReleaseFlaggedEntityArrays(
     }
     return 1;
 }
+#endif
 
 // 0x00409270 - Secondary scheduler callback wrapper. Retail preserves the
 // callback owner in EBX before entering the shared array-release routine.

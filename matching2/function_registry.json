@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 169,
-      "semantic": 534
+      "exact-overlay": 173,
+      "semantic": 530
     }
   },
   "functions": [
@@ -951,8 +951,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004091C0_FUN_004091c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@"
+      }
     },
     {
       "address": "0x00409230",
@@ -1009,8 +1013,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00409D90_FUN_00409d90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?AddScaled@GameScore@@"
+      }
     },
     {
       "address": "0x00409E20",
@@ -1063,8 +1071,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040AC20_FUN_0040ac20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?UpdateInputState@@"
+      }
     },
     {
       "address": "0x0040AC90",
@@ -6837,8 +6849,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B010_FUN_0044b010.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "?Input_UpdateKeyboardState@@"
+      }
     },
     {
       "address": "0x0044B080",

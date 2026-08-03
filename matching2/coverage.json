@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 534,
-        "retail_bytes": 317022
+        "function_count": 530,
+        "retail_bytes": 316542
       },
       "exact-overlay": {
-        "function_count": 188,
-        "retail_bytes": 15778
+        "function_count": 192,
+        "retail_bytes": 16258
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 188,
+    "function_count": 192,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -708,8 +708,10 @@
       "address": "0x004091C0",
       "symbol": "FUN_004091c0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@"
     },
     {
       "address": "0x00409230",
@@ -747,8 +749,10 @@
       "address": "0x00409D90",
       "symbol": "FUN_00409d90",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?AddScaled@GameScore@@"
     },
     {
       "address": "0x00409E20",
@@ -784,8 +788,10 @@
       "address": "0x0040AC20",
       "symbol": "FUN_0040ac20",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?UpdateInputState@@"
     },
     {
       "address": "0x0040AC90",
@@ -4900,8 +4906,10 @@
       "address": "0x0044B010",
       "symbol": "FUN_0044b010",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Input_UpdateKeyboardState@@"
     },
     {
       "address": "0x0044B080",
