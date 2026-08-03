@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 60,
-      "semantic": 643
+      "exact-overlay": 62,
+      "semantic": 641
     }
   },
   "functions": [
@@ -5215,8 +5215,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043D790_FUN_0043d790.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Recovery_SelectArchiveEntry@@"
+      }
     },
     {
       "address": "0x0043D7D0",
@@ -7069,8 +7073,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DCA0_FUN_0044dca0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Platform_SelectStreamRecord@@"
+      }
     },
     {
       "address": "0x0044DD40",

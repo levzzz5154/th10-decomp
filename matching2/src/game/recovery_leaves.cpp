@@ -36,6 +36,10 @@ extern "C" char* _strchr(const char*, int);
 extern "C" void sub_41A0A0(char*);
 extern "C" char off_4703E4;
 extern "C" unsigned long dword_477820;
+extern "C" unsigned long dword_4977A4;
+extern "C" void* __imp_SetFilePointer;
+extern "C" int sub_43D2A0(void*);
+extern "C" void sub_44DCA0(void*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1113,6 +1117,43 @@ void* Platform_DeletingDestructorWithRelease(
 
 // 0x0044DCA0 - Select a stream record and update the logical cursor. A real
 // file handle is represented by the nonzero handle token in the clean ABI.
+#ifdef _MSC_VER
+__declspec(naked) int Platform_SelectStreamRecord(
+        RecoveryStreamState* state, RecoveryStreamRecord* record,
+        RecoveryWord archive_base, void (*seek)(RecoveryWord)) {
+    __asm {
+        mov eax, [esi+7Ch]
+        test eax, eax
+        jnz loc_44DCB2
+        mov eax, [esi+8Ch]
+        cmp eax, 0FFFFFFFFh
+        jnz loc_44DCB8
+loc_44DCB2:
+        mov eax, 80004005h
+        ret
+loc_44DCB8:
+        test eax, eax
+        mov [esi+90h], ecx
+        jz loc_44DCE5
+        mov ecx, [ecx+10h]
+        mov edx, dword_4977A4
+        push 0
+        push 0
+        add ecx, edx
+        push ecx
+        push eax
+        call dword ptr [__imp_SetFilePointer]
+        mov edx, [esi+90h]
+        mov eax, [edx+1Ch]
+        mov [esi+8], eax
+loc_44DCE5:
+        mov ecx, [esi+8]
+        mov [esi+2Ch], ecx
+        xor eax, eax
+        ret
+    }
+}
+#else
 int Platform_SelectStreamRecord(
         RecoveryStreamState* state, RecoveryStreamRecord* record,
         RecoveryWord archive_base, void (*seek)(RecoveryWord)) {
@@ -1125,6 +1166,7 @@ int Platform_SelectStreamRecord(
     state->cursor = state->position;
     return 0;
 }
+#endif
 
 // 0x0044D710 - Run the final virtual cleanup and honor the deleting flag.
 #ifdef _MSC_VER
@@ -1443,6 +1485,36 @@ void* Recovery_LoadCachedResource(
 }
 
 // 0x0043D790 - Find an archive record and hand it to the stream selector.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_SelectArchiveEntry(
+        bool available, void* request, void* archive,
+        int (*find_index)(void*, void*),
+        int (*select_record)(void*, RecoveryWord)) {
+    __asm {
+        push esi
+        mov esi, eax
+        mov eax, [esi+5208h]
+        test eax, eax
+        jnz loc_43D7A2
+        or eax, 0FFFFFFFFh
+        pop esi
+        ret
+loc_43D7A2:
+        push esi
+        call sub_43D2A0
+        mov ecx, eax
+        mov eax, [esi+1F84h]
+        imul ecx, 34h
+        add ecx, eax
+        mov eax, [esi+5208h]
+        mov esi, [eax+0Ch]
+        call sub_44DCA0
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_SelectArchiveEntry(
         bool available, void* request, void* archive,
         int (*find_index)(void*, void*),
@@ -1452,6 +1524,7 @@ int Recovery_SelectArchiveEntry(
     if (index < 0) return index;
     return select_record(archive, (RecoveryWord)index * 0x34u);
 }
+#endif
 
 // 0x0041A050 - Copy a resource path, split at its colon, and reset the
 // resulting path state when the separator is present.
