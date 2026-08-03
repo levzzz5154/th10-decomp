@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 279,
-      "semantic": 424
+      "exact-overlay": 280,
+      "semantic": 423
     }
   },
   "functions": [
@@ -6079,8 +6079,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442F50_FUN_00442f50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/anm_batch_flush.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/anm_batch_flush.cpp",
+      "overlay": {
+        "object": "anm_batch_flush.obj",
+        "symbol": "AnimationManager_FlushQuadBatch"
+      }
     },
     {
       "address": "0x00442FE0",

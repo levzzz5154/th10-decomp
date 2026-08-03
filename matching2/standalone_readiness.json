@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 77,
-      "semantic": 102
+      "exact-overlay": 78,
+      "semantic": 101
     }
   },
   "integration_gates": {
@@ -1269,7 +1269,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 4,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/anm_batch_flush.cpp"
     },

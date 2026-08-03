@@ -210,6 +210,7 @@ OVERLAYS = (
     ("weather_pool.obj", "EffectPool_UpdateDrops", 0x0042B6F0),
     ("random_vector.obj", "RandomVector_StoreRoundedScalar", 0x00441E50),
     ("quad_vertex_append.obj", "AnimationManager_AppendQuadVertices", 0x00442FE0),
+    ("anm_batch_flush.obj", "AnimationManager_FlushQuadBatch", 0x00442F50),
     ("recovery_leaves.obj", "EffectManager_ResetAndPublishRetail", 0x0042B430),
     ("recovery_leaves.obj", "EffectManagerRuntime_InitializeRetail", 0x0042B4D0),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),
