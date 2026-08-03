@@ -40,6 +40,15 @@ extern "C" unsigned long dword_4977A4;
 extern "C" void* __imp_SetFilePointer;
 extern "C" int sub_43D2A0(void*);
 extern "C" void sub_44DCA0(void*);
+extern "C" unsigned long dword_477834;
+extern "C" void sub_449470(void*);
+extern "C" unsigned long dword_491BE4;
+extern "C" char CriticalSection;
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" unsigned char byte_49231C;
+extern "C" void sub_449F60(void*, void*);
+extern "C" unsigned long dword_477708;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1286,11 +1295,45 @@ void Recovery_ClearEightBuckets(
 #endif
 
 // 0x00413450 - Release the optional owned resource and then its owner.
+#ifdef _MSC_VER
+__declspec(naked) void Platform_ReleaseOwnedHandle(
+        void* resource, void (*release)(void*), void (*free_memory)(void*)) {
+    __asm {
+        test ebx, ebx
+        jz locret_4134A3
+        push esi
+        mov esi, [ebx+0Ch]
+        test esi, esi
+        push edi
+        mov edi, dword_491BE4
+        jz loc_41348E
+        push offset CriticalSection
+        call dword ptr [__imp_EnterCriticalSection]
+        inc byte_49231C
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push offset CriticalSection
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231C
+loc_41348E:
+        push ebx
+        mov dword_477708, 0
+        call j__free
+        add esp, 4
+        pop edi
+        pop esi
+locret_4134A3:
+        ret
+    }
+}
+#else
 void Platform_ReleaseOwnedHandle(
         void* resource, void (*release)(void*), void (*free_memory)(void*)) {
     if (resource != 0 && release != 0) release(resource);
     if (resource != 0 && free_memory != 0) free_memory(resource);
 }
+#endif
 
 // 0x0040BD20 - Advance the frame counter, using the fast path near unit
 // speed and the rounded elapsed-time path for all other speed values.
@@ -1312,6 +1355,49 @@ int Recovery_TickState(RecoveryTickState* state, int (*update)(void*),
 }
 
 // 0x00427AE0 - Switch between the direct and buffered playback coordinates.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_SwitchPlaybackState(
+        void* state, bool secondary_active, void (*transition)(void*)) {
+    __asm {
+        mov eax, dword_477834
+        push ebx
+        mov ebx, [eax+4474h]
+        test ebx, ebx
+        mov eax, [edi+84h]
+        push esi
+        jnz loc_427B1D
+        test eax, eax
+        jz loc_427B08
+        lea eax, [edi+68h]
+        mov esi, 6
+        call sub_449470
+loc_427B08:
+        mov ecx, [edi+3Ch]
+        mov [edi+4Ch], ecx
+        mov edx, [edi+40h]
+        mov [edi+50h], edx
+        pop esi
+        mov [edi+84h], ebx
+        pop ebx
+        ret
+loc_427B1D:
+        test eax, eax
+        jnz loc_427B2E
+        lea eax, [edi+68h]
+        mov esi, 3
+        call sub_449470
+loc_427B2E:
+        mov eax, [edi+4Ch]
+        mov [edi+34h], eax
+        mov ecx, [edi+50h]
+        mov [edi+38h], ecx
+        pop esi
+        mov [edi+84h], ebx
+        pop ebx
+        ret
+    }
+}
+#else
 void Recovery_SwitchPlaybackState(void* state, bool secondary_active,
                                   void (*transition)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -1329,6 +1415,7 @@ void Recovery_SwitchPlaybackState(void* state, bool secondary_active,
     *(RecoveryWord*)(bytes + 0x38) = *(RecoveryWord*)(bytes + 0x50);
     *(RecoveryWord*)(bytes + 0x84) = 1;
 }
+#endif
 
 // 0x00404DA0 - Scale six color channels and fill the four byte tint fields
 // from the same rounded random source used by the retail animation path.
