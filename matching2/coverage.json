@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 586,
-        "retail_bytes": 320656
+        "function_count": 581,
+        "retail_bytes": 320288
       },
       "exact-overlay": {
-        "function_count": 136,
-        "retail_bytes": 12144
+        "function_count": 141,
+        "retail_bytes": 12512
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 136,
+    "function_count": 141,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -910,8 +910,10 @@
       "address": "0x0040C480",
       "symbol": "FUN_0040c480",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_StopAtFrame2@@"
     },
     {
       "address": "0x0040C4D0",
@@ -4395,8 +4397,10 @@
       "address": "0x004477D0",
       "symbol": "FUN_004477d0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_ClearResourceSlot@@"
     },
     {
       "address": "0x00447810",
@@ -4584,22 +4588,28 @@
       "address": "0x00449210",
       "symbol": "FUN_00449210",
       "size": 64,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SetStopFrame@@"
     },
     {
       "address": "0x00449250",
       "symbol": "FUN_00449250",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SetStopFrameAndRun@@"
     },
     {
       "address": "0x004492A0",
       "symbol": "FUN_004492a0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SetFlag@@"
     },
     {
       "address": "0x004492F0",

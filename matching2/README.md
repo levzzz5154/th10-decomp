@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (136 of them
+functions (100.0%) as readable semantic C++ or verified overlays (141 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -584,6 +584,11 @@ Current exact-overlay results with MSVC 7.1:
 | `AnimationManager_SelectSpriteFromCurrentResource` | 24 | 100% |
 | `AnimationManager_SelectSpriteFromResource` | 22 | 100% |
 | `D3DResourceManager_Initialize` | 59 | 100% |
+| `AnimationManager_SetStopFrame` | 50 | 100% |
+| `AnimationManager_StopAtFrame2` | 57 | 100% |
+| `AnimationManager_SetStopFrameAndRun` | 64 | 100% |
+| `AnimationManager_SetFlag` | 62 | 100% |
+| `AnimationManager_ClearResourceSlot` | 47 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

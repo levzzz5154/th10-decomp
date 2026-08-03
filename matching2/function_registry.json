@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 117,
-      "semantic": 586
+      "exact-overlay": 122,
+      "semantic": 581
     }
   },
   "functions": [
@@ -1235,8 +1235,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C480_FUN_0040c480.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_StopAtFrame2@@"
+      }
     },
     {
       "address": "0x0040C4D0",
@@ -6063,8 +6067,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004477D0_FUN_004477d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_ClearResourceSlot@@"
+      }
     },
     {
       "address": "0x00447810",
@@ -6333,8 +6341,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449210_FUN_00449210.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SetStopFrame@@"
+      }
     },
     {
       "address": "0x00449250",
@@ -6343,8 +6355,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449250_FUN_00449250.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SetStopFrameAndRun@@"
+      }
     },
     {
       "address": "0x004492A0",
@@ -6353,8 +6369,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004492A0_FUN_004492a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "?AnimationManager_SetFlag@@"
+      }
     },
     {
       "address": "0x004492F0",

@@ -23,6 +23,9 @@ extern void* g_pD3DDevice;
 extern "C" unsigned long dword_491C10;
 extern "C" void* sub_4491C0(void*);
 extern "C" void sub_43E5A0(void*, void*);
+extern "C" void sub_43EE30(void*);
+extern "C" void sub_447810(void*);
+extern "C" void j__free(void*);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -564,6 +567,33 @@ static void AnimationObject_WriteStopFrame(
 }
 
 // 0x00449210 - Set the root stop frame and propagate it to direct children.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetStopFrame(
+        void* manager, int animationHandle, short frame) {
+    __asm {
+        mov eax, [esp+4]
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_449243
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        mov [eax+304h], si
+        jnz locret_449243
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_449243
+loc_449233:
+        mov ecx, [eax]
+        mov [ecx+304h], si
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_449233
+locret_449243:
+        ret 4
+    }
+}
+#else
 void AnimationManager_SetStopFrame(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -573,6 +603,7 @@ void AnimationManager_SetStopFrame(
             animation, AnimationObject_WriteStopFrame, &frame);
     }
 }
+#endif
 
 // 0x00449470 - Pointer-handle form used by gameplay owners.
 void AnimationManager_SetStopFrameFromHandle(
@@ -583,10 +614,44 @@ void AnimationManager_SetStopFrameFromHandle(
 // 0x0040C480 - Gameplay shorthand for stopping an animation at frame 2.
 // The retail entry receives its handle pointer in EAX and obtains the manager
 // from the global game-state owner; the cleaned API makes the handle explicit.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_StopAtFrame2(
+        const int* animationHandle) {
+    __asm {
+        mov eax, [eax]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_40C4C0
+        mov edx, [eax+18h]
+        test edx, edx
+        mov ecx, 2
+        mov [eax+304h], cx
+        jnz locret_40C4C0
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_40C4C0
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_40C4B0:
+        mov edx, [eax]
+        mov [edx+304h], cx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_40C4B0
+locret_40C4C0:
+        ret
+    }
+}
+#else
 void AnimationManager_StopAtFrame2(const int* animationHandle) {
     AnimationManager_SetStopFrame(
         g_pGameStateManager, *animationHandle, 2);
 }
+#endif
 
 // 0x0040C4D0 - Companion shorthand that stops at frame 3.
 void AnimationManager_StopAtFrame3(const int* animationHandle) {
@@ -595,6 +660,45 @@ void AnimationManager_StopAtFrame3(const int* animationHandle) {
 }
 
 // 0x00449250 - Set a stop frame and immediately advance root and child scripts.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_SetStopFrameAndRun(
+        void* manager, int animationHandle, short frame) {
+    __asm {
+        mov eax, [esp+4]
+        push esi
+        push eax
+        call sub_4491C0
+        mov esi, eax
+        test esi, esi
+        jz loc_449298
+        push esi
+        mov [esi+304h], di
+        call sub_43EE30
+        mov eax, [esi+18h]
+        test eax, eax
+        jnz loc_449298
+        mov esi, [esi+14h]
+        test esi, esi
+        jz loc_449298
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_449280:
+        mov ecx, [esi]
+        mov [ecx+304h], di
+        mov edx, [esi]
+        push edx
+        call sub_43EE30
+        mov esi, [esi+4]
+        test esi, esi
+        jnz loc_449280
+loc_449298:
+        pop esi
+        ret 4
+    }
+}
+#else
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -616,6 +720,7 @@ int AnimationManager_SetStopFrameAndRun(
     }
     return result;
 }
+#endif
 
 struct AnimationFlagChange {
     unsigned int flag;
@@ -635,6 +740,37 @@ static void AnimationObject_ChangeFlag(
 
 // 0x004492A0 - Set an animation flag on a root and its direct children.
 // 0x00449590 - The fixed-flag entry point uses this operation with bit 1.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetFlag(
+        void* manager, int animationHandle, unsigned int flag) {
+    __asm {
+        mov eax, [esp+4]
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_4492DF
+        mov ecx, [eax+35Ch]
+        mov edx, 4000000h
+        or ecx, edx
+        mov [eax+35Ch], ecx
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        jnz locret_4492DF
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_4492DF
+        nop
+loc_4492D0:
+        mov ecx, [eax]
+        or [ecx+35Ch], edx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_4492D0
+locret_4492DF:
+        ret 4
+    }
+}
+#else
 void AnimationManager_SetFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -645,6 +781,7 @@ void AnimationManager_SetFlag(
             animation, AnimationObject_ChangeFlag, &change);
     }
 }
+#endif
 
 // 0x004495E0 - Clear an animation flag on a root and its direct children.
 void AnimationManager_ClearFlag(
@@ -1147,6 +1284,32 @@ void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
 }
 
 // 0x004477D0 - Release and free one of the manager's 33 resource slots.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_ClearResourceSlot(
+        void* manager, int index, void (*release)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        test esi, esi
+        jl locret_447806
+        cmp esi, 21h
+        jnb locret_447806
+        push edi
+        mov edi, [ebx+esi*4+3AD06Ch]
+        test edi, edi
+        jz loc_447805
+        call sub_447810
+        mov eax, [ebx+esi*4+3AD06Ch]
+        push eax
+        call j__free
+        add esp, 4
+        mov dword ptr [ebx+esi*4+3AD06Ch], 0
+loc_447805:
+        pop edi
+locret_447806:
+        ret
+    }
+}
+#else
 void AnimationManager_ClearResourceSlot(void* manager, int index,
                                         void (*release)(void*),
                                         void (*free_memory)(void*)) {
@@ -1162,6 +1325,7 @@ void AnimationManager_ClearResourceSlot(void* manager, int index,
         free_memory(resource);
     *slot = 0;
 }
+#endif
 
 // 0x0043E460 - Install a resource record in the first free manager slot.
 void AnimationManager_RegisterResource(void* manager, unsigned int index,

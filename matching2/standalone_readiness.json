@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 34,
-      "semantic": 145
+      "exact-overlay": 35,
+      "semantic": 144
     }
   },
   "integration_gates": {
@@ -1522,7 +1522,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
