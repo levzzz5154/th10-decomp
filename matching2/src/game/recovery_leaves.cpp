@@ -95,6 +95,13 @@ extern "C" void* sub_42B430(void*);
 extern "C" int sub_42B4D0(void*);
 extern "C" void sub_42B570(void*);
 extern "C" unsigned long dword_491C30;
+extern "C" unsigned char dword_491D78;
+extern "C" unsigned long dword_46F288;
+extern "C" unsigned long dword_46F2A0;
+extern "C" void sub_4521CA(void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern "C" void sub_4465B0(void*);
+extern "C" void sub_4524A6(void*, void*, void*);
+extern "C" int sub_4479D0(int, void*, void*, void*);
 extern "C" void sub_44C150(void);
 extern "C" void* sub_453683(void*, void*, void*, void*, void*, void*, void*);
 extern "C" unsigned long dword_46E354;
@@ -3520,6 +3527,65 @@ void Recovery_IncrementAnimationCount(void* state, int delta,
 
 // 0x00446EB0 - Create a texture through the platform callback and finalize
 // its format metadata on success.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_CreateTextureFromMemory(
+        void* state, int format, int mip_levels,
+        int (*create)(void*, int, int), void (*finalize)(void*)) {
+    __asm {
+        push edi
+        mov edi, eax
+        test byte ptr dword_491D78, 1
+        je after_mode
+        mov eax, [edi*4+dword_46F288]
+        cmp eax, 15h
+        je mode_five
+        test eax, eax
+        je mode_five
+        cmp eax, 14h
+        jne after_mode
+        mov edi, 3
+        jmp after_mode
+mode_five:
+        mov edi, 5
+after_mode:
+        mov eax, [esp+0Ch]
+        mov ecx, [edi*4+dword_46F288]
+        push esi
+        push 0
+        push 0
+        push eax
+        mov eax, [esp+20h]
+        push 0FFFFFFFFh
+        push 1
+        push 1
+        push ecx
+        mov ecx, [esi+8]
+        push 0
+        push 0
+        push edx
+        mov edx, [esi+4]
+        push eax
+        mov eax, dword_491C30
+        push ecx
+        push edx
+        push eax
+        call sub_4521CA
+        test eax, eax
+        je success
+        or eax, 0FFFFFFFFh
+        pop edi
+        ret 0Ch
+success:
+        mov eax, esi
+        call sub_4465B0
+        mov ecx, [edi*4+dword_46F2A0]
+        mov [esi+0Ch], ecx
+        xor eax, eax
+        pop edi
+        ret 0Ch
+    }
+}
+#else
 int Recovery_CreateTextureFromMemory(
         void* state, int format, int mip_levels,
         int (*create)(void*, int, int), void (*finalize)(void*)) {
@@ -3527,13 +3593,63 @@ int Recovery_CreateTextureFromMemory(
     if (finalize != 0) finalize(state);
     return 0;
 }
+#endif
 
 // 0x00447A50 - Forward a formatted log line and set the owner's active bit.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_MarkLogState(
+        void* state, void (*write)(void*, const char*),
+        const char* text) {
+    __asm {
+        sub esp, 84h
+        mov eax, ___security_cookie
+        mov ecx, [esp+90h]
+        xor eax, esp
+        push ebx
+        push ebp
+        movzx ebp, byte ptr [esi+3A0h]
+        mov [esp+88h], eax
+        push edi
+        lea eax, [esp+0A0h]
+        push eax
+        push ecx
+        lea edx, [esp+14h]
+        push edx
+        call sub_4524A6
+        mov eax, [esi+360h]
+        mov ecx, [esp+0A4h]
+        mov edi, [esi+394h]
+        mov edx, [edi+4]
+        add esp, 0Ch
+        shr eax, 1
+        and eax, 1
+        push eax
+        push ecx
+        push 0
+        push edx
+        lea ebx, [esp+1Ch]
+        mov eax, ebp
+        call sub_4479D0
+        mov eax, [esi+35Ch]
+        mov ecx, [esp+8Ch]
+        pop edi
+        pop ebp
+        or eax, 1
+        pop ebx
+        xor ecx, esp
+        mov [esi+35Ch], eax
+        call security_check_cookie
+        add esp, 84h
+        ret
+    }
+}
+#else
 void Recovery_MarkLogState(void* state, void (*write)(void*, const char*),
                            const char* text) {
     if (write != 0) write(state, text != 0 ? text : "");
     if (state != 0) *(RecoveryWord*)((RecoveryByte*)state + 0x35C) |= 1;
 }
+#endif
 
 // 0x00419090 - Allocate and initialize the 0x1a8-byte resource state.
 #ifdef _MSC_VER
