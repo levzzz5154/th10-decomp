@@ -57,6 +57,7 @@ OVERLAY_SOURCES=(
     src/game/game_ui_create.cpp
     src/game/stage_tip_manager.cpp
     src/archive/dat_file.cpp
+    src/game/game_config_defaults.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

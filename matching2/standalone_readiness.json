@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 79,
-      "semantic": 100
+      "exact-overlay": 80,
+      "semantic": 99
     }
   },
   "integration_gates": {
@@ -334,7 +334,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/game_config_defaults.cpp"
     },

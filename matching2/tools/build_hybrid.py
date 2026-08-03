@@ -204,6 +204,7 @@ OVERLAYS = (
     ("game_thread_queue.obj", "?GameThread_AppendRecord@@", 0x00401530),
     ("archive_cursor_open.obj", "ArchiveCursor_Open", 0x0044DBF0),
     ("dat_file.obj", "DatArchive_OpenResource", 0x00434CA0),
+    ("game_config_defaults.obj", "GameConfig_InitializeDefaults", 0x00418C40),
     ("progress.obj", "GameProgress_HasAnyPlayRecord", 0x0042C850),
     ("menu.obj", "MenuCursor_Advance", 0x0044BEA0),
     ("ecl_vm_children.obj", "EclVm_SpawnChild", 0x004500D0),
