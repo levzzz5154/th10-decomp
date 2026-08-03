@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 405,
-        "retail_bytes": 294363
+        "function_count": 404,
+        "retail_bytes": 294171
       },
       "exact-overlay": {
-        "function_count": 317,
-        "retail_bytes": 38437
+        "function_count": 318,
+        "retail_bytes": 38629
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 317,
+    "function_count": 318,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1566,8 +1566,10 @@
       "address": "0x00418B80",
       "symbol": "FUN_00418b80",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/score_timer_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score_timer_leaves.cpp",
+      "overlay_object": "score_timer_leaves.obj",
+      "overlay_symbol": "ScoreGauge_SetTargetTenthAndDisableTimer"
     },
     {
       "address": "0x00418C40",

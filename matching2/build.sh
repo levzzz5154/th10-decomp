@@ -61,6 +61,7 @@ OVERLAY_SOURCES=(
     src/script/prng.cpp
     src/math/vector3_cross.cpp
     src/game/particle_seed.cpp
+    src/game/score_timer_leaves.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

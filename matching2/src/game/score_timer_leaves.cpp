@@ -2,6 +2,35 @@
 
 extern float DAT_00476f78;  // default timer speed sentinel (1.0f)
 
+#ifdef _MSC_VER
+__declspec(naked) void ScoreGauge_SetTargetTenthAndDisableTimer(
+        ScoreGaugeTimedValue* state, int value) {
+    __asm {
+        mov eax, 66666667h
+        imul dword ptr [esp+4]
+        sar edx, 2
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        mov [ecx+0Ch], eax
+        mov eax, [ecx+24h]
+        xor edx, edx
+        test al, 1
+        jne after_init
+        or eax, 1
+        mov [ecx+18h], edx
+        mov dword ptr [ecx+14h], 0FFF0BDC1h
+        mov [ecx+1Ch], edx
+        mov dword ptr [ecx+20h], 476F78h
+        mov [ecx+24h], eax
+after_init:
+        mov [ecx+18h], edx
+        mov [ecx+1Ch], edx
+        mov dword ptr [ecx+14h], 0FFFFFFFFh
+        ret 4
+    }
+}
+#else
 // 0x00418B80 - Store one tenth of the incoming value as the gauge target
 // at +0x0C and disable the embedded timer at +0x14. The five-word timer
 // sentinel follows the shared retail pattern (see EmbeddedTimer_Reset at
@@ -24,6 +53,7 @@ void ScoreGauge_SetTargetTenthAndDisableTimer(ScoreGaugeTimedValue* state,
     timer->previous = 0;
     timer->target = -1;
 }
+#endif
 
 // 0x00418A90 - Increment the score counter word (retail state+0x50) and
 // clamp the result at 9.
