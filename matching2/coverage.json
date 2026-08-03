@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 441,
-        "retail_bytes": 301003
+        "function_count": 440,
+        "retail_bytes": 300859
       },
       "exact-overlay": {
-        "function_count": 281,
-        "retail_bytes": 31797
+        "function_count": 282,
+        "retail_bytes": 31941
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 281,
+    "function_count": 282,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2781,8 +2781,10 @@
       "address": "0x0042B6F0",
       "symbol": "FUN_0042b6f0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/weather_pool.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/weather_pool.cpp",
+      "overlay_object": "weather_pool.obj",
+      "overlay_symbol": "EffectPool_UpdateDrops"
     },
     {
       "address": "0x0042B780",

@@ -50,6 +50,7 @@ OVERLAY_SOURCES=(
     src/game/archive_cursor_open.cpp
     src/game/menu.cpp
     src/script/ecl_vm_children.cpp
+    src/game/weather_pool.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do
