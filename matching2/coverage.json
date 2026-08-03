@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 440,
-        "retail_bytes": 300859
+        "function_count": 439,
+        "retail_bytes": 300747
       },
       "exact-overlay": {
-        "function_count": 282,
-        "retail_bytes": 31941
+        "function_count": 283,
+        "retail_bytes": 32053
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 282,
+    "function_count": 283,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2872,8 +2872,10 @@
       "address": "0x0042C850",
       "symbol": "FUN_0042c850",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/progress.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/progress.cpp",
+      "overlay_object": "progress.obj",
+      "overlay_symbol": "GameProgress_HasAnyPlayRecord"
     },
     {
       "address": "0x0042C8C0",

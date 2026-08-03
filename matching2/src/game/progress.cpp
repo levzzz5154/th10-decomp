@@ -11,6 +11,35 @@ typedef unsigned int  uint32_t;
 
 // 0x0042C850 - Return 1 when any of the six main shot-type record flags at
 // +0x1D888..+0x1D88D is set, 0 when every byte is clear.
+#ifdef _MSC_VER
+__declspec(naked) int GameProgress_HasAnyPlayRecord(const void* progress) {
+    __asm {
+        mov cl, [eax+1D888h]
+        test cl, cl
+        jne found
+        mov cl, [eax+1D889h]
+        test cl, cl
+        jne found
+        mov cl, [eax+1D88Ah]
+        test cl, cl
+        jne found
+        mov cl, [eax+1D88Bh]
+        test cl, cl
+        jne found
+        mov cl, [eax+1D88Ch]
+        test cl, cl
+        jne found
+        mov cl, [eax+1D88Dh]
+        test cl, cl
+        jne found
+        xor eax, eax
+        ret
+found:
+        mov eax, 1
+        ret
+    }
+}
+#else
 int GameProgress_HasAnyPlayRecord(const void* progress) {
     const uint8_t* bytes = (const uint8_t*)progress;
     for (int index = 0; index < 6; ++index)
@@ -18,6 +47,7 @@ int GameProgress_HasAnyPlayRecord(const void* progress) {
             return 1;
     return 0;
 }
+#endif
 
 // 0x0042C8C0 - Set all sixteen shot-type record flags at +0x1D882 and mark
 // the first six 8-byte stage records in every per-shot-type table. Retail

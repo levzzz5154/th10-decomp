@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 263,
-      "semantic": 440
+      "exact-overlay": 264,
+      "semantic": 439
     }
   },
   "functions": [
@@ -4159,8 +4159,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042C850_FUN_0042c850.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/progress.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/progress.cpp",
+      "overlay": {
+        "object": "progress.obj",
+        "symbol": "GameProgress_HasAnyPlayRecord"
+      }
     },
     {
       "address": "0x0042C8C0",
