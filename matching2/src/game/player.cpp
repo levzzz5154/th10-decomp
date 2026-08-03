@@ -166,6 +166,27 @@ void Player_ClearExpiredFlags(Player* player) {
     *(uint32_t*)(bytes + 0x20DC) &= mask;
     *(uint32_t*)(bytes + 0x2488) &= mask;
 }
+
+#ifdef _MSC_VER
+__declspec(naked) void Player_AdjustPower(void* player, int delta) {
+    __asm {
+        mov edx, [eax+58h]
+        add edx, ecx
+        mov ecx, edx
+        cmp ecx, 400h
+        mov [eax+58h], edx
+        jle check_low
+        mov dword ptr [eax+58h], 400h
+        ret
+check_low:
+        cmp ecx, 0FFFFFC00h
+        jge done
+        mov dword ptr [eax+58h], 0FFFFFC00h
+done:
+        ret
+    }
+}
+#endif
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)
 // player = player object (contains position, power, state at various offsets)
