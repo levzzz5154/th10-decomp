@@ -1856,11 +1856,75 @@ void AnimationObject_LoadScript(
 }
 #endif
 
+#ifdef _MSC_VER
+__declspec(naked) void AnimationObject_LoadScriptPreservingState(
+        AnimationObject* animation, void* resource, int animationIndex) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, [eax+11Ch]
+        mov ebx, [esi+ecx*4]
+        push edi
+        mov edi, edx
+        xor edx, edx
+        cmp ebx, edx
+        je zero_object
+        cmp [eax+124h], edx
+        jne zero_object
+        mov word ptr [edi+38Ah], cx
+        mov si, word ptr [eax]
+        mov word ptr [edi+386h], si
+        mov esi, [edi+35Ch]
+        and esi, 0FFFFF9FFh
+        mov [edi+308h], eax
+        mov [edi+35Ch], esi
+        mov eax, [eax+11Ch]
+        mov eax, [eax+ecx*4]
+        mov [edi+38Ch], eax
+        mov [edi+390h], eax
+        mov eax, [edi+6Ch]
+        test al, 1
+        jne after_timer
+        or eax, 1
+        mov [edi+60h], edx
+        mov dword ptr [edi+5Ch], 0FFF0BDC1h
+        mov [edi+64h], edx
+        mov dword ptr [edi+68h], 476F78h
+        mov [edi+6Ch], eax
+after_timer:
+        mov [edi+60h], edx
+        mov [edi+64h], edx
+        mov dword ptr [edi+5Ch], 0FFFFFFFFh
+        mov esi, [edi+35Ch]
+        and esi, 0FFFFFFFEh
+        push edi
+        mov [edi+35Ch], esi
+        call sub_43EE30
+        mov eax, dword_491C10
+        mov ecx, [eax+4Ch]
+        pop edi
+        inc ecx
+        pop esi
+        mov [eax+4Ch], ecx
+        pop ebx
+        ret
+zero_object:
+        mov ecx, 0EBh
+        xor eax, eax
+        rep stosd
+        pop edi
+        pop esi
+        pop ebx
+        ret
+    }
+}
+#else
 void AnimationObject_LoadScriptPreservingState(
     AnimationObject* animation, void* resource, int animationIndex) {
     AnimationObject_LoadScriptInternal(
         animation, resource, animationIndex, false);
 }
+#endif
 
 // 0x0043E8B0 - Switch an existing object to another script without running
 // the entity constructor. Invalid or currently-loading resources are ignored.

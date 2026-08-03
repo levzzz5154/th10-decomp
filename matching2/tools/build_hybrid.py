@@ -171,6 +171,7 @@ OVERLAYS = (
     ("animation_manager.obj", "?AnimationObject_ResolveFloatVariable@@", 0x0043ED00),
     ("animation_manager.obj", "?AnimationManager_RegisterResource@@", 0x0043E460),
     ("animation_manager.obj", "?AnimationObject_LoadScript@@", 0x0043E710),
+    ("animation_manager.obj", "?AnimationObject_LoadScriptPreservingState@@", 0x0043E7E0),
     ("d3d_resource_manager.obj", "?D3DResourceManager_Initialize@@", 0x00449AA0),
     ("d3d_resource_manager.obj", "?D3DResourceList_ClearPending@@", 0x00449A90),
     ("d3d_resource_manager.obj", "?D3DResourceList_ReleaseResources@@", 0x00449E50),
