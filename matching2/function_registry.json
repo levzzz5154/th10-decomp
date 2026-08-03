@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 305,
-      "semantic": 398
+      "exact-overlay": 307,
+      "semantic": 396
     }
   },
   "functions": [
@@ -8003,8 +8003,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DD40_FUN_0044dd40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/archive_cursor.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/archive_cursor.cpp",
+      "overlay": {
+        "object": "archive_cursor.obj",
+        "symbol": "ArchiveCursor_SeekRetail"
+      }
     },
     {
       "address": "0x0044DE10",
@@ -8013,8 +8017,12 @@
       "size": 352,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044DE10_FUN_0044de10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/archive_cursor_read.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/archive_cursor_read.cpp",
+      "overlay": {
+        "object": "archive_cursor_read.obj",
+        "symbol": "ArchiveCursor_ReadRetail"
+      }
     },
     {
       "address": "0x0044DF70",

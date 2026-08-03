@@ -204,6 +204,8 @@ OVERLAYS = (
     ("game_thread_queue.obj", "?GameThread_AppendFormatted@@", 0x00401630),
     ("game_thread_queue.obj", "?GameThread_AppendRecord@@", 0x00401530),
     ("archive_cursor_open.obj", "ArchiveCursor_Open", 0x0044DBF0),
+    ("archive_cursor.obj", "ArchiveCursor_SeekRetail", 0x0044DD40),
+    ("archive_cursor_read.obj", "ArchiveCursor_ReadRetail", 0x0044DE10),
     ("dat_file.obj", "DatArchive_OpenResource", 0x00434CA0),
     ("game_config_defaults.obj", "GameConfig_InitializeDefaults", 0x00418C40),
     ("prng.obj", "EntityScript_NextRandomModulo", 0x0043CB80),

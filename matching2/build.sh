@@ -49,6 +49,8 @@ OVERLAY_SOURCES=(
     src/platform/sound_stream_start.cpp
     src/platform/sound_commands.cpp
     src/game/archive_cursor_open.cpp
+    src/game/archive_cursor.cpp
+    src/game/archive_cursor_read.cpp
     src/game/menu.cpp
     src/script/ecl_vm_children.cpp
     src/game/weather_pool.cpp

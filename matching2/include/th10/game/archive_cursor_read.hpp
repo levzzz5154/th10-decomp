@@ -24,7 +24,11 @@
 #ifndef TH10_GAME_ARCHIVE_CURSOR_READ_HPP
 #define TH10_GAME_ARCHIVE_CURSOR_READ_HPP
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // Read up to ``byte_count`` bytes from ``cursor`` into ``destination``.
 // On success the actual transfer size is stored at ``*out_bytes_read``.

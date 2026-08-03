@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 398,
-        "retail_bytes": 292155
+        "function_count": 396,
+        "retail_bytes": 291595
       },
       "exact-overlay": {
-        "function_count": 324,
-        "retail_bytes": 40645
+        "function_count": 326,
+        "retail_bytes": 41205
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 324,
+    "function_count": 326,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5593,15 +5593,19 @@
       "address": "0x0044DD40",
       "symbol": "FUN_0044dd40",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/archive_cursor.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/archive_cursor.cpp",
+      "overlay_object": "archive_cursor.obj",
+      "overlay_symbol": "ArchiveCursor_SeekRetail"
     },
     {
       "address": "0x0044DE10",
       "symbol": "FUN_0044de10",
       "size": 352,
-      "status": "semantic",
-      "source": "src/game/archive_cursor_read.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/archive_cursor_read.cpp",
+      "overlay_object": "archive_cursor_read.obj",
+      "overlay_symbol": "ArchiveCursor_ReadRetail"
     },
     {
       "address": "0x0044DF70",
