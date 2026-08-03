@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 276,
-      "semantic": 427
+      "exact-overlay": 277,
+      "semantic": 426
     }
   },
   "functions": [
@@ -3685,8 +3685,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00428160_FUN_00428160.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/effect_indicator_slots.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/effect_indicator_slots.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_DispatchSchedule"
+      }
     },
     {
       "address": "0x004281D0",

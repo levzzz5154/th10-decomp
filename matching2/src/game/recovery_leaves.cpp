@@ -133,6 +133,8 @@ extern "C" void sub_44C5D0(void*, void*);
 extern "C" float sub_452FF0(float);
 extern "C" void sub_437DB0(void);
 extern "C" void sub_437FE0(void);
+extern "C" unsigned short dword_474C48;
+extern "C" void sub_427E90(void*, void*, void*);
 extern "C" void* sub_452930(void*, int);
 extern "C" void sub_43E460(void*, void*, void*, int);
 extern "C" unsigned long ___security_cookie;
@@ -2377,6 +2379,57 @@ int Recovery_SplitResourcePath(char* destination, const char* source,
 
 // 0x00428160 - Dispatch the entries whose period/remainder pair matches the
 // current tick. The table is a compact two-byte period/remainder sequence.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_DispatchSchedule(
+        int tick, const char* schedule, RecoveryWord schedule_count,
+        void (*dispatch)(const char*, int)) {
+    __asm {
+        movzx ecx, word ptr dword_474C48
+        mov eax, 66666667h
+        imul ecx
+        sar edx, 3
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        cmp eax, 5
+        jl skip_cap
+        mov eax, 4
+skip_cap:
+        mov ecx, [edi+4474h]
+        test ecx, ecx
+        je no_extra
+        add eax, 5
+no_extra:
+        mov ecx, [edi+45Ch]
+        push esi
+        mov esi, [ecx+eax*8+110h]
+        mov al, [esi]
+        test al, al
+        jl done
+entry_loop:
+        movsx ecx, al
+        mov eax, ebx
+        cdq
+        idiv ecx
+        movsx eax, byte ptr [esi+1]
+        cmp edx, eax
+        jne next_entry
+        push ebx
+        push esi
+        push edi
+        call sub_427E90
+next_entry:
+        mov al, [esi+34h]
+        add esi, 34h
+        test al, al
+        jge entry_loop
+done:
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_DispatchSchedule(
         int tick, const char* schedule, RecoveryWord schedule_count,
         void (*dispatch)(const char*, int)) {
@@ -2393,6 +2446,7 @@ int Recovery_DispatchSchedule(
     }
     return dispatched;
 }
+#endif
 
 // 0x0043C870 - Release a resource and always return the retail null status.
 #ifdef _MSC_VER
