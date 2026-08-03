@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 386,
-        "retail_bytes": 289099
+        "function_count": 383,
+        "retail_bytes": 288443
       },
       "exact-overlay": {
-        "function_count": 336,
-        "retail_bytes": 43701
+        "function_count": 339,
+        "retail_bytes": 44357
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 336,
+    "function_count": 339,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1702,8 +1702,10 @@
       "address": "0x0041A120",
       "symbol": "FUN_0041a120",
       "size": 224,
-      "status": "semantic",
-      "source": "src/game/stage_tip_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_tip_manager.cpp",
+      "overlay_object": "stage_tip_manager.obj",
+      "overlay_symbol": "StageTip_CreateRetail"
     },
     {
       "address": "0x0041A200",
@@ -2216,15 +2218,19 @@
       "address": "0x00421C50",
       "symbol": "FUN_00421c50",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/slot_lock_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/slot_lock_leaves.cpp",
+      "overlay_object": "slot_lock_leaves.obj",
+      "overlay_symbol": "SlotLockTable_LeaveRetail"
     },
     {
       "address": "0x00421D20",
       "symbol": "FUN_00421d20",
       "size": 224,
-      "status": "semantic",
-      "source": "src/game/slot_lock_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/slot_lock_leaves.cpp",
+      "overlay_object": "slot_lock_leaves.obj",
+      "overlay_symbol": "CachedComSlot_ReleaseRetail"
     },
     {
       "address": "0x00421E00",

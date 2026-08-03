@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 317,
-      "semantic": 386
+      "exact-overlay": 320,
+      "semantic": 383
     }
   },
   "functions": [
@@ -2459,8 +2459,12 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041A120_FUN_0041a120.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_tip_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_tip_manager.cpp",
+      "overlay": {
+        "object": "stage_tip_manager.obj",
+        "symbol": "StageTip_CreateRetail"
+      }
     },
     {
       "address": "0x0041A200",
@@ -3215,8 +3219,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421C50_FUN_00421c50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/slot_lock_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/slot_lock_leaves.cpp",
+      "overlay": {
+        "object": "slot_lock_leaves.obj",
+        "symbol": "SlotLockTable_LeaveRetail"
+      }
     },
     {
       "address": "0x00421D20",
@@ -3225,8 +3233,12 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421D20_FUN_00421d20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/slot_lock_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/slot_lock_leaves.cpp",
+      "overlay": {
+        "object": "slot_lock_leaves.obj",
+        "symbol": "CachedComSlot_ReleaseRetail"
+      }
     },
     {
       "address": "0x00421E00",

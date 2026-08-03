@@ -9,6 +9,11 @@
 #ifdef _MSC_VER
 extern "C" int dword_474C7C;
 extern "C" void* sub_41A120(void*, void*, void*);
+extern "C" void* sub_452493(unsigned long);
+extern "C" char* _strncpy(char*, const char*, unsigned int);
+extern "C" int dword_474C84;
+extern "C" int dword_474C88;
+extern "C" int dword_474C8C;
 #endif
 
 #ifndef _MSC_VER
@@ -209,6 +214,90 @@ int StageTipRuntime_Initialize(void* state) {
 // Retail never observes an allocation failure (its statically linked
 // allocator aborts), so the readable form returns null early instead of
 // linking a null record.
+#ifdef _MSC_VER
+__declspec(naked) StageTip* StageTip_CreateRetail() {
+    __asm {
+        push esi
+        push 88h
+        call sub_452493
+        mov edx, eax
+        add esp, 4
+        test edx, edx
+        jz loc_41A168
+        push edi
+        xor eax, eax
+        mov ecx, 22h
+        mov edi, edx
+        rep stosd
+        mov [edx+10h], eax
+        mov [edx+14h], eax
+        mov [edx+0Ch], edx
+        or eax, 0FFFFFFFFh
+        mov [edx+84h], eax
+        mov dword ptr [edx+6Ch], 12Ch
+        mov dword ptr [edx+7Ch], 3F800000h
+        mov [edx+70h], eax
+        mov esi, edx
+        pop edi
+        jmp loc_41A16A
+loc_41A168:
+        xor esi, esi
+loc_41A16A:
+        mov eax, dword ptr [dword_474C7C]
+        mov edx, [esp+8]
+        lea eax, [eax+eax*2+1Eh]
+        lea eax, [edx+eax*4]
+        mov edx, [eax+4]
+        test edx, edx
+        lea ecx, [esi+0Ch]
+        jz loc_41A18E
+loc_41A184:
+        mov eax, [eax+4]
+        mov edx, [eax+4]
+        test edx, edx
+        jnz loc_41A184
+loc_41A18E:
+        mov edx, [eax+4]
+        test edx, edx
+        jz loc_41A19E
+        mov [ecx+4], edx
+        mov edx, [eax+4]
+        mov [edx+8], ecx
+loc_41A19E:
+        mov [eax+4], ecx
+        mov [ecx+8], eax
+        mov dword ptr [esi+70h], 1Eh
+        mov ecx, [ebx]
+        mov eax, esi
+        mov [eax], ecx
+        mov edx, [ebx+4]
+        mov [eax+4], edx
+        mov ecx, [ebx+8]
+        mov edx, [esp+0Ch]
+        push 40h
+        mov [eax+8], ecx
+        push edx
+        lea eax, [esi+1Ch]
+        push eax
+        call _strncpy
+        mov dword ptr [esi+64h], 0
+        mov ecx, dword ptr [dword_474C84]
+        mov [esi+68h], ecx
+        mov eax, dword ptr [dword_474C84]
+        add esp, 0Ch
+        test eax, eax
+        mov eax, dword ptr [dword_474C8C]
+        jnz loc_41A1F3
+        mov eax, dword ptr [dword_474C88]
+loc_41A1F3:
+        mov [esi+60h], eax
+        mov eax, esi
+        pop esi
+        ret 8
+    }
+}
+#endif
+
 StageTip* StageTip_Create(StageTipManager* manager, const float position[3],
                           const char* text, void* (*allocate)(uint32_t)) {
     StageTip* tip = allocate != 0 ? (StageTip*)allocate(0x88) : 0;

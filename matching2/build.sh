@@ -64,6 +64,7 @@ OVERLAY_SOURCES=(
     src/game/stage_tip_manager.cpp
     src/game/frame_counter.cpp
     src/game/effect_indicator_slots.cpp
+    src/game/slot_lock_leaves.cpp
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp
     src/script/prng.cpp
