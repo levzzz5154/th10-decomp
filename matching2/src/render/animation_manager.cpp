@@ -45,6 +45,7 @@ extern "C" unsigned long dword_46F288;
 extern "C" unsigned long dword_46F2A0;
 extern "C" unsigned long dword_491C30;
 extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void*);
+extern "C" void sub_463B2C(void);
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -234,6 +235,88 @@ void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
 // 0x0043EC70 - Read one of the animation interpreter's integer-valued
 // variables. Float variables use the same truncating conversion as retail's
 // x87 helper at 0x00463B2C.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationObject_ReadIntegerVariable(
+        AnimationObject* animation, int variableId) {
+    __asm {
+        lea edx, [eax-2710h]
+        cmp edx, 9
+        ja default_case
+        jmp dword ptr [edx*4+43ECD8h]
+case_zero:
+        mov eax, [ecx+30Ch]
+        ret
+case_one:
+        mov eax, [ecx+310h]
+        ret
+case_two:
+        mov eax, [ecx+314h]
+        ret
+case_three:
+        mov eax, [ecx+318h]
+        ret
+case_four:
+        fld dword ptr [ecx+31Ch]
+        jmp sub_463B2C
+case_five:
+        fld dword ptr [ecx+320h]
+        jmp sub_463B2C
+case_six:
+        fld dword ptr [ecx+324h]
+        jmp sub_463B2C
+case_seven:
+        fld dword ptr [ecx+328h]
+        jmp sub_463B2C
+case_eight:
+        mov eax, [ecx+32Ch]
+        ret
+case_nine:
+        mov eax, [ecx+330h]
+default_case:
+        ret
+        _emit 0x82
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0x89
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0x90
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0x97
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0x9E
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0xA9
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0xB4
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0xBF
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0xCA
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+        _emit 0xD1
+        _emit 0xEC
+        _emit 0x43
+        _emit 0x00
+    }
+}
+#else
 int AnimationObject_ReadIntegerVariable(
     AnimationObject* animation, int variableId) {
     Entity* entity = (Entity*)animation;
@@ -248,6 +331,7 @@ int AnimationObject_ReadIntegerVariable(
     }
     return variableId;
 }
+#endif
 
 // 0x0043EDA0 - Resolve a writable integer-variable operand. The retail helper
 // receives the candidate value in EAX and uses the instruction parameter mask
