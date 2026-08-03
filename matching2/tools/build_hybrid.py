@@ -96,6 +96,8 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?Platform_DeletingDestructorVtable@@", 0x0044D710),
     ("recovery_leaves.obj", "?Platform_DeletingDestructorNoReturn@@", 0x0043C870),
     ("recovery_leaves.obj", "?RecoveryState_Configure41F50@@", 0x00441F50),
+    ("recovery_leaves.obj", "Recovery_SplitResourcePath", 0x0041A050),
+    ("recovery_leaves.obj", "Recovery_ResetEmitter", 0x0040C9A0),
 )
 
 

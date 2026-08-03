@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 647,
-        "retail_bytes": 326000
+        "function_count": 645,
+        "retail_bytes": 325872
       },
       "exact-overlay": {
-        "function_count": 75,
-        "retail_bytes": 6800
+        "function_count": 77,
+        "retail_bytes": 6928
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 75,
+    "function_count": 77,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -937,8 +937,10 @@
       "address": "0x0040C9A0",
       "symbol": "FUN_0040c9a0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_ResetEmitter"
     },
     {
       "address": "0x0040C9D0",
@@ -1550,8 +1552,10 @@
       "address": "0x0041A050",
       "symbol": "FUN_0041a050",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_SplitResourcePath"
     },
     {
       "address": "0x0041A0A0",

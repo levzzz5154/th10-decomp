@@ -29,6 +29,11 @@ extern "C" char off_4705D8;
 extern "C" void* __imp_CloseHandle;
 extern "C" void sub_43CB00(void*);
 extern "C" void sub_44D730(void*);
+extern "C" unsigned long dword_477818;
+extern "C" void sub_41BB00(void*, unsigned long, int, float, float);
+extern "C" void sub_40C9D0(void*);
+extern "C" char* _strchr(const char*, int);
+extern "C" void sub_41A0A0(char*);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1396,6 +1401,51 @@ int Recovery_SelectArchiveEntry(
 
 // 0x0041A050 - Copy a resource path, split at its colon, and reset the
 // resulting path state when the separator is present.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_SplitResourcePath(
+        char* destination, const char* source,
+        RecoveryWord capacity, void (*reset)(void)) {
+    __asm {
+        mov edx, edi
+        sub edx, eax
+loc_41A054:
+        mov cl, [eax]
+        mov [edx+eax], cl
+        inc eax
+        test cl, cl
+        jnz loc_41A054
+        push 3Ah
+        push edi
+        call _strchr
+        add esp, 8
+        test eax, eax
+        jnz loc_41A074
+        mov eax, edi
+        jmp sub_41A0A0
+loc_41A074:
+        push esi
+        lea ecx, [eax+1]
+        mov esi, ebx
+        sub esi, ecx
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_41A080:
+        mov dl, [ecx]
+        mov [esi+ecx], dl
+        inc ecx
+        test dl, dl
+        jnz loc_41A080
+        mov [eax], dl
+        mov eax, edi
+        call sub_41A0A0
+        mov eax, ebx
+        pop esi
+        jmp sub_41A0A0
+    }
+}
+#else
 int Recovery_SplitResourcePath(char* destination, const char* source,
                                RecoveryWord capacity, void (*reset)(void)) {
     if (destination == 0 || source == 0 || capacity == 0) return -1;
@@ -1417,6 +1467,7 @@ int Recovery_SplitResourcePath(char* destination, const char* source,
     }
     return 1;
 }
+#endif
 
 // 0x00428160 - Dispatch the entries whose period/remainder pair matches the
 // current tick. The table is a compact two-byte period/remainder sequence.
@@ -1468,6 +1519,33 @@ void* Platform_DeletingDestructorNoReturn(
 
 // 0x0040C9A0 - Flush the pending emitter count through the spawn callback,
 // reset the emitter, and clear the count.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ResetEmitter(
+        int* count, void* emitter,
+        void (*spawn)(void*, int, RecoveryWord, float, float),
+        void (*reset)(void*)) {
+    __asm {
+        push esi
+        mov esi, eax
+        mov eax, [edi]
+        test eax, eax
+        jle loc_40C9C2
+        push 400CCCCDh
+        push 0BFC90FDBh
+        push 0FFFFFFFFh
+        push eax
+        mov eax, dword_477818
+        mov ecx, esi
+        call sub_41BB00
+loc_40C9C2:
+        push edi
+        call sub_40C9D0
+        mov dword ptr [edi], 0
+        pop esi
+        ret
+    }
+}
+#else
 void Recovery_ResetEmitter(
         int* count, void* emitter,
         void (*spawn)(void*, int, RecoveryWord, float, float),
@@ -1478,6 +1556,7 @@ void Recovery_ResetEmitter(
     if (reset != 0) reset(emitter);
     *count = 0;
 }
+#endif
 
 // 0x00404530 - Initialize the player timer and install its 30-frame mode.
 void Recovery_InitializePlayerTimer(void* state, RecoveryWord speed,
