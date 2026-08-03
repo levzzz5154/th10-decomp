@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 401,
-        "retail_bytes": 293483
+        "function_count": 400,
+        "retail_bytes": 293211
       },
       "exact-overlay": {
-        "function_count": 321,
-        "retail_bytes": 39317
+        "function_count": 322,
+        "retail_bytes": 39589
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 321,
+    "function_count": 322,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5110,8 +5110,10 @@
       "address": "0x0044A4E0",
       "symbol": "FUN_0044a4e0",
       "size": 272,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "Input_PollJoystickButtons"
     },
     {
       "address": "0x0044A5F0",

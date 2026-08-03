@@ -236,6 +236,7 @@ OVERLAYS = (
     ("score.obj", "Score_SetPolarVector", 0x00408750),
     ("score.obj", "ScoreObject_Initialize", 0x0041C030),
     ("score.obj", "ScoreExtendedObject_Initialize", 0x0041C5B0),
+    ("score.obj", "Input_PollJoystickButtons", 0x0044A4E0),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
     ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),

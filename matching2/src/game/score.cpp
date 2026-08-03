@@ -35,6 +35,9 @@ extern "C" float flt_470B94;
 extern "C" unsigned long dword_4924FC;
 extern "C" unsigned long dword_491FF4;
 extern "C" void* dword_491C38;
+extern "C" void* dword_491C3C[];
+extern "C" unsigned char byte_497BB0[];
+extern "C" void* __imp_joyGetPosEx;
 extern "C" void sub_41C030(void*, void*);
 #endif
 
@@ -385,14 +388,113 @@ bool InputMaskActive(uint16_t held_mask, uint16_t pressed_mask,
 }
 #endif
 
-// 0x0044A4E0 - Encode the low 32 joystick button bits into the engine's
-// byte-per-button input buffer. Pressed buttons use the retail 0x80 marker.
+// 0x0044A4E0 - Host-readable equivalent of the retail joystick button poll:
+// encode the low 32 joystick button bits into the engine's byte-per-button
+// input buffer. Pressed buttons use the retail 0x80 marker.
 void Input_EncodeJoystickButtons(uint32_t buttons,
                                  unsigned char* destination) {
     for (unsigned int index = 0; index != 32; ++index) {
         destination[index] = (buttons & (1u << index)) != 0 ? 0x80 : 0;
     }
 }
+
+// 0x0044A4E0 - Retail joystick button poll. Zeroes the 32-byte engine input
+// buffer, then either reads the winmm joystick (joyGetPosEx, button bits only)
+// or polls the DirectInput device, re-acquiring up to 400 times on input-lost
+// and copying the 32-button state. Returns the input buffer pointer.
+#ifdef _MSC_VER
+__declspec(naked) unsigned char* Input_PollJoystickButtons(int deviceIndex) {
+    __asm {
+        sub esp, 148h
+        mov eax, ___security_cookie
+        xor eax, esp
+        push ebx
+        mov [esp+148h], eax
+        push edi
+        mov ebx, ecx
+        xor eax, eax
+        mov ecx, 20h
+        mov edi, offset byte_497BB0
+        rep stosd
+        mov eax, dword_491FF4
+        test ah, 4
+        jnz loc_44A55D
+        xor eax, eax
+        mov ecx, 0Dh
+        lea edi, [esp+8]
+        rep stosd
+        lea eax, [esp+8]
+        push eax
+        push 0
+        mov dword ptr [esp+10h], 34h
+        mov dword ptr [esp+14h], 0FFh
+        call dword ptr [__imp_joyGetPosEx]
+        test eax, eax
+        jnz loc_44A5CC
+        mov ecx, [esp+28h]
+        mov dl, 80h
+loc_44A548:
+        test cl, 1
+        jz loc_44A553
+        mov byte ptr byte_497BB0[eax], dl
+loc_44A553:
+        inc eax
+        shr ecx, 1
+        cmp eax, 20h
+        jb loc_44A548
+        jmp loc_44A5CC
+loc_44A55D:
+        mov eax, dword ptr dword_491C3C[ebx*4]
+        mov ecx, [eax]
+        push esi
+        push eax
+        call dword ptr [ecx+64h]
+        test eax, eax
+        jge loc_44A5A4
+        mov eax, dword ptr dword_491C3C[ebx*4]
+        mov edx, [eax]
+        push eax
+        xor esi, esi
+        call dword ptr [edx+1Ch]
+        cmp eax, 8007001Eh
+        jnz loc_44A5CB
+loc_44A585:
+        mov eax, dword ptr dword_491C3C[ebx*4]
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+1Ch]
+        inc esi
+        cmp esi, 190h
+        jge loc_44A5CB
+        cmp eax, 8007001Eh
+        jz loc_44A585
+        jmp loc_44A5CB
+loc_44A5A4:
+        mov ebx, dword ptr dword_491C3C[ebx*4]
+        mov edx, [ebx]
+        lea eax, [esp+40h]
+        push eax
+        push 110h
+        push ebx
+        call dword ptr [edx+24h]
+        mov ecx, 20h
+        lea esi, [esp+70h]
+        mov edi, offset byte_497BB0
+        rep movsd
+loc_44A5CB:
+        pop esi
+loc_44A5CC:
+        mov ecx, [esp+14Ch]
+        pop edi
+        pop ebx
+        xor ecx, esp
+        mov eax, offset byte_497BB0
+        call security_check_cookie
+        add esp, 148h
+        ret
+    }
+}
+#endif
 
 // 0x0044B010 - Clear the 256-byte keyboard buffer and acquire a fresh state
 // through either the platform keyboard provider or the active input device.

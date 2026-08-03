@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 302,
-      "semantic": 401
+      "exact-overlay": 303,
+      "semantic": 400
     }
   },
   "functions": [
@@ -7265,8 +7265,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044A4E0_FUN_0044a4e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "Input_PollJoystickButtons"
+      }
     },
     {
       "address": "0x0044A5F0",
