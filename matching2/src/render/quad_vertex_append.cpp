@@ -1,5 +1,59 @@
 #include "th10/render/quad_vertex_append.hpp"
 
+#ifdef _MSC_VER
+__declspec(naked) unsigned int AnimationManager_AppendQuadVertices(
+        QuadVertexStaging* staging, const QuadRenderVertex vertices[4]) {
+    __asm {
+        push ebx
+        push ebp
+        push esi
+        push edi
+        mov edi, [eax+72DACCh]
+        mov esi, edx
+        lea ebx, [edx+1Ch]
+        mov ecx, 7
+        rep movsd
+        mov edi, [eax+72DACCh]
+        add edi, 1Ch
+        mov esi, ebx
+        lea ebp, [edx+38h]
+        mov ecx, 7
+        rep movsd
+        mov edi, [eax+72DACCh]
+        add edi, 38h
+        mov esi, ebp
+        mov ecx, 7
+        rep movsd
+        mov edi, [eax+72DACCh]
+        add edi, 54h
+        mov esi, ebx
+        mov ecx, 7
+        rep movsd
+        mov edi, [eax+72DACCh]
+        add edi, 70h
+        mov esi, ebp
+        mov ecx, 7
+        rep movsd
+        mov edi, [eax+72DACCh]
+        lea esi, [edx+54h]
+        add edi, 8Ch
+        mov ecx, 7
+        rep movsd
+        mov edx, [eax+72DACCh]
+        mov ecx, [eax+3ADAC8h]
+        pop edi
+        add edx, 0A8h
+        pop esi
+        inc ecx
+        pop ebp
+        mov [eax+72DACCh], edx
+        mov [eax+3ADAC8h], ecx
+        xor eax, eax
+        pop ebx
+        ret
+    }
+}
+#else
 // 0x00442FE0 - Expand one four-vertex quad into the animation manager's
 // staging buffer as a six-vertex triangle list (0,1,2 then 1,2,3),
 // advancing the write cursor at manager+0x72DACC by 0xA8 bytes and
@@ -25,3 +79,4 @@ unsigned int AnimationManager_AppendQuadVertices(
     staging->quad_count += 1;
     return 0;
 }
+#endif

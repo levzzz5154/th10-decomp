@@ -51,6 +51,8 @@ OVERLAY_SOURCES=(
     src/game/menu.cpp
     src/script/ecl_vm_children.cpp
     src/game/weather_pool.cpp
+    src/math/random_vector.cpp
+    src/render/quad_vertex_append.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

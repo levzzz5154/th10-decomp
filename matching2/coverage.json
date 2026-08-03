@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 426,
-        "retail_bytes": 298011
+        "function_count": 424,
+        "retail_bytes": 297691
       },
       "exact-overlay": {
-        "function_count": 296,
-        "retail_bytes": 34789
+        "function_count": 298,
+        "retail_bytes": 35109
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 296,
+    "function_count": 298,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4257,8 +4257,10 @@
       "address": "0x00441E50",
       "symbol": "FUN_00441e50",
       "size": 160,
-      "status": "semantic",
-      "source": "src/math/random_vector.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/random_vector.cpp",
+      "overlay_object": "random_vector.obj",
+      "overlay_symbol": "RandomVector_StoreRoundedScalar"
     },
     {
       "address": "0x00441EF0",
@@ -4340,8 +4342,10 @@
       "address": "0x00442FE0",
       "symbol": "FUN_00442fe0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/render/quad_vertex_append.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/quad_vertex_append.cpp",
+      "overlay_object": "quad_vertex_append.obj",
+      "overlay_symbol": "AnimationManager_AppendQuadVertices"
     },
     {
       "address": "0x00443080",

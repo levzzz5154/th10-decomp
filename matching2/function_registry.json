@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 277,
-      "semantic": 426
+      "exact-overlay": 279,
+      "semantic": 424
     }
   },
   "functions": [
@@ -5963,8 +5963,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00441E50_FUN_00441e50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/random_vector.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/random_vector.cpp",
+      "overlay": {
+        "object": "random_vector.obj",
+        "symbol": "RandomVector_StoreRoundedScalar"
+      }
     },
     {
       "address": "0x00441EF0",
@@ -6085,8 +6089,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00442FE0_FUN_00442fe0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/quad_vertex_append.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/quad_vertex_append.cpp",
+      "overlay": {
+        "object": "quad_vertex_append.obj",
+        "symbol": "AnimationManager_AppendQuadVertices"
+      }
     },
     {
       "address": "0x00443080",

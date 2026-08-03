@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 76,
-      "semantic": 103
+      "exact-overlay": 77,
+      "semantic": 102
     }
   },
   "integration_gates": {
@@ -1203,7 +1203,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/math/random_vector.cpp"
     },
