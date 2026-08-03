@@ -82,6 +82,8 @@ extern "C" unsigned char dword_474CA0;
 extern "C" unsigned long dword_477810;
 extern "C" unsigned long dword_47784C;
 extern "C" unsigned long dword_477838;
+extern "C" unsigned long dword_477840;
+extern "C" unsigned long dword_4776E0;
 extern "C" void sub_417C80(void*);
 extern "C" void sub_42CB60(void*);
 extern "C" void sub_41FB50(void*);
@@ -104,6 +106,11 @@ extern "C" void sub_4524A6(void*, void*, void*);
 extern "C" int sub_4479D0(int, void*, void*, void*);
 extern "C" void sub_44C150(void);
 extern "C" void* sub_453683(void*, void*, void*, void*, void*, void*, void*);
+extern "C" void* sub_449ED0(void*);
+extern "C" void sub_449AE0(void*, void*, void*);
+extern "C" void sub_449B70(void*, void*, void*);
+extern "C" void sub_401DE0(void*, void*);
+extern "C" void sub_43E5A0(void*, int, int);
 extern "C" unsigned long dword_46E354;
 extern "C" unsigned long dword_46E358;
 extern "C" unsigned char byte_46E35C;
@@ -4028,6 +4035,104 @@ void* Recovery_CreateLargeResourceState(
 #endif
 
 // 0x0042B660 - Allocate and initialize the huge 0xb884-byte resource state.
+#ifdef _MSC_VER
+extern "C" __declspec(naked) void* EffectManager_ResetAndPublishRetail(void* state) {
+    __asm {
+        lea edx, [ebx+18h]
+        push esi
+        push edi
+        mov edi, [edx+6Ch]
+        mov esi, 0FFFFFFFEh
+        and edi, esi
+        mov [edx+6Ch], edi
+        and dword ptr [edx+0B0h], esi
+        and dword ptr [edx+0FCh], esi
+        and dword ptr [edx+128h], esi
+        and dword ptr [edx+174h], esi
+        and dword ptr [edx+1B0h], esi
+        and dword ptr [edx+1FCh], esi
+        and dword ptr [edx+228h], esi
+        and dword ptr [edx+378h], esi
+        xor eax, eax
+        mov ecx, 0EBh
+        mov edi, edx
+        rep stosd
+        mov word ptr [edx+384h], 0FFFFh
+        lea eax, [ebx+3F0h]
+        mov ecx, 2D3h
+slot_loop:
+        and dword ptr [eax], esi
+        add eax, 40h
+        dec ecx
+        jne slot_loop
+        xor eax, eax
+        mov ecx, 2E21h
+        mov edi, ebx
+        rep stosd
+        mov eax, [ebx]
+        or eax, 2
+        pop edi
+        mov [ebx], eax
+        mov dword_477840, ebx
+        mov eax, ebx
+        pop esi
+        ret
+    }
+}
+#endif
+
+#ifdef _MSC_VER
+extern "C" __declspec(naked) int EffectManagerRuntime_InitializeRetail(void* state) {
+    __asm {
+        push ebx
+        push esi
+        mov ebx, eax
+        mov eax, dword_4776E0
+        mov ecx, [eax+8994h]
+        push edi
+        push 42B9A0h
+        mov [ebx+10h], ecx
+        call sub_449ED0
+        mov edx, dword_491BE4
+        mov esi, eax
+        mov eax, [esi+4]
+        and eax, 0FFFFFFFDh
+        push edx
+        mov edi, 0Fh
+        mov [esi+20h], ebx
+        mov [esi+4], eax
+        call sub_449AE0
+        push 42B9B0h
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        mov edx, [esi+4]
+        mov eax, dword_491BE4
+        and edx, 0FFFFFFFDh
+        push eax
+        mov edi, 23h
+        mov [esi+20h], ebx
+        mov [esi+4], edx
+        call sub_449B70
+        mov [ebx+0Ch], esi
+        lea esi, [ebx+18h]
+        mov ebx, [ebx+10h]
+        mov edx, esi
+        call sub_401DE0
+        mov edx, 0C4h
+        mov eax, esi
+        mov ecx, ebx
+        mov [esi+308h], ebx
+        call sub_43E5A0
+        pop edi
+        pop esi
+        xor eax, eax
+        pop ebx
+        ret
+    }
+}
+#endif
+
 #ifdef _MSC_VER
 __declspec(naked) void* Recovery_CreateHugeResourceState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),

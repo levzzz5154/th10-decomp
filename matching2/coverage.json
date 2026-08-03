@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 435,
-        "retail_bytes": 299979
+        "function_count": 433,
+        "retail_bytes": 299659
       },
       "exact-overlay": {
-        "function_count": 287,
-        "retail_bytes": 32821
+        "function_count": 289,
+        "retail_bytes": 33141
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 287,
+    "function_count": 289,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2751,15 +2751,19 @@
       "address": "0x0042B430",
       "symbol": "FUN_0042b430",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/pool_constructors.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/pool_constructors.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "EffectManager_ResetAndPublishRetail"
     },
     {
       "address": "0x0042B4D0",
       "symbol": "FUN_0042b4d0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "EffectManagerRuntime_InitializeRetail"
     },
     {
       "address": "0x0042B570",

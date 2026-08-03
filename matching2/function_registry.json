@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 268,
-      "semantic": 435
+      "exact-overlay": 270,
+      "semantic": 433
     }
   },
   "functions": [
@@ -3977,8 +3977,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042B430_FUN_0042b430.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/pool_constructors.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/pool_constructors.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "EffectManager_ResetAndPublishRetail"
+      }
     },
     {
       "address": "0x0042B4D0",
@@ -3987,8 +3991,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042B4D0_FUN_0042b4d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "EffectManagerRuntime_InitializeRetail"
+      }
     },
     {
       "address": "0x0042B570",
