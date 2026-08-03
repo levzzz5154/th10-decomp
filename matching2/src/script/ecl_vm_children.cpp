@@ -13,6 +13,10 @@ extern "C" void* sub_452493(unsigned long);
 extern "C" void sub_44DF70(void*, void*, void*);
 extern "C" int sub_44E1A0(void*);
 extern "C" void sub_4524A1(void*);
+extern "C" int sub_44FF00(void*, int);
+extern "C" float sub_44FF80(void*, int);
+extern "C" void* sub_450470(void*);
+extern "C" long __cdecl __ftol2(void);
 #endif
 
 namespace {
@@ -38,6 +42,199 @@ unsigned int PopStartWord(EclStartVm* vm) {
 // remaining argument to its declared destination type, appends the parent's
 // return offset and instruction pointer, and temporarily publishes the child
 // as the active VM while resolving its label.
+#ifdef _MSC_VER
+__declspec(naked) int EclVm_StartChildRetail() {
+    __asm {
+        sub esp, 10h
+        mov edx, [esp+18h]
+        push ebx
+        push ebp
+        push esi
+        push edi
+        mov edi, [esp+24h]
+        add edi, 4
+        mov esi, eax
+        mov eax, [edi]
+        mov ecx, [eax+10h]
+        mov eax, [esi+1008h]
+        lea ebp, [ecx+edx*4+4]
+        xor edx, edx
+        test eax, eax
+        mov [esp+14h], edx
+        mov [esp+1Ch], eax
+        lea ecx, [eax+8]
+        jnz loc_44DFC1
+        mov ecx, eax
+        lea ebx, [ecx+4]
+        cmp ebx, 1000h
+        jge loc_44DFBC
+        mov [ecx+esi+8], edx
+        add dword ptr [esi+1008h], 4
+loc_44DFBC:
+        mov ecx, 0Ch
+loc_44DFC1:
+        mov edx, [edi]
+        mov ebx, [esp+28h]
+        movzx edx, byte ptr [edx+0Bh]
+        inc ebx
+        cmp ebx, edx
+        jge loc_44E08E
+        lea eax, [ecx+esi+8]
+        mov [esp+28h], eax
+        lea eax, [ebp+4]
+        mov [esp+10h], eax
+        jmp loc_44DFF0
+loc_44DFE5:
+        mov eax, [esp+10h]
+        _emit 8Dh
+        _emit 0A4h
+        _emit 24h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+loc_44DFF0:
+        mov ecx, [edi]
+        mov dl, byte ptr [ecx+ebp+10h]
+        cmp dl, 66h
+        jz loc_44E033
+        cmp dl, 67h
+        jz loc_44E033
+        mov edx, [esp+24h]
+        shr eax, 2
+        mov ecx, [ecx+eax*4+10h]
+        push ecx
+        push ebx
+        call sub_44FF00
+        mov edx, [edi]
+        cmp byte ptr [edx+ebp+11h], 66h
+        mov [esp+18h], eax
+        jnz loc_44E02B
+        fild dword ptr [esp+18h]
+        mov eax, [esp+28h]
+        fstp dword ptr [eax]
+        jmp loc_44E062
+loc_44E02B:
+        mov ecx, [esp+28h]
+        mov [ecx], eax
+        jmp loc_44E062
+loc_44E033:
+        shr eax, 2
+        mov edx, [ecx+eax*4+10h]
+        mov eax, [esp+24h]
+        push edx
+        mov ecx, ebx
+        call sub_44FF80
+        mov eax, [edi]
+        cmp byte ptr [eax+ebp+11h], 66h
+        jnz loc_44E057
+        mov ecx, [esp+28h]
+        fstp dword ptr [ecx]
+        jmp loc_44E062
+loc_44E057:
+        call __ftol2
+        mov edx, [esp+28h]
+        mov [edx], eax
+loc_44E062:
+        mov ecx, [esp+28h]
+        mov eax, [edi]
+        mov edx, [esp+10h]
+        add ecx, 4
+        mov [esp+28h], ecx
+        movzx ecx, byte ptr [eax+0Bh]
+        inc ebx
+        add edx, 8
+        add ebp, 8
+        cmp ebx, ecx
+        mov [esp+10h], edx
+        jl loc_44DFE5
+        mov eax, [esp+1Ch]
+loc_44E08E:
+        test eax, eax
+        mov edx, [esp+24h]
+        mov ebx, 4
+        jz loc_44E0F4
+        mov ecx, [esi+1008h]
+        add ecx, 0FFFFFFFCh
+        js loc_44E0B4
+        mov [esi+1008h], ecx
+        mov ecx, [ecx+esi+8]
+        mov [esp+14h], ecx
+loc_44E0B4:
+        mov ecx, [esp+14h]
+        mov [esi+1008h], eax
+        mov [eax+esi+4], ecx
+        mov eax, [esi+1008h]
+        lea ecx, [eax+4]
+        cmp ecx, 1000h
+        jge loc_44E0DF
+        mov ecx, [edx]
+        mov [eax+esi+8], ecx
+        add [esi+1008h], ebx
+loc_44E0DF:
+        mov eax, [esi+1008h]
+        lea ecx, [eax+4]
+        cmp ecx, 1000h
+        jge loc_44E12E
+        mov ecx, [edi]
+        jmp loc_44E124
+loc_44E0F4:
+        mov eax, ebx
+        lea ebp, [eax+4]
+        xor ecx, ecx
+        cmp ebp, 1000h
+        mov [esi+1008h], ebx
+        jge loc_44E113
+        mov [eax+esi+8], ecx
+        add [esi+1008h], ebx
+loc_44E113:
+        mov eax, [esi+1008h]
+        lea ebp, [eax+4]
+        cmp ebp, 1000h
+        jge loc_44E12E
+loc_44E124:
+        mov [eax+esi+8], ecx
+        add [esi+1008h], ebx
+loc_44E12E:
+        mov eax, [edx+1014h]
+        mov ebx, [eax+4]
+        mov [eax+4], esi
+        mov esi, [edx+1014h]
+        mov edx, [edi]
+        mov eax, [esi+102Ch]
+        add edx, 14h
+        push edx
+        call sub_450470
+        mov ecx, [esi+4]
+        mov [ecx+4], eax
+        mov edx, [esi+4]
+        mov dword ptr [edx], 0
+        mov eax, [esi+4]
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jnz loc_44E17D
+        mov dword ptr [edi], 0
+        pop edi
+        pop esi
+        pop ebp
+        or eax, 0FFFFFFFFh
+        pop ebx
+        add esp, 10h
+        ret 8
+loc_44E17D:
+        mov ecx, [esp+24h]
+        mov edx, [ecx+1014h]
+        pop edi
+        pop esi
+        pop ebp
+        mov [edx+4], ebx
+        xor eax, eax
+        pop ebx
+        add esp, 10h
+        ret 8
+    }
+}
+#else
 int EclVm_StartChild(EclStartVm* child, EclStartVm* parent,
                      EclStartOwner* owner,
                      const EclStartInstruction* instruction,
@@ -98,6 +295,7 @@ int EclVm_StartChild(EclStartVm* child, EclStartVm* parent,
     owner->active_vm = previous;
     return 0;
 }
+#endif
 
 // 0x004500D0 - Spawn a child ECL VM. Retail allocates the 0x1024-byte VM
 // record and a 12-byte list link, clears the VM's instruction offset, wait
