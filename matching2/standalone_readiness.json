@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 82,
-      "semantic": 97
+      "exact-overlay": 83,
+      "semantic": 96
     }
   },
   "integration_gates": {
@@ -323,7 +323,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/score_timer_leaves.cpp"
     },

@@ -57,6 +57,20 @@ void ScoreGauge_SetTargetTenthAndDisableTimer(ScoreGaugeTimedValue* state,
 
 // 0x00418A90 - Increment the score counter word (retail state+0x50) and
 // clamp the result at 9.
+#ifdef _MSC_VER
+__declspec(naked) void Score_IncrementCounterClampedNine(int* counter) {
+    __asm {
+        mov ecx, [eax+50h]
+        inc ecx
+        cmp ecx, 0Ah
+        mov [eax+50h], ecx
+        jl done
+        mov dword ptr [eax+50h], 9
+done:
+        ret
+    }
+}
+#else
 void Score_IncrementCounterClampedNine(int* counter) {
     const int advanced = *counter + 1;
     *counter = advanced;
@@ -64,3 +78,4 @@ void Score_IncrementCounterClampedNine(int* counter) {
         *counter = 9;
     }
 }
+#endif

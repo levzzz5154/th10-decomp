@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 299,
-      "semantic": 404
+      "exact-overlay": 300,
+      "semantic": 403
     }
   },
   "functions": [
@@ -2241,8 +2241,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418A90_FUN_00418a90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score_timer_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score_timer_leaves.cpp",
+      "overlay": {
+        "object": "score_timer_leaves.obj",
+        "symbol": "Score_IncrementCounterClampedNine"
+      }
     },
     {
       "address": "0x00418B80",

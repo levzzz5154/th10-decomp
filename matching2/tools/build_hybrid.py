@@ -235,6 +235,7 @@ OVERLAYS = (
     ("score.obj", "OutsideAxisAlignedBounds", 0x004086B0),
     ("score.obj", "Score_SetPolarVector", 0x00408750),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
+    ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),
     ("score.obj", "?SetInputMode@@", 0x0040AC90),
     ("score.obj", "?Score_InputHistoryStep@@", 0x0044BE70),
