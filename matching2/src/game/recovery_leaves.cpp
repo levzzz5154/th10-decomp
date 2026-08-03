@@ -25,6 +25,8 @@ extern "C" float flt_497D84;
 extern "C" unsigned long dword_497D88;
 extern "C" int _rand(void);
 extern "C" unsigned long dword_477830;
+extern "C" char off_4705D8;
+extern "C" void* __imp_CloseHandle;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -920,6 +922,66 @@ void Recovery_AppendNode(RecoveryAppendNode* list,
 
 // 0x0044D080 - Release every interface entry and the optional auxiliary
 // stream, leaving the owner in its post-destruction empty state.
+#ifdef _MSC_VER
+__declspec(naked) void Platform_ReleaseOwnedArray(
+        RecoveryOwnedArrayState* state, void (*release)(void*),
+        void (*close_auxiliary)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        mov eax, [esi+10h]
+        push edi
+        xor edi, edi
+        test eax, eax
+        mov dword ptr [esi], offset off_4705D8
+        jbe loc_44D0BA
+loc_44D093:
+        mov eax, [esi+4]
+        mov ecx, [eax+edi*4]
+        test ecx, ecx
+        lea eax, [eax+edi*4]
+        jz loc_44D0B2
+        mov eax, ecx
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+8]
+        mov edx, [esi+4]
+        mov dword ptr [edx+edi*4], 0
+loc_44D0B2:
+        mov eax, [esi+10h]
+        inc edi
+        cmp edi, eax
+        jb loc_44D093
+loc_44D0BA:
+        mov eax, [esi+4]
+        test eax, eax
+        jz loc_44D0D1
+        push eax
+        call j__free
+        add esp, 4
+        mov dword ptr [esi+4], 0
+loc_44D0D1:
+        mov edi, [esi+0Ch]
+        test edi, edi
+        jz loc_44D105
+        cmp dword ptr [edi+78h], 1
+        jnz loc_44D0F5
+        mov eax, [edi+8Ch]
+        push eax
+        call dword ptr [__imp_CloseHandle]
+        mov dword ptr [edi+8Ch], 0FFFFFFFFh
+loc_44D0F5:
+        push edi
+        call j__free
+        add esp, 4
+        mov dword ptr [esi+0Ch], 0
+loc_44D105:
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void Platform_ReleaseOwnedArray(
         RecoveryOwnedArrayState* state, void (*release)(void*),
         void (*close_auxiliary)(void*), void (*free_memory)(void*)) {
@@ -938,6 +1000,7 @@ void Platform_ReleaseOwnedArray(
         state->auxiliary = 0;
     }
 }
+#endif
 
 // 0x0044D300 - Start an interface operation, optionally polling until the
 // operation reports completion. The busy HRESULT is retried after 10 ms.

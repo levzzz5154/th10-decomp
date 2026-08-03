@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 652,
-        "retail_bytes": 326592
+        "function_count": 651,
+        "retail_bytes": 326448
       },
       "exact-overlay": {
-        "function_count": 70,
-        "retail_bytes": 6208
+        "function_count": 71,
+        "retail_bytes": 6352
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 70,
+    "function_count": 71,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4986,8 +4986,10 @@
       "address": "0x0044D080",
       "symbol": "FUN_0044d080",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Platform_ReleaseOwnedArray@@"
     },
     {
       "address": "0x0044D110",
