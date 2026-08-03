@@ -18,6 +18,20 @@ extern uint32_t DAT_00491be4;
 extern "C" void sub_4091C0(void*);
 extern "C" void sub_40B7B0(void*);
 extern "C" void j__free(void*);
+extern "C" void sub_4451C0(void*, void*);
+extern "C" unsigned long dword_491C10;
+extern "C" char byte_4743C0[];
+extern "C" void* __imp_GetKeyboardState;
+extern "C" void* __imp_SetKeyboardState;
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
+extern "C" float flt_470B14;
+extern "C" float flt_470B18;
+extern "C" float flt_470B04;
+extern "C" float flt_470B38;
+extern "C" float flt_470B3C;
+extern "C" float flt_470B40;
+extern "C" float flt_470B94;
 #endif
 
 namespace {
@@ -69,6 +83,37 @@ void ScoreOwnedObject_Destroy(void* object, void (*cleanup)(void*)) {
 #endif
 
 // 0x00408660 - Return the shortest signed difference on a periodic axis.
+#ifdef _MSC_VER
+__declspec(naked) float WrappedAngleDifference(
+        float angle, float reference, float period, float half_period) {
+    __asm {
+        fld [esp+4]
+        fsub [esp+8]
+        fcom [flt_470B18]
+        fnstsw ax
+        test ah, 41h
+        jnz loc_408688
+        fstp st
+        fld [esp+8]
+        fadd [flt_470B14]
+        fsubr [esp+4]
+        ret 8
+loc_408688:
+        fld [esp+8]
+        fsub [esp+4]
+        fcomp [flt_470B18]
+        fnstsw ax
+        test ah, 41h
+        jnz locret_4086AD
+        fstp st
+        fld [esp+8]
+        fsub [flt_470B14]
+        fsubr [esp+4]
+locret_4086AD:
+        ret 8
+    }
+}
+#else
 float WrappedAngleDifference(float angle, float reference,
                              float period, float half_period) {
     float difference = angle - reference;
@@ -78,8 +123,40 @@ float WrappedAngleDifference(float angle, float reference,
         return difference + period;
     return difference;
 }
+#endif
 
 // 0x00426610 - Angle from an entity origin to a supplied point.
+#ifdef _MSC_VER
+__declspec(naked) float Entity_AngleToPoint(const float* point,
+                                            const float* origin) {
+    __asm {
+        fld dword ptr [eax]
+        fsub dword ptr [ecx+3C0h]
+        fld dword ptr [eax+4]
+        fsub dword ptr [ecx+3C4h]
+        fld [flt_470B04]
+        fld st(1)
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp loc_42664E
+        fld [flt_470B04]
+        fld st(2)
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp loc_42664E
+        fstp st
+        fstp st
+        fld [flt_470B94]
+        ret
+loc_42664E:
+        fxch st(1)
+        fpatan
+        ret
+    }
+}
+#else
 float Entity_AngleToPoint(const float* point, const float* origin) {
     float dx = point[0] - origin[0];
     float dy = point[1] - origin[1];
@@ -87,8 +164,40 @@ float Entity_AngleToPoint(const float* point, const float* origin) {
         return 3.14159265358979323846f;
     return atan2f(dy, dx);
 }
+#endif
 
 // 0x00426660 - The inverse displacement form used by the companion leaf.
+#ifdef _MSC_VER
+__declspec(naked) float Entity_AngleFromPoint(const float* point,
+                                              const float* origin) {
+    __asm {
+        fld dword ptr [ecx+3C0h]
+        fsub dword ptr [eax]
+        fld dword ptr [ecx+3C4h]
+        fsub dword ptr [eax+4]
+        fld [flt_470B04]
+        fld st(1)
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp loc_42669E
+        fld [flt_470B04]
+        fld st(2)
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp loc_42669E
+        fstp st
+        fstp st
+        fld [flt_470B94]
+        ret
+loc_42669E:
+        fxch st(1)
+        fpatan
+        ret
+    }
+}
+#else
 float Entity_AngleFromPoint(const float* point, const float* origin) {
     float dx = origin[0] - point[0];
     float dy = origin[1] - point[1];
@@ -96,6 +205,7 @@ float Entity_AngleFromPoint(const float* point, const float* origin) {
         return 3.14159265358979323846f;
     return atan2f(dy, dx);
 }
+#endif
 
 // 0x00408910 - Construct the entity arrays owned by the score runtime.
 ScoreRuntimeState* ScoreRuntimeState_Initialize(ScoreRuntimeState* state) {
@@ -260,6 +370,35 @@ int Input_UpdateKeyboardState(unsigned char* destination, bool inputEnabled,
 
 // 0x0044B080 - Strip the transient high bit from every keyboard-state byte
 // and publish the normalized 256-byte state.
+#ifdef _MSC_VER
+__declspec(naked) void Input_NormalizeKeyboardState(
+    unsigned char* state, int (*getState)(unsigned char*),
+    int (*setState)(const unsigned char*)) {
+    __asm {
+        sub esp, 104h
+        mov eax, ___security_cookie
+        xor eax, esp
+        mov [esp+100h], eax
+        lea eax, [esp]
+        push eax
+        call dword ptr [__imp_GetKeyboardState]
+        xor eax, eax
+loc_44B0A0:
+        and [esp+eax], 7Fh
+        inc eax
+        cmp eax, 100h
+        jl loc_44B0A0
+        lea ecx, [esp]
+        push ecx
+        call dword ptr [__imp_SetKeyboardState]
+        mov ecx, [esp+100h]
+        xor ecx, esp
+        call security_check_cookie
+        add esp, 104h
+        ret
+    }
+}
+#else
 void Input_NormalizeKeyboardState(
     unsigned char* state, int (*getState)(unsigned char*),
     int (*setState)(const unsigned char*)) {
@@ -270,6 +409,7 @@ void Input_NormalizeKeyboardState(
     if (setState != 0)
         setState(state);
 }
+#endif
 
 // 0x0044BE70 - Pop one input-history entry and restore its paired state
 // values. The history index clamps at zero rather than wrapping.
@@ -343,6 +483,48 @@ void Score_InputHistorySave(void* state) {
 #endif
 
 // 0x004088C0 - Count occurrences of a byte in each fixed-width pattern.
+#ifdef _MSC_VER
+__declspec(naked) unsigned int CountPatternMatches(
+        const unsigned char* table, unsigned int groups,
+        unsigned int stride, unsigned int width, unsigned char query) {
+    __asm {
+        xor eax, eax
+        xor ecx, ecx
+        push esi
+loc_4088C5:
+        movsx esi, byte ptr [byte_4743C0 + ecx]
+        cmp esi, edx
+        jnz loc_4088D1
+        inc eax
+loc_4088D1:
+        movsx esi, byte ptr [byte_4743C0 + ecx + 1]
+        cmp esi, edx
+        jnz loc_4088DD
+        inc eax
+loc_4088DD:
+        movsx esi, byte ptr [byte_4743C0 + ecx + 2]
+        cmp esi, edx
+        jnz loc_4088E9
+        inc eax
+loc_4088E9:
+        movsx esi, byte ptr [byte_4743C0 + ecx + 3]
+        cmp esi, edx
+        jnz loc_4088F5
+        inc eax
+loc_4088F5:
+        movsx esi, byte ptr [byte_4743C0 + ecx + 4]
+        cmp esi, edx
+        jnz loc_408901
+        inc eax
+loc_408901:
+        add ecx, 5
+        cmp ecx, 6Eh
+        jl loc_4088C5
+        pop esi
+        ret
+    }
+}
+#else
 unsigned int CountPatternMatches(const unsigned char* table,
                                  unsigned int groups, unsigned int stride,
                                  unsigned int width, unsigned char query) {
@@ -355,6 +537,7 @@ unsigned int CountPatternMatches(const unsigned char* table,
     }
     return matches;
 }
+#endif
 
 // 0x0040AC20 - Advance per-button repeat counters and derive edge masks.
 void UpdateInputState(void* input_state) {
@@ -542,6 +725,36 @@ int ScoreState_ActivateFromResult(void* state, int geometryResult,
 }
 
 // 0x0041C7D0 - Mark non-terminal linked records for deferred removal.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreRecords_MarkEligible(ScoreLinkedRecord* first) {
+    __asm {
+        mov eax, [eax+18h]
+        test eax, eax
+        jz loc_41C7F9
+        push ebx
+        mov edx, 1
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_41C7E0:
+        cmp [eax+0Ch], edx
+        mov ecx, [eax+8]
+        jz loc_41C7F2
+        mov bl, [eax+50h]
+        test bl, bl
+        jnz loc_41C7F2
+        mov [eax+50h], dl
+loc_41C7F2:
+        test ecx, ecx
+        mov eax, ecx
+        jnz loc_41C7E0
+        pop ebx
+loc_41C7F9:
+        xor eax, eax
+        ret
+    }
+}
+#else
 void ScoreRecords_MarkEligible(ScoreLinkedRecord* first) {
     for (ScoreLinkedRecord* record = first; record != 0;
          record = record->next) {
@@ -549,8 +762,54 @@ void ScoreRecords_MarkEligible(ScoreLinkedRecord* first) {
             record->marked = 1;
     }
 }
+#endif
 
 // 0x0041C800 - Copy a vector and accumulate linked-record callback results.
+#ifdef _MSC_VER
+__declspec(naked) int ScoreRecords_CopyVectorAndEvaluate(
+        ScoreLinkedRecord* first, float* destination,
+        const float* vector) {
+    __asm {
+        mov ecx, [eax+18h]
+        push esi
+        add eax, 440h
+        mov edx, ebx
+        mov esi, [edx]
+        mov [eax], esi
+        mov esi, [edx+4]
+        mov [eax+4], esi
+        mov edx, [edx+8]
+        push edi
+        xor edi, edi
+        test ecx, ecx
+        mov [eax+8], edx
+        jz loc_41C845
+        push ebp
+        mov ebp, [esp+0Ch+4]
+loc_41C827:
+        cmp dword ptr [ecx+0Ch], 1
+        mov esi, [ecx+8]
+        jz loc_41C83E
+        mov edx, [esp+0Ch+8]
+        mov eax, [ecx]
+        push edx
+        push ebp
+        push ebx
+        call dword ptr [eax+1Ch]
+        add edi, eax
+loc_41C83E:
+        test esi, esi
+        mov ecx, esi
+        jnz loc_41C827
+        pop ebp
+loc_41C845:
+        mov eax, edi
+        pop edi
+        pop esi
+        ret 8
+    }
+}
+#else
 int ScoreRecords_CopyVectorAndEvaluate(
         ScoreLinkedRecord* first, float* destination, const float* vector) {
     destination[0] = vector[0];
@@ -564,6 +823,7 @@ int ScoreRecords_CopyVectorAndEvaluate(
     }
     return result;
 }
+#endif
 
 #ifdef _MSC_VER
 __declspec(naked) void ScoreCounter::AddScaled(int32_t amount) {
@@ -647,6 +907,42 @@ extern float DAT_00470b38;
 extern float DAT_00470b3c;
 extern float DAT_00470b40;
 
+#ifdef _MSC_VER
+__declspec(naked) int Position_IsPartiallyInViewport(
+        const void* center, float radius_x, float radius_y) {
+    __asm {
+        fld [esp+4]
+        fadd dword ptr [ecx]
+        fcomp [flt_470B40]
+        fnstsw ax
+        test ah, 41h
+        jnp loc_41F7F3
+        fld dword ptr [ecx]
+        fsub [esp+4]
+        fcomp [flt_470B3C]
+        fnstsw ax
+        test ah, 1
+        jz loc_41F7F3
+        fld [esp+8]
+        fadd dword ptr [ecx+4]
+        fcomp [flt_470B04]
+        fnstsw ax
+        test ah, 41h
+        jnp loc_41F7F3
+        fld dword ptr [ecx+4]
+        fsub [esp+8]
+        fcomp [flt_470B38]
+        fnstsw ax
+        test ah, 1
+        jz loc_41F7F3
+        xor eax, eax
+        ret 8
+loc_41F7F3:
+        mov eax, 1
+        ret 8
+    }
+}
+#else
 int Position_IsPartiallyInViewport(const void* center, float radius_x,
                                     float radius_y) {
     const float* position = static_cast<const float*>(center);
@@ -660,6 +956,51 @@ int Position_IsPartiallyInViewport(const void* center, float radius_x,
     if (bottom > DAT_00470b38) return 1;
     return 0;
 }
+#endif
+
+// 0x00428D70 - Byte-identical companion used by the effect pool's viewport
+// hook. It is a separate retail entry point with the same body.
+#ifdef _MSC_VER
+__declspec(naked) int EffectPool_OutsideViewport(
+        const void* center, float radius_x, float radius_y) {
+    __asm {
+        fld [esp+4]
+        fadd dword ptr [ecx]
+        fcomp [flt_470B40]
+        fnstsw ax
+        test ah, 41h
+        jnp loc_428DC3
+        fld dword ptr [ecx]
+        fsub [esp+4]
+        fcomp [flt_470B3C]
+        fnstsw ax
+        test ah, 1
+        jz loc_428DC3
+        fld [esp+8]
+        fadd dword ptr [ecx+4]
+        fcomp [flt_470B04]
+        fnstsw ax
+        test ah, 41h
+        jnp loc_428DC3
+        fld dword ptr [ecx+4]
+        fsub [esp+8]
+        fcomp [flt_470B38]
+        fnstsw ax
+        test ah, 1
+        jz loc_428DC3
+        xor eax, eax
+        ret 8
+loc_428DC3:
+        mov eax, 1
+        ret 8
+    }
+}
+#else
+int EffectPool_OutsideViewport(
+        const void* center, float radius_x, float radius_y) {
+    return Position_IsPartiallyInViewport(center, radius_x, radius_y);
+}
+#endif
 
 // 0x00409E20 - Request removal of both registered runtime callbacks.
 #ifdef _MSC_VER
@@ -695,6 +1036,27 @@ void ScoreRuntimeCallbacks::Retire() {
 #endif
 
 // 0x00409230 - Release the runtime's first two entities during teardown.
+#ifdef _MSC_VER
+__declspec(naked) int ScoreRuntimeState::ReleaseFlaggedEntities(
+    ScoreEntityRelease releaseEntity, void* entityManager) {
+    __asm {
+        push esi
+        mov esi, ecx
+        test byte ptr [esi+378Ch], 1
+        jz loc_40925B
+        mov ecx, dword_491C10
+        lea eax, [esi+10h]
+        call sub_4451C0
+        mov ecx, dword_491C10
+        lea eax, [esi+3BCh]
+        call sub_4451C0
+loc_40925B:
+        mov eax, 1
+        pop esi
+        ret
+    }
+}
+#else
 int ScoreRuntimeState::ReleaseFlaggedEntities(
     ScoreEntityRelease releaseEntity, void* entityManager) {
     if ((flags & 1) != 0) {
@@ -703,6 +1065,7 @@ int ScoreRuntimeState::ReleaseFlaggedEntities(
     }
     return 1;
 }
+#endif
 
 // 0x004091C0 - Release the two trailing entity arrays while this runtime's
 // release flag is set. The retail function receives this object through EBX

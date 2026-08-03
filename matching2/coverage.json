@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 562,
-        "retail_bytes": 318912
+        "function_count": 552,
+        "retail_bytes": 318128
       },
       "exact-overlay": {
-        "function_count": 160,
-        "retail_bytes": 13888
+        "function_count": 170,
+        "retail_bytes": 14672
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 160,
+    "function_count": 170,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -633,8 +633,10 @@
       "address": "0x00408660",
       "symbol": "FUN_00408660",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?WrappedAngleDifference@@"
     },
     {
       "address": "0x004086B0",
@@ -654,8 +656,10 @@
       "address": "0x004088C0",
       "symbol": "FUN_004088c0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?CountPatternMatches@@"
     },
     {
       "address": "0x00408910",
@@ -703,8 +707,10 @@
       "address": "0x00409230",
       "symbol": "FUN_00409230",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState@@"
     },
     {
       "address": "0x00409270",
@@ -1765,15 +1771,19 @@
       "address": "0x0041C7D0",
       "symbol": "FUN_0041c7d0",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ScoreRecords_MarkEligible@@"
     },
     {
       "address": "0x0041C800",
       "symbol": "FUN_0041c800",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?ScoreRecords_CopyVectorAndEvaluate@@"
     },
     {
       "address": "0x0041C850",
@@ -1870,8 +1880,10 @@
       "address": "0x0041F7A0",
       "symbol": "FUN_0041f7a0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Position_IsPartiallyInViewport@@"
     },
     {
       "address": "0x0041F800",
@@ -2356,15 +2368,19 @@
       "address": "0x00426610",
       "symbol": "FUN_00426610",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Entity_AngleToPoint@@"
     },
     {
       "address": "0x00426660",
       "symbol": "FUN_00426660",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Entity_AngleFromPoint@@"
     },
     {
       "address": "0x004266B0",
@@ -2500,8 +2516,10 @@
       "address": "0x00428D70",
       "symbol": "FUN_00428d70",
       "size": 96,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?EffectPool_OutsideViewport@@"
     },
     {
       "address": "0x00428DD0",
@@ -4869,8 +4887,10 @@
       "address": "0x0044B080",
       "symbol": "FUN_0044b080",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "?Input_NormalizeKeyboardState@@"
     },
     {
       "address": "0x0044B0D0",
