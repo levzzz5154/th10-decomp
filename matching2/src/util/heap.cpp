@@ -20,6 +20,14 @@ extern "C" void j__free(void*);
 extern "C" void sub_417C80(void*);
 extern "C" void sub_42CB60(void*);
 extern "C" void sub_438420(void*);
+extern "C" void sub_462428(void);
+extern "C" void sub_4624E5(void);
+extern "C" void sub_438510(void*, uint32_t, uint32_t);
+extern "C" void sub_4386B0(void*, uint32_t, uint32_t);
+extern "C" void sub_438260(void*, uint32_t, uint32_t);
+extern "C" void* sub_453280(void*, const void*, uint32_t);
+extern "C" void sub_4524A1(void*);
+extern "C" void* sub_452493(unsigned long);
 #endif
 
 // 0x004352C0 - Initialize an empty allocation owner.
@@ -209,6 +217,132 @@ void LegacyString::Assign(const char* text) {
 // 0x00438420 - Assign an explicit byte range, preserving small-string storage
 // and handling ranges which point back into this string.
 // 0x00438420 - Assign an explicit byte range with alias-safe handling.
+#ifdef _MSC_VER
+__declspec(naked) LegacyString* LegacyString::AssignRange(
+        const char* text, uint32_t count) {
+    __asm {
+        push ebx
+        mov ebx, ecx
+        mov edx, [ebx+18h]
+        cmp edx, 10h
+        push esi
+        push edi
+        jb current_inline
+        mov eax, [ebx+4]
+        jmp current_ready
+current_inline:
+        lea eax, [ebx+4]
+current_ready:
+        mov esi, [esp+10h]
+        cmp esi, eax
+        jb direct
+        cmp edx, 10h
+        lea eax, [ebx+4]
+        jb data_inline
+        mov ecx, [eax]
+        jmp data_ready
+data_inline:
+        mov ecx, eax
+data_ready:
+        mov edi, [ebx+14h]
+        add edi, ecx
+        cmp edi, esi
+        jbe direct
+        cmp edx, 10h
+        jb ptr_inline
+        mov eax, [eax]
+ptr_inline:
+        mov ecx, [esp+14h]
+        push ecx
+        sub esi, eax
+        push esi
+        push ebx
+        mov ecx, ebx
+        call sub_438260
+        pop edi
+        pop esi
+        pop ebx
+        ret 8
+direct:
+        push ebp
+        mov ebp, [esp+18h]
+        cmp ebp, 0FFFFFFFEh
+        jbe length_ok
+        mov ecx, ebx
+        call sub_4624E5
+length_ok:
+        mov eax, [ebx+18h]
+        cmp eax, ebp
+        jae capacity_ok
+        mov edx, [ebx+14h]
+        push edx
+        push ebp
+        mov ecx, ebx
+        call sub_4386B0
+        test ebp, ebp
+copy_start:
+        jbe done
+        cmp dword ptr [ebx+18h], 10h
+        jb copy_inline_dest
+        mov edi, [ebx+4]
+        jmp copy_ready_dest
+capacity_ok:
+        test ebp, ebp
+        jne copy_start
+        cmp eax, 10h
+        mov [ebx+14h], ebp
+        jb zero_inline
+        mov eax, [ebx+4]
+        pop ebp
+        pop edi
+        mov byte ptr [eax], 0
+        pop esi
+        mov eax, ebx
+        pop ebx
+        ret 8
+zero_inline:
+        pop ebp
+        lea eax, [ebx+4]
+        pop edi
+        mov byte ptr [eax], 0
+        pop esi
+        mov eax, ebx
+        pop ebx
+        ret 8
+copy_inline_dest:
+        lea edi, [ebx+4]
+copy_ready_dest:
+        mov ecx, ebp
+        mov eax, ecx
+        shr ecx, 2
+        rep movsd
+        mov ecx, eax
+        and ecx, 3
+        rep movsb
+        cmp dword ptr [ebx+18h], 10h
+        mov [ebx+14h], ebp
+        jb term_inline
+        mov eax, [ebx+4]
+        mov byte ptr [eax+ebp], 0
+        pop ebp
+        pop edi
+        pop esi
+        mov eax, ebx
+        pop ebx
+        ret 8
+term_inline:
+        lea eax, [ebx+4]
+        mov byte ptr [eax+ebp], 0
+done:
+        pop ebp
+        pop edi
+        pop esi
+        mov eax, ebx
+        pop ebx
+        ret 8
+    }
+}
+#else
 LegacyString* LegacyString::AssignRange(const char* text, uint32_t count) {
     char* current = capacity < 16
         ? storage.inline_data
@@ -254,8 +388,129 @@ LegacyString* LegacyString::AssignRange(const char* text, uint32_t count) {
     }
     return this;
 }
+#endif
 
 // 0x00438260 - Assign a bounded substring from another LegacyString.
+#ifdef _MSC_VER
+__declspec(naked) LegacyString* LegacyString::AssignSubstring(
+        const LegacyString* source, uint32_t offset, uint32_t count) {
+    __asm {
+        push ebx
+        push ebp
+        push esi
+        mov esi, [esp+14h]
+        push edi
+        mov edi, [esp+14h]
+        cmp [edi+14h], esi
+        mov ebx, ecx
+        jae range_ok
+        call sub_462428
+range_ok:
+        mov ebp, [edi+14h]
+        mov eax, [esp+1Ch]
+        sub ebp, esi
+        cmp eax, ebp
+        jae count_ok
+        mov ebp, eax
+count_ok:
+        cmp ebx, edi
+        jne different
+        push 0FFFFFFFFh
+        add ebp, esi
+        push ebp
+        mov ecx, ebx
+        call sub_438510
+        push esi
+        push 0
+        mov ecx, ebx
+        call sub_438510
+        pop edi
+        pop esi
+        pop ebp
+        mov eax, ebx
+        pop ebx
+        ret 0Ch
+different:
+        cmp ebp, 0FFFFFFFEh
+        jbe length_ok
+        mov ecx, ebx
+        call sub_4624E5
+length_ok:
+        mov eax, [ebx+18h]
+        cmp eax, ebp
+        jae capacity_ok
+        mov eax, [ebx+14h]
+        push eax
+        push ebp
+        mov ecx, ebx
+        call sub_4386B0
+        test ebp, ebp
+copy_start:
+        jbe done
+        mov ecx, [edi+18h]
+        mov eax, 10h
+        cmp ecx, eax
+        jb source_inline
+        mov edx, [edi+4]
+        jmp source_ready
+capacity_ok:
+        test ebp, ebp
+        jne copy_start
+        cmp eax, 10h
+        mov [ebx+14h], ebp
+        jb zero_inline
+        mov eax, [ebx+4]
+        pop edi
+        pop esi
+        mov byte ptr [eax], 0
+        pop ebp
+        mov eax, ebx
+        pop ebx
+        ret 0Ch
+zero_inline:
+        pop edi
+        lea eax, [ebx+4]
+        pop esi
+        mov byte ptr [eax], 0
+        pop ebp
+        mov eax, ebx
+        pop ebx
+        ret 0Ch
+source_inline:
+        lea edx, [edi+4]
+source_ready:
+        cmp [ebx+18h], eax
+        lea eax, [ebx+4]
+        jb dest_inline
+        mov edi, [eax]
+        jmp dest_ready
+dest_inline:
+        mov edi, eax
+dest_ready:
+        add esi, edx
+        mov ecx, ebp
+        mov edx, ecx
+        shr ecx, 2
+        rep movsd
+        mov ecx, edx
+        and ecx, 3
+        rep movsb
+        cmp dword ptr [ebx+18h], 10h
+        mov [ebx+14h], ebp
+        jb term_inline
+        mov eax, [eax]
+term_inline:
+        mov byte ptr [eax+ebp], 0
+done:
+        pop edi
+        pop esi
+        pop ebp
+        mov eax, ebx
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 LegacyString* LegacyString::AssignSubstring(
         const LegacyString* source, uint32_t offset, uint32_t count) {
     if (source->length < offset) {
@@ -300,9 +555,77 @@ LegacyString* LegacyString::AssignSubstring(
     }
     return this;
 }
+#endif
 
 // 0x00438510 - Remove a bounded range and close the gap in place.
 // 0x00438510 - Erase a bounded range and close the gap.
+#ifdef _MSC_VER
+__declspec(naked) LegacyString* LegacyString::Erase(
+        uint32_t offset, uint32_t count) {
+    __asm {
+        push ebp
+        mov ebp, [esp+8]
+        push esi
+        mov esi, ecx
+        cmp [esi+14h], ebp
+        push edi
+        jae skip_range
+        call sub_462428
+skip_range:
+        mov eax, [esi+14h]
+        mov edi, [esp+14h]
+        sub eax, ebp
+        cmp eax, edi
+        jae skip_clamp
+        mov edi, eax
+skip_clamp:
+        test edi, edi
+        jbe done
+        mov ecx, [esi+18h]
+        cmp ecx, 10h
+        push ebx
+        lea ebx, [esi+4]
+        jb inline_source
+        mov edx, [ebx]
+        jmp have_source
+inline_source:
+        mov edx, ebx
+have_source:
+        cmp ecx, 10h
+        jb inline_dest
+        mov ecx, [ebx]
+        jmp have_dest
+inline_dest:
+        mov ecx, ebx
+have_dest:
+        sub eax, edi
+        add edx, ebp
+        push eax
+        add edx, edi
+        push edx
+        add ecx, ebp
+        push ecx
+        call sub_453280
+        mov eax, [esi+14h]
+        mov ecx, [esi+18h]
+        sub eax, edi
+        add esp, 0Ch
+        cmp ecx, 10h
+        mov [esi+14h], eax
+        jb inline_term
+        mov ebx, [ebx]
+inline_term:
+        mov byte ptr [ebx+eax], 0
+        pop ebx
+done:
+        pop edi
+        mov eax, esi
+        pop esi
+        pop ebp
+        ret 8
+    }
+}
+#else
 LegacyString* LegacyString::Erase(uint32_t offset, uint32_t count) {
     if (length < offset) {
         LegacyString_ThrowRangeError();
@@ -318,6 +641,7 @@ LegacyString* LegacyString::Erase(uint32_t offset, uint32_t count) {
     }
     return this;
 }
+#endif
 
 // 0x00438590 - Update the logical length and write its terminator.
 // 0x00438590 - Set the logical length and maintain the terminator.
@@ -357,6 +681,49 @@ uint32_t LegacyString::Length() const {
 
 // 0x004385B0 - Ensure capacity, optionally moving short strings back inline.
 // 0x00438380 - Adjust capacity and optionally move a short string inline.
+#ifdef _MSC_VER
+__declspec(naked) bool LegacyString::Reserve(
+        uint32_t requested, bool shrink_to_inline) {
+    __asm {
+        mov al, [esp+4]
+        test al, al
+        push ebx
+        push ebp
+        mov ebp, [esp+10h]
+        mov ebx, ecx
+        je done
+        cmp dword ptr [ebx+18h], 10h
+        jb done
+        test ebp, ebp
+        mov eax, [ebx+4]
+        push edi
+        lea edi, [ebx+4]
+        jbe free_alloc
+        push esi
+        mov ecx, ebp
+        mov edx, ecx
+        shr ecx, 2
+        mov esi, eax
+        rep movsd
+        mov ecx, edx
+        and ecx, 3
+        rep movsb
+        pop esi
+free_alloc:
+        push eax
+        call sub_4524A1
+        add esp, 4
+        pop edi
+done:
+        mov [ebx+14h], ebp
+        mov dword ptr [ebx+18h], 0Fh
+        mov byte ptr [ebx+ebp+4], 0
+        pop ebp
+        pop ebx
+        ret 8
+    }
+}
+#else
 bool LegacyString::Reserve(uint32_t requested, bool shrink_to_inline) {
     if (requested > 0xFFFFFFFE) {
         LegacyString_ThrowLengthError();
@@ -384,6 +751,7 @@ bool LegacyString::Reserve(uint32_t requested, bool shrink_to_inline) {
     }
     return requested != 0;
 }
+#endif
 
 // 0x00438800 - Detect ranges which alias the string's active character data.
 bool LegacyString::OwnsPointer(const char* pointer) const {
@@ -412,6 +780,122 @@ const char* LegacyString::Data() const {
 // 0x004386B0 + 0x0043874C - Grow using the retail 1.5x capacity policy while
 // preserving the requested prefix and switching cleanly out of inline mode.
 // 0x004386B0/0x0043874C - Grow storage using the retail capacity policy.
+#ifdef _MSC_VER
+__declspec(naked) void LegacyString::Grow(
+        uint32_t requested, uint32_t old_length) {
+    __asm {
+        push ebp
+        mov ebp, esp
+        push 0FFFFFFFFh
+        push 465370h
+        mov eax, fs:[0]
+        push eax
+        mov fs:[0], esp
+        sub esp, 0Ch
+        mov eax, [ebp+8]
+        push ebx
+        push esi
+        mov ebx, eax
+        or ebx, 0Fh
+        cmp ebx, 0FFFFFFFEh
+        push edi
+        mov esi, ecx
+        mov [ebp-10h], esp
+        mov [ebp-14h], esi
+        jbe capacity_ok
+        mov ebx, eax
+        jmp allocate
+capacity_ok:
+        mov edi, [esi+18h]
+        mov eax, 0AAAAAAABh
+        mul ebx
+        mov ecx, edi
+        shr ecx, 1
+        shr edx, 1
+        cmp edx, ecx
+        jae allocate
+        mov eax, 0FFFFFFFEh
+        sub eax, ecx
+        cmp edi, eax
+        ja allocate
+        lea ebx, [ecx+edi]
+allocate:
+        lea ecx, [ebx+1]
+        push ecx
+        mov dword ptr [ebp-4], 0
+        call sub_452493
+        mov edx, eax
+        add esp, 4
+        mov [ebp+8], edx
+        jmp copy_prefix
+exception_realloc:
+        mov eax, [ebp+8]
+        mov [ebp-18h], eax
+        inc eax
+        mov [ebp-10h], esp
+        push eax
+        mov byte ptr [ebp-4], 2
+        call sub_452493
+        mov [ebp+8], eax
+        add esp, 4
+        mov eax, 438743h
+        ret
+resume_alloc:
+        mov ebx, [ebp-18h]
+        mov esi, [ebp-14h]
+        mov edx, [ebp+8]
+copy_prefix:
+        mov ecx, [ebp+0Ch]
+        test ecx, ecx
+        mov dword ptr [ebp-4], 0FFFFFFFFh
+        jbe free_old
+        cmp dword ptr [esi+18h], 10h
+        jb old_inline
+        mov esi, [esi+4]
+        jmp old_ready
+old_inline:
+        add esi, 4
+old_ready:
+        mov eax, ecx
+        shr ecx, 2
+        mov edi, edx
+        rep movsd
+        mov ecx, eax
+        and ecx, 3
+        rep movsb
+        mov esi, [ebp-14h]
+        mov ecx, [ebp+0Ch]
+free_old:
+        cmp dword ptr [esi+18h], 10h
+        jb set_fields
+        mov ecx, [esi+4]
+        push ecx
+        call sub_4524A1
+        mov edx, [ebp+8]
+        mov ecx, [ebp+0Ch]
+        add esp, 4
+set_fields:
+        cmp ebx, 10h
+        lea eax, [esi+4]
+        mov byte ptr [eax], 0
+        mov [eax], edx
+        mov [esi+18h], ebx
+        mov [esi+14h], ecx
+        jb term_inline
+        mov eax, edx
+term_inline:
+        pop edi
+        mov byte ptr [eax+ecx], 0
+        mov ecx, [ebp-0Ch]
+        pop esi
+        mov fs:[0], ecx
+        pop ebx
+        mov esp, ebp
+        pop ebp
+        ret 8
+    }
+}
+#else
 void LegacyString::Grow(uint32_t requested, uint32_t old_length) {
     uint32_t new_capacity = requested | 15;
     if (new_capacity > 0xFFFFFFFE) {
@@ -437,3 +921,4 @@ void LegacyString::Grow(uint32_t requested, uint32_t old_length) {
     length = old_length;
     allocation[old_length] = 0;
 }
+#endif

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 489,
-        "retail_bytes": 309534
+        "function_count": 484,
+        "retail_bytes": 308651
       },
       "exact-overlay": {
-        "function_count": 233,
-        "retail_bytes": 23266
+        "function_count": 238,
+        "retail_bytes": 24149
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 233,
+    "function_count": 238,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3563,8 +3563,10 @@
       "address": "0x00438260",
       "symbol": "FUN_00438260",
       "size": 240,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?AssignSubstring@LegacyString@@"
     },
     {
       "address": "0x00438350",
@@ -3579,22 +3581,28 @@
       "address": "0x00438380",
       "symbol": "FUN_00438380",
       "size": 160,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Reserve@LegacyString@@"
     },
     {
       "address": "0x00438420",
       "symbol": "FUN_00438420",
       "size": 240,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?AssignRange@LegacyString@@"
     },
     {
       "address": "0x00438510",
       "symbol": "FUN_00438510",
       "size": 128,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Erase@LegacyString@@"
     },
     {
       "address": "0x00438590",
@@ -3636,8 +3644,10 @@
       "address": "0x004386B0",
       "symbol": "FUN_004386b0",
       "size": 115,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Grow@LegacyString@@"
     },
     {
       "address": "0x00438723",

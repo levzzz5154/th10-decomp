@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 214,
-      "semantic": 489
+      "exact-overlay": 219,
+      "semantic": 484
     }
   },
   "functions": [
@@ -4995,8 +4995,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438260_FUN_00438260.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?AssignSubstring@LegacyString@@"
+      }
     },
     {
       "address": "0x00438350",
@@ -5019,8 +5023,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438380_FUN_00438380.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Reserve@LegacyString@@"
+      }
     },
     {
       "address": "0x00438420",
@@ -5029,8 +5037,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438420_FUN_00438420.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?AssignRange@LegacyString@@"
+      }
     },
     {
       "address": "0x00438510",
@@ -5039,8 +5051,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438510_FUN_00438510.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Erase@LegacyString@@"
+      }
     },
     {
       "address": "0x00438590",
@@ -5063,8 +5079,12 @@
       "size": 115,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004386B0_FUN_004386b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Grow@LegacyString@@"
+      }
     },
     {
       "address": "0x00438723",
