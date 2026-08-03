@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 82,
-      "semantic": 621
+      "exact-overlay": 86,
+      "semantic": 617
     }
   },
   "functions": [
@@ -1265,8 +1265,12 @@
       "size": 80,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C6E0_FUN_0040c6e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "BulletEntity_ClearResourceList"
+      }
     },
     {
       "address": "0x0040C730",
@@ -1367,8 +1371,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040CF60_FUN_0040cf60.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "BulletEntity_SetAnimationVector"
+      }
     },
     {
       "address": "0x0040CF90",
@@ -1377,8 +1385,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040CF90_FUN_0040cf90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "BulletEntity_FindById"
+      }
     },
     {
       "address": "0x0040CFB0",
@@ -1417,8 +1429,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040D680_FUN_0040d680.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet.cpp",
+      "overlay": {
+        "object": "bullet.obj",
+        "symbol": "BulletEntity_ReleaseResource"
+      }
     },
     {
       "address": "0x0040D6B0",

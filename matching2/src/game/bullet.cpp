@@ -32,6 +32,11 @@ extern float _DAT_00470b38;
 extern float _DAT_00470b3c;
 extern float _DAT_00470b40;
 
+#ifdef _MSC_VER
+extern "C" void j__free(void*);
+extern "C" char off_46D0F0;
+#endif
+
 int __fastcall ResourceManager_FindTexture(void* resource_template);
 void __fastcall Entity_ClearAnims(void* unused, uint8_t* data);
 int BulletEntity_UpdateTransform(uint32_t* bullet_transform);
@@ -89,6 +94,21 @@ BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
 }
 
 // 0x0040CF60 - Copy the three-component animation vector into a bullet.
+#ifdef _MSC_VER
+__declspec(naked) void BulletEntity_SetAnimationVector(
+        BulletEntity* entity, const float* value) {
+    __asm {
+        mov edx, [eax]
+        add ecx, 430h
+        mov [ecx], edx
+        mov edx, [eax+4]
+        mov [ecx+4], edx
+        mov eax, [eax+8]
+        mov [ecx+8], eax
+        ret
+    }
+}
+#else
 void BulletEntity_SetAnimationVector(BulletEntity* entity, const float* value) {
     float* destination = reinterpret_cast<float*>(
         reinterpret_cast<uint8_t*>(entity) + 0x430);
@@ -96,8 +116,29 @@ void BulletEntity_SetAnimationVector(BulletEntity* entity, const float* value) {
     destination[1] = value[1];
     destination[2] = value[2];
 }
+#endif
 
 // 0x0040CF90 - Find a linked bullet by its runtime identifier.
+#ifdef _MSC_VER
+__declspec(naked) BulletEntity* BulletEntity_FindById(
+        BulletEntityManager* manager, int id) {
+    __asm {
+        mov eax, [eax+18h]
+        test eax, eax
+        jz loc_40CFA3
+loc_40CF97:
+        cmp [eax+54h], ecx
+        jz locret_40CFA5
+        mov eax, [eax+8]
+        test eax, eax
+        jnz loc_40CF97
+loc_40CFA3:
+        xor eax, eax
+locret_40CFA5:
+        ret
+    }
+}
+#else
 BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id) {
     uint8_t* owner = reinterpret_cast<uint8_t*>(manager);
     uint8_t* node = *reinterpret_cast<uint8_t**>(owner + 0x18);
@@ -108,6 +149,7 @@ BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id) {
     }
     return 0;
 }
+#endif
 
 // 0x0040CEA0 - Mark the bullet's active animation for deferred resource
 // removal, then invalidate the local handle. The retail animation manager
@@ -134,6 +176,23 @@ int __fastcall Entity_AttachResourceSnapshot(
 }
 
 // 0x0040D680 - Restore the bullet vtable and release its owned resource.
+#ifdef _MSC_VER
+__declspec(naked) void BulletEntity_ReleaseResource(
+        BulletEntity* entity, void* vtable) {
+    __asm {
+        mov eax, [esi+8Ch]
+        test eax, eax
+        mov dword ptr [esi], offset off_46D0F0
+        jz locret_40D6A3
+        push eax
+        call _free
+        add esp, 4
+        mov dword ptr [esi+8Ch], 0
+locret_40D6A3:
+        ret
+    }
+}
+#else
 void BulletEntity_ReleaseResource(BulletEntity* entity, void* vtable) {
     uint8_t* bytes = reinterpret_cast<uint8_t*>(entity);
     *reinterpret_cast<void**>(bytes) = vtable;
@@ -143,10 +202,41 @@ void BulletEntity_ReleaseResource(BulletEntity* entity, void* vtable) {
         resource = 0;
     }
 }
+#endif
 
 // 0x0040C6E0 - Release the bullet's linked resource records.
 // Each record stores an owned resource pointer at +0 and the next record at
 // +4; the head pointer is retained at the retail entity offset +0x1034.
+#ifdef _MSC_VER
+__declspec(naked) void BulletEntity_ClearResourceList(BulletEntity* entity) {
+    __asm {
+        push esi
+        mov esi, [eax+1034h]
+        test esi, esi
+        jz loc_40C70B
+        push edi
+        _emit 0x8D
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
+loc_40C6F0:
+        mov ecx, [esi]
+        mov edi, [esi+4]
+        push ecx
+        call j__free
+        push esi
+        call j__free
+        add esp, 8
+        test edi, edi
+        mov esi, edi
+        jnz loc_40C6F0
+        pop edi
+loc_40C70B:
+        pop esi
+        ret
+    }
+}
+#else
 void BulletEntity_ClearResourceList(BulletEntity* entity) {
     uint8_t* bytes = reinterpret_cast<uint8_t*>(entity);
     uint8_t* record = *reinterpret_cast<uint8_t**>(bytes + 0x1034);
@@ -158,6 +248,7 @@ void BulletEntity_ClearResourceList(BulletEntity* entity) {
     }
     *reinterpret_cast<uint8_t**>(bytes + 0x1034) = 0;
 }
+#endif
 
 // ============================================================================
 // 0x0040CC70 - Clear Animation States

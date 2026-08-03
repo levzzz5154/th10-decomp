@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 621,
-        "retail_bytes": 322736
+        "function_count": 617,
+        "retail_bytes": 322528
       },
       "exact-overlay": {
-        "function_count": 101,
-        "retail_bytes": 10064
+        "function_count": 105,
+        "retail_bytes": 10272
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 101,
+    "function_count": 105,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -931,8 +931,10 @@
       "address": "0x0040C6E0",
       "symbol": "FUN_0040c6e0",
       "size": 80,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "BulletEntity_ClearResourceList"
     },
     {
       "address": "0x0040C730",
@@ -1000,15 +1002,19 @@
       "address": "0x0040CF60",
       "symbol": "FUN_0040cf60",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "BulletEntity_SetAnimationVector"
     },
     {
       "address": "0x0040CF90",
       "symbol": "FUN_0040cf90",
       "size": 32,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "BulletEntity_FindById"
     },
     {
       "address": "0x0040CFB0",
@@ -1035,8 +1041,10 @@
       "address": "0x0040D680",
       "symbol": "FUN_0040d680",
       "size": 48,
-      "status": "semantic",
-      "source": "src/game/bullet.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/bullet.cpp",
+      "overlay_object": "bullet.obj",
+      "overlay_symbol": "BulletEntity_ReleaseResource"
     },
     {
       "address": "0x0040D6B0",
