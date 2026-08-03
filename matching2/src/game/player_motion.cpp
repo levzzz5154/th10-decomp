@@ -17,6 +17,8 @@ extern "C" float flt_470B64;
 extern "C" float flt_470AFC;
 extern "C" void sub_408750(void*, float, float);
 extern "C" void sub_463B2C(void);
+extern "C" float flt_476F78;
+extern "C" void sub_44BC10(float, float);
 #endif
 #include "th10/util/scalars.hpp"
 
@@ -330,6 +332,75 @@ void PlayerAnimation_AdvanceFrame(PlayerFrameTimer* timer,
 // 0x004076A0 - Player death shrink: until the deadline frame the collision
 // radius eases toward zero and the sprite falls, after which the shrink
 // status bit (0x20) clears. The player's frame clock always advances.
+#ifdef _MSC_VER
+__declspec(naked) void Player_DeathShrink(
+        PlayerDeathClock* clock, int deadline_frame,
+        float* radius, float* fall_y, float shrink_rate,
+        float fall_rate, float delta,
+        Word* status_flags, void* hitbox,
+        float (*approach)(float value, float step),
+        void (*move_hitbox)(void* hitbox, float radius, float y),
+        float span_low, float span_high, float frame_step,
+        long long (*float_to_long)(float value)) {
+    __asm {
+        push ecx
+        mov eax, [esi+680h]
+        cmp eax, [esi+6A4h]
+        jl shrink
+        and dword ptr [esi+43Ch], 0FFFFFFDFh
+        jmp advance_clock
+shrink:
+        fld dword ptr [flt_476F78]
+        push ecx
+        fmul dword ptr [esi+694h]
+        mov ecx, [esi+3E4h]
+        fstp dword ptr [esp]
+        push ecx
+        call sub_44BC10
+        fstp dword ptr [esi+3E4h]
+        fld dword ptr [flt_476F78]
+        mov eax, [esi+3E4h]
+        fmul dword ptr [esi+690h]
+        lea ecx, [esi+3C0h]
+        fadd dword ptr [esi+3D8h]
+        fst dword ptr [esp]
+        mov edx, [esp]
+        fstp dword ptr [esi+3D8h]
+        push edx
+        push eax
+        call sub_408750
+advance_clock:
+        mov edx, [esi+680h]
+        mov ecx, [esi+688h]
+        mov [esi+67Ch], edx
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B68]
+        fnstsw ax
+        test ah, 41h
+        jne outside
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B64]
+        fnstsw ax
+        test ah, 5
+        jp outside
+        fld dword ptr [esi+684h]
+        inc edx
+        fadd dword ptr [flt_470AFC]
+        mov [esi+680h], edx
+        fstp dword ptr [esi+684h]
+        pop ecx
+        ret
+outside:
+        fld dword ptr [ecx]
+        fadd dword ptr [esi+684h]
+        fst dword ptr [esi+684h]
+        call sub_463B2C
+        mov [esi+680h], eax
+        pop ecx
+        ret
+    }
+}
+#else
 void Player_DeathShrink(PlayerDeathClock* clock, int deadline_frame,
                         float* radius, float* fall_y, float shrink_rate,
                         float fall_rate, float delta,
@@ -348,3 +419,4 @@ void Player_DeathShrink(PlayerDeathClock* clock, int deadline_frame,
 	}
 	AdvanceFrameClock(clock, span_low, span_high, frame_step, float_to_long);
 }
+#endif

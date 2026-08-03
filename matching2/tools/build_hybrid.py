@@ -230,6 +230,7 @@ OVERLAYS = (
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),
     ("player_motion.obj", "PlayerAnimation_AdvanceFrame", 0x004074B0),
+    ("player_motion.obj", "Player_DeathShrink", 0x004076A0),
     ("score.obj", "?ScoreOwnedObject_Destroy@@", 0x0040B9D0),
     ("score.obj", "OutsideAxisAlignedBounds", 0x004086B0),
     ("score.obj", "Score_SetPolarVector", 0x00408750),
