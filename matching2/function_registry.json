@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 151,
-      "semantic": 552
+      "exact-overlay": 156,
+      "semantic": 547
     }
   },
   "functions": [
@@ -1587,8 +1587,12 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00412A00_FUN_00412a00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_vm.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_vm.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveIntFromEntity@@"
+      }
     },
     {
       "address": "0x00412A10",
@@ -3509,8 +3513,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427C50_FUN_00427c50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/sound_float_forward.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/sound_float_forward.cpp",
+      "overlay": {
+        "object": "sound_float_forward.obj",
+        "symbol": "?Sound_ForwardFloatAsDouble@@"
+      }
     },
     {
       "address": "0x00427C70",
@@ -6639,8 +6647,12 @@
       "size": 16,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449A90_FUN_00449a90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/d3d_resource_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/d3d_resource_manager.cpp",
+      "overlay": {
+        "object": "d3d_resource_manager.obj",
+        "symbol": "?D3DResourceList_ClearPending@@"
+      }
     },
     {
       "address": "0x00449AA0",
@@ -7099,8 +7111,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C100_FUN_0044c100.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/process.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_DestroyWorker@@"
+      }
     },
     {
       "address": "0x0044C130",
@@ -7109,8 +7125,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C130_FUN_0044c130.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/process.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_StopWorkerNoDelete@@"
+      }
     },
     {
       "address": "0x0044C150",

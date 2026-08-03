@@ -11,11 +11,23 @@ void D3DResourceWorker_Stop(void);
 
 // 0x00449A90 - Clear the three deferred resource-operation slots. Retail
 // also uses this helper from constructor-unwind cleanup.
+#ifdef _MSC_VER
+__declspec(naked) void D3DResourceList_ClearPending(D3DResourceList* list) {
+    __asm {
+        xor ecx, ecx
+        mov [eax+8], ecx
+        mov [eax+0Ch], ecx
+        mov [eax+10h], ecx
+        ret
+    }
+}
+#else
 void D3DResourceList_ClearPending(D3DResourceList* list) {
     list->pending_008 = 0;
     list->pending_00C = 0;
     list->pending_010 = 0;
 }
+#endif
 
 void D3DResourceList_Initialize(D3DResourceList* list) {
     list->reserved_header = 0;

@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (170 of them
+functions (100.0%) as readable semantic C++ or verified overlays (175 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -618,6 +618,11 @@ Current exact-overlay results with MSVC 7.1:
 | `Entity_AngleFromPoint` | 67 | 100% |
 | `Input_NormalizeKeyboardState` | 79 | 100% |
 | `EffectPool_OutsideViewport` | 75 | 100% |
+| `ECL_ResolveIntFromEntity` | 12 | 100% |
+| `Sound_ForwardFloatAsDouble` | 17 | 100% |
+| `D3DResourceList_ClearPending` | 12 | 100% |
+| `Platform_DestroyWorker` | 24 | 100% |
+| `Platform_StopWorkerNoDelete` | 8 | 100% |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
 | `BulletManager_Create` | 384 | semantic C++ |

@@ -16,6 +16,10 @@ extern uint32_t DAT_00476f78; // script-time scale, shared with player/bullet
 extern float DAT_00470d58;   // tiny positive comparison constant (0.0f)
 extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 
+#ifdef _MSC_VER
+extern "C" void sub_44FDB0(void*);
+#endif
+
 namespace {
 
 const unsigned int kFlagsOffset = 0x1444;
@@ -63,7 +67,7 @@ int32_t& EntityInt(void* entity, unsigned int offset) {
 }
 
 void SetEntityTimer(void* entity, unsigned int offset, int target) {
-    auto* timer = reinterpret_cast<FrameTimer*>(
+    FrameTimer* timer = reinterpret_cast<FrameTimer*>(
         static_cast<uint8_t*>(entity) + offset);
     Timer_Set(timer, target);
 }
@@ -207,11 +211,24 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
 // 0x00412A00 - ECL_ResolveIntOperand wrapper that pulls the cursor from the
 // VM state stored at entity+0x14D8. Retail hides the manager pointer in EAX
 // and the operand index in ECX; the clean API takes both explicitly.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ECL_ResolveIntFromEntity(
+        void* entity, unsigned int operand) {
+    __asm {
+        mov eax, [eax+14D8h]
+        mov edx, [eax+4]
+        push ecx
+        call sub_44FDB0
+        ret
+    }
+}
+#else
 int32_t ECL_ResolveIntFromEntity(void* entity, unsigned int operand) {
     void* vm_state = *(void**)((uint8_t*)entity + 0x14D8);
     void* cursor = *(void**)((uint8_t*)vm_state + 4);
     return ECL_ResolveIntOperand(cursor, operand);
 }
+#endif
 
 // 0x00450070 - Resolve a writable float local/external variable destination.
 float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {

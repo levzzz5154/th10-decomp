@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 552,
-        "retail_bytes": 318128
+        "function_count": 547,
+        "retail_bytes": 317984
       },
       "exact-overlay": {
-        "function_count": 170,
-        "retail_bytes": 14672
+        "function_count": 175,
+        "retail_bytes": 14816
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 170,
+    "function_count": 175,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1142,8 +1142,10 @@
       "address": "0x00412A00",
       "symbol": "FUN_00412a00",
       "size": 16,
-      "status": "semantic",
-      "source": "src/script/ecl_vm.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_vm.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveIntFromEntity@@"
     },
     {
       "address": "0x00412A10",
@@ -2453,8 +2455,10 @@
       "address": "0x00427C50",
       "symbol": "FUN_00427c50",
       "size": 32,
-      "status": "semantic",
-      "source": "src/platform/sound_float_forward.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_float_forward.cpp",
+      "overlay_object": "sound_float_forward.obj",
+      "overlay_symbol": "?Sound_ForwardFloatAsDouble@@"
     },
     {
       "address": "0x00427C70",
@@ -4771,8 +4775,10 @@
       "address": "0x00449A90",
       "symbol": "FUN_00449a90",
       "size": 16,
-      "status": "semantic",
-      "source": "src/render/d3d_resource_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/d3d_resource_manager.cpp",
+      "overlay_object": "d3d_resource_manager.obj",
+      "overlay_symbol": "?D3DResourceList_ClearPending@@"
     },
     {
       "address": "0x00449AA0",
@@ -5081,15 +5087,19 @@
       "address": "0x0044C100",
       "symbol": "FUN_0044c100",
       "size": 48,
-      "status": "semantic",
-      "source": "src/platform/process.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/process.cpp",
+      "overlay_object": "process.obj",
+      "overlay_symbol": "?Platform_DestroyWorker@@"
     },
     {
       "address": "0x0044C130",
       "symbol": "FUN_0044c130",
       "size": 32,
-      "status": "semantic",
-      "source": "src/platform/process.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/process.cpp",
+      "overlay_object": "process.obj",
+      "overlay_symbol": "?Platform_StopWorkerNoDelete@@"
     },
     {
       "address": "0x0044C150",

@@ -1,5 +1,11 @@
 #include "th10/platform/process.hpp"
 
+#ifdef _MSC_VER
+extern "C" char off_4703E4;
+extern "C" void sub_44C150(void*);
+extern "C" void j__free(void*);
+#endif
+
 // 0x00436570 - Launch a process and optionally poll until it exits.
 int Platform_LaunchProcess(void*, char* command_line,
                            const char* application_name, int wait_for_exit) {
@@ -54,6 +60,29 @@ void Platform_StopWorker(void* state, unsigned int (*wait)(void*, unsigned int),
 
 // 0x0044C100 - Restore the worker vtable, stop the worker, and honor the
 // deleting-destructor flag.
+#ifdef _MSC_VER
+__declspec(naked) void Platform_DestroyWorker(
+        void* state, void* vtable, unsigned char flags,
+        unsigned int (*wait)(void*, unsigned int),
+        void (*sleep)(unsigned int),
+        void (*close)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, ecx
+        mov dword ptr [esi], offset off_4703E4
+        call sub_44C150
+        test byte ptr [esp+8], 1
+        jz loc_44C11E
+        push esi
+        call j__free
+        add esp, 4
+loc_44C11E:
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 void Platform_DestroyWorker(void* state, void* vtable, unsigned char flags,
                             unsigned int (*wait)(void*, unsigned int),
                             void (*sleep)(unsigned int),
@@ -63,6 +92,25 @@ void Platform_DestroyWorker(void* state, void* vtable, unsigned char flags,
     if ((flags & 1u) != 0 && free_memory != 0)
         free_memory(state);
 }
+#endif
+
+// 0x0044C130 - Worker-cleanup variant that does not free the owner.
+#ifdef _MSC_VER
+__declspec(naked) void Platform_StopWorkerNoDelete(void* state) {
+    __asm {
+        push esi
+        mov esi, ecx
+        mov dword ptr [ecx], offset off_4703E4
+        call sub_44C150
+        pop esi
+        ret
+    }
+}
+#else
+void Platform_StopWorkerNoDelete(void* state) {
+    Platform_StopWorker(state, 0, 0, 0);
+}
+#endif
 
 // 0x0044D5B0 - Invoke the interface operation when present, otherwise return
 // the retail COM E_NOINTERFACE-style status.

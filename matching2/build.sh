@@ -33,6 +33,8 @@ OVERLAY_SOURCES=(
     src/render/animation_manager.cpp
     src/render/d3d_resource_manager.cpp
     src/game/score.cpp
+    src/script/ecl_vm.cpp
+    src/platform/sound_float_forward.cpp
     src/platform/path.cpp
     src/platform/process.cpp
     src/platform/win32_timer.cpp

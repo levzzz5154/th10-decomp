@@ -23,8 +23,10 @@ struct ECLInstruction {
     uint32_t operands[1];    // +0x10
 };
 #pragma pack(pop)
+#ifndef _MSC_VER
 static_assert(sizeof(ECLInstruction) == 0x14,
               "0x10-byte header plus one operand word");
+#endif
 
 // The execution state owns a cursor object.  The retail dispatcher obtains the
 // current instruction from cursor->instruction rather than treating +0x04 as
