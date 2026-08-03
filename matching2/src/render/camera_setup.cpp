@@ -23,6 +23,11 @@ void Camera_Apply(CameraState* camera, const CameraHooks* hooks) {
 // storage parameter replaces retail's fixed DAT_00491CF4 block.
 void Viewport_ApplyDefault(ViewportBlock* storage,
                            const ViewportHooks* hooks) {
+    // 0x0043BCD0 opens by flushing the staged sprite batch (0x00442F50)
+    // when the manager is live, then fills the six-dword block retail keeps
+    // at 0x00491CF4, hands it to SetViewport, and closes with 0x0043BC40.
+    if (hooks->flush_sprite_batch != 0)
+        hooks->flush_sprite_batch(hooks->context);
     storage->x = 0;
     storage->y = 0;
     storage->width = 0x280;

@@ -109,8 +109,9 @@ recovered function and is a triage hint rather than a recovered symbol name.
 `build/th10_reimpl.exe`. `run.sh` exposes the retail `th10.dat`, `thbgm.dat`, and
 configuration through symlinks beside the rebuilt executable, then starts it
 under Wine. Override the defaults with `TH10_ORIGINAL_EXE` and `TH10_GAME_DIR`.
-Every C++ translation unit under `src/` is compiled on each build; duplicate
-basenames are rejected so object selection remains deterministic.
+The hybrid build compiles only the translation units that currently supply
+verified overlays; the rest of the tree uses C++11 features and is built by the
+PE32 standalone target with LLVM-MinGW (`build_all_pe32.sh`).
 `test.sh` runs host-side semantic tests for cleaned portable algorithms. The
 current suite checks the retail `th10.dat` header cipher and decoded metadata,
 the retail content-cipher parameter table, filename-based cipher selection and
@@ -389,8 +390,9 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays, leaving 0
-partial or unrecovered functions. The researched-only bucket is empty. It remains separate from the
+functions (100.0%) as readable semantic C++ or verified overlays (39 of them
+byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
+researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
 source-ready and whose retail-free link, executable, and smoke gates all pass.
 Run `python3 tools/coverage_report.py --check` and
@@ -447,7 +449,7 @@ Current exact-overlay results with MSVC 7.1:
 | Function | Comparable bytes | Result |
 |---|---:|---:|
 | `Entity_Destructor` | 30 | 100% |
-| `Entity_Constructor` | 88 | semantic C++ |
+| `Entity_Constructor` | 88 | 100% |
 | `EntitySecondaryResource_Release` | 30 | 100% |
 | `EntityAnimation_Release` | 30 | 100% |
 | `Entity_AttachResourceSnapshot` | 56 | 100% |
@@ -479,7 +481,12 @@ Current exact-overlay results with MSVC 7.1:
 | `LegacyAllocator::MaxSize` | 6 | 100% |
 | `LegacyString::OwnsPointer` | 57 | 100% |
 | `LegacyAllocator::Allocate` | 12 | 100% |
+| `LegacyString::SetLength` | 31 | 100% |
 | `RuntimeAllocationPool_Initialize` | 22 | 100% |
+| `StageTip_Initialize` | 51 | 100% |
+| `Angle_Normalize` | 70 | 100% |
+| `Angle_NormalizeSum` | 70 | 100% |
+| `Score_SetNormalizedAngle` | 16 | 100% |
 | `DestroyEntityList` | 43 | semantic C++ |
 | `Entity_Init` | 273 | semantic C++ |
 | `BulletManager_Release` | 144 | semantic C++ |
@@ -499,11 +506,10 @@ Current exact-overlay results with MSVC 7.1:
 | `GameRenderTargets_Release` | 57 | semantic; capture and primary reset targets |
 | `Render_HandleDeviceResetAndSnapshot` | 156 | semantic; reset and snapshot dispatch |
 
-`Entity_Constructor`, `Entity_Init`, and `DestroyEntityList` are kept as
-readable semantic C++. They are not hybrid overlays because reproducing their
-retail register allocation would require handwritten naked assembly; the
-hybrid executable continues to use the verified retail bodies at those
-addresses.
+`Entity_Init` and `DestroyEntityList` are kept as readable semantic C++. They
+are not hybrid overlays because reproducing their retail register allocation
+would require handwritten naked assembly; the hybrid executable continues to
+use the verified retail bodies at those addresses.
 The gameplay layouts now also include the complete 0x1F8-byte bullet spawn
 parameter record and the 0x88-byte linked stage-tip record used by the stage
 text parser. Polar-to-Cartesian vector initialization is readable C++ as well;

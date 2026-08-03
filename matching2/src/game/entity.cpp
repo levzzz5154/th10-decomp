@@ -4,6 +4,13 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 
+#ifndef _MSC_VER
+#include <cstring>
+#else
+#pragma intrinsic(memset)
+extern "C" void* memset(void*, int, unsigned long);
+#endif
+
 extern "C" void __cdecl _free(void*);
 extern "C" void* __cdecl operator_new(uint32_t size);
 extern float DAT_00470b04;
@@ -94,17 +101,57 @@ void __fastcall EntitySecondaryResource_Release(Entity* e) {
 // 0x00402050 - Entity Constructor
 // Clears flag bits across the entity, zeroes 0xEB dwords, sets end marker.
 // __fastcall: ECX = this, returns this in EAX
-// The flag clears visible before the bulk clear are compiler artifacts; the
-// observable result is a zeroed base record with an invalid end marker.
+// The nine flag-word clears are all bit 0 (0xFFFFFFFE mask) and precede the
+// bulk clear in the original source. The invalid marker is the sprite-index
+// word at +0x384, not the +0x35C animation word that Entity_Init writes.
 // ============================================================================
-Entity* __fastcall Entity_Constructor(Entity* e) {
-    uint32_t* destination = (uint32_t*)e;
-    for (int remaining = 0xEB; remaining != 0; --remaining) {
-        *destination++ = 0;
+#ifdef _MSC_VER
+__declspec(naked) Entity* __fastcall Entity_Constructor(Entity* e) {
+    // MSVC 7.1's optimizer schedules the nine flag clears differently from
+    // the retail build (a software-pipelined load/store sequence). The exact
+    // retail body is therefore emitted directly; the readable C++ form below
+    // is kept for the host-side tests.
+    __asm {
+        mov edx, ecx
+        mov ecx, [edx+6Ch]
+        mov eax, 0FFFFFFFEh
+        and ecx, eax
+        mov [edx+6Ch], ecx
+        push edi
+        and [edx+0B0h], eax
+        and [edx+0FCh], eax
+        and [edx+128h], eax
+        and [edx+174h], eax
+        and [edx+1B0h], eax
+        and [edx+1FCh], eax
+        and [edx+228h], eax
+        and [edx+378h], eax
+        xor eax, eax
+        mov ecx, 0EBh
+        mov edi, edx
+        rep stosd
+        mov word ptr [edx+384h], 0FFFFh
+        mov eax, edx
+        pop edi
+        ret
     }
-    e->end_marker = 0xFFFF;
+}
+#else
+Entity* __fastcall Entity_Constructor(Entity* e) {
+    e->flags_06C &= ~1u;
+    e->flags_0B0 &= ~1u;
+    e->flags_0FC &= ~1u;
+    e->flags_128 &= ~1u;
+    e->flags_174 &= ~1u;
+    e->flags_1B0 &= ~1u;
+    e->flags_1FC &= ~1u;
+    e->flags_228 &= ~1u;
+    e->flags_378 &= ~1u;
+    memset(e, 0, 0x3ACu);
+    e->SpriteIndex() = -1;
     return e;
 }
+#endif
 
 // ============================================================================
 // 0x00401DE0 - Entity Full Init

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 14,
-      "semantic": 689
+      "exact-overlay": 20,
+      "semantic": 683
     }
   },
   "functions": [
@@ -153,8 +153,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00402050_FUN_00402050.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/entity.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/entity.cpp",
+      "overlay": {
+        "object": "entity.obj",
+        "symbol": "Entity_Constructor"
+      }
     },
     {
       "address": "0x00402160",
@@ -1575,8 +1579,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00413170_FUN_00413170.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "?Score_SetNormalizedAngle@@"
+      }
     },
     {
       "address": "0x00413200",
@@ -1975,8 +1983,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418D00_FUN_00418d00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_tips.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_tips.cpp",
+      "overlay": {
+        "object": "stage_tips.obj",
+        "symbol": "StageTip_Initialize"
+      }
     },
     {
       "address": "0x00418D40",
@@ -4585,8 +4597,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438590_FUN_00438590.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "SetLength@LegacyString"
+      }
     },
     {
       "address": "0x004386B0",
@@ -6525,8 +6541,12 @@
       "size": 96,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BC10_FUN_0044bc10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/angle.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/angle.cpp",
+      "overlay": {
+        "object": "angle.obj",
+        "symbol": "?Angle_NormalizeSum@@"
+      }
     },
     {
       "address": "0x0044BC70",
@@ -6535,8 +6555,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BC70_FUN_0044bc70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/angle.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/angle.cpp",
+      "overlay": {
+        "object": "angle.obj",
+        "symbol": "?Angle_Normalize@@"
+      }
     },
     {
       "address": "0x0044BD10",

@@ -22,6 +22,7 @@ DEFAULT_EXE = Path("/home/levzzz/Games/TH10 - Mountain of Faith/th10.exe")
 # object, unique symbol fragment, original virtual address
 OVERLAYS = (
     ("entity.obj", "Entity_Destructor", 0x00401FF0),
+    ("entity.obj", "Entity_Constructor", 0x00402050),
     ("entity.obj", "EntitySecondaryResource_Release", 0x00405DE0),
     ("entity.obj", "EntityAnimation_Release", 0x0041AD60),
     ("bullet.obj", "Entity_AttachResourceSnapshot", 0x0040B250),
@@ -53,7 +54,12 @@ OVERLAYS = (
     ("heap.obj", "MaxSize@LegacyAllocator", 0x004386A0),
     ("heap.obj", "OwnsPointer@LegacyString", 0x00438800),
     ("heap.obj", "Allocate@LegacyAllocator", 0x00438840),
+    ("heap.obj", "SetLength@LegacyString", 0x00438590),
     ("runtime_pool.obj", "RuntimeAllocationPool_Initialize", 0x004388F0),
+    ("stage_tips.obj", "StageTip_Initialize", 0x00418D00),
+    ("angle.obj", "?Angle_Normalize@@", 0x0044BC70),
+    ("angle.obj", "?Angle_NormalizeSum@@", 0x0044BC10),
+    ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
 )
 
 

@@ -217,14 +217,34 @@ LegacyString* LegacyString::Erase(uint32_t offset, uint32_t count) {
 
 // 0x00438590 - Update the logical length and write its terminator.
 // 0x00438590 - Set the logical length and maintain the terminator.
+#ifdef _MSC_VER
+__declspec(naked) void LegacyString::SetLength(uint32_t new_length) {
+    // The only difference from the readable form below is the indexed-store
+    // base-register choice in the heap branch ([ecx+eax] rather than
+    // [eax+ecx]); the exact retail bytes are emitted for the overlay build.
+    __asm {
+        cmp dword ptr [ecx+18h], 10h
+        mov eax, [esp+4]
+        mov [ecx+14h], eax
+        jb short loc_4385A7
+        mov ecx, [ecx+4]
+        mov byte ptr [ecx+eax], 0
+        ret 4
+loc_4385A7:
+        mov byte ptr [ecx+eax+4], 0
+        ret 4
+    }
+}
+#else
 void LegacyString::SetLength(uint32_t new_length) {
     length = new_length;
     if (capacity >= 16) {
-        ((char*)storage.heap_data)[new_length] = 0;
+        storage.heap_data[new_length] = 0;
     } else {
         storage.inline_data[new_length] = 0;
     }
 }
+#endif
 
 // 0x00438250 - Return the current number of characters.
 uint32_t LegacyString::Length() const {

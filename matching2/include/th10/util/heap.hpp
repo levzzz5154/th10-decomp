@@ -22,7 +22,7 @@ struct LegacyString {
     uint32_t allocator_cookie;
     union {
         char inline_data[16];
-        void* heap_data;
+        char* heap_data;
     } storage;
     uint32_t length;
     uint32_t capacity;

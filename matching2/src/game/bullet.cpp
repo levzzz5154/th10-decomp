@@ -195,9 +195,10 @@ void __fastcall Entity_ClearAnims(void* unused, uint8_t* data) {
 
 // 0x0040DC80 - per-entity transform, lifetime and ANM synchronization.
 int BulletEntity_UpdateTransform(uint32_t* bullet_transform) {
-    if (bullet_transform == nullptr)
+    if (bullet_transform == 0)
         return -1;
-    auto* state = reinterpret_cast<unsigned char*>(bullet_transform);
+    unsigned char* state =
+        reinterpret_cast<unsigned char*>(bullet_transform);
     unsigned int& flags =
         *reinterpret_cast<unsigned int*>(state + 0x1444);
     if ((flags & 0x400u) != 0)
@@ -263,7 +264,7 @@ int BulletEntity_UpdateTransform(uint32_t* bullet_transform) {
     }
     const float* speed =
         *reinterpret_cast<const float**>(state + 0x128);
-    if (speed != nullptr) {
+    if (speed != 0) {
         int& previous_frame =
             *reinterpret_cast<int*>(state + 0x11c);
         int& current_frame =
@@ -558,7 +559,7 @@ BulletEntity* BulletEntity_Spawn(
 // in its own import slots. __fastcall so ECX is the manager state.
 // ============================================================================
 void __fastcall BulletManager_Release(BulletManagerState* state) {
-    void* device = (void*)(uintptr_t)DAT_00491be4;
+    void* device = (void*)(unsigned long)DAT_00491be4;
 
     SchedulerCallback* primary = state->primary_callback;
     if (primary != 0) {
@@ -614,14 +615,14 @@ int BulletManager_LoadScripts(BulletManagerState* state) {
         (SchedulerFunction)BulletManager_PrimaryStub);
     primary->flags &= ~2u;
     primary->owner = state;
-    Scheduler_RegisterPrimary(primary, 0x17, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterPrimary(primary, 0x17, (void*)(unsigned long)DAT_00491be4);
     state->primary_callback = primary;
 
     SchedulerCallback* secondary = SchedulerCallback_Create(
         (SchedulerFunction)BulletManager_SecondaryStub);
     secondary->flags &= ~2u;
     secondary->owner = state;
-    Scheduler_RegisterSecondary(secondary, 0x20, (void*)(uintptr_t)DAT_00491be4);
+    Scheduler_RegisterSecondary(secondary, 0x20, (void*)(unsigned long)DAT_00491be4);
     state->secondary_callback = secondary;
 
     return 0;

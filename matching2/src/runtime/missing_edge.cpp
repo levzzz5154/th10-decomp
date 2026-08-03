@@ -3,8 +3,13 @@
 #include <cstdio>
 #include <cstdlib>
 
-[[noreturn]] void Runtime_MissingEdge(unsigned int retail_address,
-                                      const char* edge_name) {
+#ifdef _MSC_VER
+__declspec(noreturn)
+#else
+[[noreturn]]
+#endif
+void Runtime_MissingEdge(unsigned int retail_address,
+                         const char* edge_name) {
     std::fprintf(stderr,
                  "[th10-recon] FATAL missing runtime edge 0x%08X: %s\n",
                  retail_address,

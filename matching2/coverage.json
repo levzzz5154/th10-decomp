@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 689,
-        "retail_bytes": 331040
+        "function_count": 683,
+        "retail_bytes": 330016
       },
       "exact-overlay": {
-        "function_count": 33,
-        "retail_bytes": 1760
+        "function_count": 39,
+        "retail_bytes": 2784
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 33,
+    "function_count": 39,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -159,8 +159,10 @@
       "address": "0x00402050",
       "symbol": "FUN_00402050",
       "size": 272,
-      "status": "semantic",
-      "source": "src/game/entity.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/entity.cpp",
+      "overlay_object": "entity.obj",
+      "overlay_symbol": "Entity_Constructor"
     },
     {
       "address": "0x00402160",
@@ -1152,8 +1154,10 @@
       "address": "0x00413170",
       "symbol": "FUN_00413170",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "?Score_SetNormalizedAngle@@"
     },
     {
       "address": "0x00413200",
@@ -1432,8 +1436,10 @@
       "address": "0x00418D00",
       "symbol": "FUN_00418d00",
       "size": 64,
-      "status": "semantic",
-      "source": "src/game/stage_tips.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_tips.cpp",
+      "overlay_object": "stage_tips.obj",
+      "overlay_symbol": "StageTip_Initialize"
     },
     {
       "address": "0x00418D40",
@@ -3368,8 +3374,10 @@
       "address": "0x00438590",
       "symbol": "FUN_00438590",
       "size": 288,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "SetLength@LegacyString"
     },
     {
       "address": "0x00438680",
@@ -4780,15 +4788,19 @@
       "address": "0x0044BC10",
       "symbol": "FUN_0044bc10",
       "size": 96,
-      "status": "semantic",
-      "source": "src/math/angle.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/angle.cpp",
+      "overlay_object": "angle.obj",
+      "overlay_symbol": "?Angle_NormalizeSum@@"
     },
     {
       "address": "0x0044BC70",
       "symbol": "FUN_0044bc70",
       "size": 160,
-      "status": "semantic",
-      "source": "src/math/angle.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/angle.cpp",
+      "overlay_object": "angle.obj",
+      "overlay_symbol": "?Angle_Normalize@@"
     },
     {
       "address": "0x0044BD10",

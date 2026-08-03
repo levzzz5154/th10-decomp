@@ -15,6 +15,10 @@ struct CameraState {
     float aspect;
     float near_plane;    // 1.0f
     float far_plane;     // 10000.0f
+    // Retail ctx+0xE8/+0xEC, published to the manager at +0x5C/+0x60 (the
+    // quad offset words) by 0x00421480's tail.
+    float clip_x;
+    float clip_y;
 };
 
 struct CameraHooks {
@@ -38,6 +42,7 @@ struct ViewportBlock {
 
 struct ViewportHooks {
     void* context;
+    void (*flush_sprite_batch)(void* context);        // 0x00442F50
     void (*set_viewport)(void* context, const ViewportBlock* viewport);
     void (*reset_clip_state)(void* context); // 0x0043BC40
 };

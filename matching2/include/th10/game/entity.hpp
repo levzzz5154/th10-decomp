@@ -120,12 +120,17 @@ struct Entity {
     };
     // +0x360  second owned resource used by another entity subsystem
     void*     secondary_resource;
+    // +0x364 - 0x377  runtime words not yet named by this header.
+    uint8_t   pad_364[0x14];
+    // +0x378  flag word cleared by Entity_Constructor alongside the animation
+    // slot flags; the trailing script/sprite runtime follows it.
+    uint32_t  flags_378;
     // Script execution state is documented here as raw storage for the same
     // native-pointer portability reason as script_variable_storage above:
     // +0x380 start frame, +0x384 sprite index, +0x386 resource ID,
     // +0x38A script index, +0x38C script base, +0x390 instruction cursor,
     // +0x394 sprite metadata, +0x398 update callback, +0x39C draw callback.
-    uint8_t   animation_runtime_storage[0x3AC - 0x364];
+    uint8_t   animation_runtime_storage[0x3AC - 0x37C];
 
     // Accessors use retail byte offsets deliberately. Native pointers are
     // eight bytes in host-side tests but four bytes in the target ABI, so

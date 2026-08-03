@@ -22,6 +22,7 @@
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/lzss.hpp"
 #include "th10/game/replay_file_load.hpp"
+#include "th10/game/recovery_leaves.hpp"
 #include "th10/game/replay_menu_draw.hpp"
 #include "th10/game/replay_score_draw.hpp"
 #include "th10/game/game_config_defaults.hpp"
@@ -34,6 +35,7 @@
 #include "th10/game/title_menu_runtime.hpp"
 #include "th10/game/title_options_menu.hpp"
 #include "th10/game/game_state.hpp"
+#include "th10/game/entity.hpp"
 #include "th10/render/camera_setup.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/render/anm_file.hpp"
@@ -365,6 +367,10 @@ struct HostContext {
     IDirectSoundBuffer* menu_sound_buffers[3] = {};
     const uint8_t* anm_texture_entry_bases[32] = {};
     IDirect3DTexture9* anm_textures[32] = {};
+    // The present parameters the device was created with; 0x0043BC40's
+    // device-lost recovery resets from the same block retail keeps at
+    // 0x00491D0C.
+    D3DPRESENT_PARAMETERS present_parameters = {};
 #endif
 };
 
@@ -3276,7 +3282,13 @@ void HostConstructEntities(void*, void* base, int stride, int count) {
     std::memset(base, 0, static_cast<size_t>(stride) *
                           static_cast<size_t>(count));
 }
-void HostBindEntity(void*, int, void*) {}
+// Retail 0x00445900 binds every entity slot through 0x00401DE0 (Entity_Init):
+// save position/render-bucket, zero the 0xEB dwords, restore the saved
+// fields, then install the default scales, colours, timers and list
+// self-pointers.
+void HostBindEntity(void*, int, void* entity) {
+    Entity_Init(nullptr, static_cast<Entity*>(entity));
+}
 int HostRegisterPrimary(void*, int) {
     g_host.primary_callbacks += 1;
     return 0;
@@ -4142,6 +4154,7 @@ int HostCreateD3dDevice() {
     parameters.EnableAutoDepthStencil = TRUE;           // retail 1
     parameters.AutoDepthStencilFormat = D3DFMT_D16;     // retail 80
     parameters.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;  // retail 1
+    g_host.present_parameters = parameters;
     HRESULT result = g_host.direct3d->CreateDevice(
         D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
         D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
@@ -4485,8 +4498,13 @@ int HostFrameAdvance(void*) {
             camera.aspect = width / height;
             camera.near_plane = 1.0f;
             camera.far_plane = 10000.0f;
+            // Retail's camera context carries the clip offsets at ctx+0xE8
+            // /+0xEC; the host's camera is the full 640x480 frame, so the
+            // published offset is zero.
+            camera.clip_x = 0.0f;
+            camera.clip_y = 0.0f;
             static CameraHooks camera_hooks = {
-                nullptr,
+                &camera,
                 [](void*, float* out, const float* eye, const float* at,
                    const float* up) {
                     D3DXMatrixLookAtLH(
@@ -4507,11 +4525,21 @@ int HostFrameAdvance(void*) {
                             static_cast<D3DTRANSFORMSTATETYPE>(state),
                             reinterpret_cast<const D3DMATRIX*>(matrix));
                 },
-                // Retail publishes two dwords from its camera context into
-                // the manager at +0x5C/+0x60. The recovered CameraState does
-                // not model those fields, so this edge stays unbound rather
-                // than being filled with a guess.
-                [](void*) {},
+                // Retail 0x00421480's tail publishes the camera context's
+                // clip words into the manager at +0x5C/+0x60, which the
+                // quad pipeline reads as offset_x/offset_y.
+                [](void* context) {
+                    if (g_pGameStateManager == nullptr)
+                        return;
+                    const CameraState* camera_state =
+                        static_cast<const CameraState*>(context);
+                    unsigned char* manager =
+                        static_cast<unsigned char*>(g_pGameStateManager);
+                    *reinterpret_cast<float*>(manager + 0x5C) =
+                        camera_state->clip_x;
+                    *reinterpret_cast<float*>(manager + 0x60) =
+                        camera_state->clip_y;
+                },
             };
             Camera_Apply(&camera, &camera_hooks);
         },
@@ -4519,6 +4547,11 @@ int HostFrameAdvance(void*) {
             static ViewportBlock viewport_storage;
             static ViewportHooks viewport_hooks = {
                 nullptr,
+                // 0x0043BCD0 opens with the sprite-batch flush (0x00442F50).
+                [](void*) {
+                    if (g_host.device != nullptr)
+                        HostAnmStateFlush();
+                },
                 [](void*, const ViewportBlock* viewport) {
                     g_host.viewport_applied =
                         viewport->width == 0x280 && viewport->height == 0x1E0;
@@ -4535,7 +4568,32 @@ int HostFrameAdvance(void*) {
                     applied.MaxZ = viewport->max_z;
                     g_host.device->SetViewport(&applied);
                 },
-                [](void*) {},
+                // 0x0043BC40: twice, clear target+Z opaque black, present,
+                // and on failure reset the device from the present block.
+                [](void*) {
+                    Recovery_ResetDeviceStreams(
+                        g_host.device,
+                        [](void* device) {
+                            if (device != nullptr)
+                                static_cast<IDirect3DDevice9*>(device)->Clear(
+                                    0, nullptr, 3, 0xFF000000u, 1.0f, 0);
+                        },
+                        [](void* device) -> int {
+                            if (device == nullptr)
+                                return -1;
+                            return FAILED(
+                                       static_cast<IDirect3DDevice9*>(device)
+                                           ->Present(nullptr, nullptr,
+                                                     nullptr, nullptr))
+                                       ? -1
+                                       : 0;
+                        },
+                        [](void* device) {
+                            if (device != nullptr)
+                                static_cast<IDirect3DDevice9*>(device)->Reset(
+                                    &g_host.present_parameters);
+                        });
+                },
             };
             Viewport_ApplyDefault(&viewport_storage, &viewport_hooks);
         },
