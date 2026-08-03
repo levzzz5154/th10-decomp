@@ -98,6 +98,8 @@ OVERLAYS = (
     ("recovery_leaves.obj", "?RecoveryState_Configure41F50@@", 0x00441F50),
     ("recovery_leaves.obj", "Recovery_SplitResourcePath", 0x0041A050),
     ("recovery_leaves.obj", "Recovery_ResetEmitter", 0x0040C9A0),
+    ("recovery_leaves.obj", "Recovery_ClearEightBuckets", 0x00419040),
+    ("recovery_leaves.obj", "Recovery_InitializeStateTable", 0x0041F850),
 )
 
 

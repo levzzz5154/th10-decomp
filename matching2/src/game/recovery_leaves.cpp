@@ -34,6 +34,8 @@ extern "C" void sub_41BB00(void*, unsigned long, int, float, float);
 extern "C" void sub_40C9D0(void*);
 extern "C" char* _strchr(const char*, int);
 extern "C" void sub_41A0A0(char*);
+extern "C" char off_4703E4;
+extern "C" unsigned long dword_477820;
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -1177,6 +1179,57 @@ static void ClearOwnedChain(RecoveryOwnedLink* link,
 
 // 0x00419040 - Clear the eight paired resource buckets maintained by the
 // animation loader.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ClearEightBuckets(
+        RecoveryOwnedLink buckets[8], RecoveryOwnedLink direct[8],
+        void (*free_memory)(void*)) {
+    __asm {
+        push ebx
+        push esi
+        push edi
+        mov edi, eax
+        add edi, 7Ch
+        mov ebx, 8
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_419050:
+        mov eax, [edi-60h]
+        test eax, eax
+        jz loc_41906B
+loc_419057:
+        mov esi, [eax+4]
+        mov eax, [eax]
+        push eax
+        call j__free
+        add esp, 4
+        test esi, esi
+        mov eax, esi
+        jnz loc_419057
+loc_41906B:
+        mov eax, [edi]
+        test eax, eax
+        jz loc_419085
+loc_419071:
+        mov ecx, [eax]
+        mov esi, [eax+4]
+        push ecx
+        call j__free
+        add esp, 4
+        test esi, esi
+        mov eax, esi
+        jnz loc_419071
+loc_419085:
+        add edi, 0Ch
+        dec ebx
+        jnz loc_419050
+        pop edi
+        pop esi
+        pop ebx
+        ret
+    }
+}
+#else
 void Recovery_ClearEightBuckets(
         RecoveryOwnedLink buckets[8], RecoveryOwnedLink direct[8],
         void (*free_memory)(void*)) {
@@ -1188,6 +1241,7 @@ void Recovery_ClearEightBuckets(
         direct[index].next = 0;
     }
 }
+#endif
 
 // 0x00413450 - Release the optional owned resource and then its owner.
 void Platform_ReleaseOwnedHandle(
@@ -1658,12 +1712,52 @@ void Recovery_TrimWhitespace(char* text) {
 #endif
 
 // 0x0041F850 - Clear the fixed state table and install its enabled bit.
+#ifdef _MSC_VER
+__declspec(naked) void* Recovery_InitializeStateTable(void* state) {
+    __asm {
+        mov dword ptr [esi+10h], offset off_4703E4
+        lea edx, [esi+30h]
+        xor eax, eax
+        mov [esi+14h], eax
+        mov [esi+18h], eax
+        mov [esi+1Ch], eax
+        mov [esi+20h], eax
+        mov ecx, [edx+6Ch]
+        mov eax, 0FFFFFFFEh
+        and ecx, eax
+        mov [edx+6Ch], ecx
+        push edi
+        and [edx+0B0h], eax
+        and [edx+0FCh], eax
+        and [edx+128h], eax
+        and [edx+174h], eax
+        and [edx+1B0h], eax
+        and [edx+1FCh], eax
+        and [edx+228h], eax
+        and [edx+378h], eax
+        xor eax, eax
+        mov ecx, 0EBh
+        mov edi, edx
+        rep stosd
+        mov word ptr [edx+384h], 0FFFFh
+        mov ecx, 0FCh
+        mov edi, esi
+        rep stosd
+        or dword ptr [esi], 2
+        mov dword_477820, esi
+        mov eax, esi
+        pop edi
+        ret
+    }
+}
+#else
 void* Recovery_InitializeStateTable(void* state) {
     if (state == 0) return 0;
     memset(state, 0, 0x3F0);
     *(RecoveryWord*)state |= 2;
     return state;
 }
+#endif
 
 // 0x00420A90 - Replace a resource extension with .wav and submit it.
 int Recovery_ReplaceExtensionWav(void* context, char* path,
