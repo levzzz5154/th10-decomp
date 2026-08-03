@@ -76,6 +76,13 @@ OVERLAYS = (
     ("recovery_leaves.obj", "Ecl_ForwardFloat", 0x00412AA0),
     ("recovery_leaves.obj", "Ecl_SetResourceSlot", 0x00412720),
     ("recovery_leaves.obj", "Animation_SetActiveCount", 0x00413790),
+    ("recovery_leaves.obj", "Recovery_TrimWhitespace", 0x0041A0A0),
+    ("recovery_leaves.obj", "Recovery_OffsetPoint", 0x00418810),
+    ("recovery_leaves.obj", "Recovery_DecayCounter", 0x00418A00),
+    ("recovery_leaves.obj", "Platform_InvokeConfigured", 0x0044D5D0),
+    ("recovery_leaves.obj", "?Platform_AggregateInterfaces@@", 0x0044D550),
+    ("recovery_leaves.obj", "?Platform_QueryInterfaces@@", 0x0044D600),
+    ("recovery_leaves.obj", "?Platform_FindAvailable@@", 0x0044D370),
 )
 
 

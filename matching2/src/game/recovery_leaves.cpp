@@ -15,7 +15,15 @@ extern "C" void sub_40DAE0(void);
 extern "C" void j__free(void*);
 extern "C" void sub_44D080(void);
 extern "C" void sub_44FF80(void);
+extern "C" void sub_44BF40(void*);
 extern "C" float flt_476F78;
+extern "C" unsigned long dword_497D8C;
+extern "C" float flt_470B4C;
+extern "C" float flt_470B48;
+extern "C" float flt_497D80;
+extern "C" float flt_497D84;
+extern "C" unsigned long dword_497D88;
+extern "C" int _rand(void);
 #endif
 
 static float NormalizeRecoveryAngle(float angle) {
@@ -412,6 +420,33 @@ int PathState_Reset(void* state, RecoveryWord default_speed) {
 // 0x0044D5D0 - Invoke the configured interface operation, setting the
 // in-progress marker first; missing owners return retail's initialization
 // error code.
+#ifdef _MSC_VER
+__declspec(naked) int Platform_InvokeConfigured(
+        void* interface_owner,
+        int (*invoke)(void*, RecoveryWord, RecoveryWord)) {
+    __asm {
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jnz loc_44D5DD
+        mov eax, 800401F0h
+        ret
+loc_44D5DD:
+        mov ecx, [ecx]
+        push esi
+        mov esi, [eax+24h]
+        mov dword ptr [eax+30h], 1
+        mov eax, [eax+20h]
+        mov edx, [ecx]
+        push esi
+        push eax
+        push 0
+        push ecx
+        call dword ptr [edx+30h]
+        pop esi
+        ret
+    }
+}
+#else
 int Platform_InvokeConfigured(void* interface_owner,
                               int (*invoke)(void*, RecoveryWord, RecoveryWord)) {
     RecoveryByte* bytes = (RecoveryByte*)interface_owner;
@@ -421,9 +456,59 @@ int Platform_InvokeConfigured(void* interface_owner,
     return invoke != 0 ? invoke(interface_ptr, *(RecoveryWord*)(bytes + 0x20),
                                 *(RecoveryWord*)(bytes + 0x24)) : 0;
 }
+#endif
 
 // 0x0044D550 - Run both shutdown operations over every interface and OR
 // their status words, then clear the owner's active field.
+#ifdef _MSC_VER
+__declspec(naked) RecoveryWord Platform_AggregateInterfaces(
+        void** interfaces, RecoveryWord count,
+        RecoveryWord (*first)(void*), RecoveryWord (*second)(void*, int)) {
+    __asm {
+        mov eax, [edi+4]
+        test eax, eax
+        jnz loc_44D55D
+        mov eax, 800401F0h
+        ret
+loc_44D55D:
+        mov eax, [edi+10h]
+        push ebx
+        push esi
+        xor ebx, ebx
+        xor esi, esi
+        test eax, eax
+        mov [edi+30h], ebx
+        jbe loc_44D596
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_44D570:
+        mov eax, [edi+4]
+        mov eax, [eax+esi*4]
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+48h]
+        mov edx, [edi+4]
+        or ebx, eax
+        mov eax, [edx+esi*4]
+        mov ecx, [eax]
+        push 0
+        push eax
+        call dword ptr [ecx+34h]
+        or ebx, eax
+        mov eax, [edi+10h]
+        inc esi
+        cmp esi, eax
+        jb loc_44D570
+loc_44D596:
+        pop esi
+        mov eax, ebx
+        mov dword ptr [edi+1Ch], 0
+        pop ebx
+        ret
+    }
+}
+#else
 RecoveryWord Platform_AggregateInterfaces(
         void** interfaces, RecoveryWord count,
         RecoveryWord (*first)(void*), RecoveryWord (*second)(void*, int)) {
@@ -435,6 +520,7 @@ RecoveryWord Platform_AggregateInterfaces(
     }
     return result;
 }
+#endif
 
 // 0x00412ED0 - Change the score mode and invalidate the cached mode result.
 #ifdef _MSC_VER
@@ -463,6 +549,50 @@ void Score_SetNormalizedAngle(void* state, float angle) {
 }
 
 // 0x0044D600 - OR the status returned by every configured interface.
+#ifdef _MSC_VER
+__declspec(naked) RecoveryWord Platform_QueryInterfaces(
+        const RecoveryInterfaceArray* array,
+        RecoveryWord (*query)(void*, RecoveryWord)) {
+    __asm {
+        mov eax, [edi+4]
+        test eax, eax
+        jnz loc_44D60D
+        mov eax, 800401F0h
+        ret
+loc_44D60D:
+        mov eax, [edi+10h]
+        push ebx
+        push esi
+        xor ebx, ebx
+        xor esi, esi
+        test eax, eax
+        jbe loc_44D638
+        _emit 0x8D
+        _emit 0x9B
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+loc_44D620:
+        mov eax, [edi+4]
+        mov eax, [eax+esi*4]
+        mov ecx, [eax]
+        push 0
+        push eax
+        call dword ptr [ecx+34h]
+        or ebx, eax
+        mov eax, [edi+10h]
+        inc esi
+        cmp esi, eax
+        jb loc_44D620
+loc_44D638:
+        pop esi
+        mov eax, ebx
+        pop ebx
+        ret
+    }
+}
+#else
 RecoveryWord Platform_QueryInterfaces(
         const RecoveryInterfaceArray* array,
         RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -474,9 +604,68 @@ RecoveryWord Platform_QueryInterfaces(
     }
     return result;
 }
+#endif
 
 // 0x0044D370 - Pick the first interface whose state is not flagged, falling
 // back to the retail random-index selection when all entries are busy.
+#ifdef _MSC_VER
+__declspec(naked) void* Platform_FindAvailable(
+        const RecoveryInterfaceArray* array, RecoveryWord initial_state,
+        void (*read_state)(void*, RecoveryWord*),
+        RecoveryWord (*random_index)(RecoveryWord)) {
+    __asm {
+        push ecx
+        mov eax, [edi+4]
+        test eax, eax
+        jnz loc_44D37C
+        xor eax, eax
+        pop ecx
+        ret
+loc_44D37C:
+        mov eax, [edi+10h]
+        push esi
+        xor esi, esi
+        test eax, eax
+        jbe loc_44D3B6
+loc_44D386:
+        mov eax, [edi+4]
+        cmp dword ptr [eax+esi*4], 0
+        jz loc_44D3AE
+        mov ecx, eax
+        mov dword ptr [esp+8-4], 0
+        mov eax, [ecx+esi*4]
+        mov edx, [eax]
+        lea ecx, [esp+8-4]
+        push ecx
+        push eax
+        call dword ptr [edx+24h]
+        test byte ptr [esp+8-4], 1
+        jz loc_44D3B6
+loc_44D3AE:
+        mov eax, [edi+10h]
+        inc esi
+        cmp esi, eax
+        jb loc_44D386
+loc_44D3B6:
+        cmp esi, [edi+10h]
+        jz loc_44D3C4
+        mov edx, [edi+4]
+        mov eax, [edx+esi*4]
+        pop esi
+        pop ecx
+        ret
+loc_44D3C4:
+        call _rand
+        xor edx, edx
+        div dword ptr [edi+10h]
+        mov eax, [edi+4]
+        pop esi
+        mov eax, [eax+edx*4]
+        pop ecx
+        ret
+    }
+}
+#else
 void* Platform_FindAvailable(
         const RecoveryInterfaceArray* array, RecoveryWord initial_state,
         void (*read_state)(void*, RecoveryWord*),
@@ -496,6 +685,7 @@ void* Platform_FindAvailable(
         ? random_index(array->count) : 0;
     return array->entries[random % array->count];
 }
+#endif
 
 // 0x00417770 - Release every node in the intrusive cleanup chain, unlinking
 // each node before handing its storage to the platform allocator.
@@ -1051,6 +1241,76 @@ void Recovery_InitializePlayerTimer(void* state, RecoveryWord speed,
 }
 
 // 0x0041A0A0 - Trim the four whitespace classes from both ends of a string.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_TrimWhitespace(char* text) {
+    __asm {
+        push esi
+        push edi
+loc_41A0A2:
+        mov cl, [eax]
+        cmp cl, 20h
+        jz loc_41A0B8
+        cmp cl, 9
+        jz loc_41A0B8
+        cmp cl, 0Ah
+        jz loc_41A0B8
+        cmp cl, 0Dh
+        jnz loc_41A0D6
+loc_41A0B8:
+        mov ecx, eax
+        lea esi, [ecx+1]
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_41A0C0:
+        mov dl, [ecx]
+        inc ecx
+        test dl, dl
+        jnz loc_41A0C0
+        sub ecx, esi
+        test ecx, ecx
+        jle loc_41A0A2
+        lea esi, [eax+1]
+        mov edi, eax
+        rep movsb
+        jmp loc_41A0A2
+loc_41A0D6:
+        mov ecx, eax
+        lea esi, [ecx+1]
+        jmp loc_41A0E0
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_41A0E0:
+        mov dl, [ecx]
+        inc ecx
+        test dl, dl
+        jnz loc_41A0E0
+        sub ecx, esi
+        lea edx, [ecx-1]
+        test edx, edx
+        pop edi
+        pop esi
+        jl locret_41A111
+loc_41A0F2:
+        mov cl, [edx+eax]
+        cmp cl, 20h
+        jz loc_41A109
+        cmp cl, 9
+        jz loc_41A109
+        cmp cl, 0Ah
+        jz loc_41A109
+        cmp cl, 0Dh
+        jnz locret_41A111
+loc_41A109:
+        dec edx
+        mov byte ptr [edx+eax+1], 0
+        jns loc_41A0F2
+locret_41A111:
+        ret
+    }
+}
+#else
 void Recovery_TrimWhitespace(char* text) {
     if (text == 0) return;
     char* begin = text;
@@ -1065,6 +1325,7 @@ void Recovery_TrimWhitespace(char* text) {
         text[--length] = '\0';
     }
 }
+#endif
 
 // 0x0041F850 - Clear the fixed state table and install its enabled bit.
 void* Recovery_InitializeStateTable(void* state) {
@@ -1164,14 +1425,73 @@ void Recovery_InitializeSingleInterface(
 }
 
 // 0x00418810 - Offset a three-dimensional point by the retail stage origin.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_OffsetPoint(const float input[3],
+                                            float output[3]) {
+    __asm {
+        mov dl, byte ptr dword_497D8C
+        mov ecx, 1
+        _emit 0x84
+        _emit 0xD1
+        jnz loc_418825
+        or dword_497D8C, ecx
+loc_418825:
+        fld dword ptr [eax]
+        fadd dword ptr [flt_470B4C]
+        fstp dword ptr [flt_497D80]
+        fld dword ptr [eax+4]
+        fadd dword ptr [flt_470B48]
+        fstp dword ptr [flt_497D84]
+        mov eax, [eax+8]
+        mov dword_497D88, eax
+        mov eax, offset flt_497D80
+        ret
+    }
+}
+#else
 void Recovery_OffsetPoint(const float input[3], float output[3]) {
     if (input == 0 || output == 0) return;
     output[0] = input[0] + 20.0f;
     output[1] = input[1] + 10.0f;
     output[2] = input[2];
 }
+#endif
 
 // 0x00418A00 - Apply the presentation decay to the timer counter.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_DecayCounter(void* state,
+                                             void (*reset)(float)) {
+    __asm {
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        push esi
+        jle loc_418A17
+        push 0BF800000h
+        lea esi, [eax+14h]
+        call sub_44BF40
+        pop esi
+        ret
+loc_418A17:
+        mov ecx, [eax+0Ch]
+        mov esi, 1388h
+        cmp ecx, esi
+        jle loc_418A3F
+        mov edx, [eax+10h]
+        sub ecx, edx
+        cmp edx, 12h
+        mov [eax+0Ch], ecx
+        jge loc_418A37
+        mov dword ptr [eax+10h], 12h
+loc_418A37:
+        cmp [eax+0Ch], esi
+        jge loc_418A3F
+        mov [eax+0Ch], esi
+loc_418A3F:
+        pop esi
+        ret
+    }
+}
+#else
 void Recovery_DecayCounter(void* state, void (*reset)(float)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     if (*(int*)(bytes + 0x18) > 0) {
@@ -1184,6 +1504,7 @@ void Recovery_DecayCounter(void* state, void (*reset)(float)) {
         if (*(int*)(bytes + 0xC) < 5000) *(int*)(bytes + 0xC) = 5000;
     }
 }
+#endif
 
 // 0x0042A8A0 - Append three 16-bit packet fields and report when the packet
 // buffer has crossed the retail 0xe0f-entry threshold.
