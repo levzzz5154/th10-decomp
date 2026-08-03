@@ -10,6 +10,13 @@ extern "C" float flt_470B3C;
 extern "C" float flt_470B38;
 extern "C" float flt_470B54;
 extern "C" double dbl_470B70;
+extern "C" float flt_470C6C;
+extern "C" float flt_470C68;
+extern "C" float flt_470B68;
+extern "C" float flt_470B64;
+extern "C" float flt_470AFC;
+extern "C" void sub_408750(void*, float, float);
+extern "C" void sub_463B2C(void);
 #endif
 #include "th10/util/scalars.hpp"
 
@@ -241,6 +248,60 @@ void Player_WrapVertical(float* axis, float field_extent, float low_bound,
 // counter then advances exactly like the droplet timers: inside the control
 // span it increments by one and the timer gains one frame step; outside, the
 // timer absorbs the control value and the counter is retruncated from it.
+#ifdef _MSC_VER
+__declspec(naked) void PlayerAnimation_AdvanceFrame(
+        PlayerFrameTimer* timer,
+        unsigned int* pose_flags, float span_low,
+        float span_high, float frame_step,
+        int trail_frame_limit,
+        void (*emit_trail)(void),
+        long long (*float_to_long)(float value)) {
+    __asm {
+        cmp dword ptr [esi+618h], 10h
+        jg no_trail
+        fld dword ptr [esi+61Ch]
+        mov eax, [esi+3E4h]
+        fmul dword ptr [flt_470C6C]
+        push ecx
+        lea ecx, [esi+3C0h]
+        fsubr dword ptr [flt_470C68]
+        fadd dword ptr [esi+3D8h]
+        fstp dword ptr [esp]
+        push eax
+        call sub_408750
+        jmp after_trail
+no_trail:
+        xor dword ptr [esi+43Ch], 1
+after_trail:
+        mov edx, [esi+618h]
+        mov ecx, [esi+620h]
+        mov [esi+614h], edx
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B68]
+        fnstsw ax
+        test ah, 41h
+        jne outside
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B64]
+        fnstsw ax
+        test ah, 5
+        jp outside
+        fld dword ptr [esi+61Ch]
+        inc edx
+        fadd dword ptr [flt_470AFC]
+        mov [esi+618h], edx
+        fstp dword ptr [esi+61Ch]
+        ret
+outside:
+        fld dword ptr [ecx]
+        fadd dword ptr [esi+61Ch]
+        fst dword ptr [esi+61Ch]
+        call sub_463B2C
+        mov [esi+618h], eax
+        ret
+    }
+}
+#else
 void PlayerAnimation_AdvanceFrame(PlayerFrameTimer* timer,
                                   unsigned int* pose_flags, float span_low,
                                   float span_high, float frame_step,
@@ -262,6 +323,7 @@ void PlayerAnimation_AdvanceFrame(PlayerFrameTimer* timer,
     timer->timer = control + timer->timer;
     timer->frame = (int)float_to_long(timer->timer);
 }
+#endif
 
 // --- ECL child-VM list leaves -------------------------------------------------
 
