@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 509,
-        "retail_bytes": 313310
+        "function_count": 506,
+        "retail_bytes": 312398
       },
       "exact-overlay": {
-        "function_count": 213,
-        "retail_bytes": 19490
+        "function_count": 216,
+        "retail_bytes": 20402
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 213,
+    "function_count": 216,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4646,22 +4646,28 @@
       "address": "0x00448E30",
       "symbol": "FUN_00448e30",
       "size": 304,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_CreatePrimaryFront@@"
     },
     {
       "address": "0x00448F60",
       "symbol": "FUN_00448f60",
       "size": 304,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_CreateSecondaryBack@@"
     },
     {
       "address": "0x00449090",
       "symbol": "FUN_00449090",
       "size": 304,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_CreateSecondaryFront@@"
     },
     {
       "address": "0x004491C0",

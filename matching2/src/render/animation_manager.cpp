@@ -29,6 +29,9 @@ extern "C" void j__free(void*);
 extern "C" void* sub_449950(void*);
 extern "C" void sub_449870(void*, void*);
 extern "C" void sub_4489D0(void*, void*);
+extern "C" void sub_448A50(void*, void*);
+extern "C" void sub_448AC0(void*, void*);
+extern "C" void sub_448B40(void*, void*);
 extern "C" void sub_43E710(void*, void*);
 extern "C" void sub_4451C0(void*, void*);
 extern "C" void sub_4492A0(void*, void*);
@@ -347,28 +350,115 @@ int AnimationManager_CreatePrimaryBack(
 #endif
 
 // 0x00448E30 - Allocate and prepend an object to the primary animation list.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_CreatePrimaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov ecx, [esp+8+8]
+        mov ebx, eax
+        mov esi, [ebx+35Ch]
+        mov eax, [esp+8+0Ch]
+        push ecx
+        mov ecx, [esp+0Ch+4]
+        or esi, 40000000h
+        push ebx
+        mov [ebx+20h], eax
+        mov [ebx+35Ch], esi
+        call sub_449870
+        mov edx, dword_491C10
+        mov eax, edi
+        call sub_448A50
+        pop esi
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int AnimationManager_CreatePrimaryFront(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Primary, AnimationListInsertion_Front);
 }
+#endif
 
 // 0x00448F60 - Allocate and append an object to the secondary animation list.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_CreateSecondaryBack(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov ecx, [esp+8+8]
+        mov ebx, eax
+        mov esi, [ebx+35Ch]
+        mov eax, [esp+8+0Ch]
+        push ecx
+        mov ecx, [esp+0Ch+4]
+        or esi, 40000000h
+        push ebx
+        mov [ebx+20h], eax
+        mov [ebx+35Ch], esi
+        call sub_449870
+        mov edx, dword_491C10
+        mov eax, edi
+        call sub_448AC0
+        pop esi
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int AnimationManager_CreateSecondaryBack(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Secondary, AnimationListInsertion_Back);
 }
+#endif
 
 // 0x00449090 - Allocate and prepend an object to the secondary animation list.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_CreateSecondaryFront(
+    void* manager, void* resource, int animationIndex, int renderBucket) {
+    __asm {
+        push ebx
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov ecx, [esp+8+8]
+        mov ebx, eax
+        mov esi, [ebx+35Ch]
+        mov eax, [esp+8+0Ch]
+        push ecx
+        mov ecx, [esp+0Ch+4]
+        or esi, 40000000h
+        push ebx
+        mov [ebx+20h], eax
+        mov [ebx+35Ch], esi
+        call sub_449870
+        mov edx, dword_491C10
+        mov eax, edi
+        call sub_448B40
+        pop esi
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int AnimationManager_CreateSecondaryFront(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Secondary, AnimationListInsertion_Front);
 }
+#endif
 
 // 0x00448D50 - Allocate a primary object whose initial position is supplied by
 // the caller before its animation script is selected.

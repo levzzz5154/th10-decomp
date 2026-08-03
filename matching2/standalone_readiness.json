@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 54,
-      "semantic": 125
+      "exact-overlay": 57,
+      "semantic": 122
     }
   },
   "integration_gates": {
@@ -1478,7 +1478,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1489,7 +1489,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1500,7 +1500,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
