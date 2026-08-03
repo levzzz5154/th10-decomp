@@ -47,6 +47,7 @@ extern "C" unsigned long dword_491C30;
 extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void*);
 extern "C" void sub_463B2C(void);
 extern "C" void sub_401DE0(void*, void*);
+extern "C" float flt_470B7C;
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -2016,6 +2017,94 @@ void AnimationObject_InitializeScriptState(
 
 // 0x0043E5A0 - Apply one resource position record to an animation object.
 // The clean entry makes the hidden object/resource/index registers explicit.
+#ifdef _MSC_VER
+__declspec(naked) int AnimationObject_ConfigureFromResource(
+        void* animation, void* resource, int animationIndex) {
+    __asm {
+        push esi
+        mov esi, ecx
+        push edi
+        mov edi, [esi+108h]
+        xor ecx, ecx
+        cmp edi, ecx
+        je fail
+        cmp [esi+124h], ecx
+        jne fail
+        mov word ptr [eax+384h], dx
+        imul edx, edx, 44h
+        mov [eax+308h], esi
+        mov esi, [esi+118h]
+        add edx, esi
+        mov [eax+394h], edx
+        mov edx, [edx+34h]
+        mov [eax+4Ch], edx
+        mov edx, [eax+394h]
+        mov edx, [edx+30h]
+        mov [eax+50h], edx
+        mov [eax+274h], ecx
+        mov [eax+270h], ecx
+        mov [eax+26Ch], ecx
+        mov [eax+268h], ecx
+        mov [eax+260h], ecx
+        mov [eax+25Ch], ecx
+        mov [eax+258h], ecx
+        mov [eax+254h], ecx
+        mov [eax+24Ch], ecx
+        mov [eax+248h], ecx
+        mov [eax+244h], ecx
+        mov [eax+240h], ecx
+        lea esi, [eax+23Ch]
+        mov edx, 3F800000h
+        mov [esi+3Ch], edx
+        mov [esi+28h], edx
+        mov [esi+14h], edx
+        mov [esi], edx
+        mov [eax+2F4h], ecx
+        mov [eax+2F0h], ecx
+        mov [eax+2ECh], ecx
+        mov [eax+2E8h], ecx
+        mov [eax+2E0h], ecx
+        mov [eax+2DCh], ecx
+        mov [eax+2D8h], ecx
+        mov [eax+2D4h], ecx
+        mov [eax+2CCh], ecx
+        mov [eax+2C8h], ecx
+        mov [eax+2C4h], ecx
+        mov [eax+2C0h], ecx
+        mov [eax+2F8h], edx
+        mov [eax+2E4h], edx
+        mov [eax+2D0h], edx
+        mov [eax+2BCh], edx
+        mov ecx, [eax+394h]
+        fld dword ptr [eax+4Ch]
+        lea edi, [eax+27Ch]
+        fmul dword ptr [flt_470B7C]
+        fstp dword ptr [esi]
+        fld dword ptr [eax+50h]
+        fmul dword ptr [flt_470B7C]
+        fstp dword ptr [eax+250h]
+        fld dword ptr [ecx+38h]
+        fdiv dword ptr [ecx+1Ch]
+        fmul dword ptr [eax+4Ch]
+        fstp dword ptr [eax+2BCh]
+        fld dword ptr [ecx+3Ch]
+        fdiv dword ptr [ecx+18h]
+        mov ecx, 10h
+        rep movsd
+        pop edi
+        pop esi
+        fmul dword ptr [eax+50h]
+        fstp dword ptr [eax+2D0h]
+        xor eax, eax
+        ret
+fail:
+        pop edi
+        or eax, 0FFFFFFFFh
+        pop esi
+        ret
+    }
+}
+#else
 int AnimationObject_ConfigureFromResource(
     void* animation, void* resource, int animationIndex) {
     unsigned char* object = (unsigned char*)animation;
@@ -2056,6 +2145,7 @@ int AnimationObject_ConfigureFromResource(
             *(uint32_t*)(object + 0x23C + offset);
     return 0;
 }
+#endif
 
 #ifdef _MSC_VER
 __declspec(naked) void AnimationManager_SetPosition(
