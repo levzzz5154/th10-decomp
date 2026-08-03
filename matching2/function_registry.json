@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 238,
-      "semantic": 465
+      "exact-overlay": 240,
+      "semantic": 463
     }
   },
   "functions": [
@@ -7363,8 +7363,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BEA0_FUN_0044bea0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/menu.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/menu.cpp",
+      "overlay": {
+        "object": "menu.obj",
+        "symbol": "MenuCursor_Advance"
+      }
     },
     {
       "address": "0x0044BF40",
@@ -7881,8 +7885,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004500D0_FUN_004500d0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm_children.obj",
+        "symbol": "EclVm_SpawnChild"
+      }
     },
     {
       "address": "0x00450160",

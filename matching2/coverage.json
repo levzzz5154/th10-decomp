@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 465,
-        "retail_bytes": 304827
+        "function_count": 463,
+        "retail_bytes": 304523
       },
       "exact-overlay": {
-        "function_count": 257,
-        "retail_bytes": 27973
+        "function_count": 259,
+        "retail_bytes": 28277
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 257,
+    "function_count": 259,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5209,8 +5209,10 @@
       "address": "0x0044BEA0",
       "symbol": "FUN_0044bea0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/menu.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/menu.cpp",
+      "overlay_object": "menu.obj",
+      "overlay_symbol": "MenuCursor_Advance"
     },
     {
       "address": "0x0044BF40",
@@ -5554,8 +5556,10 @@
       "address": "0x004500D0",
       "symbol": "FUN_004500d0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm_children.obj",
+      "overlay_symbol": "EclVm_SpawnChild"
     },
     {
       "address": "0x00450160",

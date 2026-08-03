@@ -48,6 +48,8 @@ OVERLAY_SOURCES=(
     src/game/stage_tips.cpp
     src/platform/sound_stream_start.cpp
     src/game/archive_cursor_open.cpp
+    src/game/menu.cpp
+    src/script/ecl_vm_children.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do

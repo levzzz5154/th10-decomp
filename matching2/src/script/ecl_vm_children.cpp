@@ -1,8 +1,17 @@
 #include "th10/script/ecl_vm_children.hpp"
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 #include <cstring>
 #include <vector>
+
+#ifdef _MSC_VER
+extern "C" void* sub_452493(unsigned long);
+extern "C" void sub_44DF70(void*, void*, void*);
+#endif
 
 namespace {
 
@@ -95,6 +104,63 @@ int EclVm_StartChild(EclStartVm* child, EclStartVm* parent,
 // active VM, pushes the link at the head of the owner's child list
 // (anchor +0x1030 / head +0x1034), and forwards the start argument to the
 // child-start helper (retail 0x0044DF70) with the active VM.
+#ifdef _MSC_VER
+__declspec(naked) EclChildVm* EclVm_SpawnChild(
+        EclOwner* owner, void* script, float* start_argument,
+        void* (*allocate)(unsigned int size),
+        void (*start)(void* active_vm, float* argument)) {
+    __asm {
+        push ebx
+        push esi
+        push 1024h
+        call sub_452493
+        xor ebx, ebx
+        add esp, 4
+        cmp eax, ebx
+        je child_null
+        mov [eax+1008h], ebx
+        mov [eax+100Ch], ebx
+        mov esi, eax
+        jmp after_child
+child_null:
+        xor esi, esi
+after_child:
+        push 0Ch
+        call sub_452493
+        mov ecx, [esp+10h]
+        mov [esi+1010h], ecx
+        mov [esi+1014h], edi
+        mov [esi], ebx
+        mov [esi+4], ebx
+        mov edx, [edi+4]
+        mov cl, [edx+101Ch]
+        mov [esi+101Ch], cl
+        lea ecx, [edi+1030h]
+        mov [eax], esi
+        mov [eax+4], ebx
+        mov [eax+8], ebx
+        mov edx, [ecx+4]
+        add esp, 4
+        cmp edx, ebx
+        je no_next
+        mov [eax+4], edx
+        mov edx, [ecx+4]
+        mov [edx+8], eax
+no_next:
+        mov [ecx+4], eax
+        mov [eax+8], ecx
+        mov eax, [esp+10h]
+        mov ecx, [edi+4]
+        push eax
+        push ecx
+        mov eax, esi
+        call sub_44DF70
+        pop esi
+        pop ebx
+        ret 8
+    }
+}
+#else
 EclChildVm* EclVm_SpawnChild(EclOwner* owner, void* script,
                                    float* start_argument,
                                    void* (*allocate)(unsigned int size),
@@ -125,6 +191,7 @@ EclChildVm* EclVm_SpawnChild(EclOwner* owner, void* script,
     if (start != 0) start(owner->active_vm, start_argument);
     return child;
 }
+#endif
 
 // 0x0044FD10 - Tick the interpreter's VM chain for one frame. The first
 // pass runs the anchor's own VM and aborts the whole frame with -1 when it
