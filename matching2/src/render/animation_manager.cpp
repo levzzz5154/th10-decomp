@@ -1103,6 +1103,50 @@ int AnimationObject_ConfigureFromResource(
     return 0;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetPosition(
+    void* manager, int animationHandle, const float* position) {
+    __asm {
+        mov eax, [esp+4]
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_449347
+        push edi
+        mov edx, esi
+        mov edi, [edx]
+        lea ecx, [eax+340h]
+        mov [ecx], edi
+        mov edi, [edx+4]
+        mov [ecx+4], edi
+        mov edx, [edx+8]
+        mov [ecx+8], edx
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        jnz loc_449346
+        mov eax, [eax+14h]
+        test eax, eax
+        jz loc_449346
+loc_449325:
+        mov ecx, [eax]
+        add ecx, 340h
+        mov edx, esi
+        mov edi, [edx]
+        mov [ecx], edi
+        mov edi, [edx+4]
+        mov [ecx+4], edi
+        mov edx, [edx+8]
+        mov [ecx+8], edx
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_449325
+loc_449346:
+        pop edi
+locret_449347:
+        ret 4
+    }
+}
+#else
 void AnimationManager_SetPosition(
     void* manager, int animationHandle, const float* position) {
     AnimationObject* animation =
@@ -1124,6 +1168,7 @@ void AnimationManager_SetPosition(
         child = child->next;
     }
 }
+#endif
 
 // 0x00449350 - Apply the gameplay-to-render translation and propagate it.
 void AnimationManager_SetTranslatedPosition(

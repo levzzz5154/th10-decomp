@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 578,
-        "retail_bytes": 320016
+        "function_count": 577,
+        "retail_bytes": 319920
       },
       "exact-overlay": {
-        "function_count": 144,
-        "retail_bytes": 12784
+        "function_count": 145,
+        "retail_bytes": 12880
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 144,
+    "function_count": 145,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4617,8 +4617,10 @@
       "address": "0x004492F0",
       "symbol": "FUN_004492f0",
       "size": 96,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "?AnimationManager_SetPosition@@"
     },
     {
       "address": "0x00449350",
