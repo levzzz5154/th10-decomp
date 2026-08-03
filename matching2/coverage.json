@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 390,
-        "retail_bytes": 290155
+        "function_count": 388,
+        "retail_bytes": 289627
       },
       "exact-overlay": {
-        "function_count": 332,
-        "retail_bytes": 42645
+        "function_count": 334,
+        "retail_bytes": 43173
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 332,
+    "function_count": 334,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2577,8 +2577,10 @@
       "address": "0x00427D80",
       "symbol": "FUN_00427d80",
       "size": 272,
-      "status": "semantic",
-      "source": "src/game/effect_indicator_slots.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/effect_indicator_slots.cpp",
+      "overlay_object": "effect_indicator_slots.obj",
+      "overlay_symbol": "CellPair_Scale"
     },
     {
       "address": "0x00427E90",
@@ -5247,8 +5249,10 @@
       "address": "0x0044B8E0",
       "symbol": "FUN_0044b8e0",
       "size": 256,
-      "status": "semantic",
-      "source": "src/platform/text_log.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/text_log.cpp",
+      "overlay_object": "text_log.obj",
+      "overlay_symbol": "TextLog_AppendLine"
     },
     {
       "address": "0x0044B9E0",

@@ -137,6 +137,71 @@ void TextLog_Append(TextLog* log, const char* format, ...) {
 // 0x0044B8E0 - Format into a 0x200-byte staging buffer and append inside
 // the text-log critical section, then raise the log's dirty byte after
 // leaving.
+#ifdef _MSC_VER
+__declspec(naked) void TextLog_AppendLine(TextLog* log, const char* format, ...) {
+    __asm {
+        sub esp, 204h
+        mov eax, ___security_cookie
+        xor eax, esp
+        push 4922BCh
+        mov [esp+204h], eax
+        call dword ptr [__imp_EnterCriticalSection]
+        mov al, byte ptr [DAT_0049231f]
+        mov ecx, [esp+208h]
+        inc al
+        mov byte ptr [DAT_0049231f], al
+        lea eax, [esp+20Ch]
+        push eax
+        push ecx
+        lea edx, [esp+8]
+        push edx
+        call _vsprintf
+        lea eax, [esp+0Ch]
+        add esp, 0Ch
+        lea edx, [eax+1]
+        nop
+loc_44B930:
+        mov cl, [eax]
+        inc eax
+        test cl, cl
+        jnz loc_44B930
+        sub eax, edx
+        push esi
+        mov esi, [edi+2000h]
+        lea ecx, [esi+eax]
+        lea edx, [edi+1FFFh]
+        cmp ecx, edx
+        jnb loc_44B96E
+        lea edx, [esp+4]
+loc_44B951:
+        mov cl, [edx]
+        inc edx
+        mov [esi], cl
+        inc esi
+        test cl, cl
+        jnz loc_44B951
+        mov ecx, [edi+2000h]
+        add ecx, eax
+        mov eax, ecx
+        mov [edi+2000h], ecx
+        mov byte ptr [eax], 0
+loc_44B96E:
+        push 4922BCh
+        mov byte ptr [edi+2004h], 1
+        call dword ptr [__imp_LeaveCriticalSection]
+        mov al, byte ptr [DAT_0049231f]
+        mov ecx, [esp+204h]
+        dec al
+        pop esi
+        mov byte ptr [DAT_0049231f], al
+        mov eax, [esp+208h]
+        xor ecx, esp
+        call security_check_cookie
+        add esp, 204h
+        ret
+    }
+}
+#else
 void TextLog_AppendLine(TextLog* log, const char* format, ...) {
     char staging[0x200];
 #ifndef _MSC_VER
@@ -160,3 +225,4 @@ void TextLog_AppendLine(TextLog* log, const char* format, ...) {
     va_end(arguments);
 #endif
 }
+#endif

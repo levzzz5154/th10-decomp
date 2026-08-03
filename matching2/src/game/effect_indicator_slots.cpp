@@ -70,11 +70,29 @@ EffectIndicatorSlot* EffectIndicatorPool_Allocate(EffectIndicatorPool* pool,
 
 // 0x00427D80 - Multiply an integer pair into an output pair, reading
 // both inputs before the first store like the retail body.
+#ifdef _MSC_VER
+__declspec(naked) void CellPair_Scale(int32_t out[2], const int32_t pair[2],
+                                      int32_t scale) {
+    __asm {
+        push esi
+        mov esi, ecx
+        mov ecx, [esi+4]
+        mov esi, [esi]
+        imul ecx, edx
+        imul esi, edx
+        mov [eax], esi
+        mov [eax+4], ecx
+        pop esi
+        ret
+    }
+}
+#else
 void CellPair_Scale(int32_t out[2], const int32_t pair[2], int32_t scale) {
     const int32_t second = pair[1];
     out[0] = pair[0] * scale;
     out[1] = second * scale;
 }
+#endif
 
 
 // 0x00427E90 - Materialize a descriptor selected by the caller at 0x00428160

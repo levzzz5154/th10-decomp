@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 313,
-      "semantic": 390
+      "exact-overlay": 315,
+      "semantic": 388
     }
   },
   "functions": [
@@ -3749,8 +3749,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00427D80_FUN_00427d80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/effect_indicator_slots.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/effect_indicator_slots.cpp",
+      "overlay": {
+        "object": "effect_indicator_slots.obj",
+        "symbol": "CellPair_Scale"
+      }
     },
     {
       "address": "0x00427E90",
@@ -7479,8 +7483,12 @@
       "size": 256,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044B8E0_FUN_0044b8e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/text_log.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/text_log.cpp",
+      "overlay": {
+        "object": "text_log.obj",
+        "symbol": "TextLog_AppendLine"
+      }
     },
     {
       "address": "0x0044B9E0",
