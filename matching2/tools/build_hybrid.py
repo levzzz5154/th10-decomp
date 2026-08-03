@@ -85,6 +85,8 @@ OVERLAYS = (
     ("scheduler.obj", "?GameState_DispatchAnimationSlot@@", 0x0042C730),
     ("scheduler.obj", "?GameState_DispatchAnimationSlotSecondary@@", 0x0042C750),
     ("scheduler.obj", "?Scheduler_CreateAndRegister@@", 0x0044A000),
+    ("path.obj", "?Path_DecodeXor@@", 0x00417010),
+    ("process.obj", "?Platform_InvokeInterface@@", 0x0044D5B0),
     ("recovery_leaves.obj", "?Score_SetNormalizedAngle@@", 0x00413170),
     ("recovery_leaves.obj", "GameThread_RunQueueLeaf", 0x00401520),
     ("recovery_leaves.obj", "Recovery_InvokeZero", 0x00427950),

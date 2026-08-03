@@ -2,7 +2,41 @@
 #include "th10/platform/path.hpp"
 #include "th10/archive/resource_manager.hpp"
 
+#ifdef _MSC_VER
+extern "C" char unk_497D40[];
+#endif
+
 // 0x00417010 - Decode bytes with the advancing retail XOR key sequence.
+#ifdef _MSC_VER
+__declspec(naked) const char* Path_DecodeXor(const unsigned char* encoded,
+                                             char* decoded) {
+    __asm {
+        push esi
+        push edi
+        mov edi, eax
+        mov cl, 77h
+        mov dl, 7
+        mov esi, offset unk_497D40
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_417020:
+        mov al, [edi]
+        xor al, cl
+        mov [esi], al
+        inc esi
+        add cl, dl
+        inc edi
+        add dl, 10h
+        test al, al
+        jnz loc_417020
+        pop edi
+        mov eax, offset unk_497D40
+        pop esi
+        ret
+    }
+}
+#else
 const char* Path_DecodeXor(const unsigned char* encoded, char* decoded) {
     unsigned char key = 0x77;
     unsigned char key_step = 7;
@@ -17,6 +51,7 @@ const char* Path_DecodeXor(const unsigned char* encoded, char* decoded) {
     } while (true);
     return decoded;
 }
+#endif
 
 // 0x0043D2A0 - Find a path basename in a fixed-stride resource-name table.
 unsigned int Path_FindBasenameSlot(const char* path, const char* table,

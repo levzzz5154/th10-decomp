@@ -28,6 +28,8 @@ OVERLAY_SOURCES=(
     src/math/vector.cpp
     src/math/timer.cpp
     src/game/scheduler.cpp
+    src/platform/path.cpp
+    src/platform/process.cpp
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
 )

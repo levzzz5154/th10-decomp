@@ -66,6 +66,25 @@ void Platform_DestroyWorker(void* state, void* vtable, unsigned char flags,
 
 // 0x0044D5B0 - Invoke the interface operation when present, otherwise return
 // the retail COM E_NOINTERFACE-style status.
+#ifdef _MSC_VER
+__declspec(naked) int Platform_InvokeInterface(void* state,
+                                               int (*invoke)(void*)) {
+    __asm {
+        mov eax, [ecx+4]
+        test eax, eax
+        jnz loc_44D5BD
+        mov eax, 800401F0h
+        ret
+loc_44D5BD:
+        mov dword ptr [ecx+30h], 0
+        mov eax, [eax]
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+48h]
+        ret
+    }
+}
+#else
 int Platform_InvokeInterface(void* state, int (*invoke)(void*)) {
     unsigned char* bytes = (unsigned char*)state;
     void* interface_ptr = *(void**)(bytes + 4);
@@ -74,6 +93,7 @@ int Platform_InvokeInterface(void* state, int (*invoke)(void*)) {
     *(int*)(bytes + 0x30) = 0;
     return invoke != 0 ? invoke(interface_ptr) : 0;
 }
+#endif
 
 extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(
     OSVERSIONINFOA* version_info);

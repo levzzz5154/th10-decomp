@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 96,
-      "semantic": 607
+      "exact-overlay": 98,
+      "semantic": 605
     }
   },
   "functions": [
@@ -1879,8 +1879,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00417010_FUN_00417010.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/path.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/path.cpp",
+      "overlay": {
+        "object": "path.obj",
+        "symbol": "?Path_DecodeXor@@"
+      }
     },
     {
       "address": "0x00417040",
@@ -7107,8 +7111,12 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D5B0_FUN_0044d5b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/process.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/process.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_InvokeInterface@@"
+      }
     },
     {
       "address": "0x0044D5D0",
