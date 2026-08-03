@@ -15,6 +15,8 @@ extern "C" float flt_470B98;
 extern "C" float flt_470BF0;
 extern "C" float flt_470BEC;
 extern "C" float flt_470AFC;
+extern "C" unsigned long ___security_cookie;
+extern "C" void __stdcall security_check_cookie(unsigned long);
 #endif
 
 namespace {
@@ -86,6 +88,58 @@ uint32_t Rng_NextU32(RngState* state) {
 // pair of outputs. Equivalent to calling Rng_NextU32 twice and keeping the
 // first result; retail bumps the generation counter by 4. No retail caller
 // remains, so this documents the complete generator family.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t Rng_NextU32DoubleStep(RngState* state) {
+    __asm {
+        sub esp, 0Ch
+        mov eax, ___security_cookie
+        xor eax, esp
+        mov [esp+8], eax
+        xor eax, eax
+        mov ax, [ecx]
+        xor ax, 9630h
+        xor edx, edx
+        sub eax, 6553h
+        mov dx, ax
+        shl eax, 2
+        shr dx, 0Eh
+        add eax, edx
+        mov [ecx], ax
+        mov word ptr [esp], ax
+        xor eax, 9630h
+        sub eax, 6553h
+        xor edx, edx
+        mov dx, ax
+        shr dx, 0Eh
+        shl eax, 2
+        add eax, edx
+        mov [ecx], ax
+        mov word ptr [esp+2], ax
+        xor eax, 9630h
+        sub eax, 6553h
+        mov edx, eax
+        xor eax, eax
+        mov ax, dx
+        shr ax, 0Eh
+        shl edx, 2
+        add eax, edx
+        xor eax, 9630h
+        sub eax, 6553h
+        xor edx, edx
+        mov dx, ax
+        shr dx, 0Eh
+        shl eax, 2
+        add edx, eax
+        add dword ptr [ecx+4], 4
+        mov eax, [esp]
+        mov [ecx], dx
+        mov ecx, [esp+8]
+        xor ecx, esp
+        add esp, 0Ch
+        jmp security_check_cookie
+    }
+}
+#else
 uint32_t Rng_NextU32DoubleStep(RngState* state) {
     uint32_t first = Rng_Step(state->seed);
     uint32_t second = Rng_Step(first);
@@ -95,6 +149,7 @@ uint32_t Rng_NextU32DoubleStep(RngState* state) {
     state->generation += 4;
     return (first << 16) | second;
 }
+#endif
 
 // 0x0044BB20 - Uniform float in [0, 1) from the next 32-bit output.
 #ifdef _MSC_VER

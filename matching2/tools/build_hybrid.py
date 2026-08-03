@@ -61,6 +61,7 @@ OVERLAYS = (
     ("angle.obj", "?Angle_Normalize@@", 0x0044BC70),
     ("angle.obj", "?Angle_NormalizeSum@@", 0x0044BC10),
     ("rng.obj", "?Rng_NextU32@@", 0x0044B9E0),
+    ("rng.obj", "?Rng_NextU32DoubleStep@@", 0x0044BA80),
     ("rng.obj", "?Rng_NextFloat@@", 0x0044BB20),
     ("rng.obj", "?Rng_NextFloatSigned@@", 0x0044BB90),
     ("vector.obj", "?SetPolar@Vector2@@", 0x0041F800),

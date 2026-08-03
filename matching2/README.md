@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (67 of them
+functions (100.0%) as readable semantic C++ or verified overlays (68 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
@@ -511,6 +511,7 @@ Current exact-overlay results with MSVC 7.1:
 | `Platform_QueryInterfaces` | 61 | 100% |
 | `Platform_FindAvailable` | 99 | 100% |
 | `Rng_NextU32` | 78 | 100% |
+| `Rng_NextU32DoubleStep` | 147 | 100% |
 | `Rng_NextFloat` | 101 | 100% |
 | `Rng_NextFloatSigned` | 103 | 100% |
 | `Vector2::SetPolar` | 30 | 100% |
