@@ -33,6 +33,8 @@ extern "C" void sub_43E710(void*, void*);
 extern "C" void sub_4451C0(void*, void*);
 extern "C" void sub_4492A0(void*, void*);
 extern "C" void _free(void*);
+extern "C" float flt_470B4C;
+extern "C" float flt_470B48;
 #endif
 
 extern "C" int __stdcall D3DXCreateTexture(
@@ -513,6 +515,228 @@ int AnimationManager_RegisterObject(
         manager, animation, AnimationManagerList_Primary,
         AnimationListInsertion_Back);
 }
+
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_RegisterPrimaryBack(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    __asm {
+        lea ecx, [ebx+4]
+        push esi
+        mov [ecx], ebx
+        mov dword ptr [ecx+4], 0
+        mov dword ptr [ecx+8], 0
+        mov esi, [edx+72DAD4h]
+        test esi, esi
+        jnz loc_4489F6
+        mov [edx+72DAD4h], ecx
+        jmp loc_448A14
+loc_4489F6:
+        mov esi, [edx+72DAD8h]
+        push edi
+        mov edi, [esi+4]
+        test edi, edi
+        jz loc_448A0D
+        mov [ecx+4], edi
+        mov edi, [esi+4]
+        mov [edi+8], ecx
+loc_448A0D:
+        mov [esi+4], ecx
+        mov [ecx+8], esi
+        pop edi
+loc_448A14:
+        mov [edx+72DAD8h], ecx
+        mov esi, [edx+732454h]
+        inc esi
+        mov ecx, esi
+        test ecx, ecx
+        mov [edx+732454h], esi
+        pop esi
+        jnz loc_448A35
+        inc ecx
+        mov [edx+732454h], ecx
+loc_448A35:
+        mov ecx, [edx+732454h]
+        mov [ebx], ecx
+        mov edx, [edx+732454h]
+        mov [eax], edx
+        ret
+    }
+}
+#else
+int AnimationManager_RegisterPrimaryBack(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    (void)handle_out;
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+}
+#endif
+
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_RegisterPrimaryFront(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    __asm {
+        lea ecx, [ebx+4]
+        push esi
+        mov [ecx], ebx
+        mov dword ptr [ecx+4], 0
+        mov dword ptr [ecx+8], 0
+        mov esi, [edx+72DAD4h]
+        test esi, esi
+        jnz loc_448A76
+        mov [edx+72DAD8h], ecx
+        jmp loc_448A8E
+loc_448A76:
+        push edi
+        mov edi, [ecx+4]
+        test edi, edi
+        jz loc_448A87
+        mov [esi+4], edi
+        mov edi, [ecx+4]
+        mov [edi+8], esi
+loc_448A87:
+        mov [ecx+4], esi
+        mov [esi+8], ecx
+        pop edi
+loc_448A8E:
+        mov [edx+72DAD4h], ecx
+        mov esi, [edx+732454h]
+        inc esi
+        mov ecx, esi
+        test ecx, ecx
+        mov [edx+732454h], esi
+        pop esi
+        jnz loc_448AAF
+        inc ecx
+        mov [edx+732454h], ecx
+loc_448AAF:
+        mov ecx, [edx+732454h]
+        mov [ebx], ecx
+        mov edx, [edx+732454h]
+        mov [eax], edx
+        ret
+    }
+}
+#else
+int AnimationManager_RegisterPrimaryFront(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    (void)handle_out;
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Primary,
+        AnimationListInsertion_Front);
+}
+#endif
+
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_RegisterSecondaryBack(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    __asm {
+        lea ecx, [ebx+4]
+        push esi
+        mov [ecx], ebx
+        mov dword ptr [ecx+4], 0
+        mov dword ptr [ecx+8], 0
+        mov esi, [edx+72DADCh]
+        test esi, esi
+        jnz loc_448AE6
+        mov [edx+72DADCh], ecx
+        jmp loc_448B04
+loc_448AE6:
+        mov esi, [edx+72DAE0h]
+        push edi
+        mov edi, [esi+4]
+        test edi, edi
+        jz loc_448AFD
+        mov [ecx+4], edi
+        mov edi, [esi+4]
+        mov [edi+8], ecx
+loc_448AFD:
+        mov [esi+4], ecx
+        mov [ecx+8], esi
+        pop edi
+loc_448B04:
+        mov [edx+72DAE0h], ecx
+        mov esi, [edx+732454h]
+        inc esi
+        mov ecx, esi
+        test ecx, ecx
+        mov [edx+732454h], esi
+        pop esi
+        jnz loc_448B25
+        inc ecx
+        mov [edx+732454h], ecx
+loc_448B25:
+        mov ecx, [edx+732454h]
+        mov [ebx], ecx
+        mov edx, [edx+732454h]
+        mov [eax], edx
+        ret
+    }
+}
+#else
+int AnimationManager_RegisterSecondaryBack(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    (void)handle_out;
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+}
+#endif
+
+#ifdef _MSC_VER
+__declspec(naked) int AnimationManager_RegisterSecondaryFront(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    __asm {
+        lea ecx, [ebx+4]
+        push esi
+        mov [ecx], ebx
+        mov dword ptr [ecx+4], 0
+        mov dword ptr [ecx+8], 0
+        mov esi, [edx+72DADCh]
+        test esi, esi
+        jnz loc_448B66
+        mov [edx+72DAE0h], ecx
+        jmp loc_448B7E
+loc_448B66:
+        push edi
+        mov edi, [ecx+4]
+        test edi, edi
+        jz loc_448B77
+        mov [esi+4], edi
+        mov edi, [ecx+4]
+        mov [edi+8], esi
+loc_448B77:
+        mov [ecx+4], esi
+        mov [esi+8], ecx
+        pop edi
+loc_448B7E:
+        mov [edx+72DADCh], ecx
+        mov esi, [edx+732454h]
+        inc esi
+        mov ecx, esi
+        test ecx, ecx
+        mov [edx+732454h], esi
+        pop esi
+        jnz loc_448B9F
+        inc ecx
+        mov [edx+732454h], ecx
+loc_448B9F:
+        mov ecx, [edx+732454h]
+        mov [ebx], ecx
+        mov edx, [edx+732454h]
+        mov [eax], edx
+        ret
+    }
+}
+#else
+int AnimationManager_RegisterSecondaryFront(
+        void* manager, AnimationObject* animation, void* handle_out) {
+    (void)handle_out;
+    return AnimationManager_RegisterObjectAt(
+        manager, animation, AnimationManagerList_Secondary,
+        AnimationListInsertion_Front);
+}
+#endif
 
 int AnimationManager_RegisterObjectAt(
     void* manager, AnimationObject* animation,
@@ -1017,6 +1241,57 @@ void AnimationManager_SetFlagBit1(void* manager, int animationHandle) {
 #endif
 
 // 0x004493E0 - Mark objects using a retired script resource for removal.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_MarkResourceForRemoval(
+    void* manager, void* resource) {
+    __asm {
+        push esi
+        mov esi, eax
+        mov eax, [esi+72DAD4h]
+        test eax, eax
+        push edi
+        mov edi, 4000000h
+        jz loc_44940C
+loc_4493F3:
+        mov ecx, [eax+4]
+        mov eax, [eax]
+        cmp [eax+308h], edx
+        jnz loc_449406
+        or [eax+35Ch], edi
+loc_449406:
+        test ecx, ecx
+        mov eax, ecx
+        jnz loc_4493F3
+loc_44940C:
+        mov eax, [esi+72DADCh]
+        test eax, eax
+        jz loc_449439
+        jmp loc_449420
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
+loc_449420:
+        mov ecx, [eax+4]
+        mov eax, [eax]
+        cmp [eax+308h], edx
+        jnz loc_449433
+        or [eax+35Ch], edi
+loc_449433:
+        test ecx, ecx
+        mov eax, ecx
+        jnz loc_449420
+loc_449439:
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void AnimationManager_MarkResourceForRemoval(
     void* manager, void* resource) {
     for (unsigned int listIndex = 0; listIndex != 2; ++listIndex) {
@@ -1032,6 +1307,7 @@ void AnimationManager_MarkResourceForRemoval(
         }
     }
 }
+#endif
 
 static void AnimationObject_LoadScriptInternal(
     AnimationObject* animation, void* resource, int animationIndex,
@@ -1289,6 +1565,48 @@ void AnimationManager_SetPosition(
 #endif
 
 // 0x00449350 - Apply the gameplay-to-render translation and propagate it.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetTranslatedPosition(
+    void* manager, int animationHandle, const float* position) {
+    __asm {
+        mov eax, [esp+4]
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_4493BC
+        fld dword ptr [esi]
+        fadd [flt_470B4C]
+        fstp dword ptr [eax+340h]
+        fld dword ptr [esi+4]
+        fadd [flt_470B48]
+        fstp dword ptr [eax+344h]
+        mov ecx, [esi+8]
+        mov [eax+348h], ecx
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        jnz locret_4493BC
+        mov ecx, [eax+14h]
+        test ecx, ecx
+        jz locret_4493BC
+loc_449392:
+        fld dword ptr [esi]
+        mov eax, [ecx]
+        fadd [flt_470B4C]
+        add eax, 340h
+        fstp dword ptr [eax]
+        fld dword ptr [esi+4]
+        fadd [flt_470B48]
+        fstp dword ptr [eax+4]
+        mov edx, [esi+8]
+        mov [eax+8], edx
+        mov ecx, [ecx+4]
+        test ecx, ecx
+        jnz loc_449392
+locret_4493BC:
+        ret 4
+    }
+}
+#else
 void AnimationManager_SetTranslatedPosition(
     void* manager, int animationHandle, const float* position) {
     float translated[3] = {
@@ -1298,6 +1616,7 @@ void AnimationManager_SetTranslatedPosition(
     };
     AnimationManager_SetPosition(manager, animationHandle, translated);
 }
+#endif
 
 // 0x00449450 - Clear a stale animation handle after a failed lookup.
 #ifdef _MSC_VER
@@ -1558,6 +1877,45 @@ int AnimationManager_FindChildByScriptIndex(
     return 0;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) int PlayerAnimation_Create(
+    void* resource, void* scratch, int animationIndex,
+    const float* position) {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+8+8]
+        push esi
+        mov esi, dword_491C10
+        call sub_449950
+        mov esi, eax
+        mov eax, [esi+35Ch]
+        mov ebx, [esp+0Ch+0Ch]
+        mov ecx, [esp+0Ch+4]
+        mov dword ptr [esi+20h], 0
+        or eax, 40000000h
+        mov [esi+35Ch], eax
+        fld dword ptr [edi]
+        fadd [flt_470B4C]
+        fstp dword ptr [esi+340h]
+        fld dword ptr [edi+4]
+        fadd [flt_470B48]
+        fstp dword ptr [esi+344h]
+        mov eax, [edi+8]
+        mov [esi+348h], eax
+        mov eax, esi
+        call sub_43E710
+        mov edx, dword_491C10
+        mov ebx, esi
+        mov eax, ebp
+        call sub_4489D0
+        pop esi
+        pop ebp
+        pop ebx
+        ret 0Ch
+    }
+}
+#else
 int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,
     const float* position) {
@@ -1583,6 +1941,7 @@ int PlayerAnimation_Create(
     *(int*)scratch = handle;
     return handle;
 }
+#endif
 
 // 0x00447F70 - Release the three indexed resource slots owned by a manager.
 #ifdef _MSC_VER
