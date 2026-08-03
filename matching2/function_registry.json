@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 86,
-      "semantic": 617
+      "exact-overlay": 90,
+      "semantic": 613
     }
   },
   "functions": [
@@ -1977,8 +1977,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418150_FUN_00418150.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Heap_DestroyOwned@@"
+      }
     },
     {
       "address": "0x00418190",
@@ -3967,8 +3971,12 @@
       "size": 64,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042CDB0_FUN_0042cdb0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Heap_DestroyOwnedSecondary@@"
+      }
     },
     {
       "address": "0x0042CDF0",
@@ -4327,8 +4335,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00435220_FUN_00435220.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?LegacyString_Duplicate@@"
+      }
     },
     {
       "address": "0x00435250",
@@ -4733,8 +4745,12 @@
       "size": 48,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438350_FUN_00438350.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/util/heap.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/util/heap.cpp",
+      "overlay": {
+        "object": "heap.obj",
+        "symbol": "?Assign@LegacyString@@"
+      }
     },
     {
       "address": "0x00438380",

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 617,
-        "retail_bytes": 322528
+        "function_count": 613,
+        "retail_bytes": 322304
       },
       "exact-overlay": {
-        "function_count": 105,
-        "retail_bytes": 10272
+        "function_count": 109,
+        "retail_bytes": 10496
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 105,
+    "function_count": 109,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1415,8 +1415,10 @@
       "address": "0x00418150",
       "symbol": "FUN_00418150",
       "size": 64,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Heap_DestroyOwned@@"
     },
     {
       "address": "0x00418190",
@@ -2788,8 +2790,10 @@
       "address": "0x0042CDB0",
       "symbol": "FUN_0042cdb0",
       "size": 64,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Heap_DestroyOwnedSecondary@@"
     },
     {
       "address": "0x0042CDF0",
@@ -3040,8 +3044,10 @@
       "address": "0x00435220",
       "symbol": "FUN_00435220",
       "size": 48,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?LegacyString_Duplicate@@"
     },
     {
       "address": "0x00435250",
@@ -3434,8 +3440,10 @@
       "address": "0x00438350",
       "symbol": "FUN_00438350",
       "size": 48,
-      "status": "semantic",
-      "source": "src/util/heap.cpp"
+      "status": "exact-overlay",
+      "source": "src/util/heap.cpp",
+      "overlay_object": "heap.obj",
+      "overlay_symbol": "?Assign@LegacyString@@"
     },
     {
       "address": "0x00438380",

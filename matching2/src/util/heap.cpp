@@ -15,6 +15,13 @@ void* operator new(decltype(sizeof(0)) size);
 extern "C" void LegacyString_ThrowLengthError(void);
 extern "C" void LegacyString_ThrowRangeError(void);
 
+#ifdef _MSC_VER
+extern "C" void j__free(void*);
+extern "C" void sub_417C80(void*);
+extern "C" void sub_42CB60(void*);
+extern "C" void sub_438420(void*);
+#endif
+
 // 0x004352C0 - Initialize an empty allocation owner.
 HeapBuffer::HeapBuffer() : data(0) {
 }
@@ -45,6 +52,23 @@ void __fastcall HeapBuffer_Release(HeapBuffer* buffer) {
 }
 
 // 0x00418150 - Run an owned object's cleanup and release its allocation.
+#ifdef _MSC_VER
+__declspec(naked) void Heap_DestroyOwned(void* object,
+                                         void (*cleanup)(void*),
+                                         void (*free_memory)(void*)) {
+    __asm {
+        test esi, esi
+        jz locret_418161
+        push esi
+        call sub_417C80
+        push esi
+        call j__free
+        pop ecx
+locret_418161:
+        ret
+    }
+}
+#else
 void Heap_DestroyOwned(void* object, void (*cleanup)(void*),
                        void (*free_memory)(void*)) {
     if (object == 0)
@@ -54,8 +78,25 @@ void Heap_DestroyOwned(void* object, void (*cleanup)(void*),
     if (free_memory != 0)
         free_memory(object);
 }
+#endif
 
 // 0x0042CDB0 - Secondary owned-object destructor with the same cleanup order.
+#ifdef _MSC_VER
+__declspec(naked) void Heap_DestroyOwnedSecondary(
+        void* object, void (*cleanup)(void*), void (*free_memory)(void*)) {
+    __asm {
+        test esi, esi
+        jz locret_42CDC1
+        push esi
+        call sub_42CB60
+        push esi
+        call j__free
+        pop ecx
+locret_42CDC1:
+        ret
+    }
+}
+#else
 void Heap_DestroyOwnedSecondary(void* object, void (*cleanup)(void*),
                                 void (*free_memory)(void*)) {
     if (object == 0)
@@ -65,6 +106,7 @@ void Heap_DestroyOwnedSecondary(void* object, void (*cleanup)(void*),
     if (free_memory != 0)
         free_memory(object);
 }
+#endif
 
 // 0x004381F0 - Reset an MSVC 7.1 small-string object to its empty state.
 void __fastcall LegacyString_Clear(LegacyString* string) {
@@ -77,6 +119,39 @@ void __fastcall LegacyString_Clear(LegacyString* string) {
 }
 
 // 0x00435220 - Allocate and copy a null-terminated legacy string.
+#ifdef _MSC_VER
+__declspec(naked) char* LegacyString_Duplicate(const char* text) {
+    __asm {
+        mov eax, edi
+        lea edx, [eax+1]
+loc_435225:
+        mov cl, [eax]
+        inc eax
+        test cl, cl
+        jnz loc_435225
+        sub eax, edx
+        inc eax
+        push eax
+        call _malloc
+        add esp, 4
+        test eax, eax
+        jz locret_43524E
+        push esi
+        mov esi, eax
+        mov ecx, edi
+        sub esi, edi
+loc_435243:
+        mov dl, [ecx]
+        mov [esi+ecx], dl
+        inc ecx
+        test dl, dl
+        jnz loc_435243
+        pop esi
+locret_43524E:
+        ret
+    }
+}
+#else
 char* LegacyString_Duplicate(const char* text) {
     const char* end = text;
     while (*end != 0)
@@ -89,9 +164,37 @@ char* LegacyString_Duplicate(const char* text) {
     }
     return copy;
 }
+#endif
 
 // 0x00438350 - Assign a null-terminated byte string.
 // 0x00438350 - Assign a null-terminated string.
+#ifdef _MSC_VER
+__declspec(naked) void LegacyString::Assign(const char* text) {
+    __asm {
+        push esi
+        mov esi, [esp+4+4]
+        mov eax, esi
+        push edi
+        lea edi, [eax+1]
+        jmp loc_438360
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+loc_438360:
+        mov dl, [eax]
+        inc eax
+        test dl, dl
+        jnz loc_438360
+        sub eax, edi
+        push eax
+        push esi
+        call sub_438420
+        pop edi
+        pop esi
+        ret 4
+    }
+}
+#else
 void LegacyString::Assign(const char* text) {
     const char* end = text;
     char current;
@@ -101,6 +204,7 @@ void LegacyString::Assign(const char* text) {
     } while (current != 0);
     AssignRange(text, end - (text + 1));
 }
+#endif
 
 // 0x00438420 - Assign an explicit byte range, preserving small-string storage
 // and handling ranges which point back into this string.
