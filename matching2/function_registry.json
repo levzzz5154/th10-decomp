@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 301,
-      "semantic": 402
+      "exact-overlay": 302,
+      "semantic": 401
     }
   },
   "functions": [
@@ -2661,8 +2661,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041C5B0_FUN_0041c5b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "ScoreExtendedObject_Initialize"
+      }
     },
     {
       "address": "0x0041C680",

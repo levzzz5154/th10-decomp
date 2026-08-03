@@ -35,6 +35,7 @@ extern "C" float flt_470B94;
 extern "C" unsigned long dword_4924FC;
 extern "C" unsigned long dword_491FF4;
 extern "C" void* dword_491C38;
+extern "C" void sub_41C030(void*, void*);
 #endif
 
 namespace {
@@ -848,6 +849,58 @@ void* ScoreObject_Initialize(void*, void* object) {
 
 // 0x0041C5B0 - Extend the score object constructor with the two embedded
 // entity blocks and their construction sentinels.
+#ifdef _MSC_VER
+__declspec(naked) void* ScoreExtendedObject_Initialize(void* unused, void* object) {
+    __asm {
+        push esi
+        push edi
+        mov edx, ebx
+        call sub_41C030
+        mov dword ptr [ebx], 46DA60h
+        lea edx, [ebx+600h]
+        xor eax, eax
+        mov esi, 0FFFFFFFEh
+        mov ecx, 77h
+        lea edi, [ebx+424h]
+        rep stosd
+        and dword ptr [edx+6Ch], esi
+        and dword ptr [edx+0B0h], esi
+        and dword ptr [edx+0FCh], esi
+        and dword ptr [edx+128h], esi
+        and dword ptr [edx+174h], esi
+        and dword ptr [edx+1B0h], esi
+        and dword ptr [edx+1FCh], esi
+        and dword ptr [edx+228h], esi
+        and dword ptr [edx+378h], esi
+        xor eax, eax
+        mov edi, edx
+        mov ecx, 0EBh
+        rep stosd
+        mov word ptr [edx+384h], 0FFFFh
+        mov edi, [ebx+0A18h]
+        lea edx, [ebx+9ACh]
+        and edi, esi
+        mov [edx+6Ch], edi
+        and dword ptr [edx+0B0h], esi
+        and dword ptr [edx+0FCh], esi
+        and dword ptr [edx+128h], esi
+        and dword ptr [edx+174h], esi
+        and dword ptr [edx+1B0h], esi
+        and dword ptr [edx+1FCh], esi
+        and dword ptr [edx+228h], esi
+        and dword ptr [edx+378h], esi
+        xor eax, eax
+        mov ecx, 0EBh
+        mov edi, edx
+        rep stosd
+        pop edi
+        mov word ptr [edx+384h], 0FFFFh
+        mov eax, ebx
+        pop esi
+        ret
+    }
+}
+#else
 void* ScoreExtendedObject_Initialize(void* unused, void* object) {
     ScoreObject_Initialize(unused, object);
     unsigned char* bytes = (unsigned char*)object;
@@ -873,6 +926,7 @@ void* ScoreExtendedObject_Initialize(void* unused, void* object) {
     *(uint16_t*)(bytes + 0xD30) = 0xFFFF;
     return object;
 }
+#endif
 
 // 0x0041C1C0 - Retire the two scheduler-owned callbacks and drain the
 // score object's owned-record chain. The callback hook is explicit here so
