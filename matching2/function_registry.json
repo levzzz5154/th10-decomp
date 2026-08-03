@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 240,
-      "semantic": 463
+      "exact-overlay": 243,
+      "semantic": 460
     }
   },
   "functions": [
@@ -7813,8 +7813,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FDB0_FUN_0044fdb0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveIntOperand@@"
+      }
     },
     {
       "address": "0x0044FE40",
@@ -7823,8 +7827,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FE40_FUN_0044fe40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveFloatOperand@@"
+      }
     },
     {
       "address": "0x0044FF00",
@@ -7847,8 +7855,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FF80_FUN_0044ff80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveFloatValue@@"
+      }
     },
     {
       "address": "0x00450030",

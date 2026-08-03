@@ -19,6 +19,7 @@ extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 #ifdef _MSC_VER
 extern "C" void sub_44FDB0(void*);
 extern "C" float flt_470B04;
+extern "C" float flt_470B60;
 extern "C" long __cdecl __ftol2(void);
 extern "C" void sub_463B2C(void);
 #endif
@@ -104,6 +105,70 @@ void ECL_ResetDifficultySlots(void* entity) {
 }
 
 // 0x0044FF80 - Resolve an already-decoded float using an operand's mask bit.
+#ifdef _MSC_VER
+__declspec(naked) float ECL_ResolveFloatValue(
+        void* cursor_pointer, unsigned int operand, float encoded) {
+    __asm {
+        push esi
+        mov esi, eax
+        mov eax, [esi+4]
+        movzx edx, word ptr [eax+8]
+        mov eax, 1
+        shl eax, cl
+        test edx, eax
+        je literal
+        fld dword ptr [esp+8]
+        fcomp dword ptr [flt_470B04]
+        fnstsw ax
+        test ah, 1
+        jne negative
+        fld dword ptr [esp+8]
+        call sub_463B2C
+        add eax, [esi+100Ch]
+        fld dword ptr [eax+esi+8]
+        pop esi
+        ret 4
+negative:
+        fld dword ptr [flt_470B60]
+        fld dword ptr [esp+8]
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp external
+        mov eax, [esi+1008h]
+        add eax, 0FFFFFFFCh
+        js literal
+        mov [esi+1008h], eax
+        mov ecx, [eax+esi+8]
+        add eax, 0FFFFFFFCh
+        mov [esi+1008h], eax
+        mov al, [eax+esi+8]
+        cmp al, 66h
+        mov [esp+8], ecx
+        je literal
+        cmp al, 69h
+        jne literal
+        fild dword ptr [esp+8]
+        fstp dword ptr [esp+8]
+literal:
+        fld dword ptr [esp+8]
+        pop esi
+        ret 4
+external:
+        mov esi, [esi+1014h]
+        fld dword ptr [esp+8]
+        push edi
+        mov edi, [esi]
+        call sub_463B2C
+        push eax
+        mov ecx, esi
+        call dword ptr [edi+0Ch]
+        pop edi
+        pop esi
+        ret 4
+    }
+}
+#else
 float ECL_ResolveFloatValue(
     void* cursor_pointer, unsigned int operand, float encoded) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
@@ -150,8 +215,88 @@ float ECL_ResolveFloatValue(
     converted.as_bits = value;
     return converted.as_float;
 }
+#endif
 
 // 0x0044FE40 - Resolve a float stored in the current instruction.
+#ifdef _MSC_VER
+__declspec(naked) float ECL_ResolveFloatOperand(
+        void* cursor_pointer, unsigned int operand) {
+    __asm {
+        push ecx
+        push esi
+        push edi
+        mov esi, eax
+        mov edx, [esi+4]
+        movzx eax, word ptr [edx+8]
+        mov edi, 1
+        shl edi, cl
+        test eax, edi
+        je mask_literal
+        fld dword ptr [edx+ecx*4+10h]
+        fcomp dword ptr [flt_470B04]
+        fnstsw ax
+        test ah, 1
+        jne negative
+        fld dword ptr [edx+ecx*4+10h]
+        call sub_463B2C
+        add eax, [esi+100Ch]
+        fld dword ptr [eax+esi+8]
+        pop edi
+        pop esi
+        pop ecx
+        ret
+negative:
+        fld dword ptr [flt_470B60]
+        fld dword ptr [edx+ecx*4+10h]
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp external
+        mov eax, [esi+1008h]
+        add eax, 0FFFFFFFCh
+        js stack_literal
+        mov [esi+1008h], eax
+        mov ecx, [eax+esi+8]
+        add eax, 0FFFFFFFCh
+        mov [esi+1008h], eax
+        mov al, [eax+esi+8]
+        cmp al, 66h
+        mov [esp+8], ecx
+        je stack_literal
+        cmp al, 69h
+        jne stack_literal
+        fild dword ptr [esp+8]
+        pop edi
+        pop esi
+        pop ecx
+        ret
+stack_literal:
+        fld dword ptr [esp+8]
+        pop edi
+        pop esi
+        pop ecx
+        ret
+external:
+        mov esi, [esi+1014h]
+        fld dword ptr [edx+ecx*4+10h]
+        mov edi, [esi]
+        call sub_463B2C
+        push eax
+        mov ecx, esi
+        call dword ptr [edi+0Ch]
+        pop edi
+        pop esi
+        pop ecx
+        ret
+mask_literal:
+        fld dword ptr [edx+ecx*4+10h]
+        pop edi
+        pop esi
+        pop ecx
+        ret
+    }
+}
+#else
 float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -159,6 +304,7 @@ float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     return ECL_ResolveFloatValue(
         cursor_pointer, operand, BitsFloat(instruction->operands[operand]));
 }
+#endif
 
 // 0x0044FF00 - Resolve an already-decoded integer using an operand's mask bit.
 #ifdef _MSC_VER
@@ -252,6 +398,70 @@ int32_t ECL_ResolveIntValue(
 #endif
 
 // 0x0044FDB0 - Resolve an integer stored in the current instruction.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ECL_ResolveIntOperand(
+        void* cursor_pointer, unsigned int operand) {
+    __asm {
+        mov eax, [esp+4]
+        push ebx
+        push esi
+        mov esi, [edx+4]
+        mov ebx, 1
+        mov ecx, eax
+        push edi
+        movzx edi, word ptr [esi+8]
+        shl ebx, cl
+        test edi, ebx
+        je literal
+        mov esi, [esi+eax*4+10h]
+        test esi, esi
+        jl negative
+        mov eax, [edx+100Ch]
+        pop edi
+        add eax, esi
+        mov eax, [eax+edx+8]
+        pop esi
+        pop ebx
+        ret 4
+negative:
+        cmp esi, 0FFFFFFFFh
+        jne external
+        mov ecx, [edx+1008h]
+        lea esi, [ecx-4]
+        test esi, esi
+        jl return_popped
+        mov [edx+1008h], esi
+        mov eax, [esi+edx+8]
+        add esi, 0FFFFFFFCh
+        mov [edx+1008h], esi
+        cmp byte ptr [esi+edx+8], 66h
+        mov [esp+10h], eax
+        jne return_popped
+        fld dword ptr [esp+10h]
+        call sub_463B2C
+        pop edi
+        pop esi
+        pop ebx
+        ret 4
+external:
+        mov ecx, [edx+1014h]
+        mov edx, [ecx]
+        push esi
+        call dword ptr [edx+4]
+        pop edi
+        pop esi
+        pop ebx
+        ret 4
+literal:
+        mov eax, [esi+eax*4+10h]
+return_popped:
+        pop edi
+        pop esi
+        pop ebx
+        ret 4
+    }
+}
+#else
 int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -260,6 +470,7 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
         cursor_pointer, operand,
         static_cast<int32_t>(instruction->operands[operand]));
 }
+#endif
 
 // 0x00412A00 - ECL_ResolveIntOperand wrapper that pulls the cursor from the
 // VM state stored at entity+0x14D8. Retail hides the manager pointer in EAX

@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 463,
-        "retail_bytes": 304523
+        "function_count": 460,
+        "retail_bytes": 304011
       },
       "exact-overlay": {
-        "function_count": 259,
-        "retail_bytes": 28277
+        "function_count": 262,
+        "retail_bytes": 28789
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 259,
+    "function_count": 262,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5508,15 +5508,19 @@
       "address": "0x0044FDB0",
       "symbol": "FUN_0044fdb0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveIntOperand@@"
     },
     {
       "address": "0x0044FE40",
       "symbol": "FUN_0044fe40",
       "size": 192,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveFloatOperand@@"
     },
     {
       "address": "0x0044FF00",
@@ -5531,8 +5535,10 @@
       "address": "0x0044FF80",
       "symbol": "FUN_0044ff80",
       "size": 176,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveFloatValue@@"
     },
     {
       "address": "0x00450030",
