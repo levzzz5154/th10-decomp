@@ -91,6 +91,13 @@ extern "C" void sub_422220(void*);
 extern "C" void* sub_4246C0(void*);
 extern "C" int sub_4247F0(void);
 extern "C" void sub_424ED0(void*);
+extern "C" void sub_44C150(void);
+extern "C" void* sub_453683(void*, void*, void*, void*, void*, void*, void*);
+extern "C" unsigned long dword_46E354;
+extern "C" unsigned long dword_46E358;
+extern "C" unsigned char byte_46E35C;
+extern "C" unsigned long dword_4918B0;
+extern "C" unsigned long dword_4918B4;
 extern "C" int sub_4055C0(void);
 extern "C" void sub_405620(void*);
 extern "C" int sub_40B560(void*);
@@ -3136,6 +3143,64 @@ bool Recovery_AppendPacket(RecoveryPacketBuffer* buffer, RecoveryWord first,
 #endif
 
 // 0x0042ADD0 - Clear the state header and fill the 0x200-entry random table.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InitializeRandomTable(
+        void* state, RecoveryWord (*random_value)(void*),
+        void* random_state) {
+    __asm {
+        xor eax, eax
+        push esi
+        push edi
+        mov edi, edx
+        mov ecx, 112h
+        rep stosd
+        mov word ptr [edx+2], ax
+        mov word ptr [edx], 5453h
+        mov dword ptr [edx+8], 448h
+        mov ecx, dword_46E354
+        lea eax, [edx+0Ch]
+        mov [eax], ecx
+        mov ecx, dword_46E358
+        mov [eax+4], ecx
+        mov cl, byte ptr byte_46E35C
+        mov [eax+8], cl
+        add edx, 46h
+        mov esi, 200h
+        jmp random_loop
+        _emit 0x8D
+        _emit 0xA4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        jmp random_loop
+        _emit 0x8D
+        _emit 0x49
+        _emit 0x00
+random_loop:
+        mov eax, dword_4918B0
+        mov edi, dword_4918B4
+        xor eax, 9630h
+        sub eax, 6553h
+        xor ecx, ecx
+        mov cx, ax
+        shr cx, 0Eh
+        shl eax, 2
+        add edx, 2
+        add ecx, eax
+        inc edi
+        dec esi
+        mov word ptr dword_4918B0, cx
+        mov dword_4918B4, edi
+        mov word ptr [edx-2], cx
+        jne random_loop
+        pop edi
+        pop esi
+        ret
+    }
+}
+#else
 void Recovery_InitializeRandomTable(void* state,
                                     RecoveryWord (*random_value)(void*),
                                     void* random_state) {
@@ -3149,6 +3214,7 @@ void Recovery_InitializeRandomTable(void* state,
         table[index] = (short)random;
     }
 }
+#endif
 
 // 0x00422360 - Allocate and initialize the timer state, cleaning it up if
 // the downstream initialization reports failure.
@@ -3523,6 +3589,55 @@ void* Recovery_CreateResourceState(
 #endif
 
 // 0x0041FAC0 - Install the worker callback and publish its handle/id pair.
+#ifdef _MSC_VER
+__declspec(naked) int Recovery_StartWorker(
+        void* state, void (*start)(void*),
+        RecoveryWord* handle, RecoveryWord* thread_id) {
+    __asm {
+        push esi
+        push edi
+        push 41FEB0h
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov eax, dword_491BE4
+        push eax
+        mov edi, 3
+        mov [esi+20h], ebx
+        call sub_449AE0
+        push 41FEF0h
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov ecx, dword_491BE4
+        push ecx
+        mov edi, 2
+        mov [esi+20h], ebx
+        call sub_449B70
+        mov [ebx+0Ch], esi
+        lea esi, [ebx+10h]
+        call sub_44C150
+        lea edx, [esi+8]
+        push edx
+        push 0
+        push ebx
+        push 41F990h
+        push 0
+        push 0
+        mov dword ptr [esi+18h], 41F990h
+        mov dword ptr [esi+10h], 1
+        mov dword ptr [esi+0Ch], 0
+        call sub_453683
+        add esp, 18h
+        mov [esi+4], eax
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#else
 int Recovery_StartWorker(void* state, void (*start)(void*),
                          RecoveryWord* handle, RecoveryWord* thread_id) {
     if (state == 0 || start == 0 || handle == 0 || thread_id == 0) return -1;
@@ -3531,6 +3646,7 @@ int Recovery_StartWorker(void* state, void (*start)(void*),
     start(state);
     return 0;
 }
+#endif
 
 // 0x00414570 - Release the three optional composite resources at their raw
 // offsets and clear the slots.
