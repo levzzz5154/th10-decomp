@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 178,
-      "semantic": 525
+      "exact-overlay": 183,
+      "semantic": 520
     }
   },
   "functions": [
@@ -6735,8 +6735,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449AE0_FUN_00449ae0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?Scheduler_RegisterPrimary@@"
+      }
     },
     {
       "address": "0x00449B70",
@@ -6745,8 +6749,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449B70_FUN_00449b70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?Scheduler_RegisterSecondary@@"
+      }
     },
     {
       "address": "0x00449C00",
@@ -6785,8 +6793,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449ED0_FUN_00449ed0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?SchedulerCallback_Create@@"
+      }
     },
     {
       "address": "0x00449F60",
@@ -6795,8 +6807,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449F60_FUN_00449f60.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?Scheduler_Remove@@"
+      }
     },
     {
       "address": "0x0044A000",
@@ -6819,8 +6835,12 @@
       "size": 144,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044A030_FUN_0044a030.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/scheduler.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/scheduler.cpp",
+      "overlay": {
+        "object": "scheduler.obj",
+        "symbol": "?Scheduler_CreateAndRegisterSecondary@@"
+      }
     },
     {
       "address": "0x0044A0C0",

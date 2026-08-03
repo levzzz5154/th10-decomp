@@ -27,7 +27,13 @@ extern "C" float flt_476F78;
 extern "C" void sub_449250(void*, void*, int);
 extern "C" void* sub_449ED0(void*);
 extern "C" void sub_449AE0(void*, void*, void*);
+extern "C" void sub_449B70(void*, void*, void*);
 extern "C" unsigned long dword_491BE4;
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" char CriticalSection;
+extern "C" unsigned char byte_49231C;
+extern "C" void j__free(void*);
 #endif
 
 // 0x00420C00 - Select the dummy animation/resource index from the state flag.
@@ -182,6 +188,41 @@ void GameState_DispatchAnimationSlotSecondary(void* state, int index,
 }
 #endif
 
+#ifdef _MSC_VER
+__declspec(naked) SchedulerCallback* SchedulerCallback_Create(
+        SchedulerFunction function) {
+    __asm {
+        push 24h
+        call operator_new
+        xor ecx, ecx
+        add esp, 4
+        cmp eax, ecx
+        jz loc_449EFF
+        mov edx, [eax+4]
+        mov [eax+8], ecx
+        mov [eax+0Ch], ecx
+        mov [eax+10h], ecx
+        mov [eax], ecx
+        and edx, 0FFFFFFFEh
+        mov [eax+4], edx
+        mov [eax+14h], eax
+        mov [eax+18h], ecx
+        mov [eax+1Ch], ecx
+        jmp loc_449F01
+loc_449EFF:
+        xor eax, eax
+loc_449F01:
+        mov edx, [esp+4]
+        mov [eax+0Ch], ecx
+        mov [eax+10h], ecx
+        mov ecx, [eax+4]
+        or ecx, 1
+        mov [eax+8], edx
+        mov [eax+4], ecx
+        ret 4
+    }
+}
+#else
 SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
     SchedulerCallback* callback =
         (SchedulerCallback*)operator_new(sizeof(SchedulerCallback));
@@ -201,6 +242,7 @@ SchedulerCallback* SchedulerCallback_Create(SchedulerFunction function) {
     callback->flags |= 1;
     return callback;
 }
+#endif
 
 static int Scheduler_Register(
     SchedulerCallback* callback, int priority, void* device,
@@ -232,18 +274,194 @@ static int Scheduler_Register(
     return replaceResult;
 }
 
+#ifdef _MSC_VER
+__declspec(naked) int Scheduler_RegisterPrimary(
+    SchedulerCallback* callback, int priority, void* device) {
+    __asm {
+        mov eax, [esi+0Ch]
+        push ebx
+        xor ebx, ebx
+        test eax, eax
+        jz loc_449AF8
+        mov ecx, [esi+20h]
+        call eax
+        mov ebx, eax
+        mov dword ptr [esi+0Ch], 0
+loc_449AF8:
+        push offset CriticalSection
+        call dword ptr [__imp_EnterCriticalSection]
+        mov dl, byte_49231C
+        mov eax, [esp+4+4]
+        inc dl
+        mov byte_49231C, dl
+        add eax, 14h
+        mov [esi], edi
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jz loc_449B33
+loc_449B21:
+        mov ecx, [eax+4]
+        mov edx, [ecx]
+        cmp [edx], edi
+        jge loc_449B33
+        mov eax, ecx
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jnz loc_449B21
+loc_449B33:
+        mov edx, [eax+4]
+        test edx, edx
+        lea ecx, [esi+14h]
+        jz loc_449B46
+        mov [ecx+4], edx
+        mov edx, [eax+4]
+        mov [edx+8], ecx
+loc_449B46:
+        mov [eax+4], ecx
+        push offset CriticalSection
+        mov [ecx+8], eax
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231C
+        mov eax, ebx
+        pop ebx
+        ret 4
+    }
+}
+#else
 int Scheduler_RegisterPrimary(
     SchedulerCallback* callback, int priority, void* device) {
     return Scheduler_Register(callback, priority, device, 0x14);
 }
+#endif
 
+#ifdef _MSC_VER
+__declspec(naked) int Scheduler_RegisterSecondary(
+    SchedulerCallback* callback, int priority, void* device) {
+    __asm {
+        mov eax, [esi+0Ch]
+        push ebx
+        xor ebx, ebx
+        test eax, eax
+        jz loc_449B88
+        mov ecx, [esi+20h]
+        call eax
+        mov ebx, eax
+        mov dword ptr [esi+0Ch], 0
+loc_449B88:
+        push offset CriticalSection
+        call dword ptr [__imp_EnterCriticalSection]
+        mov dl, byte_49231C
+        mov eax, [esp+4+4]
+        inc dl
+        mov byte_49231C, dl
+        add eax, 38h
+        mov [esi], edi
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jz loc_449BC3
+loc_449BB1:
+        mov ecx, [eax+4]
+        mov edx, [ecx]
+        cmp [edx], edi
+        jge loc_449BC3
+        mov eax, ecx
+        mov ecx, [eax+4]
+        test ecx, ecx
+        jnz loc_449BB1
+loc_449BC3:
+        mov edx, [eax+4]
+        test edx, edx
+        lea ecx, [esi+14h]
+        jz loc_449BD6
+        mov [ecx+4], edx
+        mov edx, [eax+4]
+        mov [edx+8], ecx
+loc_449BD6:
+        mov [eax+4], ecx
+        push offset CriticalSection
+        mov [ecx+8], eax
+        call dword ptr [__imp_LeaveCriticalSection]
+        dec byte_49231C
+        mov eax, ebx
+        pop ebx
+        ret 4
+    }
+}
+#else
 int Scheduler_RegisterSecondary(
     SchedulerCallback* callback, int priority, void* device) {
     return Scheduler_Register(callback, priority, device, 0x38);
 }
+#endif
 
 // 0x00449F60 - Unlink a callback from either scheduler list and retire it
 // when its ownership flag requests deletion.
+#ifdef _MSC_VER
+__declspec(naked) void Scheduler_Remove(
+        SchedulerCallback* callback, void* device) {
+    __asm {
+        push edi
+        xor edi, edi
+        cmp ecx, edi
+        jz loc_449FD0
+        lea eax, [edx+14h]
+        cmp eax, edi
+        push esi
+        jz loc_449F7B
+        nop
+loc_449F70:
+        cmp [eax], ecx
+        jz loc_449F90
+        mov eax, [eax+4]
+        cmp eax, edi
+        jnz loc_449F70
+loc_449F7B:
+        lea eax, [edx+38h]
+        cmp eax, edi
+        jz loc_449FCF
+loc_449F82:
+        cmp [eax], ecx
+        jz loc_449F90
+        mov eax, [eax+4]
+        cmp eax, edi
+        jnz loc_449F82
+        pop esi
+        pop edi
+        ret
+loc_449F90:
+        mov esi, [eax+8]
+        cmp esi, edi
+        jz loc_449FCF
+        mov edx, [eax+4]
+        cmp edx, edi
+        jz loc_449FA1
+        mov [edx+8], esi
+loc_449FA1:
+        mov edx, [eax+8]
+        cmp edx, edi
+        jz loc_449FAE
+        mov esi, [eax+4]
+        mov [edx+4], esi
+loc_449FAE:
+        mov [eax+4], edi
+        mov [eax+8], edi
+        test byte ptr [ecx+4], 1
+        mov [ecx+8], edi
+        jz loc_449FCF
+        push ecx
+        mov [ecx+8], edi
+        mov [ecx+0Ch], edi
+        mov [ecx+10h], edi
+        call j__free
+        add esp, 4
+loc_449FCF:
+        pop esi
+loc_449FD0:
+        pop edi
+        ret
+    }
+}
+#else
 void Scheduler_Remove(SchedulerCallback* callback, void* device) {
     if (callback == 0 || device == 0)
         return;
@@ -271,6 +489,7 @@ void Scheduler_Remove(SchedulerCallback* callback, void* device) {
         _free(callback);
     }
 }
+#endif
 
 // 0x0044A000 - Create a callback, mark it for retirement ownership, and
 // register it on the scheduler's primary list.
@@ -310,6 +529,28 @@ SchedulerCallback* Scheduler_CreateAndRegister(
 
 // 0x0044A030 - Create a zero-priority secondary callback owned by the
 // supplied object and mark it for retirement when removed.
+#ifdef _MSC_VER
+__declspec(naked) SchedulerCallback* Scheduler_CreateAndRegisterSecondary(
+        SchedulerFunction function, void* owner, void* device) {
+    __asm {
+        push esi
+        push eax
+        call sub_449ED0
+        mov ecx, [esp+4+4]
+        mov edx, dword_491BE4
+        mov esi, eax
+        mov [esi+20h], ecx
+        mov ecx, [esi+4]
+        or ecx, 2
+        push edx
+        mov [esi+4], ecx
+        call sub_449B70
+        mov eax, esi
+        pop esi
+        ret 4
+    }
+}
+#else
 SchedulerCallback* Scheduler_CreateAndRegisterSecondary(
         SchedulerFunction function, void* owner, void* device) {
     SchedulerCallback* callback = SchedulerCallback_Create(function);
@@ -320,6 +561,7 @@ SchedulerCallback* Scheduler_CreateAndRegisterSecondary(
     Scheduler_RegisterSecondary(callback, 0, device);
     return callback;
 }
+#endif
 
 static int Scheduler_RunList(void* device, unsigned int listOffset) {
     int resultCount = 0;

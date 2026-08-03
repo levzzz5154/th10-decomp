@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 525,
-        "retail_bytes": 315534
+        "function_count": 520,
+        "retail_bytes": 314798
       },
       "exact-overlay": {
-        "function_count": 197,
-        "retail_bytes": 17266
+        "function_count": 202,
+        "retail_bytes": 18002
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 197,
+    "function_count": 202,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4823,15 +4823,19 @@
       "address": "0x00449AE0",
       "symbol": "FUN_00449ae0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?Scheduler_RegisterPrimary@@"
     },
     {
       "address": "0x00449B70",
       "symbol": "FUN_00449b70",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?Scheduler_RegisterSecondary@@"
     },
     {
       "address": "0x00449C00",
@@ -4858,15 +4862,19 @@
       "address": "0x00449ED0",
       "symbol": "FUN_00449ed0",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?SchedulerCallback_Create@@"
     },
     {
       "address": "0x00449F60",
       "symbol": "FUN_00449f60",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?Scheduler_Remove@@"
     },
     {
       "address": "0x0044A000",
@@ -4881,8 +4889,10 @@
       "address": "0x0044A030",
       "symbol": "FUN_0044a030",
       "size": 144,
-      "status": "semantic",
-      "source": "src/game/scheduler.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/scheduler.cpp",
+      "overlay_object": "scheduler.obj",
+      "overlay_symbol": "?Scheduler_CreateAndRegisterSecondary@@"
     },
     {
       "address": "0x0044A0C0",
