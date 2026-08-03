@@ -2,6 +2,12 @@
 
 #ifdef _MSC_VER
 extern "C" void sub_4065C0(void*);
+extern "C" void sub_4061D0(void*, void*);
+extern "C" void sub_44BF40(float);
+extern "C" void sub_43DC90(void*, int, void*);
+extern "C" float flt_470B40;
+extern "C" float flt_470B3C;
+extern "C" float flt_470B54;
 #endif
 #include "th10/util/scalars.hpp"
 
@@ -78,6 +84,66 @@ int Player_WrapAxisCore(float* axis, float field_extent, float low_bound,
 // 0x00407DA0 - Wrap the player's horizontal coordinate across the playfield.
 // After the wrap check, retail toggles pose-flag bit 0x100000 whenever the
 // focus counter (+0x750) is not positive.
+#ifdef _MSC_VER
+__declspec(naked) void Player_WrapHorizontal(
+        float* axis, float field_extent, float low_bound,
+        float high_bound, float margin, int (*probe)(void),
+        void (*play_wrap_sound)(float pan), int effect_slot,
+        void (*spawn_wrap_effect)(void), int focus_count,
+        unsigned int* pose_flags) {
+    __asm {
+        mov edx, [ebx+39Ch]
+        mov eax, [edx+30h]
+        push eax
+        mov eax, [edx+34h]
+        lea ecx, [ebx+3B4h]
+        push eax
+        call sub_4061D0
+        test eax, eax
+        je done
+        fld dword ptr [ecx]
+        push esi
+        fcomp dword ptr [flt_470B40]
+        push edi
+        fnstsw ax
+        test ah, 5
+        jp wrap_low
+        fld dword ptr [edx+34h]
+        fadd dword ptr [ecx]
+        fadd dword ptr [flt_470B54]
+        jmp store_wrap
+wrap_low:
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B3C]
+        fnstsw ax
+        test ah, 41h
+        jne after_effect
+        fld dword ptr [edx+34h]
+        fadd dword ptr [flt_470B54]
+        fsubr dword ptr [ecx]
+store_wrap:
+        lea esi, [ebx+74Ch]
+        fstp dword ptr [ecx]
+        push 0BF800000h
+        call sub_44BF40
+        mov edi, [ebx+458h]
+        test edi, edi
+        jl after_effect
+        mov ecx, 492590h
+        push 0
+        call sub_43DC90
+after_effect:
+        mov eax, [ebx+750h]
+        test eax, eax
+        pop edi
+        pop esi
+        jg done
+        xor dword ptr [ebx+43Ch], 100000h
+done:
+        ret
+    }
+}
+#else
 void Player_WrapHorizontal(float* axis, float field_extent, float low_bound,
                            float high_bound, float margin, int (*probe)(void),
                            void (*play_wrap_sound)(float pan), int effect_slot,
@@ -88,6 +154,7 @@ void Player_WrapHorizontal(float* axis, float field_extent, float low_bound,
                         spawn_wrap_effect);
     if (focus_count < 1) *pose_flags = *pose_flags ^ 0x100000u;
 }
+#endif
 
 // 0x00407E40 - Wrap the player's vertical coordinate across the playfield.
 // Identical frame to the horizontal leaf, but the focus counter lives at
