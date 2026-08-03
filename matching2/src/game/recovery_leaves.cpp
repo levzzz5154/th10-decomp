@@ -76,6 +76,15 @@ extern "C" unsigned char sub_463B2C(void);
 extern "C" void* sub_452493(unsigned long);
 extern "C" void sub_44D110(void*, void*, void*, void*);
 extern "C" void sub_4524A1(void*);
+extern "C" void sub_452422(void*);
+extern "C" void sub_4136C0(void);
+extern "C" unsigned char dword_474CA0;
+extern "C" unsigned long dword_477810;
+extern "C" unsigned long dword_47784C;
+extern "C" unsigned long dword_477838;
+extern "C" void sub_417C80(void*);
+extern "C" void sub_42CB60(void*);
+extern "C" void sub_41FB50(void*);
 extern "C" int sub_4055C0(void);
 extern "C" void sub_405620(void*);
 extern "C" int sub_40B560(void*);
@@ -3363,6 +3372,56 @@ int Recovery_StartWorker(void* state, void (*start)(void*),
 
 // 0x00414570 - Release the three optional composite resources at their raw
 // offsets and clear the slots.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ReleaseCompositeState(
+        void* state, void (*release)(void*),
+        void (*free_memory)(void*)) {
+    __asm {
+        push ebp
+        push esi
+        mov esi, [ebx+9EB8h]
+        xor ebp, ebp
+        cmp esi, ebp
+        je skip_first
+        call sub_4136C0
+        push esi
+        call sub_4524A1
+        add esp, 4
+        mov [ebx+9EB8h], ebp
+skip_first:
+        test byte ptr dword_474CA0, 9
+        jne skip_all
+        mov esi, dword_491C10
+        add esi, 3AD0DCh
+        push edi
+        mov edi, [esi]
+        cmp edi, ebp
+        je skip_global_release
+        call sub_447810
+        mov eax, [esi]
+        push eax
+        call sub_4524A1
+        add esp, 4
+        mov [esi], ebp
+skip_global_release:
+        mov eax, [ebx+9EBCh]
+        cmp eax, ebp
+        mov [ebx+9E80h], ebp
+        pop edi
+        je skip_second
+        push eax
+        call sub_452422
+        add esp, 4
+        mov [ebx+9EBCh], ebp
+skip_second:
+        mov [ebx+9EBCh], ebp
+skip_all:
+        pop esi
+        pop ebp
+        ret
+    }
+}
+#else
 void Recovery_ReleaseCompositeState(void* state, void (*release)(void*),
                                     void (*free_memory)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -3376,8 +3435,65 @@ void Recovery_ReleaseCompositeState(void* state, void (*release)(void*),
     *(void**)(bytes + 0x9EBC) = 0;
     *(RecoveryWord*)(bytes + 0x9E80) = 0;
 }
+#endif
 
 // 0x004203F0 - Release each global state in the supplied shutdown order.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_ReleaseGlobalStates(
+        void** states, RecoveryWord count,
+        void (*release)(void*), void (*free_memory)(void*)) {
+    __asm {
+        push esi
+        mov esi, dword_477810
+        test esi, esi
+        je next1
+        push esi
+        call sub_417C80
+        push esi
+        call sub_4524A1
+        add esp, 4
+next1:
+        mov esi, dword_47784C
+        test esi, esi
+        je next2
+        push esi
+        call sub_42CB60
+        push esi
+        call sub_4524A1
+        add esp, 4
+next2:
+        mov esi, dword_477820
+        test esi, esi
+        je next3
+        push esi
+        call sub_41FB50
+        push esi
+        call sub_4524A1
+        add esp, 4
+next3:
+        mov esi, dword_477700
+        test esi, esi
+        je next4
+        push esi
+        call sub_40B7B0
+        push esi
+        call sub_4524A1
+        add esp, 4
+next4:
+        mov esi, dword_477838
+        test esi, esi
+        je done
+        push esi
+        call sub_4294A0
+        push esi
+        call sub_4524A1
+        add esp, 4
+done:
+        pop esi
+        ret
+    }
+}
+#else
 void Recovery_ReleaseGlobalStates(void** states, RecoveryWord count,
                                   void (*release)(void*),
                                   void (*free_memory)(void*)) {
@@ -3388,6 +3504,7 @@ void Recovery_ReleaseGlobalStates(void** states, RecoveryWord count,
         states[index] = 0;
     }
 }
+#endif
 
 // 0x004479D0 - Normalize the requested text count, draw four random color
 // words, and dispatch the appropriate text renderer variant.

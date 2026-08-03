@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 454,
-        "retail_bytes": 302827
+        "function_count": 452,
+        "retail_bytes": 302571
       },
       "exact-overlay": {
-        "function_count": 268,
-        "retail_bytes": 29973
+        "function_count": 270,
+        "retail_bytes": 30229
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 268,
+    "function_count": 270,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1356,8 +1356,10 @@
       "address": "0x00414570",
       "symbol": "FUN_00414570",
       "size": 128,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_ReleaseCompositeState"
     },
     {
       "address": "0x004145F0",
@@ -2038,8 +2040,10 @@
       "address": "0x004203F0",
       "symbol": "FUN_004203f0",
       "size": 128,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_ReleaseGlobalStates"
     },
     {
       "address": "0x00420470",
