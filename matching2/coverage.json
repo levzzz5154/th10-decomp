@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 416,
-        "retail_bytes": 296459
+        "function_count": 415,
+        "retail_bytes": 296267
       },
       "exact-overlay": {
-        "function_count": 306,
-        "retail_bytes": 36341
+        "function_count": 307,
+        "retail_bytes": 36533
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 306,
+    "function_count": 307,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2175,8 +2175,10 @@
       "address": "0x00421B90",
       "symbol": "FUN_00421b90",
       "size": 192,
-      "status": "semantic",
-      "source": "src/math/vector3_cross.cpp"
+      "status": "exact-overlay",
+      "source": "src/math/vector3_cross.cpp",
+      "overlay_object": "vector3_cross.obj",
+      "overlay_symbol": "Vector3_Cross"
     },
     {
       "address": "0x00421C50",

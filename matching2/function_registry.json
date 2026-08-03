@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 287,
-      "semantic": 416
+      "exact-overlay": 288,
+      "semantic": 415
     }
   },
   "functions": [
@@ -3137,8 +3137,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421B90_FUN_00421b90.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/math/vector3_cross.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/math/vector3_cross.cpp",
+      "overlay": {
+        "object": "vector3_cross.obj",
+        "symbol": "Vector3_Cross"
+      }
     },
     {
       "address": "0x00421C50",

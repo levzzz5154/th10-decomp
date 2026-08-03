@@ -59,6 +59,7 @@ OVERLAY_SOURCES=(
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp
     src/script/prng.cpp
+    src/math/vector3_cross.cpp
 )
 
 for source in "${OVERLAY_SOURCES[@]}"; do
