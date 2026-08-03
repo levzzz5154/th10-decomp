@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 63,
-      "semantic": 116
+      "exact-overlay": 65,
+      "semantic": 114
     }
   },
   "integration_gates": {
@@ -1830,7 +1830,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/all_source_runtime.cpp"
     },
@@ -1973,7 +1973,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },

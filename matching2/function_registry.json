@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 231,
-      "semantic": 472
+      "exact-overlay": 235,
+      "semantic": 468
     }
   },
   "functions": [
@@ -7415,8 +7415,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C150_FUN_0044c150.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/all_source_runtime.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/all_source_runtime.cpp",
+      "overlay": {
+        "object": "process.obj",
+        "symbol": "?Platform_StopWorker@@"
+      }
     },
     {
       "address": "0x0044C1C0",
@@ -7661,8 +7665,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044D6A0_FUN_0044d6a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/recovery_leaves.cpp",
+      "overlay": {
+        "object": "recovery_leaves.obj",
+        "symbol": "Recovery_InitializeSingleInterface"
+      }
     },
     {
       "address": "0x0044D710",
@@ -7809,8 +7817,12 @@
       "size": 128,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044FF00_FUN_0044ff00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_ResolveIntValue@@"
+      }
     },
     {
       "address": "0x0044FF80",
@@ -7895,8 +7907,12 @@
       "size": 112,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004501B0_FUN_004501b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/script/ecl_core_interpreter.cpp",
+      "overlay": {
+        "object": "ecl_vm.obj",
+        "symbol": "?ECL_SetPolarVector@@"
+      }
     },
     {
       "address": "0x00450220",

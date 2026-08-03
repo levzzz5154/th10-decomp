@@ -73,6 +73,7 @@ extern "C" unsigned long dword_47770C;
 extern "C" unsigned long dword_474C70;
 extern "C" unsigned char sub_463B2C(void);
 extern "C" void* sub_452493(unsigned long);
+extern "C" void sub_44D110(void*, void*, void*, void*);
 extern "C" void sub_4524A1(void*);
 extern "C" int sub_4055C0(void);
 extern "C" void sub_405620(void*);
@@ -2778,6 +2779,51 @@ void Recovery_InitializeInterfaceArray(
 }
 
 // 0x0044D6A0 - Initialize the one-entry interface owner and query it once.
+#ifdef _MSC_VER
+__declspec(naked) void Recovery_InitializeSingleInterface(
+        RecoveryInterfaceArray* state, void* entry, void* first_argument,
+        void* second_argument, RecoveryWord (*query)(void*, RecoveryWord)) {
+    __asm {
+        push edi
+        push 4
+        mov dword ptr [esi], 4705D8h
+        call sub_452493
+        mov ecx, [esp+0Ch]
+        mov edx, [esp+10h]
+        mov [esi+4], eax
+        mov [eax], ecx
+        mov eax, [esp+14h]
+        mov ecx, [esi+4]
+        add esp, 4
+        mov [esi+0Ch], eax
+        mov [esi+8], edx
+        mov dword ptr [esi+10h], 1
+        mov edx, [ecx]
+        xor edi, edi
+        push edi
+        push edx
+        mov eax, esi
+        call sub_44D110
+        mov eax, [esi+4]
+        mov eax, [eax]
+        mov ecx, [eax]
+        push edi
+        push eax
+        call dword ptr [ecx+34h]
+        mov edx, [esp+14h]
+        mov [esi+30h], edi
+        mov [esi+5Ch], edi
+        mov [esi+60h], edi
+        mov [esi+64h], edi
+        mov [esi+68h], edi
+        mov dword ptr [esi], 4705D4h
+        mov [esi+6Ch], edx
+        mov eax, esi
+        pop edi
+        ret 10h
+    }
+}
+#else
 void Recovery_InitializeSingleInterface(
         RecoveryInterfaceArray* state, void* entry, void* first_argument,
         void* second_argument, RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -2788,6 +2834,7 @@ void Recovery_InitializeSingleInterface(
     if (query != 0 && entry != 0) query(entry, 0);
     (void)second_argument;
 }
+#endif
 
 // 0x00418810 - Offset a three-dimensional point by the retail stage origin.
 #ifdef _MSC_VER

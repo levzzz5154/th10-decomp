@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 472,
-        "retail_bytes": 305803
+        "function_count": 468,
+        "retail_bytes": 305339
       },
       "exact-overlay": {
-        "function_count": 250,
-        "retail_bytes": 26997
+        "function_count": 254,
+        "retail_bytes": 27461
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 250,
+    "function_count": 254,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -5243,8 +5243,10 @@
       "address": "0x0044C150",
       "symbol": "FUN_0044c150",
       "size": 112,
-      "status": "semantic",
-      "source": "src/platform/all_source_runtime.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/all_source_runtime.cpp",
+      "overlay_object": "process.obj",
+      "overlay_symbol": "?Platform_StopWorker@@"
     },
     {
       "address": "0x0044C1C0",
@@ -5408,8 +5410,10 @@
       "address": "0x0044D6A0",
       "symbol": "FUN_0044d6a0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/recovery_leaves.cpp",
+      "overlay_object": "recovery_leaves.obj",
+      "overlay_symbol": "Recovery_InitializeSingleInterface"
     },
     {
       "address": "0x0044D710",
@@ -5510,8 +5514,10 @@
       "address": "0x0044FF00",
       "symbol": "FUN_0044ff00",
       "size": 128,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_ResolveIntValue@@"
     },
     {
       "address": "0x0044FF80",
@@ -5567,8 +5573,10 @@
       "address": "0x004501B0",
       "symbol": "FUN_004501b0",
       "size": 112,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "exact-overlay",
+      "source": "src/script/ecl_core_interpreter.cpp",
+      "overlay_object": "ecl_vm.obj",
+      "overlay_symbol": "?ECL_SetPolarVector@@"
     },
     {
       "address": "0x00450220",

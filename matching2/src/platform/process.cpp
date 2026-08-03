@@ -7,6 +7,9 @@ extern "C" void j__free(void*);
 extern "C" void* dword_4660E0;
 extern "C" void* dword_4660E4;
 extern "C" void* dword_46612C;
+extern "C" void* dword_46611C;
+extern "C" void* dword_4660AC;
+extern "C" void* dword_4660CC;
 extern "C" unsigned long ___security_cookie;
 extern "C" void __stdcall security_check_cookie(unsigned long);
 #endif
@@ -115,6 +118,52 @@ int Platform_LaunchProcess(void*, char* command_line,
 
 // 0x0044C130/0x0044C150 - Stop a worker handle, polling pending waits and
 // clearing the worker's state fields before closing the handle.
+#ifdef _MSC_VER
+__declspec(naked) void Platform_StopWorker(
+        void* state, unsigned int (*wait)(void*, unsigned int),
+        void (*sleep)(unsigned int), void (*close)(void*)) {
+    __asm {
+        mov eax, [esi+4]
+        push ebp
+        xor ebp, ebp
+        cmp eax, ebp
+        je done
+        push edi
+        mov edi, dword_46611C
+        push 0C8h
+        push eax
+        mov dword ptr [esi+0Ch], 1
+        mov [esi+10h], ebp
+        call edi
+        cmp eax, 102h
+        jne close_handle
+        push ebx
+        mov ebx, dword_4660AC
+wait_loop:
+        push 1
+        mov dword ptr [esi+0Ch], 1
+        mov [esi+10h], ebp
+        call ebx
+        mov eax, [esi+4]
+        push 0C8h
+        push eax
+        call edi
+        cmp eax, 102h
+        je wait_loop
+        pop ebx
+close_handle:
+        mov ecx, [esi+4]
+        push ecx
+        call dword ptr [dword_4660CC]
+        mov [esi+4], ebp
+        mov [esi+18h], ebp
+        pop edi
+done:
+        pop ebp
+        ret
+    }
+}
+#else
 void Platform_StopWorker(void* state, unsigned int (*wait)(void*, unsigned int),
                          void (*sleep)(unsigned int), void (*close)(void*)) {
     unsigned char* bytes = (unsigned char*)state;
@@ -135,6 +184,7 @@ void Platform_StopWorker(void* state, unsigned int (*wait)(void*, unsigned int),
     *(void**)(bytes + 4) = 0;
     *(unsigned int*)(bytes + 0x18) = 0;
 }
+#endif
 
 // 0x0044C100 - Restore the worker vtable, stop the worker, and honor the
 // deleting-destructor flag.

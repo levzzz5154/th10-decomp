@@ -20,6 +20,7 @@ extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 extern "C" void sub_44FDB0(void*);
 extern "C" float flt_470B04;
 extern "C" long __cdecl __ftol2(void);
+extern "C" void sub_463B2C(void);
 #endif
 
 namespace {
@@ -160,6 +161,55 @@ float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
 }
 
 // 0x0044FF00 - Resolve an already-decoded integer using an operand's mask bit.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ECL_ResolveIntValue(
+        void* cursor_pointer, unsigned int operand, int32_t value) {
+    __asm {
+        mov ecx, [edx+4]
+        mov eax, [esp+8]
+        push esi
+        movzx esi, word ptr [ecx+8]
+        mov ecx, [esp+8]
+        push edi
+        mov edi, 1
+        shl edi, cl
+        test esi, edi
+        pop edi
+        pop esi
+        je return_value
+        test eax, eax
+        jl negative
+        lea ecx, [edx+8]
+        mov edx, [ecx+1004h]
+        add edx, ecx
+        mov eax, [edx+eax]
+        ret 8
+negative:
+        cmp eax, 0FFFFFFFFh
+        jne external
+        mov ecx, [edx+1008h]
+        add ecx, 0FFFFFFFCh
+        js return_value
+        mov [edx+1008h], ecx
+        mov eax, [ecx+edx+8]
+        add ecx, 0FFFFFFFCh
+        mov [edx+1008h], ecx
+        cmp byte ptr [ecx+edx+8], 66h
+        mov [esp+8], eax
+        jne return_value
+        fld dword ptr [esp+8]
+        call sub_463B2C
+        ret 8
+external:
+        mov ecx, [edx+1014h]
+        mov edx, [ecx]
+        push eax
+        call dword ptr [edx+4]
+return_value:
+        ret 8
+    }
+}
+#else
 int32_t ECL_ResolveIntValue(
     void* cursor_pointer, unsigned int operand, int32_t value) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
@@ -199,6 +249,7 @@ int32_t ECL_ResolveIntValue(
         return static_cast<int32_t>(BitsFloat(raw));
     return static_cast<int32_t>(raw);
 }
+#endif
 
 // 0x0044FDB0 - Resolve an integer stored in the current instruction.
 int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
@@ -572,10 +623,29 @@ int32_t ECL_PopScratchValue(void* vm_pointer) {
 #endif
 
 // 0x004501B0 - Convert polar coordinates to a two-component vector.
+#ifdef _MSC_VER
+__declspec(naked) void ECL_SetPolarVector(
+        float* destination, float angle, float magnitude) {
+    __asm {
+        push ecx
+        mov [esp], ecx
+        mov eax, [esp]
+        fld dword ptr [esp+8]
+        fsincos
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax]
+        fmul dword ptr [esp+0Ch]
+        fstp dword ptr [eax+4]
+        pop ecx
+        ret 8
+    }
+}
+#else
 void ECL_SetPolarVector(float* destination, float angle, float magnitude) {
     destination[0] = cosf(angle) * magnitude;
     destination[1] = sinf(angle) * magnitude;
 }
+#endif
 
 // 0x004505B0 - Append a typed value to the VM scratch area.
 int32_t ECL_WriteScratch(void* vm_pointer, char type, unsigned int size,
