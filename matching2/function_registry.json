@@ -3887,7 +3887,7 @@
       "promoted_source": "src/game/frame_counter.cpp",
       "overlay": {
         "object": "frame_counter.obj",
-        "symbol": "FrameCounter_AtInterval"
+        "symbol": "?AtInterval@FrameCounterPair@@"
       }
     },
     {

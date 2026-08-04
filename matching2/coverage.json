@@ -2645,7 +2645,7 @@
       "status": "exact-overlay",
       "source": "src/game/frame_counter.cpp",
       "overlay_object": "frame_counter.obj",
-      "overlay_symbol": "FrameCounter_AtInterval"
+      "overlay_symbol": "?AtInterval@FrameCounterPair@@"
     },
     {
       "address": "0x00427D80",

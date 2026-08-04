@@ -237,7 +237,7 @@ OVERLAYS = (
     ("stage_tip_manager.obj", "StageTipManager_Construct", 0x00418D40),
     ("stage_tip_manager.obj", "StageTip_CreateRetail", 0x0041A120),
     ("stage_tip_manager.obj", "StageTipRuntime_InitializeRetail", 0x00418E30),
-    ("frame_counter.obj", "FrameCounter_AtInterval", 0x00427C70),
+    ("frame_counter.obj", "?AtInterval@FrameCounterPair@@", 0x00427C70),
     ("midi_worker_stop.obj", "MidiWorker_StopRetail", 0x0043DAB0),
     ("edge_strips.obj", "RenderTarget_FillVerticalEdgeStripRetail", 0x00444BE0),
     ("anm_texture_upload.obj", "AnmArchive_AdvanceScriptCursorRetail", 0x004473C0),

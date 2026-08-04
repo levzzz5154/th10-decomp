@@ -779,7 +779,7 @@ Current exact-overlay results with MSVC 7.1:
 | `Platform_StopSoundWorkersRetail` | 175 | 100% |
 | `TextLog_Append` | 201 | 100% |
 | `StageTipManager_Construct` | 237 | 100% |
-| `FrameCounter_AtInterval` | 29 | 100% |
+| `FrameCounterPair::AtInterval` | 29 | 100% (pure C++) |
 | `TextLog_AppendLine` | 201 | 100% |
 | `CellPair_Scale` | 21 | 100% |
 | `EffectIndicatorPool_AllocateRetail` | 181 | 100% |
