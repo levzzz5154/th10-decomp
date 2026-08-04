@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 348,
-      "semantic": 355
+      "exact-overlay": 351,
+      "semantic": 352
     }
   },
   "functions": [
@@ -489,8 +489,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405500_FUN_00405500.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player.cpp",
+      "overlay": {
+        "object": "player.obj",
+        "symbol": "Player_ClearExpiredFlagsRetail"
+      }
     },
     {
       "address": "0x004055C0",
@@ -1941,8 +1945,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004136C0_FUN_004136c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_slot.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_slot.cpp",
+      "overlay": {
+        "object": "animation_slot.obj",
+        "symbol": "AnimationSlot_ReleaseRetail"
+      }
     },
     {
       "address": "0x00413790",
@@ -2261,8 +2269,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00418930_FUN_00418930.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/faith_gauge.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/faith_gauge.cpp",
+      "overlay": {
+        "object": "faith_gauge.obj",
+        "symbol": "FaithGauge_AddRetail"
+      }
     },
     {
       "address": "0x00418A00",

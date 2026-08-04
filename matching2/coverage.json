@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 355,
-        "retail_bytes": 282347
+        "function_count": 352,
+        "retail_bytes": 281739
       },
       "exact-overlay": {
-        "function_count": 367,
-        "retail_bytes": 50453
+        "function_count": 370,
+        "retail_bytes": 51061
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 367,
+    "function_count": 370,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -383,8 +383,10 @@
       "address": "0x00405500",
       "symbol": "FUN_00405500",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/player.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player.cpp",
+      "overlay_object": "player.obj",
+      "overlay_symbol": "Player_ClearExpiredFlagsRetail"
     },
     {
       "address": "0x004055C0",
@@ -1349,8 +1351,10 @@
       "address": "0x004136C0",
       "symbol": "FUN_004136c0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/render/animation_slot.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_slot.cpp",
+      "overlay_object": "animation_slot.obj",
+      "overlay_symbol": "AnimationSlot_ReleaseRetail"
     },
     {
       "address": "0x00413790",
@@ -1565,8 +1569,10 @@
       "address": "0x00418930",
       "symbol": "FUN_00418930",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/faith_gauge.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/faith_gauge.cpp",
+      "overlay_object": "faith_gauge.obj",
+      "overlay_symbol": "FaithGauge_AddRetail"
     },
     {
       "address": "0x00418A00",

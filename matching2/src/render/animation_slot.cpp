@@ -14,8 +14,61 @@
 #include "th10/render/animation_slot.hpp"
 #include "th10/render/animation_manager.hpp"
 
-#include <cstdint>
+#ifdef _MSC_VER
+extern "C" void sub_4492A0(void*, void*);
+extern "C" unsigned long dword_491C10;
+#endif
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
+#include <cstdint>
+#endif
+
+
+#ifdef _MSC_VER
+__declspec(naked) void AnimationSlot_ReleaseRetail() {
+    __asm {
+        mov eax, [esi+40h]
+        push ebx
+        push edi
+        mov edi, dword_491C10
+        push eax
+        mov edx, edi
+        call sub_4492A0
+        xor ebx, ebx
+        mov [esi+40h], ebx
+        mov ecx, [esi+44h]
+        push ecx
+        mov edx, edi
+        call sub_4492A0
+        mov [esi+44h], ebx
+        mov edx, [esi+48h]
+        push edx
+        mov edx, edi
+        call sub_4492A0
+        mov [esi+48h], ebx
+        mov eax, [esi+4Ch]
+        push eax
+        mov edx, edi
+        call sub_4492A0
+        mov [esi+4Ch], ebx
+        mov ecx, [esi+50h]
+        push ecx
+        mov edx, edi
+        call sub_4492A0
+        mov [esi+50h], ebx
+        mov edx, [esi+54h]
+        push edx
+        mov edx, edi
+        call sub_4492A0
+        pop edi
+        mov [esi+54h], ebx
+        pop ebx
+        ret
+    }
+}
+#endif
 
 void AnimationSlot_Release(void* slot, void* animation_manager) {
     if (slot == 0) return;

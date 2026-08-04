@@ -63,6 +63,8 @@ OVERLAY_SOURCES=(
     src/render/edge_strips.cpp
     src/render/anm_texture_upload.cpp
     src/app/fps_counter.cpp
+    src/game/faith_gauge.cpp
+    src/render/animation_slot.cpp
     src/game/game_ui_create.cpp
     src/game/stage_tip_manager.cpp
     src/game/frame_counter.cpp

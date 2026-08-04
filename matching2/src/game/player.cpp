@@ -157,6 +157,29 @@ void Player_SetSchedulerValue(void* scheduler, int value) {
 #endif
 
 // 0x00405500 - Clear transient player flags once the startup timer expires.
+#ifdef _MSC_VER
+__declspec(naked) void Player_ClearExpiredFlagsRetail() {
+    __asm {
+        cmp dword ptr [eax+3738h], 3Ch
+        jl locret_405550
+        mov edx, [eax+378Ch]
+        mov dword ptr [eax+3790h], 0
+        mov ecx, 0FFFFFFFDh
+        and edx, ecx
+        mov [eax+378Ch], edx
+        and [eax+0AD4h], ecx
+        and [eax+0E80h], ecx
+        and [eax+15D8h], ecx
+        and [eax+1984h], ecx
+        and [eax+1D30h], ecx
+        and [eax+20DCh], ecx
+        and [eax+2488h], ecx
+locret_405550:
+        ret
+    }
+}
+#endif
+
 void Player_ClearExpiredFlags(Player* player) {
     uint8_t* bytes = (uint8_t*)player;
     if (*(int*)(bytes + 0x3738) < 0x3C) return;
