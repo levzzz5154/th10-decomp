@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 350,
-        "retail_bytes": 281387
+        "function_count": 349,
+        "retail_bytes": 281211
       },
       "exact-overlay": {
-        "function_count": 372,
-        "retail_bytes": 51413
+        "function_count": 373,
+        "retail_bytes": 51589
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 372,
+    "function_count": 373,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1187,8 +1187,10 @@
       "address": "0x0040E5F0",
       "symbol": "FUN_0040e5f0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/boss_overlays.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/boss_overlays.cpp",
+      "overlay_object": "boss_overlays.obj",
+      "overlay_symbol": "BossUi_ReleaseIndicatorsRetail"
     },
     {
       "address": "0x0040E6A0",

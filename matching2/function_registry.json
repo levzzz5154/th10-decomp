@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 353,
-      "semantic": 350
+      "exact-overlay": 354,
+      "semantic": 349
     }
   },
   "functions": [
@@ -1697,8 +1697,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040E5F0_FUN_0040e5f0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/boss_overlays.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/boss_overlays.cpp",
+      "overlay": {
+        "object": "boss_overlays.obj",
+        "symbol": "BossUi_ReleaseIndicatorsRetail"
+      }
     },
     {
       "address": "0x0040E6A0",

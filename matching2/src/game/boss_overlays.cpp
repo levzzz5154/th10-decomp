@@ -7,6 +7,13 @@ extern "C" float flt_470B04;
 extern "C" float sub_44BC10(float, float);
 extern "C" void sub_4451C0(void*);
 extern "C" unsigned long dword_491C10;
+extern "C" void sub_43DD10(void*, void*);
+extern "C" int sub_448DB0(void*, int, int, int);
+extern "C" void sub_41BB00(void*, void*, int, int, int, int);
+extern "C" void sub_40C9D0(void*);
+extern "C" void sub_412FF0(int);
+extern "C" void* dword_477704;
+extern "C" void* dword_477818;
 #endif
 
 // 0x0041D7C0 - Refresh the boss overlay sprite positions. The primary
@@ -97,6 +104,64 @@ int Boss_SyncOverlayPositions(const BossVec3* position,
 // pending score popup spawns when the popup counter (+0x2408) is positive,
 // the popup queue is flushed, the counter clears, and the stage timer is
 // re-armed with ten frames.
+#ifdef _MSC_VER
+__declspec(naked) int BossUi_ReleaseIndicatorsRetail() {
+    __asm {
+        push ebx
+        push ebp
+        mov ebp, [esp+0Ch]
+        mov ebx, [ebp+2444h]
+        test ebx, ebx
+        push esi
+        push edi
+        jl loc_40E613
+        mov eax, [ebp+1068h]
+        push eax
+        mov esi, 492590h
+        call sub_43DD10
+loc_40E613:
+        mov eax, [ebp+2448h]
+        test eax, eax
+        jl loc_40E63E
+        mov edx, [ebp+244Ch]
+        push eax
+        mov eax, dword ptr [dword_477704]
+        lea ecx, [esp+18h]
+        push ecx
+        mov ecx, [eax+edx*4+30h]
+        lea edi, [ebp+1068h]
+        push ecx
+        call sub_448DB0
+loc_40E63E:
+        mov eax, [ebp+2408h]
+        lea esi, [ebp+1068h]
+        add ebp, 2408h
+        test eax, eax
+        jle loc_40E66D
+        push 400CCCCDh
+        push 0BFC90FDBh
+        push 0FFFFFFFFh
+        push eax
+        mov eax, dword ptr [dword_477818]
+        mov ecx, esi
+        call sub_41BB00
+loc_40E66D:
+        push ebp
+        call sub_40C9D0
+        push 0Ah
+        mov edi, 474C40h
+        mov dword ptr [ebp], 0
+        call sub_412FF0
+        pop edi
+        pop esi
+        pop ebp
+        mov eax, 1
+        pop ebx
+        ret 4
+    }
+}
+#endif
+
 int BossUi_ReleaseIndicators(int gauge_slot, int marker_slot, int marker_index,
                              int* popup_count, void* popup_zone,
                              void (*release_gauge)(void),
