@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 354,
-      "semantic": 349
+      "exact-overlay": 355,
+      "semantic": 348
     }
   },
   "functions": [
@@ -3677,8 +3677,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00426520_FUN_00426520.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/music_room.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/music_room.cpp",
+      "overlay": {
+        "object": "music_room_overlay.obj",
+        "symbol": "ParameterFile_LoadAndRelocateRetail"
+      }
     },
     {
       "address": "0x00426610",

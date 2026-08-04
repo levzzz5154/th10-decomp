@@ -79,6 +79,7 @@ OVERLAY_SOURCES=(
     src/game/manager_teardown.cpp
     src/game/ascii_overlay_callbacks_overlay.cpp
     src/game/bullet_manager_overlay.cpp
+    src/game/music_room_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp

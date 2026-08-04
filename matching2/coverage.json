@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 349,
-        "retail_bytes": 281211
+        "function_count": 348,
+        "retail_bytes": 280971
       },
       "exact-overlay": {
-        "function_count": 373,
-        "retail_bytes": 51589
+        "function_count": 374,
+        "retail_bytes": 51829
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 373,
+    "function_count": 374,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2513,8 +2513,10 @@
       "address": "0x00426520",
       "symbol": "FUN_00426520",
       "size": 240,
-      "status": "semantic",
-      "source": "src/game/music_room.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/music_room.cpp",
+      "overlay_object": "music_room_overlay.obj",
+      "overlay_symbol": "ParameterFile_LoadAndRelocateRetail"
     },
     {
       "address": "0x00426610",
