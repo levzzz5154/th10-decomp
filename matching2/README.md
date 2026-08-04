@@ -392,6 +392,13 @@ the initializer's independently observed behavior.
 The generated coverage ledger currently reports 722 of 722 tracked retail
 functions (100.0%) as readable semantic C++ or verified overlays (394 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
+ledger also marks which of those verified overlays are implemented as pure C++
+that MSVC 7.1 compiles to the retail bytes (no inline `__asm`); the remaining
+overlays use exact inline assembly only where the retail ABI or codegen idiom
+cannot be expressed in MSVC 7.1 C++ (custom `__usercall` register arguments,
+`fsincos` pairs, compiler-specific division idioms, and 16-bit register
+choreography). Conversions are verified with `compare_obj.py` and land through
+the same byte-identity build gates.
 researched-only bucket is empty. It remains separate from the
 startup-to-title readiness report, whose 179-function call closure is fully
 source-ready and whose retail-free link, executable, and smoke gates all pass.
