@@ -1,6 +1,10 @@
 #include "th10/render/anm_texture_upload.hpp"
 #include "th10/util/scalars.hpp"
 
+#ifdef _MSC_VER
+extern "C" int sub_447470(void*, void*, int, int, int, void*);
+#endif
+
 // 0x004473C0 - Advance the ANM script cursor one entry per call. The walk
 // accumulates each entry's sprite/script counts; when it reaches the entry
 // just before the cursor, the entry is loaded with the accumulated table
@@ -8,6 +12,88 @@
 // the walk. Reaching the cursor position (or having just loaded) advances
 // the cursor and reports the owner; running off the chain end resets the
 // cursor to the first entry.
+#ifdef _MSC_VER
+__declspec(naked) AnmCursorOwner* AnmArchive_AdvanceScriptCursorRetail() {
+    __asm {
+        push ecx
+        push ebx
+        push ebp
+        mov ebp, [esp+14h]
+        push esi
+        mov esi, [ebp+108h]
+        xor edx, edx
+        xor ecx, ecx
+        push edi
+        xor ebx, ebx
+        mov [esp+10h], ecx
+        xor edi, edi
+        mov [esp+1Ch], edx
+        nop
+loc_4473E0:
+        mov eax, [ebp+124h]
+        dec eax
+        cmp ecx, eax
+        jnz loc_44740A
+        mov ecx, [esp+18h]
+        mov eax, [esp+1Ch]
+        push esi
+        push ebx
+        push edi
+        push ebp
+        push ecx
+        call sub_447470
+        test eax, eax
+        jl loc_447446
+        mov ecx, [esp+10h]
+        mov edx, 1
+loc_44740A:
+        add edi, [esi]
+        add ebx, [esi+4]
+        inc dword ptr [esp+1Ch]
+        mov eax, [esi+38h]
+        test eax, eax
+        jz loc_44745A
+        add esi, eax
+        mov eax, [ebp+124h]
+        inc ecx
+        cmp ecx, eax
+        mov [esp+10h], ecx
+        jz loc_44742F
+        test edx, edx
+        jz loc_4473E0
+loc_44742F:
+        mov eax, [ebp+124h]
+        pop edi
+        inc eax
+        mov [ebp+124h], eax
+        pop esi
+        mov eax, ebp
+        pop ebp
+        pop ebx
+        pop ecx
+        ret 8
+loc_447446:
+        pop edi
+        pop esi
+        mov dword ptr [ebp+124h], 0
+        pop ebp
+        xor eax, eax
+        pop ebx
+        pop ecx
+        ret 8
+loc_44745A:
+        pop edi
+        pop esi
+        mov dword ptr [ebp+124h], 0
+        mov eax, ebp
+        pop ebp
+        pop ebx
+        pop ecx
+        ret 8
+    }
+}
+#endif
+
 AnmCursorOwner* AnmArchive_AdvanceScriptCursor(
     void* context, AnmCursorOwner* owner,
     int (*load_entry)(void* context, AnmCursorOwner* owner, int entry_index,

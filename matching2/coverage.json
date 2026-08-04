@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 371,
-        "retail_bytes": 285595
+        "function_count": 369,
+        "retail_bytes": 285211
       },
       "exact-overlay": {
-        "function_count": 351,
-        "retail_bytes": 47205
+        "function_count": 353,
+        "retail_bytes": 47589
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 351,
+    "function_count": 353,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -431,8 +431,10 @@
       "address": "0x004059F0",
       "symbol": "FUN_004059f0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/player.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/player.cpp",
+      "overlay_object": "player.obj",
+      "overlay_symbol": "Player_HitTestRetail"
     },
     {
       "address": "0x00405AC0",
@@ -4648,8 +4650,10 @@
       "address": "0x004473C0",
       "symbol": "FUN_004473c0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/render/anm_texture_upload.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/anm_texture_upload.cpp",
+      "overlay_object": "anm_texture_upload.obj",
+      "overlay_symbol": "AnmArchive_AdvanceScriptCursorRetail"
     },
     {
       "address": "0x00447470",

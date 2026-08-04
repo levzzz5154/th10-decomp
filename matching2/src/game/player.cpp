@@ -299,6 +299,95 @@ int Player_Init(Player* player) {
 //       else: return 0x1A or 0x1D
 //   else: check for graze distance
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) int Player_HitTestRetail() {
+    __asm {
+        mov edx, [ecx+28h]
+        test edx, edx
+        jnz loc_4059FA
+        xor eax, eax
+        ret
+loc_4059FA:
+        fld dword ptr [eax+4]
+        xor edx, edx
+        fsub dword ptr [ecx+34h]
+        fld dword ptr [eax]
+        fsub dword ptr [ecx+30h]
+        fld dword ptr [ecx+3Ch]
+        fld st(1)
+        fmul st, st(2)
+        fld st(3)
+        fmul st, st(4)
+        faddp st(1), st
+        fld st(1)
+        fmul st, st(2)
+        fcompp
+        fstp st(0)
+        fnstsw ax
+        fstp st(0)
+        test ah, 41h
+        fstp st(0)
+        jnz loc_405A68
+        mov eax, [ecx+44h]
+        test eax, eax
+        mov eax, dword ptr [dword_4776F4]
+        mov cl, [eax+378Ch]
+        jnz loc_405A46
+        test cl, 1
+        jz loc_405A53
+        mov edx, 3
+        mov eax, edx
+        ret
+loc_405A46:
+        test cl, 1
+        jz loc_405A53
+        mov edx, 26h
+        mov eax, edx
+        ret
+loc_405A53:
+        mov eax, dword ptr [DAT_00477704]
+        mov edx, [eax+10h]
+        neg edx
+        sbb edx, edx
+        and edx, 21h
+        add edx, 5
+        mov eax, edx
+        ret
+loc_405A68:
+        mov eax, dword ptr [dword_4776F4]
+        test byte ptr [eax+378Ch], 1
+        jz loc_405A8F
+        cmp dword ptr [ecx+44h], 1
+        jnz loc_405AB7
+        mov edx, dword ptr [DAT_00474c68]
+        neg edx
+        sbb edx, edx
+        and edx, 0FFFFFFFDh
+        add edx, 1Ah
+        mov eax, edx
+        ret
+loc_405A8F:
+        mov eax, dword ptr [DAT_00477704]
+        push esi
+        mov esi, [eax+10h]
+        test esi, esi
+        pop esi
+        jz loc_405AB7
+        mov eax, [ecx+44h]
+        test eax, eax
+        jnz loc_405AB7
+        mov eax, dword ptr [DAT_00474c68]
+        xor edx, edx
+        test eax, eax
+        sete dl
+        lea edx, [edx*4+10h]
+loc_405AB7:
+        mov eax, edx
+        ret
+    }
+}
+#endif
+
 int Player_HitTest(Player* player, const float* bulletPos) {
     if (player->activeState == 0) {
         return 0;

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 332,
-      "semantic": 371
+      "exact-overlay": 334,
+      "semantic": 369
     }
   },
   "functions": [
@@ -561,8 +561,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004059F0_FUN_004059f0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/player.cpp",
+      "overlay": {
+        "object": "player.obj",
+        "symbol": "Player_HitTestRetail"
+      }
     },
     {
       "address": "0x00405AC0",
@@ -6581,8 +6585,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004473C0_FUN_004473c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/anm_texture_upload.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/anm_texture_upload.cpp",
+      "overlay": {
+        "object": "anm_texture_upload.obj",
+        "symbol": "AnmArchive_AdvanceScriptCursorRetail"
+      }
     },
     {
       "address": "0x00447470",
