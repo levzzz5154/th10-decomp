@@ -113,10 +113,63 @@ def source_annotations():
     return mentions, semantic
 
 
+def overlay_pure_cpp(overlays):
+    """Return the set of overlay addresses whose defining translation unit
+    implements the function without inline assembly (pure C++ that MSVC 7.1
+    happens to compile to the retail bytes)."""
+    pure = set()
+    header = re.compile(r'//\s*(?:functions?\s*:\s*)?0x004[0-9a-f]{5}', re.I)
+
+    def is_function_header(lines, index):
+        stripped = lines[index].strip()
+        if not re.match(r'^//\s*0x004[0-9a-f]{5}\b', stripped, re.I):
+            return False
+        previous = index - 1
+        while previous >= 0 and not lines[previous].strip():
+            previous -= 1
+        return previous < 0 or not lines[previous].lstrip().startswith('//')
+
+    for address, (object_name, _symbol) in overlays.items():
+        candidates = list((ROOT / "src").rglob(
+            Path(object_name).stem + ".cpp"))
+        if len(candidates) != 1:
+            continue
+        text = candidates[0].read_text(errors='replace')
+        lines = text.splitlines()
+        mentions = []
+        for index, line in enumerate(lines):
+            stripped = line.strip()
+            if not is_function_header(lines, index):
+                continue
+            if ('0x{:08X}'.format(address) not in line and
+                    '0x{:06x}'.format(address) not in line):
+                continue
+            mentions.append(index)
+        if not mentions:
+            continue
+        any_asm = False
+        saw_block = False
+        for start in mentions:
+            block = [lines[start]]
+            for offset in range(start + 1, len(lines)):
+                if is_function_header(lines, offset):
+                    break
+                block.append(lines[offset])
+            joined = '\n'.join(block)
+            if '__asm' in joined:
+                any_asm = True
+                break
+            saw_block = True
+        if not any_asm and saw_block:
+            pure.add(address)
+    return pure
+
+
 def generate():
     tracked = tracked_functions()
     overlays = overlay_entries()
     mentions, semantic = source_annotations()
+    pure = overlay_pure_cpp(overlays)
     entries = []
 
     for address in sorted(set(tracked) | set(overlays)):
@@ -142,6 +195,7 @@ def generate():
             entry["blocker"] = PARTIAL[address]
         if address in overlays:
             entry["status"] = "exact-overlay"
+            entry["pure_cpp"] = address in pure
             object_name, symbol = overlays[address]
             if entry["source"] == "unrecovered":
                 candidates = list((ROOT / "src").rglob(
@@ -164,6 +218,7 @@ def generate():
         "coverage_summary": coverage_summary(entries),
         "verified_overlay_summary": {
             "function_count": len(overlays),
+            "pure_cpp_function_count": len(pure),
             # Byte totals belong to build output and are intentionally not
             # inferred from optional, untracked object files here.
             "compared_bytes": None,
@@ -202,6 +257,8 @@ def print_summary(document):
     if summary["compared_bytes"] is None:
         print("  verified overlays: {} functions (byte total is build-only)".format(
             summary["function_count"]))
+        print("  pure-C++ overlays: {} functions".format(
+            summary.get("pure_cpp_function_count", 0)))
     else:
         print("  verified overlays: {} functions, {} bytes".format(
             summary["function_count"], summary["compared_bytes"]))

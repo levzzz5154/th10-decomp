@@ -58,6 +58,7 @@
   },
   "verified_overlay_summary": {
     "function_count": 394,
+    "pure_cpp_function_count": 34,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -68,6 +69,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/game/game_thread.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_thread_overlay.obj",
       "overlay_symbol": "GameThread_ConstructOverlay"
     },
@@ -98,6 +100,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "GameThread_RunQueueLeaf"
     },
@@ -107,6 +110,7 @@
       "size": 256,
       "status": "exact-overlay",
       "source": "src/game/game_thread_queue.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_thread_queue.obj",
       "overlay_symbol": "?GameThread_AppendRecord@@"
     },
@@ -116,6 +120,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/game_thread_queue.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_thread_queue.obj",
       "overlay_symbol": "?GameThread_AppendFormatted@@"
     },
@@ -125,6 +130,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/game_thread_queue.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_thread_queue.obj",
       "overlay_symbol": "GameThread_AppendFormattedMarkedRetail"
     },
@@ -148,6 +154,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/render/render_stage_select.cpp",
+      "pure_cpp": false,
       "overlay_object": "render_stage_select.obj",
       "overlay_symbol": "GameThread_SelectRenderStageRetail"
     },
@@ -164,6 +171,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "Entity_Destructor"
     },
@@ -173,6 +181,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "Entity_Constructor"
     },
@@ -280,6 +289,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "?PlayerManager_StartMode@@"
     },
@@ -303,6 +313,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/math/math_utils.cpp",
+      "pure_cpp": false,
       "overlay_object": "math_utils.obj",
       "overlay_symbol": "?Vec_Subtract@@"
     },
@@ -312,6 +323,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ScaleColor"
     },
@@ -321,6 +333,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/particle_seed.cpp",
+      "pure_cpp": false,
       "overlay_object": "particle_seed.obj",
       "overlay_symbol": "ParticleSeed_Combine"
     },
@@ -330,6 +343,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/math/timer.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?FrameTimer_Tick@@"
     },
@@ -346,6 +360,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InitializeWordColor"
     },
@@ -355,6 +370,7 @@
       "size": 560,
       "status": "exact-overlay",
       "source": "src/game/effect_indicator_slots.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?EmbeddedTimer_Reset@@"
     },
@@ -371,6 +387,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "Player_SetSchedulerValue"
     },
@@ -387,6 +404,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "Player_ClearExpiredFlagsRetail"
     },
@@ -396,6 +414,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_InstallPairSetFlags@@"
     },
@@ -405,6 +424,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ReleaseRawPairAndReset"
     },
@@ -414,6 +434,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateFixedState"
     },
@@ -437,6 +458,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "Player_HitTestRetail"
     },
@@ -446,6 +468,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "Player_Draw"
     },
@@ -455,6 +478,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/player.cpp",
+      "pure_cpp": false,
       "overlay_object": "player.obj",
       "overlay_symbol": "Player_AdjustPower"
     },
@@ -464,6 +488,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/game/player_scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_scheduler.obj",
       "overlay_symbol": "Player_ResetSchedulerLinksRetail"
     },
@@ -480,6 +505,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "EntitySecondaryResource_Release"
     },
@@ -496,6 +522,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/bullet_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet_manager_overlay.obj",
       "overlay_symbol": "BulletPool_ResetRetail"
     },
@@ -505,6 +532,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/manager_teardown.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_teardown.obj",
       "overlay_symbol": "ItemManager_DestroyRetail"
     },
@@ -521,6 +549,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "?Entity_PointWithinBounds@@"
     },
@@ -530,6 +559,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "?Entity_PointWithinBoundsInclusive@@"
     },
@@ -560,6 +590,7 @@
       "size": 66,
       "status": "exact-overlay",
       "source": "src/game/player_motion.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_motion.obj",
       "overlay_symbol": "?Player_ForwardAxisWrap@@"
     },
@@ -583,6 +614,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/enemy_grid_scan.cpp",
+      "pure_cpp": false,
       "overlay_object": "enemy_grid_scan_overlay.obj",
       "overlay_symbol": "EnemyGrid_ScanCellsRetail"
     },
@@ -592,6 +624,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/player_motion.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_motion.obj",
       "overlay_symbol": "PlayerAnimation_AdvanceFrame"
     },
@@ -608,6 +641,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/game/player_motion.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_motion.obj",
       "overlay_symbol": "Player_DeathShrink"
     },
@@ -645,6 +679,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/player_motion.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_motion.obj",
       "overlay_symbol": "Player_WrapHorizontal"
     },
@@ -654,6 +689,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/player_motion.cpp",
+      "pure_cpp": false,
       "overlay_object": "player_motion.obj",
       "overlay_symbol": "Player_WrapVertical"
     },
@@ -670,6 +706,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "ScoreState_ActivateFromResultRetail"
     },
@@ -693,6 +730,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?WrappedAngleDifference@@"
     },
@@ -702,6 +740,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "OutsideAxisAlignedBounds"
     },
@@ -711,6 +750,7 @@
       "size": 368,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "Score_SetPolarVector"
     },
@@ -720,6 +760,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?CountPatternMatches@@"
     },
@@ -729,6 +770,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "PlayerManager_ConstructRetail"
     },
@@ -752,6 +794,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "PlayerManager_CreateRetail"
     },
@@ -768,6 +811,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@"
     },
@@ -777,6 +821,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState@@"
     },
@@ -786,6 +831,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?RunArrayReleaseCallback@ScoreRuntimeState@@"
     },
@@ -809,6 +855,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?AddScaled@GameScore@@"
     },
@@ -818,6 +865,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Retire@ScoreRuntimeCallbacks@@"
     },
@@ -848,6 +896,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?UpdateInputState@@"
     },
@@ -857,6 +906,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?SetInputMode@@"
     },
@@ -866,6 +916,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?InputMaskActive@@"
     },
@@ -882,6 +933,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "?BulletManager_LoadScripts@@"
     },
@@ -891,6 +943,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "?BulletManager_Release@@"
     },
@@ -900,6 +953,7 @@
       "size": 384,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "?BulletManager_Create@@"
     },
@@ -916,6 +970,7 @@
       "size": 336,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": true,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "Entity_AttachResourceSnapshot"
     },
@@ -953,6 +1008,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateSmallState"
     },
@@ -962,6 +1018,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ScoreOwnedObject_Destroy@@"
     },
@@ -971,6 +1028,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_UpdateEmitterDecision"
     },
@@ -987,6 +1045,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_TickState@@"
     },
@@ -1003,6 +1062,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/stage_background.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_background_overlay.obj",
       "overlay_symbol": "StageBackground_RebindTextureRetail"
     },
@@ -1012,6 +1072,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_StopAtFrame2@@"
     },
@@ -1021,6 +1082,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_StopAtFrame3@@"
     },
@@ -1037,6 +1099,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "BulletEntity_ClearResourceList"
     },
@@ -1053,6 +1116,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ResetEmitter"
     },
@@ -1069,6 +1133,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Bullet_DeletingDestructor"
     },
@@ -1078,6 +1143,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "?Entity_ClearAnims@@"
     },
@@ -1094,6 +1160,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "?BulletEntity_MarkAnimationForRemoval@@"
     },
@@ -1103,6 +1170,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": true,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "BulletSpawnParameters_Initialize"
     },
@@ -1112,6 +1180,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "BulletEntity_SetAnimationVector"
     },
@@ -1121,6 +1190,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "BulletEntity_FindById"
     },
@@ -1151,6 +1221,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/bullet.cpp",
+      "pure_cpp": false,
       "overlay_object": "bullet.obj",
       "overlay_symbol": "BulletEntity_ReleaseResource"
     },
@@ -1160,6 +1231,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": true,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "EnemyManager_CreateRetail"
     },
@@ -1169,6 +1241,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/game/enemy_lifecycle.cpp",
+      "pure_cpp": false,
       "overlay_object": "enemy_lifecycle_overlay.obj",
       "overlay_symbol": "Enemy_TimerSweepRetail"
     },
@@ -1199,6 +1272,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/boss_overlays.cpp",
+      "pure_cpp": false,
       "overlay_object": "boss_overlays.obj",
       "overlay_symbol": "BossUi_ReleaseIndicatorsRetail"
     },
@@ -1208,6 +1282,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/enemy_lifecycle.cpp",
+      "pure_cpp": false,
       "overlay_object": "enemy_lifecycle_overlay.obj",
       "overlay_symbol": "Enemy_DeathSweepRetail"
     },
@@ -1224,6 +1299,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Ecl_SetResourceSlot"
     },
@@ -1240,6 +1316,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/script/ecl_vm.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveIntFromEntity@@"
     },
@@ -1249,6 +1326,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/script/ecl_vm.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveIntDestination@@"
     },
@@ -1258,6 +1336,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Ecl_ForwardFloat"
     },
@@ -1274,6 +1353,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "RecoveryTimer_Reset"
     },
@@ -1283,6 +1363,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ScoreGauge_AddWithMinimum@@"
     },
@@ -1292,6 +1373,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Score_SetMode"
     },
@@ -1308,6 +1390,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": true,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Score_SetNormalizedAngle@@"
     },
@@ -1317,6 +1400,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "ScoreList_InsertAfter"
     },
@@ -1326,6 +1410,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Vector2_SetEllipticPolar"
     },
@@ -1342,6 +1427,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_ReleaseOwnedHandle@@"
     },
@@ -1351,6 +1437,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/app/fps_counter.cpp",
+      "pure_cpp": false,
       "overlay_object": "fps_counter.obj",
       "overlay_symbol": "FrameRateCounter_UpdateRetail"
     },
@@ -1367,6 +1454,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/animation_slot.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_slot.obj",
       "overlay_symbol": "AnimationSlot_ReleaseRetail"
     },
@@ -1376,6 +1464,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Animation_SetActiveCount"
     },
@@ -1392,6 +1481,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/task_registration.cpp",
+      "pure_cpp": false,
       "overlay_object": "task_registration.obj",
       "overlay_symbol": "ItemFrontRuntime_InitializeRetail"
     },
@@ -1422,6 +1512,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ReleaseCompositeState"
     },
@@ -1438,6 +1529,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "ItemManager_CreateRetail"
     },
@@ -1482,6 +1574,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/platform/path.cpp",
+      "pure_cpp": false,
       "overlay_object": "path.obj",
       "overlay_symbol": "?Path_DecodeXor@@"
     },
@@ -1512,6 +1605,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "RecoveryLinkedCleanup"
     },
@@ -1521,6 +1615,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "PathState_Reset"
     },
@@ -1544,6 +1639,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/game_ui_create.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_ui_create.obj",
       "overlay_symbol": "GameUi_CreateAndPublish"
     },
@@ -1553,6 +1649,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Heap_DestroyOwned@@"
     },
@@ -1569,6 +1666,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_OffsetPoint"
     },
@@ -1578,6 +1676,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_IncrementAnimationCount"
     },
@@ -1587,6 +1686,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/faith_gauge.cpp",
+      "pure_cpp": false,
       "overlay_object": "faith_gauge.obj",
       "overlay_symbol": "FaithGauge_AddRetail"
     },
@@ -1596,6 +1696,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_DecayCounter"
     },
@@ -1605,6 +1706,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/score_timer_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "score_timer_leaves.obj",
       "overlay_symbol": "Score_IncrementCounterClampedNine"
     },
@@ -1614,6 +1716,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/score_timer_leaves.cpp",
+      "pure_cpp": true,
       "overlay_object": "score_timer_leaves.obj",
       "overlay_symbol": "ScoreGauge_SetTargetTenthAndDisableTimer"
     },
@@ -1623,6 +1726,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/game_config_defaults.cpp",
+      "pure_cpp": false,
       "overlay_object": "game_config_defaults.obj",
       "overlay_symbol": "GameConfig_InitializeDefaults"
     },
@@ -1632,6 +1736,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/stage_tips.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_tips.obj",
       "overlay_symbol": "StageTip_Initialize"
     },
@@ -1641,6 +1746,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/stage_tip_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_tip_manager.obj",
       "overlay_symbol": "StageTipManager_Construct"
     },
@@ -1650,6 +1756,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/stage_tip_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_tip_manager.obj",
       "overlay_symbol": "StageTipRuntime_InitializeRetail"
     },
@@ -1666,6 +1773,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ClearEightBuckets"
     },
@@ -1675,6 +1783,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateResourceState"
     },
@@ -1698,6 +1807,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InvokeVoid"
     },
@@ -1707,6 +1817,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_FindNamedValue"
     },
@@ -1730,6 +1841,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_SplitResourcePath"
     },
@@ -1739,6 +1851,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_TrimWhitespace"
     },
@@ -1748,6 +1861,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/game/stage_tip_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_tip_manager.obj",
       "overlay_symbol": "StageTip_CreateRetail"
     },
@@ -1764,6 +1878,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_AppendNode"
     },
@@ -1780,6 +1895,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "EntityAnimation_Release"
     },
@@ -1789,6 +1905,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_InstallPairClearFlags@@"
     },
@@ -1819,6 +1936,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/enemy_drop_sweep.cpp",
+      "pure_cpp": false,
       "overlay_object": "enemy_drop_sweep.obj",
       "overlay_symbol": "Enemy_SweepPendingDropsRetail"
     },
@@ -1835,6 +1953,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": true,
       "overlay_object": "score.obj",
       "overlay_symbol": "?AddScaled@ScoreCounter@@"
     },
@@ -1851,6 +1970,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "ScoreObject_Initialize"
     },
@@ -1860,6 +1980,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/task_registration.cpp",
+      "pure_cpp": false,
       "overlay_object": "task_registration.obj",
       "overlay_symbol": "ScoreDisplay_RegisterTasksRetail"
     },
@@ -1869,6 +1990,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "ScoreExtendedObject_DestroyRetail"
     },
@@ -1878,6 +2000,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/object_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "object_factories.obj",
       "overlay_symbol": "ScoreManager_CreateAndInitRetail"
     },
@@ -1901,6 +2024,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "ScoreExtendedObject_Initialize"
     },
@@ -1917,6 +2041,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ScoreRecords_MarkEligible@@"
     },
@@ -1926,6 +2051,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?ScoreRecords_CopyVectorAndEvaluate@@"
     },
@@ -1963,6 +2089,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/boss_overlays.cpp",
+      "pure_cpp": false,
       "overlay_object": "boss_overlays.obj",
       "overlay_symbol": "Boss_SyncOverlayPositionsRetail"
     },
@@ -2028,6 +2155,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Position_IsPartiallyInViewport@@"
     },
@@ -2037,6 +2165,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/math/vector.cpp",
+      "pure_cpp": false,
       "overlay_object": "vector.obj",
       "overlay_symbol": "?SetPolar@Vector2@@"
     },
@@ -2046,6 +2175,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InitializeStateTable"
     },
@@ -2055,6 +2185,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_LoadStartupResources@@"
     },
@@ -2064,6 +2195,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_ReleasePair@@"
     },
@@ -2080,6 +2212,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_StartWorker"
     },
@@ -2096,6 +2229,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/object_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "object_factories.obj",
       "overlay_symbol": "EnemySlot_CreateAndInitRetail"
     },
@@ -2133,6 +2267,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/platform/win32_timer.cpp",
+      "pure_cpp": false,
       "overlay_object": "win32_timer.obj",
       "overlay_symbol": "?TimerWin32_Release@@"
     },
@@ -2142,6 +2277,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ReleaseGlobalStates"
     },
@@ -2172,6 +2308,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ReplaceExtensionWav"
     },
@@ -2181,6 +2318,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/platform/sound_dummy.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_dummy.obj",
       "overlay_symbol": "Sound_PlayDummyRetail"
     },
@@ -2190,6 +2328,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?GameState_DispatchDummy@@"
     },
@@ -2199,6 +2338,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/platform/sound_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_leaves.obj",
       "overlay_symbol": "Sound_PlayRandomVoiceRetail"
     },
@@ -2243,6 +2383,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/render/camera_setup.cpp",
+      "pure_cpp": false,
       "overlay_object": "camera_setup.obj",
       "overlay_symbol": "Camera_ApplyRetail"
     },
@@ -2273,6 +2414,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/math/vector3_cross.cpp",
+      "pure_cpp": false,
       "overlay_object": "vector3_cross.obj",
       "overlay_symbol": "Vector3_Cross"
     },
@@ -2282,6 +2424,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/slot_lock_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "slot_lock_leaves.obj",
       "overlay_symbol": "SlotLockTable_LeaveRetail"
     },
@@ -2291,6 +2434,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/game/slot_lock_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "slot_lock_leaves.obj",
       "overlay_symbol": "CachedComSlot_ReleaseRetail"
     },
@@ -2307,6 +2451,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_InitializeLargeState@@"
     },
@@ -2316,6 +2461,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?GameState_UpdateFrameMaximum@@"
     },
@@ -2332,6 +2478,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "RecoveryState_Initialize"
     },
@@ -2341,6 +2488,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/main_menu_dispatch.cpp",
+      "pure_cpp": false,
       "overlay_object": "main_menu_dispatch_overlay.obj",
       "overlay_symbol": "MainMenu_RegisterTasksRetail"
     },
@@ -2357,6 +2505,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateTimerState"
     },
@@ -2387,6 +2536,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InvokePair"
     },
@@ -2403,6 +2553,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?GameState_Unpause@@"
     },
@@ -2433,6 +2584,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_InitializeTimedState@@"
     },
@@ -2456,6 +2608,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_MarkAnimationTree"
     },
@@ -2472,6 +2625,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/stage_tip_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_tip_manager.obj",
       "overlay_symbol": "StageTip_CreateUrgent"
     },
@@ -2509,6 +2663,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateLargeResourceState"
     },
@@ -2539,6 +2694,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/music_room.cpp",
+      "pure_cpp": false,
       "overlay_object": "music_room_overlay.obj",
       "overlay_symbol": "ParameterFile_LoadAndRelocateRetail"
     },
@@ -2548,6 +2704,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Entity_AngleToPoint@@"
     },
@@ -2557,6 +2714,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Entity_AngleFromPoint@@"
     },
@@ -2601,6 +2759,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InvokeZero"
     },
@@ -2617,6 +2776,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_SwitchPlaybackState@@"
     },
@@ -2626,6 +2786,7 @@
       "size": 256,
       "status": "exact-overlay",
       "source": "src/game/effect_indicator_slots.cpp",
+      "pure_cpp": false,
       "overlay_object": "effect_indicator_slots.obj",
       "overlay_symbol": "EffectIndicatorPool_AllocateRetail"
     },
@@ -2635,6 +2796,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/sound_float_forward.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_float_forward.obj",
       "overlay_symbol": "?Sound_ForwardFloatAsDouble@@"
     },
@@ -2644,6 +2806,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/game/frame_counter.cpp",
+      "pure_cpp": true,
       "overlay_object": "frame_counter.obj",
       "overlay_symbol": "?AtInterval@FrameCounterPair@@"
     },
@@ -2653,6 +2816,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/game/effect_indicator_slots.cpp",
+      "pure_cpp": false,
       "overlay_object": "effect_indicator_slots.obj",
       "overlay_symbol": "CellPair_Scale"
     },
@@ -2669,6 +2833,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/effect_indicator_slots.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_DispatchSchedule"
     },
@@ -2678,6 +2843,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_UpdateStageSequence"
     },
@@ -2708,6 +2874,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?EffectPool_OutsideViewport@@"
     },
@@ -2717,6 +2884,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/math/timer.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?FrameTimer_Decrement@@"
     },
@@ -2754,6 +2922,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "StageManager_CreateRetail"
     },
@@ -2763,6 +2932,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_DeletingDestructorWithRelease@@"
     },
@@ -2807,6 +2977,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_AppendPacket"
     },
@@ -2816,6 +2987,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/game/effect_indicator_slots.cpp",
+      "pure_cpp": false,
       "overlay_object": "effect_indicator_slots.obj",
       "overlay_symbol": "EmbeddedTimer_SetCountdownRetail"
     },
@@ -2825,6 +2997,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/linked_pool_append.cpp",
+      "pure_cpp": false,
       "overlay_object": "linked_pool_append.obj",
       "overlay_symbol": "LinkedPool_AllocateAndAppendRetail"
     },
@@ -2841,6 +3014,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/game/score_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "score_file.obj",
       "overlay_symbol": "ScoreFile_InitializeDefaultsRetail"
     },
@@ -2850,6 +3024,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InitializeRandomTable"
     },
@@ -2859,6 +3034,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "EffectManager_InitializePoolsRetail"
     },
@@ -2889,6 +3065,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/pool_constructors.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "EffectManager_ResetAndPublishRetail"
     },
@@ -2898,6 +3075,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "EffectManagerRuntime_InitializeRetail"
     },
@@ -2914,6 +3092,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateHugeResourceState"
     },
@@ -2923,6 +3102,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/weather_pool.cpp",
+      "pure_cpp": false,
       "overlay_object": "weather_pool.obj",
       "overlay_symbol": "EffectPool_UpdateDrops"
     },
@@ -2953,6 +3133,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/score_timer_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?GameState_DisableTimerWithOwner@@"
     },
@@ -2962,6 +3143,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/math/timer.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?GameState_SetTimerTarget@@"
     },
@@ -2971,6 +3153,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_InstallAnimationSlot@@"
     },
@@ -2980,6 +3163,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_ClearAnimationSlot@@"
     },
@@ -2989,6 +3173,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?GameState_DispatchAnimationSlot@@"
     },
@@ -2998,6 +3183,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?GameState_DispatchAnimationSlotSecondary@@"
     },
@@ -3014,6 +3200,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/progress.cpp",
+      "pure_cpp": false,
       "overlay_object": "progress.obj",
       "overlay_symbol": "GameProgress_HasAnyPlayRecord"
     },
@@ -3023,6 +3210,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/progress.cpp",
+      "pure_cpp": false,
       "overlay_object": "progress.obj",
       "overlay_symbol": "?GameProgress_UnlockAllStages@@"
     },
@@ -3039,6 +3227,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/task_registration.cpp",
+      "pure_cpp": false,
       "overlay_object": "task_registration.obj",
       "overlay_symbol": "Title_RegisterTasksRetail"
     },
@@ -3055,6 +3244,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/progress_worker.cpp",
+      "pure_cpp": false,
       "overlay_object": "progress_worker.obj",
       "overlay_symbol": "?ProgressManager_CreateAndStartWorker@@"
     },
@@ -3064,6 +3254,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Heap_DestroyOwnedSecondary@@"
     },
@@ -3122,6 +3313,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/key_config.cpp",
+      "pure_cpp": false,
       "overlay_object": "key_config_overlay.obj",
       "overlay_symbol": "KeyConfig_ReassignSlotRetail"
     },
@@ -3236,6 +3428,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/stage_text.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_text.obj",
       "overlay_symbol": "?StageText_SkipLine@@"
     },
@@ -3245,6 +3438,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/stage_text.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_text.obj",
       "overlay_symbol": "?StageText_ExtractLine@@"
     },
@@ -3254,6 +3448,7 @@
       "size": 416,
       "status": "exact-overlay",
       "source": "src/game/stage_text.cpp",
+      "pure_cpp": false,
       "overlay_object": "stage_text.obj",
       "overlay_symbol": "?StageText_Initialize@@"
     },
@@ -3263,6 +3458,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_Reset@@"
     },
@@ -3272,6 +3468,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_Open@@"
     },
@@ -3281,6 +3478,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/archive/dat_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat_file.obj",
       "overlay_symbol": "DatArchive_OpenResource"
     },
@@ -3290,6 +3488,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_Close@@"
     },
@@ -3299,6 +3498,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_Read@@"
     },
@@ -3308,6 +3508,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_FindSize@@"
     },
@@ -3317,6 +3518,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_FindEntry@@"
     },
@@ -3326,6 +3528,7 @@
       "size": 352,
       "status": "exact-overlay",
       "source": "src/archive/dat.cpp",
+      "pure_cpp": false,
       "overlay_object": "dat.obj",
       "overlay_symbol": "?DatArchive_LoadIndex@@"
     },
@@ -3342,6 +3545,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?LegacyString_Duplicate@@"
     },
@@ -3351,6 +3555,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "HeapBuffer_Release"
     },
@@ -3360,6 +3565,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "0HeapBuffer"
     },
@@ -3369,6 +3575,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "??_GFileHandle"
     },
@@ -3378,6 +3585,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "??1FileHandle"
     },
@@ -3387,6 +3595,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "FileHandle_OpenRetail"
     },
@@ -3396,6 +3605,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "Close@FileHandle"
     },
@@ -3405,6 +3615,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "Read@FileHandle"
     },
@@ -3414,6 +3625,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "Write@FileHandle"
     },
@@ -3423,6 +3635,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "Tell@FileHandle"
     },
@@ -3432,6 +3645,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "GetSize@FileHandle"
     },
@@ -3441,6 +3655,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": true,
       "overlay_object": "file.obj",
       "overlay_symbol": "Seek@FileHandle"
     },
@@ -3450,6 +3665,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?ReadWhole@FileHandle@@"
     },
@@ -3459,6 +3675,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_ResolvePath@@"
     },
@@ -3468,6 +3685,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "??1FileInterface"
     },
@@ -3477,6 +3695,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "??_GFileInterface"
     },
@@ -3528,6 +3747,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "?MemoryFile_RemoveNode@@"
     },
@@ -3537,6 +3757,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "?MemoryFile_RelinkChild@@"
     },
@@ -3546,6 +3767,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "?MemoryFile_ReplaceNode@@"
     },
@@ -3555,6 +3777,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "?MemoryFile_FindPredecessor@@"
     },
@@ -3564,6 +3787,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "Write@BufferFile"
     },
@@ -3573,6 +3797,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "??_GBufferFile"
     },
@@ -3582,6 +3807,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "??1BufferFile"
     },
@@ -3591,6 +3817,7 @@
       "size": 320,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "Close@BufferFile"
     },
@@ -3600,6 +3827,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "Read@BufferFile"
     },
@@ -3609,6 +3837,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "Tell@BufferFile"
     },
@@ -3618,6 +3847,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": true,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "GetSize@BufferFile"
     },
@@ -3627,6 +3857,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/platform/process.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_LaunchProcess@@"
     },
@@ -3636,6 +3867,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/resource_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "resource_file.obj",
       "overlay_symbol": "??_GResourceFile"
     },
@@ -3659,6 +3891,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/platform/gdi_font_cache.cpp",
+      "pure_cpp": false,
       "overlay_object": "gdi_font_cache.obj",
       "overlay_symbol": "FontCache_FlushRetail"
     },
@@ -3710,6 +3943,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/platform/gdi_font_cache.cpp",
+      "pure_cpp": false,
       "overlay_object": "gdi_font_cache.obj",
       "overlay_symbol": "FontCache_DeleteGdiObjectsRetail"
     },
@@ -3733,6 +3967,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "LegacyString_Clear"
     },
@@ -3742,6 +3977,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Length@LegacyString"
     },
@@ -3751,6 +3987,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?AssignSubstring@LegacyString@@"
     },
@@ -3760,6 +3997,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Assign@LegacyString@@"
     },
@@ -3769,6 +4007,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Reserve@LegacyString@@"
     },
@@ -3778,6 +4017,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?AssignRange@LegacyString@@"
     },
@@ -3787,6 +4027,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Erase@LegacyString@@"
     },
@@ -3796,6 +4037,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "SetLength@LegacyString"
     },
@@ -3805,6 +4047,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "QAEPADXZ"
     },
@@ -3814,6 +4057,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "Deallocate@LegacyAllocator"
     },
@@ -3823,6 +4067,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "MaxSize@LegacyAllocator"
     },
@@ -3832,6 +4077,7 @@
       "size": 115,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": false,
       "overlay_object": "heap.obj",
       "overlay_symbol": "?Grow@LegacyString@@"
     },
@@ -3862,6 +4108,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "OwnsPointer@LegacyString"
     },
@@ -3871,6 +4118,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/heap.cpp",
+      "pure_cpp": true,
       "overlay_object": "heap.obj",
       "overlay_symbol": "Allocate@LegacyAllocator"
     },
@@ -3880,6 +4128,7 @@
       "size": 432,
       "status": "exact-overlay",
       "source": "src/render/d3d_resource_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "d3d_resource_manager.obj",
       "overlay_symbol": "?D3DResourceManager_Destroy@@"
     },
@@ -3889,6 +4138,7 @@
       "size": null,
       "status": "exact-overlay",
       "source": "src/util/runtime_pool.cpp",
+      "pure_cpp": true,
       "overlay_object": "runtime_pool.obj",
       "overlay_symbol": "RuntimeAllocationPool_Initialize"
     },
@@ -3898,6 +4148,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/entity.cpp",
+      "pure_cpp": false,
       "overlay_object": "entity.obj",
       "overlay_symbol": "DestroyEntityList"
     },
@@ -3935,6 +4186,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/platform/window.cpp",
+      "pure_cpp": false,
       "overlay_object": "window.obj",
       "overlay_symbol": "SaveSystemSettingsRetail"
     },
@@ -4077,6 +4329,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_ResetDeviceStreams"
     },
@@ -4086,6 +4339,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/camera_setup.cpp",
+      "pure_cpp": true,
       "overlay_object": "camera_setup.obj",
       "overlay_symbol": "Viewport_ApplyDefaultRetail"
     },
@@ -4123,6 +4377,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/game/ascii_overlay_callbacks.cpp",
+      "pure_cpp": false,
       "overlay_object": "ascii_overlay_callbacks_overlay.obj",
       "overlay_symbol": "AsciiManager_OnDrawRetail"
     },
@@ -4139,6 +4394,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_DeletingDestructorNoReturn@@"
     },
@@ -4148,6 +4404,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/manager_factories.cpp",
+      "pure_cpp": false,
       "overlay_object": "manager_factories.obj",
       "overlay_symbol": "AsciiManager_CreateRetail"
     },
@@ -4164,6 +4421,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_ReleaseRawPair@@"
     },
@@ -4173,6 +4431,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/script/prng.cpp",
+      "pure_cpp": false,
       "overlay_object": "prng.obj",
       "overlay_symbol": "EntityScript_NextRandomModulo"
     },
@@ -4182,6 +4441,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/platform/sound_worker.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_worker.obj",
       "overlay_symbol": "Platform_StopSoundWorkersRetail"
     },
@@ -4205,6 +4465,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/platform/memory_file.cpp",
+      "pure_cpp": false,
       "overlay_object": "memory_file.obj",
       "overlay_symbol": "?Resource_FindChunk@@"
     },
@@ -4214,6 +4475,7 @@
       "size": 240,
       "status": "exact-overlay",
       "source": "src/platform/path.cpp",
+      "pure_cpp": false,
       "overlay_object": "path.obj",
       "overlay_symbol": "?Path_FindBasenameSlot@@"
     },
@@ -4237,6 +4499,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_SelectArchiveEntry@@"
     },
@@ -4260,6 +4523,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/platform/midi_worker_stop.cpp",
+      "pure_cpp": false,
       "overlay_object": "midi_worker_stop.obj",
       "overlay_symbol": "MidiWorker_StopRetail"
     },
@@ -4276,6 +4540,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_QueueResource@@"
     },
@@ -4299,6 +4564,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/platform/midi_worker.cpp",
+      "pure_cpp": false,
       "overlay_object": "midi_worker_overlay.obj",
       "overlay_symbol": "MidiWorker_MessageLoopRetail"
     },
@@ -4308,6 +4574,7 @@
       "size": 320,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RegisterResource@@"
     },
@@ -4317,6 +4584,7 @@
       "size": 368,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ConfigureFromResource@@"
     },
@@ -4326,6 +4594,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_LoadScript@@"
     },
@@ -4335,6 +4604,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_LoadScriptPreservingState@@"
     },
@@ -4344,6 +4614,7 @@
       "size": 528,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ChangeScript@@"
     },
@@ -4360,6 +4631,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ReadIntegerVariable@@"
     },
@@ -4369,6 +4641,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ResolveFloatVariable@@"
     },
@@ -4378,6 +4651,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ResolveIntegerVariable@@"
     },
@@ -4415,6 +4689,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/math/random_vector.cpp",
+      "pure_cpp": false,
       "overlay_object": "random_vector.obj",
       "overlay_symbol": "RandomVector_StoreRoundedScalar"
     },
@@ -4424,6 +4699,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Vector2_SetAnimationPolar"
     },
@@ -4433,6 +4709,7 @@
       "size": 256,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?RecoveryState_Configure41F50@@"
     },
@@ -4456,6 +4733,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "RecoveryState_Configure42300"
     },
@@ -4465,6 +4743,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationColor_MultiplyChannel@@"
     },
@@ -4481,6 +4760,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/render_state_sync.cpp",
+      "pure_cpp": false,
       "overlay_object": "render_state_sync.obj",
       "overlay_symbol": "AnmManager_SyncEntityRenderStateRetail"
     },
@@ -4497,6 +4777,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/render/anm_batch_flush.cpp",
+      "pure_cpp": false,
       "overlay_object": "anm_batch_flush.obj",
       "overlay_symbol": "AnimationManager_FlushQuadBatch"
     },
@@ -4506,6 +4787,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/render/quad_vertex_append.cpp",
+      "pure_cpp": true,
       "overlay_object": "quad_vertex_append.obj",
       "overlay_symbol": "AnimationManager_AppendQuadVertices"
     },
@@ -4585,6 +4867,7 @@
       "size": 256,
       "status": "exact-overlay",
       "source": "src/render/edge_strips.cpp",
+      "pure_cpp": false,
       "overlay_object": "edge_strips.obj",
       "overlay_symbol": "RenderTarget_FillVerticalEdgeStripRetail"
     },
@@ -4629,6 +4912,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/math/vector.cpp",
+      "pure_cpp": false,
       "overlay_object": "vector.obj",
       "overlay_symbol": "Vector2_SetPolar"
     },
@@ -4680,6 +4964,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_CreateTextureFromMemory"
     },
@@ -4689,6 +4974,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/render/anm_texture_upload.cpp",
+      "pure_cpp": false,
       "overlay_object": "anm_texture_upload.obj",
       "overlay_symbol": "AnmTexture_CreateAndUploadRetail"
     },
@@ -4698,6 +4984,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationTexture_Create@@"
     },
@@ -4714,6 +5001,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Recovery_LoadCachedResource@@"
     },
@@ -4730,6 +5018,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/render/anm_texture_upload.cpp",
+      "pure_cpp": false,
       "overlay_object": "anm_texture_upload.obj",
       "overlay_symbol": "AnmArchive_AdvanceScriptCursorRetail"
     },
@@ -4746,6 +5035,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/render/anm_pending_service.cpp",
+      "pure_cpp": false,
       "overlay_object": "anm_pending_service_overlay.obj",
       "overlay_symbol": "AnmPending_ServiceRetail"
     },
@@ -4755,6 +5045,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_ClearResourceSlot@@"
     },
@@ -4771,6 +5062,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CopyPositionRecord@@"
     },
@@ -4780,6 +5072,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_DispatchRandomText"
     },
@@ -4789,6 +5082,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_MarkLogState"
     },
@@ -4812,6 +5106,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_ClearIndexedResources@@"
     },
@@ -4849,6 +5144,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_UpdatePrimary@@"
     },
@@ -4858,6 +5154,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_UpdateSecondary@@"
     },
@@ -4867,6 +5164,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RenderBucket@@"
     },
@@ -4876,6 +5174,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RegisterPrimaryBack@@"
     },
@@ -4885,6 +5184,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RegisterPrimaryFront@@"
     },
@@ -4894,6 +5194,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RegisterSecondaryBack@@"
     },
@@ -4903,6 +5204,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_RegisterSecondaryFront@@"
     },
@@ -4919,6 +5221,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CreatePrimaryBack@@"
     },
@@ -4928,6 +5231,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CreatePositionedPrimary@@"
     },
@@ -4937,6 +5241,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?PlayerAnimation_Create@@"
     },
@@ -4946,6 +5251,7 @@
       "size": 304,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CreatePrimaryFront@@"
     },
@@ -4955,6 +5261,7 @@
       "size": 304,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CreateSecondaryBack@@"
     },
@@ -4964,6 +5271,7 @@
       "size": 304,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_CreateSecondaryFront@@"
     },
@@ -4973,6 +5281,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_Find@@"
     },
@@ -4982,6 +5291,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetStopFrame@@"
     },
@@ -4991,6 +5301,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetStopFrameAndRun@@"
     },
@@ -5000,6 +5311,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetFlag@@"
     },
@@ -5009,6 +5321,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetPosition@@"
     },
@@ -5018,6 +5331,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetTranslatedPosition@@"
     },
@@ -5027,6 +5341,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_MarkResourceForRemoval@@"
     },
@@ -5036,6 +5351,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_ValidateHandle@@"
     },
@@ -5045,6 +5361,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "AnimationManager_SetStopFrameFromHandleRetail"
     },
@@ -5054,6 +5371,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SetFlagBit1@@"
     },
@@ -5063,6 +5381,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_ClearFlag@@"
     },
@@ -5072,6 +5391,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_MarkForRemovalAndClearHandle@@"
     },
@@ -5081,6 +5401,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SelectSpriteFromCurrentResource@@"
     },
@@ -5090,6 +5411,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_SelectSpriteFromResource@@"
     },
@@ -5106,6 +5428,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/render/animation_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationManager_FindChildByScriptIndex@@"
     },
@@ -5129,6 +5452,7 @@
       "size": 16,
       "status": "exact-overlay",
       "source": "src/render/d3d_resource_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "d3d_resource_manager.obj",
       "overlay_symbol": "?D3DResourceList_ClearPending@@"
     },
@@ -5138,6 +5462,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/render/d3d_resource_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "d3d_resource_manager.obj",
       "overlay_symbol": "?D3DResourceManager_Initialize@@"
     },
@@ -5147,6 +5472,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?Scheduler_RegisterPrimary@@"
     },
@@ -5156,6 +5482,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?Scheduler_RegisterSecondary@@"
     },
@@ -5179,6 +5506,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/render/d3d_resource_manager.cpp",
+      "pure_cpp": false,
       "overlay_object": "d3d_resource_manager.obj",
       "overlay_symbol": "?D3DResourceList_ReleaseResources@@"
     },
@@ -5188,6 +5516,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?SchedulerCallback_Create@@"
     },
@@ -5197,6 +5526,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?Scheduler_Remove@@"
     },
@@ -5206,6 +5536,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?Scheduler_CreateAndRegister@@"
     },
@@ -5215,6 +5546,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/scheduler.cpp",
+      "pure_cpp": false,
       "overlay_object": "scheduler.obj",
       "overlay_symbol": "?Scheduler_CreateAndRegisterSecondary@@"
     },
@@ -5238,6 +5570,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "Input_PollJoystickButtons"
     },
@@ -5254,6 +5587,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Input_UpdateKeyboardState@@"
     },
@@ -5263,6 +5597,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Input_NormalizeKeyboardState@@"
     },
@@ -5293,6 +5628,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_ProbeExists@@"
     },
@@ -5302,6 +5638,7 @@
       "size": 224,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_WriteWholeFile@@"
     },
@@ -5311,6 +5648,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_OpenSharedWrite@@"
     },
@@ -5320,6 +5658,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_OpenSharedRead@@"
     },
@@ -5329,6 +5668,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_WriteShared@@"
     },
@@ -5338,6 +5678,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_ReadShared@@"
     },
@@ -5347,6 +5688,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/platform/file.cpp",
+      "pure_cpp": false,
       "overlay_object": "file.obj",
       "overlay_symbol": "?File_CloseProbeHandle@@"
     },
@@ -5356,6 +5698,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/platform/text_log.cpp",
+      "pure_cpp": false,
       "overlay_object": "text_log.obj",
       "overlay_symbol": "?TextLog_Append@@"
     },
@@ -5365,6 +5708,7 @@
       "size": 256,
       "status": "exact-overlay",
       "source": "src/platform/text_log.cpp",
+      "pure_cpp": false,
       "overlay_object": "text_log.obj",
       "overlay_symbol": "TextLog_AppendLine"
     },
@@ -5374,6 +5718,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/math/rng.cpp",
+      "pure_cpp": false,
       "overlay_object": "rng.obj",
       "overlay_symbol": "?Rng_NextU32@@"
     },
@@ -5383,6 +5728,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/math/rng.cpp",
+      "pure_cpp": false,
       "overlay_object": "rng.obj",
       "overlay_symbol": "?Rng_NextU32DoubleStep@@"
     },
@@ -5392,6 +5738,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/math/rng.cpp",
+      "pure_cpp": false,
       "overlay_object": "rng.obj",
       "overlay_symbol": "?Rng_NextFloat@@"
     },
@@ -5401,6 +5748,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/math/rng.cpp",
+      "pure_cpp": false,
       "overlay_object": "rng.obj",
       "overlay_symbol": "?Rng_NextFloatSigned@@"
     },
@@ -5410,6 +5758,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/math/angle.cpp",
+      "pure_cpp": true,
       "overlay_object": "angle.obj",
       "overlay_symbol": "?Angle_NormalizeSum@@"
     },
@@ -5419,6 +5768,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/math/angle.cpp",
+      "pure_cpp": true,
       "overlay_object": "angle.obj",
       "overlay_symbol": "?Angle_Normalize@@"
     },
@@ -5428,6 +5778,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/platform/process.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_GetOsVersionCode@@"
     },
@@ -5437,6 +5788,7 @@
       "size": 80,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Score_InputHistorySave@@"
     },
@@ -5446,6 +5798,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/score.cpp",
+      "pure_cpp": false,
       "overlay_object": "score.obj",
       "overlay_symbol": "?Score_InputHistoryStep@@"
     },
@@ -5455,6 +5808,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/menu.cpp",
+      "pure_cpp": false,
       "overlay_object": "menu.obj",
       "overlay_symbol": "MenuCursor_Advance"
     },
@@ -5464,6 +5818,7 @@
       "size": 448,
       "status": "exact-overlay",
       "source": "src/math/timer.cpp",
+      "pure_cpp": false,
       "overlay_object": "timer.obj",
       "overlay_symbol": "?FrameTimer_Advance@@"
     },
@@ -5473,6 +5828,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/platform/process.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_DestroyWorker@@"
     },
@@ -5482,6 +5838,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/process.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_StopWorkerNoDelete@@"
     },
@@ -5491,6 +5848,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/platform/all_source_runtime.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_StopWorker@@"
     },
@@ -5507,6 +5865,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_AdvancePolarMotion"
     },
@@ -5523,6 +5882,7 @@
       "size": 528,
       "status": "exact-overlay",
       "source": "src/math/vector2_polar.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_PolarToVectorRetail"
     },
@@ -5532,6 +5892,7 @@
       "size": 272,
       "status": "exact-overlay",
       "source": "src/platform/joystick_property.cpp",
+      "pure_cpp": false,
       "overlay_object": "joystick_property_overlay.obj",
       "overlay_symbol": "Input_SetJoystickPropertyRetail"
     },
@@ -5555,6 +5916,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InitializeInterfaceArray"
     },
@@ -5564,6 +5926,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_DeletingDestructor@@"
     },
@@ -5580,6 +5943,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_ReleaseOwnedArray@@"
     },
@@ -5589,6 +5953,7 @@
       "size": 496,
       "status": "exact-overlay",
       "source": "src/platform/sound_commands.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_commands.obj",
       "overlay_symbol": "Streamer_FillBufferRetail"
     },
@@ -5598,6 +5963,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_RunInterface@@"
     },
@@ -5607,6 +5973,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_FindAvailable@@"
     },
@@ -5616,6 +5983,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/platform/sound_stream_start.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_stream_start.obj",
       "overlay_symbol": "SoundStream_Start"
     },
@@ -5625,6 +5993,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_SetOperationDeadline@@"
     },
@@ -5634,6 +6003,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_AggregateInterfaces@@"
     },
@@ -5643,6 +6013,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/platform/process.cpp",
+      "pure_cpp": false,
       "overlay_object": "process.obj",
       "overlay_symbol": "?Platform_InvokeInterface@@"
     },
@@ -5652,6 +6023,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Platform_InvokeConfigured"
     },
@@ -5661,6 +6033,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_QueryInterfaces@@"
     },
@@ -5670,6 +6043,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "Recovery_InitializeSingleInterface"
     },
@@ -5679,6 +6053,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_DeletingDestructorVtable@@"
     },
@@ -5688,6 +6063,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/platform/sound_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_leaves.obj",
       "overlay_symbol": "SoundBuffer_DestructBaseRetail"
     },
@@ -5704,6 +6080,7 @@
       "size": 288,
       "status": "exact-overlay",
       "source": "src/platform/sound_commands.cpp",
+      "pure_cpp": false,
       "overlay_object": "sound_commands.obj",
       "overlay_symbol": "Streamer_RestartRetail"
     },
@@ -5713,6 +6090,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/game/archive_cursor_open.cpp",
+      "pure_cpp": false,
       "overlay_object": "archive_cursor_open.obj",
       "overlay_symbol": "ArchiveCursor_Open"
     },
@@ -5722,6 +6100,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/game/recovery_leaves.cpp",
+      "pure_cpp": false,
       "overlay_object": "recovery_leaves.obj",
       "overlay_symbol": "?Platform_SelectStreamRecord@@"
     },
@@ -5731,6 +6110,7 @@
       "size": 208,
       "status": "exact-overlay",
       "source": "src/game/archive_cursor.cpp",
+      "pure_cpp": false,
       "overlay_object": "archive_cursor.obj",
       "overlay_symbol": "ArchiveCursor_SeekRetail"
     },
@@ -5740,6 +6120,7 @@
       "size": 352,
       "status": "exact-overlay",
       "source": "src/game/archive_cursor_read.cpp",
+      "pure_cpp": false,
       "overlay_object": "archive_cursor_read.obj",
       "overlay_symbol": "ArchiveCursor_ReadRetail"
     },
@@ -5749,6 +6130,7 @@
       "size": 560,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm_children.obj",
       "overlay_symbol": "EclVm_StartChildRetail"
     },
@@ -5765,6 +6147,7 @@
       "size": 160,
       "status": "exact-overlay",
       "source": "src/script/ecl_vm_children.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm_children.obj",
       "overlay_symbol": "EclVm_TickChildren"
     },
@@ -5774,6 +6157,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveIntOperand@@"
     },
@@ -5783,6 +6167,7 @@
       "size": 192,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveFloatOperand@@"
     },
@@ -5792,6 +6177,7 @@
       "size": 128,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveIntValue@@"
     },
@@ -5801,6 +6187,7 @@
       "size": 176,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveFloatValue@@"
     },
@@ -5810,6 +6197,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveVariableValue@@"
     },
@@ -5819,6 +6207,7 @@
       "size": 96,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResolveFloatDestination@@"
     },
@@ -5828,6 +6217,7 @@
       "size": 144,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm_children.obj",
       "overlay_symbol": "EclVm_SpawnChild"
     },
@@ -5837,6 +6227,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_FindVariable@@"
     },
@@ -5846,6 +6237,7 @@
       "size": 32,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_ResetVariableBindings@@"
     },
@@ -5855,6 +6247,7 @@
       "size": 112,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_SetPolarVector@@"
     },
@@ -5885,6 +6278,7 @@
       "size": 64,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_PushScratchValue@@"
     },
@@ -5894,6 +6288,7 @@
       "size": 48,
       "status": "exact-overlay",
       "source": "src/script/ecl_core_interpreter.cpp",
+      "pure_cpp": false,
       "overlay_object": "ecl_vm.obj",
       "overlay_symbol": "?ECL_PopScratchValue@@"
     },
