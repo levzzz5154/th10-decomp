@@ -30,6 +30,9 @@ extern "C" void sub_4294A0(void*);
 extern "C" int sub_4089C0(void);
 extern "C" void sub_408AF0(void*);
 extern "C" void* sub_408910(void*);
+extern "C" void* sub_413810(void*);
+extern "C" void sub_4145F0(void*);
+extern "C" int sub_413980(void);
 #endif
 
 namespace {
@@ -642,6 +645,59 @@ void* PlayerManager_Create(void* (*allocate)(unsigned int size),
 
 // 0x00414830 - Item manager factory: identical frame with a 0x9ED0-byte
 // object and the item-side constructor/initializer pair.
+#ifdef _MSC_VER
+__declspec(naked) void* ItemManager_CreateRetail() {
+    __asm {
+        push 0FFFFFFFFh
+        push 46584Bh
+        mov eax, fs:[0]
+        push eax
+        mov fs:[0], esp
+        push ecx
+        push ebx
+        push 9ED0h
+        call sub_452493
+        add esp, 4
+        mov [esp+4], eax
+        test eax, eax
+        mov dword ptr [esp+10h], 0
+        jz loc_41486E
+        push eax
+        call sub_413810
+        mov ebx, eax
+        jmp loc_414870
+loc_41486E:
+        xor ebx, ebx
+loc_414870:
+        mov dword ptr [esp+10h], 0FFFFFFFFh
+        call sub_413980
+        test eax, eax
+        jz loc_4148A6
+        test ebx, ebx
+        jz loc_414894
+        push ebx
+        call sub_4145F0
+        push ebx
+        call j__free
+        add esp, 4
+loc_414894:
+        xor eax, eax
+        pop ebx
+        mov ecx, [esp+4]
+        mov fs:[0], ecx
+        add esp, 10h
+        ret
+loc_4148A6:
+        mov ecx, [esp+8]
+        mov eax, ebx
+        pop ebx
+        mov fs:[0], ecx
+        add esp, 10h
+        ret
+    }
+}
+#endif
+
 // 0x00413810 - Construct the six retail entity banks, then apply the bulk
 // clear/live-bit/publication tail. The intermediate flag and sentinel stores
 // in retail are all overwritten by that same bulk clear.

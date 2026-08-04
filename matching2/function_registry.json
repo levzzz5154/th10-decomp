@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 366,
-      "semantic": 337
+      "exact-overlay": 367,
+      "semantic": 336
     }
   },
   "functions": [
@@ -2071,8 +2071,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00414830_FUN_00414830.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "manager_factories.obj",
+        "symbol": "ItemManager_CreateRetail"
+      }
     },
     {
       "address": "0x00414900",
