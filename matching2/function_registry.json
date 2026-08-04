@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 363,
-      "semantic": 340
+      "exact-overlay": 364,
+      "semantic": 339
     }
   },
   "functions": [
@@ -2637,8 +2637,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041BA50_FUN_0041ba50.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/enemy_drop_sweep.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/enemy_drop_sweep.cpp",
+      "overlay": {
+        "object": "enemy_drop_sweep.obj",
+        "symbol": "Enemy_SweepPendingDropsRetail"
+      }
     },
     {
       "address": "0x0041BB00",

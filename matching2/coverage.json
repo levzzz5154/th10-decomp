@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 340,
-        "retail_bytes": 279243
+        "function_count": 339,
+        "retail_bytes": 279067
       },
       "exact-overlay": {
-        "function_count": 382,
-        "retail_bytes": 53557
+        "function_count": 383,
+        "retail_bytes": 53733
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 382,
+    "function_count": 383,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1809,8 +1809,10 @@
       "address": "0x0041BA50",
       "symbol": "FUN_0041ba50",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/enemy_drop_sweep.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/enemy_drop_sweep.cpp",
+      "overlay_object": "enemy_drop_sweep.obj",
+      "overlay_symbol": "Enemy_SweepPendingDropsRetail"
     },
     {
       "address": "0x0041BB00",

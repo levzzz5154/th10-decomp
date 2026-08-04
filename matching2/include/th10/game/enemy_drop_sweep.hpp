@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // 0x0041BA50 - Sweep the 0x96 enemy slots (0x3F0-byte stride starting
 // at manager+0x3C0) for finished pickup effects: a slot whose active

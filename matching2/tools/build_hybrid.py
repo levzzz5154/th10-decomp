@@ -272,6 +272,7 @@ OVERLAYS = (
     ("gdi_font_cache.obj", "FontCache_FlushRetail", 0x00436A30),
     ("render_stage_select.obj", "GameThread_SelectRenderStageRetail", 0x00401D20),
     ("stage_background_overlay.obj", "StageBackground_RebindTextureRetail", 0x0040C3C0),
+    ("enemy_drop_sweep.obj", "Enemy_SweepPendingDropsRetail", 0x0041BA50),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),
