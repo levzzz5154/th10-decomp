@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 359,
-        "retail_bytes": 283227
+        "function_count": 357,
+        "retail_bytes": 282747
       },
       "exact-overlay": {
-        "function_count": 363,
-        "retail_bytes": 49573
+        "function_count": 365,
+        "retail_bytes": 50053
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 363,
+    "function_count": 365,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -497,8 +497,10 @@
       "address": "0x00405F70",
       "symbol": "FUN_00405f70",
       "size": 240,
-      "status": "semantic",
-      "source": "src/game/manager_teardown.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_teardown.cpp",
+      "overlay_object": "manager_teardown.obj",
+      "overlay_symbol": "ItemManager_DestroyRetail"
     },
     {
       "address": "0x00406060",
@@ -4069,8 +4071,10 @@
       "address": "0x0043C410",
       "symbol": "FUN_0043c410",
       "size": 240,
-      "status": "semantic",
-      "source": "src/game/ascii_overlay_callbacks.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/ascii_overlay_callbacks.cpp",
+      "overlay_object": "ascii_overlay_callbacks_overlay.obj",
+      "overlay_symbol": "AsciiManager_OnDrawRetail"
     },
     {
       "address": "0x0043C500",

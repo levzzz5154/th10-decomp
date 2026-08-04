@@ -3,6 +3,18 @@
 // =============================================================================
 #include "th10/game/manager_teardown.hpp"
 
+#ifdef _MSC_VER
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" void sub_449F60(void*, void*);
+extern "C" void sub_4493E0(void*, void*);
+extern "C" void __stdcall EhVectorDtorIter();
+extern "C" unsigned long DAT_00491be4;
+extern "C" unsigned long dword_491C10;
+extern "C" unsigned char byte_49231C;
+extern "C" unsigned long dword_4776F0;
+#endif
+
 namespace {
 
 void ClearNodePair(ManagerNodePair* nodes) {
@@ -133,6 +145,76 @@ void BulletManager_Destroy(void* manager, ManagerNodePair* nodes,
 
 // 0x00405F70 - ItemManager_Destroy: element sweep over the 0x7D1-entry item
 // array (stride 0x7F0, retail dtor 0x00405DE0); owner DAT_004776F0.
+#ifdef _MSC_VER
+__declspec(naked) void ItemManager_DestroyRetail() {
+    __asm {
+        mov eax, fs:[0]
+        push 0FFFFFFFFh
+        push 46553Ch
+        push eax
+        mov fs:[0], esp
+        push ebx
+        push ebp
+        push esi
+        push edi
+        mov dword ptr [esp+18h], 0
+        mov eax, [esp+20h]
+        mov esi, [eax+8]
+        test esi, esi
+        mov edi, dword ptr [DAT_00491be4]
+        mov ebx, dword ptr [__imp_EnterCriticalSection]
+        mov ebp, dword ptr [__imp_LeaveCriticalSection]
+        jz loc_405FD1
+        push 492274h
+        call ebx
+        inc byte ptr [byte_49231C]
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr [byte_49231C]
+loc_405FD1:
+        mov ecx, [esp+20h]
+        mov esi, [ecx+0Ch]
+        test esi, esi
+        mov edi, dword ptr [DAT_00491be4]
+        jz loc_406005
+        push 492274h
+        call ebx
+        inc byte ptr [byte_49231C]
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr [byte_49231C]
+loc_406005:
+        mov edx, [esp+20h]
+        mov edx, [edx+3E0B50h]
+        mov eax, dword ptr [dword_491C10]
+        call sub_4493E0
+        push 405DE0h
+        mov dword ptr [esp+1Ch], 0FFFFFFFFh
+        mov eax, [esp+24h]
+        push 7D1h
+        push 7F0h
+        add eax, 60h
+        push eax
+        mov dword ptr [dword_4776F0], 0
+        call EhVectorDtorIter
+        mov ecx, [esp+10h]
+        pop edi
+        pop esi
+        pop ebp
+        mov fs:[0], ecx
+        pop ebx
+        add esp, 0Ch
+        ret 4
+    }
+}
+#endif
+
 void ItemManager_Destroy(void* manager, ManagerNodePair* nodes,
                          const TeardownHooks* hooks, void* element_base,
                          unsigned int element_stride,
@@ -243,8 +325,13 @@ int StageTransition_Teardown(int game_state, int stage_index,
         // Full teardown, retail role order: effects, replay pair, pause
         // menu, player, stage background, items, bullets, HUD, overlay.
         static const int kRoleOrder[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+#ifdef _MSC_VER
+        for (int role = 0; role < 10; ++role)
+            hooks->destroy_manager(hooks->context, kRoleOrder[role]);
+#else
         for (int role : kRoleOrder)
             hooks->destroy_manager(hooks->context, role);
+#endif
         hooks->clear_bullet_arena(hooks->context);
     } else {
         hooks->keep_alive_pass(hooks->context); // 0x00414570

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 344,
-      "semantic": 359
+      "exact-overlay": 346,
+      "semantic": 357
     }
   },
   "functions": [
@@ -661,8 +661,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405F70_FUN_00405f70.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_teardown.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_teardown.cpp",
+      "overlay": {
+        "object": "manager_teardown.obj",
+        "symbol": "ItemManager_DestroyRetail"
+      }
     },
     {
       "address": "0x00406060",
@@ -5731,8 +5735,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043C410_FUN_0043c410.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/ascii_overlay_callbacks.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/ascii_overlay_callbacks.cpp",
+      "overlay": {
+        "object": "ascii_overlay_callbacks_overlay.obj",
+        "symbol": "AsciiManager_OnDrawRetail"
+      }
     },
     {
       "address": "0x0043C500",

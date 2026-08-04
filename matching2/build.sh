@@ -72,6 +72,8 @@ OVERLAY_SOURCES=(
     src/game/score_file.cpp
     src/game/manager_factories.cpp
     src/game/task_registration.cpp
+    src/game/manager_teardown.cpp
+    src/game/ascii_overlay_callbacks_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/midi_worker_stop.cpp
     src/archive/dat_file.cpp
