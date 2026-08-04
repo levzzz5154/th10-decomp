@@ -14,6 +14,10 @@ extern "C" char* _strncpy(char*, const char*, unsigned int);
 extern "C" int dword_474C84;
 extern "C" int dword_474C88;
 extern "C" int dword_474C8C;
+extern "C" void* sub_449ED0(void*);
+extern "C" int sub_449AE0(void*, int, void*);
+extern "C" int sub_449B70(void*, int, void*);
+extern "C" int sub_419960(void*, const char*, int);
 #endif
 
 #ifndef _MSC_VER
@@ -163,6 +167,54 @@ void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings) {
 
 // 0x00418E30 - Register the manager's update/render pair, clear its counter,
 // and create the two built-in tips when the retail tips option is enabled.
+#ifdef _MSC_VER
+__declspec(naked) int StageTipRuntime_InitializeRetail() {
+    __asm {
+        push esi
+        push edi
+        push 4198A0h
+        call sub_449ED0
+        mov esi, eax
+        mov edx, [esi+4]
+        mov eax, dword ptr [DAT_00491be4]
+        and edx, 0FFFFFFFDh
+        push eax
+        mov edi, 19h
+        mov [esi+20h], ebx
+        mov [esi+4], edx
+        call sub_449AE0
+        push 4198B0h
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov ecx, dword ptr [DAT_00491be4]
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        push ecx
+        mov edi, 2Ch
+        mov [esi+20h], ebx
+        call sub_449B70
+        mov [ebx+0Ch], esi
+        mov dword ptr [ebx+10h], 0
+        mov al, byte ptr [DAT_00491d6a]
+        test al, al
+        pop edi
+        pop esi
+        jz loc_418EB0
+        push 0
+        push 46D6D8h
+        push ebx
+        call sub_419960
+        push 1
+        push 46D6C4h
+        push ebx
+        call sub_419960
+loc_418EB0:
+        xor eax, eax
+        ret
+    }
+}
+#endif
+
 int StageTipRuntime_Initialize(void* state) {
     if (state == 0 || DAT_00491be4 == 0)
         return -1;

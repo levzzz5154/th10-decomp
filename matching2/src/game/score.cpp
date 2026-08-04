@@ -38,6 +38,9 @@ extern "C" void* dword_491C38;
 extern "C" void* dword_491C3C[];
 extern "C" unsigned char byte_497BB0[];
 extern "C" void* __imp_joyGetPosEx;
+extern "C" int sub_4086B0(void*, float, float);
+extern "C" int sub_448DB0(void*, int, int, int);
+extern "C" void* dword_4776F0;
 extern "C" void sub_41C030(void*, void*);
 #endif
 
@@ -1054,6 +1057,69 @@ void ScoreExtendedObject_Destroy(void* object,
 // 0x00408030 - Advance the score-state activation transition after its
 // geometry query. The query and stage-spawn hooks are explicit so this leaf
 // can be tested without the global renderer/game-state managers.
+#ifdef _MSC_VER
+__declspec(naked) int ScoreState_ActivateFromResultRetail() {
+    __asm {
+        push ecx
+        mov ax, [esi+446h]
+        cmp ax, 2
+        je loc_408048
+        cmp ax, 1
+        je loc_408048
+        xor eax, eax
+        pop ecx
+        ret
+loc_408048:
+        push 41000000h
+        lea ecx, [esi+3B4h]
+        push 41000000h
+        call sub_4086B0
+        test eax, eax
+        mov word ptr [esi+30Ch], 1
+        mov word ptr [esi+446h], 3
+        jnz loc_4080ED
+        mov eax, [esi+438h]
+        push ebp
+        xor ebp, ebp
+        cmp eax, ebp
+        jl loc_40809C
+        mov edx, dword ptr [dword_4776F0]
+        push edi
+        push eax
+        lea eax, [esp+0Ch]
+        push eax
+        mov eax, [edx+3E0B50h]
+        push eax
+        mov edi, ecx
+        call sub_448DB0
+        pop edi
+loc_40809C:
+        mov eax, [esi+408h]
+        test al, 1
+        jnz loc_4080CF
+        or eax, 1
+        mov [esi+3FCh], ebp
+        mov dword ptr [esi+3F8h], 0FFF0BDC1h
+        mov [esi+400h], ebp
+        mov dword ptr [esi+404h], 476F78h
+        mov [esi+408h], eax
+loc_4080CF:
+        mov [esi+3FCh], ebp
+        mov [esi+400h], ebp
+        mov dword ptr [esi+3F8h], 0FFFFFFFFh
+        pop ebp
+        mov eax, 1
+        pop ecx
+        ret
+loc_4080ED:
+        or dword ptr [esi], 8
+        mov eax, 1
+        pop ecx
+        ret
+    }
+}
+#endif
+
 int ScoreState_ActivateFromResult(void* state, int geometryResult,
                                   int stageIndex, void (*spawn)(void*)) {
     unsigned char* bytes = (unsigned char*)state;

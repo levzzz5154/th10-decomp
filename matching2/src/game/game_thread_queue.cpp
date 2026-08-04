@@ -199,6 +199,36 @@ void GameThread_AppendFormatted(GameThread* gameThread,
 #endif
 
 // 0x00401690 - Formatted append variant that marks the inserted record.
+#ifdef _MSC_VER
+__declspec(naked) void GameThread_AppendFormattedMarkedRetail() {
+    __asm {
+        sub esp, 204h
+        mov eax, ___security_cookie
+        mov ecx, [esp+208h]
+        xor eax, esp
+        mov [esp+200h], eax
+        lea eax, [esp+20Ch]
+        push eax
+        push ecx
+        lea edx, [esp+8]
+        push edx
+        call _vsprintf
+        add esp, 0Ch
+        lea eax, [esp]
+        mov ecx, esi
+        call sub_401530
+        mov eax, [esi+896Ch]
+        mov ecx, [esp+200h]
+        imul eax, 68h
+        xor ecx, esp
+        mov dword ptr [eax+esi+764h], 1
+        call security_check_cookie
+        add esp, 204h
+        ret
+    }
+}
+#endif
+
 void GameThread_AppendFormattedMarked(GameThread* gameThread,
                                       const GameThreadQueueWord* vector,
                                       const char* format, ...) {

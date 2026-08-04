@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 377,
-        "retail_bytes": 286747
+        "function_count": 373,
+        "retail_bytes": 285979
       },
       "exact-overlay": {
-        "function_count": 345,
-        "retail_bytes": 46053
+        "function_count": 349,
+        "retail_bytes": 46821
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 345,
+    "function_count": 349,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -123,8 +123,10 @@
       "address": "0x00401690",
       "symbol": "FUN_00401690",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/game_thread_queue.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/game_thread_queue.cpp",
+      "overlay_object": "game_thread_queue.obj",
+      "overlay_symbol": "GameThread_AppendFormattedMarkedRetail"
     },
     {
       "address": "0x00401760",
@@ -654,8 +656,10 @@
       "address": "0x00408030",
       "symbol": "FUN_00408030",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "ScoreState_ActivateFromResultRetail"
     },
     {
       "address": "0x00408100",
@@ -1608,8 +1612,10 @@
       "address": "0x00418E30",
       "symbol": "FUN_00418e30",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/stage_tip_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_tip_manager.cpp",
+      "overlay_object": "stage_tip_manager.obj",
+      "overlay_symbol": "StageTipRuntime_InitializeRetail"
     },
     {
       "address": "0x00418EE0",
@@ -4174,8 +4180,10 @@
       "address": "0x0043DAB0",
       "symbol": "FUN_0043dab0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/platform/midi_worker_stop.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/midi_worker_stop.cpp",
+      "overlay_object": "midi_worker_stop.obj",
+      "overlay_symbol": "MidiWorker_StopRetail"
     },
     {
       "address": "0x0043DB60",

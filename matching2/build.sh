@@ -69,6 +69,7 @@ OVERLAY_SOURCES=(
     src/game/player_scheduler.cpp
     src/game/score_file.cpp
     src/platform/sound_leaves.cpp
+    src/platform/midi_worker_stop.cpp
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp
     src/script/prng.cpp
