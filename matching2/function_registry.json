@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 342,
-      "semantic": 361
+      "exact-overlay": 344,
+      "semantic": 359
     }
   },
   "functions": [
@@ -1909,8 +1909,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004134B0_FUN_004134b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/app/fps_counter.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/app/fps_counter.cpp",
+      "overlay": {
+        "object": "fps_counter.obj",
+        "symbol": "FrameRateCounter_UpdateRetail"
+      }
     },
     {
       "address": "0x004135D0",
@@ -7095,8 +7099,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00449470_FUN_00449470.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/animation_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/animation_manager.cpp",
+      "overlay": {
+        "object": "animation_manager.obj",
+        "symbol": "AnimationManager_SetStopFrameFromHandleRetail"
+      }
     },
     {
       "address": "0x00449590",

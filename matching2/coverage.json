@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 361,
-        "retail_bytes": 283803
+        "function_count": 359,
+        "retail_bytes": 283227
       },
       "exact-overlay": {
-        "function_count": 361,
-        "retail_bytes": 48997
+        "function_count": 363,
+        "retail_bytes": 49573
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 361,
+    "function_count": 363,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1329,8 +1329,10 @@
       "address": "0x004134B0",
       "symbol": "FUN_004134b0",
       "size": 288,
-      "status": "semantic",
-      "source": "src/app/fps_counter.cpp"
+      "status": "exact-overlay",
+      "source": "src/app/fps_counter.cpp",
+      "overlay_object": "fps_counter.obj",
+      "overlay_symbol": "FrameRateCounter_UpdateRetail"
     },
     {
       "address": "0x004135D0",
@@ -4979,8 +4981,10 @@
       "address": "0x00449470",
       "symbol": "FUN_00449470",
       "size": 288,
-      "status": "semantic",
-      "source": "src/render/animation_manager.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/animation_manager.cpp",
+      "overlay_object": "animation_manager.obj",
+      "overlay_symbol": "AnimationManager_SetStopFrameFromHandleRetail"
     },
     {
       "address": "0x00449590",

@@ -1379,6 +1379,42 @@ void AnimationManager_SetStopFrame(
 #endif
 
 // 0x00449470 - Pointer-handle form used by gameplay owners.
+#ifdef _MSC_VER
+__declspec(naked) void AnimationManager_SetStopFrameFromHandleRetail() {
+    __asm {
+        mov eax, [eax]
+        mov edx, dword_491C10
+        push eax
+        call sub_4491C0
+        test eax, eax
+        jz locret_4494B0
+        mov ecx, [eax+18h]
+        test ecx, ecx
+        mov [eax+304h], si
+        jnz locret_4494B0
+        mov eax, [eax+14h]
+        test eax, eax
+        jz locret_4494B0
+        jmp loc_4494A0
+        _emit 8Dh
+        _emit 0A4h
+        _emit 24h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+loc_4494A0:
+        mov ecx, [eax]
+        mov [ecx+304h], si
+        mov eax, [eax+4]
+        test eax, eax
+        jnz loc_4494A0
+locret_4494B0:
+        ret
+    }
+}
+#endif
+
 void AnimationManager_SetStopFrameFromHandle(
     void* manager, const int* animationHandle, short frame) {
     AnimationManager_SetStopFrame(manager, *animationHandle, frame);
