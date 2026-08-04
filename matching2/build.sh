@@ -78,6 +78,7 @@ OVERLAY_SOURCES=(
     src/game/task_registration.cpp
     src/game/manager_teardown.cpp
     src/game/ascii_overlay_callbacks_overlay.cpp
+    src/game/version_list.cpp
     src/game/bullet_manager_overlay.cpp
     src/game/music_room_overlay.cpp
     src/render/camera_setup.cpp

@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 376,
-      "semantic": 327
+      "exact-overlay": 377,
+      "semantic": 326
     }
   },
   "functions": [
@@ -3245,8 +3245,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420DD0_FUN_00420dd0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/version_list.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/version_list.cpp",
+      "overlay": {
+        "object": "version_list.obj",
+        "symbol": "VersionList_MatchRetail"
+      }
     },
     {
       "address": "0x00420EA0",

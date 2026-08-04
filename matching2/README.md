@@ -390,7 +390,7 @@ an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
 The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (395 of them
+functions (100.0%) as readable semantic C++ or verified overlays (396 of them
 byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
 ledger also marks which of those verified overlays are implemented as pure C++
 that MSVC 7.1 compiles to the retail bytes (no inline `__asm`); the remaining
@@ -822,6 +822,7 @@ Current exact-overlay results with MSVC 7.1:
 | `ItemManager_DestroyRetail` | 236 | 100% |
 | `AsciiManager_OnDrawRetail` | 68 | 100% |
 | `AsciiOverlay_FormatShadowedRetail` | 204 | 100% |
+| `VersionList_MatchRetail` | 205 | 100% |
 | `BulletPool_ResetRetail` | 45 | 100% |
 | `Sound_PlayDummyRetail` | 73 | 100% |
 | `Player_ClearExpiredFlagsRetail` | 81 | 100% |

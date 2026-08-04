@@ -309,6 +309,7 @@ OVERLAYS = (
     ("manager_teardown.obj", "ItemManager_DestroyRetail", 0x00405F70),
     ("ascii_overlay_callbacks_overlay.obj", "AsciiManager_OnDrawRetail", 0x0043C410),
     ("ascii_overlay_callbacks_overlay.obj", "AsciiOverlay_FormatShadowedRetail", 0x00447AE0),
+    ("version_list.obj", "VersionList_MatchRetail", 0x00420DD0),
     ("bullet_manager_overlay.obj", "BulletPool_ResetRetail", 0x00405ED0),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
     ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
