@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 370,
-      "semantic": 333
+      "exact-overlay": 371,
+      "semantic": 332
     }
   },
   "functions": [
@@ -3063,8 +3063,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041FD00_FUN_0041fd00.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/object_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/object_factories.cpp",
+      "overlay": {
+        "object": "object_factories.obj",
+        "symbol": "EnemySlot_CreateAndInitRetail"
+      }
     },
     {
       "address": "0x0041FDD0",

@@ -278,6 +278,7 @@ OVERLAYS = (
     ("main_menu_dispatch_overlay.obj", "MainMenu_RegisterTasksRetail", 0x00422150),
     ("enemy_lifecycle_overlay.obj", "Enemy_DeathSweepRetail", 0x0040E6A0),
     ("enemy_lifecycle_overlay.obj", "Enemy_TimerSweepRetail", 0x0040D750),
+    ("object_factories.obj", "EnemySlot_CreateAndInitRetail", 0x0041FD00),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),

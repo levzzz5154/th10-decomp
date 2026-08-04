@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 333,
-        "retail_bytes": 277819
+        "function_count": 332,
+        "retail_bytes": 277611
       },
       "exact-overlay": {
-        "function_count": 389,
-        "retail_bytes": 54981
+        "function_count": 390,
+        "retail_bytes": 55189
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 389,
+    "function_count": 390,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2092,8 +2092,10 @@
       "address": "0x0041FD00",
       "symbol": "FUN_0041fd00",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/object_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/object_factories.cpp",
+      "overlay_object": "object_factories.obj",
+      "overlay_symbol": "EnemySlot_CreateAndInitRetail"
     },
     {
       "address": "0x0041FDD0",
