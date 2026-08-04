@@ -37,6 +37,7 @@ OVERLAY_SOURCES=(
     src/game/progress.cpp
     src/game/progress_worker.cpp
     src/archive/dat.cpp
+    src/archive/resource_manager.cpp
     src/render/animation_manager.cpp
     src/render/d3d_resource_manager.cpp
     src/game/score.cpp

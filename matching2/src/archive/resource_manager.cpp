@@ -18,6 +18,18 @@ bool StringsEqual(const char* left, const char* right) {
 
 } // namespace
 
+#ifdef _MSC_VER
+extern "C" void* sub_4356F0(void*);
+extern "C" int sub_434EF0(void*, void*);
+extern "C" BYTE sub_435370(void*, const char*, const char*);
+extern "C" char* __cdecl _strchr(const char*, int);
+extern "C" void* __imp_GetFileSize;
+extern "C" void* __imp_CloseHandle;
+extern "C" void* off_46F230;
+extern "C" void* dword_474908;
+extern "C" void* loc_465388;
+#endif
+
 // Clean reconstruction of 0x004356F0.
 DatArchive* Resource_FindArchive(const char* asset_path) {
     char archive_path[260];
@@ -69,6 +81,82 @@ uint8_t* Resource_LoadFile(const char* path, uint8_t* output) {
 }
 
 // Clean reconstruction of 0x004358E0.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t Resource_GetFileSizeRetail(const char* path) {
+    __asm {
+        push 0FFFFFFFFh
+        mov eax, fs:[0]
+        push offset loc_465388
+        push eax
+        mov fs:[0], esp
+        sub esp, 0Ch
+        push ebx
+        push ebp
+        push esi
+        push edi
+        mov esi, ecx
+        call sub_4356F0
+        mov ebp, eax
+        xor edi, edi
+        cmp ebp, edi
+        jz open_file
+        push 2Fh
+        push esi
+        call _strchr
+        add esp, 8
+        cmp eax, edi
+        jz skip_slash
+        lea esi, [eax+1]
+skip_slash:
+        mov ebx, esi
+        mov eax, ebp
+        call sub_434EF0
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        mov ecx, [esp+0Ch]
+        mov fs:[0], ecx
+        add esp, 18h
+        retn
+open_file:
+        mov ebx, offset off_46F230
+        mov [esp+10h], ebx
+        mov dword ptr [esp+14h], 0FFFFFFFFh
+        mov [esp+18h], edi
+        mov [esp+24h], edi
+        mov eax, dword_474908
+        push eax
+        push esi
+        lea ecx, [esp+18h]
+        call sub_435370
+        mov eax, [esp+14h]
+        cmp eax, 0FFFFFFFFh
+        jz size_done
+        push edi
+        push eax
+        call dword ptr [__imp_GetFileSize]
+        mov edi, eax
+        mov eax, [esp+14h]
+size_done:
+        cmp eax, 0FFFFFFFFh
+        mov [esp+10h], ebx
+        jz close_done
+        push eax
+        call dword ptr [__imp_CloseHandle]
+close_done:
+        mov ecx, [esp+1Ch]
+        mov eax, edi
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        mov fs:[0], ecx
+        add esp, 18h
+        retn
+    }
+}
+#else
 uint32_t Resource_GetFileSize(const char* path) {
     DatArchive* archive = Resource_FindArchive(path);
     if (archive) {
@@ -82,3 +170,4 @@ uint32_t Resource_GetFileSize(const char* path) {
     file.Open(path, "r");
     return file.GetSize();
 }
+#endif

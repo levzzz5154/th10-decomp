@@ -133,6 +133,7 @@ OVERLAYS = (
     ("dat.obj", "?DatArchive_LoadIndex@@", 0x00434F70),
     ("dat.obj", "?DatArchive_FindEntry@@", 0x00434F30),
     ("dat.obj", "?DatArchive_FindSize@@", 0x00434EF0),
+    ("resource_manager.obj", "Resource_GetFileSizeRetail", 0x004358E0),
     ("animation_manager.obj", "?AnimationColor_MultiplyChannel@@", 0x004423C0),
     ("animation_manager.obj", "?AnimationManager_ValidateHandle@@", 0x00449450),
     ("animation_manager.obj", "?AnimationManager_SelectSpriteFromCurrentResource@@", 0x00449670),
