@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 357,
-      "semantic": 346
+      "exact-overlay": 358,
+      "semantic": 345
     }
   },
   "functions": [
@@ -6615,8 +6615,12 @@
       "size": 272,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00446F40_FUN_00446f40.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/anm_texture_upload.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/anm_texture_upload.cpp",
+      "overlay": {
+        "object": "anm_texture_upload.obj",
+        "symbol": "AnmTexture_CreateAndUploadRetail"
+      }
     },
     {
       "address": "0x00447050",

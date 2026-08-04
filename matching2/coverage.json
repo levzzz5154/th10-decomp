@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 346,
-        "retail_bytes": 280507
+        "function_count": 345,
+        "retail_bytes": 280235
       },
       "exact-overlay": {
-        "function_count": 376,
-        "retail_bytes": 52293
+        "function_count": 377,
+        "retail_bytes": 52565
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 376,
+    "function_count": 377,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4655,8 +4655,10 @@
       "address": "0x00446F40",
       "symbol": "FUN_00446f40",
       "size": 272,
-      "status": "semantic",
-      "source": "src/render/anm_texture_upload.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/anm_texture_upload.cpp",
+      "overlay_object": "anm_texture_upload.obj",
+      "overlay_symbol": "AnmTexture_CreateAndUploadRetail"
     },
     {
       "address": "0x00447050",

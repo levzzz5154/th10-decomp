@@ -241,6 +241,7 @@ OVERLAYS = (
     ("midi_worker_stop.obj", "MidiWorker_StopRetail", 0x0043DAB0),
     ("edge_strips.obj", "RenderTarget_FillVerticalEdgeStripRetail", 0x00444BE0),
     ("anm_texture_upload.obj", "AnmArchive_AdvanceScriptCursorRetail", 0x004473C0),
+    ("anm_texture_upload.obj", "AnmTexture_CreateAndUploadRetail", 0x00446F40),
     ("fps_counter.obj", "FrameRateCounter_UpdateRetail", 0x004134B0),
     ("slot_lock_leaves.obj", "SlotLockTable_LeaveRetail", 0x00421C50),
     ("slot_lock_leaves.obj", "CachedComSlot_ReleaseRetail", 0x00421D20),

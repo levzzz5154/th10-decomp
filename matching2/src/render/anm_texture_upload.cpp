@@ -3,6 +3,12 @@
 
 #ifdef _MSC_VER
 extern "C" int sub_447470(void*, void*, int, int, int, void*);
+extern "C" void D3DXCreateTexture(void*, void*, void*, void*, void*, void*, void*, void*);
+extern "C" void D3DXLoadSurfaceFromMemory(void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern "C" unsigned char dword_491D78;
+extern "C" unsigned long dword_46F288[];
+extern "C" unsigned long dword_46F2A0[];
+extern "C" void* dword_491C30;
 #endif
 
 // 0x004473C0 - Advance the ANM script cursor one entry per call. The walk
@@ -137,6 +143,108 @@ AnmCursorOwner* AnmArchive_AdvanceScriptCursor(
 // pixels upload with the source format and pitch from the shared format
 // tables (retail 0x0046F288/0x0046F2A0), the slot's bytes-per-line word is
 // refreshed, and the temporary surface is released.
+#ifdef _MSC_VER
+__declspec(naked) int AnmTexture_CreateAndUploadRetail() {
+    __asm {
+        sub esp, 14h
+        push esi
+        push edi
+        mov edi, eax
+        test byte ptr [dword_491D78], 1
+        mov esi, ecx
+        mov dword ptr [esp+8], 0
+        jz loc_446F7B
+        mov eax, dword ptr dword_46F288[edi*4]
+        cmp eax, 15h
+        jz loc_446F76
+        test eax, eax
+        jz loc_446F76
+        cmp eax, 14h
+        jnz loc_446F7B
+        mov edi, 3
+        jmp loc_446F7B
+loc_446F76:
+        mov edi, 5
+loc_446F7B:
+        mov edx, dword ptr dword_46F288[edi*4]
+        movsx eax, word ptr [esi+8]
+        movsx ecx, word ptr [esi+0Ah]
+        push ebx
+        push 1
+        push edx
+        mov edx, dword ptr [dword_491C30]
+        push 0
+        push 1
+        mov [esp+28h], eax
+        mov eax, [esp+38h]
+        mov [esp+2Ch], ecx
+        mov ecx, [esp+34h]
+        push eax
+        push ecx
+        push edx
+        mov dword ptr [esp+2Ch], 0
+        mov dword ptr [esp+30h], 0
+        call D3DXCreateTexture
+        test eax, eax
+        jz loc_446FDD
+        mov eax, [esp+8]
+        test eax, eax
+        jz loc_446FD2
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+8]
+loc_446FD2:
+        pop edi
+        or eax, 0FFFFFFFFh
+        pop esi
+        add esp, 14h
+        ret 8
+loc_446FDD:
+        mov eax, [ebx]
+        mov edx, [eax]
+        lea ecx, [esp+8]
+        push ecx
+        push 0
+        push eax
+        call dword ptr [edx+48h]
+        movsx eax, word ptr [esi+6]
+        movsx ecx, word ptr [esi+8]
+        push 0
+        shl eax, 2
+        imul ecx, dword ptr dword_46F2A0[eax]
+        push 1
+        lea edx, [esp+14h]
+        push edx
+        mov edx, dword ptr dword_46F288[eax]
+        push 0
+        push ecx
+        mov ecx, [esp+1Ch]
+        push edx
+        add esi, 10h
+        push esi
+        lea eax, [esp+28h]
+        push eax
+        push 0
+        push ecx
+        call D3DXLoadSurfaceFromMemory
+        mov eax, [esp+8]
+        test eax, eax
+        mov edx, dword ptr dword_46F2A0[edi*4]
+        mov [ebx+0Ch], edx
+        jz loc_44703E
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+8]
+loc_44703E:
+        pop edi
+        xor eax, eax
+        pop esi
+        add esp, 14h
+        ret 8
+    }
+}
+#endif
+
 int AnmTexture_CreateAndUpload(const AnmImage* image,
                                const Byte* pixels, int format_index,
                                int force_sixteen_bit,
