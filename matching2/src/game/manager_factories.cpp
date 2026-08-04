@@ -17,6 +17,10 @@ extern unsigned int DAT_00491be4;
 extern "C" void __stdcall EhVectorCtorIter();
 extern "C" void* sub_452493(unsigned long);
 extern "C" int sub_43C970(void*, void*, int, int, int);
+extern "C" void* sub_44B360(void*, int);
+extern "C" void sub_42ADD0(void*);
+extern "C" void sub_42ACB0(void*);
+extern "C" void sub_42B030(void*);
 #endif
 
 namespace {
@@ -216,6 +220,64 @@ void* StageManager_Create(const char* stage_path,
 // initializes the trailing shared block (+0x1D86C), constructs the seven
 // 0x437C-byte effect pools that start at +0x08, and finishes with the
 // archive-section finalizer.
+#ifdef _MSC_VER
+__declspec(naked) void* EffectManager_InitializePoolsRetail() {
+    __asm {
+        push ecx
+        push ebx
+        push esi
+        mov ebx, eax
+        push edi
+        xor eax, eax
+        mov ecx, 772Dh
+        mov edi, ebx
+        rep stosd
+        push 1
+        lea eax, [esp+10h]
+        push eax
+        mov eax, 46E848h
+        call sub_44B360
+        lea edx, [ebx+1D86Ch]
+        mov [ebx], eax
+        call sub_42ADD0
+        lea esi, [ebx+8]
+        mov ecx, esi
+        sub ecx, ebx
+        lea edi, [ecx-8]
+        mov eax, 79641CB1h
+        imul edi
+        sar edx, 0Dh
+        mov eax, edx
+        shr eax, 1Fh
+        add eax, edx
+        cmp eax, 7
+        jnb loc_42AED8
+        nop
+loc_42AEB0:
+        push esi
+        call sub_42ACB0
+        add edi, 437Ch
+        mov eax, 79641CB1h
+        imul edi
+        sar edx, 0Dh
+        mov ecx, edx
+        shr ecx, 1Fh
+        add ecx, edx
+        add esi, 437Ch
+        cmp ecx, 7
+        jb loc_42AEB0
+loc_42AED8:
+        call sub_42B030
+        pop edi
+        pop esi
+        mov eax, ebx
+        pop ebx
+        pop ecx
+        ret
+    }
+}
+#endif
+
 void EffectManager_InitializePools(Word* manager_words,
                                    unsigned int word_count,
                                    const Byte* (*load_effect_table)(

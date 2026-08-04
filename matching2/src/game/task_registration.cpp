@@ -99,6 +99,55 @@ uint32_t TimedTask_RegisterPair(void* owner, TimedTaskState* state,
 }
 
 // 0x0041C120 - Initialize the score display.
+#ifdef _MSC_VER
+__declspec(naked) int32_t ScoreDisplay_RegisterTasksRetail() {
+    __asm {
+        mov edx, dword ptr [dword_491C10]
+        push 46CD88h
+        mov ecx, 7
+        call sub_447280
+        test eax, eax
+        mov [ebx+458h], eax
+        jnz loc_41C155
+        push 46CD54h
+        mov ecx, 474F70h
+        call sub_44B810
+        add esp, 4
+        or eax, 0FFFFFFFFh
+        ret
+loc_41C155:
+        push esi
+        push edi
+        push 41C480h
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov eax, dword ptr [DAT_00491be4]
+        push eax
+        mov edi, 13h
+        mov [esi+20h], ebx
+        call sub_449AE0
+        push 41C4E0h
+        mov [ebx+8], esi
+        call sub_449ED0
+        mov esi, eax
+        and dword ptr [esi+4], 0FFFFFFFDh
+        mov ecx, dword ptr [DAT_00491be4]
+        push ecx
+        mov edi, 1Bh
+        mov [esi+20h], ebx
+        call sub_449B70
+        lea edx, [ebx+10h]
+        pop edi
+        mov [ebx+0Ch], esi
+        mov [ebx+434h], edx
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#endif
+
 int32_t ScoreDisplay_RegisterTasks(
         void* owner, TaskPairSlots* slots, int32_t** resource_slot,
         ScorePopupNode** queue_tail, ScorePopupNode* queue_head,

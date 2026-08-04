@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 365,
-        "retail_bytes": 284507
+        "function_count": 363,
+        "retail_bytes": 284155
       },
       "exact-overlay": {
-        "function_count": 357,
-        "retail_bytes": 48293
+        "function_count": 359,
+        "retail_bytes": 48645
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 357,
+    "function_count": 359,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1826,8 +1826,10 @@
       "address": "0x0041C120",
       "symbol": "FUN_0041c120",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/task_registration.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/task_registration.cpp",
+      "overlay_object": "task_registration.obj",
+      "overlay_symbol": "ScoreDisplay_RegisterTasksRetail"
     },
     {
       "address": "0x0041C1C0",
@@ -2807,8 +2809,10 @@
       "address": "0x0042AE60",
       "symbol": "FUN_0042ae60",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "EffectManager_InitializePoolsRetail"
     },
     {
       "address": "0x0042AF20",

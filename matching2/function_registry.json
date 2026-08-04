@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 338,
-      "semantic": 365
+      "exact-overlay": 340,
+      "semantic": 363
     }
   },
   "functions": [
@@ -2651,8 +2651,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041C120_FUN_0041c120.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/task_registration.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/task_registration.cpp",
+      "overlay": {
+        "object": "task_registration.obj",
+        "symbol": "ScoreDisplay_RegisterTasksRetail"
+      }
     },
     {
       "address": "0x0041C1C0",
@@ -4105,8 +4109,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0042AE60_FUN_0042ae60.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "manager_factories.obj",
+        "symbol": "EffectManager_InitializePoolsRetail"
+      }
     },
     {
       "address": "0x0042AF20",
