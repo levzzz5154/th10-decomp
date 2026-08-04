@@ -91,6 +91,7 @@ OVERLAY_SOURCES=(
     src/game/enemy_lifecycle_overlay.cpp
     src/game/object_factories.cpp
     src/render/render_state_sync.cpp
+    src/game/key_config_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp

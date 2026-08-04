@@ -281,6 +281,7 @@ OVERLAYS = (
     ("object_factories.obj", "EnemySlot_CreateAndInitRetail", 0x0041FD00),
     ("object_factories.obj", "ScoreManager_CreateAndInitRetail", 0x0041C290),
     ("render_state_sync.obj", "AnmManager_SyncEntityRenderStateRetail", 0x004425A0),
+    ("key_config_overlay.obj", "KeyConfig_ReassignSlotRetail", 0x00430250),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),

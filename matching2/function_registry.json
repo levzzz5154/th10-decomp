@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 373,
-      "semantic": 330
+      "exact-overlay": 374,
+      "semantic": 329
     }
   },
   "functions": [
@@ -4599,8 +4599,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00430250_FUN_00430250.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/key_config.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/key_config.cpp",
+      "overlay": {
+        "object": "key_config_overlay.obj",
+        "symbol": "KeyConfig_ReassignSlotRetail"
+      }
     },
     {
       "address": "0x00430320",

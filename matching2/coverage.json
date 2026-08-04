@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 330,
-        "retail_bytes": 277243
+        "function_count": 329,
+        "retail_bytes": 277035
       },
       "exact-overlay": {
-        "function_count": 392,
-        "retail_bytes": 55557
+        "function_count": 393,
+        "retail_bytes": 55765
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 392,
+    "function_count": 393,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3120,8 +3120,10 @@
       "address": "0x00430250",
       "symbol": "FUN_00430250",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/key_config.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/key_config.cpp",
+      "overlay_object": "key_config_overlay.obj",
+      "overlay_symbol": "KeyConfig_ReassignSlotRetail"
     },
     {
       "address": "0x00430320",
