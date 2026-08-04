@@ -275,6 +275,7 @@ OVERLAYS = (
     ("enemy_drop_sweep.obj", "Enemy_SweepPendingDropsRetail", 0x0041BA50),
     ("enemy_grid_scan_overlay.obj", "EnemyGrid_ScanCellsRetail", 0x004073E0),
     ("midi_worker_overlay.obj", "MidiWorker_MessageLoopRetail", 0x0043E3A0),
+    ("main_menu_dispatch_overlay.obj", "MainMenu_RegisterTasksRetail", 0x00422150),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),

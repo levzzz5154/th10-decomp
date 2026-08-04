@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 367,
-      "semantic": 336
+      "exact-overlay": 368,
+      "semantic": 335
     }
   },
   "functions": [
@@ -3417,8 +3417,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422150_FUN_00422150.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/main_menu_dispatch.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/main_menu_dispatch.cpp",
+      "overlay": {
+        "object": "main_menu_dispatch_overlay.obj",
+        "symbol": "MainMenu_RegisterTasksRetail"
+      }
     },
     {
       "address": "0x00422220",

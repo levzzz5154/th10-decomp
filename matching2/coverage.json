@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 336,
-        "retail_bytes": 278459
+        "function_count": 335,
+        "retail_bytes": 278251
       },
       "exact-overlay": {
-        "function_count": 386,
-        "retail_bytes": 54341
+        "function_count": 387,
+        "retail_bytes": 54549
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 386,
+    "function_count": 387,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2331,8 +2331,10 @@
       "address": "0x00422150",
       "symbol": "FUN_00422150",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/main_menu_dispatch.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/main_menu_dispatch.cpp",
+      "overlay_object": "main_menu_dispatch_overlay.obj",
+      "overlay_symbol": "MainMenu_RegisterTasksRetail"
     },
     {
       "address": "0x00422220",
