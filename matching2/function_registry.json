@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 369,
-      "semantic": 334
+      "exact-overlay": 370,
+      "semantic": 333
     }
   },
   "functions": [
@@ -1673,8 +1673,12 @@
       "size": 224,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040D750_FUN_0040d750.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/enemy_lifecycle.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/enemy_lifecycle.cpp",
+      "overlay": {
+        "object": "enemy_lifecycle_overlay.obj",
+        "symbol": "Enemy_TimerSweepRetail"
+      }
     },
     {
       "address": "0x0040D830",

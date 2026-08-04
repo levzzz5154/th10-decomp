@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 334,
-        "retail_bytes": 278043
+        "function_count": 333,
+        "retail_bytes": 277819
       },
       "exact-overlay": {
-        "function_count": 388,
-        "retail_bytes": 54757
+        "function_count": 389,
+        "retail_bytes": 54981
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 388,
+    "function_count": 389,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1167,8 +1167,10 @@
       "address": "0x0040D750",
       "symbol": "FUN_0040d750",
       "size": 224,
-      "status": "semantic",
-      "source": "src/game/enemy_lifecycle.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/enemy_lifecycle.cpp",
+      "overlay_object": "enemy_lifecycle_overlay.obj",
+      "overlay_symbol": "Enemy_TimerSweepRetail"
     },
     {
       "address": "0x0040D830",

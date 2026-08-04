@@ -9,6 +9,7 @@ extern "C" float flt_470B68;
 extern "C" float flt_470B64;
 extern "C" float flt_470AFC;
 extern "C" long __cdecl __ftol2(void);
+extern "C" int sub_40DC80(void*);
 
 __declspec(naked) int Enemy_DeathSweepRetail() {
     __asm {
@@ -83,6 +84,82 @@ loc_40E742:
         mov [ebp+44h], eax
         pop ebp
         ret 4
+    }
+}
+
+// 0x0040D750 - Sweep the live enemy list each frame: advance the timer for
+// enemies whose busy latch is clear, and release enemies whose timer is
+// still armed. The trailing timer interpolation is the same shared tail as
+// 0x0040E6A0.
+__declspec(naked) int Enemy_TimerSweepRetail() {
+    __asm {
+        push esi
+        mov esi, [edi+58h]
+        test esi, esi
+        jz loc_40D7A2
+        push ebx
+        _emit 8Dh
+        _emit 0A4h
+        _emit 24h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+        _emit 00h
+loc_40D760:
+        mov eax, [esi]
+        test dword ptr [eax+2480h], 20000h
+        mov ebx, [esi+4]
+        jnz loc_40D78E
+        add eax, 103Ch
+        push eax
+        call sub_40DC80
+        test eax, eax
+        jnz loc_40D78E
+        mov esi, [esi]
+        and dword ptr [esi+2480h], 0FFFFFBFFh
+        jmp loc_40D79B
+loc_40D78E:
+        mov ecx, [esi]
+        test ecx, ecx
+        jz loc_40D79B
+        mov eax, [ecx]
+        push 1
+        call dword ptr [eax+14h]
+loc_40D79B:
+        test ebx, ebx
+        mov esi, ebx
+        jnz loc_40D760
+        pop ebx
+loc_40D7A2:
+        mov edx, [edi+44h]
+        mov ecx, [edi+4Ch]
+        mov [edi+40h], edx
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B68]
+        pop esi
+        fnstsw ax
+        test ah, 41h
+        jnz loc_40D7E0
+        fld dword ptr [ecx]
+        fcomp dword ptr [flt_470B64]
+        fnstsw ax
+        test ah, 5
+        jp loc_40D7E0
+        fld dword ptr [edi+48h]
+        inc edx
+        fadd dword ptr [flt_470AFC]
+        mov [edi+44h], edx
+        mov eax, 1
+        fstp dword ptr [edi+48h]
+        ret
+loc_40D7E0:
+        fld dword ptr [ecx]
+        fadd dword ptr [edi+48h]
+        fst dword ptr [edi+48h]
+        call __ftol2
+        mov [edi+44h], eax
+        mov eax, 1
+        ret
     }
 }
 #endif
