@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 329,
-        "retail_bytes": 277035
+        "function_count": 328,
+        "retail_bytes": 276827
       },
       "exact-overlay": {
-        "function_count": 393,
-        "retail_bytes": 55765
+        "function_count": 394,
+        "retail_bytes": 55973
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 393,
+    "function_count": 394,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4744,8 +4744,10 @@
       "address": "0x00447700",
       "symbol": "FUN_00447700",
       "size": 208,
-      "status": "semantic",
-      "source": "src/render/anm_pending_service.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/anm_pending_service.cpp",
+      "overlay_object": "anm_pending_service_overlay.obj",
+      "overlay_symbol": "AnmPending_ServiceRetail"
     },
     {
       "address": "0x004477D0",

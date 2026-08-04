@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 374,
-      "semantic": 329
+      "exact-overlay": 375,
+      "semantic": 328
     }
   },
   "functions": [
@@ -6765,8 +6765,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00447700_FUN_00447700.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/anm_pending_service.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/anm_pending_service.cpp",
+      "overlay": {
+        "object": "anm_pending_service_overlay.obj",
+        "symbol": "AnmPending_ServiceRetail"
+      }
     },
     {
       "address": "0x004477D0",

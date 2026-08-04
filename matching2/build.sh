@@ -92,6 +92,7 @@ OVERLAY_SOURCES=(
     src/game/object_factories.cpp
     src/render/render_state_sync.cpp
     src/game/key_config_overlay.cpp
+    src/render/anm_pending_service_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp
