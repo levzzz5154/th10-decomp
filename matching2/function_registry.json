@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 371,
-      "semantic": 332
+      "exact-overlay": 373,
+      "semantic": 330
     }
   },
   "functions": [
@@ -2743,8 +2743,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041C290_FUN_0041c290.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/object_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/object_factories.cpp",
+      "overlay": {
+        "object": "object_factories.obj",
+        "symbol": "ScoreManager_CreateAndInitRetail"
+      }
     },
     {
       "address": "0x0041C330",
@@ -6367,8 +6371,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004425A0_FUN_004425a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/render_state_sync.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/render_state_sync.cpp",
+      "overlay": {
+        "object": "render_state_sync.obj",
+        "symbol": "AnmManager_SyncEntityRenderStateRetail"
+      }
     },
     {
       "address": "0x00442670",

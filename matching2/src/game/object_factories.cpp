@@ -6,6 +6,9 @@ extern "C" void* sub_41F850(void*);
 extern "C" int sub_41FAC0(void);
 extern "C" void sub_41FB50(void*);
 extern "C" void j__free(void*);
+extern "C" void* sub_41C030(void*, void*);
+extern "C" int sub_41C120(void);
+extern "C" void sub_41C1C0(void*);
 #endif
 
 #include <cstring>
@@ -20,6 +23,54 @@ uint32_t* DAT_0047781c;
 // words (killing the construction) while publishing the pointer through
 // 0x0047781C, and finally runs the score-display initializer; a failed
 // initializer tears the object down again.
+#ifdef _MSC_VER
+__declspec(naked) uint32_t* ScoreManager_CreateAndInitRetail() {
+    __asm {
+        push esi
+        push 45Ch
+        call sub_452493
+        mov esi, eax
+        add esp, 4
+        test esi, esi
+        jz loc_41C2C1
+        push edi
+        lea edx, [esi+10h]
+        call sub_41C030
+        mov ecx, 117h
+        xor eax, eax
+        mov edi, esi
+        rep stosd
+        mov dword ptr [DAT_0047781c], esi
+        pop edi
+        jmp loc_41C2C3
+loc_41C2C1:
+        xor esi, esi
+loc_41C2C3:
+        push ebx
+        mov ebx, esi
+        call sub_41C120
+        test eax, eax
+        pop ebx
+        jz loc_41C2E7
+        test esi, esi
+        jz loc_41C2E3
+        push esi
+        call sub_41C1C0
+        push esi
+        call j__free
+        add esp, 4
+loc_41C2E3:
+        xor eax, eax
+        pop esi
+        ret
+loc_41C2E7:
+        mov eax, esi
+        pop esi
+        ret
+    }
+}
+#endif
+
 uint32_t* ScoreManager_CreateAndInit(void* (*allocate)(uint32_t size),
                                      void (*construct_base)(uint32_t* base),
                                      int32_t (*init)(uint32_t* state),

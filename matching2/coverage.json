@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 332,
-        "retail_bytes": 277611
+        "function_count": 330,
+        "retail_bytes": 277243
       },
       "exact-overlay": {
-        "function_count": 390,
-        "retail_bytes": 55189
+        "function_count": 392,
+        "retail_bytes": 55557
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 390,
+    "function_count": 392,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1876,8 +1876,10 @@
       "address": "0x0041C290",
       "symbol": "FUN_0041c290",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/object_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/object_factories.cpp",
+      "overlay_object": "object_factories.obj",
+      "overlay_symbol": "ScoreManager_CreateAndInitRetail"
     },
     {
       "address": "0x0041C330",
@@ -4475,8 +4477,10 @@
       "address": "0x004425A0",
       "symbol": "FUN_004425a0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/render/render_state_sync.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/render_state_sync.cpp",
+      "overlay_object": "render_state_sync.obj",
+      "overlay_symbol": "AnmManager_SyncEntityRenderStateRetail"
     },
     {
       "address": "0x00442670",
