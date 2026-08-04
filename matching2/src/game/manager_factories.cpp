@@ -15,6 +15,8 @@ extern unsigned int DAT_00491be4;
 
 #ifdef _MSC_VER
 extern "C" void __stdcall EhVectorCtorIter();
+extern "C" void* sub_452493(unsigned long);
+extern "C" int sub_43C970(void*, void*, int, int, int);
 #endif
 
 namespace {
@@ -88,6 +90,47 @@ void* EnemyManager_Create(void* script_name, void* (*allocate)(unsigned int size
 // all 0x11 dwords, sets header flag bit 1, and forwards the five creation
 // arguments to the initializer (retail 0x0043C970) before returning the
 // instance; allocation failure reports null.
+#ifdef _MSC_VER
+__declspec(naked) void* AsciiManager_CreateRetail() {
+    __asm {
+        push esi
+        push 44h
+        call sub_452493
+        mov esi, eax
+        add esp, 4
+        xor eax, eax
+        test esi, esi
+        jz loc_43C8FE
+        mov ecx, [esi+40h]
+        mov edx, [esp+10h]
+        push edi
+        and ecx, 0FFFFFFFEh
+        mov [esi+40h], ecx
+        mov ecx, 11h
+        mov edi, esi
+        rep stosd
+        mov eax, [esi]
+        mov ecx, [esp+18h]
+        or eax, 2
+        pop edi
+        mov [esi], eax
+        mov eax, [esp+18h]
+        push eax
+        mov eax, [esp+10h]
+        push ecx
+        mov ecx, [esp+10h]
+        push edx
+        push eax
+        push ecx
+        call sub_43C970
+        mov eax, esi
+loc_43C8FE:
+        pop esi
+        ret 14h
+    }
+}
+#endif
+
 void* AsciiManager_Create(void* (*allocate)(unsigned int size),
                           void (*initialize)(void* manager)) {
     Word* manager = (Word*)allocate(0x44);

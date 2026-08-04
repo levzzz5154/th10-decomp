@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 92,
-      "semantic": 87
+      "exact-overlay": 93,
+      "semantic": 86
     }
   },
   "integration_gates": {
@@ -598,7 +598,7 @@
       "distance_from_root": 0,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/game/task_registration.cpp"
     },

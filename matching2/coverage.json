@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 369,
-        "retail_bytes": 285211
+        "function_count": 365,
+        "retail_bytes": 284507
       },
       "exact-overlay": {
-        "function_count": 353,
-        "retail_bytes": 47589
+        "function_count": 357,
+        "retail_bytes": 48293
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 353,
+    "function_count": 357,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1364,8 +1364,10 @@
       "address": "0x00413980",
       "symbol": "FUN_00413980",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/task_registration.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/task_registration.cpp",
+      "overlay_object": "task_registration.obj",
+      "overlay_symbol": "ItemFrontRuntime_InitializeRetail"
     },
     {
       "address": "0x00413A20",
@@ -2153,8 +2155,10 @@
       "address": "0x00420C30",
       "symbol": "FUN_00420c30",
       "size": 160,
-      "status": "semantic",
-      "source": "src/platform/sound_leaves.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_leaves.cpp",
+      "overlay_object": "sound_leaves.obj",
+      "overlay_symbol": "Sound_PlayRandomVoiceRetail"
     },
     {
       "address": "0x00420CD0",
@@ -2981,8 +2985,10 @@
       "address": "0x0042CAA0",
       "symbol": "FUN_0042caa0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/task_registration.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/task_registration.cpp",
+      "overlay_object": "task_registration.obj",
+      "overlay_symbol": "Title_RegisterTasksRetail"
     },
     {
       "address": "0x0042CB60",
@@ -4076,8 +4082,10 @@
       "address": "0x0043C8B0",
       "symbol": "FUN_0043c8b0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "AsciiManager_CreateRetail"
     },
     {
       "address": "0x0043C970",

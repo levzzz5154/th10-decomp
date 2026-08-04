@@ -70,6 +70,7 @@ OVERLAY_SOURCES=(
     src/game/player_scheduler.cpp
     src/game/score_file.cpp
     src/game/manager_factories.cpp
+    src/game/task_registration.cpp
     src/platform/sound_leaves.cpp
     src/platform/midi_worker_stop.cpp
     src/archive/dat_file.cpp
