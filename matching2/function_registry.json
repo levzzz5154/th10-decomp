@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 364,
-      "semantic": 339
+      "exact-overlay": 365,
+      "semantic": 338
     }
   },
   "functions": [
@@ -789,8 +789,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004073E0_FUN_004073e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/enemy_grid_scan.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/enemy_grid_scan.cpp",
+      "overlay": {
+        "object": "enemy_grid_scan_overlay.obj",
+        "symbol": "EnemyGrid_ScanCellsRetail"
+      }
     },
     {
       "address": "0x004074B0",

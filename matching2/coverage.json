@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 339,
-        "retail_bytes": 279067
+        "function_count": 338,
+        "retail_bytes": 278859
       },
       "exact-overlay": {
-        "function_count": 383,
-        "retail_bytes": 53733
+        "function_count": 384,
+        "retail_bytes": 53941
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 383,
+    "function_count": 384,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -581,8 +581,10 @@
       "address": "0x004073E0",
       "symbol": "FUN_004073e0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/enemy_grid_scan.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/enemy_grid_scan.cpp",
+      "overlay_object": "enemy_grid_scan_overlay.obj",
+      "overlay_symbol": "EnemyGrid_ScanCellsRetail"
     },
     {
       "address": "0x004074B0",
