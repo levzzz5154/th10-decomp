@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 338,
-        "retail_bytes": 278859
+        "function_count": 337,
+        "retail_bytes": 278667
       },
       "exact-overlay": {
-        "function_count": 384,
-        "retail_bytes": 53941
+        "function_count": 385,
+        "retail_bytes": 54133
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 384,
+    "function_count": 385,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4283,8 +4283,10 @@
       "address": "0x0043E3A0",
       "symbol": "FUN_0043e3a0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/platform/midi_worker.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/midi_worker.cpp",
+      "overlay_object": "midi_worker_overlay.obj",
+      "overlay_symbol": "MidiWorker_MessageLoopRetail"
     },
     {
       "address": "0x0043E460",

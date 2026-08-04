@@ -86,6 +86,7 @@ OVERLAY_SOURCES=(
     src/game/stage_background_overlay.cpp
     src/game/enemy_drop_sweep.cpp
     src/game/enemy_grid_scan_overlay.cpp
+    src/platform/midi_worker_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp

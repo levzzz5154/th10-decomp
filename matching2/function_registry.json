@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 365,
-      "semantic": 338
+      "exact-overlay": 366,
+      "semantic": 337
     }
   },
   "functions": [
@@ -6071,8 +6071,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043E3A0_FUN_0043e3a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/midi_worker.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/midi_worker.cpp",
+      "overlay": {
+        "object": "midi_worker_overlay.obj",
+        "symbol": "MidiWorker_MessageLoopRetail"
+      }
     },
     {
       "address": "0x0043E460",
