@@ -1,11 +1,72 @@
 #include "th10/game/boss_overlays.hpp"
 
+#ifdef _MSC_VER
+extern "C" float flt_470B4C;
+extern "C" float flt_470B48;
+extern "C" float flt_470B04;
+extern "C" float sub_44BC10(float, float);
+extern "C" void sub_4451C0(void*);
+extern "C" unsigned long dword_491C10;
+#endif
+
 // 0x0041D7C0 - Refresh the boss overlay sprite positions. The primary
 // overlay (+0x934) always takes the boss position plus the playfield offset,
 // the sprite angle (+0x62C) is renormalized from the facing angle, and
 // sprite-flag bit 2 is armed. When the slot marker (+0x4C) equals the free
 // sentinel, the secondary overlay (+0xCE0) is refreshed the same way. Each
 // refresh marks the shared state manager dirty.
+#ifdef _MSC_VER
+__declspec(naked) int Boss_SyncOverlayPositionsRetail() {
+    __asm {
+        push esi
+        mov esi, ecx
+        fld dword ptr [esi+24h]
+        push edi
+        fadd dword ptr [flt_470B4C]
+        push 3FC90FDBh
+        lea edi, [esi+600h]
+        fstp dword ptr [esi+934h]
+        fld dword ptr [esi+28h]
+        fadd dword ptr [flt_470B48]
+        fstp dword ptr [esi+938h]
+        mov eax, [esi+2Ch]
+        mov [esi+93Ch], eax
+        mov ecx, [esi+3Ch]
+        push ecx
+        call sub_44BC10
+        fstp dword ptr [edi+2Ch]
+        mov eax, [edi+35Ch]
+        mov ecx, dword_491C10
+        or eax, 4
+        mov [edi+35Ch], eax
+        mov eax, edi
+        call sub_4451C0
+        fld dword ptr [flt_470B04]
+        fld dword ptr [esi+4Ch]
+        fucompp
+        fnstsw ax
+        test ah, 44h
+        jp loc_41D868
+        fld dword ptr [esi+24h]
+        mov ecx, dword_491C10
+        fadd dword ptr [flt_470B4C]
+        lea eax, [esi+9ACh]
+        fstp dword ptr [esi+0CE0h]
+        fld dword ptr [esi+28h]
+        fadd dword ptr [flt_470B48]
+        fstp dword ptr [esi+0CE4h]
+        mov edx, [esi+2Ch]
+        mov [esi+0CE8h], edx
+        call sub_4451C0
+loc_41D868:
+        pop edi
+        xor eax, eax
+        pop esi
+        ret
+    }
+}
+#endif
+
 int Boss_SyncOverlayPositions(const BossVec3* position,
                               float facing_angle, float slot_marker,
                               float sentinel, float offset_x, float offset_y,

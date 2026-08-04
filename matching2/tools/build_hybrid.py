@@ -261,6 +261,8 @@ OVERLAYS = (
     ("player.obj", "Player_ClearExpiredFlagsRetail", 0x00405500),
     ("faith_gauge.obj", "FaithGauge_AddRetail", 0x00418930),
     ("animation_slot.obj", "AnimationSlot_ReleaseRetail", 0x004136C0),
+    ("boss_overlays.obj", "Boss_SyncOverlayPositionsRetail", 0x0041D7C0),
+    ("gdi_font_cache.obj", "FontCache_DeleteGdiObjectsRetail", 0x00437D10),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),
     ("player_motion.obj", "Player_WrapHorizontal", 0x00407DA0),
     ("player_motion.obj", "Player_WrapVertical", 0x00407E40),

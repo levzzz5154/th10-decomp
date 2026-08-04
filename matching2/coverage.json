@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 352,
-        "retail_bytes": 281739
+        "function_count": 350,
+        "retail_bytes": 281387
       },
       "exact-overlay": {
-        "function_count": 370,
-        "retail_bytes": 51061
+        "function_count": 372,
+        "retail_bytes": 51413
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 370,
+    "function_count": 372,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1941,8 +1941,10 @@
       "address": "0x0041D7C0",
       "symbol": "FUN_0041d7c0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/boss_overlays.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/boss_overlays.cpp",
+      "overlay_object": "boss_overlays.obj",
+      "overlay_symbol": "Boss_SyncOverlayPositionsRetail"
     },
     {
       "address": "0x0041D880",
@@ -3674,8 +3676,10 @@
       "address": "0x00437D10",
       "symbol": "FUN_00437d10",
       "size": 160,
-      "status": "semantic",
-      "source": "src/platform/gdi_font_cache.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/gdi_font_cache.cpp",
+      "overlay_object": "gdi_font_cache.obj",
+      "overlay_symbol": "FontCache_DeleteGdiObjectsRetail"
     },
     {
       "address": "0x00437DB0",

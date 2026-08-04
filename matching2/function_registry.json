@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 351,
-      "semantic": 352
+      "exact-overlay": 353,
+      "semantic": 350
     }
   },
   "functions": [
@@ -2829,8 +2829,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041D7C0_FUN_0041d7c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/boss_overlays.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/boss_overlays.cpp",
+      "overlay": {
+        "object": "boss_overlays.obj",
+        "symbol": "Boss_SyncOverlayPositionsRetail"
+      }
     },
     {
       "address": "0x0041D880",
@@ -5251,8 +5255,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00437D10_FUN_00437d10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/gdi_font_cache.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/gdi_font_cache.cpp",
+      "overlay": {
+        "object": "gdi_font_cache.obj",
+        "symbol": "FontCache_DeleteGdiObjectsRetail"
+      }
     },
     {
       "address": "0x00437DB0",

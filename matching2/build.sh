@@ -65,6 +65,8 @@ OVERLAY_SOURCES=(
     src/app/fps_counter.cpp
     src/game/faith_gauge.cpp
     src/render/animation_slot.cpp
+    src/game/boss_overlays.cpp
+    src/platform/gdi_font_cache.cpp
     src/game/game_ui_create.cpp
     src/game/stage_tip_manager.cpp
     src/game/frame_counter.cpp
