@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 355,
-      "semantic": 348
+      "exact-overlay": 356,
+      "semantic": 347
     }
   },
   "functions": [
@@ -3245,8 +3245,12 @@
       "size": 288,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00421480_FUN_00421480.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/camera_setup.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/camera_setup.cpp",
+      "overlay": {
+        "object": "camera_setup.obj",
+        "symbol": "Camera_ApplyRetail"
+      }
     },
     {
       "address": "0x004215A0",
