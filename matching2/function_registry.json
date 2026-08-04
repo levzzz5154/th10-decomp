@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 356,
-      "semantic": 347
+      "exact-overlay": 357,
+      "semantic": 346
     }
   },
   "functions": [
@@ -5511,8 +5511,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004392E0_FUN_004392e0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/window.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/window.cpp",
+      "overlay": {
+        "object": "window.obj",
+        "symbol": "SaveSystemSettingsRetail"
+      }
     },
     {
       "address": "0x00439390",

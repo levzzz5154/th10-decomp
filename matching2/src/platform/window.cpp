@@ -6,6 +6,12 @@
 #include "th10/platform/window.hpp"
 #include "th10/platform/midi.hpp"
 
+#ifdef _MSC_VER
+extern "C" void* __imp_SystemParametersInfoA;
+extern "C" void* __imp_QueryPerformanceFrequency;
+extern "C" void* __imp_QueryPerformanceCounter;
+#endif
+
 // Windows API - using __declspec(dllimport) for correct import call pattern
 extern "C" {
     __declspec(dllimport) int     __stdcall SetForegroundWindow(void*);
@@ -170,6 +176,51 @@ static BOOL StringsEqual(const char* left, const char* right) {
 //   QueryPerformanceFrequency(&DAT_00492508)
 //   QueryPerformanceCounter(&DAT_00492510)
 // ============================================================================
+#ifdef _MSC_VER
+__declspec(naked) void SaveSystemSettingsRetail() {
+    __asm {
+        push esi
+        mov esi, dword ptr [__imp_SystemParametersInfoA]
+        push 0
+        push 49251Ch
+        push 0
+        push 10h
+        call esi
+        push 0
+        push 492520h
+        push 0
+        push 53h
+        call esi
+        push 0
+        push 492524h
+        push 0
+        push 54h
+        call esi
+        push 2
+        push 0
+        push 0
+        push 11h
+        call esi
+        push 2
+        push 0
+        push 0
+        push 55h
+        call esi
+        push 2
+        push 0
+        push 0
+        push 56h
+        call esi
+        push 492508h
+        call dword ptr [__imp_QueryPerformanceFrequency]
+        push 492510h
+        call dword ptr [__imp_QueryPerformanceCounter]
+        pop esi
+        ret
+    }
+}
+#endif
+
 void SaveSystemSettings(void) {
     SystemParametersInfoA(0x10, 0, &DAT_0049251c, 0);
     SystemParametersInfoA(0x53, 0, &DAT_00492520, 0);

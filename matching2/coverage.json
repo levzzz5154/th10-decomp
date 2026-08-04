@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 347,
-        "retail_bytes": 280683
+        "function_count": 346,
+        "retail_bytes": 280507
       },
       "exact-overlay": {
-        "function_count": 375,
-        "retail_bytes": 52117
+        "function_count": 376,
+        "retail_bytes": 52293
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 375,
+    "function_count": 376,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -3907,8 +3907,10 @@
       "address": "0x004392E0",
       "symbol": "FUN_004392e0",
       "size": 176,
-      "status": "semantic",
-      "source": "src/platform/window.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/window.cpp",
+      "overlay_object": "window.obj",
+      "overlay_symbol": "SaveSystemSettingsRetail"
     },
     {
       "address": "0x00439390",

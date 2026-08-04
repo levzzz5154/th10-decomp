@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 97,
-      "semantic": 82
+      "exact-overlay": 98,
+      "semantic": 81
     }
   },
   "integration_gates": {
@@ -807,7 +807,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/platform/window.cpp"
     },
