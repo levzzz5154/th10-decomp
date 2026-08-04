@@ -396,7 +396,8 @@ ledger also marks which of those verified overlays are implemented as pure C++
 that MSVC 7.1 compiles to the retail bytes (no inline `__asm`); the remaining
 overlays use exact inline assembly only where the retail ABI or codegen idiom
 cannot be expressed in MSVC 7.1 C++ (custom `__usercall` register arguments,
-`fsincos` pairs, compiler-specific division idioms, and 16-bit register
+`fsincos` pairs, compiler-specific division idioms, FPU comparison branch
+idioms such as `test ah,5; jp` versus `test ah,1; je`, and 16-bit register
 choreography). Conversions are verified with `compare_obj.py` and land through
 the same byte-identity build gates.
 researched-only bucket is empty. It remains separate from the
