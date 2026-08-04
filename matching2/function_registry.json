@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 340,
-      "semantic": 363
+      "exact-overlay": 342,
+      "semantic": 361
     }
   },
   "functions": [
@@ -1631,8 +1631,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040D6B0_FUN_0040d6b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "manager_factories.obj",
+        "symbol": "EnemyManager_CreateRetail"
+      }
     },
     {
       "address": "0x0040D750",
@@ -3955,8 +3959,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004296F0_FUN_004296f0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "manager_factories.obj",
+        "symbol": "StageManager_CreateRetail"
+      }
     },
     {
       "address": "0x004297B0",

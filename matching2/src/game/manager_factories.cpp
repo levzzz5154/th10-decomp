@@ -21,6 +21,12 @@ extern "C" void* sub_44B360(void*, int);
 extern "C" void sub_42ADD0(void*);
 extern "C" void sub_42ACB0(void*);
 extern "C" void sub_42B030(void*);
+extern "C" void sub_40D280(void*);
+extern "C" void sub_40D530(void*);
+extern "C" void j__free(void*);
+extern "C" unsigned long dword_477704;
+extern "C" int sub_42A200(void*);
+extern "C" void sub_4294A0(void*);
 #endif
 
 namespace {
@@ -46,6 +52,54 @@ int __fastcall ParticleEffect_Draw(void* owner) {
 // Shared construct-then-initialize factory frame used by the manager
 // creation helpers: allocate, run the in-place constructor, then run the
 // global initializer; a failing initializer tears the object back down.
+#ifdef _MSC_VER
+__declspec(naked) void* EnemyManager_CreateRetail() {
+    __asm {
+        push ebx
+        push 68h
+        call sub_452493
+        mov edx, eax
+        add esp, 4
+        test edx, edx
+        jz loc_40D6DF
+        and dword ptr [edx+50h], 0FFFFFFFEh
+        push edi
+        xor eax, eax
+        mov ecx, 1Ah
+        mov edi, edx
+        rep stosd
+        or dword ptr [edx], 2
+        mov dword ptr [dword_477704], edx
+        mov ebx, edx
+        pop edi
+        jmp loc_40D6E1
+loc_40D6DF:
+        xor ebx, ebx
+loc_40D6E1:
+        mov eax, [esp+8]
+        push eax
+        call sub_40D280
+        test eax, eax
+        jz loc_40D709
+        test ebx, ebx
+        jz loc_40D703
+        mov eax, ebx
+        call sub_40D530
+        push ebx
+        call j__free
+        add esp, 4
+loc_40D703:
+        xor eax, eax
+        pop ebx
+        ret 4
+loc_40D709:
+        mov eax, ebx
+        pop ebx
+        ret 4
+    }
+}
+#endif
+
 static void* CreateConstructedManager(unsigned int size,
                                       void* (*allocate)(unsigned int),
                                       void* (*construct)(void*),
@@ -194,6 +248,70 @@ int AsciiManager_Initialize(AsciiManagerInitState* state, void* draw_queue,
 // zeroes the whole 0xB5-dword block, arms the state word (+0x10) with 2, and
 // runs the stage-script initializer; on failure the manager is destroyed and
 // freed and the constructor reports null.
+#ifdef _MSC_VER
+__declspec(naked) void* StageManager_CreateRetail() {
+    __asm {
+        push 0FFFFFFFFh
+        push 46564Bh
+        mov eax, fs:[0]
+        push eax
+        mov fs:[0], esp
+        push ecx
+        push esi
+        push 2D4h
+        call sub_452493
+        mov esi, eax
+        add esp, 4
+        mov [esp+4], esi
+        test esi, esi
+        mov dword ptr [esp+10h], 0
+        jz loc_42974F
+        push edi
+        push 42AC60h
+        push 42AC20h
+        push 8
+        push 24h
+        lea eax, [esi+0A0h]
+        push eax
+        call EhVectorCtorIter
+        mov ecx, 0B5h
+        xor eax, eax
+        mov edi, esi
+        rep stosd
+        pop edi
+        jmp loc_429751
+loc_42974F:
+        xor esi, esi
+loc_429751:
+        mov ecx, [esp+18h]
+        mov dword ptr [esp+10h], 0FFFFFFFFh
+        push ecx
+        mov dword ptr [esi+10h], 2
+        call sub_42A200
+        test eax, eax
+        jz loc_429791
+        push esi
+        call sub_4294A0
+        push esi
+        call j__free
+        add esp, 4
+        xor eax, eax
+        pop esi
+        mov ecx, [esp+4]
+        mov fs:[0], ecx
+        add esp, 10h
+        ret 4
+loc_429791:
+        mov ecx, [esp+8]
+        mov eax, esi
+        pop esi
+        mov fs:[0], ecx
+        add esp, 10h
+        ret 4
+    }
+}
+#endif
+
 void* StageManager_Create(const char* stage_path,
                           void* (*allocate)(unsigned int size),
                           void (*construct_slots)(void* slots, int stride,

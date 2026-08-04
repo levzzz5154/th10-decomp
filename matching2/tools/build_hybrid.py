@@ -274,6 +274,8 @@ OVERLAYS = (
     ("task_registration.obj", "ItemFrontRuntime_InitializeRetail", 0x00413980),
     ("task_registration.obj", "ScoreDisplay_RegisterTasksRetail", 0x0041C120),
     ("manager_factories.obj", "EffectManager_InitializePoolsRetail", 0x0042AE60),
+    ("manager_factories.obj", "EnemyManager_CreateRetail", 0x0040D6B0),
+    ("manager_factories.obj", "StageManager_CreateRetail", 0x004296F0),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
     ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),

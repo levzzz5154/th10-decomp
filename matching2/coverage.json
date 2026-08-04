@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 363,
-        "retail_bytes": 284155
+        "function_count": 361,
+        "retail_bytes": 283803
       },
       "exact-overlay": {
-        "function_count": 359,
-        "retail_bytes": 48645
+        "function_count": 361,
+        "retail_bytes": 48997
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 359,
+    "function_count": 361,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -1144,8 +1144,10 @@
       "address": "0x0040D6B0",
       "symbol": "FUN_0040d6b0",
       "size": 160,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "EnemyManager_CreateRetail"
     },
     {
       "address": "0x0040D750",
@@ -2706,8 +2708,10 @@
       "address": "0x004296F0",
       "symbol": "FUN_004296f0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "StageManager_CreateRetail"
     },
     {
       "address": "0x004297B0",
