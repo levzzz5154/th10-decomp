@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 346,
-      "semantic": 357
+      "exact-overlay": 347,
+      "semantic": 356
     }
   },
   "functions": [
@@ -651,8 +651,12 @@
       "size": 160,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00405ED0_FUN_00405ed0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/bullet_manager.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/bullet_manager.cpp",
+      "overlay": {
+        "object": "bullet_manager_overlay.obj",
+        "symbol": "BulletPool_ResetRetail"
+      }
     },
     {
       "address": "0x00405F70",

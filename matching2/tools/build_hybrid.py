@@ -280,6 +280,7 @@ OVERLAYS = (
     ("manager_factories.obj", "StageManager_CreateRetail", 0x004296F0),
     ("manager_teardown.obj", "ItemManager_DestroyRetail", 0x00405F70),
     ("ascii_overlay_callbacks_overlay.obj", "AsciiManager_OnDrawRetail", 0x0043C410),
+    ("bullet_manager_overlay.obj", "BulletPool_ResetRetail", 0x00405ED0),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
     ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),
