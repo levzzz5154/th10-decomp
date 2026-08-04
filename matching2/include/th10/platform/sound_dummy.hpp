@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // 0x00420B10 - Play the "dummy" cue and latch a progress byte: when bit
 // 4 of the retail device flags at 0x00491D78 is set, an extra

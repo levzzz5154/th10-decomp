@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 347,
-      "semantic": 356
+      "exact-overlay": 348,
+      "semantic": 355
     }
   },
   "functions": [
@@ -3133,8 +3133,12 @@
       "size": 240,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00420B10_FUN_00420b10.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/sound_dummy.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/sound_dummy.cpp",
+      "overlay": {
+        "object": "sound_dummy.obj",
+        "symbol": "Sound_PlayDummyRetail"
+      }
     },
     {
       "address": "0x00420C00",

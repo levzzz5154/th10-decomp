@@ -76,6 +76,7 @@ OVERLAY_SOURCES=(
     src/game/ascii_overlay_callbacks_overlay.cpp
     src/game/bullet_manager_overlay.cpp
     src/platform/sound_leaves.cpp
+    src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp
     src/archive/dat_file.cpp
     src/game/game_config_defaults.cpp

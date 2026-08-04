@@ -248,6 +248,7 @@ OVERLAYS = (
     ("score_file.obj", "ScoreFile_InitializeDefaultsRetail", 0x0042ACB0),
     ("sound_leaves.obj", "SoundBuffer_DestructBaseRetail", 0x0044D730),
     ("sound_leaves.obj", "Sound_PlayRandomVoiceRetail", 0x00420C30),
+    ("sound_dummy.obj", "Sound_PlayDummyRetail", 0x00420B10),
     ("recovery_leaves.obj", "EffectManager_ResetAndPublishRetail", 0x0042B430),
     ("recovery_leaves.obj", "EffectManagerRuntime_InitializeRetail", 0x0042B4D0),
     ("progress.obj", "?GameProgress_UnlockAllStages@@", 0x0042C8C0),

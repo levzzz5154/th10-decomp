@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 356,
-        "retail_bytes": 282587
+        "function_count": 355,
+        "retail_bytes": 282347
       },
       "exact-overlay": {
-        "function_count": 366,
-        "retail_bytes": 50213
+        "function_count": 367,
+        "retail_bytes": 50453
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 366,
+    "function_count": 367,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -2149,8 +2149,10 @@
       "address": "0x00420B10",
       "symbol": "FUN_00420b10",
       "size": 240,
-      "status": "semantic",
-      "source": "src/platform/sound_dummy.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/sound_dummy.cpp",
+      "overlay_object": "sound_dummy.obj",
+      "overlay_symbol": "Sound_PlayDummyRetail"
     },
     {
       "address": "0x00420C00",
