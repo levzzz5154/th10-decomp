@@ -3,10 +3,51 @@
 #ifdef _MSC_VER
 extern "C" void sub_436A30(void*);
 extern "C" void* __imp_DeleteObject;
+extern "C" void* __imp_SelectObject;
+extern "C" void* __imp_DeleteDC;
 #endif
 
 // GDI font/bitmap handle table (retail 0x00491868..0x004918A0).
 void* DAT_00491868[15];
+
+// 0x00436A30 - Flush the cached GDI font surface. When the cached DC at
+// +0x114 is live, restore the old bitmap, delete the DC and font object,
+// clear the six cache slots, and mark the cache stale (-1 at +0x100).
+#ifdef _MSC_VER
+__declspec(naked) void FontCache_FlushRetail() {
+    __asm {
+        mov eax, [esi+114h]
+        push edi
+        xor edi, edi
+        cmp eax, edi
+        jz loc_436A97
+        mov ecx, [esi+118h]
+        push ecx
+        push eax
+        call dword ptr [__imp_SelectObject]
+        mov edx, [esi+114h]
+        push edx
+        call dword ptr [__imp_DeleteDC]
+        mov eax, [esi+11Ch]
+        push eax
+        call dword ptr [__imp_DeleteObject]
+        mov [esi+104h], edi
+        mov [esi+108h], edi
+        mov [esi+114h], edi
+        mov [esi+11Ch], edi
+        mov [esi+118h], edi
+        mov [esi+120h], edi
+        mov dword ptr [esi+100h], 0FFFFFFFFh
+        mov al, 1
+        pop edi
+        ret
+loc_436A97:
+        xor al, al
+        pop edi
+        ret
+    }
+}
+#endif
 
 // 0x00437D10 - Delete the fifteen cached GDI objects. Retail flushes
 // the font cache first (0x00436A30) and then calls DeleteObject on each

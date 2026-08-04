@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 359,
-      "semantic": 344
+      "exact-overlay": 362,
+      "semantic": 341
     }
   },
   "functions": [
@@ -139,8 +139,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00401D20_FUN_00401d20.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/render/render_stage_select.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/render/render_stage_select.cpp",
+      "overlay": {
+        "object": "render_stage_select.obj",
+        "symbol": "GameThread_SelectRenderStageRetail"
+      }
     },
     {
       "address": "0x00401DE0",
@@ -1409,8 +1413,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040C3C0_FUN_0040c3c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_background.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/stage_background.cpp",
+      "overlay": {
+        "object": "stage_background_overlay.obj",
+        "symbol": "StageBackground_RebindTextureRetail"
+      }
     },
     {
       "address": "0x0040C480",
@@ -5197,8 +5205,12 @@
       "size": 192,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436A30_FUN_00436a30.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/platform/gdi_font_cache.cpp",
+      "overlay": {
+        "object": "gdi_font_cache.obj",
+        "symbol": "FontCache_FlushRetail"
+      }
     },
     {
       "address": "0x00436AF0",

@@ -82,6 +82,8 @@ OVERLAY_SOURCES=(
     src/game/music_room_overlay.cpp
     src/render/camera_setup.cpp
     src/platform/window.cpp
+    src/render/render_stage_select.cpp
+    src/game/stage_background_overlay.cpp
     src/platform/sound_leaves.cpp
     src/platform/sound_dummy.cpp
     src/platform/midi_worker_stop.cpp

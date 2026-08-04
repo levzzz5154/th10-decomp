@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 344,
-        "retail_bytes": 280027
+        "function_count": 341,
+        "retail_bytes": 279451
       },
       "exact-overlay": {
-        "function_count": 378,
-        "retail_bytes": 52773
+        "function_count": 381,
+        "retail_bytes": 53349
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 378,
+    "function_count": 381,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -146,8 +146,10 @@
       "address": "0x00401D20",
       "symbol": "FUN_00401d20",
       "size": 192,
-      "status": "semantic",
-      "source": "src/render/render_stage_select.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/render_stage_select.cpp",
+      "overlay_object": "render_stage_select.obj",
+      "overlay_symbol": "GameThread_SelectRenderStageRetail"
     },
     {
       "address": "0x00401DE0",
@@ -995,8 +997,10 @@
       "address": "0x0040C3C0",
       "symbol": "FUN_0040c3c0",
       "size": 192,
-      "status": "semantic",
-      "source": "src/game/stage_background.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/stage_background.cpp",
+      "overlay_object": "stage_background_overlay.obj",
+      "overlay_symbol": "StageBackground_RebindTextureRetail"
     },
     {
       "address": "0x0040C480",
@@ -3633,8 +3637,10 @@
       "address": "0x00436A30",
       "symbol": "FUN_00436a30",
       "size": 192,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "exact-overlay",
+      "source": "src/platform/gdi_font_cache.cpp",
+      "overlay_object": "gdi_font_cache.obj",
+      "overlay_symbol": "FontCache_FlushRetail"
     },
     {
       "address": "0x00436AF0",

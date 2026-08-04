@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 99,
-      "semantic": 80
+      "exact-overlay": 100,
+      "semantic": 79
     }
   },
   "integration_gates": {
@@ -730,9 +730,9 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
-      "source": "src/platform/memory_file.cpp"
+      "source": "src/platform/gdi_font_cache.cpp"
     },
     {
       "address": "0x00437D10",
