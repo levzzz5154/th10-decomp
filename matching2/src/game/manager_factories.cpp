@@ -27,6 +27,9 @@ extern "C" void j__free(void*);
 extern "C" unsigned long dword_477704;
 extern "C" int sub_42A200(void*);
 extern "C" void sub_4294A0(void*);
+extern "C" int sub_4089C0(void);
+extern "C" void sub_408AF0(void*);
+extern "C" void* sub_408910(void*);
 #endif
 
 namespace {
@@ -503,6 +506,59 @@ int ParticleEffectRuntime_Initialize(void* manager) {
 
 // 0x00408C90 - Player manager factory: 0x37B0-byte object, in-place
 // constructor, then the resource initializer; failure destroys and frees.
+#ifdef _MSC_VER
+__declspec(naked) void* PlayerManager_CreateRetail() {
+    __asm {
+        push 0FFFFFFFFh
+        push 46586Bh
+        mov eax, fs:[0]
+        push eax
+        mov fs:[0], esp
+        push ecx
+        push ebx
+        push 37B0h
+        call sub_452493
+        add esp, 4
+        mov [esp+4], eax
+        test eax, eax
+        mov dword ptr [esp+10h], 0
+        jz loc_408CCE
+        push eax
+        call sub_408910
+        mov ebx, eax
+        jmp loc_408CD0
+loc_408CCE:
+        xor ebx, ebx
+loc_408CD0:
+        mov dword ptr [esp+10h], 0FFFFFFFFh
+        call sub_4089C0
+        test eax, eax
+        jz loc_408D06
+        test ebx, ebx
+        jz loc_408CF4
+        push ebx
+        call sub_408AF0
+        push ebx
+        call j__free
+        add esp, 4
+loc_408CF4:
+        xor eax, eax
+        pop ebx
+        mov ecx, [esp+4]
+        mov fs:[0], ecx
+        add esp, 10h
+        ret
+loc_408D06:
+        mov ecx, [esp+8]
+        mov eax, ebx
+        pop ebx
+        mov fs:[0], ecx
+        add esp, 10h
+        ret
+    }
+}
+#endif
+
 // 0x00408910 - Construct the 15 embedded entity records. Retail subsequently
 // clears the complete object, sets its live bit, and publishes it. Calling the
 // entity constructors preserves their construction-time behavior even though

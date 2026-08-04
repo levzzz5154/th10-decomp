@@ -292,6 +292,7 @@ OVERLAYS = (
     ("task_registration.obj", "ScoreDisplay_RegisterTasksRetail", 0x0041C120),
     ("manager_factories.obj", "EffectManager_InitializePoolsRetail", 0x0042AE60),
     ("manager_factories.obj", "EnemyManager_CreateRetail", 0x0040D6B0),
+    ("manager_factories.obj", "PlayerManager_CreateRetail", 0x00408C90),
     ("manager_factories.obj", "StageManager_CreateRetail", 0x004296F0),
     ("manager_teardown.obj", "ItemManager_DestroyRetail", 0x00405F70),
     ("ascii_overlay_callbacks_overlay.obj", "AsciiManager_OnDrawRetail", 0x0043C410),

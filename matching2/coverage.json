@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 341,
-        "retail_bytes": 279451
+        "function_count": 340,
+        "retail_bytes": 279243
       },
       "exact-overlay": {
-        "function_count": 381,
-        "retail_bytes": 53349
+        "function_count": 382,
+        "retail_bytes": 53557
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 381,
+    "function_count": 382,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -748,8 +748,10 @@
       "address": "0x00408C90",
       "symbol": "FUN_00408c90",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "PlayerManager_CreateRetail"
     },
     {
       "address": "0x00408D60",
