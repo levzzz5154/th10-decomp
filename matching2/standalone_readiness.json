@@ -32,8 +32,8 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 98,
-      "semantic": 81
+      "exact-overlay": 99,
+      "semantic": 80
     }
   },
   "integration_gates": {
@@ -961,7 +961,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 1,
-      "recovery_status": "semantic",
+      "recovery_status": "exact-overlay",
       "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },

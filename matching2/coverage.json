@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 345,
-        "retail_bytes": 280235
+        "function_count": 344,
+        "retail_bytes": 280027
       },
       "exact-overlay": {
-        "function_count": 377,
-        "retail_bytes": 52565
+        "function_count": 378,
+        "retail_bytes": 52773
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 377,
+    "function_count": 378,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -4058,8 +4058,10 @@
       "address": "0x0043BCD0",
       "symbol": "FUN_0043bcd0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/render/camera_setup.cpp"
+      "status": "exact-overlay",
+      "source": "src/render/camera_setup.cpp",
+      "overlay_object": "camera_setup.obj",
+      "overlay_symbol": "Viewport_ApplyDefaultRetail"
     },
     {
       "address": "0x0043BDA0",

@@ -266,6 +266,7 @@ OVERLAYS = (
     ("boss_overlays.obj", "BossUi_ReleaseIndicatorsRetail", 0x0040E5F0),
     ("music_room_overlay.obj", "ParameterFile_LoadAndRelocateRetail", 0x00426520),
     ("camera_setup.obj", "Camera_ApplyRetail", 0x00421480),
+    ("camera_setup.obj", "Viewport_ApplyDefaultRetail", 0x0043BCD0),
     ("window.obj", "SaveSystemSettingsRetail", 0x004392E0),
     ("gdi_font_cache.obj", "FontCache_DeleteGdiObjectsRetail", 0x00437D10),
     ("player_motion.obj", "?Player_ForwardAxisWrap@@", 0x0040678E),

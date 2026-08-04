@@ -12,6 +12,13 @@ extern "C" void* dword_491C30;
 extern "C" float flt_470B98;
 extern "C" float flt_470B0C;
 extern "C" double dbl_470BA0;
+extern "C" void sub_43BC40(void*);
+extern "C" unsigned long dword_491CF4;
+extern "C" unsigned long dword_491CF8;
+extern "C" unsigned long dword_491CFC;
+extern "C" unsigned long dword_491D00;
+extern "C" unsigned long dword_491D04;
+extern "C" unsigned long dword_491D08;
 #endif
 
 // Semantic reconstruction 0x00421480 - rebuild view/projection matrices.
@@ -122,11 +129,39 @@ void Camera_Apply(CameraState* camera, const CameraHooks* hooks) {
 // Semantic reconstruction 0x0043BCD0 - apply the 640x480 viewport.
 // into the caller's six-dword block, apply it, and reset clip state. The
 // storage parameter replaces retail's fixed DAT_00491CF4 block.
+#ifdef _MSC_VER
+__declspec(naked) void Viewport_ApplyDefaultRetail() {
+    __asm {
+        push esi
+        mov esi, dword ptr [dword_491C10]
+        test esi, esi
+        jz loc_43BCE0
+        call sub_442F50
+loc_43BCE0:
+        mov eax, dword ptr [dword_491C30]
+        push 491CF4h
+        mov dword ptr [dword_491CF4], 0
+        mov dword ptr [dword_491CF8], 0
+        mov dword ptr [dword_491CFC], 280h
+        mov dword ptr [dword_491D00], 1E0h
+        mov dword ptr [dword_491D04], 0
+        mov dword ptr [dword_491D08], 3F800000h
+        mov ecx, [eax]
+        push eax
+        call dword ptr [ecx+0BCh]
+        mov esi, [esp+8]
+        call sub_43BC40
+        pop esi
+        ret 4
+    }
+}
+#endif
+
+// 0x0043BCD0 opens by flushing the staged sprite batch (0x00442F50)
+// when the manager is live, then fills the six-dword block retail keeps
+// at 0x00491CF4, hands it to SetViewport, and closes with 0x0043BC40.
 void Viewport_ApplyDefault(ViewportBlock* storage,
                            const ViewportHooks* hooks) {
-    // 0x0043BCD0 opens by flushing the staged sprite batch (0x00442F50)
-    // when the manager is live, then fills the six-dword block retail keeps
-    // at 0x00491CF4, hands it to SetViewport, and closes with 0x0043BC40.
     if (hooks->flush_sprite_batch != 0)
         hooks->flush_sprite_batch(hooks->context);
     storage->x = 0;
