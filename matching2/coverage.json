@@ -9,12 +9,12 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 373,
-        "retail_bytes": 285979
+        "function_count": 371,
+        "retail_bytes": 285595
       },
       "exact-overlay": {
-        "function_count": 349,
-        "retail_bytes": 46821
+        "function_count": 351,
+        "retail_bytes": 47205
       }
     },
     "size_bands": [
@@ -57,7 +57,7 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 349,
+    "function_count": 351,
     "compared_bytes": null,
     "source": "tools/build_hybrid.py"
   },
@@ -715,8 +715,10 @@
       "address": "0x00408910",
       "symbol": "FUN_00408910",
       "size": 176,
-      "status": "semantic",
-      "source": "src/game/manager_factories.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/manager_factories.cpp",
+      "overlay_object": "manager_factories.obj",
+      "overlay_symbol": "PlayerManager_ConstructRetail"
     },
     {
       "address": "0x004089C0",
@@ -1827,8 +1829,10 @@
       "address": "0x0041C1C0",
       "symbol": "FUN_0041c1c0",
       "size": 208,
-      "status": "semantic",
-      "source": "src/game/score.cpp"
+      "status": "exact-overlay",
+      "source": "src/game/score.cpp",
+      "overlay_object": "score.obj",
+      "overlay_symbol": "ScoreExtendedObject_DestroyRetail"
     },
     {
       "address": "0x0041C290",

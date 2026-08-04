@@ -264,6 +264,8 @@ OVERLAYS = (
     ("score.obj", "ScoreExtendedObject_Initialize", 0x0041C5B0),
     ("score.obj", "Input_PollJoystickButtons", 0x0044A4E0),
     ("score.obj", "ScoreState_ActivateFromResultRetail", 0x00408030),
+    ("score.obj", "ScoreExtendedObject_DestroyRetail", 0x0041C1C0),
+    ("manager_factories.obj", "PlayerManager_ConstructRetail", 0x00408910),
     ("score_timer_leaves.obj", "ScoreGauge_SetTargetTenthAndDisableTimer", 0x00418B80),
     ("score_timer_leaves.obj", "Score_IncrementCounterClampedNine", 0x00418A90),
     ("score.obj", "?InputMaskActive@@", 0x0040ACE0),

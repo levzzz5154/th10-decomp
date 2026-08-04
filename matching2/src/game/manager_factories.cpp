@@ -13,6 +13,10 @@ extern unsigned int DAT_004776f4;
 extern unsigned int DAT_0047770c;
 extern unsigned int DAT_00491be4;
 
+#ifdef _MSC_VER
+extern "C" void __stdcall EhVectorCtorIter();
+#endif
+
 namespace {
 ParticleEffectRuntimeBindings g_particle_effect_bindings = {};
 
@@ -280,6 +284,60 @@ int ParticleEffectRuntime_Initialize(void* manager) {
 // clears the complete object, sets its live bit, and publishes it. Calling the
 // entity constructors preserves their construction-time behavior even though
 // all of their field stores are deliberately erased by the following clear.
+#ifdef _MSC_VER
+__declspec(naked) void* PlayerManager_ConstructRetail() {
+    __asm {
+        mov eax, fs:[0]
+        push 0FFFFFFFFh
+        push 465514h
+        push eax
+        mov fs:[0], esp
+        push esi
+        mov esi, [esp+14h]
+        push edi
+        push 401FF0h
+        push 402050h
+        push 2
+        push 3ACh
+        lea eax, [esi+10h]
+        push eax
+        call EhVectorCtorIter
+        push 401FF0h
+        push 402050h
+        push 8
+        push 3ACh
+        lea ecx, [esi+778h]
+        push ecx
+        mov dword ptr [esp+24h], 0
+        call EhVectorCtorIter
+        push 401FF0h
+        push 402050h
+        push 5
+        push 3ACh
+        lea edx, [esi+24D8h]
+        push edx
+        mov byte ptr [esp+24h], 1
+        call EhVectorCtorIter
+        and dword ptr [esi+3744h], 0FFFFFFFEh
+        xor eax, eax
+        mov edi, esi
+        mov ecx, 0DECh
+        rep stosd
+        mov eax, [esi]
+        mov ecx, [esp+8]
+        or eax, 2
+        mov [esi], eax
+        pop edi
+        mov dword ptr [DAT_004776f4], esi
+        mov eax, esi
+        mov fs:[0], ecx
+        pop esi
+        add esp, 0Ch
+        ret 4
+    }
+}
+#endif
+
 void* PlayerManager_Construct(void* memory) {
 	Byte* bytes = (Byte*)memory;
 	for (int index = 0; index != 2; ++index)

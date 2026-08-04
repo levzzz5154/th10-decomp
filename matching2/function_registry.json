@@ -7,8 +7,8 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
-      "exact-overlay": 330,
-      "semantic": 373
+      "exact-overlay": 332,
+      "semantic": 371
     }
   },
   "functions": [
@@ -985,8 +985,12 @@
       "size": 176,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408910_FUN_00408910.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/manager_factories.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/manager_factories.cpp",
+      "overlay": {
+        "object": "manager_factories.obj",
+        "symbol": "PlayerManager_ConstructRetail"
+      }
     },
     {
       "address": "0x004089C0",
@@ -2649,8 +2653,12 @@
       "size": 208,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041C1C0_FUN_0041c1c0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/score.cpp"
+      "recovery_status": "exact-overlay",
+      "promoted_source": "src/game/score.cpp",
+      "overlay": {
+        "object": "score.obj",
+        "symbol": "ScoreExtendedObject_DestroyRetail"
+      }
     },
     {
       "address": "0x0041C290",

@@ -41,6 +41,11 @@ extern "C" void* __imp_joyGetPosEx;
 extern "C" int sub_4086B0(void*, float, float);
 extern "C" int sub_448DB0(void*, int, int, int);
 extern "C" void* dword_4776F0;
+extern "C" void* __imp_EnterCriticalSection;
+extern "C" void* __imp_LeaveCriticalSection;
+extern "C" int sub_449F60(void*, void*);
+extern "C" unsigned long dword_47781C;
+extern "C" unsigned char byte_49231C;
 extern "C" void sub_41C030(void*, void*);
 #endif
 
@@ -1036,6 +1041,80 @@ void* ScoreExtendedObject_Initialize(void* unused, void* object) {
 // 0x0041C1C0 - Retire the two scheduler-owned callbacks and drain the
 // score object's owned-record chain. The callback hook is explicit here so
 // host tests can model the scheduler critical-section boundary.
+#ifdef _MSC_VER
+__declspec(naked) void ScoreExtendedObject_DestroyRetail() {
+    __asm {
+        mov eax, [esp+4]
+        push ebx
+        mov ebx, dword ptr [__imp_EnterCriticalSection]
+        push ebp
+        mov ebp, dword ptr [__imp_LeaveCriticalSection]
+        push esi
+        mov esi, [eax+8]
+        test esi, esi
+        push edi
+        mov edi, dword ptr [DAT_00491be4]
+        jz loc_41C204
+        push 492274h
+        call ebx
+        inc byte ptr [byte_49231C]
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr [byte_49231C]
+loc_41C204:
+        mov ecx, [esp+14h]
+        mov esi, [ecx+0Ch]
+        test esi, esi
+        mov edi, dword ptr [DAT_00491be4]
+        jz loc_41C238
+        push 492274h
+        call ebx
+        inc byte ptr [byte_49231C]
+        mov ecx, esi
+        mov edx, edi
+        call sub_449F60
+        push 492274h
+        call ebp
+        dec byte ptr [byte_49231C]
+loc_41C238:
+        mov edx, [esp+14h]
+        mov esi, [edx+18h]
+        test esi, esi
+        jz loc_41C272
+loc_41C243:
+        mov eax, [esi]
+        mov edi, [esi+8]
+        mov ecx, esi
+        call dword ptr [eax+10h]
+        mov ecx, [esi+4]
+        mov edx, [esi+8]
+        mov [ecx+8], edx
+        mov eax, [esi+8]
+        test eax, eax
+        jz loc_41C263
+        mov ecx, [esi+4]
+        mov [eax+4], ecx
+loc_41C263:
+        push esi
+        call j__free
+        add esp, 4
+        test edi, edi
+        mov esi, edi
+        jnz loc_41C243
+loc_41C272:
+        pop edi
+        pop esi
+        pop ebp
+        mov dword ptr [dword_47781C], 0
+        pop ebx
+        ret 4
+    }
+}
+#endif
+
 void ScoreExtendedObject_Destroy(void* object,
                                  void (*retireCallback)(void*)) {
     unsigned char* bytes = (unsigned char*)object;
