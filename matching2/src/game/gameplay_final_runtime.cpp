@@ -770,7 +770,9 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
     }
     PlayerRawWrite(raw, 0x430C, state.invulnerability_timer.target);
     PlayerRawWrite(raw, 0x4310, state.invulnerable);
-    PlayerRawWrite(raw, 0x4314, state.invulnerability_timer.previous);
+    // Retail stores the fractional countdown at +0x4314 (the previous-value
+    // integer mirror is not present at this address).
+    PlayerRawWrite(raw, 0x4314, state.invuln_frac);
     PlayerRawWrite(raw, 0x431C, state.invulnerability_timer.flags);
     if (env != nullptr && env->power_gauge != nullptr)
         *env->power_gauge = static_cast<std::uint16_t>(state.power);
@@ -1114,6 +1116,9 @@ void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
         return;
     unsigned char* raw = static_cast<unsigned char*>(player);
     state.familiar_count = PlayerRawRead<int>(raw, 0x3500);
+    // Retail formation reads the player's focus latch at +0x4474 before
+    // selecting the focused offset pair (raw 0x4271xx listing).
+    state.formation.focus = (PlayerRawRead<int>(raw, 0x4474) != 0);
     state.formation.source_x = PlayerRawRead<int>(raw, 0x3CC);
     state.formation.source_y = PlayerRawRead<int>(raw, 0x3D0);
     for (int field = 0; field != 66; ++field)

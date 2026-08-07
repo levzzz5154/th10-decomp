@@ -152,6 +152,9 @@ void TestRetailLayoutUpdateBridge() {
     RawStore<int>(raw, 0x478, 10);
     RawStore<float>(raw, 0x47C, 10.0f);
     RawStore<int>(raw, 0x484, 1);
+    RawStore<int>(raw, 0x4310, 5);
+    RawStore<float>(raw, 0x4314, 5.0f);
+    RawStore<std::uint32_t>(raw, 0x431C, 1u);
     RawStore<float>(raw, 0x3C0, 100.0f);
     RawStore<float>(raw, 0x3C4, 200.0f);
     const std::size_t indicator = 0x350C;
@@ -173,6 +176,9 @@ void TestRetailLayoutUpdateBridge() {
     assert(RawLoad<float>(raw, indicator + 0x00) == 5.0f);
     assert(RawLoad<int>(raw, indicator + 0x48) == 4);
     assert(RawLoad<std::uint32_t>(raw, indicator + 0x68) == 1u);
+    // +0x4314 is the retail fractional invulnerability image, not an int
+    // mirror; the tail advances it before the raw bridge writes it back.
+    assert(RawLoad<float>(raw, 0x4314) == 4.0f);
 }
 
 std::uint32_t FormationRandom() {
