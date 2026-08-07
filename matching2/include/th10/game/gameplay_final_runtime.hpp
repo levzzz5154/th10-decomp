@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 #include "th10/math/timer.hpp"
+#include "th10/render/animation_manager.hpp"
 namespace th10::gameplay_final {
 // Env channel for the retail item sweep 0x0041AFD0 (sub_41AFD0). Each field
 // names its retail global or player-record slot; player slots are float
@@ -244,6 +245,10 @@ struct AttachedEffects {
     FamiliarFormationInputs formation{};
     bool formation_partial{};              // set when external ANM/random hooks are absent
     bool manager_partial{};                 // set when ANM-list membership/chain hooks are absent
+    // Optional concrete manager context.  It is used only when both its
+    // manager and resource binding are present; otherwise the existing hooks
+    // remain usable and the corresponding edge stays explicitly partial.
+    AnimationManagerAdapter* animation_manager{};
     // Retail 0x00426F70 env hooks: flag_linked fires per swept record whose
     // linked chain gets the +860 flag; refetch_sprite replaces an effect slot
     // through sub_448E30. `create_animation`/`set_callback` and the formation

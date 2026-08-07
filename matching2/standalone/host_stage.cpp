@@ -1385,8 +1385,18 @@ void HostReleaseCleanupChain() {
 // words and the shot/difficulty event map; the host keeps one instance and
 // feeds it the live selection.
 th10::gameplay_final::AttachedEffects g_attached_effects;
+AnimationManagerAdapter g_attached_animation_adapter;
 
 void HostRunAttachedEffects() {
+	// Retail 0x00426F70 passes the player-owned ANM resource at +0x10 into
+	// every refetch/create call. Bind that exact owner field when resident;
+	// a missing resource remains an explicit partial edge in the model.
+	void* resource = g_player_manager == 0 ? 0 :
+	    *reinterpret_cast<void**>(
+	        static_cast<unsigned char*>(g_player_manager) + 0x10);
+	g_attached_animation_adapter = AnimationManager_BindAdapter(
+	    g_pGameStateManager, resource, 0x0F);
+	g_attached_effects.animation_manager = &g_attached_animation_adapter;
 	g_attached_effects.difficulty = g_active_difficulty;
 	g_attached_effects.shot = g_globals.character;
 	th10::gameplay_final::UpdateAttachedEffects(g_attached_effects,

@@ -698,6 +698,46 @@ static void TestAnimationManagerLifecycle() {
     assert(*sentinelResource == 0);
 }
 
+static void TestAnimationManagerAdapter() {
+    const unsigned int managerSize = 0x732458;
+    std::vector<unsigned char> manager(managerSize, 0);
+    g_pGameStateManager = &manager[0];
+
+    AnimationObject* root = AnimationManager_AllocateObject(&manager[0]);
+    AnimationObject* child = AnimationManager_AllocateObject(&manager[0]);
+    const int rootHandle = AnimationManager_RegisterObjectAt(
+        &manager[0], root, AnimationManagerList_Primary,
+        AnimationListInsertion_Back);
+    const int childHandle = AnimationManager_RegisterObjectAt(
+        &manager[0], child, AnimationManagerList_Secondary,
+        AnimationListInsertion_Back);
+    *reinterpret_cast<short*>(
+        reinterpret_cast<unsigned char*>(child) + 0x38A) = 23;
+
+    AnimationManagerAdapter adapter = AnimationManager_BindAdapter(
+        &manager[0], 0, 15);
+    assert(adapter.HasManager() && !adapter.HasResourceBinding());
+    assert(adapter.IsPrimary(rootHandle));
+    assert(adapter.IsSecondary(childHandle));
+    assert(adapter.AttachChild(rootHandle, childHandle));
+    assert(adapter.FindChild(rootHandle, 23) == childHandle);
+
+    assert(adapter.SetHighPathFlag(rootHandle));
+    assert((*reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(root) + 0x35C) &
+            0x04000000u) != 0);
+    assert((*reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(child) + 0x35C) &
+            0x04000000u) != 0);
+    assert(adapter.SetLowPathFrame(rootHandle, 1));
+    assert(*reinterpret_cast<short*>(
+               reinterpret_cast<unsigned char*>(root) + 0x304) == 1);
+    assert(*reinterpret_cast<short*>(
+               reinterpret_cast<unsigned char*>(child) + 0x304) == 1);
+    assert(adapter.Refetch(20, 15) == 0);
+    assert(adapter.Create(17, 15, 0) == 0);
+}
+
 static void TestAnimationDigitTriplet();
 static void TestVector2PolarLeaf();
 static void TestAnimationResourceSlotClear();
@@ -725,6 +765,7 @@ int main() {
     TestAnimationResourceConfiguration();
     TestAnimationFrameLoops();
     TestAnimationManagerLifecycle();
+    TestAnimationManagerAdapter();
     TestAnimationDigitTriplet();
     TestVector2PolarLeaf();
     TestAnimationResourceSlotClear();

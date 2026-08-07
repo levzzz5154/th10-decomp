@@ -944,6 +944,42 @@ AnimationObject* AnimationManager_Find(
 }
 #endif
 
+bool AnimationManager_HandleInList(void* manager, int animationHandle,
+                                   AnimationManagerList list) {
+    if (manager == 0 || animationHandle == 0)
+        return false;
+    AnimationListNode* node = AnimationManager_List(
+        manager, static_cast<unsigned int>(list));
+    while (node != 0) {
+        if (node->animation != 0 &&
+            *(int*)node->animation == animationHandle)
+            return true;
+        node = node->next;
+    }
+    return false;
+}
+
+AnimationManagerHandleMembership AnimationManager_ClassifyHandle(
+    void* manager, int animationHandle) {
+    if (AnimationManager_HandleInList(
+            manager, animationHandle, AnimationManagerList_Primary))
+        return AnimationManagerHandle_Primary;
+    if (AnimationManager_HandleInList(
+            manager, animationHandle, AnimationManagerList_Secondary))
+        return AnimationManagerHandle_Secondary;
+    return AnimationManagerHandle_Absent;
+}
+
+bool AnimationManager_IsPrimaryHandle(void* manager, int animationHandle) {
+    return AnimationManager_HandleInList(
+        manager, animationHandle, AnimationManagerList_Primary);
+}
+
+bool AnimationManager_IsSecondaryHandle(void* manager, int animationHandle) {
+    return AnimationManager_HandleInList(
+        manager, animationHandle, AnimationManagerList_Secondary);
+}
+
 int AnimationManager_RegisterObject(
     void* manager, AnimationObject* animation) {
     return AnimationManager_RegisterObjectAt(
@@ -2814,6 +2850,8 @@ int AnimationManager_FindChildByScriptIndex(
 }
 
 void AnimationManager_AttachChild(void* parent, void* child) {
+    if (parent == 0 || child == 0 || parent == child)
+        return;
     // The parent's own membership node is the chain head on the host (the
     // retail keeps the head pointer at parent+0x10; the node moved to +0x1C
     // because the host pointer fields are 8 bytes).  Head-insert the
@@ -2824,6 +2862,8 @@ void AnimationManager_AttachChild(void* parent, void* child) {
         (AnimationObject*)parent);
     AnimationListNode* node = AnimationObject_ChildMembership(
         (AnimationObject*)child);
+    if (node->previous != 0 || node->next != 0)
+        AnimationList_Unlink(node);
     node->animation = (AnimationObject*)child;
     node->previous = head;
     node->next = head->next;
@@ -2833,6 +2873,80 @@ void AnimationManager_AttachChild(void* parent, void* child) {
     head->next = node;
 }
 #endif
+
+static bool AnimationManagerAdapter_SetFlag(
+        void* manager, int animationHandle, unsigned int flag) {
+    if (AnimationManager_ClassifyHandle(manager, animationHandle) ==
+        AnimationManagerHandle_Absent)
+        return false;
+    AnimationManager_SetFlag(manager, animationHandle, flag);
+    return AnimationManager_Find(manager, animationHandle) != 0;
+}
+
+static bool AnimationManagerAdapter_SetFrame(
+        void* manager, int animationHandle, short frame) {
+    if (AnimationManager_ClassifyHandle(manager, animationHandle) ==
+        AnimationManagerHandle_Absent)
+        return false;
+    AnimationManager_SetStopFrame(manager, animationHandle, frame);
+    return AnimationManager_Find(manager, animationHandle) != 0;
+}
+
+static int AnimationManagerAdapter_FindChild(
+        void* manager, int parentHandle, short scriptIndex) {
+    if (AnimationManager_ClassifyHandle(manager, parentHandle) ==
+        AnimationManagerHandle_Absent)
+        return 0;
+    return AnimationManager_FindChildByScriptIndex(
+        manager, parentHandle, scriptIndex);
+}
+
+static bool AnimationManagerAdapter_AttachChild(
+        void* manager, int parentHandle, int childHandle) {
+    if (parentHandle == 0 || parentHandle == childHandle ||
+        AnimationManager_ClassifyHandle(manager, parentHandle) ==
+            AnimationManagerHandle_Absent ||
+        AnimationManager_ClassifyHandle(manager, childHandle) ==
+            AnimationManagerHandle_Absent)
+        return false;
+    AnimationObject* parent = AnimationManager_Find(manager, parentHandle);
+    AnimationObject* child = AnimationManager_Find(manager, childHandle);
+    if (parent == 0 || child == 0)
+        return false;
+    AnimationManager_AttachChild(parent, child);
+    return true;
+}
+
+static int AnimationManagerAdapter_Refetch(
+        void* manager, void* resource, int spriteIndex, int layer,
+        const float*) {
+    return AnimationManager_CreatePrimaryFront(
+        manager, resource, spriteIndex, layer);
+}
+
+static int AnimationManagerAdapter_Create(
+        void* manager, void* resource, int animationIndex, int layer,
+        const float* position) {
+    const int handle = AnimationManager_CreatePrimaryBack(
+        manager, resource, animationIndex, layer);
+    if (handle != 0 && position != 0)
+        AnimationManager_SetPosition(manager, handle, position);
+    return handle;
+}
+
+AnimationManagerAdapter AnimationManager_BindAdapter(
+        void* manager, void* resource, int renderBucket) {
+    AnimationManagerAdapter adapter(manager, resource, renderBucket);
+    adapter.membership_fn = AnimationManager_ClassifyHandle;
+    adapter.set_flag_fn = AnimationManagerAdapter_SetFlag;
+    adapter.set_frame_fn = AnimationManagerAdapter_SetFrame;
+    adapter.find_child_fn = AnimationManagerAdapter_FindChild;
+    adapter.attach_child_fn = AnimationManagerAdapter_AttachChild;
+    adapter.refetch_fn = AnimationManagerAdapter_Refetch;
+    adapter.create_fn = AnimationManagerAdapter_Create;
+    return adapter;
+}
+
 
 // The child-attach is a host-side addition (the retail builders inline the
 // insert); it lives in the host branch above (both branches get it via the

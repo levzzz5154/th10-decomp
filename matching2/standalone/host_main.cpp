@@ -329,6 +329,15 @@ struct HostContext {
     TitleMenuRuntime title_runtime = {};
     TitleMenuGlobals title_globals = {};
     int menu_quit = 0;
+    // --menu-smoke drives the title menus through the reconstructed input
+    // globals. It intentionally leaves the game-menu record uncreated so the
+    // title's eight-item menu, rather than the in-game three-item pause menu,
+    // owns the dispatch while the flow is being checked.
+    int menu_smoke = 0;
+    int menu_smoke_step = 0;
+    int menu_smoke_transitions = 0;
+    int menu_smoke_failed = 0;
+    int menu_smoke_frames = 0;
     // Retail game-menu record runtime (0x004223F0 dispatch + 0x00422C80
     // choice model + 0x004236F0 submenu). menu_record is the retail a1
     // (0x2C8 bytes, created like retail sub_422360); menu_phase is the
@@ -3661,6 +3670,176 @@ void HostUpdateSelectionScreen() {
     }
     g_host.menu_input = 0;
 }
+
+enum HostMenuSmokeStep {
+    HOST_MENU_SMOKE_TITLE_TO_MAIN = 0,
+    HOST_MENU_SMOKE_MAIN_TO_OPTIONS,
+    HOST_MENU_SMOKE_OPTIONS_TO_KEY,
+    HOST_MENU_SMOKE_KEY_TO_OPTIONS,
+    HOST_MENU_SMOKE_OPTIONS_TO_MAIN,
+    HOST_MENU_SMOKE_MAIN_TO_MUSIC,
+    HOST_MENU_SMOKE_MUSIC_WRAP,
+    HOST_MENU_SMOKE_MUSIC_PLAY,
+    HOST_MENU_SMOKE_MUSIC_TO_MAIN,
+    HOST_MENU_SMOKE_MAIN_TO_EXIT,
+    HOST_MENU_SMOKE_DONE,
+};
+
+void HostMenuSmokeFail(const char* reason) {
+    if (g_host.menu_smoke_failed)
+        return;
+    g_host.menu_smoke_failed = 1;
+    std::fprintf(stderr, "[th10-menu-smoke] FAIL: %s\n", reason);
+    std::fflush(stderr);
+    g_host.menu_quit = 1;
+}
+
+void HostMenuSmokeTransition(int next_step, const char* name) {
+    std::fprintf(stderr,
+                 "[th10-menu-smoke] transition %d: %s (frame %d)\n",
+                 g_host.menu_smoke_transitions + 1, name,
+                 g_host.menu_smoke_frames);
+    std::fflush(stderr);
+    g_host.menu_smoke_step = next_step;
+    g_host.menu_smoke_transitions += 1;
+}
+
+void HostMenuSmokeDriveInput() {
+    if (!g_host.menu_smoke || g_host.menu_smoke_failed ||
+        g_host.menu_smoke_step == HOST_MENU_SMOKE_DONE)
+        return;
+    g_host.menu_smoke_frames += 1;
+    if (g_host.menu_smoke_frames > 900) {
+        HostMenuSmokeFail("required transition deadline exceeded");
+        return;
+    }
+
+    switch (g_host.menu_smoke_step) {
+    case HOST_MENU_SMOKE_TITLE_TO_MAIN:
+        if (g_host.title_runtime.phase == 1 &&
+            g_host.title_transition_frame == 0)
+            g_host.menu_input |= TITLE_MENU_CONFIRM;
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_OPTIONS:
+        if (g_host.title_runtime.phase == 2 && g_host.menu_screen == 0 &&
+            g_host.menu_state.phase == 2) {
+            g_host.menu_input |= g_host.menu_state.selection < 6
+                ? TITLE_MENU_DOWN : TITLE_MENU_CONFIRM;
+        }
+        break;
+    case HOST_MENU_SMOKE_OPTIONS_TO_KEY:
+        if (g_host.menu_screen == 4 && g_host.options_state.phase == 2) {
+            g_host.menu_input |= g_host.options_state.selection < 3
+                ? TITLE_OPTIONS_DOWN : TITLE_OPTIONS_CONFIRM;
+        }
+        break;
+    case HOST_MENU_SMOKE_KEY_TO_OPTIONS:
+        if (g_host.menu_screen == 5)
+            g_host.menu_input |= g_host.keyconfig_selection < 6
+                ? TITLE_MENU_DOWN : TITLE_MENU_CONFIRM;
+        break;
+    case HOST_MENU_SMOKE_OPTIONS_TO_MAIN:
+        if (g_host.menu_screen == 4 && g_host.options_state.phase == 2) {
+            g_host.menu_input |= g_host.options_state.selection < 5
+                ? TITLE_OPTIONS_DOWN : TITLE_OPTIONS_CONFIRM;
+        }
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_MUSIC:
+        if (g_host.title_runtime.phase == 2 && g_host.menu_screen == 0 &&
+            g_host.menu_state.phase == 2) {
+            g_host.menu_input |= g_host.menu_state.selection < 5
+                ? TITLE_MENU_DOWN : TITLE_MENU_CONFIRM;
+        }
+        break;
+    case HOST_MENU_SMOKE_MUSIC_WRAP:
+        HostBuildMusicTrackList();
+        if (g_host.music_track_count < 2) {
+            HostMenuSmokeFail("Music Room has fewer than two tracks to wrap");
+        } else if (g_host.menu_screen == 11) {
+            g_host.menu_input |= TITLE_MENU_UP;
+        }
+        break;
+    case HOST_MENU_SMOKE_MUSIC_PLAY:
+        if (g_host.menu_screen == 11)
+            g_host.menu_input |= TITLE_MENU_CONFIRM;
+        break;
+    case HOST_MENU_SMOKE_MUSIC_TO_MAIN:
+        if (g_host.menu_screen == 11)
+            g_host.menu_input |= TITLE_MENU_CANCEL;
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_EXIT:
+        if (g_host.title_runtime.phase == 2 && g_host.menu_screen == 0 &&
+            g_host.menu_state.phase == 2) {
+            g_host.menu_input |= g_host.menu_state.selection < 7
+                ? TITLE_MENU_DOWN : TITLE_MENU_CONFIRM;
+        }
+        break;
+    case HOST_MENU_SMOKE_DONE:
+        break;
+    }
+}
+
+void HostMenuSmokeObserve() {
+    if (!g_host.menu_smoke || g_host.menu_smoke_failed)
+        return;
+    switch (g_host.menu_smoke_step) {
+    case HOST_MENU_SMOKE_TITLE_TO_MAIN:
+        if (g_host.title_runtime.phase == 2 && g_host.menu_screen == 0)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MAIN_TO_OPTIONS,
+                                    "title -> main menu");
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_OPTIONS:
+        if (g_host.menu_screen == 4)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_OPTIONS_TO_KEY,
+                                    "main menu -> options");
+        break;
+    case HOST_MENU_SMOKE_OPTIONS_TO_KEY:
+        if (g_host.menu_screen == 5)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_KEY_TO_OPTIONS,
+                                    "options -> key config");
+        break;
+    case HOST_MENU_SMOKE_KEY_TO_OPTIONS:
+        if (g_host.menu_screen == 4)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_OPTIONS_TO_MAIN,
+                                    "key config -> options");
+        break;
+    case HOST_MENU_SMOKE_OPTIONS_TO_MAIN:
+        if (g_host.menu_screen == 0 && g_host.menu_state.phase == 0)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MAIN_TO_MUSIC,
+                                    "options -> main menu");
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_MUSIC:
+        if (g_host.menu_screen == 11)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MUSIC_WRAP,
+                                    "main menu -> Music Room");
+        break;
+    case HOST_MENU_SMOKE_MUSIC_WRAP:
+        HostBuildMusicTrackList();
+        if (g_host.music_track_count >= 2 &&
+            g_host.music_selection == g_host.music_track_count - 1)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MUSIC_PLAY,
+                                    "Music Room -> wrapped last track");
+        break;
+    case HOST_MENU_SMOKE_MUSIC_PLAY:
+        if (g_host.music_playing >= 0 &&
+            g_host.music_playing == g_host.music_selection)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MUSIC_TO_MAIN,
+                                    "Music Room -> playing");
+        break;
+    case HOST_MENU_SMOKE_MUSIC_TO_MAIN:
+        if (g_host.menu_screen == 0 && g_host.menu_state.phase == 0)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_MAIN_TO_EXIT,
+                                    "Music Room -> main menu");
+        break;
+    case HOST_MENU_SMOKE_MAIN_TO_EXIT:
+        if (g_host.menu_quit)
+            HostMenuSmokeTransition(HOST_MENU_SMOKE_DONE,
+                                    "main menu -> exit");
+        break;
+    case HOST_MENU_SMOKE_DONE:
+        break;
+    }
+}
 #endif
 
 // ---------------------------------------------------------------------------
@@ -4174,6 +4353,10 @@ int HostRunSchedulerFrame(void*) {
             DAT_00474e36 |= g_host.scripted_keys[index];
             DAT_00474e30 |= g_host.scripted_keys[index];
         }
+#if defined(_WIN32)
+    if (g_host.menu_smoke)
+        HostMenuSmokeDriveInput();
+#endif
     if (g_host.smoke_mode && g_host.title_frames_completed == 60 &&
         HostStage_GetReport().archive_available &&
         !HostStage_GetReport().confirm_invoked) {
@@ -4200,7 +4383,7 @@ int HostRunSchedulerFrame(void*) {
             g_host.title_child_vm_count);
         std::fflush(stderr);
     }
-    if (!g_host.smoke_mode)
+    if (!g_host.smoke_mode && !g_host.menu_smoke)
         HostPollKeyboard();
     if (!g_host.smoke_mode && HostStage_IsActive()) {
         if (std::strcmp(g_host.bgm_track, "th10_00.wav") != 0)
@@ -4305,6 +4488,10 @@ int HostRunSchedulerFrame(void*) {
     // without a demo replay; see HostMenuReplayReady).
     if (g_host.menu_record != nullptr)
         HostMenuUpdate();
+#if defined(_WIN32)
+    if (g_host.menu_smoke)
+        HostMenuSmokeObserve();
+#endif
     // The drawing used to happen here, inside the scheduler slot. Retail's
     // 0x00449C00 slot is update-only: 0x00439390 runs the render pass
     // afterwards, between BeginScene and EndScene, through 0x00449D40. The
@@ -5295,6 +5482,8 @@ static int HostRun(int argc, char** argv) {
     HostTrace("process entry");
     const bool resource_smoke =
         argc > 1 && std::strcmp(argv[1], "--resource-smoke") == 0;
+    g_host.menu_smoke =
+        argc > 1 && std::strcmp(argv[1], "--menu-smoke") == 0;
     g_host.smoke_mode = argc > 1 &&
         (std::strcmp(argv[1], "--smoke") == 0 ||
          std::strcmp(argv[1], "--dump-anm") == 0 ||
@@ -5388,8 +5577,11 @@ static int HostRun(int argc, char** argv) {
     }
     HostTrace("th10.dat mounted");
     // The retail game-menu record runtime: created once at boot (retail
-    // sub_422360's chain) and driven per frame by HostMenuUpdate.
-    HostMenuRecordCreate();
+    // sub_422360's chain) and driven per frame by HostMenuUpdate. The title
+    // menu smoke owns the title dispatcher instead, so it deliberately leaves
+    // this in-game record absent.
+    if (!g_host.menu_smoke)
+        HostMenuRecordCreate();
     if (resource_smoke) {
         unsigned char* manager = static_cast<unsigned char*>(
             std::calloc(1, 0x3AD100));
@@ -5526,6 +5718,23 @@ static int HostRun(int argc, char** argv) {
              g_host.title_frames_completed >= 60 &&
              g_host.clean_shutdown &&
              exit_code == 0;
+#if defined(_WIN32)
+    if (g_host.menu_smoke) {
+        const int menu_smoke_ok =
+            ok && !g_host.menu_smoke_failed &&
+            g_host.menu_smoke_step == HOST_MENU_SMOKE_DONE &&
+            g_host.menu_smoke_transitions == 10 &&
+            g_host.menu_record == nullptr;
+        std::printf("  menu smoke transitions: %d/10\n",
+                    g_host.menu_smoke_transitions);
+        std::printf("  menu smoke final step: %s\n",
+                    g_host.menu_smoke_step == HOST_MENU_SMOKE_DONE
+                        ? "exit" : "incomplete");
+        std::printf("MENU_SMOKE_%s\n",
+                    menu_smoke_ok ? "PASS" : "FAIL");
+        return menu_smoke_ok ? 0 : 1;
+    }
+#endif
     if (g_host.capture_after >= 0 && g_host.capture_path == nullptr) {
         // --boot-real asserts the genuine boot path, which --smoke skips
         // entirely via its early-outs. The scripted title/stage flow the

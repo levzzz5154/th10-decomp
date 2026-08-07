@@ -43,6 +43,15 @@ enum AnimationListInsertion {
     AnimationListInsertion_Front = 1
 };
 
+// The manager keeps two independent intrusive lists at +0x72DAD4 and
+// +0x72DADC.  Keep membership typed so gameplay does not treat a nonzero
+// handle as live without asking the retail layout.
+enum AnimationManagerHandleMembership {
+    AnimationManagerHandle_Absent = 0,
+    AnimationManagerHandle_Primary = 1,
+    AnimationManagerHandle_Secondary = 2
+};
+
 typedef int (__fastcall *AnimationUpdateCallback)(AnimationObject* animation);
 typedef int (__fastcall *AnimationDrawCallback)(AnimationObject* animation);
 typedef int (*AnimationSpriteSelector)(
@@ -126,6 +135,102 @@ int AnimationManager_FindChildByScriptIndex(
 // sites.  Head-insert matches the retail's newest-first ordering; the tag
 // lookup is order-insensitive (tags are unique per parent).
 void AnimationManager_AttachChild(void* parent, void* child);
+
+// Typed host adapter for gameplay callers that need the retail manager
+// without exposing AnimationObject's late fields in their own layouts. The
+// adapter is a function table so gameplay-only tests do not acquire a link
+// dependency on the full renderer when no manager is bound.
+struct AnimationManagerAdapter {
+    typedef AnimationManagerHandleMembership (*MembershipFn)(void*, int);
+    typedef bool (*SetFlagFn)(void*, int, unsigned int);
+    typedef bool (*SetFrameFn)(void*, int, short);
+    typedef int (*FindChildFn)(void*, int, short);
+    typedef bool (*AttachChildFn)(void*, int, int);
+    typedef int (*CreateFn)(void*, void*, int, int, const float*);
+
+    void* manager;
+    void* resource;
+    int render_bucket;
+    MembershipFn membership_fn;
+    SetFlagFn set_flag_fn;
+    SetFrameFn set_frame_fn;
+    FindChildFn find_child_fn;
+    AttachChildFn attach_child_fn;
+    CreateFn refetch_fn;
+    CreateFn create_fn;
+
+    AnimationManagerAdapter(void* manager_ = 0, void* resource_ = 0,
+                            int render_bucket_ = 15)
+        : manager(manager_), resource(resource_),
+          render_bucket(render_bucket_), membership_fn(0), set_flag_fn(0),
+          set_frame_fn(0), find_child_fn(0), attach_child_fn(0),
+          refetch_fn(0), create_fn(0) {}
+
+    bool HasManager() const {
+        return manager != 0 && membership_fn != 0;
+    }
+    bool HasResourceBinding() const {
+        return resource != 0 && refetch_fn != 0 && create_fn != 0;
+    }
+    AnimationManagerHandleMembership Membership(int handle) const {
+        return HasManager() ? membership_fn(manager, handle) :
+                              AnimationManagerHandle_Absent;
+    }
+    bool IsPrimary(int handle) const {
+        return Membership(handle) == AnimationManagerHandle_Primary;
+    }
+    bool IsSecondary(int handle) const {
+        return Membership(handle) == AnimationManagerHandle_Secondary;
+    }
+    bool IsLive(int handle) const {
+        return Membership(handle) != AnimationManagerHandle_Absent;
+    }
+    bool SetFlag(int handle, unsigned int flag) const {
+        return HasManager() && set_flag_fn != 0 &&
+               set_flag_fn(manager, handle, flag);
+    }
+    bool SetHighPathFlag(int handle) const {
+        return SetFlag(handle, 0x04000000u);
+    }
+    bool SetFrame(int handle, short frame) const {
+        return HasManager() && set_frame_fn != 0 &&
+               set_frame_fn(manager, handle, frame);
+    }
+    bool SetLowPathFrame(int handle, short frame = 1) const {
+        return SetFrame(handle, frame);
+    }
+    int FindChild(int parent_handle, short script_index) const {
+        return HasManager() && find_child_fn != 0 ?
+            find_child_fn(manager, parent_handle, script_index) : 0;
+    }
+    bool AttachChild(int parent_handle, int child_handle) const {
+        return HasManager() && attach_child_fn != 0 &&
+               attach_child_fn(manager, parent_handle, child_handle);
+    }
+    int Refetch(int sprite_index, int layer = 15) const {
+        return HasResourceBinding() ?
+            refetch_fn(manager, resource, sprite_index,
+                       layer >= 0 ? layer : render_bucket, 0) : 0;
+    }
+    int Create(int animation_index, int layer = 15,
+               const float* position = 0) const {
+        return HasResourceBinding() ?
+            create_fn(manager, resource, animation_index,
+                      layer >= 0 ? layer : render_bucket, position) : 0;
+    }
+};
+
+typedef AnimationManagerAdapter AnimationManager_Adapter;
+AnimationManagerAdapter AnimationManager_BindAdapter(
+    void* manager, void* resource, int render_bucket = 15);
+AnimationManagerHandleMembership AnimationManager_ClassifyHandle(
+    void* manager, int animation_handle);
+bool AnimationManager_HandleInList(void* manager, int animation_handle,
+                                   AnimationManagerList list);
+bool AnimationManager_IsPrimaryHandle(void* manager, int animation_handle);
+bool AnimationManager_IsSecondaryHandle(void* manager, int animation_handle);
+
+
 int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,
     const float* position);

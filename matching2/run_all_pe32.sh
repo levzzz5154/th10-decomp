@@ -1,5 +1,7 @@
 #!/bin/bash
 # Run the all-production-source PE32 integration-audit image under Wine.
+# `--menu-smoke` is a deterministic host-driven title-menu flow; it does not
+# require --input or physical keyboard input.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

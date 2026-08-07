@@ -624,14 +624,38 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
     auto live_handle = [&](int handle) {
         if (handle == 0)
             return false;
-        // A nonzero slot is only a stale integer until the manager list proves
-        // membership. Retail searches both intrusive lists before touching the
-        // object; the host records that missing resolver as a partial edge.
+        // A concrete adapter searches both retail intrusive lists.  The old
+        // callback remains a compatibility channel for callers that do not
+        // bind a manager in this standalone process.
+        if (s.animation_manager && s.animation_manager->HasManager())
+            return s.animation_manager->IsLive(handle);
         if (!s.handle_live) {
             s.manager_partial=true;
             return false;
         }
         return s.handle_live(handle);
+    };
+    auto mark_high = [&](int handle) {
+        if (s.animation_manager && s.animation_manager->HasManager()) {
+            if (!s.animation_manager->SetHighPathFlag(handle))
+                s.manager_partial=true;
+            return;
+        }
+        if (s.flag_linked)
+            s.flag_linked(handle);
+        else
+            s.manager_partial=true;
+    };
+    auto mark_low = [&](int handle) {
+        if (s.animation_manager && s.animation_manager->HasManager()) {
+            if (!s.animation_manager->SetLowPathFrame(handle, 1))
+                s.manager_partial=true;
+            return;
+        }
+        if (s.frame_linked)
+            s.frame_linked(handle);
+        else
+            s.manager_partial=true;
     };
     auto refetch_sprite_for = [&]() {
         // Raw switch 0x42704E: cases 0/3 -> 0x14, 1/4 -> 0x15,
@@ -651,19 +675,30 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                 // Retail high path writes ANM record +0x35C and its linked
                 // chain, independent of the low-path +0x304 frame word.
                 s.animation_flags[i]|=0x4000000u;
-                if(s.flag_linked)
-                    s.flag_linked(s.handles[i]);
-                else
-                    s.manager_partial=true;
+                mark_high(s.handles[i]);
             }
             // 0x42702F clears every slot, including empty/stale records,
             // before the exact six-way refetch switch.
             s.handles[i]=0;
             if (sprite >= 0) {
-                if (s.refetch_animation)
+                const bool adapter_bound =
+                    s.animation_manager != 0 &&
+                    s.animation_manager->HasManager() &&
+                    s.animation_manager->HasResourceBinding();
+                if (adapter_bound) {
+                    s.handles[i] = s.animation_manager->Refetch(sprite, 0x0F);
+                    if (s.handles[i] == 0)
+                        s.manager_partial=true;
+                } else if (s.refetch_animation)
                     s.handles[i] = s.refetch_animation(i, sprite, 0x0F);
                 else if (s.refetch_sprite)
                     s.handles[i] = s.refetch_sprite(sprite);
+                else {
+                    s.manager_partial=true;
+                    s.formation_partial=true;
+                }
+                if (s.animation_manager != 0 && !adapter_bound)
+                    s.manager_partial=true;
             }
             if(live && sprite>=0)s.events.push_back(sprite);
         }
@@ -673,10 +708,7 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         for(int i=0;i<4;++i){
             if(live_handle(s.handles[i])){
                 s.frame_states[i]=1;
-                if(s.frame_linked)
-                    s.frame_linked(s.handles[i]);
-                else
-                    s.manager_partial=true;
+                mark_low(s.handles[i]);
             }
         }
     }
@@ -695,12 +727,8 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         // retirement flag used when rebuilding an active slot.
         const int old_handle=slot.handle;
         slot.mode=0;
-        if(live_handle(old_handle)) {
-            if(s.frame_linked)
-                s.frame_linked(old_handle);
-            else
-                s.manager_partial=true;
-        }
+        if(live_handle(old_handle))
+            mark_low(old_handle);
         // Retail leaves the old ANM handle word untouched; manager ownership
         // decides when that object is reclaimed.
     };
@@ -747,12 +775,8 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         slot.previous_x=s.formation.source_x;
         slot.previous_y=s.formation.source_y;
         const int old_handle=slot.handle;
-        if(live_handle(old_handle)) {
-            if (s.flag_linked)
-                s.flag_linked(old_handle);
-            else
-                s.manager_partial=true;
-        }
+        if (live_handle(old_handle))
+            mark_high(old_handle);
         slot.handle=0;
         slot.index=i;
         // Retail writes mode=2 only after the ANM has been allocated and the
@@ -838,7 +862,21 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                     s.formation.set_callback(i,slot.callback_kind);
                 }
             }
-            if (s.formation.create_animation_ex) {
+            const bool adapter_bound =
+                s.animation_manager != 0 &&
+                s.animation_manager->HasManager() &&
+                s.animation_manager->HasResourceBinding();
+            if (adapter_bound) {
+                const float position[3] = {
+                    static_cast<float>(slot.position_x),
+                    static_cast<float>(slot.position_y), 0.0f
+                };
+                s.formation.callback_order.push_back(2);
+                slot.handle=s.animation_manager->Create(
+                    slot.script, 0x0F, position);
+                if (slot.handle == 0)
+                    s.manager_partial=true;
+            } else if (s.formation.create_animation_ex) {
                 s.formation.callback_order.push_back(2);
                 slot.handle=s.formation.create_animation_ex(
                     i, slot.script, 0x0F, 0x40000000u);
@@ -848,6 +886,8 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
             } else {
                 s.formation_partial=true;
             }
+            if (s.animation_manager != 0 && !adapter_bound)
+                s.manager_partial=true;
             if(difficulty==1 && shot==0){
                 // Raw 0x427381 writes the history mirror after creation.
                 slot.previous_x=s.formation.history[16*i];
