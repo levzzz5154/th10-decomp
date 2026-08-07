@@ -202,6 +202,7 @@ struct PlayerStateEnv {
     bool can_respawn{true};    // retail dword_474C70 >= 0 (case-4 t>=30 route)
     int game_over_flag{};      // retail *((_DWORD*)Block + 4) == 1 (continue screen route)
     int frame_counter{};       // retail dword_474C98 (+1 every 60 frames, clamped to [-1024, 1024])
+    std::uint16_t* power_gauge{}; // retail word_474C48
     void (*move)(PlayerRuntime&, std::uint32_t input);      // sub_4250B0 (host twin: player_front_runtime.cpp::UpdatePlayer)
     void (*attached_effects)(PlayerRuntime&);               // sub_426F70
     void (*hitbox_update)(PlayerRuntime&);                  // sub_4269D0 (case 4, timer >= 8)
@@ -230,6 +231,9 @@ struct PlayerStateEnv {
     void (*stage_start)();                                  // sub_4231D0 (stage restart)
 };
 int UpdatePlayerState(PlayerRuntime&, std::uint32_t input, PlayerStateEnv* env = nullptr);
+// Retail-layout bridge used by the standalone's 0x4478-byte player owner.
+int UpdatePlayerStateRetail(void* player, std::uint32_t input,
+                            PlayerStateEnv* env = nullptr);
 // 0x00426500 - Retail forwarder into the player state runtime (0x00425730).
 int UpdatePlayerStateAlias(PlayerRuntime&, std::uint32_t input);
 struct AttachedEffects {
@@ -260,4 +264,6 @@ struct AttachedEffects {
     int (*refetch_animation)(int slot, int sprite_id, int layer){};
 };
 void UpdateAttachedEffects(AttachedEffects&, int global_counter);
+void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
+                                 int global_counter);
 }

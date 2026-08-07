@@ -1544,8 +1544,8 @@ void MusicRegisterRows(MusicRoom&state,const MusicRoomEnv&env){
     state.row_handles.resize((std::size_t)state.track_count,0);
   if((int)state.rows.size()<state.track_count)
     state.rows.resize((std::size_t)state.track_count,0);
-  const int first=2*state.timer-2;
-  const int last=2*state.timer;
+  const int first=std::max(0,2*state.timer-2);
+  const int last=std::max(0,2*state.timer);
   const bool no_env=env.register_anm==nullptr;
   for(int track=first;track<last&&track<state.track_count;++track){
     const int sprite=kMusicRowFirst+track;

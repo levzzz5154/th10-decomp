@@ -37,6 +37,7 @@
 #include "th10/game/title_options_menu.hpp"
 #include "th10/game/main_menu_dispatch.hpp"
 #include "th10/game/result_choice_menu.hpp"
+#include "th10/game/ui_final_runtime.hpp"
 #include "th10/game/game_state.hpp"
 #include "th10/game/entity.hpp"
 #include "th10/render/camera_setup.hpp"
@@ -66,6 +67,7 @@
 #include <cstring>
 #include <ctime>
 #include <cmath>
+#include <string>
 
 #if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN
@@ -418,6 +420,9 @@ struct HostContext {
 };
 
 HostContext g_host;
+th10::ui_final::MusicRoom g_music_room_state;
+std::string g_music_room_resource;
+bool g_music_room_resource_loaded = false;
 
 #if !defined(_WIN32)
 // The POSIX harness has no retail data image behind it, so the config record
@@ -769,6 +774,9 @@ bool HostStartSelectionScreen(unsigned int heading_script,
     return true;
 }
 
+bool HostLoadMusicRoomResource();
+void HostBuildMusicTrackList();
+
 // The three remaining main-menu destinations are plain title sub-screens: a
 // frame script plus a heading script, both started out of title.anm. The
 // script pairs are retail's own - state 12 (Replay) is sub_4315C0 starting 94
@@ -781,6 +789,13 @@ bool HostStartTitleSubScreen(int screen, unsigned int frame_script,
     if (!HostStartTitleScripts(frame_script, heading_script))
         return false;
     g_host.menu_screen = screen;
+    if (screen == 11) {
+        g_music_room_state = th10::ui_final::MusicRoom{};
+        g_music_room_resource.clear();
+        g_music_room_resource_loaded = false;
+        HostLoadMusicRoomResource();
+        HostBuildMusicTrackList();
+    }
     AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[1]);
     AnmVm_Tick(&g_host.title_vms[1].state, &hooks);
     g_host.selection_phase_frame = 0;
@@ -854,11 +869,8 @@ void HostReturnToMainMenu() {
     HostStartTitleScripts(88, 0);
     HostRestoreMainMenuLogo();
     HostPrimeMainMenuOverlay();
-    // Re-open the retail game-menu record (state 1) so the back path from
-    // the selection/options screens lands on the reconstructed menu
-    // (0x004223F0 states 1-5) rather than the host's former approximation.
-    if (g_host.menu_record != nullptr)
-        HostOpenGameMenu(g_host.menu_record);
+    // The title menu owns this path. The 0x004223F0 record is the in-game
+    // pause/result menu and is created only from the gameplay pause edge.
 }
 
 void HostRefreshOptionsSprites() {
@@ -1693,6 +1705,54 @@ void HostBuildMusicTrackList() {
     std::free(metadata);
 }
 
+bool HostLoadMusicRoomResource() {
+    if (g_music_room_resource_loaded)
+        return true;
+    const char* path = "musiccmt.txt";
+    unsigned int size = Resource_GetFileSize(path);
+    if (size == 0) {
+        path = "th10/musiccmt.txt";
+        size = Resource_GetFileSize(path);
+    }
+    if (size == 0)
+        return false;
+    g_music_room_resource.resize(size);
+    if (Resource_LoadFile(
+            path, reinterpret_cast<std::uint8_t*>(
+                      &g_music_room_resource[0])) == nullptr) {
+        g_music_room_resource.clear();
+        return false;
+    }
+    g_music_room_resource_loaded = true;
+    return true;
+}
+
+void HostMusicRoomPlayMusic(int, const char*) {
+    HostBuildMusicTrackList();
+    const int selection = g_music_room_state.selection;
+    if (selection < 0 || selection >= g_host.music_track_count) {
+        g_host.music_playing = -1;
+        return;
+    }
+    g_host.music_playing = HostStartBgm(g_host.music_tracks[selection]) ?
+        selection : -1;
+}
+
+void HostMusicRoomRestoreBgm(const char*) {
+    HostStartTitleBgm();
+}
+
+th10::ui_final::MusicRoomEnv HostMusicRoomEnvironment() {
+    th10::ui_final::MusicRoomEnv env{};
+    env.manager = g_pGameStateManager;
+    env.frame_delta = &DAT_00476f78;
+    env.play_sound = HostPlayMenuSound;
+    env.play_music = HostMusicRoomPlayMusic;
+    env.restore_bgm = HostMusicRoomRestoreBgm;
+    env.resource_available = g_music_room_resource_loaded;
+    return env;
+}
+
 // Retail's replay screen (sub_4315C0) walks th10_01.rpy..th10_25.rpy inside
 // the replay directory, handing each name to sub_4296F0, which allocates the
 // state and calls ReplayArchive_Load (0x0042A200) on it. A file that fails to
@@ -2041,7 +2101,23 @@ void HostUpdateSubScreenList() {
         direction = -1;
     else if ((g_host.menu_input & TITLE_MENU_DOWN) != 0)
         direction = 1;
+    const std::uint32_t input = g_host.menu_input;
     g_host.menu_input = 0;
+
+    if (g_host.menu_screen == 11) {
+        th10::ui_final::MusicRoomEnv env = HostMusicRoomEnvironment();
+        const int old_phase = g_music_room_state.phase;
+        th10::ui_final::UpdateMusicRoom(
+            g_music_room_state, env, input, g_music_room_resource);
+        g_host.music_selection = g_music_room_state.selection;
+        if (old_phase == 3 && g_music_room_state.phase == 0 &&
+            g_music_room_state.substate == 2) {
+            HostReturnToMainMenu();
+            return;
+        }
+        ++g_music_room_state.timer;
+        return;
+    }
 
     if (cancel) {
         HostPlayMenuSound(2);
@@ -3501,8 +3577,15 @@ void HostMenuExecuteChoice(void* context, int selection, ResultChoiceEnv* env) {
         // and switches the frame loop to the stage phase. When a stage is
         // already active it is the pause-menu continue and only closes.
         g_host.menu_start_fired = 1;
-        if (!HostStage_IsActive())
+        if (!HostStage_IsActive()) {
             HostDispatchTitleMenuAction(TITLE_MENU_ACTION_START);
+        } else {
+            unsigned char* record = g_host.menu_record;
+            if (record != nullptr)
+                *(int*)(record + 4) = 0;
+            g_host.menu_phase = 0;
+            g_host.choice_state.phase = 0;
+        }
         return;
     }
     // Retail state 3 selections 1/2 latch the extra/retry modes
@@ -3643,6 +3726,7 @@ void HostUpdateSelectionScreen() {
                 g_host.character_selection, g_host.weapon_selection,
                 g_host.difficulty_selection);
             if (result == 0) {
+                g_host.menu_start_fired = 1;
                 g_host.stage_vms_ready = 0;
                 g_host.stage_vm_count = 0;
                 g_host.player_vm_ready = 0;
@@ -4229,14 +4313,8 @@ void HostDispatchRecoveredTitlePhase(
                 HostSwitchTitleOverlay(0);
                 HostPrimeMainMenuOverlay();
                 TitleMainMenu_Initialize(&g_host.menu_state);
-#if defined(_WIN32)
-                // The retail game-menu record runtime owns the main menu
-                // now. The state-0 gate's replay arm stays closed (no demo
-                // replay in the standalone - HostLoadTitleDemo has none),
-                // so the open comes from this handover, which is the retail
-                // gate's demo-input condition minus the replay availability.
-                HostOpenGameMenu(g_host.menu_record);
-#endif
+                // The title menu remains owned by 0x0042D420. The separate
+                // 0x004223F0 record is an in-game pause/result owner.
                 HostSetRecoveredTitlePhase(nullptr, 2);
 #if defined(_WIN32)
                 if (!g_host.smoke_mode)
@@ -4248,12 +4326,8 @@ void HostDispatchRecoveredTitlePhase(
     }
     if (phase != 2 || g_host.smoke_mode || g_host.menu_screen != 0)
         return;
-    // The menu-record runtime (0x004223F0 states 1-5) owns the main menu
-    // once the record exists; TitleMainMenu_Update is the host's former
-    // approximation, kept only for its action values (the record's start
-    // item dispatches TITLE_MENU_ACTION_START through the same function).
-    if (g_host.menu_record != nullptr)
-        return;
+    // Retail 0x0042D420 owns the title menu. The 0x004223F0 record is
+    // deliberately absent here and cannot intercept title input.
 
     // The sound cues and script interrupts are 0x0042D420's own, taken at the
     // points it takes them, rather than inferred afterwards from what changed.
@@ -4385,6 +4459,13 @@ int HostRunSchedulerFrame(void*) {
     }
     if (!g_host.smoke_mode && !g_host.menu_smoke)
         HostPollKeyboard();
+    if (!g_host.smoke_mode && HostStage_IsActive() &&
+        g_host.menu_phase == 0 && (DAT_00474e30 & 8u) != 0) {
+        HostMenuRecordCreate();
+        HostOpenGameMenu(g_host.menu_record);
+        g_host.menu_input = 0;
+        DAT_00474e30 = 0;
+    }
     if (!g_host.smoke_mode && HostStage_IsActive()) {
         if (std::strcmp(g_host.bgm_track, "th10_00.wav") != 0)
             HostTrace(HostStartBgm("th10_00.wav") ?
@@ -5576,12 +5657,9 @@ static int HostRun(int argc, char** argv) {
         return 1;
     }
     HostTrace("th10.dat mounted");
-    // The retail game-menu record runtime: created once at boot (retail
-    // sub_422360's chain) and driven per frame by HostMenuUpdate. The title
-    // menu smoke owns the title dispatcher instead, so it deliberately leaves
-    // this in-game record absent.
-    if (!g_host.menu_smoke)
-        HostMenuRecordCreate();
+    // The 0x004223F0 record is the gameplay pause/result owner. Creating it
+    // at boot suppresses the real title menu, so gameplay creates it lazily
+    // when the pause input edge is observed.
     if (resource_smoke) {
         unsigned char* manager = static_cast<unsigned char*>(
             std::calloc(1, 0x3AD100));
@@ -5753,27 +5831,30 @@ static int HostRun(int argc, char** argv) {
                     g_host.boot_device_ok ? "yes" : "no",
                     g_host.boot_sound_ok ? "yes" : "no",
                     g_host.title_draw_calls);
-        // Scripted title -> menu -> start evidence: the retail game-menu
-        // record must be open (state 1, choice machine live) and the start
-        // item must have executed, and the stage entry must have reached
-        // StageContext_Enter success (enter_result == 0).
+        // The normal boot must remain under the title runtime's ownership.
+        // With no scripted input it stops at Press Any Button (phase 1);
+        // scripted input may advance into the main menu or stage. The
+        // in-game 0x004223F0 pause record must remain absent until gameplay
+        // observes an actual pause edge.
         const HostStageReport& boot_stage = HostStage_GetReport();
+        const int title_phase = g_host.title_runtime.phase;
+        const int menu_ok = g_host.menu_record == nullptr &&
+                            g_host.menu_screen == 0 &&
+                            (title_phase == 1 || title_phase == 2 ||
+                             (g_host.menu_start_fired &&
+                              boot_stage.enter_result == 0));
         std::printf(
-            "  menu flow: record=%s open=%s phase=%d frames=%d start=%s\n",
+            "  title flow: phase=%d screen=%d pause-record=%s start=%s\n",
+            title_phase, g_host.menu_screen,
             g_host.menu_record != nullptr ? "yes" : "no",
-            g_host.menu_open_fired ? "yes" : "no", g_host.menu_phase,
-            g_host.menu_frame,
             g_host.menu_start_fired ? "yes" : "no");
         std::printf("  stage entry: enter=%d frames=%d ticks=%d/%d\n",
                     boot_stage.enter_result, boot_stage.frames_run,
                     boot_stage.update_ticks, boot_stage.draw_ticks);
-        const int menu_ok = g_host.menu_record != nullptr &&
-                            g_host.menu_open_fired &&
-                            g_host.menu_start_fired &&
-                            boot_stage.enter_result == 0;
+        const int real_boot_ok = boot_ok && menu_ok;
         std::printf("MENU_FLOW_%s\n", menu_ok ? "PASS" : "FAIL");
-        std::printf("BOOT_REAL_%s\n", boot_ok ? "PASS" : "FAIL");
-        return boot_ok ? 0 : 1;
+        std::printf("BOOT_REAL_%s\n", real_boot_ok ? "PASS" : "FAIL");
+        return real_boot_ok ? 0 : 1;
     }
     std::printf("SMOKE_%s\n", ok ? "PASS" : "FAIL");
     const HostStageReport& stage = HostStage_GetReport();

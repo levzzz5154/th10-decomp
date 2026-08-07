@@ -4,6 +4,7 @@
 #pragma once
 
 struct AnimationObject;
+int AnimationObject_ExecuteScript(AnimationObject* animation);
 void AnimationObject_Render(void* manager, AnimationObject* animation);
 
 struct AnimationTextureRecord {

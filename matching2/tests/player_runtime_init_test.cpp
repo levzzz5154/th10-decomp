@@ -1,4 +1,5 @@
 #include "th10/game/player_runtime_init.hpp"
+#include "th10/game/gameplay_final_runtime.hpp"
 
 #include <cassert>
 #include <cstdint>
@@ -132,6 +133,70 @@ void TestFreshInitialization() {
     assert(f.state.spawn_frames == 30);
 }
 
+template <typename T>
+void RawStore(std::vector<unsigned char>& raw, std::size_t offset, T value) {
+    std::memcpy(raw.data() + offset, &value, sizeof(value));
+}
+
+template <typename T>
+T RawLoad(const std::vector<unsigned char>& raw, std::size_t offset) {
+    T value{};
+    std::memcpy(&value, raw.data() + offset, sizeof(value));
+    return value;
+}
+
+void TestRetailLayoutUpdateBridge() {
+    std::vector<unsigned char> raw(0x4478, 0);
+    RawStore<int>(raw, 0x458, 1);
+    RawStore<int>(raw, 0x474, 9);
+    RawStore<int>(raw, 0x478, 10);
+    RawStore<float>(raw, 0x47C, 10.0f);
+    RawStore<int>(raw, 0x484, 1);
+    RawStore<float>(raw, 0x3C0, 100.0f);
+    RawStore<float>(raw, 0x3C4, 200.0f);
+    const std::size_t indicator = 0x350C;
+    RawStore<float>(raw, indicator + 0x00, 2.0f);
+    RawStore<float>(raw, indicator + 0x04, 3.0f);
+    RawStore<int>(raw, indicator + 0x48, 5);
+    RawStore<float>(raw, indicator + 0x4C, 5.0f);
+    RawStore<std::uint32_t>(raw, indicator + 0x68, 1u);
+
+    th10::gameplay_final::PlayerStateEnv env{};
+    env.frame_delta = 1.0f;
+    env.player_present = true;
+    env.focus_object = true;
+    env.hold_enabled = true;
+    assert(th10::gameplay_final::UpdatePlayerStateRetail(
+               raw.data(), 0, &env) == 1);
+    assert(RawLoad<int>(raw, 0x478) == 11);
+    assert(RawLoad<float>(raw, 0x47C) == 11.0f);
+    assert(RawLoad<float>(raw, indicator + 0x00) == 5.0f);
+    assert(RawLoad<int>(raw, indicator + 0x48) == 4);
+    assert(RawLoad<std::uint32_t>(raw, indicator + 0x68) == 1u);
+}
+
+std::uint32_t FormationRandom() {
+    return 0x12345678u;
+}
+
+void TestRetailAttachedEffectsBridge() {
+    std::vector<unsigned char> raw(0x4478, 0);
+    RawStore<int>(raw, 0x3CC, 22400);
+    RawStore<int>(raw, 0x3D0, 40000);
+    th10::gameplay_final::AttachedEffects state{};
+    state.difficulty = 0;
+    state.shot = 1;
+    state.formation.random_word = FormationRandom;
+    th10::gameplay_final::UpdateAttachedEffectsRetail(
+        raw.data(), state, 400);
+    assert(RawLoad<int>(raw, 0x3500) == 4);
+    for (int index = 0; index != 4; ++index) {
+        const std::size_t base = 0x32A0 + index * 0x98;
+        assert(RawLoad<int>(raw, base) == 2);
+        assert(RawLoad<int>(raw, base + 0x88) == index);
+    }
+}
+
 void TestReuseAndFailures() {
     Fixture f;
     PlayerRuntimeObject reused = {};
@@ -158,5 +223,7 @@ void TestReuseAndFailures() {
 int main() {
     TestFreshInitialization();
     TestReuseAndFailures();
+    TestRetailLayoutUpdateBridge();
+    TestRetailAttachedEffectsBridge();
     return 0;
 }

@@ -6,6 +6,7 @@
 #include "th10/render/recovered_render_leaves.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 
@@ -74,13 +75,42 @@ void ResetRawTimer(unsigned char* bytes, unsigned int base,
     *(int*)(bytes + base + 8) = previous_bits;
 }
 
+void LargePlayer_Move(th10::gameplay_final::PlayerRuntime& player,
+                      std::uint32_t input) {
+    const float speed = (input & 4u) != 0 ? 2.0f : 4.0f;
+    if ((input & 0x10u) != 0) player.py -= speed;
+    if ((input & 0x20u) != 0) player.py += speed;
+    if ((input & 0x40u) != 0) player.px -= speed;
+    if ((input & 0x80u) != 0) player.px += speed;
+    player.px = std::max(32.0f, std::min(416.0f, player.px));
+    player.py = std::max(16.0f, std::min(464.0f, player.py));
+    player.fx = static_cast<int>(player.px * 100.0f);
+    player.y = static_cast<int>(player.py * 100.0f);
+}
+
+void LargePlayer_RefreshAttached(th10::gameplay_final::PlayerRuntime&) {
+    // Initialization rejects an absent refresh edge, so every registered
+    // update callback has a concrete 0x00426F70 owner.
+    g_large_player_bindings.refresh_derived(0);
+}
+
 int __fastcall LargePlayer_Update(void* owner) {
-    // 0x00426500 is a retail forwarder into the player state runtime
-    // (0x00425730); the host twin is UpdatePlayerStateAlias
-    // (gameplay_final_runtime).  The owner is the player record; the
-    // input comes from the retail input global.
-    return UpdatePlayerStateAlias(*(th10::gameplay_final::PlayerRuntime*)owner,
-                                  DAT_00474e36);
+    th10::gameplay_final::PlayerStateEnv env{};
+    std::memcpy(&env.frame_delta, &DAT_00476f78, sizeof(env.frame_delta));
+    env.player_present = true;
+    env.focus_object = true;
+    env.hold_enabled = true;
+    env.can_respawn = *g_large_player_bindings.can_respawn >= 0;
+    env.frame_counter = *g_large_player_bindings.frame_counter;
+    env.power_gauge = g_large_player_bindings.power_gauge;
+    env.move = LargePlayer_Move;
+    env.attached_effects = LargePlayer_RefreshAttached;
+    const int result = th10::gameplay_final::UpdatePlayerStateRetail(
+        owner, DAT_00474e36, &env);
+    unsigned char* bytes = static_cast<unsigned char*>(owner);
+    if (*reinterpret_cast<void**>(bytes + 0x10) != 0)
+        g_large_player_bindings.execute_animation(bytes + 0x14);
+    return result;
 }
 
 // Retail 0x00426360 calls sub_4451C0(a1 + 20, dword_491C10, a1, a2) right
@@ -226,7 +256,11 @@ int LargePlayerRuntime_Initialize(void* state) {
         g_large_player_bindings.create_player_object == 0 ||
         g_large_player_bindings.initialize_animation == 0 ||
         g_large_player_bindings.random_int == 0 ||
-        g_large_player_bindings.refresh_derived == 0)
+        g_large_player_bindings.refresh_derived == 0 ||
+        g_large_player_bindings.power_gauge == 0 ||
+        g_large_player_bindings.can_respawn == 0 ||
+        g_large_player_bindings.frame_counter == 0 ||
+        g_large_player_bindings.execute_animation == 0)
         return -1;
     unsigned char* bytes = (unsigned char*)state;
     const unsigned int character = DAT_00474c68 != 0 ? 1u : 0u;

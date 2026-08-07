@@ -99,6 +99,10 @@ extern uint32_t DAT_004776e8;
 extern uint32_t DAT_00477830;
 extern uint32_t DAT_00477834;
 extern uint32_t DAT_00477704;
+extern uint32_t DAT_00474e36;
+extern unsigned short DAT_00474c48;
+extern int DAT_00474c70;
+extern int DAT_00474c98;
 extern uint8_t DAT_00491d78;
 extern float DAT_00476f78;
 void D3DResourceWorker_Stop();
@@ -663,6 +667,13 @@ int HostInitLargeResource() {
 	bindings.random_int = []() -> int { return std::rand(); };
 	// Retail's tail call at 0x00426F70.
 	bindings.refresh_derived = [](void*) { HostRunAttachedEffects(); };
+	bindings.power_gauge = &DAT_00474c48;
+	bindings.can_respawn = &DAT_00474c70;
+	bindings.frame_counter = &DAT_00474c98;
+	bindings.execute_animation = [](void* animation) {
+		AnimationObject_ExecuteScript(
+		    reinterpret_cast<AnimationObject*>(animation));
+	};
 	LargePlayerRuntime_SetBindings(&bindings);
 	void* state = HostAlloc(0x4478);
 	if (state != 0) {
@@ -1387,20 +1398,27 @@ void HostReleaseCleanupChain() {
 th10::gameplay_final::AttachedEffects g_attached_effects;
 AnimationManagerAdapter g_attached_animation_adapter;
 
+std::uint32_t HostPlayerRandomWord() {
+	return static_cast<std::uint32_t>(std::rand());
+}
+
 void HostRunAttachedEffects() {
 	// Retail 0x00426F70 passes the player-owned ANM resource at +0x10 into
 	// every refetch/create call. Bind that exact owner field when resident;
 	// a missing resource remains an explicit partial edge in the model.
-	void* resource = g_player_manager == 0 ? 0 :
+	void* resource = g_large_resource_state == 0 ? 0 :
 	    *reinterpret_cast<void**>(
-	        static_cast<unsigned char*>(g_player_manager) + 0x10);
+	        static_cast<unsigned char*>(g_large_resource_state) + 0x10);
 	g_attached_animation_adapter = AnimationManager_BindAdapter(
 	    g_pGameStateManager, resource, 0x0F);
 	g_attached_effects.animation_manager = &g_attached_animation_adapter;
 	g_attached_effects.difficulty = g_active_difficulty;
 	g_attached_effects.shot = g_globals.character;
-	th10::gameplay_final::UpdateAttachedEffects(g_attached_effects,
-	                                            g_report.stage_frame);
+	g_attached_effects.formation.focus = (DAT_00474e36 & 4u) != 0;
+	g_attached_effects.formation.random_word = HostPlayerRandomWord;
+	th10::gameplay_final::UpdateAttachedEffectsRetail(
+	    g_large_resource_state, g_attached_effects,
+	    static_cast<int>(DAT_00474c48));
 }
 
 void* HostPoolAlloc(uint32_t size) { return HostAlloc(size); }

@@ -73,6 +73,10 @@ struct LargePlayerRuntimeBindings {
     void (*initialize_animation)(void* state, void* archive);
     int (*random_int)();
     void (*refresh_derived)(void* state);
+    std::uint16_t* power_gauge;
+    int* can_respawn;
+    int* frame_counter;
+    void (*execute_animation)(void* animation);
 };
 
 void LargePlayerRuntime_SetBindings(

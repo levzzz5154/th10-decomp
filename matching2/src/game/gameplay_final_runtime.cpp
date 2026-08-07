@@ -582,6 +582,201 @@ int UpdatePlayerState(PlayerRuntime&s,std::uint32_t input,PlayerStateEnv* env){
     return 1;                                // retail returns 1
 }
 
+template <typename T>
+static T PlayerRawRead(const unsigned char* bytes, std::size_t offset) {
+    T value{};
+    std::memcpy(&value, bytes + offset, sizeof(value));
+    return value;
+}
+
+template <typename T>
+static void PlayerRawWrite(unsigned char* bytes, std::size_t offset,
+                           const T& value) {
+    std::memcpy(bytes + offset, &value, sizeof(value));
+}
+
+// Bridge the all-source runtime's retail 0x4478-byte player owner onto the
+// readable state-machine model. This keeps the scheduler callback on the
+// actual retail offsets instead of treating the raw allocation as a compact
+// C++ object (which silently redirected every field access).
+int UpdatePlayerStateRetail(void* player, std::uint32_t input,
+                            PlayerStateEnv* env) {
+    if (player == nullptr)
+        return 0;
+    unsigned char* raw = static_cast<unsigned char*>(player);
+    PlayerRuntime state{};
+    state.state = PlayerRawRead<int>(raw, 0x458);
+    state.hold_timer_prev = PlayerRawRead<int>(raw, 0x460);
+    state.hold_timer = PlayerRawRead<int>(raw, 0x464);
+    state.hold_timer_frac = PlayerRawRead<float>(raw, 0x468);
+    state.hold_flags = PlayerRawRead<int>(raw, 0x470);
+    state.timer_prev = PlayerRawRead<int>(raw, 0x474);
+    state.timer = PlayerRawRead<int>(raw, 0x478);
+    state.timer_frac = PlayerRawRead<float>(raw, 0x47C);
+    state.timer_flags = PlayerRawRead<int>(raw, 0x484);
+    state.auxiliary_timer.target = PlayerRawRead<int>(raw, 0x488);
+    state.auxiliary_timer.current = PlayerRawRead<int>(raw, 0x48C);
+    state.auxiliary_timer.previous = PlayerRawRead<int>(raw, 0x490);
+    state.auxiliary_timer.flags = PlayerRawRead<std::uint32_t>(raw, 0x498);
+    state.auxiliary_timer_fraction = PlayerRawRead<float>(raw, 0x490);
+    state.flash_color = PlayerRawRead<int>(raw, 0x314);
+    const std::uint32_t visual_flags =
+        PlayerRawRead<std::uint32_t>(raw, 0x370);
+    state.blink = (visual_flags & 0x8000u) != 0;
+    state.px = PlayerRawRead<float>(raw, 0x3C0);
+    state.py = PlayerRawRead<float>(raw, 0x3C4);
+    state.pz = PlayerRawRead<float>(raw, 0x3C8);
+    state.fx = PlayerRawRead<int>(raw, 0x3CC);
+    state.y = PlayerRawRead<int>(raw, 0x3D0);
+    state.px_prev = PlayerRawRead<float>(raw, 0x440);
+    state.py_prev = PlayerRawRead<float>(raw, 0x444);
+    state.pz_prev = PlayerRawRead<float>(raw, 0x448);
+    for (int axis = 0; axis != 3; ++axis) {
+        state.size_a[axis] = PlayerRawRead<float>(raw, 0x41C + axis * 4);
+        state.size_b[axis] = PlayerRawRead<float>(raw, 0x428 + axis * 4);
+        state.size_c[axis] = PlayerRawRead<float>(raw, 0x434 + axis * 4);
+    }
+    for (int field = 0; field != 6; ++field) {
+        state.rect_off[field] = PlayerRawRead<float>(raw, 0x404 + field * 4);
+        state.rect_outer[field] = PlayerRawRead<float>(raw, 0x4324 + field * 4);
+        state.rect_focus[field] = PlayerRawRead<float>(raw, 0x433C + field * 4);
+        state.rect_magnet[field] = PlayerRawRead<float>(raw, 0x4354 + field * 4);
+    }
+    state.spawn_count = PlayerRawRead<int>(raw, 0x3500);
+    state.field_3393 = PlayerRawRead<int>(raw, 0x3504);
+    state.byte_13576 = raw[0x3508];
+    for (int field = 0; field != 66; ++field)
+        state.history[field] = PlayerRawRead<int>(raw, 0x436C + field * 4);
+    const std::size_t familiar_offsets[4] = {
+        0x332C, 0x33C4, 0x345C, 0x34F4
+    };
+    for (int index = 0; index != 4; ++index)
+        state.familiar_levels[index] =
+            PlayerRawRead<int>(raw, familiar_offsets[index]);
+    for (int index = 0; index != 32; ++index) {
+        const std::size_t base = 0x350C + index * 0x6C;
+        PlayerIndicatorSlot& slot = state.indicators.slots[index];
+        slot.position_x = PlayerRawRead<float>(raw, base + 0x00);
+        slot.position_delta_x = PlayerRawRead<float>(raw, base + 0x04);
+        slot.position_y = PlayerRawRead<float>(raw, base + 0x08);
+        slot.position_delta_y = PlayerRawRead<float>(raw, base + 0x0C);
+        slot.field_10 = PlayerRawRead<float>(raw, base + 0x10);
+        slot.field_14 = PlayerRawRead<float>(raw, base + 0x14);
+        slot.motion_x = PlayerRawRead<float>(raw, base + 0x18);
+        slot.motion_y = PlayerRawRead<float>(raw, base + 0x1C);
+        slot.motion_z = PlayerRawRead<float>(raw, base + 0x20);
+        slot.velocity_x = PlayerRawRead<float>(raw, base + 0x24);
+        slot.velocity_y = PlayerRawRead<float>(raw, base + 0x28);
+        slot.velocity_z = PlayerRawRead<float>(raw, base + 0x2C);
+        slot.angle_step = PlayerRawRead<float>(raw, base + 0x30);
+        slot.angle = PlayerRawRead<float>(raw, base + 0x34);
+        slot.radius = PlayerRawRead<float>(raw, base + 0x38);
+        slot.radius_step = PlayerRawRead<float>(raw, base + 0x3C);
+        slot.motion_flags = PlayerRawRead<std::uint32_t>(raw, base + 0x40);
+        slot.timer_previous = PlayerRawRead<int>(raw, base + 0x44);
+        slot.timer_current = PlayerRawRead<int>(raw, base + 0x48);
+        slot.timer_fraction = PlayerRawRead<float>(raw, base + 0x4C);
+        slot.timer_flags = PlayerRawRead<std::uint32_t>(raw, base + 0x54);
+        slot.allocator_value = PlayerRawRead<std::uint32_t>(raw, base + 0x58);
+        slot.allocator_counter = PlayerRawRead<std::uint32_t>(raw, base + 0x5C);
+        slot.allocator_limit = PlayerRawRead<int>(raw, base + 0x60);
+        slot.allocator_phase = PlayerRawRead<int>(raw, base + 0x64);
+        slot.flags = PlayerRawRead<std::uint32_t>(raw, base + 0x68);
+    }
+    state.invulnerability_timer.target = PlayerRawRead<int>(raw, 0x430C);
+    state.invulnerable = PlayerRawRead<int>(raw, 0x4310);
+    state.invulnerability_timer.current = state.invulnerable;
+    state.invuln_frac = PlayerRawRead<float>(raw, 0x4314);
+    state.invulnerability_timer.previous =
+        PlayerRawRead<int>(raw, 0x4314);
+    state.invulnerability_timer.flags =
+        PlayerRawRead<std::uint32_t>(raw, 0x431C);
+    if (env != nullptr && env->power_gauge != nullptr)
+        state.power = *env->power_gauge;
+
+    const int result = UpdatePlayerState(state, input, env);
+
+    PlayerRawWrite(raw, 0x458, state.state);
+    PlayerRawWrite(raw, 0x460, state.hold_timer_prev);
+    PlayerRawWrite(raw, 0x464, state.hold_timer);
+    PlayerRawWrite(raw, 0x468, state.hold_timer_frac);
+    PlayerRawWrite(raw, 0x470, state.hold_flags);
+    PlayerRawWrite(raw, 0x474, state.timer_prev);
+    PlayerRawWrite(raw, 0x478, state.timer);
+    PlayerRawWrite(raw, 0x47C, state.timer_frac);
+    PlayerRawWrite(raw, 0x484, state.timer_flags);
+    PlayerRawWrite(raw, 0x488, state.auxiliary_timer.target);
+    PlayerRawWrite(raw, 0x48C, state.auxiliary_timer.current);
+    PlayerRawWrite(raw, 0x490, state.auxiliary_timer.previous);
+    PlayerRawWrite(raw, 0x498, state.auxiliary_timer.flags);
+    PlayerRawWrite(raw, 0x314, state.flash_color);
+    const std::uint32_t updated_visual_flags = state.blink ?
+        (visual_flags | 0x8000u) : (visual_flags & ~0x8000u);
+    PlayerRawWrite(raw, 0x370, updated_visual_flags);
+    PlayerRawWrite(raw, 0x3C0, state.px);
+    PlayerRawWrite(raw, 0x3C4, state.py);
+    PlayerRawWrite(raw, 0x3C8, state.pz);
+    PlayerRawWrite(raw, 0x3CC, state.fx);
+    PlayerRawWrite(raw, 0x3D0, state.y);
+    PlayerRawWrite(raw, 0x440, state.px_prev);
+    PlayerRawWrite(raw, 0x444, state.py_prev);
+    PlayerRawWrite(raw, 0x448, state.pz_prev);
+    for (int axis = 0; axis != 3; ++axis) {
+        PlayerRawWrite(raw, 0x41C + axis * 4, state.size_a[axis]);
+        PlayerRawWrite(raw, 0x428 + axis * 4, state.size_b[axis]);
+        PlayerRawWrite(raw, 0x434 + axis * 4, state.size_c[axis]);
+    }
+    for (int field = 0; field != 6; ++field) {
+        PlayerRawWrite(raw, 0x404 + field * 4, state.rect_off[field]);
+        PlayerRawWrite(raw, 0x4324 + field * 4, state.rect_outer[field]);
+        PlayerRawWrite(raw, 0x433C + field * 4, state.rect_focus[field]);
+        PlayerRawWrite(raw, 0x4354 + field * 4, state.rect_magnet[field]);
+    }
+    PlayerRawWrite(raw, 0x3500, state.spawn_count);
+    PlayerRawWrite(raw, 0x3504, state.field_3393);
+    raw[0x3508] = state.byte_13576;
+    for (int field = 0; field != 66; ++field)
+        PlayerRawWrite(raw, 0x436C + field * 4, state.history[field]);
+    for (int index = 0; index != 4; ++index)
+        PlayerRawWrite(raw, familiar_offsets[index],
+                       state.familiar_levels[index]);
+    for (int index = 0; index != 32; ++index) {
+        const std::size_t base = 0x350C + index * 0x6C;
+        const PlayerIndicatorSlot& slot = state.indicators.slots[index];
+        PlayerRawWrite(raw, base + 0x00, slot.position_x);
+        PlayerRawWrite(raw, base + 0x04, slot.position_delta_x);
+        PlayerRawWrite(raw, base + 0x08, slot.position_y);
+        PlayerRawWrite(raw, base + 0x0C, slot.position_delta_y);
+        PlayerRawWrite(raw, base + 0x18, slot.motion_x);
+        PlayerRawWrite(raw, base + 0x1C, slot.motion_y);
+        PlayerRawWrite(raw, base + 0x20, slot.motion_z);
+        PlayerRawWrite(raw, base + 0x24, slot.velocity_x);
+        PlayerRawWrite(raw, base + 0x28, slot.velocity_y);
+        PlayerRawWrite(raw, base + 0x2C, slot.velocity_z);
+        PlayerRawWrite(raw, base + 0x30, slot.angle_step);
+        PlayerRawWrite(raw, base + 0x34, slot.angle);
+        PlayerRawWrite(raw, base + 0x38, slot.radius);
+        PlayerRawWrite(raw, base + 0x3C, slot.radius_step);
+        PlayerRawWrite(raw, base + 0x40, slot.motion_flags);
+        PlayerRawWrite(raw, base + 0x44, slot.timer_previous);
+        PlayerRawWrite(raw, base + 0x48, slot.timer_current);
+        PlayerRawWrite(raw, base + 0x4C, slot.timer_fraction);
+        PlayerRawWrite(raw, base + 0x54, slot.timer_flags);
+        PlayerRawWrite(raw, base + 0x58, slot.allocator_value);
+        PlayerRawWrite(raw, base + 0x5C, slot.allocator_counter);
+        PlayerRawWrite(raw, base + 0x60, slot.allocator_limit);
+        PlayerRawWrite(raw, base + 0x64, slot.allocator_phase);
+        PlayerRawWrite(raw, base + 0x68, slot.flags);
+    }
+    PlayerRawWrite(raw, 0x430C, state.invulnerability_timer.target);
+    PlayerRawWrite(raw, 0x4310, state.invulnerable);
+    PlayerRawWrite(raw, 0x4314, state.invulnerability_timer.previous);
+    PlayerRawWrite(raw, 0x431C, state.invulnerability_timer.flags);
+    if (env != nullptr && env->power_gauge != nullptr)
+        *env->power_gauge = static_cast<std::uint16_t>(state.power);
+    return result;
+}
+
 // 0x00426500 - Retail forwarder: `return sub_425730(a1, a2, a1)` - a tail
 // jump into the player state runtime (0x00425730) with the player record
 // as the env source.  The host alias routes to the same reconstruction
@@ -911,6 +1106,62 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
     }
     s.familiar_count=level;
     s.familiar_levels={1,1,1,1};
+}
+
+void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
+                                 int global_counter) {
+    if (player == nullptr)
+        return;
+    unsigned char* raw = static_cast<unsigned char*>(player);
+    state.familiar_count = PlayerRawRead<int>(raw, 0x3500);
+    state.formation.source_x = PlayerRawRead<int>(raw, 0x3CC);
+    state.formation.source_y = PlayerRawRead<int>(raw, 0x3D0);
+    for (int field = 0; field != 66; ++field)
+        state.formation.history[field] =
+            PlayerRawRead<int>(raw, 0x436C + field * 4);
+    const std::size_t level_offsets[4] = {
+        0x332C, 0x33C4, 0x345C, 0x34F4
+    };
+    for (int index = 0; index != 4; ++index) {
+        const std::size_t base = 0x32A0 + index * 0x98;
+        FamiliarSlot& slot = state.familiar_slots[index];
+        slot.mode = PlayerRawRead<int>(raw, base + 0x00);
+        slot.position_x = PlayerRawRead<int>(raw, base + 0x34);
+        slot.position_y = PlayerRawRead<int>(raw, base + 0x38);
+        slot.previous_x = PlayerRawRead<int>(raw, base + 0x3C);
+        slot.previous_y = PlayerRawRead<int>(raw, base + 0x40);
+        for (int field = 0; field != 4; ++field)
+            slot.random[field] =
+                PlayerRawRead<int>(raw, base + 0x44 + field * 4);
+        slot.handle = PlayerRawRead<int>(raw, base + 0x68);
+        slot.index = PlayerRawRead<int>(raw, base + 0x88);
+        state.handles[index] = PlayerRawRead<int>(raw, base + 0x6C);
+        state.familiar_levels[index] =
+            PlayerRawRead<int>(raw, level_offsets[index]);
+        state.formation.player_positions[index][0] = slot.position_x;
+        state.formation.player_positions[index][1] = slot.position_y;
+    }
+
+    UpdateAttachedEffects(state, global_counter);
+
+    PlayerRawWrite(raw, 0x3500, state.familiar_count);
+    for (int index = 0; index != 4; ++index) {
+        const std::size_t base = 0x32A0 + index * 0x98;
+        const FamiliarSlot& slot = state.familiar_slots[index];
+        PlayerRawWrite(raw, base + 0x00, slot.mode);
+        PlayerRawWrite(raw, base + 0x34, slot.position_x);
+        PlayerRawWrite(raw, base + 0x38, slot.position_y);
+        PlayerRawWrite(raw, base + 0x3C, slot.previous_x);
+        PlayerRawWrite(raw, base + 0x40, slot.previous_y);
+        for (int field = 0; field != 4; ++field)
+            PlayerRawWrite(raw, base + 0x44 + field * 4,
+                           slot.random[field]);
+        PlayerRawWrite(raw, base + 0x68, slot.handle);
+        PlayerRawWrite(raw, base + 0x88, slot.index);
+        PlayerRawWrite(raw, base + 0x6C, state.handles[index]);
+        PlayerRawWrite(raw, level_offsets[index],
+                       state.familiar_levels[index]);
+    }
 }
 
 }
