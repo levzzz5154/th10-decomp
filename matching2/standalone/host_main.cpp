@@ -423,6 +423,20 @@ HostContext g_host;
 th10::ui_final::MusicRoom g_music_room_state;
 std::string g_music_room_resource;
 bool g_music_room_resource_loaded = false;
+void* g_music_room_animation_bank = nullptr;
+void* g_music_room_frame_bank = nullptr;
+void* g_music_room_fallback_bank = nullptr;
+int g_music_room_manager_registrations = 0;
+int g_music_room_manager_text_updates = 0;
+
+struct HostMusicTextSlot {
+    int handle{};
+    unsigned color{};
+    bool active{};
+    char text[128]{};
+};
+
+HostMusicTextSlot g_music_room_text[256]{};
 
 #if !defined(_WIN32)
 // The POSIX harness has no retail data image behind it, so the config record
@@ -776,6 +790,16 @@ bool HostStartSelectionScreen(unsigned int heading_script,
 
 bool HostLoadMusicRoomResource();
 void HostBuildMusicTrackList();
+int HostMusicRoomRegisterAnm(void*, void*, int);
+int HostMusicRoomResolveAnm(void*, int);
+void HostMusicRoomDrawText(void*, int, unsigned, const char*);
+void HostMusicRoomSetDepth(void*, int, int);
+void HostMusicRoomSetVisible(void*, int, bool);
+void HostMusicRoomSetPosition(void*, int, float, float, float);
+bool HostMusicRoomGetPositionY(void*, int, float*);
+void HostMusicRoomSetPositionRamp(void*, int, float, float, float);
+void HostMusicRoomStopAnm(void*, int);
+void HostRenderMusicRoomManagerText();
 
 // The three remaining main-menu destinations are plain title sub-screens: a
 // frame script plus a heading script, both started out of title.anm. The
@@ -793,6 +817,13 @@ bool HostStartTitleSubScreen(int screen, unsigned int frame_script,
         g_music_room_state = th10::ui_final::MusicRoom{};
         g_music_room_resource.clear();
         g_music_room_resource_loaded = false;
+        g_music_room_animation_bank = nullptr;
+        g_music_room_frame_bank = nullptr;
+        g_music_room_fallback_bank = nullptr;
+        g_music_room_manager_registrations = 0;
+        g_music_room_manager_text_updates = 0;
+        for (HostMusicTextSlot& slot : g_music_room_text)
+            slot = HostMusicTextSlot{};
         HostLoadMusicRoomResource();
         HostBuildMusicTrackList();
     }
@@ -1671,6 +1702,121 @@ float HostDrawAsciiText(float x, float y, D3DCOLOR color, float scale,
 }
 
 // ---------------------------------------------------------------------------
+HostMusicTextSlot* HostFindMusicTextSlot(int handle, bool create) {
+    HostMusicTextSlot* free_slot = nullptr;
+    for (HostMusicTextSlot& slot : g_music_room_text) {
+        if (slot.active && slot.handle == handle)
+            return &slot;
+        if (!slot.active && free_slot == nullptr)
+            free_slot = &slot;
+    }
+    if (!create || free_slot == nullptr)
+        return nullptr;
+    *free_slot = HostMusicTextSlot{};
+    free_slot->handle = handle;
+    free_slot->active = true;
+    return free_slot;
+}
+
+int HostMusicRoomRegisterAnm(void* manager, void* bank, int sprite) {
+    if (manager == nullptr || bank == nullptr)
+        return 0;
+    const int handle = AnimationManager_CreatePrimaryBack(
+        manager, bank, sprite, 15);
+    if (handle != 0)
+        ++g_music_room_manager_registrations;
+    return handle;
+}
+
+int HostMusicRoomResolveAnm(void* manager, int handle) {
+    return manager != nullptr &&
+                   AnimationManager_Find(manager, handle) != nullptr
+               ? 1 : 0;
+}
+
+void HostMusicRoomDrawText(void* manager, int handle, unsigned color,
+                           const char* text) {
+    if (manager == nullptr || AnimationManager_Find(manager, handle) == nullptr)
+        return;
+    HostMusicTextSlot* slot = HostFindMusicTextSlot(handle, true);
+    if (slot == nullptr)
+        return;
+    slot->color = color;
+    std::snprintf(slot->text, sizeof(slot->text), "%s",
+                  text == nullptr ? "" : text);
+    ++g_music_room_manager_text_updates;
+    // 0x00447A50 marks the resolved text owner active after replacing its
+    // backing text surface. Keep the same object flag in the manager.
+    AnimationManager_SetFlag(manager, handle, 1u);
+}
+
+void HostMusicRoomSetDepth(void* manager, int handle, int depth) {
+    if (manager != nullptr)
+        AnimationManager_SetStopFrame(
+            manager, handle, static_cast<short>(depth));
+}
+
+void HostMusicRoomSetVisible(void* manager, int handle, bool visible) {
+    if (manager == nullptr)
+        return;
+    if (visible)
+        AnimationManager_SetFlag(manager, handle, 2u);
+    else
+        AnimationManager_ClearFlag(manager, handle, 2u);
+}
+
+void HostMusicRoomSetPosition(void* manager, int handle,
+                             float x, float y, float z) {
+    const float position[3] = {x, y, z};
+    if (manager != nullptr)
+        AnimationManager_SetBasePosition(manager, handle, position);
+}
+
+bool HostMusicRoomGetPositionY(void* manager, int handle, float* y) {
+    return manager != nullptr &&
+           AnimationManager_GetBasePositionY(manager, handle, y);
+}
+
+void HostMusicRoomSetPositionRamp(void* manager, int handle,
+                                  float x, float y, float z) {
+    const float target[3] = {x, y, z};
+    if (manager != nullptr)
+        AnimationManager_SetPositionRamp(manager, handle, target);
+}
+
+void HostMusicRoomStopAnm(void* manager, int handle) {
+    if (manager == nullptr)
+        return;
+    AnimationManager_SetStopFrame(manager, handle, 1);
+    HostMusicTextSlot* slot = HostFindMusicTextSlot(handle, false);
+    if (slot != nullptr)
+        *slot = HostMusicTextSlot{};
+}
+
+void HostRenderMusicRoomManagerText() {
+    if (g_pGameStateManager == nullptr)
+        return;
+    for (const HostMusicTextSlot& slot : g_music_room_text) {
+        if (!slot.active)
+            continue;
+        AnimationObject* animation =
+            AnimationManager_Find(g_pGameStateManager, slot.handle);
+        if (animation == nullptr)
+            continue;
+        unsigned char* bytes = reinterpret_cast<unsigned char*>(animation);
+        const unsigned int flags =
+            *reinterpret_cast<unsigned int*>(bytes + 0x35C);
+        if ((flags & 2u) == 0 ||
+            *reinterpret_cast<short*>(bytes + 0x304) <= 1)
+            continue;
+        const float x = *reinterpret_cast<float*>(bytes + 0x334);
+        const float y = *reinterpret_cast<float*>(bytes + 0x338);
+        const D3DCOLOR color = static_cast<D3DCOLOR>(slot.color) |
+                               0xFF000000u;
+        HostDrawAsciiText(x, y, color, 1.0f, slot.text);
+    }
+}
+
 // Contents for the three title sub-screens. Every list below is built from a
 // real file: the track list from th10/thbgm.fmt inside th10.dat, the replay
 // list from the .rpy files on disk, and the score table from scoreth10.dat.
@@ -1746,6 +1892,32 @@ th10::ui_final::MusicRoomEnv HostMusicRoomEnvironment() {
     th10::ui_final::MusicRoomEnv env{};
     env.manager = g_pGameStateManager;
     env.frame_delta = &DAT_00476f78;
+    if (g_pGameStateManager != nullptr) {
+        if (g_music_room_animation_bank == nullptr)
+            g_music_room_animation_bank = reinterpret_cast<void*>(
+                ResourceManager_FindResource(
+                    0x19, g_pGameStateManager, "title.anm"));
+        if (g_music_room_frame_bank == nullptr)
+            g_music_room_frame_bank = reinterpret_cast<void*>(
+                ResourceManager_FindResource(
+                    0, g_pGameStateManager, "text.anm"));
+        if (g_music_room_fallback_bank == nullptr)
+            g_music_room_fallback_bank = reinterpret_cast<void*>(
+                ResourceManager_FindResource(
+                    2, g_pGameStateManager, "ascii.anm"));
+    }
+    env.animation_bank = g_music_room_animation_bank;
+    env.frame_bank = g_music_room_frame_bank;
+    env.fallback_bank = g_music_room_fallback_bank;
+    env.register_anm = HostMusicRoomRegisterAnm;
+    env.resolve_anm = HostMusicRoomResolveAnm;
+    env.draw_text = HostMusicRoomDrawText;
+    env.set_depth = HostMusicRoomSetDepth;
+    env.set_visible = HostMusicRoomSetVisible;
+    env.set_position = HostMusicRoomSetPosition;
+    env.get_position_y = HostMusicRoomGetPositionY;
+    env.set_position_ramp = HostMusicRoomSetPositionRamp;
+    env.stop_anm = HostMusicRoomStopAnm;
     env.play_sound = HostPlayMenuSound;
     env.play_music = HostMusicRoomPlayMusic;
     env.restore_bgm = HostMusicRoomRestoreBgm;
@@ -3213,7 +3385,11 @@ void HostRenderMenu() {
         // menu_screen 5, the key config, is drawn entirely by retail's
         // title.anm script 2 - the seven rows and each slot's button value -
         // so the host contributes nothing to it.
-        if (g_host.menu_screen >= 9 && g_host.menu_screen <= 11)
+        if (g_host.menu_screen == 11 &&
+            g_music_room_animation_bank != nullptr &&
+            g_music_room_frame_bank != nullptr)
+            HostRenderMusicRoomManagerText();
+        else if (g_host.menu_screen >= 9 && g_host.menu_screen <= 11)
             HostRenderSubScreenList();
         // Retail's last secondary callback is 0x004200D0 at priority 50,
         // which is nothing but sub_442F50(dword_491C10) plus two counter
@@ -5802,12 +5978,17 @@ static int HostRun(int argc, char** argv) {
             ok && !g_host.menu_smoke_failed &&
             g_host.menu_smoke_step == HOST_MENU_SMOKE_DONE &&
             g_host.menu_smoke_transitions == 10 &&
-            g_host.menu_record == nullptr;
+            g_host.menu_record == nullptr &&
+            g_music_room_manager_registrations > 0 &&
+            g_music_room_manager_text_updates > 0;
         std::printf("  menu smoke transitions: %d/10\n",
                     g_host.menu_smoke_transitions);
         std::printf("  menu smoke final step: %s\n",
                     g_host.menu_smoke_step == HOST_MENU_SMOKE_DONE
                         ? "exit" : "incomplete");
+        std::printf("  music manager: registrations=%d text-updates=%d\n",
+                    g_music_room_manager_registrations,
+                    g_music_room_manager_text_updates);
         std::printf("MENU_SMOKE_%s\n",
                     menu_smoke_ok ? "PASS" : "FAIL");
         return menu_smoke_ok ? 0 : 1;

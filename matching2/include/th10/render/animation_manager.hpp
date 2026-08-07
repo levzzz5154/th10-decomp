@@ -111,6 +111,14 @@ int AnimationObject_ConfigureFromResource(
     void* animation, void* resource, int animationIndex);
 void AnimationManager_SetPosition(
     void* manager, int animationHandle, const float* position);
+// Music Room's 0x00434A80 path writes the ANM base-position triplet at
+// +0x334, distinct from the generic +0x340 position setter above.
+void AnimationManager_SetBasePosition(
+    void* manager, int animationHandle, const float* position);
+bool AnimationManager_GetBasePositionY(
+    void* manager, int animationHandle, float* y);
+void AnimationManager_SetPositionRamp(
+    void* manager, int animationHandle, const float* target);
 void AnimationManager_SetTranslatedPosition(
     void* manager, int animationHandle, const float* position);
 bool AnimationManager_ValidateHandle(void* manager, int* animationHandle);

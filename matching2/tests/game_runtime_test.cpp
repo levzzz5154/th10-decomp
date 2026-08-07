@@ -722,6 +722,32 @@ static void TestAnimationManagerAdapter() {
     assert(adapter.AttachChild(rootHandle, childHandle));
     assert(adapter.FindChild(rootHandle, 23) == childHandle);
 
+    const float base_position[3] = {10.0f, 20.0f, 30.0f};
+    AnimationManager_SetBasePosition(&manager[0], rootHandle,
+                                     base_position);
+    assert(*reinterpret_cast<float*>(
+               reinterpret_cast<unsigned char*>(root) + 0x334) == 10.0f);
+    assert(*reinterpret_cast<float*>(
+               reinterpret_cast<unsigned char*>(child) + 0x338) == 20.0f);
+    float base_y = 0.0f;
+    assert(AnimationManager_GetBasePositionY(
+               &manager[0], rootHandle, &base_y) && base_y == 20.0f);
+
+    const float ramp_target[3] = {30.0f, 40.0f, 50.0f};
+    AnimationManager_SetPositionRamp(&manager[0], rootHandle, ramp_target);
+    assert(*reinterpret_cast<float*>(
+               reinterpret_cast<unsigned char*>(root) + 0x70) == 10.0f);
+    assert(*reinterpret_cast<float*>(
+               reinterpret_cast<unsigned char*>(root) + 0x7C) == 30.0f);
+    assert(*reinterpret_cast<float*>(
+               reinterpret_cast<unsigned char*>(root) + 0x80) == 40.0f);
+    assert(*reinterpret_cast<int*>(
+               reinterpret_cast<unsigned char*>(root) + 0xB4) == 4);
+    assert(*reinterpret_cast<unsigned int*>(
+               reinterpret_cast<unsigned char*>(root) + 0xB8) == 0u);
+    assert(*reinterpret_cast<int*>(
+               reinterpret_cast<unsigned char*>(child) + 0xB4) == 4);
+
     assert(adapter.SetHighPathFlag(rootHandle));
     assert((*reinterpret_cast<unsigned int*>(
                 reinterpret_cast<unsigned char*>(root) + 0x35C) &

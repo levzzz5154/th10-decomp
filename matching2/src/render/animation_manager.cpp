@@ -10,6 +10,8 @@
 #include "th10/game/entity.hpp"
 #include "th10/render/anm_entry_load.hpp"
 
+#include <cstring>
+
 extern "C" void* operator_new(unsigned int size);
 extern "C" void _free(void* allocation);
 extern void* g_pGameStateManager;
@@ -1356,6 +1358,20 @@ static void AnimationObject_SetPosition(
     entity->Position().z = position[2];
 }
 
+static void AnimationObject_SetBasePosition(
+    AnimationObject* animation, const float* position) {
+    Entity* entity = (Entity*)animation;
+    entity->BasePosition().x = position[0];
+    entity->BasePosition().y = position[1];
+    entity->BasePosition().z = position[2];
+}
+
+static void AnimationObject_SetBasePositionOperation(
+    AnimationObject* animation, void* context) {
+    AnimationObject_SetBasePosition(
+        animation, static_cast<const float*>(context));
+}
+
 typedef void (*AnimationObjectOperation)(AnimationObject*, void* context);
 
 static void AnimationObject_ApplyToRootAndChildren(
@@ -2369,6 +2385,72 @@ void AnimationManager_SetPosition(
 }
 #endif
 
+struct MusicPositionRampState {
+    float target[3];
+};
+
+static void AnimationObject_SetMusicPositionRamp(
+    AnimationObject* animation, void* context) {
+    const MusicPositionRampState* ramp =
+        static_cast<const MusicPositionRampState*>(context);
+    Entity* entity = (Entity*)animation;
+    unsigned char* bytes = reinterpret_cast<unsigned char*>(animation);
+    const Vector3& base = entity->BasePosition();
+    for (int axis = 0; axis != 3; ++axis) {
+        // 0x00434A80 snapshots the current base position at +0x70 and
+        // +0x88, stores the target at +0x7C, and arms its four-frame state
+        // with +0xB4 = 4 and +0xB8 = 0.
+        const float* current = reinterpret_cast<const float*>(&base.x);
+        std::memcpy(bytes + 0x70 + axis * 4, current + axis,
+                    sizeof(float));
+        std::memcpy(bytes + 0x7C + axis * 4, ramp->target + axis,
+                    sizeof(float));
+        std::memcpy(bytes + 0x88 + axis * 4, current + axis,
+                    sizeof(float));
+        std::memcpy(bytes + 0x94 + axis * 4, current + axis,
+                    sizeof(float));
+    }
+    *reinterpret_cast<int*>(bytes + 0xB4) = 4;
+    *reinterpret_cast<unsigned int*>(bytes + 0xB8) = 0;
+}
+
+void AnimationManager_SetBasePosition(
+    void* manager, int animationHandle, const float* position) {
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation == 0)
+        return;
+    AnimationObject_ApplyToRootAndChildren(
+        animation, AnimationObject_SetBasePositionOperation,
+        const_cast<float*>(position));
+}
+
+bool AnimationManager_GetBasePositionY(
+    void* manager, int animationHandle, float* y) {
+    if (y == 0)
+        return false;
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation == 0)
+        return false;
+    *y = ((Entity*)animation)->BasePosition().y;
+    return true;
+}
+
+void AnimationManager_SetPositionRamp(
+    void* manager, int animationHandle, const float* target) {
+    if (target == 0)
+        return;
+    AnimationObject* animation =
+        AnimationManager_Find(manager, animationHandle);
+    if (animation == 0)
+        return;
+    MusicPositionRampState ramp = {};
+    std::memcpy(ramp.target, target, sizeof(ramp.target));
+    AnimationObject_ApplyToRootAndChildren(
+        animation, AnimationObject_SetMusicPositionRamp, &ramp);
+}
+
 // 0x00449350 - Apply the gameplay-to-render translation and propagate it.
 #ifdef _MSC_VER
 __declspec(naked) void AnimationManager_SetTranslatedPosition(
@@ -2546,8 +2628,30 @@ static AnimationObject** AnimationManager_RenderBucketHead(
     return AnimationObject_RenderChainSlot(sentinel);
 }
 
+static void AnimationObject_AdvanceMusicPositionRamp(
+    AnimationObject* animation) {
+    unsigned char* bytes = reinterpret_cast<unsigned char*>(animation);
+    int& duration = *reinterpret_cast<int*>(bytes + 0xB4);
+    unsigned int& counter = *reinterpret_cast<unsigned int*>(bytes + 0xB8);
+    if (duration != 4 || counter >= 4)
+        return;
+    const float ratio = static_cast<float>(counter + 1) / 4.0f;
+    for (int axis = 0; axis != 3; ++axis) {
+        const float start = *reinterpret_cast<float*>(
+            bytes + 0x70 + axis * 4);
+        const float target = *reinterpret_cast<float*>(
+            bytes + 0x7C + axis * 4);
+        *reinterpret_cast<float*>(bytes + 0x334 + axis * 4) =
+            start + (target - start) * ratio;
+    }
+    ++counter;
+    if (counter == 4)
+        duration = 0;
+}
+
 static bool AnimationManager_UpdateObject(
     void* manager, AnimationObject* animation) {
+    AnimationObject_AdvanceMusicPositionRamp(animation);
     if ((((Entity*)animation)->AnimationFlags() & 0x04000000u) != 0) {
         AnimationManager_RemoveObject(manager, animation);
         return false;
