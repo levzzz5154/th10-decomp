@@ -665,6 +665,8 @@ bool HostStartTitleScripts(unsigned int first, unsigned int second) {
         vm = HostAnmVm{};
     HostInitializeAnmVm(&g_host.title_vms[0], scripts[0].instructions);
     HostInitializeAnmVm(&g_host.title_vms[1], scripts[1].instructions);
+    g_host.title_vms[0].script_id = static_cast<int>(first);
+    g_host.title_vms[1].script_id = static_cast<int>(second);
     g_host.title_vm_ready = 1;
     return true;
 }
@@ -680,6 +682,7 @@ bool HostStartSigScript() {
     for (auto& vm : g_host.title_child_vms)
         vm = HostAnmVm{};
     HostInitializeAnmVm(&g_host.title_vms[0], script.instructions);
+    g_host.title_vms[0].script_id = 0;
     g_host.title_vms[0].resource_index = 2;
     g_host.title_vms[1] = {};
     g_host.title_vm_ready = 1;
@@ -704,6 +707,7 @@ bool HostSwitchTitleOverlay(unsigned int script_id) {
         }
     }
     HostInitializeAnmVm(&g_host.title_vms[1], script.instructions);
+    g_host.title_vms[1].script_id = static_cast<int>(script_id);
     return true;
 }
 
