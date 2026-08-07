@@ -17,7 +17,7 @@
 
 #include <cstring>
 
-namespace th10::script_label_search {
+namespace th10 { namespace script_label_search {
 
 // Binary-search `name` over `table` using ANSI strcmp ordering.  Returns
 // the matching entry, or nullptr when the name is absent.
@@ -42,4 +42,4 @@ inline const Entry* FindScriptLabelEntry(const Table* table,
     return nullptr;
 }
 
-}  // namespace th10::script_label_search
+} }  // namespace th10::script_label_search

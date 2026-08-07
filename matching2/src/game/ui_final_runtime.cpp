@@ -1285,6 +1285,38 @@ void MusicPositionLive(const MusicRoomEnv&env,int handle,float x,float y){
     env.set_position(env.manager,handle,x,y,0.0f);
 }
 
+// sub_434A80 writes a four-frame ramp into the resolved ANM object. The
+// immediate callback remains the compatibility fallback for hosts that do
+// not expose the object's ramp fields.
+void MusicPositionRamp(const MusicRoomEnv&env,int handle,float x,float y){
+  if(handle==0)return;
+  if(env.set_position_ramp!=nullptr)
+    env.set_position_ramp(env.manager,handle,x,y,0.0f);
+  else if(env.set_position!=nullptr)
+    env.set_position(env.manager,handle,x,y,0.0f);
+}
+
+void MusicPositionInitial(const MusicRoomEnv&env,int handle,float x,float y){
+  // The initial row setup always calls sub_434A80; its object starts with no
+  // useful position, so there is no 40-unit comparison at this call site.
+  MusicPositionRamp(env,handle,x,y);
+}
+
+void MusicPositionChanged(const MusicRoomEnv&env,int handle,float x,float y){
+  if(handle==0)return;
+  float current_y=0.0f;
+  if(env.get_position_y!=nullptr&&
+     env.get_position_y(env.manager,handle,&current_y)&&
+     std::fabs(current_y-y)<40.0f){
+    MusicPositionRamp(env,handle,x,y);
+  }else{
+    // Retail writes x/y/z immediately when the existing Y is at least 40
+    // units from the target. Without a resolved Y, an immediate write is the
+    // only honest host behavior available.
+    MusicPositionLive(env,handle,x,y);
+  }
+}
+
 bool MusicTrackPlayedLocal(const MusicRoom&state,int track){
   if(track<0)return false;
   if(track<(int)state.played_tracks.size())return state.played_tracks[track]!=0;
@@ -1379,8 +1411,8 @@ void MusicLayoutRows(MusicRoom&state,const MusicRoomEnv&env){
                  (float)track*kMusicRowStep;
     MusicVisibleLive(env,handle,track>=state.scroll&&track<state.scroll+10);
     MusicDepthLive(env,handle,2+(track==state.selection?0:1));
-    MusicPositionLive(env,handle,
-                      kMusicRowX-(track==state.selection?kMusicSelectedOffset:0.0f),y);
+    MusicPositionChanged(env,handle,
+                         kMusicRowX-(track==state.selection?kMusicSelectedOffset:0.0f),y);
   }
 }
 
@@ -1392,8 +1424,12 @@ void MusicPopHistory(MusicRoom&state,const MusicRoomEnv&env){
     return;
   }
   if(!state.history.empty()){
-    const std::pair<int,int>entry=state.history.back();
-    state.history.pop_back();
+    if(state.history_cursor<0)
+      state.history_cursor=(int)state.history.size();
+    if(state.history_cursor>0)--state.history_cursor;
+    if(state.history_cursor>=(int)state.history.size())
+      state.history_cursor=(int)state.history.size()-1;
+    const std::pair<int,int>&entry=state.history[(std::size_t)state.history_cursor];
     state.selection=entry.first;
     state.track_count=entry.second;
   }else{
@@ -1413,7 +1449,7 @@ void MusicExitToPhase3(MusicRoom&state,const MusicRoomEnv&env){
   // sub_409E50 is a depth-1 stop-and-propagate operation, not release/free.
   // Keep the handles: retail leaves these slots populated after stopping.
   for(int handle:state.row_handles)
-    if(env.stop_anm!=nullptr)env.stop_anm(env.manager,handle);
+    if(handle!=0&&env.stop_anm!=nullptr)env.stop_anm(env.manager,handle);
   MusicHideFrameRows(state,env);
   MusicSound(state,env,11);
   state.phase=3;
@@ -1431,6 +1467,13 @@ bool MusicReadLine(const std::string&resource,std::size_t&cursor,
   return true;
 }
 
+std::string MusicField(const std::string&line,std::size_t capacity){
+  // Retail copies into fixed 64-byte title and 66-byte comment/row slots.
+  // Clamp at the destination capacity minus its terminating byte rather than
+  // allowing a host string to claim data retail would overwrite.
+  return line.substr(0,capacity>0?capacity-1:0);
+}
+
 void MusicParseResource(MusicRoom&state,const std::string&resource){
   state.titles.clear();
   state.comments.clear();
@@ -1440,12 +1483,12 @@ void MusicParseResource(MusicRoom&state,const std::string&resource){
   while(MusicReadLine(resource,cursor,line)){
     // FUN_004349E0 skips every non-'@' line, including '#'-comments.
     if(line.empty()||line[0]!='@')continue;
-    state.titles.push_back(line.substr(1));
+    state.titles.push_back(MusicField(line.substr(1),64));
     if(!MusicReadLine(resource,cursor,line))line.clear();
-    state.comments.push_back(line);
+    state.comments.push_back(MusicField(line,66));
     for(int row=0;row<8;++row){
       if(!MusicReadLine(resource,cursor,line))line.clear();
-      state.row_texts.push_back(line);
+      state.row_texts.push_back(MusicField(line,66));
     }
   }
   state.track_count=(int)state.titles.size();
@@ -1522,8 +1565,8 @@ void MusicRegisterRows(MusicRoom&state,const MusicRoomEnv&env){
       MusicDepthLive(env,state.row_handles[track],2+(selected?0:1));
       const float y=kMusicRowY-(float)state.scroll*kMusicRowStep+
                    (float)state.timer*kMusicRowStep*2.0f-kMusicRowStep*2.0f;
-      MusicPositionLive(env,state.row_handles[track],
-                        kMusicRowX-(selected?kMusicSelectedOffset:0.0f),y);
+      MusicPositionInitial(env,state.row_handles[track],
+                           kMusicRowX-(selected?kMusicSelectedOffset:0.0f),y);
     }
   }
 }
@@ -1540,7 +1583,10 @@ int UpdateMusicRoom(MusicRoom&state,const MusicRoomEnv&env,
       // final parsed count is then used by sub_44BEA0 for wrapped navigation.
       state.track_count=6;
       state.selection=0;
-      if(resource.empty()){
+      // An empty byte stream is a valid loaded file. Retail only enters the
+      // failure cleanup when sub_44B360 returns null; resource_available keeps
+      // that result distinct from an empty host string.
+      if(!env.resource_available){
         MusicExitToPhase3(state,env);
         return 0;
       }
@@ -1609,7 +1655,9 @@ int UpdateMusicRoom(MusicRoom&state,const MusicRoomEnv&env,
         env.play_music(0,title.c_str());
       if(env.dummy_state!=nullptr&&env.dummy_mode4)env.dummy_state(kMusicPreviewDummyAlt);
       if(env.dummy_state!=nullptr)env.dummy_state(kMusicPlayDummy);
-      MusicMarkTrackPlayed(state,env,state.selection);
+      // Retail writes the played-table base byte here (the disassembly has
+      // no selection-index add); row/preview queries still use displayed.
+      MusicMarkTrackPlayed(state,env,0);
       state.armed=false;
     }else{
       if(env.dummy_state!=nullptr)
@@ -1627,7 +1675,8 @@ int UpdateMusicRoom(MusicRoom&state,const MusicRoomEnv&env,
       MusicDepth(env,state.parent_handle,1);
       state.parent_handle=0;
       state.anm_handles[95]=0;
-      if(env.stop_anm!=nullptr)env.stop_anm(env.manager,state.fallback_handle);
+      if(state.fallback_handle!=0&&env.stop_anm!=nullptr)
+        env.stop_anm(env.manager,state.fallback_handle);
       state.substate=2;
       state.phase=0;
       state.timer=0;

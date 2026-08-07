@@ -31,6 +31,10 @@ struct Probe {
   std::vector<int> queries;
   std::vector<int> marked;
   std::vector<std::string> texts;
+  std::vector<unsigned> text_colors;
+  std::vector<int> position_modes; // 0 = immediate, 1 = sub_434A80 ramp
+  std::vector<float> position_y;
+  std::array<float,2048> current_y{};
   const ui_final::MusicRoom* history_arg{};
   int play_channel{-1};
   std::string play_title;
@@ -43,13 +47,28 @@ int RegisterAnm(void*,void*,int sprite){
   return sprite+1000;
 }
 int ResolveAnm(void*,int handle){return handle==0?0:handle;}
-void DrawText(void*,int,unsigned,const char* text){probe->texts.emplace_back(text==nullptr?"":text);}
+void DrawText(void*,int,unsigned color,const char* text){
+  probe->text_colors.push_back(color);
+  probe->texts.emplace_back(text==nullptr?"":text);
+}
 void SetDepth(void*,int handle,int depth){
   probe->depths.push_back(handle);
   probe->depths.push_back(depth);
 }
 void SetVisible(void*,int,bool){ }
-void SetPosition(void*,int,float,float,float){ }
+void SetPosition(void*,int,float,float y,float){
+  probe->position_modes.push_back(0);
+  probe->position_y.push_back(y);
+}
+bool GetPositionY(void*,int handle,float* y){
+  if(handle<0||handle>=(int)probe->current_y.size())return false;
+  *y=probe->current_y[(std::size_t)handle];
+  return true;
+}
+void SetPositionRamp(void*,int,float,float y,float){
+  probe->position_modes.push_back(1);
+  probe->position_y.push_back(y);
+}
 void StopAnm(void*,int handle){probe->stopped.push_back(handle);}
 void PlaySound(int){ }
 bool IsTrackPlayed(int track){
@@ -57,6 +76,11 @@ bool IsTrackPlayed(int track){
   return track>=0&&track<(int)probe->played.size()&&probe->played[track];
 }
 void MarkTrackPlayed(int track){probe->marked.push_back(track);probe->played[track]=true;}
+const char* PreviewText(int frame){
+  static const char* text[8]={"Preview 0","Preview 1","Preview 2","Preview 3",
+                              "Preview 4","Preview 5","Preview 6","Preview 7"};
+  return frame>=0&&frame<8?text[frame]:"";
+}
 void PlayMusic(int channel,const char* title){
   probe->play_channel=channel;
   probe->play_title=title==nullptr?"":title;
@@ -76,6 +100,9 @@ ui_final::MusicRoomEnv MakeEnv(Probe& p){
   env.set_depth=SetDepth;
   env.set_visible=SetVisible;
   env.set_position=SetPosition;
+  env.get_position_y=GetPositionY;
+  env.set_position_ramp=SetPositionRamp;
+  env.preview_text=PreviewText;
   env.stop_anm=StopAnm;
   env.play_sound=PlaySound;
   env.is_track_played=IsTrackPlayed;
@@ -106,8 +133,9 @@ int main(){
     assert(state.phase==2&&state.timer==0);
   }
 
-  // Retail music playback is channel 0 and uses the title, while the played
-  // table is queried and updated through the explicit callbacks.
+  // Retail music playback is channel 0 and uses the title. The row query is
+  // indexed by the selected track, while the retail playback write targets
+  // the played-table base byte exactly as disassembled.
   {
     Probe p;
     p.played[1]=true;
@@ -121,7 +149,25 @@ int main(){
     ui_final::UpdateMusicRoom(state,env,0x1001,"");
     assert(p.play_channel==0&&p.play_title=="Track title");
     assert(!p.queries.empty()&&p.queries.back()==1);
-    assert(p.marked.size()==1&&p.marked[0]==1&&p.played[1]);
+    assert(p.marked.size()==1&&p.marked[0]==0&&p.played[0]);
+  }
+
+  // Preview frames use the encoded off_476FD8 text and 0x8080FF, while the
+  // played path above uses the parsed title and normal text color.
+  {
+    Probe p;
+    auto env=MakeEnv(p);
+    ui_final::MusicRoom state;
+    state.phase=2;
+    state.track_count=1;
+    state.selection=0;
+    state.displayed=0;
+    state.armed=true;
+    state.played_tracks={0};
+    state.frame_handles[0]=201;
+    ui_final::UpdateMusicRoom(state,env,0,"");
+    assert(p.texts.size()==1&&p.texts[0]=="Preview 0"&&
+           p.text_colors[0]==0x008080FFu);
   }
 
   // sub_44BE70 receives and owns the music-room history operation. A callback
@@ -175,6 +221,42 @@ int main(){
     assert(state.selection==2);
     ui_final::UpdateMusicRoom(state,env,0x20,"");
     assert(state.selection==0);
+  }
+
+  // Selection changes use sub_434A80 only when the existing row Y is within
+  // 40 units of the target; a distant row takes the immediate-write branch.
+  {
+    Probe p;
+    auto env=MakeEnv(p);
+    ui_final::MusicRoom state;
+    state.phase=2;
+    state.track_count=2;
+    state.selection=0;
+    state.row_handles={101,102};
+    p.current_y[101]=94.0f; // target 96: ramp
+    p.current_y[102]=0.0f;  // target 116: immediate
+    ui_final::UpdateMusicRoom(state,env,0x20,"");
+    assert(state.selection==1&&p.position_modes.size()==2&&
+           p.position_modes[0]==1&&p.position_modes[1]==0);
+  }
+
+  // The host history model mirrors sub_44BE70's cursor mutation without
+  // erasing the retail backing entries.
+  {
+    Probe p;
+    auto env=MakeEnv(p);
+    ui_final::MusicRoom state;
+    state.phase=2;
+    state.track_count=9;
+    state.selection=8;
+    state.history={{2,3},{6,7}};
+    ui_final::UpdateMusicRoom(state,env,0xA,"");
+    assert(state.phase==3&&state.selection==6&&state.track_count==7&&
+           state.history.size()==2&&state.history_cursor==1);
+    state.timer=10;
+    ui_final::UpdateMusicRoom(state,env,0,"");
+    assert(state.phase==0&&state.selection==2&&state.track_count==3&&
+           state.history.size()==2&&state.history_cursor==0);
   }
 
   // Retail parser rows are title, comment, then eight fixed-size row strings.

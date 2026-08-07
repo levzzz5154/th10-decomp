@@ -1,5 +1,7 @@
 #include "th10/game/task_registration.hpp"
+#ifndef _MSC_VER
 #include "th10/game/ui_final_runtime.hpp"
+#endif
 #include "th10/game/game_state_overlay_draw.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/recovered_render_leaves.hpp"
@@ -49,6 +51,7 @@ SchedulerCallback* CreateAndRegister(void* owner, SchedulerCreateFn create,
     return callback;
 }
 
+#ifndef _MSC_VER
 int __fastcall ItemFront_Update(void* owner) {
     // 0x00415AE0 is a retail forwarder into the front-HUD update
     // (0x00414900); the host twin is UpdateFrontAlias (ui_final_runtime).
@@ -57,6 +60,7 @@ int __fastcall ItemFront_Update(void* owner) {
     env.manager = (void*)dword_491C10;
     return UpdateFrontAlias(*(th10::ui_final::FrontTick*)owner, env);
 }
+#endif
 
 // Retail 0x00415800 draws each overlay record via sub_4451C0(record,
 // dword_491C10, layer, record); the recovered claim is the 3-arg
@@ -261,6 +265,7 @@ int32_t FrontAnm_RegisterTasks(
     return 0;
 }
 
+#ifndef _MSC_VER
 void ItemFrontRuntime_SetBindings(
         const ItemFrontRuntimeBindings* bindings) {
     if (bindings != 0)
@@ -272,6 +277,7 @@ void ItemFrontRuntime_SetBindings(
         g_item_front_bindings = ItemFrontRuntimeBindings{};
 #endif
 }
+#endif
 
 // 0x00413980 - Resolve front.anm, construct the score/front task through the
 // explicit runtime edge, and register the item manager callback pair.
@@ -327,6 +333,7 @@ loc_4139B5:
 }
 #endif
 
+#ifndef _MSC_VER
 int ItemFrontRuntime_Initialize(void* owner) {
     if (owner == 0 || DAT_00491be4 == 0 ||
         g_item_front_bindings.initialize_score_task == 0)
@@ -362,6 +369,7 @@ int ItemFrontRuntime_Initialize(void* owner) {
     *(SchedulerCallback**)(bytes + 12) = render;
     return 0;
 }
+#endif
 
 // Semantic reconstruction 0x0042CAA0 - initialize the title screen.
 #ifdef _MSC_VER

@@ -1,5 +1,7 @@
 #include "th10/game/manager_factories.hpp"
+#ifndef _MSC_VER
 #include "th10/game/gameplay_final_runtime.hpp"
+#endif
 #include "th10/game/entity.hpp"
 #include "th10/game/player_motion.hpp"
 #include "th10/game/pool_constructors.hpp"
@@ -50,6 +52,7 @@ extern "C" int sub_413980(void);
 namespace {
 ParticleEffectRuntimeBindings g_particle_effect_bindings = {};
 
+#ifndef _MSC_VER
 int __fastcall ParticleEffect_Update(void* owner) {
 	// 0x0041AFD0 (the item sweep) is reconstructed as UpdateItems
 	// (gameplay_final_runtime); the owner is the item pool and the env
@@ -68,6 +71,7 @@ int __fastcall ParticleEffect_Update(void* owner) {
 	env.frame_delta = DAT_00476f78;
 	return UpdateItems(*(th10::gameplay_final::ItemPool*)owner, env);
 }
+#endif
 
 // Retail 0x0041B8E0 reads the shared effect bank through the
 // animation-manager resource slot (dword_4776F0 + 1016532 dwords =
@@ -111,8 +115,9 @@ int __fastcall ParticleEffect_Draw(void* owner) {
 			if (*(float*)record >= 8.0f) {
 				const int bank = *(int*)(record + 172);
 				if (*(short*)(record + 76) != bank + 344) {
-					EffectRuntime_Preload(slot, bank + 343,
-					                      ParticleEffect_Bank());
+					void* resource_bank = ParticleEffect_Bank();
+					if (resource_bank != 0)
+						EffectRuntime_Preload(slot, bank + 343, resource_bank);
 					*(Byte*)(record - 57) = 0xFF;
 				}
 			} else {
@@ -125,9 +130,11 @@ int __fastcall ParticleEffect_Draw(void* owner) {
 				else
 					*(Byte*)(record - 57) = 0xFF;
 				const int bank = *(int*)(record + 172);
-				if (*(short*)(record + 76) != bank + 353)
-					EffectRuntime_Preload(slot, bank + 352,
-					                      ParticleEffect_Bank());
+				if (*(short*)(record + 76) != bank + 353) {
+					void* resource_bank = ParticleEffect_Bank();
+					if (resource_bank != 0)
+						EffectRuntime_Preload(slot, bank + 352, resource_bank);
+				}
 			}
 			AnmVm_DrawDispatch((AnmDrawVm*)slot, context, &env);
 		}
@@ -557,6 +564,7 @@ int EffectManager_OnRegister(ManagerRegistration* manager, int frame_stamp,
     return 0;
 }
 
+#ifndef _MSC_VER
 void ParticleEffectRuntime_SetBindings(
         const ParticleEffectRuntimeBindings* bindings) {
 	if (bindings != 0)
@@ -593,6 +601,7 @@ int ParticleEffectRuntime_Initialize(void* manager) {
 	*(SchedulerCallback**)(bytes + 12) = draw;
 	return 0;
 }
+#endif
 
 // 0x00408C90 - Player manager factory: 0x37B0-byte object, in-place
 // constructor, then the resource initializer; failure destroys and frees.

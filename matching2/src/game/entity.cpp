@@ -8,7 +8,9 @@
 #include <cstring>
 #else
 extern "C" void* memset(void*, int, unsigned long);
+extern "C" void* memcpy(void*, const void*, unsigned long);
 #pragma intrinsic(memset)
+#pragma intrinsic(memcpy)
 #endif
 
 extern "C" void __cdecl _free(void*);
@@ -289,7 +291,7 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
     // retail's EBX/EBP/spill allocation; a float Vector3 copy makes old MSVC
     // generate a substantially different prologue and store schedule.
     PreservedPositionBits saved_position;
-    std::memcpy(&saved_position, &entity->position, sizeof(saved_position));
+    memcpy(&saved_position, &entity->position, sizeof(saved_position));
     int32_t saved_render_bucket = entity->render_bucket;
 
     // Zero entire entity (0xEB dwords = 0x3AC bytes)

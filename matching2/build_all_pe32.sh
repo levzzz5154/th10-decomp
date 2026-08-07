@@ -8,16 +8,60 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD="$ROOT/build/all-pe32"
 TOOLCHAIN_ROOT="${LLVM_MINGW_ROOT:-/opt/llvm-mingw}"
-CXX="${TH10_PE32_CXX:-$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-g++}"
-CC="${TH10_PE32_CC:-$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-gcc}"
-NM="${TH10_PE32_NM:-$TOOLCHAIN_ROOT/bin/llvm-nm}"
-WINDRES="${TH10_PE32_WINDRES:-$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-windres}"
+
+# Prefer an explicit override, then a native prefixed MinGW installation, and
+# finally the historical LLVM-MinGW directory layout.
+resolve_tool() {
+    local override="$1"
+    local system_name="$2"
+    local legacy_path="$3"
+    local resolved
+
+    if [[ -n "$override" ]]; then
+        if [[ "$override" == */* ]]; then
+            printf '%s\n' "$override"
+        elif resolved="$(command -v "$override")"; then
+            printf '%s\n' "$resolved"
+        else
+            return 1
+        fi
+        return 0
+    fi
+    if resolved="$(command -v "$system_name")"; then
+        printf '%s\n' "$resolved"
+    elif [[ -x "$legacy_path" ]]; then
+        printf '%s\n' "$legacy_path"
+    else
+        return 1
+    fi
+}
+
+CXX="$(resolve_tool "${TH10_PE32_CXX:-}" i686-w64-mingw32-g++ \
+    "$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-g++")" || {
+    echo "required PE32 C++ compiler not found; set TH10_PE32_CXX or LLVM_MINGW_ROOT" >&2
+    exit 1
+}
+CC="$(resolve_tool "${TH10_PE32_CC:-}" i686-w64-mingw32-gcc \
+    "$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-gcc")" || {
+    echo "required PE32 C compiler not found; set TH10_PE32_CC or LLVM_MINGW_ROOT" >&2
+    exit 1
+}
+NM="$(resolve_tool "${TH10_PE32_NM:-}" i686-w64-mingw32-nm \
+    "$TOOLCHAIN_ROOT/bin/llvm-nm")" || {
+    echo "required PE32 symbol tool not found; set TH10_PE32_NM or LLVM_MINGW_ROOT" >&2
+    exit 1
+}
+WINDRES="$(resolve_tool "${TH10_PE32_WINDRES:-}" i686-w64-mingw32-windres \
+    "$TOOLCHAIN_ROOT/bin/i686-w64-mingw32-windres")" || {
+    echo "required PE32 resource compiler not found; set TH10_PE32_WINDRES or LLVM_MINGW_ROOT" >&2
+    exit 1
+}
 GAME_DIR="${TH10_GAME_DIR:-$HOME/Games/TH10 - Mountain of Faith}"
 RETAIL_EXE="${TH10_RETAIL_EXE:-$GAME_DIR/th10.exe}"
 
 for tool in "$CXX" "$CC" "$NM" "$WINDRES"; do
     if [[ ! -x "$tool" ]]; then
-        echo "required LLVM-MinGW tool not found: $tool" >&2
+        echo "required PE32 tool is not executable: $tool" >&2
         exit 1
     fi
 done

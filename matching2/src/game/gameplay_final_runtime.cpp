@@ -38,8 +38,9 @@ void MirrorEmbeddedTimers(PlayerRuntime& state) {
     state.invulnerability_timer.current=state.invulnerable;
     state.invulnerability_timer.previous=FloatBits(state.invuln_frac);
     state.invulnerability_timer.speed=&state.invulnerability_timer_speed;
-    if (state.invulnerable < 1)
-        state.invulnerability_timer.flags &= ~1u;
+    // Retail leaves the initialized bit armed after the countdown reaches
+    // zero; later FUN_00405410 calls reuse the same timer without reseeding
+    // the sentinel.
     state.hold_timer_state.target=state.hold_timer_prev;
     state.hold_timer_state.current=state.hold_timer;
     state.hold_timer_state.previous=FloatBits(state.hold_timer_frac);
@@ -303,7 +304,9 @@ int UpdatePlayerState(PlayerRuntime&s,std::uint32_t input,PlayerStateEnv* env){
     PlayerStateEnv e = env ? *env : PlayerStateEnv{};
     // Retail leaves the state timer and invulnerability untouched while the
     // switch and its callbacks run. Both advances happen in the tail below.
-    const float spd = e.frame_delta;
+    // Respawn writes the global frame delta to 1.0 before this tail, so this
+    // remains mutable rather than caching the pre-switch value.
+    float spd = e.frame_delta;
 
     // Retail FUN_00405410 on the a3[285..289] timer struct (a1+0x474):
     // first-use sentinel init, then current = value, previous = value - 1,
@@ -360,23 +363,38 @@ int UpdatePlayerState(PlayerRuntime&s,std::uint32_t input,PlayerStateEnv* env){
             s.power = std::max(0, s.power - 64);   // word_474C48 -= 0x40, clamp 0
             if (e.power_hud) e.power_hud(s.power / 20, (s.power % 20) * 100 / 20);
             // fan base angle: sub_426610 on (0, py-224, 0) -> atan2(-224, -px)
-            const float fa = e.fan_angle ? e.fan_angle(s) : std::atan2(-224.0f, -s.px);
+            const float fan_point[3] = {0.0f, s.py - 224.0f, 0.0f};
+            const float fa = e.fan_angle_ex ? e.fan_angle_ex(fan_point, s) :
+                             (e.fan_angle ? e.fan_angle(s) :
+                              std::atan2(-224.0f, -s.px));
+            const float fan_position[3] = {s.px, s.py, s.pz};
             for (int i = 0; i < 7; ++i) {
                 const int type = (i == 1 || i == 3 || i == 5) ? 4 : 1;
                 const float angle = (float)i * 0.11219974f + fa - 0.39269909f;
-                if (e.death_fan) e.death_fan(type, angle);   // sub_41BB00(px, type, 0xFFFFFF, angle, 3.0)
+                if (e.death_fan_ex)
+                    e.death_fan_ex(fan_position, type, 0x00FFFFFFu, angle, 3.0f);
+                else if (e.death_fan)
+                    e.death_fan(type, angle);   // sub_41BB00(px, type, 0xFFFFFF, angle, 3.0)
             }
             if (e.attached_effects) e.attached_effects(s);   // sub_426F70
         }
         if (s.timer >= 30) {                       // retail: 0x1D < t
             if (!e.can_respawn) {                  // DAT_00474C70 < 0
-                if (e.game_over_flag == 1) { if (e.game_over) e.game_over(); }  // sub_40AC90(4)
+                if (e.game_over_flag == 1) {
+                    if (e.game_over_ex) e.game_over_ex(4);
+                    else if (e.game_over) e.game_over();
+                }  // sub_40AC90(4)
                 else { if (e.stage_start) e.stage_start(); }                    // sub_4231D0
             } else {
                 s.state = 0;
-                e.frame_delta = 1.0f;              // retail: DAT_00476F78 = 1.0f
-                if (env) env->frame_delta = 1.0f;
-                if (e.respawn_effect) e.respawn_effect(s);  // sub_427B50(px, 32.0f, 16.0f, 30, 150)
+                spd = 1.0f;                         // retail: DAT_00476F78 = 1.0f
+                e.frame_delta = spd;
+                if (env) env->frame_delta = spd;
+                const float respawn_position[3] = {s.px, s.py, s.pz};
+                if (e.respawn_effect_ex)
+                    e.respawn_effect_ex(respawn_position, 32.0f, 16.0f, 30, 150);
+                else if (e.respawn_effect)
+                    e.respawn_effect(s);             // sub_427B50(px, 32.0f, 16.0f, 30, 150)
                 s.px_prev = s.px;                  // retail: +0x440..8 = +0x3C0..8
                 s.py_prev = s.py;
                 s.pz_prev = s.pz;
@@ -413,11 +431,17 @@ int UpdatePlayerState(PlayerRuntime&s,std::uint32_t input,PlayerStateEnv* env){
         s.history[1] = s.y;                  // retail: +0x4370 = +0x3D0
         if (s.timer < 30) {                  // retail: t < 0x1E
             const float radius = (float)s.timer * 17.066667f + 64.0f;  // flt_470D44/470BC8
-            if (e.entry_effect) {
-                e.entry_effect(radius, 1);           // sub_408100(radius, 0, 1)
-                e.entry_effect(radius * 0.25f, 0);   // sub_408100(radius*flt_470D40, 0, 0)
+            if (e.entry_effect_ex) {
+                e.entry_effect_ex(radius, 0, 1);           // sub_408100(radius, 0, 1)
+                e.entry_effect_ex(radius * 0.25f, 0, 0);   // sub_408100(radius*flt_470D40, 0, 0)
+            } else if (e.entry_effect) {
+                e.entry_effect(radius, 1);
+                e.entry_effect(radius * 0.25f, 0);
             }
-            if (e.entry_bullets) e.entry_bullets(radius);   // sub_41C800
+            if (e.entry_bullets_ex)
+                e.entry_bullets_ex(radius, 0);              // sub_41C800(manager, radius)
+            else if (e.entry_bullets)
+                e.entry_bullets(radius);
         } else {
             if (e.sweep_enemy) e.sweep_enemy(0, 0);
             if (e.clear_bullets) e.clear_bullets(0);
@@ -598,7 +622,16 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
     s.counter=c; // host-side counter; retail gates on word_474C48 (>= 100)
     s.events.clear();
     auto live_handle = [&](int handle) {
-        return handle != 0 && (!s.handle_live || s.handle_live(handle));
+        if (handle == 0)
+            return false;
+        // A nonzero slot is only a stale integer until the manager list proves
+        // membership. Retail searches both intrusive lists before touching the
+        // object; the host records that missing resolver as a partial edge.
+        if (!s.handle_live) {
+            s.manager_partial=true;
+            return false;
+        }
+        return s.handle_live(handle);
     };
     auto refetch_sprite_for = [&]() {
         // Raw switch 0x42704E: cases 0/3 -> 0x14, 1/4 -> 0x15,
@@ -618,13 +651,20 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                 // Retail high path writes ANM record +0x35C and its linked
                 // chain, independent of the low-path +0x304 frame word.
                 s.animation_flags[i]|=0x4000000u;
-                if(s.flag_linked)s.flag_linked(s.handles[i]);
+                if(s.flag_linked)
+                    s.flag_linked(s.handles[i]);
+                else
+                    s.manager_partial=true;
             }
             // 0x42702F clears every slot, including empty/stale records,
             // before the exact six-way refetch switch.
             s.handles[i]=0;
-            if(sprite>=0 && s.refetch_sprite)
-                s.handles[i]=s.refetch_sprite(sprite);
+            if (sprite >= 0) {
+                if (s.refetch_animation)
+                    s.handles[i] = s.refetch_animation(i, sprite, 0x0F);
+                else if (s.refetch_sprite)
+                    s.handles[i] = s.refetch_sprite(sprite);
+            }
             if(live && sprite>=0)s.events.push_back(sprite);
         }
     }else{
@@ -633,7 +673,10 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         for(int i=0;i<4;++i){
             if(live_handle(s.handles[i])){
                 s.frame_states[i]=1;
-                if(s.frame_linked)s.frame_linked(s.handles[i]);
+                if(s.frame_linked)
+                    s.frame_linked(s.handles[i]);
+                else
+                    s.manager_partial=true;
             }
         }
     }
@@ -647,11 +690,19 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         return;
 
     auto mark_and_clear = [&](FamiliarSlot& slot) {
-        if(live_handle(slot.handle) && s.flag_linked)
-            s.flag_linked(slot.handle);
-        // Retail clears the familiar mode word here but leaves the old ANM
-        // handle word untouched; the manager flag walk owns its retirement.
+        // The release sweep writes mode=0 first, then marks a live familiar
+        // with the low +0x304 frame state. It does not use the high +0x35C
+        // retirement flag used when rebuilding an active slot.
+        const int old_handle=slot.handle;
         slot.mode=0;
+        if(live_handle(old_handle)) {
+            if(s.frame_linked)
+                s.frame_linked(old_handle);
+            else
+                s.manager_partial=true;
+        }
+        // Retail leaves the old ANM handle word untouched; manager ownership
+        // decides when that object is reclaimed.
     };
     for(int i=level;i<4;++i)
         mark_and_clear(s.familiar_slots[i]);
@@ -675,6 +726,16 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
             base_random_ready=true;
         }
     };
+    auto read_pair = [&](std::array<int,4>& random, int offset,
+                         const std::array<int,2>& table_pair) {
+        if (s.formation.table_offsets_valid) {
+            random[offset]=table_pair[0];
+            random[offset+1]=table_pair[1];
+        } else {
+            random[offset]=random_word();
+            random[offset+1]=random_word();
+        }
+    };
 
     for(int i=0;i<level;++i){
         FamiliarSlot& slot=s.familiar_slots[i];
@@ -685,11 +746,17 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         // point position before mode-specific branches adjust them.
         slot.previous_x=s.formation.source_x;
         slot.previous_y=s.formation.source_y;
-        if(live_handle(slot.handle) && s.flag_linked)
-            s.flag_linked(slot.handle);
+        const int old_handle=slot.handle;
+        if(live_handle(old_handle)) {
+            if (s.flag_linked)
+                s.flag_linked(old_handle);
+            else
+                s.manager_partial=true;
+        }
         slot.handle=0;
         slot.index=i;
-        slot.mode=2;
+        // Retail writes mode=2 only after the ANM has been allocated and the
+        // optional focus initialization/callback assignment has completed.
         slot.callback_kind=0;
         slot.script=0;
         slot.animation_flags=0;
@@ -699,8 +766,8 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
         const int shot=s.shot;
         bool has_position=true;
         if(difficulty==0){
-            for(int j=0;j<4;++j)
-                slot.random[j]=random_word();
+            read_pair(slot.random, 0, s.formation.table_pair_a[i]);
+            read_pair(slot.random, 2, s.formation.table_pair_b[i]);
             const int random_base=focus ? 2 : 0;
             slot.position_x=s.formation.source_x + slot.random[random_base];
             slot.position_y=s.formation.source_y + slot.random[random_base+1];
@@ -708,37 +775,36 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
             slot.previous_x=slot.position_x;
             slot.previous_y=slot.position_y;
         }else if(difficulty==1 && shot==0){
-            if(!focus){
-                slot.random[0]=random_word();
-                slot.random[1]=random_word();
-            }
-            slot.random[2]=random_word();
-            slot.random[3]=random_word();
+            if(!focus)
+                read_pair(slot.random, 0, s.formation.table_pair_a[i]);
+            read_pair(slot.random, 2, s.formation.table_pair_b[i]);
             slot.position_x=s.formation.player_positions[i][0];
             slot.position_y=s.formation.player_positions[i][1];
             if(focus && old_mode==0){
                 if(i==0){
-                    base_random();
-                    slot.random[0]=base_random_x;
-                    slot.random[1]=base_random_y;
+                    if (s.formation.table_offsets_valid) {
+                        slot.random[0]=s.formation.table_pair_a[0][0];
+                        slot.random[1]=s.formation.table_pair_a[0][1];
+                    } else {
+                        base_random();
+                        slot.random[0]=base_random_x;
+                        slot.random[1]=base_random_y;
+                    }
                 }else{
                     slot.random[0]=s.formation.defaults[i][0];
                     slot.random[1]=s.formation.defaults[i][1];
                 }
             }
             // The initial position is the entry-trail pair selected by the
-            // familiar index (retail uses +0x436C + i*0x40).
-            slot.previous_x=s.formation.history[16*i];
-            slot.previous_y=s.formation.history[16*i+1];
+            // familiar index (retail writes this mirror after ANM creation).
         }else if(difficulty==1 && shot==1){
-            for(int j=0;j<4;++j)
-                slot.random[j]=random_word();
+            read_pair(slot.random, 0, s.formation.table_pair_a[i]);
+            read_pair(slot.random, 2, s.formation.table_pair_b[i]);
             const int random_base=focus ? 2 : 0;
             slot.position_x=s.formation.source_x + slot.random[random_base];
             slot.position_y=s.formation.source_y + slot.random[random_base+1];
         }else if(difficulty==1 && shot==2){
-            slot.random[0]=random_word();
-            slot.random[1]=random_word();
+            read_pair(slot.random, 0, s.formation.table_pair_a[i]);
             if(!focus || old_mode==0){
                 slot.position_x=s.formation.source_x + slot.random[0];
                 slot.position_y=s.formation.source_y + slot.random[1];
@@ -772,11 +838,20 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                     s.formation.set_callback(i,slot.callback_kind);
                 }
             }
-            if(s.formation.create_animation){
+            if (s.formation.create_animation_ex) {
+                s.formation.callback_order.push_back(2);
+                slot.handle=s.formation.create_animation_ex(
+                    i, slot.script, 0x0F, 0x40000000u);
+            } else if(s.formation.create_animation){
                 s.formation.callback_order.push_back(2);
                 slot.handle=s.formation.create_animation(i,slot.script);
             } else {
                 s.formation_partial=true;
+            }
+            if(difficulty==1 && shot==0){
+                // Raw 0x427381 writes the history mirror after creation.
+                slot.previous_x=s.formation.history[16*i];
+                slot.previous_y=s.formation.history[16*i+1];
             }
             if(difficulty==1 && shot==2){
                 if(focus && s.formation.focus_init){
@@ -790,6 +865,9 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                 }
             }
         }
+        // Common tail at 0x42782F: every rebuilt record becomes active only
+        // after its branch-specific manager calls have completed.
+        slot.mode=2;
     }
     s.familiar_count=level;
     s.familiar_levels={1,1,1,1};

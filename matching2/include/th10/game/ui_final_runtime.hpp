@@ -194,6 +194,13 @@ struct MusicRoomEnv{
   // and an existing-object ramp, so this callback is not that ramp unless the
   // host implements the resolved-object/ramp state behind it.
   void (*set_position)(void*,int,float,float,float){};
+  // Optional resolved-object position read and the sub_434A80 ramp sink.
+  // The retail selection-change path uses an immediate write when the
+  // existing Y differs by at least 40, and otherwise installs a four-frame
+  // position ramp. Hosts that do not expose object position can retain the
+  // immediate set_position fallback without claiming to model that choice.
+  bool (*get_position_y)(void*,int,float*){};
+  void (*set_position_ramp)(void*,int,float,float,float){};
   // sub_409E50 marks an object tree at depth 1; it does not release the ANM.
   void (*stop_anm)(void*,int){};
   void (*play_sound)(int){};               // sub_43DC90(&DAT_00492590,id,0)
@@ -206,10 +213,12 @@ struct MusicRoomEnv{
   // sub_44BE70 receives the music-room history object (the retail call passes
   // this+0x24), not the animation manager.
   void (*history_pop)(MusicRoom&){};
-  // dword_47783C + 0x1D892 is the retail played table. These callbacks keep
-  // its query/update semantics visible to the retail overload.
+  // dword_47783C + 0x1D892 is the retail played table. Row/preview queries
+  // receive the row index; the retail playback write receives the literal
+  // table index emitted by 0x00433EF0 (zero in the recovered instruction).
   bool (*is_track_played)(int){};
   void (*mark_track_played)(int){};
+  bool resource_available{true};          // host result of sub_44B360
 };
 // Host model of retail 0x00433EF0. State fields mirror the retail offsets:
 // +28 substate, +32 phase, +36 selection, +40 previous selection,
@@ -244,6 +253,10 @@ struct MusicRoom{
   std::vector<int>events;                // legacy no-env side-effect trace
   std::vector<int>rows;                  // legacy sprite ids (173+v19)
   std::vector<int>row_handles;           // +1556, one handle per parsed row
+  // sub_44BE70 decrements this cursor (clamping at zero) and reads the
+  // corresponding +12/+76 history pair; it does not erase the backing table.
+  // -1 is the host sentinel for a table whose current cursor is its last row.
+  int history_cursor{-1};
   std::vector<std::pair<int,int>>history; // +12/+76 history entries for sub_44BE70
 };
 int UpdateMusicRoom(MusicRoom&,const MusicRoomEnv&,std::uint32_t input,

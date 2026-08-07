@@ -126,6 +126,12 @@ int __fastcall EffectRuntime_Render(void* owner) {
 // order), and the width/height entries are scaled by 1/256 before the
 // first row block is mirrored to +636.
 int EffectRuntime_Preload(void* owner, int slot, void* bank) {
+#ifndef _MSC_VER
+    // The standalone has no retail animation-manager bank. Keep this
+    // external resource edge defined without fabricating bank storage.
+    if (owner == 0 || bank == 0)
+        return -1;
+#endif
     unsigned char* bytes = (unsigned char*)owner;
     uint32_t* bank32 = (uint32_t*)bank;
     if (bank32[66] == 0 || bank32[73] != 0)

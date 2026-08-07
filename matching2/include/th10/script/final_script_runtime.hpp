@@ -1,12 +1,16 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include "th10/msvc_stdint.hpp"
+#else
 #include <cstdint>
+#endif
 
 // Retail 0x00450700: bind a named ECL subroutine into the VM's current
 // function record.  The retail calling convention is __usercall (name in ecx,
 // vm in esi); the readable form is a plain two-argument call.
 
-namespace th10::script_final {
+namespace th10 { namespace script_final {
 
 // The current function record, pointed to from vm+0x04.
 struct EclFunctionRecord {
@@ -41,4 +45,4 @@ struct EclVm {
 // point into the current function record, clearing the record's name slot.
 int EclVm_BindSubroutine(EclVm* vm, const char* name);
 
-}  // namespace th10::script_final
+} }  // namespace th10::script_final

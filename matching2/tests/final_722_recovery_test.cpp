@@ -31,12 +31,57 @@ static int RefetchSprite(int sprite) { ++refetch_calls; return 900+sprite+refetc
 static void CountLowMark(int) { ++low_marks; }
 static void CountHighMark(int) { ++high_marks; }
 static bool OnlyHandle12IsLive(int handle) { return handle==12; }
+static bool AllHandlesAreLive(int handle) { return handle!=0; }
 static void ObservePlayerBeforeTail(gameplay_final::PlayerRuntime& player,
                                     std::uint32_t) {
     observed_timer=player.timer;
     observed_invulnerable=player.invulnerable;
 }
 static std::uint32_t AlwaysFive() { return 5u; }
+static int rich_entry_calls=0;
+static float rich_entry_radius[2]{};
+static int rich_entry_origin[2]{};
+static int rich_entry_mode[2]{};
+static void RichEntry(float radius, int origin, int mode) {
+    if (rich_entry_calls < 2) {
+        rich_entry_radius[rich_entry_calls]=radius;
+        rich_entry_origin[rich_entry_calls]=origin;
+        rich_entry_mode[rich_entry_calls]=mode;
+    }
+    ++rich_entry_calls;
+}
+static int rich_respawn_calls=0;
+static float rich_respawn_position[3]{};
+static float rich_respawn_width=0.0f, rich_respawn_height=0.0f;
+static int rich_respawn_frames=0, rich_respawn_mode=0;
+static void RichRespawn(const float position[3], float width, float height,
+                        int frames, int mode) {
+    ++rich_respawn_calls;
+    for (int i=0; i<3; ++i) rich_respawn_position[i]=position[i];
+    rich_respawn_width=width; rich_respawn_height=height;
+    rich_respawn_frames=frames; rich_respawn_mode=mode;
+}
+static int rich_refetch_calls=0;
+static int rich_refetch_slots[4]{}, rich_refetch_sprites[4]{}, rich_refetch_layers[4]{};
+static int RichRefetch(int slot, int sprite, int layer) {
+    const int i=rich_refetch_calls++;
+    if (i < 4) {
+        rich_refetch_slots[i]=slot;
+        rich_refetch_sprites[i]=sprite;
+        rich_refetch_layers[i]=layer;
+    }
+    return 1000+i;
+}
+static gameplay_final::AttachedEffects* rich_effects_for_hook=nullptr;
+static int rich_create_calls=0, rich_create_mode=0, rich_create_slot=0;
+static int rich_create_script=0, rich_create_layer=0;
+static std::uint32_t rich_create_flags=0;
+static int RichCreate(int slot, int script, int layer, std::uint32_t flags) {
+    ++rich_create_calls; rich_create_slot=slot; rich_create_script=script;
+    rich_create_layer=layer; rich_create_flags=flags;
+    rich_create_mode = rich_effects_for_hook->familiar_slots[slot].mode;
+    return 2000+slot;
+}
 int main(){
  {ui_final::Notice n;ui_final::NoticeEnv e={};ui_final::QueueNotice(n,e,2,"abc",7);assert(n.slot==2&&n.text=="abc"&&(n.flags&1)&&n.score==0&&n.score_capped==0);}
  {ui_final::FrontTick s;s.transition=true;s.flags=0x10;s.timer=119;ui_final::FrontEnv e={};assert(ui_final::UpdateFront(s,e)==1&&s.mode==14&&s.timer==120&&s.position_words[0]==0);DAT_00491ff4=0x1000;ui_final::FrontTick s2;s2.transition=true;s2.flags=0x10;s2.timer=119;ui_final::UpdateFront(s2,e);assert(s2.mode==2);DAT_00491ff4=0;}
@@ -45,6 +90,13 @@ int main(){
  {ui_final::OptionsView s;s.music=321;s.sound=45;s.selection=2;ui_final::DrawOptions(s);assert(s.sprites[0]==0x36&&s.sprites[2]==0x34&&s.sprites[3]==0x40&&s.sprites[8]==0x38);ui_final::MainView m;m.value=27;m.selection=1;ui_final::DrawMain(m);assert(m.sprites[0]==0x35&&m.sprites[1]==0x3a&&m.sprites[2]==0x35);}
  {ui_final::MusicRoom s;assert(ui_final::UpdateMusicRoom(s,0,"@a\n@b\n@c\n")==0&&s.track_count==3&&s.phase==0&&s.events.size()==8);s.timer=9;ui_final::UpdateMusicRoom(s,0,"");assert(s.phase==1);s.timer=4;ui_final::UpdateMusicRoom(s,0,"");assert(s.phase==2);ui_final::UpdateMusicRoom(s,0x20,"");assert(s.selection==1);ui_final::UpdateMusicRoom(s,0xa,"");assert(s.phase==3);}
  {gameplay_final::ItemPool p;gameplay_final::Item it;it.state=2;it.type=1;it.x=2.0f;it.y=1.0f;p.items.push_back(it);gameplay_final::ItemEnv e={};e.player_x=0;e.player_y=0;e.frame_delta=1;e.collect_l=-8;e.collect_t=-8;e.collect_r=8;e.collect_b=8;e.magnet_l=-8;e.magnet_t=-8;e.magnet_r=8;e.magnet_b=8;for(int i=0;i<20&&p.collected==0;++i)gameplay_final::UpdateItems(p,e);assert(p.collected==1&&p.items[0].state==0);}
+ // Entry effects preserve the retail (radius, origin=0, mode) order.
+ {gameplay_final::PlayerRuntime p; gameplay_final::PlayerStateEnv e={};
+  p.state=0; e.player_present=false; e.hold_enabled=false; e.entry_effect_ex=RichEntry;
+  rich_entry_calls=0; gameplay_final::UpdatePlayerState(p,0,&e);
+  assert(rich_entry_calls==2&&std::fabs(rich_entry_radius[0]-64.0f)<1e-5f&&
+         std::fabs(rich_entry_radius[1]-16.0f)<1e-5f&&rich_entry_origin[0]==0&&
+         rich_entry_origin[1]==0&&rich_entry_mode[0]==1&&rich_entry_mode[1]==0); }
  {gameplay_final::PlayerRuntime p; gameplay_final::PlayerStateEnv env={};
   env.player_present=false; env.hold_enabled=false;
   p.state=0; gameplay_final::UpdatePlayerState(p,0,&env);
@@ -66,7 +118,26 @@ int main(){
   env.move=nullptr; env.player_present=false;
   gameplay_final::UpdatePlayerState(p,0,&env);
   assert(p.state==0&&p.y==48000&&p.invulnerable==279&&p.timer==1); }
+ // Respawn changes the global frame delta before the shared tail and passes
+ // the allocator's exact (position, width, height, frames, mode) tuple.
+ {gameplay_final::PlayerRuntime p; gameplay_final::PlayerStateEnv e={};
+  p.state=2; p.timer=30; p.timer_frac=30.0f; p.px=12.0f; p.py=34.0f; p.pz=5.0f;
+  e.frame_delta=2.0f; e.player_present=false; e.hold_enabled=false;
+  e.respawn_effect_ex=RichRespawn; rich_respawn_calls=0;
+  gameplay_final::UpdatePlayerState(p,0,&e);
+  assert(rich_respawn_calls==1&&rich_respawn_position[0]==12.0f&&
+         rich_respawn_position[1]==34.0f&&rich_respawn_position[2]==5.0f&&
+         rich_respawn_width==32.0f&&rich_respawn_height==16.0f&&
+         rich_respawn_frames==30&&rich_respawn_mode==150&&e.frame_delta==1.0f&&
+         p.timer==1&&p.invulnerable==279); }
+ // Countdown expiry keeps the retail timer initialized bit armed.
+ {gameplay_final::PlayerRuntime p; gameplay_final::PlayerStateEnv e={};
+  p.state=3; p.invulnerable=1; p.invuln_frac=1.0f;
+  p.invulnerability_timer.flags=1; e.player_present=false; e.hold_enabled=false;
+  gameplay_final::UpdatePlayerState(p,0,&e);
+  assert(p.invulnerable==0&&(p.invulnerability_timer.flags&1u)!=0); }
  {gameplay_final::AttachedEffects e;e.handles={1,2,0,0};
+  e.handle_live=AllHandlesAreLive;
   e.frame_linked=CountLowMark; e.flag_linked=CountHighMark;
   low_marks=high_marks=0; gameplay_final::UpdateAttachedEffects(e,50);
   assert(low_marks==2&&high_marks==0&&e.frame_states[0]==1&&e.frame_states[1]==1&&e.handles[0]==1&&
@@ -74,6 +145,15 @@ int main(){
   gameplay_final::UpdateAttachedEffects(e,100);
   assert(high_marks==2&&(e.animation_flags[0]&0x4000000)&&e.frame_states[0]==1&&
          e.handles[0]==0&&e.events.size()==2&&e.events[0]>=20&&e.events[0]<=22); }
+ // High-path refetch uses the player ANM owner slot, sprite id, and layer 15.
+ {gameplay_final::AttachedEffects e; e.difficulty=0; e.shot=1;
+  e.handles={1,2,3,4}; e.handle_live=AllHandlesAreLive;
+  e.refetch_animation=RichRefetch; rich_refetch_calls=0;
+  gameplay_final::UpdateAttachedEffects(e,100);
+  assert(rich_refetch_calls==4&&rich_refetch_slots[0]==0&&
+         rich_refetch_slots[3]==3&&rich_refetch_sprites[0]==21&&
+         rich_refetch_sprites[3]==21&&rich_refetch_layers[0]==15&&
+         rich_refetch_layers[3]==15); }
  // High-path refetch clears every slot, including empty/stale records, while
  // only a live old handle receives the +0x35C flag and event report.
  {gameplay_final::AttachedEffects e; e.difficulty=0; e.shot=1;
@@ -84,7 +164,7 @@ int main(){
          e.handles[2]!=0&&e.handles[3]!=0&&e.events.size()==1&&
          e.events[0]==21&&e.animation_flags[1]==0&&
          (e.animation_flags[2]&0x4000000));
-  e.handle_live=nullptr; e.familiar_count=4; gameplay_final::UpdateAttachedEffects(e,40);
+  e.handle_live=AllHandlesAreLive; e.familiar_count=4; gameplay_final::UpdateAttachedEffects(e,40);
   assert(e.frame_states[0]==1&&e.frame_states[1]==1&&e.frame_states[2]==1&&
          e.frame_states[3]==1&&(e.animation_flags[2]&0x4000000)); }
  // 0x00442670. Corner order is {left,top} {right,top} {left,bottom}
@@ -168,5 +248,28 @@ int main(){
          e.familiar_slots[0].script==0x13&&e.familiar_slots[0].callback_kind==2&&
          e.formation.callback_order.size()==3&&e.formation.callback_order[0]==2&&
          e.formation.callback_order[1]==3&&e.formation.callback_order[2]==1); }
+ // Familiar mode is committed after the manager creates the ANM; creation
+ // receives layer 15 and the ANM high flag before that commit.
+ {gameplay_final::AttachedEffects e; e.difficulty=0; e.shot=0;
+  e.familiar_slots[0].mode=7; rich_effects_for_hook=&e; rich_create_calls=0;
+  e.formation.source_x=100; e.formation.source_y=200;
+  e.formation.table_offsets_valid=true;
+  e.formation.table_pair_a[0]={10,20}; e.formation.table_pair_b[0]={30,40};
+  e.formation.create_animation_ex=RichCreate;
+  gameplay_final::UpdateAttachedEffects(e,20);
+  assert(rich_create_calls==1&&rich_create_slot==0&&rich_create_script==0x11&&
+         rich_create_layer==15&&rich_create_flags==0x40000000u&&
+         rich_create_mode==7&&e.familiar_slots[0].mode==2&&
+         e.familiar_slots[0].handle==2000&&
+         e.familiar_slots[0].position_x==110&&e.familiar_slots[0].position_y==220&&
+         e.familiar_slots[0].random[0]==10&&e.familiar_slots[0].random[3]==40); }
+ // Excess familiar records use the low +0x304 frame mark, not the high
+ // retirement flag, and retain their manager-owned handle word.
+ {gameplay_final::AttachedEffects e; e.difficulty=2; e.familiar_count=2;
+  e.familiar_slots[1].mode=2; e.familiar_slots[1].handle=77;
+  e.handle_live=AllHandlesAreLive; e.frame_linked=CountLowMark; low_marks=0;
+  gameplay_final::UpdateAttachedEffects(e,20);
+  assert(low_marks==1&&e.familiar_slots[1].mode==0&&
+         e.familiar_slots[1].handle==77); }
  std::cout<<"FINAL_722_RECOVERY_TESTS_PASS\n";
 }

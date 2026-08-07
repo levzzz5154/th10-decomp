@@ -34,6 +34,7 @@ OVERLAY_SOURCES=(
     src/game/stage_text.cpp
     src/game/game_thread_queue.cpp
     src/game/game_thread_overlay.cpp
+    src/game/linked_pool_append.cpp
     src/game/progress.cpp
     src/game/progress_worker.cpp
     src/archive/dat.cpp
@@ -49,6 +50,7 @@ OVERLAY_SOURCES=(
     src/game/recovery_leaves.cpp
     src/game/stage_tips.cpp
     src/platform/sound_stream_start.cpp
+    src/platform/sound_worker.cpp
     src/platform/sound_commands.cpp
     src/platform/text_log.cpp
     src/platform/joystick_property_overlay.cpp
@@ -108,7 +110,7 @@ OVERLAY_SOURCES=(
 
 for source in "${OVERLAY_SOURCES[@]}"; do
     base="$(basename "$source" .cpp)"
-    wine "$CL" /nologo /c /O2 /Gz /MT /Gy /G6 /GF \
+    wine "$CL" /nologo /c /O2 /Gz /MT /Gy /G6 /GF /Dnullptr=0 \
         "/I$(winepath -w "$ROOT/include")" \
         "/Fo$(winepath -w "$BUILD/$base.obj")" \
         "$(winepath -w "$ROOT/$source")"

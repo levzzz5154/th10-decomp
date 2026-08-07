@@ -115,9 +115,21 @@ struct FamiliarFormationInputs {
     std::array<std::array<int,2>,4> player_positions{}; // +0x43AC/+0x43B0
     std::array<std::array<int,2>,4> defaults{};          // +0x324C/+0x3250
     std::array<int,66> history{};              // +0x436C entry trail
-    std::array<int,4> random_values{};         // deterministic test fallback
-    std::uint32_t (*random_word)(){};          // retail 0x00463B2C channel
+    // Scaled fixed-point pairs read from the player difficulty table at
+    // +0x45C (the retail dword_476F7C level/index selection). Pair A is the
+    // +0x20 source and pair B is the +0x98 source. They are per familiar slot
+    // after applying the retail level offset, so no native table pointer is
+    // required in the host model.
+    bool table_offsets_valid{};
+    std::array<std::array<int,2>,4> table_pair_a{};
+    std::array<std::array<int,2>,4> table_pair_b{};
+    std::array<int,4> random_values{};         // deterministic fallback only
+    std::uint32_t (*random_word)(){};          // fallback channel when table data is absent
     int (*create_animation)(int slot, int script){}; // 0x449950/0x449870/0x4489D0
+    // Exact creation contract: layer 0x0F and the freshly allocated VM's
+    // 0x40000000 flag are manager-owned side effects.
+    int (*create_animation_ex)(int slot, int script, int layer,
+                               std::uint32_t animation_flags){};
     void (*set_callback)(int slot, int callback_kind){}; // pointer write at +0x3330
     void (*focus_init)(int slot){};            // 0x449470, d=1/shot2 focused path
     std::vector<int> callback_order{};         // host trace: callback/create/focus order
@@ -195,10 +207,17 @@ struct PlayerStateEnv {
     void (*sweep_enemy)(int entry_y, int index);            // sub_408030 (2000 candidates, cases 0/1/3)
     void (*clear_bullets)(int mode);                        // case 0/1 list walk (0) / sub_41C850 (1)
     void (*entry_effect)(float radius, int mode);           // sub_408100 (case 0, t < 30; modes 1/0)
+    void (*entry_effect_ex)(float radius, int origin, int mode); // exact (radius, 0, mode)
     void (*entry_bullets)(float radius);                    // sub_41C800 (case 0, t < 30)
+    void (*entry_bullets_ex)(float radius, int origin);      // exact (radius, 0)
     void (*respawn_effect)(PlayerRuntime&);                 // sub_427B50 (case-4 respawn)
+    void (*respawn_effect_ex)(const float position[3], float width,
+                              float height, int frames, int mode);
     float (*fan_angle)(PlayerRuntime&);                     // sub_426610 (death-fan base angle)
+    float (*fan_angle_ex)(const float point[3], const PlayerRuntime&);
     void (*death_fan)(int type, float angle);               // sub_41BB00 x7 (LABEL_46, t == 3)
+    void (*death_fan_ex)(const float position[3], int type,
+                         std::uint32_t color, float angle, float speed);
     void (*power_hud)(int level, int frac);                 // sub_4054B0
     void (*bonus_timer)(int value);                         // sub_412E70 (3000)
     void (*focus_drain)();                                  // sub_405860
@@ -206,6 +225,7 @@ struct PlayerStateEnv {
     void (*hold_update)(PlayerRuntime&);                    // sub_4281D0
     void (*tail_update)(PlayerRuntime&);                    // sub_428280
     void (*game_over)();                                    // sub_40AC90 (continue screen)
+    void (*game_over_ex)(int mode);                         // exact sub_40AC90(4)
     void (*stage_start)();                                  // sub_4231D0 (stage restart)
 };
 int UpdatePlayerState(PlayerRuntime&, std::uint32_t input, PlayerStateEnv* env = nullptr);
@@ -223,6 +243,7 @@ struct AttachedEffects {
     std::array<int,4> familiar_levels{};  // +0x332C/+0x33C4/+0x345C/+0x34F4
     FamiliarFormationInputs formation{};
     bool formation_partial{};              // set when external ANM/random hooks are absent
+    bool manager_partial{};                 // set when ANM-list membership/chain hooks are absent
     // Retail 0x00426F70 env hooks: flag_linked fires per swept record whose
     // linked chain gets the +860 flag; refetch_sprite replaces an effect slot
     // through sub_448E30. `create_animation`/`set_callback` and the formation
@@ -231,6 +252,7 @@ struct AttachedEffects {
     void (*frame_linked)(int handle){};  // low-path +0x304 frame/link walk
     bool (*handle_live)(int handle){}; // host stand-in for the two retail ANM lists
     int (*refetch_sprite)(int sprite_id){};
+    int (*refetch_animation)(int slot, int sprite_id, int layer){};
 };
 void UpdateAttachedEffects(AttachedEffects&, int global_counter);
 }
