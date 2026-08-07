@@ -376,9 +376,9 @@ struct HostContext {
     // title frame so the menu and stage entry can be driven headlessly.
     // Without it the real boot sits on "Press Any Button" forever, which is
     // why boot-real spawned 3 child VMs where the scripted smoke path made 18.
-    static const int kScriptedInputMax = 16;
-    int scripted_frames[16] = {};
-    unsigned int scripted_keys[16] = {};
+    static const int kScriptedInputMax = 64;
+    int scripted_frames[kScriptedInputMax] = {};
+    unsigned int scripted_keys[kScriptedInputMax] = {};
     int scripted_count = 0;
     int presented_frames = 0;
     int capture_done = 0;
