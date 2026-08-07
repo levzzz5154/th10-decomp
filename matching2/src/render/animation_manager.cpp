@@ -612,6 +612,10 @@ void AnimationManager_DestroyStorage(void* manager) {
     }
 }
 
+// 0x00449950 - Allocate an animation object from the 4,096-entry pool at
+// +0x68 (0x3AC stride), skipping slots flagged busy at +0x3AC068 and
+// advancing the +0x3AD068 cursor by (index+1) % 4096; a ring that is busy
+// at both the cursor and its successor falls back to a heap object.
 AnimationObject* AnimationManager_AllocateObject(void* manager) {
     uint8_t* bytes = (uint8_t*)manager;
     unsigned int* cursor = (unsigned int*)(bytes + 0x3AD068);
@@ -2808,8 +2812,32 @@ int AnimationManager_FindChildByScriptIndex(
     }
     return 0;
 }
+
+void AnimationManager_AttachChild(void* parent, void* child) {
+    // The parent's own membership node is the chain head on the host (the
+    // retail keeps the head pointer at parent+0x10; the node moved to +0x1C
+    // because the host pointer fields are 8 bytes).  Head-insert the
+    // child's membership node: node.next = head.next; node.previous = head;
+    // head.next = node.  The existing remover (AnimationManager_RemoveObject)
+    // already unlinks the membership node on removal.
+    AnimationListNode* head = AnimationObject_ChildMembership(
+        (AnimationObject*)parent);
+    AnimationListNode* node = AnimationObject_ChildMembership(
+        (AnimationObject*)child);
+    node->animation = (AnimationObject*)child;
+    node->previous = head;
+    node->next = head->next;
+    if (head->next != 0) {
+        head->next->previous = node;
+    }
+    head->next = node;
+}
 #endif
 
+// The child-attach is a host-side addition (the retail builders inline the
+// insert); it lives in the host branch above (both branches get it via the
+// common header declaration; the MSVC retail rebuild uses the inline
+// inserts from the retail builders instead).
 #ifdef _MSC_VER
 __declspec(naked) int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,

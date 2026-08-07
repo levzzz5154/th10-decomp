@@ -1,6 +1,10 @@
 # Local environments and assistant state
 /.venv/
 /.opencode/
+/.claude/
+
+# Local reference screenshots of the retail game
+/retail-screenshots/
 
 # Generated build trees and binaries
 /build/

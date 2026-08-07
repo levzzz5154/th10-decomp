@@ -1,25 +1,16 @@
 {
   "comment": "Named empty host functions and inert hook lambdas. This count may only fall. It was re-established when the empty-lambda-arg pattern was added: that pattern exposed 19 do-nothing hook edges the assigned-lambda pattern had never seen. Thirteen of those were fixed on the spot; the rest are edges whose subsystem the host does not build. see tools/runtime_placeholder_audit.py.",
-  "empty_function_count": 18,
-  "files": [
-    "src/game/manager_teardown.cpp:203",
-    "standalone/host_main.cpp:1909",
-    "standalone/host_main.cpp:2847",
-    "standalone/host_main.cpp:3278",
-    "standalone/host_main.cpp:3484",
-    "standalone/host_main.cpp:3485",
-    "standalone/host_main.cpp:3704",
-    "standalone/host_main.cpp:4502",
-    "standalone/host_main.cpp:4526",
-    "standalone/host_main.cpp:4564",
-    "standalone/host_main.cpp:4613",
-    "standalone/host_main.cpp:4649",
-    "standalone/host_main.cpp:4717",
-    "standalone/host_stage.cpp:2047",
-    "standalone/host_stage.cpp:2048",
-    "standalone/host_stage.cpp:2266",
-    "standalone/host_stage.cpp:2267",
-    "standalone/host_stage.cpp:725"
-  ],
-  "exempt": {}
+  "empty_function_count": 0,
+  "files": [],
+  "exempt": {
+    "standalone/host_main.cpp\tstatic_cast<short>(button), [](int) {}, nullptr,": "Retail 0x0042F540's change callback refreshes the menu display copy; the host reads the live DAT_00474E88 table directly each frame (no display copy), and the keyconfig exit branch republishes the table into the config record, so the notification edge has no host-side work.",
+    "standalone/host_main.cpp\tvoid HostMaybeCaptureFrame() {}": "Compile-time stub: the non-_WIN32/capture-less build has no D3D back buffer to read; the _WIN32 definition above implements the capture.",
+    "standalone/host_main.cpp\tvoid HostNop(void*) {}": "Generic inert edge for retail sequence callbacks with no host-side counterpart: select_primary_camera (single-camera immediate-mode host), stop_game_thread (host runs the frame on the calling thread and starts no worker; documented at the binding), and the MainTasks_Shutdown edges (the host performs its own teardown in later WinMain-order hooks).",
+    "standalone/host_main.cpp\tvoid HostReleaseResources(void*) {}": "WinMain-order hook; the host's resources are owned and released by the dedicated later hooks (HostReleaseDeviceChain, HostDestroySound, HostDestroyGameState) rather than a separate resource set.",
+    "standalone/host_main.cpp\tvoid HostDestroyScheduler(void*, void*) {}": "The host's scheduler is static host state with no per-instance ownership to release; process teardown owns it.",
+    "standalone/host_main.cpp\tvoid HostSoundNothingToRelease(void*) {}": "The host audio layer never allocates the retail track table (documented at the definition); the teardown-sequence edge has nothing to act on.",
+    "standalone/host_main.cpp\tvoid HostMidiNothingToRelease(void*) {}": "The host has no MIDI player at all (documented at the definition); every retail MIDI teardown edge has nothing to act on.",
+    "standalone/host_stage.cpp\tvoid HostModeEnterCritical() {}": "Mode transitions run on the single main thread; the only worker thread (sound) never reads mode state, so the critical-section edge guards no concurrent access.",
+    "standalone/host_stage.cpp\tvoid HostModeLeaveCritical() {}": "Mode transitions run on the single main thread; the only worker thread (sound) never reads mode state, so the critical-section edge guards no concurrent access."
+  }
 }

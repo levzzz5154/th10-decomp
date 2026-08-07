@@ -12,10 +12,11 @@
 // already reconstructed in matching2/src/script/ecl_vm.cpp.
 //
 // Retail edges reached from inside the switch:
-//   0x0044DF70 `call`                     -> EclCoreHooks::start_child
-//   0x004500D0 async spawn                -> EclCoreHooks::spawn_child
-//   0x00450160 child lookup by id         -> EclCoreHooks::find_child
-//   0x00450070 float destination resolve  -> EclCoreHooks::resolve_float_destination
+//   0x0044DF70 `call`                     -> EclCore_StartChild (below)
+//   0x004500D0 async spawn                -> EclCore_SpawnChild (below)
+//   0x00450160 child lookup by id         -> EclCore_FindChild (below)
+//   0x00450070 float destination resolve  -> EclCore_ResolveFloatDestination
+//                                            (below)
 //   0x0044FF00 ECL_ResolveIntValue        -> bound (ecl_vm.cpp)
 //   0x0044FF80 ECL_ResolveFloatValue      -> bound (ecl_vm.cpp)
 //   0x00450030 ECL_ResolveVariableValue   -> bound (ecl_vm.cpp)
@@ -33,6 +34,7 @@
 #include "th10/script/ecl_core_interpreter.hpp"
 
 #include "th10/script/ecl.hpp"
+#include "th10/script/script_label_search.hpp"
 #include "th10/math/angle.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
@@ -239,8 +241,10 @@ int EclCore_ExecuteOpcode(EclCoreVm* vm, EclCoreInstruction* instruction,
         if (vm->scratch_top == 0)                             // vm+0x1008
             return EclCore_HaltCurrent(vm);
 
-        // Two untagged four-byte pops, independently guarded.
-        int top = vm->scratch_top - 4;
+        // Two pops after the teardown, independently guarded.  The ip slot is
+        // pointer-width on the host (0x0044DF70 pushes it as a full pointer);
+        // a 32-bit build reads exactly the retail dword.
+        int top = vm->scratch_top - (int)sizeof(void*);
         if (top >= 0) {
             vm->scratch_top = top;
             vm->ip = *(EclCoreInstruction**)(vm->scratch + top);   // vm+0x04
@@ -1136,4 +1140,237 @@ int EclVm_TickCore(EclCoreVm* vm, float frame_delta, const EclCoreHooks* hooks) 
             return kEclCoreRunning;
         }
     }
+}
+
+// ---------------------------------------------------------------------------
+// The four edges the switch reaches through EclCoreHooks.  All recovered from
+// ida/th10.exe.c with the .asm as the instruction-level cross-check; the
+// rejected alternative models (ecl_vm_children.cpp / ecl_vm.cpp) are left in
+// place for their tests but are no longer candidates for binding.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+// Retail 0x00450470's binary search is implemented canonically in
+// src/script/final_script_runtime.cpp; this edge adapts the typed ECL core
+// table and delegates to the shared search helper.
+EclCoreInstruction* EclCore_ResolveScriptLabel(
+    const EclCoreScriptTable* table, const char* name) {
+    const EclCoreScriptEntry* entry =
+        th10::script_label_search::FindScriptLabelEntry<EclCoreScriptTable,
+                                                         EclCoreScriptEntry>(
+            table, name);
+    return entry == nullptr
+               ? 0
+               : (EclCoreInstruction*)((char*)entry->code + 16);
+}
+
+}  // namespace
+
+// 0x0044DF70 - EclCore_StartChild.
+//
+// Retail layout of the marshalled return frame in the child's scratch:
+//   first call   scratch[0..3] = 0 (the zero/return word), scratch[4..7] = 0,
+//                scratch[8..11] = parent->ip, args at scratch[12..]
+//   nested call  scratch[T..T+3] = parent->time bits, scratch[T+4..T+7] =
+//                parent->ip, args at scratch[T+8..]  (T = scratch_top)
+// The callee's locals prologue (0x00450690) sets locals_offset to the old
+// scratch_top, so the args must sit exactly at the post-push top.
+//
+// On the host the ip slot holds a full pointer (the ret, opcode 0x0A, reads
+// it back as one), so the frame grows by sizeof(void*)-4 per ip slot: the
+// zero/ip pushes are pointer-width and the args move to scratch[8+ptr] /
+// scratch[T+4+ptr].  A 32-bit build degenerates to the retail layout
+// exactly.  The dead re-store of the popped return word at scratch[T-4..T-1]
+// (retail reads and writes the same dword; on the host it is a no-op over
+// the caller's last marshalled arg) is reproduced.
+int EclCore_StartChild(EclCoreVm* child, EclCoreVm* parent,
+                       int first_argument) {
+    const int original_top = child->scratch_top;               // v5
+    const EclCoreInstruction* instruction = parent->ip;        // *v3
+    // v6: byte offset from instruction+0x10 to the first record to marshal.
+    // *(instruction+0x10) is the sub name's length dword; each consumed
+    // argument (first_argument of them) sits in one 4-byte word, plus one
+    // word for the name's own length.
+    int offset = *(const int*)((const unsigned char*)instruction + 0x10) +
+                 4 * first_argument + 4;
+    int saved_popped = 0;                                      // v24
+    int destination_offset;                                    // v7
+    if (original_top == 0) {
+        *(int*)(child->scratch + 0) = 0;                       // a1[2] = 0
+        child->scratch_top += 4;
+        destination_offset = 8 + (int)sizeof(void*);
+    } else {
+        destination_offset = original_top + 4 + (int)sizeof(void*);
+    }
+
+    // Argument marshalling: 8-byte records, type byte at +0, store-kind byte
+    // at +1, raw value at +4.  'f'/'g' resolve as float, everything else as
+    // int; a store-kind of 'f' stores a float, anything else an int.
+    int arg_index = first_argument + 1;                        // v8
+    if (arg_index < instruction->param_count) {
+        int cursor = offset + 4;                               // v9
+        float* destination = (float*)(child->scratch + destination_offset);
+        for (;;) {
+            const unsigned char* record =
+                (const unsigned char*)instruction + 0x10 + offset;
+            const unsigned char resolve_kind = record[0];
+            const unsigned char store_kind = record[1];
+            const int word_index = cursor >> 2;
+            if (resolve_kind == 102 || resolve_kind == 103) {  // 'f' / 'g'
+                const float raw = *(const float*)(
+                    (const unsigned char*)instruction + 0x10 +
+                    4 * word_index);
+                const float resolved =
+                    ECL_ResolveFloatValue(parent, (unsigned)arg_index, raw);
+                if (store_kind == 102)
+                    *destination = resolved;
+                else
+                    *(int*)destination = (int)resolved;
+            } else {
+                const int raw = *(const int*)(
+                    (const unsigned char*)instruction + 0x10 +
+                    4 * word_index);
+                const int resolved =
+                    ECL_ResolveIntValue(parent, (unsigned)arg_index, raw);
+                if (store_kind == 102)
+                    *destination = (float)resolved;
+                else
+                    *(int*)destination = resolved;
+            }
+            ++destination;
+            ++arg_index;
+            offset += 8;
+            cursor += 8;
+            if (arg_index >= instruction->param_count)
+                break;
+        }
+    }
+
+    // Return-frame push.  First call: two zero dwords, then parent->ip as a
+    // full host pointer.  Nested: pop the previous return word (re-stored
+    // dead), then push parent->time bits and parent->ip.
+    if (original_top == 0) {
+        child->scratch_top = 4;                                // a1[1026] = 4
+        *(int*)(child->scratch + 4) = 0;                       // a1[3] = 0
+        child->scratch_top += 4;
+        const int v17 = child->scratch_top;
+        if (v17 + (int)sizeof(void*) < 4096) {
+            *(EclCoreInstruction**)(child->scratch + v17) =
+                parent->ip;                                    // LABEL_24
+            child->scratch_top += (int)sizeof(void*);
+        }
+    } else {
+        const int v15 = child->scratch_top - 4;
+        if (v15 >= 0) {
+            child->scratch_top = v15;
+            saved_popped = *(int*)(child->scratch + v15);
+        }
+        child->scratch_top = original_top;
+        *(int*)(child->scratch + original_top - 4) = saved_popped;
+        const int v16 = child->scratch_top;
+        if (v16 + 4 < 4096) {
+            int time_bits;
+            memcpy(&time_bits, parent, sizeof(time_bits));   // *a2, raw bits
+            *(int*)(child->scratch + v16) = time_bits;
+            child->scratch_top += 4;
+        }
+        const int v17 = child->scratch_top;
+        if (v17 + (int)sizeof(void*) < 4096) {
+            *(EclCoreInstruction**)(child->scratch + v17) =
+                parent->ip;
+            child->scratch_top += (int)sizeof(void*);
+        }
+    }
+
+    // Callee bind: the call instruction's sub name sits at ip+0x14.  Retail
+    // publishes the resolved entry through owner->current_record (the same
+    // {name, resolved} record 0x00450700 writes) with the child temporarily
+    // installed as the record, then restores the previous record.  The
+    // resolved value lands in child->ip, so the child's next tick enters the
+    // callee.
+    EclCoreOwner* owner = parent->owner;
+    EclCoreVm* saved_record = owner->current_record;           // v20
+    owner->current_record = child;
+    const EclCoreInstruction* resolved = EclCore_ResolveScriptLabel(
+        owner->script_table, (const char*)instruction + 0x14);
+    child->ip = (EclCoreInstruction*)resolved;
+    child->time = 0.0f;
+    if (resolved != 0) {
+        owner->current_record = saved_record;
+        return 0;
+    }
+    parent->ip = 0;                                            // *v3 = 0
+    return -1;
+}
+
+// 0x004500D0 - EclCore_SpawnChild.
+int EclCore_SpawnChild(EclCoreOwner* owner, int async_id,
+                       int first_argument) {
+    EclCoreVm* child = new EclCoreVm;
+    if (child != 0) {
+        child->scratch_top = 0;                                // v3[1026]
+        child->locals_offset = 0;                              // v3[1027]
+    }
+    EclCoreChildLink* link = new EclCoreChildLink;
+    if (child == 0 || link == 0) {
+        // Retail writes through the null allocations here; the host guards
+        // instead and reports the failure.
+        delete link;
+        delete child;
+        return -1;
+    }
+    child->async_id = async_id;                                // v4[1028]
+    child->owner = owner;                                      // v4[1029]
+    child->time = 0.0f;                                        // *v4
+    child->ip = 0;                                             // v4[1]
+    child->rank_mask = owner->current_record->rank_mask;
+    // (Retail copies the byte at +0x101C of the active record; the typed
+    // member keeps the wider host layout self-consistent.)
+    link->vm = child;                                          // *v5
+    link->next = 0;
+    link->previous = 0;
+    EclCoreChildLink* head = owner->child_list.next;           // *(a1+0x1034)
+    if (head != 0) {
+        link->next = head;
+        head->previous = link;
+    }
+    owner->child_list.next = link;                             // *(a1+0x1034)
+    link->previous = &owner->child_list;                       // a1+0x1030
+    return EclCore_StartChild(child, owner->current_record,
+                              first_argument);
+}
+
+// 0x00450160 - EclCore_FindChild.
+EclCoreChildLink* EclCore_FindChild(EclCoreOwner* owner, int async_id) {
+    // Retail starts the walk at the anchor address (owner+0x1030) and tests
+    // the anchor's own vm slot first; the spawner never writes that slot, so
+    // the guarded test below treats it as empty.  The observable search - the
+    // first linked child whose async_id matches - is identical.
+    EclCoreChildLink* link = &owner->child_list;
+    while (link != 0) {
+        if (link->vm != 0 && link->vm->async_id == async_id)
+            return link;
+        link = link->next;
+    }
+    return 0;
+}
+
+// 0x00450070 - EclCore_ResolveFloatDestination.
+float* EclCore_ResolveFloatDestination(EclCoreVm* vm,
+                                       unsigned int operand) {
+    if ((vm->ip->param_mask & (1u << (operand & 31))) == 0)
+        return 0;
+    const float raw =
+        *(const float*)((const unsigned char*)vm->ip + 0x10 + 4 * operand);
+    if (raw >= 0.0f) {
+        // Local slot: vm scratch base + locals_offset + truncated offset.
+        // (Retail hardcodes +8 from the record base; the typed member keeps
+        // the host layout, with its wider ip pointer, self-consistent.)
+        return (float*)(vm->scratch + vm->locals_offset + (int)raw);
+    }
+    // External slot: vtable slot 4 of the object at vm+0x1014 returns the
+    // destination for the truncated negative index.
+    const EclCoreOwnerVtable* vtable = *(const EclCoreOwnerVtable**)vm->owner;
+    return (float*)vtable->ResolveExternalFloat((int)raw);
 }

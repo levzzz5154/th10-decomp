@@ -1,4 +1,5 @@
 #include "th10/script/ecl.hpp"
+#include "th10/script/final_script_runtime.hpp"
 #include "th10/math/timer.hpp"
 
 #include <cassert>
@@ -181,18 +182,27 @@ void TestScratchWriterAndPolarVector() {
 }
 
 void TestScriptLabelLookup() {
-    struct Entry { const unsigned short* name; void* value; };
-    static const unsigned short alpha[] = {'a','l','p','h','a',0};
-    static const unsigned short beta[] = {'b','e','t','a',0};
-    uint8_t vm[0x100] = {};
-    uint8_t record_a[0x20] = {};
-    Entry entries[2] = {{alpha, record_a}, {beta, record_a}};
-    *(int32_t*)(vm + 8) = 2;
-    *(Entry**)(vm + 0x8c) = entries;
-    static const unsigned short query[] = {'b','e','t','a',0};
-    assert(ECL_FindScriptLabel(vm, query) == record_a + 0x10);
-    static const unsigned short missing[] = {'z',0};
-    assert(ECL_FindScriptLabel(vm, missing) == 0);
+    struct Entry { const char* name; void* value; };
+    static const char alpha[] = "alpha";
+    static const char beta[] = "beta";
+    static const char beta2[] = "beta2";
+    Entry entries[3] = {{alpha, (void*)(uintptr_t)0x100},
+                        {beta, (void*)(uintptr_t)0x200},
+                        {beta2, (void*)(uintptr_t)0x300}};
+    // The lookup reads the table through the typed EclScriptTable layout
+    // (count at +8, entries pointer at +0x8C on 32-bit retail, padded to
+    // +0x90 by host alignment), so the fixture is a real table object.
+    // Values are 32-bit retail code offsets (EclScriptEntry.value is a
+    // dword); small offsets avoid host pointer truncation.
+    th10::script_final::EclScriptTable table = {};
+    table.count = 3;
+    table.entries =
+        reinterpret_cast<const th10::script_final::EclScriptEntry*>(entries);
+    // Retail 0x00450470 searches with ANSI strcmp: byte-wise, case-sensitive
+    // ordering over the sorted {name, value} table; the result is value + 16.
+    assert(ECL_FindScriptLabel(&table, "beta") == (void*)(uintptr_t)0x210);
+    assert(ECL_FindScriptLabel(&table, "beta2") == (void*)(uintptr_t)0x310);
+    assert(ECL_FindScriptLabel(&table, "z") == 0);
 }
 
 void TestExternalVariables() {

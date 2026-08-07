@@ -1,3 +1,23 @@
+// Game-thread arena pointer (pool_constructors).
+void* g_pGameThread = 0;
+unsigned int DAT_00477834 = 0;  // player position (the 0x0041AFD0 sweep)
+
+// The 0x0042B9A0 sweep constants (retail float values).
+float DAT_00476f78 = 1.0f;   // flt_476F78 (frame delta)
+float _DAT_00470b0c = 0.5f;  // flt_470B0C (frame-delta half-rate)
+float _DAT_00470afc = 1.0f;  // flt_470AFC (ramp step)
+float _DAT_00470b68 = 0.99f; // flt_470B68 (ramp gate)
+float _DAT_00470b64 = 1.01f; // flt_470B64 (NaN-filter sentinel)
+
+// Render/effect chain globals (pool_constructors + render leaves).
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+unsigned long dword_491D78 = 0;   // view flags
+unsigned long dword_492378 = 0;   // alpha-blend latch
+unsigned long dword_477834 = 0;   // player position
+}
+
 #include "th10/app/main_tasks.hpp"
 #include "th10/game/manager_factories.hpp"
 #include "th10/game/message_manager_init.hpp"
@@ -13,7 +33,6 @@
 // Retail globals consumed by the linked manager/scheduler/entity sources.
 uint32_t DAT_00491be4 = 0;
 uint32_t DAT_004776f4 = 0;
-uint32_t DAT_0047770c = 0;
 uint32_t DAT_00492274 = 0;
 unsigned char DAT_0049231c = 0;
 float DAT_00470b04 = 0.0f;

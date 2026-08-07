@@ -189,6 +189,9 @@ struct Entity {
         return *(void**)((uint8_t*)this + 0x394);
     }
 };
+// Entity_Init (0x401DE0): the retail entity initializer.
+void __fastcall Entity_Init(void* unused, Entity* entity);
+
 
 bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y);
 bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y);

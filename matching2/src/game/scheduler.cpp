@@ -627,7 +627,17 @@ static int Scheduler_RunList(void* device, unsigned int listOffset) {
 }
 
 // 0x00449C00 / 0x00449D40 - Dispatch primary/secondary callbacks while
-// allowing callbacks to retire or request a scheduler restart.
+// allowing callbacks to retire or request a scheduler restart. Both claims
+// share the Scheduler_RunList walker above; its cases 6 (restart) and 7
+// (onResultSeven) are PRIMARY-ONLY - retail 0x00449D40's switch handles
+// 0/2/3/4/5 only and returns on 3/4/5, so the shared walker's 6/7 arms
+// are unreachable from the secondary claim.
+// Head offsets: retail keeps the primary/secondary list-head SENTINEL nodes
+// at device+0x14/+0x38 (0x00449AE0/0x00449B70 register and 0x00449F60
+// remove walk those bases) and reads the sentinel's next - the first real
+// node - at +0x18/+0x3C, which is exactly what the 0x00449C00/0x00449D40
+// bodies dereference. The host passes the same sentinel base and reads
+// ->next, so the offsets agree with retail; there is no host-layout shift.
 int Scheduler_RunPrimary(void* device) {
     return Scheduler_RunList(device, 0x14);
 }

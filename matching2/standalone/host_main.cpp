@@ -30,10 +30,13 @@
 #include <ctime>
 #include "th10/platform/pack_file_loader.hpp"
 #include "th10/platform/joystick_probe.hpp"
+#include "th10/platform/joystick_poll.hpp"
 #include "th10/render/resource_manager.hpp"
 #include "th10/game/title_main_menu.hpp"
 #include "th10/game/title_menu_runtime.hpp"
 #include "th10/game/title_options_menu.hpp"
+#include "th10/game/main_menu_dispatch.hpp"
+#include "th10/game/result_choice_menu.hpp"
 #include "th10/game/game_state.hpp"
 #include "th10/game/entity.hpp"
 #include "th10/render/camera_setup.hpp"
@@ -101,6 +104,18 @@ extern long long DAT_00492510;     // PerformanceCount.QuadPart
 // presented frame to invalidate the cache.
 extern unsigned int DAT_00492378;
 extern int DAT_00474c74;           // retail selected difficulty (4 = Extra)
+// Retail input globals. DAT_00474e36 (held masks), byte_474E34 (its byte
+// twin) and DAT_00474e30 (pressed edge) are what the reconstructed menu
+// runtimes (0x004223F0/0x00422C80/0x004236F0) read every frame; the host
+// feeds them from DirectInput in HostPollKeyboard (and from --input
+// scripted keys). The bit layout is the retail one shared by the
+// TITLE_MENU_*/TITLE_OPTIONS_* constants: 0x10 up, 0x20 down, 0x40 left,
+// 0x80 right, 0x1001 confirm (Z/Return), 0x0A cancel (X/Esc), 0x8 demo.
+extern unsigned int DAT_00474e36;  // dword_474E36: held input masks
+extern unsigned int DAT_00474e30;  // dword_474E30: pressed-edge masks
+extern unsigned int byte_474E34;   // byte_474E34: byte twin of the masks
+extern unsigned int DAT_00477810;  // dword_477810: demo/replay record (the
+                                   // state-0 gate's replay-availability chain)
 // The three option values 0x0042D920 edits, in retail's own storage.
 extern unsigned char DAT_00491d68; // BGM volume, 0..100 step 5, default 100
 extern unsigned char DAT_00491d69; // SE volume, 0..100 step 5, default 80
@@ -314,6 +329,25 @@ struct HostContext {
     TitleMenuRuntime title_runtime = {};
     TitleMenuGlobals title_globals = {};
     int menu_quit = 0;
+    // Retail game-menu record runtime (0x004223F0 dispatch + 0x00422C80
+    // choice model + 0x004236F0 submenu). menu_record is the retail a1
+    // (0x2C8 bytes, created like retail sub_422360); menu_phase is the
+    // routing state the host keeps for the dispatch (0 = title/demo arm,
+    // 1-5 = choice model arm, 6-13 = submenu arm) because the choice
+    // model's contract (phase@+0/timer@+4) conflicts with the retail
+    // record's state@+4. menu_frame mirrors the record's embedded frame
+    // clock (+20) which the model uses as its timer.
+    unsigned char* menu_record = nullptr;
+    int menu_phase = 0;
+    int menu_frame = 0;
+    int menu_open_fired = 0;   // HostOpenGameMenu ran (record moved to state 1)
+    int menu_start_fired = 0;  // the choice machine's start item executed
+    // The 0x00422C80 choice machine's state. It must NOT alias the menu
+    // record: the struct's field offsets collide with the record's live
+    // fields (phase@+0 vs the record flags, selection@+8 vs the update
+    // callback pointer, selection_count@+0x10 vs the frame clock), and the
+    // machine's writes would corrupt the scheduler callbacks and the clock.
+    ResultChoiceState choice_state;
     // Back-buffer capture: --capture N PATH presents N frames, writes a P6
     // PPM of the back buffer, then quits. The desktop compositor is Wayland,
     // so X11 root capture returns black; reading the surface inside the
@@ -599,8 +633,8 @@ bool HostStartTitleScripts(unsigned int first, unsigned int second) {
             second, nullptr, &scripts[1]))
         return false;
     g_host.title_child_vm_count = 0;
-    std::memset(g_host.title_child_vms, 0,
-                sizeof(g_host.title_child_vms));
+    for (auto& vm : g_host.title_child_vms)
+        vm = HostAnmVm{};
     HostInitializeAnmVm(&g_host.title_vms[0], scripts[0].instructions);
     HostInitializeAnmVm(&g_host.title_vms[1], scripts[1].instructions);
     g_host.title_vm_ready = 1;
@@ -615,8 +649,8 @@ bool HostStartSigScript() {
             g_host.title_resource_sizes[2], 0, nullptr, &script))
         return false;
     g_host.title_child_vm_count = 0;
-    std::memset(g_host.title_child_vms, 0,
-                sizeof(g_host.title_child_vms));
+    for (auto& vm : g_host.title_child_vms)
+        vm = HostAnmVm{};
     HostInitializeAnmVm(&g_host.title_vms[0], script.instructions);
     g_host.title_vms[0].resource_index = 2;
     g_host.title_vms[1] = {};
@@ -671,6 +705,15 @@ void HostPrimeMainMenuOverlay() {
             ancestor == &g_host.title_vms[1])
             g_host.title_child_vms[index].state.pending_interrupt = 28;
     }
+    // Retail: interrupt 17 selects Game Start (item 0) once the children
+    // are in the inactive-but-visible state. The choice machine starts on
+    // selection 0, so the open primes the same visual state. The menu
+    // script creates sixteen item VMs: children 2..9 carry the eight
+    // normal sprites, children 10..17 the eight selected variants
+    // (sprite pairs 0/1, 2/3, ...); the highlight interrupt targets the
+    // selected variant of the chosen item.
+    if (g_host.title_child_vm_count > 10)
+        g_host.title_child_vms[10].state.pending_interrupt = 17;
 }
 
 bool HostAddIndependentTitleScript(unsigned int script_id) {
@@ -792,12 +835,21 @@ void HostRestoreMainMenuLogo() {
     HostArmTitleChildGroup();
 }
 
+// Forward declaration: the retail game-menu open (defined with the menu
+// record runtime below); HostReturnToMainMenu re-opens the record menu.
+void HostOpenGameMenu(void* record);
+
 void HostReturnToMainMenu() {
     g_host.menu_screen = 0;
     TitleMainMenu_Initialize(&g_host.menu_state);
     HostStartTitleScripts(88, 0);
     HostRestoreMainMenuLogo();
     HostPrimeMainMenuOverlay();
+    // Re-open the retail game-menu record (state 1) so the back path from
+    // the selection/options screens lands on the reconstructed menu
+    // (0x004223F0 states 1-5) rather than the host's former approximation.
+    if (g_host.menu_record != nullptr)
+        HostOpenGameMenu(g_host.menu_record);
 }
 
 void HostRefreshOptionsSprites() {
@@ -1080,6 +1132,30 @@ void HostPollKeyboard() {
         if ((keys[binding.key] & 0x80) != 0 &&
             (g_host.previous_keyboard[binding.key] & 0x80) == 0)
             g_host.menu_input |= binding.flag;
+    // Feed the retail input globals the reconstructed menu runtimes read
+    // (dword_474E36 held masks, byte_474E34 byte twin, dword_474E30
+    // pressed edge). The bit layout matches the TITLE_MENU_*/TITLE_OPTIONS_*
+    // constants: 0x10/0x20/0x40/0x80 directions, 0x1001 confirm
+    // (Z|Return), 0x0A cancel (X|Esc), 0x8 demo/skip. Held state is the
+    // current frame's keys; the pressed edge is the new-press delta.
+    struct RetailBinding { int key; unsigned int bit; };
+    static const RetailBinding retail_bindings[] = {
+        {DIK_UP, 0x10},      {DIK_DOWN, 0x20},    {DIK_LEFT, 0x40},
+        {DIK_RIGHT, 0x80},   {DIK_RETURN, 0x1},   {DIK_Z, 0x1000},
+        {DIK_ESCAPE, 0x8},   {DIK_X, 0x2},
+    };
+    unsigned int retail_held = 0;
+    unsigned int retail_pressed = 0;
+    for (const RetailBinding& binding : retail_bindings) {
+        if ((keys[binding.key] & 0x80) != 0)
+            retail_held |= binding.bit;
+        if ((keys[binding.key] & 0x80) != 0 &&
+            (g_host.previous_keyboard[binding.key] & 0x80) == 0)
+            retail_pressed |= binding.bit;
+    }
+    DAT_00474e36 = retail_held;
+    byte_474E34 = retail_held & 0xFFu;
+    DAT_00474e30 = retail_pressed;
     std::memcpy(g_host.previous_keyboard, keys, sizeof(keys));
 }
 
@@ -1846,21 +1922,37 @@ void HostKeyConfigDefaults() {
     slots[0] = 0; slots[1] = 1; slots[2] = 2; slots[3] = 3; slots[4] = -1;
 }
 
-// Retail reads the pressed button through 0x0044A4E0; the host reads the same
-// thing out of joyGetPosEx. With no joypad attached nothing can be pressed, so
-// the binding rows do not change - which is what retail does in that case too.
+// Retail reads the pressed button through 0x0044A4E0. The standalone has a
+// real WinMM adapter for its optional joystick, while DirectInput currently
+// owns only the keyboard device; the shared poll therefore selects WinMM here
+// and leaves the DirectInput device-table branch available to callers that
+// actually create a joystick device.
 unsigned int HostKeyConfigPressedButton() {
 #if defined(_WIN32)
-    JOYINFOEX info = {};
-    info.dwSize = sizeof(info);
-    info.dwFlags = JOY_RETURNBUTTONS;
-    if (joyGetPosEx(JOYSTICKID1, &info) != JOYERR_NOERROR) {
+    unsigned char button_bytes[32] = {};
+    JoystickButtonPollEnv env = {};
+    env.get_position = [](int pad, WinmmState* out) -> int {
+        JOYINFOEX info = {};
+        info.dwSize = sizeof(info);
+        info.dwFlags = 0xFF;
+        const MMRESULT result = joyGetPosEx(
+            static_cast<UINT>(pad), &info);
+        out->buttons = info.dwButtons;
+        out->x = info.dwXpos;
+        out->y = info.dwYpos;
+        return static_cast<int>(result);
+    };
+    if (!Joystick_PollButtonBytes(button_bytes, 0, &env)) {
         g_host.keyconfig_previous_buttons = 0;
         return 0xFFFFFFFFu;
     }
+    unsigned int buttons = 0;
+    for (unsigned int button = 0; button != 32; ++button)
+        if (button_bytes[button] != 0)
+            buttons |= 1u << button;
     const unsigned int fresh =
-        info.dwButtons & ~g_host.keyconfig_previous_buttons;
-    g_host.keyconfig_previous_buttons = info.dwButtons;
+        buttons & ~g_host.keyconfig_previous_buttons;
+    g_host.keyconfig_previous_buttons = buttons;
     for (unsigned int button = 0; button < 32; ++button)
         if ((fresh & (1u << button)) != 0)
             return button;
@@ -1904,6 +1996,15 @@ void HostUpdateKeyConfig() {
         return;
     }
     if (confirm && g_host.keyconfig_selection == 6) {
+        // Retail 0x0042F540 case 6: republish the live key table into the
+        // config record before leaving, so HostSaveConfig writes th10.cfg
+        // with the reassigned slots. The host edits DAT_00474E88 directly
+        // (no display copy), so only the table -> config half of retail's
+        // case 6 applies here.
+        GameConfig& config = HostConfig();
+        unsigned char* table = reinterpret_cast<unsigned char*>(DAT_00474e88);
+        std::memcpy(config.key_config, table,
+                    sizeof(config.key_config) + sizeof(config.key_config_tail));
         HostPlayMenuSound(1);
         HostReturnToOptions();
         return;
@@ -3164,6 +3265,309 @@ void HostDispatchOptionsAction(TitleOptionsAction action) {
     }
 }
 
+// ---------------------------------------------------------------------------
+// Retail game-menu record runtime (the menu half of the stage-1 bridge).
+//
+// The retail game-menu record is the 0x2C8-byte object retail sub_422360
+// creates (the host-side twin of that constructor chain: sub_4220E0 init +
+// sub_422150 MenuTimerRuntime_Initialize) and the reconstructed dispatcher
+// 0x004223F0 (MainMenu_DispatchState) drives per frame. Record layout
+// (retail a1): +0 flags, +4 state, +8/+12 scheduler callbacks, +16/+20/+24
+// frame clock (previous/frame/timer), +28 control pointer, +32 clock
+// flags, +36 selection, +40 previous selection, +44 wrap base, +468..+476
+// task handles, +484 continue flag, +492..+592 the 25 replay handles.
+//
+// Layout contract note (why the choice arm is driven directly): the
+// dispatch arm for states 1-5 casts the record onto
+// ResultChoiceState{phase@+0, timer@+4, ...} - the fixture contract
+// documented in references/missing-edge-sweep.md - which collides with the
+// retail record's state@+4 and the dispatcher's own routing read. The
+// standalone therefore keeps the routing state in g_host.menu_phase and
+// calls ResultChoiceMenu_Update directly with the model contract (the
+// model's timer is fed from the record's frame clock at +20, which is the
+// retail source of the same gates - sub_422C80 reads a3[5] = +20). The
+// dispatch's 1-5 arm stays for the suite fixtures; states 0 and 6-0xD read
+// the retail record offsets and route through MainMenu_DispatchState
+// unchanged.
+// ---------------------------------------------------------------------------
+
+long long HostMenuTruncateClock(float value) { return (long long)value; }
+
+// Mirrors MenuTimerRuntime_UpdateCallback's replay-availability check: the
+// demo/replay record at dword_477810 must exist with its +8 callback armed
+// (flags bit 2 at callback+4). The standalone ships no replay payload
+// (HostLoadTitleDemo reports none available), so this stays 0 and the
+// state-0 gate stays closed; the host opens the game menu from its own
+// press-any-button handover instead.
+int HostMenuReplayReady() {
+    if (DAT_00477810 == 0)
+        return 0;
+    unsigned char* replay =
+        reinterpret_cast<unsigned char*>(static_cast<uintptr_t>(DAT_00477810));
+    unsigned int callback = *(unsigned int*)(replay + 8);
+    return callback != 0 &&
+           (*reinterpret_cast<unsigned char*>(
+                static_cast<uintptr_t>(callback + 4)) &
+            2u) != 0;
+}
+
+// 0x00422AB0 - the game-menu open (the dispatch's open_game_menu binding).
+// Retail: state=1, clock re-init, (dword_477810+0x58) |= 0x10, the two
+// interface effect VMs (sub_449950/sub_449870 ids 15/121 + sub_448AC0
+// register_front + sub_424480 position window + sub_40C4D0 task register
+// at +468), the pause sounds (sub_43DC90 id 32, sub_43E460 "Pause"), the
+// +704 saved-speed store and the global-speed freeze. The ANM effect-VM
+// work and sounds are elided: the host's title overlay scripts already
+// render the menu visuals, and the pause-sound bank needs the effect VMs.
+// The record state + clock are the parts the reconstructed update reads.
+void HostOpenGameMenu(void* record) {
+    if (record == nullptr || g_host.menu_record != record)
+        return;
+    unsigned char* bytes = static_cast<unsigned char*>(record);
+    *(int*)(bytes + 4) = 1;  // retail state 1 = the choice machine
+    // Clock re-init (retail sub_422AB0's (flags&1)==0 block, then reset).
+    unsigned int* flags = (unsigned int*)(bytes + 0x20);
+    if ((*flags & 1u) == 0) {
+        *(int*)(bytes + 0x14) = 0;
+        *(int*)(bytes + 0x10) = (int)0xFFF0BDC1u;
+        *(int*)(bytes + 0x18) = 0;
+        *(unsigned int*)(bytes + 0x1C) =
+            (unsigned int)(unsigned long)&DAT_00476f78;
+        *flags |= 1u;
+    }
+    *(int*)(bytes + 0x14) = 0;
+    *(int*)(bytes + 0x18) = 0;
+    *(int*)(bytes + 0x10) = -1;
+    // The choice machine's state: initialized once at the open. The
+    // machine's phase starts at 1 (the open wait) and transitions through
+    // its own state machine; the per-frame drive only re-feeds the phase
+    // and the timer, never the selection/count (which must persist).
+    g_host.choice_state.phase = 1;
+    g_host.choice_state.timer = 0;
+    g_host.choice_state.selection = 0;
+    g_host.choice_state.previous_selection = 0;
+    g_host.choice_state.selection_count = 3;
+    g_host.choice_state.initialized = false;
+    // Retail: (dword_477810 + 0x58) |= 0x10. dword_477810 is 0 in the
+    // standalone (no game-UI manager published), so the supervisor write
+    // is a no-op - the flag gates nothing in the host build.
+    g_host.menu_phase = 1;
+    g_host.menu_open_fired = 1;
+    if (!g_host.smoke_mode) {
+        std::fprintf(stderr,
+                     "[th10-recon] game menu opened (record state 1, "
+                     "choice machine live)\n");
+        std::fflush(stderr);
+    }
+}
+
+// Retail sub_422360 + sub_4220E0 + sub_422150: allocate the 0x2C8-byte
+// menu record, init it (the memset + *a2 |= 2 survive sub_4220E0's
+// reordered writes), publish it and arm the update/draw scheduler pair via
+// MenuTimerRuntime_Initialize. The host keeps the record itself (the
+// dword_477830 publication is elided - no retail reader in the standalone)
+// and drives the update directly each frame; the scheduler callbacks stay
+// inert (flags bit 1 cleared, exactly like retail sub_422150).
+// Forward: the retail critical-section init (0x00438AD0) lives later in
+// this file; the menu runtime needs the sections alive before then.
+void HostCsInit(void*, int);
+void HostMenuRecordCreate() {
+    if (g_host.menu_record != nullptr)
+        return;
+    const int kRecordSize = 0x2C8;
+    unsigned char* record =
+        static_cast<unsigned char*>(std::calloc(1, kRecordSize));
+    if (record == nullptr)
+        return;
+    // Publish the one scheduler device (the stage's - retail dword_491BE4)
+    // so MenuTimerRuntime_Initialize can arm the update/draw pair and
+    // initialize the embedded frame clock; with it 0 the init bails early
+    // and the clock control pointer stays null (the dispatcher's clock
+    // advance would deref it).
+    DAT_00491be4 =
+        static_cast<uint32_t>(reinterpret_cast<uintptr_t>(
+            HostStage_SchedulerDevice()));
+    *(int*)(record + 0) |= 2u;  // sub_4220E0's surviving *a2 |= 2
+    // The retail menu runtime takes the scheduler critical section
+    // (DAT_00492274) on registration; 0x00438AD0 initialises the seven
+    // sections in the factory chain, which runs later than this point, so
+    // an uninitialized (zeroed) section would deadlock EnterCriticalSection.
+    if (g_host.critical_sections == 0)
+        HostCsInit(nullptr, 7);
+    if (MenuTimerRuntime_Initialize(record) != 0) {
+        std::free(record);
+        DAT_00491be4 = 0;
+        std::fprintf(stderr,
+                     "[th10-recon] game-menu record init failed; "
+                     "menu runtime disabled\n");
+        std::fflush(stderr);
+        return;
+    }
+    MenuTimerRuntimeBindings bindings = {};
+    bindings.open_game_menu = HostOpenGameMenu;
+    MenuTimerRuntime_SetBindings(&bindings);
+    g_host.menu_record = record;
+    g_host.menu_phase = 0;
+    if (!g_host.smoke_mode) {
+        std::fprintf(stderr,
+                     "[th10-recon] retail game-menu record created (0x2C8, "
+                     "dispatcher 0x004223F0 armed)\n");
+        std::fflush(stderr);
+    }
+}
+
+// The retail frame-clock advance the dispatcher performs after every arm
+// (sub_4223F0's tail: +16 = previous frame, +20 = frame, +24 = accumulated
+// timer, gated on the global-speed span 0.99..1.01). The dispatch does
+// this for the arms it handles (0 and 6-13); the host replicates it for
+// the choice arm (1-5), which it drives directly (see the layout note).
+void HostMenuAdvanceClock() {
+    if (g_host.menu_record == nullptr)
+        return;
+    unsigned char* record = g_host.menu_record;
+    float* control = *reinterpret_cast<float**>(record + 0x1C);
+    float control_value = control != nullptr ? *control : 1.0f;
+    *(int*)(record + 0x10) = *(int*)(record + 0x14);  // previous = frame
+    if (0.99000001f < control_value && control_value < 1.01f) {
+        *(float*)(record + 0x18) += 1.0f;             // timer += step
+        *(int*)(record + 0x14) += 1;                  // frame += 1
+    } else {
+        *(float*)(record + 0x18) += control_value;
+        *(int*)(record + 0x14) =
+            (int)HostMenuTruncateClock(*(float*)(record + 0x18));
+    }
+}
+
+void HostMenuMoveSelection(void* context, ResultChoiceState* state, int delta) {
+    (void)context;
+    // Retail sub_44BEA0 wraps the selection within its count.
+    if (state->selection_count <= 0)
+        return;
+    int next = state->selection + delta;
+    if (next < 0)
+        next = state->selection_count - 1;
+    if (next >= state->selection_count)
+        next = 0;
+    if (next == state->selection)
+        return;
+    const int previous = state->selection;
+    state->selection = next;
+    // Retail drives the menu-item ANM VMs per selection: the newly selected
+    // item's highlight VM (the second set of eight children, index 10+item)
+    // gets 17+item (its selected state), the previously selected item's
+    // highlight falls back to 28 (inactive-but-visible). The normal
+    // variants (children 2..9) stay as-is - the base menu sprites.
+    if (g_host.title_child_vm_count > 10 + next) {
+        g_host.title_child_vms[10 + next].state.pending_interrupt = 17 + next;
+        if (10 + previous < g_host.title_child_vm_count)
+            g_host.title_child_vms[10 + previous].state.pending_interrupt = 28;
+    }
+}
+
+void HostMenuPlaySound(void* context, int id) {
+    (void)context;
+    // Retail's 12/11/10 are the cursor, cancel and confirm cues; the host's
+    // resident bank numbers them 0/2/1 (same mapping as the title env).
+    HostPlayMenuSound(id == 12 ? 0 : id == 11 ? 2 : 1);
+}
+
+void HostMenuResetTimer(void* context) {
+    // The model's timer (contract +4). The ops context is the choice
+    // state (NOT the menu record - the record's +4 is the host's phase
+    // mirror and must survive the machine's phase changes).
+    if (context != &g_host.choice_state)
+        return;
+    g_host.choice_state.timer = 0;
+}
+
+void HostMenuExecuteChoice(void* context, int selection, ResultChoiceEnv* env) {
+    (void)env;
+    if (context != &g_host.choice_state)
+        return;
+    if (selection == 0) {
+        // Retail state 3 selection 0 (sub_422C30) closes the menu and
+        // unpauses the running game. From the title the same item is the
+        // game-menu start: it enters the host's selection flow, whose
+        // weapon confirm arms the stage state (HostStage_ConfirmWeapon)
+        // and switches the frame loop to the stage phase. When a stage is
+        // already active it is the pause-menu continue and only closes.
+        g_host.menu_start_fired = 1;
+        if (!HostStage_IsActive())
+            HostDispatchTitleMenuAction(TITLE_MENU_ACTION_START);
+        return;
+    }
+    // Retail state 3 selections 1/2 latch the extra/retry modes
+    // (sub_40AC90(&dword_491C28, 4) / dword_491FB8 = 10). REMAINING: the
+    // standalone has no extra/retry chain; the menu simply closes.
+    std::fprintf(stderr,
+                 "[th10-recon] game-menu choice %d: REMAINING (retail "
+                 "mode-latch edges sub_40AC90 / dword_491FB8 not wired)\n",
+                 selection);
+    std::fflush(stderr);
+}
+
+// Per-frame drive of the retail game-menu record. State 0 is the
+// title/demo arm (the gate stays closed without a demo replay, see
+// HostMenuReplayReady); states 1-5 run the 0x00422C80 choice model with
+// the model contract; states 6-0xD route through the reconstruction's
+// 0x004236F0 submenu arm (unreachable until a result/replay entry exists).
+void HostMenuUpdate() {
+    if (g_host.menu_record == nullptr)
+        return;
+    unsigned char* record = g_host.menu_record;
+    g_host.menu_frame = *(int*)(record + 0x14);
+    const int skip_demo = (DAT_00474ca0 & 0x20u) != 0;
+    const int demo_input =
+        (DAT_00474e36 & 8u) != 0 || (DAT_00491ff4 & 0x10u) != 0;
+    PlayerDeathClock* clock =
+        reinterpret_cast<PlayerDeathClock*>(record + 0x10);
+    if (g_host.menu_phase == 0) {
+        MainMenu_DispatchState(
+            record, 0, skip_demo, demo_input, HostMenuReplayReady(),
+            g_host.menu_frame, HostOpenGameMenu, nullptr, nullptr, clock,
+            0.99000001f, 1.01f, 1.0f, HostMenuTruncateClock);
+        return;
+    }
+    if (g_host.menu_phase >= 1 && g_host.menu_phase <= 5) {
+        // Choice machine (0x00422C80): model contract, driven directly -
+        // see the layout contract note above.
+        ResultChoiceState* state = &g_host.choice_state;
+        state->phase = g_host.menu_phase;
+        state->timer = *(int*)(record + 0x14);  // model timer (clock frame)
+        // selection / selection_count / initialized persist across frames.
+        ResultChoiceInput in;
+        in.held = DAT_00474e36;
+        in.pressed = DAT_00474e30;
+        ResultChoiceEnv env;
+        env.continue_used = *(int*)(record + 484) != 0;
+        env.launch_state = 0;
+        ResultChoiceOps ops = {};
+        ops.context = state;
+        ops.move_selection = HostMenuMoveSelection;
+        ops.play_sound = HostMenuPlaySound;
+        ops.reset_timer = HostMenuResetTimer;
+        ops.execute_choice = HostMenuExecuteChoice;
+        // set_animation / open_effect / close_effect stay null: the retail
+        // sprite-confirm edges (sub_449470, sub_4497D0 + sub_4243F0) need
+        // the pause-menu effect VMs the host does not create. REMAINING.
+        ResultChoiceMenu_Update(state, &in, &env, &ops);
+        g_host.menu_phase = state->phase;
+        *(int*)(record + 0) = state->phase;  // record phase mirror (report)
+        HostMenuAdvanceClock();
+        return;
+    }
+    // States 6-0xD: the 0x004236F0 submenu reconstruction reads the retail
+    // record offsets and is dispatched by the reconstruction directly
+    // (including the 0x00422660 result-menu draw once a submenu state is
+    // entered). REMAINING: the standalone has no result/replay entry that
+    // moves the record into these states (no game-over path, no replay
+    // payload), so this arm is wired but unreachable.
+    MainMenu_DispatchState(
+        record, g_host.menu_phase, skip_demo, demo_input,
+        HostMenuReplayReady(), g_host.menu_frame, HostOpenGameMenu, nullptr,
+        nullptr, clock, 0.99000001f, 1.01f, 1.0f, HostMenuTruncateClock);
+}
+
 void HostUpdateSelectionScreen() {
     if (++g_host.selection_phase_frame <= 10) {
         g_host.menu_input = 0;
@@ -3646,6 +4050,14 @@ void HostDispatchRecoveredTitlePhase(
                 HostSwitchTitleOverlay(0);
                 HostPrimeMainMenuOverlay();
                 TitleMainMenu_Initialize(&g_host.menu_state);
+#if defined(_WIN32)
+                // The retail game-menu record runtime owns the main menu
+                // now. The state-0 gate's replay arm stays closed (no demo
+                // replay in the standalone - HostLoadTitleDemo has none),
+                // so the open comes from this handover, which is the retail
+                // gate's demo-input condition minus the replay availability.
+                HostOpenGameMenu(g_host.menu_record);
+#endif
                 HostSetRecoveredTitlePhase(nullptr, 2);
 #if defined(_WIN32)
                 if (!g_host.smoke_mode)
@@ -3656,6 +4068,12 @@ void HostDispatchRecoveredTitlePhase(
         return;
     }
     if (phase != 2 || g_host.smoke_mode || g_host.menu_screen != 0)
+        return;
+    // The menu-record runtime (0x004223F0 states 1-5) owns the main menu
+    // once the record exists; TitleMainMenu_Update is the host's former
+    // approximation, kept only for its action values (the record's start
+    // item dispatches TITLE_MENU_ACTION_START through the same function).
+    if (g_host.menu_record != nullptr)
         return;
 
     // The sound cues and script interrupts are 0x0042D420's own, taken at the
@@ -3739,9 +4157,23 @@ int HostRunSchedulerFrame(void*) {
     // counts toward the title-visible milestone.
     if (g_host.title_task_registered)
         g_host.title_frames_completed += 1;
+    // Per-frame reset of the retail input globals: HostPollKeyboard (below)
+    // re-publishes the live held/pressed state, and the scripted-input
+    // injection re-adds its one-frame edges, so clearing here keeps the
+    // pressed edge (dword_474E30) single-frame.
+    DAT_00474e36 = 0;
+    byte_474E34 = 0;
+    DAT_00474e30 = 0;
     for (int index = 0; index < g_host.scripted_count; ++index)
-        if (g_host.scripted_frames[index] == g_host.title_frames_completed)
+        if (g_host.scripted_frames[index] == g_host.title_frames_completed) {
             g_host.menu_input |= g_host.scripted_keys[index];
+            // The retail menu-record runtime reads the retail input globals
+            // (held dword_474E36 / pressed dword_474E30), not the host's
+            // menu_input word - mirror the scripted edge into both so the
+            // whole title -> menu -> start flow is drivable headlessly.
+            DAT_00474e36 |= g_host.scripted_keys[index];
+            DAT_00474e30 |= g_host.scripted_keys[index];
+        }
     if (g_host.smoke_mode && g_host.title_frames_completed == 60 &&
         HostStage_GetReport().archive_available &&
         !HostStage_GetReport().confirm_invoked) {
@@ -3865,6 +4297,14 @@ int HostRunSchedulerFrame(void*) {
                g_host.menu_screen <= 11) {
         HostUpdateSubScreenList();
     }
+    // The retail game-menu record runtime (0x004223F0 dispatch + the
+    // 0x00422C80 choice model): state 0 during the title/stage, states 1-5
+    // while the game menu is open. It runs alongside the host's title and
+    // stage loops - retail keeps the same record dispatcher in the game
+    // loop (the in-game pause gate is the state-0 arm, which stays closed
+    // without a demo replay; see HostMenuReplayReady).
+    if (g_host.menu_record != nullptr)
+        HostMenuUpdate();
     // The drawing used to happen here, inside the scheduler slot. Retail's
     // 0x00449C00 slot is update-only: 0x00439390 runs the render pass
     // afterwards, between BeginScene and EndScene, through 0x00449D40. The
@@ -4929,7 +5369,8 @@ static int HostRun(int argc, char** argv) {
             if (g_host.capture_after <= 0)
                 g_host.capture_after = 300;
             g_host.capture_path = nullptr;
-            break;
+            // No break: later args (--input etc.) must still be parsed.
+            continue;
         }
     }
 #else
@@ -4946,6 +5387,9 @@ static int HostRun(int argc, char** argv) {
         return 1;
     }
     HostTrace("th10.dat mounted");
+    // The retail game-menu record runtime: created once at boot (retail
+    // sub_422360's chain) and driven per frame by HostMenuUpdate.
+    HostMenuRecordCreate();
     if (resource_smoke) {
         unsigned char* manager = static_cast<unsigned char*>(
             std::calloc(1, 0x3AD100));
@@ -5057,6 +5501,12 @@ static int HostRun(int argc, char** argv) {
                 g_host.title_draw_calls);
     std::printf("  title frames completed: %d\n",
                 g_host.title_frames_completed);
+    std::printf("  game menu record: created=%s open=%s phase=%d frames=%d "
+                "start=%s\n",
+                g_host.menu_record != nullptr ? "yes" : "no",
+                g_host.menu_open_fired ? "yes" : "no", g_host.menu_phase,
+                g_host.menu_frame,
+                g_host.menu_start_fired ? "yes" : "no");
     std::printf("  ordered title flow reached: %s\n",
                 g_host.title_runtime.phase == 2 ? "main menu" : "incomplete");
     std::printf("  clean shutdown: %s\n",
@@ -5094,6 +5544,25 @@ static int HostRun(int argc, char** argv) {
                     g_host.boot_device_ok ? "yes" : "no",
                     g_host.boot_sound_ok ? "yes" : "no",
                     g_host.title_draw_calls);
+        // Scripted title -> menu -> start evidence: the retail game-menu
+        // record must be open (state 1, choice machine live) and the start
+        // item must have executed, and the stage entry must have reached
+        // StageContext_Enter success (enter_result == 0).
+        const HostStageReport& boot_stage = HostStage_GetReport();
+        std::printf(
+            "  menu flow: record=%s open=%s phase=%d frames=%d start=%s\n",
+            g_host.menu_record != nullptr ? "yes" : "no",
+            g_host.menu_open_fired ? "yes" : "no", g_host.menu_phase,
+            g_host.menu_frame,
+            g_host.menu_start_fired ? "yes" : "no");
+        std::printf("  stage entry: enter=%d frames=%d ticks=%d/%d\n",
+                    boot_stage.enter_result, boot_stage.frames_run,
+                    boot_stage.update_ticks, boot_stage.draw_ticks);
+        const int menu_ok = g_host.menu_record != nullptr &&
+                            g_host.menu_open_fired &&
+                            g_host.menu_start_fired &&
+                            boot_stage.enter_result == 0;
+        std::printf("MENU_FLOW_%s\n", menu_ok ? "PASS" : "FAIL");
         std::printf("BOOT_REAL_%s\n", boot_ok ? "PASS" : "FAIL");
         return boot_ok ? 0 : 1;
     }

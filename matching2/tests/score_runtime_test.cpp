@@ -1,5 +1,10 @@
 #include "th10/game/score.hpp"
 
+// Retail globals read by the 0x00408D60 wrapper (non-MSVC branch).
+unsigned int DAT_004776e8 = 0;
+unsigned int DAT_00477834 = 0;
+unsigned int DAT_00477704 = 0;
+
 #include <cassert>
 #include <cstring>
 

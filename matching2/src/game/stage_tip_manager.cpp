@@ -1,5 +1,7 @@
-#include "th10/game/stage_tips.hpp"
+#include "th10/game/effect_indicator_queue.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/game/stage_focus_fade.hpp"
+#include "th10/game/stage_tips.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
 #ifdef _MSC_VER
@@ -20,6 +22,8 @@ extern "C" int sub_449B70(void*, int, void*);
 extern "C" int sub_419960(void*, const char*, int);
 #endif
 
+#include <new>
+
 #ifndef _MSC_VER
 #include <cstring>
 #else
@@ -36,27 +40,124 @@ extern int32_t DAT_00474c88;  // display value used while mode == 0
 extern int32_t DAT_00474c8c;  // display value used while mode != 0
 extern uint32_t DAT_00491be4;
 extern uint8_t DAT_00491d6a;
+// Player block published at retail 0x00477834; the focus-fade update reads
+// the position floats at +0x3C0/+0x3C4 as the camera anchor. The standalone
+// host never publishes the block, so the host path treats it as optional.
+extern uint32_t* DAT_00477834;
 
 namespace {
 StageTipRuntimeBindings g_stage_tip_bindings = {};
 
+// 0x00419650 - The stage-tip update edge doubles as the stage-focus fade
+// driver. The retail body resets the secondary counter when the display
+// mode (dword_474C84) differs from the manager's +0xD8 snapshot, expires
+// the current difficulty's queued chain through 0x00419120, then walks ten
+// focus slots scattered through the manager tail (+0xDC handles, +0x104
+// x/y/z triples, +0x17C half-widths), resolving each handle through the
+// animation manager's world/UI lists (dword_491C10 + 0x72DAD4 / +0x72DADC)
+// and fading the matched entity's alpha around the player camera.
+#ifdef _MSC_VER
 int __fastcall StageTipRuntime_Update(void* owner) {
     if (g_stage_tip_bindings.update == 0)
         Runtime_MissingEdge(0x00419650u, "stage-tip/focus update");
     return g_stage_tip_bindings.update(owner);
 }
+#else
+// Copy one retail focus slot (scattered manager tail fields) into the
+// compact StageFocusSlot layout the recovery consumes.
+static void FocusSlotLoad(StageFocusSlot* slot, const unsigned char* bytes,
+                          int index) {
+    slot->handle = *(const uint32_t*)(bytes + 0xDC + 4 * index);
+    slot->x = *(const float*)(bytes + 0x104 + 12 * index);
+    slot->y = *(const float*)(bytes + 0x108 + 12 * index);
+    slot->z = *(const float*)(bytes + 0x10C + 12 * index);
+    slot->half_width = *(const float*)(bytes + 0x17C + 4 * index);
+}
 
+// Write the recovery's slot back into the manager's retail field layout.
+static void FocusSlotStore(const StageFocusSlot* slot, unsigned char* bytes,
+                           int index) {
+    *(uint32_t*)(bytes + 0xDC + 4 * index) = slot->handle;
+    *(float*)(bytes + 0x104 + 12 * index) = slot->x;
+    *(float*)(bytes + 0x108 + 12 * index) = slot->y;
+    *(float*)(bytes + 0x10C + 12 * index) = slot->z;
+    *(float*)(bytes + 0x17C + 4 * index) = slot->half_width;
+}
+
+int __fastcall StageTipRuntime_Update(void* owner) {
+    // Host path: drive the recovered StageFocus_UpdateFade over the
+    // manager's retail focus-slot fields. The retail reads the player
+    // position at DAT_00477834 +0x3C0/+0x3C4 and the recovery adds the
+    // +224/+16 camera offsets internally, so the env carries the raw
+    // floats; the standalone host never publishes the player block, so a
+    // missing block reads as the origin.
+    unsigned char* bytes = reinterpret_cast<unsigned char*>(owner);
+    StageFocusState state;
+    state.frame = *(const uint32_t*)(bytes + 0x10);
+    state.secondary_frame = *(const uint32_t*)(bytes + 0x14);
+    state.stage_id = *(const int32_t*)(bytes + 0xD8);
+    // Retail keeps the manager self-pointer at +0x0C (set by 0x00418D40);
+    // the recovery only forwards it to the (unwired) prepare callback.
+    state.selected = owner;
+    for (int index = 0; index < 10; ++index) {
+        FocusSlotLoad(&state.slots[index], bytes, index);
+    }
+
+    StageFocusEnv env;
+    env.current_stage_id = DAT_00474c84;  // retail dword_474C84 comparison
+    const unsigned char* player =
+        reinterpret_cast<const unsigned char*>(DAT_00477834);
+    env.camera_x = player != 0 ? *(const float*)(player + 0x3C0) : 0.0f;
+    env.camera_y = player != 0 ? *(const float*)(player + 0x3C4) : 0.0f;
+    // Retail resolves each slot handle through the animation manager's
+    // world/UI lists (dword_491C10 + 0x72DAD4 / +0x72DADC); the env has no
+    // name-list lookup, so empty lists reproduce retail's not-found path,
+    // which clears the slot handle. Retail's 0x00419120 chain-head expiry
+    // (env.prepare) is not recovered - TODO.
+    env.active = 0;
+    env.pending = 0;
+    env.prepare = 0;
+
+    int result = StageFocus_UpdateFade(&state, &env);
+
+    // The manager is the persistent store: write back the counters and the
+    // ten slots (the recovery clears handles whose entity is not found).
+    *(uint32_t*)(bytes + 0x10) = state.frame;
+    *(uint32_t*)(bytes + 0x14) = state.secondary_frame;
+    *(int32_t*)(bytes + 0xD8) = state.stage_id;
+    for (int index = 0; index < 10; ++index) {
+        FocusSlotStore(&state.slots[index], bytes, index);
+    }
+    return result;
+}
+#endif
+
+// Retail 0x004198B0: the stage-tip render edge.  The entire body is
+// `mov eax, 1; retn` - the listing shows no other effect.
 int __fastcall StageTipRuntime_Render(void* owner) {
-    if (g_stage_tip_bindings.render == 0)
-        Runtime_MissingEdge(0x004198B0u, "stage-tip render");
-    return g_stage_tip_bindings.render(owner);
+    (void)owner;
+    return 1;
 }
 
 void StageTipRuntime_SpawnTip(void* owner, uint32_t text_address,
                               int32_t slot) {
+#ifdef _MSC_VER
     if (g_stage_tip_bindings.spawn_tip == 0)
         Runtime_MissingEdge(0x0041A120u, "stage-tip spawn");
     g_stage_tip_bindings.spawn_tip(owner, text_address, slot);
+#else
+    // Host path: retail 0x0041A120 is the record allocation + chain
+    // append modelled by StageTip_Create below (the same body, with the
+    // allocator injected); the wrapper's position argument is not
+    // carried by the host call sites, so the record spawns at 0 and the
+    // slot selects nothing on this path (the built-in tips rely on the
+    // display-mode globals StageTip_Create already reads).
+    (void)slot;
+    static const float origin[3] = {0.0f, 0.0f, 0.0f};
+    StageTip_Create((StageTipManager*)owner, origin,
+                    (const char*)(uintptr_t)text_address,
+                    +[](uint32_t size) { return ::operator new(size); });
+#endif
 }
 }  // namespace
 
@@ -352,7 +453,9 @@ loc_41A1F3:
 
 StageTip* StageTip_Create(StageTipManager* manager, const float position[3],
                           const char* text, void* (*allocate)(uint32_t)) {
-    StageTip* tip = allocate != 0 ? (StageTip*)allocate(0x88) : 0;
+    // Retail allocates the 0x88-byte record; the host struct carries
+    // host-side tail members, so the allocation must match sizeof.
+    StageTip* tip = allocate != 0 ? (StageTip*)allocate(sizeof(StageTip)) : 0;
     if (tip == 0) {
         return 0;
     }

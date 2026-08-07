@@ -1,11 +1,12 @@
 #include "th10/game/bullet_manager.hpp"
+#include "th10/game/enemy_lifecycle.hpp"
 #include "th10/game/manager_factories.hpp"
 #include "th10/game/pause_result_open.hpp"
 #include "th10/game/player_motion.hpp"
 #include "th10/game/registered_clock.hpp"
 #include "th10/game/result_screen_effects.hpp"
 #include "th10/game/scheduler.hpp"
-#include "th10/runtime/missing_edge.hpp"
+#include "th10/math/angle.hpp"
 #include "th10/util/scalars.hpp"
 
 #include <cstdarg>
@@ -14,25 +15,115 @@
 #include <cstring>
 
 extern void* g_pGameStateManager;
+extern "C" unsigned long dword_477810;
 extern unsigned int DAT_00491be4;
 extern int* ResourceManager_FindResource(int type, void* manager,
                                          const char* name);
 
 namespace {
-BulletPoolRuntimeBindings g_bullet_pool_bindings = {};
+// The retail update edge (0x004065C0) is reconstructed as the named
+// BulletPool_UpdateSweep below; the per-bullet check twin (retail
+// sub_406240) is injected through BulletPoolRuntime_SetUpdateEnv and is
+// elided (null) until then.
+BulletPoolUpdateEnv g_bullet_pool_update_env = {};
 
 int __fastcall BulletPool_UpdateCallback(void* owner) {
-    if (g_bullet_pool_bindings.update == 0)
-        Runtime_MissingEdge(0x004065C0u, "bullet-pool update");
-    return g_bullet_pool_bindings.update(owner);
+    return BulletPool_UpdateSweep(owner, &g_bullet_pool_update_env);
 }
 
 int __fastcall BulletPool_DrawCallback(void* owner) {
-    if (g_bullet_pool_bindings.draw == 0)
-        Runtime_MissingEdge(0x004067A0u, "bullet-pool draw");
-    return g_bullet_pool_bindings.draw(owner);
+    // Retail 0x004067A0: the bullet-pool draw edge.  When the published
+    // game-UI manager (0x00477810) is absent or its +88 flag bit 2 is clear,
+    // walk the six enemy rows (heads at +20 + 4*row) and refresh every node's
+    // hitbox snapshot through the recovered 0x004066E0 loop, with the
+    // retail's fixed playfield offsets (224.0, 16.0).  The retail loop also
+    // runs the 0x004451C0 per-node dispatch, which this tree models only as
+    // the draw-mode claim; the dirty-flag callback is left null accordingly.
+    if (dword_477810 == 0 ||
+        (*(unsigned char*)((char*)dword_477810 + 88) & 4) == 0) {
+        for (int row = 0; row < 6; ++row) {
+            EnemyList_SyncHitboxes(
+                (HitboxEnemy*)((char*)owner + 20 + 4 * row),
+                224.0f, 16.0f, Angle_NormalizeSum, 0, owner);
+        }
+    }
+    return 1;
 }
 }  // namespace
+
+// 0x004065C0 - bullet-pool update sweep.  Clears the active count (+0x5C)
+// and the six head/tail dword lists (heads at +20+4*row, tails at
+// +44+4*row), then walks the 2000 payload records at +0x60 (stride 0x7F0).
+// A record whose active WORD (payload +0x446) is nonzero is admitted when
+// the UI-manager capture state is up (dword_477810 +88 flags bits 2 and
+// 0x400, read once like the retail body) or the injected per-bullet check
+// (retail sub_406240, via env->update_bullet) reports the bullet alive; a
+// null hook elides the check, so the capture path is then the only
+// admission.  Survivors relink at the row named by the row dword (payload
+// +0x460): tail->+0x44C = new node, the slot's own link (payload +0x44C) is
+// cleared, and the count increments.  The interpolator clock then advances:
+// the counter copy (payload +0x3F8) takes the old counter (payload +0x3FC),
+// then either the damp path (drive <= 0.99 or >= 1.01: value payload +0x400
+// += drive, counter = (int)value) or the ramp path (value += 1.0, counter +
+// 1) - the same 0.99/1.01/1.0 constants as the 0x0042B9A0 effect sweep, but
+// the >= 1.01 arm is a real gate here (the asm has no parity-flag NaN
+// filter).  The head/tail lists and the node links stay retail-width dwords
+// holding 32-bit record pointers; on a 64-bit host the pool record must sit
+// below 4 GiB for the values to round-trip (the suite's 32-bit-retail
+// fixture convention).  Returns 1.
+int BulletPool_UpdateSweep(void* owner, const BulletPoolUpdateEnv* env) {
+    unsigned char* bytes = (unsigned char*)owner;
+    int* active_count = (int*)(bytes + 0x5C);
+    *active_count = 0;
+    uint32_t* head_slots = (uint32_t*)(bytes + 0x14);  // a1[5+row]
+    uint32_t* tail_slots = (uint32_t*)(bytes + 0x2C);  // a1[11+row]
+    for (int row = 0; row < 6; ++row) {
+        head_slots[row] = 0;
+        tail_slots[row] = 0;
+    }
+    unsigned char* payload = bytes + 0x60;
+    for (int index = 0; index < 2000; ++index, payload += 0x7F0) {
+        if (*(unsigned short*)(payload + 0x446) == 0) continue;  // active
+        unsigned long manager = dword_477810;
+        unsigned int flags = manager != 0
+            ? *(unsigned int*)((unsigned char*)manager + 88) : 0;
+        if ((flags & 2) == 0 || (flags & 0x400) == 0) {
+            if (env->update_bullet == 0) continue;  // check elided
+            if (env->update_bullet(payload) != 0) continue;  // destroyed
+        }
+        const uint32_t handle = (uint32_t)(uintptr_t)payload;
+        int row_index = *(int*)(payload + 0x460);
+        if (head_slots[row_index] != 0) {
+            *(uint32_t*)((unsigned char*)(uintptr_t)tail_slots[row_index]
+                         + 0x44C) = handle;
+        } else {
+            head_slots[row_index] = handle;
+        }
+        tail_slots[row_index] = handle;
+        *(uint32_t*)(payload + 0x44C) = 0;
+        *active_count += 1;
+        int counter = *(int*)(payload + 0x3FC);
+        *(int*)(payload + 0x3F8) = counter;
+        float drive = *(float*)(*(void**)(payload + 0x404));
+        if (drive <= 0.99f || drive >= 1.01f) {
+            float value = *(float*)(payload + 0x400) + drive;
+            *(float*)(payload + 0x400) = value;
+            *(int*)(payload + 0x3FC) = (int)value;
+        } else {
+            *(float*)(payload + 0x400) += 1.0f;
+            *(int*)(payload + 0x3FC) = counter + 1;
+        }
+    }
+    return 1;
+}
+
+void BulletPoolRuntime_SetUpdateEnv(const BulletPoolUpdateEnv* env) {
+    if (env != 0)
+        g_bullet_pool_update_env = *env;
+    else
+        std::memset(&g_bullet_pool_update_env, 0,
+                    sizeof(g_bullet_pool_update_env));
+}
 
 // Each routine mirrors one retail function; the comment above each body
 // names the retail address it was recovered from.
@@ -106,15 +197,6 @@ int BulletManager_OnRegister(ManagerRegistration* manager,
     manager->draw = Scheduler_RegisterOwnedCallback(
         manager, draw_callback, create, enqueue_draw, queue);
     return 0;
-}
-
-void BulletPoolRuntime_SetBindings(
-        const BulletPoolRuntimeBindings* bindings) {
-    if (bindings != 0)
-        g_bullet_pool_bindings = *bindings;
-    else
-        std::memset(&g_bullet_pool_bindings, 0,
-                    sizeof(g_bullet_pool_bindings));
 }
 
 // 0x00405E20 - Resolve bullet.anm, initialize the free cursor/state word, and

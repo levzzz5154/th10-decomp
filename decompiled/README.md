@@ -1,7 +1,7 @@
 # Decompiled reference corpus
 
 `ghidra_raw/` contains one raw Ghidra pseudocode export for every game-code
-address listed in `matching/tracking.csv`. These files are reference material,
+address listed in `ghidra/tracking.csv`. These files are reference material,
 not build inputs: Ghidra types, calling conventions, register parameters,
 globals, and control flow must be corrected before code is promoted into the
 subsystem-oriented `matching2/` tree.

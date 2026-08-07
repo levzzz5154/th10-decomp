@@ -87,8 +87,6 @@ int32_t FrontAnm_RegisterTasks(
 
 struct ItemFrontRuntimeBindings {
     int (*initialize_score_task)(void* owner);
-    SchedulerFunction update;
-    SchedulerFunction render;
 };
 
 void ItemFrontRuntime_SetBindings(

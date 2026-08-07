@@ -25,12 +25,15 @@ int32_t DAT_00474c7c;
 int32_t DAT_00474c84;
 int32_t DAT_00474c88;
 int32_t DAT_00474c8c;
+uint32_t* DAT_00477834;  // player block (stage_tip_manager.cpp host path)
 
 static unsigned char g_tip_storage[4][sizeof(StageTip)];
 static int g_allocations;
 
 static void* AllocateTip(std::uint32_t size) {
-    assert(size == 0x88);
+    // Retail allocates the 0x88 record; the host StageTip struct carries
+    // host-side members, so the semantic create allocates sizeof.
+    assert(size == sizeof(StageTip));
     assert(g_allocations < 4);
     return g_tip_storage[g_allocations++];
 }
@@ -87,8 +90,66 @@ static void TestUrgentStageTip() {
     assert(alert->selection == 29);
 }
 
+// Host path of StageTipRuntime_Update (retail 0x00419650): the runtime
+// wrapper drives the recovered StageFocus_UpdateFade over the manager's
+// retail focus-slot fields instead of aborting on a missing binding. The
+// registered primary scheduler callback is the wrapper, so the test runs
+// it through the callback Initialize registered.
+static void TestStageTipFocusWiring() {
+    static unsigned char player_block[0x3C8];
+    std::memset(player_block, 0, sizeof(player_block));
+    *(float*)(player_block + 0x3C0) = 100.0f;  // player x (camera anchor)
+    *(float*)(player_block + 0x3C4) = 50.0f;   // player y
+    DAT_00477834 = (uint32_t*)player_block;
+
+    StageTipManager manager;
+    DAT_00474c7c = 0;
+    DAT_00474c84 = 0;
+    DAT_00474c88 = 17;
+    DAT_00474c8c = 23;
+    DAT_00491be4 = 1;  // scheduler device token required by Initialize
+    DAT_00491d6a = 0;  // skip the two startup tip spawns
+    StageTipManager_Construct(&manager);
+
+    unsigned char* bytes = (unsigned char*)&manager;
+    // Retail focus slot 0: handle +0xDC, x/y/z +0x104/+0x108/+0x10C,
+    // half-width +0x17C.
+    *(uint32_t*)(bytes + 0xDC) = 0x1234u;
+    *(float*)(bytes + 0x104) = 300.0f;
+    *(float*)(bytes + 0x108) = 300.0f;
+    *(float*)(bytes + 0x10C) = 0.0f;
+    *(float*)(bytes + 0x17C) = 40.0f;
+
+    assert(StageTipRuntime_Initialize(&manager) == 0);
+    assert(g_test_callback_count >= 1);
+    SchedulerCallback* update = &g_test_callbacks[0];  // primary = update
+    assert(update->function(update->owner) == 1);
+
+    // The recovery advanced the counters and wrote them back to the retail
+    // offsets; the slot geometry survives the round trip.
+    assert(*(uint32_t*)(bytes + 0x10) == 1);
+    assert(*(uint32_t*)(bytes + 0x14) == 1);
+    assert(*(float*)(bytes + 0x104) == 300.0f);
+    // No entity lists are wired: the retail lookup fails and the handle is
+    // cleared, exactly like retail's not-found path.
+    assert(*(uint32_t*)(bytes + 0xDC) == 0);
+
+    // A display-mode change (manager +0xD8 vs DAT_00474c84) resets the
+    // secondary counter before the increment; the +0xD8 snapshot itself is
+    // only read by the retail body (written at tip spawn), so it survives.
+    *(uint32_t*)(bytes + 0xD8) = 5;
+    assert(update->function(update->owner) == 1);
+    assert(*(uint32_t*)(bytes + 0x10) == 2);
+    assert(*(uint32_t*)(bytes + 0x14) == 1);      // reset to 0, then +1
+    assert(*(int32_t*)(bytes + 0xD8) == 5);       // snapshot untouched
+
+    DAT_00491be4 = 0;
+    DAT_00477834 = 0;
+}
+
 int main() {
     TestParticleSeedCombine();
     TestUrgentStageTip();
+    TestStageTipFocusWiring();
     return 0;
 }

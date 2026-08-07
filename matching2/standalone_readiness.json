@@ -787,7 +787,7 @@
       "dynamic_call_sites": 5,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/app/game_main.cpp"
+      "source": "src/platform/window.cpp"
     },
     {
       "address": "0x004391F0",
@@ -820,7 +820,7 @@
       "dynamic_call_sites": 4,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/app/frame_clock.cpp"
+      "source": "src/platform/window.cpp"
     },
     {
       "address": "0x00439540",
@@ -1084,7 +1084,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "exact-overlay",
       "source_ready": true,
-      "source": "src/render/animation_manager.cpp"
+      "source": "src/game/pool_constructors.cpp"
     },
     {
       "address": "0x0043E710",

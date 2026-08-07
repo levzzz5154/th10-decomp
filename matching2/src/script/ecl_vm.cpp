@@ -1,5 +1,7 @@
 // ECL (Enemy Control Language) VM dispatch, retail address 0x0040E770.
 #include "th10/script/ecl.hpp"
+#include "th10/script/final_script_runtime.hpp"
+#include "th10/script/script_label_search.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/math/timer.hpp"
 
@@ -876,31 +878,21 @@ int32_t ECL_WriteScratch(void* vm_pointer, char type, unsigned int size,
     return 0;
 }
 
-// 0x00450470 - Binary-search the sorted UTF-16 script-label table.
-void* ECL_FindScriptLabel(void* vm_pointer, const unsigned short* name) {
-    uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
-    const int32_t count = *reinterpret_cast<int32_t*>(vm + 8);
-    struct Entry { const unsigned short* name; void* value; };
-    Entry* entries = *reinterpret_cast<Entry**>(vm + 0x8c);
-    int32_t first = 0;
-    int32_t last = count - 1;
-    while (first <= last) {
-        const int32_t middle = first + (last - first) / 2;
-        const unsigned short* left = name;
-        const unsigned short* right = entries[middle].name;
-        int comparison = 0;
-        while (*left == *right && *left != 0) {
-            ++left;
-            ++right;
-        }
-        if (*left < *right) comparison = -1;
-        else if (*left > *right) comparison = 1;
-        if (comparison == 0)
-            return static_cast<uint8_t*>(entries[middle].value) + 0x10;
-        if (comparison < 0) last = middle - 1;
-        else first = middle + 1;
-    }
-    return 0;
+// Script-label lookup for the ECL VM host edge.  Retail 0x00450470's search
+// is implemented canonically in src/script/final_script_runtime.cpp; this
+// wrapper adapts the raw VM byte offsets and delegates to the shared search
+// helper (th10/script/script_label_search.hpp).
+void* ECL_FindScriptLabel(void* vm_pointer, const char* name) {
+    const th10::script_final::EclScriptEntry* entry =
+        th10::script_label_search::FindScriptLabelEntry<
+            th10::script_final::EclScriptTable,
+            th10::script_final::EclScriptEntry>(
+            static_cast<const th10::script_final::EclScriptTable*>(vm_pointer),
+            name);
+    return entry == nullptr
+               ? 0
+               : reinterpret_cast<char*>(
+                     static_cast<uintptr_t>(entry->value)) + 0x10;
 }
 
 // Shared by the encrypted text branches at 0x0040E770 cases 0x165–0x167.
@@ -1334,7 +1326,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     case 0x16f: {
         // Replace DAT_00476f78 (the script-time scale) with operand 0.
         const float value = ECL_ResolveFloatOperand(state->cursor, 0);
-        DAT_00476f78 = *reinterpret_cast<const uint32_t*>(&value);
+        std::memcpy(&DAT_00476f78, &value, sizeof(DAT_00476f78));
         return 0;
     }
     case 0x170: {

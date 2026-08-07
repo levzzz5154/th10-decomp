@@ -114,7 +114,7 @@ int32_t ECL_PopScratchValue(void* vm);
 void ECL_SetPolarVector(float* destination, float angle, float magnitude);
 int32_t ECL_WriteScratch(void* vm, char type, unsigned int size,
                          const void* data);
-void* ECL_FindScriptLabel(void* vm, const unsigned short* name);
+void* ECL_FindScriptLabel(void* vm, const char* name);
 void ECL_DecodeEncryptedString(
     char* destination, const char* encrypted, unsigned int length);
 

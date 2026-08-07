@@ -1,14 +1,49 @@
+// Semantic reconstruction of retail 0x00450700: bind a named ECL subroutine
+// into the VM's current function record.  The retail body is three lines:
+//
+//   *(*(a2 + 4) + 4) = sub_450470(*(a2 + 4140), a1);
+//   **(_DWORD **)(a2 + 4) = 0;
+//
+// with the name in ecx and the VM in esi.  This file is also the canonical
+// host of the resolver it calls, retail 0x00450470 (ResolveScriptLabel
+// below): a binary search over the sorted script-name table whose match
+// value is a code offset; the entry point is 16 bytes past it, past the ECL
+// record header.  The other host implementations (ECL_FindScriptLabel in
+// ecl_vm.cpp, EclCore_ResolveScriptLabel in ecl_core_interpreter.cpp)
+// delegate to the shared search helper in th10/script/script_label_search.hpp.
+
 #include "th10/script/final_script_runtime.hpp"
-#include <algorithm>
-#include <cctype>
-#include <cstdlib>
-#include <sstream>
+#include "th10/script/script_label_search.hpp"
+
+#include <cstring>
+
 namespace th10::script_final {
-// Semantic reconstruction of retail 0x0044E1A0.
-int TickEntityVm(EntityVm&s,const std::vector<Instruction>&v){while(s.cursor<(int)v.size()&&s.wait<=s.time){const auto&x=v[s.cursor++];switch(x.opcode){case 0:return-1;case 1:s.time=x.i[0];break;case 10:s.wait=x.i[0];return 0;case 11:if(s.iv[0]==0)return-1;break;case 12:s.iv[x.i[0]&15]=x.i[1];break;case 13:s.fv[x.i[0]&15]=x.f[1];break;case 14:s.iv[x.i[0]&15]+=x.i[1];break;case 15:s.fv[x.i[0]&15]+=x.f[1];break;case 0x1e:s.flags|=x.i[0];break;default:if(x.opcode>=0x28&&x.opcode<=0x52){int a=x.i[0]&15,b=x.i[1]&15;switch((x.opcode-0x28)%8){case 0:s.iv[a]=s.iv[b];break;case 1:s.iv[a]+=s.iv[b];break;case 2:s.iv[a]-=s.iv[b];break;case 3:s.iv[a]*=s.iv[b];break;case 4:if(s.iv[b])s.iv[a]/=s.iv[b];break;case 5:s.iv[a]=s.iv[a]<s.iv[b];break;case 6:s.iv[a]=s.iv[a]==s.iv[b];break;case 7:s.iv[a]=s.iv[a]>s.iv[b];break;}}else s.events.push_back(x.opcode);break;}}++s.time;return 0;}
-// Semantic reconstruction of retail 0x00450700.
-bool ParseScript(ParseState&o,const std::string&text){o={};std::istringstream in(text);std::string line;int n=0;while(std::getline(in,line)){++n;auto hash=line.find('#');if(hash!=std::string::npos)line.erase(hash);std::istringstream q(line);std::string op;if(!(q>>op))continue;o.tokens.push_back(op);char*end=nullptr;long code=std::strtol(op.c_str(),&end,0);if(!end||*end){o.errors.push_back("line "+std::to_string(n)+": opcode");continue;}Instruction x;x.opcode=(std::uint16_t)code;std::string a;int i=0;while(q>>a&&i<8){char*e=nullptr;x.f[i]=std::strtof(a.c_str(),&e);x.i[i]=(int)x.f[i];if(e&&*e)x.text+=(x.text.empty()?"":" ")+a;++i;}o.instructions.push_back(x);}return o.errors.empty();}
-// Completed semantic model of retail 0x0040E770, including the formerly
-// stubbed enemy-init, movement, encrypted-string, laser, range and state families.
-int ExecuteEcl(EclState&s){auto op=s.opcode;switch(op){case 0x100:case 0x101:case 0x104:case 0x105:case 0x10e:s.flags|=0x40000;s.f[8]=s.f[0];s.f[9]=s.f[1];s.events.push_back(op);break;case 0x103:case 0x106:case 0x107:case 0x108:case 0x10d:s.i[8]=s.i[0];s.i[9]=s.i[1];s.i[10]=(op==0x107||op==0x108)?6:5;s.flags|=1;break;case 0x119:case 0x11b:case 0x11d:case 0x11f:for(int i=0;i<6;++i)s.f[8+i]=s.f[i];s.flags|=(op&2)?0x800:0x400;break;case 0x121:case 0x123:for(int i=0;i<4;++i)s.f[8+i]=s.f[i];s.i[8]=s.i[0];break;case 0x124:case 0x125:s.f[8]=std::clamp(s.f[0],s.f[1],s.f[2]);s.f[9]=std::clamp(s.f[3],s.f[4],s.f[5]);break;case 0x156:case 0x15c:case 0x165:case 0x166:case 0x167:{std::uint8_t key=0x77;for(int i=0;i<255&&s.buffer[i];++i){s.buffer[i]^=key;key=(key+7)+(i&15?0:0x10);}s.events.push_back(s.i[0]+((op>=0x165)?s.i[1]:0));break;}case 0x191:s.events.push_back(s.i[0]);s.flags|=0x200;break;case 0x19a:s.events.push_back(0x19a);s.flags&=~0x200u;break;case 0x1a4:s.flags|=0x1000;break;case 0x1a5:s.flags&=~0x1000u;break;case 0x19c:case 0x19d:case 0x1ac:case 0x1ad:case 0x1ae:case 0x1af:case 0x1b0:case 0x1b1:case 0x1b2:for(int i=0;i<16;++i)s.f[i]=s.f[i]*.5f+float(s.i[i])*.5f;s.events.push_back(op);break;default:s.events.push_back(op);break;}return 0;}
+namespace {
+
+// 0x00450470 - ResolveScriptLabel: binary search over the sorted
+// {name, value} table; returns value + 16, or 0 when the name is absent.
+// The search is th10::script_label_search::FindScriptLabelEntry; this
+// wrapper applies the canonical +16 entry-point convention.
+int ResolveScriptLabel(const EclScriptTable* table, const char* name) {
+    const EclScriptEntry* entry =
+        th10::script_label_search::FindScriptLabelEntry<EclScriptTable,
+                                                         EclScriptEntry>(
+            table, name);
+    return entry == nullptr ? 0 : static_cast<int>(entry->value) + 16;
 }
+
+}  // namespace
+
+// 0x00450700 - EclVm_BindSubroutine: resolve the named subroutine from the
+// VM's script table and publish it into the current function record, then
+// clear the record's name slot.  The caller (retail 0x0040DC80) inlines the
+// same sequence: record->resolved = ResolveScriptLabel(vm->script_table,
+// name); record->name = 0.
+int EclVm_BindSubroutine(EclVm* vm, const char* name) {
+    EclFunctionRecord* record = vm->current_record;
+    record->resolved = ResolveScriptLabel(vm->script_table, name);
+    record->name = 0;
+    return 0;
+}
+
+}  // namespace th10::script_final

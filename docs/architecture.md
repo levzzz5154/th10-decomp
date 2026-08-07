@@ -170,6 +170,9 @@ Known opcodes:
 - [x] ECL decompiler (via thtk)
 - [x] ANM06 format docs
 - [x] Ghidra analysis of th10.exe (1,382 functions)
+- [x] IDA exports checked in (`ida/th10.exe.{c,asm,h}`) - the static
+      pseudocode/listing/type evidence the fidelity gate measures against;
+      query with `matching2/tools/ida_export.py` (decompile/callers/asm/types)
 - [x] Key function decompilation + globals identified
 
 ### Phase 2: Engine Core

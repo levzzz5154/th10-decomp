@@ -40,6 +40,12 @@ void Scheduler_Remove(SchedulerCallback*, void*) {}
 // Retail globals referenced by the reconstructions.
 
 float DAT_00476f78 = 1.0f;      // default timer speed sentinel
+// The 0x0042B9A0 sweep constants (retail float values; the standalone's
+// globals blob carries the real values).
+float _DAT_00470b0c = 0.5f;     // flt_470B0C (frame-delta half-rate)
+float _DAT_00470afc = 1.0f;     // flt_470AFC (ramp step)
+float _DAT_00470b68 = 0.99f;    // flt_470B68 (ramp gate)
+float _DAT_00470b64 = 1.01f;    // flt_470B64 (NaN-filter sentinel)
 int32_t DAT_00474c7c = 0;       // difficulty setting
 int32_t DAT_00474c84 = 0;       // tip display mode
 int32_t DAT_00474c88 = 111;     // display value while mode == 0
@@ -49,6 +55,7 @@ uint32_t DAT_00474e8c = 0x22222222u;
 uint32_t DAT_00474e90 = 0x33333333u;
 uint32_t DAT_00474e94 = 0x44444444u;
 uint16_t DAT_00474e98 = 0x5555u;
+uint32_t* DAT_00477834;  // player block (stage_tip_manager.cpp host path)
 extern StageTipManager* DAT_00477814;  // defined in stage_tip_manager.cpp
 
 extern "C" {
@@ -308,7 +315,9 @@ unsigned char g_tip_storage[2][0x100];
 int g_tip_allocations;
 
 void* AllocateTip(uint32_t size) {
-    assert(size == 0x88);
+    // Retail allocates the 0x88 record; the host StageTip struct carries
+    // host-side members, so the semantic create allocates sizeof.
+    assert(size == sizeof(StageTip));
     assert(g_tip_allocations < 2);
     return g_tip_storage[g_tip_allocations++];
 }

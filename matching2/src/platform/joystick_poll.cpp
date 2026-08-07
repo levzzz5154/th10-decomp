@@ -3,9 +3,32 @@
 #include "th10/util/scalars.hpp"
 
 #include <cmath>
+#include <cstring>
 
 namespace {
 
+// The two joystick entry points share the retail acquisition sequence. In
+// particular, a successful reacquire does not fall through to GetDeviceState
+// in either retail function; the current frame remains all-zero.
+bool ReadDirectInputState(
+        void* device, int (*poll)(void*), int (*acquire)(void*),
+        int (*get_state)(void*, DirectInputState*), DirectInputState* out) {
+	if (poll(device) >= 0)
+		return get_state(device, out) >= 0;
+
+	int attempts = 0;
+	int result = acquire(device);
+	if (result != kDInputInputLost)
+		return false;
+	for (;;) {
+		result = acquire(device);
+		attempts += 1;
+		if (attempts > 399)
+			return false;
+		if (result != kDInputInputLost)
+			return false;
+	}
+}
 
 } // namespace
 
@@ -66,26 +89,9 @@ Half Joystick_Poll(Half state, int config_index, int pad,
 	}
 
 	void* device = env->devices[pad];
-	if (env->poll(device) < 0) {
-		int attempts = 0;
-		int result = env->acquire(device);
-		if (result == kDInputInputLost) {
-			for (;;) {
-				result = env->acquire(device);
-				attempts += 1;
-				if (attempts > 399) {
-					break;
-				}
-				if (result != kDInputInputLost) {
-					return state;
-				}
-			}
-		}
-		return state;
-	}
-
 	DirectInputState di = {};
-	if (env->get_state(device, &di) < 0) {
+	if (!ReadDirectInputState(device, env->poll, env->acquire,
+	                          env->get_state, &di)) {
 		return state;
 	}
 	if (config->shoot >= 0) { // kPadShoot
@@ -116,4 +122,44 @@ Half Joystick_Poll(Half state, int config_index, int pad,
 		state |= kPadDown;
 	}
 	return state;
+}
+
+// 0x0044A4E0 - clears the 32-byte button buffer, then reads either the WinMM
+// button word or the DirectInput rgbButtons array. This is the portable
+// semantic counterpart used by standalone key configuration; platform
+// adapters supply the same callbacks as Joystick_Poll's testable backend.
+bool Joystick_PollButtonBytes(unsigned char* destination, int pad,
+                              const JoystickButtonPollEnv* env) {
+	if (destination == nullptr)
+		return false;
+	std::memset(destination, 0, 32);
+	if (env == nullptr)
+		return false;
+
+	if (!env->use_direct_input) {
+		if (env->get_position == nullptr)
+			return false;
+		WinmmState info = {0, 0, 0};
+		// 0x0044A4E0's WinMM branch always asks for joystick 0. The pad
+		// parameter is only used by the DirectInput device table.
+		if (env->get_position(0, &info) != 0)
+			return false;
+		for (unsigned int index = 0; index != 32; ++index) {
+			if ((info.buttons & (1u << index)) != 0)
+				destination[index] = 0x80;
+		}
+		return true;
+	}
+
+	if (env->devices == nullptr || env->poll == nullptr ||
+	    env->acquire == nullptr || env->get_state == nullptr)
+		return false;
+	DirectInputState state = {};
+	void* device = env->devices[pad];
+	if (!ReadDirectInputState(device, env->poll, env->acquire,
+	                          env->get_state, &state))
+		return false;
+	// Retail copies rgbButtons byte-for-byte, rather than normalizing to 0x80.
+	std::memcpy(destination, state.buttons, 32);
+	return true;
 }

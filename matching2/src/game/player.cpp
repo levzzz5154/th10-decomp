@@ -214,6 +214,20 @@ done:
         ret
     }
 }
+#else
+void Player_AdjustPower(void* player, int delta) {
+    // Retail updates the dword at player+0x58 with a wrapping x86 add, then
+    // clamps the resulting signed value to the inclusive +/-0x400 range.
+    uint8_t* bytes = static_cast<uint8_t*>(player);
+    uint32_t* power = reinterpret_cast<uint32_t*>(bytes + 0x58);
+    uint32_t adjusted = *power + static_cast<uint32_t>(delta);
+    if ((adjusted & 0x80000000u) == 0 && adjusted > 0x400u) {
+        adjusted = 0x400u;
+    } else if ((adjusted & 0x80000000u) != 0 && adjusted < 0xFFFFFC00u) {
+        adjusted = 0xFFFFFC00u;
+    }
+    *power = adjusted;
+}
 #endif
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)

@@ -48,24 +48,57 @@ struct EclCoreInstruction {
 // existing ECLVariableResolver in th10/script/ecl.hpp describes the same
 // pointer with a different (and, for the float slots, differently numbered)
 // interface.  The two views are deliberately not merged here.
+struct EclCoreVm;
 struct EclCoreOwner;
-struct EclCoreOwnerVtable {
-    // slot 0 -> retail 0x0040E770, reconstructed as the extended-opcode
-    // dispatcher in matching2/src/script/ecl_vm.cpp.  Returns -1 to stop the
-    // walk for this frame.
-    int (*DispatchExtendedOpcode)(EclCoreOwner* owner);
-};
-struct EclCoreOwner {
-    const EclCoreOwnerVtable* vtable;   // +0x0000
-    // +0x1030 list anchor, +0x1034 list head: read by 0x00450160 / 0x00450190,
-    // never by 0x0044E1A0.  Not modelled here.
-};
 
 // The 12-byte child-list link 0x004500D0 allocates and 0x00450160 returns.
 struct EclCoreChildLink {
     struct EclCoreVm* vm;       // +0x00
     EclCoreChildLink* next;     // +0x04
     EclCoreChildLink* previous; // +0x08
+};
+
+// The sorted {name, value} records 0x00450470 searches (8-byte stride).
+// The value is an absolute code address in both retail (a dword) and the
+// host (a full pointer); the callee entry is 16 bytes past it.
+struct EclCoreScriptEntry {
+    const char* name;               // +0x00
+    EclCoreInstruction* code;       // +0x04
+};
+
+// The label table object at owner+0x102C (retail 0x00450470's owner).
+struct EclCoreScriptTable {
+    unsigned int reserved_00;           // +0x00
+    unsigned int reserved_04;           // +0x04
+    int count;                          // +0x08, sorted entry count
+    unsigned int reserved_0C[0x20];     // +0x0C .. +0x8B
+    const EclCoreScriptEntry* entries;  // +0x8C (140)
+};
+
+struct EclCoreOwnerVtable {
+    // slot 0 -> retail 0x0040E770, reconstructed as the extended-opcode
+    // dispatcher in matching2/src/script/ecl_vm.cpp.  Returns -1 to stop the
+    // walk for this frame.
+    int (*DispatchExtendedOpcode)(EclCoreOwner* owner);
+    void* slot1;                        // +0x04, operand helpers, unmodelled
+    void* slot2;                        // +0x08, operand helpers, unmodelled
+    void* slot3;                        // +0x0C, operand helpers, unmodelled
+    // slot 4 -> the external-variable arm of 0x00450070: called with the
+    // truncated negative slot index, returns the destination address.
+    void* (*ResolveExternalFloat)(int index);
+};
+struct EclCoreOwner {
+    const EclCoreOwnerVtable* vtable;   // +0x0000
+    EclCoreVm* current_record;          // +0x0004 the active VM record;
+                                        //         0x0044DF70 swaps it around
+                                        //         label resolution and
+                                        //         0x004500D0 copies its rank
+                                        //         mask into new children
+    unsigned int reserved_08[0x408];    // +0x0008 .. +0x102B
+    const EclCoreScriptTable* script_table;  // +0x102C label table used by
+                                        //         0x0044DF70's callee bind
+    EclCoreChildLink child_list;        // +0x1030 list anchor; the head lives
+                                        //         at anchor.next (+0x1034)
 };
 
 // The interpreter record.  Offsets are retail byte offsets from a1.
@@ -110,12 +143,13 @@ enum EclCoreResult {
     kEclCoreFinished = -1
 };
 
-// Edges 0x0044E1A0 reaches that this tree cannot currently be bound to.  Each
-// one is either ABI-incompatible with the symbol that claims its address or is
-// claimed by a reconstruction that disagrees with retail; the details are in
-// the comments on each member.  A null member is not a no-op: the case body
-// calls Runtime_MissingEdge() with the retail address rather than inventing a
-// result.
+// Edges 0x0044E1A0 reaches.  All four were previously unbound (their old
+// claimed models disagreed with retail; the rejection notes are preserved in
+// git history); they are now implemented in ecl_core_interpreter.cpp as
+// EclCore_StartChild / EclCore_SpawnChild / EclCore_FindChild /
+// EclCore_ResolveFloatDestination.  A null member is not a no-op: the case
+// body calls Runtime_MissingEdge() with the retail address rather than
+// inventing a result.
 struct EclCoreHooks {
     // 0x0044DF70, reached from opcode 0x0B (`call`).  Retail shape:
     //   int __userpurge sub_44DF70@<eax>(_DWORD* child@<eax>, _DWORD* parent,
@@ -123,10 +157,6 @@ struct EclCoreHooks {
     // and 0x0044E1A0 calls it as sub_44DF70(vm, vm, 0) - an ECL `call` reuses
     // the caller's own record.  Returns 0 on success, and on success it has
     // already planted vm+0x04 at the callee entry.
-    // NOT BOUND: matching2/src/script/ecl_vm_children.cpp claims this address
-    // as EclVm_StartChild(EclStartVm*, EclStartVm*, EclStartOwner*,
-    // const EclStartInstruction*, unsigned int, const EclStartHooks*).  That
-    // six-parameter model cannot be called with retail's three-argument list.
     int (*start_child)(EclCoreVm* child, EclCoreVm* parent, int first_argument);
 
     // 0x004500D0, reached from opcodes 0x0F (`async`) and 0x10 (`asyncId`).
@@ -136,11 +166,6 @@ struct EclCoreHooks {
     // It allocates a 0x1024 record, stores async_id at child+0x1010, links the
     // child onto owner+0x1030/+0x1034, copies the active VM's rank mask into
     // child+0x101C and tail-calls 0x0044DF70(child, active_vm, first_argument).
-    // NOT BOUND: ecl_vm_children.cpp claims this address as
-    // EclVm_SpawnChild(EclOwner*, void* script, float* start_argument,
-    // allocate, start).  Its second parameter is typed as a script pointer but
-    // retail's is the integer async id, its third is an integer argument index,
-    // and retail has no injected allocator/start callbacks.
     int (*spawn_child)(EclCoreOwner* owner, int async_id, int first_argument);
 
     // 0x00450160, reached from opcodes 0x11, 0x12, 0x13, 0x14.  Retail:
@@ -151,11 +176,6 @@ struct EclCoreHooks {
     //       if (!result) return 0;
     //   }
     //   return result;
-    // NOT BOUND: matching2/src/script/ecl_vm.cpp claims this address as
-    // ECL_FindVariable, which starts from *(owner + 0x1030) - one dereference
-    // too many - skips the anchor entry, and adds a null test on node->vm that
-    // retail does not have.  Binding to it would search a VM record as if it
-    // were a list node.
     EclCoreChildLink* (*find_child)(EclCoreOwner* owner, int async_id);
 
     // 0x00450070, reached from opcodes 0x2D, 0x51, 0x52, 0x56, 0x57.  Retail:
@@ -164,9 +184,6 @@ struct EclCoreHooks {
     //   vm+8+locals_offset+offset and < 0 (INCLUDING -1) goes to vtable slot 4
     //   of vm+0x1014.  A clear mask bit returns null and retail stores through
     //   it unchecked.
-    // NOT BOUND: ecl_vm.cpp's ECL_ResolveFloatDestination reads the operand at
-    // instruction+0x14 (its ECLInstruction is four bytes long in the header),
-    // returns 0 for -1 instead of calling the resolver, and uses vtable slot 5.
     float* (*resolve_float_destination)(EclCoreVm* vm, unsigned int operand);
 
     // Optional.  When null, the default arm performs the real virtual call
@@ -183,3 +200,27 @@ int EclVm_TickCore(EclCoreVm* vm, float frame_delta, const EclCoreHooks* hooks);
 // Fails to compile if the record stops being 0x1024 bytes in a 32-bit build.
 typedef int EclCoreVmSizeCheck[
     (sizeof(void*) != 4 || sizeof(EclCoreVm) == 0x1024) ? 1 : -1];
+
+// Retail 0x0044DF70: start the child at the sub name embedded in the parent's
+// call instruction.  Marshals the call's argument records into the child's
+// scratch area (below the return frame it pushes), then binds the callee by
+// resolving the name in owner->script_table (retail 0x00450470) and planting
+// the entry in the child's ip slot.  Returns 0 on success, -1 when the name
+// is unknown (parent->ip cleared -> the parent stops on its next tick).
+int EclCore_StartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument);
+
+// Retail 0x004500D0: allocate a fresh 0x1024 record, link it onto the head of
+// owner->child_list, copy the active record's rank mask, and tail-call
+// EclCore_StartChild(child, owner->current_record, first_argument).  Returns
+// the start result (0 success, -1 failure).
+int EclCore_SpawnChild(EclCoreOwner* owner, int async_id, int first_argument);
+
+// Retail 0x00450160: walk owner->child_list from the anchor and return the
+// first link whose VM's async_id matches, or 0.
+EclCoreChildLink* EclCore_FindChild(EclCoreOwner* owner, int async_id);
+
+// Retail 0x00450070: resolve the destination of a writable float operand.
+// A clear param_mask bit returns 0; a non-negative encoded slot resolves to
+// vm scratch + locals_offset + slot; a negative slot (including -1) goes
+// through vtable slot 4 of vm+0x1014.
+float* EclCore_ResolveFloatDestination(EclCoreVm* vm, unsigned int operand);

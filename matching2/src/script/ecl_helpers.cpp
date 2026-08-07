@@ -6,6 +6,7 @@
 // dispatcher to exercise the leaf opcode shape without depending on the
 // full sub-entity / animation manager state machine.
 #include "th10/script/ecl.hpp"
+#include <cstring>
 
 extern "C" uint32_t ECL_DispatchOpcode(uint32_t, void*, int);
 extern void* g_pGameStateManager;
@@ -66,8 +67,11 @@ float ECL_ResolveFloatAtCursor(void* cursor_pointer, unsigned int bit_index,
     *reinterpret_cast<int32_t*>(cursor + 0x1008) = stack_top;
     const char type = *reinterpret_cast<char*>(
         cursor + stack_top + 8);
-    if (type == 'f')
-        return *reinterpret_cast<const float*>(&value);
+    if (type == 'f') {
+        float decoded;
+        std::memcpy(&decoded, &value, sizeof(decoded));
+        return decoded;
+    }
     return (float)(int32_t)value;
 }
 
@@ -106,8 +110,11 @@ int32_t ECL_ResolveIntAtCursor(void* cursor_pointer, unsigned int bit_index,
     *reinterpret_cast<int32_t*>(cursor + 0x1008) = stack_top;
     const char type = *reinterpret_cast<char*>(
         cursor + stack_top + 8);
-    if (type == 'f')
-        return (int32_t)*reinterpret_cast<const float*>(&value);
+    if (type == 'f') {
+        float decoded;
+        std::memcpy(&decoded, &value, sizeof(decoded));
+        return (int32_t)decoded;
+    }
     return value;
 }
 

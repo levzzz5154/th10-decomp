@@ -1,6 +1,8 @@
 // 0x0041BE80 - Add one tenth of amount to the counter, saturating at 99,999.
 #include "th10/game/score.hpp"
+#include "th10/game/score_runtime_ui_update.hpp"
 #include "th10/runtime/missing_edge.hpp"
+#include "th10/render/anm_vm_draw_dispatch.hpp"
 
 #include <cstring>
 
@@ -49,25 +51,124 @@ extern "C" unsigned char byte_49231C;
 extern "C" void sub_41C030(void*, void*);
 #endif
 
+// Retail globals read by the 0x00408D60 wrapper below: the game-state arena
+// (release flag at +0x2A18), the player-position source (DAT_00477834, x at
+// +0x3C4) and the player-slot pointer (DAT_00477704, position at +0x1068).
+#ifdef _MSC_VER
+extern "C" unsigned long dword_4776E8;
+extern "C" unsigned long dword_477834;
+extern "C" unsigned long dword_477704;
+#define SCORE_UI_GAME_STATE dword_4776E8
+#define SCORE_UI_PLAYER_X_SRC dword_477834
+#define SCORE_UI_PLAYER_SLOT dword_477704
+#else
+extern unsigned int DAT_004776e8;
+extern unsigned int DAT_00477834;
+extern unsigned int DAT_00477704;
+#define SCORE_UI_GAME_STATE DAT_004776e8
+#define SCORE_UI_PLAYER_X_SRC DAT_00477834
+#define SCORE_UI_PLAYER_SLOT DAT_00477704
+#endif
+
 namespace {
 PlayerScoreRuntimeBindings g_player_score_bindings = {};
 
+// 0x00408D60 - player/score UI update, wired to the semantic recovery
+// ScoreRuntimeUi_Update. The recovery's ScoreRuntimeUiState is a contiguous
+// host-side model, so the wrapper adapts the retail object's scattered
+// fields (clock at +0x3734, flags at +0x378C, mode arrays strided at
+// +0xA7C/+0x27DC, camera at +0x379C) in and back out.
 int __fastcall PlayerScore_Update(void* owner) {
-    if (g_player_score_bindings.update == 0)
-        Runtime_MissingEdge(0x00408D60u, "player/score UI update");
-    return g_player_score_bindings.update(owner);
+	unsigned char* bytes = (unsigned char*)owner;
+	ScoreRuntimeUiState state = {};
+	state.flags = *(uint32_t*)(bytes + 0x378C);
+	state.previous_frame = *(int*)(bytes + 0x3734);
+	state.frame = *(int*)(bytes + 0x3738);
+	state.frame_accumulator = *(float*)(bytes + 0x373C);
+	state.frame_scale = *(const float**)(bytes + 0x3740);
+	state.displayed_score = *(int*)(bytes + 0x3790);
+	state.target_score = *(int*)(bytes + 0x3794);
+	state.score_decay_end_frame = *(int*)(bytes + 0x3798);
+	state.metric_index = *(int*)(bytes + 0x3788);
+	for (int index = 0; index != 8; ++index)
+		state.stage_modes[index] = *(int16_t*)(bytes + 0xA7C + index * 0x1D6);
+	for (int index = 0; index != 5; ++index)
+		state.effect_modes[index] =
+		    *(int16_t*)(bytes + 0x27DC + index * 0x1D6);
+	for (int index = 0; index != 3; ++index)
+		state.camera_position[index] = *(float*)(bytes + 0x379C + index * 4);
+
+	ScoreRuntimeUiEnv env = {};
+	// Retail: clears bit 0 of (game-state + 0x2A18) past frame 59.
+	env.release_flags =
+	    (uint32_t*)((char*)(uintptr_t)SCORE_UI_GAME_STATE + 0x2A18);
+	// Retail: wide-layout thresholds compare (DAT_00477834 + 0x3C4).
+	env.playfield_x =
+	    *(float*)((char*)(uintptr_t)SCORE_UI_PLAYER_X_SRC + 0x3C4);
+	// Retail reads metric_a/metric_b from a per-record table
+	// (metric_index * 0x90 + record * 0x437C + 0x624 + mode); the table base
+	// is elided from the raw pseudocode (same base as the score file), so 0.
+	env.metric_a = 0;
+	env.metric_b = 0;
+	// Retail: camera lerp source at ((DAT_00477704 + 0x10) + 0x1068).
+	env.player_position = (const float*)(
+	    (char*)(*(void**)((char*)(uintptr_t)SCORE_UI_PLAYER_SLOT + 0x10)) +
+	    0x1068);
+
+	// The per-slot ANM edges have no clean host binding: tick (0x0043EE30,
+	// AnmVm_Tick), digit script (0x0043E5A0), aux mode (0x00449470) and
+	// camera publish (0x00449350) are exact-overlay or differently
+	// contracted recoveries - callbacks stay 0.
+	ScoreRuntimeUiOps ops = {};
+	ops.context = 0;
+
+	int result = ScoreRuntimeUi_Update(&state, &env, &ops);
+
+	*(uint32_t*)(bytes + 0x378C) = state.flags;
+	*(int*)(bytes + 0x3734) = state.previous_frame;
+	*(int*)(bytes + 0x3738) = state.frame;
+	*(float*)(bytes + 0x373C) = state.frame_accumulator;
+	*(int*)(bytes + 0x3790) = state.displayed_score;
+	for (int index = 0; index != 8; ++index)
+		*(int16_t*)(bytes + 0xA7C + index * 0x1D6) = state.stage_modes[index];
+	for (int index = 0; index != 5; ++index)
+		*(int16_t*)(bytes + 0x27DC + index * 0x1D6) =
+		    state.effect_modes[index];
+	for (int index = 0; index != 3; ++index)
+		*(float*)(bytes + 0x379C + index * 4) = state.camera_position[index];
+	return result;
 }
 
+// Host-form of the per-entity dispatch retail applies during teardown:
+// sub_4451C0 (the shared ANM dispatch, entity in EAX, manager in ECX)
+// bails unless the VM is alive (bit 0), enabled (bit 1) and visible
+// (+0x2FF), then routes the mode bits ((flags >> 22) & 0xF) to the
+// per-mode handlers. Those handlers are the render tree's recovery
+// (AnmVm_DrawDispatch over the default render leaves); this TU links
+// without the render leaves, so the host side preserves the dispatch
+// gate and leaves the mode routing to the injected render bindings.
+// The hybrid build never reaches this callback while bindings are
+// registered; its MSVC overlay of ReleaseFlaggedEntities performs the
+// register-level sub_4451C0/dword_491C10 calls directly.
+static void ScoreRuntime_ReleaseEntity(void* manager, Entity* entity) {
+    (void)manager;  // retail dword_491C10; host render binding supplies its own
+    AnmDrawVm* vm = reinterpret_cast<AnmDrawVm*>(entity);
+    if ((vm->flags & 3u) != 3u || vm->visible == 0)
+        return;
+}
+
+// 0x00409230 - Release the runtime's first two entities during teardown.
 int __fastcall PlayerScore_ReleasePrimary(void* owner) {
-    if (g_player_score_bindings.release_primary == 0)
-        Runtime_MissingEdge(0x00409230u, "player/score primary release");
-    return g_player_score_bindings.release_primary(owner);
+    return static_cast<ScoreRuntimeState*>(owner)->ReleaseFlaggedEntities(
+        ScoreRuntime_ReleaseEntity, 0);
 }
 
+// 0x00409270 - Secondary scheduler callback wrapper. Retail preserves the
+// callback owner in EBX before entering the shared array-release routine
+// (0x004091C0, modeled host-side by ReleaseFlaggedEntityArrays).
 int __fastcall PlayerScore_ReleaseArrays(void* owner) {
-    if (g_player_score_bindings.release_arrays == 0)
-        Runtime_MissingEdge(0x00409270u, "player/score array release");
-    return g_player_score_bindings.release_arrays(owner);
+    return static_cast<ScoreRuntimeState*>(owner)->RunArrayReleaseCallback(
+        ScoreRuntime_ReleaseEntity, 0);
 }
 }  // namespace
 

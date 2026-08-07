@@ -1,5 +1,14 @@
 // Host-side tests for the second mass-recovery batch.
 #include <cassert>
+
+// Render/effect chain globals (pool_constructors + render leaves).
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+unsigned long dword_491D78 = 0;   // view flags
+unsigned long dword_492378 = 0;   // alpha-blend latch
+unsigned long dword_477834 = 0;   // player position
+}
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -70,6 +79,54 @@ uint32_t DAT_00474788[0x180];
 
 // Shared unit timer speed.
 float DAT_00476f78 = 1.0f;
+// D3D/script stubs for the animation-manager sections the ui_final TU
+// keeps alive in this link set (mirror of the archive/bullet_manager TUs).
+// Host stand-in for the Windows-only AnimationObject_ExecuteScript (the
+// animation-manager sections this link set keeps alive reference it; the
+// retail twin lives in all_source_anm_runtime.cpp).
+struct AnimationObject;
+int AnimationObject_ExecuteScript(AnimationObject*) { return 0; }
+// The remaining animation-manager externs this link set reaches (host
+// stand-ins; the retail twins live in all_source_anm_runtime.cpp and the
+// game globals blob).
+float _DAT_00470b60 = 1.0f;   // flt_470B60 (animation scale)
+float _DAT_00470b4c = 0.0f;   // flt_470B4C (render-space X offset)
+float _DAT_00470b48 = 0.0f;   // flt_470B48 (render-space Y offset)
+struct AnimationObject;
+void AnimationObject_Render(void*, AnimationObject*) {}
+
+void* g_pD3DDevice = (void*)1;
+extern "C" int __stdcall D3DXCreateTexture(
+    void*, unsigned int, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned int, void* output) {
+    *(void**)output = 0;
+    return 0;
+}
+
+// The ui_final runtime globals (the 0x00415AE0 wiring pulled the TU in).
+int32_t DAT_00474c68 = 0;
+int32_t DAT_00474c6c = 0;
+int32_t DAT_00474c4c = 0;
+int32_t DAT_00474c84 = 0;
+int32_t DAT_00474c8c = 0;
+int32_t DAT_00474c70 = 0;
+int32_t DAT_00474ca0 = 0;
+int32_t DAT_00474e5c = 0;
+int32_t DAT_00474e62 = 0;
+int32_t DAT_00474c40 = 0;
+int32_t DAT_00474c48 = 0;
+void* DAT_004776f4 = 0;
+int32_t DAT_00477704 = 0;
+int32_t DAT_00477830 = 0;
+int32_t DAT_00491fb8 = 0;
+int32_t DAT_00491ff4 = 0;
+int32_t DAT_00491c28 = 0;
+
+// The 0x0042B9A0 sweep constants (retail float values).
+float _DAT_00470b0c = 0.5f;
+float _DAT_00470afc = 1.0f;
+float _DAT_00470b68 = 0.99f;
+float _DAT_00470b64 = 1.01f;
 
 // Scheduler globals.
 uint32_t DAT_00491be4 = 0x51AB;
@@ -445,7 +502,8 @@ static void TestEffectWatchSpawn() {
 
 static void TestPlayerReset() {
     std::vector<uint32_t> block(kPlayerBlockDwords, 0xABABABABu);
-    Player_ResetAndPublish(block.data());
+    // Retail returns the state pointer (0x004246C0: a1 in eax).
+    assert(Player_ResetAndPublish(block.data()) == block.data());
     for (uint32_t word : block) {
         assert(word == 0);
     }

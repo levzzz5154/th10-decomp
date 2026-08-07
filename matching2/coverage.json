@@ -9,8 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 325,
-        "retail_bytes": 276203
+        "function_count": 322,
+        "retail_bytes": 267755
       },
       "exact-overlay": {
         "function_count": 397,
@@ -50,9 +50,9 @@
         "minimum_size": 1024,
         "maximum_size_exclusive": null,
         "tracked_functions": 69,
-        "implemented_functions": 69,
+        "implemented_functions": 66,
         "tracked_bytes": 159312,
-        "implemented_bytes": 159312
+        "implemented_bytes": 150864
       }
     ]
   },
@@ -803,7 +803,7 @@
       "symbol": "FUN_00408d60",
       "size": 1120,
       "status": "semantic",
-      "source": "src/game/score_runtime_ui_update.cpp"
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x004091C0",
@@ -1928,7 +1928,7 @@
       "symbol": "FUN_0041afd0",
       "size": 2688,
       "status": "semantic",
-      "source": "src/game/gameplay_final_runtime.cpp"
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0041BA50",
@@ -2531,7 +2531,7 @@
       "symbol": "FUN_00422660",
       "size": 1072,
       "status": "semantic",
-      "source": "src/game/result_menu_draw.cpp"
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422A90",
@@ -2548,7 +2548,7 @@
       "symbol": "FUN_00422ab0",
       "size": 384,
       "status": "semantic",
-      "source": "src/game/pause_result_open.cpp"
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422C30",
@@ -2565,7 +2565,7 @@
       "symbol": "FUN_00422c80",
       "size": 1360,
       "status": "semantic",
-      "source": "src/game/result_choice_menu.cpp"
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x004231D0",
@@ -2603,7 +2603,7 @@
       "symbol": "FUN_004236f0",
       "size": 3328,
       "status": "semantic",
-      "source": "src/game/ui_final_runtime.cpp"
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x004243F0",
@@ -2681,7 +2681,7 @@
       "address": "0x00425730",
       "symbol": "FUN_00425730",
       "size": 3120,
-      "status": "semantic",
+      "status": "researched",
       "source": "src/game/gameplay_final_runtime.cpp"
     },
     {
@@ -2689,7 +2689,7 @@
       "symbol": "FUN_00426360",
       "size": 448,
       "status": "semantic",
-      "source": "src/game/stage_controller_tick.cpp"
+      "source": "src/game/player_runtime_init.cpp"
     },
     {
       "address": "0x00426520",
@@ -2753,7 +2753,7 @@
       "address": "0x00426F70",
       "symbol": "FUN_00426f70",
       "size": 2528,
-      "status": "semantic",
+      "status": "researched",
       "source": "src/game/gameplay_final_runtime.cpp"
     },
     {
@@ -3422,7 +3422,7 @@
       "address": "0x00433EF0",
       "symbol": "FUN_00433ef0",
       "size": 2800,
-      "status": "semantic",
+      "status": "researched",
       "source": "src/game/ui_final_runtime.cpp"
     },
     {
@@ -4170,7 +4170,7 @@
       "symbol": "GameMain",
       "size": 1552,
       "status": "semantic",
-      "source": "src/app/game_main.cpp"
+      "source": "src/platform/window.cpp"
     },
     {
       "address": "0x004390E0",
@@ -4201,7 +4201,7 @@
       "symbol": "FUN_00439390",
       "size": 432,
       "status": "semantic",
-      "source": "src/app/frame_clock.cpp"
+      "source": "src/platform/window.cpp"
     },
     {
       "address": "0x00439540",
@@ -4589,7 +4589,7 @@
       "symbol": "FUN_0043e5a0",
       "size": 368,
       "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
+      "source": "src/game/pool_constructors.cpp",
       "pure_cpp": false,
       "overlay_object": "animation_manager.obj",
       "overlay_symbol": "?AnimationObject_ConfigureFromResource@@"
@@ -6272,7 +6272,7 @@
       "symbol": "FUN_00450470",
       "size": 320,
       "status": "semantic",
-      "source": "src/platform/all_source_runtime.cpp"
+      "source": "src/script/final_script_runtime.cpp"
     },
     {
       "address": "0x004505B0",

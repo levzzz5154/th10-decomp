@@ -72,8 +72,6 @@ struct LargePlayerRuntimeBindings {
     void* (*create_player_object)();
     void (*initialize_animation)(void* state, void* archive);
     int (*random_int)();
-    int (__fastcall *update)(void* owner);
-    int (__fastcall *draw)(void* owner);
     void (*refresh_derived)(void* state);
 };
 

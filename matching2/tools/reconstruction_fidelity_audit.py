@@ -42,9 +42,10 @@ ERROR_RATIO = 6.5
 # Reported but not fatal: dense, worth a look, historically still genuine.
 WARN_RATIO = 4.0
 
-FUNCTION_HEADER = re.compile(r"^//----- \(([0-9A-F]{8})\) -+", re.M)
-# IDA emits one declaration per line, each with a trailing register comment.
-IDA_DECLARATION = re.compile(r"^\s+[A-Za-z_][\w \*]*;\s*//.*$", re.M)
+# Function-section parsing lives in ida_export.py so the gate and the query
+# tool share one view of the export.
+from ida_export import IDA_DECLARATION, body_sizes, sections  # noqa: E402
+
 TEXT_IDIOM = re.compile(
     r"std::(istringstream|ostringstream|getline|stof|strtof)"
     r"|\bstrtol\s*\(|find\(['\"]:|isspace"
@@ -61,15 +62,7 @@ def load_ida_bodies():
     """Map retail address -> non-whitespace body size of its IDA pseudocode."""
     if not IDA_SOURCE.is_file():
         raise SystemExit(f"IDA export not found: {IDA_SOURCE}")
-    text = IDA_SOURCE.read_text(errors="replace")
-    starts = {int(m.group(1), 16): m.start() for m in FUNCTION_HEADER.finditer(text)}
-    ordered = sorted(starts)
-    sizes = {}
-    for index, address in enumerate(ordered):
-        end = starts[ordered[index + 1]] if index + 1 < len(ordered) else len(text)
-        body = IDA_DECLARATION.sub("", text[starts[address]:end])
-        sizes[address] = len(strip_ws(body))
-    return sizes
+    return body_sizes()
 
 
 def measure():

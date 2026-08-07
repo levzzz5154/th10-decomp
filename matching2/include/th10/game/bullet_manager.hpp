@@ -20,14 +20,19 @@ int BulletManager_OnRegister(ManagerRegistration* manager,
                              void (*enqueue_update)(void* queue),
                              void (*enqueue_draw)(void* queue), void* queue);
 
-struct BulletPoolRuntimeBindings {
-    int (__fastcall *update)(void* owner);
-    int (__fastcall *draw)(void* owner);
+int BulletPoolRuntime_Initialize(void* manager);
+
+// --- 0x004065C0 update sweep --------------------------------------------------
+struct BulletPoolUpdateEnv {
+    // Retail sub_406240 twin: the per-bullet update for the pool sweep.  A
+    // nonzero return marks the bullet destroyed, so it is dropped from the
+    // relink lists.  Null = elided: the sweep's gate then admits a slot only
+    // through the UI-manager capture path (dword_477810 +88 flags 2 | 0x400).
+    int (*update_bullet)(void* bullet);
 };
 
-void BulletPoolRuntime_SetBindings(
-    const BulletPoolRuntimeBindings* bindings);
-int BulletPoolRuntime_Initialize(void* manager);
+void BulletPoolRuntime_SetUpdateEnv(const BulletPoolUpdateEnv* env);
+int BulletPool_UpdateSweep(void* owner, const BulletPoolUpdateEnv* env);
 
 void BulletManager_ResetPool(void (*rebind_animation)(void* handle,
                                                       void* animation),

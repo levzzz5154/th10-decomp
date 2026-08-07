@@ -18,6 +18,7 @@ int Player_Init(Player* player);
 int Player_HitTest(Player* player, const float* position);
 int Player_Update(Player* player);
 int Player_Draw(Player* player);
+void Player_AdjustPower(void* player, int delta);
 void Player_SetSchedulerValue(void* scheduler, int value);
 void Player_ArmSchedulerValue(void* scheduler, int value);
 void Player_ClearExpiredFlags(Player* player);

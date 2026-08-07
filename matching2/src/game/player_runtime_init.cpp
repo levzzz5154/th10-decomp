@@ -1,5 +1,9 @@
 #include "th10/game/player_runtime_init.hpp"
+#include "th10/game/gameplay_final_runtime.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/game/stage_controller_tick.hpp"
+#include "th10/render/anm_vm_draw_dispatch.hpp"
+#include "th10/render/recovered_render_leaves.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
 #include <cstdint>
@@ -9,6 +13,7 @@ extern void* g_pGameStateManager;
 extern unsigned int DAT_00491be4;
 extern unsigned int DAT_00491bf0;
 extern unsigned int DAT_00474c68;
+extern unsigned int DAT_00474e36;  // input (the 0x00426500 forwarder)
 extern unsigned int DAT_00477834;
 extern unsigned int DAT_00476f78;
 extern float _DAT_00470b0c;
@@ -16,8 +21,17 @@ extern float DAT_00476fa0[2];
 extern float DAT_00476fa8[2];
 extern float DAT_00476fb0[2];
 extern float DAT_00476fb8[2];
+extern float DAT_00470b4c;   // stage controller projected x bias (retail 0x00426360)
+extern float DAT_00470b48;   // stage controller projected y bias
+extern float DAT_00470cbc;   // effect x bias component (DAT_00470cbc - DAT_00470b48)
+extern float DAT_00470cb4;   // effect y bias component (DAT_00470cb4 - DAT_00470be8)
+extern float DAT_00470be8;   // effect y bias component
 extern int* ResourceManager_FindResource(int type, void* manager,
                                          const char* name);
+
+#ifdef _MSC_VER
+extern "C" unsigned long dword_491C10;  // animation manager (retail 0x00426360)
+#endif
 
 namespace {
 LargePlayerRuntimeBindings g_large_player_bindings = {};
@@ -61,15 +75,55 @@ void ResetRawTimer(unsigned char* bytes, unsigned int base,
 }
 
 int __fastcall LargePlayer_Update(void* owner) {
-    if (g_large_player_bindings.update == 0)
-        Runtime_MissingEdge(0x00426500u, "large player update");
-    return g_large_player_bindings.update(owner);
+    // 0x00426500 is a retail forwarder into the player state runtime
+    // (0x00425730); the host twin is UpdatePlayerStateAlias
+    // (gameplay_final_runtime).  The owner is the player record; the
+    // input comes from the retail input global.
+    return UpdatePlayerStateAlias(*(th10::gameplay_final::PlayerRuntime*)owner,
+                                  DAT_00474e36);
 }
 
+// Retail 0x00426360 calls sub_4451C0(a1 + 20, dword_491C10, a1, a2) right
+// after the projected stores - the recovered StageController_Tick models
+// that as apply_camera.  The recovered claim is the 3-arg
+// AnmVm_DrawDispatch on the player's ANM VM at controller + 0x14; the
+// retail layer/owner arguments (a1/a2) are dropped by that claim.
+void LargePlayer_ApplyCamera(StageController* controller) {
+    static AnmDrawEnv env = th10::render_leaves::DefaultAnmDrawEnv();
+    AnmDrawVm* vm = (AnmDrawVm*)((char*)controller + 0x14);
+#ifdef _MSC_VER
+    void* context = (void*)dword_491C10;
+#else
+    void* context = 0;  // host injects its own draw binding over this path
+#endif
+    AnmVm_DrawDispatch(vm, context, &env);
+}
+
+// 0x00426510 - large player draw task; retail forwards to 0x00426360
+// (StageController_Tick) with the scheduler's second register in a2.
+// The wrapper's single owner argument carries a1; the retail a2 is
+// unavailable here.  The host draw binding wins when injected; the default
+// path runs the recovered tick with the retail globals mapped onto its env.
 int __fastcall LargePlayer_Draw(void* owner) {
-    if (g_large_player_bindings.draw == 0)
-        Runtime_MissingEdge(0x00426510u, "large player draw");
-    return g_large_player_bindings.draw(owner);
+    // The host draw binding is superseded by the recovered tick; the
+    // retail globals feed the StageControllerEnv directly.
+    StageControllerEnv env = {};
+    env.projected_x_bias = DAT_00470b4c;  // retail DAT_00470b4c (the +224.0f)
+    env.projected_y_bias = DAT_00470b48;  // retail DAT_00470b48 (the +16.0f)
+    // Retail gates the paired spell-background effects on
+    // dword_477810(+84 < 0) && dword_477704 && dword_47770C &&
+    // !device && !*((_DWORD*)dword_47770C + 10158) &&
+    // !*((_DWORD*)dword_477830 + 1) && dword_474C58, then emits two
+    // sub_427C50/sub_43BDA0 rect pairs.  The env callbacks cannot carry the
+    // retail rect data (flush_effects takes no arguments), so the effect
+    // emission is left disabled on this default path.
+    env.effects_enabled = false;
+    env.effect_x_bias = DAT_00470cbc - DAT_00470b48;  // retail 225.0f - 16.0f
+    env.effect_y_bias = DAT_00470cb4 - DAT_00470be8;  // retail 17.0f - 24.0f
+    env.apply_camera = LargePlayer_ApplyCamera;
+    env.spawn_effect = 0;   // retail sub_427C50 (overlay-only); unwired
+    env.flush_effects = 0;  // retail sub_43BDA0 rect pair; unwired
+    return StageController_Tick((StageController*)owner, &env);
 }
 
 }  // namespace

@@ -10,5 +10,6 @@ constexpr uint32_t kPlayerBlockDwords = 0x111E;  // 0x4478 bytes
 // 0xFFFF terminators, the 0x80 watch slots at word 0x12B with a
 // 0x17-word stride, and the 0x21 indicator slots at word 0xD58 with a
 // 0x1B-word stride) consists entirely of dead stores: the function ends
-// by zeroing the whole block before publishing.
-void Player_ResetAndPublish(uint32_t* state);
+// by zeroing the whole block before publishing. Like retail (a1 in
+// eax), the function returns the state pointer.
+uint32_t* Player_ResetAndPublish(uint32_t* state);

@@ -25,9 +25,11 @@ src/
 tools/        COFF comparison and fixed-address hybrid PE builder
 ```
 
-The separate `matching/` tree remains address-oriented because it is the
-byte-exact assembly oracle. New readable implementations belong in `matching2`
-under their owning subsystem.
+The address-oriented `matching/` oracle was folded into this tree during the
+standalone recovery push (commit `f02ae59`); raw Ghidra exports now live in
+`decompiled/ghidra_raw/`, and the hybrid PE builder (`tools/build_hybrid.py`)
+is the byte-exact oracle, rejecting any overlay whose non-relocation bytes
+differ from the retail executable.
 
 ## Runnable hybrid build
 
@@ -1216,11 +1218,64 @@ against host-owned storage laid out at the retail offsets:
 runs `Recovery_ResetDeviceStreams` (0x0043BC40).
 
 Runtime bindings are mandatory: an unbound edge calls `Runtime_MissingEdge`,
-which prints the retail address and aborts rather than reporting success. Nine
-edges the runtime reaches still have no recovered body at all - they are not
-in the tracked Ghidra index, so the 722/722 coverage figure above does not
-cover them: 0x004067A0, 0x0041B8E0, 0x00426500, 0x00426510, 0x0042B9A0,
-0x0042B9B0, 0x004198B0, 0x00415AE0, 0x00415AF0.
+which prints the retail address and aborts rather than reporting success. The
+runtime-reachable edges that still have no recovered body are 0x00415AE0 and
+0x00426500 (whose callees exist only in the overcredited baseline files),
+0x00419650 (stage-tip/focus update; its ANM name-list lookup has no host-form
+equivalent yet), 0x004065C0 (bullet-pool update; the retail manager offsets do
+not map onto the recovered struct model), 0x00409230/0x00409270 (score pair,
+waiting on the 0x004451C0 mode-dispatcher reconciliation), and 0x0042B9A0.
+Recovered this cycle: 0x004198B0 (its whole body is `mov eax, 1; retn`),
+0x004067A0 (bullet-pool draw, wired to the recovered 0x004066E0 hitbox-sync
+loop), 0x0043E5A0 (effect resource preload), 0x0042B9B0 (effect bookkeeping
+render, wired to the floating-text pass), 0x00415AF0 (item/front render,
+wired to `GameStateOverlay_Draw`), 0x00426510 (large-player draw, wired to
+`StageController_Tick`), 0x00422660/0x00422AB0 (menu dispatch, wired to
+`ResultMenu_DrawReplayAndRanking`/`PauseMenu_Open`), 0x00408D60 (score UI
+update), 0x0041B8E0 (particle/effect draw, the 2198-record loop through the
+shared render leaves) and 0x0041A120 (stage-tip spawn, wired to the semantic
+`StageTip_Create`).
+
+## IDA export evidence (`ida/`)
+
+`ida/` holds the static, portable decompiler evidence for the whole binary.
+Unlike the Ghidra project (`ghidra/`, a binary `.rep` that needs a Ghidra
+installation to open), the IDA exports are plain text, checked in, and usable
+by scripts without any decompiler at runtime:
+
+* `ida/th10.exe.c` - Hex-Rays pseudocode (IDA Pro 9.0.0.240925, export of the
+  retail `th10.exe`, SHA256 `2F14760B6FBBF57549541583283BADB9A19A4222B90F0A146D5AA17F01DC9040`).
+  1224 function sections keyed by `//----- (XXXXXXXX)` markers. This is the
+  ground truth the reconstruction-fidelity gate measures against.
+* `ida/th10.exe.asm` - the full instruction listing (`sub_XXXXXXXX proc near`
+  ... `endp` blocks). Used for instruction-level verification when the
+  pseudocode is ambiguous or the exact store order matters.
+* `ida/th10.exe.h` - IDA's local type library (structs, typedefs).
+
+To regenerate: open the retail `th10.exe` in IDA Pro and use
+File -> Produce file -> Create C file / Create LST file / Create Header file.
+
+Query it like the Ghidra bridge - `tools/ida_export.py` mirrors the Ghidra
+MCP query surface (decompile / callers / asm / types) over the static
+exports:
+
+```text
+python3 tools/ida_export.py functions                # 1224 sections, sizes
+python3 tools/ida_export.py functions --json         # scriptable form
+python3 tools/ida_export.py decompile 0x0044DF70     # pseudocode
+python3 tools/ida_export.py decompile 0x0044DF70 --strip-decls
+python3 tools/ida_export.py callers 0x00450070       # direct callers
+python3 tools/ida_export.py callees 0x0044DF70       # direct callees
+python3 tools/ida_export.py asm 0x004500D0           # instruction listing
+python3 tools/ida_export.py types                    # all local types
+python3 tools/ida_export.py types EclCore            # matching definitions
+```
+
+Scripts import the same module (`from ida_export import decompile, callers,
+asm, body_sizes`); the fidelity gate's function-section parser lives here so
+the gate and the query tool share one view of the export. The IDA export is
+also the fallback when a Ghidra export is corrupted or oversized (see the
+batch-11 note below).
 
 ## Reconstruction fidelity gate
 
@@ -1247,7 +1302,7 @@ or a worsened baselined file fails the build. A file may justify itself in
 place with a reviewed `// fidelity-audit: <reason>` comment. Re-cut the
 baseline with `--update-baseline` after fixing one.
 
-Five baselined files currently credit 15 functions and about 51,000 retail
+Three baselined files currently credit 12 functions and about 35,000 retail
 bytes they do not implement, so the 722/722 coverage figure above is an
 overcount of roughly that much:
 
@@ -1255,14 +1310,15 @@ overcount of roughly that much:
 src/game/ui_final_runtime.cpp        22.45x   7 fns   23344 bytes
 src/game/gameplay_final_runtime.cpp  11.88x   3 fns    8336 bytes
 src/game/player_front_runtime.cpp     8.14x   2 fns    3632 bytes
-src/script/final_script_runtime.cpp   7.24x   2 fns   14448 bytes
-src/game/stage_tip_parser.cpp         1.49x   1 fn     1504 bytes  (text-idiom)
 ```
 
-`final_script_runtime.cpp` is the most consequential: it claims 0x0044E1A0,
-the 7024-byte core ECL interpreter, and 0x00450700, whose real body is three
-lines that resolve a subroutine by name. Wiring the ECL VM requires recovering
-0x0044E1A0 for real.
+Two former baselined files were fixed and dropped from the baseline:
+`src/script/final_script_runtime.cpp` now implements retail 0x00450700 (the
+three-line subroutine binder, whose resolver 0x00450470 is a binary search
+over the sorted script-name table) instead of a text-format fabrication, and
+`src/game/stage_tip_parser.cpp` now implements retail 0x00419960 (the
+stage-tips file parser) with the real `StageTip` record layout, the retail
+Align/Base name tables, and the version-mismatch manager wipe.
 
 Note: `build_pe32.sh`, the narrow startup-to-title target, no longer links.
 It compiles a curated 33-file subset of `src/` that has fallen behind the
@@ -1311,9 +1367,11 @@ add 26 more readable reconstructions (~4.3 KB of retail code) in the same
 conventional-ABI, dependency-injected style as the earlier recovery leaves:
 
 - String/exception funclets: `0x00438723`, `0x004387C2`
+- ECL child-VM spawn: `0x004500D0` (the rejected `ecl_vm_children.cpp` model
+  was superseded by the faithful `EclCore_SpawnChild` in
+  `src/script/ecl_core_interpreter.cpp`, tested by `ecl_core_edges_test`)
 - Forwarding thunks: `0x00427C50`, `0x0040678E`
 - Player field wrap + animation: `0x00407DA0`, `0x00407E40`, `0x004074B0`
-- ECL child-VM spawn/tick: `0x004500D0`, `0x0044FD10`
 - Manager lifecycle/registration: `0x0040D6B0`, `0x0043C8B0`, `0x004296F0`,
   `0x0042AE60`, `0x0042B4D0`, `0x00405E20`, `0x00405ED0`
 - Enemy/boss/UI sync: `0x004066E0`, `0x0041D7C0`, `0x0040E5F0`

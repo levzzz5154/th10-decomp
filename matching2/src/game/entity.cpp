@@ -288,8 +288,8 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
     // Preserve the aggregate bit-for-bit. Using integer words here reproduces
     // retail's EBX/EBP/spill allocation; a float Vector3 copy makes old MSVC
     // generate a substantially different prologue and store schedule.
-    PreservedPositionBits saved_position =
-        *(PreservedPositionBits*)&entity->position;
+    PreservedPositionBits saved_position;
+    std::memcpy(&saved_position, &entity->position, sizeof(saved_position));
     int32_t saved_render_bucket = entity->render_bucket;
 
     // Zero entire entity (0xEB dwords = 0x3AC bytes)

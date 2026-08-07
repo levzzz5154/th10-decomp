@@ -278,12 +278,6 @@ void GuiManager_Destroy(void* manager, ManagerNodePair* nodes,
     *owner_slot = 0;
 }
 
-// 0x00408AF0 - EnemyScript_Destroy equivalent: unregister + owner clear for
-// the enemy-script pool (DAT_004776F4). Retail also drops the shared
-// bytecode block, modelled by the release hook on the manager pointer.
-// (Kept as its own symbol because callers hold distinct owner slots.)
-static void EnemyScriptDestroyTag() {}
-
 // 0x00417C80 - StageTransition_Teardown: the state-driven teardown that runs
 // between stages, on game over, and on return to title. Computes the mode
 // bits from the game state, saves the score file, tears down every stage
@@ -292,7 +286,6 @@ static void EnemyScriptDestroyTag() {}
 int StageTransition_Teardown(int game_state, int stage_index,
                              int next_stage_index, unsigned int* mode_bits,
                              const StageTransitionHooks* hooks) {
-    EnemyScriptDestroyTag();
     hooks->save_score_file(hooks->context);
     *mode_bits &= ~3u;
 
@@ -339,7 +332,11 @@ int StageTransition_Teardown(int game_state, int stage_index,
 
     // Enemy manager: full destroy unless a keep-alive bit holds it.
     hooks->destroy_manager(hooks->context, (*mode_bits & 9u) == 0 ? 10 : 11);
-    // Stage script, boss, enemy-script managers always go down.
+    // Stage script, boss, enemy-script managers always go down. Role 14 is
+    // 0x00408AF0 (DAT_004776F4): destroy the scheduler objects at +0x768/
+    // +0x76C/+0x770, release the +8/+0xC/+0x37AC heap nodes under the
+    // critical section, vector-destruct the 5/8/2 element arrays (stride
+    // 0x3AC), and clear the owner.
     hooks->destroy_manager(hooks->context, 12);
     hooks->destroy_manager(hooks->context, 13);
     hooks->destroy_manager(hooks->context, 14);

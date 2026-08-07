@@ -1,4 +1,8 @@
 #include "th10/game/task_registration.hpp"
+#include "th10/game/ui_final_runtime.hpp"
+#include "th10/game/game_state_overlay_draw.hpp"
+#include "th10/render/anm_vm_draw_dispatch.hpp"
+#include "th10/render/recovered_render_leaves.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
 #ifdef _MSC_VER
@@ -21,7 +25,12 @@ extern "C" void* sub_447280(void*, const char*, int);
 extern "C" void sub_44B810(void*, const char*, ...);
 extern "C" int sub_413A20(void*);
 extern "C" unsigned long dword_491C10;
+extern "C" unsigned long dword_474C58;  // overlay progress counter (retail 0x00415800)
+extern "C" unsigned long dword_477704;  // input owner chain (retail 0x00415800)
 #endif
+
+// Host-side twin of the MSVC extern above (the 0x00415AE0 wiring).
+extern "C" unsigned long dword_491C10;
 
 namespace {
 ItemFrontRuntimeBindings g_item_front_bindings = {};
@@ -41,15 +50,67 @@ SchedulerCallback* CreateAndRegister(void* owner, SchedulerCreateFn create,
 }
 
 int __fastcall ItemFront_Update(void* owner) {
-    if (g_item_front_bindings.update == 0)
-        Runtime_MissingEdge(0x00415AE0u, "item/front update");
-    return g_item_front_bindings.update(owner);
+    // 0x00415AE0 is a retail forwarder into the front-HUD update
+    // (0x00414900); the host twin is UpdateFrontAlias (ui_final_runtime).
+    // The owner is the front record; the env carries the animation manager.
+    th10::ui_final::FrontEnv env;
+    env.manager = (void*)dword_491C10;
+    return UpdateFrontAlias(*(th10::ui_final::FrontTick*)owner, env);
 }
 
+// Retail 0x00415800 draws each overlay record via sub_4451C0(record,
+// dword_491C10, layer, record); the recovered claim is the 3-arg
+// AnmVm_DrawDispatch, so the extra layer/owner arguments are dropped.
+void ItemFront_DrawAnimation(void* animation) {
+    static AnmDrawEnv env = th10::render_leaves::DefaultAnmDrawEnv();
+#ifdef _MSC_VER
+    void* context = (void*)dword_491C10;
+#else
+    void* context = 0;  // host injects its own render binding over this path
+#endif
+    AnmVm_DrawDispatch((AnmDrawVm*)animation, context, &env);
+}
+
+// Retail 0x00415800 emits the overlay rectangles through sub_43BDA0 (the
+// same quad path as the record draws); route them through the shared leaf.
+void ItemFront_DrawRect(const OverlayRect& rect, unsigned color) {
+    const float corners[4][2] = {
+        {rect.left, rect.top},
+        {rect.right, rect.top},
+        {rect.right, rect.bottom},
+        {rect.left, rect.bottom},
+    };
+    th10::render_leaves::AppendQuadColored(corners, color);
+}
+
+// 0x00415AF0 - item/front render task; retail is a pure forwarder to
+// 0x00415800 (GameStateOverlay_Draw).  The host render binding wins when
+// injected; the default path runs the recovered overlay pass with the
+// retail globals mapped onto its env.
 int __fastcall ItemFront_Render(void* owner) {
-    if (g_item_front_bindings.render == 0)
-        Runtime_MissingEdge(0x00415AF0u, "item/front render");
-    return g_item_front_bindings.render(owner);
+    // The host render binding is superseded by the recovered pass; the
+    // retail globals feed the overlay env directly.
+    GameStateOverlayEnv env = {};
+#ifdef _MSC_VER
+    env.overlay_counter = (int)dword_474C58;  // retail dword_474C58
+    // Retail reads the input chain through dword_477704 (owner) and
+    // *((_DWORD*)dword_477704 + 4) (device), then the input state dword at
+    // device + 9344 (bits 0/4 clear gate the prompt draws).
+    env.input_owner_present = dword_477704 != 0;
+    unsigned long* device =
+        dword_477704 != 0 ? *((unsigned long**)dword_477704 + 4) : 0;
+    env.input_device_present = device != 0;
+    env.input_bits = device != 0 ? *(unsigned long*)((char*)device + 9344) : 0;
+#else
+    env.overlay_counter = 0;  // dword_474C58 is hybrid-only; host injects
+                              // its own render binding over this path
+    env.input_owner_present = false;
+    env.input_device_present = false;
+    env.input_bits = 0;
+#endif
+    env.draw_animation = ItemFront_DrawAnimation;  // retail sub_4451C0 per record
+    env.draw_rect = ItemFront_DrawRect;            // retail sub_43BDA0 rects
+    return GameStateOverlay_Draw((const GameStateOverlay*)owner, &env);
 }
 
 }  // namespace

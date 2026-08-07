@@ -85,6 +85,7 @@ def overlay_entries():
 def source_annotations():
     mentions = defaultdict(set)
     semantic = defaultdict(set)
+    headers = defaultdict(set)  # impl markers: '// 0x004XXXXX' at line start
     semantic_phrases = (
         "semantic reconstruction", "clean reconstruction",
         "readable reconstruction",
@@ -105,12 +106,15 @@ def source_annotations():
             # agents as implementation markers, not as incidental references.
             is_function_header = bool(re.match(
                 r"//\s*(?:functions?\s*:\s*)?0x004[0-9a-f]{5}", stripped))
+            if is_function_header:
+                for address in addresses:
+                    headers[address].add(relative)
             is_semantic = is_function_header or any(
                 phrase in stripped for phrase in semantic_phrases)
             if is_semantic:
                 for address in addresses:
                     semantic[address].add(relative)
-    return mentions, semantic
+    return mentions, semantic, headers
 
 
 def overlay_pure_cpp(overlays):
@@ -168,7 +172,7 @@ def overlay_pure_cpp(overlays):
 def generate():
     tracked = tracked_functions()
     overlays = overlay_entries()
-    mentions, semantic = source_annotations()
+    mentions, semantic, headers = source_annotations()
     pure = overlay_pure_cpp(overlays)
     entries = []
 
@@ -186,7 +190,12 @@ def generate():
             entry["source"] = sorted(mentions[address])[0]
         if address in semantic:
             entry["status"] = "semantic"
-            entry["source"] = sorted(semantic[address])[0]
+            # Impl-file precedence: a '// 0x004XXXXX' function-header claim
+            # (the implementation marker) wins over mention-style claims
+            # from other files that merely cite the address in prose.
+            claimants = (headers[address] if address in headers
+                         else semantic[address])
+            entry["source"] = sorted(claimants)[0]
         if address in RESEARCHED:
             entry["status"] = "researched"
             entry["blocker"] = RESEARCHED[address]

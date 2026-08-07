@@ -9,7 +9,19 @@
 
 // Retail globals consumed by the linked player-runtime source.
 uint32_t DAT_00491be4 = 0;
+uint32_t DAT_00474e36 = 0;  // input (the 0x00426500 forwarder)
 uint32_t DAT_00491bf0 = 0;
+float DAT_00470b4c = 224.0f;   // stage controller projected x bias
+float DAT_00470b48 = 16.0f;    // stage controller projected y bias
+float DAT_00470cbc = 225.0f;   // effect x bias component
+float DAT_00470cb4 = 17.0f;    // effect y bias component
+float DAT_00470be8 = 24.0f;    // effect y bias component
+
+// Render leaves globals.
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+}
 uint32_t DAT_00474c68 = 0;
 uint32_t DAT_00477834 = 0;
 uint32_t DAT_00476f78 = 0;

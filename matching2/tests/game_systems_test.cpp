@@ -1,6 +1,31 @@
+// Game-thread arena pointer (pool_constructors).
+void* g_pGameThread = 0;
+unsigned int DAT_00477834 = 0;  // player position (the 0x0041AFD0 sweep)
+
+
+// Render/effect chain globals (pool_constructors + render leaves).
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+unsigned long dword_491D78 = 0;   // view flags
+unsigned long dword_492378 = 0;   // alpha-blend latch
+unsigned long dword_477834 = 0;   // player position
+}
+
 // Tests for the batch 10 readable reconstructions.
 
 #include "th10/game/bullet_manager.hpp"
+
+// Published game-UI manager (retail 0x00477810); zero = absent.
+extern "C" {
+unsigned long dword_477810 = 0;
+}
+
+// Angle recovery constants (math/angle.cpp).
+float DAT_00470b10 = -3.1415927f;  // -pi
+float DAT_00470b14 = 6.2831855f;   // 2*pi
+float DAT_00470b18 = 3.1415927f;   // pi
+
 #include "th10/game/effect_accel.hpp"
 #include "th10/game/enemy_lifecycle.hpp"
 #include "th10/game/enemy_motion_steps.hpp"
@@ -32,7 +57,6 @@
 uint32_t DAT_00491be4 = 0;
 uint32_t DAT_00492274 = 0;
 uint32_t DAT_004776f4 = 0;
-uint32_t DAT_0047770c = 0;
 uint32_t DAT_00477810 = 0;
 uint32_t DAT_00474e36 = 0;
 uint32_t DAT_00491ff4 = 0;
@@ -43,6 +67,8 @@ void* g_pGameStateManager = 0;
 float DAT_00470b04 = 0.0f;
 float DAT_00470b0c = 1.0f;
 float _DAT_00470b64 = 1.01f;
+float _DAT_00470b0c = 0.5f;   // the 0x0042B9A0 sweep (frame-delta half-rate)
+float _DAT_00470afc = 1.0f;   // the 0x0042B9A0 sweep (ramp step)
 float _DAT_00470b68 = 0.99f;
 float DAT_00470b38 = 448.0f;
 float DAT_00470b3c = 192.0f;

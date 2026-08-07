@@ -65,3 +65,22 @@ struct JoyPollEnv {
 
 Half Joystick_Poll(Half state, int config_index, int pad,
                           JoyPollEnv* env);
+
+// Raw button-byte polling used by retail 0x0044A4E0 (the key-config screen).
+// The output is always cleared first and contains 32 WinMM 0x80 markers or
+// the first 32 DirectInput rgbButtons bytes. A failed poll leaves it zeroed,
+// matching the retail global byte_497BB0 buffer.
+struct JoystickButtonPollEnv {
+	int use_direct_input; // retail DAT_00491ff4 & 0x400
+	int (*get_position)(int pad, WinmmState* out); // joyGetPosEx
+	void** devices; // DirectInput devices indexed by pad
+	int (*poll)(void* device); // device vtable +0x64
+	int (*acquire)(void* device); // device vtable +0x1C
+	int (*get_state)(void* device, DirectInputState* out); // +0x24
+};
+
+// Returns true only when a current button state was obtained. Re-acquisition
+// after DIERR_INPUTLOST is deliberately reported as false: retail clears the
+// output and returns without a second GetDeviceState call in that case.
+bool Joystick_PollButtonBytes(unsigned char* destination, int pad,
+                              const JoystickButtonPollEnv* env);

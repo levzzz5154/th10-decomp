@@ -241,11 +241,14 @@ void Screenshot_Capture(const char* path) {
 }
 
 void* ECL_FindScriptLabel(
-    void* vm_pointer, const unsigned short* name);
+    void* vm_pointer, const char* name);
 
-// 0x0040DA17 is a call to the recovered 0x00450470 label lookup.  Retail
-// supplies the lookup owner in EAX from config+0x54 and the UTF-16 name on
-// the stack; expose that hidden input explicitly here.
+// 0x0040DA17 - ResourceManager_FindTexture: resolve a texture name through
+// the script-label search (the retail search is implemented canonically in
+// src/script/final_script_runtime.cpp; the shared helper lives in
+// include/th10/script/script_label_search.hpp).  Retail supplies the lookup
+// owner in EAX from config+0x54 and the ANSI name on the stack; expose that
+// hidden input explicitly here.
 int __fastcall ResourceManager_FindTexture(void* resource_name) {
     extern unsigned int DAT_00477704;
     const auto* config = reinterpret_cast<const unsigned char*>(
@@ -255,7 +258,7 @@ int __fastcall ResourceManager_FindTexture(void* resource_name) {
     void* labels = *reinterpret_cast<void* const*>(config + 0x54);
     return static_cast<int>(reinterpret_cast<unsigned long>(
         ECL_FindScriptLabel(
-            labels, static_cast<const unsigned short*>(resource_name))));
+            labels, static_cast<const char*>(resource_name))));
 }
 
 void ItemManager_CollectNearPlayer(

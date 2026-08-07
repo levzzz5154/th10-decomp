@@ -487,6 +487,43 @@ void TestJoystickPoll() {
 	assert(state == (kPadShoot | kPadFocus |
 	                 kPadUp | kPadRight));
 
+	// 0x0044A4E0's WinMM branch emits one 0x80 marker per pressed bit and
+	// clears every other byte in the 32-byte output.
+	JoystickButtonPollEnv button_env;
+	std::memset(&button_env, 0, sizeof(button_env));
+	button_env.get_position = GetPosition;
+	unsigned char button_bytes[32];
+	std::memset(button_bytes, 0xCC, sizeof(button_bytes));
+	g_winmm_result = 0;
+	g_winmm_state.buttons = (1u << 0) | (1u << 31);
+	assert(Joystick_PollButtonBytes(button_bytes, 0, &button_env));
+	assert(button_bytes[0] == 0x80 && button_bytes[31] == 0x80);
+	assert(button_bytes[1] == 0 && button_bytes[30] == 0);
+
+	// DirectInput copies rgbButtons byte-for-byte, rather than normalizing
+	// nonzero values to the WinMM marker.
+	button_env.use_direct_input = 1;
+	button_env.devices = devices;
+	button_env.poll = PollDevice;
+	button_env.acquire = AcquireDevice;
+	button_env.get_state = GetState;
+	g_poll_result = 0;
+	std::memset(&g_di_state, 0, sizeof(g_di_state));
+	g_di_state.buttons[0] = 0x81;
+	g_di_state.buttons[31] = 0x7E;
+	assert(Joystick_PollButtonBytes(button_bytes, 0, &button_env));
+	assert(button_bytes[0] == 0x81 && button_bytes[31] == 0x7E);
+	assert(button_bytes[1] == 0 && button_bytes[30] == 0);
+
+	// Every failed source read leaves the output cleared, including a WinMM
+	// failure before any button state is available.
+	g_winmm_result = 1;
+	button_env.use_direct_input = 0;
+	std::memset(button_bytes, 0xCC, sizeof(button_bytes));
+	assert(!Joystick_PollButtonBytes(button_bytes, 0, &button_env));
+	for (unsigned char byte : button_bytes)
+		assert(byte == 0);
+
 	// DIERR_INPUTLOST: the poll re-acquires up to 400 times, then gives up.
 	g_poll_result = -1;
 	g_acquire_result = kDInputInputLost;

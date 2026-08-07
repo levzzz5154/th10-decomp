@@ -94,7 +94,7 @@ extern "C" void* __cdecl memcpy(
 #pragma intrinsic(memcpy)
 #else
 extern "C" void* memcpy(
-    void* destination, const void* source, unsigned long size);
+    void* destination, const void* source, std::size_t size);
 #endif
 
 BufferFile::BufferFile() : size_(0), position_(0), data_(0) {

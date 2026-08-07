@@ -16,4 +16,4 @@ find "$OUTPUT" -maxdepth 1 -type f \( -name '*.c' -o -name 'index.tsv' \) -delet
     -noanalysis \
     -readOnly \
     -scriptPath "$ROOT/ghidra" \
-    -postScript ExportGameFunctions.java "$ROOT/matching/tracking.csv" "$OUTPUT"
+    -postScript ExportGameFunctions.java "$ROOT/ghidra/tracking.csv" "$OUTPUT"

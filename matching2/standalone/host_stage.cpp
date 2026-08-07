@@ -680,74 +680,20 @@ int HostInitLargeResource() {
 	return state != 0;
 }
 
-// Retail 0x004065C0: clear the six per-layer draw lists, update every live
-// bullet, relink survivors into their layer list and advance each bullet's
-// interpolator clock. The pool object is the 0x3E0B54-byte block the factory
-// produced; the retail field offsets are named in BulletLinkManager.
-int __fastcall HostBulletPoolUpdate(void* owner) {
-	if (owner == 0)
-		return 1;
-	unsigned char* pool = static_cast<unsigned char*>(owner);
-	BulletLinkManager manager = {};
-	manager.active_count = 0;
-	BulletLinkEnv env = {};
-	env.player_flags = 0;                 // no capture state in the host yet
-	env.update_bullet = [](LinkBullet* bullet) -> int {
-		// Retail's per-bullet update is 0x004067A0's sibling and is not
-		// recovered; a bullet with a zero state word is already free, so
-		// reporting "keep" leaves the pool's own bookkeeping in charge.
-		return bullet != 0 && bullet->state == 0 ? 1 : 0;
-	};
-	env.clock_env.frame_step = 1.0f;
-	BulletManager_RelinkActive(
-	    &manager, reinterpret_cast<LinkBullet*>(pool + 0x60), 0x7D1, &env);
-	*reinterpret_cast<int*>(pool + 0x5C) = manager.active_count;
-	g_report.bullets_active = manager.active_count;
-	return 1;
-}
-
-// Retail 0x004067A0: unless the player is in the capture state, walk the six
-// per-layer rows and refresh each node's collision snapshot through
-// 0x004066E0. That is the pass that keeps bullet hitboxes in step with their
-// positions, so collision has something current to test against.
-int __fastcall HostBulletPoolDraw(void* owner) {
-	if (owner == 0)
-		return 1;
-	unsigned char* pool = static_cast<unsigned char*>(owner);
-	BulletLinkManager* manager =
-	    reinterpret_cast<BulletLinkManager*>(pool + 0x14);
-	for (int layer = 0; layer < 6; ++layer) {
-		HitboxEnemy* head =
-		    reinterpret_cast<HitboxEnemy*>(manager->heads[layer]);
-		if (head == 0)
-			continue;
-		EnemyList_SyncHitboxes(head, 0.0f, 0.0f,
-		                       [](float angle, float quarter) -> float {
-			                       (void)quarter;
-			                       return angle;
-		                       },
-		                       [](void*) {
-			                       // Retail 0x004066E0's per-node tail calls
-			                       // AnmVm_DrawDispatch(manager), which keeps
-			                       // the collision snapshot current for the
-			                       // render. The host's render pass re-reads
-			                       // every animation object's VM state each
-			                       // frame, so the dispatch has no separate
-			                       // host draw effect; the callback counts
-			                       // the synced nodes so the pass stays
-			                       // observable.
-			                       g_report.hitboxes_synced += 1;
-		                       },
-		                       0);
-	}
-	return 1;
-}
-
+// The retail update edge (0x004065C0) is owned by the reconstructed
+// BulletPool_UpdateSweep (the manager's scheduler callback runs it directly);
+// the per-bullet check twin (sub_406240) is wired through the env below so
+// the sweep admits live bullets.  The draw edge (0x004067A0) is likewise
+// owned by the reconstructed BulletPool_DrawCallback.
 int HostInitBulletPoolRuntime() {
-	BulletPoolRuntimeBindings bindings = {};
-	bindings.update = HostBulletPoolUpdate;
-	bindings.draw = HostBulletPoolDraw;
-	BulletPoolRuntime_SetBindings(&bindings);
+	// sub_406240 twin: a zero state word marks the bullet already free, so it
+	// reports the bullet destroyed and the sweep drops it from the relink.
+	BulletPoolUpdateEnv env = {};
+	env.update_bullet = [](void* bullet) -> int {
+		LinkBullet* b = static_cast<LinkBullet*>(bullet);
+		return b != 0 && b->state == 0 ? 1 : 0;
+	};
+	BulletPoolRuntime_SetUpdateEnv(&env);
 	const int status = BulletPoolRuntime_Initialize(reinterpret_cast<void*>(
 	    static_cast<uintptr_t>(DAT_004776f0)));
 	// Retail registers the pool's callbacks disarmed and the loading owner
@@ -864,28 +810,7 @@ int HostInitResourceState() {
 // entity in ECX. The stamp is the game thread's frame word copied into the
 // manager at +0x10; it identifies the animation whose resource record the
 // configure pass applies. Resolving it through the recovered handle lookup
-// keeps the call real: an unresolved stamp is a data condition, not a
-// skipped edge.
-void HostPreloadEffectResource(int frame_stamp, int argument) {
-	AnimationObject* object =
-	    g_pGameStateManager != 0
-	        ? AnimationManager_Find(g_pGameStateManager, frame_stamp)
-	        : 0;
-	if (object == 0) {
-		Log("AnimationObject_ConfigureFromResource(0x0043E5A0): stamp %d "
-		    "does not resolve to a live animation yet", frame_stamp);
-		return;
-	}
-	const int result = AnimationObject_ConfigureFromResource(
-	    object, g_pGameStateManager, argument);
-	Log("AnimationObject_ConfigureFromResource(0x0043E5A0): stamp %d, "
-	    "index 0x%X, result %d", frame_stamp, argument, result);
-}
-
 int HostCreateStageState() {
-	EffectManagerRuntimeBindings effect_bindings = {};
-	effect_bindings.preload = HostPreloadEffectResource;
-	EffectManagerRuntime_SetBindings(&effect_bindings);
 	uint32_t* state = (uint32_t*)HostAlloc(0xB884);
 	if (state != 0) {
 		EffectManager_ResetAndPublish(state);
@@ -1777,6 +1702,26 @@ int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
 	return 0;
 }
 
+// Retail 0x00450160, opcodes 0x11..0x14. Retail walks the intrusive child
+// list at owner+0x1030 and returns the first link whose VM's async_id
+// matches, or 0. The host keeps the same children in the flat pool above and
+// has no link nodes of its own, so the adapter scans the pool and returns a
+// static link naming the found record - the opcode bodies read only link->vm
+// (ip kill, +0x1020 flag bit, +0x1018 write) before discarding the pointer.
+EclCoreChildLink* HostEclFindChild(EclCoreOwner* owner, int async_id) {
+	(void)owner;  // every child in the pool belongs to the single host owner
+	for (int index = 0; index < g_ecl_child_count; ++index) {
+		if (!g_ecl_child_live[index])
+			continue;
+		if (g_ecl_children[index].async_id != async_id)
+			continue;
+		static EclCoreChildLink found;
+		found.vm = &g_ecl_children[index];
+		return &found;
+	}
+	return 0;
+}
+
 // Retail 0x0044DF70, transcribed from the IDA listing rather than paraphrased.
 // Pointer notation there is _DWORD*: a1[1026] is child+0x1008 (scratch_top),
 // and (char*)a1 + X + 8 is child->scratch + X, because scratch starts at
@@ -1929,6 +1874,7 @@ void HostStartMainEcl() {
 	g_ecl_started = 1;
 	g_ecl_hooks.start_child = HostEclStartChild;
 	g_ecl_hooks.spawn_child = HostEclSpawnChild;
+	g_ecl_hooks.find_child = HostEclFindChild;
 	g_ecl_hooks.resolve_float_destination = HostEclResolveFloatDestination;
 	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \"main\" "
 	    "(sub %d, entry 0x%X, %u subs)", main_index, entry,
@@ -2590,6 +2536,8 @@ void HostModeCommitMenu() { Log("mode edge: commit menu"); }
 // -----------------------------------------------------------------------------
 // Public bridge API
 // -----------------------------------------------------------------------------
+unsigned char* HostStage_SchedulerDevice() { return g_scheduler_device; }
+
 void HostStage_SetArchiveAvailable(int available) {
 	g_report.archive_available = available;
 }

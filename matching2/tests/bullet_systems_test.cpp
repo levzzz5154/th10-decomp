@@ -1,6 +1,39 @@
+// Game-thread arena pointer (pool_constructors).
+void* g_pGameThread = 0;
+
+
+// Render/effect chain globals (pool_constructors + render leaves).
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+unsigned long dword_491D78 = 0;   // view flags
+unsigned long dword_492378 = 0;   // alpha-blend latch
+unsigned long dword_477834 = 0;   // player position
+}
+
 #include "th10/app/fps_counter.hpp"
 #include "th10/game/ascii_overlay_callbacks.hpp"
 #include "th10/game/bullet_manager.hpp"
+
+// Published game-UI manager (retail 0x00477810); zero = absent.
+extern "C" {
+unsigned long dword_477810 = 0;
+}
+
+// Retail arena/thread globals read by the menu-dispatch wiring.
+unsigned int DAT_004776e8 = 0;
+unsigned int DAT_00477838 = 0;
+unsigned int DAT_00474c68 = 0;
+unsigned int DAT_00474c6c = 0;
+unsigned int DAT_00474c74 = 0;
+unsigned int DAT_0047783c = 0;
+unsigned int DAT_00492590 = 0;
+
+// Angle recovery constants (math/angle.cpp).
+float DAT_00470b10 = -3.1415927f;  // -pi
+float DAT_00470b14 = 6.2831855f;   // 2*pi
+float DAT_00470b18 = 3.1415927f;   // pi
+
 #include "th10/game/enemy_grid_scan.hpp"
 #include "th10/game/enemy_lifecycle.hpp"
 #include "th10/game/key_config.hpp"
@@ -25,7 +58,6 @@
 uint32_t DAT_00491be4 = 0;
 uint32_t DAT_00492274 = 0;
 uint32_t DAT_004776f4 = 0;
-uint32_t DAT_0047770c = 0;
 uint32_t DAT_00477810 = 0;
 uint32_t DAT_00474e36 = 0;
 uint32_t DAT_00491ff4 = 0;
@@ -36,7 +68,17 @@ void* g_pGameStateManager = 0;
 float DAT_00470b04 = 0.0f;
 float DAT_00470b0c = 1.0f;
 float _DAT_00470b64 = 1.01f;
+float _DAT_00470b0c = 0.5f;   // the 0x0042B9A0 sweep (frame-delta half-rate)
+float _DAT_00470afc = 1.0f;   // the 0x0042B9A0 sweep (ramp step)
 float _DAT_00470b68 = 0.99f;
+// The 0x004236F0 submenu wiring globals (main_menu_dispatch.cpp).
+unsigned int byte_474E34 = 0;
+unsigned int DAT_00477834 = 0;  // player position (the 0x0041AFD0 sweep)
+unsigned int DAT_00474e30 = 0;
+unsigned int DAT_00474c7c = 0;
+unsigned int DAT_00474c44 = 0;
+unsigned int DAT_00491fb8 = 0;
+
 float DAT_00470b38 = 448.0f;
 float DAT_00470b3c = 192.0f;
 float DAT_00470b40 = -192.0f;
@@ -314,14 +356,28 @@ static void TestMainMenuDispatchState() {
                            TruncateFloat);
     assert(g_menu_opened == 1);
 
-    MainMenu_DispatchState(0, 3, 0, 0, 0, 0, OpenGameMenu, RunPauseMenu,
-                           RunSubMenu, &clock, 0.5f, 1.5f, 1.0f,
-                           TruncateFloat);
-    assert(g_pause_ran == 1);
-    MainMenu_DispatchState(0, 0xD, 0, 0, 0, 0, OpenGameMenu, RunPauseMenu,
-                           RunSubMenu, &clock, 0.5f, 1.5f, 1.0f,
-                           TruncateFloat);
-    assert(g_sub_ran == 1);
+    // State 3 (pause/result menu) now runs the 0x00422C80 semantic model:
+    // the fixture record is the menu context (phase 1 -> the initialised
+    // selection with the null ops hooks).
+    static unsigned char pause_ctx[0x400] = {};
+    *(int*)(pause_ctx + 0) = 1;      // the typed model: phase at +0
+    *(int*)(pause_ctx + 4) = 10;     // timer
+    MainMenu_DispatchState(pause_ctx, 3, 0, 0, 0, 0, OpenGameMenu,
+                           RunPauseMenu, RunSubMenu, &clock, 0.5f, 1.5f,
+                           1.0f, TruncateFloat);
+    assert(*(int*)(pause_ctx + 0) == 2);  // the phase-1 -> 2 transition
+    assert(g_pause_ran == 0);                // the binding is no longer used
+    // State 0xD (replay/result submenu) now runs the 0x004236F0
+    // reconstruction: the fixture record is the retail menu context.
+    static unsigned char submenu_ctx[0x400] = {};
+    *(int*)(submenu_ctx + 4) = 0xD;
+    *(int*)(submenu_ctx + 20) = 12;
+    *(int*)(submenu_ctx + 36) = 0;
+    MainMenu_DispatchState(submenu_ctx, 0xD, 0, 0, 0, 0, OpenGameMenu,
+                           RunPauseMenu, RunSubMenu, &clock, 0.5f, 1.5f,
+                           1.0f, TruncateFloat);
+    assert(*(int*)(submenu_ctx + 4) == 21);  // the retail teardown state
+    assert(g_sub_ran == 0);                  // the binding is no longer used
 }
 
 // --- 0x00430250 KeyConfig_ReassignSlot ----------------------------------------------

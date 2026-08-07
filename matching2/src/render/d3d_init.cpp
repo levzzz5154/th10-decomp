@@ -83,7 +83,9 @@ int D3D_Init(void) {
     //         MultiSampleType, MultiSampleQuality, SwapEffect, hDeviceWindow,
     //         Windowed, EnableAutoDepthStencil, AutoDepthStencilFormat,
     //         Flags, FullScreen_RefreshRateInHz, PresentationInterval
-    uint32_t pp[15];  // includes extra dword at front for alignment
+    // The zeroing loop below writes pp[4..17] (the 4-dword front alignment
+    // area + the 14 present-parameter dwords), so the array carries 18.
+    uint32_t pp[18];  // includes the extra dword block at the front
     uint32_t extra[6]; // additional params (uStack_24..iStack_10)
 
     // Zero the tail of present params
@@ -95,7 +97,7 @@ int D3D_Init(void) {
     // GetAdapterDisplayMode(0, &displayMode) -> fills pp[0..2]
     // vtable offset 0x20 = method index 8
     typedef void (__stdcall *GetAdapterDisplayMode_t)(void*, uint32_t, void*);
-    GetAdapterDisplayMode_t getMode = *(GetAdapterDisplayMode_t*)(*(uint32_t*)g_pD3D9 + 0x20);
+    GetAdapterDisplayMode_t getMode = *(GetAdapterDisplayMode_t*)((uintptr_t)*(uint32_t*)g_pD3D9 + 0x20);
     getMode(g_pD3D9, 0, pp);
 
     if (DAT_00491d65 == 0) {
@@ -145,7 +147,7 @@ int D3D_Init(void) {
 
     // CreateDevice attempts with fallback
     typedef int (__stdcall *CreateDevice_t)(void*, uint32_t, int, void*, uint32_t, void*, void**);
-    CreateDevice_t createDev = *(CreateDevice_t*)(*(uint32_t*)g_pD3D9 + 0x40);
+    CreateDevice_t createDev = *(CreateDevice_t*)((uintptr_t)*(uint32_t*)g_pD3D9 + 0x40);
 
     bool bVar1 = false;
     int result;
@@ -185,7 +187,7 @@ int D3D_Init(void) {
                 Platform_LogMessage(DAT_0046f514);
                 if (g_pD3D9 != 0) {
                     typedef void (__stdcall *Release_t)(void*);
-                    Release_t release = *(Release_t*)(*(uint32_t*)g_pD3D9 + 8);
+                    Release_t release = *(Release_t*)((uintptr_t)*(uint32_t*)g_pD3D9 + 8);
                     release(g_pD3D9);
                     g_pD3D9 = 0;
                 }
@@ -231,18 +233,19 @@ d3d_setup:
 
     // SetTransform(D3DTS_VIEW, &viewMatrix)
     typedef void (__stdcall *SetTransform_t)(void*, uint32_t, void*);
-    SetTransform_t setTransform = *(SetTransform_t*)(*(uint32_t*)g_pD3DDevice + 0xB0);
+    SetTransform_t setTransform = *(SetTransform_t*)((uintptr_t)*(uint32_t*)g_pD3DDevice + 0xB0);
     setTransform(g_pD3DDevice, 2, DAT_00491c74);   // D3DTS_VIEW = 2
     setTransform(g_pD3DDevice, 3, DAT_00491cb4);   // D3DTS_PROJECTION = 3
 
     // SetViewport
     typedef void (__stdcall *SetViewport_t)(void*, void*);
-    SetViewport_t setViewport = *(SetViewport_t*)(*(uint32_t*)g_pD3DDevice + 0xC0);
+    SetViewport_t setViewport = *(SetViewport_t*)((uintptr_t)*(uint32_t*)g_pD3DDevice + 0xC0);
     setViewport(g_pD3DDevice, DAT_00491cf4);
 
     // SetRenderState block
     typedef void (__stdcall *SetRenderState_t)(void*, void*);
-    SetRenderState_t setRenderState = *(SetRenderState_t*)(*(uint32_t*)g_pD3DDevice + 0x1C);
+    SetRenderState_t setRenderState =
+        *(SetRenderState_t*)((uintptr_t)*(uint32_t*)g_pD3DDevice + 0x1C);
     setRenderState(g_pD3DDevice, DAT_00492000);
 
     // Check device caps
@@ -254,9 +257,10 @@ d3d_setup:
     }
 
     // Check format conversion for fullscreen AA
-    if ((DAT_00491d78 & 1) == 0 && ((char)((uint32_t)g_pD3DDevice >> 24) != 0)) {
+    if ((DAT_00491d78 & 1) == 0 &&
+        ((char)((uint32_t)(uintptr_t)g_pD3DDevice >> 24) != 0)) {
         typedef int (__stdcall *CheckFormat_t)(void*, uint32_t, int, uint32_t, void*, uint32_t, uint32_t);
-        CheckFormat_t checkFormat = *(CheckFormat_t*)(*(uint32_t*)g_pD3D9 + 0x28);
+        CheckFormat_t checkFormat = *(CheckFormat_t*)((uintptr_t)*(uint32_t*)g_pD3D9 + 0x28);
         int fmtResult = checkFormat(g_pD3D9, 0, 1, 0, 0, 3, 0x15);
         if (fmtResult == 0) {
             DAT_00491ff4 |= 4;

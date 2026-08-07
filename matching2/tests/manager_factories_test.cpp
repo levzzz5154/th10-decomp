@@ -1,5 +1,28 @@
+// Game-thread arena pointer (pool_constructors).
+void* g_pGameThread = 0;
+
+// Render/effect chain globals (pool_constructors + render leaves).
+extern "C" {
+unsigned long dword_491C10 = 0;   // animation manager
+unsigned long dword_491C30 = 0;   // D3D device
+unsigned long dword_491D78 = 0;   // view flags
+unsigned long dword_492378 = 0;   // alpha-blend latch
+unsigned long dword_477834 = 0;   // player position
+}
+
 #include "th10/game/boss_overlays.hpp"
 #include "th10/game/bullet_manager.hpp"
+
+// Published game-UI manager (retail 0x00477810); zero = absent.
+extern "C" {
+unsigned long dword_477810 = 0;
+}
+
+// Angle recovery constants (math/angle.cpp).
+float DAT_00470b10 = -3.1415927f;  // -pi
+float DAT_00470b14 = 6.2831855f;   // 2*pi
+float DAT_00470b18 = 3.1415927f;   // pi
+
 #include "th10/game/enemy_lifecycle.hpp"
 #include "th10/game/manager_factories.hpp"
 #include "th10/game/player_motion.hpp"
@@ -22,11 +45,18 @@
 uint32_t DAT_00491be4 = 0;
 uint32_t DAT_00492274 = 0;
 uint32_t DAT_004776f4 = 0;
-uint32_t DAT_0047770c = 0;
+uint32_t DAT_00477834 = 0;  // player position (the 0x0041AFD0 sweep)
 unsigned char DAT_0049231c = 0;
 void* g_pGameStateManager = 0;
+float DAT_00476f78 = 1.0f;   // frame-delta sentinel (the 0x0042B9A0 sweep)
 float DAT_00470b04 = 0.0f;
 float DAT_00470b0c = 1.0f;
+// The 0x0042B9A0 sweep constants (retail float values; the underscore
+// twins are the ones pool_constructors.cpp externs).
+float _DAT_00470b0c = 0.5f;
+float _DAT_00470afc = 1.0f;
+float _DAT_00470b68 = 0.99f;
+float _DAT_00470b64 = 1.01f;
 float DAT_00470b38 = 448.0f;
 float DAT_00470b3c = 192.0f;
 float DAT_00470b40 = -192.0f;

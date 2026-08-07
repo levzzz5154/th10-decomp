@@ -35,7 +35,7 @@ while IFS= read -r source; do
 done < "$BUILD/sources.txt"
 
 for relative in standalone/host_main.cpp standalone/host_stage.cpp \
-                standalone/win32_compat.cpp; do
+                standalone/win32_compat.cpp standalone/globals.cpp; do
     object="$BUILD/objects/${relative//\//__}.o"
     "$CXX" -std=c++17 -Wall -Wextra -Werror -O2 -I"$ROOT/include" \
         -c "$ROOT/$relative" -o "$object"

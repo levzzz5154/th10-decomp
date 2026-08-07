@@ -8,7 +8,8 @@
     "function_count": 703,
     "by_recovery_status": {
       "exact-overlay": 378,
-      "semantic": 325
+      "researched": 3,
+      "semantic": 322
     }
   },
   "functions": [
@@ -1058,7 +1059,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00408D60_FUN_00408d60.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/score_runtime_ui_update.cpp"
+      "promoted_source": "src/game/score.cpp"
     },
     {
       "address": "0x004091C0",
@@ -2644,7 +2645,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0041AFD0_FUN_0041afd0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/gameplay_final_runtime.cpp"
+      "promoted_source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0041BA50",
@@ -3496,7 +3497,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422660_FUN_00422660.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/result_menu_draw.cpp"
+      "promoted_source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422A90",
@@ -3520,7 +3521,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422AB0_FUN_00422ab0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/pause_result_open.cpp"
+      "promoted_source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422C30",
@@ -3544,7 +3545,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00422C80_FUN_00422c80.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/result_choice_menu.cpp"
+      "promoted_source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x004231D0",
@@ -3598,7 +3599,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004236F0_FUN_004236f0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/ui_final_runtime.cpp"
+      "promoted_source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x004243F0",
@@ -3709,7 +3710,7 @@
       "size": 3120,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00425730_FUN_00425730.c",
-      "recovery_status": "semantic",
+      "recovery_status": "researched",
       "promoted_source": "src/game/gameplay_final_runtime.cpp"
     },
     {
@@ -3720,7 +3721,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00426360_FUN_00426360.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/stage_controller_tick.cpp"
+      "promoted_source": "src/game/player_runtime_init.cpp"
     },
     {
       "address": "0x00426520",
@@ -3811,7 +3812,7 @@
       "size": 2528,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00426F70_FUN_00426f70.c",
-      "recovery_status": "semantic",
+      "recovery_status": "researched",
       "promoted_source": "src/game/gameplay_final_runtime.cpp"
     },
     {
@@ -4757,7 +4758,7 @@
       "size": 2800,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00433EF0_FUN_00433ef0.c",
-      "recovery_status": "semantic",
+      "recovery_status": "researched",
       "promoted_source": "src/game/ui_final_runtime.cpp"
     },
     {
@@ -5542,7 +5543,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00438AD0_GameMain.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/app/game_main.cpp"
+      "promoted_source": "src/platform/window.cpp"
     },
     {
       "address": "0x004390E0",
@@ -5586,7 +5587,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00439390_FUN_00439390.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/app/frame_clock.cpp"
+      "promoted_source": "src/platform/window.cpp"
     },
     {
       "address": "0x00439540",
@@ -6136,7 +6137,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0043E5A0_FUN_0043e5a0.c",
       "recovery_status": "exact-overlay",
-      "promoted_source": "src/render/animation_manager.cpp",
+      "promoted_source": "src/game/pool_constructors.cpp",
       "overlay": {
         "object": "animation_manager.obj",
         "symbol": "?AnimationObject_ConfigureFromResource@@"
@@ -8504,7 +8505,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00450470_FUN_00450470.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/platform/all_source_runtime.cpp"
+      "promoted_source": "src/script/final_script_runtime.cpp"
     },
     {
       "address": "0x004505B0",

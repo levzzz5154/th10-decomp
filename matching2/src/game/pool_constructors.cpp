@@ -1,7 +1,8 @@
 #include "th10/game/pool_constructors.hpp"
 #include "th10/game/entity.hpp"
+#include "th10/game/floating_text_draw.hpp"
 #include "th10/game/scheduler.hpp"
-#include "th10/runtime/missing_edge.hpp"
+#include "th10/render/recovered_render_leaves.hpp"
 
 #include <cstring>
 
@@ -13,28 +14,171 @@ extern uint32_t DAT_00491be4;
 extern void* g_pGameThread;
 extern void __fastcall Entity_Init(void* unused, Entity* entity);
 extern "C" void _free(void* memory);
+extern "C" unsigned long dword_491C10;   // animation manager
+extern "C" unsigned long dword_491D78;   // view flags
+extern "C" unsigned long dword_492378;   // alpha-blend latch
+// The 0x0042B9A0 sweep constants (retail float values from the data
+// section): flt_470B0C = 0.5 (the frame-delta half-rate), flt_470AFC = 1.0
+// (the ramp step), flt_470B68 = 0.99 (the ramp gate), flt_470B64 = 1.01
+// (the NaN-filter sentinel - not part of the gate).
+extern float DAT_00476f78;    // flt_476F78 (frame delta)
+extern float _DAT_00470b0c;   // flt_470B0C
+extern float _DAT_00470afc;   // flt_470AFC
+extern float _DAT_00470b68;   // flt_470B68
+extern float _DAT_00470b64;   // flt_470B64
+extern "C" unsigned long dword_477834;   // player position
 
 namespace {
-EffectManagerRuntimeBindings g_effect_runtime_bindings = {};
+
+// The retail per-glyph draw (sub_443080 within 0x0042B780) rasterizes a
+// quad from the glyph's screen position, the font entry's texel
+// dimensions (1/256-scaled, as 0x0043E5A0 scales them) and the record
+// colour/alpha.  The recovered staging writer and the default leaves
+// carry the quad to the batch; the sprite UV decode is the render
+// platform's territory (the host supplies texture coordinates).
+void Effect_DrawGlyph(const FloatingGlyphDraw* glyph) {
+    void* manager = (void*)dword_491C10;
+    if (manager == 0) return;
+    void* table = *(void**)((char*)manager + 16);
+    if (table == 0) return;
+    const unsigned char* entry =
+        *(const unsigned char**)((char*)table + 280) + 68 * glyph->glyph_index;
+    const float width = *(const float*)(entry + 52) * 0.00390625f;
+    const float height = *(const float*)(entry + 48) * 0.00390625f;
+    const float corners[4][2] = {
+        {glyph->x - width * 0.5f, glyph->y - height * 0.5f},
+        {glyph->x + width * 0.5f, glyph->y - height * 0.5f},
+        {glyph->x - width * 0.5f, glyph->y + height * 0.5f},
+        {glyph->x + width * 0.5f, glyph->y + height * 0.5f},
+    };
+    const unsigned int color =
+        (glyph->color & 0x00FFFFFFu) | ((unsigned int)glyph->alpha << 24);
+    th10::render_leaves::AppendQuadColored(corners, color);
+}
+
+}  // namespace
+
+// 0x0042B9A0 / 0x0042B9B0: the effect bookkeeping update and render are
+// named-scope (declared in pool_constructors.hpp) so the scheduler and the
+// standalone can reach them; the anonymous namespace above holds the file's
+// internal helpers only.
 
 int __fastcall EffectRuntime_Update(void* owner) {
-    if (g_effect_runtime_bindings.update == 0)
-        Runtime_MissingEdge(0x0042B9A0u, "effect bookkeeping update");
-    return g_effect_runtime_bindings.update(owner);
+    // Retail 0x0042B9A0 (weak fn): the effect bookkeeping sweep over the
+    // 723 records at owner+0x3D4 (stride 0x40), returns 1.  Raw retail
+    // record offsets: +0x00 the lifetime float, +0x08 the counter copy,
+    // +0x10 the counter, +0x14 the value float, +0x18 the drive pointer,
+    // +0x28 the active byte.
+    //   if ([+0x28] == 0) skip;
+    //   [+0x00] -= flt_476F78 * flt_470B0C;            (0.5x frame-delta)
+    //   [+0x08] = counter = [+0x10];
+    //   if ([+0x18][0] > flt_470B68)  { [+0x14] += flt_470AFC (1.0);
+    //                                   [+0x10] = counter + 1; }
+    //   else { [+0x14] += [+0x18][0]; [+0x10] = (int)[+0x14]; }
+    //     (the retail's second compare against flt_470B64 (1.01) is the
+    //      NaN filter for the drive value - jp on the parity flag - so the
+    //      ramp gate is 0.99 only)
+    //   if ([+0x10] > 0x3C) [+0x28] = 0;
+    unsigned char* r = (unsigned char*)owner + 0x3D4;
+    for (int i = 0; i < 723; ++i, r += 0x40) {
+        if (r[0x28] == 0) continue;
+        *(float*)(r + 0x00) -= DAT_00476f78 * _DAT_00470b0c;
+        int counter = *(int*)(r + 0x10);
+        *(int*)(r + 0x08) = counter;
+        float drive = *(float*)(*(void**)(r + 0x18));
+        if (drive > _DAT_00470b68) {
+            *(float*)(r + 0x14) += _DAT_00470afc;
+            *(int*)(r + 0x10) = counter + 1;
+        } else {
+            *(float*)(r + 0x14) += drive;
+            *(int*)(r + 0x10) = (int)*(float*)(r + 0x14);
+        }
+        if (*(int*)(r + 0x10) > 0x3C) r[0x28] = 0;
+    }
+    return 1;
 }
 
 int __fastcall EffectRuntime_Render(void* owner) {
-    if (g_effect_runtime_bindings.render == 0)
-        Runtime_MissingEdge(0x0042B9B0u, "effect bookkeeping render");
-    return g_effect_runtime_bindings.render(owner);
+    // Retail 0x0042B9B0: `return sub_42B780(this)` - the effect bookkeeping
+    // render edge is the floating-text pass over the 723 records at +964,
+    // with the retail globals supplying the draw environment (view flags
+    // 0x00491D78, the alpha-blend latch 0x00492378, the player position
+    // 0x00477834[240/241]).  The per-glyph rasterization and the batch
+    // reopen route through the recovered render chain (the reverse-glyph
+    // pass 0x0042B780, the batch flush 0x00442F50, the quad staging append
+    // at 0x00442FE0 and the quad builder at 0x00443080) via the shared
+    // leaves; all four addresses are prose references, not impl headers.
+    FloatingTextEnv env;
+    env.view_flags = (unsigned int)dword_491D78;
+    env.alpha_blend_state = (int*)&dword_492378;
+    env.player_position[0] = ((const float*)dword_477834)[240];
+    env.player_position[1] = ((const float*)dword_477834)[241];
+    env.disable_alpha_blend = th10::render_leaves::FlushQuadBatch;
+    env.draw_glyph = Effect_DrawGlyph;
+    return TextBatch_DrawReverseGlyphs(
+        (const FloatingTextRecord*)((char*)owner + 964), &env);
 }
 
-void EffectRuntime_Preload(int frame_stamp, int argument) {
-    if (g_effect_runtime_bindings.preload == 0)
-        Runtime_MissingEdge(0x0043E5A0u, "effect resource preload");
-    g_effect_runtime_bindings.preload(frame_stamp, argument);
+// 0x0043E5A0 - Preload an effect resource bank. The retail call shape is
+// (owner record, slot index, bank): the slot record inside the bank is
+// resolved and its texture dimensions are pulled into the owner, the
+// 4x4 identity scale rows at +572 and +700 are installed (retail store
+// order), and the width/height entries are scaled by 1/256 before the
+// first row block is mirrored to +636.
+int EffectRuntime_Preload(void* owner, int slot, void* bank) {
+    unsigned char* bytes = (unsigned char*)owner;
+    uint32_t* bank32 = (uint32_t*)bank;
+    if (bank32[66] == 0 || bank32[73] != 0)
+        return -1;
+    *(uint16_t*)(bytes + 900) = (uint16_t)slot;
+    *(uint32_t*)(bytes + 776) = (uint32_t)(uintptr_t)bank;
+    uint32_t* record =
+        (uint32_t*)(uintptr_t)(bank32[70] + 68u * (unsigned)slot);
+    *(uint32_t*)(bytes + 916) = (uint32_t)(uintptr_t)record;
+    *(uint32_t*)(bytes + 76) = record[13];  // slot record + 52
+    *(uint32_t*)(bytes + 80) = record[12];  // slot record + 48
+    // Identity scale rows at +572 and +700 (retail store order).
+    *(uint32_t*)(bytes + 628) = 0;
+    *(uint32_t*)(bytes + 624) = 0;
+    *(uint32_t*)(bytes + 620) = 0;
+    *(uint32_t*)(bytes + 616) = 0;
+    *(uint32_t*)(bytes + 608) = 0;
+    *(uint32_t*)(bytes + 604) = 0;
+    *(uint32_t*)(bytes + 600) = 0;
+    *(uint32_t*)(bytes + 596) = 0;
+    *(uint32_t*)(bytes + 588) = 0;
+    *(uint32_t*)(bytes + 584) = 0;
+    *(uint32_t*)(bytes + 580) = 0;
+    *(uint32_t*)(bytes + 576) = 0;
+    *(uint32_t*)(bytes + 632) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 612) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 592) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 572) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 756) = 0;
+    *(uint32_t*)(bytes + 752) = 0;
+    *(uint32_t*)(bytes + 748) = 0;
+    *(uint32_t*)(bytes + 744) = 0;
+    *(uint32_t*)(bytes + 736) = 0;
+    *(uint32_t*)(bytes + 732) = 0;
+    *(uint32_t*)(bytes + 728) = 0;
+    *(uint32_t*)(bytes + 724) = 0;
+    *(uint32_t*)(bytes + 716) = 0;
+    *(uint32_t*)(bytes + 712) = 0;
+    *(uint32_t*)(bytes + 708) = 0;
+    *(uint32_t*)(bytes + 704) = 0;
+    *(uint32_t*)(bytes + 760) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 740) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 720) = 0x3F800000u;  // 1.0f
+    *(uint32_t*)(bytes + 700) = 0x3F800000u;  // 1.0f
+    float* v4 = (float*)record;
+    *(float*)(bytes + 572) = *(float*)(bytes + 76) * 0.00390625f;
+    *(float*)(bytes + 592) = *(float*)(bytes + 80) * 0.00390625f;
+    *(float*)(bytes + 700) = v4[14] / v4[7] * *(float*)(bytes + 76);
+    const float v5 = v4[15] / v4[6];
+    memcpy(bytes + 636, bytes + 572, 0x40);
+    *(float*)(bytes + 720) = v5 * *(float*)(bytes + 80);
+    return 0;
 }
-}  // namespace
 
 // All three retail constructors share the same shape: a prologue of
 // per-slot stores (sentinel bit clears, per-channel defaults, vtable
@@ -54,15 +198,6 @@ void EffectManager_ResetAndPublish(uint32_t* state) {
     memset(state, 0, kEffectManagerDwords * sizeof(uint32_t));
     state[0] |= 2u;
     DAT_00477840 = state;
-}
-
-void EffectManagerRuntime_SetBindings(
-        const EffectManagerRuntimeBindings* bindings) {
-    if (bindings != 0)
-        g_effect_runtime_bindings = *bindings;
-    else
-        memset(&g_effect_runtime_bindings, 0,
-               sizeof(g_effect_runtime_bindings));
 }
 
 // 0x0042B4D0 - Stamp the manager, install its callback pair, initialize the
@@ -97,9 +232,10 @@ int EffectManagerRuntime_Initialize(void* state) {
     *(SchedulerCallback**)(bytes + 12) = render;
     Entity_Init(0, (Entity*)(bytes + 0x18));
     *(int*)(bytes + 0x320) = stamp;
-    // Retail's tail call is unconditional; the edge is mandatory so a
-    // missing binding fails loudly instead of skipping the preload.
-    EffectRuntime_Preload(stamp, 0xC4);
+    // Retail tail-calls sub_43E5A0(record, 0xC4, bank) with the embedded
+    // record at +0x18 and the bank value copied into +0x10. The tail
+    // call is unconditional; the wrapper defaults to the faithful body.
+    EffectRuntime_Preload(bytes + 0x18, 0xC4, (void*)(uintptr_t)stamp);
     return 0;
 }
 

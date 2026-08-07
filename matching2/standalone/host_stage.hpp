@@ -130,5 +130,11 @@ void HostStage_EnableEcl(int enabled);
 // the block the recovered per-frame updater (0x00445620) expects.
 void* HostStage_CreateEffectRing();
 
+// The scheduler device block (retail dword_491BE4 object slice) the stage
+// tasks register into. The retail game-menu record runtime (host_main)
+// publishes the same block as DAT_00491be4 so MenuTimerRuntime_Initialize
+// (0x00422150) arms its update/draw pair against the one scheduler.
+unsigned char* HostStage_SchedulerDevice();
+
 const HostStageReport& HostStage_GetReport();
 const HostStageRuntimeView& HostStage_GetRuntimeView();

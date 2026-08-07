@@ -117,6 +117,15 @@ int AnimationManager_UpdateSecondary(void* manager);
 int AnimationManager_RenderBucket(void* manager, int bucketIndex);
 int AnimationManager_FindChildByScriptIndex(
     void* manager, int animationHandle, short scriptIndex);
+// Link a registered object as a child of another registered object.  The
+// host twin of the retail child-list insert (the second node at retail
+// +0x10 / host +0x1C): the child's membership node is head-inserted into
+// the parent's chain so that AnimationManager_FindChildByScriptIndex can
+// resolve it.  The retail builders inline this insert (e.g. sub_40B070's
+// creation family); the standalone uses this function at the creation
+// sites.  Head-insert matches the retail's newest-first ordering; the tag
+// lookup is order-insensitive (tags are unique per parent).
+void AnimationManager_AttachChild(void* parent, void* child);
 int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,
     const float* position);

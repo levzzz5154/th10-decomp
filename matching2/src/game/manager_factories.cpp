@@ -1,6 +1,10 @@
 #include "th10/game/manager_factories.hpp"
+#include "th10/game/gameplay_final_runtime.hpp"
 #include "th10/game/entity.hpp"
 #include "th10/game/player_motion.hpp"
+#include "th10/game/pool_constructors.hpp"
+#include "th10/render/anm_vm_draw_dispatch.hpp"
+#include "th10/render/recovered_render_leaves.hpp"
 #include "th10/runtime/missing_edge.hpp"
 #include "th10/util/scalars.hpp"
 
@@ -10,8 +14,16 @@
 
 extern Entity* __fastcall Entity_Constructor(Entity* entity);
 extern unsigned int DAT_004776f4;
+extern unsigned int DAT_00477834;  // player position (the 0x0041AFD0 sweep)
+extern float DAT_00476f78;          // frame delta (the 0x0041AFD0 sweep)
 extern unsigned int DAT_0047770c;
 extern unsigned int DAT_00491be4;
+
+// Retail globals feeding the recovered particle/effect draw pass.
+#ifdef _MSC_VER
+extern "C" unsigned long dword_4776F0;  // animation-manager resource slot
+extern "C" unsigned long dword_491C10;  // animation manager
+#endif
 
 #ifdef _MSC_VER
 extern "C" void __stdcall EhVectorCtorIter();
@@ -39,15 +51,90 @@ namespace {
 ParticleEffectRuntimeBindings g_particle_effect_bindings = {};
 
 int __fastcall ParticleEffect_Update(void* owner) {
-	if (g_particle_effect_bindings.update == 0)
-		Runtime_MissingEdge(0x0041AFD0u, "particle/effect update");
-	return g_particle_effect_bindings.update(owner);
+	// 0x0041AFD0 (the item sweep) is reconstructed as UpdateItems
+	// (gameplay_final_runtime); the owner is the item pool and the env
+	// reads the player position + the collect/magnet rects from the
+	// player record (dword_477834 +960/+964 and slots 4297-4314).
+	th10::gameplay_final::ItemEnv env;
+	if (DAT_00477834 != 0) {
+		const float* pos = (const float*)(uintptr_t)DAT_00477834;
+		env.player_x = *(pos + 240);
+		env.player_y = *(pos + 241);
+		env.collect_l = *(pos + 4297); env.collect_t = *(pos + 4298);
+		env.collect_r = *(pos + 4299); env.collect_b = *(pos + 4300);
+		env.magnet_l = *(pos + 4309);  env.magnet_t = *(pos + 4310);
+		env.magnet_r = *(pos + 4311);  env.magnet_b = *(pos + 4312);
+	}
+	env.frame_delta = DAT_00476f78;
+	return UpdateItems(*(th10::gameplay_final::ItemPool*)owner, env);
 }
 
+// Retail 0x0041B8E0 reads the shared effect bank through the
+// animation-manager resource slot (dword_4776F0 + 1016532 dwords =
+// +0x3E0B50 bytes) for the per-record glyph-bank preloads.
+#ifdef _MSC_VER
+void* ParticleEffect_Bank() {
+	return *(void**)((char*)(uintptr_t)dword_4776F0 + 4066128);
+}
+#else
+void* ParticleEffect_Bank() {
+	return 0;  // retail dword_4776F0 is hybrid-only; host injects its
+	           // own resource bindings over this path
+}
+#endif
+
+// Retail 0x0041B8E0 draws the 2198 effect records: the pool slots start
+// at +0x14 with a 0x3F0 stride and the record payload sits at +0x34C.
+// Each live record (dword at +164) is projected from its unprojected
+// triple (+116/+120/+124, biased by +224.0/+16.0), records entering
+// below y=8.0 are faded through the alpha byte at -57, the glyph bank
+// is preloaded (retail 0x0043E5A0) when the record's slot id (int16 at
+// +76) no longer matches the current bank + 344/353, and the record is
+// emitted through the shared sub_4451C0 draw dispatch on the record's
+// ANM VM at the slot base.
 int __fastcall ParticleEffect_Draw(void* owner) {
-	if (g_particle_effect_bindings.draw == 0)
-		Runtime_MissingEdge(0x0041B8E0u, "particle/effect draw");
-	return g_particle_effect_bindings.draw(owner);
+	// The host draw binding is superseded by the recovered pass; the
+	// retail globals feed the draw environment directly.
+	Byte* slot = (Byte*)owner + 20;
+	Byte* record = (Byte*)owner + 844;
+	static AnmDrawEnv env = th10::render_leaves::DefaultAnmDrawEnv();
+#ifdef _MSC_VER
+	void* context = (void*)dword_491C10;
+#else
+	void* context = 0;  // host injects its own draw binding over this path
+#endif
+	for (int count = 2198; count != 0; --count) {
+		if (*(Word*)(record + 164) != 0) {
+			*(float*)(record - 4) = *(float*)(record + 116) + 224.0f;
+			*(float*)record = *(float*)(record + 120) + 16.0f;
+			*(Word*)(record + 4) = *(Word*)(record + 124);
+			if (*(float*)record >= 8.0f) {
+				const int bank = *(int*)(record + 172);
+				if (*(short*)(record + 76) != bank + 344) {
+					EffectRuntime_Preload(slot, bank + 343,
+					                      ParticleEffect_Bank());
+					*(Byte*)(record - 57) = 0xFF;
+				}
+			} else {
+				const double previous_y = *(float*)record;
+				*(float*)record = 25.0f;  // retail store 1103101952
+				const double fade = previous_y - 8.0;
+				if (fade < 32.0)
+					*(Byte*)(record - 57) = (Byte)(unsigned long long)(
+					    fade * 0.03125 * 255.0);
+				else
+					*(Byte*)(record - 57) = 0xFF;
+				const int bank = *(int*)(record + 172);
+				if (*(short*)(record + 76) != bank + 353)
+					EffectRuntime_Preload(slot, bank + 352,
+					                      ParticleEffect_Bank());
+			}
+			AnmVm_DrawDispatch((AnmDrawVm*)slot, context, &env);
+		}
+		slot += 1008;
+		record += 1008;
+	}
+	return 1;
 }
 }  // namespace
 

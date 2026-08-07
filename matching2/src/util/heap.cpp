@@ -777,9 +777,11 @@ const char* LegacyString::Data() const {
     return storage.inline_data;
 }
 
-// 0x004386B0 + 0x0043874C - Grow using the retail 1.5x capacity policy while
-// preserving the requested prefix and switching cleanly out of inline mode.
-// 0x004386B0/0x0043874C - Grow storage using the retail capacity policy.
+// 0x004386B0 - Grow using the retail 1.5x capacity policy while preserving
+// the requested prefix and switching cleanly out of inline mode.
+// 0x0043874C - Continuation chunk of Grow (copy-out + free tail) covered by
+// the same naked body: SEH resume at 438743h, rep movsd/movsb prefix copy,
+// and call sub_4524A1 freeing the old heap block.
 #ifdef _MSC_VER
 __declspec(naked) void LegacyString::Grow(
         uint32_t requested, uint32_t old_length) {
