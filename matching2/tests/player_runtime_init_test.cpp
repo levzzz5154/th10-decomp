@@ -24,8 +24,13 @@ unsigned long dword_491C10 = 0;   // animation manager
 unsigned long dword_491C30 = 0;   // D3D device
 }
 uint32_t DAT_00474c68 = 0;
+uint32_t DAT_00474c6c = 0;
 uint32_t DAT_00477834 = 0;
 uint32_t DAT_00476f78 = 0;
+uint32_t* DAT_0047770c = nullptr;
+uint32_t DAT_004776ec = 0;
+uint32_t DAT_00477704 = 0;
+uint32_t DAT_00477838 = 0;
 uint32_t DAT_00492274 = 0;
 unsigned char DAT_0049231c = 0;
 void* g_pGameStateManager = 0;
@@ -47,6 +52,8 @@ extern "C" void __stdcall LeaveCriticalSection(void*) {}
 int* ResourceManager_FindResource(int, void*, const char*) {
     return 0;
 }
+
+extern int LargePlayer_UpdateForTest(void* owner);
 
 namespace {
 
@@ -152,6 +159,8 @@ void TestRetailLayoutUpdateBridge() {
     RawStore<int>(raw, 0x478, 10);
     RawStore<float>(raw, 0x47C, 10.0f);
     RawStore<int>(raw, 0x484, 1);
+    RawStore<int>(raw, 0x470, 1);
+    RawStore<int>(raw, 0x498, 1);
     RawStore<int>(raw, 0x4310, 5);
     RawStore<float>(raw, 0x4314, 5.0f);
     RawStore<std::uint32_t>(raw, 0x431C, 1u);
@@ -176,6 +185,16 @@ void TestRetailLayoutUpdateBridge() {
     assert(RawLoad<float>(raw, indicator + 0x00) == 5.0f);
     assert(RawLoad<int>(raw, indicator + 0x48) == 4);
     assert(RawLoad<std::uint32_t>(raw, indicator + 0x68) == 1u);
+    // Every embedded retail timer keeps the shared frame-scale pointer in its
+    // raw record; the bridge must republish it after the host-side update.
+    const std::uint32_t frame_delta_pointer = static_cast<std::uint32_t>(
+        reinterpret_cast<uintptr_t>(&DAT_00476f78));
+    assert(RawLoad<std::uint32_t>(raw, 0x46C) == frame_delta_pointer);
+    assert(RawLoad<std::uint32_t>(raw, 0x480) == frame_delta_pointer);
+    assert(RawLoad<std::uint32_t>(raw, 0x494) == frame_delta_pointer);
+    assert(RawLoad<std::uint32_t>(raw, indicator + 0x50) ==
+           frame_delta_pointer);
+    assert(RawLoad<std::uint32_t>(raw, 0x4318) == frame_delta_pointer);
     // +0x4314 is the retail fractional invulnerability image, not an int
     // mirror; the tail advances it before the raw bridge writes it back.
     assert(RawLoad<float>(raw, 0x4314) == 4.0f);
@@ -201,6 +220,48 @@ void TestRetailAttachedEffectsBridge() {
         assert(RawLoad<int>(raw, base) == 2);
         assert(RawLoad<int>(raw, base + 0x88) == index);
     }
+}
+
+void NoopLargeRefresh(void*) {}
+void NoopLargeAnimation(void*) {}
+
+void TestLargePlayerRawGates() {
+    std::vector<unsigned char> raw(0x4478, 0);
+    RawStore<int>(raw, 0x458, 1);  // case 1, where the shot gate is visible
+    RawStore<int>(raw, 0x478, 0);
+    RawStore<float>(raw, 0x47C, 0.0f);
+    RawStore<int>(raw, 0x484, 1);
+    RawStore<int>(raw, 0x470, 1);
+    RawStore<int>(raw, 0x498, 1);
+    std::uint16_t power = 40;
+    int can_respawn = 1;
+    int frame_counter = 0;
+    LargePlayerRuntimeBindings bindings{};
+    bindings.refresh_derived = NoopLargeRefresh;
+    bindings.execute_animation = NoopLargeAnimation;
+    bindings.power_gauge = &power;
+    bindings.can_respawn = &can_respawn;
+    bindings.frame_counter = &frame_counter;
+    LargePlayerRuntime_SetBindings(&bindings);
+    DAT_00476f78 = 0x3F800000u;
+    DAT_00474e36 = 2;  // focus/shot input
+    DAT_0047770c = nullptr;
+    DAT_004776ec = 0;
+    DAT_00477704 = 0;
+    DAT_00477838 = 0;
+
+    assert(LargePlayer_UpdateForTest(raw.data()) == 1);
+    // Null raw gate blocks mean no live player, no focus object, and no hold
+    // config. Retail therefore does not drain power and takes LABEL_115's
+    // hard hold-timer reset path.
+    assert(power == 40);
+    assert(RawLoad<int>(raw, 0x460) == -2);
+    assert(RawLoad<int>(raw, 0x464) == -1);
+    assert(RawLoad<float>(raw, 0x468) == -1.0f);
+    assert(RawLoad<int>(raw, 0x4474) == 0);
+    assert(RawLoad<int>(raw, 0x4308) == 30);
+    assert(RawLoad<int>(raw, 0x3504) == 0);
+    assert(raw[0x3508] == 0);
 }
 
 void TestReuseAndFailures() {
@@ -231,5 +292,6 @@ int main() {
     TestReuseAndFailures();
     TestRetailLayoutUpdateBridge();
     TestRetailAttachedEffectsBridge();
+    TestLargePlayerRawGates();
     return 0;
 }

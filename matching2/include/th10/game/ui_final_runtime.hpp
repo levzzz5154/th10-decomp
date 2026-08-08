@@ -230,6 +230,7 @@ struct MusicRoomEnv{
 // `row_handles` is the corresponding retail +1556 handle array.
 struct MusicRoom{
   int phase{},timer{},selection{},previous_selection{},track_count{},scroll{};
+  float timer_fraction{};              // shared frame-speed timer fraction
   int ramp_target_minus1{-999999};     // +688 (retail reset mirror)
   int ramp_counter{};                   // +692 (retail timer mirror)
   float ramp_value{};                   // +696 (retail reset mirror)
@@ -259,6 +260,9 @@ struct MusicRoom{
   int history_cursor{-1};
   std::vector<std::pair<int,int>>history; // +12/+76 history entries for sub_44BE70
 };
+// Advances the shared +0x2B4 room timer after the retail handler returns.
+// A zero frame speed pauses it; non-unit speeds retain the timer fraction.
+void AdvanceMusicRoomTimer(MusicRoom&, const float* frame_delta);
 int UpdateMusicRoom(MusicRoom&,const MusicRoomEnv&,std::uint32_t input,
                     const std::string&resource);
 // Compatibility entry point for existing host callers. With no callbacks it

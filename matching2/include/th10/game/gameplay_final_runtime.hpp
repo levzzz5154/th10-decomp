@@ -60,6 +60,7 @@ struct FamiliarSlot {
     int handle{};                     // +0x3308
     int index{};                       // +0x3328
     int callback_kind{};              // 0, 1 (0x427950), or 2 (0x427AD0)
+    std::uint32_t callback_address{}; // raw +0x3330 function word
     int script{};                      // 0x11, 0x12, or 0x13
     std::uint32_t animation_flags{};  // ANM object +0x35C |= 0x40000000
 };

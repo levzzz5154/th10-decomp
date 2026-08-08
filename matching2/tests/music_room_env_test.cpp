@@ -277,6 +277,23 @@ int main(){
     assert(state.events.empty()&&!p.registered.empty());
   }
 
+  // The shared room timer follows the frame-speed gate: paused frames do not
+  // advance, while fractional speeds retain their accumulated fraction.
+  {
+    ui_final::MusicRoom state;
+    float speed=0.0f;
+    ui_final::AdvanceMusicRoomTimer(state,&speed);
+    assert(state.timer==0);
+    speed=1.0f;
+    ui_final::AdvanceMusicRoomTimer(state,&speed);
+    assert(state.timer==1);
+    speed=0.5f;
+    ui_final::AdvanceMusicRoomTimer(state,&speed);
+    assert(state.timer==1);
+    ui_final::AdvanceMusicRoomTimer(state,&speed);
+    assert(state.timer==2);
+  }
+
   // The old overload retains its fixture parser/clock without being selected
   // by the retail env API.
   {

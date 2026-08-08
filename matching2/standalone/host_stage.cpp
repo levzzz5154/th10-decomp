@@ -99,6 +99,8 @@ extern uint32_t DAT_004776e8;
 extern uint32_t DAT_00477830;
 extern uint32_t DAT_00477834;
 extern uint32_t DAT_00477704;
+extern uint32_t DAT_00474c68; // character: 0=Reimu, 1=Marisa
+extern uint32_t DAT_00474c6c; // shot type: 0=a, 1=b, 2=c
 extern uint32_t DAT_00474e36;
 extern unsigned short DAT_00474c48;
 extern int DAT_00474c70;
@@ -651,9 +653,72 @@ int HostInitItemManager() {
 	return manager != 0;
 }
 
+namespace {
+// The six retail .sht resources load this 10-row formation table into the
+// player object at +0x20 and +0x98. The four values are pair A x/y followed by
+// pair B x/y; rows beyond the selected level remain available for promotion.
+constexpr float kPlayerFormationTable[2][3][10][4] = {
+	{
+		{{0.0f,32.0f,0.0f,20.0f},{-32.0f,8.0f,-16.0f,20.0f},
+		 {32.0f,8.0f,16.0f,20.0f},{-32.0f,8.0f,-16.0f,20.0f},
+		 {32.0f,8.0f,16.0f,20.0f},{0.0f,32.0f,0.0f,30.0f},
+		 {-32.0f,8.0f,-16.0f,20.0f},{32.0f,8.0f,16.0f,20.0f},
+		 {-16.0f,32.0f,-8.0f,30.0f},{16.0f,32.0f,8.0f,30.0f}},
+		{{0.0f,-32.0f,0.0f,-20.0f},{-32.0f,0.0f,-16.0f,-20.0f},
+		 {32.0f,0.0f,16.0f,-20.0f},{-32.0f,0.0f,-16.0f,-20.0f},
+		 {32.0f,0.0f,16.0f,-20.0f},{0.0f,-32.0f,0.0f,-30.0f},
+		 {-32.0f,0.0f,-16.0f,-20.0f},{32.0f,0.0f,16.0f,-20.0f},
+		 {-16.0f,-32.0f,-8.0f,-30.0f},{16.0f,-32.0f,8.0f,-30.0f}},
+		{{0.0f,-32.0f,0.0f,0.0f},{-48.0f,0.0f,0.0f,0.0f},
+		 {48.0f,0.0f,0.0f,0.0f},{0.0f,-32.0f,0.0f,0.0f},
+		 {-48.0f,0.0f,0.0f,0.0f},{48.0f,0.0f,0.0f,0.0f},
+		 {-32.0f,0.0f,0.0f,0.0f},{32.0f,0.0f,0.0f,0.0f},
+		 {-64.0f,0.0f,0.0f,0.0f},{64.0f,0.0f,0.0f,0.0f}}
+	},
+	{
+		{{0.0f,0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f,0.0f},
+		 {0.0f,0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f,0.0f},
+		 {0.0f,0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f,0.0f},
+		 {0.0f,0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f,0.0f},
+		 {0.0f,0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f,0.0f}},
+		{{0.0f,-32.0f,0.0f,-24.0f},{-32.0f,0.0f,-8.0f,-24.0f},
+		 {32.0f,0.0f,8.0f,-24.0f},{-32.0f,0.0f,-16.0f,-24.0f},
+		 {32.0f,0.0f,16.0f,-24.0f},{0.0f,-32.0f,0.0f,-24.0f},
+		 {-32.0f,0.0f,-16.0f,0.0f},{32.0f,0.0f,16.0f,0.0f},
+		 {-8.0f,-32.0f,-8.0f,-24.0f},{8.0f,-32.0f,8.0f,-24.0f}},
+		{{0.0f,-32.0f,0.0f,-32.0f},{-16.0f,-32.0f,-16.0f,-32.0f},
+		 {16.0f,-32.0f,16.0f,-32.0f},{-28.0f,-30.0f,-28.0f,-30.0f},
+		 {0.0f,-36.0f,0.0f,-36.0f},{28.0f,-30.0f,28.0f,-30.0f},
+		 {-42.0f,-30.0f,-40.0f,-30.0f},{-14.0f,-36.0f,-14.0f,-36.0f},
+		 {14.0f,-36.0f,14.0f,-36.0f},{42.0f,-30.0f,40.0f,-30.0f}}
+	}
+};
+
+void HostPopulatePlayerFormationTable(void* object) {
+	if (object == nullptr)
+		return;
+	const int character = DAT_00474c68 != 0 ? 1 : 0;
+	const int shot = std::max(0, std::min<int>(2, DAT_00474c6c));
+	unsigned char* bytes = static_cast<unsigned char*>(object);
+	for (int row = 0; row != 10; ++row) {
+		std::memcpy(bytes + 0x20 + row * 12,
+		            kPlayerFormationTable[character][shot][row], 2 * sizeof(float));
+		std::memcpy(bytes + 0x98 + row * 12,
+		            kPlayerFormationTable[character][shot][row] + 2,
+		            2 * sizeof(float));
+	}
+}
+}  // namespace
+
 int HostInitLargeResource() {
 	LargePlayerRuntimeBindings bindings = {};
-	bindings.create_player_object = []() -> void* { return HostAlloc(0x10); };
+	bindings.create_player_object = []() -> void* {
+		// 0x426F70 reads the player-object difficulty table through +0x20 and
+		// +0x98; keep the host allocation large enough for that raw bridge.
+		void* object = HostAlloc(0x200);
+		HostPopulatePlayerFormationTable(object);
+		return object;
+	};
 	// Retail's edge here is FUN_00404f30(player_object, state+0x10). Its
 	// recovered body (BulletSlot_Construct) was reconstructed for the
 	// bullet-pool caller and writes through +0x334..+0x3A1, far past the
@@ -1413,7 +1478,9 @@ void HostRunAttachedEffects() {
 	    g_pGameStateManager, resource, 0x0F);
 	g_attached_effects.animation_manager = &g_attached_animation_adapter;
 	g_attached_effects.difficulty = g_active_difficulty;
-	g_attached_effects.shot = g_globals.character;
+	// DAT_00474C6C is the weapon/shot variant consumed by 0x426F70;
+	// g_globals.character is the packed character*2+weapon selector.
+	g_attached_effects.shot = static_cast<int>(DAT_00474c6c);
 	g_attached_effects.formation.focus = (DAT_00474e36 & 4u) != 0;
 	g_attached_effects.formation.random_word = HostPlayerRandomWord;
 	th10::gameplay_final::UpdateAttachedEffectsRetail(
@@ -2601,7 +2668,10 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 		return -1;
 	}
 
-	// Publish the retail selection globals (dword_474C40 block).
+	// Publish the retail selection globals (dword_474C40 block), including
+	// the character/shot words consumed directly by 0x426F70 and 0x247F0.
+	DAT_00474c68 = static_cast<uint32_t>(character);
+	DAT_00474c6c = static_cast<uint32_t>(weapon);
 	std::memset(&g_globals, 0, sizeof(g_globals));
 	g_globals.fresh_run = 1;      // dword_491FC4: seed from the score file
 	g_globals.ui_flags = 0;       // dword_491FF4: no abort bit

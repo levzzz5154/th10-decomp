@@ -3,6 +3,9 @@
 #include <cmath>
 #include <cstdint>
 #include <cstring>
+
+extern std::uint32_t DAT_00476f78;
+
 namespace th10::gameplay_final {
 
 namespace {
@@ -77,13 +80,8 @@ void ImportEmbeddedTimerAliases(PlayerRuntime& state) {
 void AdvanceAuxiliaryTimer(PlayerRuntime& state, float speed) {
     state.auxiliary_frame_delta=speed;
     state.auxiliary_timer.speed=&state.auxiliary_frame_delta;
-    if ((state.auxiliary_timer.flags & 1u) == 0) {
-        state.auxiliary_timer.current = 0;
-        state.auxiliary_timer.target = (int)0xFFF0BDC1;
-        state.auxiliary_timer.previous = 0;
-        state.auxiliary_timer.flags |= 1u;
-        state.auxiliary_timer_fraction = 0.0f;
-    }
+    // The retail tail assumes 0x424D90 already initialized this timer. It
+    // advances the current/fraction words here but never seeds +0x498.
     state.auxiliary_timer.target = state.auxiliary_timer.current;
     if (0.99f < speed && speed < 1.01f) {
         ++state.auxiliary_timer.current;
@@ -117,6 +115,7 @@ void UpdateIndicatorPool(PlayerRuntime& state, float speed) {
             // motion. +0x2c is not overwritten by 0x44C5D0.
             slot.velocity_x=std::cos(slot.angle)*slot.angle_step;
             slot.velocity_y=std::sin(slot.angle)*slot.angle_step;
+            slot.velocity_z=0.0f; // sub_425730 clears +0x2C after 0x44C5D0
         } else {
             slot.radius += slot.radius_step;
             slot.angle=NormalizeIndicatorAngle(slot.angle + slot.angle_step);
@@ -595,6 +594,19 @@ static void PlayerRawWrite(unsigned char* bytes, std::size_t offset,
     std::memcpy(bytes + offset, &value, sizeof(value));
 }
 
+static std::uint32_t RetailFrameDeltaAddress() {
+    // Retail timer records store a 32-bit pointer to the shared frame-scale
+    // global. Keep the raw image width even when this bridge is host-tested
+    // in a 64-bit process.
+    return static_cast<std::uint32_t>(
+        reinterpret_cast<uintptr_t>(&DAT_00476f78));
+}
+
+static void PlayerRawWriteFrameDeltaPointer(unsigned char* bytes,
+                                             std::size_t offset) {
+    PlayerRawWrite<std::uint32_t>(bytes, offset, RetailFrameDeltaAddress());
+}
+
 // Bridge the all-source runtime's retail 0x4478-byte player owner onto the
 // readable state-machine model. This keeps the scheduler callback on the
 // actual retail offsets instead of treating the raw allocation as a compact
@@ -696,19 +708,30 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
 
     const int result = UpdatePlayerState(state, input, env);
 
+    // sub_426F70 is allowed to rebuild the same raw player record during the
+    // switch. Re-import its shared count before the bridge writes state back;
+    // the retail 0x425730 body does not restore this callback-owned word.
+    state.spawn_count = PlayerRawRead<int>(raw, 0x3500);
+
     PlayerRawWrite(raw, 0x458, state.state);
     PlayerRawWrite(raw, 0x460, state.hold_timer_prev);
     PlayerRawWrite(raw, 0x464, state.hold_timer);
     PlayerRawWrite(raw, 0x468, state.hold_timer_frac);
     PlayerRawWrite(raw, 0x470, state.hold_flags);
+    if ((state.hold_flags & 1) != 0)
+        PlayerRawWriteFrameDeltaPointer(raw, 0x46C);
     PlayerRawWrite(raw, 0x474, state.timer_prev);
     PlayerRawWrite(raw, 0x478, state.timer);
     PlayerRawWrite(raw, 0x47C, state.timer_frac);
     PlayerRawWrite(raw, 0x484, state.timer_flags);
+    if ((state.timer_flags & 1) != 0)
+        PlayerRawWriteFrameDeltaPointer(raw, 0x480);
     PlayerRawWrite(raw, 0x488, state.auxiliary_timer.target);
     PlayerRawWrite(raw, 0x48C, state.auxiliary_timer.current);
     PlayerRawWrite(raw, 0x490, state.auxiliary_timer.previous);
     PlayerRawWrite(raw, 0x498, state.auxiliary_timer.flags);
+    if ((state.auxiliary_timer.flags & 1u) != 0)
+        PlayerRawWriteFrameDeltaPointer(raw, 0x494);
     PlayerRawWrite(raw, 0x314, state.flash_color);
     const std::uint32_t updated_visual_flags = state.blink ?
         (visual_flags | 0x8000u) : (visual_flags & ~0x8000u);
@@ -732,7 +755,8 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
         PlayerRawWrite(raw, 0x433C + field * 4, state.rect_focus[field]);
         PlayerRawWrite(raw, 0x4354 + field * 4, state.rect_magnet[field]);
     }
-    PlayerRawWrite(raw, 0x3500, state.spawn_count);
+    // +0x3500 and the four familiar level words are owned by the attached
+    // effects callback (0x00426F70), not by the 0x425730 tail.
     PlayerRawWrite(raw, 0x3504, state.field_3393);
     raw[0x3508] = state.byte_13576;
     for (int field = 0; field != 66; ++field)
@@ -761,6 +785,8 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
         PlayerRawWrite(raw, base + 0x44, slot.timer_previous);
         PlayerRawWrite(raw, base + 0x48, slot.timer_current);
         PlayerRawWrite(raw, base + 0x4C, slot.timer_fraction);
+        if ((slot.flags & 1u) != 0)
+            PlayerRawWriteFrameDeltaPointer(raw, base + 0x50);
         PlayerRawWrite(raw, base + 0x54, slot.timer_flags);
         PlayerRawWrite(raw, base + 0x58, slot.allocator_value);
         PlayerRawWrite(raw, base + 0x5C, slot.allocator_counter);
@@ -774,6 +800,8 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
     // integer mirror is not present at this address).
     PlayerRawWrite(raw, 0x4314, state.invuln_frac);
     PlayerRawWrite(raw, 0x431C, state.invulnerability_timer.flags);
+    if ((state.invulnerability_timer.flags & 1u) != 0)
+        PlayerRawWriteFrameDeltaPointer(raw, 0x4318);
     if (env != nullptr && env->power_gauge != nullptr)
         *env->power_gauge = static_cast<std::uint16_t>(state.power);
     return result;
@@ -787,6 +815,11 @@ int UpdatePlayerStateRetail(void* player, std::uint32_t input,
 int UpdatePlayerStateAlias(PlayerRuntime& s, std::uint32_t input) {
     return UpdatePlayerState(s, input);
 }
+
+// Callback words written into familiar records by the retail rebuild.
+static const std::uint32_t kFamiliarCallbackShot0 = 0x00427950u;
+static const std::uint32_t kFamiliarCallbackShot2 = 0x00427AD0u;
+static const int kFamiliarTableOffsets[5] = {0, 0, 1, 3, 6};
 
 // Partial host-side model of retail 0x00426F70 (sub_426F70, attached-effect
 // sprite management / familiar-formation refresh).
@@ -1004,16 +1037,21 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
             if(focus && old_mode==0){
                 if(i==0){
                     if (s.formation.table_offsets_valid) {
-                        slot.random[0]=s.formation.table_pair_a[0][0];
-                        slot.random[1]=s.formation.table_pair_a[0][1];
+                        // Focused slot zero reuses the table's +0x98 pair
+                        // for the +0x20 destination, per raw 0x426F70.
+                        slot.random[0]=s.formation.table_pair_b[0][0];
+                        slot.random[1]=s.formation.table_pair_b[0][1];
                     } else {
                         base_random();
                         slot.random[0]=base_random_x;
                         slot.random[1]=base_random_y;
                     }
                 }else{
-                    slot.random[0]=s.formation.defaults[i][0];
-                    slot.random[1]=s.formation.defaults[i][1];
+                    // The raw v19[3219]/[3220] access aliases the previous
+                    // familiar record's +0x44/+0x48 words. It is read after
+                    // earlier slots have already regenerated those words.
+                    slot.random[0]=s.familiar_slots[i-1].random[0];
+                    slot.random[1]=s.familiar_slots[i-1].random[1];
                 }
             }
             // The initial position is the entry-trail pair selected by the
@@ -1054,6 +1092,7 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
             // stores FUN_00427AD0. Keep those observable orderings separate.
             if(difficulty==1 && shot==0){
                 slot.callback_kind=1;
+                slot.callback_address=kFamiliarCallbackShot0;
                 if(s.formation.set_callback){
                     s.formation.callback_order.push_back(1);
                     s.formation.set_callback(i,slot.callback_kind);
@@ -1064,13 +1103,9 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                 s.animation_manager->HasManager() &&
                 s.animation_manager->HasResourceBinding();
             if (adapter_bound) {
-                const float position[3] = {
-                    static_cast<float>(slot.position_x),
-                    static_cast<float>(slot.position_y), 0.0f
-                };
                 s.formation.callback_order.push_back(2);
                 slot.handle=s.animation_manager->Create(
-                    slot.script, 0x0F, position);
+                    slot.script, 0x0F, nullptr);
                 if (slot.handle == 0)
                     s.manager_partial=true;
             } else if (s.formation.create_animation_ex) {
@@ -1091,11 +1126,17 @@ void UpdateAttachedEffects(AttachedEffects&s,int c){
                 slot.previous_y=s.formation.history[16*i+1];
             }
             if(difficulty==1 && shot==2){
-                if(focus && s.formation.focus_init){
-                    s.formation.callback_order.push_back(3);
-                    s.formation.focus_init(i);
+                if(focus){
+                    if (adapter_bound) {
+                        if (!s.animation_manager->SetFrame(slot.handle, 3))
+                            s.manager_partial=true;
+                    } else if(s.formation.focus_init){
+                        s.formation.callback_order.push_back(3);
+                        s.formation.focus_init(i);
+                    }
                 }
                 slot.callback_kind=2;
+                slot.callback_address=kFamiliarCallbackShot2;
                 if(s.formation.set_callback){
                     s.formation.callback_order.push_back(1);
                     s.formation.set_callback(i,slot.callback_kind);
@@ -1124,6 +1165,39 @@ void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
     for (int field = 0; field != 66; ++field)
         state.formation.history[field] =
             PlayerRawRead<int>(raw, 0x436C + field * 4);
+    state.formation.table_offsets_valid = false;
+#if defined(_M_IX86) || defined(__i386__)
+    const int level = std::max(0, std::min(4, global_counter / 20));
+    // +0x45C owns the player-object table used by the retail formation code.
+    // The object is a 32-bit retail pointer, so only the PE32 build dereferences
+    // it; host 64-bit tests deliberately use the deterministic hook fallback.
+    const std::uint32_t table_address =
+        PlayerRawRead<std::uint32_t>(raw, 0x45C);
+    if (table_address != 0) {
+        const unsigned char* table = reinterpret_cast<const unsigned char*>(
+            static_cast<uintptr_t>(table_address));
+        for (int index = 0; index != 4; ++index) {
+            const std::size_t row_index = static_cast<std::size_t>(
+                index + kFamiliarTableOffsets[level]);
+            const std::size_t pair_a = 0x20 + 12 * row_index;
+            const std::size_t pair_b = 0x98 + 12 * row_index;
+            const float a_x = PlayerRawRead<float>(table, pair_a);
+            const float a_y = PlayerRawRead<float>(table, pair_a + 4);
+            const float b_x = PlayerRawRead<float>(table, pair_b);
+            const float b_y = PlayerRawRead<float>(table, pair_b + 4);
+            state.formation.table_pair_a[index] = {
+                static_cast<int>(a_x * 100.0f),
+                static_cast<int>(a_y * 100.0f)};
+            state.formation.table_pair_b[index] = {
+                static_cast<int>(b_x * 100.0f),
+                static_cast<int>(b_y * 100.0f)};
+        }
+        // A valid retail table may intentionally contain only zero offsets
+        // (Marisa shot-A), so pointer presence, not nonzero payload, is the
+        // validity test.
+        state.formation.table_offsets_valid = true;
+    }
+#endif
     const std::size_t level_offsets[4] = {
         0x332C, 0x33C4, 0x345C, 0x34F4
     };
@@ -1141,10 +1215,20 @@ void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
         slot.handle = PlayerRawRead<int>(raw, base + 0x68);
         slot.index = PlayerRawRead<int>(raw, base + 0x88);
         state.handles[index] = PlayerRawRead<int>(raw, base + 0x6C);
+        slot.callback_address = PlayerRawRead<std::uint32_t>(raw, base + 0x90);
         state.familiar_levels[index] =
             PlayerRawRead<int>(raw, level_offsets[index]);
-        state.formation.player_positions[index][0] = slot.position_x;
-        state.formation.player_positions[index][1] = slot.position_y;
+        // dword_477834[4331 + 16*index] is an independent player-position
+        // array; it is not the familiar record's current +0x32D4 position.
+        const std::size_t player_position = 0x43AC + index * 0x40;
+        state.formation.player_positions[index][0] =
+            PlayerRawRead<int>(raw, player_position);
+        state.formation.player_positions[index][1] =
+            PlayerRawRead<int>(raw, player_position + 4);
+        state.formation.defaults[index][0] =
+            PlayerRawRead<int>(raw, 0x324C + index * 0x98);
+        state.formation.defaults[index][1] =
+            PlayerRawRead<int>(raw, 0x3250 + index * 0x98);
     }
 
     UpdateAttachedEffects(state, global_counter);
@@ -1163,6 +1247,7 @@ void UpdateAttachedEffectsRetail(void* player, AttachedEffects& state,
                            slot.random[field]);
         PlayerRawWrite(raw, base + 0x68, slot.handle);
         PlayerRawWrite(raw, base + 0x88, slot.index);
+        PlayerRawWrite(raw, base + 0x90, slot.callback_address);
         PlayerRawWrite(raw, base + 0x6C, state.handles[index]);
         PlayerRawWrite(raw, level_offsets[index],
                        state.familiar_levels[index]);

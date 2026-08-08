@@ -199,7 +199,9 @@ int main(){
   assert(slot.position_x==12&&slot.motion_x==6&&slot.velocity_x==3&&
          slot.timer_previous==3&&slot.timer_current==2&&
          slot.timer_speed==&p.indicator_frame_delta&&(slot.flags&1));
-  assert(p.auxiliary_timer.flags&1&&p.auxiliary_timer.current==1&&
+  // 0x425730 advances the third timer but leaves its +0x498 init bit to
+  // the preceding 0x424D90/reset owner.
+  assert(!(p.auxiliary_timer.flags&1)&&p.auxiliary_timer.current==1&&
          p.auxiliary_timer.target==0);
   slot.motion_flags=1; slot.angle=0; slot.angle_step=0; slot.radius=2;
   slot.radius_step=1; slot.velocity_x=.5f; slot.velocity_y=.25f;

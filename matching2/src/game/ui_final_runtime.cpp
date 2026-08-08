@@ -1572,6 +1572,19 @@ void MusicRegisterRows(MusicRoom&state,const MusicRoomEnv&env){
 }
 }
 
+void AdvanceMusicRoomTimer(MusicRoom&state, const float* frame_delta) {
+  if(state.timer==0)
+    state.timer_fraction=0.0f;
+  const float speed=frame_delta==nullptr?1.0f:*frame_delta;
+  if(speed<=0.0f)
+    return;
+  if(0.99f<speed&&speed<1.01f)
+    state.timer_fraction+=1.0f;
+  else
+    state.timer_fraction+=speed;
+  state.timer=static_cast<int>(state.timer_fraction);
+}
+
 int UpdateMusicRoom(MusicRoom&state,const MusicRoomEnv&env,
                     std::uint32_t input,const std::string&resource){
   switch(state.phase){

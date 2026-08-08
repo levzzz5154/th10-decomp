@@ -14,9 +14,14 @@ extern void* g_pGameStateManager;
 extern unsigned int DAT_00491be4;
 extern unsigned int DAT_00491bf0;
 extern unsigned int DAT_00474c68;
+extern unsigned int DAT_00474c6c;
 extern unsigned int DAT_00474e36;  // input (the 0x00426500 forwarder)
 extern unsigned int DAT_00477834;
 extern unsigned int DAT_00476f78;
+extern unsigned int* DAT_0047770c; // entity/player state manager
+extern unsigned int DAT_004776ec;   // live player runtime pointer
+extern unsigned int DAT_00477704;   // gameplay config pointer
+extern unsigned int DAT_00477838;   // continue/game-over block
 extern float _DAT_00470b0c;
 extern float DAT_00476fa0[2];
 extern float DAT_00476fa8[2];
@@ -97,9 +102,46 @@ void LargePlayer_RefreshAttached(th10::gameplay_final::PlayerRuntime&) {
 int __fastcall LargePlayer_Update(void* owner) {
     th10::gameplay_final::PlayerStateEnv env{};
     std::memcpy(&env.frame_delta, &DAT_00476f78, sizeof(env.frame_delta));
-    env.player_present = true;
-    env.focus_object = true;
-    env.hold_enabled = true;
+    // These gates are read from the same raw owner blocks as retail
+    // 0x425730. Keeping them live prevents shot drain, revive drain, and hold
+    // updates from firing merely because the scheduler callback exists.
+    const unsigned char* entity_manager =
+        reinterpret_cast<const unsigned char*>(DAT_0047770c);
+    const unsigned char* live_player =
+        reinterpret_cast<const unsigned char*>(
+            static_cast<uintptr_t>(DAT_004776ec));
+    const unsigned char* gameplay_config =
+        reinterpret_cast<const unsigned char*>(
+            static_cast<uintptr_t>(DAT_00477704));
+    const unsigned char* game_block =
+        reinterpret_cast<const unsigned char*>(
+            static_cast<uintptr_t>(DAT_00477838));
+    unsigned char* raw_owner = static_cast<unsigned char*>(owner);
+    // sub_4250B0 publishes the focus latch before 0x426F70 consumes it.
+    // Its threshold/counter side effect is part of the same movement gate.
+    if (gameplay_config != nullptr &&
+        *reinterpret_cast<const int*>(gameplay_config + 0x60) != 0 &&
+        *reinterpret_cast<const int*>(raw_owner + 0x48C) >= 4) {
+        *reinterpret_cast<int*>(raw_owner + 0x4474) =
+            static_cast<int>((DAT_00474e36 >> 2) & 1u);
+        const int packed_selection = static_cast<int>(
+            DAT_00474c68 + DAT_00474c6c + 2u * DAT_00474c68);
+        if (packed_selection == 5 && (DAT_00474e36 & 4u) != 0)
+            *reinterpret_cast<int*>(raw_owner + 0x4308) = 0;
+        else if (*reinterpret_cast<int*>(raw_owner + 0x4308) < 30)
+            ++*reinterpret_cast<int*>(raw_owner + 0x4308);
+    } else {
+        *reinterpret_cast<int*>(raw_owner + 0x4474) = 0;
+        *reinterpret_cast<int*>(raw_owner + 0x4308) = 30;
+    }
+    env.player_present = entity_manager != nullptr &&
+        *reinterpret_cast<const int*>(entity_manager + 0x9EB8) == 0;
+    env.focus_object = live_player != nullptr &&
+        *reinterpret_cast<const int*>(live_player + 0x28) == 0;
+    env.hold_enabled = gameplay_config != nullptr &&
+        *reinterpret_cast<const int*>(gameplay_config + 0x60) != 0;
+    env.game_over_flag = game_block != nullptr &&
+        *reinterpret_cast<const int*>(game_block + 0x10) == 1 ? 1 : 0;
     env.can_respawn = *g_large_player_bindings.can_respawn >= 0;
     env.frame_counter = *g_large_player_bindings.frame_counter;
     env.power_gauge = g_large_player_bindings.power_gauge;
@@ -157,6 +199,12 @@ int __fastcall LargePlayer_Draw(void* owner) {
 }
 
 }  // namespace
+
+// Keeps the internal scheduler callback directly testable without changing the
+// callback's registration or its retail calling convention.
+int __fastcall LargePlayer_UpdateForTest(void* owner) {
+    return LargePlayer_Update(owner);
+}
 
 // 0x004247F0 - Player runtime initialization. PE32 establishes the state in
 // EBX; the conventional signature makes that owner explicit.
@@ -342,6 +390,7 @@ int LargePlayerRuntime_Initialize(void* state) {
         }
     }
     ResetRawTimer(bytes, 0x474, -1, 0, 0);
+    ResetRawTimer(bytes, 0x488, -1, 0, 0);
     ResetRawTimer(bytes, 0x430C, 119, 120, (int)0x42F00000u);
     *(int*)(bytes + 0x4308) = 30;
     g_large_player_bindings.refresh_derived(state);

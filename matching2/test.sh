@@ -811,6 +811,11 @@ run_test player_runtime_init_test \
     "$ROOT/src/game/gameplay_final_runtime.cpp" \
     "$ROOT/tests/player_runtime_init_test.cpp"
 
+# PE32-only raw player-object formation table bridge (+0x45C/+0x20/+0x98).
+run_test_m32 formation_table_bridge_test \
+    "$ROOT/src/game/gameplay_final_runtime.cpp" \
+    "$ROOT/tests/formation_table_bridge_test.cpp"
+
 # Enemy-projectile spawn and replay load/save menu runtimes
 # (0x004067D0, 0x004315C0, 0x00433570).
 run_test large_recovery_pass_test \

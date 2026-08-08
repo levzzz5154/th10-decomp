@@ -428,6 +428,10 @@ void* g_music_room_frame_bank = nullptr;
 void* g_music_room_fallback_bank = nullptr;
 int g_music_room_manager_registrations = 0;
 int g_music_room_manager_text_updates = 0;
+bool g_music_room_played[32] = {};
+int g_music_room_dummy_mode = 0;
+int g_music_room_bgm_channel = 0;
+int g_music_room_bgm_state = 0;
 
 struct HostMusicTextSlot {
     int handle{};
@@ -1877,9 +1881,63 @@ bool HostLoadMusicRoomResource() {
     return true;
 }
 
-void HostMusicRoomPlayMusic(int, const char*) {
+void HostMusicRoomPlaySound(int id) {
+    // Music Room emits retail sound-thread ids 12/11/10; the resident host
+    // menu bank exposes those same cues as slots 0/2/1.
+    HostPlayMenuSound(id == 12 ? 0 : id == 11 ? 2 : 1);
+}
+
+void HostMusicRoomDummyState(int mode) {
+    g_music_room_dummy_mode = mode;
+}
+
+void HostMusicRoomSetBgmState(int channel, int state) {
+    g_music_room_bgm_channel = channel;
+    g_music_room_bgm_state = state;
+}
+
+bool HostMusicRoomIsTrackPlayed(int track) {
+    return track >= 0 && track < static_cast<int>(
+        sizeof(g_music_room_played) / sizeof(g_music_room_played[0])) &&
+        g_music_room_played[track];
+}
+
+void HostMusicRoomMarkTrackPlayed(int track) {
+    if (track >= 0 && track < static_cast<int>(
+        sizeof(g_music_room_played) / sizeof(g_music_room_played[0])))
+        g_music_room_played[track] = true;
+}
+
+const char* HostMusicRoomPreviewText(int frame) {
+    // off_476FD8 contains Shift-JIS text in the retail image. Keep its bytes
+    // in the callback contract; the host text surface may skip unsupported
+    // high-byte glyphs, but preview rows are no longer silently omitted.
+    static const char* const preview[8] = {
+        "\x81\x40",
+        "\x81\x40\x81\x40\x81\x96\x81\x96\x91\x49\x91\xF0\x82\xB5\x82\xBD\x8B\xC8\x82\xCD\x82\xDC\x82\xBE\x83\x51\x81\x5B\x83\x80\x92\x86\x82\xC5\x8D\xC4\x90\xB6\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1\x81\x96\x81\x96",
+        "\x20",
+        "\x81\x40\x81\x40\x81\x40\x81\x40\x8B\xC8\x82\xCC\x83\x52\x83\x81\x83\x93\x83\x67\x82\xAA\x83\x6C\x83\x5E\x83\x6F\x83\x8C\x82\xC9\x82\xC8\x82\xE9\x8B\xB0\x82\xEA\x82\xAA\x82\xA0\x82\xE8\x82\xDC\x82\xB7\x81\x42",
+        "\x81\x40\x81\x40\x81\x40\x81\x40\x81\x40\x81\x40\x81\x40\x81\x40\x81\x40\x82\xBB\x82\xEA\x82\xC5\x82\xE0\x8D\xC4\x90\xB6\x82\xB5\x82\xDC\x82\xB7\x82\xA9\x81\x48",
+        "\x81\x40",
+        "\x81\x40\x81\x40\x81\x40\x8D\xC4\x90\xB6\x82\xB5\x82\xBD\x82\xA2\x95\xFB\x82\xCD\x82\xE0\x82\xA4\x88\xEA\x93\x78\x8C\x88\x92\xE8\x83\x7B\x83\x5E\x83\x93\x82\xF0\x89\x9F\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2",
+        "\x81\x40\x81\x40\x81\x40\x8D\xC4\x90\xB6\x82\xB5\x82\xBD\x82\xAD\x82\xC8\x82\xA2\x95\xFB\x82\xCD\x81\x41\x83\x4A\x81\x5B\x83\x5C\x83\x8B\x82\xF0\x88\xDA\x93\xAE\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2"
+    };
+    return frame >= 0 && frame < 8 ? preview[frame] : "";
+}
+
+void HostMusicRoomPlayMusic(int, const char* title) {
     HostBuildMusicTrackList();
-    const int selection = g_music_room_state.selection;
+    int selection = g_music_room_state.selection;
+    if (title != nullptr) {
+        const char* name = std::strrchr(title, '/');
+        name = name == nullptr ? title : name + 1;
+        for (int index = 0; index < g_host.music_track_count; ++index) {
+            if (std::strcmp(name, g_host.music_tracks[index]) == 0) {
+                selection = index;
+                break;
+            }
+        }
+    }
     if (selection < 0 || selection >= g_host.music_track_count) {
         g_host.music_playing = -1;
         return;
@@ -1889,6 +1947,7 @@ void HostMusicRoomPlayMusic(int, const char*) {
 }
 
 void HostMusicRoomRestoreBgm(const char*) {
+    g_host.music_playing = -1;
     HostStartTitleBgm();
 }
 
@@ -1922,9 +1981,15 @@ th10::ui_final::MusicRoomEnv HostMusicRoomEnvironment() {
     env.get_position_y = HostMusicRoomGetPositionY;
     env.set_position_ramp = HostMusicRoomSetPositionRamp;
     env.stop_anm = HostMusicRoomStopAnm;
-    env.play_sound = HostPlayMenuSound;
+    env.play_sound = HostMusicRoomPlaySound;
+    env.dummy_state = HostMusicRoomDummyState;
+    env.dummy_mode4 = false;
     env.play_music = HostMusicRoomPlayMusic;
     env.restore_bgm = HostMusicRoomRestoreBgm;
+    env.set_bgm_state = HostMusicRoomSetBgmState;
+    env.preview_text = HostMusicRoomPreviewText;
+    env.is_track_played = HostMusicRoomIsTrackPlayed;
+    env.mark_track_played = HostMusicRoomMarkTrackPlayed;
     env.resource_available = g_music_room_resource_loaded;
     return env;
 }
@@ -2291,7 +2356,8 @@ void HostUpdateSubScreenList() {
             HostReturnToMainMenu();
             return;
         }
-        ++g_music_room_state.timer;
+        th10::ui_final::AdvanceMusicRoomTimer(
+            g_music_room_state, env.frame_delta);
         return;
     }
 
