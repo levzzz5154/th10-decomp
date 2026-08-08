@@ -107,21 +107,26 @@ resolved from the spawn label, ticked with the entity frame scale, and retired
 with balanced VM/entity lifecycle events. Core external-variable reads use a
 short-lived resolver-vtable swap and restore the retail entity vtable before
 returning; the extended dispatcher uses a private operand frame and restores
-entity+0x2514 to self. The bounded trace now reaches real enemy script calls,
-movement/flag leaves, and the 0x190/0x191 leaf family: 94 0x190 executions and
-214 0x191 executions activate 214 pool slots (row 0) through the launched
-callback. Every activated slot is still live at the stage_frame-3570 trace cut
-(all launches land at stage_frame 3242+), so the bullet pool sweep retires them
-beyond the window; the remaining boundary is that post-window retirement and
-the full per-entity child ownership edge between enemy VMs and the stage root.
+entity+0x2514 to self. Child VMs now tick through their owning entity only:
+the stage walk retires root-owned children while the enemy-manager callback
+ticks each enemy's own child list, matching `EclVm_TickChildren` (0x0044FD10).
+Previously the stage loop ticked every live child, double-advancing enemy
+children (a 180-frame child finished in 90 frames); the per-frame tick rate is
+now one tick per stage frame for every VM. The bounded trace reaches real
+enemy script calls, movement/flag leaves, and the 0x190/0x191 leaf family:
+94 0x190 executions and 178 0x191 executions activate 178 pool slots (row 0)
+through the launched callback. Every activated slot is still live at the
+stage_frame-3570 trace cut (all launches land at stage_frame 3242+), so the
+bullet pool sweep retires them beyond the window; the remaining boundary is
+that post-window retirement and the bullet lifecycle retire/relaunch path.
 
 The same trace stream now covers the real `stage01.std`/`stage01.ecl` bridge:
 stage resource hashes, stage-entry phases, scheduler primary/ECL/secondary/timeline
 ordering, root and child ECL VM lifecycle, async IDs, rank masks,
 script-relative PCs, entity lifecycle, bullet-pool slot lifecycle and active
 summaries, stage draw records, ECL spawn records, and stage termination.
-`--trace PATH --smoke --ecl 3600` produces a deterministic 250,511-event
-stream in this checkout, including 217,670 ECL ticks, 9,028 opcode records
+`--trace PATH --smoke --ecl 3600` produces a deterministic 249,449-event
+stream in this checkout, including 217,130 ECL ticks, 8,542 opcode records
 (57 distinct opcodes, 0x190/0x191 family included), a real async child VM,
 107 `stage_spawn` records across opcodes 0x101/0x105, 158 ECL VM
 creates/destroys and 158 entity live transitions with balanced teardown; two
@@ -158,7 +163,7 @@ HAL/device availability, documented in `matching2/docs/anm_vertical_slice_bridge
 
 The current implementation passes `./test.sh`, `./build_all_pe32.sh`,
 `./build_pe32.sh`, and two independent 3,600-frame traced stage runs; the
-semantic comparer reports `TRACE_COMPARE_PASS events=250511`. The PE32 build
+semantic comparer reports `TRACE_COMPARE_PASS events=249449`. The PE32 build
 reports 280 production translation units, zero unresolved project edges, zero
 placeholders, and zero new or worsened fidelity findings. The published
 `run_pe32.sh --resource-smoke` also passes against real archive resources.

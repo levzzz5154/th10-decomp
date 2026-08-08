@@ -2603,9 +2603,14 @@ void HostTickStageEcl() {
 	if (g_ecl_vm.ip != before)
 		g_ecl_instructions += 1;
 	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
-	// retires a child whose tick reports completion.
+	// retires a child whose tick reports completion. That walk covers only
+	// the owner's own children: enemy-owned children are ticked by
+	// HostTickEnemyEcl from the enemy-manager callback, so ticking them here
+	// as well would advance each enemy child twice per frame.
 	for (int index = 0; index < g_ecl_child_count; ++index) {
 		if (!g_ecl_child_live[index])
+			continue;
+		if (g_ecl_child_owners[index] != g_ecl_entity)
 			continue;
 		EclCoreVm* child = &g_ecl_children[index];
 		if (!HostEclVmSane(child)) {
