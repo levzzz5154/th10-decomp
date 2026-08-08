@@ -1096,6 +1096,8 @@ int EclVm_TickCore(EclCoreVm* vm, float frame_delta, const EclCoreHooks* hooks) 
             // unsigned against 0x57, so every opcode >= 0x58 - the 0x100+
             // family included - takes the default arm.
             const int opcode = instruction->opcode & 0xFFFF;
+            if (hooks->trace_opcode != 0)
+                hooks->trace_opcode(vm, instruction);
 
             action = kEclCoreUnhandled;
             if ((unsigned int)opcode <= 0x57u)

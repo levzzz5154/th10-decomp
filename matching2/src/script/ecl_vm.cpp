@@ -5,6 +5,8 @@
 #include "th10/render/animation_manager.hpp"
 #include "th10/math/timer.hpp"
 
+#include <cmath>
+#include <cstring>
 
 extern "C" float cosf(float);
 extern "C" float sinf(float);
@@ -1408,6 +1410,30 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         *reinterpret_cast<uint32_t*>(record + 0x28) &= ~1u;
         return 0;
     }
+    case 0x190: {
+        // Retail 0x0040E770 clears the complete 0x210-byte per-slot
+        // projectile descriptor, then installs its fixed defaults. The timer
+        // helper used by other movement records is a different operation.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        constexpr int kSlotBase = 0x2C4;
+        constexpr int kSlotStride = 0x210;
+        constexpr int kSlotLimit = (0x2514 - kSlotBase) / kSlotStride;
+        if (index >= 0 && index < kSlotLimit) {
+            uint8_t* record = static_cast<uint8_t*>(entity) +
+                              kSlotBase + index * kSlotStride;
+            std::memset(record, 0, kSlotStride);
+            *reinterpret_cast<short*>(record + 0x1F4) = 1;
+            *reinterpret_cast<short*>(record + 0x1F6) = 1;
+            *reinterpret_cast<float*>(record + 0x10) = 0.0f;
+            *reinterpret_cast<float*>(record + 0x18) = 2.0f;
+            *reinterpret_cast<int32_t*>(record + 0x1FC) = 0x203;
+            *reinterpret_cast<int32_t*>(record + 0x200) = 7;
+            *reinterpret_cast<int32_t*>(record + 0x204) = 0x18;
+            EntityFloat(entity, (index * 3 + 0x4D1) * 4) = 0.0f;
+            EntityFloat(entity, 0x1348 + index * 0xC) = 0.0f;
+        }
+        return 0;
+    }
     case 0x193: {
         // Initialise the per-slot laser/anchor record with 1.0/2.0 base
         // values.  Retail writes 1.0f at (index * 3 + 0x4d1) * 4 and 2.0f
@@ -1521,7 +1547,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         if (DAT_00474c98 > 0x1FF) {
             EntityFloat(entity, base + 0x2dc) = 7.0f;
             EntityFloat(entity, base + 0x2e0) = 8.0f;
-        } else if (DAT_00474c98 > -0x200) {
+        } else if (DAT_00474c98 >= -0x200) {
             EntityFloat(entity, base + 0x2dc) = 4.0f;
             EntityFloat(entity, base + 0x2e0) = 5.0f;
         } else {
@@ -1544,7 +1570,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         } else if (DAT_00474c98 > -200) {
             EntityFloat(entity, base + 0x2dc) = 7.0f;
             EntityFloat(entity, base + 0x2e0) = 8.0f;
-        } else if (DAT_00474c98 > -400) {
+        } else if (DAT_00474c98 >= -600) {
             EntityFloat(entity, base + 0x2dc) = 4.0f;
             EntityFloat(entity, base + 0x2e0) = 5.0f;
         } else {
@@ -1574,7 +1600,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
                 static_cast<uint8_t*>(entity) + base + 0x4b8) = (short)a;
             *reinterpret_cast<short*>(
                 static_cast<uint8_t*>(entity) + base + 0x4ba) = (short)b;
-        } else if (DAT_00474c98 > -0x200) {
+        } else if (DAT_00474c98 >= -0x200) {
             const int32_t a = ECL_ResolveIntOperand(state->cursor, 3);
             const int32_t b = ECL_ResolveIntOperand(state->cursor, 4);
             *reinterpret_cast<short*>(
@@ -1599,7 +1625,7 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
             DAT_00474c98 > 599 ? 9 :
             DAT_00474c98 > 199 ? 7 :
             DAT_00474c98 > -200 ? 5 :
-            DAT_00474c98 > -400 ? 3 : 1;
+            DAT_00474c98 >= -600 ? 3 : 1;
         const int32_t a = ECL_ResolveIntOperand(state->cursor, operand_pair);
         const int32_t b = ECL_ResolveIntOperand(state->cursor, operand_pair + 1);
         *reinterpret_cast<short*>(
@@ -1881,11 +1907,11 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     case 0x104:
     case 0x105:
     case 0x10e: {
-        // Enemy-init opcodes: param_1+0x14d8 script cursor, a 16-float
-        // local_90 buffer, D3DXVec3Project (when the 0x40000 flag is set),
-        // FUN_00401d20 + FUN_0040cfb0 spawn ticks, FUN_0044ff00 sub-index
-        // cops.  Full body depends on D3DX9 and the manager spawn-list
-        // state machine.  Documented stub.
+        // Enemy-init family: the host stage supplies the retail manager/list
+        // binding, while this canonical dispatcher retains opcode selection
+        // and operand ownership for every VM. A missing binding is explicit
+        // and leaves the instruction consumed without fabricating an entity.
+        (void)ECL_ExecuteEnemySpawn(entity, opcode, state->cursor);
         return 0;
     }
     case 0x103:
@@ -1960,13 +1986,32 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         return 0;
     }
     case 0x191: {
-        // Per-shot laser record: copy composite position from
-        // entity+0x2c/0x30/0x34 to slot*0x210+0x2c8+, dispatch
-        // FUN_004073e0 if the distance to DAT_00477834 exceeds the
-        // entity+0x1454 threshold.  Stub: only the slot index is
-        // resolved; the manager-side spawn helpers remain on the
-        // retail image.
-        ECL_ResolveIntOperand(state->cursor, 0);
+        // Retail 0x004073E0 materializes the configured record relative to the
+        // entity position, then launches it through the bullet manager.
+        const int32_t index = ECL_ResolveIntOperand(state->cursor, 0);
+        constexpr int kSlotLimit = (0x2514 - 0x2C4) / 0x210;
+        if (index < 0 || index >= kSlotLimit)
+            return 0;
+        const unsigned int base = static_cast<unsigned int>(index) * 0x210u;
+        const unsigned int vector =
+            static_cast<unsigned int>(index * 3 + 0x4D1) * 4u;
+        const float x = EntityFloat(entity, vector) +
+                        EntityFloat(entity, 0x2C);
+        const float y = EntityFloat(entity, vector + 4) +
+                        EntityFloat(entity, 0x30);
+        const float z = EntityFloat(entity, vector + 8) +
+                        EntityFloat(entity, 0x34);
+        uint8_t* record = static_cast<uint8_t*>(entity) + base;
+        EntityFloat(record, 0x2C8) = x;
+        EntityFloat(record, 0x2CC) = y;
+        EntityFloat(record, 0x2D0) = z;
+
+        // The retail distance gate is evaluated against the player block. The
+        // host publishes the same launch boundary through the entity field; a
+        // zero boundary is the shipped default and launches immediately.
+        if (EntityFloat(entity, 0x1454) <= 0.0f)
+            ECL_ExecuteProjectileSpawn(
+                static_cast<uint8_t*>(entity) + base + 0x2C4, 0, 0, x, y, z);
         return 0;
     }
     case 0x195: {

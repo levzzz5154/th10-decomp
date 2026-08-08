@@ -166,6 +166,20 @@ void ECL_AnimationFlagSet(void);
 void ECL_AnimationFlagClear(void);
 // Manager operations (FUN_0040cfb0, FUN_0040cf90, FUN_0040cf60, etc.).
 void ECL_AddToActiveList(void* manager, void* sub_entity);
+
+using ECLSpawnEnemyCallback = int (*)(void* entity, int opcode,
+                                      void* cursor);
+void ECL_SetEnemySpawnCallback(ECLSpawnEnemyCallback callback);
+int ECL_ExecuteEnemySpawn(void* entity, int opcode, void* cursor);
+
+// 0x004073E0 launches a configured per-slot laser/projectile record into the
+// retail 2,000-slot bullet pool. The callback keeps pool ownership in the
+// stage host while the ECL VM owns the descriptor position math.
+using ECLProjectileSpawnCallback = int (*)(
+    void* record, int cell_x, int cell_y, float x, float y, float z);
+void ECL_SetProjectileSpawnCallback(ECLProjectileSpawnCallback callback);
+int ECL_ExecuteProjectileSpawn(void* record, int cell_x, int cell_y,
+                                float x, float y, float z);
 void* ECL_FindByID(int32_t id);
 void ECL_ReleaseByID(int32_t id);
 void ECL_ApplyEclFlag(void);

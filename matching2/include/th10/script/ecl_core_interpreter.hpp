@@ -191,6 +191,10 @@ struct EclCoreHooks {
     // exists so the walk can be exercised without a retail-shaped vtable; it
     // adds no behaviour of its own.
     int (*dispatch_extended)(EclCoreOwner* owner);
+
+    // Optional deterministic observer. It is called immediately before each
+    // opcode body or extended-dispatch arm; null preserves the retail core.
+    void (*trace_opcode)(EclCoreVm* vm, EclCoreInstruction* instruction);
 };
 
 // Retail 0x0044E1A0.  Returns 0 while the VM is still live and -1 when it has

@@ -75,6 +75,29 @@ void TestSetPositionZWithWrap() {
     assert(wrapped < 3.1415927f && wrapped > -3.1415927f);
 }
 
+void TestActiveEntityList() {
+    uint8_t manager[0x80] = {};
+    const size_t count_offset = sizeof(void*) == 4 ? 0x60 : 0x68;
+    uint8_t first[0x2518] = {};
+    uint8_t second[0x2518] = {};
+    *reinterpret_cast<int32_t*>(first + 0x116C + 0x54) = 41;
+    *reinterpret_cast<int32_t*>(second + 0x116C + 0x54) = 42;
+    ECL_AddToActiveList(manager, first);
+    ECL_AddToActiveList(manager, second);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 2);
+    assert(ECL_FindByID(41) == first);
+    assert(ECL_FindByID(42) == second);
+    ECL_AddToActiveList(manager, first);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 2);
+    ECL_ReleaseByID(41);
+    assert(ECL_FindByID(41) == nullptr);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 1);
+    assert(*reinterpret_cast<void**>(manager + 0x58) == second + 0x116C);
+    ECL_ReleaseByID(42);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 0);
+    assert(*reinterpret_cast<void**>(manager + 0x58) == nullptr);
+}
+
 }  // namespace
 
 int main() {
@@ -83,5 +106,6 @@ int main() {
     TestWrapValue();
     TestInitMovementRecord();
     TestSetPositionZWithWrap();
+    TestActiveEntityList();
     return 0;
 }

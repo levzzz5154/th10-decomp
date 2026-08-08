@@ -1,10 +1,8 @@
 // ECL retail helper reconstructions used by the 0x0040E770 dispatcher.
 //
-// The simple resolvers and PRNG wrap the existing readable API; the
-// state-only helpers (sub-entity creation, manager link, animation flag
-// toggles) are best-effort stubs that record enough state for the
-// dispatcher to exercise the leaf opcode shape without depending on the
-// full sub-entity / animation manager state machine.
+// The simple resolvers and PRNG wrap the existing readable API; state-only
+// helpers retain the retail offsets and records needed by the dispatcher
+// without depending on the full animation manager state machine.
 #include "th10/script/ecl.hpp"
 #include <cstring>
 
@@ -257,23 +255,144 @@ void ECL_AnimationFlagClear(void) {
     // FUN_00449590: decrement the ECL-flag counter.
 }
 
-void ECL_AddToActiveList(void* manager, void* sub_entity) {
-    // FUN_0040cfb0: append the sub-entity to the manager's active
-    // list.  The readable version is a no-op until the manager state
-    // machine is reconstructed.
-    (void)manager;
-    (void)sub_entity;
+namespace {
+ECLSpawnEnemyCallback g_enemy_spawn_callback = nullptr;
+ECLProjectileSpawnCallback g_projectile_spawn_callback = nullptr;
+
+// BulletEntityManager keeps its list header at +0x58. Each linked record is
+// the BulletEntity allocation biased by +0x116C; its +0x04/+0x08 words are the
+// next/previous links and +0x54 is the retail lookup id. Keep this view local
+// so the script helper does not impose the full game/entity translation unit
+// on the D3D-free ECL tests.
+struct EclActiveManager {
+    unsigned char padding[0x58];
+    void* head;
+    void* tail;
+    uint32_t count;
+    uint32_t serial;
+};
+
+EclActiveManager* g_active_manager = nullptr;
+
+// The production image is PE32, where the retail node words are +0x04/+0x08.
+// Host-only helper tests use native pointers; use non-overlapping offsets there
+// while retaining the exact retail offsets for the target ABI.
+constexpr size_t kNextLinkOffset = sizeof(void*) == 4 ? 4 : 0;
+constexpr size_t kPreviousLinkOffset = sizeof(void*) == 4 ? 8 : sizeof(void*);
+
+unsigned char* EclNode(void* entity) {
+    return static_cast<unsigned char*>(entity) + 0x116C;
+}
+
+unsigned char* EclNext(unsigned char* node) {
+    return *reinterpret_cast<unsigned char**>(node + kNextLinkOffset);
+}
+
+unsigned char* EclPrevious(unsigned char* node) {
+    return *reinterpret_cast<unsigned char**>(node + kPreviousLinkOffset);
+}
+
+void EclSetNext(unsigned char* node, unsigned char* value) {
+    *reinterpret_cast<unsigned char**>(node + kNextLinkOffset) = value;
+}
+
+void EclSetPrevious(unsigned char* node, unsigned char* value) {
+    *reinterpret_cast<unsigned char**>(node + kPreviousLinkOffset) = value;
+}
+
+void EclUnlinkNode(EclActiveManager* manager, unsigned char* node) {
+    unsigned char* next = EclNext(node);
+    unsigned char* previous = EclPrevious(node);
+    if (previous != nullptr)
+        EclSetNext(previous, next);
+    else
+        manager->head = next;
+    if (next != nullptr)
+        EclSetPrevious(next, previous);
+    else
+        manager->tail = previous;
+    EclSetNext(node, nullptr);
+    EclSetPrevious(node, nullptr);
+    if (manager->count != 0)
+        --manager->count;
+}
+}
+
+void ECL_SetEnemySpawnCallback(ECLSpawnEnemyCallback callback) {
+    g_enemy_spawn_callback = callback;
+    if (callback == nullptr)
+        g_active_manager = nullptr;
+}
+
+int ECL_ExecuteEnemySpawn(void* entity, int opcode, void* cursor) {
+    if (g_enemy_spawn_callback == nullptr)
+        return -1;
+    return g_enemy_spawn_callback(entity, opcode, cursor);
+}
+
+void ECL_SetProjectileSpawnCallback(ECLProjectileSpawnCallback callback) {
+    g_projectile_spawn_callback = callback;
+}
+
+int ECL_ExecuteProjectileSpawn(void* record, int cell_x, int cell_y,
+                               float x, float y, float z) {
+    if (g_projectile_spawn_callback == nullptr)
+        return -1;
+    return g_projectile_spawn_callback(record, cell_x, cell_y, x, y, z);
+}
+
+void ECL_AddToActiveList(void* manager_pointer, void* sub_entity) {
+    if (manager_pointer == nullptr || sub_entity == nullptr)
+        return;
+    EclActiveManager* manager =
+        static_cast<EclActiveManager*>(manager_pointer);
+    g_active_manager = manager;
+    unsigned char* node = EclNode(sub_entity);
+    for (unsigned char* current =
+             static_cast<unsigned char*>(manager->head);
+         current != nullptr;
+         current = EclNext(current)) {
+        if (current == node)
+            return;
+    }
+    EclSetNext(node, nullptr);
+    EclSetPrevious(node, static_cast<unsigned char*>(manager->tail));
+    if (manager->tail != nullptr)
+        EclSetNext(static_cast<unsigned char*>(manager->tail), node);
+    else
+        manager->head = node;
+    manager->tail = node;
+    ++manager->count;
 }
 
 void* ECL_FindByID(int32_t id) {
-    // FUN_0040cf90: lookup a manager-owned record by its 32-bit id.
-    (void)id;
-    return 0;
+    if (g_active_manager == nullptr)
+        return nullptr;
+    for (unsigned char* node =
+             static_cast<unsigned char*>(g_active_manager->head);
+         node != nullptr;
+         node = EclNext(node)) {
+        if (*reinterpret_cast<int32_t*>(node + 0x54) == id)
+            return node - 0x116C;
+    }
+    return nullptr;
 }
 
 void ECL_ReleaseByID(int32_t id) {
-    // FUN_0040cf60: release a manager-owned record by its 32-bit id.
-    (void)id;
+    if (g_active_manager == nullptr)
+        return;
+    for (unsigned char* node =
+             static_cast<unsigned char*>(g_active_manager->head);
+         node != nullptr;
+         node = EclNext(node)) {
+        if (*reinterpret_cast<int32_t*>(node + 0x54) != id)
+            continue;
+        // FUN_0040cf60 marks the entity for deferred release. The owning
+        // manager performs actual destruction at its normal teardown edge.
+        *reinterpret_cast<uint32_t*>(node - 0x116C + 0x35C) |= 0x10u;
+        EclUnlinkNode(g_active_manager, node);
+        return;
+    }
 }
 
 void ECL_ApplyEclFlag(void) {

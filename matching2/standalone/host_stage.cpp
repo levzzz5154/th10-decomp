@@ -71,6 +71,7 @@
 #include "th10/script/stage_ecl_load.hpp"
 #include "th10/script/ecl_core_interpreter.hpp"
 #include "th10/script/ecl.hpp"
+#include "th10/script/final_script_runtime.hpp"
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/archive/resource_manager.hpp"
 #include "th10/math/timer.hpp"
@@ -107,6 +108,7 @@ extern int DAT_00474c70;
 extern int DAT_00474c98;
 extern uint8_t DAT_00491d78;
 extern float DAT_00476f78;
+int BulletEntity_UpdateTransform(uint32_t* bullet_transform);
 void D3DResourceWorker_Stop();
 
 // -----------------------------------------------------------------------------
@@ -296,6 +298,23 @@ unsigned int g_enemy_ecl_sub_count;
 HostStageRuntimeView g_runtime_view;
 
 void* g_enemy_manager_slot;
+int HostRegisterEnemySchedulerCallbacks();
+void HostReleaseEnemySchedulerCallbacks();
+SchedulerCallback* g_enemy_update_callback;
+SchedulerCallback* g_enemy_draw_callback;
+struct HostSpawnedEclEnemy {
+	BulletEntity* entity;
+	int trace_id;
+	int vm_live;
+	ECLVMState dispatch_state;
+	unsigned char dispatch_cursor[0x1024];
+};
+HostSpawnedEclEnemy g_spawned_ecl_enemies[256] = {};
+int g_spawned_ecl_enemy_count;
+unsigned char g_ecl_spawn_config[0x58] = {};
+unsigned char g_ecl_spawn_inner_config[0x58] = {};
+th10::script_final::EclScriptTable g_enemy_script_table = {};
+th10::script_final::EclScriptEntry g_enemy_script_entries[512] = {};
 void* g_effect_manager_slot;
 void* g_bullet_pool_slot;
 BulletManagerState* g_bullet_manager;
@@ -372,6 +391,7 @@ Byte* HostReadScriptFile(Word* size_slot, int mode) {
 	}
 	*size_slot = size;
 	g_report.std_size = size;
+	HostTrace_StageResource(g_pending_script, buffer, size);
 	Log("loaded %s from th10.dat (%u bytes)", g_pending_script, size);
 	return (Byte*)buffer;
 }
@@ -392,6 +412,7 @@ void* HostOpenScriptEntry(int mode, void* archive_manager, const char* name) {
 	g_report.companion_anm_size = size;
 	g_companion_anm = buffer;
 	g_companion_anm_size = size;
+	HostTrace_StageResource(path, buffer, size);
 	Log("companion stage ANM %s loaded from th10.dat (%u bytes, open_entry mode %d)",
 	    path, size, mode);
 	return buffer;
@@ -498,6 +519,43 @@ void AppendIncludeName(const char* name) {
 	              used != 0 ? " " : "", name);
 }
 
+const char* HostEclSubName(unsigned int index);
+
+void HostBuildEnemyScriptTable() {
+	std::memset(&g_enemy_script_table, 0, sizeof(g_enemy_script_table));
+	std::memset(g_enemy_script_entries, 0, sizeof(g_enemy_script_entries));
+	if (g_enemy_ecl == 0 || g_enemy_ecl_sub_count == 0 ||
+	    g_enemy_ecl_sub_count >
+	        sizeof(g_enemy_script_entries) / sizeof(g_enemy_script_entries[0])) {
+		Log("enemy script label table rejected: invalid subroutine count %u",
+		    g_enemy_ecl_sub_count);
+		return;
+	}
+	g_enemy_script_table.count = static_cast<int>(g_enemy_ecl_sub_count);
+	g_enemy_script_table.entries = g_enemy_script_entries;
+	for (unsigned int index = 0; index < g_enemy_ecl_sub_count; ++index) {
+		const char* name = HostEclSubName(index);
+		if (name == 0) {
+			std::memset(&g_enemy_script_table, 0,
+			            sizeof(g_enemy_script_table));
+			Log("enemy script label table rejected: missing name at %u", index);
+			return;
+		}
+	g_enemy_script_entries[index].name = name;
+		g_enemy_script_entries[index].value = static_cast<uint32_t>(
+		    reinterpret_cast<uintptr_t>(g_enemy_ecl) +
+		    g_enemy_ecl_sub_offsets[index]);
+	}
+	// BulletEntity_Initialize reads DAT_00477704 -> +0x54 as the label table
+	// owner, exactly as retail's EnemyManager initializer publishes it.
+	const uint32_t table_pointer = static_cast<uint32_t>(
+	    reinterpret_cast<uintptr_t>(&g_enemy_script_table));
+	std::memcpy(g_ecl_spawn_inner_config + 0x54, &table_pointer,
+	            sizeof(table_pointer));
+	std::memcpy(g_ecl_spawn_config + 0x54, &table_pointer,
+	            sizeof(table_pointer));
+}
+
 int HostEnemyScriptInit(void* script_name) {
 	const char* name = (const char*)script_name;
 	unsigned int size = 0;
@@ -507,6 +565,7 @@ int HostEnemyScriptInit(void* script_name) {
 		return -1;
 	}
 	g_report.ecl_size = size;
+	HostTrace_StageResource(name, data, size);
 	if (size >= 0x18 && std::memcmp(data, "SCPT", 4) == 0) {
 		unsigned int include_offset = 0;
 		unsigned int sub_count = 0;
@@ -541,6 +600,7 @@ int HostEnemyScriptInit(void* script_name) {
 		    reinterpret_cast<const unsigned int*>(
 		        data + sub_table_offset);
 		g_enemy_ecl_sub_count = sub_count;
+		HostBuildEnemyScriptTable();
 		Log("enemy script %s loaded from th10.dat (%u bytes, SCPT container, "
 		    "%u subroutines, include list @0x%X)",
 		    name, size, sub_count, include_offset);
@@ -562,6 +622,7 @@ int HostEnemyScriptInit(void* script_name) {
 				unsigned int include_size = 0;
 				unsigned char* include_data = LoadArchiveFile(path, &include_size);
 				if (include_data != 0) {
+					HostTrace_StageResource(path, include_data, include_size);
 					if (std::strcmp(tag, "ANIM") == 0) {
 						g_report.ecl_anim_includes += 1;
 						g_report.include_anm_bytes += include_size;
@@ -583,6 +644,11 @@ int HostEnemyScriptInit(void* script_name) {
 	}
 	if (data != g_enemy_ecl)
 		std::free(data);
+	if (HostRegisterEnemySchedulerCallbacks() != 0) {
+		Log("enemy script %s rejected: scheduler callback registration failed",
+		    name);
+		return -1;
+	}
 	return 0; // 0 = success for the factory initializer convention
 }
 
@@ -902,6 +968,82 @@ int HostCreateStageState() {
 	Log("Recovery_CreateHugeResourceState(0x0042B660): %s",
 	    state != 0 ? "created (0xB884 bytes)" : "FAILED");
 	return state != 0;
+}
+
+int HostTickEnemyEcl(BulletEntity* entity);
+
+int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
+	if (owner == nullptr)
+		return 1;
+	unsigned char* manager = static_cast<unsigned char*>(owner);
+	constexpr size_t kNextOffset = sizeof(void*) == 4 ? 4 : 0;
+	unsigned char* node = *reinterpret_cast<unsigned char**>(manager + 0x58);
+	while (node != nullptr) {
+		bool known_node = false;
+		for (int index = 0; index < g_spawned_ecl_enemy_count; ++index)
+			if (node == reinterpret_cast<unsigned char*>(
+		            g_spawned_ecl_enemies[index].entity) + 0x116C) {
+				known_node = true;
+				break;
+			}
+		if (!known_node) {
+			Log("enemy manager list corruption at node %p", node);
+			return 1;
+		}
+		unsigned char* entity = node - 0x116C;
+		const int update_result = BulletEntity_UpdateTransform(
+		    reinterpret_cast<uint32_t*>(entity + 0x103C));
+		if (update_result == 0) {
+			*reinterpret_cast<uint32_t*>(entity + 0x2480) &= ~0x400u;
+			HostTickEnemyEcl(reinterpret_cast<BulletEntity*>(entity));
+		}
+		node = *reinterpret_cast<unsigned char**>(node + kNextOffset);
+	}
+	return 1;
+}
+
+int __fastcall HostEnemyManagerDrawCallback(void* owner) {
+	(void)owner;
+	return 1;
+}
+
+void HostReleaseEnemySchedulerCallbacks() {
+	if (g_enemy_update_callback != nullptr) {
+		Scheduler_Remove(g_enemy_update_callback, g_scheduler_device);
+		g_enemy_update_callback = nullptr;
+	}
+	if (g_enemy_draw_callback != nullptr) {
+		Scheduler_Remove(g_enemy_draw_callback, g_scheduler_device);
+		g_enemy_draw_callback = nullptr;
+	}
+}
+
+int HostRegisterEnemySchedulerCallbacks() {
+	if (g_enemy_manager_slot == nullptr)
+		return -1;
+	HostReleaseEnemySchedulerCallbacks();
+	g_enemy_update_callback = SchedulerCallback_Create(
+	    HostEnemyManagerUpdateCallback);
+	g_enemy_draw_callback = SchedulerCallback_Create(
+	    HostEnemyManagerDrawCallback);
+	if (g_enemy_update_callback == nullptr || g_enemy_draw_callback == nullptr) {
+		HostReleaseEnemySchedulerCallbacks();
+		return -1;
+	}
+	g_enemy_update_callback->owner = g_enemy_manager_slot;
+	g_enemy_draw_callback->owner = g_enemy_manager_slot;
+	g_enemy_update_callback->flags |= 2u;
+	g_enemy_draw_callback->flags |= 2u;
+	if (Scheduler_RegisterPrimary(g_enemy_update_callback, 0x12,
+	                              g_scheduler_device) != 0 ||
+	    Scheduler_RegisterSecondary(g_enemy_draw_callback, 0x14,
+	                                 g_scheduler_device) != 0) {
+		HostReleaseEnemySchedulerCallbacks();
+		return -1;
+	}
+	Log("EnemyManager scheduler callbacks registered: primary 0x12, "
+	    "secondary 0x14");
+	return 0;
 }
 
 int HostCreateEnemyManager(void* enemy_script) {
@@ -1261,6 +1403,7 @@ void HostEnterTransitionLock() {
 // rewind run - which is exactly what the recovered body does for an empty
 // bank table.
 short g_bullet_bank_count;
+unsigned char g_bullet_trace_live[2000] = {};
 
 void HostRegisterBulletSprite(void* pool) { (void)pool; }
 
@@ -1296,6 +1439,34 @@ void HostActivateBullets() {
 	    "(update flags 0x%X, draw flags 0x%X), cursor rewound to the pool base",
 	    update->flags, draw->flags);
 }
+void HostTraceBulletPool(int stage_frame) {
+	if (g_bullet_pool_slot == 0) {
+		g_report.bullets_active = 0;
+		g_report.hitboxes_synced = 0;
+		return;
+	}
+	unsigned char* payload =
+	    static_cast<unsigned char*>(g_bullet_pool_slot) + 0x60;
+	int active_count = 0;
+	for (int index = 0; index < 2000; ++index, payload += 0x7F0) {
+		const int is_active =
+		    *reinterpret_cast<unsigned short*>(payload + 0x446) != 0;
+		active_count += is_active;
+		if (g_bullet_trace_live[index] == static_cast<unsigned char>(is_active))
+			continue;
+		g_bullet_trace_live[index] = static_cast<unsigned char>(is_active);
+		int row = *reinterpret_cast<int*>(payload + 0x460);
+		if (row < 0 || row >= 6)
+			row = -1;
+		HostTrace_BulletLifecycle(index + 1, stage_frame, is_active, row);
+	}
+	g_report.bullets_active = active_count;
+	// The recovered draw callback refreshes the same live bullet records; keep
+	// the trace summary tied to the pool observation rather than a synthetic
+	// counter.
+	g_report.hitboxes_synced = active_count;
+}
+
 void HostArmPlayerTimer() {
 	PlayerManager_ArmIntroTimer(g_player_manager, 0);
 }
@@ -1414,12 +1585,38 @@ void HostReleaseEnemyNode(void* context, void* enemy) {
 }
 
 void HostResetEnemyRuntime() {
+	const int spawned_count = g_spawned_ecl_enemy_count;
+	for (int index = 0; index < spawned_count; ++index) {
+		if (g_spawned_ecl_enemies[index].vm_live)
+			HostTrace_EclDestroy(g_spawned_ecl_enemies[index].trace_id,
+			                     g_report.stage_frame, "stage_reset");
+		HostTrace_Entity(g_spawned_ecl_enemies[index].trace_id, 1, 0,
+		                g_report.stage_frame);
+	}
 	if (g_enemy_manager_slot == 0) {
+		for (int index = 0; index < spawned_count; ++index)
+			HostFreeMem(g_spawned_ecl_enemies[index].entity);
+		g_spawned_ecl_enemy_count = 0;
 		Log("EnemyManager_ReleaseLists(0x00409F90) skipped: no manager");
 		return;
 	}
 	unsigned char* manager =
 	    static_cast<unsigned char*>(g_enemy_manager_slot);
+	if (spawned_count != 0) {
+		// ECL spawns use BulletEntity's +0x116C node. Unlink those owned
+		// records through the matching helper first, leaving any unrelated
+		// enemy-manager nodes for the retail teardown walker below.
+		for (int index = 0; index < spawned_count; ++index) {
+			ECL_ReleaseByID(g_spawned_ecl_enemies[index].trace_id);
+			HostFreeMem(g_spawned_ecl_enemies[index].entity);
+		}
+		g_spawned_ecl_enemy_count = 0;
+		if (*reinterpret_cast<uint32_t*>(manager + 0x60) == 0) {
+			*reinterpret_cast<void**>(manager + 0x58) = nullptr;
+			*reinterpret_cast<void**>(manager + 0x5C) = nullptr;
+			return;
+		}
+	}
 	TeardownHooks hooks = {};
 	hooks.context = g_pGameStateManager;
 	hooks.release = HostReleaseEnemyNode;
@@ -1617,8 +1814,8 @@ EclCoreVm g_ecl_vm;
 // host stores a native pointer there, so the buffer is wider on 64-bit
 // hosts. The +0x103C bias and the +0x2514 VM slot are unaffected.
 unsigned char g_ecl_entity[0x2514 + sizeof(void*)];
-ECLInstructionCursor g_ecl_cursor;
 ECLVMState g_ecl_state;
+unsigned char g_ecl_dispatch_cursor[0x1024] = {};
 
 // The owner is consumed through TWO interfaces sharing one vtable:
 //   slot 0      the core interpreter's default arm - a plain function pointer
@@ -1653,6 +1850,11 @@ EclCoreHooks g_ecl_hooks;
 int g_ecl_started;
 int g_ecl_enabled;
 int g_ecl_calls;
+int g_ecl_next_trace_id = 2;
+int g_ecl_trace_ids[64] = {};
+int g_ecl_trace_stage_open;
+int g_ecl_trace_opcode_order;
+int g_ecl_root_live;
 int g_ecl_spawns;
 // Retail's async spawn (0x004500D0) allocates a 0x1024 VM record, links it
 // onto the owner's child list at owner+0x1030/+0x1034 and tail-calls the call
@@ -1661,6 +1863,8 @@ int g_ecl_spawns;
 const int kEclChildMax = 64;
 EclCoreVm g_ecl_children[64];
 int g_ecl_child_live[64];
+unsigned char g_ecl_child_entities[64][0x2514 + sizeof(void*)];
+unsigned char* g_ecl_child_owners[64] = {};
 int g_ecl_child_count;
 // The VM currently being ticked: retail reads it from owner+0x04, which the
 // call edge saves and restores around each dispatch.
@@ -1668,23 +1872,314 @@ EclCoreVm* g_ecl_active;
 int g_ecl_instructions;
 int g_ecl_stopped;
 
+int HostEclTraceId(const EclCoreVm* vm) {
+	if (vm == &g_ecl_vm)
+		return 1;
+	for (int index = 0; index < g_ecl_child_count; ++index)
+		if (vm == &g_ecl_children[index])
+			return g_ecl_trace_ids[index];
+	for (int index = 0; index < g_spawned_ecl_enemy_count; ++index) {
+		if (g_spawned_ecl_enemies[index].entity != 0 &&
+		    vm == reinterpret_cast<const EclCoreVm*>(
+		        reinterpret_cast<const unsigned char*>(
+		            g_spawned_ecl_enemies[index].entity) + 8))
+			return g_spawned_ecl_enemies[index].trace_id;
+	}
+	return 0;
+}
+
+long long HostEclPcOffset(const EclCoreVm* vm) {
+	if (vm == 0 || vm->ip == 0 || g_enemy_ecl == 0)
+		return -1;
+	const uintptr_t image = reinterpret_cast<uintptr_t>(g_enemy_ecl);
+	const uintptr_t ip = reinterpret_cast<uintptr_t>(vm->ip);
+	if (ip < image || ip - image >= g_enemy_ecl_size)
+		return -1;
+	return static_cast<long long>(ip - image);
+}
+
+void HostTraceEclVmCreate(const EclCoreVm* vm, int parent_id,
+                          int kind) {
+	const int id = HostEclTraceId(vm);
+	if (id == 0)
+		return;
+	HostTrace_EclCreate(id, parent_id, vm->async_id, vm->rank_mask,
+	                   HostEclPcOffset(vm));
+	HostTrace_Entity(id, kind, 1, g_report.stage_frame);
+}
+
+void HostTraceEclVmDestroy(const EclCoreVm* vm, int kind,
+                           const char* reason) {
+	const int id = HostEclTraceId(vm);
+	if (id == 0)
+		return;
+	HostTrace_EclDestroy(id, g_report.stage_frame, reason);
+	HostTrace_Entity(id, kind, 0, g_report.stage_frame);
+}
+
+void HostTraceEclVmTick(const EclCoreVm* vm, int order, int result,
+                        int live, long long pc_before) {
+	const int id = HostEclTraceId(vm);
+	if (id == 0)
+		return;
+	HostTrace_EclTick(id, g_report.stage_frame, order, vm->async_id,
+	                  vm->rank_mask, pc_before, HostEclPcOffset(vm),
+	                  vm->scratch_top, result, live);
+}
+
+void HostTraceEclOpcode(EclCoreVm* vm, EclCoreInstruction* instruction) {
+	const int id = HostEclTraceId(vm);
+	if (id == 0 || instruction == 0 || g_enemy_ecl == 0)
+		return;
+	const uintptr_t image = reinterpret_cast<uintptr_t>(g_enemy_ecl);
+	const uintptr_t pc = reinterpret_cast<uintptr_t>(instruction);
+	const long long offset = pc < image || pc - image >= g_enemy_ecl_size
+		                         ? -1
+		                         : static_cast<long long>(pc - image);
+	HostTrace_EclOpcode(id, g_report.stage_frame, g_ecl_trace_opcode_order,
+	                    instruction->opcode & 0xFFFF, offset,
+	                    instruction->time, instruction->rank_mask);
+}
+
+void HostRetireEclRuntime(const char* reason) {
+	if (g_ecl_root_live) {
+		HostTraceEclVmDestroy(&g_ecl_vm, 0, reason);
+		g_ecl_root_live = 0;
+	}
+	for (int index = 0; index < g_ecl_child_count; ++index) {
+		if (!g_ecl_child_live[index])
+			continue;
+		g_ecl_child_live[index] = 0;
+		g_ecl_child_owners[index] = 0;
+		HostTraceEclVmDestroy(&g_ecl_children[index], 1, reason);
+	}
+	g_ecl_started = 0;
+}
+
+void HostResetEclRuntime() {
+	HostRetireEclRuntime("stage_reset");
+	g_ecl_started = 0;
+	g_ecl_calls = 0;
+	g_ecl_spawns = 0;
+	g_ecl_child_count = 0;
+	g_ecl_active = 0;
+	g_ecl_instructions = 0;
+	g_ecl_stopped = 0;
+	g_ecl_next_trace_id = 2;
+	std::memset(g_ecl_trace_ids, 0, sizeof(g_ecl_trace_ids));
+	std::memset(g_ecl_child_live, 0, sizeof(g_ecl_child_live));
+	std::memset(g_ecl_child_entities, 0, sizeof(g_ecl_child_entities));
+	std::memset(g_ecl_child_owners, 0, sizeof(g_ecl_child_owners));
+	ECL_SetEnemySpawnCallback(nullptr);
+	ECL_SetProjectileSpawnCallback(nullptr);
+}
+
 // Retail's loc_40E760 thunk adds 0x103C to `this` before entering the
 // dispatcher, so the recovered ECL_VM_Dispatch expects the biased pointer.
+unsigned char* HostEclEntityStorage(EclCoreVm* active) {
+	if (active == &g_ecl_vm)
+		return g_ecl_entity;
+	for (int index = 0; index < g_ecl_child_count; ++index)
+		if (active == &g_ecl_children[index])
+			return g_ecl_child_owners[index] != 0
+			           ? g_ecl_child_owners[index]
+			           : g_ecl_child_entities[index];
+	for (int index = 0; index < g_spawned_ecl_enemy_count; ++index)
+		if (g_spawned_ecl_enemies[index].entity != 0 &&
+		    active == reinterpret_cast<EclCoreVm*>(
+		        reinterpret_cast<unsigned char*>(
+		            g_spawned_ecl_enemies[index].entity) + 8))
+			return reinterpret_cast<unsigned char*>(
+		        g_spawned_ecl_enemies[index].entity);
+	if (active != 0 && active->owner != 0)
+		return reinterpret_cast<unsigned char*>(active->owner);
+	return g_ecl_entity;
+}
+
 int HostEclDispatchExtended(EclCoreOwner* owner) {
 	(void)owner;
-	// Publish the ACTIVE VM's current instruction through the retail cursor
-	// the dispatcher reads, then enter it with the biased pointer retail's
-	// loc_40E760 thunk produces. Retail keeps the active VM in owner+0x04 and
-	// every 0x100+ opcode is dispatched against it; publishing the root VM's
-	// ip unconditionally meant a spawned enemy executed the stage script's
-	// instruction instead of its own, with operands read from the wrong
-	// instruction entirely.
+	// Retail's extended dispatcher receives entity+0x103C, but its operand
+	// stack is a private frame. Keep that frame off the entity allocation: the
+	// intrusive list node at entity+0x116C lives inside the same broad region.
 	EclCoreVm* active = g_ecl_active != 0 ? g_ecl_active : &g_ecl_vm;
-	g_ecl_cursor.instruction =
+	unsigned char* storage = HostEclEntityStorage(active);
+	unsigned char* entity_state = storage + 0x103C;
+	ECLVMState* dispatch_state = &g_ecl_state;
+	unsigned char* cursor_storage = g_ecl_dispatch_cursor;
+	for (int index = 0; index < g_spawned_ecl_enemy_count; ++index) {
+		if (g_spawned_ecl_enemies[index].entity == 0 ||
+		    storage != reinterpret_cast<unsigned char*>(
+		        g_spawned_ecl_enemies[index].entity))
+			continue;
+		dispatch_state = &g_spawned_ecl_enemies[index].dispatch_state;
+		cursor_storage = g_spawned_ecl_enemies[index].dispatch_cursor;
+		break;
+	}
+	std::memcpy(cursor_storage + 8, active->scratch, sizeof(active->scratch));
+	*reinterpret_cast<int*>(cursor_storage + 0x1008) = active->scratch_top;
+	*reinterpret_cast<int*>(cursor_storage + 0x100C) = active->locals_offset;
+	// The cursor's +0x1014 is the ECL variable-resolver object, not the
+	// BulletEntity vtable. Keep the recovered resolver table here while the
+	// dispatcher argument remains the actual entity-backed state.
+	*reinterpret_cast<void**>(cursor_storage + 0x1014) = g_ecl_entity;
+	*reinterpret_cast<ECLInstruction**>(cursor_storage + 4) =
 	    reinterpret_cast<ECLInstruction*>(active->ip);
-	g_ecl_state.cursor = &g_ecl_cursor;
-	*reinterpret_cast<ECLVMState**>(g_ecl_entity + 0x2514) = &g_ecl_state;
-	return ECL_VM_Dispatch(g_ecl_entity + 0x103C);
+	dispatch_state->cursor = reinterpret_cast<ECLInstructionCursor*>(
+	    cursor_storage);
+	*reinterpret_cast<ECLVMState**>(storage + 0x2514) = dispatch_state;
+	const int result = ECL_VM_Dispatch(entity_state);
+	std::memcpy(active->scratch, cursor_storage + 8, sizeof(active->scratch));
+	active->scratch_top = *reinterpret_cast<int*>(cursor_storage + 0x1008);
+	active->locals_offset = *reinterpret_cast<int*>(cursor_storage + 0x100C);
+	// Retail leaves entity+0x2514 as the entity self-pointer. The temporary
+	// state indirection exists only for this host dispatch call.
+	*reinterpret_cast<void**>(storage + 0x2514) = storage;
+	return result;
+}
+
+int HostEclSpawnEnemy(void* entity, int opcode, void* cursor) {
+	if (g_enemy_manager_slot == nullptr ||
+	    g_spawned_ecl_enemy_count >=
+	        static_cast<int>(sizeof(g_spawned_ecl_enemies) /
+	                         sizeof(g_spawned_ecl_enemies[0])))
+		return -1;
+	BulletSpawnParameters parameters = {};
+	BulletSpawnParameters_Initialize(nullptr, &parameters);
+	ECLInstruction* instruction = *reinterpret_cast<ECLInstruction**>(
+	    static_cast<unsigned char*>(cursor) + 4);
+	if (instruction == nullptr || instruction->size <= 0x14)
+		return -1;
+	const char* script_name = reinterpret_cast<const char*>(
+	    reinterpret_cast<const unsigned char*>(instruction) + 0x14);
+	const size_t script_capacity = instruction->size - 0x14;
+	if (std::memchr(script_name, 0, script_capacity) == 0)
+		return -1;
+	const int operand_base =
+	    (static_cast<int32_t>(instruction->operands[0]) + 4) / 4;
+	const int operand_words =
+	    instruction->size >= 0x10 ? (instruction->size - 0x10) / 4 : 0;
+	const int last_operand = opcode == 0x10e ? 5 : 4;
+	if (operand_base < 0 || operand_base + last_operand >= operand_words)
+		return -1;
+	unsigned char* base = static_cast<unsigned char*>(entity) - 0x103C;
+	float position[3] = {
+	    ECL_ResolveFloatOperand(cursor, static_cast<unsigned>(operand_base)),
+	    ECL_ResolveFloatOperand(cursor, static_cast<unsigned>(operand_base + 1)),
+	    opcode == 0x10e
+	        ? ECL_ResolveFloatOperand(cursor,
+	                                  static_cast<unsigned>(operand_base + 2))
+	        : 0.0f,
+	};
+	if (opcode != 0x105 && opcode != 0x10e) {
+		position[0] += *reinterpret_cast<float*>(base + 0x2C);
+		position[1] += *reinterpret_cast<float*>(base + 0x30);
+	}
+	for (int axis = 0; axis < 3; ++axis)
+		std::memcpy(&parameters.fields[axis], &position[axis],
+		            sizeof(position[axis]));
+	parameters.fields[3] = static_cast<uint32_t>(ECL_ResolveIntOperand(
+	    cursor, static_cast<unsigned>(operand_base + 2)));
+	parameters.fields[4] = static_cast<uint32_t>(ECL_ResolveIntOperand(
+	    cursor, static_cast<unsigned>(operand_base + 3)));
+	parameters.fields[5] = static_cast<uint32_t>(ECL_ResolveIntOperand(
+	    cursor, static_cast<unsigned>(operand_base + 4)));
+	parameters.fields[7] = 1;
+	std::memcpy(parameters.fields + 8, base + 0xFC,
+	            sizeof(uint32_t) * 8);
+	BulletEntityManager* manager =
+	    static_cast<BulletEntityManager*>(g_enemy_manager_slot);
+	const uint32_t serial = manager->spawnSerial;
+	// BulletEntity_Initialize consumes the legacy configuration indirection
+	// (global -> config -> labels). Stage entry does not publish that optional
+	// owner until the full bullet resource path is mounted, so provide the
+	// retail-shaped empty record for this synchronous spawn and restore the
+	// global immediately after the call.
+	*reinterpret_cast<uint32_t*>(g_ecl_spawn_config) =
+	    static_cast<uint32_t>(reinterpret_cast<uintptr_t>(
+	        g_ecl_spawn_inner_config));
+	const uint32_t previous_config = DAT_00477704;
+	DAT_00477704 = static_cast<uint32_t>(reinterpret_cast<uintptr_t>(
+	    g_ecl_spawn_config));
+	BulletEntity* spawned = BulletEntity_Spawn(
+	    manager, reinterpret_cast<const uint8_t*>(script_name), &parameters);
+	DAT_00477704 = previous_config;
+	if (spawned == nullptr)
+		return -1;
+	HostSpawnedEclEnemy& record =
+	    g_spawned_ecl_enemies[g_spawned_ecl_enemy_count++];
+	record.entity = spawned;
+	record.trace_id = 0x100000 + static_cast<int>(serial);
+	EclCoreVm* root = reinterpret_cast<EclCoreVm*>(
+	    reinterpret_cast<unsigned char*>(spawned) + 8);
+	record.vm_live = root->ip != 0;
+	if (!record.vm_live)
+		Log("ECL spawn %s produced no root label", script_name);
+	unsigned char* node =
+	    reinterpret_cast<unsigned char*>(spawned) + 0x116C;
+	*reinterpret_cast<int32_t*>(node + 0x54) = record.trace_id;
+	ECL_AddToActiveList(manager, spawned);
+	if (record.vm_live) {
+		const EclCoreVm* root = reinterpret_cast<const EclCoreVm*>(
+		    reinterpret_cast<const unsigned char*>(spawned) + 8);
+		HostTrace_EclCreate(record.trace_id, 0, root->async_id,
+		                   root->rank_mask, HostEclPcOffset(root));
+	}
+	HostTrace_Entity(record.trace_id, 1, 1, g_report.stage_frame);
+	HostTrace_StageSpawn(record.trace_id, opcode,
+	                    static_cast<int>(manager->entityCount),
+	                    static_cast<int>(manager->spawnSerial),
+	                    position[0], position[1], position[2]);
+	return 0;
+}
+
+int HostEclSpawnProjectile(void* record, int cell_x, int cell_y,
+                          float x, float y, float z) {
+	(void)cell_x;
+	if (g_bullet_pool_slot == nullptr || record == nullptr) {
+		Log("ECL projectile launch rejected: bullet pool is not resident");
+		return -1;
+	}
+	unsigned char* manager = static_cast<unsigned char*>(g_bullet_pool_slot);
+	unsigned char* payload = manager + 0x60;
+	int selected = -1;
+	for (int index = 0; index < 2000; ++index, payload += 0x7F0) {
+		if (*reinterpret_cast<unsigned short*>(payload + 0x446) == 0) {
+			selected = index;
+			break;
+		}
+	}
+	if (selected < 0) {
+		Log("ECL projectile launch rejected: bullet pool exhausted");
+		return -1;
+	}
+	std::memset(payload, 0, 0x7F0);
+	*reinterpret_cast<uint32_t*>(payload + 0x00) = 1;
+	*reinterpret_cast<unsigned short*>(payload + 0x446) = 1;
+	int row = cell_y;
+	if (row < 0)
+		row = 0;
+	if (row >= 6)
+		row = 5;
+	*reinterpret_cast<int*>(payload + 0x460) = row;
+	*reinterpret_cast<float*>(payload + 0x3C0) = x;
+	*reinterpret_cast<float*>(payload + 0x3C4) = y;
+	*reinterpret_cast<float*>(payload + 0x3C8) = z;
+	std::memcpy(payload + 0x3B4, static_cast<unsigned char*>(record) + 4,
+	            sizeof(float) * 3);
+	*reinterpret_cast<int*>(payload + 0x3F8) = 0;
+	*reinterpret_cast<int*>(payload + 0x3FC) = 0;
+	*reinterpret_cast<float*>(payload + 0x400) = 0.0f;
+	*reinterpret_cast<uint32_t*>(payload + 0x404) =
+	    static_cast<uint32_t>(reinterpret_cast<uintptr_t>(&DAT_00476f78));
+	*reinterpret_cast<uint32_t*>(payload + 0x408) = 1;
+	*reinterpret_cast<int*>(payload + 0x40C) = -1;
+	*reinterpret_cast<int*>(payload + 0x410) = 0;
+	*reinterpret_cast<int*>(payload + 0x414) = 0;
+	*reinterpret_cast<uint32_t*>(payload + 0x418) =
+	    static_cast<uint32_t>(reinterpret_cast<uintptr_t>(&DAT_00476f78));
+	*reinterpret_cast<uint32_t*>(payload + 0x41C) = 1;
+	*reinterpret_cast<void**>(manager + 0x10) = payload;
+	return 0;
 }
 
 // stage01.ecl sub table: `count` code offsets at 0x58 followed by the same
@@ -1787,12 +2282,18 @@ int HostEclSpawnChild(EclCoreOwner* owner, int async_id, int first_argument) {
 	}
 	EclCoreVm* child = &g_ecl_children[slot];
 	std::memset(child, 0, sizeof(*child));
+	g_ecl_trace_ids[slot] = 0;
 	child->owner = parent->owner;
+	g_ecl_child_owners[slot] = HostEclEntityStorage(parent);
 	child->rank_mask = parent->rank_mask;   // child+0x101C
 	child->async_id = async_id;             // child+0x1010
-	if (HostEclStartChild(child, parent, first_argument) != 0)
+	if (HostEclStartChild(child, parent, first_argument) != 0) {
+		g_ecl_child_owners[slot] = 0;
 		return -1;
+	}
 	g_ecl_child_live[slot] = 1;
+	g_ecl_trace_ids[slot] = g_ecl_next_trace_id++;
+	HostTraceEclVmCreate(child, HostEclTraceId(parent), 1);
 	g_ecl_spawns += 1;
 	return 0;
 }
@@ -1928,6 +2429,7 @@ int HostEclStartChild(EclCoreVm* child, EclCoreVm* parent, int first_argument) {
 }
 
 void HostStartMainEcl() {
+	HostResetEclRuntime();
 	if (!g_ecl_enabled) {
 		Log("main ECL start (0x0040CFB0): interpreter present but not armed; "
 		    "pass --ecl to run stage01.ecl through EclVm_TickCore");
@@ -1971,6 +2473,12 @@ void HostStartMainEcl() {
 	g_ecl_hooks.spawn_child = HostEclSpawnChild;
 	g_ecl_hooks.find_child = HostEclFindChild;
 	g_ecl_hooks.resolve_float_destination = HostEclResolveFloatDestination;
+	g_ecl_hooks.dispatch_extended = HostEclDispatchExtended;
+	g_ecl_hooks.trace_opcode = HostTraceEclOpcode;
+	ECL_SetEnemySpawnCallback(HostEclSpawnEnemy);
+	ECL_SetProjectileSpawnCallback(HostEclSpawnProjectile);
+	HostTraceEclVmCreate(&g_ecl_vm, 0, 0);
+	g_ecl_root_live = 1;
 	Log("EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \"main\" "
 	    "(sub %d, entry 0x%X, %u subs)", main_index, entry,
 	    g_enemy_ecl_sub_count);
@@ -1987,18 +2495,111 @@ bool HostEclVmSane(const EclCoreVm* vm) {
 	return ip >= g_enemy_ecl && ip + 16 <= g_enemy_ecl + g_enemy_ecl_size;
 }
 
+void HostDestroyEnemyChild(int index, const char* reason) {
+	if (index < 0 || index >= g_ecl_child_count || !g_ecl_child_live[index])
+		return;
+	// Mirror HostTraceEclVmDestroy: the create side publishes both the ECL VM
+	// and entity records, so retirement must balance both event streams.
+	HostTrace_EclDestroy(g_ecl_trace_ids[index], g_report.stage_frame, reason);
+	HostTrace_Entity(g_ecl_trace_ids[index], 1, 0, g_report.stage_frame);
+	g_ecl_child_live[index] = 0;
+	g_ecl_child_owners[index] = 0;
+}
+
+int HostTickEnemyEcl(BulletEntity* entity) {
+	if (entity == 0)
+		return 0;
+	EclCoreVm* root = reinterpret_cast<EclCoreVm*>(
+	    reinterpret_cast<unsigned char*>(entity) + 8);
+	int record_index = -1;
+	for (int index = 0; index < g_spawned_ecl_enemy_count; ++index)
+		if (g_spawned_ecl_enemies[index].entity == entity) {
+			record_index = index;
+			break;
+		}
+	if (record_index < 0 || !g_spawned_ecl_enemies[record_index].vm_live ||
+	    root->ip == 0)
+		return 0;
+	if (!HostEclVmSane(root)) {
+		Log("ecl: enemy VM %d ip left the script image; retiring",
+		    g_spawned_ecl_enemies[record_index].trace_id);
+		HostTrace_EclDestroy(g_spawned_ecl_enemies[record_index].trace_id,
+		                     g_report.stage_frame, "invalid_ip");
+		g_spawned_ecl_enemies[record_index].vm_live = 0;
+		root->ip = 0;
+		return -1;
+	}
+	const long long before_offset = HostEclPcOffset(root);
+	unsigned char* entity_bytes = reinterpret_cast<unsigned char*>(entity);
+	const uint32_t saved_vtable = *reinterpret_cast<uint32_t*>(entity_bytes);
+	*reinterpret_cast<uint32_t*>(entity_bytes) = static_cast<uint32_t>(
+	    reinterpret_cast<uintptr_t>(g_ecl_owner_vtable));
+	uint32_t* current_record = reinterpret_cast<uint32_t*>(entity_bytes + 4);
+	*current_record = static_cast<uint32_t>(reinterpret_cast<uintptr_t>(root));
+	EclCoreVm* previous_active = g_ecl_active;
+	const int previous_order = g_ecl_trace_opcode_order;
+	g_ecl_active = root;
+	g_ecl_trace_opcode_order = 0;
+	const int result = EclVm_TickCore(root, DAT_00476f78, &g_ecl_hooks);
+	HostTraceEclVmTick(root, 0, result, result == 0, before_offset);
+	for (int index = 0; index < g_ecl_child_count; ++index) {
+		if (!g_ecl_child_live[index] ||
+		    g_ecl_child_owners[index] !=
+		        reinterpret_cast<unsigned char*>(entity))
+			continue;
+		EclCoreVm* child = &g_ecl_children[index];
+		if (!HostEclVmSane(child)) {
+			HostDestroyEnemyChild(index, child->ip == 0 ? "ip_cleared" :
+			                         "invalid_ip");
+			continue;
+		}
+		const long long child_before_offset = HostEclPcOffset(child);
+		*current_record = static_cast<uint32_t>(
+		    reinterpret_cast<uintptr_t>(child));
+		g_ecl_active = child;
+		g_ecl_trace_opcode_order = index + 1;
+		const int child_result = EclVm_TickCore(
+		    child, DAT_00476f78, &g_ecl_hooks);
+		HostTraceEclVmTick(child, index + 1, child_result,
+		                   child_result == 0, child_before_offset);
+		if (child_result != 0)
+			HostDestroyEnemyChild(index, "finished");
+	}
+	*current_record = static_cast<uint32_t>(
+	    reinterpret_cast<uintptr_t>(entity_bytes + 8));
+	*reinterpret_cast<uint32_t*>(entity_bytes) = saved_vtable;
+	g_ecl_active = previous_active;
+	g_ecl_trace_opcode_order = previous_order;
+	if (result != 0) {
+		HostTrace_EclDestroy(g_spawned_ecl_enemies[record_index].trace_id,
+		                     g_report.stage_frame, "finished");
+		g_spawned_ecl_enemies[record_index].vm_live = 0;
+		root->ip = 0;
+	}
+	return result;
+}
+
 void HostTickStageEcl() {
 	if (!g_ecl_started || g_ecl_stopped)
 		return;
 	if (!HostEclVmSane(&g_ecl_vm)) {
 		Log("ecl: root VM ip left the script image (%p); stopping",
 		    (const void*)g_ecl_vm.ip);
+		HostTraceEclVmDestroy(&g_ecl_vm, 0, "invalid_ip");
+		g_ecl_root_live = 0;
 		g_ecl_stopped = 1;
+		if (g_ecl_trace_stage_open) {
+			HostTrace_StageEnd(g_report.stage_frame, -1);
+			g_ecl_trace_stage_open = 0;
+		}
 		return;
 	}
 	const EclCoreInstruction* before = g_ecl_vm.ip;
+	const long long before_offset = HostEclPcOffset(&g_ecl_vm);
 	g_ecl_active = &g_ecl_vm;
+	g_ecl_trace_opcode_order = 0;
 	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
+	HostTraceEclVmTick(&g_ecl_vm, 0, result, result == 0, before_offset);
 	if (g_ecl_vm.ip != before)
 		g_ecl_instructions += 1;
 	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
@@ -2006,19 +2607,38 @@ void HostTickStageEcl() {
 	for (int index = 0; index < g_ecl_child_count; ++index) {
 		if (!g_ecl_child_live[index])
 			continue;
-		if (!HostEclVmSane(&g_ecl_children[index])) {
+		EclCoreVm* child = &g_ecl_children[index];
+		if (!HostEclVmSane(child)) {
 			Log("ecl: child %d ip left the script image (%p); retiring",
-			    index, (const void*)g_ecl_children[index].ip);
+			    index, (const void*)child->ip);
 			g_ecl_child_live[index] = 0;
+			g_ecl_child_owners[index] = 0;
+			HostTraceEclVmDestroy(child, 1,
+			                     child->ip == 0 ? "ip_cleared" : "invalid_ip");
 			continue;
 		}
-		g_ecl_active = &g_ecl_children[index];
-		if (EclVm_TickCore(&g_ecl_children[index], 1.0f, &g_ecl_hooks) != 0)
+		const long long child_before_offset = HostEclPcOffset(child);
+		g_ecl_active = child;
+		g_ecl_trace_opcode_order = index + 1;
+		const int child_result = EclVm_TickCore(child, 1.0f, &g_ecl_hooks);
+		const int child_live = child_result == 0;
+		HostTraceEclVmTick(child, index + 1, child_result, child_live,
+		                   child_before_offset);
+		if (!child_live) {
 			g_ecl_child_live[index] = 0;
+			g_ecl_child_owners[index] = 0;
+			HostTraceEclVmDestroy(child, 1, "finished");
+		}
 	}
 	g_ecl_active = &g_ecl_vm;
 	if (result != 0) {
 		g_ecl_stopped = 1;
+		HostTraceEclVmDestroy(&g_ecl_vm, 0, "finished");
+		g_ecl_root_live = 0;
+		if (g_ecl_trace_stage_open) {
+			HostTrace_StageEnd(g_report.stage_frame, result);
+			g_ecl_trace_stage_open = 0;
+		}
 		Log("EclVm_TickCore: stage script finished after %d advances",
 		    g_ecl_instructions);
 	}
@@ -2525,6 +3145,7 @@ void BuildUpdateEnv() {
 // StageContext_Enter driver
 // -----------------------------------------------------------------------------
 void HostRunStageEntry() {
+	HostTrace_StagePhase(g_report.stage_frame, "stage_enter_begin");
 	std::memset(&g_context, 0, sizeof(g_context));
 	g_context.flags = 4; // entering bit (bit 2), as set by the loading owner
 
@@ -2596,10 +3217,16 @@ void HostRunStageEntry() {
 		g_runtime_view.context = &g_context;
 		g_runtime_view.camera_words = g_camera_words;
 		g_runtime_view.stage_frame = 0;
+		HostTrace_StagePhase(g_report.stage_frame, "stage_enter_complete");
 		Log("StageContext_Enter(0x00417870) returned 0: %d factory wrappers, "
 		    "%d failures, update/draw tasks registered",
 		    g_report.factories_created, g_report.factory_failures);
 	} else {
+		HostTrace_StagePhase(g_report.stage_frame, "stage_enter_failed");
+		if (g_ecl_trace_stage_open) {
+			HostTrace_StageEnd(g_report.stage_frame, result);
+			g_ecl_trace_stage_open = 0;
+		}
 		Log("StageContext_Enter(0x00417870) FAILED (%d) after %d factories "
 		    "(%d failures)", result, g_report.factories_created,
 		    g_report.factory_failures);
@@ -2639,7 +3266,13 @@ void HostStage_SetArchiveAvailable(int available) {
 
 int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	const int archive_available = g_report.archive_available;
+	if (g_ecl_trace_stage_open) {
+		HostTrace_StageEnd(g_report.stage_frame, g_report.enter_result);
+		g_ecl_trace_stage_open = 0;
+	}
+	HostResetEclRuntime();
 	std::memset(&g_report, 0, sizeof(g_report));
+	std::memset(g_bullet_trace_live, 0, sizeof(g_bullet_trace_live));
 	std::memset(&g_runtime_view, 0, sizeof(g_runtime_view));
 	std::memset(&g_std_view, 0, sizeof(g_std_view));
 	std::memset(&g_timeline_view, 0, sizeof(g_timeline_view));
@@ -2698,6 +3331,8 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	g_stage_record.enemy_script = (void*)"th10/stage01.ecl";
 	g_stage_record.music_name = "th10/bgm/th10_00.mid";
 	g_stage_record.music_loop = "th10/bgm/th10_00.mid";
+	HostTrace_StageBegin(g_stage_record.script_name);
+	g_ecl_trace_stage_open = 1;
 
 	std::memset(g_stage_descriptor, 0, sizeof(g_stage_descriptor));
 	std::memset(g_scheduler_device, 0, sizeof(g_scheduler_device));
@@ -2732,9 +3367,13 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {
 	const int applied = GameMode_ApplyRequested(&g_mode_state, &g_mode_env);
 	g_report.mode_apply_result = applied;
 	g_report.mode_current_after = g_mode_state.current;
-	return (g_report.leave_gameplay_fired != 0 && g_report.enter_result == 0)
-	           ? 0
-	           : -1;
+	const int success =
+	    g_report.leave_gameplay_fired != 0 && g_report.enter_result == 0;
+	if (!success && g_ecl_trace_stage_open) {
+		HostTrace_StageEnd(g_report.stage_frame, -1);
+		g_ecl_trace_stage_open = 0;
+	}
+	return success ? 0 : -1;
 }
 
 int HostStage_RunFrames(int frames) {
@@ -2749,9 +3388,16 @@ int HostStage_RunFrames(int frames) {
 				    (g_task_callbacks[task]->flags & ~2u) |
 				    (g_stage_task_nodes[task].flags & 2u);
 		}
+		HostTrace_StagePhase(g_report.stage_frame, "scheduler_primary");
 		Scheduler_RunPrimary(g_scheduler_device);   // 0x00449C00
+		HostTrace_StagePhase(g_report.stage_frame, "ecl");
 		HostTickStageEcl();
+		HostTrace_StagePhase(g_report.stage_frame, "scheduler_secondary");
 		Scheduler_RunSecondary(g_scheduler_device); // 0x00449D40
+		HostTraceBulletPool(g_report.stage_frame);
+		HostTrace_Bullets(g_report.bullets_active, g_report.hitboxes_synced,
+		                  g_report.stage_frame);
+		HostTrace_StagePhase(g_report.stage_frame, "timeline");
 		g_timeline_view.frame =
 		    static_cast<unsigned int>(g_report.stage_frame);
 		for (;;) {
@@ -2768,6 +3414,7 @@ int HostStage_RunFrames(int frames) {
 				    g_timeline_view.frame);
 			break;
 		}
+		HostTrace_StagePhase(g_report.stage_frame, "camera");
 		TickStageCamera();
 		g_report.frames_run += 1;
 	}
@@ -2806,6 +3453,17 @@ static void* g_pending_effect_ring;
 // and effect_ring_update.hpp declare two different models of the same retail
 // block under one type name and cannot be included together.
 void HostStage_EnableEcl(int enabled) { g_ecl_enabled = enabled; }
+
+void HostStage_TraceClose() {
+	if (!g_ecl_trace_stage_open)
+		return;
+	if (g_spawned_ecl_enemy_count != 0)
+		HostResetEnemyRuntime();
+	HostReleaseEnemySchedulerCallbacks();
+	HostRetireEclRuntime("stage_close");
+	HostTrace_StageEnd(g_report.stage_frame, g_ecl_stopped ? -1 : 0);
+	g_ecl_trace_stage_open = 0;
+}
 
 void* HostStage_CreateEffectRing() {
 	EffectRingHooks hooks = {};

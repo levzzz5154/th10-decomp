@@ -111,6 +111,13 @@ struct TestCallImage {
 };
 
 int ExternalCalls = 0;
+int OpcodeTraceCalls = 0;
+EclCoreInstruction* LastTracedInstruction = 0;
+
+void TraceOpcode(EclCoreVm*, EclCoreInstruction* instruction) {
+    ++OpcodeTraceCalls;
+    LastTracedInstruction = instruction;
+}
 
 void* ResolveExternalFloat(int index) {
     ++ExternalCalls;
@@ -267,13 +274,19 @@ void TestCallRetCycle() {
     owner.script_table = &table;
     vm.owner = &owner;
 
-    const EclCoreHooks hooks = Hooks();
+    EclCoreHooks hooks = Hooks();
+    hooks.trace_opcode = TraceOpcode;
+    OpcodeTraceCalls = 0;
+    LastTracedInstruction = 0;
     // One tick runs the whole cycle: call (binds "Sub") -> prologue ->
     // ret (pops the frame) -> stop (halts).
     const int result = EclVm_TickCore(&vm, 1.0f, &hooks);
     assert(result == kEclCoreFinished);
     assert(vm.ip == 0);
     assert(owner.current_record == &vm);          // restored after the bind
+    assert(OpcodeTraceCalls >= 4);
+    assert(LastTracedInstruction ==
+           reinterpret_cast<EclCoreInstruction*>(&call.bytes[0x28]));
 
     // The marshalled arguments sat at the callee's frame base (scratch[16..]
     // on the host: two zero dwords + a pointer-width ip, with the args at the

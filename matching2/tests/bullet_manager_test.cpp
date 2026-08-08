@@ -173,5 +173,35 @@ int main() {
     assert(DAT_0049231c == 0);
     assert(g_mock_resource_calls == 1);
 
+    // --- BulletEntity_Spawn: retail manager list ownership ---
+    unsigned char config[0x58] = {};
+    unsigned char inner_config[0x58] = {};
+    *reinterpret_cast<uint32_t*>(config) =
+        static_cast<uint32_t>(reinterpret_cast<uintptr_t>(inner_config));
+    DAT_00477704 =
+        static_cast<uint32_t>(reinterpret_cast<uintptr_t>(config));
+    BulletEntityManager entity_manager = {};
+    BulletSpawnParameters parameters = {};
+    BulletSpawnParameters_Initialize(nullptr, &parameters);
+    float spawn_position[3] = {12.0f, -4.0f, 0.5f};
+    std::memcpy(parameters.fields, spawn_position, sizeof(spawn_position));
+    parameters.fields[3] = 7;
+    parameters.fields[4] = 11;
+    parameters.fields[5] = 13;
+    parameters.fields[7] = 1;
+    BulletEntity* spawned =
+        BulletEntity_Spawn(&entity_manager, nullptr, &parameters);
+    assert(spawned != 0);
+    assert(entity_manager.entityCount == 1);
+    assert(entity_manager.spawnSerial == 1);
+    assert(entity_manager.listHead ==
+           reinterpret_cast<unsigned char*>(spawned) + 0x116C);
+    assert(entity_manager.listTail == entity_manager.listHead);
+    unsigned char* spawned_bytes = reinterpret_cast<unsigned char*>(spawned);
+    assert(std::memcmp(spawned_bytes + 0x1094, spawn_position,
+                       sizeof(spawn_position)) == 0);
+    assert(*reinterpret_cast<uint32_t*>(spawned_bytes + 0x2408) == 11);
+    std::free(spawned);
+
     return 0;
 }

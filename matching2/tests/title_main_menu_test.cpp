@@ -10,6 +10,22 @@ int main() {
         TitleMainMenu_Update(&state, 0, nullptr);
     assert(state.phase == 2);
 
+    TitleMainMenuEnv locked_env = {};
+    locked_env.extra_unlocked = [](void*) { return 0; };
+    TitleMainMenu_Initialize(&state);
+    TitleMainMenu_Update(&state, 0, &locked_env);
+    for (int frame = 0; frame < 11; ++frame)
+        TitleMainMenu_Update(&state, 0, &locked_env);
+    assert(state.unavailable_count == 1);
+    assert(state.unavailable[0] == 1);
+    TitleMainMenu_Update(&state, TITLE_MENU_DOWN, &locked_env);
+    assert(state.selection == 2);
+
+    TitleMainMenu_Initialize(&state);
+    TitleMainMenu_Update(&state, 0, nullptr);
+    for (int frame = 0; frame < 11; ++frame)
+        TitleMainMenu_Update(&state, 0, nullptr);
+    assert(state.phase == 2);
     TitleMainMenu_Update(&state, TITLE_MENU_UP, nullptr);
     assert(state.selection == 7);
     TitleMainMenu_Update(&state, TITLE_MENU_DOWN, nullptr);

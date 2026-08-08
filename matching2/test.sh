@@ -816,6 +816,13 @@ run_test_m32 formation_table_bridge_test \
     "$ROOT/src/game/gameplay_final_runtime.cpp" \
     "$ROOT/tests/formation_table_bridge_test.cpp"
 
+# D3D-free retail-layout ANM descriptor/object binding and pooled-object reuse.
+run_test_m32 title_anm_manager_bridge_test \
+    -ffunction-sections -fdata-sections -Wl,--gc-sections -- \
+    "$ROOT/src/render/animation_manager.cpp" \
+    "$ROOT/src/runtime/missing_edge.cpp" \
+    "$ROOT/tests/title_anm_manager_bridge_test.cpp"
+
 # Enemy-projectile spawn and replay load/save menu runtimes
 # (0x004067D0, 0x004315C0, 0x00433570).
 run_test large_recovery_pass_test \
@@ -859,3 +866,6 @@ run_test music_room_env_test -ffunction-sections -fdata-sections -Wl,--gc-sectio
     "$ROOT/src/game/ui_final_runtime.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/tests/music_room_env_test.cpp"
+
+# Deterministic JSONL trace schema and semantic comparison helper.
+python3 "$ROOT/tests/runtime_trace_compare_test.py"

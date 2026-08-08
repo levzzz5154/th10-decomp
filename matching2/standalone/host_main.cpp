@@ -33,6 +33,7 @@
 #include "th10/platform/joystick_poll.hpp"
 #include "th10/render/resource_manager.hpp"
 #include "th10/game/title_main_menu.hpp"
+#include "th10/game/progress.hpp"
 #include "th10/game/title_menu_runtime.hpp"
 #include "th10/game/title_options_menu.hpp"
 #include "th10/game/main_menu_dispatch.hpp"
@@ -80,7 +81,12 @@
 
 int* ResourceManager_FindResource(
     int slot, void* manager, const char* name);
+void ResourceManager_DestroyResource(void* manager, void* resource);
 extern void* g_pGameStateManager;
+extern unsigned char* DAT_0047783c;
+// The all-source ANM descriptor/renderer reads the retail device global. The
+// host publishes its live D3D9 device here before mounting title resources.
+extern void* g_pD3DDevice;
 #if defined(_WIN32)
 // Retail window creation (0x004392E0 / 0x00439730), reconstructed in
 // src/platform/window.cpp. g_pWnd receives the created HWND.
@@ -221,6 +227,364 @@ uint32_t DAT_004918a4 = 0;
 
 namespace {
 
+// Optional deterministic diagnostics for reconstruction-vs-retail probes. The
+// emitter is deliberately host-local: it records stable IDs and script-relative
+// offsets, never process addresses or wall-clock values.
+struct HostTraceEmitter {
+    struct VmIdentity {
+        const void* address;
+        int id;
+        bool live;
+    };
+
+    std::FILE* file = nullptr;
+    bool active = false;
+    unsigned int sequence = 0;
+    int frame = -1;
+    bool frame_open = false;
+    int next_frame = 0;
+    int next_vm_id = 1;
+    VmIdentity vm_ids[1024] = {};
+    int vm_id_count = 0;
+
+    static unsigned long long HashBytes(const unsigned char* bytes,
+                                        unsigned int size) {
+        unsigned long long hash = 1469598103934665603ull;
+        for (unsigned int index = 0; index < size; ++index) {
+            hash ^= bytes[index];
+            hash *= 1099511628211ull;
+        }
+        return hash;
+    }
+
+    int VmId(const void* address) const {
+        if (address == nullptr)
+            return 0;
+        for (int index = vm_id_count - 1; index >= 0; --index)
+            if (vm_ids[index].address == address && vm_ids[index].live)
+                return vm_ids[index].id;
+        return 0;
+    }
+
+    int NewVmId(const void* address) {
+        if (!active || address == nullptr)
+            return 0;
+        if (vm_id_count >= static_cast<int>(sizeof(vm_ids) / sizeof(vm_ids[0])))
+            return 0;
+        const int id = next_vm_id++;
+        vm_ids[vm_id_count++] = {address, id, true};
+        return id;
+    }
+
+    void RetireVmId(const void* address, int id) {
+        for (int index = vm_id_count - 1; index >= 0; --index) {
+            if (vm_ids[index].address == address && vm_ids[index].id == id) {
+                vm_ids[index].live = false;
+                return;
+            }
+        }
+    }
+
+    long long PcOffset(const AnmVmState* state, const unsigned char* pc) const {
+        if (state == nullptr || state->script_base == nullptr || pc == nullptr)
+            return -1;
+        return static_cast<long long>(pc - state->script_base);
+    }
+
+    void BeginEvent(const char* type) {
+        if (!active)
+            return;
+        std::fprintf(file,
+                     "{\"seq\":%u,\"type\":\"%s\",\"frame\":%d",
+                     sequence++, type, frame);
+    }
+
+    void EndEvent() {
+        if (!active)
+            return;
+        std::fputs("}\n", file);
+        std::fflush(file);
+    }
+
+    bool Open(const char* path) {
+        if (path == nullptr || *path == '\0')
+            return false;
+        file = std::fopen(path, "wb");
+        if (file == nullptr)
+            return false;
+        active = true;
+        sequence = 0;
+        frame = -1;
+        frame_open = false;
+        next_frame = 0;
+        next_vm_id = 1;
+        vm_id_count = 0;
+        BeginEvent("header");
+        std::fputs(",\"schema\":1,\"format\":\"th10-recon-jsonl-v1\"",
+                   file);
+        EndEvent();
+        return true;
+    }
+
+    void Close() {
+        if (file == nullptr)
+            return;
+        if (frame_open)
+            EndFrame();
+        std::fflush(file);
+        std::fclose(file);
+        file = nullptr;
+        active = false;
+    }
+
+    void Resource(const char* name, int resource_id,
+                  const unsigned char* bytes, unsigned int size) {
+        if (!active)
+            return;
+        BeginEvent("resource");
+        std::fprintf(file,
+                     ",\"id\":%d,\"name\":\"%s\",\"size\":%u,\"hash\":\"%016llx\"",
+                     resource_id, name != nullptr ? name : "", size,
+                     HashBytes(bytes, size));
+        EndEvent();
+    }
+
+    void VmCreate(const void* address, const AnmVmState* state) {
+        if (!active)
+            return;
+        const int id = NewVmId(address);
+        BeginEvent("vm_create");
+        std::fprintf(file, ",\"vm\":%d,\"pc\":%lld",
+                     id, PcOffset(state, state != nullptr ? state->pc : nullptr));
+        EndEvent();
+    }
+
+    void VmDestroy(const void* address, const char* reason) {
+        if (!active)
+            return;
+        const int id = VmId(address);
+        BeginEvent("vm_destroy");
+        std::fprintf(file, ",\"vm\":%d,\"reason\":\"%s\"",
+                     id, reason != nullptr ? reason : "");
+        EndEvent();
+        RetireVmId(address, id);
+    }
+
+    void Input(unsigned int held, unsigned int pressed, unsigned int menu) {
+        if (!active)
+            return;
+        BeginEvent("input");
+        std::fprintf(file, ",\"held\":%u,\"pressed\":%u,\"menu\":%u",
+                     held, pressed, menu);
+        EndEvent();
+    }
+
+    void VmTick(const void* address, const AnmVmState* state, int script_id,
+                int resource_id, const unsigned char* before_pc, int ended) {
+        if (!active)
+            return;
+        const int id = VmId(address);
+        BeginEvent("vm_tick");
+        std::fprintf(
+            file,
+            ",\"vm\":%d,\"script\":%d,\"resource\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"time\":%d,\"sprite\":%d,\"flags\":%u,\"ended\":%d",
+            id, script_id, resource_id, PcOffset(state, before_pc),
+            PcOffset(state, state != nullptr ? state->pc : nullptr),
+            state != nullptr ? state->time : 0,
+            state != nullptr ? state->sprite : -1,
+            state != nullptr ? state->flags : 0u, ended);
+        EndEvent();
+    }
+
+    void Object(int handle, const void* vm_address) {
+        if (!active)
+            return;
+        BeginEvent("object");
+        std::fprintf(file, ",\"handle\":%d,\"vm\":%d",
+                     handle, VmId(vm_address));
+        EndEvent();
+    }
+
+    void ObjectDestroy(int handle, const char* reason) {
+        if (!active)
+            return;
+        BeginEvent("object_destroy");
+        std::fprintf(file, ",\"handle\":%d,\"reason\":\"%s\"",
+                     handle, reason != nullptr ? reason : "");
+        EndEvent();
+    }
+
+    void Draw(const void* address, const AnmVmState* state, int script_id,
+              int resource_id, int via_manager) {
+        if (!active || state == nullptr)
+            return;
+        BeginEvent("draw");
+        std::fprintf(
+            file,
+            ",\"vm\":%d,\"script\":%d,\"resource\":%d,\"sprite\":%d,\"layer\":%d,\"x\":%.9g,\"y\":%.9g,\"rotation\":%.9g,\"manager\":%d",
+            VmId(address), script_id, resource_id, state->sprite, state->layer,
+            state->position[0], state->position[1], state->rotation[2],
+            via_manager);
+        EndEvent();
+    }
+
+    void BeginFrame(int index) {
+        if (!active)
+            return;
+        if (frame_open)
+            EndFrame();
+        (void)index;
+        frame = ++next_frame;
+        frame_open = true;
+        BeginEvent("frame_begin");
+        EndEvent();
+    }
+
+    void EndFrame() {
+        if (!active || !frame_open)
+            return;
+        BeginEvent("frame_end");
+        EndEvent();
+        frame_open = false;
+    }
+
+    void StageBegin(const char* script) {
+        if (!active)
+            return;
+        BeginEvent("stage_begin");
+        std::fprintf(file, ",\"script\":\"%s\"",
+                     script != nullptr ? script : "");
+        EndEvent();
+    }
+
+    void StagePhase(int stage_frame, const char* phase) {
+        if (!active)
+            return;
+        BeginEvent("stage_phase");
+        std::fprintf(file, ",\"stage_frame\":%d,\"phase\":\"%s\"",
+                     stage_frame, phase != nullptr ? phase : "");
+        EndEvent();
+    }
+
+    void EclCreate(int vm_id, int parent_id, int async_id, int rank_mask,
+                   long long pc_offset) {
+        if (!active)
+            return;
+        BeginEvent("ecl_vm_create");
+        std::fprintf(file,
+                     ",\"vm\":%d,\"parent\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc\":%lld",
+                     vm_id, parent_id, async_id, rank_mask, pc_offset);
+        EndEvent();
+    }
+
+    void EclDestroy(int vm_id, int stage_frame, const char* reason) {
+        if (!active)
+            return;
+        BeginEvent("ecl_vm_destroy");
+        std::fprintf(file, ",\"vm\":%d,\"stage_frame\":%d,\"reason\":\"%s\"",
+                     vm_id, stage_frame, reason != nullptr ? reason : "");
+        EndEvent();
+    }
+
+    void EclOpcode(int vm_id, int stage_frame, int order, int opcode,
+                   long long pc_offset, int instruction_time, int rank_mask) {
+        if (!active)
+            return;
+        BeginEvent("ecl_opcode");
+        std::fprintf(file,
+                     ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"opcode\":%d,\"pc\":%lld,\"time\":%d,\"rank_mask\":%d",
+                     vm_id, stage_frame, order, opcode, pc_offset,
+                     instruction_time, rank_mask);
+        EndEvent();
+    }
+
+    void EclTick(int vm_id, int stage_frame, int order, int async_id,
+                 int rank_mask, long long pc_before, long long pc_after,
+                 int scratch_top, int result, int live) {
+        if (!active)
+            return;
+        BeginEvent("ecl_vm_tick");
+        std::fprintf(
+            file,
+            ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"scratch_top\":%d,\"result\":%d,\"live\":%d",
+            vm_id, stage_frame, order, async_id, rank_mask, pc_before,
+            pc_after, scratch_top, result, live);
+        EndEvent();
+    }
+
+    void Entity(int entity_id, int kind, int live, int stage_frame) {
+        if (!active)
+            return;
+        BeginEvent("entity");
+        std::fprintf(file, ",\"id\":%d,\"kind\":%d,\"stage_frame\":%d,\"live\":%d",
+                     entity_id, kind, stage_frame, live);
+        EndEvent();
+    }
+
+    void StageSpawn(int entity_id, int opcode, int manager_count,
+                    int spawn_serial, float x, float y, float z) {
+        if (!active)
+            return;
+        BeginEvent("stage_spawn");
+        std::fprintf(file, ",\"entity\":%d,\"opcode\":%d,\"manager_count\":%d,\"spawn_serial\":%d,\"x\":%.6f,\"y\":%.6f,\"z\":%.6f",
+                     entity_id, opcode, manager_count, spawn_serial, x, y, z);
+        EndEvent();
+    }
+
+    void StageDraw(int stage_frame, int placement_id, int vm_slot,
+                   int sprite, float x, float y, float scale) {
+        if (!active)
+            return;
+        BeginEvent("stage_draw");
+        std::fprintf(file, ",\"stage_frame\":%d,\"placement\":%d,\"vm_slot\":%d,\"sprite\":%d,\"x\":%.6f,\"y\":%.6f,\"scale\":%.6f",
+                     stage_frame, placement_id, vm_slot, sprite, x, y, scale);
+        EndEvent();
+    }
+
+    void BulletLifecycle(int bullet_id, int stage_frame, int is_active, int row) {
+        if (!this->active)
+            return;
+        BeginEvent("bullet");
+        std::fprintf(file, ",\"id\":%d,\"stage_frame\":%d,\"active\":%d,\"row\":%d",
+                     bullet_id, stage_frame, is_active, row);
+        EndEvent();
+    }
+
+    void Bullet(int active_count, int updated_count, int stage_frame) {
+        if (!active)
+            return;
+        BeginEvent("bullet_summary");
+        std::fprintf(file, ",\"stage_frame\":%d,\"active\":%d,\"updated\":%d",
+                     stage_frame, active_count, updated_count);
+        EndEvent();
+    }
+
+    void StageEnd(int stage_frame, int result) {
+        if (!active)
+            return;
+        BeginEvent("stage_end");
+        std::fprintf(file, ",\"stage_frame\":%d,\"result\":%d",
+                     stage_frame, result);
+        EndEvent();
+    }
+
+    void Present(bool checksum_valid, unsigned long long checksum,
+                 unsigned int width, unsigned int height) {
+        if (!active)
+            return;
+        BeginEvent("present");
+        if (checksum_valid)
+            std::fprintf(file, ",\"width\":%u,\"height\":%u,\"checksum\":\"%016llx\"",
+                         width, height, checksum);
+        else
+            std::fputs(",\"width\":0,\"height\":0,\"checksum\":null",
+                       file);
+        EndEvent();
+    }
+};
+
+HostTraceEmitter g_host_trace;
+
 struct HostAnmVm {
     AnmVmState state = {};
     int active = 0;
@@ -228,6 +592,11 @@ struct HostAnmVm {
     int resource_index = 0;
     const unsigned char* resource_bytes = nullptr;
     unsigned int resource_size = 0;
+    // Descriptor-backed resource owned by the retail-layout manager. Title
+    // VMs resolve this through resource_index; stage/front/player VMs bind
+    // their mounted descriptor directly.
+    void* manager_resource = nullptr;
+    const HostAnmVm* trace_source = nullptr;
     HostAnmVm* parent = nullptr;
     int integer_variables[6] = {};
     float float_variables[4] = {};
@@ -261,6 +630,12 @@ struct HostContext {
     unsigned char* title_resource_bytes[3] = {};
     unsigned int title_resource_sizes[3] = {};
     AnmFileEntry title_entries[3] = {};
+    // Descriptor-backed resources are populated by the all-source retail-layout
+    // resource manager. Raw bytes remain alongside them for the VM parser.
+    void* title_manager_resources[3] = {};
+    void* stage_manager_resource = nullptr;
+    void* player_manager_resource = nullptr;
+    void* front_manager_resource = nullptr;
     // ascii.anm: the sprite font every menu list is drawn with.
     unsigned char* ascii_bytes = nullptr;
     unsigned int ascii_size = 0;
@@ -285,6 +660,7 @@ struct HostContext {
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
+    int stage_live_draws = 0;
     HostAnmVm title_vms[2] = {};
     HostAnmVm title_version_vm = {};
     int title_version_vm_ready = 0;
@@ -336,6 +712,7 @@ struct HostContext {
     // title's eight-item menu, rather than the in-game three-item pause menu,
     // owns the dispatch while the flow is being checked.
     int menu_smoke = 0;
+    int stage_live_smoke = 0;
     int menu_smoke_step = 0;
     int menu_smoke_transitions = 0;
     int menu_smoke_failed = 0;
@@ -383,6 +760,9 @@ struct HostContext {
     int presented_frames = 0;
     int capture_done = 0;
     const char* capture_path = nullptr;
+    // Disabled unless --trace PATH is explicitly supplied. The path points at
+    // argv storage and is consumed before resource loading begins.
+    const char* trace_path = nullptr;
     int menu_windowed = 1;
     uint32_t menu_input = 0;
     TitleMainMenuState menu_state = {};
@@ -529,6 +909,9 @@ float HostAnmWrapAngle(void*, float value) {
 
 void HostInitializeAnmVm(HostAnmVm* runtime,
                          const unsigned char* instructions);
+void HostRetireTitleTree(const char* reason);
+void HostRetireAllVms(const char* reason);
+void HostRetirePublishedObjects(const char* reason);
 
 // Retail 0x00404450 sets a record's active bit at the moment it plants
 // scripts into that record's slots. The five host VM groups are declared
@@ -612,6 +995,7 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
         child->resource_index = resource;
         child->resource_bytes = resource_bytes;
         child->resource_size = resource_size;
+        child->manager_resource = parent->manager_resource;
         child->parent = parent;
     };
     // Retail 0x00445620: pin the center vertex, scroll the uv columns, tint
@@ -651,9 +1035,66 @@ void HostInitializeAnmVm(HostAnmVm* runtime,
     runtime->state.color[2] = 0xFF;
     runtime->state.color[3] = 0xFF;
     runtime->state.speed = 1.0f;
+    g_host_trace.VmCreate(runtime, &runtime->state);
 }
 
+void HostRetireVm(HostAnmVm* runtime, const char* reason) {
+    if (runtime == nullptr ||
+        (!runtime->active && runtime->state.script_base == nullptr))
+        return;
+    g_host_trace.VmDestroy(runtime, reason);
+    runtime->active = 0;
+    runtime->state.pc = nullptr;
+    runtime->state.script_base = nullptr;
+    runtime->parent = nullptr;
+}
+
+void HostRetireTitleTree(const char* reason) {
+    for (int index = 0; index < g_host.title_child_vm_count; ++index)
+        HostRetireVm(&g_host.title_child_vms[index], reason);
+    HostRetireVm(&g_host.title_vms[0], reason);
+    HostRetireVm(&g_host.title_vms[1], reason);
+    const bool shutdown = reason != nullptr &&
+                          std::strcmp(reason, "shutdown") == 0;
+    if (!shutdown) {
+        g_host.title_child_vm_count = 0;
+        g_host.title_vm_ready = 0;
+    }
+    HostRetirePublishedObjects(reason);
+}
+
+void HostRetireAllVms(const char* reason) {
+    HostRetireTitleTree(reason);
+    HostRetireVm(&g_host.title_version_vm, reason);
+    for (int index = 0; index < 2; ++index)
+        HostRetireVm(&g_host.front_vms[index], reason);
+    for (int index = 0; index < g_host.front_child_vm_count; ++index)
+        HostRetireVm(&g_host.front_child_vms[index], reason);
+    for (int index = 0; index < g_host.front_static_vm_count; ++index)
+        HostRetireVm(&g_host.front_static_vms[index], reason);
+    for (int index = 0; index < g_host.stage_vm_count; ++index)
+        HostRetireVm(&g_host.stage_vms[index], reason);
+    HostRetireVm(&g_host.player_vm, reason);
+}
+
+int HostTraceAnmVmTick(AnmVmState* state, const AnmVmHooks* hooks) {
+    HostAnmVm* runtime = hooks != nullptr
+                             ? static_cast<HostAnmVm*>(hooks->context)
+                             : nullptr;
+    const unsigned char* before_pc = state != nullptr ? state->pc : nullptr;
+    const int result = ::AnmVm_Tick(state, hooks);
+    if (runtime != nullptr && runtime->active)
+        g_host_trace.VmTick(runtime, &runtime->state, runtime->script_id,
+                            runtime->resource_index, before_pc, result);
+    return result;
+}
+
+// Keep the canonical AnmVm_Tick implementation as the execution point while
+// making every host-side caller observable in the optional trace.
+#define AnmVm_Tick(vm, hooks) HostTraceAnmVmTick((vm), (hooks))
+
 bool HostStartTitleScripts(unsigned int first, unsigned int second) {
+    HostRetireTitleTree("title_tree_replace");
     if (g_host.title_resource_bytes[0] == nullptr)
         return false;
     AnmFileScript scripts[2];
@@ -676,6 +1117,7 @@ bool HostStartTitleScripts(unsigned int first, unsigned int second) {
 }
 
 bool HostStartSigScript() {
+    HostRetireTitleTree("sig_tree_replace");
     AnmFileScript script;
     if (g_host.title_resource_bytes[2] == nullptr ||
         !AnmFile_FindGlobalScript(
@@ -706,10 +1148,13 @@ bool HostSwitchTitleOverlay(unsigned int script_id) {
         if (ancestor == &g_host.title_vms[1]) {
             if (g_host.title_child_vms[index].script_id == 92)
                 g_host.title_child_vms[index].parent = nullptr;
-            else
-                g_host.title_child_vms[index].active = 0;
+            else {
+                HostRetireVm(&g_host.title_child_vms[index],
+                             "overlay_switch");
+            }
         }
     }
+    HostRetireVm(&g_host.title_vms[1], "overlay_switch_root");
     HostInitializeAnmVm(&g_host.title_vms[1], script.instructions);
     g_host.title_vms[1].script_id = static_cast<int>(script_id);
     return true;
@@ -755,17 +1200,26 @@ void HostPrimeMainMenuOverlay() {
 bool HostAddIndependentTitleScript(unsigned int script_id) {
     AnmFileScript script;
     if (g_host.title_resource_bytes[0] == nullptr ||
-        g_host.title_child_vm_count >= 64 ||
         !AnmFile_FindGlobalScript(
             g_host.title_resource_bytes[0],
             g_host.title_resource_sizes[0], script_id, nullptr, &script))
         return false;
-    HostAnmVm* vm =
-        &g_host.title_child_vms[g_host.title_child_vm_count++];
+    int slot = g_host.title_child_vm_count;
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        if (!g_host.title_child_vms[index].active) {
+            slot = index;
+            break;
+        }
+    }
+    if (slot >= 64)
+        return false;
+    HostAnmVm* vm = &g_host.title_child_vms[slot];
     HostInitializeAnmVm(vm, script.instructions);
     HostArmTitleChildGroup();
     vm->script_id = static_cast<int>(script_id);
     vm->resource_index = 0;
+    if (slot == g_host.title_child_vm_count)
+        g_host.title_child_vm_count = slot + 1;
     return true;
 }
 
@@ -779,6 +1233,36 @@ void HostSetOverlayChildInterrupt(int script_id, int interrupt) {
     }
 }
 
+// ResultChoiceMenu's effect callbacks are real ANM ownership edges. The
+// effect ids are title.anm script ids (116/117/119/120); create them through
+// the same VM pool used by title overlays and retire independent children on a
+// close edge. Children spawned by the active title root retain their parent and
+// are not touched by this close operation.
+void HostMenuSetAnimation(void*, int animation) {
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        if (child->active && child->parent == nullptr)
+            child->state.pending_interrupt = animation;
+    }
+}
+
+void HostMenuOpenEffect(void*, int script_id) {
+    if (HostAddIndependentTitleScript(static_cast<unsigned int>(script_id)))
+        return;
+    HostTrace("title game-menu ANM effect script unavailable");
+    g_host.title_resource_error = 1;
+    g_host.menu_quit = 1;
+}
+
+void HostMenuCloseEffect(void*, int) {
+    for (int index = 0; index < g_host.title_child_vm_count; ++index) {
+        HostAnmVm* child = &g_host.title_child_vms[index];
+        if (!child->active || child->parent != nullptr)
+            continue;
+        HostRetireVm(child, "game_menu_effect_close");
+    }
+}
+
 bool HostStartSelectionScreen(unsigned int heading_script,
                               unsigned int overlay_script) {
     if (!HostStartTitleScripts(94, overlay_script) ||
@@ -789,8 +1273,9 @@ bool HostStartSelectionScreen(unsigned int heading_script,
     for (int index = 0; index < g_host.title_child_vm_count; ++index) {
         HostAnmVm* child = &g_host.title_child_vms[index];
         AnmVmHooks child_hooks = HostAnmHooks(child);
-        if (AnmVm_Tick(&child->state, &child_hooks) != 0)
-            child->active = 0;
+        if (AnmVm_Tick(&child->state, &child_hooks) != 0) {
+            HostRetireVm(child, "selection_init_end");
+        }
     }
     g_host.selection_phase_frame = 0;
     return true;
@@ -884,17 +1369,19 @@ void HostRestoreMainMenuLogo() {
             g_host.title_resource_sizes[0], 92, nullptr, &script) ||
         g_host.title_child_vm_count >= 64)
         return;
-    HostAnmVm logo;
-    HostInitializeAnmVm(&logo, script.instructions);
-    logo.script_id = 92;
-    logo.resource_index = 0;
-    AnmVmHooks hooks = HostAnmHooks(&logo);
+    if (g_host.title_child_vm_count >= 64)
+        return;
+    HostAnmVm* logo =
+        &g_host.title_child_vms[g_host.title_child_vm_count++];
+    HostInitializeAnmVm(logo, script.instructions);
+    logo->script_id = 92;
+    logo->resource_index = 0;
+    AnmVmHooks hooks = HostAnmHooks(logo);
     for (int frame = 0; frame <= 60; ++frame)
-        AnmVm_Tick(&logo.state, &hooks);
-    logo.state.pending_interrupt = 6;
+        AnmVm_Tick(&logo->state, &hooks);
+    logo->state.pending_interrupt = 6;
     for (int frame = 0; frame <= 80; ++frame)
-        AnmVm_Tick(&logo.state, &hooks);
-    g_host.title_child_vms[g_host.title_child_vm_count++] = logo;
+        AnmVm_Tick(&logo->state, &hooks);
     HostArmTitleChildGroup();
 }
 
@@ -1348,7 +1835,6 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     return nullptr;
 }
 
-void HostDrawAnmVm(const HostAnmVm& runtime);
 
 // ---------------------------------------------------------------------------
 // Retail render path. Geometry and draw-mode selection belong to the recovered
@@ -1368,12 +1854,6 @@ struct HostQuadSubmission {
     bool submitted;
 };
 HostQuadSubmission g_quad_submission;
-
-float HostRoundCenterEdge(float edge, float extent) {
-    // Retail floors the centred near-edge (the listing's `floor(... - w*0.5)`).
-    (void)extent;
-    return std::floor(edge);
-}
 
 // ---------------------------------------------------------------------------
 // Blend, color and wrap selection belong to retail's AnmManager_ApplyBlendColorWrap
@@ -1490,20 +1970,6 @@ void HostAnmSetTextureFactor(Word color) {
     if (g_host.device != nullptr)
         g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR,
                                       g_anm_texture_factor);
-}
-
-void HostAnmSetTextureFilter(Word value) {
-    // 0x004423E0 loc_442571/loc_442580 and 0x004425A0 both issue
-    // SetSamplerState(0, 5, v) then SetSamplerState(0, 6, v) - D3DSAMP_MAG-
-    // and MINFILTER - with 1 for D3DTEXF_POINT and 2 for D3DTEXF_LINEAR.
-    // The selector is passed straight through; it was never an address mode.
-    g_anm_texture_filter = static_cast<DWORD>(value);
-    if (g_host.device != nullptr) {
-        g_host.device->SetSamplerState(0, D3DSAMP_MAGFILTER,
-                                       g_anm_texture_filter);
-        g_host.device->SetSamplerState(0, D3DSAMP_MINFILTER,
-                                       g_anm_texture_filter);
-    }
 }
 
 void HostDeviceSetRenderState(uint32_t state_id, uint32_t value) {
@@ -2537,38 +3003,6 @@ void HostRenderSubScreenList() {
     }
 }
 
-// The source block the recovered builder consumes. The host keeps the origin
-// in base_* and leaves layer_*/offset_* zero, which is the same three-term sum
-// retail performs.
-AnchoredQuadSource g_quad_source;
-
-int HostDrawStandardQuad(void*) {
-    AnchoredQuadEnv env = {HostRoundCenterEdge, HostSubmitQuad};
-    Quad_BuildAndRenderAnchored(&g_quad_source, &env);
-    return 0;
-}
-
-int HostDrawCornerQuad(void* context, int) {
-    // Modes 1 and 3 hand the rotated corners through the shared buffer.
-    (void)context;
-    extern AnmQuad g_anm_corner_quad;
-    AnchoredQuadVertex corners[4];
-    for (int index = 0; index < 4; ++index) {
-        corners[index].x = g_anm_corner_quad.corners[index][0];
-        corners[index].y = g_anm_corner_quad.corners[index][1];
-        corners[index].z = g_anm_corner_quad.corners[index][2];
-        corners[index].w = 1.0f;
-    }
-    // The rotated builders 0x004436C0 and 0x00443910 pass mode 0: the snap
-    // in 0x00442670 rounds four coordinates and mirrors them onto the
-    // opposite corners, which only holds for an axis-aligned quad.
-    HostSubmitQuad(corners, 0);
-    return 0;
-}
-
-AnmQuad g_anm_corner_quad;
-
-
 // ---------------------------------------------------------------------------
 // Retail draw list. AnimationManager_UpdatePrimary (0x00448F80-ish) walks the
 // manager's primary list, chains each survivor into one of nineteen render
@@ -2576,12 +3010,11 @@ AnmQuad g_anm_corner_quad;
 // bucket in order calling each object's draw callback. That is retail's
 // ordering machinery; the host used to hand-roll an insertion sort by layer.
 //
-// The host still owns object lifetime and the sprite draw itself, so each
-// registered object is marked PAUSED (flags 0x20000) with a non-null script
-// cursor: AnimationObject_ExecuteScript then returns "keep, do not execute",
-// which is precisely what pausing means when the VM is ticked elsewhere. Bits
-// 0 and 1 stay clear so retail's own AnimationObject_Render bails out and the
-// host's callback does the drawing.
+// The host VM remains the canonical script owner. Each registered object is
+// marked PAUSED while the manager owns descriptor-backed rendering;
+// AnimationObject_ExecuteScript therefore does not duplicate the host tick.
+// Unsupported title bindings retain the paused object but do not install a
+// host draw callback, so the real path cannot silently change render owners.
 // ---------------------------------------------------------------------------
 // The objects themselves come out of retail's own pool. Retail keeps 4096
 // 0x3AC-byte slots at manager+0x68 with an occupancy byte array at +0x3AC068
@@ -2592,20 +3025,97 @@ AnmQuad g_anm_corner_quad;
 // supplies - the occupancy map never knew about the host's, so the two could
 // describe the same object identity differently. Going through the pool makes
 // object identity and lifetime retail's.
-const int kAnimObjectMax = 128;
-AnimationObject* g_anim_objects[kAnimObjectMax];
-const HostAnmVm* g_anim_object_vm[kAnimObjectMax];
+const int kAnimObjectMax = 256;
+AnimationObject* g_anim_objects[kAnimObjectMax] = {};
+const HostAnmVm* g_anim_object_vm[kAnimObjectMax] = {};
+unsigned char g_anim_object_manager_mode[kAnimObjectMax] = {};
 int g_anim_object_count;
+int g_host_rendering_title;
 
-int __fastcall HostAnimDrawCallback(AnimationObject* animation) {
-    for (int index = 0; index < g_anim_object_count; ++index) {
-        if (g_anim_objects[index] == animation) {
-            if (g_anim_object_vm[index] != nullptr)
-                HostDrawAnmVm(*g_anim_object_vm[index]);
-            return 1;
+void HostRetirePublishedObjects(const char* reason) {
+    if (g_pGameStateManager != nullptr) {
+        for (int index = 0; index < g_anim_object_count; ++index) {
+            if (g_anim_objects[index] == nullptr)
+                continue;
+            g_host_trace.ObjectDestroy(index + 1, reason);
+            AnimationManager_RemoveObject(
+                g_pGameStateManager, g_anim_objects[index]);
+            g_anim_objects[index] = nullptr;
+            g_anim_object_vm[index] = nullptr;
+            g_anim_object_manager_mode[index] = 0;
         }
     }
-    return 1;
+    g_anim_object_count = 0;
+}
+
+bool HostBindManagerObject(AnimationObject* object,
+                            const HostAnmVm* runtime) {
+#if defined(_WIN32)
+    if (object == nullptr || runtime == nullptr || !runtime->active ||
+        runtime->state.color[3] == 0 || runtime->state.sprite < 0)
+        return false;
+    if (runtime->manager_resource == nullptr &&
+        (runtime->resource_index < 0 || runtime->resource_index >= 3))
+        return false;
+    void* resource = runtime->manager_resource;
+    if (resource == nullptr && runtime->resource_index >= 0 &&
+        runtime->resource_index < 3)
+        resource = g_host.title_manager_resources[runtime->resource_index];
+    if (resource == nullptr || g_pD3DDevice == nullptr)
+        return false;
+    if (AnimationObject_ConfigureFromResource(
+            object, resource, runtime->state.sprite) != 0) {
+        unsigned char* descriptor =
+            reinterpret_cast<unsigned char*>(resource);
+        std::fprintf(stderr,
+                     "[th10-recon] ANM descriptor configure failed "
+                     "sprite=%d image=%p loading=%u\n",
+                     runtime->state.sprite,
+                     *reinterpret_cast<void**>(descriptor + 0x108),
+                     *reinterpret_cast<unsigned int*>(descriptor + 0x124));
+        return false;
+    }
+    unsigned char* bytes = reinterpret_cast<unsigned char*>(object);
+    const unsigned char* sprite =
+        *reinterpret_cast<const unsigned char**>(bytes + 0x394);
+    if (sprite == nullptr ||
+        *reinterpret_cast<const unsigned int*>(sprite + 4) == 0) {
+        std::fprintf(stderr,
+                     "[th10-recon] ANM descriptor texture missing "
+                     "sprite=%d\n", runtime->state.sprite);
+        return false;
+    }
+
+    // The host VM retains script ownership. Publish its current render state
+    // into the retail object while keeping the manager's script executor
+    // paused, so the object renderer is the only draw owner.
+    float origin[3] = {runtime->state.position[0],
+                       runtime->state.position[1],
+                       runtime->state.position[2]};
+    for (const HostAnmVm* parent = runtime->parent;
+         parent != nullptr; parent = parent->parent) {
+        for (int axis = 0; axis < 3; ++axis)
+            origin[axis] += parent->state.position[axis];
+    }
+    for (int axis = 0; axis < 3; ++axis) {
+        *reinterpret_cast<float*>(bytes + 0x334 + axis * 4) = origin[axis];
+        *reinterpret_cast<float*>(bytes + 0x340 + axis * 4) = 0.0f;
+        *reinterpret_cast<float*>(bytes + 0x34C + axis * 4) = 0.0f;
+    }
+    *reinterpret_cast<float*>(bytes + 0x3C) = runtime->state.scale[0];
+    *reinterpret_cast<float*>(bytes + 0x40) = runtime->state.scale[1];
+    *reinterpret_cast<float*>(bytes + 0x2C) = runtime->state.rotation[2];
+    std::memcpy(bytes + 0x2FC, runtime->state.color, 4);
+    std::memcpy(bytes + 0x300, runtime->state.color2, 4);
+    *reinterpret_cast<unsigned int*>(bytes + 0x35C) =
+        runtime->state.flags | ANM_FLAG_PAUSED | 3u;
+    *reinterpret_cast<AnimationDrawCallback*>(bytes + 0x39C) = nullptr;
+    return true;
+#else
+    (void)object;
+    (void)runtime;
+    return false;
+#endif
 }
 
 void HostPublishDrawList(const HostAnmVm* const* list, int count) {
@@ -2614,6 +3124,7 @@ void HostPublishDrawList(const HostAnmVm* const* list, int count) {
     if (count > kAnimObjectMax)
         count = kAnimObjectMax;
     for (int index = 0; index < count; ++index) {
+        bool allocated_new = false;
         if (index >= g_anim_object_count) {
             AnimationObject* allocated =
                 AnimationManager_AllocateObject(g_pGameStateManager);
@@ -2626,9 +3137,10 @@ void HostPublishDrawList(const HostAnmVm* const* list, int count) {
             *reinterpret_cast<unsigned int*>(fresh + 0x35C) = 0x20000u;
             *reinterpret_cast<void**>(fresh + 0x390) = fresh;
             *reinterpret_cast<AnimationDrawCallback*>(fresh + 0x39C) =
-                HostAnimDrawCallback;
+                nullptr;
             g_anim_objects[index] = allocated;
             g_anim_object_count = index + 1;
+            allocated_new = true;
             AnimationManager_RegisterObjectAt(
                 g_pGameStateManager, allocated,
                 AnimationManagerList_Primary, AnimationListInsertion_Back);
@@ -2636,13 +3148,48 @@ void HostPublishDrawList(const HostAnmVm* const* list, int count) {
         unsigned char* object =
             reinterpret_cast<unsigned char*>(g_anim_objects[index]);
         g_anim_object_vm[index] = list[index];
+        const HostAnmVm* trace_vm =
+            list[index] != nullptr && list[index]->trace_source != nullptr
+                ? list[index]->trace_source : list[index];
+        if (allocated_new)
+            g_host_trace.Object(index + 1, trace_vm);
+        bool manager_mode =
+            HostBindManagerObject(g_anim_objects[index], list[index]);
+        g_anim_object_manager_mode[index] = manager_mode ? 1 : 0;
+        if (manager_mode) {
+            g_host_trace.Draw(trace_vm, &list[index]->state,
+                              list[index]->script_id,
+                              list[index]->resource_index, 1);
+            if (g_host_rendering_title)
+                g_host.title_draw_calls += 1;
+        } else {
+            *reinterpret_cast<unsigned int*>(object + 0x35C) = 0x20000u;
+            *reinterpret_cast<AnimationDrawCallback*>(object + 0x39C) =
+                nullptr;
+            if (!g_host.smoke_mode && list[index] != nullptr &&
+                list[index]->active && list[index]->state.sprite >= 0 &&
+                list[index]->state.color[3] != 0 &&
+                list[index]->resource_index >= 0 &&
+                list[index]->resource_index < 3) {
+                HostTrace("title ANM manager bind failed; unsupported retail path");
+                g_host.title_resource_error = 1;
+                g_host.menu_quit = 1;
+            }
+        }
         int bucket = list[index] != nullptr ? list[index]->state.layer : 0;
         if (bucket < 0) bucket = 0;
         if (bucket > 18) bucket = 18;
         *reinterpret_cast<int*>(object + 0x20) = bucket;
     }
-    for (int index = count; index < g_anim_object_count; ++index)
+    for (int index = count; index < g_anim_object_count; ++index) {
         g_anim_object_vm[index] = nullptr;
+        g_anim_object_manager_mode[index] = 0;
+        unsigned char* object =
+            reinterpret_cast<unsigned char*>(g_anim_objects[index]);
+        *reinterpret_cast<unsigned int*>(object + 0x35C) = 0x20000u;
+        *reinterpret_cast<AnimationDrawCallback*>(object + 0x39C) =
+            nullptr;
+    }
 }
 
 void HostRenderThroughBuckets(const HostAnmVm* const* list, int count) {
@@ -2652,115 +3199,17 @@ void HostRenderThroughBuckets(const HostAnmVm* const* list, int count) {
         AnimationManager_RenderBucket(g_pGameStateManager, bucket);
 }
 
-void HostDrawAnmVm(const HostAnmVm& runtime) {
-    const AnmVmState& vm = runtime.state;
-    int resource = runtime.resource_index;
-    const unsigned char* resource_bytes = runtime.resource_bytes;
-    unsigned int resource_size = runtime.resource_size;
-    if (resource_bytes == nullptr && resource >= 0 && resource < 3) {
-        resource_bytes = g_host.title_resource_bytes[resource];
-        resource_size = g_host.title_resource_sizes[resource];
+
+void* HostMountAnmDescriptor(int slot, const char* path) {
+    if (g_pGameStateManager == nullptr || path == nullptr)
+        return nullptr;
+    void* resource = reinterpret_cast<void*>(
+        ResourceManager_FindResource(slot, g_pGameStateManager, path));
+    if (resource == nullptr) {
+        HostTrace("ANM descriptor mount failed; raw rendering is unsupported");
+        return nullptr;
     }
-    if (!runtime.active || vm.sprite < 0 || resource_bytes == nullptr ||
-        vm.color[3] == 0)
-        return;
-    AnmFileEntry entry;
-    AnmFileSprite sprite;
-    if (!AnmFile_FindGlobalSprite(
-            resource_bytes, resource_size,
-            static_cast<unsigned int>(vm.sprite), &entry, &sprite))
-        return;
-    IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
-    if (texture == nullptr)
-        return;
-
-    // Retail's three-term origin: the host carries its own position plus the
-    // parent chain in base_*, matching position + layer + offset.
-    float origin_x = vm.position[0];
-    float origin_y = vm.position[1];
-    for (const HostAnmVm* parent = runtime.parent;
-         parent != nullptr; parent = parent->parent) {
-        origin_x += parent->state.position[0];
-        origin_y += parent->state.position[1];
-    }
-
-    g_quad_source = AnchoredQuadSource{};
-    g_quad_source.base_x = origin_x;
-    g_quad_source.base_y = origin_y;
-    g_quad_source.scale_x = vm.scale[0];
-    g_quad_source.scale_y = vm.scale[1];
-    g_quad_source.width = sprite.width;
-    g_quad_source.height = sprite.height;
-    g_quad_source.anchor_x = (vm.flags >> 0x12) & 3u;
-    g_quad_source.anchor_y = (vm.flags >> 0x14) & 3u;
-
-    g_quad_submission = HostQuadSubmission{};
-    g_quad_submission.texture = texture;
-    g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
-    g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
-    g_quad_submission.u1 =
-        (sprite.x + sprite.width) / static_cast<float>(entry.width);
-    g_quad_submission.v1 =
-        (sprite.y + sprite.height) / static_cast<float>(entry.height);
-    g_quad_submission.flags = vm.flags;
-    g_quad_submission.blend = (vm.flags >> 4) & 3u;
-
-    // Hand both colour registers to retail and let it pick.
-    AnmBlendVmState blend_state = {};
-    blend_state.flags = vm.flags;
-    blend_state.color_primary = D3DCOLOR_ARGB(
-        vm.color[3], vm.color[2], vm.color[1], vm.color[0]);
-    blend_state.color_secondary = D3DCOLOR_ARGB(
-        vm.color2[3], vm.color2[2], vm.color2[1], vm.color2[0]);
-    AnmStateEnv blend_env = {HostAnmStateFlush, HostAnmSetBlendMode,
-                             HostAnmSetTextureFactor, HostAnmSetTextureFilter};
-    AnmManager_ApplyBlendColorWrap(&g_anm_state_cache, &blend_state,
-                                   &blend_env);
-    g_quad_submission.color = g_anm_texture_factor;
-
-    AnmDrawVm draw = {};
-    draw.rotation = vm.rotation[2];
-    draw.scale_x = vm.scale[0];
-    draw.scale_y = vm.scale[1];
-    draw.size_x = sprite.width;
-    draw.size_y = sprite.height;
-    draw.visible = 1;
-    draw.origin_x = origin_x;
-    draw.origin_y = origin_y;
-    draw.origin_z = 0.0f;
-    // The dispatch gate wants bits 0 and 1 of the flags word. The host has
-    // already made its own liveness decision above (active, sprite, alpha),
-    // so those two bits carry that decision in; every other bit - draw mode
-    // at 22..25 and the anchors at 18..21 - is the VM's own.
-    draw.flags = vm.flags | 3u;
-
-    AnmDrawEnv env = {};
-    env.draw_standard = HostDrawStandardQuad;
-    env.draw_unrotated = HostDrawStandardQuad;
-    env.draw_corner_quad = HostDrawCornerQuad;
-    env.draw_mode4 = HostDrawStandardQuad;
-    env.draw_mode5 = HostDrawStandardQuad;
-    env.draw_mode6 = HostDrawStandardQuad;
-    env.draw_mode7 = [](void* context, AnmDrawVm*) {
-        return HostDrawStandardQuad(context);
-    };
-    env.draw_mode8 = HostDrawStandardQuad;
-    env.draw_mode9 = HostDrawStandardQuad;
-    env.quad = &g_anm_corner_quad;
-    env.anchor_low = -0.5f;
-    env.anchor_high = 0.5f;
-    AnmVm_DrawDispatch(&draw, nullptr, &env);
-}
-
-void HostDrawAnmVmAt(const HostAnmVm& source, float x, float y,
-                     float scale_x, float scale_y) {
-    HostAnmVm placed = source;
-    placed.parent = nullptr;
-    placed.state.position[0] = x;
-    placed.state.position[1] = y;
-    placed.state.scale[0] = scale_x;
-    placed.state.scale[1] = scale_y;
-    HostDrawAnmVm(placed);
+    return resource;
 }
 
 bool HostEnsureStageVms() {
@@ -2772,6 +3221,11 @@ bool HostEnsureStageVms() {
         HostTrace("Stage 1 VM init missing runtime resources");
         return false;
     }
+    if (g_host.stage_manager_resource == nullptr)
+        g_host.stage_manager_resource =
+            HostMountAnmDescriptor(0x1C, "th10/stage01.anm");
+    if (g_host.stage_manager_resource == nullptr)
+        return false;
     g_host.stage_vm_count = 0;
     for (uint16_t object_index = 0;
          object_index < runtime.std_view->count_00; ++object_index) {
@@ -2808,6 +3262,7 @@ bool HostEnsureStageVms() {
             vm->resource_index = -1;
             vm->resource_bytes = runtime.companion_anm_data;
             vm->resource_size = runtime.companion_anm_size;
+            vm->manager_resource = g_host.stage_manager_resource;
             HostArmStageGroup();
             g_host.stage_subrecords[slot] = subrecord;
             g_host.stage_vm_object_indices[slot] = object_index;
@@ -2857,6 +3312,11 @@ bool HostEnsurePlayerVm() {
     }
     g_host.player_anm_bytes = bytes;
     g_host.player_anm_size = size;
+    if (g_host.player_manager_resource == nullptr)
+        g_host.player_manager_resource =
+            HostMountAnmDescriptor(0x1D, path);
+    if (g_host.player_manager_resource == nullptr)
+        return false;
     AnmFileScript script = {};
     if (!AnmFile_FindGlobalScript(bytes, size, 0, nullptr, &script))
         return false;
@@ -2865,6 +3325,7 @@ bool HostEnsurePlayerVm() {
     g_host.player_vm.resource_index = -1;
     g_host.player_vm.resource_bytes = bytes;
     g_host.player_vm.resource_size = size;
+    g_host.player_vm.manager_resource = g_host.player_manager_resource;
     AnmVmHooks hooks = HostAnmHooks(&g_host.player_vm);
     AnmVm_Tick(&g_host.player_vm.state, &hooks);
     g_host.player_vm_ready = g_host.player_vm.state.sprite >= 0;
@@ -2899,6 +3360,11 @@ bool HostEnsureFrontVm() {
     }
     g_host.front_anm_bytes = bytes;
     g_host.front_anm_size = size;
+    if (g_host.front_manager_resource == nullptr)
+        g_host.front_manager_resource =
+            HostMountAnmDescriptor(0x1E, path);
+    if (g_host.front_manager_resource == nullptr)
+        return false;
     g_host.front_child_vm_count = 0;
     g_host.front_static_vm_count = 0;
     int visible = 0;
@@ -2914,6 +3380,7 @@ bool HostEnsureFrontVm() {
         vm->resource_index = -1;
         vm->resource_bytes = bytes;
         vm->resource_size = size;
+        vm->manager_resource = g_host.front_manager_resource;
         AnmVmHooks hooks = HostAnmHooks(vm);
         // These two scripts spawn the persistent frame/label children and
         // then wait for interrupts from the front manager.
@@ -2966,34 +3433,6 @@ bool HostEnsureFrontVm() {
     return g_host.front_vm_ready;
 }
 
-void HostDrawFrontHud() {
-    const HostAnmVm* draw_list[108] = {};
-    int draw_count = 0;
-    for (const HostAnmVm& vm : g_host.front_vms)
-        if (vm.active)
-            draw_list[draw_count++] = &vm;
-    for (int index = 0; index < g_host.front_child_vm_count; ++index)
-        if (g_host.front_child_vms[index].active)
-            draw_list[draw_count++] = &g_host.front_child_vms[index];
-    // Retail registers the fixed digit/icon banks after the roots have
-    // spawned their panel children. Preserve that stable order within a
-    // shared layer so values remain above the decorative frame.
-    for (int index = 0; index < g_host.front_static_vm_count; ++index)
-        if (g_host.front_static_vms[index].active)
-            draw_list[draw_count++] = &g_host.front_static_vms[index];
-    for (int index = 1; index < draw_count; ++index) {
-        const HostAnmVm* item = draw_list[index];
-        int insertion = index;
-        while (insertion > 0 &&
-               draw_list[insertion - 1]->state.layer > item->state.layer) {
-            draw_list[insertion] = draw_list[insertion - 1];
-            --insertion;
-        }
-        draw_list[insertion] = item;
-    }
-    for (int index = 0; index < draw_count; ++index)
-        HostDrawAnmVm(*draw_list[index]);
-}
 
 // ---------------------------------------------------------------------------
 // VM lifetime. Running a group of VMs and deciding when the group as a whole
@@ -3028,7 +3467,7 @@ int HostSweepRunScript(void* pool, int vm_index) {
         return 0;
     AnmVmHooks hooks = HostAnmHooks(vm);
     if (AnmVm_Tick(&vm->state, &hooks) != 0) {
-        vm->active = 0;
+        HostRetireVm(vm, "script_end");
         return 0;
     }
     return 1;
@@ -3149,9 +3588,24 @@ bool HostProjectStagePoint(const float world[3], float* screen_x,
 }
 
 void HostRenderStage() {
-    if (!HostEnsureStageVms())
+    if (!HostEnsureStageVms() || !HostEnsurePlayerVm() ||
+        !HostEnsureFrontVm()) {
+        HostTrace("stage ANM descriptor/VM initialization failed; raw draw path is disabled");
+        g_host.menu_quit = 1;
         return;
+    }
     const HostStageRuntimeView& runtime = HostStage_GetRuntimeView();
+    // A stage VM may be placed more than once by stage01.std. Publish a
+    // descriptor-backed copy per placement, then let the retail manager
+    // bucket/render walk own ordering and D3D9 submission for every copy.
+    HostAnmVm draw_storage[256] = {};
+    const HostAnmVm* draw_list[256] = {};
+    int placement_ids[256] = {};
+    int vm_slots[256] = {};
+    float trace_x[256] = {};
+    float trace_y[256] = {};
+    float trace_scale[256] = {};
+    int stage_draw_count = 0;
     for (int placement_index = 0;; ++placement_index) {
         StageStdPlacementView placement = {};
         if (!StageStd_GetPlacement(
@@ -3168,6 +3622,11 @@ void HostRenderStage() {
                     placement.object_index ||
                 g_host.stage_subrecords[slot].kind != 0)
                 continue;
+            if (stage_draw_count >= 256) {
+                HostTrace("stage ANM placement set exceeds manager draw capacity");
+                g_host.menu_quit = 1;
+                return;
+            }
             const StageStdSubrecordView& subrecord =
                 g_host.stage_subrecords[slot];
             float world[3];
@@ -3181,34 +3640,85 @@ void HostRenderStage() {
                 continue;
             AnmFileEntry entry = {};
             AnmFileSprite sprite = {};
-            const HostAnmVm& vm = g_host.stage_vms[slot];
-            if (vm.state.sprite < 0 ||
+            const HostAnmVm& source = g_host.stage_vms[slot];
+            if (!source.active || source.state.sprite < 0 ||
                 !AnmFile_FindGlobalSprite(
-                    vm.resource_bytes, vm.resource_size,
-                    static_cast<unsigned int>(vm.state.sprite),
-                    &entry, &sprite))
+                    source.resource_bytes, source.resource_size,
+                    static_cast<unsigned int>(source.state.sprite),
+                    &entry, &sprite) ||
+                sprite.width <= 0.0f || sprite.height <= 0.0f)
                 continue;
-            float width = subrecord.size[0] * projection_scale;
-            float height = subrecord.size[1] * projection_scale;
-            HostDrawAnmVmAt(
-                vm, x, y,
-                width / sprite.width, height / sprite.height);
+            HostAnmVm& placed = draw_storage[stage_draw_count];
+            placed = source;
+            placed.trace_source = &source;
+            placed.parent = nullptr;
+            placed.state.position[0] = x;
+            placed.state.position[1] = y;
+            placed.state.scale[0] =
+                subrecord.size[0] * projection_scale / sprite.width;
+            placed.state.scale[1] =
+                subrecord.size[1] * projection_scale / sprite.height;
+            draw_list[stage_draw_count] = &placed;
+            placement_ids[stage_draw_count] = placement_index;
+            vm_slots[stage_draw_count] = slot;
+            trace_x[stage_draw_count] = x;
+            trace_y[stage_draw_count] = y;
+            trace_scale[stage_draw_count] = projection_scale;
+            ++stage_draw_count;
         }
     }
-    if (HostEnsurePlayerVm() && g_host.player_vm.state.sprite >= 0) {
-        AnmFileEntry entry = {};
-        AnmFileSprite sprite = {};
-        if (AnmFile_FindGlobalSprite(
-                g_host.player_vm.resource_bytes,
-                g_host.player_vm.resource_size,
-                static_cast<unsigned int>(g_host.player_vm.state.sprite),
-                &entry, &sprite))
-            HostDrawAnmVmAt(
-                g_host.player_vm, g_host.player_x, g_host.player_y,
-                1.0f, 1.0f);
+    const int stage_items = stage_draw_count;
+    if (g_host.player_vm.active) {
+        HostAnmVm& player = draw_storage[stage_draw_count];
+        player = g_host.player_vm;
+        player.trace_source = &g_host.player_vm;
+        player.parent = nullptr;
+        player.state.position[0] = g_host.player_x;
+        player.state.position[1] = g_host.player_y;
+        player.state.scale[0] = 1.0f;
+        player.state.scale[1] = 1.0f;
+        draw_list[stage_draw_count++] = &player;
+        placement_ids[stage_draw_count - 1] = -1;
+        vm_slots[stage_draw_count - 1] = -1;
+        trace_x[stage_draw_count - 1] = g_host.player_x;
+        trace_y[stage_draw_count - 1] = g_host.player_y;
+        trace_scale[stage_draw_count - 1] = 1.0f;
     }
-    if (HostEnsureFrontVm())
-        HostDrawFrontHud();
+
+    auto append_front = [&](HostAnmVm* vm) {
+        if (vm == nullptr || !vm->active || stage_draw_count >= 256)
+            return;
+        draw_storage[stage_draw_count] = *vm;
+        draw_storage[stage_draw_count].trace_source = vm;
+        draw_list[stage_draw_count] = &draw_storage[stage_draw_count];
+        placement_ids[stage_draw_count] = -2;
+        vm_slots[stage_draw_count] = -2;
+        trace_x[stage_draw_count] = 0.0f;
+        trace_y[stage_draw_count] = 0.0f;
+        trace_scale[stage_draw_count] = 1.0f;
+        ++stage_draw_count;
+    };
+    for (HostAnmVm& vm : g_host.front_vms)
+        append_front(&vm);
+    for (int index = 0; index < g_host.front_child_vm_count; ++index)
+        append_front(&g_host.front_child_vms[index]);
+    for (int index = 0; index < g_host.front_static_vm_count; ++index)
+        append_front(&g_host.front_static_vms[index]);
+
+    g_host_rendering_title = false;
+    HostRenderThroughBuckets(draw_list, stage_draw_count);
+    const HostStageRuntimeView& trace_view = HostStage_GetRuntimeView();
+    for (int index = 0; index < stage_items; ++index) {
+        if (g_anim_object_manager_mode[index] == 0) {
+            HostTrace("stage ANM manager binding failed; raw draw path is disabled");
+            g_host.menu_quit = 1;
+            continue;
+        }
+        HostTrace_StageDraw(trace_view.stage_frame, placement_ids[index],
+                            vm_slots[index], draw_list[index]->state.sprite,
+                            trace_x[index], trace_y[index], trace_scale[index]);
+        ++g_host.stage_live_draws;
+    }
 }
 
 #if defined(_WIN32)
@@ -3216,24 +3726,28 @@ void HostRenderStage() {
 // a binary PPM. Uses GetRenderTargetData because the back buffer lives in
 // D3DPOOL_DEFAULT and cannot be locked directly.
 void HostMaybeCaptureFrame() {
-    if (g_host.capture_after < 0 || g_host.capture_done ||
-        g_host.device == nullptr)
+    const bool trace_frame = g_host_trace.active;
+    const bool capture_requested =
+        g_host.capture_after >= 0 && !g_host.capture_done;
+    if ((!trace_frame && !capture_requested) || g_host.device == nullptr)
         return;
-    if (++g_host.presented_frames < g_host.capture_after)
-        return;
-    g_host.capture_done = 1;
-    if (g_host.capture_path == nullptr) {
-        // --boot-real: run the genuine boot for N frames and stop. No frame
-        // is written; the point is that the boot edges actually execute,
-        // which they never do under --smoke.
-        g_host.menu_quit = 1;
-        return;
+    bool capture_due = false;
+    if (capture_requested) {
+        capture_due = ++g_host.presented_frames >= g_host.capture_after;
+        if (capture_due)
+            g_host.capture_done = 1;
     }
+    if (!trace_frame && !capture_due)
+        return;
+
     // Read the surface actually being rendered into, not the swap-chain back
     // buffer: if anything redirected the render target we want to see that.
     IDirect3DSurface9* back = nullptr;
     if (FAILED(g_host.device->GetRenderTarget(0, &back)) || back == nullptr) {
         HostTrace("capture: GetRenderTarget failed");
+        g_host_trace.Present(false, 0, 0, 0);
+        if (capture_due && g_host.capture_path == nullptr)
+            g_host.menu_quit = 1;
         return;
     }
     D3DSURFACE_DESC desc = {};
@@ -3247,22 +3761,38 @@ void HostMaybeCaptureFrame() {
     D3DLOCKED_RECT locked = {};
     if (SUCCEEDED(status))
         status = copy->LockRect(&locked, nullptr, D3DLOCK_READONLY);
+    bool checksum_valid = false;
+    unsigned long long checksum = 1469598103934665603ull;
     if (SUCCEEDED(status)) {
-        std::FILE* out = std::fopen(g_host.capture_path, "wb");
-        if (out != nullptr) {
-            std::fprintf(out, "P6\n%u %u\n255\n", desc.Width, desc.Height);
-            for (unsigned int y = 0; y < desc.Height; ++y) {
-                const unsigned char* row =
-                    static_cast<const unsigned char*>(locked.pBits) +
-                    static_cast<size_t>(y) * locked.Pitch;
-                for (unsigned int x = 0; x < desc.Width; ++x) {
-                    // Both X8R8G8B8 and A8R8G8B8 are BGRA in memory.
-                    const unsigned char* pixel = row + x * 4;
-                    std::fputc(pixel[2], out);
-                    std::fputc(pixel[1], out);
-                    std::fputc(pixel[0], out);
+        std::FILE* out = nullptr;
+        if (capture_due && g_host.capture_path != nullptr) {
+            out = std::fopen(g_host.capture_path, "wb");
+            if (out != nullptr)
+                std::fprintf(out, "P6\n%u %u\n255\n", desc.Width,
+                             desc.Height);
+        }
+        for (unsigned int y = 0; y < desc.Height; ++y) {
+            const unsigned char* row =
+                static_cast<const unsigned char*>(locked.pBits) +
+                static_cast<size_t>(y) * locked.Pitch;
+            for (unsigned int x = 0; x < desc.Width; ++x) {
+                // Both X8R8G8B8 and A8R8G8B8 are BGRA in memory. The trace
+                // hashes canonical RGB bytes, independent of row pitch.
+                const unsigned char* pixel = row + x * 4;
+                const unsigned char rgb[3] = {pixel[2], pixel[1], pixel[0]};
+                for (unsigned char channel : rgb) {
+                    checksum ^= channel;
+                    checksum *= 1099511628211ull;
+                }
+                if (out != nullptr) {
+                    std::fputc(rgb[0], out);
+                    std::fputc(rgb[1], out);
+                    std::fputc(rgb[2], out);
                 }
             }
+        }
+        checksum_valid = true;
+        if (out != nullptr) {
             std::fclose(out);
             std::fprintf(stderr,
                          "[th10-recon] captured frame %d to %s (%ux%u fmt=%d)\n",
@@ -3274,10 +3804,14 @@ void HostMaybeCaptureFrame() {
     } else {
         HostTrace("capture: surface copy failed");
     }
-    if (copy != nullptr) copy->Release();
+    g_host_trace.Present(checksum_valid, checksum, desc.Width, desc.Height);
+    if (copy != nullptr)
+        copy->Release();
     back->Release();
-    g_host.menu_quit = 1; // exit once the frame is on disk
+    if (capture_due)
+        g_host.menu_quit = 1;
 }
+
 #else
 void HostMaybeCaptureFrame() {}
 #endif
@@ -3360,12 +3894,14 @@ void HostRenderMenu() {
 
     const HostAnmVm* draw_list[67] = {};
     int draw_count = 0;
-    draw_list[draw_count++] = &g_host.title_vms[0];
-    draw_list[draw_count++] = &g_host.title_vms[1];
+    for (HostAnmVm& vm : g_host.title_vms)
+        if (vm.active)
+            draw_list[draw_count++] = &vm;
     for (int index = 0; index < g_host.title_child_vm_count; ++index)
         if (g_host.title_child_vms[index].active)
             draw_list[draw_count++] = &g_host.title_child_vms[index];
-    if (g_host.title_runtime.phase != 0 && g_host.title_version_vm_ready)
+    if (g_host.title_runtime.phase != 0 && g_host.title_version_vm_ready &&
+        g_host.title_version_vm.active)
         draw_list[draw_count++] = &g_host.title_version_vm;
     // Ordering belongs to retail: HostRenderThroughBuckets publishes the list
     // into the animation manager and lets UpdatePrimary chain it into render
@@ -3450,8 +3986,11 @@ void HostRenderMenu() {
         HostAnmResetStateCache();
         if (HostStage_IsActive())
             HostRenderStage();
-        else
+        else {
+            g_host_rendering_title = true;
             HostRenderThroughBuckets(draw_list, draw_count);
+            g_host_rendering_title = false;
+        }
         // menu_screen 5, the key config, is drawn entirely by retail's
         // title.anm script 2 - the seven rows and each slot's button value -
         // so the host contributes nothing to it.
@@ -3484,6 +4023,7 @@ void HostFramePresent(void*) {
     if (!HostFrameDeviceLive())
         return;
     HostMaybeCaptureFrame();
+    g_host_trace.EndFrame();
     static bool traced_present = true;
     const HRESULT result =
         g_host.device->Present(nullptr, nullptr, nullptr, nullptr);
@@ -3885,9 +4425,9 @@ void HostMenuUpdate() {
         ops.play_sound = HostMenuPlaySound;
         ops.reset_timer = HostMenuResetTimer;
         ops.execute_choice = HostMenuExecuteChoice;
-        // set_animation / open_effect / close_effect stay null: the retail
-        // sprite-confirm edges (sub_449470, sub_4497D0 + sub_4243F0) need
-        // the pause-menu effect VMs the host does not create. REMAINING.
+        ops.set_animation = HostMenuSetAnimation;
+        ops.open_effect = HostMenuOpenEffect;
+        ops.close_effect = HostMenuCloseEffect;
         ResultChoiceMenu_Update(state, &in, &env, &ops);
         g_host.menu_phase = state->phase;
         *(int*)(record + 0) = state->phase;  // record phase mirror (report)
@@ -4606,14 +5146,15 @@ void HostDispatchRecoveredTitlePhase(
             if (!child->active)
                 continue;
             AnmVmHooks child_hooks = HostAnmHooks(child);
-            if (AnmVm_Tick(&child->state, &child_hooks) != 0)
-                child->active = 0;
+            if (AnmVm_Tick(&child->state, &child_hooks) != 0) {
+                HostRetireVm(child, "menu_action_end");
+            }
         }
     };
     env.extra_unlocked = [](void*) -> int {
-        // Extra needs a cleared run recorded; nothing reads that yet, so the
-        // entry stays selectable and reports its own unfinished state.
-        return 1;
+        return DAT_0047783c != nullptr
+                   ? GameProgress_HasAnyPlayRecord(DAT_0047783c)
+                   : 0;
     };
     env.take_practice_flag = [](void*) -> int {
         if ((DAT_00474ca0 & 0x10u) == 0)
@@ -4644,6 +5185,7 @@ TitleMenuOps g_title_menu_ops = {
 // ---------------------------------------------------------------------------
 void HostNop(void*) {}
 int HostRunSchedulerFrame(void*) {
+    g_host_trace.BeginFrame(g_host.frames_requested);
 #if defined(_WIN32)
     static bool traced_first_frame = false;
     if (!traced_first_frame) {
@@ -4677,21 +5219,24 @@ int HostRunSchedulerFrame(void*) {
     if (g_host.menu_smoke)
         HostMenuSmokeDriveInput();
 #endif
-    if (g_host.smoke_mode && g_host.title_frames_completed == 60 &&
+    if ((g_host.smoke_mode || g_host.stage_live_smoke) &&
+        g_host.title_frames_completed == 60 &&
         HostStage_GetReport().archive_available &&
         !HostStage_GetReport().confirm_invoked) {
         HostStage_ConfirmWeapon(0, 0, 1);
-        // --ecl runs long enough to clear main's first timeline gate at
-        // t=160 and reach the enemy spawns; the default smoke keeps its
-        // original 120-frame budget.
-        g_host.stage_frame_budget =
-            g_host.ecl_frames > 0 ? g_host.ecl_frames : 120;
-        HostStage_RunFrames(g_host.stage_frame_budget);
+        if (g_host.smoke_mode) {
+            // --ecl runs long enough to clear main's first timeline gate at
+            // t=160 and reach the enemy spawns; the default smoke keeps its
+            // original 120-frame budget.
+            g_host.stage_frame_budget =
+                g_host.ecl_frames > 0 ? g_host.ecl_frames : 120;
+            HostStage_RunFrames(g_host.stage_frame_budget);
 #if defined(_WIN32)
-        HostEnsureStageVms();
-        HostEnsurePlayerVm();
-        HostEnsureFrontVm();
+            HostEnsureStageVms();
+            HostEnsurePlayerVm();
+            HostEnsureFrontVm();
 #endif
+        }
     }
 #if defined(_WIN32)
     if (!g_host.smoke_mode && g_host.title_frames_completed == 60) {
@@ -4705,6 +5250,7 @@ int HostRunSchedulerFrame(void*) {
     }
     if (!g_host.smoke_mode && !g_host.menu_smoke)
         HostPollKeyboard();
+    g_host_trace.Input(DAT_00474e36, DAT_00474e30, g_host.menu_input);
     if (!g_host.smoke_mode && HostStage_IsActive() &&
         g_host.menu_phase == 0 && (DAT_00474e30 & 8u) != 0) {
         HostMenuRecordCreate();
@@ -4718,20 +5264,25 @@ int HostRunSchedulerFrame(void*) {
                           "Stage 1 BGM playing" :
                           "Stage 1 BGM unavailable");
         HostStage_RunFrames(1);
+        if (g_host.stage_live_smoke &&
+            HostStage_GetReport().frames_run >= g_host.ecl_frames)
+            g_host.menu_quit = 1;
         if (HostEnsureStageVms())
             HostSweepVmGroup(&g_stage_group, g_host.stage_vms,
                              g_host.stage_vm_count);
         if (HostEnsurePlayerVm() && g_host.player_vm.active) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.player_vm);
-            if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0)
-                g_host.player_vm.active = 0;
+            if (AnmVm_Tick(&g_host.player_vm.state, &hooks) != 0) {
+                HostRetireVm(&g_host.player_vm, "player_end");
+            }
         }
         HostTickFrontHud();
     }
     if (g_host.title_vm_ready) {
         for (int index = 0; index < 2; ++index) {
             AnmVmHooks hooks = HostAnmHooks(&g_host.title_vms[index]);
-            AnmVm_Tick(&g_host.title_vms[index].state, &hooks);
+            if (AnmVm_Tick(&g_host.title_vms[index].state, &hooks) != 0)
+                HostRetireVm(&g_host.title_vms[index], "script_end");
         }
         HostSweepVmGroup(&g_title_child_group, g_host.title_child_vms,
                          g_host.title_child_vm_count);
@@ -4824,6 +5375,8 @@ int HostRunSchedulerFrame(void*) {
     // afterwards, between BeginScene and EndScene, through 0x00449D40. The
     // host's render is now bound to that Frame_Advance edge instead.
 #endif
+    if (!HostFrameDeviceLive())
+        g_host_trace.EndFrame();
     return 1; // keep running
 }
 int HostDrainSound(void*) {
@@ -5113,6 +5666,8 @@ int HostCreateD3dDevice() {
         D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_host.window,
         D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parameters, &g_host.device);
     g_host.boot_device_ok = SUCCEEDED(result);
+    if (g_host.boot_device_ok)
+        g_pD3DDevice = g_host.device;
     HostTrace(FAILED(result) ? "Direct3D9 HAL device failed" :
                                "Direct3D9 HAL device ready");
     return FAILED(result) ? -1 : 0;
@@ -5249,6 +5804,16 @@ bool HostLoadSigResource() {
     g_host.title_resource_bytes[2] = bytes;
     g_host.title_resource_sizes[2] = size;
     g_host.title_entries[2] = entry;
+    g_host.title_manager_resources[2] = reinterpret_cast<void*>(
+        ResourceManager_FindResource(
+            0x1B, g_pGameStateManager, "th10/sig.anm"));
+    if (g_host.title_manager_resources[2] == nullptr) {
+        HostTrace("sig.anm descriptor mount unavailable; no render fallback");
+        g_host.title_resource_error = 1;
+        if (!g_host.smoke_mode)
+            g_host.menu_quit = 1;
+    }
+    g_host_trace.Resource("th10/sig.anm", 2, bytes, size);
     if (g_host.dump_anm) {
         std::FILE* dump = std::fopen("sig.anm", "wb");
         if (dump != nullptr) {
@@ -5267,6 +5832,14 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
         return nullptr;
     char path[64];
     std::snprintf(path, sizeof(path), "th10/%s", name);
+    g_host.title_manager_resources[index] = reinterpret_cast<void*>(
+        ResourceManager_FindResource(slot, g_pGameStateManager, path));
+    if (g_host.title_manager_resources[index] == nullptr) {
+        HostTrace("title ANM descriptor mount unavailable; no render fallback");
+        g_host.title_resource_error = 1;
+        if (!g_host.smoke_mode)
+            g_host.menu_quit = 1;
+    }
     unsigned int size = Resource_GetFileSize(path);
     if (size == 0)
         return nullptr;
@@ -5278,6 +5851,7 @@ int32_t* HostFindTitleResource(int32_t slot, const char* name) {
     }
     g_host.title_resource_bytes[index] = bytes;
     g_host.title_resource_sizes[index] = size;
+    g_host_trace.Resource(path, index, bytes, size);
     g_host.title_resources_from_archive = 1;
     if (AnmFile_ParseEntry(bytes, size, 0, &g_host.title_entries[index])) {
         if (index == 0) {
@@ -5689,10 +6263,38 @@ void HostDestroySound(void*) {
 }
 void HostDestroyGameState(void*, void* manager) {
 #if defined(_WIN32)
+    HostRetireAllVms("shutdown");
+    // Descriptor resources own their D3D textures and archive image. Release
+    // them while the device and manager are still live; the portable VM image
+    // is a separate allocation and is released below.
     for (int index = 0; index < 3; ++index) {
+        if (g_host.title_manager_resources[index] != nullptr &&
+            manager != nullptr) {
+            ResourceManager_DestroyResource(
+                manager, g_host.title_manager_resources[index]);
+            std::free(g_host.title_manager_resources[index]);
+            g_host.title_manager_resources[index] = nullptr;
+        }
         std::free(g_host.title_resource_bytes[index]);
         g_host.title_resource_bytes[index] = nullptr;
     }
+    void* extra_resources[3] = {g_host.stage_manager_resource,
+                                g_host.player_manager_resource,
+                                g_host.front_manager_resource};
+    for (void*& resource : extra_resources) {
+        if (resource == nullptr || manager == nullptr)
+            continue;
+        ResourceManager_DestroyResource(manager, resource);
+        std::free(resource);
+        resource = nullptr;
+    }
+    g_host.stage_manager_resource = extra_resources[0];
+    g_host.player_manager_resource = extra_resources[1];
+    g_host.front_manager_resource = extra_resources[2];
+    std::free(g_host.player_anm_bytes);
+    std::free(g_host.front_anm_bytes);
+    g_host.player_anm_bytes = nullptr;
+    g_host.front_anm_bytes = nullptr;
     Resource_CloseArchives();
 #endif
     std::free(manager);
@@ -5709,6 +6311,7 @@ void HostReleaseDeviceChain(void*) {
         g_host.direct_input = nullptr;
     }
     if (g_host.device != nullptr) {
+        g_pD3DDevice = nullptr;
         for (int index = 0; index < 32; ++index) {
             if (g_host.anm_textures[index] != nullptr) {
                 g_host.anm_textures[index]->Release();
@@ -5776,6 +6379,71 @@ void HostRestartPump(void*) {
 
 } // namespace
 
+void HostTrace_StageResource(const char* name, const unsigned char* bytes,
+                             unsigned int size) {
+    g_host_trace.Resource(name, 100, bytes, size);
+}
+
+void HostTrace_StageBegin(const char* script) {
+    g_host_trace.StageBegin(script);
+}
+
+void HostTrace_StagePhase(int stage_frame, const char* phase) {
+    g_host_trace.StagePhase(stage_frame, phase);
+}
+
+void HostTrace_EclCreate(int vm_id, int parent_id, int async_id, int rank_mask,
+                         long long pc_offset) {
+    g_host_trace.EclCreate(vm_id, parent_id, async_id, rank_mask, pc_offset);
+}
+
+void HostTrace_EclDestroy(int vm_id, int stage_frame, const char* reason) {
+    g_host_trace.EclDestroy(vm_id, stage_frame, reason);
+}
+
+void HostTrace_EclOpcode(int vm_id, int stage_frame, int order, int opcode,
+                         long long pc_offset, int instruction_time,
+                         int rank_mask) {
+    g_host_trace.EclOpcode(vm_id, stage_frame, order, opcode, pc_offset,
+                           instruction_time, rank_mask);
+}
+
+void HostTrace_EclTick(int vm_id, int stage_frame, int order, int async_id,
+                       int rank_mask, long long pc_before, long long pc_after,
+                       int scratch_top, int result, int live) {
+    g_host_trace.EclTick(vm_id, stage_frame, order, async_id, rank_mask,
+                         pc_before, pc_after, scratch_top, result, live);
+}
+
+void HostTrace_Entity(int entity_id, int kind, int live, int stage_frame) {
+    g_host_trace.Entity(entity_id, kind, live, stage_frame);
+}
+
+void HostTrace_StageSpawn(int entity_id, int opcode, int manager_count,
+                         int spawn_serial, float x, float y, float z) {
+    g_host_trace.StageSpawn(entity_id, opcode, manager_count, spawn_serial, x, y,
+                            z);
+}
+
+void HostTrace_StageDraw(int stage_frame, int placement_id, int vm_slot,
+                        int sprite, float x, float y, float scale) {
+    g_host_trace.StageDraw(stage_frame, placement_id, vm_slot, sprite, x, y,
+                           scale);
+}
+
+void HostTrace_BulletLifecycle(int bullet_id, int stage_frame,
+                              int active, int row) {
+    g_host_trace.BulletLifecycle(bullet_id, stage_frame, active, row);
+}
+
+void HostTrace_Bullets(int active_count, int updated_count, int stage_frame) {
+    g_host_trace.Bullet(active_count, updated_count, stage_frame);
+}
+
+void HostTrace_StageEnd(int stage_frame, int result) {
+    g_host_trace.StageEnd(stage_frame, result);
+}
+
 static int HostRun(int argc, char** argv);
 
 #if defined(_WIN32)
@@ -5807,28 +6475,50 @@ int main(int argc, char** argv) { return HostRun(argc, argv); }
 static int HostRun(int argc, char** argv) {
 #if defined(_WIN32)
     HostTrace("process entry");
-    const bool resource_smoke =
-        argc > 1 && std::strcmp(argv[1], "--resource-smoke") == 0;
-    g_host.menu_smoke =
-        argc > 1 && std::strcmp(argv[1], "--menu-smoke") == 0;
-    g_host.smoke_mode = argc > 1 &&
-        (std::strcmp(argv[1], "--smoke") == 0 ||
-         std::strcmp(argv[1], "--dump-anm") == 0 ||
-         std::strcmp(argv[1], "--dump-stage") == 0 ||
-         resource_smoke);
-    g_host.dump_anm =
-        argc > 1 && std::strcmp(argv[1], "--dump-anm") == 0;
-    g_host.dump_stage =
-        argc > 1 && std::strcmp(argv[1], "--dump-stage") == 0;
+    bool resource_smoke = false;
+    g_host.menu_smoke = 0;
+    g_host.smoke_mode = 0;
+    g_host.dump_anm = 0;
+    g_host.dump_stage = 0;
+    for (int index = 1; index < argc; ++index) {
+        resource_smoke |=
+            std::strcmp(argv[index], "--resource-smoke") == 0;
+        g_host.menu_smoke |=
+            std::strcmp(argv[index], "--menu-smoke") == 0;
+        g_host.stage_live_smoke |=
+            std::strcmp(argv[index], "--stage-live") == 0;
+        g_host.smoke_mode |=
+            std::strcmp(argv[index], "--smoke") == 0 ||
+            std::strcmp(argv[index], "--dump-anm") == 0 ||
+            std::strcmp(argv[index], "--dump-stage") == 0 ||
+            std::strcmp(argv[index], "--resource-smoke") == 0;
+        g_host.dump_anm |=
+            std::strcmp(argv[index], "--dump-anm") == 0;
+        g_host.dump_stage |=
+            std::strcmp(argv[index], "--dump-stage") == 0;
+    }
     // The stage script runs by default now that it completes cleanly;
     // --no-ecl restores the script-less stage bridge.
     HostStage_EnableEcl(1);
     g_host.ecl_frames = 900;
     for (int index = 1; index < argc; ++index) {
-        if (std::strcmp(argv[index], "--capture") == 0 && index + 2 < argc) {
+        if (std::strcmp(argv[index], "--capture") == 0) {
+            if (index + 2 >= argc) {
+                std::fprintf(stderr, "--capture requires FRAME and PATH\n");
+                return 2;
+            }
             g_host.capture_after = std::atoi(argv[index + 1]);
             g_host.capture_path = argv[index + 2];
-            break;
+            index += 2;
+            continue;
+        }
+        if (std::strcmp(argv[index], "--trace") == 0) {
+            if (index + 1 >= argc || argv[index + 1][0] == '-') {
+                std::fprintf(stderr, "--trace requires PATH\n");
+                return 2;
+            }
+            g_host.trace_path = argv[++index];
+            continue;
         }
         // --boot-real [frames]: full real boot, no smoke early-outs, quit
         // after the given frame count (default 300) with the report printed.
@@ -5879,6 +6569,14 @@ static int HostRun(int argc, char** argv) {
                 g_host.ecl_frames = 900;
             continue;
         }
+        if (std::strcmp(argv[index], "--stage-live") == 0) {
+            g_host.stage_live_smoke = 1;
+            if (index + 1 < argc && argv[index + 1][0] != '-')
+                g_host.ecl_frames = std::atoi(argv[++index]);
+            if (g_host.ecl_frames <= 0)
+                g_host.ecl_frames = 120;
+            continue;
+        }
         if (std::strcmp(argv[index], "--boot-real") == 0) {
             g_host.capture_after =
                 index + 1 < argc ? std::atoi(argv[index + 1]) : 300;
@@ -5894,6 +6592,18 @@ static int HostRun(int argc, char** argv) {
     (void)argv;
     g_host.smoke_mode = 1;
 #endif
+    if (g_host.trace_path != nullptr &&
+        !g_host_trace.Open(g_host.trace_path)) {
+        std::fprintf(stderr, "failed to open trace output: %s\n",
+                     g_host.trace_path);
+        return 1;
+    }
+    struct HostTraceCloseGuard {
+        ~HostTraceCloseGuard() {
+            HostStage_TraceClose();
+            g_host_trace.Close();
+        }
+    } trace_guard;
     const int archive_available =
         Resource_RegisterArchive("th10.dat") ? 1 : 0;
     HostStage_SetArchiveAvailable(archive_available);
@@ -6036,6 +6746,7 @@ static int HostRun(int argc, char** argv) {
              g_host.viewport_applied &&
              g_host.title_task_registered &&
              g_host.title_resources_loaded &&
+             !g_host.title_resource_error &&
              g_host.title_anm_parsed &&
              g_host.title_child_vm_count >= 3 &&
              g_host.title_runtime.phase == 2 &&
@@ -6064,6 +6775,25 @@ static int HostRun(int argc, char** argv) {
         return menu_smoke_ok ? 0 : 1;
     }
 #endif
+    if (g_host.stage_live_smoke) {
+        const HostStageReport& stage = HostStage_GetReport();
+        const int stage_live_ok =
+            g_host.boot_window_ok && g_host.boot_device_ok &&
+            g_host.game_state_constructed && g_host.device_defaults_applied &&
+            g_host.viewport_applied && g_host.title_resources_loaded &&
+            !g_host.title_resource_error && g_host.clean_shutdown &&
+            exit_code == 0 && stage.enter_result == 0 &&
+            stage.frames_run == g_host.ecl_frames &&
+            stage.update_ticks == g_host.ecl_frames &&
+            stage.draw_ticks == g_host.ecl_frames &&
+            g_host.stage_live_draws > 0;
+        std::printf("  stage live frames: %d/%d manager draws=%d\n",
+                    stage.frames_run, g_host.ecl_frames,
+                    g_host.stage_live_draws);
+        std::printf("STAGE_LIVE_%s\n",
+                    stage_live_ok ? "PASS" : "FAIL");
+        return stage_live_ok ? 0 : 1;
+    }
     if (g_host.capture_after >= 0 && g_host.capture_path == nullptr) {
         // --boot-real asserts the genuine boot path, which --smoke skips
         // entirely via its early-outs. The scripted title/stage flow the
@@ -6072,7 +6802,8 @@ static int HostRun(int argc, char** argv) {
             g_host.boot_window_ok && g_host.boot_device_ok &&
             g_host.game_state_constructed && g_host.device_defaults_applied &&
             g_host.viewport_applied && g_host.title_task_registered &&
-            g_host.title_resources_loaded && g_host.title_anm_parsed &&
+            g_host.title_resources_loaded && !g_host.title_resource_error &&
+            g_host.title_anm_parsed &&
             g_host.title_draw_calls > 0 && g_host.clean_shutdown &&
             exit_code == 0;
         std::printf("  real boot: checksum=0x%08X size=%u\n",

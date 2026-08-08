@@ -118,12 +118,38 @@ int HostStage_ConfirmWeapon(int character, int weapon, int difficulty);
 // Advance the registered stage tasks through the real scheduler lists.
 // Returns the number of frames actually run.
 int HostStage_RunFrames(int frames);
+
+// Optional deterministic stage trace hooks supplied by host_main. They are
+// inert unless --trace PATH is active and never expose process addresses.
+void HostTrace_StageResource(const char* name, const unsigned char* bytes,
+                             unsigned int size);
+void HostTrace_StageBegin(const char* script);
+void HostTrace_StagePhase(int stage_frame, const char* phase);
+void HostTrace_EclCreate(int vm_id, int parent_id, int async_id, int rank_mask,
+                         long long pc_offset);
+void HostTrace_EclDestroy(int vm_id, int stage_frame, const char* reason);
+void HostTrace_EclOpcode(int vm_id, int stage_frame, int order, int opcode,
+                         long long pc_offset, int instruction_time,
+                         int rank_mask);
+void HostTrace_EclTick(int vm_id, int stage_frame, int order, int async_id,
+                       int rank_mask, long long pc_before, long long pc_after,
+                       int scratch_top, int result, int live);
+void HostTrace_Entity(int entity_id, int kind, int live, int stage_frame);
+void HostTrace_StageSpawn(int entity_id, int opcode, int manager_count,
+                         int spawn_serial, float x, float y, float z);
+void HostTrace_StageDraw(int stage_frame, int placement_id, int vm_slot,
+                        int sprite, float x, float y, float scale);
+void HostTrace_BulletLifecycle(int bullet_id, int stage_frame,
+                              int active, int row);
+void HostTrace_Bullets(int active_count, int updated_count, int stage_frame);
+void HostTrace_StageEnd(int stage_frame, int result);
 int HostStage_IsActive();
 
 // Opt in to running stage01.ecl through the recovered core interpreter
 // (0x0044E1A0). Off by default: the script halts at its first `call`, whose
 // retail edge 0x0044DF70 is not yet recovered, and that halt is a loud abort.
 void HostStage_EnableEcl(int enabled);
+void HostStage_TraceClose();
 
 // Construct one 0x4B0-byte ripple-ring block through the recovered retail
 // constructor (0x004452F0). Returned storage is owned by the caller and is

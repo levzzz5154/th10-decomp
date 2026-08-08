@@ -29,6 +29,19 @@ extern "C" void AnimationManager_ClearEclFlag(void) {}
 static int g_string_index;
 static char g_string_text[256];
 static unsigned int g_string_length;
+static int g_projectile_calls;
+static void* g_projectile_record;
+static float g_projectile_position[3];
+
+static int CaptureProjectile(void* record, int cell_x, int cell_y,
+                             float x, float y, float z) {
+    g_projectile_calls += 1;
+    g_projectile_record = record;
+    g_projectile_position[0] = x + static_cast<float>(cell_x);
+    g_projectile_position[1] = y + static_cast<float>(cell_y);
+    g_projectile_position[2] = z;
+    return 0;
+}
 void Timer_Set(FrameTimer* timer, int target) {
     if ((timer->flags & 1u) == 0) {
         timer->previous = -1;
@@ -272,6 +285,62 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(float*)(entity + 0xB0) == 4.5f);
     assert(*(float*)(entity + 0xB4) == 7.25f);
+
+    // 0x190 clears and seeds the complete retail per-slot projectile
+    // descriptor, not merely the timer helper's 0x10-byte block.
+    unsigned char* projectile = entity + 0x2C4 + 2 * 0x210;
+    unsigned char* adjacent = entity + 0x2C4 + 3 * 0x210;
+    std::memset(projectile, 0xA5, 0x210);
+    std::memset(adjacent, 0x5A, 0x210);
+    *reinterpret_cast<float*>(entity + 0x1344 + 2 * 0xC) = 9.0f;
+    *reinterpret_cast<float*>(entity + 0x1348 + 2 * 0xC) = 8.0f;
+    fixture.instruction.instruction.opcode = 0x190;
+    fixture.Operands()[0] = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*reinterpret_cast<short*>(projectile + 0x1F4) == 1);
+    assert(*reinterpret_cast<short*>(projectile + 0x1F6) == 1);
+    assert(*reinterpret_cast<float*>(projectile + 0x10) == 0.0f);
+    assert(*reinterpret_cast<float*>(projectile + 0x18) == 2.0f);
+    assert(*reinterpret_cast<int32_t*>(projectile + 0x1FC) == 0x203);
+    assert(*reinterpret_cast<int32_t*>(projectile + 0x200) == 7);
+    assert(*reinterpret_cast<int32_t*>(projectile + 0x204) == 0x18);
+    assert(*reinterpret_cast<float*>(entity + 0x1344 + 2 * 0xC) == 0.0f);
+    assert(*reinterpret_cast<float*>(entity + 0x1348 + 2 * 0xC) == 0.0f);
+    for (unsigned int offset = 0; offset < 0x210; ++offset) {
+        if (offset == 0x1F4 || offset == 0x1F5 || offset == 0x1F6 ||
+            offset == 0x1F7 || offset == 0x10 || offset == 0x11 ||
+            offset == 0x12 || offset == 0x13 || offset == 0x18 ||
+            offset == 0x19 || offset == 0x1A || offset == 0x1B ||
+            (offset >= 0x1FC && offset < 0x208))
+            continue;
+        assert(projectile[offset] == 0);
+    }
+    assert(adjacent[0] == 0x5A);
+
+    *reinterpret_cast<float*>(entity + 0x2C) = 11.0f;
+    *reinterpret_cast<float*>(entity + 0x30) = 22.0f;
+    *reinterpret_cast<float*>(entity + 0x34) = 33.0f;
+    *reinterpret_cast<float*>(entity + 0x1344 + 2 * 0xC) = 1.0f;
+    *reinterpret_cast<float*>(entity + 0x1348 + 2 * 0xC) = 2.0f;
+    *reinterpret_cast<float*>(entity + 0x134C + 2 * 0xC) = 3.0f;
+    fixture.instruction.instruction.opcode = 0x191;
+    fixture.Operands()[0] = 2;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    unsigned char* laser = entity + 2 * 0x210;
+    assert(*reinterpret_cast<float*>(laser + 0x2C8) == 12.0f);
+    assert(*reinterpret_cast<float*>(laser + 0x2CC) == 24.0f);
+    assert(*reinterpret_cast<float*>(laser + 0x2D0) == 36.0f);
+    g_projectile_calls = 0;
+    g_projectile_record = nullptr;
+    ECL_SetProjectileSpawnCallback(CaptureProjectile);
+    *reinterpret_cast<float*>(entity + 0x1454) = 0.0f;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(g_projectile_calls == 1);
+    assert(g_projectile_record == laser + 0x2C4);
+    assert(g_projectile_position[0] == 12.0f);
+    assert(g_projectile_position[1] == 24.0f);
+    assert(g_projectile_position[2] == 36.0f);
+    ECL_SetProjectileSpawnCallback(nullptr);
 
     fixture.instruction.instruction.opcode = ECL_SET_MOVEMENT_BOUNDARY;
     fixture.Operands()[0] = FloatBits(-1.0f);
@@ -788,6 +857,10 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(float*)(entity + 0x2dc) == 1.0f);
     assert(*(float*)(entity + 0x2e0) == 2.0f);
+    DAT_00474c98 = -512;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 5.0f);
 
     // 0x1a7: 3-tier difficulty-conditional per-slot float pair.
     fixture.instruction.instruction.opcode = 0x1a7;
@@ -809,6 +882,14 @@ void TestRecoveredLeafDispatcher() {
     assert(*(float*)(entity + 0x2dc) == 4.0f);
     assert(*(float*)(entity + 0x2e0) == 5.0f);
     DAT_00474c98 = -500;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 5.0f);
+    DAT_00474c98 = -600;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(float*)(entity + 0x2dc) == 4.0f);
+    assert(*(float*)(entity + 0x2e0) == 5.0f);
+    DAT_00474c98 = -601;
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(float*)(entity + 0x2dc) == 1.0f);
     assert(*(float*)(entity + 0x2e0) == 2.0f);
@@ -846,6 +927,10 @@ void TestRecoveredLeafDispatcher() {
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(short*)(entity + 0x4b8) == 11);
     assert(*(short*)(entity + 0x4ba) == 12);
+    DAT_00474c98 = -512;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 21);
+    assert(*(short*)(entity + 0x4ba) == 22);
 
     // 0x1aa: 3-tier difficulty-conditional per-slot short pair.
     fixture.instruction.instruction.opcode = 0x1aa;
@@ -877,6 +962,14 @@ void TestRecoveredLeafDispatcher() {
     assert(*(short*)(entity + 0x4b8) == 21);
     assert(*(short*)(entity + 0x4ba) == 22);
     DAT_00474c98 = -500;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 21);
+    assert(*(short*)(entity + 0x4ba) == 22);
+    DAT_00474c98 = -600;
+    assert(ECL_VM_Dispatch(entity) == 0);
+    assert(*(short*)(entity + 0x4b8) == 21);
+    assert(*(short*)(entity + 0x4ba) == 22);
+    DAT_00474c98 = -601;
     assert(ECL_VM_Dispatch(entity) == 0);
     assert(*(short*)(entity + 0x4b8) == 11);
     assert(*(short*)(entity + 0x4ba) == 12);
