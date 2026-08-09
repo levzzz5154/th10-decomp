@@ -33,6 +33,9 @@ struct BulletPoolUpdateEnv {
 
 void BulletPoolRuntime_SetUpdateEnv(const BulletPoolUpdateEnv* env);
 int BulletPool_UpdateSweep(void* owner, const BulletPoolUpdateEnv* env);
+// Retail sub_405BE0: clear the slot's active word and rewind both clock
+// pairs so the sweep drops the payload from the relink lists.
+void BulletPool_RetireSlot(void* payload);
 
 void BulletManager_ResetPool(void (*rebind_animation)(void* handle,
                                                       void* animation),

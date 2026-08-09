@@ -16,6 +16,7 @@
 
 extern void* g_pGameStateManager;
 extern "C" unsigned long dword_477810;
+extern "C" uint32_t DAT_00476f78;   // shared frame-scale, by address
 extern unsigned int DAT_00491be4;
 extern int* ResourceManager_FindResource(int type, void* manager,
                                          const char* name);
@@ -123,6 +124,31 @@ void BulletPoolRuntime_SetUpdateEnv(const BulletPoolUpdateEnv* env) {
     else
         std::memset(&g_bullet_pool_update_env, 0,
                     sizeof(g_bullet_pool_update_env));
+}
+
+// Retail sub_405BE0: the pool slot destroy leaf.  Clears the active word at
+// +0x446 and rewinds both interpolator pairs (the +0x3F8..0x408 and
+// +0x40C..0x41C blocks) to their free defaults.  The per-bullet hook calls
+// this when the slot's ANM script has run to its end or the slot self-
+// destructs; the sweep then drops the payload from the relink lists.
+void BulletPool_RetireSlot(void* payload) {
+    if (payload == 0)
+        return;
+    unsigned char* bytes = static_cast<unsigned char*>(payload);
+    *reinterpret_cast<unsigned short*>(bytes + 0x446) = 0;
+    uint32_t* words = reinterpret_cast<uint32_t*>(bytes);
+    words[0x3F8 / 4] = 0xFFF0BDC1;
+    words[0x3FC / 4] = 0;
+    words[0x400 / 4] = 0;
+    words[0x404 / 4] = static_cast<uint32_t>(
+        reinterpret_cast<uintptr_t>(&DAT_00476f78));
+    words[0x408 / 4] |= 1u;     // clock 1 armed bit
+    words[0x40C / 4] = 0xFFFFFFFF;
+    words[0x410 / 4] = 0;
+    words[0x414 / 4] = 0;
+    words[0x418 / 4] = static_cast<uint32_t>(
+        reinterpret_cast<uintptr_t>(&DAT_00476f78));
+    words[0x41C / 4] |= 1u;    // clock 2 armed bit
 }
 
 // Each routine mirrors one retail function; the comment above each body

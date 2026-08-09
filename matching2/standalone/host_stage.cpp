@@ -73,6 +73,7 @@
 #include "th10/script/ecl.hpp"
 #include "th10/script/final_script_runtime.hpp"
 #include "th10/script/anm_vm_tick.hpp"
+#include "th10/render/anm_file.hpp"
 #include "th10/archive/resource_manager.hpp"
 #include "th10/math/timer.hpp"
 // windows_types.hpp defines NULL unconditionally; glibc headers included
@@ -318,6 +319,26 @@ th10::script_final::EclScriptEntry g_enemy_script_entries[512] = {};
 void* g_effect_manager_slot;
 void* g_bullet_pool_slot;
 BulletManagerState* g_bullet_manager;
+
+// Per-pool-slot ANM VM state.  Retail sub_4067D0 binds a bullet-0 script
+// (dword_474170[type] + sub from the launch record's first two words) into
+// the slot's ANM block and sub_406240 ticks it every frame; when the script
+// ends, the sweep retires the slot.  The host keeps one portable AnmVmState
+// per 2000-slot pool entry, bound at launch and ticked from the sweep hook.
+struct HostBulletVm {
+	AnmVmState state = {};
+	int active = 0;
+	int script_id = -1;
+};
+HostBulletVm g_bullet_vms[2000] = {};
+
+// Raw bullet.anm archive bytes for per-slot script resolution.  The pool's
+// manager resource (+0x3E0B50) is the descriptor-owned runtime record; the
+// raw bytes stay alongside for AnmFile script/sprite parsing, matching the
+// title/stage/player/front VM convention.
+unsigned char* g_bullet_anm_bytes = nullptr;
+unsigned int g_bullet_anm_size = 0;
+
 void* g_stage_manager;
 void* g_item_manager;
 void* g_large_resource_state;
@@ -827,14 +848,170 @@ int HostInitLargeResource() {
 // the per-bullet check twin (sub_406240) is wired through the env below so
 // the sweep admits live bullets.  The draw edge (0x004067A0) is likewise
 // owned by the reconstructed BulletPool_DrawCallback.
+
+// Per-slot bullet ANM hooks.  The bullet scripts use only sprite/time/end and
+// arithmetic opcodes in this slice; ring/child leaves are never reached and
+// stay harmless non-ops, mirroring the stage-digit hook pattern.
+static int BulletVmReadInt(void* context, AnmVmState* vm, const void* slot,
+                           int is_variable) {
+	(void)context;
+	(void)vm;
+	(void)is_variable;
+	int value = 0;
+	std::memcpy(&value, slot, sizeof(value));
+	return value;
+}
+static float BulletVmReadFloat(void* context, AnmVmState* vm,
+                               const void* slot, int is_variable) {
+	(void)context;
+	(void)vm;
+	(void)is_variable;
+	float value = 0.0f;
+	std::memcpy(&value, slot, sizeof(value));
+	return value;
+}
+static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {
+	(void)context;
+	(void)vm;
+	(void)id;
+	static int fallback;
+	return &fallback;
+}
+static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {
+	(void)context;
+	(void)vm;
+	(void)id;
+	static float fallback;
+	return &fallback;
+}
+static void BulletVmSetSprite(void* context, AnmVmState* vm, int sprite) {
+	(void)context;
+	vm->sprite = sprite;
+}
+static void BulletVmSetTime(void* context, AnmVmState* vm, float value) {
+	(void)context;
+	vm->time = static_cast<int>(value);
+	vm->time_accumulator = value;
+}
+static float BulletVmRandFloat(void* context, int alt_rng) {
+	(void)context;
+	(void)alt_rng;
+	return 0.5f;  // deterministic host RNG, like the title hooks
+}
+static unsigned int BulletVmRandU32(void* context, int alt_rng) {
+	(void)context;
+	(void)alt_rng;
+	return 0x80000000u;
+}
+static float BulletVmWrapAngle(void* context, float value) {
+	(void)context;
+	const float circle = 6.2831853f;
+	while (value < 0.0f)
+		value += circle;
+	while (value >= circle)
+		value -= circle;
+	return value;
+}
+static void BulletVmNoRing(void* context, AnmVmState* vm) {
+	(void)context;
+	(void)vm;
+}
+static void BulletVmNoChild(void* context, AnmVmState* vm, int variant,
+                            int index) {
+	(void)context;
+	(void)vm;
+	(void)variant;
+	(void)index;
+}
+static void BulletVmNoRingUpdate(void* context, AnmVmState* vm) {
+	(void)context;
+	(void)vm;
+}
+static void BulletVmSetBlendBits(void* context, AnmVmState* vm,
+                                 unsigned int mask, unsigned int value) {
+	(void)context;
+	vm->flags = (vm->flags & ~mask) | (value & mask);
+}
+static const float g_bullet_vm_scroll[3] = {};
+
+static AnmVmHooks g_bullet_vm_hooks = {
+    nullptr,
+    BulletVmReadInt,
+    BulletVmReadFloat,
+    BulletVmIntSlot,
+    BulletVmFloatSlot,
+    BulletVmSetSprite,
+    BulletVmSetTime,
+    BulletVmRandFloat,
+    BulletVmRandU32,
+    BulletVmWrapAngle,
+    BulletVmNoRing,
+    BulletVmNoChild,
+    BulletVmNoRingUpdate,
+    BulletVmSetBlendBits,
+    g_bullet_vm_scroll,
+};
+
+// Per-slot bullet tick (retail sub_406240).  Returns nonzero when the slot
+// must be retired: either the ANM script ended (AnmVm_Tick returns 1) or the
+// slot's state flags request a self-destruct (bit 3 of the +0x00 word).
+int HostBulletPoolTick(void* bullet) {
+	unsigned char* payload = static_cast<unsigned char*>(bullet);
+	if (payload == nullptr)
+		return 0;
+	if ((*reinterpret_cast<unsigned char*>(payload) & 0x08) != 0) {
+		BulletPool_RetireSlot(payload);
+		return 1;
+	}
+	const unsigned char* pool_base = static_cast<const unsigned char*>(
+	    g_bullet_pool_slot);
+	if (pool_base == nullptr || payload < pool_base + 0x60)
+		return 0;
+	const intptr_t offset = payload - (pool_base + 0x60);
+	if (offset < 0 || offset % 0x7F0 != 0)
+		return 0;
+	const int slot = static_cast<int>(offset / 0x7F0);
+	if (slot < 0 || slot >= 2000)
+		return 0;
+	HostBulletVm* vm = &g_bullet_vms[slot];
+	if (!vm->active || vm->state.script_base == nullptr)
+		return 0;
+	const int finished = AnmVm_Tick(&vm->state, &g_bullet_vm_hooks);
+	if (finished != 0) {
+		BulletPool_RetireSlot(payload);
+		vm->active = 0;
+		vm->script_id = -1;
+		return 1;
+	}
+	return 0;
+}
+
 int HostInitBulletPoolRuntime() {
-	// sub_406240 twin: a zero state word marks the bullet already free, so it
-	// reports the bullet destroyed and the sweep drops it from the relink.
+	// sub_406240 twin: run the per-slot ANM VM; when its script ends (or the
+	// slot self-destructs) report the bullet destroyed so the sweep drops it
+	// from the relink lists.
 	BulletPoolUpdateEnv env = {};
-	env.update_bullet = [](void* bullet) -> int {
-		LinkBullet* b = static_cast<LinkBullet*>(bullet);
-		return b != 0 && b->state == 0 ? 1 : 0;
-	};
+	env.update_bullet = HostBulletPoolTick;
+	// Load the raw bullet.anm archive once for per-slot script resolution.
+	// The descriptor-owned resource is mounted separately by
+	// BulletPoolRuntime_Initialize at pool +0x3E0B50.
+	if (g_bullet_anm_bytes == nullptr) {
+		const unsigned int size = Resource_GetFileSize("th10/bullet.anm");
+		if (size != 0) {
+			unsigned char* bytes =
+			    static_cast<unsigned char*>(std::malloc(size));
+			if (bytes != nullptr &&
+			    Resource_LoadFile("th10/bullet.anm", bytes) != nullptr) {
+				g_bullet_anm_bytes = bytes;
+				g_bullet_anm_size = size;
+			} else {
+				std::free(bytes);
+			}
+		}
+	}
+	Log("bullet pool ANM bytes %s (%u bytes)",
+	    g_bullet_anm_bytes != nullptr ? "mounted" : "unavailable",
+	    g_bullet_anm_size);
 	BulletPoolRuntime_SetUpdateEnv(&env);
 	const int status = BulletPoolRuntime_Initialize(reinterpret_cast<void*>(
 	    static_cast<uintptr_t>(DAT_004776f0)));
@@ -2179,6 +2356,47 @@ int HostEclSpawnProjectile(void* record, int cell_x, int cell_y,
 	    static_cast<uint32_t>(reinterpret_cast<uintptr_t>(&DAT_00476f78));
 	*reinterpret_cast<uint32_t*>(payload + 0x41C) = 1;
 	*reinterpret_cast<void**>(manager + 0x10) = payload;
+	// Bind the per-slot ANM VM (retail sub_4067D0): script index =
+	// dword_474170[type] + sub where type/sub are the launch record's first
+	// two words.  The host's 0x190/0x191 slice writes the record as a fresh
+	// slot descriptor, so both words are zero and the default script 0 is
+	// selected; a script that cannot be resolved leaves the slot without a VM
+	// (the slot then stays live, documented rather than fabricated).
+	const uint16_t bullet_type =
+	    *reinterpret_cast<const uint16_t*>(record);
+	const uint16_t bullet_sub =
+	    *reinterpret_cast<const uint16_t*>(
+	        static_cast<const unsigned char*>(record) + 2);
+	// dword_474170: the per-type ANM script base table.
+	static const int32_t kBulletScriptBases[8] = {
+	    0x000, 0x040, 0x050, 0x060, 0x070, 0x080, 0x090, 0x0A0,
+	};
+	const int32_t script_id =
+	    (bullet_type < 8 ? kBulletScriptBases[bullet_type] : 0x000) +
+	    bullet_sub;
+	HostBulletVm* vm = &g_bullet_vms[selected];
+	*vm = HostBulletVm{};
+	vm->active = 0;
+	vm->script_id = -1;
+	AnmFileScript script = {};
+	if (g_bullet_anm_bytes != nullptr &&
+	    AnmFile_FindGlobalScript(
+	        g_bullet_anm_bytes, g_bullet_anm_size,
+	        static_cast<unsigned int>(script_id), nullptr, &script)) {
+		vm->state.script_base = script.instructions;
+		vm->state.pc = script.instructions;
+		vm->state.sprite = -1;
+		vm->state.scale[0] = 1.0f;
+		vm->state.scale[1] = 1.0f;
+		vm->state.scale[2] = 1.0f;
+		vm->state.color[0] = 0xFF;
+		vm->state.color[1] = 0xFF;
+		vm->state.color[2] = 0xFF;
+		vm->state.color[3] = 0xFF;
+		vm->state.speed = 1.0f;
+		vm->script_id = script_id;
+		vm->active = 1;
+	}
 	return 0;
 }
 

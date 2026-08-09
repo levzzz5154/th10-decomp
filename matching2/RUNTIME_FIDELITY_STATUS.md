@@ -115,13 +115,21 @@ children (a 180-frame child finished in 90 frames); the per-frame tick rate is
 now one tick per stage frame for every VM. The bounded trace reaches real
 enemy script calls, movement/flag leaves, and the 0x190/0x191 leaf family:
 85 0x190 executions and 178 0x191 executions activate 178 pool slots (row 0)
-through the launched callback (0x191 runs across stage frames 672..3542). Every
-activated slot is still live at the stage_frame-3570 trace cut and none has
-yet run the retail retirement path: retail retires a launched slot through
-its per-bullet ANM tick (`sub_43EE30` returns nonzero at animation end ->
-sub_405BE0 clears slot +0x446), and the host has not bound per-bullet ANM VMs
-yet — so bullets stay active until the trace cuts. That ANM-bound retirement
-and the relaunch path are the remaining boundary (tracked with the ANM slice).
+through the launched callback (0x191 runs across stage frames 672..3542).
+Launched slots now bind a real per-slot ANM VM from `bullet.anm` (raw bytes
+mounted from the archive at pool init; script id = `dword_474170[type] + sub`
+from the launch record's words, type 0 in this checkout), mirroring retail
+sub_4067D0. The pool sweep's per-bullet hook (retail sub_406240) ticks that VM
+every frame and, when `AnmVm_Tick` reports script end or the slot self-
+destruct flag (bit 3 of +0x00) is set, retires the slot through the shared
+`BulletPool_RetireSlot` leaf (retail sub_405BE0: clears +0x446 and rewinds
+both clock pairs), which the sweep then drops from the relink lists. In this
+checkout every launched slot's script is a looping bullet sprite, so none
+reaches its end inside the stage_frame-3570 window and all 178 stay active at
+the cut — the retirement edge is wired and regression-covered
+(`bullet_pool_update_test` asserts the leaf layout and the sweep drop); the
+remaining boundary is reaching scripts whose sprites terminate plus the
+full collision/offscreen retire paths (tracked with the ANM slice).
 
 The same trace stream now covers the real `stage01.std`/`stage01.ecl` bridge:
 stage resource hashes, stage-entry phases, scheduler primary/ECL/secondary/timeline

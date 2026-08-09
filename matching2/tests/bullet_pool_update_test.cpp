@@ -31,6 +31,7 @@
 // Globals referenced by src/game/bullet_manager.cpp.
 void* g_pGameStateManager = (void*)0x12345678;
 unsigned int DAT_00491be4 = 0;
+uint32_t DAT_00476f78 = 0x3F800000u;  // 1.0f as bits (frame-scale sentinel)
 extern "C" {
 unsigned long dword_477810 = 0;
 }
@@ -302,6 +303,52 @@ int main() {
     BulletPoolRuntime_SetUpdateEnv(0);
     assert(g_captured_update(pool) == 1);
     assert(*(int*)(pool + 0x5C) == 0);
+    assert(HeadSlot(pool, 0) == 0);
+    munmap(pool, kPoolSize);
+
+    // --- BulletPool_RetireSlot (retail sub_405BE0) frees a slot ----------
+    pool = MakePool();
+    assert(pool != 0);
+    Activate(pool, 0, 0);
+    Activate(pool, 1, 3);
+    unsigned char* p0 = Payload(pool, 0);
+    // Pre-seed both clock words and the armed bits so the leaf must rewind
+    // them.
+    *(int*)(p0 + 0x3F8) = 0x76543210;
+    *(int*)(p0 + 0x3FC) = 7;
+    *(float*)(p0 + 0x400) = 123.0f;
+    *(void**)(p0 + 0x404) = &g_default_drive;
+    *(uint32_t*)(p0 + 0x408) = 0;
+    *(int*)(p0 + 0x40C) = 0x11111111;
+    *(int*)(p0 + 0x410) = 9;
+    *(int*)(p0 + 0x414) = 9;
+    *(void**)(p0 + 0x418) = &g_default_drive;
+    *(uint32_t*)(p0 + 0x41C) = 0;
+    BulletPool_RetireSlot(p0);
+    assert(*(unsigned short*)(p0 + 0x446) == 0);
+    assert(*(int*)(p0 + 0x3F8) == (int)0xFFF0BDC1);
+    assert(*(int*)(p0 + 0x3FC) == 0);
+    assert(*(float*)(p0 + 0x400) == 0.0f);
+    assert((uint32_t)(uintptr_t)(
+        *reinterpret_cast<void**>(p0 + 0x404)) ==
+           (uint32_t)(uintptr_t)(void*)&DAT_00476f78);
+    assert((*(uint32_t*)(p0 + 0x408) & 1u) != 0);
+    assert(*(int*)(p0 + 0x40C) == (int)0xFFFFFFFF);
+    assert(*(int*)(p0 + 0x410) == 0);
+    assert(*(int*)(p0 + 0x414) == 0);
+    assert((uint32_t)(uintptr_t)(
+        *reinterpret_cast<void**>(p0 + 0x418)) ==
+           (uint32_t)(uintptr_t)(void*)&DAT_00476f78);
+    assert((*(uint32_t*)(p0 + 0x41C) & 1u) != 0);
+    // The freed word makes the sweep skip the slot; the other slot remains.
+    env = {};
+    env.update_bullet = HookAlive;
+    g_drop_payload = 0;
+    g_hook_calls = 0;
+    assert(BulletPool_UpdateSweep(pool, &env) == 1);
+    assert(*(int*)(pool + 0x5C) == 1);
+    assert(HeadSlot(pool, 3) == Handle(pool, 1) &&
+           TailSlot(pool, 3) == Handle(pool, 1));
     assert(HeadSlot(pool, 0) == 0);
     munmap(pool, kPoolSize);
 
