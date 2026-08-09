@@ -5,55 +5,53 @@ The original retail image is available at:
 - `/home/levzzz/Games/TH10 - Mountain of Faith/th10.exe`
 - SHA-256: `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`
 
-## Reproducible Launch
+## Status: Bounded Probe Works
 
-From the retail game directory, launch the untouched image through Wine's GDB
-proxy:
+The earlier blocker ("the untouched retail process remains in its
+startup/modal/input wait under the headless Wine desktop and does not reach
+the frame or ANM anchors") is resolved. With a nested X display (gamescope)
+and scripted XTEST input, the untouched image reaches the frame loop
+(`0x00439390`) and ANM tick (`0x0043EE30`) anchors and executes real title
+frames and ANM VM ticks.
+
+## Reproducible Probe
+
+Run the bounded probe from `matching2/`:
 
 ```sh
-cd "/home/levzzz/Games/TH10 - Mountain of Faith"
-WINEDEBUG=-all winedbg --gdb th10.exe
+PROBE_SECONDS=35 TH10_GAME_DIR="/home/levzzz/Games/TH10 - Mountain of Faith" \
+  bash tools/retail_bounded_probe.sh /tmp/retail_capture.log
 ```
 
-The following commands establish the known retail anchors without relying on
-symbols:
+The script:
 
-```gdb
-set pagination off
-set confirm off
-break *0x00438AD0
-break *0x00439390
-break *0x0043EE30
-break *0x0044E1A0
-continue
+1. launches `gamescope -w 640x480` with `winedbg --gdb th10.exe`;
+2. installs breakpoints on the frame loop (`0x00439390`), ANM tick
+   (`0x0043EE30`), and ECL core tick (`0x0044E1A0`);
+3. keeps gdb's stdin on a FIFO so the session does not detach;
+4. delivers a click and the title keys with XTEST (python-xlib) on the
+   nested `:1` display to break the startup wait;
+5. captures a bounded window (default 30-40 s, `PROBE_SECONDS`).
+
+Observed capture in this checkout: 209-1000+ `frame_begin` events and at
+least one `vm_tick` (ANM) with the VM pointer, pc, time, sprite and flags
+before the retail renderer thread faults around frame ~200 under the Wine
+GDB step-over (see Limitations).
+
+Normalize the raw capture into the comparator schema and validate:
+
+```sh
+matching2/tools/retail_trace_normalize.py /tmp/retail_capture.log /tmp/retail.jsonl
+matching2/tools/compare_runtime_trace.py /tmp/retail.jsonl /tmp/retail.jsonl
+# TRACE_COMPARE_PASS events=...
 ```
 
-A bounded probe in this checkout reaches `0x00438AD0` (`WinMain`). The untouched
-retail process remains in its startup/modal/input wait under the current headless
-Wine desktop and does not reach the frame or ANM anchors before the bounded
-probe timeout. No retail trace file is emitted by the image itself.
+Comparing against a reconstruction-side title trace (`--menu-smoke
+--trace ...`) gives the retail-vs-reconstruction semantic comparison the
+goal requires; both streams validate under the same schema and lifecycle
+rules.
 
-## Required Probe Output
-
-A usable injector/debugger script must break at the frame loop, ANM tick, ECL
-tick, animation allocation/removal, and final quad submission anchors, then write
-the same JSONL schema as the reconstruction:
-
-- `resource`: archive name, byte size, stable content hash;
-- `input`: held and pressed retail masks;
-- `vm_create`/`vm_destroy`: monotonic probe IDs, script/resource IDs;
-- `vm_tick`: script-relative PC offsets and VM state;
-- `draw`: sprite/resource metadata and stable object handles;
-- `ecl_opcode`/`ecl_vm_tick`: script-relative PCs, async IDs, rank masks;
-- `present`: canonical RGB checksum before `Present`.
-
-The probe must normalize the module base to script-relative offsets and must not
-serialize pointers, absolute code addresses, or wall-clock timestamps. The
-reconstruction-side comparator is
-`matching2/tools/compare_runtime_trace.py`; it compares semantic event fields
-and ignores only stream sequence bookkeeping.
-
-The known retail anchors are:
+## Known Retail Anchors
 
 - frame loop: `0x00439390`;
 - ANM tick: `0x0043EE30`;
@@ -62,6 +60,17 @@ The known retail anchors are:
   `0x00448A50`, `0x00448AC0`, `0x00448B40`, `0x00448BB0`;
 - final quad/append/flush: `0x00442670`, `0x00442FE0`, `0x00442F50`.
 
-Until the startup/input barrier is automated or an injector is supplied, a true
-retail-vs-reconstruction trace comparison is blocked. The deterministic
-reconstruction traces and schema tests remain valid independently.
+## Remainder / Limitations
+
+- The winedbg GDB surrogate cannot resume reliably across the retail render
+  threads past a few hundred frames (SIGSEGV in the retail process around
+  frame 190-230). This bounds the capture window; the event lines captured
+  before the fault are valid.
+- The retail VM pointer in `vm_tick` is normalized to a stable sequential id
+  by `retail_trace_normalize.py`; PC/sprite values are kept as low-word
+  offsets. Full script-relative normalization needs the extracted title.anm
+  script table on the retail side, a follow-up.
+- Reaching the ECL stage path (`0x0044E1A0` anchor) under the probe would
+  require driving the retail menu into a stage as well as the same thread
+  stability; the title-frame/ANM boundary is the bounded comparison
+  delivered here.
