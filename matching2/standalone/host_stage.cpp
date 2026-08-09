@@ -296,6 +296,7 @@ unsigned char* g_enemy_ecl;
 unsigned int g_enemy_ecl_size;
 const unsigned int* g_enemy_ecl_sub_offsets;
 unsigned int g_enemy_ecl_sub_count;
+int g_game_state_alive;   // defined with the ECL globals; declared early
 HostStageRuntimeView g_runtime_view;
 
 void* g_enemy_manager_slot;
@@ -1806,7 +1807,7 @@ void HostResetEnemyRuntime() {
 	if (update != 0) nodes.update_node_flags = &update->flags;
 	if (draw != 0) nodes.render_node_flags = &draw->flags;
 	void* vm_slots[4] = {};
-	if (g_pGameStateManager != 0)
+	if (g_pGameStateManager != 0 && g_game_state_alive)
 		std::memcpy(vm_slots,
 		            static_cast<unsigned char*>(g_pGameStateManager) + 0x3AD090,
 		            sizeof(vm_slots));
@@ -2033,6 +2034,10 @@ int g_ecl_trace_stage_open;
 int g_ecl_trace_opcode_order;
 int g_ecl_root_live;
 int g_ecl_spawns;
+// Liveness latch (defined with the file-scope globals above) for the
+// teardown path. The trace-close guard can run after host_main has freed
+// the game-state arena, so HostResetEnemyRuntime only reads the arena's
+// aux-VM slots while this is set.
 // Retail's async spawn (0x004500D0) allocates a 0x1024 VM record, links it
 // onto the owner's child list at owner+0x1030/+0x1034 and tail-calls the call
 // edge. The host owns a fixed pool and a flat live list instead of the
@@ -3485,6 +3490,10 @@ unsigned char* HostStage_SchedulerDevice() { return g_scheduler_device; }
 
 void HostStage_SetArchiveAvailable(int available) {
 	g_report.archive_available = available;
+}
+
+void HostStage_SetGameStateAlive(int alive) {
+	g_game_state_alive = alive;
 }
 
 int HostStage_ConfirmWeapon(int character, int weapon, int difficulty) {

@@ -5760,6 +5760,7 @@ void* HostCreateGameState(void*, void* arena) {
         arena, 0x732460u, &hooks, &plan, &g_host.game_state_matrices);
     g_pGameStateManager = result;
     g_host.game_state_constructed = result != nullptr;
+    HostStage_SetGameStateAlive(result != nullptr);
     if (result == nullptr)
         std::free(arena);
     return result;
@@ -6262,6 +6263,10 @@ void HostDestroySound(void*) {
     SoundManager_Shutdown(0, &hooks);
 }
 void HostDestroyGameState(void*, void* manager) {
+    // The trace-close guard can still run after this frees the arena, so
+    // revoke the liveness latch the stage teardown reads before returning
+    // the storage.
+    HostStage_SetGameStateAlive(0);
 #if defined(_WIN32)
     HostRetireAllVms("shutdown");
     // Descriptor resources own their D3D textures and archive image. Release

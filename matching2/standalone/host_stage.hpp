@@ -109,6 +109,10 @@ struct HostStageCameraView {
 
 // Record whether th10.dat was mounted (host_main calls this at startup).
 void HostStage_SetArchiveAvailable(int available);
+// Publish/revoke the game-state arena liveness latch. host_main sets it
+// after HostCreateGameState and clears it after HostDestroyGameState so the
+// trace-close teardown never reads a freed manager.
+void HostStage_SetGameStateAlive(int alive);
 
 // Publish the selections and run the genuine construction chain.
 // Returns 0 when GameMode_ApplyRequested dispatched and StageContext_Enter
