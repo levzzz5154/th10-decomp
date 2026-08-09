@@ -63,7 +63,22 @@ def normalize(events: list[dict[str, object]]) -> list[dict[str, object]]:
             out.append({"type": "frame_end", "seq": seq})
             continue
         if event["type"] == "ecl_vm_tick":
-            out.append({"type": "ecl_vm_tick", "seq": seq})
+            ecl: dict[str, object] = {"type": "ecl_vm_tick", "seq": seq}
+            for key in ("vm", "pc_before", "pc_after", "async_id",
+                        "rank_mask", "scratch_top", "result", "live"):
+                if key in event:
+                    value = event[key]
+                    if key == "vm":
+                        # normalize the retail VM pointer to the local id
+                        # space alongside the ANM VMs
+                        p = int(value)
+                        if p not in vms:
+                            vms[p] = len(vms) + 1
+                        value = vms[p]
+                    elif key in ("pc_before", "pc_after"):
+                        value = int(value) & 0xFFFF
+                    ecl[key] = value
+            out.append(ecl)
             continue
         pointer = int(event["vm"])
         if pointer not in vms:
@@ -87,7 +102,13 @@ def normalize(events: list[dict[str, object]]) -> list[dict[str, object]]:
             }
         )
     seq += 1
-    for vm in sorted(vms.values()):
+    # ANM VMs are distinguished from ECL VMs by their create event; only
+    # emit balance destroy records for the ANM space when it is populated.
+    anm_vms = {
+        event["vm"] for event in out
+        if event["type"] == "vm_create"
+    }
+    for vm in sorted(anm_vms):
         out.append({"type": "vm_destroy", "seq": seq, "vm": vm})
     return out
 
