@@ -5709,6 +5709,34 @@ int HostInitDeviceObjects(void*) {
     if (HostCreateD3dDevice() != 0)
         return -1;
     HostApplyDefaults(nullptr);
+    // Retail 0x00439890's tail is `call sub_439D20; push 0FF000000h;
+    // call sub_43BCD0` - the one and only clear-to-black + present in the
+    // whole frame lifecycle, emitted once at device boot. The per-frame
+    // SetViewport must not repeat it (see the frame hook); this is where
+    // the black boot frame comes from.
+    if (g_host.device != nullptr) {
+        Recovery_ResetDeviceStreams(
+            g_host.device,
+            [](void* device) {
+                if (device != nullptr)
+                    static_cast<IDirect3DDevice9*>(device)->Clear(
+                        0, nullptr, 3, 0xFF000000u, 1.0f, 0);
+            },
+            [](void* device) -> int {
+                if (device == nullptr)
+                    return -1;
+                return FAILED(
+                           static_cast<IDirect3DDevice9*>(device)->Present(
+                               nullptr, nullptr, nullptr, nullptr))
+                           ? -1
+                           : 0;
+            },
+            [](void* device) {
+                if (device != nullptr)
+                    static_cast<IDirect3DDevice9*>(device)->Reset(
+                        &g_host.present_parameters);
+            });
+    }
     return 0;
 }
 // Retail 0x0044A0C0: try joystick 0 then 1, and on success capture device
@@ -6072,59 +6100,36 @@ int HostFrameAdvance(void*) {
             };
             Camera_Apply(&camera, &camera_hooks);
         },
-        [](void*) {                     // set_viewport (0x0043BCD0)
+        [](void*) {                     // set_viewport (retail loc_4393E9)
+            // Retail's frame loop applies the 640x480 viewport with a bare
+            // SetViewport (device vtable +0xBC) - the flush happened earlier
+            // in the frame, and there is no clear and no present here.
+            // The clear-to-black + present pair (0x0043BC40) is boot-only,
+            // emitted once by 0x00439890 after the device is created; the
+            // host reproduces that once in HostInitDeviceObjects. Wiring it
+            // into this per-frame hook made every presented frame consume
+            // two vblank waits (black flash + content), which is the 30fps
+            // flicker symptom.
             static ViewportBlock viewport_storage;
-            static ViewportHooks viewport_hooks = {
-                nullptr,
-                // 0x0043BCD0 opens with the sprite-batch flush (0x00442F50).
-                [](void*) {
-                    if (g_host.device != nullptr)
-                        HostAnmStateFlush();
-                },
-                [](void*, const ViewportBlock* viewport) {
-                    g_host.viewport_applied =
-                        viewport->width == 0x280 && viewport->height == 0x1E0;
-                    if (g_host.device == nullptr)
-                        return;
-                    // The block Viewport_ApplyDefault fills is retail's, so
-                    // it goes to the device rather than only being inspected.
-                    D3DVIEWPORT9 applied = {};
-                    applied.X = viewport->x;
-                    applied.Y = viewport->y;
-                    applied.Width = viewport->width;
-                    applied.Height = viewport->height;
-                    applied.MinZ = viewport->min_z;
-                    applied.MaxZ = viewport->max_z;
-                    g_host.device->SetViewport(&applied);
-                },
-                // 0x0043BC40: twice, clear target+Z opaque black, present,
-                // and on failure reset the device from the present block.
-                [](void*) {
-                    Recovery_ResetDeviceStreams(
-                        g_host.device,
-                        [](void* device) {
-                            if (device != nullptr)
-                                static_cast<IDirect3DDevice9*>(device)->Clear(
-                                    0, nullptr, 3, 0xFF000000u, 1.0f, 0);
-                        },
-                        [](void* device) -> int {
-                            if (device == nullptr)
-                                return -1;
-                            return FAILED(
-                                       static_cast<IDirect3DDevice9*>(device)
-                                           ->Present(nullptr, nullptr,
-                                                     nullptr, nullptr))
-                                       ? -1
-                                       : 0;
-                        },
-                        [](void* device) {
-                            if (device != nullptr)
-                                static_cast<IDirect3DDevice9*>(device)->Reset(
-                                    &g_host.present_parameters);
-                        });
-                },
-            };
-            Viewport_ApplyDefault(&viewport_storage, &viewport_hooks);
+            viewport_storage.x = 0;
+            viewport_storage.y = 0;
+            viewport_storage.width = 0x280;
+            viewport_storage.height = 0x1E0;
+            viewport_storage.min_z = 0.0f;
+            viewport_storage.max_z = 1.0f;
+            g_host.viewport_applied =
+                viewport_storage.width == 0x280 &&
+                viewport_storage.height == 0x1E0;
+            if (g_host.device == nullptr)
+                return;
+            D3DVIEWPORT9 applied = {};
+            applied.X = viewport_storage.x;
+            applied.Y = viewport_storage.y;
+            applied.Width = viewport_storage.width;
+            applied.Height = viewport_storage.height;
+            applied.MinZ = viewport_storage.min_z;
+            applied.MaxZ = viewport_storage.max_z;
+            g_host.device->SetViewport(&applied);
         },
         HostRunSchedulerFrame,
         [](void*) { HostDrainSound(nullptr); },
