@@ -1136,6 +1136,95 @@ void TestRecoveredLeafDispatcher() {
     g_pGameStateManager = 0;
 }
 
+void TestRecordInitOpcodes() {
+    // 0x119 / 0x11b (loc_40F273): per-axis sub-record init at entity+0x13C
+    // (0x119) / +0x188 (0x11b), seeded from the position triple at
+    // entity+0x58 / +0x84.  X/Y fall back to the source triple when the
+    // operand is negative; the record triple and the arm helper write the
+    // expected fields; [source+0x28] bit 0 is cleared.
+    uint8_t entity[0x2800] = {};
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint8_t state_bytes[0x20] = {};
+    ECLVMState* state = (ECLVMState*)state_bytes;
+    CursorFixture fixture;
+    state->cursor = (ECLInstructionCursor*)fixture.bytes;
+    *(ECLVMState**)(entity + 0x14D8) = state;
+
+    fixture.instruction.instruction.param_mask = 0;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x00) = 111.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x04) = 222.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x08) = 333.0f;
+    fixture.instruction.instruction.opcode = 0x119;
+    fixture.Operands()[0] = 5;                    // record+0x44
+    fixture.Operands()[1] = 6;                    // record+0x48
+    fixture.Operands()[2] = FloatBits(-1.0f);     // negative -> X from source
+    fixture.Operands()[3] = FloatBits(42.5f);     // Y from operand
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint8_t* record = entity + 0x13C;
+    assert(*reinterpret_cast<int32_t*>(record + 0x44) == 5);
+    assert(*reinterpret_cast<int32_t*>(record + 0x48) == 6);
+    assert(std::memcmp(record + 0x00, entity + 0x58, 3 * sizeof(float)) == 0);
+    assert(*reinterpret_cast<float*>(record + 0x0C) == 111.0f);   // X = source
+    assert(*reinterpret_cast<float*>(record + 0x10) == 42.5f);    // Y = operand
+    assert(*reinterpret_cast<int32_t*>(entity + 0x58 + 0x28) == 0);
+    // record+0x30..0x40 armed by ECL_InitBulletRecord
+    assert((*reinterpret_cast<uint32_t*>(record + 0x40) & 1u) != 0);
+
+    // 0x11b variant: same body, source +0x84, record +0x188.
+    *reinterpret_cast<float*>(entity + 0x84 + 0x00) = 7.0f;
+    fixture.instruction.instruction.opcode = 0x11b;
+    fixture.Operands()[0] = 0;
+    fixture.Operands()[1] = 0;
+    fixture.Operands()[2] = FloatBits(9.5f);
+    fixture.Operands()[3] = FloatBits(-2.0f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint8_t* record_b = entity + 0x188;
+    assert(std::memcmp(record_b + 0x00, entity + 0x84, 3 * sizeof(float)) == 0);
+    assert(*reinterpret_cast<float*>(record_b + 0x0C) == 9.5f);
+    assert(*reinterpret_cast<float*>(record_b + 0x10) == 0.0f);  // source+4 (zeroed)
+    assert(*reinterpret_cast<int32_t*>(entity + 0x84 + 0x28) == 0);
+
+    // 0x11d / 0x11f (retail loc_40F460): per-axis record init at
+    // entity+0x1D4 (0x11d) / +0x210 (0x11f).  i1 == 7 selects the
+    // zero-fallback branch; otherwise X falls back to [source+0x1C] when
+    // f2 <= 0 and Y to [source+0x18] when f3 <= 0.  The angle-unwrap
+    // adjusts [source+0x1C] by a full turn when needed.
+    *reinterpret_cast<float*>(entity + 0x58 + 0x18) = 100.0f;   // source y old
+    *reinterpret_cast<float*>(entity + 0x58 + 0x1C) = -3.0f;    // source z old
+    fixture.instruction.instruction.opcode = 0x11d;
+    fixture.Operands()[0] = 11;                   // i0 -> record+0x34
+    fixture.Operands()[1] = 7;                    // i1 == 7 special
+    fixture.Operands()[2] = FloatBits(12.25f);    // f2 >= 0 -> X
+    fixture.Operands()[3] = FloatBits(-5.0f);     // f3 < 0 -> Y = 0
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint8_t* record_d = entity + 0x1D4;
+    assert(*reinterpret_cast<float*>(record_d + 0x08) == 12.25f);
+    assert(*reinterpret_cast<float*>(record_d + 0x0C) == 0.0f);
+    assert(*reinterpret_cast<int32_t*>(record_d + 0x34) == 11);
+    assert(*reinterpret_cast<int32_t*>(record_d + 0x38) == 7);
+    assert((*reinterpret_cast<uint32_t*>(record_d + 0x30) & 1u) != 0);
+    assert(*reinterpret_cast<int32_t*>(entity + 0x58 + 0x28) == 0);
+
+    // i1 != 7: X = f2 when >= 0, Y = f3 when >= 0.  |a - X| = 300 >= pi and
+    // a (-200) < X (100), so the unwrap adds 2pi to the source component and
+    // record+0 = that value while record+8 keeps the operand X.
+    *reinterpret_cast<float*>(entity + 0x58 + 0x1C) = -200.0f;
+    fixture.instruction.instruction.opcode = 0x11d;
+    fixture.Operands()[0] = 9;
+    fixture.Operands()[1] = 3;
+    fixture.Operands()[2] = FloatBits(100.0f);
+    fixture.Operands()[3] = FloatBits(31.5f);
+    assert(ECL_VM_Dispatch(entity) == 0);
+    const float unwrapped = -200.0f + 2.0f * 3.1415927f;
+    assert(*reinterpret_cast<float*>(record_d + 0x00) == unwrapped);
+    assert(*reinterpret_cast<float*>(record_d + 0x08) == 100.0f);
+    assert(*reinterpret_cast<float*>(record_d + 0x0C) == 31.5f);
+    assert(*reinterpret_cast<int32_t*>(record_d + 0x34) == 9);
+    assert(*reinterpret_cast<int32_t*>(record_d + 0x38) == 3);
+
+    g_pGameStateManager = 0;
+}
+
 } // namespace
 
 int main() {
@@ -1148,5 +1237,6 @@ int main() {
     TestDecodedValueResolvers();
     TestTypedStackPops();
     TestRecoveredLeafDispatcher();
+    TestRecordInitOpcodes();
     return 0;
 }

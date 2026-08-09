@@ -1930,24 +1930,112 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     }
     case 0x119:
     case 0x11b: {
-        // Per-axis sub-record init at entity+0x13c (0x119) / +0x188
-        // (0x11b).  Reads 6 float operands, dispatches the bit-0
-        // sub_index via FUN_0044fdb0 then hands control to FUN_004050d0
-        // (the per-bullet spawn record) which is still on the retail
-        // image.  Documented stub.
-        for (int i = 0; i < 6; ++i)
-            ECL_ResolveFloatOperand(state->cursor, i);
+        // Retail loc_40F273 (jumptable cases 281,283).  Per-axis sub-record
+        // init: the record lives at entity+0x13C (0x119) / +0x188 (0x11b)
+        // and is seeded from the position triple at entity+0x58 / +0x84.
+        // Resolves float operands 2/3 and int operands 0/1, writes the
+        // record triple (dword_491C14/18/1C are zero-filled BSS), copies
+        // the source triple, then hands the record to FUN_004050d0
+        // (ECL_InitBulletRecord).  [source+0x28] bit 0 is cleared.
+        const unsigned int source_offset = opcode == 0x119 ? 0x58u : 0x84u;
+        const unsigned int record_offset = opcode == 0x119 ? 0x13Cu : 0x188u;
+        uint8_t* source = static_cast<uint8_t*>(entity) + source_offset;
+        uint8_t* record = static_cast<uint8_t*>(entity) + record_offset;
+
+        const float f2 = ECL_ResolveFloatOperand(state->cursor, 2);
+        const float f3 = ECL_ResolveFloatOperand(state->cursor, 3);
+        EntityInt(record, 0x44) = ECL_ResolveIntOperand(state->cursor, 0);
+        // dword_491C14/18/1C: zero-filled BSS in retail; the record's two
+        // 3-float blocks at +0x18 and +0x24 are seeded from them.
+        std::memset(record + 0x18, 0, 3 * sizeof(float));
+        std::memset(record + 0x24, 0, 3 * sizeof(float));
+        EntityInt(record, 0x48) = ECL_ResolveIntOperand(state->cursor, 1);
+        // record+0x00..0x08 = source triple (entity+0x58/0x84 + 0..8).
+        std::memcpy(record + 0x00, source, 3 * sizeof(float));
+        // X/Y: operand when >= 0, otherwise the source triple component.
+        // Retail's `fcomp dbl_470D58 (=0.0); test ah,41h; jnz` branch keeps
+        // the operand for positive values and falls back to [edi]/[edi+4].
+        const float x = (DAT_00470d58 < f2) ? f2 : EntityFloat(source, 0x00);
+        const float y = (DAT_00470d58 < f3) ? f3 : EntityFloat(source, 0x04);
+        EntityFloat(record, 0x0C) = x;
+        EntityFloat(record, 0x10) = y;
+        EntityFloat(record, 0x14) = 0.0f;
+        ECL_InitBulletRecord(record);
+        EntityInt(source, 0x28) &= ~1u;
         return 0;
     }
     case 0x11d:
     case 0x11f: {
-        // Comprehensive per-axis position init.  Reads operands 0..2,
-        // branches on a 10.0f sub_index comparison, optionally mirrors z
-        // around DAT_00470b94 (flag 0x800), and seeds the sub-record at
-        // +0x1d4 (0x11d) / +0x210 (0x11f).  Documented stub pending
-        // full FUN_0044fdb0 reconstruction.
-        ECL_ResolveFloatOperand(state->cursor, 0);
-        ECL_ResolveFloatOperand(state->cursor, 1);
+        // Retail loc_40F460 (jumptable cases 285,287).  Comprehensive
+        // per-axis record init at entity+0x1D4 (0x11d) / +0x210 (0x11f),
+        // reading float operands 2/3 and int operands 0/1.
+        //
+        // i1 == 7: X = f2 if f2 > 0 else 0; Y = f3 if f3 > 0 else 0.
+        // i1 != 7: X = f2 (optionally mirrored around DAT_00470b94 when
+        // entity flag 0x800 is set) if f2 > 0, else [source+0x1C];
+        //          Y = f3 if f3 > 0 else [source+0x18].
+        // Then the angle-unwrap step brings [source+0x1C] and X within a
+        // half-turn of each other before the record is written:
+        // record+0x00..0x0C = (a, b, X, Y), record fields +0x10/14/18/1C
+        // seeded from dword_491C20/24 (zero BSS), record+0x34 = i0,
+        // record+0x38 = i1, and FUN_00412db0 (ECL_InitMovementRecord)
+        // arms the record.  [source+0x28] bit 0 is cleared.
+        const unsigned int source_offset = opcode == 0x11d ? 0x58u : 0x84u;
+        const unsigned int record_offset = opcode == 0x11d ? 0x1D4u : 0x210u;
+        uint8_t* source = static_cast<uint8_t*>(entity) + source_offset;
+        uint8_t* record = static_cast<uint8_t*>(entity) + record_offset;
+
+        const float f2 = ECL_ResolveFloatOperand(state->cursor, 2);
+        const float f3 = ECL_ResolveFloatOperand(state->cursor, 3);
+        const int32_t i1 = ECL_ResolveIntOperand(state->cursor, 1);
+        EntityInt(record, 0x38) = i1;
+
+        float x;
+        float y;
+        if (i1 == 7) {
+            x = (DAT_00470d58 < f2) ? f2 : 0.0f;
+            y = (DAT_00470d58 < f3) ? f3 : 0.0f;
+        } else {
+            if (DAT_00470d58 < f2) {
+                float value = f2;
+                if ((EntityFlags(entity) & 0x800u) != 0) {
+                    // Retail loc_40F507's mirror: f2 -= pi/2, wrap,
+                    // f2 = pi/2 - f2, wrap.  sub_44BC70 is the angle
+                    // wrap into [-pi, pi] that ECL_WrapValue performs.
+                    value -= DAT_00470b94;
+                    ECL_WrapValue(&value);
+                    value = DAT_00470b94 - value;
+                    ECL_WrapValue(&value);
+                }
+                x = value;
+            } else {
+                x = EntityFloat(source, 0x1C);
+            }
+            y = (DAT_00470d58 < f3) ? f3 : EntityFloat(source, 0x18);
+        }
+
+        // Angle-unwrap: only when |[source+0x1C] - x| >= pi do we add a
+        // full turn to one of them.  Retail (loc_570/5AD) adds 2pi to the
+        // smaller so the pair lands within a half-turn.
+        float a = EntityFloat(source, 0x1C);
+        const float b = EntityFloat(source, 0x18);
+        if (std::fabs(a - x) >= 3.14159274f) {
+            if (a < x)
+                a += 6.28318548f;
+            else
+                x += 6.28318548f;
+        }
+
+        const int32_t i0 = ECL_ResolveIntOperand(state->cursor, 0);
+        EntityInt(record, 0x34) = i0;
+        // dword_491C20/24 are zero-filled BSS in retail.
+        std::memset(record + 0x10, 0, 4 * sizeof(float));
+        EntityFloat(record, 0x00) = a;
+        EntityFloat(record, 0x04) = b;
+        EntityFloat(record, 0x08) = x;
+        EntityFloat(record, 0x0C) = y;
+        ECL_InitMovementRecord(record);
+        EntityInt(source, 0x28) &= ~1u;
         return 0;
     }
     case 0x121:

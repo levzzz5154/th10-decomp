@@ -395,6 +395,26 @@ void ECL_ReleaseByID(int32_t id) {
     }
 }
 
+// Unlink an entity from the active list by pointer.  The id-based lookup is
+// not usable for teardown: retail opcodes 0x119/0x11b write the record field
+// that shares the node's id word (entity+0x116C+0x54), so a spawn that ran
+// those opcodes no longer matches its original id.  Pointer identity is the
+// stable key for host-owned ECL spawns.
+void ECL_ReleaseEntity(void* entity) {
+    if (g_active_manager == nullptr || entity == nullptr)
+        return;
+    unsigned char* target = EclNode(entity);
+    for (unsigned char* node =
+             static_cast<unsigned char*>(g_active_manager->head);
+         node != nullptr;
+         node = EclNext(node)) {
+        if (node != target)
+            continue;
+        EclUnlinkNode(g_active_manager, node);
+        return;
+    }
+}
+
 void ECL_ApplyEclFlag(void) {
     // FUN_0040cea0: set the manager's 0x10 bit and dispatch the
     // sound-queue helper.  The readable version drives this from the

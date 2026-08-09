@@ -98,6 +98,26 @@ void TestActiveEntityList() {
     assert(*reinterpret_cast<void**>(manager + 0x58) == nullptr);
 }
 
+// The id word (node+0x54 = entity+0x11C0) is a retail record field that
+// opcodes 0x119/0x11b rewrite; teardown must unlink by pointer identity, not
+// by that id.  A spawn whose id was overwritten must still be releasable.
+void TestReleaseEntityByPointer() {
+    uint8_t manager[0x80] = {};
+    const size_t count_offset = sizeof(void*) == 4 ? 0x60 : 0x68;
+    uint8_t entity[0x2518] = {};
+    *reinterpret_cast<int32_t*>(entity + 0x116C + 0x54) = 0x100000;
+    ECL_AddToActiveList(manager, entity);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 1);
+    // 0x119/0x11b write the record field at entity+0x11C0, which is the
+    // same word the node carries its id in; the id lookup no longer matches.
+    *reinterpret_cast<int32_t*>(entity + 0x11C0) = 0x1234;
+    assert(ECL_FindByID(0x100000) == nullptr);
+    // Pointer-based release still finds the node and unlinks it.
+    ECL_ReleaseEntity(entity);
+    assert(*reinterpret_cast<uint32_t*>(manager + count_offset) == 0);
+    assert(*reinterpret_cast<void**>(manager + 0x58) == nullptr);
+}
+
 }  // namespace
 
 int main() {
@@ -107,5 +127,6 @@ int main() {
     TestInitMovementRecord();
     TestSetPositionZWithWrap();
     TestActiveEntityList();
+    TestReleaseEntityByPointer();
     return 0;
 }

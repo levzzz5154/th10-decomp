@@ -1785,7 +1785,11 @@ void HostResetEnemyRuntime() {
 		// records through the matching helper first, leaving any unrelated
 		// enemy-manager nodes for the retail teardown walker below.
 		for (int index = 0; index < spawned_count; ++index) {
-			ECL_ReleaseByID(g_spawned_ecl_enemies[index].trace_id);
+			// Unlink by pointer: the id word (entity+0x116C+0x54) is a
+			// retail record field that opcodes 0x119/0x11b rewrite, so an
+			// id-based lookup would leave the node linked and teardown
+			// would walk freed memory.
+			ECL_ReleaseEntity(g_spawned_ecl_enemies[index].entity);
 			HostFreeMem(g_spawned_ecl_enemies[index].entity);
 		}
 		g_spawned_ecl_enemy_count = 0;

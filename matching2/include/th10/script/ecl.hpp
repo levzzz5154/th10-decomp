@@ -182,6 +182,7 @@ int ECL_ExecuteProjectileSpawn(void* record, int cell_x, int cell_y,
                                 float x, float y, float z);
 void* ECL_FindByID(int32_t id);
 void ECL_ReleaseByID(int32_t id);
+void ECL_ReleaseEntity(void* entity);
 void ECL_ApplyEclFlag(void);
 void ECL_ApplyEclFlagAlt(void);
 void ECL_RangeReset(void);
