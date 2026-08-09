@@ -1222,6 +1222,45 @@ void TestRecordInitOpcodes() {
     assert(*reinterpret_cast<int32_t*>(record_d + 0x34) == 9);
     assert(*reinterpret_cast<int32_t*>(record_d + 0x38) == 3);
 
+    // 0x121 / 0x123 (retail loc_40F6F1): two-record init.  rec1 at
+    // entity+0x1D4 (0x121) / +0x210 (0x123), rec2 at +0x24C / +0x288,
+    // read from the source triple at +0x58 / +0x84.  X/Y fall back to
+    // [source+0x1C]/[source+0x18], w/z to [source+0x20]/[source+0x24].
+    std::memset(entity + 0xDD0, 0, 0x2C);   // clear source +0x58..0x84
+    *reinterpret_cast<float*>(entity + 0x58 + 0x00) = 1.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x04) = 2.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x08) = 3.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x18) = 10.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x1C) = 20.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x20) = 30.0f;
+    *reinterpret_cast<float*>(entity + 0x58 + 0x24) = 40.0f;
+    fixture.instruction.instruction.opcode = 0x121;
+    fixture.Operands()[0] = 14;                    // i0
+    fixture.Operands()[1] = 15;                    // i1
+    fixture.Operands()[2] = FloatBits(100.0f);     // X
+    fixture.Operands()[3] = FloatBits(-1.0f);      // Y -> [src+0x18]
+    fixture.Operands()[4] = FloatBits(-2.0f);      // w -> [src+0x20]
+    fixture.Operands()[5] = FloatBits(200.0f);     // z
+    assert(ECL_VM_Dispatch(entity) == 0);
+    uint8_t* rec1 = entity + 0x1D4;
+    uint8_t* rec2 = entity + 0x24C;
+    assert(*reinterpret_cast<float*>(rec1 + 0x00) == 20.0f);   // b
+    assert(*reinterpret_cast<float*>(rec1 + 0x04) == 10.0f);   // a
+    assert(*reinterpret_cast<float*>(rec1 + 0x08) == 100.0f);  // X
+    assert(*reinterpret_cast<float*>(rec1 + 0x0C) == 10.0f);   // Y = src+18
+    assert(*reinterpret_cast<int32_t*>(rec1 + 0x34) == 14);
+    assert(*reinterpret_cast<int32_t*>(rec1 + 0x38) == 15);
+    assert(*reinterpret_cast<float*>(rec2 + 0x00) == 30.0f);   // d
+    assert(*reinterpret_cast<float*>(rec2 + 0x04) == 40.0f);   // c
+    assert(*reinterpret_cast<float*>(rec2 + 0x08) == 30.0f);   // w = src+20
+    assert(*reinterpret_cast<float*>(rec2 + 0x0C) == 200.0f);  // z
+    assert(*reinterpret_cast<int32_t*>(rec2 + 0x34) == 14);
+    assert(*reinterpret_cast<int32_t*>(rec2 + 0x38) == 15);
+    assert(*reinterpret_cast<float*>(entity + 0x58 + 0x0C) == 1.0f);
+    assert(*reinterpret_cast<float*>(entity + 0x58 + 0x10) == 2.0f);
+    assert(*reinterpret_cast<float*>(entity + 0x58 + 0x14) == 3.0f);
+    assert(*reinterpret_cast<int32_t*>(entity + 0x58 + 0x28) == 1);
+
     g_pGameStateManager = 0;
 }
 

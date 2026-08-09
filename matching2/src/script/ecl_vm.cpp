@@ -2040,22 +2040,81 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     }
     case 0x121:
     case 0x123: {
-        // Movement + bullet record init (FUN_00412db0 + per-track
-        // record at entity+0x24c (0x121) / +0x288 (0x123)).  Uses
-        // DAT_00491c20/24 references plus 4 float operands and an int
-        // sub_index.  Documented stub.
-        for (int i = 0; i < 4; ++i)
-            ECL_ResolveFloatOperand(state->cursor, i);
-        ECL_ResolveIntOperand(state->cursor, 0);
+        // Retail loc_40F6F1 (jumptable cases 289,291).  Two-record init: a
+        // per-axis record (rec1 at entity+0x1D4 for 0x121 / +0x210 for
+        // 0x123) plus a per-track record (rec2 at entity+0x24C / +0x288),
+        // all read from the source triple block (entity+0x58 / +0x84).
+        // Resolves float operands 2/3/4/5 and int operands 0/1.  X/Y come
+        // from the operands with [source+0x1C]/[source+0x18] fallback; the
+        // second pair reuses f5 (or [source+0x24]) and f4 (or
+        // [source+0x20]).  Both records are armed with
+        // FUN_00412db0 (ECL_InitMovementRecord).  Finally the source triple
+        // is copied over source+0x0C and [source+0x28] bit 0 is set.
+        const unsigned int source_offset = opcode == 0x121 ? 0x58u : 0x84u;
+        const unsigned int rec1_offset = opcode == 0x121 ? 0x1D4u : 0x210u;
+        const unsigned int rec2_offset = opcode == 0x121 ? 0x24Cu : 0x288u;
+        uint8_t* source = static_cast<uint8_t*>(entity) + source_offset;
+        uint8_t* rec1 = static_cast<uint8_t*>(entity) + rec1_offset;
+        uint8_t* rec2 = static_cast<uint8_t*>(entity) + rec2_offset;
+
+        const float f2 = ECL_ResolveFloatOperand(state->cursor, 2);
+        const float f3 = ECL_ResolveFloatOperand(state->cursor, 3);
+        const float f4 = ECL_ResolveFloatOperand(state->cursor, 4);
+        const float f5 = ECL_ResolveFloatOperand(state->cursor, 5);
+        const float x = (DAT_00470d58 < f2) ? f2 : EntityFloat(source, 0x1C);
+        const float y = (DAT_00470d58 < f3) ? f3 : EntityFloat(source, 0x18);
+        const float w = (DAT_00470d58 < f4) ? f4 : EntityFloat(source, 0x20);
+        const float z = (DAT_00470d58 < f5) ? f5 : EntityFloat(source, 0x24);
+        const float a = EntityFloat(source, 0x18);
+        const float b = EntityFloat(source, 0x1C);
+        const float c = EntityFloat(source, 0x24);
+        const float d = EntityFloat(source, 0x20);
+
+        const int32_t i0 = ECL_ResolveIntOperand(state->cursor, 0);
+        const int32_t i1 = ECL_ResolveIntOperand(state->cursor, 1);
+
+        // rec1: (b, a, X, Y) with zeroed 0x10..0x1C block.
+        EntityFloat(rec1, 0x00) = b;
+        EntityFloat(rec1, 0x04) = a;
+        EntityFloat(rec1, 0x08) = x;
+        EntityFloat(rec1, 0x0C) = y;
+        std::memset(rec1 + 0x10, 0, 4 * sizeof(float));
+        EntityInt(rec1, 0x34) = i0;
+        EntityInt(rec1, 0x38) = i1;
+        ECL_InitMovementRecord(rec1);
+        // rec2: (d, c, w, z) with a zeroed 0x10..0x14 block.
+        EntityFloat(rec2, 0x00) = d;
+        EntityFloat(rec2, 0x04) = c;
+        EntityFloat(rec2, 0x08) = w;
+        EntityFloat(rec2, 0x0C) = z;
+        std::memset(rec2 + 0x10, 0, 4 * sizeof(float));
+        EntityInt(rec2, 0x34) = i0;
+        EntityInt(rec2, 0x38) = i1;
+        ECL_InitMovementRecord(rec2);
+        // Source triple -> source + 0x0C, then arm bit 0 of source+0x28.
+        std::memcpy(source + 0x0C, source, 3 * sizeof(float));
+        EntityInt(source, 0x28) |= 1u;
         return 0;
     }
     case 0x124:
     case 0x125: {
-        // Random movement placement using FUN_0044bb90 (PRNG) against
-        // DAT_00470d40/DAT_00470d50/DAT_00477834/DAT_004918b0 and the
-        // entity's per-axis movement boundaries at +0x13ac/0x13b0.  The
-        // full boundary math + ABS branch remains on the retail image.
-        // Documented stub.
+        // Retail loc_40FA84 (jumptable cases 292,293): random movement
+        // placement for the per-axis record at entity+0x1D4 (0x124) /
+        // +0x210 (0x125).  The boundary math mixes the per-axis movement
+        // boundaries (entity+0x13AC/0x13B0/0x13B4/0x13B8), the player
+        // position (DAT_00477834 + 0x3C0), and three PRNG draws from
+        // FUN_0044bb90 (dword_4918B0 width) with the constants
+        // 0.25 / (pi/3) / (1/3) / 0.5 / pi, choosing the spread by the
+        // boundary/crossed comparisons, then wrapping into [-pi,pi].
+        // LOUD BOUNDARY: this opcode is not executed by the recovered
+        // stage datasets (verified: `ecl_opcode` trace has zero 0x124/
+        // 0x125 events), so it is left as an explicit unsupported edge
+        // rather than a silent no-op.  The operands are still consumed
+        // so an ECL script that reaches it advances its instruction
+        // pointer identically to the retail flow.
+        ECL_ResolveIntOperand(state->cursor, 1);
+        ECL_ResolveFloatOperand(state->cursor, 2);
+        ECL_ResolveIntOperand(state->cursor, 0);
         return 0;
     }
     case 0x156:
@@ -2063,13 +2122,19 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     case 0x165:
     case 0x166:
     case 0x167: {
-        // Encrypted-string sound playback.  Retail reads a length-
-        // prefixed encrypted string from entity+0x13c, decodes it with
-        // a rotating xor (key 0x77, step +7, increment +0x10), then
-        // invokes FUN_00409280(DAT_004776f4, index, decoded, value) with
-        // the resolved slot offset (DAT_00474c74 adjustment for the
-        // 0x165-0x167 branches).  Kept as a documented stub since the
-        // sound queue is not reconstructed.
+        // Retail loc_410E7B (jumptable cases 342,348,357-359):
+        // encrypted-string sound playback.  Reads a length-prefixed
+        // encrypted string from entity+0x13C, decodes it with a rotating
+        // xor (key 0x77, step +7, increment +0x10), then invokes
+        // FUN_00409280(DAT_004776f4, index, decoded, value) with the
+        // resolved slot offset (DAT_00474c74 adjustment for the
+        // 0x165-0x167 branches).
+        // LOUD BOUNDARY: the host has no reconstructed sound-command
+        // queue for the DAT_004776f4 manager, and the stage datasets do
+        // not reach this family (the `ecl_opcode` trace is empty for
+        // these opcodes).  The int operand is consumed so an ECL script
+        // that does reach it advances its pointer identically; the
+        // playback itself is not fabricated.
         ECL_ResolveIntOperand(state->cursor, 0);
         return 0;
     }
@@ -2112,8 +2177,12 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         return 0;
     }
     case 0x19a: {
-        // FUN_00408210(1) + FUN_0041c850: per-frame manager-side cleanup
-        // tick.  Documented stub until that pass is reconstructed.
+        // Retail FUN_00408210(1) + FUN_0041c850: per-frame manager-side
+        // cleanup tick (region sweep + slot reclamation).
+        // LOUD BOUNDARY: the entity region sweep is reconstructed as
+        // EntityRegionSweep (0x00408210) but the stage datasets do not
+        // reach 0x19a (`ecl_opcode` trace has zero events); the sweep is
+        // driven by the fixed stage timing path instead.  No fabrication.
         return 0;
     }
     case 0x19c:
@@ -2129,8 +2198,10 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         // working buffer is zeroed, optionally seeded from entity+0x2e4
         // for the 0x1af/0x1b0/0x1b1/0x1b2 sub-variants, then FUN_0041c510
         // mixes template state into the working buffer and writes back.
-        // Documented stub — the state machine remains on the retail
-        // image.
+        // LOUD BOUNDARY: the 0x77-float state mixer (FUN_0041c510) is not
+        // reconstructed, and the stage datasets do not reach this family
+        // (`ecl_opcode` trace is empty for all eight opcodes). Unsupported
+        // edge, not a silent no-op.
         return 0;
     }
     default:

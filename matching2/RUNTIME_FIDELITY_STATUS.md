@@ -179,6 +179,21 @@ reports 280 production translation units, zero unresolved project edges, zero
 placeholders, and zero new or worsened fidelity findings. The published
 `run_pe32.sh --resource-smoke` also passes against real archive resources.
 
+The ECL per-axis record init opcodes are reconstructed from retail:
+0x119/0x11b (record at entity+0x13C/+0x188) and 0x11d/0x11f (entity+0x1D4/
++0x210) implement the full retail bodies, including the i1==7 zero-fallback
+branch of 0x11d, the entity-flag-0x800 angle mirror, the half-turn unwrap, and
+the FUN_004050d0/FUN_00412db0 record arming. 0x121/0x123 (twin movement
+records) are likewise implemented. The five "tracking globals" the old stubs
+cited (0x491C14/18/1C/20/24) are zero-filled BSS in the retail image, so the
+record fields they seed are zero. Stage teardown unlinks ECL spawns by pointer
+(`ECL_ReleaseEntity`) because the node id word (entity+0x116C+0x54) is a retail
+record field that 0x119/0x11b rewrite; the id-based lookup left freed nodes in
+the manager walk. The remaining 0x124/0x125, 0x156-family, 0x19a, and
+0x19c-family are explicit loud unsupported boundaries (their opcodes never
+appear in the recovered stage traces; operands are consumed so the VM advances
+identically to retail).
+
 With a nonzero nested X11 display (`gamescope -W 1280 -H 720 -w 640 -h 480
 -- sleep ...`), the canonical `run_all_pe32.sh --menu-smoke` and
 `--boot-real 360` both pass with `device=yes`; `--stage-live 120` also passes
