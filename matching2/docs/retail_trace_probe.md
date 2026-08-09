@@ -51,6 +51,21 @@ retail `vm` pointers are remapped to stable sequential ids and an
 comparator accepts both retail-side and reconstruction-side streams for the
 retail-vs-reconstruction comparison.
 
+## Determinism Evidence
+
+Two independent probe runs with identical input, truncated to their common
+window, differ only by the SIGSEGV boundary offset: 7,985 of 7,986 semantic
+events are identical (the lone difference is the ECL tick landing one
+position later in run 2). The frame loop and ECL core ticks are therefore
+deterministic on the retail side under the same comparator the
+reconstruction uses.
+
+A normalized reference capture of the untouched image (19,745 frames and
+23,299 ECL core ticks, `th10-recon-jsonl-v1`) is committed at
+`matching2/tests/retail_probe_evidence/retail_ecl_reference.jsonl` and is
+validated by `tests/runtime_trace_compare_test.py` on every `test.sh` run,
+so the retail stream remains a gated, comparable artifact.
+
 ## Known Retail Anchors
 
 - frame loop: `0x00439390`;

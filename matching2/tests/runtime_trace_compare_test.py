@@ -67,6 +67,14 @@ def main() -> None:
         ]
         write(right, invalid_tick)
         assert compare(left, right) == 2
+
+    # Retail-side bounded-probe reference: the normalized capture of the
+    # untouched th10.exe (frame loop + ECL core ticks) must stay a valid
+    # stream under the same comparator the reconstruction uses, so the
+    # retail-vs-reconstruction comparison tooling works on both sides.
+    reference = ROOT / "tests" / "retail_probe_evidence" / "retail_ecl_reference.jsonl"
+    if reference.is_file():
+        assert compare(reference, reference) == 0
     print("RUNTIME_TRACE_COMPARE_TEST_PASS")
 
 
