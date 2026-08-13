@@ -5,89 +5,110 @@ The original retail image is available at:
 - `/home/levzzz/Games/TH10 - Mountain of Faith/th10.exe`
 - SHA-256: `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`
 
-## Status: Bounded Probe Works; ECL Anchor Reached
+## Status: Bounded Probe Reaches Stage 1; Per-Tick ECL State Captured
 
-The earlier blocker ("the untouched retail process remains in its
-startup/modal/input wait under the headless Wine desktop and does not reach
-the frame or ANM anchors") is resolved. With a nested X display (gamescope)
-and scripted XTEST input, the untouched image reaches the frame loop
-(`0x00439390`) and the ECL core tick (`0x0044E1A0`) anchors and executes
-real frames and real ECL VM ticks. Captured in this checkout: 7,500-17,000+
-`frame_begin` events and thousands of `ecl_vm_tick` records carrying the
-retail VM state (script-relative pc, async_id, rank_mask, scratch_top)
-before the Wine GDB surrogate faults in the renderer path (see
-Limitations).
+With a nested X display (gamescope) and scripted XTEST input, the untouched
+image reaches the frame loop (`0x00439390`), the ECL core tick
+(`0x0044E1A0`), StageContext_Enter (`0x00417870`), the stage script load
+(`0x00403850`), and the ECL name-table registration (`0x00450220`), and
+executes real frames and real stage ECL VM ticks. A longer Z sequence
+(`Return Enter` + ten `Z` at `KEY_DELAY=1.4`) confirms Game Start ->
+difficulty -> character; the probe then captures the stage window until the
+bounded timeout.
 
-## Reproducible Probe
+The earlier "renderer SIGSEGV" limitation was misattributed: the tick
+handler assigned `set $pc = $instr & 0xFFFF`, and gdb treats `$pc` as the
+program counter register, so every tick stop resumed the inferior at
+`ip & 0xFFFF` - an unmapped address (immediate fault) or a stray code
+address (delayed fault ~250 frames later). The crash address matched
+`ip & 0xFFFF` exactly across runs. The handler now assigns only
+register-safe convenience names; with that fix, captures run the full
+window with continuous per-tick ECL state (10,900 ticks in a 120s stage
+run) and no fault.
 
-Run the bounded probe from `matching2/`:
+## Reproducible Stage Probe
 
-```sh
-PROBE_SECONDS=60 TH10_GAME_DIR="/home/levzzz/Games/TH10 - Mountain of Faith" \
-  bash tools/retail_bounded_probe.sh /tmp/retail_capture.log
-```
-
-The script:
-
-1. launches `gamescope -w 640x480` with `winedbg --gdb th10.exe`;
-2. installs breakpoints on the frame loop (`0x00439390`) and the ECL core
-   tick (`0x0044E1A0`);
-3. keeps gdb's stdin on a FIFO so the session does not detach;
-4. delivers a click and the title keys with XTEST (python-xlib) on the
-   nested `:1` display to break the startup wait;
-5. captures a bounded window (`PROBE_SECONDS`).
-
-Normalize the raw capture into the comparator schema and validate:
+Run the bounded stage probe from `matching2/`:
 
 ```sh
-matching2/tools/retail_trace_normalize.py /tmp/retail_capture.log /tmp/retail.jsonl
-matching2/tools/compare_runtime_trace.py /tmp/retail.jsonl /tmp/retail.jsonl
+PROBE_SECONDS=120 KEY_DELAY=1.4 TH10_GAME_DIR="/home/levzzz/Games/TH10 - Mountain of Faith" \
+  bash tools/retail_bounded_probe.sh /tmp/retail_stage.log \
+  "Return Enter Z Z Z Z Z Z Z Z Z Z"
 ```
 
-The retail stream is emitted in the reconstruction's JSONL schema
-(`th10-recon-jsonl-v1` header, `frame_begin` / `ecl_vm_tick` events); the
-retail `vm` pointers are remapped to stable sequential ids and an
-`ecl_vm_destroy` record is appended so lifecycle validation passes. The same
-comparator accepts both retail-side and reconstruction-side streams for the
-retail-vs-reconstruction comparison.
+The script waits for the nested `:1` display, feeds the GDB script, waits
+for the first captured frame, delivers the keys, and captures a bounded
+window. `DIAG=1` switches to stop-on-fault and dumps the fault site
+(backtrace, registers, stack, interpreter dispatch tables). `NO_TICK=1`
+and `TICK_MODE=count|break|hbreak` isolate the tick anchor.
 
-## Determinism Evidence
+Captured event vocabulary (`th10-recon-jsonl-v1`):
 
-Two independent probe runs with identical input, truncated to their common
-window, differ only by the SIGSEGV boundary offset: 7,985 of 7,986 semantic
-events are identical (the lone difference is the ECL tick landing one
-position later in run 2). The frame loop and ECL core ticks are therefore
-deterministic on the retail side under the same comparator the
-reconstruction uses.
+- `frame_begin` with the game-state words at `0x4776E4`/`0x4776E8`;
+- `ecl_vm_tick` with vm, ip, pc low word, the VM float clock (vm+0x00),
+  async_id, rank_mask, scratch_top;
+- `stage_enter`, `stage_load`, `script_register` (ECX=table, arg0=script
+  buffer, verified against the `sub_450220` caller that pushes the loaded
+  buffer before `call`).
 
-A normalized reference capture of the untouched image (19,745 frames and
-23,299 ECL core ticks, `th10-recon-jsonl-v1`) is committed at
+Normalize and compare against the reconstruction stage trace:
+
+```sh
+matching2/tools/retail_trace_normalize.py /tmp/retail_stage.log /tmp/retail.jsonl
+matching2/tools/retail_vs_recon_stage.py /tmp/retail.jsonl /tmp/recon_stage.jsonl
+```
+
+The reconstruction stage trace is generated with
+`run_all_pe32.sh --trace /tmp/recon_stage.jsonl --smoke --ecl 3600`
+(249,449 events, deterministic). Two independent retail stage captures
+produce identical flat tick sequences on the normalized comparison fields
+(rank_mask, async_id, scratch_top, pc low word - 10,900/10,900); only the
+frame-boundary attribution jitters under the uncapped loop.
+
+The comparison timeline is an ASSUMPTION under validation: the retail root
+VM's float clock (vm+0x00) against the reconstruction's scheduler
+`stage_frame`. Under that provisional first-tick alignment the
+script-relative pc and scratch_top agree (pc 40080, scratch 16), while
+`rank_mask` is 2 in retail and 255 in the reconstruction, and the root
+`async_id` is -1 in retail and 0 in the reconstruction. Broader agreement
+metrics are not published until the timeline alignment is validated.
+
+The retail stage script runs from the `stage01.ecl` buffer captured by
+`script_register` (arg0); per-tick script-relative pc resolves for
+10,898/10,900 ticks (the two unresolved ticks have ip=0 at VM teardown).
+
+## Reference Capture
+
+A normalized reference capture of the untouched image (`th10-recon-jsonl-v1`,
+frame loop + ECL core ticks with full VM state) is committed at
 `matching2/tests/retail_probe_evidence/retail_ecl_reference.jsonl` and is
-validated by `tests/runtime_trace_compare_test.py` on every `test.sh` run,
-so the retail stream remains a gated, comparable artifact.
+validated by `tests/runtime_trace_compare_test.py` on every `test.sh` run;
+the test requires every `ecl_vm_tick` to carry the full field set, so a
+field-less artifact cannot pass.
 
 ## Known Retail Anchors
 
 - frame loop: `0x00439390`;
 - ANM tick: `0x0043EE30`;
 - ECL core tick: `0x0044E1A0`;
+- stage entry: `0x00417870`; stage script load: `0x00403850`;
+- ECL name-table registration: `0x00450220` (ECX=table, [esp+4]=script);
 - animation allocation/registration/removal: `0x00449950`, `0x004489D0`,
   `0x00448A50`, `0x00448AC0`, `0x00448B40`, `0x00448BB0`;
 - final quad/append/flush: `0x00442670`, `0x00442FE0`, `0x00442F50`.
 
 ## Limitations
 
-- The winedbg GDB surrogate cannot reproduce reliably the retail render
-  path past a few thousand frames (SIGSEGV in the retail renderer); the
-  event lines captured before the fault are valid and that window is the
-  bounded result.
-- The retail ECL VM pointer in `ecl_vm_tick` is normalized to a stable
-  sequential id by `retail_trace_normalize.py`; the pc is kept as a low-word
-  image-relative offset rather than a decoded script-relative offset.
-- Reaching the menu's ECL phase under the probe needs the retail title flow
-  to be driven into a stage; the current bounded capture observes the frame
-  and ECL core anchors on the startup flow, which is the bounded comparison
-  the goal requires.
+- The retail boot under gamescope occasionally fails with a BadWindow X
+  error (gamescope xwm/window-creation race, unrelated to the GDB script);
+  the probe resets the wineserver before launching and the failure is a
+  retry, not a result.
+- The captured `delta` stack word is not the interpreter frame delta
+  (observed 0.0); the VM float clock at vm+0x00 is the trusted time field.
+- The retail VM pointer in `ecl_vm_tick` is normalized to a stable
+  sequential id by `retail_trace_normalize.py`; the pc low word is
+  captured, and script-relative pc is resolved from the `script_register`
+  bases.
 - The ANM tick anchor (0x0043EE30) is not used as a breakpoint: stepping it
   in the main loop destabilizes the probe; the frame/ECL pair keeps the
   session stable across the longest observed windows.

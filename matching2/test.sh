@@ -869,3 +869,5 @@ run_test music_room_env_test -ffunction-sections -fdata-sections -Wl,--gc-sectio
 
 # Deterministic JSONL trace schema and semantic comparison helper.
 python3 "$ROOT/tests/runtime_trace_compare_test.py"
+python3 "$ROOT/tests/retail_probe_script_test.py"
+python3 "$ROOT/tests/retail_vs_recon_stage_test.py"

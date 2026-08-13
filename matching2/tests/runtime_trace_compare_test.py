@@ -68,13 +68,29 @@ def main() -> None:
         write(right, invalid_tick)
         assert compare(left, right) == 2
 
-    # Retail-side bounded-probe reference: the normalized capture of the
-    # untouched th10.exe (frame loop + ECL core ticks) must stay a valid
-    # stream under the same comparator the reconstruction uses, so the
-    # retail-vs-reconstruction comparison tooling works on both sides.
+    # Retail-side bounded-probe reference: a normalized stage-window capture
+    # of the untouched th10.exe (frame loop + full-field ECL core ticks +
+    # stage/script anchors). It must stay a valid stream under the same
+    # comparator the reconstruction uses, and every tick must carry the
+    # complete field set, so a field-less artifact cannot pass.
     reference = ROOT / "tests" / "retail_probe_evidence" / "retail_ecl_reference.jsonl"
     if reference.is_file():
         assert compare(reference, reference) == 0
+        reference_events = [json.loads(line) for line in
+                            reference.read_text(encoding="utf-8").splitlines()
+                            if line.strip()]
+        ticks = [event for event in reference_events
+                 if event.get("type") == "ecl_vm_tick"]
+        assert ticks, "reference carries no ecl_vm_tick events"
+        required = ("vm", "pc_before", "pc_after", "clock",
+                    "async_id", "rank_mask", "scratch_top")
+        for event in ticks:
+            missing = [key for key in required if key not in event]
+            assert not missing, f"reference tick missing {missing}: {event}"
+            clock_bits = int(event["clock"])
+            import struct
+            clock = struct.unpack("<f", struct.pack("<I", clock_bits))[0]
+            assert clock == clock, "reference tick clock is not finite: %r" % event
     print("RUNTIME_TRACE_COMPARE_TEST_PASS")
 
 

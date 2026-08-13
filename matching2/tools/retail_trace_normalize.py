@@ -39,6 +39,11 @@ def load_events(path: Path) -> list[dict[str, object]]:
             "vm_tick",
             "frame_end",
             "ecl_vm_tick",
+            "stage_load",
+            "stage_enter",
+            "mode_dispatch",
+            "script_register",
+            "ecl_guard_fail",
         ):
             events.append(value)
     return events
@@ -56,28 +61,57 @@ def normalize(events: list[dict[str, object]]) -> list[dict[str, object]]:
     seq = 0
     for event in events:
         seq += 1
+        if event["type"] == "ecl_guard_fail":
+            raise ValueError(
+                "ecl_vm_tick guard rejected vm=%s; register/range "
+                "instrumentation is wrong" % event.get("vm")
+            )
         if event["type"] == "frame_begin":
-            out.append({"type": "frame_begin", "seq": seq})
+            frame: dict[str, object] = {"type": "frame_begin", "seq": seq}
+            for key in ("gs", "gs_prev"):
+                if key in event:
+                    frame[key] = int(event[key])
+            out.append(frame)
             continue
         if event["type"] == "frame_end":
             out.append({"type": "frame_end", "seq": seq})
             continue
+        if event["type"] in ("stage_load", "stage_enter", "mode_dispatch",
+                             "script_register"):
+            if event["type"] == "script_register":
+                out.append({
+                    "type": "script_register",
+                    "seq": seq,
+                    "ecx": int(event["ecx"]),
+                    "edx": int(event["edx"]),
+                    "arg0": int(event["arg0"]),
+                    "arg1": int(event["arg1"]),
+                    "arg2": int(event["arg2"]),
+                })
+            else:
+                out.append({"type": event["type"], "seq": seq})
+            continue
         if event["type"] == "ecl_vm_tick":
             ecl: dict[str, object] = {"type": "ecl_vm_tick", "seq": seq}
-            for key in ("vm", "pc_before", "pc_after", "async_id",
-                        "rank_mask", "scratch_top", "result", "live"):
-                if key in event:
-                    value = event[key]
-                    if key == "vm":
-                        # normalize the retail VM pointer to the local id
-                        # space alongside the ANM VMs
-                        p = int(value)
-                        if p not in vms:
-                            vms[p] = len(vms) + 1
-                        value = vms[p]
-                    elif key in ("pc_before", "pc_after"):
-                        value = int(value) & 0xFFFF
-                    ecl[key] = value
+            for key in ("vm", "ip", "pc_before", "pc_after", "clock",
+                        "delta", "async_id", "rank_mask", "scratch_top",
+                        "result", "live"):
+                if key not in event:
+                    raise ValueError(
+                        "ecl_vm_tick missing required field %r: %r"
+                        % (key, event)
+                    )
+                value = event[key]
+                if key == "vm":
+                    # normalize the retail VM pointer to the local id
+                    # space alongside the ANM VMs
+                    p = int(value)
+                    if p not in vms:
+                        vms[p] = len(vms) + 1
+                    value = vms[p]
+                elif key in ("pc_before", "pc_after"):
+                    value = int(value) & 0xFFFF
+                ecl[key] = value
             out.append(ecl)
             continue
         pointer = int(event["vm"])

@@ -76,13 +76,26 @@ object, and entity identity to have exactly one teardown event.
 failures. `ecl_core_edges_test` also asserts the optional opcode observer
 callback and instruction identity.
 
-A retail-side machine-readable trace is still unavailable because the untouched
-`th10.exe` has no injector or embedded probe. The bounded Wine debugger check
-reaches retail `WinMain` but remains in the startup/modal/input barrier before
-the frame and ANM anchors. The exact probe workflow and anchor list are recorded
-in `matching2/docs/retail_trace_probe.md`. The reconstruction trace therefore
-proves its own determinism and execution coverage but is not yet a retail
-comparison.
+A retail-side machine-readable trace is now available: the untouched
+`th10.exe` runs under the bounded Wine debugger probe (winedbg --gdb +
+gamescope + XTEST) through the title flow into Stage 1, and the probe
+captures per-tick ECL VM state (script-relative pc via the registered
+script buffers, VM float clock, async_id, rank_mask, scratch_top) plus
+stage-entry, stage-load, and script-register anchors. Two independent
+stage captures are identical on every normalized comparison field
+(10,900/10,900 ticks; only frame-boundary attribution jitters). The
+historical "renderer SIGSEGV" truncation was caused by the probe assigning
+gdb's `$pc` program-counter register inside the tick handler; the fixed
+handler runs the full window without faults. The workflow and anchors are
+recorded in `matching2/docs/retail_trace_probe.md`.
+
+The first retail-vs-reconstruction stage comparison reports a provisional
+first-tick alignment: script-relative pc and scratch_top agree
+(pc 40080, scratch 16) while the root VM's rank word is 2 in retail and
+255 in the reconstruction, and the root async_id is -1 in retail and
+0 in the reconstruction. The timeline mapping (retail root clock against
+reconstruction stage_frame) is an assumption under validation; broader
+agreement metrics are withheld until it is validated.
 
 ## Deterministic Stage Trace
 
