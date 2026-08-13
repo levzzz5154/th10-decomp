@@ -2104,13 +2104,13 @@ void HostTraceEclVmDestroy(const EclCoreVm* vm, int kind,
 }
 
 void HostTraceEclVmTick(const EclCoreVm* vm, int order, int result,
-                        int live, long long pc_before) {
+                        int live, long long pc_before, int scratch_before) {
 	const int id = HostEclTraceId(vm);
 	if (id == 0)
 		return;
 	HostTrace_EclTick(id, g_report.stage_frame, order, vm->async_id,
 	                  vm->rank_mask, pc_before, HostEclPcOffset(vm),
-	                  vm->scratch_top, result, live);
+	                  scratch_before, vm->scratch_top, result, live);
 }
 
 void HostTraceEclOpcode(EclCoreVm* vm, EclCoreInstruction* instruction) {
@@ -2693,7 +2693,13 @@ void HostStartMainEcl() {
 	g_ecl_vm.ip = reinterpret_cast<EclCoreInstruction*>(
 	    g_enemy_ecl + entry + 16);
 	g_ecl_vm.owner = reinterpret_cast<EclCoreOwner*>(g_ecl_entity);
-	g_ecl_vm.rank_mask = 0xFF;  // retail masks per difficulty; run every rank
+	// Retail Entity_Spawn (0x0040CFB0, bullet.cpp:646) writes the embedded
+	// VM's rank word as 1 << difficulty (DAT_00474c74); the bounded probe
+	// captured rank 2 on Normal. The embedded-record init also writes
+	// async_id = -1 (entity+0x1018 = vm+0x1010).
+	g_ecl_vm.rank_mask = static_cast<unsigned char>(
+	    1u << (g_globals.difficulty & 0x1F));
+	g_ecl_vm.async_id = -1;
 	g_ecl_hooks = EclCoreHooks{};
 	g_ecl_started = 1;
 	g_ecl_hooks.start_child = HostEclStartChild;
@@ -2757,6 +2763,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 		return -1;
 	}
 	const long long before_offset = HostEclPcOffset(root);
+	const int before_scratch = root->scratch_top;
 	unsigned char* entity_bytes = reinterpret_cast<unsigned char*>(entity);
 	const uint32_t saved_vtable = *reinterpret_cast<uint32_t*>(entity_bytes);
 	*reinterpret_cast<uint32_t*>(entity_bytes) = static_cast<uint32_t>(
@@ -2768,7 +2775,8 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 	g_ecl_active = root;
 	g_ecl_trace_opcode_order = 0;
 	const int result = EclVm_TickCore(root, DAT_00476f78, &g_ecl_hooks);
-	HostTraceEclVmTick(root, 0, result, result == 0, before_offset);
+	HostTraceEclVmTick(root, 0, result, result == 0, before_offset,
+	                   before_scratch);
 	for (int index = 0; index < g_ecl_child_count; ++index) {
 		if (!g_ecl_child_live[index] ||
 		    g_ecl_child_owners[index] !=
@@ -2781,6 +2789,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 			continue;
 		}
 		const long long child_before_offset = HostEclPcOffset(child);
+		const int child_before_scratch = child->scratch_top;
 		*current_record = static_cast<uint32_t>(
 		    reinterpret_cast<uintptr_t>(child));
 		g_ecl_active = child;
@@ -2788,7 +2797,8 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 		const int child_result = EclVm_TickCore(
 		    child, DAT_00476f78, &g_ecl_hooks);
 		HostTraceEclVmTick(child, index + 1, child_result,
-		                   child_result == 0, child_before_offset);
+		                   child_result == 0, child_before_offset,
+		                   child_before_scratch);
 		if (child_result != 0)
 			HostDestroyEnemyChild(index, "finished");
 	}
@@ -2823,10 +2833,12 @@ void HostTickStageEcl() {
 	}
 	const EclCoreInstruction* before = g_ecl_vm.ip;
 	const long long before_offset = HostEclPcOffset(&g_ecl_vm);
+	const int before_scratch = g_ecl_vm.scratch_top;
 	g_ecl_active = &g_ecl_vm;
 	g_ecl_trace_opcode_order = 0;
 	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
-	HostTraceEclVmTick(&g_ecl_vm, 0, result, result == 0, before_offset);
+	HostTraceEclVmTick(&g_ecl_vm, 0, result, result == 0, before_offset,
+	                   before_scratch);
 	if (g_ecl_vm.ip != before)
 		g_ecl_instructions += 1;
 	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
@@ -2850,12 +2862,13 @@ void HostTickStageEcl() {
 			continue;
 		}
 		const long long child_before_offset = HostEclPcOffset(child);
+		const int child_before_scratch = child->scratch_top;
 		g_ecl_active = child;
 		g_ecl_trace_opcode_order = index + 1;
 		const int child_result = EclVm_TickCore(child, 1.0f, &g_ecl_hooks);
 		const int child_live = child_result == 0;
 		HostTraceEclVmTick(child, index + 1, child_result, child_live,
-		                   child_before_offset);
+		                   child_before_offset, child_before_scratch);
 		if (!child_live) {
 			g_ecl_child_live[index] = 0;
 			g_ecl_child_owners[index] = 0;

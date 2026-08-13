@@ -58,8 +58,8 @@ def recon_fixture() -> list[dict]:
     ticks = [
         {"type": "ecl_vm_tick", "seq": 1, "frame": 1, "vm": 1,
          "stage_frame": 1, "order": 0, "async_id": 0, "rank_mask": 255,
-         "pc_before": 40080, "pc_after": 40120, "scratch_top": 16,
-         "result": 0, "live": 1},
+         "pc_before": 40080, "pc_after": 40120, "scratch_before": 16,
+         "scratch_top": 16, "result": 0, "live": 1},
     ]
     return [header] + ticks
 

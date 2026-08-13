@@ -111,7 +111,10 @@ def recon_ticks(events: list[dict]) -> list[dict]:
                 "order": int(e["order"]),
                 "rank": int(e["rank_mask"]),
                 "async_id": int(e["async_id"]),
-                "scratch": int(e["scratch_top"]),
+                # the retail probe reads state at interpreter entry; the
+                # reconstruction emits post-tick state, so the pre-tick
+                # scratch_before field is the comparable value
+                "scratch": int(e["scratch_before"]),
                 "pc_rel": int(e["pc_before"]),
             }
         )

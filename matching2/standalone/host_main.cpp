@@ -500,15 +500,15 @@ struct HostTraceEmitter {
 
     void EclTick(int vm_id, int stage_frame, int order, int async_id,
                  int rank_mask, long long pc_before, long long pc_after,
-                 int scratch_top, int result, int live) {
+                 int scratch_before, int scratch_top, int result, int live) {
         if (!active)
             return;
         BeginEvent("ecl_vm_tick");
         std::fprintf(
             file,
-            ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"scratch_top\":%d,\"result\":%d,\"live\":%d",
+            ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"scratch_before\":%d,\"scratch_top\":%d,\"result\":%d,\"live\":%d",
             vm_id, stage_frame, order, async_id, rank_mask, pc_before,
-            pc_after, scratch_top, result, live);
+            pc_after, scratch_before, scratch_top, result, live);
         EndEvent();
     }
 
@@ -6420,9 +6420,11 @@ void HostTrace_EclOpcode(int vm_id, int stage_frame, int order, int opcode,
 
 void HostTrace_EclTick(int vm_id, int stage_frame, int order, int async_id,
                        int rank_mask, long long pc_before, long long pc_after,
-                       int scratch_top, int result, int live) {
+                       int scratch_before, int scratch_top, int result,
+                       int live) {
     g_host_trace.EclTick(vm_id, stage_frame, order, async_id, rank_mask,
-                         pc_before, pc_after, scratch_top, result, live);
+                         pc_before, pc_after, scratch_before, scratch_top,
+                         result, live);
 }
 
 void HostTrace_Entity(int entity_id, int kind, int live, int stage_frame) {

@@ -137,7 +137,8 @@ void HostTrace_EclOpcode(int vm_id, int stage_frame, int order, int opcode,
                          int rank_mask);
 void HostTrace_EclTick(int vm_id, int stage_frame, int order, int async_id,
                        int rank_mask, long long pc_before, long long pc_after,
-                       int scratch_top, int result, int live);
+                       int scratch_before, int scratch_top, int result,
+                       int live);
 void HostTrace_Entity(int entity_id, int kind, int live, int stage_frame);
 void HostTrace_StageSpawn(int entity_id, int opcode, int manager_count,
                          int spawn_serial, float x, float y, float z);
