@@ -78,3 +78,18 @@ int EffectRing_Update(EffectRingOwner* owner) {
 	ring->vertices[32] = ring->vertices[1];
 	return 0;
 }
+
+int EffectRing_Draw(const EffectRingOwner* owner,
+                    const EffectRingDrawEnv* env) {
+    if (owner == nullptr || owner->ring == nullptr || env == nullptr ||
+        env->flush == nullptr || env->sync_state == nullptr ||
+        env->bind_texture == nullptr || env->draw_fan == nullptr)
+        return -1;
+    env->flush(env->context);
+    env->sync_state(env->context);
+    env->bind_texture(env->context);
+    env->flush(env->context);
+    env->draw_fan(env->context, 31, owner->ring->vertices,
+                  sizeof(EffectRingVertex));
+    return 0;
+}

@@ -14,5 +14,6 @@ int Renderer_DrawRectFan(int pending_vertices, void (*flush)(void),
                          void (*set_sampler_state)(int stage, int state,
                                                    int value),
                          void (*draw_fan)(int primitive_type,
+                                          int primitive_count,
                                           const void* vertices, int stride),
-                         const void* vertices);
+                         const void* vertices, int primitive_count = 2);

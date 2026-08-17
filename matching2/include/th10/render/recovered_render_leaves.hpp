@@ -32,6 +32,11 @@ namespace render_leaves {
 // of 0x00442F50.
 QuadBatchEnv DefaultQuadBatchEnv();
 
+// Bind the recovery leaves to an external manager-owned staging world. A null
+// staging pointer restores the module-local fallback used by isolated tests.
+void BindSharedQuadStaging(QuadVertexStaging* staging,
+                           void (*flush)(void));
+
 // The recovered 0x00442F50 flush applied to the animation manager's
 // staging (dword_491C10).  Inert when the device global is null (the
 // host injects its own render binding in that case).

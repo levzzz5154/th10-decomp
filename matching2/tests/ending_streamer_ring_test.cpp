@@ -393,10 +393,45 @@ static void TestEffectRingUpdate() {
 	CHECK(NearlyEqual(ring.vertices[1].z, 2.0f * cz, 1e-6f));
 }
 
+static int g_ring_flushes;
+static int g_ring_syncs;
+static int g_ring_binds;
+static int g_ring_primitives;
+static int g_ring_stride;
+static const EffectRingVertex* g_ring_vertices;
+
+static void RingFlush(void*) { ++g_ring_flushes; }
+static void RingSync(void*) { ++g_ring_syncs; }
+static void RingBind(void*) { ++g_ring_binds; }
+static void RingDraw(void*, int primitive_count,
+                     const EffectRingVertex* vertices, int stride) {
+    g_ring_primitives = primitive_count;
+    g_ring_vertices = vertices;
+    g_ring_stride = stride;
+}
+
+static void TestEffectRingDraw() {
+    EffectRingState ring = {};
+    EffectRingOwner owner = {};
+    owner.ring = &ring;
+    EffectRingDrawEnv env = {
+        nullptr, RingFlush, RingSync, RingBind, RingDraw};
+    g_ring_flushes = g_ring_syncs = g_ring_binds = 0;
+    g_ring_primitives = g_ring_stride = 0;
+    g_ring_vertices = nullptr;
+    CHECK(EffectRing_Draw(&owner, &env) == 0);
+    CHECK(g_ring_flushes == 2);
+    CHECK(g_ring_syncs == 1 && g_ring_binds == 1);
+    CHECK(g_ring_primitives == 31);
+    CHECK(g_ring_vertices == ring.vertices);
+    CHECK(g_ring_stride == (int)sizeof(EffectRingVertex));
+}
+
 int main() {
 	TestEndingTextConstruct();
 	TestStreamerRefillSegment();
 	TestEffectRingUpdate();
+	TestEffectRingDraw();
 	if (g_failures != 0) {
 		std::printf("BATCH22_TESTS_FAIL (%d failures)\n", g_failures);
 		return 1;

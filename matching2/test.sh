@@ -61,6 +61,10 @@ run_test anm_file_test \
     "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/anm_file_test.cpp"
 
+run_test anm_sprite_quad_test \
+    "$ROOT/src/render/anm_sprite_quad.cpp" \
+    "$ROOT/tests/anm_sprite_quad_test.cpp"
+
 run_test anm_vm_interrupt_test \
     "$ROOT/src/math/interpolators.cpp" \
     "$ROOT/src/script/anm_vm_tick.cpp" \
@@ -179,6 +183,10 @@ run_test anm_entry_load_test \
     "$ROOT/src/render/anm_entry_load.cpp" \
     "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/anm_entry_load_test.cpp"
+
+run_test anm_distance_color_test \
+    "$ROOT/src/render/anm_distance_color.cpp" \
+    "$ROOT/tests/anm_distance_color_test.cpp"
 
 # Per-slot game-state snapshot capture/restore (0x0042A450).
 run_test slot_snapshot_test \

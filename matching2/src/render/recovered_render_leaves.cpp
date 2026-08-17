@@ -14,6 +14,8 @@ namespace {
 // offsets are the 32-bit MSVC overlays' territory and the host-form
 // struct below is the recovery side's staging.
 QuadVertexStaging g_staging = {0, 0, 0};
+QuadVertexStaging* g_bound_staging = &g_staging;
+void (*g_bound_flush)(void) = 0;
 int g_draw_calls = 0;
 
 extern "C" unsigned long dword_491C10;   // animation manager
@@ -58,11 +60,11 @@ void DeviceDrawPrimitiveUp(unsigned int primitive_type,
 }
 
 QuadVertexStaging ReadStaging() {
-    return g_staging;
+    return *g_bound_staging;
 }
 
 void WriteStaging(const QuadVertexStaging& staging) {
-    g_staging = staging;
+    *g_bound_staging = staging;
 }
 
 // Retail sub_443080 reads the three-term origin as the sum of the position
@@ -169,7 +171,17 @@ QuadBatchEnv DefaultQuadBatchEnv() {
     return env;
 }
 
+void BindSharedQuadStaging(QuadVertexStaging* staging,
+                           void (*flush)(void)) {
+    g_bound_staging = staging != 0 ? staging : &g_staging;
+    g_bound_flush = staging != 0 ? flush : 0;
+}
+
 void FlushQuadBatch() {
+    if (g_bound_flush != 0) {
+        g_bound_flush();
+        return;
+    }
     QuadVertexStaging staging = ReadStaging();
     if (staging.quad_count == 0) return;
     static const QuadBatchEnv env = DefaultQuadBatchEnv();
@@ -179,7 +191,7 @@ void FlushQuadBatch() {
 
 // Test-visible handle to the recovery-side staging (the host-form
 // counterpart of the retail manager's scattered 32-bit fields).
-QuadVertexStaging* Staging() { return &g_staging; }
+QuadVertexStaging* Staging() { return g_bound_staging; }
 
 void AppendQuadColored(const float corners[4][2], unsigned int color) {
     AnchoredQuadVertex vertices[4];

@@ -12,6 +12,8 @@
 #include "th10/game/entity.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/render/anm_file.hpp"
+#include "th10/render/anm_sprite_quad.hpp"
+#include "th10/render/anm_distance_color.hpp"
 
 extern void* g_pD3DDevice;
 
@@ -296,99 +298,182 @@ void ResourceManager_DestroyResource(void* manager, void* resource_pointer) {
     resource->image = nullptr;
 }
 
-// Direct normal-quad path from the 0x004451C0 dispatcher.  The exotic render
-// modes still have dedicated reconstructed helpers, but the overwhelmingly
-// common modes 0/1/2/3 share this sprite-record, anchor, rotation and texture
-// path.
-void AnimationObject_Render(void*, AnimationObject* animation) {
+// Direct normal-quad path from the 0x004451C0 dispatcher. The source-side
+// renderer owns only the retail object decode and quad construction. The
+// standalone binds the manager-owned 0x00442670 submission backend, so texture
+// changes, viewport culling, state transitions, staging, and flush timing stay
+// in one implementation.
+void AnimationObject_Render(void* manager, AnimationObject* animation) {
     if (animation == nullptr || g_pD3DDevice == nullptr)
         return;
     auto* object = reinterpret_cast<unsigned char*>(animation);
+    const AnmSpriteRenderBackend* backend = AnmSpriteRenderer_GetBackend();
     const unsigned int flags =
         *reinterpret_cast<unsigned int*>(object + 0x35C);
+    // Retail aliases +0x358 between ring ownership and strip storage. Ring
+    // creation installs a dedicated draw callback; the host marker at +0x39C
+    // represents that ownership without calling through a fabricated address.
+    if (*reinterpret_cast<unsigned int*>(object + 0x358) != 0 &&
+        *reinterpret_cast<unsigned int*>(object + 0x39C) == 1u &&
+        backend != nullptr && backend->draw_ring != nullptr) {
+        backend->draw_ring(backend->context, manager, object);
+        return;
+    }
     if ((flags & 3u) != 3u || object[0x2FF] == 0)
         return;
     const float* sprite =
         *reinterpret_cast<const float**>(object + 0x394);
     if (sprite == nullptr)
         return;
-    auto* texture = reinterpret_cast<IDirect3DTexture9*>(
-        static_cast<uintptr_t>(*reinterpret_cast<const unsigned int*>(
-            sprite + 1)));
-    if (texture == nullptr)
+    const unsigned int texture =
+        *reinterpret_cast<const unsigned int*>(sprite + 1);
+    if (texture == 0)
         return;
 
-    const float center_x =
+    AnmSpriteQuadInput input = {};
+    input.center_x =
         *reinterpret_cast<float*>(object + 0x334) +
         *reinterpret_cast<float*>(object + 0x340) +
         *reinterpret_cast<float*>(object + 0x34C);
-    const float center_y =
+    input.center_y =
         *reinterpret_cast<float*>(object + 0x338) +
         *reinterpret_cast<float*>(object + 0x344) +
         *reinterpret_cast<float*>(object + 0x350);
-    const float center_z =
+    input.center_z =
         *reinterpret_cast<float*>(object + 0x33C) +
         *reinterpret_cast<float*>(object + 0x348) +
         *reinterpret_cast<float*>(object + 0x354);
-    const float width = *reinterpret_cast<float*>(object + 0x4C) *
+    input.width = *reinterpret_cast<float*>(object + 0x4C) *
         *reinterpret_cast<float*>(object + 0x3C);
-    const float height = *reinterpret_cast<float*>(object + 0x50) *
+    input.height = *reinterpret_cast<float*>(object + 0x50) *
         *reinterpret_cast<float*>(object + 0x40);
+    input.rotation = *reinterpret_cast<float*>(object + 0x2C);
+    input.flags = flags;
+    input.primary_color = *reinterpret_cast<unsigned int*>(object + 0x2FC);
+    input.secondary_color = *reinterpret_cast<unsigned int*>(object + 0x300);
+    input.u0 = sprite[8];
+    input.v0 = sprite[9];
+    input.u1 = sprite[10];
+    input.v1 = sprite[11];
+    input.uv_scroll_x = *reinterpret_cast<float*>(object + 0x54);
+    input.uv_scroll_y = *reinterpret_cast<float*>(object + 0x58);
 
-    float left;
-    float right;
-    switch ((flags >> 18) & 3u) {
-    case 1: left = 0.0f; right = width; break;
-    case 2: left = -width; right = 0.0f; break;
-    default: left = width * -0.5f; right = width * 0.5f; break;
+    unsigned int submit_mode = input.rotation == 0.0f ? 1u : 0u;
+    const unsigned int draw_mode = (flags >> 22) & 0xFu;
+    if (draw_mode == 8u || draw_mode == 9u) {
+        if (backend == nullptr)
+            return;
+        if (draw_mode == 8u && backend->draw_transformed != nullptr)
+            backend->draw_transformed(backend->context, manager, object);
+        else if (draw_mode == 9u && backend->draw_strip != nullptr)
+            backend->draw_strip(backend->context, manager, object);
+        return;
     }
-    float top;
-    float bottom;
-    switch ((flags >> 20) & 3u) {
-    case 1: top = 0.0f; bottom = height; break;
-    case 2: top = -height; bottom = 0.0f; break;
-    default: top = height * -0.5f; bottom = height * 0.5f; break;
+    if (draw_mode == 6u) {
+        // The 0x491D7C render block owns the live background camera, distance
+        // thresholds, and far color used by retail 0x00443FB0.
+        extern unsigned int DAT_00491d7c[];
+        const float* render_globals =
+            reinterpret_cast<const float*>(DAT_00491d7c);
+        const float camera[3] = {
+            render_globals[0], render_globals[1], render_globals[2]};
+        const float position[3] = {
+            input.center_x, input.center_y, input.center_z};
+        const unsigned char* manager_bytes =
+            static_cast<const unsigned char*>(manager);
+        const int tint_enabled = manager != nullptr ?
+            *reinterpret_cast<const int*>(manager_bytes + 0x73245C) : 0;
+        const unsigned char* tint = manager != nullptr ?
+            manager_bytes + 0x732458 : nullptr;
+        const unsigned char far_b = static_cast<unsigned char>(
+            render_globals[65] < 0.0f ? 0.0f : render_globals[65] > 255.0f ?
+            255.0f : render_globals[65]);
+        const unsigned char far_g = static_cast<unsigned char>(
+            render_globals[66] < 0.0f ? 0.0f : render_globals[66] > 255.0f ?
+            255.0f : render_globals[66]);
+        const unsigned char far_r = static_cast<unsigned char>(
+            render_globals[67] < 0.0f ? 0.0f : render_globals[67] > 255.0f ?
+            255.0f : render_globals[67]);
+        const unsigned int far_color =
+            0xFF000000u | (static_cast<unsigned int>(far_r) << 16) |
+            (static_cast<unsigned int>(far_g) << 8) | far_b;
+        const unsigned int source_color =
+            (flags & 0x8000u) != 0 ? input.secondary_color : input.primary_color;
+        unsigned int distance_color = 0;
+        if (AnmDistanceColor_Apply(
+                source_color, position, camera, tint_enabled, tint,
+                render_globals[63], render_globals[64], far_color,
+                &distance_color) != 0)
+            return;
+        input.primary_color = distance_color;
+        input.secondary_color = distance_color;
+        submit_mode = 2u;
     }
-    const float angle = *reinterpret_cast<float*>(object + 0x2C);
-    const float cosine = std::cos(angle);
-    const float sine = std::sin(angle);
-    auto rotate_x = [=](float x, float y) {
-        return x * cosine - y * sine + center_x;
-    };
-    auto rotate_y = [=](float x, float y) {
-        return x * sine + y * cosine + center_y;
-    };
 
-    struct Vertex {
-        float x;
-        float y;
-        float z;
-        float rhw;
-        unsigned int color;
-        float u;
-        float v;
-    };
-    const unsigned int color =
-        *reinterpret_cast<unsigned int*>(object + 0x2FC);
-    const float u0 = sprite[8];
-    const float v0 = sprite[9];
-    const float u1 = sprite[10];
-    const float v1 = sprite[11];
-    Vertex vertices[4] = {
-        {rotate_x(left, top), rotate_y(left, top), center_z, 1.0f,
-         color, u0, v0},
-        {rotate_x(right, top), rotate_y(right, top), center_z, 1.0f,
-         color, u1, v0},
-        {rotate_x(left, bottom), rotate_y(left, bottom), center_z, 1.0f,
-         color, u0, v1},
-        {rotate_x(right, bottom), rotate_y(right, bottom), center_z, 1.0f,
-         color, u1, v1},
-    };
+    AnmSpriteQuadVertex quad[4];
+    if (draw_mode == 4u) {
+        if (backend == nullptr || backend->projection == nullptr ||
+            AnmSprite_BuildProjectedBillboard(
+                &input, backend->projection(backend->context), quad) != 0)
+            return;
+        submit_mode = 0u;
+    } else if (draw_mode == 5u || draw_mode == 7u) {
+        float world[16];
+        if (backend == nullptr || backend->projection == nullptr ||
+            AnmSprite_BuildProjectedWorldQuad(
+                object, &input, backend->projection(backend->context),
+                quad, world) != 0)
+            return;
+        if (manager != nullptr) {
+            std::memcpy(static_cast<unsigned char*>(manager) + 0x3AD0F0,
+                        world, sizeof(world));
+            if (draw_mode == 7u) {
+                extern unsigned int DAT_00491d7c[];
+                const float* render_globals =
+                    reinterpret_cast<const float*>(DAT_00491d7c);
+                const float camera[3] = {render_globals[0], render_globals[1],
+                                         render_globals[2]};
+                const unsigned char far_b = static_cast<unsigned char>(render_globals[65]);
+                const unsigned char far_g = static_cast<unsigned char>(render_globals[66]);
+                const unsigned char far_r = static_cast<unsigned char>(render_globals[67]);
+                const unsigned int far_color = 0xFF000000u |
+                    (static_cast<unsigned int>(far_r) << 16) |
+                    (static_cast<unsigned int>(far_g) << 8) | far_b;
+                if (AnmSprite_ApplyProjectedDistanceColors(
+                        quad, static_cast<const unsigned char*>(manager) + 0x3ADA78,
+                        world, AnmSprite_SelectedColor(&input), camera,
+                        render_globals[63], render_globals[64], far_color) != 0)
+                    return;
+                submit_mode = 2u;
+            } else {
+                submit_mode = 0u;
+            }
+        } else if (draw_mode == 7u) {
+            return;
+        } else {
+            submit_mode = 0u;
+        }
+    } else {
+        AnmSprite_BuildQuad(&input, quad);
+    }
+    if (backend != nullptr && backend->submit != nullptr) {
+        backend->submit(backend->context, manager, texture, &input, quad,
+                       submit_mode);
+        return;
+    }
+
+    // Non-standalone callers retain a minimal D3D9 fallback. The standalone
+    // path never reaches this branch because it binds its batch backend.
     auto* device = static_cast<IDirect3DDevice9*>(g_pD3DDevice);
-    device->SetTexture(0, texture);
+    AnmSpriteQuadVertex triangles[6];
+    AnmSprite_ExpandTriangleList(quad, triangles);
+    device->SetTexture(0, reinterpret_cast<IDirect3DTexture9*>(
+        static_cast<uintptr_t>(texture)));
+    device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
     device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-    device->DrawPrimitiveUP(
-        D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex));
+    device->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 2, triangles,
+                            sizeof(AnmSpriteQuadVertex));
 }
 
 namespace {

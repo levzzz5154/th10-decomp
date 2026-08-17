@@ -25,8 +25,9 @@ int Renderer_DrawRectFan(int pending_vertices, void (*flush)(void),
                          void (*set_sampler_state)(int stage, int state,
                                                    int value),
                          void (*draw_fan)(int primitive_type,
+                                          int primitive_count,
                                           const void* vertices, int stride),
-                         const void* vertices) {
+                         const void* vertices, int primitive_count) {
 	if (pending_vertices != 0) flush();
 	if (*blend_state != 3) {
 		set_blend_render_state();
@@ -41,6 +42,6 @@ int Renderer_DrawRectFan(int pending_vertices, void (*flush)(void),
 	set_texture_stage(0xE, 0);
 	set_sampler_state(0, 6, 0);
 	set_sampler_state(0, 3, 0);
-	draw_fan(6, vertices, 0x1C);
+	draw_fan(6, primitive_count, vertices, 0x1C);
 	return 0;
 }

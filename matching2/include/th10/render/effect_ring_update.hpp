@@ -30,3 +30,17 @@ struct EffectRingOwner {
 };
 
 int EffectRing_Update(EffectRingOwner* owner);
+
+struct EffectRingDrawEnv {
+    void* context;
+    void (*flush)(void* context);
+    void (*sync_state)(void* context);
+    void (*bind_texture)(void* context);
+    void (*draw_fan)(void* context, int primitive_count,
+                     const EffectRingVertex* vertices, int stride);
+};
+
+// Retail 0x00445880 -> 0x004450E0: submit all 33 ring vertices as a
+// 31-primitive triangle fan after synchronizing ANM state and texture.
+int EffectRing_Draw(const EffectRingOwner* owner,
+                    const EffectRingDrawEnv* env);

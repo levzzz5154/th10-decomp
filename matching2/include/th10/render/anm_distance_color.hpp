@@ -21,3 +21,10 @@ struct AnmDistanceColorEnv {
 // publish it to the four quad vertices, and draw in mode 2.
 int AnmVm_DrawDistanceColored(const AnmVmState* vm,
                               const AnmDistanceColorEnv* env);
+
+// Apply the retail 0x00443FB0 channel math to a packed B,G,R,A color.
+int AnmDistanceColor_Apply(uint32_t input_color, const float position[3],
+                           const float camera[3], int tint_enabled,
+                           const unsigned char tint[4], float near_distance,
+                           float far_distance, uint32_t far_color,
+                           uint32_t* output_color);
