@@ -1,8 +1,10 @@
 # Runtime Fidelity Status
 
 This note records the boundary for the three researched functions. The
-function ledger remains at 397 exact overlays, 322 semantic functions, and 3
-researched functions until the remaining external behavior is represented.
+function ledger is 722 tracked functions: 719 semantic reconstructions and 3
+researched functions. The naked-assembly `exact overlays` were removed in
+favor of readable C++ (runtime fidelity is now measured against the retail
+probe, not by byte-matching compiled overlays).
 
 ## 0x00425730 Player Update
 
@@ -89,13 +91,41 @@ gdb's `$pc` program-counter register inside the tick handler; the fixed
 handler runs the full window without faults. The workflow and anchors are
 recorded in `matching2/docs/retail_trace_probe.md`.
 
-The first retail-vs-reconstruction stage comparison reports a provisional
-first-tick alignment: script-relative pc and scratch_top agree
-(pc 40080, scratch 16) while the root VM's rank word is 2 in retail and
-255 in the reconstruction, and the root async_id is -1 in retail and
-0 in the reconstruction. The timeline mapping (retail root clock against
-reconstruction stage_frame) is an assumption under validation; broader
-agreement metrics are withheld until it is validated.
+The retail-vs-reconstruction stage comparison is now keyed on each VM's
+float clock (vm+0x00), not the scheduler `stage_frame`. Both sides emit the
+pre-tick clock as raw bits at interpreter entry (retail `clock`; the
+reconstruction's new `time_before` field), so the comparison survives the
+wait/jump opcodes that move vm+0x00 backwards. The reconstruction root VM
+now mirrors retail rank (`1 << difficulty`, 2 on Normal) and async (`-1`)
+init, and its per-tick state agrees with retail on clock, rank_mask,
+async_id, scratch_top, and script-relative pc for the full 1,536-root-tick
+retail capture window (1,536/1,536 on every field), including the clock
+rewind that previously looked like the first divergence at tick ~200.
+
+`tools/retail_vs_recon_stage.py` now also aligns every async child and
+spawned-enemy VM across the two streams by creation order: both sides run
+the same stage script, so the root spawns the identical VM sequence (the
+comparer confirms each position's entry script-relative pc and async_id
+before comparing ticks). Across the full retail capture the comparer reports
+63/63 VMs identity-aligned and 10,900/10,900 per-tick full agreement on
+clock/rank_mask/async_id/scratch_top/pc (the two retail teardown ticks with
+ip=0 have unresolved pc and are compared on the other fields only).
+
+Enemy despawn (BulletEntity_UpdateTransform 0x0040DC80) was transcribed with
+the four play-field kill bounds paired to the wrong comparisons: the correct
+retail loc_40DFDA order is x+hw < flt_470B40 (-192), x-hw > flt_470B3C (192),
+y+hh < flt_470B04 (0) and y-hh > flt_470B38 (448) - the x/y pairings are the
+opposite of the player-clamp pairings. The swapped bounds made `outside` true
+for every on-screen position, so the 0x100 "has been inside" flag was never
+set and no enemy ever despawned. The bounds are now corrected, and the enemy
+manager sweep (retail sub_40D750) now mirrors the vtable release slot: a
+non-zero transform result unlinks and frees the entity, drops its owned async
+children (balanced destroy/entity teardown), and stops ticking it. The
+remaining alignment gap is enemy motion, not despawn: retail enemies fly
+parameterized paths from their spawn positions and leave play at varying
+frames, while the reconstruction's enemies follow one uniform path and
+despawn at a common frame, so per-VM lifespans still differ (the offscreen
+mechanism fires, but at the wrong time).
 
 ## Deterministic Stage Trace
 

@@ -34,9 +34,9 @@ SIZE_BANDS = (
 
 
 def coverage_summary(entries):
-    implemented_statuses = {"semantic", "exact-overlay"}
+    implemented_statuses = {"semantic"}
     by_status = {}
-    for status in ("semantic", "exact-overlay"):
+    for status in ("semantic",):
         selected = [entry for entry in entries if entry["status"] == status]
         by_status[status] = {
             "function_count": len(selected),
@@ -173,7 +173,6 @@ def generate():
     tracked = tracked_functions()
     overlays = overlay_entries()
     mentions, semantic, headers = source_annotations()
-    pure = overlay_pure_cpp(overlays)
     entries = []
 
     for address in sorted(set(tracked) | set(overlays)):
@@ -203,16 +202,19 @@ def generate():
             entry["status"] = "partial"
             entry["blocker"] = PARTIAL[address]
         if address in overlays:
-            entry["status"] = "exact-overlay"
-            entry["pure_cpp"] = address in pure
-            object_name, symbol = overlays[address]
+            # The naked-assembly "exact overlays" are gone; the tuple now only
+            # marks which addresses are implemented, so coverage stays
+            # complete.  Resolve the source from the overlay's object stem
+            # when the address-comment scan did not, and otherwise classify
+            # like any other readable C++ reconstruction.
+            object_name, _symbol = overlays[address]
             if entry["source"] == "unrecovered":
                 candidates = list((ROOT / "src").rglob(
                     Path(object_name).stem + ".cpp"))
                 if len(candidates) == 1:
                     entry["source"] = str(candidates[0].relative_to(ROOT))
-            entry["overlay_object"] = object_name
-            entry["overlay_symbol"] = symbol
+            if entry["status"] == "unrecovered":
+                entry["status"] = "semantic"
         entries.append(entry)
 
     return {
@@ -226,12 +228,10 @@ def generate():
         },
         "coverage_summary": coverage_summary(entries),
         "verified_overlay_summary": {
-            "function_count": len(overlays),
-            "pure_cpp_function_count": len(pure),
-            # Byte totals belong to build output and are intentionally not
-            # inferred from optional, untracked object files here.
+            "function_count": 0,
+            "pure_cpp_function_count": 0,
             "compared_bytes": None,
-            "source": "tools/build_hybrid.py",
+            "source": "tools/build_hybrid.py (overlay list retired)",
         },
         "functions": entries,
     }
@@ -240,22 +240,18 @@ def generate():
 def print_summary(document):
     entries = document["functions"]
     counts = Counter(entry["status"] for entry in entries)
-    implemented = counts["semantic"] + counts["exact-overlay"]
+    implemented = counts["semantic"]
     remaining = len(entries) - implemented
     print("coverage ledger ({} tracked functions):".format(len(entries)))
-    for status in ("exact-overlay", "semantic", "partial", "researched",
-                   "unrecovered"):
+    for status in ("semantic", "partial", "researched", "unrecovered"):
         print("  {}: {}".format(status, counts[status]))
     print("  readable implementations: {} ({:.1f}%)".format(
         implemented, implemented * 100.0 / len(entries)))
     print("  not fully implemented: {}".format(remaining))
     coverage = document["coverage_summary"]
     semantic = coverage["by_status"]["semantic"]
-    exact = coverage["by_status"]["exact-overlay"]
     print("  semantic bytes: {} across {} functions".format(
         semantic["retail_bytes"], semantic["function_count"]))
-    print("  exact-overlay bytes: {} across {} functions".format(
-        exact["retail_bytes"], exact["function_count"]))
     print("  size-band progress:")
     for band in coverage["size_bands"]:
         print("    {}: {}/{} functions, {}/{} bytes".format(

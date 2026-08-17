@@ -65,13 +65,21 @@ produce identical flat tick sequences on the normalized comparison fields
 (rank_mask, async_id, scratch_top, pc low word - 10,900/10,900); only the
 frame-boundary attribution jitters under the uncapped loop.
 
-The comparison timeline is an ASSUMPTION under validation: the retail root
-VM's float clock (vm+0x00) against the reconstruction's scheduler
-`stage_frame`. Under that provisional first-tick alignment the
-script-relative pc and scratch_top agree (pc 40080, scratch 16), while
-`rank_mask` is 2 in retail and 255 in the reconstruction, and the root
-`async_id` is -1 in retail and 0 in the reconstruction. Broader agreement
-metrics are not published until the timeline alignment is validated.
+The comparison timeline is each VM's float clock (vm+0x00), captured on both
+sides at interpreter entry as raw bits: retail emits `clock`, and the
+reconstruction emits a matching `time_before` field on each `ecl_vm_tick`.
+The scheduler `stage_frame` is NOT the comparison key because it is monotonic
+and cannot represent the wait/jump opcodes that move vm+0x00 backwards (the
+retail root clock rewinds at tick ~181, e.g. 180 -> 161).
+
+`retail_vs_recon_stage.py` aligns every VM (root, async children, spawned
+enemies) by creation order and confirms the entry script-relative pc and
+async_id at each position before comparing ticks. The default run reports
+63/63 VMs identity-aligned and 10,900/10,900 per-tick full agreement across
+the retail capture. The only remaining lifecycle gap is enemy despawn: retail
+retires spawned-enemy VMs within the bounded window while the reconstruction
+keeps them alive to the trace end (the 0x9808/0x6698 child families retire
+identically).
 
 The retail stage script runs from the `stage01.ecl` buffer captured by
 `script_register` (arg0); per-tick script-relative pc resolves for

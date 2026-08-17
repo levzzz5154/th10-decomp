@@ -391,19 +391,13 @@ timers, character tables, and collision bounds. Its final `0x00426F70` call is
 an explicit unconditional derived-state refresh dependency, not a blocker to
 the initializer's independently observed behavior.
 
-The generated coverage ledger currently reports 722 of 722 tracked retail
-functions (100.0%) as readable semantic C++ or verified overlays (397 of them
-byte-identical with MSVC 7.1), leaving 0 partial or unrecovered functions. The
-ledger also marks which of those verified overlays are implemented as pure C++
-that MSVC 7.1 compiles to the retail bytes (no inline `__asm`); the remaining
-overlays use exact inline assembly only where the retail ABI or codegen idiom
-cannot be expressed in MSVC 7.1 C++ (custom `__usercall` register arguments,
-`fsincos` pairs, compiler-specific division idioms, FPU comparison branch
-idioms such as `test ah,5; jp` versus `test ah,1; je`, and 16-bit register
-choreography). Conversions are verified with `compare_obj.py` and land through
-the same byte-identity build gates.
-researched-only bucket is empty. It remains separate from the
-startup-to-title readiness report, whose 179-function call closure is fully
+The generated coverage ledger currently reports 722 tracked retail functions:
+719 readable semantic C++ reconstructions plus 3 researched functions (0
+partial, 0 unrecovered). The naked-assembly `exact overlays` were removed;
+every function is now plain C++, and runtime fidelity is measured against the
+bounded retail probe (per-tick ECL VM state) rather than by byte-matching
+compiled overlays. The researched-only bucket is empty. It remains separate
+from the startup-to-title readiness report, whose 179-function call closure is fully
 source-ready and whose retail-free link, executable, and smoke gates all pass.
 Run `python3 tools/coverage_report.py --check` and
 `python3 tools/standalone_readiness.py --check` to verify both generated

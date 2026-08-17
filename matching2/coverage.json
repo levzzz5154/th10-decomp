@@ -9,12 +9,8 @@
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 322,
-        "retail_bytes": 267755
-      },
-      "exact-overlay": {
-        "function_count": 397,
-        "retail_bytes": 56597
+        "function_count": 719,
+        "retail_bytes": 324352
       }
     },
     "size_bands": [
@@ -57,21 +53,18 @@
     ]
   },
   "verified_overlay_summary": {
-    "function_count": 397,
-    "pure_cpp_function_count": 34,
+    "function_count": 0,
+    "pure_cpp_function_count": 0,
     "compared_bytes": null,
-    "source": "tools/build_hybrid.py"
+    "source": "tools/build_hybrid.py (overlay list retired)"
   },
   "functions": [
     {
       "address": "0x00401000",
       "symbol": "FUN_00401000",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/game/game_thread.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_thread_overlay.obj",
-      "overlay_symbol": "GameThread_ConstructOverlay"
+      "status": "semantic",
+      "source": "src/game/game_thread.cpp"
     },
     {
       "address": "0x00401110",
@@ -98,41 +91,29 @@
       "address": "0x00401520",
       "symbol": "FUN_00401520",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "GameThread_RunQueueLeaf"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00401530",
       "symbol": "FUN_00401530",
       "size": 256,
-      "status": "exact-overlay",
-      "source": "src/game/game_thread_queue.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_thread_queue.obj",
-      "overlay_symbol": "?GameThread_AppendRecord@@"
+      "status": "semantic",
+      "source": "src/game/game_thread_queue.cpp"
     },
     {
       "address": "0x00401630",
       "symbol": "FUN_00401630",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/game_thread_queue.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_thread_queue.obj",
-      "overlay_symbol": "?GameThread_AppendFormatted@@"
+      "status": "semantic",
+      "source": "src/game/game_thread_queue.cpp"
     },
     {
       "address": "0x00401690",
       "symbol": "FUN_00401690",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/game_thread_queue.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_thread_queue.obj",
-      "overlay_symbol": "GameThread_AppendFormattedMarkedRetail"
+      "status": "semantic",
+      "source": "src/game/game_thread_queue.cpp"
     },
     {
       "address": "0x00401760",
@@ -152,11 +133,8 @@
       "address": "0x00401D20",
       "symbol": "FUN_00401d20",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/render/render_stage_select.cpp",
-      "pure_cpp": false,
-      "overlay_object": "render_stage_select.obj",
-      "overlay_symbol": "GameThread_SelectRenderStageRetail"
+      "status": "semantic",
+      "source": "src/render/render_stage_select.cpp"
     },
     {
       "address": "0x00401DE0",
@@ -169,21 +147,15 @@
       "address": "0x00401FF0",
       "symbol": "FUN_00401ff0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "Entity_Destructor"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00402050",
       "symbol": "FUN_00402050",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "Entity_Constructor"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00402160",
@@ -287,11 +259,8 @@
       "address": "0x004045B0",
       "symbol": "FUN_004045b0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "?PlayerManager_StartMode@@"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00404610",
@@ -311,41 +280,29 @@
       "address": "0x00404D40",
       "symbol": "FUN_00404d40",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/math/math_utils.cpp",
-      "pure_cpp": false,
-      "overlay_object": "math_utils.obj",
-      "overlay_symbol": "?Vec_Subtract@@"
+      "status": "semantic",
+      "source": "src/math/math_utils.cpp"
     },
     {
       "address": "0x00404DA0",
       "symbol": "FUN_00404da0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ScaleColor"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00404E10",
       "symbol": "FUN_00404e10",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/particle_seed.cpp",
-      "pure_cpp": false,
-      "overlay_object": "particle_seed.obj",
-      "overlay_symbol": "ParticleSeed_Combine"
+      "status": "semantic",
+      "source": "src/game/particle_seed.cpp"
     },
     {
       "address": "0x00404ED0",
       "symbol": "FUN_00404ed0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/math/timer.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?FrameTimer_Tick@@"
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
     },
     {
       "address": "0x00404F30",
@@ -358,21 +315,15 @@
       "address": "0x00405040",
       "symbol": "FUN_00405040",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InitializeWordColor"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004050D0",
       "symbol": "FUN_004050d0",
       "size": 560,
-      "status": "exact-overlay",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?EmbeddedTimer_Reset@@"
+      "status": "semantic",
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x00405300",
@@ -385,11 +336,8 @@
       "address": "0x00405410",
       "symbol": "FUN_00405410",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "Player_SetSchedulerValue"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x004054B0",
@@ -402,41 +350,29 @@
       "address": "0x00405500",
       "symbol": "FUN_00405500",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "Player_ClearExpiredFlagsRetail"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x004055C0",
       "symbol": "FUN_004055c0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_InstallPairSetFlags@@"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405620",
       "symbol": "FUN_00405620",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ReleaseRawPairAndReset"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x004056B0",
       "symbol": "FUN_004056b0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateFixedState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00405750",
@@ -456,41 +392,29 @@
       "address": "0x004059F0",
       "symbol": "FUN_004059f0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "Player_HitTestRetail"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405AC0",
       "symbol": "FUN_00405ac0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "Player_Draw"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405B60",
       "symbol": "FUN_00405b60",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/player.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player.obj",
-      "overlay_symbol": "Player_AdjustPower"
+      "status": "semantic",
+      "source": "src/game/player.cpp"
     },
     {
       "address": "0x00405BE0",
       "symbol": "FUN_00405be0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/game/player_scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_scheduler.obj",
-      "overlay_symbol": "Player_ResetSchedulerLinksRetail"
+      "status": "semantic",
+      "source": "src/game/player_scheduler.cpp"
     },
     {
       "address": "0x00405D00",
@@ -503,11 +427,8 @@
       "address": "0x00405DE0",
       "symbol": "FUN_00405de0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "EntitySecondaryResource_Release"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00405E20",
@@ -520,21 +441,15 @@
       "address": "0x00405ED0",
       "symbol": "FUN_00405ed0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/bullet_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet_manager_overlay.obj",
-      "overlay_symbol": "BulletPool_ResetRetail"
+      "status": "semantic",
+      "source": "src/game/bullet_manager.cpp"
     },
     {
       "address": "0x00405F70",
       "symbol": "FUN_00405f70",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/manager_teardown.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_teardown.obj",
-      "overlay_symbol": "ItemManager_DestroyRetail"
+      "status": "semantic",
+      "source": "src/game/manager_teardown.cpp"
     },
     {
       "address": "0x00406060",
@@ -547,21 +462,15 @@
       "address": "0x00406160",
       "symbol": "FUN_00406160",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "?Entity_PointWithinBounds@@"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x004061D0",
       "symbol": "FUN_004061d0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "?Entity_PointWithinBoundsInclusive@@"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00406240",
@@ -588,11 +497,8 @@
       "address": "0x0040678E",
       "symbol": "FUN_0040678e",
       "size": 66,
-      "status": "exact-overlay",
-      "source": "src/game/player_motion.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_motion.obj",
-      "overlay_symbol": "?Player_ForwardAxisWrap@@"
+      "status": "semantic",
+      "source": "src/game/player_motion.cpp"
     },
     {
       "address": "0x004067D0",
@@ -612,21 +518,15 @@
       "address": "0x004073E0",
       "symbol": "FUN_004073e0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/enemy_grid_scan.cpp",
-      "pure_cpp": false,
-      "overlay_object": "enemy_grid_scan_overlay.obj",
-      "overlay_symbol": "EnemyGrid_ScanCellsRetail"
+      "status": "semantic",
+      "source": "src/game/enemy_grid_scan.cpp"
     },
     {
       "address": "0x004074B0",
       "symbol": "FUN_004074b0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/player_motion.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_motion.obj",
-      "overlay_symbol": "PlayerAnimation_AdvanceFrame"
+      "status": "semantic",
+      "source": "src/game/player_motion.cpp"
     },
     {
       "address": "0x00407560",
@@ -639,11 +539,8 @@
       "address": "0x004076A0",
       "symbol": "FUN_004076a0",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/game/player_motion.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_motion.obj",
-      "overlay_symbol": "Player_DeathShrink"
+      "status": "semantic",
+      "source": "src/game/player_motion.cpp"
     },
     {
       "address": "0x00407780",
@@ -677,21 +574,15 @@
       "address": "0x00407DA0",
       "symbol": "FUN_00407da0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/player_motion.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_motion.obj",
-      "overlay_symbol": "Player_WrapHorizontal"
+      "status": "semantic",
+      "source": "src/game/player_motion.cpp"
     },
     {
       "address": "0x00407E40",
       "symbol": "FUN_00407e40",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/player_motion.cpp",
-      "pure_cpp": false,
-      "overlay_object": "player_motion.obj",
-      "overlay_symbol": "Player_WrapVertical"
+      "status": "semantic",
+      "source": "src/game/player_motion.cpp"
     },
     {
       "address": "0x00407EF0",
@@ -704,11 +595,8 @@
       "address": "0x00408030",
       "symbol": "FUN_00408030",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "ScoreState_ActivateFromResultRetail"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00408100",
@@ -728,51 +616,36 @@
       "address": "0x00408660",
       "symbol": "FUN_00408660",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?WrappedAngleDifference@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x004086B0",
       "symbol": "FUN_004086b0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "OutsideAxisAlignedBounds"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00408750",
       "symbol": "FUN_00408750",
       "size": 368,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "Score_SetPolarVector"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x004088C0",
       "symbol": "FUN_004088c0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?CountPatternMatches@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00408910",
       "symbol": "FUN_00408910",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "PlayerManager_ConstructRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x004089C0",
@@ -792,11 +665,8 @@
       "address": "0x00408C90",
       "symbol": "FUN_00408c90",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "PlayerManager_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x00408D60",
@@ -809,31 +679,22 @@
       "address": "0x004091C0",
       "symbol": "FUN_004091c0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00409230",
       "symbol": "FUN_00409230",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00409270",
       "symbol": "FUN_00409270",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?RunArrayReleaseCallback@ScoreRuntimeState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00409280",
@@ -853,21 +714,15 @@
       "address": "0x00409D90",
       "symbol": "FUN_00409d90",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?AddScaled@GameScore@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00409E20",
       "symbol": "FUN_00409e20",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Retire@ScoreRuntimeCallbacks@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00409E50",
@@ -894,31 +749,22 @@
       "address": "0x0040AC20",
       "symbol": "FUN_0040ac20",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?UpdateInputState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0040AC90",
       "symbol": "FUN_0040ac90",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?SetInputMode@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0040ACE0",
       "symbol": "FUN_0040ace0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?InputMaskActive@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0040AD20",
@@ -931,31 +777,22 @@
       "address": "0x0040AE70",
       "symbol": "FUN_0040ae70",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "?BulletManager_LoadScripts@@"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040AF00",
       "symbol": "FUN_0040af00",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "?BulletManager_Release@@"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040AF90",
       "symbol": "FUN_0040af90",
       "size": 384,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "?BulletManager_Create@@"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040B110",
@@ -968,11 +805,8 @@
       "address": "0x0040B250",
       "symbol": "FUN_0040b250",
       "size": 336,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": true,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "Entity_AttachResourceSnapshot"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040B3A0",
@@ -1006,31 +840,22 @@
       "address": "0x0040B940",
       "symbol": "FUN_0040b940",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateSmallState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040B9D0",
       "symbol": "FUN_0040b9d0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ScoreOwnedObject_Destroy@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0040B9F0",
       "symbol": "FUN_0040b9f0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_UpdateEmitterDecision"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BA90",
@@ -1043,11 +868,8 @@
       "address": "0x0040BD20",
       "symbol": "FUN_0040bd20",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_TickState@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040BD80",
@@ -1060,31 +882,22 @@
       "address": "0x0040C3C0",
       "symbol": "FUN_0040c3c0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/stage_background.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_background_overlay.obj",
-      "overlay_symbol": "StageBackground_RebindTextureRetail"
+      "status": "semantic",
+      "source": "src/game/stage_background.cpp"
     },
     {
       "address": "0x0040C480",
       "symbol": "FUN_0040c480",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_StopAtFrame2@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0040C4D0",
       "symbol": "FUN_0040c4d0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_StopAtFrame3@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0040C540",
@@ -1097,11 +910,8 @@
       "address": "0x0040C6E0",
       "symbol": "FUN_0040c6e0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "BulletEntity_ClearResourceList"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040C730",
@@ -1114,11 +924,8 @@
       "address": "0x0040C9A0",
       "symbol": "FUN_0040c9a0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ResetEmitter"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040C9D0",
@@ -1131,21 +938,15 @@
       "address": "0x0040CC50",
       "symbol": "FUN_0040cc50",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Bullet_DeletingDestructor"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0040CC70",
       "symbol": "FUN_0040cc70",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "?Entity_ClearAnims@@"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040CD20",
@@ -1158,41 +959,29 @@
       "address": "0x0040CEA0",
       "symbol": "FUN_0040cea0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "?BulletEntity_MarkAnimationForRemoval@@"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040CF40",
       "symbol": "FUN_0040cf40",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": true,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "BulletSpawnParameters_Initialize"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040CF60",
       "symbol": "FUN_0040cf60",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "BulletEntity_SetAnimationVector"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040CF90",
       "symbol": "FUN_0040cf90",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "BulletEntity_FindById"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040CFB0",
@@ -1219,31 +1008,22 @@
       "address": "0x0040D680",
       "symbol": "FUN_0040d680",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/bullet.cpp",
-      "pure_cpp": false,
-      "overlay_object": "bullet.obj",
-      "overlay_symbol": "BulletEntity_ReleaseResource"
+      "status": "semantic",
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0040D6B0",
       "symbol": "FUN_0040d6b0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": true,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "EnemyManager_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0040D750",
       "symbol": "FUN_0040d750",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/game/enemy_lifecycle.cpp",
-      "pure_cpp": false,
-      "overlay_object": "enemy_lifecycle_overlay.obj",
-      "overlay_symbol": "Enemy_TimerSweepRetail"
+      "status": "semantic",
+      "source": "src/game/enemy_lifecycle.cpp"
     },
     {
       "address": "0x0040D830",
@@ -1270,21 +1050,15 @@
       "address": "0x0040E5F0",
       "symbol": "FUN_0040e5f0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/boss_overlays.cpp",
-      "pure_cpp": false,
-      "overlay_object": "boss_overlays.obj",
-      "overlay_symbol": "BossUi_ReleaseIndicatorsRetail"
+      "status": "semantic",
+      "source": "src/game/boss_overlays.cpp"
     },
     {
       "address": "0x0040E6A0",
       "symbol": "FUN_0040e6a0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/enemy_lifecycle.cpp",
-      "pure_cpp": false,
-      "overlay_object": "enemy_lifecycle_overlay.obj",
-      "overlay_symbol": "Enemy_DeathSweepRetail"
+      "status": "semantic",
+      "source": "src/game/enemy_lifecycle.cpp"
     },
     {
       "address": "0x0040E770",
@@ -1297,11 +1071,8 @@
       "address": "0x00412720",
       "symbol": "FUN_00412720",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Ecl_SetResourceSlot"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004127A0",
@@ -1314,31 +1085,22 @@
       "address": "0x00412A00",
       "symbol": "FUN_00412a00",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_vm.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveIntFromEntity@@"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x00412A10",
       "symbol": "FUN_00412a10",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_vm.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveIntDestination@@"
+      "status": "semantic",
+      "source": "src/script/ecl_vm.cpp"
     },
     {
       "address": "0x00412AA0",
       "symbol": "FUN_00412aa0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Ecl_ForwardFloat"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412AC0",
@@ -1351,31 +1113,22 @@
       "address": "0x00412DB0",
       "symbol": "FUN_00412db0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "RecoveryTimer_Reset"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412E70",
       "symbol": "FUN_00412e70",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ScoreGauge_AddWithMinimum@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00412ED0",
       "symbol": "FUN_00412ed0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Score_SetMode"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00412FF0",
@@ -1388,31 +1141,22 @@
       "address": "0x00413170",
       "symbol": "FUN_00413170",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": true,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Score_SetNormalizedAngle@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413200",
       "symbol": "FUN_00413200",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "ScoreList_InsertAfter"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413270",
       "symbol": "FUN_00413270",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Vector2_SetEllipticPolar"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413350",
@@ -1425,21 +1169,15 @@
       "address": "0x00413450",
       "symbol": "FUN_00413450",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_ReleaseOwnedHandle@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004134B0",
       "symbol": "FUN_004134b0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/app/fps_counter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "fps_counter.obj",
-      "overlay_symbol": "FrameRateCounter_UpdateRetail"
+      "status": "semantic",
+      "source": "src/app/fps_counter.cpp"
     },
     {
       "address": "0x004135D0",
@@ -1452,21 +1190,15 @@
       "address": "0x004136C0",
       "symbol": "FUN_004136c0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/animation_slot.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_slot.obj",
-      "overlay_symbol": "AnimationSlot_ReleaseRetail"
+      "status": "semantic",
+      "source": "src/render/animation_slot.cpp"
     },
     {
       "address": "0x00413790",
       "symbol": "FUN_00413790",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Animation_SetActiveCount"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00413810",
@@ -1479,11 +1211,8 @@
       "address": "0x00413980",
       "symbol": "FUN_00413980",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/task_registration.cpp",
-      "pure_cpp": false,
-      "overlay_object": "task_registration.obj",
-      "overlay_symbol": "ItemFrontRuntime_InitializeRetail"
+      "status": "semantic",
+      "source": "src/game/task_registration.cpp"
     },
     {
       "address": "0x00413A20",
@@ -1510,11 +1239,8 @@
       "address": "0x00414570",
       "symbol": "FUN_00414570",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ReleaseCompositeState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004145F0",
@@ -1527,11 +1253,8 @@
       "address": "0x00414830",
       "symbol": "FUN_00414830",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "ItemManager_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x00414900",
@@ -1572,11 +1295,8 @@
       "address": "0x00417010",
       "symbol": "FUN_00417010",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/platform/path.cpp",
-      "pure_cpp": false,
-      "overlay_object": "path.obj",
-      "overlay_symbol": "?Path_DecodeXor@@"
+      "status": "semantic",
+      "source": "src/platform/path.cpp"
     },
     {
       "address": "0x00417040",
@@ -1603,21 +1323,15 @@
       "address": "0x00417770",
       "symbol": "FUN_00417770",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "RecoveryLinkedCleanup"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417800",
       "symbol": "FUN_00417800",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "PathState_Reset"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00417870",
@@ -1637,21 +1351,15 @@
       "address": "0x004180E0",
       "symbol": "FUN_004180e0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/game_ui_create.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_ui_create.obj",
-      "overlay_symbol": "GameUi_CreateAndPublish"
+      "status": "semantic",
+      "source": "src/game/game_ui_create.cpp"
     },
     {
       "address": "0x00418150",
       "symbol": "FUN_00418150",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Heap_DestroyOwned@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00418190",
@@ -1664,101 +1372,71 @@
       "address": "0x00418810",
       "symbol": "FUN_00418810",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_OffsetPoint"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004188A0",
       "symbol": "FUN_004188a0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_IncrementAnimationCount"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418930",
       "symbol": "FUN_00418930",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/faith_gauge.cpp",
-      "pure_cpp": false,
-      "overlay_object": "faith_gauge.obj",
-      "overlay_symbol": "FaithGauge_AddRetail"
+      "status": "semantic",
+      "source": "src/game/faith_gauge.cpp"
     },
     {
       "address": "0x00418A00",
       "symbol": "FUN_00418a00",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_DecayCounter"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00418A90",
       "symbol": "FUN_00418a90",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/score_timer_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score_timer_leaves.obj",
-      "overlay_symbol": "Score_IncrementCounterClampedNine"
+      "status": "semantic",
+      "source": "src/game/score_timer_leaves.cpp"
     },
     {
       "address": "0x00418B80",
       "symbol": "FUN_00418b80",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/score_timer_leaves.cpp",
-      "pure_cpp": true,
-      "overlay_object": "score_timer_leaves.obj",
-      "overlay_symbol": "ScoreGauge_SetTargetTenthAndDisableTimer"
+      "status": "semantic",
+      "source": "src/game/score_timer_leaves.cpp"
     },
     {
       "address": "0x00418C40",
       "symbol": "FUN_00418c40",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/game_config_defaults.cpp",
-      "pure_cpp": false,
-      "overlay_object": "game_config_defaults.obj",
-      "overlay_symbol": "GameConfig_InitializeDefaults"
+      "status": "semantic",
+      "source": "src/game/game_config_defaults.cpp"
     },
     {
       "address": "0x00418D00",
       "symbol": "FUN_00418d00",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/stage_tips.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_tips.obj",
-      "overlay_symbol": "StageTip_Initialize"
+      "status": "semantic",
+      "source": "src/game/stage_tips.cpp"
     },
     {
       "address": "0x00418D40",
       "symbol": "FUN_00418d40",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/stage_tip_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_tip_manager.obj",
-      "overlay_symbol": "StageTipManager_Construct"
+      "status": "semantic",
+      "source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x00418E30",
       "symbol": "FUN_00418e30",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/stage_tip_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_tip_manager.obj",
-      "overlay_symbol": "StageTipRuntime_InitializeRetail"
+      "status": "semantic",
+      "source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x00418EE0",
@@ -1771,21 +1449,15 @@
       "address": "0x00419040",
       "symbol": "FUN_00419040",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ClearEightBuckets"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419090",
       "symbol": "FUN_00419090",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateResourceState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419120",
@@ -1805,21 +1477,15 @@
       "address": "0x004198A0",
       "symbol": "FUN_004198a0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InvokeVoid"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004198C0",
       "symbol": "FUN_004198c0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_FindNamedValue"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00419960",
@@ -1839,31 +1505,22 @@
       "address": "0x0041A050",
       "symbol": "FUN_0041a050",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_SplitResourcePath"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A0A0",
       "symbol": "FUN_0041a0a0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_TrimWhitespace"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041A120",
       "symbol": "FUN_0041a120",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/game/stage_tip_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_tip_manager.obj",
-      "overlay_symbol": "StageTip_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x0041A200",
@@ -1876,11 +1533,8 @@
       "address": "0x0041AB10",
       "symbol": "FUN_0041ab10",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_AppendNode"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041AB70",
@@ -1893,21 +1547,15 @@
       "address": "0x0041AD60",
       "symbol": "FUN_0041ad60",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "EntityAnimation_Release"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x0041AD90",
       "symbol": "FUN_0041ad90",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_InstallPairClearFlags@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041ADF0",
@@ -1934,11 +1582,8 @@
       "address": "0x0041BA50",
       "symbol": "FUN_0041ba50",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/enemy_drop_sweep.cpp",
-      "pure_cpp": false,
-      "overlay_object": "enemy_drop_sweep.obj",
-      "overlay_symbol": "Enemy_SweepPendingDropsRetail"
+      "status": "semantic",
+      "source": "src/game/enemy_drop_sweep.cpp"
     },
     {
       "address": "0x0041BB00",
@@ -1951,11 +1596,8 @@
       "address": "0x0041BE80",
       "symbol": "FUN_0041be80",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": true,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?AddScaled@ScoreCounter@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041BEB0",
@@ -1968,41 +1610,29 @@
       "address": "0x0041C030",
       "symbol": "FUN_0041c030",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "ScoreObject_Initialize"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041C120",
       "symbol": "FUN_0041c120",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/task_registration.cpp",
-      "pure_cpp": false,
-      "overlay_object": "task_registration.obj",
-      "overlay_symbol": "ScoreDisplay_RegisterTasksRetail"
+      "status": "semantic",
+      "source": "src/game/task_registration.cpp"
     },
     {
       "address": "0x0041C1C0",
       "symbol": "FUN_0041c1c0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "ScoreExtendedObject_DestroyRetail"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041C290",
       "symbol": "FUN_0041c290",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/object_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "object_factories.obj",
-      "overlay_symbol": "ScoreManager_CreateAndInitRetail"
+      "status": "semantic",
+      "source": "src/game/object_factories.cpp"
     },
     {
       "address": "0x0041C330",
@@ -2022,11 +1652,8 @@
       "address": "0x0041C5B0",
       "symbol": "FUN_0041c5b0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "ScoreExtendedObject_Initialize"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041C680",
@@ -2039,21 +1666,15 @@
       "address": "0x0041C7D0",
       "symbol": "FUN_0041c7d0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ScoreRecords_MarkEligible@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041C800",
       "symbol": "FUN_0041c800",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?ScoreRecords_CopyVectorAndEvaluate@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041C850",
@@ -2087,11 +1708,8 @@
       "address": "0x0041D7C0",
       "symbol": "FUN_0041d7c0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/boss_overlays.cpp",
-      "pure_cpp": false,
-      "overlay_object": "boss_overlays.obj",
-      "overlay_symbol": "Boss_SyncOverlayPositionsRetail"
+      "status": "semantic",
+      "source": "src/game/boss_overlays.cpp"
     },
     {
       "address": "0x0041D880",
@@ -2153,51 +1771,36 @@
       "address": "0x0041F7A0",
       "symbol": "FUN_0041f7a0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Position_IsPartiallyInViewport@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0041F800",
       "symbol": "FUN_0041f800",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/math/vector.cpp",
-      "pure_cpp": false,
-      "overlay_object": "vector.obj",
-      "overlay_symbol": "?SetPolar@Vector2@@"
+      "status": "semantic",
+      "source": "src/math/vector.cpp"
     },
     {
       "address": "0x0041F850",
       "symbol": "FUN_0041f850",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InitializeStateTable"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F8D0",
       "symbol": "FUN_0041f8d0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_LoadStartupResources@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F930",
       "symbol": "FUN_0041f930",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_ReleasePair@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041F990",
@@ -2210,11 +1813,8 @@
       "address": "0x0041FAC0",
       "symbol": "FUN_0041fac0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_StartWorker"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0041FB50",
@@ -2227,11 +1827,8 @@
       "address": "0x0041FD00",
       "symbol": "FUN_0041fd00",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/object_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "object_factories.obj",
-      "overlay_symbol": "EnemySlot_CreateAndInitRetail"
+      "status": "semantic",
+      "source": "src/game/object_factories.cpp"
     },
     {
       "address": "0x0041FDD0",
@@ -2265,21 +1862,15 @@
       "address": "0x004203C0",
       "symbol": "FUN_004203c0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/platform/win32_timer.cpp",
-      "pure_cpp": false,
-      "overlay_object": "win32_timer.obj",
-      "overlay_symbol": "?TimerWin32_Release@@"
+      "status": "semantic",
+      "source": "src/platform/win32_timer.cpp"
     },
     {
       "address": "0x004203F0",
       "symbol": "FUN_004203f0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ReleaseGlobalStates"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420470",
@@ -2306,41 +1897,29 @@
       "address": "0x00420A90",
       "symbol": "FUN_00420a90",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ReplaceExtensionWav"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00420B10",
       "symbol": "FUN_00420b10",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_dummy.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_dummy.obj",
-      "overlay_symbol": "Sound_PlayDummyRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_dummy.cpp"
     },
     {
       "address": "0x00420C00",
       "symbol": "FUN_00420c00",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?GameState_DispatchDummy@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00420C30",
       "symbol": "FUN_00420c30",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_leaves.obj",
-      "overlay_symbol": "Sound_PlayRandomVoiceRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_leaves.cpp"
     },
     {
       "address": "0x00420CD0",
@@ -2353,11 +1932,8 @@
       "address": "0x00420DD0",
       "symbol": "FUN_00420dd0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/version_list.cpp",
-      "pure_cpp": false,
-      "overlay_object": "version_list.obj",
-      "overlay_symbol": "VersionList_MatchRetail"
+      "status": "semantic",
+      "source": "src/game/version_list.cpp"
     },
     {
       "address": "0x00420EA0",
@@ -2384,11 +1960,8 @@
       "address": "0x00421480",
       "symbol": "FUN_00421480",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/render/camera_setup.cpp",
-      "pure_cpp": false,
-      "overlay_object": "camera_setup.obj",
-      "overlay_symbol": "Camera_ApplyRetail"
+      "status": "semantic",
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x004215A0",
@@ -2415,31 +1988,22 @@
       "address": "0x00421B90",
       "symbol": "FUN_00421b90",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/math/vector3_cross.cpp",
-      "pure_cpp": false,
-      "overlay_object": "vector3_cross.obj",
-      "overlay_symbol": "Vector3_Cross"
+      "status": "semantic",
+      "source": "src/math/vector3_cross.cpp"
     },
     {
       "address": "0x00421C50",
       "symbol": "FUN_00421c50",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/slot_lock_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "slot_lock_leaves.obj",
-      "overlay_symbol": "SlotLockTable_LeaveRetail"
+      "status": "semantic",
+      "source": "src/game/slot_lock_leaves.cpp"
     },
     {
       "address": "0x00421D20",
       "symbol": "FUN_00421d20",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/game/slot_lock_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "slot_lock_leaves.obj",
-      "overlay_symbol": "CachedComSlot_ReleaseRetail"
+      "status": "semantic",
+      "source": "src/game/slot_lock_leaves.cpp"
     },
     {
       "address": "0x00421E00",
@@ -2452,21 +2016,15 @@
       "address": "0x00421F00",
       "symbol": "FUN_00421f00",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_InitializeLargeState@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00421F60",
       "symbol": "FUN_00421f60",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?GameState_UpdateFrameMaximum@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00421FA0",
@@ -2479,21 +2037,15 @@
       "address": "0x004220E0",
       "symbol": "FUN_004220e0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "RecoveryState_Initialize"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422150",
       "symbol": "FUN_00422150",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/main_menu_dispatch.cpp",
-      "pure_cpp": false,
-      "overlay_object": "main_menu_dispatch_overlay.obj",
-      "overlay_symbol": "MainMenu_RegisterTasksRetail"
+      "status": "semantic",
+      "source": "src/game/main_menu_dispatch.cpp"
     },
     {
       "address": "0x00422220",
@@ -2506,11 +2058,8 @@
       "address": "0x00422360",
       "symbol": "FUN_00422360",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateTimerState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004223F0",
@@ -2537,11 +2086,8 @@
       "address": "0x00422A90",
       "symbol": "FUN_00422a90",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InvokePair"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00422AB0",
@@ -2554,11 +2100,8 @@
       "address": "0x00422C30",
       "symbol": "FUN_00422c30",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?GameState_Unpause@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00422C80",
@@ -2585,11 +2128,8 @@
       "address": "0x00423510",
       "symbol": "FUN_00423510",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_InitializeTimedState@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00423570",
@@ -2609,11 +2149,8 @@
       "address": "0x004243F0",
       "symbol": "FUN_004243f0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_MarkAnimationTree"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00424480",
@@ -2626,11 +2163,8 @@
       "address": "0x00424650",
       "symbol": "FUN_00424650",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/stage_tip_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_tip_manager.obj",
-      "overlay_symbol": "StageTip_CreateUrgent"
+      "status": "semantic",
+      "source": "src/game/stage_tip_manager.cpp"
     },
     {
       "address": "0x004246C0",
@@ -2664,11 +2198,8 @@
       "address": "0x00425020",
       "symbol": "FUN_00425020",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateLargeResourceState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004250B0",
@@ -2695,31 +2226,22 @@
       "address": "0x00426520",
       "symbol": "FUN_00426520",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/music_room.cpp",
-      "pure_cpp": false,
-      "overlay_object": "music_room_overlay.obj",
-      "overlay_symbol": "ParameterFile_LoadAndRelocateRetail"
+      "status": "semantic",
+      "source": "src/game/music_room.cpp"
     },
     {
       "address": "0x00426610",
       "symbol": "FUN_00426610",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Entity_AngleToPoint@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00426660",
       "symbol": "FUN_00426660",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Entity_AngleFromPoint@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x004266B0",
@@ -2760,11 +2282,8 @@
       "address": "0x00427950",
       "symbol": "FUN_00427950",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InvokeZero"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427960",
@@ -2777,51 +2296,36 @@
       "address": "0x00427AE0",
       "symbol": "FUN_00427ae0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_SwitchPlaybackState@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00427B50",
       "symbol": "FUN_00427b50",
       "size": 256,
-      "status": "exact-overlay",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "pure_cpp": false,
-      "overlay_object": "effect_indicator_slots.obj",
-      "overlay_symbol": "EffectIndicatorPool_AllocateRetail"
+      "status": "semantic",
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x00427C50",
       "symbol": "FUN_00427c50",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_float_forward.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_float_forward.obj",
-      "overlay_symbol": "?Sound_ForwardFloatAsDouble@@"
+      "status": "semantic",
+      "source": "src/platform/sound_float_forward.cpp"
     },
     {
       "address": "0x00427C70",
       "symbol": "FUN_00427c70",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/game/frame_counter.cpp",
-      "pure_cpp": true,
-      "overlay_object": "frame_counter.obj",
-      "overlay_symbol": "?AtInterval@FrameCounterPair@@"
+      "status": "semantic",
+      "source": "src/game/frame_counter.cpp"
     },
     {
       "address": "0x00427D80",
       "symbol": "FUN_00427d80",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "pure_cpp": false,
-      "overlay_object": "effect_indicator_slots.obj",
-      "overlay_symbol": "CellPair_Scale"
+      "status": "semantic",
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x00427E90",
@@ -2834,21 +2338,15 @@
       "address": "0x00428160",
       "symbol": "FUN_00428160",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_DispatchSchedule"
+      "status": "semantic",
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x004281D0",
       "symbol": "FUN_004281d0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_UpdateStageSequence"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00428280",
@@ -2875,21 +2373,15 @@
       "address": "0x00428D70",
       "symbol": "FUN_00428d70",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?EffectPool_OutsideViewport@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x00428DD0",
       "symbol": "FUN_00428dd0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/math/timer.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?FrameTimer_Decrement@@"
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
     },
     {
       "address": "0x00428E10",
@@ -2923,21 +2415,15 @@
       "address": "0x004296F0",
       "symbol": "FUN_004296f0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "StageManager_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x004297B0",
       "symbol": "FUN_004297b0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_DeletingDestructorWithRelease@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004297D0",
@@ -2978,31 +2464,22 @@
       "address": "0x0042A8A0",
       "symbol": "FUN_0042a8a0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_AppendPacket"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042A930",
       "symbol": "FUN_0042a930",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "pure_cpp": false,
-      "overlay_object": "effect_indicator_slots.obj",
-      "overlay_symbol": "EmbeddedTimer_SetCountdownRetail"
+      "status": "semantic",
+      "source": "src/game/effect_indicator_slots.cpp"
     },
     {
       "address": "0x0042AA50",
       "symbol": "FUN_0042aa50",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/linked_pool_append.cpp",
-      "pure_cpp": false,
-      "overlay_object": "linked_pool_append.obj",
-      "overlay_symbol": "LinkedPool_AllocateAndAppendRetail"
+      "status": "semantic",
+      "source": "src/game/linked_pool_append.cpp"
     },
     {
       "address": "0x0042AB20",
@@ -3015,31 +2492,22 @@
       "address": "0x0042ACB0",
       "symbol": "FUN_0042acb0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/game/score_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score_file.obj",
-      "overlay_symbol": "ScoreFile_InitializeDefaultsRetail"
+      "status": "semantic",
+      "source": "src/game/score_file.cpp"
     },
     {
       "address": "0x0042ADD0",
       "symbol": "FUN_0042add0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InitializeRandomTable"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042AE60",
       "symbol": "FUN_0042ae60",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "EffectManager_InitializePoolsRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0042AF20",
@@ -3066,21 +2534,15 @@
       "address": "0x0042B430",
       "symbol": "FUN_0042b430",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/pool_constructors.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "EffectManager_ResetAndPublishRetail"
+      "status": "semantic",
+      "source": "src/game/pool_constructors.cpp"
     },
     {
       "address": "0x0042B4D0",
       "symbol": "FUN_0042b4d0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "EffectManagerRuntime_InitializeRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0042B570",
@@ -3093,21 +2555,15 @@
       "address": "0x0042B660",
       "symbol": "FUN_0042b660",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateHugeResourceState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042B6F0",
       "symbol": "FUN_0042b6f0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/weather_pool.cpp",
-      "pure_cpp": false,
-      "overlay_object": "weather_pool.obj",
-      "overlay_symbol": "EffectPool_UpdateDrops"
+      "status": "semantic",
+      "source": "src/game/weather_pool.cpp"
     },
     {
       "address": "0x0042B780",
@@ -3134,61 +2590,43 @@
       "address": "0x0042C5C0",
       "symbol": "FUN_0042c5c0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/score_timer_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?GameState_DisableTimerWithOwner@@"
+      "status": "semantic",
+      "source": "src/game/score_timer_leaves.cpp"
     },
     {
       "address": "0x0042C620",
       "symbol": "FUN_0042c620",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/math/timer.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?GameState_SetTimerTarget@@"
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
     },
     {
       "address": "0x0042C670",
       "symbol": "FUN_0042c670",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_InstallAnimationSlot@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C6D0",
       "symbol": "FUN_0042c6d0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_ClearAnimationSlot@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0042C730",
       "symbol": "FUN_0042c730",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?GameState_DispatchAnimationSlot@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x0042C750",
       "symbol": "FUN_0042c750",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?GameState_DispatchAnimationSlotSecondary@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x0042C770",
@@ -3201,21 +2639,15 @@
       "address": "0x0042C850",
       "symbol": "FUN_0042c850",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/progress.cpp",
-      "pure_cpp": false,
-      "overlay_object": "progress.obj",
-      "overlay_symbol": "GameProgress_HasAnyPlayRecord"
+      "status": "semantic",
+      "source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C8C0",
       "symbol": "FUN_0042c8c0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/progress.cpp",
-      "pure_cpp": false,
-      "overlay_object": "progress.obj",
-      "overlay_symbol": "?GameProgress_UnlockAllStages@@"
+      "status": "semantic",
+      "source": "src/game/progress.cpp"
     },
     {
       "address": "0x0042C920",
@@ -3228,11 +2660,8 @@
       "address": "0x0042CAA0",
       "symbol": "FUN_0042caa0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/task_registration.cpp",
-      "pure_cpp": false,
-      "overlay_object": "task_registration.obj",
-      "overlay_symbol": "Title_RegisterTasksRetail"
+      "status": "semantic",
+      "source": "src/game/task_registration.cpp"
     },
     {
       "address": "0x0042CB60",
@@ -3245,21 +2674,15 @@
       "address": "0x0042CD50",
       "symbol": "FUN_0042cd50",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/progress_worker.cpp",
-      "pure_cpp": false,
-      "overlay_object": "progress_worker.obj",
-      "overlay_symbol": "?ProgressManager_CreateAndStartWorker@@"
+      "status": "semantic",
+      "source": "src/game/progress_worker.cpp"
     },
     {
       "address": "0x0042CDB0",
       "symbol": "FUN_0042cdb0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Heap_DestroyOwnedSecondary@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x0042CDF0",
@@ -3314,11 +2737,8 @@
       "address": "0x00430250",
       "symbol": "FUN_00430250",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/key_config.cpp",
-      "pure_cpp": false,
-      "overlay_object": "key_config_overlay.obj",
-      "overlay_symbol": "KeyConfig_ReassignSlotRetail"
+      "status": "semantic",
+      "source": "src/game/key_config.cpp"
     },
     {
       "address": "0x00430320",
@@ -3429,111 +2849,78 @@
       "address": "0x004349E0",
       "symbol": "FUN_004349e0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/stage_text.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_text.obj",
-      "overlay_symbol": "?StageText_SkipLine@@"
+      "status": "semantic",
+      "source": "src/game/stage_text.cpp"
     },
     {
       "address": "0x00434A20",
       "symbol": "FUN_00434a20",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/stage_text.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_text.obj",
-      "overlay_symbol": "?StageText_ExtractLine@@"
+      "status": "semantic",
+      "source": "src/game/stage_text.cpp"
     },
     {
       "address": "0x00434A80",
       "symbol": "FUN_00434a80",
       "size": 416,
-      "status": "exact-overlay",
-      "source": "src/game/stage_text.cpp",
-      "pure_cpp": false,
-      "overlay_object": "stage_text.obj",
-      "overlay_symbol": "?StageText_Initialize@@"
+      "status": "semantic",
+      "source": "src/game/stage_text.cpp"
     },
     {
       "address": "0x00434C20",
       "symbol": "FUN_00434c20",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_Reset@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434C30",
       "symbol": "FUN_00434c30",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_Open@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434CA0",
       "symbol": "FUN_00434ca0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/archive/dat_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat_file.obj",
-      "overlay_symbol": "DatArchive_OpenResource"
+      "status": "semantic",
+      "source": "src/archive/dat_file.cpp"
     },
     {
       "address": "0x00434D10",
       "symbol": "FUN_00434d10",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_Close@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434DD0",
       "symbol": "FUN_00434dd0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_Read@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434EF0",
       "symbol": "FUN_00434ef0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_FindSize@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434F30",
       "symbol": "FUN_00434f30",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_FindEntry@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x00434F70",
       "symbol": "FUN_00434f70",
       "size": 352,
-      "status": "exact-overlay",
-      "source": "src/archive/dat.cpp",
-      "pure_cpp": false,
-      "overlay_object": "dat.obj",
-      "overlay_symbol": "?DatArchive_LoadIndex@@"
+      "status": "semantic",
+      "source": "src/archive/dat.cpp"
     },
     {
       "address": "0x004350D0",
@@ -3546,161 +2933,113 @@
       "address": "0x00435220",
       "symbol": "FUN_00435220",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?LegacyString_Duplicate@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00435250",
       "symbol": "FUN_00435250",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "HeapBuffer_Release"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x004352C0",
       "symbol": "0HeapBuffer",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "0HeapBuffer"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00435320",
       "symbol": "FUN_00435320",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "??_GFileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435340",
       "symbol": "FUN_00435340",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "??1FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435370",
       "symbol": "FUN_00435370",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "FileHandle_OpenRetail"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435460",
       "symbol": "FUN_00435460",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "Close@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435490",
       "symbol": "Read@FileHandle",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "Read@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x004354D0",
       "symbol": "Write@FileHandle",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "Write@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435510",
       "symbol": "Tell@FileHandle",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "Tell@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435530",
       "symbol": "GetSize@FileHandle",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "GetSize@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435550",
       "symbol": "Seek@FileHandle",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "Seek@FileHandle"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435580",
       "symbol": "FUN_00435580",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?ReadWhole@FileHandle@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435610",
       "symbol": "FUN_00435610",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_ResolvePath@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x00435690",
       "symbol": "??1FileInterface",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "??1FileInterface"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x004356A0",
       "symbol": "??_GFileInterface",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "??_GFileInterface"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x004356F0",
@@ -3720,11 +3059,8 @@
       "address": "0x004358E0",
       "symbol": "FUN_004358e0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/archive/resource_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "resource_manager.obj",
-      "overlay_symbol": "Resource_GetFileSizeRetail"
+      "status": "semantic",
+      "source": "src/archive/resource_manager.cpp"
     },
     {
       "address": "0x004359B0",
@@ -3751,131 +3087,92 @@
       "address": "0x00436210",
       "symbol": "FUN_00436210",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "?MemoryFile_RemoveNode@@"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436260",
       "symbol": "FUN_00436260",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "?MemoryFile_RelinkChild@@"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x004362B0",
       "symbol": "FUN_004362b0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "?MemoryFile_ReplaceNode@@"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436330",
       "symbol": "FUN_00436330",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "?MemoryFile_FindPredecessor@@"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436370",
       "symbol": "Write@BufferFile",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "Write@BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x004363A0",
       "symbol": "FUN_004363a0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "??_GBufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x004363C0",
       "symbol": "FUN_004363c0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "??1BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436430",
       "symbol": "FUN_00436430",
       "size": 320,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "Close@BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436460",
       "symbol": "Read@BufferFile",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "Read@BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x004364D0",
       "symbol": "Tell@BufferFile",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "Tell@BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x004364E0",
       "symbol": "GetSize@BufferFile",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": true,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "GetSize@BufferFile"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x00436570",
       "symbol": "FUN_00436570",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/platform/process.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_LaunchProcess@@"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x00436660",
       "symbol": "FUN_00436660",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/resource_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "resource_file.obj",
-      "overlay_symbol": "??_GResourceFile"
+      "status": "semantic",
+      "source": "src/platform/resource_file.cpp"
     },
     {
       "address": "0x00436680",
@@ -3895,11 +3192,8 @@
       "address": "0x00436A30",
       "symbol": "FUN_00436a30",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/platform/gdi_font_cache.cpp",
-      "pure_cpp": false,
-      "overlay_object": "gdi_font_cache.obj",
-      "overlay_symbol": "FontCache_FlushRetail"
+      "status": "semantic",
+      "source": "src/platform/gdi_font_cache.cpp"
     },
     {
       "address": "0x00436AF0",
@@ -3947,11 +3241,8 @@
       "address": "0x00437D10",
       "symbol": "FUN_00437d10",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/platform/gdi_font_cache.cpp",
-      "pure_cpp": false,
-      "overlay_object": "gdi_font_cache.obj",
-      "overlay_symbol": "FontCache_DeleteGdiObjectsRetail"
+      "status": "semantic",
+      "source": "src/platform/gdi_font_cache.cpp"
     },
     {
       "address": "0x00437DB0",
@@ -3971,121 +3262,85 @@
       "address": "0x004381F0",
       "symbol": "FUN_004381f0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "LegacyString_Clear"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438250",
       "symbol": "?Length@LegacyString",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Length@LegacyString"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438260",
       "symbol": "FUN_00438260",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?AssignSubstring@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438350",
       "symbol": "FUN_00438350",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Assign@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438380",
       "symbol": "FUN_00438380",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Reserve@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438420",
       "symbol": "FUN_00438420",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?AssignRange@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438510",
       "symbol": "FUN_00438510",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Erase@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438590",
       "symbol": "FUN_00438590",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "SetLength@LegacyString"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438680",
       "symbol": "QAEPADXZ",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "QAEPADXZ"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438690",
       "symbol": "Deallocate@LegacyAllocator",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "Deallocate@LegacyAllocator"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x004386A0",
       "symbol": "MaxSize@LegacyAllocator",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "MaxSize@LegacyAllocator"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x004386B0",
       "symbol": "FUN_004386b0",
       "size": 115,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": false,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "?Grow@LegacyString@@"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438723",
@@ -4112,51 +3367,36 @@
       "address": "0x00438800",
       "symbol": "OwnsPointer@LegacyString",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "OwnsPointer@LegacyString"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438840",
       "symbol": "Allocate@LegacyAllocator",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/heap.cpp",
-      "pure_cpp": true,
-      "overlay_object": "heap.obj",
-      "overlay_symbol": "Allocate@LegacyAllocator"
+      "status": "semantic",
+      "source": "src/util/heap.cpp"
     },
     {
       "address": "0x00438880",
       "symbol": "FUN_00438880",
       "size": 432,
-      "status": "exact-overlay",
-      "source": "src/render/d3d_resource_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "d3d_resource_manager.obj",
-      "overlay_symbol": "?D3DResourceManager_Destroy@@"
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
     },
     {
       "address": "0x004388F0",
       "symbol": "RuntimeAllocationPool_Initialize",
       "size": null,
-      "status": "exact-overlay",
-      "source": "src/util/runtime_pool.cpp",
-      "pure_cpp": true,
-      "overlay_object": "runtime_pool.obj",
-      "overlay_symbol": "RuntimeAllocationPool_Initialize"
+      "status": "semantic",
+      "source": "src/util/runtime_pool.cpp"
     },
     {
       "address": "0x00438A30",
       "symbol": "FUN_00438a30",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/entity.cpp",
-      "pure_cpp": false,
-      "overlay_object": "entity.obj",
-      "overlay_symbol": "DestroyEntityList"
+      "status": "semantic",
+      "source": "src/game/entity.cpp"
     },
     {
       "address": "0x00438A60",
@@ -4190,11 +3430,8 @@
       "address": "0x004392E0",
       "symbol": "FUN_004392e0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/platform/window.cpp",
-      "pure_cpp": false,
-      "overlay_object": "window.obj",
-      "overlay_symbol": "SaveSystemSettingsRetail"
+      "status": "semantic",
+      "source": "src/platform/window.cpp"
     },
     {
       "address": "0x00439390",
@@ -4333,21 +3570,15 @@
       "address": "0x0043BC40",
       "symbol": "FUN_0043bc40",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_ResetDeviceStreams"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043BCD0",
       "symbol": "FUN_0043bcd0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/camera_setup.cpp",
-      "pure_cpp": true,
-      "overlay_object": "camera_setup.obj",
-      "overlay_symbol": "Viewport_ApplyDefaultRetail"
+      "status": "semantic",
+      "source": "src/render/camera_setup.cpp"
     },
     {
       "address": "0x0043BDA0",
@@ -4381,11 +3612,8 @@
       "address": "0x0043C410",
       "symbol": "FUN_0043c410",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/game/ascii_overlay_callbacks.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ascii_overlay_callbacks_overlay.obj",
-      "overlay_symbol": "AsciiManager_OnDrawRetail"
+      "status": "semantic",
+      "source": "src/game/ascii_overlay_callbacks.cpp"
     },
     {
       "address": "0x0043C500",
@@ -4398,21 +3626,15 @@
       "address": "0x0043C870",
       "symbol": "FUN_0043c870",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_DeletingDestructorNoReturn@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043C8B0",
       "symbol": "FUN_0043c8b0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/manager_factories.cpp",
-      "pure_cpp": false,
-      "overlay_object": "manager_factories.obj",
-      "overlay_symbol": "AsciiManager_CreateRetail"
+      "status": "semantic",
+      "source": "src/game/manager_factories.cpp"
     },
     {
       "address": "0x0043C970",
@@ -4425,31 +3647,22 @@
       "address": "0x0043CB00",
       "symbol": "FUN_0043cb00",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_ReleaseRawPair@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043CB80",
       "symbol": "FUN_0043cb80",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/script/prng.cpp",
-      "pure_cpp": false,
-      "overlay_object": "prng.obj",
-      "overlay_symbol": "EntityScript_NextRandomModulo"
+      "status": "semantic",
+      "source": "src/script/prng.cpp"
     },
     {
       "address": "0x0043CC40",
       "symbol": "FUN_0043cc40",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_worker.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_worker.obj",
-      "overlay_symbol": "Platform_StopSoundWorkersRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_worker.cpp"
     },
     {
       "address": "0x0043CD30",
@@ -4469,21 +3682,15 @@
       "address": "0x0043D250",
       "symbol": "FUN_0043d250",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/platform/memory_file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "memory_file.obj",
-      "overlay_symbol": "?Resource_FindChunk@@"
+      "status": "semantic",
+      "source": "src/platform/memory_file.cpp"
     },
     {
       "address": "0x0043D2A0",
       "symbol": "FUN_0043d2a0",
       "size": 240,
-      "status": "exact-overlay",
-      "source": "src/platform/path.cpp",
-      "pure_cpp": false,
-      "overlay_object": "path.obj",
-      "overlay_symbol": "?Path_FindBasenameSlot@@"
+      "status": "semantic",
+      "source": "src/platform/path.cpp"
     },
     {
       "address": "0x0043D390",
@@ -4503,11 +3710,8 @@
       "address": "0x0043D790",
       "symbol": "FUN_0043d790",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_SelectArchiveEntry@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0043D7D0",
@@ -4527,11 +3731,8 @@
       "address": "0x0043DAB0",
       "symbol": "FUN_0043dab0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/platform/midi_worker_stop.cpp",
-      "pure_cpp": false,
-      "overlay_object": "midi_worker_stop.obj",
-      "overlay_symbol": "MidiWorker_StopRetail"
+      "status": "semantic",
+      "source": "src/platform/midi_worker_stop.cpp"
     },
     {
       "address": "0x0043DB60",
@@ -4544,11 +3745,8 @@
       "address": "0x0043DC90",
       "symbol": "FUN_0043dc90",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_QueueResource@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043DD10",
@@ -4568,61 +3766,43 @@
       "address": "0x0043E3A0",
       "symbol": "FUN_0043e3a0",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/platform/midi_worker.cpp",
-      "pure_cpp": false,
-      "overlay_object": "midi_worker_overlay.obj",
-      "overlay_symbol": "MidiWorker_MessageLoopRetail"
+      "status": "semantic",
+      "source": "src/platform/midi_worker.cpp"
     },
     {
       "address": "0x0043E460",
       "symbol": "FUN_0043e460",
       "size": 320,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RegisterResource@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043E5A0",
       "symbol": "FUN_0043e5a0",
       "size": 368,
-      "status": "exact-overlay",
-      "source": "src/game/pool_constructors.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_ConfigureFromResource@@"
+      "status": "semantic",
+      "source": "src/game/pool_constructors.cpp"
     },
     {
       "address": "0x0043E710",
       "symbol": "FUN_0043e710",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_LoadScript@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043E7E0",
       "symbol": "FUN_0043e7e0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_LoadScriptPreservingState@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043E8B0",
       "symbol": "FUN_0043e8b0",
       "size": 528,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_ChangeScript@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043EAC0",
@@ -4635,31 +3815,22 @@
       "address": "0x0043EC70",
       "symbol": "FUN_0043ec70",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_ReadIntegerVariable@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043ED00",
       "symbol": "FUN_0043ed00",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_ResolveFloatVariable@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043EDA0",
       "symbol": "FUN_0043eda0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationObject_ResolveIntegerVariable@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x0043EE30",
@@ -4693,31 +3864,22 @@
       "address": "0x00441E50",
       "symbol": "FUN_00441e50",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/math/random_vector.cpp",
-      "pure_cpp": false,
-      "overlay_object": "random_vector.obj",
-      "overlay_symbol": "RandomVector_StoreRoundedScalar"
+      "status": "semantic",
+      "source": "src/math/random_vector.cpp"
     },
     {
       "address": "0x00441EF0",
       "symbol": "FUN_00441ef0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Vector2_SetAnimationPolar"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00441F50",
       "symbol": "FUN_00441f50",
       "size": 256,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?RecoveryState_Configure41F50@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00442050",
@@ -4737,21 +3899,15 @@
       "address": "0x00442300",
       "symbol": "FUN_00442300",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "RecoveryState_Configure42300"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004423C0",
       "symbol": "FUN_004423c0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationColor_MultiplyChannel@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004423E0",
@@ -4764,11 +3920,8 @@
       "address": "0x004425A0",
       "symbol": "FUN_004425a0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/render_state_sync.cpp",
-      "pure_cpp": false,
-      "overlay_object": "render_state_sync.obj",
-      "overlay_symbol": "AnmManager_SyncEntityRenderStateRetail"
+      "status": "semantic",
+      "source": "src/render/render_state_sync.cpp"
     },
     {
       "address": "0x00442670",
@@ -4781,21 +3934,15 @@
       "address": "0x00442F50",
       "symbol": "FUN_00442f50",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/render/anm_batch_flush.cpp",
-      "pure_cpp": false,
-      "overlay_object": "anm_batch_flush.obj",
-      "overlay_symbol": "AnimationManager_FlushQuadBatch"
+      "status": "semantic",
+      "source": "src/render/anm_batch_flush.cpp"
     },
     {
       "address": "0x00442FE0",
       "symbol": "FUN_00442fe0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/render/quad_vertex_append.cpp",
-      "pure_cpp": true,
-      "overlay_object": "quad_vertex_append.obj",
-      "overlay_symbol": "AnimationManager_AppendQuadVertices"
+      "status": "semantic",
+      "source": "src/render/quad_vertex_append.cpp"
     },
     {
       "address": "0x00443080",
@@ -4871,11 +4018,8 @@
       "address": "0x00444BE0",
       "symbol": "FUN_00444be0",
       "size": 256,
-      "status": "exact-overlay",
-      "source": "src/render/edge_strips.cpp",
-      "pure_cpp": false,
-      "overlay_object": "edge_strips.obj",
-      "overlay_symbol": "RenderTarget_FillVerticalEdgeStripRetail"
+      "status": "semantic",
+      "source": "src/render/edge_strips.cpp"
     },
     {
       "address": "0x00444CE0",
@@ -4916,11 +4060,8 @@
       "address": "0x004458B0",
       "symbol": "FUN_004458b0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/math/vector.cpp",
-      "pure_cpp": false,
-      "overlay_object": "vector.obj",
-      "overlay_symbol": "Vector2_SetPolar"
+      "status": "semantic",
+      "source": "src/math/vector.cpp"
     },
     {
       "address": "0x00445900",
@@ -4968,31 +4109,22 @@
       "address": "0x00446EB0",
       "symbol": "FUN_00446eb0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_CreateTextureFromMemory"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00446F40",
       "symbol": "FUN_00446f40",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/render/anm_texture_upload.cpp",
-      "pure_cpp": false,
-      "overlay_object": "anm_texture_upload.obj",
-      "overlay_symbol": "AnmTexture_CreateAndUploadRetail"
+      "status": "semantic",
+      "source": "src/render/anm_texture_upload.cpp"
     },
     {
       "address": "0x00447050",
       "symbol": "FUN_00447050",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationTexture_Create@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004470C0",
@@ -5005,11 +4137,8 @@
       "address": "0x00447280",
       "symbol": "FUN_00447280",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Recovery_LoadCachedResource@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x004472E0",
@@ -5022,11 +4151,8 @@
       "address": "0x004473C0",
       "symbol": "FUN_004473c0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/render/anm_texture_upload.cpp",
-      "pure_cpp": false,
-      "overlay_object": "anm_texture_upload.obj",
-      "overlay_symbol": "AnmArchive_AdvanceScriptCursorRetail"
+      "status": "semantic",
+      "source": "src/render/anm_texture_upload.cpp"
     },
     {
       "address": "0x00447470",
@@ -5039,21 +4165,15 @@
       "address": "0x00447700",
       "symbol": "FUN_00447700",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/render/anm_pending_service.cpp",
-      "pure_cpp": false,
-      "overlay_object": "anm_pending_service_overlay.obj",
-      "overlay_symbol": "AnmPending_ServiceRetail"
+      "status": "semantic",
+      "source": "src/render/anm_pending_service.cpp"
     },
     {
       "address": "0x004477D0",
       "symbol": "FUN_004477d0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_ClearResourceSlot@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00447810",
@@ -5066,41 +4186,29 @@
       "address": "0x00447940",
       "symbol": "FUN_00447940",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CopyPositionRecord@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004479D0",
       "symbol": "FUN_004479d0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_DispatchRandomText"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447A50",
       "symbol": "FUN_00447a50",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_MarkLogState"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x00447AE0",
       "symbol": "FUN_00447ae0",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/ascii_overlay_callbacks.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ascii_overlay_callbacks_overlay.obj",
-      "overlay_symbol": "AsciiOverlay_FormatShadowedRetail"
+      "status": "semantic",
+      "source": "src/game/ascii_overlay_callbacks.cpp"
     },
     {
       "address": "0x00447BB0",
@@ -5113,11 +4221,8 @@
       "address": "0x00447F70",
       "symbol": "FUN_00447f70",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_ClearIndexedResources@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00447FD0",
@@ -5151,71 +4256,50 @@
       "address": "0x00448860",
       "symbol": "FUN_00448860",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_UpdatePrimary@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448900",
       "symbol": "FUN_00448900",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_UpdateSecondary@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448980",
       "symbol": "FUN_00448980",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RenderBucket@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004489D0",
       "symbol": "FUN_004489d0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RegisterPrimaryBack@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448A50",
       "symbol": "FUN_00448a50",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RegisterPrimaryFront@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448AC0",
       "symbol": "FUN_00448ac0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RegisterSecondaryBack@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448B40",
       "symbol": "FUN_00448b40",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_RegisterSecondaryFront@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448BB0",
@@ -5228,201 +4312,141 @@
       "address": "0x00448D00",
       "symbol": "FUN_00448d00",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CreatePrimaryBack@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448D50",
       "symbol": "FUN_00448d50",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CreatePositionedPrimary@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448DB0",
       "symbol": "FUN_00448db0",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?PlayerAnimation_Create@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448E30",
       "symbol": "FUN_00448e30",
       "size": 304,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CreatePrimaryFront@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00448F60",
       "symbol": "FUN_00448f60",
       "size": 304,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CreateSecondaryBack@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449090",
       "symbol": "FUN_00449090",
       "size": 304,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_CreateSecondaryFront@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004491C0",
       "symbol": "FUN_004491c0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_Find@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449210",
       "symbol": "FUN_00449210",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetStopFrame@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449250",
       "symbol": "FUN_00449250",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetStopFrameAndRun@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004492A0",
       "symbol": "FUN_004492a0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetFlag@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004492F0",
       "symbol": "FUN_004492f0",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetPosition@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449350",
       "symbol": "FUN_00449350",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetTranslatedPosition@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004493E0",
       "symbol": "FUN_004493e0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_MarkResourceForRemoval@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449450",
       "symbol": "FUN_00449450",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_ValidateHandle@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449470",
       "symbol": "FUN_00449470",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "AnimationManager_SetStopFrameFromHandleRetail"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449590",
       "symbol": "FUN_00449590",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SetFlagBit1@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004495E0",
       "symbol": "FUN_004495e0",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_ClearFlag@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449630",
       "symbol": "FUN_00449630",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_MarkForRemovalAndClearHandle@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449670",
       "symbol": "FUN_00449670",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SelectSpriteFromCurrentResource@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004496A0",
       "symbol": "FUN_004496a0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_SelectSpriteFromResource@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x004496D0",
@@ -5435,11 +4459,8 @@
       "address": "0x004497D0",
       "symbol": "FUN_004497d0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/render/animation_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "animation_manager.obj",
-      "overlay_symbol": "?AnimationManager_FindChildByScriptIndex@@"
+      "status": "semantic",
+      "source": "src/render/animation_manager.cpp"
     },
     {
       "address": "0x00449870",
@@ -5459,41 +4480,29 @@
       "address": "0x00449A90",
       "symbol": "FUN_00449a90",
       "size": 16,
-      "status": "exact-overlay",
-      "source": "src/render/d3d_resource_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "d3d_resource_manager.obj",
-      "overlay_symbol": "?D3DResourceList_ClearPending@@"
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
     },
     {
       "address": "0x00449AA0",
       "symbol": "FUN_00449aa0",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/render/d3d_resource_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "d3d_resource_manager.obj",
-      "overlay_symbol": "?D3DResourceManager_Initialize@@"
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
     },
     {
       "address": "0x00449AE0",
       "symbol": "FUN_00449ae0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?Scheduler_RegisterPrimary@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449B70",
       "symbol": "FUN_00449b70",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?Scheduler_RegisterSecondary@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449C00",
@@ -5513,51 +4522,36 @@
       "address": "0x00449E50",
       "symbol": "FUN_00449e50",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/render/d3d_resource_manager.cpp",
-      "pure_cpp": false,
-      "overlay_object": "d3d_resource_manager.obj",
-      "overlay_symbol": "?D3DResourceList_ReleaseResources@@"
+      "status": "semantic",
+      "source": "src/render/d3d_resource_manager.cpp"
     },
     {
       "address": "0x00449ED0",
       "symbol": "FUN_00449ed0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?SchedulerCallback_Create@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x00449F60",
       "symbol": "FUN_00449f60",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?Scheduler_Remove@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x0044A000",
       "symbol": "FUN_0044a000",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?Scheduler_CreateAndRegister@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x0044A030",
       "symbol": "FUN_0044a030",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/scheduler.cpp",
-      "pure_cpp": false,
-      "overlay_object": "scheduler.obj",
-      "overlay_symbol": "?Scheduler_CreateAndRegisterSecondary@@"
+      "status": "semantic",
+      "source": "src/game/scheduler.cpp"
     },
     {
       "address": "0x0044A0C0",
@@ -5577,11 +4571,8 @@
       "address": "0x0044A4E0",
       "symbol": "FUN_0044a4e0",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "Input_PollJoystickButtons"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0044A5F0",
@@ -5594,21 +4585,15 @@
       "address": "0x0044B010",
       "symbol": "FUN_0044b010",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Input_UpdateKeyboardState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0044B080",
       "symbol": "FUN_0044b080",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Input_NormalizeKeyboardState@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0044B0D0",
@@ -5635,231 +4620,162 @@
       "address": "0x0044B4D0",
       "symbol": "FUN_0044b4d0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_ProbeExists@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B540",
       "symbol": "FUN_0044b540",
       "size": 224,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_WriteWholeFile@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B620",
       "symbol": "FUN_0044b620",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_OpenSharedWrite@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B6B0",
       "symbol": "FUN_0044b6b0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_OpenSharedRead@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B740",
       "symbol": "FUN_0044b740",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_WriteShared@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B790",
       "symbol": "FUN_0044b790",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_ReadShared@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B7E0",
       "symbol": "FUN_0044b7e0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/platform/file.cpp",
-      "pure_cpp": false,
-      "overlay_object": "file.obj",
-      "overlay_symbol": "?File_CloseProbeHandle@@"
+      "status": "semantic",
+      "source": "src/platform/file.cpp"
     },
     {
       "address": "0x0044B810",
       "symbol": "FUN_0044b810",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/platform/text_log.cpp",
-      "pure_cpp": false,
-      "overlay_object": "text_log.obj",
-      "overlay_symbol": "?TextLog_Append@@"
+      "status": "semantic",
+      "source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B8E0",
       "symbol": "FUN_0044b8e0",
       "size": 256,
-      "status": "exact-overlay",
-      "source": "src/platform/text_log.cpp",
-      "pure_cpp": false,
-      "overlay_object": "text_log.obj",
-      "overlay_symbol": "TextLog_AppendLine"
+      "status": "semantic",
+      "source": "src/platform/text_log.cpp"
     },
     {
       "address": "0x0044B9E0",
       "symbol": "FUN_0044b9e0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/math/rng.cpp",
-      "pure_cpp": false,
-      "overlay_object": "rng.obj",
-      "overlay_symbol": "?Rng_NextU32@@"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BA80",
       "symbol": "FUN_0044ba80",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/math/rng.cpp",
-      "pure_cpp": false,
-      "overlay_object": "rng.obj",
-      "overlay_symbol": "?Rng_NextU32DoubleStep@@"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB20",
       "symbol": "FUN_0044bb20",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/math/rng.cpp",
-      "pure_cpp": false,
-      "overlay_object": "rng.obj",
-      "overlay_symbol": "?Rng_NextFloat@@"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BB90",
       "symbol": "FUN_0044bb90",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/math/rng.cpp",
-      "pure_cpp": false,
-      "overlay_object": "rng.obj",
-      "overlay_symbol": "?Rng_NextFloatSigned@@"
+      "status": "semantic",
+      "source": "src/math/rng.cpp"
     },
     {
       "address": "0x0044BC10",
       "symbol": "FUN_0044bc10",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/math/angle.cpp",
-      "pure_cpp": true,
-      "overlay_object": "angle.obj",
-      "overlay_symbol": "?Angle_NormalizeSum@@"
+      "status": "semantic",
+      "source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BC70",
       "symbol": "FUN_0044bc70",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/math/angle.cpp",
-      "pure_cpp": true,
-      "overlay_object": "angle.obj",
-      "overlay_symbol": "?Angle_Normalize@@"
+      "status": "semantic",
+      "source": "src/math/angle.cpp"
     },
     {
       "address": "0x0044BD10",
       "symbol": "FUN_0044bd10",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/platform/process.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_GetOsVersionCode@@"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044BE20",
       "symbol": "FUN_0044be20",
       "size": 80,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Score_InputHistorySave@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0044BE70",
       "symbol": "FUN_0044be70",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/score.cpp",
-      "pure_cpp": false,
-      "overlay_object": "score.obj",
-      "overlay_symbol": "?Score_InputHistoryStep@@"
+      "status": "semantic",
+      "source": "src/game/score.cpp"
     },
     {
       "address": "0x0044BEA0",
       "symbol": "FUN_0044bea0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/menu.cpp",
-      "pure_cpp": false,
-      "overlay_object": "menu.obj",
-      "overlay_symbol": "MenuCursor_Advance"
+      "status": "semantic",
+      "source": "src/game/menu.cpp"
     },
     {
       "address": "0x0044BF40",
       "symbol": "FUN_0044bf40",
       "size": 448,
-      "status": "exact-overlay",
-      "source": "src/math/timer.cpp",
-      "pure_cpp": false,
-      "overlay_object": "timer.obj",
-      "overlay_symbol": "?FrameTimer_Advance@@"
+      "status": "semantic",
+      "source": "src/math/timer.cpp"
     },
     {
       "address": "0x0044C100",
       "symbol": "FUN_0044c100",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/platform/process.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_DestroyWorker@@"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044C130",
       "symbol": "FUN_0044c130",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/process.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_StopWorkerNoDelete@@"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044C150",
       "symbol": "FUN_0044c150",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/platform/all_source_runtime.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_StopWorker@@"
+      "status": "semantic",
+      "source": "src/platform/all_source_runtime.cpp"
     },
     {
       "address": "0x0044C1C0",
@@ -5872,11 +4788,8 @@
       "address": "0x0044C2A0",
       "symbol": "FUN_0044c2a0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_AdvancePolarMotion"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044C350",
@@ -5889,21 +4802,15 @@
       "address": "0x0044C5D0",
       "symbol": "FUN_0044c5d0",
       "size": 528,
-      "status": "exact-overlay",
-      "source": "src/math/vector2_polar.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_PolarToVectorRetail"
+      "status": "semantic",
+      "source": "src/math/vector2_polar.cpp"
     },
     {
       "address": "0x0044C7E0",
       "symbol": "FUN_0044c7e0",
       "size": 272,
-      "status": "exact-overlay",
-      "source": "src/platform/joystick_property.cpp",
-      "pure_cpp": false,
-      "overlay_object": "joystick_property_overlay.obj",
-      "overlay_symbol": "Input_SetJoystickPropertyRetail"
+      "status": "semantic",
+      "source": "src/platform/joystick_property.cpp"
     },
     {
       "address": "0x0044C8F0",
@@ -5923,21 +4830,15 @@
       "address": "0x0044CE80",
       "symbol": "FUN_0044ce80",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InitializeInterfaceArray"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF00",
       "symbol": "FUN_0044cf00",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_DeletingDestructor@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044CF20",
@@ -5950,131 +4851,92 @@
       "address": "0x0044D080",
       "symbol": "FUN_0044d080",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_ReleaseOwnedArray@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D110",
       "symbol": "FUN_0044d110",
       "size": 496,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_commands.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_commands.obj",
-      "overlay_symbol": "Streamer_FillBufferRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044D300",
       "symbol": "FUN_0044d300",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_RunInterface@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D370",
       "symbol": "FUN_0044d370",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_FindAvailable@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D440",
       "symbol": "FUN_0044d440",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_stream_start.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_stream_start.obj",
-      "overlay_symbol": "SoundStream_Start"
+      "status": "semantic",
+      "source": "src/platform/sound_stream_start.cpp"
     },
     {
       "address": "0x0044D4E0",
       "symbol": "FUN_0044d4e0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_SetOperationDeadline@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D550",
       "symbol": "FUN_0044d550",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_AggregateInterfaces@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D5B0",
       "symbol": "FUN_0044d5b0",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/platform/process.cpp",
-      "pure_cpp": false,
-      "overlay_object": "process.obj",
-      "overlay_symbol": "?Platform_InvokeInterface@@"
+      "status": "semantic",
+      "source": "src/platform/process.cpp"
     },
     {
       "address": "0x0044D5D0",
       "symbol": "FUN_0044d5d0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Platform_InvokeConfigured"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D600",
       "symbol": "FUN_0044d600",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_QueryInterfaces@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D6A0",
       "symbol": "FUN_0044d6a0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "Recovery_InitializeSingleInterface"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D710",
       "symbol": "FUN_0044d710",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_DeletingDestructorVtable@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044D730",
       "symbol": "FUN_0044d730",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_leaves.obj",
-      "overlay_symbol": "SoundBuffer_DestructBaseRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_leaves.cpp"
     },
     {
       "address": "0x0044D850",
@@ -6087,61 +4949,43 @@
       "address": "0x0044DAD0",
       "symbol": "FUN_0044dad0",
       "size": 288,
-      "status": "exact-overlay",
-      "source": "src/platform/sound_commands.cpp",
-      "pure_cpp": false,
-      "overlay_object": "sound_commands.obj",
-      "overlay_symbol": "Streamer_RestartRetail"
+      "status": "semantic",
+      "source": "src/platform/sound_commands.cpp"
     },
     {
       "address": "0x0044DBF0",
       "symbol": "FUN_0044dbf0",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/game/archive_cursor_open.cpp",
-      "pure_cpp": false,
-      "overlay_object": "archive_cursor_open.obj",
-      "overlay_symbol": "ArchiveCursor_Open"
+      "status": "semantic",
+      "source": "src/game/archive_cursor_open.cpp"
     },
     {
       "address": "0x0044DCA0",
       "symbol": "FUN_0044dca0",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/game/recovery_leaves.cpp",
-      "pure_cpp": false,
-      "overlay_object": "recovery_leaves.obj",
-      "overlay_symbol": "?Platform_SelectStreamRecord@@"
+      "status": "semantic",
+      "source": "src/game/recovery_leaves.cpp"
     },
     {
       "address": "0x0044DD40",
       "symbol": "FUN_0044dd40",
       "size": 208,
-      "status": "exact-overlay",
-      "source": "src/game/archive_cursor.cpp",
-      "pure_cpp": false,
-      "overlay_object": "archive_cursor.obj",
-      "overlay_symbol": "ArchiveCursor_SeekRetail"
+      "status": "semantic",
+      "source": "src/game/archive_cursor.cpp"
     },
     {
       "address": "0x0044DE10",
       "symbol": "FUN_0044de10",
       "size": 352,
-      "status": "exact-overlay",
-      "source": "src/game/archive_cursor_read.cpp",
-      "pure_cpp": false,
-      "overlay_object": "archive_cursor_read.obj",
-      "overlay_symbol": "ArchiveCursor_ReadRetail"
+      "status": "semantic",
+      "source": "src/game/archive_cursor_read.cpp"
     },
     {
       "address": "0x0044DF70",
       "symbol": "FUN_0044df70",
       "size": 560,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm_children.obj",
-      "overlay_symbol": "EclVm_StartChildRetail"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044E1A0",
@@ -6154,111 +4998,78 @@
       "address": "0x0044FD10",
       "symbol": "FUN_0044fd10",
       "size": 160,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_vm_children.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm_children.obj",
-      "overlay_symbol": "EclVm_TickChildren"
+      "status": "semantic",
+      "source": "src/script/ecl_vm_children.cpp"
     },
     {
       "address": "0x0044FDB0",
       "symbol": "FUN_0044fdb0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveIntOperand@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FE40",
       "symbol": "FUN_0044fe40",
       "size": 192,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveFloatOperand@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FF00",
       "symbol": "FUN_0044ff00",
       "size": 128,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveIntValue@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x0044FF80",
       "symbol": "FUN_0044ff80",
       "size": 176,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveFloatValue@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450030",
       "symbol": "FUN_00450030",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveVariableValue@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450070",
       "symbol": "FUN_00450070",
       "size": 96,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResolveFloatDestination@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004500D0",
       "symbol": "FUN_004500d0",
       "size": 144,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm_children.obj",
-      "overlay_symbol": "EclVm_SpawnChild"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450160",
       "symbol": "FUN_00450160",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_FindVariable@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450190",
       "symbol": "FUN_00450190",
       "size": 32,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_ResetVariableBindings@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004501B0",
       "symbol": "FUN_004501b0",
       "size": 112,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_SetPolarVector@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450220",
@@ -6285,21 +5096,15 @@
       "address": "0x00450690",
       "symbol": "FUN_00450690",
       "size": 64,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_PushScratchValue@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x004506D0",
       "symbol": "FUN_004506d0",
       "size": 48,
-      "status": "exact-overlay",
-      "source": "src/script/ecl_core_interpreter.cpp",
-      "pure_cpp": false,
-      "overlay_object": "ecl_vm.obj",
-      "overlay_symbol": "?ECL_PopScratchValue@@"
+      "status": "semantic",
+      "source": "src/script/ecl_core_interpreter.cpp"
     },
     {
       "address": "0x00450700",

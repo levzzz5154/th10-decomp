@@ -32,8 +32,7 @@
     "unaudited_dynamic_call_sites": 0,
     "standalone_ready": true,
     "by_recovery_status": {
-      "exact-overlay": 100,
-      "semantic": 79
+      "semantic": 179
     }
   },
   "integration_gates": {
@@ -81,7 +80,7 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/entity.cpp"
     },
@@ -114,7 +113,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/effect_indicator_slots.cpp"
     },
@@ -125,7 +124,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/player.cpp"
     },
@@ -136,7 +135,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/player.cpp"
     },
@@ -147,7 +146,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/manager_teardown.cpp"
     },
@@ -180,7 +179,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/bullet.cpp"
     },
@@ -235,7 +234,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/bullet.cpp"
     },
@@ -246,7 +245,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -257,7 +256,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -268,7 +267,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_slot.cpp"
     },
@@ -290,7 +289,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -323,7 +322,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/score_timer_leaves.cpp"
     },
@@ -334,7 +333,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/game_config_defaults.cpp"
     },
@@ -356,7 +355,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -400,7 +399,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/score.cpp"
     },
@@ -411,7 +410,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -444,7 +443,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/win32_timer.cpp"
     },
@@ -455,7 +454,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -510,7 +509,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },
@@ -543,7 +542,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/timer.cpp"
     },
@@ -598,7 +597,7 @@
       "distance_from_root": 0,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/task_registration.cpp"
     },
@@ -620,7 +619,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/archive/dat.cpp"
     },
@@ -631,7 +630,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/archive/dat.cpp"
     },
@@ -642,7 +641,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/archive/dat.cpp"
     },
@@ -686,7 +685,7 @@
       "distance_from_root": 6,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
@@ -697,7 +696,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
@@ -708,7 +707,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
@@ -719,7 +718,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/memory_file.cpp"
     },
@@ -730,7 +729,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/gdi_font_cache.cpp"
     },
@@ -741,7 +740,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/gdi_font_cache.cpp"
     },
@@ -752,7 +751,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
@@ -763,7 +762,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/entity.cpp"
     },
@@ -807,7 +806,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/window.cpp"
     },
@@ -950,7 +949,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 6,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -961,7 +960,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/camera_setup.cpp"
     },
@@ -972,7 +971,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/script/prng.cpp"
     },
@@ -983,7 +982,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/sound_worker.cpp"
     },
@@ -1005,7 +1004,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/path.cpp"
     },
@@ -1016,7 +1015,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1049,7 +1048,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/midi_worker_stop.cpp"
     },
@@ -1071,7 +1070,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1082,7 +1081,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/pool_constructors.cpp"
     },
@@ -1093,7 +1092,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1104,7 +1103,7 @@
       "distance_from_root": 9,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1126,7 +1125,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1137,7 +1136,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1148,7 +1147,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1203,7 +1202,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/random_vector.cpp"
     },
@@ -1214,7 +1213,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1225,7 +1224,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1258,7 +1257,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1269,7 +1268,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 4,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/anm_batch_flush.cpp"
     },
@@ -1291,7 +1290,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/vector.cpp"
     },
@@ -1335,7 +1334,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1368,7 +1367,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1401,7 +1400,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1412,7 +1411,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1423,7 +1422,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1434,7 +1433,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1456,7 +1455,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1467,7 +1466,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1478,7 +1477,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1489,7 +1488,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1500,7 +1499,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 3,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1511,7 +1510,7 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1522,7 +1521,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1533,7 +1532,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1544,7 +1543,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/animation_manager.cpp"
     },
@@ -1577,7 +1576,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
@@ -1588,7 +1587,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
@@ -1599,7 +1598,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
@@ -1632,7 +1631,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/render/d3d_resource_manager.cpp"
     },
@@ -1643,7 +1642,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
@@ -1654,7 +1653,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/scheduler.cpp"
     },
@@ -1676,7 +1675,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/score.cpp"
     },
@@ -1720,7 +1719,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1731,7 +1730,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1742,7 +1741,7 @@
       "distance_from_root": 5,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1753,7 +1752,7 @@
       "distance_from_root": 6,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/file.cpp"
     },
@@ -1764,7 +1763,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/text_log.cpp"
     },
@@ -1775,7 +1774,7 @@
       "distance_from_root": 1,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/text_log.cpp"
     },
@@ -1786,7 +1785,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/rng.cpp"
     },
@@ -1797,7 +1796,7 @@
       "distance_from_root": 8,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/rng.cpp"
     },
@@ -1808,7 +1807,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/angle.cpp"
     },
@@ -1819,7 +1818,7 @@
       "distance_from_root": 7,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/math/timer.cpp"
     },
@@ -1830,7 +1829,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/all_source_runtime.cpp"
     },
@@ -1874,7 +1873,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 3,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
@@ -1885,7 +1884,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 3,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1896,7 +1895,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1907,7 +1906,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 5,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/sound_stream_start.cpp"
     },
@@ -1918,7 +1917,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1929,7 +1928,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1940,7 +1939,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/process.cpp"
     },
@@ -1951,7 +1950,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1962,7 +1961,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1973,7 +1972,7 @@
       "distance_from_root": 4,
       "direct_internal_callees": 1,
       "dynamic_call_sites": 1,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -1984,7 +1983,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 2,
       "dynamic_call_sites": 2,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/platform/sound_commands.cpp"
     },
@@ -1995,7 +1994,7 @@
       "distance_from_root": 2,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/recovery_leaves.cpp"
     },
@@ -2006,7 +2005,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/archive_cursor.cpp"
     },
@@ -2017,7 +2016,7 @@
       "distance_from_root": 3,
       "direct_internal_callees": 0,
       "dynamic_call_sites": 0,
-      "recovery_status": "exact-overlay",
+      "recovery_status": "semantic",
       "source_ready": true,
       "source": "src/game/archive_cursor_read.cpp"
     }
