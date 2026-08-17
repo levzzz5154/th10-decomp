@@ -34,6 +34,10 @@ int* ResourceManager_FindResource(int /*type*/, void* /*manager*/, const char* /
     return g_mock_resource;
 }
 
+// The per-entity transform entry (0x0040DC80) is file-scoped in bullet.cpp;
+// declare it here so the offscreen-despawn test can drive the kill bounds.
+int BulletEntity_UpdateTransform(uint32_t* bullet_transform);
+
 // Stubs for retail globals/functions the bullet file pulls in via the
 // pre-existing entity spawn/init helpers. These are not exercised by the
 // bullet manager lifecycle, but the linker still needs them.
@@ -202,6 +206,45 @@ int main() {
                        sizeof(spawn_position)) == 0);
     assert(*reinterpret_cast<uint32_t*>(spawned_bytes + 0x2408) == 11);
     std::free(spawned);
+
+    // --- BulletEntity_UpdateTransform: offscreen despawn bounds ---
+    // Retail loc_40DFDA checks the four kill bounds as x+hw < 470B40 (-192),
+    // x-hw > 470B3C (192), y+hh < 470B04 (0) and y-hh > 470B38 (448).  The
+    // x/y pairings are the OPPOSITE of the player-clamp pairings, so each
+    // bound must use the matching global.  An entity that has been inside
+    // (0x100 flag) reports despawn (-1) once it crosses a bound.
+    {
+        BulletEntityManager offscreen_manager = {};
+        BulletSpawnParameters offscreen_params = {};
+        BulletSpawnParameters_Initialize(nullptr, &offscreen_params);
+        float inside_position[3] = {0.0f, 100.0f, 0.0f};
+        std::memcpy(offscreen_params.fields, inside_position,
+                    sizeof(inside_position));
+        offscreen_params.fields[7] = 1;
+        BulletEntity* offscreen =
+            BulletEntity_Spawn(&offscreen_manager, nullptr, &offscreen_params);
+        assert(offscreen != 0);
+        unsigned char* ob = reinterpret_cast<unsigned char*>(offscreen);
+        // The spawn-time UpdateTransform ran at (0, 100), inside the field,
+        // so the 0x100 "has been inside" flag is already set.
+        assert((*reinterpret_cast<uint32_t*>(ob + 0x2480) & 0x100u) != 0);
+        // Still inside: the next tick keeps returning 0.
+        *reinterpret_cast<uint32_t*>(ob + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(ob + 0x103C)) == 0);
+        // Move past the right bound (x - half_width > 192, half_width = 0).
+        *reinterpret_cast<float*>(ob + 0x1094) = 200.0f;
+        *reinterpret_cast<uint32_t*>(ob + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(ob + 0x103C)) == -1);
+        // Move past the top bound (y - half_height > 448).
+        *reinterpret_cast<float*>(ob + 0x1094) = 0.0f;
+        *reinterpret_cast<float*>(ob + 0x1098) = 500.0f;
+        *reinterpret_cast<uint32_t*>(ob + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(ob + 0x103C)) == -1);
+        std::free(offscreen);
+    }
 
     return 0;
 }

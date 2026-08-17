@@ -746,8 +746,11 @@ static void SetSamplerState(int stage, int state, int value) {
 static int g_draw_type;
 static const void* g_draw_vertices;
 static int g_draw_stride;
-static void DrawFan(int primitive_type, const void* vertices, int stride) {
+static int g_draw_primitives;
+static void DrawFan(int primitive_type, int primitive_count,
+                    const void* vertices, int stride) {
     g_draw_type = primitive_type;
+    g_draw_primitives = primitive_count;
     g_draw_vertices = vertices;
     g_draw_stride = stride;
 }
@@ -772,7 +775,7 @@ static void TestRendererDrawRectFan() {
     assert(bound == 9 && g_bound_stage == 0 && g_bound_value == 9);
     assert(g_stage_value == 0);
     assert(g_sampler_states == 2);
-    assert(g_draw_type == 6);
+    assert(g_draw_type == 6 && g_draw_primitives == 2);
     assert(g_draw_vertices == vertices);
     assert(g_draw_stride == 0x1C);
 
