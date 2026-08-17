@@ -313,6 +313,13 @@ struct HostSpawnedEclEnemy {
 };
 HostSpawnedEclEnemy g_spawned_ecl_enemies[256] = {};
 int g_spawned_ecl_enemy_count;
+// Forward references for the enemy despawn path: the async-child arena is
+// defined below with the ECL runtime globals, but retirement must also drop
+// the enemy's owned children before freeing the entity.
+extern int g_ecl_trace_ids[64];
+extern int g_ecl_child_live[64];
+extern unsigned char* g_ecl_child_owners[64];
+extern int g_ecl_child_count;
 unsigned char g_ecl_spawn_config[0x58] = {};
 unsigned char g_ecl_spawn_inner_config[0x58] = {};
 th10::script_final::EclScriptTable g_enemy_script_table = {};
@@ -1150,6 +1157,46 @@ int HostCreateStageState() {
 
 int HostTickEnemyEcl(BulletEntity* entity);
 
+// Retail sub_40D750: when BulletEntity_UpdateTransform reports despawn (or
+// the entity is pre-flagged 0x20000), the manager calls the entity vtable's
+// release slot (offset 0x14) with arg 1, which unlinks and frees it.  Mirror
+// that for host-owned ECL spawns: unlink by pointer, emit the balanced
+// destroy/entity teardown, and drop the record.
+void HostRetireSpawnedEnemy(BulletEntity* entity, const char* reason) {
+	if (entity == nullptr)
+		return;
+	// Any async children owned by this enemy die with it.  Emit their
+	// balanced teardown first so the trace keeps a 1:1 create/destroy pair
+	// (the child VM records live in g_ecl_children and are not reachable
+	// through the entity after it is freed).
+	for (int c = 0; c < g_ecl_child_count; ++c) {
+		if (!g_ecl_child_live[c] ||
+		    g_ecl_child_owners[c] !=
+		        reinterpret_cast<unsigned char*>(entity))
+			continue;
+		HostTrace_EclDestroy(g_ecl_trace_ids[c], g_report.stage_frame,
+		                     reason);
+		HostTrace_Entity(g_ecl_trace_ids[c], 1, 0, g_report.stage_frame);
+		g_ecl_child_live[c] = 0;
+		g_ecl_child_owners[c] = 0;
+	}
+	for (int index = 0; index < g_spawned_ecl_enemy_count; ++index) {
+		if (g_spawned_ecl_enemies[index].entity != entity)
+			continue;
+		if (g_spawned_ecl_enemies[index].vm_live) {
+			HostTrace_EclDestroy(g_spawned_ecl_enemies[index].trace_id,
+			                     g_report.stage_frame, reason);
+			HostTrace_Entity(g_spawned_ecl_enemies[index].trace_id, 1, 0,
+			                g_report.stage_frame);
+		}
+		g_spawned_ecl_enemies[index].vm_live = 0;
+		ECL_ReleaseEntity(entity);
+		HostFreeMem(entity);
+		g_spawned_ecl_enemies[index].entity = nullptr;
+		return;
+	}
+}
+
 int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
 	if (owner == nullptr)
 		return 1;
@@ -1157,9 +1204,12 @@ int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
 	constexpr size_t kNextOffset = sizeof(void*) == 4 ? 4 : 0;
 	unsigned char* node = *reinterpret_cast<unsigned char**>(manager + 0x58);
 	while (node != nullptr) {
+		unsigned char* next =
+		    *reinterpret_cast<unsigned char**>(node + kNextOffset);
 		bool known_node = false;
 		for (int index = 0; index < g_spawned_ecl_enemy_count; ++index)
-			if (node == reinterpret_cast<unsigned char*>(
+			if (g_spawned_ecl_enemies[index].entity != nullptr &&
+			    node == reinterpret_cast<unsigned char*>(
 		            g_spawned_ecl_enemies[index].entity) + 0x116C) {
 				known_node = true;
 				break;
@@ -1171,11 +1221,15 @@ int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
 		unsigned char* entity = node - 0x116C;
 		const int update_result = BulletEntity_UpdateTransform(
 		    reinterpret_cast<uint32_t*>(entity + 0x103C));
-		if (update_result == 0) {
-			*reinterpret_cast<uint32_t*>(entity + 0x2480) &= ~0x400u;
-			HostTickEnemyEcl(reinterpret_cast<BulletEntity*>(entity));
+		if (update_result != 0) {
+			HostRetireSpawnedEnemy(reinterpret_cast<BulletEntity*>(entity),
+			                      "offscreen");
+			node = next;
+			continue;
 		}
-		node = *reinterpret_cast<unsigned char**>(node + kNextOffset);
+		*reinterpret_cast<uint32_t*>(entity + 0x2480) &= ~0x400u;
+		HostTickEnemyEcl(reinterpret_cast<BulletEntity*>(entity));
+		node = next;
 	}
 	return 1;
 }
@@ -2104,13 +2158,20 @@ void HostTraceEclVmDestroy(const EclCoreVm* vm, int kind,
 }
 
 void HostTraceEclVmTick(const EclCoreVm* vm, int order, int result,
-                        int live, long long pc_before, int scratch_before) {
+                        int live, long long pc_before, int scratch_before,
+                        float time_before) {
 	const int id = HostEclTraceId(vm);
 	if (id == 0)
 		return;
+	// The retail probe reads vm+0x00 (the float clock) at interpreter entry,
+	// so the comparable value is the pre-tick clock, emitted as raw bits to
+	// match the retail capture's `clock` field exactly.
+	unsigned int time_bits = 0;
+	std::memcpy(&time_bits, &time_before, sizeof(time_bits));
 	HostTrace_EclTick(id, g_report.stage_frame, order, vm->async_id,
 	                  vm->rank_mask, pc_before, HostEclPcOffset(vm),
-	                  scratch_before, vm->scratch_top, result, live);
+	                  time_bits, scratch_before, vm->scratch_top, result,
+	                  live);
 }
 
 void HostTraceEclOpcode(EclCoreVm* vm, EclCoreInstruction* instruction) {
@@ -2764,6 +2825,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 	}
 	const long long before_offset = HostEclPcOffset(root);
 	const int before_scratch = root->scratch_top;
+	const float before_time = root->time;
 	unsigned char* entity_bytes = reinterpret_cast<unsigned char*>(entity);
 	const uint32_t saved_vtable = *reinterpret_cast<uint32_t*>(entity_bytes);
 	*reinterpret_cast<uint32_t*>(entity_bytes) = static_cast<uint32_t>(
@@ -2776,7 +2838,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 	g_ecl_trace_opcode_order = 0;
 	const int result = EclVm_TickCore(root, DAT_00476f78, &g_ecl_hooks);
 	HostTraceEclVmTick(root, 0, result, result == 0, before_offset,
-	                   before_scratch);
+	                   before_scratch, before_time);
 	for (int index = 0; index < g_ecl_child_count; ++index) {
 		if (!g_ecl_child_live[index] ||
 		    g_ecl_child_owners[index] !=
@@ -2790,6 +2852,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 		}
 		const long long child_before_offset = HostEclPcOffset(child);
 		const int child_before_scratch = child->scratch_top;
+		const float child_before_time = child->time;
 		*current_record = static_cast<uint32_t>(
 		    reinterpret_cast<uintptr_t>(child));
 		g_ecl_active = child;
@@ -2798,7 +2861,7 @@ int HostTickEnemyEcl(BulletEntity* entity) {
 		    child, DAT_00476f78, &g_ecl_hooks);
 		HostTraceEclVmTick(child, index + 1, child_result,
 		                   child_result == 0, child_before_offset,
-		                   child_before_scratch);
+		                   child_before_scratch, child_before_time);
 		if (child_result != 0)
 			HostDestroyEnemyChild(index, "finished");
 	}
@@ -2834,11 +2897,12 @@ void HostTickStageEcl() {
 	const EclCoreInstruction* before = g_ecl_vm.ip;
 	const long long before_offset = HostEclPcOffset(&g_ecl_vm);
 	const int before_scratch = g_ecl_vm.scratch_top;
+	const float before_time = g_ecl_vm.time;
 	g_ecl_active = &g_ecl_vm;
 	g_ecl_trace_opcode_order = 0;
 	const int result = EclVm_TickCore(&g_ecl_vm, 1.0f, &g_ecl_hooks);
 	HostTraceEclVmTick(&g_ecl_vm, 0, result, result == 0, before_offset,
-	                   before_scratch);
+	                   before_scratch, before_time);
 	if (g_ecl_vm.ip != before)
 		g_ecl_instructions += 1;
 	// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and
@@ -2863,12 +2927,14 @@ void HostTickStageEcl() {
 		}
 		const long long child_before_offset = HostEclPcOffset(child);
 		const int child_before_scratch = child->scratch_top;
+		const float child_before_time = child->time;
 		g_ecl_active = child;
 		g_ecl_trace_opcode_order = index + 1;
 		const int child_result = EclVm_TickCore(child, 1.0f, &g_ecl_hooks);
 		const int child_live = child_result == 0;
 		HostTraceEclVmTick(child, index + 1, child_result, child_live,
-		                   child_before_offset, child_before_scratch);
+		                   child_before_offset, child_before_scratch,
+		                   child_before_time);
 		if (!child_live) {
 			g_ecl_child_live[index] = 0;
 			g_ecl_child_owners[index] = 0;

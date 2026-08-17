@@ -44,6 +44,7 @@
 #include "th10/render/camera_setup.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/render/anm_file.hpp"
+#include "th10/render/anm_sprite_quad.hpp"
 #include "th10/render/anm_texture_upload.hpp"
 #include "th10/script/anm_vm_tick.hpp"
 #include "th10/render/effect_ring_update.hpp"
@@ -55,6 +56,10 @@
 #include "th10/render/anm_script_table_sweep.hpp"
 #include "th10/render/anm_vm_draw_dispatch.hpp"
 #include "th10/render/quad_build_anchored.hpp"
+#include "th10/render/quad_transform_draw.hpp"
+#include "th10/render/recovered_render_leaves.hpp"
+#include "th10/game/game_thread_text_draw.hpp"
+#include "th10/render/edge_strip_draw.hpp"
 #include "th10/platform/sound_commands.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
@@ -500,15 +505,16 @@ struct HostTraceEmitter {
 
     void EclTick(int vm_id, int stage_frame, int order, int async_id,
                  int rank_mask, long long pc_before, long long pc_after,
-                 int scratch_before, int scratch_top, int result, int live) {
+                 unsigned int time_before, int scratch_before, int scratch_top,
+                 int result, int live) {
         if (!active)
             return;
         BeginEvent("ecl_vm_tick");
         std::fprintf(
             file,
-            ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"scratch_before\":%d,\"scratch_top\":%d,\"result\":%d,\"live\":%d",
+            ",\"vm\":%d,\"stage_frame\":%d,\"order\":%d,\"async_id\":%d,\"rank_mask\":%d,\"pc_before\":%lld,\"pc_after\":%lld,\"time_before\":%u,\"scratch_before\":%d,\"scratch_top\":%d,\"result\":%d,\"live\":%d",
             vm_id, stage_frame, order, async_id, rank_mask, pc_before,
-            pc_after, scratch_before, scratch_top, result, live);
+            pc_after, time_before, scratch_before, scratch_top, result, live);
         EndEvent();
     }
 
@@ -660,6 +666,7 @@ struct HostContext {
     int title_anm_parsed = 0;
     int title_vm_ready = 0;
     int title_draw_calls = 0;
+    int quad_batch_draw_calls = 0;
     int stage_live_draws = 0;
     HostAnmVm title_vms[2] = {};
     HostAnmVm title_version_vm = {};
@@ -783,6 +790,7 @@ struct HostContext {
     bool frame_scene_open = false;
     IDirect3D9* direct3d = nullptr;
     IDirect3DDevice9* device = nullptr;
+    IDirect3DVertexBuffer9* anm_quad_vertex_buffer = nullptr;
     IDirectInput8A* direct_input = nullptr;
     IDirectInputDevice8A* keyboard = nullptr;
     unsigned char previous_keyboard[256] = {};
@@ -1923,7 +1931,7 @@ const QuadBatchEnv g_quad_batch_env = {HostDeviceSetTextureStageState,
 void HostAnmStateFlush() {
     if (g_host.device == nullptr)
         return;
-    AnimationManager_FlushQuadBatch(&g_staging, &g_host.title_draw_calls,
+    AnimationManager_FlushQuadBatch(&g_staging, &g_host.quad_batch_draw_calls,
                                     &g_quad_batch_env);
 }
 
@@ -1970,6 +1978,29 @@ void HostAnmSetTextureFactor(Word color) {
     if (g_host.device != nullptr)
         g_host.device->SetRenderState(D3DRS_TEXTUREFACTOR,
                                       g_anm_texture_factor);
+}
+
+void HostAnmSetTextureFilter(Word value) {
+    g_anm_texture_filter = static_cast<DWORD>(value);
+    if (g_host.device != nullptr) {
+        g_host.device->SetSamplerState(0, D3DSAMP_MAGFILTER, value);
+        g_host.device->SetSamplerState(0, D3DSAMP_MINFILTER, value);
+    }
+}
+
+AnmStateEnv g_host_anm_state_env = {
+    HostAnmStateFlush, HostAnmSetBlendMode,
+    HostAnmSetTextureFactor, HostAnmSetTextureFilter};
+
+void HostApplyRawAnmState(const unsigned char* object) {
+    if (object == nullptr)
+        return;
+    AnmBlendVmState vm = {};
+    vm.flags = *reinterpret_cast<const unsigned int*>(object + 0x35C);
+    vm.color_primary = *reinterpret_cast<const unsigned int*>(object + 0x2FC);
+    vm.color_secondary = *reinterpret_cast<const unsigned int*>(object + 0x300);
+    AnmManager_ApplyBlendColorWrap(
+        &g_anm_state_cache, &vm, &g_host_anm_state_env);
 }
 
 void HostDeviceSetRenderState(uint32_t state_id, uint32_t value) {
@@ -2068,6 +2099,342 @@ void HostSubmitQuad(const AnchoredQuadVertex vertices[4], int mode) {
     g_quad_submission.submitted = true;
 }
 
+// Standalone binding for the source-side AnimationObject_Render. It supplies
+// the same manager-owned Quad_SubmitFinal environment used by host text, but
+// preserves the ANM object's two colour registers and UV scroll.
+void HostSubmitAnmSprite(void*, void* manager, unsigned int texture,
+                        const AnmSpriteQuadInput* input,
+                        const AnmSpriteQuadVertex quad[4],
+                        unsigned int submit_mode) {
+    if (g_host.device == nullptr || input == nullptr || quad == nullptr)
+        return;
+    if (manager != nullptr) {
+        const unsigned char* manager_bytes =
+            static_cast<const unsigned char*>(manager);
+        g_quad_manager.offset_x =
+            *reinterpret_cast<const float*>(manager_bytes + 0x5C);
+        g_quad_manager.offset_y =
+            *reinterpret_cast<const float*>(manager_bytes + 0x60);
+        g_quad_manager.fade_enabled =
+            *reinterpret_cast<const int*>(manager_bytes + 0x73245C);
+        std::memcpy(g_quad_manager.fade, manager_bytes + 0x732458, 4);
+    }
+    QuadSubmitSprite sprite = {};
+    sprite.texture = texture;
+    sprite.u0 = input->u0;
+    sprite.v0 = input->v0;
+    sprite.u1 = input->u1;
+    sprite.v1 = input->v1;
+    QuadSubmitVm vm = {};
+    vm.uv_scroll_x = input->uv_scroll_x;
+    vm.uv_scroll_y = input->uv_scroll_y;
+    vm.flags = input->flags;
+    vm.color_primary = input->primary_color;
+    vm.color_secondary = input->secondary_color;
+    vm.sprite = &sprite;
+    QuadSubmitVertex corners[4];
+    static_assert(sizeof(QuadSubmitVertex) == sizeof(AnmSpriteQuadVertex),
+                  "ANM source and submission vertices must match");
+    for (int index = 0; index < 4; ++index)
+        std::memcpy(&corners[index], &quad[index], sizeof(corners[index]));
+    // Quad_SubmitFinal bit 0 is the axis-aligned pixel-snap mode. Anchor bits
+    // belong to the quad geometry and must not be passed through here.
+    Quad_SubmitFinal(corners, &vm, &g_quad_manager, &g_quad_submit_env,
+                     submit_mode);
+}
+
+float g_anm_projection_view[16] = {};
+float g_anm_projection_matrix[16] = {};
+float g_anm_projection_viewport[4] = {0.0f, 0.0f, 640.0f, 480.0f};
+AnmSpriteProjectionContext g_anm_projection_context = {
+    g_anm_projection_view, g_anm_projection_matrix,
+    g_anm_projection_viewport, {0.0f, 0.0f, 0.0f}};
+
+float g_primary_projection_view[16] = {};
+float g_primary_projection_matrix[16] = {};
+float g_primary_projection_reference[3] = {};
+
+void HostPublishProjectionReference(const float eye[3], const float at[3],
+                                    const float up[3]) {
+    const float direction[3] = {
+        at[0] - eye[0], at[1] - eye[1], at[2] - eye[2]};
+    float* right = g_anm_projection_context.reference_point;
+    right[0] = up[1] * direction[2] - up[2] * direction[1];
+    right[1] = up[2] * direction[0] - up[0] * direction[2];
+    right[2] = up[0] * direction[1] - up[1] * direction[0];
+    const float length = std::sqrt(right[0] * right[0] +
+                                   right[1] * right[1] +
+                                   right[2] * right[2]);
+    if (length != 0.0f) {
+        right[0] /= length;
+        right[1] /= length;
+        right[2] /= length;
+    }
+}
+
+void HostApplyRenderViewport(unsigned int x, unsigned int y,
+                             unsigned int width, unsigned int height) {
+    HostAnmStateFlush();
+    g_anm_projection_viewport[0] = static_cast<float>(x);
+    g_anm_projection_viewport[1] = static_cast<float>(y);
+    g_anm_projection_viewport[2] = static_cast<float>(width);
+    g_anm_projection_viewport[3] = static_cast<float>(height);
+    g_quad_manager.clip_x = x;
+    g_quad_manager.clip_y = y;
+    g_quad_manager.clip_width = width;
+    g_quad_manager.clip_height = height;
+    if (g_host.device != nullptr) {
+        D3DVIEWPORT9 viewport = {x, y, width, height, 0.0f, 1.0f};
+        g_host.device->SetViewport(&viewport);
+    }
+}
+
+void HostApplyStageProjection(const HostStageCameraView* camera) {
+    if (camera == nullptr || g_host.device == nullptr)
+        return;
+    D3DXMATRIX view;
+    D3DXMATRIX projection;
+    D3DXMatrixLookAtLH(&view,
+        reinterpret_cast<const D3DXVECTOR3*>(camera->eye),
+        reinterpret_cast<const D3DXVECTOR3*>(camera->target),
+        reinterpret_cast<const D3DXVECTOR3*>(camera->up));
+    D3DXMatrixPerspectiveFovLH(&projection, camera->field_of_view,
+                               384.0f / 448.0f, 30.0f, 1800.0f);
+    g_host.device->SetTransform(D3DTS_VIEW, &view);
+    g_host.device->SetTransform(D3DTS_PROJECTION, &projection);
+    std::memcpy(g_anm_projection_view, &view, sizeof(g_anm_projection_view));
+    std::memcpy(g_anm_projection_matrix, &projection,
+                sizeof(g_anm_projection_matrix));
+    HostPublishProjectionReference(camera->eye, camera->target, camera->up);
+}
+
+void HostRestorePrimaryProjection() {
+    std::memcpy(g_anm_projection_view, g_primary_projection_view,
+                sizeof(g_anm_projection_view));
+    std::memcpy(g_anm_projection_matrix, g_primary_projection_matrix,
+                sizeof(g_anm_projection_matrix));
+    std::memcpy(g_anm_projection_context.reference_point,
+                g_primary_projection_reference,
+                sizeof(g_primary_projection_reference));
+    if (g_host.device != nullptr) {
+        g_host.device->SetTransform(D3DTS_VIEW,
+            reinterpret_cast<const D3DMATRIX*>(g_anm_projection_view));
+        g_host.device->SetTransform(D3DTS_PROJECTION,
+            reinterpret_cast<const D3DMATRIX*>(g_anm_projection_matrix));
+    }
+}
+
+const AnmSpriteProjectionContext* HostGetAnmProjection(void*) {
+    return &g_anm_projection_context;
+}
+
+const unsigned char* g_special_anm_object = nullptr;
+
+void HostSpecialMatrixRotation(QuadMatrix* matrix, int axis, float angle) {
+    D3DXMATRIX* output = reinterpret_cast<D3DXMATRIX*>(matrix);
+    if (axis == 0) D3DXMatrixRotationX(output, angle);
+    else if (axis == 1) D3DXMatrixRotationY(output, angle);
+    else D3DXMatrixRotationZ(output, angle);
+}
+
+void HostSpecialMatrixMultiply(QuadMatrix* output, const QuadMatrix* left,
+                               const QuadMatrix* right) {
+    D3DXMatrixMultiply(reinterpret_cast<D3DXMATRIX*>(output),
+                       reinterpret_cast<const D3DXMATRIX*>(left),
+                       reinterpret_cast<const D3DXMATRIX*>(right));
+}
+
+void HostSpecialApplyState(const TransformedQuad*) {
+    HostApplyRawAnmState(g_special_anm_object);
+}
+
+void HostSpecialSetTransform(int state, const QuadMatrix* matrix) {
+    if (g_host.device != nullptr)
+        g_host.device->SetTransform(static_cast<D3DTRANSFORMSTATETYPE>(state),
+            reinterpret_cast<const D3DMATRIX*>(matrix));
+}
+
+void HostSpecialBindTexture(void* texture) {
+    if (g_host.device != nullptr)
+        g_host.device->SetTexture(0, static_cast<IDirect3DBaseTexture9*>(texture));
+}
+
+void HostSpecialSetStream(void* buffer, int stride) {
+    if (g_host.device != nullptr)
+        g_host.device->SetStreamSource(
+            0, static_cast<IDirect3DVertexBuffer9*>(buffer), 0, stride);
+}
+
+void HostSpecialSetFvf(unsigned int fvf) {
+    if (g_host.device != nullptr)
+        g_host.device->SetFVF(fvf);
+}
+
+void HostSpecialSetStage(int stage, int type, int value) {
+    if (g_host.device != nullptr)
+        g_host.device->SetTextureStageState(
+            stage, static_cast<D3DTEXTURESTAGESTATETYPE>(type), value);
+}
+
+void HostSpecialDraw(int primitive, int start, int count) {
+    if (g_host.device != nullptr)
+        g_host.device->DrawPrimitive(
+            static_cast<D3DPRIMITIVETYPE>(primitive), start, count);
+}
+
+int HostDrawTransformedAnm(void*, void* manager, unsigned char* object) {
+    if (manager == nullptr || object == nullptr || g_host.device == nullptr ||
+        g_host.anm_quad_vertex_buffer == nullptr)
+        return -1;
+    const float* sprite = *reinterpret_cast<const float**>(object + 0x394);
+    if (sprite == nullptr)
+        return -1;
+    TransformedQuad quad = {};
+    quad.flags = *reinterpret_cast<unsigned int*>(object + 0x35C);
+    quad.drawable = object[0x2FF];
+    std::memcpy(quad.angle, object + 0x24, sizeof(quad.angle));
+    std::memcpy(quad.scale, object + 0x3C, sizeof(quad.scale));
+    std::memcpy(quad.size, object + 0x4C, sizeof(quad.size));
+    std::memcpy(quad.texoff, object + 0x54, sizeof(quad.texoff));
+    std::memcpy(&quad.base, object + 0x23C, sizeof(quad.base));
+    std::memcpy(&quad.world, object + 0x27C, sizeof(quad.world));
+    std::memcpy(&quad.texture_matrix, object + 0x2BC,
+                sizeof(quad.texture_matrix));
+    std::memcpy(quad.local, object + 0x334, sizeof(quad.local));
+    std::memcpy(quad.shared, object + 0x340, sizeof(quad.shared));
+    std::memcpy(quad.anchor, object + 0x34C, sizeof(quad.anchor));
+    QuadTexture texture = {
+        reinterpret_cast<void*>(static_cast<uintptr_t>(
+            *reinterpret_cast<const unsigned int*>(sprite + 1))),
+        sprite[8], sprite[9]};
+    quad.texture = &texture;
+    QuadRenderer renderer = {
+        g_staging.quad_count,
+        reinterpret_cast<void*>(static_cast<uintptr_t>(g_quad_manager.cached_texture)),
+        reinterpret_cast<QuadTexture*>(static_cast<uintptr_t>(
+            *reinterpret_cast<unsigned int*>(
+                static_cast<unsigned char*>(manager) + 0x3ADA70))),
+        g_quad_manager.textured,
+        g_host.anm_quad_vertex_buffer};
+    const QuadDrawEnv env = {
+        HostAnmStateFlush, HostSpecialMatrixRotation,
+        HostSpecialMatrixMultiply, HostSpecialApplyState,
+        HostSpecialSetTransform, HostSpecialBindTexture,
+        HostSpecialSetStream, HostSpecialSetFvf,
+        HostSpecialSetStage, HostSpecialDraw};
+    g_special_anm_object = object;
+    const int result = Renderer_DrawTransformedQuad(&quad, &renderer, &env);
+    g_special_anm_object = nullptr;
+    *reinterpret_cast<unsigned int*>(object + 0x35C) = quad.flags;
+    std::memcpy(object + 0x27C, &quad.world, sizeof(quad.world));
+    g_quad_manager.cached_texture = static_cast<unsigned int>(
+        reinterpret_cast<uintptr_t>(renderer.texture_handle));
+    g_quad_manager.textured = static_cast<unsigned char>(renderer.vertex_mode);
+    *reinterpret_cast<unsigned int*>(
+        static_cast<unsigned char*>(manager) + 0x3ADA70) =
+        static_cast<unsigned int>(reinterpret_cast<uintptr_t>(renderer.texture_record));
+    return result;
+}
+
+const void* g_edge_strip_vertices = nullptr;
+
+void HostStripApplyState(const EdgeStripRecord* strip) {
+    (void)strip;
+    if (g_special_anm_object != nullptr) {
+        const unsigned int flags = *reinterpret_cast<const unsigned int*>(
+            g_special_anm_object + 0x35C);
+        HostSyncQuadRenderState(flags);
+    }
+}
+
+void HostStripDraw(int primitive, int primitive_count,
+                   int, int stride) {
+    if (g_host.device != nullptr && g_edge_strip_vertices != nullptr)
+        g_host.device->DrawPrimitiveUP(
+            static_cast<D3DPRIMITIVETYPE>(primitive), primitive_count,
+            g_edge_strip_vertices, stride);
+}
+
+int HostDrawStripAnm(void*, void* manager, unsigned char* object) {
+    if (manager == nullptr || object == nullptr || g_host.device == nullptr)
+        return -1;
+    const float* sprite = *reinterpret_cast<const float**>(object + 0x394);
+    const unsigned int segment_count =
+        *reinterpret_cast<const unsigned int*>(object + 0x30C);
+    const void* vertices = reinterpret_cast<const void*>(
+        static_cast<uintptr_t>(*reinterpret_cast<const unsigned int*>(
+            object + 0x358)));
+    if (sprite == nullptr || segment_count == 0 || vertices == nullptr)
+        return -1;
+    const int vertex_count = static_cast<int>(segment_count * 2u);
+    if (vertex_count < 3)
+        return -1;
+    EdgeStripRecord strip = {
+        *reinterpret_cast<const unsigned int*>(object + 0x35C),
+        object[0x2FF],
+        reinterpret_cast<void*>(static_cast<uintptr_t>(
+            *reinterpret_cast<const unsigned int*>(sprite + 1))),
+        vertex_count, vertex_count - 2};
+    EdgeStripRenderer renderer = {
+        g_staging.quad_count,
+        reinterpret_cast<void*>(static_cast<uintptr_t>(
+            g_quad_manager.cached_texture)),
+        g_quad_manager.textured};
+    const EdgeStripDrawEnv env = {
+        HostAnmStateFlush, HostSpecialBindTexture, HostSpecialSetFvf,
+        HostStripApplyState, HostSpecialSetStage, HostStripDraw};
+    g_special_anm_object = object;
+    g_edge_strip_vertices = vertices;
+    const int result = Renderer_DrawTexturedEdgeStrip(&strip, &renderer, &env);
+    g_edge_strip_vertices = nullptr;
+    g_special_anm_object = nullptr;
+    g_quad_manager.cached_texture = static_cast<unsigned int>(
+        reinterpret_cast<uintptr_t>(renderer.texture));
+    g_quad_manager.textured = static_cast<unsigned char>(renderer.mode);
+    return result;
+}
+
+unsigned char* g_ring_anm_object = nullptr;
+
+void HostRingFlush(void*) { HostAnmStateFlush(); }
+void HostRingSync(void*) {
+    if (g_ring_anm_object != nullptr)
+        HostApplyRawAnmState(g_ring_anm_object);
+}
+void HostRingBind(void*) {
+    if (g_ring_anm_object == nullptr)
+        return;
+    const float* sprite = *reinterpret_cast<const float**>(
+        g_ring_anm_object + 0x394);
+    if (sprite != nullptr)
+        HostSpecialBindTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(
+            *reinterpret_cast<const unsigned int*>(sprite + 1))));
+}
+void HostRingDraw(void*, int primitive_count,
+                  const EffectRingVertex* vertices, int stride) {
+    if (g_host.device != nullptr)
+        g_host.device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, primitive_count,
+                                       vertices, stride);
+}
+
+int HostDrawRingAnm(void*, void*, unsigned char* object) {
+    if (object == nullptr)
+        return -1;
+    EffectRingOwner owner = {};
+    owner.ring = reinterpret_cast<EffectRingState*>(static_cast<uintptr_t>(
+        *reinterpret_cast<unsigned int*>(object + 0x358)));
+    const EffectRingDrawEnv env = {
+        nullptr, HostRingFlush, HostRingSync, HostRingBind, HostRingDraw};
+    g_ring_anm_object = object;
+    const int result = EffectRing_Draw(&owner, &env);
+    g_ring_anm_object = nullptr;
+    return result;
+}
+
+const AnmSpriteRenderBackend g_anm_sprite_backend = {
+    nullptr, HostSubmitAnmSprite, HostGetAnmProjection,
+    HostDrawTransformedAnm, HostDrawStripAnm, HostDrawRingAnm};
+
 // ---------------------------------------------------------------------------
 // Sprite-font text. Every list in the title sub-screens - the music room's
 // track names, the score table, the replay list - is drawn from ascii.anm,
@@ -2116,63 +2483,83 @@ void HostSetTextColor(D3DCOLOR color) {
     }
 }
 
+int g_host_text_font_bank = 0;
+
+void HostTextQueueSelectFont(int font_bank) {
+    if (font_bank == g_host_text_font_bank)
+        return;
+    HostAnmStateFlush();
+    g_host_text_font_bank = font_bank;
+}
+
+void HostTextQueueRestoreFont() {
+    if (g_host_text_font_bank != 0) {
+        HostAnmStateFlush();
+        g_host_text_font_bank = 0;
+    }
+}
+
+void HostTextQueueDrawGlyph(const TextGlyphDraw* draw) {
+    if (draw == nullptr || draw->glyph_index < 0)
+        return;
+    const unsigned int sprite_index =
+        static_cast<unsigned int>(draw->glyph_index / 68);
+    AnmFileEntry entry = {};
+    AnmFileSprite sprite = {};
+    if (!AnmFile_FindGlobalSprite(g_host.ascii_bytes, g_host.ascii_size,
+                                  sprite_index, &entry, &sprite))
+        return;
+    IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
+    if (texture == nullptr || entry.width == 0 || entry.height == 0)
+        return;
+    HostSetTextColor(draw->color);
+    const float width = sprite.width * draw->scale;
+    const float height = sprite.height * draw->scale;
+    g_quad_submission = HostQuadSubmission{};
+    g_quad_submission.texture = texture;
+    g_quad_submission.color = draw->color;
+    g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
+    g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
+    g_quad_submission.u1 =
+        (sprite.x + sprite.width) / static_cast<float>(entry.width);
+    g_quad_submission.v1 =
+        (sprite.y + sprite.height) / static_cast<float>(entry.height);
+    AnchoredQuadVertex corners[4] = {
+        {draw->position.x, draw->position.y, draw->position.z, 1.0f},
+        {draw->position.x + width, draw->position.y, draw->position.z, 1.0f},
+        {draw->position.x, draw->position.y + height, draw->position.z, 1.0f},
+        {draw->position.x + width, draw->position.y + height,
+         draw->position.z, 1.0f}};
+    HostSubmitQuad(corners, 1);
+}
+
 float HostDrawAsciiText(float x, float y, D3DCOLOR color, float scale,
                         const char* text) {
     if (!HostEnsureAsciiFont() || text == nullptr || g_host.device == nullptr)
-        return x;
-    HostSetTextColor(color);
-    const float start_x = x;
-    float width = 0.0f;
+        return 0.0f;
+    QueuedTextRecord record = {
+        text, {x, y, 0.0f}, color, scale, scale, 1};
+    TextQueueHost host = {};
+    host.records = &record;
+    host.record_count = 1;
+    const TextQueueEnv env = {
+        8.0f, 0, HostTextQueueSelectFont,
+        HostTextQueueDrawGlyph, HostTextQueueRestoreFont};
+    TextQueue_Draw(&host, &env);
+
+    float line_width = 0.0f;
+    float maximum_width = 0.0f;
     for (const unsigned char* cursor =
              reinterpret_cast<const unsigned char*>(text);
          *cursor != 0; ++cursor) {
-        const unsigned char character = *cursor;
-        if (character == '\n') {
-            y += 16.0f * scale;
-            x = start_x;
-            continue;
+        if (*cursor == '\n') {
+            if (line_width > maximum_width) maximum_width = line_width;
+            line_width = 0.0f;
+        } else {
+            line_width += env.horizontal_spacing * scale;
         }
-        AnmFileEntry entry;
-        AnmFileSprite sprite;
-        if (character != ' ' &&
-            AnmFile_FindGlobalSprite(
-                g_host.ascii_bytes, g_host.ascii_size,
-                static_cast<unsigned int>(character) - 32u, &entry, &sprite)) {
-            IDirect3DTexture9* texture = HostTextureForAnmEntry(entry);
-            if (texture != nullptr) {
-                const float w = sprite.width * scale;
-                const float h = sprite.height * scale;
-                g_quad_submission = HostQuadSubmission{};
-                g_quad_submission.texture = texture;
-                g_quad_submission.color = color;
-                g_quad_submission.u0 = sprite.x / static_cast<float>(entry.width);
-                g_quad_submission.v0 = sprite.y / static_cast<float>(entry.height);
-                g_quad_submission.u1 =
-                    (sprite.x + sprite.width) / static_cast<float>(entry.width);
-                g_quad_submission.v1 =
-                    (sprite.y + sprite.height) / static_cast<float>(entry.height);
-                // Retail advances by a font-width field rather than by the
-                // sprite: `v10 = *(int *)(a1 + 35212) * record.advance` in
-                // 0x00401A50. ascii.anm stores each glyph in a 16-wide cell
-                // whose ink fills the left half, so the cell width is twice
-                // the advance.
-                AnchoredQuadVertex corners[4] = {
-                    {x, y, 0.0f, 1.0f}, {x + w, y, 0.0f, 1.0f},
-                    {x, y + h, 0.0f, 1.0f}, {x + w, y + h, 0.0f, 1.0f}};
-                // Retail's glyph VMs reach 0x00442670 through the anchored
-                // builder 0x00443080, whose call site passes mode 1 - the
-                // axis-aligned snap. These quads are the same shape.
-                HostSubmitQuad(corners, 1);
-                x += w * 0.5f;
-                width = x - start_x > width ? x - start_x : width;
-                continue;
-            }
-        }
-        // A space, or a glyph ascii.anm does not carry, still advances.
-        x += 8.0f * scale;
-        width = x - start_x > width ? x - start_x : width;
     }
-    return width;
+    return line_width > maximum_width ? line_width : maximum_width;
 }
 
 // ---------------------------------------------------------------------------
@@ -3109,7 +3496,13 @@ bool HostBindManagerObject(AnimationObject* object,
     std::memcpy(bytes + 0x300, runtime->state.color2, 4);
     *reinterpret_cast<unsigned int*>(bytes + 0x35C) =
         runtime->state.flags | ANM_FLAG_PAUSED | 3u;
-    *reinterpret_cast<AnimationDrawCallback*>(bytes + 0x39C) = nullptr;
+    if (runtime->ring_owner.ring != nullptr)
+        *reinterpret_cast<unsigned int*>(bytes + 0x358) =
+            static_cast<unsigned int>(reinterpret_cast<uintptr_t>(
+                runtime->ring_owner.ring));
+    *reinterpret_cast<AnimationDrawCallback*>(bytes + 0x39C) =
+        runtime->ring_owner.ring != nullptr ?
+            reinterpret_cast<AnimationDrawCallback>(static_cast<uintptr_t>(1)) : nullptr;
     return true;
 #else
     (void)object;
@@ -3685,6 +4078,24 @@ void HostRenderStage() {
         trace_scale[stage_draw_count - 1] = 1.0f;
     }
 
+    const int world_draw_count = stage_draw_count;
+    HostApplyStageProjection(runtime.camera);
+    HostApplyRenderViewport(32, 16, 384, 448);
+    if (world_draw_count != 0)
+        HostRenderThroughBuckets(draw_list, world_draw_count);
+    const HostStageRuntimeView& trace_view = HostStage_GetRuntimeView();
+    for (int index = 0; index < stage_items; ++index) {
+        if (g_anim_object_manager_mode[index] == 0) {
+            HostTrace("stage ANM manager binding failed; raw draw path is disabled");
+            g_host.menu_quit = 1;
+            continue;
+        }
+        HostTrace_StageDraw(trace_view.stage_frame, placement_ids[index],
+                            vm_slots[index], draw_list[index]->state.sprite,
+                            trace_x[index], trace_y[index], trace_scale[index]);
+        ++g_host.stage_live_draws;
+    }
+
     auto append_front = [&](HostAnmVm* vm) {
         if (vm == nullptr || !vm->active || stage_draw_count >= 256)
             return;
@@ -3706,19 +4117,11 @@ void HostRenderStage() {
         append_front(&g_host.front_static_vms[index]);
 
     g_host_rendering_title = false;
-    HostRenderThroughBuckets(draw_list, stage_draw_count);
-    const HostStageRuntimeView& trace_view = HostStage_GetRuntimeView();
-    for (int index = 0; index < stage_items; ++index) {
-        if (g_anim_object_manager_mode[index] == 0) {
-            HostTrace("stage ANM manager binding failed; raw draw path is disabled");
-            g_host.menu_quit = 1;
-            continue;
-        }
-        HostTrace_StageDraw(trace_view.stage_frame, placement_ids[index],
-                            vm_slots[index], draw_list[index]->state.sprite,
-                            trace_x[index], trace_y[index], trace_scale[index]);
-        ++g_host.stage_live_draws;
-    }
+    HostRestorePrimaryProjection();
+    HostApplyRenderViewport(0, 0, 640, 480);
+    const int front_count = stage_draw_count - world_draw_count;
+    if (front_count != 0)
+        HostRenderThroughBuckets(draw_list + world_draw_count, front_count);
 }
 
 #if defined(_WIN32)
@@ -3914,7 +4317,9 @@ void HostRenderMenu() {
     viewport.Height = 480;
     viewport.MinZ = 0.0f;
     viewport.MaxZ = 1.0f;
-    HRESULT result = g_host.device->SetViewport(&viewport);
+    HostApplyRenderViewport(viewport.X, viewport.Y,
+                            viewport.Width, viewport.Height);
+    HRESULT result = S_OK;
     if (SUCCEEDED(result))
         result = g_host.device->SetRenderState(
             D3DRS_SCISSORTESTENABLE, FALSE);
@@ -5708,6 +6113,32 @@ int HostInitDeviceObjects(void*) {
     // not in the create_device slot.
     if (HostCreateD3dDevice() != 0)
         return -1;
+    AnmSpriteRenderer_BindBackend(&g_anm_sprite_backend);
+    th10::render_leaves::BindSharedQuadStaging(&g_staging,
+                                               HostAnmStateFlush);
+    struct Mode8Vertex { float x, y, z, u, v; };
+    static const Mode8Vertex kMode8Vertices[4] = {
+        {-128.0f, -128.0f, 0.0f, 0.0f, 0.0f},
+        { 128.0f, -128.0f, 0.0f, 1.0f, 0.0f},
+        {-128.0f,  128.0f, 0.0f, 0.0f, 1.0f},
+        { 128.0f,  128.0f, 0.0f, 1.0f, 1.0f},
+    };
+    if (g_host.device != nullptr &&
+        SUCCEEDED(g_host.device->CreateVertexBuffer(
+            sizeof(kMode8Vertices), D3DUSAGE_WRITEONLY, 0x102,
+            D3DPOOL_MANAGED, &g_host.anm_quad_vertex_buffer, nullptr))) {
+        void* vertices = nullptr;
+        if (SUCCEEDED(g_host.anm_quad_vertex_buffer->Lock(
+                0, sizeof(kMode8Vertices), &vertices, 0))) {
+            std::memcpy(vertices, kMode8Vertices, sizeof(kMode8Vertices));
+            g_host.anm_quad_vertex_buffer->Unlock();
+        }
+        if (g_pGameStateManager != nullptr)
+            *reinterpret_cast<unsigned int*>(
+                static_cast<unsigned char*>(g_pGameStateManager) + 0x3ADA74) =
+                static_cast<unsigned int>(reinterpret_cast<uintptr_t>(
+                    g_host.anm_quad_vertex_buffer));
+    }
     HostApplyDefaults(nullptr);
     // Retail 0x00439890's tail is `call sub_439D20; push 0FF000000h;
     // call sub_43BCD0` - the one and only clear-to-black + present in the
@@ -6009,7 +6440,20 @@ int HostPumpMessages(void*) {
     }
     return g_host.title_frames_completed >= 60 ? 1 : 0;
 }
-int HostProbeDevice(void*) { return GAME_MAIN_DEVICE_READY; }
+int HostProbeDevice(void*) {
+#if defined(_WIN32)
+    if (g_host.device == nullptr)
+        return GAME_MAIN_DEVICE_LOST;
+    const HRESULT status = g_host.device->TestCooperativeLevel();
+    if (status == D3D_OK)
+        return GAME_MAIN_DEVICE_READY;
+    if (status == D3DERR_DEVICENOTRESET)
+        return GAME_MAIN_DEVICE_NEEDS_RESET;
+    return GAME_MAIN_DEVICE_LOST;
+#else
+    return GAME_MAIN_DEVICE_READY;
+#endif
+}
 int HostFrameAdvance(void*) {
     g_host.frames_requested += 1;
     static FrameAdvanceHooks hooks = {
@@ -6099,6 +6543,33 @@ int HostFrameAdvance(void*) {
                 },
             };
             Camera_Apply(&camera, &camera_hooks);
+            std::memcpy(g_anm_projection_view, camera.view,
+                        sizeof(g_anm_projection_view));
+            std::memcpy(g_anm_projection_matrix, camera.projection,
+                        sizeof(g_anm_projection_matrix));
+            // Retail right = normalize(cross(up, direction)), with the
+            // fixed Camera_Apply up vector (0,-1,0).
+            g_anm_projection_context.reference_point[0] =
+                camera.at[2] - camera.eye[2];
+            g_anm_projection_context.reference_point[1] = 0.0f;
+            g_anm_projection_context.reference_point[2] =
+                camera.eye[0] - camera.at[0];
+            const float right_length = std::sqrt(
+                g_anm_projection_context.reference_point[0] *
+                    g_anm_projection_context.reference_point[0] +
+                g_anm_projection_context.reference_point[2] *
+                    g_anm_projection_context.reference_point[2]);
+            if (right_length != 0.0f) {
+                g_anm_projection_context.reference_point[0] /= right_length;
+                g_anm_projection_context.reference_point[2] /= right_length;
+            }
+            std::memcpy(g_primary_projection_view, g_anm_projection_view,
+                        sizeof(g_primary_projection_view));
+            std::memcpy(g_primary_projection_matrix, g_anm_projection_matrix,
+                        sizeof(g_primary_projection_matrix));
+            std::memcpy(g_primary_projection_reference,
+                        g_anm_projection_context.reference_point,
+                        sizeof(g_primary_projection_reference));
         },
         [](void*) {                     // set_viewport (retail loc_4393E9)
             // Retail's frame loop applies the 640x480 viewport with a bare
@@ -6129,7 +6600,8 @@ int HostFrameAdvance(void*) {
             applied.Height = viewport_storage.height;
             applied.MinZ = viewport_storage.min_z;
             applied.MaxZ = viewport_storage.max_z;
-            g_host.device->SetViewport(&applied);
+            HostApplyRenderViewport(applied.X, applied.Y,
+                                    applied.Width, applied.Height);
         },
         HostRunSchedulerFrame,
         [](void*) { HostDrainSound(nullptr); },
@@ -6165,8 +6637,48 @@ int HostFrameAdvance(void*) {
     }
     return Frame_Advance(state, &hooks);
 }
-void HostReleaseResources(void*) {}
-int HostDeviceReset(void*) { return 0; }
+void HostReleaseResources(void*) {
+#if defined(_WIN32)
+    HostAnmStateFlush();
+    if (g_host.device != nullptr && g_host.frame_scene_open) {
+        g_host.device->EndScene();
+        g_host.frame_scene_open = false;
+    }
+    HostAnmResetBatch();
+#endif
+}
+
+int HostDeviceReset(void*) {
+#if defined(_WIN32)
+    if (g_host.device == nullptr)
+        return -1;
+    const HRESULT result = g_host.device->Reset(&g_host.present_parameters);
+    if (FAILED(result))
+        return -1;
+    g_pD3DDevice = g_host.device;
+    th10::render_leaves::BindSharedQuadStaging(&g_staging,
+                                               HostAnmStateFlush);
+    AnmSpriteRenderer_BindBackend(&g_anm_sprite_backend);
+    HostAnmResetBatch();
+    g_quad_manager.cached_texture = 0;
+    g_quad_manager.textured = 0xFF;
+    g_anm_state_cache.cached_blend = 0xFF;
+    g_anm_state_cache.cached_filter = 0xFF;
+    g_anm_state_cache.cached_color = 0xFFFFFFFFu;
+    if (g_pGameStateManager != nullptr) {
+        unsigned char* manager =
+            static_cast<unsigned char*>(g_pGameStateManager);
+        *reinterpret_cast<unsigned int*>(manager + 0x3ADA74) =
+            static_cast<unsigned int>(reinterpret_cast<uintptr_t>(
+                g_host.anm_quad_vertex_buffer));
+    }
+    HostApplyRenderViewport(0, 0, 640, 480);
+    HostRestorePrimaryProjection();
+    return 0;
+#else
+    return 0;
+#endif
+}
 void HostApplyDefaults(void*) {
     if (g_host.smoke_mode) {
         // The deterministic smoke path deliberately owns no D3D device.
@@ -6321,6 +6833,11 @@ void HostReleaseDeviceChain(void*) {
         g_host.direct_input = nullptr;
     }
     if (g_host.device != nullptr) {
+        th10::render_leaves::BindSharedQuadStaging(nullptr, nullptr);
+        if (g_host.anm_quad_vertex_buffer != nullptr) {
+            g_host.anm_quad_vertex_buffer->Release();
+            g_host.anm_quad_vertex_buffer = nullptr;
+        }
         g_pD3DDevice = nullptr;
         for (int index = 0; index < 32; ++index) {
             if (g_host.anm_textures[index] != nullptr) {
@@ -6420,11 +6937,11 @@ void HostTrace_EclOpcode(int vm_id, int stage_frame, int order, int opcode,
 
 void HostTrace_EclTick(int vm_id, int stage_frame, int order, int async_id,
                        int rank_mask, long long pc_before, long long pc_after,
-                       int scratch_before, int scratch_top, int result,
-                       int live) {
+                       unsigned int time_before, int scratch_before,
+                       int scratch_top, int result, int live) {
     g_host_trace.EclTick(vm_id, stage_frame, order, async_id, rank_mask,
-                         pc_before, pc_after, scratch_before, scratch_top,
-                         result, live);
+                         pc_before, pc_after, time_before, scratch_before,
+                         scratch_top, result, live);
 }
 
 void HostTrace_Entity(int entity_id, int kind, int live, int stage_frame) {

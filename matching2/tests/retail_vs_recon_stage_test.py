@@ -11,8 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from retail_vs_recon_stage import (  # noqa: E402
+    all_compare,
+    clock_compare,
     flat_compare,
     key_fields,
+    ordered_vms,
     retail_ticks,
     recon_ticks,
 )
@@ -105,6 +108,111 @@ def main() -> None:
     except KeyError:
         raised = True
     assert raised, "key_fields accepted a tick missing scratch"
+
+    # clock_compare keys root-VM ticks on the pre-tick float clock, which
+    # both sides now emit (retail `clock` / recon `time_before`).  The
+    # clocks must be raw bits so the comparison is exact through wait/jump
+    # rewinds.
+    clock_retail = [
+        {"type": "header", "format": "th10-recon-jsonl-v1"},
+        {"type": "stage_enter", "seq": 1},
+        {"type": "ecl_vm_tick", "seq": 2, "vm": 1, "ip": 0x100,
+         "clock": 1065353216, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 3, "vm": 1, "ip": 0x200,
+         "clock": 1073741824, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 16, "result": 0, "live": 1},
+    ]
+    clock_recon = [
+        {"type": "header", "format": "th10-recon-jsonl-v1"},
+        {"type": "ecl_vm_tick", "seq": 1, "vm": 1, "stage_frame": 1,
+         "order": 0, "time_before": 1065353216, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0, "pc_after": 0,
+         "scratch_before": 16, "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 2, "vm": 1, "stage_frame": 2,
+         "order": 0, "time_before": 1073741824, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0, "pc_after": 0,
+         "scratch_before": 16, "scratch_top": 16, "result": 0, "live": 1},
+    ]
+    cr, _ = retail_ticks(clock_retail)
+    cc = recon_ticks(clock_recon)
+    assert [t["root"] for t in cr] == [True, True]
+    assert [t["root"] for t in cc] == [True, True]
+    assert cc[0]["clock_bits"] == 1065353216
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        clock_compare(cr, cc)
+    out = buf.getvalue()
+    assert "clock agreement: 2/2" in out, out
+    assert "field agreement: 2/2" in out, out
+    assert "FIRST CLOCK DIVERGENCE" not in out
+
+    # a clock divergence is reported at the right tick
+    cc[1]["clock_bits"] = 1073741825
+    cc[1]["clock"] = 2.0000002
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        clock_compare(cr, cc)
+    out = buf.getvalue()
+    assert "FIRST CLOCK DIVERGENCE at root tick 1" in out, out
+
+    # all_compare aligns VMs by creation order (entry pc + async_id) and
+    # compares per-tick state across every VM, not just the root.
+    base = 0x30000000
+    all_retail = [
+        {"type": "header", "format": "th10-recon-jsonl-v1"},
+        {"type": "script_register", "seq": 1, "arg0": base},
+        {"type": "stage_enter", "seq": 2},
+        {"type": "ecl_vm_tick", "seq": 3, "vm": 1, "ip": base + 0x100,
+         "clock": 1065353216, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 4, "vm": 1, "ip": base + 0x200,
+         "clock": 1073741824, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 5, "vm": 2, "ip": base + 0x300,
+         "clock": 1065353216, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 0, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 6, "vm": 2, "ip": base + 0x400,
+         "clock": 1073741824, "async_id": -1, "rank_mask": 2,
+         "scratch_top": 16, "result": 0, "live": 1},
+    ]
+    all_recon = [
+        {"type": "header", "format": "th10-recon-jsonl-v1"},
+        {"type": "ecl_vm_tick", "seq": 1, "vm": 1, "stage_frame": 1,
+         "order": 0, "time_before": 1065353216, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0x100, "pc_after": 0,
+         "scratch_before": 16, "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 2, "vm": 1, "stage_frame": 2,
+         "order": 0, "time_before": 1073741824, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0x200, "pc_after": 0,
+         "scratch_before": 16, "scratch_top": 16, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 3, "vm": 99, "stage_frame": 3,
+         "order": 1, "time_before": 1065353216, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0x300, "pc_after": 0,
+         "scratch_before": 0, "scratch_top": 0, "result": 0, "live": 1},
+        {"type": "ecl_vm_tick", "seq": 4, "vm": 99, "stage_frame": 4,
+         "order": 1, "time_before": 1073741824, "async_id": -1,
+         "rank_mask": 2, "pc_before": 0x400, "pc_after": 0,
+         "scratch_before": 16, "scratch_top": 16, "result": 0, "live": 1},
+    ]
+    ar, _ = retail_ticks(all_retail)
+    ac = recon_ticks(all_recon)
+    assert [vm for vm, _ in ordered_vms(ar)] == [1, 2]
+    assert [vm for vm, _ in ordered_vms(ac)] == [1, 99]
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        all_compare(ar, ac)
+    out = buf.getvalue()
+    assert "identity alignment (entry pc + async_id): 2/2" in out, out
+    assert "per-tick full agreement (clock+fields+pc): 4/4" in out, out
+
+    # an entry-pc mismatch in a later VM is reported as an identity gap
+    ac[2]["pc_rel"] = 0x777
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        all_compare(ar, ac)
+    out = buf.getvalue()
+    assert "identity alignment (entry pc + async_id): 1/2" in out, out
 
     print("RETAIL_VS_RECON_STAGE_TEST_PASS")
 
