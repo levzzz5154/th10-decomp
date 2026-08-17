@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x00418930 - Add to a faith gauge level (retail int16 at +0x08 of the
 // gauge record). A level already above 99 rejects the add (returns

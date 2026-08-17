@@ -32,11 +32,7 @@
 #ifndef TH10_GAME_ARCHIVE_CURSOR_SEEK_HPP
 #define TH10_GAME_ARCHIVE_CURSOR_SEEK_HPP
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Reposition ``cursor`` so the next read starts at the requested
 // offset inside the section descriptor stored at cursor+0x90.  When

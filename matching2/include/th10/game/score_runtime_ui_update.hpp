@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 struct ScoreRuntimeUiState {
     uint32_t flags;

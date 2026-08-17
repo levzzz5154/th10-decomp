@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x00420C30 - Play the random voice cue: draw a 64-bit random value
 // (retail 0x00463B2C) and pass its low half to the sound-play edge

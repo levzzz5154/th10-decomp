@@ -19,17 +19,8 @@
 
 #include "th10/game/archive_cursor_open.hpp"
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
-#ifdef _MSC_VER
-extern "C" int dword_4977A4;
-extern "C" void* dword_4660C4;
-extern "C" void* dword_4660C8;
-#else
 extern "C" {
 
 typedef void* HANDLE;
@@ -50,7 +41,6 @@ __stdcall int SetFilePointer(HANDLE hFile, int lDistanceToMove,
 extern int32_t DAT_004977a4;
 
 }  // extern "C"
-#endif
 
 
 namespace {
@@ -66,76 +56,6 @@ struct ArchiveSectionDescriptor {
 }  // namespace
 
 
-#ifdef _MSC_VER
-__declspec(naked) uint32_t ArchiveCursor_Open(
-        void* cursor, int32_t mode, const char* path, void* section) {
-    __asm {
-        cmp eax, 1
-        push edi
-        mov edi, edx
-        mov [esi+78h], eax
-        mov dword ptr [esi+7Ch], 0
-        jne return_zero
-        test ecx, ecx
-        jne path_ok
-        mov eax, 80070057h
-        pop edi
-        ret
-path_ok:
-        push 0
-        push 8000080h
-        push 3
-        push 0
-        push 1
-        push 80000000h
-        push ecx
-        call dword ptr [dword_4660C4]
-        cmp eax, 0FFFFFFFFh
-        mov [esi+8Ch], eax
-        jne handle_ok
-        mov eax, 80004005h
-        pop edi
-        ret
-handle_ok:
-        mov ecx, [esi+7Ch]
-        test ecx, ecx
-        mov [esi+90h], edi
-        je memory_path
-        mov eax, [esi+80h]
-        mov [esi+84h], eax
-        mov eax, [edi+1Ch]
-        test eax, eax
-        jle finish
-        mov ecx, [esi+8]
-        mov [esi+88h], eax
-        mov [esi+2Ch], ecx
-        xor eax, eax
-        pop edi
-        ret
-memory_path:
-        test eax, eax
-        je finish
-        mov ecx, [edi+10h]
-        mov edi, dword_4977A4
-        push 0
-        push 0
-        add ecx, edi
-        push ecx
-        push eax
-        call dword ptr [dword_4660C8]
-        mov edx, [esi+90h]
-        mov eax, [edx+1Ch]
-        mov [esi+8], eax
-finish:
-        mov ecx, [esi+8]
-        mov [esi+2Ch], ecx
-return_zero:
-        xor eax, eax
-        pop edi
-        ret
-    }
-}
-#else
 uint32_t ArchiveCursor_Open(void* cursor, int32_t mode, const char* path,
                             void* section) {
     uint8_t* bytes = static_cast<uint8_t*>(cursor);
@@ -187,4 +107,3 @@ uint32_t ArchiveCursor_Open(void* cursor, int32_t mode, const char* path,
         *reinterpret_cast<int32_t*>(bytes + 0x08);
     return 0;
 }
-#endif

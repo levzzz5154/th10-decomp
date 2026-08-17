@@ -14,15 +14,8 @@
 
 #include "th10/game/archive_cursor.hpp"
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
-#ifdef _MSC_VER
-extern "C" void* __imp_SetFilePointer;
-#endif
 
 extern "C" {
 
@@ -58,85 +51,6 @@ inline ArchiveSectionDescriptor* CursorSection(void* cursor) {
 }  // namespace
 
 
-#ifdef _MSC_VER
-// 0x0044DD40 - Retail archive-cursor seek. Custom ABI: cursor in ESI,
-// write-flag in AL. Advances the in-memory cursor to the section write
-// offset, or repositions the file-backed handle through SetFilePointer.
-__declspec(naked) uint32_t ArchiveCursor_SeekRetail() {
-    __asm {
-        push ebx
-        mov bl, al
-        mov eax, [esi+7Ch]
-        test eax, eax
-        jz loc_44DD88
-        mov edx, [esi+80h]
-        mov ecx, [esi+90h]
-        mov [esi+84h], edx
-        mov eax, [ecx+1Ch]
-        test eax, eax
-        jle loc_44DD69
-        mov [esi+88h], eax
-loc_44DD69:
-        test bl, bl
-        jz loc_44DDFE
-        mov ecx, [ecx+18h]
-        test ecx, ecx
-        jle loc_44DDFE
-        add ecx, edx
-        mov [esi+84h], ecx
-        xor eax, eax
-        pop ebx
-        ret
-loc_44DD88:
-        mov edx, [esi+8Ch]
-        test edx, edx
-        jnz loc_44DD99
-        mov eax, 800401F0h
-        pop ebx
-        ret
-loc_44DD99:
-        test bl, bl
-        jz loc_44DDD6
-        mov eax, [esi+90h]
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jle loc_44DDD6
-        mov eax, [eax+10h]
-        mov ebx, dword ptr [DAT_004977a4]
-        push 0
-        add eax, ecx
-        push 0
-        add eax, ebx
-        push eax
-        push edx
-        call dword ptr [__imp_SetFilePointer]
-        mov eax, [esi+90h]
-        mov ecx, [eax+1Ch]
-        sub ecx, [eax+18h]
-        mov [esi+8], ecx
-        xor eax, eax
-        pop ebx
-        ret
-loc_44DDD6:
-        mov eax, [esi+90h]
-        mov ecx, [eax+10h]
-        mov eax, dword ptr [DAT_004977a4]
-        push 0
-        push 0
-        add ecx, eax
-        push ecx
-        push edx
-        call dword ptr [__imp_SetFilePointer]
-        mov edx, [esi+90h]
-        mov eax, [edx+1Ch]
-        mov [esi+8], eax
-loc_44DDFE:
-        xor eax, eax
-        pop ebx
-        ret
-    }
-}
-#endif
 
 uint32_t ArchiveCursor_Seek(void* cursor, uint8_t offset_write) {
     if (cursor == 0) return 0;

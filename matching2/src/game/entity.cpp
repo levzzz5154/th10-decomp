@@ -4,14 +4,7 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 
-#ifndef _MSC_VER
 #include <cstring>
-#else
-extern "C" void* memset(void*, int, unsigned long);
-extern "C" void* memcpy(void*, const void*, unsigned long);
-#pragma intrinsic(memset)
-#pragma intrinsic(memcpy)
-#endif
 
 extern "C" void __cdecl _free(void*);
 extern "C" void* __cdecl operator_new(uint32_t size);
@@ -22,14 +15,6 @@ extern float DAT_00470b3c;
 extern float DAT_00470b40;
 extern float DAT_00470b5c;
 
-#ifdef _MSC_VER
-extern "C" float flt_470B0C;
-extern "C" float flt_470B40;
-extern "C" float flt_470B3C;
-extern "C" float flt_470B5C;
-extern "C" float flt_470B38;
-extern "C" float flt_470B04;
-#endif
 
 static bool Entity_AxisContains(float coordinate, float radius,
                                 float lower, float upper) {
@@ -60,108 +45,18 @@ Entity* Entity_ResetRuntimeState(Entity* entity) {
 }
 
 // 0x00406160 - Test a point against the entity's two-axis bounds.
-#ifdef _MSC_VER
-__declspec(naked) bool Entity_PointWithinBounds(
-        const Vector3* bounds, float x, float y) {
-    __asm {
-        fld dword ptr [esp+4]
-        fmul dword ptr [flt_470B0C]
-        fld st(0)
-        fadd dword ptr [ecx]
-        fcomp dword ptr [flt_470B40]
-        fnstsw ax
-        test ah, 41h
-        jnp cleanup
-        fld dword ptr [ecx]
-        fsub st, st(1)
-        fcomp dword ptr [flt_470B3C]
-        fnstsw ax
-        fstp st(0)
-        test ah, 1
-        je return_true
-        fld dword ptr [esp+8]
-        fmul dword ptr [flt_470B0C]
-        fld st(0)
-        fadd dword ptr [ecx+4]
-        fcomp dword ptr [flt_470B5C]
-        fnstsw ax
-        test ah, 41h
-        jnp cleanup
-        fld dword ptr [ecx+4]
-        fsub st, st(1)
-        fcomp dword ptr [flt_470B38]
-        fnstsw ax
-        fstp st(0)
-        test ah, 1
-        je return_true
-        xor eax, eax
-        ret 8
-cleanup:
-        fstp st(0)
-return_true:
-        mov eax, 1
-        ret 8
-    }
-}
-#else
 bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y) {
     return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
                                DAT_00470b40) &&
         Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b5c);
 }
-#endif
 
 // 0x004061D0 - Variant using the zero lower X limit used by the renderer.
-#ifdef _MSC_VER
-__declspec(naked) bool Entity_PointWithinBoundsInclusive(
-        const Vector3* bounds, float x, float y) {
-    __asm {
-        fld dword ptr [esp+4]
-        fmul dword ptr [flt_470B0C]
-        fld st(0)
-        fadd dword ptr [ecx]
-        fcomp dword ptr [flt_470B40]
-        fnstsw ax
-        test ah, 41h
-        jnp cleanup
-        fld dword ptr [ecx]
-        fsub st, st(1)
-        fcomp dword ptr [flt_470B3C]
-        fnstsw ax
-        fstp st(0)
-        test ah, 1
-        je return_true
-        fld dword ptr [esp+8]
-        fmul dword ptr [flt_470B0C]
-        fld st(0)
-        fadd dword ptr [ecx+4]
-        fcomp dword ptr [flt_470B04]
-        fnstsw ax
-        test ah, 41h
-        jnp cleanup
-        fld dword ptr [ecx+4]
-        fsub st, st(1)
-        fcomp dword ptr [flt_470B38]
-        fnstsw ax
-        fstp st(0)
-        test ah, 1
-        je return_true
-        xor eax, eax
-        ret 8
-cleanup:
-        fstp st(0)
-return_true:
-        mov eax, 1
-        ret 8
-    }
-}
-#else
 bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y) {
     return Entity_AxisContains(bounds->x, x, DAT_00470b3c,
                                DAT_00470b40) &&
         Entity_AxisContains(bounds->y, y, DAT_00470b38, DAT_00470b04);
 }
-#endif
 
 // ============================================================================
 // 0x00401FF0 - Entity Destructor
@@ -206,38 +101,6 @@ void __fastcall EntitySecondaryResource_Release(Entity* e) {
 // bulk clear in the original source. The invalid marker is the sprite-index
 // word at +0x384, not the +0x35C animation word that Entity_Init writes.
 // ============================================================================
-#ifdef _MSC_VER
-__declspec(naked) Entity* __fastcall Entity_Constructor(Entity* e) {
-    // MSVC 7.1's optimizer schedules the nine flag clears differently from
-    // the retail build (a software-pipelined load/store sequence). The exact
-    // retail body is therefore emitted directly; the readable C++ form below
-    // is kept for the host-side tests.
-    __asm {
-        mov edx, ecx
-        mov ecx, [edx+6Ch]
-        mov eax, 0FFFFFFFEh
-        and ecx, eax
-        mov [edx+6Ch], ecx
-        push edi
-        and [edx+0B0h], eax
-        and [edx+0FCh], eax
-        and [edx+128h], eax
-        and [edx+174h], eax
-        and [edx+1B0h], eax
-        and [edx+1FCh], eax
-        and [edx+228h], eax
-        and [edx+378h], eax
-        xor eax, eax
-        mov ecx, 0EBh
-        mov edi, edx
-        rep stosd
-        mov word ptr [edx+384h], 0FFFFh
-        mov eax, edx
-        pop edi
-        ret
-    }
-}
-#else
 Entity* __fastcall Entity_Constructor(Entity* e) {
     e->flags_06C &= ~1u;
     e->flags_0B0 &= ~1u;
@@ -252,7 +115,6 @@ Entity* __fastcall Entity_Constructor(Entity* e) {
     e->SpriteIndex() = -1;
     return e;
 }
-#endif
 
 // ============================================================================
 // 0x00401DE0 - Entity Full Init
@@ -372,36 +234,6 @@ void __fastcall Entity_Init(void* unused, Entity* entity) {
 //   skip: ADD ESI,4; DEC EDI; JNZ loop
 //   POP EDI; POP ESI; RET
 // ============================================================================
-#ifdef _MSC_VER
-__declspec(naked) void __cdecl DestroyEntityList(void* base) {
-    // Retail reaches this helper with the base pointer in EAX rather than on
-    // the stack. The naked form transcribes the exact 53-byte body; the
-    // readable form below keeps the conventional stack ABI for host tests.
-    __asm {
-        push esi
-        mov esi, eax
-        push edi
-        add esi, 3AD4E0h
-        mov edi, 20h
-        nop
-loc_438A52:
-        mov eax, [esi]
-        test eax, eax
-        jz short loc_438A64
-        mov ecx, [eax]
-        push eax
-        call dword ptr [ecx+8]
-        mov dword ptr [esi], 0
-loc_438A64:
-        add esi, 4
-        dec edi
-        jnz short loc_438A52
-        pop edi
-        pop esi
-        ret
-    }
-}
-#else
 void __cdecl DestroyEntityList(void* base) {
     void** slots = (void**)((uint8_t*)base + 0x3AD4E0);
     for (int index = 0; index < 0x20; ++index) {
@@ -414,4 +246,3 @@ void __cdecl DestroyEntityList(void* base) {
         }
     }
 }
-#endif

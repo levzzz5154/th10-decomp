@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Output device object released at the end of the shutdown; retail
 // calls the first vtable entry with the literal argument 1.

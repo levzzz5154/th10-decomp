@@ -18,32 +18,6 @@ void StoreFloatImage(int* slot, float value) {
 // the shared five-word sentinel pattern (see EmbeddedTimer_Reset at
 // 0x004050D0): seed target with -999999, wire the speed pointer to the
 // global default, and set the initialized bit.
-#ifdef _MSC_VER
-__declspec(naked) void EmbeddedTimer_SetCountdownRetail() {
-    __asm {
-        mov ecx, [eax+24h]
-        test cl, 1
-        push esi
-        mov esi, [esp+8]
-        jnz loc_42A959
-        xor edx, edx
-        or ecx, 1
-        mov [eax+18h], edx
-        mov dword ptr [eax+14h], 0FFF0BDC1h
-        mov [eax+1Ch], edx
-        mov dword ptr [eax+20h], 476F78h
-        mov [eax+24h], ecx
-loc_42A959:
-        fild dword ptr [esp+8]
-        mov [eax+18h], esi
-        dec esi
-        mov [eax+14h], esi
-        fstp dword ptr [eax+1Ch]
-        pop esi
-        ret 4
-    }
-}
-#endif
 
 void EmbeddedTimer_SetCountdown(EmbeddedTimerState* timer, int32_t frames) {
     if ((timer->flags & 1u) == 0) {
@@ -65,78 +39,6 @@ void EmbeddedTimer_SetCountdown(EmbeddedTimerState* timer, int32_t frames) {
 // copy the position triple, store kind and argument, arm the embedded
 // timer (its flags were just wiped, so the sentinel branch always
 // runs), and apply the mode / counter / limit / phase defaults.
-#ifdef _MSC_VER
-__declspec(naked) EffectIndicatorSlot* EffectIndicatorPool_AllocateRetail() {
-    __asm {
-        push ebp
-        mov ebp, [esp+8]
-        add edx, 350Ch
-        xor eax, eax
-        _emit 8Dh
-        _emit 49h
-        _emit 00h
-loc_427B60:
-        test byte ptr [edx+68h], 1
-        jz loc_427B75
-        inc eax
-        add edx, 6Ch
-        cmp eax, 20h
-        jl loc_427B60
-        mov eax, edx
-        pop ebp
-        ret 14h
-loc_427B75:
-        push esi
-        push edi
-        xor eax, eax
-        mov ecx, 1Bh
-        mov edi, edx
-        rep stosd
-        or dword ptr [edx+68h], 3
-        lea esi, [edx+18h]
-        mov edi, esi
-        mov ecx, 0Bh
-        rep stosd
-        mov eax, [ebp]
-        mov [esi], eax
-        mov ecx, [ebp+4]
-        mov [esi+4], ecx
-        mov eax, [ebp+8]
-        mov ecx, [esp+14h]
-        mov [esi+8], eax
-        mov eax, [esp+18h]
-        mov [edx], ecx
-        mov [edx+4], eax
-        mov eax, [edx+54h]
-        pop edi
-        xor ecx, ecx
-        test al, 1
-        pop esi
-        jnz loc_427BD5
-        or eax, 1
-        mov [edx+48h], ecx
-        mov dword ptr [edx+44h], 0FFF0BDC1h
-        mov [edx+4Ch], ecx
-        mov dword ptr [edx+50h], 476F78h
-        mov [edx+54h], eax
-loc_427BD5:
-        mov eax, [esp+14h]
-        fild dword ptr [esp+14h]
-        mov [edx+48h], eax
-        dec eax
-        mov [edx+44h], eax
-        fstp dword ptr [edx+4Ch]
-        mov eax, [esp+18h]
-        mov [edx+58h], eax
-        mov [edx+5Ch], ecx
-        mov dword ptr [edx+60h], 0F423Fh
-        mov dword ptr [edx+64h], 4
-        mov eax, edx
-        pop ebp
-        ret 14h
-    }
-}
-#endif
 
 EffectIndicatorSlot* EffectIndicatorPool_Allocate(EffectIndicatorPool* pool,
                                                   const float position[3],
@@ -170,29 +72,11 @@ EffectIndicatorSlot* EffectIndicatorPool_Allocate(EffectIndicatorPool* pool,
 
 // 0x00427D80 - Multiply an integer pair into an output pair, reading
 // both inputs before the first store like the retail body.
-#ifdef _MSC_VER
-__declspec(naked) void CellPair_Scale(int32_t out[2], const int32_t pair[2],
-                                      int32_t scale) {
-    __asm {
-        push esi
-        mov esi, ecx
-        mov ecx, [esi+4]
-        mov esi, [esi]
-        imul ecx, edx
-        imul esi, edx
-        mov [eax], esi
-        mov [eax+4], ecx
-        pop esi
-        ret
-    }
-}
-#else
 void CellPair_Scale(int32_t out[2], const int32_t pair[2], int32_t scale) {
     const int32_t second = pair[1];
     out[0] = pair[0] * scale;
     out[1] = second * scale;
 }
-#endif
 
 
 // 0x00427E90 - Materialize a descriptor selected by the caller at 0x00428160

@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Streaming-voice fields inside the sound manager (retail offsets in
 // comments).

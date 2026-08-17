@@ -7,21 +7,6 @@
 #include <cstdio>
 #include <cstring>
 
-#ifdef _MSC_VER
-extern "C" double sub_439540(void);
-extern "C" double dbl_470BC0;
-extern "C" double dbl_470B30;
-extern "C" float flt_470BB8;
-extern "C" double dbl_492540;
-extern "C" double dbl_492538;
-extern "C" double dbl_492528;
-extern "C" double dbl_492530;
-extern "C" double dbl_492508;
-extern "C" double dbl_49250C;
-extern "C" double dbl_470BB0;
-extern "C" float flt_470BA8;
-extern "C" void* dword_477810;
-#endif
 
 // Each routine mirrors one retail function; the comment above each body
 // names the retail address it was recovered from.
@@ -67,107 +52,6 @@ int FpsCounter_Render(void (*update_average)(void), int game_state,
 // 0x004134B0 - frame-rate counter update: measures fps over the elapsed
 // window, resynchronizes the global frame stamps after repeated timer
 // stalls, and accumulates played time while the game is not paused/skipping.
-#ifdef _MSC_VER
-__declspec(naked) int FrameRateCounter_UpdateRetail() {
-    __asm {
-        push ebp
-        mov ebp, esp
-        and esp, 0FFFFFFF8h
-        push ecx
-        push edi
-        call sub_439540
-        fcom qword ptr [esi+14h]
-        fnstsw ax
-        test ah, 5
-        jp loc_4134CA
-        fst qword ptr [esi+14h]
-loc_4134CA:
-        fsub qword ptr [esi+14h]
-        fcom qword ptr [dbl_470BC0]
-        fnstsw ax
-        test ah, 1
-        jnz loc_4135BC
-        mov eax, [esi+20h]
-        fld st(0)
-        test eax, eax
-        fadd qword ptr [esi+14h]
-        fstp qword ptr [esi+14h]
-        fild dword ptr [esi+20h]
-        jge loc_4134F6
-        fadd qword ptr [dbl_470B30]
-loc_4134F6:
-        fdivrp st(1), st
-        xor edi, edi
-        fst dword ptr [esi+34h]
-        fcomp dword ptr [flt_470BB8]
-        fnstsw ax
-        test ah, 41h
-        jnz loc_413565
-        mov edx, [esi+1Ch]
-        inc edx
-        mov eax, edx
-        cmp eax, 2
-        mov [esi+1Ch], edx
-        jnz loc_413537
-        call sub_439540
-        fst qword ptr [dbl_492540]
-        fst qword ptr [dbl_492538]
-        fst qword ptr [dbl_492528]
-        fstp qword ptr [dbl_492530]
-        jmp loc_413568
-loc_413537:
-        cmp eax, 4
-        jnz loc_413568
-        mov dword ptr [dbl_492508], edi
-        mov dword ptr [dbl_49250C], edi
-        call sub_439540
-        fst qword ptr [dbl_492540]
-        fst qword ptr [dbl_492538]
-        fst qword ptr [dbl_492528]
-        fstp qword ptr [dbl_492530]
-loc_413565:
-        mov [esi+1Ch], edi
-loc_413568:
-        mov ecx, dword ptr [dword_477810]
-        cmp ecx, edi
-        jz loc_4135AF
-        test byte ptr [ecx+58h], 14h
-        jnz loc_4135A8
-        fld qword ptr [esi+2Ch]
-        fadd qword ptr [dbl_470BB0]
-        fstp qword ptr [esi+2Ch]
-        fld dword ptr [esi+34h]
-        fcomp dword ptr [flt_470BA8]
-        fnstsw ax
-        test ah, 41h
-        jnz loc_41359F
-        fld qword ptr [esi+24h]
-        fadd qword ptr [dbl_470BB0]
-        jmp loc_4135A5
-loc_41359F:
-        fld dword ptr [esi+34h]
-        fadd qword ptr [esi+24h]
-loc_4135A5:
-        fstp qword ptr [esi+24h]
-loc_4135A8:
-        and dword ptr [ecx+58h], 0FFFFFF7Fh
-loc_4135AF:
-        mov [esi+20h], edi
-        mov eax, 1
-        pop edi
-        mov esp, ebp
-        pop ebp
-        ret
-loc_4135BC:
-        fstp st(0)
-        mov eax, 1
-        pop edi
-        mov esp, ebp
-        pop ebp
-        ret
-    }
-}
-#endif
 
 int FrameRateCounter_Update(FrameRateCounter* counter,
                             FrameRateEnv* env) {

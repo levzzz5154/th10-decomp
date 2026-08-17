@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x004180E0 - Create the 0x60-byte game UI manager and publish it
 // through the retail global at 0x00477810. Retail clears bit 0 of word

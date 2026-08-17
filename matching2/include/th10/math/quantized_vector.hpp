@@ -1,11 +1,7 @@
 #ifndef TH10_MATH_QUANTIZED_VECTOR_HPP
 #define TH10_MATH_QUANTIZED_VECTOR_HPP
 
-#ifdef _MSC_VER
-typedef unsigned char uint8_t;
-#else
 #include <cstdint>
-#endif
 
 // The 0x1C-byte parameter block shared by the retail leaves at 0x00404D40
 // (subtract), 0x00404DA0 (scale) and 0x00404E10 (add). Six float channels are

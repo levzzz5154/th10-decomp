@@ -11,11 +11,6 @@ extern "C" __declspec(dllimport) DWORD __stdcall SizeofResource(
     HMODULE module, HANDLE resource);
 extern "C" __declspec(dllimport) BOOL __stdcall FreeResource(HANDLE resource);
 
-#ifdef _MSC_VER
-extern "C" void _free(void*);
-extern "C" char off_46F308;
-extern "C" char off_46F210;
-#endif
 
 ResourceFile::ResourceFile() {
 }

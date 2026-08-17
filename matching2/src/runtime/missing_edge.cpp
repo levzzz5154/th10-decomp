@@ -3,11 +3,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#ifdef _MSC_VER
-__declspec(noreturn)
-#else
 [[noreturn]]
-#endif
 void Runtime_MissingEdge(unsigned int retail_address,
                          const char* edge_name) {
     std::fprintf(stderr,

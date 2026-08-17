@@ -1,24 +1,12 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/game/entity.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Sizes (in 32-bit words) of the retail manager blocks reset by the
 // recovered constructors below.
-#ifdef _MSC_VER
-enum {
-    kEffectManagerDwords = 0x2E21,
-    kProgressManagerDwords = 0x16B3,
-    kEntityBlockPoolDwords = 0x27B4,
-};
-#else
 constexpr uint32_t kEffectManagerDwords = 0x2E21;   // 0xB884 bytes
 constexpr uint32_t kProgressManagerDwords = 0x16B3; // 0x5ACC bytes
 constexpr uint32_t kEntityBlockPoolDwords = 0x27B4; // 0x9ED0 bytes
-#endif
 
 // 0x0042B430 - Reset the 0xB884-byte effect manager: clear the whole
 // block, set constructed bit 1 in the leading flags word, and publish

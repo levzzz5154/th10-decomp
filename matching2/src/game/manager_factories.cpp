@@ -1,7 +1,5 @@
 #include "th10/game/manager_factories.hpp"
-#ifndef _MSC_VER
 #include "th10/game/gameplay_final_runtime.hpp"
-#endif
 #include "th10/game/entity.hpp"
 #include "th10/game/player_motion.hpp"
 #include "th10/game/pool_constructors.hpp"
@@ -22,37 +20,11 @@ extern unsigned int DAT_0047770c;
 extern unsigned int DAT_00491be4;
 
 // Retail globals feeding the recovered particle/effect draw pass.
-#ifdef _MSC_VER
-extern "C" unsigned long dword_4776F0;  // animation-manager resource slot
-extern "C" unsigned long dword_491C10;  // animation manager
-#endif
 
-#ifdef _MSC_VER
-extern "C" void __stdcall EhVectorCtorIter();
-extern "C" void* sub_452493(unsigned long);
-extern "C" int sub_43C970(void*, void*, int, int, int);
-extern "C" void* sub_44B360(void*, int);
-extern "C" void sub_42ADD0(void*);
-extern "C" void sub_42ACB0(void*);
-extern "C" void sub_42B030(void*);
-extern "C" void sub_40D280(void*);
-extern "C" void sub_40D530(void*);
-extern "C" void j__free(void*);
-extern "C" unsigned long dword_477704;
-extern "C" int sub_42A200(void*);
-extern "C" void sub_4294A0(void*);
-extern "C" int sub_4089C0(void);
-extern "C" void sub_408AF0(void*);
-extern "C" void* sub_408910(void*);
-extern "C" void* sub_413810(void*);
-extern "C" void sub_4145F0(void*);
-extern "C" int sub_413980(void);
-#endif
 
 namespace {
 ParticleEffectRuntimeBindings g_particle_effect_bindings = {};
 
-#ifndef _MSC_VER
 int __fastcall ParticleEffect_Update(void* owner) {
 	// 0x0041AFD0 (the item sweep) is reconstructed as UpdateItems
 	// (gameplay_final_runtime); the owner is the item pool and the env
@@ -71,21 +43,14 @@ int __fastcall ParticleEffect_Update(void* owner) {
 	env.frame_delta = DAT_00476f78;
 	return UpdateItems(*(th10::gameplay_final::ItemPool*)owner, env);
 }
-#endif
 
 // Retail 0x0041B8E0 reads the shared effect bank through the
 // animation-manager resource slot (dword_4776F0 + 1016532 dwords =
 // +0x3E0B50 bytes) for the per-record glyph-bank preloads.
-#ifdef _MSC_VER
-void* ParticleEffect_Bank() {
-	return *(void**)((char*)(uintptr_t)dword_4776F0 + 4066128);
-}
-#else
 void* ParticleEffect_Bank() {
 	return 0;  // retail dword_4776F0 is hybrid-only; host injects its
 	           // own resource bindings over this path
 }
-#endif
 
 // Retail 0x0041B8E0 draws the 2198 effect records: the pool slots start
 // at +0x14 with a 0x3F0 stride and the record payload sits at +0x34C.
@@ -102,11 +67,7 @@ int __fastcall ParticleEffect_Draw(void* owner) {
 	Byte* slot = (Byte*)owner + 20;
 	Byte* record = (Byte*)owner + 844;
 	static AnmDrawEnv env = th10::render_leaves::DefaultAnmDrawEnv();
-#ifdef _MSC_VER
-	void* context = (void*)dword_491C10;
-#else
 	void* context = 0;  // host injects its own draw binding over this path
-#endif
 	for (int count = 2198; count != 0; --count) {
 		if (*(Word*)(record + 164) != 0) {
 			*(float*)(record - 4) = *(float*)(record + 116) + 224.0f;
@@ -152,53 +113,6 @@ int __fastcall ParticleEffect_Draw(void* owner) {
 // Shared construct-then-initialize factory frame used by the manager
 // creation helpers: allocate, run the in-place constructor, then run the
 // global initializer; a failing initializer tears the object back down.
-#ifdef _MSC_VER
-__declspec(naked) void* EnemyManager_CreateRetail() {
-    __asm {
-        push ebx
-        push 68h
-        call sub_452493
-        mov edx, eax
-        add esp, 4
-        test edx, edx
-        jz loc_40D6DF
-        and dword ptr [edx+50h], 0FFFFFFFEh
-        push edi
-        xor eax, eax
-        mov ecx, 1Ah
-        mov edi, edx
-        rep stosd
-        or dword ptr [edx], 2
-        mov dword ptr [dword_477704], edx
-        mov ebx, edx
-        pop edi
-        jmp loc_40D6E1
-loc_40D6DF:
-        xor ebx, ebx
-loc_40D6E1:
-        mov eax, [esp+8]
-        push eax
-        call sub_40D280
-        test eax, eax
-        jz loc_40D709
-        test ebx, ebx
-        jz loc_40D703
-        mov eax, ebx
-        call sub_40D530
-        push ebx
-        call j__free
-        add esp, 4
-loc_40D703:
-        xor eax, eax
-        pop ebx
-        ret 4
-loc_40D709:
-        mov eax, ebx
-        pop ebx
-        ret 4
-    }
-}
-#endif
 
 static void* CreateConstructedManager(unsigned int size,
                                       void* (*allocate)(unsigned int),
@@ -248,46 +162,6 @@ void* EnemyManager_Create(void* script_name, void* (*allocate)(unsigned int size
 // all 0x11 dwords, sets header flag bit 1, and forwards the five creation
 // arguments to the initializer (retail 0x0043C970) before returning the
 // instance; allocation failure reports null.
-#ifdef _MSC_VER
-__declspec(naked) void* AsciiManager_CreateRetail() {
-    __asm {
-        push esi
-        push 44h
-        call sub_452493
-        mov esi, eax
-        add esp, 4
-        xor eax, eax
-        test esi, esi
-        jz loc_43C8FE
-        mov ecx, [esi+40h]
-        mov edx, [esp+10h]
-        push edi
-        and ecx, 0FFFFFFFEh
-        mov [esi+40h], ecx
-        mov ecx, 11h
-        mov edi, esi
-        rep stosd
-        mov eax, [esi]
-        mov ecx, [esp+18h]
-        or eax, 2
-        pop edi
-        mov [esi], eax
-        mov eax, [esp+18h]
-        push eax
-        mov eax, [esp+10h]
-        push ecx
-        mov ecx, [esp+10h]
-        push edx
-        push eax
-        push ecx
-        call sub_43C970
-        mov eax, esi
-loc_43C8FE:
-        pop esi
-        ret 14h
-    }
-}
-#endif
 
 void* AsciiManager_Create(void* (*allocate)(unsigned int size),
                           void (*initialize)(void* manager)) {
@@ -348,69 +222,6 @@ int AsciiManager_Initialize(AsciiManagerInitState* state, void* draw_queue,
 // zeroes the whole 0xB5-dword block, arms the state word (+0x10) with 2, and
 // runs the stage-script initializer; on failure the manager is destroyed and
 // freed and the constructor reports null.
-#ifdef _MSC_VER
-__declspec(naked) void* StageManager_CreateRetail() {
-    __asm {
-        push 0FFFFFFFFh
-        push 46564Bh
-        mov eax, fs:[0]
-        push eax
-        mov fs:[0], esp
-        push ecx
-        push esi
-        push 2D4h
-        call sub_452493
-        mov esi, eax
-        add esp, 4
-        mov [esp+4], esi
-        test esi, esi
-        mov dword ptr [esp+10h], 0
-        jz loc_42974F
-        push edi
-        push 42AC60h
-        push 42AC20h
-        push 8
-        push 24h
-        lea eax, [esi+0A0h]
-        push eax
-        call EhVectorCtorIter
-        mov ecx, 0B5h
-        xor eax, eax
-        mov edi, esi
-        rep stosd
-        pop edi
-        jmp loc_429751
-loc_42974F:
-        xor esi, esi
-loc_429751:
-        mov ecx, [esp+18h]
-        mov dword ptr [esp+10h], 0FFFFFFFFh
-        push ecx
-        mov dword ptr [esi+10h], 2
-        call sub_42A200
-        test eax, eax
-        jz loc_429791
-        push esi
-        call sub_4294A0
-        push esi
-        call j__free
-        add esp, 4
-        xor eax, eax
-        pop esi
-        mov ecx, [esp+4]
-        mov fs:[0], ecx
-        add esp, 10h
-        ret 4
-loc_429791:
-        mov ecx, [esp+8]
-        mov eax, esi
-        pop esi
-        mov fs:[0], ecx
-        add esp, 10h
-        ret 4
-    }
-}
-#endif
 
 void* StageManager_Create(const char* stage_path,
                           void* (*allocate)(unsigned int size),
@@ -438,63 +249,6 @@ void* StageManager_Create(const char* stage_path,
 // initializes the trailing shared block (+0x1D86C), constructs the seven
 // 0x437C-byte effect pools that start at +0x08, and finishes with the
 // archive-section finalizer.
-#ifdef _MSC_VER
-__declspec(naked) void* EffectManager_InitializePoolsRetail() {
-    __asm {
-        push ecx
-        push ebx
-        push esi
-        mov ebx, eax
-        push edi
-        xor eax, eax
-        mov ecx, 772Dh
-        mov edi, ebx
-        rep stosd
-        push 1
-        lea eax, [esp+10h]
-        push eax
-        mov eax, 46E848h
-        call sub_44B360
-        lea edx, [ebx+1D86Ch]
-        mov [ebx], eax
-        call sub_42ADD0
-        lea esi, [ebx+8]
-        mov ecx, esi
-        sub ecx, ebx
-        lea edi, [ecx-8]
-        mov eax, 79641CB1h
-        imul edi
-        sar edx, 0Dh
-        mov eax, edx
-        shr eax, 1Fh
-        add eax, edx
-        cmp eax, 7
-        jnb loc_42AED8
-        nop
-loc_42AEB0:
-        push esi
-        call sub_42ACB0
-        add edi, 437Ch
-        mov eax, 79641CB1h
-        imul edi
-        sar edx, 0Dh
-        mov ecx, edx
-        shr ecx, 1Fh
-        add ecx, edx
-        add esi, 437Ch
-        cmp ecx, 7
-        jb loc_42AEB0
-loc_42AED8:
-        call sub_42B030
-        pop edi
-        pop esi
-        mov eax, ebx
-        pop ebx
-        pop ecx
-        ret
-    }
-}
-#endif
 
 void EffectManager_InitializePools(Word* manager_words,
                                    unsigned int word_count,
@@ -564,7 +318,6 @@ int EffectManager_OnRegister(ManagerRegistration* manager, int frame_stamp,
     return 0;
 }
 
-#ifndef _MSC_VER
 void ParticleEffectRuntime_SetBindings(
         const ParticleEffectRuntimeBindings* bindings) {
 	if (bindings != 0)
@@ -601,120 +354,14 @@ int ParticleEffectRuntime_Initialize(void* manager) {
 	*(SchedulerCallback**)(bytes + 12) = draw;
 	return 0;
 }
-#endif
 
 // 0x00408C90 - Player manager factory: 0x37B0-byte object, in-place
 // constructor, then the resource initializer; failure destroys and frees.
-#ifdef _MSC_VER
-__declspec(naked) void* PlayerManager_CreateRetail() {
-    __asm {
-        push 0FFFFFFFFh
-        push 46586Bh
-        mov eax, fs:[0]
-        push eax
-        mov fs:[0], esp
-        push ecx
-        push ebx
-        push 37B0h
-        call sub_452493
-        add esp, 4
-        mov [esp+4], eax
-        test eax, eax
-        mov dword ptr [esp+10h], 0
-        jz loc_408CCE
-        push eax
-        call sub_408910
-        mov ebx, eax
-        jmp loc_408CD0
-loc_408CCE:
-        xor ebx, ebx
-loc_408CD0:
-        mov dword ptr [esp+10h], 0FFFFFFFFh
-        call sub_4089C0
-        test eax, eax
-        jz loc_408D06
-        test ebx, ebx
-        jz loc_408CF4
-        push ebx
-        call sub_408AF0
-        push ebx
-        call j__free
-        add esp, 4
-loc_408CF4:
-        xor eax, eax
-        pop ebx
-        mov ecx, [esp+4]
-        mov fs:[0], ecx
-        add esp, 10h
-        ret
-loc_408D06:
-        mov ecx, [esp+8]
-        mov eax, ebx
-        pop ebx
-        mov fs:[0], ecx
-        add esp, 10h
-        ret
-    }
-}
-#endif
 
 // 0x00408910 - Construct the 15 embedded entity records. Retail subsequently
 // clears the complete object, sets its live bit, and publishes it. Calling the
 // entity constructors preserves their construction-time behavior even though
 // all of their field stores are deliberately erased by the following clear.
-#ifdef _MSC_VER
-__declspec(naked) void* PlayerManager_ConstructRetail() {
-    __asm {
-        mov eax, fs:[0]
-        push 0FFFFFFFFh
-        push 465514h
-        push eax
-        mov fs:[0], esp
-        push esi
-        mov esi, [esp+14h]
-        push edi
-        push 401FF0h
-        push 402050h
-        push 2
-        push 3ACh
-        lea eax, [esi+10h]
-        push eax
-        call EhVectorCtorIter
-        push 401FF0h
-        push 402050h
-        push 8
-        push 3ACh
-        lea ecx, [esi+778h]
-        push ecx
-        mov dword ptr [esp+24h], 0
-        call EhVectorCtorIter
-        push 401FF0h
-        push 402050h
-        push 5
-        push 3ACh
-        lea edx, [esi+24D8h]
-        push edx
-        mov byte ptr [esp+24h], 1
-        call EhVectorCtorIter
-        and dword ptr [esi+3744h], 0FFFFFFFEh
-        xor eax, eax
-        mov edi, esi
-        mov ecx, 0DECh
-        rep stosd
-        mov eax, [esi]
-        mov ecx, [esp+8]
-        or eax, 2
-        mov [esi], eax
-        pop edi
-        mov dword ptr [DAT_004776f4], esi
-        mov eax, esi
-        mov fs:[0], ecx
-        pop esi
-        add esp, 0Ch
-        ret 4
-    }
-}
-#endif
 
 void* PlayerManager_Construct(void* memory) {
 	Byte* bytes = (Byte*)memory;
@@ -741,58 +388,6 @@ void* PlayerManager_Create(void* (*allocate)(unsigned int size),
 
 // 0x00414830 - Item manager factory: identical frame with a 0x9ED0-byte
 // object and the item-side constructor/initializer pair.
-#ifdef _MSC_VER
-__declspec(naked) void* ItemManager_CreateRetail() {
-    __asm {
-        push 0FFFFFFFFh
-        push 46584Bh
-        mov eax, fs:[0]
-        push eax
-        mov fs:[0], esp
-        push ecx
-        push ebx
-        push 9ED0h
-        call sub_452493
-        add esp, 4
-        mov [esp+4], eax
-        test eax, eax
-        mov dword ptr [esp+10h], 0
-        jz loc_41486E
-        push eax
-        call sub_413810
-        mov ebx, eax
-        jmp loc_414870
-loc_41486E:
-        xor ebx, ebx
-loc_414870:
-        mov dword ptr [esp+10h], 0FFFFFFFFh
-        call sub_413980
-        test eax, eax
-        jz loc_4148A6
-        test ebx, ebx
-        jz loc_414894
-        push ebx
-        call sub_4145F0
-        push ebx
-        call j__free
-        add esp, 4
-loc_414894:
-        xor eax, eax
-        pop ebx
-        mov ecx, [esp+4]
-        mov fs:[0], ecx
-        add esp, 10h
-        ret
-loc_4148A6:
-        mov ecx, [esp+8]
-        mov eax, ebx
-        pop ebx
-        mov fs:[0], ecx
-        add esp, 10h
-        ret
-    }
-}
-#endif
 
 // 0x00413810 - Construct the six retail entity banks, then apply the bulk
 // clear/live-bit/publication tail. The intermediate flag and sentinel stores

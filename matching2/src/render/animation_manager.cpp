@@ -21,37 +21,6 @@ extern float _DAT_00470b60;
 extern unsigned int DAT_00476f78;
 extern void* g_pD3DDevice;
 
-#ifdef _MSC_VER
-extern "C" unsigned long dword_491C10;
-extern "C" void* sub_4491C0(void*);
-extern "C" void sub_43E5A0(void*, void*);
-extern "C" void sub_43EE30(void*);
-extern "C" void sub_447810(void*);
-extern "C" void j__free(void*);
-extern "C" void* sub_449950(void*);
-extern "C" void sub_449870(void*, void*);
-extern "C" void sub_4489D0(void*, void*);
-extern "C" void sub_448A50(void*, void*);
-extern "C" void sub_448AC0(void*, void*);
-extern "C" void sub_448B40(void*, void*);
-extern "C" void sub_43E710(void*, void*);
-extern "C" void sub_4451C0(void*, void*);
-extern "C" void sub_4492A0(void*, void*);
-extern "C" void _free(void*);
-extern "C" float flt_470B4C;
-extern "C" float flt_470B48;
-extern "C" unsigned short word_4749CE;
-extern "C" void sub_448BB0(void);
-extern "C" void sub_43EE30(void*);
-extern "C" unsigned long dword_46F288;
-extern "C" unsigned long dword_46F2A0;
-extern "C" unsigned long dword_491C30;
-extern "C" void sub_4521A0(void*, void*, void*, void*, void*, void*, void*, void*);
-extern "C" void sub_463B2C(void);
-extern "C" void sub_401DE0(void*, void*);
-extern "C" float flt_470B7C;
-extern "C" float flt_470B60;
-#endif
 
 extern "C" int __stdcall D3DXCreateTexture(
     void* device, unsigned int width, unsigned int height,
@@ -80,29 +49,6 @@ static unsigned int AnimationManager_NextPoolIndex(unsigned int index) {
 
 // 0x00447050 - Allocate a one-level managed texture in one of the six retail
 // pixel formats and retain the corresponding byte stride in its owner record.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationTexture_Create(
-        unsigned int width, unsigned int height,
-        unsigned int format_index, AnimationTextureRecord* output) {
-    __asm {
-        mov eax, [esi*4+dword_46F288]
-        push edi
-        push 1
-        push eax
-        mov eax, dword_491C30
-        push 0
-        push 1
-        push ecx
-        push edx
-        push eax
-        call sub_4521A0
-        mov ecx, [esi*4+dword_46F2A0]
-        mov [edi+0Ch], ecx
-        xor eax, eax
-        ret
-    }
-}
-#else
 int AnimationTexture_Create(unsigned int width, unsigned int height,
                             unsigned int format_index,
                             AnimationTextureRecord* output) {
@@ -113,7 +59,6 @@ int AnimationTexture_Create(unsigned int width, unsigned int height,
     output->bytes_per_pixel = bytes_per_pixel[format_index];
     return 0;
 }
-#endif
 
 // 0x00447810 - Retire a populated animation-resource batch. The retail leaf
 // first synchronizes the owner, releases each interface/resource pair, then
@@ -151,80 +96,13 @@ void AnimationManager_ReleaseResourceBatch(
 
 // 0x004423C0 - Multiply two 7-bit-normalized color channels and saturate the
 // result to the byte range used by the animation renderer.
-#ifdef _MSC_VER
-__declspec(naked) uint32_t AnimationColor_MultiplyChannel(
-        uint32_t left, uint32_t right) {
-    __asm {
-        movzx eax, al
-        movzx ecx, cl
-        imul eax, ecx
-        shr eax, 7
-        cmp eax, 100h
-        jb locret_4423D8
-        mov eax, 0FFh
-locret_4423D8:
-        ret
-    }
-}
-#else
 uint32_t AnimationColor_MultiplyChannel(uint32_t left, uint32_t right) {
     uint32_t result = (left & 0xFF) * (right & 0xFF) >> 7;
     return result > 0xFF ? 0xFF : result;
 }
-#endif
 
 // 0x00447940 - Copy one animation position record and derive its normalized
 // coordinates and extents. The retail record is 0x44 bytes (17 floats).
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_CopyPositionRecord(
-        void* manager, unsigned int index, const float* source) {
-    __asm {
-        imul eax, eax, 44h
-        push esi
-        push edi
-        mov edi, [edx+118h]
-        add edi, eax
-        mov ecx, 11h
-        mov esi, ebx
-        rep movsd
-        mov ecx, [edx+118h]
-        add ecx, eax
-        pop edi
-        pop esi
-        fld dword ptr [ecx+8]
-        fdiv dword ptr [ecx+1Ch]
-        fstp dword ptr [ecx+20h]
-        mov ecx, [edx+118h]
-        fld dword ptr [ecx+eax+10h]
-        fdiv dword ptr [ecx+eax+1Ch]
-        add ecx, eax
-        fstp dword ptr [ecx+28h]
-        mov ecx, [edx+118h]
-        fld dword ptr [ecx+eax+0Ch]
-        fdiv dword ptr [ecx+eax+18h]
-        add ecx, eax
-        fstp dword ptr [ecx+24h]
-        mov ecx, [edx+118h]
-        fld dword ptr [ecx+eax+14h]
-        fdiv dword ptr [ecx+eax+18h]
-        add ecx, eax
-        fstp dword ptr [ecx+2Ch]
-        mov ecx, [edx+118h]
-        fld dword ptr [ecx+eax+10h]
-        fsub dword ptr [ecx+eax+8]
-        add ecx, eax
-        fdiv dword ptr [ebx+38h]
-        fstp dword ptr [ecx+34h]
-        mov edx, [edx+118h]
-        fld dword ptr [eax+edx+14h]
-        fsub dword ptr [eax+edx+0Ch]
-        add eax, edx
-        fdiv dword ptr [ebx+3Ch]
-        fstp dword ptr [eax+30h]
-        ret
-    }
-}
-#else
 void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
                                          const float* source) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -235,93 +113,10 @@ void AnimationManager_CopyPositionRecord(void* manager, unsigned int index,
     // entry loader at 0x00447470, so both callers share one implementation.
     AnmSprite_DeriveRecord(destination);
 }
-#endif
 
 // 0x0043EC70 - Read one of the animation interpreter's integer-valued
 // variables. Float variables use the same truncating conversion as retail's
 // x87 helper at 0x00463B2C.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationObject_ReadIntegerVariable(
-        AnimationObject* animation, int variableId) {
-    __asm {
-        lea edx, [eax-2710h]
-        cmp edx, 9
-        ja default_case
-        jmp dword ptr [edx*4+43ECD8h]
-case_zero:
-        mov eax, [ecx+30Ch]
-        ret
-case_one:
-        mov eax, [ecx+310h]
-        ret
-case_two:
-        mov eax, [ecx+314h]
-        ret
-case_three:
-        mov eax, [ecx+318h]
-        ret
-case_four:
-        fld dword ptr [ecx+31Ch]
-        jmp sub_463B2C
-case_five:
-        fld dword ptr [ecx+320h]
-        jmp sub_463B2C
-case_six:
-        fld dword ptr [ecx+324h]
-        jmp sub_463B2C
-case_seven:
-        fld dword ptr [ecx+328h]
-        jmp sub_463B2C
-case_eight:
-        mov eax, [ecx+32Ch]
-        ret
-case_nine:
-        mov eax, [ecx+330h]
-default_case:
-        ret
-        _emit 0x82
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0x89
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0x90
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0x97
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0x9E
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0xA9
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0xB4
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0xBF
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0xCA
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-        _emit 0xD1
-        _emit 0xEC
-        _emit 0x43
-        _emit 0x00
-    }
-}
-#else
 int AnimationObject_ReadIntegerVariable(
     AnimationObject* animation, int variableId) {
     Entity* entity = (Entity*)animation;
@@ -336,90 +131,10 @@ int AnimationObject_ReadIntegerVariable(
     }
     return variableId;
 }
-#endif
 
 // 0x0043EDA0 - Resolve a writable integer-variable operand. The retail helper
 // receives the candidate value in EAX and uses the instruction parameter mask
 // to decide whether it is an encoded variable or a literal fallback address.
-#ifdef _MSC_VER
-__declspec(naked) int* AnimationObject_ResolveIntegerVariable(
-        AnimationObject* animation, int variableId, int* fallback,
-        bool variableEncoded) {
-    __asm {
-        push esi
-        mov esi, 1
-        shl esi, cl
-        movzx ecx, word ptr [esp+8]
-        test esi, ecx
-        pop esi
-        je default_case
-        mov ecx, [eax]
-        add ecx, 0FFFFD8F0h
-        cmp ecx, 9
-        ja default_case
-        jmp dword ptr [ecx*4+43EDFCh]
-case_zero:
-        lea eax, [edx+30Ch]
-        ret 4
-case_one:
-        lea eax, [edx+310h]
-        ret 4
-case_two:
-        lea eax, [edx+314h]
-        ret 4
-case_three:
-        lea eax, [edx+318h]
-        ret 4
-case_four:
-        lea eax, [edx+32Ch]
-        ret 4
-case_five:
-        lea eax, [edx+330h]
-default_case:
-        ret 4
-        _emit 0xC6
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xCF
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xD8
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xE1
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xF9
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xF9
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xF9
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xF9
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xEA
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0xF3
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-    }
-}
-#else
 int* AnimationObject_ResolveIntegerVariable(
     AnimationObject* animation, int variableId, int* fallback,
     bool variableEncoded) {
@@ -435,101 +150,9 @@ int* AnimationObject_ResolveIntegerVariable(
     }
     return fallback;
 }
-#endif
 
 // 0x0043ED00 - Resolve a writable floating-point variable. IDs 10013..10015
 // expose the base-position vector directly to animation scripts.
-#ifdef _MSC_VER
-__declspec(naked) float* AnimationObject_ResolveFloatVariable(
-        AnimationObject* animation, int variableId, float* fallback,
-        bool variableEncoded) {
-    __asm {
-        mov eax, 1
-        shl eax, cl
-        movzx ecx, word ptr [esp+4]
-        test eax, ecx
-        je default_case
-        fld dword ptr [edi]
-        call sub_463B2C
-        add eax, 0FFFFD8ECh
-        cmp eax, 0Bh
-        ja default_case
-        jmp dword ptr [eax*4+43ED6Ch]
-case_zero:
-        lea eax, [esi+31Ch]
-        ret 4
-case_one:
-        lea eax, [esi+320h]
-        ret 4
-case_two:
-        lea eax, [esi+324h]
-        ret 4
-case_three:
-        lea eax, [esi+328h]
-        ret 4
-case_four:
-        lea eax, [esi+334h]
-        ret 4
-case_five:
-        lea eax, [esi+338h]
-        ret 4
-case_six:
-        lea eax, [esi+33Ch]
-        ret 4
-default_case:
-        mov eax, edi
-        ret 4
-        _emit 0x28
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x31
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x3A
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x43
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x4C
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x55
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-        _emit 0x5E
-        _emit 0xED
-        _emit 0x43
-        _emit 0x00
-    }
-}
-#else
 float* AnimationObject_ResolveFloatVariable(
     AnimationObject* animation, int variableId, float* fallback,
     bool variableEncoded) {
@@ -545,7 +168,6 @@ float* AnimationObject_ResolveFloatVariable(
     }
     return fallback;
 }
-#endif
 
 void AnimationManager_InitializeStorage(void* manager) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -660,191 +282,39 @@ static int AnimationManager_CreateObject(
 }
 
 // 0x00448D00 - Allocate and append an object to the primary animation list.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_CreatePrimaryBack(
-    void* manager, void* resource, int animationIndex, int renderBucket) {
-    __asm {
-        push ebx
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov ecx, [esp+8+8]
-        mov ebx, eax
-        mov esi, [ebx+35Ch]
-        mov eax, [esp+8+0Ch]
-        push ecx
-        mov ecx, [esp+0Ch+4]
-        or esi, 40000000h
-        push ebx
-        mov [ebx+20h], eax
-        mov [ebx+35Ch], esi
-        call sub_449870
-        mov edx, dword_491C10
-        mov eax, edi
-        call sub_4489D0
-        pop esi
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int AnimationManager_CreatePrimaryBack(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Primary, AnimationListInsertion_Back);
 }
-#endif
 
 // 0x00448E30 - Allocate and prepend an object to the primary animation list.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_CreatePrimaryFront(
-    void* manager, void* resource, int animationIndex, int renderBucket) {
-    __asm {
-        push ebx
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov ecx, [esp+8+8]
-        mov ebx, eax
-        mov esi, [ebx+35Ch]
-        mov eax, [esp+8+0Ch]
-        push ecx
-        mov ecx, [esp+0Ch+4]
-        or esi, 40000000h
-        push ebx
-        mov [ebx+20h], eax
-        mov [ebx+35Ch], esi
-        call sub_449870
-        mov edx, dword_491C10
-        mov eax, edi
-        call sub_448A50
-        pop esi
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int AnimationManager_CreatePrimaryFront(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Primary, AnimationListInsertion_Front);
 }
-#endif
 
 // 0x00448F60 - Allocate and append an object to the secondary animation list.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_CreateSecondaryBack(
-    void* manager, void* resource, int animationIndex, int renderBucket) {
-    __asm {
-        push ebx
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov ecx, [esp+8+8]
-        mov ebx, eax
-        mov esi, [ebx+35Ch]
-        mov eax, [esp+8+0Ch]
-        push ecx
-        mov ecx, [esp+0Ch+4]
-        or esi, 40000000h
-        push ebx
-        mov [ebx+20h], eax
-        mov [ebx+35Ch], esi
-        call sub_449870
-        mov edx, dword_491C10
-        mov eax, edi
-        call sub_448AC0
-        pop esi
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int AnimationManager_CreateSecondaryBack(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Secondary, AnimationListInsertion_Back);
 }
-#endif
 
 // 0x00449090 - Allocate and prepend an object to the secondary animation list.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_CreateSecondaryFront(
-    void* manager, void* resource, int animationIndex, int renderBucket) {
-    __asm {
-        push ebx
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov ecx, [esp+8+8]
-        mov ebx, eax
-        mov esi, [ebx+35Ch]
-        mov eax, [esp+8+0Ch]
-        push ecx
-        mov ecx, [esp+0Ch+4]
-        or esi, 40000000h
-        push ebx
-        mov [ebx+20h], eax
-        mov [ebx+35Ch], esi
-        call sub_449870
-        mov edx, dword_491C10
-        mov eax, edi
-        call sub_448B40
-        pop esi
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int AnimationManager_CreateSecondaryFront(
     void* manager, void* resource, int animationIndex, int renderBucket) {
     return AnimationManager_CreateObject(
         manager, resource, animationIndex, renderBucket,
         AnimationManagerList_Secondary, AnimationListInsertion_Front);
 }
-#endif
 
 // 0x00448D50 - Allocate a primary object whose initial position is supplied by
 // the caller before its animation script is selected.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_CreatePositionedPrimary(
-    void* manager, void* resource, int animationIndex,
-    const float* position) {
-    __asm {
-        push ebx
-        push ebp
-        mov ebp, [esp+8+8]
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov ebx, [esp+0Ch+0Ch]
-        mov esi, eax
-        or dword ptr [esi+35Ch], 40000000h
-        mov dword ptr [esi+20h], 0
-        mov ecx, [edi]
-        lea eax, [esi+340h]
-        mov [eax], ecx
-        mov edx, [edi+4]
-        mov [eax+4], edx
-        mov ecx, [edi+8]
-        mov [eax+8], ecx
-        mov ecx, [esp+0Ch+4]
-        mov eax, esi
-        call sub_43E710
-        mov edx, dword_491C10
-        mov ebx, esi
-        mov eax, ebp
-        call sub_4489D0
-        pop esi
-        pop ebp
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int AnimationManager_CreatePositionedPrimary(
     void* manager, void* resource, int animationIndex,
     const float* position) {
@@ -860,7 +330,6 @@ int AnimationManager_CreatePositionedPrimary(
         manager, animation, AnimationManagerList_Primary,
         AnimationListInsertion_Back);
 }
-#endif
 
 static AnimationListNode* AnimationManager_List(
     void* manager, unsigned int listIndex) {
@@ -877,50 +346,6 @@ static AnimationListNode** AnimationManager_ListSlot(
 }
 
 // 0x004491C0 - Find a registered animation by its nonzero handle.
-#ifdef _MSC_VER
-__declspec(naked) AnimationObject* AnimationManager_Find(
-    void* manager, int animationHandle) {
-    __asm {
-        mov ecx, [esp+4]
-        test ecx, ecx
-        jnz loc_4491CD
-        xor eax, eax
-        ret 4
-loc_4491CD:
-        mov eax, [edx+72DAD4h]
-        test eax, eax
-        push esi
-        jz loc_4491E5
-loc_4491D8:
-        mov esi, [eax]
-        cmp [esi], ecx
-        jz loc_449203
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_4491D8
-loc_4491E5:
-        mov eax, [edx+72DADCh]
-        test eax, eax
-        jz loc_4491FD
-        nop
-loc_4491F0:
-        mov edx, [eax]
-        cmp [edx], ecx
-        jz loc_449203
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_4491F0
-loc_4491FD:
-        xor eax, eax
-        pop esi
-        ret 4
-loc_449203:
-        mov eax, [eax]
-        pop esi
-        ret 4
-    }
-}
-#else
 AnimationObject* AnimationManager_Find(
     void* manager, int animationHandle) {
     if (animationHandle == 0) {
@@ -944,7 +369,6 @@ AnimationObject* AnimationManager_Find(
     }
     return 0;
 }
-#endif
 
 bool AnimationManager_HandleInList(void* manager, int animationHandle,
                                    AnimationManagerList list) {
@@ -989,53 +413,6 @@ int AnimationManager_RegisterObject(
         AnimationListInsertion_Back);
 }
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_RegisterPrimaryBack(
-        void* manager, AnimationObject* animation, void* handle_out) {
-    __asm {
-        lea ecx, [ebx+4]
-        push esi
-        mov [ecx], ebx
-        mov dword ptr [ecx+4], 0
-        mov dword ptr [ecx+8], 0
-        mov esi, [edx+72DAD4h]
-        test esi, esi
-        jnz loc_4489F6
-        mov [edx+72DAD4h], ecx
-        jmp loc_448A14
-loc_4489F6:
-        mov esi, [edx+72DAD8h]
-        push edi
-        mov edi, [esi+4]
-        test edi, edi
-        jz loc_448A0D
-        mov [ecx+4], edi
-        mov edi, [esi+4]
-        mov [edi+8], ecx
-loc_448A0D:
-        mov [esi+4], ecx
-        mov [ecx+8], esi
-        pop edi
-loc_448A14:
-        mov [edx+72DAD8h], ecx
-        mov esi, [edx+732454h]
-        inc esi
-        mov ecx, esi
-        test ecx, ecx
-        mov [edx+732454h], esi
-        pop esi
-        jnz loc_448A35
-        inc ecx
-        mov [edx+732454h], ecx
-loc_448A35:
-        mov ecx, [edx+732454h]
-        mov [ebx], ecx
-        mov edx, [edx+732454h]
-        mov [eax], edx
-        ret
-    }
-}
-#else
 int AnimationManager_RegisterPrimaryBack(
         void* manager, AnimationObject* animation, void* handle_out) {
     (void)handle_out;
@@ -1043,54 +420,7 @@ int AnimationManager_RegisterPrimaryBack(
         manager, animation, AnimationManagerList_Primary,
         AnimationListInsertion_Back);
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_RegisterPrimaryFront(
-        void* manager, AnimationObject* animation, void* handle_out) {
-    __asm {
-        lea ecx, [ebx+4]
-        push esi
-        mov [ecx], ebx
-        mov dword ptr [ecx+4], 0
-        mov dword ptr [ecx+8], 0
-        mov esi, [edx+72DAD4h]
-        test esi, esi
-        jnz loc_448A76
-        mov [edx+72DAD8h], ecx
-        jmp loc_448A8E
-loc_448A76:
-        push edi
-        mov edi, [ecx+4]
-        test edi, edi
-        jz loc_448A87
-        mov [esi+4], edi
-        mov edi, [ecx+4]
-        mov [edi+8], esi
-loc_448A87:
-        mov [ecx+4], esi
-        mov [esi+8], ecx
-        pop edi
-loc_448A8E:
-        mov [edx+72DAD4h], ecx
-        mov esi, [edx+732454h]
-        inc esi
-        mov ecx, esi
-        test ecx, ecx
-        mov [edx+732454h], esi
-        pop esi
-        jnz loc_448AAF
-        inc ecx
-        mov [edx+732454h], ecx
-loc_448AAF:
-        mov ecx, [edx+732454h]
-        mov [ebx], ecx
-        mov edx, [edx+732454h]
-        mov [eax], edx
-        ret
-    }
-}
-#else
 int AnimationManager_RegisterPrimaryFront(
         void* manager, AnimationObject* animation, void* handle_out) {
     (void)handle_out;
@@ -1098,55 +428,7 @@ int AnimationManager_RegisterPrimaryFront(
         manager, animation, AnimationManagerList_Primary,
         AnimationListInsertion_Front);
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_RegisterSecondaryBack(
-        void* manager, AnimationObject* animation, void* handle_out) {
-    __asm {
-        lea ecx, [ebx+4]
-        push esi
-        mov [ecx], ebx
-        mov dword ptr [ecx+4], 0
-        mov dword ptr [ecx+8], 0
-        mov esi, [edx+72DADCh]
-        test esi, esi
-        jnz loc_448AE6
-        mov [edx+72DADCh], ecx
-        jmp loc_448B04
-loc_448AE6:
-        mov esi, [edx+72DAE0h]
-        push edi
-        mov edi, [esi+4]
-        test edi, edi
-        jz loc_448AFD
-        mov [ecx+4], edi
-        mov edi, [esi+4]
-        mov [edi+8], ecx
-loc_448AFD:
-        mov [esi+4], ecx
-        mov [ecx+8], esi
-        pop edi
-loc_448B04:
-        mov [edx+72DAE0h], ecx
-        mov esi, [edx+732454h]
-        inc esi
-        mov ecx, esi
-        test ecx, ecx
-        mov [edx+732454h], esi
-        pop esi
-        jnz loc_448B25
-        inc ecx
-        mov [edx+732454h], ecx
-loc_448B25:
-        mov ecx, [edx+732454h]
-        mov [ebx], ecx
-        mov edx, [edx+732454h]
-        mov [eax], edx
-        ret
-    }
-}
-#else
 int AnimationManager_RegisterSecondaryBack(
         void* manager, AnimationObject* animation, void* handle_out) {
     (void)handle_out;
@@ -1154,54 +436,7 @@ int AnimationManager_RegisterSecondaryBack(
         manager, animation, AnimationManagerList_Secondary,
         AnimationListInsertion_Back);
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_RegisterSecondaryFront(
-        void* manager, AnimationObject* animation, void* handle_out) {
-    __asm {
-        lea ecx, [ebx+4]
-        push esi
-        mov [ecx], ebx
-        mov dword ptr [ecx+4], 0
-        mov dword ptr [ecx+8], 0
-        mov esi, [edx+72DADCh]
-        test esi, esi
-        jnz loc_448B66
-        mov [edx+72DAE0h], ecx
-        jmp loc_448B7E
-loc_448B66:
-        push edi
-        mov edi, [ecx+4]
-        test edi, edi
-        jz loc_448B77
-        mov [esi+4], edi
-        mov edi, [ecx+4]
-        mov [edi+8], esi
-loc_448B77:
-        mov [ecx+4], esi
-        mov [esi+8], ecx
-        pop edi
-loc_448B7E:
-        mov [edx+72DADCh], ecx
-        mov esi, [edx+732454h]
-        inc esi
-        mov ecx, esi
-        test ecx, ecx
-        mov [edx+732454h], esi
-        pop esi
-        jnz loc_448B9F
-        inc ecx
-        mov [edx+732454h], ecx
-loc_448B9F:
-        mov ecx, [edx+732454h]
-        mov [ebx], ecx
-        mov edx, [edx+732454h]
-        mov [eax], edx
-        ret
-    }
-}
-#else
 int AnimationManager_RegisterSecondaryFront(
         void* manager, AnimationObject* animation, void* handle_out) {
     (void)handle_out;
@@ -1209,7 +444,6 @@ int AnimationManager_RegisterSecondaryFront(
         manager, animation, AnimationManagerList_Secondary,
         AnimationListInsertion_Front);
 }
-#endif
 
 int AnimationManager_RegisterObjectAt(
     void* manager, AnimationObject* animation,
@@ -1396,33 +630,6 @@ static void AnimationObject_WriteStopFrame(
 }
 
 // 0x00449210 - Set the root stop frame and propagate it to direct children.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetStopFrame(
-        void* manager, int animationHandle, short frame) {
-    __asm {
-        mov eax, [esp+4]
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_449243
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        mov [eax+304h], si
-        jnz locret_449243
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_449243
-loc_449233:
-        mov ecx, [eax]
-        mov [ecx+304h], si
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_449233
-locret_449243:
-        ret 4
-    }
-}
-#else
 void AnimationManager_SetStopFrame(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -1432,44 +639,8 @@ void AnimationManager_SetStopFrame(
             animation, AnimationObject_WriteStopFrame, &frame);
     }
 }
-#endif
 
 // 0x00449470 - Pointer-handle form used by gameplay owners.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetStopFrameFromHandleRetail() {
-    __asm {
-        mov eax, [eax]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_4494B0
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        mov [eax+304h], si
-        jnz locret_4494B0
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_4494B0
-        jmp loc_4494A0
-        _emit 8Dh
-        _emit 0A4h
-        _emit 24h
-        _emit 00h
-        _emit 00h
-        _emit 00h
-        _emit 00h
-loc_4494A0:
-        mov ecx, [eax]
-        mov [ecx+304h], si
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_4494A0
-locret_4494B0:
-        ret
-    }
-}
-#endif
 
 void AnimationManager_SetStopFrameFromHandle(
     void* manager, const int* animationHandle, short frame) {
@@ -1479,125 +650,18 @@ void AnimationManager_SetStopFrameFromHandle(
 // 0x0040C480 - Gameplay shorthand for stopping an animation at frame 2.
 // The retail entry receives its handle pointer in EAX and obtains the manager
 // from the global game-state owner; the cleaned API makes the handle explicit.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_StopAtFrame2(
-        const int* animationHandle) {
-    __asm {
-        mov eax, [eax]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_40C4C0
-        mov edx, [eax+18h]
-        test edx, edx
-        mov ecx, 2
-        mov [eax+304h], cx
-        jnz locret_40C4C0
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_40C4C0
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-loc_40C4B0:
-        mov edx, [eax]
-        mov [edx+304h], cx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_40C4B0
-locret_40C4C0:
-        ret
-    }
-}
-#else
 void AnimationManager_StopAtFrame2(const int* animationHandle) {
     AnimationManager_SetStopFrame(
         g_pGameStateManager, *animationHandle, 2);
 }
-#endif
 
 // 0x0040C4D0 - Companion shorthand that stops at frame 3.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_StopAtFrame3(
-        const int* animationHandle) {
-    __asm {
-        mov eax, [eax]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_40C510
-        mov edx, [eax+18h]
-        test edx, edx
-        mov ecx, 3
-        mov [eax+304h], cx
-        jnz locret_40C510
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_40C510
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-loc_40C500:
-        mov edx, [eax]
-        mov [edx+304h], cx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_40C500
-locret_40C510:
-        ret
-    }
-}
-#else
 void AnimationManager_StopAtFrame3(const int* animationHandle) {
     AnimationManager_SetStopFrame(
         g_pGameStateManager, *animationHandle, 3);
 }
-#endif
 
 // 0x00449250 - Set a stop frame and immediately advance root and child scripts.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_SetStopFrameAndRun(
-        void* manager, int animationHandle, short frame) {
-    __asm {
-        mov eax, [esp+4]
-        push esi
-        push eax
-        call sub_4491C0
-        mov esi, eax
-        test esi, esi
-        jz loc_449298
-        push esi
-        mov [esi+304h], di
-        call sub_43EE30
-        mov eax, [esi+18h]
-        test eax, eax
-        jnz loc_449298
-        mov esi, [esi+14h]
-        test esi, esi
-        jz loc_449298
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-loc_449280:
-        mov ecx, [esi]
-        mov [ecx+304h], di
-        mov edx, [esi]
-        push edx
-        call sub_43EE30
-        mov esi, [esi+4]
-        test esi, esi
-        jnz loc_449280
-loc_449298:
-        pop esi
-        ret 4
-    }
-}
-#else
 int AnimationManager_SetStopFrameAndRun(
     void* manager, int animationHandle, short frame) {
     AnimationObject* animation =
@@ -1619,7 +683,6 @@ int AnimationManager_SetStopFrameAndRun(
     }
     return result;
 }
-#endif
 
 struct AnimationFlagChange {
     unsigned int flag;
@@ -1639,37 +702,6 @@ static void AnimationObject_ChangeFlag(
 
 // 0x004492A0 - Set an animation flag on a root and its direct children.
 // 0x00449590 - The fixed-flag entry point uses this operation with bit 1.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetFlag(
-        void* manager, int animationHandle, unsigned int flag) {
-    __asm {
-        mov eax, [esp+4]
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_4492DF
-        mov ecx, [eax+35Ch]
-        mov edx, 4000000h
-        or ecx, edx
-        mov [eax+35Ch], ecx
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jnz locret_4492DF
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_4492DF
-        nop
-loc_4492D0:
-        mov ecx, [eax]
-        or [ecx+35Ch], edx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_4492D0
-locret_4492DF:
-        ret 4
-    }
-}
-#else
 void AnimationManager_SetFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -1680,40 +712,8 @@ void AnimationManager_SetFlag(
             animation, AnimationObject_ChangeFlag, &change);
     }
 }
-#endif
 
 // 0x004495E0 - Clear an animation flag on a root and its direct children.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_ClearFlag(
-        void* manager, int animationHandle, unsigned int flag) {
-    __asm {
-        mov ecx, [eax]
-        mov edx, dword_491C10
-        push ecx
-        call sub_4491C0
-        test eax, eax
-        jz locret_449622
-        mov ecx, [eax+35Ch]
-        mov edx, 0FFFFFFFDh
-        and ecx, edx
-        mov [eax+35Ch], ecx
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jnz locret_449622
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_449622
-loc_449613:
-        mov ecx, [eax]
-        and [ecx+35Ch], edx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_449613
-locret_449622:
-        ret
-    }
-}
-#else
 void AnimationManager_ClearFlag(
     void* manager, int animationHandle, unsigned int flag) {
     AnimationObject* animation =
@@ -1724,97 +724,13 @@ void AnimationManager_ClearFlag(
             animation, AnimationObject_ChangeFlag, &change);
     }
 }
-#endif
 
 // 0x00449590 - Fixed-flag entry point that sets animation bit 1.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetFlagBit1(
-        void* manager, int animationHandle) {
-    __asm {
-        mov ecx, [eax]
-        mov edx, dword_491C10
-        push ecx
-        call sub_4491C0
-        test eax, eax
-        jz locret_4495D2
-        mov ecx, [eax+35Ch]
-        mov edx, 2
-        or ecx, edx
-        mov [eax+35Ch], ecx
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jnz locret_4495D2
-        mov eax, [eax+14h]
-        test eax, eax
-        jz locret_4495D2
-loc_4495C3:
-        mov ecx, [eax]
-        or [ecx+35Ch], edx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_4495C3
-locret_4495D2:
-        ret
-    }
-}
-#else
 void AnimationManager_SetFlagBit1(void* manager, int animationHandle) {
     AnimationManager_SetFlag(manager, animationHandle, 2);
 }
-#endif
 
 // 0x004493E0 - Mark objects using a retired script resource for removal.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_MarkResourceForRemoval(
-    void* manager, void* resource) {
-    __asm {
-        push esi
-        mov esi, eax
-        mov eax, [esi+72DAD4h]
-        test eax, eax
-        push edi
-        mov edi, 4000000h
-        jz loc_44940C
-loc_4493F3:
-        mov ecx, [eax+4]
-        mov eax, [eax]
-        cmp [eax+308h], edx
-        jnz loc_449406
-        or [eax+35Ch], edi
-loc_449406:
-        test ecx, ecx
-        mov eax, ecx
-        jnz loc_4493F3
-loc_44940C:
-        mov eax, [esi+72DADCh]
-        test eax, eax
-        jz loc_449439
-        jmp loc_449420
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x90
-loc_449420:
-        mov ecx, [eax+4]
-        mov eax, [eax]
-        cmp [eax+308h], edx
-        jnz loc_449433
-        or [eax+35Ch], edi
-loc_449433:
-        test ecx, ecx
-        mov eax, ecx
-        jnz loc_449420
-loc_449439:
-        pop edi
-        pop esi
-        ret
-    }
-}
-#else
 void AnimationManager_MarkResourceForRemoval(
     void* manager, void* resource) {
     for (unsigned int listIndex = 0; listIndex != 2; ++listIndex) {
@@ -1830,7 +746,6 @@ void AnimationManager_MarkResourceForRemoval(
         }
     }
 }
-#endif
 
 static void AnimationObject_LoadScriptInternal(
     AnimationObject* animation, void* resource, int animationIndex,
@@ -1877,228 +792,20 @@ static void AnimationObject_LoadScriptInternal(
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
 
-#ifdef _MSC_VER
-__declspec(naked) void AnimationObject_LoadScript(
-        AnimationObject* animation, void* resource, int animationIndex) {
-    __asm {
-        push ebp
-        push esi
-        mov esi, ecx
-        push edi
-        mov edi, eax
-        mov eax, [esi+11Ch]
-        mov ecx, [eax+ebx*4]
-        xor ebp, ebp
-        cmp ecx, ebp
-        je zero_object
-        cmp [esi+124h], ebp
-        jne zero_object
-        mov edx, edi
-        call sub_401DE0
-        mov edx, [edi+35Ch]
-        mov word ptr [edi+38Ah], bx
-        mov cx, word ptr [esi]
-        and edx, 0FFFFF9FFh
-        mov word ptr [edi+386h], cx
-        mov [edi+308h], esi
-        mov [edi+35Ch], edx
-        mov edx, [esi+11Ch]
-        mov eax, [edx+ebx*4]
-        mov [edi+38Ch], eax
-        mov [edi+390h], eax
-        mov eax, [edi+6Ch]
-        test al, 1
-        jne after_timer
-        or eax, 1
-        mov [edi+60h], ebp
-        mov dword ptr [edi+5Ch], 0FFF0BDC1h
-        mov [edi+64h], ebp
-        mov dword ptr [edi+68h], 476F78h
-        mov [edi+6Ch], eax
-after_timer:
-        mov [edi+60h], ebp
-        mov [edi+64h], ebp
-        mov dword ptr [edi+5Ch], 0FFFFFFFFh
-        mov esi, [edi+35Ch]
-        and esi, 0FFFFFFFEh
-        push edi
-        mov [edi+35Ch], esi
-        call sub_43EE30
-        mov eax, dword_491C10
-        mov ecx, [eax+4Ch]
-        pop edi
-        inc ecx
-        pop esi
-        mov [eax+4Ch], ecx
-        pop ebp
-        ret
-zero_object:
-        mov ecx, 0EBh
-        xor eax, eax
-        rep stosd
-        pop edi
-        pop esi
-        pop ebp
-        ret
-    }
-}
-#else
 void AnimationObject_LoadScript(
     AnimationObject* animation, void* resource, int animationIndex) {
     AnimationObject_LoadScriptInternal(
         animation, resource, animationIndex, true);
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) void AnimationObject_LoadScriptPreservingState(
-        AnimationObject* animation, void* resource, int animationIndex) {
-    __asm {
-        push ebx
-        push esi
-        mov esi, [eax+11Ch]
-        mov ebx, [esi+ecx*4]
-        push edi
-        mov edi, edx
-        xor edx, edx
-        cmp ebx, edx
-        je zero_object
-        cmp [eax+124h], edx
-        jne zero_object
-        mov word ptr [edi+38Ah], cx
-        mov si, word ptr [eax]
-        mov word ptr [edi+386h], si
-        mov esi, [edi+35Ch]
-        and esi, 0FFFFF9FFh
-        mov [edi+308h], eax
-        mov [edi+35Ch], esi
-        mov eax, [eax+11Ch]
-        mov eax, [eax+ecx*4]
-        mov [edi+38Ch], eax
-        mov [edi+390h], eax
-        mov eax, [edi+6Ch]
-        test al, 1
-        jne after_timer
-        or eax, 1
-        mov [edi+60h], edx
-        mov dword ptr [edi+5Ch], 0FFF0BDC1h
-        mov [edi+64h], edx
-        mov dword ptr [edi+68h], 476F78h
-        mov [edi+6Ch], eax
-after_timer:
-        mov [edi+60h], edx
-        mov [edi+64h], edx
-        mov dword ptr [edi+5Ch], 0FFFFFFFFh
-        mov esi, [edi+35Ch]
-        and esi, 0FFFFFFFEh
-        push edi
-        mov [edi+35Ch], esi
-        call sub_43EE30
-        mov eax, dword_491C10
-        mov ecx, [eax+4Ch]
-        pop edi
-        inc ecx
-        pop esi
-        mov [eax+4Ch], ecx
-        pop ebx
-        ret
-zero_object:
-        mov ecx, 0EBh
-        xor eax, eax
-        rep stosd
-        pop edi
-        pop esi
-        pop ebx
-        ret
-    }
-}
-#else
 void AnimationObject_LoadScriptPreservingState(
     AnimationObject* animation, void* resource, int animationIndex) {
     AnimationObject_LoadScriptInternal(
         animation, resource, animationIndex, false);
 }
-#endif
 
 // 0x0043E8B0 - Switch an existing object to another script without running
 // the entity constructor. Invalid or currently-loading resources are ignored.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationObject_ChangeScript(
-        AnimationObject* animation, void* resource, int animationIndex) {
-    __asm {
-        push esi
-        push edi
-        mov edi, ecx
-        mov ecx, [edx+11Ch]
-        mov esi, [ecx+edi*4]
-        xor ecx, ecx
-        cmp esi, ecx
-        je done
-        push ebp
-        cmp [edx+124h], ecx
-        jne done_ebp
-        mov word ptr [eax+38Ah], di
-        mov edi, [eax+35Ch]
-        test edi, 200h
-        mov [eax+308h], edx
-        je no_scale
-        fld dword ptr [eax+3Ch]
-        or edi, 8
-        fmul dword ptr [flt_470B60]
-        xor edi, 200h
-        mov [eax+35Ch], edi
-        fstp dword ptr [eax+3Ch]
-no_scale:
-        mov word ptr [eax+35Ch], 7
-        mov dword ptr [eax+2FCh], 0FFFFFFFFh
-        mov [eax+60h], ecx
-        mov [eax+64h], ecx
-        mov edi, 0FFF0BDC1h
-        mov [eax+5Ch], edi
-        mov [eax+0B4h], ecx
-        mov [eax+100h], ecx
-        mov [eax+12Ch], ecx
-        mov [eax+178h], ecx
-        mov [eax+1B4h], ecx
-        mov [eax+200h], ecx
-        mov [eax+22Ch], ecx
-        mov bp, word ptr [edx]
-        mov word ptr [eax+386h], bp
-        mov ebp, [eax+35Ch]
-        and ebp, 0FFFFF9FFh
-        mov [eax+308h], edx
-        mov [eax+35Ch], ebp
-        mov [eax+38Ch], esi
-        mov [eax+390h], esi
-        mov edx, [eax+6Ch]
-        test dl, 1
-        jne after_timer
-        or edx, 1
-        mov [eax+60h], ecx
-        mov [eax+5Ch], edi
-        mov [eax+64h], ecx
-        mov dword ptr [eax+68h], 476F78h
-        mov [eax+6Ch], edx
-after_timer:
-        mov [eax+60h], ecx
-        mov [eax+64h], ecx
-        mov dword ptr [eax+5Ch], 0FFFFFFFFh
-        mov esi, [eax+35Ch]
-        and esi, 0FFFFFFFEh
-        push eax
-        mov [eax+35Ch], esi
-        call sub_43EE30
-        mov eax, dword_491C10
-        inc dword ptr [eax+4Ch]
-done_ebp:
-        pop ebp
-done:
-        pop edi
-        pop esi
-        ret
-    }
-}
-#else
 void AnimationObject_ChangeScript(
     AnimationObject* animation, void* resource, int animationIndex) {
     uint8_t* bytes = (uint8_t*)animation;
@@ -2150,7 +857,6 @@ void AnimationObject_ChangeScript(
     AnimationObject_ExecuteScript(animation);
     ++*(int*)((uint8_t*)g_pGameStateManager + 0x4C);
 }
-#endif
 
 // 0x004496D0 - Handle-based script switch using the object's current resource.
 void AnimationManager_ChangeScript(
@@ -2188,94 +894,6 @@ void AnimationObject_InitializeScriptState(
 
 // 0x0043E5A0 - Apply one resource position record to an animation object.
 // The clean entry makes the hidden object/resource/index registers explicit.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationObject_ConfigureFromResource(
-        void* animation, void* resource, int animationIndex) {
-    __asm {
-        push esi
-        mov esi, ecx
-        push edi
-        mov edi, [esi+108h]
-        xor ecx, ecx
-        cmp edi, ecx
-        je fail
-        cmp [esi+124h], ecx
-        jne fail
-        mov word ptr [eax+384h], dx
-        imul edx, edx, 44h
-        mov [eax+308h], esi
-        mov esi, [esi+118h]
-        add edx, esi
-        mov [eax+394h], edx
-        mov edx, [edx+34h]
-        mov [eax+4Ch], edx
-        mov edx, [eax+394h]
-        mov edx, [edx+30h]
-        mov [eax+50h], edx
-        mov [eax+274h], ecx
-        mov [eax+270h], ecx
-        mov [eax+26Ch], ecx
-        mov [eax+268h], ecx
-        mov [eax+260h], ecx
-        mov [eax+25Ch], ecx
-        mov [eax+258h], ecx
-        mov [eax+254h], ecx
-        mov [eax+24Ch], ecx
-        mov [eax+248h], ecx
-        mov [eax+244h], ecx
-        mov [eax+240h], ecx
-        lea esi, [eax+23Ch]
-        mov edx, 3F800000h
-        mov [esi+3Ch], edx
-        mov [esi+28h], edx
-        mov [esi+14h], edx
-        mov [esi], edx
-        mov [eax+2F4h], ecx
-        mov [eax+2F0h], ecx
-        mov [eax+2ECh], ecx
-        mov [eax+2E8h], ecx
-        mov [eax+2E0h], ecx
-        mov [eax+2DCh], ecx
-        mov [eax+2D8h], ecx
-        mov [eax+2D4h], ecx
-        mov [eax+2CCh], ecx
-        mov [eax+2C8h], ecx
-        mov [eax+2C4h], ecx
-        mov [eax+2C0h], ecx
-        mov [eax+2F8h], edx
-        mov [eax+2E4h], edx
-        mov [eax+2D0h], edx
-        mov [eax+2BCh], edx
-        mov ecx, [eax+394h]
-        fld dword ptr [eax+4Ch]
-        lea edi, [eax+27Ch]
-        fmul dword ptr [flt_470B7C]
-        fstp dword ptr [esi]
-        fld dword ptr [eax+50h]
-        fmul dword ptr [flt_470B7C]
-        fstp dword ptr [eax+250h]
-        fld dword ptr [ecx+38h]
-        fdiv dword ptr [ecx+1Ch]
-        fmul dword ptr [eax+4Ch]
-        fstp dword ptr [eax+2BCh]
-        fld dword ptr [ecx+3Ch]
-        fdiv dword ptr [ecx+18h]
-        mov ecx, 10h
-        rep movsd
-        pop edi
-        pop esi
-        fmul dword ptr [eax+50h]
-        fstp dword ptr [eax+2D0h]
-        xor eax, eax
-        ret
-fail:
-        pop edi
-        or eax, 0FFFFFFFFh
-        pop esi
-        ret
-    }
-}
-#else
 int AnimationObject_ConfigureFromResource(
     void* animation, void* resource, int animationIndex) {
     unsigned char* object = (unsigned char*)animation;
@@ -2316,52 +934,7 @@ int AnimationObject_ConfigureFromResource(
             *(uint32_t*)(object + 0x23C + offset);
     return 0;
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetPosition(
-    void* manager, int animationHandle, const float* position) {
-    __asm {
-        mov eax, [esp+4]
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_449347
-        push edi
-        mov edx, esi
-        mov edi, [edx]
-        lea ecx, [eax+340h]
-        mov [ecx], edi
-        mov edi, [edx+4]
-        mov [ecx+4], edi
-        mov edx, [edx+8]
-        mov [ecx+8], edx
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jnz loc_449346
-        mov eax, [eax+14h]
-        test eax, eax
-        jz loc_449346
-loc_449325:
-        mov ecx, [eax]
-        add ecx, 340h
-        mov edx, esi
-        mov edi, [edx]
-        mov [ecx], edi
-        mov edi, [edx+4]
-        mov [ecx+4], edi
-        mov edx, [edx+8]
-        mov [ecx+8], edx
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_449325
-loc_449346:
-        pop edi
-locret_449347:
-        ret 4
-    }
-}
-#else
 void AnimationManager_SetPosition(
     void* manager, int animationHandle, const float* position) {
     AnimationObject* animation =
@@ -2383,7 +956,6 @@ void AnimationManager_SetPosition(
         child = child->next;
     }
 }
-#endif
 
 struct MusicPositionRampState {
     float target[3];
@@ -2452,48 +1024,6 @@ void AnimationManager_SetPositionRamp(
 }
 
 // 0x00449350 - Apply the gameplay-to-render translation and propagate it.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_SetTranslatedPosition(
-    void* manager, int animationHandle, const float* position) {
-    __asm {
-        mov eax, [esp+4]
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jz locret_4493BC
-        fld dword ptr [esi]
-        fadd [flt_470B4C]
-        fstp dword ptr [eax+340h]
-        fld dword ptr [esi+4]
-        fadd [flt_470B48]
-        fstp dword ptr [eax+344h]
-        mov ecx, [esi+8]
-        mov [eax+348h], ecx
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        jnz locret_4493BC
-        mov ecx, [eax+14h]
-        test ecx, ecx
-        jz locret_4493BC
-loc_449392:
-        fld dword ptr [esi]
-        mov eax, [ecx]
-        fadd [flt_470B4C]
-        add eax, 340h
-        fstp dword ptr [eax]
-        fld dword ptr [esi+4]
-        fadd [flt_470B48]
-        fstp dword ptr [eax+4]
-        mov edx, [esi+8]
-        mov [eax+8], edx
-        mov ecx, [ecx+4]
-        test ecx, ecx
-        jnz loc_449392
-locret_4493BC:
-        ret 4
-    }
-}
-#else
 void AnimationManager_SetTranslatedPosition(
     void* manager, int animationHandle, const float* position) {
     float translated[3] = {
@@ -2503,25 +1033,8 @@ void AnimationManager_SetTranslatedPosition(
     };
     AnimationManager_SetPosition(manager, animationHandle, translated);
 }
-#endif
 
 // 0x00449450 - Clear a stale animation handle after a failed lookup.
-#ifdef _MSC_VER
-__declspec(naked) bool AnimationManager_ValidateHandle(
-        void* manager, int* animationHandle) {
-    __asm {
-        mov eax, [esi]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jnz locret_449464
-        mov [esi], eax
-locret_449464:
-        ret
-    }
-}
-#else
 bool AnimationManager_ValidateHandle(
     void* manager, int* animationHandle) {
     if (AnimationManager_Find(manager, *animationHandle) != 0) {
@@ -2530,51 +1043,17 @@ bool AnimationManager_ValidateHandle(
     *animationHandle = 0;
     return false;
 }
-#endif
 
 // 0x00449630 - Mark an object tree for removal and invalidate its owner handle.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_MarkForRemovalAndClearHandle(
-    void* manager, int* animationHandle) {
-    __asm {
-        mov eax, [esi]
-        mov edx, dword_491C10
-        push eax
-        call sub_4492A0
-        mov dword ptr [esi], 0
-        ret
-    }
-}
-#else
 void AnimationManager_MarkForRemovalAndClearHandle(
     void* manager, int* animationHandle) {
     AnimationManager_SetFlag(
         manager, *animationHandle, 0x04000000u);
     *animationHandle = 0;
 }
-#endif
 
 
 // 0x00449670 - Select a sprite from the object's current script resource.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_SelectSpriteFromCurrentResource(
-        void* manager, const int* animationHandle, int spriteIndex,
-        AnimationSpriteSelector selector) {
-    __asm {
-        mov ecx, [eax]
-        mov edx, dword_491C10
-        push ecx
-        call sub_4491C0
-        test eax, eax
-        jz locret_449691
-        mov edx, [esp+4]
-        mov ecx, [eax+308h]
-        call sub_43E5A0
-locret_449691:
-        ret 4
-    }
-}
-#else
 int AnimationManager_SelectSpriteFromCurrentResource(
     void* manager, const int* animationHandle, int spriteIndex,
     AnimationSpriteSelector selector) {
@@ -2586,28 +1065,8 @@ int AnimationManager_SelectSpriteFromCurrentResource(
     return selector(
         animation, ((Entity*)animation)->ScriptResource(), spriteIndex);
 }
-#endif
 
 // 0x004496A0 - Select a sprite from an explicitly supplied resource.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_SelectSpriteFromResource(
-        void* manager, const int* animationHandle, void* resource,
-        int spriteIndex, AnimationSpriteSelector selector) {
-    __asm {
-        mov ecx, [eax]
-        mov edx, dword_491C10
-        push ecx
-        call sub_4491C0
-        test eax, eax
-        jz locret_4496BF
-        mov edx, [esp+8]
-        mov ecx, [esp+4]
-        call sub_43E5A0
-locret_4496BF:
-        ret 8
-    }
-}
-#else
 int AnimationManager_SelectSpriteFromResource(
     void* manager, const int* animationHandle, void* resource,
     int spriteIndex, AnimationSpriteSelector selector) {
@@ -2618,7 +1077,6 @@ int AnimationManager_SelectSpriteFromResource(
     }
     return selector(animation, resource, spriteIndex);
 }
-#endif
 
 static AnimationObject** AnimationManager_RenderBucketHead(
     void* manager, unsigned int bucketIndex) {
@@ -2669,73 +1127,6 @@ static bool AnimationManager_UpdateObject(
     return true;
 }
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_UpdatePrimary(void* manager) {
-    __asm {
-        sub esp, 50h
-        push ebp
-        push edi
-        mov edi, eax
-        xor ebp, ebp
-        xor eax, eax
-        lea ecx, [edi+72DAE4h]
-init_loop:
-        mov [esp+eax*4+8], ecx
-        mov [ecx+1Ch], ebp
-        inc eax
-        add ecx, 3ACh
-        cmp eax, 13h
-        jl init_loop
-        mov eax, [edi+72DAD4h]
-        cmp eax, ebp
-        je done
-        push ebx
-        push esi
-update_loop:
-        mov esi, [eax]
-        mov ebx, [eax+4]
-        test dword ptr [esi+35Ch], 4000000h
-        je not_flagged
-        call sub_448BB0
-        jmp next
-not_flagged:
-        mov eax, [esi+398h]
-        cmp eax, ebp
-        je no_callback
-        mov ecx, esi
-        call eax
-no_callback:
-        push esi
-        call sub_43EE30
-        test eax, eax
-        je keep
-        call sub_448BB0
-        jmp next
-keep:
-        mov eax, [esi+20h]
-        mov ecx, [esp+eax*4+10h]
-        mov [ecx+1Ch], esi
-        mov edx, [esi+20h]
-        mov [esp+edx*4+10h], esi
-        mov [esi+1Ch], ebp
-next:
-        mov edx, [edi+64h]
-        inc edx
-        cmp ebx, ebp
-        mov [edi+64h], edx
-        mov eax, ebx
-        jne update_loop
-        pop esi
-        pop ebx
-done:
-        pop edi
-        mov eax, 1
-        pop ebp
-        add esp, 50h
-        ret
-    }
-}
-#else
 int AnimationManager_UpdatePrimary(void* manager) {
     AnimationObject* tails[19];
     for (unsigned int index = 0; index != 19; ++index) {
@@ -2760,64 +1151,7 @@ int AnimationManager_UpdatePrimary(void* manager) {
     }
     return 1;
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_UpdateSecondary(void* manager) {
-    __asm {
-        push ebp
-        push edi
-        mov edi, eax
-        mov eax, [edi+72DADCh]
-        xor ecx, ecx
-        cmp eax, ecx
-        mov [edi+7320C4h], ecx
-        lea ebp, [edi+7320A8h]
-        mov [edi+64h], ecx
-        je done
-        push ebx
-        push esi
-update_loop:
-        mov esi, [eax]
-        mov ebx, [eax+4]
-        test dword ptr [esi+35Ch], 4000000h
-        je not_flagged
-        call sub_448BB0
-        jmp next
-not_flagged:
-        mov eax, [esi+398h]
-        test eax, eax
-        je no_callback
-        mov ecx, esi
-        call eax
-no_callback:
-        push esi
-        call sub_43EE30
-        test eax, eax
-        je keep
-        call sub_448BB0
-        jmp next
-keep:
-        mov [ebp+1Ch], esi
-        mov ebp, esi
-        mov dword ptr [esi+1Ch], 0
-next:
-        mov edx, [edi+64h]
-        inc edx
-        test ebx, ebx
-        mov [edi+64h], edx
-        mov eax, ebx
-        jne update_loop
-        pop esi
-        pop ebx
-done:
-        pop edi
-        mov eax, 1
-        pop ebp
-        ret
-    }
-}
-#else
 int AnimationManager_UpdateSecondary(void* manager) {
     AnimationObject* sentinel =
         (AnimationObject*)((uint8_t*)manager + 0x72DAE4 + 19 * 0x3AC);
@@ -2838,40 +1172,7 @@ int AnimationManager_UpdateSecondary(void* manager) {
     }
     return 1;
 }
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_RenderBucket(
-    void* manager, int bucketIndex) {
-    __asm {
-        imul eax, 3ACh
-        push esi
-        mov esi, [eax+edi+72DB00h]
-        test esi, esi
-        jz loc_4489BC
-loc_448992:
-        test dword ptr [esi+35Ch], 4000000h
-        jnz loc_4489B5
-        mov eax, [esi+39Ch]
-        test eax, eax
-        jz loc_4489AC
-        mov ecx, esi
-        call eax
-loc_4489AC:
-        mov eax, esi
-        mov ecx, edi
-        call sub_4451C0
-loc_4489B5:
-        mov esi, [esi+1Ch]
-        test esi, esi
-        jnz loc_448992
-loc_4489BC:
-        mov eax, 1
-        pop esi
-        ret
-    }
-}
-#else
 int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     AnimationObject* animation =
         *AnimationManager_RenderBucketHead(manager, (unsigned int)bucketIndex);
@@ -2888,51 +1189,8 @@ int AnimationManager_RenderBucket(void* manager, int bucketIndex) {
     }
     return 1;
 }
-#endif
 
 // 0x004497D0 - Resolve a direct child by script index.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_FindChildByScriptIndex(
-        void* manager, int animationHandle, short scriptIndex) {
-    __asm {
-        mov eax, [esi]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        jne after_find
-        mov [esi], eax
-after_find:
-        add eax, 10h
-        je not_found
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-search_loop:
-        mov ecx, [eax]
-        movsx edx, word ptr [ecx+38Ah]
-        cmp edx, ebx
-        je found
-        mov eax, [eax+4]
-        test eax, eax
-        jne search_loop
-not_found:
-        mov dword ptr [edi], 0
-        mov eax, edi
-        ret
-found:
-        mov eax, [eax]
-        mov ecx, [eax]
-        mov [edi], ecx
-        mov eax, edi
-        ret
-    }
-}
-#else
 int AnimationManager_FindChildByScriptIndex(
     void* manager, int animationHandle, short scriptIndex) {
     AnimationObject* animation =
@@ -2976,7 +1234,6 @@ void AnimationManager_AttachChild(void* parent, void* child) {
     }
     head->next = node;
 }
-#endif
 
 static bool AnimationManagerAdapter_SetFlag(
         void* manager, int animationHandle, unsigned int flag) {
@@ -3056,45 +1313,6 @@ AnimationManagerAdapter AnimationManager_BindAdapter(
 // insert); it lives in the host branch above (both branches get it via the
 // common header declaration; the MSVC retail rebuild uses the inline
 // inserts from the retail builders instead).
-#ifdef _MSC_VER
-__declspec(naked) int PlayerAnimation_Create(
-    void* resource, void* scratch, int animationIndex,
-    const float* position) {
-    __asm {
-        push ebx
-        push ebp
-        mov ebp, [esp+8+8]
-        push esi
-        mov esi, dword_491C10
-        call sub_449950
-        mov esi, eax
-        mov eax, [esi+35Ch]
-        mov ebx, [esp+0Ch+0Ch]
-        mov ecx, [esp+0Ch+4]
-        mov dword ptr [esi+20h], 0
-        or eax, 40000000h
-        mov [esi+35Ch], eax
-        fld dword ptr [edi]
-        fadd [flt_470B4C]
-        fstp dword ptr [esi+340h]
-        fld dword ptr [edi+4]
-        fadd [flt_470B48]
-        fstp dword ptr [esi+344h]
-        mov eax, [edi+8]
-        mov [esi+348h], eax
-        mov eax, esi
-        call sub_43E710
-        mov edx, dword_491C10
-        mov ebx, esi
-        mov eax, ebp
-        call sub_4489D0
-        pop esi
-        pop ebp
-        pop ebx
-        ret 0Ch
-    }
-}
-#else
 int PlayerAnimation_Create(
     void* resource, void* scratch, int animationIndex,
     const float* position) {
@@ -3120,46 +1338,8 @@ int PlayerAnimation_Create(
     *(int*)scratch = handle;
     return handle;
 }
-#endif
 
 // 0x00447F70 - Release the three indexed resource slots owned by a manager.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_ClearIndexedResources(
-    void* manager, unsigned int index,
-    void (*release)(void*), void (*free_memory)(void*)) {
-    __asm {
-        mov eax, [edi+esi*4+3AD4E0h]
-        push ebx
-        xor ebx, ebx
-        cmp eax, ebx
-        jz loc_447F8B
-        mov ecx, [eax]
-        push eax
-        call dword ptr [ecx+8]
-        mov [edi+esi*4+3AD4E0h], ebx
-loc_447F8B:
-        mov eax, [edi+esi*4+3AD560h]
-        cmp eax, ebx
-        jz loc_447FA3
-        mov edx, [eax]
-        push eax
-        call dword ptr [edx+8]
-        mov [edi+esi*4+3AD560h], ebx
-loc_447FA3:
-        mov eax, [edi+esi*4+3AD5E0h]
-        cmp eax, ebx
-        jz loc_447FBE
-        push eax
-        call _free
-        add esp, 4
-        mov [edi+esi*4+3AD5E0h], ebx
-loc_447FBE:
-        mov [edi+esi*4+3AD5E0h], ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
         void (*release)(void*), void (*free_memory)(void*)) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -3170,35 +1350,8 @@ void AnimationManager_ClearIndexedResources(void* manager, unsigned int index,
     if (*second != 0) { if (release) release(*second); *second = 0; }
     if (*memory != 0) { if (free_memory) free_memory(*memory); *memory = 0; }
 }
-#endif
 
 // 0x004477D0 - Release and free one of the manager's 33 resource slots.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_ClearResourceSlot(
-        void* manager, int index, void (*release)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        test esi, esi
-        jl locret_447806
-        cmp esi, 21h
-        jnb locret_447806
-        push edi
-        mov edi, [ebx+esi*4+3AD06Ch]
-        test edi, edi
-        jz loc_447805
-        call sub_447810
-        mov eax, [ebx+esi*4+3AD06Ch]
-        push eax
-        call j__free
-        add esp, 4
-        mov dword ptr [ebx+esi*4+3AD06Ch], 0
-loc_447805:
-        pop edi
-locret_447806:
-        ret
-    }
-}
-#else
 void AnimationManager_ClearResourceSlot(void* manager, int index,
                                         void (*release)(void*),
                                         void (*free_memory)(void*)) {
@@ -3214,57 +1367,8 @@ void AnimationManager_ClearResourceSlot(void* manager, int index,
         free_memory(resource);
     *slot = 0;
 }
-#endif
 
 // 0x0043E460 - Install a resource record in the first free manager slot.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_RegisterResource(
-        void* manager, unsigned int index,
-        const char* name, int value, int flags) {
-    __asm {
-        push esi
-        mov esi, eax
-        xor eax, eax
-        lea ecx, [esi+1F88h]
-        jmp search_loop
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-search_loop:
-        cmp dword ptr [ecx], 0
-        je found
-        inc eax
-        add ecx, 10Ch
-        cmp eax, 1Fh
-        jl search_loop
-        pop esi
-        ret 8
-found:
-        imul eax, eax, 10Ch
-        lea ecx, [eax+esi]
-        mov eax, [esp+8]
-        mov [ecx+1F88h], eax
-        mov eax, [esp+0Ch]
-        lea esi, [ecx+1F94h]
-        mov [ecx+1F8Ch], eax
-        mov eax, edx
-        sub esi, edx
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-copy_name:
-        mov dl, [eax]
-        mov [esi+eax], dl
-        inc eax
-        test dl, dl
-        jne copy_name
-        mov dword ptr [ecx+1F90h], 0
-        pop esi
-        ret 8
-    }
-}
-#else
 void AnimationManager_RegisterResource(void* manager, unsigned int index,
         const char* name, int value, int flags) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -3281,61 +1385,8 @@ void AnimationManager_RegisterResource(void* manager, unsigned int index,
     }
     (void)index;
 }
-#endif
 
 // 0x0043DC90 - Queue a resource pointer in the matching indexed bucket.
-#ifdef _MSC_VER
-__declspec(naked) void AnimationManager_QueueResource(
-        void* manager, int resource_id, void* resource) {
-    __asm {
-        push ebx
-        movsx ebx, word ptr [edi*8+word_4749CE]
-        push ebp
-        mov ebp, [esp+0Ch]
-        push esi
-        xor eax, eax
-        lea edx, [ecx+620h]
-search_loop:
-        mov esi, [edx]
-        test esi, esi
-        jl new_bucket
-        cmp esi, edi
-        je existing_bucket
-        inc eax
-        add edx, 4
-        cmp eax, 0Ch
-        jl search_loop
-        pop esi
-        pop ebp
-        pop ebx
-        ret 4
-existing_bucket:
-        mov edx, [ecx+eax*4+650h]
-        cmp edx, 80h
-        jge done
-        mov esi, eax
-        shl esi, 7
-        add esi, edx
-        mov [ecx+esi*4+680h], ebp
-        jmp inc_count
-new_bucket:
-        cmp eax, 0Ch
-        jge done
-        mov edx, eax
-        mov [ecx+eax*4+620h], edi
-        shl edx, 9
-        mov [ecx+edi*4+408h], ebx
-        mov [edx+ecx+680h], ebp
-inc_count:
-        inc dword ptr [ecx+eax*4+650h]
-done:
-        pop esi
-        pop ebp
-        pop ebx
-        ret 4
-    }
-}
-#else
 void AnimationManager_QueueResource(void* manager, int resource_id,
                                     void* resource) {
     uint8_t* bytes = (uint8_t*)manager;
@@ -3356,7 +1407,6 @@ void AnimationManager_QueueResource(void* manager, int resource_id,
         }
     }
 }
-#endif
 
 // 0x004054B0 - Configure the resource manager with the requested value and
 // its decimal tens/ones digits, in retail call order.

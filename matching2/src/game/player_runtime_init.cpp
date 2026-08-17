@@ -35,9 +35,6 @@ extern float DAT_00470be8;   // effect y bias component
 extern int* ResourceManager_FindResource(int type, void* manager,
                                          const char* name);
 
-#ifdef _MSC_VER
-extern "C" unsigned long dword_491C10;  // animation manager (retail 0x00426360)
-#endif
 
 namespace {
 LargePlayerRuntimeBindings g_large_player_bindings = {};
@@ -163,11 +160,7 @@ int __fastcall LargePlayer_Update(void* owner) {
 void LargePlayer_ApplyCamera(StageController* controller) {
     static AnmDrawEnv env = th10::render_leaves::DefaultAnmDrawEnv();
     AnmDrawVm* vm = (AnmDrawVm*)((char*)controller + 0x14);
-#ifdef _MSC_VER
-    void* context = (void*)dword_491C10;
-#else
     void* context = 0;  // host injects its own draw binding over this path
-#endif
     AnmVm_DrawDispatch(vm, context, &env);
 }
 

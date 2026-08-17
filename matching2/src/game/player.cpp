@@ -33,14 +33,6 @@ extern float    _DAT_00470b04;   // lower gameplay bound
 extern float    _DAT_00470b38;   // upper gameplay bound
 extern uint32_t DAT_00476f78;     // timer sentinel
 
-#ifdef _MSC_VER
-extern "C" float flt_476F78;
-extern "C" unsigned long dword_4776F4;
-extern "C" unsigned long dword_4776F0;
-extern "C" unsigned long dword_47781C;
-extern "C" void sub_408100(void*, void*, float, int, int);
-extern "C" void sub_41C800(void*, void*, int);
-#endif
 
 // 0x004045B0 - Arm the player's startup scheduler and set its first value.
 void Player_ArmSchedulerValue(void* scheduler, int) {
@@ -113,32 +105,6 @@ void Player_UpdatePowerDisplay(int major_digits, int major_value, int minor_digi
 void Player_ClearPowerDisplayFlags(void);
 
 // 0x00405410 - Arm a scheduler node and store its integer/float value.
-#ifdef _MSC_VER
-__declspec(naked) void Player_SetSchedulerValue(void* scheduler, int value) {
-    __asm {
-        mov ecx, [eax+10h]
-        test cl, 1
-        push esi
-        mov esi, [esp+8]
-        jne after_init
-        xor edx, edx
-        or ecx, 1
-        mov [eax+4], edx
-        mov dword ptr [eax], 0FFF0BDC1h
-        mov [eax+8], edx
-        mov dword ptr [eax+0Ch], 476F78h
-        mov [eax+10h], ecx
-after_init:
-        fild dword ptr [esp+8]
-        mov [eax+4], esi
-        dec esi
-        mov [eax], esi
-        fstp dword ptr [eax+8]
-        pop esi
-        ret 4
-    }
-}
-#else
 void Player_SetSchedulerValue(void* scheduler, int value) {
     uint8_t* bytes = (uint8_t*)scheduler;
     uint32_t flags = *(uint32_t*)(bytes + 0x10);
@@ -154,31 +120,8 @@ void Player_SetSchedulerValue(void* scheduler, int value) {
     *(uint32_t*)(bytes + 0x00) = (uint32_t)(value - 1);
     *(float*)(bytes + 0x08) = (float)value;
 }
-#endif
 
 // 0x00405500 - Clear transient player flags once the startup timer expires.
-#ifdef _MSC_VER
-__declspec(naked) void Player_ClearExpiredFlagsRetail() {
-    __asm {
-        cmp dword ptr [eax+3738h], 3Ch
-        jl locret_405550
-        mov edx, [eax+378Ch]
-        mov dword ptr [eax+3790h], 0
-        mov ecx, 0FFFFFFFDh
-        and edx, ecx
-        mov [eax+378Ch], edx
-        and [eax+0AD4h], ecx
-        and [eax+0E80h], ecx
-        and [eax+15D8h], ecx
-        and [eax+1984h], ecx
-        and [eax+1D30h], ecx
-        and [eax+20DCh], ecx
-        and [eax+2488h], ecx
-locret_405550:
-        ret
-    }
-}
-#endif
 
 void Player_ClearExpiredFlags(Player* player) {
     uint8_t* bytes = (uint8_t*)player;
@@ -195,26 +138,6 @@ void Player_ClearExpiredFlags(Player* player) {
     *(uint32_t*)(bytes + 0x2488) &= mask;
 }
 
-#ifdef _MSC_VER
-__declspec(naked) void Player_AdjustPower(void* player, int delta) {
-    __asm {
-        mov edx, [eax+58h]
-        add edx, ecx
-        mov ecx, edx
-        cmp ecx, 400h
-        mov [eax+58h], edx
-        jle check_low
-        mov dword ptr [eax+58h], 400h
-        ret
-check_low:
-        cmp ecx, 0FFFFFC00h
-        jge done
-        mov dword ptr [eax+58h], 0FFFFFC00h
-done:
-        ret
-    }
-}
-#else
 void Player_AdjustPower(void* player, int delta) {
     // Retail updates the dword at player+0x58 with a wrapping x86 add, then
     // clamps the resulting signed value to the inclusive +/-0x400 range.
@@ -228,7 +151,6 @@ void Player_AdjustPower(void* player, int delta) {
     }
     *power = adjusted;
 }
-#endif
 // ============================================================================
 // 0x00405860 - Player_Init (start a new frame/player life)
 // player = player object (contains position, power, state at various offsets)
@@ -336,94 +258,6 @@ int Player_Init(Player* player) {
 //       else: return 0x1A or 0x1D
 //   else: check for graze distance
 // ============================================================================
-#ifdef _MSC_VER
-__declspec(naked) int Player_HitTestRetail() {
-    __asm {
-        mov edx, [ecx+28h]
-        test edx, edx
-        jnz loc_4059FA
-        xor eax, eax
-        ret
-loc_4059FA:
-        fld dword ptr [eax+4]
-        xor edx, edx
-        fsub dword ptr [ecx+34h]
-        fld dword ptr [eax]
-        fsub dword ptr [ecx+30h]
-        fld dword ptr [ecx+3Ch]
-        fld st(1)
-        fmul st, st(2)
-        fld st(3)
-        fmul st, st(4)
-        faddp st(1), st
-        fld st(1)
-        fmul st, st(2)
-        fcompp
-        fstp st(0)
-        fnstsw ax
-        fstp st(0)
-        test ah, 41h
-        fstp st(0)
-        jnz loc_405A68
-        mov eax, [ecx+44h]
-        test eax, eax
-        mov eax, dword ptr [dword_4776F4]
-        mov cl, [eax+378Ch]
-        jnz loc_405A46
-        test cl, 1
-        jz loc_405A53
-        mov edx, 3
-        mov eax, edx
-        ret
-loc_405A46:
-        test cl, 1
-        jz loc_405A53
-        mov edx, 26h
-        mov eax, edx
-        ret
-loc_405A53:
-        mov eax, dword ptr [DAT_00477704]
-        mov edx, [eax+10h]
-        neg edx
-        sbb edx, edx
-        and edx, 21h
-        add edx, 5
-        mov eax, edx
-        ret
-loc_405A68:
-        mov eax, dword ptr [dword_4776F4]
-        test byte ptr [eax+378Ch], 1
-        jz loc_405A8F
-        cmp dword ptr [ecx+44h], 1
-        jnz loc_405AB7
-        mov edx, dword ptr [DAT_00474c68]
-        neg edx
-        sbb edx, edx
-        and edx, 0FFFFFFFDh
-        add edx, 1Ah
-        mov eax, edx
-        ret
-loc_405A8F:
-        mov eax, dword ptr [DAT_00477704]
-        push esi
-        mov esi, [eax+10h]
-        test esi, esi
-        pop esi
-        jz loc_405AB7
-        mov eax, [ecx+44h]
-        test eax, eax
-        jnz loc_405AB7
-        mov eax, dword ptr [DAT_00474c68]
-        xor edx, edx
-        test eax, eax
-        sete dl
-        lea edx, [edx*4+10h]
-loc_405AB7:
-        mov eax, edx
-        ret
-    }
-}
-#endif
 
 int Player_HitTest(Player* player, const float* bulletPos) {
     if (player->activeState == 0) {
@@ -532,60 +366,6 @@ int Player_Update(Player* player) {
 //     EnemyManager_CheckPlayerCollision(hitbox, ~flags & 1, focused)
 //     ScoreRecords_CopyVectorAndEvaluate (0x0041C800)
 // ============================================================================
-#ifdef _MSC_VER
-__declspec(naked) int Player_Draw(Player* player) {
-    __asm {
-        mov eax, [esi+28h]
-        test eax, eax
-        je done
-        mov ecx, dword_4776F4
-        mov eax, [ecx+378Ch]
-        test al, 1
-        push ebx
-        je check_six
-        mov edx, [ecx+3788h]
-        cmp edx, 5Dh
-        jl check_six
-        cmp edx, 60h
-        jle focused_zero
-check_six:
-        cmp dword ptr [ecx+3788h], 6Dh
-        jne focused_one
-focused_zero:
-        not eax
-        push 0
-        and eax, 1
-        push eax
-        mov eax, [esi+3Ch]
-        push eax
-        jmp call_collision
-focused_one:
-        mov ecx, [esi+3Ch]
-        not eax
-        push 1
-        and eax, 1
-        push eax
-        push ecx
-call_collision:
-        mov eax, dword_4776F0
-        lea ebx, [esi+30h]
-        call sub_408100
-        mov edx, dword_4776F4
-        mov eax, [edx+378Ch]
-        mov ecx, [esi+3Ch]
-        not eax
-        and eax, 1
-        push eax
-        mov eax, dword_47781C
-        push ecx
-        call sub_41C800
-        pop ebx
-done:
-        xor eax, eax
-        ret
-    }
-}
-#else
 int Player_Draw(Player* player) {
     if (player->activeState != 0) {
         int playerState = DAT_004776f4;
@@ -613,7 +393,6 @@ int Player_Draw(Player* player) {
     }
     return 0;
 }
-#endif
 namespace {
 
 void PlayerManager_SetModeTimer(void* manager, int frames,
@@ -648,33 +427,10 @@ void PlayerManager_ArmIntroTimer(void* manager,
 }
 
 // 0x004045B0 - Arm the companion 60-frame player mode.
-#ifdef _MSC_VER
-__declspec(naked) void PlayerManager_StartMode(void* manager) {
-    __asm {
-        mov ecx, [eax+2A2Ch]
-        test cl, 1
-        jnz loc_4045E6
-        xor edx, edx
-        or ecx, 1
-        mov [eax+2A20h], edx
-        mov dword ptr [eax+2A1Ch], 0FFF0BDC1h
-        mov [eax+2A24h], edx
-        mov dword ptr [eax+2A28h], offset flt_476F78
-        mov [eax+2A2Ch], ecx
-loc_4045E6:
-        mov dword ptr [eax+2A20h], 3Ch
-        mov dword ptr [eax+2A24h], 42700000h
-        mov dword ptr [eax+2A1Ch], 3Bh
-        or dword ptr [eax+2A18h], 4
-        ret
-    }
-}
-#else
 void PlayerManager_StartMode(void* manager) {
     if (manager != 0)
         PlayerManager_SetModeTimer(manager, 60, 4u);
 }
-#endif
 
 namespace {
 

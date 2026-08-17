@@ -74,8 +74,6 @@ extern "C" void D3DXMatrixPerspectiveFovLH(float* out, float fov, float aspect, 
 // 5. Set viewport, render state block
 // 6. Check device format conversion for fullscreen anti-aliasing
 // 7. Call post-init functions
-//
-// Uses extraout_ECX (non-standard register output) — needs __asm for matching
 // ============================================================================
 int D3D_Init(void) {
     // D3DPRESENT_PARAMETERS (14 dwords = 56 bytes in presentation_parameters)

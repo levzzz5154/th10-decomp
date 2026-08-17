@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x00427C70 - Interval test on a two-word frame counter {previous,
 // current}: true when the counter moved this frame and the current

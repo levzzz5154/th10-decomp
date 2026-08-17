@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x34-byte configuration record reset by the retail defaults
 // initializer at 0x00418C40. Field names describe the observed default

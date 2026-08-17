@@ -1,8 +1,5 @@
 #include "th10/render/anm_batch_flush.hpp"
 
-#ifdef _MSC_VER
-extern "C" unsigned long dword_491C30;
-#endif
 
 // 0x00442F50 - Draw the staged sprite quads and reopen the batch.
 //
@@ -21,55 +18,6 @@ extern "C" unsigned long dword_491C30;
 // Forcing both ARG2 selectors to D3DTA_DIFFUSE is why 0x00442670 writes the
 // modulation colour into the four vertices rather than relying on
 // D3DRS_TEXTUREFACTOR.
-#ifdef _MSC_VER
-__declspec(naked) int AnimationManager_FlushQuadBatch(
-        QuadVertexStaging* staging, int* draw_calls,
-        const QuadBatchEnv* env) {
-    __asm {
-        mov eax, [esi+3ADAC8h]
-        test eax, eax
-        je done
-        mov eax, dword_491C30
-        mov ecx, [eax]
-        push 0
-        push 6
-        push 0
-        push eax
-        call dword ptr [ecx+10Ch]
-        mov eax, dword_491C30
-        mov edx, [eax]
-        push 0
-        push 3
-        push 0
-        push eax
-        call dword ptr [edx+10Ch]
-        mov eax, dword_491C30
-        mov ecx, [eax]
-        push 144h
-        push eax
-        call dword ptr [ecx+164h]
-        mov ecx, [esi+72DAD0h]
-        mov eax, dword_491C30
-        mov edx, [eax]
-        push 1Ch
-        push ecx
-        mov ecx, [esi+3ADAC8h]
-        shl ecx, 1
-        push ecx
-        push 4
-        push eax
-        call dword ptr [edx+14Ch]
-        mov eax, [esi+58h]
-        mov edx, [esi+72DACCh]
-        inc eax
-        mov [esi+72DAD0h], edx
-        mov dword ptr [esi+3ADAC8h], 0
-        mov [esi+58h], eax
-done:
-        ret
-    }
-}
-#else
 int AnimationManager_FlushQuadBatch(QuadVertexStaging* staging,
                                     int* draw_calls,
                                     const QuadBatchEnv* env) {
@@ -86,4 +34,3 @@ int AnimationManager_FlushQuadBatch(QuadVertexStaging* staging,
     staging->quad_count = 0;
     return *draw_calls;
 }
-#endif

@@ -5,16 +5,9 @@
 
 #include "th10/game/archive_cursor_read.hpp"
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 #include <cstring>
 
-#ifdef _MSC_VER
-extern "C" void* __imp_ReadFile;
-#endif
 
 extern "C" {
 
@@ -30,104 +23,6 @@ __stdcall int ReadFile(HANDLE hFile, void* lpBuffer, uint32_t nNumberOfBytesToRe
 }  // extern "C"
 
 
-#ifdef _MSC_VER
-// 0x0044DE10 - Retail archive-cursor read. Custom ABI: cursor in EAX, byte
-// count in EDX, destination and out-count on the stack; returns 8 bytes of
-// stack. Copies from the in-memory cursor or issues ReadFile on the handle.
-__declspec(naked) uint32_t ArchiveCursor_ReadRetail() {
-    __asm {
-        mov ecx, [eax+7Ch]
-        test ecx, ecx
-        push ebx
-        mov ebx, [esp+8]
-        push esi
-        push edi
-        mov edi, [esp+14h]
-        jz loc_44DE91
-        mov ecx, [eax+84h]
-        test ecx, ecx
-        jnz loc_44DE37
-loc_44DE2C:
-        pop edi
-        pop esi
-        mov eax, 800401F0h
-        pop ebx
-        ret 8
-loc_44DE37:
-        test edi, edi
-        jz loc_44DE41
-        mov dword ptr [edi], 0
-loc_44DE41:
-        mov ebx, [eax+88h]
-        mov ecx, [eax+80h]
-        mov esi, [eax+84h]
-        push ebp
-        lea ebp, [esi+edx]
-        lea edi, [ecx+ebx]
-        cmp ebp, edi
-        pop ebp
-        jbe loc_44DE65
-        sub ecx, esi
-        add ecx, ebx
-        mov edx, ecx
-loc_44DE65:
-        mov edi, [esp+10h]
-        mov ecx, edx
-        mov ebx, ecx
-        shr ecx, 2
-        rep movsd
-        mov ecx, ebx
-        and ecx, 3
-        rep movsb
-        add [eax+84h], edx
-        mov eax, [esp+14h]
-        test eax, eax
-        jz loc_44DE89
-        mov [eax], edx
-loc_44DE89:
-        pop edi
-        pop esi
-        xor eax, eax
-        pop ebx
-        ret 8
-loc_44DE91:
-        mov esi, [eax+8Ch]
-        test esi, esi
-        jz loc_44DE2C
-        test ebx, ebx
-        jz loc_44DECF
-        test edi, edi
-        jz loc_44DECF
-        mov ecx, [eax+8]
-        cmp edx, ecx
-        jbe loc_44DEAC
-        mov edx, ecx
-loc_44DEAC:
-        sub ecx, edx
-        push 0
-        mov [eax+8], ecx
-        lea eax, [esp+14h]
-        push eax
-        push edx
-        push ebx
-        push esi
-        call dword ptr [__imp_ReadFile]
-        mov ecx, [esp+10h]
-        mov [edi], ecx
-        pop edi
-        pop esi
-        xor eax, eax
-        pop ebx
-        ret 8
-loc_44DECF:
-        pop edi
-        pop esi
-        mov eax, 80070057h
-        pop ebx
-        ret 8
-    }
-}
-#endif
 
 uint32_t ArchiveCursor_Read(void* cursor, uint32_t byte_count,
                             void* destination,

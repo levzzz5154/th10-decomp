@@ -4,31 +4,11 @@
 #include "th10/game/stage_tips.hpp"
 #include "th10/runtime/missing_edge.hpp"
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#endif
 
-#ifdef _MSC_VER
-extern "C" int dword_474C7C;
-extern "C" void* sub_41A120(void*, void*, void*);
-extern "C" void* sub_452493(unsigned long);
-extern "C" char* _strncpy(char*, const char*, unsigned int);
-extern "C" int dword_474C84;
-extern "C" int dword_474C88;
-extern "C" int dword_474C8C;
-extern "C" void* sub_449ED0(void*);
-extern "C" int sub_449AE0(void*, int, void*);
-extern "C" int sub_449B70(void*, int, void*);
-extern "C" int sub_419960(void*, const char*, int);
-#endif
 
 #include <new>
 
-#ifndef _MSC_VER
 #include <cstring>
-#else
-extern "C" void* memset(void*, int, unsigned long);
-#endif
 
 // Stage-tip manager global declared in retail at 0x00477814.
 StageTipManager* DAT_00477814;
@@ -56,13 +36,6 @@ StageTipRuntimeBindings g_stage_tip_bindings = {};
 // x/y/z triples, +0x17C half-widths), resolving each handle through the
 // animation manager's world/UI lists (dword_491C10 + 0x72DAD4 / +0x72DADC)
 // and fading the matched entity's alpha around the player camera.
-#ifdef _MSC_VER
-int __fastcall StageTipRuntime_Update(void* owner) {
-    if (g_stage_tip_bindings.update == 0)
-        Runtime_MissingEdge(0x00419650u, "stage-tip/focus update");
-    return g_stage_tip_bindings.update(owner);
-}
-#else
 // Copy one retail focus slot (scattered manager tail fields) into the
 // compact StageFocusSlot layout the recovery consumes.
 static void FocusSlotLoad(StageFocusSlot* slot, const unsigned char* bytes,
@@ -130,7 +103,6 @@ int __fastcall StageTipRuntime_Update(void* owner) {
     }
     return result;
 }
-#endif
 
 // Retail 0x004198B0: the stage-tip render edge.  The entire body is
 // `mov eax, 1; retn` - the listing shows no other effect.
@@ -141,11 +113,6 @@ int __fastcall StageTipRuntime_Render(void* owner) {
 
 void StageTipRuntime_SpawnTip(void* owner, uint32_t text_address,
                               int32_t slot) {
-#ifdef _MSC_VER
-    if (g_stage_tip_bindings.spawn_tip == 0)
-        Runtime_MissingEdge(0x0041A120u, "stage-tip spawn");
-    g_stage_tip_bindings.spawn_tip(owner, text_address, slot);
-#else
     // Host path: retail 0x0041A120 is the record allocation + chain
     // append modelled by StageTip_Create below (the same body, with the
     // allocator injected); the wrapper's position argument is not
@@ -157,7 +124,6 @@ void StageTipRuntime_SpawnTip(void* owner, uint32_t text_address,
     StageTip_Create((StageTipManager*)owner, origin,
                     (const char*)(uintptr_t)text_address,
                     +[](uint32_t size) { return ::operator new(size); });
-#endif
 }
 }  // namespace
 
@@ -180,72 +146,6 @@ static void CopyTipText(char* destination, const char* source,
 // sixteen intrusive list sentinels back at the manager with empty
 // next/previous links, and publish the instance through the retail
 // global at 0x00477814.
-#ifdef _MSC_VER
-__declspec(naked) StageTipManager* StageTipManager_Construct(
-        StageTipManager* state) {
-    __asm {
-        xor eax, eax
-        push edi
-        mov ecx, 6Ah
-        mov edi, edx
-        rep stosd
-        or dword ptr [edx], 2
-        mov [edx+18h], edx
-        mov [edx+24h], edx
-        xor eax, eax
-        mov [edx+1Ch], eax
-        mov [edx+20h], eax
-        mov [edx+28h], eax
-        mov [edx+2Ch], eax
-        mov [edx+30h], edx
-        mov [edx+34h], eax
-        mov [edx+38h], eax
-        mov [edx+3Ch], edx
-        mov [edx+40h], eax
-        mov [edx+44h], eax
-        mov [edx+48h], edx
-        mov [edx+4Ch], eax
-        mov [edx+50h], eax
-        mov [edx+54h], edx
-        mov [edx+58h], eax
-        mov [edx+5Ch], eax
-        mov [edx+60h], edx
-        mov [edx+64h], eax
-        mov [edx+68h], eax
-        mov [edx+6Ch], edx
-        mov [edx+70h], eax
-        mov [edx+74h], eax
-        mov [edx+78h], edx
-        mov [edx+84h], edx
-        mov [edx+7Ch], eax
-        mov [edx+80h], eax
-        mov [edx+88h], eax
-        mov [edx+8Ch], eax
-        mov [edx+90h], edx
-        mov [edx+94h], eax
-        mov [edx+98h], eax
-        mov [edx+9Ch], edx
-        mov [edx+0A0h], eax
-        mov [edx+0A4h], eax
-        mov [edx+0A8h], edx
-        mov [edx+0ACh], eax
-        mov [edx+0B0h], eax
-        mov [edx+0B4h], edx
-        mov [edx+0B8h], eax
-        mov [edx+0BCh], eax
-        mov [edx+0C0h], edx
-        mov [edx+0C4h], eax
-        mov [edx+0C8h], eax
-        mov [edx+0CCh], edx
-        mov [edx+0D0h], eax
-        mov [edx+0D4h], eax
-        mov [DAT_00477814], edx
-        mov eax, edx
-        pop edi
-        ret
-    }
-}
-#else
 StageTipManager* StageTipManager_Construct(StageTipManager* state) {
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
@@ -257,7 +157,6 @@ StageTipManager* StageTipManager_Construct(StageTipManager* state) {
     DAT_00477814 = state;
     return state;
 }
-#endif
 
 void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings) {
     if (bindings != 0)
@@ -268,53 +167,6 @@ void StageTipRuntime_SetBindings(const StageTipRuntimeBindings* bindings) {
 
 // 0x00418E30 - Register the manager's update/render pair, clear its counter,
 // and create the two built-in tips when the retail tips option is enabled.
-#ifdef _MSC_VER
-__declspec(naked) int StageTipRuntime_InitializeRetail() {
-    __asm {
-        push esi
-        push edi
-        push 4198A0h
-        call sub_449ED0
-        mov esi, eax
-        mov edx, [esi+4]
-        mov eax, dword ptr [DAT_00491be4]
-        and edx, 0FFFFFFFDh
-        push eax
-        mov edi, 19h
-        mov [esi+20h], ebx
-        mov [esi+4], edx
-        call sub_449AE0
-        push 4198B0h
-        mov [ebx+8], esi
-        call sub_449ED0
-        mov ecx, dword ptr [DAT_00491be4]
-        mov esi, eax
-        and dword ptr [esi+4], 0FFFFFFFDh
-        push ecx
-        mov edi, 2Ch
-        mov [esi+20h], ebx
-        call sub_449B70
-        mov [ebx+0Ch], esi
-        mov dword ptr [ebx+10h], 0
-        mov al, byte ptr [DAT_00491d6a]
-        test al, al
-        pop edi
-        pop esi
-        jz loc_418EB0
-        push 0
-        push 46D6D8h
-        push ebx
-        call sub_419960
-        push 1
-        push 46D6C4h
-        push ebx
-        call sub_419960
-loc_418EB0:
-        xor eax, eax
-        ret
-    }
-}
-#endif
 
 int StageTipRuntime_Initialize(void* state) {
     if (state == 0 || DAT_00491be4 == 0)
@@ -367,89 +219,6 @@ int StageTipRuntime_Initialize(void* state) {
 // Retail never observes an allocation failure (its statically linked
 // allocator aborts), so the readable form returns null early instead of
 // linking a null record.
-#ifdef _MSC_VER
-__declspec(naked) StageTip* StageTip_CreateRetail() {
-    __asm {
-        push esi
-        push 88h
-        call sub_452493
-        mov edx, eax
-        add esp, 4
-        test edx, edx
-        jz loc_41A168
-        push edi
-        xor eax, eax
-        mov ecx, 22h
-        mov edi, edx
-        rep stosd
-        mov [edx+10h], eax
-        mov [edx+14h], eax
-        mov [edx+0Ch], edx
-        or eax, 0FFFFFFFFh
-        mov [edx+84h], eax
-        mov dword ptr [edx+6Ch], 12Ch
-        mov dword ptr [edx+7Ch], 3F800000h
-        mov [edx+70h], eax
-        mov esi, edx
-        pop edi
-        jmp loc_41A16A
-loc_41A168:
-        xor esi, esi
-loc_41A16A:
-        mov eax, dword ptr [dword_474C7C]
-        mov edx, [esp+8]
-        lea eax, [eax+eax*2+1Eh]
-        lea eax, [edx+eax*4]
-        mov edx, [eax+4]
-        test edx, edx
-        lea ecx, [esi+0Ch]
-        jz loc_41A18E
-loc_41A184:
-        mov eax, [eax+4]
-        mov edx, [eax+4]
-        test edx, edx
-        jnz loc_41A184
-loc_41A18E:
-        mov edx, [eax+4]
-        test edx, edx
-        jz loc_41A19E
-        mov [ecx+4], edx
-        mov edx, [eax+4]
-        mov [edx+8], ecx
-loc_41A19E:
-        mov [eax+4], ecx
-        mov [ecx+8], eax
-        mov dword ptr [esi+70h], 1Eh
-        mov ecx, [ebx]
-        mov eax, esi
-        mov [eax], ecx
-        mov edx, [ebx+4]
-        mov [eax+4], edx
-        mov ecx, [ebx+8]
-        mov edx, [esp+0Ch]
-        push 40h
-        mov [eax+8], ecx
-        push edx
-        lea eax, [esi+1Ch]
-        push eax
-        call _strncpy
-        mov dword ptr [esi+64h], 0
-        mov ecx, dword ptr [dword_474C84]
-        mov [esi+68h], ecx
-        mov eax, dword ptr [dword_474C84]
-        add esp, 0Ch
-        test eax, eax
-        mov eax, dword ptr [dword_474C8C]
-        jnz loc_41A1F3
-        mov eax, dword ptr [dword_474C88]
-loc_41A1F3:
-        mov [esi+60h], eax
-        mov eax, esi
-        pop esi
-        ret 8
-    }
-}
-#endif
 
 StageTip* StageTip_Create(StageTipManager* manager, const float position[3],
                           const char* text, void* (*allocate)(uint32_t)) {
@@ -492,51 +261,6 @@ StageTip* StageTip_Create(StageTipManager* manager, const float position[3],
 // 0x00424650 - Age every selected tip in the current difficulty chain, create
 // a replacement through the common 0x0041A120 path, shorten its lifetime by
 // sixty frames with a one-frame floor, and install the highlighted style.
-#ifdef _MSC_VER
-__declspec(naked) StageTip* StageTip_CreateUrgent(
-        StageTipManager* manager, const float position[3], const char* text,
-        void* (*allocate)(uint32_t)) {
-    __asm {
-        mov eax, dword_474C7C
-        lea eax, [eax+eax*2]
-        mov eax, [esi+eax*4+7Ch]
-        test eax, eax
-        je spawn
-age_loop:
-        mov edx, [eax+4]
-        mov eax, [eax]
-        mov ecx, [eax+70h]
-        test ecx, ecx
-        jle next
-        dec ecx
-        mov [eax+70h], ecx
-next:
-        test edx, edx
-        mov eax, edx
-        jne age_loop
-spawn:
-        mov ecx, [esp+4]
-        push ebx
-        mov ebx, [esp+0Ch]
-        push ecx
-        push esi
-        call sub_41A120
-        mov edx, [eax+60h]
-        add edx, 0FFFFFFC4h
-        mov ecx, edx
-        test ecx, ecx
-        mov [eax+60h], edx
-        pop ebx
-        jg set_fields
-        mov dword ptr [eax+60h], 1
-set_fields:
-        mov dword ptr [eax+6Ch], 5Ah
-        mov dword ptr [eax+84h], 0FFFF8080h
-        mov dword ptr [eax+70h], 1Eh
-        ret 8
-    }
-}
-#else
 StageTip* StageTip_CreateUrgent(StageTipManager* manager,
                                 const float position[3], const char* text,
                                 void* (*allocate)(uint32_t)) {
@@ -561,4 +285,3 @@ StageTip* StageTip_CreateUrgent(StageTipManager* manager,
     tip->selection = 30;
     return tip;
 }
-#endif

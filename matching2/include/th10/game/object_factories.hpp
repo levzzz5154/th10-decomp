@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // 0x0041C290 - Create the 0x45C-byte score manager: allocate, run the
 // injected base constructor (retail 0x0041C030) on the sub-object at

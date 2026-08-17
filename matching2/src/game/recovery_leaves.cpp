@@ -1,169 +1,6 @@
 #include "th10/game/recovery_leaves.hpp"
 
-#ifndef _MSC_VER
 #include <cstring>
-#else
-extern "C" void* memset(void*, int, unsigned long);
-extern "C" void* memmove(void*, const void*, unsigned long);
-extern "C" unsigned int strlen(const char*);
-extern "C" char* strrchr(const char*, int);
-extern "C" void sub_401A50(void);
-extern "C" void sub_419650(void);
-extern "C" void sub_427960(void);
-extern "C" void sub_4223F0(void);
-extern "C" void sub_40DAE0(void);
-extern "C" void j__free(void*);
-extern "C" void sub_44D080(void);
-extern "C" void sub_44FF80(void);
-extern "C" void sub_44BF40(void*);
-extern "C" float flt_476F78;
-extern "C" unsigned long dword_497D8C;
-extern "C" float flt_470B4C;
-extern "C" float flt_470B48;
-extern "C" float flt_497D80;
-extern "C" float flt_497D84;
-extern "C" unsigned long dword_497D88;
-extern "C" int _rand(void);
-extern "C" unsigned long dword_477830;
-extern "C" char off_4705D8;
-extern "C" void* __imp_CloseHandle;
-extern "C" void* __imp_Sleep;
-extern "C" void sub_43CB00(void*);
-extern "C" void sub_44D730(void*);
-extern "C" unsigned long dword_477818;
-extern "C" void sub_41BB00(void*, unsigned long, int, float, float);
-extern "C" void sub_40C9D0(void*);
-extern "C" char* _strchr(const char*, int);
-extern "C" void sub_41A0A0(char*);
-extern "C" char off_4703E4;
-extern "C" unsigned long dword_477820;
-extern "C" unsigned long dword_4977A4;
-extern "C" void* __imp_SetFilePointer;
-extern "C" int sub_43D2A0(void*);
-extern "C" void sub_44DCA0(void*);
-extern "C" unsigned long dword_477834;
-extern "C" void sub_449470(void*);
-extern "C" unsigned long dword_491BE4;
-extern "C" char CriticalSection;
-extern "C" void* __imp_EnterCriticalSection;
-extern "C" void* __imp_LeaveCriticalSection;
-extern "C" unsigned char byte_49231C;
-extern "C" void sub_449F60(void*, void*);
-extern "C" unsigned long dword_477708;
-extern "C" unsigned long dword_497854;
-extern "C" float flt_470B00;
-extern "C" float flt_470B44;
-extern "C" float flt_470B68;
-extern "C" float flt_470B64;
-extern "C" float flt_470AFC;
-extern "C" float _flt_470AFC;
-extern "C" long __cdecl __ftol2(void);
-extern "C" void sub_40BD80(void*);
-extern "C" void sub_4294A0(void*);
-extern "C" unsigned long dword_491C10;
-extern "C" void sub_447810(void*);
-extern "C" void sub_409E50(void*);
-extern "C" void sub_4470C0(void*);
-extern "C" void sub_447280(void*);
-extern "C" unsigned long dword_491FF4;
-extern "C" unsigned long dword_491FB8;
-extern "C" unsigned long dword_474E30;
-extern "C" unsigned long dword_4776EC;
-extern "C" unsigned long dword_477700;
-extern "C" unsigned long dword_47770C;
-extern "C" unsigned long dword_474C70;
-extern "C" unsigned char sub_463B2C(void);
-extern "C" void* sub_452493(unsigned long);
-extern "C" void sub_44D110(void*, void*, void*, void*);
-extern "C" void sub_4524A1(void*);
-extern "C" void sub_452422(void*);
-extern "C" void sub_4136C0(void);
-extern "C" unsigned char dword_474CA0;
-extern "C" unsigned long dword_477810;
-extern "C" unsigned long dword_47784C;
-extern "C" unsigned long dword_477838;
-extern "C" unsigned long dword_477840;
-extern "C" unsigned long dword_4776E0;
-extern "C" void sub_417C80(void*);
-extern "C" void sub_42CB60(void*);
-extern "C" void sub_41FB50(void*);
-extern "C" void* sub_4220E0(void*);
-extern "C" int sub_422150(void);
-extern "C" void sub_422220(void*);
-extern "C" void* sub_4246C0(void*);
-extern "C" int sub_4247F0(void);
-extern "C" void sub_424ED0(void*);
-extern "C" void* sub_42B430(void*);
-extern "C" int sub_42B4D0(void*);
-extern "C" void sub_42B570(void*);
-extern "C" unsigned long dword_491C30;
-extern "C" unsigned char dword_491D78;
-extern "C" unsigned long dword_46F288;
-extern "C" unsigned long dword_46F2A0;
-extern "C" void sub_4521CA(void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
-extern "C" void sub_4465B0(void*);
-extern "C" void sub_4524A6(void*, void*, void*);
-extern "C" int sub_4479D0(int, void*, void*, void*);
-extern "C" void sub_44C150(void);
-extern "C" void* sub_453683(void*, void*, void*, void*, void*, void*, void*);
-extern "C" void* sub_449ED0(void*);
-extern "C" void sub_449AE0(void*, void*, void*);
-extern "C" void sub_449B70(void*, void*, void*);
-extern "C" void sub_401DE0(void*, void*);
-extern "C" void sub_43E5A0(void*, int, int);
-extern "C" unsigned long dword_46E354;
-extern "C" unsigned long dword_46E358;
-extern "C" unsigned char byte_46E35C;
-extern "C" unsigned long dword_4918B0;
-extern "C" unsigned long dword_4918B4;
-extern "C" int sub_4055C0(void);
-extern "C" void sub_405620(void*);
-extern "C" int sub_40B560(void*);
-extern "C" void sub_40B7B0(void*);
-extern "C" int sub_40BD20(void);
-extern "C" void sub_413790(void*, int);
-extern "C" void sub_43DC90(void*, int, void*);
-extern "C" void sub_4492A0(void*, void*);
-extern "C" void* sub_448D00(void*, int, int);
-extern "C" void* sub_418D40(void*);
-extern "C" int sub_418E30(void);
-extern "C" void sub_418EE0(void*);
-extern "C" void sub_418C40(void*);
-extern "C" void sub_44C5D0(void*, void*);
-extern "C" float sub_452FF0(float);
-extern "C" void sub_437DB0(void);
-extern "C" void sub_437FE0(void);
-extern "C" unsigned short dword_474C48;
-extern "C" void sub_427E90(void*, void*, void*);
-extern "C" void sub_428160(void);
-extern "C" unsigned char dword_474E5C;
-extern "C" void sub_405410(void*, int);
-extern "C" void sub_404ED0(void*);
-extern "C" void* sub_452930(void*, int);
-extern "C" void sub_43E460(void*, void*, void*, int);
-extern "C" unsigned long ___security_cookie;
-extern "C" void __stdcall security_check_cookie(unsigned long);
-extern "C" char aFrontAnm[];
-extern "C" char aBulletAnm[];
-extern "C" char byte_46CB68[];
-extern "C" char byte_46CD54[];
-extern "C" char Text[];
-extern "C" void sub_44B810(void*, const char*);
-extern "C" void* sub_449ED0(void*);
-extern "C" void sub_41BA00(void*);
-extern "C" void sub_41BA30(void*);
-extern "C" void* dword_4660B0;
-extern "C" void* dword_4660B4;
-extern "C" unsigned char byte_49231C;
-extern "C" void sub_449AE0(void*, void*, void*);
-extern "C" void sub_449B70(void*, void*, void*);
-extern "C" void* sub_449950(void*);
-extern "C" void sub_449870(void*, void*);
-extern "C" void sub_4489D0(void*, void*);
-extern "C" void* sub_4491C0(void*);
-extern "C" void sub_405840(void*);
-extern "C" void sub_405850(void*);
-#endif
 
 static float NormalizeRecoveryAngle(float angle) {
     int iterations = 0;
@@ -180,67 +17,6 @@ static float NormalizeRecoveryAngle(float angle) {
 
 // 0x004198C0 - Linear lookup of a UTF-16 name, returning the matching entry's
 // value (the second word in each eight-byte table record).
-#ifdef _MSC_VER
-__declspec(naked) unsigned long Recovery_FindNamedValue(
-        const unsigned short* name, const void* entries, int count) {
-    __asm {
-        mov eax, [esp+8]
-        push ebx
-        push ebp
-        mov ebp, [esp+0Ch]
-        push esi
-        push edi
-        xor edi, edi
-        test eax, eax
-        jle done
-outer_loop:
-        mov esi, [ebp+edi*8]
-        mov eax, edx
-inner_loop:
-        mov bl, [eax]
-        mov cl, bl
-        cmp bl, [esi]
-        jne char_mismatch
-        test cl, cl
-        je equal_zero
-        mov bl, [eax+1]
-        mov cl, bl
-        cmp bl, [esi+1]
-        jne char_mismatch
-        add eax, 2
-        add esi, 2
-        test cl, cl
-        jne inner_loop
-equal_zero:
-        xor eax, eax
-        jmp compare_done
-char_mismatch:
-        sbb eax, eax
-        sbb eax, 0FFFFFFFFh
-compare_done:
-        test eax, eax
-        je found
-        mov eax, [esp+18h]
-        inc edi
-        cmp edi, eax
-        jl outer_loop
-done:
-        pop edi
-        pop esi
-        pop ebp
-        xor eax, eax
-        pop ebx
-        ret 8
-found:
-        mov eax, [ebp+edi*8+4]
-        pop edi
-        pop esi
-        pop ebp
-        pop ebx
-        ret 8
-    }
-}
-#else
 unsigned long Recovery_FindNamedValue(const unsigned short* name,
                                       const void* entries, int count) {
     if (name == 0 || entries == 0 || count <= 0) return 0;
@@ -259,50 +35,13 @@ unsigned long Recovery_FindNamedValue(const unsigned short* name,
     }
     return 0;
 }
-#endif
 
 // 0x00401520 - One-instruction game-thread queue dispatch wrapper.
-#ifdef _MSC_VER
-__declspec(naked) void GameThread_RunQueueLeaf(void (*run)(void)) {
-    // Retail is a two-instruction thunk: it forwards ECX through EBX to
-    // 0x00401A50 without touching the stack argument.
-    __asm {
-        push ebx
-        mov ebx, ecx
-        call sub_401A50
-        pop ebx
-        ret
-    }
-}
-#else
 void GameThread_RunQueueLeaf(void (*run)(void)) {
     if (run != 0) run();
 }
-#endif
 
 // 0x0040CC50 - Bullet deleting destructor wrapper.
-#ifdef _MSC_VER
-__declspec(naked) void* Bullet_DeletingDestructor(void* object,
-                                                  RecoveryByte flags,
-                                                  void (*destroy)(void*),
-                                                  void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        push esi
-        call sub_40DAE0
-        test byte ptr [esp+8], 1
-        jz loc_40CC69
-        push esi
-        call j__free
-        add esp, 4
-loc_40CC69:
-        mov eax, esi
-        pop esi
-        ret 4
-    }
-}
-#else
 void* Bullet_DeletingDestructor(void* object, RecoveryByte flags,
                                 void (*destroy)(void*),
                                 void (*free_memory)(void*)) {
@@ -310,30 +49,8 @@ void* Bullet_DeletingDestructor(void* object, RecoveryByte flags,
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
-#endif
 
 // 0x0044CF00 - Platform collection deleting destructor wrapper.
-#ifdef _MSC_VER
-__declspec(naked) void* Platform_DeletingDestructor(void* object,
-                                                    RecoveryByte flags,
-                                                    void (*destroy)(void*),
-                                                    void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        call sub_44D080
-        test byte ptr [esp+8], 1
-        jz loc_44CF18
-        push esi
-        call j__free
-        add esp, 4
-loc_44CF18:
-        mov eax, esi
-        pop esi
-        ret 4
-    }
-}
-#else
 void* Platform_DeletingDestructor(void* object, RecoveryByte flags,
                                   void (*destroy)(void*),
                                   void (*free_memory)(void*)) {
@@ -341,47 +58,14 @@ void* Platform_DeletingDestructor(void* object, RecoveryByte flags,
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
-#endif
 
 // 0x00412AA0 - Forward an opcode and float operand to the ECL runtime leaf.
-#ifdef _MSC_VER
-__declspec(naked) void Ecl_ForwardFloat(RecoveryByte opcode, float value,
-                                        void (*forward)(RecoveryByte, float)) {
-    __asm {
-        mov ecx, [esp+8]
-        mov eax, [eax+14D8h]
-        mov eax, [eax+4]
-        push ecx
-        mov ecx, [esp+4+4]
-        call sub_44FF80
-        ret 8
-    }
-}
-#else
 void Ecl_ForwardFloat(RecoveryByte opcode, float value,
                       void (*forward)(RecoveryByte, float)) {
     if (forward != 0) forward(opcode, value);
 }
-#endif
 
 // 0x00413200 - Insert a node immediately after an intrusive-list position.
-#ifdef _MSC_VER
-__declspec(naked) void ScoreList_InsertAfter(RecoveryListNode* position,
-                                             RecoveryListNode* node) {
-    __asm {
-        mov edx, [ecx+4]
-        test edx, edx
-        jz loc_413210
-        mov [eax+4], edx
-        mov edx, [ecx+4]
-        mov [edx+8], eax
-loc_413210:
-        mov [ecx+4], eax
-        mov [eax+8], ecx
-        ret
-    }
-}
-#else
 void ScoreList_InsertAfter(RecoveryListNode* position, RecoveryListNode* node) {
     if (position->next != 0) {
         node->next = position->next;
@@ -390,32 +74,9 @@ void ScoreList_InsertAfter(RecoveryListNode* position, RecoveryListNode* node) {
     position->next = node;
     node->previous = position;
 }
-#endif
 
 // 0x00412720 - Publish one 16-byte ECL resource slot. Negative resource
 // identifiers only replace the identifier, preserving the other words.
-#ifdef _MSC_VER
-__declspec(naked) void Ecl_SetResourceSlot(void* state, int slot,
-                                           int resource, RecoveryWord first,
-                                           RecoveryWord second) {
-    __asm {
-        mov eax, edx
-        shl eax, 4
-        add eax, esi
-        test ecx, ecx
-        mov [eax+2494h], ecx
-        jl locret_41274D
-        mov ecx, [esp+4]
-        add edx, 24Ah
-        shl edx, 4
-        mov [eax+2498h], ecx
-        mov [eax+249Ch], edi
-        mov [edx+esi], edi
-locret_41274D:
-        ret 4
-    }
-}
-#else
 void Ecl_SetResourceSlot(void* state, int slot, int resource,
                          RecoveryWord first, RecoveryWord second) {
     RecoveryByte* record = (RecoveryByte*)state + 0x2494 + slot * 0x10;
@@ -426,49 +87,9 @@ void Ecl_SetResourceSlot(void* state, int slot, int resource,
         *(RecoveryWord*)(record + 12) = second;
     }
 }
-#endif
 
 // 0x00413790 - Enable the first count animation records and disable the
 // remainder of the fixed nine-record table.
-#ifdef _MSC_VER
-__declspec(naked) void Animation_SetActiveCount(void* state, int count) {
-    __asm {
-        xor edx, edx
-        test ecx, ecx
-        push edi
-        mov edi, eax
-        jle loc_4137B5
-        push esi
-        lea eax, [edi+4CDCh]
-        mov esi, ecx
-        mov edx, ecx
-loc_4137A4:
-        or dword ptr [eax], 2
-        add eax, 3ACh
-        dec esi
-        jnz loc_4137A4
-        cmp ecx, 9
-        pop esi
-        jge loc_4137DB
-loc_4137B5:
-        mov eax, edx
-        imul eax, 3ACh
-        mov ecx, 9
-        lea eax, [eax+edi+4CDCh]
-        sub ecx, edx
-        jmp loc_4137D0
-        align 10h
-loc_4137D0:
-        and dword ptr [eax], 0FFFFFFFDh
-        add eax, 3ACh
-        dec ecx
-        jnz loc_4137D0
-loc_4137DB:
-        pop edi
-        ret
-    }
-}
-#else
 void Animation_SetActiveCount(void* state, int count) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     int index = 0;
@@ -478,31 +99,8 @@ void Animation_SetActiveCount(void* state, int count) {
     for (; index < 9; ++index)
         *(RecoveryWord*)(bytes + 0x4CDC + index * 0x3AC) &= ~2u;
 }
-#endif
 
 // 0x00412DB0 - Lazily initialize, then reset, an embedded timer record.
-#ifdef _MSC_VER
-__declspec(naked) void RecoveryTimer_Reset(RecoveryTimerState* timer,
-                                           const void* default_speed) {
-    __asm {
-        mov ecx, [eax+30h]
-        xor edx, edx
-        test cl, 1
-        jnz loc_412DD4
-        or ecx, 1
-        mov [eax+24h], edx
-        mov dword ptr [eax+20h], 0FFF0BDC1h
-        mov [eax+28h], edx
-        mov dword ptr [eax+2Ch], offset flt_476F78
-        mov [eax+30h], ecx
-loc_412DD4:
-        mov [eax+24h], edx
-        mov [eax+28h], edx
-        mov dword ptr [eax+20h], 0FFFFFFFFh
-        ret
-    }
-}
-#else
 void RecoveryTimer_Reset(RecoveryTimerState* timer, const void* default_speed) {
     if ((timer->initialized & 1) == 0) {
         timer->current = 0;
@@ -515,90 +113,25 @@ void RecoveryTimer_Reset(RecoveryTimerState* timer, const void* default_speed) {
     timer->previous = 0;
     timer->value = 0xFFFFFFFFu;
 }
-#endif
 
 extern "C" double __cdecl cos(double value);
 extern "C" double __cdecl sin(double value);
 
 // 0x00413270 - Elliptical polar conversion with independent X/Y radii.
-#ifdef _MSC_VER
-__declspec(naked) void Vector2_SetEllipticPolar(Vector2* destination,
-                                                float angle, float x_radius,
-                                                float y_radius) {
-    __asm {
-        push ecx
-        mov [esp], ecx
-        mov eax, [esp]
-        fld [esp+8]
-        fsincos
-        fmul [esp+0Ch]
-        fstp dword ptr [eax]
-        fmul [esp+10h]
-        fstp dword ptr [eax+4]
-        pop ecx
-        ret 0Ch
-    }
-}
-#else
 void Vector2_SetEllipticPolar(Vector2* destination, float angle,
                              float x_radius, float y_radius) {
     destination->x = (float)cos(angle) * x_radius;
     destination->y = (float)sin(angle) * y_radius;
 }
-#endif
 
 // 0x00441EF0 - Animation-side circular polar conversion leaf.
-#ifdef _MSC_VER
-__declspec(naked) void Vector2_SetAnimationPolar(Vector2* destination,
-                                                  float angle, float length) {
-    __asm {
-        push ecx
-        mov [esp], ecx
-        mov eax, [esp]
-        fld [esp+8]
-        fsincos
-        fmul [esp+0Ch]
-        fstp dword ptr [eax]
-        fmul [esp+0Ch]
-        fstp dword ptr [eax+4]
-        pop ecx
-        ret 8
-    }
-}
-#else
 void Vector2_SetAnimationPolar(Vector2* destination, float angle, float length) {
     destination->x = (float)cos(angle) * length;
     destination->y = (float)sin(angle) * length;
 }
-#endif
 
 // 0x00417800 - Reset the path cursor/timer pair and clear its two trailing
 // state words. The clean form exposes retail's global default-speed pointer.
-#ifdef _MSC_VER
-__declspec(naked) int PathState_Reset(void* state,
-                                      RecoveryWord default_speed) {
-    __asm {
-        mov ecx, [eax+50h]
-        xor edx, edx
-        test cl, 1
-        jnz loc_417824
-        or ecx, 1
-        mov [eax+44h], edx
-        mov dword ptr [eax+40h], 0FFF0BDC1h
-        mov [eax+48h], edx
-        mov dword ptr [eax+4Ch], offset flt_476F78
-        mov [eax+50h], ecx
-loc_417824:
-        mov [eax+44h], edx
-        mov [eax+48h], edx
-        mov dword ptr [eax+40h], 0FFFFFFFFh
-        mov [eax+58h], edx
-        mov [eax+5Ch], edx
-        xor eax, eax
-        ret
-    }
-}
-#else
 int PathState_Reset(void* state, RecoveryWord default_speed) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     RecoveryWord* flags = (RecoveryWord*)(bytes + 0x50);
@@ -616,38 +149,10 @@ int PathState_Reset(void* state, RecoveryWord default_speed) {
     *(RecoveryWord*)(bytes + 0x5C) = 0;
     return 0;
 }
-#endif
 
 // 0x0044D5D0 - Invoke the configured interface operation, setting the
 // in-progress marker first; missing owners return retail's initialization
 // error code.
-#ifdef _MSC_VER
-__declspec(naked) int Platform_InvokeConfigured(
-        void* interface_owner,
-        int (*invoke)(void*, RecoveryWord, RecoveryWord)) {
-    __asm {
-        mov ecx, [eax+4]
-        test ecx, ecx
-        jnz loc_44D5DD
-        mov eax, 800401F0h
-        ret
-loc_44D5DD:
-        mov ecx, [ecx]
-        push esi
-        mov esi, [eax+24h]
-        mov dword ptr [eax+30h], 1
-        mov eax, [eax+20h]
-        mov edx, [ecx]
-        push esi
-        push eax
-        push 0
-        push ecx
-        call dword ptr [edx+30h]
-        pop esi
-        ret
-    }
-}
-#else
 int Platform_InvokeConfigured(void* interface_owner,
                               int (*invoke)(void*, RecoveryWord, RecoveryWord)) {
     RecoveryByte* bytes = (RecoveryByte*)interface_owner;
@@ -657,59 +162,9 @@ int Platform_InvokeConfigured(void* interface_owner,
     return invoke != 0 ? invoke(interface_ptr, *(RecoveryWord*)(bytes + 0x20),
                                 *(RecoveryWord*)(bytes + 0x24)) : 0;
 }
-#endif
 
 // 0x0044D550 - Run both shutdown operations over every interface and OR
 // their status words, then clear the owner's active field.
-#ifdef _MSC_VER
-__declspec(naked) RecoveryWord Platform_AggregateInterfaces(
-        void** interfaces, RecoveryWord count,
-        RecoveryWord (*first)(void*), RecoveryWord (*second)(void*, int)) {
-    __asm {
-        mov eax, [edi+4]
-        test eax, eax
-        jnz loc_44D55D
-        mov eax, 800401F0h
-        ret
-loc_44D55D:
-        mov eax, [edi+10h]
-        push ebx
-        push esi
-        xor ebx, ebx
-        xor esi, esi
-        test eax, eax
-        mov [edi+30h], ebx
-        jbe loc_44D596
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-loc_44D570:
-        mov eax, [edi+4]
-        mov eax, [eax+esi*4]
-        mov ecx, [eax]
-        push eax
-        call dword ptr [ecx+48h]
-        mov edx, [edi+4]
-        or ebx, eax
-        mov eax, [edx+esi*4]
-        mov ecx, [eax]
-        push 0
-        push eax
-        call dword ptr [ecx+34h]
-        or ebx, eax
-        mov eax, [edi+10h]
-        inc esi
-        cmp esi, eax
-        jb loc_44D570
-loc_44D596:
-        pop esi
-        mov eax, ebx
-        mov dword ptr [edi+1Ch], 0
-        pop ebx
-        ret
-    }
-}
-#else
 RecoveryWord Platform_AggregateInterfaces(
         void** interfaces, RecoveryWord count,
         RecoveryWord (*first)(void*), RecoveryWord (*second)(void*, int)) {
@@ -721,28 +176,14 @@ RecoveryWord Platform_AggregateInterfaces(
     }
     return result;
 }
-#endif
 
 // 0x00412ED0 - Change the score mode and invalidate the cached mode result.
-#ifdef _MSC_VER
-__declspec(naked) void Score_SetMode(void* state, int mode) {
-    __asm {
-        cmp [eax+44h], ecx
-        mov [eax+44h], ecx
-        jz locret_412EDF
-        mov dword ptr [eax+4Ch], 0
-locret_412EDF:
-        ret
-    }
-}
-#else
 void Score_SetMode(void* state, int mode) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     int old_mode = *(int*)(bytes + 0x44);
     *(int*)(bytes + 0x44) = mode;
     if (old_mode != mode) *(RecoveryWord*)(bytes + 0x4C) = 0;
 }
-#endif
 
 // 0x00413170 - Store an angle after folding it into the retail range.
 void Score_SetNormalizedAngle(void* state, float angle) {
@@ -750,50 +191,6 @@ void Score_SetNormalizedAngle(void* state, float angle) {
 }
 
 // 0x0044D600 - OR the status returned by every configured interface.
-#ifdef _MSC_VER
-__declspec(naked) RecoveryWord Platform_QueryInterfaces(
-        const RecoveryInterfaceArray* array,
-        RecoveryWord (*query)(void*, RecoveryWord)) {
-    __asm {
-        mov eax, [edi+4]
-        test eax, eax
-        jnz loc_44D60D
-        mov eax, 800401F0h
-        ret
-loc_44D60D:
-        mov eax, [edi+10h]
-        push ebx
-        push esi
-        xor ebx, ebx
-        xor esi, esi
-        test eax, eax
-        jbe loc_44D638
-        _emit 0x8D
-        _emit 0x9B
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-loc_44D620:
-        mov eax, [edi+4]
-        mov eax, [eax+esi*4]
-        mov ecx, [eax]
-        push 0
-        push eax
-        call dword ptr [ecx+34h]
-        or ebx, eax
-        mov eax, [edi+10h]
-        inc esi
-        cmp esi, eax
-        jb loc_44D620
-loc_44D638:
-        pop esi
-        mov eax, ebx
-        pop ebx
-        ret
-    }
-}
-#else
 RecoveryWord Platform_QueryInterfaces(
         const RecoveryInterfaceArray* array,
         RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -805,68 +202,9 @@ RecoveryWord Platform_QueryInterfaces(
     }
     return result;
 }
-#endif
 
 // 0x0044D370 - Pick the first interface whose state is not flagged, falling
 // back to the retail random-index selection when all entries are busy.
-#ifdef _MSC_VER
-__declspec(naked) void* Platform_FindAvailable(
-        const RecoveryInterfaceArray* array, RecoveryWord initial_state,
-        void (*read_state)(void*, RecoveryWord*),
-        RecoveryWord (*random_index)(RecoveryWord)) {
-    __asm {
-        push ecx
-        mov eax, [edi+4]
-        test eax, eax
-        jnz loc_44D37C
-        xor eax, eax
-        pop ecx
-        ret
-loc_44D37C:
-        mov eax, [edi+10h]
-        push esi
-        xor esi, esi
-        test eax, eax
-        jbe loc_44D3B6
-loc_44D386:
-        mov eax, [edi+4]
-        cmp dword ptr [eax+esi*4], 0
-        jz loc_44D3AE
-        mov ecx, eax
-        mov dword ptr [esp+8-4], 0
-        mov eax, [ecx+esi*4]
-        mov edx, [eax]
-        lea ecx, [esp+8-4]
-        push ecx
-        push eax
-        call dword ptr [edx+24h]
-        test byte ptr [esp+8-4], 1
-        jz loc_44D3B6
-loc_44D3AE:
-        mov eax, [edi+10h]
-        inc esi
-        cmp esi, eax
-        jb loc_44D386
-loc_44D3B6:
-        cmp esi, [edi+10h]
-        jz loc_44D3C4
-        mov edx, [edi+4]
-        mov eax, [edx+esi*4]
-        pop esi
-        pop ecx
-        ret
-loc_44D3C4:
-        call _rand
-        xor edx, edx
-        div dword ptr [edi+10h]
-        mov eax, [edi+4]
-        pop esi
-        mov eax, [eax+edx*4]
-        pop ecx
-        ret
-    }
-}
-#else
 void* Platform_FindAvailable(
         const RecoveryInterfaceArray* array, RecoveryWord initial_state,
         void (*read_state)(void*, RecoveryWord*),
@@ -886,53 +224,9 @@ void* Platform_FindAvailable(
         ? random_index(array->count) : 0;
     return array->entries[random % array->count];
 }
-#endif
 
 // 0x00417770 - Release every node in the intrusive cleanup chain, unlinking
 // each node before handing its storage to the platform allocator.
-#ifdef _MSC_VER
-__declspec(naked) void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
-                                             void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, [eax+18h]
-        test esi, esi
-        jz loc_4177B0
-        push edi
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-loc_417780:
-        mov edx, [esi]
-        mov edi, [esi+8]
-        mov ecx, esi
-        call dword ptr [edx+10h]
-        mov eax, [esi+4]
-        mov ecx, [esi+8]
-        mov [eax+8], ecx
-        mov eax, [esi+8]
-        test eax, eax
-        jz loc_4177A0
-        mov edx, [esi+4]
-        mov [eax+4], edx
-loc_4177A0:
-        push esi
-        call j__free
-        add esp, 4
-        test edi, edi
-        mov esi, edi
-        jnz loc_417780
-        pop edi
-loc_4177B0:
-        pop esi
-        ret
-    }
-}
-#else
 void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
                            void (*free_memory)(void*)) {
     if (head == 0) return;
@@ -947,40 +241,9 @@ void RecoveryLinkedCleanup(RecoveryCleanupNode** head,
         node = next;
     }
 }
-#endif
 
 // 0x004220E0 - Clear the 0x2c8-byte object and install its enabled flag in
 // the first word, matching the constructor's final visible state.
-#ifdef _MSC_VER
-__declspec(naked) void* RecoveryState_Initialize(void* state) {
-    __asm {
-        mov ecx, [edx+20h]
-        xor eax, eax
-        and ecx, 0FFFFFFFEh
-        mov [edx+20h], ecx
-        mov [edx+0B0h], eax
-        mov [edx+24h], eax
-        mov [edx+0F8h], eax
-        mov dword ptr [edx+0F4h], 1
-        mov ecx, 3E7h
-        mov [edx+2Ch], ecx
-        mov [edx+104h], ecx
-        push edi
-        mov [edx+188h], eax
-        mov [edx+0FCh], eax
-        mov [edx+1D0h], eax
-        mov dword ptr [edx+1CCh], 1
-        mov ecx, 0B2h
-        mov edi, edx
-        rep stosd
-        or dword ptr [edx], 2
-        mov dword_477830, edx
-        mov eax, edx
-        pop edi
-        ret
-    }
-}
-#else
 void* g_recovery_global_state;
 extern RecoveryWord DAT_00477830;
 void* RecoveryState_Initialize(void* state) {
@@ -990,7 +253,6 @@ void* RecoveryState_Initialize(void* state) {
     DAT_00477830 = (RecoveryWord)(unsigned long)state;
     return state;
 }
-#endif
 
 static void ResetRawTimer(RecoveryByte* bytes, RecoveryWord target_offset,
                           RecoveryWord current_offset, RecoveryWord previous_offset,
@@ -1010,39 +272,6 @@ static void ResetRawTimer(RecoveryByte* bytes, RecoveryWord target_offset,
 }
 
 // 0x00442300 - Configure the state bytes and reset its embedded timer.
-#ifdef _MSC_VER
-__declspec(naked) void RecoveryState_Configure42300(
-        void* state, const void* owner,
-        RecoveryByte first, RecoveryByte second,
-        RecoveryByte third, RecoveryWord speed) {
-    __asm {
-        mov [eax+12Ch], ecx
-        movzx ecx, byte ptr [esp+4]
-        mov [eax+130h], ecx
-        movzx ecx, byte ptr [esp+8]
-        mov [eax+108h], ecx
-        movzx ecx, byte ptr [esp+0Ch]
-        xor edx, edx
-        mov [eax+110h], edx
-        mov [eax+114h], edx
-        mov [eax+10Ch], ecx
-        mov ecx, [eax+128h]
-        test cl, 1
-        jne after_timer
-        or ecx, 1
-        mov [eax+11Ch], edx
-        mov dword ptr [eax+118h], 0FFF0BDC1h
-        mov [eax+120h], edx
-        mov dword ptr [eax+124h], 476F78h
-        mov [eax+128h], ecx
-after_timer:
-        mov [eax+11Ch], edx
-        mov [eax+120h], edx
-        mov dword ptr [eax+118h], 0FFFFFFFFh
-        ret 0Ch
-    }
-}
-#else
 void RecoveryState_Configure42300(void* state, const void* owner,
                                   RecoveryByte first, RecoveryByte second,
                                   RecoveryByte third, RecoveryWord speed) {
@@ -1056,7 +285,6 @@ void RecoveryState_Configure42300(void* state, const void* owner,
     *(RecoveryWord*)(bytes + 0x10C) = third;
     ResetRawTimer(bytes, 0x118, 0x11C, 0x120, 0x124, 0x128, speed);
 }
-#endif
 
 // 0x00442220 - Copy the two RGB-like triples, clear transient fields, and
 // reset the object's embedded timer.
@@ -1075,36 +303,6 @@ void RecoveryState_Configure42220(void* state, const RecoveryByte first[3],
 }
 
 // 0x00441F50 - Set the four compact state parameters and reset its timer.
-#ifdef _MSC_VER
-__declspec(naked) void RecoveryState_Configure41F50(
-        void* state, RecoveryWord value, RecoveryWord mode,
-        RecoveryByte first, RecoveryByte second, RecoveryWord speed) {
-    __asm {
-        movzx edx, dl
-        mov [eax+230h], edx
-        movzx edx, [esp+8]
-        mov [eax+22Ch], ecx
-        movzx ecx, [esp+4]
-        mov [eax+20Ch], edx
-        mov [eax+208h], ecx
-        mov ecx, [eax+228h]
-        xor edx, edx
-        test cl, 1
-        jnz loc_441FAB
-        or ecx, 1
-        mov [eax+21Ch], edx
-        mov dword ptr [eax+218h], 0FFF0BDC1h
-        mov [eax+220h], edx
-        mov dword ptr [eax+224h], offset flt_476F78
-        mov [eax+228h], ecx
-loc_441FAB:
-        mov [eax+21Ch], edx
-        mov [eax+220h], edx
-        mov dword ptr [eax+218h], 0FFFFFFFFh
-        ret 8
-    }
-}
-#else
 void RecoveryState_Configure41F50(void* state, RecoveryWord value,
                                   RecoveryWord mode, RecoveryByte first,
                                   RecoveryByte second, RecoveryWord speed) {
@@ -1115,100 +313,25 @@ void RecoveryState_Configure41F50(void* state, RecoveryWord value,
     *(RecoveryWord*)(bytes + 0x208) = first;
     ResetRawTimer(bytes, 0x218, 0x21C, 0x220, 0x224, 0x228, speed);
 }
-#endif
 
 // 0x00427950 - Invoke the downstream update leaf and return its zero status.
-#ifdef _MSC_VER
-__declspec(naked) RecoveryWord Recovery_InvokeZero(void (*invoke)(void)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        call sub_427960
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 RecoveryWord Recovery_InvokeZero(void (*invoke)(void)) {
     if (invoke != 0) invoke();
     return 0;
 }
-#endif
 
 // 0x004198A0 - Forward the update call without changing its void result.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InvokeVoid(void (*invoke)(void)) {
-    __asm {
-        push ebx
-        mov ebx, ecx
-        call sub_419650
-        pop ebx
-        ret
-    }
-}
-#else
 void Recovery_InvokeVoid(void (*invoke)(void)) {
     if (invoke != 0) invoke();
 }
-#endif
 
 // 0x00422A90 - Preserve the two-word result of the downstream state update.
-#ifdef _MSC_VER
-__declspec(naked) unsigned long long Recovery_InvokePair(
-        void* argument, unsigned long long (*invoke)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        call sub_4223F0
-        pop esi
-        ret
-    }
-}
-#else
 unsigned long long Recovery_InvokePair(
         void* argument, unsigned long long (*invoke)(void*)) {
     return invoke != 0 ? invoke(argument) : 0;
 }
-#endif
 
 // 0x0041AB10 - Append a node to the tail of the doubly-linked chain.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_AppendNode(RecoveryAppendNode* list,
-                                           RecoveryAppendNode* node) {
-    __asm {
-        lea ecx, [eax+4]
-        push esi
-        cmp dword ptr [ecx], 0
-        jz loc_41AB2C
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-loc_41AB20:
-        mov eax, [ecx]
-        mov esi, [eax+4]
-        test esi, esi
-        lea ecx, [eax+4]
-        jnz loc_41AB20
-loc_41AB2C:
-        mov ecx, [eax+4]
-        test ecx, ecx
-        pop esi
-        jz loc_41AB3D
-        mov [edx+4], ecx
-        mov ecx, [eax+4]
-        mov [ecx+8], edx
-loc_41AB3D:
-        mov [eax+4], edx
-        mov [edx+8], eax
-        ret
-    }
-}
-#else
 void Recovery_AppendNode(RecoveryAppendNode* list,
                          RecoveryAppendNode* node) {
     if (list == 0 || node == 0) return;
@@ -1218,70 +341,9 @@ void Recovery_AppendNode(RecoveryAppendNode* list,
     node->previous = tail;
     tail->next = node;
 }
-#endif
 
 // 0x0044D080 - Release every interface entry and the optional auxiliary
 // stream, leaving the owner in its post-destruction empty state.
-#ifdef _MSC_VER
-__declspec(naked) void Platform_ReleaseOwnedArray(
-        RecoveryOwnedArrayState* state, void (*release)(void*),
-        void (*close_auxiliary)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        mov eax, [esi+10h]
-        push edi
-        xor edi, edi
-        test eax, eax
-        mov dword ptr [esi], offset off_4705D8
-        jbe loc_44D0BA
-loc_44D093:
-        mov eax, [esi+4]
-        mov ecx, [eax+edi*4]
-        test ecx, ecx
-        lea eax, [eax+edi*4]
-        jz loc_44D0B2
-        mov eax, ecx
-        mov ecx, [eax]
-        push eax
-        call dword ptr [ecx+8]
-        mov edx, [esi+4]
-        mov dword ptr [edx+edi*4], 0
-loc_44D0B2:
-        mov eax, [esi+10h]
-        inc edi
-        cmp edi, eax
-        jb loc_44D093
-loc_44D0BA:
-        mov eax, [esi+4]
-        test eax, eax
-        jz loc_44D0D1
-        push eax
-        call j__free
-        add esp, 4
-        mov dword ptr [esi+4], 0
-loc_44D0D1:
-        mov edi, [esi+0Ch]
-        test edi, edi
-        jz loc_44D105
-        cmp dword ptr [edi+78h], 1
-        jnz loc_44D0F5
-        mov eax, [edi+8Ch]
-        push eax
-        call dword ptr [__imp_CloseHandle]
-        mov dword ptr [edi+8Ch], 0FFFFFFFFh
-loc_44D0F5:
-        push edi
-        call j__free
-        add esp, 4
-        mov dword ptr [esi+0Ch], 0
-loc_44D105:
-        pop edi
-        pop esi
-        ret
-    }
-}
-#else
 void Platform_ReleaseOwnedArray(
         RecoveryOwnedArrayState* state, void (*release)(void*),
         void (*close_auxiliary)(void*), void (*free_memory)(void*)) {
@@ -1300,68 +362,9 @@ void Platform_ReleaseOwnedArray(
         state->auxiliary = 0;
     }
 }
-#endif
 
 // 0x0044D300 - Start an interface operation, optionally polling until the
 // operation reports completion. The busy HRESULT is retried after 10 ms.
-#ifdef _MSC_VER
-__declspec(naked) int Platform_RunInterface(
-        void* interface_object, RecoveryWord* completed,
-        int (*begin)(void*), int (*poll)(void*),
-        void (*sleep_ms)(unsigned)) {
-    __asm {
-        push ecx
-        test esi, esi
-        jnz loc_44D30C
-        mov eax, 800401F0h
-        pop ecx
-        ret
-loc_44D30C:
-        test ebx, ebx
-        jz loc_44D316
-        mov dword ptr [ebx], 0
-loc_44D316:
-        mov eax, [esi]
-        lea ecx, [esp+4-4]
-        push ecx
-        push esi
-        call dword ptr [eax+24h]
-        test eax, eax
-        jl loc_44D360
-        test byte ptr [esp+4-4], 2
-        jz loc_44D35B
-        push edi
-        mov edi, dword ptr [__imp_Sleep]
-loc_44D331:
-        mov edx, [esi]
-        push esi
-        call dword ptr [edx+50h]
-        cmp eax, 88780096h
-        jnz loc_44D342
-        push 0Ah
-        call edi
-loc_44D342:
-        mov eax, [esi]
-        push esi
-        call dword ptr [eax+50h]
-        test eax, eax
-        jnz loc_44D331
-        test ebx, ebx
-        pop edi
-        jz loc_44D357
-        mov dword ptr [ebx], 1
-loc_44D357:
-        xor eax, eax
-        pop ecx
-        ret
-loc_44D35B:
-        mov eax, 1
-loc_44D360:
-        pop ecx
-        ret
-    }
-}
-#else
 int Platform_RunInterface(void* interface_object, RecoveryWord* completed,
                           int (*begin)(void*), int (*poll)(void*),
                           void (*sleep_ms)(unsigned)) {
@@ -1381,26 +384,8 @@ int Platform_RunInterface(void* interface_object, RecoveryWord* completed,
         return 0;
     }
 }
-#endif
 
 // 0x004297B0 - Release a resource object and free its storage when present.
-#ifdef _MSC_VER
-__declspec(naked) void* Platform_DeletingDestructorWithRelease(
-        void* object, RecoveryByte flags, void (*release)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        test esi, esi
-        jz locret_4297C1
-        push esi
-        call sub_4294A0
-        push esi
-        call j__free
-        pop ecx
-locret_4297C1:
-        ret
-    }
-}
-#else
 void* Platform_DeletingDestructorWithRelease(
         void* object, RecoveryByte flags, void (*release)(void*),
         void (*free_memory)(void*)) {
@@ -1409,47 +394,9 @@ void* Platform_DeletingDestructorWithRelease(
         free_memory(object);
     return object;
 }
-#endif
 
 // 0x0044DCA0 - Select a stream record and update the logical cursor. A real
 // file handle is represented by the nonzero handle token in the clean ABI.
-#ifdef _MSC_VER
-__declspec(naked) int Platform_SelectStreamRecord(
-        RecoveryStreamState* state, RecoveryStreamRecord* record,
-        RecoveryWord archive_base, void (*seek)(RecoveryWord)) {
-    __asm {
-        mov eax, [esi+7Ch]
-        test eax, eax
-        jnz loc_44DCB2
-        mov eax, [esi+8Ch]
-        cmp eax, 0FFFFFFFFh
-        jnz loc_44DCB8
-loc_44DCB2:
-        mov eax, 80004005h
-        ret
-loc_44DCB8:
-        test eax, eax
-        mov [esi+90h], ecx
-        jz loc_44DCE5
-        mov ecx, [ecx+10h]
-        mov edx, dword_4977A4
-        push 0
-        push 0
-        add ecx, edx
-        push ecx
-        push eax
-        call dword ptr [__imp_SetFilePointer]
-        mov edx, [esi+90h]
-        mov eax, [edx+1Ch]
-        mov [esi+8], eax
-loc_44DCE5:
-        mov ecx, [esi+8]
-        mov [esi+2Ch], ecx
-        xor eax, eax
-        ret
-    }
-}
-#else
 int Platform_SelectStreamRecord(
         RecoveryStreamState* state, RecoveryStreamRecord* record,
         RecoveryWord archive_base, void (*seek)(RecoveryWord)) {
@@ -1462,29 +409,8 @@ int Platform_SelectStreamRecord(
     state->cursor = state->position;
     return 0;
 }
-#endif
 
 // 0x0044D710 - Run the final virtual cleanup and honor the deleting flag.
-#ifdef _MSC_VER
-__declspec(naked) void* Platform_DeletingDestructorVtable(
-        void* object, RecoveryByte flags, void (*destroy)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        call sub_44D730
-        test byte ptr [esp+8], 1
-        jz loc_44D728
-        push esi
-        call j__free
-        add esp, 4
-loc_44D728:
-        mov eax, esi
-        pop esi
-        ret 4
-    }
-}
-#else
 void* Platform_DeletingDestructorVtable(
         void* object, RecoveryByte flags, void (*destroy)(void*),
         void (*free_memory)(void*)) {
@@ -1492,53 +418,9 @@ void* Platform_DeletingDestructorVtable(
     if ((flags & 1) != 0 && free_memory != 0) free_memory(object);
     return object;
 }
-#endif
 
 // 0x0044D4E0 - Install either the fixed fallback deadline or the randomized
 // interval used by the retail presentation path.
-#ifdef _MSC_VER
-__declspec(naked) int Platform_SetOperationDeadline(
-        bool randomized, RecoveryWord (*random_value)(void*),
-        void* random_state, void (*set_deadline)(int)) {
-    __asm {
-        mov ecx, dword_497854
-        test ecx, ecx
-        jz loc_44D537
-        fild dword_497854
-        mov ecx, [esp+4]
-        mov eax, [eax+4]
-        add ecx, 1388h
-        fmul dword ptr [flt_470B00]
-        mov [esp+4], ecx
-        push esi
-        mov esi, [eax]
-        fsubr dword ptr [_flt_470AFC]
-        push edi
-        mov edi, [esi]
-        fld st
-        fmul st, st(1)
-        fsubr dword ptr [_flt_470AFC]
-        fimul dword ptr [esp+8+4]
-        call __ftol2
-        fstp st
-        sub eax, 1388h
-        push eax
-        push esi
-        call dword ptr [edi+3Ch]
-        pop edi
-        pop esi
-        ret 4
-loc_44D537:
-        mov edx, [eax+4]
-        mov eax, [edx]
-        mov ecx, [eax]
-        push 0FFFFD8F0h
-        push eax
-        call dword ptr [ecx+3Ch]
-        ret 4
-    }
-}
-#else
 int Platform_SetOperationDeadline(
         bool randomized, RecoveryWord (*random_value)(void*), void* random_state,
         void (*set_deadline)(int)) {
@@ -1548,7 +430,6 @@ int Platform_SetOperationDeadline(
     if (set_deadline != 0) set_deadline(deadline);
     return deadline;
 }
-#endif
 
 static void ClearOwnedChain(RecoveryOwnedLink* link,
                             void (*free_memory)(void*)) {
@@ -1561,57 +442,6 @@ static void ClearOwnedChain(RecoveryOwnedLink* link,
 
 // 0x00419040 - Clear the eight paired resource buckets maintained by the
 // animation loader.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ClearEightBuckets(
-        RecoveryOwnedLink buckets[8], RecoveryOwnedLink direct[8],
-        void (*free_memory)(void*)) {
-    __asm {
-        push ebx
-        push esi
-        push edi
-        mov edi, eax
-        add edi, 7Ch
-        mov ebx, 8
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-loc_419050:
-        mov eax, [edi-60h]
-        test eax, eax
-        jz loc_41906B
-loc_419057:
-        mov esi, [eax+4]
-        mov eax, [eax]
-        push eax
-        call j__free
-        add esp, 4
-        test esi, esi
-        mov eax, esi
-        jnz loc_419057
-loc_41906B:
-        mov eax, [edi]
-        test eax, eax
-        jz loc_419085
-loc_419071:
-        mov ecx, [eax]
-        mov esi, [eax+4]
-        push ecx
-        call j__free
-        add esp, 4
-        test esi, esi
-        mov eax, esi
-        jnz loc_419071
-loc_419085:
-        add edi, 0Ch
-        dec ebx
-        jnz loc_419050
-        pop edi
-        pop esi
-        pop ebx
-        ret
-    }
-}
-#else
 void Recovery_ClearEightBuckets(
         RecoveryOwnedLink buckets[8], RecoveryOwnedLink direct[8],
         void (*free_memory)(void*)) {
@@ -1623,95 +453,16 @@ void Recovery_ClearEightBuckets(
         direct[index].next = 0;
     }
 }
-#endif
 
 // 0x00413450 - Release the optional owned resource and then its owner.
-#ifdef _MSC_VER
-__declspec(naked) void Platform_ReleaseOwnedHandle(
-        void* resource, void (*release)(void*), void (*free_memory)(void*)) {
-    __asm {
-        test ebx, ebx
-        jz locret_4134A3
-        push esi
-        mov esi, [ebx+0Ch]
-        test esi, esi
-        push edi
-        mov edi, dword_491BE4
-        jz loc_41348E
-        push offset CriticalSection
-        call dword ptr [__imp_EnterCriticalSection]
-        inc byte_49231C
-        mov ecx, esi
-        mov edx, edi
-        call sub_449F60
-        push offset CriticalSection
-        call dword ptr [__imp_LeaveCriticalSection]
-        dec byte_49231C
-loc_41348E:
-        push ebx
-        mov dword_477708, 0
-        call j__free
-        add esp, 4
-        pop edi
-        pop esi
-locret_4134A3:
-        ret
-    }
-}
-#else
 void Platform_ReleaseOwnedHandle(
         void* resource, void (*release)(void*), void (*free_memory)(void*)) {
     if (resource != 0 && release != 0) release(resource);
     if (resource != 0 && free_memory != 0) free_memory(resource);
 }
-#endif
 
 // 0x0040BD20 - Advance the frame counter, using the fast path near unit
 // speed and the rounded elapsed-time path for all other speed values.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_TickState(
-        RecoveryTickState* state, int (*update)(void*),
-        float stable_speed, RecoveryWord (*random_round)(void*),
-        void* random_state) {
-    __asm {
-        push esi
-        call sub_40BD80
-        test eax, eax
-        jz loc_40BD30
-        mov eax, 1
-        ret
-loc_40BD30:
-        mov edx, [esi+8]
-        mov ecx, [esi+10h]
-        mov [esi+4], edx
-        fld dword ptr [ecx]
-        fcomp dword ptr [flt_470B68]
-        fnstsw ax
-        test ah, 41h
-        jnz loc_40BD6A
-        fld dword ptr [ecx]
-        fcomp dword ptr [flt_470B64]
-        fnstsw ax
-        test ah, 5
-        jp loc_40BD6A
-        fld dword ptr [esi+0Ch]
-        inc edx
-        fadd dword ptr [flt_470AFC]
-        mov [esi+8], edx
-        xor eax, eax
-        fstp dword ptr [esi+0Ch]
-        ret
-loc_40BD6A:
-        fld dword ptr [esi+0Ch]
-        fadd dword ptr [ecx]
-        fst dword ptr [esi+0Ch]
-        call __ftol2
-        mov [esi+8], eax
-        xor eax, eax
-        ret
-    }
-}
-#else
 int Recovery_TickState(RecoveryTickState* state, int (*update)(void*),
                        float stable_speed, RecoveryWord (*random_round)(void*),
                        void* random_state) {
@@ -1728,52 +479,8 @@ int Recovery_TickState(RecoveryTickState* state, int (*update)(void*),
     state->current = random_round != 0 ? random_round(random_state) : 0;
     return 0;
 }
-#endif
 
 // 0x00427AE0 - Switch between the direct and buffered playback coordinates.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_SwitchPlaybackState(
-        void* state, bool secondary_active, void (*transition)(void*)) {
-    __asm {
-        mov eax, dword_477834
-        push ebx
-        mov ebx, [eax+4474h]
-        test ebx, ebx
-        mov eax, [edi+84h]
-        push esi
-        jnz loc_427B1D
-        test eax, eax
-        jz loc_427B08
-        lea eax, [edi+68h]
-        mov esi, 6
-        call sub_449470
-loc_427B08:
-        mov ecx, [edi+3Ch]
-        mov [edi+4Ch], ecx
-        mov edx, [edi+40h]
-        mov [edi+50h], edx
-        pop esi
-        mov [edi+84h], ebx
-        pop ebx
-        ret
-loc_427B1D:
-        test eax, eax
-        jnz loc_427B2E
-        lea eax, [edi+68h]
-        mov esi, 3
-        call sub_449470
-loc_427B2E:
-        mov eax, [edi+4Ch]
-        mov [edi+34h], eax
-        mov ecx, [edi+50h]
-        mov [edi+38h], ecx
-        pop esi
-        mov [edi+84h], ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void Recovery_SwitchPlaybackState(void* state, bool secondary_active,
                                   void (*transition)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -1791,50 +498,9 @@ void Recovery_SwitchPlaybackState(void* state, bool secondary_active,
     *(RecoveryWord*)(bytes + 0x38) = *(RecoveryWord*)(bytes + 0x50);
     *(RecoveryWord*)(bytes + 0x84) = 1;
 }
-#endif
 
 // 0x00404DA0 - Scale six color channels and fill the four byte tint fields
 // from the same rounded random source used by the retail animation path.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ScaleColor(
-        const float source[6], RecoveryColorRecord* destination,
-        float scale, RecoveryWord (*random_byte)(void*),
-        void* random_state) {
-    __asm {
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax+14h]
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax+10h]
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax+0Ch]
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax+8]
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax+4]
-        fld dword ptr [esp+4]
-        fmul dword ptr [eax]
-        fstp dword ptr [esi]
-        fstp dword ptr [esi+4]
-        fst dword ptr [esi+8]
-        fld st(1)
-        fstp dword ptr [esi+0Ch]
-        fld st(2)
-        fstp dword ptr [esi+10h]
-        fld st(3)
-        fstp dword ptr [esi+14h]
-        call sub_463B2C
-        mov byte ptr [esi+18h], al
-        call sub_463B2C
-        mov byte ptr [esi+19h], al
-        call sub_463B2C
-        mov byte ptr [esi+1Ah], al
-        call sub_463B2C
-        mov byte ptr [esi+1Bh], al
-        mov eax, esi
-        ret 4
-    }
-}
-#else
 void Recovery_ScaleColor(const float source[6], RecoveryColorRecord* destination,
                          float scale, RecoveryWord (*random_byte)(void*),
                          void* random_state) {
@@ -1845,7 +511,6 @@ void Recovery_ScaleColor(const float source[6], RecoveryColorRecord* destination
         destination->random_channels[index] = (RecoveryByte)(
             random_byte != 0 ? random_byte(random_state) : 0);
 }
-#endif
 
 static int InstallPair(void** first_slot, void** second_slot,
                        void* first_resource, void* second_resource,
@@ -1862,130 +527,22 @@ static int InstallPair(void** first_slot, void** second_slot,
 }
 
 // 0x004055C0 - Install the pair of enabled animation registrations.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_InstallPairSetFlags(
-        void** first_slot, void** second_slot, void* first_resource,
-        void* second_resource, void (*configure)(void*, RecoveryWord)) {
-    __asm {
-        push esi
-        push edi
-        push offset sub_405840
-        call sub_449ED0
-        mov esi, eax
-        or dword ptr [esi+4], 2
-        mov eax, dword_491BE4
-        push eax
-        mov edi, 11h
-        mov [esi+20h], ebx
-        call sub_449AE0
-        push offset sub_405850
-        mov [ebx+8], esi
-        call sub_449ED0
-        mov esi, eax
-        or dword ptr [esi+4], 2
-        mov ecx, dword_491BE4
-        push ecx
-        mov edi, 22h
-        mov [esi+20h], ebx
-        call sub_449B70
-        pop edi
-        mov [ebx+0Ch], esi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_InstallPairSetFlags(
         void** first_slot, void** second_slot, void* first_resource,
         void* second_resource, void (*configure)(void*, RecoveryWord)) {
     return InstallPair(first_slot, second_slot, first_resource, second_resource,
                        2, 2, configure);
 }
-#endif
 
 // 0x0041AD90 - Install the pair of registrations with their disabled flags.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_InstallPairClearFlags(
-        void** first_slot, void** second_slot, void* first_resource,
-        void* second_resource, void (*configure)(void*, RecoveryWord)) {
-    __asm {
-        push esi
-        push edi
-        push offset sub_41BA00
-        call sub_449ED0
-        mov esi, eax
-        and dword ptr [esi+4], 0FFFFFFFDh
-        mov eax, dword_491BE4
-        push eax
-        mov edi, 15h
-        mov [esi+20h], ebx
-        call sub_449AE0
-        push offset sub_41BA30
-        mov [ebx+8], esi
-        call sub_449ED0
-        mov esi, eax
-        and dword ptr [esi+4], 0FFFFFFFDh
-        mov ecx, dword_491BE4
-        push ecx
-        mov edi, 19h
-        mov [esi+20h], ebx
-        call sub_449B70
-        pop edi
-        mov [ebx+0Ch], esi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_InstallPairClearFlags(
         void** first_slot, void** second_slot, void* first_resource,
         void* second_resource, void (*configure)(void*, RecoveryWord)) {
     return InstallPair(first_slot, second_slot, first_resource, second_resource,
                        0, 0, configure);
 }
-#endif
 
 // 0x0041F930 - Release both cached resource slots and clear their ownership.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_ReleasePair(
-        void** first_slot, void** second_slot,
-        void (*release)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, dword_491C10
-        add esi, 3AD084h
-        push edi
-        mov edi, [esi]
-        test edi, edi
-        jz loc_41F95A
-        call sub_447810
-        mov eax, [esi]
-        push eax
-        call j__free
-        add esp, 4
-        mov dword ptr [esi], 0
-loc_41F95A:
-        mov esi, dword_491C10
-        mov edi, [esi+3AD088h]
-        add esi, 3AD088h
-        test edi, edi
-        jz loc_41F986
-        call sub_447810
-        mov ecx, [esi]
-        push ecx
-        call j__free
-        add esp, 4
-        mov dword ptr [esi], 0
-loc_41F986:
-        pop edi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_ReleasePair(void** first_slot, void** second_slot,
                          void (*release)(void*), void (*free_memory)(void*)) {
     if (first_slot == 0 || second_slot == 0) return -1;
@@ -1998,33 +555,9 @@ int Recovery_ReleasePair(void** first_slot, void** second_slot,
     *second_slot = 0;
     return 0;
 }
-#endif
 
 // 0x00421F00 - Reset the fixed-size state object after initializing its
 // embedded subobject, then install the two retail mode bits.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_InitializeLargeState(
-        void* state, void (*initialize_subobject)(void*)) {
-    __asm {
-        push edi
-        lea edx, [esi+120h]
-        call sub_418C40
-        xor eax, eax
-        mov [esi+630h], eax
-        mov [esi+634h], eax
-        mov [esi+638h], eax
-        mov [esi+63Ch], eax
-        mov dword ptr [esi+62Ch], offset off_4703E4
-        mov ecx, 1E1h
-        mov edi, esi
-        rep stosd
-        or dword ptr [esi+3CCh], 140h
-        mov eax, esi
-        pop edi
-        ret
-    }
-}
-#else
 void* Recovery_InitializeLargeState(void* state,
                                     void (*initialize_subobject)(void*)) {
     if (state == 0) return 0;
@@ -2034,39 +567,9 @@ void* Recovery_InitializeLargeState(void* state,
     *(RecoveryWord*)((RecoveryByte*)state + 0x3CC) |= 0x140;
     return state;
 }
-#endif
 
 // 0x00423510 - Set the initial mode, reset the timer, run the two update
 // notifications, and publish the state's trailing speed word.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InitializeTimedState(
-        void* state, void (*tick)(void), RecoveryWord* default_speed) {
-    __asm {
-        mov dword ptr [esi+4], 0Dh
-        mov eax, [esi+20h]
-        xor ecx, ecx
-        test al, 1
-        jnz loc_42353A
-        or eax, 1
-        mov [esi+14h], ecx
-        mov dword ptr [esi+10h], 0FFF0BDC1h
-        mov [esi+18h], ecx
-        mov dword ptr [esi+1Ch], offset flt_476F78
-        mov [esi+20h], eax
-loc_42353A:
-        lea eax, [esi+1D8h]
-        mov [esi+14h], ecx
-        mov [esi+18h], ecx
-        mov dword ptr [esi+10h], 0FFFFFFFFh
-        call sub_409E50
-        lea eax, [esi+1D4h]
-        call sub_409E50
-        mov eax, [esi+2C0h]
-        mov flt_476F78, eax
-        ret
-    }
-}
-#else
 void Recovery_InitializeTimedState(void* state, void (*tick)(void),
                                     RecoveryWord* default_speed) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -2079,43 +582,9 @@ void Recovery_InitializeTimedState(void* state, void (*tick)(void),
     if (default_speed != 0)
         *default_speed = *(RecoveryWord*)(bytes + 0x2C0);
 }
-#endif
 
 // 0x0041F8D0 - Load the front and bullet startup resources, reporting the
 // matching retail fallback string when either load fails.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_LoadStartupResources(
-        void* context, void* (*load)(void*, int, const char*),
-        void (*report_missing)(const char*)) {
-    __asm {
-        mov edx, dword_491C10
-        push offset aFrontAnm
-        mov ecx, 6
-        call sub_447280
-        test eax, eax
-        jnz loc_41F8F0
-        push offset byte_46CB68
-        jmp loc_41F90E
-loc_41F8F0:
-        mov edx, dword_491C10
-        push offset aBulletAnm
-        mov ecx, 7
-        call sub_447280
-        test eax, eax
-        jnz loc_41F91F
-        push offset byte_46CD54
-loc_41F90E:
-        mov ecx, offset Text
-        call sub_44B810
-        add esp, 4
-        or eax, 0FFFFFFFFh
-        ret
-loc_41F91F:
-        xor eax, eax
-        ret
-    }
-}
-#else
 int Recovery_LoadStartupResources(
         void* context, void* (*load)(void*, int, const char*),
         void (*report_missing)(const char*)) {
@@ -2128,46 +597,9 @@ int Recovery_LoadStartupResources(
     if (report_missing != 0) report_missing("bullet.anm");
     return -1;
 }
-#endif
 
 // 0x0042C670 - Create and register one animation slot, preserving the
 // source resource token in the owner's indexed table.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_InstallAnimationSlot(
-        void* owner, int index, RecoveryWord resource,
-        void* (*create)(void), void (*configure)(void*, int),
-        void (*register_object)(void*),
-        void (*store)(void*, int, RecoveryWord)) {
-    __asm {
-        push ebx
-        push ebp
-        mov ebp, [esp+8+4]
-        mov eax, [ebp+14h]
-        push esi
-        mov esi, dword_491C10
-        mov [esp+0Ch+4], eax
-        call sub_449950
-        mov ecx, [esp+0Ch+4]
-        mov ebx, eax
-        mov edx, [ebx+35Ch]
-        push edi
-        or edx, 40000000h
-        push ebx
-        mov dword ptr [ebx+20h], 0Fh
-        mov [ebx+35Ch], edx
-        call sub_449870
-        mov edx, dword_491C10
-        lea eax, [esp+0Ch+4]
-        call sub_4489D0
-        mov ecx, [esp+0Ch+4]
-        pop esi
-        mov [ebp+edi*4+2C4h], ecx
-        pop ebp
-        pop ebx
-        ret 4
-    }
-}
-#else
 int Recovery_InstallAnimationSlot(
         void* owner, int index, RecoveryWord resource,
         void* (*create)(void), void (*configure)(void*, int),
@@ -2181,47 +613,9 @@ int Recovery_InstallAnimationSlot(
     store(owner, index, resource);
     return 0;
 }
-#endif
 
 // 0x0042C6D0 - Mark the selected animation and its children as pending
 // removal, then release the owner's slot token.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ClearAnimationSlot(
-        RecoveryWord* slot, void* lookup_key,
-        void* (*lookup)(void*, void*), void (*mark)(void*),
-        void** children, RecoveryWord child_count) {
-    __asm {
-        mov eax, [edi+esi*4+2C4h]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        xor ecx, ecx
-        cmp eax, ecx
-        jz loc_42C71B
-        push ebx
-        cmp [eax+18h], ecx
-        mov edx, 1
-        mov [eax+304h], dx
-        jnz loc_42C712
-        mov eax, [eax+14h]
-        cmp eax, ecx
-        jz loc_42C712
-loc_42C702:
-        mov ebx, [eax]
-        mov [ebx+304h], dx
-        mov eax, [eax+4]
-        cmp eax, ecx
-        jnz loc_42C702
-loc_42C712:
-        mov [edi+esi*4+2C4h], ecx
-        pop ebx
-        ret
-loc_42C71B:
-        mov [edi+esi*4+2C4h], ecx
-        ret
-    }
-}
-#else
 void Recovery_ClearAnimationSlot(
         RecoveryWord* slot, void* lookup_key,
         void* (*lookup)(void*, void*), void (*mark)(void*),
@@ -2237,52 +631,9 @@ void Recovery_ClearAnimationSlot(
     }
     *slot = 0;
 }
-#endif
 
 // 0x00447280 - Resolve a cached resource or load it asynchronously and wait
 // for its loading flag to clear, matching the one-millisecond polling loop.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_LoadCachedResource(
-        void** slots, RecoveryWord count, int index, void* context,
-        const char* name, void* (*load)(void*, int, const char*),
-        RecoveryWord* loading, bool cancelled, void (*sleep_ms)(unsigned)) {
-    __asm {
-        mov eax, [edx+ecx*4+3AD06Ch]
-        test eax, eax
-        jnz locret_4472CE
-        mov eax, [esp+4]
-        push esi
-        push eax
-        push ecx
-        push edx
-        call sub_4470C0
-        mov esi, eax
-        test esi, esi
-        jnz loc_4472A2
-        pop esi
-        ret 4
-loc_4472A2:
-        push edi
-        mov edi, dword ptr [__imp_Sleep]
-        mov dword ptr [esi+124h], 1
-loc_4472B3:
-        mov al, byte ptr dword_491FF4
-        test al, al
-        js loc_4472CA
-        push 1
-        call edi
-        mov eax, [esi+124h]
-        test eax, eax
-        jnz loc_4472B3
-loc_4472CA:
-        pop edi
-        mov eax, esi
-        pop esi
-locret_4472CE:
-        ret 4
-    }
-}
-#else
 void* Recovery_LoadCachedResource(
         void** slots, RecoveryWord count, int index, void* context,
         const char* name, void* (*load)(void*, int, const char*),
@@ -2301,39 +652,8 @@ void* Recovery_LoadCachedResource(
     }
     return resource;
 }
-#endif
 
 // 0x0043D790 - Find an archive record and hand it to the stream selector.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_SelectArchiveEntry(
-        bool available, void* request, void* archive,
-        int (*find_index)(void*, void*),
-        int (*select_record)(void*, RecoveryWord)) {
-    __asm {
-        push esi
-        mov esi, eax
-        mov eax, [esi+5208h]
-        test eax, eax
-        jnz loc_43D7A2
-        or eax, 0FFFFFFFFh
-        pop esi
-        ret
-loc_43D7A2:
-        push esi
-        call sub_43D2A0
-        mov ecx, eax
-        mov eax, [esi+1F84h]
-        imul ecx, 34h
-        add ecx, eax
-        mov eax, [esi+5208h]
-        mov esi, [eax+0Ch]
-        call sub_44DCA0
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_SelectArchiveEntry(
         bool available, void* request, void* archive,
         int (*find_index)(void*, void*),
@@ -2343,55 +663,9 @@ int Recovery_SelectArchiveEntry(
     if (index < 0) return index;
     return select_record(archive, (RecoveryWord)index * 0x34u);
 }
-#endif
 
 // 0x0041A050 - Copy a resource path, split at its colon, and reset the
 // resulting path state when the separator is present.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_SplitResourcePath(
-        char* destination, const char* source,
-        RecoveryWord capacity, void (*reset)(void)) {
-    __asm {
-        mov edx, edi
-        sub edx, eax
-loc_41A054:
-        mov cl, [eax]
-        mov [edx+eax], cl
-        inc eax
-        test cl, cl
-        jnz loc_41A054
-        push 3Ah
-        push edi
-        call _strchr
-        add esp, 8
-        test eax, eax
-        jnz loc_41A074
-        mov eax, edi
-        jmp sub_41A0A0
-loc_41A074:
-        push esi
-        lea ecx, [eax+1]
-        mov esi, ebx
-        sub esi, ecx
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-loc_41A080:
-        mov dl, [ecx]
-        mov [esi+ecx], dl
-        inc ecx
-        test dl, dl
-        jnz loc_41A080
-        mov [eax], dl
-        mov eax, edi
-        call sub_41A0A0
-        mov eax, ebx
-        pop esi
-        jmp sub_41A0A0
-    }
-}
-#else
 int Recovery_SplitResourcePath(char* destination, const char* source,
                                RecoveryWord capacity, void (*reset)(void)) {
     if (destination == 0 || source == 0 || capacity == 0) return -1;
@@ -2413,61 +687,9 @@ int Recovery_SplitResourcePath(char* destination, const char* source,
     }
     return 1;
 }
-#endif
 
 // 0x00428160 - Dispatch the entries whose period/remainder pair matches the
 // current tick. The table is a compact two-byte period/remainder sequence.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_DispatchSchedule(
-        int tick, const char* schedule, RecoveryWord schedule_count,
-        void (*dispatch)(const char*, int)) {
-    __asm {
-        movzx ecx, word ptr dword_474C48
-        mov eax, 66666667h
-        imul ecx
-        sar edx, 3
-        mov eax, edx
-        shr eax, 1Fh
-        add eax, edx
-        cmp eax, 5
-        jl skip_cap
-        mov eax, 4
-skip_cap:
-        mov ecx, [edi+4474h]
-        test ecx, ecx
-        je no_extra
-        add eax, 5
-no_extra:
-        mov ecx, [edi+45Ch]
-        push esi
-        mov esi, [ecx+eax*8+110h]
-        mov al, [esi]
-        test al, al
-        jl done
-entry_loop:
-        movsx ecx, al
-        mov eax, ebx
-        cdq
-        idiv ecx
-        movsx eax, byte ptr [esi+1]
-        cmp edx, eax
-        jne next_entry
-        push ebx
-        push esi
-        push edi
-        call sub_427E90
-next_entry:
-        mov al, [esi+34h]
-        add esi, 34h
-        test al, al
-        jge entry_loop
-done:
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_DispatchSchedule(
         int tick, const char* schedule, RecoveryWord schedule_count,
         void (*dispatch)(const char*, int)) {
@@ -2484,66 +706,17 @@ int Recovery_DispatchSchedule(
     }
     return dispatched;
 }
-#endif
 
 // 0x0043C870 - Release a resource and always return the retail null status.
-#ifdef _MSC_VER
-__declspec(naked) void* Platform_DeletingDestructorNoReturn(
-        void* object, void (*release)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, ecx
-        test esi, esi
-        jz loc_43C886
-        push esi
-        call sub_43CB00
-        push esi
-        call j__free
-        add esp, 4
-loc_43C886:
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 void* Platform_DeletingDestructorNoReturn(
         void* object, void (*release)(void*), void (*free_memory)(void*)) {
     if (object != 0 && release != 0) release(object);
     if (object != 0 && free_memory != 0) free_memory(object);
     return 0;
 }
-#endif
 
 // 0x0040C9A0 - Flush the pending emitter count through the spawn callback,
 // reset the emitter, and clear the count.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ResetEmitter(
-        int* count, void* emitter,
-        void (*spawn)(void*, int, RecoveryWord, float, float),
-        void (*reset)(void*)) {
-    __asm {
-        push esi
-        mov esi, eax
-        mov eax, [edi]
-        test eax, eax
-        jle loc_40C9C2
-        push 400CCCCDh
-        push 0BFC90FDBh
-        push 0FFFFFFFFh
-        push eax
-        mov eax, dword_477818
-        mov ecx, esi
-        call sub_41BB00
-loc_40C9C2:
-        push edi
-        call sub_40C9D0
-        mov dword ptr [edi], 0
-        pop esi
-        ret
-    }
-}
-#else
 void Recovery_ResetEmitter(
         int* count, void* emitter,
         void (*spawn)(void*, int, RecoveryWord, float, float),
@@ -2554,7 +727,6 @@ void Recovery_ResetEmitter(
     if (reset != 0) reset(emitter);
     *count = 0;
 }
-#endif
 
 // 0x00404530 - Initialize the player timer and install its 30-frame mode.
 void Recovery_InitializePlayerTimer(void* state, RecoveryWord speed,
@@ -2569,76 +741,6 @@ void Recovery_InitializePlayerTimer(void* state, RecoveryWord speed,
 }
 
 // 0x0041A0A0 - Trim the four whitespace classes from both ends of a string.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_TrimWhitespace(char* text) {
-    __asm {
-        push esi
-        push edi
-loc_41A0A2:
-        mov cl, [eax]
-        cmp cl, 20h
-        jz loc_41A0B8
-        cmp cl, 9
-        jz loc_41A0B8
-        cmp cl, 0Ah
-        jz loc_41A0B8
-        cmp cl, 0Dh
-        jnz loc_41A0D6
-loc_41A0B8:
-        mov ecx, eax
-        lea esi, [ecx+1]
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-loc_41A0C0:
-        mov dl, [ecx]
-        inc ecx
-        test dl, dl
-        jnz loc_41A0C0
-        sub ecx, esi
-        test ecx, ecx
-        jle loc_41A0A2
-        lea esi, [eax+1]
-        mov edi, eax
-        rep movsb
-        jmp loc_41A0A2
-loc_41A0D6:
-        mov ecx, eax
-        lea esi, [ecx+1]
-        jmp loc_41A0E0
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-loc_41A0E0:
-        mov dl, [ecx]
-        inc ecx
-        test dl, dl
-        jnz loc_41A0E0
-        sub ecx, esi
-        lea edx, [ecx-1]
-        test edx, edx
-        pop edi
-        pop esi
-        jl locret_41A111
-loc_41A0F2:
-        mov cl, [edx+eax]
-        cmp cl, 20h
-        jz loc_41A109
-        cmp cl, 9
-        jz loc_41A109
-        cmp cl, 0Ah
-        jz loc_41A109
-        cmp cl, 0Dh
-        jnz locret_41A111
-loc_41A109:
-        dec edx
-        mov byte ptr [edx+eax+1], 0
-        jns loc_41A0F2
-locret_41A111:
-        ret
-    }
-}
-#else
 void Recovery_TrimWhitespace(char* text) {
     if (text == 0) return;
     char* begin = text;
@@ -2653,97 +755,16 @@ void Recovery_TrimWhitespace(char* text) {
         text[--length] = '\0';
     }
 }
-#endif
 
 // 0x0041F850 - Clear the fixed state table and install its enabled bit.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_InitializeStateTable(void* state) {
-    __asm {
-        mov dword ptr [esi+10h], offset off_4703E4
-        lea edx, [esi+30h]
-        xor eax, eax
-        mov [esi+14h], eax
-        mov [esi+18h], eax
-        mov [esi+1Ch], eax
-        mov [esi+20h], eax
-        mov ecx, [edx+6Ch]
-        mov eax, 0FFFFFFFEh
-        and ecx, eax
-        mov [edx+6Ch], ecx
-        push edi
-        and [edx+0B0h], eax
-        and [edx+0FCh], eax
-        and [edx+128h], eax
-        and [edx+174h], eax
-        and [edx+1B0h], eax
-        and [edx+1FCh], eax
-        and [edx+228h], eax
-        and [edx+378h], eax
-        xor eax, eax
-        mov ecx, 0EBh
-        mov edi, edx
-        rep stosd
-        mov word ptr [edx+384h], 0FFFFh
-        mov ecx, 0FCh
-        mov edi, esi
-        rep stosd
-        or dword ptr [esi], 2
-        mov dword_477820, esi
-        mov eax, esi
-        pop edi
-        ret
-    }
-}
-#else
 void* Recovery_InitializeStateTable(void* state) {
     if (state == 0) return 0;
     memset(state, 0, 0x3F0);
     *(RecoveryWord*)state |= 2;
     return state;
 }
-#endif
 
 // 0x00420A90 - Replace a resource extension with .wav and submit it.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_ReplaceExtensionWav(
-        void* context, char* path, void (*load)(void*, const char*)) {
-    __asm {
-        sub esp, 104h
-        mov eax, ___security_cookie
-        xor eax, esp
-        mov [esp+100h], eax
-        mov eax, [esp+10Ch]
-        lea edx, [esp]
-        sub edx, eax
-copy_path:
-        mov cl, [eax]
-        mov [edx+eax], cl
-        inc eax
-        test cl, cl
-        jne copy_path
-        lea eax, [esp]
-        push 2Eh
-        push eax
-        call sub_452930
-        mov ecx, [esp+110h]
-        add esp, 8
-        push ecx
-        mov byte ptr [eax+1], 77h
-        mov byte ptr [eax+2], 61h
-        mov byte ptr [eax+3], 76h
-        push 1
-        lea edx, [esp+8]
-        mov eax, 492590h
-        call sub_43E460
-        mov ecx, [esp+100h]
-        xor ecx, esp
-        mov eax, 1
-        call security_check_cookie
-        add esp, 104h
-        ret 8
-    }
-}
-#else
 int Recovery_ReplaceExtensionWav(void* context, char* path,
                                  void (*load)(void*, const char*)) {
     if (path == 0) return 0;
@@ -2756,43 +777,8 @@ int Recovery_ReplaceExtensionWav(void* context, char* path,
     if (load != 0) load(context, path);
     return 1;
 }
-#endif
 
 // 0x00405040 - Copy six word color fields and fill four random tint bytes.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InitializeWordColor(
-        const RecoveryWord values[6], RecoveryWordColorRecord* destination,
-        RecoveryWord (*random_byte)(void*), void* random_state) {
-    __asm {
-        mov eax, [esp+4]
-        fld dword ptr [esp+0Ch]
-        mov ecx, [esp+8]
-        mov edx, [esp+0Ch]
-        mov [esi], eax
-        mov eax, [esp+10h]
-        mov [esi+4], ecx
-        mov ecx, [esp+14h]
-        mov [esi+8], edx
-        mov edx, [esp+18h]
-        mov [esi+0Ch], eax
-        mov [esi+10h], ecx
-        mov [esi+14h], edx
-        call sub_463B2C
-        fld dword ptr [esp+10h]
-        mov byte ptr [esi+18h], al
-        call sub_463B2C
-        fld dword ptr [esp+14h]
-        mov byte ptr [esi+19h], al
-        call sub_463B2C
-        fld dword ptr [esp+18h]
-        mov byte ptr [esi+1Ah], al
-        call sub_463B2C
-        mov byte ptr [esi+1Bh], al
-        mov eax, esi
-        ret 18h
-    }
-}
-#else
 void Recovery_InitializeWordColor(
         const RecoveryWord values[6], RecoveryWordColorRecord* destination,
         RecoveryWord (*random_byte)(void*), void* random_state) {
@@ -2803,58 +789,8 @@ void Recovery_InitializeWordColor(
         destination->random_channels[index] = (RecoveryByte)(
             random_byte != 0 ? random_byte(random_state) : 0);
 }
-#endif
 
 // 0x0043CB00 - Release the two raw resource slots at offsets +8 and +c.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ReleaseRawPair(
-        void* state, void (*release)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        mov eax, [esp+4]
-        push ebx
-        mov ebx, dword_4660B0
-        push ebp
-        mov ebp, dword_4660B4
-        push esi
-        mov esi, [eax+8]
-        test esi, esi
-        push edi
-        mov edi, dword_491BE4
-        je second
-        push 492274h
-        call ebx
-        inc byte ptr byte_49231C
-        mov ecx, esi
-        mov edx, edi
-        call sub_449F60
-        push 492274h
-        call ebp
-        dec byte ptr byte_49231C
-second:
-        mov ecx, [esp+14h]
-        mov esi, [ecx+0Ch]
-        test esi, esi
-        mov edi, dword_491BE4
-        je done
-        push 492274h
-        call ebx
-        inc byte ptr byte_49231C
-        mov ecx, esi
-        mov edx, edi
-        call sub_449F60
-        push 492274h
-        call ebp
-        dec byte ptr byte_49231C
-done:
-        pop edi
-        pop esi
-        pop ebp
-        pop ebx
-        ret 4
-    }
-}
-#else
 void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
                              void (*free_memory)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -2862,121 +798,17 @@ void Recovery_ReleaseRawPair(void* state, void (*release)(void*),
     void** second = (void**)(bytes + 0xC);
     Recovery_ReleasePair(first, second, release, free_memory);
 }
-#endif
 
 // 0x00405620 - Release the pair and clear the owner's external marker.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ReleaseRawPairAndReset(
-        void* state, void (*release)(void*),
-        void (*free_memory)(void*), RecoveryWord* global_flag) {
-    __asm {
-        mov eax, [esp+4]
-        push ebx
-        mov ebx, dword_4660B0
-        push ebp
-        mov ebp, dword_4660B4
-        push esi
-        mov esi, [eax+8]
-        test esi, esi
-        push edi
-        mov edi, dword_491BE4
-        je second
-        push 492274h
-        call ebx
-        inc byte ptr byte_49231C
-        mov ecx, esi
-        mov edx, edi
-        call sub_449F60
-        push 492274h
-        call ebp
-        dec byte ptr byte_49231C
-second:
-        mov ecx, [esp+14h]
-        mov esi, [ecx+0Ch]
-        test esi, esi
-        mov edi, dword_491BE4
-        je clear_marker
-        push 492274h
-        call ebx
-        inc byte ptr byte_49231C
-        mov ecx, esi
-        mov edx, edi
-        call sub_449F60
-        push 492274h
-        call ebp
-        dec byte ptr byte_49231C
-clear_marker:
-        pop edi
-        pop esi
-        pop ebp
-        mov dword_4776EC, 0
-        pop ebx
-        ret 4
-    }
-}
-#else
 void Recovery_ReleaseRawPairAndReset(void* state, void (*release)(void*),
                                      void (*free_memory)(void*),
                                      RecoveryWord* global_flag) {
     Recovery_ReleaseRawPair(state, release, free_memory);
     if (global_flag != 0) *global_flag = 0;
 }
-#endif
 
 // 0x0040B940 - Allocate, initialize, and publish the small ten-word state.
 void* g_recovery_small_state;
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateSmallState(
-        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
-        void (*destroy)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        push 28h
-        call sub_452493
-        add esp, 4
-        test eax, eax
-        je skip_alloc
-        xor ecx, ecx
-        mov edx, eax
-        mov [edx], ecx
-        mov [edx+4], ecx
-        mov [edx+8], ecx
-        mov [edx+0Ch], ecx
-        mov [edx+10h], ecx
-        mov [edx+14h], ecx
-        mov [edx+18h], ecx
-        mov [edx+1Ch], ecx
-        mov [edx+20h], ecx
-        mov [edx+24h], ecx
-        or dword ptr [eax], 2
-        mov dword_477700, eax
-        mov esi, eax
-        jmp after_alloc
-skip_alloc:
-        xor esi, esi
-after_alloc:
-        push esi
-        call sub_40B560
-        test eax, eax
-        je success
-        test esi, esi
-        je fail
-        push esi
-        call sub_40B7B0
-        push esi
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop esi
-        ret
-success:
-        mov eax, esi
-        pop esi
-        ret
-    }
-}
-#else
 void* Recovery_CreateSmallState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
@@ -2994,65 +826,8 @@ void* Recovery_CreateSmallState(
     }
     return state;
 }
-#endif
 
 // 0x0044CE80 - Copy an interface array into an owner and query each entry.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InitializeInterfaceArray(
-        RecoveryOwnedArrayState* state, void** source, RecoveryWord count,
-        void* argument, RecoveryWord (*query)(void*, RecoveryWord)) {
-    __asm {
-        push ebx
-        mov ebx, eax
-        lea eax, [edi*4]
-        push eax
-        mov dword ptr [esi], 4705D8h
-        call sub_452493
-        mov [esi+4], eax
-        add esp, 4
-        xor eax, eax
-        test edi, edi
-        jbe after_copy
-copy_loop:
-        mov edx, [ebx+eax*4]
-        mov ecx, [esi+4]
-        mov [ecx+eax*4], edx
-        inc eax
-        cmp eax, edi
-        jb copy_loop
-after_copy:
-        mov eax, [esp+8]
-        mov ecx, [esp+0Ch]
-        mov edx, [esi+4]
-        mov [esi+8], eax
-        mov [esi+10h], edi
-        mov [esi+0Ch], ecx
-        mov eax, [edx]
-        push 0
-        push eax
-        mov eax, esi
-        call sub_44D110
-        xor ebx, ebx
-        test edi, edi
-        jbe done
-query_loop:
-        mov ecx, [esi+4]
-        mov eax, [ecx+ebx*4]
-        mov edx, [eax]
-        push 0
-        push eax
-        call dword ptr [edx+34h]
-        inc ebx
-        cmp ebx, edi
-        jb query_loop
-done:
-        mov dword ptr [esi+30h], 0
-        mov eax, esi
-        pop ebx
-        ret 8
-    }
-}
-#else
 void Recovery_InitializeInterfaceArray(
         RecoveryOwnedArrayState* state, void** source, RecoveryWord count,
         void* argument, RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -3065,54 +840,8 @@ void Recovery_InitializeInterfaceArray(
         for (RecoveryWord index = 0; index < count; ++index)
             if (source[index] != 0) query(source[index], 0);
 }
-#endif
 
 // 0x0044D6A0 - Initialize the one-entry interface owner and query it once.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InitializeSingleInterface(
-        RecoveryInterfaceArray* state, void* entry, void* first_argument,
-        void* second_argument, RecoveryWord (*query)(void*, RecoveryWord)) {
-    __asm {
-        push edi
-        push 4
-        mov dword ptr [esi], 4705D8h
-        call sub_452493
-        mov ecx, [esp+0Ch]
-        mov edx, [esp+10h]
-        mov [esi+4], eax
-        mov [eax], ecx
-        mov eax, [esp+14h]
-        mov ecx, [esi+4]
-        add esp, 4
-        mov [esi+0Ch], eax
-        mov [esi+8], edx
-        mov dword ptr [esi+10h], 1
-        mov edx, [ecx]
-        xor edi, edi
-        push edi
-        push edx
-        mov eax, esi
-        call sub_44D110
-        mov eax, [esi+4]
-        mov eax, [eax]
-        mov ecx, [eax]
-        push edi
-        push eax
-        call dword ptr [ecx+34h]
-        mov edx, [esp+14h]
-        mov [esi+30h], edi
-        mov [esi+5Ch], edi
-        mov [esi+60h], edi
-        mov [esi+64h], edi
-        mov [esi+68h], edi
-        mov dword ptr [esi], 4705D4h
-        mov [esi+6Ch], edx
-        mov eax, esi
-        pop edi
-        ret 10h
-    }
-}
-#else
 void Recovery_InitializeSingleInterface(
         RecoveryInterfaceArray* state, void* entry, void* first_argument,
         void* second_argument, RecoveryWord (*query)(void*, RecoveryWord)) {
@@ -3123,76 +852,16 @@ void Recovery_InitializeSingleInterface(
     if (query != 0 && entry != 0) query(entry, 0);
     (void)second_argument;
 }
-#endif
 
 // 0x00418810 - Offset a three-dimensional point by the retail stage origin.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_OffsetPoint(const float input[3],
-                                            float output[3]) {
-    __asm {
-        mov dl, byte ptr dword_497D8C
-        mov ecx, 1
-        _emit 0x84
-        _emit 0xD1
-        jnz loc_418825
-        or dword_497D8C, ecx
-loc_418825:
-        fld dword ptr [eax]
-        fadd dword ptr [flt_470B4C]
-        fstp dword ptr [flt_497D80]
-        fld dword ptr [eax+4]
-        fadd dword ptr [flt_470B48]
-        fstp dword ptr [flt_497D84]
-        mov eax, [eax+8]
-        mov dword_497D88, eax
-        mov eax, offset flt_497D80
-        ret
-    }
-}
-#else
 void Recovery_OffsetPoint(const float input[3], float output[3]) {
     if (input == 0 || output == 0) return;
     output[0] = input[0] + 20.0f;
     output[1] = input[1] + 10.0f;
     output[2] = input[2];
 }
-#endif
 
 // 0x00418A00 - Apply the presentation decay to the timer counter.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_DecayCounter(void* state,
-                                             void (*reset)(float)) {
-    __asm {
-        mov ecx, [eax+18h]
-        test ecx, ecx
-        push esi
-        jle loc_418A17
-        push 0BF800000h
-        lea esi, [eax+14h]
-        call sub_44BF40
-        pop esi
-        ret
-loc_418A17:
-        mov ecx, [eax+0Ch]
-        mov esi, 1388h
-        cmp ecx, esi
-        jle loc_418A3F
-        mov edx, [eax+10h]
-        sub ecx, edx
-        cmp edx, 12h
-        mov [eax+0Ch], ecx
-        jge loc_418A37
-        mov dword ptr [eax+10h], 12h
-loc_418A37:
-        cmp [eax+0Ch], esi
-        jge loc_418A3F
-        mov [eax+0Ch], esi
-loc_418A3F:
-        pop esi
-        ret
-    }
-}
-#else
 void Recovery_DecayCounter(void* state, void (*reset)(float)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
     if (*(int*)(bytes + 0x18) > 0) {
@@ -3205,40 +874,9 @@ void Recovery_DecayCounter(void* state, void (*reset)(float)) {
         if (*(int*)(bytes + 0xC) < 5000) *(int*)(bytes + 0xC) = 5000;
     }
 }
-#endif
 
 // 0x0042A8A0 - Append three 16-bit packet fields and report when the packet
 // buffer has crossed the retail 0xe0f-entry threshold.
-#ifdef _MSC_VER
-__declspec(naked) bool Recovery_AppendPacket(
-        RecoveryPacketBuffer* buffer, RecoveryWord first,
-        RecoveryWord second, RecoveryWord third) {
-    __asm {
-        mov ecx, [eax+5460h]
-        mov word ptr [ecx], dx
-        mov ecx, [eax+5460h]
-        mov dx, word ptr [esp+4]
-        mov word ptr [ecx+2], dx
-        mov ecx, [eax+5460h]
-        mov dx, word ptr [esp+8]
-        mov word ptr [ecx+4], dx
-        mov ecx, [eax+5460h]
-        add ecx, 6
-        mov [eax+5460h], ecx
-        sub ecx, eax
-        mov eax, 2AAAAAABh
-        imul ecx
-        mov eax, edx
-        shr eax, 1Fh
-        add eax, edx
-        xor ecx, ecx
-        cmp eax, 0E10h
-        setge cl
-        mov eax, ecx
-        ret 8
-    }
-}
-#else
 bool Recovery_AppendPacket(RecoveryPacketBuffer* buffer, RecoveryWord first,
                            RecoveryWord second, RecoveryWord third) {
     if (buffer == 0 || buffer->cursor == 0 || buffer->begin == 0 ||
@@ -3250,67 +888,8 @@ bool Recovery_AppendPacket(RecoveryPacketBuffer* buffer, RecoveryWord first,
     buffer->cursor += 6;
     return (RecoveryWord)((buffer->cursor - buffer->begin) / 6) > 0xE0Fu;
 }
-#endif
 
 // 0x0042ADD0 - Clear the state header and fill the 0x200-entry random table.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_InitializeRandomTable(
-        void* state, RecoveryWord (*random_value)(void*),
-        void* random_state) {
-    __asm {
-        xor eax, eax
-        push esi
-        push edi
-        mov edi, edx
-        mov ecx, 112h
-        rep stosd
-        mov word ptr [edx+2], ax
-        mov word ptr [edx], 5453h
-        mov dword ptr [edx+8], 448h
-        mov ecx, dword_46E354
-        lea eax, [edx+0Ch]
-        mov [eax], ecx
-        mov ecx, dword_46E358
-        mov [eax+4], ecx
-        mov cl, byte ptr byte_46E35C
-        mov [eax+8], cl
-        add edx, 46h
-        mov esi, 200h
-        jmp random_loop
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        jmp random_loop
-        _emit 0x8D
-        _emit 0x49
-        _emit 0x00
-random_loop:
-        mov eax, dword_4918B0
-        mov edi, dword_4918B4
-        xor eax, 9630h
-        sub eax, 6553h
-        xor ecx, ecx
-        mov cx, ax
-        shr cx, 0Eh
-        shl eax, 2
-        add edx, 2
-        add ecx, eax
-        inc edi
-        dec esi
-        mov word ptr dword_4918B0, cx
-        mov dword_4918B4, edi
-        mov word ptr [edx-2], cx
-        jne random_loop
-        pop edi
-        pop esi
-        ret
-    }
-}
-#else
 void Recovery_InitializeRandomTable(void* state,
                                     RecoveryWord (*random_value)(void*),
                                     void* random_state) {
@@ -3324,49 +903,9 @@ void Recovery_InitializeRandomTable(void* state,
         table[index] = (short)random;
     }
 }
-#endif
 
 // 0x00422360 - Allocate and initialize the timer state, cleaning it up if
 // the downstream initialization reports failure.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateTimerState(
-        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
-        void (*destroy)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push ebx
-        push 2C8h
-        call sub_452493
-        add esp, 4
-        test eax, eax
-        je skip_init
-        mov edx, eax
-        call sub_4220E0
-        mov ebx, eax
-        jmp after_init
-skip_init:
-        xor ebx, ebx
-after_init:
-        call sub_422150
-        test eax, eax
-        je success
-        test ebx, ebx
-        je fail
-        push ebx
-        call sub_422220
-        push ebx
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop ebx
-        ret
-success:
-        mov eax, ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void* Recovery_CreateTimerState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
@@ -3381,43 +920,8 @@ void* Recovery_CreateTimerState(
     }
     return state;
 }
-#endif
 
 // 0x004243F0 - Mark an animation root and its children with state six.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_MarkAnimationTree(
-        RecoveryWord* root_status, RecoveryWord* child_status,
-        RecoveryWord child_count) {
-    __asm {
-        mov eax, [eax]
-        mov edx, dword_491C10
-        push eax
-        call sub_4491C0
-        test eax, eax
-        je done
-        mov edx, [eax+18h]
-        test edx, edx
-        mov ecx, 6
-        mov word ptr [eax+304h], cx
-        jne done
-        mov eax, [eax+14h]
-        test eax, eax
-        je done
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-mark_loop:
-        mov edx, [eax]
-        mov word ptr [edx+304h], cx
-        mov eax, [eax+4]
-        test eax, eax
-        jne mark_loop
-done:
-        ret
-    }
-}
-#else
 void Recovery_MarkAnimationTree(RecoveryWord* root_status,
                                 RecoveryWord* child_status,
                                 RecoveryWord child_count) {
@@ -3426,57 +930,8 @@ void Recovery_MarkAnimationTree(RecoveryWord* root_status,
         for (RecoveryWord index = 0; index < child_count; ++index)
             child_status[index] = 6;
 }
-#endif
 
 // 0x004056B0 - Allocate a fixed state, zero it, and run its initializer.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateFixedState(
-        RecoveryWord size, void* (*allocate)(RecoveryWord),
-        int (*initialize)(void*), void (*destroy)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        push ebx
-        push 48h
-        call sub_452493
-        mov edx, eax
-        add esp, 4
-        test edx, edx
-        je skip_alloc
-        and dword ptr [edx+24h], 0FFFFFFFEh
-        push edi
-        xor eax, eax
-        mov ecx, 12h
-        mov edi, edx
-        rep stosd
-        or dword ptr [edx], 2
-        mov dword_4776EC, edx
-        mov ebx, edx
-        pop edi
-        jmp after_alloc
-skip_alloc:
-        xor ebx, ebx
-after_alloc:
-        call sub_4055C0
-        test eax, eax
-        je success
-        test ebx, ebx
-        je fail
-        push ebx
-        call sub_405620
-        push ebx
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop ebx
-        ret
-success:
-        mov eax, ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void* Recovery_CreateFixedState(
         RecoveryWord size, void* (*allocate)(RecoveryWord),
         int (*initialize)(void*), void (*destroy)(void*),
@@ -3493,60 +948,9 @@ void* Recovery_CreateFixedState(
     }
     return state;
 }
-#endif
 
 // 0x0040B9F0 - Update the emitter's frame count and select the occasional
 // six-frame cadence when the state flags permit it.
-#ifdef _MSC_VER
-__declspec(naked) RecoveryWord Recovery_UpdateEmitterDecision(
-        void* state, int (*tick)(void*), RecoveryWord flags,
-        bool twelve_frame_mode) {
-    __asm {
-        push esi
-        mov esi, [edi+18h]
-        call sub_40BD20
-        test eax, eax
-        je continue
-        mov eax, dword_491FF4
-        and eax, 1000h
-        neg eax
-        sbb eax, eax
-        and eax, 0FFFFFFF3h
-        add eax, 0Fh
-        mov dword_491FB8, eax
-        mov eax, 1
-        pop esi
-        ret
-continue:
-        mov esi, [edi+24h]
-        mov ecx, [edi+18h]
-        inc esi
-        mov [edi+24h], esi
-        mov ecx, [ecx+74h]
-        test cl, 4
-        mov eax, esi
-        jne one
-        test byte ptr [edi+20h], 2
-        jne one
-        test cl, 2
-        je one
-        mov ecx, dword_474E30
-        test ch, 1
-        je one
-        cdq
-        mov ecx, 0Ch
-        idiv ecx
-        mov eax, 6
-        test edx, edx
-        jne popret
-one:
-        mov eax, 1
-popret:
-        pop esi
-        ret
-    }
-}
-#else
 RecoveryWord Recovery_UpdateEmitterDecision(
         void* state, int (*tick)(void*), RecoveryWord flags,
         bool twelve_frame_mode) {
@@ -3557,60 +961,9 @@ RecoveryWord Recovery_UpdateEmitterDecision(
         return 1;
     return count % 12 == 0 ? 6 : 1;
 }
-#endif
 
 // 0x004188A0 - Increment the animation count, clamping at nine and asking
 // the resource manager to reload the active record below that cap.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_IncrementAnimationCount(
-        void* state, int delta, void (*reload)(void*)) {
-    __asm {
-        push ecx
-        push esi
-        mov esi, [eax+30h]
-        add esi, ecx
-        mov ecx, esi
-        cmp ecx, 9
-        mov [eax+30h], esi
-        jle load
-        mov dword ptr [eax+30h], 9
-        mov ecx, dword_474C70
-        mov eax, dword_47770C
-        call sub_413790
-        pop esi
-        pop ecx
-        ret
-load:
-        push edi
-        push 0
-        mov edi, 2Ch
-        mov ecx, 492590h
-        call sub_43DC90
-        mov edi, dword_47770C
-        mov edx, [edi+9E18h]
-        lea esi, [edi+9E18h]
-        push edx
-        mov edx, dword_491C10
-        call sub_4492A0
-        push 0Fh
-        mov dword ptr [esi], 0
-        mov eax, [edi+9EC8h]
-        push 4Bh
-        push eax
-        lea edi, [esp+14h]
-        call sub_448D00
-        mov ecx, [eax]
-        mov eax, dword_47770C
-        mov [esi], ecx
-        mov ecx, dword_474C70
-        pop edi
-        call sub_413790
-        pop esi
-        pop ecx
-        ret
-    }
-}
-#else
 void Recovery_IncrementAnimationCount(void* state, int delta,
                                       void (*reload)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -3622,69 +975,9 @@ void Recovery_IncrementAnimationCount(void* state, int delta,
     }
     if (reload != 0) reload(state);
 }
-#endif
 
 // 0x00446EB0 - Create a texture through the platform callback and finalize
 // its format metadata on success.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_CreateTextureFromMemory(
-        void* state, int format, int mip_levels,
-        int (*create)(void*, int, int), void (*finalize)(void*)) {
-    __asm {
-        push edi
-        mov edi, eax
-        test byte ptr dword_491D78, 1
-        je after_mode
-        mov eax, [edi*4+dword_46F288]
-        cmp eax, 15h
-        je mode_five
-        test eax, eax
-        je mode_five
-        cmp eax, 14h
-        jne after_mode
-        mov edi, 3
-        jmp after_mode
-mode_five:
-        mov edi, 5
-after_mode:
-        mov eax, [esp+0Ch]
-        mov ecx, [edi*4+dword_46F288]
-        push esi
-        push 0
-        push 0
-        push eax
-        mov eax, [esp+20h]
-        push 0FFFFFFFFh
-        push 1
-        push 1
-        push ecx
-        mov ecx, [esi+8]
-        push 0
-        push 0
-        push edx
-        mov edx, [esi+4]
-        push eax
-        mov eax, dword_491C30
-        push ecx
-        push edx
-        push eax
-        call sub_4521CA
-        test eax, eax
-        je success
-        or eax, 0FFFFFFFFh
-        pop edi
-        ret 0Ch
-success:
-        mov eax, esi
-        call sub_4465B0
-        mov ecx, [edi*4+dword_46F2A0]
-        mov [esi+0Ch], ecx
-        xor eax, eax
-        pop edi
-        ret 0Ch
-    }
-}
-#else
 int Recovery_CreateTextureFromMemory(
         void* state, int format, int mip_levels,
         int (*create)(void*, int, int), void (*finalize)(void*)) {
@@ -3692,105 +985,15 @@ int Recovery_CreateTextureFromMemory(
     if (finalize != 0) finalize(state);
     return 0;
 }
-#endif
 
 // 0x00447A50 - Forward a formatted log line and set the owner's active bit.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_MarkLogState(
-        void* state, void (*write)(void*, const char*),
-        const char* text) {
-    __asm {
-        sub esp, 84h
-        mov eax, ___security_cookie
-        mov ecx, [esp+90h]
-        xor eax, esp
-        push ebx
-        push ebp
-        movzx ebp, byte ptr [esi+3A0h]
-        mov [esp+88h], eax
-        push edi
-        lea eax, [esp+0A0h]
-        push eax
-        push ecx
-        lea edx, [esp+14h]
-        push edx
-        call sub_4524A6
-        mov eax, [esi+360h]
-        mov ecx, [esp+0A4h]
-        mov edi, [esi+394h]
-        mov edx, [edi+4]
-        add esp, 0Ch
-        shr eax, 1
-        and eax, 1
-        push eax
-        push ecx
-        push 0
-        push edx
-        lea ebx, [esp+1Ch]
-        mov eax, ebp
-        call sub_4479D0
-        mov eax, [esi+35Ch]
-        mov ecx, [esp+8Ch]
-        pop edi
-        pop ebp
-        or eax, 1
-        pop ebx
-        xor ecx, esp
-        mov [esi+35Ch], eax
-        call security_check_cookie
-        add esp, 84h
-        ret
-    }
-}
-#else
 void Recovery_MarkLogState(void* state, void (*write)(void*, const char*),
                            const char* text) {
     if (write != 0) write(state, text != 0 ? text : "");
     if (state != 0) *(RecoveryWord*)((RecoveryByte*)state + 0x35C) |= 1;
 }
-#endif
 
 // 0x00419090 - Allocate and initialize the 0x1a8-byte resource state.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateResourceState(
-        RecoveryWord size, void* (*allocate)(RecoveryWord),
-        int (*initialize)(void*), void (*destroy)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        push ebx
-        push 1A8h
-        call sub_452493
-        add esp, 4
-        test eax, eax
-        je skip_alloc
-        mov edx, eax
-        call sub_418D40
-        mov ebx, eax
-        jmp after_alloc
-skip_alloc:
-        xor ebx, ebx
-after_alloc:
-        call sub_418E30
-        test eax, eax
-        je success
-        test ebx, ebx
-        je fail
-        push ebx
-        call sub_418EE0
-        push ebx
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop ebx
-        ret
-success:
-        mov eax, ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void* Recovery_CreateResourceState(
         RecoveryWord size, void* (*allocate)(RecoveryWord),
         int (*initialize)(void*), void (*destroy)(void*),
@@ -3805,58 +1008,8 @@ void* Recovery_CreateResourceState(
     }
     return state;
 }
-#endif
 
 // 0x0041FAC0 - Install the worker callback and publish its handle/id pair.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_StartWorker(
-        void* state, void (*start)(void*),
-        RecoveryWord* handle, RecoveryWord* thread_id) {
-    __asm {
-        push esi
-        push edi
-        push 41FEB0h
-        call sub_449ED0
-        mov esi, eax
-        and dword ptr [esi+4], 0FFFFFFFDh
-        mov eax, dword_491BE4
-        push eax
-        mov edi, 3
-        mov [esi+20h], ebx
-        call sub_449AE0
-        push 41FEF0h
-        mov [ebx+8], esi
-        call sub_449ED0
-        mov esi, eax
-        and dword ptr [esi+4], 0FFFFFFFDh
-        mov ecx, dword_491BE4
-        push ecx
-        mov edi, 2
-        mov [esi+20h], ebx
-        call sub_449B70
-        mov [ebx+0Ch], esi
-        lea esi, [ebx+10h]
-        call sub_44C150
-        lea edx, [esi+8]
-        push edx
-        push 0
-        push ebx
-        push 41F990h
-        push 0
-        push 0
-        mov dword ptr [esi+18h], 41F990h
-        mov dword ptr [esi+10h], 1
-        mov dword ptr [esi+0Ch], 0
-        call sub_453683
-        add esp, 18h
-        mov [esi+4], eax
-        pop edi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int Recovery_StartWorker(void* state, void (*start)(void*),
                          RecoveryWord* handle, RecoveryWord* thread_id) {
     if (state == 0 || start == 0 || handle == 0 || thread_id == 0) return -1;
@@ -3865,60 +1018,9 @@ int Recovery_StartWorker(void* state, void (*start)(void*),
     start(state);
     return 0;
 }
-#endif
 
 // 0x00414570 - Release the three optional composite resources at their raw
 // offsets and clear the slots.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ReleaseCompositeState(
-        void* state, void (*release)(void*),
-        void (*free_memory)(void*)) {
-    __asm {
-        push ebp
-        push esi
-        mov esi, [ebx+9EB8h]
-        xor ebp, ebp
-        cmp esi, ebp
-        je skip_first
-        call sub_4136C0
-        push esi
-        call sub_4524A1
-        add esp, 4
-        mov [ebx+9EB8h], ebp
-skip_first:
-        test byte ptr dword_474CA0, 9
-        jne skip_all
-        mov esi, dword_491C10
-        add esi, 3AD0DCh
-        push edi
-        mov edi, [esi]
-        cmp edi, ebp
-        je skip_global_release
-        call sub_447810
-        mov eax, [esi]
-        push eax
-        call sub_4524A1
-        add esp, 4
-        mov [esi], ebp
-skip_global_release:
-        mov eax, [ebx+9EBCh]
-        cmp eax, ebp
-        mov [ebx+9E80h], ebp
-        pop edi
-        je skip_second
-        push eax
-        call sub_452422
-        add esp, 4
-        mov [ebx+9EBCh], ebp
-skip_second:
-        mov [ebx+9EBCh], ebp
-skip_all:
-        pop esi
-        pop ebp
-        ret
-    }
-}
-#else
 void Recovery_ReleaseCompositeState(void* state, void (*release)(void*),
                                     void (*free_memory)(void*)) {
     RecoveryByte* bytes = (RecoveryByte*)state;
@@ -3932,65 +1034,8 @@ void Recovery_ReleaseCompositeState(void* state, void (*release)(void*),
     *(void**)(bytes + 0x9EBC) = 0;
     *(RecoveryWord*)(bytes + 0x9E80) = 0;
 }
-#endif
 
 // 0x004203F0 - Release each global state in the supplied shutdown order.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ReleaseGlobalStates(
-        void** states, RecoveryWord count,
-        void (*release)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        mov esi, dword_477810
-        test esi, esi
-        je next1
-        push esi
-        call sub_417C80
-        push esi
-        call sub_4524A1
-        add esp, 4
-next1:
-        mov esi, dword_47784C
-        test esi, esi
-        je next2
-        push esi
-        call sub_42CB60
-        push esi
-        call sub_4524A1
-        add esp, 4
-next2:
-        mov esi, dword_477820
-        test esi, esi
-        je next3
-        push esi
-        call sub_41FB50
-        push esi
-        call sub_4524A1
-        add esp, 4
-next3:
-        mov esi, dword_477700
-        test esi, esi
-        je next4
-        push esi
-        call sub_40B7B0
-        push esi
-        call sub_4524A1
-        add esp, 4
-next4:
-        mov esi, dword_477838
-        test esi, esi
-        je done
-        push esi
-        call sub_4294A0
-        push esi
-        call sub_4524A1
-        add esp, 4
-done:
-        pop esi
-        ret
-    }
-}
-#else
 void Recovery_ReleaseGlobalStates(void** states, RecoveryWord count,
                                   void (*release)(void*),
                                   void (*free_memory)(void*)) {
@@ -4001,68 +1046,9 @@ void Recovery_ReleaseGlobalStates(void** states, RecoveryWord count,
         states[index] = 0;
     }
 }
-#endif
 
 // 0x004479D0 - Normalize the requested text count, draw four random color
 // words, and dispatch the appropriate text renderer variant.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_DispatchRandomText(
-        int count, void* context,
-        RecoveryWord (*random_value)(void*),
-        void (*dispatch)(void*, const RecoveryWord[4], int)) {
-    __asm {
-        sub esp, 10h
-        push ebp
-        mov ebp, [esp+20h]
-        push esi
-        mov esi, eax
-        test esi, esi
-        jg count_ok
-        mov esi, 11h
-        jmp after_count
-count_ok:
-        cmp esi, 8
-        jle done_early
-after_count:
-        fld dword ptr [edi+8]
-        call sub_463B2C
-        fld dword ptr [edi+0Ch]
-        mov [esp+8], eax
-        call sub_463B2C
-        fld dword ptr [edi+10h]
-        mov [esp+0Ch], eax
-        call sub_463B2C
-        fld dword ptr [edi+14h]
-        mov [esp+10h], eax
-        call sub_463B2C
-        mov ecx, [esp+20h]
-        mov [esp+14h], eax
-        mov eax, [esp+28h]
-        test eax, eax
-        mov eax, [esp+1Ch]
-        push eax
-        push ebx
-        push ebp
-        push esi
-        lea edx, [esp+18h]
-        push ecx
-        push edx
-        jne use_alt
-        call sub_437DB0
-        pop esi
-        pop ebp
-        add esp, 10h
-        ret 10h
-use_alt:
-        call sub_437FE0
-done_early:
-        pop esi
-        pop ebp
-        add esp, 10h
-        ret 10h
-    }
-}
-#else
 int Recovery_DispatchRandomText(int count, void* context,
                                 RecoveryWord (*random_value)(void*),
                                 void (*dispatch)(void*, const RecoveryWord[4], int)) {
@@ -4074,270 +1060,27 @@ int Recovery_DispatchRandomText(int count, void* context,
     if (dispatch != 0) dispatch(context, colors, count);
     return 1;
 }
-#endif
 
 // 0x00425020 - Allocate and initialize the large 0x4478-byte resource state.
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateLargeResourceState(
-        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
-        void (*destroy)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push ebx
-        push 4478h
-        call sub_452493
-        add esp, 4
-        test eax, eax
-        je skip_init
-        push esi
-        mov esi, eax
-        call sub_4246C0
-        mov ebx, eax
-        pop esi
-        jmp after_init
-skip_init:
-        xor ebx, ebx
-after_init:
-        call sub_4247F0
-        test eax, eax
-        je success
-        test ebx, ebx
-        je fail
-        push ebx
-        call sub_424ED0
-        push ebx
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop ebx
-        ret
-success:
-        mov eax, ebx
-        pop ebx
-        ret
-    }
-}
-#else
 void* Recovery_CreateLargeResourceState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
     return Recovery_CreateResourceState(0x4478, allocate, initialize, destroy,
                                         free_memory);
 }
-#endif
 
 // 0x0042B660 - Allocate and initialize the huge 0xb884-byte resource state.
-#ifdef _MSC_VER
-extern "C" __declspec(naked) void* EffectManager_ResetAndPublishRetail(void* state) {
-    __asm {
-        lea edx, [ebx+18h]
-        push esi
-        push edi
-        mov edi, [edx+6Ch]
-        mov esi, 0FFFFFFFEh
-        and edi, esi
-        mov [edx+6Ch], edi
-        and dword ptr [edx+0B0h], esi
-        and dword ptr [edx+0FCh], esi
-        and dword ptr [edx+128h], esi
-        and dword ptr [edx+174h], esi
-        and dword ptr [edx+1B0h], esi
-        and dword ptr [edx+1FCh], esi
-        and dword ptr [edx+228h], esi
-        and dword ptr [edx+378h], esi
-        xor eax, eax
-        mov ecx, 0EBh
-        mov edi, edx
-        rep stosd
-        mov word ptr [edx+384h], 0FFFFh
-        lea eax, [ebx+3F0h]
-        mov ecx, 2D3h
-slot_loop:
-        and dword ptr [eax], esi
-        add eax, 40h
-        dec ecx
-        jne slot_loop
-        xor eax, eax
-        mov ecx, 2E21h
-        mov edi, ebx
-        rep stosd
-        mov eax, [ebx]
-        or eax, 2
-        pop edi
-        mov [ebx], eax
-        mov dword_477840, ebx
-        mov eax, ebx
-        pop esi
-        ret
-    }
-}
-#endif
 
-#ifdef _MSC_VER
-extern "C" __declspec(naked) int EffectManagerRuntime_InitializeRetail(void* state) {
-    __asm {
-        push ebx
-        push esi
-        mov ebx, eax
-        mov eax, dword_4776E0
-        mov ecx, [eax+8994h]
-        push edi
-        push 42B9A0h
-        mov [ebx+10h], ecx
-        call sub_449ED0
-        mov edx, dword_491BE4
-        mov esi, eax
-        mov eax, [esi+4]
-        and eax, 0FFFFFFFDh
-        push edx
-        mov edi, 0Fh
-        mov [esi+20h], ebx
-        mov [esi+4], eax
-        call sub_449AE0
-        push 42B9B0h
-        mov [ebx+8], esi
-        call sub_449ED0
-        mov esi, eax
-        mov edx, [esi+4]
-        mov eax, dword_491BE4
-        and edx, 0FFFFFFFDh
-        push eax
-        mov edi, 23h
-        mov [esi+20h], ebx
-        mov [esi+4], edx
-        call sub_449B70
-        mov [ebx+0Ch], esi
-        lea esi, [ebx+18h]
-        mov ebx, [ebx+10h]
-        mov edx, esi
-        call sub_401DE0
-        mov edx, 0C4h
-        mov eax, esi
-        mov ecx, ebx
-        mov [esi+308h], ebx
-        call sub_43E5A0
-        pop edi
-        pop esi
-        xor eax, eax
-        pop ebx
-        ret
-    }
-}
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) void* Recovery_CreateHugeResourceState(
-        void* (*allocate)(RecoveryWord), int (*initialize)(void*),
-        void (*destroy)(void*), void (*free_memory)(void*)) {
-    __asm {
-        push esi
-        push 0B884h
-        call sub_452493
-        add esp, 4
-        test eax, eax
-        je skip_init
-        push ebx
-        mov ebx, eax
-        call sub_42B430
-        mov esi, eax
-        pop ebx
-        jmp after_init
-skip_init:
-        xor esi, esi
-after_init:
-        mov eax, esi
-        call sub_42B4D0
-        test eax, eax
-        je success
-        test esi, esi
-        je fail
-        push esi
-        call sub_42B570
-        push esi
-        call sub_4524A1
-        add esp, 4
-fail:
-        xor eax, eax
-        pop esi
-        ret
-success:
-        mov eax, esi
-        pop esi
-        ret
-    }
-}
-#else
 void* Recovery_CreateHugeResourceState(
         void* (*allocate)(RecoveryWord), int (*initialize)(void*),
         void (*destroy)(void*), void (*free_memory)(void*)) {
     return Recovery_CreateResourceState(0xB884, allocate, initialize, destroy,
                                         free_memory);
 }
-#endif
 
 // 0x0043BC40 - Reset the device streams, restoring state after each draw
 // attempt when the draw callback reports failure.
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_ResetDeviceStreams(
-        void* device, void (*set_stream)(void*),
-        int (*draw)(void*), void (*restore)(void*)) {
-    __asm {
-        mov eax, dword_491C30
-        mov ecx, [eax]
-        push 0
-        push 3F800000h
-        push esi
-        push 3
-        push 0
-        push 0
-        push eax
-        call dword ptr [ecx+0ACh]
-        mov eax, dword_491C30
-        mov edx, [eax]
-        push 0
-        push 0
-        push 0
-        push 0
-        push eax
-        call dword ptr [edx+44h]
-        test eax, eax
-        jge skip_first
-        mov eax, dword_491C30
-        mov ecx, [eax]
-        push 491D0Ch
-        push eax
-        call dword ptr [ecx+40h]
-skip_first:
-        mov eax, dword_491C30
-        mov edx, [eax]
-        push 0
-        push 3F800000h
-        push esi
-        push 3
-        push 0
-        push 0
-        push eax
-        call dword ptr [edx+0ACh]
-        mov eax, dword_491C30
-        mov ecx, [eax]
-        push 0
-        push 0
-        push 0
-        push 0
-        push eax
-        call dword ptr [ecx+44h]
-        test eax, eax
-        jge skip_second
-        mov eax, dword_491C30
-        mov edx, [eax]
-        push 491D0Ch
-        push eax
-        call dword ptr [edx+40h]
-skip_second:
-        ret
-    }
-}
-#else
 void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
                                  int (*draw)(void*), void (*restore)(void*)) {
     for (int index = 0; index < 2; ++index) {
@@ -4345,82 +1088,11 @@ void Recovery_ResetDeviceStreams(void* device, void (*set_stream)(void*),
         if (draw != 0 && draw(device) < 0 && restore != 0) restore(device);
     }
 }
-#endif
 
 // 0x004281D0 - Advance the stage sequence.  The retail function clears the
 // published owner when the sequence is inactive, repairs a negative stage
 // only when the feature flag permits it, dispatches a changed schedule, and
 // selects the normal or terminal update path at stage fifteen.
-#ifdef _MSC_VER
-__declspec(naked) int Recovery_UpdateStageSequence(
-        void* state, bool feature_enabled,
-        void (*dispatch_schedule)(void*), void (*set_stage)(int),
-        void (*reset_timer)(float), void (*continue_update)(void*)) {
-    __asm {
-        push ebx
-        push edi
-        mov edi, eax
-        mov eax, [edi+458h]
-        mov ebx, 1
-        cmp eax, ebx
-        jne inactive
-        mov eax, [edi+464h]
-        test eax, eax
-        jge stage_ok
-        test byte ptr dword_474E5C, bl
-        je return_zero
-        push 0
-        lea eax, [edi+460h]
-        call sub_405410
-stage_ok:
-        mov eax, [edi+464h]
-        mov ecx, [edi+460h]
-        cmp eax, ecx
-        push esi
-        lea esi, [edi+460h]
-        je no_dispatch
-        mov ebx, [edi+464h]
-        call sub_428160
-        mov ebx, 1
-no_dispatch:
-        cmp dword ptr [edi+464h], 0Fh
-        jl normal
-        test byte ptr dword_474E5C, bl
-        je set_minus
-        push 0C1700000h
-        call sub_44BF40
-        pop esi
-return_zero:
-        pop edi
-        xor eax, eax
-        pop ebx
-        ret
-set_minus:
-        push 0FFFFFFFFh
-        mov eax, esi
-        call sub_405410
-        pop esi
-        pop edi
-        xor eax, eax
-        pop ebx
-        ret
-normal:
-        call sub_404ED0
-        pop esi
-        pop edi
-        xor eax, eax
-        pop ebx
-        ret
-inactive:
-        mov dword ptr [edi+3504h], 0
-        mov byte ptr [edi+3508h], 0
-        pop edi
-        xor eax, eax
-        pop ebx
-        ret
-    }
-}
-#else
 int Recovery_UpdateStageSequence(
         void* state, bool feature_enabled,
         void (*dispatch_schedule)(void*), void (*set_stage)(int),
@@ -4452,92 +1124,12 @@ int Recovery_UpdateStageSequence(
     if (continue_update != 0) continue_update(state);
     return 0;
 }
-#endif
 
 // 0x0044C2A0 - Advance a three-axis motion record.  Linear records add their
 // velocity directly; polar records derive the horizontal displacement from
 // angle/radius before applying the same base velocity.  Retail then snaps the
 // horizontal coordinates through its floating-point quantizer.
-#ifdef _MSC_VER
-extern "C" __declspec(naked) void Recovery_PolarToVectorRetail(
-        float* destination, float angle, float radius) {
-    __asm {
-        push ecx
-        mov [esp], ecx
-        mov eax, [esp]
-        fld dword ptr [esp+8]
-        fsincos
-        fmul dword ptr [esp+0Ch]
-        fstp dword ptr [eax]
-        fmul dword ptr [esp+0Ch]
-        fstp dword ptr [eax+4]
-        pop ecx
-        ret 8
-    }
-}
-#endif
 
-#ifdef _MSC_VER
-__declspec(naked) void Recovery_AdvancePolarMotion(
-        float state[11], float (*quantize)(float)) {
-    __asm {
-        mov al, [esi+28h]
-        sub esp, 18h
-        test al, 1
-        jne polar
-        fld dword ptr [esi]
-        fadd dword ptr [esi+0Ch]
-        fstp dword ptr [esi]
-        fld dword ptr [esi+10h]
-        fadd dword ptr [esi+4]
-        fstp dword ptr [esi+4]
-        fld dword ptr [esi+14h]
-        fadd dword ptr [esi+8]
-        fstp dword ptr [esi+8]
-        jmp snap
-polar:
-        mov eax, [esi+20h]
-        mov ecx, [esi+1Ch]
-        push eax
-        push ecx
-        lea ecx, [esp+14h]
-        call sub_44C5D0
-        fld dword ptr [esp+0Ch]
-        fadd dword ptr [esi+0Ch]
-        mov edx, [esi+14h]
-        mov [esp+8], edx
-        mov eax, esi
-        fstp dword ptr [esp]
-        mov ecx, [esp]
-        fld dword ptr [esp+10h]
-        mov dword ptr [esp+14h], 0
-        fadd dword ptr [esi+10h]
-        mov [eax], ecx
-        mov ecx, [esp+8]
-        fstp dword ptr [esp+4]
-        mov edx, [esp+4]
-        mov [eax+4], edx
-        mov [eax+8], ecx
-snap:
-        fld dword ptr [esi]
-        sub esp, 8
-        fmul dword ptr [flt_470B44]
-        fstp qword ptr [esp]
-        call sub_452FF0
-        fmul dword ptr [flt_470B00]
-        fstp dword ptr [esi]
-        fld dword ptr [esi+4]
-        fmul dword ptr [flt_470B44]
-        fstp qword ptr [esp]
-        call sub_452FF0
-        fmul dword ptr [flt_470B00]
-        add esp, 8
-        fstp dword ptr [esi+4]
-        add esp, 18h
-        ret
-    }
-}
-#else
 void Recovery_AdvancePolarMotion(float state[11],
                                  float (*quantize)(float)) {
     if (state == 0) return;
@@ -4557,4 +1149,3 @@ void Recovery_AdvancePolarMotion(float state[11],
         state[1] = quantize(state[1]);
     }
 }
-#endif

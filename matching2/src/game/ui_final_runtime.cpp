@@ -12,35 +12,6 @@
 // the score source (dword_474C4C), the difficulty (dword_474C7C), the
 // stage-progress counter (dword_474C84) and the game-state arena
 // (dword_4776F4, play flag at +14220).
-#ifdef _MSC_VER
-extern "C" unsigned long dword_491FB8;
-extern "C" unsigned long dword_491FF4;
-extern "C" unsigned long dword_474C4C;
-extern "C" unsigned long dword_474C7C;
-extern "C" unsigned long dword_474C84;
-extern "C" unsigned long dword_4776F4;
-extern "C" unsigned long dword_474C68;
-extern "C" unsigned long dword_474C6C;
-extern "C" unsigned long dword_474C70;
-extern "C" unsigned long dword_474C74;
-extern "C" unsigned long dword_474CA0;
-extern "C" unsigned long dword_474E5C;
-extern "C" unsigned long dword_474E62;
-extern "C" unsigned long dword_47770C;
-extern "C" unsigned long dword_47783C;
-extern "C" unsigned long dword_477830;
-extern "C" unsigned long dword_477848;
-extern "C" unsigned long dword_474C40;
-extern "C" unsigned short word_474C48;
-extern "C" unsigned long dword_491C28;
-extern "C" float flt_476F78;
-#define FRONT_MODE_WORD dword_491FB8
-#define FRONT_MODE_GATE dword_491FF4
-#define FRONT_SCORE dword_474C4C
-#define FRONT_DIFFICULTY dword_474C7C
-#define FRONT_PROGRESS dword_474C84
-#define FRONT_GAME_STATE dword_4776F4
-#else
 extern unsigned int DAT_00491fb8;
 extern unsigned int DAT_00491ff4;
 extern unsigned int DAT_00474c4c;
@@ -89,7 +60,6 @@ extern float DAT_00476f78;
 #define SEQ_SCORE_BANK DAT_00474c40
 #define SEQ_SCORE DAT_00474c4c
 #define SEQ_GRAZE DAT_00474c48
-#endif
 
 namespace th10::ui_final {
 // The sequence object's ramp state (retail seq+4/+8/+12/+16); the 0x00415E90

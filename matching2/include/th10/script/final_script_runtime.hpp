@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Retail 0x00450700: bind a named ECL subroutine into the VM's current
 // function record.  The retail calling convention is __usercall (name in ecx,

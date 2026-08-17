@@ -1,11 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-typedef unsigned long uintptr_t;
-typedef unsigned int uint32_t;
-#else
 #include <cstdint>
-#endif
 
 // 0x0042CD50 - Allocate the 0x5ACC-byte progress manager, construct and
 // publish it (0x0042C920), stop any current worker through the shared

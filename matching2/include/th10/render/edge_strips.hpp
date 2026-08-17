@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Pre-transformed vertex used by the render-target border strips
 // (retail FVF XYZRHW | DIFFUSE | TEX1, 0x1C bytes per vertex).

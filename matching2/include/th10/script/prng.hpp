@@ -17,11 +17,7 @@
 #ifndef TH10_SCRIPT_PRNG_HPP
 #define TH10_SCRIPT_PRNG_HPP
 
-#ifdef _MSC_VER
-#include "th10/msvc_stdint.hpp"
-#else
 #include <cstdint>
-#endif
 
 // Returns the next pseudo-random uint32 in the range [0, modulo).  A
 // modulo of 0 yields 0 (avoids the divide-by-zero that retail would

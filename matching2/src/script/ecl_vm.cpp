@@ -20,13 +20,6 @@ extern uint32_t DAT_00476f78; // script-time scale, shared with player/bullet
 extern float DAT_00470d58;   // tiny positive comparison constant (0.0f)
 extern float DAT_00470b94;   // angle mirror base used by 0x11c/0x11e
 
-#ifdef _MSC_VER
-extern "C" void sub_44FDB0(void*);
-extern "C" float flt_470B04;
-extern "C" float flt_470B60;
-extern "C" long __cdecl __ftol2(void);
-extern "C" void sub_463B2C(void);
-#endif
 
 namespace {
 
@@ -109,70 +102,6 @@ void ECL_ResetDifficultySlots(void* entity) {
 }
 
 // 0x0044FF80 - Resolve an already-decoded float using an operand's mask bit.
-#ifdef _MSC_VER
-__declspec(naked) float ECL_ResolveFloatValue(
-        void* cursor_pointer, unsigned int operand, float encoded) {
-    __asm {
-        push esi
-        mov esi, eax
-        mov eax, [esi+4]
-        movzx edx, word ptr [eax+8]
-        mov eax, 1
-        shl eax, cl
-        test edx, eax
-        je literal
-        fld dword ptr [esp+8]
-        fcomp dword ptr [flt_470B04]
-        fnstsw ax
-        test ah, 1
-        jne negative
-        fld dword ptr [esp+8]
-        call sub_463B2C
-        add eax, [esi+100Ch]
-        fld dword ptr [eax+esi+8]
-        pop esi
-        ret 4
-negative:
-        fld dword ptr [flt_470B60]
-        fld dword ptr [esp+8]
-        fucompp
-        fnstsw ax
-        test ah, 44h
-        jp external
-        mov eax, [esi+1008h]
-        add eax, 0FFFFFFFCh
-        js literal
-        mov [esi+1008h], eax
-        mov ecx, [eax+esi+8]
-        add eax, 0FFFFFFFCh
-        mov [esi+1008h], eax
-        mov al, [eax+esi+8]
-        cmp al, 66h
-        mov [esp+8], ecx
-        je literal
-        cmp al, 69h
-        jne literal
-        fild dword ptr [esp+8]
-        fstp dword ptr [esp+8]
-literal:
-        fld dword ptr [esp+8]
-        pop esi
-        ret 4
-external:
-        mov esi, [esi+1014h]
-        fld dword ptr [esp+8]
-        push edi
-        mov edi, [esi]
-        call sub_463B2C
-        push eax
-        mov ecx, esi
-        call dword ptr [edi+0Ch]
-        pop edi
-        pop esi
-        ret 4
-    }
-}
-#else
 float ECL_ResolveFloatValue(
     void* cursor_pointer, unsigned int operand, float encoded) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
@@ -219,88 +148,8 @@ float ECL_ResolveFloatValue(
     converted.as_bits = value;
     return converted.as_float;
 }
-#endif
 
 // 0x0044FE40 - Resolve a float stored in the current instruction.
-#ifdef _MSC_VER
-__declspec(naked) float ECL_ResolveFloatOperand(
-        void* cursor_pointer, unsigned int operand) {
-    __asm {
-        push ecx
-        push esi
-        push edi
-        mov esi, eax
-        mov edx, [esi+4]
-        movzx eax, word ptr [edx+8]
-        mov edi, 1
-        shl edi, cl
-        test eax, edi
-        je mask_literal
-        fld dword ptr [edx+ecx*4+10h]
-        fcomp dword ptr [flt_470B04]
-        fnstsw ax
-        test ah, 1
-        jne negative
-        fld dword ptr [edx+ecx*4+10h]
-        call sub_463B2C
-        add eax, [esi+100Ch]
-        fld dword ptr [eax+esi+8]
-        pop edi
-        pop esi
-        pop ecx
-        ret
-negative:
-        fld dword ptr [flt_470B60]
-        fld dword ptr [edx+ecx*4+10h]
-        fucompp
-        fnstsw ax
-        test ah, 44h
-        jp external
-        mov eax, [esi+1008h]
-        add eax, 0FFFFFFFCh
-        js stack_literal
-        mov [esi+1008h], eax
-        mov ecx, [eax+esi+8]
-        add eax, 0FFFFFFFCh
-        mov [esi+1008h], eax
-        mov al, [eax+esi+8]
-        cmp al, 66h
-        mov [esp+8], ecx
-        je stack_literal
-        cmp al, 69h
-        jne stack_literal
-        fild dword ptr [esp+8]
-        pop edi
-        pop esi
-        pop ecx
-        ret
-stack_literal:
-        fld dword ptr [esp+8]
-        pop edi
-        pop esi
-        pop ecx
-        ret
-external:
-        mov esi, [esi+1014h]
-        fld dword ptr [edx+ecx*4+10h]
-        mov edi, [esi]
-        call sub_463B2C
-        push eax
-        mov ecx, esi
-        call dword ptr [edi+0Ch]
-        pop edi
-        pop esi
-        pop ecx
-        ret
-mask_literal:
-        fld dword ptr [edx+ecx*4+10h]
-        pop edi
-        pop esi
-        pop ecx
-        ret
-    }
-}
-#else
 float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -308,58 +157,8 @@ float ECL_ResolveFloatOperand(void* cursor_pointer, unsigned int operand) {
     return ECL_ResolveFloatValue(
         cursor_pointer, operand, BitsFloat(instruction->operands[operand]));
 }
-#endif
 
 // 0x0044FF00 - Resolve an already-decoded integer using an operand's mask bit.
-#ifdef _MSC_VER
-__declspec(naked) int32_t ECL_ResolveIntValue(
-        void* cursor_pointer, unsigned int operand, int32_t value) {
-    __asm {
-        mov ecx, [edx+4]
-        mov eax, [esp+8]
-        push esi
-        movzx esi, word ptr [ecx+8]
-        mov ecx, [esp+8]
-        push edi
-        mov edi, 1
-        shl edi, cl
-        test esi, edi
-        pop edi
-        pop esi
-        je return_value
-        test eax, eax
-        jl negative
-        lea ecx, [edx+8]
-        mov edx, [ecx+1004h]
-        add edx, ecx
-        mov eax, [edx+eax]
-        ret 8
-negative:
-        cmp eax, 0FFFFFFFFh
-        jne external
-        mov ecx, [edx+1008h]
-        add ecx, 0FFFFFFFCh
-        js return_value
-        mov [edx+1008h], ecx
-        mov eax, [ecx+edx+8]
-        add ecx, 0FFFFFFFCh
-        mov [edx+1008h], ecx
-        cmp byte ptr [ecx+edx+8], 66h
-        mov [esp+8], eax
-        jne return_value
-        fld dword ptr [esp+8]
-        call sub_463B2C
-        ret 8
-external:
-        mov ecx, [edx+1014h]
-        mov edx, [ecx]
-        push eax
-        call dword ptr [edx+4]
-return_value:
-        ret 8
-    }
-}
-#else
 int32_t ECL_ResolveIntValue(
     void* cursor_pointer, unsigned int operand, int32_t value) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
@@ -399,73 +198,8 @@ int32_t ECL_ResolveIntValue(
         return static_cast<int32_t>(BitsFloat(raw));
     return static_cast<int32_t>(raw);
 }
-#endif
 
 // 0x0044FDB0 - Resolve an integer stored in the current instruction.
-#ifdef _MSC_VER
-__declspec(naked) int32_t ECL_ResolveIntOperand(
-        void* cursor_pointer, unsigned int operand) {
-    __asm {
-        mov eax, [esp+4]
-        push ebx
-        push esi
-        mov esi, [edx+4]
-        mov ebx, 1
-        mov ecx, eax
-        push edi
-        movzx edi, word ptr [esi+8]
-        shl ebx, cl
-        test edi, ebx
-        je literal
-        mov esi, [esi+eax*4+10h]
-        test esi, esi
-        jl negative
-        mov eax, [edx+100Ch]
-        pop edi
-        add eax, esi
-        mov eax, [eax+edx+8]
-        pop esi
-        pop ebx
-        ret 4
-negative:
-        cmp esi, 0FFFFFFFFh
-        jne external
-        mov ecx, [edx+1008h]
-        lea esi, [ecx-4]
-        test esi, esi
-        jl return_popped
-        mov [edx+1008h], esi
-        mov eax, [esi+edx+8]
-        add esi, 0FFFFFFFCh
-        mov [edx+1008h], esi
-        cmp byte ptr [esi+edx+8], 66h
-        mov [esp+10h], eax
-        jne return_popped
-        fld dword ptr [esp+10h]
-        call sub_463B2C
-        pop edi
-        pop esi
-        pop ebx
-        ret 4
-external:
-        mov ecx, [edx+1014h]
-        mov edx, [ecx]
-        push esi
-        call dword ptr [edx+4]
-        pop edi
-        pop esi
-        pop ebx
-        ret 4
-literal:
-        mov eax, [esi+eax*4+10h]
-return_popped:
-        pop edi
-        pop esi
-        pop ebx
-        ret 4
-    }
-}
-#else
 int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -474,77 +208,17 @@ int32_t ECL_ResolveIntOperand(void* cursor_pointer, unsigned int operand) {
         cursor_pointer, operand,
         static_cast<int32_t>(instruction->operands[operand]));
 }
-#endif
 
 // 0x00412A00 - ECL_ResolveIntOperand wrapper that pulls the cursor from the
 // VM state stored at entity+0x14D8. Retail hides the manager pointer in EAX
 // and the operand index in ECX; the clean API takes both explicitly.
-#ifdef _MSC_VER
-__declspec(naked) int32_t ECL_ResolveIntFromEntity(
-        void* entity, unsigned int operand) {
-    __asm {
-        mov eax, [eax+14D8h]
-        mov edx, [eax+4]
-        push ecx
-        call sub_44FDB0
-        ret
-    }
-}
-#else
 int32_t ECL_ResolveIntFromEntity(void* entity, unsigned int operand) {
     void* vm_state = *(void**)((uint8_t*)entity + 0x14D8);
     void* cursor = *(void**)((uint8_t*)vm_state + 4);
     return ECL_ResolveIntOperand(cursor, operand);
 }
-#endif
 
 // 0x00450070 - Resolve a writable float local/external variable destination.
-#ifdef _MSC_VER
-__declspec(naked) float* ECL_ResolveFloatDestination(
-        void* cursor_pointer, unsigned int operand) {
-    __asm {
-        push esi
-        push edi
-        mov esi, eax
-        mov edx, [esi+4]
-        movzx eax, word ptr [edx+8]
-        mov edi, 1
-        shl edi, cl
-        test eax, edi
-        jz loc_4500C8
-        fld dword ptr [edx+ecx*4+10h]
-        fcomp [flt_470B04]
-        fld dword ptr [edx+ecx*4+10h]
-        fnstsw ax
-        test ah, 1
-        jnz loc_4500B2
-        add esi, 8
-        call __ftol2
-        mov ecx, eax
-        mov eax, [esi+1004h]
-        add eax, ecx
-        pop edi
-        add eax, esi
-        pop esi
-        ret
-loc_4500B2:
-        mov esi, [esi+1014h]
-        mov edi, [esi]
-        call __ftol2
-        push eax
-        mov ecx, esi
-        call dword ptr [edi+10h]
-        pop edi
-        pop esi
-        ret
-loc_4500C8:
-        pop edi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -565,50 +239,8 @@ float* ECL_ResolveFloatDestination(void* cursor_pointer, unsigned int operand) {
     }
     return 0;
 }
-#endif
 
 // 0x00412A10 - Resolve a writable integer local/external variable destination.
-#ifdef _MSC_VER
-__declspec(naked) int32_t* ECL_ResolveIntDestination(
-        void* cursor_pointer, unsigned int operand) {
-    __asm {
-        mov edx, [eax+14D8h]
-        mov eax, [edx+4]
-        mov edx, [eax+4]
-        push esi
-        movzx esi, word ptr [edx+8]
-        push edi
-        mov edi, 1
-        shl edi, cl
-        test esi, edi
-        je null_result
-        mov edx, [edx+ecx*4+10h]
-        test edx, edx
-        jl external_result
-        lea ecx, [eax+8]
-        mov eax, [ecx+1004h]
-        add eax, edx
-        pop edi
-        add eax, ecx
-        pop esi
-        ret
-external_result:
-        mov eax, [eax+1014h]
-        mov esi, [eax]
-        push edx
-        mov ecx, eax
-        call dword ptr [esi+8]
-        pop edi
-        pop esi
-        ret
-null_result:
-        pop edi
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     uint8_t* cursor = static_cast<uint8_t*>(cursor_pointer);
     ECLInstruction* instruction =
@@ -629,43 +261,10 @@ int32_t* ECL_ResolveIntDestination(void* cursor_pointer, unsigned int operand) {
     }
     return 0;
 }
-#endif
 
 // 0x00450030 - Resolve a variable encoded in the ECL local-variable table.
 // Positive entries point into the VM's inline local area; negative entries
 // are delegated to the external variable resolver.
-#ifdef _MSC_VER
-__declspec(naked) void* ECL_ResolveVariableValue(
-        void* vm_pointer, int32_t variable) {
-    __asm {
-        mov eax, [esi+4]
-        movzx edx, word ptr [eax+8]
-        push edi
-        mov edi, 1
-        shl edi, cl
-        test edx, edi
-        pop edi
-        jz loc_450067
-        mov edx, [eax+ecx*4+10h]
-        test edx, edx
-        jl loc_45005A
-        mov eax, [esi+100Ch]
-        lea ecx, [esi+8]
-        add eax, edx
-        add eax, ecx
-        ret
-loc_45005A:
-        mov ecx, [esi+1014h]
-        mov eax, [ecx]
-        push edx
-        call dword ptr [eax+8]
-        ret
-loc_450067:
-        xor eax, eax
-        ret
-    }
-}
-#else
 void* ECL_ResolveVariableValue(void* vm_pointer, int32_t variable) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const uint16_t mask = *reinterpret_cast<uint16_t*>(
@@ -680,37 +279,8 @@ void* ECL_ResolveVariableValue(void* vm_pointer, int32_t variable) {
         vm + 0x1014);
     return resolver == 0 ? 0 : resolver->ResolveIntPointer(entry);
 }
-#endif
 
 // 0x00450160 - Find a linked external variable record by its retail id.
-#ifdef _MSC_VER
-__declspec(naked) void* ECL_FindVariable(
-        void* vm_pointer, int32_t variable) {
-    __asm {
-        add eax, 1030h
-        jz loc_450181
-        jmp loc_450170
-        _emit 0x8D
-        _emit 0xA4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-loc_450170:
-        mov edx, [eax]
-        cmp [edx+1010h], ecx
-        jz locret_450183
-        mov eax, [eax+4]
-        test eax, eax
-        jnz loc_450170
-loc_450181:
-        xor eax, eax
-locret_450183:
-        ret
-    }
-}
-#else
 void* ECL_FindVariable(void* vm_pointer, int32_t variable) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     struct Node { void* object; Node* next; };
@@ -723,32 +293,8 @@ void* ECL_FindVariable(void* vm_pointer, int32_t variable) {
     }
     return 0;
 }
-#endif
 
 // 0x00450190 - Clear the bound object pointer in every linked variable node.
-#ifdef _MSC_VER
-__declspec(naked) void ECL_ResetVariableBindings(void* vm_pointer) {
-    __asm {
-        mov eax, [eax+1034h]
-        xor edx, edx
-        cmp eax, edx
-        jz locret_4501AE
-        _emit 0x8D
-        _emit 0x64
-        _emit 0x24
-        _emit 0x00
-loc_4501A0:
-        mov ecx, [eax+4]
-        cmp ecx, edx
-        mov eax, [eax]
-        mov [eax+4], edx
-        mov eax, ecx
-        jnz loc_4501A0
-locret_4501AE:
-        ret
-    }
-}
-#else
 void ECL_ResetVariableBindings(void* vm_pointer) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     struct Node { void* object; Node* next; };
@@ -758,36 +304,8 @@ void ECL_ResetVariableBindings(void* vm_pointer) {
             *reinterpret_cast<void**>(static_cast<uint8_t*>(node->object) + 4) = 0;
     }
 }
-#endif
 
 // 0x00450690 - Reserve scratch space and save the previous top marker.
-#ifdef _MSC_VER
-__declspec(naked) int32_t ECL_PushScratchValue(
-        void* vm_pointer, int32_t value) {
-    __asm {
-        mov edx, [eax+1000h]
-        add ecx, edx
-        cmp ecx, 1000h
-        jl loc_4506A4
-        or eax, 0FFFFFFFFh
-        ret
-loc_4506A4:
-        push esi
-        lea esi, [ecx+4]
-        cmp esi, 1000h
-        mov [eax+1000h], ecx
-        jge loc_4506C6
-        mov esi, [eax+1004h]
-        mov [ecx+eax], esi
-        add dword ptr [eax+1000h], 4
-loc_4506C6:
-        mov [eax+1004h], edx
-        xor eax, eax
-        pop esi
-        ret
-    }
-}
-#else
 int32_t ECL_PushScratchValue(void* vm_pointer, int32_t value) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const int32_t old_top = *reinterpret_cast<int32_t*>(vm + 0x1000);
@@ -803,26 +321,8 @@ int32_t ECL_PushScratchValue(void* vm_pointer, int32_t value) {
     *reinterpret_cast<int32_t*>(vm + 0x1004) = old_top;
     return 0;
 }
-#endif
 
 // 0x004506D0 - Restore the previous scratch marker.
-#ifdef _MSC_VER
-__declspec(naked) int32_t ECL_PopScratchValue(void* vm_pointer) {
-    __asm {
-        mov ecx, [eax+1000h]
-        add ecx, 0FFFFFFFCh
-        mov edx, [eax+1004h]
-        js loc_4506F0
-        mov [eax+1000h], ecx
-        mov ecx, [ecx+eax]
-        mov [eax+1004h], ecx
-loc_4506F0:
-        mov [eax+1000h], edx
-        xor eax, eax
-        ret
-    }
-}
-#else
 int32_t ECL_PopScratchValue(void* vm_pointer) {
     uint8_t* vm = static_cast<uint8_t*>(vm_pointer);
     const int32_t prior = *reinterpret_cast<int32_t*>(vm + 0x1000) - 4;
@@ -835,32 +335,12 @@ int32_t ECL_PopScratchValue(void* vm_pointer) {
     *reinterpret_cast<int32_t*>(vm + 0x1000) = saved;
     return 0;
 }
-#endif
 
 // 0x004501B0 - Convert polar coordinates to a two-component vector.
-#ifdef _MSC_VER
-__declspec(naked) void ECL_SetPolarVector(
-        float* destination, float angle, float magnitude) {
-    __asm {
-        push ecx
-        mov [esp], ecx
-        mov eax, [esp]
-        fld dword ptr [esp+8]
-        fsincos
-        fmul dword ptr [esp+0Ch]
-        fstp dword ptr [eax]
-        fmul dword ptr [esp+0Ch]
-        fstp dword ptr [eax+4]
-        pop ecx
-        ret 8
-    }
-}
-#else
 void ECL_SetPolarVector(float* destination, float angle, float magnitude) {
     destination[0] = cosf(angle) * magnitude;
     destination[1] = sinf(angle) * magnitude;
 }
-#endif
 
 // 0x004505B0 - Append a typed value to the VM scratch area.
 int32_t ECL_WriteScratch(void* vm_pointer, char type, unsigned int size,
