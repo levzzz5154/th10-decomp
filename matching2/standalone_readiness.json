@@ -104,7 +104,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/math/interpolators.cpp"
+      "source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x004050D0",
@@ -1842,7 +1842,7 @@
       "dynamic_call_sites": 0,
       "recovery_status": "semantic",
       "source_ready": true,
-      "source": "src/math/easing.cpp"
+      "source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x0044CBF0",

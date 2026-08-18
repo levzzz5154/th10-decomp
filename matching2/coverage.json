@@ -267,7 +267,7 @@
       "symbol": "FUN_00404610",
       "size": 912,
       "status": "semantic",
-      "source": "src/math/interpolators.cpp"
+      "source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x004049A0",
@@ -4719,7 +4719,7 @@
       "symbol": "FUN_0044bc70",
       "size": 160,
       "status": "semantic",
-      "source": "src/math/angle.cpp"
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0044BD10",
@@ -4789,14 +4789,14 @@
       "symbol": "FUN_0044c2a0",
       "size": 176,
       "status": "semantic",
-      "source": "src/game/recovery_leaves.cpp"
+      "source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0044C350",
       "symbol": "FUN_0044c350",
       "size": 640,
       "status": "semantic",
-      "source": "src/math/easing.cpp"
+      "source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x0044C5D0",

@@ -310,7 +310,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00404610_FUN_00404610.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/math/interpolators.cpp"
+      "promoted_source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x004049A0",
@@ -6480,7 +6480,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044BC70_FUN_0044bc70.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/math/angle.cpp"
+      "promoted_source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0044BD10",
@@ -6580,7 +6580,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C2A0_FUN_0044c2a0.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/game/recovery_leaves.cpp"
+      "promoted_source": "src/game/bullet.cpp"
     },
     {
       "address": "0x0044C350",
@@ -6590,7 +6590,7 @@
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044C350_FUN_0044c350.c",
       "recovery_status": "semantic",
-      "promoted_source": "src/math/easing.cpp"
+      "promoted_source": "src/game/trajectory_evaluate.cpp"
     },
     {
       "address": "0x0044C5D0",
