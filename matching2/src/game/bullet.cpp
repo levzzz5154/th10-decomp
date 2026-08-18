@@ -7,6 +7,7 @@
 // =============================================================================
 #include "th10/game/entity.hpp"
 #include "th10/game/scheduler.hpp"
+#include "th10/game/trajectory_evaluate.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/render/animation_manager.hpp"
 
@@ -31,6 +32,11 @@ extern float _DAT_00470b04;
 extern float _DAT_00470b38;
 extern float _DAT_00470b3c;
 extern float _DAT_00470b40;
+extern float _DAT_00470b44;
+extern float _DAT_00470b00;
+extern float _DAT_00491e6c;
+extern float _DAT_00491e70;
+extern float _DAT_00491e74;
 
 
 int __fastcall ResourceManager_FindTexture(void* resource_template);
@@ -40,35 +46,56 @@ void __fastcall AnimationManager_RemoveHandle(void* unused, void* manager, int h
 
 namespace {
 
-float Entity_NormalizeAngle(float angle) {
-    const float turn = 6.2831853071795864769f;
-    angle = std::fmod(angle, turn);
-    if (angle < 0.0f)
-        angle += turn;
-    return angle;
+// 0x0044BC70 - wrap an angle into (-pi, pi] with the retail 32-iteration
+// guards on each side.
+float Entity_WrapAngle(float value) {
+    int iterations = 0;
+    while (value > 3.1415927f) {
+        value -= 6.2831855f;
+        if (++iterations > 0x20)
+            break;
+    }
+    iterations = 0;
+    while (value < -3.1415927f) {
+        value += 6.2831855f;
+        if (++iterations > 0x20)
+            break;
+    }
+    return value;
 }
 
-void Entity_AdvanceMotion(unsigned char* state, unsigned int offset) {
-    float* position = reinterpret_cast<float*>(state + offset);
-    float* velocity = reinterpret_cast<float*>(state + offset + 0x0c);
-    float& speed = *reinterpret_cast<float*>(state + offset + 0x18);
-    float& angle = *reinterpret_cast<float*>(state + offset + 0x1c);
+// Retail position snap: floor(x * 100) * 0.01 (0x0044C2A0's quantizer).
+float Entity_QuantizePosition(float value) {
+    return std::floor(value * _DAT_00470b44) * _DAT_00470b00;
+}
+
+// 0x0044C2A0 - advance a three-axis motion record.  Linear records add
+// their velocity row; polar records rebuild the horizontal displacement
+// from angle/radius.  Both modes snap x/y through the quantizer.
+void Entity_AdvanceRecord(unsigned char* record) {
+    float* position = reinterpret_cast<float*>(record);
     const unsigned int motion_flags =
-        *reinterpret_cast<unsigned int*>(state + offset + 0x28);
+        *reinterpret_cast<unsigned int*>(record + 0x28);
     if ((motion_flags & 1u) == 0) {
-        velocity[0] = std::cos(angle) * speed;
-        velocity[1] = std::sin(angle) * speed;
-        velocity[2] = 0.0f;
+        position[0] += position[3];
+        position[1] += position[4];
+        position[2] += position[5];
     } else {
-        speed += *reinterpret_cast<float*>(state + offset + 0x24);
-        angle = Entity_NormalizeAngle(
-            angle + *reinterpret_cast<float*>(state + offset + 0x20));
-        velocity[0] = std::cos(angle) * speed;
-        velocity[1] = std::sin(angle) * speed;
+        const float angle = *reinterpret_cast<float*>(record + 0x1C);
+        const float radius = *reinterpret_cast<float*>(record + 0x20);
+        position[0] = position[3] + radius * std::cos(angle);
+        position[1] = position[4] + radius * std::sin(angle);
+        position[2] = position[5];
     }
-    position[0] += velocity[0] * _DAT_00470b0c;
-    position[1] += velocity[1] * _DAT_00470b0c;
-    position[2] += velocity[2] * _DAT_00470b0c;
+    position[0] = Entity_QuantizePosition(position[0]);
+    position[1] = Entity_QuantizePosition(position[1]);
+}
+
+// Trajectory environment for the per-axis record evaluators: the shared
+// script-time scale (DAT_00476F78) is the default speed pointer, and the
+// ease callback is the full retail 0x0044C350 curve table.
+const float* EntityDefaultSpeed() {
+    return reinterpret_cast<const float*>(&DAT_00476f78);
 }
 
 } // namespace
@@ -207,20 +234,103 @@ int BulletEntity_UpdateTransform(uint32_t* bullet_transform) {
     flags |= 0x400u;
 
     std::memcpy(state, state + 0x2c, 0x2c);
-    Entity_AdvanceMotion(state, 0x58);
-    Entity_AdvanceMotion(state, 0x84);
 
-    float* current = reinterpret_cast<float*>(state + 0x2c);
+    // Retail 0x0040DC80: per-axis record reads feed the angle/radius slots
+    // (sub_412AC0), the two position paths follow the armed 0x13C/0x188
+    // records (sub_404610) or integrate/rebuild from those slots, and the
+    // three motion records advance through sub_44C2A0.
+    TrajectoryEnv trajectory_env = {EntityDefaultSpeed(),
+                                    Trajectory_EaseFraction};
+    float pair[2];
+    if (*reinterpret_cast<int32_t*>(state + 0x208) != 0) {
+        Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x1D4),
+                              pair, &trajectory_env);
+        *reinterpret_cast<float*>(state + 0x70) = pair[1];
+        *reinterpret_cast<float*>(state + 0x74) = Entity_WrapAngle(pair[0]);
+    }
+    if (*reinterpret_cast<int32_t*>(state + 0x280) != 0) {
+        Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x24C),
+                              pair, &trajectory_env);
+        *reinterpret_cast<float*>(state + 0x78) = pair[0];
+        *reinterpret_cast<float*>(state + 0x7C) = pair[1];
+    }
+    if (*reinterpret_cast<int32_t*>(state + 0x244) != 0) {
+        Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x210),
+                              pair, &trajectory_env);
+        *reinterpret_cast<float*>(state + 0x9C) = pair[1];
+        *reinterpret_cast<float*>(state + 0xA0) = Entity_WrapAngle(pair[0]);
+    }
+    if (*reinterpret_cast<int32_t*>(state + 0x2BC) != 0) {
+        Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x288),
+                              pair, &trajectory_env);
+        *reinterpret_cast<float*>(state + 0xA4) = pair[0];
+        *reinterpret_cast<float*>(state + 0xA8) = pair[1];
+    }
+
+    if (*reinterpret_cast<int32_t*>(state + 0x180) != 0) {
+        float path[3];
+        Trajectory_Evaluate3D(reinterpret_cast<Trajectory3D*>(state + 0x13C),
+                              path, &trajectory_env);
+        float* position = reinterpret_cast<float*>(state + 0x64);
+        position[0] = path[0] - *reinterpret_cast<float*>(state + 0x58);
+        position[1] = path[1] - *reinterpret_cast<float*>(state + 0x5C);
+        position[2] = path[2] - *reinterpret_cast<float*>(state + 0x60);
+    } else if ((*reinterpret_cast<uint8_t*>(state + 0x80) & 1u) != 0) {
+        *reinterpret_cast<float*>(state + 0x78) +=
+            *reinterpret_cast<float*>(state + 0x7C);
+        *reinterpret_cast<float*>(state + 0x74) = Entity_WrapAngle(
+            *reinterpret_cast<float*>(state + 0x70) +
+            *reinterpret_cast<float*>(state + 0x74));
+    } else {
+        const float angle = *reinterpret_cast<float*>(state + 0x74);
+        const float radius = *reinterpret_cast<float*>(state + 0x70);
+        float* position = reinterpret_cast<float*>(state + 0x64);
+        position[0] = radius * std::cos(angle);
+        position[1] = radius * std::sin(angle);
+        position[2] = 0.0f;
+    }
+
+    if (*reinterpret_cast<int32_t*>(state + 0x1CC) != 0) {
+        float path[3];
+        Trajectory_Evaluate3D(reinterpret_cast<Trajectory3D*>(state + 0x188),
+                              path, &trajectory_env);
+        float* position = reinterpret_cast<float*>(state + 0x90);
+        position[0] = path[0] - *reinterpret_cast<float*>(state + 0x84);
+        position[1] = path[1] - *reinterpret_cast<float*>(state + 0x88);
+        position[2] = path[2] - *reinterpret_cast<float*>(state + 0x8C);
+    } else if ((*reinterpret_cast<uint8_t*>(state + 0xAC) & 1u) != 0) {
+        *reinterpret_cast<float*>(state + 0xA4) +=
+            *reinterpret_cast<float*>(state + 0xA8);
+        *reinterpret_cast<float*>(state + 0xA0) = Entity_WrapAngle(
+            *reinterpret_cast<float*>(state + 0x9C) +
+            *reinterpret_cast<float*>(state + 0xA0));
+    } else {
+        const float angle = *reinterpret_cast<float*>(state + 0xA0);
+        const float radius = *reinterpret_cast<float*>(state + 0x9C);
+        float* position = reinterpret_cast<float*>(state + 0x90);
+        position[0] = radius * std::cos(angle);
+        position[1] = radius * std::sin(angle);
+        position[2] = 0.0f;
+    }
+
+    Entity_AdvanceRecord(state + 0x58);
+    if ((flags & 0x40000u) != 0) {
+        *reinterpret_cast<float*>(state + 0x84) += _DAT_00491e6c;
+        *reinterpret_cast<float*>(state + 0x88) += _DAT_00491e70;
+        *reinterpret_cast<float*>(state + 0x8C) += _DAT_00491e74;
+    }
+    Entity_AdvanceRecord(state + 0x84);
+
+    float* delta = reinterpret_cast<float*>(state + 0x38);
     const float* primary = reinterpret_cast<const float*>(state + 0x58);
     const float* secondary = reinterpret_cast<const float*>(state + 0x84);
-    current[0] = primary[0] + secondary[0];
-    current[1] = primary[1] + secondary[1];
-    current[2] = primary[2] + secondary[2];
-    float* delta = reinterpret_cast<float*>(state + 0x38);
-    const float* previous = reinterpret_cast<const float*>(state);
-    delta[0] = current[0] - previous[0];
-    delta[1] = current[1] - previous[1];
-    delta[2] = current[2] - previous[2];
+    const float* previous = reinterpret_cast<const float*>(state + 0x2c);
+    delta[0] = (secondary[0] + primary[0]) - previous[0];
+    delta[1] = (secondary[1] + primary[1]) - previous[1];
+    delta[2] = (secondary[2] + primary[2]) - previous[2];
+    Entity_AdvanceRecord(state + 0x2c);
+
+    float* current = reinterpret_cast<float*>(state + 0x2c);
 
     if ((flags & 0x200u) != 0) {
         const float center_x =

@@ -6,6 +6,7 @@
 #include "th10/render/animation_manager.hpp"
 
 #include <cassert>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
 
@@ -54,6 +55,11 @@ float _DAT_00470b40 = -192.0f;
 float _DAT_00470b48 = 10.0f;
 float _DAT_00470b4c = 20.0f;
 float _DAT_00470b60 = 0.5f;
+float _DAT_00470b44 = 100.0f;
+float _DAT_00470b00 = 0.01f;
+float _DAT_00491e6c = 0.0f;
+float _DAT_00491e70 = 0.0f;
+float _DAT_00491e74 = 0.0f;
 int __fastcall ResourceManager_FindTexture(void* /*resource_template*/) {
     return 0;
 }
@@ -244,6 +250,130 @@ int main() {
         assert(BulletEntity_UpdateTransform(
                    reinterpret_cast<uint32_t*>(ob + 0x103C)) == -1);
         std::free(offscreen);
+    }
+
+    // --- BulletEntity_UpdateTransform: armed per-axis record paths ---
+    // Retail 0x0040DC80 follows the armed 0x13C/0x188 records (sub_404610)
+    // while their duration words are nonzero, feeds the angle/radius slots
+    // from the 0x1D4-family records (sub_412AC0), and integrates the
+    // current position through sub_44C2A0 with the 0.01 grid quantizer.
+    {
+        DAT_00476f78 = 0x3F800000u;  // 1.0f: normal-speed clock window
+        BulletEntityManager path_manager = {};
+        BulletSpawnParameters path_params = {};
+        BulletSpawnParameters_Initialize(nullptr, &path_params);
+        float path_start[3] = {0.0f, 0.0f, 0.0f};
+        std::memcpy(path_params.fields, path_start, sizeof(path_start));
+        path_params.fields[7] = 1;
+        BulletEntity* path_entity =
+            BulletEntity_Spawn(&path_manager, nullptr, &path_params);
+        assert(path_entity != 0);
+        unsigned char* pb = reinterpret_cast<unsigned char*>(path_entity);
+        unsigned char* state = pb + 0x103C;
+
+        // Per-axis 2D record read (sub_412AC0): armed at +0x1D4, duration
+        // gate at +0x208.  Mode 7 publishes p0+velocity into the slots.
+        unsigned char* rec2d = state + 0x1D4;
+        *reinterpret_cast<float*>(rec2d + 0x00) = 0.0f;
+        *reinterpret_cast<float*>(rec2d + 0x04) = 0.0f;
+        *reinterpret_cast<float*>(rec2d + 0x08) = 3.0f;
+        *reinterpret_cast<float*>(rec2d + 0x0C) = 0.5f;
+        *reinterpret_cast<int32_t*>(rec2d + 0x20) = -1;
+        *reinterpret_cast<int32_t*>(rec2d + 0x24) = 0;
+        *reinterpret_cast<float*>(rec2d + 0x28) = 0.0f;
+        *reinterpret_cast<uintptr_t*>(rec2d + 0x2C) =
+            reinterpret_cast<uintptr_t>(&DAT_00476f78);
+        *reinterpret_cast<uint32_t*>(rec2d + 0x30) = 1u;
+        *reinterpret_cast<int32_t*>(rec2d + 0x34) = 60;
+        *reinterpret_cast<int32_t*>(rec2d + 0x38) = 7;
+        *reinterpret_cast<uint32_t*>(pb + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(state)) == 0);
+        assert(std::fabs(*reinterpret_cast<float*>(state + 0x70) -
+                         0.5f) < 1e-6f);
+        assert(std::fabs(*reinterpret_cast<float*>(state + 0x74) -
+                         3.0f) < 1e-6f);
+
+        // 3D path record (sub_404610): ease mode 1 from (0,0,0) to
+        // (192,0,0) over 60 frames.  Frame 1: t = 1/60, path.x = 192*t^2,
+        // and the +0x64 row receives path - base.
+        unsigned char* rec3d = state + 0x13C;
+        *reinterpret_cast<float*>(rec3d + 0x00) = 0.0f;
+        *reinterpret_cast<float*>(rec3d + 0x04) = 0.0f;
+        *reinterpret_cast<float*>(rec3d + 0x08) = 0.0f;
+        *reinterpret_cast<float*>(rec3d + 0x0C) = 192.0f;
+        *reinterpret_cast<float*>(rec3d + 0x10) = 0.0f;
+        *reinterpret_cast<float*>(rec3d + 0x14) = 0.0f;
+        *reinterpret_cast<int32_t*>(rec3d + 0x30) = -1;
+        *reinterpret_cast<int32_t*>(rec3d + 0x34) = 0;
+        *reinterpret_cast<float*>(rec3d + 0x38) = 0.0f;
+        *reinterpret_cast<uintptr_t*>(rec3d + 0x3C) =
+            reinterpret_cast<uintptr_t>(&DAT_00476f78);
+        *reinterpret_cast<uint32_t*>(rec3d + 0x40) = 1u;
+        *reinterpret_cast<int32_t*>(rec3d + 0x44) = 60;
+        *reinterpret_cast<int32_t*>(rec3d + 0x48) = 1;
+        const float pre_base_x = *reinterpret_cast<float*>(state + 0x58);
+        *reinterpret_cast<uint32_t*>(pb + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(state)) == 0);
+        {
+            const float expected = 192.0f * (1.0f / 60.0f) *
+                                   (1.0f / 60.0f);
+            const float position_x =
+                *reinterpret_cast<float*>(state + 0x64);
+            assert(std::fabs((position_x + pre_base_x) - expected) < 1e-4f);
+            // Current position integrated through the quantizer: the
+            // delta (summed records - previous current) landed on the
+            // 0.01 grid.
+            assert(*reinterpret_cast<float*>(state + 0x2C) >= 0.0f);
+        }
+
+        // Mode 7 hold with duration 2: the record publishes p0 and
+        // disarms on completion, so the next tick leaves the path mode.
+        *reinterpret_cast<float*>(rec3d + 0x0C) = 8.0f;
+        *reinterpret_cast<int32_t*>(rec3d + 0x34) = 0;
+        *reinterpret_cast<float*>(rec3d + 0x38) = 0.0f;
+        *reinterpret_cast<int32_t*>(rec3d + 0x44) = 2;
+        *reinterpret_cast<int32_t*>(rec3d + 0x48) = 7;
+        const float hold_base_x = *reinterpret_cast<float*>(state + 0x58);
+        *reinterpret_cast<uint32_t*>(pb + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(state)) == 0);
+        {
+            const float position_x =
+                *reinterpret_cast<float*>(state + 0x64);
+            assert(std::fabs((position_x + hold_base_x) - 8.0f) < 1e-4f);
+        }
+        *reinterpret_cast<uint32_t*>(pb + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(state)) == 0);
+        assert(*reinterpret_cast<int32_t*>(rec3d + 0x44) == 0);
+        std::free(path_entity);
+
+        // Polar advance: with record-1's polar flag set, sub_44C2A0
+        // rebuilds the displacement from the angle/radius slots.
+        BulletEntityManager polar_manager = {};
+        BulletSpawnParameters polar_params = {};
+        BulletSpawnParameters_Initialize(nullptr, &polar_params);
+        float polar_start[3] = {0.0f, 0.0f, 0.0f};
+        std::memcpy(polar_params.fields, polar_start, sizeof(polar_start));
+        polar_params.fields[7] = 1;
+        BulletEntity* polar_entity =
+            BulletEntity_Spawn(&polar_manager, nullptr, &polar_params);
+        assert(polar_entity != 0);
+        unsigned char* qb = reinterpret_cast<unsigned char*>(polar_entity);
+        unsigned char* qstate = qb + 0x103C;
+        *reinterpret_cast<float*>(qstate + 0x78) = 10.0f;  // radius
+        *reinterpret_cast<float*>(qstate + 0x74) = 0.0f;   // angle
+        *reinterpret_cast<uint8_t*>(qstate + 0x80) |= 1u;  // polar mode
+        *reinterpret_cast<uint32_t*>(qb + 0x2480) &= ~0x400u;
+        assert(BulletEntity_UpdateTransform(
+                   reinterpret_cast<uint32_t*>(qstate)) == 0);
+        assert(std::fabs(*reinterpret_cast<float*>(qstate + 0x58) -
+                         10.0f) < 0.01f);
+        assert(std::fabs(*reinterpret_cast<float*>(qstate + 0x5C)) <
+               0.01f);
+        std::free(polar_entity);
     }
 
     return 0;

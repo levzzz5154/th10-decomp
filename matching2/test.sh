@@ -307,6 +307,7 @@ run_test_m32 game_state_test \
     # the create / load-scripts / release lifecycle on a 32-bit host binary.
 run_test_m32 bullet_manager_test -Wno-unused-parameter -- \
     "$ROOT/src/game/bullet.cpp" \
+    "$ROOT/src/game/trajectory_evaluate.cpp" \
     "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/src/render/anm_entry_load.cpp" \
