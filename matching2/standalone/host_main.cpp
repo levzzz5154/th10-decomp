@@ -6442,6 +6442,13 @@ int HostPumpMessages(void*) {
 }
 int HostProbeDevice(void*) {
 #if defined(_WIN32)
+    // The smoke flow is a deterministic host-driven simulation whose
+    // fidelity metric is the trace stream, not the raster: every device
+    // use is null-guarded, so frames must not be gated on a live GPU's
+    // cooperative level (headless runs would otherwise spin in the pump
+    // while TestCooperativeLevel reports the device lost).
+    if (g_host.smoke_mode)
+        return GAME_MAIN_DEVICE_READY;
     if (g_host.device == nullptr)
         return GAME_MAIN_DEVICE_LOST;
     const HRESULT status = g_host.device->TestCooperativeLevel();
