@@ -12,7 +12,9 @@ Production code is frozen at `895c4202387d1c6099cf0cec2e8798bdae6a1754` for this
 handoff. The baseline preserves the formerly uncommitted recovered code, tests,
 and audit history. Subsequent changes repair audit tooling and add evidence.
 
-## Start the independent Pro review
+<a id="start-the-independent-pro-review"></a>
+
+## Optional five-packet calibration
 
 Give Astra Pro [PRO_REVIEW_PROMPT.md](PRO_REVIEW_PROMPT.md),
 [pro_results_template.json](pro_results_template.json), and all five files in
