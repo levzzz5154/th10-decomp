@@ -92,5 +92,13 @@
   ],
   "additional_source_requests": [],
   "packet_quality_assessment": null,
-  "post_review_comparison_with_codex": null
+  "post_review_comparison_with_codex": null,
+  "cleanup_assessment": {
+    "status": "not_assessed",
+    "scope": "supplied calibration inputs only; repository-wide cleanup requires full repository access",
+    "candidates": [],
+    "executed_changes": [],
+    "validation_results": [],
+    "unassessed_repository_scope": true
+  }
 }

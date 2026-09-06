@@ -53,3 +53,21 @@ After the independent report is saved, compare it with the Codex calibration.
 List agreements, additional findings, rejected findings, and unresolved
 disagreements, each with evidence. Neither reviewer wins by confidence alone;
 request a local executable or retail probe to settle disagreements when needed.
+
+## Cleanup assessment
+
+After saving independent verdicts, also identify redundant or obsolete material
+within the supplied calibration inputs: duplicated explanations, conflicting
+instructions, stale links, superseded prompts and unnecessary packet content.
+Propose consolidation or removal with exact paths, rationale, a canonical
+replacement and dependency/evidence checks. Preserve unique source/reference
+evidence, hashes and reproducibility; different Ghidra analysis snapshots are not
+automatically redundant. Do not delete a file merely because it is old.
+
+Record this in `cleanup_assessment` in the JSON result, distinguishing proposals
+from executed changes. With packets alone, keep repository-wide cleanup explicitly
+unassessed. When assigned the full repository, follow the cleanup phase in
+`matching2/docs/audit/FULL_REPO_PRO_PROMPT.md`: review docs, scripts, generated
+clutter, experiments and unused code/assets, update affected consumers and links,
+and validate confirmed cleanup. Do not expand this bounded calibration or claim
+repository cleanup has been completed from the packets alone.

@@ -7,6 +7,8 @@ is frozen at `895c4202387d1c6099cf0cec2e8798bdae6a1754`; later handoff commits
 add reference exports, review infrastructure and evidence.
 
 Give Pro [the full-repository prompt](matching2/docs/audit/FULL_REPO_PRO_PROMPT.md).
+It includes a repository cleanup phase and a manifest of retained, consolidated,
+archived, removed and unresolved files, with dependency and evidence checks.
 The five-packet ZIP is only the optional calibration exercise; it is not the
 input or scope limit for this full audit. Pro needs access to the private repo
 and this branch, or a downloaded archive of this branch.
