@@ -1,0 +1,4 @@
+; Ghidra function 0041BF80 FUN_0041bf80
+; body ranges: 0041bf80-0041bf84
+0041bf80	33C0	XOR EAX,EAX
+0041bf82	C20800	RET 0x8

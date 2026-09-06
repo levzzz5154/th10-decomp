@@ -1,0 +1,8 @@
+; Ghidra function 0042A990 FUN_0042a990
+; body ranges: 0042a990-0042a9a2
+0042a990	8B08	MOV ECX,dword ptr [EAX]
+0042a992	8B5008	MOV EDX,dword ptr [EAX + 0x8]
+0042a995	894804	MOV dword ptr [EAX + 0x4],ECX
+0042a998	89500C	MOV dword ptr [EAX + 0xc],EDX
+0042a99b	C7401400000000	MOV dword ptr [EAX + 0x14],0x0
+0042a9a2	C3	RET

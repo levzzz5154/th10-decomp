@@ -1,0 +1,52 @@
+; Ghidra function 0045DF97 __cfltcvt
+; body ranges: 0045df97-0045dfe7
+0045df97	55	PUSH EBP
+0045df98	8BEC	MOV EBP,ESP
+0045df9a	837D1065	CMP dword ptr [EBP + 0x10],0x65
+; ref	0045df9a	Stack[0xc]	READ
+0045df9e	7432	JZ 0x0045dfd2
+; ref	0045df9e	0045dfd2	CONDITIONAL_JUMP
+0045dfa0	837D1045	CMP dword ptr [EBP + 0x10],0x45
+; ref	0045dfa0	Stack[0xc]	READ
+0045dfa4	742C	JZ 0x0045dfd2
+; ref	0045dfa4	0045dfd2	CONDITIONAL_JUMP
+0045dfa6	837D1066	CMP dword ptr [EBP + 0x10],0x66
+; ref	0045dfa6	Stack[0xc]	READ
+0045dfaa	7513	JNZ 0x0045dfbf
+; ref	0045dfaa	0045dfbf	CONDITIONAL_JUMP
+0045dfac	FF7514	PUSH dword ptr [EBP + 0x14]
+; ref	0045dfac	Stack[0x10]	READ
+0045dfaf	FF750C	PUSH dword ptr [EBP + 0xc]
+; ref	0045dfaf	Stack[0x8]	READ
+0045dfb2	FF7508	PUSH dword ptr [EBP + 0x8]
+; ref	0045dfb2	Stack[0x4]	READ
+0045dfb5	E8D7FEFFFF	CALL 0x0045de91
+; ref	0045dfb5	0045de91	UNCONDITIONAL_CALL
+0045dfba	83C40C	ADD ESP,0xc
+0045dfbd	5D	POP EBP
+0045dfbe	C3	RET
+0045dfbf	FF7518	PUSH dword ptr [EBP + 0x18]
+; ref	0045dfbf	Stack[0x14]	READ
+0045dfc2	FF7514	PUSH dword ptr [EBP + 0x14]
+; ref	0045dfc2	Stack[0x10]	READ
+0045dfc5	FF750C	PUSH dword ptr [EBP + 0xc]
+; ref	0045dfc5	Stack[0x8]	READ
+0045dfc8	FF7508	PUSH dword ptr [EBP + 0x8]
+; ref	0045dfc8	Stack[0x4]	READ
+0045dfcb	E828FFFFFF	CALL 0x0045def8
+; ref	0045dfcb	0045def8	UNCONDITIONAL_CALL
+0045dfd0	EB11	JMP 0x0045dfe3
+; ref	0045dfd0	0045dfe3	UNCONDITIONAL_JUMP
+0045dfd2	FF7518	PUSH dword ptr [EBP + 0x18]
+; ref	0045dfd2	Stack[0x14]	READ
+0045dfd5	FF7514	PUSH dword ptr [EBP + 0x14]
+; ref	0045dfd5	Stack[0x10]	READ
+0045dfd8	FF750C	PUSH dword ptr [EBP + 0xc]
+; ref	0045dfd8	Stack[0x8]	READ
+0045dfdb	FF7508	PUSH dword ptr [EBP + 0x8]
+; ref	0045dfdb	Stack[0x4]	READ
+0045dfde	E8A2FDFFFF	CALL 0x0045dd85
+; ref	0045dfde	0045dd85	UNCONDITIONAL_CALL
+0045dfe3	83C410	ADD ESP,0x10
+0045dfe6	5D	POP EBP
+0045dfe7	C3	RET

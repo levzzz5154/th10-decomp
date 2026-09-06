@@ -1,0 +1,7 @@
+; Ghidra function 00412D80 FUN_00412d80
+; body ranges: 00412d80-00412d8b
+00412d80	8B10	MOV EDX,dword ptr [EAX]
+00412d82	895110	MOV dword ptr [ECX + 0x10],EDX
+00412d85	8B4004	MOV EAX,dword ptr [EAX + 0x4]
+00412d88	894114	MOV dword ptr [ECX + 0x14],EAX
+00412d8b	C3	RET

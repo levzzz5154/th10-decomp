@@ -1,0 +1,4 @@
+; Ghidra function 00421D90 FUN_00421d90
+; body ranges: 00421d90-00421d97
+00421d90	C6806EDA3A00FF	MOV byte ptr [EAX + 0x3ada6e],0xff
+00421d97	C3	RET

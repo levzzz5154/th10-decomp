@@ -1,0 +1,5 @@
+; Ghidra function 004501F0 FUN_004501f0
+; body ranges: 004501f0-004501f6
+004501f0	8B4804	MOV ECX,dword ptr [EAX + 0x4]
+004501f3	895104	MOV dword ptr [ECX + 0x4],EDX
+004501f6	C3	RET

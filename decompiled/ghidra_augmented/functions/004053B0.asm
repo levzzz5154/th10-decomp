@@ -1,0 +1,12 @@
+; Ghidra function 004053B0 FUN_004053b0
+; body ranges: 004053b0-004053c6
+004053b0	8B4C2404	MOV ECX,dword ptr [ESP + 0x4]
+; ref	004053b0	Stack[0x4]	READ
+004053b4	8B542408	MOV EDX,dword ptr [ESP + 0x8]
+; ref	004053b4	Stack[0x8]	READ
+004053b8	8908	MOV dword ptr [EAX],ECX
+004053ba	8B4C240C	MOV ECX,dword ptr [ESP + 0xc]
+; ref	004053ba	Stack[0xc]	READ
+004053be	895004	MOV dword ptr [EAX + 0x4],EDX
+004053c1	894808	MOV dword ptr [EAX + 0x8],ECX
+004053c4	C20C00	RET 0xc

@@ -1,0 +1,4 @@
+; Ghidra function 0040BA80 FUN_0040ba80
+; body ranges: 0040ba80-0040ba85
+0040ba80	B801000000	MOV EAX,0x1
+0040ba85	C3	RET

@@ -1,0 +1,4 @@
+; Ghidra function 0040C990 FUN_0040c990
+; body ranges: 0040c990-0040c992
+0040c990	8B00	MOV EAX,dword ptr [EAX]
+0040c992	C3	RET

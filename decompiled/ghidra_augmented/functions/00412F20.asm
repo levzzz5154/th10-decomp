@@ -1,0 +1,6 @@
+; Ghidra function 00412F20 FUN_00412f20
+; body ranges: 00412f20-00412f29
+00412f20	8B442404	MOV EAX,dword ptr [ESP + 0x4]
+; ref	00412f20	Stack[0x4]	READ
+00412f24	89410C	MOV dword ptr [ECX + 0xc],EAX
+00412f27	C20400	RET 0x4

@@ -1,0 +1,8 @@
+; Ghidra function 00462C01 exception
+; body ranges: 00462c01-00462c11
+00462c01	8BC1	MOV EAX,ECX
+00462c03	83600400	AND dword ptr [EAX + 0x4],0x0
+00462c07	83600800	AND dword ptr [EAX + 0x8],0x0
+00462c0b	C70068CA4600	MOV dword ptr [EAX],0x46ca68
+; ref	00462c0b	0046ca68	DATA
+00462c11	C3	RET

@@ -1,0 +1,3 @@
+; Ghidra function 00465A80 FUN_00465a80
+; body ranges: 00465a80-00465a80
+00465a80	C3	RET

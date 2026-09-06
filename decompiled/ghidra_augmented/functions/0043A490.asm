@@ -1,0 +1,5 @@
+; Ghidra function 0043A490 FUN_0043a490
+; body ranges: 0043a490-0043a49d
+0043a490	C70000000000	MOV dword ptr [EAX],0x0
+0043a496	C7400400000000	MOV dword ptr [EAX + 0x4],0x0
+0043a49d	C3	RET

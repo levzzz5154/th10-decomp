@@ -1,0 +1,4 @@
+; Ghidra function 0040AC10 FUN_0040ac10
+; body ranges: 0040ac10-0040ac16
+0040ac10	898874890000	MOV dword ptr [EAX + 0x8974],ECX
+0040ac16	C3	RET

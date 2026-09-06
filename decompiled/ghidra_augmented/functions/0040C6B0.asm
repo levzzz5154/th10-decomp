@@ -1,0 +1,5 @@
+; Ghidra function 0040C6B0 FUN_0040c6b0
+; body ranges: 0040c6b0-0040c6b8
+0040c6b0	D905040B4700	FLD float ptr [0x00470b04]
+; ref	0040c6b0	00470b04	READ
+0040c6b6	C20400	RET 0x4

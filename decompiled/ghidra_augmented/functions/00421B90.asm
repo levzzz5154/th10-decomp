@@ -1,0 +1,36 @@
+; Ghidra function 00421B90 FUN_00421b90
+; body ranges: 00421b90-00421bdc
+00421b90	83EC0C	SUB ESP,0xc
+00421b93	D94108	FLD float ptr [ECX + 0x8]
+00421b96	D84A04	FMUL float ptr [EDX + 0x4]
+00421b99	D94208	FLD float ptr [EDX + 0x8]
+00421b9c	D84904	FMUL float ptr [ECX + 0x4]
+00421b9f	DEE9	FSUBP
+00421ba1	D91C24	FSTP float ptr [ESP]
+; ref	00421ba1	Stack[-0xc]	DATA
+00421ba4	D94208	FLD float ptr [EDX + 0x8]
+00421ba7	D809	FMUL float ptr [ECX]
+00421ba9	D94108	FLD float ptr [ECX + 0x8]
+00421bac	D80A	FMUL float ptr [EDX]
+00421bae	DEE9	FSUBP
+00421bb0	D95C2404	FSTP float ptr [ESP + 0x4]
+; ref	00421bb0	Stack[-0x8]	WRITE
+00421bb4	D902	FLD float ptr [EDX]
+00421bb6	D84904	FMUL float ptr [ECX + 0x4]
+00421bb9	D901	FLD float ptr [ECX]
+00421bbb	8BC8	MOV ECX,EAX
+00421bbd	D84A04	FMUL float ptr [EDX + 0x4]
+00421bc0	8B1424	MOV EDX,dword ptr [ESP]
+; ref	00421bc0	Stack[-0xc]	DATA
+00421bc3	8911	MOV dword ptr [ECX],EDX
+00421bc5	8B542404	MOV EDX,dword ptr [ESP + 0x4]
+; ref	00421bc5	Stack[-0x8]	READ
+00421bc9	DEE9	FSUBP
+00421bcb	895104	MOV dword ptr [ECX + 0x4],EDX
+00421bce	D95C2408	FSTP float ptr [ESP + 0x8]
+; ref	00421bce	Stack[-0x4]	WRITE
+00421bd2	8B542408	MOV EDX,dword ptr [ESP + 0x8]
+; ref	00421bd2	Stack[-0x4]	READ
+00421bd6	895108	MOV dword ptr [ECX + 0x8],EDX
+00421bd9	83C40C	ADD ESP,0xc
+00421bdc	C3	RET

@@ -1,0 +1,5 @@
+; Ghidra function 0042A9B0 FUN_0042a9b0
+; body ranges: 0042a9b0-0042a9b5
+0042a9b0	A1C41F4900	MOV EAX,[0x00491fc4]
+; ref	0042a9b0	00491fc4	READ
+0042a9b5	C3	RET

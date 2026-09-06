@@ -1,0 +1,4 @@
+; Ghidra function 004136A0 FUN_004136a0
+; body ranges: 004136a0-004136a6
+004136a0	8B8090030000	MOV EAX,dword ptr [EAX + 0x390]
+004136a6	C3	RET

@@ -1,0 +1,4 @@
+; Ghidra function 00462BFC FUN_00462bfc
+; body ranges: 00462bfc-00462c00
+00462bfc	8BC1	MOV EAX,ECX
+00462bfe	C20400	RET 0x4

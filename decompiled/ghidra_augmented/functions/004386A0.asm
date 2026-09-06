@@ -1,0 +1,4 @@
+; Ghidra function 004386A0 FUN_004386a0
+; body ranges: 004386a0-004386a5
+004386a0	B8FEFFFFFF	MOV EAX,0xfffffffe
+004386a5	C3	RET

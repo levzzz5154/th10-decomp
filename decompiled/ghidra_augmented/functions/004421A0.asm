@@ -1,0 +1,9 @@
+; Ghidra function 004421A0 FUN_004421a0
+; body ranges: 004421a0-004421b0
+004421a0	8B10	MOV EDX,dword ptr [EAX]
+004421a2	8911	MOV dword ptr [ECX],EDX
+004421a4	8B5004	MOV EDX,dword ptr [EAX + 0x4]
+004421a7	895104	MOV dword ptr [ECX + 0x4],EDX
+004421aa	8B4008	MOV EAX,dword ptr [EAX + 0x8]
+004421ad	894108	MOV dword ptr [ECX + 0x8],EAX
+004421b0	C3	RET

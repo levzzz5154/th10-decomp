@@ -1,0 +1,7 @@
+; Ghidra function 00412D90 FUN_00412d90
+; body ranges: 00412d90-00412d9b
+00412d90	8B10	MOV EDX,dword ptr [EAX]
+00412d92	895118	MOV dword ptr [ECX + 0x18],EDX
+00412d95	8B4004	MOV EAX,dword ptr [EAX + 0x4]
+00412d98	89411C	MOV dword ptr [ECX + 0x1c],EAX
+00412d9b	C3	RET

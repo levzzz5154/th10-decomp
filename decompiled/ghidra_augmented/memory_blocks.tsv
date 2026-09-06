@@ -1,0 +1,7 @@
+name	start	end	size	initialized	read	write	execute
+Headers	00400000	004003ff	1024	true	true	false	false
+.text	00401000	00465bff	412672	true	true	false	true
+.rdata	00466000	00472bff	52224	true	true	false	false
+.data	00473000	0049934b	156492	true	true	true	false
+.rsrc	0049a000	0049b3ff	5120	true	true	false	false
+tdb	ffdff000	ffdfffff	4096	true	true	true	false

@@ -1,0 +1,12 @@
+; Ghidra function 00412AA0 ForwardEclFloat
+; body ranges: 00412aa0-00412ab9
+00412aa0	8B4C2408	MOV ECX,dword ptr [ESP + 0x8]
+; ref	00412aa0	Stack[0x8]	READ
+00412aa4	8B80D8140000	MOV EAX,dword ptr [EAX + 0x14d8]
+00412aaa	8B4004	MOV EAX,dword ptr [EAX + 0x4]
+00412aad	51	PUSH ECX
+00412aae	8B4C2408	MOV ECX,dword ptr [ESP + 0x8]
+; ref	00412aae	Stack[0x4]	READ
+00412ab2	E8C9D40300	CALL 0x0044ff80
+; ref	00412ab2	0044ff80	UNCONDITIONAL_CALL
+00412ab7	C20800	RET 0x8

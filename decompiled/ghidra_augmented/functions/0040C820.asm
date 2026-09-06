@@ -1,0 +1,4 @@
+; Ghidra function 0040C820 FUN_0040c820
+; body ranges: 0040c820-0040c824
+0040c820	8B44880C	MOV EAX,dword ptr [EAX + ECX*0x4 + 0xc]
+0040c824	C3	RET

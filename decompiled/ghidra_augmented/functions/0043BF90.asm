@@ -1,0 +1,4 @@
+; Ghidra function 0043BF90 FUN_0043bf90
+; body ranges: 0043bf90-0043bf92
+0043bf90	8BC1	MOV EAX,ECX
+0043bf92	C3	RET

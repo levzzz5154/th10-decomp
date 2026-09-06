@@ -1,0 +1,7 @@
+; Ghidra function 0045FDA6 __flushall
+; body ranges: 0045fda6-0045fdae
+0045fda6	6A01	PUSH 0x1
+0045fda8	E8D4FEFFFF	CALL 0x0045fc81
+; ref	0045fda8	0045fc81	UNCONDITIONAL_CALL
+0045fdad	59	POP ECX
+0045fdae	C3	RET

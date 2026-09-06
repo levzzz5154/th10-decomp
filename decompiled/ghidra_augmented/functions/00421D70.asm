@@ -1,0 +1,4 @@
+; Ghidra function 00421D70 FUN_00421d70
+; body ranges: 00421d70-00421d73
+00421d70	668908	MOV word ptr [EAX],CX
+00421d73	C3	RET

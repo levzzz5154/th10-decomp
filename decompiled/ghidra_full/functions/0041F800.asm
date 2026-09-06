@@ -1,0 +1,18 @@
+; Ghidra function 0041F800 FUN_0041f800
+; body ranges: 0041f800-0041f81d
+0041f800	51	PUSH ECX
+0041f801	890C24	MOV dword ptr [ESP],ECX
+; ref	0041f801	Stack[-0x4]	DATA
+0041f804	8B0424	MOV EAX,dword ptr [ESP]
+; ref	0041f804	Stack[-0x4]	DATA
+0041f807	D9442408	FLD float ptr [ESP + 0x8]
+; ref	0041f807	Stack[0x4]	READ
+0041f80b	D9FB	FSINCOS
+0041f80d	D84C240C	FMUL float ptr [ESP + 0xc]
+; ref	0041f80d	Stack[0x8]	READ
+0041f811	D918	FSTP float ptr [EAX]
+0041f813	D84C240C	FMUL float ptr [ESP + 0xc]
+; ref	0041f813	Stack[0x8]	READ
+0041f817	D95804	FSTP float ptr [EAX + 0x4]
+0041f81a	59	POP ECX
+0041f81b	C20800	RET 0x8

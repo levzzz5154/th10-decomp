@@ -1,0 +1,9 @@
+key	value
+program	th10.exe
+sha256	2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
+md5	7dc488d82c81dd4aee4ba098b8804d83
+ghidra_version	12.1.2
+language	x86:LE:32:default
+compiler_spec	windows
+image_base	00400000
+scope	all functions in saved database; no analysis changes; external imports listed separately

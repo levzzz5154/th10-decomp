@@ -1,5 +1,11 @@
 # Reconstruction audit handoff
 
+For Pro auditing the **entire repository**, start with the root
+[AUDIT_START_HERE.md](../../../AUDIT_START_HERE.md) and
+[FULL_REPO_PRO_PROMPT.md](FULL_REPO_PRO_PROMPT.md). The expanded Ghidra corpora,
+IDA archive provenance and function-level reference coverage are linked there.
+The five-packet exercise below remains an optional bounded calibration.
+
 This branch prepares the full audit and completes a bounded Codex calibration.
 The full repository audit and the external Astra Pro cross-review are **open**.
 Production code is frozen at `895c4202387d1c6099cf0cec2e8798bdae6a1754` for this

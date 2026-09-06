@@ -1,0 +1,4 @@
+; Ghidra function 00401F80 FUN_00401f80
+; body ranges: 00401f80-00401f87
+00401f80	C7402400000000	MOV dword ptr [EAX + 0x24],0x0
+00401f87	C3	RET

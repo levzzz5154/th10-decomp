@@ -1,0 +1,4 @@
+; Ghidra function 00409F30 FUN_00409f30
+; body ranges: 00409f30-00409f33
+00409f30	8B4008	MOV EAX,dword ptr [EAX + 0x8]
+00409f33	C3	RET

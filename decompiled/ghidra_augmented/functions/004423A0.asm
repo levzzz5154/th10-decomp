@@ -1,0 +1,5 @@
+; Ghidra function 004423A0 FUN_004423a0
+; body ranges: 004423a0-004423a5
+004423a0	8B08	MOV ECX,dword ptr [EAX]
+004423a2	894A0C	MOV dword ptr [EDX + 0xc],ECX
+004423a5	C3	RET

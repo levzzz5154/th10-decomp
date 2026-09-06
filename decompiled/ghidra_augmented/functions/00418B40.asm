@@ -1,0 +1,4 @@
+; Ghidra function 00418B40 FUN_00418b40
+; body ranges: 00418b40-00418b43
+00418b40	894858	MOV dword ptr [EAX + 0x58],ECX
+00418b43	C3	RET

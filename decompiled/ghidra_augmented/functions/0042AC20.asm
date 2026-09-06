@@ -1,0 +1,23 @@
+; Ghidra function 0042AC20 FUN_0042ac20
+; body ranges: 0042ac20-0042ac56
+0042ac20	8BC1	MOV EAX,ECX
+0042ac22	33C9	XOR ECX,ECX
+0042ac24	8BD0	MOV EDX,EAX
+0042ac26	890A	MOV dword ptr [EDX],ECX
+0042ac28	894A04	MOV dword ptr [EDX + 0x4],ECX
+0042ac2b	894A08	MOV dword ptr [EDX + 0x8],ECX
+0042ac2e	894A0C	MOV dword ptr [EDX + 0xc],ECX
+0042ac31	894A10	MOV dword ptr [EDX + 0x10],ECX
+0042ac34	894A14	MOV dword ptr [EDX + 0x14],ECX
+0042ac37	894A18	MOV dword ptr [EDX + 0x18],ECX
+0042ac3a	894A1C	MOV dword ptr [EDX + 0x1c],ECX
+0042ac3d	894A20	MOV dword ptr [EDX + 0x20],ECX
+0042ac40	8B08	MOV ECX,dword ptr [EAX]
+0042ac42	8B5008	MOV EDX,dword ptr [EAX + 0x8]
+0042ac45	894804	MOV dword ptr [EAX + 0x4],ECX
+0042ac48	89500C	MOV dword ptr [EAX + 0xc],EDX
+0042ac4b	33C9	XOR ECX,ECX
+0042ac4d	894018	MOV dword ptr [EAX + 0x18],EAX
+0042ac50	89481C	MOV dword ptr [EAX + 0x1c],ECX
+0042ac53	894820	MOV dword ptr [EAX + 0x20],ECX
+0042ac56	C3	RET

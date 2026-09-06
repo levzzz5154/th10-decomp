@@ -1,0 +1,8 @@
+; Ghidra function 00412ED0 SetScoreMode
+; body ranges: 00412ed0-00412edf
+00412ed0	394844	CMP dword ptr [EAX + 0x44],ECX
+00412ed3	894844	MOV dword ptr [EAX + 0x44],ECX
+00412ed6	7407	JZ 0x00412edf
+; ref	00412ed6	00412edf	CONDITIONAL_JUMP
+00412ed8	C7404C00000000	MOV dword ptr [EAX + 0x4c],0x0
+00412edf	C3	RET

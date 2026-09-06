@@ -1,0 +1,9 @@
+; Ghidra function 00412F70 FUN_00412f70
+; body ranges: 00412f70-00412f7f
+00412f70	8B4C2404	MOV ECX,dword ptr [ESP + 0x4]
+; ref	00412f70	Stack[0x4]	READ
+00412f74	8B542408	MOV EDX,dword ptr [ESP + 0x8]
+; ref	00412f74	Stack[0x8]	READ
+00412f78	8908	MOV dword ptr [EAX],ECX
+00412f7a	895004	MOV dword ptr [EAX + 0x4],EDX
+00412f7d	C20800	RET 0x8

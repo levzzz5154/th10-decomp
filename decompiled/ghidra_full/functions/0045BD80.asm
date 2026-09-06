@@ -1,0 +1,7 @@
+; Ghidra function 0045BD80 FUN_0045bd80
+; body ranges: 0045bd80-0045bd86
+0045bd80	57	PUSH EDI
+0045bd81	8B7C2408	MOV EDI,dword ptr [ESP + 0x8]
+; ref	0045bd81	Stack[0x4]	READ
+0045bd85	EB6E	JMP 0x0045bdf5
+; ref	0045bd85	0045bdf5	UNCONDITIONAL_JUMP

@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-06",
+  "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "text_section_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+  "text_section_bytes": 412672,
+  "text_section_image_address": "00401000",
+  "text_section_file_offset": 1024,
+  "corpora_compared": [
+    "ghidra_full",
+    "ghidra_augmented"
+  ],
+  "result": "Both exported memory.hex .text sections byte-compared with original PE raw section; exact equality.",
+  "recheck": "tools/audit_reference_corpus.py --check verifies memory .text hash and every exported function-listing byte against that memory."
+}

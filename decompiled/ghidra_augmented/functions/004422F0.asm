@@ -1,0 +1,8 @@
+; Ghidra function 004422F0 FUN_004422f0
+; body ranges: 004422f0-004422fe
+004422f0	8808	MOV byte ptr [EAX],CL
+004422f2	8A4C2404	MOV CL,byte ptr [ESP + 0x4]
+; ref	004422f2	Stack[0x4]	READ
+004422f6	885001	MOV byte ptr [EAX + 0x1],DL
+004422f9	884802	MOV byte ptr [EAX + 0x2],CL
+004422fc	C20400	RET 0x4

@@ -1,0 +1,8 @@
+; Ghidra function 00441E40 FUN_00441e40
+; body ranges: 00441e40-00441e4e
+00441e40	8908	MOV dword ptr [EAX],ECX
+00441e42	8B4C2404	MOV ECX,dword ptr [ESP + 0x4]
+; ref	00441e42	Stack[0x4]	READ
+00441e46	895004	MOV dword ptr [EAX + 0x4],EDX
+00441e49	894808	MOV dword ptr [EAX + 0x8],ECX
+00441e4c	C20400	RET 0x4

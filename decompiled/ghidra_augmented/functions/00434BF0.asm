@@ -1,0 +1,5 @@
+; Ghidra function 00434BF0 FUN_00434bf0
+; body ranges: 00434bf0-00434bfa
+00434bf0	8D04C0	LEA EAX,[EAX + EAX*0x8]
+00434bf3	8B8481B0000000	MOV EAX,dword ptr [ECX + EAX*0x4 + 0xb0]
+00434bfa	C3	RET

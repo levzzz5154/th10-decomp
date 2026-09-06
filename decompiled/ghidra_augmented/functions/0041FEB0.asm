@@ -1,0 +1,20 @@
+; Ghidra function 0041FEB0 FUN_0041feb0
+; body ranges: 0041feb0-0041feee
+0041feb0	F60102	TEST byte ptr [ECX],0x2
+0041feb3	7434	JZ 0x0041fee9
+; ref	0041feb3	0041fee9	CONDITIONAL_JUMP
+0041feb5	A1E0764700	MOV EAX,[0x004776e0]
+; ref	0041feb5	004776e0	READ
+0041feba	8B500C	MOV EDX,dword ptr [EAX + 0xc]
+0041febd	834A0402	OR dword ptr [EDX + 0x4],0x2
+0041fec1	8B5010	MOV EDX,dword ptr [EAX + 0x10]
+0041fec4	834A0402	OR dword ptr [EDX + 0x4],0x2
+0041fec8	8B80A8890000	MOV EAX,dword ptr [EAX + 0x89a8]
+0041fece	83480402	OR dword ptr [EAX + 0x4],0x2
+0041fed2	8125F41F4900FFEFFFFF	AND dword ptr [0x00491ff4],0xffffefff
+; ref	0041fed2	00491ff4	READ_WRITE
+0041fedc	C705B81F490004000000	MOV dword ptr [0x00491fb8],0x4
+; ref	0041fedc	00491fb8	WRITE
+0041fee6	8321FD	AND dword ptr [ECX],0xfffffffd
+0041fee9	B801000000	MOV EAX,0x1
+0041feee	C3	RET

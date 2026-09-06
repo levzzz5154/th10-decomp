@@ -10,4 +10,5 @@ python3 "$ROOT/tools/audit_inventory.py" --check
 python3 "$ROOT/tools/audit_host_contracts.py" --check
 python3 "$ROOT/tools/audit_packets.py" --check
 python3 "$ROOT/tools/audit_evidence.py"
+python3 "$ROOT/../tools/audit_reference_corpus.py" --check
 printf '%s\n' 'AUDIT_INFRASTRUCTURE_PASS (game equivalence remains unestablished)'
