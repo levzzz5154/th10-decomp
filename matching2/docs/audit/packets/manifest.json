@@ -1,0 +1,550 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "895c4202387d1c6099cf0cec2e8798bdae6a1754",
+  "baseline_tree": "0fe6a7e6277ae39ecfa012a7f088cee6b2d62732",
+  "purpose": "Independent static review; no prior verdicts included",
+  "packets": [
+    {
+      "file": "01_easing.md",
+      "address": "0x0044C350",
+      "symbols": [
+        "Trajectory_EaseFraction",
+        "Easing_Evaluate"
+      ],
+      "artifacts": [
+        {
+          "path": "matching2/src/game/trajectory_evaluate.cpp",
+          "first_line": 1,
+          "last_line": 237,
+          "whole_file_sha256": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b",
+          "excerpt_sha256": "439e8eeb40c8334a0b759f2d797fc9072f65446381be17be75b7d77a6b86089e",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/trajectory_evaluate.cpp#L1-L237"
+        },
+        {
+          "path": "matching2/include/th10/game/trajectory_evaluate.hpp",
+          "first_line": 1,
+          "last_line": 47,
+          "whole_file_sha256": "421bd3837f09bc41e579052290576fb8d42faf8eb81cf69460bb115009c90932",
+          "excerpt_sha256": "f160c73e43445d81ad4077880274c4e04930d52fb69d191cf999660ac2ee6cad",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/game/trajectory_evaluate.hpp#L1-L47"
+        },
+        {
+          "path": "matching2/src/math/easing.cpp",
+          "first_line": 1,
+          "last_line": 51,
+          "whole_file_sha256": "4c4cb72ded38496c6f0bea69a0a32514786b6de188d70b930c199de72e420a03",
+          "excerpt_sha256": "9dd3db91da8e0b478e09883cc7b30f17d6fb7f32b81e80f999f327d727b01b85",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/math/easing.cpp#L1-L51"
+        },
+        {
+          "path": "matching2/include/th10/math/easing.hpp",
+          "first_line": 1,
+          "last_line": 5,
+          "whole_file_sha256": "48c3be602a5da9a8c6daaafc14d0796ff37919afdd9de4f78206de8d38d23379",
+          "excerpt_sha256": "381b9fcb4043749e92a6db2cbc88a9708fec9c87d4a24f43838da1da3727148a",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/math/easing.hpp#L1-L5"
+        },
+        {
+          "path": "ida/th10.exe.c",
+          "first_line": 67760,
+          "last_line": 67875,
+          "whole_file_sha256": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+          "excerpt_sha256": "6185347f010922e05277a61d988a2ff0843a58012aa1cb7e01e4a1cb98c8607a",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.c#L67760-L67875"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 112590,
+          "last_line": 112802,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "7e3ffee3fc2be2b06d4c476c5c5cd236678a786d0c528659d40e02e784fe60dd",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L112590-L112802"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163280,
+          "last_line": 163280,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "ac5341871e023ce30afc9fea30ac5ee909defe6005c8a33286a6c5656b0c49b1",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163280-L163280"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163282,
+          "last_line": 163282,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "ce560879af58dbaae3cb5f0c362ba31bffbd38f1a41321c5e671af5629aa1989",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163282-L163282"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163283,
+          "last_line": 163283,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "51eb67749b217ecfcf6f1a46f036c7764744b9f5e2c02bf61a2b59a81e8fa77b",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163283-L163283"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163284,
+          "last_line": 163284,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "f189f50d4fd9c358ffdc8c06404bfef883bc43d9af145fd19f2f2671a9a19a6c",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163284-L163284"
+        },
+        {
+          "path": "decompiled/ghidra_raw/0044C350_FUN_0044c350.c",
+          "first_line": 1,
+          "last_line": 100,
+          "whole_file_sha256": "01c2574bad427fb5e65fc57b67e9e639343355e147e143a18c6b8b3d22095c22",
+          "excerpt_sha256": "f585dd0459f11d85429874d54116fdae302224f09000a59d1b7c300a8ec02d87",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/decompiled/ghidra_raw/0044C350_FUN_0044c350.c#L1-L100"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "first_line": 235,
+          "last_line": 255,
+          "whole_file_sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+          "excerpt_sha256": "d2482e57f8ae4f729aeacfd47a87be6c15f6887f7fb4204c97b38a1e1588cc57",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/bullet.cpp#L235-L255"
+        },
+        {
+          "path": "matching2/src/math/param_block_interp.cpp",
+          "first_line": 127,
+          "last_line": 147,
+          "whole_file_sha256": "ea2c32ad2874471f7355b05cfc57bd1166b1d993edcf7ddf0b170709491bf40b",
+          "excerpt_sha256": "aff82d9a4afb088934321e2b73dcca66cfc5714bf0940da73f2ac81fd209d864",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/math/param_block_interp.cpp#L127-L147"
+        }
+      ],
+      "production_textual_cross_references": [
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "line": 243,
+          "text": "Trajectory_EaseFraction};"
+        },
+        {
+          "path": "matching2/src/game/trajectory_evaluate.cpp",
+          "line": 98,
+          "text": "float Trajectory_EaseFraction(float elapsed, float duration, int mode) {"
+        },
+        {
+          "path": "matching2/src/math/easing.cpp",
+          "line": 6,
+          "text": "float Easing_Evaluate(int mode, float numerator, float denominator) {"
+        },
+        {
+          "path": "matching2/src/math/param_block_interp.cpp",
+          "line": 135,
+          "text": "const float eased = Easing_Evaluate(mode, state->elapsed,"
+        }
+      ],
+      "sha256": "544ba26a02d2429780dfe227332d0ffd064de05c21a87a7ca959b96abdfa0490",
+      "bytes": 34262
+    },
+    {
+      "file": "02_trajectory.md",
+      "address": "0x00412AC0",
+      "symbols": [
+        "Trajectory_Evaluate2D"
+      ],
+      "artifacts": [
+        {
+          "path": "matching2/src/game/trajectory_evaluate.cpp",
+          "first_line": 1,
+          "last_line": 237,
+          "whole_file_sha256": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b",
+          "excerpt_sha256": "439e8eeb40c8334a0b759f2d797fc9072f65446381be17be75b7d77a6b86089e",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/trajectory_evaluate.cpp#L1-L237"
+        },
+        {
+          "path": "matching2/include/th10/game/trajectory_evaluate.hpp",
+          "first_line": 1,
+          "last_line": 47,
+          "whole_file_sha256": "421bd3837f09bc41e579052290576fb8d42faf8eb81cf69460bb115009c90932",
+          "excerpt_sha256": "f160c73e43445d81ad4077880274c4e04930d52fb69d191cf999660ac2ee6cad",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/game/trajectory_evaluate.hpp#L1-L47"
+        },
+        {
+          "path": "ida/th10.exe.c",
+          "first_line": 22407,
+          "last_line": 22574,
+          "whole_file_sha256": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+          "excerpt_sha256": "f40daff33c7f59d480f445a6f87db555eabdb69afb0c89d91b91006869a0c737",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.c#L22407-L22574"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 25302,
+          "last_line": 25541,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "818f7082a25793af845b83624ba5db47ab1dfdc7648e3a9feb5d2cf209540105",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L25302-L25541"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163280,
+          "last_line": 163280,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "ac5341871e023ce30afc9fea30ac5ee909defe6005c8a33286a6c5656b0c49b1",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163280-L163280"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163304,
+          "last_line": 163304,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "e7689ed77a909e440b74b0c045b80a833af06cef5a44ba1707a37e4085c7a1f7",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163304-L163304"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163305,
+          "last_line": 163305,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "fb51255b41b57935c6144507fe3aa17cbf10f750f872e14a80e4a6f23bcc4bb1",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163305-L163305"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163327,
+          "last_line": 163327,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "70089e377a5efade0b30fc11bfecc36fe4b6f47fccd6252c0c3c7bc0142a9503",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163327-L163327"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 179651,
+          "last_line": 179651,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "c1f401bb83aa4e74b930063df0d3e8d47c02634a5dec5c41ced0876a3484fbc5",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L179651-L179651"
+        },
+        {
+          "path": "decompiled/ghidra_raw/00412AC0_FUN_00412ac0.c",
+          "first_line": 1,
+          "last_line": 116,
+          "whole_file_sha256": "bcaa407a09b9db5ccfeacb28c2df274925bdf6aa6126c361c98f765a3e8e838b",
+          "excerpt_sha256": "dedf83408aef943e324bf771a9b6c60d94f66ea28e312659df27a4b44bd71356",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/decompiled/ghidra_raw/00412AC0_FUN_00412ac0.c#L1-L116"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "first_line": 238,
+          "last_line": 258,
+          "whole_file_sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+          "excerpt_sha256": "d7ca7d8f2d1aa89965b6874362469d1debee799181d081035d588310a7abf9b6",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/bullet.cpp#L238-L258"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "first_line": 244,
+          "last_line": 264,
+          "whole_file_sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+          "excerpt_sha256": "0ffadca3478f3789ab89697d49c4f254755b5d4310091cfb86919fbd02e11320",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/bullet.cpp#L244-L264"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "first_line": 250,
+          "last_line": 270,
+          "whole_file_sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+          "excerpt_sha256": "6e838d816d647833179b6ea9f70bfe77dfe76698bac2b67235d0b447ec045e01",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/bullet.cpp#L250-L270"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "first_line": 256,
+          "last_line": 276,
+          "whole_file_sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+          "excerpt_sha256": "c04245d989b6eca5bfe778678c82b01e12de70871812f3cedd2384cd4fc887e3",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/bullet.cpp#L256-L276"
+        }
+      ],
+      "production_textual_cross_references": [
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "line": 246,
+          "text": "Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x1D4),"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "line": 252,
+          "text": "Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x24C),"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "line": 258,
+          "text": "Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x210),"
+        },
+        {
+          "path": "matching2/src/game/bullet.cpp",
+          "line": 264,
+          "text": "Trajectory_Evaluate2D(reinterpret_cast<Trajectory2D*>(state + 0x288),"
+        },
+        {
+          "path": "matching2/src/game/trajectory_evaluate.cpp",
+          "line": 37,
+          "text": "void Trajectory_Evaluate2D(Trajectory2D* state, float output[2],"
+        }
+      ],
+      "sha256": "c212b2e77cc7b8291e0a10e786204b1a8598c0430f45fb872747612ddb3b4caa",
+      "bytes": 38937
+    },
+    {
+      "file": "03_score_popup.md",
+      "address": "0x0042B9C0",
+      "symbols": [
+        "ScorePopup_Enqueue"
+      ],
+      "artifacts": [
+        {
+          "path": "matching2/src/game/score_popup.cpp",
+          "first_line": 1,
+          "last_line": 52,
+          "whole_file_sha256": "9d057f407ccd34abbf4a1e2df91b9cb5f718341f5daf030e74c858315470e363",
+          "excerpt_sha256": "6d55479d7cf8041c3d004776e0ecd63245ced7efef130547aa55239a86003763",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/game/score_popup.cpp#L1-L52"
+        },
+        {
+          "path": "matching2/include/th10/game/score_popup.hpp",
+          "first_line": 1,
+          "last_line": 29,
+          "whole_file_sha256": "2659c7310ee98f07723d176d0995ecc9fe69c6144a9630b63aacab6df2f8d341",
+          "excerpt_sha256": "0873956c422abc862088554423c6b36cd4e622e5fcb2631b2ed0ce40132fa2c3",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/game/score_popup.hpp#L1-L29"
+        },
+        {
+          "path": "matching2/include/th10/math/timer.hpp",
+          "first_line": 1,
+          "last_line": 33,
+          "whole_file_sha256": "b9e6c73ced3096d4e0ff591377d9f26aaf5b87f145c19be3f2e43405c3a9ea88",
+          "excerpt_sha256": "7873585c7eadef2d3bfd19d7826f760cc786ba69b04c072d1a4b745fa745c7bb",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/math/timer.hpp#L1-L33"
+        },
+        {
+          "path": "ida/th10.exe.c",
+          "first_line": 42029,
+          "last_line": 42089,
+          "whole_file_sha256": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+          "excerpt_sha256": "8d2c19f8aec77c5a67ae5171b24f4d4699f9b37fef32a3b5e5bbd71abbe9e6b2",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.c#L42029-L42089"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 61502,
+          "last_line": 61577,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "dc53baade423597a942ca0728d647ccc2a576b9b89c88a046db40cff2addcb27",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L61502-L61577"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 179651,
+          "last_line": 179651,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "c1f401bb83aa4e74b930063df0d3e8d47c02634a5dec5c41ced0876a3484fbc5",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L179651-L179651"
+        },
+        {
+          "path": "decompiled/ghidra_raw/0042B9C0_FUN_0042b9c0.c",
+          "first_line": 1,
+          "last_line": 63,
+          "whole_file_sha256": "a66c277a79ba855a0c428df96e191aa797546872a12f62373024c36c38f59902",
+          "excerpt_sha256": "9cc9dae9d5e8b5a73196c1643ac03ced7a88336b43558ffb8a357712b6bd4d90",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/decompiled/ghidra_raw/0042B9C0_FUN_0042b9c0.c#L1-L63"
+        }
+      ],
+      "production_textual_cross_references": [
+        {
+          "path": "matching2/src/game/score_popup.cpp",
+          "line": 7,
+          "text": "ScorePopupRecord* ScorePopup_Enqueue(ScorePopupQueue* queue, int value,"
+        }
+      ],
+      "sha256": "e5a40e0865b1a2460b0974270cccad4277ac08d95b6688959e60f6aee3a3dd56",
+      "bytes": 13282
+    },
+    {
+      "file": "04_version_marker.md",
+      "address": "0x00420100",
+      "symbols": [
+        "VersionMarker_Load"
+      ],
+      "artifacts": [
+        {
+          "path": "matching2/src/app/version_marker.cpp",
+          "first_line": 1,
+          "last_line": 30,
+          "whole_file_sha256": "8841455dafe7760e00e4251b91e09845dd374ec95cd7d1aa562c9bf7db29575d",
+          "excerpt_sha256": "18168a12e34a57d149b4691988ab6dd0e44ff28b7bd069a2d588ebb19af12839",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/app/version_marker.cpp#L1-L30"
+        },
+        {
+          "path": "matching2/include/th10/app/version_marker.hpp",
+          "first_line": 1,
+          "last_line": 19,
+          "whole_file_sha256": "8d7cc897dde35aed5df088df89f61ccdb26ab259e78e01834d21721384307cf8",
+          "excerpt_sha256": "e938be09678a8d085869d0751c55162db284b3831a4e7663f41fbcc27ce1c48e",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/app/version_marker.hpp#L1-L19"
+        },
+        {
+          "path": "ida/th10.exe.c",
+          "first_line": 33109,
+          "last_line": 33132,
+          "whole_file_sha256": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+          "excerpt_sha256": "553090e68c0de50cb0f84453c29cd9f6ec9b7cf0dd97ae49efeceab355b8432c",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.c#L33109-L33132"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 45162,
+          "last_line": 45221,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "a073911a75df96b150c8c0d5949fd83247594b1281a7815d003453a894a7b42a",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L45162-L45221"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 158565,
+          "last_line": 158565,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "b63295c372bf1a3881476b705e3bb434eaed4ae3eeaf08d30dfa7062f4d98bc5",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L158565-L158565"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 158598,
+          "last_line": 158598,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "916d6a60a75b5de696dc86c557da99690f49150f97991c6af89fe19116c691ab",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L158598-L158598"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 158632,
+          "last_line": 158632,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "ab06c43b0178954bb73ab9127d66536ce378f614cf81138ff3ee54552e7ecde7",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L158632-L158632"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 158633,
+          "last_line": 158633,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "5991ca493e940a44f0ea5eb0f406ccff912ea342481f108609eea923851b39e2",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L158633-L158633"
+        },
+        {
+          "path": "decompiled/ghidra_raw/00420100_FUN_00420100.c",
+          "first_line": 1,
+          "last_line": 40,
+          "whole_file_sha256": "02dc72b919c4bf565f456ae77093b75a839091441b25f8b34d602452a6f2a102",
+          "excerpt_sha256": "4cb24d2a06b52599412168c3e725a595437a0f29fb4ddf2128d1f6a14b42705e",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/decompiled/ghidra_raw/00420100_FUN_00420100.c#L1-L40"
+        }
+      ],
+      "production_textual_cross_references": [
+        {
+          "path": "matching2/src/app/version_marker.cpp",
+          "line": 9,
+          "text": "int VersionMarker_Load(VersionMarkerEnv* env) {"
+        }
+      ],
+      "sha256": "6adae85329b7b6412f1a14a5afc9da359ade34eb2d30ee6923cb032826c8ff88",
+      "bytes": 9485
+    },
+    {
+      "file": "05_fps.md",
+      "address": "0x004135D0",
+      "symbols": [
+        "FpsCounter_Render"
+      ],
+      "artifacts": [
+        {
+          "path": "matching2/src/app/fps_counter.cpp",
+          "first_line": 1,
+          "last_line": 96,
+          "whole_file_sha256": "03bae5a5c93e9723c40a158316b652a6151b8b4ed4f5d122c9eafae6498f7092",
+          "excerpt_sha256": "b5c19ae2445cf190c747e92a4f9377b87c58a3e4dfa03678f42f572010084f42",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/src/app/fps_counter.cpp#L1-L96"
+        },
+        {
+          "path": "matching2/include/th10/app/fps_counter.hpp",
+          "first_line": 1,
+          "last_line": 35,
+          "whole_file_sha256": "5e3bf4a8c25306437cea58516eb757377260fcf627d70407f0b63c29c03b0af5",
+          "excerpt_sha256": "4094ed3502707188497347297831c2cfb4c982da8c992de38c39c3177c0fd182",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/app/fps_counter.hpp#L1-L35"
+        },
+        {
+          "path": "matching2/include/th10/util/scalars.hpp",
+          "first_line": 1,
+          "last_line": 7,
+          "whole_file_sha256": "7ad11076fcac126d57294dcf0f40acdf29e299d27028c653a937cffeeb7c5122",
+          "excerpt_sha256": "843f0c48917b0dd7f61416337c1930915a10c5d461b40166761e4de5ee1a6f18",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/matching2/include/th10/util/scalars.hpp#L1-L7"
+        },
+        {
+          "path": "ida/th10.exe.c",
+          "first_line": 23026,
+          "last_line": 23065,
+          "whole_file_sha256": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+          "excerpt_sha256": "6f3bbc952b7afee863261c523906993e28d5b3b7909561c5963e9d4719a7ffdd",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.c#L23026-L23065"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 26477,
+          "last_line": 26542,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "8f4291b66ae63065ca3a86e611177f856895968c22ae6cccd87985881d978e82",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L26477-L26542"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 157361,
+          "last_line": 157361,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "3d02ebfbb8e1dcf04bc10bda08b70d6f637a99ef9d5aaaff8ce0844b755d5a62",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L157361-L157361"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163349,
+          "last_line": 163349,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "b481502957d8d13d032fb51fefd8de9aad028601f58d88751fc362d4311cbcc9",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163349-L163349"
+        },
+        {
+          "path": "ida/th10.exe.asm",
+          "first_line": 163361,
+          "last_line": 163361,
+          "whole_file_sha256": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+          "excerpt_sha256": "996c0a01e9b2e0677684cd6a36e6cdfc0de472403e90384657bb4daeddde6f35",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/ida/th10.exe.asm#L163361-L163361"
+        },
+        {
+          "path": "decompiled/ghidra_raw/004135D0_FUN_004135d0.c",
+          "first_line": 1,
+          "last_line": 38,
+          "whole_file_sha256": "ad2562a3ac01607aa7bb9aefaa1d90132dbf5a1720016bbfd5f2a4a6adb21ec8",
+          "excerpt_sha256": "3996fae1db6bc744dda98227aac15dda101b69e2dc244c2b34cfcfb08c0d2e88",
+          "url": "https://github.com/levzzz5154/th10-decomp/blob/895c4202387d1c6099cf0cec2e8798bdae6a1754/decompiled/ghidra_raw/004135D0_FUN_004135d0.c#L1-L38"
+        }
+      ],
+      "production_textual_cross_references": [
+        {
+          "path": "matching2/src/app/fps_counter.cpp",
+          "line": 29,
+          "text": "int FpsCounter_Render(void (*update_average)(void), int game_state,"
+        }
+      ],
+      "sha256": "50cf8b79c82054fe646628a14ae2d3f4c676b7b3c2f715be6c6e0cd2bca11ed6",
+      "bytes": 13090
+    }
+  ]
+}

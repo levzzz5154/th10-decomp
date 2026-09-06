@@ -2,6 +2,7 @@
 /.venv/
 /.opencode/
 /.claude/
+/.jspace/
 
 # Local reference screenshots of the retail game
 /retail-screenshots/

@@ -1,0 +1,1818 @@
+{
+  "schema_version": 1,
+  "scope": "Named shallow-body functions in standalone/*.cpp; src/*.cpp occurrences included",
+  "limits": [
+    "Regex candidates include inactive preprocessor branches and intentional adapters.",
+    "Only the listed return types and shallow function syntax are recognized; this is not a C++ parser.",
+    "No nested-body/lambda/indirect-call completeness claim; absence of a candidate proves nothing.",
+    "A token occurrence is not proof of execution. Verify providers and their exact retail contracts.",
+    "Existing placeholder exemptions are prior claims, not inherited audit verdicts."
+  ],
+  "files": [
+    {
+      "path": "src/app/fps_counter.cpp",
+      "sha256": "03bae5a5c93e9723c40a158316b652a6151b8b4ed4f5d122c9eafae6498f7092"
+    },
+    {
+      "path": "src/app/frame_clock.cpp",
+      "sha256": "a9b5af1ccf66a8542473bb2f0e950e81ed4fd6c6d0137856b8d47b0dda3e5b58"
+    },
+    {
+      "path": "src/app/game_main.cpp",
+      "sha256": "7e2541b8e25f2c334ec137781dfe64cd116efe23f8014d4d23a80859a509a7c8"
+    },
+    {
+      "path": "src/app/game_state_init.cpp",
+      "sha256": "6dbbdc359ab89ed6abc8055138a507d6c11414af09ed788583637aca143e982b"
+    },
+    {
+      "path": "src/app/main_tasks.cpp",
+      "sha256": "245c3bc79d70246146c0a6422928f980487f7c0702b02db5c4343fcddac9d2c1"
+    },
+    {
+      "path": "src/app/version_marker.cpp",
+      "sha256": "8841455dafe7760e00e4251b91e09845dd374ec95cd7d1aa562c9bf7db29575d"
+    },
+    {
+      "path": "src/archive/crypt.cpp",
+      "sha256": "900c125170b199a6838d91a608be8113fae950a8eccd0cc1a93f312bb07eda6d"
+    },
+    {
+      "path": "src/archive/dat.cpp",
+      "sha256": "a8675f289b3de325f77ffbda1ee16201bce13f49cb2db57028f4237c5fdbd79e"
+    },
+    {
+      "path": "src/archive/dat_file.cpp",
+      "sha256": "866fb3a3e14eef4a306501090143f2071e6177c80ca0c00baa3a03a5d8b015a8"
+    },
+    {
+      "path": "src/archive/lzss.cpp",
+      "sha256": "0e0baa5013e595ef460fc662263e329a8f0f6d955379310c68bc50fba07b8fb5"
+    },
+    {
+      "path": "src/archive/resource_manager.cpp",
+      "sha256": "264844136874b217df5052679e77894c4413566d6510a1f01e3bd3f509ecb504"
+    },
+    {
+      "path": "src/archive/score_save.cpp",
+      "sha256": "490a587b977e1643ca63de4a3046d58e3f9a88144fb1959249e8a742986265a6"
+    },
+    {
+      "path": "src/game/animation_resource_lazy_fetch.cpp",
+      "sha256": "26fca0ec9f341ef2878d2590068e16dfe53af07d40cefff3db03fc3122f487f2"
+    },
+    {
+      "path": "src/game/archive_cursor.cpp",
+      "sha256": "82122b7e3b725de4daf25a104bd3f9dbb223513889de3ae9a1aa7ad74149939c"
+    },
+    {
+      "path": "src/game/archive_cursor_open.cpp",
+      "sha256": "0c96208dcb6ad865ec90a3d9036fc031fa1d8fcf5bb06a3a9828ce62b8b013af"
+    },
+    {
+      "path": "src/game/archive_cursor_read.cpp",
+      "sha256": "a5a8f70f01b9204fc2c1925691246d91aaae9570212dbdb148b9844099789060"
+    },
+    {
+      "path": "src/game/ascii_overlay_callbacks.cpp",
+      "sha256": "11f1105c0ce5f6346888cc624fcb83c7d3761d9ade7e21384cacd80c725c7e41"
+    },
+    {
+      "path": "src/game/ascii_overlay_callbacks_overlay.cpp",
+      "sha256": "5b1be4dd63c2f49e0a75bf3b885a905fe2c795442b3b34425c834efce04429d7"
+    },
+    {
+      "path": "src/game/asset_buffer.cpp",
+      "sha256": "4ef2d29138f50b48e6ac259ac2ea3439118194f5c918800486b210b92309da72"
+    },
+    {
+      "path": "src/game/boss_gauge.cpp",
+      "sha256": "7f71bd739bab10eadafb96f9378bfc69da865d84118cdb7fc77e0dcc74efce8c"
+    },
+    {
+      "path": "src/game/boss_overlays.cpp",
+      "sha256": "8bd58155a3026ad4825d678f5b9556942db5b11f27e37645edb8d4b7ecc13b95"
+    },
+    {
+      "path": "src/game/bullet.cpp",
+      "sha256": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a"
+    },
+    {
+      "path": "src/game/bullet_anim_release.cpp",
+      "sha256": "cf95cdfd5bebed3a2a324ad4118da57f2b76495cef0830c7f706351b3eb59e47"
+    },
+    {
+      "path": "src/game/bullet_manager.cpp",
+      "sha256": "3a895c6d2074d216ba98e5f5e36cfb90da693bc070062a209e01a8e3812dac5b"
+    },
+    {
+      "path": "src/game/bullet_manager_overlay.cpp",
+      "sha256": "c155286c8922da9b7f0645960dea1901ba7b83b0d5f5e78a7e106f2ed3533c6a"
+    },
+    {
+      "path": "src/game/bullet_runtime_update.cpp",
+      "sha256": "9bc81293a00db24b8eed3978427bf368f95d995cff9d35f93306f8fa8a53f797"
+    },
+    {
+      "path": "src/game/effect_accel.cpp",
+      "sha256": "3e90f79a78c7aaeae6dccf48b1542b43ff3273e650bb40146b32f9c884354bdf"
+    },
+    {
+      "path": "src/game/effect_indicator_queue.cpp",
+      "sha256": "4f33198043f24f0d885a7cc1fd464bf72b6d2e0871c345b9fc5d88bd73f6571d"
+    },
+    {
+      "path": "src/game/effect_indicator_slots.cpp",
+      "sha256": "c006f71606f112110dae8659addf52fa987ea31ee495a6daff7de796ba2dc7d1"
+    },
+    {
+      "path": "src/game/effect_manager_destroy.cpp",
+      "sha256": "fed255e25a485cfc457834252ef7a2c6809b5e49cccf8f79b35c36523e4deaeb"
+    },
+    {
+      "path": "src/game/effect_pool_update.cpp",
+      "sha256": "5c40f22f25add0009b0d9350f70f0989e9de1360b9dab8a079fbaeb06c331ee7"
+    },
+    {
+      "path": "src/game/ending_screen.cpp",
+      "sha256": "2888cf48e200d4e57f0238e8b50300b746542cb91e2185ac1c40724ac03558ca"
+    },
+    {
+      "path": "src/game/ending_text.cpp",
+      "sha256": "6bf6e558a7b12640ec87aa39f265dd511b5405b1b346fb44a5a679a7b0088fcb"
+    },
+    {
+      "path": "src/game/enemy_drop_sweep.cpp",
+      "sha256": "14928b373b25ae738dbe15e8d94fe135bab6e30acc90d26805182914b408adb5"
+    },
+    {
+      "path": "src/game/enemy_grid_scan.cpp",
+      "sha256": "e07fb7df8656f42e5fd5e3fde398eb58929dbb7681fb3931d5b3e42122856207"
+    },
+    {
+      "path": "src/game/enemy_grid_scan_overlay.cpp",
+      "sha256": "98505b7153607e870c7b47b2b38a7c17fd72c17cf7e339b775fac9e35406b227"
+    },
+    {
+      "path": "src/game/enemy_lifecycle.cpp",
+      "sha256": "3cd2cd0ca34f7120696760ee0755a78ce6cfb54a6357c039c234c4882c986f5f"
+    },
+    {
+      "path": "src/game/enemy_lifecycle_overlay.cpp",
+      "sha256": "2557183292ffcd146b409b16423e1fd36a00870972182cdbf6a13c3c19366590"
+    },
+    {
+      "path": "src/game/enemy_motion_steps.cpp",
+      "sha256": "28c1201ff295d3c0e4e2b70de58035208efa95c3be5c68c26110c1078156e271"
+    },
+    {
+      "path": "src/game/enemy_projectile_spawn.cpp",
+      "sha256": "08cb0852a20c4c66e518a751c438b863a98801b560739d97095ee27f56b144f1"
+    },
+    {
+      "path": "src/game/entity.cpp",
+      "sha256": "f0e595b00456e9a8703989da0ec97a420cbebe01034f35911770507a54389090"
+    },
+    {
+      "path": "src/game/entity_color_slot.cpp",
+      "sha256": "1f6dbd7a1f6f10a826534ea72c2b31081d23e5b399b4081ce29076d33ac1aab6"
+    },
+    {
+      "path": "src/game/entity_movement_slot.cpp",
+      "sha256": "116a190a5c6c66fd5ef760b7e094532aa6b43548b8c63ab2eb0b9fff33f37eab"
+    },
+    {
+      "path": "src/game/entity_region_sweep.cpp",
+      "sha256": "cc528b4ad91892499d3d987e708019016a23edb37edb44baed282470d7f244f0"
+    },
+    {
+      "path": "src/game/event_script_runtime.cpp",
+      "sha256": "977e22fc000f02dd53bf00aa8524d037b568003b0b79383968dc4b81ca1b9aef"
+    },
+    {
+      "path": "src/game/faith_gauge.cpp",
+      "sha256": "13da7f50064e0318aedf10c2b9fec03e08235c5d95829db2c4ebd8646bd47016"
+    },
+    {
+      "path": "src/game/floating_text_draw.cpp",
+      "sha256": "b5e345cd97cfd97bb5f6b82265b3c6a503b077c88afe166282066218b0a86282"
+    },
+    {
+      "path": "src/game/frame_counter.cpp",
+      "sha256": "b2eb1a1a77ee07dada4e623024882121c47f343c9065b2f1f5f7f2e4ed9e59c1"
+    },
+    {
+      "path": "src/game/game_config_defaults.cpp",
+      "sha256": "4eb757980374a706b2bf883a5d33ec8d765c13aa78bcd3d26b9761f2a557f1d2"
+    },
+    {
+      "path": "src/game/game_mode_switch.cpp",
+      "sha256": "18414b127a6396e05d15f3cdb2ac94dc7504e833158766e216f1b9e098411c92"
+    },
+    {
+      "path": "src/game/game_state.cpp",
+      "sha256": "b304c66682f9e3094ab9f4c7bbdd9afb58f530bf85132a75f539de196648337f"
+    },
+    {
+      "path": "src/game/game_state_overlay_draw.cpp",
+      "sha256": "e7a87546659e0a537552eee4f8447e6ca5dcb3dd184a63c9abdb077327b7015e"
+    },
+    {
+      "path": "src/game/game_thread.cpp",
+      "sha256": "6b4366633e2f1078dade4f7d5959f541a729759c0cbef0d21cbd7b828e6f3216"
+    },
+    {
+      "path": "src/game/game_thread_overlay.cpp",
+      "sha256": "5b9066e71ebbf5257d305521d723508ac03a1bb79e013907e172045a62a00b2e"
+    },
+    {
+      "path": "src/game/game_thread_queue.cpp",
+      "sha256": "66e57d168e7a4850fb83e0339e08df0397647397fec1142bb115f753358330f5"
+    },
+    {
+      "path": "src/game/game_thread_text_draw.cpp",
+      "sha256": "c810ba30c7876fcdf89c6b5dfdc197ef2e0bd62822e2ae02b0dfc5fef6e15d13"
+    },
+    {
+      "path": "src/game/game_ui_create.cpp",
+      "sha256": "0ec7163b8e7f5c0d059c66443f2fe29b5e61b19fd7c35ae5dc8d3503a82b0874"
+    },
+    {
+      "path": "src/game/gameplay_final_runtime.cpp",
+      "sha256": "e049af9e9e89b3884e27c33b2822fc37031bbd59154b0ea1287ab1f364b5df33"
+    },
+    {
+      "path": "src/game/gameplay_render_pass.cpp",
+      "sha256": "b12754c6baae9310ae0efe70149afe2c88c35797b54a8a046e8c5a78bda71b6d"
+    },
+    {
+      "path": "src/game/input_recorder.cpp",
+      "sha256": "f5b8d4a2446afb1b99e477a1b61a70fe91d1d0418aed039d411a8b80da242c45"
+    },
+    {
+      "path": "src/game/item_field_contact.cpp",
+      "sha256": "05d654f40ca3d4e1a1a93f2c8e4fd360fa718caaf7a37b383976e81098134223"
+    },
+    {
+      "path": "src/game/item_scatter.cpp",
+      "sha256": "6431622a9d6dfaaea75fd967ae78c28d5f299cfaca1a24e0d7589d5d58ea74f2"
+    },
+    {
+      "path": "src/game/item_spawn.cpp",
+      "sha256": "b9cbc07dcd6b5513d94ae4d5ea4dddb12cb0e14c0aa68e8010b95a6d882a1839"
+    },
+    {
+      "path": "src/game/key_config.cpp",
+      "sha256": "7b4dc7277de686254d7470c7f2f81ca439700ea851b6e59f5292107b3f1720ff"
+    },
+    {
+      "path": "src/game/key_config_overlay.cpp",
+      "sha256": "6dea692ac71f5d2ab5b1bc1c6e2d710971da7e4f094a149adb289d15669328b5"
+    },
+    {
+      "path": "src/game/laser_grow_update.cpp",
+      "sha256": "4b0fbab406cef3ffead64f24dd87d00ae48a57b201145f5bd68cb117aaeca02a"
+    },
+    {
+      "path": "src/game/laser_line.cpp",
+      "sha256": "141104dd29cac869d0201632ca6ea7f0dc3aaa3d917cd08d4b83dbb30f38563b"
+    },
+    {
+      "path": "src/game/laser_segment_cut.cpp",
+      "sha256": "899d425bd83951faa7667c8c40722d44c55775e5cdb0d0e02dc000b91a6f817a"
+    },
+    {
+      "path": "src/game/line_effect_sweep.cpp",
+      "sha256": "381236e8157df015720ff26a5b56eec3cc1ebf78f49d36fa8aa01951acc2658f"
+    },
+    {
+      "path": "src/game/linked_pool_append.cpp",
+      "sha256": "d22eff822cc65e6b805662f78db2308754f077c9caa1faa4780c6628a84cfe5e"
+    },
+    {
+      "path": "src/game/linked_pool_release.cpp",
+      "sha256": "876d780b39eed2a5dc8f7d7468566ac83b936c3dec56faa5f6b0feb58d95ed00"
+    },
+    {
+      "path": "src/game/main_menu_dispatch.cpp",
+      "sha256": "0aa8f8a63c9061057a36c09ec6a78c08d1a9670b430228713d3d36b1878d0e7c"
+    },
+    {
+      "path": "src/game/main_menu_dispatch_overlay.cpp",
+      "sha256": "ad5052827c60af6da3a763acf1650f0bb1ae73e3e3d2535fb66bd3f90248f4d8"
+    },
+    {
+      "path": "src/game/manager_factories.cpp",
+      "sha256": "f7899a59db92ada67be2772f8ce3ffeaf1bf31f1a5ac3f06cfd2e5b1be9d7938"
+    },
+    {
+      "path": "src/game/manager_teardown.cpp",
+      "sha256": "11e81f6d59a7c76277bfb2f6bb6e29b1eb38d91c0324383f892860753597fe7c"
+    },
+    {
+      "path": "src/game/menu.cpp",
+      "sha256": "04f5c67b3e75419d7bf57e13227595f6f57bdadbc7cd81b07244f53840f478da"
+    },
+    {
+      "path": "src/game/menu_flow_updates.cpp",
+      "sha256": "0a0ea8bc6ea3af69165b2658937acc8acad9a0e1c02d9a4caa662ae9c83e3909"
+    },
+    {
+      "path": "src/game/message_host_init.cpp",
+      "sha256": "93a2bc9f6e785b8e657db968e3dd3db4dcbb0984510320c43e3ed838be88726e"
+    },
+    {
+      "path": "src/game/message_manager_init.cpp",
+      "sha256": "cac35709a516b6ed4f1dca846b3a06ec2a973d2ba1538263e32f49eaa815940e"
+    },
+    {
+      "path": "src/game/music_room.cpp",
+      "sha256": "34d84e73ee017eca932ed03d9586385c3ae5faa03de852b22f2fda0d1316adde"
+    },
+    {
+      "path": "src/game/music_room_overlay.cpp",
+      "sha256": "287be46fd22a147ab71e8ef9b709d6eee61a1e3f3e18d92f45f4c7295006b708"
+    },
+    {
+      "path": "src/game/name_entry.cpp",
+      "sha256": "e7d9c212084922a3310e54ea5b457c5e5ee77fb79f0e93ecf3add75aa104c664"
+    },
+    {
+      "path": "src/game/object_factories.cpp",
+      "sha256": "1f4b0130fc7e9e5b203df59138f44dc8069a00e1d943752e19f671f85e5d90d1"
+    },
+    {
+      "path": "src/game/particle_seed.cpp",
+      "sha256": "78563a13e7839bb6ebcdd149a4192dd1ceed7416d4fbb0cf42779d23d55870de"
+    },
+    {
+      "path": "src/game/pause_menu_reset.cpp",
+      "sha256": "a126a3f1158aafc23dac18762ca46cccbe8b7a80aa731d8dc6c0045c7271b774"
+    },
+    {
+      "path": "src/game/pause_result_open.cpp",
+      "sha256": "906ed5a2321e60a0b56edeb892f232e3b30e033ffd32f1f618d01e0272dd4bab"
+    },
+    {
+      "path": "src/game/player.cpp",
+      "sha256": "547f4ed0a414d0a487504377db918c6e2c2c673638a238c24e16167ba536a32d"
+    },
+    {
+      "path": "src/game/player_front_runtime.cpp",
+      "sha256": "07c7d8658bd75b9c6a80a7e93377db7f553246c223a303ccfe6b0f09263b7af6"
+    },
+    {
+      "path": "src/game/player_motion.cpp",
+      "sha256": "00b1f9dba95c78e74282be88698ab0033ee7bf85843f9df454f248c8f7977b85"
+    },
+    {
+      "path": "src/game/player_pickup_sweep.cpp",
+      "sha256": "943071a2de1a946ac4b7135283fccb6785339f05d5ef7edbbc4b3250b9c08fa0"
+    },
+    {
+      "path": "src/game/player_reset.cpp",
+      "sha256": "2c7760e2d84872cf1e2990dca8ada4ed7e60373a956d3e469c6d8d357091a6a0"
+    },
+    {
+      "path": "src/game/player_runtime_init.cpp",
+      "sha256": "0cebca288e841591f67b5d1b16fbb00cc1f0f49c5d2d07eeb1ab178a102260ff"
+    },
+    {
+      "path": "src/game/player_scheduler.cpp",
+      "sha256": "9a8557fec12c96886d27d02ee5e8d723eaf3217fa3b6156c13fa21359a81d5d0"
+    },
+    {
+      "path": "src/game/pool_constructors.cpp",
+      "sha256": "42a0c14f76ee6728346167fd00d0d78adfb66790d1b1693295a44e714af80136"
+    },
+    {
+      "path": "src/game/practice_stage_menu.cpp",
+      "sha256": "ed49cfd96058dd49b31b2ad3076054872ce08e18368fe1688e857934a9283b60"
+    },
+    {
+      "path": "src/game/progress.cpp",
+      "sha256": "f919c1f2737238053b08e4189172a66a16d2a80b8d5e31ec775ec9ecb05526d0"
+    },
+    {
+      "path": "src/game/progress_worker.cpp",
+      "sha256": "9adb6775dd17466f7810c3a87c6717ee9f065a78ddf26170d360b2fde9cd7564"
+    },
+    {
+      "path": "src/game/projectile_bounce.cpp",
+      "sha256": "f74dd301dc1e1daeed755e13d6c91404bc930e9c4167a09846c08582d6b0543d"
+    },
+    {
+      "path": "src/game/projectile_command_runtime.cpp",
+      "sha256": "65293e003679974a33ce3d658e14c85b89013370f65df8f1024d5a89108881c9"
+    },
+    {
+      "path": "src/game/rank_level.cpp",
+      "sha256": "acb798feae44ff646c3b6299bb4498d16ed3adbd3e51139e5226d6fc20170899"
+    },
+    {
+      "path": "src/game/recovery_leaves.cpp",
+      "sha256": "dbeab615903ad69f2425648ad56c1e5b261357f643057eea8ca3e7d3ecdb7c4f"
+    },
+    {
+      "path": "src/game/replay_browser_draw.cpp",
+      "sha256": "ae33939e63b749ff3db911fae727a0c7035d03f8acc9217069da88f6bcf51e6c"
+    },
+    {
+      "path": "src/game/replay_file_load.cpp",
+      "sha256": "632581cb01636ede806840c09df741350c94a8160d3bb85a84956e7f82eb2638"
+    },
+    {
+      "path": "src/game/replay_large_runtime.cpp",
+      "sha256": "03d1ca63df9b3332dd7b043d5d0d8bf59f7f4225ce47f3be8a9e6f31ea5766a8"
+    },
+    {
+      "path": "src/game/replay_menu_draw.cpp",
+      "sha256": "953c35cbad677998084866404ad42792c0aa793ae89b7299a6b3299b8824fd0a"
+    },
+    {
+      "path": "src/game/replay_menu_runtime.cpp",
+      "sha256": "db5ff7c73b475f069a961dcfa8a1f3429fa30e548712c1268ec5a2c57e334807"
+    },
+    {
+      "path": "src/game/replay_progress.cpp",
+      "sha256": "da86c3fee46de3fc9d5d3bc7de8fba3e5190e38c79523c00815c4525619f6a5c"
+    },
+    {
+      "path": "src/game/replay_runtime_bootstrap.cpp",
+      "sha256": "9d4e537c9397627ea40ada18807d14fcf965f471d7e7f1a7ba1d4d6822015fbb"
+    },
+    {
+      "path": "src/game/replay_score_draw.cpp",
+      "sha256": "678b7a1d0e03e00632cf5d8b2aee301d4224b6ae9b2d08ae8db9b8eb7507e930"
+    },
+    {
+      "path": "src/game/replay_spell_list.cpp",
+      "sha256": "793ebba32011d0f09316db0d4adec59078bac968cd079ef3c70a6933bfc61fe3"
+    },
+    {
+      "path": "src/game/replay_stage_name_draw.cpp",
+      "sha256": "b7d726b9d559deabe0edbcbd9657341918af67a1e7cfe45c495c7af9bdbd4a8a"
+    },
+    {
+      "path": "src/game/result_choice_menu.cpp",
+      "sha256": "323cadfcd87461952f3aef44118bd4ec56b3d640845ac458ba882f5f45adee47"
+    },
+    {
+      "path": "src/game/result_menu_draw.cpp",
+      "sha256": "e1cf9662536d2155338ca0f737283b8e524168f4dbdcff27c88742a0c42f592d"
+    },
+    {
+      "path": "src/game/result_menu_open.cpp",
+      "sha256": "2d3b13dec826db9a2d616115f2e2a305dd0d90e640252dc8a351721fa54944b8"
+    },
+    {
+      "path": "src/game/result_overlay.cpp",
+      "sha256": "798b752e805f2e2c89d617d20acbe2f8e80812689196208bef1d2944c6e6873e"
+    },
+    {
+      "path": "src/game/result_screen_effects.cpp",
+      "sha256": "c72603383bd00ba1a34f57d3a16eba5068dafdc4e1f7b300302e874fae862ecd"
+    },
+    {
+      "path": "src/game/scheduler.cpp",
+      "sha256": "3b325c5d94096899e31339785a4216d8c388216beefacbe96ad28f1c36854096"
+    },
+    {
+      "path": "src/game/score.cpp",
+      "sha256": "50c954e41829946d4a519130f23e409b0de9b06135e02d06b71c2d664bdc5763"
+    },
+    {
+      "path": "src/game/score_cleanup.cpp",
+      "sha256": "35fecd197fa523ae5620bc1c1c75f9817cfba97cecec160b810c8cb6fdb89932"
+    },
+    {
+      "path": "src/game/score_file.cpp",
+      "sha256": "c156bbab9f183d98aafa80b30c1decdd77c157c184e8c198b0f93565b96951b1"
+    },
+    {
+      "path": "src/game/score_hud_update.cpp",
+      "sha256": "21e5e61e8b93e01f8434e92c1063d6c6406ee4fe2edcc67aa9f3461884c33255"
+    },
+    {
+      "path": "src/game/score_menu_rows.cpp",
+      "sha256": "eda2c969752d61c094a0ecce4bd7843837110de7345d0a84de54ace1c7fede00"
+    },
+    {
+      "path": "src/game/score_popup.cpp",
+      "sha256": "9d057f407ccd34abbf4a1e2df91b9cb5f718341f5daf030e74c858315470e363"
+    },
+    {
+      "path": "src/game/score_queue.cpp",
+      "sha256": "649ed9f4c8a65ebc3ca7c7acedc36c0d44d42b37b42ae6912efcfe178e9aee2a"
+    },
+    {
+      "path": "src/game/score_runtime_ui_update.cpp",
+      "sha256": "5f2625b8a871c7828098ff0ed11e0fe2c1d143181fafff6de36e9ce386715cfc"
+    },
+    {
+      "path": "src/game/score_tasks.cpp",
+      "sha256": "4d540c19c27fc129793e727684dec0aaf54dea21f6f648cc7359264ea17ba011"
+    },
+    {
+      "path": "src/game/score_timer_leaves.cpp",
+      "sha256": "f8424c621c44a1807aae2e74114e497ce2b9fbf1c0ea555f701c716db700c5fb"
+    },
+    {
+      "path": "src/game/score_view_ctor.cpp",
+      "sha256": "6e574177fe1ca1b12315874384e1d401efca966accba97e985a7fbfd1f561cac"
+    },
+    {
+      "path": "src/game/shot_practice_menu.cpp",
+      "sha256": "f2cf445bbb39af6b311bbd1485b4417cee22904af6dde721a8ecb2a96e648b49"
+    },
+    {
+      "path": "src/game/slot_lock_leaves.cpp",
+      "sha256": "094c4688db05a49ed1ad075e4517b85628802cfe01426d999efa379516bf9368"
+    },
+    {
+      "path": "src/game/slot_snapshot.cpp",
+      "sha256": "e9f0594cea6a45b1f9cdafbc64bbd46671e3418020e0b8727cac9685bf977d71"
+    },
+    {
+      "path": "src/game/spell_card_dispatch.cpp",
+      "sha256": "e7f685cd3acd9e6aca94efaa2f374fdb53a8e3431f4445c1b2e64efae7691aeb"
+    },
+    {
+      "path": "src/game/spell_card_end.cpp",
+      "sha256": "80681edc66def7fed6e01d270ecbfa68988c18ff220fbc0e3fae8c9fac4fb431"
+    },
+    {
+      "path": "src/game/spell_timeout.cpp",
+      "sha256": "1ecbb7e3b0783e5b35bca394d79d124ac0399a9aa0744614cb027f3398a99008"
+    },
+    {
+      "path": "src/game/spell_timer.cpp",
+      "sha256": "deb826ad717ae01c06558bfa41711e326c0e5afa3eb5143f4a3c3d0320089dbb"
+    },
+    {
+      "path": "src/game/sprite_descriptor.cpp",
+      "sha256": "4529e3acef1a6facbfc93f0554863456b48751c313b9ad32027236a398285457"
+    },
+    {
+      "path": "src/game/sprite_test_overlay.cpp",
+      "sha256": "2d18d33845c60f0b34ba7495044b10c644b0e61749d04f881c8d7a6fa6644af3"
+    },
+    {
+      "path": "src/game/stage_background.cpp",
+      "sha256": "69b6cc1835f3d5a1a4a17b64c473d4dcd3b744dc59012ee17260c6472ee7a246"
+    },
+    {
+      "path": "src/game/stage_background_overlay.cpp",
+      "sha256": "fef21fb31d7d86f6e8b8900d83811f6e6d86b0de1437e9bd6e68540f8acf26bb"
+    },
+    {
+      "path": "src/game/stage_controller_tick.cpp",
+      "sha256": "3f9976ca562a03a4aa4667d94fc7fdef1767537c5856c64467362aac9506c232"
+    },
+    {
+      "path": "src/game/stage_entry.cpp",
+      "sha256": "1e5c5c1890f17454b052d0020f126849b3e14d40a5c1297c59d1104b2954d3c8"
+    },
+    {
+      "path": "src/game/stage_focus_fade.cpp",
+      "sha256": "c84a778c231793e85f9ec5c5df998a5f64c7aa9ce2a53814bd5f410156daa436"
+    },
+    {
+      "path": "src/game/stage_slot_state.cpp",
+      "sha256": "57108e4d64d91a336f9c5abcd18071e9abca22d22c4648103658be798c2fb7d9"
+    },
+    {
+      "path": "src/game/stage_std.cpp",
+      "sha256": "f4d5a72cbcbcf4d8354ee553e9066d0b759915e34018fc6b31f5b10ff9747f1e"
+    },
+    {
+      "path": "src/game/stage_text.cpp",
+      "sha256": "8f8193a38c127f2f610eb8390c32f6b9bf3040abb43444e90d930d5f1edff77f"
+    },
+    {
+      "path": "src/game/stage_timeline.cpp",
+      "sha256": "695df7044a9b667396052905c447200a14277f798f99a6d34779470cb708dd01"
+    },
+    {
+      "path": "src/game/stage_tip_manager.cpp",
+      "sha256": "d7efbffdc37550223837afbfcdb142227ecec2c0b73adda6c420ac97d7d03892"
+    },
+    {
+      "path": "src/game/stage_tip_parser.cpp",
+      "sha256": "8a53e45175873b2498153f41c78583772e8354e08f1ac700ec5390c258e135f3"
+    },
+    {
+      "path": "src/game/stage_tips.cpp",
+      "sha256": "83426676c4044e0b8687e82a4d3f32572ae5a112aaeea7d426017e6b41336d10"
+    },
+    {
+      "path": "src/game/stage_update.cpp",
+      "sha256": "ff08bf44f24764eecb39bff352b732db1088ca34f90bc4138b2c024086ad7e71"
+    },
+    {
+      "path": "src/game/stats_task.cpp",
+      "sha256": "7452eca727717edec19890d5f984ef73d0f40949a89a84600c409d7c05bbec78"
+    },
+    {
+      "path": "src/game/task_registration.cpp",
+      "sha256": "21d24fc5e9f3e9d40164c8f9c43a6a64ef51bc7373faf4a7f75095584a3c3bf8"
+    },
+    {
+      "path": "src/game/thread_spawn.cpp",
+      "sha256": "4f98dd14f1081e511c39ebb80435aadbd71aebf765a329253c9e0056ab4f696e"
+    },
+    {
+      "path": "src/game/title_assets.cpp",
+      "sha256": "e6c3d546e4e7ab352d64ce1503c9e7848e51c347a757ac636be5945e60f948b0"
+    },
+    {
+      "path": "src/game/title_main_menu.cpp",
+      "sha256": "17dff19885009b0a20297e3d4e5b6b7afb8a6aa8472f7e94549b04fb7a34fe6a"
+    },
+    {
+      "path": "src/game/title_menu_runtime.cpp",
+      "sha256": "a731bfbdc3217cb19ae7ec9d4bb66adc8c013366652f9ff0d402b5fc69365067"
+    },
+    {
+      "path": "src/game/title_options_menu.cpp",
+      "sha256": "2cc88af43400140181c0728d2fb1637883e75c3149b9a484743a4ae118c23f51"
+    },
+    {
+      "path": "src/game/trajectory_evaluate.cpp",
+      "sha256": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b"
+    },
+    {
+      "path": "src/game/trigger_activation.cpp",
+      "sha256": "43e3f141a2a52bb63338fa4427305e343aad9aea45f9d62f4dad2b59dfa01cac"
+    },
+    {
+      "path": "src/game/trigger_region.cpp",
+      "sha256": "3c940385a20de6ab5113d76175f841caf34398bfc6e00f4a180d5ab76ba5eac0"
+    },
+    {
+      "path": "src/game/ui_final_runtime.cpp",
+      "sha256": "330f7a52d1e799f553b268aa3c755f46381d03c0dc3ff82c711508e16ae2798c"
+    },
+    {
+      "path": "src/game/version_list.cpp",
+      "sha256": "54dd3f14de0f7dbd6afafed1ded8ba1e2cac582fdd5410eb45c2a16a069fba88"
+    },
+    {
+      "path": "src/game/weather_pool.cpp",
+      "sha256": "8a6fe71a8012554335a41ea4e319d6f27bf64ceb6d44f62d142f2d1aa087627d"
+    },
+    {
+      "path": "src/math/angle.cpp",
+      "sha256": "26682fc475a8da1d13dd2cf9432fec5445bc7d0fd90bc5f7b76ab766275554d4"
+    },
+    {
+      "path": "src/math/easing.cpp",
+      "sha256": "4c4cb72ded38496c6f0bea69a0a32514786b6de188d70b930c199de72e420a03"
+    },
+    {
+      "path": "src/math/interpolators.cpp",
+      "sha256": "683fdde30f3db3b949861d15611c45e808cc9073c4ae9c455e832d98aa02829b"
+    },
+    {
+      "path": "src/math/math_utils.cpp",
+      "sha256": "0651ba4eed006631c20c5a3bcb390a53ab0ecfa07e69a959c69d7c83afd9b8c4"
+    },
+    {
+      "path": "src/math/oriented_rect.cpp",
+      "sha256": "2ae3983a99cabc006ad444bc57065b1b04f18e39cede5a004c9c02832a0f495f"
+    },
+    {
+      "path": "src/math/param_block_interp.cpp",
+      "sha256": "ea2c32ad2874471f7355b05cfc57bd1166b1d993edcf7ddf0b170709491bf40b"
+    },
+    {
+      "path": "src/math/random_vector.cpp",
+      "sha256": "986dc464093ef72b6ec99b6d7e1f2538a89ec803d0b7cc7bafa6beec311568fc"
+    },
+    {
+      "path": "src/math/rng.cpp",
+      "sha256": "6fa82eefa676a6fdf4986c6eab313a144fac63aef4c3aaa81f507193a754c50b"
+    },
+    {
+      "path": "src/math/timer.cpp",
+      "sha256": "1cc9e7f3e56979c6cbfa8034806577e544330858be47a7b012c3e5c046427d89"
+    },
+    {
+      "path": "src/math/vector.cpp",
+      "sha256": "8619833d9c838ccd00ace50f5000e101174edd74e9a96f3a408c01b724444fd2"
+    },
+    {
+      "path": "src/math/vector2_polar.cpp",
+      "sha256": "2de412e5757edf97c725a2696f80f985bef637b817c77e92ff4a5346c14d430d"
+    },
+    {
+      "path": "src/math/vector3_cross.cpp",
+      "sha256": "3b97d9e1223a8602fa5f541c7149a95abf422b26a95c989b2ee305eee6abe5fa"
+    },
+    {
+      "path": "src/platform/all_source_runtime.cpp",
+      "sha256": "c892060ecf49b2028e3ec2e04be3677b662036b6068bb41d671d8f786e57967f"
+    },
+    {
+      "path": "src/platform/bgm_streamer_refill.cpp",
+      "sha256": "9faf5e2ab57cc01376d0a711eca1403320907a76c633fe5aaffafd6689b8f048"
+    },
+    {
+      "path": "src/platform/dinput_device_setup.cpp",
+      "sha256": "3c62bad310daa7f257ff050f76e9db5e54348925dfbf79e3c662161cae79394a"
+    },
+    {
+      "path": "src/platform/file.cpp",
+      "sha256": "f945f7ef117f2cc6ff4407e3127667f0e4291e6278e50e78570ffa4d164a792f"
+    },
+    {
+      "path": "src/platform/final_input_runtime.cpp",
+      "sha256": "d74829e252e50278c90385a5ab7f1cf974df62836c8d1c86d7393dde40699eb6"
+    },
+    {
+      "path": "src/platform/font_cache_init.cpp",
+      "sha256": "866fcfe22fc84938c552ed10f2267482c41225543000f966a3e3af4c3d0b0931"
+    },
+    {
+      "path": "src/platform/font_surface_blend.cpp",
+      "sha256": "f82f3fbe2d19c9781d63ce0f32eb8899d1ac385ad8d0d8166a2e6444c410df1f"
+    },
+    {
+      "path": "src/platform/font_texture_draw.cpp",
+      "sha256": "1d80c1f101a43e4441a96aef5477cfae1a07c8458fdb31f73af07555c2ea073b"
+    },
+    {
+      "path": "src/platform/gdi_font_cache.cpp",
+      "sha256": "eef5eb174a7502bd79e108bcaede05b67b06d640f36bee51340949a051ec204b"
+    },
+    {
+      "path": "src/platform/gdi_surface.cpp",
+      "sha256": "2de100217e6b4829a9df956cef67aa232a9f15c1b350c8de31e8c7e065ce3d7c"
+    },
+    {
+      "path": "src/platform/joystick_poll.cpp",
+      "sha256": "b81e5f3fa692bc9ee34fd4e0983443a13867289c7f18af82b3b6849719f6b007"
+    },
+    {
+      "path": "src/platform/joystick_probe.cpp",
+      "sha256": "fe4232253b45e807b970008ce489762e02727b2ee78511146606e5851365f53d"
+    },
+    {
+      "path": "src/platform/joystick_property.cpp",
+      "sha256": "540336e7a43799d0d045eb1d3d08ad5c76db53aaeb1804e5f2df7d6c45c2ce3d"
+    },
+    {
+      "path": "src/platform/joystick_property_overlay.cpp",
+      "sha256": "9d1fdd974ed5a46110a4da0a942ed3dc4d98e3f1b60d2a4a51b7abb3392ac963"
+    },
+    {
+      "path": "src/platform/memory_file.cpp",
+      "sha256": "8f09b7abb2195819caae0a4bb497a1f6a024d6ea3006070f658b4bea096daaa8"
+    },
+    {
+      "path": "src/platform/midi_event_runtime.cpp",
+      "sha256": "a93acf8484bc536ed65a5c0749598945143ddc943de8d26c42ccdb23919ff2d9"
+    },
+    {
+      "path": "src/platform/midi_sequencer.cpp",
+      "sha256": "a2375dfa45cb3ee579229ffb7fc7b254cccfcbb8e3ce4e0cf70bd8bf638a5f5a"
+    },
+    {
+      "path": "src/platform/midi_worker.cpp",
+      "sha256": "93cef86af7704d875f955beaaff499d1023c744f21688223479e2613ed2b7d7f"
+    },
+    {
+      "path": "src/platform/midi_worker_overlay.cpp",
+      "sha256": "b0aca25fcc674f655674a117d96861b713c4d35afc8db455b2ecd257b61d57e3"
+    },
+    {
+      "path": "src/platform/midi_worker_stop.cpp",
+      "sha256": "39e4a831c730303392cc77308f988b0476b77849ff65b1948f1301185626e3fd"
+    },
+    {
+      "path": "src/platform/pack_file_loader.cpp",
+      "sha256": "738cd80cd8af7551288b94f0595d1d0fe32f9a4fb3d408092da5e2b067bd4f7e"
+    },
+    {
+      "path": "src/platform/path.cpp",
+      "sha256": "403e2fa132e70d0f3868f5bf62f082354c6331b6209509fc04033055f4c30cb8"
+    },
+    {
+      "path": "src/platform/process.cpp",
+      "sha256": "cd4e1fc1a613cbcf2d2cf6f855323b0017d5fef3f9133553051c7470b4bfc72b"
+    },
+    {
+      "path": "src/platform/resource_file.cpp",
+      "sha256": "3101c7b9b600491b02c0e1fec37233393899c8643fce74f2716bf42bf16d54d2"
+    },
+    {
+      "path": "src/platform/sound_commands.cpp",
+      "sha256": "bbe8bc28e4454b2a1e8a999c920ebf22cda42e4cbb0459587c9ee8f504d17f10"
+    },
+    {
+      "path": "src/platform/sound_device_init.cpp",
+      "sha256": "0cf1784880388b38e7070d7a2bfda68d91b0602ff6f9ad9249c88e06e2382af2"
+    },
+    {
+      "path": "src/platform/sound_dummy.cpp",
+      "sha256": "0b5e5be49b76bfda522326b056b0694deb9b3146b08cc5525202db110b72d2c7"
+    },
+    {
+      "path": "src/platform/sound_effect_buffers.cpp",
+      "sha256": "2dec8984168165f3b6bd1916bacdaa1f1d5603f7f2ed9eff77b529957396ac09"
+    },
+    {
+      "path": "src/platform/sound_event_queue.cpp",
+      "sha256": "a25e2fec1a1f0011f66474306baff1ae2ffa62fc42b87f26873d0bed4d374b3e"
+    },
+    {
+      "path": "src/platform/sound_fade.cpp",
+      "sha256": "40f100d3a4199ce89554b75b03370b916a2d1e8706628c2c38afe0edf06a1aca"
+    },
+    {
+      "path": "src/platform/sound_float_forward.cpp",
+      "sha256": "e2f7cf379eb5ebcc459047a7c74bf84579e1f83b1b1f5f5732e23c0e3037c3a3"
+    },
+    {
+      "path": "src/platform/sound_leaves.cpp",
+      "sha256": "2ed071e8b49bd883e7a070517b3999c44eac30ba665c27f0d3e316702f733eec"
+    },
+    {
+      "path": "src/platform/sound_stream_create.cpp",
+      "sha256": "18437fc57824507d1055c59be403039a1b0474fc2fa4851e34abf0d990d8606e"
+    },
+    {
+      "path": "src/platform/sound_stream_start.cpp",
+      "sha256": "9b33fb87ba95ac9c1e88b132471c87ca30f4f63ab8ff12edda4b77e7f943e5fd"
+    },
+    {
+      "path": "src/platform/sound_stream_thread.cpp",
+      "sha256": "6649bfa48e5a2065226883c9b2ae54dacb5df198d4fe7eb544288f4dd9c43738"
+    },
+    {
+      "path": "src/platform/sound_worker.cpp",
+      "sha256": "bff14584169660d3cfea4cabdf1a26c4e4638740a51ce7d278df13e0522e967d"
+    },
+    {
+      "path": "src/platform/text_log.cpp",
+      "sha256": "e06e6af59efcf03d8a4b96120d475883832ec33d5d125d9aeaf6ff57128cc43d"
+    },
+    {
+      "path": "src/platform/win32_timer.cpp",
+      "sha256": "907d1fa744e30a0146f7e5aa1d5db3c62295c7c555c1018d61137cd28cdeb2d0"
+    },
+    {
+      "path": "src/platform/window.cpp",
+      "sha256": "5473689dde844467769b721128fb2b30426eee3dd2b060df21df5c298f6264d4"
+    },
+    {
+      "path": "src/platform/worker_start.cpp",
+      "sha256": "e75b20b1411ec2f366479e892549e96f0b8793a01fa6ec5b21a00e41a1d0138c"
+    },
+    {
+      "path": "src/render/all_source_anm_runtime.cpp",
+      "sha256": "5262de4b62bfe0c4d049902eb22b648f3fbc229bf86b3841ddde1cf77e66c1cc"
+    },
+    {
+      "path": "src/render/anchored_quad_draw.cpp",
+      "sha256": "292854d7b447346d50f2cf04a453775b7476f390f0316158cab143d5441dd6ae"
+    },
+    {
+      "path": "src/render/animation_manager.cpp",
+      "sha256": "83629b7766d6dca27abd5032ee264a9ec7724f587d986f182fb391e28cccf867"
+    },
+    {
+      "path": "src/render/animation_slot.cpp",
+      "sha256": "592a5a4544bc77c3be0bbc51b190a667497e5f72577c2687df5be8e8ec7bc534"
+    },
+    {
+      "path": "src/render/anm_archive.cpp",
+      "sha256": "4355096b1f8459677f13cafb7dc5caa0b256957ef8975c78c710c524466bb537"
+    },
+    {
+      "path": "src/render/anm_batch_flush.cpp",
+      "sha256": "95a19134b6776241dc56615f27ad9c3d7acfc160f6d37db13e56921a4fb280e5"
+    },
+    {
+      "path": "src/render/anm_blend_state.cpp",
+      "sha256": "5bed95bd2283b1d753823245b7a26cf12d4027bbc867689a8aa7fd80bb8a21f6"
+    },
+    {
+      "path": "src/render/anm_clip_quad.cpp",
+      "sha256": "b5ee22c7e4b488834d0c1173e176330246b98da29b0d59260c637249b1378b5a"
+    },
+    {
+      "path": "src/render/anm_distance_color.cpp",
+      "sha256": "80d046b33c8e8b705ccc76b21962408c19eefc7319de46952f0e620ace1ec793"
+    },
+    {
+      "path": "src/render/anm_entry_load.cpp",
+      "sha256": "c7e686fa820592a94cf16cf1d389c6943a328b31bd8ac784c5a985086adb820e"
+    },
+    {
+      "path": "src/render/anm_file.cpp",
+      "sha256": "aa4f3797aaf10d6156a6e1843ae2aa914a000491bc0bc92401d7186cfbe8063b"
+    },
+    {
+      "path": "src/render/anm_handle_release.cpp",
+      "sha256": "fc7564ae08a658e169e738265785059ab7b113a204d4e9f5a1a4103992530129"
+    },
+    {
+      "path": "src/render/anm_pending_service.cpp",
+      "sha256": "79c1273d63b3be666f57cb081cf0687162f37fe362c3af837110df2278c68035"
+    },
+    {
+      "path": "src/render/anm_pending_service_overlay.cpp",
+      "sha256": "46caaf6d9c585435044a352159b96db2135af49185a14e4b06c704926d67b68b"
+    },
+    {
+      "path": "src/render/anm_propagate.cpp",
+      "sha256": "f9e6a4f123c0a14493fc65c27ea396f1e0d646dbfe29e0d4d4c4f2a68c6a9f88"
+    },
+    {
+      "path": "src/render/anm_record_walk.cpp",
+      "sha256": "44d06597355abbc619cb804cd8d22f04e725d58518e94dfb37664f95f7cb1875"
+    },
+    {
+      "path": "src/render/anm_script_table_sweep.cpp",
+      "sha256": "4b3a40236c72025c7a048ec1f9360976362d722fda651cd3aa9648c4d120b52a"
+    },
+    {
+      "path": "src/render/anm_sprite_quad.cpp",
+      "sha256": "5d366f7a3747b18825f9758c7cfb7dee9048b063d47440944417fce87cd25fb7"
+    },
+    {
+      "path": "src/render/anm_surface_restore.cpp",
+      "sha256": "dc8f6a6e004cd0b4872f51d4d592c174edd6cc7e8fde3a490fa3a05be7a5a88b"
+    },
+    {
+      "path": "src/render/anm_texture_upload.cpp",
+      "sha256": "ce8661cc31c9177407e84d633b1308cd3071ad52d951c09b01316685d5e664af"
+    },
+    {
+      "path": "src/render/anm_vm_draw_dispatch.cpp",
+      "sha256": "153c8b410f4af0fc5bf0669eec32974c3dcd302409db8a6634b694ee204be67c"
+    },
+    {
+      "path": "src/render/camera_apply.cpp",
+      "sha256": "c45d9156654641060f0ae4d3f0b0bda72aa71c344f519a7912d5af90e771467b"
+    },
+    {
+      "path": "src/render/camera_defaults.cpp",
+      "sha256": "203d21d7df402811b763036a480d66e285a275a6dbb8754af923803b16baf7e0"
+    },
+    {
+      "path": "src/render/camera_setup.cpp",
+      "sha256": "143f281dbf56d6963c9955324a14c5e7949ad3d7d59171677f69df6c29656606"
+    },
+    {
+      "path": "src/render/composite_passes.cpp",
+      "sha256": "e1e9e505742f7514ea739552ab17a6b9681da9880f0d963ef981fa67493a7dc2"
+    },
+    {
+      "path": "src/render/d3d_init.cpp",
+      "sha256": "308541952345af14d7328c41ec1c979b4c34ceebfbbf0cf2e77d9acefd2e18ae"
+    },
+    {
+      "path": "src/render/d3d_resource_manager.cpp",
+      "sha256": "eaa6df1d4038807883c07a37deeca8737af0570aa908c29c8179a0a365aa3c1c"
+    },
+    {
+      "path": "src/render/default_viewport.cpp",
+      "sha256": "a7e6131390f1a8654ee5978cde3b8a75d2d262c65b22a587e4d1dce46eeb36da"
+    },
+    {
+      "path": "src/render/device_reset.cpp",
+      "sha256": "310acd2a43b4c527fbc6eb210037054a2ec181ebc756a57854d4aaf2a2918bfe"
+    },
+    {
+      "path": "src/render/edge_strip_draw.cpp",
+      "sha256": "36b64b47691a892d3c03b0e89f784041754b211eae9f6c77687e2e98c578cece"
+    },
+    {
+      "path": "src/render/edge_strips.cpp",
+      "sha256": "38eeb9f201e9f0942d13c1afce46860831b24d5326c4dfc10e20e56f4961ea05"
+    },
+    {
+      "path": "src/render/effect_ring.cpp",
+      "sha256": "a7800fe0bc14477f7ebb00e0039982bea10442993f272370c46f2e8c9ff8a057"
+    },
+    {
+      "path": "src/render/effect_ring_update.cpp",
+      "sha256": "ff209f8715b6cd0c93ab4e9172a7e0a60c5942265d745f135382539e29563183"
+    },
+    {
+      "path": "src/render/faded_quad_draw.cpp",
+      "sha256": "02848f1c5d4232756fb209a8ab5162fb9adef1e37945b60d17f3c00f0749aa66"
+    },
+    {
+      "path": "src/render/final_quad_pipeline.cpp",
+      "sha256": "7012e0ae72395af4972630fabd1c3e878ac4133b257f320d423480776e28e495"
+    },
+    {
+      "path": "src/render/fog_disable.cpp",
+      "sha256": "c94076c701fa20738e3e69948346ccdd5e860ad64357d72060922e69657819ea"
+    },
+    {
+      "path": "src/render/game_render_targets.cpp",
+      "sha256": "96c8be0e735da17b99cbc279763366ea8fdb9185db4aff4f89a7deadeb5bd4d1"
+    },
+    {
+      "path": "src/render/image_alpha_transform.cpp",
+      "sha256": "b5ff459664651a591322690a50ff942b966032c5c8723a031f62abe5464c309a"
+    },
+    {
+      "path": "src/render/projection_quads.cpp",
+      "sha256": "c31ce7bc50ff6db8c36cce9112b33431fa1926c3181909fd2cb18a87f999dc76"
+    },
+    {
+      "path": "src/render/quad_build_anchored.cpp",
+      "sha256": "c5dae7b504cd2af1c4eaa6aec77daa19c0e2ef9a9cf15ec40d3d882489e7b47e"
+    },
+    {
+      "path": "src/render/quad_transform_draw.cpp",
+      "sha256": "a12d6d4e102b4f36aeeeea1ceb49ef48fa0b9f35cf72c15c353755e416cb30b4"
+    },
+    {
+      "path": "src/render/quad_vertex_append.cpp",
+      "sha256": "49b6efc29f64d205741bad323a246623fb152300c7d782af7a5219f12abdbae1"
+    },
+    {
+      "path": "src/render/queued_anm_cleanup.cpp",
+      "sha256": "4de7f927e22199321fe1ed1c4633002493d664c1b6a7c1b8a28abb241cb4dda3"
+    },
+    {
+      "path": "src/render/recovered_render_leaves.cpp",
+      "sha256": "1458335bcb3421025220a0ae825dbbcec79179006d42b43bdec8498268c400a0"
+    },
+    {
+      "path": "src/render/rect_fan_draw.cpp",
+      "sha256": "0d2e8e6e9cc89c3d89c4f040e2496f94debd5ca3479e8469bf88c1b8f2bd75c0"
+    },
+    {
+      "path": "src/render/render_stage_select.cpp",
+      "sha256": "c2bfdee46edef2282e89589f6bee2bf306ccbe19839248773608c05bfe797051"
+    },
+    {
+      "path": "src/render/render_state_sync.cpp",
+      "sha256": "4b6f25c02f526d08cbe20e1050a31819aa75c9bf187354cab1e988240c894702"
+    },
+    {
+      "path": "src/render/special_quad.cpp",
+      "sha256": "7cc079d7635211d892005d2ec04f25a15f914aa63d1da5dcdfc780ec93557edd"
+    },
+    {
+      "path": "src/render/texture_stage_reset.cpp",
+      "sha256": "2594214db755441f54c0bde41ba28e5b5711ae8e8c7d0903ed0a2c8f9c8befcf"
+    },
+    {
+      "path": "src/render/transparent_pixel_fill.cpp",
+      "sha256": "3b2b69172c038944d4d78f037baadd519bd5e32e203d8357b60415fb889f9553"
+    },
+    {
+      "path": "src/render/transparent_pixel_fill_locked.cpp",
+      "sha256": "7f2792e023ab9396a63451a76c77dc6516cd0bc3339f3a6c00e17d525fffe6ee"
+    },
+    {
+      "path": "src/runtime/missing_edge.cpp",
+      "sha256": "5ca83cf856779a051e643d6d8a1e23f54401e3354af75b734f348806e401cf73"
+    },
+    {
+      "path": "src/script/anm_vm_tick.cpp",
+      "sha256": "dfe5bc9e91b7fc4977cc1e176ea11ffbf19f1e164076c4f1dd99e9360d8cac59"
+    },
+    {
+      "path": "src/script/ecl_core_interpreter.cpp",
+      "sha256": "4632f03ee7d501dd04e7a643ee695b5d983d747d3c3ad446b2c8f8c3c17b26a7"
+    },
+    {
+      "path": "src/script/ecl_helpers.cpp",
+      "sha256": "ad85948fca830c2ad702e8b2057a8b598eacc1df9cb029c8d3125c4334c3babf"
+    },
+    {
+      "path": "src/script/ecl_name_table.cpp",
+      "sha256": "9d8c355120638e7a71bc69ea19e6e692e7ddd4a1099428333971beef64416913"
+    },
+    {
+      "path": "src/script/ecl_vm.cpp",
+      "sha256": "12634e66575cb948449770cd3bba77b6272c4382146ff450a3aafa6ef9e39b18"
+    },
+    {
+      "path": "src/script/ecl_vm_children.cpp",
+      "sha256": "c444e3102d9c248eae001c5c2014ab76b5ab4e8e9602af296b45bd40ce9945f0"
+    },
+    {
+      "path": "src/script/entity_vm.cpp",
+      "sha256": "57451bfdcf17c332189d2ef9bf05e66b3a1d8222401e5d0b0f4fa1d17309a421"
+    },
+    {
+      "path": "src/script/final_script_runtime.cpp",
+      "sha256": "be965997f59d654e217f61b792ad5dfe738a7efb192e84ba90a4df99c2ace98b"
+    },
+    {
+      "path": "src/script/prng.cpp",
+      "sha256": "dbff8a007d332c1ef0513bdd22484c9b2fad5246a84b58152fdad08823988b08"
+    },
+    {
+      "path": "src/script/script_text_reader.cpp",
+      "sha256": "df9c0d7795947174d7f4b63d3896d8bc57d3dc28bf8699f80d7124f2f6dddfb1"
+    },
+    {
+      "path": "src/script/stage_ecl_load.cpp",
+      "sha256": "d0fc804a7e2bcab1cc14b086589b0534db51f456a880d43c9ab3dce71443150c"
+    },
+    {
+      "path": "src/util/heap.cpp",
+      "sha256": "c4118d0e1d778fed7b2d5466e6a7d5ce300be61d9500e9860b44bb0a55175686"
+    },
+    {
+      "path": "src/util/legacy_string_funclets.cpp",
+      "sha256": "16d0de98b72b8e90b3b305d7b192b02039a6ec3ea1edbdc3b8484936ed70a8c1"
+    },
+    {
+      "path": "src/util/runtime_pool.cpp",
+      "sha256": "76ac5adc9e2c3e6f255ecad819ce5fb30917f404251649af8573473fc760c87c"
+    },
+    {
+      "path": "standalone/globals.cpp",
+      "sha256": "8d8c86c4b5faef83b7ab647ceb8d573b8afe7bb3b4801d48c11144ef97d1dc55"
+    },
+    {
+      "path": "standalone/host_main.cpp",
+      "sha256": "33c6471a9f6393ab28535fe2d72d05b62998bf2f2925bb8fea7bad8456ec0c70"
+    },
+    {
+      "path": "standalone/host_stage.cpp",
+      "sha256": "f152587aaa1f6f0733b2ad3f9197ac1f5d2b48ef015aa525950cb0b2ebdd57e6"
+    },
+    {
+      "path": "standalone/win32_compat.cpp",
+      "sha256": "c4949bdf0f624eeaefa7752d635e16ab7fa8ad67313adbaffea57f071282062b"
+    }
+  ],
+  "candidate_count": 27,
+  "rows": [
+    {
+      "function": "HostMaybeCaptureFrame",
+      "line": 4219,
+      "kind": "no_work",
+      "body": "void HostMaybeCaptureFrame() {}",
+      "body_sha256": "278ce400c20a0f6a04076812e2a5b8e0fca48d04cb667e680c520b5f58eb5f92",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_main.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 4131,
+          "text": "void HostMaybeCaptureFrame() {"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 4219,
+          "text": "void HostMaybeCaptureFrame() {}"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 4430,
+          "text": "HostMaybeCaptureFrame();"
+        }
+      ]
+    },
+    {
+      "function": "HostNop",
+      "line": 5591,
+      "kind": "no_work",
+      "body": "void HostNop(void*) {}",
+      "body_sha256": "fdadc8ea072fff88f3404ba85dfff0aea73494562a710a9ba75f06b5c9229467",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_main.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 4233,
+          "text": "// Frame_Advance's two scene edges pointed at HostNop."
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 5591,
+          "text": "void HostNop(void*) {}"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6476,
+          "text": "HostNop,                        // select_primary_camera"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6619,
+          "text": "HostNop,"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6730,
+          "text": "nullptr, HostNop, HostNop, HostNop, HostNop, HostNop, HostNop,"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6731,
+          "text": "HostNop, HostNop, HostNop, HostNop,"
+        }
+      ]
+    },
+    {
+      "function": "HostDestroyScheduler",
+      "line": 6736,
+      "kind": "no_work",
+      "body": "void HostDestroyScheduler(void*, void*) {}",
+      "body_sha256": "fde4ca0d76fdc060b3c0d3cf160bc7611b7e46c290a0ff5332301635039c8ff3",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_main.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6736,
+          "text": "void HostDestroyScheduler(void*, void*) {}"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 7230,
+          "text": "HostDestroyScheduler, HostStopSoundWorker, HostDestroySound,"
+        }
+      ]
+    },
+    {
+      "function": "HostSoundNothingToRelease",
+      "line": 6772,
+      "kind": "no_work",
+      "body": "void HostSoundNothingToRelease(void*) {}",
+      "body_sha256": "fcc3ed76a07d45d54db0da3977cf44efaaccd9e49833fa703be98eb3578ccd9f",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_main.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6772,
+          "text": "void HostSoundNothingToRelease(void*) {}"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6778,
+          "text": "HostSoundNothingToRelease,   // track table: host allocates none"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6779,
+          "text": "HostSoundNothingToRelease,   // BGM headers: host allocates none"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6780,
+          "text": "HostSoundNothingToRelease,   // update timer: host installs none"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6781,
+          "text": "HostSoundNothingToRelease,   // MIDI: host has no player"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6783,
+          "text": "HostSoundNothingToRelease,   // streamer: host creates none"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6784,
+          "text": "HostSoundNothingToRelease,   // notify event: host creates none"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6785,
+          "text": "HostSoundNothingToRelease,   // name slots: host allocates none"
+        }
+      ]
+    },
+    {
+      "function": "HostMidiNothingToRelease",
+      "line": 6878,
+      "kind": "no_work",
+      "body": "void HostMidiNothingToRelease(void*) {}",
+      "body_sha256": "be2e8a46bd079c59882937c83bbfd89aeb00b25577dd989add1a35fb46030413",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_main.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6878,
+          "text": "void HostMidiNothingToRelease(void*) {}"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6883,
+          "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6884,
+          "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
+        },
+        {
+          "source": "standalone/host_main.cpp",
+          "line": 6885,
+          "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
+        }
+      ]
+    },
+    {
+      "function": "HostDestroyNoop",
+      "line": 393,
+      "kind": "no_work",
+      "body": "void HostDestroyNoop(void* manager) { (void)manager; }",
+      "body_sha256": "a0580fd494788e8ad2f288c37dcf8b576f9a047b6f5ce13ba9244e885abb1b5c",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 393,
+          "text": "void HostDestroyNoop(void* manager) { (void)manager; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 726,
+          "text": "HostStageManagerScriptInit, HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 744,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1050,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1066,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1093,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1377,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1415,
+          "text": "HostDestroyNoop, HostFreeMem);"
+        }
+      ]
+    },
+    {
+      "function": "HostSleep",
+      "line": 394,
+      "kind": "no_work",
+      "body": "void HostSleep(unsigned int milliseconds) { (void)milliseconds; }",
+      "body_sha256": "b955439ad497b0abbbf8903a45ea7fd1a7843a330ab56c1eb9b98692d6b9bbcb",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 394,
+          "text": "void HostSleep(unsigned int milliseconds) { (void)milliseconds; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3566,
+          "text": "g_entry_env.sleep = HostSleep;"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmIntSlot",
+      "line": 883,
+      "kind": "shared_fallback_slot",
+      "body": "static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic int fallback;\n\treturn &fallback;\n}",
+      "body_sha256": "01dd50b1a80de8fb2fcc7f851a523fc040c4f418f96d9bd2cba592f8ea1cc8b2",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 883,
+          "text": "static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 951,
+          "text": "BulletVmIntSlot,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmFloatSlot",
+      "line": 890,
+      "kind": "shared_fallback_slot",
+      "body": "static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic float fallback;\n\treturn &fallback;\n}",
+      "body_sha256": "72f7ee4d0a80218f134f0c378fb0d0fd262dd001532555d977ad9ceb619a8693",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 890,
+          "text": "static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 952,
+          "text": "BulletVmFloatSlot,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmRandFloat",
+      "line": 906,
+      "kind": "constant_result",
+      "body": "static float BulletVmRandFloat(void* context, int alt_rng) {\n\t(void)context;\n\t(void)alt_rng;\n\treturn 0.5f;  // deterministic host RNG, like the title hooks\n}",
+      "body_sha256": "ed7b9e0d9363bf3f0d2da73c258d38a56cbbdc62a25a7dfc81bdc1bcba6c6d08",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 906,
+          "text": "static float BulletVmRandFloat(void* context, int alt_rng) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 955,
+          "text": "BulletVmRandFloat,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmRandU32",
+      "line": 911,
+      "kind": "constant_result",
+      "body": "static unsigned int BulletVmRandU32(void* context, int alt_rng) {\n\t(void)context;\n\t(void)alt_rng;\n\treturn 0x80000000u;\n}",
+      "body_sha256": "e7860d959a294bc2c0ade7f6d59a0923987005d2454b89756844c3a44fb16082",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 911,
+          "text": "static unsigned int BulletVmRandU32(void* context, int alt_rng) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 956,
+          "text": "BulletVmRandU32,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmNoRing",
+      "line": 925,
+      "kind": "no_work",
+      "body": "static void BulletVmNoRing(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
+      "body_sha256": "eb71124dd0a69e6fa100e1e2a197b51e7622777f3204b155274ef6fb9247b7fe",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 925,
+          "text": "static void BulletVmNoRing(void* context, AnmVmState* vm) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 958,
+          "text": "BulletVmNoRing,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmNoChild",
+      "line": 929,
+      "kind": "no_work",
+      "body": "static void BulletVmNoChild(void* context, AnmVmState* vm, int variant,\n                            int index) {\n\t(void)context;\n\t(void)vm;\n\t(void)variant;\n\t(void)index;\n}",
+      "body_sha256": "85be0568b2c4a04a88cb6ecd1c37b41dd6d60e2e0be6f28eb2f74950fab8847c",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 929,
+          "text": "static void BulletVmNoChild(void* context, AnmVmState* vm, int variant,"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 959,
+          "text": "BulletVmNoChild,"
+        }
+      ]
+    },
+    {
+      "function": "BulletVmNoRingUpdate",
+      "line": 936,
+      "kind": "no_work",
+      "body": "static void BulletVmNoRingUpdate(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
+      "body_sha256": "798112a1034cbe7d4793c2fed0558723f9a1ed4d304c7c16570be2ca4dfa57ee",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 936,
+          "text": "static void BulletVmNoRingUpdate(void* context, AnmVmState* vm) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 960,
+          "text": "BulletVmNoRingUpdate,"
+        }
+      ]
+    },
+    {
+      "function": "HostScoreConstructBase",
+      "line": 1075,
+      "kind": "no_work",
+      "body": "void HostScoreConstructBase(uint32_t* base) { (void)base; }",
+      "body_sha256": "0a26a6de88a5308d35c53f34d82fad78c89c48fe2e0241fe769f02a8c8a3d4f2",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1075,
+          "text": "void HostScoreConstructBase(uint32_t* base) { (void)base; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1080,
+          "text": "uint32_t* state = ScoreManager_CreateAndInit(HostAlloc, HostScoreConstructBase,"
+        }
+      ]
+    },
+    {
+      "function": "HostScoreDestroy",
+      "line": 1077,
+      "kind": "no_work",
+      "body": "void HostScoreDestroy(uint32_t* state) { (void)state; }",
+      "body_sha256": "10a8d72aadf1f15700ff745c628c4ef249865b74eaaeee14e56a880e87978a55",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1077,
+          "text": "void HostScoreDestroy(uint32_t* state) { (void)state; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1081,
+          "text": "HostScoreInit, HostScoreDestroy);"
+        }
+      ]
+    },
+    {
+      "function": "HostReplaySeed",
+      "line": 1596,
+      "kind": "no_work",
+      "body": "void HostReplaySeed(void* game) { (void)game; }",
+      "body_sha256": "2852f6532e2020f1e00bb5f9fa1d097bc178e40baa11566440b2485df90ac96b",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1596,
+          "text": "void HostReplaySeed(void* game) { (void)game; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3572,
+          "text": "g_entry_env.replay_seed = HostReplaySeed;"
+        }
+      ]
+    },
+    {
+      "function": "HostRegisterBulletSprite",
+      "line": 1733,
+      "kind": "no_work",
+      "body": "void HostRegisterBulletSprite(void* pool) { (void)pool; }",
+      "body_sha256": "184a745c73728ac66651b2519a0a1258b49f886607d4228d17b7c2524c0df32e",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1733,
+          "text": "void HostRegisterBulletSprite(void* pool) { (void)pool; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 1761,
+          "text": "BulletManager_ActivateSprites(&host, HostRegisterBulletSprite);"
+        }
+      ]
+    },
+    {
+      "function": "HostPlayerRequestsDestroy",
+      "line": 3104,
+      "kind": "constant_result",
+      "body": "int HostPlayerRequestsDestroy(void* player) { (void)player; return 0; }",
+      "body_sha256": "7563e788f459c04a49d694eae5e83ab42d10920b82788c0b6c2b64f26b5680b2",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3104,
+          "text": "int HostPlayerRequestsDestroy(void* player) { (void)player; return 0; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3538,
+          "text": "g_update_env.player_requests_destroy = HostPlayerRequestsDestroy;"
+        }
+      ]
+    },
+    {
+      "function": "HostDestroyPlayer",
+      "line": 3105,
+      "kind": "no_work",
+      "body": "void HostDestroyPlayer(void* player) { (void)player; }",
+      "body_sha256": "c6db5ba096c68747aab9d885244fecb9ace071b1b9a0f50285981e84500102f0",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3105,
+          "text": "void HostDestroyPlayer(void* player) { (void)player; }"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3539,
+          "text": "g_update_env.destroy_player = HostDestroyPlayer;"
+        }
+      ]
+    },
+    {
+      "function": "StageDigitIntSlot",
+      "line": 3187,
+      "kind": "shared_fallback_slot",
+      "body": "static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic int fallback;\n\treturn &fallback;\n}",
+      "body_sha256": "49fc6218096b1996cea842b18c58759376d7fd926e4926eb35b7e58515132fcb",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3187,
+          "text": "static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3257,
+          "text": "StageDigitIntSlot,"
+        }
+      ]
+    },
+    {
+      "function": "StageDigitFloatSlot",
+      "line": 3194,
+      "kind": "shared_fallback_slot",
+      "body": "static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic float fallback;\n\treturn &fallback;\n}",
+      "body_sha256": "8be1474c034d25293d100cf1c2ee6c8a2dd5c11c0c013a7f18177660f4049383",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3194,
+          "text": "static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3258,
+          "text": "StageDigitFloatSlot,"
+        }
+      ]
+    },
+    {
+      "function": "StageDigitNoRing",
+      "line": 3229,
+      "kind": "no_work",
+      "body": "static void StageDigitNoRing(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
+      "body_sha256": "6b06c79f2da24023efe4936fdd4558cf8953c9c0af30e9562662589c89ecedeb",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3229,
+          "text": "static void StageDigitNoRing(void* context, AnmVmState* vm) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3264,
+          "text": "StageDigitNoRing,"
+        }
+      ]
+    },
+    {
+      "function": "StageDigitNoChild",
+      "line": 3233,
+      "kind": "no_work",
+      "body": "static void StageDigitNoChild(void* context, AnmVmState* vm, int variant,\n                              int index) {\n\t(void)context;\n\t(void)vm;\n\t(void)variant;\n\t(void)index;\n}",
+      "body_sha256": "d68147dfda5a3f6aa66ecfd22125ee6df5393bdba7b3fc110b9cc4461d241123",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3233,
+          "text": "static void StageDigitNoChild(void* context, AnmVmState* vm, int variant,"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3265,
+          "text": "StageDigitNoChild,"
+        }
+      ]
+    },
+    {
+      "function": "StageDigitNoRingUpdate",
+      "line": 3240,
+      "kind": "no_work",
+      "body": "static void StageDigitNoRingUpdate(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
+      "body_sha256": "bb91b8f8abd2a505b9f69963478be556c52f54c778265d808dc3d5c2ced227e5",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3240,
+          "text": "static void StageDigitNoRingUpdate(void* context, AnmVmState* vm) {"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3266,
+          "text": "StageDigitNoRingUpdate,"
+        }
+      ]
+    },
+    {
+      "function": "HostModeEnterCritical",
+      "line": 3643,
+      "kind": "no_work",
+      "body": "void HostModeEnterCritical() {}",
+      "body_sha256": "4f1f3fee53b7f1293d5b05f542c159c841ebca686bd6e565987317548f17ddf4",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3643,
+          "text": "void HostModeEnterCritical() {}"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3757,
+          "text": "g_mode_env.enter_critical = HostModeEnterCritical;"
+        }
+      ]
+    },
+    {
+      "function": "HostModeLeaveCritical",
+      "line": 3644,
+      "kind": "no_work",
+      "body": "void HostModeLeaveCritical() {}",
+      "body_sha256": "e163005cb36fc2146ea9fabc71e320a22d71cf3c2dd6ede506dc2befc6beca49",
+      "review_status": "pending_contract_review",
+      "source": "standalone/host_stage.cpp",
+      "textual_occurrences": [
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3644,
+          "text": "void HostModeLeaveCritical() {}"
+        },
+        {
+          "source": "standalone/host_stage.cpp",
+          "line": 3758,
+          "text": "g_mode_env.leave_critical = HostModeLeaveCritical;"
+        }
+      ]
+    }
+  ]
+}

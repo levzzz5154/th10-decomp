@@ -139,7 +139,9 @@ def markdown(document):
         f"({document['known_checked_semantic_total']} were still semantic in the "
         "current ledger). The unit of "
         "completion is an address, not a translation unit: a checked function "
-        "does not clear its neighbors.",
+        "does not clear its neighbors. See the [consolidated audit status]"
+        "(semantic_audit_summary.md) and [deduplicated address ledger]"
+        "(semantic_audit_summary.json) for the current bounded-pass results.",
         "",
         "## Evidence criteria",
         "",

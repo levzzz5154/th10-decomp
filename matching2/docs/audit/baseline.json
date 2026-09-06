@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "895c4202387d1c6099cf0cec2e8798bdae6a1754",
+  "baseline_tree": "0fe6a7e6277ae39ecfa012a7f088cee6b2d62732",
+  "capture_date_utc": "2026-09-06",
+  "environment": {
+    "platform": "Linux-7.2.0-1-cachyos-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "toolchain": {
+      "host_cxx": {
+        "command": [
+          "g++",
+          "--version"
+        ],
+        "exit_code": 0,
+        "version": "g++ (GCC) 16.2.1 20260810"
+      },
+      "pe32_cxx": {
+        "command": [
+          "i686-w64-mingw32-g++",
+          "--version"
+        ],
+        "exit_code": 0,
+        "version": "i686-w64-mingw32-g++ (GCC) 16.2.0"
+      },
+      "pe32_cc": {
+        "command": [
+          "i686-w64-mingw32-gcc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "version": "i686-w64-mingw32-gcc (GCC) 16.2.0"
+      },
+      "python": {
+        "command": [
+          "python3",
+          "--version"
+        ],
+        "exit_code": 0,
+        "version": "Python 3.14.7"
+      },
+      "wine": {
+        "command": [
+          "wine",
+          "--version"
+        ],
+        "exit_code": 0,
+        "version": "wine-11.16"
+      }
+    },
+    "compiler_flags": "see baseline matching2/test.sh and build_all_pe32.sh; g++ host and MinGW PE32 C++17",
+    "runtime_env": {
+      "WINEDEBUG": "-all",
+      "TH10_GAME_DIR": "default game directory",
+      "WINEPREFIX": "default"
+    }
+  },
+  "runs": [
+    {
+      "name": "tests",
+      "command": [
+        "bash",
+        "./test.sh"
+      ],
+      "cwd": "matching2",
+      "exit_code": 0,
+      "elapsed_seconds": 29.03,
+      "log_sha256": "902b8e41d953e3408a2a49af9de8507315321144b506afbf9479be6a89e52935",
+      "published_log": "evidence/tests.log",
+      "normalization": "temporary checkout/output roots replaced; published artifact hash is authoritative"
+    },
+    {
+      "name": "build",
+      "command": [
+        "bash",
+        "./build_all_pe32.sh"
+      ],
+      "cwd": "matching2",
+      "exit_code": 0,
+      "elapsed_seconds": 29.03,
+      "log_sha256": "563609f2117e1297e1d680a2339984ab98b037932404d2919632a7af953a7661",
+      "published_log": "evidence/build.log",
+      "normalization": "temporary checkout/output roots replaced; published artifact hash is authoritative"
+    },
+    {
+      "name": "smoke",
+      "command": [
+        "bash",
+        "./run_all_pe32.sh",
+        "--smoke",
+        "--ecl",
+        "3600",
+        "--trace",
+        "<output>/reconstruction_stage.jsonl"
+      ],
+      "cwd": "matching2",
+      "exit_code": 0,
+      "elapsed_seconds": 1.37,
+      "log_sha256": "320ecc7951d567e9706217e883179b13fd5fc477b2b96e1221e6b164abe1da25",
+      "published_log": "evidence/smoke.log.gz",
+      "normalization": "temporary checkout/output roots replaced; published artifact hash is authoritative"
+    }
+  ],
+  "retail_inputs": [
+    {
+      "input": "th10.exe",
+      "bytes": 487936,
+      "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+      "redistributed": false
+    },
+    {
+      "input": "th10.dat",
+      "bytes": 27696219,
+      "sha256": "1fb1d0ffe34115f563f5feb43755c0feee2315b0ac2b32e2f9e84c81e9433bea",
+      "redistributed": false
+    },
+    {
+      "input": "thbgm.dat",
+      "bytes": 403789620,
+      "sha256": "f4924d62a0d5e7d7c876064cbee1d3e43fbd29a724c7c34f9e0d17516c2c22a4",
+      "redistributed": false
+    }
+  ],
+  "produced_executable": {
+    "path": "matching2/build/all-pe32/th10_all_sources.exe",
+    "sha256": "c876dafa3531daa43218c9eb34969bd5bfce4f8a4f51dfa381587ca8fbe8cee6",
+    "redistributed": false,
+    "production_translation_units": 281,
+    "imported_retail_data_symbols": 220
+  },
+  "traces": {
+    "reconstruction": {
+      "artifact": "evidence/reconstruction_stage.jsonl.gz",
+      "event_count": 107181,
+      "ecl_vm_ticks": 76558,
+      "provenance": "fresh baseline smoke, 3600 stage update/draw ticks; default stage/character/difficulty; no input script"
+    },
+    "retail": {
+      "path": "matching2/tests/retail_probe_evidence/retail_ecl_reference.jsonl",
+      "sha256": "9dd399c4fd94ed739e437aa78fa1ca09c7bdd9340846f45b5067b96d117beafe",
+      "event_count": 17694,
+      "ecl_vm_ticks": 10900,
+      "provenance": "pre-existing archived retail probe; not recaptured this run; see docs/retail_trace_probe.md"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "evidence/tests.log",
+      "sha256": "902b8e41d953e3408a2a49af9de8507315321144b506afbf9479be6a89e52935",
+      "bytes": 3346
+    },
+    {
+      "path": "evidence/build.log",
+      "sha256": "5ecfb3a1df3872b310c41da8e2fc9bd78cb1679e0ed29482043d430c03908f29",
+      "bytes": 285
+    },
+    {
+      "path": "evidence/smoke.log.gz",
+      "sha256": "90c7b3cca28d5c498b0726a97ec9acd3efc9f23483a4da280d0c0b113c6e8cfb",
+      "bytes": 4418,
+      "uncompressed_sha256": "320ecc7951d567e9706217e883179b13fd5fc477b2b96e1221e6b164abe1da25",
+      "uncompressed_bytes": 374412
+    },
+    {
+      "path": "evidence/reconstruction_stage.jsonl.gz",
+      "sha256": "7aef96480ed8308bb0bbd0c040bd09ee113d9a18f4563cd50b47c4548f43147a",
+      "bytes": 912100,
+      "uncompressed_sha256": "ac936ec97188c3be33eb9697f2a23231e5d8eb07f5390795cd7004514761a755",
+      "uncompressed_bytes": 20836627
+    }
+  ],
+  "limits": [
+    "Tests and source/link checks do not prove retail parity.",
+    "Smoke reported zero title sprite draws; no fresh live graphics validation.",
+    "No new retail process capture; archival versus fresh comparison is scoped diagnostic evidence.",
+    "Baseline existing placeholder/fidelity gates pass despite known open behavior gaps.",
+    "Source production files remain identical to baseline; audit tooling is changed separately."
+  ]
+}

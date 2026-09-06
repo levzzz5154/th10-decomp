@@ -5,6 +5,9 @@ its behavior with the supported retail executable. The current deliverable is
 an experimental PE32 runtime with focused tests and bounded retail comparisons.
 Full-game correctness and visual equivalence have not been established.
 
+The [audit handoff](docs/audit/README.md) contains the frozen baseline, complete
+address/file inventory, validation evidence, and independent-review packets.
+
 ## Scope and rules
 
 - Reconstruct executable behavior in C++. Do not use naked functions, inline

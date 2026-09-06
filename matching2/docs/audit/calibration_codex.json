@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "895c4202387d1c6099cf0cec2e8798bdae6a1754",
+  "scope": "Static calibration, six implementations across five addresses; not a full repository audit or live retail comparison. Existing verdicts not used as evidence.",
+  "unique_address_count": 5,
+  "implementation_row_count": 6,
+  "classification_counts": {
+    "confirmed_mismatch": 4,
+    "valid_state_semantic_agreement": 2
+  },
+  "evidence_sha256": {
+    "matching2/src/math/easing.cpp": "4c4cb72ded38496c6f0bea69a0a32514786b6de188d70b930c199de72e420a03",
+    "matching2/include/th10/math/easing.hpp": "48c3be602a5da9a8c6daaafc14d0796ff37919afdd9de4f78206de8d38d23379",
+    "matching2/src/game/trajectory_evaluate.cpp": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b",
+    "matching2/include/th10/game/trajectory_evaluate.hpp": "421bd3837f09bc41e579052290576fb8d42faf8eb81cf69460bb115009c90932",
+    "matching2/src/game/score_popup.cpp": "9d057f407ccd34abbf4a1e2df91b9cb5f718341f5daf030e74c858315470e363",
+    "matching2/include/th10/game/score_popup.hpp": "2659c7310ee98f07723d176d0995ecc9fe69c6144a9630b63aacab6df2f8d341",
+    "matching2/include/th10/math/timer.hpp": "b9e6c73ced3096d4e0ff591377d9f26aaf5b87f145c19be3f2e43405c3a9ea88",
+    "matching2/src/app/version_marker.cpp": "8841455dafe7760e00e4251b91e09845dd374ec95cd7d1aa562c9bf7db29575d",
+    "matching2/include/th10/app/version_marker.hpp": "8d7cc897dde35aed5df088df89f61ccdb26ab259e78e01834d21721384307cf8",
+    "matching2/src/app/fps_counter.cpp": "03bae5a5c93e9723c40a158316b652a6151b8b4ed4f5d122c9eafae6498f7092",
+    "matching2/include/th10/app/fps_counter.hpp": "5e3bf4a8c25306437cea58516eb757377260fcf627d70407f0b63c29c03b0af5",
+    "matching2/src/math/param_block_interp.cpp": "ea2c32ad2874471f7355b05cfc57bd1166b1d993edcf7ddf0b170709491bf40b",
+    "matching2/include/th10/math/param_block_interp.hpp": "f1ee3afa25353f0c20ed723b4c6665fbf360de87d43130843a4982b92a9c51de",
+    "matching2/src/game/bullet.cpp": "5c71109c0826ce8d6b334a610eb680b71a243bb83f4258518a95751db75c170a",
+    "matching2/standalone/host_stage.cpp": "f152587aaa1f6f0733b2ad3f9197ac1f5d2b48ef015aa525950cb0b2ebdd57e6",
+    "ida/th10.exe.c": "61481fa38c3e5695794ef5f5dd439c7e2af4126514b508af0a83400bfb481163",
+    "ida/th10.exe.asm": "d08532437ba6b3012825986f4ff68492abe9f3db7d9e16ce6e8fe9b3ef96c32d",
+    "decompiled/ghidra_raw/0044C350_FUN_0044c350.c": "01c2574bad427fb5e65fc57b67e9e639343355e147e143a18c6b8b3d22095c22",
+    "decompiled/ghidra_raw/00412AC0_FUN_00412ac0.c": "bcaa407a09b9db5ccfeacb28c2df274925bdf6aa6126c361c98f765a3e8e838b",
+    "decompiled/ghidra_raw/0042B9C0_FUN_0042b9c0.c": "a66c277a79ba855a0c428df96e191aa797546872a12f62373024c36c38f59902",
+    "decompiled/ghidra_raw/00420100_FUN_00420100.c": "02dc72b919c4bf565f456ae77093b75a839091441b25f8b34d602452a6f2a102",
+    "decompiled/ghidra_raw/004135D0_FUN_004135d0.c": "ad2562a3ac01607aa7bb9aefaa1d90132dbf5a1720016bbfd5f2a4a6adb21ec8"
+  },
+  "probe": {
+    "path": "matching2/tests/audit_calibration_probe.cpp",
+    "sha256": "e0fb32329eeb0f7e5e060815faebdc46e4a2b4e0dbaaa468bf32b0aca55051d2",
+    "compiler": "g++ (GCC) 16.2.1 20260810",
+    "target": "Linux x86_64 native",
+    "optimization_runs": [
+      "-O0",
+      "-O2"
+    ],
+    "result": "exit 0; BASELINE OBSERVATIONS REPRODUCED (not retail equivalence)",
+    "positive_dyadic_easing_controls": 190,
+    "live_retail_executed": false
+  },
+  "rows": [
+    {
+      "address": "0x0044C350",
+      "implementation": "Easing_Evaluate",
+      "source": "matching2/src/math/easing.cpp:6",
+      "classification": "valid_state_semantic_agreement",
+      "findings": [
+        "All mode formulas and finite branch comparisons agree mathematically; 100 dyadic mode/ratio controls pass."
+      ],
+      "reachability": "Direct call in src/math/param_block_interp.cpp:135; no production call to ParamBlockInterp_Tick found by symbol search. Final executable reachability unproved.",
+      "precision": "double intermediates and float return differ from x87 ST0 extended value; bitwise equivalence is unproved.",
+      "evidence": [
+        "ida/th10.exe.c:67761",
+        "ida/th10.exe.asm:112590",
+        "ida/th10.exe.asm:163280",
+        "decompiled/ghidra_raw/0044C350_FUN_0044c350.c:12"
+      ]
+    },
+    {
+      "address": "0x0044C350",
+      "implementation": "Trajectory_EaseFraction",
+      "source": "matching2/src/game/trajectory_evaluate.cpp:98",
+      "classification": "confirmed_mismatch",
+      "findings": [
+        "Mode 11 uses a cubic expression with the wrong origin in both halves; retail uses quartic ease-in/out.",
+        "Mode 12 shares mode 13 cubic expression; retail mode 12 is quadratic."
+      ],
+      "counterexamples": [
+        {
+          "mode": 11,
+          "elapsed": 2.5,
+          "duration": 10,
+          "baseline": 0.9375,
+          "assembly_model": 0.03125
+        },
+        {
+          "mode": 11,
+          "elapsed": 7.5,
+          "duration": 10,
+          "baseline": 0.9375,
+          "assembly_model": 0.96875
+        },
+        {
+          "mode": 12,
+          "elapsed": 2.5,
+          "duration": 10,
+          "baseline": 0.4375,
+          "assembly_model": 0.375
+        },
+        {
+          "mode": 12,
+          "elapsed": 7.5,
+          "duration": 10,
+          "baseline": 0.5625,
+          "assembly_model": 0.625
+        }
+      ],
+      "reachability": "Bound into TrajectoryEnv by src/game/bullet.cpp:242; direct transform calls at :246/:252/:258/:264; standalone/host_stage.cpp:1315 calls the transform. Actual retail script activation untested.",
+      "precision": "Other modes match mathematically; float intermediates/return do not establish x87 equivalence.",
+      "evidence": [
+        "ida/th10.exe.c:67806",
+        "ida/th10.exe.asm:112669",
+        "ida/th10.exe.asm:112728",
+        "decompiled/ghidra_raw/0044C350_FUN_0044c350.c:54"
+      ]
+    },
+    {
+      "address": "0x00412AC0",
+      "implementation": "Trajectory_Evaluate2D",
+      "source": "matching2/src/game/trajectory_evaluate.cpp:37",
+      "classification": "confirmed_mismatch",
+      "findings": [
+        "Timer/terminal stores, modes 7/17, Hermite basis and generic blending agree structurally for finite, nonaliasing states; production easing dependency propagates confirmed mode-12 error.",
+        "Slow timer conversion uses rounded state->elapsed in C++; assembly fst stores float without popping and __ftol2 converts the still-unrounded x87 sum. Counterexample is conditional on x87 precision above binary32 and nearest rounding."
+      ],
+      "counterexamples": [
+        {
+          "case": "mode12, duration10, elapsed1.5 before unit tick, p0.x=0, target.x=16",
+          "baseline_output_x": 7,
+          "assembly_model_output_x": 6
+        },
+        {
+          "case": "mode7, duration10, elapsed=nextafter(1,0), speed=2^-25, current0; x87 precision>=53, nearest rounding",
+          "baseline_current": 1,
+          "extended_sum_model_current": 0,
+          "both_stored_elapsed": 1
+        }
+      ],
+      "reachability": "Direct casts of raw movement records at src/game/bullet.cpp:246/:252/:258/:264; 32-bit pointer layout required. Standalone host caller at :1315 exists. Triggering game inputs unverified.",
+      "precision": "Numeric counterexample models retained extended sum; broader Hermite/blend spill order, x87 control state, NaN/out-of-range conversion and aliasing remain unproved. Header layout is not retail compatible on 64-bit hosts.",
+      "evidence": [
+        "ida/th10.exe.c:22408",
+        "ida/th10.exe.asm:25342",
+        "ida/th10.exe.asm:25461",
+        "decompiled/ghidra_raw/00412AC0_FUN_00412ac0.c:12"
+      ]
+    },
+    {
+      "address": "0x0042B9C0",
+      "implementation": "ScorePopup_Enqueue",
+      "source": "matching2/src/game/score_popup.cpp:7",
+      "classification": "valid_state_semantic_agreement",
+      "findings": [
+        "For valid nonnegative ring index and nonaliasing position, decimal order, any-negative single glyph 10, zero glyph, active/count/color/position stores, wrap at 720 and lazy timer final state agree.",
+        "C++ adds negative-index normalization and returns a record pointer; retail leaves negative index unchecked and EAX contains position[1] bits. These are adapter differences, not demonstrated reachable defects."
+      ],
+      "reachability": "No production references beyond definition/declaration found by symbol search. Queue and record are semantic containers, not retail raw layout; retail stride64/active+56 versus 32-bit C++ stride52/active+48. Integration needs explicit translation.",
+      "precision": "Integer/digit controls exact; ABI and pointer-width compatibility remain outside valid-state semantic agreement.",
+      "evidence": [
+        "ida/th10.exe.c:42030",
+        "ida/th10.exe.asm:61502",
+        "decompiled/ghidra_raw/0042B9C0_FUN_0042b9c0.c:10",
+        "matching2/include/th10/game/score_popup.hpp:9",
+        "matching2/include/th10/math/timer.hpp:14"
+      ]
+    },
+    {
+      "address": "0x00420100",
+      "implementation": "VersionMarker_Load",
+      "source": "matching2/src/app/version_marker.cpp:9",
+      "classification": "confirmed_mismatch",
+      "findings": [
+        "Probe uses th10.ver; assembly passes th10.dat to sub_434C30 with archive destination dword_497990.",
+        "Generated th10_0100a.ver, success/failure return and publication order agree given faithful callbacks and size output. Raw Ghidra omits hidden filename register, so it cannot resolve the probe literal alone."
+      ],
+      "counterexamples": [
+        {
+          "case": "captured probe argument",
+          "baseline": "th10.ver",
+          "assembly": "th10.dat"
+        }
+      ],
+      "reachability": "No production call or callback provider found. Resource-open side effects and error logging require a provider audit before integration can be judged.",
+      "precision": "No floating arithmetic. size_t width differs on 64-bit; initialized local size changes behavior if failing load leaves size unwritten, provider behavior not established.",
+      "evidence": [
+        "ida/th10.exe.c:33110",
+        "ida/th10.exe.asm:45173",
+        "decompiled/ghidra_raw/00420100_FUN_00420100.c:14"
+      ]
+    },
+    {
+      "address": "0x004135D0",
+      "implementation": "FpsCounter_Render",
+      "source": "matching2/src/app/fps_counter.cpp:29",
+      "classification": "confirmed_mismatch",
+      "findings": [
+        "fps parameter is snapshotted before update_average; retail reads counter+0x34 after updating. A 20-to-60 update leaves baseline red while retail sequence selects white.",
+        "print callback receives only format; retail also passes fps as double and position (590,470,0). Provider could recover data globally, but none found.",
+        "Finite thresholds 30/40, color restoration, skip/shutdown/null-thread behavior, return1 and skip accumulation agree under unchanged inputs and no integer overflow."
+      ],
+      "counterexamples": [
+        {
+          "case": "fps20 before callback, callback updates counter to60, thresholds30/40",
+          "baseline_color": "0xFF5050FF",
+          "retail_sequence_model_color": "0xFFFFFFFF"
+        }
+      ],
+      "reachability": "No production FpsCounter_Render reference or callback provider found. Inclusion as a translation unit does not prove call reachability.",
+      "precision": "NaN comparison behavior, caller-provided thresholds and skipped_frames outside unsigned-byte domain, integer overflow, and callbacks changing other globals unproved.",
+      "evidence": [
+        "ida/th10.exe.c:23027",
+        "ida/th10.exe.asm:26488",
+        "ida/th10.exe.asm:26518",
+        "ida/th10.exe.asm:163349",
+        "ida/th10.exe.asm:163361",
+        "decompiled/ghidra_raw/004135D0_FUN_004135d0.c:12"
+      ]
+    }
+  ]
+}
