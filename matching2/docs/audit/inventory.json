@@ -17,8 +17,8 @@
     "coverage_addresses": 722,
     "ghidra_index_addresses": 703,
     "historical_overlay_addresses": 397,
-    "file_scope": 551,
-    "files_without_candidate_claims": 150,
+    "file_scope": 552,
+    "files_without_candidate_claims": 151,
     "multiple_candidate_claim_addresses": 280,
     "ida_boundary_review_candidates": 539,
     "annotation_counts": {
@@ -921,7 +921,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2443,
+          "line": 2390,
           "kind": "address_reference",
           "text": "// Retail lays these out in TextQueue_Draw (0x00401A50), but its glyph handle"
         }
@@ -1087,7 +1087,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5143,
+          "line": 5088,
           "kind": "address_reference",
           "text": "// Retail 0x00445900 binds every entity slot through 0x00401DE0 (Entity_Init):"
         }
@@ -1559,7 +1559,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 457,
+          "line": 496,
           "kind": "address_reference",
           "text": "// Stage entry env: load_stage_script (0x00402640) -> real StageScript_Load."
         }
@@ -1731,7 +1731,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4266,
+          "line": 4211,
           "kind": "address_reference",
           "text": "// SetRenderState(28, 1); }` (inside 0x00402850) or the matching clear-to-0"
         }
@@ -1825,7 +1825,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4267,
+          "line": 4212,
           "kind": "address_reference",
           "text": "// form (inside 0x00402CA0). Storing 0xFF at the top of the frame is a cache"
         }
@@ -1991,13 +1991,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 413,
+          "line": 452,
           "kind": "address_reference",
           "text": "// StageScript_Load (0x00403850) environment: real STD out of th10.dat."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 535,
+          "line": 574,
           "kind": "address_reference",
           "text": "Log(\"StageScript_Load(0x00403850): %s parsed - %d background objects, \""
         },
@@ -2077,13 +2077,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3832,
+          "line": 3777,
           "kind": "address_reference",
           "text": "// is finished is AnmScriptTable_Sweep (retail 0x00403990), not the host's."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3850,
+          "line": 3795,
           "kind": "address_reference",
           "text": "// entries. Nothing else in the binary sets that bit - the sweep 0x00403990"
         }
@@ -2293,37 +2293,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 924,
+          "line": 872,
           "kind": "address_reference",
           "text": "// Retail 0x00404450 sets a record's active bit at the moment it plants"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3848,
+          "line": 3793,
           "kind": "address_reference",
           "text": "// count changes: 0x00404450's per-record loop opens with"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1725,
+          "line": 1724,
           "kind": "address_reference",
           "text": "// Retail 0x00404450 re-arms the bullet manager's three scheduler nodes and"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1737,
+          "line": 1736,
           "kind": "address_reference",
           "text": "Log(\"BulletManager_ActivateSprites(0x00404450) skipped: no pool\");"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1746,
+          "line": 1745,
           "kind": "address_reference",
           "text": "Log(\"BulletManager_ActivateSprites(0x00404450) skipped: pool \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1763,
+          "line": 1762,
           "kind": "address_reference",
           "text": "Log(\"BulletManager_ActivateSprites(0x00404450): scheduler nodes re-armed \""
         }
@@ -2575,21 +2575,21 @@
         },
         {
           "path": "matching2/src/game/trajectory_evaluate.cpp",
-          "line": 160,
+          "line": 105,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00404610 - advance the embedded timer and evaluate a three-component"
         },
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 3,
-          "kind": "implementation_marker_candidate",
-          "text": "// Functions: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950"
+          "line": 1,
+          "kind": "address_reference",
+          "text": "// Embedded interpolator ticks: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950."
         },
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 38,
+          "line": 40,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x00404610 - Interp3F_Tick: advance a three-component float interpolator"
+          "text": "// 0x00404610 - Interp3F_Tick"
         },
         {
           "path": "matching2/include/th10/game/trajectory_evaluate.hpp",
@@ -3176,7 +3176,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 819,
+          "line": 858,
           "kind": "address_reference",
           "text": "// Retail's edge here is FUN_00404f30(player_object, state+0x10). Its"
         }
@@ -3345,7 +3345,7 @@
         },
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 81,
+          "line": 91,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004050D0 - Lazily initialize and then disable the embedded timer at the"
         },
@@ -4042,7 +4042,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1403,
+          "line": 1402,
           "kind": "address_reference",
           "text": "Log(\"Recovery_CreateFixedState(0x004056B0): %s\","
         }
@@ -4998,7 +4998,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1054,
+          "line": 1053,
           "kind": "address_reference",
           "text": "Log(\"BulletManager_Create(0x00406060): %s\","
         }
@@ -5240,25 +5240,25 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 335,
+          "line": 374,
           "kind": "address_reference",
           "text": "// the slot's ANM block and sub_406240 ticks it every frame; when the script"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 858,
+          "line": 897,
           "kind": "address_reference",
           "text": "// the per-bullet check twin (sub_406240) is wired through the env below so"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 965,
+          "line": 964,
           "kind": "address_reference",
           "text": "// Per-slot bullet tick (retail sub_406240).  Returns nonzero when the slot"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1000,
+          "line": 999,
           "kind": "address_reference",
           "text": "// sub_406240 twin: run the per-slot ANM VM; when its script ends (or the"
         }
@@ -5365,7 +5365,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 856,
+          "line": 895,
           "kind": "address_reference",
           "text": "// The retail update edge (0x004065C0) is owned by the reconstructed"
         }
@@ -5588,13 +5588,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 333,
+          "line": 372,
           "kind": "address_reference",
           "text": "// Per-pool-slot ANM VM state.  Retail sub_4067D0 binds a bullet-0 script"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2522,
+          "line": 2521,
           "kind": "address_reference",
           "text": "// Bind the per-slot ANM VM (retail sub_4067D0): script index ="
         }
@@ -7324,7 +7324,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1419,
+          "line": 1418,
           "kind": "address_reference",
           "text": "Log(\"PlayerManager_Create(0x00408C90): %s\","
         },
@@ -8088,13 +8088,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1801,
+          "line": 1800,
           "kind": "address_reference",
           "text": "// Retail 0x00409E50 resolves an animation handle through 0x004491C0 against"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1822,
+          "line": 1821,
           "kind": "address_reference",
           "text": "Log(\"Anm_MarkHandleAndChildren(0x00409E50): thread timer slot %d \""
         }
@@ -8169,19 +8169,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1896,
+          "line": 1895,
           "kind": "address_reference",
           "text": "// Retail 0x00409F90 detaches the four aux VM slots at"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1925,
+          "line": 1924,
           "kind": "address_reference",
           "text": "Log(\"EnemyManager_ReleaseLists(0x00409F90) skipped: no manager\");"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1970,
+          "line": 1969,
           "kind": "address_reference",
           "text": "Log(\"EnemyManager_ReleaseLists(0x00409F90): live list drained, counters \""
         }
@@ -8450,25 +8450,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4783,
+          "line": 4728,
           "kind": "address_reference",
           "text": "// (sub_40AC90(&dword_491C28, 4) / dword_491FB8 = 10). REMAINING: the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4787,
+          "line": 4732,
           "kind": "address_reference",
           "text": "\"mode-latch edges sub_40AC90 / dword_491FB8 not wired)\\n\","
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3132,
+          "line": 3131,
           "kind": "address_reference",
           "text": "// Retail 0x0040AC90 stores the requested input mode on the input state,"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3138,
+          "line": 3137,
           "kind": "address_reference",
           "text": "Log(\"SetInputMode(0x0040AC90): input mode %u published\","
         }
@@ -8615,7 +8615,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4448,
+          "line": 4393,
           "kind": "address_reference",
           "text": "// call retail 0x0040AD20, which is what opens the difficulty sub-screen, so"
         }
@@ -8885,7 +8885,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1389,
+          "line": 1388,
           "kind": "address_reference",
           "text": "Log(\"BulletManager_Create(0x0040AF90): %s\","
         }
@@ -9997,7 +9997,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4593,
+          "line": 4538,
           "kind": "address_reference",
           "text": "// register_front + sub_424480 position window + sub_40C4D0 task register"
         }
@@ -10999,31 +10999,31 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2130,
+          "line": 2129,
           "kind": "address_reference",
           "text": "// Entity_Spawn(params, enemy_manager, \"main\") (0x0040CFB0) and ticks it every"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2137,
+          "line": 2136,
           "kind": "address_reference",
           "text": "// Entity_Spawn (0x0040CFB0): its vtable sits at +0x00, the ECL interpreter is"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2815,
+          "line": 2814,
           "kind": "address_reference",
           "text": "Log(\"main ECL start (0x0040CFB0): interpreter present but not armed; \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2821,
+          "line": 2820,
           "kind": "address_reference",
           "text": "Log(\"main ECL start (0x0040CFB0) skipped: stage01.ecl is not resident\");"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2850,
+          "line": 2849,
           "kind": "address_reference",
           "text": "// Retail Entity_Spawn (0x0040CFB0, bullet.cpp:646) writes the embedded"
         }
@@ -11110,7 +11110,7 @@
         },
         {
           "path": "matching2/include/th10/math/timer.hpp",
-          "line": 27,
+          "line": 28,
           "kind": "address_reference",
           "text": "// wrote; callers such as 0x0040D280 and 0x00415B00 reuse them directly."
         }
@@ -11343,7 +11343,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1380,
+          "line": 1379,
           "kind": "address_reference",
           "text": "Log(\"EnemyManager_Create(0x0040D6B0): %s\","
         },
@@ -11428,7 +11428,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1162,
+          "line": 1161,
           "kind": "address_reference",
           "text": "// Retail sub_40D750: when BulletEntity_UpdateTransform reports despawn (or"
         }
@@ -12389,7 +12389,7 @@
         },
         {
           "path": "matching2/src/game/trajectory_evaluate.cpp",
-          "line": 34,
+          "line": 36,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00412AC0 - Advance the embedded timer and evaluate one of the retail"
         },
@@ -13148,7 +13148,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/app/fps_counter.cpp",
-          "line": 52,
+          "line": 35,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004134B0 - frame-rate counter update: measures fps over the elapsed"
         },
@@ -13236,7 +13236,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/app/fps_counter.cpp",
-          "line": 24,
+          "line": 4,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004135D0 - FPS counter draw callback: refresh the rolling average, and"
         },
@@ -13439,13 +13439,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1858,
+          "line": 1857,
           "kind": "address_reference",
           "text": "// Retail 0x00413790 enables the first `count` records of the fixed"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1871,
+          "line": 1870,
           "kind": "address_reference",
           "text": "env.play_music = HostSetLifeIconCount;   // 0x00413790(DAT_00474C70)"
         }
@@ -13705,7 +13705,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 700,
+          "line": 739,
           "kind": "address_reference",
           "text": "// Retail 0x00413A20 adopts DAT_00491BE8 when a score image is already"
         }
@@ -13785,19 +13785,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3784,
+          "line": 3730,
           "kind": "address_reference",
           "text": "// Retail 0x00413BC0 constructs these fixed banks after scripts 0/1:"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3050,
+          "line": 3049,
           "kind": "address_reference",
           "text": "// Retail 0x00413BC0 rebuilds the front/HUD state: the update and draw tasks,"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3066,
+          "line": 3065,
           "kind": "address_reference",
           "text": "Log(\"InitializeFront(0x00413BC0): %d life icons, digits %d/%d/%d, \""
         }
@@ -14151,7 +14151,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 748,
+          "line": 787,
           "kind": "address_reference",
           "text": "Log(\"ItemManager_Create(0x00414830): %s\","
         },
@@ -14430,7 +14430,7 @@
         },
         {
           "path": "matching2/include/th10/math/timer.hpp",
-          "line": 27,
+          "line": 28,
           "kind": "address_reference",
           "text": "// wrote; callers such as 0x0040D280 and 0x00415B00 reuse them directly."
         }
@@ -14792,19 +14792,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3141,
+          "line": 3140,
           "kind": "address_reference",
           "text": "// Retail 0x00417040's digit leaves. FUN_0043E5A0 applies one resource"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3343,
+          "line": 3301,
           "kind": "address_reference",
           "text": "// Retail 0x00417040 (ScoreHud_Update): ease the visible score toward the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3398,
+          "line": 3356,
           "kind": "address_reference",
           "text": "Log(\"ScoreHud_Update(0x00417040): displayed %d -> %d, high %d, \""
         }
@@ -15039,13 +15039,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1974,
+          "line": 1973,
           "kind": "address_reference",
           "text": "// Retail 0x00417770 walks the intrusive cleanup chain, runs each node's"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1981,
+          "line": 1980,
           "kind": "address_reference",
           "text": "Log(\"RecoveryLinkedCleanup(0x00417770): cleanup chain drained (head %p)\","
         }
@@ -15136,13 +15136,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1598,
+          "line": 1597,
           "kind": "address_reference",
           "text": "// Retail 0x00417800 resets the path cursor/timer pair at +0x40..+0x5C of the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1607,
+          "line": 1606,
           "kind": "address_reference",
           "text": "Log(\"PathState_Reset(0x00417800): practice cursor rearmed \""
         }
@@ -15253,19 +15253,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3596,
+          "line": 3554,
           "kind": "address_reference",
           "text": "Log(\"StageContext_Enter(0x00417870): running the construction chain \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3625,
+          "line": 3583,
           "kind": "address_reference",
           "text": "Log(\"StageContext_Enter(0x00417870) returned 0: %d factory wrappers, \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3634,
+          "line": 3592,
           "kind": "address_reference",
           "text": "Log(\"StageContext_Enter(0x00417870) FAILED (%d) after %d factories \""
         },
@@ -15593,7 +15593,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1720,
+          "line": 1719,
           "kind": "address_reference",
           "text": "// StageUpdateEnv edges (0x00418190 environment)"
         }
@@ -15770,7 +15770,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3313,
+          "line": 3271,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004188A0's tail, run when an extend is awarded below the cap: retire the"
         }
@@ -15923,7 +15923,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3406,
+          "line": 3364,
           "kind": "address_reference",
           "text": "// Retail 0x00418A00 (Recovery_DecayCounter) on the score-gauge record: when"
         }
@@ -16096,19 +16096,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1505,
+          "line": 1504,
           "kind": "address_reference",
           "text": "// Retail calls FUN_00418b80(&DAT_00474C40, 50000): the score seed word is the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1530,
+          "line": 1529,
           "kind": "address_reference",
           "text": "Log(\"ScoreGauge_SetTargetTenthAndDisableTimer(0x00418B80): seed %d, \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1581,
+          "line": 1580,
           "kind": "address_reference",
           "text": "env.ui.store_gauge = HostStoreScoreGauge;      // 0x00418B80"
         }
@@ -16238,13 +16238,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5166,
+          "line": 5111,
           "kind": "address_reference",
           "text": "// Config hooks. The policy lives in the reconstructions - 0x00418C40 in"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5173,
+          "line": 5118,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00418C40 - the retail defaults initializer. GameConfigRecord and"
         }
@@ -16724,7 +16724,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1133,
+          "line": 1132,
           "kind": "address_reference",
           "text": "Log(\"Recovery_CreateResourceState(0x00419090): %s\","
         }
@@ -17463,13 +17463,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1102,
+          "line": 1101,
           "kind": "address_reference",
           "text": "// Retail 0x0041A120 allocates one 0x88-byte tip record, appends it to the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1113,
+          "line": 1112,
           "kind": "address_reference",
           "text": "Log(\"StageTip_Create(0x0041A120): slot %d tip %s\", slot,"
         }
@@ -18023,7 +18023,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1070,
+          "line": 1069,
           "kind": "address_reference",
           "text": "Log(\"EffectManager_Create(0x0041AED0): %s\","
         },
@@ -18833,7 +18833,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1085,
+          "line": 1084,
           "kind": "address_reference",
           "text": "Log(\"ScoreManager_CreateAndInit(0x0041C290): %s\","
         },
@@ -21076,7 +21076,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5711,
+          "line": 5656,
           "kind": "address_reference",
           "text": "// update callback 0x0041FDD0 (loc_41FE91), so the wait is 300"
         }
@@ -21242,7 +21242,7 @@
           "path": "matching2/src/app/version_marker.cpp",
           "line": 5,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x00420100 - probes the fixed version resource, then loads the generated"
+          "text": "// 0x00420100 - opens/probes the th10.dat archive, then loads the generated"
         },
         {
           "path": "matching2/include/th10/app/version_marker.hpp",
@@ -21601,19 +21601,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5415,
+          "line": 5360,
           "kind": "address_reference",
           "text": "// instructions before its `call sub_420470`. That pair is the clock's"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6359,
+          "line": 6304,
           "kind": "address_reference",
           "text": "// immediately in front of its call to 0x00420470, which is this slot."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6637,
+          "line": 6582,
           "kind": "address_reference",
           "text": "// point in the boot (WinMain, just before 0x00420470)."
         }
@@ -21836,25 +21836,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5286,
+          "line": 5231,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00420870 LABEL_14 predecessor: an accepted image republishes its key"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5299,
+          "line": 5244,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00420870 - clear the vsync marker, then echo the runtime bits of the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5340,
+          "line": 5285,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00420870 write-failure tail: two 0x0044B8E0 lines. AppendLine raises the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7218,
+          "line": 7163,
           "kind": "address_reference",
           "text": "// SaveSystemSettings, 0x00420870 config load, then after"
         }
@@ -21984,13 +21984,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1425,
+          "line": 1424,
           "kind": "address_reference",
           "text": "// Music: real Recovery_ReplaceExtensionWav (0x00420A90 tail) + real"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1495,
+          "line": 1494,
           "kind": "address_reference",
           "text": "\"(0x00420A90 tail)\", slot, name, path);"
         }
@@ -22082,7 +22082,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3084,
+          "line": 3083,
           "kind": "address_reference",
           "text": "Log(\"stage BGM start requested (0x00420B10): %s @ %u Hz\","
         }
@@ -22167,13 +22167,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1470,
+          "line": 1469,
           "kind": "address_reference",
           "text": "// Retail 0x00420C00 selects the dummy resource index from bit 4 of"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1483,
+          "line": 1482,
           "kind": "address_reference",
           "text": "Log(\"GameState_DispatchDummy(0x00420C00): dummy resource index %d \""
         }
@@ -22341,19 +22341,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4272,
+          "line": 4217,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00420CD0: when the app object's fog flag at +0x750 is set, flush the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4369,
+          "line": 4314,
           "kind": "address_reference",
           "text": "// edge (retail 0x00420CD0) issues it just ahead of this pass, which"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6623,
+          "line": 6568,
           "kind": "address_reference",
           "text": "HostFrameDisableFog,            // 0x00420CD0"
         }
@@ -22773,19 +22773,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6477,
+          "line": 6422,
           "kind": "address_reference",
           "text": "[](void*) {                     // apply_camera (0x00421480)"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6478,
+          "line": 6423,
           "kind": "address_reference",
           "text": "// Every value here is retail 0x00421480's, read from the listing"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6536,
+          "line": 6481,
           "kind": "address_reference",
           "text": "// Retail 0x00421480's tail publishes the camera context's"
         }
@@ -23027,7 +23027,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3650,
+          "line": 3608,
           "kind": "address_reference",
           "text": "Log(\"GameMode_ApplyRequested(0x004218D0): menu -> gameplay dispatched \""
         },
@@ -23636,25 +23636,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4548,
+          "line": 4493,
           "kind": "address_reference",
           "text": "// creates (the host-side twin of that constructor chain: sub_4220E0 init +"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4640,
+          "line": 4585,
           "kind": "address_reference",
           "text": "// Retail sub_422360 + sub_4220E0 + sub_422150: allocate the 0x2C8-byte"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4641,
+          "line": 4586,
           "kind": "address_reference",
           "text": "// menu record, init it (the memset + *a2 |= 2 survive sub_4220E0's"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4666,
+          "line": 4611,
           "kind": "address_reference",
           "text": "*(int*)(record + 0) |= 2u;  // sub_4220E0's surviving *a2 |= 2"
         }
@@ -23754,19 +23754,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4549,
+          "line": 4494,
           "kind": "address_reference",
           "text": "// sub_422150 MenuTimerRuntime_Initialize) and the reconstructed dispatcher"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4640,
+          "line": 4585,
           "kind": "address_reference",
           "text": "// Retail sub_422360 + sub_4220E0 + sub_422150: allocate the 0x2C8-byte"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4646,
+          "line": 4591,
           "kind": "address_reference",
           "text": "// inert (flags bit 1 cleared, exactly like retail sub_422150)."
         },
@@ -23927,19 +23927,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 729,
+          "line": 725,
           "kind": "address_reference",
           "text": "// (0x2C8 bytes, created like retail sub_422360); menu_phase is the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4547,
+          "line": 4492,
           "kind": "address_reference",
           "text": "// The retail game-menu record is the 0x2C8-byte object retail sub_422360"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4640,
+          "line": 4585,
           "kind": "address_reference",
           "text": "// Retail sub_422360 + sub_4220E0 + sub_422150: allocate the 0x2C8-byte"
         },
@@ -23951,7 +23951,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1097,
+          "line": 1096,
           "kind": "address_reference",
           "text": "Log(\"Recovery_CreateTimerState(0x00422360): %s\","
         }
@@ -24038,61 +24038,61 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 727,
+          "line": 723,
           "kind": "address_reference",
           "text": "// Retail game-menu record runtime (0x004223F0 dispatch + 0x00422C80"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1406,
+          "line": 1354,
           "kind": "address_reference",
           "text": "// The title menu owns this path. The 0x004223F0 record is the in-game"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4550,
+          "line": 4495,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004223F0 (MainMenu_DispatchState) drives per frame. Record layout"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4690,
+          "line": 4635,
           "kind": "address_reference",
           "text": "\"dispatcher 0x004223F0 armed)\\n\");"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4696,
+          "line": 4641,
           "kind": "address_reference",
           "text": "// (sub_4223F0's tail: +16 = previous frame, +20 = frame, +24 = accumulated"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5508,
+          "line": 5453,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004223F0 record is an in-game pause/result owner."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5520,
+          "line": 5465,
           "kind": "address_reference",
           "text": "// Retail 0x0042D420 owns the title menu. The 0x004223F0 record is"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5766,
+          "line": 5711,
           "kind": "address_reference",
           "text": "// The retail game-menu record runtime (0x004223F0 dispatch + the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7152,
+          "line": 7097,
           "kind": "address_reference",
           "text": "// The 0x004223F0 record is the gameplay pause/result owner. Creating it"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7355,
+          "line": 7300,
           "kind": "address_reference",
           "text": "// in-game 0x004223F0 pause record must remain absent until gameplay"
         }
@@ -24272,7 +24272,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4844,
+          "line": 4789,
           "kind": "address_reference",
           "text": "// (including the 0x00422660 result-menu draw once a submenu state is"
         }
@@ -24421,13 +24421,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4590,
+          "line": 4535,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00422AB0 - the game-menu open (the dispatch's open_game_menu binding)."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4604,
+          "line": 4549,
           "kind": "address_reference",
           "text": "// Clock re-init (retail sub_422AB0's (flags&1)==0 block, then reset)."
         }
@@ -24500,7 +24500,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4764,
+          "line": 4709,
           "kind": "address_reference",
           "text": "// Retail state 3 selection 0 (sub_422C30) closes the menu and"
         }
@@ -24595,37 +24595,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 727,
+          "line": 723,
           "kind": "address_reference",
           "text": "// Retail game-menu record runtime (0x004223F0 dispatch + 0x00422C80"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 740,
+          "line": 736,
           "kind": "address_reference",
           "text": "// The 0x00422C80 choice machine's state. It must NOT alias the menu"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4564,
+          "line": 4509,
           "kind": "address_reference",
           "text": "// retail source of the same gates - sub_422C80 reads a3[5] = +20). The"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4794,
+          "line": 4739,
           "kind": "address_reference",
           "text": "// HostMenuReplayReady); states 1-5 run the 0x00422C80 choice model with"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4815,
+          "line": 4760,
           "kind": "address_reference",
           "text": "// Choice machine (0x00422C80): model contract, driven directly -"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5767,
+          "line": 5712,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00422C80 choice model): state 0 during the title/stage, states 1-5"
         }
@@ -25069,19 +25069,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 728,
+          "line": 724,
           "kind": "address_reference",
           "text": "// choice model + 0x004236F0 submenu). menu_record is the retail a1"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4796,
+          "line": 4741,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004236F0 submenu arm (unreachable until a result/replay entry exists)."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4842,
+          "line": 4787,
           "kind": "address_reference",
           "text": "// States 6-0xD: the 0x004236F0 submenu reconstruction reads the retail"
         }
@@ -25240,7 +25240,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4593,
+          "line": 4538,
           "kind": "address_reference",
           "text": "// register_front + sub_424480 position window + sub_40C4D0 task register"
         }
@@ -25550,19 +25550,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1843,
+          "line": 1842,
           "kind": "address_reference",
           "text": "// Retail 0x00424D90 runs on the pause-menu owner in ESI: the active flag at"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1874,
+          "line": 1873,
           "kind": "address_reference",
           "text": "Log(\"PauseMenu_ResetTimers(0x00424D90): active=%d, fade/cursor/slide \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2069,
+          "line": 2068,
           "kind": "address_reference",
           "text": "HostResetStageRuntime();  // retail 0x00424D90"
         }
@@ -25724,13 +25724,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 851,
+          "line": 890,
           "kind": "address_reference",
           "text": "Log(\"Recovery_CreateLargeResourceState(0x00425020): %s\","
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2025,
+          "line": 2024,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00425020 allocation); the snapshots are 0x1C4-byte records."
         }
@@ -26779,37 +26779,37 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 379,
+          "line": 418,
           "kind": "address_reference",
           "text": "// Retail 0x00426F70; defined with the StageUpdateEnv edges below."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 830,
+          "line": 869,
           "kind": "address_reference",
           "text": "// Retail's tail call at 0x00426F70."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1985,
+          "line": 1984,
           "kind": "address_reference",
           "text": "// Retail 0x00426F70 refreshes the four effects attached to the live player"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1997,
+          "line": 1996,
           "kind": "address_reference",
           "text": "// Retail 0x00426F70 passes the player-owned ANM resource at +0x10 into"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2062,
+          "line": 2061,
           "kind": "address_reference",
           "text": "// Retail 0x00426F70; see HostRefreshSidePanel for the shared body."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3079,
+          "line": 3078,
           "kind": "address_reference",
           "text": "Log(\"UpdateAttachedEffects(0x00426F70): counter %d, %d events published\","
         }
@@ -28060,13 +28060,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 26,
-          "kind": "implementation_marker_candidate",
-          "text": "// 0x0044BF40 / 0x00428DD0 - Advance a timer by an explicit delta while"
-        },
-        {
-          "path": "matching2/src/math/timer.cpp",
-          "line": 38,
+          "line": 44,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00428DD0 - Decrement variant used by the replay/input path. Retail"
         }
@@ -28147,7 +28141,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2055,
+          "line": 2054,
           "kind": "address_reference",
           "text": "// Retail 0x00428E10 stores the cell pair and refreshes the four gauges."
         }
@@ -28389,7 +28383,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 730,
+          "line": 769,
           "kind": "address_reference",
           "text": "Log(\"StageManager_CreateFromScript(0x00429610): %s\","
         },
@@ -28474,7 +28468,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2851,
+          "line": 2798,
           "kind": "address_reference",
           "text": "// the replay directory, handing each name to sub_4296F0, which allocates the"
         }
@@ -28751,7 +28745,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2852,
+          "line": 2799,
           "kind": "address_reference",
           "text": "// state and calls ReplayArchive_Load (0x0042A200) on it. A file that fails to"
         }
@@ -28838,25 +28832,25 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2023,
+          "line": 2022,
           "kind": "address_reference",
           "text": "// Retail 0x0042A450 captures or restores the per-slot game-state snapshot."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2076,
+          "line": 2075,
           "kind": "address_reference",
           "text": "Log(\"SlotSnapshot_Run(0x0042A450) skipped: the 0x4478-byte live \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2091,
+          "line": 2090,
           "kind": "address_reference",
           "text": "Log(\"SlotSnapshot_Run(0x0042A450) skipped: snapshot allocation failed\");"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2124,
+          "line": 2123,
           "kind": "address_reference",
           "text": "Log(\"SlotSnapshot_Run(0x0042A450): mode %d, slot %d, summary 0x%X, \""
         }
@@ -28942,19 +28936,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1535,
+          "line": 1534,
           "kind": "address_reference",
           "text": "// Retail 0x0042A6A0 runs on the spell-card manager carried in EBX: state word"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1558,
+          "line": 1557,
           "kind": "address_reference",
           "text": "Log(\"SpellCard_Dispatch(0x0042A6A0) skipped: slot index %d is outside \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1592,
+          "line": 1591,
           "kind": "address_reference",
           "text": "Log(\"SpellCard_Dispatch(0x0042A6A0): state %d, slot %d, record %p, \""
         }
@@ -29196,7 +29190,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2041,
+          "line": 2040,
           "kind": "address_reference",
           "text": "// Retail 0x0042AA50 appends one pool payload and reports its pointer."
         }
@@ -29307,7 +29301,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2034,
+          "line": 2033,
           "kind": "address_reference",
           "text": "// Retail 0x0042AB20 releases the indexed linked pool before the capture."
         }
@@ -30051,7 +30045,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1155,
+          "line": 1154,
           "kind": "address_reference",
           "text": "Log(\"Recovery_CreateHugeResourceState(0x0042B660): %s\","
         }
@@ -30433,7 +30427,7 @@
         },
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 61,
+          "line": 69,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0042C5C0 - Set the timer owner, clear the previous value at +0x20, and"
         },
@@ -30506,7 +30500,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 44,
+          "line": 51,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0042C620 - Store the owner value and reset the embedded state timer."
         }
@@ -31441,7 +31435,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6407,
+          "line": 6352,
           "kind": "address_reference",
           "text": "// with the \"demo/\" prefix. 0x0042CDF0 indexes it with dword_474CA8 and"
         }
@@ -31614,25 +31608,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4443,
+          "line": 4388,
           "kind": "address_reference",
           "text": "// Retail 0x0042D420 leaves the main menu for selections 0, 1 and 2 into the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5507,
+          "line": 5452,
           "kind": "address_reference",
           "text": "// The title menu remains owned by 0x0042D420. The separate"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5520,
+          "line": 5465,
           "kind": "address_reference",
           "text": "// Retail 0x0042D420 owns the title menu. The 0x004223F0 record is"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5523,
+          "line": 5468,
           "kind": "address_reference",
           "text": "// The sound cues and script interrupts are 0x0042D420's own, taken at the"
         }
@@ -31874,25 +31868,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3059,
+          "line": 3006,
           "kind": "address_reference",
           "text": "// Key config, retail title state 5 (0x0042F540). Rows 0..4 are the five button"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3062,
+          "line": 3009,
           "kind": "address_reference",
           "text": "// what 0x0042F540 does with dword_474E88 and its neighbours before returning."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3162,
+          "line": 3109,
           "kind": "address_reference",
           "text": "// Retail 0x0042F540 case 6: republish the live key table into the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4531,
+          "line": 4476,
           "kind": "address_reference",
           "text": "// (0x0042F540), whose reconstruction is the next child state."
         }
@@ -32496,13 +32490,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1307,
+          "line": 1255,
           "kind": "address_reference",
           "text": "// script pairs are retail's own - state 12 (Replay) is sub_4315C0 starting 94"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2850,
+          "line": 2797,
           "kind": "address_reference",
           "text": "// Retail's replay screen (sub_4315C0) walks th10_01.rpy..th10_25.rpy inside"
         }
@@ -32632,7 +32626,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1308,
+          "line": 1256,
           "kind": "address_reference",
           "text": "// and 101, state 11 (Player Data) is sub_431EE0 starting 94 and 102, and"
         }
@@ -32775,7 +32769,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3353,
+          "line": 3300,
           "kind": "address_reference",
           "text": "// (0x004329F0): its columns, its date format and its dashed row for"
         }
@@ -33061,13 +33055,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2856,
+          "line": 2803,
           "kind": "address_reference",
           "text": "// at the offsets 0x00433B30 reads: the player name at +0, the timestamp at"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3288,
+          "line": 3235,
           "kind": "address_reference",
           "text": "// The rows are drawn by retail's own ReplayManager_Draw (0x00433B30):"
         }
@@ -33165,7 +33159,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1309,
+          "line": 1257,
           "kind": "address_reference",
           "text": "// state 14 (Music Room) is sub_433EF0 starting 95 and 103. Music Room is the"
         }
@@ -38526,7 +38520,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4423,
+          "line": 4368,
           "kind": "address_reference",
           "text": "// device-lost recovery (0x00438A30, Reset, 0x00439D20, dword_491FD4 = 2)."
         }
@@ -38720,67 +38714,67 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 847,
+          "line": 843,
           "kind": "address_reference",
           "text": "// 0x18 (`add esi, 18h` in the 0x00438AD0 init and teardown loops)."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4647,
+          "line": 4592,
           "kind": "address_reference",
           "text": "// Forward: the retail critical-section init (0x00438AD0) lives later in"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4668,
+          "line": 4613,
           "kind": "address_reference",
           "text": "// (DAT_00492274) on registration; 0x00438AD0 initialises the seven"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5341,
+          "line": 5286,
           "kind": "address_reference",
           "text": "// log's dirty byte, which is what makes 0x00438AD0 show the log box on exit."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5413,
+          "line": 5358,
           "kind": "address_reference",
           "text": "// Retail 0x00438AD0, loc_438C82: `fld ds:dbl_470B70 / fstp dbl_492540` -"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5815,
+          "line": 5760,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00438AD0 initialises and deletes the seven sections in place at"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5836,
+          "line": 5781,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00438AD0 - one 0x0044B810 line into the log object at 0x00474F70: the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5853,
+          "line": 5798,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00438AD0 tail - nothing to flush while the cursor has not moved; else"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5967,
+          "line": 5912,
           "kind": "address_reference",
           "text": "// Retail 0x00438AD0 raises the startup dialog only when bit 0x100 of"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 145,
+          "line": 147,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274 is the first of the seven CRITICAL_SECTIONs 0x00438AD0"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3699,
+          "line": 3657,
           "kind": "address_reference",
           "text": "// entry 0 of the retail array that 0x00438AD0 - and now the host's"
         }
@@ -38860,19 +38854,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1466,
+          "line": 1414,
           "kind": "address_reference",
           "text": "// The window now runs the retail WndProc (0x004390E0) registered by"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5894,
+          "line": 5839,
           "kind": "address_reference",
           "text": "// with the retail WndProc (0x004390E0) and create the 640x480 window titled"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6433,
+          "line": 6378,
           "kind": "address_reference",
           "text": "// The retail WndProc (0x004390E0) reports a close request by setting"
         }
@@ -38946,13 +38940,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4422,
+          "line": 4367,
           "kind": "address_reference",
           "text": "// Retail 0x004391F0: Present through vtable +0x44, and on failure walk the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6632,
+          "line": 6577,
           "kind": "address_reference",
           "text": "HostFramePresent,               // 0x004391F0"
         }
@@ -39055,37 +39049,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5353,
+          "line": 5298,
           "kind": "address_reference",
           "text": "// result 0x004392E0 captured; both leaves below are the ones retail calls."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5371,
+          "line": 5316,
           "kind": "address_reference",
           "text": "// --smoke never runs 0x004392E0, so DAT_00492508 stays zero and this"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5885,
+          "line": 5830,
           "kind": "address_reference",
           "text": "// Retail 0x004392E0 - save the work area / screensaver / power settings"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6892,
+          "line": 6837,
           "kind": "address_reference",
           "text": "// Retail WinMain tail (after loc_438F9A): the three SPI values 0x004392E0"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6896,
+          "line": 6841,
           "kind": "address_reference",
           "text": "// It is gated on the save having run. HostCreateWindow skips 0x004392E0 in"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7217,
+          "line": 7162,
           "kind": "address_reference",
           "text": "// Retail WinMain order: 0x00439FF0 InstanceCheck, 0x004392E0"
         }
@@ -39199,55 +39193,55 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4230,
+          "line": 4175,
           "kind": "address_reference",
           "text": "// Retail 0x00439390 opens the presented frame with the device vtable slot at"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4257,
+          "line": 4202,
           "kind": "address_reference",
           "text": "// The manager writes in 0x00439390's loc_439473 block: quad count at"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4286,
+          "line": 4231,
           "kind": "address_reference",
           "text": "// EndScene, in 0x00439390's loc_439473 block."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4370,
+          "line": 4315,
           "kind": "address_reference",
           "text": "// is where 0x00439390 has it."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4411,
+          "line": 4356,
           "kind": "address_reference",
           "text": "// second flush 0x00439390 does once the pass returns."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5779,
+          "line": 5724,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00449C00 slot is update-only: 0x00439390 runs the render pass"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6468,
+          "line": 6413,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439390, loc_439527: push 0 / call ds:__imp_Sleep - a frame"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6616,
+          "line": 6561,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492254 before 0x00439390 reports quit or restart. This host"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6639,
+          "line": 6584,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439390, loc_4393D0: fadd ds:dbl_470C90, and dbl_470C90 is"
         }
@@ -39360,37 +39354,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5352,
+          "line": 5297,
           "kind": "address_reference",
           "text": "// Clock hooks. 0x00439540 picks its path from the QueryPerformanceFrequency"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5354,
+          "line": 5299,
           "kind": "address_reference",
           "text": "// The lock arm is 0x00439540's own opening: EnterCriticalSection on the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5377,
+          "line": 5322,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439540, loc_4395DF: timeBeginPeriod(1) / timeGetTime() /"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5380,
+          "line": 5325,
           "kind": "address_reference",
           "text": "// load, which is why 0x00439540 adds dbl_470B30 (2^32) when it comes out"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5396,
+          "line": 5341,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439540's Frequency-non-zero arm: QueryPerformanceCounter into a"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5414,
+          "line": 5359,
           "kind": "address_reference",
           "text": "// dbl_470B70 is dq 0.0 - then `call sub_439540 / fst dbl_492540`, a few"
         }
@@ -39497,31 +39491,31 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5893,
+          "line": 5838,
           "kind": "address_reference",
           "text": "// Retail 0x00439730 sits in the create_device slot: register class \"BASE\""
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5903,
+          "line": 5848,
           "kind": "address_reference",
           "text": "HostTrace(\"CreateGameWindow(0x00439730) failed\");"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6111,
+          "line": 6056,
           "kind": "address_reference",
           "text": "// device state (0x00439D20) on the way out. It runs after 0x00439730 has"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6240,
+          "line": 6185,
           "kind": "address_reference",
           "text": "// handle 0x00439730 publishes, so there is nothing for the host to pass in."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7219,
+          "line": 7164,
           "kind": "address_reference",
           "text": "// Direct3DCreate9 the 0x00439730 window. The hook NAMES disagree"
         }
@@ -39607,25 +39601,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6055,
+          "line": 6000,
           "kind": "address_reference",
           "text": "// Retail 0x00439890 builds these exact parameters. The depth buffer is"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6110,
+          "line": 6055,
           "kind": "address_reference",
           "text": "// Retail 0x00439890 is the D3D9 CreateDevice, and it applies the default"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6143,
+          "line": 6088,
           "kind": "address_reference",
           "text": "// Retail 0x00439890's tail is `call sub_439D20; push 0FF000000h;"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6586,
+          "line": 6531,
           "kind": "address_reference",
           "text": "// emitted once by 0x00439890 after the device is created; the"
         }
@@ -39714,37 +39708,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1950,
+          "line": 1897,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439D20. The offsets do not appear literally in the dump - Hex-Rays"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4261,
+          "line": 4206,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00439D20, which HostAnmResetStateCache does."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4423,
+          "line": 4368,
           "kind": "address_reference",
           "text": "// device-lost recovery (0x00438A30, Reset, 0x00439D20, dword_491FD4 = 2)."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6056,
+          "line": 6001,
           "kind": "address_reference",
           "text": "// not optional: Device_ApplyDefaultState (0x00439D20) turns on"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6111,
+          "line": 6056,
           "kind": "address_reference",
           "text": "// device state (0x00439D20) on the way out. It runs after 0x00439730 has"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6143,
+          "line": 6088,
           "kind": "address_reference",
           "text": "// Retail 0x00439890's tail is `call sub_439D20; push 0FF000000h;"
         }
@@ -39839,19 +39833,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5954,
+          "line": 5899,
           "kind": "address_reference",
           "text": "// Retail 0x00439FF0 - the single-instance mutex and shortcut-launch check,"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5961,
+          "line": 5906,
           "kind": "address_reference",
           "text": "HostTrace(\"InstanceCheck(0x00439FF0): another instance is running\");"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 7217,
+          "line": 7162,
           "kind": "address_reference",
           "text": "// Retail WinMain order: 0x00439FF0 InstanceCheck, 0x004392E0"
         }
@@ -39931,7 +39925,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5986,
+          "line": 5931,
           "kind": "address_reference",
           "text": "// Retail 0x0043A1C0: sum the module file's dwords and publish the total and"
         }
@@ -40850,19 +40844,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 803,
+          "line": 799,
           "kind": "address_reference",
           "text": "// The present parameters the device was created with; 0x0043BC40's"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4357,
+          "line": 4302,
           "kind": "address_reference",
           "text": "// Retail clears through 0x0043BC40, whose only caller passes"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6585,
+          "line": 6530,
           "kind": "address_reference",
           "text": "// The clear-to-black + present pair (0x0043BC40) is boot-only,"
         }
@@ -40948,13 +40942,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4358,
+          "line": 4303,
           "kind": "address_reference",
           "text": "// sub_43BCD0(-16777216) - 0xFF000000, opaque black - and whose flag"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6144,
+          "line": 6089,
           "kind": "address_reference",
           "text": "// call sub_43BCD0` - the one and only clear-to-black + present in the"
         }
@@ -41571,13 +41565,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3107,
+          "line": 3106,
           "kind": "address_reference",
           "text": "// Retail FUN_0043c8b0(5, 0x3c, 0, 0, 0) constructs the 0x44-byte overlay text"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3127,
+          "line": 3126,
           "kind": "address_reference",
           "text": "Log(\"AsciiManager_Create(0x0043C8B0): overlay text manager %s \""
         }
@@ -41658,7 +41652,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3109,
+          "line": 3108,
           "kind": "address_reference",
           "text": "// (0x0043C970)."
         }
@@ -41811,7 +41805,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 85,
+          "line": 89,
           "kind": "address_reference",
           "text": "unsigned int (*rand_u32)(void* context, int alt_rng);   // 0x0043CB80"
         },
@@ -42894,7 +42888,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4594,
+          "line": 4539,
           "kind": "address_reference",
           "text": "// at +468), the pause sounds (sub_43DC90 id 32, sub_43E460 \"Pause\"), the"
         }
@@ -43287,37 +43281,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4594,
+          "line": 4539,
           "kind": "address_reference",
           "text": "// at +468), the pause sounds (sub_43DC90 id 32, sub_43E460 \"Pause\"), the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1471,
+          "line": 1470,
           "kind": "address_reference",
           "text": "// DAT_00491D78 and installs it through 0x0043E460 on the animation manager."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1484,
+          "line": 1483,
           "kind": "address_reference",
           "text": "\"installed through AnimationManager_RegisterResource(0x0043E460)\","
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3089,
+          "line": 3088,
           "kind": "address_reference",
           "text": "// Retail FUN_0043e460(manager, \"dummy\", 3|4, 0): install the dummy record"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3092,
+          "line": 3091,
           "kind": "address_reference",
           "text": "Log(\"AnimationManager_RegisterResource(0x0043E460) skipped: no \""
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3098,
+          "line": 3097,
           "kind": "address_reference",
           "text": "Log(\"AnimationManager_RegisterResource(0x0043E460): dummy record \""
         }
@@ -43518,13 +43512,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1138,
+          "line": 1137,
           "kind": "address_reference",
           "text": "// Retail's tail edge is FUN_0043e5a0(stamp, 0xC4) with the just-initialized"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3141,
+          "line": 3140,
           "kind": "address_reference",
           "text": "// Retail 0x00417040's digit leaves. FUN_0043E5A0 applies one resource"
         }
@@ -43848,7 +43842,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/script/anm_vm_tick.cpp",
-          "line": 87,
+          "line": 136,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0043EAC0 - AnmVm_ReadSpecialValue: resolve one script float reference."
         },
@@ -43860,7 +43854,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 78,
+          "line": 81,
           "kind": "address_reference",
           "text": "int is_variable); // routes through 0x0043EAC0"
         }
@@ -43933,7 +43927,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 74,
+          "line": 77,
           "kind": "address_reference",
           "text": "// Variable access (retail 0x0043EC70 / 0x0043EDA0 / 0x0043ED00)."
         }
@@ -44006,7 +44000,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 74,
+          "line": 77,
           "kind": "address_reference",
           "text": "// Variable access (retail 0x0043EC70 / 0x0043EDA0 / 0x0043ED00)."
         }
@@ -44079,7 +44073,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 74,
+          "line": 77,
           "kind": "address_reference",
           "text": "// Variable access (retail 0x0043EC70 / 0x0043EDA0 / 0x0043ED00)."
         }
@@ -44185,7 +44179,7 @@
         },
         {
           "path": "matching2/src/script/anm_vm_tick.cpp",
-          "line": 113,
+          "line": 166,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0043EE30 - AnmVm_Tick: run the VM for one frame. Handles the pending"
         },
@@ -44257,13 +44251,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5545,
+          "line": 5490,
           "kind": "address_reference",
           "text": "// Retail ticks in the same call (0x00449250 runs 0x0043EE30 itself),"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3142,
+          "line": 3141,
           "kind": "address_reference",
           "text": "// position record to a digit entity; FUN_0043EE30 ticks the digit's ANM VM."
         }
@@ -44326,15 +44320,15 @@
       "source_occurrences": [
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 3,
-          "kind": "implementation_marker_candidate",
-          "text": "// Functions: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950"
+          "line": 1,
+          "kind": "address_reference",
+          "text": "// Embedded interpolator ticks: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950."
         },
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 107,
+          "line": 95,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x00441600 - Interp3I_Tick: three-component integer interpolator (colour"
+          "text": "// 0x00441600 - Interp3I_Tick"
         },
         {
           "path": "matching2/include/th10/math/interpolators.hpp",
@@ -44401,15 +44395,15 @@
       "source_occurrences": [
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 3,
-          "kind": "implementation_marker_candidate",
-          "text": "// Functions: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950"
+          "line": 1,
+          "kind": "address_reference",
+          "text": "// Embedded interpolator ticks: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950."
         },
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 134,
+          "line": 126,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x00441950 - Interp1I_Tick: single-channel integer variant (alpha)."
+          "text": "// 0x00441950 - Interp1I_Tick"
         },
         {
           "path": "matching2/include/th10/math/interpolators.hpp",
@@ -44476,15 +44470,15 @@
       "source_occurrences": [
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 3,
-          "kind": "implementation_marker_candidate",
-          "text": "// Functions: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950"
+          "line": 1,
+          "kind": "address_reference",
+          "text": "// Embedded interpolator ticks: 0x00404610, 0x00441AD0, 0x00441600, 0x00441950."
         },
         {
           "path": "matching2/src/math/interpolators.cpp",
-          "line": 86,
+          "line": 69,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x00441AD0 - Interp2F_Tick: two-component float variant (growth vector)."
+          "text": "// 0x00441AD0 - Interp2F_Tick"
         },
         {
           "path": "matching2/include/th10/math/interpolators.hpp",
@@ -44553,12 +44547,6 @@
       ],
       "multiple_candidate_claim_files": false,
       "source_occurrences": [
-        {
-          "path": "matching2/src/math/interpolators.cpp",
-          "line": 109,
-          "kind": "address_reference",
-          "text": "// bezier basis terms with integer rounding (retail FUN_00441E50 calls)."
-        },
         {
           "path": "matching2/src/math/random_vector.cpp",
           "line": 4,
@@ -45070,25 +45058,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1868,
+          "line": 1815,
           "kind": "address_reference",
           "text": "// (0x004423E0), not to the host. It reads bits 4-5 of the VM flag word for the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1976,
+          "line": 1923,
           "kind": "address_reference",
           "text": "// Retail's own D3DRS_TEXTUREFACTOR (0x004423E0's SetRenderState(60, v))."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2020,
+          "line": 1967,
           "kind": "address_reference",
           "text": "// the quad. Retail shares one cache with 0x004423E0 - the manager's blend"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2081,
+          "line": 2028,
           "kind": "address_reference",
           "text": "// applies (0x004423E0 does the same select), so both slots carry it and"
         }
@@ -45181,7 +45169,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2019,
+          "line": 1966,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004425A0, the blend/filter sync 0x00442670 calls just before it stages"
         }
@@ -45299,31 +45287,31 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1898,
+          "line": 1845,
           "kind": "address_reference",
           "text": "// The manager fields 0x00442670 reads and updates. clip_* is the 640x480"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2019,
+          "line": 1966,
           "kind": "implementation_marker_candidate",
           "text": "// 0x004425A0, the blend/filter sync 0x00442670 calls just before it stages"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2067,
+          "line": 2014,
           "kind": "address_reference",
           "text": "// what 0x00442670 reads out of the VM."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2470,
+          "line": 2417,
           "kind": "address_reference",
           "text": "// The colour itself reaches the vertices through 0x00442670's override, not"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4379,
+          "line": 4324,
           "kind": "address_reference",
           "text": "// it draws, because 0x00442670 writes the modulation colour into the"
         }
@@ -45496,43 +45484,43 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1890,
+          "line": 1837,
           "kind": "address_reference",
           "text": "// and AnimationManager_FlushQuadBatch (retail 0x00442F50) draws what is"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2471,
+          "line": 2418,
           "kind": "address_reference",
           "text": "// through D3DRS_TEXTUREFACTOR: 0x00442F50 pins both ARG2 selectors to"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4247,
+          "line": 4192,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00442F50: when the manager's staged quad count at +0x3ADAC8 is non-zero,"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4273,
+          "line": 4218,
           "kind": "address_reference",
           "text": "// sprite batch (0x00442F50) and issue SetRenderState(28 = D3DRS_FOGENABLE,"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4377,
+          "line": 4322,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00442F50 issues SetTextureStageState(0, 3, 0) and"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4409,
+          "line": 4354,
           "kind": "address_reference",
           "text": "// which is nothing but sub_442F50(dword_491C10) plus two counter"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6475,
+          "line": 6420,
           "kind": "address_reference",
           "text": "HostFrameFlushSpriteBatch,      // flush_sprite_batch (0x00442F50)"
         }
@@ -45641,7 +45629,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1888,
+          "line": 1835,
           "kind": "address_reference",
           "text": "// AnimationManager_AppendQuadVertices (retail 0x00442FE0) is what expands one"
         }
@@ -45757,7 +45745,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1850,
+          "line": 1797,
           "kind": "address_reference",
           "text": "// Quad_BuildAndRenderAnchored (0x00443080), which owns the anchor decode and"
         }
@@ -46747,7 +46735,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1849,
+          "line": 1796,
           "kind": "address_reference",
           "text": "// code: AnmVm_DrawDispatch (0x004451C0) picks the mode, and mode 0 routes to"
         }
@@ -46833,25 +46821,25 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 87,
+          "line": 91,
           "kind": "address_reference",
           "text": "void (*start_ring_mode)(void* context, AnmVmState* vm); // 0x004452F0"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 612,
+          "line": 608,
           "kind": "address_reference",
           "text": "// ring mode (retail owner+0x358, allocated by 0x004452F0)."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 948,
+          "line": 896,
           "kind": "address_reference",
           "text": "// Retail 0x004452F0 allocates and seeds the 0x4B0-byte ripple ring the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3859,
+          "line": 3817,
           "kind": "address_reference",
           "text": "// Retail 0x004452F0 allocates the 0x4B0-byte ripple ring and seeds every"
         },
@@ -46938,13 +46926,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 949,
+          "line": 897,
           "kind": "address_reference",
           "text": "// per-frame updater at 0x00445620 consumes."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1009,
+          "line": 957,
           "kind": "address_reference",
           "text": "// Retail 0x00445620: pin the center vertex, scroll the uv columns, tint"
         },
@@ -47115,7 +47103,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5143,
+          "line": 5088,
           "kind": "address_reference",
           "text": "// Retail 0x00445900 binds every entity slot through 0x00401DE0 (Entity_Init):"
         }
@@ -47637,13 +47625,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1721,
+          "line": 1669,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00446F40) driving retail's own tables. Everything below is the D3D9 leaf"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1762,
+          "line": 1710,
           "kind": "address_reference",
           "text": "// The pitch is retail's, not the host's. 0x00446F40 passes"
         }
@@ -47872,7 +47860,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 432,
+          "line": 471,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00447280 companion load: the STD names its stage ANM at +0x10."
         }
@@ -48591,7 +48579,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2609,
+          "line": 2556,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00447A50 marks the resolved text owner active after replacing its"
         }
@@ -49593,7 +49581,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4592,
+          "line": 4537,
           "kind": "address_reference",
           "text": "// interface effect VMs (sub_449950/sub_449870 ids 15/121 + sub_448AC0"
         }
@@ -49843,7 +49831,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 89,
+          "line": 93,
           "kind": "address_reference",
           "text": "int index);                          // 0x00448D00.."
         },
@@ -50506,7 +50494,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1801,
+          "line": 1800,
           "kind": "address_reference",
           "text": "// Retail 0x00409E50 resolves an animation handle through 0x004491C0 against"
         }
@@ -50676,7 +50664,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5545,
+          "line": 5490,
           "kind": "address_reference",
           "text": "// Retail ticks in the same call (0x00449250 runs 0x0043EE30 itself),"
         }
@@ -50809,7 +50797,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1853,
+          "line": 1852,
           "kind": "address_reference",
           "text": "// Retail 0x004492A0 sets the animation flag on the root and its children."
         }
@@ -51970,7 +51958,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4592,
+          "line": 4537,
           "kind": "address_reference",
           "text": "// interface effect VMs (sub_449950/sub_449870 ids 15/121 + sub_448AC0"
         }
@@ -52128,7 +52116,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4592,
+          "line": 4537,
           "kind": "address_reference",
           "text": "// interface effect VMs (sub_449950/sub_449870 ids 15/121 + sub_448AC0"
         }
@@ -52267,13 +52255,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6023,
+          "line": 5968,
           "kind": "address_reference",
           "text": "// Retail: `v9 = operator new(0x48); if (v9) v10 = sub_449AA0(v9); ...;"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6025,
+          "line": 5970,
           "kind": "address_reference",
           "text": "// in retail's WinMain; 0x00449AA0 itself is the list initializer. The old"
         }
@@ -52354,7 +52342,7 @@
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 252,
+          "line": 246,
           "kind": "address_reference",
           "text": "// at device+0x14/+0x38 (0x00449AE0/0x00449B70 register and 0x00449F60"
         },
@@ -52432,7 +52420,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1708,
+          "line": 1707,
           "kind": "address_reference",
           "text": "\"(Scheduler_RegisterPrimary 0x00449AE0, priority %d)\", priority);"
         },
@@ -52532,7 +52520,7 @@
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 252,
+          "line": 246,
           "kind": "address_reference",
           "text": "// at device+0x14/+0x38 (0x00449AE0/0x00449B70 register and 0x00449F60"
         },
@@ -52604,7 +52592,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1716,
+          "line": 1715,
           "kind": "address_reference",
           "text": "\"(Scheduler_RegisterSecondary 0x00449B70, priority %d)\", priority);"
         }
@@ -52673,25 +52661,25 @@
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 245,
+          "line": 241,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00449C00 / 0x00449D40 - Dispatch primary/secondary callbacks while"
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 254,
+          "line": 248,
           "kind": "address_reference",
           "text": "// node - at +0x18/+0x3C, which is exactly what the 0x00449C00/0x00449D40"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5779,
+          "line": 5724,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00449C00 slot is update-only: 0x00439390 runs the render pass"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6628,
+          "line": 6573,
           "kind": "address_reference",
           "text": "// rather than inside the 0x00449C00 update slot."
         },
@@ -52703,7 +52691,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3800,
+          "line": 3758,
           "kind": "address_reference",
           "text": "Scheduler_RunPrimary(g_scheduler_device);   // 0x00449C00"
         }
@@ -52771,7 +52759,7 @@
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 245,
+          "line": 241,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00449C00 / 0x00449D40 - Dispatch primary/secondary callbacks while"
         },
@@ -52779,23 +52767,17 @@
           "path": "matching2/src/game/scheduler.cpp",
           "line": 248,
           "kind": "address_reference",
-          "text": "// (onResultSeven) are PRIMARY-ONLY - retail 0x00449D40's switch handles"
-        },
-        {
-          "path": "matching2/src/game/scheduler.cpp",
-          "line": 254,
-          "kind": "address_reference",
           "text": "// node - at +0x18/+0x3C, which is exactly what the 0x00449C00/0x00449D40"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5780,
+          "line": 5725,
           "kind": "address_reference",
           "text": "// afterwards, between BeginScene and EndScene, through 0x00449D40. The"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6624,
+          "line": 6569,
           "kind": "address_reference",
           "text": "// run_render_pass - retail 0x00449D40 walks the secondary callback"
         },
@@ -52807,7 +52789,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3804,
+          "line": 3762,
           "kind": "address_reference",
           "text": "Scheduler_RunSecondary(g_scheduler_device); // 0x00449D40"
         }
@@ -52990,7 +52972,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1698,
+          "line": 1697,
           "kind": "address_reference",
           "text": "Log(\"SchedulerCallback_Create(0x00449ED0): %s task node allocated\","
         }
@@ -53063,7 +53045,7 @@
         },
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 252,
+          "line": 246,
           "kind": "address_reference",
           "text": "// at device+0x14/+0x38 (0x00449AE0/0x00449B70 register and 0x00449F60"
         },
@@ -53136,7 +53118,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 156,
+          "line": 155,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044A000 - Create a callback, mark it for retirement ownership, and"
         }
@@ -53203,7 +53185,7 @@
       "source_occurrences": [
         {
           "path": "matching2/src/game/scheduler.cpp",
-          "line": 169,
+          "line": 168,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044A030 - Create a zero-priority secondary callback owned by the"
         }
@@ -53284,7 +53266,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6173,
+          "line": 6118,
           "kind": "address_reference",
           "text": "// Retail 0x0044A0C0: try joystick 0 then 1, and on success capture device"
         }
@@ -53468,7 +53450,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3088,
+          "line": 3035,
           "kind": "address_reference",
           "text": "// Retail reads the pressed button through 0x0044A4E0. The standalone has a"
         }
@@ -53711,7 +53693,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6192,
+          "line": 6137,
           "kind": "address_reference",
           "text": "// Retail 0x0044B080. The hook is named init_text_layer but the address is a"
         }
@@ -54021,31 +54003,31 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5167,
+          "line": 5112,
           "kind": "address_reference",
           "text": "// src/game/game_config_defaults.cpp, 0x0044B360 in"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5184,
+          "line": 5129,
           "kind": "address_reference",
           "text": "// (0x0049231E), held by 0x0044B360 and 0x0044B540 for the whole operation."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5220,
+          "line": 5165,
           "kind": "address_reference",
           "text": "// The archive branch of 0x0044B360 is unreachable here: every host caller"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5257,
+          "line": 5202,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B360 with a3 = 1: the plain-file branch of the shared loader."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5817,
+          "line": 5762,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B360 / 0x0044B540 / 0x0044B810 take are entries 2 and 3 of that"
         }
@@ -54216,37 +54198,37 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5168,
+          "line": 5113,
           "kind": "address_reference",
           "text": "// src/platform/pack_file_loader.cpp, 0x0044B540 in src/platform/file.cpp and"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5184,
+          "line": 5129,
           "kind": "address_reference",
           "text": "// (0x0049231E), held by 0x0044B360 and 0x0044B540 for the whole operation."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5247,
+          "line": 5192,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B540 over the host's Win32 leaves."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5329,
+          "line": 5274,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B540 with the retail 0x34-byte length."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5817,
+          "line": 5762,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B360 / 0x0044B540 / 0x0044B810 take are entries 2 and 3 of that"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5856,
+          "line": 5801,
           "kind": "address_reference",
           "text": "// (0x0046F7BC) through the 0x0044B540 writer."
         }
@@ -54526,7 +54508,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2903,
+          "line": 2850,
           "kind": "address_reference",
           "text": "*payload = bytes + 0x24;   // retail's sub_44B790(v6, header[7])"
         }
@@ -54742,19 +54724,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5169,
+          "line": 5114,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B810 in src/platform/text_log.cpp - so everything below is the Win32"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5817,
+          "line": 5762,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B360 / 0x0044B540 / 0x0044B810 take are entries 2 and 3 of that"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5836,
+          "line": 5781,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00438AD0 - one 0x0044B810 line into the log object at 0x00474F70: the"
         }
@@ -54841,13 +54823,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5340,
+          "line": 5285,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00420870 write-failure tail: two 0x0044B8E0 lines. AppendLine raises the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5855,
+          "line": 5800,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044B8E0 line set the dirty byte, and write the text to ./log.txt"
         }
@@ -55061,15 +55043,15 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 84,
+          "line": 88,
           "kind": "address_reference",
           "text": "float (*rand_float)(void* context, int alt_rng);        // 0x0044BB20/BB90"
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 115,
+          "line": 118,
           "kind": "address_reference",
-          "text": "float (*rand_signed)(void* context);               // 0x0044BB20"
+          "text": "float (*rand_unit)(void* context, int alt_rng);   // 0x0044BB20"
         }
       ],
       "references": {
@@ -55158,9 +55140,9 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 114,
+          "line": 119,
           "kind": "address_reference",
-          "text": "float (*rand_unit)(void* context, int alt_rng);   // 0x0044BB90"
+          "text": "float (*rand_signed)(void* context, int alt_rng);               // 0x0044BB90"
         }
       ],
       "references": {
@@ -55244,7 +55226,7 @@
         },
         {
           "path": "matching2/include/th10/script/anm_vm_tick.hpp",
-          "line": 86,
+          "line": 90,
           "kind": "address_reference",
           "text": "float (*wrap_angle)(void* context, float value);        // 0x0044BC10"
         }
@@ -55726,7 +55708,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4719,
+          "line": 4664,
           "kind": "address_reference",
           "text": "// Retail sub_44BEA0 wraps the selection within its count."
         }
@@ -55805,13 +55787,13 @@
         },
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 26,
+          "line": 30,
           "kind": "implementation_marker_candidate",
-          "text": "// 0x0044BF40 / 0x00428DD0 - Advance a timer by an explicit delta while"
+          "text": "// 0x0044BF40 - Advance a timer by an explicit delta while"
         },
         {
           "path": "matching2/src/math/timer.cpp",
-          "line": 39,
+          "line": 45,
           "kind": "address_reference",
           "text": "// negates the caller-supplied count and forwards it to 0x0044BF40."
         },
@@ -55835,13 +55817,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3408,
+          "line": 3366,
           "kind": "address_reference",
           "text": "// by -1.0 through 0x0044BF40 and stops; otherwise the tenth-target at +0x0C"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3412,
+          "line": 3370,
           "kind": "address_reference",
           "text": "// five-word FrameTimer 0x0044BF40 advances."
         }
@@ -56108,7 +56090,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6615,
+          "line": 6560,
           "kind": "address_reference",
           "text": "// stop_game_thread - 0x0044C150 joins the worker thread recorded at"
         }
@@ -56357,7 +56339,7 @@
         },
         {
           "path": "matching2/src/game/trajectory_evaluate.cpp",
-          "line": 94,
+          "line": 97,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044C350 - the retail ease curve table.  t = elapsed/duration; modes"
         },
@@ -56366,12 +56348,6 @@
           "line": 3,
           "kind": "implementation_marker_candidate",
           "text": "// 0x0044C350 - Evaluate the retail animation easing table. Retail evaluates"
-        },
-        {
-          "path": "matching2/src/math/interpolators.cpp",
-          "line": 10,
-          "kind": "address_reference",
-          "text": "// Retail dispatch (FUN_0044C350 family): 0 linear, 1/2/3 accelerating"
         },
         {
           "path": "matching2/include/th10/game/trajectory_evaluate.hpp",
@@ -58650,13 +58626,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2596,
+          "line": 2595,
           "kind": "address_reference",
           "text": "// Retail 0x0044DF70, reached from opcode 0x0B. For an ECL `call` the child and"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2702,
+          "line": 2701,
           "kind": "address_reference",
           "text": "// Retail 0x0044DF70, transcribed from the IDA listing rather than paraphrased."
         },
@@ -58815,13 +58791,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2132,
+          "line": 2131,
           "kind": "address_reference",
           "text": "// the core interpreter at 0x0044E1A0. The host owns the 0x1024-byte VM record"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2869,
+          "line": 2868,
           "kind": "address_reference",
           "text": "Log(\"EclVm_TickCore(0x0044E1A0) armed on stage01.ecl \\\"main\\\" \""
         },
@@ -58906,19 +58882,19 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2131,
+          "line": 2130,
           "kind": "address_reference",
           "text": "// frame through EclVm_TickChildren (0x0044FD10), whose injected tick edge is"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2195,
+          "line": 2194,
           "kind": "address_reference",
           "text": "// intrusive one; EclVm_TickChildren (0x0044FD10) walks the same set."
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3001,
+          "line": 3000,
           "kind": "address_reference",
           "text": "// Retail walks the child list in EclVm_TickChildren (0x0044FD10) and"
         }
@@ -59600,7 +59576,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2610,
+          "line": 2609,
           "kind": "address_reference",
           "text": "// Retail 0x00450070. A clear mask bit yields null and retail stores through it"
         }
@@ -59765,13 +59741,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2192,
+          "line": 2191,
           "kind": "address_reference",
           "text": "// Retail's async spawn (0x004500D0) allocates a 0x1024 VM record, links it"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2646,
+          "line": 2645,
           "kind": "address_reference",
           "text": "// Retail 0x004500D0, opcodes 0x0F/0x10. The callee name is taken from the"
         }
@@ -59924,7 +59900,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2682,
+          "line": 2681,
           "kind": "address_reference",
           "text": "// Retail 0x00450160, opcodes 0x11..0x14. Retail walks the intrusive child"
         }
@@ -60287,13 +60263,13 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2568,
+          "line": 2567,
           "kind": "address_reference",
           "text": "// call target through 0x00450470 against a label object at owner+0x102C; the"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 2600,
+          "line": 2599,
           "kind": "address_reference",
           "text": "// (0x00450470 returns the sub body, i.e. past the 16-byte ECLH header)."
         }
@@ -60718,9 +60694,9 @@
     {
       "path": "matching2/src/app/fps_counter.cpp",
       "available": true,
-      "bytes": 2984,
-      "sha256": "03bae5a5c93e9723c40a158316b652a6151b8b4ed4f5d122c9eafae6498f7092",
-      "lines": 96,
+      "bytes": 2934,
+      "sha256": "17f059e4849bf9b7311c68ecd6c30da4aeecc1036580d8092a9d619f1961cda2",
+      "lines": 79,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x004134B0",
@@ -60822,7 +60798,7 @@
       "path": "matching2/src/app/version_marker.cpp",
       "available": true,
       "bytes": 884,
-      "sha256": "8841455dafe7760e00e4251b91e09845dd374ec95cd7d1aa562c9bf7db29575d",
+      "sha256": "0296261957bc7998ab2de55a6714b549ca1e4e4f724e7f060a38abdf245fee3a",
       "lines": 30,
       "audit_status": "pending_file_review",
       "addresses": [
@@ -62988,9 +62964,9 @@
     {
       "path": "matching2/src/game/scheduler.cpp",
       "available": true,
-      "bytes": 9701,
-      "sha256": "3b325c5d94096899e31339785a4216d8c388216beefacbe96ad28f1c36854096",
-      "lines": 263,
+      "bytes": 9510,
+      "sha256": "96b382c2c1016d74722594f3f8b5bdfde50c0ec1fce70ab7edd3c21029df4896",
+      "lines": 257,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00420C00",
@@ -63741,9 +63717,9 @@
     {
       "path": "matching2/src/game/trajectory_evaluate.cpp",
       "available": true,
-      "bytes": 8520,
-      "sha256": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b",
-      "lines": 237,
+      "bytes": 7405,
+      "sha256": "942e8e07da7a46e48cc290a197319544575e0c33ed573794ea0bde52ba62a60c",
+      "lines": 183,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00404610",
@@ -63895,17 +63871,15 @@
     {
       "path": "matching2/src/math/interpolators.cpp",
       "available": true,
-      "bytes": 5608,
-      "sha256": "683fdde30f3db3b949861d15611c45e808cc9073c4ae9c455e832d98aa02829b",
-      "lines": 153,
+      "bytes": 6119,
+      "sha256": "2690163fec8b9841825917cb8d48eff87d6bb472efc5342981a564397ed5244c",
+      "lines": 149,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00404610",
         "0x00441600",
         "0x00441950",
-        "0x00441AD0",
-        "0x00441E50",
-        "0x0044C350"
+        "0x00441AD0"
       ],
       "candidate_claim_addresses": [
         "0x00404610",
@@ -63977,14 +63951,16 @@
     {
       "path": "matching2/src/math/rng.cpp",
       "available": true,
-      "bytes": 2669,
-      "sha256": "6fa82eefa676a6fdf4986c6eab313a144fac63aef4c3aaa81f507193a754c50b",
+      "bytes": 2678,
+      "sha256": "ed10c71d4dfa7914c72f01a1fbc08b2da92b14fbaa699209c987f14b4a7c000a",
       "lines": 68,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x0043EE30",
         "0x0044B9E0",
         "0x0044BA80",
+        "0x0044BAAD",
+        "0x0044BACC",
         "0x0044BB20",
         "0x0044BB90",
         "0x004918B0"
@@ -63999,12 +63975,13 @@
     {
       "path": "matching2/src/math/timer.cpp",
       "available": true,
-      "bytes": 3467,
-      "sha256": "1cc9e7f3e56979c6cbfa8034806577e544330858be47a7b012c3e5c046427d89",
-      "lines": 94,
+      "bytes": 4233,
+      "sha256": "c2ba4849ba3399bf43cbc0f4be0624be08d28551e156bf323e4d00bf917625d0",
+      "lines": 104,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00404ED0",
+        "0x00404F0C",
         "0x004050D0",
         "0x00428DD0",
         "0x0042C5C0",
@@ -64013,6 +63990,7 @@
       ],
       "candidate_claim_addresses": [
         "0x00404ED0",
+        "0x00404F0C",
         "0x004050D0",
         "0x00428DD0",
         "0x0042C5C0",
@@ -65703,9 +65681,9 @@
     {
       "path": "matching2/src/script/anm_vm_tick.cpp",
       "available": true,
-      "bytes": 27241,
-      "sha256": "dfe5bc9e91b7fc4977cc1e176ea11ffbf19f1e164076c4f1dd99e9360d8cac59",
-      "lines": 632,
+      "bytes": 28475,
+      "sha256": "09ee81f2da0d0533edfebeec8c11149a65014ff8d5f27a1bbcd69a23a2696c6b",
+      "lines": 679,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x0043EAC0",
@@ -66081,9 +66059,9 @@
     {
       "path": "matching2/include/th10/app/fps_counter.hpp",
       "available": true,
-      "bytes": 1440,
-      "sha256": "5e3bf4a8c25306437cea58516eb757377260fcf627d70407f0b63c29c03b0af5",
-      "lines": 35,
+      "bytes": 1528,
+      "sha256": "80032cc278a395788caee41ac253cbee60589b9ef4054921c226e0233b958bdf",
+      "lines": 36,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x004134B0",
@@ -66240,9 +66218,9 @@
     {
       "path": "matching2/include/th10/app/version_marker.hpp",
       "available": true,
-      "bytes": 753,
-      "sha256": "8d7cc897dde35aed5df088df89f61ccdb26ab259e78e01834d21721384307cf8",
-      "lines": 19,
+      "bytes": 890,
+      "sha256": "07e7dbc4470cad3d8c7c869c7a8ca2eb2a6c804bbfb20a312cef4d27e2931e3f",
+      "lines": 21,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00420100"
@@ -68597,9 +68575,9 @@
     {
       "path": "matching2/include/th10/math/interpolators.hpp",
       "available": true,
-      "bytes": 1350,
-      "sha256": "fc94c7b6d4c5d43503f59cec1779a3b86222f87306d1f039fc3faacbeb482e47",
-      "lines": 56,
+      "bytes": 1665,
+      "sha256": "8431fa1dd1640a34b64b6cbc5a3ca267286d404e0aa95540b5928a79f46a0453",
+      "lines": 69,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00404610",
@@ -68667,10 +68645,22 @@
       "candidate_claim_addresses": []
     },
     {
+      "path": "matching2/include/th10/math/retail_numeric.hpp",
+      "available": true,
+      "bytes": 1171,
+      "sha256": "ad32a60e86f0cf67ac5c989af6a31dacef5f01da8763798043391167f430ea1d",
+      "lines": 30,
+      "audit_status": "pending_file_review",
+      "addresses": [
+        "0x00463B2C"
+      ],
+      "candidate_claim_addresses": []
+    },
+    {
       "path": "matching2/include/th10/math/rng.hpp",
       "available": true,
-      "bytes": 786,
-      "sha256": "94f7a10e32f1b2a9847f739439ab9dff1d2de5f8a74d42b55aac83ba2003786a",
+      "bytes": 818,
+      "sha256": "ce4ba35e303aa3bfa74ff833ca2222a55f226148e2488c0f5623891e3cdaedb4",
       "lines": 22,
       "audit_status": "pending_file_review",
       "addresses": [
@@ -68687,9 +68677,9 @@
     {
       "path": "matching2/include/th10/math/timer.hpp",
       "available": true,
-      "bytes": 1266,
-      "sha256": "b9e6c73ced3096d4e0ff591377d9f26aaf5b87f145c19be3f2e43405c3a9ea88",
-      "lines": 33,
+      "bytes": 1335,
+      "sha256": "b6154d8f455233bda82dc0ac1cb2fa95d516066f016ce1a5df8414b124193ee1",
+      "lines": 34,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x0040D280",
@@ -69957,9 +69947,9 @@
     {
       "path": "matching2/include/th10/script/anm_vm_tick.hpp",
       "available": true,
-      "bytes": 5688,
-      "sha256": "eb1f5da0423215779cefd1325da6bb1defb821b2369b608ea56a4b88a9df36a7",
-      "lines": 125,
+      "bytes": 6176,
+      "sha256": "6fc039d263166d28d81e406dc9af26e875cb3d115181d0a861ed842aeeb99247",
+      "lines": 134,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x0043CB80",
@@ -70215,9 +70205,9 @@
     {
       "path": "matching2/standalone/host_main.cpp",
       "available": true,
-      "bytes": 312304,
-      "sha256": "33c6471a9f6393ab28535fe2d72d05b62998bf2f2925bb8fea7bad8456ec0c70",
-      "lines": 7444,
+      "bytes": 310455,
+      "sha256": "06911a3ae1972148651a0b688b6ae2a4b0fe0313d92cf75c2b5bb47f4cc000d6",
+      "lines": 7389,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00401A50",
@@ -70379,9 +70369,9 @@
     {
       "path": "matching2/standalone/host_stage.cpp",
       "available": true,
-      "bytes": 156420,
-      "sha256": "f152587aaa1f6f0733b2ad3f9197ac1f5d2b48ef015aa525950cb0b2ebdd57e6",
-      "lines": 3909,
+      "bytes": 155804,
+      "sha256": "09d06197ab79a72d562ab073f9e6cd2ed6c450f756958fe0839c27d3cf345056",
+      "lines": 3867,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00402640",
@@ -70481,9 +70471,9 @@
     {
       "path": "matching2/standalone/host_stage.hpp",
       "available": true,
-      "bytes": 8093,
-      "sha256": "d823d8b587b5e80e53ebea1bd2033b0d6f1eb53a195175be51288b62706a0490",
-      "lines": 171,
+      "bytes": 8314,
+      "sha256": "7e697449307a4ec37dc659aac0d5eef70e94e155dc48e476e162e44a3cdb88f0",
+      "lines": 177,
       "audit_status": "pending_file_review",
       "addresses": [
         "0x00403850",
@@ -71746,7 +71736,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 859,
+          "line": 898,
           "kind": "address_reference",
           "text": "// the sweep admits live bullets.  The draw edge (0x004067A0) is likewise"
         }
@@ -74991,7 +74981,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1687,
+          "line": 1686,
           "kind": "address_reference",
           "text": "// StageContext, exactly what the 0x004187C0/0x004187D0 thunks expect."
         }
@@ -75069,7 +75059,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1687,
+          "line": 1686,
           "kind": "address_reference",
           "text": "// StageContext, exactly what the 0x004187C0/0x004187D0 thunks expect."
         }
@@ -76291,7 +76281,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4408,
+          "line": 4353,
           "kind": "address_reference",
           "text": "// Retail's last secondary callback is 0x004200D0 at priority 50,"
         }
@@ -77914,13 +77904,13 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5706,
+          "line": 5651,
           "kind": "address_reference",
           "text": "// Retail 0x0042C9F0 holds the boot in the sig.anm phase until the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5707,
+          "line": 5652,
           "kind": "address_reference",
           "text": "// loader object's own frame counter reaches 300: 0x0042C9F0's"
         }
@@ -83357,6 +83347,17 @@
       ]
     },
     {
+      "address": "0x00404F0C",
+      "source_occurrences": [
+        {
+          "path": "matching2/src/math/timer.cpp",
+          "line": 23,
+          "kind": "implementation_marker_candidate",
+          "text": "// 0x00404F0C stores without popping ST0: __ftol2 consumes the retained"
+        }
+      ]
+    },
+    {
       "address": "0x004067A0",
       "source_occurrences": [
         {
@@ -83367,7 +83368,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 859,
+          "line": 898,
           "kind": "address_reference",
           "text": "// the sweep admits live bullets.  The draw edge (0x004067A0) is likewise"
         }
@@ -83598,7 +83599,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1687,
+          "line": 1686,
           "kind": "address_reference",
           "text": "// StageContext, exactly what the 0x004187C0/0x004187D0 thunks expect."
         }
@@ -83657,7 +83658,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1687,
+          "line": 1686,
           "kind": "address_reference",
           "text": "// StageContext, exactly what the 0x004187C0/0x004187D0 thunks expect."
         }
@@ -83787,7 +83788,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 4408,
+          "line": 4353,
           "kind": "address_reference",
           "text": "// Retail's last secondary callback is 0x004200D0 at priority 50,"
         }
@@ -83906,13 +83907,13 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5706,
+          "line": 5651,
           "kind": "address_reference",
           "text": "// Retail 0x0042C9F0 holds the boot in the sig.anm phase until the"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5707,
+          "line": 5652,
           "kind": "address_reference",
           "text": "// loader object's own frame counter reaches 300: 0x0042C9F0's"
         }
@@ -84034,7 +84035,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6227,
+          "line": 6172,
           "kind": "address_reference",
           "text": "// Retail 0x00438C6D, inline in WinMain: WINNLSEnableIME(0, 0), ShowCursor(0),"
         }
@@ -84051,13 +84052,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1938,
+          "line": 1885,
           "kind": "address_reference",
           "text": "// Retail 0x00439473 resets the manager's staged quad count and both vertex"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 2046,
+          "line": 1993,
           "kind": "address_reference",
           "text": "// Retail's buffer is drained once per frame by 0x00439473; the host's is"
         }
@@ -84068,7 +84069,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6876,
+          "line": 6821,
           "kind": "address_reference",
           "text": "// track blocks - so every edge of retail's MIDI teardown (0x0043AD40) has"
         }
@@ -84090,7 +84091,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6738,
+          "line": 6683,
           "kind": "address_reference",
           "text": "// SoundManager_Shutdown is retail 0x0043D3E0 and its whole value is the ORDER"
         }
@@ -84112,7 +84113,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3409,
+          "line": 3356,
           "kind": "address_reference",
           "text": "// (0x00445A50) is what claims a slot and marks it taken. The host used to"
         }
@@ -84123,7 +84124,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 3394,
+          "line": 3341,
           "kind": "address_reference",
           "text": "// Retail draw list. AnimationManager_UpdatePrimary (0x00448F80-ish) walks the"
         }
@@ -84143,6 +84144,28 @@
           "line": 17,
           "kind": "address_reference",
           "text": "//        the reconstructed scheduler (0x00449AE0..0x00449F17), archive/resource"
+        }
+      ]
+    },
+    {
+      "address": "0x0044BAAD",
+      "source_occurrences": [
+        {
+          "path": "matching2/src/math/rng.cpp",
+          "line": 46,
+          "kind": "address_reference",
+          "text": "// pair with the first word in the low half (the stack layout at 0x0044BAAD"
+        }
+      ]
+    },
+    {
+      "address": "0x0044BACC",
+      "source_occurrences": [
+        {
+          "path": "matching2/src/math/rng.cpp",
+          "line": 47,
+          "kind": "address_reference",
+          "text": "// and 0x0044BACC). This packing differs from Rng_NextU32. The generation"
         }
       ]
     },
@@ -84218,6 +84241,12 @@
           "line": 10,
           "kind": "address_reference",
           "text": "// at 0x00463B2C before storing the low byte."
+        },
+        {
+          "path": "matching2/include/th10/math/retail_numeric.hpp",
+          "line": 20,
+          "kind": "address_reference",
+          "text": "// __ftol2 (0x00463B2C) returns an int64 in EDX:EAX. These callers consume"
         },
         {
           "path": "matching2/include/th10/platform/sound_leaves.hpp",
@@ -84361,7 +84390,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 1764,
+          "line": 1712,
           "kind": "address_reference",
           "text": "// table at 0x0046F2A0 indexed by the image's own format word times its"
         }
@@ -84406,7 +84435,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5837,
+          "line": 5782,
           "kind": "address_reference",
           "text": "// boot banner 0x0046F77C, or 0x0046F6F0 when the exit-mode-2 loop re-enters"
         }
@@ -84429,7 +84458,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5837,
+          "line": 5782,
           "kind": "address_reference",
           "text": "// boot banner 0x0046F77C, or 0x0046F6F0 when the exit-mode-2 loop re-enters"
         }
@@ -84440,7 +84469,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5856,
+          "line": 5801,
           "kind": "address_reference",
           "text": "// (0x0046F7BC) through the 0x0044B540 writer."
         }
@@ -84451,7 +84480,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5854,
+          "line": 5799,
           "kind": "address_reference",
           "text": "// append the closing rule (0x0046F7CC), raise the modal only when a"
         }
@@ -84766,7 +84795,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3347,
+          "line": 3305,
           "kind": "address_reference",
           "text": "// rank, and threshold state is the StageGlobals mirror of the 0x00474C40"
         }
@@ -84828,7 +84857,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1544,
+          "line": 1543,
           "kind": "address_reference",
           "text": "RegisteredClock g_spell_clock;      // retail 0x00474C54..0x00474C64"
         }
@@ -84856,7 +84885,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1544,
+          "line": 1543,
           "kind": "address_reference",
           "text": "RegisteredClock g_spell_clock;      // retail 0x00474C54..0x00474C64"
         }
@@ -84928,7 +84957,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3287,
+          "line": 3245,
           "kind": "address_reference",
           "text": "// The rank digits are the two byte slots at 0x00474C90/0x00474C94; the host"
         }
@@ -84939,7 +84968,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 3287,
+          "line": 3245,
           "kind": "address_reference",
           "text": "// The rank digits are the two byte slots at 0x00474C90/0x00474C94; the host"
         }
@@ -84973,7 +85002,7 @@
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 1513,
+          "line": 1512,
           "kind": "address_reference",
           "text": "// indexed by the rank word at 0x00474C9C."
         }
@@ -85026,7 +85055,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5287,
+          "line": 5232,
           "kind": "address_reference",
           "text": "// block (config +0x04..+0x15) into the live table at 0x00474E88..0x00474E98."
         }
@@ -85061,7 +85090,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5287,
+          "line": 5232,
           "kind": "address_reference",
           "text": "// block (config +0x04..+0x15) into the live table at 0x00474E88..0x00474E98."
         }
@@ -85108,7 +85137,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5836,
+          "line": 5781,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00438AD0 - one 0x0044B810 line into the log object at 0x00474F70: the"
         }
@@ -85164,7 +85193,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6405,
+          "line": 6350,
           "kind": "address_reference",
           "text": "// Retail's attract-mode table is off_476FF8 (.data at 0x00476FF8), read"
         }
@@ -85671,7 +85700,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 805,
+          "line": 801,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00491D0C."
         }
@@ -85688,7 +85717,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 623,
+          "line": 619,
           "kind": "address_reference",
           "text": "// No config member: retail's single record lives at 0x00491D48 and is"
         }
@@ -85699,7 +85728,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5301,
+          "line": 5246,
           "kind": "address_reference",
           "text": "// config byte at +0x1D (0x00491D65), not by a flag bit."
         }
@@ -85878,7 +85907,7 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6616,
+          "line": 6561,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492254 before 0x00439390 reports quit or restart. This host"
         }
@@ -85901,25 +85930,25 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 786,
+          "line": 782,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274."
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 846,
+          "line": 842,
           "kind": "address_reference",
           "text": "// The seven sections WinMain initialises from 0x00492274 upwards, stride"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5816,
+          "line": 5761,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274; the file (0x004922A4) and text-log (0x004922BC) sections that"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 145,
+          "line": 147,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274 is the first of the seven CRITICAL_SECTIONs 0x00438AD0"
         }
@@ -85948,19 +85977,19 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5183,
+          "line": 5128,
           "kind": "address_reference",
           "text": "// The file-system critical section (0x004922A4) and its recursion depth byte"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5816,
+          "line": 5761,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274; the file (0x004922A4) and text-log (0x004922BC) sections that"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 147,
+          "line": 149,
           "kind": "address_reference",
           "text": "// from the file (0x004922A4) and text-log (0x004922BC) sections that share"
         }
@@ -85977,13 +86006,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5816,
+          "line": 5761,
           "kind": "implementation_marker_candidate",
           "text": "// 0x00492274; the file (0x004922A4) and text-log (0x004922BC) sections that"
         },
         {
           "path": "matching2/standalone/host_stage.cpp",
-          "line": 147,
+          "line": 149,
           "kind": "address_reference",
           "text": "// from the file (0x004922A4) and text-log (0x004922BC) sections that share"
         }
@@ -85994,7 +86023,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5355,
+          "line": 5300,
           "kind": "address_reference",
           "text": "// clock section at 0x004922EC (the fifth of the seven stride-0x18 sections)"
         }
@@ -86016,7 +86045,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5184,
+          "line": 5129,
           "kind": "address_reference",
           "text": "// (0x0049231E), held by 0x0044B360 and 0x0044B540 for the whole operation."
         }
@@ -86027,7 +86056,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5356,
+          "line": 5301,
           "kind": "address_reference",
           "text": "// followed by the recursion byte at 0x00492321, with the unlock arm closing"
         }
@@ -86079,13 +86108,13 @@
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6239,
+          "line": 6184,
           "kind": "address_reference",
           "text": "// doubles have been seeded. src/platform/window.cpp reads the same 0x004924F0"
         },
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 6867,
+          "line": 6812,
           "kind": "address_reference",
           "text": "// src/platform/window.cpp over the same 0x004924F0 handle; g_host.window is"
         }
@@ -86230,7 +86259,7 @@
       "source_occurrences": [
         {
           "path": "matching2/standalone/host_main.cpp",
-          "line": 5221,
+          "line": 5166,
           "kind": "address_reference",
           "text": "// asks for the disk branch, and the mounted-table pointer 0x00497990 that"
         }

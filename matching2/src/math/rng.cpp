@@ -43,9 +43,9 @@ uint32_t Rng_NextU32(RngState* state) {
 }
 
 // 0x0044BA80 - Advance the generator four times but return only the first
-// pair of outputs. Equivalent to calling Rng_NextU32 twice and keeping the
-// first result; retail bumps the generation counter by 4. No retail caller
-// remains, so this documents the complete generator family.
+// pair with the first word in the low half (the stack layout at 0x0044BAAD
+// and 0x0044BACC). This packing differs from Rng_NextU32. The generation
+// counter increases by four, with the same modulo-2^32 wrap as retail.
 uint32_t Rng_NextU32DoubleStep(RngState* state) {
     uint32_t first = Rng_Step(state->seed);
     uint32_t second = Rng_Step(first);
@@ -53,7 +53,7 @@ uint32_t Rng_NextU32DoubleStep(RngState* state) {
     uint32_t fourth = Rng_Step(third);
     state->seed = (uint16_t)fourth;
     state->generation += 4;
-    return (first << 16) | second;
+    return first | (second << 16);
 }
 
 // 0x0044BB20 - Uniform float in [0, 1) from the next 32-bit output.

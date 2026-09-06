@@ -1,25 +1,5 @@
 #include "th10/app/fps_counter.hpp"
-#include "th10/game/player_motion.hpp"
-#include "th10/game/registered_clock.hpp"
-#include "th10/util/scalars.hpp"
-
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
-
-
-// Each routine mirrors one retail function; the comment above each body
-// names the retail address it was recovered from.
-
-
-#include <cmath>
-#include <cstring>
-
-namespace {
-
-
-
-} // namespace
+#include "th10/math/retail_numeric.hpp"
 
 // 0x004135D0 - FPS counter draw callback: refresh the rolling average, and
 // unless the game is in state 0xE (shutdown) or the game thread is gone,
@@ -27,25 +7,28 @@ namespace {
 // pink below the mid threshold, white otherwise), restoring white after.
 // The frame accumulator then absorbs the skipped-frame count plus one.
 int FpsCounter_Render(void (*update_average)(void), int game_state,
-                      void* game_thread, float fps, float low_threshold,
+                      void* game_thread, const float* fps, float low_threshold,
                       float mid_threshold, Word* overlay_color,
-                      void (*print_overlay)(const char* format),
+                      void (*print_overlay)(const float position[3],
+                                            const char* format, double fps),
                       int* accumulator, int skipped_frames) {
 	update_average();
 	if (game_state != 0xE && game_thread != 0) {
+		const float updated_fps = *fps;
 		Word color;
-		if (fps < low_threshold) {
+		if (updated_fps < low_threshold) {
 			color = 0xFF5050FF;
-		} else if (fps < mid_threshold) {
+		} else if (updated_fps < mid_threshold) {
 			color = 0xFFA0A0FF;
 		} else {
 			color = 0xFFFFFFFF;
 		}
 		*overlay_color = color;
-		print_overlay("%2.1ffps");
+		const float position[3] = {590.0f, 470.0f, 0.0f};
+		print_overlay(position, "%2.1ffps", static_cast<double>(updated_fps));
 		*overlay_color = 0xFFFFFFFF;
 	}
-	*accumulator += skipped_frames + 1;
+	*accumulator = Retail_AddI32(Retail_AddI32(*accumulator, skipped_frames), 1);
 	return 1;
 }
 

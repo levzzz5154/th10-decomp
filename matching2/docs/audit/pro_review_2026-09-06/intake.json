@@ -1,0 +1,253 @@
+{
+  "archive_name": "th10_repository_audit_expanded.zip",
+  "archive_sha256": "3a39e34bc57a2c3a463daec2af5e6e1416a25236e98a85597c6eef988a6652c2",
+  "supplied_hashes_verified": 8,
+  "local_commit": "04a840d9228378bc793a709af493f49bffe53d74",
+  "report_input_commit": "09835addae52e8eda47fc8c387a518ca7a0b4294",
+  "identity_matches": 47,
+  "identity_checks": 48,
+  "identity_mismatch_paths": [
+    "AUDIT_START_HERE.md"
+  ],
+  "missing_supplied_artifacts": [
+    "scope_ledger.json"
+  ],
+  "production_changes_made": false,
+  "locally_reconciled_findings": [
+    {
+      "id": "SCHED-01",
+      "local_verdict": "confirmed_contract_mismatch",
+      "basis": "Inspected original instruction/control flow plus native unchanged-source probe; no PE32 ABI, concurrency or gameplay claim.",
+      "source_matches": [
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 196,
+          "text": "if (callback == 0 || callback->function == 0) {"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 197,
+          "text": "node = next != 0 ? next->previous : node;"
+        }
+      ],
+      "reference_matches": [
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 32,
+          "text": "00449c48\t8B4804\tMOV ECX,dword ptr [EAX + 0x4]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 36,
+          "text": "00449c52\t894C2414\tMOV dword ptr [ESP + 0x14],ECX"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 38,
+          "text": "00449c56\t7473\tJZ 0x00449ccb"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 97,
+          "text": "00449ccb\t8B442414\tMOV EAX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 30,
+          "text": "00449d80\t8B4804\tMOV ECX,dword ptr [EAX + 0x4]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 34,
+          "text": "00449d8a\t894C2414\tMOV dword ptr [ESP + 0x14],ECX"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 36,
+          "text": "00449d8e\t745C\tJZ 0x00449dec"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 83,
+          "text": "00449dec\t85C9\tTEST ECX,ECX"
+        }
+      ]
+    },
+    {
+      "id": "SCHED-02",
+      "local_verdict": "confirmed_contract_mismatch",
+      "basis": "Inspected original instruction/control flow plus native unchanged-source probe; no PE32 ABI, concurrency or gameplay claim.",
+      "source_matches": [
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 212,
+          "text": "if (callbackResult == 0) {"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 215,
+          "text": "node = (next != 0) ? next->previous :"
+        }
+      ],
+      "reference_matches": [
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 82,
+          "text": "00449ca6\t8B54241C\tMOV EDX,dword ptr [ESP + 0x1c]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 84,
+          "text": "00449cac\tE8AF020000\tCALL 0x00449f60"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 86,
+          "text": "00449cb1\tFF442410\tINC dword ptr [ESP + 0x10]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 87,
+          "text": "00449cb5\t8B442414\tMOV EAX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 88,
+          "text": "00449cb9\tEB85\tJMP 0x00449c40"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 75,
+          "text": "00449dd4\t8B54241C\tMOV EDX,dword ptr [ESP + 0x1c]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 77,
+          "text": "00449dda\tE881010000\tCALL 0x00449f60"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 80,
+          "text": "00449de3\t8B4C2414\tMOV ECX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 83,
+          "text": "00449dec\t85C9\tTEST ECX,ECX"
+        }
+      ]
+    },
+    {
+      "id": "SCHED-03",
+      "local_verdict": "confirmed_contract_mismatch",
+      "basis": "Inspected original instruction/control flow plus native unchanged-source probe; no PE32 ABI, concurrency or gameplay claim.",
+      "source_matches": [
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 183,
+          "text": "int resultCount = 0;"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 234,
+          "text": "if (callbackResult == 6) {"
+        }
+      ],
+      "reference_matches": [
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 23,
+          "text": "00449c30\t8B44241C\tMOV EAX,dword ptr [ESP + 0x1c]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 25,
+          "text": "00449c34\t8B4018\tMOV EAX,dword ptr [EAX + 0x18]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 26,
+          "text": "00449c37\tC744241000000000\tMOV dword ptr [ESP + 0x10],0x0"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449C00.asm",
+          "line": 65,
+          "text": "00449c8f\tFF24BD149D4400\tJMP dword ptr [EDI*0x4 + 0x449d14]"
+        }
+      ]
+    },
+    {
+      "id": "SCHED-04",
+      "local_verdict": "confirmed_contract_mismatch",
+      "basis": "Inspected original instruction/control flow plus native unchanged-source probe; no PE32 ABI, concurrency or gameplay claim.",
+      "source_matches": [
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 234,
+          "text": "if (callbackResult == 6) {"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 238,
+          "text": "if (callbackResult == 7 && callback->onResultSeven != 0)"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 262,
+          "text": "return Scheduler_RunList(device, 0x38);"
+        }
+      ],
+      "reference_matches": [
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 57,
+          "text": "00449dba\t83FF05\tCMP EDI,0x5"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 60,
+          "text": "00449dc3\t771A\tJA 0x00449ddf"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 79,
+          "text": "00449ddf\t8B442410\tMOV EAX,dword ptr [ESP + 0x10]"
+        },
+        {
+          "path": "decompiled/ghidra_augmented/functions/00449D40.asm",
+          "line": 83,
+          "text": "00449dec\t85C9\tTEST ECX,ECX"
+        }
+      ]
+    },
+    {
+      "id": "SCHED-05",
+      "local_verdict": "confirmed_contract_mismatch",
+      "basis": "Inspected original instruction/control flow plus native unchanged-source probe; no PE32 ABI, concurrency or gameplay claim.",
+      "source_matches": [
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 81,
+          "text": "callback->owner = 0;"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 147,
+          "text": "callback->owner = 0;"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 148,
+          "text": "if ((callback->flags & 1u) != 0) {"
+        },
+        {
+          "path": "matching2/src/game/scheduler.cpp",
+          "line": 150,
+          "text": "callback->function = 0;"
+        }
+      ],
+      "reference_matches": []
+    }
+  ],
+  "previous_six_confirmed_findings": "Carried as Pro findings; not independently revalidated during this intake."
+}

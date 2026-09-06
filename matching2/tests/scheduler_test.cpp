@@ -59,7 +59,91 @@ static SchedulerNode* ListHead(unsigned char* device, unsigned int offset) {
     return (SchedulerNode*)(device + offset);
 }
 
+struct RunOwner {
+    int calls;
+    int first_result;
+    int later_result;
+    int seven_calls;
+    SchedulerCallback* deactivate;
+};
+
+static int ScriptedCallback(void* pointer) {
+    assert(DAT_0049231c == 0);
+    RunOwner* owner = static_cast<RunOwner*>(pointer);
+    ++owner->calls;
+    if (owner->deactivate != nullptr)
+        owner->deactivate->flags &= ~2u;
+    return owner->calls == 1 ? owner->first_result : owner->later_result;
+}
+
+static int SeventhCallback(void* pointer) {
+    assert(DAT_0049231c == 1);
+    ++static_cast<RunOwner*>(pointer)->seven_calls;
+    return 1;
+}
+
+// Instruction-derived expectations: primary 0x449C30 resets the count;
+// 0x449CB5/0x449CCB and secondary 0x449DE3 load the cached successor;
+// the secondary switch at 0x449DBA only dispatches codes through five.
+static void TestWalkerContracts(bool primary) {
+    for (int scenario = 0; scenario < 10; ++scenario) {
+        unsigned char device[0x90] = {};
+        SchedulerCallback a = {}, b = {};
+        RunOwner oa = {0, 1, 1, 0, nullptr};
+        RunOwner ob = {0, 1, 1, 0, nullptr};
+        a.function = b.function = ScriptedCallback;
+        a.onResultSeven = b.onResultSeven = SeventhCallback;
+        a.flags = b.flags = 2;
+        a.owner = &oa;
+        b.owner = &ob;
+        a.node.owner = &a;
+        b.node.owner = &b;
+        auto register_callback = primary ? Scheduler_RegisterPrimary :
+                                          Scheduler_RegisterSecondary;
+        auto run = primary ? Scheduler_RunPrimary : Scheduler_RunSecondary;
+        register_callback(&a, 0, device);
+        register_callback(&b, 1, device);
+        if (scenario == 1) b.function = nullptr; // null tail
+        if (scenario == 2) a.function = nullptr; // null before live successor
+        if (scenario == 3) ob.first_result = ob.later_result = 0; // retire tail
+        if (scenario == 4) ob.first_result = 6;
+        if (scenario == 5) ob.first_result = 7;
+        if (scenario == 6) ob.first_result = 2;
+        if (scenario == 7) { ob.first_result = 2; ob.deactivate = &b; }
+        if (scenario == 8) ob.first_result = 4;
+        if (scenario == 9) b.flags = 0;
+        const int result = run(device);
+        assert(result == (scenario == 8 ? 0 :
+                          (scenario == 1 || scenario == 2) ? 1 : 2));
+        assert(oa.calls == (scenario == 2 ? 0 :
+                            scenario == 4 && primary ? 2 : 1));
+        assert(ob.calls == ((scenario == 1 || scenario == 9) ? 0 :
+                            (scenario == 6 || (scenario == 4 && primary)) ? 2 : 1));
+        assert(ob.seven_calls == (scenario == 5 && primary ? 1 : 0));
+        assert(DAT_0049231c == 0);
+        if (scenario == 3) {
+            assert(b.function == nullptr && b.owner == &ob);
+            assert(b.node.next == nullptr && b.node.previous == nullptr);
+            Scheduler_Remove(&b, device); // already unlinked: preserve state
+            assert(b.owner == &ob && b.flags == 2);
+        }
+    }
+
+    unsigned char device[0x90] = {};
+    SchedulerCallback retained = {};
+    retained.function = ScriptedCallback;
+    retained.owner = &retained;
+    SchedulerNode* head = ListHead(device, primary ? 0x14 : 0x38);
+    head->owner = &retained;
+    // 0x449F93/0x449F95 protects a matching sentinel (no predecessor).
+    Scheduler_Remove(&retained, device);
+    assert(retained.function == ScriptedCallback && retained.owner == &retained);
+    assert(head->owner == &retained);
+}
+
 int main() {
+    TestWalkerContracts(true);
+    TestWalkerContracts(false);
     assert(GameState_DispatchDummy((void*)1, 0, DummyConfigure) == 0);
     assert(dummyIndex == 3);
     assert(GameState_DispatchDummy((void*)1, 0x10, DummyConfigure) == 0);

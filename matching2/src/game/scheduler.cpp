@@ -136,7 +136,7 @@ void Scheduler_Remove(SchedulerCallback* callback, void* device) {
         while (node != 0 && node->owner != callback)
             node = node->next;
     }
-    if (node == 0)
+    if (node == 0 || node->previous == 0)
         return;
     if (node->next != 0)
         node->next->previous = node->previous;
@@ -144,11 +144,10 @@ void Scheduler_Remove(SchedulerCallback* callback, void* device) {
         node->previous->next = node->next;
     node->next = 0;
     node->previous = 0;
-    callback->owner = 0;
+    callback->function = 0;
     if ((callback->flags & 1u) != 0) {
-        callback->flags = 0;
-        callback->function = 0;
         callback->onReplace = 0;
+        callback->onResultSeven = 0;
         _free(callback);
     }
 }
@@ -179,48 +178,41 @@ SchedulerCallback* Scheduler_CreateAndRegisterSecondary(
     return callback;
 }
 
-static int Scheduler_RunList(void* device, unsigned int listOffset) {
+static int Scheduler_RunList(void* device, unsigned int listOffset,
+                             bool primary) {
     int resultCount = 0;
     EnterCriticalSection(&DAT_00492274);
     ++DAT_0049231c;
-    SchedulerNode* node = (SchedulerNode*)((unsigned char*)device + listOffset);
-    for (;;) {
-        if (node->next == 0) {
-            LeaveCriticalSection(&DAT_00492274);
-            --DAT_0049231c;
-            return resultCount;
-        }
-        SchedulerNode* currentNode = node->next;
-        SchedulerCallback* callback = currentNode->owner;
-        SchedulerNode* next = currentNode->next;
+    SchedulerNode* head = (SchedulerNode*)((unsigned char*)device + listOffset);
+    SchedulerNode* node = head->next;
+    while (node != 0) {
+        SchedulerCallback* callback = node->owner;
+        // Retail saves the successor before invoking the callback. In
+        // particular, a null successor is completion, not a restart request.
+        SchedulerNode* next = node->next;
         if (callback == 0 || callback->function == 0) {
-            node = next != 0 ? next->previous : node;
+            node = next;
             continue;
         }
         if ((callback->flags & 2u) == 0) {
-            node = currentNode;
+            node = next;
             ++resultCount;
             continue;
         }
 
-        LeaveCriticalSection(&DAT_00492274);
-        --DAT_0049231c;
-        int callbackResult = callback->function(callback->owner);
-        EnterCriticalSection(&DAT_00492274);
-        ++DAT_0049231c;
+        int callbackResult;
+        do {
+            LeaveCriticalSection(&DAT_00492274);
+            --DAT_0049231c;
+            callbackResult = callback->function(callback->owner);
+            EnterCriticalSection(&DAT_00492274);
+            ++DAT_0049231c;
+        } while (callbackResult == 2 && (callback->flags & 2u) != 0);
 
         if (callbackResult == 0) {
             Scheduler_Remove(callback, device);
             ++resultCount;
-            node = (next != 0) ? next->previous :
-                (SchedulerNode*)((unsigned char*)device + listOffset);
-            continue;
-        }
-        if (callbackResult == 2) {
-            if ((callback->flags & 2u) == 0) {
-                node = currentNode;
-                ++resultCount;
-            }
+            node = next;
             continue;
         }
         if (callbackResult == 3) resultCount = 1;
@@ -231,23 +223,25 @@ static int Scheduler_RunList(void* device, unsigned int listOffset) {
             --DAT_0049231c;
             return resultCount;
         }
-        if (callbackResult == 6) {
-            node = (SchedulerNode*)((unsigned char*)device + listOffset);
+        if (primary && callbackResult == 6) {
+            resultCount = 0;
+            node = head->next;
             continue;
         }
-        if (callbackResult == 7 && callback->onResultSeven != 0)
+        if (primary && callbackResult == 7 && callback->onResultSeven != 0)
             callback->onResultSeven(callback->owner);
-        node = currentNode;
+        node = next;
         ++resultCount;
     }
+    LeaveCriticalSection(&DAT_00492274);
+    --DAT_0049231c;
+    return resultCount;
 }
 
 // 0x00449C00 / 0x00449D40 - Dispatch primary/secondary callbacks while
 // allowing callbacks to retire or request a scheduler restart. Both claims
-// share the Scheduler_RunList walker above; its cases 6 (restart) and 7
-// (onResultSeven) are PRIMARY-ONLY - retail 0x00449D40's switch handles
-// 0/2/3/4/5 only and returns on 3/4/5, so the shared walker's 6/7 arms
-// are unreachable from the secondary claim.
+// share the walker with explicit primary-only handling for 6 (restart)
+// and 7 (onResultSeven). Secondary treats both as counted continuation.
 // Head offsets: retail keeps the primary/secondary list-head SENTINEL nodes
 // at device+0x14/+0x38 (0x00449AE0/0x00449B70 register and 0x00449F60
 // remove walk those bases) and reads the sentinel's next - the first real
@@ -255,9 +249,9 @@ static int Scheduler_RunList(void* device, unsigned int listOffset) {
 // bodies dereference. The host passes the same sentinel base and reads
 // ->next, so the offsets agree with retail; there is no host-layout shift.
 int Scheduler_RunPrimary(void* device) {
-    return Scheduler_RunList(device, 0x14);
+    return Scheduler_RunList(device, 0x14, true);
 }
 
 int Scheduler_RunSecondary(void* device) {
-    return Scheduler_RunList(device, 0x38);
+    return Scheduler_RunList(device, 0x38, false);
 }

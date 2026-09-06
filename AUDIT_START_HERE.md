@@ -2,9 +2,10 @@
 
 Use branch **`audit/recovery-calibration-2026-09-06`** in
 `levzzz5154/th10-decomp`. The default `main` branch does not contain this handoff.
-Record the resolved commit before reviewing. The reconstructed production code
-is frozen at `895c4202387d1c6099cf0cec2e8798bdae6a1754`; later handoff commits
-add reference exports, review infrastructure and evidence.
+Record the resolved commit before reviewing. Historical baseline evidence and
+calibration packets remain pinned to `895c4202387d1c6099cf0cec2e8798bdae6a1754`.
+Current production code includes the [reviewed fixes and validation](matching2/docs/audit/fixes_2026-09-06/README.md).
+The complete semantic audit remains open.
 
 Give Pro [the full-repository prompt](matching2/docs/audit/FULL_REPO_PRO_PROMPT.md).
 It includes a repository cleanup phase and a manifest of retained, consolidated,

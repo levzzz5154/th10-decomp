@@ -13,7 +13,7 @@ typedef int            int32_t;
 struct RngState {
     uint16_t seed;
     uint16_t reserved_02;
-    int32_t  generation;
+    uint32_t generation; // retail ADD wraps modulo 2^32
 };
 
 uint32_t Rng_NextU32(RngState* state);

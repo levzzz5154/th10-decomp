@@ -11,7 +11,7 @@ namespace {
 
 bool g_probe_result;
 bool Probe(const char* name) {
-	assert(std::strcmp(name, "th10.ver") == 0);
+	assert(std::strcmp(name, "th10.dat") == 0);
 	return g_probe_result;
 }
 unsigned char g_marker[3] = {1, 2, 3};

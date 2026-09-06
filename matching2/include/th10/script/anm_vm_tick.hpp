@@ -7,7 +7,8 @@
 
 #include "th10/math/interpolators.hpp"
 
-// Instruction header layout inside compiled ANM scripts.
+// Instruction header layout inside compiled ANM scripts. The backing script
+// must be writable: retail destination resolution can return the operand itself.
 struct AnmInstructionView {
     unsigned short opcode;   // +0
     unsigned short size;     // +2 (bytes, includes header)
@@ -32,6 +33,8 @@ enum AnmVmFlags : unsigned int {
 };
 
 struct AnmVmState {
+    int integer_variables[6];
+    float float_variables[4];
     const unsigned char* script_base; // vm+0x38C
     const unsigned char* pc;          // vm+0x390 (0 => script finished)
     int time;                         // vm+0x60 (integer frame clock)
@@ -76,6 +79,7 @@ struct AnmVmHooks {
                         int is_variable);
     float (*read_float_arg)(void* context, AnmVmState* vm, const void* slot,
                             int is_variable); // routes through 0x0043EAC0
+    // Return null for an unmapped id; the dispatcher then writes the operand.
     int* (*int_var_slot)(void* context, AnmVmState* vm, int id);
     float* (*float_var_slot)(void* context, AnmVmState* vm, int id);
     // Host operations.
@@ -99,10 +103,10 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks);
 
 // Special variable ids accepted by AnmVm_ReadSpecialValue.
 enum AnmSpecialVar {
-    ANM_VAR_FLOAT_BASE = 10000,   // 0x2710..0x2719 => vm float slots
-    ANM_VAR_RAND_ANGLE = 0x271A,  // rand * 2*pi
-    ANM_VAR_RAND_SIGNED = 0x271B,
-    ANM_VAR_RAND_UNIT = 0x271C,
+    ANM_VAR_FLOAT_BASE = 10004,   // four float slots; remaining slots are integers
+    ANM_VAR_RAND_ANGLE = 0x271A,  // signed rand * pi
+    ANM_VAR_RAND_SIGNED = 0x271C,
+    ANM_VAR_RAND_UNIT = 0x271B,
     ANM_VAR_POS_X = 0x271D,
     ANM_VAR_POS_Y = 0x271E,
     ANM_VAR_POS_Z = 0x271F,
@@ -111,13 +115,18 @@ enum AnmSpecialVar {
 
 struct AnmSpecialValueHooks {
     void* context;
-    float (*rand_unit)(void* context, int alt_rng);   // 0x0044BB90
-    float (*rand_signed)(void* context);               // 0x0044BB20
-    const float* vm_float_slots;                       // vm+0x30C..
+    float (*rand_unit)(void* context, int alt_rng);   // 0x0044BB20
+    float (*rand_signed)(void* context, int alt_rng);               // 0x0044BB90
+    const int* vm_int_slots;
+    const float* vm_float_slots;                       // vm+0x31C..
     const float* vm_position;                          // vm+0x334..
     const float* camera_globals;                       // DAT_00491D7C block
     int alt_rng;                                       // flags & 0x40000000
 };
+
+int* AnmVm_IntSlot(void*, AnmVmState* vm, int id);
+float* AnmVm_FloatSlot(void*, AnmVmState* vm, int id);
+int AnmVm_ReadIntArg(void*, AnmVmState* vm, const void* slot, int is_variable);
 
 float AnmVm_ReadSpecialValue(int id, float fallback,
                              const AnmSpecialValueHooks* hooks);

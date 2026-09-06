@@ -604,10 +604,6 @@ struct HostAnmVm {
     void* manager_resource = nullptr;
     const HostAnmVm* trace_source = nullptr;
     HostAnmVm* parent = nullptr;
-    int integer_variables[6] = {};
-    float float_variables[4] = {};
-    int integer_fallback = 0;
-    float float_fallback = 0.0f;
     // Ripple-ring block owned by this VM once opcode 0x43/0x54 puts it in
     // ring mode (retail owner+0x358, allocated by 0x004452F0).
     EffectRingOwner ring_owner = {};
@@ -853,54 +849,6 @@ CRITICAL_SECTION* HostRetailSection(int index) {
 TextLog* HostTextLog() { return reinterpret_cast<TextLog*>(DAT_00474f70); }
 GameConfig& HostConfig() { return DAT_00491d48; }
 
-int HostAnmIntArg(void* context, AnmVmState*, const void* slot,
-                  int is_variable) {
-    int value;
-    std::memcpy(&value, slot, sizeof(value));
-    if (!is_variable)
-        return value;
-    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
-    if (value >= 10000 && value <= 10003)
-        return runtime->integer_variables[value - 10000];
-    if (value >= 10008 && value <= 10009)
-        return runtime->integer_variables[value - 10004];
-    return value;
-}
-
-float HostAnmFloatArg(void* context, AnmVmState* vm, const void* slot,
-                      int is_variable) {
-    float value;
-    std::memcpy(&value, slot, sizeof(value));
-    if (!is_variable)
-        return value;
-    int id;
-    std::memcpy(&id, slot, sizeof(id));
-    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
-    if (id >= 10004 && id <= 10007)
-        return runtime->float_variables[id - 10004];
-    if (id >= 10013 && id <= 10015)
-        return vm->position[id - 10013];
-    return value;
-}
-
-int* HostAnmIntSlot(void* context, AnmVmState*, int id) {
-    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
-    if (id >= 10000 && id <= 10003)
-        return &runtime->integer_variables[id - 10000];
-    if (id >= 10008 && id <= 10009)
-        return &runtime->integer_variables[id - 10004];
-    return &runtime->integer_fallback;
-}
-
-float* HostAnmFloatSlot(void* context, AnmVmState* vm, int id) {
-    HostAnmVm* runtime = static_cast<HostAnmVm*>(context);
-    if (id >= 10004 && id <= 10007)
-        return &runtime->float_variables[id - 10004];
-    if (id >= 10013 && id <= 10015)
-        return &vm->position[id - 10013];
-    return &runtime->float_fallback;
-}
-
 void HostAnmSetTime(void*, AnmVmState* vm, float value) {
     vm->time = static_cast<int>(value);
     vm->time_accumulator = value;
@@ -934,16 +882,16 @@ AnmVmHooks HostAnmHooks(HostAnmVm* runtime) {
     static const float scroll[3] = {};
     AnmVmHooks hooks = {};
     hooks.context = runtime;
-    hooks.read_int_arg = HostAnmIntArg;
-    hooks.read_float_arg = HostAnmFloatArg;
-    hooks.int_var_slot = HostAnmIntSlot;
-    hooks.float_var_slot = HostAnmFloatSlot;
+    hooks.read_int_arg = HostAnmReadInt;
+    hooks.read_float_arg = HostAnmReadFloat;
+    hooks.int_var_slot = AnmVm_IntSlot;
+    hooks.float_var_slot = AnmVm_FloatSlot;
     hooks.set_sprite = [](void*, AnmVmState* vm, int sprite) {
         vm->sprite = sprite;
     };
     hooks.set_time = HostAnmSetTime;
-    hooks.rand_float = [](void*, int) { return 0.5f; };
-    hooks.rand_u32 = [](void*, int) { return 0x80000000u; };
+    hooks.rand_float = HostAnmRandomFloat;
+    hooks.rand_u32 = HostAnmRandomU32;
     hooks.wrap_angle = HostAnmWrapAngle;
     // Retail 0x004452F0 allocates and seeds the 0x4B0-byte ripple ring the
     // per-frame updater at 0x00445620 consumes.
@@ -1842,7 +1790,6 @@ IDirect3DTexture9* HostTextureForAnmEntry(const AnmFileEntry& entry) {
     texture->Release();
     return nullptr;
 }
-
 
 // ---------------------------------------------------------------------------
 // Retail render path. Geometry and draw-mode selection belong to the recovered
@@ -3592,7 +3539,6 @@ void HostRenderThroughBuckets(const HostAnmVm* const* list, int count) {
         AnimationManager_RenderBucket(g_pGameStateManager, bucket);
 }
 
-
 void* HostMountAnmDescriptor(int slot, const char* path) {
     if (g_pGameStateManager == nullptr || path == nullptr)
         return nullptr;
@@ -3825,7 +3771,6 @@ bool HostEnsureFrontVm() {
                      g_host.front_child_vm_count);
     return g_host.front_vm_ready;
 }
-
 
 // ---------------------------------------------------------------------------
 // VM lifetime. Running a group of VMs and deciding when the group as a whole

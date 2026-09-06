@@ -794,10 +794,20 @@ static void TestRendererDrawRectFan() {
 // --- 0x004135D0 FpsCounter_Render -----------------------------------------------------------
 
 static int g_average_updates;
-static void UpdateAverage(void) { ++g_average_updates; }
+static float g_live_fps;
+static float g_next_fps;
+static void UpdateAverage(void) { ++g_average_updates; g_live_fps = g_next_fps; }
 
 static const char* g_printed_format;
-static void PrintOverlay(const char* format) { g_printed_format = format; }
+static Word* g_overlay_color;
+static Word g_printed_color;
+static double g_printed_fps;
+static void PrintOverlay(const float position[3], const char* format, double fps) {
+    assert(position[0] == 590.0f && position[1] == 470.0f && position[2] == 0.0f);
+    g_printed_format = format;
+    g_printed_color = *g_overlay_color;
+    g_printed_fps = fps;
+}
 
 static void TestFpsCounterRender() {
     Word color = 0;
@@ -807,9 +817,10 @@ static void TestFpsCounterRender() {
     g_printed_format = 0;
 
     // Low fps prints in red; the color restores to white afterwards.
-    Word seen_color = 0;
-    (void)seen_color;
-    int result = FpsCounter_Render(UpdateAverage, 1, &game_thread, 30.0f,
+    g_overlay_color = &color;
+    g_live_fps = 60.0f;
+    g_next_fps = 30.0f;
+    int result = FpsCounter_Render(UpdateAverage, 1, &game_thread, &g_live_fps,
                                    55.0f, 58.0f, &color, PrintOverlay,
                                    &accumulator, 2);
     assert(result == 1);
@@ -818,13 +829,20 @@ static void TestFpsCounterRender() {
            std::strcmp(g_printed_format, "%2.1ffps") == 0);
     assert(color == 0xFFFFFFFFu);
     assert(accumulator == 13);
+    assert(g_printed_fps == 30.0 && g_printed_color == 0xFF5050FFu);
+
+    // Retail reads fps after update_average and passes a promoted double.
+    g_next_fps = 60.0f;
+    FpsCounter_Render(UpdateAverage, 1, &game_thread, &g_live_fps, 55.0f, 58.0f,
+                      &color, PrintOverlay, &accumulator, 0);
+    assert(g_printed_fps == 60.0 && g_printed_color == 0xFFFFFFFFu);
 
     // Shutdown state skips the overlay but still accumulates.
     g_printed_format = 0;
-    FpsCounter_Render(UpdateAverage, 0xE, &game_thread, 30.0f, 55.0f, 58.0f,
+    FpsCounter_Render(UpdateAverage, 0xE, &game_thread, &g_live_fps, 55.0f, 58.0f,
                       &color, PrintOverlay, &accumulator, 0);
     assert(g_printed_format == 0);
-    assert(accumulator == 14);
+    assert(accumulator == 15);
 }
 
 // --- 0x00426520 ParameterFile_LoadAndRelocate -------------------------------------------------------

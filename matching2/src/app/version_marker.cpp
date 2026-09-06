@@ -2,12 +2,12 @@
 
 #include <cstdio>
 
-// 0x00420100 - probes the fixed version resource, then loads the generated
+// 0x00420100 - opens/probes the th10.dat archive, then loads the generated
 // version marker ("th10_0100a.ver"). The loaded pointer and byte count are
 // published together. Both failure paths emit the retail diagnostic and
 // return -1; a present marker returns 0.
 int VersionMarker_Load(VersionMarkerEnv* env) {
-	if (!env->probe("th10.ver")) {
+	if (!env->probe("th10.dat")) {
 		env->log(env->missing_probe_log);
 		return -1;
 	}

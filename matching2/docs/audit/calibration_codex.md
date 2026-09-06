@@ -40,16 +40,10 @@ There is also a numeric conversion boundary: assembly lines 25339–25344 perfor
 
 ## Reproduction
 
-Run from the repository root. This is an **observation probe**, intentionally separate from the ordinary acceptance tests: exit 0 means the documented baseline behavior, including defects, was reproduced. A subsequent correct fix should make these baseline assertions fail and require replacing them with retail-derived acceptance tests.
+Run from the repository root. This is a **historical observation probe**: exit 0 reproduces the baseline behavior, including its defects. The runner extracts source and headers from baseline commit `895c420`, and the unchanged probe from `88a44c6`, into a temporary directory. Current acceptance tests cover the subsequent fixes.
 
 ```sh
-g++ -std=c++17 -O2 -Wall -Wextra -Werror \
-  -D__fastcall= -D__stdcall= -D__cdecl= -D__thiscall= '-D__declspec(x)=' \
-  -Imatching2/include matching2/tests/audit_calibration_probe.cpp \
-  matching2/src/math/easing.cpp matching2/src/game/trajectory_evaluate.cpp \
-  matching2/src/game/score_popup.cpp matching2/src/app/version_marker.cpp \
-  matching2/src/app/fps_counter.cpp -o /tmp/th10-audit-calibration-probe
-/tmp/th10-audit-calibration-probe
+python3 matching2/tools/run_baseline_calibration.py
 ```
 
 Verified with GCC 16.2.1 (`20260810`) on native Linux x86-64, at `-O0` and `-O2`, exit 0. Final output: `BASELINE OBSERVATIONS REPRODUCED (not retail equivalence)`. The long-double/power expressions are mathematical models at dyadic inputs and a retained-sum model; they are not an x87 emulator. No production files were changed by this review.

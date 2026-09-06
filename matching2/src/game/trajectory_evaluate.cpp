@@ -1,4 +1,6 @@
 #include "th10/game/trajectory_evaluate.hpp"
+#include "th10/math/easing.hpp"
+#include "th10/math/retail_numeric.hpp"
 
 namespace {
 
@@ -41,11 +43,12 @@ void Trajectory_Evaluate2D(Trajectory2D* state, float output[2],
         state->previous = state->current;
         const float speed = *state->speed;
         if (speed <= kNormalSpeedLow || speed >= kNormalSpeedHigh) {
-            state->elapsed += speed;
-            state->current = static_cast<int>(state->elapsed);
+            const long double elapsed = static_cast<long double>(speed) + state->elapsed;
+            state->elapsed = static_cast<float>(elapsed);
+            state->current = Retail_TruncateI32(elapsed);
         } else {
             state->elapsed += 1.0f;
-            ++state->current;
+            state->current = Retail_AddI32(state->current, 1);
         }
 
         if (duration <= state->current) {
@@ -96,65 +99,7 @@ void Trajectory_Evaluate2D(Trajectory2D* state, float output[2],
 // smooth-step pairs, 15 the zero curve, 16 the hold curve, and everything
 // else (0, 7, ...) the linear default.
 float Trajectory_EaseFraction(float elapsed, float duration, int mode) {
-    const float t = elapsed / duration;
-    switch (mode) {
-    case 1: return t * t;
-    case 2: return t * t * t;
-    case 3: return t * t * t * t;
-    case 4: {
-        const float u = 1.0f - t;
-        return 1.0f - u * u;
-    }
-    case 5: {
-        const float u = 1.0f - t;
-        return 1.0f - u * u * u;
-    }
-    case 6: {
-        const float u = 1.0f - t;
-        return 1.0f - u * u * u * u;
-    }
-    case 9: {
-        const float u = t + t;
-        if (u < 1.0f)
-            return u * u * 0.5f;
-        const float v = 2.0f - u;
-        return (2.0f - v * v) * 0.5f;
-    }
-    case 10: {
-        const float u = t + t;
-        if (u < 1.0f)
-            return u * u * u * 0.5f;
-        const float v = 2.0f - u;
-        return (2.0f - v * v * v) * 0.5f;
-    }
-    case 11: {
-        const float u = t + t;
-        const float v = (u < 1.0f) ? (1.0f - u) : (u - 1.0f);
-        return (2.0f - v * v * v) * 0.5f;
-    }
-    case 12:
-    case 13: {
-        const float u = t + t;
-        if (u < 1.0f) {
-            const float v = 1.0f - u;
-            return 0.5f - v * v * v * 0.5f;
-        }
-        const float v = u - 1.0f;
-        return v * v * v * 0.5f + 0.5f;
-    }
-    case 14: {
-        const float u = t + t;
-        if (u < 1.0f) {
-            const float v = 1.0f - u;
-            return 0.5f - v * v * v * v * 0.5f;
-        }
-        const float v = u - 1.0f;
-        return v * v * v * v * 0.5f + 0.5f;
-    }
-    case 15: return 0.0f;
-    case 16: return 1.0f;
-    default: return t;
-    }
+    return Easing_Evaluate(mode, elapsed, duration);
 }
 
 // 0x00404610 - advance the embedded timer and evaluate a three-component
@@ -170,11 +115,12 @@ void Trajectory_Evaluate3D(Trajectory3D* state, float output[3],
         state->previous = state->current;
         const float speed = *state->speed;
         if (speed <= kNormalSpeedLow || speed >= kNormalSpeedHigh) {
-            state->elapsed += speed;
-            state->current = static_cast<int>(state->elapsed);
+            const long double elapsed = static_cast<long double>(speed) + state->elapsed;
+            state->elapsed = static_cast<float>(elapsed);
+            state->current = Retail_TruncateI32(elapsed);
         } else {
             state->elapsed += 1.0f;
-            ++state->current;
+            state->current = Retail_AddI32(state->current, 1);
         }
 
         if (duration <= state->current) {

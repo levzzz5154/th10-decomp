@@ -1,0 +1,94 @@
+{
+  "compiler": "g++ (GCC) 16.2.1 20260810",
+  "compile_command": [
+    "g++",
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-D__stdcall=",
+    "-D__fastcall=",
+    "-Imatching2/include",
+    "/tmp/th10-pro-review-5jtqdacb/scheduler_probe.cpp",
+    "matching2/src/game/scheduler.cpp",
+    "-o",
+    "/tmp/th10-pro-review-5jtqdacb/scheduler_probe"
+  ],
+  "compile_exit": 0,
+  "compile_stdout": "",
+  "compile_stderr": "",
+  "runs": [
+    {
+      "mode": "controls",
+      "exit": 0,
+      "stdout": "{\"result\":2,\"a_calls\":1,\"b_calls\":1,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "repeat-two-control",
+      "exit": 0,
+      "stdout": "{\"result\":1,\"a_calls\":2,\"b_calls\":0,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "inactive-control",
+      "exit": 0,
+      "stdout": "{\"result\":1,\"a_calls\":0,\"b_calls\":0,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "primary-seven-control",
+      "exit": 0,
+      "stdout": "{\"result\":1,\"a_calls\":1,\"b_calls\":0,\"seven_calls\":1,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "primary-null-tail",
+      "timeout_seconds": 1
+    },
+    {
+      "mode": "secondary-null-tail",
+      "timeout_seconds": 1
+    },
+    {
+      "mode": "primary-tail-removal",
+      "exit": 0,
+      "stdout": "{\"result\":3,\"a_calls\":2,\"b_calls\":1,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "secondary-tail-removal",
+      "exit": 0,
+      "stdout": "{\"result\":3,\"a_calls\":2,\"b_calls\":1,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "primary-restart",
+      "exit": 0,
+      "stdout": "{\"result\":3,\"a_calls\":2,\"b_calls\":2,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "secondary-six",
+      "exit": 0,
+      "stdout": "{\"result\":1,\"a_calls\":2,\"b_calls\":0,\"seven_calls\":0,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "secondary-seven",
+      "exit": 0,
+      "stdout": "{\"result\":1,\"a_calls\":1,\"b_calls\":0,\"seven_calls\":1,\"critical_depth\":0}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "remove-unowned",
+      "exit": 0,
+      "stdout": "{\"function_cleared\":false,\"owner_preserved\":false,\"unlinked\":true}\n",
+      "stderr": ""
+    }
+  ],
+  "limits": [
+    "Native x86-64 probe; calling-convention keywords disabled; not PE32 ABI or concurrency validation."
+  ]
+}

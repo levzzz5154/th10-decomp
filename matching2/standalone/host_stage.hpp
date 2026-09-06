@@ -169,3 +169,9 @@ unsigned char* HostStage_SchedulerDevice();
 
 const HostStageReport& HostStage_GetReport();
 const HostStageRuntimeView& HostStage_GetRuntimeView();
+
+struct AnmVmState;
+int HostAnmReadInt(void*, AnmVmState*, const void*, int);
+float HostAnmReadFloat(void*, AnmVmState*, const void*, int);
+float HostAnmRandomFloat(void*, int);
+unsigned int HostAnmRandomU32(void*, int);

@@ -864,9 +864,8 @@ static void TestPositionInViewport() {
 
 static void TestGameStateTimerTarget() {
     unsigned char state[0x300] = {};
-    float speed = 1.0f;
-    GameState_SetTimerTarget(state, 9, 27, &speed);
-    assert(*(int*)(state + 0x20) == 9 && *(int*)(state + 0x2B0) == 26);
+    GameState_SetTimerTarget(state, 9);
+    assert(*(int*)(state + 0x20) == 9 && *(int*)(state + 0x2B0) == -1);
     assert(*(int*)(state + 0x2B4) == 0 && *(int*)(state + 0x2B8) == 0);
     assert((*(unsigned int*)(state + 0x2C0) & 1u) != 0);
 }
@@ -928,7 +927,7 @@ static void TestRngSequence() {
 
     // The double-step leaf returns the first pair while advancing four steps.
     RngState doubleState = {0, 0, 0};
-    assert(Rng_NextU32DoubleStep(&doubleState) == 0xC374BFC7u);
+    assert(Rng_NextU32DoubleStep(&doubleState) == 0xBFC7C374u);
     assert(doubleState.seed == 0x7D40 && doubleState.generation == 4);
 }
 

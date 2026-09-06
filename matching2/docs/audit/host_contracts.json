@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "src/app/fps_counter.cpp",
-      "sha256": "03bae5a5c93e9723c40a158316b652a6151b8b4ed4f5d122c9eafae6498f7092"
+      "sha256": "17f059e4849bf9b7311c68ecd6c30da4aeecc1036580d8092a9d619f1961cda2"
     },
     {
       "path": "src/app/frame_clock.cpp",
@@ -31,7 +31,7 @@
     },
     {
       "path": "src/app/version_marker.cpp",
-      "sha256": "8841455dafe7760e00e4251b91e09845dd374ec95cd7d1aa562c9bf7db29575d"
+      "sha256": "0296261957bc7998ab2de55a6714b549ca1e4e4f724e7f060a38abdf245fee3a"
     },
     {
       "path": "src/archive/crypt.cpp",
@@ -475,7 +475,7 @@
     },
     {
       "path": "src/game/scheduler.cpp",
-      "sha256": "3b325c5d94096899e31339785a4216d8c388216beefacbe96ad28f1c36854096"
+      "sha256": "96b382c2c1016d74722594f3f8b5bdfde50c0ec1fce70ab7edd3c21029df4896"
     },
     {
       "path": "src/game/score.cpp",
@@ -639,7 +639,7 @@
     },
     {
       "path": "src/game/trajectory_evaluate.cpp",
-      "sha256": "72026f80589c7532d9bfe9370705b4dec165f48f6d4e5bbceccbd76c6807be7b"
+      "sha256": "942e8e07da7a46e48cc290a197319544575e0c33ed573794ea0bde52ba62a60c"
     },
     {
       "path": "src/game/trigger_activation.cpp",
@@ -671,7 +671,7 @@
     },
     {
       "path": "src/math/interpolators.cpp",
-      "sha256": "683fdde30f3db3b949861d15611c45e808cc9073c4ae9c455e832d98aa02829b"
+      "sha256": "2690163fec8b9841825917cb8d48eff87d6bb472efc5342981a564397ed5244c"
     },
     {
       "path": "src/math/math_utils.cpp",
@@ -691,11 +691,11 @@
     },
     {
       "path": "src/math/rng.cpp",
-      "sha256": "6fa82eefa676a6fdf4986c6eab313a144fac63aef4c3aaa81f507193a754c50b"
+      "sha256": "ed10c71d4dfa7914c72f01a1fbc08b2da92b14fbaa699209c987f14b4a7c000a"
     },
     {
       "path": "src/math/timer.cpp",
-      "sha256": "1cc9e7f3e56979c6cbfa8034806577e544330858be47a7b012c3e5c046427d89"
+      "sha256": "c2ba4849ba3399bf43cbc0f4be0624be08d28551e156bf323e4d00bf917625d0"
     },
     {
       "path": "src/math/vector.cpp",
@@ -1079,7 +1079,7 @@
     },
     {
       "path": "src/script/anm_vm_tick.cpp",
-      "sha256": "dfe5bc9e91b7fc4977cc1e176ea11ffbf19f1e164076c4f1dd99e9360d8cac59"
+      "sha256": "09ee81f2da0d0533edfebeec8c11149a65014ff8d5f27a1bbcd69a23a2696c6b"
     },
     {
       "path": "src/script/ecl_core_interpreter.cpp",
@@ -1139,22 +1139,22 @@
     },
     {
       "path": "standalone/host_main.cpp",
-      "sha256": "33c6471a9f6393ab28535fe2d72d05b62998bf2f2925bb8fea7bad8456ec0c70"
+      "sha256": "06911a3ae1972148651a0b688b6ae2a4b0fe0313d92cf75c2b5bb47f4cc000d6"
     },
     {
       "path": "standalone/host_stage.cpp",
-      "sha256": "f152587aaa1f6f0733b2ad3f9197ac1f5d2b48ef015aa525950cb0b2ebdd57e6"
+      "sha256": "09d06197ab79a72d562ab073f9e6cd2ed6c450f756958fe0839c27d3cf345056"
     },
     {
       "path": "standalone/win32_compat.cpp",
       "sha256": "c4949bdf0f624eeaefa7752d635e16ab7fa8ad67313adbaffea57f071282062b"
     }
   ],
-  "candidate_count": 27,
+  "candidate_count": 21,
   "rows": [
     {
       "function": "HostMaybeCaptureFrame",
-      "line": 4219,
+      "line": 4164,
       "kind": "no_work",
       "body": "void HostMaybeCaptureFrame() {}",
       "body_sha256": "278ce400c20a0f6a04076812e2a5b8e0fca48d04cb667e680c520b5f58eb5f92",
@@ -1163,24 +1163,24 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_main.cpp",
-          "line": 4131,
+          "line": 4076,
           "text": "void HostMaybeCaptureFrame() {"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 4219,
+          "line": 4164,
           "text": "void HostMaybeCaptureFrame() {}"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 4430,
+          "line": 4375,
           "text": "HostMaybeCaptureFrame();"
         }
       ]
     },
     {
       "function": "HostNop",
-      "line": 5591,
+      "line": 5536,
       "kind": "no_work",
       "body": "void HostNop(void*) {}",
       "body_sha256": "fdadc8ea072fff88f3404ba85dfff0aea73494562a710a9ba75f06b5c9229467",
@@ -1189,39 +1189,39 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_main.cpp",
-          "line": 4233,
+          "line": 4178,
           "text": "// Frame_Advance's two scene edges pointed at HostNop."
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 5591,
+          "line": 5536,
           "text": "void HostNop(void*) {}"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6476,
+          "line": 6421,
           "text": "HostNop,                        // select_primary_camera"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6619,
+          "line": 6564,
           "text": "HostNop,"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6730,
+          "line": 6675,
           "text": "nullptr, HostNop, HostNop, HostNop, HostNop, HostNop, HostNop,"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6731,
+          "line": 6676,
           "text": "HostNop, HostNop, HostNop, HostNop,"
         }
       ]
     },
     {
       "function": "HostDestroyScheduler",
-      "line": 6736,
+      "line": 6681,
       "kind": "no_work",
       "body": "void HostDestroyScheduler(void*, void*) {}",
       "body_sha256": "fde4ca0d76fdc060b3c0d3cf160bc7611b7e46c290a0ff5332301635039c8ff3",
@@ -1230,19 +1230,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_main.cpp",
-          "line": 6736,
+          "line": 6681,
           "text": "void HostDestroyScheduler(void*, void*) {}"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 7230,
+          "line": 7175,
           "text": "HostDestroyScheduler, HostStopSoundWorker, HostDestroySound,"
         }
       ]
     },
     {
       "function": "HostSoundNothingToRelease",
-      "line": 6772,
+      "line": 6717,
       "kind": "no_work",
       "body": "void HostSoundNothingToRelease(void*) {}",
       "body_sha256": "fcc3ed76a07d45d54db0da3977cf44efaaccd9e49833fa703be98eb3578ccd9f",
@@ -1251,49 +1251,49 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_main.cpp",
-          "line": 6772,
+          "line": 6717,
           "text": "void HostSoundNothingToRelease(void*) {}"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6778,
+          "line": 6723,
           "text": "HostSoundNothingToRelease,   // track table: host allocates none"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6779,
+          "line": 6724,
           "text": "HostSoundNothingToRelease,   // BGM headers: host allocates none"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6780,
+          "line": 6725,
           "text": "HostSoundNothingToRelease,   // update timer: host installs none"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6781,
+          "line": 6726,
           "text": "HostSoundNothingToRelease,   // MIDI: host has no player"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6783,
+          "line": 6728,
           "text": "HostSoundNothingToRelease,   // streamer: host creates none"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6784,
+          "line": 6729,
           "text": "HostSoundNothingToRelease,   // notify event: host creates none"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6785,
+          "line": 6730,
           "text": "HostSoundNothingToRelease,   // name slots: host allocates none"
         }
       ]
     },
     {
       "function": "HostMidiNothingToRelease",
-      "line": 6878,
+      "line": 6823,
       "kind": "no_work",
       "body": "void HostMidiNothingToRelease(void*) {}",
       "body_sha256": "be2e8a46bd079c59882937c83bbfd89aeb00b25577dd989add1a35fb46030413",
@@ -1302,29 +1302,29 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_main.cpp",
-          "line": 6878,
+          "line": 6823,
           "text": "void HostMidiNothingToRelease(void*) {}"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6883,
+          "line": 6828,
           "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6884,
+          "line": 6829,
           "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
         },
         {
           "source": "standalone/host_main.cpp",
-          "line": 6885,
+          "line": 6830,
           "text": "HostMidiNothingToRelease, HostMidiNothingToRelease,"
         }
       ]
     },
     {
       "function": "HostDestroyNoop",
-      "line": 393,
+      "line": 432,
       "kind": "no_work",
       "body": "void HostDestroyNoop(void* manager) { (void)manager; }",
       "body_sha256": "a0580fd494788e8ad2f288c37dcf8b576f9a047b6f5ce13ba9244e885abb1b5c",
@@ -1333,49 +1333,49 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 393,
+          "line": 432,
           "text": "void HostDestroyNoop(void* manager) { (void)manager; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 726,
+          "line": 765,
           "text": "HostStageManagerScriptInit, HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 744,
+          "line": 783,
           "text": "HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1050,
+          "line": 1049,
           "text": "HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1066,
+          "line": 1065,
           "text": "HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1093,
+          "line": 1092,
           "text": "HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1377,
+          "line": 1376,
           "text": "HostDestroyNoop, HostFreeMem);"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1415,
+          "line": 1414,
           "text": "HostDestroyNoop, HostFreeMem);"
         }
       ]
     },
     {
       "function": "HostSleep",
-      "line": 394,
+      "line": 433,
       "kind": "no_work",
       "body": "void HostSleep(unsigned int milliseconds) { (void)milliseconds; }",
       "body_sha256": "b955439ad497b0abbbf8903a45ea7fd1a7843a330ab56c1eb9b98692d6b9bbcb",
@@ -1384,103 +1384,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 394,
+          "line": 433,
           "text": "void HostSleep(unsigned int milliseconds) { (void)milliseconds; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3566,
+          "line": 3524,
           "text": "g_entry_env.sleep = HostSleep;"
         }
       ]
     },
     {
-      "function": "BulletVmIntSlot",
-      "line": 883,
-      "kind": "shared_fallback_slot",
-      "body": "static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic int fallback;\n\treturn &fallback;\n}",
-      "body_sha256": "01dd50b1a80de8fb2fcc7f851a523fc040c4f418f96d9bd2cba592f8ea1cc8b2",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 883,
-          "text": "static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 951,
-          "text": "BulletVmIntSlot,"
-        }
-      ]
-    },
-    {
-      "function": "BulletVmFloatSlot",
-      "line": 890,
-      "kind": "shared_fallback_slot",
-      "body": "static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic float fallback;\n\treturn &fallback;\n}",
-      "body_sha256": "72f7ee4d0a80218f134f0c378fb0d0fd262dd001532555d977ad9ceb619a8693",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 890,
-          "text": "static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 952,
-          "text": "BulletVmFloatSlot,"
-        }
-      ]
-    },
-    {
-      "function": "BulletVmRandFloat",
-      "line": 906,
-      "kind": "constant_result",
-      "body": "static float BulletVmRandFloat(void* context, int alt_rng) {\n\t(void)context;\n\t(void)alt_rng;\n\treturn 0.5f;  // deterministic host RNG, like the title hooks\n}",
-      "body_sha256": "ed7b9e0d9363bf3f0d2da73c258d38a56cbbdc62a25a7dfc81bdc1bcba6c6d08",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 906,
-          "text": "static float BulletVmRandFloat(void* context, int alt_rng) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 955,
-          "text": "BulletVmRandFloat,"
-        }
-      ]
-    },
-    {
-      "function": "BulletVmRandU32",
-      "line": 911,
-      "kind": "constant_result",
-      "body": "static unsigned int BulletVmRandU32(void* context, int alt_rng) {\n\t(void)context;\n\t(void)alt_rng;\n\treturn 0x80000000u;\n}",
-      "body_sha256": "e7860d959a294bc2c0ade7f6d59a0923987005d2454b89756844c3a44fb16082",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 911,
-          "text": "static unsigned int BulletVmRandU32(void* context, int alt_rng) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 956,
-          "text": "BulletVmRandU32,"
-        }
-      ]
-    },
-    {
       "function": "BulletVmNoRing",
-      "line": 925,
+      "line": 924,
       "kind": "no_work",
       "body": "static void BulletVmNoRing(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
       "body_sha256": "eb71124dd0a69e6fa100e1e2a197b51e7622777f3204b155274ef6fb9247b7fe",
@@ -1489,19 +1405,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 925,
+          "line": 924,
           "text": "static void BulletVmNoRing(void* context, AnmVmState* vm) {"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 958,
+          "line": 957,
           "text": "BulletVmNoRing,"
         }
       ]
     },
     {
       "function": "BulletVmNoChild",
-      "line": 929,
+      "line": 928,
       "kind": "no_work",
       "body": "static void BulletVmNoChild(void* context, AnmVmState* vm, int variant,\n                            int index) {\n\t(void)context;\n\t(void)vm;\n\t(void)variant;\n\t(void)index;\n}",
       "body_sha256": "85be0568b2c4a04a88cb6ecd1c37b41dd6d60e2e0be6f28eb2f74950fab8847c",
@@ -1510,19 +1426,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 929,
+          "line": 928,
           "text": "static void BulletVmNoChild(void* context, AnmVmState* vm, int variant,"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 959,
+          "line": 958,
           "text": "BulletVmNoChild,"
         }
       ]
     },
     {
       "function": "BulletVmNoRingUpdate",
-      "line": 936,
+      "line": 935,
       "kind": "no_work",
       "body": "static void BulletVmNoRingUpdate(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
       "body_sha256": "798112a1034cbe7d4793c2fed0558723f9a1ed4d304c7c16570be2ca4dfa57ee",
@@ -1531,19 +1447,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 936,
+          "line": 935,
           "text": "static void BulletVmNoRingUpdate(void* context, AnmVmState* vm) {"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 960,
+          "line": 959,
           "text": "BulletVmNoRingUpdate,"
         }
       ]
     },
     {
       "function": "HostScoreConstructBase",
-      "line": 1075,
+      "line": 1074,
       "kind": "no_work",
       "body": "void HostScoreConstructBase(uint32_t* base) { (void)base; }",
       "body_sha256": "0a26a6de88a5308d35c53f34d82fad78c89c48fe2e0241fe769f02a8c8a3d4f2",
@@ -1552,19 +1468,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1075,
+          "line": 1074,
           "text": "void HostScoreConstructBase(uint32_t* base) { (void)base; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1080,
+          "line": 1079,
           "text": "uint32_t* state = ScoreManager_CreateAndInit(HostAlloc, HostScoreConstructBase,"
         }
       ]
     },
     {
       "function": "HostScoreDestroy",
-      "line": 1077,
+      "line": 1076,
       "kind": "no_work",
       "body": "void HostScoreDestroy(uint32_t* state) { (void)state; }",
       "body_sha256": "10a8d72aadf1f15700ff745c628c4ef249865b74eaaeee14e56a880e87978a55",
@@ -1573,19 +1489,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1077,
+          "line": 1076,
           "text": "void HostScoreDestroy(uint32_t* state) { (void)state; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1081,
+          "line": 1080,
           "text": "HostScoreInit, HostScoreDestroy);"
         }
       ]
     },
     {
       "function": "HostReplaySeed",
-      "line": 1596,
+      "line": 1595,
       "kind": "no_work",
       "body": "void HostReplaySeed(void* game) { (void)game; }",
       "body_sha256": "2852f6532e2020f1e00bb5f9fa1d097bc178e40baa11566440b2485df90ac96b",
@@ -1594,19 +1510,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1596,
+          "line": 1595,
           "text": "void HostReplaySeed(void* game) { (void)game; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3572,
+          "line": 3530,
           "text": "g_entry_env.replay_seed = HostReplaySeed;"
         }
       ]
     },
     {
       "function": "HostRegisterBulletSprite",
-      "line": 1733,
+      "line": 1732,
       "kind": "no_work",
       "body": "void HostRegisterBulletSprite(void* pool) { (void)pool; }",
       "body_sha256": "184a745c73728ac66651b2519a0a1258b49f886607d4228d17b7c2524c0df32e",
@@ -1615,19 +1531,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1733,
+          "line": 1732,
           "text": "void HostRegisterBulletSprite(void* pool) { (void)pool; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 1761,
+          "line": 1760,
           "text": "BulletManager_ActivateSprites(&host, HostRegisterBulletSprite);"
         }
       ]
     },
     {
       "function": "HostPlayerRequestsDestroy",
-      "line": 3104,
+      "line": 3103,
       "kind": "constant_result",
       "body": "int HostPlayerRequestsDestroy(void* player) { (void)player; return 0; }",
       "body_sha256": "7563e788f459c04a49d694eae5e83ab42d10920b82788c0b6c2b64f26b5680b2",
@@ -1636,19 +1552,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3104,
+          "line": 3103,
           "text": "int HostPlayerRequestsDestroy(void* player) { (void)player; return 0; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3538,
+          "line": 3496,
           "text": "g_update_env.player_requests_destroy = HostPlayerRequestsDestroy;"
         }
       ]
     },
     {
       "function": "HostDestroyPlayer",
-      "line": 3105,
+      "line": 3104,
       "kind": "no_work",
       "body": "void HostDestroyPlayer(void* player) { (void)player; }",
       "body_sha256": "c6db5ba096c68747aab9d885244fecb9ace071b1b9a0f50285981e84500102f0",
@@ -1657,61 +1573,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3105,
+          "line": 3104,
           "text": "void HostDestroyPlayer(void* player) { (void)player; }"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3539,
+          "line": 3497,
           "text": "g_update_env.destroy_player = HostDestroyPlayer;"
         }
       ]
     },
     {
-      "function": "StageDigitIntSlot",
-      "line": 3187,
-      "kind": "shared_fallback_slot",
-      "body": "static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic int fallback;\n\treturn &fallback;\n}",
-      "body_sha256": "49fc6218096b1996cea842b18c58759376d7fd926e4926eb35b7e58515132fcb",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 3187,
-          "text": "static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 3257,
-          "text": "StageDigitIntSlot,"
-        }
-      ]
-    },
-    {
-      "function": "StageDigitFloatSlot",
-      "line": 3194,
-      "kind": "shared_fallback_slot",
-      "body": "static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {\n\t(void)context;\n\t(void)vm;\n\t(void)id;\n\tstatic float fallback;\n\treturn &fallback;\n}",
-      "body_sha256": "8be1474c034d25293d100cf1c2ee6c8a2dd5c11c0c013a7f18177660f4049383",
-      "review_status": "pending_contract_review",
-      "source": "standalone/host_stage.cpp",
-      "textual_occurrences": [
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 3194,
-          "text": "static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {"
-        },
-        {
-          "source": "standalone/host_stage.cpp",
-          "line": 3258,
-          "text": "StageDigitFloatSlot,"
-        }
-      ]
-    },
-    {
       "function": "StageDigitNoRing",
-      "line": 3229,
+      "line": 3187,
       "kind": "no_work",
       "body": "static void StageDigitNoRing(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
       "body_sha256": "6b06c79f2da24023efe4936fdd4558cf8953c9c0af30e9562662589c89ecedeb",
@@ -1720,19 +1594,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3229,
+          "line": 3187,
           "text": "static void StageDigitNoRing(void* context, AnmVmState* vm) {"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3264,
+          "line": 3222,
           "text": "StageDigitNoRing,"
         }
       ]
     },
     {
       "function": "StageDigitNoChild",
-      "line": 3233,
+      "line": 3191,
       "kind": "no_work",
       "body": "static void StageDigitNoChild(void* context, AnmVmState* vm, int variant,\n                              int index) {\n\t(void)context;\n\t(void)vm;\n\t(void)variant;\n\t(void)index;\n}",
       "body_sha256": "d68147dfda5a3f6aa66ecfd22125ee6df5393bdba7b3fc110b9cc4461d241123",
@@ -1741,19 +1615,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3233,
+          "line": 3191,
           "text": "static void StageDigitNoChild(void* context, AnmVmState* vm, int variant,"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3265,
+          "line": 3223,
           "text": "StageDigitNoChild,"
         }
       ]
     },
     {
       "function": "StageDigitNoRingUpdate",
-      "line": 3240,
+      "line": 3198,
       "kind": "no_work",
       "body": "static void StageDigitNoRingUpdate(void* context, AnmVmState* vm) {\n\t(void)context;\n\t(void)vm;\n}",
       "body_sha256": "bb91b8f8abd2a505b9f69963478be556c52f54c778265d808dc3d5c2ced227e5",
@@ -1762,19 +1636,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3240,
+          "line": 3198,
           "text": "static void StageDigitNoRingUpdate(void* context, AnmVmState* vm) {"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3266,
+          "line": 3224,
           "text": "StageDigitNoRingUpdate,"
         }
       ]
     },
     {
       "function": "HostModeEnterCritical",
-      "line": 3643,
+      "line": 3601,
       "kind": "no_work",
       "body": "void HostModeEnterCritical() {}",
       "body_sha256": "4f1f3fee53b7f1293d5b05f542c159c841ebca686bd6e565987317548f17ddf4",
@@ -1783,19 +1657,19 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3643,
+          "line": 3601,
           "text": "void HostModeEnterCritical() {}"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3757,
+          "line": 3715,
           "text": "g_mode_env.enter_critical = HostModeEnterCritical;"
         }
       ]
     },
     {
       "function": "HostModeLeaveCritical",
-      "line": 3644,
+      "line": 3602,
       "kind": "no_work",
       "body": "void HostModeLeaveCritical() {}",
       "body_sha256": "e163005cb36fc2146ea9fabc71e320a22d71cf3c2dd6ede506dc2befc6beca49",
@@ -1804,12 +1678,12 @@
       "textual_occurrences": [
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3644,
+          "line": 3602,
           "text": "void HostModeLeaveCritical() {}"
         },
         {
           "source": "standalone/host_stage.cpp",
-          "line": 3758,
+          "line": 3716,
           "text": "g_mode_env.leave_critical = HostModeLeaveCritical;"
         }
       ]

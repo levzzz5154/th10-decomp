@@ -34,6 +34,8 @@
 // reconstructed behavior.
 // =============================================================================
 #include "host_stage.hpp"
+#include "th10/math/rng.hpp"
+#include "th10/math/retail_numeric.hpp"
 
 #include "th10/game/stage_entry.hpp"
 #include "th10/game/stage_update.hpp"
@@ -249,6 +251,43 @@ void File_ResolvePath(const char* path, char output[260]) {
 	output[index] = 0;
 }
 #endif // !_WIN32
+
+// These aliases share the imported retail data block with the other engines.
+extern RngState DAT_004918b0;
+extern RngState DAT_004918a8;
+extern float DAT_00491d7c, DAT_00491d80, DAT_00491d84;
+extern float DAT_00491da0, DAT_00491da4, DAT_00491da8;
+static RngState* AnmRng(int alternate) {
+    return alternate ? &DAT_004918a8 : &DAT_004918b0;
+}
+float HostAnmRandomFloat(void*, int alternate) {
+    return Rng_NextFloat(AnmRng(alternate));
+}
+unsigned int HostAnmRandomU32(void*, int alternate) {
+    return Rng_NextU32(AnmRng(alternate));
+}
+static float HostAnmRandomSigned(void*, int alternate) {
+    return Rng_NextFloatSigned(AnmRng(alternate));
+}
+int HostAnmReadInt(void* context, AnmVmState* vm, const void* slot, int variable) {
+    return AnmVm_ReadIntArg(context, vm, slot, variable);
+}
+float HostAnmReadFloat(void*, AnmVmState* vm, const void* slot, int variable) {
+    float value;
+    std::memcpy(&value, slot, sizeof(value));
+    if (!variable) return value;
+    const float camera[] = {DAT_00491d7c, DAT_00491d80, DAT_00491d84,
+                            DAT_00491da0, DAT_00491da4, DAT_00491da8};
+    AnmSpecialValueHooks hooks = {};
+    hooks.rand_unit = HostAnmRandomFloat;
+    hooks.rand_signed = HostAnmRandomSigned;
+    hooks.vm_int_slots = vm->integer_variables;
+    hooks.vm_float_slots = vm->float_variables;
+    hooks.vm_position = vm->position;
+    hooks.camera_globals = camera;
+    hooks.alt_rng = (vm->flags & ANM_FLAG_ALT_RNG) != 0;
+    return AnmVm_ReadSpecialValue(Retail_TruncateI32(value), value, &hooks);
+}
 
 namespace {
 
@@ -859,41 +898,10 @@ int HostInitLargeResource() {
 // the sweep admits live bullets.  The draw edge (0x004067A0) is likewise
 // owned by the reconstructed BulletPool_DrawCallback.
 
-// Per-slot bullet ANM hooks.  The bullet scripts use only sprite/time/end and
-// arithmetic opcodes in this slice; ring/child leaves are never reached and
-// stay harmless non-ops, mirroring the stage-digit hook pattern.
-static int BulletVmReadInt(void* context, AnmVmState* vm, const void* slot,
-                           int is_variable) {
-	(void)context;
-	(void)vm;
-	(void)is_variable;
-	int value = 0;
-	std::memcpy(&value, slot, sizeof(value));
-	return value;
-}
-static float BulletVmReadFloat(void* context, AnmVmState* vm,
-                               const void* slot, int is_variable) {
-	(void)context;
-	(void)vm;
-	(void)is_variable;
-	float value = 0.0f;
-	std::memcpy(&value, slot, sizeof(value));
-	return value;
-}
-static int* BulletVmIntSlot(void* context, AnmVmState* vm, int id) {
-	(void)context;
-	(void)vm;
-	(void)id;
-	static int fallback;
-	return &fallback;
-}
-static float* BulletVmFloatSlot(void* context, AnmVmState* vm, int id) {
-	(void)context;
-	(void)vm;
-	(void)id;
-	static float fallback;
-	return &fallback;
-}
+// Per-slot bullet ANM hooks. Variable and RNG operations share the title and
+// digit adapters. The remaining ring/child callbacks are incomplete providers;
+// their reachability has not been established by the stage smoke.
+
 static void BulletVmSetSprite(void* context, AnmVmState* vm, int sprite) {
 	(void)context;
 	vm->sprite = sprite;
@@ -903,16 +911,7 @@ static void BulletVmSetTime(void* context, AnmVmState* vm, float value) {
 	vm->time = static_cast<int>(value);
 	vm->time_accumulator = value;
 }
-static float BulletVmRandFloat(void* context, int alt_rng) {
-	(void)context;
-	(void)alt_rng;
-	return 0.5f;  // deterministic host RNG, like the title hooks
-}
-static unsigned int BulletVmRandU32(void* context, int alt_rng) {
-	(void)context;
-	(void)alt_rng;
-	return 0x80000000u;
-}
+
 static float BulletVmWrapAngle(void* context, float value) {
 	(void)context;
 	const float circle = 6.2831853f;
@@ -946,14 +945,14 @@ static const float g_bullet_vm_scroll[3] = {};
 
 static AnmVmHooks g_bullet_vm_hooks = {
     nullptr,
-    BulletVmReadInt,
-    BulletVmReadFloat,
-    BulletVmIntSlot,
-    BulletVmFloatSlot,
+    HostAnmReadInt,
+    HostAnmReadFloat,
+    AnmVm_IntSlot,
+    AnmVm_FloatSlot,
     BulletVmSetSprite,
     BulletVmSetTime,
-    BulletVmRandFloat,
-    BulletVmRandU32,
+    HostAnmRandomFloat,
+    HostAnmRandomU32,
     BulletVmWrapAngle,
     BulletVmNoRing,
     BulletVmNoChild,
@@ -2632,7 +2631,7 @@ float* HostEclResolveFloatDestination(EclCoreVm* vm, unsigned int operand) {
 	std::memcpy(&bits, &encoded, sizeof(bits));
 	encoded = static_cast<int>(bits);
 	if (encoded >= 0) {
-		const int offset = vm->locals_offset + 8 + encoded;
+		const int offset = vm->locals_offset + encoded;
 		if (offset < 0 || offset + 4 > 0x1000)
 			return &sink;
 		return reinterpret_cast<float*>(vm->scratch + offset);
@@ -3166,38 +3165,6 @@ static void HostScoreSetScoreDigit(int slot, int script) {
 	HostScoreConfigureDigit(slot, script, 0x2874);
 }
 
-static int StageDigitReadInt(void* context, AnmVmState* vm,
-                             const void* slot, int is_variable) {
-	(void)context;
-	(void)vm;
-	(void)is_variable;
-	int value = 0;
-	std::memcpy(&value, slot, sizeof(value));
-	return value;
-}
-static float StageDigitReadFloat(void* context, AnmVmState* vm,
-                                 const void* slot, int is_variable) {
-	(void)context;
-	(void)vm;
-	(void)is_variable;
-	float value = 0.0f;
-	std::memcpy(&value, slot, sizeof(value));
-	return value;
-}
-static int* StageDigitIntSlot(void* context, AnmVmState* vm, int id) {
-	(void)context;
-	(void)vm;
-	(void)id;
-	static int fallback;
-	return &fallback;
-}
-static float* StageDigitFloatSlot(void* context, AnmVmState* vm, int id) {
-	(void)context;
-	(void)vm;
-	(void)id;
-	static float fallback;
-	return &fallback;
-}
 static void StageDigitSetSprite(void* context, AnmVmState* vm, int sprite) {
 	(void)context;
 	vm->sprite = sprite;
@@ -3207,16 +3174,7 @@ static void StageDigitSetTime(void* context, AnmVmState* vm, float value) {
 	vm->time = static_cast<int>(value);
 	vm->time_accumulator = value;
 }
-static float StageDigitRandFloat(void* context, int alt_rng) {
-	(void)context;
-	(void)alt_rng;
-	return static_cast<float>(std::rand()) / RAND_MAX;
-}
-static unsigned int StageDigitRandU32(void* context, int alt_rng) {
-	(void)context;
-	(void)alt_rng;
-	return static_cast<unsigned int>(std::rand());
-}
+
 static float StageDigitWrapAngle(void* context, float value) {
 	(void)context;
 	const float circle = 6.2831853f;
@@ -3252,14 +3210,14 @@ static const float g_stage_digit_scroll[3] = {};
 // leaves are never reached, so they are present as harmless non-ops.
 static AnmVmHooks g_stage_digit_vm_hooks = {
     nullptr,
-    StageDigitReadInt,
-    StageDigitReadFloat,
-    StageDigitIntSlot,
-    StageDigitFloatSlot,
+    HostAnmReadInt,
+    HostAnmReadFloat,
+    AnmVm_IntSlot,
+    AnmVm_FloatSlot,
     StageDigitSetSprite,
     StageDigitSetTime,
-    StageDigitRandFloat,
-    StageDigitRandU32,
+    HostAnmRandomFloat,
+    HostAnmRandomU32,
     StageDigitWrapAngle,
     StageDigitNoRing,
     StageDigitNoChild,

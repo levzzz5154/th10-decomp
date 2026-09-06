@@ -6,11 +6,11 @@ For Pro auditing the **entire repository**, start with the root
 IDA archive provenance and function-level reference coverage are linked there.
 The five-packet exercise below remains an optional bounded calibration.
 
-This branch prepares the full audit and completes a bounded Codex calibration.
-The full repository audit and the external Astra Pro cross-review are **open**.
-Production code is frozen at `895c4202387d1c6099cf0cec2e8798bdae6a1754` for this
-handoff. The baseline preserves the formerly uncommitted recovered code, tests,
-and audit history. Subsequent changes repair audit tooling and add evidence.
+The branch includes a bounded calibration, a [partial Pro review](pro_review_2026-09-06/README.md),
+and [production fixes with regression evidence](fixes_2026-09-06/README.md).
+The full repository audit and complete independent cross-review remain **open**.
+Historical baseline evidence and calibration packets remain pinned to
+`895c4202387d1c6099cf0cec2e8798bdae6a1754`; current production code has changed.
 
 <a id="start-the-independent-pro-review"></a>
 
@@ -109,7 +109,7 @@ python3 matching2/tools/retail_vs_recon_stage.py \
   /tmp/th10-audit-reconstruction.jsonl
 ```
 
-The calibration probe's compilation command is in its report. It intentionally
+The calibration probe's pinned reproduction command is in its report. It intentionally
 asserts observed baseline defects; its successful result is **not** an acceptance
 test and it is excluded from `test.sh`. Future fixes need retail-derived tests
 in separate commits. Preserve the old probe as baseline evidence.

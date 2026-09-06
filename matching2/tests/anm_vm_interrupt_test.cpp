@@ -130,5 +130,118 @@ int main() {
         assert(vm.time == -1);
     }
     assert(vm.color[3] == 255);
+    // Destination ids must be decoded without first reading the variable.
+    // Each VM owns its registers, including mixed integer/float reads.
+    unsigned char variables[48] = {};
+    Instruction(variables, 6, 16);
+    variables[6] = 1;
+    Write32(variables + 8, 10000);
+    Write32(variables + 12, 41);
+    Instruction(variables + 16, 7, 16);
+    variables[22] = 1;
+    const float float_id = 10004.0f, float_value = -12.75f;
+    std::memcpy(variables + 24, &float_id, 4);
+    std::memcpy(variables + 28, &float_value, 4);
+    Instruction(variables + 32, 1, 8);
+    hooks.int_var_slot = AnmVm_IntSlot;
+    hooks.float_var_slot = AnmVm_FloatSlot;
+    hooks.read_int_arg = AnmVm_ReadIntArg;
+    vm = {};
+    vm.pc = vm.script_base = variables;
+    vm.integer_variables[0] = 123;
+    assert(AnmVm_Tick(&vm, &hooks) == 1);
+    assert(vm.integer_variables[0] == 41);
+    assert(vm.float_variables[0] == -12.75f);
+    int id = 10004;
+    assert(AnmVm_ReadIntArg(0, &vm, &id, 1) == -12);
+    AnmVmState other = {};
+    assert(other.integer_variables[0] == 0 && other.float_variables[0] == 0);
+
+    // Clear masks and unknown ids store into the instruction operand itself.
+    variables[6] = 0;
+    variables[22] = 0;
+    vm.pc = variables;
+    assert(AnmVm_Tick(&vm, &hooks) == 1);
+    int written;
+    std::memcpy(&written, variables + 8, 4);
+    assert(written == 41);
+    float written_float;
+    std::memcpy(&written_float, variables + 24, 4);
+    assert(written_float == float_value);
+    variables[6] = 1;
+    Write32(variables + 8, 12345);
+    vm.pc = variables;
+    assert(AnmVm_Tick(&vm, &hooks) == 1);
+    std::memcpy(&written, variables + 8, 4);
+    assert(written == 41);
+
+    const float camera[] = {1, 2, 3, 4, 5, 6};
+    AnmSpecialValueHooks special = {};
+    special.vm_int_slots = vm.integer_variables;
+    special.vm_float_slots = vm.float_variables;
+    special.vm_position = vm.position;
+    special.camera_globals = camera;
+    special.rand_unit = [](void*, int alt) { return alt ? 0.75f : 0.25f; };
+    special.rand_signed = [](void*, int alt) { return alt ? 0.5f : -0.5f; };
+    assert(AnmVm_ReadSpecialValue(10000, 0, &special) == 41);
+    assert(AnmVm_ReadSpecialValue(10004, 0, &special) == -12.75f);
+    volatile float angle = AnmVm_ReadSpecialValue(10010, 0, &special);
+    assert(angle > -1.5707965f && angle < -1.5707963f);
+    assert(AnmVm_ReadSpecialValue(10011, 0, &special) == 0.25f);
+    assert(AnmVm_ReadSpecialValue(10012, 0, &special) == -0.5f);
+    special.alt_rng = 1;
+    angle = AnmVm_ReadSpecialValue(10010, 0, &special);
+    assert(angle > 1.5707963f && angle < 1.5707965f);
+    assert(AnmVm_ReadSpecialValue(10011, 0, &special) == 0.75f);
+    assert(AnmVm_ReadSpecialValue(10012, 0, &special) == 0.5f);
+    for (int i = 0; i < 6; ++i)
+        assert(AnmVm_ReadSpecialValue(10016 + i, 0, &special) == camera[i]);
+    assert(AnmVm_ReadSpecialValue(999, 17.0f, &special) == 17.0f);
+
+    Interp3F curve = {};
+    curve.speed = 0.5f;
+    curve.duration = 2;
+    curve.mode = 8;
+    curve.target[0] = 16;
+    curve.velocity[0] = 8;
+    curve.acceleration[0] = -8;
+    assert(Interp3F_Tick(&curve) == 1);
+    assert(curve.elapsed == 0 && curve.elapsed_fraction == 0.5f);
+    assert(curve.position[0] == 4.0f); // Hermite at t=1/4
+    assert(Interp3F_Tick(&curve) == 1 && curve.position[0] == 10.0f);
+    assert(Interp3F_Tick(&curve) == 1);
+    assert(Interp3F_Tick(&curve) == 0 && curve.position[0] == 16.0f);
+    Interp3I channels = {};
+    channels.speed = 1;
+    channels.duration = 4;
+    channels.start[0] = -3;
+    channels.target[0] = 0;
+    assert(Interp3I_Tick(&channels) == 1 && channels.value[0] == -3);
+    Interp1I alpha_curve = {};
+    alpha_curve.speed = 1;
+    alpha_curve.duration = 4;
+    alpha_curve.start = -3;
+    alpha_curve.target = 0;
+    assert(Interp1I_Tick(&alpha_curve) == 1 && alpha_curve.value == -2);
+    channels = {};
+    channels.speed = 1;
+    channels.duration = 2;
+    channels.mode = 8;
+    channels.start[0] = channels.target[0] = 1;
+    assert(Interp3I_Tick(&channels) == 1 && channels.value[0] == 0);
+    alpha_curve = {};
+    alpha_curve.speed = 1;
+    alpha_curve.duration = 2;
+    alpha_curve.mode = 8;
+    alpha_curve.start = alpha_curve.target = 1;
+    assert(Interp1I_Tick(&alpha_curve) == 1 && alpha_curve.value == 1);
+    curve = {};
+    curve.mode = 17;
+    curve.start[0] = 10;
+    curve.acceleration[0] = 2;
+    curve.target[0] = 3;
+    assert(Interp3F_Tick(&curve) == 1 && curve.position[0] == 12);
+    assert(curve.acceleration[0] == 5);
+    assert(Interp3F_Tick(&curve) == 1 && curve.position[0] == 17);
     return 0;
 }

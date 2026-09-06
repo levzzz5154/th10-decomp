@@ -1,0 +1,161 @@
+{
+  "command": [
+    "g++",
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-D__stdcall=",
+    "-D__fastcall=",
+    "-Imatching2/include",
+    "matching2/docs/audit/pro_review_2026-09-06/original/scheduler_probe.cpp",
+    "matching2/src/game/scheduler.cpp",
+    "-o",
+    "/tmp/th10-scheduler-fixed-probe"
+  ],
+  "runs": [
+    {
+      "mode": "controls",
+      "exit_code": 0,
+      "observed": {
+        "result": 2,
+        "a_calls": 1,
+        "b_calls": 1,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "repeat-two-control",
+      "exit_code": 0,
+      "observed": {
+        "result": 1,
+        "a_calls": 2,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "inactive-control",
+      "exit_code": 0,
+      "observed": {
+        "result": 1,
+        "a_calls": 0,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "primary-seven-control",
+      "exit_code": 0,
+      "observed": {
+        "result": 1,
+        "a_calls": 1,
+        "b_calls": 0,
+        "seven_calls": 1,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "primary-null-tail",
+      "exit_code": 0,
+      "observed": {
+        "result": 0,
+        "a_calls": 0,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "secondary-null-tail",
+      "exit_code": 0,
+      "observed": {
+        "result": 0,
+        "a_calls": 0,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "primary-tail-removal",
+      "exit_code": 0,
+      "observed": {
+        "result": 2,
+        "a_calls": 1,
+        "b_calls": 1,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "secondary-tail-removal",
+      "exit_code": 0,
+      "observed": {
+        "result": 2,
+        "a_calls": 1,
+        "b_calls": 1,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "primary-restart",
+      "exit_code": 0,
+      "observed": {
+        "result": 2,
+        "a_calls": 2,
+        "b_calls": 2,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "secondary-six",
+      "exit_code": 0,
+      "observed": {
+        "result": 1,
+        "a_calls": 1,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "secondary-seven",
+      "exit_code": 0,
+      "observed": {
+        "result": 1,
+        "a_calls": 1,
+        "b_calls": 0,
+        "seven_calls": 0,
+        "critical_depth": 0
+      },
+      "retail_contract_pass": true
+    },
+    {
+      "mode": "remove-unowned",
+      "exit_code": 0,
+      "observed": {
+        "function_cleared": true,
+        "owner_preserved": true,
+        "unlinked": true
+      },
+      "retail_contract_pass": true
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 // anm_vm_tick.cpp - ANM script VM per-frame execution
 // =============================================================================
 #include "th10/script/anm_vm_tick.hpp"
+#include "th10/math/retail_numeric.hpp"
+#include <cstring>
 
 namespace {
 
@@ -25,6 +27,30 @@ float FloatArg(const AnmVmHooks* hooks, AnmVmState* vm,
                const AnmInstructionView* ins, int index) {
     return hooks->read_float_arg(hooks->context, vm, ins->args + index * 4,
                                  (ins->arg_mask >> index) & 1);
+}
+
+int* IntDestination(const AnmVmHooks* hooks, AnmVmState* vm,
+                    const AnmInstructionView* ins, int index) {
+    int* operand = reinterpret_cast<int*>(const_cast<unsigned char*>(ins->args + index * 4));
+    int id;
+    std::memcpy(&id, operand, sizeof(id));
+    if ((ins->arg_mask >> index) & 1) {
+        int* result = hooks->int_var_slot(hooks->context, vm, id);
+        if (result) return result;
+    }
+    return operand;
+}
+
+float* FloatDestination(const AnmVmHooks* hooks, AnmVmState* vm,
+                        const AnmInstructionView* ins, int index) {
+    float* operand = reinterpret_cast<float*>(const_cast<unsigned char*>(ins->args + index * 4));
+    float id;
+    std::memcpy(&id, operand, sizeof(id));
+    if ((ins->arg_mask >> index) & 1) {
+        float* result = hooks->float_var_slot(hooks->context, vm, Retail_TruncateI32(id));
+        if (result) return result;
+    }
+    return operand;
 }
 
 float* PositionOf(AnmVmState* vm) {
@@ -84,19 +110,46 @@ void DispatchInterrupt(AnmVmState* vm, const AnmVmHooks* hooks) {
 
 } // namespace
 
+int* AnmVm_IntSlot(void*, AnmVmState* vm, int id) {
+    if (id >= 10000 && id <= 10003) return &vm->integer_variables[id - 10000];
+    if (id >= 10008 && id <= 10009) return &vm->integer_variables[id - 10004];
+    return 0;
+}
+
+float* AnmVm_FloatSlot(void*, AnmVmState* vm, int id) {
+    if (id >= 10004 && id <= 10007) return &vm->float_variables[id - 10004];
+    if (id >= 10013 && id <= 10015) return &vm->position[id - 10013];
+    return 0;
+}
+
+int AnmVm_ReadIntArg(void*, AnmVmState* vm, const void* slot, int is_variable) {
+    int value;
+    std::memcpy(&value, slot, sizeof(value));
+    if (!is_variable) return value;
+    int* integer = AnmVm_IntSlot(0, vm, value);
+    if (integer) return *integer;
+    if (value >= 10004 && value <= 10007)
+        return Retail_TruncateI32(vm->float_variables[value - 10004]);
+    return value;
+}
+
 // 0x0043EAC0 - AnmVm_ReadSpecialValue: resolve one script float reference.
-// Ids 10000..0x2719 map to the VM float slots, 0x271A..0x271C are the RNG
+// Ids 10000..10009 map to six integer and four float slots; 10010..10012 are RNG
 // taps, 0x271D..0x271F read the live position, and 0x2720..0x2725 read the
 // camera globals; anything else evaluates to the literal fallback.
 float AnmVm_ReadSpecialValue(int id, float fallback,
                              const AnmSpecialValueHooks* hooks) {
-    if (id >= ANM_VAR_FLOAT_BASE && id <= 0x2719)
-        return hooks->vm_float_slots[id - ANM_VAR_FLOAT_BASE];
+    if (id >= 10000 && id <= 10003)
+        return static_cast<float>(hooks->vm_int_slots[id - 10000]);
+    if (id >= 10008 && id <= 10009)
+        return static_cast<float>(hooks->vm_int_slots[id - 10004]);
+    if (id >= 10004 && id <= 10007)
+        return hooks->vm_float_slots[id - 10004];
     switch (id) {
     case ANM_VAR_RAND_ANGLE:
-        return hooks->rand_unit(hooks->context, hooks->alt_rng) * 6.2831853f;
+        return hooks->rand_signed(hooks->context, hooks->alt_rng) * 3.1415927f;
     case ANM_VAR_RAND_SIGNED:
-        return hooks->rand_signed(hooks->context);
+        return hooks->rand_signed(hooks->context, hooks->alt_rng);
     case ANM_VAR_RAND_UNIT:
         return hooks->rand_unit(hooks->context, hooks->alt_rng);
     case ANM_VAR_POS_X:
@@ -152,8 +205,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             next = vm->script_base + IntArg(hooks, vm, &ins, 0);
             break;
         case 5: { // decrement-and-jump
-            int* counter = hooks->int_var_slot(hooks->context, vm,
-                                               IntArg(hooks, vm, &ins, 2));
+            int* counter = IntDestination(hooks, vm, &ins, 2);
             *counter -= 1;
             if (*counter > 0) {
                 hooks->set_time(hooks->context, vm,
@@ -163,63 +215,51 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             }
             break;
         }
-        case 6: *hooks->int_var_slot(hooks->context, vm,
-                                     IntArg(hooks, vm, &ins, 0)) =
+        case 6: *IntDestination(hooks, vm, &ins, 0) =
                     IntArg(hooks, vm, &ins, 1);
             break;
-        case 7: *hooks->float_var_slot(hooks->context, vm,
-                                       IntArg(hooks, vm, &ins, 0)) =
+        case 7: *FloatDestination(hooks, vm, &ins, 0) =
                     FloatArg(hooks, vm, &ins, 1);
             break;
-        case 8: *hooks->int_var_slot(hooks->context, vm,
-                                     IntArg(hooks, vm, &ins, 0)) +=
+        case 8: *IntDestination(hooks, vm, &ins, 0) +=
                     IntArg(hooks, vm, &ins, 1);
             break;
-        case 9: *hooks->float_var_slot(hooks->context, vm,
-                                       IntArg(hooks, vm, &ins, 0)) +=
+        case 9: *FloatDestination(hooks, vm, &ins, 0) +=
                     FloatArg(hooks, vm, &ins, 1);
             break;
-        case 0xA: *hooks->int_var_slot(hooks->context, vm,
-                                       IntArg(hooks, vm, &ins, 0)) -=
+        case 0xA: *IntDestination(hooks, vm, &ins, 0) -=
                       IntArg(hooks, vm, &ins, 1);
             break;
-        case 0xB: *hooks->float_var_slot(hooks->context, vm,
-                                         IntArg(hooks, vm, &ins, 0)) -=
+        case 0xB: *FloatDestination(hooks, vm, &ins, 0) -=
                       FloatArg(hooks, vm, &ins, 1);
             break;
-        case 0xC: *hooks->int_var_slot(hooks->context, vm,
-                                       IntArg(hooks, vm, &ins, 0)) *=
+        case 0xC: *IntDestination(hooks, vm, &ins, 0) *=
                       IntArg(hooks, vm, &ins, 1);
             break;
-        case 0xD: *hooks->float_var_slot(hooks->context, vm,
-                                         IntArg(hooks, vm, &ins, 0)) *=
+        case 0xD: *FloatDestination(hooks, vm, &ins, 0) *=
                       FloatArg(hooks, vm, &ins, 1);
             break;
         case 0xE: {
             int divisor = IntArg(hooks, vm, &ins, 1);
             if (divisor != 0)
-                *hooks->int_var_slot(hooks->context, vm,
-                                     IntArg(hooks, vm, &ins, 0)) /= divisor;
+                *IntDestination(hooks, vm, &ins, 0) /= divisor;
             break;
         }
         case 0xF: {
             float divisor = FloatArg(hooks, vm, &ins, 1);
             if (divisor != 0.0f)
-                *hooks->float_var_slot(hooks->context, vm,
-                                       IntArg(hooks, vm, &ins, 0)) /= divisor;
+                *FloatDestination(hooks, vm, &ins, 0) /= divisor;
             break;
         }
         case 0x10: {
             int divisor = IntArg(hooks, vm, &ins, 1);
             if (divisor != 0)
-                *hooks->int_var_slot(hooks->context, vm,
-                                     IntArg(hooks, vm, &ins, 0)) %= divisor;
+                *IntDestination(hooks, vm, &ins, 0) %= divisor;
             break;
         }
         case 0x11: {
             float divisor = FloatArg(hooks, vm, &ins, 1);
-            float* slot = hooks->float_var_slot(hooks->context, vm,
-                                                IntArg(hooks, vm, &ins, 0));
+            float* slot = FloatDestination(hooks, vm, &ins, 0);
             if (divisor != 0.0f)
                 *slot = *slot - divisor *
                         static_cast<float>(static_cast<int>(*slot / divisor));
@@ -234,8 +274,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
                        : ins.opcode == 0x16 ? a * b
                        : ins.opcode == 0x18 ? (b != 0 ? a / b : a)
                                             : (b != 0 ? a % b : a);
-            *hooks->int_var_slot(hooks->context, vm,
-                                 IntArg(hooks, vm, &ins, 0)) = value;
+            *IntDestination(hooks, vm, &ins, 0) = value;
             break;
         }
         case 0x13: case 0x15: case 0x17: case 0x19: case 0x1B: {
@@ -249,8 +288,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
                                ? a - b * static_cast<float>(
                                              static_cast<int>(a / b))
                                : a);
-            *hooks->float_var_slot(hooks->context, vm,
-                                   IntArg(hooks, vm, &ins, 0)) = value;
+            *FloatDestination(hooks, vm, &ins, 0) = value;
             break;
         }
         // Conditional jumps: args are (target, time, a, b).
@@ -291,23 +329,20 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
         case 0x28: { // rand int in [0, range)
             int range = IntArg(hooks, vm, &ins, 1);
             unsigned int raw = hooks->rand_u32(hooks->context, alt_rng);
-            *hooks->int_var_slot(hooks->context, vm,
-                                 IntArg(hooks, vm, &ins, 0)) =
+            *IntDestination(hooks, vm, &ins, 0) =
                 range != 0 ? static_cast<int>(raw % static_cast<unsigned>(
                                                        range))
                            : 0;
             break;
         }
         case 0x29:
-            *hooks->float_var_slot(hooks->context, vm,
-                                   IntArg(hooks, vm, &ins, 0)) =
+            *FloatDestination(hooks, vm, &ins, 0) =
                 hooks->rand_float(hooks->context, alt_rng) *
                 FloatArg(hooks, vm, &ins, 1);
             break;
         case 0x2A: case 0x2B: case 0x2C: case 0x2D: case 0x2E: case 0x2F: {
             float value = FloatArg(hooks, vm, &ins, 1);
-            float* slot = hooks->float_var_slot(hooks->context, vm,
-                                                IntArg(hooks, vm, &ins, 0));
+            float* slot = FloatDestination(hooks, vm, &ins, 0);
             switch (ins.opcode) {
             case 0x2A: *slot = __builtin_sinf(value); break;
             case 0x2B: *slot = __builtin_cosf(value); break;
@@ -357,6 +392,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             for (int axis = 0; axis < 3; ++axis) {
                 interp->start[axis] = position[axis];
                 interp->target[axis] = FloatArg(hooks, vm, &ins, 2 + axis);
@@ -368,6 +404,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             for (int channel = 0; channel < 3; ++channel) {
                 interp->start[channel] = vm->color[channel];
                 interp->target[channel] = IntArg(hooks, vm, &ins,
@@ -380,6 +417,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             interp->start = vm->color[3];
             interp->target = IntArg(hooks, vm, &ins, 2);
             break;
@@ -389,6 +427,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             for (int axis = 0; axis < 3; ++axis) {
                 interp->start[axis] = vm->scale[axis];
                 interp->target[axis] = FloatArg(hooks, vm, &ins, 2 + axis);
@@ -401,6 +440,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             for (int axis = 0; axis < 2; ++axis) {
                 interp->start[axis] = vm->growth[axis];
                 interp->target[axis] = FloatArg(hooks, vm, &ins, 2 + axis);
@@ -500,6 +540,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             for (int channel = 0; channel < 3; ++channel) {
                 interp->start[channel] = vm->color2[channel];
                 interp->target[channel] = IntArg(hooks, vm, &ins,
@@ -512,6 +553,7 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
             interp->duration = IntArg(hooks, vm, &ins, 0);
             interp->mode = IntArg(hooks, vm, &ins, 1);
             interp->elapsed = 0;
+            interp->elapsed_fraction = 0.0f;
             interp->start = vm->color2[3];
             interp->target = IntArg(hooks, vm, &ins, 2);
             break;
@@ -573,6 +615,11 @@ int AnmVm_Tick(AnmVmState* vm, const AnmVmHooks* hooks) {
 
     vm->position_interp.speed = speed;
     vm->scale_interp.speed = speed;
+    vm->growth_interp.speed = speed;
+    vm->color_interp.speed = speed;
+    vm->alpha_interp.speed = speed;
+    vm->color2_interp.speed = speed;
+    vm->alpha2_interp.speed = speed;
     if (vm->position_interp.duration > 0 || vm->position_interp.mode == 7 ||
         vm->position_interp.mode == 0x11) {
         Interp3F_Tick(&vm->position_interp);

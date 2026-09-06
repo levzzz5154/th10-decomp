@@ -69,6 +69,7 @@ run_test anm_sprite_quad_test \
 
 run_test anm_vm_interrupt_test \
     "$ROOT/src/math/interpolators.cpp" \
+    "$ROOT/src/math/easing.cpp" \
     "$ROOT/src/script/anm_vm_tick.cpp" \
     "$ROOT/tests/anm_vm_interrupt_test.cpp"
 
@@ -108,6 +109,13 @@ run_test game_runtime_test -Wno-unused-parameter -- \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/src/render/anm_entry_load.cpp" \
     "$ROOT/tests/game_runtime_test.cpp"
+
+run_test retail_math_contract_test -O2 -fsanitize=undefined -fno-sanitize-recover=all -- \
+    "$ROOT/src/math/rng.cpp" \
+    "$ROOT/src/math/timer.cpp" \
+    "$ROOT/src/math/easing.cpp" \
+    "$ROOT/src/game/trajectory_evaluate.cpp" \
+    "$ROOT/tests/retail_math_contract_test.cpp"
 
 run_test score_runtime_test \
     "$ROOT/src/game/score.cpp" \
@@ -311,6 +319,7 @@ run_test_m32 game_state_test \
 run_test_m32 bullet_manager_test -Wno-unused-parameter -- \
     "$ROOT/src/game/bullet.cpp" \
     "$ROOT/src/game/trajectory_evaluate.cpp" \
+    "$ROOT/src/math/easing.cpp" \
     "$ROOT/src/game/scheduler.cpp" \
     "$ROOT/src/render/animation_manager.cpp" \
     "$ROOT/src/render/anm_entry_load.cpp" \
@@ -680,6 +689,7 @@ run_test line_effect_sweep_test -Wno-unused-parameter -- \
 
 run_test trajectory_evaluate_test -Wno-unused-parameter -- \
     "$ROOT/src/game/trajectory_evaluate.cpp" \
+    "$ROOT/src/math/easing.cpp" \
     "$ROOT/tests/trajectory_evaluate_test.cpp"
 
 run_test sprite_view_draw_test -Wno-unused-parameter -- \

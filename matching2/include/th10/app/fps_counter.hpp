@@ -5,9 +5,10 @@
 
 // --- 0x004135D0 --------------------------------------------------------------
 int FpsCounter_Render(void (*update_average)(void), int game_state,
-                      void* game_thread, float fps, float low_threshold,
+                      void* game_thread, const float* fps, float low_threshold,
                       float mid_threshold, Word* overlay_color,
-                      void (*print_overlay)(const char* format),
+                      void (*print_overlay)(const float position[3],
+                                            const char* format, double fps),
                       int* accumulator, int skipped_frames);
 
 struct FrameRateCounter {

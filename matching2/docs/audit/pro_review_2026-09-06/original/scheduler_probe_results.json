@@ -1,0 +1,18 @@
+{
+  "purpose": "Observe unchanged reconstruction against instruction-derived scheduler expectations.",
+  "retail_process_executed": false,
+  "abi_limits": [
+    "Native host observation is not proof of PE32 layout or calling convention equivalence.",
+    "The selected list sentinel is aligned for native SchedulerNode. Other raw byte-offset accesses remain adapter boundaries.",
+    "System locks are test shims; concurrency is not measured.",
+    "No acceptance test or historical gate is weakened."
+  ],
+  "probe_sha256": "6e4868a3f062555dc7e0b56b045bd540bbdb15744459a750ed0e74979a8eeb72",
+  "environment": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "compilations": [],
+  "runs": [],
+  "setup_failure": {
+    "type": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '/mnt/data/th10_repository_audit/session.json'"
+  }
+}
