@@ -16,7 +16,7 @@ jobs:
       - name: Read immutable audit input
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: 09835addae52e8eda47fc8c387a518ca7a0b4294
+          ref: dcf2b5077a86c11ed886c3008bbe3b13f6c6df44
           fetch-depth: 0
           persist-credentials: false
       - name: Package exact source and history
@@ -24,7 +24,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/th10-audit-evidence"
-          git branch audit-input 09835addae52e8eda47fc8c387a518ca7a0b4294
+          git branch audit-input dcf2b5077a86c11ed886c3008bbe3b13f6c6df44
           git bundle create "$RUNNER_TEMP/th10-audit-evidence/source.bundle" refs/heads/audit-input
           git rev-parse HEAD > "$RUNNER_TEMP/th10-audit-evidence/revision.txt"
           git ls-tree -r HEAD > "$RUNNER_TEMP/th10-audit-evidence/tree.txt"
@@ -78,7 +78,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: th10-audit-input-09835add
+          name: th10-audit-input-dcf2b507
           path: ${{ runner.temp }}/th10-audit-evidence/
           if-no-files-found: error
           retention-days: 7
