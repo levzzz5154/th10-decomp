@@ -11,6 +11,8 @@ CXXFLAGS=(-std=c++17 -Wall -Wextra -Werror "-I$ROOT/include" \
 TEST_BUILD="$ROOT/build/tests"
 mkdir -p "$TEST_BUILD"
 
+python3 "$ROOT/tests/progress_evidence_test.py"
+python3 "$ROOT/tools/coverage_report.py" --check
 python3 "$ROOT/tools/function_registry.py" --check
 python3 "$ROOT/tools/standalone_readiness.py" --check
 
@@ -145,6 +147,7 @@ run_test ecl_vm_test \
     "$ROOT/src/game/recovery_leaves.cpp" \
     "$ROOT/src/runtime/missing_edge.cpp" \
     "$ROOT/tests/ecl_vm_test.cpp"
+python3 "$ROOT/tests/ecl_unsupported_test.py" "$TEST_BUILD/ecl_vm_test"
 
 # The four ECL core edges (0x0044DF70 / 0x004500D0 / 0x00450160 / 0x00450070),
 # bound into EclVm_TickCore: call/ret cycle, async spawn, find-by-id, float
@@ -849,6 +852,14 @@ run_test next10_large_recovery_test -- \
     "$ROOT/src/render/anchored_quad_draw.cpp" \
     "$ROOT/tests/next10_large_recovery_test.cpp"
 
+run_test ending_script_runtime_test \
+    "$ROOT/src/game/event_script_runtime.cpp" \
+    "$ROOT/tests/ending_script_runtime_test.cpp"
+
+run_test player_front_runtime_test \
+    "$ROOT/src/game/player_front_runtime.cpp" \
+    "$ROOT/tests/player_front_runtime_test.cpp"
+
 # Stage-tips file parser (0x00419960) against the reconstructed pack-loader
 # and stage-tip record types.
 run_test stage_tip_parser_test -- \
@@ -869,6 +880,10 @@ run_test final_722_recovery_test -ffunction-sections -fdata-sections -Wl,--gc-se
     "$ROOT/src/platform/final_input_runtime.cpp" \
     "$ROOT/src/script/final_script_runtime.cpp" \
     "$ROOT/tests/final_722_recovery_test.cpp"
+
+run_test final_input_runtime_test \
+    "$ROOT/src/platform/final_input_runtime.cpp" \
+    "$ROOT/tests/final_input_runtime_test.cpp"
 
 # Callback-backed retail Music Room model (0x00433EF0).
 run_test music_room_env_test -ffunction-sections -fdata-sections -Wl,--gc-sections -- \

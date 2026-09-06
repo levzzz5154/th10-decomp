@@ -1,0 +1,2475 @@
+{
+  "schema_version": 1,
+  "partition": "player",
+  "source_files": 86,
+  "addresses": 246,
+  "retail_bytes": 95131,
+  "summary": {
+    "partial": 7,
+    "grounded": 2,
+    "pending": 220,
+    "unresolved": 17
+  },
+  "rows": [
+    {
+      "address": "0x0041a200",
+      "source": "src/archive/score_save.cpp",
+      "source_line": 256,
+      "ida_c_line": 29058,
+      "ida_asm_line": 36605,
+      "ghidra_file": "0041A200_FUN_0041a200.c",
+      "verdict": "partial",
+      "finding": "Retail writes fixed hint header strings, traverses eight global linked lists with 255-record caps, emits fields at offsets +0x70/+0x60/+0x68/+0x64/+0x7C, and closes the shared handle. The host hook emits a shortened header, delegates records through a different list callback, and does not model the global write/error/critical-section path; text-format and ownership equivalence are not established."
+    },
+    {
+      "address": "0x0042b1e0",
+      "source": "src/archive/score_save.cpp",
+      "source_line": 211,
+      "ida_c_line": 41664,
+      "ida_asm_line": 60741,
+      "ghidra_file": "0042B1E0_FUN_0042b1e0.c",
+      "verdict": "partial",
+      "finding": "Retail copies the six word header from the score object, serializes exactly seven CR sections at 0x437C-byte strides with the 0x5243 tag and 0xB3E-byte checksum loop, adds the 0x110-byte trailer checksum, compresses, encrypts with key 53/block 16, and writes scoreth10.dat. The host loops caller-supplied sections, computes only a flat payload sum, fabricates SCR0/version fields, and omits the fixed record/trailer layout."
+    },
+    {
+      "address": "0x004359b0",
+      "source": "src/archive/score_save.cpp",
+      "source_line": 113,
+      "ida_c_line": 50773,
+      "ida_asm_line": 76729,
+      "ghidra_file": "004359B0_FUN_004359b0.c",
+      "verdict": "grounded",
+      "finding": "LZSS control structure agrees: 0x2000 ring, 0x12-byte lookahead, literal flag bits, 13-bit position plus 5-bit (length-3) tokens, tree delete/insert per emitted byte, and final partial flag flush match IDA C 50773-51057, Ghidra 004359B0 lines 10-178, and asm sub_4359B0. Boundary: source makes retail globals, allocation, and output-capacity failure explicit through LzssState/output_capacity."
+    },
+    {
+      "address": "0x00436000",
+      "source": "src/archive/score_save.cpp",
+      "source_line": 24,
+      "ida_c_line": 51229,
+      "ida_asm_line": 77421,
+      "ghidra_file": "00436000_FUN_00436000.c",
+      "verdict": "grounded",
+      "finding": "Match-tree insertion agrees on the 0x2000+byte roots, 18-byte compare, longest-match update, child-link insertion, and full-match node replacement. IDA C 51229-51324, Ghidra 00436000 lines 10-95, and asm sub_436000 match; source exposes the retail globals as LzssState and returns the match length rather than using the register ABI."
+    },
+    {
+      "address": "0x0044dbf0",
+      "source": "src/game/archive_cursor_open.cpp",
+      "source_line": 1,
+      "ida_c_line": 68932,
+      "ida_asm_line": 115194,
+      "ghidra_file": "0044DBF0_FUN_0044dbf0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043c2c0",
+      "source": "src/game/ascii_overlay_callbacks.cpp",
+      "source_line": 52,
+      "ida_c_line": 55434,
+      "ida_asm_line": 87451,
+      "ghidra_file": "0043C2C0_FUN_0043c2c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043c410",
+      "source": "src/game/ascii_overlay_callbacks.cpp",
+      "source_line": 45,
+      "ida_c_line": 55506,
+      "ida_asm_line": 87595,
+      "ghidra_file": "0043C410_FUN_0043c410.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00447ae0",
+      "source": "src/game/ascii_overlay_callbacks.cpp",
+      "source_line": 23,
+      "ida_c_line": 64179,
+      "ida_asm_line": 104669,
+      "ghidra_file": "00447AE0_FUN_00447ae0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040e5f0",
+      "source": "src/game/boss_overlays.cpp",
+      "source_line": 35,
+      "ida_c_line": 22156,
+      "ida_asm_line": 19622,
+      "ghidra_file": "0040E5F0_FUN_0040e5f0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041d7c0",
+      "source": "src/game/boss_overlays.cpp",
+      "source_line": 4,
+      "ida_c_line": 31303,
+      "ida_asm_line": 41573,
+      "ghidra_file": "0041D7C0_FUN_0041d7c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ae70",
+      "source": "src/game/bullet.cpp",
+      "source_line": 6,
+      "ida_c_line": 19213,
+      "ida_asm_line": 14052,
+      "ghidra_file": "0040AE70_FUN_0040ae70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040af00",
+      "source": "src/game/bullet.cpp",
+      "source_line": 5,
+      "ida_c_line": 19247,
+      "ida_asm_line": 14101,
+      "ghidra_file": "0040AF00_FUN_0040af00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040af90",
+      "source": "src/game/bullet.cpp",
+      "source_line": 5,
+      "ida_c_line": 19279,
+      "ida_asm_line": 14156,
+      "ghidra_file": "0040AF90_FUN_0040af90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040b250",
+      "source": "src/game/bullet.cpp",
+      "source_line": 151,
+      "ida_c_line": 19455,
+      "ida_asm_line": 14470,
+      "ghidra_file": "0040B250_FUN_0040b250.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040c6e0",
+      "source": "src/game/bullet.cpp",
+      "source_line": 175,
+      "ida_c_line": 20553,
+      "ida_asm_line": 16599,
+      "ghidra_file": "0040C6E0_FUN_0040c6e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cc70",
+      "source": "src/game/bullet.cpp",
+      "source_line": 4,
+      "ida_c_line": 20793,
+      "ida_asm_line": 17193,
+      "ghidra_file": "0040CC70_FUN_0040cc70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cea0",
+      "source": "src/game/bullet.cpp",
+      "source_line": 140,
+      "ida_c_line": 20884,
+      "ida_asm_line": 17422,
+      "ghidra_file": "0040CEA0_FUN_0040cea0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cf40",
+      "source": "src/game/bullet.cpp",
+      "source_line": 108,
+      "ida_c_line": 20925,
+      "ida_asm_line": 17501,
+      "ghidra_file": "0040CF40_FUN_0040cf40.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cf60",
+      "source": "src/game/bullet.cpp",
+      "source_line": 119,
+      "ida_c_line": 20933,
+      "ida_asm_line": 17518,
+      "ghidra_file": "0040CF60_FUN_0040cf60.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cf90",
+      "source": "src/game/bullet.cpp",
+      "source_line": 128,
+      "ida_c_line": 20957,
+      "ida_asm_line": 17548,
+      "ghidra_file": "0040CF90_FUN_0040cf90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040cfb0",
+      "source": "src/game/bullet.cpp",
+      "source_line": 3,
+      "ida_c_line": 20974,
+      "ida_asm_line": 17572,
+      "ghidra_file": "0040CFB0_FUN_0040cfb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040d680",
+      "source": "src/game/bullet.cpp",
+      "source_line": 164,
+      "ida_c_line": 21364,
+      "ida_asm_line": 18258,
+      "ghidra_file": "0040D680_FUN_0040d680.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040d830",
+      "source": "src/game/bullet.cpp",
+      "source_line": 3,
+      "ida_c_line": 21486,
+      "ida_asm_line": 18470,
+      "ghidra_file": "0040D830_FUN_0040d830.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040dc80",
+      "source": "src/game/bullet.cpp",
+      "source_line": 4,
+      "ida_c_line": 21733,
+      "ida_asm_line": 18809,
+      "ghidra_file": "0040DC80_FUN_0040dc80.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bc70",
+      "source": "src/game/bullet.cpp",
+      "source_line": 49,
+      "ida_c_line": 67497,
+      "ida_asm_line": 111799,
+      "ghidra_file": "0044BC70_FUN_0044bc70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044c2a0",
+      "source": "src/game/bullet.cpp",
+      "source_line": 67,
+      "ida_c_line": 67730,
+      "ida_asm_line": 112517,
+      "ghidra_file": "0044C2A0_FUN_0044c2a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040b3a0",
+      "source": "src/game/bullet_anim_release.cpp",
+      "source_line": 17,
+      "ida_c_line": 19470,
+      "ida_asm_line": 14587,
+      "ghidra_file": "0040B3A0_FUN_0040b3a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00428280",
+      "source": "src/game/effect_pool_update.cpp",
+      "source_line": 3,
+      "ida_c_line": 39396,
+      "ida_asm_line": 56343,
+      "ghidra_file": "00428280_FUN_00428280.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ba90",
+      "source": "src/game/ending_text.cpp",
+      "source_line": 27,
+      "ida_c_line": 19872,
+      "ida_asm_line": 15337,
+      "ghidra_file": "0040BA90_FUN_0040ba90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004073e0",
+      "source": "src/game/enemy_grid_scan.cpp",
+      "source_line": 13,
+      "ida_c_line": 16354,
+      "ida_asm_line": 8813,
+      "ghidra_file": "004073E0_FUN_004073e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407560",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 61,
+      "ida_c_line": 16428,
+      "ida_asm_line": 8965,
+      "ghidra_file": "00407560_FUN_00407560.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407780",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 108,
+      "ida_c_line": 16513,
+      "ida_asm_line": 9123,
+      "ghidra_file": "00407780_FUN_00407780.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004078e0",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 108,
+      "ida_c_line": 16577,
+      "ida_asm_line": 9229,
+      "ghidra_file": "004078E0_FUN_004078e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407a30",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 203,
+      "ida_c_line": 16643,
+      "ida_asm_line": 9334,
+      "ghidra_file": "00407A30_FUN_00407a30.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407be0",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 155,
+      "ida_c_line": 16722,
+      "ida_asm_line": 9471,
+      "ghidra_file": "00407BE0_FUN_00407be0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407ef0",
+      "source": "src/game/enemy_motion_steps.cpp",
+      "source_line": 81,
+      "ida_c_line": 16857,
+      "ida_asm_line": 9742,
+      "ghidra_file": "00407EF0_FUN_00407ef0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401de0",
+      "source": "src/game/entity.cpp",
+      "source_line": 3,
+      "ida_c_line": 12415,
+      "ida_asm_line": 1227,
+      "ghidra_file": "00401DE0_FUN_00401de0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401ff0",
+      "source": "src/game/entity.cpp",
+      "source_line": 3,
+      "ida_c_line": 12535,
+      "ida_asm_line": 1433,
+      "ghidra_file": "00401FF0_FUN_00401ff0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00402050",
+      "source": "src/game/entity.cpp",
+      "source_line": 3,
+      "ida_c_line": 12543,
+      "ida_asm_line": 1472,
+      "ghidra_file": "00402050_FUN_00402050.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00405d00",
+      "source": "src/game/entity.cpp",
+      "source_line": 27,
+      "ida_c_line": 15368,
+      "ida_asm_line": 6855,
+      "ghidra_file": "00405D00_FUN_00405d00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00405de0",
+      "source": "src/game/entity.cpp",
+      "source_line": 86,
+      "ida_c_line": 15395,
+      "ida_asm_line": 6928,
+      "ghidra_file": "00405DE0_FUN_00405de0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00406160",
+      "source": "src/game/entity.cpp",
+      "source_line": 47,
+      "ida_c_line": 15531,
+      "ida_asm_line": 7261,
+      "ghidra_file": "00406160_FUN_00406160.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004061d0",
+      "source": "src/game/entity.cpp",
+      "source_line": 54,
+      "ida_c_line": 15549,
+      "ida_asm_line": 7312,
+      "ghidra_file": "004061D0_FUN_004061d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041ad60",
+      "source": "src/game/entity.cpp",
+      "source_line": 74,
+      "ida_c_line": 29576,
+      "ida_asm_line": 37757,
+      "ghidra_file": "0041AD60_FUN_0041ad60.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438a30",
+      "source": "src/game/entity.cpp",
+      "source_line": 3,
+      "ida_c_line": 53203,
+      "ida_asm_line": 82103,
+      "ghidra_file": "00438A30_FUN_00438a30.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042b780",
+      "source": "src/game/floating_text_draw.cpp",
+      "source_line": 34,
+      "ida_c_line": 41932,
+      "ida_asm_line": 61292,
+      "ghidra_file": "0042B780_FUN_0042b780.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00418c40",
+      "source": "src/game/game_config_defaults.cpp",
+      "source_line": 17,
+      "ida_c_line": 27851,
+      "ida_asm_line": 34428,
+      "ghidra_file": "00418C40_FUN_00418c40.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004218d0",
+      "source": "src/game/game_mode_switch.cpp",
+      "source_line": 5,
+      "ida_c_line": 34105,
+      "ida_asm_line": 47307,
+      "ghidra_file": "004218D0_FUN_004218d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401000",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 3,
+      "ida_c_line": 11786,
+      "ida_asm_line": 42,
+      "ghidra_file": "00401000_FUN_00401000.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401110",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 3,
+      "ida_c_line": 11830,
+      "ida_asm_line": 113,
+      "ghidra_file": "00401110_FUN_00401110.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401260",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 3,
+      "ida_c_line": 11896,
+      "ida_asm_line": 216,
+      "ghidra_file": "00401260_FUN_00401260.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401440",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 4,
+      "ida_c_line": 11980,
+      "ida_asm_line": 373,
+      "ghidra_file": "00401440_FUN_00401440.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401760",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 118,
+      "ida_c_line": 12128,
+      "ida_asm_line": 698,
+      "ghidra_file": "00401760_FUN_00401760.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00401a50",
+      "source": "src/game/game_thread.cpp",
+      "source_line": 124,
+      "ida_c_line": 12266,
+      "ida_asm_line": 922,
+      "ghidra_file": "00401A50_FUN_00401a50.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00447bb0",
+      "source": "src/game/game_thread_text_draw.cpp",
+      "source_line": 59,
+      "ida_c_line": 64207,
+      "ida_asm_line": 104753,
+      "ghidra_file": "00447BB0_FUN_00447bb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004266b0",
+      "source": "src/game/item_field_contact.cpp",
+      "source_line": 13,
+      "ida_c_line": 37998,
+      "ida_asm_line": 53906,
+      "ghidra_file": "004266B0_FUN_004266b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041bb00",
+      "source": "src/game/item_spawn.cpp",
+      "source_line": 27,
+      "ida_c_line": 30131,
+      "ida_asm_line": 38966,
+      "ghidra_file": "0041BB00_FUN_0041bb00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041d3d0",
+      "source": "src/game/laser_line.cpp",
+      "source_line": 3,
+      "ida_c_line": 31150,
+      "ida_asm_line": 41223,
+      "ghidra_file": "0041D3D0_FUN_0041d3d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041f400",
+      "source": "src/game/laser_line.cpp",
+      "source_line": 124,
+      "ida_c_line": 32574,
+      "ida_asm_line": 43997,
+      "ghidra_file": "0041F400_FUN_0041f400.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042aa50",
+      "source": "src/game/linked_pool_append.cpp",
+      "source_line": 6,
+      "ida_c_line": 41300,
+      "ida_asm_line": 59984,
+      "ghidra_file": "0042AA50_FUN_0042aa50.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042ab20",
+      "source": "src/game/linked_pool_release.cpp",
+      "source_line": 1,
+      "ida_c_line": 41336,
+      "ida_asm_line": 60061,
+      "ghidra_file": "0042AB20_FUN_0042ab20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408910",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 361,
+      "ida_c_line": 17267,
+      "ida_asm_line": 10686,
+      "ghidra_file": "00408910_FUN_00408910.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408c90",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 358,
+      "ida_c_line": 17410,
+      "ida_asm_line": 10965,
+      "ghidra_file": "00408C90_FUN_00408c90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040d6b0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 135,
+      "ida_c_line": 21379,
+      "ida_asm_line": 18277,
+      "ghidra_file": "0040D6B0_FUN_0040d6b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00413810",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 392,
+      "ida_c_line": 23156,
+      "ida_asm_line": 26712,
+      "ghidra_file": "00413810_FUN_00413810.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00414830",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 389,
+      "ida_c_line": 24081,
+      "ida_asm_line": 28121,
+      "ghidra_file": "00414830_FUN_00414830.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041aed0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 444,
+      "ida_c_line": 29640,
+      "ida_asm_line": 37890,
+      "ghidra_file": "0041AED0_FUN_0041aed0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041afd0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 17,
+      "ida_c_line": 29682,
+      "ida_asm_line": 38003,
+      "ghidra_file": "0041AFD0_FUN_0041afd0.c",
+      "verdict": "partial",
+      "finding": "The retail item sweep is represented by a host-side model in src/game/gameplay_final_runtime.cpp: states 5/7/8/0xA/0xB, per-type collection effects, ANM updates, and the case-5 countdown spawn remain unmodeled; only the documented motion/collection slice is supported."
+    },
+    {
+      "address": "0x00429610",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 420,
+      "ida_c_line": 40389,
+      "ida_asm_line": 58138,
+      "ghidra_file": "00429610_FUN_00429610.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004296f0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 220,
+      "ida_c_line": 40419,
+      "ida_asm_line": 58235,
+      "ghidra_file": "004296F0_FUN_004296f0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042ae60",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 247,
+      "ida_c_line": 41498,
+      "ida_asm_line": 60380,
+      "ghidra_file": "0042AE60_FUN_0042ae60.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042b4d0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 295,
+      "ida_c_line": 41826,
+      "ida_asm_line": 61016,
+      "ghidra_file": "0042B4D0_FUN_0042b4d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043c8b0",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 161,
+      "ida_c_line": 55752,
+      "ida_asm_line": 88093,
+      "ghidra_file": "0043C8B0_FUN_0043c8b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043c970",
+      "source": "src/game/manager_factories.cpp",
+      "source_line": 163,
+      "ida_c_line": 55771,
+      "ida_asm_line": 88172,
+      "ghidra_file": "0043C970_FUN_0043c970.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bea0",
+      "source": "src/game/menu.cpp",
+      "source_line": 1,
+      "ida_c_line": 67562,
+      "ida_asm_line": 112019,
+      "ghidra_file": "0044BEA0_FUN_0044bea0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004224c0",
+      "source": "src/game/name_entry.cpp",
+      "source_line": 18,
+      "ida_c_line": 34760,
+      "ida_asm_line": 48465,
+      "ghidra_file": "004224C0_FUN_004224c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00423570",
+      "source": "src/game/name_entry.cpp",
+      "source_line": 44,
+      "ida_c_line": 35632,
+      "ida_asm_line": 49870,
+      "ghidra_file": "00423570_FUN_00423570.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00432cb0",
+      "source": "src/game/name_entry.cpp",
+      "source_line": 97,
+      "ida_c_line": 48451,
+      "ida_asm_line": 72193,
+      "ghidra_file": "00432CB0_FUN_00432cb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004231d0",
+      "source": "src/game/pause_result_open.cpp",
+      "source_line": 76,
+      "ida_c_line": 35448,
+      "ida_asm_line": 49600,
+      "ghidra_file": "004231D0_FUN_004231d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00413bc0",
+      "source": "src/game/player_front_runtime.cpp",
+      "source_line": 164,
+      "ida_c_line": 23299,
+      "ida_asm_line": 27015,
+      "ghidra_file": "00413BC0_FUN_00413bc0.c",
+      "verdict": "partial",
+      "finding": "Retail field/visit order is transcribed, but sprite allocation, task reorder, orbit updates, and manager ownership are omitted by the host API; retain only the reviewed HUD slice."
+    },
+    {
+      "address": "0x0040678e",
+      "source": "src/game/player_motion.cpp",
+      "source_line": 30,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "0040678E_FUN_0040678e.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004074b0",
+      "source": "src/game/player_motion.cpp",
+      "source_line": 92,
+      "ida_c_line": 16393,
+      "ida_asm_line": 8909,
+      "ghidra_file": "004074B0_FUN_004074b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004076a0",
+      "source": "src/game/player_motion.cpp",
+      "source_line": 122,
+      "ida_c_line": 16471,
+      "ida_asm_line": 9053,
+      "ghidra_file": "004076A0_FUN_004076a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407da0",
+      "source": "src/game/player_motion.cpp",
+      "source_line": 62,
+      "ida_c_line": 16773,
+      "ida_asm_line": 9620,
+      "ghidra_file": "00407DA0_FUN_00407da0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00407e40",
+      "source": "src/game/player_motion.cpp",
+      "source_line": 76,
+      "ida_c_line": 16816,
+      "ida_asm_line": 9681,
+      "ghidra_file": "00407E40_FUN_00407e40.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00430ff0",
+      "source": "src/game/practice_stage_menu.cpp",
+      "source_line": 20,
+      "ida_c_line": 47001,
+      "ida_asm_line": 69709,
+      "ghidra_file": "00430FF0_FUN_00430ff0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042cd50",
+      "source": "src/game/progress_worker.cpp",
+      "source_line": 6,
+      "ida_c_line": 43043,
+      "ida_asm_line": 63303,
+      "ghidra_file": "0042CD50_FUN_0042cd50.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00431ba0",
+      "source": "src/game/replay_browser_draw.cpp",
+      "source_line": 5,
+      "ida_c_line": 47570,
+      "ida_asm_line": 70688,
+      "ghidra_file": "00431BA0_FUN_00431ba0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00428f60",
+      "source": "src/game/replay_runtime_bootstrap.cpp",
+      "source_line": 4,
+      "ida_c_line": 40002,
+      "ida_asm_line": 57559,
+      "ghidra_file": "00428F60_FUN_00428f60.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004329f0",
+      "source": "src/game/replay_score_draw.cpp",
+      "source_line": 7,
+      "ida_c_line": 48338,
+      "ida_asm_line": 71971,
+      "ghidra_file": "004329F0_FUN_004329f0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00433230",
+      "source": "src/game/replay_stage_name_draw.cpp",
+      "source_line": 6,
+      "ida_c_line": 48719,
+      "ida_asm_line": 72669,
+      "ghidra_file": "00433230_FUN_00433230.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004172e0",
+      "source": "src/game/result_overlay.cpp",
+      "source_line": 12,
+      "ida_c_line": 26516,
+      "ida_asm_line": 31997,
+      "ghidra_file": "004172E0_FUN_004172e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041fdd0",
+      "source": "src/game/result_screen_effects.cpp",
+      "source_line": 16,
+      "ida_c_line": 32986,
+      "ida_asm_line": 44878,
+      "ghidra_file": "0041FDD0_FUN_0041fdd0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408030",
+      "source": "src/game/score.cpp",
+      "source_line": 506,
+      "ida_c_line": 16911,
+      "ida_asm_line": 9847,
+      "ghidra_file": "00408030_FUN_00408030.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408660",
+      "source": "src/game/score.cpp",
+      "source_line": 141,
+      "ida_c_line": 17195,
+      "ida_asm_line": 10413,
+      "ghidra_file": "00408660_FUN_00408660.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004086b0",
+      "source": "src/game/score.cpp",
+      "source_line": 265,
+      "ida_c_line": 17208,
+      "ida_asm_line": 10450,
+      "ghidra_file": "004086B0_FUN_004086b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408750",
+      "source": "src/game/score.cpp",
+      "source_line": 415,
+      "ida_c_line": 17214,
+      "ida_asm_line": 10512,
+      "ghidra_file": "00408750_FUN_00408750.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004088c0",
+      "source": "src/game/score.cpp",
+      "source_line": 354,
+      "ida_c_line": 17244,
+      "ida_asm_line": 10638,
+      "ghidra_file": "004088C0_FUN_004088c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004089c0",
+      "source": "src/game/score.cpp",
+      "source_line": 182,
+      "ida_c_line": 17295,
+      "ida_asm_line": 10749,
+      "ghidra_file": "004089C0_FUN_004089c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00408d60",
+      "source": "src/game/score.cpp",
+      "source_line": 20,
+      "ida_c_line": 17433,
+      "ida_asm_line": 11055,
+      "ghidra_file": "00408D60_FUN_00408d60.c",
+      "verdict": "partial",
+      "finding": "Wrapper maps the score UI state, but metric_a/metric_b are hard-coded to zero and ANM tick/digit/aux/camera callbacks are unset; this cannot establish whole-function equivalence."
+    },
+    {
+      "address": "0x004091c0",
+      "source": "src/game/score.cpp",
+      "source_line": 125,
+      "ida_c_line": 17651,
+      "ida_asm_line": 11392,
+      "ghidra_file": "004091C0_FUN_004091c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00409230",
+      "source": "src/game/score.cpp",
+      "source_line": 117,
+      "ida_c_line": 17683,
+      "ida_asm_line": 11444,
+      "ghidra_file": "00409230_FUN_00409230.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00409270",
+      "source": "src/game/score.cpp",
+      "source_line": 123,
+      "ida_c_line": 17694,
+      "ida_asm_line": 11467,
+      "ghidra_file": "00409270_FUN_00409270.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00409d90",
+      "source": "src/game/score.cpp",
+      "source_line": 569,
+      "ida_c_line": 18342,
+      "ida_asm_line": 12413,
+      "ghidra_file": "00409D90_FUN_00409d90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00409e20",
+      "source": "src/game/score.cpp",
+      "source_line": 621,
+      "ida_c_line": 18378,
+      "ida_asm_line": 12492,
+      "ghidra_file": "00409E20_FUN_00409e20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ac20",
+      "source": "src/game/score.cpp",
+      "source_line": 368,
+      "ida_c_line": 19086,
+      "ida_asm_line": 13790,
+      "ghidra_file": "0040AC20_FUN_0040ac20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ac90",
+      "source": "src/game/score.cpp",
+      "source_line": 406,
+      "ida_c_line": 19129,
+      "ida_asm_line": 13845,
+      "ghidra_file": "0040AC90_FUN_0040ac90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ace0",
+      "source": "src/game/score.cpp",
+      "source_line": 275,
+      "ida_c_line": 19139,
+      "ida_asm_line": 13874,
+      "ghidra_file": "0040ACE0_FUN_0040ace0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040ad20",
+      "source": "src/game/score.cpp",
+      "source_line": 389,
+      "ida_c_line": 19152,
+      "ida_asm_line": 13908,
+      "ghidra_file": "0040AD20_FUN_0040ad20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040b9d0",
+      "source": "src/game/score.cpp",
+      "source_line": 132,
+      "ida_c_line": 19807,
+      "ida_asm_line": 15233,
+      "ghidra_file": "0040B9D0_FUN_0040b9d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00412e70",
+      "source": "src/game/score.cpp",
+      "source_line": 577,
+      "ida_c_line": 22669,
+      "ida_asm_line": 25695,
+      "ghidra_file": "00412E70_FUN_00412e70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041be80",
+      "source": "src/game/score.cpp",
+      "source_line": 1,
+      "ida_c_line": 30294,
+      "ida_asm_line": 39257,
+      "ghidra_file": "0041BE80_FUN_0041be80.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041beb0",
+      "source": "src/game/score.cpp",
+      "source_line": 421,
+      "ida_c_line": 30306,
+      "ida_asm_line": 39284,
+      "ghidra_file": "0041BEB0_FUN_0041beb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c030",
+      "source": "src/game/score.cpp",
+      "source_line": 428,
+      "ida_c_line": 30379,
+      "ida_asm_line": 39433,
+      "ghidra_file": "0041C030_FUN_0041c030.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c1c0",
+      "source": "src/game/score.cpp",
+      "source_line": 484,
+      "ida_c_line": 30451,
+      "ida_asm_line": 39574,
+      "ghidra_file": "0041C1C0_FUN_0041c1c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c5b0",
+      "source": "src/game/score.cpp",
+      "source_line": 456,
+      "ida_c_line": 30709,
+      "ida_asm_line": 40030,
+      "ghidra_file": "0041C5B0_FUN_0041c5b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c7d0",
+      "source": "src/game/score.cpp",
+      "source_line": 538,
+      "ida_c_line": 30805,
+      "ida_asm_line": 40202,
+      "ghidra_file": "0041C7D0_FUN_0041c7d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c800",
+      "source": "src/game/score.cpp",
+      "source_line": 547,
+      "ida_c_line": 30826,
+      "ida_asm_line": 40235,
+      "ghidra_file": "0041C800_FUN_0041c800.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041f7a0",
+      "source": "src/game/score.cpp",
+      "source_line": 589,
+      "ida_c_line": 32710,
+      "ida_asm_line": 44299,
+      "ghidra_file": "0041F7A0_FUN_0041f7a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00426610",
+      "source": "src/game/score.cpp",
+      "source_line": 152,
+      "ida_c_line": 37970,
+      "ida_asm_line": 53840,
+      "ghidra_file": "00426610_FUN_00426610.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00426660",
+      "source": "src/game/score.cpp",
+      "source_line": 161,
+      "ida_c_line": 37984,
+      "ida_asm_line": 53873,
+      "ghidra_file": "00426660_FUN_00426660.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00428d70",
+      "source": "src/game/score.cpp",
+      "source_line": 589,
+      "ida_c_line": 39973,
+      "ida_asm_line": 57399,
+      "ghidra_file": "00428D70_FUN_00428d70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044a4e0",
+      "source": "src/game/score.cpp",
+      "source_line": 282,
+      "ida_c_line": 66302,
+      "ida_asm_line": 109285,
+      "ghidra_file": "0044A4E0_FUN_0044a4e0.c",
+      "verdict": "partial",
+      "finding": "Source supplies only a button-buffer encoder. Retail also acquires WinMM/DirectInput state and retries input-loss; the exact poll contract is omitted."
+    },
+    {
+      "address": "0x0044b010",
+      "source": "src/game/score.cpp",
+      "source_line": 297,
+      "ida_c_line": 66861,
+      "ida_asm_line": 110451,
+      "ghidra_file": "0044B010_FUN_0044b010.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044b080",
+      "source": "src/game/score.cpp",
+      "source_line": 314,
+      "ida_c_line": 66891,
+      "ida_asm_line": 110504,
+      "ghidra_file": "0044B080_FUN_0044b080.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044be20",
+      "source": "src/game/score.cpp",
+      "source_line": 341,
+      "ida_c_line": 67528,
+      "ida_asm_line": 111971,
+      "ghidra_file": "0044BE20_FUN_0044be20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044be70",
+      "source": "src/game/score.cpp",
+      "source_line": 327,
+      "ida_c_line": 67545,
+      "ida_asm_line": 111996,
+      "ghidra_file": "0044BE70_FUN_0044be70.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00421fa0",
+      "source": "src/game/score_file.cpp",
+      "source_line": 166,
+      "ida_c_line": 34453,
+      "ida_asm_line": 47960,
+      "ghidra_file": "00421FA0_FUN_00421fa0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042acb0",
+      "source": "src/game/score_file.cpp",
+      "source_line": 130,
+      "ida_c_line": 41409,
+      "ida_asm_line": 60238,
+      "ghidra_file": "0042ACB0_FUN_0042acb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042b030",
+      "source": "src/game/score_file.cpp",
+      "source_line": 72,
+      "ida_c_line": 41543,
+      "ida_asm_line": 60567,
+      "ghidra_file": "0042B030_FUN_0042b030.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00431410",
+      "source": "src/game/score_menu_rows.cpp",
+      "source_line": 30,
+      "ida_c_line": 47223,
+      "ida_asm_line": 70084,
+      "ghidra_file": "00431410_FUN_00431410.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042a6a0",
+      "source": "src/game/spell_card_dispatch.cpp",
+      "source_line": 11,
+      "ida_c_line": 41132,
+      "ida_asm_line": 59653,
+      "ghidra_file": "0042A6A0_FUN_0042a6a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004127a0",
+      "source": "src/game/spell_timer.cpp",
+      "source_line": 34,
+      "ida_c_line": 22248,
+      "ida_asm_line": 25019,
+      "ghidra_file": "004127A0_FUN_004127a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00424480",
+      "source": "src/game/sprite_descriptor.cpp",
+      "source_line": 11,
+      "ida_c_line": 36374,
+      "ida_asm_line": 51216,
+      "ghidra_file": "00424480_FUN_00424480.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040a940",
+      "source": "src/game/sprite_test_overlay.cpp",
+      "source_line": 45,
+      "ida_c_line": 18964,
+      "ida_asm_line": 13567,
+      "ghidra_file": "0040A940_FUN_0040a940.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042c360",
+      "source": "src/game/sprite_test_overlay.cpp",
+      "source_line": 19,
+      "ida_c_line": 42531,
+      "ida_asm_line": 62422,
+      "ghidra_file": "0042C360_FUN_0042c360.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0040c3c0",
+      "source": "src/game/stage_background.cpp",
+      "source_line": 17,
+      "ida_c_line": 20398,
+      "ida_asm_line": 16234,
+      "ghidra_file": "0040C3C0_FUN_0040c3c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00427960",
+      "source": "src/game/stage_background.cpp",
+      "source_line": 46,
+      "ida_c_line": 38945,
+      "ida_asm_line": 55416,
+      "ghidra_file": "00427960_FUN_00427960.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00419650",
+      "source": "src/game/stage_focus_fade.cpp",
+      "source_line": 4,
+      "ida_c_line": 28420,
+      "ida_asm_line": 35342,
+      "ghidra_file": "00419650_FUN_00419650.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00415b00",
+      "source": "src/game/stage_slot_state.cpp",
+      "source_line": 3,
+      "ida_c_line": 25337,
+      "ida_asm_line": 29848,
+      "ghidra_file": "00415B00_FUN_00415b00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004349e0",
+      "source": "src/game/stage_text.cpp",
+      "source_line": 4,
+      "ida_c_line": 49872,
+      "ida_asm_line": 74694,
+      "ghidra_file": "004349E0_FUN_004349e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00434a20",
+      "source": "src/game/stage_text.cpp",
+      "source_line": 18,
+      "ida_c_line": 49897,
+      "ida_asm_line": 74741,
+      "ghidra_file": "00434A20_FUN_00434a20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00434a80",
+      "source": "src/game/stage_text.cpp",
+      "source_line": 36,
+      "ida_c_line": 49937,
+      "ida_asm_line": 74807,
+      "ghidra_file": "00434A80_FUN_00434a80.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00418190",
+      "source": "src/game/stage_update.cpp",
+      "source_line": 64,
+      "ida_c_line": 27281,
+      "ida_asm_line": 33360,
+      "ghidra_file": "00418190_FUN_00418190.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00413980",
+      "source": "src/game/task_registration.cpp",
+      "source_line": 159,
+      "ida_c_line": 23213,
+      "ida_asm_line": 26819,
+      "ghidra_file": "00413980_FUN_00413980.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0041c120",
+      "source": "src/game/task_registration.cpp",
+      "source_line": 132,
+      "ida_c_line": 30416,
+      "ida_asm_line": 39523,
+      "ghidra_file": "0041C120_FUN_0041c120.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042caa0",
+      "source": "src/game/task_registration.cpp",
+      "source_line": 233,
+      "ida_c_line": 42875,
+      "ida_asm_line": 63052,
+      "ghidra_file": "0042CAA0_FUN_0042caa0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042cdf0",
+      "source": "src/game/title_menu_runtime.cpp",
+      "source_line": 3,
+      "ida_c_line": 43074,
+      "ida_asm_line": 63375,
+      "ghidra_file": "0042CDF0_FUN_0042cdf0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00426cf0",
+      "source": "src/game/trigger_activation.cpp",
+      "source_line": 18,
+      "ida_c_line": 38294,
+      "ida_asm_line": 54449,
+      "ghidra_file": "00426CF0_FUN_00426cf0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bc10",
+      "source": "src/math/angle.cpp",
+      "source_line": 27,
+      "ida_c_line": 67466,
+      "ida_asm_line": 111748,
+      "ghidra_file": "0044BC10_FUN_0044bc10.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044b9e0",
+      "source": "src/math/rng.cpp",
+      "source_line": 35,
+      "ida_c_line": 67396,
+      "ida_asm_line": 111526,
+      "ghidra_file": "0044B9E0_FUN_0044b9e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044ba80",
+      "source": "src/math/rng.cpp",
+      "source_line": 45,
+      "ida_c_line": 67410,
+      "ida_asm_line": 111589,
+      "ghidra_file": "0044BA80_FUN_0044ba80.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bb20",
+      "source": "src/math/rng.cpp",
+      "source_line": 59,
+      "ida_c_line": 67434,
+      "ida_asm_line": 111647,
+      "ghidra_file": "0044BB20_FUN_0044bb20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bb90",
+      "source": "src/math/rng.cpp",
+      "source_line": 64,
+      "ida_c_line": 67450,
+      "ida_asm_line": 111697,
+      "ghidra_file": "0044BB90_FUN_0044bb90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00404ed0",
+      "source": "src/math/timer.cpp",
+      "source_line": 2,
+      "ida_c_line": 14708,
+      "ida_asm_line": 5452,
+      "ghidra_file": "00404ED0_FUN_00404ed0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00428dd0",
+      "source": "src/math/timer.cpp",
+      "source_line": 26,
+      "ida_c_line": 39979,
+      "ida_asm_line": 57441,
+      "ghidra_file": "00428DD0_FUN_00428dd0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042c620",
+      "source": "src/math/timer.cpp",
+      "source_line": 44,
+      "ida_c_line": 42638,
+      "ida_asm_line": 62626,
+      "ghidra_file": "0042C620_FUN_0042c620.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bf40",
+      "source": "src/math/timer.cpp",
+      "source_line": 26,
+      "ida_c_line": 67619,
+      "ida_asm_line": 112119,
+      "ghidra_file": "0044BF40_FUN_0044bf40.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00421b90",
+      "source": "src/math/vector3_cross.cpp",
+      "source_line": 1,
+      "ida_c_line": 34232,
+      "ida_asm_line": 47523,
+      "ghidra_file": "00421B90_FUN_00421b90.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004054b0",
+      "source": "src/platform/all_source_runtime.cpp",
+      "source_line": 205,
+      "ida_c_line": 14919,
+      "ida_asm_line": 5994,
+      "ghidra_file": "004054B0_FUN_004054b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044c150",
+      "source": "src/platform/all_source_runtime.cpp",
+      "source_line": 184,
+      "ida_c_line": 67689,
+      "ida_asm_line": 112383,
+      "ghidra_file": "0044C150_FUN_0044c150.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00437db0",
+      "source": "src/platform/font_texture_draw.cpp",
+      "source_line": 42,
+      "ida_c_line": 52492,
+      "ida_asm_line": 80571,
+      "ghidra_file": "00437DB0_FUN_00437db0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00437fe0",
+      "source": "src/platform/font_texture_draw.cpp",
+      "source_line": 50,
+      "ida_c_line": 52644,
+      "ida_asm_line": 80812,
+      "ghidra_file": "00437FE0_FUN_00437fe0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436a30",
+      "source": "src/platform/gdi_font_cache.cpp",
+      "source_line": 7,
+      "ida_c_line": 51752,
+      "ida_asm_line": 78573,
+      "ghidra_file": "00436A30_FUN_00436a30.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00437d10",
+      "source": "src/platform/gdi_font_cache.cpp",
+      "source_line": 11,
+      "ida_c_line": 52471,
+      "ida_asm_line": 80512,
+      "ghidra_file": "00437D10_FUN_00437d10.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044c7e0",
+      "source": "src/platform/joystick_property.cpp",
+      "source_line": 18,
+      "ida_c_line": 67903,
+      "ida_asm_line": 112920,
+      "ghidra_file": "0044C7E0_FUN_0044c7e0.c",
+      "verdict": "partial",
+      "finding": "Source reconstructs the conventional DirectInput property call, while the local retail decompile is explicitly corrupted; exact ABI/vtable and error-path equivalence remains unproven."
+    },
+    {
+      "address": "0x00436210",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 79,
+      "ida_c_line": 51332,
+      "ida_asm_line": 77602,
+      "ghidra_file": "00436210_FUN_00436210.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436260",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 41,
+      "ida_c_line": 51364,
+      "ida_asm_line": 77643,
+      "ghidra_file": "00436260_FUN_00436260.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004362b0",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 53,
+      "ida_c_line": 51382,
+      "ida_asm_line": 77670,
+      "ghidra_file": "004362B0_FUN_004362b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436330",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 67,
+      "ida_c_line": 51410,
+      "ida_asm_line": 77717,
+      "ghidra_file": "00436330_FUN_00436330.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436370",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 162,
+      "ida_c_line": 51424,
+      "ida_asm_line": 77743,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004363c0",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 121,
+      "ida_c_line": 51439,
+      "ida_asm_line": 77784,
+      "ghidra_file": "004363C0_FUN_004363c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436430",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 135,
+      "ida_c_line": 51471,
+      "ida_asm_line": 77842,
+      "ghidra_file": "00436430_FUN_00436430.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436460",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 146,
+      "ida_c_line": 51484,
+      "ida_asm_line": 77869,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004364d0",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 167,
+      "ida_c_line": 51513,
+      "ida_asm_line": 77935,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004364e0",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 172,
+      "ida_c_line": 51519,
+      "ida_asm_line": 77946,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x0043d250",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 4,
+      "ida_c_line": 56215,
+      "ida_asm_line": 89053,
+      "ghidra_file": "0043D250_FUN_0043d250.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043d390",
+      "source": "src/platform/memory_file.cpp",
+      "source_line": 209,
+      "ida_c_line": 56289,
+      "ida_asm_line": 89233,
+      "ghidra_file": "0043D390_FUN_0043d390.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043a730",
+      "source": "src/platform/midi_sequencer.cpp",
+      "source_line": 32,
+      "ida_c_line": 54321,
+      "ida_asm_line": 84867,
+      "ghidra_file": "0043A730_FUN_0043a730.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043aad0",
+      "source": "src/platform/midi_sequencer.cpp",
+      "source_line": 70,
+      "ida_c_line": 54431,
+      "ida_asm_line": 85163,
+      "ghidra_file": "0043AAD0_FUN_0043aad0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043ace0",
+      "source": "src/platform/midi_sequencer.cpp",
+      "source_line": 46,
+      "ida_c_line": 54515,
+      "ida_asm_line": 85357,
+      "ghidra_file": "0043ACE0_FUN_0043ace0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043af30",
+      "source": "src/platform/midi_sequencer.cpp",
+      "source_line": 125,
+      "ida_c_line": 54617,
+      "ida_asm_line": 85589,
+      "ghidra_file": "0043AF30_FUN_0043af30.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436570",
+      "source": "src/platform/process.cpp",
+      "source_line": 4,
+      "ida_c_line": 51568,
+      "ida_asm_line": 78032,
+      "ghidra_file": "00436570_FUN_00436570.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044bd10",
+      "source": "src/platform/process.cpp",
+      "source_line": 87,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "0044BD10_FUN_0044bd10.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x0044c100",
+      "source": "src/platform/process.cpp",
+      "source_line": 56,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "0044C100_FUN_0044c100.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x0044c130",
+      "source": "src/platform/process.cpp",
+      "source_line": 33,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "0044C130_FUN_0044c130.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x0044d5b0",
+      "source": "src/platform/process.cpp",
+      "source_line": 73,
+      "ida_c_line": 68651,
+      "ida_asm_line": 114481,
+      "ghidra_file": "0044D5B0_FUN_0044d5b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436680",
+      "source": "src/platform/resource_file.cpp",
+      "source_line": 27,
+      "ida_c_line": 51605,
+      "ida_asm_line": 78144,
+      "ghidra_file": "00436680_FUN_00436680.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004366c0",
+      "source": "src/platform/resource_file.cpp",
+      "source_line": 33,
+      "ida_c_line": 51625,
+      "ida_asm_line": 78173,
+      "ghidra_file": "004366C0_FUN_004366c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00436ca0",
+      "source": "src/platform/resource_file.cpp",
+      "source_line": 18,
+      "ida_c_line": 51857,
+      "ida_asm_line": 78815,
+      "ghidra_file": "00436CA0_FUN_00436ca0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043a910",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 111,
+      "ida_c_line": 54337,
+      "ida_asm_line": 84983,
+      "ghidra_file": "0043A910_FUN_0043a910.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043d120",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 93,
+      "ida_c_line": 56114,
+      "ida_asm_line": 88915,
+      "ghidra_file": "0043D120_FUN_0043d120.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043d7d0",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 238,
+      "ida_c_line": 56439,
+      "ida_asm_line": 89673,
+      "ghidra_file": "0043D7D0_FUN_0043d7d0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043d950",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 215,
+      "ida_c_line": 56485,
+      "ida_asm_line": 89826,
+      "ghidra_file": "0043D950_FUN_0043d950.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043ddf0",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 17,
+      "ida_c_line": 56698,
+      "ida_asm_line": 90272,
+      "ghidra_file": "0043DDF0_FUN_0043ddf0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044cbf0",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 123,
+      "ida_c_line": 68091,
+      "ida_asm_line": 113340,
+      "ghidra_file": "0044CBF0_FUN_0044cbf0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044cf20",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 146,
+      "ida_c_line": 68251,
+      "ida_asm_line": 113684,
+      "ghidra_file": "0044CF20_FUN_0044cf20.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044d110",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 170,
+      "ida_c_line": 68375,
+      "ida_asm_line": 113918,
+      "ghidra_file": "0044D110_FUN_0044d110.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044dad0",
+      "source": "src/platform/sound_commands.cpp",
+      "source_line": 200,
+      "ida_c_line": 68877,
+      "ida_asm_line": 115075,
+      "ghidra_file": "0044DAD0_FUN_0044dad0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043cd30",
+      "source": "src/platform/sound_device_init.cpp",
+      "source_line": 38,
+      "ida_c_line": 55942,
+      "ida_asm_line": 88553,
+      "ghidra_file": "0043CD30_FUN_0043cd30.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00421e00",
+      "source": "src/platform/sound_fade.cpp",
+      "source_line": 21,
+      "ida_c_line": 34344,
+      "ida_asm_line": 47785,
+      "ghidra_file": "00421E00_FUN_00421e00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044d440",
+      "source": "src/platform/sound_stream_start.cpp",
+      "source_line": 4,
+      "ida_c_line": 68566,
+      "ida_asm_line": 114301,
+      "ghidra_file": "0044D440_FUN_0044d440.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043cc40",
+      "source": "src/platform/sound_worker.cpp",
+      "source_line": 4,
+      "ida_c_line": 55900,
+      "ida_asm_line": 88449,
+      "ghidra_file": "0043CC40_FUN_0043cc40.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044c1c0",
+      "source": "src/platform/worker_start.cpp",
+      "source_line": 3,
+      "ida_c_line": 67716,
+      "ida_asm_line": 112432,
+      "ghidra_file": "0044C1C0_FUN_0044c1c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004136c0",
+      "source": "src/render/animation_slot.cpp",
+      "source_line": 1,
+      "ida_c_line": 23079,
+      "ida_asm_line": 26574,
+      "ghidra_file": "004136C0_FUN_004136c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004470c0",
+      "source": "src/render/anm_archive.cpp",
+      "source_line": 6,
+      "ida_c_line": 63624,
+      "ida_asm_line": 103570,
+      "ghidra_file": "004470C0_FUN_004470c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004472e0",
+      "source": "src/render/anm_archive.cpp",
+      "source_line": 40,
+      "ida_c_line": 63747,
+      "ida_asm_line": 103793,
+      "ghidra_file": "004472E0_FUN_004472e0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00421300",
+      "source": "src/render/anm_handle_release.cpp",
+      "source_line": 29,
+      "ida_c_line": 33809,
+      "ida_asm_line": 46804,
+      "ghidra_file": "00421300_FUN_00421300.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00409e50",
+      "source": "src/render/anm_propagate.cpp",
+      "source_line": 19,
+      "ida_c_line": 18396,
+      "ida_asm_line": 12517,
+      "ghidra_file": "00409E50_FUN_00409e50.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042c770",
+      "source": "src/render/anm_propagate.cpp",
+      "source_line": 30,
+      "ida_c_line": 42722,
+      "ida_asm_line": 62758,
+      "ghidra_file": "0042C770_FUN_0042c770.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004451c0",
+      "source": "src/render/anm_vm_draw_dispatch.cpp",
+      "source_line": 13,
+      "ida_c_line": 61872,
+      "ida_asm_line": 100662,
+      "ghidra_file": "004451C0_FUN_004451c0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043c1a0",
+      "source": "src/render/default_viewport.cpp",
+      "source_line": 13,
+      "ida_c_line": 55386,
+      "ida_asm_line": 87331,
+      "ghidra_file": "0043C1A0_FUN_0043c1a0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00444b10",
+      "source": "src/render/edge_strips.cpp",
+      "source_line": 9,
+      "ida_c_line": 61692,
+      "ida_asm_line": 100003,
+      "ghidra_file": "00444B10_FUN_00444b10.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00444be0",
+      "source": "src/render/edge_strips.cpp",
+      "source_line": 50,
+      "ida_c_line": 61749,
+      "ida_asm_line": 100099,
+      "ghidra_file": "00444BE0_FUN_00444be0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00445620",
+      "source": "src/render/effect_ring_update.cpp",
+      "source_line": 25,
+      "ida_c_line": 62018,
+      "ida_asm_line": 101041,
+      "ghidra_file": "00445620_FUN_00445620.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00442670",
+      "source": "src/render/final_quad_pipeline.cpp",
+      "source_line": 6,
+      "ida_c_line": 60226,
+      "ida_asm_line": 97070,
+      "ghidra_file": "00442670_FUN_00442670.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00420cd0",
+      "source": "src/render/fog_disable.cpp",
+      "source_line": 3,
+      "ida_c_line": 33586,
+      "ida_asm_line": 46259,
+      "ghidra_file": "00420CD0_FUN_00420cd0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00437160",
+      "source": "src/render/image_alpha_transform.cpp",
+      "source_line": 5,
+      "ida_c_line": 52094,
+      "ida_asm_line": 79308,
+      "ghidra_file": "00437160_FUN_00437160.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043bfa0",
+      "source": "src/render/texture_stage_reset.cpp",
+      "source_line": 17,
+      "ida_c_line": 55309,
+      "ida_asm_line": 87148,
+      "ghidra_file": "0043BFA0_FUN_0043bfa0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004465b0",
+      "source": "src/render/transparent_pixel_fill_locked.cpp",
+      "source_line": 13,
+      "ida_c_line": 63020,
+      "ida_asm_line": 102405,
+      "ghidra_file": "004465B0_FUN_004465b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00412a00",
+      "source": "src/script/ecl_vm.cpp",
+      "source_line": 215,
+      "ida_c_line": 22362,
+      "ida_asm_line": 25198,
+      "ghidra_file": "00412A00_FUN_00412a00.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00412a10",
+      "source": "src/script/ecl_vm.cpp",
+      "source_line": 246,
+      "ida_c_line": 22372,
+      "ida_asm_line": 25210,
+      "ghidra_file": "00412A10_FUN_00412a10.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0044fd10",
+      "source": "src/script/ecl_vm_children.cpp",
+      "source_line": 130,
+      "ida_c_line": 70775,
+      "ida_asm_line": 118005,
+      "ghidra_file": "0044FD10_FUN_0044fd10.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00450470",
+      "source": "src/script/final_script_runtime.cpp",
+      "source_line": 8,
+      "ida_c_line": 71273,
+      "ida_asm_line": 118900,
+      "ghidra_file": "00450470_FUN_00450470.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00450700",
+      "source": "src/script/final_script_runtime.cpp",
+      "source_line": 1,
+      "ida_c_line": 71389,
+      "ida_asm_line": 119210,
+      "ghidra_file": "00450700_FUN_00450700.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00403850",
+      "source": "src/script/stage_ecl_load.cpp",
+      "source_line": 14,
+      "ida_c_line": 13503,
+      "ida_asm_line": 3426,
+      "ghidra_file": "00403850_FUN_00403850.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00418150",
+      "source": "src/util/heap.cpp",
+      "source_line": 44,
+      "ida_c_line": 27271,
+      "ida_asm_line": 33330,
+      "ghidra_file": "00418150_FUN_00418150.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0042cdb0",
+      "source": "src/util/heap.cpp",
+      "source_line": 55,
+      "ida_c_line": 43064,
+      "ida_asm_line": 63345,
+      "ghidra_file": "0042CDB0_FUN_0042cdb0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00435220",
+      "source": "src/util/heap.cpp",
+      "source_line": 76,
+      "ida_c_line": 50354,
+      "ida_asm_line": 75737,
+      "ghidra_file": "00435220_FUN_00435220.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00435250",
+      "source": "src/util/heap.cpp",
+      "source_line": 35,
+      "ida_c_line": 50365,
+      "ida_asm_line": 75775,
+      "ghidra_file": "00435250_FUN_00435250.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x004352c0",
+      "source": "src/util/heap.cpp",
+      "source_line": 15,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm, Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004381f0",
+      "source": "src/util/heap.cpp",
+      "source_line": 66,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "004381F0_FUN_004381f0.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x00438250",
+      "source": "src/util/heap.cpp",
+      "source_line": 226,
+      "ida_c_line": 52788,
+      "ida_asm_line": 81068,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x00438260",
+      "source": "src/util/heap.cpp",
+      "source_line": 151,
+      "ida_c_line": 52794,
+      "ida_asm_line": 81078,
+      "ghidra_file": "00438260_FUN_00438260.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438350",
+      "source": "src/util/heap.cpp",
+      "source_line": 90,
+      "ida_c_line": 52862,
+      "ida_asm_line": 81217,
+      "ghidra_file": "00438350_FUN_00438350.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438380",
+      "source": "src/util/heap.cpp",
+      "source_line": 232,
+      "ida_c_line": 52868,
+      "ida_asm_line": 81248,
+      "ghidra_file": "00438380_FUN_00438380.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438420",
+      "source": "src/util/heap.cpp",
+      "source_line": 102,
+      "ida_c_line": 52903,
+      "ida_asm_line": 81330,
+      "ghidra_file": "00438420_FUN_00438420.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438510",
+      "source": "src/util/heap.cpp",
+      "source_line": 197,
+      "ida_c_line": 52971,
+      "ida_asm_line": 81475,
+      "ghidra_file": "00438510_FUN_00438510.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438590",
+      "source": "src/util/heap.cpp",
+      "source_line": 215,
+      "ida_c_line": 53012,
+      "ida_asm_line": 81555,
+      "ghidra_file": "00438590_FUN_00438590.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x00438680",
+      "source": "src/util/heap.cpp",
+      "source_line": 269,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm, Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x00438690",
+      "source": "src/util/heap.cpp",
+      "source_line": 24,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm, Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004386a0",
+      "source": "src/util/heap.cpp",
+      "source_line": 30,
+      "ida_c_line": 53081,
+      "ida_asm_line": 81699,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x004386b0",
+      "source": "src/util/heap.cpp",
+      "source_line": 285,
+      "ida_c_line": 53087,
+      "ida_asm_line": 81710,
+      "ghidra_file": "004386B0_FUN_004386b0.c",
+      "verdict": "pending",
+      "finding": "Source and all three local references are present; exact semantic comparison is pending."
+    },
+    {
+      "address": "0x0043874c",
+      "source": "src/util/heap.cpp",
+      "source_line": 287,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": "0043874C_FUN_0043874c.c",
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x00438800",
+      "source": "src/util/heap.cpp",
+      "source_line": 261,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm, Ghidra reference export is unavailable; no semantic verdict is claimed."
+    },
+    {
+      "address": "0x00438840",
+      "source": "src/util/heap.cpp",
+      "source_line": 19,
+      "ida_c_line": null,
+      "ida_asm_line": null,
+      "ghidra_file": null,
+      "verdict": "unresolved",
+      "finding": "Exact source body is present, but IDA C, IDA asm, Ghidra reference export is unavailable; no semantic verdict is claimed."
+    }
+  ]
+}

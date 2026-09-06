@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+printf "%s\n" "Legacy hybrid workflow: retains retail executable code. Use build_all_pe32.sh / run_all_pe32.sh for the C++ runtime." >&2
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD="$ROOT/build"
 ORIGINAL="${TH10_ORIGINAL_EXE:-$HOME/Games/TH10 - Mountain of Faith/th10.exe}"

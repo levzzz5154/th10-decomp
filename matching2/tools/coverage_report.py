@@ -19,11 +19,19 @@ ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 
 # These functions have readable work in matching2, but the source itself
 # documents that only part of the retail function has been recovered.
-PARTIAL = {}
+PARTIAL = {
+    0x0040E770: "Extended ECL dispatch has unsupported movement, sound, cleanup, and state-mixer opcodes; other paths still require retail comparison.",
+    0x0040BD80: "Ending-script waits, float timekeeping, and opcode-12 stream ownership are modeled through a host adapter; retail text/ANM/timer globals and full stream integration remain unrecovered.",
+    0x004250B0: "Player update exposes a typed movement/control slice, but the retail API has separate cardinal/diagonal speeds, gated slow-age updates, and omitted orbit/trail/sprite transitions.",
+    0x0044A5F0: "Input state tail and fixed keyboard/DirectInput acquisition masks are covered, but retail global gates, joystick adapter dispatch, and per-player state ownership remain outside the host contract.",
+}
 
 # Address mentions matching these entries describe a known dependency rather
 # than a readable implementation in the named translation unit.
 RESEARCHED = {}
+
+# Resolve ambiguous address mentions to the actual implementation owner.
+SOURCE_OVERRIDES = {0x0040E770: "src/script/ecl_vm.cpp"}
 
 SIZE_BANDS = (
     ("tiny", 0, 64),
@@ -36,7 +44,7 @@ SIZE_BANDS = (
 def coverage_summary(entries):
     implemented_statuses = {"semantic"}
     by_status = {}
-    for status in ("semantic",):
+    for status in ("semantic", "partial", "researched", "unrecovered"):
         selected = [entry for entry in entries if entry["status"] == status]
         by_status[status] = {
             "function_count": len(selected),
@@ -117,58 +125,6 @@ def source_annotations():
     return mentions, semantic, headers
 
 
-def overlay_pure_cpp(overlays):
-    """Return the set of overlay addresses whose defining translation unit
-    implements the function without inline assembly (pure C++ that MSVC 7.1
-    happens to compile to the retail bytes)."""
-    pure = set()
-    header = re.compile(r'//\s*(?:functions?\s*:\s*)?0x004[0-9a-f]{5}', re.I)
-
-    def is_function_header(lines, index):
-        stripped = lines[index].strip()
-        if not re.match(r'^//\s*0x004[0-9a-f]{5}\b', stripped, re.I):
-            return False
-        previous = index - 1
-        while previous >= 0 and not lines[previous].strip():
-            previous -= 1
-        return previous < 0 or not lines[previous].lstrip().startswith('//')
-
-    for address, (object_name, _symbol) in overlays.items():
-        candidates = list((ROOT / "src").rglob(
-            Path(object_name).stem + ".cpp"))
-        if len(candidates) != 1:
-            continue
-        text = candidates[0].read_text(errors='replace')
-        lines = text.splitlines()
-        mentions = []
-        for index, line in enumerate(lines):
-            stripped = line.strip()
-            if not is_function_header(lines, index):
-                continue
-            if ('0x{:08X}'.format(address) not in line and
-                    '0x{:06x}'.format(address) not in line):
-                continue
-            mentions.append(index)
-        if not mentions:
-            continue
-        any_asm = False
-        saw_block = False
-        for start in mentions:
-            block = [lines[start]]
-            for offset in range(start + 1, len(lines)):
-                if is_function_header(lines, offset):
-                    break
-                block.append(lines[offset])
-            joined = '\n'.join(block)
-            if '__asm' in joined:
-                any_asm = True
-                break
-            saw_block = True
-        if not any_asm and saw_block:
-            pure.add(address)
-    return pure
-
-
 def generate():
     tracked = tracked_functions()
     overlays = overlay_entries()
@@ -201,20 +157,8 @@ def generate():
         if address in PARTIAL:
             entry["status"] = "partial"
             entry["blocker"] = PARTIAL[address]
-        if address in overlays:
-            # The naked-assembly "exact overlays" are gone; the tuple now only
-            # marks which addresses are implemented, so coverage stays
-            # complete.  Resolve the source from the overlay's object stem
-            # when the address-comment scan did not, and otherwise classify
-            # like any other readable C++ reconstruction.
-            object_name, _symbol = overlays[address]
-            if entry["source"] == "unrecovered":
-                candidates = list((ROOT / "src").rglob(
-                    Path(object_name).stem + ".cpp"))
-                if len(candidates) == 1:
-                    entry["source"] = str(candidates[0].relative_to(ROOT))
-            if entry["status"] == "unrecovered":
-                entry["status"] = "semantic"
+        if address in SOURCE_OVERRIDES:
+            entry["source"] = SOURCE_OVERRIDES[address]
         entries.append(entry)
 
     return {
@@ -222,16 +166,17 @@ def generate():
         "target": {
             "executable_sha256":
                 "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
-            "compiler": "MSVC 7.1",
+            "compiler": "PE32 C++17 (MinGW); retail reference: MSVC 7.1",
             "tracked_function_source": "decompiled/ghidra_raw/index.tsv",
-            "inventory_policy": "union of Ghidra index and verified overlays",
+            "inventory_policy": "union of Ghidra index and historical overlay addresses (inventory only)",
         },
         "coverage_summary": coverage_summary(entries),
+        "evidence_limit": "Semantic status is inferred from source annotations, not proof of behavioral parity. Historical overlay membership never promotes recovery status.",
         "verified_overlay_summary": {
             "function_count": 0,
             "pure_cpp_function_count": 0,
             "compared_bytes": None,
-            "source": "tools/build_hybrid.py (overlay list retired)",
+            "source": "legacy overlay inventory; no current exact-match claim",
         },
         "functions": entries,
     }
@@ -260,7 +205,7 @@ def print_summary(document):
             band["tracked_bytes"]))
     summary = document["verified_overlay_summary"]
     if summary["compared_bytes"] is None:
-        print("  verified overlays: {} functions (byte total is build-only)".format(
+        print("  verified overlays: {} functions (no current exact-match evidence)".format(
             summary["function_count"]))
         print("  pure-C++ overlays: {} functions".format(
             summary.get("pure_cpp_function_count", 0)))

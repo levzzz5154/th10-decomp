@@ -38,30 +38,24 @@ MILESTONE = {
     ),
 }
 
+# Generated source reports do not certify a build or runtime execution.
+# None means not measured by this command; never inherit a historical pass.
 INTEGRATION_GATES = {
-    "retail_free_link_target": {
+    "retail_code_free_link_target": {
         "passed": True,
-        "evidence": (
-            "build_all_pe32.sh links only reconstructed matching2 sources "
-            "plus the standalone host layer; no retail bytes or hybrid image "
-            "are consumed by the target"
-        ),
+        "evidence": "build_all_pe32.sh compiles C++ and imports retail data sections, not retail .text instructions",
     },
-    "retail_free_executable_produced": {
-        "passed": True,
-        "evidence": (
-            "build/pe32/th10_standalone.exe is produced by build_all_pe32.sh"
-        ),
+    "retail_data_independent_build": {
+        "passed": False,
+        "evidence": "build_all_pe32.sh requires th10.exe and embeds its .rdata/.data; the runtime also requires game archives",
     },
-    "startup_to_title_smoke_test": {
-        "passed": True,
-        "evidence": (
-            "the PE32 runner under Wine reports SMOKE_PASS: arena "
-            "constructed, 4 primary + 22 secondary scheduler callbacks, 33 "
-            "default device states, 640x480 viewport, title tasks "
-            "registered, title.anm and title_v.anm resolved, 60 title "
-            "frames, clean shutdown"
-        ),
+    "current_executable_produced": {
+        "passed": None,
+        "evidence": "Run ./build_all_pe32.sh; this source ledger does not run or authenticate a build",
+    },
+    "current_startup_to_title_smoke_test": {
+        "passed": None,
+        "evidence": "Run ./run_all_pe32.sh --smoke; a smoke pass does not establish rendering or gameplay parity",
     },
 }
 
@@ -255,11 +249,11 @@ def print_summary(document):
     print("  indirect call sites: {} total, {} audited, {} requiring audit".format(
         summary["dynamic_call_sites"], summary["audited_dynamic_call_sites"],
         summary["unaudited_dynamic_call_sites"]))
-    print("  milestone runnable without retail code: {}".format(
-        "yes" if summary["standalone_ready"] else "no"))
+    print("  standalone completion established: {}".format(
+        "yes" if summary["standalone_ready"] else "not established"))
     print("  integration gates:")
     for name, gate in document["integration_gates"].items():
-        print("    {}: {}".format(name, "pass" if gate["passed"] else "fail"))
+        print("    {}: {}".format(name, "not measured" if gate["passed"] is None else ("pass" if gate["passed"] else "fail")))
     if document["top_blockers"]:
         print("  highest-impact blockers:")
         for entry in document["top_blockers"][:10]:

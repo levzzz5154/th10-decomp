@@ -2,15 +2,27 @@
   "schema_version": 3,
   "target": {
     "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
-    "compiler": "MSVC 7.1",
+    "compiler": "PE32 C++17 (MinGW); retail reference: MSVC 7.1",
     "tracked_function_source": "decompiled/ghidra_raw/index.tsv",
-    "inventory_policy": "union of Ghidra index and verified overlays"
+    "inventory_policy": "union of Ghidra index and historical overlay addresses (inventory only)"
   },
   "coverage_summary": {
     "by_status": {
       "semantic": {
-        "function_count": 719,
-        "retail_bytes": 324352
+        "function_count": 710,
+        "retail_bytes": 302096
+      },
+      "partial": {
+        "function_count": 4,
+        "retail_bytes": 22160
+      },
+      "researched": {
+        "function_count": 3,
+        "retail_bytes": 8448
+      },
+      "unrecovered": {
+        "function_count": 5,
+        "retail_bytes": 96
       }
     },
     "size_bands": [
@@ -19,9 +31,9 @@
         "minimum_size": 0,
         "maximum_size_exclusive": 64,
         "tracked_functions": 52,
-        "implemented_functions": 52,
+        "implemented_functions": 49,
         "tracked_bytes": 1961,
-        "implemented_bytes": 1961
+        "implemented_bytes": 1865
       },
       {
         "name": "small",
@@ -46,17 +58,18 @@
         "minimum_size": 1024,
         "maximum_size_exclusive": null,
         "tracked_functions": 69,
-        "implemented_functions": 66,
+        "implemented_functions": 62,
         "tracked_bytes": 159312,
-        "implemented_bytes": 150864
+        "implemented_bytes": 128704
       }
     ]
   },
+  "evidence_limit": "Semantic status is inferred from source annotations, not proof of behavioral parity. Historical overlay membership never promotes recovery status.",
   "verified_overlay_summary": {
     "function_count": 0,
     "pure_cpp_function_count": 0,
     "compared_bytes": null,
-    "source": "tools/build_hybrid.py (overlay list retired)"
+    "source": "legacy overlay inventory; no current exact-match claim"
   },
   "functions": [
     {
@@ -875,8 +888,9 @@
       "address": "0x0040BD80",
       "symbol": "FUN_0040bd80",
       "size": 1600,
-      "status": "semantic",
-      "source": "src/game/event_script_runtime.cpp"
+      "status": "partial",
+      "source": "src/game/event_script_runtime.cpp",
+      "blocker": "Ending-script waits, float timekeeping, and opcode-12 stream ownership are modeled through a host adapter; retail text/ANM/timer globals and full stream integration remain unrecovered."
     },
     {
       "address": "0x0040C3C0",
@@ -1064,8 +1078,9 @@
       "address": "0x0040E770",
       "symbol": "FUN_0040e770",
       "size": 16304,
-      "status": "semantic",
-      "source": "src/script/ecl_core_interpreter.cpp"
+      "status": "partial",
+      "source": "src/script/ecl_vm.cpp",
+      "blocker": "Extended ECL dispatch has unsupported movement, sound, cleanup, and state-mixer opcodes; other paths still require retail comparison."
     },
     {
       "address": "0x00412720",
@@ -2205,8 +2220,9 @@
       "address": "0x004250B0",
       "symbol": "FUN_004250b0",
       "size": 1664,
-      "status": "semantic",
-      "source": "src/game/player_front_runtime.cpp"
+      "status": "partial",
+      "source": "src/game/player_front_runtime.cpp",
+      "blocker": "Player update exposes a typed movement/control slice, but the retail API has separate cardinal/diagonal speeds, gated slow-age updates, and omitted orbit/trail/sprite transitions."
     },
     {
       "address": "0x00425730",
@@ -2954,8 +2970,8 @@
       "address": "0x00435320",
       "symbol": "FUN_00435320",
       "size": 32,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "unrecovered",
+      "source": "unrecovered"
     },
     {
       "address": "0x00435340",
@@ -3031,15 +3047,15 @@
       "address": "0x00435690",
       "symbol": "??1FileInterface",
       "size": null,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "unrecovered",
+      "source": "unrecovered"
     },
     {
       "address": "0x004356A0",
       "symbol": "??_GFileInterface",
       "size": null,
-      "status": "semantic",
-      "source": "src/platform/file.cpp"
+      "status": "unrecovered",
+      "source": "unrecovered"
     },
     {
       "address": "0x004356F0",
@@ -3122,8 +3138,8 @@
       "address": "0x004363A0",
       "symbol": "FUN_004363a0",
       "size": 32,
-      "status": "semantic",
-      "source": "src/platform/memory_file.cpp"
+      "status": "unrecovered",
+      "source": "unrecovered"
     },
     {
       "address": "0x004363C0",
@@ -3171,8 +3187,8 @@
       "address": "0x00436660",
       "symbol": "FUN_00436660",
       "size": 32,
-      "status": "semantic",
-      "source": "src/platform/resource_file.cpp"
+      "status": "unrecovered",
+      "source": "unrecovered"
     },
     {
       "address": "0x00436680",
@@ -4578,8 +4594,9 @@
       "address": "0x0044A5F0",
       "symbol": "FUN_0044a5f0",
       "size": 2592,
-      "status": "semantic",
-      "source": "src/platform/final_input_runtime.cpp"
+      "status": "partial",
+      "source": "src/platform/final_input_runtime.cpp",
+      "blocker": "Input state tail and fixed keyboard/DirectInput acquisition masks are covered, but retail global gates, joystick adapter dispatch, and per-player state ownership remain outside the host contract."
     },
     {
       "address": "0x0044B010",

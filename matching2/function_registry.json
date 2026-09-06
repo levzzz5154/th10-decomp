@@ -7,8 +7,10 @@
   "summary": {
     "function_count": 703,
     "by_recovery_status": {
+      "partial": 4,
       "researched": 3,
-      "semantic": 700
+      "semantic": 693,
+      "unrecovered": 3
     }
   },
   "functions": [
@@ -1179,8 +1181,9 @@
       "size": 1600,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040BD80_FUN_0040bd80.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/event_script_runtime.cpp"
+      "recovery_status": "partial",
+      "promoted_source": "src/game/event_script_runtime.cpp",
+      "blocker": "Ending-script waits, float timekeeping, and opcode-12 stream ownership are modeled through a host adapter; retail text/ANM/timer globals and full stream integration remain unrecovered."
     },
     {
       "address": "0x0040C3C0",
@@ -1449,8 +1452,9 @@
       "size": 16304,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0040E770_FUN_0040e770.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/script/ecl_core_interpreter.cpp"
+      "recovery_status": "partial",
+      "promoted_source": "src/script/ecl_vm.cpp",
+      "blocker": "Extended ECL dispatch has unsupported movement, sound, cleanup, and state-mixer opcodes; other paths still require retail comparison."
     },
     {
       "address": "0x00412720",
@@ -3079,8 +3083,9 @@
       "size": 1664,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004250B0_FUN_004250b0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/game/player_front_runtime.cpp"
+      "recovery_status": "partial",
+      "promoted_source": "src/game/player_front_runtime.cpp",
+      "blocker": "Player update exposes a typed movement/control slice, but the retail API has separate cardinal/diagonal speeds, gated slow-age updates, and omitted orbit/trail/sprite transitions."
     },
     {
       "address": "0x00425730",
@@ -4139,8 +4144,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00435320_FUN_00435320.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/file.cpp"
+      "recovery_status": "unrecovered",
+      "promoted_source": null
     },
     {
       "address": "0x00435340",
@@ -4299,8 +4304,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/004363A0_FUN_004363a0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/memory_file.cpp"
+      "recovery_status": "unrecovered",
+      "promoted_source": null
     },
     {
       "address": "0x004363C0",
@@ -4339,8 +4344,8 @@
       "size": 32,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/00436660_FUN_00436660.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/resource_file.cpp"
+      "recovery_status": "unrecovered",
+      "promoted_source": null
     },
     {
       "address": "0x00436680",
@@ -6279,8 +6284,9 @@
       "size": 2592,
       "raw_status": "ok",
       "raw_source": "decompiled/ghidra_raw/0044A5F0_FUN_0044a5f0.c",
-      "recovery_status": "semantic",
-      "promoted_source": "src/platform/final_input_runtime.cpp"
+      "recovery_status": "partial",
+      "promoted_source": "src/platform/final_input_runtime.cpp",
+      "blocker": "Input state tail and fixed keyboard/DirectInput acquisition masks are covered, but retail global gates, joystick adapter dispatch, and per-player state ownership remain outside the host contract."
     },
     {
       "address": "0x0044B010",

@@ -285,8 +285,7 @@ const char* LegacyString::Data() const {
 // 0x004386B0 - Grow using the retail 1.5x capacity policy while preserving
 // the requested prefix and switching cleanly out of inline mode.
 // 0x0043874C - Continuation chunk of Grow (copy-out + free tail) covered by
-// the same naked body: SEH resume at 438743h, rep movsd/movsb prefix copy,
-// and call sub_4524A1 freeing the old heap block.
+// this C++ capacity-growth, prefix-copy, and old-allocation release path.
 void LegacyString::Grow(uint32_t requested, uint32_t old_length) {
     uint32_t new_capacity = requested | 15;
     if (new_capacity > 0xFFFFFFFE) {

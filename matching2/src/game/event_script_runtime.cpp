@@ -1,21 +1,29 @@
 #include "th10/game/event_script_runtime.hpp"
 #include <algorithm>
+#include <utility>
 namespace th10::event_script {
 // Semantic reconstruction of retail 0x0040BD80 - PARTIAL. The command
-// dispatch skeleton, the flags (bits 0/1/2), the color word and the
-// scaled time advance are faithful. The ANM/text/timer subsystems are
+// dispatch skeleton, the flags (bits 0/1/2), the color word and the float
+// time accumulator are faithful. The ANM/text/global timer subsystems are
 // NOT modeled: cases 3/4 are retail text-ring draws (sub_417010,
 // sub_449450, sub_447A50, sub_40C4D0 - a 5-slot ANM text ring at a1+64
 // with ring position a1+120), cases 5/6 are countdown-timer waits
 // (sub_405410, sub_44BF40, sub_43DC90 - they return 0 without advancing
 // while the remaining-frame counter a1+48 is not divisible by 6), and
 // case 8 is an ANM handle create/release (sub_4492A0, sub_448D00).
+// Cases 10 and 13..17 likewise retain only host event edges for their
+// sound/effect side effects; those retail globals are not represented here.
 // Those cases dispatch to the host edge so a host can reimplement them.
 // The pre-loop countdown (sub_405410 on the a1+24 timer) is also elided.
+// The wait model below preserves the retail cursor/timer behavior and uses
+// confirm as the host's explicit skip input; it cannot reproduce the retail
+// global input/debug gates without those globals in the API.
 int EndingScript_Update(EndingState&s,const std::vector<EndingCommand>&v,float speed,const EndingEdges&e){
 if(s.flags&4)return 0;
-while(s.cursor<(int)v.size()&&v[s.cursor].time<=s.time){
-const auto&c=v[s.cursor];
+const std::vector<EndingCommand>*stream=&v;
+if(s.using_loaded_stream)stream=&s.loaded_stream;
+while(s.cursor<(int)stream->size()&&(*stream)[s.cursor].time<=s.time){
+const auto&c=(*stream)[s.cursor];
 switch(c.opcode){
 case 0:return -1;
 case 3:
@@ -32,13 +40,27 @@ break;
 case 5:
 // Retail: countdown-timer wait (sub_405410/sub_44BF40/sub_43DC90);
 // returns 0 WITHOUT advancing while the frame counter a1+48 is not
-// divisible by 6. Host model: no timer; dispatched to the host edge.
+// divisible by 6. The global six-frame gate is outside this API, but the
+// timer and explicit host confirmation remain observable here.
+if(s.wait_counter<=0){
+if(!c.args.empty())s.wait_counter=c.args[0];
+}
+--s.wait_counter;
+if(!c.args.empty()&&c.args[0]<0)s.wait_counter=999;
+if(s.wait_counter>0&&!(e.confirm&&e.confirm(e.context)))return 0;
 if(e.event)e.event(e.context,5,c);
+s.wait_counter=0;
 break;
 case 6:
 // Retail: countdown-timer wait (as case 5), then resets the text-ring
 // position (a1+120=0) and dword_4918A4=0.
+if(s.wait_counter<=0){
+if(!c.args.empty())s.wait_counter=c.args[0];
+}
+--s.wait_counter;
+if(s.wait_counter>0&&!(e.confirm&&e.confirm(e.context)))return 0;
 if(e.event)e.event(e.context,6,c);
+s.wait_counter=0;
 break;
 case 7:s.flags|=4u;if(e.event)e.event(e.context,7,c);++s.cursor;return 0;
 case 8:
@@ -59,17 +81,26 @@ case 12:
 // Retail: clears the text ring, loads the next script (sub_40B480),
 // memsets the state (0xEC bytes), resets the three timers
 // (sub_405410 x3) and starts the new stream with flags=2,
-// color=0xFFFFFF. Host model: reset and re-run the same vector from
-// command 0.
-s={};s.flags=2;s.color=0xffffff;
+// color=0xFFFFFF. A loader is required to provide the named stream;
+// without one, or when it reports failure, preserve the retail -1 result.
+if(!e.load)return -1;
+{
+std::vector<EndingCommand>loaded;
+if(!e.load(e.context,c.text,loaded))return -1;
+s={};
+s.loaded_stream=std::move(loaded);
+s.using_loaded_stream=true;
+s.flags=2;s.color=0xffffff;
+stream=&s.loaded_stream;
+}
 continue;
 default:break;
 }
 ++s.cursor;
 }
 s.previous_time=s.time;
-if(speed>.99f&&speed<1.01f){++s.time;++s.fraction;}
-else{s.fraction+=(int)(speed*1000);s.time=s.fraction/1000;}
+if(speed>.99f&&speed<1.01f){++s.time;s.fraction+=1.0f;}
+else{s.fraction+=speed;s.time=static_cast<int>(s.fraction);}
 return 0;}
 // Semantic reconstruction of retail 0x00403C80 - PARTIAL. The command
 // dispatch and the direct camera/color/global writes are faithful; the

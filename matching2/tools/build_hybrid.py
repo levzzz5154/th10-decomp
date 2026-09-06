@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build a runnable TH10 image by overlaying matched functions on the retail PE.
+"""Legacy hybrid experiment, outside current C++ reconstruction acceptance.
+
+Build a TH10 image by overlaying matched functions on the retail PE.
 
 The retail executable supplies the not-yet-reimplemented code, global data,
 imports, and resources. Every overlay is compiled from this tree and must match

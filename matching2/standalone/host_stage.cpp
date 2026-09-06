@@ -87,6 +87,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <string>
+#include <vector>
 
 extern void* g_pGameStateManager;
 extern uint32_t DAT_00477824;
@@ -1197,6 +1199,87 @@ void HostRetireSpawnedEnemy(BulletEntity* entity, const char* reason) {
 	}
 }
 
+// Per-enemy record dump for the outlier-fidelity diagnosis.  Set
+// TRACE_ENEMY_DUMP to a comma-separated list of trace ids; every frame the
+// sweep prints the transform record state to stderr before the update.
+static bool HostEnemyDumpWanted(int trace_id) {
+	static const std::vector<int> ids = []() -> std::vector<int> {
+		std::vector<int> out;
+		const char* raw = std::getenv("TRACE_ENEMY_DUMP");
+		if (raw == nullptr)
+			return out;
+		std::string text(raw);
+		size_t pos = 0;
+		while (pos <= text.size()) {
+			size_t comma = text.find(',', pos);
+			out.push_back(std::atoi(text.substr(pos, comma - pos).c_str()));
+			if (comma == std::string::npos)
+				break;
+			pos = comma + 1;
+		}
+		return out;
+	}();
+	return std::find(ids.begin(), ids.end(), trace_id) != ids.end();
+}
+
+static void HostEnemyDump(int trace_id, unsigned char* entity) {
+	unsigned char* T = entity + 0x103C;
+	std::fprintf(stderr,
+	    "{\"dump\":%d,\"sf\":%d,\"flags\":%u,\"b80\":%u,\"bAC\":%u,"
+	    "\"gates\":[%d,%d,%d,%d,%d,%d],"
+	    "\"slots\":[%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f],"
+	    "\"r13c\":[%d,%d,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f],"
+	    "\"r1d4\":[%d,%d,%d,%.4f,%.4f,%.4f,%.4f],"
+	    "\"r210\":[%d,%d,%d,%.4f,%.4f,%.4f,%.4f],"
+	    "\"r24c\":[%d,%d],\"r288\":[%d,%d],"
+	    "\"pos\":[%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f]}\n",
+	    trace_id, g_report.stage_frame,
+	    *reinterpret_cast<unsigned int*>(T + 0x1444),
+	    *reinterpret_cast<unsigned char*>(T + 0x80),
+	    *reinterpret_cast<unsigned char*>(T + 0xAC),
+	    *reinterpret_cast<int*>(T + 0x180), *reinterpret_cast<int*>(T + 0x1CC),
+	    *reinterpret_cast<int*>(T + 0x208), *reinterpret_cast<int*>(T + 0x244),
+	    *reinterpret_cast<int*>(T + 0x280), *reinterpret_cast<int*>(T + 0x2BC),
+	    *reinterpret_cast<float*>(T + 0x70), *reinterpret_cast<float*>(T + 0x74),
+	    *reinterpret_cast<float*>(T + 0x78), *reinterpret_cast<float*>(T + 0x7C),
+	    *reinterpret_cast<float*>(T + 0x9C), *reinterpret_cast<float*>(T + 0xA0),
+	    *reinterpret_cast<float*>(T + 0xA4), *reinterpret_cast<float*>(T + 0xA8),
+	    *reinterpret_cast<int*>(T + 0x13C + 0x44),
+	    *reinterpret_cast<int*>(T + 0x13C + 0x48),
+	    *reinterpret_cast<int*>(T + 0x13C + 0x34),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x00),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x04),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x08),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x0C),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x10),
+	    *reinterpret_cast<float*>(T + 0x13C + 0x14),
+	    *reinterpret_cast<int*>(T + 0x1D4 + 0x34),
+	    *reinterpret_cast<int*>(T + 0x1D4 + 0x38),
+	    *reinterpret_cast<int*>(T + 0x1D4 + 0x24),
+	    *reinterpret_cast<float*>(T + 0x1D4 + 0x00),
+	    *reinterpret_cast<float*>(T + 0x1D4 + 0x04),
+	    *reinterpret_cast<float*>(T + 0x1D4 + 0x08),
+	    *reinterpret_cast<float*>(T + 0x1D4 + 0x0C),
+	    *reinterpret_cast<int*>(T + 0x210 + 0x34),
+	    *reinterpret_cast<int*>(T + 0x210 + 0x38),
+	    *reinterpret_cast<int*>(T + 0x210 + 0x24),
+	    *reinterpret_cast<float*>(T + 0x210 + 0x00),
+	    *reinterpret_cast<float*>(T + 0x210 + 0x04),
+	    *reinterpret_cast<float*>(T + 0x210 + 0x08),
+	    *reinterpret_cast<float*>(T + 0x210 + 0x0C),
+	    *reinterpret_cast<int*>(T + 0x24C + 0x34),
+	    *reinterpret_cast<int*>(T + 0x24C + 0x38),
+	    *reinterpret_cast<int*>(T + 0x288 + 0x34),
+	    *reinterpret_cast<int*>(T + 0x288 + 0x38),
+	    *reinterpret_cast<float*>(T + 0x58), *reinterpret_cast<float*>(T + 0x5C),
+	    *reinterpret_cast<float*>(T + 0x60), *reinterpret_cast<float*>(T + 0x64),
+	    *reinterpret_cast<float*>(T + 0x68), *reinterpret_cast<float*>(T + 0x6C),
+	    *reinterpret_cast<float*>(T + 0x84), *reinterpret_cast<float*>(T + 0x88),
+	    *reinterpret_cast<float*>(T + 0x8C), *reinterpret_cast<float*>(T + 0x90),
+	    *reinterpret_cast<float*>(T + 0x94), *reinterpret_cast<float*>(T + 0x98));
+	std::fflush(stderr);
+}
+
 int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
 	if (owner == nullptr)
 		return 1;
@@ -1219,6 +1302,16 @@ int __fastcall HostEnemyManagerUpdateCallback(void* owner) {
 			return 1;
 		}
 		unsigned char* entity = node - 0x116C;
+		int enemy_trace_id = 0;
+		for (int index = 0; index < g_spawned_ecl_enemy_count; ++index)
+			if (g_spawned_ecl_enemies[index].entity != nullptr &&
+			    g_spawned_ecl_enemies[index].entity ==
+			        reinterpret_cast<BulletEntity*>(entity)) {
+				enemy_trace_id = g_spawned_ecl_enemies[index].trace_id;
+				break;
+			}
+		if (HostEnemyDumpWanted(enemy_trace_id))
+			HostEnemyDump(enemy_trace_id, entity);
 		const int update_result = BulletEntity_UpdateTransform(
 		    reinterpret_cast<uint32_t*>(entity + 0x103C));
 		if (update_result != 0) {

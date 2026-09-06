@@ -16,7 +16,10 @@ int main(){
  {event_script::EndingState s;std::vector<event_script::EndingCommand>v{{0,9,{0x123456},{}},{0,7,{},{}},{0,0,{},{}}};event_script::EndingEdges e{};assert(event_script::EndingScript_Update(s,v,1,e)==0&&s.color==0x123456&&(s.flags&4));}
  // 0x0040BD80 cases 3/5/8 are retail text-draw / countdown-timer / ANM
  // create ops, not modeled: the host edge is the adapter boundary.
- {event_script::EndingState s;std::vector<event_script::EndingCommand>v{{0,3,{100},{}},{0,5,{60},{}},{0,8,{0,1,2},{}}};int calls=0;event_script::EndingEdges e{&calls,[](void*c,int,const event_script::EndingCommand&){++*(int*)c;},nullptr};assert(event_script::EndingScript_Update(s,v,1,e)==0&&calls==3&&s.time==1);}
+ // The wait opcode owns the cursor until its countdown is released. The
+ // focused ending-script test covers confirmation and stream loading; this
+ // batch keeps the host event edge and verifies the unreleased retail path.
+ {event_script::EndingState s;std::vector<event_script::EndingCommand>v{{0,3,{100},{}},{0,5,{60},{}},{0,8,{0,1,2},{}}};int calls=0;event_script::EndingEdges e{&calls,[](void*c,int,const event_script::EndingCommand&){++*(int*)c;},nullptr,nullptr};assert(event_script::EndingScript_Update(s,v,1,e)==0&&calls==1&&s.cursor==1&&s.wait_counter==59&&s.time==0);}
  {event_script::StageState s;std::vector<event_script::StageCommand>v{{0,2,{1,2,3}},{0,8,{287454016.0f}},{0,13,{9}}};event_script::StageTimeline_Update(s,v,1,{});assert(s.camera[2]==3&&s.global_value==9&&s.time==1);}
  // 0x00403C80 case 1 scene jump: time=arg1, cursor jumps to args[0],
  // and the hard stop (case 0) skips the frame time advance.

@@ -16,11 +16,20 @@ ROOT = Path(__file__).resolve().parents[1]
 FILES = [
     *sorted((ROOT / "src").rglob("*.cpp")),
     *sorted((ROOT / "standalone").glob("*.cpp")),
+    *sorted((ROOT / "include").rglob("*.hpp")),
+    *sorted((ROOT / "include").rglob("*.h")),
 ]
 
 # Matched against the whole file, not line by line: a Log("host adapter call
 # split across lines used to slip through the line-oriented scan.
 PATTERNS = (
+    # Reconstructed functions must remain C++; the build-generated assembly
+    # used to import retail data is outside these production source files.
+    ("naked-function", re.compile(
+        r'__declspec\s*\(\s*naked\s*\)|__attribute__\s*\(\([^)]*\bnaked\b')),
+    ("inline-assembly", re.compile(
+        r'\b(?:__asm__?|asm)\s*(?:(?:__volatile__|volatile)\s*)?[({]')),
+
     ("host-adapter", re.compile(r'Log\(\s*"host adapter', re.DOTALL)),
     ("empty-lambda", re.compile(r'=\s*\[\][^{;]*\{\s*\}\s*;', re.DOTALL)),
     # The pattern above only sees a lambda that is ASSIGNED. An inert lambda

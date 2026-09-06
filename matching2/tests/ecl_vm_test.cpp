@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <cstdlib>
 
 // recovery_leaves.cpp publishes the large-state instance here. The PE32
 // build aliases it from retail .data; the host test build supplies storage.
@@ -1117,16 +1118,14 @@ void TestRecoveredLeafDispatcher() {
     assert(*(float*)(entity + 3 * 0x210 + 0x2dc) == 1.0f);
     assert(*(float*)(entity + 3 * 0x210 + 0x2e0) == 2.0f);
 
-    // Stubs (0x100, 0x101, 0x104, 0x105, 0x10e) — exercise the documented
-    // stub path so any future regression in the dispatch table fails.
-    static const unsigned short stub_opcodes[] = {
+    // Basic dispatch smoke for implemented families; field-level assertions
+    // above and TestRecordInitOpcodes supply the behavioral checks.
+    static const unsigned short smoke_opcodes[] = {
         0x100, 0x101, 0x104, 0x105, 0x10e, 0x109, 0x10a, 0x10b, 0x10c, 0x10f,
-        0x119, 0x11b, 0x11d, 0x11f, 0x121, 0x123, 0x124, 0x125, 0x156, 0x15c,
-        0x165, 0x166, 0x167, 0x191, 0x19a, 0x19c, 0x19d,
-        0x1ac, 0x1ad, 0x1ae, 0x1af, 0x1b0, 0x1b1, 0x1b2
+        0x119, 0x11b, 0x11d, 0x11f, 0x121, 0x123, 0x191
     };
-    for (unsigned i = 0; i < sizeof(stub_opcodes)/sizeof(stub_opcodes[0]); ++i) {
-        fixture.instruction.instruction.opcode = stub_opcodes[i];
+    for (unsigned i = 0; i < sizeof(smoke_opcodes)/sizeof(smoke_opcodes[0]); ++i) {
+        fixture.instruction.instruction.opcode = smoke_opcodes[i];
         fixture.instruction.instruction.param_mask = 0;
         fixture.Operands()[0] = 0;
         fixture.Operands()[1] = 0;
@@ -1266,7 +1265,18 @@ void TestRecordInitOpcodes() {
 
 } // namespace
 
-int main() {
+int main(int argc, char** argv) {
+    if (argc == 3 && std::strcmp(argv[1], "--unsupported") == 0) {
+        uint8_t entity[0x2800] = {};
+        uint8_t state_bytes[0x20] = {};
+        ECLVMState* state = reinterpret_cast<ECLVMState*>(state_bytes);
+        CursorFixture fixture;
+        state->cursor = reinterpret_cast<ECLInstructionCursor*>(fixture.bytes);
+        *reinterpret_cast<ECLVMState**>(entity + 0x14D8) = state;
+        fixture.instruction.instruction.opcode = std::strtoul(argv[2], nullptr, 0);
+        ECL_VM_Dispatch(entity);
+        return 0; // The regression driver must reject a successful return.
+    }
     TestDirectAndLocalOperands();
     TestEncryptedStringTransform();
     TestScratchStackHelpers();

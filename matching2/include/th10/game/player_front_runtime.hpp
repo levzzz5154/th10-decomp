@@ -2,9 +2,52 @@
 #include <array>
 #include <cstdint>
 #include <vector>
-namespace th10::player_front {struct Player{int direction{},vx{},vy{},slow{},slow_age{30},x{},y{},shot_handle{},trail_count{};int sprite_handle{};float x_f{},y_f{};std::array<std::array<int,2>,32>trail{};};
-struct PlayerEdges{void*context{};int(*random)(void*){};void(*direction_changed)(void*){};void(*sprite_create)(void*){};void(*sprite_release)(void*){};};
-void UpdatePlayer(Player&,std::uint32_t input,bool control_enabled,int speed,int slow_speed,const PlayerEdges&);
+namespace th10::player_front {
+struct Player {
+    int direction{}, vx{}, vy{}, slow{}, slow_age{30}, x{}, y{}, shot_handle{},
+        trail_count{};
+    int sprite_handle{};
+    // The retail routine keeps the previous components at +0x44c/+0x450.
+    // Keep these after the preexisting sprite handle so positional host
+    // initializers retain their earlier field order.
+    int previous_vx{}, previous_vy{};
+    float x_f{}, y_f{};
+    std::array<std::array<int, 2>, 32> trail{};
+};
+
+// Retail has four speed slots: +0x3d4/+0x3d8 for normal/slow cardinal
+// movement and +0x3dc/+0x3e0 for normal/slow diagonal movement.
+struct PlayerSpeedSlots {
+    int normal_cardinal{};
+    int slow_cardinal{};
+    int normal_diagonal{};
+    int slow_diagonal{};
+};
+
+struct PlayerEdges {
+    void* context{};
+    int (*random)(void*){};
+    void (*direction_changed)(void*){};
+    void (*sprite_create)(void*){};
+    void (*sprite_release)(void*){};
+    // Retail calls sub_4492F0 after each valid sprite-handle check. The
+    // callback receives the rendered position (+224,+16), which is the
+    // useful part of that otherwise host-specific animation call.
+    void (*sprite_position)(void*, float, float){};
+};
+
+// The selection gate is the retail condition 3*dword_474C68+dword_474C6C==5.
+// When it is false, retail leaves slow_age unchanged while the playable gate
+// remains active; when control_enabled is false it resets slow_age to 30.
+void UpdatePlayer(Player&, std::uint32_t input, bool control_enabled,
+                  const PlayerSpeedSlots&, const PlayerEdges&,
+                  bool slow_age_selection_gate = true);
+
+// Compatibility entry point for existing host callers. It intentionally
+// supplies the same magnitude to all four retail slots; callers needing the
+// retail data contract should use PlayerSpeedSlots above.
+void UpdatePlayer(Player&, std::uint32_t input, bool control_enabled,
+                  int speed, int slow_speed, const PlayerEdges&);
 struct Front{bool update_task{},draw_task{};std::array<bool,9>lives{};std::array<int,3>digits{};std::vector<int>animations;int linked_a{},linked_b{};};struct FrontInput{int lives{},counter{},mode{},stage{},difficulty{};bool special{},extra_overlay{},stage_one_clear{};};
 // Slot-draw bridge for the retail 0x00413BC0 ANM slot draws (the
 // (a2+876)&1-gated sub_43E710 loops: sprites 10..19 at +16, 20..29 at

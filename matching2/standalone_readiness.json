@@ -30,23 +30,27 @@
     "dynamic_call_sites": 144,
     "audited_dynamic_call_sites": 144,
     "unaudited_dynamic_call_sites": 0,
-    "standalone_ready": true,
+    "standalone_ready": false,
     "by_recovery_status": {
       "semantic": 179
     }
   },
   "integration_gates": {
-    "retail_free_link_target": {
+    "retail_code_free_link_target": {
       "passed": true,
-      "evidence": "build_all_pe32.sh links only reconstructed matching2 sources plus the standalone host layer; no retail bytes or hybrid image are consumed by the target"
+      "evidence": "build_all_pe32.sh compiles C++ and imports retail data sections, not retail .text instructions"
     },
-    "retail_free_executable_produced": {
-      "passed": true,
-      "evidence": "build/pe32/th10_standalone.exe is produced by build_all_pe32.sh"
+    "retail_data_independent_build": {
+      "passed": false,
+      "evidence": "build_all_pe32.sh requires th10.exe and embeds its .rdata/.data; the runtime also requires game archives"
     },
-    "startup_to_title_smoke_test": {
-      "passed": true,
-      "evidence": "the PE32 runner under Wine reports SMOKE_PASS: arena constructed, 4 primary + 22 secondary scheduler callbacks, 33 default device states, 640x480 viewport, title tasks registered, title.anm and title_v.anm resolved, 60 title frames, clean shutdown"
+    "current_executable_produced": {
+      "passed": null,
+      "evidence": "Run ./build_all_pe32.sh; this source ledger does not run or authenticate a build"
+    },
+    "current_startup_to_title_smoke_test": {
+      "passed": null,
+      "evidence": "Run ./run_all_pe32.sh --smoke; a smoke pass does not establish rendering or gameplay parity"
     }
   },
   "top_blockers": [],

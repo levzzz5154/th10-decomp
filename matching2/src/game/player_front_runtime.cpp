@@ -18,17 +18,20 @@ namespace th10::player_front {
 // the up-right and down-left values 6/7 -- corrected to retail: 5=up-left,
 // 6=down-left, 7=up-right, 8=down-right); speed slots +984/+992 (slow) vs
 // +980/+988 (normal) -- the host model takes a single speed per mode and
-// cannot split the cardinal (+980/+984) from diagonal (+988/+992) slots;
+// uses explicit cardinal/diagonal slots (+980/+984 and +988/+992);
 // slow flag = (input>>2)&1 gated by the playable-state check (dword_477704
 // && dword_477704[+0x60] && +1164>=4); slow_age (a1+17160) = 0 while slow,
-// +1 up to 30 otherwise, forced to 30 when the gate fails; the x clamp
+// +1 up to 30 otherwise only when 3*dword_474C68+dword_474C6C==5, and 30
+// when the playable gate fails; the x clamp
 // [-18400,18400] and y clamp [3200,43200] (retail -18400/18400/3200/43200,
 // exact); the frame-delta scaling (a1+1008/+1012 =
 // (int)((double)component * flt_476F78), the two sub_463B2C calls; x87
 // fild/fmul runs in double precision, mirrored by the double->int cast);
 // the float writeback at +960/+964 ((float)int_pos * flt_470B00, i.e.
 // 0.01f); the trail shift gated on !slow && moving with trail[0] written
-// unconditionally (retail a1+17260/17264, 32 entries of 8 bytes).
+// unconditionally (retail a1+17260/17264, 32 entries of 8 bytes). The host
+// exposes sprite positioning through PlayerEdges while retaining the partial
+// manager/orbit model.
 // RETAIL SLOT-ORDER NOTE (verified this pass, asm 0x4253F4-0x425435): the
 // retail body accumulates the LEFT/RIGHT component into a1+976 (the
 // [3200,43200]-clamped slot) and the UP/DOWN component into a1+972 (the
@@ -47,15 +50,15 @@ namespace th10::player_front {
 // slow interpolation gated on slow_age>=30, sub_449350 per record) and
 // rotates the trail ring via the head index at a1+13568 (the model's linear
 // shift mirrors the head>=4 state; retail collapses the tail entries to the
-// head entry when head<4). The slow_age scene gate
-// (3*dword_474C68 + dword_474C6C == 5) is elided: the host applies the
-// increment/decrement whenever the playable gate passes.
+// head entry when head<4). The slow_age scene gate is represented by the
+// explicit slow_age_selection_gate argument; orbit interpolation and manager
+// ownership remain outside this host API.
 // HOST-SIDE HOOKS: `direction_changed` stands in for the sub_43E710 frame
 // flips and fires exactly when retail flips (loc_4252E0): the vertical
 // (up/down) component's sign changed -- (new<0 && prev>=0) || (new>0 &&
 // prev<=0) || (new==0 && prev!=0) against the stored previous a1+1100; the
-// previous sign is read from the previous direction (3/5/7 = up, 4/6/8 =
-// down). `sprite_create` fires where retail runs sub_449950+sub_449870+
+// previous sign is read from Player::previous_vy. `sprite_create` fires where
+// retail runs sub_449950+sub_449870+
 // sub_4489D0 (slow && handle empty); `sprite_release` fires where retail
 // runs sub_4491C0+sub_449210 (not slow, handle alive); `enabled` stands in
 // for the retail playable-state gate.
@@ -64,14 +67,50 @@ namespace th10::player_front {
 // sub_4491C0/sub_449210/sub_463B2C (x2)/sub_4492F0/sub_449350 (x8) -- so the
 // model stays random-free; the PlayerEdges::random member is retained but
 // unused.
-void UpdatePlayer(Player&p,std::uint32_t in,bool enabled,int speed,int slow,const PlayerEdges&e){
-    int old=p.direction;
-    bool l=in&0x10,r=in&0x20,u=in&0x40,d=in&0x80;
-    p.direction=l?(u?5:d?6:1):r?(u?7:d?8:2):u?3:d?4:0;
+void UpdatePlayer(Player&p,std::uint32_t in,bool enabled,
+                  const PlayerSpeedSlots& speeds,const PlayerEdges&e,
+                  bool slow_age_selection_gate){
+    const bool left = (in & 0x10) != 0;
+    const bool right = (in & 0x20) != 0;
+    const bool up = (in & 0x40) != 0;
+    const bool down = (in & 0x80) != 0;
+
+    // The opposing horizontal checks are deliberately ordered right before
+    // left. Retail checks 0x20 after rejecting diagonals, so 0x30 selects 2.
+    p.direction = (left && up) ? 5 : (right && up) ? 7
+                 : (left && down) ? 6 : (right && down) ? 8
+                 : right ? 2 : left ? 1 : up ? 3 : down ? 4 : 0;
     p.slow=enabled&&bool(in&4); // retail: (dword_474E5C>>2)&1 under the playable gate
-    int v=p.slow?slow:speed;    // retail: slow slots +984/+992, normal +980/+988
-    p.vx=(l?-v:r?v:0);
-    p.vy=(u?-v:d?v:0);
+    const bool diagonal = p.direction >= 5 && p.direction <= 8;
+    const int v = p.slow
+        ? (diagonal ? speeds.slow_diagonal : speeds.slow_cardinal)
+        : (diagonal ? speeds.normal_diagonal : speeds.normal_cardinal);
+    // Components follow the selected direction, rather than independently
+    // re-reading the raw bits. This matters for opposing bits: retail's
+    // selected direction 2 is a rightward cardinal move even though 0x10 is
+    // also present in the input word.
+    p.vx = 0;
+    p.vy = 0;
+    switch(p.direction){
+        case 1: p.vx=-v; break;
+        case 2: p.vx= v; break;
+        case 3: p.vy=-v; break;
+        case 4: p.vy= v; break;
+        case 5: p.vx=-v; p.vy=-v; break;
+        case 6: p.vx=-v; p.vy= v; break;
+        case 7: p.vx= v; p.vy=-v; break;
+        case 8: p.vx= v; p.vy= v; break;
+        default: break;
+    }
+
+    // Retail updates this field before the sprite branch. The scene gate is
+    // independent of the playable gate: when it is closed the old age is
+    // retained, rather than being advanced once per host call.
+    if(!enabled){
+        p.slow_age=30;
+    }else if(slow_age_selection_gate){
+        p.slow_age=p.slow?0:std::min(30,p.slow_age+1);
+    }
     // Retail sprite create-on-demand (loc_4251DA): slow && a1+12956==0 ->
     // sub_449950 alloc, [obj+0x20]=9 (sprite id), [obj+0x35C]|=0x40000000,
     // sub_449870(anm, obj, 352), sub_4489D0(&handle,...) -> a1+12956=handle.
@@ -90,10 +129,11 @@ void UpdatePlayer(Player&p,std::uint32_t in,bool enabled,int speed,int slow,cons
     // Retail sub_43E710 flip (loc_4252E0): fires exactly when the vertical
     // component's sign changes, comparing the new iVar7 with the previous
     // a1+1100.  The previous direction encodes that sign.
-    const int prev_v=(old==3||old==5||old==7)?-1:(old==4||old==6||old==8)?1:0;
+    const int prev_v=(p.previous_vy<0)?-1:(p.previous_vy>0)?1:0;
     const int new_v=(p.vy<0)?-1:(p.vy>0)?1:0;
     if(prev_v!=new_v&&e.direction_changed)e.direction_changed(e.context);
-    p.slow_age=!enabled?30:(p.slow?0:std::min(30,p.slow_age+1));
+    p.previous_vx=p.vx;
+    p.previous_vy=p.vy;
     // Retail frame-delta scaling (loc_4253F4): a1+1008=(int)((double)vy*flt),
     // a1+1012=(int)((double)vx*flt), then each position slot += its scaled
     // component (truncation toward zero via __ftol2, mirrored here by the
@@ -109,6 +149,16 @@ void UpdatePlayer(Player&p,std::uint32_t in,bool enabled,int speed,int slow,cons
     p.y_f=(float)p.y*0.01f;
     if(!p.slow&&(p.vx||p.vy)){for(int i=31;i>0;--i)p.trail[i]=p.trail[i-1];}
     p.trail[0]={p.x,p.y};
+    if(p.sprite_handle&&e.sprite_position)
+        e.sprite_position(e.context,p.x_f+224.0f,p.y_f+16.0f);
+}
+
+void UpdatePlayer(Player&p,std::uint32_t in,bool enabled,int speed,int slow,
+                  const PlayerEdges&e){
+    // Preserve the old host API while making its limitation explicit: this
+    // adapter cannot express separate cardinal and diagonal retail speeds.
+    UpdatePlayer(p,in,enabled,
+                 PlayerSpeedSlots{speed,slow,speed,slow},e,true);
 }
 
 // 0x00413BC0 - InitializeFront: rebuild the front/HUD state (task flags, the

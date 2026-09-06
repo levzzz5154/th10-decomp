@@ -4,6 +4,9 @@
 #include "th10/script/script_label_search.hpp"
 #include "th10/render/animation_manager.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/runtime/missing_edge.hpp"
+
+#include <cstdio>
 
 #include <cmath>
 #include <cstring>
@@ -1578,45 +1581,22 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     }
     case 0x124:
     case 0x125: {
-        // Retail loc_40FA84 (jumptable cases 292,293): random movement
-        // placement for the per-axis record at entity+0x1D4 (0x124) /
-        // +0x210 (0x125).  The boundary math mixes the per-axis movement
-        // boundaries (entity+0x13AC/0x13B0/0x13B4/0x13B8), the player
-        // position (DAT_00477834 + 0x3C0), and three PRNG draws from
-        // FUN_0044bb90 (dword_4918B0 width) with the constants
-        // 0.25 / (pi/3) / (1/3) / 0.5 / pi, choosing the spread by the
-        // boundary/crossed comparisons, then wrapping into [-pi,pi].
-        // LOUD BOUNDARY: this opcode is not executed by the recovered
-        // stage datasets (verified: `ecl_opcode` trace has zero 0x124/
-        // 0x125 events), so it is left as an explicit unsupported edge
-        // rather than a silent no-op.  The operands are still consumed
-        // so an ECL script that reaches it advances its instruction
-        // pointer identically to the retail flow.
-        ECL_ResolveIntOperand(state->cursor, 1);
-        ECL_ResolveFloatOperand(state->cursor, 2);
-        ECL_ResolveIntOperand(state->cursor, 0);
-        return 0;
+        // Retail loc_40FA84 places movement records using player position,
+        // movement bounds, and PRNG draws. No placement is implemented here.
+        char edge[96];
+        std::snprintf(edge, sizeof(edge), "ECL opcode 0x%03X: random movement placement", opcode);
+        Runtime_MissingEdge(0x0040E770, edge);
     }
     case 0x156:
     case 0x15c:
     case 0x165:
     case 0x166:
     case 0x167: {
-        // Retail loc_410E7B (jumptable cases 342,348,357-359):
-        // encrypted-string sound playback.  Reads a length-prefixed
-        // encrypted string from entity+0x13C, decodes it with a rotating
-        // xor (key 0x77, step +7, increment +0x10), then invokes
-        // FUN_00409280(DAT_004776f4, index, decoded, value) with the
-        // resolved slot offset (DAT_00474c74 adjustment for the
-        // 0x165-0x167 branches).
-        // LOUD BOUNDARY: the host has no reconstructed sound-command
-        // queue for the DAT_004776f4 manager, and the stage datasets do
-        // not reach this family (the `ecl_opcode` trace is empty for
-        // these opcodes).  The int operand is consumed so an ECL script
-        // that does reach it advances its pointer identically; the
-        // playback itself is not fabricated.
-        ECL_ResolveIntOperand(state->cursor, 0);
-        return 0;
+        // Retail loc_410E7B decodes text and queues it through FUN_00409280.
+        // The sound-command manager binding is not reconstructed.
+        char edge[96];
+        std::snprintf(edge, sizeof(edge), "ECL opcode 0x%03X: encrypted sound commands", opcode);
+        Runtime_MissingEdge(0x0040E770, edge);
     }
     case 0x191: {
         // Retail 0x004073E0 materializes the configured record relative to the
@@ -1657,13 +1637,10 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
         return 0;
     }
     case 0x19a: {
-        // Retail FUN_00408210(1) + FUN_0041c850: per-frame manager-side
-        // cleanup tick (region sweep + slot reclamation).
-        // LOUD BOUNDARY: the entity region sweep is reconstructed as
-        // EntityRegionSweep (0x00408210) but the stage datasets do not
-        // reach 0x19a (`ecl_opcode` trace has zero events); the sweep is
-        // driven by the fixed stage timing path instead.  No fabrication.
-        return 0;
+        // Retail invokes FUN_00408210(1) and FUN_0041C850 here.
+        char edge[96];
+        std::snprintf(edge, sizeof(edge), "ECL opcode 0x%03X: manager cleanup", opcode);
+        Runtime_MissingEdge(0x0040E770, edge);
     }
     case 0x19c:
     case 0x19d:
@@ -1674,19 +1651,16 @@ int __fastcall ECL_VM_Dispatch(void* entity) {
     case 0x1b0:
     case 0x1b1:
     case 0x1b2: {
-        // Enemy state setter family via FUN_0041c510: the 0x77-float
-        // working buffer is zeroed, optionally seeded from entity+0x2e4
-        // for the 0x1af/0x1b0/0x1b1/0x1b2 sub-variants, then FUN_0041c510
-        // mixes template state into the working buffer and writes back.
-        // LOUD BOUNDARY: the 0x77-float state mixer (FUN_0041c510) is not
-        // reconstructed, and the stage datasets do not reach this family
-        // (`ecl_opcode` trace is empty for all eight opcodes). Unsupported
-        // edge, not a silent no-op.
-        return 0;
+        // Retail prepares a 0x77-float buffer and dispatches FUN_0041C510;
+        // the per-opcode seed/copy and state-mixer integration are missing.
+        char edge[96];
+        std::snprintf(edge, sizeof(edge), "ECL opcode 0x%03X: enemy state mixer", opcode);
+        Runtime_MissingEdge(0x0040E770, edge);
     }
     default:
-        // The remaining opcode families still execute from the retail image.
-        // Their behavior is being moved here in independently verified groups.
+        // Unclassified opcodes currently advance without work. The retail
+        // default/valid-opcode boundary still needs auditing; no retail code
+        // is called here. This dispatcher remains partial in the ledger.
         return 0;
     }
 }

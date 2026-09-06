@@ -1,7 +1,7 @@
 #pragma once
 
 // Projected quad rebuild, billboard projection, and box culling (retail 0x00444240, 0x00443B60, 0x00403090).
-// register-accurate naked x86 assembly.
+// Typed C++ models; see the focused projection tests.
 
 struct ProjectionVec3 { float x, y, z; };
 struct ProjectionMatrix { float m[16]; };
