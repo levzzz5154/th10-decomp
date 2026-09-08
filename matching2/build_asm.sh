@@ -7,7 +7,7 @@ if (( $# != 0 )) && { (( $# != 2 )) || [[ "$1" != "--verify" ]]; }; then
     exit 2
 fi
 rm -f -- "$ROOT/build/asm-baseline/full/th10.exe"
-python3 "$ROOT/tools/build_asm_text.py" "$@"
-python3 "$ROOT/tools/pack_asm_pe.py" \
+python3 "$ROOT/tools/matching/build_asm_text.py" "$@"
+python3 "$ROOT/tools/matching/pack_asm_pe.py" \
     --text "$ROOT/build/asm-baseline/full/text.bin" \
     --output "$ROOT/build/asm-baseline/full/th10.exe" "$@"

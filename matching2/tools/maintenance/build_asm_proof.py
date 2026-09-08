@@ -1,54 +1,29 @@
 #!/usr/bin/env python3
 """Assemble and link two retail regions, verify every byte, then run a harness."""
 
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
+from matching2.tools.common.pe import PEImage
+from matching2.tools.common.process import run
+from matching2.tools.common.wine import DEFAULT_TOOLKIT, winpath
+
 import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
 import re
 import shutil
 import struct
 import subprocess
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 SOURCE = ROOT / "matching2/asm/proof"
-
-
-class PEImage:
-    def __init__(self, data):
-        self.data = data
-        if data[:2] != b"MZ" or len(data) < 64:
-            raise ValueError("not a DOS/PE image")
-        self.pe = struct.unpack_from("<I", data, 0x3C)[0]
-        if data[self.pe:self.pe + 4] != b"PE\0\0":
-            raise ValueError("missing PE signature")
-        machine, count, self.timestamp, _, _, optional_size, _ = struct.unpack_from(
-            "<HHIIIHH", data, self.pe + 4)
-        optional = self.pe + 24
-        if machine != 0x14C or struct.unpack_from("<H", data, optional)[0] != 0x10B:
-            raise ValueError("expected x86 PE32")
-        self.image_base = struct.unpack_from("<I", data, optional + 28)[0]
-        self.entry = self.image_base + struct.unpack_from("<I", data, optional + 16)[0]
-        self.sections = []
-        for index in range(count):
-            fields = struct.unpack_from("<8sIIIIIIHHI", data, optional + optional_size + index * 40)
-            name, virtual_size, rva, size, raw = fields[:5]
-            if raw + size > len(data):
-                raise ValueError("truncated section")
-            self.sections.append({"name": name.rstrip(b"\0").decode("ascii"),
-                                  "address": self.image_base + rva,
-                                  "virtual_size": virtual_size, "raw_size": size, "raw_offset": raw,
-                                  "characteristics": fields[9]})
-
-    def read(self, address, size):
-        for section in self.sections:
-            offset = address - section["address"]
-            if 0 <= offset and offset + size <= section["raw_size"]:
-                start = section["raw_offset"] + offset
-                return self.data[start:start + size]
-        raise ValueError(f"range {address:#x}+{size:#x} is not backed by PE section data")
 
 
 def verify_regions(retail, built, manifest, symbols):
@@ -77,18 +52,10 @@ def verify_regions(retail, built, manifest, symbols):
     return results, calls
 
 
-def run_logged(command, env, log, cwd):
-    result = subprocess.run(command, env=env, cwd=cwd, capture_output=True, text=True, timeout=60)
-    log.write_text(result.stdout + result.stderr)
-    if result.returncode:
-        raise RuntimeError(f"command failed ({result.returncode}); see {log}")
-    return result
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--exe", type=Path, default=Path.home() / "Games/TH10 - Mountain of Faith/th10.exe")
-    parser.add_argument("--toolkit", type=Path, default=Path.home() / ".local/share/th10-toolchains/msvc-13.10.6030")
+    parser.add_argument("--toolkit", type=Path, default=DEFAULT_TOOLKIT)
     parser.add_argument("--assembler", default="i686-w64-mingw32-as")
     parser.add_argument("--output", type=Path, default=ROOT / "matching2/build/asm-baseline/proof")
     args = parser.parse_args()
@@ -116,13 +83,9 @@ def main():
         obj = args.output / (name + ".obj")
         obj.unlink(missing_ok=True)
         command = [assembler, "-I", str(SOURCE), str(SOURCE / (name + ".s")), "-o", str(obj)]
-        run_logged(command, env, args.output / (name + ".log"), args.output)
+        run(command, args.output / (name + ".log"), args.output, env=env, timeout=60)
         commands.append(command)
         objects.append(obj)
-
-    def winpath(path):
-        return subprocess.check_output(["winepath", "-w", str(path)], env=env,
-                                       stderr=subprocess.DEVNULL, text=True).strip()
 
     executable = args.output / "proof.exe"
     linker = args.toolkit / "bin/link.exe"
@@ -131,7 +94,7 @@ def main():
                "/incremental:no", "/opt:noref", "/opt:noicf",
                "/out:" + winpath(executable), "/map:" + winpath(args.output / "proof.map"),
                *[winpath(obj) for obj in objects], winpath(args.toolkit / "lib/kernel32.lib")]
-    run_logged(command, env, args.output / "link.log", args.output)
+    run(command, args.output / "link.log", args.output, env=env, timeout=60)
     commands.append(command)
     linked_data = bytearray(executable.read_bytes())
     built = PEImage(linked_data)
@@ -146,7 +109,7 @@ def main():
     results, calls = verify_regions(retail, built, manifest, symbols)
     if built.entry != symbols.get("_probe_entry"):
         raise ValueError("entry point does not select the test harness")
-    runtime = run_logged(["wine", str(executable)], env, args.output / "runtime.log", args.output)
+    runtime = run(["wine", str(executable)], args.output / "runtime.log", args.output, env=env, timeout=60)
     report = {
         "purpose": "Small independent assembly-to-PE proof; not a complete retail executable",
         "retail_sha256": retail_sha,

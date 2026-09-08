@@ -8,13 +8,18 @@ stub signals (MissingEdge arms, return-1 bodies, MSVC-only bodies,
 binding checks), and claim-presence (registry claims an address the
 source never comments -> improper promotion).
 """
-import json, re, sys
+
+import sys
 from pathlib import Path
 
-ROOT = Path("/home/levzzz/Games/th10Decomp/matching2")
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+import json, re, sys
+
+ROOT = Path(__file__).resolve().parents[2]
 REGISTRY = ROOT / "function_registry.json"
-sys.path.insert(0, str(ROOT / "tools"))
-from ida_export import body_sizes
+from matching2.tools.reference.ida_export import body_sizes
 
 CLAIM = re.compile(r"0x004([0-9A-Fa-f]{5})")
 STUB_SIGNALS = [

@@ -4,30 +4,27 @@
 The retail executable is optional verification input, never a linker input.
 """
 
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
+from matching2.tools.common.process import run, sha
+
 import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 
-from build_asm_proof import PEImage
+from matching2.tools.common.pe import PEImage
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 SOURCE = ROOT / "matching2/asm/text"
-
-
-def sha(data):
-    return hashlib.sha256(data).hexdigest()
-
-
-def run(command, log, cwd):
-    result = subprocess.run(command, cwd=cwd, capture_output=True, text=True, timeout=180)
-    log.write_text(result.stdout + result.stderr)
-    if result.returncode:
-        raise RuntimeError(f"command failed ({result.returncode}): see {log}")
 
 
 def main():

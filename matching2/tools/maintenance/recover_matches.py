@@ -4,24 +4,32 @@
 This produces objects and evidence, not an executable or a coverage claim.
 """
 
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
+from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
+
 import argparse
 from collections import Counter
 import csv
 import hashlib
 import io
 import json
-import os
-from pathlib import Path
 import re
 import subprocess
 import tarfile
 
-from compare_obj import read_coff_function, read_original
+from matching2.tools.common.coff import read_coff_function
+from matching2.tools.matching.compare_obj import read_original
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 REVISION = "2b8f23229ab45b9e8cdcfda5ac12689204897a5a"
-TOOLKIT = Path.home() / ".local/share/th10-toolchains/msvc-13.10.6030"
+TOOLKIT = DEFAULT_TOOLKIT
 FLAGS = ["/nologo", "/c", "/O2", "/Gz", "/MT", "/Gy", "/G6", "/GF", "/Dnullptr=0"]
 
 
@@ -45,13 +53,6 @@ def adapt_snapshot(snapshot):
             edits.append({"path": relative, "before": before, "after": after, "count": count})
         path.write_text(content)
     return edits
-
-
-def winpath(path):
-    return subprocess.check_output(
-        ["winepath", "-w", str(path)], env={**os.environ, "WINEDEBUG": "-all"},
-        text=True, stderr=subprocess.DEVNULL,
-    ).strip()
 
 
 def main():
@@ -86,13 +87,9 @@ def main():
     with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
         tar.extractall(snapshot, filter="data")
     compatibility_edits = adapt_snapshot(snapshot)
-    env = {**os.environ, "WINEDEBUG": "-all",
-           "INCLUDE": winpath(args.toolkit / "include"),
-           "LIB": winpath(args.toolkit / "lib")}
+    env = compiler_environment(args.toolkit, include_library=True)
     # Record actual binaries, including the compiler backends, for repeatability.
-    identities = {}
-    for name in ("cl.exe", "link.exe", "c1.dll", "c1xx.dll", "c2.dll"):
-        identities[name] = hashlib.sha256((args.toolkit / "bin" / name).read_bytes()).hexdigest()
+    identities = toolchain_hashes(args.toolkit, ("cl.exe", "link.exe", "c1.dll", "c1xx.dll", "c2.dll"))
     banner = subprocess.run(["wine", str(args.toolkit / "bin/cl.exe")], env=env,
                             capture_output=True, text=True)
     builds = {}

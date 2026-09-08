@@ -1,13 +1,17 @@
 """Check that historical metadata cannot manufacture current completion."""
-from collections import defaultdict
-from pathlib import Path
+
 import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from collections import defaultdict
 import unittest
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-import coverage_report
-import standalone_readiness
+from matching2.tools.runtime import coverage_report
+from matching2.tools.runtime import standalone_readiness
 
 
 class ProgressEvidenceTest(unittest.TestCase):

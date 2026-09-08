@@ -12,7 +12,7 @@ import json
 import re
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 FILES = [
     *sorted((ROOT / "src").rglob("*.cpp")),
     *sorted((ROOT / "standalone").glob("*.cpp")),
@@ -87,7 +87,7 @@ for kind, path, line_no, line in rows + software_render_rows:
 # so they stay hard-zero. empty-function was invisible until the pattern was
 # added and has a standing population, so it ratchets against a baseline: the
 # count may fall but never rise.
-BASELINE = ROOT / "tools" / "runtime_placeholder_baseline.json"
+BASELINE = ROOT / "tools" / "runtime" / "runtime_placeholder_baseline.json"
 RATCHETED = ("empty-function", "empty-lambda-arg")
 empty_functions = [r for r in rows if r[0] in RATCHETED]
 strict = [r for r in rows if r[0] not in RATCHETED]
@@ -132,7 +132,7 @@ if "--update-baseline" in sys.argv:
                    "19 do-nothing hook edges the assigned-lambda pattern had "
                    "never seen. Thirteen of those were fixed on the spot; the "
                    "rest are edges whose subsystem the host does not build. "
-                   "see tools/runtime_placeholder_audit.py.",
+                   "see tools/runtime/runtime_placeholder_audit.py.",
         "empty_function_count": len(empty_functions),
         "files": sorted(f"{r[1]}:{r[2]}" for r in empty_functions),
         "exempt": exemptions,

@@ -1,16 +1,20 @@
 """Failure gates for full-text source recovery and build publication."""
 
-import json
+import sys
 from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import json
 import shutil
 import subprocess
-import sys
 import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
-from generate_asm_text import consume_unresolved, replace_instructions
+from matching2.tools.maintenance.generate_asm_text import consume_unresolved, replace_instructions
 
 
 class RecoveryPartitionTest(unittest.TestCase):
@@ -62,7 +66,7 @@ class BuildPublicationTest(unittest.TestCase):
             (source / "manifest.json").write_text(json.dumps({"text_sha256": "wrong"}))
             (output / "text.bin").write_bytes(b"stale")
             (output / "report.json").write_text("{}")
-            result = subprocess.run([sys.executable, str(ROOT / "tools/build_asm_text.py"),
+            result = subprocess.run([sys.executable, str(ROOT / "tools/matching/build_asm_text.py"),
                                      "--source-dir", str(source), "--output", str(output)],
                                     capture_output=True, text=True)
             self.assertNotEqual(result.returncode, 0)

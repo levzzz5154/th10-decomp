@@ -13,7 +13,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PROBE = ROOT / "tools" / "retail_bounded_probe.sh"
+PROBE = ROOT / "tools" / "runtime" / "retail_bounded_probe.sh"
 
 # x86/x86-64 general-purpose, segment, flag, and floating-point registers,
 # plus the common pseudo-register names gdb exposes.

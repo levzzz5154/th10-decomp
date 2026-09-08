@@ -4,18 +4,24 @@
 Normal builds use the resulting versioned assembly, not this generator or retail.
 """
 
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
 import argparse
 import hashlib
 import json
-from pathlib import Path
 import re
 import shutil
 import tempfile
 
-from build_asm_proof import PEImage
+from matching2.tools.common.pe import PEImage
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 TEXT_START = 0x00401000
 TEXT_END = 0x00465C00
 
@@ -112,7 +118,7 @@ def main():
         (args.output / ".generation-in-progress").write_text(
             "A source regeneration was started. Builds refuse this tree until regeneration succeeds.\n")
     # Keep decoder dependencies out of the ordinary build path.
-    from asm_instruction import instruction_to_asm
+    from matching2.tools.matching.asm_instruction import instruction_to_asm
 
     original = args.exe.read_bytes()
     validation = json.loads((ROOT / "decompiled/reference_bytes_validation.json").read_text())

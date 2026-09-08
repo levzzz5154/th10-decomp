@@ -61,7 +61,7 @@ import sys
 from typing import Any, Iterable, Mapping, Sequence
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_TOOLKIT = Path.home() / ".local/share/th10-toolchains/msvc-13.10.6030"
 COMPILER_VERSION = "13.10.6030"
 LINKER_VERSION = "7.10.6030"

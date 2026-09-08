@@ -1,4 +1,4 @@
-name: Host tests and reference integrity
+name: Matching tools and runtime checks
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -6,6 +6,14 @@ permissions:
   contents: read
 
 jobs:
+  matching-tools:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Test matching verification tools (full MSVC build runs locally)
+        run: make test
   test:
     runs-on: ubuntu-24.04
     timeout-minutes: 15

@@ -62,7 +62,7 @@ added in the later batch script. These are the project's established matching
 recipe, not a recovered complete original command line.
 
 Fresh compilation of the historical sources with installed 13.10.3052 and
-comparison using `tools/compare_obj.py` produced:
+comparison using `tools/matching/compare_obj.py` produced:
 
 | Function | Address | Result | Meaning |
 | --- | --- | --- | --- |
@@ -91,7 +91,7 @@ WINEDEBUG=-all INCLUDE="$(winepath -w "$toolkit_dir/include")" \
   "/I$(winepath -w "$probe_dir/matching2/include")" \
   "/Fo$(winepath -w "$probe_dir/frame_counter.obj")" \
   "$(winepath -w "$probe_dir/matching2/src/game/frame_counter.cpp")"
-python3 matching2/tools/compare_obj.py \
+python3 matching2/tools/matching/compare_obj.py \
   "$probe_dir/frame_counter.obj" AtInterval 0x00427C70
 ```
 
@@ -117,7 +117,7 @@ establish current source validity.
 
 ## Recovered baseline
 
-Run `python3 matching2/tools/recover_matches.py` from the repository root.
+Run `python3 matching2/tools/maintenance/recover_matches.py` from the repository root.
 It exports the 90 required source files and headers from
 `2b8f23229ab45b9e8cdcfda5ac12689204897a5a`, the parent of the shim-removal
 commit. The generated snapshot retains historical inline assembly. Two ECL

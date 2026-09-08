@@ -32,7 +32,7 @@ Run the bounded stage probe from `matching2/`:
 
 ```sh
 PROBE_SECONDS=120 KEY_DELAY=1.4 TH10_GAME_DIR="/home/levzzz/Games/TH10 - Mountain of Faith" \
-  bash tools/retail_bounded_probe.sh /tmp/retail_stage.log \
+  bash tools/runtime/retail_bounded_probe.sh /tmp/retail_stage.log \
   "Return Enter Z Z Z Z Z Z Z Z Z Z"
 ```
 
@@ -54,8 +54,8 @@ Captured event vocabulary (`th10-recon-jsonl-v1`):
 Normalize and compare against the reconstruction stage trace:
 
 ```sh
-matching2/tools/retail_trace_normalize.py /tmp/retail_stage.log /tmp/retail.jsonl
-matching2/tools/retail_vs_recon_stage.py /tmp/retail.jsonl /tmp/recon_stage.jsonl
+matching2/tools/runtime/retail_trace_normalize.py /tmp/retail_stage.log /tmp/retail.jsonl
+matching2/tools/runtime/retail_vs_recon_stage.py /tmp/retail.jsonl /tmp/recon_stage.jsonl
 ```
 
 The reconstruction stage trace is generated with

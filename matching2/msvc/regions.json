@@ -5210,12 +5210,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ad20_0040ad20",
+      "name": "semantic_UpdateBoundedCounter_0040ad20",
       "source": "src/game/score.cpp",
-      "symbol": "_asm_FUN_0040ad20_0040ad20",
+      "symbol": "?UpdateBoundedCounter@@YIIIPAI@Z",
       "address": "0x0040AD20",
       "size": 33,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040AD20"
     },
     {
@@ -11805,12 +11805,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageTip_Initialize_00418d00",
+      "name": "semantic_StageTip_Initialize_00418d00",
       "source": "src/game/stage_tips.cpp",
-      "symbol": "_asm_StageTip_Initialize_00418d00",
+      "symbol": "?StageTip_Initialize@@YIPAUStageTip@@PAXPAU1@@Z",
       "address": "0x00418D00",
       "size": 51,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00418D00"
     },
     {
@@ -48010,18 +48010,6 @@
     "src/util/runtime_pool.cpp"
   ],
   "summary": {
-    "regions_by_kind": {
-      "asm": 2817,
-      "padding": 1937,
-      "semantic": 42,
-      "data": 73
-    },
-    "bytes_by_kind": {
-      "semantic": 1378,
-      "asm": 384142,
-      "data": 11267,
-      "padding": 15885
-    },
     "encoding_helpers": {
       "explicit_disp32": 205,
       "external_rel8": 437,

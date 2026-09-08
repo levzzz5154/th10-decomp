@@ -14,12 +14,12 @@ asm, types) over the static files.  Scripts can import it directly; the CLI
 wraps the same functions.
 
 CLI:
-  python3 tools/ida_export.py functions [--json]
-  python3 tools/ida_export.py decompile 0x0044DF70 [--strip-decls]
-  python3 tools/ida_export.py callers 0x0044DF70
-  python3 tools/ida_export.py callees 0x0044DF70
-  python3 tools/ida_export.py asm 0x0044DF70
-  python3 tools/ida_export.py types [substring]
+  python3 tools/reference/ida_export.py functions [--json]
+  python3 tools/reference/ida_export.py decompile 0x0044DF70 [--strip-decls]
+  python3 tools/reference/ida_export.py callers 0x0044DF70
+  python3 tools/reference/ida_export.py callees 0x0044DF70
+  python3 tools/reference/ida_export.py asm 0x0044DF70
+  python3 tools/reference/ida_export.py types [substring]
 """
 
 import argparse
@@ -28,7 +28,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 IDA_DIR = ROOT.parent / "ida"
 C_SOURCE = IDA_DIR / "th10.exe.c"
 ASM_SOURCE = IDA_DIR / "th10.exe.asm"

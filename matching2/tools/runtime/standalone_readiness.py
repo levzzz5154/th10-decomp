@@ -7,17 +7,23 @@ standalone blocker. Indirect scheduler callbacks that cannot be recovered
 from raw pseudocode are represented by explicit additional roots.
 """
 
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
 import argparse
 import csv
 import json
 import re
 from collections import Counter, defaultdict, deque
-from pathlib import Path
 
-import coverage_report
+from matching2.tools.runtime import coverage_report
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 REPOSITORY = ROOT.parent
 GHIDRA_ROOT = REPOSITORY / "decompiled" / "ghidra_raw"
 INDEX = GHIDRA_ROOT / "index.tsv"

@@ -1,18 +1,22 @@
 """Strict parser tests and an optional live MSVC 7.1 LTCG integration test."""
 
-import json
+import sys
 from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import json
 import shutil
 import struct
-import sys
 import tempfile
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "matching2/tools"))
 
-from ltcg_semantic import (  # noqa: E402
+from matching2.tools.matching.ltcg_semantic import (  # noqa: E402
     DEFAULT_TOOLKIT,
     LTCGSemanticError,
     PEImage,

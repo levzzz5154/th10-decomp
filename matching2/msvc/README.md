@@ -1,4 +1,9 @@
-# Complete MSVC C++ project
+# Primary matching C++ project
+
+This is the maintained source for readable C++ that recompiles byte-for-byte.
+Follow the [contribution workflow](../../CONTRIBUTING.md). From the repository
+root, `make verify` runs the matching-tool tests and this build. Existing inline
+assembly is scaffolding to replace with ordinary C++.
 
 This project compiles every executable instruction from `.cpp` files with MSVC
 **13.10.6030**. The result must match all **487,936 bytes** of the supported
@@ -32,14 +37,14 @@ a native Visual Studio solution is not supplied.
 - `regions.json` records every selected compiler symbol, address, extent,
   relocation binding, and source file. `layout/function_ownership.json` records
   naming and ownership evidence.
-- `data` and `pe_layout.json` preserve non-code PE data, resources, and metadata.
+- `../reference/data` and `pe_layout.json` preserve non-code PE data, resources, and metadata.
   The DOS instructions and message compile from `src/platform/dos_stub.cpp`.
 
-The project restores **33 historical ordinary C++ functions**, plus
-`FrameCounterPair::AtInterval`: **34 functions / 1,041 bytes**. These definitions
+The [generated progress report](PROGRESS.md) counts ordinary C++ regions and bytes,
+including historical recovered functions and `FrameCounterPair::AtInterval`. These definitions
 live alongside their subsystem's remaining inline-assembly bodies. Remaining
 executable code uses named naked functions with MSVC `__asm` instructions.
-This is complete C++ build coverage, with semantic C++ recovery still ongoing.
+This is complete compiler-input coverage, with readable C++ recovery still ongoing.
 The separate modern runtime remains under `matching2/src`.
 
 ## Replacing inline assembly with ordinary C++
@@ -58,6 +63,6 @@ by strict hashes of all 412,672 `.text` bytes and the whole executable.
 A mismatch fails the build and removes stale success outputs. There are no
 relocation masks, original-code substitutions, or assembly fallbacks.
 
-`tools/generate_msvc_project.py` is a one-time migration utility, outside the
+`tools/maintenance/generate_msvc_project.py` is a one-time migration utility, outside the
 normal build. Its `--replace` option overwrites generated source files, so
 ordinary recovery work should edit the existing project directly.

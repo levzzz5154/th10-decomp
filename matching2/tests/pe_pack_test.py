@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """Tests for the no-retail-input PE packaging gate."""
 
-import hashlib
 import sys
-import tempfile
-import unittest
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import hashlib
+import tempfile
+import unittest
+
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "matching2" / "tools"))
-import pack_asm_pe  # noqa: E402
+from matching2.tools.matching import pack_asm_pe  # noqa: E402
 
 
 RETAIL = Path.home() / "Games" / "TH10 - Mountain of Faith" / "th10.exe"

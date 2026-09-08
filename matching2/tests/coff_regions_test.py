@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 """Synthetic COFF tests for the lossless section normalizer."""
 
-import hashlib
+import sys
 from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import hashlib
 import struct
 import tempfile
 import unittest
 
-from matching2.tools.coff_regions import CoffRegionError, normalize_object
+from matching2.tools.common.coff_regions import CoffRegionError, normalize_object
 
 
 ROOT = Path(__file__).resolve().parents[2]

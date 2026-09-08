@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
 """Synthetic CLI contract tests; these fixtures do not establish retail parity."""
+
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 import copy
 import io
 import json
 import subprocess
-import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
-from retail_vs_recon_stage import (  # noqa: E402
+from matching2.tools.runtime.retail_vs_recon_stage import (  # noqa: E402
     all_compare, clock_compare, flat_compare, key_fields, ordered_vms,
     recon_ticks, retail_ticks, tick_agrees,
 )
 
-TOOL = ROOT / "tools" / "retail_vs_recon_stage.py"
+TOOL = ROOT / "tools" / "runtime" / "retail_vs_recon_stage.py"
 BASE = 0x30000000
 
 

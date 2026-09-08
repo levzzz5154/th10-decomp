@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
 """Compile the complete C++ project and require an exact independently linked PE."""
+
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
 import argparse
-from collections import Counter, defaultdict
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-import os
-from pathlib import Path
 import subprocess
 
-from build_asm_proof import PEImage
-from build_asm_text import run, sha
-from coff_regions import normalize_object
-from compare_obj import read_coff_function
-from pack_asm_pe import build_image
-from recover_matches import winpath
+from matching2.tools.common.pe import PEImage
+from matching2.tools.common.process import run, sha
+from matching2.tools.common.coff_regions import normalize_object
+from matching2.tools.common.coff import read_coff_function
+from matching2.tools.matching.pack_asm_pe import build_image
+from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
+from matching2.tools.matching.progress import summarize
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PROJECT = ROOT / 'matching2/msvc'
-DEFAULT_TOOLKIT = Path.home() / '.local/share/th10-toolchains/msvc-13.10.6030'
 
 
 def validate_project(config, reference):
@@ -117,7 +122,7 @@ def main():
     oracle = args.verify.read_bytes() if args.verify else None
     if oracle is not None and sha(oracle) != reference['executable_sha256']:
         raise ValueError('verification executable does not match the supported reference')
-    env = {**os.environ, 'WINEDEBUG': '-all', 'INCLUDE': winpath(toolkit / 'include')}
+    env = compiler_environment(toolkit)
     compiler = toolkit / 'bin/cl.exe'
     banner = subprocess.run(['wine', str(compiler)], env=env, capture_output=True, text=True, timeout=60)
     if config['compiler_version'] not in banner.stdout + banner.stderr:
@@ -185,19 +190,20 @@ def main():
         dos_code.extend(payload)
     package = build_image(project / 'pe_layout.json', output / 'text.bin', output / 'th10.exe',
                           args.verify.resolve() if args.verify else None, 'i686-w64-mingw32-as', 'objcopy', dos_code=bytes(dos_code))
-    summary = {'regions': dict(Counter(region['kind'] for region in regions)),
-               'bytes': {kind: sum(region['size'] for region in regions if region['kind'] == kind)
-                         for kind in ('semantic', 'asm', 'data', 'padding')}}
-    report = {'compiler': banner.stdout + banner.stderr, 'compiler_sha256': {
-        name: sha((toolkit / 'bin' / name).read_bytes()) for name in ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')},
+    summary = summarize(regions)
+    report = {'compiler': banner.stdout + banner.stderr,
+        'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),
         'translation_unit_count': len(units), 'compiled_units': compiled, 'summary': summary,
         'source_sha256': {str(path.relative_to(project)): sha(path.read_bytes())
                           for path in sorted(project.rglob('*')) if path.is_file()},
         'link_command': command, 'package': package, 'masked_bytes': 0,
         'retail_executable_used_for_build': False,
-        'note': 'All Windows .text code and embedded data were compiled from C++ source. No assembly fallback.'}
+        'note': 'Exact output from MSVC sources, including inline-assembly scaffolding. Only semantic regions count as ordinary C++ recovery.'}
     (output / 'port-report.json').write_text(json.dumps(report, indent=2) + '\n')
-    print(f"Whole EXE exact: {package['size']:,} bytes; {summary['regions']['semantic']} semantic C++ functions.")
+    print(f"Whole EXE exact: {package['size']:,} bytes.")
+    print(f"Ordinary C++: {summary['regions'].get('semantic', 0):,} regions / {summary['bytes']['semantic']:,} bytes.")
+    print(f"Remaining assembly: {summary['regions'].get('asm', 0):,} regions / {summary['bytes']['asm']:,} bytes.")
+    print(f"Embedded .text data: {summary['bytes']['data']:,} bytes; padding: {summary['bytes']['padding']:,} bytes.")
     print(output / 'th10.exe')
 
 

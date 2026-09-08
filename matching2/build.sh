@@ -217,7 +217,7 @@ echo "retail data globals: $(wc -l < "$BUILD/retail-global-symbols.txt") symbols
 echo "unresolved project edges: 0"
 # The audit is a build gate, not a report: any host adapter, empty-lambda
 # hook, or optional runtime binding that survives fails the build.
-python3 "$ROOT/tools/runtime_placeholder_audit.py" --check \
+python3 "$ROOT/tools/runtime/runtime_placeholder_audit.py" --check \
     > "$BUILD/runtime-placeholder-audit.txt"
 grep '^RUNTIME_PLACEHOLDER_COUNT=0$' \
     "$BUILD/runtime-placeholder-audit.txt"
@@ -228,9 +228,9 @@ grep '^EMPTY_FUNCTION_COUNT=' \
 
 # Reconstruction fidelity: a promoted source must plausibly implement the
 # retail functions it is credited with, measured against the IDA pseudocode.
-# Ratchets against tools/reconstruction_fidelity_baseline.json - known
+# Ratchets against tools/runtime/reconstruction_fidelity_baseline.json - known
 # violations are tolerated, new or worsened ones fail.
-python3 "$ROOT/tools/reconstruction_fidelity_audit.py" --check \
+python3 "$ROOT/tools/runtime/reconstruction_fidelity_audit.py" --check \
     > "$BUILD/reconstruction-fidelity-audit.txt"
 grep -E '^FIDELITY_(NEW|WORSENED)=0$' \
     "$BUILD/reconstruction-fidelity-audit.txt"

@@ -38,7 +38,7 @@ try:
     )
 except ImportError as exc:  # pragma: no cover - exercised by the CLI/user
     raise ImportError(
-        "matching2.tools.asm_instruction requires iced-x86; "
+        "matching2.tools.matching.asm_instruction requires iced-x86; "
         "install it with `python -m pip install iced-x86`"
     ) from exc
 

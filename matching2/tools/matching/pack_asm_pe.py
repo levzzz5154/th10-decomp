@@ -2,7 +2,7 @@
 """Package an independently assembled ``.text`` buffer into the TH10 PE.
 
 The packer has no implicit retail input.  The original non-code bytes are
-versioned under ``matching2/asm/data`` and the header is reconstructed from
+versioned under ``matching2/reference/data`` and the header is reconstructed from
 the declarative layout.  ``--verify`` is an explicit post-build oracle check;
 it is the only mode that reads an executable outside the package inputs.
 """
@@ -21,7 +21,7 @@ import tempfile
 from typing import Any, Mapping
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_LAYOUT = ROOT / "matching2" / "asm" / "pe_layout.json"
 
 

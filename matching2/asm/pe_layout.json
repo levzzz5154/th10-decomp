@@ -16,7 +16,7 @@
     "size": 288,
     "sha256": "531ba79310dbcdadc07376d5ba29f720d899ffb5dd0593c921c8eb32e6276f80",
     "header": {
-      "path": "data/dos_header.bin",
+      "path": "../reference/data/dos_header.bin",
       "size": 64,
       "sha256": "c4bfe3c9fa083643c55a84e22d1e46201fc3aba7cf52ccfb25d517cf1b82da05"
     },
@@ -27,7 +27,7 @@
       "description": "Assembled .code16 DOS message/exit stub at prefix offset 0x40."
     },
     "rich_metadata": {
-      "path": "data/rich_metadata.bin",
+      "path": "../reference/data/rich_metadata.bin",
       "size": 160,
       "sha256": "5e159fecccb624f46066905d1d19ea4ec33354a2e702cb24713da22ae63b38ea",
       "description": "Rich signature, product records, and explicit zero padding through e_lfanew."
@@ -119,7 +119,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 1073741888,
       "executable": false,
-      "source": "data/rdata.bin",
+      "source": "../reference/data/rdata.bin",
       "sha256": "52e89c93727a0f20e09e28cd79027f5f63380a225d54584ce2f432a66a29fdfc"
     },
     {
@@ -134,7 +134,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 3221225536,
       "executable": false,
-      "source": "data/data.bin",
+      "source": "../reference/data/data.bin",
       "sha256": "203a192def522690cedf9f4c90a6fe3544c9ec5042d28e9c7a2e4cb1566c0f7c"
     },
     {
@@ -149,7 +149,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 1073741888,
       "executable": false,
-      "source": "data/rsrc.bin",
+      "source": "../reference/data/rsrc.bin",
       "sha256": "6b21d22ec89e8ebfd957251a2c8001dc7b36e3a34f1f0e539850d8f791673665"
     }
   ]

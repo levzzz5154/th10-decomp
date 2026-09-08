@@ -4,16 +4,23 @@
 This reads versioned assembly and analysis metadata, never the retail executable.
 Normal builds compile the resulting .cpp files directly; they do not regenerate.
 """
+
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
 import argparse
 from collections import Counter, defaultdict
 import hashlib
 import json
-from pathlib import Path
 import re
 import shutil
-from msvc_instruction import inline_instruction
+from matching2.tools.matching.msvc_instruction import inline_instruction
+from matching2.tools.matching.progress import summarize
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 BASE = ROOT / 'matching2/asm/text'
 PROJECT = ROOT / 'matching2/msvc'
 SEMANTIC = ROOT / 'matching2/data/recovered_semantic_cpp'
@@ -220,10 +227,7 @@ def generate(ownership_path, output):
         'regions': regions, 'symbols': {**{'_' + name: f'0x{address:08X}' for name, address in bindings.items()},
                                      **{name: f'0x{address:08X}' for name, address in semantic_bindings.items()}},
         'translation_units': sorted({region['source'] for region in regions}),
-        'summary': {'regions_by_kind': dict(Counter(region['kind'] for region in regions)),
-                    'bytes_by_kind': {kind: sum(region['size'] for region in regions if region['kind'] == kind)
-                                      for kind in ('semantic', 'asm', 'data', 'padding')},
-                    'encoding_helpers': dict(helper_counts)},
+        'summary': {'encoding_helpers': dict(helper_counts)},
         'provenance': {'assembly_manifest_sha256': hashlib.sha256((BASE / 'manifest.json').read_bytes()).hexdigest(),
                        'ownership_sha256': hashlib.sha256(ownership_path.read_bytes()).hexdigest()},
         'notes': ['Every executable body is compiled from C++; unported bodies use MSVC inline assembly.',
@@ -233,12 +237,12 @@ def generate(ownership_path, output):
     layout.mkdir(exist_ok=True)
     shutil.copyfile(ownership_path, layout / 'function_ownership.json')
     (output / 'regions.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    print(json.dumps(manifest['summary'], indent=2))
+    print(json.dumps(summarize(regions), indent=2))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--ownership', type=Path, default=ROOT / 'matching2/build/msvc/function_ownership.json')
+    parser.add_argument('--ownership', type=Path, default=PROJECT / 'layout/function_ownership.json')
     parser.add_argument('--output', type=Path, default=PROJECT)
     parser.add_argument('--replace', action='store_true', help='explicitly overwrite existing generated sources')
     args = parser.parse_args()

@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Iterable, Iterator, Mapping, Sequence
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 REFERENCE_VALIDATION = ROOT / "decompiled" / "reference_bytes_validation.json"
 DEFAULT_GAME_DIR = Path.home() / "Games" / "TH10 - Mountain of Faith"
 DEFAULT_RETAIL = DEFAULT_GAME_DIR / "th10.exe"
@@ -741,7 +741,7 @@ def audit(
         validation["authenticated"] = False
     result = {
         "schema_version": 1,
-        "tool": "matching2/tools/asm_coverage.py",
+        "tool": "matching2/tools/reference/asm_coverage.py",
         "reference": {
             "executable": str(retail_executable),
             "executable_sha256": retail_info["executable_sha256"],

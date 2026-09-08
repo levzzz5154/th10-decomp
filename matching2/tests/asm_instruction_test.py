@@ -3,18 +3,22 @@
 
 from __future__ import annotations
 
-import json
-import subprocess
 import sys
-import tempfile
-import unittest
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import json
+import subprocess
+import tempfile
+import unittest
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
 
 try:
-    import asm_instruction  # noqa: E402
+    from matching2.tools.matching import asm_instruction  # noqa: E402
 except ImportError as exc:  # pragma: no cover - dependency is environment-specific
     asm_instruction = None
     _IMPORT_ERROR = exc

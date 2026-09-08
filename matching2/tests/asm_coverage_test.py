@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """Regression checks for the complete assembly coverage partition."""
 
-import json
 import sys
-import tempfile
-import unittest
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+import json
+import tempfile
+import unittest
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
-import asm_coverage  # noqa: E402
+from matching2.tools.reference import asm_coverage  # noqa: E402
 
 
 class AssemblyCoverageTest(unittest.TestCase):

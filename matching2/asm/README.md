@@ -19,7 +19,7 @@ From the repository root:
 
 Requires Python 3, GNU `i686-w64-mingw32-as`,
 `i686-w64-mingw32-ld`, and `objcopy`. Ordinary builds use the versioned
-`text/` assembly, DOS stub, PE layout, and non-code assets in `data/`.
+`text/` assembly, DOS stub, PE layout, and shared non-code assets in `../reference/data/`.
 They do not require Wine, MSVC, Ghidra, a decoder package, or the original EXE.
 
 The output is `matching2/build/asm-baseline/full/th10.exe`. The assembler emits
@@ -49,7 +49,7 @@ file and the saved listings; it is separate from ordinary builds. It requires
 `iced-x86` in the selected Python environment:
 
 ```bash
-python3 matching2/tools/generate_asm_text.py \
+python3 matching2/tools/maintenance/generate_asm_text.py \
   --recovery matching2/asm/text_code_recovery.json \
   --recovery matching2/asm/text_data_recovery.json \
   --recovery matching2/asm/text_small_code_recovery.json \
@@ -65,13 +65,13 @@ and prevents a build from accidentally accepting stale generated files.
 Physical source chunks preserve addresses; they do not reconstruct original
 C++ classes or translation units. The [MSVC C++ project](../msvc/README.md)
 now compiles the complete executable code from C++ sources, using ordinary C++
-for 34 recovered functions and inline assembly for other bodies. This retains
+for recovered functions and inline assembly for other bodies. This retains
 the whole-file gate; this directory remains the complete assembly reference.
 
 ## Original coverage audit
 
 ```bash
-python3 matching2/tools/asm_coverage.py
+python3 matching2/tools/reference/asm_coverage.py
 ```
 
 The audit compares the saved and augmented Ghidra exports with the authenticated
@@ -114,7 +114,7 @@ uncertain boundaries merely because one analysis version assigned a function.
 From the repository root:
 
 ```bash
-python3 matching2/tools/build_asm_proof.py
+python3 matching2/tools/maintenance/build_asm_proof.py
 ```
 
 Requires `i686-w64-mingw32-as`, Wine, and the installed
@@ -170,6 +170,6 @@ The verifier also rejected a deliberately changed call operand and end symbol.
   in the assembly baseline's acceptance gate.
 
 The recovered historical build remains available through
-`python3 matching2/tools/recover_matches.py`. Its 397 results mix C++ and inline
+`python3 matching2/tools/maintenance/recover_matches.py`. Its 397 results mix C++ and inline
 assembly and include masked comparisons; they do not replace the stricter
 linked-byte gate described here.

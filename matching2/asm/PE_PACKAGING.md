@@ -1,6 +1,6 @@
 # Deterministic PE packaging
 
-`matching2/tools/pack_asm_pe.py` takes the parent assembly build's complete
+`matching2/tools/matching/pack_asm_pe.py` takes the parent assembly build's complete
 raw `.text` section and emits the supported PE layout. The normal build has
 no retail executable argument and never opens the retail file. Its strict
 inputs are:
@@ -23,19 +23,19 @@ The resulting file has four sections and no overlay:
 | Section | RVA | raw offset | raw bytes | source |
 | --- | ---: | ---: | ---: | --- |
 | `.text` | `0x1000` | `0x400` | `412672` | parent assembled input |
-| `.rdata` | `0x66000` | `0x65000` | `52224` | `data/rdata.bin` |
-| `.data` | `0x73000` | `0x71a00` | `16896` | `data/data.bin` |
-| `.rsrc` | `0x9a000` | `0x76200` | `5120` | `data/rsrc.bin` |
+| `.rdata` | `0x66000` | `0x65000` | `52224` | `../reference/data/rdata.bin` |
+| `.data` | `0x73000` | `0x71a00` | `16896` | `../reference/data/data.bin` |
+| `.rsrc` | `0x9a000` | `0x76200` | `5120` | `../reference/data/rsrc.bin` |
 
 The section headers preserve the original virtual sizes, characteristics,
 imports, resource directory, IAT, timestamp, Rich data, and PE metadata. The
 header is rebuilt from the declarative fields in `pe_layout.json`; it is not a
 copied retail header blob. The original DOS prefix is handled explicitly:
 
-* `data/dos_header.bin` holds the 64-byte DOS header.
+* `../reference/data/dos_header.bin` holds the 64-byte DOS header.
 * `dos_stub.s` contains the 16-bit message-and-exit instructions and is
   assembled with `.code16` on each package build.
-* `data/rich_metadata.bin` holds the Rich records and the zero padding up to
+* `../reference/data/rich_metadata.bin` holds the Rich records and the zero padding up to
   `e_lfanew`.
 
 The assembler output is required to be exactly 64 bytes and to match its
@@ -51,7 +51,7 @@ it verifies both the oracle's supported SHA-256 and whole-file equality.
 For the parent assembly build, the expected invocation is:
 
 ```bash
-python3 matching2/tools/pack_asm_pe.py \
+python3 matching2/tools/matching/pack_asm_pe.py \
   --text matching2/build/asm-baseline/full/text.bin \
   --output matching2/build/asm-baseline/full/th10.exe
 ```

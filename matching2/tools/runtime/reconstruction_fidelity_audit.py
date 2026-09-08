@@ -25,17 +25,22 @@ ratchets: a new violation, or a baselined file getting worse, fails the build.
 Improvements are reported and the baseline can be re-cut with --update-baseline.
 """
 
+import sys
 from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+
 import argparse
 import collections
 import json
 import re
-import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 IDA_SOURCE = ROOT.parent / "ida" / "th10.exe.c"
 REGISTRY = ROOT / "function_registry.json"
-BASELINE = ROOT / "tools" / "reconstruction_fidelity_baseline.json"
+BASELINE = ROOT / "tools" / "runtime" / "reconstruction_fidelity_baseline.json"
 
 # Above this the reconstruction is too small to be implementing the function.
 ERROR_RATIO = 6.5
@@ -44,7 +49,7 @@ WARN_RATIO = 4.0
 
 # Function-section parsing lives in ida_export.py so the gate and the query
 # tool share one view of the export.
-from ida_export import IDA_DECLARATION, body_sizes, sections  # noqa: E402
+from matching2.tools.reference.ida_export import IDA_DECLARATION, body_sizes, sections  # noqa: E402
 
 TEXT_IDIOM = re.compile(
     r"std::(istringstream|ostringstream|getline|stof|strtof)"
@@ -133,7 +138,7 @@ def main():
     if args.update_baseline:
         BASELINE.write_text(json.dumps(
             {"comment": "Known unfaithful reconstructions. This list may only "
-                        "shrink; see tools/reconstruction_fidelity_audit.py.",
+                        "shrink; see tools/runtime/reconstruction_fidelity_audit.py.",
              "files": {s: {"ratio": r["ratio"], "functions": r["functions"],
                            "retail_bytes": r["retail_bytes"],
                            "text_idioms": r["text_idioms"]}

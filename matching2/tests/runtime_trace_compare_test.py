@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-import json
+
 import sys
-import tempfile
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+import json
+import tempfile
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
-from compare_runtime_trace import compare  # noqa: E402
+from matching2.tools.runtime.compare_runtime_trace import compare  # noqa: E402
 
 
 def write(path: Path, events: list[dict]) -> None:
