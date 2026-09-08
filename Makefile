@@ -26,6 +26,7 @@ test:
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'common_tools_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'coff_regions_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_port_test.py'
+	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_keyboard_state_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_resource_lifetime_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'mismatch_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'pe_pack_test.py'

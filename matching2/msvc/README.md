@@ -51,6 +51,9 @@ See [resource-file lifetime recovery](RESOURCE_LIFETIME.md) for the loader and
 destructor's ABI evidence, preserved failure behavior, tests, and remaining
 assembly dependencies.
 
+See [keyboard input recovery](KEYBOARD_INPUT.md) for the refresh/normalization
+contract, register evidence, DirectInput boundary, and stack-cookie requirement.
+
 ## Replacing inline assembly with ordinary C++
 
 Edit the appropriate subsystem source and its matching `regions.json` record.

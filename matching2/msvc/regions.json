@@ -10,6 +10,7 @@
     "/Gy",
     "/G6",
     "/GF",
+    "/GS",
     "/Zl"
   ],
   "text_start": "0x00401000",
@@ -31168,12 +31169,56 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Input_UpdateKeyboardState_0044b010",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Input_UpdateKeyboardState_0044b010",
+      "name": "semantic_Input_UpdateKeyboardState_0044b010",
+      "source": "src/platform/keyboard_state.cpp",
+      "symbol": "?Input_UpdateKeyboardState@@YIHPAXPAE@Z",
       "address": "0x0044B010",
       "size": 103,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 13,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_enabled@@3HA",
+          "original_operand": "fc244900",
+          "original_target": "0x004924FC"
+        },
+        {
+          "offset": 23,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_mode@@3IA",
+          "original_operand": "f41f4900",
+          "original_target": "0x00491FF4"
+        },
+        {
+          "offset": 35,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__GetKeyboardState@4",
+          "original_operand": "08624600",
+          "original_target": "0x00466208"
+        },
+        {
+          "offset": 43,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_keyboard_device@@3PAUKeyboardDevice@@A",
+          "original_operand": "381c4900",
+          "original_target": "0x00491C38"
+        },
+        {
+          "offset": 66,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_keyboard_device@@3PAUKeyboardDevice@@A",
+          "original_operand": "381c4900",
+          "original_target": "0x00491C38"
+        },
+        {
+          "offset": 87,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_keyboard_device@@3PAUKeyboardDevice@@A",
+          "original_operand": "381c4900",
+          "original_target": "0x00491C38"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x0044B010"
     },
     {
@@ -31185,12 +31230,42 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Input_NormalizeKeyboardState_0044b080",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Input_NormalizeKeyboardState_0044b080",
+      "name": "semantic_Input_NormalizeKeyboardState_0044b080",
+      "source": "src/platform/keyboard_state.cpp",
+      "symbol": "?Input_NormalizeKeyboardState@@YGXXZ",
       "address": "0x0044B080",
       "size": 75,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 7,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "___security_cookie",
+          "original_operand": "60364700",
+          "original_target": "0x00473660"
+        },
+        {
+          "offset": 26,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__GetKeyboardState@4",
+          "original_operand": "08624600",
+          "original_target": "0x00466208"
+        },
+        {
+          "offset": 50,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__SetKeyboardState@4",
+          "original_operand": "04624600",
+          "original_target": "0x00466204"
+        },
+        {
+          "offset": 64,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "@__security_check_cookie@4",
+          "original_operand": "e1dd0000",
+          "original_target": "0x00458EA5"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x0044B080"
     },
     {
@@ -45935,7 +46010,14 @@
     "__imp__SizeofResource@8": "0x004660F8",
     "_entry_malloc_00452706": "0x00452706",
     "?Load@ResourcePath@@QAEPAEH@Z": "0x00435800",
-    "?GetFileSize@ResourcePath@@QAEIXZ": "0x004358E0"
+    "?GetFileSize@ResourcePath@@QAEIXZ": "0x004358E0",
+    "___security_cookie": "0x00473660",
+    "@__security_check_cookie@4": "0x00458EA5",
+    "__imp__GetKeyboardState@4": "0x00466208",
+    "__imp__SetKeyboardState@4": "0x00466204",
+    "?g_input_enabled@@3HA": "0x004924FC",
+    "?g_input_mode@@3IA": "0x00491FF4",
+    "?g_keyboard_device@@3PAUKeyboardDevice@@A": "0x00491C38"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46115,6 +46197,7 @@
     "src/platform/joystick_poll.cpp",
     "src/platform/joystick_probe.cpp",
     "src/platform/joystick_property.cpp",
+    "src/platform/keyboard_state.cpp",
     "src/platform/memory_file.cpp",
     "src/platform/midi_event_runtime.cpp",
     "src/platform/midi_sequencer.cpp",
