@@ -1801,69 +1801,6 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreRecords_CopyVectorAndEvaluate
     }
 }
 
-// 0x0041F7A0..0x0041F7FA: ?Position_IsPartiallyInViewport@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Position_IsPartiallyInViewport_0041f7a0() {
-    __asm {
-    L_0041f7a0:
-        fld dword ptr [esp+4]
-    L_0041f7a4:
-        fadd dword ptr [ecx]
-    L_0041f7a6:
-        fcomp dword ptr [data_00470b40]
-    L_0041f7ac:
-        fnstsw ax
-    L_0041f7ae:
-        test ah,41h
-    L_0041f7b1:
-        jnp short L_0041f7f3
-    L_0041f7b3:
-        fld dword ptr [ecx]
-    L_0041f7b5:
-        fsub dword ptr [esp+4]
-    L_0041f7b9:
-        fcomp dword ptr [data_00470b3c]
-    L_0041f7bf:
-        fnstsw ax
-    L_0041f7c1:
-        test ah,1
-    L_0041f7c4:
-        je short L_0041f7f3
-    L_0041f7c6:
-        fld dword ptr [esp+8]
-    L_0041f7ca:
-        fadd dword ptr [ecx+4]
-    L_0041f7cd:
-        fcomp dword ptr [data_00470b04]
-    L_0041f7d3:
-        fnstsw ax
-    L_0041f7d5:
-        test ah,41h
-    L_0041f7d8:
-        jnp short L_0041f7f3
-    L_0041f7da:
-        fld dword ptr [ecx+4]
-    L_0041f7dd:
-        fsub dword ptr [esp+8]
-    L_0041f7e1:
-        fcomp dword ptr [data_00470b38]
-    L_0041f7e7:
-        fnstsw ax
-    L_0041f7e9:
-        test ah,1
-    L_0041f7ec:
-        je short L_0041f7f3
-    L_0041f7ee:
-        xor eax,eax
-    L_0041f7f0:
-        ret 8
-    L_0041f7f3:
-        mov eax,1
-    L_0041f7f8:
-        ret 8
-    }
-}
-
 // 0x00426610..0x00426652: ?Entity_AngleToPoint@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Entity_AngleToPoint_00426610() {
@@ -1967,69 +1904,6 @@ extern "C" __declspec(naked) void __cdecl asm_Entity_AngleFromPoint_00426660() {
         fpatan
     L_004266a2:
         ret
-    }
-}
-
-// 0x00428D70..0x00428DCA: ?EffectPool_OutsideViewport@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_EffectPool_OutsideViewport_00428d70() {
-    __asm {
-    L_00428d70:
-        fld dword ptr [esp+4]
-    L_00428d74:
-        fadd dword ptr [ecx]
-    L_00428d76:
-        fcomp dword ptr [data_00470b40]
-    L_00428d7c:
-        fnstsw ax
-    L_00428d7e:
-        test ah,41h
-    L_00428d81:
-        jnp short L_00428dc3
-    L_00428d83:
-        fld dword ptr [ecx]
-    L_00428d85:
-        fsub dword ptr [esp+4]
-    L_00428d89:
-        fcomp dword ptr [data_00470b3c]
-    L_00428d8f:
-        fnstsw ax
-    L_00428d91:
-        test ah,1
-    L_00428d94:
-        je short L_00428dc3
-    L_00428d96:
-        fld dword ptr [esp+8]
-    L_00428d9a:
-        fadd dword ptr [ecx+4]
-    L_00428d9d:
-        fcomp dword ptr [data_00470b04]
-    L_00428da3:
-        fnstsw ax
-    L_00428da5:
-        test ah,41h
-    L_00428da8:
-        jnp short L_00428dc3
-    L_00428daa:
-        fld dword ptr [ecx+4]
-    L_00428dad:
-        fsub dword ptr [esp+8]
-    L_00428db1:
-        fcomp dword ptr [data_00470b38]
-    L_00428db7:
-        fnstsw ax
-    L_00428db9:
-        test ah,1
-    L_00428dbc:
-        je short L_00428dc3
-    L_00428dbe:
-        xor eax,eax
-    L_00428dc0:
-        ret 8
-    L_00428dc3:
-        mov eax,1
-    L_00428dc8:
-        ret 8
     }
 }
 

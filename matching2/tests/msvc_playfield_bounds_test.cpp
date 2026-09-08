@@ -16,6 +16,10 @@ static void expect(float x, float y, float half_width, float half_height,
                    int expected) {
     PlayfieldPoint point = {x, y};
     assert(point.OutsideBounds(half_width, half_height) == expected);
+    ViewportPosition viewport = {x, y};
+    assert(viewport.IsPartiallyOutside(half_width, half_height) == expected);
+    EffectPoolPosition effect = {x, y};
+    assert(effect.OutsideViewport(half_width, half_height) == expected);
 }
 
 int main() {

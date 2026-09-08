@@ -14160,12 +14160,42 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Position_IsPartiallyInViewport_0041f7a0",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Position_IsPartiallyInViewport_0041f7a0",
+      "name": "semantic_ViewportPosition_IsPartiallyOutside_0041f7a0",
+      "source": "src/game/playfield_bounds.cpp",
+      "symbol": "?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z",
       "address": "0x0041F7A0",
       "size": 91,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 8,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_min_x@@3MA",
+          "original_operand": "400b4700",
+          "original_target": "0x00470B40"
+        },
+        {
+          "offset": 27,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_max_x@@3MA",
+          "original_operand": "3c0b4700",
+          "original_target": "0x00470B3C"
+        },
+        {
+          "offset": 47,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_min_y@@3MA",
+          "original_operand": "040b4700",
+          "original_target": "0x00470B04"
+        },
+        {
+          "offset": 67,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_max_y@@3MA",
+          "original_operand": "380b4700",
+          "original_target": "0x00470B38"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x0041F7A0"
     },
     {
@@ -18147,12 +18177,42 @@
       "kind": "padding"
     },
     {
-      "name": "asm_EffectPool_OutsideViewport_00428d70",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_EffectPool_OutsideViewport_00428d70",
+      "name": "semantic_EffectPoolPosition_OutsideViewport_00428d70",
+      "source": "src/game/playfield_bounds.cpp",
+      "symbol": "?OutsideViewport@EffectPoolPosition@@QBEHMM@Z",
       "address": "0x00428D70",
       "size": 91,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 8,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_min_x@@3MA",
+          "original_operand": "400b4700",
+          "original_target": "0x00470B40"
+        },
+        {
+          "offset": 27,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_max_x@@3MA",
+          "original_operand": "3c0b4700",
+          "original_target": "0x00470B3C"
+        },
+        {
+          "offset": 47,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_min_y@@3MA",
+          "original_operand": "040b4700",
+          "original_target": "0x00470B04"
+        },
+        {
+          "offset": 67,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_playfield_max_y@@3MA",
+          "original_operand": "380b4700",
+          "original_target": "0x00470B38"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x00428D70"
     },
     {
@@ -46052,7 +46112,9 @@
     "?g_playfield_min_x@@3MA": "0x00470B40",
     "?g_playfield_max_x@@3MA": "0x00470B3C",
     "?g_playfield_min_y@@3MA": "0x00470B04",
-    "?g_playfield_max_y@@3MA": "0x00470B38"
+    "?g_playfield_max_y@@3MA": "0x00470B38",
+    "?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z": "0x0041F7A0",
+    "?OutsideViewport@EffectPoolPosition@@QBEHMM@Z": "0x00428D70"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
