@@ -31,7 +31,7 @@ def tsv(path):
 
 
 def reconstruction_addresses():
-    inventory = json.loads((ROOT / 'matching2/docs/audit/inventory.json').read_text())
+    inventory = json.loads((ROOT / 'matching2/coverage.json').read_text())
     return {row['address'].removeprefix('0x').upper() for row in inventory['functions']}
 
 
@@ -120,7 +120,7 @@ def generate():
     for relative in ('ghidra/ExportFullAudit.java', 'ghidra/PrepareFullAudit.java', 'tools/export_full_audit.sh',
                      'tools/audit_reference_corpus.py', 'decompiled/ida_archive_provenance.json',
                      'decompiled/reference_bytes_validation.json',
-                     'matching2/docs/audit/inventory.json'):
+                     'matching2/coverage.json'):
         files[relative] = (ROOT / relative).read_bytes()
     tracked = reconstruction_addresses()
     addresses = sorted(set(c_rows) | set(seeds()) | set(corpora['ghidra_full']) | set(corpora['ghidra_augmented']) | tracked)

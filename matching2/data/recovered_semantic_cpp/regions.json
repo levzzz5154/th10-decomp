@@ -1,0 +1,736 @@
+{
+  "schema_version": 1,
+  "compiler_version": "13.10.6030",
+  "flags": [
+    "/nologo",
+    "/c",
+    "/O2",
+    "/Gz",
+    "/MT",
+    "/Gy",
+    "/G6",
+    "/GF",
+    "/Zl"
+  ],
+  "symbols": {
+    "_entry_free_00452422": "0x00452422",
+    "_entry_free_004524a1": "0x004524A1",
+    "?Platform_ReleaseOwnedArray@@YIXPAUPlatformOwnedArray@@@Z": "0x0044D080",
+    "?sound_buffer_vtable_004705d4@@3DA": "0x004705D4"
+  },
+  "regions": [
+    {
+      "name": "semantic_Entity_Destructor_00401ff0",
+      "source": "src/entity.cpp",
+      "symbol": "?Entity_Destructor@@YIXPAUEntity@@@Z",
+      "address": "0x00401FF0",
+      "size": 34,
+      "relocations": [
+        {
+          "offset": 15,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "1f040500",
+          "original_target": "0x00452422"
+        }
+      ]
+    },
+    {
+      "name": "semantic_EntitySecondaryResource_Release_00405de0",
+      "source": "src/entity.cpp",
+      "symbol": "?EntitySecondaryResource_Release@@YIXPAUEntity@@@Z",
+      "address": "0x00405DE0",
+      "size": 34,
+      "relocations": [
+        {
+          "offset": 15,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "2fc60400",
+          "original_target": "0x00452422"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Entity_AttachResourceSnapshot_0040b250",
+      "source": "src/bullet.cpp",
+      "symbol": "?Entity_AttachResourceSnapshot@@YIHPAUEntity@@PBUEntityResourceSnapshot@@@Z",
+      "address": "0x0040B250",
+      "size": 60,
+      "relocations": [
+        {
+          "offset": 10,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_operator_new",
+          "original_operand": "35720400",
+          "original_target": "0x00452493"
+        }
+      ]
+    },
+    {
+      "name": "semantic_BulletSpawnParameters_Initialize_0040cf40",
+      "source": "src/bullet.cpp",
+      "symbol": "?BulletSpawnParameters_Initialize@@YIPAUBulletSpawnParameters@@PAXPAU1@@Z",
+      "address": "0x0040CF40",
+      "size": 23,
+      "relocations": []
+    },
+    {
+      "name": "semantic_EntityAnimation_Release_0041ad60",
+      "source": "src/entity.cpp",
+      "symbol": "?EntityAnimation_Release@@YIXPAUEntity@@@Z",
+      "address": "0x0041AD60",
+      "size": 34,
+      "relocations": [
+        {
+          "offset": 15,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "af760300",
+          "original_target": "0x00452422"
+        }
+      ]
+    },
+    {
+      "name": "semantic_HeapBuffer_Release_00435250",
+      "source": "src/heap.cpp",
+      "symbol": "?HeapBuffer_Release@@YIXPAUHeapBuffer@@@Z",
+      "address": "0x00435250",
+      "size": 26,
+      "relocations": [
+        {
+          "offset": 11,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "c3d10100",
+          "original_target": "0x00452422"
+        }
+      ]
+    },
+    {
+      "name": "semantic_0HeapBuffer_004352c0",
+      "source": "src/heap.cpp",
+      "symbol": "??0HeapBuffer@@QAE@XZ",
+      "address": "0x004352C0",
+      "size": 9,
+      "relocations": []
+    },
+    {
+      "name": "semantic_q_q__GFileHandle_00435320",
+      "source": "src/file.cpp",
+      "symbol": "??_GFileHandle@@UAEPAXI@Z",
+      "address": "0x00435320",
+      "size": 30,
+      "relocations": [
+        {
+          "offset": 4,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??1FileHandle@@UAE@XZ",
+          "original_operand": "18000000",
+          "original_target": "0x00435340"
+        },
+        {
+          "offset": 17,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??3@YAXPAX@Z",
+          "original_operand": "6cd10100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_q_q_1FileHandle_00435340",
+      "source": "src/file.cpp",
+      "symbol": "??1FileHandle@@UAE@XZ",
+      "address": "0x00435340",
+      "size": 46,
+      "relocations": [
+        {
+          "offset": 11,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileHandle@@6B@",
+          "original_operand": "30f24600",
+          "original_target": "0x0046F230"
+        },
+        {
+          "offset": 20,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__CloseHandle@4",
+          "original_operand": "cc604600",
+          "original_target": "0x004660CC"
+        },
+        {
+          "offset": 40,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileInterface@@6B@",
+          "original_operand": "10f24600",
+          "original_target": "0x0046F210"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Close_at_FileHandle_00435460",
+      "source": "src/file.cpp",
+      "symbol": "?Close@FileHandle@@UAEXXZ",
+      "address": "0x00435460",
+      "size": 34,
+      "relocations": [
+        {
+          "offset": 14,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__CloseHandle@4",
+          "original_operand": "cc604600",
+          "original_target": "0x004660CC"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Read_at_FileHandle_00435490",
+      "source": "src/file.cpp",
+      "symbol": "?Read@FileHandle@@UAEIPAXI@Z",
+      "address": "0x00435490",
+      "size": 57,
+      "relocations": [
+        {
+          "offset": 46,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__ReadFile@20",
+          "original_operand": "d0604600",
+          "original_target": "0x004660D0"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Write_at_FileHandle_004354d0",
+      "source": "src/file.cpp",
+      "symbol": "?Write@FileHandle@@UAEEPBXI@Z",
+      "address": "0x004354D0",
+      "size": 63,
+      "relocations": [
+        {
+          "offset": 47,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__WriteFile@20",
+          "original_operand": "d4604600",
+          "original_target": "0x004660D4"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Tell_at_FileHandle_00435510",
+      "source": "src/file.cpp",
+      "symbol": "?Tell@FileHandle@@UBEIXZ",
+      "address": "0x00435510",
+      "size": 25,
+      "relocations": [
+        {
+          "offset": 20,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__SetFilePointer@16",
+          "original_operand": "c8604600",
+          "original_target": "0x004660C8"
+        }
+      ]
+    },
+    {
+      "name": "semantic_GetSize_at_FileHandle_00435530",
+      "source": "src/file.cpp",
+      "symbol": "?GetSize@FileHandle@@UBEIXZ",
+      "address": "0x00435530",
+      "size": 21,
+      "relocations": [
+        {
+          "offset": 16,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__GetFileSize@8",
+          "original_operand": "d8604600",
+          "original_target": "0x004660D8"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Seek_at_FileHandle_00435550",
+      "source": "src/file.cpp",
+      "symbol": "?Seek@FileHandle@@UAEEJI@Z",
+      "address": "0x00435550",
+      "size": 37,
+      "relocations": [
+        {
+          "offset": 28,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__SetFilePointer@16",
+          "original_operand": "c8604600",
+          "original_target": "0x004660C8"
+        }
+      ]
+    },
+    {
+      "name": "semantic_q_q_1FileInterface_00435690",
+      "source": "src/file.cpp",
+      "symbol": "??1FileInterface@@UAE@XZ",
+      "address": "0x00435690",
+      "size": 7,
+      "relocations": [
+        {
+          "offset": 2,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileInterface@@6B@",
+          "original_operand": "10f24600",
+          "original_target": "0x0046F210"
+        }
+      ]
+    },
+    {
+      "name": "semantic_q_q__GFileInterface_004356a0",
+      "source": "src/file.cpp",
+      "symbol": "??_GFileInterface@@UAEPAXI@Z",
+      "address": "0x004356A0",
+      "size": 31,
+      "relocations": [
+        {
+          "offset": 10,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileInterface@@6B@",
+          "original_operand": "10f24600",
+          "original_target": "0x0046F210"
+        },
+        {
+          "offset": 18,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??3@YAXPAX@Z",
+          "original_operand": "ebcd0100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Write_at_BufferFile_00436370",
+      "source": "src/memory_file.cpp",
+      "symbol": "?Write@BufferFile@@UAEEPBXI@Z",
+      "address": "0x00436370",
+      "size": 5,
+      "relocations": []
+    },
+    {
+      "name": "semantic_q_q__GBufferFile_004363a0",
+      "source": "src/memory_file.cpp",
+      "symbol": "??_GBufferFile@@UAEPAXI@Z",
+      "address": "0x004363A0",
+      "size": 30,
+      "relocations": [
+        {
+          "offset": 4,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??1BufferFile@@UAE@XZ",
+          "original_operand": "18000000",
+          "original_target": "0x004363C0"
+        },
+        {
+          "offset": 17,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??3@YAXPAX@Z",
+          "original_operand": "ecc00100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_q_q_1BufferFile_004363c0",
+      "source": "src/memory_file.cpp",
+      "symbol": "??1BufferFile@@UAE@XZ",
+      "address": "0x004363C0",
+      "size": 49,
+      "relocations": [
+        {
+          "offset": 13,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7BufferFile@@6B@",
+          "original_operand": "08f34600",
+          "original_target": "0x0046F308"
+        },
+        {
+          "offset": 21,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "49c00100",
+          "original_target": "0x00452422"
+        },
+        {
+          "offset": 43,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileInterface@@6B@",
+          "original_operand": "10f24600",
+          "original_target": "0x0046F210"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Close_at_BufferFile_00436430",
+      "source": "src/memory_file.cpp",
+      "symbol": "?Close@BufferFile@@UAEXXZ",
+      "address": "0x00436430",
+      "size": 37,
+      "relocations": [
+        {
+          "offset": 15,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "dfbf0100",
+          "original_target": "0x00452422"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Read_at_BufferFile_00436460",
+      "source": "src/memory_file.cpp",
+      "symbol": "?Read@BufferFile@@UAEIPAXI@Z",
+      "address": "0x00436460",
+      "size": 108,
+      "relocations": []
+    },
+    {
+      "name": "semantic_Tell_at_BufferFile_004364d0",
+      "source": "src/memory_file.cpp",
+      "symbol": "?Tell@BufferFile@@UBEIXZ",
+      "address": "0x004364D0",
+      "size": 7,
+      "relocations": []
+    },
+    {
+      "name": "semantic_GetSize_at_BufferFile_004364e0",
+      "source": "src/memory_file.cpp",
+      "symbol": "?GetSize@BufferFile@@UBEIXZ",
+      "address": "0x004364E0",
+      "size": 4,
+      "relocations": []
+    },
+    {
+      "name": "semantic_q_q__GResourceFile_00436660",
+      "source": "src/resource_file.cpp",
+      "symbol": "??_GResourceFile@@UAEPAXI@Z",
+      "address": "0x00436660",
+      "size": 30,
+      "relocations": [
+        {
+          "offset": 4,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??1ResourceFile@@UAE@XZ",
+          "original_operand": "18000000",
+          "original_target": "0x00436680"
+        },
+        {
+          "offset": 17,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??3@YAXPAX@Z",
+          "original_operand": "2cbe0100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_LegacyString_Clear_004381f0",
+      "source": "src/heap.cpp",
+      "symbol": "?LegacyString_Clear@@YIXPAULegacyString@@@Z",
+      "address": "0x004381F0",
+      "size": 38,
+      "relocations": [
+        {
+          "offset": 14,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_004524a1",
+          "original_operand": "9fa20100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_q_Length_at_LegacyString_00438250",
+      "source": "src/heap.cpp",
+      "symbol": "?Length@LegacyString@@QBEIXZ",
+      "address": "0x00438250",
+      "size": 4,
+      "relocations": []
+    },
+    {
+      "name": "semantic_QAEPADXZ_00438680",
+      "source": "src/heap.cpp",
+      "symbol": "?Data@LegacyString@@QAEPADXZ",
+      "address": "0x00438680",
+      "size": 14,
+      "relocations": []
+    },
+    {
+      "name": "semantic_Deallocate_at_LegacyAllocator_00438690",
+      "source": "src/heap.cpp",
+      "symbol": "?Deallocate@LegacyAllocator@@QAEXPAXI@Z",
+      "address": "0x00438690",
+      "size": 14,
+      "relocations": [
+        {
+          "offset": 6,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_004524a1",
+          "original_operand": "079e0100",
+          "original_target": "0x004524A1"
+        }
+      ]
+    },
+    {
+      "name": "semantic_MaxSize_at_LegacyAllocator_004386a0",
+      "source": "src/heap.cpp",
+      "symbol": "?MaxSize@LegacyAllocator@@QBEIXZ",
+      "address": "0x004386A0",
+      "size": 6,
+      "relocations": []
+    },
+    {
+      "name": "semantic_OwnsPointer_at_LegacyString_00438800",
+      "source": "src/heap.cpp",
+      "symbol": "?OwnsPointer@LegacyString@@QBE_NPBD@Z",
+      "address": "0x00438800",
+      "size": 57,
+      "relocations": []
+    },
+    {
+      "name": "semantic_Allocate_at_LegacyAllocator_00438840",
+      "source": "src/heap.cpp",
+      "symbol": "?Allocate@LegacyAllocator@@QAEPAXI@Z",
+      "address": "0x00438840",
+      "size": 16,
+      "relocations": [
+        {
+          "offset": 6,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "??2@YAPAXI@Z",
+          "original_operand": "499c0100",
+          "original_target": "0x00452493"
+        }
+      ]
+    },
+    {
+      "name": "semantic_RuntimeAllocationPool_Initialize_004388f0",
+      "source": "src/runtime_pool.cpp",
+      "symbol": "?RuntimeAllocationPool_Initialize@@YIPAURuntimeAllocationPool@@PAXPAU1@@Z",
+      "address": "0x004388F0",
+      "size": 22,
+      "relocations": []
+    },
+    {
+      "name": "semantic_Score_SetNormalizedAngle_00413170",
+      "source": "src/recovery_leaves.cpp",
+      "symbol": "?Score_SetNormalizedAngle@@YGXPAXM@Z",
+      "address": "0x00413170",
+      "size": 20,
+      "relocations": [
+        {
+          "offset": 6,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Angle_Normalize@@YGMM@Z",
+          "original_operand": "f68a0300",
+          "original_target": "0x0044BC70"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Angle_NormalizeSum_0044bc10",
+      "source": "src/angle.cpp",
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "size": 94,
+      "relocations": [
+        {
+          "offset": 12,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b18@@3MA",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 25,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b14@@3MA",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        },
+        {
+          "offset": 39,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b18@@3MA",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 52,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b10@@3MA",
+          "original_operand": "100b4700",
+          "original_target": "0x00470B10"
+        },
+        {
+          "offset": 66,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b14@@3MA",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        },
+        {
+          "offset": 80,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b10@@3MA",
+          "original_operand": "100b4700",
+          "original_target": "0x00470B10"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Angle_Normalize_0044bc70",
+      "source": "src/angle.cpp",
+      "symbol": "?Angle_Normalize@@YGMM@Z",
+      "address": "0x0044BC70",
+      "size": 94,
+      "relocations": [
+        {
+          "offset": 8,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b18@@3MA",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 21,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b14@@3MA",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        },
+        {
+          "offset": 35,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b18@@3MA",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 48,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b10@@3MA",
+          "original_operand": "100b4700",
+          "original_target": "0x00470B10"
+        },
+        {
+          "offset": 66,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b14@@3MA",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        },
+        {
+          "offset": 80,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?DAT_00470b10@@3MA",
+          "original_operand": "100b4700",
+          "original_target": "0x00470B10"
+        }
+      ]
+    },
+    {
+      "name": "semantic_Sound_ForwardFloatAsDouble_00427c50",
+      "source": "src/sound_float_forward.cpp",
+      "symbol": "?Sound_ForwardFloatAsDouble@@YGXM@Z",
+      "address": "0x00427C50",
+      "size": 21,
+      "relocations": [
+        {
+          "offset": 11,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_Sound_ForwardDouble",
+          "original_operand": "91b30200",
+          "original_target": "0x00452FF0"
+        }
+      ]
+    },
+    {
+      "name": "semantic_File_CloseProbeHandle_0044b7e0",
+      "source": "src/file.cpp",
+      "symbol": "?File_CloseProbeHandle@@YGHXZ",
+      "address": "0x0044B7E0",
+      "size": 37,
+      "relocations": [
+        {
+          "offset": 1,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "_g_file_probe_handle",
+          "original_operand": "384c4700",
+          "original_target": "0x00474C38"
+        },
+        {
+          "offset": 13,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__CloseHandle@4",
+          "original_operand": "cc604600",
+          "original_target": "0x004660CC"
+        },
+        {
+          "offset": 18,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "_g_file_critical_section",
+          "original_operand": "a4224900",
+          "original_target": "0x004922A4"
+        },
+        {
+          "offset": 24,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__LeaveCriticalSection@4",
+          "original_operand": "b4604600",
+          "original_target": "0x004660B4"
+        },
+        {
+          "offset": 30,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "_g_file_critical_depth",
+          "original_operand": "1e234900",
+          "original_target": "0x0049231E"
+        }
+      ]
+    },
+    {
+      "name": "semantic_SetLength_LegacyString_00438590",
+      "source": "src/heap.cpp",
+      "symbol": "?SetLength@LegacyString@@QAEXI@Z",
+      "address": "0x00438590",
+      "size": 31,
+      "relocations": []
+    },
+    {
+      "name": "semantic_Platform_InvokeInterface_0044d5b0",
+      "source": "src/process.cpp",
+      "symbol": "?Platform_InvokeInterface@@YIHPAUSoundBuffer@@@Z",
+      "address": "0x0044D5B0",
+      "size": 29,
+      "relocations": []
+    },
+    {
+      "name": "semantic_SoundBuffer_DestructBaseRetail_0044d730",
+      "source": "src/sound_leaves.cpp",
+      "symbol": "?SoundBuffer_DestructBaseRetail@@YIXPAUSoundBuffer@@@Z",
+      "address": "0x0044D730",
+      "size": 11,
+      "relocations": [
+        {
+          "offset": 2,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?sound_buffer_vtable_004705d4@@3DA",
+          "original_operand": "d4054700",
+          "original_target": "0x004705D4"
+        },
+        {
+          "offset": 7,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Platform_ReleaseOwnedArray@@YIXPAUPlatformOwnedArray@@@Z",
+          "original_operand": "45f9ffff",
+          "original_target": "0x0044D080"
+        }
+      ]
+    }
+  ]
+}

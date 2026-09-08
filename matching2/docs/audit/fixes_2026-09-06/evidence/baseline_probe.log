@@ -1,6 +1,0 @@
-easing: 190 dyadic positive controls; four formula counterexamples reproduced
-2D: rounding boundary reproduced against extended-sum model; four state controls passed
-score: positive/zero/negative digits, publication, wrap, and timer controls passed
-version: th10.ver probe (assembly: th10.dat); three result/publication controls passed
-FPS: stale 20fps/red after update to 60fps; suppression and threshold controls passed
-BASELINE OBSERVATIONS REPRODUCED (not retail equivalence)

@@ -1,0 +1,21 @@
+name: Host tests and reference integrity
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install 32-bit host compiler support
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-multilib
+      - name: Check current source, references and host behavior
+        run: ./matching2/test.sh

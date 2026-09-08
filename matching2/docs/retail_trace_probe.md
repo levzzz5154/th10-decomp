@@ -59,7 +59,7 @@ matching2/tools/retail_vs_recon_stage.py /tmp/retail.jsonl /tmp/recon_stage.json
 ```
 
 The reconstruction stage trace is generated with
-`run_all_pe32.sh --trace /tmp/recon_stage.jsonl --smoke --ecl 3600`
+`run.sh --trace /tmp/recon_stage.jsonl --smoke --ecl 3600`
 (249,449 events, deterministic). Two independent retail stage captures
 produce identical flat tick sequences on the normalized comparison fields
 (rank_mask, async_id, scratch_top, pc low word - 10,900/10,900); only the

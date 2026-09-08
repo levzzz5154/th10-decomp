@@ -5,6 +5,7 @@
 #include "th10/game/result_screen_effects.hpp"
 #include "th10/util/scalars.hpp"
 
+#include <cmath>
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
@@ -29,27 +30,6 @@ static void AdvanceFrameClock(PlayerDeathClock* clock, float span_low,
 		clock->frame = (int)float_to_long(clock->timer);
 	}
 }
-
-#include <cmath>
-#include <cstring>
-
-namespace {
-
-
-
-} // namespace
-
-#include <cmath>
-#include <cstring>
-
-namespace {
-
-// Shared retail clock idioms (same semantics as earlier batches).
-
-
-
-
-} // namespace
 
 // 0x004066E0 - Walk one enemy list row and refresh every node's collision
 // snapshot: the hitbox center takes the node position plus the playfield

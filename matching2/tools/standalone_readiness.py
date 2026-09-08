@@ -43,19 +43,19 @@ MILESTONE = {
 INTEGRATION_GATES = {
     "retail_code_free_link_target": {
         "passed": True,
-        "evidence": "build_all_pe32.sh compiles C++ and imports retail data sections, not retail .text instructions",
+        "evidence": "build.sh compiles C++ and imports retail data sections, not retail .text instructions",
     },
     "retail_data_independent_build": {
         "passed": False,
-        "evidence": "build_all_pe32.sh requires th10.exe and embeds its .rdata/.data; the runtime also requires game archives",
+        "evidence": "build.sh requires th10.exe and embeds its .rdata/.data; the runtime also requires game archives",
     },
     "current_executable_produced": {
         "passed": None,
-        "evidence": "Run ./build_all_pe32.sh; this source ledger does not run or authenticate a build",
+        "evidence": "Run ./build.sh; this source ledger does not run or authenticate a build",
     },
     "current_startup_to_title_smoke_test": {
         "passed": None,
-        "evidence": "Run ./run_all_pe32.sh --smoke; a smoke pass does not establish rendering or gameplay parity",
+        "evidence": "Run ./run.sh --smoke; a smoke pass does not establish rendering or gameplay parity",
     },
 }
 

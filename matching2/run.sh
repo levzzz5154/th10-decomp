@@ -1,28 +1,23 @@
 #!/bin/bash
+# Run the all-production-source PE32 integration-audit image under Wine.
+# `--menu-smoke` is a deterministic host-driven title-menu flow; it does not
+# require --input or physical keyboard input.
 set -euo pipefail
 
-printf "%s\n" "Legacy hybrid workflow: retains retail executable code. Use build_all_pe32.sh / run_all_pe32.sh for the C++ runtime." >&2
-
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EXE="$ROOT/build/all-pe32/th10_all_sources.exe"
 GAME_DIR="${TH10_GAME_DIR:-$HOME/Games/TH10 - Mountain of Faith}"
 
-if [[ ! -f "$ROOT/build/th10_reimpl.exe" ]]; then
+if [[ ! -f "$EXE" ]]; then
     "$ROOT/build.sh"
 fi
-if [[ ! -f "$GAME_DIR/th10.dat" || ! -f "$GAME_DIR/thbgm.dat" ]]; then
-    echo "Original TH10 assets were not found in: $GAME_DIR" >&2
-    exit 1
-fi
+for archive in th10.dat thbgm.dat; do
+    if [[ ! -f "$GAME_DIR/$archive" ]]; then
+        echo "Original TH10 archive was not found: $GAME_DIR/$archive" >&2
+        exit 1
+    fi
+    ln -sfn "$GAME_DIR/$archive" "$ROOT/build/all-pe32/$archive"
+done
 
-# The retail game derives its archive paths from the executable's directory,
-# not from the process working directory. Keep the 430 MB of original archives
-# in place and expose them beside the rebuilt image through symlinks.
-ln -sfn "$GAME_DIR/th10.dat" "$ROOT/build/th10.dat"
-ln -sfn "$GAME_DIR/thbgm.dat" "$ROOT/build/thbgm.dat"
-if [[ -f "$GAME_DIR/th10.cfg" ]]; then
-    ln -sfn "$GAME_DIR/th10.cfg" "$ROOT/build/th10.cfg"
-fi
-mkdir -p "$ROOT/build/replay" "$ROOT/build/snapshot"
-
-cd "$ROOT/build"
-exec env WINEDEBUG="${WINEDEBUG:--all}" wine "$ROOT/build/th10_reimpl.exe"
+cd "$ROOT/build/all-pe32"
+exec env WINEDEBUG="${WINEDEBUG:--all}" wine "$EXE" "$@"

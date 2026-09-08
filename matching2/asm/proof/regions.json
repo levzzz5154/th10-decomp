@@ -1,0 +1,12 @@
+{
+  "image_base": "0x00400000",
+  "regions": [
+    {"name": "Entity_Destructor", "address": "0x00401FF0", "size": 34,
+     "source": "regions/entity_destructor.s", "reference": "decompiled/ghidra_full/functions/00401FF0.asm"},
+    {"name": "FrameCounterPair::AtInterval", "address": "0x00427C70", "size": 29,
+     "source": "regions/frame_counter_interval.s", "reference": "decompiled/ghidra_full/functions/00427C70.asm"}
+  ],
+  "external_calls": [
+    {"instruction": "0x00401FFE", "target": "0x00452422", "symbol": "_th10_00452422", "implemented": false}
+  ]
+}

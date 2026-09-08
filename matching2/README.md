@@ -1,98 +1,105 @@
 # TH10 C++ reconstruction
 
-This project reconstructs Touhou 10 game logic as readable C++ and compares
-its behavior with the supported retail executable. The current deliverable is
-an experimental PE32 runtime with focused tests and bounded retail comparisons.
-Full-game correctness and visual equivalence have not been established.
-
-The [audit handoff](docs/audit/README.md) contains the frozen baseline, complete
-address/file inventory, validation evidence, and independent-review packets.
-
-## Scope and rules
-
-- Reconstruct executable behavior in C++. Do not use naked functions, inline
-  assembly, copied instruction blobs, or calls into the retail executable as
-  implementations. Calling conventions and explicit retail object offsets are
-  acceptable where required by the recovered ABI. The build audit rejects common
-  naked-function and inline-assembly syntax in production sources and headers.
-- Keep platform adapters and incomplete gameplay behavior explicit. An operation
-  known to be unimplemented must not report successful execution. The extended
-  ECL dispatcher still needs an audit of its unclassified default cases.
-- Treat source recovery, build integration, and behavioral fidelity as separate
-  evidence. A source annotation, successful link, or deterministic self-comparison
-  does not prove equivalence to retail.
-- Prefer work that closes a demonstrated runtime divergence. Track the compared
-  fields, scenario, duration, and remaining differences instead of claiming a
-  percentage of the game is complete.
+Reconstruct `th10.exe` behavior from disassembly and compare the result with
+retail. A successful build or host test is not evidence of full-game correctness.
+See [runtime status](RUNTIME_FIDELITY_STATUS.md) for the unresolved behavior.
+[Byte-matching evidence](docs/byte_matching.md) records the existing MSVC recipe,
+the installed 6030 toolchain, and historical match recovery.
 
 ## Build and validate
 
 From this directory:
 
 ```bash
-./build_all_pe32.sh
-./test.sh
-./run_all_pe32.sh --smoke
+./build.sh              # Compile all production sources into a PE32 executable
+./test.sh               # Check source/reference integrity, then run host tests
+./run.sh --smoke        # Run the bounded integration scenario under Wine
+./run.sh                # Run interactively
 ```
 
-The build uses a PE32 MinGW C++17 toolchain; tests need g++, Python 3, and i386
-multilib support. Wine runs the executable. Configure the compiler with
-`TH10_PE32_CXX` or `LLVM_MINGW_ROOT`; see the build script for other tool overrides.
+The build requires a PE32 MinGW C++17 toolchain. Tests require g++, Python 3,
+and i386 multilib support. Configure the host compiler with `CXX`; the same
+compiler is used for the 32-bit tests. Wine runs the executable.
 
-**The build still requires the retail executable.** It embeds `.rdata` and
-`.data` from `th10.exe` and supplies reconstructed C++ code. It does not import
-retail `.text` instructions. The runtime also uses `th10.dat` and `thbgm.dat`.
-Defaults point to `$HOME/Games/TH10 - Mountain of Faith`; override `TH10_GAME_DIR`
-and, for the build's executable input, `TH10_RETAIL_EXE`.
+Set `TH10_GAME_DIR` to the retail game directory (default:
+`$HOME/Games/TH10 - Mountain of Faith`). The build requires `th10.exe` and
+embeds its `.rdata` and `.data`; it does not copy retail `.text` instructions.
+Execution requires `th10.dat` and `thbgm.dat`.
 
-`build_pe32.sh` delegates to the all-source build. The old `build.sh`, `run.sh`,
-and `tools/build_hybrid.py` are legacy byte-overlay tools, outside the current
-reconstruction acceptance path. A hybrid executable cannot demonstrate that
-reconstructed code implements the game.
+Override the executable input with `TH10_RETAIL_EXE`. Toolchain overrides are
+`TH10_PE32_CXX`, `TH10_PE32_CC`, `TH10_PE32_NM`, `TH10_PE32_WINDRES`, and
+`LLVM_MINGW_ROOT`; see [build.sh](build.sh) for resolution order.
+The output is `build/all-pe32/th10_all_sources.exe`. `run.sh` builds it when
+missing; run `build.sh` explicitly after editing sources.
 
-A smoke pass checks its bounded host scenario. Verify live rendering separately;
-a pass with zero sprite draws provides no visual evidence. See
-[RUNTIME_FIDELITY_STATUS.md](RUNTIME_FIDELITY_STATUS.md) for current boundaries
-and [the retail probe workflow](docs/retail_trace_probe.md) for comparisons.
-
-## Progress evidence
+## Recover historical byte matches
 
 ```bash
-python3 tools/coverage_report.py --check
-python3 tools/function_registry.py --check
-python3 tools/standalone_readiness.py --check
+python3 tools/recover_matches.py
 ```
 
-These commands check reproducible source reports, not a fresh runtime execution.
-The coverage inventory combines Ghidra functions with historical overlay
-addresses. Historical membership never establishes an implementation. `semantic`
-is a source-annotation classification, subject to explicit partial overrides;
-it is not a claim of exhaustive behavioral parity. Missing provenance remains
-unrecovered until reviewed. Byte weights cover tracked functions with known sizes,
-not the entire executable.
+This rebuilds the 397 historical entries with MSVC 13.10.6030 under Wine.
+The pinned source snapshot, objects, compiler logs, and `report.json` go to
+`build/recovered-matches/`. The command adapts two ECL callback typedefs and
+four integer constants to C++98 in that generated snapshot. It preserves
+historical assembly implementations for comparison. This is a separate
+recovery baseline; it does not replace current production sources or produce
+an independently linked executable. See the report for excluded relocation
+bytes and agreement with saved Ghidra function boundaries.
 
-The readiness report describes a conservative startup/title call closure. Its
-indirect-site audit and source classifications are static evidence. Build and
-smoke outcomes are marked unmeasured by this generator; retail-data independence
-is explicitly false. No generated completion claim substitutes for fresh checks.
+Use `--toolkit`, `--exe`, and `--output` to override local paths.
 
-## Next milestones
+The separate [assembly baseline](asm/README.md) rebuilds the entire supported
+487,936-byte executable exactly. Run `./build_asm.sh`; the output is
+`build/asm-baseline/full/th10.exe`. Its 117,397 instructions are assembled from
+versioned source, with symbolic references and no relocation masks. Normal
+builds do not read the retail executable. Data/resources and original PE
+metadata are preserved. The [MSVC C++ project](msvc/README.md) now compiles all code from `.cpp` files, including 34 ordinary C++ functions
+and inline assembly for the remaining bodies, under the same whole-file check. Run `./build_msvc.sh`;
+its output is `build/msvc/th10.exe`.
 
-1. Audit extended ECL dispatch defaults and remaining success-shaped placeholders;
-   reconstruct reachable operations or stop with the opcode and missing dependency.
-2. Close enemy-motion/lifetime differences with bounded retail comparisons, then
-   expand beyond the current stage/script coverage.
-3. Recover player collision/respawn and attached-effect ownership/callback behavior.
-4. Validate live rendering and text layout against retail captures.
-5. Replace imported retail data with documented, typed definitions if a build
-   independent of `th10.exe` is pursued. Retail game assets remain a separate input.
+## Development workflow
 
-Sources are organized under `src/` and `include/th10/` by subsystem. The
-`standalone/` directory supplies platform and runtime integration, `tests/`
-contains focused harnesses, and `tools/` contains reports and trace comparison.
-Raw decompiler/disassembly references live outside this directory and are evidence,
-not production build inputs.
+1. Locate the retail function in the [reference index](../decompiled/reference_coverage/README.md).
+2. Change the subsystem implementation in `src/` and its layouts in `include/th10/`.
+   Preserve address annotations so functions remain traceable to retail.
+3. Run the relevant harness and the full `test.sh` suite. Harness source
+   dependencies are listed in `tests/host_suites.sh`.
+4. Build and compare a bounded runtime scenario using the
+   [retail probe workflow](docs/retail_trace_probe.md). Record compared fields,
+   duration, and remaining differences. Check live rendering separately.
 
-Earlier recovery narratives are preserved as [historical notes](docs/recovery_history.md)
-and [historical runtime observations](docs/runtime_fidelity_history.md). Their
-completion claims are superseded by this scope and the current source reports.
+`standalone/host_main.cpp` wires the platform and menus;
+`standalone/host_stage.cpp` wires stage execution;
+`standalone/host_trace.cpp` writes deterministic diagnostics independently of
+platform setup. These adapters remain incomplete.
+
+Known unimplemented operations must not report successful execution. Do not use
+naked functions, inline assembly, copied instruction blobs, or calls into retail
+code as implementations. Calling conventions and explicit object offsets are
+appropriate where required by the recovered ABI.
+
+## Source and reference checks
+
+`./check.sh` runs source-report and original-reference integrity checks without
+compiling the host tests or running the game. After changing source annotations,
+regenerate the affected reports:
+
+```bash
+python3 tools/coverage_report.py --write
+python3 tools/function_registry.py --write
+python3 tools/standalone_readiness.py --write
+python3 ../tools/audit_reference_corpus.py --write
+./check.sh
+```
+
+`coverage.json` and `function_registry.json` are navigation and source-evidence
+reports, not gameplay completion scores. Historical overlay membership comes
+from `data/historical_overlays.json`, whose provenance names its original Git
+revision; membership never establishes an implementation.
+`standalone_readiness.json` describes a static startup/title call closure and
+does not certify a fresh build, smoke pass, or independence from retail data.
+
+The build also checks unresolved project symbols and the existing placeholder
+and fidelity baselines. Passing those scans only establishes their configured
+checks. A smoke with zero sprite draws provides no rendering evidence.

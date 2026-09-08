@@ -1,0 +1,156 @@
+{
+  "schema": "th10-asm-pe-layout/v1",
+  "reference": {
+    "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "file_size": 487936,
+    "overlay_bytes": 0,
+    "header_sha256": "7842878761f8d56426388f38fd5217d5012cd2e3279442e73d26f87fe2cf8dd1",
+    "text_section_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+    "text_section_bytes": 412672
+  },
+  "image": {
+    "pe_offset": 288,
+    "size_of_headers": 1024
+  },
+  "dos_prefix": {
+    "size": 288,
+    "sha256": "531ba79310dbcdadc07376d5ba29f720d899ffb5dd0593c921c8eb32e6276f80",
+    "header": {
+      "path": "data/dos_header.bin",
+      "size": 64,
+      "sha256": "c4bfe3c9fa083643c55a84e22d1e46201fc3aba7cf52ccfb25d517cf1b82da05"
+    },
+    "code": {
+      "source": "dos_stub.s",
+      "size": 64,
+      "sha256": "7764e7022dcac1b5779d1f96fc05af5c1fee394aaff8a3a7e9a881e1a1b163a3",
+      "description": "Assembled .code16 DOS message/exit stub at prefix offset 0x40."
+    },
+    "rich_metadata": {
+      "path": "data/rich_metadata.bin",
+      "size": 160,
+      "sha256": "5e159fecccb624f46066905d1d19ea4ec33354a2e702cb24713da22ae63b38ea",
+      "description": "Rich signature, product records, and explicit zero padding through e_lfanew."
+    }
+  },
+  "coff": {
+    "machine": 332,
+    "number_of_sections": 4,
+    "timestamp": 1186086096,
+    "pointer_to_symbol_table": 0,
+    "number_of_symbols": 0,
+    "size_of_optional_header": 224,
+    "characteristics": 271
+  },
+  "optional": {
+    "magic": 267,
+    "major_linker_version": 7,
+    "minor_linker_version": 10,
+    "size_of_code": 412672,
+    "size_of_initialized_data": 214016,
+    "size_of_uninitialized_data": 0,
+    "address_of_entry_point": 341980,
+    "base_of_code": 4096,
+    "base_of_data": 417792,
+    "image_base": 4194304,
+    "section_alignment": 4096,
+    "file_alignment": 512,
+    "major_operating_system_version": 4,
+    "minor_operating_system_version": 0,
+    "major_image_version": 0,
+    "minor_image_version": 0,
+    "major_subsystem_version": 4,
+    "minor_subsystem_version": 0,
+    "win32_version_value": 0,
+    "size_of_image": 638976,
+    "size_of_headers": 1024,
+    "checksum": 0,
+    "subsystem": 2,
+    "dll_characteristics": 0,
+    "size_of_stack_reserve": 1048576,
+    "size_of_stack_commit": 4096,
+    "size_of_heap_reserve": 1048576,
+    "size_of_heap_commit": 4096,
+    "loader_flags": 0,
+    "number_of_rva_and_sizes": 16
+  },
+  "data_directories": [
+    {"rva": 0, "size": 0},
+    {"rva": 465080, "size": 200},
+    {"rva": 630784, "size": 4832},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 462296, "size": 64},
+    {"rva": 0, "size": 0},
+    {"rva": 417792, "size": 784},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0},
+    {"rva": 0, "size": 0}
+  ],
+  "sections": [
+    {
+      "name": ".text",
+      "virtual_size": 412289,
+      "virtual_address": 4096,
+      "raw_size": 412672,
+      "raw_offset": 1024,
+      "pointer_to_relocations": 0,
+      "pointer_to_linenumbers": 0,
+      "number_of_relocations": 0,
+      "number_of_linenumbers": 0,
+      "characteristics": 1610612768,
+      "executable": true,
+      "source": "input.text"
+    },
+    {
+      "name": ".rdata",
+      "virtual_size": 51782,
+      "virtual_address": 417792,
+      "raw_size": 52224,
+      "raw_offset": 413696,
+      "pointer_to_relocations": 0,
+      "pointer_to_linenumbers": 0,
+      "number_of_relocations": 0,
+      "number_of_linenumbers": 0,
+      "characteristics": 1073741888,
+      "executable": false,
+      "source": "data/rdata.bin",
+      "sha256": "52e89c93727a0f20e09e28cd79027f5f63380a225d54584ce2f432a66a29fdfc"
+    },
+    {
+      "name": ".data",
+      "virtual_size": 156492,
+      "virtual_address": 471040,
+      "raw_size": 16896,
+      "raw_offset": 465920,
+      "pointer_to_relocations": 0,
+      "pointer_to_linenumbers": 0,
+      "number_of_relocations": 0,
+      "number_of_linenumbers": 0,
+      "characteristics": 3221225536,
+      "executable": false,
+      "source": "data/data.bin",
+      "sha256": "203a192def522690cedf9f4c90a6fe3544c9ec5042d28e9c7a2e4cb1566c0f7c"
+    },
+    {
+      "name": ".rsrc",
+      "virtual_size": 4832,
+      "virtual_address": 630784,
+      "raw_size": 5120,
+      "raw_offset": 482816,
+      "pointer_to_relocations": 0,
+      "pointer_to_linenumbers": 0,
+      "number_of_relocations": 0,
+      "number_of_linenumbers": 0,
+      "characteristics": 1073741888,
+      "executable": false,
+      "source": "data/rsrc.bin",
+      "sha256": "6b21d22ec89e8ebfd957251a2c8001dc7b36e3a34f1f0e539850d8f791673665"
+    }
+  ]
+}

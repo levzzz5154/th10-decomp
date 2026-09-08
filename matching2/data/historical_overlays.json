@@ -1,0 +1,1992 @@
+{
+  "description": "Historical address inventory only; membership does not establish implementation or retail equivalence.",
+  "source_path": "matching2/tools/build_hybrid.py",
+  "source_revision": "dcf2b5077a86c11ed886c3008bbe3b13f6c6df44",
+  "entries": [
+    {
+      "object": "entity.obj",
+      "symbol": "Entity_Destructor",
+      "address": "0x00401FF0"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "Entity_Constructor",
+      "address": "0x00402050"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "EntitySecondaryResource_Release",
+      "address": "0x00405DE0"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "EntityAnimation_Release",
+      "address": "0x0041AD60"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "DestroyEntityList",
+      "address": "0x00438A30"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "?Entity_PointWithinBounds@@",
+      "address": "0x00406160"
+    },
+    {
+      "object": "entity.obj",
+      "symbol": "?Entity_PointWithinBoundsInclusive@@",
+      "address": "0x004061D0"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "Entity_AttachResourceSnapshot",
+      "address": "0x0040B250"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "BulletSpawnParameters_Initialize",
+      "address": "0x0040CF40"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "BulletEntity_ClearResourceList",
+      "address": "0x0040C6E0"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "BulletEntity_SetAnimationVector",
+      "address": "0x0040CF60"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "BulletEntity_FindById",
+      "address": "0x0040CF90"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "BulletEntity_ReleaseResource",
+      "address": "0x0040D680"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "?BulletEntity_MarkAnimationForRemoval@@",
+      "address": "0x0040CEA0"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "?Entity_ClearAnims@@",
+      "address": "0x0040CC70"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "?BulletManager_Release@@",
+      "address": "0x0040AF00"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "?BulletManager_LoadScripts@@",
+      "address": "0x0040AE70"
+    },
+    {
+      "object": "bullet.obj",
+      "symbol": "?BulletManager_Create@@",
+      "address": "0x0040AF90"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "HeapBuffer_Release",
+      "address": "0x00435250"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "0HeapBuffer",
+      "address": "0x004352C0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "??_GFileHandle",
+      "address": "0x00435320"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "??1FileHandle",
+      "address": "0x00435340"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "Close@FileHandle",
+      "address": "0x00435460"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "Read@FileHandle",
+      "address": "0x00435490"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "Write@FileHandle",
+      "address": "0x004354D0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "Tell@FileHandle",
+      "address": "0x00435510"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "GetSize@FileHandle",
+      "address": "0x00435530"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "Seek@FileHandle",
+      "address": "0x00435550"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "??1FileInterface",
+      "address": "0x00435690"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "??_GFileInterface",
+      "address": "0x004356A0"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "Write@BufferFile",
+      "address": "0x00436370"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "??_GBufferFile",
+      "address": "0x004363A0"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "??1BufferFile",
+      "address": "0x004363C0"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "Close@BufferFile",
+      "address": "0x00436430"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "Read@BufferFile",
+      "address": "0x00436460"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "Tell@BufferFile",
+      "address": "0x004364D0"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "GetSize@BufferFile",
+      "address": "0x004364E0"
+    },
+    {
+      "object": "resource_file.obj",
+      "symbol": "??_GResourceFile",
+      "address": "0x00436660"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "LegacyString_Clear",
+      "address": "0x004381F0"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Length@LegacyString",
+      "address": "0x00438250"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "QAEPADXZ",
+      "address": "0x00438680"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "Deallocate@LegacyAllocator",
+      "address": "0x00438690"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "MaxSize@LegacyAllocator",
+      "address": "0x004386A0"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "OwnsPointer@LegacyString",
+      "address": "0x00438800"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "Allocate@LegacyAllocator",
+      "address": "0x00438840"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "SetLength@LegacyString",
+      "address": "0x00438590"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Heap_DestroyOwned@@",
+      "address": "0x00418150"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Heap_DestroyOwnedSecondary@@",
+      "address": "0x0042CDB0"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?LegacyString_Duplicate@@",
+      "address": "0x00435220"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Assign@LegacyString@@",
+      "address": "0x00438350"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?AssignSubstring@LegacyString@@",
+      "address": "0x00438260"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Reserve@LegacyString@@",
+      "address": "0x00438380"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?AssignRange@LegacyString@@",
+      "address": "0x00438420"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Erase@LegacyString@@",
+      "address": "0x00438510"
+    },
+    {
+      "object": "heap.obj",
+      "symbol": "?Grow@LegacyString@@",
+      "address": "0x004386B0"
+    },
+    {
+      "object": "runtime_pool.obj",
+      "symbol": "RuntimeAllocationPool_Initialize",
+      "address": "0x004388F0"
+    },
+    {
+      "object": "stage_tips.obj",
+      "symbol": "StageTip_Initialize",
+      "address": "0x00418D00"
+    },
+    {
+      "object": "angle.obj",
+      "symbol": "?Angle_Normalize@@",
+      "address": "0x0044BC70"
+    },
+    {
+      "object": "angle.obj",
+      "symbol": "?Angle_NormalizeSum@@",
+      "address": "0x0044BC10"
+    },
+    {
+      "object": "rng.obj",
+      "symbol": "?Rng_NextU32@@",
+      "address": "0x0044B9E0"
+    },
+    {
+      "object": "rng.obj",
+      "symbol": "?Rng_NextU32DoubleStep@@",
+      "address": "0x0044BA80"
+    },
+    {
+      "object": "rng.obj",
+      "symbol": "?Rng_NextFloat@@",
+      "address": "0x0044BB20"
+    },
+    {
+      "object": "rng.obj",
+      "symbol": "?Rng_NextFloatSigned@@",
+      "address": "0x0044BB90"
+    },
+    {
+      "object": "vector.obj",
+      "symbol": "?SetPolar@Vector2@@",
+      "address": "0x0041F800"
+    },
+    {
+      "object": "vector.obj",
+      "symbol": "Vector2_SetPolar",
+      "address": "0x004458B0"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?GameState_SetTimerTarget@@",
+      "address": "0x0042C620"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?GameState_DisableTimerWithOwner@@",
+      "address": "0x0042C5C0"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?FrameTimer_Advance@@",
+      "address": "0x0044BF40"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?FrameTimer_Tick@@",
+      "address": "0x00404ED0"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?EmbeddedTimer_Reset@@",
+      "address": "0x004050D0"
+    },
+    {
+      "object": "timer.obj",
+      "symbol": "?FrameTimer_Decrement@@",
+      "address": "0x00428DD0"
+    },
+    {
+      "object": "math_utils.obj",
+      "symbol": "?Vec_Subtract@@",
+      "address": "0x00404D40"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?GameState_DispatchDummy@@",
+      "address": "0x00420C00"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?GameState_UpdateFrameMaximum@@",
+      "address": "0x00421F60"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?GameState_Unpause@@",
+      "address": "0x00422C30"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?GameState_DispatchAnimationSlot@@",
+      "address": "0x0042C730"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?GameState_DispatchAnimationSlotSecondary@@",
+      "address": "0x0042C750"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?Scheduler_CreateAndRegister@@",
+      "address": "0x0044A000"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?SchedulerCallback_Create@@",
+      "address": "0x00449ED0"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?Scheduler_RegisterPrimary@@",
+      "address": "0x00449AE0"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?Scheduler_RegisterSecondary@@",
+      "address": "0x00449B70"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?Scheduler_Remove@@",
+      "address": "0x00449F60"
+    },
+    {
+      "object": "scheduler.obj",
+      "symbol": "?Scheduler_CreateAndRegisterSecondary@@",
+      "address": "0x0044A030"
+    },
+    {
+      "object": "path.obj",
+      "symbol": "?Path_DecodeXor@@",
+      "address": "0x00417010"
+    },
+    {
+      "object": "path.obj",
+      "symbol": "?Path_FindBasenameSlot@@",
+      "address": "0x0043D2A0"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_InvokeInterface@@",
+      "address": "0x0044D5B0"
+    },
+    {
+      "object": "win32_timer.obj",
+      "symbol": "?TimerWin32_Release@@",
+      "address": "0x004203C0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_CloseProbeHandle@@",
+      "address": "0x0044B7E0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_WriteShared@@",
+      "address": "0x0044B740"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_ReadShared@@",
+      "address": "0x0044B790"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_ProbeExists@@",
+      "address": "0x0044B4D0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_OpenSharedWrite@@",
+      "address": "0x0044B620"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_OpenSharedRead@@",
+      "address": "0x0044B6B0"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_WriteWholeFile@@",
+      "address": "0x0044B540"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?File_ResolvePath@@",
+      "address": "0x00435610"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "?ReadWhole@FileHandle@@",
+      "address": "0x00435580"
+    },
+    {
+      "object": "file.obj",
+      "symbol": "FileHandle_OpenRetail",
+      "address": "0x00435370"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "?Resource_FindChunk@@",
+      "address": "0x0043D250"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "?MemoryFile_RelinkChild@@",
+      "address": "0x00436260"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "?MemoryFile_FindPredecessor@@",
+      "address": "0x00436330"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "?MemoryFile_ReplaceNode@@",
+      "address": "0x004362B0"
+    },
+    {
+      "object": "memory_file.obj",
+      "symbol": "?MemoryFile_RemoveNode@@",
+      "address": "0x00436210"
+    },
+    {
+      "object": "stage_text.obj",
+      "symbol": "?StageText_SkipLine@@",
+      "address": "0x004349E0"
+    },
+    {
+      "object": "stage_text.obj",
+      "symbol": "?StageText_ExtractLine@@",
+      "address": "0x00434A20"
+    },
+    {
+      "object": "stage_text.obj",
+      "symbol": "?StageText_Initialize@@",
+      "address": "0x00434A80"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_Reset@@",
+      "address": "0x00434C20"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_Open@@",
+      "address": "0x00434C30"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_Close@@",
+      "address": "0x00434D10"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_Read@@",
+      "address": "0x00434DD0"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_LoadIndex@@",
+      "address": "0x00434F70"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_FindEntry@@",
+      "address": "0x00434F30"
+    },
+    {
+      "object": "dat.obj",
+      "symbol": "?DatArchive_FindSize@@",
+      "address": "0x00434EF0"
+    },
+    {
+      "object": "resource_manager.obj",
+      "symbol": "Resource_GetFileSizeRetail",
+      "address": "0x004358E0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationColor_MultiplyChannel@@",
+      "address": "0x004423C0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_ValidateHandle@@",
+      "address": "0x00449450"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SelectSpriteFromCurrentResource@@",
+      "address": "0x00449670"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SelectSpriteFromResource@@",
+      "address": "0x004496A0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetStopFrame@@",
+      "address": "0x00449210"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_StopAtFrame2@@",
+      "address": "0x0040C480"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@",
+      "address": "0x00449250"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetFlag@@",
+      "address": "0x004492A0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_ClearResourceSlot@@",
+      "address": "0x004477D0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_StopAtFrame3@@",
+      "address": "0x0040C4D0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_ClearFlag@@",
+      "address": "0x004495E0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetFlagBit1@@",
+      "address": "0x00449590"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetPosition@@",
+      "address": "0x004492F0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CreatePrimaryBack@@",
+      "address": "0x00448D00"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@",
+      "address": "0x00448D50"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CreatePrimaryFront@@",
+      "address": "0x00448E30"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CreateSecondaryBack@@",
+      "address": "0x00448F60"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CreateSecondaryFront@@",
+      "address": "0x00449090"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_Find@@",
+      "address": "0x004491C0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_MarkForRemovalAndClearHandle@@",
+      "address": "0x00449630"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RenderBucket@@",
+      "address": "0x00448980"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_ClearIndexedResources@@",
+      "address": "0x00447F70"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RegisterPrimaryBack@@",
+      "address": "0x004489D0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RegisterPrimaryFront@@",
+      "address": "0x00448A50"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RegisterSecondaryBack@@",
+      "address": "0x00448AC0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RegisterSecondaryFront@@",
+      "address": "0x00448B40"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?PlayerAnimation_Create@@",
+      "address": "0x00448DB0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_SetTranslatedPosition@@",
+      "address": "0x00449350"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_MarkResourceForRemoval@@",
+      "address": "0x004493E0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_QueueResource@@",
+      "address": "0x0043DC90"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_CopyPositionRecord@@",
+      "address": "0x00447940"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_UpdatePrimary@@",
+      "address": "0x00448860"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_UpdateSecondary@@",
+      "address": "0x00448900"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_FindChildByScriptIndex@@",
+      "address": "0x004497D0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationTexture_Create@@",
+      "address": "0x00447050"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_ReadIntegerVariable@@",
+      "address": "0x0043EC70"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_ResolveIntegerVariable@@",
+      "address": "0x0043EDA0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_ResolveFloatVariable@@",
+      "address": "0x0043ED00"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationManager_RegisterResource@@",
+      "address": "0x0043E460"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_LoadScript@@",
+      "address": "0x0043E710"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_LoadScriptPreservingState@@",
+      "address": "0x0043E7E0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_ConfigureFromResource@@",
+      "address": "0x0043E5A0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "?AnimationObject_ChangeScript@@",
+      "address": "0x0043E8B0"
+    },
+    {
+      "object": "animation_manager.obj",
+      "symbol": "AnimationManager_SetStopFrameFromHandleRetail",
+      "address": "0x00449470"
+    },
+    {
+      "object": "d3d_resource_manager.obj",
+      "symbol": "?D3DResourceManager_Initialize@@",
+      "address": "0x00449AA0"
+    },
+    {
+      "object": "d3d_resource_manager.obj",
+      "symbol": "?D3DResourceList_ClearPending@@",
+      "address": "0x00449A90"
+    },
+    {
+      "object": "d3d_resource_manager.obj",
+      "symbol": "?D3DResourceList_ReleaseResources@@",
+      "address": "0x00449E50"
+    },
+    {
+      "object": "d3d_resource_manager.obj",
+      "symbol": "?D3DResourceManager_Destroy@@",
+      "address": "0x00438880"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveIntFromEntity@@",
+      "address": "0x00412A00"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveIntDestination@@",
+      "address": "0x00412A10"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveIntValue@@",
+      "address": "0x0044FF00"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveIntOperand@@",
+      "address": "0x0044FDB0"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveFloatOperand@@",
+      "address": "0x0044FE40"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveFloatValue@@",
+      "address": "0x0044FF80"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_SetPolarVector@@",
+      "address": "0x004501B0"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveVariableValue@@",
+      "address": "0x00450030"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResolveFloatDestination@@",
+      "address": "0x00450070"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_FindVariable@@",
+      "address": "0x00450160"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_ResetVariableBindings@@",
+      "address": "0x00450190"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_PushScratchValue@@",
+      "address": "0x00450690"
+    },
+    {
+      "object": "ecl_vm.obj",
+      "symbol": "?ECL_PopScratchValue@@",
+      "address": "0x004506D0"
+    },
+    {
+      "object": "sound_float_forward.obj",
+      "symbol": "?Sound_ForwardFloatAsDouble@@",
+      "address": "0x00427C50"
+    },
+    {
+      "object": "sound_stream_start.obj",
+      "symbol": "SoundStream_Start",
+      "address": "0x0044D440"
+    },
+    {
+      "object": "sound_commands.obj",
+      "symbol": "Streamer_FillBufferRetail",
+      "address": "0x0044D110"
+    },
+    {
+      "object": "sound_commands.obj",
+      "symbol": "Streamer_RestartRetail",
+      "address": "0x0044DAD0"
+    },
+    {
+      "object": "sound_worker.obj",
+      "symbol": "Platform_StopSoundWorkersRetail",
+      "address": "0x0043CC40"
+    },
+    {
+      "object": "joystick_property_overlay.obj",
+      "symbol": "Input_SetJoystickPropertyRetail",
+      "address": "0x0044C7E0"
+    },
+    {
+      "object": "text_log.obj",
+      "symbol": "?TextLog_Append@@",
+      "address": "0x0044B810"
+    },
+    {
+      "object": "text_log.obj",
+      "symbol": "TextLog_AppendLine",
+      "address": "0x0044B8E0"
+    },
+    {
+      "object": "effect_indicator_slots.obj",
+      "symbol": "CellPair_Scale",
+      "address": "0x00427D80"
+    },
+    {
+      "object": "effect_indicator_slots.obj",
+      "symbol": "EffectIndicatorPool_AllocateRetail",
+      "address": "0x00427B50"
+    },
+    {
+      "object": "effect_indicator_slots.obj",
+      "symbol": "EmbeddedTimer_SetCountdownRetail",
+      "address": "0x0042A930"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_DestroyWorker@@",
+      "address": "0x0044C100"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_StopWorkerNoDelete@@",
+      "address": "0x0044C130"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_LaunchProcess@@",
+      "address": "0x00436570"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_GetOsVersionCode@@",
+      "address": "0x0044BD10"
+    },
+    {
+      "object": "process.obj",
+      "symbol": "?Platform_StopWorker@@",
+      "address": "0x0044C150"
+    },
+    {
+      "object": "game_thread_queue.obj",
+      "symbol": "?GameThread_AppendFormatted@@",
+      "address": "0x00401630"
+    },
+    {
+      "object": "game_thread_queue.obj",
+      "symbol": "?GameThread_AppendRecord@@",
+      "address": "0x00401530"
+    },
+    {
+      "object": "game_thread_queue.obj",
+      "symbol": "GameThread_AppendFormattedMarkedRetail",
+      "address": "0x00401690"
+    },
+    {
+      "object": "game_thread_overlay.obj",
+      "symbol": "GameThread_ConstructOverlay",
+      "address": "0x00401000"
+    },
+    {
+      "object": "linked_pool_append.obj",
+      "symbol": "LinkedPool_AllocateAndAppendRetail",
+      "address": "0x0042AA50"
+    },
+    {
+      "object": "archive_cursor_open.obj",
+      "symbol": "ArchiveCursor_Open",
+      "address": "0x0044DBF0"
+    },
+    {
+      "object": "archive_cursor.obj",
+      "symbol": "ArchiveCursor_SeekRetail",
+      "address": "0x0044DD40"
+    },
+    {
+      "object": "archive_cursor_read.obj",
+      "symbol": "ArchiveCursor_ReadRetail",
+      "address": "0x0044DE10"
+    },
+    {
+      "object": "dat_file.obj",
+      "symbol": "DatArchive_OpenResource",
+      "address": "0x00434CA0"
+    },
+    {
+      "object": "game_config_defaults.obj",
+      "symbol": "GameConfig_InitializeDefaults",
+      "address": "0x00418C40"
+    },
+    {
+      "object": "prng.obj",
+      "symbol": "EntityScript_NextRandomModulo",
+      "address": "0x0043CB80"
+    },
+    {
+      "object": "vector3_cross.obj",
+      "symbol": "Vector3_Cross",
+      "address": "0x00421B90"
+    },
+    {
+      "object": "particle_seed.obj",
+      "symbol": "ParticleSeed_Combine",
+      "address": "0x00404E10"
+    },
+    {
+      "object": "progress.obj",
+      "symbol": "GameProgress_HasAnyPlayRecord",
+      "address": "0x0042C850"
+    },
+    {
+      "object": "menu.obj",
+      "symbol": "MenuCursor_Advance",
+      "address": "0x0044BEA0"
+    },
+    {
+      "object": "ecl_vm_children.obj",
+      "symbol": "EclVm_SpawnChild",
+      "address": "0x004500D0"
+    },
+    {
+      "object": "ecl_vm_children.obj",
+      "symbol": "EclVm_TickChildren",
+      "address": "0x0044FD10"
+    },
+    {
+      "object": "ecl_vm_children.obj",
+      "symbol": "EclVm_StartChildRetail",
+      "address": "0x0044DF70"
+    },
+    {
+      "object": "weather_pool.obj",
+      "symbol": "EffectPool_UpdateDrops",
+      "address": "0x0042B6F0"
+    },
+    {
+      "object": "random_vector.obj",
+      "symbol": "RandomVector_StoreRoundedScalar",
+      "address": "0x00441E50"
+    },
+    {
+      "object": "quad_vertex_append.obj",
+      "symbol": "AnimationManager_AppendQuadVertices",
+      "address": "0x00442FE0"
+    },
+    {
+      "object": "anm_batch_flush.obj",
+      "symbol": "AnimationManager_FlushQuadBatch",
+      "address": "0x00442F50"
+    },
+    {
+      "object": "game_ui_create.obj",
+      "symbol": "GameUi_CreateAndPublish",
+      "address": "0x004180E0"
+    },
+    {
+      "object": "stage_tip_manager.obj",
+      "symbol": "StageTip_CreateUrgent",
+      "address": "0x00424650"
+    },
+    {
+      "object": "stage_tip_manager.obj",
+      "symbol": "StageTipManager_Construct",
+      "address": "0x00418D40"
+    },
+    {
+      "object": "stage_tip_manager.obj",
+      "symbol": "StageTip_CreateRetail",
+      "address": "0x0041A120"
+    },
+    {
+      "object": "stage_tip_manager.obj",
+      "symbol": "StageTipRuntime_InitializeRetail",
+      "address": "0x00418E30"
+    },
+    {
+      "object": "frame_counter.obj",
+      "symbol": "?AtInterval@FrameCounterPair@@",
+      "address": "0x00427C70"
+    },
+    {
+      "object": "midi_worker_stop.obj",
+      "symbol": "MidiWorker_StopRetail",
+      "address": "0x0043DAB0"
+    },
+    {
+      "object": "edge_strips.obj",
+      "symbol": "RenderTarget_FillVerticalEdgeStripRetail",
+      "address": "0x00444BE0"
+    },
+    {
+      "object": "anm_texture_upload.obj",
+      "symbol": "AnmArchive_AdvanceScriptCursorRetail",
+      "address": "0x004473C0"
+    },
+    {
+      "object": "anm_texture_upload.obj",
+      "symbol": "AnmTexture_CreateAndUploadRetail",
+      "address": "0x00446F40"
+    },
+    {
+      "object": "fps_counter.obj",
+      "symbol": "FrameRateCounter_UpdateRetail",
+      "address": "0x004134B0"
+    },
+    {
+      "object": "slot_lock_leaves.obj",
+      "symbol": "SlotLockTable_LeaveRetail",
+      "address": "0x00421C50"
+    },
+    {
+      "object": "slot_lock_leaves.obj",
+      "symbol": "CachedComSlot_ReleaseRetail",
+      "address": "0x00421D20"
+    },
+    {
+      "object": "player_scheduler.obj",
+      "symbol": "Player_ResetSchedulerLinksRetail",
+      "address": "0x00405BE0"
+    },
+    {
+      "object": "score_file.obj",
+      "symbol": "ScoreFile_InitializeDefaultsRetail",
+      "address": "0x0042ACB0"
+    },
+    {
+      "object": "sound_leaves.obj",
+      "symbol": "SoundBuffer_DestructBaseRetail",
+      "address": "0x0044D730"
+    },
+    {
+      "object": "sound_leaves.obj",
+      "symbol": "Sound_PlayRandomVoiceRetail",
+      "address": "0x00420C30"
+    },
+    {
+      "object": "sound_dummy.obj",
+      "symbol": "Sound_PlayDummyRetail",
+      "address": "0x00420B10"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "EffectManager_ResetAndPublishRetail",
+      "address": "0x0042B430"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "EffectManagerRuntime_InitializeRetail",
+      "address": "0x0042B4D0"
+    },
+    {
+      "object": "progress.obj",
+      "symbol": "?GameProgress_UnlockAllStages@@",
+      "address": "0x0042C8C0"
+    },
+    {
+      "object": "progress_worker.obj",
+      "symbol": "?ProgressManager_CreateAndStartWorker@@",
+      "address": "0x0042CD50"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "?PlayerManager_StartMode@@",
+      "address": "0x004045B0"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "Player_SetSchedulerValue",
+      "address": "0x00405410"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "Player_AdjustPower",
+      "address": "0x00405B60"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "Player_Draw",
+      "address": "0x00405AC0"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "Player_HitTestRetail",
+      "address": "0x004059F0"
+    },
+    {
+      "object": "player.obj",
+      "symbol": "Player_ClearExpiredFlagsRetail",
+      "address": "0x00405500"
+    },
+    {
+      "object": "faith_gauge.obj",
+      "symbol": "FaithGauge_AddRetail",
+      "address": "0x00418930"
+    },
+    {
+      "object": "animation_slot.obj",
+      "symbol": "AnimationSlot_ReleaseRetail",
+      "address": "0x004136C0"
+    },
+    {
+      "object": "boss_overlays.obj",
+      "symbol": "Boss_SyncOverlayPositionsRetail",
+      "address": "0x0041D7C0"
+    },
+    {
+      "object": "boss_overlays.obj",
+      "symbol": "BossUi_ReleaseIndicatorsRetail",
+      "address": "0x0040E5F0"
+    },
+    {
+      "object": "music_room_overlay.obj",
+      "symbol": "ParameterFile_LoadAndRelocateRetail",
+      "address": "0x00426520"
+    },
+    {
+      "object": "camera_setup.obj",
+      "symbol": "Camera_ApplyRetail",
+      "address": "0x00421480"
+    },
+    {
+      "object": "camera_setup.obj",
+      "symbol": "Viewport_ApplyDefaultRetail",
+      "address": "0x0043BCD0"
+    },
+    {
+      "object": "window.obj",
+      "symbol": "SaveSystemSettingsRetail",
+      "address": "0x004392E0"
+    },
+    {
+      "object": "gdi_font_cache.obj",
+      "symbol": "FontCache_DeleteGdiObjectsRetail",
+      "address": "0x00437D10"
+    },
+    {
+      "object": "gdi_font_cache.obj",
+      "symbol": "FontCache_FlushRetail",
+      "address": "0x00436A30"
+    },
+    {
+      "object": "render_stage_select.obj",
+      "symbol": "GameThread_SelectRenderStageRetail",
+      "address": "0x00401D20"
+    },
+    {
+      "object": "stage_background_overlay.obj",
+      "symbol": "StageBackground_RebindTextureRetail",
+      "address": "0x0040C3C0"
+    },
+    {
+      "object": "enemy_drop_sweep.obj",
+      "symbol": "Enemy_SweepPendingDropsRetail",
+      "address": "0x0041BA50"
+    },
+    {
+      "object": "enemy_grid_scan_overlay.obj",
+      "symbol": "EnemyGrid_ScanCellsRetail",
+      "address": "0x004073E0"
+    },
+    {
+      "object": "midi_worker_overlay.obj",
+      "symbol": "MidiWorker_MessageLoopRetail",
+      "address": "0x0043E3A0"
+    },
+    {
+      "object": "main_menu_dispatch_overlay.obj",
+      "symbol": "MainMenu_RegisterTasksRetail",
+      "address": "0x00422150"
+    },
+    {
+      "object": "enemy_lifecycle_overlay.obj",
+      "symbol": "Enemy_DeathSweepRetail",
+      "address": "0x0040E6A0"
+    },
+    {
+      "object": "enemy_lifecycle_overlay.obj",
+      "symbol": "Enemy_TimerSweepRetail",
+      "address": "0x0040D750"
+    },
+    {
+      "object": "object_factories.obj",
+      "symbol": "EnemySlot_CreateAndInitRetail",
+      "address": "0x0041FD00"
+    },
+    {
+      "object": "object_factories.obj",
+      "symbol": "ScoreManager_CreateAndInitRetail",
+      "address": "0x0041C290"
+    },
+    {
+      "object": "render_state_sync.obj",
+      "symbol": "AnmManager_SyncEntityRenderStateRetail",
+      "address": "0x004425A0"
+    },
+    {
+      "object": "key_config_overlay.obj",
+      "symbol": "KeyConfig_ReassignSlotRetail",
+      "address": "0x00430250"
+    },
+    {
+      "object": "anm_pending_service_overlay.obj",
+      "symbol": "AnmPending_ServiceRetail",
+      "address": "0x00447700"
+    },
+    {
+      "object": "player_motion.obj",
+      "symbol": "?Player_ForwardAxisWrap@@",
+      "address": "0x0040678E"
+    },
+    {
+      "object": "player_motion.obj",
+      "symbol": "Player_WrapHorizontal",
+      "address": "0x00407DA0"
+    },
+    {
+      "object": "player_motion.obj",
+      "symbol": "Player_WrapVertical",
+      "address": "0x00407E40"
+    },
+    {
+      "object": "player_motion.obj",
+      "symbol": "PlayerAnimation_AdvanceFrame",
+      "address": "0x004074B0"
+    },
+    {
+      "object": "player_motion.obj",
+      "symbol": "Player_DeathShrink",
+      "address": "0x004076A0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ScoreOwnedObject_Destroy@@",
+      "address": "0x0040B9D0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "OutsideAxisAlignedBounds",
+      "address": "0x004086B0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "Score_SetPolarVector",
+      "address": "0x00408750"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "ScoreObject_Initialize",
+      "address": "0x0041C030"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "ScoreExtendedObject_Initialize",
+      "address": "0x0041C5B0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "Input_PollJoystickButtons",
+      "address": "0x0044A4E0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "ScoreState_ActivateFromResultRetail",
+      "address": "0x00408030"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "ScoreExtendedObject_DestroyRetail",
+      "address": "0x0041C1C0"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "PlayerManager_ConstructRetail",
+      "address": "0x00408910"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "AsciiManager_CreateRetail",
+      "address": "0x0043C8B0"
+    },
+    {
+      "object": "task_registration.obj",
+      "symbol": "Title_RegisterTasksRetail",
+      "address": "0x0042CAA0"
+    },
+    {
+      "object": "task_registration.obj",
+      "symbol": "ItemFrontRuntime_InitializeRetail",
+      "address": "0x00413980"
+    },
+    {
+      "object": "task_registration.obj",
+      "symbol": "ScoreDisplay_RegisterTasksRetail",
+      "address": "0x0041C120"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "EffectManager_InitializePoolsRetail",
+      "address": "0x0042AE60"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "EnemyManager_CreateRetail",
+      "address": "0x0040D6B0"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "PlayerManager_CreateRetail",
+      "address": "0x00408C90"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "ItemManager_CreateRetail",
+      "address": "0x00414830"
+    },
+    {
+      "object": "manager_factories.obj",
+      "symbol": "StageManager_CreateRetail",
+      "address": "0x004296F0"
+    },
+    {
+      "object": "manager_teardown.obj",
+      "symbol": "ItemManager_DestroyRetail",
+      "address": "0x00405F70"
+    },
+    {
+      "object": "ascii_overlay_callbacks_overlay.obj",
+      "symbol": "AsciiManager_OnDrawRetail",
+      "address": "0x0043C410"
+    },
+    {
+      "object": "ascii_overlay_callbacks_overlay.obj",
+      "symbol": "AsciiOverlay_FormatShadowedRetail",
+      "address": "0x00447AE0"
+    },
+    {
+      "object": "version_list.obj",
+      "symbol": "VersionList_MatchRetail",
+      "address": "0x00420DD0"
+    },
+    {
+      "object": "bullet_manager_overlay.obj",
+      "symbol": "BulletPool_ResetRetail",
+      "address": "0x00405ED0"
+    },
+    {
+      "object": "score_timer_leaves.obj",
+      "symbol": "ScoreGauge_SetTargetTenthAndDisableTimer",
+      "address": "0x00418B80"
+    },
+    {
+      "object": "score_timer_leaves.obj",
+      "symbol": "Score_IncrementCounterClampedNine",
+      "address": "0x00418A90"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?InputMaskActive@@",
+      "address": "0x0040ACE0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?SetInputMode@@",
+      "address": "0x0040AC90"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Score_InputHistoryStep@@",
+      "address": "0x0044BE70"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Score_InputHistorySave@@",
+      "address": "0x0044BE20"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?AddScaled@ScoreCounter@@",
+      "address": "0x0041BE80"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ScoreGauge_AddWithMinimum@@",
+      "address": "0x00412E70"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Retire@ScoreRuntimeCallbacks@@",
+      "address": "0x00409E20"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?RunArrayReleaseCallback@ScoreRuntimeState@@",
+      "address": "0x00409270"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?WrappedAngleDifference@@",
+      "address": "0x00408660"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?CountPatternMatches@@",
+      "address": "0x004088C0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState@@",
+      "address": "0x00409230"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ScoreRecords_MarkEligible@@",
+      "address": "0x0041C7D0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ScoreRecords_CopyVectorAndEvaluate@@",
+      "address": "0x0041C800"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Position_IsPartiallyInViewport@@",
+      "address": "0x0041F7A0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Entity_AngleToPoint@@",
+      "address": "0x00426610"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Entity_AngleFromPoint@@",
+      "address": "0x00426660"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Input_NormalizeKeyboardState@@",
+      "address": "0x0044B080"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?EffectPool_OutsideViewport@@",
+      "address": "0x00428D70"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?AddScaled@GameScore@@",
+      "address": "0x00409D90"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?UpdateInputState@@",
+      "address": "0x0040AC20"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@",
+      "address": "0x004091C0"
+    },
+    {
+      "object": "score.obj",
+      "symbol": "?Input_UpdateKeyboardState@@",
+      "address": "0x0044B010"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Score_SetNormalizedAngle@@",
+      "address": "0x00413170"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "GameThread_RunQueueLeaf",
+      "address": "0x00401520"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InvokeZero",
+      "address": "0x00427950"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InvokeVoid",
+      "address": "0x004198A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InvokePair",
+      "address": "0x00422A90"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Score_SetMode",
+      "address": "0x00412ED0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "RecoveryTimer_Reset",
+      "address": "0x00412DB0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "ScoreList_InsertAfter",
+      "address": "0x00413200"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Vector2_SetEllipticPolar",
+      "address": "0x00413270"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Vector2_SetAnimationPolar",
+      "address": "0x00441EF0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "PathState_Reset",
+      "address": "0x00417800"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Bullet_DeletingDestructor",
+      "address": "0x0040CC50"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_DeletingDestructor@@",
+      "address": "0x0044CF00"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Ecl_ForwardFloat",
+      "address": "0x00412AA0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Ecl_SetResourceSlot",
+      "address": "0x00412720"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Animation_SetActiveCount",
+      "address": "0x00413790"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_TrimWhitespace",
+      "address": "0x0041A0A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_OffsetPoint",
+      "address": "0x00418810"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_DecayCounter",
+      "address": "0x00418A00"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Platform_InvokeConfigured",
+      "address": "0x0044D5D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_AggregateInterfaces@@",
+      "address": "0x0044D550"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_QueryInterfaces@@",
+      "address": "0x0044D600"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_FindAvailable@@",
+      "address": "0x0044D370"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "RecoveryLinkedCleanup",
+      "address": "0x00417770"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "RecoveryState_Initialize",
+      "address": "0x004220E0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_ReleaseOwnedArray@@",
+      "address": "0x0044D080"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_AppendNode",
+      "address": "0x0041AB10"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_DeletingDestructorVtable@@",
+      "address": "0x0044D710"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_DeletingDestructorNoReturn@@",
+      "address": "0x0043C870"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?RecoveryState_Configure41F50@@",
+      "address": "0x00441F50"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_SplitResourcePath",
+      "address": "0x0041A050"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ResetEmitter",
+      "address": "0x0040C9A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ClearEightBuckets",
+      "address": "0x00419040"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InitializeStateTable",
+      "address": "0x0041F850"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_SelectStreamRecord@@",
+      "address": "0x0044DCA0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_SelectArchiveEntry@@",
+      "address": "0x0043D790"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_ReleaseOwnedHandle@@",
+      "address": "0x00413450"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_SwitchPlaybackState@@",
+      "address": "0x00427AE0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_SetOperationDeadline@@",
+      "address": "0x0044D4E0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_TickState@@",
+      "address": "0x0040BD20"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_RunInterface@@",
+      "address": "0x0044D300"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Platform_DeletingDestructorWithRelease@@",
+      "address": "0x004297B0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_ReleasePair@@",
+      "address": "0x0041F930"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_InitializeTimedState@@",
+      "address": "0x00423510"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_LoadCachedResource@@",
+      "address": "0x00447280"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_InitializeLargeState@@",
+      "address": "0x00421F00"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_LoadStartupResources@@",
+      "address": "0x0041F8D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_InstallAnimationSlot@@",
+      "address": "0x0042C670"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_ClearAnimationSlot@@",
+      "address": "0x0042C6D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_InstallPairSetFlags@@",
+      "address": "0x004055C0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_InstallPairClearFlags@@",
+      "address": "0x0041AD90"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ScaleColor",
+      "address": "0x00404DA0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InitializeWordColor",
+      "address": "0x00405040"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateFixedState",
+      "address": "0x004056B0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateSmallState",
+      "address": "0x0040B940"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ReleaseRawPairAndReset",
+      "address": "0x00405620"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InitializeSingleInterface",
+      "address": "0x0044D6A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_AdvancePolarMotion",
+      "address": "0x0044C2A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_PolarToVectorRetail",
+      "address": "0x0044C5D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_DispatchRandomText",
+      "address": "0x004479D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_DispatchSchedule",
+      "address": "0x00428160"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "RecoveryState_Configure42300",
+      "address": "0x00442300"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_UpdateStageSequence",
+      "address": "0x004281D0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InitializeInterfaceArray",
+      "address": "0x0044CE80"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ReplaceExtensionWav",
+      "address": "0x00420A90"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ReleaseCompositeState",
+      "address": "0x00414570"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ReleaseGlobalStates",
+      "address": "0x004203F0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "?Recovery_ReleaseRawPair@@",
+      "address": "0x0043CB00"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_MarkAnimationTree",
+      "address": "0x004243F0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_AppendPacket",
+      "address": "0x0042A8A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateTimerState",
+      "address": "0x00422360"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateLargeResourceState",
+      "address": "0x00425020"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_StartWorker",
+      "address": "0x0041FAC0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_InitializeRandomTable",
+      "address": "0x0042ADD0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateHugeResourceState",
+      "address": "0x0042B660"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_ResetDeviceStreams",
+      "address": "0x0043BC40"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateTextureFromMemory",
+      "address": "0x00446EB0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_MarkLogState",
+      "address": "0x00447A50"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_UpdateEmitterDecision",
+      "address": "0x0040B9F0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_IncrementAnimationCount",
+      "address": "0x004188A0"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_CreateResourceState",
+      "address": "0x00419090"
+    },
+    {
+      "object": "recovery_leaves.obj",
+      "symbol": "Recovery_FindNamedValue",
+      "address": "0x004198C0"
+    }
+  ]
+}

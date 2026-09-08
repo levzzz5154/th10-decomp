@@ -2,7 +2,6 @@
 """Generate and summarize matching2 coverage from the tracked function set."""
 
 import argparse
-import ast
 import csv
 import json
 import re
@@ -13,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 REPOSITORY = ROOT.parent
 INDEX = REPOSITORY / "decompiled" / "ghidra_raw" / "index.tsv"
-HYBRID_BUILDER = ROOT / "tools" / "build_hybrid.py"
+HISTORICAL_OVERLAYS = ROOT / "data" / "historical_overlays.json"
 LEDGER = ROOT / "coverage.json"
 ADDRESS = re.compile(r"0x(004[0-9A-Fa-f]{5})")
 
@@ -78,16 +77,9 @@ def tracked_functions():
 
 
 def overlay_entries():
-    tree = ast.parse(HYBRID_BUILDER.read_text(), filename=str(HYBRID_BUILDER))
-    for node in tree.body:
-        if isinstance(node, ast.Assign):
-            names = [target.id for target in node.targets
-                     if isinstance(target, ast.Name)]
-            if "OVERLAYS" in names:
-                values = ast.literal_eval(node.value)
-                return {address: (object_name, symbol)
-                        for object_name, symbol, address in values}
-    raise RuntimeError("OVERLAYS tuple not found in build_hybrid.py")
+    document = json.loads(HISTORICAL_OVERLAYS.read_text())
+    return {int(row["address"], 16): (row["object"], row["symbol"])
+            for row in document["entries"]}
 
 
 def source_annotations():

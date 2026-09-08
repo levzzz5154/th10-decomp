@@ -29287,14 +29287,14 @@
       "sha256": "d108771bcdc9dd60dfe2f12adbe60bb757a8e262d45a7edcf331e6f14d9e3860"
     },
     {
-      "path": "matching2/docs/audit/inventory.json",
-      "bytes": 2782321,
-      "sha256": "49e0f3ac2a00d4b5c1022e20c227858024eb1a971becd4148f2b02bebfc45464"
+      "path": "matching2/coverage.json",
+      "bytes": 125145,
+      "sha256": "8c3de947907d51349e34afacb69a9ef1bf34ce84358f6a1a1c41ef7379724d6a"
     },
     {
       "path": "tools/audit_reference_corpus.py",
-      "bytes": 12398,
-      "sha256": "701c902497154e7caaab3ff0cc72fb8234aeb373f7f42f574ad6aa145394c7fb"
+      "bytes": 12374,
+      "sha256": "d52374b431a507dc629009144ac1a0db6f876f7be38c4f9afefaa2723c224b35"
     },
     {
       "path": "tools/export_full_audit.sh",

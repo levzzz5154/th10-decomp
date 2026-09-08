@@ -28,9 +28,8 @@ all missing behavior has been detected.
 The existing retail probe and reconstruction trace tools compare bounded scenarios.
 VM clock/PC/rank agreement does not establish enemy position, lifetime, collision,
 audio, or pixel equivalence. Deterministic reconstruction-to-reconstruction traces
-establish repeatability only. Earlier counts and captures are retained in
-[historical runtime notes](docs/runtime_fidelity_history.md), not asserted as
-measurements of the current checkout.
+establish repeatability only. Historical counts, captures and audit packets remain in Git history; they are
+not measurements of the current checkout.
 
 For each new claim record the source revision/worktree changes, command, inputs,
 comparison fields, trace window, and remaining divergence. Run build, host tests,
@@ -39,21 +38,3 @@ sprite draws must not be described as rendering validation.
 
 The static readiness generator deliberately does not certify fresh build or smoke
 results. See [README.md](README.md) for the current scope and validation commands.
-
-## Cleanup validation — 2026-09-05
-
-Validated the cleanup working tree based on `554cfff`, including the pre-existing
-`standalone/host_stage.cpp` enemy-dump instrumentation. This is a dated observation,
-not a gate that the source report automatically carries forward:
-
-- `./test.sh`: passed, including 17 unsupported-opcode termination cases and three
-  progress-evidence regressions.
-- `./build_all_pe32.sh`: passed; 281 production translation units and zero
-  unresolved project edges. The build still imported 220 retail data symbols.
-- `./run_all_pe32.sh --smoke --ecl 3600`: `SMOKE_PASS` and `STAGE_BRIDGE_PASS`;
-  3,600 update/draw ticks, final stage frame 3,570, clean shutdown. Used the default
-  retail assets, with no input script or retail trace comparison. The smoke reported
-  zero title sprite draws; no visual parity claim follows from this run.
-
-No fresh retail-vs-reconstruction trace comparison or live graphics validation
-was performed in this cleanup.
