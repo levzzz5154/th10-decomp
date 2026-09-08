@@ -11,6 +11,7 @@
 #define __stdcall
 #define __cdecl
 #include "../msvc/src/platform/resource_lifetime.cpp"
+#include "../msvc/src/platform/buffer_file_open.cpp"
 
 enum Failure { NoFailure, FindFailure, LoadFailure, LockFailure, AllocateFailure };
 static Failure failure;
@@ -21,6 +22,22 @@ static DWORD resource_size;
 static void* old_buffer;
 static const char* expected_name;
 static int resource_token, loaded_token;
+static ResourcePath* expected_path;
+static BYTE* path_load_result;
+static DWORD path_size_result;
+static void record(const char* event);
+
+BYTE* ResourcePath::Load(int mode) {
+    record("path-load");
+    assert(this == expected_path && mode == 0);
+    return path_load_result;
+}
+
+DWORD ResourcePath::GetFileSize() {
+    record("path-size");
+    assert(this == expected_path);
+    return path_size_result;
+}
 
 static void record(const char* event) {
     if (!events.empty()) events += ',';
@@ -82,7 +99,6 @@ extern "C" void entry_free_00452422(void* memory) {
 // mirrors the field initialization in memory_file.cpp; the production inline
 // Close and both production destructors above are used without substitutions.
 BufferFile::BufferFile() : size_(0), position_(0), data_(0) {}
-BYTE BufferFile::Open(const char*, const char*) { std::abort(); }
 DWORD BufferFile::Read(void*, DWORD) { std::abort(); }
 BYTE BufferFile::Write(const void*, DWORD) { std::abort(); }
 DWORD BufferFile::Tell() const { std::abort(); }
@@ -109,6 +125,18 @@ public:
     void assert_empty() const {
         assert(data_ == 0 && position_ == 0 && size_ == 0);
     }
+};
+
+class BufferFixture : public BufferFile {
+public:
+    void own(void* memory, DWORD size, DWORD offset) {
+        data_ = (BYTE*)memory;
+        size_ = size;
+        position_ = data_ ? data_ + offset : 0;
+    }
+    BYTE* data() const { return data_; }
+    BYTE* position() const { return position_; }
+    DWORD size() const { return size_; }
 };
 
 static void reset(Failure next_failure, DWORD size = sizeof(payload)) {
@@ -180,6 +208,39 @@ static void test_reopen_and_polymorphic_destruction() {
     assert(events == "free-owned" && allocations.empty());
 }
 
+static void test_buffer_open_contract() {
+    reset(NoFailure);
+    ResourcePath key;
+    expected_path = &key;
+    path_size_result = 19;
+    path_load_result = (BYTE*)std::malloc(path_size_result);
+    assert(path_load_result && allocations.insert(path_load_result).second);
+    {
+        BufferFixture file;
+        // Open overwrites this non-null value without invoking Close/free.
+        file.own((void*)0x1234, 7, 2);
+        assert(file.Open((const char*)&key, "ignored") == 1);
+        assert(events == "path-load,path-size");
+        assert(file.data() == path_load_result && file.position() == path_load_result);
+        assert(file.size() == path_size_result);
+        events.clear();
+    }
+    assert(events == "free-owned" && allocations.empty());
+
+    reset(NoFailure);
+    expected_path = &key;
+    path_load_result = 0;
+    path_size_result = 23;
+    {
+        BufferFixture file;
+        assert(file.Open((const char*)&key, 0) == 0);
+        assert(events == "path-load,path-size");
+        assert(file.data() == 0 && file.position() == 0 && file.size() == 23);
+        events.clear();
+    }
+    assert(events.empty() && allocations.empty());
+}
+
 int main() {
     for (int existing = 0; existing != 2; ++existing) {
         test_failure(FindFailure, "find,close", existing != 0);
@@ -192,4 +253,5 @@ int main() {
     test_success(1, false);
     test_success(0, true);   // A successful zero-byte allocation is still owned.
     test_reopen_and_polymorphic_destruction();
+    test_buffer_open_contract();
 }

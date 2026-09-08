@@ -22941,12 +22941,28 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436400_00436400",
-      "source": "src/unidentified/FUN_00436400_00436400.cpp",
-      "symbol": "_asm_FUN_00436400_00436400",
+      "name": "semantic_Open_at_BufferFile_00436400",
+      "source": "src/platform/buffer_file_open.cpp",
+      "symbol": "?Open@BufferFile@@UAEEPBD0@Z",
       "address": "0x00436400",
       "size": 46,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 13,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Load@ResourcePath@@QAEPAEH@Z",
+          "original_operand": "eff3ffff",
+          "original_target": "0x00435800"
+        },
+        {
+          "offset": 23,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?GetFileSize@ResourcePath@@QAEIXZ",
+          "original_operand": "c5f4ffff",
+          "original_target": "0x004358E0"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x00436400"
     },
     {
@@ -45917,7 +45933,9 @@
     "__imp__LockResource@4": "0x004661DC",
     "__imp__FreeResource@4": "0x004660F4",
     "__imp__SizeofResource@8": "0x004660F8",
-    "_entry_malloc_00452706": "0x00452706"
+    "_entry_malloc_00452706": "0x00452706",
+    "?Load@ResourcePath@@QAEPAEH@Z": "0x00435800",
+    "?GetFileSize@ResourcePath@@QAEIXZ": "0x004358E0"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46085,6 +46103,7 @@
     "src/math/vector3_cross.cpp",
     "src/platform/all_source_runtime.cpp",
     "src/platform/bgm_streamer_refill.cpp",
+    "src/platform/buffer_file_open.cpp",
     "src/platform/dinput_device_setup.cpp",
     "src/platform/file.cpp",
     "src/platform/final_input_runtime.cpp",
@@ -46538,7 +46557,6 @@
     "src/unidentified/FUN_00435300_00435300.cpp",
     "src/unidentified/FUN_004356c0_004356c0.cpp",
     "src/unidentified/FUN_004359a0_004359a0.cpp",
-    "src/unidentified/FUN_00436400_00436400.cpp",
     "src/unidentified/FUN_004364f0_004364f0.cpp",
     "src/unidentified/FUN_00436770_00436770.cpp",
     "src/unidentified/FUN_004367a0_004367a0.cpp",

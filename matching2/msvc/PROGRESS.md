@@ -4,8 +4,8 @@ Generated from [regions.json](regions.json) with `make progress-update`.
 
 | Source classification | Regions | Bytes |
 | --- | ---: | ---: |
-| Ordinary C++ | 46 | 1,679 |
-| Inline assembly | 2,813 | 383,841 |
+| Ordinary C++ | 47 | 1,725 |
+| Inline assembly | 2,812 | 383,795 |
 | Embedded .text data | 73 | 11,267 |
 | Padding | 1,937 | 15,885 |
 | Total .text | 4,869 | 412,672 |

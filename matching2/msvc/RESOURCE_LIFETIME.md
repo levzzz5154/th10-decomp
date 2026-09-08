@@ -7,12 +7,13 @@ shared buffer cleanup in
 
 | Newly selected ordinary C++ | Retail address | Bytes |
 | --- | --- | ---: |
+| `BufferFile::Open` | `0x00436400` | 46 |
 | `ResourceFile::~ResourceFile` | `0x00436680` | 49 |
 | `ResourceFile::Open` | `0x004366C0` | 168 |
-| Total added | | 217 |
+| Total added across the two checkpoints | | 263 |
 
-This raises ordinary-C++ coverage from 44 regions / 1,462 bytes to 46 regions /
-1,679 bytes. The existing 30-byte resource deleting-destructor entry is **not**
+This raises ordinary-C++ coverage from 44 regions / 1,462 bytes to 47 regions /
+1,725 bytes. The existing 30-byte resource deleting-destructor entry is **not**
 new recovery. Constructors emitted only to make the virtual entries available
 are not selected or counted either.
 
@@ -29,6 +30,15 @@ The destructor has no stack arguments. `BufferFile` occupies 16 bytes: vptr at
 `Open` ignores its mode argument. It closes the previous buffer, locates a
 module-local RCDATA resource (type 10), loads and locks it, allocates its reported
 size, copies the bytes, and makes the copy the new read position.
+
+`BufferFile::Open` is a different virtual implementation: it asks the archive
+resource lookup at `0x00435800` for an owned buffer and independently asks
+`0x004358E0` for its size. Its path pointer is passed in ECX to both routines.
+It ignores the mode, sets the read position to the returned buffer, and returns
+whether that pointer is non-null. Unlike `ResourceFile::Open`, it deliberately
+does **not** close an existing buffer first; callers must obey that ownership
+precondition. The `ResourcePath` ABI view documents this unusual ECX contract
+without reading the character bytes as a C++ object.
 
 | Path | Behavior after the initial close |
 | --- | --- |
@@ -59,8 +69,8 @@ constructor bytes enter the executable.
 The resource loader's virtual close and destructor's buffer cleanup are C++.
 The fixed retail heap entries (`malloc` at `0x00452706`, `free` at `0x00452422`,
 and the deleting destructor's `operator delete` at `0x004524A1`) remain assembly.
-Win32 resource APIs resolve through the preserved import table. Buffer open and
-seek, custom-register constructors, and the unrelated palette routine are not
+Win32 resource APIs resolve through the preserved import table. Buffer seek,
+custom-register constructors, and the unrelated palette routine are not
 claimed as recovered. RNG and seek compiler probes did not achieve exact output
 and did not change the maintained implementations or progress counts.
 

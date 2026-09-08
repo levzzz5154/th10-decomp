@@ -28,13 +28,14 @@ class MSVCPortTest(unittest.TestCase):
         # current ordinary-C++ baseline; exact instruction bytes are gated by
         # the full build, independently of these manifest classifications.
         semantic = [r for r in regions if r['kind'] == 'semantic']
-        self.assertGreaterEqual(len(semantic), 46)
-        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1679)
+        self.assertGreaterEqual(len(semantic), 47)
+        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1725)
         self.assertTrue(all((ROOT / 'matching2/msvc' / source).exists() for source in units))
 
     def test_resource_lifetime_symbols_and_relocation_evidence(self):
         regions = {int(r['address'], 0): r for r in self.config['regions']}
         for address, symbol, size, count in (
+            (0x436400, '?Open@BufferFile@@UAEEPBD0@Z', 46, 2),
             (0x436680, '??1ResourceFile@@UAE@XZ', 49, 3),
             (0x4366c0, '?Open@ResourceFile@@UAEEPBD0@Z', 168, 7),
         ):
@@ -42,7 +43,9 @@ class MSVCPortTest(unittest.TestCase):
             self.assertEqual(region['kind'], 'semantic')
             self.assertEqual(region['symbol'], symbol)
             self.assertEqual(region['size'], size)
-            self.assertEqual(region['source'], 'src/platform/resource_lifetime.cpp')
+            expected_source = ('src/platform/buffer_file_open.cpp' if address == 0x436400
+                               else 'src/platform/resource_lifetime.cpp')
+            self.assertEqual(region['source'], expected_source)
             self.assertEqual(len(region['relocations']), count)
             for relocation in region['relocations']:
                 operand = int.from_bytes(bytes.fromhex(relocation['original_operand']), 'little')
