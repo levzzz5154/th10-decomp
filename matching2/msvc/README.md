@@ -57,6 +57,9 @@ contract, register evidence, DirectInput boundary, and stack-cookie requirement.
 See [playfield boundary recovery](PLAYFIELD_BOUNDS.md) for the point layout,
 inclusive edge contract, x87 unordered behavior, and adjacent compiler limits.
 
+See [input pattern count recovery](INPUT_PATTERN_COUNT.md) for the fixed table,
+signed-byte comparison contract, unrolled loop, and observed register ABI.
+
 ## Replacing inline assembly with ordinary C++
 
 Edit the appropriate subsystem source and its matching `regions.json` record.

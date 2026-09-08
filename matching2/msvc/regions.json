@@ -4135,12 +4135,49 @@
       "kind": "padding"
     },
     {
-      "name": "asm_CountPatternMatches_004088c0",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_CountPatternMatches_004088c0",
+      "name": "semantic_InputPattern_CountMatches_004088c0",
+      "source": "src/game/input_pattern_count.cpp",
+      "symbol": "?InputPattern_CountMatches@@YIHPAXH@Z",
       "address": "0x004088C0",
       "size": 75,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 8,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_pattern_table@@3PACA",
+          "original_operand": "c0434700",
+          "original_target": "0x004743C0"
+        },
+        {
+          "offset": 20,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_pattern_table@@3PACA",
+          "original_operand": "c1434700",
+          "original_target": "0x004743C1"
+        },
+        {
+          "offset": 32,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_pattern_table@@3PACA",
+          "original_operand": "c2434700",
+          "original_target": "0x004743C2"
+        },
+        {
+          "offset": 44,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_pattern_table@@3PACA",
+          "original_operand": "c3434700",
+          "original_target": "0x004743C3"
+        },
+        {
+          "offset": 56,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "?g_input_pattern_table@@3PACA",
+          "original_operand": "c4434700",
+          "original_target": "0x004743C4"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x004088C0"
     },
     {
@@ -46114,7 +46151,9 @@
     "?g_playfield_min_y@@3MA": "0x00470B04",
     "?g_playfield_max_y@@3MA": "0x00470B38",
     "?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z": "0x0041F7A0",
-    "?OutsideViewport@EffectPoolPosition@@QBEHMM@Z": "0x00428D70"
+    "?OutsideViewport@EffectPoolPosition@@QBEHMM@Z": "0x00428D70",
+    "?InputPattern_CountMatches@@YIHPAXH@Z": "0x004088C0",
+    "?g_input_pattern_table@@3PACA": "0x004743C0"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46176,6 +46215,7 @@
     "src/game/game_thread_text_draw.cpp",
     "src/game/game_ui_create.cpp",
     "src/game/gameplay_final_runtime.cpp",
+    "src/game/input_pattern_count.cpp",
     "src/game/input_recorder.cpp",
     "src/game/item_field_contact.cpp",
     "src/game/item_scatter.cpp",

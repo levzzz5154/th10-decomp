@@ -28,8 +28,8 @@ class MSVCPortTest(unittest.TestCase):
         # current ordinary-C++ baseline; exact instruction bytes are gated by
         # the full build, independently of these manifest classifications.
         semantic = [r for r in regions if r['kind'] == 'semantic']
-        self.assertGreaterEqual(len(semantic), 52)
-        self.assertGreaterEqual(sum(r['size'] for r in semantic), 2176)
+        self.assertGreaterEqual(len(semantic), 53)
+        self.assertGreaterEqual(sum(r['size'] for r in semantic), 2251)
         self.assertTrue(all((ROOT / 'matching2/msvc' / source).exists() for source in units))
 
     def test_resource_lifetime_symbols_and_relocation_evidence(self):
@@ -43,6 +43,7 @@ class MSVCPortTest(unittest.TestCase):
             (0x4086b0, '?OutsideBounds@PlayfieldPoint@@QBEHMM@Z', 91, 4),
             (0x41f7a0, '?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z', 91, 4),
             (0x428d70, '?OutsideViewport@EffectPoolPosition@@QBEHMM@Z', 91, 4),
+            (0x4088c0, '?InputPattern_CountMatches@@YIHPAXH@Z', 75, 5),
         ):
             region = regions[address]
             self.assertEqual(region['kind'], 'semantic')
@@ -55,6 +56,7 @@ class MSVCPortTest(unittest.TestCase):
                 0x4086b0: 'src/game/playfield_bounds.cpp',
                 0x41f7a0: 'src/game/playfield_bounds.cpp',
                 0x428d70: 'src/game/playfield_bounds.cpp',
+                0x4088c0: 'src/game/input_pattern_count.cpp',
             }.get(address, 'src/platform/resource_lifetime.cpp')
             self.assertEqual(region['source'], expected_source)
             self.assertEqual(len(region['relocations']), count)
@@ -63,7 +65,12 @@ class MSVCPortTest(unittest.TestCase):
                 if relocation['type'] == 'IMAGE_REL_I386_REL32':
                     operand = (operand + address + relocation['offset'] + 4) & 0xffffffff
                 self.assertEqual(operand, int(relocation['original_target'], 0))
-                self.assertEqual(operand, int(self.config['symbols'][relocation['symbol']], 0))
+                symbol_address = int(self.config['symbols'][relocation['symbol']], 0)
+                if relocation['symbol'] == '?g_input_pattern_table@@3PACA':
+                    self.assertEqual(operand - symbol_address,
+                                     (relocation['offset'] - 8) // 12)
+                else:
+                    self.assertEqual(operand, symbol_address)
 
     def test_bad_extent_missing_region_and_reference_rejected(self):
         for change in ('extent', 'missing', 'hash'):

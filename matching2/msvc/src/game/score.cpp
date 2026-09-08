@@ -193,69 +193,6 @@ extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {
     }
 }
 
-// 0x004088C0..0x0040890A: ?CountPatternMatches@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_CountPatternMatches_004088c0() {
-    __asm {
-    L_004088c0:
-        xor eax,eax
-    L_004088c2:
-        xor ecx,ecx
-    L_004088c4:
-        push esi
-    L_004088c5:
-        movsx esi,byte ptr [ecx+4743C0h]
-    L_004088cc:
-        cmp esi,edx
-    L_004088ce:
-        jne short L_004088d1
-    L_004088d0:
-        inc eax
-    L_004088d1:
-        movsx esi,byte ptr [ecx+4743C1h]
-    L_004088d8:
-        cmp esi,edx
-    L_004088da:
-        jne short L_004088dd
-    L_004088dc:
-        inc eax
-    L_004088dd:
-        movsx esi,byte ptr [ecx+4743C2h]
-    L_004088e4:
-        cmp esi,edx
-    L_004088e6:
-        jne short L_004088e9
-    L_004088e8:
-        inc eax
-    L_004088e9:
-        movsx esi,byte ptr [ecx+4743C3h]
-    L_004088f0:
-        cmp esi,edx
-    L_004088f2:
-        jne short L_004088f5
-    L_004088f4:
-        inc eax
-    L_004088f5:
-        movsx esi,byte ptr [ecx+4743C4h]
-    L_004088fc:
-        cmp esi,edx
-    L_004088fe:
-        jne short L_00408901
-    L_00408900:
-        inc eax
-    L_00408901:
-        add ecx,5
-    L_00408904:
-        cmp ecx,6Eh
-    L_00408907:
-        jl short L_004088c5
-    L_00408909:
-        pop esi
-    L_0040890a:
-        ret
-    }
-}
-
 // 0x004089C0..0x00408A92: FUN_004089c0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004089c0_004089c0() {

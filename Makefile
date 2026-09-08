@@ -27,6 +27,7 @@ test:
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'coff_regions_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_port_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_keyboard_state_test.py'
+	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_input_pattern_count_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_playfield_bounds_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_resource_lifetime_test.py'
 	$(PYTHON) -m unittest discover -s matching2/tests -p 'mismatch_test.py'
