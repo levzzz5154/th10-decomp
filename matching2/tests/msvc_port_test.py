@@ -28,8 +28,8 @@ class MSVCPortTest(unittest.TestCase):
         # current ordinary-C++ baseline; exact instruction bytes are gated by
         # the full build, independently of these manifest classifications.
         semantic = [r for r in regions if r['kind'] == 'semantic']
-        self.assertGreaterEqual(len(semantic), 49)
-        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1903)
+        self.assertGreaterEqual(len(semantic), 50)
+        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1994)
         self.assertTrue(all((ROOT / 'matching2/msvc' / source).exists() for source in units))
 
     def test_resource_lifetime_symbols_and_relocation_evidence(self):
@@ -40,6 +40,7 @@ class MSVCPortTest(unittest.TestCase):
             (0x4366c0, '?Open@ResourceFile@@UAEEPBD0@Z', 168, 7),
             (0x44b010, '?Input_UpdateKeyboardState@@YIHPAXPAE@Z', 103, 6),
             (0x44b080, '?Input_NormalizeKeyboardState@@YGXXZ', 75, 4),
+            (0x4086b0, '?OutsideBounds@PlayfieldPoint@@QBEHMM@Z', 91, 4),
         ):
             region = regions[address]
             self.assertEqual(region['kind'], 'semantic')
@@ -49,6 +50,7 @@ class MSVCPortTest(unittest.TestCase):
                 0x436400: 'src/platform/buffer_file_open.cpp',
                 0x44b010: 'src/platform/keyboard_state.cpp',
                 0x44b080: 'src/platform/keyboard_state.cpp',
+                0x4086b0: 'src/game/playfield_bounds.cpp',
             }.get(address, 'src/platform/resource_lifetime.cpp')
             self.assertEqual(region['source'], expected_source)
             self.assertEqual(len(region['relocations']), count)

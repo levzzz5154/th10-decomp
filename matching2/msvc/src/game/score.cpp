@@ -164,69 +164,6 @@ extern "C" __declspec(naked) void __cdecl asm_WrappedAngleDifference_00408660() 
     }
 }
 
-// 0x004086B0..0x0040870A: OutsideAxisAlignedBounds
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_OutsideAxisAlignedBounds_004086b0() {
-    __asm {
-    L_004086b0:
-        fld dword ptr [esp+4]
-    L_004086b4:
-        fadd dword ptr [ecx]
-    L_004086b6:
-        fcomp dword ptr [data_00470b40]
-    L_004086bc:
-        fnstsw ax
-    L_004086be:
-        test ah,41h
-    L_004086c1:
-        jnp short L_00408703
-    L_004086c3:
-        fld dword ptr [ecx]
-    L_004086c5:
-        fsub dword ptr [esp+4]
-    L_004086c9:
-        fcomp dword ptr [data_00470b3c]
-    L_004086cf:
-        fnstsw ax
-    L_004086d1:
-        test ah,1
-    L_004086d4:
-        je short L_00408703
-    L_004086d6:
-        fld dword ptr [esp+8]
-    L_004086da:
-        fadd dword ptr [ecx+4]
-    L_004086dd:
-        fcomp dword ptr [data_00470b04]
-    L_004086e3:
-        fnstsw ax
-    L_004086e5:
-        test ah,41h
-    L_004086e8:
-        jnp short L_00408703
-    L_004086ea:
-        fld dword ptr [ecx+4]
-    L_004086ed:
-        fsub dword ptr [esp+8]
-    L_004086f1:
-        fcomp dword ptr [data_00470b38]
-    L_004086f7:
-        fnstsw ax
-    L_004086f9:
-        test ah,1
-    L_004086fc:
-        je short L_00408703
-    L_004086fe:
-        xor eax,eax
-    L_00408700:
-        ret 8
-    L_00408703:
-        mov eax,1
-    L_00408708:
-        ret 8
-    }
-}
-
 // 0x00408750..0x0040876D: Score_SetPolarVector
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {

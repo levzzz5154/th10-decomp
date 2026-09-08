@@ -54,6 +54,9 @@ assembly dependencies.
 See [keyboard input recovery](KEYBOARD_INPUT.md) for the refresh/normalization
 contract, register evidence, DirectInput boundary, and stack-cookie requirement.
 
+See [playfield boundary recovery](PLAYFIELD_BOUNDS.md) for the point layout,
+inclusive edge contract, x87 unordered behavior, and adjacent compiler limits.
+
 ## Replacing inline assembly with ordinary C++
 
 Edit the appropriate subsystem source and its matching `regions.json` record.
