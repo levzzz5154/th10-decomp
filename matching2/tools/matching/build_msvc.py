@@ -20,6 +20,7 @@ from matching2.tools.common.coff import read_coff_function
 from matching2.tools.matching.pack_asm_pe import build_image
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
 from matching2.tools.matching.progress import summarize
+from matching2.tools.matching.mismatch import describe_mismatch
 
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PROJECT = ROOT / 'matching2/msvc'
@@ -79,7 +80,7 @@ def make_link_script(regions, selected, bindings, output):
     output.write_text('\n'.join(lines) + '\n')
 
 
-def verify_linked(path, config, oracle=None):
+def verify_linked(path, config, oracle=None, reference_text_path=None):
     linked = PEImage(path.read_bytes())
     sections = [section for section in linked.sections if section['name'] == '.text']
     if len(sections) != 1 or any(section['name'] != '.text' and section['raw_size'] for section in linked.sections):
@@ -90,12 +91,21 @@ def verify_linked(path, config, oracle=None):
         raise ValueError('linked .text address or extent differs')
     raw = linked.read(0x401000, config['text_bytes'])
     if sha(raw) != config['text_sha256']:
-        detail = ''
+        expected = None
+        detail = 'Run make reference or pass --verify <retail.exe> for expected-byte diagnostics.'
         if oracle is not None:
             expected = PEImage(oracle).read(0x401000, len(raw))
-            differences = [0x401000 + i for i, (left, right) in enumerate(zip(raw, expected)) if left != right]
-            detail = f'; {len(differences)} differing bytes, first {[hex(a) for a in differences[:20]]}'
-        raise ValueError('linked .text SHA-256 differs' + detail)
+        elif reference_text_path is not None:
+            try:
+                expected = reference_text_path.read_bytes()
+            except OSError:
+                pass
+        if expected is not None:
+            if len(expected) == len(raw) and sha(expected) == config['text_sha256']:
+                detail = describe_mismatch(raw, expected, config)
+            else:
+                detail = 'Diagnostic reference does not match the required .text hash. Rebuild it with make reference.'
+        raise ValueError('linked .text SHA-256 differs\n' + detail)
     return raw
 
 
@@ -179,7 +189,8 @@ def main():
                '-T', str(script), '-Map', str(output / 'linked.map'),
                *[unit['object'] for unit in compiled if unit['source'] not in dos_units], '-o', str(output / 'linked.exe')]
     run(command, output / 'link.log', output)
-    raw = verify_linked(output / 'linked.exe', config, oracle)
+    raw = verify_linked(output / 'linked.exe', config, oracle,
+                        ROOT / 'matching2/build/asm-baseline/full/text.bin')
     (output / 'text.bin').write_bytes(raw)
     dos_code = bytearray()
     for region in sorted(dos_regions, key=lambda r: int(r['address'], 0)):

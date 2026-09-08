@@ -63,6 +63,14 @@ by strict hashes of all 412,672 `.text` bytes and the whole executable.
 A mismatch fails the build and removes stale success outputs. There are no
 relocation masks, original-code substitutions, or assembly fallbacks.
 
+For a linked byte mismatch, the error identifies the first affected region,
+source and symbol, then shows expected/actual bytes and the containing
+instructions (using GNU objdump when available). Run `make reference` once to
+provide the assembly baseline for these diagnostics, or supply `--verify`.
+The diagnostic reference must pass the recorded `.text` hash; it is read only
+after a failed byte gate and is never substituted into the output. Data and
+padding mismatches show bytes without interpreting them as instructions.
+
 `tools/maintenance/generate_msvc_project.py` is a one-time migration utility, outside the
 normal build. Its `--replace` option overwrites generated source files, so
 ordinary recovery work should edit the existing project directly.
