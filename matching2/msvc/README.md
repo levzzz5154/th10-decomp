@@ -47,6 +47,10 @@ executable code uses named naked functions with MSVC `__asm` instructions.
 This is complete compiler-input coverage, with readable C++ recovery still ongoing.
 The separate modern runtime remains under `matching2/src`.
 
+See [resource-file lifetime recovery](RESOURCE_LIFETIME.md) for the loader and
+destructor's ABI evidence, preserved failure behavior, tests, and remaining
+assembly dependencies.
+
 ## Replacing inline assembly with ordinary C++
 
 Edit the appropriate subsystem source and its matching `regions.json` record.

@@ -17,9 +17,10 @@ public:
     virtual BYTE Seek(LONG distance, DWORD origin);
 
 protected:
-    DWORD size_;
-    BYTE* position_;
-    BYTE* data_;
+    // Retail x86 layout: vptr +0x00, total size 0x10.
+    DWORD size_;       // +0x04: number of owned bytes
+    BYTE* position_;   // +0x08: next byte to read
+    BYTE* data_;       // +0x0c: allocation released by Close/destruction
 };
 
 // Embedded Win32 RCDATA backend used by the vtable at 0x0046F328.
@@ -28,6 +29,7 @@ public:
     ResourceFile();
     virtual ~ResourceFile();
 
+    // mode is ignored; retail returns 1 on both success and failure.
     virtual BYTE Open(const char* resource_name, const char* mode);
 };
 
@@ -87,4 +89,3 @@ struct SoundWaveLoadEnvironment {
 int SoundWave_LoadPending(int enabled, void** buffer_slot,
                           unsigned char** pending_wave_slot,
                           const SoundWaveLoadEnvironment* environment);
-

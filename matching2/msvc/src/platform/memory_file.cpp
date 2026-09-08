@@ -764,19 +764,13 @@ extern "C" void* __cdecl memcpy(void* destination, const void* source,
 #pragma intrinsic(memcpy)
 #endif
 
-__declspec(noinline) BufferFile::~BufferFile() {
-    Close();
-}
+#define TH10_BUFFER_DESTRUCTOR_ATTRIBUTES __declspec(noinline)
+#include "th10/platform/buffer_file_lifetime.inl"
 
-void BufferFile::Close() {
-    if (data_) {
-        entry_free_00452422(data_);
-        data_ = 0;
-    }
-    data_ = 0;
-    size_ = 0;
-    position_ = 0;
-}
+// This definition makes the virtual lifetime entries available to the compiler.
+// The retail constructor uses EAX for this and is still an assembly region;
+// this ordinary-thiscall constructor is not selected into the fixed image.
+BufferFile::BufferFile() : size_(0), position_(0), data_(0) {}
 
 DWORD BufferFile::Read(void* destination, DWORD requested) {
     DWORD remaining = (DWORD)((data_ + size_) - position_);

@@ -23103,7 +23103,7 @@
     },
     {
       "name": "semantic_q_q__GResourceFile_00436660",
-      "source": "src/platform/resource_file.cpp",
+      "source": "src/platform/resource_lifetime.cpp",
       "symbol": "??_GResourceFile@@UAEPAXI@Z",
       "address": "0x00436660",
       "size": 30,
@@ -23134,12 +23134,35 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436680_00436680",
-      "source": "src/platform/resource_file.cpp",
-      "symbol": "_asm_FUN_00436680_00436680",
+      "name": "semantic_q_q_1ResourceFile_00436680",
+      "source": "src/platform/resource_lifetime.cpp",
+      "symbol": "??1ResourceFile@@UAE@XZ",
       "address": "0x00436680",
       "size": 49,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 13,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7BufferFile@@6B@",
+          "original_operand": "08f34600",
+          "original_target": "0x0046F308"
+        },
+        {
+          "offset": 21,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_00452422",
+          "original_operand": "89bd0100",
+          "original_target": "0x00452422"
+        },
+        {
+          "offset": 43,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "??_7FileInterface@@6B@",
+          "original_operand": "10f24600",
+          "original_target": "0x0046F210"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x00436680"
     },
     {
@@ -23151,12 +23174,63 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004366c0_004366c0",
-      "source": "src/platform/resource_file.cpp",
-      "symbol": "_asm_FUN_004366c0_004366c0",
+      "name": "semantic_Open_at_ResourceFile_004366c0",
+      "source": "src/platform/resource_lifetime.cpp",
+      "symbol": "?Open@ResourceFile@@UAEEPBD0@Z",
       "address": "0x004366C0",
       "size": 168,
-      "kind": "asm",
+      "relocations": [
+        {
+          "offset": 22,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__FindResourceA@12",
+          "original_operand": "e8604600",
+          "original_target": "0x004660E8"
+        },
+        {
+          "offset": 37,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__LoadResource@8",
+          "original_operand": "ec604600",
+          "original_target": "0x004660EC"
+        },
+        {
+          "offset": 50,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__LockResource@4",
+          "original_operand": "dc614600",
+          "original_target": "0x004661DC"
+        },
+        {
+          "offset": 63,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__FreeResource@4",
+          "original_operand": "f4604600",
+          "original_target": "0x004660F4"
+        },
+        {
+          "offset": 88,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__SizeofResource@8",
+          "original_operand": "f8604600",
+          "original_target": "0x004660F8"
+        },
+        {
+          "offset": 97,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_malloc_00452706",
+          "original_operand": "e1bf0100",
+          "original_target": "0x00452706"
+        },
+        {
+          "offset": 155,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__FreeResource@4",
+          "original_operand": "f4604600",
+          "original_target": "0x004660F4"
+        }
+      ],
+      "kind": "semantic",
       "owner": "0x004366C0"
     },
     {
@@ -45837,7 +45911,13 @@
     "??_7BufferFile@@6B@": "0x0046F308",
     "??1ResourceFile@@UAE@XZ": "0x00436680",
     "_entry_free_004524a1": "0x004524A1",
-    "??2@YAPAXI@Z": "0x00452493"
+    "??2@YAPAXI@Z": "0x00452493",
+    "__imp__FindResourceA@12": "0x004660E8",
+    "__imp__LoadResource@8": "0x004660EC",
+    "__imp__LockResource@4": "0x004661DC",
+    "__imp__FreeResource@4": "0x004660F4",
+    "__imp__SizeofResource@8": "0x004660F8",
+    "_entry_malloc_00452706": "0x00452706"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46025,6 +46105,7 @@
     "src/platform/path.cpp",
     "src/platform/process.cpp",
     "src/platform/resource_file.cpp",
+    "src/platform/resource_lifetime.cpp",
     "src/platform/sound_commands.cpp",
     "src/platform/sound_device_init.cpp",
     "src/platform/sound_dummy.cpp",

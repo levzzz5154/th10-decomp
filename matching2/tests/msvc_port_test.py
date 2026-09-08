@@ -28,9 +28,28 @@ class MSVCPortTest(unittest.TestCase):
         # current ordinary-C++ baseline; exact instruction bytes are gated by
         # the full build, independently of these manifest classifications.
         semantic = [r for r in regions if r['kind'] == 'semantic']
-        self.assertGreaterEqual(len(semantic), 44)
-        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1462)
+        self.assertGreaterEqual(len(semantic), 46)
+        self.assertGreaterEqual(sum(r['size'] for r in semantic), 1679)
         self.assertTrue(all((ROOT / 'matching2/msvc' / source).exists() for source in units))
+
+    def test_resource_lifetime_symbols_and_relocation_evidence(self):
+        regions = {int(r['address'], 0): r for r in self.config['regions']}
+        for address, symbol, size, count in (
+            (0x436680, '??1ResourceFile@@UAE@XZ', 49, 3),
+            (0x4366c0, '?Open@ResourceFile@@UAEEPBD0@Z', 168, 7),
+        ):
+            region = regions[address]
+            self.assertEqual(region['kind'], 'semantic')
+            self.assertEqual(region['symbol'], symbol)
+            self.assertEqual(region['size'], size)
+            self.assertEqual(region['source'], 'src/platform/resource_lifetime.cpp')
+            self.assertEqual(len(region['relocations']), count)
+            for relocation in region['relocations']:
+                operand = int.from_bytes(bytes.fromhex(relocation['original_operand']), 'little')
+                if relocation['type'] == 'IMAGE_REL_I386_REL32':
+                    operand = (operand + address + relocation['offset'] + 4) & 0xffffffff
+                self.assertEqual(operand, int(relocation['original_target'], 0))
+                self.assertEqual(operand, int(self.config['symbols'][relocation['symbol']], 0))
 
     def test_bad_extent_missing_region_and_reference_rejected(self):
         for change in ('extent', 'missing', 'hash'):
@@ -67,8 +86,8 @@ class MSVCPortTest(unittest.TestCase):
         section = PEImage(original).sections[0]
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / 'changed.exe'
-            # A normal instruction and the semantic destructor CALL operand.
-            for address in (0x401000, 0x401fff):
+            # Instructions, destructor CALL operands, and a resource IAT operand.
+            for address in (0x401000, 0x401fff, 0x436695, 0x4366d6):
                 data = bytearray(original)
                 data[section['raw_offset'] + address - section['address']] ^= 1
                 path.write_bytes(data)
