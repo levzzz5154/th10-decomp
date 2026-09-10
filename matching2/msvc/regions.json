@@ -48477,22 +48477,6 @@
     "src/util/legacy_string_funclets.cpp",
     "src/util/runtime_pool.cpp"
   ],
-  "summary": {
-    "encoding_helpers": {
-      "explicit_disp32": 205,
-      "external_rel8": 437,
-      "lea_disp8": 130,
-      "explicit_imm16": 5,
-      "cmp_store_form": 21,
-      "operand16_group83": 8,
-      "explicit_imm32": 1,
-      "x87_self_divide": 4
-    }
-  },
-  "provenance": {
-    "assembly_manifest_sha256": "269cad84e1ddc4351861988a330f1fb221f378d7ea49caef8cb02df755c3c175",
-    "ownership_sha256": "b0986ad5a33a3a74b553a4c02afd753057936afe696f7d7a8769c78b1e5045b2"
-  },
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
     "Unidentified bodies are physical code fragments, not inferred source-level functions.",

@@ -4,16 +4,17 @@
 /.claude/
 /.jspace/
 
-# Local reference screenshots of the retail game
+# Local game assets and reverse-engineering databases
 /retail-screenshots/
-
-# Generated build trees and binaries
-/build/
-/engine/build/
-/matching/build/
-/matching2/build/
+/extracted/
+/ghidra/project/
 /matching2/th10.dat
-/engine/th10
+/matching2/th10.cfg
+/matching2/log.txt
+
+# Generated build output
+/build/
+/matching2/build/
 *.obj
 *.o
 *.exe
@@ -22,22 +23,6 @@
 *.ilk
 *.cod
 
-# Generated import libraries; the .def sources are versioned
-/matching/libs/*.lib
-
-# Extracted game archives and local reverse-engineering database
-/extracted/
-/ghidra/project/
-
-# Root-level compiler experiments
-/cpp_test.asm
-/test.asm
-/tmp.asm
-
 # Python cache
 __pycache__/
 *.py[cod]
-
-# Wine run artifacts
-matching2/th10.cfg
-matching2/log.txt

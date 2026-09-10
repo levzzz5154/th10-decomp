@@ -1,104 +1,25 @@
-#!/usr/bin/env python3
-"""Build and inspect small MSVC 7.1 LTCG semantic clusters.
-
-This exploratory tool compiles one or more C++98 translation units with the
-retail compiler profile, retains an external root, links with ``link.exe /LTCG``,
-and inspects explicitly named functions in the linker's final PE layout.
-The maintained fixed-layout build uses ``ltcg_cluster.py`` for reviewed native
-clusters, adding complete-contribution ownership checks and unchanged body
-export at the final executable's fixed addresses.
-
-Input is a JSON manifest.  Paths are relative to the manifest unless absolute::
-
-    {
-      "schema_version": 1,
-      "name": "d3d-clear-pending",
-      "sources": [
-        {"path": "d3d.cpp", "role": "cluster"},
-        {"path": "d3d_stubs.cpp", "role": "stub"}
-      ],
-      "include_dirs": ["../../include"],
-      "defines": ["PROBE_BUILD=1"],
-      "entry_symbol": "?ProbeRoot@@YGXPAUState@@@Z",
-      "retain_symbols": [],
-      "functions": [
-        {
-          "name": "ClearPending",
-          "symbol": "?ClearPending@@YGXPAUState@@@Z",
-          "visibility": "static",
-          "size": 12,
-          "expected_hex": "33 c9 89 48 08 89 48 0c 89 48 10 c3"
-        }
-      ]
-    }
-
-``cluster`` sources are compiled with /O2 and /GL.  A ``stub`` source is
-ordinary C++ compiled without /GL, so its externally visible definitions form
-an optimization boundary while satisfying references from the cluster.  Stub
-signatures and calling conventions therefore remain explicit, reviewable C++;
-this pipeline never synthesizes machine-code bodies.  All unresolved symbols
-remain hard linker errors.
-
-Every requested function needs a known byte extent.  This is intentional: a
-Microsoft MAP file records symbol starts, not exact function lengths.  The tool
-checks the requested extent against MAP symbols, MAP code contributions, PE
-sections, and optional expected bytes/hash rather than guessing by trimming
-alignment padding.
-"""
+"""Strict MSVC native PE/MAP validation and compiler invocation helpers."""
 
 from __future__ import annotations
 
-import argparse
 from dataclasses import dataclass
 import hashlib
-import json
-import os
 from pathlib import Path
 import re
-import shutil
 import struct
 import subprocess
-import sys
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 
-ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_TOOLKIT = Path.home() / ".local/share/th10-toolchains/msvc-13.10.6030"
 COMPILER_VERSION = "13.10.6030"
 LINKER_VERSION = "7.10.6030"
-
-CLUSTER_FLAGS = (
-    "/nologo", "/c", "/O2", "/GL", "/Gz", "/MT", "/Gy", "/G6", "/GF", "/Zl"
-)
-STUB_FLAGS = tuple(flag for flag in CLUSTER_FLAGS if flag != "/GL")
-
 
 class LTCGSemanticError(ValueError):
     """The manifest or a compiler/linker artifact failed a strict check."""
 
 
-def _parse_int(value: Any, field: str, *, minimum: int = 0) -> int:
-    if isinstance(value, bool):
-        raise LTCGSemanticError(f"{field} must be an integer, not bool")
-    try:
-        parsed = int(value, 0) if isinstance(value, str) else int(value)
-    except (TypeError, ValueError) as exc:
-        raise LTCGSemanticError(f"{field} must be an integer: {value!r}") from exc
-    if parsed < minimum:
-        raise LTCGSemanticError(f"{field} must be at least {minimum}")
-    return parsed
-
-
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
-
-
-def _require_string(value: Any, field: str) -> str:
-    if not isinstance(value, str) or not value:
-        raise LTCGSemanticError(f"{field} must be a non-empty string")
-    if "\0" in value or "\r" in value or "\n" in value:
-        raise LTCGSemanticError(f"{field} contains a control character")
-    return value
 
 
 @dataclass(frozen=True)
@@ -425,163 +346,6 @@ def validate_map_pe(link_map: LinkMap, pe: PEImage) -> None:
             )
 
 
-def _resolve_relative(base: Path, raw: Any, field: str, *, suffix: str | None = None) -> Path:
-    value = _require_string(raw, field)
-    path = Path(value).expanduser()
-    path = (base / path).resolve() if not path.is_absolute() else path.resolve()
-    if suffix is not None and path.suffix.lower() != suffix:
-        raise LTCGSemanticError(f"{field} must name a {suffix} file")
-    if not path.is_file():
-        raise LTCGSemanticError(f"{field} does not exist or is not a file: {path}")
-    return path
-
-
-def _normalize_manifest(path: Path) -> dict[str, Any]:
-    try:
-        raw_bytes = path.read_bytes()
-        raw = json.loads(raw_bytes)
-    except (OSError, json.JSONDecodeError) as exc:
-        raise LTCGSemanticError(f"cannot read manifest {path}: {exc}") from exc
-    if not isinstance(raw, Mapping):
-        raise LTCGSemanticError("manifest root must be a JSON object")
-    if raw.get("schema_version") != 1:
-        raise LTCGSemanticError("manifest schema_version must be 1")
-    allowed = {
-        "schema_version", "name", "sources", "include_dirs", "defines",
-        "entry_symbol", "retain_symbols", "functions",
-    }
-    unknown = sorted(set(raw) - allowed)
-    if unknown:
-        raise LTCGSemanticError("unknown manifest fields: " + ", ".join(unknown))
-
-    base = path.parent.resolve()
-    name = _require_string(raw.get("name"), "name")
-    sources_raw = raw.get("sources")
-    if not isinstance(sources_raw, list) or not sources_raw:
-        raise LTCGSemanticError("sources must be a non-empty array")
-    sources = []
-    for index, item in enumerate(sources_raw):
-        if not isinstance(item, Mapping):
-            raise LTCGSemanticError(f"sources[{index}] must be an object")
-        if set(item) - {"path", "role"}:
-            raise LTCGSemanticError(f"sources[{index}] contains unknown fields")
-        role = item.get("role", "cluster")
-        if role not in ("cluster", "stub"):
-            raise LTCGSemanticError(f"sources[{index}].role must be cluster or stub")
-        source_path = _resolve_relative(base, item.get("path"), f"sources[{index}].path", suffix=".cpp")
-        sources.append({"path": source_path, "role": role})
-    if not any(item["role"] == "cluster" for item in sources):
-        raise LTCGSemanticError("at least one source must have role cluster")
-    if len({item["path"] for item in sources}) != len(sources):
-        raise LTCGSemanticError("sources contains a duplicate path")
-
-    include_dirs_raw = raw.get("include_dirs", [])
-    if not isinstance(include_dirs_raw, list):
-        raise LTCGSemanticError("include_dirs must be an array")
-    include_dirs = []
-    for index, item in enumerate(include_dirs_raw):
-        value = _require_string(item, f"include_dirs[{index}]")
-        include = Path(value).expanduser()
-        include = (base / include).resolve() if not include.is_absolute() else include.resolve()
-        if not include.is_dir():
-            raise LTCGSemanticError(f"include_dirs[{index}] is not a directory: {include}")
-        include_dirs.append(include)
-    if len(set(include_dirs)) != len(include_dirs):
-        raise LTCGSemanticError("include_dirs contains a duplicate path")
-
-    defines_raw = raw.get("defines", [])
-    if not isinstance(defines_raw, list):
-        raise LTCGSemanticError("defines must be an array")
-    defines = []
-    for index, item in enumerate(defines_raw):
-        define = _require_string(item, f"defines[{index}]")
-        if define.startswith(("/", "-")) or any(character.isspace() for character in define):
-            raise LTCGSemanticError(f"defines[{index}] must be NAME or NAME=VALUE")
-        if not re.fullmatch(r"[A-Za-z_]\w*(?:=.*)?", define):
-            raise LTCGSemanticError(f"defines[{index}] has an invalid macro name")
-        defines.append(define)
-    if len(set(defines)) != len(defines):
-        raise LTCGSemanticError("defines contains a duplicate")
-
-    entry_symbol = _require_string(raw.get("entry_symbol"), "entry_symbol")
-    retain_raw = raw.get("retain_symbols", [])
-    if not isinstance(retain_raw, list):
-        raise LTCGSemanticError("retain_symbols must be an array")
-    retain_symbols = [_require_string(value, f"retain_symbols[{index}]")
-                      for index, value in enumerate(retain_raw)]
-    retain_symbols = list(dict.fromkeys([entry_symbol, *retain_symbols]))
-
-    functions_raw = raw.get("functions")
-    if not isinstance(functions_raw, list) or not functions_raw:
-        raise LTCGSemanticError("functions must be a non-empty array")
-    functions = []
-    for index, item in enumerate(functions_raw):
-        field = f"functions[{index}]"
-        if not isinstance(item, Mapping):
-            raise LTCGSemanticError(f"{field} must be an object")
-        allowed_function = {
-            "name", "symbol", "visibility", "size", "expected_hex",
-            "expected_sha256", "expected_offset",
-        }
-        unknown_function = sorted(set(item) - allowed_function)
-        if unknown_function:
-            raise LTCGSemanticError(
-                f"{field} has unknown fields: " + ", ".join(unknown_function)
-            )
-        semantic_name = _require_string(item.get("name"), f"{field}.name")
-        symbol = _require_string(item.get("symbol"), f"{field}.symbol")
-        visibility = item.get("visibility", "either")
-        if visibility not in ("public", "static", "either"):
-            raise LTCGSemanticError(f"{field}.visibility must be public, static, or either")
-        size = _parse_int(item.get("size"), f"{field}.size", minimum=1)
-        expected_hex = item.get("expected_hex")
-        expected_bytes = None
-        if expected_hex is not None:
-            expected_hex = _require_string(expected_hex, f"{field}.expected_hex")
-            try:
-                expected_bytes = bytes.fromhex(expected_hex)
-            except ValueError as exc:
-                raise LTCGSemanticError(f"{field}.expected_hex is not hexadecimal") from exc
-            if len(expected_bytes) != size:
-                raise LTCGSemanticError(
-                    f"{field}.expected_hex has {len(expected_bytes)} bytes, expected {size}"
-                )
-        expected_hash = item.get("expected_sha256")
-        if expected_hash is not None:
-            expected_hash = _require_string(expected_hash, f"{field}.expected_sha256").lower()
-            if not re.fullmatch(r"[0-9a-f]{64}", expected_hash):
-                raise LTCGSemanticError(f"{field}.expected_sha256 must be 64 hexadecimal digits")
-            if expected_bytes is not None and _sha256(expected_bytes) != expected_hash:
-                raise LTCGSemanticError(f"{field} expected_hex and expected_sha256 disagree")
-        expected_offset = item.get("expected_offset")
-        if expected_offset is not None:
-            expected_offset = _parse_int(expected_offset, f"{field}.expected_offset")
-        functions.append({
-            "name": semantic_name,
-            "symbol": symbol,
-            "visibility": visibility,
-            "size": size,
-            "expected_bytes": expected_bytes,
-            "expected_sha256": expected_hash,
-            "expected_offset": expected_offset,
-        })
-    symbols = [item["symbol"] for item in functions]
-    if len(set(symbols)) != len(symbols):
-        raise LTCGSemanticError("functions contains a duplicate decorated symbol")
-
-    return {
-        "path": path,
-        "raw_bytes": raw_bytes,
-        "name": name,
-        "sources": sources,
-        "include_dirs": include_dirs,
-        "defines": defines,
-        "entry_symbol": entry_symbol,
-        "retain_symbols": retain_symbols,
-        "functions": functions,
-    }
-
-
 def extract_functions(
     specs: Sequence[Mapping[str, Any]], link_map: LinkMap, pe: PEImage
 ) -> list[dict[str, Any]]:
@@ -673,13 +437,6 @@ def extract_functions(
     return results
 
 
-def _which(command: str) -> str:
-    found = shutil.which(command)
-    if found is None:
-        raise LTCGSemanticError(f"required host command is not available: {command}")
-    return found
-
-
 def _run_logged(
     command: Sequence[str],
     env: Mapping[str, str],
@@ -702,19 +459,6 @@ def _run_logged(
             f"command failed with exit code {result.returncode}; see {log}"
         )
     return result
-
-
-def _windows_path(path: Path, winepath: str, env: Mapping[str, str], cwd: Path) -> str:
-    try:
-        result = subprocess.run(
-            [winepath, "-w", str(path)], cwd=cwd, env=dict(env), capture_output=True,
-            text=True, timeout=30
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        raise LTCGSemanticError(f"winepath failed for {path}: {exc}") from exc
-    if result.returncode or not result.stdout.strip():
-        raise LTCGSemanticError(f"winepath failed for {path}: {result.stderr.strip()}")
-    return result.stdout.strip()
 
 
 def _verify_toolchain(
@@ -748,179 +492,3 @@ def _verify_toolchain(
         if path.is_file()
     }
     return compiler, linker, hashes
-
-
-def run_pipeline(
-    manifest_path: Path,
-    output: Path,
-    toolkit: Path = DEFAULT_TOOLKIT,
-    *,
-    wine_command: str = "wine",
-    winepath_command: str = "winepath",
-) -> dict[str, Any]:
-    """Compile, LTCG-link, validate, extract, and write ``report.json``."""
-
-    manifest_path = manifest_path.resolve()
-    output = output.resolve()
-    toolkit = toolkit.expanduser().resolve()
-    manifest = _normalize_manifest(manifest_path)
-    wine = _which(wine_command)
-    winepath = _which(winepath_command)
-    output.mkdir(parents=True, exist_ok=True)
-    stale = [
-        "report.json", "cluster.exe", "cluster.map", "compile-commands.json",
-        "link.log", "compiler-version.log", "linker-version.log",
-    ]
-    for name in stale:
-        (output / name).unlink(missing_ok=True)
-
-    env = {**os.environ, "WINEDEBUG": "-all"}
-    include = _windows_path(toolkit / "include", winepath, env, output)
-    library = _windows_path(toolkit / "lib", winepath, env, output)
-    env["INCLUDE"] = include
-    env["LIB"] = library
-    compiler, linker, tool_hashes = _verify_toolchain(toolkit, wine, env, output)
-
-    include_flags = [
-        "/I" + _windows_path(path, winepath, env, output)
-        for path in manifest["include_dirs"]
-    ]
-    define_flags = ["/D" + value for value in manifest["defines"]]
-    objects: list[Path] = []
-    compile_records = []
-    for index, source in enumerate(manifest["sources"]):
-        role = source["role"]
-        obj = output / f"{role}-{index:04d}.obj"
-        log = output / f"compile-{index:04d}.log"
-        obj.unlink(missing_ok=True)
-        flags = CLUSTER_FLAGS if role == "cluster" else STUB_FLAGS
-        command = [
-            wine,
-            str(compiler),
-            *flags,
-            *include_flags,
-            *define_flags,
-            "/Fo" + _windows_path(obj, winepath, env, output),
-            _windows_path(source["path"], winepath, env, output),
-        ]
-        _run_logged(command, env, output, log, 180)
-        if not obj.is_file() or not obj.stat().st_size:
-            raise LTCGSemanticError(f"compiler reported success without creating {obj}")
-        objects.append(obj)
-        compile_records.append({
-            "source": str(source["path"]),
-            "source_sha256": _sha256(source["path"].read_bytes()),
-            "role": role,
-            "object": obj.name,
-            "object_sha256": _sha256(obj.read_bytes()),
-            "flags": list(flags),
-            "command": command,
-        })
-    (output / "compile-commands.json").write_text(json.dumps(compile_records, indent=2) + "\n")
-
-    executable = output / "cluster.exe"
-    map_path = output / "cluster.map"
-    command = [
-        wine,
-        str(linker),
-        "/nologo",
-        "/LTCG",
-        "/MACHINE:X86",
-        "/BASE:0x400000",
-        "/FILEALIGN:512",
-        "/SUBSYSTEM:WINDOWS",
-        "/ENTRY:" + manifest["entry_symbol"],
-        "/FIXED",
-        "/INCREMENTAL:NO",
-        "/OPT:REF",
-        "/OPT:NOICF",
-        "/NODEFAULTLIB",
-        "/OUT:" + _windows_path(executable, winepath, env, output),
-        "/MAP:" + _windows_path(map_path, winepath, env, output),
-        *["/INCLUDE:" + symbol for symbol in manifest["retain_symbols"]],
-        *[_windows_path(obj, winepath, env, output) for obj in objects],
-    ]
-    _run_logged(command, env, output, output / "link.log", 300)
-    if not executable.is_file() or not map_path.is_file():
-        raise LTCGSemanticError("linker reported success without producing the PE and MAP")
-
-    try:
-        map_text = map_path.read_text(encoding="utf-8")
-    except (OSError, UnicodeError) as exc:
-        raise LTCGSemanticError(f"cannot read linker MAP {map_path}: {exc}") from exc
-    link_map = parse_map(map_text)
-    pe = PEImage.from_path(executable)
-    validate_map_pe(link_map, pe)
-    entry_matches = [
-        symbol for symbol in link_map.symbols
-        if symbol.name == manifest["entry_symbol"] and symbol.address == pe.entry
-    ]
-    if len(entry_matches) != 1:
-        raise LTCGSemanticError("entry_symbol does not uniquely identify the linked PE entry")
-    functions = extract_functions(manifest["functions"], link_map, pe)
-
-    report = {
-        "schema_version": 1,
-        "purpose": "MSVC 13.10.6030 /O2 /GL plus link.exe 7.10.6030 /LTCG semantic cluster",
-        "name": manifest["name"],
-        "manifest": str(manifest_path),
-        "manifest_sha256": _sha256(manifest["raw_bytes"]),
-        "toolkit": str(toolkit),
-        "tool_sha256": tool_hashes,
-        "compile_profile": {
-            "cluster": list(CLUSTER_FLAGS),
-            "stub": list(STUB_FLAGS),
-            "stub_contract": "Reviewable external C++ definitions compiled without /GL",
-        },
-        "compiled_sources": compile_records,
-        "link_command": command,
-        "entry_symbol": manifest["entry_symbol"],
-        "entry_address": f"0x{pe.entry:08X}",
-        "image_base": f"0x{pe.image_base:08X}",
-        "pe_sha256": _sha256(pe.data),
-        "map_sha256": _sha256(map_path.read_bytes()),
-        "sections": [
-            {
-                "name": section.name,
-                "address": f"0x{section.address:08X}",
-                "virtual_size": section.virtual_size,
-                "raw_size": section.raw_size,
-                "raw_offset": f"0x{section.raw_offset:X}",
-                "characteristics": f"0x{section.characteristics:08X}",
-            }
-            for section in pe.sections
-        ],
-        "functions": functions,
-        "validation": {
-            "map_pe_coordinates": True,
-            "entry_symbol": True,
-            "explicit_function_extents": True,
-            "unresolved_externals": "linker hard error",
-            "raw_code_emission": False,
-        },
-    }
-    temporary = output / "report.json.tmp"
-    temporary.write_text(json.dumps(report, indent=2) + "\n")
-    temporary.replace(output / "report.json")
-    return report
-
-
-def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("manifest", type=Path, help="schema-1 semantic cluster manifest")
-    parser.add_argument("--output", type=Path, required=True, help="isolated build directory")
-    parser.add_argument("--toolkit", type=Path, default=DEFAULT_TOOLKIT)
-    args = parser.parse_args(argv)
-    try:
-        report = run_pipeline(args.manifest, args.output, args.toolkit)
-    except LTCGSemanticError as exc:
-        parser.error(str(exc))
-    print(
-        f"Extracted {len(report['functions'])} LTCG function(s) from "
-        f"{report['name']}: {args.output.resolve() / 'report.json'}"
-    )
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

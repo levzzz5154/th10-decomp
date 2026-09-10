@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package an independently assembled ``.text`` buffer into the TH10 PE.
+"""Package compiled code and versioned non-code data into the byte-exact TH10 PE.
 
 The packer has no implicit retail input.  The original non-code bytes are
 versioned under ``matching2/reference/data`` and the header is reconstructed from
@@ -9,20 +9,11 @@ it is the only mode that reads an executable outside the package inputs.
 
 from __future__ import annotations
 
-import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
-import subprocess
 import struct
-import sys
-import tempfile
 from typing import Any, Mapping
-
-
-ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_LAYOUT = ROOT / "matching2" / "asm" / "pe_layout.json"
 
 
 class PackError(RuntimeError):
@@ -136,53 +127,16 @@ def _pack_section(section: Mapping[str, Any]) -> bytes:
     return struct.pack("<8sIIIIIIHHI", encoded_name.ljust(8, b"\0"), *fields)
 
 
-def _assemble_dos_code(layout_path: Path, spec: Mapping[str, Any], assembler: str,
-                       objcopy: str) -> bytes:
-    source_name = spec.get("source")
-    if not isinstance(source_name, str):
-        raise PackError("dos_prefix.code.source is required")
-    source = (layout_path.parent / source_name).resolve()
-    assembler_path = shutil.which(assembler) if "/" not in assembler else assembler
-    objcopy_path = shutil.which(objcopy) if "/" not in objcopy else objcopy
-    if not assembler_path:
-        raise PackError(f"DOS stub assembler not found: {assembler}")
-    if not objcopy_path:
-        raise PackError(f"DOS stub objcopy not found: {objcopy}")
-    with tempfile.TemporaryDirectory(prefix="th10-dos-stub-") as temporary:
-        object_path = Path(temporary) / "dos_stub.o"
-        binary_path = Path(temporary) / "dos_stub.bin"
-        try:
-            assembled = subprocess.run(
-                [assembler_path, "--32", str(source), "-o", str(object_path)],
-                check=False, capture_output=True, text=True,
-            )
-            if assembled.returncode:
-                raise PackError(f"DOS stub assembly failed: {assembled.stderr.strip()}")
-            extracted = subprocess.run(
-                [objcopy_path, "-O", "binary", "-j", ".text", str(object_path), str(binary_path)],
-                check=False, capture_output=True, text=True,
-            )
-            if extracted.returncode:
-                raise PackError(f"DOS stub objcopy failed: {extracted.stderr.strip()}")
-            return binary_path.read_bytes()
-        except OSError as exc:
-            raise PackError(f"cannot assemble DOS stub {source}: {exc}") from exc
-
-
-def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], assembler: str,
-                      objcopy: str, dos_code: bytes | None = None) -> bytes:
+def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], dos_code: bytes) -> bytes:
     header_spec = spec.get("header")
     rich_spec = spec.get("rich_metadata")
     if not isinstance(header_spec, Mapping) or not isinstance(rich_spec, Mapping):
         raise PackError("dos_prefix requires header and rich_metadata assets")
     header = _read_asset(layout_path, str(header_spec["path"]), _integer(header_spec["size"], "dos_prefix.header.size"),
                          str(header_spec["sha256"]))
-    if dos_code is None:
-        code = _assemble_dos_code(layout_path, spec["code"], assembler, objcopy)
-    else:
-        if not isinstance(dos_code, bytes):
-            raise PackError("dos_code must be bytes")
-        code = dos_code
+    if not isinstance(dos_code, bytes):
+        raise PackError("dos_code must be caller-supplied compiled bytes")
+    code = dos_code
     expected_code_size = _integer(spec["code"].get("size"), "dos_prefix.code.size")
     if len(code) != expected_code_size:
         raise PackError(f"DOS stub has {len(code)} bytes; expected {expected_code_size}")
@@ -267,10 +221,8 @@ def _validate_layout(layout: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 
 
 def build_image(layout_path: Path, text_path: Path, output_path: Path,
-                verify_path: Path | None = None,
-                assembler: str = "i686-w64-mingw32-as",
-                objcopy: str = "objcopy", *,
-                dos_code: bytes | None = None) -> dict[str, Any]:
+                verify_path: Path | None = None, *,
+                dos_code: bytes) -> dict[str, Any]:
     """Build and validate an image, returning a small reproducibility report."""
 
     layout = _load_layout(layout_path)
@@ -280,16 +232,16 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
     try:
         text = text_path.read_bytes()
     except OSError as exc:
-        raise PackError(f"cannot read assembled .text input {text_path}: {exc}") from exc
+        raise PackError(f"cannot read compiled .text input {text_path}: {exc}") from exc
     if len(text) != expected_text_size:
-        raise PackError(f"assembled .text has {len(text)} bytes; expected {expected_text_size}")
+        raise PackError(f"compiled .text has {len(text)} bytes; expected {expected_text_size}")
     expected_text_hash = str(reference["text_section_sha256"])
     actual_text_hash = _sha256(text)
     if actual_text_hash != expected_text_hash:
-        raise PackError(f"assembled .text hash mismatch: expected {expected_text_hash}, got {actual_text_hash}")
+        raise PackError(f"compiled .text hash mismatch: expected {expected_text_hash}, got {actual_text_hash}")
 
     dos_spec = layout["dos_prefix"]
-    dos = _build_dos_prefix(layout_path, dos_spec, assembler, objcopy, dos_code=dos_code)
+    dos = _build_dos_prefix(layout_path, dos_spec, dos_code)
     header = dos + _build_headers(layout, sections)
     header_size = _integer(layout["image"].get("size_of_headers"), "image.size_of_headers")
     if len(header) != header_size:
@@ -343,30 +295,3 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
                       "raw_size": section["raw_size"]} for section in sections],
         "verified_against_oracle": verify_path is not None,
     }
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--text", type=Path, required=True,
-                        help="raw assembled .text section, exactly 412672 bytes")
-    parser.add_argument("--output", type=Path, required=True, help="output PE path")
-    parser.add_argument("--layout", type=Path, default=DEFAULT_LAYOUT)
-    parser.add_argument("--assembler", default="i686-w64-mingw32-as",
-                        help="assembler used for the versioned 16-bit DOS stub")
-    parser.add_argument("--objcopy", default="objcopy",
-                        help="objcopy used to make the DOS stub flat binary")
-    parser.add_argument("--verify", type=Path, default=None,
-                        help="optional explicit retail oracle checked only after packaging")
-    args = parser.parse_args(argv)
-    try:
-        report = build_image(args.layout.resolve(), args.text.resolve(), args.output.resolve(),
-                             args.verify.resolve() if args.verify else None,
-                             args.assembler, args.objcopy)
-    except (KeyError, TypeError, PackError) as exc:
-        parser.error(str(exc))
-    print(json.dumps(report, indent=2))
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

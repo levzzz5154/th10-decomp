@@ -1,3 +1,0 @@
-#include "th10/platform/dinput_device_setup.hpp"
-#include <cstdio>
-static int rel,coop[2],cn;static void*I(){return(void*)1;}static void*W(){return(void*)2;}static void*CI(void*){return(void*)3;}static void*CK(void*){return(void*)4;}static int Z(void*){return 0;}static int C(void*,void*,int x){coop[cn++]=x;return 0;}static void*J(void*){return(void*)5;}static int P(void*,int x){return x!=44;}static void R(void*){rel++;}static void L(int){}int main(){DirectInputDevices s={};DirectInputSetupEnv e={I,W,CI,CK,Z,C,Z,J,Z,P,Z,R,L};if(Input_InitializeDevices(&s,&e)||coop[0]!=0x16||coop[1]!=10||!s.joystick)return 1;s.flags=8;if(Input_InitializeDevices(&s,&e)!=-1)return 1;std::puts("recovery_batch33_test passed");}

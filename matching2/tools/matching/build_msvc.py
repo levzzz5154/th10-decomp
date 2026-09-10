@@ -81,7 +81,7 @@ def make_link_script(regions, selected, bindings, output):
     output.write_text('\n'.join(lines) + '\n')
 
 
-def verify_linked(path, config, oracle=None, reference_text_path=None):
+def verify_linked(path, config, oracle=None):
     linked = PEImage(path.read_bytes())
     sections = [section for section in linked.sections if section['name'] == '.text']
     if len(sections) != 1 or any(section['name'] != '.text' and section['raw_size'] for section in linked.sections):
@@ -93,19 +93,14 @@ def verify_linked(path, config, oracle=None, reference_text_path=None):
     raw = linked.read(0x401000, config['text_bytes'])
     if sha(raw) != config['text_sha256']:
         expected = None
-        detail = 'Run make reference or pass --verify <retail.exe> for expected-byte diagnostics.'
+        detail = 'Pass --verify <retail.exe> for expected-byte diagnostics.'
         if oracle is not None:
             expected = PEImage(oracle).read(0x401000, len(raw))
-        elif reference_text_path is not None:
-            try:
-                expected = reference_text_path.read_bytes()
-            except OSError:
-                pass
         if expected is not None:
             if len(expected) == len(raw) and sha(expected) == config['text_sha256']:
                 detail = describe_mismatch(raw, expected, config)
             else:
-                detail = 'Diagnostic reference does not match the required .text hash. Rebuild it with make reference.'
+                detail = 'Diagnostic reference does not match the required .text hash.'
         raise ValueError('linked .text SHA-256 differs\n' + detail)
     return raw
 
@@ -125,7 +120,7 @@ def main():
     for name in ('th10.exe', 'port-report.json', 'text.bin', 'report.json', 'linked.exe'):
         (output / name).unlink(missing_ok=True)
     config = json.loads((project / 'regions.json').read_text())
-    reference = json.loads((ROOT / 'decompiled/reference_bytes_validation.json').read_text())
+    reference = json.loads((project / 'pe_layout.json').read_text())['reference']
     regions, units = validate_project(config, reference)
     clusters = load_clusters(project, config, regions)
     cluster_by_source = {cluster['source']: cluster for cluster in clusters}
@@ -195,8 +190,7 @@ def main():
                '-T', str(script), '-Map', str(output / 'linked.map'),
                *[unit['object'] for unit in compiled if unit['source'] not in dos_units], '-o', str(output / 'linked.exe')]
     run(command, output / 'link.log', output)
-    raw = verify_linked(output / 'linked.exe', config, oracle,
-                        ROOT / 'matching2/build/asm-baseline/full/text.bin')
+    raw = verify_linked(output / 'linked.exe', config, oracle)
     (output / 'text.bin').write_bytes(raw)
     dos_code = bytearray()
     for region in sorted(dos_regions, key=lambda r: int(r['address'], 0)):
@@ -206,7 +200,7 @@ def main():
         _, payload, _ = read_coff_function(item['object'], region['symbol'])
         dos_code.extend(payload)
     package = build_image(project / 'pe_layout.json', output / 'text.bin', output / 'th10.exe',
-                          args.verify.resolve() if args.verify else None, 'i686-w64-mingw32-as', 'objcopy', dos_code=bytes(dos_code))
+                          args.verify.resolve() if args.verify else None, dos_code=bytes(dos_code))
     summary = summarize(regions)
     report = {'compiler': banner.stdout + banner.stderr,
         'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),

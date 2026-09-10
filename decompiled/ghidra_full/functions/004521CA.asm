@@ -1,5 +1,0 @@
-; Ghidra function 004521CA D3DXCreateTextureFromFileInMemoryEx
-; body ranges: 004521ca-004521cf
-004521ca	FF25C8624600	JMP dword ptr [0x004662c8]
-; ref	004521ca	004662c8	INDIRECTION
-; ref	004521ca	EXTERNAL:00000007	COMPUTED_JUMP

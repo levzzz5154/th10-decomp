@@ -1,3 +1,0 @@
-#include "th10/game/laser_grow_update.hpp"
-#include <cstdio>
-static int hit,p,s;static float A(float a,float b){return a+b;}static int C(const float*,float,float,float){return 1;}static void H(GrowLaser*){hit++;}static void G(GrowLaser*){}static void P(GrowLaser*){p++;}static void S(GrowLaser*){s++;}int main(){GrowLaser l={};l.state=2;l.length=l.target_length=100;l.width=l.target_width=40;l.hold_frames=99;l.sprite_width=20;l.sprite_height=10;GrowLaserEnv e={.5f,0,A,C,H,G,P,S};if(Laser_UpdateState(&l,&e)||hit!=1||p!=1||s!=1||l.render_scale[0]!=4||l.render_scale[1]!=5)return 1;l.state=5;l.timer_current=10;l.shrink_frames=10;if(Laser_UpdateState(&l,&e)!=1)return 1;std::puts("recovery_batch42_test passed");}

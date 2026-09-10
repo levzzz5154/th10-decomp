@@ -1,69 +1,35 @@
 # Touhou 10 matching decompilation
 
-The goal is readable C++ that recompiles to the exact bytes of the supported
-`th10.exe`. The maintained matching source is **`matching2/msvc/`**, using MSVC
-**13.10.6030**. Each recovered function must preserve whole-file byte equality.
+The goal is readable C++ that compiles to a byte-exact `th10.exe`.
+Development happens on `main`. The project currently combines recovered C++
+with inline assembly that still needs to be replaced.
 
-The canonical development branch is **`main`**. Start new work from `main`
-and merge completed topic branches back into it.
-
-The separate [assembly baseline](matching2/asm/README.md) rebuilds the supported
-original executable byte-for-byte: run `./matching2/build_asm.sh` to produce
-`matching2/build/asm-baseline/full/th10.exe`. It assembles versioned instructions
-and packages preserved data/resources without reading the retail EXE.
-
-The [MSVC project](matching2/msvc/README.md) contains recovered ordinary C++
-alongside inline assembly; [current counts](matching2/msvc/PROGRESS.md) are
-generated from its manifest. Run `make progress` for live counts. Assembly is
-scaffolding to replace, not completed C++ recovery. Preserved data and PE
-metadata also remain build inputs.
-
-## Build and verify
-
-```bash
-make build       # Compile the matching project and require exact output hashes
-make test        # Test the byte-matching verification tools
-make verify      # Run those tests, then rebuild and require exact output hashes
+```sh
+make             # Compile and require exact .text and whole-executable hashes
+make progress    # Show C++ and remaining assembly counts
 ```
 
-Requires Python 3, Wine, MSVC 13.10.6030, and GNU x86 PE binutils; see
-[build options](matching2/msvc/README.md). Output goes to `matching2/build/msvc/`.
-The tests also require g++ with 32-bit compiler/runtime support (`g++-multilib`
-on Debian and Ubuntu).
-For direct retail comparison, use
-`make build MSVC_ARGS='--verify "/path/to/retail/th10.exe"'`.
-Read the [contribution workflow](CONTRIBUTING.md) before recovering a function.
-`make help` lists secondary reference and runtime commands.
+Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, and GNU
+x86 PE binutils (`i686-w64-mingw32-ld`). The default MSVC toolkit directory is
+`~/.local/share/th10-toolchains/msvc-13.10.6030/`, containing `bin/`, `include/`,
+and `lib/`. Override it with `make MSVC_ARGS='--toolkit /path/to/toolkit'`.
+Run `./matching2/build_msvc.sh --help` for build options.
 
-## Repository map
+The output is `matching2/build/msvc/th10.exe`. Every build checks all bytes;
+`make verify` is an alias for the same build. To compare directly with a retail
+copy and get detailed mismatch diagnostics, use
+`make MSVC_ARGS='--verify /path/to/th10.exe'`.
 
-| Path | Purpose |
-| --- | --- |
-| `matching2/msvc/src/`, `matching2/msvc/include/` | Primary maintained matching implementations and types; edit these for C++ recovery |
-| `matching2/msvc/regions.json`, `matching2/msvc/layout/` | Placement, classification and ownership evidence; update with source changes |
-| `matching2/reference/data/` | Shared authenticated non-code inputs for both exact builds |
-| `matching2/msvc/pe_layout.json`, `matching2/asm/pe_layout.json` | PE packaging layouts using the shared reference data |
-| `matching2/src/`, `matching2/include/`, `matching2/standalone/` | Secondary experimental runtime and behavioral research; see the [runtime guide](matching2/docs/runtime_development.md) |
-| `matching2/tests/` | Focused host tests and their source dependencies |
-| `matching2/tools/` | [Tools grouped by purpose](matching2/tools/README.md): matching, runtime, reference, maintenance, and common libraries |
-| `matching2/data/` | Historical address inventory used by source reports |
-| `matching2/asm/` | Complete byte-exact assembly baseline, layout and data/resources |
-| `ida/`, `decompiled/` | Original disassembly, decompiler exports and reference provenance |
-| `ghidra/`, `tools/` | Reference export and integrity tools |
-| `matching2/docs/` | Subsystem evidence, naming decisions and the retail probe workflow |
-| `matching2/build/` | Ignored generated executables, objects, logs and reports; never maintained source |
+- `matching2/msvc/src/` and `include/`: matching implementations and types.
+- `matching2/msvc/regions.json` and `layout/`: code placement and compiler settings.
+- `matching2/msvc/pe_layout.json` and `matching2/reference/data/`: executable
+  layout and preserved non-code bytes.
+- `matching2/tools/`: compiler, linker, byte verification, and progress tools.
+- `ida/`: original IDA disassembly and decompiler output.
+- `decompiled/ghidra_augmented/`: supplementary disassembly, pseudocode, and
+  address index (`index.tsv`). `ghidra_alternates/` preserves four alternate
+  function boundaries.
 
-Start reference lookup with the [address index](decompiled/reference_coverage/README.md).
-Original IDA exports have missing bodies; the index distinguishes those gaps
-from supplementary Ghidra analysis.
-
-Existing directory names preserve script paths and evidence links. The modern
-runtime is experimental; its [status](matching2/RUNTIME_FIDELITY_STATUS.md)
-does not establish matching C++ completion.
-
-Obsolete hybrid builds, frozen review packets, and superseded recovery reports
-have been removed. Their history is available in Git.
-
-Historical unmerged runtime experiments are preserved as annotated tags under
-`archive/2026-09-10/`; list them with `git tag --list 'archive/*'`. These are
-reference snapshots whose changes have not been integrated into `main`.
+Replace assembly with readable C++ while preserving the existing byte hashes.
+The normal build uses maintained sources and data; it does not read a retail EXE
+or the disassembly references.

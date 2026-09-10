@@ -1,7 +1,0 @@
-; Ghidra function 0046270D FID_conflict:_CallMemberFunction1
-; body ranges: 0046270d-00462713
-0046270d	58	POP EAX
-0046270e	59	POP ECX
-0046270f	870424	XCHG dword ptr [ESP],EAX
-; ref	0046270f	Stack[0x8]	DATA
-00462712	FFE0	JMP EAX

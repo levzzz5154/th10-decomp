@@ -8,7 +8,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "matching2/msvc/regions.json"
-DOCUMENT = ROOT / "matching2/msvc/PROGRESS.md"
 KINDS = ("semantic", "asm", "data", "padding")
 LABELS = {
     "semantic": "Ordinary C++",
@@ -33,45 +32,22 @@ def summarize(regions):
             "bytes": {kind: sizes[kind] for kind in KINDS}}
 
 
-def render(summary):
-    rows = ["# Matching source progress", "",
-            "Generated from [regions.json](regions.json) with `make progress-update`.", "",
-            "| Source classification | Regions | Bytes |",
-            "| --- | ---: | ---: |"]
-    rows += [f"| {LABELS[kind]} | {summary['regions'][kind]:,} | {summary['bytes'][kind]:,} |"
-             for kind in KINDS]
-    rows += [f"| Total .text | {sum(summary['regions'].values()):,} | {sum(summary['bytes'].values()):,} |",
-             "", "These are source-manifest classifications, not a fresh build result.",
-             "Regions can be function fragments; their count is not an original function count.",
-             "Assembly, data, and padding do not count as ordinary C++ recovery.",
-             "Readability requires source review. Run `make verify` to check exact executable output.", ""]
-    return "\n".join(rows)
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
-    parser.add_argument("--document", type=Path, default=DOCUMENT)
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--write", action="store_true", help="update the generated progress document")
-    mode.add_argument("--check", action="store_true", help="reject a stale progress document")
-    mode.add_argument("--json", action="store_true", help="print machine-readable counts")
+    parser.add_argument("--json", action="store_true", help="print machine-readable counts")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text())
     summary = summarize(manifest["regions"])
     if sum(summary["bytes"].values()) != manifest["text_bytes"]:
         parser.error("region byte counts disagree with the declared .text size")
-    document = render(summary)
-    if args.write:
-        args.document.write_text(document)
-        print(args.document)
-    elif args.check:
-        if not args.document.is_file() or args.document.read_text() != document:
-            parser.exit(1, "Progress document is stale; run make progress-update.\n")
-    elif args.json:
+    if args.json:
         print(json.dumps(summary, indent=2))
     else:
-        print(document, end="")
+        for kind in KINDS:
+            print(f"{LABELS[kind]}: {summary['regions'][kind]:,} regions / {summary['bytes'][kind]:,} bytes")
+        print(f"Total .text: {sum(summary['bytes'].values()):,} bytes")
+
 
 
 if __name__ == "__main__":
