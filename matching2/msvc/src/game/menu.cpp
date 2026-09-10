@@ -1,117 +1,87 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/game/menu_cursor.hpp"
 
-// 0x0044BEA0..0x0044BF1F: MenuCursor_Advance
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_MenuCursor_Advance_0044bea0() {
-    __asm {
-    L_0044bea0:
-        push esi
-    L_0044bea1:
-        mov esi,dword ptr [eax+8]
-    L_0044bea4:
-        test esi,esi
-    L_0044bea6:
-        jle short L_0044bf1a
-    L_0044bea8:
-        push ebx
-    L_0044bea9:
-        push ebp
-    L_0044beaa:
-        push edi
-    L_0044beab:
-        mov edi,dword ptr [eax+0D4h]
-    L_0044beb1:
-        lea ebx,[eax+90h]
-    L_0044beb7:
-        mov ecx,dword ptr [esp+14h]
-    L_0044bebb:
-        mov edx,dword ptr [eax]
-    L_0044bebd:
-        add edx,ecx
-    L_0044bebf:
-        mov ecx,edx
-    L_0044bec1:
-        cmp ecx,esi
-    L_0044bec3:
-        mov dword ptr [eax],edx
-    L_0044bec5:
-        jl short L_0044bee4
-    L_0044bec7:
-        mov ecx,dword ptr [eax+0D0h]
-    L_0044becd:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_0044bed0:
-        test ecx,ecx
-    L_0044bed2:
-        je short L_0044beda
-    L_0044bed4:
-        mov edx,dword ptr [eax]
-    L_0044bed6:
-        sub edx,esi
-    L_0044bed8:
-        jmp short L_0044bedd
-    L_0044beda:
-        lea edx,[esi-1]
-    L_0044bedd:
-        mov dword ptr [eax],edx
-    L_0044bedf:
-        cmp edx,dword ptr [eax+8]
-    L_0044bee2:
-        jge short L_0044bed0
-    L_0044bee4:
-        cmp dword ptr [eax],0
-    L_0044bee7:
-        jge short L_0044bf03
-    L_0044bee9:
-        mov ecx,dword ptr [eax+0D0h]
-    L_0044beef:
-        nop
-    L_0044bef0:
-        test ecx,ecx
-    L_0044bef2:
-        je short L_0044bef8
-    L_0044bef4:
-        add dword ptr [eax],esi
-    L_0044bef6:
-        jmp short L_0044befe
-    L_0044bef8:
-        mov dword ptr [eax],0
-    L_0044befe:
-        cmp dword ptr [eax],0
-    L_0044bf01:
-        jl short L_0044bef0
-    L_0044bf03:
-        xor ecx,ecx
-    L_0044bf05:
-        mov edx,ebx
-    L_0044bf07:
-        cmp ecx,edi
-    L_0044bf09:
-        jge short L_0044bf17
-    L_0044bf0b:
-        mov ebp,dword ptr [edx]
-    L_0044bf0d:
-        cmp ebp,dword ptr [eax]
-    L_0044bf0f:
-        je short L_0044beb7
-    L_0044bf11:
-        inc ecx
-    L_0044bf12:
-        add edx,4
-    L_0044bf15:
-        jmp short L_0044bf07
-    L_0044bf17:
-        pop edi
-    L_0044bf18:
-        pop ebp
-    L_0044bf19:
-        pop ebx
-    L_0044bf1a:
-        mov eax,dword ptr [eax]
-    L_0044bf1c:
-        pop esi
-    L_0044bf1d:
-        ret 4
-    }
+#pragma code_seg(".text$01setwrap")
+void MenuCursor::SetWrap(int enabled) {
+    wrap = enabled;
 }
+#pragma code_seg(".text$03previous")
+int MenuCursor::Previous() {
+    return Advance(-1);
+}
+#pragma code_seg(".text$05next")
+int MenuCursor::Next() {
+    return Advance(1);
+}
+#pragma code_seg(".text$07setcount")
+void MenuCursor::SetItemCount(int count) {
+    item_count = count;
+}
+#pragma code_seg(".text$09getselection")
+int MenuCursor::GetSelection() const {
+    return selection;
+}
+#pragma code_seg(".text$11reset")
+void MenuCursor::Reset() {
+    history_depth = 0;
+    selection = 0;
+    disabled_count = 0;
+    wrap = 1;
+    item_count = 999;
+}
+#pragma code_seg(".text$13clear")
+void MenuCursor::ClearDisabledItems() {
+    disabled_count = 0;
+}
+#pragma code_seg(".text$15disable")
+void MenuCursor::DisableItem(int item) {
+    disabled_items[disabled_count] = item;
+    ++disabled_count;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$17push")
+void MenuCursor::PushSelection() {
+    selection_history[history_depth] = selection;
+    item_count_history[history_depth] = item_count;
+    ++history_depth;
+    if (history_depth >= 16)
+        history_depth = 15;
+    disabled_count = 0;
+}
+
+#pragma code_seg(".text$19pop")
+void MenuCursor::PopSelection() {
+    --history_depth;
+    if (history_depth < 0)
+        history_depth = 0;
+    selection = selection_history[history_depth];
+    item_count = item_count_history[history_depth];
+    disabled_count = 0;
+}
+
+#pragma code_seg(".text$21advance")
+int MenuCursor::Advance(int delta) {
+    int count = item_count;
+    if (count > 0) {
+    retry_selection:
+        selection += delta;
+        while (selection >= item_count) {
+            if (wrap)
+                selection -= count;
+            else
+                selection = count - 1;
+        }
+        while (selection < 0) {
+            if (wrap)
+                selection += count;
+            else
+                selection = 0;
+        }
+        for (int index = 0; index < disabled_count; ++index) {
+            if (disabled_items[index] == selection)
+                goto retry_selection;
+        }
+    }
+    return selection;
+}
+#pragma code_seg()

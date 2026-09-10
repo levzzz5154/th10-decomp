@@ -1,0 +1,55 @@
+#pragma once
+#include <stddef.h>
+
+// Callback context is passed in ECX by the original scheduler.
+struct SchedulerTask;
+typedef int (__fastcall *TaskRoutine)(void*);
+struct TaskLink {
+    SchedulerTask* task;
+    TaskLink* next;
+    TaskLink* previous;
+    void InsertAfter(TaskLink* position) {
+        if (position->next) {
+            next = position->next;
+            position->next->previous = this;
+        }
+        position->next = this;
+        previous = position;
+    }
+    void Unlink() {
+        if (next) next->previous = previous;
+        if (previous) previous->next = next;
+        next = 0;
+        previous = 0;
+    }
+};
+struct SchedulerTask {
+    int priority;
+    unsigned int heap_owned : 1;
+    unsigned int reserved_flags : 31;
+    TaskRoutine on_tick;
+    TaskRoutine on_register;
+    TaskRoutine on_remove;
+    TaskLink link;
+    void* context;
+    ~SchedulerTask() {
+        on_tick = 0;
+        on_register = 0;
+        on_remove = 0;
+    }
+};
+struct Scheduler {
+    SchedulerTask primary;
+    SchedulerTask secondary;
+};
+
+extern "C" {
+__declspec(noinline) int __stdcall Scheduler_RegisterPrimary(Scheduler*, SchedulerTask*, int priority);
+__declspec(noinline) int __stdcall Scheduler_RegisterSecondary(Scheduler*, SchedulerTask*, int priority);
+__declspec(noinline) void __stdcall Scheduler_RemoveLocked(Scheduler*, SchedulerTask*);
+__declspec(noinline) void __fastcall Scheduler_Remove(SchedulerTask*, Scheduler*);
+}
+
+typedef char SchedulerTask_size_must_be_36[sizeof(SchedulerTask) == 36 ? 1 : -1];
+typedef char SchedulerTask_link_offset_must_be_20[offsetof(SchedulerTask, link) == 20 ? 1 : -1];
+typedef char SchedulerTask_context_offset_must_be_32[offsetof(SchedulerTask, context) == 32 ? 1 : -1];

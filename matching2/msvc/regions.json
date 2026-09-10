@@ -5325,12 +5325,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ad50_0040ad50",
-      "source": "src/unidentified/FUN_0040ad50_0040ad50.cpp",
-      "symbol": "_asm_FUN_0040ad50_0040ad50",
+      "name": "semantic_MenuCursor_SetWrap_0040ad50",
+      "source": "src/game/menu.cpp",
+      "symbol": "?SetWrap@MenuCursor@@QAEXH@Z",
       "address": "0x0040AD50",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040AD50"
     },
     {
@@ -5342,13 +5342,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ad60",
-      "source": "src/unidentified/unassigned_0040ad60.cpp",
-      "symbol": "_asm_unassigned_0040ad60",
+      "name": "semantic_MenuCursor_Previous_0040ad60",
+      "source": "src/game/menu.cpp",
+      "symbol": "?Previous@MenuCursor@@QAEHXZ",
       "address": "0x0040AD60",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0040AD60"
     },
     {
       "name": "text_padding_0040ad68",
@@ -5359,13 +5359,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ad70",
-      "source": "src/unidentified/unassigned_0040ad70.cpp",
-      "symbol": "_asm_unassigned_0040ad70",
+      "name": "semantic_MenuCursor_Next_0040ad70",
+      "source": "src/game/menu.cpp",
+      "symbol": "?Next@MenuCursor@@QAEHXZ",
       "address": "0x0040AD70",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0040AD70"
     },
     {
       "name": "text_padding_0040ad78",
@@ -5376,12 +5376,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ad80_0040ad80",
-      "source": "src/unidentified/FUN_0040ad80_0040ad80.cpp",
-      "symbol": "_asm_FUN_0040ad80_0040ad80",
+      "name": "semantic_MenuCursor_SetItemCount_0040ad80",
+      "source": "src/game/menu.cpp",
+      "symbol": "?SetItemCount@MenuCursor@@QAEXH@Z",
       "address": "0x0040AD80",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040AD80"
     },
     {
@@ -5393,12 +5393,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ad90_0040ad90",
-      "source": "src/unidentified/FUN_0040ad90_0040ad90.cpp",
-      "symbol": "_asm_FUN_0040ad90_0040ad90",
+      "name": "semantic_MenuCursor_GetSelection_0040ad90",
+      "source": "src/game/menu.cpp",
+      "symbol": "?GetSelection@MenuCursor@@QBEHXZ",
       "address": "0x0040AD90",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040AD90"
     },
     {
@@ -5444,13 +5444,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040add0",
-      "source": "src/unidentified/unassigned_0040add0.cpp",
-      "symbol": "_asm_unassigned_0040add0",
+      "name": "semantic_MenuCursor_Reset_0040add0",
+      "source": "src/game/menu.cpp",
+      "symbol": "?Reset@MenuCursor@@QAEXXZ",
       "address": "0x0040ADD0",
       "size": 34,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0040ADD0"
     },
     {
       "name": "text_padding_0040adf2",
@@ -21823,12 +21823,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00434b70_00434b70",
-      "source": "src/unidentified/FUN_00434b70_00434b70.cpp",
-      "symbol": "_asm_FUN_00434b70_00434b70",
+      "name": "semantic_MenuCursor_ClearDisabledItems_00434b70",
+      "source": "src/game/menu.cpp",
+      "symbol": "?ClearDisabledItems@MenuCursor@@QAEXXZ",
       "address": "0x00434B70",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00434B70"
     },
     {
@@ -21891,13 +21891,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00434bc0",
-      "source": "src/unidentified/unassigned_00434bc0.cpp",
-      "symbol": "_asm_unassigned_00434bc0",
+      "name": "semantic_MenuCursor_DisableItem_00434bc0",
+      "source": "src/game/menu.cpp",
+      "symbol": "?DisableItem@MenuCursor@@QAEXH@Z",
       "address": "0x00434BC0",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00434BC0"
     },
     {
       "name": "text_padding_00434bd4",
@@ -22926,12 +22926,12 @@
       "owner": "0x00436210"
     },
     {
-      "name": "asm_MemoryFile_RelinkChild_00436260",
-      "source": "src/platform/memory_file.cpp",
-      "symbol": "_asm_MemoryFile_RelinkChild_00436260",
+      "name": "CompressionTree_RelinkChild",
+      "symbol": "?CompressionTree_RelinkChild@@YGXHH@Z",
       "address": "0x00436260",
       "size": 79,
-      "kind": "asm",
+      "kind": "semantic",
+      "source": "src/game/compression_tree.cpp",
       "owner": "0x00436260"
     },
     {
@@ -22960,29 +22960,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_MemoryFile_FindPredecessor_00436330",
-      "source": "src/platform/memory_file.cpp",
-      "symbol": "_asm_MemoryFile_FindPredecessor_00436330",
+      "name": "CompressionTree_FindPredecessor",
+      "symbol": "?CompressionTree_FindPredecessor@@YGHH@Z",
       "address": "0x00436330",
-      "size": 26,
-      "kind": "asm",
-      "owner": "0x00436330"
-    },
-    {
-      "name": "text_padding_0043634a",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043634a",
-      "address": "0x0043634A",
-      "size": 6,
-      "kind": "padding"
-    },
-    {
-      "name": "asm_MemoryFile_FindPredecessor_part_00436350",
-      "source": "src/platform/memory_file.cpp",
-      "symbol": "_asm_MemoryFile_FindPredecessor_part_00436350",
-      "address": "0x00436350",
-      "size": 17,
-      "kind": "asm",
+      "size": 49,
+      "kind": "semantic",
+      "source": "src/game/compression_tree.cpp",
       "owner": "0x00436330"
     },
     {
@@ -25623,12 +25606,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043aa60_0043aa60",
-      "source": "src/platform/window.cpp",
-      "symbol": "_asm_FUN_0043aa60_0043aa60",
       "address": "0x0043AA60",
+      "name": "MidiSequencer_ReleaseTracks",
+      "symbol": "?ReleaseTracks@MidiSequencer@@QAEXXZ",
       "size": 107,
-      "kind": "asm",
+      "source": "src/platform/midi_file.cpp",
+      "kind": "semantic",
       "owner": "0x0043AA60"
     },
     {
@@ -25640,12 +25623,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043aad0_0043aad0",
-      "source": "src/platform/midi_sequencer.cpp",
-      "symbol": "_asm_FUN_0043aad0_0043aad0",
       "address": "0x0043AAD0",
+      "name": "MidiSequencer_ParseLoadedFile",
+      "symbol": "?ParseLoadedFile@MidiSequencer@@QAEHH@Z",
       "size": 448,
-      "kind": "asm",
+      "source": "src/platform/midi_file.cpp",
+      "kind": "semantic",
       "owner": "0x0043AAD0"
     },
     {
@@ -26668,12 +26651,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Resource_FindChunk_0043d250",
-      "source": "src/platform/memory_file.cpp",
-      "symbol": "_asm_Resource_FindChunk_0043d250",
+      "name": "Resource_FindChunk",
+      "symbol": "?Resource_FindChunk@@YGPBEPBEIQBDPAI@Z",
       "address": "0x0043D250",
       "size": 71,
-      "kind": "asm",
+      "kind": "semantic",
+      "source": "src/platform/resource_chunks.cpp",
       "owner": "0x0043D250"
     },
     {
@@ -30918,12 +30901,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Scheduler_RegisterPrimary_00449ae0",
-      "source": "src/game/scheduler.cpp",
-      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "name": "Scheduler_RegisterPrimary",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "_Scheduler_RegisterPrimary@12",
       "address": "0x00449AE0",
       "size": 131,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00449AE0"
     },
     {
@@ -30935,12 +30918,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Scheduler_RegisterSecondary_00449b70",
-      "source": "src/game/scheduler.cpp",
-      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "name": "Scheduler_RegisterSecondary",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "_Scheduler_RegisterSecondary@12",
       "address": "0x00449B70",
       "size": 131,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00449B70"
     },
     {
@@ -31095,13 +31078,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00449f20",
-      "source": "src/unidentified/unassigned_00449f20.cpp",
-      "symbol": "_asm_unassigned_00449f20",
+      "name": "Scheduler_RemoveLocked",
+      "symbol": "_Scheduler_RemoveLocked@8",
+      "source": "src/game/scheduler_tasks.cpp",
       "address": "0x00449F20",
       "size": 52,
-      "kind": "asm",
-      "owner": null
+      "owner": "0x00449F20",
+      "kind": "semantic"
     },
     {
       "name": "text_padding_00449f54",
@@ -31112,12 +31095,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Scheduler_Remove_00449f60",
-      "source": "src/game/scheduler.cpp",
-      "symbol": "_asm_Scheduler_Remove_00449f60",
+      "name": "Scheduler_Remove",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "@Scheduler_Remove@8",
       "address": "0x00449F60",
       "size": 114,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00449F60"
     },
     {
@@ -32061,12 +32044,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Score_InputHistorySave_0044be20",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Score_InputHistorySave_0044be20",
+      "name": "semantic_MenuCursor_PushSelection_0044be20",
+      "source": "src/game/menu.cpp",
+      "symbol": "?PushSelection@MenuCursor@@QAEXXZ",
       "address": "0x0044BE20",
       "size": 66,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044BE20"
     },
     {
@@ -32078,12 +32061,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Score_InputHistoryStep_0044be70",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Score_InputHistoryStep_0044be70",
+      "name": "semantic_MenuCursor_PopSelection_0044be70",
+      "source": "src/game/menu.cpp",
+      "symbol": "?PopSelection@MenuCursor@@QAEXXZ",
       "address": "0x0044BE70",
       "size": 47,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044BE70"
     },
     {
@@ -32095,12 +32078,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_MenuCursor_Advance_0044bea0",
+      "name": "semantic_MenuCursor_Advance_0044bea0",
       "source": "src/game/menu.cpp",
-      "symbol": "_asm_MenuCursor_Advance_0044bea0",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
       "address": "0x0044BEA0",
       "size": 128,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044BEA0"
     },
     {
@@ -46325,7 +46308,16 @@
     "?IncrementCappedCount@ScoreState@@QAEXXZ": "0x00418A90",
     "?SetGauge@ScoreState@@QAEXH@Z": "0x00418B80",
     "?AddGauge@ScoreState@@QAEXH@Z": "0x0041BE80",
-    "?WrappedAngleDifference@@YGMMM@Z": "0x00408660"
+    "?WrappedAngleDifference@@YGMMM@Z": "0x00408660",
+    "_asm_FUN_0040ad50_0040ad50": "0x0040AD50",
+    "_asm_FUN_0040ad80_0040ad80": "0x0040AD80",
+    "_asm_FUN_0040ad90_0040ad90": "0x0040AD90",
+    "_asm_FUN_00434b70_00434b70": "0x00434B70",
+    "_asm_unassigned_0040ad60": "0x0040AD60",
+    "_asm_unassigned_0040ad70": "0x0040AD70",
+    "_asm_unassigned_0040add0": "0x0040ADD0",
+    "_asm_unassigned_00434bc0": "0x00434BC0",
+    "_asm_unassigned_00449f20": "0x00449F20"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46358,6 +46350,7 @@
     "src/game/bullet_anim_release.cpp",
     "src/game/bullet_manager.cpp",
     "src/game/bullet_runtime_update.cpp",
+    "src/game/compression_tree.cpp",
     "src/game/effect_accel.cpp",
     "src/game/effect_indicator_queue.cpp",
     "src/game/effect_indicator_slots.cpp",
@@ -46442,6 +46435,7 @@
     "src/game/result_overlay.cpp",
     "src/game/result_screen_effects.cpp",
     "src/game/scheduler.cpp",
+    "src/game/scheduler_tasks.cpp",
     "src/game/score.cpp",
     "src/game/score_bookkeeping.cpp",
     "src/game/score_cleanup.cpp",
@@ -46512,6 +46506,7 @@
     "src/platform/keyboard_state.cpp",
     "src/platform/memory_file.cpp",
     "src/platform/midi_event_runtime.cpp",
+    "src/platform/midi_file.cpp",
     "src/platform/midi_sequencer.cpp",
     "src/platform/midi_timer.cpp",
     "src/platform/midi_tracks.cpp",
@@ -46520,6 +46515,7 @@
     "src/platform/pack_file_loader.cpp",
     "src/platform/path.cpp",
     "src/platform/process.cpp",
+    "src/platform/resource_chunks.cpp",
     "src/platform/resource_file.cpp",
     "src/platform/resource_lifetime.cpp",
     "src/platform/sound_commands.cpp",
@@ -46717,9 +46713,6 @@
     "src/unidentified/FUN_0040ac00_0040ac00.cpp",
     "src/unidentified/FUN_0040ac10_0040ac10.cpp",
     "src/unidentified/FUN_0040ad10_0040ad10.cpp",
-    "src/unidentified/FUN_0040ad50_0040ad50.cpp",
-    "src/unidentified/FUN_0040ad80_0040ad80.cpp",
-    "src/unidentified/FUN_0040ad90_0040ad90.cpp",
     "src/unidentified/FUN_0040ae20_0040ae20.cpp",
     "src/unidentified/FUN_0040ae30_0040ae30.cpp",
     "src/unidentified/FUN_0040ae40_0040ae40.cpp",
@@ -46947,7 +46940,6 @@
     "src/unidentified/FUN_0042d2e0_0042d2e0.cpp",
     "src/unidentified/FUN_0042d2f0_0042d2f0.cpp",
     "src/unidentified/FUN_00434b60_00434b60.cpp",
-    "src/unidentified/FUN_00434b70_00434b70.cpp",
     "src/unidentified/FUN_00434be0_00434be0.cpp",
     "src/unidentified/FUN_00434bf0_00434bf0.cpp",
     "src/unidentified/FUN_00434c10_00434c10.cpp",
@@ -47696,11 +47688,8 @@
     "src/unidentified/unassigned_0040a430.cpp",
     "src/unidentified/unassigned_0040acc0.cpp",
     "src/unidentified/unassigned_0040acd0.cpp",
-    "src/unidentified/unassigned_0040ad60.cpp",
-    "src/unidentified/unassigned_0040ad70.cpp",
     "src/unidentified/unassigned_0040ada0.cpp",
     "src/unidentified/unassigned_0040adc0.cpp",
-    "src/unidentified/unassigned_0040add0.cpp",
     "src/unidentified/unassigned_0040ae00.cpp",
     "src/unidentified/unassigned_0040ae50.cpp",
     "src/unidentified/unassigned_0040aff0.cpp",
@@ -48077,7 +48066,6 @@
     "src/unidentified/unassigned_00434b80.cpp",
     "src/unidentified/unassigned_00434b90.cpp",
     "src/unidentified/unassigned_00434ba0.cpp",
-    "src/unidentified/unassigned_00434bc0.cpp",
     "src/unidentified/unassigned_00434c00.cpp",
     "src/unidentified/unassigned_00435270.cpp",
     "src/unidentified/unassigned_00435280.cpp",
@@ -48229,7 +48217,6 @@
     "src/unidentified/unassigned_00449a50.cpp",
     "src/unidentified/unassigned_00449c28.cpp",
     "src/unidentified/unassigned_00449eb0.cpp",
-    "src/unidentified/unassigned_00449f20.cpp",
     "src/unidentified/unassigned_00449fe0.cpp",
     "src/unidentified/unassigned_0044a060.cpp",
     "src/unidentified/unassigned_0044a090.cpp",
@@ -48520,7 +48507,12 @@
     "layout/ltcg/frame_timer.json",
     "layout/ltcg/midi_tracks.json",
     "layout/ltcg/win32_timer.json",
-    "layout/ltcg/score_bookkeeping.json"
+    "layout/ltcg/score_bookkeeping.json",
+    "layout/ltcg/menu_cursor.json",
+    "layout/ltcg/resource_chunks.json",
+    "layout/ltcg/midi_file.json",
+    "layout/ltcg/scheduler_tasks.json",
+    "layout/ltcg/compression_tree.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
