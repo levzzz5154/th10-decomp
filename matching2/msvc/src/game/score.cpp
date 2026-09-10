@@ -113,57 +113,6 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreState_ActivateFromResultRetai
     }
 }
 
-// 0x00408660..0x004086AF: ?WrappedAngleDifference@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_WrappedAngleDifference_00408660() {
-    __asm {
-    L_00408660:
-        fld dword ptr [esp+4]
-    L_00408664:
-        fsub dword ptr [esp+8]
-    L_00408668:
-        fcom dword ptr [data_00470b18]
-    L_0040866e:
-        fnstsw ax
-    L_00408670:
-        test ah,41h
-    L_00408673:
-        jne short L_00408688
-    L_00408675:
-        fstp st(0)
-    L_00408677:
-        fld dword ptr [esp+8]
-    L_0040867b:
-        fadd dword ptr [data_00470b14]
-    L_00408681:
-        fsubr dword ptr [esp+4]
-    L_00408685:
-        ret 8
-    L_00408688:
-        fld dword ptr [esp+8]
-    L_0040868c:
-        fsub dword ptr [esp+4]
-    L_00408690:
-        fcomp dword ptr [data_00470b18]
-    L_00408696:
-        fnstsw ax
-    L_00408698:
-        test ah,41h
-    L_0040869b:
-        jne short L_004086ad
-    L_0040869d:
-        fstp st(0)
-    L_0040869f:
-        fld dword ptr [esp+8]
-    L_004086a3:
-        fsub dword ptr [data_00470b14]
-    L_004086a9:
-        fsubr dword ptr [esp+4]
-    L_004086ad:
-        ret 8
-    }
-}
-
 // 0x00408750..0x0040876D: Score_SetPolarVector
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {
@@ -979,41 +928,6 @@ extern "C" __declspec(naked) void __cdecl asm_RunArrayReleaseCallback_ScoreRunti
     }
 }
 
-// 0x00409D90..0x00409DBD: ?AddScaled@GameScore@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AddScaled_GameScore_00409d90() {
-    __asm {
-    L_00409d90:
-        mov eax,66666667h
-    L_00409d95:
-        imul dword ptr [esp+4]
-    L_00409d99:
-        sar edx,2
-    L_00409d9c:
-        mov eax,edx
-    L_00409d9e:
-        shr eax,1Fh
-    L_00409da1:
-        add eax,edx
-    L_00409da3:
-        mov edx,dword ptr [ecx+4]
-    L_00409da6:
-        add edx,eax
-    L_00409da8:
-        mov eax,edx
-    L_00409daa:
-        cmp eax,3B9ACA00h
-    L_00409daf:
-        mov dword ptr [ecx+4],edx
-    L_00409db2:
-        jl short L_00409dbb
-    L_00409db4:
-        mov dword ptr [ecx+4],3B9AC9FFh
-    L_00409dbb:
-        ret 4
-    }
-}
-
 // 0x00409E20..0x00409E3B: ?Retire@ScoreRuntimeCallbacks@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Retire_ScoreRuntimeCallbacks_00409e20() {
@@ -1219,76 +1133,6 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreOwnedObject_Destroy_0040b9d0(
         pop ecx
     L_0040b9e1:
         ret
-    }
-}
-
-// 0x00412E70..0x00412E9D: ?ScoreGauge_AddWithMinimum@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreGauge_AddWithMinimum_00412e70() {
-    __asm {
-    L_00412e70:
-        mov eax,99999999h
-    L_00412e75:
-        imul dword ptr [esp+4]
-    L_00412e79:
-        sar edx,2
-    L_00412e7c:
-        mov eax,edx
-    L_00412e7e:
-        shr eax,1Fh
-    L_00412e81:
-        add eax,edx
-    L_00412e83:
-        mov edx,dword ptr [ecx+0Ch]
-    L_00412e86:
-        add edx,eax
-    L_00412e88:
-        mov eax,edx
-    L_00412e8a:
-        cmp eax,1388h
-    L_00412e8f:
-        mov dword ptr [ecx+0Ch],edx
-    L_00412e92:
-        jge short L_00412e9b
-    L_00412e94:
-        mov dword ptr [ecx+0Ch],1388h
-    L_00412e9b:
-        ret 4
-    }
-}
-
-// 0x0041BE80..0x0041BEAD: ?AddScaled@ScoreCounter@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AddScaled_ScoreCounter_0041be80() {
-    __asm {
-    L_0041be80:
-        mov eax,66666667h
-    L_0041be85:
-        imul dword ptr [esp+4]
-    L_0041be89:
-        sar edx,2
-    L_0041be8c:
-        mov eax,edx
-    L_0041be8e:
-        shr eax,1Fh
-    L_0041be91:
-        add eax,edx
-    L_0041be93:
-        mov edx,dword ptr [ecx+0Ch]
-    L_0041be96:
-        add edx,eax
-    L_0041be98:
-        mov eax,edx
-    L_0041be9a:
-        cmp eax,1869Fh
-    L_0041be9f:
-        mov dword ptr [ecx+0Ch],edx
-    L_0041bea2:
-        jle short L_0041beab
-    L_0041bea4:
-        mov dword ptr [ecx+0Ch],1869Fh
-    L_0041beab:
-        ret 4
     }
 }
 

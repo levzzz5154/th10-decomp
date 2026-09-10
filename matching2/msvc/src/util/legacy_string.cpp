@@ -1,5 +1,6 @@
 #include "th10/util/heap.hpp"
 #include <string.h>
+#include <new>
 
 extern "C" void __cdecl LegacyString_ThrowOutOfRange();
 extern "C" void __cdecl entry_free_004524a1(void*);
@@ -103,9 +104,52 @@ void LegacyString::ResetInlineStorage(bool release_heap, uint32_t new_length) {
             memcpy(storage.inline_data, old_storage, new_length);
         entry_free_004524a1(old_storage);
     }
-    length = new_length;
     capacity = 15;
-    storage.inline_data[new_length] = 0;
+    SetLength(new_length);
+}
+
+// 0x004385B0 - Grow when needed, or move a trimmed small string back inline.
+bool LegacyString::EnsureCapacity(uint32_t requested, bool trim) {
+    if (requested > 0xFFFFFFFEu)
+        ThrowLengthError();
+    if (capacity < requested)
+        Grow(requested, length);
+    else if (trim && requested < 16)
+        ResetInlineStorage(true, requested < length ? requested : length);
+    else if (requested == 0)
+        SetLength(0);
+    return requested > 0;
+}
+
+// 0x004386B0 - Round up or grow geometrically, then retry without spare
+// capacity if allocation fails. A second failure clears storage and rethrows.
+void LegacyString::Grow(uint32_t requested, uint32_t old_length) {
+    uint32_t new_capacity = requested | 15;
+    if (new_capacity > 0xFFFFFFFEu)
+        new_capacity = requested;
+    else if (new_capacity / 3 < capacity / 2 &&
+             capacity <= 0xFFFFFFFEu - capacity / 2)
+        new_capacity = capacity + capacity / 2;
+
+    char* new_storage;
+    try {
+        new_storage = static_cast<char*>(::operator new(new_capacity + 1));
+    } catch (...) {
+        new_capacity = requested;
+        try {
+            new_storage = static_cast<char*>(::operator new(new_capacity + 1));
+        } catch (...) {
+            ResetInlineStorage(true, 0);
+            throw;
+        }
+    }
+
+    if (old_length > 0)
+        memcpy(new_storage, Data(), old_length);
+    ResetInlineStorage(true, 0);
+    storage.heap_data = new_storage;
+    capacity = new_capacity;
+    SetLength(old_length);
 }
 
 // 0x00438350 - The compiler supplies the aligned strlen loop, including the

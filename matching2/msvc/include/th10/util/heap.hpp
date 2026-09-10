@@ -32,6 +32,7 @@ struct LegacyString {
     LegacyString* AssignSubstring(
         const LegacyString* source, uint32_t offset, uint32_t length);
     void Grow(uint32_t requested, uint32_t old_length);
+    bool EnsureCapacity(uint32_t requested, bool trim = false);
     LegacyString* Erase(uint32_t offset, uint32_t count);
     void SetLength(uint32_t new_length);
     uint32_t Length() const;

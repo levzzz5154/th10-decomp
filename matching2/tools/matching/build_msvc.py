@@ -154,13 +154,15 @@ def main():
         obj.unlink(missing_ok=True)
         normalized.unlink(missing_ok=True)
         command = ['wine', str(compiler), *config['flags'],
+                   *config.get('source_flags', {}).get(source, []),
                    '/I' + win_project + '\\include',
                    '/Fo' + win_objects + '\\' + obj.name, win_project + '\\' + source.replace('/', '\\')]
         result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True, timeout=180)
         (logs / f'unit{index:04d}.log').write_text(result.stdout + result.stderr)
         if result.returncode:
             raise ValueError(f'MSVC compilation failed for {source}; see {logs / ("unit%04d.log" % index)}')
-        normalized_report = normalize_object(obj, normalized, by_source[source])
+        normalized_report = normalize_object(
+            obj, normalized, by_source[source], config.get('coff_aliases', {}).get(source))
         return {'source': source, 'object': str(normalized), 'command': command,
                 'normalization': normalized_report, 'source_sha256': sha(source_path.read_bytes())}
     compiled, failures = [], []

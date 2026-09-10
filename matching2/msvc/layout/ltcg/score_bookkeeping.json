@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "name": "score_bookkeeping",
+  "source": "src/game/score_bookkeeping.cpp",
+  "driver": "layout/ltcg/score_bookkeeping_context.cpp",
+  "headers": [
+    "include/th10/game/score.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Ordinary C++ score updates compiled in a shared native LTCG unit. The synthetic caller and zero-filled layout gaps are compiler context and are never selected as game code.",
+  "functions": [
+    {
+      "name": "ScoreState_AddScore",
+      "symbol": "?AddScore@ScoreState@@QAEXH@Z",
+      "section": ".text$10addscore",
+      "address": "0x00409D90",
+      "size": 46,
+      "actual_abi": "this in ECX; amount at [ESP+4]; RET 4"
+    },
+    {
+      "name": "ScoreState_ReduceGauge",
+      "symbol": "?ReduceGauge@ScoreState@@QAEXH@Z",
+      "section": ".text$30reducegauge",
+      "address": "0x00412E70",
+      "size": 46,
+      "actual_abi": "this in ECX; amount at [ESP+4]; RET 4"
+    },
+    {
+      "name": "ScoreState_IncrementCappedCount",
+      "symbol": "?IncrementCappedCount@ScoreState@@QAEXXZ",
+      "section": ".text$50increment",
+      "address": "0x00418A90",
+      "size": 20,
+      "actual_abi": "this in EAX; plain RET"
+    },
+    {
+      "name": "ScoreState_SetGauge",
+      "symbol": "?SetGauge@ScoreState@@QAEXH@Z",
+      "section": ".text$70setgauge",
+      "address": "0x00418B80",
+      "size": 73,
+      "actual_abi": "this in ECX; amount at [ESP+4]; RET 4"
+    },
+    {
+      "name": "ScoreState_AddGauge",
+      "symbol": "?AddGauge@ScoreState@@QAEXH@Z",
+      "section": ".text$90addgauge",
+      "address": "0x0041BE80",
+      "size": 46,
+      "actual_abi": "this in ECX; amount at [ESP+4]; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?ScoreCompilerContext@@YGXPAPAUScoreState@@PBHH@Z",
+    "section": ".text$99context",
+    "address": "0x0041BEB0",
+    "size": 84,
+    "description": "Synthetic record-processing caller that establishes the observed internal compiler conventions; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 36240
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x00409DBE",
+      "size": 37042
+    },
+    {
+      "section": ".text$40layout",
+      "address": "0x00412E9E",
+      "size": 23538
+    },
+    {
+      "section": ".text$60layout",
+      "address": "0x00418AA4",
+      "size": 220
+    },
+    {
+      "section": ".text$80layout",
+      "address": "0x00418BC9",
+      "size": 12983
+    },
+    {
+      "section": ".text$95layout",
+      "address": "0x0041BEAE",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

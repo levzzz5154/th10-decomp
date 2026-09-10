@@ -1437,10 +1437,10 @@ extern "C" unsigned char text_padding_004386a6[] = {
 #pragma data_seg()
 
 // padding: 0x004387F2..0x004387FF
-// padding 004387f2..004387ff: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
+// Padding after the compiler-generated Grow catch-all trap.
 #pragma data_seg(".d001335")
-extern "C" unsigned char text_padding_004387f2[] = {
-    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+extern "C" unsigned char text_padding_004387f3[] = {
+    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
 #pragma data_seg()
 

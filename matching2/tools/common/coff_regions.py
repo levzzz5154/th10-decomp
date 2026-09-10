@@ -296,6 +296,7 @@ def _build_symbol_plan(
     selected: Mapping[int, dict[str, Any]],
     bindings: Optional[Mapping[str, Any]],
     output_section_names: Mapping[int, str],
+    exported_symbols: set[str],
 ) -> tuple[list[dict[str, Any]], dict[int, int], list[dict[str, Any]]]:
     """Build output symbols and input-primary to output-index mappings.
 
@@ -338,6 +339,7 @@ def _build_symbol_plan(
             record["storage_class"] == IMAGE_SYM_CLASS_STATIC
             and record["type"] == 0
             and record["value"] == 0
+            and record["name"] == sections_by_number[section_number]["name"]
         )
         source_name = output_section_names[section_number] if is_section_symbol else record["name"]
         name = _canonical_binding(source_name, bindings)
@@ -347,7 +349,10 @@ def _build_symbol_plan(
             "value": record["value"],
             "section_number": section_number,
             "type": record["type"],
-            "storage_class": record["storage_class"],
+            # Explicitly selected entries, including compiler-generated EH
+            # handlers, must be visible to the fixed-address linker script.
+            "storage_class": (IMAGE_SYM_CLASS_EXTERNAL if record["name"] in exported_symbols
+                              else record["storage_class"]),
             "input_index": record["index"],
         }
         # Duplicate records in one defined section are aliases for one
@@ -371,7 +376,7 @@ def _build_symbol_plan(
         if name in canonical_undefined:
             return canonical_undefined[name]
         storage = record["storage_class"]
-        if storage == IMAGE_SYM_CLASS_WEAK_EXTERNAL:
+        if storage == IMAGE_SYM_CLASS_WEAK_EXTERNAL or reason == "bound discarded local":
             storage = IMAGE_SYM_CLASS_EXTERNAL
         spec = {
             "name": name,
@@ -499,7 +504,7 @@ def normalize_object(
     }
 
     symbol_specs, input_to_spec, referenced_records = _build_symbol_plan(
-        obj, selected, bindings, output_section_names
+        obj, selected, bindings, output_section_names, {region["symbol"] for region in specs}
     )
     # Every symbol spec currently occupies one primary record; this is useful
     # for relocation remapping and makes the omission of aux records explicit.

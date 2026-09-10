@@ -3722,13 +3722,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_WrappedAngleDifference_00408660",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_WrappedAngleDifference_00408660",
+      "name": "semantic_WrappedAngleDifference_00408660",
+      "symbol": "?WrappedAngleDifference@@YGMMM@Z",
       "address": "0x00408660",
       "size": 80,
-      "kind": "asm",
-      "owner": "0x00408660"
+      "kind": "semantic",
+      "owner": "0x00408660",
+      "source": "src/math/angle.cpp",
+      "relocations": [
+        {
+          "offset": 10,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@40490fdb",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 29,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@40c90fdb",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        },
+        {
+          "offset": 50,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@40490fdb",
+          "original_operand": "180b4700",
+          "original_target": "0x00470B18"
+        },
+        {
+          "offset": 69,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@40c90fdb",
+          "original_operand": "140b4700",
+          "original_target": "0x00470B14"
+        }
+      ]
     },
     {
       "name": "semantic_PlayfieldPoint_OutsideBounds_004086b0",
@@ -4581,12 +4611,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AddScaled_GameScore_00409d90",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_AddScaled_GameScore_00409d90",
+      "name": "semantic_ScoreState_AddScore_00409d90",
+      "source": "src/game/score_bookkeeping.cpp",
+      "symbol": "?AddScore@ScoreState@@QAEXH@Z",
       "address": "0x00409D90",
       "size": 46,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00409D90"
     },
     {
@@ -8732,12 +8762,12 @@
       "owner": null
     },
     {
-      "name": "asm_ScoreGauge_AddWithMinimum_00412e70",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_ScoreGauge_AddWithMinimum_00412e70",
+      "name": "semantic_ScoreState_ReduceGauge_00412e70",
+      "source": "src/game/score_bookkeeping.cpp",
+      "symbol": "?ReduceGauge@ScoreState@@QAEXH@Z",
       "address": "0x00412E70",
       "size": 46,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00412E70"
     },
     {
@@ -11516,12 +11546,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Score_IncrementCounterClampedNine_00418a90",
-      "source": "src/game/score_timer_leaves.cpp",
-      "symbol": "_asm_Score_IncrementCounterClampedNine_00418a90",
+      "name": "semantic_ScoreState_IncrementCappedCount_00418a90",
+      "source": "src/game/score_bookkeeping.cpp",
+      "symbol": "?IncrementCappedCount@ScoreState@@QAEXXZ",
       "address": "0x00418A90",
       "size": 20,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00418A90"
     },
     {
@@ -11703,12 +11733,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80",
-      "source": "src/game/score_timer_leaves.cpp",
-      "symbol": "_asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80",
+      "name": "semantic_ScoreState_SetGauge_00418b80",
+      "source": "src/game/score_bookkeeping.cpp",
+      "symbol": "?SetGauge@ScoreState@@QAEXH@Z",
       "address": "0x00418B80",
       "size": 73,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00418B80"
     },
     {
@@ -12890,12 +12920,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AddScaled_ScoreCounter_0041be80",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_AddScaled_ScoreCounter_0041be80",
+      "name": "semantic_ScoreState_AddGauge_0041be80",
+      "source": "src/game/score_bookkeeping.cpp",
+      "symbol": "?AddGauge@ScoreState@@QAEXH@Z",
       "address": "0x0041BE80",
       "size": 46,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041BE80"
     },
     {
@@ -14712,13 +14742,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004203a0",
-      "source": "src/unidentified/unassigned_004203a0.cpp",
-      "symbol": "_asm_unassigned_004203a0",
+      "name": "Win32Timer_Delete",
+      "symbol": "?Delete@Win32Timer@@QAEPAU1@I@Z",
+      "source": "src/platform/win32_timer.cpp",
       "address": "0x004203A0",
       "size": 30,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004203A0"
     },
     {
       "name": "text_padding_004203be",
@@ -14729,12 +14759,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_TimerWin32_Release_004203c0",
+      "name": "Win32Timer_Release",
+      "symbol": "?Release@Win32Timer@@QAEXXZ",
       "source": "src/platform/win32_timer.cpp",
-      "symbol": "_asm_TimerWin32_Release_004203c0",
       "address": "0x004203C0",
       "size": 48,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004203C0"
     },
     {
@@ -24450,12 +24480,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004385b0_004385b0",
-      "source": "src/unidentified/FUN_004385b0_004385b0.cpp",
-      "symbol": "_asm_FUN_004385b0_004385b0",
+      "name": "LegacyString_EnsureCapacity",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?EnsureCapacity@LegacyString@@QAE_NI_N@Z",
       "address": "0x004385B0",
       "size": 202,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004385B0"
     },
     {
@@ -24526,56 +24556,20 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Grow_LegacyString_004386b0",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_Grow_LegacyString_004386b0",
+      "name": "LegacyString_Grow",
+      "symbol": "?Grow@LegacyString@@QAEXII@Z",
+      "source": "src/util/legacy_string.cpp",
       "address": "0x004386B0",
-      "size": 115,
-      "kind": "asm",
+      "size": 323,
+      "kind": "semantic",
       "owner": "0x004386B0"
     },
     {
-      "name": "asm_Catch_00438723_00438723",
-      "source": "src/util/legacy_string_funclets.cpp",
-      "symbol": "_asm_Catch_00438723_00438723",
-      "address": "0x00438723",
-      "size": 32,
-      "kind": "asm",
-      "owner": "0x00438723"
-    },
-    {
-      "name": "asm_unassigned_00438743",
-      "source": "src/unidentified/unassigned_00438743.cpp",
-      "symbol": "_asm_unassigned_00438743",
-      "address": "0x00438743",
-      "size": 9,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "asm_FUN_0043874c_0043874c",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_FUN_0043874c_0043874c",
-      "address": "0x0043874C",
-      "size": 118,
-      "kind": "asm",
-      "owner": "0x0043874C"
-    },
-    {
-      "name": "asm_Catch_004387c2_004387c2",
-      "source": "src/util/legacy_string_funclets.cpp",
-      "symbol": "_asm_Catch_004387c2_004387c2",
-      "address": "0x004387C2",
-      "size": 48,
-      "kind": "asm",
-      "owner": "0x004387C2"
-    },
-    {
-      "name": "text_padding_004387f2",
+      "name": "text_padding_004387f3",
       "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_004387f2",
-      "address": "0x004387F2",
-      "size": 14,
+      "symbol": "_text_padding_004387f3",
+      "address": "0x004387F3",
+      "size": 13,
       "kind": "padding"
     },
     {
@@ -25433,13 +25427,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043a600",
-      "source": "src/unidentified/unassigned_0043a600.cpp",
-      "symbol": "_asm_unassigned_0043a600",
+      "name": "Win32Timer_Construct",
+      "symbol": "??0Win32Timer@@QAE@XZ",
+      "source": "src/platform/win32_timer.cpp",
       "address": "0x0043A600",
       "size": 28,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0043A600"
     },
     {
       "name": "text_padding_0043a61c",
@@ -25450,13 +25444,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043a620",
-      "source": "src/unidentified/unassigned_0043a620.cpp",
-      "symbol": "_asm_unassigned_0043a620",
+      "name": "Win32Timer_Destruct",
+      "symbol": "??1Win32Timer@@QAE@XZ",
+      "source": "src/platform/win32_timer.cpp",
       "address": "0x0043A620",
-      "size": 141,
-      "kind": "asm",
-      "owner": null
+      "size": 48,
+      "kind": "semantic",
+      "owner": "0x0043A620"
+    },
+    {
+      "name": "Win32Timer_Start",
+      "symbol": "?Start@Win32Timer@@QAEIIP6GXIIIII@ZI@Z",
+      "source": "src/platform/win32_timer.cpp",
+      "address": "0x0043A650",
+      "size": 93,
+      "kind": "semantic",
+      "owner": "0x0043A650"
     },
     {
       "name": "text_padding_0043a6ad",
@@ -25467,13 +25470,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043a6b0",
-      "source": "src/unidentified/unassigned_0043a6b0.cpp",
-      "symbol": "_asm_unassigned_0043a6b0",
+      "name": "Win32Timer_Stop",
+      "symbol": "?Stop@Win32Timer@@QAEHXZ",
+      "source": "src/platform/win32_timer.cpp",
       "address": "0x0043A6B0",
       "size": 37,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0043A6B0"
     },
     {
       "name": "text_padding_0043a6d5",
@@ -25535,12 +25538,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043a730_0043a730",
-      "source": "src/platform/midi_sequencer.cpp",
-      "symbol": "_asm_FUN_0043a730_0043a730",
+      "name": "ReadMidiVariableLength",
+      "source": "src/platform/midi_tracks.cpp",
+      "symbol": "?ReadMidiVariableLength@@YGHAAPBE@Z",
       "address": "0x0043A730",
       "size": 26,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043A730"
     },
     {
@@ -25663,12 +25666,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043ace0_0043ace0",
-      "source": "src/platform/midi_sequencer.cpp",
-      "symbol": "_asm_FUN_0043ace0_0043ace0",
+      "name": "MidiSequencer_ResetTracks",
+      "source": "src/platform/midi_tracks.cpp",
+      "symbol": "?ResetTracks@MidiSequencer@@QAEXXZ",
       "address": "0x0043ACE0",
       "size": 132,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043ACE0"
     },
     {
@@ -41468,13 +41471,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00465370",
-      "source": "src/unidentified/unassigned_00465370.cpp",
-      "symbol": "_asm_unassigned_00465370",
+      "name": "LegacyString_Grow_ExceptionHandler",
+      "symbol": "__ehhandler$?Grow@LegacyString@@QAEXII@Z",
+      "source": "src/util/legacy_string.cpp",
       "address": "0x00465370",
       "size": 10,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004386B0"
     },
     {
       "name": "text_padding_0046537a",
@@ -46301,7 +46304,28 @@
     "?g_startup_config_flags@@3IA": "0x00491D78",
     "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
     "?g_frame_timer_normal_upper@@3MA": "0x00470B64",
-    "__ftol2": "0x00463B2C"
+    "__ftol2": "0x00463B2C",
+    "?EnsureCapacity@LegacyString@@QAE_NI_N@Z": "0x004385B0",
+    "?ReadMidiVariableLength@@YGHAAPBE@Z": "0x0043A730",
+    "?ResetTracks@MidiSequencer@@QAEXXZ": "0x0043ACE0",
+    "?Delete@Win32Timer@@QAEPAU1@I@Z": "0x004203A0",
+    "?Release@Win32Timer@@QAEXXZ": "0x004203C0",
+    "??0Win32Timer@@QAE@XZ": "0x0043A600",
+    "??1Win32Timer@@QAE@XZ": "0x0043A620",
+    "?Start@Win32Timer@@QAEIIP6GXIIIII@ZI@Z": "0x0043A650",
+    "?Stop@Win32Timer@@QAEHXZ": "0x0043A6B0",
+    "__except_list": "0x00000000",
+    "__CxxThrowException@8": "0x00462AFB",
+    "___CxxFrameHandler": "0x0046276D",
+    "_LegacyString_Grow_ExceptionInfo": "0x00471448",
+    "__real@40490fdb": "0x00470B18",
+    "__real@40c90fdb": "0x00470B14",
+    "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
+    "?ReduceGauge@ScoreState@@QAEXH@Z": "0x00412E70",
+    "?IncrementCappedCount@ScoreState@@QAEXXZ": "0x00418A90",
+    "?SetGauge@ScoreState@@QAEXH@Z": "0x00418B80",
+    "?AddGauge@ScoreState@@QAEXH@Z": "0x0041BE80",
+    "?WrappedAngleDifference@@YGMMM@Z": "0x00408660"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46419,6 +46443,7 @@
     "src/game/result_screen_effects.cpp",
     "src/game/scheduler.cpp",
     "src/game/score.cpp",
+    "src/game/score_bookkeeping.cpp",
     "src/game/score_cleanup.cpp",
     "src/game/score_file.cpp",
     "src/game/score_hud_update.cpp",
@@ -46489,6 +46514,7 @@
     "src/platform/midi_event_runtime.cpp",
     "src/platform/midi_sequencer.cpp",
     "src/platform/midi_timer.cpp",
+    "src/platform/midi_tracks.cpp",
     "src/platform/midi_worker.cpp",
     "src/platform/midi_worker_stop.cpp",
     "src/platform/pack_file_loader.cpp",
@@ -46947,7 +46973,6 @@
     "src/unidentified/FUN_004383f0_004383f0.cpp",
     "src/unidentified/FUN_00438400_00438400.cpp",
     "src/unidentified/FUN_00438410_00438410.cpp",
-    "src/unidentified/FUN_004385b0_004385b0.cpp",
     "src/unidentified/FUN_004389b0_004389b0.cpp",
     "src/unidentified/FUN_004389c0_004389c0.cpp",
     "src/unidentified/FUN_004389d0_004389d0.cpp",
@@ -47892,7 +47917,6 @@
     "src/unidentified/unassigned_0041ff00.cpp",
     "src/unidentified/unassigned_0041ff40.cpp",
     "src/unidentified/unassigned_0041ff50.cpp",
-    "src/unidentified/unassigned_004203a0.cpp",
     "src/unidentified/unassigned_00420547.cpp",
     "src/unidentified/unassigned_00420b60.cpp",
     "src/unidentified/unassigned_00420c90.cpp",
@@ -48088,7 +48112,6 @@
     "src/unidentified/unassigned_00438220.cpp",
     "src/unidentified/unassigned_00438240.cpp",
     "src/unidentified/unassigned_004383e0.cpp",
-    "src/unidentified/unassigned_00438743.cpp",
     "src/unidentified/unassigned_00438850.cpp",
     "src/unidentified/unassigned_00438860.cpp",
     "src/unidentified/unassigned_00438870.cpp",
@@ -48115,9 +48138,6 @@
     "src/unidentified/unassigned_0043a540.cpp",
     "src/unidentified/unassigned_0043a570.cpp",
     "src/unidentified/unassigned_0043a590.cpp",
-    "src/unidentified/unassigned_0043a600.cpp",
-    "src/unidentified/unassigned_0043a620.cpp",
-    "src/unidentified/unassigned_0043a6b0.cpp",
     "src/unidentified/unassigned_0043a700.cpp",
     "src/unidentified/unassigned_0043a750.cpp",
     "src/unidentified/unassigned_0043aa30.cpp",
@@ -48419,7 +48439,6 @@
     "src/unidentified/unassigned_0046531b.cpp",
     "src/unidentified/unassigned_0046533b.cpp",
     "src/unidentified/unassigned_00465363.cpp",
-    "src/unidentified/unassigned_00465370.cpp",
     "src/unidentified/unassigned_00465388.cpp",
     "src/unidentified/unassigned_004653a8.cpp",
     "src/unidentified/unassigned_004653cb.cpp",
@@ -48474,7 +48493,6 @@
     "src/unidentified/xtoa_00460636.cpp",
     "src/util/heap.cpp",
     "src/util/legacy_string.cpp",
-    "src/util/legacy_string_funclets.cpp",
     "src/util/runtime_pool.cpp"
   ],
   "notes": [
@@ -48499,6 +48517,19 @@
     }
   ],
   "ltcg_clusters": [
-    "layout/ltcg/frame_timer.json"
-  ]
+    "layout/ltcg/frame_timer.json",
+    "layout/ltcg/midi_tracks.json",
+    "layout/ltcg/win32_timer.json",
+    "layout/ltcg/score_bookkeeping.json"
+  ],
+  "coff_aliases": {
+    "src/util/legacy_string.cpp": {
+      "$T1079": "_LegacyString_Grow_ExceptionInfo"
+    }
+  },
+  "source_flags": {
+    "src/util/legacy_string.cpp": [
+      "/EHs"
+    ]
+  }
 }

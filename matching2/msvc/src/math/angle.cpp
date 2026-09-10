@@ -5,6 +5,18 @@ extern float DAT_00470b10;  // -pi (-3.1415927)
 extern float DAT_00470b14;  // 2*pi (6.2831855)
 extern float DAT_00470b18;  // pi (3.1415927)
 
+// 0x00408660: subtract two angles, wrapping the result by one full turn.
+float __stdcall WrappedAngleDifference(float first, float second) {
+    const float pi = 3.14159265358979323846f;
+    const float tau = 6.28318530717958647692f;
+    float difference = first - second;
+    if (difference > pi)
+        return first - (tau + second);
+    if (second - first > pi)
+        return first - (second - tau);
+    return difference;
+}
+
 // 0x0044BC70 - Wrap an angle into [-pi, pi]. The iteration counter is
 // intentionally shared by both adjustment loops, as it is in the retail code.
 float Angle_Normalize(float angle) {

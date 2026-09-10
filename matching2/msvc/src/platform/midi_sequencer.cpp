@@ -1,39 +1,6 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043A730..0x0043A749: FUN_0043a730
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043a730_0043a730() {
-    __asm {
-    L_0043a730:
-        xor eax,eax
-    L_0043a732:
-        mov ecx,dword ptr [esi]
-    L_0043a734:
-        mov dl,byte ptr [ecx]
-    L_0043a736:
-        inc ecx
-    L_0043a737:
-        mov dword ptr [esi],ecx
-    L_0043a739:
-        xor ecx,ecx
-    L_0043a73b:
-        mov cl,dl
-    L_0043a73d:
-        shl eax,7
-    L_0043a740:
-        and ecx,7Fh
-    L_0043a743:
-        add eax,ecx
-    L_0043a745:
-        test dl,dl
-    L_0043a747:
-        js short L_0043a732
-    L_0043a749:
-        ret
-    }
-}
-
 // 0x0043AAD0..0x0043AC8F: FUN_0043aad0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043aad0_0043aad0() {
@@ -298,97 +265,6 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043aad0_0043aad0() {
         add esp,18h
     L_0043ac8d:
         ret 4
-    }
-}
-
-// 0x0043ACE0..0x0043AD63: FUN_0043ace0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043ace0_0043ace0() {
-    __asm {
-    L_0043ace0:
-        mov ecx,dword ptr [edi+118h]
-    L_0043ace6:
-        mov eax,dword ptr [edi+138h]
-    L_0043acec:
-        push ebx
-    L_0043aced:
-        xor ebx,ebx
-    L_0043acef:
-        push ebp
-    L_0043acf0:
-        xor ebp,ebp
-    L_0043acf2:
-        cmp ecx,ebx
-    L_0043acf4:
-        mov dword ptr [edi+2C8h],3F800000h
-    L_0043acfe:
-        mov dword ptr [edi+2DCh],ebx
-    L_0043ad04:
-        mov dword ptr [edi+2E0h],ebx
-    L_0043ad0a:
-        mov dword ptr [edi+128h],ebx
-    L_0043ad10:
-        mov dword ptr [edi+12Ch],ebx
-    L_0043ad16:
-        mov dword ptr [edi+130h],ebx
-    L_0043ad1c:
-        mov dword ptr [edi+134h],ebx
-    L_0043ad22:
-        jle short L_0043ad61
-    L_0043ad24:
-        push esi
-    L_0043ad25:
-        mov ecx,dword ptr [eax+10h]
-    L_0043ad28:
-        mov dword ptr [eax+14h],ecx
-    L_0043ad2b:
-        mov dword ptr [eax+18h],ecx
-    L_0043ad2e:
-        mov dword ptr [eax],1
-    L_0043ad34:
-        xor esi,esi
-    L_0043ad36:
-        mov ecx,dword ptr [eax+14h]
-    L_0043ad39:
-        mov dl,byte ptr [ecx]
-    L_0043ad3b:
-        inc ecx
-    L_0043ad3c:
-        mov dword ptr [eax+14h],ecx
-    L_0043ad3f:
-        xor ecx,ecx
-    L_0043ad41:
-        mov cl,dl
-    L_0043ad43:
-        shl esi,7
-    L_0043ad46:
-        and ecx,7Fh
-    L_0043ad49:
-        add esi,ecx
-    L_0043ad4b:
-        test dl,dl
-    L_0043ad4d:
-        js short L_0043ad36
-    L_0043ad4f:
-        mov dword ptr [eax+4],esi
-    L_0043ad52:
-        mov ecx,dword ptr [edi+118h]
-    L_0043ad58:
-        inc ebp
-    L_0043ad59:
-        add eax,20h
-    L_0043ad5c:
-        cmp ebp,ecx
-    L_0043ad5e:
-        jl short L_0043ad25
-    L_0043ad60:
-        pop esi
-    L_0043ad61:
-        pop ebp
-    L_0043ad62:
-        pop ebx
-    L_0043ad63:
-        ret
     }
 }
 
