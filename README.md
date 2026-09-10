@@ -4,6 +4,9 @@ The goal is readable C++ that recompiles to the exact bytes of the supported
 `th10.exe`. The maintained matching source is **`matching2/msvc/`**, using MSVC
 **13.10.6030**. Each recovered function must preserve whole-file byte equality.
 
+The canonical development branch is **`main`**. Start new work from `main`
+and merge completed topic branches back into it.
+
 The separate [assembly baseline](matching2/asm/README.md) rebuilds the supported
 original executable byte-for-byte: run `./matching2/build_asm.sh` to produce
 `matching2/build/asm-baseline/full/th10.exe`. It assembles versioned instructions
@@ -58,3 +61,7 @@ does not establish matching C++ completion.
 
 Obsolete hybrid builds, frozen review packets, and superseded recovery reports
 have been removed. Their history is available in Git.
+
+Historical unmerged runtime experiments are preserved as annotated tags under
+`archive/2026-09-10/`; list them with `git tag --list 'archive/*'`. These are
+reference snapshots whose changes have not been integrated into `main`.
