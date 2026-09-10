@@ -116,7 +116,7 @@ extern "C" {
     HCURSOR __stdcall LoadCursorA(HINSTANCE, LPCSTR);
     ATOM    __stdcall RegisterClassA(const WNDCLASSA*);
     HWND    __stdcall CreateWindowExA(DWORD, LPCSTR, LPCSTR, DWORD, int, int, int, int, HWND, HMENU, HINSTANCE, LPVOID);
-    void*   __stdcall SendMessageA(HWND, UINT, DWORD, DWORD);
+    __declspec(dllimport) void* __stdcall SendMessageA(HWND, UINT, DWORD, DWORD);
     void    __stdcall Sleep(DWORD);
     int     __stdcall GetSystemMetrics(int);
     void*   __stdcall Direct3DCreate9(UINT);
@@ -125,4 +125,3 @@ extern "C" {
                                     LPCSTR, STARTUPINFOA*, PROCESS_INFORMATION*);
     BOOL    __stdcall GetExitCodeProcess(HANDLE, LPDWORD);
 }
-

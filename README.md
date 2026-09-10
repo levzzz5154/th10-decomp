@@ -28,6 +28,8 @@ make verify      # Run those tests, then rebuild and require exact output hashes
 
 Requires Python 3, Wine, MSVC 13.10.6030, and GNU x86 PE binutils; see
 [build options](matching2/msvc/README.md). Output goes to `matching2/build/msvc/`.
+The tests also require g++ with 32-bit compiler/runtime support (`g++-multilib`
+on Debian and Ubuntu).
 For direct retail comparison, use
 `make build MSVC_ARGS='--verify "/path/to/retail/th10.exe"'`.
 Read the [contribution workflow](CONTRIBUTING.md) before recovering a function.

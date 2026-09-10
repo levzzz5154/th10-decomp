@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Build and inspect small MSVC 7.1 LTCG semantic clusters.
 
-The complete fixed-layout build cannot expose code that MSVC creates only at
-link time.  This tool provides a deliberately smaller experiment: compile one
-or more C++98 translation units with the retail compiler profile, retain an
-external root, link with ``link.exe /LTCG``, and extract explicitly named
-functions from the linker's final PE layout.
+This exploratory tool compiles one or more C++98 translation units with the
+retail compiler profile, retains an external root, links with ``link.exe /LTCG``,
+and inspects explicitly named functions in the linker's final PE layout.
+The maintained fixed-layout build uses ``ltcg_cluster.py`` for reviewed native
+clusters, adding complete-contribution ownership checks and unchanged body
+export at the final executable's fixed addresses.
 
 Input is a JSON manifest.  Paths are relative to the manifest unless absolute::
 
@@ -309,7 +310,9 @@ def parse_map(text: str) -> LinkMap:
         contribution = _CONTRIBUTION_RE.match(line)
         if contribution and visibility is None:
             segment, start, length = (int(contribution.group(index), 16) for index in (1, 2, 3))
-            if segment == 0 or length <= 0:
+            # LINK can emit an empty .edata marker in the .rdata segment.
+            # It contributes no bytes and must not invent another PE section.
+            if segment == 0 or (length == 0 and contribution.group(5) != "DATA"):
                 raise LTCGSemanticError(f"invalid MAP contribution on line {line_number}")
             contributions.append(
                 MapContribution(segment, start, length, contribution.group(4), contribution.group(5))
@@ -350,7 +353,7 @@ def parse_map(text: str) -> LinkMap:
         ranges = sorted(
             (item.start, item.end, item.name)
             for item in contributions
-            if item.segment == segment
+            if item.segment == segment and item.length
         )
         for left, right in zip(ranges, ranges[1:]):
             if left[1] > right[0]:
@@ -375,7 +378,7 @@ def _segment_section(link_map: LinkMap, pe: PEImage, segment: int) -> PESection:
     names = {
         _canonical_section_name(item.name)
         for item in link_map.contributions
-        if item.segment == segment
+        if item.segment == segment and item.length
     }
     if not names:
         raise LTCGSemanticError(f"MAP segment {segment:04x} has no section contribution")
@@ -399,6 +402,12 @@ def validate_map_pe(link_map: LinkMap, pe: PEImage) -> None:
         raise LTCGSemanticError(
             f"PE linker version is {pe.linker_version[0]}.{pe.linker_version[1]}, expected 7.10"
         )
+    for contribution in link_map.contributions:
+        section = _segment_section(link_map, pe, contribution.segment)
+        if contribution.end > section.virtual_size:
+            raise LTCGSemanticError(
+                f"MAP contribution {contribution.name} exceeds PE section {section.name}"
+            )
     entry_section = _segment_section(link_map, pe, link_map.entry_segment)
     map_entry = entry_section.address + link_map.entry_offset
     if map_entry != pe.entry:

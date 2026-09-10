@@ -1728,12 +1728,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FrameTimer_Tick_00404ed0",
-      "source": "src/math/timer.cpp",
-      "symbol": "_asm_FrameTimer_Tick_00404ed0",
+      "name": "FrameTimer_Tick",
+      "source": "src/math/frame_timer.cpp",
+      "symbol": "?Tick@FrameTimer@@QAEXXZ",
       "address": "0x00404ED0",
       "size": 72,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404ED0"
     },
     {
@@ -18261,12 +18261,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FrameTimer_Decrement_00428dd0",
-      "source": "src/math/timer.cpp",
-      "symbol": "_asm_FrameTimer_Decrement_00428dd0",
+      "name": "FrameTimer_Decrement",
+      "source": "src/math/frame_timer.cpp",
+      "symbol": "?Decrement@FrameTimer@@QAEXH@Z",
       "address": "0x00428DD0",
       "size": 20,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00428DD0"
     },
     {
@@ -24111,7 +24111,7 @@
     },
     {
       "name": "semantic_LegacyString_Clear_004381f0",
-      "source": "src/util/heap.cpp",
+      "source": "src/util/legacy_string.cpp",
       "symbol": "?LegacyString_Clear@@YIXPAULegacyString@@@Z",
       "address": "0x004381F0",
       "size": 38,
@@ -24170,7 +24170,7 @@
     },
     {
       "name": "semantic_q_Length_at_LegacyString_00438250",
-      "source": "src/util/heap.cpp",
+      "source": "src/util/legacy_string.cpp",
       "symbol": "?Length@LegacyString@@QBEIXZ",
       "address": "0x00438250",
       "size": 4,
@@ -24186,13 +24186,50 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AssignSubstring_LegacyString_00438260",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_AssignSubstring_LegacyString_00438260",
+      "name": "semantic_LegacyString_AssignSubstring_00438260",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?AssignSubstring@LegacyString@@QAEPAU1@PBU1@II@Z",
       "address": "0x00438260",
       "size": 227,
-      "kind": "asm",
-      "owner": "0x00438260"
+      "kind": "semantic",
+      "owner": "0x00438260",
+      "relocations": [
+        {
+          "offset": 20,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_LegacyString_ThrowOutOfRange",
+          "original_operand": "b0a10200",
+          "original_target": "0x00462428"
+        },
+        {
+          "offset": 51,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Erase@LegacyString@@QAEPAU1@II@Z",
+          "original_operand": "79020000",
+          "original_target": "0x00438510"
+        },
+        {
+          "offset": 61,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Erase@LegacyString@@QAEPAU1@II@Z",
+          "original_operand": "6f020000",
+          "original_target": "0x00438510"
+        },
+        {
+          "offset": 82,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?ThrowLengthError@LegacyString@@ABEXXZ",
+          "original_operand": "2fa20200",
+          "original_target": "0x004624E5"
+        },
+        {
+          "offset": 101,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Grow@LegacyString@@QAEXII@Z",
+          "original_operand": "e7030000",
+          "original_target": "0x004386B0"
+        }
+      ]
     },
     {
       "name": "text_padding_00438343",
@@ -24203,30 +24240,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Assign_LegacyString_00438350",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_Assign_LegacyString_00438350",
+      "name": "semantic_LegacyString_Assign_00438350",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?Assign@LegacyString@@QAEPAU1@PBD@Z",
       "address": "0x00438350",
-      "size": 13,
-      "kind": "asm",
-      "owner": "0x00438350"
-    },
-    {
-      "name": "text_padding_0043835d",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043835d",
-      "address": "0x0043835D",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "asm_Assign_LegacyString_part_00438360",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_Assign_LegacyString_part_00438360",
-      "address": "0x00438360",
-      "size": 21,
-      "kind": "asm",
-      "owner": "0x00438350"
+      "size": 37,
+      "kind": "semantic",
+      "owner": "0x00438350",
+      "relocations": [
+        {
+          "offset": 28,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?AssignRange@LegacyString@@QAEPAU1@PBDI@Z",
+          "original_operand": "b0000000",
+          "original_target": "0x00438420"
+        }
+      ]
     },
     {
       "name": "text_padding_00438375",
@@ -24237,13 +24266,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Reserve_LegacyString_00438380",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_Reserve_LegacyString_00438380",
+      "name": "semantic_LegacyString_ResetInlineStorage_00438380",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?ResetInlineStorage@LegacyString@@QAEX_NI@Z",
       "address": "0x00438380",
       "size": 83,
-      "kind": "asm",
-      "owner": "0x00438380"
+      "kind": "semantic",
+      "owner": "0x00438380",
+      "relocations": [
+        {
+          "offset": 55,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_entry_free_004524a1",
+          "original_operand": "e6a00100",
+          "original_target": "0x004524A1"
+        }
+      ]
     },
     {
       "name": "text_padding_004383d3",
@@ -24322,13 +24360,36 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AssignRange_LegacyString_00438420",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_AssignRange_LegacyString_00438420",
+      "name": "semantic_LegacyString_AssignRange_00438420",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?AssignRange@LegacyString@@QAEPAU1@PBDI@Z",
       "address": "0x00438420",
       "size": 234,
-      "kind": "asm",
-      "owner": "0x00438420"
+      "kind": "semantic",
+      "owner": "0x00438420",
+      "relocations": [
+        {
+          "offset": 71,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?AssignSubstring@LegacyString@@QAEPAU1@PBU1@II@Z",
+          "original_operand": "f5fdffff",
+          "original_target": "0x00438260"
+        },
+        {
+          "offset": 94,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?ThrowLengthError@LegacyString@@ABEXXZ",
+          "original_operand": "63a00200",
+          "original_target": "0x004624E5"
+        },
+        {
+          "offset": 113,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "?Grow@LegacyString@@QAEXII@Z",
+          "original_operand": "1b020000",
+          "original_target": "0x004386B0"
+        }
+      ]
     },
     {
       "name": "text_padding_0043850a",
@@ -24339,13 +24400,29 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Erase_LegacyString_00438510",
-      "source": "src/util/heap.cpp",
-      "symbol": "_asm_Erase_LegacyString_00438510",
+      "name": "semantic_LegacyString_Erase_00438510",
+      "source": "src/util/legacy_string.cpp",
+      "symbol": "?Erase@LegacyString@@QAEPAU1@II@Z",
       "address": "0x00438510",
       "size": 117,
-      "kind": "asm",
-      "owner": "0x00438510"
+      "kind": "semantic",
+      "owner": "0x00438510",
+      "relocations": [
+        {
+          "offset": 15,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_LegacyString_ThrowOutOfRange",
+          "original_operand": "059f0200",
+          "original_target": "0x00462428"
+        },
+        {
+          "offset": 79,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "_memmove",
+          "original_operand": "1dad0100",
+          "original_target": "0x00453280"
+        }
+      ]
     },
     {
       "name": "text_padding_00438585",
@@ -24357,7 +24434,7 @@
     },
     {
       "name": "semantic_SetLength_LegacyString_00438590",
-      "source": "src/util/heap.cpp",
+      "source": "src/util/legacy_string.cpp",
       "symbol": "?SetLength@LegacyString@@QAEXI@Z",
       "address": "0x00438590",
       "size": 31,
@@ -24391,7 +24468,7 @@
     },
     {
       "name": "semantic_QAEPADXZ_00438680",
-      "source": "src/util/heap.cpp",
+      "source": "src/util/legacy_string.cpp",
       "symbol": "?Data@LegacyString@@QAEPADXZ",
       "address": "0x00438680",
       "size": 14,
@@ -24503,7 +24580,7 @@
     },
     {
       "name": "semantic_OwnsPointer_at_LegacyString_00438800",
-      "source": "src/util/heap.cpp",
+      "source": "src/util/legacy_string.cpp",
       "symbol": "?OwnsPointer@LegacyString@@QBE_NPBD@Z",
       "address": "0x00438800",
       "size": 57,
@@ -25203,12 +25280,12 @@
       "owner": "0x0043A290"
     },
     {
-      "name": "asm_FUN_0043a3a0_0043a3a0",
-      "source": "src/unidentified/FUN_0043a3a0_0043a3a0.cpp",
-      "symbol": "_asm_FUN_0043a3a0_0043a3a0",
+      "name": "StartupDialog_Procedure",
+      "source": "src/platform/startup_dialog.cpp",
+      "symbol": "?StartupDialog_Procedure@@YGHPAXIIJ@Z",
       "address": "0x0043A3A0",
       "size": 233,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043A3A0"
     },
     {
@@ -25407,12 +25484,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043a6e0_0043a6e0",
-      "source": "src/unidentified/FUN_0043a6e0_0043a6e0.cpp",
-      "symbol": "_asm_FUN_0043a6e0_0043a6e0",
+      "name": "MidiTimer_Callback",
+      "source": "src/platform/midi_timer.cpp",
+      "symbol": "?MidiTimer_Callback@@YGXIIPAUMidiTimerTarget@@II@Z",
       "address": "0x0043A6E0",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043A6E0"
     },
     {
@@ -31661,13 +31738,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044b9b0",
-      "source": "src/unidentified/unassigned_0044b9b0.cpp",
-      "symbol": "_asm_unassigned_0044b9b0",
+      "name": "semantic_Rng_NextWord_0044b9b0",
+      "source": "src/math/rng.cpp",
+      "symbol": "?NextWord@RngState@@QAEGXZ",
       "address": "0x0044B9B0",
       "size": 39,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044B9B0"
     },
     {
       "name": "text_padding_0044b9d7",
@@ -31678,12 +31755,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Rng_NextU32_0044b9e0",
+      "name": "semantic_Rng_NextU32_0044b9e0",
       "source": "src/math/rng.cpp",
-      "symbol": "_asm_Rng_NextU32_0044b9e0",
+      "symbol": "?Rng_NextU32@@YIIPAURngState@@@Z",
       "address": "0x0044B9E0",
       "size": 78,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044B9E0"
     },
     {
@@ -31695,13 +31772,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044ba30",
-      "source": "src/unidentified/unassigned_0044ba30.cpp",
-      "symbol": "_asm_unassigned_0044ba30",
+      "name": "semantic_Rng_NextU32Alternate_0044ba30",
+      "source": "src/math/rng.cpp",
+      "symbol": "?Rng_NextU32Alternate@@YIIPAURngState@@@Z",
       "address": "0x0044BA30",
       "size": 78,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044BA30"
     },
     {
       "name": "text_padding_0044ba7e",
@@ -31712,13 +31789,29 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Rng_NextU32DoubleStep_0044ba80",
+      "name": "semantic_Rng_NextU32DoubleStep_0044ba80",
       "source": "src/math/rng.cpp",
-      "symbol": "_asm_Rng_NextU32DoubleStep_0044ba80",
+      "symbol": "?Rng_NextU32DoubleStep@@YIIPAURngState@@@Z",
       "address": "0x0044BA80",
       "size": 155,
-      "kind": "asm",
-      "owner": "0x0044BA80"
+      "kind": "semantic",
+      "owner": "0x0044BA80",
+      "relocations": [
+        {
+          "offset": 4,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "___security_cookie",
+          "original_operand": "60364700",
+          "original_target": "0x00473660"
+        },
+        {
+          "offset": 151,
+          "type": "IMAGE_REL_I386_REL32",
+          "symbol": "@__security_check_cookie@4",
+          "original_operand": "8ad30000",
+          "original_target": "0x00458EA5"
+        }
+      ]
     },
     {
       "name": "text_padding_0044bb1b",
@@ -31729,13 +31822,29 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Rng_NextFloat_0044bb20",
+      "name": "semantic_Rng_NextFloat_0044bb20",
       "source": "src/math/rng.cpp",
-      "symbol": "_asm_Rng_NextFloat_0044bb20",
+      "symbol": "?Rng_NextFloat@@YIMPAURngState@@@Z",
       "address": "0x0044BB20",
       "size": 109,
-      "kind": "asm",
-      "owner": "0x0044BB20"
+      "kind": "semantic",
+      "owner": "0x0044BB20",
+      "relocations": [
+        {
+          "offset": 96,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@4f800000",
+          "original_operand": "980b4700",
+          "original_target": "0x00470B98"
+        },
+        {
+          "offset": 102,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@2f800000",
+          "original_operand": "f00b4700",
+          "original_target": "0x00470BF0"
+        }
+      ]
     },
     {
       "name": "text_padding_0044bb8d",
@@ -31746,13 +31855,36 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Rng_NextFloatSigned_0044bb90",
+      "name": "semantic_Rng_NextFloatSigned_0044bb90",
       "source": "src/math/rng.cpp",
-      "symbol": "_asm_Rng_NextFloatSigned_0044bb90",
+      "symbol": "?Rng_NextFloatSigned@@YIMPAURngState@@@Z",
       "address": "0x0044BB90",
       "size": 115,
-      "kind": "asm",
-      "owner": "0x0044BB90"
+      "kind": "semantic",
+      "owner": "0x0044BB90",
+      "relocations": [
+        {
+          "offset": 96,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@4f800000",
+          "original_operand": "980b4700",
+          "original_target": "0x00470B98"
+        },
+        {
+          "offset": 102,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@30000000",
+          "original_operand": "ec0b4700",
+          "original_target": "0x00470BEC"
+        },
+        {
+          "offset": 109,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__real@3f800000",
+          "original_operand": "fc0a4700",
+          "original_target": "0x00470AFC"
+        }
+      ]
     },
     {
       "name": "text_padding_0044bc03",
@@ -32003,12 +32135,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FrameTimer_Advance_0044bf40",
-      "source": "src/math/timer.cpp",
-      "symbol": "_asm_FrameTimer_Advance_0044bf40",
+      "name": "FrameTimer_Advance",
+      "source": "src/math/frame_timer.cpp",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
       "address": "0x0044BF40",
       "size": 88,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044BF40"
     },
     {
@@ -46153,7 +46285,23 @@
     "?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z": "0x0041F7A0",
     "?OutsideViewport@EffectPoolPosition@@QBEHMM@Z": "0x00428D70",
     "?InputPattern_CountMatches@@YIHPAXH@Z": "0x004088C0",
-    "?g_input_pattern_table@@3PACA": "0x004743C0"
+    "?g_input_pattern_table@@3PACA": "0x004743C0",
+    "_LegacyString_ThrowOutOfRange": "0x00462428",
+    "?ThrowLengthError@LegacyString@@ABEXXZ": "0x004624E5",
+    "_memmove": "0x00453280",
+    "?Grow@LegacyString@@QAEXII@Z": "0x004386B0",
+    "__real@4f800000": "0x00470B98",
+    "__real@2f800000": "0x00470BF0",
+    "__real@30000000": "0x00470BEC",
+    "__real@3f800000": "0x00470AFC",
+    "__imp__IsDlgButtonChecked@8": "0x00466250",
+    "__imp__EndDialog@8": "0x00466244",
+    "__imp__GetDlgItem@8": "0x00466240",
+    "__imp__SendMessageA@16": "0x00466228",
+    "?g_startup_config_flags@@3IA": "0x00491D78",
+    "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
+    "?g_frame_timer_normal_upper@@3MA": "0x00470B64",
+    "__ftol2": "0x00463B2C"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -46312,6 +46460,7 @@
     "src/game/version_list.cpp",
     "src/game/weather_pool.cpp",
     "src/math/angle.cpp",
+    "src/math/frame_timer.cpp",
     "src/math/interpolators.cpp",
     "src/math/math_utils.cpp",
     "src/math/oriented_rect.cpp",
@@ -46339,6 +46488,7 @@
     "src/platform/memory_file.cpp",
     "src/platform/midi_event_runtime.cpp",
     "src/platform/midi_sequencer.cpp",
+    "src/platform/midi_timer.cpp",
     "src/platform/midi_worker.cpp",
     "src/platform/midi_worker_stop.cpp",
     "src/platform/pack_file_loader.cpp",
@@ -46358,6 +46508,7 @@
     "src/platform/sound_stream_start.cpp",
     "src/platform/sound_stream_thread.cpp",
     "src/platform/sound_worker.cpp",
+    "src/platform/startup_dialog.cpp",
     "src/platform/text_log.cpp",
     "src/platform/win32_timer.cpp",
     "src/platform/window.cpp",
@@ -46801,10 +46952,8 @@
     "src/unidentified/FUN_004389c0_004389c0.cpp",
     "src/unidentified/FUN_004389d0_004389d0.cpp",
     "src/unidentified/FUN_00439660_00439660.cpp",
-    "src/unidentified/FUN_0043a3a0_0043a3a0.cpp",
     "src/unidentified/FUN_0043a490_0043a490.cpp",
     "src/unidentified/FUN_0043a5c0_0043a5c0.cpp",
-    "src/unidentified/FUN_0043a6e0_0043a6e0.cpp",
     "src/unidentified/FUN_0043a6f0_0043a6f0.cpp",
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
     "src/unidentified/FUN_0043ac90_0043ac90.cpp",
@@ -48066,8 +48215,6 @@
     "src/unidentified/unassigned_0044a090.cpp",
     "src/unidentified/unassigned_0044a130.cpp",
     "src/unidentified/unassigned_0044a160.cpp",
-    "src/unidentified/unassigned_0044b9b0.cpp",
-    "src/unidentified/unassigned_0044ba30.cpp",
     "src/unidentified/unassigned_0044bcd0.cpp",
     "src/unidentified/unassigned_0044bd00.cpp",
     "src/unidentified/unassigned_0044bf20.cpp",
@@ -48326,6 +48473,7 @@
     "src/unidentified/x_ismbbtype_0045f4c9.cpp",
     "src/unidentified/xtoa_00460636.cpp",
     "src/util/heap.cpp",
+    "src/util/legacy_string.cpp",
     "src/util/legacy_string_funclets.cpp",
     "src/util/runtime_pool.cpp"
   ],
@@ -48365,5 +48513,8 @@
       "size": 50,
       "source": "src/platform/dos_stub.cpp"
     }
+  ],
+  "ltcg_clusters": [
+    "layout/ltcg/frame_timer.json"
   ]
 }

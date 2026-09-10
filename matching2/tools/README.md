@@ -7,7 +7,7 @@ as modules from the repository root, for example
 
 | Directory | Responsibility | Examples |
 | --- | --- | --- |
-| `matching/` | Current exact builds, packaging, compiler experiments and progress | `build_msvc.py`, `build_asm_text.py`, `pack_asm_pe.py`, `ltcg_semantic.py`, `progress.py` |
+| `matching/` | Current exact builds, packaging, compiler experiments and progress | `build_msvc.py`, `ltcg_cluster.py`, `build_asm_text.py`, `pack_asm_pe.py`, `ltcg_semantic.py`, `progress.py` |
 | `common/` | Imported helpers; no build or migration entry points | PE/COFF reading, COFF normalization, logged commands, Wine paths |
 | `runtime/` | Experimental modern-runtime reports, fidelity checks and trace diagnostics | `coverage_report.py`, `retail_bounded_probe.sh`, `compare_runtime_trace.py` |
 | `reference/` | Read and audit disassembly/reference evidence | `ida_export.py`, `asm_coverage.py` |
@@ -17,6 +17,8 @@ The main MSVC build imports reusable helpers from `common/` and current
 packaging/progress code from `matching/`. It does not import maintenance
 scripts. The stricter LTCG PE/MAP parser remains inside its specialized tool:
 its section model and validation contract differ from the common PE reader.
+`ltcg_cluster.py` uses that parser for maintained native compiler clusters;
+`ltcg_semantic.py` remains available for exploratory compiler experiments.
 
 Maintenance generators can overwrite maintained source when explicitly invoked
 with `--replace`; they are never part of a normal build. Historical recipes in

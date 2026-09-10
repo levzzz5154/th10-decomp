@@ -1,6 +1,6 @@
 #pragma once
 
-#include "th10/game/entity.hpp"
+#include "th10/types.hpp"
 
 // A minimal owner used by the allocation helpers around 0x00435220.
 struct HeapBuffer {
@@ -27,7 +27,7 @@ struct LegacyString {
     uint32_t length;
     uint32_t capacity;
 
-    void Assign(const char* text);
+    LegacyString* Assign(const char* text);
     LegacyString* AssignRange(const char* text, uint32_t length);
     LegacyString* AssignSubstring(
         const LegacyString* source, uint32_t offset, uint32_t length);
@@ -35,10 +35,16 @@ struct LegacyString {
     LegacyString* Erase(uint32_t offset, uint32_t count);
     void SetLength(uint32_t new_length);
     uint32_t Length() const;
-    bool Reserve(uint32_t requested, bool shrink_to_inline);
+    // 0x00438380 resets storage to the inline representation. It does not
+    // reserve capacity. new_length must fit in the 15-byte inline buffer.
+    // A false release_heap is for initializing an unbuilt string.
+    void ResetInlineStorage(bool release_heap, uint32_t new_length);
     bool OwnsPointer(const char* pointer) const;
     char* Data();
     const char* Data() const;
+
+private:
+    void ThrowLengthError() const;
 };
 
 void __fastcall HeapBuffer_Release(HeapBuffer* buffer);
@@ -48,4 +54,3 @@ void Heap_DestroyOwnedSecondary(void* object, void (*cleanup)(void*),
                                 void (*free_memory)(void*));
 void __fastcall LegacyString_Clear(LegacyString* string);
 char* LegacyString_Duplicate(const char* text);
-

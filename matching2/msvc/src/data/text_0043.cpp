@@ -1332,14 +1332,6 @@ extern "C" unsigned char text_padding_00438343[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0043835D..0x0043835F
-// padding 0043835d..0043835f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001321")
-extern "C" unsigned char text_padding_0043835d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
-
 // padding: 0x00438375..0x0043837F
 // padding 00438375..0043837f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
 #pragma data_seg(".d001322")

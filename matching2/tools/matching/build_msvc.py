@@ -21,6 +21,7 @@ from matching2.tools.matching.pack_asm_pe import build_image
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
 from matching2.tools.matching.progress import summarize
 from matching2.tools.matching.mismatch import describe_mismatch
+from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
 
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PROJECT = ROOT / 'matching2/msvc'
@@ -126,6 +127,8 @@ def main():
     config = json.loads((project / 'regions.json').read_text())
     reference = json.loads((ROOT / 'decompiled/reference_bytes_validation.json').read_text())
     regions, units = validate_project(config, reference)
+    clusters = load_clusters(project, config, regions)
+    cluster_by_source = {cluster['source']: cluster for cluster in clusters}
     dos_regions = config['dos_regions']
     dos_units = sorted({region['source'] for region in dos_regions})
     units = sorted(set(units + dos_units))
@@ -148,6 +151,9 @@ def main():
         source_path = (project / source).resolve()
         if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
             raise ValueError('translation unit must be a project C++ source: ' + source)
+        if source in cluster_by_source:
+            cluster = cluster_by_source[source]
+            return build_cluster(cluster, toolkit, output / 'clusters' / cluster['name'], config['flags'])
         obj = objects / f'unit{index:04d}.obj'
         normalized = objects / f'unit{index:04d}.normalized.obj'
         obj.unlink(missing_ok=True)
@@ -163,7 +169,7 @@ def main():
         return {'source': source, 'object': str(normalized), 'command': command,
                 'normalization': normalized_report, 'source_sha256': sha(source_path.read_bytes())}
     compiled, failures = [], []
-    print(f'Compiling {len(units)} C++ translation units with MSVC {config["compiler_version"]}...', flush=True)
+    print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}...', flush=True)
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
         pending = {executor.submit(compile_unit, index, source): source for index, source in enumerate(units)}
         for index, future in enumerate(as_completed(pending), 1):
@@ -172,7 +178,7 @@ def main():
             except Exception as error:
                 failures.append({'source': pending[future], 'error': str(error)})
             if index % 100 == 0 or index == len(units):
-                print(f'Compiled {index}/{len(units)} units; {len(failures)} failures', flush=True)
+                print(f'Built {index}/{len(units)} sources; {len(failures)} failures', flush=True)
     if failures:
         (output / 'compile-failures.json').write_text(json.dumps(failures, indent=2) + '\n')
         raise ValueError(f'{len(failures)} C++ units failed; see {output / "compile-failures.json"}')
@@ -204,7 +210,8 @@ def main():
     summary = summarize(regions)
     report = {'compiler': banner.stdout + banner.stderr,
         'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),
-        'translation_unit_count': len(units), 'compiled_units': compiled, 'summary': summary,
+        'translation_unit_count': sum(unit.get('compiler_translation_unit_count', 1) for unit in compiled),
+        'maintained_source_count': len(units), 'compiled_units': compiled, 'summary': summary,
         'source_sha256': {str(path.relative_to(project)): sha(path.read_bytes())
                           for path in sorted(project.rglob('*')) if path.is_file()},
         'link_command': command, 'package': package, 'masked_bytes': 0,

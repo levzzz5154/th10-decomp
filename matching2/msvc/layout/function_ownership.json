@@ -92238,5 +92238,9 @@
       ],
       "conflicts": []
     }
-  ]
+  ],
+  "maintained_cpp_recovery": {
+    "file": "cpp_recovery.json",
+    "role": "Current maintained source owners, recovered names, complete compiler extents and actual ABI evidence; historical physical body-range claims above are preserved."
+  }
 }

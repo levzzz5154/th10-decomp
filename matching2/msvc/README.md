@@ -18,6 +18,8 @@ or prebuilt objects.
 
 The build uses Wine, the compiler at
 `~/.local/share/th10-toolchains/msvc-13.10.6030`, and GNU x86 PE binutils.
+Native LTCG clusters also use that toolkit's `link.exe` 7.10.6030. Host contract
+tests require g++ and 32-bit compiler/runtime support.
 `--toolkit`, `--project`, `--output`, and `--jobs` override defaults. Outputs are
 in `matching2/build/msvc/`, including `th10.exe`, `port-report.json`, compiler
 logs, COFF objects, the linker script and map. This is a Linux build pipeline;
@@ -36,7 +38,8 @@ a native Visual Studio solution is not supplied.
   that MSVC's inline assembler otherwise rewrites.
 - `regions.json` records every selected compiler symbol, address, extent,
   relocation binding, and source file. `layout/function_ownership.json` records
-  naming and ownership evidence.
+  historical naming and ownership evidence; `layout/cpp_recovery.json` adds
+  maintained owners, recovered ABI details, and complete compiler boundaries.
 - `../reference/data` and `pe_layout.json` preserve non-code PE data, resources, and metadata.
   The DOS instructions and message compile from `src/platform/dos_stub.cpp`.
 
@@ -46,6 +49,10 @@ live alongside their subsystem's remaining inline-assembly bodies. Remaining
 executable code uses named naked functions with MSVC `__asm` instructions.
 This is complete compiler-input coverage, with readable C++ recovery still ongoing.
 The separate modern runtime remains under `matching2/src`.
+
+The [native LTCG workflow](LTCG.md) compiles `FrameTimer` methods whose internal
+register conventions are selected during link-time optimization. Their
+declared compiler context is synthetic and is excluded from recovered code.
 
 See [resource-file lifetime recovery](RESOURCE_LIFETIME.md) for the loader and
 destructor's ABI evidence, preserved failure behavior, tests, and remaining
@@ -59,6 +66,11 @@ inclusive edge contract, x87 unordered behavior, and adjacent compiler limits.
 
 See [input pattern count recovery](INPUT_PATTERN_COUNT.md) for the fixed table,
 signed-byte comparison contract, unrolled loop, and observed register ABI.
+
+See [legacy string recovery](LEGACY_STRING.md) for assignment, overlapping
+ranges, inline storage, and compiler-generated loop alignment. The RNG family
+is ordinary C++ in `src/math/rng.cpp` and `include/th10/math/rng.hpp`; its host
+tests cover every seed, state advancement, packing, and float rounding.
 
 ## Replacing inline assembly with ordinary C++
 
@@ -75,6 +87,14 @@ linker resolves operands. Link assertions check each slot and symbol, followed
 by strict hashes of all 412,672 `.text` bytes and the whole executable.
 A mismatch fails the build and removes stale success outputs. There are no
 relocation masks, original-code substitutions, or assembly fallbacks.
+
+Explicit LTCG clusters first pass through the native compiler and linker at
+their final addresses. The build checks each entire named function contribution
+and its compiler origin, then exports those fresh compiler-produced bodies
+unchanged into the outer COFF link. Cluster sources, layout, compiler context,
+toolchain, and link commands are recorded in `port-report.json` and the cluster
+reports under `build/msvc/clusters/`. Context code and placement gaps never
+enter the selected executable bodies or the C++ progress count.
 
 For a linked byte mismatch, the error identifies the first affected region,
 source and symbol, then shows expected/actual bytes and the containing

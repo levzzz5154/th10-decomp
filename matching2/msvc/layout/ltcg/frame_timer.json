@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "name": "frame_timer",
+  "source": "src/math/frame_timer.cpp",
+  "driver": "layout/ltcg/frame_timer_context.cpp",
+  "headers": ["include/th10/math/timer.hpp"],
+  "image_base": "0x00400000",
+  "description": "Ordinary C++ FrameTimer methods compiled with a synthetic caller to recover the observed internal register ABI. Compiler context and layout gaps are never selected as game code.",
+  "functions": [
+    {
+      "name": "FrameTimer_Tick",
+      "symbol": "?Tick@FrameTimer@@QAEXXZ",
+      "section": ".text$10tick",
+      "address": "0x00404ED0",
+      "size": 72,
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "FrameTimer_Decrement",
+      "symbol": "?Decrement@FrameTimer@@QAEXH@Z",
+      "section": ".text$30decrement",
+      "address": "0x00428DD0",
+      "size": 20,
+      "actual_abi": "this in ESI; count in EAX; plain RET"
+    },
+    {
+      "name": "FrameTimer_Advance",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$50advance",
+      "address": "0x0044BF40",
+      "size": 88,
+      "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?FrameTimerCompilerContext@@YGXPAUFrameTimer@@HH@Z",
+    "section": ".text$70context",
+    "address": "0x0044BFA0",
+    "size": 63,
+    "description": "Synthetic array-processing caller used only to establish the compiler's internal register allocation; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 16080},
+    {"section": ".text$20layout", "address": "0x00404F18", "size": 147128},
+    {"section": ".text$40layout", "address": "0x00428DE4", "size": 143708},
+    {"section": ".text$80layout", "address": "0x0044BFDF", "size": 147489},
+    {"section": ".rdata", "address": "0x00470000", "size": 2812}
+  ],
+  "constants": [
+    {"symbol": "__real@3f800000", "address": "0x00470AFC", "value": 1.0}
+  ],
+  "absolute_symbols": [
+    {"symbol": "?g_frame_timer_normal_lower@@3MA", "address": "0x00470B68", "kind": "data"},
+    {"symbol": "?g_frame_timer_normal_upper@@3MA", "address": "0x00470B64", "kind": "data"},
+    {"symbol": "__ftol2", "address": "0x00463B2C", "kind": "relative_code"},
+    {"symbol": "__fltused", "address": "0x00000000", "kind": "metadata"}
+  ]
+}

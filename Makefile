@@ -22,16 +22,21 @@ build:
 
 test:
 	$(PYTHON) matching2/tools/matching/progress.py --check
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'matching_progress_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'common_tools_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'coff_regions_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_port_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_keyboard_state_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_input_pattern_count_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_playfield_bounds_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'msvc_resource_lifetime_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'mismatch_test.py'
-	$(PYTHON) -m unittest discover -s matching2/tests -p 'pe_pack_test.py'
+	$(PYTHON) -m unittest matching2.tests.matching_progress_test
+	$(PYTHON) -m unittest matching2.tests.common_tools_test
+	$(PYTHON) -m unittest matching2.tests.coff_regions_test
+	$(PYTHON) -m unittest matching2.tests.msvc_port_test
+	$(PYTHON) -m unittest matching2.tests.ltcg_cluster_test
+	$(PYTHON) -m unittest matching2.tests.msvc_keyboard_state_test
+	$(PYTHON) -m unittest matching2.tests.msvc_input_pattern_count_test
+	$(PYTHON) -m unittest matching2.tests.msvc_playfield_bounds_test
+	$(PYTHON) -m unittest matching2.tests.msvc_resource_lifetime_test
+	$(PYTHON) -m unittest matching2.tests.msvc_rng_test
+	$(PYTHON) -m unittest matching2.tests.msvc_legacy_string_test
+	$(PYTHON) -m unittest matching2.tests.msvc_dialog_test
+	$(PYTHON) -m unittest matching2.tests.msvc_frame_timer_test
+	$(PYTHON) -m unittest matching2.tests.mismatch_test
+	$(PYTHON) -m unittest matching2.tests.pe_pack_test
 
 verify:
 	$(MAKE) test

@@ -1,19 +1,5 @@
 #pragma once
-// MSVC 7.1 is pre-C++11 — use manual typedefs instead of <cstdint> when
-// building the production target; host-side test builds pull in the real
-// <cstdint> so this header can coexist with headers that include it.
-#ifdef _MSC_VER
-typedef unsigned char       uint8_t;
-typedef unsigned short      uint16_t;
-typedef unsigned int        uint32_t;
-typedef unsigned long long  uint64_t;
-typedef signed char         int8_t;
-typedef short               int16_t;
-typedef int                 int32_t;
-typedef long long           int64_t;
-#else
-#include <cstdint>
-#endif
+#include "th10/types.hpp"
 
 // Row-major D3D transformation matrix. Entity initialization and animation
 // setup both construct this as an identity matrix before render code copies it
@@ -316,4 +302,3 @@ typedef int32_t  i32;
 typedef int64_t  i64;
 typedef float    f32;
 typedef double   f64;
-

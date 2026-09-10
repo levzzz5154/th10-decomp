@@ -43,8 +43,11 @@ original function counts, and byte coverage does not measure readability.
 
 The current build uses MSVC compilation, fixed-address COFF section placement,
 GNU linking, and PE packaging with preserved data/metadata. A passing build
-establishes exact output for that pipeline; recovering the original translation
-units, LTCG settings, and native linker recipe remains separate work.
+establishes exact output for that pipeline. Explicit
+[native LTCG clusters](matching2/msvc/LTCG.md) recover some internal register
+conventions using disclosed synthetic compiler context. That context is not
+recovered game code. Recovering the original translation units and complete
+native linker recipe remains separate work.
 
 ## Maintained source and generation
 
