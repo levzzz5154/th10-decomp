@@ -1,5 +1,194 @@
+#include <string.h>
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+
+// 0x00405D00..0x00405DD6: FUN_00405d00
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_00405d00_00405d00() {
+    __asm {
+    L_00405d00:
+        push ebx
+    L_00405d01:
+        mov ebx,ecx
+    L_00405d03:
+        mov eax,dword ptr [ebx+74h]
+    L_00405d06:
+        lea edx,[ebx+8]
+    L_00405d09:
+        push esi
+    L_00405d0a:
+        mov esi,0FFFFFFFEh
+    L_00405d0f:
+        and eax,esi
+    L_00405d11:
+        mov dword ptr [edx+6Ch],eax
+    L_00405d14:
+        push edi
+    L_00405d15:
+        and dword ptr [edx+0B0h],esi
+    L_00405d1b:
+        and dword ptr [edx+0FCh],esi
+    L_00405d21:
+        and dword ptr [edx+128h],esi
+    L_00405d27:
+        and dword ptr [edx+174h],esi
+    L_00405d2d:
+        and dword ptr [edx+1B0h],esi
+    L_00405d33:
+        and dword ptr [edx+1FCh],esi
+    L_00405d39:
+        and dword ptr [edx+228h],esi
+    L_00405d3f:
+        mov ecx,dword ptr [edx+378h]
+    L_00405d45:
+        xor eax,eax
+    L_00405d47:
+        and ecx,esi
+    L_00405d49:
+        mov dword ptr [edx+378h],ecx
+    L_00405d4f:
+        mov edi,edx
+    L_00405d51:
+        mov ecx,0EBh
+    L_00405d56:
+        rep stosd
+    L_00405d58:
+        mov word ptr [edx+384h],0FFFFh
+    L_00405d61:
+        and dword ptr [ebx+408h],esi
+    L_00405d67:
+        and dword ptr [ebx+41Ch],esi
+    L_00405d6d:
+        mov edx,dword ptr [ebx+624h]
+    L_00405d73:
+        lea eax,[ebx+614h]
+    L_00405d79:
+        add eax,34h
+    L_00405d7c:
+        and edx,esi
+    L_00405d7e:
+        mov dword ptr [eax-24h],edx
+    L_00405d81:
+        mov edi,dword ptr [eax+10h]
+    L_00405d84:
+        add eax,34h
+    L_00405d87:
+        and edi,esi
+    L_00405d89:
+        mov dword ptr [eax-24h],edi
+    L_00405d8c:
+        mov ecx,dword ptr [eax+10h]
+    L_00405d8f:
+        add eax,34h
+    L_00405d92:
+        and ecx,esi
+    L_00405d94:
+        mov dword ptr [eax-24h],ecx
+    L_00405d97:
+        mov edx,dword ptr [eax+10h]
+    L_00405d9a:
+        add eax,34h
+    L_00405d9d:
+        and edx,esi
+    L_00405d9f:
+        mov dword ptr [eax-24h],edx
+    L_00405da2:
+        and dword ptr [eax+10h],esi
+    L_00405da5:
+        mov ecx,dword ptr [eax+44h]
+    L_00405da8:
+        add eax,34h
+    L_00405dab:
+        and ecx,esi
+    L_00405dad:
+        mov dword ptr [eax+10h],ecx
+    L_00405db0:
+        mov edx,dword ptr [eax+44h]
+    L_00405db3:
+        add eax,34h
+    L_00405db6:
+        and edx,esi
+    L_00405db8:
+        mov dword ptr [eax+10h],edx
+    L_00405dbb:
+        mov edi,dword ptr [eax+44h]
+    L_00405dbe:
+        add eax,34h
+    L_00405dc1:
+        and edi,esi
+    L_00405dc3:
+        mov dword ptr [eax+10h],edi
+    L_00405dc6:
+        mov ecx,dword ptr [eax+44h]
+    L_00405dc9:
+        add eax,34h
+    L_00405dcc:
+        and ecx,esi
+    L_00405dce:
+        mov dword ptr [eax+10h],ecx
+    L_00405dd1:
+        mov eax,ebx
+    L_00405dd3:
+        pop edi
+    L_00405dd4:
+        pop esi
+    L_00405dd5:
+        pop ebx
+    L_00405dd6:
+        ret
+    }
+}
+
+// 0x00438A30..0x00438A5A: DestroyEntityList
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_DestroyEntityList_00438a30() {
+    __asm {
+    L_00438a30:
+        push esi
+    L_00438a31:
+        mov esi,eax
+    L_00438a33:
+        push edi
+    L_00438a34:
+        add esi,3AD4E0h
+    L_00438a3a:
+        mov edi,20h
+    L_00438a3f:
+        nop
+    L_00438a40:
+        mov eax,dword ptr [esi]
+    L_00438a42:
+        test eax,eax
+    L_00438a44:
+        je short L_00438a52
+    L_00438a46:
+        mov ecx,dword ptr [eax]
+    L_00438a48:
+        push eax
+    L_00438a49:
+        call dword ptr [ecx+8]
+    L_00438a4c:
+        mov dword ptr [esi],0
+    L_00438a52:
+        add esi,4
+    L_00438a55:
+        dec edi
+    L_00438a56:
+        jne short L_00438a40
+    L_00438a58:
+        pop edi
+    L_00438a59:
+        pop esi
+    L_00438a5a:
+        ret
+    }
+}
+
+// Recovered semantic C++ definitions.
+#include "th10/game/entity.hpp"
+
+extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void* __cdecl operator_new(uint32_t);
 
 // 0x00401DE0..0x00401EF0: InitializeEntity
 // Naked body preserves the retail register/stack ABI.
@@ -142,398 +331,73 @@ extern "C" __declspec(naked) void __cdecl asm_InitializeEntity_00401de0() {
     }
 }
 
-// 0x00402050..0x004020A7: Entity_Constructor
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Entity_Constructor_00402050() {
-    __asm {
-    L_00402050:
-        mov edx,ecx
-    L_00402052:
-        mov ecx,dword ptr [edx+6Ch]
-    L_00402055:
-        mov eax,0FFFFFFFEh
-    L_0040205a:
-        and ecx,eax
-    L_0040205c:
-        mov dword ptr [edx+6Ch],ecx
-    L_0040205f:
-        push edi
-    L_00402060:
-        and dword ptr [edx+0B0h],eax
-    L_00402066:
-        and dword ptr [edx+0FCh],eax
-    L_0040206c:
-        and dword ptr [edx+128h],eax
-    L_00402072:
-        and dword ptr [edx+174h],eax
-    L_00402078:
-        and dword ptr [edx+1B0h],eax
-    L_0040207e:
-        and dword ptr [edx+1FCh],eax
-    L_00402084:
-        and dword ptr [edx+228h],eax
-    L_0040208a:
-        and dword ptr [edx+378h],eax
-    L_00402090:
-        xor eax,eax
-    L_00402092:
-        mov ecx,0EBh
-    L_00402097:
-        mov edi,edx
-    L_00402099:
-        rep stosd
-    L_0040209b:
-        mov word ptr [edx+384h],0FFFFh
-    L_004020a4:
-        mov eax,edx
-    L_004020a6:
-        pop edi
-    L_004020a7:
-        ret
-    }
+
+
+// 0x00406160 / 0x004061D0 - Playfield culling tests. The retail ABI keeps the
+// tested screen position in ECX and pushes the queried extents, so both are
+// members of that position. Each returns 1 while a box of `width` x `height`
+// centred on the position stays clear of the playfield rectangle; the
+// inclusive variant tests the playfield proper (y from 0) instead of the band
+// that starts 64 pixels above it.
+//
+// The rectangle and the half-size scale are the shared .rdata constants the
+// renderer uses, so they are read through their retail addresses.
+// Playfield rectangle and frame constants shared with the renderer.
+extern float g_playfield_min_x;   // 0x00470B40, -192.0
+extern float g_playfield_max_x;   // 0x00470B3C,  192.0
+extern float g_playfield_min_y;   // 0x00470B04,    0.0
+extern float g_playfield_max_y;   // 0x00470B38,  448.0
+
+struct PlayfieldPoint {
+    float x;
+    float y;
+    int32_t OutsidePlayfield(float width, float height) const;
+    int32_t OutsidePlayfieldInclusive(float width, float height) const;
+};
+
+int32_t PlayfieldPoint::OutsidePlayfield(float width, float height) const {
+    float half_width = width * 0.5f;
+    if (half_width + x <= g_playfield_min_x || x - half_width >= g_playfield_max_x)
+        return 1;
+    float half_height = height * 0.5f;
+    if (half_height + y <= -64.0f || y - half_height >= g_playfield_max_y)
+        return 1;
+    return 0;
 }
 
-// 0x00405D00..0x00405DD6: FUN_00405d00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405d00_00405d00() {
-    __asm {
-    L_00405d00:
-        push ebx
-    L_00405d01:
-        mov ebx,ecx
-    L_00405d03:
-        mov eax,dword ptr [ebx+74h]
-    L_00405d06:
-        lea edx,[ebx+8]
-    L_00405d09:
-        push esi
-    L_00405d0a:
-        mov esi,0FFFFFFFEh
-    L_00405d0f:
-        and eax,esi
-    L_00405d11:
-        mov dword ptr [edx+6Ch],eax
-    L_00405d14:
-        push edi
-    L_00405d15:
-        and dword ptr [edx+0B0h],esi
-    L_00405d1b:
-        and dword ptr [edx+0FCh],esi
-    L_00405d21:
-        and dword ptr [edx+128h],esi
-    L_00405d27:
-        and dword ptr [edx+174h],esi
-    L_00405d2d:
-        and dword ptr [edx+1B0h],esi
-    L_00405d33:
-        and dword ptr [edx+1FCh],esi
-    L_00405d39:
-        and dword ptr [edx+228h],esi
-    L_00405d3f:
-        mov ecx,dword ptr [edx+378h]
-    L_00405d45:
-        xor eax,eax
-    L_00405d47:
-        and ecx,esi
-    L_00405d49:
-        mov dword ptr [edx+378h],ecx
-    L_00405d4f:
-        mov edi,edx
-    L_00405d51:
-        mov ecx,0EBh
-    L_00405d56:
-        rep stosd
-    L_00405d58:
-        mov word ptr [edx+384h],0FFFFh
-    L_00405d61:
-        and dword ptr [ebx+408h],esi
-    L_00405d67:
-        and dword ptr [ebx+41Ch],esi
-    L_00405d6d:
-        mov edx,dword ptr [ebx+624h]
-    L_00405d73:
-        lea eax,[ebx+614h]
-    L_00405d79:
-        add eax,34h
-    L_00405d7c:
-        and edx,esi
-    L_00405d7e:
-        mov dword ptr [eax-24h],edx
-    L_00405d81:
-        mov edi,dword ptr [eax+10h]
-    L_00405d84:
-        add eax,34h
-    L_00405d87:
-        and edi,esi
-    L_00405d89:
-        mov dword ptr [eax-24h],edi
-    L_00405d8c:
-        mov ecx,dword ptr [eax+10h]
-    L_00405d8f:
-        add eax,34h
-    L_00405d92:
-        and ecx,esi
-    L_00405d94:
-        mov dword ptr [eax-24h],ecx
-    L_00405d97:
-        mov edx,dword ptr [eax+10h]
-    L_00405d9a:
-        add eax,34h
-    L_00405d9d:
-        and edx,esi
-    L_00405d9f:
-        mov dword ptr [eax-24h],edx
-    L_00405da2:
-        and dword ptr [eax+10h],esi
-    L_00405da5:
-        mov ecx,dword ptr [eax+44h]
-    L_00405da8:
-        add eax,34h
-    L_00405dab:
-        and ecx,esi
-    L_00405dad:
-        mov dword ptr [eax+10h],ecx
-    L_00405db0:
-        mov edx,dword ptr [eax+44h]
-    L_00405db3:
-        add eax,34h
-    L_00405db6:
-        and edx,esi
-    L_00405db8:
-        mov dword ptr [eax+10h],edx
-    L_00405dbb:
-        mov edi,dword ptr [eax+44h]
-    L_00405dbe:
-        add eax,34h
-    L_00405dc1:
-        and edi,esi
-    L_00405dc3:
-        mov dword ptr [eax+10h],edi
-    L_00405dc6:
-        mov ecx,dword ptr [eax+44h]
-    L_00405dc9:
-        add eax,34h
-    L_00405dcc:
-        and ecx,esi
-    L_00405dce:
-        mov dword ptr [eax+10h],ecx
-    L_00405dd1:
-        mov eax,ebx
-    L_00405dd3:
-        pop edi
-    L_00405dd4:
-        pop esi
-    L_00405dd5:
-        pop ebx
-    L_00405dd6:
-        ret
-    }
+int32_t PlayfieldPoint::OutsidePlayfieldInclusive(float width, float height) const {
+    float half_width = width * 0.5f;
+    if (half_width + x <= g_playfield_min_x || x - half_width >= g_playfield_max_x)
+        return 1;
+    float half_height = height * 0.5f;
+    if (half_height + y <= g_playfield_min_y || y - half_height >= g_playfield_max_y)
+        return 1;
+    return 0;
 }
 
-// 0x00406160..0x004061CC: ?Entity_PointWithinBounds@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Entity_PointWithinBounds_00406160() {
-    __asm {
-    L_00406160:
-        fld dword ptr [esp+4]
-    L_00406164:
-        fmul dword ptr [data_00470b0c]
-    L_0040616a:
-        fld st(0)
-    L_0040616c:
-        fadd dword ptr [ecx]
-    L_0040616e:
-        fcomp dword ptr [data_00470b40]
-    L_00406174:
-        fnstsw ax
-    L_00406176:
-        test ah,41h
-    L_00406179:
-        jnp short L_004061c3
-    L_0040617b:
-        fld dword ptr [ecx]
-    L_0040617d:
-        fsub st,st(1)
-    L_0040617f:
-        fcomp dword ptr [data_00470b3c]
-    L_00406185:
-        fnstsw ax
-    L_00406187:
-        fstp st(0)
-    L_00406189:
-        test ah,1
-    L_0040618c:
-        je short L_004061c5
-    L_0040618e:
-        fld dword ptr [esp+8]
-    L_00406192:
-        fmul dword ptr [data_00470b0c]
-    L_00406198:
-        fld st(0)
-    L_0040619a:
-        fadd dword ptr [ecx+4]
-    L_0040619d:
-        fcomp dword ptr [data_00470b5c]
-    L_004061a3:
-        fnstsw ax
-    L_004061a5:
-        test ah,41h
-    L_004061a8:
-        jnp short L_004061c3
-    L_004061aa:
-        fld dword ptr [ecx+4]
-    L_004061ad:
-        fsub st,st(1)
-    L_004061af:
-        fcomp dword ptr [data_00470b38]
-    L_004061b5:
-        fnstsw ax
-    L_004061b7:
-        fstp st(0)
-    L_004061b9:
-        test ah,1
-    L_004061bc:
-        je short L_004061c5
-    L_004061be:
-        xor eax,eax
-    L_004061c0:
-        ret 8
-    L_004061c3:
-        fstp st(0)
-    L_004061c5:
-        mov eax,1
-    L_004061ca:
-        ret 8
-    }
+// Clears the "registered with the animation list" bit of one slot flag word.
+// The retail constructor reaches every flag through a pointer, which keeps the
+// store in the read-modify-write form the image uses.
+static void Entity_ClearRegistrationBit(uint32_t* flags) {
+    *flags &= ~1u;
 }
 
-// 0x004061D0..0x0040623C: ?Entity_PointWithinBoundsInclusive@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Entity_PointWithinBoundsInclusive_004061d0() {
-    __asm {
-    L_004061d0:
-        fld dword ptr [esp+4]
-    L_004061d4:
-        fmul dword ptr [data_00470b0c]
-    L_004061da:
-        fld st(0)
-    L_004061dc:
-        fadd dword ptr [ecx]
-    L_004061de:
-        fcomp dword ptr [data_00470b40]
-    L_004061e4:
-        fnstsw ax
-    L_004061e6:
-        test ah,41h
-    L_004061e9:
-        jnp short L_00406233
-    L_004061eb:
-        fld dword ptr [ecx]
-    L_004061ed:
-        fsub st,st(1)
-    L_004061ef:
-        fcomp dword ptr [data_00470b3c]
-    L_004061f5:
-        fnstsw ax
-    L_004061f7:
-        fstp st(0)
-    L_004061f9:
-        test ah,1
-    L_004061fc:
-        je short L_00406235
-    L_004061fe:
-        fld dword ptr [esp+8]
-    L_00406202:
-        fmul dword ptr [data_00470b0c]
-    L_00406208:
-        fld st(0)
-    L_0040620a:
-        fadd dword ptr [ecx+4]
-    L_0040620d:
-        fcomp dword ptr [data_00470b04]
-    L_00406213:
-        fnstsw ax
-    L_00406215:
-        test ah,41h
-    L_00406218:
-        jnp short L_00406233
-    L_0040621a:
-        fld dword ptr [ecx+4]
-    L_0040621d:
-        fsub st,st(1)
-    L_0040621f:
-        fcomp dword ptr [data_00470b38]
-    L_00406225:
-        fnstsw ax
-    L_00406227:
-        fstp st(0)
-    L_00406229:
-        test ah,1
-    L_0040622c:
-        je short L_00406235
-    L_0040622e:
-        xor eax,eax
-    L_00406230:
-        ret 8
-    L_00406233:
-        fstp st(0)
-    L_00406235:
-        mov eax,1
-    L_0040623a:
-        ret 8
-    }
+// 0x00402050 - Entity_Constructor: retire every animation slot's registration
+// bit, wipe the entity and mark its sprite index unused. Returns the entity.
+Entity* __fastcall Entity_Constructor(Entity* entity) {
+    Entity_ClearRegistrationBit(&entity->flags_06C);
+    Entity_ClearRegistrationBit(&entity->flags_0B0);
+    Entity_ClearRegistrationBit(&entity->flags_0FC);
+    Entity_ClearRegistrationBit(&entity->flags_128);
+    Entity_ClearRegistrationBit(&entity->flags_174);
+    Entity_ClearRegistrationBit(&entity->flags_1B0);
+    Entity_ClearRegistrationBit(&entity->flags_1FC);
+    Entity_ClearRegistrationBit(&entity->flags_228);
+    Entity_ClearRegistrationBit(&entity->flags_378);
+    memset(entity, 0, sizeof(Entity));
+    entity->SpriteIndex() = -1;
+    return entity;
 }
-
-// 0x00438A30..0x00438A5A: DestroyEntityList
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DestroyEntityList_00438a30() {
-    __asm {
-    L_00438a30:
-        push esi
-    L_00438a31:
-        mov esi,eax
-    L_00438a33:
-        push edi
-    L_00438a34:
-        add esi,3AD4E0h
-    L_00438a3a:
-        mov edi,20h
-    L_00438a3f:
-        nop
-    L_00438a40:
-        mov eax,dword ptr [esi]
-    L_00438a42:
-        test eax,eax
-    L_00438a44:
-        je short L_00438a52
-    L_00438a46:
-        mov ecx,dword ptr [eax]
-    L_00438a48:
-        push eax
-    L_00438a49:
-        call dword ptr [ecx+8]
-    L_00438a4c:
-        mov dword ptr [esi],0
-    L_00438a52:
-        add esi,4
-    L_00438a55:
-        dec edi
-    L_00438a56:
-        jne short L_00438a40
-    L_00438a58:
-        pop edi
-    L_00438a59:
-        pop esi
-    L_00438a5a:
-        ret
-    }
-}
-
-// Recovered semantic C++ definitions.
-#include "th10/game/entity.hpp"
-
-extern "C" void __cdecl entry_free_00452422(void*);
-extern "C" void* __cdecl operator_new(uint32_t);
 
 void __fastcall Entity_Destructor(Entity* entity) {
     void* resource = entity->resource;

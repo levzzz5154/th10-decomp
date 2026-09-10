@@ -173,149 +173,6 @@ extern "C" __declspec(naked) void __cdecl asm_FileHandle_OpenRetail_part_004353b
     }
 }
 
-// 0x00435580..0x00435608: ?ReadWhole@FileHandle@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ReadWhole_FileHandle_00435580() {
-    __asm {
-    L_00435580:
-        push esi
-    L_00435581:
-        mov esi,ecx
-    L_00435583:
-        cmp dword ptr [esi+8],80000000h
-    L_0043558a:
-        je short L_00435592
-    L_0043558c:
-        xor eax,eax
-    L_0043558e:
-        pop esi
-    L_0043558f:
-        ret 4
-    L_00435592:
-        mov eax,dword ptr [esi]
-    L_00435594:
-        push ebp
-    L_00435595:
-        mov ecx,esi
-    L_00435597:
-        call dword ptr [eax+14h]
-    L_0043559a:
-        mov ebp,eax
-    L_0043559c:
-        cmp ebp,dword ptr [esp+0Ch]
-    L_004355a0:
-        jbe short L_004355a9
-    L_004355a2:
-        pop ebp
-    L_004355a3:
-        xor eax,eax
-    L_004355a5:
-        pop esi
-    L_004355a6:
-        ret 4
-    L_004355a9:
-        push edi
-    L_004355aa:
-        push ebp
-    L_004355ab:
-        call asm_malloc_00452706
-    L_004355b0:
-        mov edi,eax
-    L_004355b2:
-        add esp,4
-    L_004355b5:
-        test edi,edi
-    L_004355b7:
-        jne short L_004355bf
-    L_004355b9:
-        pop edi
-    L_004355ba:
-        pop ebp
-    L_004355bb:
-        pop esi
-    L_004355bc:
-        ret 4
-    L_004355bf:
-        mov edx,dword ptr [esi]
-    L_004355c1:
-        push ebx
-    L_004355c2:
-        mov ecx,esi
-    L_004355c4:
-        call dword ptr [edx+10h]
-    L_004355c7:
-        mov ebx,eax
-    L_004355c9:
-        mov eax,dword ptr [esi]
-    L_004355cb:
-        push 0
-    L_004355cd:
-        push ebx
-    L_004355ce:
-        mov ecx,esi
-    L_004355d0:
-        call dword ptr [eax+18h]
-    L_004355d3:
-        test al,al
-    L_004355d5:
-        je short L_004355ed
-    L_004355d7:
-        mov edx,dword ptr [esi]
-    L_004355d9:
-        push ebp
-    L_004355da:
-        push edi
-    L_004355db:
-        mov ecx,esi
-    L_004355dd:
-        call dword ptr [edx+8]
-    L_004355e0:
-        test eax,eax
-    L_004355e2:
-        jne short L_004355f6
-    L_004355e4:
-        push edi
-    L_004355e5:
-        call asm_free_00452422
-    L_004355ea:
-        add esp,4
-    L_004355ed:
-        pop ebx
-    L_004355ee:
-        pop edi
-    L_004355ef:
-        pop ebp
-    L_004355f0:
-        xor eax,eax
-    L_004355f2:
-        pop esi
-    L_004355f3:
-        ret 4
-    L_004355f6:
-        mov eax,dword ptr [esi]
-    L_004355f8:
-        push 0
-    L_004355fa:
-        push ebx
-    L_004355fb:
-        mov ecx,esi
-    L_004355fd:
-        call dword ptr [eax+18h]
-    L_00435600:
-        pop ebx
-    L_00435601:
-        mov eax,edi
-    L_00435603:
-        pop edi
-    L_00435604:
-        pop ebp
-    L_00435605:
-        pop esi
-    L_00435606:
-        ret 4
-    }
-}
-
 // 0x00435610..0x00435688: ?File_ResolvePath@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_File_ResolvePath_00435610() {
@@ -430,69 +287,6 @@ extern "C" __declspec(naked) void __cdecl asm_File_ResolvePath_00435610() {
         pop esi
     L_00435688:
         ret
-    }
-}
-
-// 0x0044B4D0..0x0044B53E: ?File_ProbeExists@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_File_ProbeExists_0044b4d0() {
-    __asm {
-    L_0044b4d0:
-        push 4922A4h
-    L_0044b4d5:
-        call dword ptr [data_004660b0]
-    L_0044b4db:
-        mov al,byte ptr [data_0049231e]
-    L_0044b4e0:
-        push 0
-    L_0044b4e2:
-        push 8000080h
-    L_0044b4e7:
-        push 3
-    L_0044b4e9:
-        push 0
-    L_0044b4eb:
-        inc al
-    L_0044b4ed:
-        push 1
-    L_0044b4ef:
-        mov byte ptr [data_0049231e],al
-    L_0044b4f4:
-        mov eax,dword ptr [esp+18h]
-    L_0044b4f8:
-        push 80000000h
-    L_0044b4fd:
-        push eax
-    L_0044b4fe:
-        call dword ptr [data_004660c4]
-    L_0044b504:
-        cmp eax,0FFFFFFFFh
-    L_0044b507:
-        je short L_0044b529
-    L_0044b509:
-        push eax
-    L_0044b50a:
-        call dword ptr [data_004660cc]
-    L_0044b510:
-        push 4922A4h
-    L_0044b515:
-        call dword ptr [data_004660b4]
-    L_0044b51b:
-        dec byte ptr [data_0049231e]
-    L_0044b521:
-        mov eax,1
-    L_0044b526:
-        ret 4
-    L_0044b529:
-        push 4922A4h
-    L_0044b52e:
-        call dword ptr [data_004660b4]
-    L_0044b534:
-        dec byte ptr [data_0049231e]
-    L_0044b53a:
-        xor eax,eax
-    L_0044b53c:
-        ret 4
     }
 }
 
@@ -630,168 +424,6 @@ extern "C" __declspec(naked) void __cdecl asm_File_WriteWholeFile_0044b540() {
         pop ecx
     L_0044b617:
         ret 8
-    }
-}
-
-// 0x0044B620..0x0044B6A8: ?File_OpenSharedWrite@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_File_OpenSharedWrite_0044b620() {
-    __asm {
-    L_0044b620:
-        push 4922A4h
-    L_0044b625:
-        call dword ptr [data_004660b0]
-    L_0044b62b:
-        mov al,byte ptr [data_0049231e]
-    L_0044b630:
-        push 0
-    L_0044b632:
-        push 80h
-    L_0044b637:
-        push 2
-    L_0044b639:
-        push 0
-    L_0044b63b:
-        inc al
-    L_0044b63d:
-        push 1
-    L_0044b63f:
-        mov byte ptr [data_0049231e],al
-    L_0044b644:
-        mov eax,dword ptr [esp+18h]
-    L_0044b648:
-        push 40000000h
-    L_0044b64d:
-        push eax
-    L_0044b64e:
-        call dword ptr [data_004660c4]
-    L_0044b654:
-        cmp eax,0FFFFFFFFh
-    L_0044b657:
-        mov dword ptr [data_00474c38],eax
-    L_0044b65c:
-        jne short L_0044b6a4
-    L_0044b65e:
-        push 0
-    L_0044b660:
-        push 0
-    L_0044b662:
-        lea ecx,[esp+0Ch]
-    L_0044b666:
-        push ecx
-    L_0044b667:
-        push 400h
-    L_0044b66c:
-        call dword ptr [data_0046610c]
-    L_0044b672:
-        push eax
-    L_0044b673:
-        push 0
-    L_0044b675:
-        push 1300h
-    L_0044b67a:
-        call dword ptr [data_00466124]
-    L_0044b680:
-        mov edx,dword ptr [esp+4]
-    L_0044b684:
-        push edx
-    L_0044b685:
-        call dword ptr [data_00466128]
-    L_0044b68b:
-        push 4922A4h
-    L_0044b690:
-        call dword ptr [data_004660b4]
-    L_0044b696:
-        dec byte ptr [data_0049231e]
-    L_0044b69c:
-        mov eax,0FFFFFFFFh
-    L_0044b6a1:
-        ret 4
-    L_0044b6a4:
-        xor eax,eax
-    L_0044b6a6:
-        ret 4
-    }
-}
-
-// 0x0044B6B0..0x0044B738: ?File_OpenSharedRead@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_File_OpenSharedRead_0044b6b0() {
-    __asm {
-    L_0044b6b0:
-        push 4922A4h
-    L_0044b6b5:
-        call dword ptr [data_004660b0]
-    L_0044b6bb:
-        mov al,byte ptr [data_0049231e]
-    L_0044b6c0:
-        push 0
-    L_0044b6c2:
-        push 8000080h
-    L_0044b6c7:
-        push 3
-    L_0044b6c9:
-        push 0
-    L_0044b6cb:
-        inc al
-    L_0044b6cd:
-        push 1
-    L_0044b6cf:
-        mov byte ptr [data_0049231e],al
-    L_0044b6d4:
-        mov eax,dword ptr [esp+18h]
-    L_0044b6d8:
-        push 80000000h
-    L_0044b6dd:
-        push eax
-    L_0044b6de:
-        call dword ptr [data_004660c4]
-    L_0044b6e4:
-        cmp eax,0FFFFFFFFh
-    L_0044b6e7:
-        mov dword ptr [data_00474c38],eax
-    L_0044b6ec:
-        jne short L_0044b734
-    L_0044b6ee:
-        push 0
-    L_0044b6f0:
-        push 0
-    L_0044b6f2:
-        lea ecx,[esp+0Ch]
-    L_0044b6f6:
-        push ecx
-    L_0044b6f7:
-        push 400h
-    L_0044b6fc:
-        call dword ptr [data_0046610c]
-    L_0044b702:
-        push eax
-    L_0044b703:
-        push 0
-    L_0044b705:
-        push 1300h
-    L_0044b70a:
-        call dword ptr [data_00466124]
-    L_0044b710:
-        mov edx,dword ptr [esp+4]
-    L_0044b714:
-        push edx
-    L_0044b715:
-        call dword ptr [data_00466128]
-    L_0044b71b:
-        push 4922A4h
-    L_0044b720:
-        call dword ptr [data_004660b4]
-    L_0044b726:
-        dec byte ptr [data_0049231e]
-    L_0044b72c:
-        mov eax,0FFFFFFFFh
-    L_0044b731:
-        ret 4
-    L_0044b734:
-        xor eax,eax
-    L_0044b736:
-        ret 4
     }
 }
 
@@ -943,12 +575,28 @@ extern "C" __declspec(dllimport) DWORD __stdcall SetFilePointer(
 extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(
     HANDLE handle, DWORD* size_high);
 
+extern "C" void* __cdecl entry_malloc_00452706(unsigned int size);
+extern "C" void __cdecl entry_free_00452422(void* memory);
+
 struct FileCriticalSection;
 extern "C" HANDLE g_file_probe_handle;
 extern "C" FileCriticalSection g_file_critical_section;
 extern "C" unsigned char g_file_critical_depth;
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
     FileCriticalSection* section);
+
+// The KERNEL32 slots at 0x004660B0..0x00466128 are bound by the retail layout
+// script under their slot names, so the calls go through the slot's stored
+// pointer exactly as the retail import thunks do.
+typedef void (__stdcall* EnterCriticalSectionFn)(void* section);
+typedef HANDLE (__stdcall* CreateFileFn)(LPCSTR path, DWORD access, DWORD share,
+                                         void* attributes, DWORD creation,
+                                         DWORD flags, HANDLE template_file);
+typedef DWORD (__stdcall* GetLastErrorFn)(void);
+typedef DWORD (__stdcall* FormatMessageFn)(DWORD flags, void* source, DWORD message_id,
+                                           DWORD language_id, LPSTR* buffer,
+                                           DWORD buffer_size, void* arguments);
+typedef HANDLE (__stdcall* LocalFreeFn)(void* memory);
 
 namespace {
 const DWORD kReadAccess = 0x80000000;
@@ -1004,6 +652,89 @@ BYTE FileHandle::Seek(LONG distance, DWORD origin) {
         return 0;
     SetFilePointer(handle, distance, 0, origin);
     return 1;
+}
+
+// 0x00435580 - Read the whole file into a fresh heap block when the file is
+// no larger than the caller's capacity; the position is restored around the
+// read and the block is released if either step fails.
+void* FileHandle::ReadWhole(DWORD capacity) {
+    if (access != kReadAccess)
+        return 0;
+    DWORD size = GetSize();
+    if (size > capacity)
+        return 0;
+    void* buffer = entry_malloc_00452706(size);
+    if (buffer == 0)
+        return 0;
+    DWORD position = Tell();
+    if (Seek(position, 0) == 0)
+        return 0;
+    if (Read(buffer, size) == 0) {
+        entry_free_00452422(buffer);
+        return 0;
+    }
+    Seek(position, 0);
+    return buffer;
+}
+
+// 0x0044B4D0 - Probe one path inside the file subsystem's critical section:
+// open it for reading, close it at once and report whether it was there. The
+// nesting counter brackets the whole probe.
+int __stdcall asm_File_ProbeExists_0044b4d0(LPCSTR path) {
+    (*(EnterCriticalSectionFn*)&data_004660b0)(&g_file_critical_section);
+    ++g_file_critical_depth;
+    HANDLE handle = (*(CreateFileFn*)&data_004660c4)(
+        path, 0x80000000, 1, 0, 3, 0x8000080, 0);
+    if (handle != (HANDLE)-1) {
+        CloseHandle(handle);
+        LeaveCriticalSection(&g_file_critical_section);
+        --g_file_critical_depth;
+        return 1;
+    }
+    LeaveCriticalSection(&g_file_critical_section);
+    --g_file_critical_depth;
+    return 0;
+}
+
+// 0x0044B620 - Open the shared probe file for writing, truncating it. A
+// failure formats the Win32 error text, releases it again and unwinds the
+// critical section, reporting -1; the shared handle is -1 after a failure.
+int __stdcall asm_File_OpenSharedWrite_0044b620(LPCSTR path) {
+    (*(EnterCriticalSectionFn*)&data_004660b0)(&g_file_critical_section);
+    ++g_file_critical_depth;
+    HANDLE handle = (*(CreateFileFn*)&data_004660c4)(
+        path, 0x40000000, 1, 0, 2, 0x80, 0);
+    g_file_probe_handle = handle;
+    if (handle == (HANDLE)-1) {
+        LPSTR message;
+        (*(FormatMessageFn*)&data_00466124)(
+            0x1300, 0, (*(GetLastErrorFn*)&data_0046610c)(), 0x400, &message, 0, 0);
+        (*(LocalFreeFn*)&data_00466128)(message);
+        LeaveCriticalSection(&g_file_critical_section);
+        --g_file_critical_depth;
+        return -1;
+    }
+    return 0;
+}
+
+// 0x0044B6B0 - Open the shared probe file for reading, failing the same way as
+// the write open does.
+int __stdcall asm_File_OpenSharedRead_0044b6b0(LPCSTR path) {
+    (*(EnterCriticalSectionFn*)&data_004660b0)(&g_file_critical_section);
+    ++g_file_critical_depth;
+    HANDLE handle = (*(CreateFileFn*)&data_004660c4)(
+        path, 0x80000000, 1, 0, 3, 0x8000080, 0);
+    g_file_probe_handle = handle;
+    if (handle == (HANDLE)-1) {
+        LPSTR message;
+        (*(FormatMessageFn*)&data_00466124)(
+            0x1300, 0, (*(GetLastErrorFn*)&data_0046610c)(), 0x400, &message, 0, 0);
+        (*(LocalFreeFn*)&data_00466128)(message);
+        LeaveCriticalSection(&g_file_critical_section);
+        --g_file_critical_depth;
+        return -1;
+    }
+    return 0;
 }
 
 // 0x0044B7E0 - Close the shared probe handle, release the file subsystem's

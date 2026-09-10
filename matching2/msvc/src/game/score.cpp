@@ -2,6 +2,8 @@
 #include "asm_symbols.hpp"
 #include "th10/game/score.hpp"
 
+extern "C" void* __cdecl memset(void* destination, int value, unsigned int size);
+
 // 0x00408030..0x004080F6: ScoreState_ActivateFromResultRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ScoreState_ActivateFromResultRetail_00408030() {
@@ -958,86 +960,46 @@ extern "C" __declspec(naked) void __cdecl asm_Retire_ScoreRuntimeCallbacks_00409
 }
 
 // 0x0040AC20..0x0040AC8C: ?UpdateInputState@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_UpdateInputState_0040ac20() {
-    __asm {
-    L_0040ac20:
-        push ecx
-    L_0040ac21:
-        xor eax,eax
-    L_0040ac23:
-        mov ax,word ptr [ecx+2Ch]
-    L_0040ac27:
-        push ebx
-    L_0040ac28:
-        push esi
-    L_0040ac29:
-        mov word ptr [ecx+4],0
-    L_0040ac2f:
-        mov edx,10h
-    L_0040ac34:
-        mov ebx,1
-    L_0040ac39:
-        mov dword ptr [esp+8],eax
-    L_0040ac3d:
-        lea eax,[ecx+38h]
-    L_0040ac40:
-        test byte ptr [esp+8],bl
-    L_0040ac44:
-        je short L_0040ac5a
-    L_0040ac46:
-        inc word ptr [eax]
-    L_0040ac49:
-        cmp word ptr [eax],1Ah
-    L_0040ac4d:
-        jb short L_0040ac5f
-    L_0040ac4f:
-        or word ptr [ecx+30h],bx
-    L_0040ac53:
-        TH10_ADD_M16_IMM16(TH10_R32_EAX, 0xfff8)
-    L_0040ac58:
-        jmp short L_0040ac5f
-    L_0040ac5a:
-        mov word ptr [eax],0
-    L_0040ac5f:
-        shr word ptr [esp+8],1
-    L_0040ac64:
-        add eax,2
-    L_0040ac67:
-        dec edx
-    L_0040ac68:
-        jne short L_0040ac40
-    L_0040ac6a:
-        xor eax,eax
-    L_0040ac6c:
-        mov ax,word ptr [ecx+2Ch]
-    L_0040ac70:
-        xor edx,edx
-    L_0040ac72:
-        mov dx,word ptr [ecx+2Eh]
-    L_0040ac76:
-        xor dx,ax
-    L_0040ac79:
-        mov esi,edx
-    L_0040ac7b:
-        and esi,eax
-    L_0040ac7d:
-        not eax
-    L_0040ac7f:
-        mov word ptr [ecx+32h],si
-    L_0040ac83:
-        and eax,edx
-    L_0040ac85:
-        pop esi
-    L_0040ac86:
-        mov word ptr [ecx+34h],ax
-    L_0040ac8a:
-        pop ebx
-    L_0040ac8b:
-        pop ecx
-    L_0040ac8c:
-        ret
+// Advances the sixteen key-repeat counters and then publishes the pressed and
+// released edge masks derived from the current and previous key words.
+struct KeyRepeatState {
+    unsigned char unknown_00[4];
+    unsigned short pressed;              // +0x04
+    unsigned char unknown_06[0x26];
+    unsigned short held_keys;            // +0x2C
+    unsigned short previous_keys;        // +0x2E
+    unsigned short repeat_flags;         // +0x30
+    unsigned short new_press;            // +0x32
+    unsigned short new_release;          // +0x34
+    unsigned short unknown_36;
+    unsigned short repeat_counters[16];  // +0x38
+    unsigned short Update();
+};
+typedef char KeyRepeatState_size_must_be_88[sizeof(KeyRepeatState) == 0x58 ? 1 : -1];
+
+unsigned short KeyRepeatState::Update() {
+    unsigned short held = held_keys;
+    pressed = 0;
+    unsigned short* counter = repeat_counters;
+    for (int index = 0; index < 16; ++index) {
+        if (held & 1) {
+            if (++*counter >= 26) {
+                repeat_flags |= 1;
+                *counter -= 8;
+            }
+        } else {
+            *counter = 0;
+        }
+        held >>= 1;
+        ++counter;
     }
+    unsigned short now = held_keys;
+    unsigned short before = previous_keys;
+    unsigned short changed = now ^ before;
+    new_press = changed & now;
+    unsigned short released = changed & ~now;
+    new_release = released;
+    return released;
 }
 
 // 0x0040AC90..0x0040ACB4: ?SetInputMode@@
@@ -1166,70 +1128,50 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {
 }
 
 // 0x0041C030..0x0041C091: ScoreObject_Initialize
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreObject_Initialize_0041c030() {
-    __asm {
-    L_0041c030:
-        mov dword ptr [edx],46DAB0h
-    L_0041c036:
-        and dword ptr [edx+20h],0FFFFFFFEh
-    L_0041c03a:
-        lea eax,[edx+68h]
-    L_0041c03d:
-        mov ecx,12h
-    L_0041c042:
-        push edi
-    L_0041c043:
-        and dword ptr [eax],0FFFFFFFEh
-    L_0041c046:
-        add eax,34h
-    L_0041c049:
-        dec ecx
-    L_0041c04a:
-        jne short L_0041c043
-    L_0041c04c:
-        and dword ptr [edx+420h],0FFFFFFFEh
-    L_0041c053:
-        xor eax,eax
-    L_0041c055:
-        mov ecx,109h
-    L_0041c05a:
-        mov edi,edx
-    L_0041c05c:
-        rep stosd
-    L_0041c05e:
-        mov eax,dword ptr [edx+20h]
-    L_0041c061:
-        xor ecx,ecx
-    L_0041c063:
-        test al,1
-    L_0041c065:
-        pop edi
-    L_0041c066:
-        jne short L_0041c082
-    L_0041c068:
-        or eax,1
-    L_0041c06b:
-        mov dword ptr [edx+14h],ecx
-    L_0041c06e:
-        mov dword ptr [edx+10h],0FFF0BDC1h
-    L_0041c075:
-        mov dword ptr [edx+18h],ecx
-    L_0041c078:
-        mov dword ptr [edx+1Ch],476F78h
-    L_0041c07f:
-        mov dword ptr [edx+20h],eax
-    L_0041c082:
-        mov dword ptr [edx+14h],ecx
-    L_0041c085:
-        mov dword ptr [edx+18h],ecx
-    L_0041c088:
-        mov dword ptr [edx+10h],0FFFFFFFFh
-    L_0041c08f:
-        mov eax,edx
-    L_0041c091:
-        ret
+// Clears every per-record flag word, wipes the object and then sets up the
+// score timer. The object arrives in EDX, so the first __fastcall argument is
+// the unused ECX slot.
+extern "C" unsigned char data_0046dab0;
+
+struct ScoreRecord {
+    unsigned int flags;              // +0x00
+    unsigned char unknown_04[0x30];
+};
+typedef char ScoreRecord_size_must_be_52[sizeof(ScoreRecord) == 0x34 ? 1 : -1];
+
+struct ScoreObject {
+    void* vtable;                    // +0x000
+    unsigned char unknown_004[0x0C];
+    FrameTimer timer;                // +0x010
+    unsigned char unknown_024[0x44];
+    ScoreRecord records[18];         // +0x068
+    FrameTimer tail_timer;           // +0x410
+};
+typedef char ScoreObject_size_must_be_1060[sizeof(ScoreObject) == 0x424 ? 1 : -1];
+
+ScoreObject* __fastcall ScoreObject_Initialize(void*, ScoreObject* self) {
+    self->vtable = &data_0046dab0;
+    // The clear goes through a typed pointer: the plain member form makes MSVC
+    // schedule the read-modify-write ahead of the vtable store, which no longer
+    // matches the retail bytes.
+    FrameTimer* timer = &self->timer;
+    timer->flags &= ~1u;
+    for (int index = 0; index < 18; ++index)
+        self->records[index].flags &= ~1u;
+    self->tail_timer.flags &= ~1u;
+    memset(self, 0, sizeof(ScoreObject));
+    unsigned int flags = self->timer.flags;
+    if ((flags & 1) == 0) {
+        self->timer.current = 0;
+        self->timer.previous = -999999;
+        self->timer.elapsed = 0.0f;
+        self->timer.speed = (const float*)&data_00476f78;
+        self->timer.flags = flags | 1u;
     }
+    self->timer.current = 0;
+    self->timer.elapsed = 0.0f;
+    self->timer.previous = -1;
+    return self;
 }
 
 // 0x0041C1C0..0x0041C282: ScoreExtendedObject_DestroyRetail

@@ -2429,74 +2429,7 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationManager_CreateSecondaryFr
     }
 }
 
-// 0x004491C0..0x00449208: ?AnimationManager_Find@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_Find_004491c0() {
-    __asm {
-    L_004491c0:
-        mov ecx,dword ptr [esp+4]
-    L_004491c4:
-        test ecx,ecx
-    L_004491c6:
-        jne short L_004491cd
-    L_004491c8:
-        xor eax,eax
-    L_004491ca:
-        ret 4
-    L_004491cd:
-        mov eax,dword ptr [edx+72DAD4h]
-    L_004491d3:
-        test eax,eax
-    L_004491d5:
-        push esi
-    L_004491d6:
-        je short L_004491e5
-    L_004491d8:
-        mov esi,dword ptr [eax]
-    L_004491da:
-        cmp dword ptr [esi],ecx
-    L_004491dc:
-        je short L_00449203
-    L_004491de:
-        mov eax,dword ptr [eax+4]
-    L_004491e1:
-        test eax,eax
-    L_004491e3:
-        jne short L_004491d8
-    L_004491e5:
-        mov eax,dword ptr [edx+72DADCh]
-    L_004491eb:
-        test eax,eax
-    L_004491ed:
-        je short L_004491fd
-    L_004491ef:
-        nop
-    L_004491f0:
-        mov edx,dword ptr [eax]
-    L_004491f2:
-        cmp dword ptr [edx],ecx
-    L_004491f4:
-        je short L_00449203
-    L_004491f6:
-        mov eax,dword ptr [eax+4]
-    L_004491f9:
-        test eax,eax
-    L_004491fb:
-        jne short L_004491f0
-    L_004491fd:
-        xor eax,eax
-    L_004491ff:
-        pop esi
-    L_00449200:
-        ret 4
-    L_00449203:
-        mov eax,dword ptr [eax]
-    L_00449205:
-        pop esi
-    L_00449206:
-        ret 4
-    }
-}
+// 0x004491C0..0x00449208: ?AnimationManager_Find@@ (recovered below)
 
 // 0x00449210..0x00449245: ?AnimationManager_SetStopFrame@@
 // Naked body preserves the retail register/stack ABI.
@@ -2602,56 +2535,7 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SetStopFrameAndRu
     }
 }
 
-// 0x004492A0..0x004492E1: ?AnimationManager_SetFlag@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SetFlag_004492a0() {
-    __asm {
-    L_004492a0:
-        mov eax,dword ptr [esp+4]
-    L_004492a4:
-        push eax
-    L_004492a5:
-        call asm_AnimationManager_Find_004491c0
-    L_004492aa:
-        test eax,eax
-    L_004492ac:
-        je short L_004492df
-    L_004492ae:
-        mov ecx,dword ptr [eax+35Ch]
-    L_004492b4:
-        mov edx,4000000h
-    L_004492b9:
-        or ecx,edx
-    L_004492bb:
-        mov dword ptr [eax+35Ch],ecx
-    L_004492c1:
-        mov ecx,dword ptr [eax+18h]
-    L_004492c4:
-        test ecx,ecx
-    L_004492c6:
-        jne short L_004492df
-    L_004492c8:
-        mov eax,dword ptr [eax+14h]
-    L_004492cb:
-        test eax,eax
-    L_004492cd:
-        je short L_004492df
-    L_004492cf:
-        nop
-    L_004492d0:
-        mov ecx,dword ptr [eax]
-    L_004492d2:
-        or dword ptr [ecx+35Ch],edx
-    L_004492d8:
-        mov eax,dword ptr [eax+4]
-    L_004492db:
-        test eax,eax
-    L_004492dd:
-        jne short L_004492d0
-    L_004492df:
-        ret 4
-    }
-}
+// 0x004492A0..0x004492E1: ?AnimationManager_SetFlag@@ (recovered below)
 
 // 0x004492F0..0x00449349: ?AnimationManager_SetPosition@@
 // Naked body preserves the retail register/stack ABI.
@@ -3415,4 +3299,69 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00449950_00449950() {
     L_004499f0:
         ret
     }
+}
+
+// Recovered semantic C++ definitions.
+
+// The animation manager methods take the animation context in EDX (the second
+// fastcall register) and the script id on the stack; ECX carries the manager
+// object and is forwarded unchanged along the call chain.
+
+// One node of an animation lookup bucket (also the object returned by the
+// lookup: the first word of a registered object is its script id).
+struct AnimationLookupEntry {
+    AnimationLookupEntry* object;       // +0x00: object registered by this node
+    AnimationLookupEntry* next;         // +0x04: next node of the bucket list
+    unsigned char reserved_08[0x0C];
+    AnimationLookupEntry* children;     // +0x14: head of the child node list
+    int children_flagged;               // +0x18: children already flagged
+    unsigned char reserved_1c[0x340];
+    unsigned int flags;                  // +0x35C
+};
+
+// The lookup buckets live far inside the animation context, the large runtime
+// structure the manager receives in EDX.
+struct AnimationLookupContext {
+    unsigned char reserved[0x72DAD4];
+    AnimationLookupEntry* primary_bucket;      // +0x72DAD4
+    int reserved_2;                            // +0x72DAD8
+    AnimationLookupEntry* secondary_bucket;    // +0x72DADC
+};
+
+class AnimationManager {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, int id);
+    void* __fastcall SetFlag(AnimationLookupContext* context, int id);
+};
+
+// 0x004491C0: AnimationManager_Find - look a script id up in the primary and
+// then the secondary bucket, returning the registered object.
+void* __fastcall AnimationManager::Find(AnimationLookupContext* context, int id) {
+    if (!id)
+        return 0;
+    for (AnimationLookupEntry* node = context->primary_bucket; node != 0; node = node->next)
+        if (*(int*)node->object == id)
+            return node->object;
+    for (AnimationLookupEntry* node = context->secondary_bucket; node != 0; node = node->next)
+        if (*(int*)node->object == id)
+            return node->object;
+    return 0;
+}
+
+// 0x004492A0: AnimationManager_SetFlag - mark the object registered under a
+// script id, and its not-yet-flagged children, as script owned.
+typedef void* (__fastcall* AnimationFindFn)(AnimationManager*, AnimationLookupContext*, int);
+
+void* __fastcall AnimationManager::SetFlag(AnimationLookupContext* context, int id) {
+    // The lookup is the sibling entry point; the retail call keeps the manager
+    // object in ECX and the context in EDX, so it goes through its fixed address.
+    AnimationLookupEntry* entry = (AnimationLookupEntry*)
+        ((AnimationFindFn)asm_AnimationManager_Find_004491c0)(this, context, id);
+    if (entry) {
+        entry->flags |= 0x4000000;
+        if (!entry->children_flagged)
+            for (entry = entry->children; entry != 0; entry = entry->next)
+                entry->object->flags |= 0x4000000;
+    }
+    return entry;
 }

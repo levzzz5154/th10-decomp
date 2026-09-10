@@ -1,4 +1,6 @@
+#include <string.h>
 #include "asm_encoding.hpp"
+#include "th10/platform/windows_types.hpp"
 #include "asm_symbols.hpp"
 #include "th10/platform/sound_buffer.hpp"
 
@@ -131,184 +133,27 @@ extern "C" __declspec(naked) void __cdecl asm_Platform_LaunchProcess_00436570() 
     }
 }
 
-// 0x0044BD10..0x0044BE13: ?Platform_GetOsVersionCode@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_GetOsVersionCode_0044bd10() {
-    __asm {
-    L_0044bd10:
-        push ebp
-    L_0044bd11:
-        mov ebp,esp
-    L_0044bd13:
-        and esp,0FFFFFFF8h
-    L_0044bd16:
-        sub esp,0A4h
-    L_0044bd1c:
-        mov eax,dword ptr [data_00473660]
-    L_0044bd21:
-        xor eax,ebp
-    L_0044bd23:
-        push edi
-    L_0044bd24:
-        mov dword ptr [esp+0A4h],eax
-    L_0044bd2b:
-        xor eax,eax
-    L_0044bd2d:
-        mov ecx,25h
-    L_0044bd32:
-        lea edi,[esp+8]
-    L_0044bd36:
-        rep stosd
-    L_0044bd38:
-        lea eax,[esp+8]
-    L_0044bd3c:
-        push eax
-    L_0044bd3d:
-        mov dword ptr [esp+0Ch],94h
-    L_0044bd45:
-        call dword ptr [data_0046612c]
-    L_0044bd4b:
-        mov eax,dword ptr [esp+18h]
-    L_0044bd4f:
-        sub eax,0
-    L_0044bd52:
-        je asm_target_0044bdfc
-    L_0044bd58:
-        dec eax
-    L_0044bd59:
-        je short L_0044bdb6
-    L_0044bd5b:
-        dec eax
-    L_0044bd5c:
-        je short L_0044bd74
-    L_0044bd5e:
-        or eax,0FFFFFFFFh
-    L_0044bd61:
-        pop edi
-    L_0044bd62:
-        mov ecx,dword ptr [esp+0A0h]
-    L_0044bd69:
-        xor ecx,ebp
-    L_0044bd6b:
-        call asm_security_check_cookie_00458ea5
-    L_0044bd70:
-        mov esp,ebp
-    L_0044bd72:
-        pop ebp
-    L_0044bd73:
-        ret
-    L_0044bd74:
-        mov eax,dword ptr [esp+0Ch]
-    L_0044bd78:
-        cmp eax,5
-    L_0044bd7b:
-        jne short L_0044bd95
-    L_0044bd7d:
-        mov eax,7D0h
-    L_0044bd82:
-        pop edi
-    L_0044bd83:
-        mov ecx,dword ptr [esp+0A0h]
-    L_0044bd8a:
-        xor ecx,ebp
-    L_0044bd8c:
-        call asm_security_check_cookie_00458ea5
-    L_0044bd91:
-        mov esp,ebp
-    L_0044bd93:
-        pop ebp
-    L_0044bd94:
-        ret
-    L_0044bd95:
-        mov edx,dword ptr [esp+10h]
-    L_0044bd99:
-        imul eax,64h
-    L_0044bd9c:
-        add eax,edx
-    L_0044bd9e:
-        lea eax,[eax+eax*4]
-    L_0044bda1:
-        shl eax,1
-    L_0044bda3:
-        pop edi
-    L_0044bda4:
-        mov ecx,dword ptr [esp+0A0h]
-    L_0044bdab:
-        xor ecx,ebp
-    L_0044bdad:
-        call asm_security_check_cookie_00458ea5
-    L_0044bdb2:
-        mov esp,ebp
-    L_0044bdb4:
-        pop ebp
-    L_0044bdb5:
-        ret
-    L_0044bdb6:
-        mov eax,dword ptr [esp+0Ch]
-    L_0044bdba:
-        cmp eax,4
-    L_0044bdbd:
-        jne short L_0044bde0
-    L_0044bdbf:
-        mov eax,dword ptr [esp+10h]
-    L_0044bdc3:
-        neg eax
-    L_0044bdc5:
-        sbb eax,eax
-    L_0044bdc7:
-        and eax,3
-    L_0044bdca:
-        add eax,5Fh
-    L_0044bdcd:
-        pop edi
-    L_0044bdce:
-        mov ecx,dword ptr [esp+0A0h]
-    L_0044bdd5:
-        xor ecx,ebp
-    L_0044bdd7:
-        call asm_security_check_cookie_00458ea5
-    L_0044bddc:
-        mov esp,ebp
-    L_0044bdde:
-        pop ebp
-    L_0044bddf:
-        ret
-    L_0044bde0:
-        mov ecx,dword ptr [esp+10h]
-    L_0044bde4:
-        imul eax,64h
-    L_0044bde7:
-        add eax,ecx
-    L_0044bde9:
-        pop edi
-    L_0044bdea:
-        mov ecx,dword ptr [esp+0A0h]
-    L_0044bdf1:
-        xor ecx,ebp
-    L_0044bdf3:
-        call asm_security_check_cookie_00458ea5
-    L_0044bdf8:
-        mov esp,ebp
-    L_0044bdfa:
-        pop ebp
-    L_0044bdfb:
-        ret
-    L_0044bdfc:
-        mov ecx,dword ptr [esp+0A4h]
-    L_0044be03:
-        xor ecx,ebp
-    L_0044be05:
-        mov eax,1Fh
-    L_0044be0a:
-        pop edi
-    L_0044be0b:
-        call asm_security_check_cookie_00458ea5
-    L_0044be10:
-        mov esp,ebp
-    L_0044be12:
-        pop ebp
-    L_0044be13:
-        ret
+extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(OSVERSIONINFOA*);
+
+int Platform_GetOsVersionCode() {
+    OSVERSIONINFOA version_info;
+    memset(&version_info, 0, sizeof(version_info));
+    version_info.dwOSVersionInfoSize = sizeof(version_info);
+    GetVersionExA(&version_info);
+
+    switch (version_info.dwPlatformId) {
+    case 0:
+        return 31;
+    case 1:
+        if (version_info.dwMajorVersion == 4)
+            return version_info.dwMinorVersion != 0 ? 98 : 95;
+        return version_info.dwMajorVersion * 100 + version_info.dwMinorVersion;
+    case 2:
+        if (version_info.dwMajorVersion == 5)
+            return 2000;
+        return (version_info.dwMajorVersion * 100 + version_info.dwMinorVersion) * 10;
+    default:
+        return -1;
     }
 }
 

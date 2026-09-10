@@ -20,6 +20,20 @@ The output is `matching2/build/msvc/th10.exe`. Every build checks all bytes;
 copy and get detailed mismatch diagnostics, use
 `make MSVC_ARGS='--verify /path/to/th10.exe'`.
 
+`matching2/tools/matching/probe.py` gives the same byte gate for one
+translation unit in about a second, which is how a single function is recovered
+and checked without a full rebuild:
+
+```sh
+python3 matching2/tools/matching/probe.py --source src/game/score.cpp
+```
+
+It compiles the unit through the build's own compile path, requires every region
+the unit owns to equal the retail bytes, and checks that each linker-filled field
+resolves to the address retail points it at. A converted function replaces its
+`__declspec(naked)` body and changes the region's `symbol` to the name MSVC emits;
+`--proposal` applies a candidate region list before the comparison.
+
 - `matching2/msvc/src/` and `include/`: matching implementations and types.
 - `matching2/msvc/regions.json` and `layout/`: code placement and compiler settings.
 - `matching2/msvc/pe_layout.json` and `matching2/reference/data/`: executable

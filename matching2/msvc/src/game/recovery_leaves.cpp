@@ -2,6 +2,14 @@
 #include "asm_symbols.hpp"
 #include "th10/math/angle.hpp"
 
+// Recovered semantic definitions: the platform prototypes they call and the
+// kernel32 entry point reached through a dllimport slot.
+#include "th10/platform/sound_buffer.hpp"
+#include "th10/platform/windows_types.hpp"
+
+void __cdecl operator delete(void*);
+extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
+
 // 0x00401520..0x00401529: GameThread_RunQueueLeaf
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_GameThread_RunQueueLeaf_00401520() {
@@ -510,35 +518,18 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_ResetEmitter_0040c9a0() {
     }
 }
 
-// 0x0040CC50..0x0040CC6E: Bullet_DeletingDestructor
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Bullet_DeletingDestructor_0040cc50() {
-    __asm {
-    L_0040cc50:
-        push esi
-    L_0040cc51:
-        mov esi,ecx
-    L_0040cc53:
-        push esi
-    L_0040cc54:
-        call asm_FUN_0040dae0_0040dae0
-    L_0040cc59:
-        test byte ptr [esp+8],1
-    L_0040cc5e:
-        je short L_0040cc69
-    L_0040cc60:
-        push esi
-    L_0040cc61:
-        call asm_free_004524a1
-    L_0040cc66:
-        add esp,4
-    L_0040cc69:
-        mov eax,esi
-    L_0040cc6b:
-        pop esi
-    L_0040cc6c:
-        ret 4
-    }
+// 0x0040CC50 - scalar deleting destructor for the bullet object: destroy the
+// bullet through its own release entry, then free it on request. The delete
+// flag is the retail first stack argument, so the second __fastcall register
+// argument (EDX) is unused. The bullet destructor still lives in inline
+// assembly, so it is called through its fixed retail prototype.
+typedef void (__stdcall* BulletDestroyFn)(void* bullet);
+
+void* __fastcall Bullet_DeletingDestructor(void* bullet, unsigned int unused, unsigned int flags) {
+    ((BulletDestroyFn)asm_FUN_0040dae0_0040dae0)(bullet);
+    if (flags & 1)
+        operator delete(bullet);
+    return bullet;
 }
 
 // 0x00412720..0x0041274F: Ecl_SetResourceSlot
@@ -4046,131 +4037,67 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeInterfaceArray_
     }
 }
 
-// 0x0044CF00..0x0044CF1D: ?Platform_DeletingDestructor@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_DeletingDestructor_0044cf00() {
-    __asm {
-    L_0044cf00:
-        push esi
-    L_0044cf01:
-        mov esi,ecx
-    L_0044cf03:
-        call asm_Platform_ReleaseOwnedArray_0044d080
-    L_0044cf08:
-        test byte ptr [esp+8],1
-    L_0044cf0d:
-        je short L_0044cf18
-    L_0044cf0f:
-        push esi
-    L_0044cf10:
-        call asm_free_004524a1
-    L_0044cf15:
-        add esp,4
-    L_0044cf18:
-        mov eax,esi
-    L_0044cf1a:
-        pop esi
-    L_0044cf1b:
-        ret 4
-    }
+// 0x0044CF00 - scalar deleting destructor for the owned-array object: release
+// the owned interfaces first, then free the object when the caller asks for it.
+// The delete flag is the retail first stack argument, so the second __fastcall
+// register argument (EDX) is unused.
+void* __fastcall PlatformOwnedArray_DeletingDestructor(PlatformOwnedArray* owner,
+                                                       unsigned int unused, unsigned int flags) {
+    Platform_ReleaseOwnedArray(owner);
+    if (flags & 1)
+        operator delete(owner);
+    return owner;
 }
 
-// 0x0044D080..0x0044D107: ?Platform_ReleaseOwnedArray@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_ReleaseOwnedArray_0044d080() {
-    __asm {
-    L_0044d080:
-        push esi
-    L_0044d081:
-        mov esi,ecx
-    L_0044d083:
-        mov eax,dword ptr [esi+10h]
-    L_0044d086:
-        push edi
-    L_0044d087:
-        xor edi,edi
-    L_0044d089:
-        test eax,eax
-    L_0044d08b:
-        mov dword ptr [esi],4705D8h
-    L_0044d091:
-        jbe short L_0044d0ba
-    L_0044d093:
-        mov eax,dword ptr [esi+4]
-    L_0044d096:
-        mov ecx,dword ptr [eax+edi*4]
-    L_0044d099:
-        test ecx,ecx
-    L_0044d09b:
-        lea eax,[eax+edi*4]
-    L_0044d09e:
-        je short L_0044d0b2
-    L_0044d0a0:
-        mov eax,ecx
-    L_0044d0a2:
-        mov ecx,dword ptr [eax]
-    L_0044d0a4:
-        push eax
-    L_0044d0a5:
-        call dword ptr [ecx+8]
-    L_0044d0a8:
-        mov edx,dword ptr [esi+4]
-    L_0044d0ab:
-        mov dword ptr [edx+edi*4],0
-    L_0044d0b2:
-        mov eax,dword ptr [esi+10h]
-    L_0044d0b5:
-        inc edi
-    L_0044d0b6:
-        cmp edi,eax
-    L_0044d0b8:
-        jb short L_0044d093
-    L_0044d0ba:
-        mov eax,dword ptr [esi+4]
-    L_0044d0bd:
-        test eax,eax
-    L_0044d0bf:
-        je short L_0044d0d1
-    L_0044d0c1:
-        push eax
-    L_0044d0c2:
-        call asm_free_004524a1
-    L_0044d0c7:
-        add esp,4
-    L_0044d0ca:
-        mov dword ptr [esi+4],0
-    L_0044d0d1:
-        mov edi,dword ptr [esi+0Ch]
-    L_0044d0d4:
-        test edi,edi
-    L_0044d0d6:
-        je short L_0044d105
-    L_0044d0d8:
-        cmp dword ptr [edi+78h],1
-    L_0044d0dc:
-        jne short L_0044d0f5
-    L_0044d0de:
-        mov eax,dword ptr [edi+8Ch]
-    L_0044d0e4:
-        push eax
-    L_0044d0e5:
-        call dword ptr [data_004660cc]
-    L_0044d0eb:
-        mov dword ptr [edi+8Ch],0FFFFFFFFh
-    L_0044d0f5:
-        push edi
-    L_0044d0f6:
-        call asm_free_004524a1
-    L_0044d0fb:
-        add esp,4
-    L_0044d0fe:
-        mov dword ptr [esi+0Ch],0
-    L_0044d105:
-        pop edi
-    L_0044d106:
-        pop esi
-    L_0044d107:
-        ret
+// 0x0044D080 - release everything the owned-array object holds: every interface
+// in the owned array, the array itself, and the playback device. The object
+// returns to the base table at 0x004705D8 first.
+//
+// th10/platform/sound_buffer.hpp names only the vtable prefix that the
+// sound-buffer leaves touch, so the complete layout used here is declared
+// locally.
+struct OwnedInterface {
+    virtual unsigned long __stdcall QueryInterface(void* id, void** object) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+};
+
+struct OwnedPlaybackDevice {
+    unsigned int reserved_00[0x1E];   // +0x00..+0x77
+    unsigned int state;               // +0x78, one while the handle is owned
+    unsigned int reserved_7C[4];      // +0x7C..+0x8B
+    HANDLE handle;                    // +0x8C
+};
+
+struct PlatformOwnedArrayFields {
+    void* vtable;                     // +0x00
+    OwnedInterface** elements;        // +0x04, owned interface pointers
+    unsigned int reserved_08;         // +0x08
+    OwnedPlaybackDevice* device;      // +0x0C, owned playback device
+    unsigned int element_count;       // +0x10
+};
+
+void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner) {
+    PlatformOwnedArrayFields* fields = (PlatformOwnedArrayFields*)owner;
+    fields->vtable = (void*)0x004705D8;
+    for (unsigned int index = 0; index < fields->element_count; ++index) {
+        if (fields->elements[index]) {
+            fields->elements[index]->Release();
+            fields->elements[index] = 0;
+        }
+    }
+    if (fields->elements) {
+        operator delete(fields->elements);
+        fields->elements = 0;
+    }
+    OwnedPlaybackDevice* device = fields->device;
+    if (device) {
+        if (device->state == 1) {
+            CloseHandle(device->handle);
+            device->handle = (HANDLE)-1;
+        }
+        operator delete(device);
+        fields->device = 0;
     }
 }
 
@@ -4701,33 +4628,16 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeSingleInterface
     }
 }
 
-// 0x0044D710..0x0044D72D: ?Platform_DeletingDestructorVtable@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_DeletingDestructorVtable_0044d710() {
-    __asm {
-    L_0044d710:
-        push esi
-    L_0044d711:
-        mov esi,ecx
-    L_0044d713:
-        call asm_SoundBuffer_DestructBaseRetail_0044d730
-    L_0044d718:
-        test byte ptr [esp+8],1
-    L_0044d71d:
-        je short L_0044d728
-    L_0044d71f:
-        push esi
-    L_0044d720:
-        call asm_free_004524a1
-    L_0044d725:
-        add esp,4
-    L_0044d728:
-        mov eax,esi
-    L_0044d72a:
-        pop esi
-    L_0044d72b:
-        ret 4
-    }
+// 0x0044D710 - scalar deleting destructor for the sound-buffer object: restore
+// the derived table through its base destructor, then free the object on
+// request. The delete flag is the retail first stack argument, so the second
+// __fastcall register argument (EDX) is unused.
+void* __fastcall SoundBuffer_DeletingDestructor(SoundBuffer* sound_buffer, unsigned int unused,
+                                                unsigned int flags) {
+    SoundBuffer_DestructBaseRetail(sound_buffer);
+    if (flags & 1)
+        operator delete(sound_buffer);
+    return sound_buffer;
 }
 
 // 0x0044DCA0..0x0044DCED: ?Platform_SelectStreamRecord@@

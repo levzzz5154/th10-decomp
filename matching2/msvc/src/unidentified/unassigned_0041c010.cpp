@@ -1,11 +1,2 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0041C010..0x0041C010: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041c010() {
-    __asm {
-    L_0041c010:
-        ret
-    }
-}
+// 0x0041C010: empty function.
+extern "C" __declspec(noinline) void __cdecl asm_unassigned_0041c010() {}

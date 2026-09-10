@@ -105,6 +105,53 @@ def verify_linked(path, config, oracle=None):
     return raw
 
 
+def compile_raw(project, toolkit, output, index, source, config):
+    """Compile one maintained source to a raw COFF object without selecting regions."""
+    source_path = (project / source).resolve()
+    if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
+        raise ValueError('translation unit must be a project C++ source: ' + source)
+    objects, logs = output / 'objects', output / 'logs'
+    objects.mkdir(parents=True, exist_ok=True)
+    logs.mkdir(parents=True, exist_ok=True)
+    env = compiler_environment(toolkit)
+    compiler = toolkit / 'bin/cl.exe'
+    win_project, win_objects = winpath(project), winpath(objects)
+    obj = objects / f'unit{index:04d}.obj'
+    obj.unlink(missing_ok=True)
+    command = ['wine', str(compiler), *config['flags'],
+               *config.get('source_flags', {}).get(source, []),
+               '/I' + win_project + '\\include',
+               '/Fo' + win_objects + '\\' + obj.name, win_project + '\\' + source.replace('/', '\\')]
+    result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True, timeout=180)
+    (logs / f'unit{index:04d}.log').write_text(result.stdout + result.stderr)
+    if result.returncode:
+        raise ValueError(f'MSVC compilation failed for {source}; see {logs / ("unit%04d.log" % index)}')
+    return {'source': source, 'object': str(obj), 'command': command,
+            'source_sha256': sha(source_path.read_bytes())}
+
+
+def normalize_unit(object_path, destination, source, config, regions):
+    """Select the named whole-section regions of a compiled object."""
+    destination.unlink(missing_ok=True)
+    report = normalize_object(object_path, destination, regions,
+                              config.get('coff_aliases', {}).get(source))
+    return {'object': str(destination), 'normalization': report}
+
+
+def compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index, source):
+    """Compile one maintained unit into the normalized COFF object the link consumes.
+
+    Shared by the exact-match build and by per-unit probes so both consume one
+    compile path. ``by_source`` maps a source to the region records it owns.
+    """
+    if source in cluster_by_source:
+        cluster = cluster_by_source[source]
+        return build_cluster(cluster, toolkit, output / 'clusters' / cluster['name'], config['flags'])
+    raw = compile_raw(project, toolkit, output, index, source, config)
+    normalized = output / 'objects' / f'unit{index:04d}.normalized.obj'
+    return {**raw, **normalize_unit(raw['object'], normalized, source, config, by_source[source])}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -138,37 +185,15 @@ def main():
     objects, logs = output / 'objects', output / 'logs'
     objects.mkdir(exist_ok=True)
     logs.mkdir(exist_ok=True)
-    win_project, win_objects = winpath(project), winpath(objects)
     by_source = defaultdict(list)
     for region in regions + dos_regions:
         by_source[region['source']].append(region)
-    def compile_unit(index, source):
-        source_path = (project / source).resolve()
-        if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
-            raise ValueError('translation unit must be a project C++ source: ' + source)
-        if source in cluster_by_source:
-            cluster = cluster_by_source[source]
-            return build_cluster(cluster, toolkit, output / 'clusters' / cluster['name'], config['flags'])
-        obj = objects / f'unit{index:04d}.obj'
-        normalized = objects / f'unit{index:04d}.normalized.obj'
-        obj.unlink(missing_ok=True)
-        normalized.unlink(missing_ok=True)
-        command = ['wine', str(compiler), *config['flags'],
-                   *config.get('source_flags', {}).get(source, []),
-                   '/I' + win_project + '\\include',
-                   '/Fo' + win_objects + '\\' + obj.name, win_project + '\\' + source.replace('/', '\\')]
-        result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True, timeout=180)
-        (logs / f'unit{index:04d}.log').write_text(result.stdout + result.stderr)
-        if result.returncode:
-            raise ValueError(f'MSVC compilation failed for {source}; see {logs / ("unit%04d.log" % index)}')
-        normalized_report = normalize_object(
-            obj, normalized, by_source[source], config.get('coff_aliases', {}).get(source))
-        return {'source': source, 'object': str(normalized), 'command': command,
-                'normalization': normalized_report, 'source_sha256': sha(source_path.read_bytes())}
     compiled, failures = [], []
     print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}...', flush=True)
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        pending = {executor.submit(compile_unit, index, source): source for index, source in enumerate(units)}
+        pending = {executor.submit(compile_unit, project, toolkit, output, config, by_source,
+                                   cluster_by_source, index, source): source
+                   for index, source in enumerate(units)}
         for index, future in enumerate(as_completed(pending), 1):
             try:
                 compiled.append(future.result())
