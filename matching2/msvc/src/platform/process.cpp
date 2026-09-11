@@ -157,55 +157,7 @@ int Platform_GetOsVersionCode() {
     }
 }
 
-// 0x0044C100..0x0044C123: ?Platform_DestroyWorker@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_DestroyWorker_0044c100() {
-    __asm {
-    L_0044c100:
-        push esi
-    L_0044c101:
-        mov esi,ecx
-    L_0044c103:
-        mov dword ptr [esi],4703E4h
-    L_0044c109:
-        call asm_Platform_StopWorker_0044c150
-    L_0044c10e:
-        test byte ptr [esp+8],1
-    L_0044c113:
-        je short L_0044c11e
-    L_0044c115:
-        push esi
-    L_0044c116:
-        call asm_free_004524a1
-    L_0044c11b:
-        add esp,4
-    L_0044c11e:
-        mov eax,esi
-    L_0044c120:
-        pop esi
-    L_0044c121:
-        ret 4
-    }
-}
 
-// 0x0044C130..0x0044C13F: ?Platform_StopWorkerNoDelete@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_StopWorkerNoDelete_0044c130() {
-    __asm {
-    L_0044c130:
-        push esi
-    L_0044c131:
-        mov esi,ecx
-    L_0044c133:
-        mov dword ptr [ecx],4703E4h
-    L_0044c139:
-        call asm_Platform_StopWorker_0044c150
-    L_0044c13e:
-        pop esi
-    L_0044c13f:
-        ret
-    }
-}
 
 // 0x0044D5B0..0x0044D5CC: stop the first DirectSound buffer and clear the
 // wrapper's playing flag. DirectSound methods use their stdcall COM ABI.
