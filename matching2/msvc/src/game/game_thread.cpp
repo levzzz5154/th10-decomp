@@ -1,120 +1,100 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00401000: construct the global game thread object in place.
+//
+// The retail body stores the type marker, retires the flag bits of the two
+// per-player slots, clears them and publishes a handful of scalar defaults.
+// The object pointer arrives in ESI and is returned in EAX, so the body is
+// compiled as a native LTCG cluster (see layout/ltcg/game_thread.json).
 
-// 0x00401000..0x004010FA: GameThread_ConstructOverlay
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameThread_Construct_00401000() {
-    __asm {
-    L_00401000:
-        mov dword ptr [esi],46CB14h
-    L_00401006:
-        mov eax,dword ptr [esi+80h]
-    L_0040100c:
-        lea edx,[esi+14h]
-    L_0040100f:
-        push ebx
-    L_00401010:
-        mov ebx,0FFFFFFFEh
-    L_00401015:
-        push edi
-    L_00401016:
-        and eax,ebx
-    L_00401018:
-        mov dword ptr [edx+6Ch],eax
-    L_0040101b:
-        and dword ptr [edx+0B0h],ebx
-    L_00401021:
-        and dword ptr [edx+0FCh],ebx
-    L_00401027:
-        and dword ptr [edx+128h],ebx
-    L_0040102d:
-        and dword ptr [edx+174h],ebx
-    L_00401033:
-        and dword ptr [edx+1B0h],ebx
-    L_00401039:
-        and dword ptr [edx+1FCh],ebx
-    L_0040103f:
-        and dword ptr [edx+228h],ebx
-    L_00401045:
-        and dword ptr [edx+378h],ebx
-    L_0040104b:
-        xor eax,eax
-    L_0040104d:
-        mov edi,edx
-    L_0040104f:
-        mov ecx,0EBh
-    L_00401054:
-        rep stosd
-    L_00401056:
-        mov word ptr [edx+384h],0FFFFh
-    L_0040105f:
-        mov eax,dword ptr [esi+42Ch]
-    L_00401065:
-        lea edx,[esi+3C0h]
-    L_0040106b:
-        and eax,ebx
-    L_0040106d:
-        mov dword ptr [edx+6Ch],eax
-    L_00401070:
-        and dword ptr [edx+0B0h],ebx
-    L_00401076:
-        and dword ptr [edx+0FCh],ebx
-    L_0040107c:
-        and dword ptr [edx+128h],ebx
-    L_00401082:
-        and dword ptr [edx+174h],ebx
-    L_00401088:
-        and dword ptr [edx+1B0h],ebx
-    L_0040108e:
-        and dword ptr [edx+1FCh],ebx
-    L_00401094:
-        and dword ptr [edx+228h],ebx
-    L_0040109a:
-        and dword ptr [edx+378h],ebx
-    L_004010a0:
-        xor eax,eax
-    L_004010a2:
-        mov ecx,0EBh
-    L_004010a7:
-        mov edi,edx
-    L_004010a9:
-        rep stosd
-    L_004010ab:
-        mov word ptr [edx+384h],0FFFFh
-    L_004010b4:
-        mov ecx,226Bh
-    L_004010b9:
-        mov edi,esi
-    L_004010bb:
-        rep stosd
-    L_004010bd:
-        or dword ptr [esi+4],2
-    L_004010c1:
-        mov eax,3F800000h
-    L_004010c6:
-        mov dword ptr [data_004776e0],esi
-    L_004010cc:
-        mov dword ptr [esi+8974h],0FFFFFFFFh
-    L_004010d6:
-        mov dword ptr [esi+8978h],eax
-    L_004010dc:
-        mov dword ptr [esi+897Ch],eax
-    L_004010e2:
-        pop edi
-    L_004010e3:
-        mov dword ptr [esi+8984h],0
-    L_004010ed:
-        mov dword ptr [esi+898Ch],9
-    L_004010f7:
-        mov eax,esi
-    L_004010f9:
-        pop ebx
-    L_004010fa:
-        ret
-    }
+#include <string.h>
+
+// Type marker installed at +0x00 (the object's method table in retail).
+extern "C" unsigned char data_0046cb14[];
+// Global pointer to the constructed thread.
+extern "C" void* data_004776e0;
+
+// +0x14 and +0x3C0: the two per-player state blocks.
+struct GameThreadSlot {
+    char pad_000[0x6C];
+    unsigned field_06C;
+    char pad_070[0x40];
+    unsigned field_0B0;
+    char pad_0B4[0x48];
+    unsigned field_0FC;
+    char pad_100[0x28];
+    unsigned field_128;
+    char pad_12C[0x48];
+    unsigned field_174;
+    char pad_178[0x38];
+    unsigned field_1B0;
+    char pad_1B4[0x48];
+    unsigned field_1FC;
+    char pad_200[0x28];
+    unsigned field_228;
+    char pad_22C[0x14C];
+    unsigned field_378;
+    char pad_37C[8];
+    unsigned short field_384;
+    char pad_386[0x26];
+};
+
+struct GameThread {
+    const void* type;
+    unsigned flags;
+    char pad_008[0x0C];
+    GameThreadSlot slots[2];
+    char pad_76C[0x8974 - 0x76C];
+    int field_8974;
+    float field_8978;
+    float field_897C;
+    char pad_8980[4];
+    int field_8984;
+    char pad_8988[4];
+    int field_898C;
+    char pad_8990[0x89AC - 0x8990];
+
+    __declspec(noinline) GameThread();
+};
+
+// Clears the "slot is live" bit of one slot flag word. Holding the flag's
+// address in a pointer keeps the store in the read-modify-write form the
+// image uses.
+#define GameThread_ClearSlotFlag(address) \
+    do { unsigned* flag_ = (address); *flag_ &= ~1u; } while (0)
+
+#pragma code_seg(".text$01thread")
+GameThread::GameThread() {
+    this->type = data_0046cb14;
+    GameThreadSlot* slot = &this->slots[0];
+    GameThread_ClearSlotFlag(&slot->field_06C);
+    GameThread_ClearSlotFlag(&slot->field_0B0);
+    GameThread_ClearSlotFlag(&slot->field_0FC);
+    GameThread_ClearSlotFlag(&slot->field_128);
+    GameThread_ClearSlotFlag(&slot->field_174);
+    GameThread_ClearSlotFlag(&slot->field_1B0);
+    GameThread_ClearSlotFlag(&slot->field_1FC);
+    GameThread_ClearSlotFlag(&slot->field_228);
+    GameThread_ClearSlotFlag(&slot->field_378);
+    memset(slot, 0, sizeof(*slot));
+    slot->field_384 = 0xFFFF;
+    slot = &this->slots[1];
+    GameThread_ClearSlotFlag(&slot->field_06C);
+    GameThread_ClearSlotFlag(&slot->field_0B0);
+    GameThread_ClearSlotFlag(&slot->field_0FC);
+    GameThread_ClearSlotFlag(&slot->field_128);
+    GameThread_ClearSlotFlag(&slot->field_174);
+    GameThread_ClearSlotFlag(&slot->field_1B0);
+    GameThread_ClearSlotFlag(&slot->field_1FC);
+    GameThread_ClearSlotFlag(&slot->field_228);
+    GameThread_ClearSlotFlag(&slot->field_378);
+    memset(slot, 0, sizeof(*slot));
+    slot->field_384 = 0xFFFF;
+    memset(this, 0, sizeof(*this));
+    this->flags |= 2u;
+    data_004776e0 = this;
+    this->field_8974 = -1;
+    this->field_8978 = 1.0f;
+    this->field_897C = 1.0f;
+    this->field_8984 = 0;
+    this->field_898C = 9;
 }
-
-
-
-
-
+#pragma code_seg()

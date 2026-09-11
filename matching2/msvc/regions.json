@@ -19,12 +19,12 @@
   "retail_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
   "regions": [
     {
-      "name": "asm_GameThread_Construct_00401000",
+      "name": "semantic_GameThread_Construct_00401000",
       "source": "src/game/game_thread.cpp",
-      "symbol": "_asm_GameThread_Construct_00401000",
+      "symbol": "??0GameThread@@QAE@XZ",
       "address": "0x00401000",
       "size": 251,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401000"
     },
     {
@@ -3313,12 +3313,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00407560_00407560",
+      "name": "semantic_EnemyMotion_Step_00407560",
       "source": "src/game/enemy_motion_steps.cpp",
       "symbol": "_asm_FUN_00407560_00407560",
       "address": "0x00407560",
       "size": 305,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00407560"
     },
     {
@@ -28264,12 +28264,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044b360_0044b360",
+      "name": "semantic_Archive_LoadFile_0044b360",
       "source": "src/platform/fun_0044b360_0044b360.cpp",
-      "symbol": "_asm_FUN_0044b360_0044b360",
+      "symbol": "_Archive_LoadFile@12",
       "address": "0x0044B360",
       "size": 360,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044B360"
     },
     {
@@ -46632,7 +46632,9 @@
     "layout/ltcg/game_state_field3788_getter.json",
     "layout/ltcg/set_input_mode.json",
     "layout/ltcg/input_mask_active.json",
-    "layout/ltcg/score_owned_destroy.json"
+    "layout/ltcg/score_owned_destroy.json",
+    "layout/ltcg/game_thread.json",
+    "layout/ltcg/load_archive_file.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
