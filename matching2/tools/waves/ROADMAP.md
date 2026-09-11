@@ -1,14 +1,30 @@
 # Remaining work and the wall in front of it
 
-Measured against the manifest at commit `c8b75cf` (whole-image build byte-exact).
+Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```
-ordinary C++      283 regions  16,049 bytes
-inline assembly 2,303 regions 372,933 bytes
+ordinary C++      382 regions  16,518 bytes
+inline assembly 2,204 regions 372,464 bytes
 embedded data      25 regions   8,157 bytes
 padding         1,817 regions  15,533 bytes
 total .text                  412,672 bytes
 ```
+
+## What lands regions, in order of cost
+
+1. **Mechanical families** — `matching2/tools/waves/cluster_accessors.py` recovers
+   the whole EAX-convention field-accessor family (98 regions) by pattern-matching
+   the retail body, generating a native-LTCG cluster per region, probing, and
+   rolling back anything that does not match. This closed 98 regions in one run
+   with zero failures, after three agent waves had landed six. Prefer this route
+   wherever a family is uniform; the 12 remaining repeated patterns among small
+   regions cover only 27 regions, so the rest is per-region work.
+2. **Agent waves** — `wave.py` + `briefs/` + `integrate.py`, for bodies that need
+   real reasoning. Expect roughly a quarter of assigned regions to land, so assign
+   several per agent and have them land incrementally.
+3. **The cluster recipe** — `briefs/CLUSTER.md`, now with the four traps that
+   previously cost whole builds. Required for any region whose entry convention is
+   not the C++ ABI.
 
 ## The three pools of remaining assembly
 
@@ -119,4 +135,5 @@ assembly, so each is a cluster target first):
 | `tools/waves/integrate.py` | verifies agent proposals and writes them into the manifest |
 | `tools/waves/repair_units.py` | completes or reverts a unit an agent left half-converted |
 | `tools/waves/match_crt.py` | finds remaining regions that are verbatim toolkit-library code |
+| `tools/waves/cluster_accessors.py` | recovers the uniform EAX-convention accessor family as clusters |
 | `tools/waves/bind_relocations.py` | binds `__real@`/`__imp__`/`_data_` names the probe reports unbound |

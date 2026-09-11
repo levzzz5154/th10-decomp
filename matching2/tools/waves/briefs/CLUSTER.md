@@ -65,8 +65,9 @@ breaks any of them fails the whole build, so check each by hand before probing:
 - `context` has a `.text$…` section distinct from every function's, and is never
   selected as recovered code.
 - `gaps` cover the rest of the image the linker would otherwise lay out itself:
-  the head gap from `0x401000` up to your first selected section and a one-byte
-  gap immediately after each function/context. Every gap gets a distinct section.
+  the head gap from `0x401000` up to your first selected section and a gap
+  covering everything between a function's end and the next section. Every gap
+  gets a distinct section.
 - **no two entries may overlap or sit out of order** (functions, context,
   constants and gaps are all range-checked together). A gap that starts inside a
   function's extent is the usual mistake.
@@ -74,6 +75,37 @@ breaks any of them fails the whole build, so check each by hand before probing:
   `kind: "data"` for a data address, `"relative_code"` for an external function
   (`coff_value` gets the image base subtracted automatically), `"metadata"` for
   `__fltused`-style markers with address `0`.
+
+## Four traps, each of which costs a build
+
+These were found the hard way; check them before the first probe.
+
+1. **The head gap must place the function at its own address.** `.text$00layout`
+   spans `0x401000` to the function's address, so its size is
+   `function_address - 0x401000` — not the distance to some later section. An
+   off-by-anything here puts the whole cluster at the wrong address and the load
+   reports `compiler-context entry address differs`.
+2. **The gap after the function must reach the context.** Context goes at
+   `align16(function_address + function_size)`, and `.text$02layout` must cover
+   every byte between the function's end and that address. Any uncovered hole
+   fails validation.
+3. **A `C` context symbol is decorated differently for `/ENTRY` and for the MAP.**
+   `LINK /ENTRY:_Name@N` looks for `__Name@N` and fails; the MAP then records
+   `_Name@N`. Declare the context as a plain C++ function (no `extern "C"`) and
+   use its `?`-mangled name: `/ENTRY` takes a `?` name verbatim and the MAP
+   records the same string, so the two agree. Compile the driver once without
+   `/GL` and read the symbol with `i686-w64-mingw32-objdump -t` rather than
+   guessing the decoration.
+4. **Every cluster's symbol must be unique across the manifest.** Two clusters
+   that both declare `?LoadValue@ObjectAccessor@@QBEHXZ` make the whole-image
+   build fail with `duplicate selected symbol`. Name the type after the region
+   (`ObjectAccessor_00405bb0`) so the mangled names differ.
+
+The context's `size` is whatever the compiler emitted for that driver, which is
+only knowable after a build: probe once, read `.text$03context`'s size column
+from the generated `cluster.map`, put that number in the layout, and probe again.
+`matching2/tools/waves/cluster_accessors.py` does exactly that loop for the
+uniform accessor family and is worth reading as a worked example.
 
 ## Driver pattern
 
