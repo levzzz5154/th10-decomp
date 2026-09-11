@@ -23,13 +23,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00421fa0_00421fa0() {
         lea ecx,[ecx+edi+10h]
     L_00421fbb:
         TH10_REL8(0xeb, 0x00421fbb, VA_asm_FUN_00421fa0_part_00421fc0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00421FC0..0x004220DB: FUN_00421fa0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00421fa0_part_00421fc0() {
-    __asm {
     L_00421fc0:
         cmp dword ptr [ecx],edx
     L_00421fc2:
@@ -255,13 +252,16 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreFile_InitializeDefaultsRetail
         mov ecx,0F4240h
     L_0042ace5:
         TH10_REL8(0xeb, 0x0042ace5, VA_asm_ScoreFile_InitializeDefaultsRetail_part_0042acf0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8b
+        _emit 0xff
 
-// 0x0042ACF0..0x0042AD49: ScoreFile_InitializeDefaultsRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreFile_InitializeDefaultsRetail_part_0042acf0() {
-    __asm {
     L_0042acf0:
         mov dword ptr [eax-4],ecx
     L_0042acf3:
@@ -314,13 +314,13 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreFile_InitializeDefaultsRetail
         sub ebx,edx
     L_0042ad48:
         TH10_REL8(0xeb, 0x0042ad48, VA_asm_ScoreFile_InitializeDefaultsRetail_part_0042ad50)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0042AD50..0x0042ADC1: ScoreFile_InitializeDefaultsRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreFile_InitializeDefaultsRetail_part_0042ad50() {
-    __asm {
     L_0042ad50:
         mov dword ptr [eax-4],esi
     L_0042ad53:

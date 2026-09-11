@@ -129,13 +129,30 @@ extern "C" __declspec(naked) void __cdecl asm_store_winword_0045aa93() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0045ab64:
         TH10_REL8(0xeb, 0x0045ab64, VA_asm_store_winword_part_0045ab7d)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x1f
+        _emit 0xe2
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xff
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x5d
+        _emit 0x10
+        _emit 0x33
+        _emit 0xf6
 
-// 0x0045AB7D..0x0045AF1C: __store_winword
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_store_winword_part_0045ab7d() {
-    __asm {
     L_0045ab7d:
         cmp edi,esi
     L_0045ab7f:

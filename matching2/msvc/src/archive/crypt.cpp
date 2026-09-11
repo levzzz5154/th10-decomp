@@ -189,13 +189,10 @@ extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_0044b0d0() {
         mov edi,eax
     L_0044b1bb:
         TH10_REL8(0xeb, 0x0044b1bb, VA_asm_DecryptDatBuffer_part_0044b1c0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0044B1C0..0x0044B212: DecryptDatBuffer
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_part_0044b1c0() {
-    __asm {
     L_0044b1c0:
         mov al,byte ptr [ebp]
     L_0044b1c3:

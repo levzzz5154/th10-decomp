@@ -775,13 +775,10 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
         xor esi,esi
     L_0043900b:
         TH10_REL8(0xeb, 0x0043900b, VA_asm_GameMain_part_00439010)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00439010..0x0043903C: GameMain
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameMain_part_00439010() {
-    __asm {
     L_00439010:
         mov eax,dword ptr [edi+esi*4]
     L_00439013:
@@ -1093,13 +1090,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439390_00439390() {
         TH10_REL8(0x75, 0x004393c5, VA_asm_target_004393e9)
     L_004393c7:
         TH10_REL8(0xeb, 0x004393c7, VA_asm_FUN_00439390_part_004393d0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x004393D0..0x00439538: FUN_00439390
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00439390_part_004393d0() {
-    __asm {
     L_004393d0:
         fld qword ptr [ebp+48h]
     L_004393d3:
@@ -1676,13 +1674,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439ff0_00439ff0() {
         sub edx,eax
     L_0043a11b:
         TH10_REL8(0xeb, 0x0043a11b, VA_asm_FUN_00439ff0_part_0043a120)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0043A120..0x0043A1A9: FUN_00439ff0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00439ff0_part_0043a120() {
-    __asm {
     L_0043a120:
         mov cl,byte ptr [eax]
     L_0043a122:

@@ -123,13 +123,30 @@ extern "C" __declspec(naked) void __cdecl asm_crtGetLocaleInfoW_00461565() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0046161b:
         TH10_REL8(0xeb, 0x0046161b, VA_asm_crtGetLocaleInfoW_part_00461634)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x68
+        _emit 0x77
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xff
+        _emit 0x33
+        _emit 0xf6
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x33
+        _emit 0xdb
+        _emit 0x43
 
-// 0x00461634..0x00461694: ___crtGetLocaleInfoW
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtGetLocaleInfoW_part_00461634() {
-    __asm {
     L_00461634:
         cmp esi,edi
     L_00461636:

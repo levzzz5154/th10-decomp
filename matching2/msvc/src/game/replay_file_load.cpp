@@ -195,13 +195,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042a200_0042a200() {
         push ebx
     L_0042a32b:
         TH10_REL8(0xeb, 0x0042a32b, VA_asm_FUN_0042a200_part_0042a330)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042A330..0x0042A3C1: FUN_0042a200
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042a200_part_0042a330() {
-    __asm {
     L_0042a330:
         mov ecx,dword ptr [esi+18h]
     L_0042a333:

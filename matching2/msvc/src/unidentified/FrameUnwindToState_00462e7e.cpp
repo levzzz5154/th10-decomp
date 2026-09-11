@@ -75,13 +75,32 @@ extern "C" __declspec(naked) void __cdecl asm_FrameUnwindToState_00462e7e() {
         and dword ptr [ebp-4],0
     L_00462eef:
         TH10_REL8(0xeb, 0x00462eef, VA_asm_FrameUnwindToState_part_00462f0a)
-    }
-}
+        _emit 0x8b
+        _emit 0x45
+        _emit 0xec
+        _emit 0xe8
+        _emit 0x67
+        _emit 0xff
+        _emit 0xff
+        _emit 0xff
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0x83
+        _emit 0x65
+        _emit 0xfc
+        _emit 0x00
+        _emit 0x8b
+        _emit 0x7d
+        _emit 0x10
+        _emit 0x8b
+        _emit 0x5d
+        _emit 0x08
+        _emit 0x8b
+        _emit 0x75
+        _emit 0xe0
 
-// 0x00462F0A..0x00462F2A: ___FrameUnwindToState
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FrameUnwindToState_part_00462f0a() {
-    __asm {
     L_00462f0a:
         mov dword ptr [ebp-1Ch],esi
     L_00462f0d:

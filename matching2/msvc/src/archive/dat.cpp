@@ -316,13 +316,10 @@ extern "C" __declspec(naked) void __cdecl asm_DatArchive_Read_00434dd0() {
         lea edx,[eax+1]
     L_00434e5b:
         TH10_REL8(0xeb, 0x00434e5b, VA_asm_DatArchive_Read_part_00434e60)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00434E60..0x00434EE8: ?DatArchive_Read@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DatArchive_Read_part_00434e60() {
-    __asm {
     L_00434e60:
         mov cl,byte ptr [eax]
     L_00434e62:

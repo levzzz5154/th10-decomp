@@ -220,13 +220,18 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00404450_00404450() {
         imul ebx,3ACh
     L_004044b3:
         TH10_REL8(0xeb, 0x004044b3, VA_asm_FUN_00404450_part_004044c0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
 
-// 0x004044C0..0x00404525: FUN_00404450
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00404450_part_004044c0() {
-    __asm {
     L_004044c0:
         mov esi,dword ptr [ebp+17Ch]
     L_004044c6:

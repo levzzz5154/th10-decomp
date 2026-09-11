@@ -253,13 +253,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433b30_00433b30() {
         jle asm_target_00433db0
     L_00433d07:
         TH10_REL8(0xeb, 0x00433d07, VA_asm_FUN_00433b30_part_00433d10)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00433D10..0x00433EEA: FUN_00433b30
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00433b30_part_00433d10() {
-    __asm {
     L_00433d10:
         mov edx,dword ptr [edi+58F4h]
     L_00433d16:

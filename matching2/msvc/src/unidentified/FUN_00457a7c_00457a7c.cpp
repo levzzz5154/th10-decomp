@@ -995,13 +995,72 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00457a7c_00457a7c() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00458218:
         TH10_REL8(0xeb, 0x00458218, VA_asm_FUN_00457a7c_part_0045825b)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x6b
+        _emit 0x0b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x6a
+        _emit 0x20
+        _emit 0xe8
+        _emit 0xd9
+        _emit 0xa4
+        _emit 0xff
+        _emit 0xff
+        _emit 0x59
+        _emit 0x89
+        _emit 0x85
+        _emit 0x38
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
+        _emit 0x85
+        _emit 0xc0
+        _emit 0x75
+        _emit 0x09
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0xe9
+        _emit 0x1d
+        _emit 0x06
+        _emit 0x00
+        _emit 0x00
+        _emit 0xc7
+        _emit 0x85
+        _emit 0x1c
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
+        _emit 0x01
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0xbd
+        _emit 0x20
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x9d
+        _emit 0x38
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
 
-// 0x0045825B..0x004588A6: FUN_00457a7c
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00457a7c_part_0045825b() {
-    __asm {
     L_0045825b:
         push 20h
     L_0045825d:

@@ -573,13 +573,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041d880_0041d880() {
         jge asm_target_0041dd5a
     L_0041dc68:
         TH10_REL8(0xeb, 0x0041dc68, VA_asm_FUN_0041d880_part_0041dc70)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041DC70..0x0041DC98: FUN_0041d880
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041d880_part_0041dc70() {
-    __asm {
     L_0041dc70:
         mov al,byte ptr [esp+ebx+248h]
     L_0041dc77:
@@ -606,13 +606,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041d880_part_0041dc70() {
         mov dword ptr [esp+58h],ebx
     L_0041dc97:
         TH10_REL8(0xeb, 0x0041dc97, VA_asm_FUN_0041d880_part_0041dca0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041DCA0..0x0041DD74: FUN_0041d880
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041d880_part_0041dca0() {
-    __asm {
     L_0041dca0:
         mov dl,byte ptr [esp+ebx+248h]
     L_0041dca7:
@@ -1280,13 +1281,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
         jge asm_target_0041e23b
     L_0041e148:
         TH10_REL8(0xeb, 0x0041e148, VA_asm_FUN_0041dd80_part_0041e150)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041E150..0x0041E178: FUN_0041dd80
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_part_0041e150() {
-    __asm {
     L_0041e150:
         mov al,byte ptr [esp+ebx+238h]
     L_0041e157:
@@ -1313,13 +1314,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_part_0041e150() {
         mov dword ptr [esp+40h],ebx
     L_0041e177:
         TH10_REL8(0xeb, 0x0041e177, VA_asm_FUN_0041dd80_part_0041e180)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041E180..0x0041E255: FUN_0041dd80
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_part_0041e180() {
-    __asm {
     L_0041e180:
         cmp byte ptr [esp+ebx+238h],0
     L_0041e188:
@@ -1911,13 +1913,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_0041eb00() {
         jge asm_target_0041ef78
     L_0041ee48:
         TH10_REL8(0xeb, 0x0041ee48, VA_asm_FUN_0041eb00_part_0041ee50)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041EE50..0x0041EE78: FUN_0041eb00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_part_0041ee50() {
-    __asm {
     L_0041ee50:
         mov al,byte ptr [esp+ebx+248h]
     L_0041ee57:
@@ -1944,13 +1946,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_part_0041ee50() {
         mov dword ptr [esp+58h],ebx
     L_0041ee77:
         TH10_REL8(0xeb, 0x0041ee77, VA_asm_FUN_0041eb00_part_0041ee80)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041EE80..0x0041EF92: FUN_0041eb00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_part_0041ee80() {
-    __asm {
     L_0041ee80:
         mov cl,byte ptr [esp+ebx+248h]
     L_0041ee87:
@@ -2234,13 +2237,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
         jp asm_target_0041f3d9
     L_0041f08b:
         TH10_REL8(0xeb, 0x0041f08b, VA_asm_FUN_0041efa0_part_0041f090)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0041F090..0x0041F238: FUN_0041efa0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f090() {
-    __asm {
     L_0041f090:
         mov eax,dword ptr [ebp+8]
     L_0041f093:
@@ -2461,13 +2461,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f090() {
         TH10_REL8(0x7e, 0x0041f235, VA_asm_target_0041f259)
     L_0041f237:
         TH10_REL8(0xeb, 0x0041f237, VA_asm_FUN_0041efa0_part_0041f240)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041F240..0x0041F2B9: FUN_0041efa0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f240() {
-    __asm {
     L_0041f240:
         mov cl,byte ptr [esp+ebx+230h]
     L_0041f247:
@@ -2542,13 +2543,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f240() {
         jge asm_target_0041f3d9
     L_0041f2b8:
         TH10_REL8(0xeb, 0x0041f2b8, VA_asm_FUN_0041efa0_part_0041f2c0)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041F2C0..0x0041F2E8: FUN_0041efa0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f2c0() {
-    __asm {
     L_0041f2c0:
         mov al,byte ptr [esp+ebx+230h]
     L_0041f2c7:
@@ -2575,13 +2576,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f2c0() {
         mov dword ptr [esp+40h],ebx
     L_0041f2e7:
         TH10_REL8(0xeb, 0x0041f2e7, VA_asm_FUN_0041efa0_part_0041f2f0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041F2F0..0x0041F3F3: FUN_0041efa0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_part_0041f2f0() {
-    __asm {
     L_0041f2f0:
         mov cl,byte ptr [esp+ebx+230h]
     L_0041f2f7:

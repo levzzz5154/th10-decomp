@@ -25,13 +25,14 @@ extern "C" __declspec(naked) void __cdecl asm_report_failure_00458e74() {
         pop ecx
     L_00458e8f:
         TH10_REL8(0xeb, 0x00458e8f, VA_asm_report_failure_part_00458e98)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
 
-// 0x00458E98..0x00458EA3: report_failure
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_report_failure_part_00458e98() {
-    __asm {
     L_00458e98:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00458e9c:

@@ -82,13 +82,14 @@ extern "C" __declspec(naked) void __cdecl asm_GameProgress_UnlockAllStages_0042c
         mov edx,4
     L_0042c8f7:
         TH10_REL8(0xeb, 0x0042c8f7, VA_asm_GameProgress_UnlockAllStages_part_0042c900)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0042C900..0x0042C91C: ?GameProgress_UnlockAllStages@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameProgress_UnlockAllStages_part_0042c900() {
-    __asm {
     L_0042c900:
         mov ecx,6
     L_0042c905:

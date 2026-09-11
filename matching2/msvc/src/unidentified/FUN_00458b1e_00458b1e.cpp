@@ -21,13 +21,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00458b1e_00458b1e() {
         mov dword ptr [ebp-1Ch],1
     L_00458b3d:
         TH10_REL8(0xeb, 0x00458b3d, VA_asm_FUN_00458b1e_part_00458b46)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
 
-// 0x00458B46..0x00458B52: FUN_00458b1e
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00458b1e_part_00458b46() {
-    __asm {
     L_00458b46:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00458b4a:

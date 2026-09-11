@@ -159,13 +159,34 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_0045ee1d() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0045ef11:
         TH10_REL8(0xeb, 0x0045ef11, VA_asm_FUN_0045ee1d_part_0045ef2e)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x72
+        _emit 0x9e
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xdb
+        _emit 0x89
+        _emit 0x5d
+        _emit 0xe4
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x7d
+        _emit 0xd4
+        _emit 0x8b
+        _emit 0x75
+        _emit 0xcc
 
-// 0x0045EF2E..0x0045EFE0: FUN_0045ee1d
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_part_0045ef2e() {
-    __asm {
     L_0045ef2e:
         cmp dword ptr [ebp-1Ch],ebx
     L_0045ef31:
@@ -274,13 +295,34 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_part_0045ef2e() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0045efdf:
         TH10_REL8(0xeb, 0x0045efdf, VA_asm_FUN_0045ee1d_part_0045effc)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0xa4
+        _emit 0x9d
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xdb
+        _emit 0x89
+        _emit 0x5d
+        _emit 0xe0
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x7d
+        _emit 0xd4
+        _emit 0x8b
+        _emit 0x75
+        _emit 0xcc
 
-// 0x0045EFFC..0x0045F118: FUN_0045ee1d
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_part_0045effc() {
-    __asm {
     L_0045effc:
         cmp dword ptr [ebp-20h],ebx
     L_0045efff:
@@ -489,13 +531,23 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_part_0045effc() {
         add esp,0Ch
     L_0045f117:
         TH10_REL8(0xeb, 0x0045f117, VA_asm_FUN_0045ee1d_part_0045f129)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x6c
+        _emit 0x9c
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xdb
+        _emit 0x33
+        _emit 0xff
 
-// 0x0045F129..0x0045F1F2: FUN_0045ee1d
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0045ee1d_part_0045f129() {
-    __asm {
     L_0045f129:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0045f12d:

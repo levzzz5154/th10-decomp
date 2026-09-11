@@ -69,13 +69,13 @@ extern "C" __declspec(naked) void __cdecl asm_ParameterFile_LoadAndRelocateRetai
         push edi
     L_00426588:
         TH10_REL8(0xeb, 0x00426588, VA_asm_ParameterFile_LoadAndRelocateRetail_part_00426590)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00426590..0x004265A8: ParameterFile_LoadAndRelocateRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ParameterFile_LoadAndRelocateRetail_part_00426590() {
-    __asm {
     L_00426590:
         mov eax,dword ptr [esi+45Ch]
     L_00426596:
@@ -90,13 +90,14 @@ extern "C" __declspec(naked) void __cdecl asm_ParameterFile_LoadAndRelocateRetai
         TH10_REL8(0x7c, 0x004265a5, VA_asm_target_004265ee)
     L_004265a7:
         TH10_REL8(0xeb, 0x004265a7, VA_asm_ParameterFile_LoadAndRelocateRetail_part_004265b0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x004265B0..0x00426604: ParameterFile_LoadAndRelocateRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ParameterFile_LoadAndRelocateRetail_part_004265b0() {
-    __asm {
     L_004265b0:
         mov edi,dword ptr [eax+24h]
     L_004265b3:

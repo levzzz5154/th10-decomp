@@ -686,13 +686,10 @@ extern "C" __declspec(naked) void __cdecl asm_Animation_SetActiveCount_00413790(
         sub ecx,edx
     L_004137cb:
         TH10_REL8(0xeb, 0x004137cb, VA_asm_Animation_SetActiveCount_part_004137d0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x004137D0..0x004137DC: Animation_SetActiveCount
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Animation_SetActiveCount_part_004137d0() {
-    __asm {
     L_004137d0:
         and dword ptr [eax],0FFFFFFFDh
     L_004137d3:
@@ -1463,13 +1460,10 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_TrimWhitespace_0041a0a0()
         lea esi,[ecx+1]
     L_0041a0db:
         TH10_REL8(0xeb, 0x0041a0db, VA_asm_Recovery_TrimWhitespace_part_0041a0e0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0041A0E0..0x0041A111: Recovery_TrimWhitespace
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_TrimWhitespace_part_0041a0e0() {
-    __asm {
     L_0041a0e0:
         mov dl,byte ptr [ecx]
     L_0041a0e2:
@@ -2668,13 +2662,19 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeRandomTable_004
         mov esi,200h
     L_0042ae12:
         TH10_REL8(0xeb, 0x0042ae12, VA_asm_Recovery_InitializeRandomTable_part_0042ae20)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0xeb
+        _emit 0x03
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042AE20..0x0042AE5D: Recovery_InitializeRandomTable
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeRandomTable_part_0042ae20() {
-    __asm {
     L_0042ae20:
         mov eax,dword ptr [data_004918b0]
     L_0042ae25:

@@ -57,13 +57,43 @@ extern "C" __declspec(naked) void __cdecl asm_crtInitCritSecAndSpinCount_0045980
         mov dword ptr [ebp-20h],eax
     L_00459869:
         TH10_REL8(0xeb, 0x00459869, VA_asm_crtInitCritSecAndSpinCount_part_0045988f)
-    }
-}
+        _emit 0x8b
+        _emit 0x45
+        _emit 0xec
+        _emit 0x8b
+        _emit 0x00
+        _emit 0x8b
+        _emit 0x00
+        _emit 0x89
+        _emit 0x45
+        _emit 0xe4
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0x81
+        _emit 0x7d
+        _emit 0xe4
+        _emit 0x17
+        _emit 0x00
+        _emit 0x00
+        _emit 0xc0
+        _emit 0x75
+        _emit 0x08
+        _emit 0x6a
+        _emit 0x08
+        _emit 0xff
+        _emit 0x15
+        _emit 0x6c
+        _emit 0x61
+        _emit 0x46
+        _emit 0x00
+        _emit 0x33
+        _emit 0xc0
 
-// 0x0045988F..0x00459898: ___crtInitCritSecAndSpinCount
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtInitCritSecAndSpinCount_part_0045988f() {
-    __asm {
     L_0045988f:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00459893:

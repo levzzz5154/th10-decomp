@@ -214,13 +214,6 @@ extern "C" unsigned char text_padding_00421065[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042113F..0x0042113F
-// padding 0042113f..0042113f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000837")
-extern "C" unsigned char text_padding_0042113f[] = {
-    0x90,
-};
-#pragma data_seg()
 
 // padding: 0x0042117C..0x0042117F
 // padding 0042117c..0042117f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -238,13 +231,6 @@ extern "C" unsigned char text_padding_004212f1[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042134A..0x0042134F
-// padding 0042134a..0042134f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000840")
-extern "C" unsigned char text_padding_0042134a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042140D..0x0042140F
 // padding 0042140d..0042140f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
@@ -587,13 +573,6 @@ extern "C" unsigned char text_padding_00421f93[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00421FBD..0x00421FBF
-// padding 00421fbd..00421fbf: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000883")
-extern "C" unsigned char text_padding_00421fbd[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x004220DC..0x004220DF
 // padding 004220dc..004220df: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -790,13 +769,6 @@ extern "C" unsigned char text_padding_00423569[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042367D..0x0042367F
-// padding 0042367d..0042367f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000908")
-extern "C" unsigned char text_padding_0042367d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x004236E9..0x004236EF
 // padding 004236e9..004236ef: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1071,13 +1043,6 @@ extern "C" unsigned char text_padding_004250a2[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042558D..0x0042558F
-// padding 0042558d..0042558f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000943")
-extern "C" unsigned char text_padding_0042558d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x004256E7..0x004256E7
 // padding 004256e7..004256e7: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
@@ -1106,37 +1071,9 @@ extern "C" unsigned char text_padding_00425728[] = {
 };
 #pragma data_seg()
 
-// padding: 0x004257CF..0x004257CF
-// padding 004257cf..004257cf: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000947")
-extern "C" unsigned char text_padding_004257cf[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x0042580D..0x0042580F
-// padding 0042580d..0042580f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000948")
-extern "C" unsigned char text_padding_0042580d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x0042585F..0x0042585F
-// padding 0042585f..0042585f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000949")
-extern "C" unsigned char text_padding_0042585f[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x00425A3D..0x00425A3F
-// padding 00425a3d..00425a3f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000950")
-extern "C" unsigned char text_padding_00425a3d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00426341..0x00426343
 // padding 00426341..00426343: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
@@ -1187,13 +1124,6 @@ extern "C" unsigned char text_padding_00426517[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042658A..0x0042658F
-// padding 0042658a..0042658f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000957")
-extern "C" unsigned char text_padding_0042658a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00426605..0x0042660F
 // padding 00426605..0042660f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1251,21 +1181,7 @@ extern "C" unsigned char text_padding_00426f63[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042701A..0x0042701F
-// padding 0042701a..0042701f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000965")
-extern "C" unsigned char text_padding_0042701a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x004278DF..0x004278DF
-// padding 004278df..004278df: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000966")
-extern "C" unsigned char text_padding_004278df[] = {
-    0x90,
-};
-#pragma data_seg()
 
 // padding: 0x0042792E..0x0042792F
 // padding 0042792e..0042792f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
@@ -1300,13 +1216,6 @@ extern "C" unsigned char text_padding_0042795c[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00427A0A..0x00427A0F
-// padding 00427a0a..00427a0f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000971")
-extern "C" unsigned char text_padding_00427a0a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00427AC7..0x00427ACF
 // padding 00427ac7..00427acf: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1540,13 +1449,6 @@ extern "C" unsigned char text_padding_0042827e[] = {
 };
 #pragma data_seg()
 
-// padding: 0x004282AA..0x004282AF
-// padding 004282aa..004282af: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001001")
-extern "C" unsigned char text_padding_004282aa[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x004285EC..0x004285EF
 // padding 004285ec..004285ef: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
@@ -1812,13 +1714,6 @@ extern "C" unsigned char text_padding_0042a1f1[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042A32D..0x0042A32F
-// padding 0042a32d..0042a32f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001035")
-extern "C" unsigned char text_padding_0042a32d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042A3C2..0x0042A3CF
 // padding 0042a3c2..0042a3cf: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1852,13 +1747,6 @@ extern "C" unsigned char text_padding_0042a44c[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042A60D..0x0042A60F
-// padding 0042a60d..0042a60f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001040")
-extern "C" unsigned char text_padding_0042a60d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042A696..0x0042A69F
 // padding 0042a696..0042a69f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -2076,13 +1964,6 @@ extern "C" unsigned char text_padding_0042acae[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042AD4A..0x0042AD4F
-// padding 0042ad4a..0042ad4f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001068")
-extern "C" unsigned char text_padding_0042ad4a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042ADC2..0x0042ADCF
 // padding 0042adc2..0042adcf: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -2252,13 +2133,6 @@ extern "C" unsigned char text_padding_0042b9ba[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042B9ED..0x0042B9EF
-// padding 0042b9ed..0042b9ef: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001090")
-extern "C" unsigned char text_padding_0042b9ed[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042BA67..0x0042BA6F
 // padding 0042ba67..0042ba6f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
@@ -2671,45 +2545,10 @@ extern "C" unsigned char text_data_0042d8cc[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042DA2F..0x0042DA2F
-// padding 0042da2f..0042da2f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001141")
-extern "C" unsigned char text_padding_0042da2f[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x0042DDCF..0x0042DDCF
-// padding 0042ddcf..0042ddcf: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001142")
-extern "C" unsigned char text_padding_0042ddcf[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x0042DE6A..0x0042DE6F
-// padding 0042de6a..0042de6f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001143")
-extern "C" unsigned char text_padding_0042de6a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x0042E1DF..0x0042E1DF
-// padding 0042e1df..0042e1df: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001144")
-extern "C" unsigned char text_padding_0042e1df[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x0042E45F..0x0042E45F
-// padding 0042e45f..0042e45f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001145")
-extern "C" unsigned char text_padding_0042e45f[] = {
-    0x90,
-};
-#pragma data_seg()
 
 // data: 0x0042E580..0x0042E593
 // data 0042e580..0042e593: ["text_range_map:defined_data", "full+augmented listing typed data"]
@@ -2728,37 +2567,9 @@ extern "C" unsigned char text_padding_0042e594[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0042E73D..0x0042E73F
-// padding 0042e73d..0042e73f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001148")
-extern "C" unsigned char text_padding_0042e73d[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x0042EBDD..0x0042EBDF
-// padding 0042ebdd..0042ebdf: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001149")
-extern "C" unsigned char text_padding_0042ebdd[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x0042EDDF..0x0042EDDF
-// padding 0042eddf..0042eddf: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001150")
-extern "C" unsigned char text_padding_0042eddf[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// padding: 0x0042F36A..0x0042F36F
-// padding 0042f36a..0042f36f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D9B00000000)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001151")
-extern "C" unsigned char text_padding_0042f36a[] = {
-    0x8d, 0x9b, 0x00, 0x00, 0x00, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x0042F53F..0x0042F53F
 // padding 0042f53f..0042f53f: ["single INT3 separator immediately follows an authenticated RET/JMP at a function or basic-block boundary", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]

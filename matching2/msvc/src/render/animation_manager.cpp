@@ -200,13 +200,10 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationManager_RegisterResource_
         lea ecx,[esi+1F88h]
     L_0043e46b:
         TH10_REL8(0xeb, 0x0043e46b, VA_asm_AnimationManager_RegisterResource_part_0043e470)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0043E470..0x0043E4C7: ?AnimationManager_RegisterResource@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_RegisterResource_part_0043e470() {
-    __asm {
     L_0043e470:
         cmp dword ptr [ecx],0
     L_0043e473:
@@ -2727,13 +2724,15 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationManager_MarkResourceForRe
         TH10_REL8(0x74, 0x00449414, VA_asm_target_00449439)
     L_00449416:
         TH10_REL8(0xeb, 0x00449416, VA_asm_AnimationManager_MarkResourceForRemoval_part_00449420)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
 
-// 0x00449420..0x0044943B: ?AnimationManager_MarkResourceForRemoval@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_MarkResourceForRemoval_part_00449420() {
-    __asm {
     L_00449420:
         mov ecx,dword ptr [eax+4]
     L_00449423:
@@ -2814,13 +2813,14 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SetStopFrameFromH
         TH10_REL8(0x74, 0x00449495, VA_asm_target_004494b0)
     L_00449497:
         TH10_REL8(0xeb, 0x00449497, VA_asm_AnimationManager_SetStopFrameFromHandleRetail_part_004494a0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x004494A0..0x004494B0: AnimationManager_SetStopFrameFromHandleRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SetStopFrameFromHandleRetail_part_004494a0() {
-    __asm {
     L_004494a0:
         mov ecx,dword ptr [eax]
     L_004494a2:

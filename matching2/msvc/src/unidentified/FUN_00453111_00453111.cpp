@@ -69,13 +69,57 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00453111_00453111() {
         mov dword ptr [ebp-138h],edi
     L_0045318b:
         TH10_REL8(0xeb, 0x0045318b, VA_asm_FUN_00453111_part_004531bf)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0xf8
+        _emit 0x5b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8b
+        _emit 0xb5
+        _emit 0xcc
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
+        _emit 0x8d
+        _emit 0x46
+        _emit 0x01
+        _emit 0x50
+        _emit 0xe8
+        _emit 0x5e
+        _emit 0xf5
+        _emit 0xff
+        _emit 0xff
+        _emit 0x59
+        _emit 0x8b
+        _emit 0xf8
+        _emit 0x33
+        _emit 0xdb
+        _emit 0x3b
+        _emit 0xfb
+        _emit 0x75
+        _emit 0x04
+        _emit 0x33
+        _emit 0xf6
+        _emit 0xeb
+        _emit 0x0a
+        _emit 0xc7
+        _emit 0x85
+        _emit 0xd0
+        _emit 0xfe
+        _emit 0xff
+        _emit 0xff
+        _emit 0x01
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x004531BF..0x00453258: FUN_00453111
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00453111_part_004531bf() {
-    __asm {
     L_004531bf:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_004531c3:

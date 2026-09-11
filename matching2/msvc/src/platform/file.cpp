@@ -45,13 +45,10 @@ extern "C" __declspec(naked) void __cdecl asm_FileHandle_OpenRetail_00435370() {
         TH10_REL8(0x74, 0x004353a9, VA_asm_target_004353f6)
     L_004353ab:
         TH10_REL8(0xeb, 0x004353ab, VA_asm_FileHandle_OpenRetail_part_004353b0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x004353B0..0x0043545E: FileHandle_OpenRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FileHandle_OpenRetail_part_004353b0() {
-    __asm {
     L_004353b0:
         cmp al,72h
     L_004353b2:

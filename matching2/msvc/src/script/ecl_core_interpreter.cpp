@@ -388,13 +388,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_0044e1a0() {
         jp asm_target_0044fb96
     L_0044e1d6:
         TH10_REL8(0xeb, 0x0044e1d6, VA_asm_FUN_0044e1a0_part_0044e1e0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
 
-// 0x0044E1E0..0x0044FBC1: FUN_0044e1a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_part_0044e1e0() {
-    __asm {
     L_0044e1e0:
         mov edi,dword ptr [ebx]
     L_0044e1e2:
@@ -4599,13 +4601,14 @@ extern "C" __declspec(naked) void __cdecl asm_ECL_FindVariable_00450160() {
         TH10_REL8(0x74, 0x00450165, VA_asm_target_00450181)
     L_00450167:
         TH10_REL8(0xeb, 0x00450167, VA_asm_ECL_FindVariable_part_00450170)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00450170..0x00450183: ?ECL_FindVariable@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ECL_FindVariable_part_00450170() {
-    __asm {
     L_00450170:
         mov edx,dword ptr [eax]
     L_00450172:

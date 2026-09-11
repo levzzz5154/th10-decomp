@@ -255,13 +255,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433230_00433230() {
         lea edx,[eax+1]
     L_004333db:
         TH10_REL8(0xeb, 0x004333db, VA_asm_FUN_00433230_part_004333e0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x004333E0..0x00433569: FUN_00433230
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00433230_part_004333e0() {
-    __asm {
     L_004333e0:
         mov cl,byte ptr [eax]
     L_004333e2:

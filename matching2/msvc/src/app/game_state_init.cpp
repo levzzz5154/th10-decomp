@@ -177,13 +177,10 @@ extern "C" __declspec(naked) void __cdecl asm_GameStateInit_00445900() {
         mov dword ptr [esp+10h],1000h
     L_00445adb:
         TH10_REL8(0xeb, 0x00445adb, VA_asm_GameStateInit_part_00445ae0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00445AE0..0x0044620A: GameStateInit
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameStateInit_part_00445ae0() {
-    __asm {
     L_00445ae0:
         mov edx,edi
     L_00445ae2:

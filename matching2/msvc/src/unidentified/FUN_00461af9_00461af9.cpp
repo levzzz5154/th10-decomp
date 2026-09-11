@@ -297,13 +297,35 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00461af9_00461af9() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00461ca0:
         TH10_REL8(0xeb, 0x00461ca0, VA_asm_FUN_00461af9_part_00461cbe)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0xe3
+        _emit 0x70
+        _emit 0xff
+        _emit 0xff
+        _emit 0x83
+        _emit 0x65
+        _emit 0xc8
+        _emit 0x00
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x5d
+        _emit 0xb4
+        _emit 0x33
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x75
+        _emit 0xc4
 
-// 0x00461CBE..0x00461D3E: FUN_00461af9
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00461af9_part_00461cbe() {
-    __asm {
     L_00461cbe:
         mov eax,dword ptr [ebp-38h]
     L_00461cc1:
@@ -386,13 +408,31 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00461af9_part_00461cbe() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_00461d3d:
         TH10_REL8(0xeb, 0x00461d3d, VA_asm_FUN_00461af9_part_00461d57)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x46
+        _emit 0x70
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xff
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x5d
+        _emit 0xb4
+        _emit 0x8b
+        _emit 0x75
+        _emit 0xac
 
-// 0x00461D57..0x00461E82: FUN_00461af9
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00461af9_part_00461d57() {
-    __asm {
     L_00461d57:
         test edi,edi
     L_00461d59:

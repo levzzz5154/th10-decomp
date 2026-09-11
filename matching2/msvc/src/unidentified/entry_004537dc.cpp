@@ -263,13 +263,50 @@ extern "C" __declspec(naked) void __cdecl asm_entry_004537dc() {
         call asm_cexit_0045770e
     L_00453975:
         TH10_REL8(0xeb, 0x00453975, VA_asm_entry_part_004539a2)
-    }
-}
+        _emit 0x8b
+        _emit 0x45
+        _emit 0xec
+        _emit 0x8b
+        _emit 0x08
+        _emit 0x8b
+        _emit 0x09
+        _emit 0x89
+        _emit 0x4d
+        _emit 0xdc
+        _emit 0x50
+        _emit 0x51
+        _emit 0xe8
+        _emit 0x46
+        _emit 0x3e
+        _emit 0x00
+        _emit 0x00
+        _emit 0x59
+        _emit 0x59
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0x8b
+        _emit 0x7d
+        _emit 0xdc
+        _emit 0x83
+        _emit 0x7d
+        _emit 0xe4
+        _emit 0x00
+        _emit 0x75
+        _emit 0x06
+        _emit 0x57
+        _emit 0xe8
+        _emit 0x60
+        _emit 0x3d
+        _emit 0x00
+        _emit 0x00
+        _emit 0xe8
+        _emit 0x7b
+        _emit 0x3d
+        _emit 0x00
+        _emit 0x00
 
-// 0x004539A2..0x004539B0: entry
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_entry_part_004539a2() {
-    __asm {
     L_004539a2:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_004539a6:

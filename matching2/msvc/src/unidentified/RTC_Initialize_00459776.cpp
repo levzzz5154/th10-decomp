@@ -31,13 +31,14 @@ extern "C" __declspec(naked) void __cdecl asm_RTC_Initialize_00459776() {
         call eax
     L_004597a1:
         TH10_REL8(0xeb, 0x004597a1, VA_asm_RTC_Initialize_part_004597aa)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
 
-// 0x004597AA..0x004597B9: __RTC_Initialize
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_RTC_Initialize_part_004597aa() {
-    __asm {
     L_004597aa:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_004597ae:

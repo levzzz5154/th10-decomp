@@ -175,13 +175,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00409280_00409280() {
         lea edi,[ebp+778h]
     L_004093c6:
         TH10_REL8(0xeb, 0x004093c6, VA_asm_FUN_00409280_part_004093d0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
 
-// 0x004093D0..0x0040980C: FUN_00409280
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00409280_part_004093d0() {
-    __asm {
     L_004093d0:
         mov ecx,dword ptr [data_0047770c]
     L_004093d6:
@@ -796,13 +798,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00409280_part_004093d0() {
         TH10_REL8(0x74, 0x00409809, VA_asm_target_0040981d)
     L_0040980b:
         TH10_REL8(0xeb, 0x0040980b, VA_asm_FUN_00409280_part_00409810)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00409810..0x00409BE2: FUN_00409280
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00409280_part_00409810() {
-    __asm {
     L_00409810:
         mov ebx,dword ptr [eax]
     L_00409812:
@@ -1438,13 +1437,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
         mov ecx,7
     L_004149eb:
         TH10_REL8(0xeb, 0x004149eb, VA_asm_FUN_00414900_part_004149f0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x004149F0..0x00414C8C: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_004149f0() {
-    __asm {
     L_004149f0:
         mov word ptr [eax],3
     L_004149f5:
@@ -1825,13 +1821,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_004149f0() {
         TH10_REL8(0x74, 0x00414c89, VA_asm_target_00414ca0)
     L_00414c8b:
         TH10_REL8(0xeb, 0x00414c8b, VA_asm_FUN_00414900_part_00414c90)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00414C90..0x00414D49: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_00414c90() {
-    __asm {
     L_00414c90:
         mov edx,dword ptr [eax]
     L_00414c92:
@@ -1946,13 +1939,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_00414c90() {
         TH10_REL8(0x74, 0x00414d46, VA_asm_target_00414d60)
     L_00414d48:
         TH10_REL8(0xeb, 0x00414d48, VA_asm_FUN_00414900_part_00414d50)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00414D50..0x00415059: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_00414d50() {
-    __asm {
     L_00414d50:
         mov ebp,dword ptr [eax]
     L_00414d52:
@@ -2405,13 +2398,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_00414d50() {
         TH10_REL8(0x74, 0x00415056, VA_asm_target_00415070)
     L_00415058:
         TH10_REL8(0xeb, 0x00415058, VA_asm_FUN_00414900_part_00415060)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00415060..0x004157DC: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_part_00415060() {
-    __asm {
     L_00415060:
         mov ebp,dword ptr [eax]
     L_00415062:
@@ -5902,13 +5895,18 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
         TH10_REL8(0x74, 0x0042e641, VA_asm_target_0042e666)
     L_0042e643:
         TH10_REL8(0xeb, 0x0042e643, VA_asm_FUN_0042e5a0_part_0042e650)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
 
-// 0x0042E650..0x0042E73C: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042e650() {
-    __asm {
     L_0042e650:
         mov edx,dword ptr [eax]
     L_0042e652:
@@ -6055,13 +6053,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042e650() {
         mov ecx,27h
     L_0042e73b:
         TH10_REL8(0xeb, 0x0042e73b, VA_asm_FUN_0042e5a0_part_0042e740)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042E740..0x0042EBDC: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042e740() {
-    __asm {
     L_0042e740:
         mov edx,dword ptr [eax]
     L_0042e742:
@@ -6776,13 +6771,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042e740() {
         mov ecx,25h
     L_0042ebdb:
         TH10_REL8(0xeb, 0x0042ebdb, VA_asm_FUN_0042e5a0_part_0042ebe0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042EBE0..0x0042EC35: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ebe0() {
-    __asm {
     L_0042ebe0:
         mov edx,dword ptr [eax]
     L_0042ebe2:
@@ -6835,13 +6827,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ebe0() {
         mov ecx,26h
     L_0042ec34:
         TH10_REL8(0xeb, 0x0042ec34, VA_asm_FUN_0042e5a0_part_0042ec40)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042EC40..0x0042ECE5: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ec40() {
-    __asm {
     L_0042ec40:
         mov edx,dword ptr [eax]
     L_0042ec42:
@@ -6944,13 +6940,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ec40() {
         mov ecx,2Ah
     L_0042ece4:
         TH10_REL8(0xeb, 0x0042ece4, VA_asm_FUN_0042e5a0_part_0042ecf0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042ECF0..0x0042EDD7: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ecf0() {
-    __asm {
     L_0042ecf0:
         mov edx,dword ptr [eax]
     L_0042ecf2:
@@ -7097,13 +7097,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ecf0() {
         mov ecx,25h
     L_0042edd6:
         TH10_REL8(0xeb, 0x0042edd6, VA_asm_FUN_0042e5a0_part_0042ede0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
 
-// 0x0042EDE0..0x0042EE35: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ede0() {
-    __asm {
     L_0042ede0:
         mov edx,dword ptr [eax]
     L_0042ede2:
@@ -7156,13 +7158,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ede0() {
         mov ecx,26h
     L_0042ee34:
         TH10_REL8(0xeb, 0x0042ee34, VA_asm_FUN_0042e5a0_part_0042ee40)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042EE40..0x0042EF38: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ee40() {
-    __asm {
     L_0042ee40:
         mov edx,dword ptr [eax]
     L_0042ee42:
@@ -7319,13 +7325,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ee40() {
         mov ecx,25h
     L_0042ef37:
         TH10_REL8(0xeb, 0x0042ef37, VA_asm_FUN_0042e5a0_part_0042ef40)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0042EF40..0x0042EF95: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ef40() {
-    __asm {
     L_0042ef40:
         mov edx,dword ptr [eax]
     L_0042ef42:
@@ -7378,13 +7385,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042ef40() {
         mov ecx,26h
     L_0042ef94:
         TH10_REL8(0xeb, 0x0042ef94, VA_asm_FUN_0042e5a0_part_0042efa0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042EFA0..0x0042F045: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042efa0() {
-    __asm {
     L_0042efa0:
         mov edx,dword ptr [eax]
     L_0042efa2:
@@ -7487,13 +7498,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042efa0() {
         mov ecx,2Ah
     L_0042f044:
         TH10_REL8(0xeb, 0x0042f044, VA_asm_FUN_0042e5a0_part_0042f050)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F050..0x0042F106: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f050() {
-    __asm {
     L_0042f050:
         mov edx,dword ptr [eax]
     L_0042f052:
@@ -7602,13 +7617,16 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f050() {
         mov ecx,2Eh
     L_0042f105:
         TH10_REL8(0xeb, 0x0042f105, VA_asm_FUN_0042e5a0_part_0042f110)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8b
+        _emit 0xff
 
-// 0x0042F110..0x0042F165: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f110() {
-    __asm {
     L_0042f110:
         mov edx,dword ptr [eax]
     L_0042f112:
@@ -7661,13 +7679,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f110() {
         mov ecx,31h
     L_0042f164:
         TH10_REL8(0xeb, 0x0042f164, VA_asm_FUN_0042e5a0_part_0042f170)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F170..0x0042F254: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f170() {
-    __asm {
     L_0042f170:
         mov edx,dword ptr [eax]
     L_0042f172:
@@ -7818,13 +7840,18 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f170() {
         mov ecx,2Dh
     L_0042f253:
         TH10_REL8(0xeb, 0x0042f253, VA_asm_FUN_0042e5a0_part_0042f260)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
 
-// 0x0042F260..0x0042F2B5: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f260() {
-    __asm {
     L_0042f260:
         mov edx,dword ptr [eax]
     L_0042f262:
@@ -7877,13 +7904,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f260() {
         mov ecx,2Eh
     L_0042f2b4:
         TH10_REL8(0xeb, 0x0042f2b4, VA_asm_FUN_0042e5a0_part_0042f2c0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F2C0..0x0042F369: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f2c0() {
-    __asm {
     L_0042f2c0:
         mov edx,dword ptr [eax]
     L_0042f2c2:
@@ -7986,13 +8017,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f2c0() {
         mov ecx,32h
     L_0042f368:
         TH10_REL8(0xeb, 0x0042f368, VA_asm_FUN_0042e5a0_part_0042f370)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0042F370..0x0042F3C4: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f370() {
-    __asm {
     L_0042f370:
         mov edx,dword ptr [eax]
     L_0042f372:
@@ -8049,13 +8080,18 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f370() {
         mov ecx,2Dh
     L_0042f3c3:
         TH10_REL8(0xeb, 0x0042f3c3, VA_asm_FUN_0042e5a0_part_0042f3d0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x64
+        _emit 0x24
+        _emit 0x00
 
-// 0x0042F3D0..0x0042F425: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f3d0() {
-    __asm {
     L_0042f3d0:
         mov edx,dword ptr [eax]
     L_0042f3d2:
@@ -8108,13 +8144,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f3d0() {
         mov ecx,2Eh
     L_0042f424:
         TH10_REL8(0xeb, 0x0042f424, VA_asm_FUN_0042e5a0_part_0042f430)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F430..0x0042F485: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f430() {
-    __asm {
     L_0042f430:
         mov edx,dword ptr [eax]
     L_0042f432:
@@ -8167,13 +8207,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f430() {
         mov ecx,31h
     L_0042f484:
         TH10_REL8(0xeb, 0x0042f484, VA_asm_FUN_0042e5a0_part_0042f490)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F490..0x0042F4E5: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f490() {
-    __asm {
     L_0042f490:
         mov edx,dword ptr [eax]
     L_0042f492:
@@ -8226,13 +8270,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f490() {
         mov ecx,32h
     L_0042f4e4:
         TH10_REL8(0xeb, 0x0042f4e4, VA_asm_FUN_0042e5a0_part_0042f4f0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F4F0..0x0042F53E: FUN_0042e5a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_part_0042f4f0() {
-    __asm {
     L_0042f4f0:
         mov edx,dword ptr [eax]
     L_0042f4f2:
@@ -8398,13 +8446,19 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042f8b0_0042f8b0() {
         mov ecx,44h
     L_0042f952:
         TH10_REL8(0xeb, 0x0042f952, VA_asm_FUN_0042f8b0_part_0042f960)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0xeb
+        _emit 0x03
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x0042F960..0x004300CC: FUN_0042f8b0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042f8b0_part_0042f960() {
-    __asm {
     L_0042f960:
         mov edx,dword ptr [eax]
     L_0042f962:
@@ -9547,13 +9601,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042f8b0_part_0042f960() {
         mov ecx,55h
     L_004300cb:
         TH10_REL8(0xeb, 0x004300cb, VA_asm_FUN_0042f8b0_part_004300d0)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x004300D0..0x00430243: FUN_0042f8b0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042f8b0_part_004300d0() {
-    __asm {
     L_004300d0:
         mov edx,dword ptr [eax]
     L_004300d2:
@@ -10043,13 +10094,10 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
         mov dword ptr [esp+30h],edx
     L_0043408b:
         TH10_REL8(0xeb, 0x0043408b, VA_asm_FUN_00433ef0_part_00434090)
-    }
-}
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
 
-// 0x00434090..0x004349C9: FUN_00433ef0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_part_00434090() {
-    __asm {
     L_00434090:
         mov eax,dword ptr [data_00491fec]
     L_00434095:

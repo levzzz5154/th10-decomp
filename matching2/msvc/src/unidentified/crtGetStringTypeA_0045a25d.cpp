@@ -137,13 +137,28 @@ extern "C" __declspec(naked) void __cdecl asm_crtGetStringTypeA_0045a25d() {
         or dword ptr [ebp-4],0FFFFFFFFh
     L_0045a334:
         TH10_REL8(0xeb, 0x0045a334, VA_asm_crtGetStringTypeA_part_0045a34b)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
+        _emit 0xe8
+        _emit 0x4f
+        _emit 0xea
+        _emit 0xff
+        _emit 0xff
+        _emit 0x33
+        _emit 0xf6
+        _emit 0x83
+        _emit 0x4d
+        _emit 0xfc
+        _emit 0xff
+        _emit 0x8b
+        _emit 0x7d
+        _emit 0xd8
 
-// 0x0045A34B..0x0045A416: ___crtGetStringTypeA
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtGetStringTypeA_part_0045a34b() {
-    __asm {
     L_0045a34b:
         test esi,esi
     L_0045a34d:

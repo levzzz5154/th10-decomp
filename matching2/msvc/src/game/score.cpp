@@ -451,13 +451,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00408d60_00408d60() {
         mov ecx,5
     L_00408ed8:
         TH10_REL8(0xeb, 0x00408ed8, VA_asm_FUN_00408d60_part_00408ee0)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00408EE0..0x00408F59: FUN_00408d60
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00408d60_part_00408ee0() {
-    __asm {
     L_00408ee0:
         mov word ptr [eax],3
     L_00408ee5:
@@ -522,13 +522,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00408d60_part_00408ee0() {
         mov ecx,5
     L_00408f58:
         TH10_REL8(0xeb, 0x00408f58, VA_asm_FUN_00408d60_part_00408f60)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x00408F60..0x00409180: FUN_00408d60
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00408d60_part_00408f60() {
-    __asm {
     L_00408f60:
         mov word ptr [eax],2
     L_00408f65:
@@ -834,13 +834,15 @@ extern "C" __declspec(naked) void __cdecl asm_ReleaseFlaggedEntityArrays_ScoreRu
         mov edi,8
     L_004091d6:
         TH10_REL8(0xeb, 0x004091d6, VA_asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_part_004091e0)
-    }
-}
+        _emit 0x8d
+        _emit 0xa4
+        _emit 0x24
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x90
 
-// 0x004091E0..0x0040921E: ?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_part_004091e0() {
-    __asm {
     L_004091e0:
         mov ecx,dword ptr [data_00491c10]
     L_004091e6:

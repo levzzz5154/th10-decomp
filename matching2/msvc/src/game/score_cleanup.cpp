@@ -15,13 +15,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041c850_0041c850() {
         push esi
     L_0041c858:
         TH10_REL8(0xeb, 0x0041c858, VA_asm_FUN_0041c850_part_0041c860)
-    }
-}
+        _emit 0x8d
+        _emit 0x9b
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
+        _emit 0x00
 
-// 0x0041C860..0x0041C87B: FUN_0041c850
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041c850_part_0041c860() {
-    __asm {
     L_0041c860:
         cmp dword ptr [ecx+0Ch],1
     L_0041c864:

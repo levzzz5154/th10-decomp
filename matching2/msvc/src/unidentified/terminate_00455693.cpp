@@ -25,13 +25,14 @@ extern "C" __declspec(naked) void __cdecl asm_terminate_00455693() {
         call dword ptr [eax+6Ch]
     L_004556b6:
         TH10_REL8(0xeb, 0x004556b6, VA_asm_terminate_part_004556bf)
-    }
-}
+        _emit 0x33
+        _emit 0xc0
+        _emit 0x40
+        _emit 0xc3
+        _emit 0x8b
+        _emit 0x65
+        _emit 0xe8
 
-// 0x004556BF..0x004556C7: terminate
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_terminate_part_004556bf() {
-    __asm {
     L_004556bf:
         or dword ptr [ebp-4],0FFFFFFFFh
     L_004556c3:
