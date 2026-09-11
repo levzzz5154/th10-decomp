@@ -29,9 +29,19 @@ WAVE = ROOT / "matching2/build/waves"
 BACKUP = WAVE / "backup"
 
 def ida_signatures():
+    """Map each documented address to its full prototype.
+
+    IDA wraps a long prototype across several lines, so the banner is followed by
+    every line up to the opening brace of the body. Taking only the first line
+    hides the parameters of exactly the regions that need a cluster — the ones
+    whose arguments live in registers no C++ declaration can name.
+    """
     text = (ROOT / "ida/th10.exe.c").read_text(errors="replace")
-    return {int(match.group(1), 16): match.group(2).strip()
-            for match in re.finditer(r"^//----- \(([0-9A-F]{8})\) -+\n(.+)$", text, re.M)}
+    signatures = {}
+    for match in re.finditer(r"^//----- \(([0-9A-F]{8})\) -+\n((?:.+\n)+?)\{", text, re.M):
+        joined = " ".join(line.strip() for line in match.group(2).splitlines())
+        signatures[int(match.group(1), 16)] = joined.strip()
+    return signatures
 
 
 EXPRESSIBLE = {"ecx", "edx"}

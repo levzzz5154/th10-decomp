@@ -21,6 +21,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
+from matching2.tools.matching.ltcg_cluster import LTCGClusterError, load_cluster
 
 
 def update(manifest_path, layout_rel, apply):
@@ -47,6 +50,9 @@ def update(manifest_path, layout_rel, apply):
         if not apply:
             return "", manifest, [(region["name"], function["symbol"]) for region, function in changes]
         for region, function in changes:
+            if region["kind"] != "semantic":
+                region["previous_record"] = {key: value for key, value in region.items()
+                                             if key != "previous_record"}
             region["kind"] = "semantic"
             region["symbol"] = function["symbol"]
             region["name"] = ("semantic_" + function["name"] + "_%08x" % int(function["address"], 0))
@@ -55,10 +61,65 @@ def update(manifest_path, layout_rel, apply):
         if layout_rel not in clusters:
             clusters.append(layout_rel)
         manifest["translation_units"] = sorted({region["source"] for region in manifest["regions"]})
+        # A registration the loader rejects stops every unit in the project from
+        # building, not just this one, so the candidate manifest is validated
+        # before it is written.
+        try:
+            load_cluster(manifest_path.parent, layout_rel, manifest["regions"])
+        except LTCGClusterError as error:
+            return f"layout rejected by the loader: {error}", manifest, []
         temporary = manifest_path.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(manifest, indent=2) + "\n")
         os.replace(temporary, manifest_path)
         return "", manifest, [(region["name"], function["symbol"]) for region, function in changes]
+
+
+def unregister(manifest_path, layout_rel, apply):
+    """Remove a cluster registration and return its region to assembly.
+
+    An agent iterating on a cluster needs this: while a layout is registered but
+    not yet exact, the project does not build, and every other agent's probe dies
+    with it. Registering only on success, and unregistering on failure, keeps the
+    tree usable for everyone else.
+    """
+    with open(manifest_path.with_suffix(".json.lock"), "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        manifest = json.loads(manifest_path.read_text())
+        if layout_rel not in manifest["ltcg_clusters"]:
+            return f"{layout_rel} is not registered", manifest
+        path = manifest_path.parent / layout_rel
+        source = ""
+        if path.is_file():
+            source = json.loads(path.read_text())["source"]
+        manifest["ltcg_clusters"] = [item for item in manifest["ltcg_clusters"]
+                                     if item != layout_rel]
+        restored, unknown = [], []
+        for region in manifest["regions"]:
+            if region["kind"] != "semantic":
+                continue
+            if source and region["source"] != source:
+                continue
+            # The registration rewrote the region's name and symbol, and the
+            # original inline-assembly symbol cannot be recovered from them, so
+            # the previous record is kept at registration time. Without it the
+            # honest move is to refuse: inventing a name would leave a region no
+            # unit defines.
+            previous = region.pop("previous_record", None)
+            if not previous:
+                unknown.append(region["source"])
+                continue
+            region.update(previous)
+            region.pop("requested_symbol", None)
+            restored.append(region["source"])
+        if unknown:
+            return ("cannot unregister " + layout_rel + ": no recorded pre-registration "
+                    "state for " + ", ".join(sorted(set(unknown)))), manifest
+        if not apply:
+            return "", manifest
+        temporary = manifest_path.with_suffix(".json.tmp")
+        temporary.write_text(json.dumps(manifest, indent=2) + "\n")
+        os.replace(temporary, manifest_path)
+    return "", manifest
 
 
 def main():
@@ -66,8 +127,19 @@ def main():
     parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
     parser.add_argument("--layout", required=True)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument("--unregister", action="store_true",
+                        help="remove the registration and return its region to assembly")
     args = parser.parse_args()
     manifest_path = args.project.resolve() / "regions.json"
+    if args.unregister:
+        problem, manifest = unregister(manifest_path, args.layout, args.apply)
+        if problem:
+            print("refused: " + problem)
+            return 1
+        print(("unregistered " if args.apply else "would unregister ") + args.layout)
+        if args.apply:
+            print(f"ltcg_clusters: {len(manifest['ltcg_clusters'])} entries")
+        return 0
     problem, manifest, records = update(manifest_path, args.layout, args.apply)
     if problem:
         print("refused: " + problem)
