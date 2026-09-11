@@ -1,31 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004175E0: advance the rank level and publish the resulting rank record.
 
-// 0x004175E0..0x004175FF: FUN_004175e0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004175e0_004175e0() {
-    __asm {
-    L_004175e0:
-        mov ecx,dword ptr [eax+3Ch]
-    L_004175e3:
-        cmp ecx,7
-    L_004175e6:
-        jge short L_004175ec
-    L_004175e8:
-        inc ecx
-    L_004175e9:
-        mov dword ptr [eax+3Ch],ecx
-    L_004175ec:
-        mov eax,dword ptr [eax+3Ch]
-    L_004175ef:
-        lea eax,[eax+eax*2]
-    L_004175f2:
-        shl eax,4
-    L_004175f5:
-        add eax,474788h
-    L_004175fa:
-        mov dword ptr [data_00477848],eax
-    L_004175ff:
-        ret
-    }
+struct RankTableEntry {
+    int values[12];
+};
+
+struct RankState {
+    char unknown[0x3C];
+    int level;
+
+    __declspec(noinline) void AdvanceLevel();
+};
+
+extern "C" RankTableEntry data_00474788[];
+extern "C" RankTableEntry* data_00477848;
+
+#pragma code_seg(".text$01rank")
+void RankState::AdvanceLevel() {
+    if (this->level < 7)
+        this->level = this->level + 1;
+    data_00477848 = &data_00474788[this->level];
 }
+#pragma code_seg()

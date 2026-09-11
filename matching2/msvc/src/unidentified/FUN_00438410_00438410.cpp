@@ -1,13 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00438410 - return the object pointer unchanged. The stack argument is
+// unused: the retail body only moves ECX into EAX.
+struct Object00438410 {
+    void* Self(int unused);
+};
 
-// 0x00438410..0x00438414: FUN_00438410
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00438410_00438410() {
-    __asm {
-    L_00438410:
-        mov eax,ecx
-    L_00438412:
-        ret 4
-    }
+void* Object00438410::Self(int unused) {
+    (void)unused;
+    return this;
 }

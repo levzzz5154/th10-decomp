@@ -1,13 +1,7 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// The global the accessor publishes; the retail body loads it directly.
+extern "C" int data_00491fc4;
 
-// 0x00417670..0x00417675: FUN_00417670
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00417670_00417670() {
-    __asm {
-    L_00417670:
-        mov eax,dword ptr [data_00491fc4]
-    L_00417675:
-        ret
-    }
+// 0x00417670: FUN_00417670 - read the published frame counter.
+int FUN_00417670() {
+    return data_00491fc4;
 }

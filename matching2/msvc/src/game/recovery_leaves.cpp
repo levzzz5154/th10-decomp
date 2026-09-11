@@ -10,6 +10,12 @@
 void __cdecl operator delete(void*);
 extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 
+// The raw-pair release still lives in inline assembly, so it is called through its
+// fixed retail prototype (one stack argument, callee cleans).
+typedef void (__stdcall* RawPairReleaseFn)(void* pair);
+// CRT heap release reached by the state teardown below.
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+
 // 0x00401520..0x00401529: GameThread_RunQueueLeaf
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_GameThread_RunQueueLeaf_00401520() {
@@ -2016,95 +2022,38 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_StartWorker_0041fac0() {
 }
 
 // 0x004203F0..0x0042046F: Recovery_ReleaseGlobalStates
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_ReleaseGlobalStates_004203f0() {
-    __asm {
-    L_004203f0:
-        push esi
-    L_004203f1:
-        mov esi,dword ptr [data_00477810]
-    L_004203f7:
-        test esi,esi
-    L_004203f9:
-        je short L_0042040a
-    L_004203fb:
-        push esi
-    L_004203fc:
-        call asm_FUN_00417c80_00417c80
-    L_00420401:
-        push esi
-    L_00420402:
-        call asm_free_004524a1
-    L_00420407:
-        add esp,4
-    L_0042040a:
-        mov esi,dword ptr [data_0047784c]
-    L_00420410:
-        test esi,esi
-    L_00420412:
-        je short L_00420423
-    L_00420414:
-        push esi
-    L_00420415:
-        call asm_FUN_0042cb60_0042cb60
-    L_0042041a:
-        push esi
-    L_0042041b:
-        call asm_free_004524a1
-    L_00420420:
-        add esp,4
-    L_00420423:
-        mov esi,dword ptr [data_00477820]
-    L_00420429:
-        test esi,esi
-    L_0042042b:
-        je short L_0042043c
-    L_0042042d:
-        push esi
-    L_0042042e:
-        call asm_FUN_0041fb50_0041fb50
-    L_00420433:
-        push esi
-    L_00420434:
-        call asm_free_004524a1
-    L_00420439:
-        add esp,4
-    L_0042043c:
-        mov esi,dword ptr [data_00477700]
-    L_00420442:
-        test esi,esi
-    L_00420444:
-        je short L_00420455
-    L_00420446:
-        push esi
-    L_00420447:
-        call asm_FUN_0040b7b0_0040b7b0
-    L_0042044c:
-        push esi
-    L_0042044d:
-        call asm_free_004524a1
-    L_00420452:
-        add esp,4
-    L_00420455:
-        mov esi,dword ptr [data_00477838]
-    L_0042045b:
-        test esi,esi
-    L_0042045d:
-        je short L_0042046e
-    L_0042045f:
-        push esi
-    L_00420460:
-        call asm_FUN_004294a0_004294a0
-    L_00420465:
-        push esi
-    L_00420466:
-        call asm_free_004524a1
-    L_0042046b:
-        add esp,4
-    L_0042046e:
-        pop esi
-    L_0042046f:
-        ret
+// Tear down every global state object the engine allocated for the running
+// session: manager state, script state, resource state, the small state and the
+// pending block. Each object is destroyed through its own release routine and
+// then handed back to the CRT heap. The globals keep their stale values, just
+// as the retail code leaves them.
+typedef void (__stdcall* GlobalStateDestroyFn)(void*);
+
+void Recovery_ReleaseGlobalStates() {
+    void* manager_state = *(void**)&data_00477810;
+    if (manager_state) {
+        ((GlobalStateDestroyFn)asm_FUN_00417c80_00417c80)(manager_state);
+        entry_free_004524a1(manager_state);
+    }
+    void* script_state = *(void**)&data_0047784c;
+    if (script_state) {
+        ((GlobalStateDestroyFn)asm_FUN_0042cb60_0042cb60)(script_state);
+        entry_free_004524a1(script_state);
+    }
+    void* resource_state = *(void**)&data_00477820;
+    if (resource_state) {
+        ((GlobalStateDestroyFn)asm_FUN_0041fb50_0041fb50)(resource_state);
+        entry_free_004524a1(resource_state);
+    }
+    void* small_state = *(void**)&data_00477700;
+    if (small_state) {
+        ((GlobalStateDestroyFn)asm_FUN_0040b7b0_0040b7b0)(small_state);
+        entry_free_004524a1(small_state);
+    }
+    void* pending_block = *(void**)&data_00477838;
+    if (pending_block) {
+        ((GlobalStateDestroyFn)asm_FUN_004294a0_004294a0)(pending_block);
+        entry_free_004524a1(pending_block);
     }
 }
 
@@ -3179,35 +3128,16 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_ResetDeviceStreams_0043bc
     }
 }
 
-// 0x0043C870..0x0043C889: ?Platform_DeletingDestructorNoReturn@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_DeletingDestructorNoReturn_0043c870() {
-    __asm {
-    L_0043c870:
-        push esi
-    L_0043c871:
-        mov esi,ecx
-    L_0043c873:
-        test esi,esi
-    L_0043c875:
-        je short L_0043c886
-    L_0043c877:
-        push esi
-    L_0043c878:
-        call asm_Recovery_ReleaseRawPair_0043cb00
-    L_0043c87d:
-        push esi
-    L_0043c87e:
-        call asm_free_004524a1
-    L_0043c883:
-        add esp,4
-    L_0043c886:
-        xor eax,eax
-    L_0043c888:
-        pop esi
-    L_0043c889:
-        ret
+// 0x0043C870..0x0043C889: Platform_DeletingDestructorNoReturn
+// Scalar deleting destructor for the platform-owned raw pair: release the pair,
+// return the object to the CRT heap and report success in EAX. The object
+// arrives in ECX, matching the retail thunk ABI.
+int __fastcall Platform_DeletingDestructorNoReturn(void* pair) {
+    if (pair) {
+        ((RawPairReleaseFn)asm_Recovery_ReleaseRawPair_0043cb00)(pair);
+        entry_free_004524a1(pair);
     }
+    return 0;
 }
 
 // 0x0043CB00..0x0043CB7E: ?Recovery_ReleaseRawPair@@
@@ -3693,69 +3623,37 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_CreateTextureFromMemory_0
     }
 }
 
-// 0x00447280..0x004472D0: ?Recovery_LoadCachedResource@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_LoadCachedResource_00447280() {
-    __asm {
-    L_00447280:
-        mov eax,dword ptr [edx+ecx*4+3AD06Ch]
-    L_00447287:
-        test eax,eax
-    L_00447289:
-        jne short L_004472ce
-    L_0044728b:
-        mov eax,dword ptr [esp+4]
-    L_0044728f:
-        push esi
-    L_00447290:
-        push eax
-    L_00447291:
-        push ecx
-    L_00447292:
-        push edx
-    L_00447293:
-        call asm_FUN_004470c0_004470c0
-    L_00447298:
-        mov esi,eax
-    L_0044729a:
-        test esi,esi
-    L_0044729c:
-        jne short L_004472a2
-    L_0044729e:
-        pop esi
-    L_0044729f:
-        ret 4
-    L_004472a2:
-        push edi
-    L_004472a3:
-        mov edi,dword ptr [data_004660ac]
-    L_004472a9:
-        mov dword ptr [esi+124h],1
-    L_004472b3:
-        mov al,byte ptr [data_00491ff4]
-    L_004472b8:
-        test al,al
-    L_004472ba:
-        js short L_004472ca
-    L_004472bc:
-        push 1
-    L_004472be:
-        call edi
-    L_004472c0:
-        mov eax,dword ptr [esi+124h]
-    L_004472c6:
-        test eax,eax
-    L_004472c8:
-        jne short L_004472b3
-    L_004472ca:
-        pop edi
-    L_004472cb:
-        mov eax,esi
-    L_004472cd:
-        pop esi
-    L_004472ce:
-        ret 4
-    }
+// 0x00447280..0x004472D1: Recovery_LoadCachedResource
+// Return the resource cached for the given index, loading it through 0x004470C0
+// when the slot is still empty. The load runs on a worker thread: the entry is
+// flagged busy (+0x124) and this side waits a millisecond at a time until the
+// worker clears the flag. A progress byte with its sign bit set at 0x00491FF4
+// aborts the wait. The index arrives in ECX and the cache table in EDX, with the
+// resource name on the stack, matching the retail __fastcall layout.
+struct CachedResource {
+    unsigned char unknown_000[0x124];
+    int busy;                    // +0x124, one while a loader still owns the entry
+};
+
+typedef CachedResource* (__stdcall* ResourceLoadFn)(void* owner, int index, const char* name);
+// kernel32!Sleep through the import slot the image keeps, loaded once.
+typedef void (__stdcall* SleepFn)(unsigned long milliseconds);
+
+CachedResource* __fastcall Recovery_LoadCachedResource(int index, void* owner, const char* name) {
+    CachedResource* entry = *(CachedResource**)((char*)owner + 0x3AD06C + index * 4);
+    if (entry != 0)
+        return entry;
+    entry = ((ResourceLoadFn)asm_FUN_004470c0_004470c0)(owner, index, name);
+    if (entry == 0)
+        return 0;
+    SleepFn sleep = *(SleepFn*)&data_004660ac;
+    entry->busy = 1;
+    do {
+        if (data_00491ff4 & 0x80)
+            break;
+        sleep(1);
+    } while (entry->busy != 0);
+    return entry;
 }
 
 // 0x004479D0..0x00447A4E: Recovery_DispatchRandomText

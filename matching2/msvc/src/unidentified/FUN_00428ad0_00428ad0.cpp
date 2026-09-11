@@ -1,37 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00428AD0. The first __fastcall argument selects the active enemy pool, the
+// second receives the resolved pointer at +0x4C, and the third stack argument
+// is unused. The pool's current enemy is rejected when its entry angle is
+// farther than the threshold stored in data_00470B4C.
+#include <math.h>
 
-// 0x00428AD0..0x00428B04: FUN_00428ad0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00428ad0_00428ad0() {
-    __asm {
-    L_00428ad0:
-        mov dword ptr [edx+4Ch],0
-    L_00428ad7:
-        mov eax,dword ptr [ecx+3504h]
-    L_00428add:
-        test eax,eax
-    L_00428adf:
-        je short L_00428b00
-    L_00428ae1:
-        mov dword ptr [edx+4Ch],eax
-    L_00428ae4:
-        fld dword ptr [eax+1068h]
-    L_00428aea:
-        fabs
-    L_00428aec:
-        fcomp dword ptr [data_00470b4c]
-    L_00428af2:
-        fnstsw ax
-    L_00428af4:
-        test ah,41h
-    L_00428af7:
-        jne short L_00428b00
-    L_00428af9:
-        mov dword ptr [edx+4Ch],0
-    L_00428b00:
-        xor eax,eax
-    L_00428b02:
-        ret 4
+extern "C" float data_00470b4c;   // 0x00470B4C, 224.0f
+
+int __fastcall Recovery_SelectPool_00428ad0(int state, int resolved, int unused) {
+    *(int*)(resolved + 0x4C) = 0;
+    int enemy = *(int*)(state + 0x3504);
+    if (enemy) {
+        *(int*)(resolved + 0x4C) = enemy;
+        if (fabsf(*(float*)(enemy + 0x1068)) > data_00470b4c)
+            *(int*)(resolved + 0x4C) = 0;
     }
+    return 0;
 }

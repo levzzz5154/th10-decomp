@@ -1,13 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00438400. The object pointer arrives in ECX and is handed straight back in
+// EAX, so this is the identity method of a struct whose interface wants the
+// object pointer as a method result.
+struct RecoverySelf_00438400 {
+    RecoverySelf_00438400* Self();
+};
 
-// 0x00438400..0x00438402: FUN_00438400
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00438400_00438400() {
-    __asm {
-    L_00438400:
-        mov eax,ecx
-    L_00438402:
-        ret
-    }
+RecoverySelf_00438400* RecoverySelf_00438400::Self() {
+    return this;
 }

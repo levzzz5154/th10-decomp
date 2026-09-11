@@ -1,15 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00413100. Slot at offset 0 of a small input-state record: the assigned
+// value is both stored and returned.
+struct RecoverySlot_00413100 {
+    int value;
+    int SetValue(int new_value);
+};
 
-// 0x00413100..0x00413108: FUN_00413100
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00413100_00413100() {
-    __asm {
-    L_00413100:
-        mov eax,dword ptr [esp+4]
-    L_00413104:
-        mov dword ptr [ecx],eax
-    L_00413106:
-        ret 4
-    }
+int RecoverySlot_00413100::SetValue(int new_value) {
+    value = new_value;
+    return new_value;
 }

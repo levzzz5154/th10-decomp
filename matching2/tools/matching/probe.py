@@ -260,6 +260,27 @@ def conflicting_definitions(object_path, regions, config):
                   if name in config["symbols"] and name not in owned)
 
 
+def extra_sections(object_path, normalization):
+    """Code sections the unit emits that no owned region selects.
+
+    They are dropped by normalization, so they never reach the image; naming
+    them shows when a body needs another region (a compiler-generated
+    ``__ehhandler`` thunk, an EH-tracked array helper) rather than a code change.
+    """
+    data = Path(object_path).read_bytes()
+    _, section_count, _, _, _, optional_size, _ = struct.unpack_from("<HHIIIHH", data, 0)
+    table = 20 + optional_size
+    selected = {region["source_section"] for region in normalization["regions"]}
+    extra = []
+    for index in range(section_count):
+        name, _, _, size, _, _, _, _, _, characteristics = \
+            struct.unpack_from("<8sIIIIIIHHI", data, table + index * 40)
+        text = name.rstrip(b"\0").decode("ascii", "replace")
+        if size and characteristics & 0x20 and text not in selected:
+            extra.append({"section": text, "size": size})
+    return extra
+
+
 def probe_unit(project, toolkit, output, config, source, regions, cluster_by_source, index):
     """Compile one unit and resolve its region symbols against the emitted object."""
     if source in cluster_by_source:
@@ -270,6 +291,7 @@ def probe_unit(project, toolkit, output, config, source, regions, cluster_by_sou
     resolved = resolve_regions(regions, raw["object"])
     normalized = output / "objects" / f"unit{index:04d}.normalized.obj"
     unit = {**raw, **normalize_unit(raw["object"], normalized, source, config, resolved)}
+    unit["dropped_sections"] = extra_sections(raw["object"], unit["normalization"])
     return unit, resolved
 
 
@@ -367,6 +389,10 @@ def main():
                 print(f"  actual:   {region['actual_bytes']}   {region['actual_instruction']}")
             if "detail" in region:
                 print("  " + region["detail"])
+        for source, unit in sorted(report["units"].items()):
+            for section in unit.get("dropped_sections", []):
+                print(f"{source}: emits {section['section']} ({section['size']} bytes) that no region "
+                      f"selects; normalization drops it")
     print("EXACT" if report["exact"] else "NOT EXACT", file=sys.stderr)
     return 0 if report["exact"] else 1
 

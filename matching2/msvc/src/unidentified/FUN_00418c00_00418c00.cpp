@@ -1,13 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418C00..0x00418C05: reads the shared 32-bit state word at 0x00491FC4.
+extern "C" unsigned char data_00491fc4;
 
-// 0x00418C00..0x00418C05: FUN_00418c00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00418c00_00418c00() {
-    __asm {
-    L_00418c00:
-        mov eax,dword ptr [data_00491fc4]
-    L_00418c05:
-        ret
-    }
+int GetStateWord_00491fc4(void) {
+    return *(int*)&data_00491fc4;
 }

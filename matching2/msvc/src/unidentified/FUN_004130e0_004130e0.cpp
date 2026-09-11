@@ -1,15 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004130E0 - store one word into the object's second slot and return it.
+// The value arrives on the stack (ECX is the object), so this is the __thiscall
+// setter of that slot.
+struct Object004130e0 {
+    int first;   // +0x00
+    int second;  // +0x04
 
-// 0x004130E0..0x004130E9: FUN_004130e0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004130e0_004130e0() {
-    __asm {
-    L_004130e0:
-        mov eax,dword ptr [esp+4]
-    L_004130e4:
-        mov dword ptr [ecx+4],eax
-    L_004130e7:
-        ret 4
-    }
+    int SetSecond(int value);
+};
+
+int Object004130e0::SetSecond(int value) {
+    second = value;
+    return value;
 }

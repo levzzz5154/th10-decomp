@@ -1,15 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040CF00..0x0040CF08: stores the countdown limit at +0x3C and returns it.
+struct TimedOwner {
+    unsigned char unknown_00[0x3C];
+    int countdown_limit;             // +0x3C
 
-// 0x0040CF00..0x0040CF09: FUN_0040cf00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040cf00_0040cf00() {
-    __asm {
-    L_0040cf00:
-        mov eax,dword ptr [esp+4]
-    L_0040cf04:
-        mov dword ptr [ecx+3Ch],eax
-    L_0040cf07:
-        ret 4
-    }
+    int SetCountdownLimit_0040cf00(int value);
+};
+
+int TimedOwner::SetCountdownLimit_0040cf00(int value) {
+    countdown_limit = value;
+    return value;
 }

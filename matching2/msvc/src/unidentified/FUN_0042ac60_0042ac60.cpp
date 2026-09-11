@@ -1,41 +1,30 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042AC60 - unlink the list node stored at +0x1C from its neighbours and
+// clear both list slots. The node's +0x04 link mirrors the list head and its
+// +0x08 link mirrors the list tail, so patching the surviving ends keeps the
+// doubly linked list consistent before both slots are zeroed.
+struct Object0042ac60;
 
-// 0x0042AC60..0x0042AC84: FUN_0042ac60
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042ac60_0042ac60() {
-    __asm {
-    L_0042ac60:
-        mov eax,dword ptr [ecx+1Ch]
-    L_0042ac63:
-        xor edx,edx
-    L_0042ac65:
-        cmp eax,edx
-    L_0042ac67:
-        push esi
-    L_0042ac68:
-        je short L_0042ac70
-    L_0042ac6a:
-        mov esi,dword ptr [ecx+20h]
-    L_0042ac6d:
-        mov dword ptr [eax+8],esi
-    L_0042ac70:
-        mov eax,dword ptr [ecx+20h]
-    L_0042ac73:
-        cmp eax,edx
-    L_0042ac75:
-        je short L_0042ac7d
-    L_0042ac77:
-        mov esi,dword ptr [ecx+1Ch]
-    L_0042ac7a:
-        mov dword ptr [eax+4],esi
-    L_0042ac7d:
-        mov dword ptr [ecx+1Ch],edx
-    L_0042ac80:
-        mov dword ptr [ecx+20h],edx
-    L_0042ac83:
-        pop esi
-    L_0042ac84:
-        ret
-    }
+struct ListNode0042ac60 {
+    unsigned char pad_000[0x04];
+    ListNode0042ac60* head_link;  // +0x04, mirrors the owner's list head
+    ListNode0042ac60* tail_link;  // +0x08, mirrors the owner's list tail
+};
+
+struct Object0042ac60 {
+    unsigned char pad_000[0x1C];
+    ListNode0042ac60* head;  // +0x1C
+    ListNode0042ac60* tail;  // +0x20
+
+    void UnlinkNode();
+};
+
+void Object0042ac60::UnlinkNode() {
+    ListNode0042ac60* node = head;
+    if (node)
+        node->tail_link = tail;
+    ListNode0042ac60* end = tail;
+    if (end)
+        end->head_link = head;
+    head = 0;
+    tail = 0;
 }

@@ -1,43 +1,25 @@
-#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043CCF0..0x0043CD28: FUN_0043ccf0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043ccf0_0043ccf0() {
-    __asm {
-    L_0043ccf0:
-        mov eax,dword ptr [data_004977b8]
-    L_0043ccf5:
-        push eax
-    L_0043ccf6:
-        mov ecx,492590h
-    L_0043ccfb:
-        call asm_FUN_0043cd30_0043cd30
-    L_0043cd00:
-        mov eax,dword ptr [data_004977b4]
-    L_0043cd05:
-        test eax,eax
-    L_0043cd07:
-        jne short L_0043cd1e
-    L_0043cd09:
-        push esi
-    L_0043cd0a:
-        mov esi,dword ptr [data_004660ac]
-    L_0043cd10:
-        push 1
-    L_0043cd12:
-        call esi
-    L_0043cd14:
-        mov eax,dword ptr [data_004977b4]
-    L_0043cd19:
-        test eax,eax
-    L_0043cd1b:
-        je short L_0043cd10
-    L_0043cd1d:
-        pop esi
-    L_0043cd1e:
-        mov dword ptr [data_004977bc],1
-    L_0043cd28:
-        ret
-    }
+// 0x0043CD30 is the sound-device/window initialisation routine that follows
+// this entry point. It takes its target object in ECX and the window handle on
+// the stack. MSVC passes a floating-point argument of a __fastcall callee on the
+// stack, so this pointer type is exactly the ordering the retail call site uses
+// (object in ECX, handle pushed by the caller, callee pops it).
+typedef int (__fastcall* SoundDeviceInitFn)(void* self, float hwnd);
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+
+// The global runtime object the startup path initialises and polls.
+extern "C" unsigned char data_00492590;
+
+// 0x0043CCF0: StartAddress - bring the sound device up for the new main window,
+// wait until the worker thread has finished, then publish that it happened.
+void __stdcall StartAddress() {
+    // The handle is bit-cast to float only so that it selects the stack-passing
+    // form of the call above; no conversion happens.
+    ((SoundDeviceInitFn)asm_FUN_0043cd30_0043cd30)(&data_00492590,
+                                                   *(float*)&data_004977b8);
+    while (*(int*)&data_004977b4 == 0)
+        Sleep(1);
+    *(int*)&data_004977bc = 1;
 }

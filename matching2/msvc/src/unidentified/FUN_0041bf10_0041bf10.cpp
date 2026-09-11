@@ -1,13 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0041BF10..0x0041BF12: FUN_0041bf10
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041bf10_0041bf10() {
-    __asm {
-    L_0041bf10:
-        xor eax,eax
-    L_0041bf12:
-        ret
-    }
+// 0x0041BF10..0x0041BF12 - stub predicate that always reports "no".
+// The retail body is a bare zero return; the caller's test is what gives it
+// meaning, so the name keeps its address until a caller identifies it.
+extern "C" int __cdecl FUN_0041bf10(void) {
+    return 0;
 }

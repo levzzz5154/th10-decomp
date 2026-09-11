@@ -1,15 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// One entry of the input mapping table; only its first word is written here.
+struct InputBinding {
+    int value;
+    int Set(int new_value);   // __thiscall: the table pointer arrives in ECX
+};
 
-// 0x00405370..0x00405378: FUN_00405370
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405370_00405370() {
-    __asm {
-    L_00405370:
-        mov eax,dword ptr [esp+4]
-    L_00405374:
-        mov dword ptr [ecx],eax
-    L_00405376:
-        ret 4
-    }
+// 0x00405370: InputBinding::Set - store the bound value and pass it back.
+int InputBinding::Set(int new_value) {
+    value = new_value;
+    return new_value;
 }

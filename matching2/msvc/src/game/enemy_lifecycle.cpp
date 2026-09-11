@@ -445,262 +445,158 @@ extern "C" __declspec(naked) void __cdecl asm_Enemy_TimerSweepRetail_0040d750() 
     }
 }
 
-// 0x0040DAE0..0x0040DC61: FUN_0040dae0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040dae0_0040dae0() {
-    __asm {
-    L_0040dae0:
-        push ecx
-    L_0040dae1:
-        mov ecx,dword ptr [data_00477704]
-    L_0040dae7:
-        push ebx
-    L_0040dae8:
-        push ebp
-    L_0040dae9:
-        mov ebp,dword ptr [esp+10h]
-    L_0040daed:
-        mov dword ptr [ebp],46D0C0h
-    L_0040daf4:
-        mov edx,dword ptr [ecx+58h]
-    L_0040daf7:
-        lea eax,[ebp+116Ch]
-    L_0040dafd:
-        cmp edx,eax
-    L_0040daff:
-        push esi
-    L_0040db00:
-        push edi
-    L_0040db01:
-        jne short L_0040db0c
-    L_0040db03:
-        mov edx,dword ptr [ebp+1170h]
-    L_0040db09:
-        mov dword ptr [ecx+58h],edx
-    L_0040db0c:
-        cmp dword ptr [ecx+5Ch],eax
-    L_0040db0f:
-        jne short L_0040db1a
-    L_0040db11:
-        mov edx,dword ptr [ebp+1174h]
-    L_0040db17:
-        mov dword ptr [ecx+5Ch],edx
-    L_0040db1a:
-        mov edx,dword ptr [eax+4]
-    L_0040db1d:
-        xor ebx,ebx
-    L_0040db1f:
-        cmp edx,ebx
-    L_0040db21:
-        je short L_0040db29
-    L_0040db23:
-        mov esi,dword ptr [eax+8]
-    L_0040db26:
-        mov dword ptr [edx+8],esi
-    L_0040db29:
-        mov edx,dword ptr [eax+8]
-    L_0040db2c:
-        cmp edx,ebx
-    L_0040db2e:
-        je short L_0040db36
-    L_0040db30:
-        mov esi,dword ptr [eax+4]
-    L_0040db33:
-        mov dword ptr [edx+4],esi
-    L_0040db36:
-        mov dword ptr [eax+4],ebx
-    L_0040db39:
-        mov dword ptr [eax+8],ebx
-    L_0040db3c:
-        dec dword ptr [ecx+60h]
-    L_0040db3f:
-        mov eax,dword ptr [ebp+2480h]
-    L_0040db45:
-        test ah,ah
-    L_0040db47:
-        jns short L_0040db53
-    L_0040db49:
-        mov eax,dword ptr [ebp+248Ch]
-    L_0040db4f:
-        mov dword ptr [ecx+eax*4+10h],ebx
-    L_0040db53:
-        mov edi,dword ptr [data_00491c10]
-    L_0040db59:
-        lea edx,[ebp+10FCh]
-    L_0040db5f:
-        mov dword ptr [esp+10h],0Ah
-    L_0040db67:
-        mov esi,4000000h
-    L_0040db6c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0040db70:
-        mov ecx,dword ptr [edx]
-    L_0040db72:
-        cmp ecx,ebx
-    L_0040db74:
-        je short L_0040dbe5
-    L_0040db76:
-        mov eax,dword ptr [edi+72DAD4h]
-    L_0040db7c:
-        cmp eax,ebx
-    L_0040db7e:
-        je short L_0040db92
-    L_0040db80:
-        mov ebp,dword ptr [eax]
-    L_0040db82:
-        cmp dword ptr [ebp],ecx
-    L_0040db85:
-        je short L_0040dbb0
-    L_0040db87:
-        mov eax,dword ptr [eax+4]
-    L_0040db8a:
-        cmp eax,ebx
-    L_0040db8c:
-        jne short L_0040db80
-    L_0040db8e:
-        mov ebp,dword ptr [esp+18h]
-    L_0040db92:
-        mov eax,dword ptr [edi+72DADCh]
-    L_0040db98:
-        cmp eax,ebx
-    L_0040db9a:
-        je short L_0040dbe5
-    L_0040db9c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0040dba0:
-        mov ebp,dword ptr [eax]
-    L_0040dba2:
-        cmp dword ptr [ebp],ecx
-    L_0040dba5:
-        je short L_0040dbb0
-    L_0040dba7:
-        mov eax,dword ptr [eax+4]
-    L_0040dbaa:
-        cmp eax,ebx
-    L_0040dbac:
-        jne short L_0040dba0
-    L_0040dbae:
-        jmp short L_0040dbe1
-    L_0040dbb0:
-        mov eax,dword ptr [eax]
-    L_0040dbb2:
-        cmp eax,ebx
-    L_0040dbb4:
-        je short L_0040dbe1
-    L_0040dbb6:
-        mov ebp,dword ptr [eax+35Ch]
-    L_0040dbbc:
-        mov ecx,dword ptr [eax+18h]
-    L_0040dbbf:
-        or ebp,esi
-    L_0040dbc1:
-        cmp ecx,ebx
-    L_0040dbc3:
-        mov dword ptr [eax+35Ch],ebp
-    L_0040dbc9:
-        jne short L_0040dbe1
-    L_0040dbcb:
-        mov eax,dword ptr [eax+14h]
-    L_0040dbce:
-        cmp eax,ebx
-    L_0040dbd0:
-        je short L_0040dbe1
-    L_0040dbd2:
-        mov ecx,dword ptr [eax]
-    L_0040dbd4:
-        or dword ptr [ecx+35Ch],esi
-    L_0040dbda:
-        mov eax,dword ptr [eax+4]
-    L_0040dbdd:
-        cmp eax,ebx
-    L_0040dbdf:
-        jne short L_0040dbd2
-    L_0040dbe1:
-        mov ebp,dword ptr [esp+18h]
-    L_0040dbe5:
-        mov eax,dword ptr [esp+10h]
-    L_0040dbe9:
-        mov dword ptr [edx],ebx
-    L_0040dbeb:
-        add edx,4
-    L_0040dbee:
-        dec eax
-    L_0040dbef:
-        mov dword ptr [esp+10h],eax
-    L_0040dbf3:
-        jne asm_target_0040db70
-    L_0040dbf9:
-        mov eax,dword ptr [data_00477834]
-    L_0040dbfe:
-        cmp eax,ebx
-    L_0040dc00:
-        je short L_0040dc2c
-    L_0040dc02:
-        cmp dword ptr [eax+3504h],ebp
-    L_0040dc08:
-        jne short L_0040dc16
-    L_0040dc0a:
-        mov dword ptr [eax+3504h],ebx
-    L_0040dc10:
-        mov byte ptr [eax+3508h],bl
-    L_0040dc16:
-        add eax,4E8h
-    L_0040dc1b:
-        mov ecx,80h
-    L_0040dc20:
-        cmp dword ptr [eax],ebp
-    L_0040dc22:
-        jne short L_0040dc26
-    L_0040dc24:
-        mov dword ptr [eax],ebx
-    L_0040dc26:
-        add eax,5Ch
-    L_0040dc29:
-        dec ecx
-    L_0040dc2a:
-        jne short L_0040dc20
-    L_0040dc2c:
-        mov esi,dword ptr [ebp+1034h]
-    L_0040dc32:
-        cmp esi,ebx
-    L_0040dc34:
-        mov dword ptr [ebp],46D0D8h
-    L_0040dc3b:
-        je short L_0040dc5a
-    L_0040dc3d:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_0040dc40:
-        mov ecx,dword ptr [esi]
-    L_0040dc42:
-        mov edi,dword ptr [esi+4]
-    L_0040dc45:
-        push ecx
-    L_0040dc46:
-        call asm_free_004524a1
-    L_0040dc4b:
-        push esi
-    L_0040dc4c:
-        call asm_free_004524a1
-    L_0040dc51:
-        add esp,8
-    L_0040dc54:
-        cmp edi,ebx
-    L_0040dc56:
-        mov esi,edi
-    L_0040dc58:
-        jne short L_0040dc40
-    L_0040dc5a:
-        pop edi
-    L_0040dc5b:
-        pop esi
-    L_0040dc5c:
-        pop ebp
-    L_0040dc5d:
-        pop ebx
-    L_0040dc5e:
-        pop ecx
-    L_0040dc5f:
-        ret 4
+// 0x0040DAE0. Teardown of one enemy record: unlink it from the manager's list,
+// drop it from the selector's name tables and the active-enemy slot table,
+// detach it from the current game state and release its owned allocation list.
+// The link node at +0x116C is embedded in the record, so the same triple is
+// both the record's link and the list's node type.
+extern "C" unsigned char data_0046d0c0;   // 0x0046D0C0: live method table
+extern "C" unsigned char data_0046d0d8;   // 0x0046D0D8: released method table
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct Enemy_0040dae0;
+
+struct EnemyLink_0040dae0 {
+    int unknown_00;               // +0x00
+    EnemyLink_0040dae0* next;     // +0x04
+    EnemyLink_0040dae0* prev;     // +0x08
+
+    void Unlink();
+};
+
+struct EnemyManager_0040dae0 {
+    char unknown_000[0x10];       // +0x00
+    int entries[0x12];            // +0x10, indexed by the record's slot index
+    EnemyLink_0040dae0* head;     // +0x58
+    EnemyLink_0040dae0* tail;     // +0x5C
+    int count;                    // +0x60
+};
+
+// One bucket of the selector's name tables: the owner pointer designates the
+// record whose first word is the searched name.
+struct SelectorNode_0040dae0 {
+    int* owner;                   // +0x00
+    SelectorNode_0040dae0* next;  // +0x04
+};
+
+struct SelectorTarget_0040dae0;
+
+struct MemberNode_0040dae0 {
+    SelectorTarget_0040dae0* target;   // +0x00
+    MemberNode_0040dae0* next;         // +0x04
+};
+
+struct SelectorTarget_0040dae0 {
+    char unknown_000[0x14];            // +0x000
+    MemberNode_0040dae0* members;      // +0x014
+    int unknown_018;                   // +0x018
+    char unknown_01C[0x35C - 0x1C];    // +0x01C
+    int flags;                         // +0x35C
+};
+
+struct EnemySelector_0040dae0 {
+    char unknown_00000[0x72DAD4];      // +0x000000
+    SelectorNode_0040dae0* primary;    // +0x72DAD4
+    int unknown_72DAD8;                // +0x72DAD8
+    SelectorNode_0040dae0* secondary;  // +0x72DADC
+};
+
+struct EnemyFreeNode_0040dae0 {
+    void* data;                        // +0x00
+    EnemyFreeNode_0040dae0* next;      // +0x04
+};
+
+struct Enemy_0040dae0 {
+    int vtable;                        // +0x0000
+    char unknown_0004[0x1034 - 0x4];   // +0x0004
+    EnemyFreeNode_0040dae0* free_list; // +0x1034
+    char unknown_1038[0x10FC - 0x1038];
+    int entries[10];                   // +0x10FC
+    char unknown_1124[0x116C - 0x1124];
+    EnemyLink_0040dae0 link;           // +0x116C
+    char unknown_1178[0x2480 - 0x1178];
+    int flags;                         // +0x2480
+    char unknown_2484[0x248C - 0x2484];
+    int index;                         // +0x248C
+};
+
+struct EnemyState_0040dae0 {
+    char unknown_0000[0x3504];         // +0x0000
+    Enemy_0040dae0* enemy;             // +0x3504
+    unsigned char mirror;              // +0x3508
+};
+
+void EnemyLink_0040dae0::Unlink() {
+    if (next != 0)
+        next->prev = prev;
+    if (prev != 0)
+        prev->next = next;
+    next = 0;
+    prev = 0;
+}
+
+void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
+    EnemyManager_0040dae0* manager = *(EnemyManager_0040dae0**)&data_00477704;
+    self->vtable = (int)&data_0046d0c0;
+    if (manager->head == &self->link)
+        manager->head = self->link.next;
+    if (manager->tail == &self->link)
+        manager->tail = self->link.prev;
+    self->link.Unlink();
+    --manager->count;
+    if (self->flags & 0x8000)
+        manager->entries[self->index] = 0;
+
+    EnemySelector_0040dae0* selector = *(EnemySelector_0040dae0**)&data_00491c10;
+    int* entry = self->entries;
+    for (int remaining = 10; remaining != 0; --remaining) {
+        int name = *entry;
+        if (name != 0) {
+            SelectorNode_0040dae0* node = selector->primary;
+            while (node != 0 && *node->owner != name)
+                node = node->next;
+            if (node == 0) {
+                node = selector->secondary;
+                while (node != 0 && *node->owner != name)
+                    node = node->next;
+            }
+            if (node != 0) {
+                SelectorTarget_0040dae0* target = (SelectorTarget_0040dae0*)node->owner;
+                if (target != 0) {
+                    target->flags |= 0x4000000;
+                    if (target->unknown_018 == 0) {
+                        for (MemberNode_0040dae0* member = target->members; member != 0;
+                             member = member->next)
+                            member->target->flags |= 0x4000000;
+                    }
+                }
+            }
+        }
+        *entry = 0;
+        ++entry;
+    }
+
+    EnemyState_0040dae0* state = *(EnemyState_0040dae0**)&data_00477834;
+    if (state != 0) {
+        if (state->enemy == self) {
+            state->enemy = 0;
+            state->mirror = 0;
+        }
+        int* slot = (int*)((char*)state + 0x4E8);
+        for (int count = 0x80; count != 0; --count) {
+            if (*slot == (int)self)
+                *slot = 0;
+            slot = (int*)((char*)slot + 0x5C);
+        }
+    }
+
+    EnemyFreeNode_0040dae0* block = self->free_list;
+    self->vtable = (int)&data_0046d0d8;
+    while (block != 0) {
+        EnemyFreeNode_0040dae0* next = block->next;
+        entry_free_004524a1(block->data);
+        entry_free_004524a1(block);
+        block = next;
     }
 }
 

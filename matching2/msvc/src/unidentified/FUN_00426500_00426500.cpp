@@ -1,15 +1,9 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00426500..0x00426506: thunk that forwards its ECX argument to the
+// scheduler routine at 0x00425730 and returns that call's result unchanged.
+// The callee is entered through a __stdcall pointer type: retail consumes the
+// pushed argument inside the callee, so no caller-side cleanup is emitted.
+extern "C" int __cdecl asm_FUN_00425730_00425730(void*);
 
-// 0x00426500..0x00426506: FUN_00426500
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00426500_00426500() {
-    __asm {
-    L_00426500:
-        push ecx
-    L_00426501:
-        call asm_FUN_00425730_00425730
-    L_00426506:
-        ret
-    }
+int __fastcall Thunk_00425730_00426500(void* a1, int a2) {
+    return ((int (__stdcall*)(void*))asm_FUN_00425730_00425730)(a1);
 }
