@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A980: store the object field at +0x28.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x0042A980..0x0042A983: FUN_0042a980
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042a980_0042a980() {
-    __asm {
-    L_0042a980:
-        mov dword ptr [eax+28h],ecx
-    L_0042a983:
-        ret
-    }
+struct ObjectAccessor_0042a980 {
+    unsigned char pad_000[0x28];
+    int field_028;
+    __declspec(noinline) void StoreValue(int value);
+};
+typedef char ObjectAccessor_0042a980_size_must_fit[sizeof(ObjectAccessor_0042a980) == 0x2c ? 1 : -1];
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0042a980::StoreValue(int value) {
+    field_028 = value;
 }
+#pragma code_seg()

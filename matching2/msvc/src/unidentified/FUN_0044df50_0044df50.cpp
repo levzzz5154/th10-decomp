@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0044DF50: store the object field at +0x1000.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x0044DF50..0x0044DF56: FUN_0044df50
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0044df50_0044df50() {
-    __asm {
-    L_0044df50:
-        mov dword ptr [eax+1000h],ecx
-    L_0044df56:
-        ret
-    }
+struct ObjectAccessor_0044df50 {
+    unsigned char pad_000[0x1000];
+    int field_1000;
+    __declspec(noinline) void StoreValue(int value);
+};
+typedef char ObjectAccessor_0044df50_size_must_fit[sizeof(ObjectAccessor_0044df50) == 0x1004 ? 1 : -1];
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0044df50::StoreValue(int value) {
+    field_1000 = value;
 }
+#pragma code_seg()

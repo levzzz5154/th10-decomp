@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00417680: load the object field at +0x5c.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x00417680..0x00417683: FUN_00417680
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00417680_00417680() {
-    __asm {
-    L_00417680:
-        mov eax,dword ptr [eax+5Ch]
-    L_00417683:
-        ret
-    }
+struct ObjectAccessor_00417680 {
+    unsigned char pad_000[0x5c];
+    int field_05c;
+    __declspec(noinline) int LoadValue() const;
+};
+typedef char ObjectAccessor_00417680_size_must_fit[sizeof(ObjectAccessor_00417680) == 0x60 ? 1 : -1];
+
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_00417680::LoadValue() const {
+    return field_05c;
 }
+#pragma code_seg()

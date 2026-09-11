@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "accessor_00417640",
+  "source": "src/unidentified/FUN_00417640_00417640.cpp",
+  "driver": "layout/ltcg/accessor_00417640_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "ObjectAccessor_Accessor",
+      "symbol": "?LoadValue@ObjectAccessor_00417640@@QBEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x00417640",
+      "size": 4,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_00417640@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00417650",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 91712
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00417644",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

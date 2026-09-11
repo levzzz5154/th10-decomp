@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418B40: store the object field at +0x58.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x00418B40..0x00418B43: FUN_00418b40
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00418b40_00418b40() {
-    __asm {
-    L_00418b40:
-        mov dword ptr [eax+58h],ecx
-    L_00418b43:
-        ret
-    }
+struct ObjectAccessor_00418b40 {
+    unsigned char pad_000[0x58];
+    int field_058;
+    __declspec(noinline) void StoreValue(int value);
+};
+typedef char ObjectAccessor_00418b40_size_must_fit[sizeof(ObjectAccessor_00418b40) == 0x5c ? 1 : -1];
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00418b40::StoreValue(int value) {
+    field_058 = value;
 }
+#pragma code_seg()
