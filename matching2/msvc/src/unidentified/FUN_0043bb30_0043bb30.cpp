@@ -1,61 +1,35 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043BB30: submits a six-word description through the interface pointer at
+// 0x00491C3C (slot 0x18 of its vtable). Returns 0 only when that call fails;
+// a description whose first word is already aligned reports success at once.
+struct BlitRequest {
+    int field_00;
+    int field_04;
+    int field_08;
+    int field_0C;
+    int field_10;
+    int field_14;
+};
 
-// 0x0043BB30..0x0043BB91: FUN_0043bb30
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043bb30_0043bb30() {
-    __asm {
-    L_0043bb30:
-        mov eax,dword ptr [esp+4]
-    L_0043bb34:
-        mov eax,dword ptr [eax+18h]
-    L_0043bb37:
-        sub esp,18h
-    L_0043bb3a:
-        test al,3
-    L_0043bb3c:
-        je short L_0043bb87
-    L_0043bb3e:
-        lea edx,[esp]
-    L_0043bb41:
-        push edx
-    L_0043bb42:
-        mov dword ptr [esp+0Ch],eax
-    L_0043bb46:
-        mov eax,dword ptr [data_00491c3c]
-    L_0043bb4b:
-        push 4
-    L_0043bb4d:
-        mov dword ptr [esp+8],18h
-    L_0043bb55:
-        mov dword ptr [esp+0Ch],10h
-    L_0043bb5d:
-        mov dword ptr [esp+14h],2
-    L_0043bb65:
-        mov dword ptr [esp+18h],0FFFFFC18h
-    L_0043bb6d:
-        mov dword ptr [esp+1Ch],3E8h
-    L_0043bb75:
-        mov ecx,dword ptr [eax]
-    L_0043bb77:
-        push eax
-    L_0043bb78:
-        call dword ptr [ecx+18h]
-    L_0043bb7b:
-        test eax,eax
-    L_0043bb7d:
-        jge short L_0043bb87
-    L_0043bb7f:
-        xor eax,eax
-    L_0043bb81:
-        add esp,18h
-    L_0043bb84:
-        ret 8
-    L_0043bb87:
-        mov eax,1
-    L_0043bb8c:
-        add esp,18h
-    L_0043bb8f:
-        ret 8
+struct Device {
+    void** vtable;                   // +0x00
+};
+
+extern "C" unsigned char data_00491c3c;
+
+int __stdcall FUN_0043bb30_0043bb30(int a1, int a2) {
+    int result = 1;
+    if ((*(int*)(a1 + 24) & 3) != 0) {
+        BlitRequest request;
+        request.field_00 = 24;
+        request.field_04 = 16;
+        request.field_08 = *(int*)(a1 + 24);
+        request.field_0C = 2;
+        request.field_10 = -1000;
+        request.field_14 = 1000;
+        Device* device = *(Device**)&data_00491c3c;
+        if (((int (__stdcall*)(Device*, int, BlitRequest*))device->vtable[6])(
+                device, 4, &request) < 0)
+            return 0;
     }
+    return result;
 }

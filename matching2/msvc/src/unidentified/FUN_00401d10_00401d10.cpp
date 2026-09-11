@@ -1,13 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/game/entity.hpp"
 
-// 0x00401D10..0x00401D16: FUN_00401d10
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00401d10_00401d10() {
-    __asm {
-    L_00401d10:
-        mov dword ptr [eax+394h],ecx
-    L_00401d16:
-        ret
-    }
+// 0x00401D10..0x00401D16: replace the entity's sprite metadata pointer.
+// The store is written at the retail byte offset; referencing the header's
+// inline accessor instead leaves an empty .text COMDAT in the LTCG image.
+#pragma code_seg(".text$01setmeta")
+void Entity::SetSpriteMetadata(void* metadata) {
+    *(void**)((uint8_t*)this + 0x394) = metadata;
 }
+#pragma code_seg()

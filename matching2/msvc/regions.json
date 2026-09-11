@@ -269,12 +269,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401700_00401700",
+      "name": "semantic_GameThread_FormatRecordText_00401700",
       "source": "src/unidentified/FUN_00401700_00401700.cpp",
-      "symbol": "_asm_FUN_00401700_00401700",
+      "symbol": "?GameThread_FormatRecordText@@YAIPADZZ",
       "address": "0x00401700",
       "size": 94,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401700"
     },
     {
@@ -354,12 +354,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401cb0_00401cb0",
+      "name": "semantic_SetPrimaryColorAlpha_00401cb0",
       "source": "src/unidentified/FUN_00401cb0_00401cb0.cpp",
-      "symbol": "_asm_FUN_00401cb0_00401cb0",
+      "symbol": "?SetPrimaryColorAlpha@Entity@@QAEXD@Z",
       "address": "0x00401CB0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401CB0"
     },
     {
@@ -371,12 +371,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401cc0_00401cc0",
+      "name": "semantic_SetPrimaryColor_00401cc0",
       "source": "src/unidentified/FUN_00401cc0_00401cc0.cpp",
-      "symbol": "_asm_FUN_00401cc0_00401cc0",
+      "symbol": "?SetPrimaryColor@Entity@@QAEXI@Z",
       "address": "0x00401CC0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401CC0"
     },
     {
@@ -388,12 +388,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401cd0_00401cd0",
+      "name": "semantic_GetSpriteMetadata_00401cd0",
       "source": "src/unidentified/FUN_00401cd0_00401cd0.cpp",
-      "symbol": "_asm_FUN_00401cd0_00401cd0",
+      "symbol": "?GetSpriteMetadata@Entity@@QAEPAXXZ",
       "address": "0x00401CD0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401CD0"
     },
     {
@@ -422,12 +422,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401d10_00401d10",
+      "name": "semantic_SetSpriteMetadata_00401d10",
       "source": "src/unidentified/FUN_00401d10_00401d10.cpp",
-      "symbol": "_asm_FUN_00401d10_00401d10",
+      "symbol": "?SetSpriteMetadata@Entity@@QAEXPAX@Z",
       "address": "0x00401D10",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401D10"
     },
     {
@@ -592,12 +592,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401f50_00401f50",
+      "name": "semantic_EntityMotion_ClearScaleVelocityX_00401f50",
       "source": "src/unidentified/FUN_00401f50_00401f50.cpp",
-      "symbol": "_asm_FUN_00401f50_00401f50",
+      "symbol": "?ClearScaleVelocityX@EntityMotion@@QAEXXZ",
       "address": "0x00401F50",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401F50"
     },
     {
@@ -609,12 +609,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401f60_00401f60",
+      "name": "semantic_EntitySpin_ClearAngularVelocityX_00401f60",
       "source": "src/unidentified/FUN_00401f60_00401f60.cpp",
-      "symbol": "_asm_FUN_00401f60_00401f60",
+      "symbol": "?ClearAngularVelocityX@EntitySpin@@QAEXXZ",
       "address": "0x00401F60",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401F60"
     },
     {
@@ -626,12 +626,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401f70_00401f70",
+      "name": "semantic_EntityScaleAlternate_ClearScaleVelocityXAlternate_00401f70",
       "source": "src/unidentified/FUN_00401f70_00401f70.cpp",
-      "symbol": "_asm_FUN_00401f70_00401f70",
+      "symbol": "?ClearScaleVelocityXAlternate@EntityScaleAlternate@@QAEXXZ",
       "address": "0x00401F70",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401F70"
     },
     {
@@ -643,12 +643,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401f80_00401f80",
+      "name": "semantic_EntityOrientation_ClearRotationX_00401f80",
       "source": "src/unidentified/FUN_00401f80_00401f80.cpp",
-      "symbol": "_asm_FUN_00401f80_00401f80",
+      "symbol": "?ClearRotationX@EntityOrientation@@QAEXXZ",
       "address": "0x00401F80",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401F80"
     },
     {
@@ -694,12 +694,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401fb0_00401fb0",
+      "name": "semantic_FUN_00401fb0_State_StoreValue_00401fb0",
       "source": "src/unidentified/FUN_00401fb0_00401fb0.cpp",
-      "symbol": "_asm_FUN_00401fb0_00401fb0",
+      "symbol": "?StoreValue@FUN_00401fb0_State@@QAEXH@Z",
       "address": "0x00401FB0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401FB0"
     },
     {
@@ -728,12 +728,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00401fd0_00401fd0",
+      "name": "semantic_InvokeStridedCallback_00401fd0",
       "source": "src/unidentified/FUN_00401fd0_00401fd0.cpp",
-      "symbol": "_asm_FUN_00401fd0_00401fd0",
+      "symbol": "?InvokeStridedCallback@@YGHHHHP6IHH@Z@Z",
       "address": "0x00401FD0",
       "size": 31,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00401FD0"
     },
     {
@@ -1138,12 +1138,12 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_00403060_00403060",
+      "name": "semantic_FUN_00403060_Forward_00403060",
       "source": "src/unidentified/FUN_00403060_00403060.cpp",
-      "symbol": "_asm_FUN_00403060_00403060",
+      "symbol": "?FUN_00403060_Forward@@YIXH@Z",
       "address": "0x00403060",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00403060"
     },
     {
@@ -1156,12 +1156,12 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_00403070_00403070",
+      "name": "semantic_FUN_00403070_Forward_00403070",
       "source": "src/unidentified/FUN_00403070_00403070.cpp",
-      "symbol": "_asm_FUN_00403070_00403070",
+      "symbol": "?FUN_00403070_Forward@@YIXH@Z",
       "address": "0x00403070",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00403070"
     },
     {
@@ -1327,12 +1327,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00404410_00404410",
+      "name": "semantic_FUN_00404410_State_SetFlag_00404410",
       "source": "src/unidentified/FUN_00404410_00404410.cpp",
-      "symbol": "_asm_FUN_00404410_00404410",
+      "symbol": "?SetFlag@FUN_00404410_State@@QAEXXZ",
       "address": "0x00404410",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404410"
     },
     {
@@ -1413,12 +1413,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_PlayerManager_StartMode_004045b0",
-      "source": "src/game/player.cpp",
-      "symbol": "_asm_PlayerManager_StartMode_004045b0",
+      "name": "semantic_PlayerManagerState_StartMode_004045b0",
+      "source": "src/game/player_manager_start_mode_004045b0.cpp",
+      "symbol": "?StartMode@PlayerManagerState@@QAEXXZ",
       "address": "0x004045B0",
       "size": 92,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004045B0"
     },
     {
@@ -1447,12 +1447,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00404990_00404990",
+      "name": "semantic_Field44Holder_GetField44_00404990",
       "source": "src/unidentified/FUN_00404990_00404990.cpp",
-      "symbol": "_asm_FUN_00404990_00404990",
+      "symbol": "?GetField44@Field44Holder@@QAEHXZ",
       "address": "0x00404990",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404990"
     },
     {
@@ -1473,12 +1473,12 @@
       "owner": "0x004049A0"
     },
     {
-      "name": "asm_FUN_00404c50_00404c50",
+      "name": "semantic_Field88Holder_SetField88_00404c50",
       "source": "src/unidentified/FUN_00404c50_00404c50.cpp",
-      "symbol": "_asm_FUN_00404c50_00404c50",
+      "symbol": "?SetField88@Field88Holder@@QAEHH@Z",
       "address": "0x00404C50",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404C50"
     },
     {
@@ -1507,12 +1507,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00404c90_00404c90",
+      "name": "semantic_Field84Setter_SetField84_00404c90",
       "source": "src/unidentified/FUN_00404c90_00404c90.cpp",
-      "symbol": "_asm_FUN_00404c90_00404c90",
+      "symbol": "?SetField84@Field84Setter@@QAEXH@Z",
       "address": "0x00404C90",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404C90"
     },
     {
@@ -1541,12 +1541,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00404ce0_00404ce0",
+      "name": "semantic_Field84Holder_GetField84_00404ce0",
       "source": "src/unidentified/FUN_00404ce0_00404ce0.cpp",
-      "symbol": "_asm_FUN_00404ce0_00404ce0",
+      "symbol": "?GetField84@Field84Holder@@QAEHXZ",
       "address": "0x00404CE0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404CE0"
     },
     {
@@ -1592,12 +1592,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00404d30_00404d30",
+      "name": "semantic_TrajectoryState_ResetStep_00404d30",
       "source": "src/unidentified/FUN_00404d30_00404d30.cpp",
-      "symbol": "_asm_FUN_00404d30_00404d30",
+      "symbol": "?ResetStep@TrajectoryState@@QAEXXZ",
       "address": "0x00404D30",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404D30"
     },
     {
@@ -1609,12 +1609,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Vec_Subtract_00404d40",
-      "source": "src/math/math_utils.cpp",
-      "symbol": "_asm_Vec_Subtract_00404d40",
+      "name": "semantic_Vec_Subtract_00404d40",
+      "source": "src/math/vec_subtract_00404d40.cpp",
+      "symbol": "?Vec_Subtract@@YGPAUVecSubtractResult@@PBUVecSubtractOperand@@0PAU1@@Z",
       "address": "0x00404D40",
       "size": 92,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404D40"
     },
     {
@@ -1626,12 +1626,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ScaleColor_00404da0",
-      "source": "src/game/recovery_leaves.cpp",
-      "symbol": "_asm_Recovery_ScaleColor_00404da0",
+      "name": "semantic_RecoveryScaleColor_Scale_00404da0",
+      "source": "src/game/recovery_scale_color_00404da0.cpp",
+      "symbol": "?RecoveryScaleColor_Scale@@YGPAURecoveryScaleColorResult@@PBURecoveryScaleColorSource@@PAU1@M@Z",
       "address": "0x00404DA0",
       "size": 101,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00404DA0"
     },
     {
@@ -1881,12 +1881,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405130_00405130",
+      "name": "semantic_Assign_00405130",
       "source": "src/unidentified/FUN_00405130_00405130.cpp",
-      "symbol": "_asm_FUN_00405130_00405130",
+      "symbol": "?Assign@TripleWordBlock@@QAEXABU1@@Z",
       "address": "0x00405130",
       "size": 17,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405130"
     },
     {
@@ -1898,12 +1898,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405150_00405150",
+      "name": "semantic_RuntimeRecord_SetValue48_00405150",
       "source": "src/unidentified/FUN_00405150_00405150.cpp",
-      "symbol": "_asm_FUN_00405150_00405150",
+      "symbol": "?StoreValue48@@YGXPAURuntimeRecord@@H@Z",
       "address": "0x00405150",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405150"
     },
     {
@@ -1915,12 +1915,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405160_00405160",
+      "name": "semantic_RuntimeRecord_SetValue44_00405160",
       "source": "src/unidentified/FUN_00405160_00405160.cpp",
-      "symbol": "_asm_FUN_00405160_00405160",
+      "symbol": "?SetValue44@RuntimeRecord@@QAEXH@Z",
       "address": "0x00405160",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405160"
     },
     {
@@ -1966,12 +1966,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004051b0_004051b0",
+      "name": "semantic_GameRuntimeState_SetEnabled_004051b0",
       "source": "src/unidentified/FUN_004051b0_004051b0.cpp",
-      "symbol": "_asm_FUN_004051b0_004051b0",
+      "symbol": "?SetEnabled@GameRuntimeState@@QAEXD@Z",
       "address": "0x004051B0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004051B0"
     },
     {
@@ -2162,12 +2162,12 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_004052e0_004052e0",
+      "name": "semantic_GameStateBulletPool_ReleasePoolMask_004052e0",
       "source": "src/unidentified/FUN_004052e0_004052e0.cpp",
-      "symbol": "_asm_FUN_004052e0_004052e0",
+      "symbol": "?ReleasePoolMask@GameStateBulletPool@@QAEXXZ",
       "address": "0x004052E0",
       "size": 21,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004052E0"
     },
     {
@@ -2196,12 +2196,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405340_00405340",
+      "name": "semantic_GameStateBulletPool_SetPoolMask_00405340",
       "source": "src/unidentified/FUN_00405340_00405340.cpp",
-      "symbol": "_asm_FUN_00405340_00405340",
+      "symbol": "?SetPoolMask@GameStateBulletPool@@QAEXI@Z",
       "address": "0x00405340",
       "size": 17,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405340"
     },
     {
@@ -2213,12 +2213,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405360_00405360",
+      "name": "semantic_ManagedObject_GetInterface_00405360",
       "source": "src/unidentified/FUN_00405360_00405360.cpp",
-      "symbol": "_asm_FUN_00405360_00405360",
+      "symbol": "?ManagedObject_GetInterface@@YGPAXPAUManagedObject@@@Z",
       "address": "0x00405360",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405360"
     },
     {
@@ -2264,12 +2264,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405390_00405390",
+      "name": "semantic_ManagedObject_GetField04_00405390",
       "source": "src/unidentified/FUN_00405390_00405390.cpp",
-      "symbol": "_asm_FUN_00405390_00405390",
+      "symbol": "?ManagedObject_GetField04@@YGHPAUManagedObject@@@Z",
       "address": "0x00405390",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405390"
     },
     {
@@ -2298,12 +2298,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004053b0_004053b0",
+      "name": "semantic_FUN_004053b0_StoreTriple_004053b0",
       "source": "src/unidentified/FUN_004053b0_004053b0.cpp",
-      "symbol": "_asm_FUN_004053b0_004053b0",
+      "symbol": "?FUN_004053b0_StoreTriple@@YGXPAUFUN_004053b0_Triple@@U1@@Z",
       "address": "0x004053B0",
       "size": 23,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004053B0"
     },
     {
@@ -2315,12 +2315,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004053d0_004053d0",
+      "name": "semantic_ManagedObject_GetField3C_004053d0",
       "source": "src/unidentified/FUN_004053d0_004053d0.cpp",
-      "symbol": "_asm_FUN_004053d0_004053d0",
+      "symbol": "?ManagedObject_GetField3C@@YGHPAUManagedObject@@@Z",
       "address": "0x004053D0",
       "size": 4,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004053D0"
     },
     {
@@ -2383,12 +2383,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Player_SetSchedulerValue_00405410",
-      "source": "src/game/player.cpp",
-      "symbol": "_asm_Player_SetSchedulerValue_00405410",
+      "name": "semantic_PlayerSchedulerRecord_SetSchedulerValue_00405410",
+      "source": "src/game/player_set_scheduler_value_00405410.cpp",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
       "address": "0x00405410",
       "size": 57,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405410"
     },
     {
@@ -2520,12 +2520,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405580_00405580",
+      "name": "semantic_GameState_GetField3788_00405580",
       "source": "src/unidentified/FUN_00405580_00405580.cpp",
-      "symbol": "_asm_FUN_00405580_00405580",
+      "symbol": "?GameState_GetField3788@@YGHPAUGameState@@@Z",
       "address": "0x00405580",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405580"
     },
     {
@@ -2639,12 +2639,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405730_00405730",
+      "name": "semantic_FUN_00405730_ReleasePair_00405730",
       "source": "src/unidentified/FUN_00405730_00405730.cpp",
-      "symbol": "_asm_FUN_00405730_00405730",
+      "symbol": "?FUN_00405730_ReleasePair@@YGXPAX@Z",
       "address": "0x00405730",
       "size": 18,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405730"
     },
     {
@@ -2794,12 +2794,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Player_AdjustPower_00405b60",
-      "source": "src/game/player.cpp",
-      "symbol": "_asm_Player_AdjustPower_00405b60",
+      "name": "semantic_PlayerPowerState_AdjustPower_00405b60",
+      "source": "src/game/player_adjustpower_00405b60.cpp",
+      "symbol": "?AdjustPower@PlayerPowerState@@QAEXH@Z",
       "address": "0x00405B60",
       "size": 42,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405B60"
     },
     {
@@ -2879,12 +2879,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_thunk_FUN_0043e5a0_00405bd0",
+      "name": "semantic_thunk_FUN_0043e5a0_00405bd0",
       "source": "src/unidentified/thunk_FUN_0043e5a0_00405bd0.cpp",
-      "symbol": "_asm_thunk_FUN_0043e5a0_00405bd0",
+      "symbol": "?thunk_FUN_0043e5a0_00405bd0@@YAXXZ",
       "address": "0x00405BD0",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00405BD0"
     },
     {
@@ -3159,12 +3159,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00406140_00406140",
+      "name": "semantic_ReleaseManagedItem_00406140",
       "source": "src/unidentified/FUN_00406140_00406140.cpp",
-      "symbol": "_asm_FUN_00406140_00406140",
+      "symbol": "?ReleaseManagedItem@@YGXPAUManagedItem@@@Z",
       "address": "0x00406140",
       "size": 18,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00406140"
     },
     {
@@ -4730,12 +4730,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Retire_ScoreRuntimeCallbacks_00409e20",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_Retire_ScoreRuntimeCallbacks_00409e20",
+      "name": "semantic_CallbackPair_RetireCallbacks_00409e20",
+      "source": "src/game/score_retire_callbacks_00409e20.cpp",
+      "symbol": "?RetireCallbacks@CallbackPair@@QAEXXZ",
       "address": "0x00409E20",
       "size": 28,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00409E20"
     },
     {
@@ -4943,12 +4943,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040a010_0040a010",
+      "name": "semantic_CallbackPair_DetachPairAndFinalize_0040a010",
       "source": "src/unidentified/FUN_0040a010_0040a010.cpp",
-      "symbol": "_asm_FUN_0040a010_0040a010",
+      "symbol": "?DetachPairAndFinalize@CallbackPair@@QAEXXZ",
       "address": "0x0040A010",
       "size": 36,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040A010"
     },
     {
@@ -5138,12 +5138,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040abe0_0040abe0",
+      "name": "semantic_FUN_0040abe0_0040abe0",
       "source": "src/unidentified/FUN_0040abe0_0040abe0.cpp",
-      "symbol": "_asm_FUN_0040abe0_0040abe0",
+      "symbol": "?FUN_0040abe0@@YIXPAX@Z",
       "address": "0x0040ABE0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040ABE0"
     },
     {
@@ -5223,12 +5223,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_SetInputMode_0040ac90",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_SetInputMode_0040ac90",
+      "name": "semantic_SetInputMode_0040ac90",
+      "source": "src/game/set_input_mode_0040ac90.cpp",
+      "symbol": "?SetInputMode@@YGXPAUInputState@@H@Z",
       "address": "0x0040AC90",
       "size": 37,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040AC90"
     },
     {
@@ -5274,12 +5274,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_InputMaskActive_0040ace0",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_InputMaskActive_0040ace0",
+      "name": "semantic_KeyRepeatState_InputMaskActive_0040ace0",
+      "source": "src/game/input_mask_active_0040ace0.cpp",
+      "symbol": "?InputMaskActive@KeyRepeatState@@QAEHG@Z",
       "address": "0x0040ACE0",
       "size": 33,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040ACE0"
     },
     {
@@ -5683,12 +5683,12 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_0040b060_0040b060",
+      "name": "semantic_FUN_0040b060_0040b060",
       "source": "src/unidentified/FUN_0040b060_0040b060.cpp",
-      "symbol": "_asm_FUN_0040b060_0040b060",
+      "symbol": "?FUN_0040b060_0040b060@@YAHXZ",
       "address": "0x0040B060",
       "size": 6,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040B060"
     },
     {
@@ -6092,12 +6092,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_CreateSmallState_0040b940",
+      "name": "semantic_Recovery_CreateSmallState_0040b940",
       "source": "src/game/recovery_leaves.cpp",
-      "symbol": "_asm_Recovery_CreateSmallState_0040b940",
+      "symbol": "?Recovery_CreateSmallState_0040b940@@YGPAXXZ",
       "address": "0x0040B940",
       "size": 99,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040B940"
     },
     {
@@ -6126,12 +6126,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreOwnedObject_Destroy_0040b9d0",
-      "source": "src/game/score.cpp",
-      "symbol": "_asm_ScoreOwnedObject_Destroy_0040b9d0",
+      "name": "semantic_ScoreOwnedObject_Destroy_0040b9d0",
+      "source": "src/game/score_owned_destroy_0040b9d0.cpp",
+      "symbol": "?ScoreOwnedObject_Destroy@@YGXPAUScoreOwnedObject@@@Z",
       "address": "0x0040B9D0",
       "size": 18,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040B9D0"
     },
     {
@@ -6662,12 +6662,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040c6a0_0040c6a0",
+      "name": "semantic_FUN_0040c6a0_0040c6a0",
       "source": "src/unidentified/FUN_0040c6a0_0040c6a0.cpp",
-      "symbol": "_asm_FUN_0040c6a0_0040c6a0",
+      "symbol": "?FUN_0040c6a0_0040c6a0@@YGHH@Z",
       "address": "0x0040C6A0",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040C6A0"
     },
     {
@@ -6832,12 +6832,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040c810_0040c810",
+      "name": "semantic_FUN_0040c810_0040c810",
       "source": "src/unidentified/FUN_0040c810_0040c810.cpp",
-      "symbol": "_asm_FUN_0040c810_0040c810",
+      "symbol": "?FUN_0040c810_0040c810@@YGHH@Z",
       "address": "0x0040C810",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040C810"
     },
     {
@@ -7317,12 +7317,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Entity_ClearAnims_0040cc70",
+      "name": "semantic_Entity_ClearAnims_0040cc70",
       "source": "src/game/bullet.cpp",
-      "symbol": "_asm_Entity_ClearAnims_0040cc70",
+      "symbol": "?Entity_ClearAnims_0040cc70@@YIPAUClearAnimsOwner@@HPAU1@@Z",
       "address": "0x0040CC70",
       "size": 145,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040CC70"
     },
     {
@@ -8124,12 +8124,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040d820_0040d820",
+      "name": "semantic_FUN_0040d820_0040d820",
       "source": "src/unidentified/FUN_0040d820_0040d820.cpp",
-      "symbol": "_asm_FUN_0040d820_0040d820",
+      "symbol": "?FUN_0040d820_0040d820@@YGHXZ",
       "address": "0x0040D820",
       "size": 6,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040D820"
     },
     {
@@ -8890,12 +8890,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00412f20_00412f20",
+      "name": "semantic_FUN_00412f20_00412f20",
       "source": "src/unidentified/FUN_00412f20_00412f20.cpp",
-      "symbol": "_asm_FUN_00412f20_00412f20",
+      "symbol": "?StoreValue@Object00412f20@@QAEHH@Z",
       "address": "0x00412F20",
       "size": 10,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00412F20"
     },
     {
@@ -9341,12 +9341,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00413160_00413160",
+      "name": "semantic_FUN_00413160_00413160",
       "source": "src/unidentified/FUN_00413160_00413160.cpp",
-      "symbol": "_asm_FUN_00413160_00413160",
+      "symbol": "?SetValue@Object00413160@@QAEHH@Z",
       "address": "0x00413160",
       "size": 10,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00413160"
     },
     {
@@ -11367,12 +11367,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004187d0_004187d0",
+      "name": "semantic_FUN_004187d0_004187d0",
       "source": "src/unidentified/FUN_004187d0_004187d0.cpp",
-      "symbol": "_asm_FUN_004187d0_004187d0",
+      "symbol": "?FUN_004187d0_004187d0@@YIHPAE@Z",
       "address": "0x004187D0",
       "size": 31,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004187D0"
     },
     {
@@ -12587,12 +12587,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041acf0_0041acf0",
+      "name": "semantic_FUN_0041acf0_0041acf0",
       "source": "src/unidentified/FUN_0041acf0_0041acf0.cpp",
-      "symbol": "_asm_FUN_0041acf0_0041acf0",
+      "symbol": "?EffectEntity_Constructor@@YIPAUEffectEntity@@PAU1@@Z",
       "address": "0x0041ACF0",
       "size": 104,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041ACF0"
     },
     {
@@ -12809,12 +12809,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041ba00_0041ba00",
+      "name": "semantic_FUN_0041ba00_0041ba00",
       "source": "src/unidentified/FUN_0041ba00_0041ba00.cpp",
-      "symbol": "_asm_FUN_0041ba00_0041ba00",
+      "symbol": "?FUN_0041ba00_0041ba00@SceneHost_0041ba00@@QAEHXZ",
       "address": "0x0041BA00",
       "size": 48,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041BA00"
     },
     {
@@ -13039,12 +13039,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041bf20_0041bf20",
+      "name": "semantic_FUN_0041bf20_0041bf20",
       "source": "src/unidentified/FUN_0041bf20_0041bf20.cpp",
-      "symbol": "_asm_FUN_0041bf20_0041bf20",
+      "symbol": "?FUN_0041bf20_0041bf20@@YGHXZ",
       "address": "0x0041BF20",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041BF20"
     },
     {
@@ -13498,12 +13498,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041c4e0_0041c4e0",
+      "name": "semantic_FUN_0041c4e0_0041c4e0",
       "source": "src/unidentified/FUN_0041c4e0_0041c4e0.cpp",
-      "symbol": "_asm_FUN_0041c4e0_0041c4e0",
+      "symbol": "?FUN_0041c4e0_0041c4e0@NodeList@@QAEHXZ",
       "address": "0x0041C4E0",
       "size": 46,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041C4E0"
     },
     {
@@ -14504,12 +14504,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041feb0_0041feb0",
+      "name": "semantic_FUN_0041feb0_0041feb0",
       "source": "src/unidentified/FUN_0041feb0_0041feb0.cpp",
-      "symbol": "_asm_FUN_0041feb0_0041feb0",
+      "symbol": "@FUN_0041feb0@4",
       "address": "0x0041FEB0",
       "size": 63,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041FEB0"
     },
     {
@@ -14521,12 +14521,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041fef0_0041fef0",
+      "name": "semantic_FUN_0041fef0_0041fef0",
       "source": "src/unidentified/FUN_0041fef0_0041fef0.cpp",
-      "symbol": "_asm_FUN_0041fef0_0041fef0",
+      "symbol": "?FUN_0041fef0_0041fef0@@YIXPAX@Z",
       "address": "0x0041FEF0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041FEF0"
     },
     {
@@ -15911,12 +15911,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421f50_00421f50",
+      "name": "semantic_FUN_00421f50_00421f50",
       "source": "src/unidentified/FUN_00421f50_00421f50.cpp",
-      "symbol": "_asm_FUN_00421f50_00421f50",
+      "symbol": "?FUN_00421f50_00421f50@@YAHXZ",
       "address": "0x00421F50",
       "size": 12,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00421F50"
     },
     {
@@ -18150,12 +18150,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428c20_00428c20",
+      "name": "semantic_FUN_00428c20_00428c20",
       "source": "src/game/boss_gauge.cpp",
-      "symbol": "_asm_FUN_00428c20_00428c20",
+      "symbol": "?BossGauge_UpdateRetail@@YIHPAHPAUBossGaugeState@@@Z",
       "address": "0x00428C20",
       "size": 125,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00428C20"
     },
     {
@@ -18742,12 +18742,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042a430_0042a430",
+      "name": "semantic_FUN_0042a430_0042a430",
       "source": "src/unidentified/FUN_0042a430_0042a430.cpp",
-      "symbol": "_asm_FUN_0042a430_0042a430",
+      "symbol": "?FUN_0042a430@@YIHPAX@Z",
       "address": "0x0042A430",
       "size": 28,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042A430"
     },
     {
@@ -19184,12 +19184,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042ac20_0042ac20",
+      "name": "semantic_FUN_0042ac20_0042ac20",
       "source": "src/unidentified/FUN_0042ac20_0042ac20.cpp",
-      "symbol": "_asm_FUN_0042ac20_0042ac20",
+      "symbol": "?Reset@PoolBlock_0042ac20@@QAIPAU1@XZ",
       "address": "0x0042AC20",
       "size": 55,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042AC20"
     },
     {
@@ -19696,12 +19696,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042ba90_0042ba90",
+      "name": "semantic_FUN_0042ba90_0042ba90",
       "source": "src/unidentified/FUN_0042ba90_0042ba90.cpp",
-      "symbol": "_asm_FUN_0042ba90_0042ba90",
+      "symbol": "?SetValue_0042ba90@GaugeState@@QAEHH@Z",
       "address": "0x0042BA90",
       "size": 13,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042BA90"
     },
     {
@@ -19960,12 +19960,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_thunk_FUN_0042bfc0_0042c580",
+      "name": "semantic_thunk_FUN_0042bfc0_0042c580",
       "source": "src/unidentified/thunk_FUN_0042bfc0_0042c580.cpp",
-      "symbol": "_asm_thunk_FUN_0042bfc0_0042c580",
+      "symbol": "_thunk_FUN_0042bfc0_0042c580",
       "address": "0x0042C580",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042C580"
     },
     {
@@ -20011,12 +20011,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042c5b0_0042c5b0",
+      "name": "semantic_FUN_0042c5b0_0042c5b0",
       "source": "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
-      "symbol": "_asm_FUN_0042c5b0_0042c5b0",
+      "symbol": "?FUN_0042c5b0_0042c5b0@@YGHXZ",
       "address": "0x0042C5B0",
       "size": 6,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042C5B0"
     },
     {
@@ -23433,12 +23433,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004367a0_004367a0",
+      "name": "semantic_FUN_004367a0_004367a0",
       "source": "src/unidentified/FUN_004367a0_004367a0.cpp",
-      "symbol": "_asm_FUN_004367a0_004367a0",
+      "symbol": "?FUN_004367a0_004367a0@@YAPAXPAXPBXI@Z",
       "address": "0x004367A0",
       "size": 35,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004367A0"
     },
     {
@@ -23739,12 +23739,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_thunk_FUN_00436a30_00436a20",
+      "name": "semantic_thunk_FUN_00436a30_00436a20",
       "source": "src/unidentified/thunk_FUN_00436a30_00436a20.cpp",
-      "symbol": "_asm_thunk_FUN_00436a30_00436a20",
+      "symbol": "?thunk_FUN_00436a30_00436a20@@YAXXZ",
       "address": "0x00436A20",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00436A20"
     },
     {
@@ -24322,12 +24322,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004383f0_004383f0",
+      "name": "semantic_FUN_004383f0_004383f0",
       "source": "src/unidentified/FUN_004383f0_004383f0.cpp",
-      "symbol": "_asm_FUN_004383f0_004383f0",
+      "symbol": "?Self@Object004383f0@@QAEPAU1@H@Z",
       "address": "0x004383F0",
       "size": 5,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004383F0"
     },
     {
@@ -25009,12 +25009,12 @@
       "owner": null
     },
     {
-      "name": "asm_SaveSystemSettingsRetail_004392e0",
+      "name": "semantic_SaveSystemSettingsRetail_004392e0",
       "source": "src/platform/window.cpp",
-      "symbol": "_asm_SaveSystemSettingsRetail_004392e0",
+      "symbol": "?SaveSystemSettingsRetail_004392e0@@YGHXZ",
       "address": "0x004392E0",
       "size": 100,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004392E0"
     },
     {
@@ -25920,12 +25920,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043baf0_0043baf0",
+      "name": "semantic_FUN_0043baf0_0043baf0",
       "source": "src/unidentified/FUN_0043baf0_0043baf0.cpp",
-      "symbol": "_asm_FUN_0043baf0_0043baf0",
+      "symbol": "?FUN_0043baf0_0043baf0@@YGHHH@Z",
       "address": "0x0043BAF0",
       "size": 52,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043BAF0"
     },
     {
@@ -25937,12 +25937,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043bb30_0043bb30",
+      "name": "semantic_FUN_0043bb30_0043bb30",
       "source": "src/unidentified/FUN_0043bb30_0043bb30.cpp",
-      "symbol": "_asm_FUN_0043bb30_0043bb30",
+      "symbol": "?FUN_0043bb30_0043bb30@@YGHHH@Z",
       "address": "0x0043BB30",
       "size": 98,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043BB30"
     },
     {
@@ -26192,12 +26192,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043c310_0043c310",
+      "name": "semantic_FUN_0043c310_0043c310",
       "source": "src/unidentified/FUN_0043c310_0043c310.cpp",
-      "symbol": "_asm_FUN_0043c310_0043c310",
+      "symbol": "?Tick@AnimationCursor@@QAEHXZ",
       "address": "0x0043C310",
       "size": 175,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043C310"
     },
     {
@@ -26668,12 +26668,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Path_FindBasenameSlot_0043d2a0",
+      "name": "semantic_Path_FindBasenameSlot_0043d2a0",
       "source": "src/platform/path.cpp",
-      "symbol": "_asm_Path_FindBasenameSlot_0043d2a0",
+      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
       "address": "0x0043D2A0",
       "size": 227,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043D2A0"
     },
     {
@@ -26959,12 +26959,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_MidiWorker_MessageLoopRetail_0043e3a0",
+      "name": "semantic_MidiWorker_MessageLoopRetail_0043e3a0",
       "source": "src/platform/midi_worker.cpp",
-      "symbol": "_asm_MidiWorker_MessageLoopRetail_0043e3a0",
+      "symbol": "_asm_MidiWorker_MessageLoopRetail_0043e3a0@4",
       "address": "0x0043E3A0",
       "size": 189,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043E3A0"
     },
     {
@@ -33633,12 +33633,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ECL_ResolveIntValue_0044ff00",
+      "name": "semantic_ECL_ResolveIntValue_0044ff00",
       "source": "src/script/ecl_core_interpreter.cpp",
-      "symbol": "_asm_ECL_ResolveIntValue_0044ff00",
+      "symbol": "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z",
       "address": "0x0044FF00",
       "size": 124,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044FF00"
     },
     {
@@ -34018,12 +34018,12 @@
       "owner": "0x00450700"
     },
     {
-      "name": "asm_DirectInput8Create_0045071e",
+      "name": "semantic_DirectInput8Create_0045071e",
       "source": "src/unidentified/DirectInput8Create_0045071e.cpp",
-      "symbol": "_asm_DirectInput8Create_0045071e",
+      "symbol": "_DirectInput8Create_0045071e@20",
       "address": "0x0045071E",
       "size": 6,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0045071E"
     },
     {
@@ -47626,7 +47626,17 @@
     "__imp__SetBkMode@8": "0x0046601C",
     "__imp__SetTextColor@8": "0x00466018",
     "__imp__TextOutA@20": "0x00466014",
-    "__real@408f400000000000": "0x00470B88"
+    "__real@408f400000000000": "0x00470B88",
+    "__real@3f7d70a4": "0x00470B68",
+    "__real@3f8147ae": "0x00470B64",
+    "__imp__DirectInput8Create@20": "0x00466000",
+    "__imp__SystemParametersInfoA@16": "0x00466258",
+    "__imp__QueryPerformanceFrequency@4": "0x00466114",
+    "__imp__PeekMessageA@20": "0x0046623C",
+    "__imp__MsgWaitForMultipleObjects@20": "0x0046620C",
+    "__real@3c23d70a": "0x00470B00",
+    "_asm_FUN_0041afd0_0041afd0@4": "0x0041AFD0",
+    "_RetireCallbackOwner_00426f70@4": "0x00426F70"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -47689,6 +47699,7 @@
     "src/game/game_thread_text_draw.cpp",
     "src/game/game_ui_create.cpp",
     "src/game/gameplay_final_runtime.cpp",
+    "src/game/input_mask_active_0040ace0.cpp",
     "src/game/input_pattern_count.cpp",
     "src/game/input_recorder.cpp",
     "src/game/item_field_contact.cpp",
@@ -47715,12 +47726,15 @@
     "src/game/pause_menu_reset.cpp",
     "src/game/pause_result_open.cpp",
     "src/game/player.cpp",
+    "src/game/player_adjustpower_00405b60.cpp",
     "src/game/player_front_runtime.cpp",
+    "src/game/player_manager_start_mode_004045b0.cpp",
     "src/game/player_motion.cpp",
     "src/game/player_pickup_sweep.cpp",
     "src/game/player_reset.cpp",
     "src/game/player_runtime_init.cpp",
     "src/game/player_scheduler.cpp",
+    "src/game/player_set_scheduler_value_00405410.cpp",
     "src/game/playfield_bounds.cpp",
     "src/game/pool_constructors.cpp",
     "src/game/practice_stage_menu.cpp",
@@ -47730,6 +47744,7 @@
     "src/game/projectile_command_runtime.cpp",
     "src/game/rank_level.cpp",
     "src/game/recovery_leaves.cpp",
+    "src/game/recovery_scale_color_00404da0.cpp",
     "src/game/replay_browser_draw.cpp",
     "src/game/replay_file_load.cpp",
     "src/game/replay_large_runtime.cpp",
@@ -47751,11 +47766,14 @@
     "src/game/score_file.cpp",
     "src/game/score_hud_update.cpp",
     "src/game/score_menu_rows.cpp",
+    "src/game/score_owned_destroy_0040b9d0.cpp",
     "src/game/score_popup.cpp",
     "src/game/score_queue.cpp",
+    "src/game/score_retire_callbacks_00409e20.cpp",
     "src/game/score_tasks.cpp",
     "src/game/score_timer_leaves.cpp",
     "src/game/score_view_ctor.cpp",
+    "src/game/set_input_mode_0040ac90.cpp",
     "src/game/shot_practice_menu.cpp",
     "src/game/slot_lock_leaves.cpp",
     "src/game/slot_snapshot.cpp",
@@ -47795,6 +47813,7 @@
     "src/math/random_vector.cpp",
     "src/math/rng.cpp",
     "src/math/timer.cpp",
+    "src/math/vec_subtract_00404d40.cpp",
     "src/math/vector.cpp",
     "src/math/vector2_polar.cpp",
     "src/math/vector3_cross.cpp",
@@ -49822,7 +49841,49 @@
     "layout/ltcg/midi_file.json",
     "layout/ltcg/scheduler_tasks.json",
     "layout/ltcg/compression_tree.json",
-    "layout/ltcg/rank_level.json"
+    "layout/ltcg/rank_level.json",
+    "layout/ltcg/set_flag.json",
+    "layout/ltcg/set_primary_color.json",
+    "layout/ltcg/get_sprite_metadata.json",
+    "layout/ltcg/set_sprite_metadata.json",
+    "layout/ltcg/invoke_strided.json",
+    "layout/ltcg/copy_triple.json",
+    "layout/ltcg/format_record_text.json",
+    "layout/ltcg/clear_scale_velocity_x.json",
+    "layout/ltcg/clear_angular_velocity_x.json",
+    "layout/ltcg/clear_scale_velocity_x_alternate.json",
+    "layout/ltcg/clear_rotation_x.json",
+    "layout/ltcg/release_pool_mask.json",
+    "layout/ltcg/set_pool_mask.json",
+    "layout/ltcg/fun_00401fb0.json",
+    "layout/ltcg/fun_00403060.json",
+    "layout/ltcg/fun_00403070.json",
+    "layout/ltcg/fun_00404410.json",
+    "layout/ltcg/fun_004053b0.json",
+    "layout/ltcg/fun_00405730.json",
+    "layout/ltcg/player_manager_start_mode_004045b0.json",
+    "layout/ltcg/player_set_scheduler_value_00405410.json",
+    "layout/ltcg/recovery_scale_color_00404da0.json",
+    "layout/ltcg/vec_subtract_00404d40.json",
+    "layout/ltcg/read_field44.json",
+    "layout/ltcg/set_field88.json",
+    "layout/ltcg/set_field84.json",
+    "layout/ltcg/get_field84.json",
+    "layout/ltcg/adjust_power.json",
+    "layout/ltcg/release_managed_item.json",
+    "layout/ltcg/f405150.json",
+    "layout/ltcg/f405160.json",
+    "layout/ltcg/f404d30.json",
+    "layout/ltcg/f4051b0.json",
+    "layout/ltcg/f409e20.json",
+    "layout/ltcg/f40a010.json",
+    "layout/ltcg/object_interface_getter.json",
+    "layout/ltcg/object_field04_getter.json",
+    "layout/ltcg/object_field3c_getter.json",
+    "layout/ltcg/game_state_field3788_getter.json",
+    "layout/ltcg/set_input_mode.json",
+    "layout/ltcg/input_mask_active.json",
+    "layout/ltcg/score_owned_destroy.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

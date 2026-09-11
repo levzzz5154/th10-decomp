@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0X00401F60: clear the angular-velocity X word at +0x34 of the entity addressed through EAX.
+// The object address arrives in EAX, so the function is compiled with the native
+// LTCG cluster driver that reproduces the retail internal convention.
 
-// 0x00401F60..0x00401F67: FUN_00401f60
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00401f60_00401f60() {
-    __asm {
-    L_00401f60:
-        mov dword ptr [eax+34h],0
-    L_00401f67:
-        ret
-    }
+struct EntitySpin {
+    char unknown[0x34];
+    float angular_velocity_x;
+
+    __declspec(noinline) void ClearAngularVelocityX();
+};
+
+#pragma code_seg(".text$01ang_vel_34")
+void EntitySpin::ClearAngularVelocityX() {
+    this->angular_velocity_x = 0;
 }
+#pragma code_seg()

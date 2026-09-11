@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0X00401F70: clear the scale-velocity X word at +0x44 of the entity addressed through EAX (second entry).
+// The object address arrives in EAX, so the function is compiled with the native
+// LTCG cluster driver that reproduces the retail internal convention.
 
-// 0x00401F70..0x00401F77: FUN_00401f70
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00401f70_00401f70() {
-    __asm {
-    L_00401f70:
-        mov dword ptr [eax+44h],0
-    L_00401f77:
-        ret
-    }
+struct EntityScaleAlternate {
+    char unknown[0x44];
+    float scale_velocity_x;
+
+    __declspec(noinline) void ClearScaleVelocityXAlternate();
+};
+
+#pragma code_seg(".text$01scale_vel_44b")
+void EntityScaleAlternate::ClearScaleVelocityXAlternate() {
+    this->scale_velocity_x = 0;
 }
+#pragma code_seg()

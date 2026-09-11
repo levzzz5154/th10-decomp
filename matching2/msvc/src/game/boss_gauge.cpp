@@ -2,82 +2,47 @@
 #include "asm_symbols.hpp"
 
 // 0x00428C20..0x00428C9C: FUN_00428c20
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00428c20_00428c20() {
-    __asm {
-    L_00428c20:
-        sub esp,0Ch
-    L_00428c23:
-        push esi
-    L_00428c24:
-        mov esi,dword ptr [edx+58h]
-    L_00428c27:
-        movsx eax,byte ptr [esi+1Ch]
-    L_00428c2b:
-        imul eax,98h
-    L_00428c31:
-        fild dword ptr [eax+ecx+3244h]
-    L_00428c38:
-        fmul dword ptr [data_00470b00]
-    L_00428c3e:
-        fstp dword ptr [esp+4]
-    L_00428c42:
-        fild dword ptr [eax+ecx+3248h]
-    L_00428c49:
-        lea eax,[eax+ecx+3244h]
-    L_00428c50:
-        push edi
-    L_00428c51:
-        mov edi,dword ptr [esp+8]
-    L_00428c55:
-        fmul dword ptr [data_00470b00]
-    L_00428c5b:
-        lea eax,[edx+14h]
-    L_00428c5e:
-        mov ecx,eax
-    L_00428c60:
-        mov dword ptr [ecx],edi
-    L_00428c62:
-        fstp dword ptr [esp+0Ch]
-    L_00428c66:
-        mov edi,dword ptr [esp+0Ch]
-    L_00428c6a:
-        mov dword ptr [ecx+4],edi
-    L_00428c6d:
-        mov dword ptr [esp+10h],0
-    L_00428c75:
-        mov edi,dword ptr [esp+10h]
-    L_00428c79:
-        mov dword ptr [ecx+8],edi
-    L_00428c7c:
-        pop edi
-    L_00428c7d:
-        fld dword ptr [esi+4]
-    L_00428c80:
-        pop esi
-    L_00428c81:
-        fsub dword ptr [edx+20h]
-    L_00428c84:
-        fadd dword ptr [eax]
-    L_00428c86:
-        fstp dword ptr [eax]
-    L_00428c88:
-        mov eax,dword ptr [edx+58h]
-    L_00428c8b:
-        fld dword ptr [eax+8]
-    L_00428c8e:
-        xor eax,eax
-    L_00428c90:
-        fsub dword ptr [edx+24h]
-    L_00428c93:
-        fadd dword ptr [edx+18h]
-    L_00428c96:
-        fstp dword ptr [edx+18h]
-    L_00428c99:
-        add esp,0Ch
-    L_00428c9c:
-        ret
-    }
+// The manager (ECX) owns the 0x98-byte score slots based at +0x3244 and the
+// state (EDX) names, through +0x58, the record that selects the live slot. Each
+// update rebuilds the gauge position from the slot's two counters scaled to
+// playfield units, publishes it as a vector, then folds the running
+// displacement back in and reports success.
+struct Vector3 {
+    float x;
+    float y;
+    float z;
+};
+
+struct BossGaugeSource {          // state->source, at state + 0x58
+    char pad_000[4];
+    float value;                  // +0x04
+    float maximum;                // +0x08
+    char pad_00c[0x1C - 0x0C];
+    signed char slot;             // +0x1C
+};
+
+struct BossGaugeState {
+    char pad_000[0x14];
+    Vector3 position;             // +0x14
+    float offset_x;               // +0x20
+    float offset_y;               // +0x24
+    char pad_028[0x58 - 0x28];
+    BossGaugeSource* source;      // +0x58
+};
+
+int __fastcall BossGauge_UpdateRetail(int* manager, BossGaugeState* state) {
+    Vector3 position;
+    BossGaugeSource* source = state->source;
+    int* entry = (int*)((char*)manager + 152 * source->slot + 0x3244);
+    Vector3* dst = &state->position;
+
+    position.x = (float)entry[0] * 0.01f;
+    position.y = (float)entry[1] * 0.01f;
+    position.z = 0.0f;
+    *dst = position;
+    state->position.x = source->value - state->offset_x + state->position.x;
+    state->position.y = state->source->maximum - state->offset_y + state->position.y;
+    return 0;
 }
 
 // 0x00428E10..0x00428E62: FUN_00428e10

@@ -1,51 +1,38 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042AC20..0x0042AC56: PoolBlock_0042ac20::Reset
+// Reinitialise a 36-byte pool block in place. Every word is cleared through a
+// walking pointer, the two leading head/tail pairs are re-linked to their
+// just-cleared heads so the block reads as two empty lists, and the trailing
+// three-word record points back at the block itself. The block is returned so
+// the caller can chain the reset.
+struct PoolBlockTail {
+    unsigned owner;                                  // +0x00 (block +0x18)
+    unsigned field_04;                               // +0x04 (block +0x1C)
+    unsigned field_08;                               // +0x08 (block +0x20)
+};
 
-// 0x0042AC20..0x0042AC56: FUN_0042ac20
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042ac20_0042ac20() {
-    __asm {
-    L_0042ac20:
-        mov eax,ecx
-    L_0042ac22:
-        xor ecx,ecx
-    L_0042ac24:
-        mov edx,eax
-    L_0042ac26:
-        mov dword ptr [edx],ecx
-    L_0042ac28:
-        mov dword ptr [edx+4],ecx
-    L_0042ac2b:
-        mov dword ptr [edx+8],ecx
-    L_0042ac2e:
-        mov dword ptr [edx+0Ch],ecx
-    L_0042ac31:
-        mov dword ptr [edx+10h],ecx
-    L_0042ac34:
-        mov dword ptr [edx+14h],ecx
-    L_0042ac37:
-        mov dword ptr [edx+18h],ecx
-    L_0042ac3a:
-        mov dword ptr [edx+1Ch],ecx
-    L_0042ac3d:
-        mov dword ptr [edx+20h],ecx
-    L_0042ac40:
-        mov ecx,dword ptr [eax]
-    L_0042ac42:
-        mov edx,dword ptr [eax+8]
-    L_0042ac45:
-        mov dword ptr [eax+4],ecx
-    L_0042ac48:
-        mov dword ptr [eax+0Ch],edx
-    L_0042ac4b:
-        xor ecx,ecx
-    L_0042ac4d:
-        mov dword ptr [eax+18h],eax
-    L_0042ac50:
-        mov dword ptr [eax+1Ch],ecx
-    L_0042ac53:
-        mov dword ptr [eax+20h],ecx
-    L_0042ac56:
-        ret
-    }
+struct PoolBlock_0042ac20 {
+    unsigned link_00;                                // +0x00
+    unsigned link_04;                                // +0x04
+    unsigned link_08;                                // +0x08
+    unsigned link_0C;                                // +0x0C
+    unsigned field_10;                               // +0x10
+    unsigned field_14;                               // +0x14
+    PoolBlockTail tail;                              // +0x18
+
+    PoolBlock_0042ac20* __fastcall Reset();
+};
+
+PoolBlock_0042ac20* __fastcall PoolBlock_0042ac20::Reset() {
+    unsigned* word = (unsigned*)this;
+    int remaining = 9;
+    do {
+        *word++ = 0;
+    } while (--remaining);
+    link_04 = link_00;
+    link_0C = link_08;
+    PoolBlockTail* self_tail = (PoolBlockTail*)((unsigned*)this + 6);
+    self_tail->owner = (unsigned)this;
+    self_tail->field_04 = 0;
+    self_tail->field_08 = 0;
+    return this;
 }

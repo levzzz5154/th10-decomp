@@ -1,37 +1,29 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041FEB0..0x0041FEEE - release the three resources the object owns when
+// its "hold" bit is set, then drop the engine flag that keeps the game on hold
+// and ask for game state 4.  The object arrives in ECX and the routine always
+// reports success.
+extern "C" unsigned char data_004776e0;                 // 0x004776E0 resource manager
+extern "C" unsigned char data_00491ff4;                 // 0x00491FF4 engine flags
+extern "C" unsigned char data_00491fb8;                 // 0x00491FB8 game state
 
-// 0x0041FEB0..0x0041FEEE: FUN_0041feb0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041feb0_0041feb0() {
-    __asm {
-    L_0041feb0:
-        test byte ptr [ecx],2
-    L_0041feb3:
-        je short L_0041fee9
-    L_0041feb5:
-        mov eax,dword ptr [data_004776e0]
-    L_0041feba:
-        mov edx,dword ptr [eax+0Ch]
-    L_0041febd:
-        or dword ptr [edx+4],2
-    L_0041fec1:
-        mov edx,dword ptr [eax+10h]
-    L_0041fec4:
-        or dword ptr [edx+4],2
-    L_0041fec8:
-        mov eax,dword ptr [eax+89A8h]
-    L_0041fece:
-        or dword ptr [eax+4],2
-    L_0041fed2:
-        and dword ptr [data_00491ff4],0FFFFEFFFh
-    L_0041fedc:
-        mov dword ptr [data_00491fb8],4
-    L_0041fee6:
-        and dword ptr [ecx],0FFFFFFFDh
-    L_0041fee9:
-        mov eax,1
-    L_0041feee:
-        ret
-    }
+struct ResourceHandle { int reserved; int flags; };
+struct ResourceOwner {
+    unsigned char pad_0000[0x0C];
+    ResourceHandle* slot_0C;                            // 0x0C
+    ResourceHandle* slot_10;                            // 0x10
+    unsigned char pad_0014[0x89A8 - 0x14];
+    ResourceHandle* slot_89A8;                          // 0x89A8
+};
+
+extern "C" int __fastcall FUN_0041feb0(unsigned int* owner) {
+    if ((*owner & 2) == 0)
+        return 1;
+    ResourceOwner* resources = *(ResourceOwner**)&data_004776e0;
+    resources->slot_0C->flags |= 2;
+    resources->slot_10->flags |= 2;
+    resources->slot_89A8->flags |= 2;
+    *(unsigned int*)&data_00491ff4 &= ~0x1000u;
+    *(unsigned int*)&data_00491fb8 = 4;
+    *owner &= ~2u;
+    return 1;
 }

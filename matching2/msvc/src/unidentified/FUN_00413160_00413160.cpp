@@ -2,14 +2,16 @@
 #include "asm_symbols.hpp"
 
 // 0x00413160..0x00413169: FUN_00413160
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00413160_00413160() {
-    __asm {
-    L_00413160:
-        mov eax,dword ptr [esp+4]
-    L_00413164:
-        mov dword ptr [ecx+18h],eax
-    L_00413167:
-        ret 4
-    }
+// The value arrives on the stack and the object in ECX, so this is a
+// __thiscall setter; retail stores it at +0x18 and returns the same value.
+struct Object00413160 {
+    int pad_000[6];
+    int value;   // +0x18
+
+    int SetValue(int new_value);
+};
+
+int Object00413160::SetValue(int new_value) {
+    value = new_value;
+    return new_value;
 }

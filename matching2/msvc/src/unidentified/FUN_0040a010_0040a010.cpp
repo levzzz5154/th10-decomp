@@ -1,37 +1,28 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040A010: retire both scheduler callbacks of a pair and run the owner
+// teardown. Unlike 0x00409E20 the two callback pointers are dereferenced without
+// a null test, and the pair is then handed to the teardown at 0x00426F70.
+// Retail receives the pair in EAX and tail-calls the teardown.
 
-// 0x0040A010..0x0040A033: FUN_0040a010
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040a010_0040a010() {
-    __asm {
-    L_0040a010:
-        mov ecx,dword ptr [eax+8]
-    L_0040a013:
-        push esi
-    L_0040a014:
-        mov esi,dword ptr [ecx+4]
-    L_0040a017:
-        mov edx,2
-    L_0040a01c:
-        or esi,edx
-    L_0040a01e:
-        mov dword ptr [ecx+4],esi
-    L_0040a021:
-        mov ecx,dword ptr [eax+0Ch]
-    L_0040a024:
-        mov esi,dword ptr [ecx+4]
-    L_0040a027:
-        or esi,edx
-    L_0040a029:
-        push eax
-    L_0040a02a:
-        mov dword ptr [ecx+4],esi
-    L_0040a02d:
-        call asm_FUN_00426f70_00426f70
-    L_0040a032:
-        pop esi
-    L_0040a033:
-        ret
-    }
+struct SchedulerCallback {
+    int priority;                       // +0x00
+    unsigned int flags_04;              // +0x04, bit 1 retires the callback
+    char unknown_08[0x18];
+};
+
+struct CallbackPair {
+    char unknown_00[8];
+    SchedulerCallback* primary_task;    // +0x08
+    SchedulerCallback* secondary_task;  // +0x0C
+
+    __declspec(noinline) void DetachPairAndFinalize();
+};
+
+extern "C" __declspec(noinline) void RetireCallbackOwner_00426f70(CallbackPair* pair);
+
+#pragma code_seg(".text$01f40a010")
+void CallbackPair::DetachPairAndFinalize() {
+    this->primary_task->flags_04 |= 2;
+    this->secondary_task->flags_04 |= 2;
+    RetireCallbackOwner_00426f70(this);
 }
+#pragma code_seg()

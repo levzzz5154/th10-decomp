@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "set_primary_color",
+  "source": "src/unidentified/FUN_00401cc0_00401cc0.cpp",
+  "driver": "layout/ltcg/set_primary_color_context.cpp",
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Entity primary-colour store compiled with native LTCG so the internal register convention (entity in EAX, colour in ECX) matches retail.",
+  "functions": [
+    {
+      "name": "SetPrimaryColor",
+      "symbol": "?SetPrimaryColor@Entity@@QAEXI@Z",
+      "section": ".text$01color",
+      "address": "0x00401CC0",
+      "size": 7,
+      "actual_abi": "entity in EAX; colour in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?SetPrimaryColorCompilerContext@@YGHPAPAUEntity@@HI@Z",
+    "section": ".text$03context",
+    "address": "0x00401CD0",
+    "size": 41,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 3264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00401CC7",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

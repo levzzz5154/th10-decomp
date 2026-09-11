@@ -53,89 +53,6 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00404530_00404530() {
         ret
     }
 }
-
-// 0x004045B0..0x0040460B: ?PlayerManager_StartMode@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_PlayerManager_StartMode_004045b0() {
-    __asm {
-    L_004045b0:
-        mov ecx,dword ptr [eax+2A2Ch]
-    L_004045b6:
-        test cl,1
-    L_004045b9:
-        jne short L_004045e6
-    L_004045bb:
-        xor edx,edx
-    L_004045bd:
-        or ecx,1
-    L_004045c0:
-        mov dword ptr [eax+2A20h],edx
-    L_004045c6:
-        mov dword ptr [eax+2A1Ch],0FFF0BDC1h
-    L_004045d0:
-        mov dword ptr [eax+2A24h],edx
-    L_004045d6:
-        mov dword ptr [eax+2A28h],476F78h
-    L_004045e0:
-        mov dword ptr [eax+2A2Ch],ecx
-    L_004045e6:
-        mov dword ptr [eax+2A20h],3Ch
-    L_004045f0:
-        mov dword ptr [eax+2A24h],42700000h
-    L_004045fa:
-        mov dword ptr [eax+2A1Ch],3Bh
-    L_00404604:
-        or dword ptr [eax+2A18h],4
-    L_0040460b:
-        ret
-    }
-}
-
-// 0x00405410..0x00405448: Player_SetSchedulerValue
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Player_SetSchedulerValue_00405410() {
-    __asm {
-    L_00405410:
-        mov ecx,dword ptr [eax+10h]
-    L_00405413:
-        test cl,1
-    L_00405416:
-        push esi
-    L_00405417:
-        mov esi,dword ptr [esp+8]
-    L_0040541b:
-        jne short L_00405438
-    L_0040541d:
-        xor edx,edx
-    L_0040541f:
-        or ecx,1
-    L_00405422:
-        mov dword ptr [eax+4],edx
-    L_00405425:
-        mov dword ptr [eax],0FFF0BDC1h
-    L_0040542b:
-        mov dword ptr [eax+8],edx
-    L_0040542e:
-        mov dword ptr [eax+0Ch],476F78h
-    L_00405435:
-        mov dword ptr [eax+10h],ecx
-    L_00405438:
-        fild dword ptr [esp+8]
-    L_0040543c:
-        mov dword ptr [eax+4],esi
-    L_0040543f:
-        dec esi
-    L_00405440:
-        mov dword ptr [eax],esi
-    L_00405442:
-        fstp dword ptr [eax+8]
-    L_00405445:
-        pop esi
-    L_00405446:
-        ret 4
-    }
-}
-
 // 0x00405500..0x00405550: Player_ClearExpiredFlagsRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Player_ClearExpiredFlagsRetail_00405500() {
@@ -959,37 +876,6 @@ extern "C" __declspec(naked) void __cdecl asm_Player_Draw_00405ac0() {
     L_00405b39:
         xor eax,eax
     L_00405b3b:
-        ret
-    }
-}
-
-// 0x00405B60..0x00405B89: Player_AdjustPower
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Player_AdjustPower_00405b60() {
-    __asm {
-    L_00405b60:
-        mov edx,dword ptr [eax+58h]
-    L_00405b63:
-        add edx,ecx
-    L_00405b65:
-        mov ecx,edx
-    L_00405b67:
-        cmp ecx,400h
-    L_00405b6d:
-        mov dword ptr [eax+58h],edx
-    L_00405b70:
-        jle short L_00405b7a
-    L_00405b72:
-        mov dword ptr [eax+58h],400h
-    L_00405b79:
-        ret
-    L_00405b7a:
-        cmp ecx,0FFFFFC00h
-    L_00405b80:
-        jge short L_00405b89
-    L_00405b82:
-        mov dword ptr [eax+58h],0FFFFFC00h
-    L_00405b89:
         ret
     }
 }

@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405150: store a value in the runtime record field at +0x48.
+// Retail receives the record in ECX and the value in EAX and ends in a plain RET.
 
-// 0x00405150..0x00405153: FUN_00405150
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405150_00405150() {
-    __asm {
-    L_00405150:
-        mov dword ptr [ecx+48h],eax
-    L_00405153:
-        ret
-    }
+struct RuntimeRecord {
+    char unknown_00[0x48];
+    int value_48;                       // +0x48
+};
+
+__declspec(noinline) void StoreValue48(RuntimeRecord* record, int value);
+
+#pragma code_seg(".text$01f405150")
+void StoreValue48(RuntimeRecord* record, int value) {
+    record->value_48 = value;
 }
+#pragma code_seg()

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "f405150",
+  "source": "src/unidentified/FUN_00405150_00405150.cpp",
+  "driver": "layout/ltcg/f405150_context.cpp",
+  "headers": [],
+  "image_base": "0x400000",
+  "description": "Recovered retail function compiled with native LTCG so the internal register convention matches the original image.",
+  "functions": [
+    {
+      "name": "RuntimeRecord_SetValue48",
+      "symbol": "?StoreValue48@@YGXPAURuntimeRecord@@H@Z",
+      "section": ".text$01f405150",
+      "address": "0x405150",
+      "size": 4,
+      "actual_abi": "record in ECX; value in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?f405150CompilerContext@@YGHPAPAURuntimeRecord@@HH@Z",
+    "section": ".text$03context",
+    "address": "0x405160",
+    "size": 40,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 16720
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x405154",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

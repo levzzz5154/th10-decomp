@@ -174,6 +174,14 @@ struct Entity {
     void*& SpriteMetadata() {
         return *(void**)((uint8_t*)this + 0x394);
     }
+
+    // Outlined accessors recovered from the retail image at 0x00401CB0,
+    // 0x00401CC0, 0x00401CD0 and 0x00401D10. Their native LTCG convention
+    // keeps the entity pointer in EAX with the argument in CL or ECX.
+    __declspec(noinline) void SetPrimaryColorAlpha(char alpha);
+    __declspec(noinline) void SetPrimaryColor(uint32_t color);
+    __declspec(noinline) void* GetSpriteMetadata();
+    __declspec(noinline) void SetSpriteMetadata(void* metadata);
 };
 // Entity_Init (0x401DE0): the retail entity initializer.
 void __fastcall Entity_Init(void* unused, Entity* entity);

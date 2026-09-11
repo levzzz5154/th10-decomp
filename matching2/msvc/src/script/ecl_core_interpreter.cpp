@@ -3926,6 +3926,38 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_part_0044e1e0() {
     }
 }
 
+// The operand table the interpreter resolves a script operand through: +0x8 is
+// the bitmap of slots holding an indirect reference, +0x10 the slot array.
+struct EclOperandTable {
+    unsigned char pad_00[8];
+    unsigned short indirect_mask;      // +0x08
+    unsigned char pad_0A[6];
+    int slots[1];                      // +0x10
+};
+
+// Accessor object reached through +0x1014. Its second virtual entry resolves a
+// slot that refers to a live script variable.
+struct EclVariableContext {
+    virtual void Reserved();           // +0x00
+    virtual int ResolveSlot(int slot); // +0x04
+};
+
+// The interpreter's value stack and the cursor words that address slots inside
+// it. The frame embeds it, so every access goes through this member.
+struct EclStack {
+    unsigned char data[0x1000];        // +0x0000
+    int stack_pointer;                 // +0x1000
+    int frame_base;                    // +0x1004
+    void* variable_slots;              // +0x1008
+    EclVariableContext* context;       // +0x100C
+};
+
+struct EclFrame {
+    unsigned char pad_00[4];
+    EclOperandTable* operand_table;    // +0x0004
+    EclStack stack;                    // +0x0008
+};
+
 // 0x0044FDB0..0x0044FE3F: ?ECL_ResolveIntOperand@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntOperand_0044fdb0() {
@@ -4183,88 +4215,32 @@ extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveFloatOperand_0044fe40()
 }
 
 // 0x0044FF00..0x0044FF7B: ?ECL_ResolveIntValue@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntValue_0044ff00() {
-    __asm {
-    L_0044ff00:
-        mov ecx,dword ptr [edx+4]
-    L_0044ff03:
-        mov eax,dword ptr [esp+8]
-    L_0044ff07:
-        push esi
-    L_0044ff08:
-        movzx esi,word ptr [ecx+8]
-    L_0044ff0c:
-        mov ecx,dword ptr [esp+8]
-    L_0044ff10:
-        push edi
-    L_0044ff11:
-        mov edi,1
-    L_0044ff16:
-        shl edi,cl
-    L_0044ff18:
-        test esi,edi
-    L_0044ff1a:
-        pop edi
-    L_0044ff1b:
-        pop esi
-    L_0044ff1c:
-        je short L_0044ff79
-    L_0044ff1e:
-        test eax,eax
-    L_0044ff20:
-        jl short L_0044ff33
-    L_0044ff22:
-        lea ecx,[edx+8]
-    L_0044ff25:
-        mov edx,dword ptr [ecx+1004h]
-    L_0044ff2b:
-        add edx,ecx
-    L_0044ff2d:
-        mov eax,dword ptr [edx+eax]
-    L_0044ff30:
-        ret 8
-    L_0044ff33:
-        cmp eax,0FFFFFFFFh
-    L_0044ff36:
-        jne short L_0044ff6d
-    L_0044ff38:
-        mov ecx,dword ptr [edx+1008h]
-    L_0044ff3e:
-        add ecx,0FFFFFFFCh
-    L_0044ff41:
-        js short L_0044ff79
-    L_0044ff43:
-        mov dword ptr [edx+1008h],ecx
-    L_0044ff49:
-        mov eax,dword ptr [ecx+edx+8]
-    L_0044ff4d:
-        add ecx,0FFFFFFFCh
-    L_0044ff50:
-        mov dword ptr [edx+1008h],ecx
-    L_0044ff56:
-        cmp byte ptr [ecx+edx+8],66h
-    L_0044ff5b:
-        mov dword ptr [esp+8],eax
-    L_0044ff5f:
-        jne short L_0044ff79
-    L_0044ff61:
-        fld dword ptr [esp+8]
-    L_0044ff65:
-        call asm_FUN_00463b2c_00463b2c
-    L_0044ff6a:
-        ret 8
-    L_0044ff6d:
-        mov ecx,dword ptr [edx+1014h]
-    L_0044ff73:
-        mov edx,dword ptr [ecx]
-    L_0044ff75:
-        push eax
-    L_0044ff76:
-        call dword ptr [edx+4]
-    L_0044ff79:
-        ret 8
+// Resolves the selector of one operand to the value it carries, following the
+// indirect table and the tag byte the same way the operand resolver does.
+int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* frame, int selector, int value) {
+    EclOperandTable* table = frame->operand_table;
+    unsigned short mask = table->indirect_mask;
+    int result = value;
+    if ((mask & (1 << selector)) != 0) {
+        if (value >= 0) {
+            EclStack* stack = &frame->stack;
+            result = *(int*)&stack->data[stack->frame_base + value];
+        } else if (value == -1) {
+            if (frame->stack.stack_pointer - 4 >= 0) {
+                frame->stack.stack_pointer -= 4;
+                int raw = *(int*)&frame->stack.data[frame->stack.stack_pointer];
+                frame->stack.stack_pointer -= 4;
+                float typed = *(float*)&raw;
+                if (frame->stack.data[frame->stack.stack_pointer] == 0x66)
+                    result = (int)typed;
+                else
+                    result = raw;
+            }
+        } else {
+            result = frame->stack.context->ResolveSlot(value);
+        }
     }
+    return result;
 }
 
 // 0x0044FF80..0x0045002A: ?ECL_ResolveFloatValue@@

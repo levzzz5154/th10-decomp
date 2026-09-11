@@ -1,15 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405340: publish the bullet-pool usage mask that arrives in ECX and mark the
+// pool pending.
+//
+// The pool state lives in the tail of the game state object (g_pGameStateManager,
+// 0x00491C10), so only the widths and offsets are certain. The object address
+// arrives in EAX and the mask in ECX, which is why this body is compiled through
+// the native LTCG cluster driver.
 
-// 0x00405340..0x00405350: FUN_00405340
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405340_00405340() {
-    __asm {
-    L_00405340:
-        mov dword ptr [eax+73245Ch],1
-    L_0040534a:
-        mov dword ptr [eax+732458h],ecx
-    L_00405350:
-        ret
-    }
+struct GameStateBulletPool {
+    unsigned char unused_0000[0x732458];
+    unsigned int pool_usage_mask;   // +0x732458
+    int pool_pending;               // +0x73245C
+
+    __declspec(noinline) void SetPoolMask(unsigned int mask);
+};
+
+#pragma code_seg(".text$01pool_set")
+void GameStateBulletPool::SetPoolMask(unsigned int mask) {
+    this->pool_pending = 1;
+    this->pool_usage_mask = mask;
 }
+#pragma code_seg()

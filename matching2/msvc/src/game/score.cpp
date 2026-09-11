@@ -929,36 +929,6 @@ extern "C" __declspec(naked) void __cdecl asm_RunArrayReleaseCallback_ScoreRunti
         ret
     }
 }
-
-// 0x00409E20..0x00409E3B: ?Retire@ScoreRuntimeCallbacks@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Retire_ScoreRuntimeCallbacks_00409e20() {
-    __asm {
-    L_00409e20:
-        mov ecx,dword ptr [eax+8]
-    L_00409e23:
-        test ecx,ecx
-    L_00409e25:
-        mov edx,2
-    L_00409e2a:
-        je short L_00409e2f
-    L_00409e2c:
-        or dword ptr [ecx+4],edx
-    L_00409e2f:
-        mov ecx,dword ptr [eax+0Ch]
-    L_00409e32:
-        test ecx,ecx
-    L_00409e34:
-        je short L_00409e3b
-    L_00409e36:
-        mov eax,ecx
-    L_00409e38:
-        or dword ptr [eax+4],edx
-    L_00409e3b:
-        ret
-    }
-}
-
 // 0x0040AC20..0x0040AC8C: ?UpdateInputState@@
 // Advances the sixteen key-repeat counters and then publishes the pressed and
 // released edge masks derived from the current and previous key words.
@@ -1001,63 +971,6 @@ unsigned short KeyRepeatState::Update() {
     new_release = released;
     return released;
 }
-
-// 0x0040AC90..0x0040ACB4: ?SetInputMode@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_SetInputMode_0040ac90() {
-    __asm {
-    L_0040ac90:
-        mov ecx,dword ptr [eax+3CCh]
-    L_0040ac96:
-        test ch,10h
-    L_0040ac99:
-        jne short L_0040aca8
-    L_0040ac9b:
-        mov ecx,dword ptr [esp+4]
-    L_0040ac9f:
-        mov dword ptr [eax+390h],ecx
-    L_0040aca5:
-        ret 4
-    L_0040aca8:
-        mov dword ptr [eax+390h],2
-    L_0040acb2:
-        ret 4
-    }
-}
-
-// 0x0040ACE0..0x0040AD00: ?InputMaskActive@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_InputMaskActive_0040ace0() {
-    __asm {
-    L_0040ace0:
-        xor edx,edx
-    L_0040ace2:
-        mov dx,word ptr [ecx+6]
-    L_0040ace6:
-        and edx,eax
-    L_0040ace8:
-        test dx,dx
-    L_0040aceb:
-        jne short L_0040acfb
-    L_0040aced:
-        movzx ecx,word ptr [ecx+4]
-    L_0040acf1:
-        and ecx,eax
-    L_0040acf3:
-        test cx,cx
-    L_0040acf6:
-        jne short L_0040acfb
-    L_0040acf8:
-        xor eax,eax
-    L_0040acfa:
-        ret
-    L_0040acfb:
-        mov eax,1
-    L_0040ad00:
-        ret
-    }
-}
-
 // 0x0040AD20..0x0040AD40: clamp the requested signed value to the
 // counter's current upper bound. Negative requests become UINT_MAX.
 unsigned int __fastcall UpdateBoundedCounter(
@@ -1074,30 +987,6 @@ unsigned int __fastcall UpdateBoundedCounter(
     *counter = value;
     return value;
 }
-
-// 0x0040B9D0..0x0040B9E1: ?ScoreOwnedObject_Destroy@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreOwnedObject_Destroy_0040b9d0() {
-    __asm {
-    L_0040b9d0:
-        test esi,esi
-    L_0040b9d2:
-        je short L_0040b9e1
-    L_0040b9d4:
-        push esi
-    L_0040b9d5:
-        call asm_FUN_0040b7b0_0040b7b0
-    L_0040b9da:
-        push esi
-    L_0040b9db:
-        call asm_free_004524a1
-    L_0040b9e0:
-        pop ecx
-    L_0040b9e1:
-        ret
-    }
-}
-
 // 0x0041BEB0..0x0041BECD: FUN_0041beb0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "f404d30",
+  "source": "src/unidentified/FUN_00404d30_00404d30.cpp",
+  "driver": "layout/ltcg/f404d30_context.cpp",
+  "headers": [],
+  "image_base": "0x400000",
+  "description": "Recovered retail function compiled with native LTCG so the internal register convention matches the original image.",
+  "functions": [
+    {
+      "name": "TrajectoryState_ResetStep",
+      "symbol": "?ResetStep@TrajectoryState@@QAEXXZ",
+      "section": ".text$01f404d30",
+      "address": "0x404d30",
+      "size": 11,
+      "actual_abi": "state in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?f404d30CompilerContext@@YGHPAPAUTrajectoryState@@H@Z",
+    "section": ".text$03context",
+    "address": "0x404d40",
+    "size": 43,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 15664
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x404d3b",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

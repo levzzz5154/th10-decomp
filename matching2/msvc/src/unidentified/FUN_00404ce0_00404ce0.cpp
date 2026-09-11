@@ -1,13 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00404CE0 (7 bytes): read the 32-bit field at offset 0x84 of the object.
+//
+// retail:  mov eax,[eax+84h] ; ret
+// The object pointer arrives in EAX and the value is handed back in EAX, the
+// internal convention the link-time code generator chose.  Writing the natural
+// getter and compiling it together with the synthetic caller below under /LTCG
+// lets the global register allocator pick the same registers.
 
-// 0x00404CE0..0x00404CE6: FUN_00404ce0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00404ce0_00404ce0() {
-    __asm {
-    L_00404ce0:
-        mov eax,dword ptr [eax+84h]
-    L_00404ce6:
-        ret
-    }
+struct Field84Holder {
+    char unknown[0x84];
+    int field_84;
+
+    __declspec(noinline) int GetField84();
+};
+
+#pragma code_seg(".text$01get84")
+int Field84Holder::GetField84() {
+    return this->field_84;
 }
+#pragma code_seg()

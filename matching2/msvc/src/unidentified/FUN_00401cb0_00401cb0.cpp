@@ -1,13 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/game/entity.hpp"
 
-// 0x00401CB0..0x00401CB6: FUN_00401cb0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00401cb0_00401cb0() {
-    __asm {
-    L_00401cb0:
-        mov byte ptr [eax+2FFh],cl
-    L_00401cb6:
-        ret
-    }
+// 0x00401CB0..0x00401CB6: store the ARGB alpha byte of the entity's primary
+// colour. primary_color is a little-endian uint32 at +0x2FC, so its alpha
+// channel is the byte at +0x2FF.
+#pragma code_seg(".text$01alpha")
+void Entity::SetPrimaryColorAlpha(char alpha) {
+    *(uint8_t*)((uint8_t*)this + 0x2FF) = alpha;
 }
+#pragma code_seg()

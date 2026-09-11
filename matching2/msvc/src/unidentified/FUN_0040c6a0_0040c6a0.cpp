@@ -1,13 +1,7 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0040C6A0..0x0040C6A4: FUN_0040c6a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040c6a0_0040c6a0() {
-    __asm {
-    L_0040c6a0:
-        xor eax,eax
-    L_0040c6a2:
-        ret 4
-    }
+// 0x0040C6A0 - constant leaf: this predicate always reports "no" (zero in EAX).
+// Its single stack argument is never read, so the __stdcall callee still pops
+// it (ret 4).
+int __stdcall FUN_0040c6a0_0040c6a0(int unused) {
+    (void)unused;
+    return 0;
 }

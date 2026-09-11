@@ -1,25 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405730: release a raw pair, then free the block itself.
+//
+// Retail: 85 F6           test esi,esi
+//         74 0D           je   done
+//         56              push esi
+//         E8 E6 FE FF FF  call 0x00405620   ; release the pair contents
+//         56              push esi
+//         E8 61 CD 04 00  call 0x004524A1   ; free the block
+//         59              pop  ecx
+//         C3              ret
+// The pair pointer arrives in ESI, so the release helper is compiled as a
+// native LTCG cluster (see layout/ltcg/fun_00405730.json).
 
-// 0x00405730..0x00405741: FUN_00405730
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405730_00405730() {
-    __asm {
-    L_00405730:
-        test esi,esi
-    L_00405732:
-        je short L_00405741
-    L_00405734:
-        push esi
-    L_00405735:
-        call asm_Recovery_ReleaseRawPairAndReset_00405620
-    L_0040573a:
-        push esi
-    L_0040573b:
-        call asm_free_004524a1
-    L_00405740:
-        pop ecx
-    L_00405741:
-        ret
+extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+#pragma code_seg(".text$01release")
+__declspec(noinline) void FUN_00405730_ReleasePair(void* pair) {
+    if (pair) {
+        asm_Recovery_ReleaseRawPairAndReset_00405620(pair);
+        entry_free_004524a1(pair);
     }
 }
+#pragma code_seg()

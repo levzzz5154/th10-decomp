@@ -1025,86 +1025,26 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004390e0_004390e0() {
 }
 
 // 0x004392E0..0x00439343: SaveSystemSettingsRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_SaveSystemSettingsRetail_004392e0() {
-    __asm {
-    L_004392e0:
-        push esi
-    L_004392e1:
-        mov esi,dword ptr [data_00466258]
-    L_004392e7:
-        push 0
-    L_004392e9:
-        push 49251Ch
-    L_004392ee:
-        push 0
-    L_004392f0:
-        push 10h
-    L_004392f2:
-        call esi
-    L_004392f4:
-        push 0
-    L_004392f6:
-        push 492520h
-    L_004392fb:
-        push 0
-    L_004392fd:
-        push 53h
-    L_004392ff:
-        call esi
-    L_00439301:
-        push 0
-    L_00439303:
-        push 492524h
-    L_00439308:
-        push 0
-    L_0043930a:
-        push 54h
-    L_0043930c:
-        call esi
-    L_0043930e:
-        push 2
-    L_00439310:
-        push 0
-    L_00439312:
-        push 0
-    L_00439314:
-        push 11h
-    L_00439316:
-        call esi
-    L_00439318:
-        push 2
-    L_0043931a:
-        push 0
-    L_0043931c:
-        push 0
-    L_0043931e:
-        push 55h
-    L_00439320:
-        call esi
-    L_00439322:
-        push 2
-    L_00439324:
-        push 0
-    L_00439326:
-        push 0
-    L_00439328:
-        push 56h
-    L_0043932a:
-        call esi
-    L_0043932c:
-        push 492508h
-    L_00439331:
-        call dword ptr [data_00466114]
-    L_00439337:
-        push 492510h
-    L_0043933c:
-        call dword ptr [data_004660fc]
-    L_00439342:
-        pop esi
-    L_00439343:
-        ret
-    }
+// Apply the six system parameters the game needs before its message loop runs
+// and start the performance counters the frame clock reads. The API is reached
+// through its import slot six times, so the compiler keeps the loaded entry
+// point in ESI across every call.
+extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(
+    unsigned int action, unsigned int param, void* value, unsigned int flags);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(
+    long long* frequency);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(
+    long long* count);
+
+int __stdcall SaveSystemSettingsRetail_004392e0() {
+    SystemParametersInfoA(0x10, 0, &data_0049251c, 0);
+    SystemParametersInfoA(0x53, 0, &data_00492520, 0);
+    SystemParametersInfoA(0x54, 0, &data_00492524, 0);
+    SystemParametersInfoA(0x11, 0, 0, 2);
+    SystemParametersInfoA(0x55, 0, 0, 2);
+    SystemParametersInfoA(0x56, 0, 0, 2);
+    QueryPerformanceFrequency((long long*)&data_00492508);
+    return QueryPerformanceCounter((long long*)&data_00492510);
 }
 
 // 0x00439390..0x004393C8: FUN_00439390

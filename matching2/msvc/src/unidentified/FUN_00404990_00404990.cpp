@@ -1,13 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00404990 (4 bytes): read the 32-bit field at offset 0x44 of the object.
+//
+// retail:  mov eax,[eax+44h] ; ret
+// The object pointer arrives in EAX and the loaded field is handed back in EAX,
+// the internal convention the whole-program link-time code generator chose for
+// this leaf.  Plain C++ cannot name such a convention: writing the natural
+// getter and letting the synthetic caller below be compiled in the same /LTCG
+// cluster makes the global register allocator pick the same two registers.
 
-// 0x00404990..0x00404993: FUN_00404990
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00404990_00404990() {
-    __asm {
-    L_00404990:
-        mov eax,dword ptr [eax+44h]
-    L_00404993:
-        ret
-    }
+struct Field44Holder {
+    char unknown[0x44];
+    int field_44;
+
+    __declspec(noinline) int GetField44();
+};
+
+#pragma code_seg(".text$01read44")
+int Field44Holder::GetField44() {
+    return this->field_44;
 }
+#pragma code_seg()

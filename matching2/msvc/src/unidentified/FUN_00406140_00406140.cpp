@@ -1,25 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00406140 (18 bytes): destroy a heap-allocated object and release it.
+//
+// retail:
+//   test esi,esi / je done
+//   push esi / call 0x00405F70      ; ItemManager_DestroyRetail, __stdcall
+//   push esi / call 0x004524A1      ; operator delete, __cdecl
+//   pop ecx / done: ret
+// The object pointer arrives in ESI because it stays live across both calls,
+// which the link-time register allocator satisfies with a preserved register.
+// The synthetic caller below is compiled in the same /LTCG cluster so the
+// allocator makes the same choice.
 
-// 0x00406140..0x00406151: FUN_00406140
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00406140_00406140() {
-    __asm {
-    L_00406140:
-        test esi,esi
-    L_00406142:
-        je short L_00406151
-    L_00406144:
-        push esi
-    L_00406145:
-        call asm_ItemManager_DestroyRetail_00405f70
-    L_0040614a:
-        push esi
-    L_0040614b:
-        call asm_free_004524a1
-    L_00406150:
-        pop ecx
-    L_00406151:
-        ret
+struct ManagedItem;
+
+extern "C" __stdcall void asm_ItemManager_DestroyRetail_00405f70(ManagedItem* item);
+void __cdecl operator delete(void* block);
+
+#pragma code_seg(".text$01release")
+__declspec(noinline) void ReleaseManagedItem(ManagedItem* item) {
+    if (item) {
+        asm_ItemManager_DestroyRetail_00405f70(item);
+        operator delete(item);
     }
 }
+#pragma code_seg()

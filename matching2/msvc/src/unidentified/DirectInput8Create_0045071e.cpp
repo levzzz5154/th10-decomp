@@ -1,11 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0045071E..0x00450723 - the import thunk for DirectInput8Create.  The call
+// tail-merges into the imported routine, so the compiler emits the retail
+// six-byte jump through the import address table slot at 0x00466000.
+extern "C" __declspec(dllimport) long __stdcall DirectInput8Create(
+    void* instance, unsigned int version, void* riid, void** out, void* outer);
 
-// 0x0045071E..0x00450723: DirectInput8Create
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DirectInput8Create_0045071e() {
-    __asm {
-    L_0045071e:
-        jmp dword ptr [data_00466000]
-    }
+extern "C" long __stdcall DirectInput8Create_0045071e(
+    void* instance, unsigned int version, void* riid, void** out, void* outer) {
+    return DirectInput8Create(instance, version, riid, out, outer);
 }

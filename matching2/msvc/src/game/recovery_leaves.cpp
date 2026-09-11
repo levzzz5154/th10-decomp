@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 #include "th10/math/angle.hpp"
@@ -8,6 +10,7 @@
 #include "th10/platform/windows_types.hpp"
 
 void __cdecl operator delete(void*);
+void* __cdecl operator new(unsigned int size);
 extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 
 // The raw-pair release still lives in inline assembly, so it is called through its
@@ -32,76 +35,6 @@ extern "C" __declspec(naked) void __cdecl asm_GameThread_RunQueueLeaf_00401520()
         ret
     }
 }
-
-// 0x00404DA0..0x00404E04: Recovery_ScaleColor
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_ScaleColor_00404da0() {
-    __asm {
-    L_00404da0:
-        fld dword ptr [esp+4]
-    L_00404da4:
-        fmul dword ptr [eax+14h]
-    L_00404da7:
-        fld dword ptr [esp+4]
-    L_00404dab:
-        fmul dword ptr [eax+10h]
-    L_00404dae:
-        fld dword ptr [esp+4]
-    L_00404db2:
-        fmul dword ptr [eax+0Ch]
-    L_00404db5:
-        fld dword ptr [esp+4]
-    L_00404db9:
-        fmul dword ptr [eax+8]
-    L_00404dbc:
-        fld dword ptr [esp+4]
-    L_00404dc0:
-        fmul dword ptr [eax+4]
-    L_00404dc3:
-        fld dword ptr [esp+4]
-    L_00404dc7:
-        fmul dword ptr [eax]
-    L_00404dc9:
-        fstp dword ptr [esi]
-    L_00404dcb:
-        fstp dword ptr [esi+4]
-    L_00404dce:
-        fst dword ptr [esi+8]
-    L_00404dd1:
-        fld st(1)
-    L_00404dd3:
-        fstp dword ptr [esi+0Ch]
-    L_00404dd6:
-        fld st(2)
-    L_00404dd8:
-        fstp dword ptr [esi+10h]
-    L_00404ddb:
-        fld st(3)
-    L_00404ddd:
-        fstp dword ptr [esi+14h]
-    L_00404de0:
-        call asm_FUN_00463b2c_00463b2c
-    L_00404de5:
-        mov byte ptr [esi+18h],al
-    L_00404de8:
-        call asm_FUN_00463b2c_00463b2c
-    L_00404ded:
-        mov byte ptr [esi+19h],al
-    L_00404df0:
-        call asm_FUN_00463b2c_00463b2c
-    L_00404df5:
-        mov byte ptr [esi+1Ah],al
-    L_00404df8:
-        call asm_FUN_00463b2c_00463b2c
-    L_00404dfd:
-        mov byte ptr [esi+1Bh],al
-    L_00404e00:
-        mov eax,esi
-    L_00404e02:
-        ret 4
-    }
-}
-
 // 0x00405040..0x0040509D: Recovery_InitializeWordColor
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeWordColor_00405040() {
@@ -239,90 +172,37 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_CreateFixedState_004056b0
 }
 
 // 0x0040B940..0x0040B9A2: Recovery_CreateSmallState
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_CreateSmallState_0040b940() {
-    __asm {
-    L_0040b940:
-        push esi
-    L_0040b941:
-        push 28h
-    L_0040b943:
-        call asm_operator_new_00452493
-    L_0040b948:
-        add esp,4
-    L_0040b94b:
-        test eax,eax
-    L_0040b94d:
-        je short L_0040b97c
-    L_0040b94f:
-        xor ecx,ecx
-    L_0040b951:
-        mov edx,eax
-    L_0040b953:
-        mov dword ptr [edx],ecx
-    L_0040b955:
-        mov dword ptr [edx+4],ecx
-    L_0040b958:
-        mov dword ptr [edx+8],ecx
-    L_0040b95b:
-        mov dword ptr [edx+0Ch],ecx
-    L_0040b95e:
-        mov dword ptr [edx+10h],ecx
-    L_0040b961:
-        mov dword ptr [edx+14h],ecx
-    L_0040b964:
-        mov dword ptr [edx+18h],ecx
-    L_0040b967:
-        mov dword ptr [edx+1Ch],ecx
-    L_0040b96a:
-        mov dword ptr [edx+20h],ecx
-    L_0040b96d:
-        mov dword ptr [edx+24h],ecx
-    L_0040b970:
-        or dword ptr [eax],2
-    L_0040b973:
-        mov dword ptr [data_00477700],eax
-    L_0040b978:
-        mov esi,eax
-    L_0040b97a:
-        jmp short L_0040b97e
-    L_0040b97c:
-        xor esi,esi
-    L_0040b97e:
-        push esi
-    L_0040b97f:
-        call asm_FUN_0040b560_0040b560
-    L_0040b984:
-        test eax,eax
-    L_0040b986:
-        je short L_0040b99f
-    L_0040b988:
-        test esi,esi
-    L_0040b98a:
-        je short L_0040b99b
-    L_0040b98c:
-        push esi
-    L_0040b98d:
-        call asm_FUN_0040b7b0_0040b7b0
-    L_0040b992:
-        push esi
-    L_0040b993:
-        call asm_free_004524a1
-    L_0040b998:
-        add esp,4
-    L_0040b99b:
-        xor eax,eax
-    L_0040b99d:
-        pop esi
-    L_0040b99e:
-        ret
-    L_0040b99f:
-        mov eax,esi
-    L_0040b9a1:
-        pop esi
-    L_0040b9a2:
-        ret
+// Allocate the small recovery state, register it in the global slot and hand it
+// to the pair installer. When the installer rejects it the state is torn down
+// through its own release entry and returned to the CRT heap.
+struct RecoverySmallState {
+    unsigned int flags;             // +0x00, bit 1 marks a registered state
+    unsigned int reserved_04[9];    // +0x04..+0x27
+
+    RecoverySmallState();
+};
+
+RecoverySmallState::RecoverySmallState() {
+    memset(this, 0, sizeof(*this));
+    flags |= 2;
+    *(void**)&data_00477700 = this;
+}
+
+// The installer takes the state as its only stack argument and cleans it, so
+// the recovered call keeps the retail push/callee-clean shape.
+typedef int (__stdcall* SmallStateInstallFn)(void* state);
+typedef void (__stdcall* SmallStateReleaseFn)(void* state);
+
+void* Recovery_CreateSmallState_0040b940() {
+    RecoverySmallState* state = new RecoverySmallState;
+    if (((SmallStateInstallFn)asm_FUN_0040b560_0040b560)(state)) {
+        if (state) {
+            ((SmallStateReleaseFn)asm_FUN_0040b7b0_0040b7b0)(state);
+            entry_free_004524a1(state);
+        }
+        return 0;
     }
+    return state;
 }
 
 // 0x0040B9F0..0x0040BA5E: Recovery_UpdateEmitterDecision

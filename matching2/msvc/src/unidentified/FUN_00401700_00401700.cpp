@@ -1,63 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00401700: format a message into a 512-byte stack buffer, hand it to the
+// game-thread record queue, and return the formatted length.
+//
+// The queue pointer arrives in ESI and the record's position vector in EBX; both
+// are callee-saved registers the body only passes through to the append helper,
+// so they stay undeclared here and survive untouched.
 
-// 0x00401700..0x0040175D: FUN_00401700
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00401700_00401700() {
-    __asm {
-    L_00401700:
-        sub esp,204h
-    L_00401706:
-        mov eax,dword ptr [data_00473660]
-    L_0040170b:
-        mov ecx,dword ptr [esp+208h]
-    L_00401712:
-        xor eax,esp
-    L_00401714:
-        mov dword ptr [esp+200h],eax
-    L_0040171b:
-        lea eax,[esp+20Ch]
-    L_00401722:
-        push eax
-    L_00401723:
-        push ecx
-    L_00401724:
-        lea edx,[esp+8]
-    L_00401728:
-        push edx
-    L_00401729:
-        call asm_vsprintf_004524a6
-    L_0040172e:
-        add esp,0Ch
-    L_00401731:
-        lea ecx,[esp]
-    L_00401734:
-        call asm_FUN_004015c0_004015c0
-    L_00401739:
-        lea eax,[esp]
-    L_0040173c:
-        lea edx,[eax+1]
-    L_0040173f:
-        nop
-    L_00401740:
-        mov cl,byte ptr [eax]
-    L_00401742:
-        inc eax
-    L_00401743:
-        test cl,cl
-    L_00401745:
-        jne short L_00401740
-    L_00401747:
-        mov ecx,dword ptr [esp+200h]
-    L_0040174e:
-        xor ecx,esp
-    L_00401750:
-        sub eax,edx
-    L_00401752:
-        call asm_security_check_cookie_00458ea5
-    L_00401757:
-        add esp,204h
-    L_0040175d:
-        ret
-    }
+extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* args);
+
+// 0x004015C0 reads the text from ECX and the record context from EBX/ESI; it
+// never reads EAX, so a __fastcall prototype reproduces the retail call site
+// (the formatted text moves straight into ECX).
+extern "C" void __fastcall asm_FUN_004015c0_004015c0(char* text);
+
+#include <string.h>
+
+#pragma code_seg(".text$01format_text")
+unsigned int GameThread_FormatRecordText(char* format, ...) {
+    char buffer[512];
+    asm_vsprintf_004524a6(buffer, format, (char*)&format + sizeof(format));
+    asm_FUN_004015c0_004015c0(buffer);
+    return (unsigned int)strlen(buffer);
 }
+#pragma code_seg()

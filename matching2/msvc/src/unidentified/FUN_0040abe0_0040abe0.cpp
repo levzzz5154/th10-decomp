@@ -1,15 +1,7 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040ABE0..0x0040ABE6 - forwarder: the object arrives in ECX and is pushed
+// as the single stack argument of the routine at 0x0040A450, which cleans it.
+extern "C" void __stdcall asm_FUN_0040a450_0040a450(void* self);
 
-// 0x0040ABE0..0x0040ABE6: FUN_0040abe0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040abe0_0040abe0() {
-    __asm {
-    L_0040abe0:
-        push ecx
-    L_0040abe1:
-        call asm_FUN_0040a450_0040a450
-    L_0040abe6:
-        ret
-    }
+void __fastcall FUN_0040abe0(void* self) {
+    asm_FUN_0040a450_0040a450(self);
 }

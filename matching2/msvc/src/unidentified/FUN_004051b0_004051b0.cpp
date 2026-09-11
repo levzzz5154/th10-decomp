@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004051B0: store a byte flag in the shared game runtime state.
+// Retail receives the state in EAX and the byte value in CL and ends in a plain RET.
 
-// 0x004051B0..0x004051B6: FUN_004051b0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004051b0_004051b0() {
-    __asm {
-    L_004051b0:
-        mov byte ptr [eax+3ADA6Ch],cl
-    L_004051b6:
-        ret
-    }
+struct GameRuntimeState {
+    char unknown_0000[0x3ADA6C];
+    char enabled_3ADA6C;                // +0x3ADA6C
+
+    __declspec(noinline) void SetEnabled(char value);
+};
+
+#pragma code_seg(".text$01f4051b0")
+void GameRuntimeState::SetEnabled(char value) {
+    this->enabled_3ADA6C = value;
 }
+#pragma code_seg()

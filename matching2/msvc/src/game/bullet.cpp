@@ -295,89 +295,69 @@ extern "C" __declspec(naked) void __cdecl asm_BulletEntity_ClearResourceList_004
     }
 }
 
-// 0x0040CC70..0x0040CD00: ?Entity_ClearAnims@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Entity_ClearAnims_0040cc70() {
-    __asm {
-    L_0040cc70:
-        mov ecx,dword ptr [edx+12Ch]
-    L_0040cc76:
-        push ebx
-    L_0040cc77:
-        push ebp
-    L_0040cc78:
-        mov ebp,0FFFFFFFEh
-    L_0040cc7d:
-        and ecx,ebp
-    L_0040cc7f:
-        mov dword ptr [edx+12Ch],ecx
-    L_0040cc85:
-        and dword ptr [edx+17Ch],ebp
-    L_0040cc8b:
-        mov ebx,dword ptr [edx+1C8h]
-    L_0040cc91:
-        push esi
-    L_0040cc92:
-        and ebx,ebp
-    L_0040cc94:
-        mov dword ptr [edx+1C8h],ebx
-    L_0040cc9a:
-        push edi
-    L_0040cc9b:
-        and dword ptr [edx+204h],ebp
-    L_0040cca1:
-        and dword ptr [edx+240h],ebp
-    L_0040cca7:
-        and dword ptr [edx+27Ch],ebp
-    L_0040ccad:
-        and dword ptr [edx+2B8h],ebp
-    L_0040ccb3:
-        lea esi,[edx+2C4h]
-    L_0040ccb9:
-        mov ebx,8
-    L_0040ccbe:
-        mov edi,edi
-    L_0040ccc0:
-        xor eax,eax
-    L_0040ccc2:
-        mov edi,esi
-    L_0040ccc4:
-        mov ecx,84h
-    L_0040ccc9:
-        rep stosd
-    L_0040cccb:
-        mov dword ptr [esi+204h],0FFFFFFFFh
-    L_0040ccd5:
-        add esi,210h
-    L_0040ccdb:
-        dec ebx
-    L_0040ccdc:
-        jne short L_0040ccc0
-    L_0040ccde:
-        mov ecx,dword ptr [edx+142Ch]
-    L_0040cce4:
-        and ecx,ebp
-    L_0040cce6:
-        pop edi
-    L_0040cce7:
-        mov dword ptr [edx+142Ch],ecx
-    L_0040cced:
-        mov eax,dword ptr [edx+1440h]
-    L_0040ccf3:
-        and eax,ebp
-    L_0040ccf5:
-        pop esi
-    L_0040ccf6:
-        pop ebp
-    L_0040ccf7:
-        mov dword ptr [edx+1440h],eax
-    L_0040ccfd:
-        mov eax,edx
-    L_0040ccff:
-        pop ebx
-    L_0040cd00:
-        ret
+// 0x0040CC70..0x0040CD00: Entity_ClearAnims
+// Drop every animation slot's "active" flag and blank the eight 0x210-byte
+// slot records, then clear the two trailing flags. The object arrives in EDX
+// (__fastcall), its caller's ECX is unused, and the object is returned.
+#include <string.h>
+
+// One animation slot: a 0x210-byte record whose +0x204 word is the slot's own
+// flag word (retail writes -1 there after blanking the record).
+struct AnimSlot {
+    unsigned char unknown_000[0x204];
+    int field_204;                                   // +0x204
+    unsigned char unknown_208[0x8];
+};
+
+// The owner block is huge, so only the touched offsets are described. The flag
+// words cleared up front sit at 0x12C, 0x17C, 0x1C8, 0x204, 0x240, 0x27C and
+// 0x2B8; the slot table starts at 0x2C4.
+struct ClearAnimsOwner {
+    unsigned char unknown_000[0x12C];
+    unsigned flag_12C;                               // +0x12C
+    unsigned char unknown_130[0x4C];
+    unsigned flag_17C;                               // +0x17C
+    unsigned char unknown_180[0x48];
+    unsigned flag_1C8;                               // +0x1C8
+    unsigned char unknown_1CC[0x38];
+    unsigned flag_204;                               // +0x204
+    unsigned char unknown_208[0x38];
+    unsigned flag_240;                               // +0x240
+    unsigned char unknown_244[0x38];
+    unsigned flag_27C;                               // +0x27C
+    unsigned char unknown_280[0x38];
+    unsigned flag_2B8;                               // +0x2B8
+    unsigned char unknown_2BC[0x8];
+    AnimSlot slots[8];                               // +0x2C4
+    unsigned char unknown_1344[0xE8];
+    unsigned flag_142C;                              // +0x142C
+    unsigned char unknown_1430[0x10];
+    unsigned flag_1440;                              // +0x1440
+};
+
+// Retail clears each flag through an inlined store-before-load helper; spelling
+// it as a helper reproduces the memory-form ANDs the compiler picked.
+static void ClearActiveFlag(unsigned* flag) {
+    *flag &= ~1u;
+}
+
+ClearAnimsOwner* __fastcall Entity_ClearAnims_0040cc70(int unused, ClearAnimsOwner* owner) {
+    ClearActiveFlag(&owner->flag_12C);
+    ClearActiveFlag(&owner->flag_17C);
+    ClearActiveFlag(&owner->flag_1C8);
+    ClearActiveFlag(&owner->flag_204);
+    ClearActiveFlag(&owner->flag_240);
+    ClearActiveFlag(&owner->flag_27C);
+    ClearActiveFlag(&owner->flag_2B8);
+    AnimSlot* slot = owner->slots;
+    for (int i = 0; i < 8; ++i) {
+        memset(slot, 0, 0x210);
+        slot->field_204 = -1;
+        ++slot;
     }
+    ClearActiveFlag(&owner->flag_142C);
+    ClearActiveFlag(&owner->flag_1440);
+    return owner;
 }
 
 // 0x0040CEA0..0x0040CEC3: ?BulletEntity_MarkAnimationForRemoval@@

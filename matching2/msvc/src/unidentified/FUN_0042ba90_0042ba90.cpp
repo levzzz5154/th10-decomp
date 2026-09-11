@@ -1,15 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042BA90..0x0042BA9C: store the incoming value in the object's +0x344 field
+// and hand the same value back in EAX. The object arrives in ECX, matching the
+// retail member ABI (one stack argument, callee cleans).
+struct GaugeState {
+    int unknown_000[0xD1];           // +0x000..+0x343
+    int field_344;                   // +0x344
 
-// 0x0042BA90..0x0042BA9C: FUN_0042ba90
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042ba90_0042ba90() {
-    __asm {
-    L_0042ba90:
-        mov eax,dword ptr [esp+4]
-    L_0042ba94:
-        mov dword ptr [ecx+344h],eax
-    L_0042ba9a:
-        ret 4
-    }
+    int SetValue_0042ba90(int value);
+};
+
+int GaugeState::SetValue_0042ba90(int value) {
+    field_344 = value;
+    return value;
 }

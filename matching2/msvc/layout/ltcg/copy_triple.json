@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "copy_triple",
+  "source": "src/unidentified/FUN_00405130_00405130.cpp",
+  "driver": "layout/ltcg/copy_triple_context.cpp",
+  "headers": [
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Three-dword block assignment compiled with native LTCG so the internal register convention (source in EAX, destination in ECX) matches retail.",
+  "functions": [
+    {
+      "name": "Assign",
+      "symbol": "?Assign@TripleWordBlock@@QAEXABU1@@Z",
+      "section": ".text$01copy3",
+      "address": "0x00405130",
+      "size": 17,
+      "actual_abi": "source block in EAX; destination block in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?CopyTripleCompilerContext@@YGHPAPAUTripleWordBlock@@HPAU1@@Z",
+    "section": ".text$03context",
+    "address": "0x00405150",
+    "size": 49,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 16688
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00405141",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}
