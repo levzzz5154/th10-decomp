@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "accessor_load_field",
+  "source": "src/unidentified/FUN_0040ac00_0040ac00.cpp",
+  "driver": "layout/ltcg/accessor_load_field_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "First-field accessor compiled with native LTCG so the object pointer arrives in EAX, as retail's call sites do.",
+  "functions": [
+    {
+      "name": "Object0040ac00_Load",
+      "symbol": "?Load@Object0040ac00@@QBEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x0040AC00",
+      "size": 3,
+      "actual_abi": "object in EAX; int result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorLoadCompilerContext@@YGHPAPAUObject0040ac00@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0040AC10",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 39936
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040AC03",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

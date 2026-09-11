@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040AC00..0x0040AC02: load the object's first field.
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster (layout/ltcg/accessor_load_field.json).
 
-// 0x0040AC00..0x0040AC02: FUN_0040ac00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040ac00_0040ac00() {
-    __asm {
-    L_0040ac00:
-        mov eax,dword ptr [eax]
-    L_0040ac02:
-        ret
-    }
+struct Object0040ac00 {
+    int field_000;
+
+    __declspec(noinline) int Load() const;
+};
+
+#pragma code_seg(".text$01accessor")
+int Object0040ac00::Load() const {
+    return field_000;
 }
+#pragma code_seg()
