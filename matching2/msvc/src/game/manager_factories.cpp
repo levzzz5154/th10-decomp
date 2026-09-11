@@ -1502,6 +1502,73 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
         add esp,58h
     L_0041b89a:
         ret 4
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
+        _emit 0xd5
+        _emit 0xb3
+        _emit 0x41
+        _emit 0x00
+        _emit 0xaa
+        _emit 0xb4
+        _emit 0x41
+        _emit 0x00
+        _emit 0x7f
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0x2e
+        _emit 0xb6
+        _emit 0x41
+        _emit 0x00
+        _emit 0x37
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0x18
+        _emit 0xb7
+        _emit 0x41
+        _emit 0x00
+        _emit 0xfd
+        _emit 0xb6
+        _emit 0x41
+        _emit 0x00
+        _emit 0xd6
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0xfc
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0xd5
+        _emit 0xb3
+        _emit 0x41
+        _emit 0x00
+        _emit 0x2e
+        _emit 0xb6
+        _emit 0x41
+        _emit 0x00
+        _emit 0x95
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0x95
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0x9c
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0xa3
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
+        _emit 0xa3
+        _emit 0xb5
+        _emit 0x41
+        _emit 0x00
     }
 }
 

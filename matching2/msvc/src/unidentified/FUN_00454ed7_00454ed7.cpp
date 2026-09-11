@@ -1231,5 +1231,39 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00454ed7_00454ed7() {
         leave
     L_00455670:
         ret
+        _emit 0x8b
+        _emit 0xff
+        _emit 0xf3
+        _emit 0x50
+        _emit 0x45
+        _emit 0x00
+        _emit 0x75
+        _emit 0x4f
+        _emit 0x45
+        _emit 0x00
+        _emit 0x92
+        _emit 0x4f
+        _emit 0x45
+        _emit 0x00
+        _emit 0xde
+        _emit 0x4f
+        _emit 0x45
+        _emit 0x00
+        _emit 0x19
+        _emit 0x50
+        _emit 0x45
+        _emit 0x00
+        _emit 0x22
+        _emit 0x50
+        _emit 0x45
+        _emit 0x00
+        _emit 0x5a
+        _emit 0x50
+        _emit 0x45
+        _emit 0x00
+        _emit 0x2c
+        _emit 0x51
+        _emit 0x45
+        _emit 0x00
     }
 }

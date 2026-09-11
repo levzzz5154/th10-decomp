@@ -587,6 +587,33 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
         add esp,10h
     L_00422a68:
         ret 4
+        _emit 0x90
+        _emit 0x98
+        _emit 0x26
+        _emit 0x42
+        _emit 0x00
+        _emit 0x8d
+        _emit 0x27
+        _emit 0x42
+        _emit 0x00
+        _emit 0x83
+        _emit 0x28
+        _emit 0x42
+        _emit 0x00
+        _emit 0x52
+        _emit 0x2a
+        _emit 0x42
+        _emit 0x00
+        _emit 0x00
+        _emit 0x01
+        _emit 0x02
+        _emit 0x03
+        _emit 0x03
+        _emit 0x03
+        _emit 0x03
+        _emit 0x00
+        _emit 0x01
+        _emit 0x02
     }
 }
 
@@ -1343,6 +1370,28 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422c80_00422c80() {
         add esp,14h
     L_004231b7:
         ret 4
+        _emit 0x8b
+        _emit 0xff
+        _emit 0x9f
+        _emit 0x2c
+        _emit 0x42
+        _emit 0x00
+        _emit 0x07
+        _emit 0x2d
+        _emit 0x42
+        _emit 0x00
+        _emit 0x43
+        _emit 0x31
+        _emit 0x42
+        _emit 0x00
+        _emit 0x12
+        _emit 0x2f
+        _emit 0x42
+        _emit 0x00
+        _emit 0xbf
+        _emit 0x30
+        _emit 0x42
+        _emit 0x00
     }
 }
 
@@ -3164,5 +3213,38 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
         add esp,4Ch
     L_00424388:
         ret 4
+        _emit 0x90
+        _emit 0x1c
+        _emit 0x37
+        _emit 0x42
+        _emit 0x00
+        _emit 0x7e
+        _emit 0x37
+        _emit 0x42
+        _emit 0x00
+        _emit 0x9b
+        _emit 0x38
+        _emit 0x42
+        _emit 0x00
+        _emit 0x76
+        _emit 0x43
+        _emit 0x42
+        _emit 0x00
+        _emit 0x7f
+        _emit 0x3a
+        _emit 0x42
+        _emit 0x00
+        _emit 0xdf
+        _emit 0x3c
+        _emit 0x42
+        _emit 0x00
+        _emit 0x93
+        _emit 0x3f
+        _emit 0x42
+        _emit 0x00
+        _emit 0x1d
+        _emit 0x43
+        _emit 0x42
+        _emit 0x00
     }
 }

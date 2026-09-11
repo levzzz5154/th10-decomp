@@ -717,5 +717,64 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
         add esp,14h
     L_00406d52:
         ret 10h
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
+        _emit 0x19
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0x19
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0x6c
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0x74
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0xa6
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0xae
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0xee
+        _emit 0x69
+        _emit 0x40
+        _emit 0x00
+        _emit 0x09
+        _emit 0x6a
+        _emit 0x40
+        _emit 0x00
+        _emit 0x4d
+        _emit 0x6a
+        _emit 0x40
+        _emit 0x00
+        _emit 0xd2
+        _emit 0x6b
+        _emit 0x40
+        _emit 0x00
+        _emit 0xe2
+        _emit 0x6b
+        _emit 0x40
+        _emit 0x00
+        _emit 0xf5
+        _emit 0x6b
+        _emit 0x40
+        _emit 0x00
+        _emit 0x01
+        _emit 0x6c
+        _emit 0x40
+        _emit 0x00
+        _emit 0x0d
+        _emit 0x6c
+        _emit 0x40
+        _emit 0x00
     }
 }

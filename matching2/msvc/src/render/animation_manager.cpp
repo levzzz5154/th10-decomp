@@ -60,6 +60,46 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ReadIntegerVariabl
         mov eax,dword ptr [ecx+330h]
     L_0043ecd7:
         ret
+        _emit 0x82
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0x89
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0x90
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0x97
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0x9e
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0xa9
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0xb4
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0xbf
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0xca
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
+        _emit 0xd1
+        _emit 0xec
+        _emit 0x43
+        _emit 0x00
     }
 }
 

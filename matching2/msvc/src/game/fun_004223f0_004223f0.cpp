@@ -116,5 +116,32 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004223f0_004223f0() {
         mov eax,1
     L_004224a2:
         ret
+        _emit 0x90
+        _emit 0x06
+        _emit 0x24
+        _emit 0x42
+        _emit 0x00
+        _emit 0x42
+        _emit 0x24
+        _emit 0x42
+        _emit 0x00
+        _emit 0x4a
+        _emit 0x24
+        _emit 0x42
+        _emit 0x00
+        _emit 0x00
+        _emit 0x01
+        _emit 0x01
+        _emit 0x01
+        _emit 0x01
+        _emit 0x01
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
+        _emit 0x02
     }
 }

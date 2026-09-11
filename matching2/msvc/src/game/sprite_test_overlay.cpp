@@ -287,6 +287,23 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040a940_0040a940() {
         add esp,0Ch
     L_0040abc6:
         ret
+        _emit 0x90
+        _emit 0xe8
+        _emit 0xa9
+        _emit 0x40
+        _emit 0x00
+        _emit 0x88
+        _emit 0xa9
+        _emit 0x40
+        _emit 0x00
+        _emit 0x10
+        _emit 0xab
+        _emit 0x40
+        _emit 0x00
+        _emit 0xcc
+        _emit 0xaa
+        _emit 0x40
+        _emit 0x00
     }
 }
 

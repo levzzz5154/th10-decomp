@@ -829,6 +829,39 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ddf0_0043ddf0() {
         add esp,0Ch
     L_0043e378:
         ret 4
+        _emit 0x90
+        _emit 0x64
+        _emit 0xde
+        _emit 0x43
+        _emit 0x00
+        _emit 0xab
+        _emit 0xde
+        _emit 0x43
+        _emit 0x00
+        _emit 0x53
+        _emit 0xe0
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf0
+        _emit 0xdf
+        _emit 0x43
+        _emit 0x00
+        _emit 0x76
+        _emit 0xe0
+        _emit 0x43
+        _emit 0x00
+        _emit 0x99
+        _emit 0xe0
+        _emit 0x43
+        _emit 0x00
+        _emit 0xbe
+        _emit 0xe0
+        _emit 0x43
+        _emit 0x00
+        _emit 0x45
+        _emit 0xde
+        _emit 0x43
+        _emit 0x00
     }
 }
 

@@ -355,5 +355,33 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004172e0_004172e0() {
         add esp,28h
     L_0041755d:
         ret 8
+        _emit 0xf9
+        _emit 0x72
+        _emit 0x41
+        _emit 0x00
+        _emit 0x41
+        _emit 0x74
+        _emit 0x41
+        _emit 0x00
+        _emit 0x60
+        _emit 0x74
+        _emit 0x41
+        _emit 0x00
+        _emit 0xa0
+        _emit 0x74
+        _emit 0x41
+        _emit 0x00
+        _emit 0xe0
+        _emit 0x74
+        _emit 0x41
+        _emit 0x00
+        _emit 0x58
+        _emit 0x75
+        _emit 0x41
+        _emit 0x00
+        _emit 0x20
+        _emit 0x75
+        _emit 0x41
+        _emit 0x00
     }
 }

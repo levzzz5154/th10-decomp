@@ -761,5 +761,23 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
         pop ecx
     L_00433213:
         ret 4
+        _emit 0x8b
+        _emit 0xff
+        _emit 0xcc
+        _emit 0x2c
+        _emit 0x43
+        _emit 0x00
+        _emit 0xda
+        _emit 0x2e
+        _emit 0x43
+        _emit 0x00
+        _emit 0x00
+        _emit 0x2f
+        _emit 0x43
+        _emit 0x00
+        _emit 0xac
+        _emit 0x31
+        _emit 0x43
+        _emit 0x00
     }
 }

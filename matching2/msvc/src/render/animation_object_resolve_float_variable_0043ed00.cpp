@@ -62,5 +62,53 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ResolveFloatVariab
         mov eax,edi
     L_0043ed69:
         ret 4
+        _emit 0x28
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x31
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x3a
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x43
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x67
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x4c
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x55
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0x5e
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
     }
 }

@@ -1,6 +1,90 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletManager_LoadScripts_0040ae70() {
+    __asm {
+    L_0040ae70:
+        mov edx,dword ptr [data_00491c10]
+    L_0040ae76:
+        push 46CD88h
+    L_0040ae7b:
+        mov ecx,7
+    L_0040ae80:
+        call asm_Recovery_LoadCachedResource_00447280
+    L_0040ae85:
+        test eax,eax
+    L_0040ae87:
+        mov dword ptr [ebx+10h],eax
+    L_0040ae8a:
+        jne short L_0040aea2
+    L_0040ae8c:
+        push 46CF74h
+    L_0040ae91:
+        mov ecx,474F70h
+    L_0040ae96:
+        call asm_TextLog_Append_0044b810
+    L_0040ae9b:
+        add esp,4
+    L_0040ae9e:
+        or eax,0FFFFFFFFh
+    L_0040aea1:
+        ret
+    L_0040aea2:
+        push esi
+    L_0040aea3:
+        push edi
+    L_0040aea4:
+        push 40B050h
+    L_0040aea9:
+        call asm_SchedulerCallback_Create_00449ed0
+    L_0040aeae:
+        mov esi,eax
+    L_0040aeb0:
+        and dword ptr [esi+4],0FFFFFFFDh
+    L_0040aeb4:
+        mov eax,dword ptr [data_00491be4]
+    L_0040aeb9:
+        push eax
+    L_0040aeba:
+        mov edi,17h
+    L_0040aebf:
+        mov dword ptr [esi+20h],ebx
+    L_0040aec2:
+        call asm_Scheduler_RegisterPrimary_00449ae0
+    L_0040aec7:
+        push 40B060h
+    L_0040aecc:
+        mov dword ptr [ebx+8],esi
+    L_0040aecf:
+        call asm_SchedulerCallback_Create_00449ed0
+    L_0040aed4:
+        mov esi,eax
+    L_0040aed6:
+        and dword ptr [esi+4],0FFFFFFFDh
+    L_0040aeda:
+        mov ecx,dword ptr [data_00491be4]
+    L_0040aee0:
+        push ecx
+    L_0040aee1:
+        mov edi,20h
+    L_0040aee6:
+        mov dword ptr [esi+20h],ebx
+    L_0040aee9:
+        call asm_Scheduler_RegisterSecondary_00449b70
+    L_0040aeee:
+        pop edi
+    L_0040aeef:
+        mov dword ptr [ebx+0Ch],esi
+    L_0040aef2:
+        xor eax,eax
+    L_0040aef4:
+        pop esi
+    L_0040aef5:
+        ret
+    }
+}
 
 // 0x0040AF00..0x0040AF88: ?BulletManager_Release@@
 // Naked body preserves the retail register/stack ABI.
@@ -89,7 +173,127 @@ extern "C" __declspec(naked) void __cdecl asm_BulletManager_Release_0040af00() {
     }
 }
 
+// 0x0040AF90..0x0040AFE5: ?BulletManager_Create@@
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletManager_Create_0040af90() {
+    __asm {
+    L_0040af90:
+        push ebx
+    L_0040af91:
+        push 18h
+    L_0040af93:
+        call asm_operator_new_00452493
+    L_0040af98:
+        add esp,4
+    L_0040af9b:
+        test eax,eax
+    L_0040af9d:
+        je short L_0040afc0
+    L_0040af9f:
+        xor ecx,ecx
+    L_0040afa1:
+        mov edx,eax
+    L_0040afa3:
+        mov dword ptr [edx],ecx
+    L_0040afa5:
+        mov dword ptr [edx+4],ecx
+    L_0040afa8:
+        mov dword ptr [edx+8],ecx
+    L_0040afab:
+        mov dword ptr [edx+0Ch],ecx
+    L_0040afae:
+        mov dword ptr [edx+10h],ecx
+    L_0040afb1:
+        mov dword ptr [edx+14h],ecx
+    L_0040afb4:
+        or dword ptr [eax],2
+    L_0040afb7:
+        mov dword ptr [data_004776fc],eax
+    L_0040afbc:
+        mov ebx,eax
+    L_0040afbe:
+        jmp short L_0040afc2
+    L_0040afc0:
+        xor ebx,ebx
+    L_0040afc2:
+        call asm_BulletManager_LoadScripts_0040ae70
+    L_0040afc7:
+        test eax,eax
+    L_0040afc9:
+        je short L_0040afe2
+    L_0040afcb:
+        test ebx,ebx
+    L_0040afcd:
+        je short L_0040afde
+    L_0040afcf:
+        push ebx
+    L_0040afd0:
+        call asm_BulletManager_Release_0040af00
+    L_0040afd5:
+        push ebx
+    L_0040afd6:
+        call asm_free_004524a1
+    L_0040afdb:
+        add esp,4
+    L_0040afde:
+        xor eax,eax
+    L_0040afe0:
+        pop ebx
+    L_0040afe1:
+        ret
+    L_0040afe2:
+        mov eax,ebx
+    L_0040afe4:
+        pop ebx
+    L_0040afe5:
+        ret
+    }
+}
 
+// 0x0040C6E0..0x0040C70C: BulletEntity_ClearResourceList
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletEntity_ClearResourceList_0040c6e0() {
+    __asm {
+    L_0040c6e0:
+        push esi
+    L_0040c6e1:
+        mov esi,dword ptr [eax+1034h]
+    L_0040c6e7:
+        test esi,esi
+    L_0040c6e9:
+        je short L_0040c70b
+    L_0040c6eb:
+        push edi
+    L_0040c6ec:
+        TH10_NOP_LEA_ESP_DISP8()
+    L_0040c6f0:
+        mov ecx,dword ptr [esi]
+    L_0040c6f2:
+        mov edi,dword ptr [esi+4]
+    L_0040c6f5:
+        push ecx
+    L_0040c6f6:
+        call asm_free_004524a1
+    L_0040c6fb:
+        push esi
+    L_0040c6fc:
+        call asm_free_004524a1
+    L_0040c701:
+        add esp,8
+    L_0040c704:
+        test edi,edi
+    L_0040c706:
+        mov esi,edi
+    L_0040c708:
+        jne short L_0040c6f0
+    L_0040c70a:
+        pop edi
+    L_0040c70b:
+        pop esi
+    L_0040c70c:
+        ret
+    }
+}
 
 // 0x0040CC70..0x0040CD00: Entity_ClearAnims
 // Drop every animation slot's "active" flag and blank the eight 0x210-byte
@@ -156,11 +360,665 @@ ClearAnimsOwner* __fastcall Entity_ClearAnims_0040cc70(int unused, ClearAnimsOwn
     return owner;
 }
 
+// 0x0040CEA0..0x0040CEC3: ?BulletEntity_MarkAnimationForRemoval@@
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletEntity_MarkAnimationForRemoval_0040cea0() {
+    __asm {
+    L_0040cea0:
+        or dword ptr [esi+378Ch],10h
+    L_0040cea7:
+        mov eax,dword ptr [esi+774h]
+    L_0040cead:
+        mov edx,dword ptr [data_00491c10]
+    L_0040ceb3:
+        push eax
+    L_0040ceb4:
+        call asm_AnimationManager_SetFlag_004492a0
+    L_0040ceb9:
+        mov dword ptr [esi+774h],0
+    L_0040cec3:
+        ret
+    }
+}
 
+// 0x0040CF60..0x0040CF76: BulletEntity_SetAnimationVector
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletEntity_SetAnimationVector_0040cf60() {
+    __asm {
+    L_0040cf60:
+        mov edx,dword ptr [eax]
+    L_0040cf62:
+        add ecx,430h
+    L_0040cf68:
+        mov dword ptr [ecx],edx
+    L_0040cf6a:
+        mov edx,dword ptr [eax+4]
+    L_0040cf6d:
+        mov dword ptr [ecx+4],edx
+    L_0040cf70:
+        mov eax,dword ptr [eax+8]
+    L_0040cf73:
+        mov dword ptr [ecx+8],eax
+    L_0040cf76:
+        ret
+    }
+}
 
+// 0x0040CF90..0x0040CFA5: BulletEntity_FindById
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletEntity_FindById_0040cf90() {
+    __asm {
+    L_0040cf90:
+        mov eax,dword ptr [eax+18h]
+    L_0040cf93:
+        test eax,eax
+    L_0040cf95:
+        je short L_0040cfa3
+    L_0040cf97:
+        cmp dword ptr [eax+54h],ecx
+    L_0040cf9a:
+        je short L_0040cfa5
+    L_0040cf9c:
+        mov eax,dword ptr [eax+8]
+    L_0040cf9f:
+        test eax,eax
+    L_0040cfa1:
+        jne short L_0040cf97
+    L_0040cfa3:
+        xor eax,eax
+    L_0040cfa5:
+        ret
+    }
+}
 
+// 0x0040CFB0..0x0040D1A4: FUN_0040cfb0
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_0040cfb0_0040cfb0() {
+    __asm {
+    L_0040cfb0:
+        push ebx
+    L_0040cfb1:
+        push ebp
+    L_0040cfb2:
+        push esi
+    L_0040cfb3:
+        push edi
+    L_0040cfb4:
+        push 2518h
+    L_0040cfb9:
+        mov ebx,eax
+    L_0040cfbb:
+        call asm_operator_new_00452493
+    L_0040cfc0:
+        add esp,4
+    L_0040cfc3:
+        test eax,eax
+    L_0040cfc5:
+        je short L_0040cfd7
+    L_0040cfc7:
+        mov ecx,dword ptr [esp+18h]
+    L_0040cfcb:
+        push ecx
+    L_0040cfcc:
+        mov esi,eax
+    L_0040cfce:
+        call asm_FUN_0040d830_0040d830
+    L_0040cfd3:
+        mov ebp,eax
+    L_0040cfd5:
+        jmp short L_0040cfd9
+    L_0040cfd7:
+        xor ebp,ebp
+    L_0040cfd9:
+        mov eax,ebx
+    L_0040cfdb:
+        mov ecx,dword ptr [eax]
+    L_0040cfdd:
+        lea edx,[ebp+1094h]
+    L_0040cfe3:
+        mov dword ptr [edx],ecx
+    L_0040cfe5:
+        mov ecx,dword ptr [eax+4]
+    L_0040cfe8:
+        mov dword ptr [edx+4],ecx
+    L_0040cfeb:
+        mov eax,dword ptr [eax+8]
+    L_0040cfee:
+        mov dword ptr [edx+8],eax
+    L_0040cff1:
+        mov ecx,dword ptr [ebx+0Ch]
+    L_0040cff4:
+        mov dword ptr [ebp+23F8h],ecx
+    L_0040cffa:
+        mov edx,dword ptr [ebx+14h]
+    L_0040cffd:
+        mov dword ptr [ebp+23FCh],edx
+    L_0040d003:
+        mov eax,dword ptr [ebx+10h]
+    L_0040d006:
+        mov edx,dword ptr [ebp+2480h]
+    L_0040d00c:
+        mov dword ptr [ebp+2408h],eax
+    L_0040d012:
+        mov ecx,dword ptr [ebx+18h]
+    L_0040d015:
+        shl ecx,0Bh
+    L_0040d018:
+        xor ecx,edx
+    L_0040d01a:
+        and ecx,800h
+    L_0040d020:
+        mov edi,edx
+    L_0040d022:
+        xor edi,ecx
+    L_0040d024:
+        mov dword ptr [ebp+2480h],edi
+    L_0040d02a:
+        mov ecx,dword ptr [data_00474c74]
+    L_0040d030:
+        mov dl,1
+    L_0040d032:
+        shl dl,cl
+    L_0040d034:
+        lea esi,[ebx+20h]
+    L_0040d037:
+        lea edi,[ebp+1138h]
+    L_0040d03d:
+        mov ecx,8
+    L_0040d042:
+        mov byte ptr [ebp+1024h],dl
+    L_0040d048:
+        rep movsd
+    L_0040d04a:
+        mov eax,dword ptr [ebp+2468h]
+    L_0040d050:
+        xor edi,edi
+    L_0040d052:
+        test al,1
+    L_0040d054:
+        jne short L_0040d07f
+    L_0040d056:
+        or eax,1
+    L_0040d059:
+        mov dword ptr [ebp+245Ch],edi
+    L_0040d05f:
+        mov dword ptr [ebp+2458h],0FFF0BDC1h
+    L_0040d069:
+        mov dword ptr [ebp+2460h],edi
+    L_0040d06f:
+        mov dword ptr [ebp+2464h],476F78h
+    L_0040d079:
+        mov dword ptr [ebp+2468h],eax
+    L_0040d07f:
+        mov dword ptr [ebp+245Ch],2
+    L_0040d089:
+        mov dword ptr [ebp+2460h],40000000h
+    L_0040d093:
+        mov esi,1
+    L_0040d098:
+        mov dword ptr [ebp+2458h],esi
+    L_0040d09e:
+        mov eax,dword ptr [ebx+1Ch]
+    L_0040d0a1:
+        mov edx,dword ptr [ebp+2480h]
+    L_0040d0a7:
+        shl eax,12h
+    L_0040d0aa:
+        xor eax,edx
+    L_0040d0ac:
+        and eax,40000h
+    L_0040d0b1:
+        mov ebx,edx
+    L_0040d0b3:
+        lea ecx,[ebp+103Ch]
+    L_0040d0b9:
+        xor ebx,eax
+    L_0040d0bb:
+        push ecx
+    L_0040d0bc:
+        mov dword ptr [ebp+2480h],ebx
+    L_0040d0c2:
+        call asm_FUN_0040dc80_0040dc80
+    L_0040d0c7:
+        mov eax,dword ptr [ebp+2480h]
+    L_0040d0cd:
+        test ah,ah
+    L_0040d0cf:
+        jns short L_0040d0f2
+    L_0040d0d1:
+        mov eax,dword ptr [ebp+2408h]
+    L_0040d0d7:
+        cmp eax,esi
+    L_0040d0d9:
+        jne short L_0040d0e2
+    L_0040d0db:
+        mov eax,0Ah
+    L_0040d0e0:
+        jmp short L_0040d0ec
+    L_0040d0e2:
+        cmp eax,4
+    L_0040d0e5:
+        jne short L_0040d0ec
+    L_0040d0e7:
+        mov eax,0Bh
+    L_0040d0ec:
+        mov dword ptr [ebp+2408h],eax
+    L_0040d0f2:
+        mov eax,dword ptr [esp+14h]
+    L_0040d0f6:
+        mov edx,dword ptr [eax+64h]
+    L_0040d0f9:
+        mov ecx,dword ptr [ebp+1128h]
+    L_0040d0ff:
+        and edx,esi
+    L_0040d101:
+        add edx,2
+    L_0040d104:
+        cmp ecx,esi
+    L_0040d106:
+        mov dword ptr [ebp+2444h],edx
+    L_0040d10c:
+        mov edx,167h
+    L_0040d111:
+        mov dword ptr [ebp+2448h],edx
+    L_0040d117:
+        jne short L_0040d15c
+    L_0040d119:
+        mov ecx,dword ptr [ebp+112Ch]
+    L_0040d11f:
+        cmp ecx,34h
+    L_0040d122:
+        ja short L_0040d15c
+    L_0040d124:
+        movzx ecx,byte ptr [ecx+40D1BCh]
+    L_0040d12b:
+        jmp dword ptr [ecx*4+40D1A8h]
+    L_0040d132:
+        mov dword ptr [ebp+2448h],edx
+    L_0040d138:
+        jmp short L_0040d15c
+    L_0040d13a:
+        mov dword ptr [ebp+2448h],164h
+    L_0040d144:
+        jmp short L_0040d15c
+    L_0040d146:
+        mov dword ptr [ebp+2448h],16Dh
+    L_0040d150:
+        jmp short L_0040d15c
+    L_0040d152:
+        mov dword ptr [ebp+2448h],16Ah
+    L_0040d15c:
+        mov dword ptr [ebp+244Ch],edi
+    L_0040d162:
+        cmp dword ptr [eax+58h],edi
+    L_0040d165:
+        lea ecx,[ebp+116Ch]
+    L_0040d16b:
+        jne short L_0040d172
+    L_0040d16d:
+        mov dword ptr [eax+58h],ecx
+    L_0040d170:
+        jmp short L_0040d18b
+    L_0040d172:
+        mov edx,dword ptr [eax+5Ch]
+    L_0040d175:
+        mov esi,dword ptr [edx+4]
+    L_0040d178:
+        cmp esi,edi
+    L_0040d17a:
+        je short L_0040d185
+    L_0040d17c:
+        mov dword ptr [ecx+4],esi
+    L_0040d17f:
+        mov esi,dword ptr [edx+4]
+    L_0040d182:
+        mov dword ptr [esi+8],ecx
+    L_0040d185:
+        mov dword ptr [edx+4],ecx
+    L_0040d188:
+        mov dword ptr [ecx+8],edx
+    L_0040d18b:
+        mov edx,dword ptr [eax+60h]
+    L_0040d18e:
+        mov dword ptr [eax+5Ch],ecx
+    L_0040d191:
+        mov ecx,dword ptr [eax+64h]
+    L_0040d194:
+        inc edx
+    L_0040d195:
+        pop edi
+    L_0040d196:
+        inc ecx
+    L_0040d197:
+        pop esi
+    L_0040d198:
+        mov dword ptr [eax+60h],edx
+    L_0040d19b:
+        mov dword ptr [eax+64h],ecx
+    L_0040d19e:
+        mov eax,ebp
+    L_0040d1a0:
+        pop ebp
+    L_0040d1a1:
+        pop ebx
+    L_0040d1a2:
+        ret 8
+    }
+}
 
+// 0x0040D680..0x0040D6A3: BulletEntity_ReleaseResource
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_BulletEntity_ReleaseResource_0040d680() {
+    __asm {
+    L_0040d680:
+        mov eax,dword ptr [esi+8Ch]
+    L_0040d686:
+        test eax,eax
+    L_0040d688:
+        mov dword ptr [esi],46D0F0h
+    L_0040d68e:
+        je short L_0040d6a3
+    L_0040d690:
+        push eax
+    L_0040d691:
+        call asm_free_00452422
+    L_0040d696:
+        add esp,4
+    L_0040d699:
+        mov dword ptr [esi+8Ch],0
+    L_0040d6a3:
+        ret
+    }
+}
 
+// 0x0040D830..0x0040DAD0: FUN_0040d830
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_0040d830_0040d830() {
+    __asm {
+    L_0040d830:
+        push ebx
+    L_0040d831:
+        push ebp
+    L_0040d832:
+        push edi
+    L_0040d833:
+        xor ebx,ebx
+    L_0040d835:
+        lea edi,[esi+103Ch]
+    L_0040d83b:
+        mov dword ptr [esi+1010h],ebx
+    L_0040d841:
+        mov dword ptr [esi+1014h],ebx
+    L_0040d847:
+        mov edx,edi
+    L_0040d849:
+        mov dword ptr [esi],46D0C0h
+    L_0040d84f:
+        call asm_Entity_ClearAnims_0040cc70
+    L_0040d854:
+        xor eax,eax
+    L_0040d856:
+        mov ecx,537h
+    L_0040d85b:
+        rep stosd
+    L_0040d85d:
+        mov ecx,dword ptr [esi+1028h]
+    L_0040d863:
+        mov dword ptr [esi+8],ebx
+    L_0040d866:
+        mov dword ptr [esi+0Ch],ebx
+    L_0040d869:
+        mov dword ptr [esi+101Ch],esi
+    L_0040d86f:
+        and ecx,0FFFFFFFEh
+    L_0040d872:
+        mov dword ptr [esi+1028h],ecx
+    L_0040d878:
+        mov dword ptr [esi+1020h],ebx
+    L_0040d87e:
+        lea eax,[esi+8]
+    L_0040d881:
+        mov dword ptr [esi+4],eax
+    L_0040d884:
+        or ebp,0FFFFFFFFh
+    L_0040d887:
+        mov dword ptr [esi+1018h],ebp
+    L_0040d88d:
+        mov dword ptr [esi+1030h],eax
+    L_0040d893:
+        mov dword ptr [esi+1034h],ebx
+    L_0040d899:
+        mov dword ptr [esi+1038h],ebx
+    L_0040d89f:
+        mov dword ptr [esi+2514h],esi
+    L_0040d8a5:
+        mov dword ptr [esi+11BCh],ebx
+    L_0040d8ab:
+        mov dword ptr [esi+1208h],ebx
+    L_0040d8b1:
+        mov dword ptr [esi+1244h],ebx
+    L_0040d8b7:
+        mov dword ptr [esi+1280h],ebx
+    L_0040d8bd:
+        mov dword ptr [esi+12BCh],ebx
+    L_0040d8c3:
+        mov dword ptr [esi+12F8h],ebx
+    L_0040d8c9:
+        xor eax,eax
+    L_0040d8cb:
+        mov ecx,0Bh
+    L_0040d8d0:
+        lea edi,[esi+10C0h]
+    L_0040d8d6:
+        rep stosd
+    L_0040d8d8:
+        mov ecx,0Bh
+    L_0040d8dd:
+        lea edi,[esi+1094h]
+    L_0040d8e3:
+        rep stosd
+    L_0040d8e5:
+        mov ecx,0Bh
+    L_0040d8ea:
+        lea edi,[esi+1068h]
+    L_0040d8f0:
+        rep stosd
+    L_0040d8f2:
+        mov eax,41C00000h
+    L_0040d8f7:
+        mov dword ptr [esi+10ECh],eax
+    L_0040d8fd:
+        mov dword ptr [esi+10F0h],eax
+    L_0040d903:
+        mov dword ptr [esi+10F4h],eax
+    L_0040d909:
+        mov dword ptr [esi+10F8h],eax
+    L_0040d90f:
+        mov dword ptr [esi+248Ch],ebp
+    L_0040d915:
+        lea edx,[esi+2408h]
+    L_0040d91b:
+        xor eax,eax
+    L_0040d91d:
+        mov dword ptr [esi+116Ch],esi
+    L_0040d923:
+        mov dword ptr [esi+1170h],ebx
+    L_0040d929:
+        mov dword ptr [esi+1174h],ebx
+    L_0040d92f:
+        mov edi,edx
+    L_0040d931:
+        mov ecx,0Fh
+    L_0040d936:
+        rep stosd
+    L_0040d938:
+        mov eax,42000000h
+    L_0040d93d:
+        mov dword ptr [edx+38h],eax
+    L_0040d940:
+        mov dword ptr [edx+34h],eax
+    L_0040d943:
+        mov eax,dword ptr [esi+1168h]
+    L_0040d949:
+        test al,1
+    L_0040d94b:
+        mov edx,0FFF0BDC1h
+    L_0040d950:
+        mov ecx,476F78h
+    L_0040d955:
+        jne short L_0040d978
+    L_0040d957:
+        or eax,1
+    L_0040d95a:
+        mov dword ptr [esi+115Ch],ebx
+    L_0040d960:
+        mov dword ptr [esi+1158h],edx
+    L_0040d966:
+        mov dword ptr [esi+1160h],ebx
+    L_0040d96c:
+        mov dword ptr [esi+1164h],ecx
+    L_0040d972:
+        mov dword ptr [esi+1168h],eax
+    L_0040d978:
+        mov dword ptr [esi+115Ch],ebx
+    L_0040d97e:
+        mov dword ptr [esi+1160h],ebx
+    L_0040d984:
+        mov dword ptr [esi+1158h],ebp
+    L_0040d98a:
+        mov eax,dword ptr [esi+2468h]
+    L_0040d990:
+        test al,1
+    L_0040d992:
+        jne short L_0040d9b5
+    L_0040d994:
+        or eax,1
+    L_0040d997:
+        mov dword ptr [esi+245Ch],ebx
+    L_0040d99d:
+        mov dword ptr [esi+2458h],edx
+    L_0040d9a3:
+        mov dword ptr [esi+2460h],ebx
+    L_0040d9a9:
+        mov dword ptr [esi+2464h],ecx
+    L_0040d9af:
+        mov dword ptr [esi+2468h],eax
+    L_0040d9b5:
+        mov dword ptr [esi+245Ch],ebx
+    L_0040d9bb:
+        mov dword ptr [esi+2460h],ebx
+    L_0040d9c1:
+        mov dword ptr [esi+2458h],ebp
+    L_0040d9c7:
+        mov eax,dword ptr [esi+247Ch]
+    L_0040d9cd:
+        test al,1
+    L_0040d9cf:
+        jne short L_0040d9f2
+    L_0040d9d1:
+        or eax,1
+    L_0040d9d4:
+        mov dword ptr [esi+2470h],ebx
+    L_0040d9da:
+        mov dword ptr [esi+246Ch],edx
+    L_0040d9e0:
+        mov dword ptr [esi+2474h],ebx
+    L_0040d9e6:
+        mov dword ptr [esi+2478h],ecx
+    L_0040d9ec:
+        mov dword ptr [esi+247Ch],eax
+    L_0040d9f2:
+        mov eax,dword ptr [data_00477704]
+    L_0040d9f7:
+        mov ecx,dword ptr [esp+10h]
+    L_0040d9fb:
+        mov dword ptr [esi+2470h],ebx
+    L_0040da01:
+        mov dword ptr [esi+2474h],ebx
+    L_0040da07:
+        mov dword ptr [esi+246Ch],ebp
+    L_0040da0d:
+        mov eax,dword ptr [eax+54h]
+    L_0040da10:
+        push ecx
+    L_0040da11:
+        mov dword ptr [esi+102Ch],eax
+    L_0040da17:
+        call asm_FUN_00450470_00450470
+    L_0040da1c:
+        mov edx,dword ptr [esi+4]
+    L_0040da1f:
+        mov dword ptr [edx+4],eax
+    L_0040da22:
+        mov eax,dword ptr [esi+4]
+    L_0040da25:
+        mov dword ptr [eax],ebx
+    L_0040da27:
+        mov dword ptr [esi+23FCh],ebx
+    L_0040da2d:
+        mov dword ptr [esi+2400h],ebx
+    L_0040da33:
+        mov dword ptr [esi+2404h],ebx
+    L_0040da39:
+        pop edi
+    L_0040da3a:
+        mov dword ptr [esi+2494h],ebp
+    L_0040da40:
+        mov dword ptr [esi+2498h],ebp
+    L_0040da46:
+        mov dword ptr [esi+24A4h],ebp
+    L_0040da4c:
+        mov dword ptr [esi+24A8h],ebp
+    L_0040da52:
+        mov dword ptr [esi+24B4h],ebp
+    L_0040da58:
+        mov dword ptr [esi+24B8h],ebp
+    L_0040da5e:
+        mov dword ptr [esi+24C4h],ebp
+    L_0040da64:
+        mov dword ptr [esi+24C8h],ebp
+    L_0040da6a:
+        mov dword ptr [esi+24D4h],ebp
+    L_0040da70:
+        mov dword ptr [esi+24D8h],ebp
+    L_0040da76:
+        mov dword ptr [esi+24E4h],ebp
+    L_0040da7c:
+        mov dword ptr [esi+24E8h],ebp
+    L_0040da82:
+        mov dword ptr [esi+24F4h],ebp
+    L_0040da88:
+        mov dword ptr [esi+24F8h],ebp
+    L_0040da8e:
+        mov dword ptr [esi+2504h],ebp
+    L_0040da94:
+        mov dword ptr [esi+2508h],ebp
+    L_0040da9a:
+        pop ebp
+    L_0040da9b:
+        mov dword ptr [esi+249Ch],ebx
+    L_0040daa1:
+        mov dword ptr [esi+24ACh],ebx
+    L_0040daa7:
+        mov dword ptr [esi+24BCh],ebx
+    L_0040daad:
+        mov dword ptr [esi+24CCh],ebx
+    L_0040dab3:
+        mov dword ptr [esi+24DCh],ebx
+    L_0040dab9:
+        mov dword ptr [esi+24ECh],ebx
+    L_0040dabf:
+        mov dword ptr [esi+24FCh],ebx
+    L_0040dac5:
+        mov dword ptr [esi+250Ch],ebx
+    L_0040dacb:
+        mov eax,esi
+    L_0040dacd:
+        pop ebx
+    L_0040dace:
+        ret 4
+    }
+}
 
 // 0x0040DC80..0x0040E5EB: FUN_0040dc80
 // Naked body preserves the retail register/stack ABI.
@@ -1511,6 +2369,116 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     }
 }
 
+// 0x0044C2A0..0x0044C34A: Recovery_AdvancePolarMotion
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_AdvancePolarMotion_0044c2a0() {
+    __asm {
+    L_0044c2a0:
+        mov al,byte ptr [esi+28h]
+    L_0044c2a3:
+        sub esp,18h
+    L_0044c2a6:
+        test al,1
+    L_0044c2a8:
+        jne short L_0044c2c5
+    L_0044c2aa:
+        fld dword ptr [esi]
+    L_0044c2ac:
+        fadd dword ptr [esi+0Ch]
+    L_0044c2af:
+        fstp dword ptr [esi]
+    L_0044c2b1:
+        fld dword ptr [esi+10h]
+    L_0044c2b4:
+        fadd dword ptr [esi+4]
+    L_0044c2b7:
+        fstp dword ptr [esi+4]
+    L_0044c2ba:
+        fld dword ptr [esi+14h]
+    L_0044c2bd:
+        fadd dword ptr [esi+8]
+    L_0044c2c0:
+        fstp dword ptr [esi+8]
+    L_0044c2c3:
+        jmp short L_0044c30f
+    L_0044c2c5:
+        mov eax,dword ptr [esi+20h]
+    L_0044c2c8:
+        mov ecx,dword ptr [esi+1Ch]
+    L_0044c2cb:
+        push eax
+    L_0044c2cc:
+        push ecx
+    L_0044c2cd:
+        lea ecx,[esp+14h]
+    L_0044c2d1:
+        call asm_Recovery_PolarToVectorRetail_0044c5d0
+    L_0044c2d6:
+        fld dword ptr [esp+0Ch]
+    L_0044c2da:
+        fadd dword ptr [esi+0Ch]
+    L_0044c2dd:
+        mov edx,dword ptr [esi+14h]
+    L_0044c2e0:
+        mov dword ptr [esp+8],edx
+    L_0044c2e4:
+        mov eax,esi
+    L_0044c2e6:
+        fstp dword ptr [esp]
+    L_0044c2e9:
+        mov ecx,dword ptr [esp]
+    L_0044c2ec:
+        fld dword ptr [esp+10h]
+    L_0044c2f0:
+        mov dword ptr [esp+14h],0
+    L_0044c2f8:
+        fadd dword ptr [esi+10h]
+    L_0044c2fb:
+        mov dword ptr [eax],ecx
+    L_0044c2fd:
+        mov ecx,dword ptr [esp+8]
+    L_0044c301:
+        fstp dword ptr [esp+4]
+    L_0044c305:
+        mov edx,dword ptr [esp+4]
+    L_0044c309:
+        mov dword ptr [eax+4],edx
+    L_0044c30c:
+        mov dword ptr [eax+8],ecx
+    L_0044c30f:
+        fld dword ptr [esi]
+    L_0044c311:
+        sub esp,8
+    L_0044c314:
+        fmul dword ptr [data_00470b44]
+    L_0044c31a:
+        fstp qword ptr [esp]
+    L_0044c31d:
+        call asm_FUN_00452ff0_00452ff0
+    L_0044c322:
+        fmul dword ptr [data_00470b00]
+    L_0044c328:
+        fstp dword ptr [esi]
+    L_0044c32a:
+        fld dword ptr [esi+4]
+    L_0044c32d:
+        fmul dword ptr [data_00470b44]
+    L_0044c333:
+        fstp qword ptr [esp]
+    L_0044c336:
+        call asm_FUN_00452ff0_00452ff0
+    L_0044c33b:
+        fmul dword ptr [data_00470b00]
+    L_0044c341:
+        add esp,8
+    L_0044c344:
+        fstp dword ptr [esi+4]
+    L_0044c347:
+        add esp,18h
+    L_0044c34a:
+        ret
+    }
+}
 
 // Recovered semantic C++ definitions.
 #include "th10/game/entity.hpp"

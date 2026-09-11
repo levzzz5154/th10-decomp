@@ -875,22 +875,7 @@ extern "C" unsigned char text_padding_00454bba[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00455671..0x00455672
-// padding 00455671..00455672: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001898")
-extern "C" unsigned char text_padding_00455671[] = {
-    0x8b, 0xff,
-};
-#pragma data_seg()
 
-// data: 0x00455673..0x00455692
-// data 00455673..00455692: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d001899")
-extern "C" unsigned char text_data_00455673[] = {
-    0xf3, 0x50, 0x45, 0x00, 0x75, 0x4f, 0x45, 0x00, 0x92, 0x4f, 0x45, 0x00, 0xde, 0x4f, 0x45, 0x00,
-    0x19, 0x50, 0x45, 0x00, 0x22, 0x50, 0x45, 0x00, 0x5a, 0x50, 0x45, 0x00, 0x2c, 0x51, 0x45, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00456639..0x0045663F
 // padding 00456639..0045663f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1222,20 +1207,4 @@ extern "C" unsigned char text_padding_0045ccc8[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0045DB55..0x0045DB55
-// padding 0045db55..0045db55: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001941")
-extern "C" unsigned char text_padding_0045db55[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// data: 0x0045DB56..0x0045DB85
-// data 0045db56..0045db85: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d001942")
-extern "C" unsigned char text_data_0045db56[] = {
-    0xbc, 0xd7, 0x45, 0x00, 0x0c, 0xd8, 0x45, 0x00, 0x6d, 0xd8, 0x45, 0x00, 0x98, 0xd8, 0x45, 0x00,
-    0xd3, 0xd8, 0x45, 0x00, 0x2b, 0xd9, 0x45, 0x00, 0x4b, 0xd9, 0x45, 0x00, 0xd9, 0xd9, 0x45, 0x00,
-    0x83, 0xd9, 0x45, 0x00, 0x3e, 0xda, 0x45, 0x00, 0x26, 0xda, 0x45, 0x00, 0xf6, 0xd9, 0x45, 0x00,
-};
-#pragma data_seg()

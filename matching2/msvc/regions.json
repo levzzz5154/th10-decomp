@@ -1175,7 +1175,7 @@
     },
     {
       "name": "asm_FUN_00403090_00403090",
-      "source": "src/render/projection_quads.cpp",
+      "source": "src/render/fun_00403090_00403090.cpp",
       "symbol": "_asm_FUN_00403090_00403090",
       "address": "0x00403090",
       "size": 1984,
@@ -1230,25 +1230,9 @@
       "source": "src/game/event_script_runtime.cpp",
       "symbol": "_asm_FUN_00403c80_00403c80",
       "address": "0x00403C80",
-      "size": 1806,
+      "size": 1868,
       "kind": "asm",
       "owner": "0x00403C80"
-    },
-    {
-      "name": "text_padding_0040438e",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_padding_0040438e",
-      "address": "0x0040438E",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00404390",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_00404390",
-      "address": "0x00404390",
-      "size": 60,
-      "kind": "data"
     },
     {
       "name": "text_padding_004043cc",
@@ -3257,25 +3241,9 @@
       "source": "src/game/enemy_projectile_spawn.cpp",
       "symbol": "_asm_FUN_004067d0_004067d0",
       "address": "0x004067D0",
-      "size": 1413,
+      "size": 1472,
       "kind": "asm",
       "owner": "0x004067D0"
-    },
-    {
-      "name": "text_padding_00406d55",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_padding_00406d55",
-      "address": "0x00406D55",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00406d58",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_00406d58",
-      "address": "0x00406D58",
-      "size": 56,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_00406d90_00406d90",
@@ -4362,28 +4330,12 @@
     },
     {
       "name": "asm_FUN_00409280_00409280",
-      "source": "src/game/ui_final_runtime.cpp",
+      "source": "src/game/fun_00409280_00409280.cpp",
       "symbol": "_asm_FUN_00409280_00409280",
       "address": "0x00409280",
-      "size": 2403,
+      "size": 2432,
       "kind": "asm",
       "owner": "0x00409280"
-    },
-    {
-      "name": "text_padding_00409be3",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_padding_00409be3",
-      "address": "0x00409BE3",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00409be4",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_00409be4",
-      "address": "0x00409BE4",
-      "size": 28,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_00409c00_00409c00",
@@ -4901,25 +4853,9 @@
       "source": "src/game/sprite_test_overlay.cpp",
       "symbol": "_asm_FUN_0040a940_0040a940",
       "address": "0x0040A940",
-      "size": 647,
+      "size": 664,
       "kind": "asm",
       "owner": "0x0040A940"
-    },
-    {
-      "name": "text_padding_0040abc7",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_padding_0040abc7",
-      "address": "0x0040ABC7",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0040abc8",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_0040abc8",
-      "address": "0x0040ABC8",
-      "size": 16,
-      "kind": "data"
     },
     {
       "name": "text_padding_0040abd8",
@@ -6024,26 +5960,9 @@
       "source": "src/game/event_script_runtime.cpp",
       "symbol": "_asm_FUN_0040bd80_0040bd80",
       "address": "0x0040BD80",
-      "size": 1494,
+      "size": 1568,
       "kind": "asm",
       "owner": "0x0040BD80"
-    },
-    {
-      "name": "asm_unassigned_0040c356",
-      "source": "src/unidentified/unassigned_0040c356.cpp",
-      "symbol": "_asm_unassigned_0040c356",
-      "address": "0x0040C356",
-      "size": 2,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "text_data_0040c358",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_0040c358",
-      "address": "0x0040C358",
-      "size": 72,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0040c3a0_0040c3a0",
@@ -8023,42 +7942,9 @@
       "source": "src/script/ecl_vm.cpp",
       "symbol": "_asm_FUN_0040e770_0040e770",
       "address": "0x0040E770",
-      "size": 13759,
+      "size": 14416,
       "kind": "asm",
       "owner": "0x0040E770"
-    },
-    {
-      "name": "text_padding_00411d2f",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_padding_00411d2f",
-      "address": "0x00411D2F",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00411d30",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_00411d30",
-      "address": "0x00411D30",
-      "size": 613,
-      "kind": "data"
-    },
-    {
-      "name": "asm_unassigned_00411f95",
-      "source": "src/unidentified/unassigned_00411f95.cpp",
-      "symbol": "_asm_unassigned_00411f95",
-      "address": "0x00411F95",
-      "size": 3,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "text_data_00411f98",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_00411f98",
-      "address": "0x00411F98",
-      "size": 40,
-      "kind": "data"
     },
     {
       "name": "asm_unassigned_00411fc0",
@@ -9907,28 +9793,12 @@
     },
     {
       "name": "asm_FUN_00414900_00414900",
-      "source": "src/game/ui_final_runtime.cpp",
+      "source": "src/game/fun_00414900_00414900.cpp",
       "symbol": "_asm_FUN_00414900_00414900",
       "address": "0x00414900",
-      "size": 3805,
+      "size": 3836,
       "kind": "asm",
       "owner": "0x00414900"
-    },
-    {
-      "name": "text_padding_004157dd",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_padding_004157dd",
-      "address": "0x004157DD",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004157e0",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_004157e0",
-      "address": "0x004157E0",
-      "size": 28,
-      "kind": "data"
     },
     {
       "name": "text_padding_004157fc",
@@ -10042,28 +9912,12 @@
     },
     {
       "name": "asm_FUN_00415e90_00415e90",
-      "source": "src/game/ui_final_runtime.cpp",
+      "source": "src/game/fun_00415e90_00415e90.cpp",
       "symbol": "_asm_FUN_00415e90_00415e90",
       "address": "0x00415E90",
-      "size": 4306,
+      "size": 4480,
       "kind": "asm",
       "owner": "0x00415E90"
-    },
-    {
-      "name": "text_padding_00416f62",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_padding_00416f62",
-      "address": "0x00416F62",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00416f64",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_00416f64",
-      "address": "0x00416F64",
-      "size": 172,
-      "kind": "data"
     },
     {
       "name": "asm_Path_DecodeXor_00417010",
@@ -10104,17 +9958,9 @@
       "source": "src/game/result_overlay.cpp",
       "symbol": "_asm_FUN_004172e0_004172e0",
       "address": "0x004172E0",
-      "size": 640,
+      "size": 668,
       "kind": "asm",
       "owner": "0x004172E0"
-    },
-    {
-      "name": "text_data_00417560",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_00417560",
-      "address": "0x00417560",
-      "size": 28,
-      "kind": "data"
     },
     {
       "name": "text_padding_0041757c",
@@ -12130,26 +11976,9 @@
       "source": "src/game/manager_factories.cpp",
       "symbol": "_asm_FUN_0041afd0_0041afd0",
       "address": "0x0041AFD0",
-      "size": 2253,
+      "size": 2320,
       "kind": "asm",
       "owner": "0x0041AFD0"
-    },
-    {
-      "name": "asm_unassigned_0041b89d",
-      "source": "src/unidentified/unassigned_0041b89d.cpp",
-      "symbol": "_asm_unassigned_0041b89d",
-      "address": "0x0041B89D",
-      "size": 3,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "text_data_0041b8a0",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_0041b8a0",
-      "address": "0x0041B8A0",
-      "size": 64,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0041b8e0_0041b8e0",
@@ -12217,25 +12046,9 @@
       "source": "src/game/item_spawn.cpp",
       "symbol": "_asm_FUN_0041bb00_0041bb00",
       "address": "0x0041BB00",
-      "size": 793,
+      "size": 819,
       "kind": "asm",
       "owner": "0x0041BB00"
-    },
-    {
-      "name": "text_padding_0041be19",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_padding_0041be19",
-      "address": "0x0041BE19",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0041be1c",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_0041be1c",
-      "address": "0x0041BE1C",
-      "size": 23,
-      "kind": "data"
     },
     {
       "name": "text_padding_0041be33",
@@ -13245,17 +13058,9 @@
       "source": "src/game/laser_grow_update.cpp",
       "symbol": "_asm_FUN_0041e700_0041e700",
       "address": "0x0041E700",
-      "size": 816,
+      "size": 832,
       "kind": "asm",
       "owner": "0x0041E700"
-    },
-    {
-      "name": "text_data_0041ea30",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_0041ea30",
-      "address": "0x0041EA30",
-      "size": 16,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0041ea40_0041ea40",
@@ -14432,17 +14237,9 @@
       "source": "src/game/game_mode_switch.cpp",
       "symbol": "_asm_FUN_004218d0_004218d0",
       "address": "0x004218D0",
-      "size": 572,
+      "size": 666,
       "kind": "asm",
       "owner": "0x004218D0"
-    },
-    {
-      "name": "text_data_00421b0c",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_00421b0c",
-      "address": "0x00421B0C",
-      "size": 94,
-      "kind": "data"
     },
     {
       "name": "text_padding_00421b6a",
@@ -15188,25 +14985,9 @@
       "source": "src/game/fun_004223f0_004223f0.cpp",
       "symbol": "_asm_FUN_004223f0_004223f0",
       "address": "0x004223F0",
-      "size": 179,
+      "size": 206,
       "kind": "asm",
       "owner": "0x004223F0"
-    },
-    {
-      "name": "text_padding_004224a3",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_004224a3",
-      "address": "0x004224A3",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004224a4",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_004224a4",
-      "address": "0x004224A4",
-      "size": 26,
-      "kind": "data"
     },
     {
       "name": "text_padding_004224be",
@@ -15238,25 +15019,9 @@
       "source": "src/game/main_menu_dispatch.cpp",
       "symbol": "_asm_FUN_00422660_00422660",
       "address": "0x00422660",
-      "size": 1035,
+      "size": 1062,
       "kind": "asm",
       "owner": "0x00422660"
-    },
-    {
-      "name": "text_padding_00422a6b",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_00422a6b",
-      "address": "0x00422A6B",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00422a6c",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_00422a6c",
-      "address": "0x00422A6C",
-      "size": 26,
-      "kind": "data"
     },
     {
       "name": "text_padding_00422a86",
@@ -15341,25 +15106,9 @@
       "source": "src/game/main_menu_dispatch.cpp",
       "symbol": "_asm_FUN_00422c80_00422c80",
       "address": "0x00422C80",
-      "size": 1338,
+      "size": 1360,
       "kind": "asm",
       "owner": "0x00422C80"
-    },
-    {
-      "name": "text_padding_004231ba",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_004231ba",
-      "address": "0x004231BA",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004231bc",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_004231bc",
-      "address": "0x004231BC",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_004231d0_004231d0",
@@ -15434,25 +15183,9 @@
       "source": "src/game/main_menu_dispatch.cpp",
       "symbol": "_asm_FUN_004236f0_004236f0",
       "address": "0x004236F0",
-      "size": 3227,
+      "size": 3260,
       "kind": "asm",
       "owner": "0x004236F0"
-    },
-    {
-      "name": "text_padding_0042438b",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_0042438b",
-      "address": "0x0042438B",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0042438c",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042438c",
-      "address": "0x0042438C",
-      "size": 32,
-      "kind": "data"
     },
     {
       "name": "text_padding_004243ac",
@@ -15995,25 +15728,9 @@
       "source": "src/game/player_front_runtime.cpp",
       "symbol": "_asm_FUN_004250b0_004250b0",
       "address": "0x004250B0",
-      "size": 1591,
+      "size": 1656,
       "kind": "asm",
       "owner": "0x004250B0"
-    },
-    {
-      "name": "text_padding_004256e7",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_004256e7",
-      "address": "0x004256E7",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004256e8",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_004256e8",
-      "address": "0x004256E8",
-      "size": 64,
-      "kind": "data"
     },
     {
       "name": "text_padding_00425728",
@@ -16025,28 +15742,12 @@
     },
     {
       "name": "asm_FUN_00425730_00425730",
-      "source": "src/game/gameplay_final_runtime.cpp",
+      "source": "src/game/fun_00425730_00425730.cpp",
       "symbol": "_asm_FUN_00425730_00425730",
       "address": "0x00425730",
-      "size": 3089,
+      "size": 3112,
       "kind": "asm",
       "owner": "0x00425730"
-    },
-    {
-      "name": "text_padding_00426341",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_00426341",
-      "address": "0x00426341",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00426344",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_00426344",
-      "address": "0x00426344",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_00426358",
@@ -16231,25 +15932,9 @@
       "source": "src/game/gameplay_final_runtime.cpp",
       "symbol": "_asm_FUN_00426f70_00426f70",
       "address": "0x00426F70",
-      "size": 2494,
+      "size": 2520,
       "kind": "asm",
       "owner": "0x00426F70"
-    },
-    {
-      "name": "text_padding_0042792e",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_0042792e",
-      "address": "0x0042792E",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00427930",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_00427930",
-      "address": "0x00427930",
-      "size": 24,
-      "kind": "data"
     },
     {
       "name": "text_padding_00427948",
@@ -18991,25 +18676,9 @@
       "source": "src/game/title_menu_runtime.cpp",
       "symbol": "_asm_FUN_0042cdf0_0042cdf0",
       "address": "0x0042CDF0",
-      "size": 1059,
+      "size": 1128,
       "kind": "asm",
       "owner": "0x0042CDF0"
-    },
-    {
-      "name": "text_padding_0042d213",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_0042d213",
-      "address": "0x0042D213",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0042d214",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042d214",
-      "address": "0x0042D214",
-      "size": 68,
-      "kind": "data"
     },
     {
       "name": "text_padding_0042d258",
@@ -19024,17 +18693,9 @@
       "source": "src/unidentified/FUN_0042d260_0042d260.cpp",
       "symbol": "_asm_FUN_0042d260_0042d260",
       "address": "0x0042D260",
-      "size": 84,
+      "size": 116,
       "kind": "asm",
       "owner": "0x0042D260"
-    },
-    {
-      "name": "text_data_0042d2b4",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042d2b4",
-      "address": "0x0042D2B4",
-      "size": 32,
-      "kind": "data"
     },
     {
       "name": "text_padding_0042d2d4",
@@ -19083,59 +18744,27 @@
       "source": "src/game/ending_screen.cpp",
       "symbol": "_asm_FUN_0042d300_0042d300",
       "address": "0x0042D300",
-      "size": 268,
+      "size": 288,
       "kind": "asm",
       "owner": "0x0042D300"
-    },
-    {
-      "name": "text_data_0042d40c",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042d40c",
-      "address": "0x0042D40C",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0042d420_0042d420",
       "source": "src/game/title_main_menu.cpp",
       "symbol": "_asm_FUN_0042d420_0042d420",
       "address": "0x0042D420",
-      "size": 1195,
+      "size": 1280,
       "kind": "asm",
       "owner": "0x0042D420"
-    },
-    {
-      "name": "text_padding_0042d8cb",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_0042d8cb",
-      "address": "0x0042D8CB",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0042d8cc",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042d8cc",
-      "address": "0x0042D8CC",
-      "size": 84,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0042d920_0042d920",
       "source": "src/game/title_options_menu.cpp",
       "symbol": "_asm_FUN_0042d920_0042d920",
       "address": "0x0042D920",
-      "size": 3168,
+      "size": 3188,
       "kind": "asm",
       "owner": "0x0042D920"
-    },
-    {
-      "name": "text_data_0042e580",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042e580",
-      "address": "0x0042E580",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_0042e594",
@@ -19147,7 +18776,7 @@
     },
     {
       "name": "asm_FUN_0042e5a0_0042e5a0",
-      "source": "src/game/ui_final_runtime.cpp",
+      "source": "src/game/fun_0042e5a0_0042e5a0.cpp",
       "symbol": "_asm_FUN_0042e5a0_0042e5a0",
       "address": "0x0042E5A0",
       "size": 3999,
@@ -19167,29 +18796,13 @@
       "source": "src/game/menu_flow_updates.cpp",
       "symbol": "_asm_FUN_0042f540_0042f540",
       "address": "0x0042F540",
-      "size": 859,
+      "size": 880,
       "kind": "asm",
       "owner": "0x0042F540"
     },
     {
-      "name": "text_padding_0042f89b",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_padding_0042f89b",
-      "address": "0x0042F89B",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0042f89c",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_0042f89c",
-      "address": "0x0042F89C",
-      "size": 20,
-      "kind": "data"
-    },
-    {
       "name": "asm_FUN_0042f8b0_0042f8b0",
-      "source": "src/game/ui_final_runtime.cpp",
+      "source": "src/game/fun_0042f8b0_0042f8b0.cpp",
       "symbol": "_asm_FUN_0042f8b0_0042f8b0",
       "address": "0x0042F8B0",
       "size": 2452,
@@ -19226,25 +18839,9 @@
       "source": "src/game/fun_00430320_00430320.cpp",
       "symbol": "_asm_FUN_00430320_00430320",
       "address": "0x00430320",
-      "size": 865,
+      "size": 888,
       "kind": "asm",
       "owner": "0x00430320"
-    },
-    {
-      "name": "text_padding_00430681",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_00430681",
-      "address": "0x00430681",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00430684",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00430684",
-      "address": "0x00430684",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_00430698",
@@ -19259,17 +18856,9 @@
       "source": "src/game/fun_004306a0_004306a0.cpp",
       "symbol": "_asm_FUN_004306a0_004306a0",
       "address": "0x004306A0",
-      "size": 936,
+      "size": 956,
       "kind": "asm",
       "owner": "0x004306A0"
-    },
-    {
-      "name": "text_data_00430a48",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00430a48",
-      "address": "0x00430A48",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_00430a5c",
@@ -19284,50 +18873,18 @@
       "source": "src/game/shot_practice_menu.cpp",
       "symbol": "_asm_FUN_00430a60_00430a60",
       "address": "0x00430A60",
-      "size": 1403,
+      "size": 1424,
       "kind": "asm",
       "owner": "0x00430A60"
-    },
-    {
-      "name": "text_padding_00430fdb",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_00430fdb",
-      "address": "0x00430FDB",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00430fdc",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00430fdc",
-      "address": "0x00430FDC",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_00430ff0_00430ff0",
       "source": "src/game/practice_stage_menu.cpp",
       "symbol": "_asm_FUN_00430ff0_00430ff0",
       "address": "0x00430FF0",
-      "size": 1031,
+      "size": 1052,
       "kind": "asm",
       "owner": "0x00430FF0"
-    },
-    {
-      "name": "text_padding_004313f7",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_004313f7",
-      "address": "0x004313F7",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004313f8",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_004313f8",
-      "address": "0x004313F8",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043140c",
@@ -19359,25 +18916,9 @@
       "source": "src/game/replay_menu_runtime.cpp",
       "symbol": "_asm_FUN_004315c0_004315c0",
       "address": "0x004315C0",
-      "size": 1466,
+      "size": 1492,
       "kind": "asm",
       "owner": "0x004315C0"
-    },
-    {
-      "name": "text_padding_00431b7a",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_00431b7a",
-      "address": "0x00431B7A",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00431b7c",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00431b7c",
-      "address": "0x00431B7C",
-      "size": 24,
-      "kind": "data"
     },
     {
       "name": "text_padding_00431b94",
@@ -19409,25 +18950,9 @@
       "source": "src/game/replay_large_runtime.cpp",
       "symbol": "_asm_FUN_00431ee0_00431ee0",
       "address": "0x00431EE0",
-      "size": 1949,
+      "size": 1968,
       "kind": "asm",
       "owner": "0x00431EE0"
-    },
-    {
-      "name": "text_padding_0043267d",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043267d",
-      "address": "0x0043267D",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00432680",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00432680",
-      "address": "0x00432680",
-      "size": 16,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_00432690_00432690",
@@ -19468,25 +18993,9 @@
       "source": "src/game/name_entry.cpp",
       "symbol": "_asm_FUN_00432cb0_00432cb0",
       "address": "0x00432CB0",
-      "size": 1382,
+      "size": 1400,
       "kind": "asm",
       "owner": "0x00432CB0"
-    },
-    {
-      "name": "text_padding_00433216",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_00433216",
-      "address": "0x00433216",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00433218",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00433218",
-      "address": "0x00433218",
-      "size": 16,
-      "kind": "data"
     },
     {
       "name": "text_padding_00433228",
@@ -19518,17 +19027,9 @@
       "source": "src/game/replay_menu_runtime.cpp",
       "symbol": "_asm_FUN_00433570_00433570",
       "address": "0x00433570",
-      "size": 1440,
+      "size": 1460,
       "kind": "asm",
       "owner": "0x00433570"
-    },
-    {
-      "name": "text_data_00433b10",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_00433b10",
-      "address": "0x00433B10",
-      "size": 20,
-      "kind": "data"
     },
     {
       "name": "text_padding_00433b24",
@@ -19560,25 +19061,9 @@
       "source": "src/game/ui_final_runtime.cpp",
       "symbol": "_asm_FUN_00433ef0_00433ef0",
       "address": "0x00433EF0",
-      "size": 2778,
+      "size": 2796,
       "kind": "asm",
       "owner": "0x00433EF0"
-    },
-    {
-      "name": "text_padding_004349ca",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_004349ca",
-      "address": "0x004349CA",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004349cc",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_004349cc",
-      "address": "0x004349CC",
-      "size": 16,
-      "kind": "data"
     },
     {
       "name": "text_padding_004349dc",
@@ -24071,25 +23556,9 @@
       "source": "src/game/fun_0043c970_0043c970.cpp",
       "symbol": "_asm_FUN_0043c970_0043c970",
       "address": "0x0043C970",
-      "size": 357,
+      "size": 396,
       "kind": "asm",
       "owner": "0x0043C970"
-    },
-    {
-      "name": "text_padding_0043cad5",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043cad5",
-      "address": "0x0043CAD5",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0043cad8",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043cad8",
-      "address": "0x0043CAD8",
-      "size": 36,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043cafc",
@@ -24547,25 +24016,9 @@
       "source": "src/platform/sound_commands.cpp",
       "symbol": "_asm_FUN_0043ddf0_0043ddf0",
       "address": "0x0043DDF0",
-      "size": 1419,
+      "size": 1452,
       "kind": "asm",
       "owner": "0x0043DDF0"
-    },
-    {
-      "name": "text_padding_0043e37b",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043e37b",
-      "address": "0x0043E37B",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0043e37c",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043e37c",
-      "address": "0x0043E37C",
-      "size": 32,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043e39c",
@@ -24819,25 +24272,9 @@
       "source": "src/script/fun_0043eac0_0043eac0.cpp",
       "symbol": "_asm_FUN_0043eac0_0043eac0",
       "address": "0x0043EAC0",
-      "size": 334,
+      "size": 424,
       "kind": "asm",
       "owner": "0x0043EAC0"
-    },
-    {
-      "name": "text_padding_0043ec0e",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043ec0e",
-      "address": "0x0043EC0E",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0043ec10",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043ec10",
-      "address": "0x0043EC10",
-      "size": 88,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043ec68",
@@ -24852,34 +24289,18 @@
       "source": "src/render/animation_manager.cpp",
       "symbol": "_asm_AnimationObject_ReadIntegerVariable_0043ec70",
       "address": "0x0043EC70",
-      "size": 104,
+      "size": 144,
       "kind": "asm",
       "owner": "0x0043EC70"
-    },
-    {
-      "name": "text_data_0043ecd8",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043ecd8",
-      "address": "0x0043ECD8",
-      "size": 40,
-      "kind": "data"
     },
     {
       "name": "asm_AnimationObject_ResolveFloatVariable_0043ed00",
       "source": "src/render/animation_object_resolve_float_variable_0043ed00.cpp",
       "symbol": "_asm_AnimationObject_ResolveFloatVariable_0043ed00",
       "address": "0x0043ED00",
-      "size": 108,
+      "size": 156,
       "kind": "asm",
       "owner": "0x0043ED00"
-    },
-    {
-      "name": "text_data_0043ed6c",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043ed6c",
-      "address": "0x0043ED6C",
-      "size": 48,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043ed9c",
@@ -24894,17 +24315,9 @@
       "source": "src/render/animation_object_resolve_integer_variable_0043eda0.cpp",
       "symbol": "_asm_AnimationObject_ResolveIntegerVariable_0043eda0",
       "address": "0x0043EDA0",
-      "size": 92,
+      "size": 132,
       "kind": "asm",
       "owner": "0x0043EDA0"
-    },
-    {
-      "name": "text_data_0043edfc",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043edfc",
-      "address": "0x0043EDFC",
-      "size": 40,
-      "kind": "data"
     },
     {
       "name": "text_padding_0043ee24",
@@ -24919,25 +24332,9 @@
       "source": "src/script/anm_vm_tick.cpp",
       "symbol": "_asm_FUN_0043ee30_0043ee30",
       "address": "0x0043EE30",
-      "size": 9587,
+      "size": 9964,
       "kind": "asm",
       "owner": "0x0043EE30"
-    },
-    {
-      "name": "text_padding_004413a3",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_004413a3",
-      "address": "0x004413A3",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_004413a4",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_004413a4",
-      "address": "0x004413A4",
-      "size": 376,
-      "kind": "data"
     },
     {
       "name": "text_padding_0044151c",
@@ -26144,25 +25541,9 @@
       "source": "src/render/anm_vm_draw_dispatch.cpp",
       "symbol": "_asm_FUN_004451c0_004451c0",
       "address": "0x004451C0",
-      "size": 173,
+      "size": 216,
       "kind": "asm",
       "owner": "0x004451C0"
-    },
-    {
-      "name": "text_padding_0044526d",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_0044526d",
-      "address": "0x0044526D",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00445270",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_00445270",
-      "address": "0x00445270",
-      "size": 40,
-      "kind": "data"
     },
     {
       "name": "text_padding_00445298",
@@ -29788,25 +29169,9 @@
       "source": "src/game/fun_0044c350_0044c350.cpp",
       "symbol": "_asm_FUN_0044c350_0044c350",
       "address": "0x0044C350",
-      "size": 509,
+      "size": 576,
       "kind": "asm",
       "owner": "0x0044C350"
-    },
-    {
-      "name": "text_padding_0044c54d",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_0044c54d",
-      "address": "0x0044C54D",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0044c550",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_0044c550",
-      "address": "0x0044C550",
-      "size": 64,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0044c590_0044c590",
@@ -30882,25 +30247,9 @@
       "source": "src/script/ecl_core_interpreter.cpp",
       "symbol": "_asm_FUN_0044e1a0_0044e1a0",
       "address": "0x0044E1A0",
-      "size": 6690,
+      "size": 7020,
       "kind": "asm",
       "owner": "0x0044E1A0"
-    },
-    {
-      "name": "text_padding_0044fbc2",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_0044fbc2",
-      "address": "0x0044FBC2",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0044fbc4",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_0044fbc4",
-      "address": "0x0044FBC4",
-      "size": 328,
-      "kind": "data"
     },
     {
       "name": "text_padding_0044fd0c",
@@ -32862,25 +32211,9 @@
       "source": "src/unidentified/FUN_00454ed7_00454ed7.cpp",
       "symbol": "_asm_FUN_00454ed7_00454ed7",
       "address": "0x00454ED7",
-      "size": 1946,
+      "size": 1980,
       "kind": "asm",
       "owner": "0x00454ED7"
-    },
-    {
-      "name": "text_padding_00455671",
-      "source": "src/data/text_0045.cpp",
-      "symbol": "_text_padding_00455671",
-      "address": "0x00455671",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00455673",
-      "source": "src/data/text_0045.cpp",
-      "symbol": "_text_data_00455673",
-      "address": "0x00455673",
-      "size": 32,
-      "kind": "data"
     },
     {
       "name": "asm_terminate_00455693",
@@ -35447,25 +34780,9 @@
       "source": "src/unidentified/FUN_0045d746_0045d746.cpp",
       "symbol": "_asm_FUN_0045d746_0045d746",
       "address": "0x0045D746",
-      "size": 1039,
+      "size": 1088,
       "kind": "asm",
       "owner": "0x0045D746"
-    },
-    {
-      "name": "text_padding_0045db55",
-      "source": "src/data/text_0045.cpp",
-      "symbol": "_text_padding_0045db55",
-      "address": "0x0045DB55",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0045db56",
-      "source": "src/data/text_0045.cpp",
-      "symbol": "_text_data_0045db56",
-      "address": "0x0045DB56",
-      "size": 48,
-      "kind": "data"
     },
     {
       "name": "asm_FUN_0045db86_0045db86",
@@ -44763,7 +44080,92 @@
     "_asm_unassigned_00461744": "0x00461744",
     "_asm_unassigned_00461ca2": "0x00461CA2",
     "_asm_unassigned_00461d3f": "0x00461D3F",
-    "_asm_unassigned_00462ef1": "0x00462EF1"
+    "_asm_unassigned_00462ef1": "0x00462EF1",
+    "_text_padding_0040438e": "0x0040438E",
+    "_text_data_00404390": "0x00404390",
+    "_text_padding_00406d55": "0x00406D55",
+    "_text_data_00406d58": "0x00406D58",
+    "_text_padding_00409be3": "0x00409BE3",
+    "_text_data_00409be4": "0x00409BE4",
+    "_text_padding_0040abc7": "0x0040ABC7",
+    "_text_data_0040abc8": "0x0040ABC8",
+    "_asm_unassigned_0040c356": "0x0040C356",
+    "_text_data_0040c358": "0x0040C358",
+    "_text_padding_00411d2f": "0x00411D2F",
+    "_text_data_00411d30": "0x00411D30",
+    "_asm_unassigned_00411f95": "0x00411F95",
+    "_text_data_00411f98": "0x00411F98",
+    "_text_padding_004157dd": "0x004157DD",
+    "_text_data_004157e0": "0x004157E0",
+    "_text_padding_00416f62": "0x00416F62",
+    "_text_data_00416f64": "0x00416F64",
+    "_text_data_00417560": "0x00417560",
+    "_asm_unassigned_0041b89d": "0x0041B89D",
+    "_text_data_0041b8a0": "0x0041B8A0",
+    "_text_padding_0041be19": "0x0041BE19",
+    "_text_data_0041be1c": "0x0041BE1C",
+    "_text_data_0041ea30": "0x0041EA30",
+    "_text_data_00421b0c": "0x00421B0C",
+    "_text_padding_004224a3": "0x004224A3",
+    "_text_data_004224a4": "0x004224A4",
+    "_text_padding_00422a6b": "0x00422A6B",
+    "_text_data_00422a6c": "0x00422A6C",
+    "_text_padding_004231ba": "0x004231BA",
+    "_text_data_004231bc": "0x004231BC",
+    "_text_padding_0042438b": "0x0042438B",
+    "_text_data_0042438c": "0x0042438C",
+    "_text_padding_004256e7": "0x004256E7",
+    "_text_data_004256e8": "0x004256E8",
+    "_text_padding_00426341": "0x00426341",
+    "_text_data_00426344": "0x00426344",
+    "_text_padding_0042792e": "0x0042792E",
+    "_text_data_00427930": "0x00427930",
+    "_text_padding_0042d213": "0x0042D213",
+    "_text_data_0042d214": "0x0042D214",
+    "_text_data_0042d2b4": "0x0042D2B4",
+    "_text_data_0042d40c": "0x0042D40C",
+    "_text_padding_0042d8cb": "0x0042D8CB",
+    "_text_data_0042d8cc": "0x0042D8CC",
+    "_text_data_0042e580": "0x0042E580",
+    "_text_padding_0042f89b": "0x0042F89B",
+    "_text_data_0042f89c": "0x0042F89C",
+    "_text_padding_00430681": "0x00430681",
+    "_text_data_00430684": "0x00430684",
+    "_text_data_00430a48": "0x00430A48",
+    "_text_padding_00430fdb": "0x00430FDB",
+    "_text_data_00430fdc": "0x00430FDC",
+    "_text_padding_004313f7": "0x004313F7",
+    "_text_data_004313f8": "0x004313F8",
+    "_text_padding_00431b7a": "0x00431B7A",
+    "_text_data_00431b7c": "0x00431B7C",
+    "_text_padding_0043267d": "0x0043267D",
+    "_text_data_00432680": "0x00432680",
+    "_text_padding_00433216": "0x00433216",
+    "_text_data_00433218": "0x00433218",
+    "_text_data_00433b10": "0x00433B10",
+    "_text_padding_004349ca": "0x004349CA",
+    "_text_data_004349cc": "0x004349CC",
+    "_text_padding_0043cad5": "0x0043CAD5",
+    "_text_data_0043cad8": "0x0043CAD8",
+    "_text_padding_0043e37b": "0x0043E37B",
+    "_text_data_0043e37c": "0x0043E37C",
+    "_text_padding_0043ec0e": "0x0043EC0E",
+    "_text_data_0043ec10": "0x0043EC10",
+    "_text_data_0043ecd8": "0x0043ECD8",
+    "_text_data_0043ed6c": "0x0043ED6C",
+    "_text_data_0043edfc": "0x0043EDFC",
+    "_text_padding_004413a3": "0x004413A3",
+    "_text_data_004413a4": "0x004413A4",
+    "_text_padding_0044526d": "0x0044526D",
+    "_text_data_00445270": "0x00445270",
+    "_text_padding_0044c54d": "0x0044C54D",
+    "_text_data_0044c550": "0x0044C550",
+    "_text_padding_0044fbc2": "0x0044FBC2",
+    "_text_data_0044fbc4": "0x0044FBC4",
+    "_text_padding_00455671": "0x00455671",
+    "_text_data_00455673": "0x00455673",
+    "_text_padding_0045db55": "0x0045DB55",
+    "_text_data_0045db56": "0x0045DB56"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -44882,6 +44284,7 @@
     "src/game/fun_00407ef0_00407ef0.cpp",
     "src/game/fun_00408100_00408100.cpp",
     "src/game/fun_004089c0_004089c0.cpp",
+    "src/game/fun_00409280_00409280.cpp",
     "src/game/fun_00409f90_00409f90.cpp",
     "src/game/fun_0040b110_0040b110.cpp",
     "src/game/fun_0040b7b0_0040b7b0.cpp",
@@ -44892,7 +44295,9 @@
     "src/game/fun_00412ac0_00412ac0.cpp",
     "src/game/fun_00414370_00414370.cpp",
     "src/game/fun_004145f0_004145f0.cpp",
+    "src/game/fun_00414900_00414900.cpp",
     "src/game/fun_00415db0_00415db0.cpp",
+    "src/game/fun_00415e90_00415e90.cpp",
     "src/game/fun_00418ee0_00418ee0.cpp",
     "src/game/fun_0041aed0_0041aed0.cpp",
     "src/game/fun_0041c330_0041c330.cpp",
@@ -44904,6 +44309,7 @@
     "src/game/fun_00422ab0_00422ab0.cpp",
     "src/game/fun_00423570_00423570.cpp",
     "src/game/fun_00424ed0_00424ed0.cpp",
+    "src/game/fun_00425730_00425730.cpp",
     "src/game/fun_00426360_00426360.cpp",
     "src/game/fun_00427960_00427960.cpp",
     "src/game/fun_00427e90_00427e90.cpp",
@@ -44914,6 +44320,8 @@
     "src/game/fun_0042b030_0042b030.cpp",
     "src/game/fun_0042c360_0042c360.cpp",
     "src/game/fun_0042cb60_0042cb60.cpp",
+    "src/game/fun_0042e5a0_0042e5a0.cpp",
+    "src/game/fun_0042f8b0_0042f8b0.cpp",
     "src/game/fun_00430320_00430320.cpp",
     "src/game/fun_004306a0_004306a0.cpp",
     "src/game/fun_0043c970_0043c970.cpp",
@@ -45299,6 +44707,7 @@
     "src/render/faded_quad_draw.cpp",
     "src/render/final_quad_pipeline.cpp",
     "src/render/fog_disable.cpp",
+    "src/render/fun_00403090_00403090.cpp",
     "src/render/fun_0042c770_0042c770.cpp",
     "src/render/fun_0043c500_0043c500.cpp",
     "src/render/fun_00443f80_00443f80.cpp",
@@ -46473,7 +45882,6 @@
     "src/unidentified/unassigned_0040b530.cpp",
     "src/unidentified/unassigned_0040b920.cpp",
     "src/unidentified/unassigned_0040b9b0.cpp",
-    "src/unidentified/unassigned_0040c356.cpp",
     "src/unidentified/unassigned_0040c440.cpp",
     "src/unidentified/unassigned_0040c470.cpp",
     "src/unidentified/unassigned_0040c530.cpp",
@@ -46517,7 +45925,6 @@
     "src/unidentified/unassigned_0040dad1.cpp",
     "src/unidentified/unassigned_0040dc70.cpp",
     "src/unidentified/unassigned_0040e760.cpp",
-    "src/unidentified/unassigned_00411f95.cpp",
     "src/unidentified/unassigned_00411fc0.cpp",
     "src/unidentified/unassigned_00412300.cpp",
     "src/unidentified/unassigned_00412350.cpp",
@@ -46621,7 +46028,6 @@
     "src/unidentified/unassigned_0041ac90.cpp",
     "src/unidentified/unassigned_0041acb0.cpp",
     "src/unidentified/unassigned_0041af90.cpp",
-    "src/unidentified/unassigned_0041b89d.cpp",
     "src/unidentified/unassigned_0041ba4d.cpp",
     "src/unidentified/unassigned_0041be40.cpp",
     "src/unidentified/unassigned_0041be70.cpp",

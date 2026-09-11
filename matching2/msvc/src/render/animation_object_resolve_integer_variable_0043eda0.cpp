@@ -56,5 +56,45 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ResolveIntegerVari
         lea eax,[edx+330h]
     L_0043edf9:
         ret 4
+        _emit 0xc6
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xcf
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xd8
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xe1
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf9
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf9
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf9
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf9
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xea
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
+        _emit 0xf3
+        _emit 0xed
+        _emit 0x43
+        _emit 0x00
     }
 }

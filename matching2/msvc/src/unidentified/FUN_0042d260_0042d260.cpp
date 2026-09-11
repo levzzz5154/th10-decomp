@@ -65,5 +65,37 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d260_0042d260() {
         pop edi
     L_0042d2b3:
         ret
+        _emit 0xa8
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0xad
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0x82
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0x75
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0xad
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0xad
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0x8e
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
+        _emit 0x9b
+        _emit 0xd2
+        _emit 0x42
+        _emit 0x00
     }
 }
