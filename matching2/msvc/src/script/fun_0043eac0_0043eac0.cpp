@@ -1,246 +1,96 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043EAC0: named float parameter lookup for one effect object.
+//
+// The object arrives in ESI and the selector in a single stack slot with callee
+// cleanup, so this is a native-LTCG cluster: only the internal convention of the
+// /GL link keeps `this` in a callee-saved register. The switch's jump table is
+// inside the region extent and MSVC emits it from the normal `switch` source.
 
-// 0x0043EAC0..0x0043EC0D: FUN_0043eac0
-// Naked body preserves the retail register/stack ABI.
+extern "C" float __fastcall asm_Rng_NextFloat_0044bb20(const void* self);       // 0x0044BB20
+extern "C" float __fastcall asm_Rng_NextFloatSigned_0044bb90(const void* self); // 0x0044BB90
+extern "C" float data_00470b18;   // 3.1415927f
+extern "C" float data_00491d7c;
+extern "C" float data_00491d80;
+extern "C" float data_00491d84;
+extern "C" float data_00491da0;
+extern "C" float data_00491da4;
+extern "C" float data_00491da8;
 
-// 0x0043EAC0..0x0043EC0D: FUN_0043eac0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043eac0_0043eac0() {
-    __asm {
-    L_0043eac0:
-        fld dword ptr [esp+4]
-    L_0043eac4:
-        call asm_FUN_00463b2c_00463b2c
-    L_0043eac9:
-        add eax,0FFFFD8F0h
-    L_0043eace:
-        cmp eax,15h
-    L_0043ead1:
-        ja asm_target_0043ec07
-    L_0043ead7:
-        jmp dword ptr [eax*4+43EC10h]
-    L_0043eade:
-        fild dword ptr [esi+30Ch]
-    L_0043eae4:
-        ret 4
-    L_0043eae7:
-        fild dword ptr [esi+310h]
-    L_0043eaed:
-        ret 4
-    L_0043eaf0:
-        fild dword ptr [esi+314h]
-    L_0043eaf6:
-        ret 4
-    L_0043eaf9:
-        fild dword ptr [esi+318h]
-    L_0043eaff:
-        ret 4
-    L_0043eb02:
-        fld dword ptr [esi+31Ch]
-    L_0043eb08:
-        ret 4
-    L_0043eb0b:
-        fld dword ptr [esi+320h]
-    L_0043eb11:
-        ret 4
-    L_0043eb14:
-        fld dword ptr [esi+324h]
-    L_0043eb1a:
-        ret 4
-    L_0043eb1d:
-        fld dword ptr [esi+328h]
-    L_0043eb23:
-        ret 4
-    L_0043eb26:
-        fild dword ptr [esi+32Ch]
-    L_0043eb2c:
-        ret 4
-    L_0043eb2f:
-        fild dword ptr [esi+330h]
-    L_0043eb35:
-        ret 4
-    L_0043eb38:
-        test dword ptr [esi+35Ch],40000000h
-    L_0043eb42:
-        je short L_0043eb51
-    L_0043eb44:
-        mov ecx,4918A8h
-    L_0043eb49:
-        call asm_Rng_NextFloat_0044bb20
-    L_0043eb4e:
-        ret 4
-    L_0043eb51:
-        mov ecx,4918B0h
-    L_0043eb56:
-        call asm_Rng_NextFloat_0044bb20
-    L_0043eb5b:
-        ret 4
-    L_0043eb5e:
-        test dword ptr [esi+35Ch],40000000h
-    L_0043eb68:
-        je short L_0043eb77
-    L_0043eb6a:
-        mov ecx,4918A8h
-    L_0043eb6f:
-        call asm_Rng_NextFloatSigned_0044bb90
-    L_0043eb74:
-        ret 4
-    L_0043eb77:
-        mov ecx,4918B0h
-    L_0043eb7c:
-        call asm_Rng_NextFloatSigned_0044bb90
-    L_0043eb81:
-        ret 4
-    L_0043eb84:
-        test dword ptr [esi+35Ch],40000000h
-    L_0043eb8e:
-        je short L_0043eba3
-    L_0043eb90:
-        mov ecx,4918A8h
-    L_0043eb95:
-        call asm_Rng_NextFloatSigned_0044bb90
-    L_0043eb9a:
-        fmul dword ptr [data_00470b18]
-    L_0043eba0:
-        ret 4
-    L_0043eba3:
-        mov ecx,4918B0h
-    L_0043eba8:
-        call asm_Rng_NextFloatSigned_0044bb90
-    L_0043ebad:
-        fmul dword ptr [data_00470b18]
-    L_0043ebb3:
-        ret 4
-    L_0043ebb6:
-        fld dword ptr [esi+334h]
-    L_0043ebbc:
-        ret 4
-    L_0043ebbf:
-        fld dword ptr [esi+338h]
-    L_0043ebc5:
-        ret 4
-    L_0043ebc8:
-        fld dword ptr [esi+33Ch]
-    L_0043ebce:
-        ret 4
-    L_0043ebd1:
-        fld dword ptr [data_00491d7c]
-    L_0043ebd7:
-        ret 4
-    L_0043ebda:
-        fld dword ptr [data_00491d80]
-    L_0043ebe0:
-        ret 4
-    L_0043ebe3:
-        fld dword ptr [data_00491d84]
-    L_0043ebe9:
-        ret 4
-    L_0043ebec:
-        fld dword ptr [data_00491da0]
-    L_0043ebf2:
-        ret 4
-    L_0043ebf5:
-        fld dword ptr [data_00491da4]
-    L_0043ebfb:
-        ret 4
-    L_0043ebfe:
-        fld dword ptr [data_00491da8]
-    L_0043ec04:
-        ret 4
-    L_0043ec07:
-        fld dword ptr [esp+4]
-    L_0043ec0b:
-        ret 4
-        _emit 0x8b
-        _emit 0xff
-        _emit 0xde
-        _emit 0xea
-        _emit 0x43
-        _emit 0x00
-        _emit 0xe7
-        _emit 0xea
-        _emit 0x43
-        _emit 0x00
-        _emit 0xf0
-        _emit 0xea
-        _emit 0x43
-        _emit 0x00
-        _emit 0xf9
-        _emit 0xea
-        _emit 0x43
-        _emit 0x00
-        _emit 0x02
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x0b
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x14
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x1d
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x26
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x2f
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x84
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x38
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0x5e
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xb6
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xbf
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xc8
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xd1
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xda
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xe3
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xec
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xf5
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
-        _emit 0xfe
-        _emit 0xeb
-        _emit 0x43
-        _emit 0x00
+struct EffectFieldStore_0043eac0 {
+    unsigned char pad_0000[0x30C];
+    int int_30c;    // +0x30C
+    int int_310;    // +0x310
+    int int_314;    // +0x314
+    int int_318;    // +0x318
+    float float_31c;  // +0x31C
+    float float_320;  // +0x320
+    float float_324;  // +0x324
+    float float_328;  // +0x328
+    int int_32c;    // +0x32C
+    int int_330;    // +0x330
+    float float_334;  // +0x334
+    float float_338;  // +0x338
+    float float_33c;  // +0x33C
+    unsigned char pad_340[0x35C - 0x340];
+    unsigned int flags;  // +0x35C
+
+    __declspec(noinline) float Get(float index);
+};
+
+#pragma code_seg(".text$01getfield")
+float EffectFieldStore_0043eac0::Get(float index) {
+    switch ((int)index) {
+    case 0x2710:
+        return (float)int_30c;
+    case 0x2711:
+        return (float)int_310;
+    case 0x2712:
+        return (float)int_314;
+    case 0x2713:
+        return (float)int_318;
+    case 0x2714:
+        return float_31c;
+    case 0x2715:
+        return float_320;
+    case 0x2716:
+        return float_324;
+    case 0x2717:
+        return float_328;
+    case 0x2718:
+        return (float)int_32c;
+    case 0x2719:
+        return (float)int_330;
+    case 0x271B:
+        if (flags & 0x40000000)
+            return asm_Rng_NextFloat_0044bb20((const void*)0x004918A8);
+        return asm_Rng_NextFloat_0044bb20((const void*)0x004918B0);
+    case 0x271C:
+        if (flags & 0x40000000)
+            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8);
+        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0);
+    case 0x271A:
+        if (flags & 0x40000000)
+            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8) * data_00470b18;
+        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0) * data_00470b18;
+    case 0x271D:
+        return float_334;
+    case 0x271E:
+        return float_338;
+    case 0x271F:
+        return float_33c;
+    case 0x2720:
+        return data_00491d7c;
+    case 0x2721:
+        return data_00491d80;
+    case 0x2722:
+        return data_00491d84;
+    case 0x2723:
+        return data_00491da0;
+    case 0x2724:
+        return data_00491da4;
+    case 0x2725:
+        return data_00491da8;
+    default:
+        return index;
     }
 }
+#pragma code_seg()

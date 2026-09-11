@@ -1,142 +1,74 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0044B540. Write a whole buffer to a file inside the file subsystem's
+// critical section, reporting -1 when the file cannot be opened and -2 when
+// the platform write comes up short.
+//
+// Retail keeps the byte count in EDI while the path and the buffer stay on the
+// stack, so the body is compiled in the native LTCG cluster of
+// layout/ltcg/file_write_whole_file_0044b540.json, whose synthetic caller
+// forces that convention.
+//
+// The KERNEL32 slots at 0x004660B0..0x00466128 are addressed through their
+// stored pointers exactly as the retail import thunks do, and the critical
+// section object and its nesting counter are the retail globals at 0x004922A4
+// and 0x0049231E.
 
-// 0x00435370..0x004353AC: FileHandle_OpenRetail
-// Naked body preserves the retail register/stack ABI.
+extern "C" unsigned char data_004660b0;   // EnterCriticalSection
+extern "C" unsigned char data_004660b4;   // LeaveCriticalSection
+extern "C" unsigned char data_004660c4;   // CreateFileA
+extern "C" unsigned char data_004660cc;   // CloseHandle
+extern "C" unsigned char data_004660d4;   // WriteFile
+extern "C" unsigned char data_0046610c;   // GetLastError
+extern "C" unsigned char data_00466124;   // FormatMessageA
+extern "C" unsigned char data_00466128;   // LocalFree
+extern "C" unsigned char data_004922a4;   // the file subsystem lock object
+extern "C" unsigned char data_0049231e;   // the lock's nesting counter
 
-// 0x0044B540..0x0044B619: ?File_WriteWholeFile@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_File_WriteWholeFile_0044b540() {
-    __asm {
-    L_0044b540:
-        push ecx
-    L_0044b541:
-        push esi
-    L_0044b542:
-        push 4922A4h
-    L_0044b547:
-        call dword ptr [data_004660b0]
-    L_0044b54d:
-        mov al,byte ptr [data_0049231e]
-    L_0044b552:
-        push 0
-    L_0044b554:
-        push 80h
-    L_0044b559:
-        push 2
-    L_0044b55b:
-        push 0
-    L_0044b55d:
-        inc al
-    L_0044b55f:
-        push 1
-    L_0044b561:
-        mov byte ptr [data_0049231e],al
-    L_0044b566:
-        mov eax,dword ptr [esp+20h]
-    L_0044b56a:
-        push 40000000h
-    L_0044b56f:
-        push eax
-    L_0044b570:
-        call dword ptr [data_004660c4]
-    L_0044b576:
-        mov esi,eax
-    L_0044b578:
-        cmp esi,0FFFFFFFFh
-    L_0044b57b:
-        push 0
-    L_0044b57d:
-        jne short L_0044b5c2
-    L_0044b57f:
-        push 0
-    L_0044b581:
-        lea ecx,[esp+14h]
-    L_0044b585:
-        push ecx
-    L_0044b586:
-        push 400h
-    L_0044b58b:
-        call dword ptr [data_0046610c]
-    L_0044b591:
-        push eax
-    L_0044b592:
-        push 0
-    L_0044b594:
-        push 1300h
-    L_0044b599:
-        call dword ptr [data_00466124]
-    L_0044b59f:
-        mov edx,dword ptr [esp+0Ch]
-    L_0044b5a3:
-        push edx
-    L_0044b5a4:
-        call dword ptr [data_00466128]
-    L_0044b5aa:
-        push 4922A4h
-    L_0044b5af:
-        call dword ptr [data_004660b4]
-    L_0044b5b5:
-        dec byte ptr [data_0049231e]
-    L_0044b5bb:
-        mov eax,esi
-    L_0044b5bd:
-        pop esi
-    L_0044b5be:
-        pop ecx
-    L_0044b5bf:
-        ret 8
-    L_0044b5c2:
-        mov ecx,dword ptr [esp+14h]
-    L_0044b5c6:
-        lea eax,[esp+8]
-    L_0044b5ca:
-        push eax
-    L_0044b5cb:
-        push edi
-    L_0044b5cc:
-        push ecx
-    L_0044b5cd:
-        push esi
-    L_0044b5ce:
-        call dword ptr [data_004660d4]
-    L_0044b5d4:
-        cmp edi,dword ptr [esp+4]
-    L_0044b5d8:
-        push esi
-    L_0044b5d9:
-        je short L_0044b5fc
-    L_0044b5db:
-        call dword ptr [data_004660cc]
-    L_0044b5e1:
-        push 4922A4h
-    L_0044b5e6:
-        call dword ptr [data_004660b4]
-    L_0044b5ec:
-        dec byte ptr [data_0049231e]
-    L_0044b5f2:
-        mov eax,0FFFFFFFEh
-    L_0044b5f7:
-        pop esi
-    L_0044b5f8:
-        pop ecx
-    L_0044b5f9:
-        ret 8
-    L_0044b5fc:
-        call dword ptr [data_004660cc]
-    L_0044b602:
-        push 4922A4h
-    L_0044b607:
-        call dword ptr [data_004660b4]
-    L_0044b60d:
-        dec byte ptr [data_0049231e]
-    L_0044b613:
-        xor eax,eax
-    L_0044b615:
-        pop esi
-    L_0044b616:
-        pop ecx
-    L_0044b617:
-        ret 8
+typedef void (__stdcall* EnterCriticalSectionFn)(void* section);
+typedef void (__stdcall* LeaveCriticalSectionFn)(void* section);
+typedef void* (__stdcall* CreateFileFn)(const char* path, unsigned long access,
+                                        unsigned long share, void* attributes,
+                                        unsigned long creation, unsigned long flags,
+                                        void* template_file);
+typedef int (__stdcall* CloseHandleFn)(void* handle);
+typedef int (__stdcall* WriteFileFn)(void* handle, const void* buffer,
+                                     unsigned long size, unsigned long* written,
+                                     void* overlapped);
+typedef unsigned long (__stdcall* GetLastErrorFn)(void);
+typedef unsigned long (__stdcall* FormatMessageFn)(unsigned long flags, void* source,
+                                                   unsigned long message_id,
+                                                   unsigned long language_id,
+                                                   char** buffer, unsigned long buffer_size,
+                                                   void* arguments);
+typedef void* (__stdcall* LocalFreeFn)(void* memory);
+
+__declspec(noinline) int File_WriteWholeFile(const char* path, const void* buffer,
+                                             unsigned long size);
+
+#pragma code_seg(".text$01write")
+int File_WriteWholeFile(const char* path, const void* buffer, unsigned long size) {
+    (*(EnterCriticalSectionFn*)&data_004660b0)(&data_004922a4);
+    ++data_0049231e;
+    void* handle = (*(CreateFileFn*)&data_004660c4)(path, 0x40000000, 1, 0, 2, 0x80, 0);
+    if (handle == (void*)-1) {
+        char* message;
+        (*(FormatMessageFn*)&data_00466124)(
+            0x1300, 0, (*(GetLastErrorFn*)&data_0046610c)(), 0x400, &message, 0, 0);
+        (*(LocalFreeFn*)&data_00466128)(message);
+        (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+        --data_0049231e;
+        return -1;
     }
+    unsigned long written;
+    (*(WriteFileFn*)&data_004660d4)(handle, buffer, size, &written, 0);
+    if (size != written) {
+        (*(CloseHandleFn*)&data_004660cc)(handle);
+        (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+        --data_0049231e;
+        return -2;
+    }
+    (*(CloseHandleFn*)&data_004660cc)(handle);
+    (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+    --data_0049231e;
+    return 0;
 }
+#pragma code_seg()

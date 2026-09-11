@@ -2620,100 +2620,34 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_AppendPacket_0042a8a0() {
     }
 }
 
-// 0x0042ADD0..0x0042AE13: Recovery_InitializeRandomTable
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeRandomTable_0042add0() {
-    __asm {
-    L_0042add0:
-        xor eax,eax
-    L_0042add2:
-        push esi
-    L_0042add3:
-        push edi
-    L_0042add4:
-        mov edi,edx
-    L_0042add6:
-        mov ecx,112h
-    L_0042addb:
-        rep stosd
-    L_0042addd:
-        mov word ptr [edx+2],ax
-    L_0042ade1:
-        mov word ptr [edx],5453h
-    L_0042ade6:
-        mov dword ptr [edx+8],448h
-    L_0042aded:
-        mov ecx,dword ptr [data_0046e354]
-    L_0042adf3:
-        lea eax,[edx+0Ch]
-    L_0042adf6:
-        mov dword ptr [eax],ecx
-    L_0042adf8:
-        mov ecx,dword ptr [data_0046e358]
-    L_0042adfe:
-        mov dword ptr [eax+4],ecx
-    L_0042ae01:
-        mov cl,byte ptr [data_0046e35c]
-    L_0042ae07:
-        mov byte ptr [eax+8],cl
-    L_0042ae0a:
-        add edx,46h
-    L_0042ae0d:
-        mov esi,200h
-    L_0042ae12:
-        TH10_REL8(0xeb, 0x0042ae12, VA_asm_Recovery_InitializeRandomTable_part_0042ae20)
-        _emit 0x8d
-        _emit 0xa4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0xeb
-        _emit 0x03
-        _emit 0x8d
-        _emit 0x49
-        _emit 0x00
-
-    L_0042ae20:
-        mov eax,dword ptr [data_004918b0]
-    L_0042ae25:
-        mov edi,dword ptr [data_004918b4]
-    L_0042ae2b:
-        xor eax,9630h
-    L_0042ae30:
-        sub eax,6553h
-    L_0042ae35:
-        xor ecx,ecx
-    L_0042ae37:
-        mov cx,ax
-    L_0042ae3a:
-        shr cx,0Eh
-    L_0042ae3e:
-        shl eax,2
-    L_0042ae41:
-        add edx,2
-    L_0042ae44:
-        add ecx,eax
-    L_0042ae46:
-        inc edi
-    L_0042ae47:
-        dec esi
-    L_0042ae48:
-        mov word ptr [data_004918b0],cx
-    L_0042ae4f:
-        mov dword ptr [data_004918b4],edi
-    L_0042ae55:
-        mov word ptr [edx-2],cx
-    L_0042ae59:
-        jne short L_0042ae20
-    L_0042ae5b:
-        pop edi
-    L_0042ae5c:
-        pop esi
-    L_0042ae5d:
-        ret
-    }
+// 0x0042ADD0..0x0042AE5D - Recovery_InitializeRandomTable
+//
+// Fills a 0x448-byte string table: an 8-space blank entry, then 512 generated
+// 16-bit words from the game's LCG. The recurrence matches RngState::NextWord
+// but reads the seed as a whole 32-bit word and shifts the whole word left, so
+// the source used a 32-bit local rather than the 16-bit field rng.hpp wraps.
+// The loop head is 16-byte aligned by the compiler, which is where the jump
+// over the alignment padding inside the region comes from.
+extern "C" void __fastcall Recovery_InitializeRandomTable_0042add0(int unused, char* table) {
+    memset(table, 0, 0x448);
+    *(unsigned short*)(table + 2) = 0;
+    *(unsigned short*)table = 0x5453;
+    *(unsigned int*)(table + 8) = 0x448;
+    memcpy(table + 12, &data_0046e354, 9);
+    unsigned short* out = (unsigned short*)(table + 70);
+    int remaining = 512;
+    do {
+        unsigned short word;
+        unsigned int value = *(unsigned int*)&data_004918b0;
+        value ^= 0x9630;
+        value -= 0x6553;
+        unsigned int high = ((unsigned short)value) >> 14;
+        word = (unsigned short)(high + (value << 2));
+        *(unsigned short*)&data_004918b0 = word;
+        ++*(unsigned int*)&data_004918b4;
+        *out++ = word;
+        --remaining;
+    } while (remaining);
 }
 
 // 0x0042B660..0x0042B6A6: Recovery_CreateHugeResourceState

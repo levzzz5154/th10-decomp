@@ -26,7 +26,26 @@ total .text                  412,672 bytes
    previously cost whole builds. Required for any region whose entry convention is
    not the C++ ABI.
 
-## The three pools of remaining assembly
+## Classes that C++ cannot express (measured, not assumed)
+
+Each of these was attacked repeatedly by different agents with independent
+experiments; record them here so nobody re-derives them.
+
+| class | evidence | consequence |
+|---|---|---|
+| **Argument in EAX/EBX/ESI/EDI or a 64-bit EDX:EAX parameter** | MSVC 13.10 assigns a value parameter only to ECX/EDX or the stack; a 64-bit parameter always goes on the stack. Verified across `__cdecl`, `__stdcall`, `__fastcall`, member, struct-by-value and `__int64` forms. | Recoverable as a native-LTCG cluster — 265 regions are of this shape. |
+| **Callee takes an argument in one of those registers** | The *call site* bytes live in the caller's unit, and no declaration can describe them. Three agents independently reproduced the closest expressible call site and found a fixed residual of a few bytes per call (twelve missing `mov eax,ecx` = 25 bytes in one case). | ~383 regions, 96 KB. Needs the whole remaining program compiled as one `/GL` module, as retail was. |
+| **`fsincos`** | MSVC 7.1 emits `fsin`+`fcos` separately for every source spelling, in float and double, both orders. A native `/LTCG` build does not fuse them either, and every object in `libc.lib` contains zero `d9 fb` byte pairs. | 4 regions × 30 bytes. Unreachable from C++ in this toolchain. |
+| **Provider of a `switch` table shared by two functions** | A data region named by two different heads cannot be owned by either. | Not observed in practice; the detector refuses such a region. |
+| **Explicit `__thiscall`** | Error C4234, "reserved for future use". | Use a plain member function instead. |
+| **Variadic member followed by caller cleanup** | A variadic member pushes `this`; a variadic free function declared `__fastcall` is ignored and mangled `YA`. | The variadic-member shape *is* reachable once both caller and callee share one `/GL` module — five such regions were recovered as clusters. |
+| **Store-literal trampoline** | `mov eax,ecx; jmp rel32` (e.g. `0x42B9A0` → `0x42B6F0`). A compiled forwarder emits `push ecx; call; ret`, or under `/LTCG` a bare `jmp` with no `mov eax,ecx`. The two halves use different argument registers on purpose. | ~2 regions × 7 bytes. Body is not C++; leave as assembly. |
+| **Outlined CRT math** | A translation unit emits `call _sinf@4` / `call _cosf@4` rather than retail's 43-byte inline x87 sequence, so the call site cannot match. | Reachable through a cluster, where the CRT inlines; 0x00404DA0 was recovered this way. |
+| **SEH frame whose scope table is its own region** | MSVC emits the scopetable and `__ehhandler` into `.text$x`/`.rdata` contributions that are not the region's extent, and the scopetable address (e.g. `0x0046556B`) is itself a manifest region a per-unit compile cannot place. | 14 regions. Needs a manifest-level handler binding, which `bind_relocations.py` cannot express (`__real@`/`__imp__`/`_data_` only). |
+| **Two mutually exclusive retail properties in one straight-line tail** | `0x0042A3E0`: every shape yielding the mid-stream `mov eax,1` also gets an if-converted tail (23 differing bytes); every shape keeping the branch loses the materialisation (62–64 bytes vs 68). ~70 shapes tried. | Cluster candidate; possibly one of the permanently residual regions. |
+
+
+## The pools of remaining assembly
 
 Owned assembly regions (a region whose `owner` is itself) fall into three classes,
 and only the first two can be converted with the current mechanism.

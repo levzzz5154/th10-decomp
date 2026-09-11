@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "name": "recovery_slot_rearm",
+  "source": "src/game/fun_004065c0_004065c0.cpp",
+  "driver": "layout/ltcg/recovery_slot_rearm_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Effect-slot re-arm compiled with native LTCG so the slot table arrives in ESI.",
+  "functions": [
+    {
+      "name": "RecoverySlotTable_Rearm",
+      "symbol": "?Rearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "section": ".text$01rearm",
+      "address": "0x004065C0",
+      "size": 249,
+      "actual_abi": "slot table in ESI; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable_004065c0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004066C0",
+    "size": 45,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 21952
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004066B9",
+      "size": 1
+    },
+    {
+      "section": ".text$05layout",
+      "address": "0x004066ED",
+      "size": 429587
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_00406240_00406240@4",
+      "address": "0x00406240",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

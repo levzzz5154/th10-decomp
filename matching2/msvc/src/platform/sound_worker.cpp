@@ -1,113 +1,63 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043CC40: stop both sound worker threads and close their handles.
+//
+// Retail receives the owning platform object in ESI and always returns 0:
+//
+//   L_0043cc40: mov   eax,[esi+5218h]  ; first worker thread handle
+//               test  eax,eax
+//               je    L_0043ccec        ; no worker running: report success
+//               mov   ecx,[esi+5224h]   ; shutdown flag
+//               test  ecx,ecx
+//               jne   L_0043cc62
+//               mov   dword ptr [esi+5224h],1
+//   L_0043cc62: push  ebx / push edi
+//               ... two "wait for the thread, sleeping a millisecond"
+//               loops, then CloseHandle on both and clear the handles.
+//
+// The body is compiled in the native LTCG cluster of
+// layout/ltcg/sound_worker.json, whose synthetic caller keeps the object
+// pointer live in ESI across both wait loops.
 
-// 0x0043CC40..0x0043CCEE: Platform_StopSoundWorkersRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_StopSoundWorkersRetail_0043cc40() {
-    __asm {
-    L_0043cc40:
-        mov eax,dword ptr [esi+5218h]
-    L_0043cc46:
-        test eax,eax
-    L_0043cc48:
-        je asm_target_0043ccec
-    L_0043cc4e:
-        mov ecx,dword ptr [esi+5224h]
-    L_0043cc54:
-        test ecx,ecx
-    L_0043cc56:
-        jne short L_0043cc62
-    L_0043cc58:
-        mov dword ptr [esi+5224h],1
-    L_0043cc62:
-        push ebx
-    L_0043cc63:
-        push edi
-    L_0043cc64:
-        mov edi,dword ptr [data_0046611c]
-    L_0043cc6a:
-        push 64h
-    L_0043cc6c:
-        push eax
-    L_0043cc6d:
-        call edi
-    L_0043cc6f:
-        cmp eax,102h
-    L_0043cc74:
-        mov ebx,dword ptr [data_004660ac]
-    L_0043cc7a:
-        jne short L_0043cc96
-    L_0043cc7c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0043cc80:
-        push 1
-    L_0043cc82:
-        call ebx
-    L_0043cc84:
-        mov eax,dword ptr [esi+5218h]
-    L_0043cc8a:
-        push 64h
-    L_0043cc8c:
-        push eax
-    L_0043cc8d:
-        call edi
-    L_0043cc8f:
-        cmp eax,102h
-    L_0043cc94:
-        je short L_0043cc80
-    L_0043cc96:
-        mov ecx,dword ptr [esi+521Ch]
-    L_0043cc9c:
-        push 64h
-    L_0043cc9e:
-        push ecx
-    L_0043cc9f:
-        call edi
-    L_0043cca1:
-        cmp eax,102h
-    L_0043cca6:
-        jne short L_0043ccbe
-    L_0043cca8:
-        push 1
-    L_0043ccaa:
-        call ebx
-    L_0043ccac:
-        mov edx,dword ptr [esi+521Ch]
-    L_0043ccb2:
-        push 64h
-    L_0043ccb4:
-        push edx
-    L_0043ccb5:
-        call edi
-    L_0043ccb7:
-        cmp eax,102h
-    L_0043ccbc:
-        je short L_0043cca8
-    L_0043ccbe:
-        mov eax,dword ptr [esi+5218h]
-    L_0043ccc4:
-        mov edi,dword ptr [data_004660cc]
-    L_0043ccca:
-        push eax
-    L_0043cccb:
-        call edi
-    L_0043cccd:
-        mov ecx,dword ptr [esi+521Ch]
-    L_0043ccd3:
-        push ecx
-    L_0043ccd4:
-        call edi
-    L_0043ccd6:
-        pop edi
-    L_0043ccd7:
-        mov dword ptr [esi+5218h],0
-    L_0043cce1:
-        mov dword ptr [esi+521Ch],0
-    L_0043cceb:
-        pop ebx
-    L_0043ccec:
-        xor eax,eax
-    L_0043ccee:
-        ret
-    }
+typedef void* HANDLE;
+typedef unsigned long DWORD;
+typedef int BOOL;
+
+extern "C" {
+__declspec(dllimport) DWORD __stdcall WaitForSingleObject(HANDLE handle, DWORD milliseconds);
+__declspec(dllimport) void __stdcall Sleep(DWORD milliseconds);
+__declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 }
+
+// WAIT_TIMEOUT: the object stayed unsignalled for the whole wait.
+static const DWORD kSoundWorkerWaitTimeout = 0x102;
+
+struct SoundWorkerPair_0043cc40 {
+    unsigned char reserved_00[0x5218];
+    HANDLE first_thread;        // +0x5218
+    HANDLE second_thread;       // +0x521C
+    unsigned int reserved_5220; // +0x5220
+    int stop_requested;         // +0x5224
+
+    __declspec(noinline) int Stop();
+};
+
+#pragma code_seg(".text$01stop")
+int SoundWorkerPair_0043cc40::Stop() {
+    if (first_thread == 0) {
+        return 0;
+    }
+    if (stop_requested == 0) {
+        stop_requested = 1;
+    }
+    while (WaitForSingleObject(first_thread, 100) == kSoundWorkerWaitTimeout) {
+        Sleep(1);
+    }
+    while (WaitForSingleObject(second_thread, 100) == kSoundWorkerWaitTimeout) {
+        Sleep(1);
+    }
+    CloseHandle(first_thread);
+    CloseHandle(second_thread);
+    first_thread = 0;
+    second_thread = 0;
+    return 0;
+}
+#pragma code_seg()

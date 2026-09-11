@@ -1,178 +1,50 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x004356F0..0x0043572C: FUN_004356f0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004356f0_004356f0() {
-    __asm {
-    L_004356f0:
-        sub esp,108h
-    L_004356f6:
-        mov eax,dword ptr [data_00473660]
-    L_004356fb:
-        xor eax,esp
-    L_004356fd:
-        push ebx
-    L_004356fe:
-        push ebp
-    L_004356ff:
-        push esi
-    L_00435700:
-        push edi
-    L_00435701:
-        mov esi,ecx
-    L_00435703:
-        push 2Fh
-    L_00435705:
-        push esi
-    L_00435706:
-        mov dword ptr [esp+11Ch],eax
-    L_0043570d:
-        call asm_FUN_00452730_00452730
-    L_00435712:
-        add esp,8
-    L_00435715:
-        test eax,eax
-    L_00435717:
-        je short L_0043571c
-    L_00435719:
-        inc eax
-    L_0043571a:
-        jmp short L_0043571e
-    L_0043571c:
-        mov eax,esi
-    L_0043571e:
-        sub eax,esi
-    L_00435720:
-        dec eax
-    L_00435721:
-        lea edx,[esp+10h]
-    L_00435725:
-        mov edi,eax
-    L_00435727:
-        mov eax,esi
-    L_00435729:
-        sub edx,esi
-    L_0043572b:
-        TH10_REL8(0xeb, 0x0043572b, VA_asm_FUN_004356f0_part_00435730)
-        _emit 0x8d
-        _emit 0x49
-        _emit 0x00
+#include <string.h>
 
-    L_00435730:
-        mov cl,byte ptr [eax]
-    L_00435732:
-        mov byte ptr [edx+eax],cl
-    L_00435735:
-        inc eax
-    L_00435736:
-        test cl,cl
-    L_00435738:
-        jne short L_00435730
-    L_0043573a:
-        test edi,edi
-    L_0043573c:
-        jl short L_00435753
-    L_0043573e:
-        mov ecx,dword ptr [data_0046f274]
-    L_00435744:
-        mov dl,byte ptr [data_0046f278]
-    L_0043574a:
-        lea eax,[esp+edi+10h]
-    L_0043574e:
-        mov dword ptr [eax],ecx
-    L_00435750:
-        mov byte ptr [eax+4],dl
-    L_00435753:
-        mov eax,dword ptr [data_00477850]
-    L_00435758:
-        xor ebp,ebp
-    L_0043575a:
-        test eax,eax
-    L_0043575c:
-        mov edi,4923B0h
-    L_00435761:
-        jle short L_004357a5
-    L_00435763:
-        mov ecx,dword ptr [edi+8]
-    L_00435766:
-        lea esi,[esp+10h]
-    L_0043576a:
-        lea ebx,[ebx+force_disp32_zero]
-    L_00435770:
-        mov bl,byte ptr [ecx]
-    L_00435772:
-        mov dl,bl
-    L_00435774:
-        cmp bl,byte ptr [esi]
-    L_00435776:
-        jne short L_00435794
-    L_00435778:
-        test dl,dl
-    L_0043577a:
-        je short L_00435790
-    L_0043577c:
-        mov bl,byte ptr [ecx+1]
-    L_0043577f:
-        mov dl,bl
-    L_00435781:
-        cmp bl,byte ptr [esi+1]
-    L_00435784:
-        jne short L_00435794
-    L_00435786:
-        add ecx,2
-    L_00435789:
-        add esi,2
-    L_0043578c:
-        test dl,dl
-    L_0043578e:
-        jne short L_00435770
-    L_00435790:
-        xor ecx,ecx
-    L_00435792:
-        jmp short L_00435799
-    L_00435794:
-        sbb ecx,ecx
-    L_00435796:
-        sbb ecx,0FFFFFFFFh
-    L_00435799:
-        test ecx,ecx
-    L_0043579b:
-        je short L_004357c0
-    L_0043579d:
-        inc ebp
-    L_0043579e:
-        add edi,10h
-    L_004357a1:
-        cmp ebp,eax
-    L_004357a3:
-        jl short L_00435763
-    L_004357a5:
-        xor eax,eax
-    L_004357a7:
-        mov ecx,dword ptr [esp+114h]
-    L_004357ae:
-        pop edi
-    L_004357af:
-        pop esi
-    L_004357b0:
-        pop ebp
-    L_004357b1:
-        pop ebx
-    L_004357b2:
-        xor ecx,esp
-    L_004357b4:
-        call asm_security_check_cookie_00458ea5
-    L_004357b9:
-        add esp,108h
-    L_004357bf:
-        ret
-    L_004357c0:
-        mov eax,edi
-    L_004357c2:
-        jmp short L_004357a7
+// 0x004356F0: find the packed-archive entry whose stored name matches the name
+// this string object holds, with the directory prefix stripped and everything
+// from the last '/' on replaced by the five-byte marker at 0x0046F274.
+
+struct ArchiveEntry_004356f0 {
+    unsigned int field_00;   // +0x00
+    unsigned int field_04;   // +0x04
+    const char* name;        // +0x08
+    unsigned int field_0C;   // +0x0C
+};
+
+extern "C" ArchiveEntry_004356f0 data_004923b0[];
+
+struct ArchiveName_004356f0 {
+    char text[1];
+
+    __declspec(noinline) const ArchiveEntry_004356f0* Find() const;
+};
+
+#pragma code_seg(".text$01find")
+const ArchiveEntry_004356f0* ArchiveName_004356f0::Find() const {
+    char buffer[0x104];
+    const char* name = text;
+    const char* slash = ((char* (__cdecl*)(const char*, int))asm_FUN_00452730_00452730)(name, '/');
+    const char* base = slash ? slash + 1 : name;
+    int length = (int)(base - name) - 1;
+    strcpy(buffer, name);
+    if (length >= 0) {
+        char* suffix = buffer + length;
+        *(unsigned int*)suffix = *(unsigned int*)&data_0046f274;
+        suffix[4] = (char)*(unsigned char*)&data_0046f278;
     }
+    ArchiveEntry_004356f0* entry = data_004923b0;
+    for (int index = 0; index < *(int*)&data_00477850; index++, entry++) {
+        if (strcmp(entry->name, buffer) == 0)
+            return entry;
+    }
+    return 0;
 }
+#pragma code_seg()
+
+
 
 // 0x00435800..0x004358D5: FUN_00435800
 // Naked body preserves the retail register/stack ABI.
@@ -312,4 +184,3 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00435800_00435800() {
         ret 4
     }
 }
-
