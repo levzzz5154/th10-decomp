@@ -2,9 +2,10 @@
 """Build explicitly placed C++ LTCG clusters and preserve their complete bodies.
 
 MSVC 7.1 can choose internal register conventions only during native /LTCG
-linking.  A cluster's declared compiler context and zero-filled layout gaps
-establish that link; neither is recovered game code.  Only complete named
-function contributions from the freshly compiled native PE enter the outer
+linking. Schema 1 uses a synthetic compiler context; schema 2 compiles the
+real callers and callees as separate /GL inputs with a real function as the
+link entry. Zero-filled layout gaps are never recovered game code. Only complete
+named function contributions from the freshly compiled native PE enter the outer
 fixed-address COFF link.  No instruction or address operand is rewritten.
 """
 
@@ -83,17 +84,19 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raw = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError) as error:
         raise LTCGClusterError(f'cannot read cluster manifest {path}: {error}') from error
-    required = {'schema_version', 'name', 'source', 'driver', 'headers', 'image_base',
-                'functions', 'context', 'gaps', 'constants', 'absolute_symbols', 'description'}
+    version = raw.get('schema_version') if isinstance(raw, dict) else None
+    if type(version) is not int or version not in (1, 2):
+        raise LTCGClusterError('cluster schema_version must be 1 or 2')
+    required = {'schema_version', 'name', 'source', 'headers', 'image_base',
+                'functions', 'gaps', 'constants', 'absolute_symbols', 'description'}
+    required |= {'driver', 'context'} if version == 1 else {'entry', 'calls'}
     allowed = required | {'additional_sources'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
-    if type(spec['schema_version']) is not int or spec['schema_version'] != 1:
-        raise LTCGClusterError('cluster schema_version must be 1')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
         raise LTCGClusterError('cluster name must be a lowercase identifier')
     source = _project_file(project, spec['source'], 'source', '.cpp')
-    driver = _project_file(project, spec['driver'], 'driver', '.cpp')
+    driver = _project_file(project, spec['driver'], 'driver', '.cpp') if version == 1 else None
     if source == driver:
         raise LTCGClusterError('the compiler-context driver must be separate from maintained game source')
     additional_names = spec.get('additional_sources', [])
@@ -146,16 +149,46 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                 or _integer(region['address'], 'region address') != function['address']
                 or region['size'] != function['size']):
             raise LTCGClusterError('cluster function address/extent/classification disagrees with region: ' + function['symbol'])
-    context_keys = {'symbol', 'section', 'address', 'size', 'description'}
-    context = _fields(spec['context'], context_keys, context_keys, 'compiler context')
-    for key in ('symbol', 'section', 'description'):
-        context[key] = _string(context[key], 'context ' + key)
-    if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', context['section']):
-        raise LTCGClusterError('compiler context needs a dedicated .text$ section')
-    context['address'] = _integer(context['address'], 'context address', minimum=image_base)
-    context['size'] = _integer(context['size'], 'context size', minimum=1)
-    if any(item['symbol'] == context['symbol'] or item['section'] == context['section'] for item in functions):
-        raise LTCGClusterError('compiler context must not be selected as recovered code')
+    context = None
+    calls = []
+    if version == 1:
+        context_keys = {'symbol', 'section', 'address', 'size', 'description'}
+        context = _fields(spec['context'], context_keys, context_keys, 'compiler context')
+        for key in ('symbol', 'section', 'description'):
+            context[key] = _string(context[key], 'context ' + key)
+        if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', context['section']):
+            raise LTCGClusterError('compiler context needs a dedicated .text$ section')
+        context['address'] = _integer(context['address'], 'context address', minimum=image_base)
+        context['size'] = _integer(context['size'], 'context size', minimum=1)
+        if any(item['symbol'] == context['symbol'] or item['section'] == context['section'] for item in functions):
+            raise LTCGClusterError('compiler context must not be selected as recovered code')
+        entry = context
+    else:
+        by_symbol = {item['symbol']: item for item in functions}
+        entry_symbol = _string(spec['entry'], 'entry')
+        if entry_symbol not in by_symbol:
+            raise LTCGClusterError('whole-program entry must be a selected real function')
+        entry = by_symbol[entry_symbol]
+        if set(source_names) != {item['_source'] for item in functions}:
+            raise LTCGClusterError('every whole-program source must own selected functions')
+        if not isinstance(spec['calls'], list) or not spec['calls']:
+            raise LTCGClusterError('whole-program calls must declare at least one real caller/callee edge')
+        for item in spec['calls']:
+            keys = {'caller', 'callee', 'address', 'instruction'}
+            call = _fields(item, keys, keys, 'internal call')
+            for key in ('caller', 'callee'):
+                if _string(call[key], 'call ' + key) not in by_symbol:
+                    raise LTCGClusterError('both ends of an internal call must be selected in the same link')
+            call['address'] = _integer(call['address'], 'call address', minimum=image_base)
+            caller = by_symbol[call['caller']]
+            if not caller['address'] <= call['address'] <= caller['address'] + caller['size'] - 5:
+                raise LTCGClusterError('internal call lies outside its caller')
+            if call['instruction'] not in ('call', 'jmp'):
+                raise LTCGClusterError('internal call instruction must be call or jmp (REL32)')
+            calls.append(call)
+        if len({item['address'] for item in calls}) != len(calls):
+            raise LTCGClusterError('duplicate internal call site')
+    contexts = [context] if context else []
     gaps = []
     if not isinstance(spec['gaps'], list):
         raise LTCGClusterError('gaps must be an array')
@@ -171,7 +204,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('layout gap exceeds the supported image')
         gap['symbol'] = f'_ltcg_gap_{index}'
         gaps.append(gap)
-    code_sections = [item['section'] for item in functions] + [context['section']]
+    code_sections = [item['section'] for item in functions + contexts]
     if len(set(code_sections + [item['section'] for item in gaps])) != len(code_sections) + len(gaps):
         raise LTCGClusterError('layout gaps overlap selected/context section ownership')
     constants = []
@@ -205,11 +238,11 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Native LINK 7.10 applies the image base to absolute REL32 targets.
         symbol['coff_value'] = symbol['address'] - image_base if symbol['kind'] == 'relative_code' else symbol['address']
         absolute.append(symbol)
-    all_symbols = [item['symbol'] for item in functions + gaps + constants + absolute] + [context['symbol']]
+    all_symbols = [item['symbol'] for item in functions + gaps + constants + absolute + contexts]
     if len(set(all_symbols)) != len(all_symbols):
         raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
     ranges = sorted((item['address'], item['address'] + item['size'])
-                    for item in functions + gaps + constants + [context])
+                    for item in functions + gaps + constants + contexts)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
     return {**spec, 'path': path, 'project': project, 'source_path': source,
@@ -217,6 +250,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             'additional_source_paths': additional_paths, 'driver_path': driver,
             'header_paths': headers, 'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
+            'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
             'regions': [dict(region) for region in owned]}
 
 
@@ -235,7 +269,9 @@ def load_clusters(project: Path, config: Mapping[str, Any], regions: Sequence[Ma
 
 
 def _snapshot(spec: Mapping[str, Any]) -> dict[str, str]:
-    paths = [spec['path'], *spec['source_paths'], spec['driver_path'], *spec['header_paths']]
+    paths = [spec['path'], *spec['source_paths'], *spec['header_paths']]
+    if spec['driver_path']:
+        paths.append(spec['driver_path'])
     return {str(path): sha(path.read_bytes()) for path in paths}
 
 
@@ -314,7 +350,9 @@ def _absolute_object(path: Path, symbols: Sequence[Mapping[str, Any]]) -> None:
 
 
 def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: Path,
-                           origins: Sequence[str] | str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+                           origins: Sequence[str] | str,
+                           source_origins: Mapping[str, str] | None = None
+                           ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Require exact ownership, addresses, complete extents, context and layout."""
     if isinstance(origins, str):
         allowed_origins = {origins}
@@ -325,14 +363,16 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
     pe = PEImage.from_path(executable)
     link_map = parse_map(map_path.read_text())
     validate_map_pe(link_map, pe)
-    if pe.image_base != spec['image_base'] or pe.entry != spec['context']['address']:
-        raise LTCGClusterError('native cluster image base or compiler-context entry address differs')
+    if pe.image_base != spec['image_base'] or pe.entry != spec['entry_address']:
+        raise LTCGClusterError('native cluster image base or entry address differs')
     if any(section.name not in ('.text', '.rdata') for section in pe.sections):
         raise LTCGClusterError('native cluster contains an undeclared PE section')
     function_reports = []
-    for function in [*spec['functions'], {**spec['context'], 'name': 'compiler context'}]:
+    contexts = [{**spec['context'], 'name': 'compiler context'}] if spec['context'] else []
+    for function in [*spec['functions'], *contexts]:
         map_symbol = function['symbol']
-        if function['symbol'] == spec['context']['symbol']:
+        is_context = bool(spec['context'] and function['symbol'] == spec['context']['symbol'])
+        if is_context:
             exact = [item for item in link_map.symbols if item.name == map_symbol]
             c_decorated = [item for item in link_map.symbols if item.name == '_' + map_symbol]
             if not exact and len(c_decorated) == 1:
@@ -342,13 +382,16 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         report = reports[0]
         if int(report['address'], 0) != function['address'] or report['map_origin'] not in allowed_origins:
             raise LTCGClusterError('native function address or compiler origin differs: ' + function['symbol'])
+        if (source_origins is not None and not is_context
+                and report['map_origin'] != source_origins[function['_source']]):
+            raise LTCGClusterError('native function was not emitted by its declared source: ' + function['symbol'])
         contributions = [item for item in link_map.contributions if item.name == function['section']]
         if (len(contributions) != 1 or contributions[0].section_class != 'CODE'
                 or contributions[0].segment != int(report['map_segment'], 16)
                 or contributions[0].start != int(report['map_offset'], 0)
                 or contributions[0].length != function['size']):
             raise LTCGClusterError('function is not its entire declared compiler contribution: ' + function['symbol'])
-        if function['symbol'] != spec['context']['symbol']:
+        if not is_context:
             body, _, _ = pe.read(function['address'], function['size'])
             function_reports.append({**report, 'body': body, 'actual_abi': function['actual_abi']})
     for gap in spec['gaps']:
@@ -375,13 +418,35 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         matches = [symbol for symbol in link_map.symbols if symbol.name == external['symbol']]
         if len(matches) != 1 or matches[0].segment != 0 or matches[0].address != external['coff_value']:
             raise LTCGClusterError('native external binding differs: ' + external['symbol'])
-    context_symbol = spec['context']['symbol']
-    declared = ({item['symbol'] for item in spec['functions']}
-                | {context_symbol, '_' + context_symbol})
+    declared = {item['symbol'] for item in spec['functions']}
+    if spec['context']:
+        context_symbol = spec['context']['symbol']
+        declared |= {context_symbol, '_' + context_symbol}
     if any('f' in symbol.flags and symbol.segment and symbol.name not in declared for symbol in link_map.symbols):
         raise LTCGClusterError('native compiler emitted an undeclared function')
+    calls = validate_internal_calls(spec['calls'], function_reports)
     return function_reports, {'pe_sha256': sha(pe.data), 'map_sha256': sha(map_path.read_bytes()),
-                              'entry_address': f'0x{pe.entry:08X}', 'image_base': f'0x{pe.image_base:08X}'}
+                              'entry_address': f'0x{pe.entry:08X}', 'image_base': f'0x{pe.image_base:08X}',
+                              'internal_calls': calls}
+
+
+def validate_internal_calls(calls: Sequence[Mapping[str, Any]],
+                            functions: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """Check the native caller's unmodified REL32 against its co-compiled callee."""
+    by_symbol = {item['symbol']: item for item in functions}
+    reports = []
+    for call in calls:
+        caller, callee = by_symbol[call['caller']], by_symbol[call['callee']]
+        offset = call['address'] - int(caller['address'], 0)
+        body = caller['body']
+        opcode = 0xe8 if call['instruction'] == 'call' else 0xe9
+        if not 0 <= offset <= len(body) - 5 or body[offset] != opcode:
+            raise LTCGClusterError('native internal call opcode or extent differs')
+        target = call['address'] + 5 + struct.unpack_from('<i', body, offset + 1)[0]
+        if target != int(callee['address'], 0):
+            raise LTCGClusterError('native internal call does not reach its co-compiled callee')
+        reports.append({**call, 'target': f'0x{target:08X}', 'verified': True})
+    return reports
 
 
 def export_bodies(path: Path, functions: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -464,10 +529,17 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     _absolute_object(work / 'bindings.obj', spec['absolute_symbols'])
     compile_commands = []
     include_logs = []
+    if spec['context']:
+        gl_inputs = [(spec['driver_path'], 'cluster.obj'),
+                     *[(path, f'source_{index:03d}.obj')
+                       for index, path in enumerate(spec['additional_source_paths'])]]
+        direct_sources = spec['additional_source_paths']
+    else:
+        gl_inputs = [(path, f'source_{index:03d}.obj')
+                     for index, path in enumerate(spec['source_paths'])]
+        direct_sources = spec['source_paths']
     for input_path, object_name, extra in [
-        (spec['driver_path'], 'cluster.obj', ['/GL', '/showIncludes']),
-        *[(path, f'source_{index:03d}.obj', ['/GL', '/showIncludes'])
-          for index, path in enumerate(spec['additional_source_paths'])],
+        *[(path, name, ['/GL', '/showIncludes']) for path, name in gl_inputs],
         (source, 'layout-original.obj', []),
     ]:
         obj = work / object_name
@@ -480,18 +552,15 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
         compile_commands.append({'source': str(input_path), 'object': str(obj), 'command': command,
                                  'source_sha256': sha(input_path.read_bytes()), 'object_sha256': sha(obj.read_bytes())})
     includes = _verify_includes(
-        '\n'.join(include_logs), spec, toolkit, spec['additional_source_paths'])
+        '\n'.join(include_logs), spec, toolkit, direct_sources)
     layout_report = _prepare_padding_object(work / 'layout-original.obj', work / 'layout.obj', spec['gaps'])
     executable, map_path = work / 'cluster.exe', work / 'cluster.map'
-    additional_objects = [work / f'source_{index:03d}.obj'
-                          for index in range(len(spec['additional_source_paths']))]
     link_command = ['wine', str(linker), '/nologo', '/LTCG', '/MACHINE:X86', '/BASE:0x400000',
-                    '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['context']['symbol'],
+                    '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['entry_symbol'],
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
                     *['/INCLUDE:' + gap['symbol'] for gap in spec['gaps']],
                     '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
-                    winpath(work / 'cluster.obj'),
-                    *[winpath(path) for path in additional_objects],
+                    *[winpath(work / name) for _, name in gl_inputs],
                     winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
     _run_logged(link_command, env, work, work / 'link.log', 300)
     _verify_snapshot(inputs)
@@ -499,17 +568,19 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     if any(tool_hashes['bin/' + name] != digest for name, digest in current_tools.items()):
         raise LTCGClusterError('compiler/linker changed during the native build')
     functions, native = validate_native_output(
-        spec, executable, map_path,
-        ['cluster.obj', *[path.name for path in additional_objects]])
+        spec, executable, map_path, [name for _, name in gl_inputs],
+        None if spec['context'] else dict(zip(spec['source_names'], [name for _, name in gl_inputs])))
     normalization = export_bodies(destination, functions)
-    report = {'schema_version': 1, 'name': spec['name'], 'compiler_kind': 'native-ltcg',
-              'source': spec['source'], 'driver': spec['driver'], 'layout': str(spec['path']),
+    report = {'schema_version': spec['schema_version'], 'name': spec['name'], 'compiler_kind': 'native-ltcg',
+              'source': spec['source'], 'sources': spec['source_names'],
+              'driver': spec.get('driver'), 'layout': str(spec['path']),
               'input_sha256': inputs, 'compiler_includes': includes, 'tool_sha256': tool_hashes,
               'compile_commands': compile_commands, 'link_command': link_command,
               'native_executable': str(executable), 'native_map': str(map_path), **native,
               'functions': [{key: value for key, value in item.items()
                              if key not in {'body', '_source'}} for item in functions],
-              'compiler_context': {**spec['context'], 'selected': False, 'recovered_code_bytes': 0},
+              'compiler_context': ({**spec['context'], 'selected': False, 'recovered_code_bytes': 0}
+                                   if spec['context'] else None),
               'layout_gaps': layout_report, 'absolute_symbols': spec['absolute_symbols'],
               'normalization': normalization, 'instruction_bytes_changed': 0, 'masked_bytes': 0,
               'reference_bytes_used_for_build': False}

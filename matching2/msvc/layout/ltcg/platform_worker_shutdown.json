@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "name": "platform_worker_shutdown",
+  "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+  "additional_sources": ["src/platform/platform_stop_worker_0044c150.cpp"],
+  "headers": ["include/th10/platform/worker.hpp"],
+  "image_base": "0x00400000",
+  "description": "Whole-program worker shutdown: real ECX-entry caller and ESI-entry callee compiled from separate /GL translation units in one native /LTCG link. No synthetic compiler context.",
+  "entry": "?StopNoDelete@PlatformWorker@@QAEXXZ",
+  "functions": [
+    {
+      "name": "PlatformWorker_StopNoDelete",
+      "symbol": "?StopNoDelete@PlatformWorker@@QAEXXZ",
+      "section": ".text$10caller",
+      "address": "0x0044C130",
+      "size": 16,
+      "actual_abi": "this in ECX; saves ESI and passes this in ESI to Stop; plain RET"
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101,
+      "actual_abi": "this in ESI; preserves ESI without saving it; plain RET"
+    }
+  ],
+  "calls": [
+    {
+      "caller": "?StopNoDelete@PlatformWorker@@QAEXXZ",
+      "callee": "?Stop@PlatformWorker@@QAEXXZ",
+      "address": "0x0044C139",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 307504},
+    {"section": ".text$15layout", "address": "0x0044C140", "size": 16}
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {"symbol": "?platform_worker_vtable@@3DA", "address": "0x004703E4", "kind": "data"},
+    {"symbol": "__imp__WaitForSingleObject@8", "address": "0x0046611C", "kind": "data"},
+    {"symbol": "__imp__Sleep@4", "address": "0x004660AC", "kind": "data"},
+    {"symbol": "__imp__CloseHandle@4", "address": "0x004660CC", "kind": "data"}
+  ]
+}

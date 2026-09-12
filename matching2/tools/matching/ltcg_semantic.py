@@ -67,6 +67,9 @@ class PEImage:
         self.section_alignment = struct.unpack_from("<I", data, optional + 32)[0]
         self.file_alignment = struct.unpack_from("<I", data, optional + 36)[0]
         self.entry = self.image_base + self.entry_rva
+        self.export_rva, self.export_size = (0, 0)
+        if optional_size >= 104 and struct.unpack_from('<I', data, optional + 92)[0]:
+            self.export_rva, self.export_size = struct.unpack_from('<II', data, optional + 96)
 
         table = optional + optional_size
         if table + section_count * 40 > len(data):
@@ -298,11 +301,24 @@ def _canonical_section_name(name: str) -> str:
 
 
 def _segment_section(link_map: LinkMap, pe: PEImage, segment: int) -> PESection:
+    contributions = [item for item in link_map.contributions
+                     if item.segment == segment and item.length]
     names = {
         _canonical_section_name(item.name)
-        for item in link_map.contributions
-        if item.segment == segment and item.length
+        for item in contributions
     }
+    # LINK 7.10 describes its synthesized export directory as .edata in the
+    # MAP even when the PE stores it in .rdata. Prove that mapping from the
+    # PE export data directory; do not guess a section from its ordinal.
+    if '.edata' in names and not any(section.name == '.edata' for section in pe.sections):
+        if not pe.export_rva or not pe.export_size:
+            raise LTCGSemanticError('MAP exports have no PE export data directory')
+        _, section, _ = pe.read(pe.image_base + pe.export_rva, pe.export_size)
+        exports = [item for item in contributions if _canonical_section_name(item.name) == '.edata']
+        if (len(exports) != 1 or section.address + exports[0].start != pe.image_base + pe.export_rva
+                or exports[0].length != pe.export_size):
+            raise LTCGSemanticError('MAP exports disagree with the PE export data directory')
+        names = (names - {'.edata'}) | {section.name}
     if not names:
         raise LTCGSemanticError(f"MAP segment {segment:04x} has no section contribution")
     if len(names) != 1:

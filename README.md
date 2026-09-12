@@ -34,6 +34,21 @@ resolves to the address retail points it at. A converted function replaces its
 `__declspec(naked)` body and changes the region's `symbol` to the name MSVC emits;
 `--proposal` applies a candidate region list before the comparison.
 
+Caller/callee pairs with private LTCG register conventions can now be recovered
+together. A schema-2 LTCG manifest compiles each real source with `/GL`, links
+them in one native `/LTCG` scope, checks the internal calls, and selects every
+complete function without rewriting bytes. The worker shutdown pair is the
+first example; probing either source checks both functions. See the
+[whole-program LTCG experiment and pipeline](matching2/reference/whole_program_ltcg.md).
+
+```sh
+make ltcg-proof  # After make, or with LTCG_ARGS='--oracle /path/to/retail.exe'
+```
+
+This reproduces exact separate-source and combined-source builds, five controls
+that retain the public ABI, and a fresh-build repeat. It records commands,
+toolchain hashes, native PE/MAP files, disassembly, and byte comparisons.
+
 - `matching2/msvc/src/` and `include/`: matching implementations and types.
 - `matching2/msvc/regions.json` and `layout/`: code placement and compiler settings.
 - `matching2/msvc/pe_layout.json` and `matching2/reference/data/`: executable

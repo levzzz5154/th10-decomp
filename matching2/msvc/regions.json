@@ -30433,12 +30433,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_StopWorkerNoDelete_0044c130",
+      "name": "PlatformWorker_StopNoDelete",
       "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-      "symbol": "_asm_Platform_StopWorkerNoDelete_0044c130",
+      "symbol": "?StopNoDelete@PlatformWorker@@QAEXXZ",
       "address": "0x0044C130",
       "size": 16,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044C130"
     },
     {
@@ -30459,12 +30459,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_StopWorker_0044c150",
+      "name": "PlatformWorker_Stop",
       "source": "src/platform/platform_stop_worker_0044c150.cpp",
-      "symbol": "_asm_Platform_StopWorker_0044c150",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
       "address": "0x0044C150",
       "size": 101,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044C150"
     },
     {
@@ -48300,7 +48300,8 @@
     "layout/ltcg/platform_aggregate_interfaces_0044d550.json",
     "layout/ltcg/platform_invoke_configured_0044d5d0.json",
     "layout/ltcg/recovery_select_archive_entry_0043d790.json",
-    "layout/ltcg/platform_set_operation_deadline_0044d4e0.json"
+    "layout/ltcg/platform_set_operation_deadline_0044d4e0.json",
+    "layout/ltcg/platform_worker_shutdown.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
