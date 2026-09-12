@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_Platform_QueryInterfaces_0044d600",
+      "source": "src/game/platform_query_interfaces_0044d600.cpp",
+      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
+      "address": "0x0044D600",
+      "size": 61,
+      "kind": "semantic",
+      "owner": "0x0044D600"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 61,
+    "different_bytes": 0,
+    "sha256": "b663babc0b98b7088c3007870d4f513e9d76756f3666c83d2c02c5f35e8377f1"
+  }
+}

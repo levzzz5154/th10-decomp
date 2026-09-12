@@ -2608,7 +2608,7 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_00405730_ReleasePair_00405730",
+      "name": "semantic_PlayerRuntime_ReleaseAndFree_00405730",
       "source": "src/unidentified/FUN_00405730_00405730.cpp",
       "symbol": "?FUN_00405730_ReleasePair@@YGXPAX@Z",
       "address": "0x00405730",
@@ -3301,22 +3301,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00406770_00406770",
+      "name": "semantic_RecoverySlotTable_CanRearm_00406770",
       "source": "src/unidentified/FUN_00406770_00406770.cpp",
-      "symbol": "_asm_FUN_00406770_00406770",
+      "symbol": "?CanRearm@RecoverySlotTable_004065c0@@QAEHXZ",
       "address": "0x00406770",
-      "size": 30,
-      "kind": "asm",
+      "size": 40,
+      "kind": "semantic",
       "owner": "0x00406770"
-    },
-    {
-      "name": "asm_Player_ForwardAxisWrap_0040678e",
-      "source": "src/game/player_motion.cpp",
-      "symbol": "_asm_Player_ForwardAxisWrap_0040678e",
-      "address": "0x0040678E",
-      "size": 10,
-      "kind": "asm",
-      "owner": "0x0040678E"
     },
     {
       "name": "asm_unassigned_00406798",
@@ -6668,13 +6659,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletEntity_ClearResourceList_0040c6e0",
+      "name": "semantic_BulletEntity_ClearResourceList_0040c6e0",
       "source": "src/game/bullet_entity_clear_resource_list_0040c6e0.cpp",
-      "symbol": "_asm_BulletEntity_ClearResourceList_0040c6e0",
+      "symbol": "?ClearResourceList@BulletEntity_0040c6e0@@QAEXXZ",
       "address": "0x0040C6E0",
       "size": 45,
-      "kind": "asm",
-      "owner": "0x0040C6E0"
+      "kind": "semantic",
+      "owner": "0x0040C6E0",
+      "previous_record": {
+        "name": "asm_BulletEntity_ClearResourceList_0040c6e0",
+        "source": "src/game/bullet_entity_clear_resource_list_0040c6e0.cpp",
+        "symbol": "_asm_BulletEntity_ClearResourceList_0040c6e0",
+        "address": "0x0040C6E0",
+        "size": 45,
+        "kind": "asm",
+        "owner": "0x0040C6E0"
+      }
     },
     {
       "name": "text_padding_0040c70d",
@@ -7597,13 +7597,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
+      "name": "semantic_BulletEntity_MarkAnimationForRemoval_0040cea0",
       "source": "src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp",
-      "symbol": "_asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
+      "symbol": "?MarkAnimationForRemoval@BulletEntity_0040cea0@@QAIXPAVAnimationManager@@@Z",
       "address": "0x0040CEA0",
       "size": 36,
-      "kind": "asm",
-      "owner": "0x0040CEA0"
+      "kind": "semantic",
+      "owner": "0x0040CEA0",
+      "previous_record": {
+        "name": "asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
+        "source": "src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp",
+        "symbol": "_asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
+        "address": "0x0040CEA0",
+        "size": 36,
+        "kind": "asm",
+        "owner": "0x0040CEA0"
+      }
     },
     {
       "name": "text_padding_0040cec4",
@@ -7761,13 +7770,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletEntity_SetAnimationVector_0040cf60",
+      "name": "semantic_BulletEntity_SetAnimationVector_0040cf60",
       "source": "src/game/bullet_entity_set_animation_vector_0040cf60.cpp",
-      "symbol": "_asm_BulletEntity_SetAnimationVector_0040cf60",
+      "symbol": "?SetAnimationVector@BulletEntity_0040cf60@@QAEXABUAnimationVector_0040cf60@@@Z",
       "address": "0x0040CF60",
       "size": 23,
-      "kind": "asm",
-      "owner": "0x0040CF60"
+      "kind": "semantic",
+      "owner": "0x0040CF60",
+      "previous_record": {
+        "name": "asm_BulletEntity_SetAnimationVector_0040cf60",
+        "source": "src/game/bullet_entity_set_animation_vector_0040cf60.cpp",
+        "symbol": "_asm_BulletEntity_SetAnimationVector_0040cf60",
+        "address": "0x0040CF60",
+        "size": 23,
+        "kind": "asm",
+        "owner": "0x0040CF60"
+      }
     },
     {
       "name": "text_padding_0040cf77",
@@ -7804,12 +7822,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletEntity_FindById_0040cf90",
+      "name": "semantic_BulletEntity_FindById_0040cf90",
       "source": "src/game/bullet_entity_find_by_id_0040cf90.cpp",
-      "symbol": "_asm_BulletEntity_FindById_0040cf90",
+      "symbol": "?FindById@BulletEntityFindByIdManager_0040cf90@@QAEPAUBulletEntityFindByIdNode_0040cf90@@H@Z",
       "address": "0x0040CF90",
       "size": 22,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040CF90"
     },
     {
@@ -8024,13 +8042,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletEntity_ReleaseResource_0040d680",
+      "name": "semantic_BulletEntity_ReleaseResource_0040d680",
       "source": "src/game/bullet_entity_release_resource_0040d680.cpp",
-      "symbol": "_asm_BulletEntity_ReleaseResource_0040d680",
+      "symbol": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
       "address": "0x0040D680",
       "size": 36,
-      "kind": "asm",
-      "owner": "0x0040D680"
+      "kind": "semantic",
+      "owner": "0x0040D680",
+      "previous_record": {
+        "name": "asm_BulletEntity_ReleaseResource_0040d680",
+        "source": "src/game/bullet_entity_release_resource_0040d680.cpp",
+        "symbol": "_asm_BulletEntity_ReleaseResource_0040d680",
+        "address": "0x0040D680",
+        "size": 36,
+        "kind": "asm",
+        "owner": "0x0040D680"
+      }
     },
     {
       "name": "text_padding_0040d6a4",
@@ -8852,12 +8879,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Score_SetMode_00412ed0",
+      "name": "semantic_Score_SetMode_00412ed0",
       "source": "src/game/score_set_mode_00412ed0.cpp",
-      "symbol": "_asm_Score_SetMode_00412ed0",
+      "symbol": "?Score_SetMode@@YGXPAUScoreModeState@@H@Z",
       "address": "0x00412ED0",
       "size": 16,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00412ED0"
     },
     {
@@ -9562,12 +9589,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreList_InsertAfter_00413200",
+      "name": "semantic_ScoreList_InsertAfter_00413200",
       "source": "src/game/score_list_insert_after_00413200.cpp",
-      "symbol": "_asm_ScoreList_InsertAfter_00413200",
+      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode_00413200@@0@Z",
       "address": "0x00413200",
       "size": 23,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00413200"
     },
     {
@@ -10985,13 +11012,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_PathState_Reset_00417800",
+      "name": "semantic_PathState_00417800_Reset",
       "source": "src/game/path_state_reset_00417800.cpp",
-      "symbol": "_asm_PathState_Reset_00417800",
+      "symbol": "?Reset@PathState_00417800@@QAEHXZ",
       "address": "0x00417800",
       "size": 58,
-      "kind": "asm",
-      "owner": "0x00417800"
+      "kind": "semantic",
+      "owner": "0x00417800",
+      "previous_record": {
+        "name": "asm_PathState_Reset_00417800",
+        "source": "src/game/path_state_reset_00417800.cpp",
+        "symbol": "_asm_PathState_Reset_00417800",
+        "address": "0x00417800",
+        "size": 58,
+        "kind": "asm",
+        "owner": "0x00417800"
+      }
     },
     {
       "name": "text_padding_0041783a",
@@ -13422,12 +13458,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreRecords_MarkEligible_0041c7d0",
+      "name": "semantic_ScoreRecords_MarkEligible_0041c7d0",
       "source": "src/game/score_records_mark_eligible_0041c7d0.cpp",
-      "symbol": "_asm_ScoreRecords_MarkEligible_0041c7d0",
+      "symbol": "?MarkEligible@ScoreRecords_0041c7d0@@QAEHXZ",
       "address": "0x0041C7D0",
       "size": 44,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041C7D0"
     },
     {
@@ -15216,12 +15252,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_CachedComSlot_ReleaseRetail_00421d20",
+      "name": "semantic_CachedComSlot_ReleaseRetail_00421d20",
       "source": "src/game/cached_com_slot_release_retail_00421d20.cpp",
-      "symbol": "_asm_CachedComSlot_ReleaseRetail_00421d20",
+      "symbol": "?Release@CachedComSlot_00421d20@@QAEXXZ",
       "address": "0x00421D20",
       "size": 21,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00421D20"
     },
     {
@@ -15497,12 +15533,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameState_UpdateFrameMaximum_00421f60",
+      "name": "semantic_GameStateFrameState_UpdateFrameMaximum_00421f60",
       "source": "src/game/game_state_update_frame_maximum_00421f60.cpp",
-      "symbol": "_asm_GameState_UpdateFrameMaximum_00421f60",
+      "symbol": "?GameState_UpdateFrameMaximum@@YGHPAUGameStateFrameState@@@Z",
       "address": "0x00421F60",
       "size": 28,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00421F60"
     },
     {
@@ -16564,13 +16600,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Entity_AngleToPoint_00426610",
+      "name": "semantic_Entity_AngleToPoint_00426610",
       "source": "src/game/entity_angle_to_point_00426610.cpp",
-      "symbol": "_asm_Entity_AngleToPoint_00426610",
+      "symbol": "?Entity_AngleToPoint@@YGNPBUEntityAngleTarget_00426610@@PBM@Z",
       "address": "0x00426610",
       "size": 67,
-      "kind": "asm",
-      "owner": "0x00426610"
+      "kind": "semantic",
+      "owner": "0x00426610",
+      "previous_record": {
+        "name": "asm_Entity_AngleToPoint_00426610",
+        "source": "src/game/entity_angle_to_point_00426610.cpp",
+        "symbol": "_asm_Entity_AngleToPoint_00426610",
+        "address": "0x00426610",
+        "size": 67,
+        "kind": "asm",
+        "owner": "0x00426610"
+      }
     },
     {
       "name": "text_padding_00426653",
@@ -16581,12 +16626,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Entity_AngleFromPoint_00426660",
+      "name": "semantic_Entity_AngleFromPoint_00426660",
       "source": "src/game/entity_angle_from_point_00426660.cpp",
-      "symbol": "_asm_Entity_AngleFromPoint_00426660",
+      "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
       "address": "0x00426660",
       "size": 67,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00426660"
     },
     {
@@ -16980,12 +17025,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_CellPair_Scale_00427d80",
-      "source": "src/game/effect_indicator_slots.cpp",
-      "symbol": "_asm_CellPair_Scale_00427d80",
+      "name": "semantic_CellPair_Scale_00427d80",
+      "source": "src/game/cell_pair_scale_00427d80.cpp",
+      "symbol": "??DCellPair@@QBE?AU0@H@Z",
       "address": "0x00427D80",
       "size": 21,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00427D80"
     },
     {
@@ -17735,13 +17780,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_DeletingDestructorWithRelease_004297b0",
+      "name": "semantic_PlatformResource_Destroy_004297b0",
       "source": "src/game/platform_deleting_destructor_with_release_004297b0.cpp",
-      "symbol": "_asm_Platform_DeletingDestructorWithRelease_004297b0",
+      "symbol": "?PlatformResource_Destroy@@YGXPAUPlatformResource@@@Z",
       "address": "0x004297B0",
       "size": 18,
-      "kind": "asm",
-      "owner": "0x004297B0"
+      "kind": "semantic",
+      "owner": "0x004297B0",
+      "previous_record": {
+        "name": "asm_Platform_DeletingDestructorWithRelease_004297b0",
+        "source": "src/game/platform_deleting_destructor_with_release_004297b0.cpp",
+        "symbol": "_asm_Platform_DeletingDestructorWithRelease_004297b0",
+        "address": "0x004297B0",
+        "size": 18,
+        "kind": "asm",
+        "owner": "0x004297B0"
+      }
     },
     {
       "name": "text_padding_004297c2",
@@ -18067,13 +18121,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_EmbeddedTimer_SetCountdownRetail_0042a930",
+      "name": "semantic_EmbeddedTimer_SetCountdownRetail_0042a930",
       "source": "src/game/embedded_timer_set_countdown_retail_0042a930.cpp",
-      "symbol": "_asm_EmbeddedTimer_SetCountdownRetail_0042a930",
+      "symbol": "?SetCountdown@EmbeddedTimerState_0042a930@@QAEXH@Z",
       "address": "0x0042A930",
       "size": 59,
-      "kind": "asm",
-      "owner": "0x0042A930"
+      "kind": "semantic",
+      "owner": "0x0042A930",
+      "previous_record": {
+        "name": "asm_EmbeddedTimer_SetCountdownRetail_0042a930",
+        "source": "src/game/embedded_timer_set_countdown_retail_0042a930.cpp",
+        "symbol": "_asm_EmbeddedTimer_SetCountdownRetail_0042a930",
+        "address": "0x0042A930",
+        "size": 59,
+        "kind": "asm",
+        "owner": "0x0042A930"
+      }
     },
     {
       "name": "text_padding_0042a96b",
@@ -18894,12 +18957,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042bb30_0042bb30",
+      "name": "semantic_FUN_0042bb30_0042bb30",
       "source": "src/unidentified/FUN_0042bb30_0042bb30.cpp",
-      "symbol": "_asm_FUN_0042bb30_0042bb30",
+      "symbol": "@FUN_0042bb30@8",
       "address": "0x0042BB30",
       "size": 145,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042BB30"
     },
     {
@@ -19176,13 +19239,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameState_SetTimerTarget_0042c620",
+      "name": "semantic_GameStateTimer_SetTimerTarget_0042c620",
       "source": "src/math/timer.cpp",
-      "symbol": "_asm_GameState_SetTimerTarget_0042c620",
+      "symbol": "?SetTimerTarget@GameStateTimer_0042c620@@QAEXH@Z",
       "address": "0x0042C620",
       "size": 80,
-      "kind": "asm",
-      "owner": "0x0042C620"
+      "kind": "semantic",
+      "owner": "0x0042C620",
+      "previous_record": {
+        "name": "asm_GameState_SetTimerTarget_0042c620",
+        "source": "src/math/timer.cpp",
+        "symbol": "_asm_GameState_SetTimerTarget_0042c620",
+        "address": "0x0042C620",
+        "size": 80,
+        "kind": "asm",
+        "owner": "0x0042C620"
+      }
     },
     {
       "name": "asm_Recovery_InstallAnimationSlot_0042c670",
@@ -19911,13 +19983,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageText_SkipLine_004349e0",
+      "name": "semantic_StageText_SkipLine_004349e0",
       "source": "src/game/stage_text_skip_line_004349e0.cpp",
-      "symbol": "_asm_StageText_SkipLine_004349e0",
+      "symbol": "?StageText_SkipLine@@YGPADPADPAH@Z",
       "address": "0x004349E0",
       "size": 59,
-      "kind": "asm",
-      "owner": "0x004349E0"
+      "kind": "semantic",
+      "owner": "0x004349E0",
+      "previous_record": {
+        "name": "asm_StageText_SkipLine_004349e0",
+        "source": "src/game/stage_text_skip_line_004349e0.cpp",
+        "symbol": "_asm_StageText_SkipLine_004349e0",
+        "address": "0x004349E0",
+        "size": 59,
+        "kind": "asm",
+        "owner": "0x004349E0"
+      }
     },
     {
       "name": "text_padding_00434a1b",
@@ -19928,13 +20009,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageText_ExtractLine_00434a20",
+      "name": "semantic_StageText_ExtractLine_00434a20",
       "source": "src/game/stage_text_extract_line_00434a20.cpp",
-      "symbol": "_asm_StageText_ExtractLine_00434a20",
+      "symbol": "?StageText_ExtractLine@@YGPADPAD0PAH@Z",
       "address": "0x00434A20",
       "size": 92,
-      "kind": "asm",
-      "owner": "0x00434A20"
+      "kind": "semantic",
+      "owner": "0x00434A20",
+      "previous_record": {
+        "name": "asm_StageText_ExtractLine_00434a20",
+        "source": "src/game/stage_text_extract_line_00434a20.cpp",
+        "symbol": "_asm_StageText_ExtractLine_00434a20",
+        "address": "0x00434A20",
+        "size": 92,
+        "kind": "asm",
+        "owner": "0x00434A20"
+      }
     },
     {
       "name": "text_padding_00434a7c",
@@ -20270,13 +20360,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_DatArchive_FindEntry_00434f30",
+      "name": "semantic_DatArchive_FindEntry_00434f30",
       "source": "src/archive/dat_archive_find_entry_00434f30.cpp",
-      "symbol": "_asm_DatArchive_FindEntry_00434f30",
+      "symbol": "?DatArchive_FindEntry@@YGPAUArchiveFindEntryRecord@@PAUArchiveFindEntryIndex@@PBD@Z",
       "address": "0x00434F30",
       "size": 53,
-      "kind": "asm",
-      "owner": "0x00434F30"
+      "kind": "semantic",
+      "owner": "0x00434F30",
+      "previous_record": {
+        "name": "asm_DatArchive_FindEntry_00434f30",
+        "source": "src/archive/dat_archive_find_entry_00434f30.cpp",
+        "symbol": "_asm_DatArchive_FindEntry_00434f30",
+        "address": "0x00434F30",
+        "size": 53,
+        "kind": "asm",
+        "owner": "0x00434F30"
+      }
     },
     {
       "name": "text_padding_00434f65",
@@ -21097,13 +21196,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436000_00436000",
+      "name": "semantic_Lzss_InsertString_00436000",
       "source": "src/archive/score_save.cpp",
-      "symbol": "_asm_FUN_00436000_00436000",
+      "symbol": "@Lzss_InsertString_00436000@12",
       "address": "0x00436000",
       "size": 516,
-      "kind": "asm",
-      "owner": "0x00436000"
+      "kind": "semantic",
+      "owner": "0x00436000",
+      "previous_record": {
+        "name": "asm_FUN_00436000_00436000",
+        "source": "src/archive/score_save.cpp",
+        "symbol": "_asm_FUN_00436000_00436000",
+        "address": "0x00436000",
+        "size": 516,
+        "kind": "asm",
+        "owner": "0x00436000"
+      }
     },
     {
       "name": "text_padding_00436204",
@@ -24992,13 +25100,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_SelectArchiveEntry_0043d790",
+      "name": "semantic_Recovery_SelectArchiveEntry_0043d790",
       "source": "src/game/recovery_select_archive_entry_0043d790.cpp",
-      "symbol": "_asm_Recovery_SelectArchiveEntry_0043d790",
+      "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
       "address": "0x0043D790",
       "size": 55,
-      "kind": "asm",
-      "owner": "0x0043D790"
+      "kind": "semantic",
+      "owner": "0x0043D790",
+      "previous_record": {
+        "name": "asm_Recovery_SelectArchiveEntry_0043d790",
+        "source": "src/game/recovery_select_archive_entry_0043d790.cpp",
+        "symbol": "_asm_Recovery_SelectArchiveEntry_0043d790",
+        "address": "0x0043D790",
+        "size": 55,
+        "kind": "asm",
+        "owner": "0x0043D790"
+      }
     },
     {
       "name": "text_padding_0043d7c7",
@@ -26297,13 +26414,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_FlushQuadBatch_00442f50",
+      "name": "semantic_AnimationManager_FlushQuadBatch_00442f50",
       "source": "src/render/anm_batch_flush.cpp",
-      "symbol": "_asm_AnimationManager_FlushQuadBatch_00442f50",
+      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
       "address": "0x00442F50",
       "size": 133,
-      "kind": "asm",
-      "owner": "0x00442F50"
+      "kind": "semantic",
+      "owner": "0x00442F50",
+      "previous_record": {
+        "name": "asm_AnimationManager_FlushQuadBatch_00442f50",
+        "source": "src/render/anm_batch_flush.cpp",
+        "symbol": "_asm_AnimationManager_FlushQuadBatch_00442f50",
+        "address": "0x00442F50",
+        "size": 133,
+        "kind": "asm",
+        "owner": "0x00442F50"
+      }
     },
     {
       "name": "text_padding_00442fd5",
@@ -28367,13 +28493,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_MarkResourceForRemoval_004493e0",
+      "name": "semantic_AnimationManager_MarkResourceForRemoval_004493e0",
       "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
-      "symbol": "_asm_AnimationManager_MarkResourceForRemoval_004493e0",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
       "address": "0x004493E0",
       "size": 92,
-      "kind": "asm",
-      "owner": "0x004493E0"
+      "kind": "semantic",
+      "owner": "0x004493E0",
+      "previous_record": {
+        "name": "asm_AnimationManager_MarkResourceForRemoval_004493e0",
+        "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
+        "symbol": "_asm_AnimationManager_MarkResourceForRemoval_004493e0",
+        "address": "0x004493E0",
+        "size": 92,
+        "kind": "asm",
+        "owner": "0x004493E0"
+      }
     },
     {
       "name": "text_padding_0044943c",
@@ -29038,12 +29173,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_SchedulerCallback_Create_00449ed0",
+      "name": "semantic_SchedulerCallback_Create_00449ed0",
       "source": "src/game/scheduler.cpp",
-      "symbol": "_asm_SchedulerCallback_Create_00449ed0",
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
       "address": "0x00449ED0",
       "size": 74,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00449ED0"
     },
     {
@@ -29687,13 +29822,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_TextLog_Append_0044b810",
+      "name": "semantic_TextLog_Append_0044b810",
       "source": "src/platform/text_log.cpp",
-      "symbol": "_asm_TextLog_Append_0044b810",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
       "address": "0x0044B810",
       "size": 201,
-      "kind": "asm",
-      "owner": "0x0044B810"
+      "kind": "semantic",
+      "owner": "0x0044B810",
+      "previous_record": {
+        "name": "asm_TextLog_Append_0044b810",
+        "source": "src/platform/text_log.cpp",
+        "symbol": "_asm_TextLog_Append_0044b810",
+        "address": "0x0044B810",
+        "size": 201,
+        "kind": "asm",
+        "owner": "0x0044B810"
+      }
     },
     {
       "name": "text_padding_0044b8d9",
@@ -30886,13 +31030,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_RunInterface_0044d300",
+      "name": "semantic_Platform_RunInterface_0044d300",
       "source": "src/game/platform_run_interface_0044d300.cpp",
-      "symbol": "_asm_Platform_RunInterface_0044d300",
+      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
       "address": "0x0044D300",
       "size": 98,
-      "kind": "asm",
-      "owner": "0x0044D300"
+      "kind": "semantic",
+      "owner": "0x0044D300",
+      "previous_record": {
+        "name": "asm_Platform_RunInterface_0044d300",
+        "source": "src/game/platform_run_interface_0044d300.cpp",
+        "symbol": "_asm_Platform_RunInterface_0044d300",
+        "address": "0x0044D300",
+        "size": 98,
+        "kind": "asm",
+        "owner": "0x0044D300"
+      }
     },
     {
       "name": "text_padding_0044d362",
@@ -30903,13 +31056,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_FindAvailable_0044d370",
+      "name": "semantic_Platform_FindAvailable_0044d370",
       "source": "src/game/platform_find_available_0044d370.cpp",
-      "symbol": "_asm_Platform_FindAvailable_0044d370",
+      "symbol": "?FindAvailable@PlatformInterfaceState_0044D370@@QAEPAUPlatformD370Entry@@XZ",
       "address": "0x0044D370",
       "size": 103,
-      "kind": "asm",
-      "owner": "0x0044D370"
+      "kind": "semantic",
+      "owner": "0x0044D370",
+      "previous_record": {
+        "name": "asm_Platform_FindAvailable_0044d370",
+        "source": "src/game/platform_find_available_0044d370.cpp",
+        "symbol": "_asm_Platform_FindAvailable_0044d370",
+        "address": "0x0044D370",
+        "size": 103,
+        "kind": "asm",
+        "owner": "0x0044D370"
+      }
     },
     {
       "name": "text_padding_0044d3d7",
@@ -30971,13 +31133,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_SetOperationDeadline_0044d4e0",
+      "name": "semantic_Platform_SetOperationDeadline_0044d4e0",
       "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp",
-      "symbol": "_asm_Platform_SetOperationDeadline_0044d4e0",
+      "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
       "address": "0x0044D4E0",
       "size": 106,
-      "kind": "asm",
-      "owner": "0x0044D4E0"
+      "kind": "semantic",
+      "owner": "0x0044D4E0",
+      "previous_record": {
+        "name": "asm_Platform_SetOperationDeadline_0044d4e0",
+        "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp",
+        "symbol": "_asm_Platform_SetOperationDeadline_0044d4e0",
+        "address": "0x0044D4E0",
+        "size": 106,
+        "kind": "asm",
+        "owner": "0x0044D4E0"
+      }
     },
     {
       "name": "text_padding_0044d54a",
@@ -30988,13 +31159,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_AggregateInterfaces_0044d550",
+      "name": "semantic_Platform_AggregateInterfaces_0044d550",
       "source": "src/game/platform_aggregate_interfaces_0044d550.cpp",
-      "symbol": "_asm_Platform_AggregateInterfaces_0044d550",
+      "symbol": "?Aggregate@PlatformInterfaceState_0044D550@@QAEHXZ",
       "address": "0x0044D550",
       "size": 82,
-      "kind": "asm",
-      "owner": "0x0044D550"
+      "kind": "semantic",
+      "owner": "0x0044D550",
+      "previous_record": {
+        "name": "asm_Platform_AggregateInterfaces_0044d550",
+        "source": "src/game/platform_aggregate_interfaces_0044d550.cpp",
+        "symbol": "_asm_Platform_AggregateInterfaces_0044d550",
+        "address": "0x0044D550",
+        "size": 82,
+        "kind": "asm",
+        "owner": "0x0044D550"
+      }
     },
     {
       "name": "text_padding_0044d5a2",
@@ -31031,13 +31211,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_InvokeConfigured_0044d5d0",
+      "name": "semantic_Platform_InvokeConfigured_0044d5d0",
       "source": "src/game/platform_invoke_configured_0044d5d0.cpp",
-      "symbol": "_asm_Platform_InvokeConfigured_0044d5d0",
+      "symbol": "?InvokeConfigured@PlatformInterfaceState_0044D5D0@@QAEHXZ",
       "address": "0x0044D5D0",
       "size": 41,
-      "kind": "asm",
-      "owner": "0x0044D5D0"
+      "kind": "semantic",
+      "owner": "0x0044D5D0",
+      "previous_record": {
+        "name": "asm_Platform_InvokeConfigured_0044d5d0",
+        "source": "src/game/platform_invoke_configured_0044d5d0.cpp",
+        "symbol": "_asm_Platform_InvokeConfigured_0044d5d0",
+        "address": "0x0044D5D0",
+        "size": 41,
+        "kind": "asm",
+        "owner": "0x0044D5D0"
+      }
     },
     {
       "name": "text_padding_0044d5f9",
@@ -31048,13 +31237,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_QueryInterfaces_0044d600",
+      "name": "semantic_Platform_QueryInterfaces_0044d600",
       "source": "src/game/platform_query_interfaces_0044d600.cpp",
-      "symbol": "_asm_Platform_QueryInterfaces_0044d600",
+      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
       "address": "0x0044D600",
       "size": 61,
-      "kind": "asm",
-      "owner": "0x0044D600"
+      "kind": "semantic",
+      "owner": "0x0044D600",
+      "previous_record": {
+        "name": "asm_Platform_QueryInterfaces_0044d600",
+        "source": "src/game/platform_query_interfaces_0044d600.cpp",
+        "symbol": "_asm_Platform_QueryInterfaces_0044d600",
+        "address": "0x0044D600",
+        "size": 61,
+        "kind": "asm",
+        "owner": "0x0044D600"
+      }
     },
     {
       "name": "text_padding_0044d63d",
@@ -31327,13 +31525,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_SelectStreamRecord_0044dca0",
+      "name": "semantic_Platform_SelectStreamRecord_0044dca0",
       "source": "src/game/platform_select_stream_record_0044dca0.cpp",
-      "symbol": "_asm_Platform_SelectStreamRecord_0044dca0",
+      "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
       "address": "0x0044DCA0",
       "size": 78,
-      "kind": "asm",
-      "owner": "0x0044DCA0"
+      "kind": "semantic",
+      "owner": "0x0044DCA0",
+      "previous_record": {
+        "name": "asm_Platform_SelectStreamRecord_0044dca0",
+        "source": "src/game/platform_select_stream_record_0044dca0.cpp",
+        "symbol": "_asm_Platform_SelectStreamRecord_0044dca0",
+        "address": "0x0044DCA0",
+        "size": 78,
+        "kind": "asm",
+        "owner": "0x0044DCA0"
+      }
     },
     {
       "name": "text_padding_0044dcee",
@@ -45551,6 +45758,7 @@
     "src/game/bullet_pool_reset_retail_00405ed0.cpp",
     "src/game/bullet_runtime_update.cpp",
     "src/game/cached_com_slot_release_retail_00421d20.cpp",
+    "src/game/cell_pair_scale_00427d80.cpp",
     "src/game/compression_tree.cpp",
     "src/game/create_game_state_00402640.cpp",
     "src/game/create_game_thread_00401440.cpp",
@@ -45719,7 +45927,6 @@
     "src/game/player_front_runtime.cpp",
     "src/game/player_manager_create_retail_00408c90.cpp",
     "src/game/player_manager_start_mode_004045b0.cpp",
-    "src/game/player_motion.cpp",
     "src/game/player_pickup_sweep.cpp",
     "src/game/player_reset.cpp",
     "src/game/player_runtime_init.cpp",
@@ -48063,7 +48270,37 @@
     "layout/ltcg/effect_field_get.json",
     "layout/ltcg/accessor_00405bb0.json",
     "layout/ltcg/recovery_slot_rearm.json",
-    "layout/ltcg/d3d_resource_list_clear_pending_00449a90.json"
+    "layout/ltcg/title_options_timer_0042c620.json",
+    "layout/ltcg/d3d_resource_list_clear_pending_00449a90.json",
+    "layout/ltcg/path_state_reset_00417800.json",
+    "layout/ltcg/bullet_entity_find_by_id_0040cf90.json",
+    "layout/ltcg/score_mode_00412ed0.json",
+    "layout/ltcg/score_list_insert_after_00413200.json",
+    "layout/ltcg/bullet_entity_mark_animation_for_removal_0040cea0.json",
+    "layout/ltcg/bullet_entity_set_animation_vector_0040cf60.json",
+    "layout/ltcg/bullet_entity_release_resource_0040d680.json",
+    "layout/ltcg/bullet_entity_clear_resource_list_0040c6e0.json",
+    "layout/ltcg/cell_pair_scale_00427d80.json",
+    "layout/ltcg/game_state_update_frame_maximum_00421f60.json",
+    "layout/ltcg/platform_resource_destroy.json",
+    "layout/ltcg/cached_com_slot_release_retail_00421d20.json",
+    "layout/ltcg/score_records_mark_eligible_0041c7d0.json",
+    "layout/ltcg/stage_text_skip_line_004349e0.json",
+    "layout/ltcg/embedded_timer_set_countdown_retail_0042a930.json",
+    "layout/ltcg/stage_text_extract_line_00434a20.json",
+    "layout/ltcg/entity_angle_to_point_00426610.json",
+    "layout/ltcg/entity_angle_from_point_00426660.json",
+    "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json",
+    "layout/ltcg/archive_find_entry_followup.json",
+    "layout/ltcg/anm_batch_flush_00442f50.json",
+    "layout/ltcg/d3d_text_log_append_0044b810.json",
+    "layout/ltcg/platform_query_interfaces_0044d600.json",
+    "layout/ltcg/platform_run_interface_0044d300.json",
+    "layout/ltcg/platform_find_available_0044d370.json",
+    "layout/ltcg/platform_aggregate_interfaces_0044d550.json",
+    "layout/ltcg/platform_invoke_configured_0044d5d0.json",
+    "layout/ltcg/recovery_select_archive_entry_0043d790.json",
+    "layout/ltcg/platform_set_operation_deadline_0044d4e0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -1,28 +1,31 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00421D20: release the cached COM interface, then clear its slot.
+// The surrounding DirectInput state reaches this member through the native
+// LTCG cluster in layout/ltcg/cached_com_slot_release_retail_00421d20.json;
+// that cluster preserves the retail ESI this-pointer convention.
 
-// 0x00421C50..0x00421C68: SlotLockTable_LeaveRetail
-// Naked body preserves the retail register/stack ABI.
+struct CachedComInterfaceVtable_00421d20 {
+    void* query_interface;
+    void* add_reference;
+    unsigned long (__stdcall *release)(void* interface_pointer);
+};
 
-// 0x00421D20..0x00421D34: CachedComSlot_ReleaseRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_CachedComSlot_ReleaseRetail_00421d20() {
-    __asm {
-    L_00421d20:
-        mov eax,dword ptr [esi+0Ch]
-    L_00421d23:
-        test eax,eax
-    L_00421d25:
-        je short L_00421d34
-    L_00421d27:
-        mov ecx,dword ptr [eax]
-    L_00421d29:
-        push eax
-    L_00421d2a:
-        call dword ptr [ecx+8]
-    L_00421d2d:
-        mov dword ptr [esi+0Ch],0
-    L_00421d34:
-        ret
+struct CachedComInterface_00421d20 {
+    CachedComInterfaceVtable_00421d20* vtable;
+};
+
+struct CachedComSlot_00421d20 {
+    unsigned char reserved_000[0x0C];
+    CachedComInterface_00421d20* cached_interface;
+
+    __declspec(noinline) void Release();
+};
+
+#pragma code_seg(".text$01release")
+void CachedComSlot_00421d20::Release() {
+    CachedComInterface_00421d20* interface_pointer = cached_interface;
+    if (interface_pointer != 0) {
+        interface_pointer->vtable->release(interface_pointer);
+        cached_interface = 0;
     }
 }
+#pragma code_seg()

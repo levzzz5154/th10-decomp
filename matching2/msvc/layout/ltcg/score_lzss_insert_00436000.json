@@ -1,0 +1,23 @@
+{
+  "schema_version":1,
+  "name":"score_lzss_insert_00436000",
+  "source":"src/archive/score_save.cpp",
+  "driver":"layout/ltcg/score_lzss_insert_00436000_context.cpp",
+  "headers":["include/asm_encoding.hpp","include/asm_symbols.hpp"],
+  "image_base":"0x00400000",
+  "description":"Exact global LZSS match-tree insertion compiled with native LTCG to retain ECX/EDX and the single stack result pointer.",
+  "functions":[
+    {"name":"Lzss_InsertString_00436000","symbol":"@Lzss_InsertString_00436000@12","section":".text$03insert","address":"0x00436000","size":516,"actual_abi":"old cursor in ECX, new position in EDX, best-position pointer on stack; RET 4"}
+  ],
+  "context":{"symbol":"?LzssInsertCompilerContext@@YGHHHPAH@Z","section":".text$04context","address":"0x00436300","size":17,"description":"Synthetic forwarding caller; not recovered game code."},
+  "gaps":[
+    {"section":".text$00layout","address":"0x00401000","size":217088},
+    {"section":".text$03zlayout","address":"0x00436204","size":252}
+  ],
+  "constants":[],
+  "absolute_symbols":[
+    {"symbol":"_data_00477858","address":"0x00477858","kind":"data"},
+    {"symbol":"_data_0048f868","address":"0x0048F868","kind":"data"},
+    {"symbol":"_data_0048f860","address":"0x0048F860","kind":"data"}
+  ]
+}

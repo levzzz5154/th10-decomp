@@ -1,11 +1,17 @@
 {
   "schema_version": 1,
   "name": "recovery_slot_rearm",
-  "source": "src/game/fun_004065c0_004065c0.cpp",
+  "source": "src/unidentified/FUN_00406770_00406770.cpp",
+  "additional_sources": [
+    "src/game/fun_004065c0_004065c0.cpp"
+  ],
   "driver": "layout/ltcg/recovery_slot_rearm_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/asm_encoding.hpp",
+    "include/asm_symbols.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "Effect-slot re-arm compiled with native LTCG so the slot table arrives in ESI.",
+  "description": "Effect-slot gate and re-arm compiled together with native LTCG so the gate tail passes this in ESI.",
   "functions": [
     {
       "name": "RecoverySlotTable_Rearm",
@@ -13,15 +19,25 @@
       "section": ".text$01rearm",
       "address": "0x004065C0",
       "size": 249,
-      "actual_abi": "slot table in ESI; result in EAX; plain RET"
+      "actual_abi": "slot table in ESI; result in EAX; plain RET",
+      "source": "src/game/fun_004065c0_004065c0.cpp"
+    },
+    {
+      "name": "RecoverySlotTable_CanRearm",
+      "symbol": "?CanRearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "section": ".text$05canrearm",
+      "address": "0x00406770",
+      "size": 40,
+      "actual_abi": "object in ECX at entry; calls Rearm with object in ESI; result in EAX; plain RET",
+      "source": "src/unidentified/FUN_00406770_00406770.cpp"
     }
   ],
   "context": {
     "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable_004065c0@@H@Z",
     "section": ".text$03context",
     "address": "0x004066C0",
-    "size": 45,
-    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+    "size": 47,
+    "description": "Synthetic member-pointer caller that keeps the external gate thiscall ABI live; not recovered game code."
   },
   "gaps": [
     {
@@ -32,12 +48,17 @@
     {
       "section": ".text$02layout",
       "address": "0x004066B9",
-      "size": 1
+      "size": 7
     },
     {
-      "section": ".text$05layout",
-      "address": "0x004066ED",
-      "size": 429587
+      "section": ".text$04layout",
+      "address": "0x004066EF",
+      "size": 129
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x00406798",
+      "size": 432232
     },
     {
       "section": ".rdata",

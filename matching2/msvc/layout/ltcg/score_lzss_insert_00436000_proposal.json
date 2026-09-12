@@ -1,0 +1,13 @@
+{
+  "regions":[
+    {
+      "name":"Lzss_InsertString_00436000",
+      "source":"src/archive/score_save.cpp",
+      "symbol":"@Lzss_InsertString_00436000@12",
+      "address":"0x00436000",
+      "size":516,
+      "kind":"semantic",
+      "owner":"0x00436000"
+    }
+  ]
+}

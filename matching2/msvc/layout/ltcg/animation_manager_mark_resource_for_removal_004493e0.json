@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "animation_manager_mark_resource_for_removal_004493e0",
+  "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
+  "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Semantic retired-resource marking helper compiled with its native internal EAX/EDX ABI.",
+  "functions": [
+    {
+      "name": "AnimationManager_MarkResourceForRemoval",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "section": ".text$20helper",
+      "address": "0x004493E0",
+      "size": 92,
+      "actual_abi": "animation manager in EAX; retired resource in EDX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUAnimationManager@@PAPAXH@Z",
+    "section": ".text$30context",
+    "address": "0x00449480",
+    "size": 53,
+    "description": "Synthetic caller that keeps the member helper live during native LTCG; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 295904
+    },
+    {
+      "section": ".text$25layout",
+      "address": "0x0044943C",
+      "size": 68
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

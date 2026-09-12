@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_Platform_InvokeConfigured_0044d5d0",
+      "source": "src/game/platform_invoke_configured_0044d5d0.cpp",
+      "symbol": "?InvokeConfigured@PlatformInterfaceState_0044D5D0@@QAEHXZ",
+      "address": "0x0044D5D0",
+      "size": 41,
+      "kind": "semantic",
+      "owner": "0x0044D5D0"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 41,
+    "different_bytes": 0,
+    "sha256": "c2b7e2c70ebaebef4bb0836e0554998d7483a5dd34b41665f163c686373eba00"
+  }
+}

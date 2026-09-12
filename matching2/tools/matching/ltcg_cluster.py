@@ -83,9 +83,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raw = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError) as error:
         raise LTCGClusterError(f'cannot read cluster manifest {path}: {error}') from error
-    allowed = {'schema_version', 'name', 'source', 'driver', 'headers', 'image_base',
-               'functions', 'context', 'gaps', 'constants', 'absolute_symbols', 'description'}
-    spec = _fields(raw, allowed, allowed, 'cluster manifest')
+    required = {'schema_version', 'name', 'source', 'driver', 'headers', 'image_base',
+                'functions', 'context', 'gaps', 'constants', 'absolute_symbols', 'description'}
+    allowed = required | {'additional_sources'}
+    spec = _fields(raw, allowed, required, 'cluster manifest')
     if type(spec['schema_version']) is not int or spec['schema_version'] != 1:
         raise LTCGClusterError('cluster schema_version must be 1')
     name = _string(spec['name'], 'cluster name')
@@ -95,6 +96,16 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     driver = _project_file(project, spec['driver'], 'driver', '.cpp')
     if source == driver:
         raise LTCGClusterError('the compiler-context driver must be separate from maintained game source')
+    additional_names = spec.get('additional_sources', [])
+    if not isinstance(additional_names, list) or any(not isinstance(item, str) for item in additional_names):
+        raise LTCGClusterError('additional_sources must be an array of project C++ sources')
+    additional_paths = [_project_file(project, item, 'additional source', '.cpp')
+                        for item in additional_names]
+    if source in additional_paths or len(additional_paths) != len(set(additional_paths)):
+        raise LTCGClusterError('additional_sources must be distinct from source and each other')
+    source_names = [spec['source'], *additional_names]
+    source_paths = [source, *additional_paths]
+    spec['additional_sources'] = additional_names
     if not isinstance(spec['headers'], list):
         raise LTCGClusterError('headers must be an array')
     headers = [_project_file(project, item, 'header', '.hpp') for item in spec['headers']]
@@ -108,26 +119,31 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raise LTCGClusterError('functions must be a nonempty array')
     functions = []
     for item in spec['functions']:
-        keys = {'name', 'symbol', 'section', 'address', 'size', 'actual_abi'}
-        function = _fields(item, keys, keys, 'function')
+        required_keys = {'name', 'symbol', 'section', 'address', 'size', 'actual_abi'}
+        function = _fields(item, required_keys | {'source'}, required_keys, 'function')
         for key in ('name', 'symbol', 'section', 'actual_abi'):
             function[key] = _string(function[key], 'function ' + key)
         if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', function['section']):
             raise LTCGClusterError('functions need a dedicated .text$ section')
         function['address'] = _integer(function['address'], 'function address', minimum=image_base)
         function['size'] = _integer(function['size'], 'function size', minimum=1)
+        function_source = _string(function.get('source', spec['source']), 'function source')
+        if function_source not in source_names:
+            raise LTCGClusterError('function source is not declared by the cluster: ' + function_source)
+        function['_source'] = function_source
         functions.append(function)
     if len({item['symbol'] for item in functions}) != len(functions):
         raise LTCGClusterError('duplicate cluster function symbol')
     if len({item['section'] for item in functions}) != len(functions):
         raise LTCGClusterError('each function needs a distinct complete contribution')
-    owned = [region for region in regions if region['source'] == spec['source']]
+    owned = [region for region in regions if region['source'] in source_names]
     if (len(owned) != len(functions)
             or {region['symbol'] for region in owned} != {item['symbol'] for item in functions}):
         raise LTCGClusterError('cluster functions disagree with maintained source ownership')
     for function in functions:
         region = next(region for region in owned if region['symbol'] == function['symbol'])
-        if (region['kind'] != 'semantic' or _integer(region['address'], 'region address') != function['address']
+        if (region['source'] != function['_source'] or region['kind'] != 'semantic'
+                or _integer(region['address'], 'region address') != function['address']
                 or region['size'] != function['size']):
             raise LTCGClusterError('cluster function address/extent/classification disagrees with region: ' + function['symbol'])
     context_keys = {'symbol', 'section', 'address', 'size', 'description'}
@@ -196,7 +212,9 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                     for item in functions + gaps + constants + [context])
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
-    return {**spec, 'path': path, 'project': project, 'source_path': source, 'driver_path': driver,
+    return {**spec, 'path': path, 'project': project, 'source_path': source,
+            'source_paths': source_paths, 'source_names': source_names,
+            'additional_source_paths': additional_paths, 'driver_path': driver,
             'header_paths': headers, 'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'regions': [dict(region) for region in owned]}
@@ -208,13 +226,16 @@ def load_clusters(project: Path, config: Mapping[str, Any], regions: Sequence[Ma
             or len(set(manifests)) != len(manifests)):
         raise LTCGClusterError('ltcg_clusters must be an array of distinct manifest paths')
     clusters = [load_cluster(project, manifest, regions) for manifest in manifests]
-    if len({item['name'] for item in clusters}) != len(clusters) or len({item['source'] for item in clusters}) != len(clusters):
-        raise LTCGClusterError('clusters must have distinct names and maintained sources')
+    if len({item['name'] for item in clusters}) != len(clusters):
+        raise LTCGClusterError('clusters must have distinct names')
+    source_names = [source for cluster in clusters for source in cluster['source_names']]
+    if len(set(source_names)) != len(source_names):
+        raise LTCGClusterError('clusters must have distinct maintained sources')
     return clusters
 
 
 def _snapshot(spec: Mapping[str, Any]) -> dict[str, str]:
-    paths = [spec['path'], spec['source_path'], spec['driver_path'], *spec['header_paths']]
+    paths = [spec['path'], *spec['source_paths'], spec['driver_path'], *spec['header_paths']]
     return {str(path): sha(path.read_bytes()) for path in paths}
 
 
@@ -292,8 +313,13 @@ def _absolute_object(path: Path, symbols: Sequence[Mapping[str, Any]]) -> None:
         raise LTCGClusterError('absolute bindings object unexpectedly contains implementation sections')
 
 
-def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: Path, origin: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: Path,
+                           origins: Sequence[str] | str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Require exact ownership, addresses, complete extents, context and layout."""
+    if isinstance(origins, str):
+        allowed_origins = {origins}
+    else:
+        allowed_origins = set(origins)
     _require_fresh_output(executable)
     _require_fresh_output(map_path)
     pe = PEImage.from_path(executable)
@@ -305,10 +331,16 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         raise LTCGClusterError('native cluster contains an undeclared PE section')
     function_reports = []
     for function in [*spec['functions'], {**spec['context'], 'name': 'compiler context'}]:
-        reports = extract_functions([{'name': function['name'], 'symbol': function['symbol'],
+        map_symbol = function['symbol']
+        if function['symbol'] == spec['context']['symbol']:
+            exact = [item for item in link_map.symbols if item.name == map_symbol]
+            c_decorated = [item for item in link_map.symbols if item.name == '_' + map_symbol]
+            if not exact and len(c_decorated) == 1:
+                map_symbol = '_' + map_symbol
+        reports = extract_functions([{'name': function['name'], 'symbol': map_symbol,
                                       'visibility': 'either', 'size': function['size']}], link_map, pe)
         report = reports[0]
-        if int(report['address'], 0) != function['address'] or report['map_origin'] != origin:
+        if int(report['address'], 0) != function['address'] or report['map_origin'] not in allowed_origins:
             raise LTCGClusterError('native function address or compiler origin differs: ' + function['symbol'])
         contributions = [item for item in link_map.contributions if item.name == function['section']]
         if (len(contributions) != 1 or contributions[0].section_class != 'CODE'
@@ -334,7 +366,7 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
                 raise LTCGClusterError('native layout gap contribution differs')
     for constant in spec['constants']:
         matches = [symbol for symbol in link_map.symbols if symbol.name == constant['symbol']]
-        if len(matches) != 1 or matches[0].address != constant['address'] or matches[0].origin != origin:
+        if len(matches) != 1 or matches[0].address != constant['address'] or matches[0].origin not in allowed_origins:
             raise LTCGClusterError('compiler constant address/origin differs: ' + constant['symbol'])
         raw, section, _ = pe.read(constant['address'], 4)
         if raw != constant['bytes'] or section.name != '.rdata':
@@ -343,7 +375,9 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         matches = [symbol for symbol in link_map.symbols if symbol.name == external['symbol']]
         if len(matches) != 1 or matches[0].segment != 0 or matches[0].address != external['coff_value']:
             raise LTCGClusterError('native external binding differs: ' + external['symbol'])
-    declared = {item['symbol'] for item in spec['functions']} | {spec['context']['symbol']}
+    context_symbol = spec['context']['symbol']
+    declared = ({item['symbol'] for item in spec['functions']}
+                | {context_symbol, '_' + context_symbol})
     if any('f' in symbol.flags and symbol.segment and symbol.name not in declared for symbol in link_map.symbols):
         raise LTCGClusterError('native compiler emitted an undeclared function')
     return function_reports, {'pe_sha256': sha(pe.data), 'map_sha256': sha(map_path.read_bytes()),
@@ -384,11 +418,12 @@ def export_bodies(path: Path, functions: Sequence[Mapping[str, Any]]) -> dict[st
             'output_sha256': sha(data), 'instruction_bytes_changed': 0, 'address_operands_changed': 0}
 
 
-def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path) -> list[dict[str, str]]:
-    permitted = {path.resolve() for path in [spec['source_path'], *spec['header_paths']]}
+def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path,
+                     direct_sources: Sequence[Path] = ()) -> list[dict[str, str]]:
+    permitted = {path.resolve() for path in [*spec['source_paths'], *spec['header_paths']]}
     roots = [(winpath(spec['project']).rstrip('\\'), spec['project']),
              (winpath(toolkit).rstrip('\\'), toolkit)]
-    found = set()
+    found = {path.resolve() for path in direct_sources}
     headers = []
     for line in log.splitlines():
         match = re.match(r'^Note: including file:\s*(.+?)\s*$', line)
@@ -428,46 +463,59 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     source.write_text(_padding_source(spec['gaps']))
     _absolute_object(work / 'bindings.obj', spec['absolute_symbols'])
     compile_commands = []
-    includes = []
-    for input_path, object_name, extra in [(spec['driver_path'], 'cluster.obj', ['/GL', '/showIncludes']),
-                                           (source, 'layout-original.obj', [])]:
+    include_logs = []
+    for input_path, object_name, extra in [
+        (spec['driver_path'], 'cluster.obj', ['/GL', '/showIncludes']),
+        *[(path, f'source_{index:03d}.obj', ['/GL', '/showIncludes'])
+          for index, path in enumerate(spec['additional_source_paths'])],
+        (source, 'layout-original.obj', []),
+    ]:
         obj = work / object_name
         command = ['wine', str(compiler), *flags, *extra, '/I' + winpath(spec['project'] / 'include'),
                    '/Fo' + winpath(obj), winpath(input_path)]
         result = _run_logged(command, env, work, work / (object_name + '.log'), 180)
         _require_fresh_output(obj)
-        if object_name == 'cluster.obj':
-            includes = _verify_includes(result.stdout + result.stderr, spec, toolkit)
+        if object_name != 'layout-original.obj':
+            include_logs.append(result.stdout + result.stderr)
         compile_commands.append({'source': str(input_path), 'object': str(obj), 'command': command,
                                  'source_sha256': sha(input_path.read_bytes()), 'object_sha256': sha(obj.read_bytes())})
+    includes = _verify_includes(
+        '\n'.join(include_logs), spec, toolkit, spec['additional_source_paths'])
     layout_report = _prepare_padding_object(work / 'layout-original.obj', work / 'layout.obj', spec['gaps'])
     executable, map_path = work / 'cluster.exe', work / 'cluster.map'
+    additional_objects = [work / f'source_{index:03d}.obj'
+                          for index in range(len(spec['additional_source_paths']))]
     link_command = ['wine', str(linker), '/nologo', '/LTCG', '/MACHINE:X86', '/BASE:0x400000',
                     '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['context']['symbol'],
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
                     *['/INCLUDE:' + gap['symbol'] for gap in spec['gaps']],
                     '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
-                    winpath(work / 'cluster.obj'), winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
+                    winpath(work / 'cluster.obj'),
+                    *[winpath(path) for path in additional_objects],
+                    winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
     _run_logged(link_command, env, work, work / 'link.log', 300)
     _verify_snapshot(inputs)
     current_tools = toolchain_hashes(toolkit, TOOL_FILES)
     if any(tool_hashes['bin/' + name] != digest for name, digest in current_tools.items()):
         raise LTCGClusterError('compiler/linker changed during the native build')
-    functions, native = validate_native_output(spec, executable, map_path, 'cluster.obj')
+    functions, native = validate_native_output(
+        spec, executable, map_path,
+        ['cluster.obj', *[path.name for path in additional_objects]])
     normalization = export_bodies(destination, functions)
     report = {'schema_version': 1, 'name': spec['name'], 'compiler_kind': 'native-ltcg',
               'source': spec['source'], 'driver': spec['driver'], 'layout': str(spec['path']),
               'input_sha256': inputs, 'compiler_includes': includes, 'tool_sha256': tool_hashes,
               'compile_commands': compile_commands, 'link_command': link_command,
               'native_executable': str(executable), 'native_map': str(map_path), **native,
-              'functions': [{key: value for key, value in item.items() if key != 'body'} for item in functions],
+              'functions': [{key: value for key, value in item.items()
+                             if key not in {'body', '_source'}} for item in functions],
               'compiler_context': {**spec['context'], 'selected': False, 'recovered_code_bytes': 0},
               'layout_gaps': layout_report, 'absolute_symbols': spec['absolute_symbols'],
               'normalization': normalization, 'instruction_bytes_changed': 0, 'masked_bytes': 0,
               'reference_bytes_used_for_build': False}
     report_path.write_text(json.dumps(report, indent=2) + '\n')
     return {'source': spec['source'], 'object': str(destination), 'compiler_kind': 'native-ltcg',
-            'compiler_translation_unit_count': 2, 'command': compile_commands[0]['command'],
+            'compiler_translation_unit_count': len(compile_commands), 'command': compile_commands[0]['command'],
             'source_sha256': inputs[str(spec['source_path'])], 'normalization': normalization,
             'native_report': str(report_path), 'native_report_sha256': sha(report_path.read_bytes()),
             'native_build': report}

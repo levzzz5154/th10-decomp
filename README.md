@@ -38,6 +38,8 @@ resolves to the address retail points it at. A converted function replaces its
 - `matching2/msvc/regions.json` and `layout/`: code placement and compiler settings.
 - `matching2/msvc/pe_layout.json` and `matching2/reference/data/`: executable
   layout and preserved non-code bytes.
+- `matching2/reference/legacy_semantic/`: archived runtime-oriented C++ models
+  for reverse-engineering reference; they are not exact-build inputs.
 - `matching2/tools/`: compiler, linker, byte verification, and progress tools.
 - `ida/`: original IDA disassembly and decompiler output.
 - `decompiled/ghidra_augmented/`: supplementary disassembly, pseudocode, and

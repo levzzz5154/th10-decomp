@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_Platform_RunInterface_0044d300",
+      "source": "src/game/platform_run_interface_0044d300.cpp",
+      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "address": "0x0044D300",
+      "size": 98,
+      "kind": "semantic",
+      "owner": "0x0044D300"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 98,
+    "different_bytes": 0,
+    "sha256": "3e67e5e5b88a3f44d9b95d8b5a05421292ce7108d7e62413f65400fa0ce20c38"
+  }
+}

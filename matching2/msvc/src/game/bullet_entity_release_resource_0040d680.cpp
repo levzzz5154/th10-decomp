@@ -1,30 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040D680..0x0040D6A3: restore a bullet entity's vtable and release its
+// owned resource.  The native-LTCG cluster preserves the retail this pointer
+// in ESI, so this remains an ordinary named member implementation.
 
-// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
-// Naked body preserves the retail register/stack ABI.
+extern "C" void __cdecl entry_free_00452422(void* memory);
 
-// 0x0040D680..0x0040D6A3: BulletEntity_ReleaseResource
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_BulletEntity_ReleaseResource_0040d680() {
-    __asm {
-    L_0040d680:
-        mov eax,dword ptr [esi+8Ch]
-    L_0040d686:
-        test eax,eax
-    L_0040d688:
-        mov dword ptr [esi],46D0F0h
-    L_0040d68e:
-        je short L_0040d6a3
-    L_0040d690:
-        push eax
-    L_0040d691:
-        call asm_free_00452422
-    L_0040d696:
-        add esp,4
-    L_0040d699:
-        mov dword ptr [esi+8Ch],0
-    L_0040d6a3:
-        ret
+struct BulletEntity_0040d680 {
+    unsigned int vtable;
+    unsigned char reserved_004[0x88];
+    void* owned_resource;
+
+    __declspec(noinline) void ReleaseResource();
+};
+
+#pragma code_seg(".text$01release")
+void BulletEntity_0040d680::ReleaseResource() {
+    void* const resource = owned_resource;
+    vtable = 0x0046D0F0;
+    if (resource != 0) {
+        entry_free_00452422(resource);
+        owned_resource = 0;
     }
 }
+#pragma code_seg()

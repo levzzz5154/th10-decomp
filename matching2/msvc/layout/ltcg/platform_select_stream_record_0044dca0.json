@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "name": "platform_select_stream_record_0044dca0",
+  "source": "src/game/platform_select_stream_record_0044dca0.cpp",
+  "driver": "layout/ltcg/platform_select_stream_record_0044dca0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Exact native-LTCG recovery of stream-record selection with the retail ESI state, ECX record, and kernel import ABI.",
+  "functions": [{
+    "name": "PlatformStreamState_0044DCA0_Select",
+    "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
+    "section": ".text$01select",
+    "address": "0x0044DCA0",
+    "size": 78,
+    "actual_abi": "state in ESI; record in ECX; HRESULT in EAX; plain RET"
+  }],
+  "context": {
+    "symbol": "?PlatformSelectStreamRecord0044DCA0CompilerContext@@YGHPAPAUPlatformStreamState_0044DCA0@@PAPAUPlatformStreamRecord_0044DCA0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0044E000",
+    "size": 69,
+    "description": "Synthetic pointer-array caller used only to establish the internal ESI/ECX allocation."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 314528},
+    {"section": ".text$02layout", "address": "0x0044DCEE", "size": 786},
+    {"section": ".text$04layout", "address": "0x0044E045", "size": 1}
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {"symbol": "_data_004977a4", "address": "0x004977A4", "kind": "data"},
+    {"symbol": "__imp__SetFilePointer@16", "address": "0x004660C8", "kind": "data"}
+  ]
+}

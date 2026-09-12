@@ -327,8 +327,14 @@ def main():
     for source in args.source:
         regions_by_source.setdefault(source, owned_regions(config, source))
     clusters = load_clusters(project, config, config["regions"])
-    cluster_by_source = {cluster["source"]: cluster for cluster in clusters}
-    units = sorted(set(config["translation_units"]) | set(args.source))
+    cluster_by_source = {
+        source: cluster for cluster in clusters for source in cluster["source_names"]
+    }
+    cluster_additional_sources = {
+        source for cluster in clusters for source in cluster["additional_sources"]
+    }
+    units = sorted((set(config["translation_units"]) - cluster_additional_sources)
+                   | set(args.source))
     report = {"units": {}, "failures": [], "regions": [], "resolved": []}
     for index, source in enumerate(units):
         if source not in args.source:

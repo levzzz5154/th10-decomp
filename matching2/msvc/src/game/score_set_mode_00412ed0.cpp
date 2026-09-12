@@ -1,27 +1,22 @@
-#include <string.h>
-
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
-
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
-
 // 0x00412ED0..0x00412EDF: Score_SetMode
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Score_SetMode_00412ed0() {
-    __asm {
-    L_00412ed0:
-        cmp dword ptr [eax+44h],ecx
-    L_00412ed3:
-        mov dword ptr [eax+44h],ecx
-    L_00412ed6:
-        je short L_00412edf
-    L_00412ed8:
-        mov dword ptr [eax+4Ch],0
-    L_00412edf:
-        ret
-    }
+// The score object keeps the selected mode and a cached mode-dependent result
+// in adjacent words.  The cache is invalidated only when the selection
+// changes.
+// The native-LTCG caller establishes the retail internal convention: state
+// arrives in EAX and new_mode arrives in ECX.
+struct ScoreModeState {
+    unsigned char reserved_000[0x44];
+    int mode;
+    unsigned char reserved_048[4];
+    int cached_result;
+};
+typedef char ScoreModeState_size_must_fit[
+    sizeof(ScoreModeState) == 0x50 ? 1 : -1];
+
+#pragma code_seg(".text$01score_mode")
+__declspec(noinline) void Score_SetMode(ScoreModeState* state, int new_mode) {
+    if (state->mode != new_mode)
+        state->cached_result = 0;
+    state->mode = new_mode;
 }
+#pragma code_seg()

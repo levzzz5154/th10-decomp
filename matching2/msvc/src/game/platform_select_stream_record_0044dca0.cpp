@@ -1,69 +1,41 @@
-#include <string.h>
+extern "C" unsigned int data_004977a4;
+extern "C" __declspec(dllimport) unsigned int __stdcall SetFilePointer(
+        void*, int, int*, unsigned int);
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct PlatformStreamRecord_0044DCA0 {
+    unsigned char unknown_000[0x10];
+    unsigned int offset_010;
+    unsigned char unknown_014[0x08];
+    unsigned int length_01c;
+};
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+struct PlatformStreamState_0044DCA0 {
+    unsigned char unknown_000[8];
+    volatile unsigned int position_008;
+    unsigned char unknown_00c[0x20];
+    unsigned int cursor_02c;
+    unsigned char unknown_030[0x4c];
+    unsigned int memory_mode_07c;
+    unsigned char unknown_080[0x0c];
+    void* handle_08c;
+    PlatformStreamRecord_0044DCA0* record_090;
 
-// 0x0044DCA0..0x0044DCED: ?Platform_SelectStreamRecord@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_SelectStreamRecord_0044dca0() {
-    __asm {
-    L_0044dca0:
-        mov eax,dword ptr [esi+7Ch]
-    L_0044dca3:
-        test eax,eax
-    L_0044dca5:
-        jne short L_0044dcb2
-    L_0044dca7:
-        mov eax,dword ptr [esi+8Ch]
-    L_0044dcad:
-        cmp eax,0FFFFFFFFh
-    L_0044dcb0:
-        jne short L_0044dcb8
-    L_0044dcb2:
-        mov eax,80004005h
-    L_0044dcb7:
-        ret
-    L_0044dcb8:
-        test eax,eax
-    L_0044dcba:
-        mov dword ptr [esi+90h],ecx
-    L_0044dcc0:
-        je short L_0044dce5
-    L_0044dcc2:
-        mov ecx,dword ptr [ecx+10h]
-    L_0044dcc5:
-        mov edx,dword ptr [data_004977a4]
-    L_0044dccb:
-        push 0
-    L_0044dccd:
-        push 0
-    L_0044dccf:
-        add ecx,edx
-    L_0044dcd1:
-        push ecx
-    L_0044dcd2:
-        push eax
-    L_0044dcd3:
-        call dword ptr [data_004660c8]
-    L_0044dcd9:
-        mov edx,dword ptr [esi+90h]
-    L_0044dcdf:
-        mov eax,dword ptr [edx+1Ch]
-    L_0044dce2:
-        mov dword ptr [esi+8],eax
-    L_0044dce5:
-        mov ecx,dword ptr [esi+8]
-    L_0044dce8:
-        mov dword ptr [esi+2Ch],ecx
-    L_0044dceb:
-        xor eax,eax
-    L_0044dced:
-        ret
+    __declspec(noinline) int Select(PlatformStreamRecord_0044DCA0* record);
+};
+
+#pragma code_seg(".text$01select")
+__declspec(noinline) int PlatformStreamState_0044DCA0::Select(
+        PlatformStreamRecord_0044DCA0* record) {
+    if (memory_mode_07c != 0) return (int)0x80004005u;
+    void* handle = handle_08c;
+    if (handle == (void*)-1) return (int)0x80004005u;
+    record_090 = record;
+    if (handle != 0) {
+        SetFilePointer(handle, (int)(data_004977a4 + record->offset_010),
+                       0, 0);
+        position_008 = record_090->length_01c;
     }
+    cursor_02c = position_008;
+    return 0;
 }
+#pragma code_seg()

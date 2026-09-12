@@ -170,10 +170,13 @@ def main():
     reference = json.loads((project / 'pe_layout.json').read_text())['reference']
     regions, units = validate_project(config, reference)
     clusters = load_clusters(project, config, regions)
-    cluster_by_source = {cluster['source']: cluster for cluster in clusters}
+    cluster_by_source = {source: cluster for cluster in clusters for source in cluster['source_names']}
+    cluster_additional_sources = {
+        source for cluster in clusters for source in cluster['additional_sources']
+    }
     dos_regions = config['dos_regions']
     dos_units = sorted({region['source'] for region in dos_regions})
-    units = sorted(set(units + dos_units))
+    units = sorted((set(units + dos_units) - cluster_additional_sources))
     oracle = args.verify.read_bytes() if args.verify else None
     if oracle is not None and sha(oracle) != reference['executable_sha256']:
         raise ValueError('verification executable does not match the supported reference')

@@ -1,0 +1,10 @@
+// Compiler context only; never selected as recovered game code.
+#include "../../src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp"
+
+#pragma code_seg(".text$03context")
+int __stdcall BulletEntityMarkAnimationForRemovalCompilerContext(
+        AnimationManager* manager, BulletEntity_0040cea0* entity) {
+    entity->MarkAnimationForRemoval(manager);
+    return 0;
+}
+#pragma code_seg()

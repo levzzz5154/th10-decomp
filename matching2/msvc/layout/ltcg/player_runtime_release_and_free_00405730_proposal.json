@@ -1,0 +1,13 @@
+{
+  "regions": [
+    {
+      "name": "semantic_PlayerRuntime_ReleaseAndFree_00405730",
+      "source": "src/unidentified/FUN_00405730_00405730.cpp",
+      "symbol": "?FUN_00405730_ReleasePair@@YGXPAX@Z",
+      "address": "0x00405730",
+      "size": 18,
+      "kind": "semantic",
+      "owner": "0x00405730"
+    }
+  ]
+}

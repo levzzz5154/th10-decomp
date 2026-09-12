@@ -164,33 +164,3 @@ extern "C" __declspec(naked) void __cdecl asm_EffectIndicatorPool_AllocateRetail
         ret 14h
     }
 }
-
-// 0x00427D80..0x00427D94: CellPair_Scale
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_CellPair_Scale_00427d80() {
-    __asm {
-    L_00427d80:
-        push esi
-    L_00427d81:
-        mov esi,ecx
-    L_00427d83:
-        mov ecx,dword ptr [esi+4]
-    L_00427d86:
-        mov esi,dword ptr [esi]
-    L_00427d88:
-        imul ecx,edx
-    L_00427d8b:
-        imul esi,edx
-    L_00427d8e:
-        mov dword ptr [eax],esi
-    L_00427d90:
-        mov dword ptr [eax+4],ecx
-    L_00427d93:
-        pop esi
-    L_00427d94:
-        ret
-    }
-}
-
-
-

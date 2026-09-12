@@ -1,33 +1,27 @@
-#include <string.h>
+// 0x004297B0..0x004297C1: destroy a platform resource after releasing the
+// resources it owns. Retail passes the resource pointer in ESI:
+//
+//   test esi,esi / je done
+//   push esi / call Platform_ReleaseResources (0x004294A0, __stdcall)
+//   push esi / call operator delete (0x004524A1, __cdecl)
+//   pop ecx / done: ret
+//
+// The native-LTCG cluster gives this ordinary C++ function the same internal
+// register convention. Its synthetic caller keeps the pointer live across
+// both calls, which is what makes MSVC choose ESI.
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct PlatformResource;
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+extern "C" __stdcall void Platform_ReleaseResources(PlatformResource* resource);
+void __cdecl operator delete(void* memory);
 
-// 0x004297B0..0x004297C1: ?Platform_DeletingDestructorWithRelease@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Platform_DeletingDestructorWithRelease_004297b0() {
-    __asm {
-    L_004297b0:
-        test esi,esi
-    L_004297b2:
-        je short L_004297c1
-    L_004297b4:
-        push esi
-    L_004297b5:
-        call asm_FUN_004294a0_004294a0
-    L_004297ba:
-        push esi
-    L_004297bb:
-        call asm_free_004524a1
-    L_004297c0:
-        pop ecx
-    L_004297c1:
-        ret
+__declspec(noinline) void PlatformResource_Destroy(PlatformResource* resource);
+
+#pragma code_seg(".text$01destroy")
+void PlatformResource_Destroy(PlatformResource* resource) {
+    if (resource) {
+        Platform_ReleaseResources(resource);
+        operator delete(resource);
     }
 }
+#pragma code_seg()

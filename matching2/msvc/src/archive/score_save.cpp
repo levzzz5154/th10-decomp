@@ -1,6 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+#ifndef TH10_LZSS_INSERT_CLUSTER
+
 // 0x0041A200..0x0041AAC6: FUN_0041a200
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
@@ -1489,7 +1491,65 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
         jmp asm_target_0041a775
     }
 }
+#endif
 
+struct LzssMatchNode_00436000 { int parent, left, right; };
+extern "C" LzssMatchNode_00436000 data_00477858[];
+extern "C" unsigned char data_0048f868[];
+
+#pragma code_seg(".text$03insert")
+extern "C" __declspec(noinline) int __fastcall Lzss_InsertString_00436000(
+        int, int position, int* best_position) {
+    if (!position) return 0;
+    int best = 0;
+    int node = *reinterpret_cast<int*>(&data_0048f860);
+    for (;;) {
+        int compare = 0, length = 0;
+        do {
+#define COMPARE_BYTE(step) \
+            compare = (int)data_0048f868[(position + length + step) & 0x1fff] - \
+                      (int)data_0048f868[(node + length + step) & 0x1fff]
+            COMPARE_BYTE(0); if (compare) break;
+            COMPARE_BYTE(1); if (compare) { ++length; break; }
+            COMPARE_BYTE(2); if (compare) { length += 2; break; }
+            COMPARE_BYTE(3); if (compare) { length += 3; break; }
+            COMPARE_BYTE(4); if (compare) { length += 4; break; }
+            COMPARE_BYTE(5); if (compare) { length += 5; break; }
+#undef COMPARE_BYTE
+            length += 6;
+        } while (length < 0x12);
+        if (length >= best) {
+            best = length;
+            *best_position = node;
+            if (length >= 0x12) {
+                int parent = data_00477858[node].parent;
+                if (data_00477858[parent].left == node)
+                    data_00477858[parent].left = position;
+                else
+                    data_00477858[parent].right = position;
+                data_00477858[position] = data_00477858[node];
+                data_00477858[data_00477858[position].left].parent = position;
+                data_00477858[data_00477858[position].right].parent = position;
+                data_00477858[node].parent = 0;
+                return length;
+            }
+        }
+        int* child;
+        if (compare >= 0) child = &data_00477858[node].right;
+        else child = &data_00477858[node].left;
+        if (!*child) {
+            *child = position;
+            data_00477858[position].parent = node;
+            data_00477858[position].right = 0;
+            data_00477858[position].left = 0;
+            return best;
+        }
+        node = *child;
+    }
+}
+#pragma code_seg()
+
+#ifndef TH10_LZSS_INSERT_CLUSTER
 
 // 0x004359B0..0x00435B2C: FUN_004359b0
 // Naked body preserves the retail register/stack ABI.
@@ -2125,288 +2185,4 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004359b0_004359b0() {
         ret 0Ch
     }
 }
-
-// 0x00436000..0x0043601C: FUN_00436000
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00436000_00436000() {
-    __asm {
-    L_00436000:
-        test edx,edx
-    L_00436002:
-        jne short L_00436009
-    L_00436004:
-        xor eax,eax
-    L_00436006:
-        ret 4
-    L_00436009:
-        push ebx
-    L_0043600a:
-        push esi
-    L_0043600b:
-        mov esi,dword ptr [data_0048f860]
-    L_00436011:
-        push ebp
-    L_00436012:
-        xor ebx,ebx
-    L_00436014:
-        push edi
-    L_00436015:
-        mov edi,esi
-    L_00436017:
-        xor eax,eax
-    L_00436019:
-        sub edi,edx
-    L_0043601b:
-        TH10_REL8(0xeb, 0x0043601b, VA_asm_FUN_00436000_part_00436020)
-        _emit 0x8d
-        _emit 0x49
-        _emit 0x00
-
-    L_00436020:
-        lea ecx,[eax+edx]
-    L_00436023:
-        lea ebp,[edi+ecx]
-    L_00436026:
-        and ebp,1FFFh
-    L_0043602c:
-        movzx ebp,byte ptr [ebp+48F868h]
-    L_00436033:
-        and ecx,1FFFh
-    L_00436039:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_00436040:
-        sub ecx,ebp
-    L_00436042:
-        jne asm_target_00436131
-    L_00436048:
-        lea ecx,[eax+esi+1]
-    L_0043604c:
-        and ecx,1FFFh
-    L_00436052:
-        movzx ebp,byte ptr [ecx+48F868h]
-    L_00436059:
-        lea ecx,[eax+edx+1]
-    L_0043605d:
-        and ecx,1FFFh
-    L_00436063:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_0043606a:
-        sub ecx,ebp
-    L_0043606c:
-        jne asm_target_0043611c
-    L_00436072:
-        lea ecx,[eax+esi+2]
-    L_00436076:
-        and ecx,1FFFh
-    L_0043607c:
-        movzx ebp,byte ptr [ecx+48F868h]
-    L_00436083:
-        lea ecx,[eax+edx+2]
-    L_00436087:
-        and ecx,1FFFh
-    L_0043608d:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_00436094:
-        sub ecx,ebp
-    L_00436096:
-        jne asm_target_0043611f
-    L_0043609c:
-        lea ecx,[eax+esi+3]
-    L_004360a0:
-        and ecx,1FFFh
-    L_004360a6:
-        movzx ebp,byte ptr [ecx+48F868h]
-    L_004360ad:
-        lea ecx,[eax+edx+3]
-    L_004360b1:
-        and ecx,1FFFh
-    L_004360b7:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_004360be:
-        sub ecx,ebp
-    L_004360c0:
-        jne short L_00436124
-    L_004360c2:
-        lea ecx,[eax+esi+4]
-    L_004360c6:
-        and ecx,1FFFh
-    L_004360cc:
-        movzx ebp,byte ptr [ecx+48F868h]
-    L_004360d3:
-        lea ecx,[eax+edx+4]
-    L_004360d7:
-        and ecx,1FFFh
-    L_004360dd:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_004360e4:
-        sub ecx,ebp
-    L_004360e6:
-        jne short L_00436129
-    L_004360e8:
-        lea ecx,[eax+esi+5]
-    L_004360ec:
-        and ecx,1FFFh
-    L_004360f2:
-        movzx ebp,byte ptr [ecx+48F868h]
-    L_004360f9:
-        lea ecx,[eax+edx+5]
-    L_004360fd:
-        and ecx,1FFFh
-    L_00436103:
-        movzx ecx,byte ptr [ecx+48F868h]
-    L_0043610a:
-        sub ecx,ebp
-    L_0043610c:
-        jne short L_0043612e
-    L_0043610e:
-        add eax,6
-    L_00436111:
-        cmp eax,12h
-    L_00436114:
-        jl asm_FUN_00436000_part_00436020
-    L_0043611a:
-        jmp short L_00436131
-    L_0043611c:
-        inc eax
-    L_0043611d:
-        jmp short L_00436131
-    L_0043611f:
-        add eax,2
-    L_00436122:
-        jmp short L_00436131
-    L_00436124:
-        add eax,3
-    L_00436127:
-        jmp short L_00436131
-    L_00436129:
-        add eax,4
-    L_0043612c:
-        jmp short L_00436131
-    L_0043612e:
-        add eax,5
-    L_00436131:
-        cmp eax,ebx
-    L_00436133:
-        jl short L_00436142
-    L_00436135:
-        cmp eax,12h
-    L_00436138:
-        mov edi,dword ptr [esp+14h]
-    L_0043613c:
-        mov ebx,eax
-    L_0043613e:
-        mov dword ptr [edi],esi
-    L_00436140:
-        jge short L_00436166
-    L_00436142:
-        test ecx,ecx
-    L_00436144:
-        lea eax,[esi+esi*2]
-    L_00436147:
-        jl short L_00436152
-    L_00436149:
-        lea eax,[eax*4+477860h]
-    L_00436150:
-        jmp short L_00436159
-    L_00436152:
-        lea eax,[eax*4+47785Ch]
-    L_00436159:
-        mov ecx,dword ptr [eax]
-    L_0043615b:
-        test ecx,ecx
-    L_0043615d:
-        je short L_004361d9
-    L_0043615f:
-        mov esi,ecx
-    L_00436161:
-        jmp asm_target_00436015
-    L_00436166:
-        lea ecx,[esi+esi*2]
-    L_00436169:
-        lea edi,[ecx*4+477858h]
-    L_00436170:
-        mov ecx,dword ptr [edi]
-    L_00436172:
-        lea ecx,[ecx+ecx*2]
-    L_00436175:
-        shl ecx,2
-    L_00436178:
-        cmp dword ptr [ecx+47785Ch],esi
-    L_0043617e:
-        jne short L_00436188
-    L_00436180:
-        mov dword ptr [ecx+47785Ch],edx
-    L_00436186:
-        jmp short L_0043618e
-    L_00436188:
-        mov dword ptr [ecx+477860h],edx
-    L_0043618e:
-        lea ecx,[edx+edx*2]
-    L_00436191:
-        shl ecx,2
-    L_00436194:
-        lea esi,[ecx+477858h]
-    L_0043619a:
-        mov ebx,edi
-    L_0043619c:
-        mov ebp,dword ptr [ebx]
-    L_0043619e:
-        mov dword ptr [esi],ebp
-    L_004361a0:
-        mov ebp,dword ptr [ebx+4]
-    L_004361a3:
-        mov dword ptr [esi+4],ebp
-    L_004361a6:
-        mov ebx,dword ptr [ebx+8]
-    L_004361a9:
-        mov dword ptr [esi+8],ebx
-    L_004361ac:
-        mov esi,dword ptr [ecx+47785Ch]
-    L_004361b2:
-        lea esi,[esi+esi*2]
-    L_004361b5:
-        mov dword ptr [esi*4+477858h],edx
-    L_004361bc:
-        mov ecx,dword ptr [ecx+477860h]
-    L_004361c2:
-        lea ecx,[ecx+ecx*2]
-    L_004361c5:
-        mov dword ptr [ecx*4+477858h],edx
-    L_004361cc:
-        mov dword ptr [edi],0
-    L_004361d2:
-        pop edi
-    L_004361d3:
-        pop ebp
-    L_004361d4:
-        pop esi
-    L_004361d5:
-        pop ebx
-    L_004361d6:
-        ret 4
-    L_004361d9:
-        mov dword ptr [eax],edx
-    L_004361db:
-        pop edi
-    L_004361dc:
-        lea eax,[edx+edx*2]
-    L_004361df:
-        shl eax,2
-    L_004361e2:
-        pop ebp
-    L_004361e3:
-        mov dword ptr [eax+477858h],esi
-    L_004361e9:
-        mov dword ptr [eax+477860h],0
-    L_004361f3:
-        mov dword ptr [eax+47785Ch],0
-    L_004361fd:
-        pop esi
-    L_004361fe:
-        mov eax,ebx
-    L_00436200:
-        pop ebx
-    L_00436201:
-        ret 4
-    }
-}
+#endif

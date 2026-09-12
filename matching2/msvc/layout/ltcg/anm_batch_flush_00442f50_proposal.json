@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_AnimationManager_FlushQuadBatch_00442f50",
+      "source": "src/render/anm_batch_flush.cpp",
+      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "address": "0x00442F50",
+      "size": 133,
+      "kind": "semantic",
+      "owner": "0x00442F50"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 133,
+    "different_bytes": 0,
+    "sha256": "a97acc3906f5866a83e0d11c2a842827d2da474b31fbccd35e0597d1fca55ad9"
+  }
+}

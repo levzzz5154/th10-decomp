@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_Platform_AggregateInterfaces_0044d550",
+      "source": "src/game/platform_aggregate_interfaces_0044d550.cpp",
+      "symbol": "?Aggregate@PlatformInterfaceState_0044D550@@QAEHXZ",
+      "address": "0x0044D550",
+      "size": 82,
+      "kind": "semantic",
+      "owner": "0x0044D550"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 82,
+    "different_bytes": 0,
+    "sha256": "853cb006d29a81a47e74cdf8a3cdbd9dc68b5f82d25d7499887db1b7edf7a371"
+  }
+}

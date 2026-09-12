@@ -1,51 +1,33 @@
-#include <string.h>
+extern "C" float data_00476f78;
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct PathState_00417800 {
+    unsigned char unknown_00[0x40];
+    int reset_value_40;
+    int reset_value_44;
+    int reset_value_48;
+    float* default_time_scale_4c;
+    unsigned int flags_50;
+    unsigned char unknown_54[4];
+    int reset_value_58;
+    int reset_value_5c;
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+    __declspec(noinline) int Reset();
+};
 
-// 0x00417800..0x00417839: PathState_Reset
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_PathState_Reset_00417800() {
-    __asm {
-    L_00417800:
-        mov ecx,dword ptr [eax+50h]
-    L_00417803:
-        xor edx,edx
-    L_00417805:
-        test cl,1
-    L_00417808:
-        jne short L_00417824
-    L_0041780a:
-        or ecx,1
-    L_0041780d:
-        mov dword ptr [eax+44h],edx
-    L_00417810:
-        mov dword ptr [eax+40h],0FFF0BDC1h
-    L_00417817:
-        mov dword ptr [eax+48h],edx
-    L_0041781a:
-        mov dword ptr [eax+4Ch],476F78h
-    L_00417821:
-        mov dword ptr [eax+50h],ecx
-    L_00417824:
-        mov dword ptr [eax+44h],edx
-    L_00417827:
-        mov dword ptr [eax+48h],edx
-    L_0041782a:
-        mov dword ptr [eax+40h],0FFFFFFFFh
-    L_00417831:
-        mov dword ptr [eax+58h],edx
-    L_00417834:
-        mov dword ptr [eax+5Ch],edx
-    L_00417837:
-        xor eax,eax
-    L_00417839:
-        ret
+#pragma code_seg(".text$01path")
+int PathState_00417800::Reset() {
+    if ((this->flags_50 & 1) == 0) {
+        this->reset_value_44 = 0;
+        this->reset_value_40 = -999999;
+        this->reset_value_48 = 0;
+        this->default_time_scale_4c = &data_00476f78;
+        this->flags_50 |= 1;
     }
+    this->reset_value_44 = 0;
+    this->reset_value_48 = 0;
+    this->reset_value_40 = -1;
+    this->reset_value_58 = 0;
+    this->reset_value_5c = 0;
+    return 0;
 }
+#pragma code_seg()

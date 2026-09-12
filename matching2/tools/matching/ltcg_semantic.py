@@ -231,9 +231,11 @@ def parse_map(text: str) -> LinkMap:
         contribution = _CONTRIBUTION_RE.match(line)
         if contribution and visibility is None:
             segment, start, length = (int(contribution.group(index), 16) for index in (1, 2, 3))
-            # LINK can emit an empty .edata marker in the .rdata segment.
-            # It contributes no bytes and must not invent another PE section.
-            if segment == 0 or (length == 0 and contribution.group(5) != "DATA"):
+            # LINK can emit empty canonical section markers (for example
+            # ``.text CODE`` before non-empty ``.text$...`` contributions, or
+            # ``.edata DATA``).  They contribute no bytes; the non-empty
+            # contributions below still determine the backing PE section.
+            if segment == 0:
                 raise LTCGSemanticError(f"invalid MAP contribution on line {line_number}")
             contributions.append(
                 MapContribution(segment, start, length, contribution.group(4), contribution.group(5))

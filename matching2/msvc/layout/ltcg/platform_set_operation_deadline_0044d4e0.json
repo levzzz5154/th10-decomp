@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "name": "platform_set_operation_deadline_0044d4e0",
+  "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp",
+  "driver": "layout/ltcg/platform_set_operation_deadline_0044d4e0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Exact native-LTCG recovery of the x87 randomized interface deadline with retail constant placement and EAX owner ABI.",
+  "functions": [{
+    "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
+    "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+    "section": ".text$01deadline",
+    "address": "0x0044D4E0",
+    "size": 106,
+    "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4"
+  }],
+  "context": {
+    "symbol": "?PlatformSetOperationDeadline0044D4E0CompilerContext@@YGHPAUPlatformInterfaceState_0044D4E0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0044E000",
+    "size": 17,
+    "description": "Direct caller establishes the EAX owner and stack deadline argument."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 312544},
+    {"section": ".text$02layout", "address": "0x0044D54A", "size": 2742},
+    {"section": ".text$04layout", "address": "0x0044E011", "size": 135152},
+    {"section": ".rdata", "address": "0x00470000", "size": 2812}
+  ],
+  "constants": [
+    {"symbol": "__real@3f800000", "address": "0x00470AFC", "value": 1.0},
+    {"symbol": "__real@3c23d70a", "address": "0x00470B00", "value": 0.01}
+  ],
+  "absolute_symbols": [
+    {"symbol": "_data_00497854", "address": "0x00497854", "kind": "data"},
+    {"symbol": "__ftol2", "address": "0x00463B2C", "kind": "relative_code"},
+    {"symbol": "__fltused", "address": "0x00000000", "kind": "metadata"}
+  ]
+}

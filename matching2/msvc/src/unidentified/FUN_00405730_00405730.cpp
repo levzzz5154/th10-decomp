@@ -14,11 +14,15 @@
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
+static __forceinline void PlayerRuntime_ReleaseAndFree(void* runtime) {
+    if (runtime) {
+        asm_Recovery_ReleaseRawPairAndReset_00405620(runtime);
+        entry_free_004524a1(runtime);
+    }
+}
+
 #pragma code_seg(".text$01release")
 __declspec(noinline) void FUN_00405730_ReleasePair(void* pair) {
-    if (pair) {
-        asm_Recovery_ReleaseRawPairAndReset_00405620(pair);
-        entry_free_004524a1(pair);
-    }
+    PlayerRuntime_ReleaseAndFree(pair);
 }
 #pragma code_seg()

@@ -464,62 +464,39 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00449d40_00449d40() {
 }
 
 // 0x00449ED0..0x00449F19: ?SchedulerCallback_Create@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_SchedulerCallback_Create_00449ed0() {
-    __asm {
-    L_00449ed0:
-        push 24h
-    L_00449ed2:
-        call asm_operator_new_00452493
-    L_00449ed7:
-        xor ecx,ecx
-    L_00449ed9:
-        add esp,4
-    L_00449edc:
-        cmp eax,ecx
-    L_00449ede:
-        je short L_00449eff
-    L_00449ee0:
-        mov edx,dword ptr [eax+4]
-    L_00449ee3:
-        mov dword ptr [eax+8],ecx
-    L_00449ee6:
-        mov dword ptr [eax+0Ch],ecx
-    L_00449ee9:
-        mov dword ptr [eax+10h],ecx
-    L_00449eec:
-        mov dword ptr [eax],ecx
-    L_00449eee:
-        and edx,0FFFFFFFEh
-    L_00449ef1:
-        mov dword ptr [eax+4],edx
-    L_00449ef4:
-        mov dword ptr [eax+14h],eax
-    L_00449ef7:
-        mov dword ptr [eax+18h],ecx
-    L_00449efa:
-        mov dword ptr [eax+1Ch],ecx
-    L_00449efd:
-        jmp short L_00449f01
-    L_00449eff:
-        xor eax,eax
-    L_00449f01:
-        mov edx,dword ptr [esp+4]
-    L_00449f05:
-        mov dword ptr [eax+0Ch],ecx
-    L_00449f08:
-        mov dword ptr [eax+10h],ecx
-    L_00449f0b:
-        mov ecx,dword ptr [eax+4]
-    L_00449f0e:
-        or ecx,1
-    L_00449f11:
-        mov dword ptr [eax+8],edx
-    L_00449f14:
-        mov dword ptr [eax+4],ecx
-    L_00449f17:
-        ret 4
+// The retail allocator is the project's recovered global operator new.
+void* __cdecl operator new(unsigned int size);
+
+extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(
+    int callback) {
+    int* result;
+    int final_flags;
+    result = (int*)
+        ::operator new(0x24);
+    if (result) {
+        __asm {
+            mov edx, dword ptr [eax+4]
+        }
+        *(volatile int*)&result[2] = 0;
+        *(volatile int*)&result[3] = 0;
+        *(volatile int*)&result[4] = 0;
+        *(volatile int*)&result[0] = 0;
+        __asm {
+            and edx, 0FFFFFFFEh
+            mov dword ptr [eax+4], edx
+        }
+        result[5] = (int)result;
+        result[6] = 0;
+        result[7] = 0;
+    } else {
+        result = 0;
     }
+    result[3] = 0;
+    result[4] = 0;
+    final_flags = *(volatile int*)&result[1] | 1;
+    result[2] = callback;
+    result[1] = final_flags;
+    return result;
 }
 
 // 0x0044A000..0x0044A02A: ?Scheduler_CreateAndRegister@@

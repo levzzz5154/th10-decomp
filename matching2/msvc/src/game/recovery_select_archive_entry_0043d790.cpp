@@ -1,57 +1,55 @@
-#include <string.h>
+// 0x0043D790 - Resolve a 0x34-byte archive record and select its stream.
+struct PlatformStreamRecord_0044DCA0 {
+    unsigned char unknown_000[0x10];
+    unsigned int offset_010;
+    unsigned char unknown_014[0x08];
+    unsigned int length_01c;
+};
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct PlatformStreamState_0044DCA0 {
+    unsigned char unknown_000[8];
+    volatile unsigned int position_008;
+    unsigned char unknown_00c[0x20];
+    unsigned int cursor_02c;
+    unsigned char unknown_030[0x4c];
+    unsigned int memory_mode_07c;
+    unsigned char unknown_080[0x0c];
+    void* handle_08c;
+    PlatformStreamRecord_0044DCA0* record_090;
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+    __declspec(noinline) int Select(PlatformStreamRecord_0044DCA0* record);
+};
 
-// 0x0043D790..0x0043D7C6: ?Recovery_SelectArchiveEntry@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_SelectArchiveEntry_0043d790() {
-    __asm {
-    L_0043d790:
-        push esi
-    L_0043d791:
-        mov esi,eax
-    L_0043d793:
-        mov eax,dword ptr [esi+5208h]
-    L_0043d799:
-        test eax,eax
-    L_0043d79b:
-        jne short L_0043d7a2
-    L_0043d79d:
-        or eax,0FFFFFFFFh
-    L_0043d7a0:
-        pop esi
-    L_0043d7a1:
-        ret
-    L_0043d7a2:
-        push esi
-    L_0043d7a3:
-        call asm_Path_FindBasenameSlot_0043d2a0
-    L_0043d7a8:
-        mov ecx,eax
-    L_0043d7aa:
-        mov eax,dword ptr [esi+1F84h]
-    L_0043d7b0:
-        imul ecx,34h
-    L_0043d7b3:
-        add ecx,eax
-    L_0043d7b5:
-        mov eax,dword ptr [esi+5208h]
-    L_0043d7bb:
-        mov esi,dword ptr [eax+0Ch]
-    L_0043d7be:
-        call asm_Platform_SelectStreamRecord_0044dca0
-    L_0043d7c3:
-        xor eax,eax
-    L_0043d7c5:
-        pop esi
-    L_0043d7c6:
-        ret
-    }
+struct PlatformD790StreamOwner {
+    unsigned char unknown_000[0x0c];
+    PlatformStreamState_0044DCA0* stream_00c;
+};
+
+struct PlatformD790ArchiveOwner {
+    unsigned char unknown_000[0x1f84];
+    PlatformStreamRecord_0044DCA0* records_1f84;
+    unsigned char unknown_1f88[0x3280];
+    PlatformD790StreamOwner* stream_owner_5208;
+};
+
+struct PathName_0043d2a0 {
+    char text[1];
+    int FindBasenameSlot_0043d2a0(void* owner);
+    __declspec(noinline) int SelectArchiveEntry(
+        PlatformD790ArchiveOwner* owner);
+};
+
+#pragma code_seg(".text$01archive")
+__declspec(noinline) int PathName_0043d2a0::SelectArchiveEntry(
+        PlatformD790ArchiveOwner* owner) {
+    if (owner->stream_owner_5208 == 0)
+        return -1;
+    int index = FindBasenameSlot_0043d2a0(owner);
+    PlatformStreamRecord_0044DCA0* record =
+        reinterpret_cast<PlatformStreamRecord_0044DCA0*>(
+            reinterpret_cast<unsigned char*>(owner->records_1f84)
+            + index * 0x34);
+    owner->stream_owner_5208->stream_00c->Select(record);
+    return 0;
 }
+#pragma code_seg()
