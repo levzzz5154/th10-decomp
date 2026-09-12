@@ -30416,13 +30416,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Platform_DestroyWorker_0044c100",
+      "name": "PlatformWorker_Destroy",
       "source": "src/platform/platform_destroy_worker_0044c100.cpp",
-      "symbol": "_asm_Platform_DestroyWorker_0044c100",
+      "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
       "address": "0x0044C100",
       "size": 36,
-      "kind": "asm",
-      "owner": "0x0044C100"
+      "kind": "semantic",
+      "owner": "0x0044C100",
+      "previous_record": {
+        "name": "asm_Platform_DestroyWorker_0044c100",
+        "source": "src/platform/platform_destroy_worker_0044c100.cpp",
+        "symbol": "_asm_Platform_DestroyWorker_0044c100",
+        "address": "0x0044C100",
+        "size": 36,
+        "kind": "asm",
+        "owner": "0x0044C100"
+      }
     },
     {
       "name": "text_padding_0044c124",
@@ -44678,6 +44687,7 @@
     "@asm_File_OpenSharedRead_0044b6b0@4": "0x0044B6B0",
     "_asm_FUN_0044c000_0044c000@4": "0x0044C000",
     "@asm_FUN_0044c000_0044c000@4": "0x0044C000",
+    "_asm_Platform_DestroyWorker_0044c100": "0x0044C100",
     "_asm_Platform_DestroyWorker_0044c100@4": "0x0044C100",
     "@asm_Platform_DestroyWorker_0044c100@4": "0x0044C100",
     "_asm_FUN_0044c1c0_0044c1c0@4": "0x0044C1C0",

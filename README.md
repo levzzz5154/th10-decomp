@@ -36,9 +36,10 @@ resolves to the address retail points it at. A converted function replaces its
 
 Caller/callee pairs with private LTCG register conventions can now be recovered
 together. A schema-2 LTCG manifest compiles each real source with `/GL`, links
-them in one native `/LTCG` scope, checks the internal calls, and selects every
-complete function without rewriting bytes. The worker shutdown pair is the
-first example; probing either source checks both functions. See the
+them in one native `/LTCG` scope, retains explicitly rooted callers, checks the
+internal calls, and selects every complete function without rewriting bytes.
+The worker shutdown cluster is the first example; probing any member checks
+the whole batch. See the
 [whole-program LTCG experiment and pipeline](matching2/reference/whole_program_ltcg.md).
 
 ```sh

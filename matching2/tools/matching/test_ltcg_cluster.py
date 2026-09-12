@@ -112,6 +112,17 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         self.assertEqual(loaded["source_names"], ["src/primary.cpp"])
         self.assertEqual(loaded["functions"][0]["_source"], "src/primary.cpp")
 
+    def test_roots_are_schema_two_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            self._write_manifest(project, multi_source=False)
+            path = project / "layout" / "ltcg" / "source_ownership_test.json"
+            manifest = json.loads(path.read_text())
+            manifest["roots"] = [manifest["functions"][0]["symbol"]]
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(LTCGClusterError, "unknown fields"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", [])
+
     def _whole_program(self, project, change=None):
         regions = self._write_manifest(project, multi_source=True)
         path = project / 'layout/ltcg/source_ownership_test.json'
@@ -149,6 +160,25 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(LTCGClusterError, 'selected real function'):
                 self._whole_program(Path(directory), lambda m: m.update(entry='_synthetic'))
+
+    def test_whole_program_roots_are_selected_and_distinct(self):
+        with tempfile.TemporaryDirectory() as directory:
+            loaded = self._whole_program(
+                Path(directory),
+                lambda m: m.update(roots=[m['functions'][1]['symbol']]),
+            )
+        self.assertEqual(loaded['roots'], ['?Secondary@@YAHXZ'])
+
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(LTCGClusterError, 'selected real function'):
+                self._whole_program(Path(directory), lambda m: m.update(roots=['_external']))
+
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(LTCGClusterError, 'distinct'):
+                self._whole_program(
+                    Path(directory),
+                    lambda m: m.update(roots=[m['functions'][1]['symbol']] * 2),
+                )
 
     def test_callee_cannot_be_omitted_from_recovery(self):
         with tempfile.TemporaryDirectory() as directory:

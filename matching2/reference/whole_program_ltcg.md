@@ -1,9 +1,10 @@
 # Whole-program LTCG recovery: measured pipeline
 
-2026-09-13. The worker shutdown caller at `0x0044C130` and callee at
-`0x0044C150` are now ordinary C++ and byte-exact together: 16 + 101 bytes.
-Both were assembly regions before this change. The complete 487,936-byte
-executable also passes its existing retail hash gate.
+2026-09-13. The worker shutdown callers at `0x0044C100` and `0x0044C130`,
+and their shared callee at `0x0044C150`, are now ordinary C++ and byte-exact
+together: 36 + 16 + 101 bytes. All three were assembly regions before this
+change. The complete 487,936-byte executable also passes its existing retail
+hash gate.
 
 ## What the experiment established
 
@@ -13,12 +14,12 @@ required for this cluster. The relevant boundary is the native optimization
 scope: both sides of the private call must be visible to the same `/LTCG`
 invocation, and the callee must remain eligible for ABI changes.
 
-The experiment uses the same two maintained C++ implementations in every
-case. Their declarations remain ordinary member functions. Both definitions
-use `__declspec(noinline)` to retain the functions being recovered. There are
-no register adapters, assembly bodies, instruction substitutions, or byte
-masks. The first source model produced the matching pair; the experiments
-change compiler visibility rather than tune individual function bodies.
+The baseline experiment uses two maintained C++ implementations. Their
+declarations remain ordinary member functions. Both definitions use
+`__declspec(noinline)` to retain the functions being recovered. There are no
+register adapters, assembly bodies, instruction substitutions, or byte masks.
+The source model produced the matching pair; the experiments change compiler
+visibility rather than tune individual function bodies.
 
 | Experiment | Caller bytes | Callee bytes | Callee receiver | Retail match |
 | --- | ---: | ---: | --- | --- |
@@ -34,6 +35,43 @@ change compiler visibility rather than tune individual function bodies.
 All five negative controls produce identical complete caller/callee bodies.
 All three positive cases produce identical complete bodies, including address
 operands. PE timestamps vary; selected function bytes do not.
+
+## A second caller and an explicit LTCG root
+
+Adding the `Destroy` caller at `0x0044C100` as a second direct C++ edge to
+`Stop` is byte-exact when the manifest entry is `StopNoDelete` and `Destroy`
+is the sole extra linker root. A control that roots every selected symbol
+(including the callee) instead makes LINK 7.1 select the public ECX
+convention, producing the 11-byte `StopNoDelete` and 105-byte callee
+variants. The retail image has two callers that both preserve `ESI` and a
+101-byte ESI-entry callee; the root set is therefore part of the reproducible
+whole-program context.
+
+Because `Destroy` is not reachable from the manifest entry, schema 2 now has
+an optional `roots` array. The native link emits `/INCLUDE:` only for those
+declared selected functions, retaining their complete contributions without
+rooting the shared callee or changing its compiler convention. The worker
+manifest declares `Destroy` as the sole extra root. Both caller-to-callee
+edges remain ordinary C++ calls and are validated as direct unmodified REL32
+targets.
+
+The resulting three-function batch is reproducible with separate `/GL`
+objects and one native `/LTCG` link. Measured body hashes are:
+
+```text
+0044C100 (36)  7aacd3b8f9e2b1ca7407614222181a02935ed64b41d28994d50206f19d84f255
+0044C130 (16)  905781906110b560dfa5e0c6d79302f154b35eb833e56d982786c5dbb5b25c74
+0044C150 (101) cfb40c11e58c6679c6865c790c8bf2a2f54b69a441729bcc0b4a1d3780df9
+```
+
+Other focused probes stayed out of the production inputs. At `0x004200D0`,
+the ordinary C++ caller kept the exact callee but emitted `xor`/register-zero
+stores instead of retail's two immediate absolute stores; size optimization
+switched the stores but changed the remaining arithmetic. At `0x00420D90`,
+the C++ virtual-dispatch model matched 32 of 33 bytes and tail-jumped where
+retail retains an unreachable trailing `ret`; disabling frame-pointer
+omission changed the prologue. These are source/optimization-layout clues,
+not accepted recoveries.
 
 With ordinary compilation, `StopNoDelete` stores the base vtable through ECX
 and tail-jumps to `Stop`, which saves ESI and copies ECX into it. With both
@@ -71,6 +109,8 @@ the unchanged schema-1 synthetic-context route. The worked manifest is
 
 1. `source` and `additional_sources` name all maintained inputs in the batch.
    Each is compiled separately with the existing retail flags plus `/GL`.
+   Optional schema-2 `roots` retain selected functions that are not reachable
+   from `entry`.
 2. `entry` names a selected real function. In this example it preserves the
    public ECX entry of `PlatformWorker::StopNoDelete`. No `driver` or synthetic
    `context` is permitted in schema 2.
@@ -116,6 +156,8 @@ python3 matching2/tools/matching/probe.py \
   --source src/platform/platform_stop_worker_no_delete_0044c130.cpp
 python3 matching2/tools/matching/probe.py \
   --source src/platform/platform_stop_worker_0044c150.cpp
+python3 matching2/tools/matching/probe.py \
+  --source src/platform/platform_destroy_worker_0044c100.cpp
 python3 -m unittest matching2.tools.matching.test_ltcg_cluster
 ```
 
@@ -136,8 +178,8 @@ Measured SHA-256 values:
 whole EXE     2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
 ```
 
-Recovery accounting changes from 429 regions / 22,150 bytes to 431 regions /
-22,267 bytes of ordinary C++; assembly falls to 2,154 regions / 366,715 bytes.
+Recovery accounting changes from 431 regions / 22,267 bytes to 432 regions /
+22,303 bytes of ordinary C++; assembly falls to 2,153 regions / 366,679 bytes.
 
 ## Consequence for further recovery
 

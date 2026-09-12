@@ -91,6 +91,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                 'functions', 'gaps', 'constants', 'absolute_symbols', 'description'}
     required |= {'driver', 'context'} if version == 1 else {'entry', 'calls'}
     allowed = required | {'additional_sources'}
+    if version == 2:
+        allowed.add('roots')
     spec = _fields(raw, allowed, required, 'cluster manifest')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
@@ -151,6 +153,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('cluster function address/extent/classification disagrees with region: ' + function['symbol'])
     context = None
     calls = []
+    roots = []
     if version == 1:
         context_keys = {'symbol', 'section', 'address', 'size', 'description'}
         context = _fields(spec['context'], context_keys, context_keys, 'compiler context')
@@ -169,6 +172,16 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         if entry_symbol not in by_symbol:
             raise LTCGClusterError('whole-program entry must be a selected real function')
         entry = by_symbol[entry_symbol]
+        raw_roots = spec.get('roots', [])
+        if not isinstance(raw_roots, list) or any(not isinstance(item, str) for item in raw_roots):
+            raise LTCGClusterError('whole-program roots must be an array of selected symbols')
+        for item in raw_roots:
+            root_symbol = _string(item, 'root symbol')
+            if root_symbol not in by_symbol:
+                raise LTCGClusterError('whole-program root must be a selected real function')
+            roots.append(root_symbol)
+        if len(set(roots)) != len(roots):
+            raise LTCGClusterError('whole-program roots must be distinct')
         if set(source_names) != {item['_source'] for item in functions}:
             raise LTCGClusterError('every whole-program source must own selected functions')
         if not isinstance(spec['calls'], list) or not spec['calls']:
@@ -251,6 +264,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             'header_paths': headers, 'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
+            'roots': roots,
             'regions': [dict(region) for region in owned]}
 
 
@@ -559,6 +573,12 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
                     '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['entry_symbol'],
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
                     *['/INCLUDE:' + gap['symbol'] for gap in spec['gaps']],
+                    # /ENTRY roots one selected function.  Schema-2 batches
+                    # may also contain independent externally reachable
+                    # functions; retain only the explicitly declared roots so
+                    # LINK does not discard their complete contributions.
+                    *(['/INCLUDE:' + symbol for symbol in spec.get('roots', [])]
+                      if spec['schema_version'] == 2 else []),
                     '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
                     *[winpath(work / name) for _, name in gl_inputs],
                     winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
@@ -573,6 +593,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     normalization = export_bodies(destination, functions)
     report = {'schema_version': spec['schema_version'], 'name': spec['name'], 'compiler_kind': 'native-ltcg',
               'source': spec['source'], 'sources': spec['source_names'],
+              'roots': spec.get('roots', []),
               'driver': spec.get('driver'), 'layout': str(spec['path']),
               'input_sha256': inputs, 'compiler_includes': includes, 'tool_sha256': tool_hashes,
               'compile_commands': compile_commands, 'link_command': link_command,

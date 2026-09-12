@@ -2,12 +2,25 @@
   "schema_version": 2,
   "name": "platform_worker_shutdown",
   "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-  "additional_sources": ["src/platform/platform_stop_worker_0044c150.cpp"],
+  "additional_sources": [
+    "src/platform/platform_destroy_worker_0044c100.cpp",
+    "src/platform/platform_stop_worker_0044c150.cpp"
+  ],
   "headers": ["include/th10/platform/worker.hpp"],
   "image_base": "0x00400000",
-  "description": "Whole-program worker shutdown: real ECX-entry caller and ESI-entry callee compiled from separate /GL translation units in one native /LTCG link. No synthetic compiler context.",
+  "description": "Whole-program worker shutdown: two real callers and one private-ABI callee compiled from separate /GL translation units in one native /LTCG link. An explicit linker root retains the second caller while native LTCG selects the shared ESI convention.",
   "entry": "?StopNoDelete@PlatformWorker@@QAEXXZ",
+  "roots": ["?Destroy@PlatformWorker@@QAEPAU1@I@Z"],
   "functions": [
+    {
+      "name": "PlatformWorker_Destroy",
+      "source": "src/platform/platform_destroy_worker_0044c100.cpp",
+      "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+      "section": ".text$05destroy",
+      "address": "0x0044C100",
+      "size": 36,
+      "actual_abi": "this in ECX; should_free at stack +4; saves and passes this in ESI to Stop; returns this; RET 4"
+    },
     {
       "name": "PlatformWorker_StopNoDelete",
       "symbol": "?StopNoDelete@PlatformWorker@@QAEXXZ",
@@ -28,6 +41,12 @@
   ],
   "calls": [
     {
+      "caller": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+      "callee": "?Stop@PlatformWorker@@QAEXXZ",
+      "address": "0x0044C109",
+      "instruction": "call"
+    },
+    {
       "caller": "?StopNoDelete@PlatformWorker@@QAEXXZ",
       "callee": "?Stop@PlatformWorker@@QAEXXZ",
       "address": "0x0044C139",
@@ -35,12 +54,14 @@
     }
   ],
   "gaps": [
-    {"section": ".text$00layout", "address": "0x00401000", "size": 307504},
+    {"section": ".text$00layout", "address": "0x00401000", "size": 307456},
+    {"section": ".text$07layout", "address": "0x0044C124", "size": 12},
     {"section": ".text$15layout", "address": "0x0044C140", "size": 16}
   ],
   "constants": [],
   "absolute_symbols": [
     {"symbol": "?platform_worker_vtable@@3DA", "address": "0x004703E4", "kind": "data"},
+    {"symbol": "_entry_free_004524a1", "address": "0x004524A1", "kind": "relative_code"},
     {"symbol": "__imp__WaitForSingleObject@8", "address": "0x0046611C", "kind": "data"},
     {"symbol": "__imp__Sleep@4", "address": "0x004660AC", "kind": "data"},
     {"symbol": "__imp__CloseHandle@4", "address": "0x004660CC", "kind": "data"}

@@ -3,7 +3,9 @@
 
 Uses the maintained schema-2 cluster and the production build path. Controls
 change only /GL participation, translation-unit boundaries, or ABI visibility.
-None of the executables is run; the retail image is a post-build byte oracle.
+The production batch has two callers and one explicit linker root; a control
+roots every selected symbol to expose the resulting ABI change. None of the
+executables is run; the retail image is a post-build byte oracle.
 """
 from __future__ import annotations
 
@@ -83,25 +85,30 @@ def control(name, spec, production, output, toolkit):
         shutil.copyfile(native_dir / filename, work / filename)
     commands = []
     compile_commands = production['compile_commands'][:-1]
+    unity = None
+    if name == 'unity_gl':
+        unity = work / 'unity.cpp'
+        unity.write_text(''.join('#include "' + winpath(path).replace('\\', '/') + '"\n'
+                                 for path in spec['source_paths']))
     for index, item in enumerate(compile_commands):
         command = relocate(item['command'])
         if (name == 'ordinary' or name == 'native_caller' and index == 0
-                or name == 'native_callee' and index == 1):
+                or name == 'native_callee' and index == 2):
             command.remove('/GL')
         if name == 'unity_gl':
             if index:
                 continue
-            unity = work / 'unity.cpp'
-            unity.write_text(''.join('#include "' + winpath(path).replace('\\', '/') + '"\n'
-                                     for path in spec['source_paths']))
             command[-1] = winpath(unity)
         _run_logged(command, env, work, work / f'compile_{index}.log', 180)
         commands.append(command)
     link_command = relocate(production['link_command'])
     if name == 'unity_gl':
-        link_command.remove(winpath(work / 'source_001.obj'))
+        for index in range(1, len(compile_commands)):
+            link_command.remove(winpath(work / f'source_{index:03d}.obj'))
     elif name == 'exported_callee':
-        link_command.append('/EXPORT:' + spec['functions'][1]['symbol'])
+        callee = next(function for function in spec['functions']
+                      if function['symbol'] == '?Stop@PlatformWorker@@QAEXXZ')
+        link_command.append('/EXPORT:' + callee['symbol'])
     elif name == 'escaped_callee':
         # An externally observable member-function pointer fixes the public ABI.
         escape = work / 'escape.cpp'
@@ -117,6 +124,11 @@ def control(name, spec, production, output, toolkit):
         _run_logged(command, env, work, work / 'escape.log', 180)
         commands.append(command)
         link_command.append(winpath(work / 'escape.obj'))
+    elif name == 'all_roots':
+        # Rooting the shared callee itself is a negative control: it changes
+        # the native-LTCG visibility context and pins the public ECX ABI.
+        link_command.extend('/INCLUDE:' + function['symbol']
+                            for function in spec['functions'])
     _run_logged(link_command, env, work, work / 'link.log', 300)
     return work, {'compile_commands': commands, 'link_command': link_command,
                   'layout_objects_from': str(native_dir)}
@@ -144,7 +156,7 @@ def main():
                                       Path(first['native_map']), oracle, text_start)}
     results['separate_gl']['build_report'] = str(work / 'separate_gl/report.json')
     for name in ('ordinary', 'native_caller', 'native_callee', 'unity_gl',
-                 'exported_callee', 'escaped_callee'):
+                 'exported_callee', 'escaped_callee', 'all_roots'):
         variant, commands = control(name, spec, first, work, toolkit)
         results[name] = {**measure(spec, variant / 'cluster.exe', variant / 'cluster.map',
                                    oracle, text_start), **commands}
@@ -157,14 +169,16 @@ def main():
         raise ValueError('toolchain changed during the experiment')
     positive = {'separate_gl', 'unity_gl', 'separate_gl_repeat'}
     passed = all(result['exact'] == (name in positive) for name, result in results.items())
-    # Both functions, including their relative call operand, must reproduce on
-    # a fresh compile; native PE timestamps are intentionally not compared.
+    # Every selected function, including both relative call operands, must
+    # reproduce in each positive case; native PE timestamps are intentionally
+    # not compared.
     baseline = [item['bytes'] for item in results['separate_gl']['functions']]
     passed &= all([item['bytes'] for item in results[name]['functions']] == baseline
                   for name in positive)
-    ordinary = [item['bytes'] for item in results['ordinary']['functions']]
-    passed &= all([item['bytes'] for item in result['functions']] == ordinary
-                  for name, result in results.items() if name not in positive)
+    # Controls are expected to differ from retail; they need not be identical
+    # to one another now that the cluster has two callers and an explicit root.
+    passed &= all(not result['exact'] for name, result in results.items()
+                  if name not in positive)
     report = {'passed': passed, 'manifest': MANIFEST, 'input_sha256': inputs,
               'tool_sha256': first['tool_sha256'], 'cases': results, 'masked_bytes': 0,
               'oracle': str(oracle_path), 'oracle_used_only_for_comparison': True}

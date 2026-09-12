@@ -16,6 +16,7 @@ struct PlatformWorker {
 
     void StopNoDelete();
     void Stop();
+    PlatformWorker* Destroy(unsigned int should_free);
 };
 
 typedef char PlatformWorker_entry_offset_must_be_24[
