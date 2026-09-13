@@ -36,12 +36,34 @@ Two further build facts this function needs:
   0x00443476 gap; `06a2anchor` sorted before `06a2layout` and put the body at
   the wrong address in the first attempt).
 
+## 0x00443080, the rounded sibling (measured 2026-09-13)
+
+A model of the 515-byte rounded builder was written and compiled: it reaches
+421 bytes, 94 short. Its reconnaissance is now complete as well.
+
+| item | evidence |
+| --- | --- |
+| entry ABI | `ESI` sprite, manager on the stack, `RET 4`; submits through `0x00442670` with mode **1** (the snap bit) |
+| rounding | the centre anchors call the CRT: `sub esp,8` / `fstp [esp+14h+X]` / `call _floor` at `0x00452FF0` (the SSE2/x87 dispatcher), result stored back with `fstp` as a float |
+| why width spills | the `_floor` call clobbers the x87 registers, so `w` is spilled (`fstp [esp+0Ch+var_C]`) before the height is computed; `h` and `h*0.5f` follow into `var_8`/`var_4` (frame 0xC, plus the per-call 8-byte argument area) |
+| case expressions | case 0 right = `left + w`; case 1 right = `base + position + w + offset` (the width is added *before* the offset in the emitted order); case 2 right = `base + position + offset`, with both placement sums recomputed |
+| constant | the centre rounding multiplies by the pooled `0.5f` at `0x470B0C`, the same rebinding the sibling needs |
+
+The 94-byte shortfall is structural, not a single site: with fewer live x87
+values than retail, the compiler common-subexpressions the placement sums
+across cases and merges case tails, where retail recomputes them. Reproducing
+this family's sizes needs the same *live-range pressure*, which is what makes
+these two bodies resistant to a first source model while the pipeline pair at
+0x00442670/0x00442AD0 matched quickly.
+
+Both attempts are preserved: `matching2/build/recovery-lab/anchored1/`.
+
 ## Related family status
 
 | address | bytes | state |
 | ---: | ---: | --- |
 | 0x00443290 | 486 | this note; source model started, not exact |
-| 0x00443080 | 515 | calls only `0x00452FF0` (x2) and the pipeline; not attempted |
+| 0x00443080 | 515 | calls only `_floor` (x2, bound at 0x00452FF0) and the pipeline; model at 421/515, see above |
 | 0x004436C0 | 591 | contains `fsincos`; unreachable from C++ on this toolkit |
 | 0x00443910 | 591 | contains `fsincos`; unreachable from C++ on this toolkit |
 | 0x00443F80 | 33 | calls 0x00443B60 and the pipeline |
