@@ -153,3 +153,43 @@ after the failed follow-up. The next dependency remains a compiler-visible
 internal ABI model that reproduces the exact four list-method prologues and
 the three 73-byte create-wrapper call schedule while retaining noinline
 ownership boundaries.
+
+## `0x004489D0` single-region cluster attempt (2026-09-13, second session)
+
+`0x004489D0` (RegisterPrimaryBack, 118 bytes, 23 callers) is self-contained:
+it links one object's membership node into the primary animation list and
+assigns the next nonzero handle, with **no calls at all**. Retail enters with
+the manager in **EDX**, the object in **EBX** and the handle output pointer in
+**EAX**, so it is a cluster candidate. The model, its context and its layout
+were built in a disposable copy of the project
+(`matching2/build/waves/lab/M1`); nothing was registered in the production
+manifest.
+
+The body is settled: `lea ecx,[ebx+4]` node initialisation,
+head/`tail->next` insertion, `[edx+0x72DAD8]` tail store, the `++handle`
+with its `== 0` fixup and the two separate `[handle]` reads all reproduce from
+the natural source. Every shape emits the exact 118-byte extent from 114
+emitted bytes and differs **only in the register assignment**: the native link
+picks manager in **ECX**, object in **EDI** and the output pointer **on the
+stack**, i.e. `8d 47 04 89 38 …` against retail's `8d 4b 04 56 89 19 …`.
+
+Twelve context/function shapes were probed against that: member and free
+function forms, `__declspec(noinline)` on both, object/output parameter order
+swapped, contexts that walk an object array, read the manager from the
+`0x491C10` global inside the loop, allocate the object through a bound
+external first (matching retail's own caller at `0x00448D00`), keep two
+objects live, address the output pointer through a second bound call, and
+indexed rather than pointer-walked loops. All twelve produced the same
+assignment; only the *member* form emits a body at all (a free function is
+inlined into the context and leaves `.text$01register` empty unless
+`__declspec(noinline)` is on the definition). LTCG does choose private
+registers here — the object does not stay in EDX — it just does not choose
+retail's set, and none of the call-shape levers moved it.
+
+Bracketing measurement for the next attempt: the two remaining differences are
+the object register (EDI vs EBX) and the output pointer (stack vs EAX). A
+context that *keeps a second value live in EDI across the call* is the shape
+that has not been tried — retail's own caller holds the output pointer in EDI
+and copies it to EAX immediately before the call (`mov edx, dword_491C10;
+mov eax, edi; call`), so a context with an EDI-resident loop value may be
+what pushes both registers into place.
