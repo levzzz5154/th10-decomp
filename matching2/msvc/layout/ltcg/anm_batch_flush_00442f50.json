@@ -3,10 +3,11 @@
   "name": "anm_batch_flush_00442f50",
   "source": "src/render/texture_stage_reset.cpp",
   "headers": [
-    "include/th10/render/quad_batch.hpp"
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/render/camera_batch.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG render batch with compiler-visible state synchronization, quad appending, and primitive draw callers. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The synthetic primitive-array context establishes private conventions and contributes zero recovered game-code bytes.",
+  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
   "functions": [
     {
       "name": "AnimationManager_00442F50_Flush",
@@ -39,7 +40,7 @@
       "name": "ClearAndPresentTwice",
       "source": "src/game/recovery_reset_device_streams_0043bc40.cpp",
       "symbol": "?ClearAndPresentTwice@@YGHI@Z",
-      "section": ".text$00aclear",
+      "section": ".text$01aclear",
       "address": "0x0043BC40",
       "size": 135,
       "actual_abi": "color in ESI; plain RET"
@@ -48,7 +49,7 @@
       "name": "ApplyDefaultViewport",
       "source": "src/render/viewport_apply_default_retail_0043bcd0.cpp",
       "symbol": "?ApplyDefaultViewport@@YGHI@Z",
-      "section": ".text$00capply",
+      "section": ".text$01capply",
       "address": "0x0043BCD0",
       "size": 108,
       "actual_abi": "color on stack; RET 4"
@@ -124,13 +125,22 @@
       "address": "0x00444FA0",
       "size": 315,
       "actual_abi": "EAX manager; EDI entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "RenderCamera_Apply",
+      "source": "src/render/camera_apply.cpp",
+      "symbol": "?Apply@RenderCamera@@QAEXXZ",
+      "section": ".text$00bcamera",
+      "address": "0x004215A0",
+      "size": 330,
+      "actual_abi": "EDI camera; plain RET"
     }
   ],
   "gaps": [
     {
       "section": ".text$000layout",
       "address": "0x00401000",
-      "size": 240704
+      "size": 132512
     },
     {
       "section": ".text$02alayout",
@@ -143,12 +153,12 @@
       "size": 25466
     },
     {
-      "section": ".text$00blayout",
+      "section": ".text$01blayout",
       "address": "0x0043BCC7",
       "size": 9
     },
     {
-      "section": ".text$00dlayout",
+      "section": ".text$01dlayout",
       "address": "0x0043BD3C",
       "size": 100
     },
@@ -191,9 +201,25 @@
       "section": ".text$06eelayout",
       "address": "0x004450DB",
       "size": 5
+    },
+    {
+      "section": ".text$00clayout",
+      "address": "0x004216EA",
+      "size": 107862
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00446000",
+      "size": 175000
     }
   ],
-  "constants": [],
+  "constants": [
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    }
+  ],
   "absolute_symbols": [
     {
       "symbol": "_data_00491c10",
@@ -219,6 +245,21 @@
       "symbol": "_data_00491d0c",
       "address": "0x00491D0C",
       "kind": "data"
+    },
+    {
+      "symbol": "_CameraLookAt@16",
+      "address": "0x00452194",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CameraPerspective@20",
+      "address": "0x0045219A",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CameraNormalize@8",
+      "address": "0x0045217C",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -233,7 +274,8 @@
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/render/rect_fan_draw.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
-    "src/unidentified/unassigned_00444fa0.cpp"
+    "src/unidentified/unassigned_00444fa0.cpp",
+    "src/render/camera_apply.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -241,10 +283,10 @@
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
-    "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBX@Z",
+    "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x00445200",
-    "size": 233,
-    "description": "Synthetic caller of gradient and entity primitive draws; not recovered game code."
+    "size": 255,
+    "description": "Synthetic caller of gradient, entity primitive draws, and camera application; not recovered game code."
   }
 }

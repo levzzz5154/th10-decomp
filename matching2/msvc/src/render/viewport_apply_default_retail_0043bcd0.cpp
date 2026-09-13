@@ -1,6 +1,6 @@
 // 0x0043BCD0: restore the full depth-range viewport, then clear/present both buffers.
 #include "th10/render/quad_batch.hpp"
-#pragma code_seg(".text$00capply")
+#pragma code_seg(".text$01capply")
 __declspec(noinline) int __stdcall ApplyDefaultViewport(unsigned int color) {
     if (data_00491c10)
         data_00491c10->Flush();

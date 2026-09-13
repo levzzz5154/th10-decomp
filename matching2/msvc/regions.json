@@ -14991,13 +14991,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004215a0_004215a0",
+      "name": "semantic_RenderCamera_Apply_004215a0",
       "source": "src/render/camera_apply.cpp",
-      "symbol": "_asm_FUN_004215a0_004215a0",
+      "symbol": "?Apply@RenderCamera@@QAEXXZ",
       "address": "0x004215A0",
       "size": 330,
-      "kind": "asm",
-      "owner": "0x004215A0"
+      "kind": "semantic",
+      "owner": "0x004215A0",
+      "previous_record": {
+        "name": "asm_FUN_004215a0_004215a0",
+        "source": "src/render/camera_apply.cpp",
+        "symbol": "_asm_FUN_004215a0_004215a0",
+        "address": "0x004215A0",
+        "size": 330,
+        "kind": "asm",
+        "owner": "0x004215A0"
+      }
     },
     {
       "name": "text_padding_004216ea",

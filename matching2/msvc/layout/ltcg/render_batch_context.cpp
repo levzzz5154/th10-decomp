@@ -1,8 +1,9 @@
 // Compiler context only; no context bytes count as recovered code.
 #include "../../src/render/texture_stage_reset.cpp"
+#include "th10/render/camera_batch.hpp"
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
-                                  const RenderEntity** entities, const void** vertices) {
+                                  const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
     for (int i = 0; i < count; ++i) {
         DrawGradientQuad(rects[i], colors[4*i], colors[4*i+1], colors[4*i+2], colors[4*i+3]);
         data_00491c10->DrawStrip(entities[i], vertices[i], colors[i]);
@@ -10,6 +11,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         data_00491c10->DrawFan(entities[i], vertices[i], colors[i]);
         data_00491c10->DrawSolidStrip(entities[i], vertices[i], colors[i]);
         data_00491c10->DrawSolidFan(entities[i], vertices[i], colors[i]);
+        cameras[i]->Apply();
     }
     return count;
 }

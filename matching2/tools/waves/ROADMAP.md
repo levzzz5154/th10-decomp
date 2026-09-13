@@ -34,6 +34,13 @@ synchronizer callers are recovered; the two 1,111-byte quad pipelines remain.
 [Source-shape and ABI evidence](../../reference/recovery_notes/render_state_primitives_004425a0_004450e0.md).
 The whole executable is exact at 455 C++ regions / 27,686 bytes.
 
+**Camera application (2026-09-13):** the render batch also recovers the 330-byte
+EDI camera apply routine, including view/projection construction and normalized
+cross product. The default camera setup and blend/color helper retain measured
+source-shape blockers. See [camera evidence](../../reference/recovery_notes/camera_apply_followup_00421480_004215a0.md)
+and [color follow-up](../../reference/recovery_notes/blend_color_followup_004423e0.md).
+The whole executable is exact at 456 C++ regions / 28,016 bytes.
+
 Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```
