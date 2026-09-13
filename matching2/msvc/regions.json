@@ -13595,13 +13595,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041d170_0041d170",
+      "name": "semantic_ProjectileDeceleration_Update_0041d170",
       "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
-      "symbol": "_asm_FUN_0041d170_0041d170",
+      "symbol": "?Update@ProjectileDeceleration@@QAEXXZ",
       "address": "0x0041D170",
       "size": 329,
-      "kind": "asm",
-      "owner": "0x0041D170"
+      "kind": "semantic",
+      "owner": "0x0041D170",
+      "previous_record": {
+        "name": "asm_FUN_0041d170_0041d170",
+        "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
+        "symbol": "_asm_FUN_0041d170_0041d170",
+        "address": "0x0041D170",
+        "size": 329,
+        "kind": "asm",
+        "owner": "0x0041D170"
+      }
     },
     {
       "name": "text_padding_0041d2b9",
@@ -25248,13 +25257,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_QueueResource_0043dc90",
+      "name": "semantic_SoundQueue_Queue_0043dc90",
       "source": "src/render/animation_manager_queue_resource_0043dc90.cpp",
-      "symbol": "_asm_AnimationManager_QueueResource_0043dc90",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
       "address": "0x0043DC90",
       "size": 123,
-      "kind": "asm",
-      "owner": "0x0043DC90"
+      "kind": "semantic",
+      "owner": "0x0043DC90",
+      "previous_record": {
+        "name": "asm_AnimationManager_QueueResource_0043dc90",
+        "source": "src/render/animation_manager_queue_resource_0043dc90.cpp",
+        "symbol": "_asm_AnimationManager_QueueResource_0043dc90",
+        "address": "0x0043DC90",
+        "size": 123,
+        "kind": "asm",
+        "owner": "0x0043DC90"
+      }
     },
     {
       "name": "text_padding_0043dd0b",
@@ -48364,7 +48382,8 @@
     "layout/ltcg/platform_invoke_configured_0044d5d0.json",
     "layout/ltcg/recovery_select_archive_entry_0043d790.json",
     "layout/ltcg/platform_set_operation_deadline_0044d4e0.json",
-    "layout/ltcg/platform_worker_shutdown.json"
+    "layout/ltcg/platform_worker_shutdown.json",
+    "layout/ltcg/sound_queue.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

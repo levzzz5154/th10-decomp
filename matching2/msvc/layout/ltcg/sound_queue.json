@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "name": "sound_queue",
+  "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
+  "additional_sources": [
+    "src/render/animation_manager_queue_resource_0043dc90.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/sound_queue.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "A real projectile-deceleration caller and the shared sound queue compiled from separate /GL sources in one native /LTCG link. The caller is the sole public entry; the queue retains ECX receiver, EDI sound ID, and one stack argument.",
+  "functions": [
+    {
+      "name": "ProjectileDeceleration_Update",
+      "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
+      "symbol": "?Update@ProjectileDeceleration@@QAEXXZ",
+      "section": ".text$01deceleration",
+      "address": "0x0041D170",
+      "size": 329,
+      "actual_abi": "ECX this"
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "source": "src/render/animation_manager_queue_resource_0043dc90.cpp",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$03queue",
+      "address": "0x0043DC90",
+      "size": 123,
+      "actual_abi": "ECX this; EDI sound_id; request on stack; RET 4"
+    }
+  ],
+  "entry": "?Update@ProjectileDeceleration@@QAEXXZ",
+  "calls": [
+    {
+      "caller": "?Update@ProjectileDeceleration@@QAEXXZ",
+      "callee": "?Queue@SoundQueue@@QAEHHH@Z",
+      "address": "0x0041D19E",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 115056
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041D2B9",
+      "size": 133591
+    },
+    {
+      "section": ".rdata",
+      "address": "0x0043E000",
+      "size": 207612
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@DecelerationVector2@@QAEXMM@Z",
+      "address": "0x0041F800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}
