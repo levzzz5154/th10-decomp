@@ -95,9 +95,13 @@ the function as `__declspec(align(8)) unsigned char state[0x110]`. That reaches
   the resulting 8-byte frame difference.
 
 A first micro-test showed `__declspec(align(8))` on a *plain* local array does
-produce `and esp,-8`, and it does here too, but it also suppresses the cookie
-for this function. A plain `double` local would be the other way to force the
-alignment while keeping the cookie, but nothing in the body needs one.
+produce `and esp,-8`, and it does here too: with either the state buffer or the
+JOYINFOEX local aligned, the frame is retail's `0x154` and the first twelve
+prologue bytes match. The cookie *load* is still there; what disappears is the
+`xor eax,ebp` and the `@__security_check_cookie@4` call, i.e. this build no
+longer treats any local as /GS-protected, which is where most of the remaining
+bytes sit. A plain `double` local would be the other way to force the alignment
+while keeping the cookie, but nothing in the body needs one.
 
 Both models are preserved (`joystick_poll.cpp` and `joystick_poll_v2.cpp` in
 `matching2/build/recovery-lab/joystick-reader/`).
