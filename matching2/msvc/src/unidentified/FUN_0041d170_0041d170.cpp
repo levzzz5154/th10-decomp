@@ -33,7 +33,7 @@ struct ProjectileDeceleration {
     int sound_id;
     __declspec(noinline) void Update();
 };
-#pragma code_seg(".text$01deceleration")
+#pragma code_seg(".text$03deceleration")
 void ProjectileDeceleration::Update() {
     int length = duration;
     float magnitude;

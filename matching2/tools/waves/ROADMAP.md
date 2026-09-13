@@ -9,6 +9,17 @@ reproduces positive and negative compiler controls. See
 [the experiment and pipeline](../../reference/whole_program_ltcg.md).
 The counts below are historical; use `make progress` for current accounting.
 
+**Further caller/callee recoveries (2026-09-13):** the archive loader now has
+real script/checksum callers in a schema-2 batch (+302 bytes). The previously
+unrecovered `0x0043DC90` sound queue and its projectile caller matched together
+under schema 2; the cluster now also contains three ESI-entry bullet motion
+routines under a rooted schema-1 context (+1,667 bytes total). See the
+[queue proof](../../reference/recovery_notes/sound_queue_deceleration_0041d170_0043dc90.md),
+[motion expansion](../../reference/recovery_notes/bullet_motion_sound_cluster_00407780_00407a30_00407be0.md),
+and [allocator/initializer follow-up](../../reference/recovery_notes/animation_pool_initializer_followup_00401de0_00449950.md).
+These recoveries leave 443 C++ regions / 24,757 bytes; `make progress` remains
+the authoritative current count.
+
 Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```
@@ -118,8 +129,10 @@ game's own translation units never contain them. Two consequences:
 The remaining ~318 KB is game code, of which ~96 KB is class 3 above and the rest
 is reachable cluster-by-cluster.
 
-Highest-leverage callees, by number of callers they block (each is itself still
-assembly, so each is a cluster target first):
+Historical highest-leverage callees, by callers blocked at the checkpoint
+above. `0043DC90`, `00442F50`, `0044B360`, and `0044C150` are now recovered;
+their remaining private call sites still need compiler-visible definitions
+in the same native LTCG scope:
 
 | callee | callers blocked |
 |---|---|

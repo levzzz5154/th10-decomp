@@ -3455,13 +3455,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00407780_00407780",
+      "name": "semantic_BulletDeceleration_TurnStep_00407780",
       "source": "src/game/fun_00407780_00407780.cpp",
-      "symbol": "_asm_FUN_00407780_00407780",
+      "symbol": "?TurnStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407780",
       "size": 338,
-      "kind": "asm",
-      "owner": "0x00407780"
+      "kind": "semantic",
+      "owner": "0x00407780",
+      "previous_record": {
+        "name": "asm_FUN_00407780_00407780",
+        "source": "src/game/fun_00407780_00407780.cpp",
+        "symbol": "_asm_FUN_00407780_00407780",
+        "address": "0x00407780",
+        "size": 338,
+        "kind": "asm",
+        "owner": "0x00407780"
+      }
     },
     {
       "name": "text_padding_004078d2",
@@ -3489,13 +3498,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00407a30_00407a30",
+      "name": "semantic_BulletDeceleration_AimStep_00407a30",
       "source": "src/game/fun_00407a30_00407a30.cpp",
-      "symbol": "_asm_FUN_00407a30_00407a30",
+      "symbol": "?AimStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407A30",
       "size": 431,
-      "kind": "asm",
-      "owner": "0x00407A30"
+      "kind": "semantic",
+      "owner": "0x00407A30",
+      "previous_record": {
+        "name": "asm_FUN_00407a30_00407a30",
+        "source": "src/game/fun_00407a30_00407a30.cpp",
+        "symbol": "_asm_FUN_00407a30_00407a30",
+        "address": "0x00407A30",
+        "size": 431,
+        "kind": "asm",
+        "owner": "0x00407A30"
+      }
     },
     {
       "name": "text_padding_00407bdf",
@@ -3506,13 +3524,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00407be0_00407be0",
+      "name": "semantic_BulletDeceleration_Bounce_00407be0",
       "source": "src/game/fun_00407be0_00407be0.cpp",
-      "symbol": "_asm_FUN_00407be0_00407be0",
+      "symbol": "?Bounce@BulletDeceleration@@QAEXXZ",
       "address": "0x00407BE0",
       "size": 446,
-      "kind": "asm",
-      "owner": "0x00407BE0"
+      "kind": "semantic",
+      "owner": "0x00407BE0",
+      "previous_record": {
+        "name": "asm_FUN_00407be0_00407be0",
+        "source": "src/game/fun_00407be0_00407be0.cpp",
+        "symbol": "_asm_FUN_00407be0_00407be0",
+        "address": "0x00407BE0",
+        "size": 446,
+        "kind": "asm",
+        "owner": "0x00407BE0"
+      }
     },
     {
       "name": "text_padding_00407d9e",
