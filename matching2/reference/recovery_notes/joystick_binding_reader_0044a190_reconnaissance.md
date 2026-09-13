@@ -79,6 +79,29 @@ address-aligned instruction diff of the differences, which is the fast loop for
 this class of region. The model is preserved at
 `matching2/build/recovery-lab/joystick-reader/`.
 
+## Second model: 800 of 833 bytes (2026-09-13)
+
+The model was rebuilt with the axis maths as *dword* arithmetic on the caps
+record (`band = (max - min) >> 2`, `upper/lower = ((min + max) >> 1) +/- band`),
+which is what retail emits — the earlier "unpack the word pair" model was wrong
+and cost about 30 bytes — and with the device-state buffer hoisted to the top of
+the function as `__declspec(align(8)) unsigned char state[0x110]`. That reaches
+**800 of 833 bytes**; the remaining 33 are:
+
+- the /GS prologue: retail stores `cookie ^ ebp` and calls
+  `@__security_check_cookie@4` at every exit, while this build's aligned buffer
+  is no longer a /GS-protected local, so the `xor eax,ebp` disappears;
+- the two callee-saved homes (retail: binding pointer EBX, flag word ESI) and
+  the resulting 8-byte frame difference.
+
+A first micro-test showed `__declspec(align(8))` on a *plain* local array does
+produce `and esp,-8`, and it does here too, but it also suppresses the cookie
+for this function. A plain `double` local would be the other way to force the
+alignment while keeping the cookie, but nothing in the body needs one.
+
+Both models are preserved (`joystick_poll.cpp` and `joystick_poll_v2.cpp` in
+`matching2/build/recovery-lab/joystick-reader/`).
+
 Two siblings in the same area remain untouched and are the same size class:
 `0x0044A5F0` and `0x0044A9D0` (850 bytes each, keyboard binding readers, same
 `__fastcall` shape, no private callees).
