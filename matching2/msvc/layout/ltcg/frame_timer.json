@@ -3,17 +3,20 @@
   "name": "frame_timer",
   "source": "src/math/frame_timer.cpp",
   "additional_sources": [
+    "src/game/player_set_scheduler_value_00405410.cpp",
     "src/unidentified/FUN_0043bd40_0043bd40.cpp",
-    "src/unidentified/FUN_0043c230_0043c230.cpp"
+    "src/unidentified/FUN_0043c230_0043c230.cpp",
+    "src/unidentified/FUN_0043c460_0043c460.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
   "roots": [
     "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
-    "?Tick@AnimationCursor_0043c230@@QAEHXZ"
+    "?Tick@AnimationCursor_0043c230@@QAEHXZ",
+    "?Tick@AnimationCursor_0043c460@@QAEHXZ"
   ],
   "headers": ["include/th10/math/timer.hpp"],
   "image_base": "0x00400000",
-  "description": "Ordinary C++ FrameTimer methods compiled with a synthetic caller to recover the observed internal register ABI. Compiler context and layout gaps are never selected as game code.",
+  "description": "FrameTimer methods, the three animation cursors, and the scheduler store compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
   "functions": [
     {
       "name": "FrameTimer_Tick",
@@ -24,9 +27,18 @@
       "actual_abi": "this in ESI; plain RET"
     },
     {
+      "name": "PlayerSchedulerRecord_SetSchedulerValue",
+      "source": "src/game/player_set_scheduler_value_00405410.cpp",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$03scheduler",
+      "address": "0x00405410",
+      "size": 57,
+      "actual_abi": "this in EAX; value on the stack; RET 4"
+    },
+    {
       "name": "FrameTimer_Decrement",
       "symbol": "?Decrement@FrameTimer@@QAEXH@Z",
-      "section": ".text$03decrement",
+      "section": ".text$05decrement",
       "address": "0x00428DD0",
       "size": 20,
       "actual_abi": "this in ESI; count in EAX; plain RET"
@@ -35,48 +47,62 @@
       "name": "AnimationCursor_Tick_0043bd40",
       "source": "src/unidentified/FUN_0043bd40_0043bd40.cpp",
       "symbol": "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
-      "section": ".text$05bd40",
+      "section": ".text$07bd40",
       "address": "0x0043BD40",
       "size": 93,
       "actual_abi": "cursor in ECX; nested FrameTimer receiver selected in ESI; plain RET"
     },
     {
-      "name": "AnimationCursor_Tick",
+      "name": "AnimationCursor_Tick_0043c230",
       "source": "src/unidentified/FUN_0043c230_0043c230.cpp",
       "symbol": "?Tick@AnimationCursor_0043c230@@QAEHXZ",
-      "section": ".text$07cursor",
+      "section": ".text$09c230",
       "address": "0x0043C230",
       "size": 133,
       "actual_abi": "cursor in ECX; nested FrameTimer receiver selected in ESI; plain RET"
     },
     {
+      "name": "AnimationCursor_Tick_0043c460",
+      "source": "src/unidentified/FUN_0043c460_0043c460.cpp",
+      "symbol": "?Tick@AnimationCursor_0043c460@@QAEHXZ",
+      "section": ".text$11c460",
+      "address": "0x0043C460",
+      "size": 154,
+      "actual_abi": "cursor in ECX; scheduler receiver in EAX; nested FrameTimer receiver in ESI; plain RET"
+    },
+    {
       "name": "FrameTimer_Advance",
       "symbol": "?Advance@FrameTimer@@QAEXM@Z",
-      "section": ".text$09advance",
+      "section": ".text$13advance",
       "address": "0x0044BF40",
       "size": 88,
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
     }
   ],
   "context": {
-    "symbol": "?FrameTimerCompilerContext@@YGXPAUFrameTimer@@HHPAUAnimationCursor_0043c230@@@Z",
-    "section": ".text$11context",
+    "symbol": "AnimationTimerSchedulerCompilerContext@28",
+    "section": ".text$15context",
     "address": "0x0044BFA0",
-    "size": 76,
-    "description": "Synthetic array-processing caller roots the cursor and frame-timer private register conventions; not recovered game code."
+    "size": 116,
+    "description": "Synthetic caller roots every cursor, timer, and scheduler edge; not recovered game code."
   },
   "gaps": [
     {"section": ".text$00layout", "address": "0x00401000", "size": 16080},
-    {"section": ".text$02layout", "address": "0x00404F18", "size": 147128},
-    {"section": ".text$04layout", "address": "0x00428DE4", "size": 77660},
-    {"section": ".text$06layout", "address": "0x0043BD9D", "size": 1171},
-    {"section": ".text$08layout", "address": "0x0043C2B5", "size": 64651},
-    {"section": ".text$10layout", "address": "0x0044BF98", "size": 8},
-    {"section": ".text$12layout", "address": "0x0044BFEC", "size": 147476},
+    {"section": ".text$02layout", "address": "0x00404F18", "size": 1272},
+    {"section": ".text$04layout", "address": "0x00405449", "size": 145799},
+    {"section": ".text$06layout", "address": "0x00428DE4", "size": 77660},
+    {"section": ".text$08layout", "address": "0x0043BD9D", "size": 1171},
+    {"section": ".text$10layout", "address": "0x0043C2B5", "size": 427},
+    {"section": ".text$12layout", "address": "0x0043C4FA", "size": 64070},
+    {"section": ".text$14layout", "address": "0x0044BF98", "size": 8},
+    {"section": ".text$16layout", "address": "0x0044C014", "size": 147436},
     {"section": ".rdata", "address": "0x00470000", "size": 2812}
   ],
   "constants": [
     {"symbol": "__real@3f800000", "address": "0x00470AFC", "value": 1.0}
+  ],
+  "constant_aliases": [
+    {"symbol": "__real@4f800000", "address": "0x00470B98", "value": 4294967296}
   ],
   "absolute_symbols": [
     {"symbol": "_data_004918a4", "address": "0x004918A4", "kind": "data"},

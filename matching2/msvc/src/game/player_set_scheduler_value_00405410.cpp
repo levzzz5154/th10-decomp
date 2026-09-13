@@ -35,7 +35,7 @@ struct PlayerSchedulerRecord {
     __declspec(noinline) void SetSchedulerValue(int value);
 };
 
-#pragma code_seg(".text$01setvalue")
+#pragma code_seg(".text$03scheduler")
 void PlayerSchedulerRecord::SetSchedulerValue(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;

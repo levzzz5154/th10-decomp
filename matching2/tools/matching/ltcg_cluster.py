@@ -7,6 +7,14 @@ real callers and callees as separate /GL inputs with a real function as the
 link entry. Zero-filled layout gaps are never recovered game code. Only complete
 named function contributions from the freshly compiled native PE enter the outer
 fixed-address COFF link.  No instruction or address operand is rewritten.
+
+A compiler pools each distinct float literal once, and the pool address depends
+on the whole translation-unit set, not on the cluster layout.  When retail put
+such a literal at an address the layout cannot reach, ``constant_aliases``
+binds the compiler's own ``__real@<bits>`` symbol absolutely at the retail
+address instead; the link tolerates the discarded pooled copy and the report
+records that duplicate.  The alias wins the symbol resolution outright, so a
+selected body references the retail address without any byte being patched.
 """
 
 from __future__ import annotations
@@ -94,7 +102,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     # as well.  This keeps a real game's public ABI while still linking the
     # caller/callee cluster under native LTCG.  Schema 2 uses the same field
     # for additional whole-program entry roots.
-    allowed = required | {'additional_sources', 'roots'}
+    #
+    # constant_aliases rebind a compiler-generated float literal to the
+    # retail address instead of placing its pooled copy; see the docstring.
+    allowed = required | {'additional_sources', 'roots', 'constant_aliases'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
@@ -238,6 +249,34 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('compiler constant is not representable as float32') from error
         constant['size'] = 4
         constants.append(constant)
+    # A compiler emits one pooled definition per distinct literal value
+    # (``__real@`` plus its binary32 bit pattern).  When retail's own pool put
+    # that literal at an address the cluster layout cannot reproduce, the
+    # manifest aliases the literal to the retail address instead: the bindings
+    # object defines it absolutely, the link tolerates the discarded pooled
+    # copy, and validation proves the alias is the definition that survived.
+    aliases = []
+    raw_aliases = spec.get('constant_aliases', [])
+    if not isinstance(raw_aliases, list):
+        raise LTCGClusterError('constant_aliases must be an array')
+    for item in raw_aliases:
+        keys = {'symbol', 'address', 'value'}
+        alias = _fields(item, keys, keys, 'constant alias')
+        alias['symbol'] = _string(alias['symbol'], 'constant alias symbol')
+        literal = re.fullmatch(r'__real@([0-9a-f]{8})', alias['symbol'])
+        if not literal:
+            raise LTCGClusterError('constant alias must name a compiler float literal')
+        alias['address'] = _integer(alias['address'], 'constant alias address', minimum=image_base)
+        if isinstance(alias['value'], bool) or not isinstance(alias['value'], (float, int)):
+            raise LTCGClusterError('constant alias must be a scalar float32 value')
+        try:
+            bits = struct.unpack('<I', struct.pack('<f', alias['value']))[0]
+        except (OverflowError, struct.error) as error:
+            raise LTCGClusterError('constant alias is not representable as float32') from error
+        if f'{bits:08x}' != literal.group(1):
+            raise LTCGClusterError('constant alias value does not match its compiler literal name')
+        alias['size'] = 4
+        aliases.append(alias)
     absolute = []
     if not isinstance(spec['absolute_symbols'], list):
         raise LTCGClusterError('absolute_symbols must be an array')
@@ -253,11 +292,11 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Native LINK 7.10 applies the image base to absolute REL32 targets.
         symbol['coff_value'] = symbol['address'] - image_base if symbol['kind'] == 'relative_code' else symbol['address']
         absolute.append(symbol)
-    all_symbols = [item['symbol'] for item in functions + gaps + constants + absolute + contexts]
+    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + absolute + contexts]
     if len(set(all_symbols)) != len(all_symbols):
         raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
     ranges = sorted((item['address'], item['address'] + item['size'])
-                    for item in functions + gaps + constants + contexts)
+                    for item in functions + gaps + constants + aliases + contexts)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
     return {**spec, 'path': path, 'project': project, 'source_path': source,
@@ -265,6 +304,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             'additional_source_paths': additional_paths, 'driver_path': driver,
             'header_paths': headers, 'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
+            'constant_aliases': aliases,
             'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
             'roots': roots,
             'regions': [dict(region) for region in owned]}
@@ -434,6 +474,15 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         matches = [symbol for symbol in link_map.symbols if symbol.name == external['symbol']]
         if len(matches) != 1 or matches[0].segment != 0 or matches[0].address != external['coff_value']:
             raise LTCGClusterError('native external binding differs: ' + external['symbol'])
+    for alias in spec['constant_aliases']:
+        # The absolute binding must be the definition that survived: a single
+        # segment-0 symbol at the retail address, with no pooled copy left.
+        matches = [symbol for symbol in link_map.symbols if symbol.name == alias['symbol']]
+        if len(matches) != 1 or matches[0].segment != 0 or matches[0].address != alias['address']:
+            raise LTCGClusterError('native constant alias is not bound to its declared address: ' + alias['symbol'])
+        encoded = struct.pack('<I', alias['address'])
+        if not any(encoded in item['body'] for item in function_reports):
+            raise LTCGClusterError('constant alias is not referenced by any selected body: ' + alias['symbol'])
     declared = {item['symbol'] for item in spec['functions']}
     if spec['context']:
         context_symbol = spec['context']['symbol']
@@ -527,6 +576,38 @@ def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path,
     return headers
 
 
+DUPLICATE_DEFINITION = re.compile(r'(?:warning|error) LNK(?:4006|2005): (\S+) already defined')
+
+
+def _verify_duplicates(log: str, aliases: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """Require every tolerated duplicate definition to be a declared alias.
+
+    ``/FORCE:MULTIPLE`` is passed only for clusters that rebind a compiler
+    literal to its retail address.  LINK reports each tolerated duplicate as
+    "already defined in a previous module; second definition ignored"; any
+    other duplicate definition would mean the forced link silently accepted an
+    unintended conflict, and a declared alias without that report would mean
+    no pooled definition existed to rebind.
+    """
+    declared = {alias['symbol']: alias for alias in aliases}
+    tolerated, seen = [], set()
+    for line in log.splitlines():
+        match = DUPLICATE_DEFINITION.search(line)
+        if match is None:
+            continue
+        symbol = match.group(1)
+        if symbol not in declared:
+            raise LTCGClusterError('linker tolerated an undeclared duplicate definition: ' + symbol)
+        tolerated.append({'symbol': symbol, 'address': f"0x{declared[symbol]['address']:08X}",
+                          'message': line.strip()})
+        seen.add(symbol)
+    missing = [alias['symbol'] for alias in aliases if alias['symbol'] not in seen]
+    if missing:
+        raise LTCGClusterError('declared constant alias has no pooled definition to rebind: '
+                               + ', '.join(missing))
+    return tolerated
+
+
 def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: Sequence[str]) -> dict[str, Any]:
     """Build from current maintained inputs; a new directory prevents stale reuse."""
     output.mkdir(parents=True, exist_ok=True)
@@ -542,7 +623,10 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     compiler, linker, tool_hashes = _verify_toolchain(toolkit, 'wine', env, work)
     source = work / 'layout.cpp'
     source.write_text(_padding_source(spec['gaps']))
-    _absolute_object(work / 'bindings.obj', spec['absolute_symbols'])
+    _absolute_object(work / 'bindings.obj', [
+        *spec['absolute_symbols'],
+        *[{'symbol': alias['symbol'], 'address': alias['address'], 'kind': 'data',
+           'coff_value': alias['address']} for alias in spec['constant_aliases']]])
     compile_commands = []
     include_logs = []
     if spec['context']:
@@ -574,6 +658,12 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     link_command = ['wine', str(linker), '/nologo', '/LTCG', '/MACHINE:X86', '/BASE:0x400000',
                     '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['entry_symbol'],
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
+                    # A constant alias replaces a compiler-pooled definition
+                    # with the absolute binding; /FORCE:MULTIPLE keeps that
+                    # conflict from being fatal.  _verify_duplicates then
+                    # requires every tolerated duplicate to be a declared
+                    # alias, so no undeclared duplicate can pass.
+                    *(['/FORCE:MULTIPLE'] if spec['constant_aliases'] else []),
                     *['/INCLUDE:' + gap['symbol'] for gap in spec['gaps']],
                     # /ENTRY roots the context or selected real entry. Both
                     # schema variants may also contain independently reachable
@@ -583,7 +673,8 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
                     '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
                     *[winpath(work / name) for _, name in gl_inputs],
                     winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
-    _run_logged(link_command, env, work, work / 'link.log', 300)
+    link = _run_logged(link_command, env, work, work / 'link.log', 300)
+    duplicates = _verify_duplicates(link.stdout + link.stderr, spec['constant_aliases'])
     _verify_snapshot(inputs)
     current_tools = toolchain_hashes(toolkit, TOOL_FILES)
     if any(tool_hashes['bin/' + name] != digest for name, digest in current_tools.items()):
@@ -604,6 +695,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
               'compiler_context': ({**spec['context'], 'selected': False, 'recovered_code_bytes': 0}
                                    if spec['context'] else None),
               'layout_gaps': layout_report, 'absolute_symbols': spec['absolute_symbols'],
+              'constant_aliases': spec['constant_aliases'], 'duplicate_definitions': duplicates,
               'normalization': normalization, 'instruction_bytes_changed': 0, 'masked_bytes': 0,
               'reference_bytes_used_for_build': False}
     report_path.write_text(json.dumps(report, indent=2) + '\n')

@@ -160,6 +160,8 @@ python3 matching2/tools/matching/probe.py \
   --source src/platform/platform_stop_worker_0044c150.cpp
 python3 matching2/tools/matching/probe.py \
   --source src/platform/platform_destroy_worker_0044c100.cpp
+python3 matching2/tools/matching/probe.py \
+  --source src/unidentified/FUN_0043c460_0043c460.cpp
 python3 -m unittest matching2.tools.matching.test_ltcg_cluster
 ```
 
@@ -181,8 +183,8 @@ whole EXE     2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
 ```
 
 Recovery accounting after the worker, joystick, and FrameTimer/cursor
-promotions is 435 regions / 22,634 bytes of ordinary C++; assembly is 2,150
-regions / 366,348 bytes.
+promotions is 436 regions / 22,788 bytes of ordinary C++; assembly is 2,149
+regions / 366,194 bytes.
 
 ## Joystick probe caller recovered through the logger cluster
 
@@ -247,6 +249,57 @@ The focused report is retained at
 The complete executable continues to pass the 487,936-byte retail hash gate.
 The implementation and experiment are documented in
 [`frame_timer_cursor_cluster_0043c230.md`](recovery_notes/frame_timer_cursor_cluster_0043c230.md).
+
+## Third cursor recovered with a rebound compiler literal
+
+The blocked 154-byte cursor at `0x0043C460` is the largest of the animation
+callbacks. It converts its byte mode through the compiler's unsigned-to-float
+idiom, scales it by `elapsed / length`, clamps the result, and otherwise
+decrements its countdown, stores `0` through the scheduler record it shares
+with the embedded `FrameTimer` at `+0x30`, and ticks that timer. As a
+standalone translation unit it reproduced the complete flow and all but one
+byte.
+
+That byte is the displacement of `fadd dword ptr [00470B98h]`: the compiler's
+own `__real@4f800000` (2^32) literal, which the unsigned conversion adds for a
+negative input. Retail's literal pool put it at `0x00470B98`; the synthetic
+cluster reproduces the pooled copy at the next free `.rdata` address instead.
+Pooled literal placement depends on the whole translation-unit set, so the
+layout cannot reach the retail address.
+
+Schema 1 now accepts `constant_aliases`: a compiler literal may be bound
+absolutely at its retail address instead of being placed. The bindings object
+defines `__real@4f800000` at `0x00470B98`, the forced link discards the pooled
+copy, and the alias wins the symbol resolution outright, so the emitted
+displacement is retail's and no byte is patched. The tool passes
+`/FORCE:MULTIPLE` only for a cluster that declares aliases, and then requires
+the link log to report exactly one discarded duplicate per declared alias and
+no other duplicate definition.
+
+`frame_timer.json` now also compiles
+`src/game/player_set_scheduler_value_00405410.cpp` and the new cursor source in
+the same `/LTCG` scope, retiring the standalone scheduler cluster. The
+scheduler keeps its retail `EAX` receiver, the cursors their `ECX` entry, and
+the embedded timers their `ESI` receiver. All seven complete contributions are
+byte-exact:
+
+```text
+00404ED0 (72)  5349f4fd279892f975448c3dd7bd04000cead49a6aef8ae46bd11ae580fcbde5
+00405410 (57)  35c87a356741f4c628319bcf25c8e73cca3a554bff2ca59d1cb67d86fa0862e0
+00428DD0 (20)  456bf129ca25bafdf3ff19604ea7e6067aca5da1737cd9fa8bf8dc8b075a8aee
+0043BD40 (93)  eb77f9ae62bf28287002b87c29b886a0d5c534a2084fdec0ccb4279dbbafb4ce
+0043C230 (133) bd823ee212b505f3db6785f9fbc6bbdd7acf8bb50024f79f8dfb36fcc24d039f
+0043C460 (154) 163af6e09bccfa886237605c73d49764955d16b251b1731a1a834f914284131a
+0044BF40 (88)  c2c9591f6bcbfcf769892730b28e2da6d7d28af165ecde58ece3622068bcd4fd
+```
+
+The focused report is retained at
+`matching2/build/probe_43c460_cluster_alias/clusters/frame_timer/report.json`.
+Its `constant_aliases` and `duplicate_definitions` fields record the rebound
+literal and the tolerated pooled copy, and the complete executable continues to
+pass the 487,936-byte retail hash gate. The implementation and experiment are
+documented in
+[`frame_timer_cursor_cluster_0043c460.md`](recovery_notes/frame_timer_cursor_cluster_0043c460.md).
 
 ## Consequence for further recovery
 

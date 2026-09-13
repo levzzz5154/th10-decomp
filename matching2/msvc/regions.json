@@ -24614,13 +24614,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043c460_0043c460",
+      "name": "semantic_AnimationCursor_Tick_0043c460",
       "source": "src/unidentified/FUN_0043c460_0043c460.cpp",
-      "symbol": "_asm_FUN_0043c460_0043c460",
+      "symbol": "?Tick@AnimationCursor_0043c460@@QAEHXZ",
       "address": "0x0043C460",
       "size": 154,
-      "kind": "asm",
-      "owner": "0x0043C460"
+      "kind": "semantic",
+      "owner": "0x0043C460",
+      "previous_record": {
+        "name": "asm_FUN_0043c460_0043c460",
+        "source": "src/unidentified/FUN_0043c460_0043c460.cpp",
+        "symbol": "_asm_FUN_0043c460_0043c460",
+        "address": "0x0043C460",
+        "size": 154,
+        "kind": "asm",
+        "owner": "0x0043C460"
+      }
     },
     {
       "name": "text_padding_0043c4fa",
@@ -48178,7 +48187,6 @@
     "layout/ltcg/fun_004053b0.json",
     "layout/ltcg/fun_00405730.json",
     "layout/ltcg/player_manager_start_mode_004045b0.json",
-    "layout/ltcg/player_set_scheduler_value_00405410.json",
     "layout/ltcg/recovery_scale_color_00404da0.json",
     "layout/ltcg/vec_subtract_00404d40.json",
     "layout/ltcg/read_field44.json",

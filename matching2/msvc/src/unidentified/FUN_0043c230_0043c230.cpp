@@ -24,7 +24,7 @@ struct AnimationCursor_0043c230 {
 typedef char AnimationCursor_0043c230_size_must_fit[
     sizeof(AnimationCursor_0043c230) == 0x40 ? 1 : -1];
 
-#pragma code_seg(".text$07cursor")
+#pragma code_seg(".text$09c230")
 int AnimationCursor_0043c230::Tick() {
     if (data_004918a4 != 0)
         return 7;

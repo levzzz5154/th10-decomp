@@ -17,7 +17,7 @@ void FrameTimer::Tick() {
 }
 
 // 0x0044BF40. Converting after the branch reloads the binary32 elapsed field.
-#pragma code_seg(".text$09advance")
+#pragma code_seg(".text$13advance")
 void FrameTimer::Advance(float delta) {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper) {
@@ -29,7 +29,7 @@ void FrameTimer::Advance(float delta) {
 }
 
 // 0x00428DD0. MSVC emits the retail 32-bit negate before float conversion.
-#pragma code_seg(".text$03decrement")
+#pragma code_seg(".text$05decrement")
 void FrameTimer::Decrement(int count) {
     Advance(float(-count));
 }

@@ -1,7 +1,8 @@
 # Non-semantic region ledger
 
 This snapshot includes the exact worker-shutdown, joystick/logger-cluster, and
-FrameTimer/cursor-cluster promotions through 2026-09-13. The machine-readable JSON is the authoritative
+FrameTimer/cursor-cluster promotions through 2026-09-13, including the third
+animation cursor at `0x0043C460` and its rebound compiler literal. The machine-readable JSON is the authoritative
 region tuple inventory; this page records the same accounting in reviewable
 form.
 
@@ -14,14 +15,14 @@ criteria inherited by its tuples.
 
 The snapshot was taken on 2026-09-13 from the current worktree. The manifest is
 intentionally read-only evidence here: its SHA-256 is
-`7c6749bd313aaddbedb08401099ab75c76d6500836e4f1b77f059f11a953170f`.
+`5f1654001e0e37811d0b206426ac146abbf9d66e76ff7ec87a1508e3dd6a5d96`.
 The oracle is `matching2/build/oracle/th10.exe`, SHA-256
 `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`.
 
 ## Current accounting
 
 The live manifest contains 4,427 regions and 412,672 `.text` bytes. Its
-non-semantic portion is 3,992 regions and 390,038 bytes. The verified whole
+non-semantic portion is 3,991 regions and 389,884 bytes. The verified whole
 EXE exact build covers 487,936 bytes:
 
 | Ledger category | Regions | Bytes | Interpretation |
@@ -31,15 +32,16 @@ EXE exact build covers 487,936 bytes:
 | `alignment_padding` | 1,817 | 15,533 | Evidence-backed non-instruction filler |
 | `game_code_still_recoverable` | 533 | 247,745 | Known-domain non-CRT assembly still in the recovery queue |
 | `exact_assembly_required` | 15 | 289 | Only documented fixed-body/toolchain blockers |
-| `unclassified_assembly` | 1,275 | 63,903 | Evidence hold; no stronger claim is made |
-| **Total non-semantic** | **3,992** | **390,038** | **Accounts for every `kind != semantic` entry** |
+| `unclassified_assembly` | 1,274 | 63,749 | Evidence hold; no stronger claim is made |
+| **Total non-semantic** | **3,991** | **389,884** | **Accounts for every `kind != semantic` entry** |
 
-For comparison, the live manifest’s native kinds are 435 semantic / 22,634
-bytes, 2,150 asm / 366,348 bytes, 25 data / 8,157 bytes, and 1,817 padding /
+For comparison, the live manifest’s native kinds are 436 semantic / 22,788
+bytes, 2,149 asm / 366,194 bytes, 25 data / 8,157 bytes, and 1,817 padding /
 15,533 bytes. Older counts in `matching2/tools/waves/ROADMAP.md` were measured
 at a prior commit and are not used for this snapshot.
 
-The exact `0x0042C620`, `0x00434F30`, `0x00436000`, `0x0043BD40`, `0x0043C230`, `0x00442F50`,
+The exact `0x0042C620`, `0x00434F30`, `0x00436000`, `0x0043BD40`, `0x0043C230`,
+`0x0043C460`, `0x00442F50`,
 `0x004493E0`, `0x0044A0C0`, `0x0044B810`, `0x0044C100`, `0x0044C130`,
 `0x0044C150`, `0x0044D300`, `0x0044D370`, `0x0044D550`, `0x0044D5D0`,
 `0x0044D600`, `0x0044DCA0`, `0x0043D790`, and `0x0044D4E0` semantic promotions
@@ -54,7 +56,11 @@ the [D3D/logger recovery note](recovery_notes/d3d_init_00439890.md), and the
 The [joystick/logger cluster note](recovery_notes/joystick_probe_text_log_cluster_0044a0c0.md)
 records the caller/callee ABI experiment and exact 105-byte promotion. The
 [FrameTimer/cursor cluster note](recovery_notes/frame_timer_cursor_cluster_0043c230.md)
-records the exact 93-byte and 133-byte caller promotions and their three-method timer cluster. The
+records the exact 93-byte and 133-byte caller promotions and their three-method
+timer cluster. The
+[third-cursor cluster note](recovery_notes/frame_timer_cursor_cluster_0043c460.md)
+records the exact 154-byte promotion and the `constant_aliases` rebind that
+places its compiler float literal. The
 worker-shutdown cluster is described in
 [`whole_program_ltcg.md`](whole_program_ltcg.md).
 The already-semantic `0x00405730` region is behaviorally named

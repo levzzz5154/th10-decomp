@@ -6,7 +6,9 @@ import struct
 import tempfile
 import unittest
 
-from matching2.tools.matching.ltcg_cluster import LTCGClusterError, load_cluster, validate_internal_calls
+from matching2.tools.matching.ltcg_cluster import (
+    LTCGClusterError, _verify_duplicates, load_cluster, validate_internal_calls,
+)
 from matching2.tools.matching.ltcg_semantic import LTCGSemanticError, PEImage, parse_map, validate_map_pe
 
 
@@ -133,6 +135,67 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
                 path.write_text(json.dumps(manifest))
                 load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
 
+    def _alias_manifest(self, project, aliases):
+        path = project / "layout" / "ltcg" / "source_ownership_test.json"
+        manifest = json.loads(path.read_text())
+        manifest["constant_aliases"] = aliases
+        path.write_text(json.dumps(manifest))
+        return path
+
+    def test_constant_alias_value_must_match_its_name(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions = self._write_manifest(project, multi_source=False)
+            self._alias_manifest(
+                project, [{"symbol": "__real@4f800000", "address": "0x00401030", "value": 1.0}]
+            )
+            with self.assertRaisesRegex(LTCGClusterError, "match its compiler literal name"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
+    def test_constant_alias_must_name_a_compiler_literal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions = self._write_manifest(project, multi_source=False)
+            self._alias_manifest(
+                project,
+                [{"symbol": "_data_00470b98", "address": "0x00401030", "value": 4294967296}],
+            )
+            with self.assertRaisesRegex(LTCGClusterError, "compiler float literal"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
+    def test_constant_alias_is_loaded_and_cannot_overlap_selected_code(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions = self._write_manifest(project, multi_source=False)
+            self._alias_manifest(
+                project,
+                [{"symbol": "__real@4f800000", "address": "0x00401030", "value": 4294967296}],
+            )
+            loaded = load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+            self.assertEqual(loaded["constant_aliases"][0]["symbol"], "__real@4f800000")
+            self.assertEqual(loaded["constant_aliases"][0]["size"], 4)
+
+            self._alias_manifest(
+                project,
+                [{"symbol": "__real@4f800000", "address": "0x00401000", "value": 4294967296}],
+            )
+            with self.assertRaisesRegex(LTCGClusterError, "extents overlap"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
+    def test_constant_aliases_cannot_repeat_a_declared_symbol(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions = self._write_manifest(project, multi_source=False)
+            self._alias_manifest(
+                project,
+                [
+                    {"symbol": "__real@4f800000", "address": "0x00401030", "value": 4294967296},
+                    {"symbol": "__real@4f800000", "address": "0x00401034", "value": 4294967296},
+                ],
+            )
+            with self.assertRaisesRegex(LTCGClusterError, "duplicate symbol"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
     def _whole_program(self, project, change=None):
         regions = self._write_manifest(project, multi_source=True)
         path = project / 'layout/ltcg/source_ownership_test.json'
@@ -199,6 +262,32 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(LTCGClusterError, 'outside its caller'):
                 self._whole_program(Path(directory), lambda m: m['calls'][0].update(address='0x00401001'))
+
+
+class ConstantAliasLinkTests(unittest.TestCase):
+    """A rebind of a pooled compiler literal must stay the declared one."""
+
+    ALIAS = {"symbol": "__real@4f800000", "address": 0x470B98}
+    TOLERATED = ("CIL library( CIL module) : warning LNK4006: __real@4f800000 "
+                 "already defined in a previous module; second definition ignored")
+
+    def test_declared_alias_duplicate_is_recorded_as_evidence(self):
+        recorded = _verify_duplicates(self.TOLERATED, [self.ALIAS])
+        self.assertEqual(recorded[0]["symbol"], "__real@4f800000")
+        self.assertEqual(recorded[0]["address"], "0x00470B98")
+
+    def test_undeclared_duplicate_definition_is_rejected(self):
+        log = "CIL library( CIL module) : warning LNK4006: _data_00470b98 already defined in a previous module"
+        with self.assertRaisesRegex(LTCGClusterError, "undeclared duplicate definition: _data_00470b98"):
+            _verify_duplicates(log + "\n" + self.TOLERATED, [self.ALIAS])
+
+    def test_alias_without_a_pooled_definition_is_rejected(self):
+        with self.assertRaisesRegex(LTCGClusterError, "no pooled definition to rebind"):
+            _verify_duplicates("Generating code\n", [self.ALIAS])
+
+    def test_alias_free_cluster_tolerates_no_duplicate(self):
+        with self.assertRaisesRegex(LTCGClusterError, "undeclared duplicate definition"):
+            _verify_duplicates(self.TOLERATED, [])
 
 
 class InternalCallTests(unittest.TestCase):
