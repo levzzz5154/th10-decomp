@@ -112,16 +112,26 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         self.assertEqual(loaded["source_names"], ["src/primary.cpp"])
         self.assertEqual(loaded["functions"][0]["_source"], "src/primary.cpp")
 
-    def test_roots_are_schema_two_only(self):
+    def test_schema_one_roots_are_selected_and_distinct(self):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
-            self._write_manifest(project, multi_source=False)
+            regions = self._write_manifest(project, multi_source=False)
             path = project / "layout" / "ltcg" / "source_ownership_test.json"
             manifest = json.loads(path.read_text())
             manifest["roots"] = [manifest["functions"][0]["symbol"]]
             path.write_text(json.dumps(manifest))
-            with self.assertRaisesRegex(LTCGClusterError, "unknown fields"):
-                load_cluster(project, "layout/ltcg/source_ownership_test.json", [])
+            loaded = load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+            self.assertEqual(loaded["roots"], ["?Primary@@YAHXZ"])
+
+            with self.assertRaisesRegex(LTCGClusterError, "selected real function"):
+                manifest["roots"] = ["_external"]
+                path.write_text(json.dumps(manifest))
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
+            with self.assertRaisesRegex(LTCGClusterError, "distinct"):
+                manifest["roots"] = ["?Primary@@YAHXZ"] * 2
+                path.write_text(json.dumps(manifest))
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
 
     def _whole_program(self, project, change=None):
         regions = self._write_manifest(project, multi_source=True)

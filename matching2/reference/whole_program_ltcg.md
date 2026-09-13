@@ -103,14 +103,16 @@ retail's original translation-unit organization.
 
 ## Smallest production change
 
-The existing `tools/matching/ltcg_cluster.py` now accepts schema 2 alongside
-the unchanged schema-1 synthetic-context route. The worked manifest is
+The existing `tools/matching/ltcg_cluster.py` supports both schema-1
+synthetic-context clusters and schema-2 real-entry batches. Schema 1 now also
+accepts explicit roots when a context must preserve an independently reachable
+public ABI. The worked manifest is
 [`platform_worker_shutdown.json`](../msvc/layout/ltcg/platform_worker_shutdown.json).
 
 1. `source` and `additional_sources` name all maintained inputs in the batch.
    Each is compiled separately with the existing retail flags plus `/GL`.
-   Optional schema-2 `roots` retain selected functions that are not reachable
-   from `entry`.
+   Optional `roots` retain selected functions that are not reachable from the
+   schema-1 context or schema-2 `entry`.
 2. `entry` names a selected real function. In this example it preserves the
    public ECX entry of `PlatformWorker::StopNoDelete`. No `driver` or synthetic
    `context` is permitted in schema 2.
@@ -178,8 +180,9 @@ Measured SHA-256 values:
 whole EXE     2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
 ```
 
-Recovery accounting after the worker and joystick promotions is 433 regions /
-22,408 bytes of ordinary C++; assembly is 2,152 regions / 366,574 bytes.
+Recovery accounting after the worker, joystick, and FrameTimer/cursor
+promotions is 434 regions / 22,541 bytes of ordinary C++; assembly is 2,151
+regions / 366,441 bytes.
 
 ## Joystick probe caller recovered through the logger cluster
 
@@ -214,6 +217,35 @@ The focused report is retained at
 `make verify` also passes with the unchanged 487,936-byte executable. The
 promotion is documented in
 [`joystick_probe_text_log_cluster_0044a0c0.md`](recovery_notes/joystick_probe_text_log_cluster_0044a0c0.md).
+
+## FrameTimer/cursor caller recovered through the timer cluster
+
+The blocked 133-byte animation-cursor callback at `0x0043C230` was the next
+caller/callee case. A standalone C++ member function matched its extent and
+control flow but emitted `lea ecx,[esi+30h]` instead of retail's
+`add esi,30h` before calling `FrameTimer::Tick`. It also reversed the two x87
+operands for the elapsed-scale multiply when the timer methods were visible
+to LTCG.
+
+The existing schema-1 `frame_timer.json` now compiles the cursor as a separate
+`/GL` input with the three timer methods. The cursor is an explicit schema-1
+`roots` entry (`/INCLUDE`), preserving its retail `ECX` entry while the
+co-compiled timer call receives `ESI`. Declaring the elapsed field volatile
+preserves the exact `fld [elapsed]` / `fmul [data_00470BF8]` order under the
+same native link. The cluster's four complete contributions are byte-exact:
+
+```text
+0043C230 (133) bd823ee212b505f3db6785f9fbc6bbdd7acf8bb50024f79f8dfb36fcc24d039f
+00404ED0 (72)  5349f4fd279892f975448c3dd7bd04000cead49a6aef8ae46bd11ae580fcbde5
+00428DD0 (20)  456bf129ca25bafdf3ff19604ea7e6067aca5da1737cd9fa8bf8dc8b075a8aee
+0044BF40 (88)  c2c9591f6bcbfcf769892730b28e2da6d7d28af165ecde58ece3622068bcd4fd
+```
+
+The focused report is retained at
+`matching2/build/probe_43c230_cluster_rooted/clusters/frame_timer/report.json`.
+The complete executable continues to pass the 487,936-byte retail hash gate.
+The implementation and experiment are documented in
+[`frame_timer_cursor_cluster_0043c230.md`](recovery_notes/frame_timer_cursor_cluster_0043c230.md).
 
 ## Consequence for further recovery
 
