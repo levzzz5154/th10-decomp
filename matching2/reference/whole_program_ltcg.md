@@ -178,8 +178,42 @@ Measured SHA-256 values:
 whole EXE     2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
 ```
 
-Recovery accounting changes from 431 regions / 22,267 bytes to 432 regions /
-22,303 bytes of ordinary C++; assembly falls to 2,153 regions / 366,679 bytes.
+Recovery accounting after the worker and joystick promotions is 433 regions /
+22,408 bytes of ordinary C++; assembly is 2,152 regions / 366,574 bytes.
+
+## Joystick probe caller recovered through the logger cluster
+
+The blocked 105-byte probe at `0x0044A0C0` was a direct test of the logger's
+private ABI. Its readable implementation initializes a 52-byte
+`JOYINFOEX`-compatible record, calls the two WinMM slots at `0x00466280`,
+logs `0x00470580` through the singleton at `0x00474F70` when both devices
+answer, and otherwise calls `joyGetDevCaps` at `0x0046627C`.
+
+As a standalone translation unit the candidate matched the complete control
+flow and extent, but differed at the logger call: retail loads the receiver
+with `mov ecx, 00474F70h` and pops only the format argument, whereas the
+ordinary member-call spelling pushed the receiver and used the wrong cleanup.
+This is the same caller/callee convention that cannot be represented by the
+source declaration alone.
+
+The existing schema-1 native-LTCG layout
+`d3d_text_log_append_0044b810.json` now compiles the probe separately with
+`/GL` and roots it from the synthetic context alongside the exact
+`TextLog_0044B810::Append` implementation. Ordered code sections place the
+probe at `0x0044A0C0`, the logger at `0x0044B810`, and the context after both.
+The cluster report records zero instruction-byte changes for both complete
+contributions:
+
+```text
+0044A0C0 (105)  35af7bf413eea413af24bdcc336b1857d7a2cb28115e4615780b9452f5dbade5
+0044B810 (201)  e656c1d4e04a4fe1113db4f817c541683da7b711b7a93fbe82fb20b8fdf2cbbb
+```
+
+The focused report is retained at
+`matching2/build/probe_joystick_cluster3/clusters/d3d_text_log_append_0044b810/report.json`;
+`make verify` also passes with the unchanged 487,936-byte executable. The
+promotion is documented in
+[`joystick_probe_text_log_cluster_0044a0c0.md`](recovery_notes/joystick_probe_text_log_cluster_0044a0c0.md).
 
 ## Consequence for further recovery
 

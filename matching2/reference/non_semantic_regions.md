@@ -1,8 +1,9 @@
 # Non-semantic region ledger
 
-> **Work in progress:** this snapshot predates the final two semantic
-> promotions in commit `bd115ee`. See [`LEDGER_HANDOFF.md`](LEDGER_HANDOFF.md)
-> for the authoritative checkpoint and exact refresh instructions.
+This snapshot includes the exact worker-shutdown and joystick/logger-cluster
+promotions through 2026-09-13. The machine-readable JSON is the authoritative
+region tuple inventory; this page records the same accounting in reviewable
+form.
 
 This ledger inventories the live non-semantic entries in
 `matching2/msvc/regions.json`. The machine-readable inventory is
@@ -11,16 +12,16 @@ is `[address, size, source_id]`, with `source_id` resolved through the top-level
 `sources` array. Each group supplies the category, evidence IDs, and revisit
 criteria inherited by its tuples.
 
-The snapshot was taken on 2026-09-12 from the current worktree. The manifest is
+The snapshot was taken on 2026-09-13 from the current worktree. The manifest is
 intentionally read-only evidence here: its SHA-256 is
-`0bc6c4e58fd9941f8a1533e6f031f2df06d0f8830fc190360f8dbd398dfeb0e8`.
+`d5603002c185173f6a28cc048a8db392f18c1022594e5ed2d958f185f978f307`.
 The oracle is `matching2/build/oracle/th10.exe`, SHA-256
 `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`.
 
 ## Current accounting
 
 The live manifest contains 4,427 regions and 412,672 `.text` bytes. Its
-non-semantic portion is 4,000 regions and 390,683 bytes. The verified whole
+non-semantic portion is 3,994 regions and 390,264 bytes. The verified whole
 EXE exact build covers 487,936 bytes:
 
 | Ledger category | Regions | Bytes | Interpretation |
@@ -28,19 +29,20 @@ EXE exact build covers 487,936 bytes:
 | `compiler_crt_runtime` | 327 | 54,411 | Exact VC7.1 library-section matches outside relocations |
 | `embedded_text_data` | 25 | 8,157 | Byte overlays in `.text` classified as data |
 | `alignment_padding` | 1,817 | 15,533 | Evidence-backed non-instruction filler |
-| `game_code_still_recoverable` | 539 | 248,164 | Known-domain non-CRT assembly still in the recovery queue |
+| `game_code_still_recoverable` | 533 | 247,745 | Known-domain non-CRT assembly still in the recovery queue |
 | `exact_assembly_required` | 15 | 289 | Only documented fixed-body/toolchain blockers |
 | `unclassified_assembly` | 1,277 | 64,129 | Evidence hold; no stronger claim is made |
-| **Total non-semantic** | **4,000** | **390,683** | **Accounts for every `kind != semantic` entry** |
+| **Total non-semantic** | **3,994** | **390,264** | **Accounts for every `kind != semantic` entry** |
 
-For comparison, the live manifest’s native kinds are 427 semantic / 21,989
-bytes, 2,158 asm / 366,993 bytes, 25 data / 8,157 bytes, and 1,817 padding /
+For comparison, the live manifest’s native kinds are 433 semantic / 22,408
+bytes, 2,152 asm / 366,574 bytes, 25 data / 8,157 bytes, and 1,817 padding /
 15,533 bytes. Older counts in `matching2/tools/waves/ROADMAP.md` were measured
 at a prior commit and are not used for this snapshot.
 
 The exact `0x0042C620`, `0x00434F30`, `0x00436000`, `0x00442F50`,
-`0x004493E0`, `0x0044B810`, `0x0044D300`, `0x0044D370`, `0x0044D550`,
-`0x0044D5D0`, `0x0044D600`, and `0x0044DCA0` semantic promotions
+`0x004493E0`, `0x0044A0C0`, `0x0044B810`, `0x0044C100`, `0x0044C130`,
+`0x0044C150`, `0x0044D300`, `0x0044D370`, `0x0044D550`, `0x0044D5D0`,
+`0x0044D600`, `0x0044DCA0`, `0x0043D790`, and `0x0044D4E0` semantic promotions
 are therefore excluded from this ledger; their previous
 asm records are retained only as `previous_record` in the manifest. Promotion
 evidence is recorded in the [archive-codec recovery note](recovery_notes/archive_codec_cursor_00434d10_00434dd0_00434f30_00435dc0_0044b0d0_0044b220_0044dd40_0044de10.md),
@@ -49,6 +51,10 @@ the [render-effect recovery note](recovery_notes/render_effect_cluster_00442050_
 and the [manager-teardown recovery note](recovery_notes/manager_teardown_00409f90.md),
 the [D3D/logger recovery note](recovery_notes/d3d_init_00439890.md), and the
 [recovery-leaves note](recovery_notes/recovery_leaves_cluster_00413450_0044dca0.md).
+The [joystick/logger cluster note](recovery_notes/joystick_probe_text_log_cluster_0044a0c0.md)
+records the caller/callee ABI experiment and exact 105-byte promotion. The
+worker-shutdown cluster is described in
+[`whole_program_ltcg.md`](whole_program_ltcg.md).
 The already-semantic `0x00405730` region is behaviorally named
 `semantic_PlayerRuntime_ReleaseAndFree_00405730`; this [entity-helper recovery note](recovery_notes/entity_player_helpers_00401de0_00405d00_00405620_004059f0.md)
 documents the rename without changing non-semantic accounting.

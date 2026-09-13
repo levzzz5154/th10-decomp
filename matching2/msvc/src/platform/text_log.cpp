@@ -27,7 +27,7 @@ struct TextLog_0044b810 {
     char* Append(char* format, ...);
 };
 
-#pragma code_seg(".text$01textlog")
+#pragma code_seg(".text$03textlog")
 __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
