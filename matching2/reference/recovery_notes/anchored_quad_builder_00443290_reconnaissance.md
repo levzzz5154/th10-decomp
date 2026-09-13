@@ -58,6 +58,57 @@ these two bodies resistant to a first source model while the pipeline pair at
 
 Both attempts are preserved: `matching2/build/recovery-lab/anchored1/`.
 
+## 0x00444240, the projected quad (measured 2026-09-13)
+
+A complete model of the 818-byte projection builder compiles to **784 bytes**,
+the closest this family has come to retail. What the model reproduces and what
+the disassembly fixes:
+
+- Flag head: `!(flags & 0x4000) && (flags & 0x0C)` rebuilds the world matrix —
+  `local_transform` copied into `world_transform` (16 dwords), `[0][0] *= scale_x`,
+  `[1][1] *= scale_y`, then three guards `rotation_x/y/z != 0.0` (against the
+  *double* zero at `0x00470B70`) each running `D3DXMatrixRotation{X,Y,Z}` +
+  `D3DXMatrixMultiply`, then `flags = v & ~0x08` and later `flags &= ~0x04`.
+- The screen placement is added into a *local copy* of the world matrix
+  (`values[3][0..2] += render_offset + position + base`, in that term order),
+  which is then reused as the projection's world matrix.
+- Four corner vectors: the anchor switches write `±128` (case 0), `[0, 256]`
+  (case 1) and `[-256, 0]` (case 2) for x and y independently, `z = 0` for all
+  four; the chained-assignment store order matches retail exactly.
+- Four `D3DXVec3Project` calls with `pOut = &data_004978c0[i]`,
+  `pV = &corners[i]`, and — this is the argument order that confirms the
+  render-target layout — `pViewport = target + 0xCC`,
+  `pProjection = target + 0x8C`, `pView = target + 0x4C`,
+  `pWorld = &world`. The pipeline's cull reading its viewport at `+0xCC` is
+  consistent with this.
+- The final `rep movsd` stores the world matrix into the manager at
+  `+0x3AD0F0` (`projected_quad_transform`), and the function returns 0.
+
+The 34-byte residual is a *calling convention* difference, not a source one:
+retail receives the sprite in **EAX** and copies it to EBX immediately, with the
+manager on the stack, and every one of its six callers passes it that way
+(`0x00444580`: `push edi; mov eax,esi; call 0x00444240`). LTCG in the batch
+instead receives it in a callee-saved register (EBP), because the sprite is live
+across the ten D3DX calls, and the whole body shifts. Two attempts did not move
+that choice: declaring the callee as a member of the sprite entity, and adding
+the real caller `0x00444580` to the batch as a second function. The choice
+follows the caller graph, so pinning it needs the chain from a public root
+(`0x004451C0` → `0x00444580`/`0x004445C0` → `0x00444240`, all still assembly) or
+the four remaining asm callers.
+
+Batch plan for the family once the convention is pinned:
+
+| members | bytes | callees |
+| --- | ---: | --- |
+| 0x00444240, 0x004445C0, 0x00444580 | 818 + 402 + 60 | D3DXMatrix*/D3DXVec3Project/D3DXVec3Transform (import thunks at 0x0045218E..0x004521C4), `__ftol2` (0x00463B2C), the recovered pipeline |
+
+The D3DX entry points are import thunks (`jmp dword ptr [data_004662DC]`), so
+binding them as `relative_code` absolute symbols at their thunk addresses
+reproduces the call sites exactly.
+
+The model and its header are preserved at
+`matching2/build/recovery-lab/project-transform/`.
+
 ## Related family status
 
 | address | bytes | state |
@@ -68,8 +119,8 @@ Both attempts are preserved: `matching2/build/recovery-lab/anchored1/`.
 | 0x00443910 | 591 | contains `fsincos`; unreachable from C++ on this toolkit |
 | 0x00443F80 | 33 | calls 0x00443B60 and the pipeline |
 | 0x00443FB0 | 643 | calls 0x00443B60, `__ftol2` (x7) and the pipeline |
-| 0x00444240 | 818 | calls D3DXMatrix*/Vec3Project only |
-| 0x00444580 | 60 | calls 0x00444240 and the pipeline |
+| 0x00444240 | 818 | calls D3DXMatrix*/Vec3Project only; model at 784/818, blocked on its EAX entry convention |
+| 0x00444580 | 60 | calls 0x00444240 and the pipeline; used as the batch caller in the attempt |
 | 0x004445C0 | 402 | calls 0x00444240, D3DXVec3Transform, `__ftol2` (x3) and the pipeline |
 | 0x00444760 | 929 | calls Flush (recovered), D3DXMatrix* and 0x004423E0 |
 | 0x00444B10 | 201 | no calls at all; a good next candidate |
