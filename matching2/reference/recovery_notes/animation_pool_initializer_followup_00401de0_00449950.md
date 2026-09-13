@@ -63,3 +63,27 @@ initializer controls. The next useful experiment should investigate the
 original inline aggregate/timer/list initialization boundaries and the
 allocator's call-clobber assumptions. These misses do not establish that
 any of the two functions is unreachable from C++.
+
+## Restore-shape bracket (2026-09-13, second session)
+
+The two residual sites were re-measured with the retained `animation_pool`
+batch (`matching2/build/pipeline-lab/lab.py --project
+matching2/build/recovery-lab/project --manifest layout/ltcg/animation_pool.json`).
+Every shape below emits the exact 273-byte extent, so the extent gate no
+longer separates them; only the schedule does.
+
+| restore shape | differing bytes | what it fixes | what it breaks |
+| --- | ---: | --- | --- |
+| per-field `destination->x/y = restored.…`, then `render_bucket`, then `z` (retained model) | 76 | store order x, y, bucket, z; correct reload registers (`ecx`←bucket, `eax`←z); `pop edi` after the identity stores | both spill reloads sink to their uses |
+| `render_bucket = bucket;` then one 12-byte `memcpy` | 78 | reloads hoisted together, and in retail's register assignment | the bucket store lands after the z store; `pop edi`/`esi`/`ebp` collapse into a burst |
+| one 12-byte `memcpy` then `render_bucket = bucket` | 77 | reloads hoisted together | register assignment swaps (`ecx`←z) and the bucket store still trails z |
+| aggregate `entity->position = *(Vector3*)&position` | 77 | reloads hoisted together | same swap as the single `memcpy` |
+
+So the retail schedule is bracketed from both sides: the per-field shape gets
+the stores and the reload registers right but sinks the loads, and every
+copy-idiom keeps the loads hoisted but transposes the bucket/z pair. A shape
+that keeps both properties at once was not found among these; the loads come
+from the compiler's own spill slots, so their placement is a register-allocator
+decision that the source cannot address without adding code, and the store
+transposition tracks the copy idiom rather than any statement order (both
+`memcpy`-first and `bucket`-first emit x, y, z, bucket).
