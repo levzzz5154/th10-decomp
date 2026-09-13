@@ -301,6 +301,31 @@ pass the 487,936-byte retail hash gate. The implementation and experiment are
 documented in
 [`frame_timer_cursor_cluster_0043c460.md`](recovery_notes/frame_timer_cursor_cluster_0043c460.md).
 
+## Both sprite quad submit pipelines recovered
+
+The two remaining direct `SyncRenderState` callers were the 1,111-byte sprite
+pipelines at `0x00442670` and `0x00442AD0`. Both are now ordinary C++ in the
+render batch, together with the 25-byte colour helper `0x004423C0` they call
+four times each: 2,247 bytes. The helper has to be a source of the same `/GL`
+link — as a standalone unit it compiles to a `movzx`-from-stack prologue
+instead of the retail `movzx eax,al` / `movzx ecx,cl` entry that the call sites
+require.
+
+Two facts about retail's `.rdata` shaped the source model. The image holds
+three `0.5f` slots: `0x470B0C` is the shared pool copy every other function
+uses, while `0x4700E8` and `0x4700EC` belong to these two pipelines alone, so
+each body reads its own preserved slot through an absolute data binding rather
+than a literal the compiler would pool once for the whole link. And the pixel
+snap is a bare `frndint`; that opcode exists nowhere else in the image except
+the CRT's hand-written `__frnd` and the `_exp` tail, and no C++98 spelling on
+MSVC 13.10 emits it (26 probed). The snap block is therefore source-level
+assembly inside otherwise ordinary C++, documented in
+[the recovery note](recovery_notes/sprite_quad_pipelines_00442670_00442ad0.md).
+
+The 17-function batch remains reproducible with separate `/GL` objects and one
+native `/LTCG` link. The whole executable is exact at 462 C++ regions /
+30,826 bytes.
+
 ## Consequence for further recovery
 
 Choose a caller/callee dependency group, put the definitions on both sides of

@@ -11,6 +11,8 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         data_00491c10->DrawFan(entities[i], vertices[i], colors[i]);
         data_00491c10->DrawSolidStrip(entities[i], vertices[i], colors[i]);
         data_00491c10->DrawSolidFan(entities[i], vertices[i], colors[i]);
+        data_00491c10->SubmitSpriteQuad(entities[i], colors[i]);
+        data_00491c10->SubmitSpriteQuadMirrored(entities[i], colors[i]);
         cameras[i]->Apply();
     }
     return count;

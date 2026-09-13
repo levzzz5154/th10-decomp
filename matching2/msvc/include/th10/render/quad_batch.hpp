@@ -6,7 +6,9 @@ struct AnimationManager_00442F50 {
     unsigned char unknown_00000000[0x54];
     int state_changes;
     int draw_calls;
-    unsigned char unknown_0000005C[0x3ADA60 - 0x5C];
+    float origin_x;
+    float origin_y;
+    unsigned char unknown_00000064[0x3ADA60 - 0x64];
     unsigned int cached_color;
     void* cached_texture;
     unsigned char cached_blend, cached_unknown_69, cached_format, cached_unknown_6b;
@@ -16,8 +18,13 @@ struct AnimationManager_00442F50 {
     unsigned char unknown_003ADACC[0x72DACC - 0x3ADACC];
     TexturedVertex* cursor;
     void* batch_start;
+    unsigned char unknown_0072DAD4[0x732458 - 0x72DAD4];
+    unsigned char fade_blue, fade_green, fade_red, fade_alpha;
+    int fade_enabled;
 
     __declspec(noinline) int AppendQuad(const TexturedVertex* vertices);
+    __declspec(noinline) int SubmitSpriteQuad(const RenderEntity* entity, unsigned int mode);
+    __declspec(noinline) int SubmitSpriteQuadMirrored(const RenderEntity* entity, unsigned int mode);
     __declspec(noinline) int DrawQuad(const RenderEntity* entity, const TexturedVertex* vertices);
     __declspec(noinline) int DrawFan(const RenderEntity* entity, const void* vertices, unsigned int count);
     __declspec(noinline) int DrawSolidStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
@@ -27,15 +34,39 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
 };
 
-struct RenderTexture { int reserved; void* texture; };
+struct RenderTexture {
+    int reserved;
+    void* texture;
+    unsigned char reserved_008[0x20 - 0x08];
+    float u0, v0, u1, v1;
+};
 struct RenderEntity {
-    unsigned char reserved[0x2FC];
+    unsigned char reserved[0x54];
+    float uv_scroll_x;
+    float uv_scroll_y;
+    unsigned char reserved_05C[0x2FC - 0x5C];
     unsigned int color;
-    unsigned char reserved_300[0x35C - 0x300];
+    unsigned int color_secondary;
+    unsigned char reserved_304[0x35C - 0x304];
     unsigned int flags;
     unsigned char reserved_360[0x394 - 0x360];
     RenderTexture* texture;
 };
+// The shared sprite quad both submit pipelines finish and append.
+extern "C" TexturedVertex data_004978c0[4];
+// The half-pixel the two submit pipelines pull their snapped edges back by.
+// Retail kept one .rdata copy per pipeline instead of the shared 0.5f pool.
+extern "C" float data_00470e8;
+extern "C" float data_00470ec;
+// The render target whose D3D viewport bounds the sprite quad.
+struct RenderTargetViewport {
+    unsigned char reserved[0xCC];
+    unsigned int x, y, width, height;
+    float min_z, max_z;
+};
+extern "C" RenderTargetViewport* data_00491fac;
+// 0x004423C0: one saturated colour channel product, scaled by 1/128.
+__declspec(noinline) unsigned int AnimationColor_MultiplyChannel(unsigned char value, unsigned char scale);
 struct ScreenRect { float left, top, right, bottom; };
 __declspec(noinline) int __stdcall DrawSolidQuad(const ScreenRect*, unsigned int);
 extern "C" AnimationManager_00442F50* data_00491c10;

@@ -34,6 +34,16 @@ synchronizer callers are recovered; the two 1,111-byte quad pipelines remain.
 [Source-shape and ABI evidence](../../reference/recovery_notes/render_state_primitives_004425a0_004450e0.md).
 The whole executable is exact at 455 C++ regions / 27,686 bytes.
 
+**Sprite quad submit pipelines (2026-09-13):** both 1,111-byte pipelines behind
+`SyncRenderState`, plus the 25-byte AL/CL colour helper they call four times
+each, are recovered in the same batch (+2,247 bytes / three regions). The two
+functions differ only in the mirrored u assignment. Each reads its own
+preserved half-pixel `.rdata` constant, and the pixel snap stays as the
+original source's `__asm` block because no C++98 spelling emits `frndint`.
+[Source, ABI, and layout evidence](../../reference/recovery_notes/sprite_quad_pipelines_00442670_00442ad0.md).
+The whole executable is exact at 462 C++ regions / 30,826 bytes, with 2,123
+assembly regions / 358,156 bytes remaining.
+
 **Camera application (2026-09-13):** the render batch also recovers the 330-byte
 EDI camera apply routine, including view/projection construction and normalized
 cross product. The default camera setup and blend/color helper retain measured

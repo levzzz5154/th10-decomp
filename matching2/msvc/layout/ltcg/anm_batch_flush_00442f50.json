@@ -134,6 +134,33 @@
       "address": "0x004215A0",
       "size": 330,
       "actual_abi": "EDI camera; plain RET"
+    },
+    {
+      "name": "AnimationColor_MultiplyChannel",
+      "symbol": "?AnimationColor_MultiplyChannel@@YGIEE@Z",
+      "section": ".text$04amult",
+      "address": "0x004423C0",
+      "size": 25,
+      "actual_abi": "value in AL; scale in CL; result in EAX",
+      "source": "src/render/animation_color_multiply_channel_004423c0.cpp"
+    },
+    {
+      "name": "SubmitSpriteQuad",
+      "symbol": "?SubmitSpriteQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+      "section": ".text$04c2quad",
+      "address": "0x00442670",
+      "size": 1111,
+      "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
+      "source": "src/render/sprite_quad_submit.cpp"
+    },
+    {
+      "name": "SubmitSpriteQuadMirrored",
+      "symbol": "?SubmitSpriteQuadMirrored@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+      "section": ".text$04c4mirror",
+      "address": "0x00442AD0",
+      "size": 1111,
+      "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
+      "source": "src/render/sprite_quad_submit_mirrored.cpp"
     }
   ],
   "gaps": [
@@ -150,7 +177,12 @@
     {
       "section": ".text$04alayout",
       "address": "0x0043C226",
-      "size": 25466
+      "size": 24986
+    },
+    {
+      "section": ".text$04azlayout",
+      "address": "0x004423D9",
+      "size": 455
     },
     {
       "section": ".text$01blayout",
@@ -173,9 +205,19 @@
       "size": 7267
     },
     {
-      "section": ".text$04clayout",
+      "section": ".text$04c1layout",
       "address": "0x00442669",
-      "size": 2279
+      "size": 7
+    },
+    {
+      "section": ".text$04c3layout",
+      "address": "0x00442AC7",
+      "size": 9
+    },
+    {
+      "section": ".text$04c5layout",
+      "address": "0x00442F27",
+      "size": 41
     },
     {
       "section": ".text$05glayout",
@@ -260,6 +302,26 @@
       "symbol": "_CameraNormalize@8",
       "address": "0x0045217C",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004978c0",
+      "address": "0x004978C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fac",
+      "address": "0x00491FAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470e8",
+      "address": "0x004700E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ec",
+      "address": "0x004700EC",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -275,7 +337,10 @@
     "src/render/rect_fan_draw.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
     "src/unidentified/unassigned_00444fa0.cpp",
-    "src/render/camera_apply.cpp"
+    "src/render/camera_apply.cpp",
+    "src/render/animation_color_multiply_channel_004423c0.cpp",
+    "src/render/sprite_quad_submit.cpp",
+    "src/render/sprite_quad_submit_mirrored.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -286,7 +351,7 @@
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x00445200",
-    "size": 255,
-    "description": "Synthetic caller of gradient, entity primitive draws, and camera application; not recovered game code."
+    "size": 294,
+    "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   }
 }
