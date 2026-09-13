@@ -88,20 +88,22 @@ and cost about 30 bytes — and with the device-state buffer hoisted to the top 
 the function as `__declspec(align(8)) unsigned char state[0x110]`. That reaches
 **800 of 833 bytes**; the remaining 33 are:
 
-- the /GS prologue: retail stores `cookie ^ ebp` and calls
-  `@__security_check_cookie@4` at every exit, while this build's aligned buffer
-  is no longer a /GS-protected local, so the `xor eax,ebp` disappears;
+- the /GS machinery is present (the prologue stores `cookie ^ ebp` and every
+  exit calls the check; the raw-object disassembly shows both, the check's
+  target only reads as zero because it is unresolved there), so the 33 bytes
+  are elsewhere;
 - the two callee-saved homes (retail: binding pointer EBX, flag word ESI) and
   the resulting 8-byte frame difference.
 
 A first micro-test showed `__declspec(align(8))` on a *plain* local array does
 produce `and esp,-8`, and it does here too: with either the state buffer or the
-JOYINFOEX local aligned, the frame is retail's `0x154` and the first twelve
-prologue bytes match. The cookie *load* is still there; what disappears is the
-`xor eax,ebp` and the `@__security_check_cookie@4` call, i.e. this build no
-longer treats any local as /GS-protected, which is where most of the remaining
-bytes sit. A plain `double` local would be the other way to force the alignment
-while keeping the cookie, but nothing in the body needs one.
+JOYINFOEX local aligned, the frame is retail's `0x154`, the first twelve
+prologue bytes match, and the /GS store and check are both emitted (the check
+target disassembles as `call 0` in the raw object because the symbol is
+unresolved there). The 33-byte shortfall is therefore in the body: the flag
+word is spilled instead of living in ESI and the binding pointer lands in EDI
+instead of EBX, and the axis/retry blocks still differ in their exact
+instruction selection.
 
 Both models are preserved (`joystick_poll.cpp` and `joystick_poll_v2.cpp` in
 `matching2/build/recovery-lab/joystick-reader/`).
