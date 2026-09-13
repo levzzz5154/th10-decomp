@@ -24408,13 +24408,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043bd40_0043bd40",
+      "name": "semantic_AnimationCursor_Tick_0043bd40",
       "source": "src/unidentified/FUN_0043bd40_0043bd40.cpp",
-      "symbol": "_asm_FUN_0043bd40_0043bd40",
+      "symbol": "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
       "address": "0x0043BD40",
       "size": 93,
-      "kind": "asm",
-      "owner": "0x0043BD40"
+      "kind": "semantic",
+      "owner": "0x0043BD40",
+      "previous_record": {
+        "name": "asm_FUN_0043bd40_0043bd40",
+        "source": "src/unidentified/FUN_0043bd40_0043bd40.cpp",
+        "symbol": "_asm_FUN_0043bd40_0043bd40",
+        "address": "0x0043BD40",
+        "size": 93,
+        "kind": "asm",
+        "owner": "0x0043BD40"
+      }
     },
     {
       "name": "text_padding_0043bd9d",

@@ -1,75 +1,43 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/math/timer.hpp"
 
-// 0x0043BD40..0x0043BD9C: FUN_0043bd40
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043bd40_0043bd40() {
-    __asm {
-    L_0043bd40:
-        push ecx
-    L_0043bd41:
-        mov eax,dword ptr [data_004918a4]
-    L_0043bd46:
-        test eax,eax
-    L_0043bd48:
-        push esi
-    L_0043bd49:
-        mov esi,ecx
-    L_0043bd4b:
-        jne short L_0043bd85
-    L_0043bd4d:
-        push edi
-    L_0043bd4e:
-        mov edi,dword ptr [esi+1Ch]
-    L_0043bd51:
-        test edi,edi
-    L_0043bd53:
-        mov dword ptr [esp+8],edi
-    L_0043bd57:
-        je short L_0043bd7f
-    L_0043bd59:
-        fld dword ptr [esi+38h]
-    L_0043bd5c:
-        fmul dword ptr [data_00470bf8]
-    L_0043bd62:
-        fidiv dword ptr [esp+8]
-    L_0043bd66:
-        fsubr dword ptr [data_00470bf8]
-    L_0043bd6c:
-        call asm_FUN_00463b2c_00463b2c
-    L_0043bd71:
-        test eax,eax
-    L_0043bd73:
-        mov dword ptr [esi+18h],eax
-    L_0043bd76:
-        jge short L_0043bd7f
-    L_0043bd78:
-        mov dword ptr [esi+18h],0
-    L_0043bd7f:
-        cmp dword ptr [esi+34h],edi
-    L_0043bd82:
-        pop edi
-    L_0043bd83:
-        jl short L_0043bd8d
-    L_0043bd85:
-        mov eax,7
-    L_0043bd8a:
-        pop esi
-    L_0043bd8b:
-        pop ecx
-    L_0043bd8c:
-        ret
-    L_0043bd8d:
-        add esi,30h
-    L_0043bd90:
-        call asm_FrameTimer_Tick_00404ed0
-    L_0043bd95:
-        mov eax,1
-    L_0043bd9a:
-        pop esi
-    L_0043bd9b:
-        pop ecx
-    L_0043bd9c:
-        ret
+extern "C" int data_004918a4;  // 0x004918A4
+extern "C" float data_00470bf8;  // 0x00470BF8
+
+// Animation cursor update at 0x0043BD40. The object embeds a FrameTimer at
+// +0x30; native LTCG supplies the retail internal ESI receiver for that call.
+struct AnimationCursor_0043bd40 {
+    unsigned char pad_00[0x18];
+    int value;                   // +0x18
+    int length;                  // +0x1C
+    unsigned char pad_20[0x10];
+    int previous;                // +0x30, owned by the embedded timer
+    int frame;                   // +0x34
+    volatile float elapsed;      // +0x38; preserves retail x87 load order
+    const float* delta;          // +0x3C
+
+    __declspec(noinline) int Tick();
+};
+
+typedef char AnimationCursor_0043bd40_size_must_be_40[
+    sizeof(AnimationCursor_0043bd40) == 0x40 ? 1 : -1];
+
+#pragma code_seg(".text$05bd40")
+int AnimationCursor_0043bd40::Tick() {
+    if (data_004918a4 != 0)
+        return 7;
+
+    int divisor = length;
+    if (divisor != 0) {
+        int next = int(data_00470bf8 - elapsed * data_00470bf8 / divisor);
+        value = next;
+        if (next < 0)
+            value = 0;
     }
+
+    if (frame >= divisor)
+        return 7;
+
+    reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Tick();
+    return 1;
 }
+#pragma code_seg()

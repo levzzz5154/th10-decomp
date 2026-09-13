@@ -17,7 +17,7 @@ void FrameTimer::Tick() {
 }
 
 // 0x0044BF40. Converting after the branch reloads the binary32 elapsed field.
-#pragma code_seg(".text$07advance")
+#pragma code_seg(".text$09advance")
 void FrameTimer::Advance(float delta) {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper) {

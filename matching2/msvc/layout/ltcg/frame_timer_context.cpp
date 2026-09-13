@@ -8,7 +8,7 @@ struct AnimationCursor_0043c230 {
     int Tick();
 };
 
-#pragma code_seg(".text$09context")
+#pragma code_seg(".text$11context")
 void __stdcall FrameTimerCompilerContext(
         FrameTimer* timers, int count, int delta,
         AnimationCursor_0043c230* cursor) {

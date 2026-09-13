@@ -181,8 +181,8 @@ whole EXE     2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040
 ```
 
 Recovery accounting after the worker, joystick, and FrameTimer/cursor
-promotions is 434 regions / 22,541 bytes of ordinary C++; assembly is 2,151
-regions / 366,441 bytes.
+promotions is 435 regions / 22,634 bytes of ordinary C++; assembly is 2,150
+regions / 366,348 bytes.
 
 ## Joystick probe caller recovered through the logger cluster
 
@@ -218,23 +218,24 @@ The focused report is retained at
 promotion is documented in
 [`joystick_probe_text_log_cluster_0044a0c0.md`](recovery_notes/joystick_probe_text_log_cluster_0044a0c0.md).
 
-## FrameTimer/cursor caller recovered through the timer cluster
+## FrameTimer/cursor callers recovered through the timer cluster
 
-The blocked 133-byte animation-cursor callback at `0x0043C230` was the next
-caller/callee case. A standalone C++ member function matched its extent and
-control flow but emitted `lea ecx,[esi+30h]` instead of retail's
-`add esi,30h` before calling `FrameTimer::Tick`. It also reversed the two x87
-operands for the elapsed-scale multiply when the timer methods were visible
-to LTCG.
+The blocked 93-byte animation-cursor callback at `0x0043BD40` and the blocked
+133-byte callback at `0x0043C230` were the next caller/callee cases. Standalone
+C++ member functions matched their extents and control flow but emitted
+`lea ecx,[esi+30h]` instead of retail's `add esi,30h` before calling
+`FrameTimer::Tick`. The larger callback also reversed the two x87 operands for
+the elapsed-scale multiply when the timer methods were visible to LTCG.
 
-The existing schema-1 `frame_timer.json` now compiles the cursor as a separate
-`/GL` input with the three timer methods. The cursor is an explicit schema-1
-`roots` entry (`/INCLUDE`), preserving its retail `ECX` entry while the
-co-compiled timer call receives `ESI`. Declaring the elapsed field volatile
+The existing schema-1 `frame_timer.json` now compiles both cursors as separate
+`/GL` inputs with the three timer methods. Both cursors are explicit schema-1
+`roots` entries (`/INCLUDE`), preserving their retail `ECX` entries while the
+co-compiled timer calls receive `ESI`. Declaring each elapsed field volatile
 preserves the exact `fld [elapsed]` / `fmul [data_00470BF8]` order under the
-same native link. The cluster's four complete contributions are byte-exact:
+same native link. The cluster's five complete contributions are byte-exact:
 
 ```text
+0043BD40 (93)  eb77f9ae62bf28287002b87c29b886a0d5c534a2084fdec0ccb4279dbbafb4ce
 0043C230 (133) bd823ee212b505f3db6785f9fbc6bbdd7acf8bb50024f79f8dfb36fcc24d039f
 00404ED0 (72)  5349f4fd279892f975448c3dd7bd04000cead49a6aef8ae46bd11ae580fcbde5
 00428DD0 (20)  456bf129ca25bafdf3ff19604ea7e6067aca5da1737cd9fa8bf8dc8b075a8aee
@@ -242,7 +243,7 @@ same native link. The cluster's four complete contributions are byte-exact:
 ```
 
 The focused report is retained at
-`matching2/build/probe_43c230_cluster_rooted/clusters/frame_timer/report.json`.
+`matching2/build/probe_43bd40_cluster_rooted/clusters/frame_timer/report.json`.
 The complete executable continues to pass the 487,936-byte retail hash gate.
 The implementation and experiment are documented in
 [`frame_timer_cursor_cluster_0043c230.md`](recovery_notes/frame_timer_cursor_cluster_0043c230.md).

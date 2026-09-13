@@ -2,9 +2,15 @@
   "schema_version": 1,
   "name": "frame_timer",
   "source": "src/math/frame_timer.cpp",
-  "additional_sources": ["src/unidentified/FUN_0043c230_0043c230.cpp"],
+  "additional_sources": [
+    "src/unidentified/FUN_0043bd40_0043bd40.cpp",
+    "src/unidentified/FUN_0043c230_0043c230.cpp"
+  ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
-  "roots": ["?Tick@AnimationCursor_0043c230@@QAEHXZ"],
+  "roots": [
+    "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
+    "?Tick@AnimationCursor_0043c230@@QAEHXZ"
+  ],
   "headers": ["include/th10/math/timer.hpp"],
   "image_base": "0x00400000",
   "description": "Ordinary C++ FrameTimer methods compiled with a synthetic caller to recover the observed internal register ABI. Compiler context and layout gaps are never selected as game code.",
@@ -26,10 +32,19 @@
       "actual_abi": "this in ESI; count in EAX; plain RET"
     },
     {
+      "name": "AnimationCursor_Tick_0043bd40",
+      "source": "src/unidentified/FUN_0043bd40_0043bd40.cpp",
+      "symbol": "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
+      "section": ".text$05bd40",
+      "address": "0x0043BD40",
+      "size": 93,
+      "actual_abi": "cursor in ECX; nested FrameTimer receiver selected in ESI; plain RET"
+    },
+    {
       "name": "AnimationCursor_Tick",
       "source": "src/unidentified/FUN_0043c230_0043c230.cpp",
       "symbol": "?Tick@AnimationCursor_0043c230@@QAEHXZ",
-      "section": ".text$05cursor",
+      "section": ".text$07cursor",
       "address": "0x0043C230",
       "size": 133,
       "actual_abi": "cursor in ECX; nested FrameTimer receiver selected in ESI; plain RET"
@@ -37,7 +52,7 @@
     {
       "name": "FrameTimer_Advance",
       "symbol": "?Advance@FrameTimer@@QAEXM@Z",
-      "section": ".text$07advance",
+      "section": ".text$09advance",
       "address": "0x0044BF40",
       "size": 88,
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
@@ -45,7 +60,7 @@
   ],
   "context": {
     "symbol": "?FrameTimerCompilerContext@@YGXPAUFrameTimer@@HHPAUAnimationCursor_0043c230@@@Z",
-    "section": ".text$09context",
+    "section": ".text$11context",
     "address": "0x0044BFA0",
     "size": 76,
     "description": "Synthetic array-processing caller roots the cursor and frame-timer private register conventions; not recovered game code."
@@ -53,10 +68,11 @@
   "gaps": [
     {"section": ".text$00layout", "address": "0x00401000", "size": 16080},
     {"section": ".text$02layout", "address": "0x00404F18", "size": 147128},
-    {"section": ".text$04layout", "address": "0x00428DE4", "size": 78924},
-    {"section": ".text$06layout", "address": "0x0043C2B5", "size": 64651},
-    {"section": ".text$08layout", "address": "0x0044BF98", "size": 8},
-    {"section": ".text$10layout", "address": "0x0044BFEC", "size": 147476},
+    {"section": ".text$04layout", "address": "0x00428DE4", "size": 77660},
+    {"section": ".text$06layout", "address": "0x0043BD9D", "size": 1171},
+    {"section": ".text$08layout", "address": "0x0043C2B5", "size": 64651},
+    {"section": ".text$10layout", "address": "0x0044BF98", "size": 8},
+    {"section": ".text$12layout", "address": "0x0044BFEC", "size": 147476},
     {"section": ".rdata", "address": "0x00470000", "size": 2812}
   ],
   "constants": [
