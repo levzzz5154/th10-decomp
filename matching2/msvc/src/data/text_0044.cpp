@@ -717,23 +717,7 @@ extern "C" unsigned char text_padding_004465a7[] = {
 #pragma data_seg()
 
 
-// padding: 0x00446B39..0x00446B3B
-// padding 00446b39..00446b3b: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001589")
-extern "C" unsigned char text_padding_00446b39[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
 
-// data: 0x00446B3C..0x00446B66
-// data 00446b3c..00446b66: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d001590")
-extern "C" unsigned char text_data_00446b3c[] = {
-    0x06, 0x66, 0x44, 0x00, 0x98, 0x67, 0x44, 0x00, 0x5e, 0x69, 0x44, 0x00, 0x1d, 0x6b, 0x44, 0x00,
-    0x00, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
-    0x03, 0x03, 0x03, 0x03, 0x03, 0x00, 0x03, 0x03, 0x03, 0x01, 0x02,
-};
-#pragma data_seg()
 
 // padding: 0x00446B67..0x00446B6F
 // padding 00446b67..00446b6f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]

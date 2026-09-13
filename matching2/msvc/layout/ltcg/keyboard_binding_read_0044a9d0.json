@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "name": "keyboard_binding_read_0044a9d0",
+  "source": "src/unidentified/FUN_0044a9d0_0044a9d0.cpp",
+  "driver": "layout/ltcg/keyboard_binding_read_0044a9d0_context.cpp",
+  "headers": [
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Keyboard binding-set reader. Retail materialises the 0x6A-byte record address in ESI at entry (mov esi,ecx / imul esi,esi,0x6A / add esi,0x474E30) with the action mask living in EDI; only a native-LTCG link of this source picks that allocation, the plain /O2 compile keeps the product in ECX and copies it at the end of the straight-line prologue.",
+  "functions": [
+    {
+      "name": "FUN_0044a9d0_0044a9d0",
+      "symbol": "?FUN_0044a9d0_0044a9d0@@YIGII@Z",
+      "section": ".text$01bindingread",
+      "address": "0x0044A9D0",
+      "size": 850,
+      "actual_abi": "binding-set index in ECX; unused register argument in EDX; action word in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?KeyboardBindingReadCompilerContext@@YGHPAIH@Z",
+    "section": ".text$03context",
+    "address": "0x0044AD30",
+    "size": 41,
+    "description": "Synthetic caller that roots the reader by summing the action words of an index array; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 301520
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044AD22",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004924fc",
+      "address": "0x004924FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491ff4",
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c38",
+      "address": "0x00491C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetKeyboardState@4",
+      "address": "0x00466208",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0044a190_0044a190",
+      "address": "0x0044A190",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ]
+}

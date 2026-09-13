@@ -26775,13 +26775,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00443b60_00443b60",
+      "name": "semantic_Billboard_BuildProjectedQuad_00443b60",
       "source": "src/render/projection_quads.cpp",
-      "symbol": "_asm_FUN_00443b60_00443b60",
+      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
       "address": "0x00443B60",
       "size": 1047,
-      "kind": "asm",
-      "owner": "0x00443B60"
+      "kind": "semantic",
+      "owner": "0x00443B60",
+      "previous_record": {
+        "name": "asm_FUN_00443b60_00443b60",
+        "source": "src/render/projection_quads.cpp",
+        "symbol": "_asm_FUN_00443b60_00443b60",
+        "address": "0x00443B60",
+        "size": 1047,
+        "kind": "asm",
+        "owner": "0x00443B60"
+      }
     },
     {
       "name": "text_padding_00443f77",
@@ -26826,13 +26835,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00444240_00444240",
+      "name": "semantic_ProjectedEntity_ProjectQuad_00444240_00444240",
       "source": "src/render/fun_00444240_00444240.cpp",
-      "symbol": "_asm_FUN_00444240_00444240",
+      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
       "address": "0x00444240",
       "size": 818,
-      "kind": "asm",
-      "owner": "0x00444240"
+      "kind": "semantic",
+      "owner": "0x00444240",
+      "previous_record": {
+        "name": "asm_FUN_00444240_00444240",
+        "source": "src/render/fun_00444240_00444240.cpp",
+        "symbol": "_asm_FUN_00444240_00444240",
+        "address": "0x00444240",
+        "size": 818,
+        "kind": "asm",
+        "owner": "0x00444240"
+      }
     },
     {
       "name": "text_padding_00444572",
@@ -27420,25 +27438,9 @@
       "source": "src/render/transparent_pixel_fill_locked.cpp",
       "symbol": "_asm_FUN_004465b0_004465b0",
       "address": "0x004465B0",
-      "size": 1417,
+      "size": 1463,
       "kind": "asm",
       "owner": "0x004465B0"
-    },
-    {
-      "name": "text_padding_00446b39",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_00446b39",
-      "address": "0x00446B39",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00446b3c",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_00446b3c",
-      "address": "0x00446B3C",
-      "size": 43,
-      "kind": "data"
     },
     {
       "name": "text_padding_00446b67",
@@ -29656,12 +29658,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044a5f0_0044a5f0",
+      "name": "semantic_FUN_0044a5f0_0044a5f0",
       "source": "src/platform/final_input_runtime.cpp",
-      "symbol": "_asm_FUN_0044a5f0_0044a5f0",
+      "symbol": "?FUN_0044a5f0_0044a5f0@@YIGIH@Z",
       "address": "0x0044A5F0",
       "size": 850,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0044A5F0"
     },
     {
@@ -29690,13 +29692,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044a9d0_0044a9d0",
+      "name": "semantic_FUN_0044a9d0_0044a9d0_0044a9d0",
       "source": "src/unidentified/FUN_0044a9d0_0044a9d0.cpp",
-      "symbol": "_asm_FUN_0044a9d0_0044a9d0",
+      "symbol": "?FUN_0044a9d0_0044a9d0@@YIGII@Z",
       "address": "0x0044A9D0",
       "size": 850,
-      "kind": "asm",
-      "owner": "0x0044A9D0"
+      "kind": "semantic",
+      "owner": "0x0044A9D0",
+      "previous_record": {
+        "name": "asm_FUN_0044a9d0_0044a9d0",
+        "source": "src/unidentified/FUN_0044a9d0_0044a9d0.cpp",
+        "symbol": "_asm_FUN_0044a9d0_0044a9d0",
+        "address": "0x0044A9D0",
+        "size": 850,
+        "kind": "asm",
+        "owner": "0x0044A9D0"
+      }
     },
     {
       "name": "text_padding_0044ad22",
@@ -45975,7 +45986,9 @@
     "_text_padding_00455671": "0x00455671",
     "_text_data_00455673": "0x00455673",
     "_text_padding_0045db55": "0x0045DB55",
-    "_text_data_0045db56": "0x0045DB56"
+    "_text_data_0045db56": "0x0045DB56",
+    "_text_padding_00446b39": "0x00446B39",
+    "_text_data_00446b3c": "0x00446B3C"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -48581,7 +48594,10 @@
     "layout/ltcg/recovery_select_archive_entry_0043d790.json",
     "layout/ltcg/platform_set_operation_deadline_0044d4e0.json",
     "layout/ltcg/platform_worker_shutdown.json",
-    "layout/ltcg/sound_queue.json"
+    "layout/ltcg/sound_queue.json",
+    "layout/ltcg/entity_quad_projection_00444240.json",
+    "layout/ltcg/projection_quads.json",
+    "layout/ltcg/keyboard_binding_read_0044a9d0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

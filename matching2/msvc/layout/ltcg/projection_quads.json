@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "name": "projection_quads",
+  "source": "src/render/projection_quads.cpp",
+  "driver": "layout/ltcg/projection_quads_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG billboard projection: retail takes the source in EAX, a convention only a /GL link assigns, so a synthetic pointer-array caller establishes it. No context or layout-gap byte counts as recovered game code.",
+  "functions": [
+    {
+      "name": "Billboard_BuildProjectedQuad",
+      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "section": ".text$02quad",
+      "address": "0x00443B60",
+      "size": 1047,
+      "actual_abi": "source in EAX; plain RET"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$01layout",
+      "address": "0x401024",
+      "size": 273212
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@bf000000",
+      "address": "0x00470B78",
+      "value": -0.5
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491fac",
+      "address": "0x00491FAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004978c0",
+      "address": "0x004978C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_D3DXVec3Project@24",
+      "address": "0x0045218E",
+      "kind": "relative_code"
+    }
+  ],
+  "context": {
+    "symbol": "?ProjectionQuadsCompilerContext@@YGHPAPAUBillboardSource_00443B60@@H@Z",
+    "section": ".text$00context",
+    "address": "0x00401000",
+    "size": 36,
+    "description": "Synthetic pointer-array caller that establishes the source-in-EAX convention; not recovered game code."
+  }
+}
