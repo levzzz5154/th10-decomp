@@ -20,6 +20,13 @@ and [allocator/initializer follow-up](../../reference/recovery_notes/animation_p
 These recoveries leave 443 C++ regions / 24,757 bytes; `make progress` remains
 the authoritative current count.
 
+**Render cluster expansion (2026-09-13):** compiler-visible batch flushing now
+unlocks the solid quad, color viewport, and viewport clear/present pair through
+a real schema-2 batch. The gradient quad extends that batch under schema 1,
+retaining only the two required public roots (+1,361 bytes / five regions).
+[Source and ABI evidence](../../reference/recovery_notes/viewport_quad_cluster_0043bc40_0043c1a0.md).
+The whole executable is exact at 448 C++ regions / 26,118 bytes.
+
 Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```

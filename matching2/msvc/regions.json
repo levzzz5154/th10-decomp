@@ -24428,13 +24428,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ResetDeviceStreams_0043bc40",
+      "name": "semantic_ClearAndPresentTwice_0043bc40",
       "source": "src/game/recovery_reset_device_streams_0043bc40.cpp",
-      "symbol": "_asm_Recovery_ResetDeviceStreams_0043bc40",
+      "symbol": "?ClearAndPresentTwice@@YGHI@Z",
       "address": "0x0043BC40",
       "size": 135,
-      "kind": "asm",
-      "owner": "0x0043BC40"
+      "kind": "semantic",
+      "owner": "0x0043BC40",
+      "previous_record": {
+        "name": "asm_Recovery_ResetDeviceStreams_0043bc40",
+        "source": "src/game/recovery_reset_device_streams_0043bc40.cpp",
+        "symbol": "_asm_Recovery_ResetDeviceStreams_0043bc40",
+        "address": "0x0043BC40",
+        "size": 135,
+        "kind": "asm",
+        "owner": "0x0043BC40"
+      }
     },
     {
       "name": "text_padding_0043bcc7",
@@ -24445,13 +24454,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Viewport_ApplyDefaultRetail_0043bcd0",
+      "name": "semantic_ApplyDefaultViewport_0043bcd0",
       "source": "src/render/viewport_apply_default_retail_0043bcd0.cpp",
-      "symbol": "_asm_Viewport_ApplyDefaultRetail_0043bcd0",
+      "symbol": "?ApplyDefaultViewport@@YGHI@Z",
       "address": "0x0043BCD0",
       "size": 108,
-      "kind": "asm",
-      "owner": "0x0043BCD0"
+      "kind": "semantic",
+      "owner": "0x0043BCD0",
+      "previous_record": {
+        "name": "asm_Viewport_ApplyDefaultRetail_0043bcd0",
+        "source": "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+        "symbol": "_asm_Viewport_ApplyDefaultRetail_0043bcd0",
+        "address": "0x0043BCD0",
+        "size": 108,
+        "kind": "asm",
+        "owner": "0x0043BCD0"
+      }
     },
     {
       "name": "text_padding_0043bd3c",
@@ -24488,13 +24506,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043bda0_0043bda0",
+      "name": "semantic_DrawSolidQuad_0043bda0",
       "source": "src/render/special_quad.cpp",
-      "symbol": "_asm_FUN_0043bda0_0043bda0",
+      "symbol": "?DrawSolidQuad@@YGHPBUScreenRect@@I@Z",
       "address": "0x0043BDA0",
       "size": 483,
-      "kind": "asm",
-      "owner": "0x0043BDA0"
+      "kind": "semantic",
+      "owner": "0x0043BDA0",
+      "previous_record": {
+        "name": "asm_FUN_0043bda0_0043bda0",
+        "source": "src/render/special_quad.cpp",
+        "symbol": "_asm_FUN_0043bda0_0043bda0",
+        "address": "0x0043BDA0",
+        "size": 483,
+        "kind": "asm",
+        "owner": "0x0043BDA0"
+      }
     },
     {
       "name": "text_padding_0043bf83",
@@ -24531,13 +24558,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043bfa0_0043bfa0",
+      "name": "semantic_DrawGradientQuad_0043bfa0",
       "source": "src/render/texture_stage_reset.cpp",
-      "symbol": "_asm_FUN_0043bfa0_0043bfa0",
+      "symbol": "?DrawGradientQuad@@YGHPBUScreenRect@@IIII@Z",
       "address": "0x0043BFA0",
       "size": 501,
-      "kind": "asm",
-      "owner": "0x0043BFA0"
+      "kind": "semantic",
+      "owner": "0x0043BFA0",
+      "previous_record": {
+        "name": "asm_FUN_0043bfa0_0043bfa0",
+        "source": "src/render/texture_stage_reset.cpp",
+        "symbol": "_asm_FUN_0043bfa0_0043bfa0",
+        "address": "0x0043BFA0",
+        "size": 501,
+        "kind": "asm",
+        "owner": "0x0043BFA0"
+      }
     },
     {
       "name": "text_padding_0043c195",
@@ -24548,13 +24584,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043c1a0_0043c1a0",
+      "name": "semantic_ColorViewport_Draw_0043c1a0",
       "source": "src/render/default_viewport.cpp",
-      "symbol": "_asm_FUN_0043c1a0_0043c1a0",
+      "symbol": "?Draw@ColorViewport@@QAEHXZ",
       "address": "0x0043C1A0",
       "size": 134,
-      "kind": "asm",
-      "owner": "0x0043C1A0"
+      "kind": "semantic",
+      "owner": "0x0043C1A0",
+      "previous_record": {
+        "name": "asm_FUN_0043c1a0_0043c1a0",
+        "source": "src/render/default_viewport.cpp",
+        "symbol": "_asm_FUN_0043c1a0_0043c1a0",
+        "address": "0x0043C1A0",
+        "size": 134,
+        "kind": "asm",
+        "owner": "0x0043C1A0"
+      }
     },
     {
       "name": "text_padding_0043c226",

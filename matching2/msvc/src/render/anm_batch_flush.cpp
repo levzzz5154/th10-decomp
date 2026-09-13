@@ -1,15 +1,5 @@
 // 0x00442F50 - Native-LTCG recovery of the internal ESI receiver convention.
-struct AnimationManager_00442F50 {
-    unsigned char unknown_00000000[0x58];
-    int draw_calls;
-    unsigned char unknown_0000005C[0x3ADAC8 - 0x5C];
-    int quad_count;
-    unsigned char unknown_003ADACC[0x72DACC - 0x3ADACC];
-    void* cursor;
-    void* batch_start;
-
-    __declspec(noinline) int Flush();
-};
+#include "th10/render/quad_batch.hpp"
 
 typedef long (__stdcall *SetTextureStageState_00442F50)(
     void*, unsigned int, unsigned int, unsigned int);
@@ -17,7 +7,7 @@ typedef long (__stdcall *SetFVF_00442F50)(void*, unsigned int);
 typedef long (__stdcall *DrawPrimitiveUP_00442F50)(
     void*, unsigned int, unsigned int, const void*, unsigned int);
 
-#pragma code_seg(".text$01flush")
+#pragma code_seg(".text$05flush")
 __declspec(noinline) int AnimationManager_00442F50::Flush() {
     int result = quad_count;
     if (result != 0) {
