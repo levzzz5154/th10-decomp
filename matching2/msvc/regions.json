@@ -5857,13 +5857,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040b480_0040b480",
+      "name": "semantic_LoadAsset_0040b480",
       "source": "src/game/asset_buffer.cpp",
-      "symbol": "_asm_FUN_0040b480_0040b480",
+      "symbol": "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z",
       "address": "0x0040B480",
       "size": 106,
-      "kind": "asm",
-      "owner": "0x0040B480"
+      "kind": "semantic",
+      "owner": "0x0040B480",
+      "previous_record": {
+        "name": "asm_FUN_0040b480_0040b480",
+        "source": "src/game/asset_buffer.cpp",
+        "symbol": "_asm_FUN_0040b480_0040b480",
+        "address": "0x0040B480",
+        "size": 106,
+        "kind": "asm",
+        "owner": "0x0040B480"
+      }
     },
     {
       "name": "text_padding_0040b4ea",
@@ -16637,13 +16646,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ParameterFile_LoadAndRelocateRetail_00426520",
+      "name": "semantic_ParameterLoader_Load_00426520",
       "source": "src/game/music_room.cpp",
-      "symbol": "_asm_ParameterFile_LoadAndRelocateRetail_00426520",
+      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
       "address": "0x00426520",
       "size": 229,
-      "kind": "asm",
-      "owner": "0x00426520"
+      "kind": "semantic",
+      "owner": "0x00426520",
+      "previous_record": {
+        "name": "asm_ParameterFile_LoadAndRelocateRetail_00426520",
+        "source": "src/game/music_room.cpp",
+        "symbol": "_asm_ParameterFile_LoadAndRelocateRetail_00426520",
+        "address": "0x00426520",
+        "size": 229,
+        "kind": "asm",
+        "owner": "0x00426520"
+      }
     },
     {
       "name": "text_padding_00426605",
@@ -25646,13 +25664,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043e9d0_0043e9d0",
+      "name": "semantic_MapResource_LoadMap_0043e9d0",
       "source": "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
-      "symbol": "_asm_FUN_0043e9d0_0043e9d0",
+      "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
       "address": "0x0043E9D0",
       "size": 228,
-      "kind": "asm",
-      "owner": "0x0043E9D0"
+      "kind": "semantic",
+      "owner": "0x0043E9D0",
+      "previous_record": {
+        "name": "asm_FUN_0043e9d0_0043e9d0",
+        "source": "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
+        "symbol": "_asm_FUN_0043e9d0_0043e9d0",
+        "address": "0x0043E9D0",
+        "size": 228,
+        "kind": "asm",
+        "owner": "0x0043E9D0"
+      }
     },
     {
       "name": "text_padding_0043eab4",

@@ -41,6 +41,14 @@ source-shape blockers. See [camera evidence](../../reference/recovery_notes/came
 and [color follow-up](../../reference/recovery_notes/blend_color_followup_004423e0.md).
 The whole executable is exact at 456 C++ regions / 28,016 bytes.
 
+**Archive resource callers (2026-09-13):** asset-buffer replacement, parameter
+file relocation, and optional map loading now share the archive loader's native
+compiler scope (+563 bytes / three regions). The parameter loader's float
+projection value also reproduces its FSIN and exact aligned nested loops.
+[Recovery evidence](../../reference/recovery_notes/archive_resource_callers_0040b480_00426520_0043e9d0.md).
+The whole executable is exact at 459 C++ regions / 28,579 bytes, with 2,126
+assembly regions / 360,403 bytes remaining.
+
 Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```

@@ -29,7 +29,7 @@ extern "C" char* __cdecl asm_strrchr_00452930(const char*, int);
 extern "C" int __cdecl asm_stricmp_0046054e(const char*, const char*);
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
 
-#pragma code_seg(".text$03load")
+#pragma code_seg(".text$05load")
 extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* name, int* outSize,
                                                                  int fromDisk) {
     char* buffer;

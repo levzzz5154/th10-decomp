@@ -6,7 +6,7 @@ struct ScriptFileLoader {
     int Parse(char* data);
     __declspec(noinline) int Load(const char* name);
 };
-#pragma code_seg(".text$01script")
+#pragma code_seg(".text$02script")
 int ScriptFileLoader::Load(const char* name) {
     data_00497c38[0] = 0;
     strcat(data_00497c38, name);
