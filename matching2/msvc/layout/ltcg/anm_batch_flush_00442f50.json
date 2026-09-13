@@ -6,7 +6,7 @@
     "include/th10/render/quad_batch.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG render batch. The real public color-overlay and viewport-reset callers retain their entries; the gradient caller context establishes its private EDI rectangle argument. Quad, clear/present, and flush helpers are never rooted. Synthetic context and layout gaps contribute zero recovered game-code bytes.",
+  "description": "Native-LTCG render batch with compiler-visible state synchronization, quad appending, and primitive draw callers. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The synthetic primitive-array context establishes private conventions and contributes zero recovered game-code bytes.",
   "functions": [
     {
       "name": "AnimationManager_00442F50_Flush",
@@ -61,6 +61,69 @@
       "address": "0x0043BFA0",
       "size": 501,
       "actual_abi": "rect in EDI; four colors on stack; RET 16"
+    },
+    {
+      "name": "SyncRenderState",
+      "source": "src/render/render_state_sync.cpp",
+      "symbol": "?SyncRenderState@AnimationManager_00442F50@@QAEXPBURenderEntity@@@Z",
+      "section": ".text$04bsync",
+      "address": "0x004425A0",
+      "size": 201,
+      "actual_abi": "EAX manager; EDI entity"
+    },
+    {
+      "name": "DrawStrip",
+      "source": "src/render/edge_strip_draw.cpp",
+      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06bstrip",
+      "address": "0x00444CE0",
+      "size": 224,
+      "actual_abi": "ECX manager; EAX entity; vertices and count on stack; RET 8"
+    },
+    {
+      "name": "AppendQuad",
+      "source": "src/render/quad_vertex_append.cpp",
+      "symbol": "?AppendQuad@AnimationManager_00442F50@@QAEHPBUTexturedVertex@@@Z",
+      "section": ".text$05happend",
+      "address": "0x00442FE0",
+      "size": 157,
+      "actual_abi": "EAX manager; EDX vertices; plain RET"
+    },
+    {
+      "name": "DrawQuad",
+      "source": "src/unidentified/unassigned_00444dc0.cpp",
+      "symbol": "?DrawQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBUTexturedVertex@@@Z",
+      "section": ".text$06dquad",
+      "address": "0x00444DC0",
+      "size": 145,
+      "actual_abi": "ECX manager; EAX entity; vertices on stack; RET 4"
+    },
+    {
+      "name": "DrawFan",
+      "source": "src/render/rect_fan_draw.cpp",
+      "symbol": "?DrawFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06ffan",
+      "address": "0x004450E0",
+      "size": 211,
+      "actual_abi": "ECX manager; EAX entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "DrawSolidStrip",
+      "source": "src/unidentified/unassigned_00444e60.cpp",
+      "symbol": "?DrawSolidStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06ebstrip",
+      "address": "0x00444E60",
+      "size": 315,
+      "actual_abi": "EAX manager; EDI entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "DrawSolidFan",
+      "source": "src/unidentified/unassigned_00444fa0.cpp",
+      "symbol": "?DrawSolidFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06edfan",
+      "address": "0x00444FA0",
+      "size": 315,
+      "actual_abi": "EAX manager; EDI entity; vertices/count on stack; RET 8"
     }
   ],
   "gaps": [
@@ -75,9 +138,9 @@
       "size": 29
     },
     {
-      "section": ".text$04layout",
+      "section": ".text$04alayout",
       "address": "0x0043C226",
-      "size": 27946
+      "size": 25466
     },
     {
       "section": ".text$00blayout",
@@ -95,9 +158,39 @@
       "size": 11
     },
     {
-      "section": ".text$06layout",
+      "section": ".text$06alayout",
+      "address": "0x0044307D",
+      "size": 7267
+    },
+    {
+      "section": ".text$04clayout",
+      "address": "0x00442669",
+      "size": 2279
+    },
+    {
+      "section": ".text$05glayout",
       "address": "0x00442FD5",
-      "size": 43
+      "size": 11
+    },
+    {
+      "section": ".text$06ealayout",
+      "address": "0x00444E51",
+      "size": 15
+    },
+    {
+      "section": ".text$06glayout",
+      "address": "0x004451B3",
+      "size": 77
+    },
+    {
+      "section": ".text$06eclayout",
+      "address": "0x00444F9B",
+      "size": 5
+    },
+    {
+      "section": ".text$06eelayout",
+      "address": "0x004450DB",
+      "size": 5
     }
   ],
   "constants": [],
@@ -133,18 +226,25 @@
     "src/render/special_quad.cpp",
     "src/render/default_viewport.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
-    "src/render/viewport_apply_default_retail_0043bcd0.cpp"
+    "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/render/render_state_sync.cpp",
+    "src/render/edge_strip_draw.cpp",
+    "src/render/quad_vertex_append.cpp",
+    "src/unidentified/unassigned_00444dc0.cpp",
+    "src/render/rect_fan_draw.cpp",
+    "src/unidentified/unassigned_00444e60.cpp",
+    "src/unidentified/unassigned_00444fa0.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
     "?Draw@ColorViewport@@QAEHXZ"
   ],
-  "driver": "layout/ltcg/quad_gradient_context.cpp",
+  "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
-    "symbol": "?GradientQuadContext@@YGHPAPBUScreenRect@@PBIH@Z",
+    "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBX@Z",
     "section": ".text$07context",
-    "address": "0x00443000",
-    "size": 65,
-    "description": "Synthetic gradient caller retains the EDI rect input; not recovered game code"
+    "address": "0x00445200",
+    "size": 233,
+    "description": "Synthetic caller of gradient and entity primitive draws; not recovered game code."
   }
 }

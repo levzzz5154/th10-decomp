@@ -27,6 +27,13 @@ retaining only the two required public roots (+1,361 bytes / five regions).
 [Source and ABI evidence](../../reference/recovery_notes/viewport_quad_cluster_0043bc40_0043c1a0.md).
 The whole executable is exact at 448 C++ regions / 26,118 bytes.
 
+**Render-state and primitive callers (2026-09-13):** the render batch now also
+contains the EAX/EDI state synchronizer and EAX/EDX quad appender, together with
+five real draw callers (+1,568 bytes / seven regions). Five of seven direct
+synchronizer callers are recovered; the two 1,111-byte quad pipelines remain.
+[Source-shape and ABI evidence](../../reference/recovery_notes/render_state_primitives_004425a0_004450e0.md).
+The whole executable is exact at 455 C++ regions / 27,686 bytes.
+
 Measured against the manifest at commit `22b5236` (whole-image build byte-exact).
 
 ```

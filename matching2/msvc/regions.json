@@ -26481,13 +26481,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnmManager_SyncEntityRenderStateRetail_004425a0",
+      "name": "semantic_SyncRenderState_004425a0",
       "source": "src/render/render_state_sync.cpp",
-      "symbol": "_asm_AnmManager_SyncEntityRenderStateRetail_004425a0",
+      "symbol": "?SyncRenderState@AnimationManager_00442F50@@QAEXPBURenderEntity@@@Z",
       "address": "0x004425A0",
       "size": 201,
-      "kind": "asm",
-      "owner": "0x004425A0"
+      "kind": "semantic",
+      "owner": "0x004425A0",
+      "previous_record": {
+        "name": "asm_AnmManager_SyncEntityRenderStateRetail_004425a0",
+        "source": "src/render/render_state_sync.cpp",
+        "symbol": "_asm_AnmManager_SyncEntityRenderStateRetail_004425a0",
+        "address": "0x004425A0",
+        "size": 201,
+        "kind": "asm",
+        "owner": "0x004425A0"
+      }
     },
     {
       "name": "text_padding_00442669",
@@ -26575,13 +26584,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_AppendQuadVertices_00442fe0",
+      "name": "semantic_AppendQuad_00442fe0",
       "source": "src/render/quad_vertex_append.cpp",
-      "symbol": "_asm_AnimationManager_AppendQuadVertices_00442fe0",
+      "symbol": "?AppendQuad@AnimationManager_00442F50@@QAEHPBUTexturedVertex@@@Z",
       "address": "0x00442FE0",
       "size": 157,
-      "kind": "asm",
-      "owner": "0x00442FE0"
+      "kind": "semantic",
+      "owner": "0x00442FE0",
+      "previous_record": {
+        "name": "asm_AnimationManager_AppendQuadVertices_00442fe0",
+        "source": "src/render/quad_vertex_append.cpp",
+        "symbol": "_asm_AnimationManager_AppendQuadVertices_00442fe0",
+        "address": "0x00442FE0",
+        "size": 157,
+        "kind": "asm",
+        "owner": "0x00442FE0"
+      }
     },
     {
       "name": "text_padding_0044307d",
@@ -26864,22 +26882,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00444ce0_00444ce0",
+      "name": "semantic_DrawStrip_00444ce0",
       "source": "src/render/edge_strip_draw.cpp",
-      "symbol": "_asm_FUN_00444ce0_00444ce0",
+      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x00444CE0",
       "size": 224,
-      "kind": "asm",
-      "owner": "0x00444CE0"
+      "kind": "semantic",
+      "owner": "0x00444CE0",
+      "previous_record": {
+        "name": "asm_FUN_00444ce0_00444ce0",
+        "source": "src/render/edge_strip_draw.cpp",
+        "symbol": "_asm_FUN_00444ce0_00444ce0",
+        "address": "0x00444CE0",
+        "size": 224,
+        "kind": "asm",
+        "owner": "0x00444CE0"
+      }
     },
     {
-      "name": "asm_unassigned_00444dc0",
+      "name": "semantic_DrawQuad_00444dc0",
       "source": "src/unidentified/unassigned_00444dc0.cpp",
-      "symbol": "_asm_unassigned_00444dc0",
+      "symbol": "?DrawQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBUTexturedVertex@@@Z",
       "address": "0x00444DC0",
       "size": 145,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00444dc0",
+        "source": "src/unidentified/unassigned_00444dc0.cpp",
+        "symbol": "_asm_unassigned_00444dc0",
+        "address": "0x00444DC0",
+        "size": 145,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00444e51",
@@ -26890,13 +26926,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00444e60",
+      "name": "semantic_DrawSolidStrip_00444e60",
       "source": "src/unidentified/unassigned_00444e60.cpp",
-      "symbol": "_asm_unassigned_00444e60",
+      "symbol": "?DrawSolidStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x00444E60",
       "size": 315,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00444e60",
+        "source": "src/unidentified/unassigned_00444e60.cpp",
+        "symbol": "_asm_unassigned_00444e60",
+        "address": "0x00444E60",
+        "size": 315,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00444f9b",
@@ -26907,13 +26952,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00444fa0",
+      "name": "semantic_DrawSolidFan_00444fa0",
       "source": "src/unidentified/unassigned_00444fa0.cpp",
-      "symbol": "_asm_unassigned_00444fa0",
+      "symbol": "?DrawSolidFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x00444FA0",
       "size": 315,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00444fa0",
+        "source": "src/unidentified/unassigned_00444fa0.cpp",
+        "symbol": "_asm_unassigned_00444fa0",
+        "address": "0x00444FA0",
+        "size": 315,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004450db",
@@ -26924,13 +26978,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004450e0_004450e0",
+      "name": "semantic_DrawFan_004450e0",
       "source": "src/render/rect_fan_draw.cpp",
-      "symbol": "_asm_FUN_004450e0_004450e0",
+      "symbol": "?DrawFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x004450E0",
       "size": 211,
-      "kind": "asm",
-      "owner": "0x004450E0"
+      "kind": "semantic",
+      "owner": "0x004450E0",
+      "previous_record": {
+        "name": "asm_FUN_004450e0_004450e0",
+        "source": "src/render/rect_fan_draw.cpp",
+        "symbol": "_asm_FUN_004450e0_004450e0",
+        "address": "0x004450E0",
+        "size": 211,
+        "kind": "asm",
+        "owner": "0x004450E0"
+      }
     },
     {
       "name": "text_padding_004451b3",

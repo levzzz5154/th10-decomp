@@ -1,17 +1,41 @@
 #ifndef TH10_QUAD_BATCH_HPP
 #define TH10_QUAD_BATCH_HPP
+struct RenderEntity;
+struct TexturedVertex { float x, y, z, rhw; unsigned int color; float u, v; };
 struct AnimationManager_00442F50 {
-    unsigned char unknown_00000000[0x58];
+    unsigned char unknown_00000000[0x54];
+    int state_changes;
     int draw_calls;
-    unsigned char unknown_0000005C[0x3ADAC8 - 0x5C];
+    unsigned char unknown_0000005C[0x3ADA60 - 0x5C];
+    unsigned int cached_color;
+    void* cached_texture;
+    unsigned char cached_blend, cached_unknown_69, cached_format, cached_unknown_6b;
+    unsigned char cached_unknown_6c, cached_unknown_6d, cached_filter, cached_unknown_6f;
+    unsigned char unknown_003ADA70[0x3ADAC8 - 0x3ADA70];
     int quad_count;
     unsigned char unknown_003ADACC[0x72DACC - 0x3ADACC];
-    void* cursor;
+    TexturedVertex* cursor;
     void* batch_start;
 
+    __declspec(noinline) int AppendQuad(const TexturedVertex* vertices);
+    __declspec(noinline) int DrawQuad(const RenderEntity* entity, const TexturedVertex* vertices);
+    __declspec(noinline) int DrawFan(const RenderEntity* entity, const void* vertices, unsigned int count);
+    __declspec(noinline) int DrawSolidStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
+    __declspec(noinline) int DrawSolidFan(const RenderEntity* entity, const void* vertices, unsigned int count);
     __declspec(noinline) int Flush();
+    __declspec(noinline) void SyncRenderState(const RenderEntity* entity);
+    __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
 };
 
+struct RenderTexture { int reserved; void* texture; };
+struct RenderEntity {
+    unsigned char reserved[0x2FC];
+    unsigned int color;
+    unsigned char reserved_300[0x35C - 0x300];
+    unsigned int flags;
+    unsigned char reserved_360[0x394 - 0x360];
+    RenderTexture* texture;
+};
 struct ScreenRect { float left, top, right, bottom; };
 __declspec(noinline) int __stdcall DrawSolidQuad(const ScreenRect*, unsigned int);
 extern "C" AnimationManager_00442F50* data_00491c10;
@@ -20,6 +44,14 @@ struct RenderDevice {
     long Stage(unsigned int stage, unsigned int state, unsigned int value) {
         typedef long (__stdcall *Call)(void*, unsigned int, unsigned int, unsigned int);
         return ((Call)vtable[0x10C / 4])(this, stage, state, value);
+    }
+    long Sampler(unsigned int stage, unsigned int state, unsigned int value) {
+        typedef long (__stdcall *Call)(void*, unsigned int, unsigned int, unsigned int);
+        return ((Call)vtable[0x114 / 4])(this, stage, state, value);
+    }
+    long Texture(unsigned int stage, void* texture) {
+        typedef long (__stdcall *Call)(void*, unsigned int, void*);
+        return ((Call)vtable[0x104 / 4])(this, stage, texture);
     }
     long State(unsigned int state, unsigned int value) {
         typedef long (__stdcall *Call)(void*, unsigned int, unsigned int);
