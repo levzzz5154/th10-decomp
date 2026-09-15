@@ -65,3 +65,23 @@ manager fields, entity fields, vertices, and device calls required by these bodi
 | 0x004450E0 | DrawFan | 211 | `aa6c2227b982ef48582fb151b3bac95df3c019715eccb7478655cf7cc5e52cdc` |
 | 0x00444E60 | DrawSolidStrip | 315 | `586bb20b6ad7f01e12709e4db2afecb682648d4a7ccd78053b1d635b48457067` |
 | 0x00444FA0 | DrawSolidFan | 315 | `534b3c68210ad967742bd8ac8cced2bacb3d53b123ed717a5e584501cbef8976` |
+
+## 0x00445880 fan submitter: call site recovered, register roles blocked
+
+The 25-byte submitter at `0x00445880` (`src/unidentified/FUN_00445880_00445880.cpp`)
+forwards this object's `+0x358` field and the constant `0x21` to `DrawFan` at
+`0x004450E0` and returns 0. Retail's call site, call shape and argument order are
+reproduced exactly — the only residue is which register holds `this` while the
+field is read:
+
+```text
+retail   mov eax,ecx ; mov ecx,[eax+0x358] ; push 0x21 ; push ecx ; mov ecx,[0x491C10] ; call ; xor eax,eax ; ret   (25)
+compiled mov eax,[ecx+0x358] ; mov ecx,[0x491C10] ; push 0x21 ; push eax ; call ; xor eax,eax ; ret               (23)
+```
+
+Four source spellings were measured, all 23 bytes with 14 differing: the direct
+member call, a `self = this` alias local, a field-pointer local, a separate
+`int value = field_358;` statement, and a hoisted manager local. MSVC always
+folds the field load into the member access, so retail's two-instruction
+`mov eax,ecx` / indexed load does not appear. The entry is otherwise a ready
+one-shot recovery once a construct with retail's register roles is found.
