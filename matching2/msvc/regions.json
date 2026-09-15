@@ -11791,13 +11791,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameConfig_InitializeDefaults_00418c40",
+      "name": "semantic_GameConfig_InitializeDefaults_00418c40",
       "source": "src/game/game_config_defaults.cpp",
-      "symbol": "_asm_GameConfig_InitializeDefaults_00418c40",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
       "address": "0x00418C40",
       "size": 125,
-      "kind": "asm",
-      "owner": "0x00418C40"
+      "kind": "semantic",
+      "owner": "0x00418C40",
+      "previous_record": {
+        "name": "asm_GameConfig_InitializeDefaults_00418c40",
+        "source": "src/game/game_config_defaults.cpp",
+        "symbol": "_asm_GameConfig_InitializeDefaults_00418c40",
+        "address": "0x00418C40",
+        "size": 125,
+        "kind": "asm",
+        "owner": "0x00418C40"
+      }
     },
     {
       "name": "text_padding_00418cbd",
