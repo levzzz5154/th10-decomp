@@ -80,6 +80,22 @@ The agent's suggestion, untried here: recover the same body through the native
 LTCG cluster machinery, whose whole-program alias information is the one lever
 the per-file path does not expose.
 
+**Measured 2026-09-15: that lever does not apply to this region.** A provisional
+schema-1 cluster was built for the draft above (gap `0x401000..0x436DA0`,
+function at `0x436DA0` as `.text$01tpxfill`, a synthetic `__stdcall` caller, no
+external bindings needed) and linked with native `/LTCG`. Unrooted, LINK keeps
+the two stack arguments but changes the prologue anyway: `mov eax,[esp+4]`
+first, frame `0x10` instead of retail's `0x14`, surface in EAX, and the body is
+914 bytes — exactly the plain `/O2` body (same 914 bytes, same 806 differing
+bytes, `mov eax,[esp+4]` first). Rooted (`/INCLUDE:_TransparentPixelFill_00436da0@8`,
+which forces the public convention) the contribution is again 914 bytes and
+byte-identical to plain `/O2`. Conclusion: for a function whose retail ABI is
+already the C++ default (`__stdcall`, arguments on the stack), the whole-program
+scope buys nothing here; LTCG only materialises conventions the source
+declaration cannot express (compare `0x0044A9D0`, whose retail entry uses
+ECX/EDX/EAX). The blocker is the same allocator home assignment as
+`0x00450220`, and it needs a source-shape answer, not a compiler-scope one.
+
 ### `0x0044A190` — 833 bytes, joystick binding reader
 
 The frame and `/GS` prologue, the three local offsets, the WinMM
