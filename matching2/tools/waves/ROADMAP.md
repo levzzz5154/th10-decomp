@@ -208,6 +208,7 @@ in the same native LTCG scope:
 |---|---|
 | `tools/matching/probe.py` | the byte gate for one unit |
 | `tools/waves/vdiff.py` | address-aligned retail vs compiled instruction diff, with a differing-byte count, for iterating on a body |
+| `tools/waves/shape.py` | register-normalised instruction-shape similarity for a region, to separate a source-shape residual from a pure allocator one |
 | `tools/waves/plan.py` | ranks regions by size, cluster need and callee blocking |
 | `tools/waves/wave.py` | deals a wave and writes per-agent briefs |
 | `tools/waves/register_cluster.py` | atomic manifest registration of a cluster (parallel-safe) |

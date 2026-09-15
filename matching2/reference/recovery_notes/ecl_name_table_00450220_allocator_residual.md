@@ -81,7 +81,8 @@ unexplained: a redundant `test ebp,ebp; je` around the `free` call (every
 
 Instruction-sequence similarity of the closest honest variant is 0.78 with a
 29-instruction identical run inside the search loop; differing bytes are
-dominated by the address shift from the one-slot frame difference.
+dominated by the address shift from the one-slot frame difference
+(`tools/waves/shape.py` reports the register-normalised figure).
 
 ## LTCG route measured, does not apply
 

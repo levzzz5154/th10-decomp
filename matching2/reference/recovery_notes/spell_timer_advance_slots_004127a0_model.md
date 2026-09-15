@@ -33,6 +33,8 @@ the previous wave's weaker model.
 
 A member-function reconstruction of the model above compiles to 593–595 bytes
 (retail 593) with a **register-normalised instruction-shape similarity of 0.87**
+(`python3 matching2/tools/waves/shape.py --source src/game/spell_timer.cpp
+--symbol <candidate> --address 0x4127A0 --size 593`)
 (145 instructions against retail's 147; the previous wave's generator in
 `matching2/build/waves/results2/Y07/variants.py` scores 0.708, and its best
 bytes-vs-retail result is 476 differing of 593). The residual is scheduling, not
