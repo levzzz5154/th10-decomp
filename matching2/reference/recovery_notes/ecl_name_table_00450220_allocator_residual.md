@@ -99,6 +99,17 @@ So for a function whose ABI is already the C++ default, the LTCG scope changes
 nothing; the lever documented in `wave8_large_region_blockers.md` applies to
 regions whose *entry register* is not expressible, not to allocator residuals.
 
+A second configuration rules out the remaining variant of that idea: a schema-2
+batch holding the *real* caller, `ScriptFileLoader::Load` at `0x0040CD20`
+(recovered C++, 95 bytes) with `Parse` as its declared internal callee at
+`0x0040CD6A`, both compiled `/GL` into one native `/LTCG` link (gaps
+`0x401000..0x40CD20` and `0x40CD7F..0x450220`, `_Archive_LoadFile@12` and
+`_data_00497c38` bound absolutely). Unrooted, `Parse` is again 546 bytes with
+`this` moved to EBX — and `Load` shrinks to 94 bytes. Rooting `Parse` restores
+`Load` to its exact 95 bytes and leaves `Parse` at 549, i.e. byte-identical to
+the plain `/O2` body. Caller visibility, scope size and rooting therefore do not
+move this function's home assignment; only the source shape does.
+
 ## Next experiments
 
 1. Find the *faithful* source construct that reserves a byte register (or one
