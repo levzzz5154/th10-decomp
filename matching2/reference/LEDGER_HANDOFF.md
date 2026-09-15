@@ -33,3 +33,25 @@ assembly merely because their current compiler probes differ.
 After refreshing, validate that every current `kind != semantic` manifest
 region appears exactly once and that category totals equal 3,998 regions and
 390,522 bytes.
+
+## Measured 2026-09-15: four `semantic` regions still hold naked assembly
+
+Scanning the current manifest against the maintained sources (every
+`__declspec(naked)` definition whose name matches a region symbol) finds four
+regions that are classified `semantic` while their unit still defines the
+naked body, so `make progress` counts them as ordinary C++:
+
+| region | bytes | source | symbol |
+| --- | ---: | --- | --- |
+| `0x00407560` | 305 | `src/game/enemy_motion_steps.cpp` | `_asm_FUN_00407560_00407560` |
+| `0x004127A0` | 593 | `src/game/spell_timer.cpp` | `_asm_FUN_004127a0_004127a0` |
+| `0x00418D40` | 237 | `src/game/stage_tip_manager.cpp` | `_asm_StageTipManager_Construct_00418d40` |
+| `0x0042ACB0` | 274 | `src/game/score_file.cpp` | `_asm_ScoreFile_InitializeDefaultsRetail_0042acb0` |
+
+Each entry carries an `asm` record in `previous_record`, i.e. the semantic
+classification was written without the source following it (the `_retail`
+suffix on the last one shows the body is deliberately still assembly). Either
+the sources get their C++ back or the four entries should be reverted to
+`previous_record` with `matching2/tools/waves/repair_units.py`. Either way the
+ledger refresh must not assume `kind == semantic` implies a C++ definition:
+1,409 bytes of the reported ordinary C++ are inline assembly today.
