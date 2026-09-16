@@ -1,13 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412E00: clear the object field at +0x34.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster
+// (layout/ltcg/accessor_00412e00.json).
+// The neighbour at 0x00412DF0 loads the same +0x34 word.
 
-// 0x00412E00..0x00412E07: FUN_00412e00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00412e00_00412e00() {
-    __asm {
-    L_00412e00:
-        mov dword ptr [eax+34h],0
-    L_00412e07:
-        ret
-    }
+struct ObjectAccessor_00412e00 {
+    unsigned char pad_000[0x34];
+    int field_034;
+    __declspec(noinline) void Clear();
+};
+typedef char ObjectAccessor_00412e00_size_must_fit[sizeof(ObjectAccessor_00412e00) == 0x38 ? 1 : -1];
+
+#pragma code_seg(".text$01clear")
+void ObjectAccessor_00412e00::Clear() {
+    field_034 = 0;
 }
+#pragma code_seg()

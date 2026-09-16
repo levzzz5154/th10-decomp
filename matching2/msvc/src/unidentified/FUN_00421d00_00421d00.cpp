@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x421d00: write the pair of defaults and return the object in EAX.
+// The object pointer arrives in EAX, which only a native LTCG link chooses,
+// so this region is compiled as a cluster (replay_marker_clear_00421d00.json).
 
-// 0x00421D00..0x00421D14: FUN_00421d00
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00421d00_00421d00() {
-    __asm {
-    L_00421d00:
-        mov dword ptr [eax+38Ch],0FFFFFFFEh
-    L_00421d0a:
-        mov dword ptr [eax+390h],0
-    L_00421d14:
-        ret
-    }
+struct ReplayMarkerClear_00421d00 {
+    unsigned char pad_000[0x38C];
+    int field_38C; // +0x38c
+    int field_390; // +0x390
+    __declspec(noinline) void Clear();
+};
+typedef char ReplayMarkerClear_00421d00_size_must_fit[sizeof(ReplayMarkerClear_00421d00) == 0x394 ? 1 : -1];
+
+#pragma code_seg(".text$01clear00421d00")
+void ReplayMarkerClear_00421d00::Clear() {
+    field_38C = -2;
+    field_390 = 0;
 }
+#pragma code_seg()

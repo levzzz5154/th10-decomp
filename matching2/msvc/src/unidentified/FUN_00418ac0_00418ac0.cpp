@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418AC0: write the pair of defaults and return the object in EAX.
+// The object pointer arrives in EAX, which only a native LTCG link chooses,
+// so this region is compiled as a cluster (state_reset_pair_00418ac0.json).
 
-// 0x00418AC0..0x00418ACE: FUN_00418ac0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00418ac0_00418ac0() {
-    __asm {
-    L_00418ac0:
-        mov dword ptr [eax+10h],0
-    L_00418ac7:
-        mov dword ptr [eax+0Ch],1
-    L_00418ace:
-        ret
-    }
+struct GameAppStateReset_00418ac0 {
+    unsigned char pad_000[0xC];
+    int field_00C; // +0x0C
+    int field_010; // +0x10
+    __declspec(noinline) void ResetPair();
+};
+typedef char GameAppStateReset_00418ac0_size_must_fit[sizeof(GameAppStateReset_00418ac0) == 0x14 ? 1 : -1];
+
+#pragma code_seg(".text$01resetpair00418ac0")
+void GameAppStateReset_00418ac0::ResetPair() {
+    field_010 = 0;
+    field_00C = 1;
 }
+#pragma code_seg()

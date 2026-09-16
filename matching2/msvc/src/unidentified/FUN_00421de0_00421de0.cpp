@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x421de0: clear one replay-work field and return the object in EAX.
+// The object pointer arrives in EAX, which only a native LTCG link chooses,
+// so this region is compiled as a cluster (replay_slot_clear_a_00421de0.json).
 
-// 0x00421DE0..0x00421DEA: FUN_00421de0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00421de0_00421de0() {
-    __asm {
-    L_00421de0:
-        mov dword ptr [eax+3ADA64h],0
-    L_00421dea:
-        ret
-    }
+struct ReplaySlotClearA_00421de0 {
+    unsigned char pad_00000[0x3ADA64];
+    int field_3ADA64; // +0x3ada64
+    __declspec(noinline) void Clear();
+};
+typedef char ReplaySlotClearA_00421de0_size_must_fit[sizeof(ReplaySlotClearA_00421de0) == 0x3ADA68 ? 1 : -1];
+
+#pragma code_seg(".text$01clear00421de0")
+void ReplaySlotClearA_00421de0::Clear() {
+    field_3ADA64 = 0;
 }
+#pragma code_seg()

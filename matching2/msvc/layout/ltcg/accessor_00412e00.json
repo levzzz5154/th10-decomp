@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "accessor_00412e00",
+  "source": "src/unidentified/FUN_00412e00_00412e00.cpp",
+  "driver": "layout/ltcg/accessor_00412e00_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Clear the object field at +0x34; compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "ObjectAccessor_Accessor",
+      "symbol": "?Clear@ObjectAccessor_00412e00@@QAEXXZ",
+      "section": ".text$01clear",
+      "address": "0x00412E00",
+      "size": 8,
+      "actual_abi": "this in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?ClearCompilerContext@@YGHPAPAUObjectAccessor_00412e00@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00412E10",
+    "size": 39,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 73216
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00412E08",
+      "size": 8
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

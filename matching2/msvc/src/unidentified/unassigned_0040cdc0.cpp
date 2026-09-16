@@ -1,21 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0040CDC0..0x0040CDD6: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040cdc0() {
-    __asm {
-    L_0040cdc0:
-        mov cl,byte ptr [eax+3508h]
-    L_0040cdc6:
-        test cl,cl
-    L_0040cdc8:
-        jne short L_0040cdd4
-    L_0040cdca:
-        mov ecx,dword ptr [esp+4]
-    L_0040cdce:
-        mov dword ptr [eax+3504h],ecx
-    L_0040cdd4:
-        ret 4
-    }
+// 0x0040CDC0: conditional enemy-slot setter.
+// The object arrives in EAX and the value on the stack (__usercall), so the
+// region compiles as a native-LTCG cluster
+// (layout/ltcg/enemy_slot_conditional_set_0040cdc0.json). The object layout
+// matches EnemyState_0040cde0: enemy pointer at +0x3504, mirror flag at
+// +0x3508 (see src/unidentified/FUN_0040cde0_0040cde0.cpp).
+struct EnemySlotWriter_0040cdc0 {
+    unsigned char pad_000[0x3504];
+    void* enemy;    // +0x3504
+    unsigned char mirror; // +0x3508
+    __declspec(noinline) void SetEnemyIfUnmirrored(void* candidate);
+};
+#pragma code_seg(".text$01slot")
+void EnemySlotWriter_0040cdc0::SetEnemyIfUnmirrored(void* candidate) {
+    if (!mirror) enemy = candidate;
 }
+#pragma code_seg()

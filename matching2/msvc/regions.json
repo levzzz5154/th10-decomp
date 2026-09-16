@@ -3412,22 +3412,13 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_EnemyMotion_Step_00407560",
+      "name": "asm_FUN_00407560_00407560",
       "source": "src/game/enemy_motion_steps.cpp",
       "symbol": "_asm_FUN_00407560_00407560",
       "address": "0x00407560",
       "size": 305,
-      "kind": "semantic",
-      "owner": "0x00407560",
-      "previous_record": {
-        "name": "asm_FUN_00407560_00407560",
-        "source": "src/game/enemy_motion_steps.cpp",
-        "symbol": "_asm_FUN_00407560_00407560",
-        "address": "0x00407560",
-        "size": 305,
-        "kind": "asm",
-        "owner": "0x00407560"
-      }
+      "kind": "asm",
+      "owner": "0x00407560"
     },
     {
       "name": "text_padding_00407691",
@@ -7455,13 +7446,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cdc0",
+      "name": "semantic_EnemySlotWriter_SetEnemyIfUnmirrored_0040cdc0",
       "source": "src/unidentified/unassigned_0040cdc0.cpp",
-      "symbol": "_asm_unassigned_0040cdc0",
+      "symbol": "?SetEnemyIfUnmirrored@EnemySlotWriter_0040cdc0@@QAEXPAX@Z",
       "address": "0x0040CDC0",
       "size": 23,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cdc0",
+        "source": "src/unidentified/unassigned_0040cdc0.cpp",
+        "symbol": "_asm_unassigned_0040cdc0",
+        "address": "0x0040CDC0",
+        "size": 23,
+        "kind": "asm",
+        "owner": "0x0040CDC0"
+      }
     },
     {
       "name": "text_padding_0040cdd7",
@@ -7472,12 +7472,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040cde0_0040cde0",
+      "name": "semantic_EnemyState_SetMirrored_0040cde0",
       "source": "src/unidentified/FUN_0040cde0_0040cde0.cpp",
-      "symbol": "_asm_FUN_0040cde0_0040cde0",
+      "symbol": "?SetMirrored@EnemyState_0040cde0@@QAEXXZ",
       "address": "0x0040CDE0",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0040CDE0"
     },
     {
@@ -8523,22 +8523,13 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_SpellTimer_AdvanceSlots_004127a0",
+      "name": "asm_FUN_004127a0_004127a0",
       "source": "src/game/spell_timer.cpp",
       "symbol": "_asm_FUN_004127a0_004127a0",
       "address": "0x004127A0",
       "size": 593,
-      "kind": "semantic",
-      "owner": "0x004127A0",
-      "previous_record": {
-        "name": "asm_FUN_004127a0_004127a0",
-        "source": "src/game/spell_timer.cpp",
-        "symbol": "_asm_FUN_004127a0_004127a0",
-        "address": "0x004127A0",
-        "size": 593,
-        "kind": "asm",
-        "owner": "0x004127A0"
-      }
+      "kind": "asm",
+      "owner": "0x004127A0"
     },
     {
       "name": "text_padding_004129f1",
@@ -8796,12 +8787,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00412e00_00412e00",
+      "name": "semantic_ObjectAccessor_Clear_00412e00",
       "source": "src/unidentified/FUN_00412e00_00412e00.cpp",
-      "symbol": "_asm_FUN_00412e00_00412e00",
+      "symbol": "?Clear@ObjectAccessor_00412e00@@QAEXXZ",
       "address": "0x00412E00",
       "size": 8,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00412E00"
     },
     {
@@ -11493,13 +11484,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00418ac0_00418ac0",
+      "name": "semantic_GameAppStateReset_ResetPair_00418ac0",
       "source": "src/unidentified/FUN_00418ac0_00418ac0.cpp",
-      "symbol": "_asm_FUN_00418ac0_00418ac0",
+      "symbol": "?ResetPair@GameAppStateReset_00418ac0@@QAEXXZ",
       "address": "0x00418AC0",
       "size": 15,
-      "kind": "asm",
-      "owner": "0x00418AC0"
+      "kind": "semantic",
+      "owner": "0x00418AC0",
+      "previous_record": {
+        "name": "asm_FUN_00418ac0_00418ac0",
+        "source": "src/unidentified/FUN_00418ac0_00418ac0.cpp",
+        "symbol": "_asm_FUN_00418ac0_00418ac0",
+        "address": "0x00418AC0",
+        "size": 15,
+        "kind": "asm",
+        "owner": "0x00418AC0"
+      }
     },
     {
       "name": "text_padding_00418acf",
@@ -11851,22 +11851,13 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_StageTipManager_Construct_00418d40",
+      "name": "asm_StageTipManager_Construct_00418d40",
       "source": "src/game/stage_tip_manager.cpp",
       "symbol": "_asm_StageTipManager_Construct_00418d40",
       "address": "0x00418D40",
       "size": 237,
-      "kind": "semantic",
-      "owner": "0x00418D40",
-      "previous_record": {
-        "name": "asm_StageTipManager_Construct_00418d40",
-        "source": "src/game/stage_tip_manager.cpp",
-        "symbol": "_asm_StageTipManager_Construct_00418d40",
-        "address": "0x00418D40",
-        "size": 237,
-        "kind": "asm",
-        "owner": "0x00418D40"
-      }
+      "kind": "asm",
+      "owner": "0x00418D40"
     },
     {
       "name": "text_padding_00418e2d",
@@ -15307,13 +15298,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421d00_00421d00",
+      "name": "semantic_ReplayMarkerClear_Clear_00421d00",
       "source": "src/unidentified/FUN_00421d00_00421d00.cpp",
-      "symbol": "_asm_FUN_00421d00_00421d00",
+      "symbol": "?Clear@ReplayMarkerClear_00421d00@@QAEXXZ",
       "address": "0x00421D00",
       "size": 21,
-      "kind": "asm",
-      "owner": "0x00421D00"
+      "kind": "semantic",
+      "owner": "0x00421D00",
+      "previous_record": {
+        "name": "asm_FUN_00421d00_00421d00",
+        "source": "src/unidentified/FUN_00421d00_00421d00.cpp",
+        "symbol": "_asm_FUN_00421d00_00421d00",
+        "address": "0x00421D00",
+        "size": 21,
+        "kind": "asm",
+        "owner": "0x00421D00"
+      }
     },
     {
       "name": "text_padding_00421d15",
@@ -15494,13 +15494,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421de0_00421de0",
+      "name": "semantic_ReplaySlotClearA_00421de0_Clear",
       "source": "src/unidentified/FUN_00421de0_00421de0.cpp",
-      "symbol": "_asm_FUN_00421de0_00421de0",
+      "symbol": "?Clear@ReplaySlotClearA_00421de0@@QAEXXZ",
       "address": "0x00421DE0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00421DE0"
+      "kind": "semantic",
+      "owner": "0x00421DE0",
+      "previous_record": {
+        "name": "asm_ReplaySlotClearA_00421de0_Clear",
+        "source": "src/unidentified/FUN_00421de0_00421de0.cpp",
+        "symbol": "_asm_FUN_00421de0_00421de0",
+        "address": "0x421de0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x421de0"
+      }
     },
     {
       "name": "text_padding_00421deb",
@@ -15511,13 +15520,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421df0_00421df0",
+      "name": "semantic_ReplaySlotClearB_00421df0_Clear",
       "source": "src/unidentified/FUN_00421df0_00421df0.cpp",
-      "symbol": "_asm_FUN_00421df0_00421df0",
+      "symbol": "?Clear@ReplaySlotClearB_00421df0@@QAEXXZ",
       "address": "0x00421DF0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00421DF0"
+      "kind": "semantic",
+      "owner": "0x00421DF0",
+      "previous_record": {
+        "name": "asm_ReplaySlotClearB_00421df0_Clear",
+        "source": "src/unidentified/FUN_00421df0_00421df0.cpp",
+        "symbol": "_asm_FUN_00421df0_00421df0",
+        "address": "0x421df0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x421df0"
+      }
     },
     {
       "name": "text_padding_00421dfb",
@@ -18083,12 +18101,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042a810_0042a810",
+      "name": "semantic_ReplayHeader_StampUser_0042a810",
       "source": "src/unidentified/FUN_0042a810_0042a810.cpp",
-      "symbol": "_asm_FUN_0042a810_0042a810",
+      "symbol": "?StampUser@ReplayHeader_0042a810@@QAEXXZ",
       "address": "0x0042A810",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0042A810"
     },
     {
@@ -18544,12 +18562,12 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScoreFile_InitializeDefaultsRetail_0042acb0",
+      "name": "asm_ScoreFile_InitializeDefaultsRetail_0042acb0",
       "source": "src/game/score_file.cpp",
       "symbol": "_asm_ScoreFile_InitializeDefaultsRetail_0042acb0",
       "address": "0x0042ACB0",
       "size": 274,
-      "kind": "semantic",
+      "kind": "asm",
       "owner": "0x0042ACB0"
     },
     {
@@ -21090,12 +21108,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004356c0_004356c0",
+      "name": "semantic_FileInterface_InstallVtable_004356c0",
       "source": "src/unidentified/FUN_004356c0_004356c0.cpp",
-      "symbol": "_asm_FUN_004356c0_004356c0",
+      "symbol": "?InstallVtable@FileInterface_004356c0@@QAEXXZ",
       "address": "0x004356C0",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x004356C0"
     },
     {
@@ -21871,13 +21889,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004367e0_004367e0",
+      "name": "semantic_ResourceSlotInit_004367e0_Init",
       "source": "src/unidentified/FUN_004367e0_004367e0.cpp",
-      "symbol": "_asm_FUN_004367e0_004367e0",
+      "symbol": "?Init@ResourceSlotInit_004367e0@@QAEXH@Z",
       "address": "0x004367E0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x004367E0"
+      "kind": "semantic",
+      "owner": "0x004367E0",
+      "previous_record": {
+        "name": "asm_FUN_004367e0_004367e0",
+        "source": "src/unidentified/FUN_004367e0_004367e0.cpp",
+        "symbol": "_asm_FUN_004367e0_004367e0",
+        "address": "0x004367E0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x004367E0"
+      }
     },
     {
       "name": "text_padding_004367eb",
@@ -23698,13 +23725,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043a490_0043a490",
+      "name": "semantic_SoundPairClear_Clear_0043a490",
       "source": "src/unidentified/FUN_0043a490_0043a490.cpp",
-      "symbol": "_asm_FUN_0043a490_0043a490",
+      "symbol": "?Clear@SoundPairClear_0043a490@@QAEXXZ",
       "address": "0x0043A490",
       "size": 14,
-      "kind": "asm",
-      "owner": "0x0043A490"
+      "kind": "semantic",
+      "owner": "0x0043A490",
+      "previous_record": {
+        "name": "asm_FUN_0043a490_0043a490",
+        "source": "src/unidentified/FUN_0043a490_0043a490.cpp",
+        "symbol": "_asm_FUN_0043a490_0043a490",
+        "address": "0x0043A490",
+        "size": 14,
+        "kind": "asm",
+        "owner": "0x0043A490"
+      }
     },
     {
       "name": "text_padding_0043a49e",
@@ -30971,13 +31007,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044c620_0044c620",
+      "name": "semantic_CameraPairReset_Reset_0044c620",
       "source": "src/unidentified/FUN_0044c620_0044c620.cpp",
-      "symbol": "_asm_FUN_0044c620_0044c620",
+      "symbol": "?Reset@CameraPairReset_0044c620@@QAEXXZ",
       "address": "0x0044C620",
       "size": 14,
-      "kind": "asm",
-      "owner": "0x0044C620"
+      "kind": "semantic",
+      "owner": "0x0044C620",
+      "previous_record": {
+        "name": "asm_FUN_0044c620_0044c620",
+        "source": "src/unidentified/FUN_0044c620_0044c620.cpp",
+        "symbol": "_asm_FUN_0044c620_0044c620",
+        "address": "0x0044C620",
+        "size": 14,
+        "kind": "asm",
+        "owner": "0x0044C620"
+      }
     },
     {
       "name": "text_padding_0044c62e",
@@ -48606,7 +48651,19 @@
     "layout/ltcg/sound_queue.json",
     "layout/ltcg/entity_quad_projection_00444240.json",
     "layout/ltcg/projection_quads.json",
-    "layout/ltcg/keyboard_binding_read_0044a9d0.json"
+    "layout/ltcg/keyboard_binding_read_0044a9d0.json",
+    "layout/ltcg/enemy_state_set_mirrored.json",
+    "layout/ltcg/accessor_00412e00.json",
+    "layout/ltcg/replay_header_stamp.json",
+    "layout/ltcg/file_interface_install.json",
+    "layout/ltcg/enemy_slot_conditional_set_0040cdc0.json",
+    "layout/ltcg/state_reset_pair_00418ac0.json",
+    "layout/ltcg/replay_marker_clear_00421d00.json",
+    "layout/ltcg/sound_pair_clear_0043a490.json",
+    "layout/ltcg/camera_pair_reset_0044c620.json",
+    "layout/ltcg/replay_slot_clear_a_00421de0.json",
+    "layout/ltcg/replay_slot_clear_b_00421df0.json",
+    "layout/ltcg/resource_slot_init_004367e0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

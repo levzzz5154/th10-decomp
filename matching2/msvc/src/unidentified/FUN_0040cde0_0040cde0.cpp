@@ -1,13 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040CDE0: mark the enemy-state record mirrored.
+// The object pointer arrives in EAX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster
+// (layout/ltcg/enemy_state_set_mirrored.json).
+// The adjacent load at 0x0040CDB0 reads the enemy pointer at +0x3504;
+// this byte at +0x3508 is the mirror flag (see EnemyState_0040dae0
+// in src/game/enemy_lifecycle.cpp).
 
-// 0x0040CDE0..0x0040CDE7: FUN_0040cde0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040cde0_0040cde0() {
-    __asm {
-    L_0040cde0:
-        mov byte ptr [eax+3508h],1
-    L_0040cde7:
-        ret
-    }
+struct EnemyState_0040cde0 {
+    unsigned char pad_000[0x3504];
+    void* enemy; // +0x3504
+    unsigned char mirror; // +0x3508
+    __declspec(noinline) void SetMirrored();
+};
+// The compiler tails the single trailing byte to a dword boundary.
+typedef char EnemyState_0040cde0_size_must_fit[sizeof(EnemyState_0040cde0) == 0x350C ? 1 : -1];
+
+#pragma code_seg(".text$01mirror")
+void EnemyState_0040cde0::SetMirrored() {
+    mirror = 1;
 }
+#pragma code_seg()
