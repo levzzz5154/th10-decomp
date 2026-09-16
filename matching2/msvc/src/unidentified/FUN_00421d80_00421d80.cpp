@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x421d80: mark one byte of the replay-work block and return the object in EAX.
+// The object pointer arrives in EAX, which only a native LTCG link chooses,
+// so this region is compiled as a cluster (replay_byte_mark_00421d80.json).
 
-// 0x00421D80..0x00421D87: FUN_00421d80
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00421d80_00421d80() {
-    __asm {
-    L_00421d80:
-        mov byte ptr [eax+3ADA6Ah],0FFh
-    L_00421d87:
-        ret
-    }
+struct replaybytemark_00421d80 {
+    unsigned char pad_00000[0x3ADA6A];
+    unsigned char field_3ADA6A; // +0x3ada6a
+    __declspec(noinline) void Mark();
+};
+typedef char replaybytemark_00421d80_size_must_fit[sizeof(replaybytemark_00421d80) == 0x3ADA6B ? 1 : -1];
+
+#pragma code_seg(".text$01mark00421d80")
+void replaybytemark_00421d80::Mark() {
+    field_3ADA6A = 255;
 }
+#pragma code_seg()

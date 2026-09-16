@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "load_deref_0040cc40",
+  "source": "src/unidentified/FUN_0040cc40_0040cc40.cpp",
+  "driver": "layout/ltcg/load_deref_0040cc40_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Dereferenced load compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "LoadDeref_0040cc40_Load",
+      "symbol": "?Load@LoadDeref_0040cc40@@QBEHXZ",
+      "section": ".text$01load0040cc40",
+      "address": "0x40cc40",
+      "size": 7,
+      "actual_abi": "object in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?LoadCompilerContext@@YGHPAPAULoadDeref_0040cc40@@H@Z",
+    "section": ".text$03context",
+    "address": "0x40cc50",
+    "size": 38,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 48192
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x40cc47",
+      "size": 9
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

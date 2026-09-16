@@ -4762,13 +4762,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00409f70_00409f70",
+      "name": "semantic_LoadDeref_00409f70_Load",
       "source": "src/unidentified/FUN_00409f70_00409f70.cpp",
-      "symbol": "_asm_FUN_00409f70_00409f70",
+      "symbol": "?Load@LoadDeref_00409f70@@QBEHXZ",
       "address": "0x00409F70",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x00409F70"
+      "kind": "semantic",
+      "owner": "0x00409F70",
+      "previous_record": {
+        "name": "asm_FUN_00409f70_00409f70",
+        "source": "src/unidentified/FUN_00409f70_00409f70.cpp",
+        "symbol": "_asm_FUN_00409f70_00409f70",
+        "address": "0x00409F70",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x00409F70"
+      }
     },
     {
       "name": "text_padding_00409f77",
@@ -7266,13 +7275,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040cc40_0040cc40",
+      "name": "semantic_LoadDeref_0040cc40_Load",
       "source": "src/unidentified/FUN_0040cc40_0040cc40.cpp",
-      "symbol": "_asm_FUN_0040cc40_0040cc40",
+      "symbol": "?Load@LoadDeref_0040cc40@@QBEHXZ",
       "address": "0x0040CC40",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x0040CC40"
+      "kind": "semantic",
+      "owner": "0x0040CC40",
+      "previous_record": {
+        "name": "asm_FUN_0040cc40_0040cc40",
+        "source": "src/unidentified/FUN_0040cc40_0040cc40.cpp",
+        "symbol": "_asm_FUN_0040cc40_0040cc40",
+        "address": "0x0040CC40",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x0040CC40"
+      }
     },
     {
       "name": "text_padding_0040cc47",
@@ -15392,13 +15410,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421d80_00421d80",
+      "name": "semantic_replaybytemark_00421d80_Mark",
       "source": "src/unidentified/FUN_00421d80_00421d80.cpp",
-      "symbol": "_asm_FUN_00421d80_00421d80",
+      "symbol": "?Mark@replaybytemark_00421d80@@QAEXXZ",
       "address": "0x00421D80",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421D80"
+      "kind": "semantic",
+      "owner": "0x00421D80",
+      "previous_record": {
+        "name": "asm_FUN_00421d80_00421d80",
+        "source": "src/unidentified/FUN_00421d80_00421d80.cpp",
+        "symbol": "_asm_FUN_00421d80_00421d80",
+        "address": "0x00421D80",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421D80"
+      }
     },
     {
       "name": "text_padding_00421d88",
@@ -15409,13 +15436,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421d90_00421d90",
+      "name": "semantic_replaybytemark_00421d90_Mark",
       "source": "src/unidentified/FUN_00421d90_00421d90.cpp",
-      "symbol": "_asm_FUN_00421d90_00421d90",
+      "symbol": "?Mark@replaybytemark_00421d90@@QAEXXZ",
       "address": "0x00421D90",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421D90"
+      "kind": "semantic",
+      "owner": "0x00421D90",
+      "previous_record": {
+        "name": "asm_FUN_00421d90_00421d90",
+        "source": "src/unidentified/FUN_00421d90_00421d90.cpp",
+        "symbol": "_asm_FUN_00421d90_00421d90",
+        "address": "0x00421D90",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421D90"
+      }
     },
     {
       "name": "text_padding_00421d98",
@@ -15426,13 +15462,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421da0_00421da0",
+      "name": "semantic_replaybytemark_00421da0_Mark",
       "source": "src/unidentified/FUN_00421da0_00421da0.cpp",
-      "symbol": "_asm_FUN_00421da0_00421da0",
+      "symbol": "?Mark@replaybytemark_00421da0@@QAEXXZ",
       "address": "0x00421DA0",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421DA0"
+      "kind": "semantic",
+      "owner": "0x00421DA0",
+      "previous_record": {
+        "name": "asm_FUN_00421da0_00421da0",
+        "source": "src/unidentified/FUN_00421da0_00421da0.cpp",
+        "symbol": "_asm_FUN_00421da0_00421da0",
+        "address": "0x00421DA0",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421DA0"
+      }
     },
     {
       "name": "text_padding_00421da8",
@@ -15443,13 +15488,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421db0_00421db0",
+      "name": "semantic_replaybytemark_00421db0_Mark",
       "source": "src/unidentified/FUN_00421db0_00421db0.cpp",
-      "symbol": "_asm_FUN_00421db0_00421db0",
+      "symbol": "?Mark@replaybytemark_00421db0@@QAEXXZ",
       "address": "0x00421DB0",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421DB0"
+      "kind": "semantic",
+      "owner": "0x00421DB0",
+      "previous_record": {
+        "name": "asm_FUN_00421db0_00421db0",
+        "source": "src/unidentified/FUN_00421db0_00421db0.cpp",
+        "symbol": "_asm_FUN_00421db0_00421db0",
+        "address": "0x00421DB0",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421DB0"
+      }
     },
     {
       "name": "text_padding_00421db8",
@@ -15460,13 +15514,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421dc0_00421dc0",
+      "name": "semantic_replaybytemark_00421dc0_Mark",
       "source": "src/unidentified/FUN_00421dc0_00421dc0.cpp",
-      "symbol": "_asm_FUN_00421dc0_00421dc0",
+      "symbol": "?Mark@replaybytemark_00421dc0@@QAEXXZ",
       "address": "0x00421DC0",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421DC0"
+      "kind": "semantic",
+      "owner": "0x00421DC0",
+      "previous_record": {
+        "name": "asm_FUN_00421dc0_00421dc0",
+        "source": "src/unidentified/FUN_00421dc0_00421dc0.cpp",
+        "symbol": "_asm_FUN_00421dc0_00421dc0",
+        "address": "0x00421DC0",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421DC0"
+      }
     },
     {
       "name": "text_padding_00421dc8",
@@ -15477,13 +15540,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00421dd0_00421dd0",
+      "name": "semantic_replaybytemark_00421dd0_Mark",
       "source": "src/unidentified/FUN_00421dd0_00421dd0.cpp",
-      "symbol": "_asm_FUN_00421dd0_00421dd0",
+      "symbol": "?Mark@replaybytemark_00421dd0@@QAEXXZ",
       "address": "0x00421DD0",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x00421DD0"
+      "kind": "semantic",
+      "owner": "0x00421DD0",
+      "previous_record": {
+        "name": "asm_FUN_00421dd0_00421dd0",
+        "source": "src/unidentified/FUN_00421dd0_00421dd0.cpp",
+        "symbol": "_asm_FUN_00421dd0_00421dd0",
+        "address": "0x00421DD0",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x00421DD0"
+      }
     },
     {
       "name": "text_padding_00421dd8",
@@ -18323,13 +18395,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042a9c0_0042a9c0",
+      "name": "semantic_dwordmark_0042a9c0_Store",
       "source": "src/unidentified/FUN_0042a9c0_0042a9c0.cpp",
-      "symbol": "_asm_FUN_0042a9c0_0042a9c0",
+      "symbol": "?Store@dwordmark_0042a9c0@@QAEXXZ",
       "address": "0x0042A9C0",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x0042A9C0"
+      "kind": "semantic",
+      "owner": "0x0042A9C0",
+      "previous_record": {
+        "name": "asm_FUN_0042a9c0_0042a9c0",
+        "source": "src/unidentified/FUN_0042a9c0_0042a9c0.cpp",
+        "symbol": "_asm_FUN_0042a9c0_0042a9c0",
+        "address": "0x0042A9C0",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x0042A9C0"
+      }
     },
     {
       "name": "text_padding_0042a9c8",
@@ -30777,13 +30858,22 @@
       "owner": "0x0044C130"
     },
     {
-      "name": "asm_FUN_0044c140_0044c140",
+      "name": "semantic_dwordmark_0044c140_Store",
       "source": "src/unidentified/FUN_0044c140_0044c140.cpp",
-      "symbol": "_asm_FUN_0044c140_0044c140",
+      "symbol": "?Store@dwordmark_0044c140@@QAEXXZ",
       "address": "0x0044C140",
       "size": 8,
-      "kind": "asm",
-      "owner": "0x0044C140"
+      "kind": "semantic",
+      "owner": "0x0044C140",
+      "previous_record": {
+        "name": "asm_FUN_0044c140_0044c140",
+        "source": "src/unidentified/FUN_0044c140_0044c140.cpp",
+        "symbol": "_asm_FUN_0044c140_0044c140",
+        "address": "0x0044C140",
+        "size": 8,
+        "kind": "asm",
+        "owner": "0x0044C140"
+      }
     },
     {
       "name": "text_padding_0044c148",
@@ -32355,13 +32445,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00450200_00450200",
+      "name": "semantic_LoadDeref_00450200_Load",
       "source": "src/unidentified/FUN_00450200_00450200.cpp",
-      "symbol": "_asm_FUN_00450200_00450200",
+      "symbol": "?Load@LoadDeref_00450200@@QBEHXZ",
       "address": "0x00450200",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x00450200"
+      "kind": "semantic",
+      "owner": "0x00450200",
+      "previous_record": {
+        "name": "asm_FUN_00450200_00450200",
+        "source": "src/unidentified/FUN_00450200_00450200.cpp",
+        "symbol": "_asm_FUN_00450200_00450200",
+        "address": "0x00450200",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x00450200"
+      }
     },
     {
       "name": "text_padding_00450207",
@@ -48663,7 +48762,18 @@
     "layout/ltcg/camera_pair_reset_0044c620.json",
     "layout/ltcg/replay_slot_clear_a_00421de0.json",
     "layout/ltcg/replay_slot_clear_b_00421df0.json",
-    "layout/ltcg/resource_slot_init_004367e0.json"
+    "layout/ltcg/resource_slot_init_004367e0.json",
+    "layout/ltcg/replay_byte_mark_00421d80.json",
+    "layout/ltcg/replay_byte_mark_00421d90.json",
+    "layout/ltcg/replay_byte_mark_00421da0.json",
+    "layout/ltcg/replay_byte_mark_00421db0.json",
+    "layout/ltcg/replay_byte_mark_00421dc0.json",
+    "layout/ltcg/replay_byte_mark_00421dd0.json",
+    "layout/ltcg/dword_store_0042a9c0.json",
+    "layout/ltcg/dword_store_0044c140.json",
+    "layout/ltcg/load_deref_00409f70.json",
+    "layout/ltcg/load_deref_0040cc40.json",
+    "layout/ltcg/load_deref_00450200.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

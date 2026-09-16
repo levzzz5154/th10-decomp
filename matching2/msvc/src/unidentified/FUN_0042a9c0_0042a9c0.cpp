@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x42a9c0: store one dword and return the object in EAX.
+// The object pointer arrives in EAX, which only a native LTCG link chooses,
+// so this region is compiled as a cluster (dword_store_0042a9c0.json).
 
-// 0x0042A9C0..0x0042A9C7: FUN_0042a9c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042a9c0_0042a9c0() {
-    __asm {
-    L_0042a9c0:
-        mov dword ptr [eax+4],0
-    L_0042a9c7:
-        ret
-    }
+struct dwordmark_0042a9c0 {
+    unsigned char pad_00000[0x4];
+    int field_00004; // +0x4
+    __declspec(noinline) void Store();
+};
+typedef char dwordmark_0042a9c0_size_must_fit[sizeof(dwordmark_0042a9c0) == 0x8 ? 1 : -1];
+
+#pragma code_seg(".text$01store0042a9c0")
+void dwordmark_0042a9c0::Store() {
+    field_00004 = 0;
 }
+#pragma code_seg()

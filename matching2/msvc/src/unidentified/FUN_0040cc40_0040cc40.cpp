@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x40cc40: load the pointer at +0x4, then the dword at +0x4
+// through it. The object pointer arrives in EAX, which only a native LTCG
+// link chooses, so this region is compiled as a cluster
+// (load_deref_0040cc40.json).
 
-// 0x0040CC40..0x0040CC46: FUN_0040cc40
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040cc40_0040cc40() {
-    __asm {
-    L_0040cc40:
-        mov ecx,dword ptr [eax+4]
-    L_0040cc43:
-        mov eax,dword ptr [ecx+4]
-    L_0040cc46:
-        ret
-    }
+struct LoadDeref_0040cc40 {
+    unsigned char pad_00000[0x4];
+    int field_00004; // +0x4
+    __declspec(noinline) int Load() const;
+};
+typedef char LoadDeref_0040cc40_size_must_fit[sizeof(LoadDeref_0040cc40) == 0x8 ? 1 : -1];
+
+#pragma code_seg(".text$01load0040cc40")
+int LoadDeref_0040cc40::Load() const {
+    const unsigned char* inner = (const unsigned char*)field_00004;
+    return *(const int*)(inner + 0x4);
 }
+#pragma code_seg()
