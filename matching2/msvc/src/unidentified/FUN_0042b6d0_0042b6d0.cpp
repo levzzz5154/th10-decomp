@@ -1,25 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042B6D0: destroy and free an owned object. Retail keeps the pointer in ESI.
 
-// 0x0042B6D0..0x0042B6E1: FUN_0042b6d0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042b6d0_0042b6d0() {
-    __asm {
-    L_0042b6d0:
-        test esi,esi
-    L_0042b6d2:
-        je short L_0042b6e1
-    L_0042b6d4:
-        push esi
-    L_0042b6d5:
-        call asm_FUN_0042b570_0042b570
-    L_0042b6da:
-        push esi
-    L_0042b6db:
-        call asm_free_004524a1
-    L_0042b6e0:
-        pop ecx
-    L_0042b6e1:
-        ret
+struct OwnedObject_0042b6d0;
+extern "C" void asm_FUN_0042b570_0042b570(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+__declspec(noinline) void DestroyOwned_0042b6d0(OwnedObject_0042b6d0* object);
+#pragma code_seg(".text$01destroy0042b6d0")
+void DestroyOwned_0042b6d0(OwnedObject_0042b6d0* object) {
+    if (object) {
+        asm_FUN_0042b570_0042b570(object);
+        entry_free_004524a1(object);
     }
 }
+#pragma code_seg()

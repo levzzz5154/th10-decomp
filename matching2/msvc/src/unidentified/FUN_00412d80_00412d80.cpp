@@ -1,19 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00412D80..0x00412D8B: FUN_00412d80
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00412d80_00412d80() {
-    __asm {
-    L_00412d80:
-        mov edx,dword ptr [eax]
-    L_00412d82:
-        mov dword ptr [ecx+10h],edx
-    L_00412d85:
-        mov eax,dword ptr [eax+4]
-    L_00412d88:
-        mov dword ptr [ecx+14h],eax
-    L_00412d8b:
-        ret
-    }
+// 0x00412D80: copy 2 dwords into destination offset +0x10.
+struct CopyValue_00412d80 { unsigned int values[2]; };
+struct CopyBlock_00412d80 {
+    unsigned char pad[0x10];
+    unsigned int values[2];
+    __declspec(noinline) void Assign(const CopyValue_00412d80& other);
+};
+#pragma code_seg(".text$01copy00412d80")
+void CopyBlock_00412d80::Assign(const CopyValue_00412d80& other) {
+    values[0] = other.values[0];
+    values[1] = other.values[1];
 }
+#pragma code_seg()

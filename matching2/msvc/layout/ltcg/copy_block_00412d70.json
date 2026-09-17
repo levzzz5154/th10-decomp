@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "copy_block_00412d70",
+  "source": "src/unidentified/FUN_00412d70_00412d70.cpp",
+  "driver": "layout/ltcg/copy_block_00412d70_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Dword block assignment compiled with native LTCG for source EAX/destination ECX.",
+  "functions": [
+    {
+      "name": "Assign",
+      "symbol": "?Assign@CopyBlock_00412d70@@QAEXABUCopyValue_00412d70@@@Z",
+      "section": ".text$01copy00412d70",
+      "address": "0x00412D70",
+      "size": 12,
+      "actual_abi": "source in EAX; destination in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?CopyBlockCompilerContext_00412d70@@YGHPAPAUCopyValue_00412d70@@HPAUCopyBlock_00412d70@@@Z",
+    "section": ".text$03context",
+    "address": "0x00412D80",
+    "size": 49,
+    "description": "Synthetic array caller; not game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 73072
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00412D7C",
+      "size": 4
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

@@ -472,41 +472,6 @@ extern "C" __declspec(naked) void __cdecl asm_Ecl_ForwardFloat_00412aa0() {
     }
 }
 
-// 0x00412DB0..0x00412DE1: RecoveryTimer_Reset
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_RecoveryTimer_Reset_00412db0() {
-    __asm {
-    L_00412db0:
-        mov ecx,dword ptr [eax+30h]
-    L_00412db3:
-        xor edx,edx
-    L_00412db5:
-        test cl,1
-    L_00412db8:
-        jne short L_00412dd4
-    L_00412dba:
-        or ecx,1
-    L_00412dbd:
-        mov dword ptr [eax+24h],edx
-    L_00412dc0:
-        mov dword ptr [eax+20h],0FFF0BDC1h
-    L_00412dc7:
-        mov dword ptr [eax+28h],edx
-    L_00412dca:
-        mov dword ptr [eax+2Ch],476F78h
-    L_00412dd1:
-        mov dword ptr [eax+30h],ecx
-    L_00412dd4:
-        mov dword ptr [eax+24h],edx
-    L_00412dd7:
-        mov dword ptr [eax+28h],edx
-    L_00412dda:
-        mov dword ptr [eax+20h],0FFFFFFFFh
-    L_00412de1:
-        ret
-    }
-}
-
 // 0x00412ED0..0x00412EDF: Score_SetMode
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Score_SetMode_00412ed0() {

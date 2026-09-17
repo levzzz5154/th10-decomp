@@ -196,6 +196,21 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
             with self.assertRaisesRegex(LTCGClusterError, "duplicate symbol"):
                 load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
 
+    def test_data_alias_validates_hex_and_extent(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions = self._write_manifest(project, multi_source=False)
+            path = project / "layout" / "ltcg" / "source_ownership_test.json"
+            manifest = json.loads(path.read_text())
+            manifest["data_aliases"] = [{"symbol": "?literal@@3QBDB", "address": "0x00401030", "bytes": "646562756700"}]
+            path.write_text(json.dumps(manifest))
+            loaded = load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+            self.assertEqual(loaded["data_aliases"][0]["bytes_value"], b"debug\0")
+            manifest["data_aliases"][0]["bytes"] = "xyz"
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(LTCGClusterError, "hexadecimal octets"):
+                load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
+
     def _whole_program(self, project, change=None):
         regions = self._write_manifest(project, multi_source=True)
         path = project / 'layout/ltcg/source_ownership_test.json'

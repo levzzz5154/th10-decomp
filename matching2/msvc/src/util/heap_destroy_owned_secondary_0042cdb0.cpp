@@ -1,29 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/util/heap.hpp"
+// 0x0042CDB0: destroy and free an owned object. Retail keeps the pointer in ESI.
 
-// 0x00418150..0x00418161: ?Heap_DestroyOwned@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0042CDB0..0x0042CDC1: ?Heap_DestroyOwnedSecondary@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Heap_DestroyOwnedSecondary_0042cdb0() {
-    __asm {
-    L_0042cdb0:
-        test esi,esi
-    L_0042cdb2:
-        je short L_0042cdc1
-    L_0042cdb4:
-        push esi
-    L_0042cdb5:
-        call asm_FUN_0042cb60_0042cb60
-    L_0042cdba:
-        push esi
-    L_0042cdbb:
-        call asm_free_004524a1
-    L_0042cdc0:
-        pop ecx
-    L_0042cdc1:
-        ret
+struct OwnedObject_0042cdb0;
+extern "C" void asm_FUN_0042cb60_0042cb60(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+__declspec(noinline) void DestroyOwned_0042cdb0(OwnedObject_0042cdb0* object);
+#pragma code_seg(".text$01destroy0042cdb0")
+void DestroyOwned_0042cdb0(OwnedObject_0042cdb0* object) {
+    if (object) {
+        asm_FUN_0042cb60_0042cb60(object);
+        entry_free_004524a1(object);
     }
 }
+#pragma code_seg()

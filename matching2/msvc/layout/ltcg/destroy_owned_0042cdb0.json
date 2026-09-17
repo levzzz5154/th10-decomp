@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "destroy_owned_0042cdb0",
+  "source": "src/util/heap_destroy_owned_secondary_0042cdb0.cpp",
+  "driver": "layout/ltcg/destroy_owned_0042cdb0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
+  "functions": [
+    {
+      "name": "DestroyOwned_0042cdb0",
+      "symbol": "?DestroyOwned_0042cdb0@@YGXPAUOwnedObject_0042cdb0@@@Z",
+      "section": ".text$01destroy0042cdb0",
+      "address": "0x0042CDB0",
+      "size": 18,
+      "actual_abi": "object in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?DestroyOwnedCompilerContext_0042cdb0@@YGXPAPAUOwnedObject_0042cdb0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0042CDD0",
+    "size": 39,
+    "description": "Synthetic array caller; not game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 179632
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0042CDC2",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_0042cb60_0042cb60@4",
+      "address": "0x0042CB60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ]
+}

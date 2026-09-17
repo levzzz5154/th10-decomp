@@ -1,41 +1,6 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x004050D0..0x00405101: ?EmbeddedTimer_Reset@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_EmbeddedTimer_Reset_004050d0() {
-    __asm {
-    L_004050d0:
-        mov ecx,dword ptr [eax+40h]
-    L_004050d3:
-        xor edx,edx
-    L_004050d5:
-        test cl,1
-    L_004050d8:
-        jne short L_004050f4
-    L_004050da:
-        or ecx,1
-    L_004050dd:
-        mov dword ptr [eax+34h],edx
-    L_004050e0:
-        mov dword ptr [eax+30h],0FFF0BDC1h
-    L_004050e7:
-        mov dword ptr [eax+38h],edx
-    L_004050ea:
-        mov dword ptr [eax+3Ch],476F78h
-    L_004050f1:
-        mov dword ptr [eax+40h],ecx
-    L_004050f4:
-        mov dword ptr [eax+34h],edx
-    L_004050f7:
-        mov dword ptr [eax+38h],edx
-    L_004050fa:
-        mov dword ptr [eax+30h],0FFFFFFFFh
-    L_00405101:
-        ret
-    }
-}
-
 // 0x00427B50..0x00427C04: EffectIndicatorPool_AllocateRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_EffectIndicatorPool_AllocateRetail_00427b50() {

@@ -105,7 +105,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     #
     # constant_aliases rebind a compiler-generated float literal to the
     # retail address instead of placing its pooled copy; see the docstring.
-    allowed = required | {'additional_sources', 'roots', 'constant_aliases'}
+    allowed = required | {'additional_sources', 'roots', 'constant_aliases', 'data_aliases'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
@@ -277,6 +277,21 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('constant alias value does not match its compiler literal name')
         alias['size'] = 4
         aliases.append(alias)
+    data_aliases = []
+    raw_data_aliases = spec.get('data_aliases', [])
+    if not isinstance(raw_data_aliases, list):
+        raise LTCGClusterError('data_aliases must be an array')
+    for item in raw_data_aliases:
+        keys = {'symbol', 'address', 'bytes'}
+        alias = _fields(item, keys, keys, 'data alias')
+        alias['symbol'] = _string(alias['symbol'], 'data alias symbol')
+        alias['address'] = _integer(alias['address'], 'data alias address', minimum=image_base)
+        if (not isinstance(alias['bytes'], str) or len(alias['bytes']) % 2
+                or not re.fullmatch(r'[0-9a-fA-F]+', alias['bytes'])):
+            raise LTCGClusterError('data alias bytes must be nonempty hexadecimal octets')
+        alias['bytes_value'] = bytes.fromhex(alias['bytes'])
+        alias['size'] = len(alias['bytes_value'])
+        data_aliases.append(alias)
     absolute = []
     if not isinstance(spec['absolute_symbols'], list):
         raise LTCGClusterError('absolute_symbols must be an array')
@@ -292,19 +307,31 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Native LINK 7.10 applies the image base to absolute REL32 targets.
         symbol['coff_value'] = symbol['address'] - image_base if symbol['kind'] == 'relative_code' else symbol['address']
         absolute.append(symbol)
-    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + absolute + contexts]
+    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + data_aliases + absolute + contexts]
     if len(set(all_symbols)) != len(all_symbols):
         raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
-    ranges = sorted((item['address'], item['address'] + item['size'])
-                    for item in functions + gaps + constants + aliases + contexts)
+    range_items = functions + gaps + constants + aliases + contexts
+    ranges = sorted((item['address'], item['address'] + item['size']) for item in range_items)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
+    for alias in data_aliases:
+        if alias['address'] + alias['size'] > 0x100000000:
+            raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
+        if any(alias['address'] < end and start < alias['address'] + alias['size']
+               for start, end in ranges):
+            raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
+    for index, alias in enumerate(data_aliases):
+        for other in data_aliases[index + 1:]:
+            overlap = alias['address'] < other['address'] + other['size'] and other['address'] < alias['address'] + alias['size']
+            if overlap and not (alias['address'] == other['address'] and alias['bytes_value'] == other['bytes_value']):
+                raise LTCGClusterError('overlapping data aliases must describe identical bytes at one address')
     return {**spec, 'path': path, 'project': project, 'source_path': source,
             'source_paths': source_paths, 'source_names': source_names,
             'additional_source_paths': additional_paths, 'driver_path': driver,
             'header_paths': headers, 'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'constant_aliases': aliases,
+            'data_aliases': data_aliases,
             'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
             'roots': roots,
             'regions': [dict(region) for region in owned]}
@@ -483,6 +510,13 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         encoded = struct.pack('<I', alias['address'])
         if not any(encoded in item['body'] for item in function_reports):
             raise LTCGClusterError('constant alias is not referenced by any selected body: ' + alias['symbol'])
+    for alias in spec['data_aliases']:
+        matches = [symbol for symbol in link_map.symbols if symbol.name == alias['symbol']]
+        if len(matches) != 1 or matches[0].segment != 0 or matches[0].address != alias['address']:
+            raise LTCGClusterError('native data alias is not bound to its declared address: ' + alias['symbol'])
+        encoded = struct.pack('<I', alias['address'])
+        if not any(encoded in item['body'] for item in function_reports):
+            raise LTCGClusterError('data alias is not referenced by any selected body: ' + alias['symbol'])
     declared = {item['symbol'] for item in spec['functions']}
     if spec['context']:
         context_symbol = spec['context']['symbol']
@@ -576,7 +610,7 @@ def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path,
     return headers
 
 
-DUPLICATE_DEFINITION = re.compile(r'(?:warning|error) LNK(?:4006|2005): (\S+) already defined')
+DUPLICATE_DEFINITION = re.compile(r'(?:warning|error) LNK(?:4006|2005): (?:(?:"[^"]+" )?\(([^)]+)\)|(\S+)) already defined')
 
 
 def _verify_duplicates(log: str, aliases: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -595,7 +629,7 @@ def _verify_duplicates(log: str, aliases: Sequence[Mapping[str, Any]]) -> list[d
         match = DUPLICATE_DEFINITION.search(line)
         if match is None:
             continue
-        symbol = match.group(1)
+        symbol = match.group(1) or match.group(2)
         if symbol not in declared:
             raise LTCGClusterError('linker tolerated an undeclared duplicate definition: ' + symbol)
         tolerated.append({'symbol': symbol, 'address': f"0x{declared[symbol]['address']:08X}",
@@ -626,7 +660,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     _absolute_object(work / 'bindings.obj', [
         *spec['absolute_symbols'],
         *[{'symbol': alias['symbol'], 'address': alias['address'], 'kind': 'data',
-           'coff_value': alias['address']} for alias in spec['constant_aliases']]])
+           'coff_value': alias['address']} for alias in [*spec['constant_aliases'], *spec['data_aliases']]]])
     compile_commands = []
     include_logs = []
     if spec['context']:
@@ -663,7 +697,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
                     # conflict from being fatal.  _verify_duplicates then
                     # requires every tolerated duplicate to be a declared
                     # alias, so no undeclared duplicate can pass.
-                    *(['/FORCE:MULTIPLE'] if spec['constant_aliases'] else []),
+                    *(['/FORCE:MULTIPLE'] if spec['constant_aliases'] or spec['data_aliases'] else []),
                     *['/INCLUDE:' + gap['symbol'] for gap in spec['gaps']],
                     # /ENTRY roots the context or selected real entry. Both
                     # schema variants may also contain independently reachable
@@ -674,7 +708,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
                     *[winpath(work / name) for _, name in gl_inputs],
                     winpath(work / 'layout.obj'), winpath(work / 'bindings.obj')]
     link = _run_logged(link_command, env, work, work / 'link.log', 300)
-    duplicates = _verify_duplicates(link.stdout + link.stderr, spec['constant_aliases'])
+    duplicates = _verify_duplicates(link.stdout + link.stderr, [*spec['constant_aliases'], *spec['data_aliases']])
     _verify_snapshot(inputs)
     current_tools = toolchain_hashes(toolkit, TOOL_FILES)
     if any(tool_hashes['bin/' + name] != digest for name, digest in current_tools.items()):
@@ -695,7 +729,10 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
               'compiler_context': ({**spec['context'], 'selected': False, 'recovered_code_bytes': 0}
                                    if spec['context'] else None),
               'layout_gaps': layout_report, 'absolute_symbols': spec['absolute_symbols'],
-              'constant_aliases': spec['constant_aliases'], 'duplicate_definitions': duplicates,
+              'constant_aliases': spec['constant_aliases'],
+              'data_aliases': [{key: value for key, value in alias.items() if key != 'bytes_value'}
+                               for alias in spec['data_aliases']],
+              'duplicate_definitions': duplicates,
               'normalization': normalization, 'instruction_bytes_changed': 0, 'masked_bytes': 0,
               'reference_bytes_used_for_build': False}
     report_path.write_text(json.dumps(report, indent=2) + '\n')
