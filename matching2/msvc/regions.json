@@ -29292,13 +29292,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_SelectSpriteFromCurrentResource_00449670",
+      "name": "semantic_SelectSprite_00449670_00449670",
       "source": "src/render/animation_manager_select_sprite_from_current_resource_00449670.cpp",
-      "symbol": "_asm_AnimationManager_SelectSpriteFromCurrentResource_00449670",
+      "symbol": "?SelectSpriteFromCurrentResource@Object_00449670@@QAEXPAUResource_00449670@@@Z",
       "address": "0x00449670",
       "size": 36,
-      "kind": "asm",
-      "owner": "0x00449670"
+      "kind": "semantic",
+      "owner": "0x00449670",
+      "previous_record": {
+        "name": "asm_AnimationManager_SelectSpriteFromCurrentResource_00449670",
+        "source": "src/render/animation_manager_select_sprite_from_current_resource_00449670.cpp",
+        "symbol": "_asm_AnimationManager_SelectSpriteFromCurrentResource_00449670",
+        "address": "0x00449670",
+        "size": 36,
+        "kind": "asm",
+        "owner": "0x00449670"
+      }
     },
     {
       "name": "text_padding_00449694",
@@ -48978,7 +48987,8 @@
     "layout/ltcg/recovery_timer_reset_00412db0.json",
     "layout/ltcg/progress_record_0042c850.json",
     "layout/ltcg/anim_set_flag_00449590.json",
-    "layout/ltcg/anim_clear_flag_004495e0.json"
+    "layout/ltcg/anim_clear_flag_004495e0.json",
+    "layout/ltcg/select_sprite_00449670.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

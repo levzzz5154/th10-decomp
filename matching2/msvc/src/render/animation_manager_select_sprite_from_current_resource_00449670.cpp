@@ -1,32 +1,30 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449670..0x00449693: select the sprite of the object's current resource.
+// The object arrives in EAX, a convention only a native LTCG link chooses, so
+// this region is compiled as a cluster.
+extern "C" void* data_00491c10;
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct Resource_00449670;
 
-// 0x00449670..0x00449693: ?AnimationManager_SelectSpriteFromCurrentResource@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SelectSpriteFromCurrentResource_00449670() {
-    __asm {
-    L_00449670:
-        mov ecx,dword ptr [eax]
-    L_00449672:
-        mov edx,dword ptr [data_00491c10]
-    L_00449678:
-        push ecx
-    L_00449679:
-        call asm_AnimationManager_Find_004491c0
-    L_0044967e:
-        test eax,eax
-    L_00449680:
-        je short L_00449691
-    L_00449682:
-        mov edx,dword ptr [esp+4]
-    L_00449686:
-        mov ecx,dword ptr [eax+308h]
-    L_0044968c:
-        call asm_AnimationObject_ConfigureFromResource_0043e5a0
-    L_00449691:
-        ret 4
+struct Node_00449670 {
+    unsigned char pad_000[0x308];
+    void* field_308;                 // +0x308
+};
+
+struct Object_00449670 {
+    void* field_000;                 // +0x000
+    __declspec(noinline) void SelectSpriteFromCurrentResource(Resource_00449670* resource);
+};
+
+extern "C" Node_00449670* __fastcall AnimationManager_Find_004491c0(
+    void* value, void* manager, int unused);
+extern "C" void __fastcall AnimationObject_ConfigureFromResource_0043e5a0(
+    void* target, void* resource);
+
+#pragma code_seg(".text$01accessor")
+void Object_00449670::SelectSpriteFromCurrentResource(Resource_00449670* resource) {
+    Node_00449670* node = AnimationManager_Find_004491c0(field_000, data_00491c10, (int)field_000);
+    if (node != 0) {
+        AnimationObject_ConfigureFromResource_0043e5a0(node->field_308, resource);
     }
 }
+#pragma code_seg()
