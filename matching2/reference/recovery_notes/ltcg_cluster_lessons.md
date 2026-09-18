@@ -58,3 +58,18 @@ allocator-pressure residuals: for `0x0042ACB0` and the six vector polar setters
 the `/GL` pass re-compiled to the same or a worse extent (282 against the plain
 model's 282 with 260 differing instead of 170; 28 bytes against retail's 30), so
 retail's own extent and prologue match the plain translation unit in those cases.
+
+## The entry analysis must treat `push` as a read
+
+`sreen_regions.py`'s read-before-write analysis silently marked a pushed register
+as *written*, which hid live-in dependencies: `0x0044B740` `File_WriteShared`
+pushes **ESI** and `0x0041C880` pushes a live-in that its caller supplies, yet both
+passed the entry screen. With `push` counted as a read, the EAX-entry list loses
+`0x43C8B0`, `0x41C880` and `0x44B740` entirely and the thiscall list shrinks to
+`0x41F8D0` and `0x445880`.
+
+That retroactively explains two failed attempts: `0x43C8B0` and `0x41C880` both
+had the cluster re-choose their calling convention (returning `ret 0c 00` where
+retail has `ret 14h`, and `ret 4` where retail has `ret 8`), which is exactly what
+happens when the modelled function is missing an entry dependency the real one
+had. Before blaming the whole-program pass, check the region's live-ins first.

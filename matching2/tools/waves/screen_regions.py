@@ -65,6 +65,15 @@ def entry_reads(block):
         if mnemonic.group(1) == "call":
             written |= {"eax", "ecx", "edx"}
             continue
+        if mnemonic.group(1) == "push":
+            # push reads its operand; treating it as a destination would mark
+            # callee-saved registers as written and hide live-in dependencies.
+            for operand in operands:
+                for register in REGISTER.findall(operand):
+                    name = register.lower()
+                    if name not in written and name != "esp":
+                        reads.add(name)
+            continue
         for operand in operands[1:]:
             for register in REGISTER.findall(operand):
                 name = register.lower()
