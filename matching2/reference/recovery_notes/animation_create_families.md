@@ -31,3 +31,45 @@ Family A is the cheapest entry point: 65 bytes, one callee, no variants — the
 body reads `[eax]`, then `data_00491C10`, pushes the object, calls
 `AnimationManager_Find_004491C0`, tests the result, and tails into the usual
 `test eax,eax` shape.
+
+## Family A call-site anatomy (decoded, not yet expressible)
+
+Full listing of `0x00409E50` (65 bytes; the sibling members differ only in the
+frame constant — `1`, `2`, …):
+
+```
+8b 00        mov eax,[eax]                  ; the object arrives in EAX; load its +0
+8b 15 ..     mov edx,[data_00491c10]        ; argument 2 = the animation manager
+50           push eax                       ; argument 3 = that loaded pointer
+e8 ..        call AnimationManager_Find_004491C0
+85 c0        test eax,eax
+74 ..        je end
+8b 50 18     mov edx,[eax+18h]              ; found->field_18
+85 d2        test edx,edx
+b9 01 00..   mov ecx,1                      ; the frame constant
+66 89 88 ..  mov [eax+304h],cx              ; found->field_304 = frame
+75 ..        jne end
+8b 40 14     mov eax,[eax+14h]              ; the child chain head
+85 c0        test eax,eax
+74 ..        je end
+             loop:                          ; walk the chain downward
+8b 10        mov edx,[eax]
+66 89 8a ..  mov [edx+304h],cx
+8b 40 04     mov eax,[eax+4]
+85 c0        test eax,eax
+75 ..        jne loop
+c3           ret
+```
+
+Two facts matter for whoever picks this up:
+
+- The callee is reached with **EDX = the manager, the object on the stack, and
+  ECX left as whatever the caller held** — the compiler never initialises ECX.
+  A C++ call site always sets the first `__fastcall` argument, so a plain
+  translation unit cannot reproduce this call; either the cluster context has to
+  establish ECX (so the callee's first parameter is already live) or the region
+  needs an asm shim at the call.
+- The only per-member difference in the family is the immediate moved into `ECX`
+  before the `mov [eax+304h],cx` store — `1` for `0x00409E50`, `2` for
+  `0x0040C480`, and so on — so a single model with one constant parameter covers
+  all four members.
