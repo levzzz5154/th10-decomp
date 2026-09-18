@@ -84,6 +84,11 @@ def calls_expressed(block):
         if not line.startswith("call"):
             continue
         calls += 1
+        # Indirect calls (through a register) are virtual dispatches: the class
+        # declaration fixes the slot and the entry analysis fixes the registers,
+        # so their "setup" is nothing for this test to reject.
+        if "[" in line or "ptr" in line:
+            continue
         for previous in lines[max(0, index - 3):index]:
             if re.match(r"^(mov|lea|movzx|movsx|xor|and|add|sub|imul)", previous) \
                     and CALL_SETUP.match(previous) is None:
@@ -102,6 +107,8 @@ def main():
                         help="exclude the static CRT range above 0x0044D000")
     parser.add_argument("--min", type=int, default=25)
     parser.add_argument("--max", type=int, default=140)
+    parser.add_argument("--virtual", action="store_true",
+                        help="require at least one indirect (virtual) call")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
 
@@ -125,6 +132,8 @@ def main():
         elif args.entry == "ecx":
             if reads - {"ecx"}:
                 continue
+        if args.virtual and "call dword ptr [" not in block:
+            continue
         call_count = 0
         if args.calls:
             ok, call_count = calls_expressed(block)
