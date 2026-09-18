@@ -13826,13 +13826,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreRecords_CopyVectorAndEvaluate_0041c800",
+      "name": "semantic_ScoreRecords_0041c800_CopyVectorAndEvaluate_0041c800",
       "source": "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
-      "symbol": "_asm_ScoreRecords_CopyVectorAndEvaluate_0041c800",
+      "symbol": "?CopyVectorAndEvaluate@ScoreRecords_0041c800@@QAEHPBMMH@Z",
       "address": "0x0041C800",
       "size": 76,
-      "kind": "asm",
-      "owner": "0x0041C800"
+      "kind": "semantic",
+      "owner": "0x0041C800",
+      "previous_record": {
+        "name": "asm_ScoreRecords_CopyVectorAndEvaluate_0041c800",
+        "source": "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
+        "symbol": "_asm_ScoreRecords_CopyVectorAndEvaluate_0041c800",
+        "address": "0x0041C800",
+        "size": 76,
+        "kind": "asm",
+        "owner": "0x0041C800"
+      }
     },
     {
       "name": "asm_unassigned_0041c84c",
@@ -49254,7 +49263,8 @@
     "layout/ltcg/recovery_clear_eight_buckets_00419040.json",
     "layout/ltcg/ecl_resolve_int_destination_00412a10.json",
     "layout/ltcg/recovery_linked_cleanup_00417770.json",
-    "layout/ltcg/animation_set_active_count_00413790.json"
+    "layout/ltcg/animation_set_active_count_00413790.json",
+    "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
