@@ -5,6 +5,7 @@
 // and ESI for the embedded timers.  The cursors are additional linker roots,
 // which keeps their public ECX entry while their internal calls stay private.
 #include "../../src/math/frame_timer.cpp"
+#include "th10/game/score.hpp"
 
 struct PlayerSchedulerRecord {
     void SetSchedulerValue(int value);
@@ -19,7 +20,8 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         AnimationCursor_0043bd40* cursor_bd40,
         AnimationCursor_0043c230* cursor_c230,
         AnimationCursor_0043c460* cursor_c460,
-        PlayerSchedulerRecord* scheduler) {
+        PlayerSchedulerRecord* scheduler,
+        ScoreState* scores) {
     for (int index = 0; index < count; ++index) {
         timers[index].Tick();
         timers[index].Advance(float(delta));
@@ -33,5 +35,9 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         cursor_c460->Tick();
     if (scheduler != 0)
         scheduler->SetSchedulerValue(delta);
+    if (scores != 0) {
+        for (int index = 0; index < count; ++index)
+            scores[index].DecayGauge();
+    }
 }
 #pragma code_seg()

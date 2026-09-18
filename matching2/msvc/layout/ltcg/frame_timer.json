@@ -6,7 +6,8 @@
     "src/game/player_set_scheduler_value_00405410.cpp",
     "src/unidentified/FUN_0043bd40_0043bd40.cpp",
     "src/unidentified/FUN_0043c230_0043c230.cpp",
-    "src/unidentified/FUN_0043c460_0043c460.cpp"
+    "src/unidentified/FUN_0043c460_0043c460.cpp",
+    "src/game/recovery_decay_counter_00418a00.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
   "roots": [
@@ -14,7 +15,7 @@
     "?Tick@AnimationCursor_0043c230@@QAEHXZ",
     "?Tick@AnimationCursor_0043c460@@QAEHXZ"
   ],
-  "headers": ["include/th10/math/timer.hpp"],
+  "headers": ["include/th10/math/timer.hpp", "include/th10/game/score.hpp"],
   "image_base": "0x00400000",
   "description": "FrameTimer methods, the three animation cursors, and the scheduler store compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
   "functions": [
@@ -77,25 +78,35 @@
       "address": "0x0044BF40",
       "size": 88,
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
+    },
+    {
+      "name": "ScoreState_DecayGauge",
+      "source": "src/game/recovery_decay_counter_00418a00.cpp",
+      "symbol": "?DecayGauge@ScoreState@@QAEXXZ",
+      "section": ".text$04zdecay",
+      "address": "0x00418A00",
+      "size": 65,
+      "actual_abi": "gauge record in EAX; nested timer in ESI; plain RET"
     }
   ],
   "context": {
-    "symbol": "AnimationTimerSchedulerCompilerContext@28",
+    "symbol": "AnimationTimerSchedulerCompilerContext@32",
     "section": ".text$15context",
     "address": "0x0044BFA0",
-    "size": 116,
-    "description": "Synthetic caller roots every cursor, timer, and scheduler edge; not recovered game code."
+    "size": 147,
+    "description": "Synthetic caller roots every cursor, timer, gauge and scheduler edge; not recovered game code."
   },
   "gaps": [
     {"section": ".text$00layout", "address": "0x00401000", "size": 16080},
     {"section": ".text$02layout", "address": "0x00404F18", "size": 1272},
-    {"section": ".text$04layout", "address": "0x00405449", "size": 145799},
+    {"section": ".text$04layout", "address": "0x00405449", "size": 79287},
+    {"section": ".text$04zzlayout", "address": "0x00418A41", "size": 66447},
     {"section": ".text$06layout", "address": "0x00428DE4", "size": 77660},
     {"section": ".text$08layout", "address": "0x0043BD9D", "size": 1171},
     {"section": ".text$10layout", "address": "0x0043C2B5", "size": 427},
     {"section": ".text$12layout", "address": "0x0043C4FA", "size": 64070},
     {"section": ".text$14layout", "address": "0x0044BF98", "size": 8},
-    {"section": ".text$16layout", "address": "0x0044C014", "size": 147436},
+    {"section": ".text$16layout", "address": "0x0044C033", "size": 147405},
     {"section": ".rdata", "address": "0x00470000", "size": 2812}
   ],
   "constants": [

@@ -11606,13 +11606,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_DecayCounter_00418a00",
+      "name": "semantic_ScoreState_DecayGauge_00418a00",
       "source": "src/game/recovery_decay_counter_00418a00.cpp",
-      "symbol": "_asm_Recovery_DecayCounter_00418a00",
+      "symbol": "?DecayGauge@ScoreState@@QAEXXZ",
       "address": "0x00418A00",
       "size": 65,
-      "kind": "asm",
-      "owner": "0x00418A00"
+      "kind": "semantic",
+      "owner": "0x00418A00",
+      "previous_record": {
+        "name": "asm_Recovery_DecayCounter_00418a00",
+        "source": "src/game/recovery_decay_counter_00418a00.cpp",
+        "symbol": "_asm_Recovery_DecayCounter_00418a00",
+        "address": "0x00418A00",
+        "size": 65,
+        "kind": "asm",
+        "owner": "0x00418A00"
+      }
     },
     {
       "name": "text_padding_00418a41",
