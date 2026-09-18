@@ -167,6 +167,9 @@ want: 8b c1 8b 88 58 03 00 00 6a 21 51 8b 0d 10 1c 49 00 e8 .. 33 c0 c3
 Every other instruction - the field load, the two pushes in retail's order, the
 manager load, the call and the `xor eax,eax; ret` tail - is already identical, so
 the region is one instruction from landing. The copy exists so that ECX is free
-for the field load; a named-self spelling does not produce it, and a
-local-value or named-manager split was attempted and did not compile in the
-throwaway driver.
+for the field load. Three shapes were measured and all emit the same 23 bytes:
+the plain member call, the field read into an `unsigned int` local first, and the
+manager cached in a named pointer. A named `self` was tried earlier with the same
+result, so the copy is an allocator choice rather than a statement-order one -
+the fourth consecutive region where an MSVC register decision, not the source
+shape, is what stands between the model and retail.
