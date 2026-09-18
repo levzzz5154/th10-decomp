@@ -176,3 +176,24 @@ section, so the whole-program pass can assign the registers across the call - th
 the accessors and the flag pair. That is the largest remaining systematic
 opportunity in the manifest: twelve regions, about 1,100 bytes, behind roughly
 five models.
+
+The allocator's inner path is decoded too, and it matters for the model:
+
+```
+mov edx,eax; imul edx,3ACh
+mov [esi+3AD068h],eax        ; publish the advanced cursor
+mov cl,[eax+esi+3AC068h]
+test cl,cl; lea edi,[edx+esi+68h]
+je  found                    ; a free byte means the slot is reusable
+push 3ACh; call operator_new_00452493; add esp,4
+test eax,eax; je null
+mov ecx,eax; call Entity_Constructor_00402050    ; the LANDED semantic constructor
+mov edx,eax; mov edi,eax
+call InitializeEntity_00401de0                   ; still assembly
+```
+
+So the allocator **reuses the landed `Entity_Constructor`** (a `__fastcall`
+free function taking the entity in ECX) and then calls `InitializeEntity` at
+`0x00401DE0`, which is still an assembly region. A model therefore needs
+`InitializeEntity` reconstructed as well, or the multi-function cluster has to
+carry it - one more dependency to count before starting that build.
