@@ -31,3 +31,19 @@ declared size (54) is not the emitted one (45).
 
 This is the first region where a *two-argument* virtual dispatch was modelled;
 the call itself lands on the right slot, so the remaining gap is in the walk.
+
+## Accumulator rewrite: 58 bytes, head matches, convention differs
+
+The byte comparison showed what the first model was missing: retail **sums the
+virtual call's return value** (`xor edi,edi` before the loop, `add edi,eax` after
+the call, `mov eax,edi` before the epilogue) and returns it, while the first model
+discarded it. Modelling `int Walk(void* first, void* second)` with
+`total += ...->Slot8(first, second);` and `return total;` moves the extent from 45
+to **58 bytes against retail's 54**, and the head now matches structurally
+instruction for instruction.
+
+Two differences remain: the early-exit path is laid out inline in the model where
+retail branches past it, and the model's return is `ret 4` where retail's is
+`ret 8` - the whole-program pass re-chose the member's convention, so the two
+stack arguments are no longer both on the stack. That convention is the lever for
+the next attempt; the body, the dispatch and the accumulation are all right.
