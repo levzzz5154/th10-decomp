@@ -28041,13 +28041,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_ClearResourceSlot_004477d0",
+      "name": "semantic_AnimationManager_ClearResourceSlot_004477d0",
       "source": "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
-      "symbol": "_asm_AnimationManager_ClearResourceSlot_004477d0",
+      "symbol": "?ClearResourceSlot@AnimationManager_004477d0@@QAEXH@Z",
       "address": "0x004477D0",
       "size": 55,
-      "kind": "asm",
-      "owner": "0x004477D0"
+      "kind": "semantic",
+      "owner": "0x004477D0",
+      "previous_record": {
+        "name": "asm_AnimationManager_ClearResourceSlot_004477d0",
+        "source": "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
+        "symbol": "_asm_AnimationManager_ClearResourceSlot_004477d0",
+        "address": "0x004477D0",
+        "size": 55,
+        "kind": "asm",
+        "owner": "0x004477D0"
+      }
     },
     {
       "name": "text_padding_00447807",
@@ -28058,13 +28067,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00447810_00447810",
+      "name": "semantic_AnimationResource_Release_00447810",
       "source": "src/render/fun_00447810_00447810.cpp",
-      "symbol": "_asm_FUN_00447810_00447810",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
       "address": "0x00447810",
       "size": 242,
-      "kind": "asm",
-      "owner": "0x00447810"
+      "kind": "semantic",
+      "owner": "0x00447810",
+      "previous_record": {
+        "name": "semantic_AnimationResource_Release_00447810",
+        "source": "src/render/fun_00447810_00447810.cpp",
+        "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+        "address": "0x00447810",
+        "size": 242,
+        "kind": "semantic",
+        "owner": "0x00447810"
+      }
     },
     {
       "name": "text_padding_00447902",

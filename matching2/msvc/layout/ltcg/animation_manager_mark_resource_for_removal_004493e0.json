@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "The bullet pool reset and the animation-manager retirement helper compiled as one native /LTCG scope so the private call keeps retail's EAX/EDX argument registers and the pool arrives in ESI.",
+  "description": "AnimationManagerMarkResourceForRemoval, BulletPool::Reset, the resource release and its slot caller in one native /LTCG scope.",
   "functions": [
     {
       "name": "BulletPool_Reset_00405ed0",
@@ -17,6 +17,24 @@
       "source": "src/game/bullet_pool_reset_retail_00405ed0.cpp"
     },
     {
+      "name": "AnimationManager_ClearResourceSlot",
+      "symbol": "?ClearResourceSlot@AnimationManager_004477d0@@QAEXH@Z",
+      "section": ".text$08clear",
+      "address": "0x004477D0",
+      "size": 55,
+      "actual_abi": "manager in EBX; index in ESI; record in EDI; plain RET",
+      "source": "src/render/animation_manager_clear_resource_slot_004477d0.cpp"
+    },
+    {
+      "name": "AnimationResource_Release",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "section": ".text$10release",
+      "address": "0x00447810",
+      "size": 242,
+      "actual_abi": "record in EDI; plain RET",
+      "source": "src/render/fun_00447810_00447810.cpp"
+    },
+    {
       "name": "AnimationManager_MarkResourceForRemoval",
       "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
       "section": ".text$20helper",
@@ -26,11 +44,11 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@H@Z",
+    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@PAPAUAnimationResource_00447810@@PAUAnimationManager_004477d0@@HH@Z",
     "section": ".text$30context",
     "address": "0x00449480",
-    "size": 42,
-    "description": "Synthetic array-walking caller that establishes the observed register conventions; not recovered game code."
+    "size": 101,
+    "description": "Synthetic array-walking caller; not recovered game code."
   },
   "gaps": [
     {
@@ -41,7 +59,17 @@
     {
       "section": ".text$02layout",
       "address": "0x00405EFD",
-      "size": 275683
+      "size": 268499
+    },
+    {
+      "section": ".text$09layout",
+      "address": "0x00447807",
+      "size": 9
+    },
+    {
+      "section": ".text$15layout",
+      "address": "0x00447902",
+      "size": 6878
     },
     {
       "section": ".text$25layout",
@@ -56,9 +84,21 @@
       "symbol": "_data_00491c10",
       "address": "0x00491C10",
       "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
-    "src/game/bullet_pool_reset_retail_00405ed0.cpp"
+    "src/game/bullet_pool_reset_retail_00405ed0.cpp",
+    "src/render/fun_00447810_00447810.cpp",
+    "src/render/animation_manager_clear_resource_slot_004477d0.cpp"
   ]
 }

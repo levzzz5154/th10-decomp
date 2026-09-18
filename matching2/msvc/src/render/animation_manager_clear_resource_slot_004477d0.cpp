@@ -1,44 +1,37 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004477D0..0x00447806: release and null one animation-manager resource slot.
+//
+// Retail enters with the manager singleton in EBX and the slot index in ESI,
+// and hands the slot's record to the release routine at 0x00447810 in EDI:
+// conventions only a native /LTCG link of this source chooses.  They come from
+// this region's place in layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json,
+// whose synthetic caller keeps the manager and the index in those registers and
+// whose co-compiled release body is the real recovered 0x00447810 model.
+//
+// The two range tests stay separate because retail has both (jl and jae); a
+// merged (unsigned)index >= 0x21u produces a single jae.
+struct AnimationResource_00447810 {
+    __declspec(noinline) void Release();
+};
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+extern "C" void __cdecl entry_free_004524a1(void* memory);
 
-// 0x004477D0..0x00447806: ?AnimationManager_ClearResourceSlot@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_ClearResourceSlot_004477d0() {
-    __asm {
-    L_004477d0:
-        test esi,esi
-    L_004477d2:
-        jl short L_00447806
-    L_004477d4:
-        cmp esi,21h
-    L_004477d7:
-        jae short L_00447806
-    L_004477d9:
-        push edi
-    L_004477da:
-        mov edi,dword ptr [ebx+esi*4+3AD06Ch]
-    L_004477e1:
-        test edi,edi
-    L_004477e3:
-        je short L_00447805
-    L_004477e5:
-        call asm_FUN_00447810_00447810
-    L_004477ea:
-        mov eax,dword ptr [ebx+esi*4+3AD06Ch]
-    L_004477f1:
-        push eax
-    L_004477f2:
-        call asm_free_004524a1
-    L_004477f7:
-        add esp,4
-    L_004477fa:
-        mov dword ptr [ebx+esi*4+3AD06Ch],0
-    L_00447805:
-        pop edi
-    L_00447806:
-        ret
-    }
+struct AnimationManager_004477d0 {
+    unsigned char pad_000[0x3AD06C];
+    AnimationResource_00447810* slots_3ad06c[0x21];   // +0x3AD06C
+
+    __declspec(noinline) void ClearResourceSlot(int index);
+};
+
+#pragma code_seg(".text$08clear")
+void AnimationManager_004477d0::ClearResourceSlot(int index) {
+    if (index < 0)
+        return;
+    if ((unsigned)index >= 0x21u)
+        return;
+    if (slots_3ad06c[index] == 0)
+        return;
+    slots_3ad06c[index]->Release();
+    entry_free_004524a1(slots_3ad06c[index]);
+    slots_3ad06c[index] = 0;
 }
+#pragma code_seg()
