@@ -1,0 +1,36 @@
+# 0x00438A30 DestroyEntityList - virtual dispatch through slot 2
+
+2026-09-18. Found by `tools/waves/screen_regions.py --entry eax --calls`: 43
+bytes, one call, entry in EAX.
+
+```
+push esi
+mov esi,eax                 ; the base pointer arrives in EAX
+push edi
+add esi,3AD4E0h             ; the table is at base + 0x3AD4E0
+mov edi,20h                 ; 32 slots
+loop:
+  mov eax,[esi]
+  test eax,eax
+  je  next
+  mov ecx,[eax]             ; the object's vtable pointer
+  push eax
+  call dword ptr [ecx+8]    ; virtual call, slot 2
+  mov dword [esi],0         ; clear the slot
+next:
+  ...                       ; advance and loop
+```
+
+So the source is a loop over thirty-two object pointers that calls each entry's
+**third virtual function** and clears the slot. Two things are needed to express
+it and neither is free:
+
+- the callee is a **virtual** call, so the model needs a class whose virtual slot
+  order puts the callee third (`call [ecx+8]` follows from the declaration
+  regardless of the vtable's contents), and a class with virtuals makes the
+  compiler emit a vtable it must not define here;
+- the table base arrives in EAX, so the cluster path is required as well.
+
+Worth noting that the screen's call-shape test passes this region even though the
+call is indirect - `mov ecx,[eax]` and `push eax` do look like an ECX/EDX/stack
+setup. A future version should treat `call dword ptr` as a separate class.
