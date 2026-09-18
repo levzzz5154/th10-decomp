@@ -45,3 +45,25 @@ cluster emits **38 bytes against retail's 43** and diverges at the second byte
 from the start - the model indexes the table while retail walks a pointer in ESI
 with a separate counter in EDI (`add esi,4; dec edi; jne`). Rewriting the loop as
 a pointer walk with a down counter is the first thing to try next.
+
+## Pointer-walk rewrite: 42 bytes, one short, 19 differing
+
+Rewriting the loop as a pointer walk with a down counter -
+
+```cpp
+    Entity_00438a30** slot = (Entity_00438a30**)((unsigned char*)this + 0x3AD4E0);
+    for (int remaining = 0x20; remaining != 0; remaining--) {
+        Entity_00438a30* entity = *slot;
+        if (entity != 0) {
+            entity->Slot2();
+            *slot = 0;
+        }
+        slot++;
+    }
+```
+
+- moves the emitted extent from 38 to **42 bytes against retail's 43** and the
+  first difference from byte 1 to byte 0x11 (`0e` against `06`, a displacement),
+  leaving 19 differing bytes. So the walk shape is right and what remains is the
+  register assignment inside it (retail keeps the slot pointer in ESI, the counter
+  in EDI and the entity in EAX) plus whatever accounts for the missing byte.
