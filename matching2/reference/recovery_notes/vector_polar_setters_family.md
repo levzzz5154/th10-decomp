@@ -81,3 +81,29 @@ retail's 30. Retail's extent therefore matches the *plain* translation unit, not
 the LTCG one, so this family is not a cluster target: the remaining gap is
 purely the instruction selection inside a plain `/O2 /G6` build (`fsincos`
 instead of `fcos`+`fsin`, and the `this` spill), exactly as recorded above.
+
+
+## The `fsincos` discriminator is closed by an existing precedent
+
+`wave8_large_region_blockers.md` records the finding directly for the landed
+`0x00443B60` (1047 bytes, `src/render/projection_quads.cpp`): *MSVC never emits
+`fsincos` from `sinf`/`cosf`* — the compiler always produces an FSIN/FCOS pair.
+That region landed only because its two `fsincos` sequences are inline `__asm`
+blocks in the recovered source:
+
+```cpp
+    angle = this->rotation;
+    __asm {
+        fld angle
+        fsincos
+        fstp ca
+        fstp sa
+    }
+```
+
+For `0x00443B60` that is a few lines inside otherwise readable C++. For this
+family the *entire* eleven-instruction body is the sincos sequence and the two
+scaled stores, so an equivalent body would be almost entirely `__asm` — no
+readable C++ is gained. These six regions should therefore stay assembly unless
+the project decides an inline-asm body is worth it; the `this` spill is moot,
+since retail's version is the asm block's own frame.
