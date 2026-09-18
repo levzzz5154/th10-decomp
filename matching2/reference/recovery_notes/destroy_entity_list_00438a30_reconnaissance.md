@@ -34,3 +34,14 @@ it and neither is free:
 Worth noting that the screen's call-shape test passes this region even though the
 call is indirect - `mov ecx,[eax]` and `push eax` do look like an ECX/EDX/stack
 setup. A future version should treat `call dword ptr` as a separate class.
+
+## Model attempted: 38 bytes against 43
+
+With the class declared as above (three virtuals, never instantiated) and the
+slot table reached as `(Entity**)((unsigned char*)this + 0x3AD4E0)` inside a
+`for (i = 0; i < 0x20; i++)` loop that calls `Slot2()` and clears the entry, the
+cluster emits **38 bytes against retail's 43** and diverges at the second byte
+(`33` where retail has `8b`), so the loop's register and addressing shape differs
+from the start - the model indexes the table while retail walks a pointer in ESI
+with a separate counter in EDI (`add esi,4; dec edi; jne`). Rewriting the loop as
+a pointer walk with a down counter is the first thing to try next.
