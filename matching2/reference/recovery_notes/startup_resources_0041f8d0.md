@@ -61,3 +61,28 @@ emitted extent was 120 bytes rather than the declared 40. The model file must be
 declared `__cdecl` explicitly, because the project compiles with `/Gz` and a free
 function without a convention otherwise gets a `@0`-suffixed stdcall name. What
 remains is a layout/context issue in the cluster, not the recovered code.
+
+## Second attempt: `__declspec(noinline)` fixed the inlining, sizes still off
+
+Without `noinline` the whole-program pass inlined the function into the synthetic
+context, which is why the symbol never appeared in the map and the context was 120
+bytes wide. Adding it produces a clean split - function `0x5B` (91) at
+`0x0041F8D0`, context `0x21` (33) - but the layout still fails the entry check,
+because the machinery places the context on its own alignment: with a declared
+context address of `0x0041F940` the map shows it at `0x0041F950`, sixteen bytes
+later. So a context address for this cluster has to be read back from a first
+build rather than computed as `align(address + size + 31)`.
+
+Also tried in the same run: the shared-message form
+
+```cpp
+    void* message;
+    if (load(6, manager, name6) == 0)        message = (void*)0x0046CB68;
+    else if (load(7, manager, name7) == 0)   message = (void*)0x0046CD54;
+    else                                     return 0;
+    ((TextLog_0041f8d0*)0x00474F70)->Append(message);
+    return -1;
+```
+
+which matches retail's shared `jmp fail` structure and emitted 91 bytes against
+retail's 82 - nine over, so it is not the final shape either.
