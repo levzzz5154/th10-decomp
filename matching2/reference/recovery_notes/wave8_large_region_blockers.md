@@ -138,3 +138,25 @@ maps are retained under `matching2/build/waves/results8/W809/`.
 
 The agent for this region failed before producing any measurement; it is
 untouched and still `asm_` in the manifest.
+
+
+## Update: 0x00445880 (25 bytes) modelled, two bytes short
+
+The "register roles" blocker for this region is resolved: the function is a plain
+`__thiscall` member (ECX in, and the **sound** entry screen accepts it now that
+`push` counts as a read), whose body hands `this->field_358` and the command
+`0x21` to the manager:
+
+```cpp
+int Object_00445880::Run() {
+    ((Manager_00445880*)data_00491c10)->Issue(field_358, 0x21);
+    return 0;
+}
+```
+
+with `Issue` declared as a member (ECX plus two stack arguments, callee-popped -
+exactly retail's setup) and bound as `relative_code` to `0x004450E0`. The model
+emits **23 bytes against retail's 25**; the two missing bytes are retail's opening
+`mov eax,ecx`, which copies `this` before the first use - a named-self spelling
+does not produce it. Everything else - the push order, the manager load, the
+`xor eax,eax; ret` tail - matches.
