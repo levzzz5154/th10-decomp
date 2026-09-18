@@ -47,7 +47,11 @@ def region_block(region, cache):
 
 
 def entry_reads(block):
-    """Registers read before first written, stopping at the first call."""
+    """Registers the region consumes that it never wrote first.
+
+    A call clobbers the caller-saved registers (EAX, ECX, EDX), so a read of one
+    of those after a call is not an entry dependency; EBX, ESI, EDI and EBP are
+    callee-saved, so reading one of them anywhere without a write is."""
     written, reads = {"esp"}, set()
     for line in block.splitlines():
         line = line.strip()
@@ -59,7 +63,8 @@ def entry_reads(block):
         parts = line.split(None, 1)
         operands = [item.strip() for item in parts[1].split(",")] if len(parts) > 1 else []
         if mnemonic.group(1) == "call":
-            break
+            written |= {"eax", "ecx", "edx"}
+            continue
         for operand in operands[1:]:
             for register in REGISTER.findall(operand):
                 name = register.lower()
