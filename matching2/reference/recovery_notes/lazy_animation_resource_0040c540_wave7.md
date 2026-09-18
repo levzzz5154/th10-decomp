@@ -152,7 +152,33 @@ The 2-byte extent deficit is exactly `push %edi`/`pop %edi`. Everything else is
 the ECX/EDI ModRM difference and the four-byte frame shift it causes in the two
 `lea` displacements, the call displacement and the two tail offsets.
 
-## Shapes tried (all through `register_cluster.py` against the copy)
+Note what the thiscall variant *does* reproduce: the resource load into EAX
+(`mov 0x8994(%esi),%eax`), the `lea edx,[esp+18h]` out slot, the push order and
+the scratch-after-call choice. Its only structural miss is the register the
+position arrives in and the save that register needs. So an EDI position
+reproduces the remaining 40 bytes as retail wrote them.
+
+## Probe
+
+With the layout declaring retail's size (75), the maintained probe refuses the
+cluster before any comparison - the same wall lesson 3 records:
+
+```
+src/game/animation_resource_lazy_fetch.cpp: FAILED TO COMPILE
+function GameThread_EnsureAnimationResource extent is outside a MAP CODE contribution
+animation_resource_lazy_fetch.cpp
+NOT EXACT
+```
+
+The byte deltas above are therefore measured by the exploration harness
+(`matching2/tools/waves/cluster_attempt.py`'s technique, used in the copy): build
+the cluster with the declared size patched to the emitted one, then read the
+region's bytes out of the native PE.
+
+## Shapes tried
+
+Every shape was built and measured in the copy; 1-5 through
+`register_cluster.py`, 6 through a scratch registration (it spans two sources).
 
 1. `if (handle) return;` first - 74 bytes: the pass hoists the `[esi+0x89A4]`
    load above `sub esp,0Ch`, so the schedule is wrong from byte 0. Rejected.
