@@ -324,7 +324,39 @@ a caller/callee register agreement. Measured in the copy:
 So the only configuration that reproduces retail is one where `0x40AE70` itself is
 a selected function in the same `/LTCG` link.
 
+### Shapes tried to get the receiver in EBX without recovering `0x40AE70`
+
+1. **Opaque callee, ordinary conventions** — `__cdecl`/`__stdcall`/`__fastcall`
+   declarations with and without the argument, one and two dead parameters: 86
+   bytes (no argument) or 87 bytes (pushed), manager always in ESI.
+2. **Opaque callee called with no argument** — the 86-byte diagnostic above. Not a
+   usable model: the assembly stub reads EBX, so the register would hold garbage.
+3. **The context itself as the receiver**, placed at `0x40AE70` and called by
+   Create: 90 bytes, `push esi; call 0040ae70; add esp,4` — the entry keeps its
+   declared stack ABI (`mov ebx,[esp+0Ch]` inside the context), in all three
+   LoadScripts-shaped bodies tried.
+4. **Two synthetic functions in the driver**, the receiver reached through the
+   context symbol's underscore spelling (`context.symbol` = `_asm_...`, receiver
+   defined as `_asm_...`, entry as `asm_...`): the schema does declare both
+   spellings, but LINK resolves `/ENTRY:_asm_...` to the underscore-prefixed symbol
+   `__asm_...`, i.e. to the receiver, which then becomes the entry (entry address
+   0x40AE70, empty context section, 90-byte caller again). The pair `{C, '_'+C}` can
+   only name two compiled functions when `C` is a C spelling, and in that case the
+   `/ENTRY` decoration always lands on the receiver.
+5. **Naked assembly stub pulled into the link** — the cluster rejects it as an
+   undeclared include (`compiler included an undeclared source/header`), and its
+   declaration cannot express the EBX receiver anyway.
+6. **`scheduler_tasks.cpp` reused as the convention environment** — not possible
+   directly: that source already belongs to another registered cluster, and a
+   source may belong to only one.
+
 ## Integration
+
+**Do not register `layout/ltcg/bullet_manager_create_0040af90.json` as it stands** —
+with an opaque callee the cluster is not exact (see the delta above), and a
+registered non-exact cluster stops every unit in the project from building. The
+layout and driver above are the artifacts for the landing that follows the
+LoadScripts recovery; until then the region stays assembly.
 
 * Headers: **no header edit needed.**
 * Manifest: the region `0x0040AF90`'s record must be replaced by
