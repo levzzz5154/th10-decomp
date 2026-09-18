@@ -58,3 +58,21 @@ their real stack argument counts. Two attempts with a modelled factory both
 stopped at symbol resolution in the layout rather than in the code, so the model
 itself has not yet been compared; the remaining work is the argument mapping
 between the five parameters and the three that are forwarded.
+
+## 0x0043C8B0 measured: 77 bytes against 82
+
+With the model as a free `extern "C" __stdcall` factory (symbol
+`_AsciiManager_CreateRetail_0043c8b0@20`), `new AsciiManager_0043c8b0` bound
+through `??2@YAPAXI@Z` -> `0x00452493`, an explicit `memset(manager, 0, 0x44)`,
+the dead `flags_040 &= ~1u` retail performs before that memset and
+`flags_040 |= 2` after it, the cluster emits **77 bytes against retail's 82**.
+
+Two lessons from the run, both worth keeping: the model file must carry
+`#pragma code_seg(".text$01accessor")` *and* the driver's embedded copy of it must
+be re-synced after every edit, or the driven source silently regresses to the
+previous revision; and the dead flag clear is not optional - it accounts for nine
+of the bytes.
+
+The remaining five bytes are in the argument mapping for the three arguments
+forwarded to `FUN_0043c970` (five parameters in, three forwarded), which the
+listing interleaves with stack reloads.
