@@ -6374,13 +6374,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_StopAtFrame2_0040c480",
+      "name": "semantic_AnimationHandle_40c480",
       "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
-      "symbol": "_asm_AnimationManager_StopAtFrame2_0040c480",
+      "symbol": "?StopAtFrame2@AnimationHandle@@QAEXXZ",
       "address": "0x0040C480",
       "size": 65,
-      "kind": "asm",
-      "owner": "0x0040C480"
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_AnimationManager_StopAtFrame2_0040c480",
+        "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+        "symbol": "_asm_AnimationManager_StopAtFrame2_0040c480",
+        "address": "0x0040C480",
+        "size": 65,
+        "kind": "asm",
+        "owner": "0x0040C480"
+      }
     },
     {
       "name": "text_padding_0040c4c1",
@@ -6391,13 +6400,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_StopAtFrame3_0040c4d0",
+      "name": "semantic_AnimationHandle_40c4d0",
       "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-      "symbol": "_asm_AnimationManager_StopAtFrame3_0040c4d0",
+      "symbol": "?StopAtFrame3@AnimationHandle@@QAEXXZ",
       "address": "0x0040C4D0",
       "size": 65,
-      "kind": "asm",
-      "owner": "0x0040C4D0"
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_AnimationManager_StopAtFrame3_0040c4d0",
+        "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+        "symbol": "_asm_AnimationManager_StopAtFrame3_0040c4d0",
+        "address": "0x0040C4D0",
+        "size": 65,
+        "kind": "asm",
+        "owner": "0x0040C4D0"
+      }
     },
     {
       "name": "text_padding_0040c511",
@@ -29033,13 +29051,13 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_AnimationManager_Find_004491c0",
-      "source": "src/render/animation_manager.cpp",
-      "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "name": "semantic_AnimationManager_4491c0",
+      "source": "src/render/animation_manager_find_004491c0.cpp",
+      "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "kind": "semantic",
-      "owner": "0x004491C0",
+      "owner": null,
       "previous_record": {
         "name": "asm_AnimationManager_StopAtFrame2_0040c480",
         "source": "src/render/animation_manager.cpp",
@@ -49130,7 +49148,8 @@
     "layout/ltcg/word_color_channels_004050a0.json",
     "layout/ltcg/anm_object_configure_0043e5a0.json",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70.json",
-    "layout/ltcg/recovery_tick_state_0040bd20.json"
+    "layout/ltcg/recovery_tick_state_0040bd20.json",
+    "layout/ltcg/stop_at_frame_pair_0040c480.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -175,23 +175,8 @@ struct AnimationLookupContext {
 
 class AnimationManager {
 public:
-    void* __fastcall Find(AnimationLookupContext* context, int id);
     void* __fastcall SetFlag(AnimationLookupContext* context, int id);
 };
-
-// 0x004491C0: AnimationManager_Find - look a script id up in the primary and
-// then the secondary bucket, returning the registered object.
-void* __fastcall AnimationManager::Find(AnimationLookupContext* context, int id) {
-    if (!id)
-        return 0;
-    for (AnimationLookupEntry* node = context->primary_bucket; node != 0; node = node->next)
-        if (*(int*)node->object == id)
-            return node->object;
-    for (AnimationLookupEntry* node = context->secondary_bucket; node != 0; node = node->next)
-        if (*(int*)node->object == id)
-            return node->object;
-    return 0;
-}
 
 // 0x004492A0: AnimationManager_SetFlag - mark the object registered under a
 // script id, and its not-yet-flagged children, as script owned.

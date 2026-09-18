@@ -1,54 +1,49 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C4D0 - set the stop frame of the animation object registered under an
+// animation handle to 3, and of that object's not-yet-flagged children.
+// The same model as 0x0040C480; only the frame constant differs.
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationLookupContext;
 
-// 0x0040C4D0..0x0040C510: ?AnimationManager_StopAtFrame3@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_StopAtFrame3_0040c4d0() {
-    __asm {
-    L_0040c4d0:
-        mov eax,dword ptr [eax]
-    L_0040c4d2:
-        mov edx,dword ptr [data_00491c10]
-    L_0040c4d8:
-        push eax
-    L_0040c4d9:
-        call asm_AnimationManager_Find_004491c0
-    L_0040c4de:
-        test eax,eax
-    L_0040c4e0:
-        je short L_0040c510
-    L_0040c4e2:
-        mov edx,dword ptr [eax+18h]
-    L_0040c4e5:
-        test edx,edx
-    L_0040c4e7:
-        mov ecx,3
-    L_0040c4ec:
-        mov word ptr [eax+304h],cx
-    L_0040c4f3:
-        jne short L_0040c510
-    L_0040c4f5:
-        mov eax,dword ptr [eax+14h]
-    L_0040c4f8:
-        test eax,eax
-    L_0040c4fa:
-        je short L_0040c510
-    L_0040c4fc:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0040c500:
-        mov edx,dword ptr [eax]
-    L_0040c502:
-        mov word ptr [edx+304h],cx
-    L_0040c509:
-        mov eax,dword ptr [eax+4]
-    L_0040c50c:
-        test eax,eax
-    L_0040c50e:
-        jne short L_0040c500
-    L_0040c510:
-        ret
+struct AnimationScriptId {
+    int value;
+};
+
+struct AnimationTreeNode {
+    AnimationTreeNode* object;              // +0x000
+    AnimationTreeNode* next;                // +0x004
+    unsigned char reserved_008[0x0C];
+    AnimationTreeNode* children;            // +0x014
+    int children_flagged;                   // +0x018
+    unsigned char reserved_01c[0x2E8];
+    unsigned short stop_frame;              // +0x304
+};
+
+class AnimationManager {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
+};
+
+struct AnimationHandle {
+    unsigned int value;
+    __declspec(noinline) void StopAtFrame2();
+    __declspec(noinline) void StopAtFrame3();
+};
+
+extern "C" AnimationLookupContext* data_00491c10;
+
+#pragma code_seg(".text$30stop3")
+void AnimationHandle::StopAtFrame3() {
+    AnimationScriptId id;
+    id.value = (int)value;
+    AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
+        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+    if (node != 0) {
+        node->stop_frame = 3;
+        if (!node->children_flagged) {
+            for (AnimationTreeNode* child = node->children;
+                 child != 0; child = child->next)
+                child->object->stop_frame = 3;
+        }
     }
 }
+#pragma code_seg()

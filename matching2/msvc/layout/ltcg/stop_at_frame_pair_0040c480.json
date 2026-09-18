@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "name": "stop_at_frame_pair_0040c480",
+  "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+  "additional_sources": [
+    "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+    "src/render/animation_manager_find_004491c0.cpp"
+  ],
+  "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "StopAtFrame2/StopAtFrame3 pair compiled with the animation lookup as an internal callee, so the whole-program pass drops the receiver the lookup never reads and leaves the dereferenced handle pointer in EAX.",
+  "functions": [
+    {
+      "name": "AnimationManager_StopAtFrame2",
+      "symbol": "?StopAtFrame2@AnimationHandle@@QAEXXZ",
+      "section": ".text$10stop2",
+      "address": "0x40c480",
+      "size": 65,
+      "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
+      "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp"
+    },
+    {
+      "name": "AnimationManager_StopAtFrame3",
+      "symbol": "?StopAtFrame3@AnimationHandle@@QAEXXZ",
+      "section": ".text$30stop3",
+      "address": "0x40c4d0",
+      "size": 65,
+      "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
+      "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp"
+    },
+    {
+      "name": "AnimationManager_Find",
+      "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$50find",
+      "address": "0x4491c0",
+      "size": 73,
+      "actual_abi": "context in EDX; script id on the stack; RET 4",
+      "source": "src/render/animation_manager_find_004491c0.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@H@Z",
+    "section": ".text$70context",
+    "address": "0x449220",
+    "size": 43,
+    "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 46208
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x40c4c1",
+      "size": 15
+    },
+    {
+      "section": ".text$40layout",
+      "address": "0x40c511",
+      "size": 249007
+    },
+    {
+      "section": ".text$60layout",
+      "address": "0x449209",
+      "size": 23
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ]
+}

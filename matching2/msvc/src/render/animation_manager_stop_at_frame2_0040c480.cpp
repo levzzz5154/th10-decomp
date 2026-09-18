@@ -1,54 +1,57 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C480 - set the stop frame of the animation object registered under an
+// animation handle to 2, and of that object's not-yet-flagged children.
+//
+// The handle is the receiver and the only input: retail's callers put its
+// address in EAX and nothing else, and the animation lookup never reads its own
+// receiver, so the whole-program pass leaves EAX holding the dereferenced
+// pointer and hands the lookup's id back on the stack.  Both are conventions
+// only a native-LTCG cluster reaches
+// (layout/ltcg/stop_at_frame_pair_0040c480.json).
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationLookupContext;
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_StopAtFrame2_0040c480() {
-    __asm {
-    L_0040c480:
-        mov eax,dword ptr [eax]
-    L_0040c482:
-        mov edx,dword ptr [data_00491c10]
-    L_0040c488:
-        push eax
-    L_0040c489:
-        call asm_AnimationManager_Find_004491c0
-    L_0040c48e:
-        test eax,eax
-    L_0040c490:
-        je short L_0040c4c0
-    L_0040c492:
-        mov edx,dword ptr [eax+18h]
-    L_0040c495:
-        test edx,edx
-    L_0040c497:
-        mov ecx,2
-    L_0040c49c:
-        mov word ptr [eax+304h],cx
-    L_0040c4a3:
-        jne short L_0040c4c0
-    L_0040c4a5:
-        mov eax,dword ptr [eax+14h]
-    L_0040c4a8:
-        test eax,eax
-    L_0040c4aa:
-        je short L_0040c4c0
-    L_0040c4ac:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0040c4b0:
-        mov edx,dword ptr [eax]
-    L_0040c4b2:
-        mov word ptr [edx+304h],cx
-    L_0040c4b9:
-        mov eax,dword ptr [eax+4]
-    L_0040c4bc:
-        test eax,eax
-    L_0040c4be:
-        jne short L_0040c4b0
-    L_0040c4c0:
-        ret
+// The script id is a four-byte record so the lookup reads it from its stack
+// slot; see the note in animation_manager_find_004491c0.cpp.
+struct AnimationScriptId {
+    int value;
+};
+
+struct AnimationTreeNode {
+    AnimationTreeNode* object;              // +0x000
+    AnimationTreeNode* next;                // +0x004
+    unsigned char reserved_008[0x0C];
+    AnimationTreeNode* children;            // +0x014
+    int children_flagged;                   // +0x018
+    unsigned char reserved_01c[0x2E8];
+    unsigned short stop_frame;              // +0x304
+};
+
+class AnimationManager {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
+};
+
+struct AnimationHandle {
+    unsigned int value;
+    __declspec(noinline) void StopAtFrame2();
+    __declspec(noinline) void StopAtFrame3();
+};
+
+extern "C" AnimationLookupContext* data_00491c10;
+
+#pragma code_seg(".text$10stop2")
+void AnimationHandle::StopAtFrame2() {
+    AnimationScriptId id;
+    id.value = (int)value;
+    AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
+        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+    if (node != 0) {
+        node->stop_frame = 2;
+        if (!node->children_flagged) {
+            for (AnimationTreeNode* child = node->children;
+                 child != 0; child = child->next)
+                child->object->stop_frame = 2;
+        }
     }
 }
+#pragma code_seg()
