@@ -25929,13 +25929,22 @@
       "owner": null
     },
     {
-      "name": "asm_AnimationObject_ConfigureFromResource_0043e5a0",
+      "name": "semantic_AnimationObject_0043e5a0_ConfigureFromResource_0043e5a0",
       "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
-      "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+      "symbol": "?ConfigureFromResource@AnimationObject_0043e5a0@@QAEHPAUResource_0043e5a0@@H@Z",
       "address": "0x0043E5A0",
       "size": 356,
-      "kind": "asm",
-      "owner": "0x0043E5A0"
+      "kind": "semantic",
+      "owner": "0x0043E5A0",
+      "previous_record": {
+        "name": "asm_AnimationObject_ConfigureFromResource_0043e5a0",
+        "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+        "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+        "address": "0x0043E5A0",
+        "size": 356,
+        "kind": "asm",
+        "owner": "0x0043E5A0"
+      }
     },
     {
       "name": "text_padding_0043e704",
@@ -49084,7 +49093,8 @@
     "layout/ltcg/worker_start_0044c1c0.json",
     "layout/ltcg/particle_seed_combine_00404e10.json",
     "layout/ltcg/word_color_00405040.json",
-    "layout/ltcg/word_color_channels_004050a0.json"
+    "layout/ltcg/word_color_channels_004050a0.json",
+    "layout/ltcg/anm_object_configure_0043e5a0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
