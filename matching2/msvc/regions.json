@@ -466,13 +466,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameThread_SelectRenderStageRetail_00401d20",
+      "name": "semantic_RenderStageState_SelectStage_00401d20",
       "source": "src/render/render_stage_select.cpp",
-      "symbol": "_asm_GameThread_SelectRenderStageRetail_00401d20",
+      "symbol": "?SelectStage@RenderStageState@@QAEXH@Z",
       "address": "0x00401D20",
       "size": 60,
-      "kind": "asm",
-      "owner": "0x00401D20"
+      "kind": "semantic",
+      "owner": "0x00401D20",
+      "previous_record": {
+        "name": "asm_GameThread_SelectRenderStageRetail_00401d20",
+        "source": "src/render/render_stage_select.cpp",
+        "symbol": "_asm_GameThread_SelectRenderStageRetail_00401d20",
+        "address": "0x00401D20",
+        "size": 60,
+        "kind": "asm",
+        "owner": "0x00401D20"
+      }
     },
     {
       "name": "text_padding_00401d5c",

@@ -161,13 +161,27 @@
       "size": 1111,
       "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
       "source": "src/render/sprite_quad_submit_mirrored.cpp"
+    },
+    {
+      "name": "RenderStageState_SelectStage_00401d20",
+      "symbol": "?SelectStage@RenderStageState@@QAEXH@Z",
+      "section": ".text$000pgselect",
+      "address": "0x00401D20",
+      "size": 60,
+      "actual_abi": "state in ESI; stage index in EBX; plain RET",
+      "source": "src/render/render_stage_select.cpp"
     }
   ],
   "gaps": [
     {
       "section": ".text$000layout",
       "address": "0x00401000",
-      "size": 132512
+      "size": 3360
+    },
+    {
+      "section": ".text$000zlayout",
+      "address": "0x00401D5C",
+      "size": 129092
     },
     {
       "section": ".text$02alayout",
@@ -322,9 +336,15 @@
       "symbol": "_data_00470ec",
       "address": "0x004700EC",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
     }
   ],
   "additional_sources": [
+    "src/render/render_stage_select.cpp",
     "src/render/anm_batch_flush.cpp",
     "src/render/special_quad.cpp",
     "src/render/default_viewport.cpp",
@@ -351,7 +371,7 @@
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x00445200",
-    "size": 294,
+    "size": 308,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   }
 }
