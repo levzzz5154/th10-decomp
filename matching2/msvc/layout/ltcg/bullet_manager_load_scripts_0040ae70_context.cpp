@@ -3,6 +3,7 @@
 
 struct BulletManagerState_0040af90;
 BulletManagerState_0040af90 *BulletManager_Create_0040af90();
+extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
@@ -22,6 +23,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         if (slots[index])
             ++created;
     }
+    if (asm_Recovery_CreateFixedState_004056b0())
+        ++created;
     return created;
 }
 #pragma code_seg()

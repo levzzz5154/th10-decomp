@@ -6,7 +6,9 @@
     "src/game/scheduler_tasks.cpp",
     "src/platform/text_log.cpp",
     "src/platform/joystick_probe.cpp",
-    "src/game/bullet_manager_create_0040af90.cpp"
+    "src/game/bullet_manager_create_0040af90.cpp",
+    "src/game/recovery_create_fixed_state_004056b0.cpp",
+    "src/game/recovery_install_pair_set_flags_004055c0.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -17,7 +19,7 @@
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI.",
+  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installer it calls, so the pass keeps the fixed-state pair in EBX across the installation, the release and the free.",
   "functions": [
     {
       "name": "BulletManager_LoadScripts_0040ae70",
@@ -89,20 +91,48 @@
       "address": "0x0044B810",
       "size": 201,
       "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"
+    },
+    {
+      "name": "Recovery_InstallPairSetFlags_004055c0",
+      "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
+      "section": ".text$00_vinstall",
+      "address": "0x004055C0",
+      "size": 84,
+      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
+    },
+    {
+      "name": "Recovery_CreateFixedState_004056b0",
+      "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
+      "symbol": "_asm_Recovery_CreateFixedState_004056b0",
+      "section": ".text$00_xfixed",
+      "address": "0x004056B0",
+      "size": 85,
+      "actual_abi": "no live-in registers; result in EAX; plain RET"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 123,
-    "description": "Synthetic array-walking caller that establishes the loader's register convention; not recovered game code."
+    "size": 133,
+    "description": "Synthetic array-walking caller that establishes the loader's and the fixed-state factory's register conventions; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00_layout",
       "address": "0x00401000",
-      "size": 40560
+      "size": 17856
+    },
+    {
+      "section": ".text$00_wlayout",
+      "address": "0x00405614",
+      "size": 156
+    },
+    {
+      "section": ".text$00_ylayout",
+      "address": "0x00405705",
+      "size": 22379
     },
     {
       "section": ".text$00b_layout",
@@ -250,6 +280,16 @@
     {
       "symbol": "_data_004776fc",
       "address": "0x004776FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "address": "0x00405620",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776ec",
+      "address": "0x004776EC",
       "kind": "data"
     }
   ]

@@ -2585,13 +2585,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_InstallPairSetFlags_004055c0",
+      "name": "semantic_Recovery_InstallPairSetFlags_004055c0_004055c0",
       "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0",
+      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
       "address": "0x004055C0",
       "size": 84,
-      "kind": "asm",
-      "owner": "0x004055C0"
+      "kind": "semantic",
+      "owner": "0x004055C0",
+      "previous_record": {
+        "name": "asm_Recovery_InstallPairSetFlags_004055c0",
+        "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+        "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0",
+        "address": "0x004055C0",
+        "size": 84,
+        "kind": "asm",
+        "owner": "0x004055C0"
+      }
     },
     {
       "name": "text_padding_00405614",
@@ -2619,13 +2628,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_CreateFixedState_004056b0",
+      "name": "semantic_Recovery_CreateFixedState_004056b0_004056b0",
       "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
       "symbol": "_asm_Recovery_CreateFixedState_004056b0",
       "address": "0x004056B0",
       "size": 85,
-      "kind": "asm",
-      "owner": "0x004056B0"
+      "kind": "semantic",
+      "owner": "0x004056B0",
+      "previous_record": {
+        "name": "asm_Recovery_CreateFixedState_004056b0",
+        "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
+        "symbol": "_asm_Recovery_CreateFixedState_004056b0",
+        "address": "0x004056B0",
+        "size": 85,
+        "kind": "asm",
+        "owner": "0x004056B0"
+      }
     },
     {
       "name": "text_padding_00405705",
