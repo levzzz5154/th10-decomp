@@ -26293,13 +26293,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_RandomVector_StoreRoundedScalar_00441e50",
+      "name": "semantic_RandomVector_StoreRoundedScalar_00441e50",
       "source": "src/math/random_vector.cpp",
-      "symbol": "_asm_RandomVector_StoreRoundedScalar_00441e50",
+      "symbol": "?RandomVector_StoreRoundedScalar@@YGPAURandomVectorResult@@PAURandomVectorSource@@PAU1@M@Z",
       "address": "0x00441E50",
       "size": 56,
-      "kind": "asm",
-      "owner": "0x00441E50"
+      "kind": "semantic",
+      "owner": "0x00441E50",
+      "previous_record": {
+        "name": "asm_RandomVector_StoreRoundedScalar_00441e50",
+        "source": "src/math/random_vector.cpp",
+        "symbol": "_asm_RandomVector_StoreRoundedScalar_00441e50",
+        "address": "0x00441E50",
+        "size": 56,
+        "kind": "asm",
+        "owner": "0x00441E50"
+      }
     },
     {
       "name": "text_padding_00441e88",
@@ -48988,7 +48997,8 @@
     "layout/ltcg/progress_record_0042c850.json",
     "layout/ltcg/anim_set_flag_00449590.json",
     "layout/ltcg/anim_clear_flag_004495e0.json",
-    "layout/ltcg/select_sprite_00449670.json"
+    "layout/ltcg/select_sprite_00449670.json",
+    "layout/ltcg/random_vector_store_rounded_scalar.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

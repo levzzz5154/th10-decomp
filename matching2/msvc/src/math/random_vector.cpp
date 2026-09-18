@@ -1,49 +1,35 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00441E50: scale a three-component integer vector by a float rate and
+// truncate every product toward zero.
+//
+// Retail: DB 47 04 / D8 4C 24 0C   fild [edi+4]; fmul [esp+0xC]
+//         E8 .. / 8B D8             call __ftol2; mov ebx,eax
+//         DB 47 08 / D8 4C 24 0C   fild [edi+8]; fmul [esp+0xC]
+//         E8 .. / 8B E8             call __ftol2; mov ebp,eax
+//         DB 07 / D8 4C 24 0C      fild [edi]; fmul [esp+0xC]
+//         E8 ..                     call __ftol2
+//         89 6E 08 / 5D / 89 06 / 89 5E 04 / 8B C6 / 5B / C2 04 00
+//
+// The source vector arrives in EDI, the destination in ESI, the rate on the
+// stack, and the destination is returned in EAX, so the scaler is compiled as
+// a native LTCG cluster (layout/ltcg/random_vector_store_rounded_scalar.json).
+//
+// The three products are computed in the order y, z, x and stored in the order
+// +8, +0, +4. MSVC rotates the statement sequence left by one, so writing the
+// components in declaration order reproduces retail's schedule; writing them
+// in retail's emitted order (y, z, x) rotates it once more and misses.
 
-// 0x00441E50..0x00441E87: RandomVector_StoreRoundedScalar
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_RandomVector_StoreRoundedScalar_00441e50() {
-    __asm {
-    L_00441e50:
-        fild dword ptr [edi+4]
-    L_00441e53:
-        push ebx
-    L_00441e54:
-        push ebp
-    L_00441e55:
-        fmul dword ptr [esp+0Ch]
-    L_00441e59:
-        call asm_FUN_00463b2c_00463b2c
-    L_00441e5e:
-        fild dword ptr [edi+8]
-    L_00441e61:
-        mov ebx,eax
-    L_00441e63:
-        fmul dword ptr [esp+0Ch]
-    L_00441e67:
-        call asm_FUN_00463b2c_00463b2c
-    L_00441e6c:
-        fild dword ptr [edi]
-    L_00441e6e:
-        mov ebp,eax
-    L_00441e70:
-        fmul dword ptr [esp+0Ch]
-    L_00441e74:
-        call asm_FUN_00463b2c_00463b2c
-    L_00441e79:
-        mov dword ptr [esi+8],ebp
-    L_00441e7c:
-        pop ebp
-    L_00441e7d:
-        mov dword ptr [esi],eax
-    L_00441e7f:
-        mov dword ptr [esi+4],ebx
-    L_00441e82:
-        mov eax,esi
-    L_00441e84:
-        pop ebx
-    L_00441e85:
-        ret 4
-    }
+struct RandomVectorSource { int x, y, z; };
+struct RandomVectorResult { int x, y, z; };
+
+#pragma code_seg(".text$01store")
+__declspec(noinline) RandomVectorResult* __stdcall RandomVector_StoreRoundedScalar(
+        RandomVectorSource* source, RandomVectorResult* result, float scale) {
+    int x = int(source->x * scale);
+    int y = int(source->y * scale);
+    int z = int(source->z * scale);
+    result->x = x;
+    result->y = y;
+    result->z = z;
+    return result;
 }
+#pragma code_seg()
