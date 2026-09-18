@@ -33,8 +33,9 @@ c2 08 00      ret 8
 
 A member `SetPolar(float angle, float radius)` that computes both results and
 stores x from the cosine, y from the sine — with `cosf`/`sinf`, float locals,
-double locals, or `(double)` casts on the argument — compiles to **exactly 30
-bytes** but selects different instructions:
+double locals, `(double)` casts on the argument, a float copy of the argument, or
+a named result pointer — compiles to **exactly 30 bytes** but selects different
+instructions:
 
 ```
 d9 44 24 04   fld dword [esp+4]
