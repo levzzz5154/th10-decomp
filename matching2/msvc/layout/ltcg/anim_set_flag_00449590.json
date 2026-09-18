@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "anim_set_flag_00449590",
+  "source": "src/render/animation_manager_set_flag_bit1_00449590.cpp",
+  "driver": "layout/ltcg/anim_set_flag_00449590_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "AnimationNode_SetFlag compiled with native LTCG so the argument arrives in EAX.",
+  "functions": [
+    {
+      "name": "AnimationNode_SetFlag",
+      "symbol": "?SetFlag@AnimationNode_00449590@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x00449590",
+      "size": 67,
+      "actual_abi": "argument in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimFlagCompilerContext@@YGHPAPAUAnimationNode_00449590@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004495F0",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 296336
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004495D3",
+      "size": 29
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnimationManager_Find_004491c0@12",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    }
+  ]
+}

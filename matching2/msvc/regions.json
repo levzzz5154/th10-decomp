@@ -29189,13 +29189,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_SetFlagBit1_00449590",
+      "name": "semantic_AnimationNode_SetFlag_00449590",
       "source": "src/render/animation_manager_set_flag_bit1_00449590.cpp",
-      "symbol": "_asm_AnimationManager_SetFlagBit1_00449590",
+      "symbol": "?SetFlag@AnimationNode_00449590@@QAEXXZ",
       "address": "0x00449590",
       "size": 67,
-      "kind": "asm",
-      "owner": "0x00449590"
+      "kind": "semantic",
+      "owner": "0x00449590",
+      "previous_record": {
+        "name": "asm_AnimationManager_SetFlagBit1_00449590",
+        "source": "src/render/animation_manager_set_flag_bit1_00449590.cpp",
+        "symbol": "_asm_AnimationManager_SetFlagBit1_00449590",
+        "address": "0x00449590",
+        "size": 67,
+        "kind": "asm",
+        "owner": "0x00449590"
+      }
     },
     {
       "name": "text_padding_004495d3",
@@ -29206,13 +29215,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_ClearFlag_004495e0",
+      "name": "semantic_AnimationNode_ClearFlag_004495e0",
       "source": "src/render/animation_manager_clear_flag_004495e0.cpp",
-      "symbol": "_asm_AnimationManager_ClearFlag_004495e0",
+      "symbol": "?ClearFlag@AnimationNode_004495e0@@QAEXXZ",
       "address": "0x004495E0",
       "size": 67,
-      "kind": "asm",
-      "owner": "0x004495E0"
+      "kind": "semantic",
+      "owner": "0x004495E0",
+      "previous_record": {
+        "name": "asm_AnimationManager_ClearFlag_004495e0",
+        "source": "src/render/animation_manager_clear_flag_004495e0.cpp",
+        "symbol": "_asm_AnimationManager_ClearFlag_004495e0",
+        "address": "0x004495E0",
+        "size": 67,
+        "kind": "asm",
+        "owner": "0x004495E0"
+      }
     },
     {
       "name": "text_padding_00449623",
@@ -48958,7 +48976,9 @@
     "layout/ltcg/destroy_owned_0042cdb0.json",
     "layout/ltcg/effect_pool_update_batch.json",
     "layout/ltcg/recovery_timer_reset_00412db0.json",
-    "layout/ltcg/progress_record_0042c850.json"
+    "layout/ltcg/progress_record_0042c850.json",
+    "layout/ltcg/anim_set_flag_00449590.json",
+    "layout/ltcg/anim_clear_flag_004495e0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
