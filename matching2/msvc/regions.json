@@ -17551,13 +17551,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004285f0",
+      "name": "semantic_Vector2_GetBounds_004285f0",
       "source": "src/unidentified/unassigned_004285f0.cpp",
-      "symbol": "_asm_unassigned_004285f0",
+      "symbol": "?GetBounds@Vector2@@QBEXPBU1@PAU1@1@Z",
       "address": "0x004285F0",
       "size": 55,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004285f0",
+        "source": "src/unidentified/unassigned_004285f0.cpp",
+        "symbol": "_asm_unassigned_004285f0",
+        "address": "0x004285F0",
+        "size": 55,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00428627",
@@ -49008,7 +49017,8 @@
     "layout/ltcg/anim_clear_flag_004495e0.json",
     "layout/ltcg/select_sprite_00449670.json",
     "layout/ltcg/random_vector_store_rounded_scalar.json",
-    "layout/ltcg/matrix_identity_00401f00.json"
+    "layout/ltcg/matrix_identity_00401f00.json",
+    "layout/ltcg/bounds_from_center_004285f0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
