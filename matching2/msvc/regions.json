@@ -19742,13 +19742,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameProgress_HasAnyPlayRecord_0042c850",
+      "name": "semantic_GameProgress_HasAnyPlayRecord_0042c850",
       "source": "src/game/progress.cpp",
-      "symbol": "_asm_GameProgress_HasAnyPlayRecord_0042c850",
+      "symbol": "?HasAnyPlayRecord@GameProgress_0042c850@@QAEHXZ",
       "address": "0x0042C850",
       "size": 69,
-      "kind": "asm",
-      "owner": "0x0042C850"
+      "kind": "semantic",
+      "owner": "0x0042C850",
+      "previous_record": {
+        "name": "asm_GameProgress_HasAnyPlayRecord_0042c850",
+        "source": "src/game/progress.cpp",
+        "symbol": "_asm_GameProgress_HasAnyPlayRecord_0042c850",
+        "address": "0x0042C850",
+        "size": 69,
+        "kind": "asm",
+        "owner": "0x0042C850"
+      }
     },
     {
       "name": "text_padding_0042c895",
@@ -48948,7 +48957,8 @@
     "layout/ltcg/destroy_owned_0042b6d0.json",
     "layout/ltcg/destroy_owned_0042cdb0.json",
     "layout/ltcg/effect_pool_update_batch.json",
-    "layout/ltcg/recovery_timer_reset_00412db0.json"
+    "layout/ltcg/recovery_timer_reset_00412db0.json",
+    "layout/ltcg/progress_record_0042c850.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
