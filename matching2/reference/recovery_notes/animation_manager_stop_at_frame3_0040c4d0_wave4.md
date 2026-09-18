@@ -8,7 +8,43 @@ only be claimed once, so this note records my region and its independent
 verification rather than a second layout. The shared recipe is in
 `animation_manager_stop_at_frame2_0040c480_wave4.md`.
 
-## Verification (second, independent sandbox)
+## Verification
+
+The pair landing is already in the maintained tree (sources, layout, driver and
+the three region records); I verified it there too, from a fresh copy that was
+never built in place (`/tmp/AnmStopAtFrame3/verify`), so the numbers below are
+for the texts that actually landed, not just for my own:
+
+```
+$ python3 matching2/tools/matching/probe.py \
+    --source src/render/animation_manager_stop_at_frame2_0040c480.cpp \
+    --project /tmp/AnmStopAtFrame3/verify --output /tmp/AnmStopAtFrame3/verify_probe --show 10
+0x0040c480      65 bytes  ?StopAtFrame2@AnimationHandle@@QAEXXZ  EXACT
+0x0040c4d0      65 bytes  ?StopAtFrame3@AnimationHandle@@QAEXXZ  EXACT
+0x004491c0      73 bytes  ?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z  EXACT
+EXACT
+```
+
+**Manifest defect found here, since fixed**: the manifest's `translation_units`
+was missing `src/render/animation_manager_find_004491c0.cpp`, which now owns
+`0x004491C0`. Probes did not catch it — `probe.py`'s `load_manifest` only
+re-checks the text hash — but the whole-image build did:
+
+```
+$ python3 -c "import json,sys; sys.path.insert(0,'.'); \
+  from matching2.tools.matching.build_msvc import validate_project; \
+  validate_project(json.load(open('matching2/msvc/regions.json')), \
+                   json.load(open('matching2/msvc/pe_layout.json'))['reference'])"
+ValueError: translation unit list disagrees with region ownership
+```
+
+The manual multi-source write recomputed the cluster list and the region records
+but not this derived list; the integration owner added the entry
+(`translation_units` 2392 → 2393) and `validate_project` now returns 4425
+regions over 2393 units. The recompute `register_cluster.py` performs
+automatically is `translation_units = sorted({region['source'] for region in regions})`.
+
+## Independent rebuild (second sandbox)
 
 Scratch tree `/tmp/AnmStopAtFrame3/msvc` (never the maintained tree), rebuilt
 from the three cluster sources, the layout and the driver below:
@@ -290,6 +326,12 @@ It has to move one region between sources: `0x004491C0` changes from
 `src/render/animation_manager.cpp` to the new
 `src/render/animation_manager_find_004491c0.cpp` (with the new symbol shown in
 the layout), which also adds that translation unit; `0x0040C480` and `0x0040C4D0`
-keep their sources and only change symbol/extent metadata. No production
-`regions.json`, layout or source in the maintained tree was touched by this
-recovery; every build above ran in `/tmp/AnmStopAtFrame3`.
+keep their sources and only change symbol/extent metadata — and that new
+translation unit is what the stale `translation_units` list above is missing.
+
+This recovery wrote nothing but this note into the maintained tree: every layout,
+source and manifest edit above was made in `/tmp/AnmStopAtFrame3`, and the
+`register_cluster.py` runs that produced the throwaway registrations were always
+passed `--project /tmp/AnmStopAtFrame3/msvc`. The landing itself is
+StopAtFrame2's; my scratch copy's single-source attempt was unregistered and its
+layout and driver deleted, so the pair layout is the only claimant of the lookup.
