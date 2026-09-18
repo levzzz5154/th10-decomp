@@ -106,3 +106,24 @@ void __stdcall ScoreFile_InitializeDefaultsRetail_0042acb0(ScoreFile_0042acb0* f
     }
 }
 ```
+
+## Native-LTCG route attempted: blocked on the cluster map validation
+
+The cluster path was exercised for this region in the throwaway copy
+(`/tmp/w42acb0/msvc`, context calling the setter in a loop, the four data
+globals bound through `absolute_symbols`). Two things came out of it:
+
+1. The model source **must** carry `#pragma code_seg(".text$01accessor")`. Without
+   it the function is emitted into the default `.text` section, the map shows
+   `.text$00layout` starting at offset `0x11A` with the function at the image
+   base, and the entry point collapses to `0000:00000000`. With the pragma the
+   map is correct: `.text$01accessor` `0x11A` at `0x0042ACB0`, context `0x25`.
+2. The build then fails in map validation with **`MAP segment 0000 has no
+   section contribution`**, i.e. the absolute data bindings create a segment-0000
+   entry the validator rejects. That is unresolved; the same binding shape is
+   used by landed layouts (`adjust_power.json` binds `_data_00474c40` the same
+   way), so the difference is something else in this cluster's map.
+
+Until that is resolved the region rests at the model above: 282 bytes against
+274, first sixteen instructions identical, differing only in the parameter's
+home register (`EBP` in retail, `ESI` in the model).
