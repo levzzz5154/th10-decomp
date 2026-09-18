@@ -31117,13 +31117,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044c1c0_0044c1c0",
+      "name": "semantic_PlatformWorker_Start_0044c1c0",
       "source": "src/platform/worker_start.cpp",
-      "symbol": "_asm_FUN_0044c1c0_0044c1c0",
+      "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
       "address": "0x0044C1C0",
       "size": 56,
-      "kind": "asm",
-      "owner": "0x0044C1C0"
+      "kind": "semantic",
+      "owner": "0x0044C1C0",
+      "previous_record": {
+        "name": "asm_FUN_0044c1c0_0044c1c0",
+        "source": "src/platform/worker_start.cpp",
+        "symbol": "_asm_FUN_0044c1c0_0044c1c0",
+        "address": "0x0044C1C0",
+        "size": 56,
+        "kind": "asm",
+        "owner": "0x0044C1C0"
+      }
     },
     {
       "name": "text_padding_0044c1f8",
@@ -48965,7 +48974,6 @@
     "layout/ltcg/platform_invoke_configured_0044d5d0.json",
     "layout/ltcg/recovery_select_archive_entry_0043d790.json",
     "layout/ltcg/platform_set_operation_deadline_0044d4e0.json",
-    "layout/ltcg/platform_worker_shutdown.json",
     "layout/ltcg/sound_queue.json",
     "layout/ltcg/entity_quad_projection_00444240.json",
     "layout/ltcg/projection_quads.json",
@@ -49018,7 +49026,8 @@
     "layout/ltcg/select_sprite_00449670.json",
     "layout/ltcg/random_vector_store_rounded_scalar.json",
     "layout/ltcg/matrix_identity_00401f00.json",
-    "layout/ltcg/bounds_from_center_004285f0.json"
+    "layout/ltcg/bounds_from_center_004285f0.json",
+    "layout/ltcg/worker_start_0044c1c0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

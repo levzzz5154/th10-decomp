@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "name": "worker_start_0044c1c0",
+  "source": "src/platform/worker_start.cpp",
+  "driver": "layout/ltcg/worker_start_0044c1c0_context.cpp",
+  "headers": [
+    "include/th10/platform/worker.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The retail /LTCG worker link rebuilt as one cluster: the two public callers keep their ECX receiver, Stop keeps the shared ESI receiver, and a synthetic array caller establishes the EAX receiver of Start.",
+  "functions": [
+    {
+      "name": "PlatformWorker_Destroy",
+      "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+      "source": "src/platform/platform_destroy_worker_0044c100.cpp",
+      "section": ".text$05destroy",
+      "address": "0x0044C100",
+      "size": 36,
+      "actual_abi": "this in ECX; should_free at stack +4; passes this in ESI to Stop; returns this; RET 4"
+    },
+    {
+      "name": "PlatformWorker_StopNoDelete",
+      "symbol": "?StopNoDelete@PlatformWorker@@QAEXXZ",
+      "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+      "section": ".text$10caller",
+      "address": "0x0044C130",
+      "size": 16,
+      "actual_abi": "this in ECX; saves ESI and passes this in ESI to Stop; plain RET"
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101,
+      "actual_abi": "this in ESI; preserves ESI without saving it; plain RET"
+    },
+    {
+      "name": "PlatformWorker_Start",
+      "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "source": "src/platform/worker_start.cpp",
+      "section": ".text$40start",
+      "address": "0x0044C1C0",
+      "size": 56,
+      "actual_abi": "receiver in EAX; entry in EDI; context at [ESP+4]; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "WorkerStartCompilerContext",
+    "section": ".text$50context",
+    "address": "0x0044C200",
+    "size": 69,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 307456
+    },
+    {
+      "section": ".text$07layout",
+      "address": "0x0044C124",
+      "size": 12
+    },
+    {
+      "section": ".text$15layout",
+      "address": "0x0044C140",
+      "size": 16
+    },
+    {
+      "section": ".text$25layout",
+      "address": "0x0044C1B5",
+      "size": 11
+    },
+    {
+      "section": ".text$45layout",
+      "address": "0x0044C1F8",
+      "size": 8
+    }
+  ],
+  "constants": [],
+  "roots": [
+    "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+    "?StopNoDelete@PlatformWorker@@QAEXXZ"
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/platform/platform_destroy_worker_0044c100.cpp",
+    "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+    "src/platform/platform_stop_worker_0044c150.cpp"
+  ]
+}

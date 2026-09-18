@@ -1,47 +1,31 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/platform/worker.hpp"
 
-// 0x0044C1C0..0x0044C1F7: FUN_0044c1c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0044c1c0_0044c1c0() {
-    __asm {
-    L_0044c1c0:
-        push esi
-    L_0044c1c1:
-        mov esi,eax
-    L_0044c1c3:
-        call asm_Platform_StopWorker_0044c150
-    L_0044c1c8:
-        mov ecx,dword ptr [esp+8]
-    L_0044c1cc:
-        lea eax,[esi+8]
-    L_0044c1cf:
-        push eax
-    L_0044c1d0:
-        push 0
-    L_0044c1d2:
-        push ecx
-    L_0044c1d3:
-        push edi
-    L_0044c1d4:
-        push 0
-    L_0044c1d6:
-        push 0
-    L_0044c1d8:
-        mov dword ptr [esi+18h],edi
-    L_0044c1db:
-        mov dword ptr [esi+10h],1
-    L_0044c1e2:
-        mov dword ptr [esi+0Ch],0
-    L_0044c1e9:
-        call asm_beginthreadex_00453683
-    L_0044c1ee:
-        add esp,18h
-    L_0044c1f1:
-        mov dword ptr [esi+4],eax
-    L_0044c1f4:
-        pop esi
-    L_0044c1f5:
-        ret 4
-    }
+// 0x0044C1C0 (56 bytes): start the worker thread.
+//
+// retail:
+//   push esi / mov esi,eax / call PlatformWorker::Stop
+//   mov ecx,[esp+8] / lea eax,[esi+8] / push eax / push 0 / push ecx / push edi
+//   push 0 / push 0
+//   mov [esi+18h],edi / mov [esi+10h],1 / mov [esi+0Ch],0
+//   call _beginthreadex / add esp,18h / mov [esi+4],eax / pop esi / ret 4
+//
+// The worker handle comes from _beginthreadex, which runs `start` with `context`
+// on the new thread and reports the thread id through thread_id.  The receiver
+// arrives in EAX and the entry point in EDI: the internal ABI the retail /LTCG
+// link chose for this worker family.  The cluster rebuilds that link so the
+// whole-program pass selects the same registers.
+
+// __beginthreadex, the CRT entry at 0x00453683.
+extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
+        void* security, unsigned int stack_size, PlatformWorkerEntry start,
+        void* arglist, unsigned int initflag, unsigned int* thread_id);
+
+#pragma code_seg(".text$40start")
+void PlatformWorker::Start(void* context, PlatformWorkerEntry start) {
+    Stop();
+    entry = start;
+    running = 1;
+    stop_requested = 0;
+    thread = (void*)asm_beginthreadex_00453683(0, 0, start, context, 0, &thread_id);
 }
+#pragma code_seg()

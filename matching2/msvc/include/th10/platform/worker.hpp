@@ -14,6 +14,7 @@ struct PlatformWorker {
     unsigned int reserved_14;
     PlatformWorkerEntry entry;         // +0x18
 
+    __declspec(noinline) void Start(void* context, PlatformWorkerEntry start);
     void StopNoDelete();
     void Stop();
     PlatformWorker* Destroy(unsigned int should_free);
