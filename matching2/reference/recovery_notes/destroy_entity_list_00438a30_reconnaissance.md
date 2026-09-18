@@ -67,3 +67,17 @@ Rewriting the loop as a pointer walk with a down counter -
   leaving 19 differing bytes. So the walk shape is right and what remains is the
   register assignment inside it (retail keeps the slot pointer in ESI, the counter
   in EDI and the entity in EAX) plus whatever accounts for the missing byte.
+
+Byte comparison of the 42-byte walk against retail shows what the remaining gap
+is: the model compiles to an **indexed** form (`push esi; xor esi,esi; mov
+ecx,[edi+esi*4+3AD4E0h]; …; cmp esi,20h; jl`) while retail **walks a pointer**
+(`push esi; mov esi,eax; push edi; add esi,3AD4E0h; mov edi,20h; <one-byte align
+nop>; mov eax,[esi]; …; add esi,4; dec edi; jne`). MSVC strength-reduced the
+pointer walk into an index with a count-up, and the alignment nop retail carries
+at `0x00438A40` follows from its loop landing on a sixteen-byte boundary.
+
+A pointer-range loop (`for (; slot != end; ++slot)`) was tried and does not
+reproduce it either - its emitted extent is not the 42 the layout expects, so the
+watch stopped at validation. The next lever is to defeat the strength reduction:
+either a counter type that keeps the pointer live, or a loop bound the compiler
+cannot turn into an index.
