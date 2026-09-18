@@ -4,6 +4,7 @@
 struct BulletManagerState_0040af90;
 BulletManagerState_0040af90 *BulletManager_Create_0040af90();
 extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
+extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
@@ -24,6 +25,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
             ++created;
     }
     if (asm_Recovery_CreateFixedState_004056b0())
+        ++created;
+    if (asm_Recovery_InstallPairClearFlags_0041ad90(tasks[0]))
         ++created;
     return created;
 }

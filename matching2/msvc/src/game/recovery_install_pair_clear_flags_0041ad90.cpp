@@ -1,69 +1,43 @@
-#include <string.h>
+// 0x0041AD90..0x0041ADE3 (84 bytes): ?Recovery_InstallPairClearFlags@@
+//
+// The clear-flags counterpart of ?Recovery_InstallPairSetFlags@@ (0x004055C0):
+// it builds the two scheduler callbacks that drive a freshly created pair,
+// clears the reserved flag the set-flags installer raises, publishes each
+// callback on the pair and registers the pair with the scheduler's primary and
+// secondary lists.
+//
+// Retail receives the pair in EBX - not a parameter register of any MSVC
+// convention - and returns the status in EAX. As in the set-flags installer,
+// the pair stays live across both registration calls while the freshly created
+// callback occupies ESI and the priority EDI, so the register is a whole-program
+// agreement: this source is compiled in the same native-LTCG link as the
+// registration pair it calls (see
+// layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+#include "th10/game/scheduler.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct RawPair_0041ad90 {
+    unsigned char pad_000[8];
+    void *callback_008;                 // +0x08, primary scheduler callback
+    void *callback_00C;                 // +0x0C, secondary scheduler callback
+};
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" void *data_00491be4;
 
-// 0x0041AD90..0x0041ADE3: ?Recovery_InstallPairClearFlags@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_InstallPairClearFlags_0041ad90() {
-    __asm {
-    L_0041ad90:
-        push esi
-    L_0041ad91:
-        push edi
-    L_0041ad92:
-        push 41BA00h
-    L_0041ad97:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0041ad9c:
-        mov esi,eax
-    L_0041ad9e:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0041ada2:
-        mov eax,dword ptr [data_00491be4]
-    L_0041ada7:
-        push eax
-    L_0041ada8:
-        mov edi,15h
-    L_0041adad:
-        mov dword ptr [esi+20h],ebx
-    L_0041adb0:
-        call asm_Scheduler_RegisterPrimary_00449ae0
-    L_0041adb5:
-        push 41BA30h
-    L_0041adba:
-        mov dword ptr [ebx+8],esi
-    L_0041adbd:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0041adc2:
-        mov esi,eax
-    L_0041adc4:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0041adc8:
-        mov ecx,dword ptr [data_00491be4]
-    L_0041adce:
-        push ecx
-    L_0041adcf:
-        mov edi,19h
-    L_0041add4:
-        mov dword ptr [esi+20h],ebx
-    L_0041add7:
-        call asm_Scheduler_RegisterSecondary_00449b70
-    L_0041addc:
-        pop edi
-    L_0041addd:
-        mov dword ptr [ebx+0Ch],esi
-    L_0041ade0:
-        xor eax,eax
-    L_0041ade2:
-        pop esi
-    L_0041ade3:
-        ret
-    }
+#pragma code_seg(".text$00e_installclear")
+extern "C" __declspec(noinline) int __stdcall
+asm_Recovery_InstallPairClearFlags_0041ad90(RawPair_0041ad90 *pair) {
+    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x41BA00);
+    primary->reserved_flags &= ~1u;
+    primary->context = pair;
+    Scheduler_RegisterPrimary((Scheduler *)data_00491be4, primary, 0x15);
+    pair->callback_008 = primary;
+
+    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x41BA30);
+    secondary->reserved_flags &= ~1u;
+    secondary->context = pair;
+    Scheduler_RegisterSecondary((Scheduler *)data_00491be4, secondary, 0x19);
+    pair->callback_00C = secondary;
+    return 0;
 }
+#pragma code_seg()

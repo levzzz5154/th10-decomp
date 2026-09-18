@@ -12769,13 +12769,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_InstallPairClearFlags_0041ad90",
+      "name": "semantic_Recovery_InstallPairClearFlags_0041ad90_0041ad90",
       "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
-      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90",
+      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
       "address": "0x0041AD90",
       "size": 84,
-      "kind": "asm",
-      "owner": "0x0041AD90"
+      "kind": "semantic",
+      "owner": "0x0041AD90",
+      "previous_record": {
+        "name": "asm_Recovery_InstallPairClearFlags_0041ad90",
+        "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+        "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90",
+        "address": "0x0041AD90",
+        "size": 84,
+        "kind": "asm",
+        "owner": "0x0041AD90"
+      }
     },
     {
       "name": "text_padding_0041ade4",

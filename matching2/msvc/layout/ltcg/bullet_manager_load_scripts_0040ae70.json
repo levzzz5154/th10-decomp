@@ -8,7 +8,8 @@
     "src/platform/joystick_probe.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
     "src/game/recovery_create_fixed_state_004056b0.cpp",
-    "src/game/recovery_install_pair_set_flags_004055c0.cpp"
+    "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -19,7 +20,7 @@
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installer it calls, so the pass keeps the fixed-state pair in EBX across the installation, the release and the free.",
+  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installer it calls, so the pass keeps the fixed-state pair in EBX across the installation, the release and the free. It also carries the clear-flags counterpart of the callback installer, so the pass keeps that installer's pair in EBX as well.",
   "functions": [
     {
       "name": "BulletManager_LoadScripts_0040ae70",
@@ -109,13 +110,22 @@
       "address": "0x004056B0",
       "size": 85,
       "actual_abi": "no live-in registers; result in EAX; plain RET"
+    },
+    {
+      "name": "Recovery_InstallPairClearFlags_0041ad90",
+      "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
+      "section": ".text$00e_installclear",
+      "address": "0x0041AD90",
+      "size": 84,
+      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 133,
+    "size": 149,
     "description": "Synthetic array-walking caller that establishes the loader's and the fixed-state factory's register conventions; not recovered game code."
   },
   "gaps": [
@@ -142,7 +152,12 @@
     {
       "section": ".text$00d_layout",
       "address": "0x0040AFE6",
-      "size": 256762
+      "size": 64938
+    },
+    {
+      "section": ".text$00f_layout",
+      "address": "0x0041ADE4",
+      "size": 191740
     },
     {
       "section": ".text$20_layout",
