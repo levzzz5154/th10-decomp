@@ -13474,8 +13474,8 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScoreObject_Initialize",
-      "source": "src/game/score.cpp",
+      "name": "semantic_ScoreObject_Initialize_0041c030_0041c030",
+      "source": "src/game/score_object_initialize_0041c030.cpp",
       "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
       "address": "0x0041c030",
       "size": 98,
@@ -13534,13 +13534,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreDisplay_RegisterTasksRetail_0041c120",
+      "name": "semantic_ScoreDisplay_RegisterTasks_0041c120_0041c120",
       "source": "src/game/score_display_register_tasks_retail_0041c120.cpp",
-      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120",
+      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
       "address": "0x0041C120",
       "size": 146,
-      "kind": "asm",
-      "owner": "0x0041C120"
+      "kind": "semantic",
+      "owner": "0x0041C120",
+      "previous_record": {
+        "name": "asm_ScoreDisplay_RegisterTasksRetail_0041c120",
+        "source": "src/game/score_display_register_tasks_retail_0041c120.cpp",
+        "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120",
+        "address": "0x0041C120",
+        "size": 146,
+        "kind": "asm",
+        "owner": "0x0041C120"
+      }
     },
     {
       "name": "text_padding_0041c1b2",
@@ -13568,13 +13577,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreManager_CreateAndInitRetail_0041c290",
+      "name": "semantic_ScoreManager_CreateAndInit_0041c290_0041c290",
       "source": "src/game/object_factories.cpp",
       "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
       "address": "0x0041C290",
       "size": 91,
-      "kind": "asm",
-      "owner": "0x0041C290"
+      "kind": "semantic",
+      "owner": "0x0041C290",
+      "previous_record": {
+        "name": "asm_ScoreManager_CreateAndInitRetail_0041c290",
+        "source": "src/game/object_factories.cpp",
+        "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
+        "address": "0x0041C290",
+        "size": 91,
+        "kind": "asm",
+        "owner": "0x0041C290"
+      }
     },
     {
       "name": "text_padding_0041c2eb",
@@ -46852,6 +46870,7 @@
     "src/game/score_hud_update.cpp",
     "src/game/score_list_insert_after_00413200.cpp",
     "src/game/score_menu_rows.cpp",
+    "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_owned_destroy_0040b9d0.cpp",
     "src/game/score_popup.cpp",
     "src/game/score_queue.cpp",

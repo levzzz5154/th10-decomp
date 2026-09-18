@@ -9,7 +9,10 @@
     "src/game/bullet_manager_create_0040af90.cpp",
     "src/game/recovery_create_fixed_state_004056b0.cpp",
     "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp"
+    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+    "src/game/score_object_initialize_0041c030.cpp",
+    "src/game/score_display_register_tasks_retail_0041c120.cpp",
+    "src/game/object_factories.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -17,7 +20,8 @@
   ],
   "headers": [
     "include/th10/game/scheduler.hpp",
-    "include/th10/platform/thread_sync.hpp"
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installer it calls, so the pass keeps the fixed-state pair in EBX across the installation, the release and the free. It also carries the clear-flags counterpart of the callback installer, so the pass keeps that installer's pair in EBX as well.",
@@ -119,13 +123,40 @@
       "address": "0x0041AD90",
       "size": 84,
       "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
+    },
+    {
+      "name": "ScoreObject_Initialize_0041c030",
+      "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
+      "section": ".text$00fascoreobjinit",
+      "address": "0x0041C030",
+      "size": 98,
+      "actual_abi": "object in EDX; unused ECX slot; result in EAX; plain RET",
+      "source": "src/game/score_object_initialize_0041c030.cpp"
+    },
+    {
+      "name": "ScoreDisplay_RegisterTasks_0041c120",
+      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
+      "section": ".text$00gascoredisplay",
+      "address": "0x0041C120",
+      "size": 146,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/score_display_register_tasks_retail_0041c120.cpp"
+    },
+    {
+      "name": "ScoreManager_CreateAndInit_0041c290",
+      "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
+      "section": ".text$00gbscoremanager",
+      "address": "0x0041C290",
+      "size": 91,
+      "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
+      "source": "src/game/object_factories.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 149,
+    "size": 166,
     "description": "Synthetic array-walking caller that establishes the loader's and the fixed-state factory's register conventions; not recovered game code."
   },
   "gaps": [
@@ -155,9 +186,24 @@
       "size": 64938
     },
     {
-      "section": ".text$00f_layout",
+      "section": ".text$00fa_layout",
       "address": "0x0041ADE4",
-      "size": 191740
+      "size": 4684
+    },
+    {
+      "section": ".text$00fascoreobjinitz",
+      "address": "0x0041C092",
+      "size": 142
+    },
+    {
+      "section": ".text$00gascoredisplayz",
+      "address": "0x0041C1B2",
+      "size": 222
+    },
+    {
+      "section": ".text$00h_layout",
+      "address": "0x0041C2EB",
+      "size": 186357
     },
     {
       "section": ".text$20_layout",
@@ -306,6 +352,31 @@
       "symbol": "_data_004776ec",
       "address": "0x004776EC",
       "kind": "data"
+    },
+    {
+      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "address": "0x0041C1C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dab0",
+      "address": "0x0046DAB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
     }
   ]
 }

@@ -683,53 +683,6 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {
     }
 }
 
-// 0x0041C030..0x0041C091: ScoreObject_Initialize
-// Clears every per-record flag word, wipes the object and then sets up the
-// score timer. The object arrives in EDX, so the first __fastcall argument is
-// the unused ECX slot.
-extern "C" unsigned char data_0046dab0;
-
-struct ScoreRecord {
-    unsigned int flags;              // +0x00
-    unsigned char unknown_04[0x30];
-};
-typedef char ScoreRecord_size_must_be_52[sizeof(ScoreRecord) == 0x34 ? 1 : -1];
-
-struct ScoreObject {
-    void* vtable;                    // +0x000
-    unsigned char unknown_004[0x0C];
-    FrameTimer timer;                // +0x010
-    unsigned char unknown_024[0x44];
-    ScoreRecord records[18];         // +0x068
-    FrameTimer tail_timer;           // +0x410
-};
-typedef char ScoreObject_size_must_be_1060[sizeof(ScoreObject) == 0x424 ? 1 : -1];
-
-ScoreObject* __fastcall ScoreObject_Initialize(void*, ScoreObject* self) {
-    self->vtable = &data_0046dab0;
-    // The clear goes through a typed pointer: the plain member form makes MSVC
-    // schedule the read-modify-write ahead of the vtable store, which no longer
-    // matches the retail bytes.
-    FrameTimer* timer = &self->timer;
-    timer->flags &= ~1u;
-    for (int index = 0; index < 18; ++index)
-        self->records[index].flags &= ~1u;
-    self->tail_timer.flags &= ~1u;
-    memset(self, 0, sizeof(ScoreObject));
-    unsigned int flags = self->timer.flags;
-    if ((flags & 1) == 0) {
-        self->timer.current = 0;
-        self->timer.previous = -999999;
-        self->timer.elapsed = 0.0f;
-        self->timer.speed = (const float*)&data_00476f78;
-        self->timer.flags = flags | 1u;
-    }
-    self->timer.current = 0;
-    self->timer.elapsed = 0.0f;
-    self->timer.previous = -1;
-    return self;
-}
-
 // 0x0041C1C0..0x0041C282: ScoreExtendedObject_DestroyRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ScoreExtendedObject_DestroyRetail_0041c1c0() {
