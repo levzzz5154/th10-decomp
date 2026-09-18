@@ -31,10 +31,12 @@ Two source facts shape the body and both were confirmed by measurement:
 - with the branch written the other way the compiler duplicates the tail and the
   function grows to 50 bytes.
 
-The residual is the encoding of the pointer decrement: retail's `add ecx,-4` is
-not produced by any spelling tried - `x - 4`, `x + -4`, `-4 + x`, an `unsigned`
-field - MSVC canonicalises all of them to `sub ecx,4`. Only the opcode and the
-immediate sign differ, so the region sits at 41 bytes with two differing bytes.
+The residual is the encoding of the pointer decrement. Retail's `add ecx,-4` is
+not produced by any spelling tried: `x - 4`, `x + -4`, `-4 + x`, an `unsigned`
+field, `+ (int)0xFFFFFFFC`, a `static const int kStep = -4`, and a `char*` field
+with `pointer + -4` all canonicalise to `sub ecx,4` (and the pointer forms also
+change the extent, to 40 and 38 bytes). Only the opcode and the immediate sign
+differ, so the region sits at 41 bytes with two differing bytes.
 
 ## The model (verbatim, as measured)
 
