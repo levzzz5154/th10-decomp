@@ -14,10 +14,14 @@ The model below reproduces retail's shared head byte for byte - the guard, the
 register pair retail's callers use* - and it reproduces retail's call sequence
 exactly for the cases whose callee convention a prototype can name (case 7, and
 case 9 as soon as the already-recovered 0x00444CE0 `DrawStrip` is a definition in
-the same link), but the other eight cases need the callee's *body*: seven of the
-ten routines take their entity in a register an MSVC declaration cannot name
-(ESI, EDI, EAX) or take the manager on the stack next to it, so an opaque
-declaration always falls back to a push-and-call that retail does not have.
+the same link), but the other eight cases need the callee's *body*: six of the
+ten routines read the entity from ESI, EDI or EAX with the manager beside it in a
+register or on the stack (cases 0, 2, 4, 5, 6, 8) - an arrangement no MSVC 13.10
+prototype reaches, as the 0x00409230 note's sweep already established - and cases
+1/3 read it from EDX, which `__fastcall(manager, entity)` does name, except that
+declaring it moves the pass's choice of *this* function's own entry pair off
+retail (measured below), so only case 7's body comes out instruction-identical
+with everything else bound opaquely.
 
 Probe line of the best measured shape (nine callees bound opaquely, declarations
 chosen so the pass reproduces retail's entry pair):
@@ -106,6 +110,14 @@ The conventions are global, not local to this dispatcher: all 23 `call
 and 0x00443080's convention is confirmed at four independent asm call sites
 (e.g. 0x0042B929 `mov ecx,[data_00491c10] / push ecx / call 0x00443080` with the
 entity in ESI).
+
+So this region is entered with the **manager in ECX and the entity in EAX**, and
+the measured model's emitted body keeps exactly that pair - the 41 byte-identical
+head is the proof - because its nine prototypes impose no register demand of their
+own. It is a *joint* optimum, though: the shapes table below shows the pair
+turning into the mirror (entity in ECX, manager in EAX) as soon as any callee
+declaration asks for a register, which is precisely why the ten routines' bodies
+have to be in the link.
 
 ## The model
 
@@ -256,12 +268,11 @@ int __stdcall AnmVmDrawDispatchCompilerContext(RenderEntity** entities, int coun
 
 | declarations for the nine routines | emitted | differing | identical head | entry pair (manager/entity) |
 | --- | --- | --- | --- | --- |
-| `entity->X(manager)` members (six) + `__fastcall`-style free ones | 184 | 166 | 1 byte | **ECX / EAX** - mirrored: the six member calls want the entity in ECX, so the pass swaps the pair |
-| six `__stdcall(entity, manager)` + `__fastcall` for cases 1/3 + cdecl for 7 (**best head**) | 188 | **163** | **41 bytes** | ECX / EAX - retail's pair |
-| as above but `__fastcall` for cases 1/3 | 180 | 203 | 1 byte | pair moves off retail |
-| as above but 1/3 `__fastcall` and the six as entity members ("best") | 180 | 203 | 1 byte | pair moves off retail |
-| **merged into the landed render-batch cluster** (DrawStrip defined in the link) with the best-head declarations | 188 | 163 | 41 bytes | ECX / EAX; **case 9 byte-exact**, DrawStrip still 0 differing |
-| the same merge with the "best" declarations | 184 | 201 | 1 byte | pair moves off retail |
+| six as entity members (`entity->X(manager)`) plus three free ones | 184 | 166 | 1 byte | **mirrored**: the six member calls want the entity in ECX, so the pass puts the pair the other way round |
+| all nine free `__stdcall`: `EntityDraw(entity, manager)`, `QuadDrawChecked(manager, entity)`, `FadedQuadDraw(manager, entity)` (**the shape quoted above**) | **188** | **163** | **41 bytes** | ECX / EAX - retail's pair |
+| that shape but cases 1/3 as `__fastcall(manager, entity)` | 180 | 203 | 1 byte | pair moves off retail |
+| **merged into the landed render-batch cluster** (DrawStrip a definition in the link) with the quoted shape | 188 | 163 | 41 bytes | ECX / EAX; **case 9 byte-exact**, DrawStrip still 0 differing |
+| the same merge with the `__fastcall` cases 1/3 | 184 | 201 | 1 byte | pair moves off retail |
 
 The lesson in that table is that the dispatcher's *own* entry registers are the
 pass's joint optimum over its callees, so a declaration change anywhere moves
@@ -320,13 +331,16 @@ entity in EAX), and the cluster's own `DrawStrip` region is **still 0 differing
 bytes**, so the added source and the header fields do not perturb it.
 
 A two-source cluster that put the dispatcher and `DrawStrip` alone in one link
-(without the rest of the batch cluster) showed why the whole call graph is
-needed: `DrawStrip`'s callees `SyncRenderState` / `Flush` were then opaque, the
-joint optimum moved, and `DrawStrip`'s own body lost its `push esi; push edi`
-prologue (208 of 215 bytes differing) - i.e. a partial cluster re-chooses the ABI
-of the functions in it. That is also why the *scheduler* cluster is not the merge
-target here: `0x00409230`/`0x004091C0` are their own sources, and the cluster that
-already owns the callee is the render-batch one.
+(without the rest of the batch cluster) measured what a partial cluster does:
+`DrawStrip`'s own body lost its `push esi; push edi` prologue and 208 of its 215
+bytes differed from retail, because in that link the only caller of `DrawStrip`
+was this dispatcher and its own callees (`SyncRenderState`, `Flush`) were bound
+opaquely rather than defined - so the pass re-chose its ABI instead of
+reproducing retail's, which the full render-batch cluster does reproduce. (That
+is the same "the cluster's call graph is what pins a private convention" rule the
+landed clusters rest on.) It is also why the *scheduler* cluster is not the merge
+target here: `0x00409230` / `0x004091C0` are their own sources, and the cluster
+that already owns the callee is the render-batch one.
 
 ## What has to exist for an exact 216 bytes (and for 0x00409230)
 
@@ -347,7 +361,9 @@ already owns the callee is the render-batch one.
 
 ```
 cp -a matching2/msvc /tmp/AnmVmDispatch/msvc
-# write the three artifacts above into the copy, then
+# write the three artifacts above into the copy (region source, layout, driver)
+# and the three entity fields the model needs into include/th10/render/quad_batch.hpp,
+# then
 python3 /home/levzzz/Games/th10Decomp/matching2/tools/waves/register_cluster.py \
     --project /tmp/AnmVmDispatch/msvc \
     --layout layout/ltcg/anm_vm_draw_dispatch_004451c0.json --apply
