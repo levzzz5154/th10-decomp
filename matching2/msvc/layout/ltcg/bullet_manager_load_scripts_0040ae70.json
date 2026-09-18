@@ -12,7 +12,8 @@
     "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
-    "src/game/object_factories.cpp"
+    "src/game/object_factories.cpp",
+    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -150,14 +151,23 @@
       "size": 91,
       "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
       "source": "src/game/object_factories.cpp"
+    },
+    {
+      "name": "StageTipRuntime_InitializeRetail_00418e30",
+      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
+      "section": ".text$00d_dinit",
+      "address": "0x00418E30",
+      "size": 131,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 166,
-    "description": "Synthetic array-walking caller that establishes the loader's and the fixed-state factory's register conventions; not recovered game code."
+    "size": 194,
+    "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
     {
@@ -181,9 +191,14 @@
       "size": 154
     },
     {
-      "section": ".text$00d_layout",
+      "section": ".text$00d_agap",
       "address": "0x0040AFE6",
-      "size": 64938
+      "size": 56906
+    },
+    {
+      "section": ".text$00d_egap",
+      "address": "0x00418EB3",
+      "size": 7901
     },
     {
       "section": ".text$00fa_layout",
@@ -377,6 +392,16 @@
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491d6a",
+      "address": "0x00491D6A",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_00419960_00419960@12",
+      "address": "0x00419960",
+      "kind": "relative_code"
     }
   ]
 }

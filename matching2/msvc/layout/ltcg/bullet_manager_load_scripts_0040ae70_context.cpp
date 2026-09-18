@@ -7,6 +7,10 @@ extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
 
+struct RawStageTipManager_00418e30;
+extern "C" int __stdcall asm_StageTipRuntime_InitializeRetail_00418e30(
+        RawStageTipManager_00418e30 *manager);
+
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
@@ -31,6 +35,11 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         ++created;
     for (int index = 0; index < count; ++index) {
         if (asm_ScoreManager_CreateAndInitRetail_0041c290())
+            ++created;
+    }
+    for (int index = 0; index < count; ++index) {
+        if (asm_StageTipRuntime_InitializeRetail_00418e30(
+                (RawStageTipManager_00418e30 *)slots[index]) == 0)
             ++created;
     }
     return created;

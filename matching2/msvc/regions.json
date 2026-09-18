@@ -12129,13 +12129,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageTipRuntime_InitializeRetail_00418e30",
+      "name": "semantic_StageTipRuntime_InitializeRetail_00418e30_00418e30",
       "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
-      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30",
+      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
       "address": "0x00418E30",
       "size": 131,
-      "kind": "asm",
-      "owner": "0x00418E30"
+      "kind": "semantic",
+      "owner": "0x00418E30",
+      "previous_record": {
+        "name": "asm_StageTipRuntime_InitializeRetail_00418e30",
+        "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
+        "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30",
+        "address": "0x00418E30",
+        "size": 131,
+        "kind": "asm",
+        "owner": "0x00418E30"
+      }
     },
     {
       "name": "text_padding_00418eb3",
