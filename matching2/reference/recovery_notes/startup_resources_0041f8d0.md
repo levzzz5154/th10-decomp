@@ -84,5 +84,9 @@ Also tried in the same run: the shared-message form
     return -1;
 ```
 
-which matches retail's shared `jmp fail` structure and emitted 91 bytes against
-retail's 82 - nine over, so it is not the final shape either.
+which matches retail's shared `jmp fail` structure. It emits **93 bytes against
+retail's 82** once the layout converges (the function's extent moves with each
+model revision, so it must be read back from the build), eleven over - either the
+shared tail is not what retail's source had or the log call's convention adds the
+difference, since the same region also showed the `add esp,4` that a plain
+`__fastcall` member does not produce.
