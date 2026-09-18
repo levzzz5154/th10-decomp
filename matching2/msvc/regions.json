@@ -46964,6 +46964,7 @@
     "src/render/animation_manager_create_primary_front_00448e30.cpp",
     "src/render/animation_manager_create_secondary_back_00448f60.cpp",
     "src/render/animation_manager_create_secondary_front_00449090.cpp",
+    "src/render/animation_manager_find_004491c0.cpp",
     "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
     "src/render/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp",
     "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
