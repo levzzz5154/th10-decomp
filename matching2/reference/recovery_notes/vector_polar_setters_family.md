@@ -63,3 +63,20 @@ all already match; exactly two things do not:
 
 Once either is explained the other five members should follow from the same
 source with only their class names changed — the listings are identical.
+
+## Native-LTCG path measured for this family: rejected
+
+The cluster machinery was exercised for `0x004458B0` in the throwaway copy
+(schema-1 cluster, synthetic float-returning context, `__fltused` bound as
+metadata — the `clear_angular_velocity_x` layout shows that binding is the
+established way to link float code into a cluster):
+
+```
+.text$01accessor  0000001cH   ← 28 bytes under /GL + /LTCG
+```
+
+The whole-program pass re-compiles the setter to **28 bytes**, two short of
+retail's 30. Retail's extent therefore matches the *plain* translation unit, not
+the LTCG one, so this family is not a cluster target: the remaining gap is
+purely the instruction selection inside a plain `/O2 /G6` build (`fsincos`
+instead of `fcos`+`fsin`, and the `this` spill), exactly as recorded above.
