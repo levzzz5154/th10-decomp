@@ -12126,13 +12126,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ClearEightBuckets_00419040",
+      "name": "semantic_ClearBuckets_00419040",
       "source": "src/game/recovery_clear_eight_buckets_00419040.cpp",
-      "symbol": "_asm_Recovery_ClearEightBuckets_00419040",
+      "symbol": "?ClearBuckets@Manager_00419040@@QAEXXZ",
       "address": "0x00419040",
       "size": 79,
-      "kind": "asm",
-      "owner": "0x00419040"
+      "kind": "semantic",
+      "owner": "0x00419040",
+      "previous_record": {
+        "name": "asm_Recovery_ClearEightBuckets_00419040",
+        "source": "src/game/recovery_clear_eight_buckets_00419040.cpp",
+        "symbol": "_asm_Recovery_ClearEightBuckets_00419040",
+        "address": "0x00419040",
+        "size": 79,
+        "kind": "asm",
+        "owner": "0x00419040"
+      }
     },
     {
       "name": "text_padding_0041908f",
@@ -49168,7 +49177,8 @@
     "layout/ltcg/anm_object_configure_0043e5a0.json",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70.json",
     "layout/ltcg/recovery_tick_state_0040bd20.json",
-    "layout/ltcg/stop_at_frame_pair_0040c480.json"
+    "layout/ltcg/stop_at_frame_pair_0040c480.json",
+    "layout/ltcg/recovery_clear_eight_buckets_00419040.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
