@@ -8113,13 +8113,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040d280_0040d280",
+      "name": "semantic_asm_MessageHost_InitRetail_0040d280_0040d280",
       "source": "src/game/message_host_init.cpp",
-      "symbol": "_asm_FUN_0040d280_0040d280",
+      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
       "address": "0x0040D280",
       "size": 334,
-      "kind": "asm",
-      "owner": "0x0040D280"
+      "kind": "semantic",
+      "owner": "0x0040D280",
+      "previous_record": {
+        "name": "asm_FUN_0040d280_0040d280",
+        "source": "src/game/message_host_init.cpp",
+        "symbol": "_asm_FUN_0040d280_0040d280",
+        "address": "0x0040D280",
+        "size": 334,
+        "kind": "asm",
+        "owner": "0x0040D280"
+      }
     },
     {
       "name": "text_padding_0040d3ce",

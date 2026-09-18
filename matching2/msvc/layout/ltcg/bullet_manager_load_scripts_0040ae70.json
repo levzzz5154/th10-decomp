@@ -13,7 +13,8 @@
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
     "src/game/object_factories.cpp",
-    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
+    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
+    "src/game/message_host_init.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -25,7 +26,7 @@
     "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installer it calls, so the pass keeps the fixed-state pair in EBX across the installation, the release and the free. It also carries the clear-flags counterpart of the callback installer, so the pass keeps that installer's pair in EBX as well.",
+  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement.",
   "functions": [
     {
       "name": "BulletManager_LoadScripts_0040ae70",
@@ -160,13 +161,22 @@
       "size": 131,
       "actual_abi": "manager in EBX; result in EAX; plain RET",
       "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
+    },
+    {
+      "name": "asm_MessageHost_InitRetail_0040d280",
+      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+      "section": ".text$00d_bmsghost",
+      "address": "0x0040D280",
+      "size": 334,
+      "actual_abi": "host in EBX; script name on the stack; RET 4; result in EAX",
+      "source": "src/game/message_host_init.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 194,
+    "size": 262,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -193,7 +203,12 @@
     {
       "section": ".text$00d_agap",
       "address": "0x0040AFE6",
-      "size": 56906
+      "size": 8858
+    },
+    {
+      "section": ".text$00d_cgap",
+      "address": "0x0040D3CE",
+      "size": 47714
     },
     {
       "section": ".text$00d_egap",
@@ -402,6 +417,16 @@
       "symbol": "_asm_FUN_00419960_00419960@12",
       "address": "0x00419960",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d0b4",
+      "address": "0x0046D0B4",
+      "kind": "data"
     }
   ]
 }

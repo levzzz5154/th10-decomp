@@ -11,6 +11,10 @@ struct RawStageTipManager_00418e30;
 extern "C" int __stdcall asm_StageTipRuntime_InitializeRetail_00418e30(
         RawStageTipManager_00418e30 *manager);
 
+struct MessageHost_0040d280;
+extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
+        MessageHost_0040d280 *host, int script_name);
+
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
@@ -40,6 +44,11 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     for (int index = 0; index < count; ++index) {
         if (asm_StageTipRuntime_InitializeRetail_00418e30(
                 (RawStageTipManager_00418e30 *)slots[index]) == 0)
+            ++created;
+    }
+    for (int index = 0; index < count; ++index) {
+        if (asm_MessageHost_InitRetail_0040d280(
+                (MessageHost_0040d280 *)slots[index], priority) == 0)
             ++created;
     }
     return created;
