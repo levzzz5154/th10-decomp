@@ -12148,13 +12148,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageTipManager_Construct_00418d40",
+      "name": "semantic_Construct_00418d40_00418d40",
       "source": "src/game/stage_tip_manager.cpp",
-      "symbol": "_asm_StageTipManager_Construct_00418d40",
+      "symbol": "@Construct_00418d40@8",
       "address": "0x00418D40",
       "size": 237,
-      "kind": "asm",
-      "owner": "0x00418D40"
+      "kind": "semantic",
+      "owner": "0x00418D40",
+      "previous_record": {
+        "name": "semantic_Construct_00418d40_00418d40",
+        "source": "src/game/stage_tip_manager.cpp",
+        "symbol": "@Construct_00418d40@8",
+        "address": "0x00418D40",
+        "size": 237,
+        "kind": "semantic",
+        "owner": "0x00418D40"
+      }
     },
     {
       "name": "text_padding_00418e2d",
@@ -12251,13 +12260,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_CreateResourceState_00419090",
+      "name": "semantic_Recovery_CreateResourceState_00419090_00419090",
       "source": "src/game/recovery_create_resource_state_00419090.cpp",
       "symbol": "_asm_Recovery_CreateResourceState_00419090",
       "address": "0x00419090",
       "size": 67,
-      "kind": "asm",
-      "owner": "0x00419090"
+      "kind": "semantic",
+      "owner": "0x00419090",
+      "previous_record": {
+        "name": "semantic_Recovery_CreateResourceState_00419090_00419090",
+        "source": "src/game/recovery_create_resource_state_00419090.cpp",
+        "symbol": "_asm_Recovery_CreateResourceState_00419090",
+        "address": "0x00419090",
+        "size": 67,
+        "kind": "semantic",
+        "owner": "0x00419090"
+      }
     },
     {
       "name": "text_padding_004190d3",

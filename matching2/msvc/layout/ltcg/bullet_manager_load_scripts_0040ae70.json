@@ -3,18 +3,20 @@
   "name": "bullet_manager_load_scripts_0040ae70",
   "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
   "additional_sources": [
-    "src/game/scheduler_tasks.cpp",
-    "src/platform/text_log.cpp",
-    "src/platform/joystick_probe.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
-    "src/game/recovery_create_fixed_state_004056b0.cpp",
-    "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
-    "src/game/score_object_initialize_0041c030.cpp",
-    "src/game/score_display_register_tasks_retail_0041c120.cpp",
-    "src/game/object_factories.cpp",
-    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
     "src/game/message_host_init.cpp",
+    "src/game/object_factories.cpp",
+    "src/game/recovery_create_fixed_state_004056b0.cpp",
+    "src/game/recovery_create_resource_state_00419090.cpp",
+    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+    "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+    "src/game/scheduler_tasks.cpp",
+    "src/game/score_display_register_tasks_retail_0041c120.cpp",
+    "src/game/score_object_initialize_0041c030.cpp",
+    "src/game/stage_tip_manager.cpp",
+    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
+    "src/platform/joystick_probe.cpp",
+    "src/platform/text_log.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
@@ -180,13 +182,31 @@
       "address": "0x0044B810",
       "size": 201,
       "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"
+    },
+    {
+      "name": "Construct_00418d40",
+      "symbol": "@Construct_00418d40@8",
+      "section": ".text$00d_cxctor",
+      "address": "0x00418D40",
+      "size": 237,
+      "actual_abi": "block in EDX; dead ECX slot; result in EAX; plain RET",
+      "source": "src/game/stage_tip_manager.cpp"
+    },
+    {
+      "name": "Recovery_CreateResourceState_00419090",
+      "symbol": "_asm_Recovery_CreateResourceState_00419090",
+      "section": ".text$00d_fcreate",
+      "address": "0x00419090",
+      "size": 67,
+      "actual_abi": "no arguments; manager in EAX; plain RET",
+      "source": "src/game/recovery_create_resource_state_00419090.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 292,
+    "size": 315,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -233,12 +253,22 @@
     {
       "section": ".text$00d_cgap",
       "address": "0x0040D3CE",
-      "size": 47714
+      "size": 47474
+    },
+    {
+      "section": ".text$00d_cxctorz",
+      "address": "0x418e2d",
+      "size": 3
     },
     {
       "section": ".text$00d_egap",
       "address": "0x00418EB3",
-      "size": 7901
+      "size": 477
+    },
+    {
+      "section": ".text$00d_fcreatez",
+      "address": "0x4190d3",
+      "size": 7357
     },
     {
       "section": ".text$00fa_layout",
@@ -467,6 +497,31 @@
       "symbol": "_data_0049231f",
       "address": "0x0049231F",
       "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_00418ee0_00418ee0@4",
+      "address": "0x00418EE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477814",
+      "address": "0x00477814",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "address": "0x00449AE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "address": "0x00449B70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
     }
   ]
 }

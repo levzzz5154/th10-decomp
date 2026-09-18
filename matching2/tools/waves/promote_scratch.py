@@ -35,6 +35,65 @@ def load(path):
     return json.loads(path.read_text())
 
 
+def merge_layout(maintained_layout, scratch_layout):
+    """Extend the maintained layout with the scratch's functions and bindings.
+
+    A scratch copy is a snapshot, so overwriting the maintained layout with it
+    silently reverts every function another agent landed into the same span.
+    Functions are unioned by address, the binding lists by content, the source
+    list is recomputed from the union, and the gaps are rebuilt as the complement
+    of every declared extent so a new function keeps its own gap. A gap's section
+    is named after the function it follows with a 'z' suffix, which sorts after
+    that function and before the next one.
+    """
+    merged = json.loads(json.dumps(maintained_layout))
+    have = {function['address'].upper() for function in merged['functions']}
+    for function in scratch_layout.get('functions') or []:
+        if function['address'].upper() not in have:
+            merged['functions'].append(function)
+            have.add(function['address'].upper())
+    for key in ('absolute_symbols', 'constants', 'constant_aliases', 'roots'):
+        seen = {json.dumps(item, sort_keys=True) for item in merged.get(key) or []}
+        for item in scratch_layout.get(key) or []:
+            marker = json.dumps(item, sort_keys=True)
+            if marker not in seen:
+                merged.setdefault(key, []).append(item)
+                seen.add(marker)
+    sources = {f['source'] for f in merged['functions'] if f.get('source')}
+    merged['additional_sources'] = sorted(sources - {merged['source']})
+    # Only split the gaps a *new* function lands inside: rebuilding every gap
+    # coalesces the leading ones and changes section names, which changes the
+    # link order and shifts the whole span.
+    gaps = merged['gaps']
+    declared = {f['address'].upper() for f in maintained_layout['functions']}
+    for function in scratch_layout.get('functions') or []:
+        if function['address'].upper() in declared:
+            continue  # already an extent in the maintained layout
+        address = int(function['address'], 16)
+        for index, gap in enumerate(gaps):
+            start = int(gap['address'], 16)
+            end = start + gap['size']
+            if start < address < end:
+                size = function['size']
+                if address + size > end:
+                    raise SystemExit(f'{function["address"]} does not fit in {gap["section"]}')
+                tail = {'section': function['section'] + 'z',
+                        'address': hex(address + size), 'size': end - (address + size)}
+                gaps[index] = {'section': gap['section'], 'address': gap['address'],
+                               'size': address - start}
+                gaps.insert(index + 1, tail)
+                break
+        else:
+            raise SystemExit(f'{function["address"]} falls inside no gap; declare it in the layout')
+    items = sorted([(int(f['address'], 16), f['size']) for f in merged['functions']] +
+                   [(int(g['address'], 16), g['size']) for g in gaps] +
+                   [(int(merged['context']['address'], 16), merged['context']['size'])])
+    clashes = [(a, e) for (a, s), (e, _) in zip(items, items[1:]) if a + s > e]
+    if clashes:
+        raise SystemExit(f'merged layout overlaps at {clashes[:3]}')
+    return merged
+
+
 def record_of(manifest, address):
     for region in manifest['regions']:
         if int(region['address'], 0) == address:
@@ -86,13 +145,15 @@ def main():
                 if int(function['address'], 0) == args.address:
                     layouts.append(rel)
                     break
+    merges = {}
     for rel in sorted(set(layouts)):
         if rel in maintained_clusters:
-            print(f'layout   {rel} (already registered - will be overwritten, merge)')
+            print(f'layout   {rel} (already registered - merging into it, siblings kept)')
+            merges[rel] = True
         else:
             print(f'layout   {rel} (new - will be registered)')
+            files.append(MAINTAINED / rel)
         layout = load(scratch / rel)
-        files.append(MAINTAINED / rel)
         driver = layout.get('driver')
         if driver:
             files.append(MAINTAINED / driver)
@@ -111,6 +172,13 @@ def main():
     # a record another agent registered in the meantime.
     with open(MAINTAINED / 'regions.json.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
+        # Merge inside the lock, against the current maintained layout, so a
+        # sibling landing into the same span between our read and our write is
+        # carried over instead of reverted.
+        for rel in merges:
+            merged = merge_layout(load(MAINTAINED / rel), load(scratch / rel))
+            (MAINTAINED / rel).write_text(json.dumps(merged, indent=2) + '\n')
+            print(f'merged   {rel}: {len(merged["functions"])} functions, {len(merged["gaps"])} gaps')
         maintained = load(maintained_path)
         current = record_of(maintained, args.address)
         current.clear()

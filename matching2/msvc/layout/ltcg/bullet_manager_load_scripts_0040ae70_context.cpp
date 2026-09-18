@@ -18,6 +18,8 @@ struct MessageHost_0040d280;
 extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
         MessageHost_0040d280 *host, int script_name);
 
+extern "C" void* __cdecl asm_Recovery_CreateResourceState_00419090();
+
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
@@ -57,6 +59,10 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
 
     for (int index = 0; index < count; ++index) {
         if (asm_FUN_0040a130_0040a130((RawState_0040a130 *)slots[index]) == 0)
+            ++created;
+    }
+    for (int index = 0; index < count; ++index) {
+        if (asm_Recovery_CreateResourceState_00419090())
             ++created;
     }
     return created;
