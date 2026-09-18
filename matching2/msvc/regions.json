@@ -22498,12 +22498,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00436cf0",
+      "name": "semantic_GdiFormat_Find_00436cf0",
       "source": "src/unidentified/unassigned_00436cf0.cpp",
-      "symbol": "_asm_unassigned_00436cf0",
+      "symbol": "@GdiFormat_Find@8",
       "address": "0x00436CF0",
       "size": 55,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {

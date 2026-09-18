@@ -1,47 +1,31 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00436CF0..0x00436D27: GdiFormat_Find - locate a pixel-format record by id.
+//
+// The same walk is inlined at 0x00436B0A inside GdiSurface_Create (0x00436AF0)
+// before the DIB section is built, so this address is the out-of-line copy of
+// that lookup. The table at 0x00474918 holds 24-byte records terminated by an
+// id of -1; its first record carries id 0x16.
+//
+// The retail callee takes the searched-for id in EDX, the second __fastcall
+// register, and never reads ECX (its first use of ECX is the overwriting load
+// of formats[0].id), so the leading register argument is left unnamed.
 
-// 0x00436CF0..0x00436D26: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00436cf0() {
-    __asm {
-    L_00436cf0:
-        mov ecx,dword ptr [data_00474918]
-    L_00436cf6:
-        xor eax,eax
-    L_00436cf8:
-        cmp ecx,0FFFFFFFFh
-    L_00436cfb:
-        je short L_00436d14
-    L_00436cfd:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_00436d00:
-        cmp ecx,edx
-    L_00436d02:
-        je short L_00436d14
-    L_00436d04:
-        inc eax
-    L_00436d05:
-        lea ecx,[eax+eax*2]
-    L_00436d08:
-        mov ecx,dword ptr [ecx*8+474918h]
-    L_00436d0f:
-        cmp ecx,0FFFFFFFFh
-    L_00436d12:
-        jne short L_00436d00
-    L_00436d14:
-        cmp edx,0FFFFFFFFh
-    L_00436d17:
-        jne short L_00436d1c
-    L_00436d19:
-        xor eax,eax
-    L_00436d1b:
-        ret
-    L_00436d1c:
-        lea eax,[eax+eax*2]
-    L_00436d1f:
-        lea eax,[eax*8+474918h]
-    L_00436d26:
-        ret
-    }
+// Record layout shared with GdiSurface_Create: id, bits per pixel, four
+// colour masks; id == -1 terminates the table.
+struct GdiFormat {
+    int id;
+    int bits_per_pixel;
+    unsigned int masks[4];
+};
+
+extern "C" unsigned char data_00474918;
+
+extern "C" GdiFormat* __fastcall GdiFormat_Find(int unused, int id) {
+    (void)unused;
+    GdiFormat* formats = (GdiFormat*)&data_00474918;
+    int index = 0;
+    while (formats[index].id != -1 && formats[index].id != id)
+        ++index;
+    if (id == -1)
+        return 0;
+    return &formats[index];
 }
