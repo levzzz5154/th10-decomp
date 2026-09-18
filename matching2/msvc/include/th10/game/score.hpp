@@ -19,6 +19,7 @@ struct ScoreState {
     __declspec(noinline) void IncrementCappedCount();
     __declspec(noinline) void SetGauge(int amount);
     __declspec(noinline) void AddGauge(int amount);
+    __declspec(noinline) void AdvanceGaugeTimer(int frames);
     __declspec(noinline) void DecayGauge();
 };
 

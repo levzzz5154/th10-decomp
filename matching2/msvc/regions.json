@@ -9404,13 +9404,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00412ff0_00412ff0",
+      "name": "semantic_ScoreState_AdvanceGaugeTimer_00412ff0",
       "source": "src/game/replay_progress.cpp",
-      "symbol": "_asm_FUN_00412ff0_00412ff0",
+      "symbol": "?AdvanceGaugeTimer@ScoreState@@QAEXH@Z",
       "address": "0x00412FF0",
       "size": 93,
-      "kind": "asm",
-      "owner": "0x00412FF0"
+      "kind": "semantic",
+      "owner": "0x00412FF0",
+      "previous_record": {
+        "name": "asm_FUN_00412ff0_00412ff0",
+        "source": "src/game/replay_progress.cpp",
+        "symbol": "_asm_FUN_00412ff0_00412ff0",
+        "address": "0x00412FF0",
+        "size": 93,
+        "kind": "asm",
+        "owner": "0x00412FF0"
+      }
     },
     {
       "name": "text_padding_0041304d",

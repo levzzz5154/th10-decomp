@@ -1,9 +1,11 @@
 // Compiler context only: this caller is not a recovered application function.
 // One native-LTCG unit reaches the FrameTimer methods, all three animation
-// cursors, and the scheduler store, so MSVC selects the verified internal
-// register conventions: ECX cursor entries, EAX for the scheduler receiver,
-// and ESI for the embedded timers.  The cursors are additional linker roots,
-// which keeps their public ECX entry while their internal calls stay private.
+// cursors, the scheduler store and the gauge-timer clamp, so MSVC selects the
+// verified internal register conventions: ECX cursor entries, EAX for the
+// scheduler receiver, ESI for the embedded timers and EDI for the score state
+// whose gauge timer survives the advance call.  The cursors are additional
+// linker roots, which keeps their public ECX entry while their internal calls
+// stay private.
 #include "../../src/math/frame_timer.cpp"
 #include "th10/game/score.hpp"
 
@@ -38,6 +40,10 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
     if (scores != 0) {
         for (int index = 0; index < count; ++index)
             scores[index].DecayGauge();
+    }
+    if (scores != 0) {
+        for (int index = 0; index < count; ++index)
+            scores[index].AdvanceGaugeTimer(delta);
     }
 }
 #pragma code_seg()
