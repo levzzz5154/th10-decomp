@@ -43,3 +43,21 @@ every ECX-plus-stack callee in the remaining assembly.
 
 Classified as a cluster target because all three callees are assembly; the model
 itself is written out in this note and ready to drive.
+
+## Attempted through the cluster: layout cannot resolve the function
+
+The model from this note was compiled in a throwaway copy. The object contains
+exactly the expected symbols -
+
+```
+?Recovery_LoadStartupResources_0041f8d0@@YAHXZ     (the function, cdecl)
+?Append@TextLog_0041f8d0@@QAEXPAX@Z                (the log member, undefined)
+@asm_Recovery_LoadCachedResource_00447280@12       (the resource loader, undefined)
+```
+
+so the declarations and the three layout bindings are right - yet the cluster
+stopped with `size=0 … must resolve to one exact symbol` and a context whose
+emitted extent was 120 bytes rather than the declared 40. The model file must be
+declared `__cdecl` explicitly, because the project compiles with `/Gz` and a free
+function without a convention otherwise gets a `@0`-suffixed stdcall name. What
+remains is a layout/context issue in the cluster, not the recovered code.
