@@ -141,6 +141,9 @@ def main():
         elif args.entry == "ecx":
             if reads - {"ecx"}:
                 continue
+        else:
+            if reads:
+                continue
         if args.virtual and "call dword ptr [" not in block:
             continue
         call_count = 0
