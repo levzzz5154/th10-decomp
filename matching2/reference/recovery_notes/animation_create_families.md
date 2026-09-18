@@ -147,3 +147,32 @@ before the call so its load precedes the field load - leaves the emitted order
 unchanged (11 differing bytes, first at 0x13). The two independent loads are
 ordered by the compiler, and neither the argument order nor a named local moves
 them; the region stands at retail's exact 36 bytes with that ordering residual.
+
+## The shared callee decoded: a 0x1000-slot ring allocator
+
+`FUN_00449950` (161 bytes, called by every member of families B, C and D - twelve
+regions) is a slot allocator over a 0x1000-entry ring:
+
+```
+mov eax,[esi+3AD068h]        ; the cursor
+mov ecx,eax
+imul ecx,3ACh                ; slot stride is Entity's size
+lea edi,[ecx+esi+68h]        ; the slot base
+mov cl,[eax+esi+3AC068h]     ; the per-slot free byte
+test cl,cl
+je  found                    ; zero means free
+inc eax
+and eax,80000FFFh            ; wrap the cursor at 0x1000 entries
+jns ... / dec eax            ; the usual signed-mask fix-up
+```
+
+The manager arrives in **ESI** (`[esi+...]` throughout), which is why
+`screen_regions.py` rejects the family's call sites: no prototype puts an
+argument in ESI. Expressing these families therefore needs a **multi-function
+cluster** in which `FUN_00449950`, `FUN_00449870` (217 bytes, also ESI), the four
+`Register*` helpers and the create function itself are all modelled in one
+section, so the whole-program pass can assign the registers across the call - the
+`load_archive_file` arrangement rather than the single-function clusters used for
+the accessors and the flag pair. That is the largest remaining systematic
+opportunity in the manifest: twelve regions, about 1,100 bytes, behind roughly
+five models.
