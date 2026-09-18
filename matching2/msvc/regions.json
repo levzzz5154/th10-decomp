@@ -585,13 +585,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401f00",
+      "name": "semantic_Matrix4x4_SetIdentity_00401f00",
       "source": "src/unidentified/unassigned_00401f00.cpp",
-      "symbol": "_asm_unassigned_00401f00",
+      "symbol": "?SetIdentity@Matrix4x4@@QAEXXZ",
       "address": "0x00401F00",
       "size": 55,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401f00",
+        "source": "src/unidentified/unassigned_00401f00.cpp",
+        "symbol": "_asm_unassigned_00401f00",
+        "address": "0x00401F00",
+        "size": 55,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401f37",
@@ -48998,7 +49007,8 @@
     "layout/ltcg/anim_set_flag_00449590.json",
     "layout/ltcg/anim_clear_flag_004495e0.json",
     "layout/ltcg/select_sprite_00449670.json",
-    "layout/ltcg/random_vector_store_rounded_scalar.json"
+    "layout/ltcg/random_vector_store_rounded_scalar.json",
+    "layout/ltcg/matrix_identity_00401f00.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
