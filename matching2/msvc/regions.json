@@ -10223,13 +10223,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Animation_SetActiveCount_00413790",
+      "name": "semantic_AnimationManager_SetActiveCount_00413790",
       "source": "src/game/animation_set_active_count_00413790.cpp",
-      "symbol": "_asm_Animation_SetActiveCount_00413790",
+      "symbol": "?SetActiveCount@AnimationManager_00413790@@QAEXH@Z",
       "address": "0x00413790",
       "size": 77,
-      "kind": "asm",
-      "owner": "0x00413790"
+      "kind": "semantic",
+      "owner": "0x00413790",
+      "previous_record": {
+        "name": "asm_Animation_SetActiveCount_00413790",
+        "source": "src/game/animation_set_active_count_00413790.cpp",
+        "symbol": "_asm_Animation_SetActiveCount_00413790",
+        "address": "0x00413790",
+        "size": 77,
+        "kind": "asm",
+        "owner": "0x00413790"
+      }
     },
     {
       "name": "text_padding_004137dd",
@@ -11204,13 +11213,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_RecoveryLinkedCleanup_00417770",
+      "name": "semantic_ScoreChain_00417770_ReleaseChain_00417770",
       "source": "src/game/recovery_linked_cleanup_00417770.cpp",
-      "symbol": "_asm_RecoveryLinkedCleanup_00417770",
+      "symbol": "?ReleaseChain@ScoreChain_00417770@@QAEXXZ",
       "address": "0x00417770",
       "size": 66,
-      "kind": "asm",
-      "owner": "0x00417770"
+      "kind": "semantic",
+      "owner": "0x00417770",
+      "previous_record": {
+        "name": "asm_RecoveryLinkedCleanup_00417770",
+        "source": "src/game/recovery_linked_cleanup_00417770.cpp",
+        "symbol": "_asm_RecoveryLinkedCleanup_00417770",
+        "address": "0x00417770",
+        "size": 66,
+        "kind": "asm",
+        "owner": "0x00417770"
+      }
     },
     {
       "name": "text_padding_004177b2",
@@ -49225,7 +49243,9 @@
     "layout/ltcg/recovery_tick_state_0040bd20.json",
     "layout/ltcg/stop_at_frame_pair_0040c480.json",
     "layout/ltcg/recovery_clear_eight_buckets_00419040.json",
-    "layout/ltcg/ecl_resolve_int_destination_00412a10.json"
+    "layout/ltcg/ecl_resolve_int_destination_00412a10.json",
+    "layout/ltcg/recovery_linked_cleanup_00417770.json",
+    "layout/ltcg/animation_set_active_count_00413790.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
