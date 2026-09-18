@@ -7,6 +7,9 @@ extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
 
+struct RawState_0040a130;
+extern "C" int __stdcall asm_FUN_0040a130_0040a130(RawState_0040a130 *state);
+
 struct RawStageTipManager_00418e30;
 extern "C" int __stdcall asm_StageTipRuntime_InitializeRetail_00418e30(
         RawStageTipManager_00418e30 *manager);
@@ -49,6 +52,11 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     for (int index = 0; index < count; ++index) {
         if (asm_MessageHost_InitRetail_0040d280(
                 (MessageHost_0040d280 *)slots[index], priority) == 0)
+            ++created;
+    }
+
+    for (int index = 0; index < count; ++index) {
+        if (asm_FUN_0040a130_0040a130((RawState_0040a130 *)slots[index]) == 0)
             ++created;
     }
     return created;

@@ -14,7 +14,8 @@
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
     "src/game/object_factories.cpp",
     "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
-    "src/game/message_host_init.cpp"
+    "src/game/message_host_init.cpp",
+    "src/unidentified/FUN_0040a130_0040a130.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -28,6 +29,33 @@
   "image_base": "0x00400000",
   "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement.",
   "functions": [
+    {
+      "name": "Recovery_InstallPairSetFlags_004055c0",
+      "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
+      "section": ".text$00_vinstall",
+      "address": "0x004055C0",
+      "size": 84,
+      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
+    },
+    {
+      "name": "Recovery_CreateFixedState_004056b0",
+      "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
+      "symbol": "_asm_Recovery_CreateFixedState_004056b0",
+      "section": ".text$00_xfixed",
+      "address": "0x004056B0",
+      "size": 85,
+      "actual_abi": "no live-in registers; result in EAX; plain RET"
+    },
+    {
+      "name": "State_RegisterTasks_0040a130",
+      "symbol": "_asm_FUN_0040a130_0040a130@4",
+      "section": ".text$00_ystatereg",
+      "address": "0x0040A130",
+      "size": 106,
+      "source": "src/unidentified/FUN_0040a130_0040a130.cpp",
+      "actual_abi": "state in EBX; result in EAX; plain RET"
+    },
     {
       "name": "BulletManager_LoadScripts_0040ae70",
       "symbol": "_BulletManager_LoadScripts_0040ae70@4",
@@ -44,6 +72,60 @@
       "size": 86,
       "source": "src/game/bullet_manager_create_0040af90.cpp",
       "actual_abi": "manager in EBX across the script-load and release calls; result in EAX"
+    },
+    {
+      "name": "asm_MessageHost_InitRetail_0040d280",
+      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+      "section": ".text$00d_bmsghost",
+      "address": "0x0040D280",
+      "size": 334,
+      "actual_abi": "host in EBX; script name on the stack; RET 4; result in EAX",
+      "source": "src/game/message_host_init.cpp"
+    },
+    {
+      "name": "StageTipRuntime_InitializeRetail_00418e30",
+      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
+      "section": ".text$00d_dinit",
+      "address": "0x00418E30",
+      "size": 131,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
+    },
+    {
+      "name": "Recovery_InstallPairClearFlags_0041ad90",
+      "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
+      "section": ".text$00e_installclear",
+      "address": "0x0041AD90",
+      "size": 84,
+      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
+    },
+    {
+      "name": "ScoreObject_Initialize_0041c030",
+      "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
+      "section": ".text$00fascoreobjinit",
+      "address": "0x0041C030",
+      "size": 98,
+      "actual_abi": "object in EDX; unused ECX slot; result in EAX; plain RET",
+      "source": "src/game/score_object_initialize_0041c030.cpp"
+    },
+    {
+      "name": "ScoreDisplay_RegisterTasks_0041c120",
+      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
+      "section": ".text$00gascoredisplay",
+      "address": "0x0041C120",
+      "size": 146,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/score_display_register_tasks_retail_0041c120.cpp"
+    },
+    {
+      "name": "ScoreManager_CreateAndInit_0041c290",
+      "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
+      "section": ".text$00gbscoremanager",
+      "address": "0x0041C290",
+      "size": 91,
+      "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
+      "source": "src/game/object_factories.cpp"
     },
     {
       "name": "Scheduler_RegisterPrimary",
@@ -98,85 +180,13 @@
       "address": "0x0044B810",
       "size": 201,
       "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"
-    },
-    {
-      "name": "Recovery_InstallPairSetFlags_004055c0",
-      "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
-      "section": ".text$00_vinstall",
-      "address": "0x004055C0",
-      "size": 84,
-      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
-    },
-    {
-      "name": "Recovery_CreateFixedState_004056b0",
-      "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
-      "symbol": "_asm_Recovery_CreateFixedState_004056b0",
-      "section": ".text$00_xfixed",
-      "address": "0x004056B0",
-      "size": 85,
-      "actual_abi": "no live-in registers; result in EAX; plain RET"
-    },
-    {
-      "name": "Recovery_InstallPairClearFlags_0041ad90",
-      "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
-      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
-      "section": ".text$00e_installclear",
-      "address": "0x0041AD90",
-      "size": 84,
-      "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
-    },
-    {
-      "name": "ScoreObject_Initialize_0041c030",
-      "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
-      "section": ".text$00fascoreobjinit",
-      "address": "0x0041C030",
-      "size": 98,
-      "actual_abi": "object in EDX; unused ECX slot; result in EAX; plain RET",
-      "source": "src/game/score_object_initialize_0041c030.cpp"
-    },
-    {
-      "name": "ScoreDisplay_RegisterTasks_0041c120",
-      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
-      "section": ".text$00gascoredisplay",
-      "address": "0x0041C120",
-      "size": 146,
-      "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/score_display_register_tasks_retail_0041c120.cpp"
-    },
-    {
-      "name": "ScoreManager_CreateAndInit_0041c290",
-      "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
-      "section": ".text$00gbscoremanager",
-      "address": "0x0041C290",
-      "size": 91,
-      "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
-      "source": "src/game/object_factories.cpp"
-    },
-    {
-      "name": "StageTipRuntime_InitializeRetail_00418e30",
-      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
-      "section": ".text$00d_dinit",
-      "address": "0x00418E30",
-      "size": 131,
-      "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp"
-    },
-    {
-      "name": "asm_MessageHost_InitRetail_0040d280",
-      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
-      "section": ".text$00d_bmsghost",
-      "address": "0x0040D280",
-      "size": 334,
-      "actual_abi": "host in EBX; script name on the stack; RET 4; result in EAX",
-      "source": "src/game/message_host_init.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 262,
+    "size": 292,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -193,7 +203,22 @@
     {
       "section": ".text$00_ylayout",
       "address": "0x00405705",
-      "size": 22379
+      "size": 18747
+    },
+    {
+      "section": ".text$00_ystateinitz",
+      "address": "0x0040A040",
+      "size": 240
+    },
+    {
+      "section": ".text$00_ystatereg2",
+      "address": "0x0040A19A",
+      "size": 550
+    },
+    {
+      "section": ".text$00_zgap",
+      "address": "0x0040A3C0",
+      "size": 2736
     },
     {
       "section": ".text$00b_layout",
@@ -269,63 +294,28 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
-      "address": "0x00492274",
-      "kind": "data"
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
     },
     {
-      "symbol": "__imp__EnterCriticalSection@4",
-      "address": "0x004660B0",
-      "kind": "data"
-    },
-    {
-      "symbol": "__imp__LeaveCriticalSection@4",
-      "address": "0x004660B4",
-      "kind": "data"
-    },
-    {
-      "symbol": "??3@YAXPAX@Z",
-      "address": "0x004524A1",
+      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "address": "0x00405620",
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004922bc",
-      "address": "0x004922BC",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_0049231f",
-      "address": "0x0049231F",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00466280",
-      "address": "0x00466280",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_0046627c",
-      "address": "0x0046627C",
-      "kind": "data"
-    },
-    {
-      "symbol": "_asm_vsprintf_004524a6",
-      "address": "0x004524A6",
+      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "address": "0x0040AF00",
       "kind": "relative_code"
     },
     {
-      "symbol": "__chkstk",
-      "address": "0x00458EC0",
+      "symbol": "_asm_FUN_00419960_00419960@12",
+      "address": "0x00419960",
       "kind": "relative_code"
     },
     {
-      "symbol": "___security_cookie",
-      "address": "0x00473660",
-      "kind": "data"
-    },
-    {
-      "symbol": "@__security_check_cookie@4",
-      "address": "0x00458EA5",
+      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "address": "0x0041C1C0",
       "kind": "relative_code"
     },
     {
@@ -339,18 +329,13 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491c10",
-      "address": "0x00491C10",
-      "kind": "data"
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
-      "address": "0x00491BE4",
-      "kind": "data"
-    },
-    {
-      "symbol": "_asm_BulletManager_Release_0040af00@4",
-      "address": "0x0040AF00",
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
       "kind": "relative_code"
     },
     {
@@ -359,8 +344,18 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??2@YAPAXI@Z",
-      "address": "0x00452493",
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
       "kind": "relative_code"
     },
     {
@@ -369,28 +364,28 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004776fc",
-      "address": "0x004776FC",
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
       "kind": "data"
     },
     {
-      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
-      "address": "0x00405620",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_data_004776ec",
-      "address": "0x004776EC",
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
       "kind": "data"
     },
     {
-      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
-      "address": "0x0041C1C0",
-      "kind": "relative_code"
+      "symbol": "_data_0046627c",
+      "address": "0x0046627C",
+      "kind": "data"
     },
     {
-      "symbol": "_data_0047781c",
-      "address": "0x0047781C",
+      "symbol": "_data_00466280",
+      "address": "0x00466280",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d0b4",
+      "address": "0x0046D0B4",
       "kind": "data"
     },
     {
@@ -399,24 +394,29 @@
       "kind": "data"
     },
     {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x00474C7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c80",
+      "address": "0x00474C80",
+      "kind": "data"
+    },
+    {
       "symbol": "_data_00476f78",
       "address": "0x00476F78",
       "kind": "data"
     },
     {
-      "symbol": "__fltused",
-      "address": "0x00000000",
-      "kind": "metadata"
-    },
-    {
-      "symbol": "_data_00491d6a",
-      "address": "0x00491D6A",
+      "symbol": "_data_004776ec",
+      "address": "0x004776EC",
       "kind": "data"
-    },
-    {
-      "symbol": "_asm_FUN_00419960_00419960@12",
-      "address": "0x00419960",
-      "kind": "relative_code"
     },
     {
       "symbol": "_data_004776f0",
@@ -424,8 +424,48 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046d0b4",
-      "address": "0x0046D0B4",
+      "symbol": "_data_004776fc",
+      "address": "0x004776FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d6a",
+      "address": "0x00491D6A",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
       "kind": "data"
     }
   ]

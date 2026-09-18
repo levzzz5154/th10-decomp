@@ -4946,13 +4946,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040a130_0040a130",
+      "name": "semantic_State_RegisterTasks_0040a130_0040a130",
       "source": "src/unidentified/FUN_0040a130_0040a130.cpp",
-      "symbol": "_asm_FUN_0040a130_0040a130",
+      "symbol": "_asm_FUN_0040a130_0040a130@4",
       "address": "0x0040A130",
       "size": 106,
-      "kind": "asm",
-      "owner": "0x0040A130"
+      "kind": "semantic",
+      "owner": "0x0040A130",
+      "previous_record": {
+        "name": "asm_FUN_0040a130_0040a130",
+        "source": "src/unidentified/FUN_0040a130_0040a130.cpp",
+        "symbol": "_asm_FUN_0040a130_0040a130",
+        "address": "0x0040A130",
+        "size": 106,
+        "kind": "asm",
+        "owner": "0x0040A130"
+      }
     },
     {
       "name": "text_padding_0040a19a",
