@@ -5481,13 +5481,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletManager_LoadScripts_0040ae70",
+      "name": "semantic_BulletManager_LoadScripts_0040ae70_0040ae70",
       "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
-      "symbol": "_asm_BulletManager_LoadScripts_0040ae70",
+      "symbol": "_BulletManager_LoadScripts_0040ae70@4",
       "address": "0x0040AE70",
       "size": 134,
-      "kind": "asm",
-      "owner": "0x0040AE70"
+      "kind": "semantic",
+      "owner": "0x0040AE70",
+      "previous_record": {
+        "name": "asm_BulletManager_LoadScripts_0040ae70",
+        "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
+        "symbol": "_asm_BulletManager_LoadScripts_0040ae70",
+        "address": "0x0040AE70",
+        "size": 134,
+        "kind": "asm",
+        "owner": "0x0040AE70"
+      }
     },
     {
       "name": "text_padding_0040aef6",
@@ -5515,13 +5524,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletManager_Create_0040af90",
+      "name": "semantic_BulletManager_Create_0040af90_0040af90",
       "source": "src/game/bullet_manager_create_0040af90.cpp",
-      "symbol": "_asm_BulletManager_Create_0040af90",
+      "symbol": "?BulletManager_Create_0040af90@@YGPAUBulletManagerState_0040af90@@XZ",
       "address": "0x0040AF90",
       "size": 86,
-      "kind": "asm",
-      "owner": "0x0040AF90"
+      "kind": "semantic",
+      "owner": "0x0040AF90",
+      "previous_record": {
+        "name": "asm_BulletManager_Create_0040af90",
+        "source": "src/game/bullet_manager_create_0040af90.cpp",
+        "symbol": "_asm_BulletManager_Create_0040af90",
+        "address": "0x0040AF90",
+        "size": 86,
+        "kind": "asm",
+        "owner": "0x0040AF90"
+      }
     },
     {
       "name": "text_padding_0040afe6",
@@ -48855,7 +48873,6 @@
     "layout/ltcg/menu_cursor.json",
     "layout/ltcg/resource_chunks.json",
     "layout/ltcg/midi_file.json",
-    "layout/ltcg/scheduler_tasks.json",
     "layout/ltcg/compression_tree.json",
     "layout/ltcg/rank_level.json",
     "layout/ltcg/set_flag.json",
@@ -49029,7 +49046,6 @@
     "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json",
     "layout/ltcg/archive_find_entry_followup.json",
     "layout/ltcg/anm_batch_flush_00442f50.json",
-    "layout/ltcg/d3d_text_log_append_0044b810.json",
     "layout/ltcg/platform_query_interfaces_0044d600.json",
     "layout/ltcg/platform_run_interface_0044d300.json",
     "layout/ltcg/platform_find_available_0044d370.json",
@@ -49094,7 +49110,8 @@
     "layout/ltcg/particle_seed_combine_00404e10.json",
     "layout/ltcg/word_color_00405040.json",
     "layout/ltcg/word_color_channels_004050a0.json",
-    "layout/ltcg/anm_object_configure_0043e5a0.json"
+    "layout/ltcg/anm_object_configure_0043e5a0.json",
+    "layout/ltcg/bullet_manager_load_scripts_0040ae70.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "name": "bullet_manager_load_scripts_0040ae70",
+  "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
+  "additional_sources": [
+    "src/game/scheduler_tasks.cpp",
+    "src/platform/text_log.cpp",
+    "src/platform/joystick_probe.cpp",
+    "src/game/bullet_manager_create_0040af90.cpp"
+  ],
+  "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
+  "roots": [
+    "?Joystick_Probe_0044a0c0@@YGFXZ"
+  ],
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI.",
+  "functions": [
+    {
+      "name": "BulletManager_LoadScripts_0040ae70",
+      "symbol": "_BulletManager_LoadScripts_0040ae70@4",
+      "section": ".text$00a_loadscripts",
+      "address": "0x0040AE70",
+      "size": 134,
+      "actual_abi": "manager in EBX; no stack argument; result in EAX; plain RET"
+    },
+    {
+      "name": "BulletManager_Create_0040af90",
+      "symbol": "?BulletManager_Create_0040af90@@YGPAUBulletManagerState_0040af90@@XZ",
+      "section": ".text$00c_create",
+      "address": "0x0040AF90",
+      "size": 86,
+      "source": "src/game/bullet_manager_create_0040af90.cpp",
+      "actual_abi": "manager in EBX across the script-load and release calls; result in EAX"
+    },
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131,
+      "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$30secondary",
+      "address": "0x00449B70",
+      "size": 131,
+      "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"
+    },
+    {
+      "name": "Scheduler_RemoveLocked",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "_Scheduler_RemoveLocked@8",
+      "section": ".text$50locked",
+      "address": "0x00449F20",
+      "size": 52,
+      "actual_abi": "task in ESI, scheduler on stack; RET 4"
+    },
+    {
+      "name": "Scheduler_Remove",
+      "source": "src/game/scheduler_tasks.cpp",
+      "symbol": "@Scheduler_Remove@8",
+      "section": ".text$70remove",
+      "address": "0x00449F60",
+      "size": 114,
+      "actual_abi": "task in ECX, scheduler in EDX; plain RET"
+    },
+    {
+      "name": "Joystick_Probe",
+      "source": "src/platform/joystick_probe.cpp",
+      "symbol": "?Joystick_Probe_0044a0c0@@YGFXZ",
+      "section": ".text$80joystick",
+      "address": "0x0044A0C0",
+      "size": 105,
+      "actual_abi": "zero-argument stdcall probe; WinMM imports in fixed slots; short status in AX"
+    },
+    {
+      "name": "TextLog_Append",
+      "source": "src/platform/text_log.cpp",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$85textlog",
+      "address": "0x0044B810",
+      "size": 201,
+      "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
+    "section": ".text$90context",
+    "address": "0x0044B900",
+    "size": 123,
+    "description": "Synthetic array-walking caller that establishes the loader's register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00_layout",
+      "address": "0x00401000",
+      "size": 40560
+    },
+    {
+      "section": ".text$00b_layout",
+      "address": "0x0040AEF6",
+      "size": 154
+    },
+    {
+      "section": ".text$00d_layout",
+      "address": "0x0040AFE6",
+      "size": 256762
+    },
+    {
+      "section": ".text$20_layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$40_layout",
+      "address": "0x00449BF3",
+      "size": 813
+    },
+    {
+      "section": ".text$60_layout",
+      "address": "0x00449F54",
+      "size": 12
+    },
+    {
+      "section": ".text$75_layout",
+      "address": "0x00449FD2",
+      "size": 238
+    },
+    {
+      "section": ".text$82_layout",
+      "address": "0x0044A129",
+      "size": 5863
+    },
+    {
+      "section": ".text$87_layout",
+      "address": "0x0044B8D9",
+      "size": 39
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466280",
+      "address": "0x00466280",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046627c",
+      "address": "0x0046627C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@Recovery_LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "address": "0x0040AF00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776fc",
+      "address": "0x004776FC",
+      "kind": "data"
+    }
+  ]
+}

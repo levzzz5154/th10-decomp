@@ -23,7 +23,7 @@ struct TextLog_0044b810 {
     char* Append(char* format, ...);
 };
 
-#pragma code_seg(".text$01joystick")
+#pragma code_seg(".text$80joystick")
 short __stdcall Joystick_Probe_0044a0c0() {
     JoystickInfoEx_0044a0c0 info;
     info.dwSize = sizeof(info);

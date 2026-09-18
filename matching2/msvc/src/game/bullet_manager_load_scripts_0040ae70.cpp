@@ -1,90 +1,61 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040AE70..0x0040AEF5 (134 bytes) - BulletManager_LoadScripts
+//
+// Loads the bullet animation resource, then creates and registers the two
+// scheduler callbacks that drive it.  Retail keeps the manager in EBX, the
+// callback under construction in ESI and the registration priority in EDI;
+// those are whole-program register agreements, so this source is compiled in
+// the same native-LTCG link as the scheduler registration functions it calls
+// and as the constant-log formatter it reports a failure through.
+#include "th10/game/scheduler.hpp"
 
-// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
-// Naked body preserves the retail register/stack ABI.
+struct BulletManagerState_0040af90 {
+    unsigned flags;                 // +0x00
+    unsigned reserved_004;          // +0x04
+    void *primary_callback;         // +0x08
+    void *secondary_callback;       // +0x0C
+    void *bullet_resource;          // +0x10
+    unsigned reserved_014;          // +0x14
+};
 
-// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_BulletManager_LoadScripts_0040ae70() {
-    __asm {
-    L_0040ae70:
-        mov edx,dword ptr [data_00491c10]
-    L_0040ae76:
-        push 46CD88h
-    L_0040ae7b:
-        mov ecx,7
-    L_0040ae80:
-        call asm_Recovery_LoadCachedResource_00447280
-    L_0040ae85:
-        test eax,eax
-    L_0040ae87:
-        mov dword ptr [ebx+10h],eax
-    L_0040ae8a:
-        jne short L_0040aea2
-    L_0040ae8c:
-        push 46CF74h
-    L_0040ae91:
-        mov ecx,474F70h
-    L_0040ae96:
-        call asm_TextLog_Append_0044b810
-    L_0040ae9b:
-        add esp,4
-    L_0040ae9e:
-        or eax,0FFFFFFFFh
-    L_0040aea1:
-        ret
-    L_0040aea2:
-        push esi
-    L_0040aea3:
-        push edi
-    L_0040aea4:
-        push 40B050h
-    L_0040aea9:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0040aeae:
-        mov esi,eax
-    L_0040aeb0:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0040aeb4:
-        mov eax,dword ptr [data_00491be4]
-    L_0040aeb9:
-        push eax
-    L_0040aeba:
-        mov edi,17h
-    L_0040aebf:
-        mov dword ptr [esi+20h],ebx
-    L_0040aec2:
-        call asm_Scheduler_RegisterPrimary_00449ae0
-    L_0040aec7:
-        push 40B060h
-    L_0040aecc:
-        mov dword ptr [ebx+8],esi
-    L_0040aecf:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0040aed4:
-        mov esi,eax
-    L_0040aed6:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0040aeda:
-        mov ecx,dword ptr [data_00491be4]
-    L_0040aee0:
-        push ecx
-    L_0040aee1:
-        mov edi,20h
-    L_0040aee6:
-        mov dword ptr [esi+20h],ebx
-    L_0040aee9:
-        call asm_Scheduler_RegisterSecondary_00449b70
-    L_0040aeee:
-        pop edi
-    L_0040aeef:
-        mov dword ptr [ebx+0Ch],esi
-    L_0040aef2:
-        xor eax,eax
-    L_0040aef4:
-        pop esi
-    L_0040aef5:
-        ret
+struct BulletResourceCache_0040ae70;
+
+// Declared here exactly as the co-compiled TextLog translation unit defines it,
+// so the whole-program pass can pick the register agreement retail used.
+struct TextLog_0044b810 {
+    char text[0x2000];
+    char *cursor;
+    unsigned char dirty;
+    char *Append(char *format, ...);
+};
+
+extern "C" void * __fastcall Recovery_LoadCachedResource_00447280(
+        int id, BulletResourceCache_0040ae70 *cache, const char *name);
+extern "C" SchedulerTask * __stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" BulletResourceCache_0040ae70 *data_00491c10;
+extern "C" Scheduler *data_00491be4;
+
+#pragma code_seg(".text$00a_loadscripts")
+extern "C" __declspec(noinline) int __stdcall BulletManager_LoadScripts_0040ae70(
+        BulletManagerState_0040af90 *state) {
+    void *resource = Recovery_LoadCachedResource_00447280(
+            7, data_00491c10, (const char *)0x46CD88);
+    state->bullet_resource = resource;
+    if (!resource) {
+        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CF74);
+        return -1;
     }
+
+    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x40B050);
+    primary->reserved_flags &= ~1u;
+    primary->context = state;
+    Scheduler_RegisterPrimary(data_00491be4, primary, 0x17);
+    state->primary_callback = primary;
+
+    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x40B060);
+    secondary->reserved_flags &= ~1u;
+    secondary->context = state;
+    Scheduler_RegisterSecondary(data_00491be4, secondary, 0x20);
+    state->secondary_callback = secondary;
+    return 0;
 }
+#pragma code_seg()
