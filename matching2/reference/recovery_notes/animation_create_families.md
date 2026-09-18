@@ -125,3 +125,19 @@ already in ECX as argument 1 and is pushed again as argument 3, which the
 `extern "C" __fastcall` declaration plus an `@...@12` relative-code binding
 reproduces exactly. Every other member of this crop needs a convention with two
 or more live-in registers, i.e. a multi-function cluster.
+
+## The select-sprite trio (0x449670 / 0x4496A0 / 0x4496D0)
+
+Screening for the landed pair's exact call shape (`mov ecx,[eax]` → `mov
+edx,[data_00491C10]` → `push ecx` → `call Find`) found three more regions.
+`0x00449670` **landed** (36 bytes; commit `7f06edd`) with two bound callees.
+
+- `0x004496D0` (36 bytes): reaches retail's exact extent with the same two-callee
+  binding, but the two argument loads come out in the opposite order - retail
+  `mov ecx,[esp+4]` then `mov edx,[eax+308h]`, the model the reverse (11 differing
+  bytes, first at 0x13). Swapping the arguments in the source flips the registers
+  as well (4 differing, first at 0x13), so the difference is the scheduler's
+  ordering of two independent loads, not the argument mapping.
+- `0x004496A0` (34 bytes): two stack parameters forwarded to the same callee; the
+  cluster emits 36 bytes with 13 differing - the entry convention for a
+  two-stack-argument member differs.
