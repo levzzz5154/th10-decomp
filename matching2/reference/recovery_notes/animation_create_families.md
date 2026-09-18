@@ -106,3 +106,22 @@ itself is carried in **EDI**. Expressing these therefore needs a *multi-function
 cluster in which the callees are modelled in the same section so the whole-program
 pass assigns those registers - the `load_archive_file` arrangement - rather than
 the single-function clusters used for the accessors and the flag pair.
+
+## The rest of the Find-calling crop lives in registers C++ cannot set
+
+Fifty assembly files call `AnimationManager_Find_004491c0`. Screening them for
+regions with at most one other callee and no x87 yielded fourteen; of those, only
+the `0x00449590`/`0x004495E0` pair has an expressible call shape. The others
+live-in on registers no prototype provides:
+
+- `0x00449470`, `0x00449210`, `0x00409E50`, `0x0040C480`, `0x0040C4D0`,
+  `0x004243F0`: the call leaves **ECX unset** and pushes EAX, and the body then
+  reads **SI** (`mov word [eax+304h],si`), a caller-carried frame value;
+- `0x004492F0`, `0x00449250`, `0x004497D0`: read **ESI**/`[esp+4]`-plus-ESI;
+- `0x0042C6D0`, `0x0042C770`: index off **EDI+ESI**/`EAX+ECX` live-in values.
+
+The pair landed because its call is `Find(field, manager, field)`: the value is
+already in ECX as argument 1 and is pushed again as argument 3, which the
+`extern "C" __fastcall` declaration plus an `@...@12` relative-code binding
+reproduces exactly. Every other member of this crop needs a convention with two
+or more live-in registers, i.e. a multi-function cluster.
