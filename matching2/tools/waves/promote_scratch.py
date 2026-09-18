@@ -20,6 +20,7 @@ an existing cluster).
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 import shutil
 import subprocess
@@ -105,9 +106,17 @@ def main():
 
     for path in files:
         shutil.copy2(scratch / path.relative_to(MAINTAINED), path)
-    current.clear()
-    current.update(source)
-    maintained_path.write_text(json.dumps(maintained, indent=2) + '\n')
+    # Take the same exclusive lock register_cluster.py uses, and re-read the
+    # manifest inside it: promoting from a snapshot taken before the lock can drop
+    # a record another agent registered in the meantime.
+    with open(MAINTAINED / 'regions.json.lock', 'w') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        maintained = load(maintained_path)
+        current = record_of(maintained, args.address)
+        current.clear()
+        current.update(source)
+        maintained['translation_units'] = sorted({r['source'] for r in maintained['regions']})
+        maintained_path.write_text(json.dumps(maintained, indent=2) + '\n')
     for rel in sorted(set(layouts)):
         if rel in maintained_clusters:
             continue
