@@ -143,3 +143,24 @@ int ScriptFileLoader_00450220::Parse(char* data) {
 }
 #pragma code_seg()
 ```
+
+## Second measurement pass (same day)
+
+Deeper variants, all through the same throwaway copy:
+
+| variant | extent | frame | first difference |
+| --- | ---: | --- | --- |
+| reload chain everywhere (retail's spelling of `files[file_count] + 0x10`) | 615 | `0x0C` | 2 (the frame immediate) |
+| `int count` held in a local, used everywhere | 583 | `0x10` | 0x42 (the count stays in ESI) |
+| `short merged` counter | 613 | `0x0C` | 2 |
+| search walker hoisted out of the else block | 613 | `0x0C` | 2 |
+| `const char** walk` with stride 2 (pseudocode's own shape) | 615 | `0x0C` | 2 |
+
+The two facts retail exhibits are mutually exclusive in every spelling tried so
+far: the **reload chain** (a `movzx` of `[file+0x10]` at each use) keeps the frame
+at `0x0C`, and holding the count in a register produces retail's frame `0x10` but
+loses the reloads at 0x42. Retail therefore has both — reloads *and* five live
+values — so the extra live value is **not** the count. What remains is a value
+that no spelling tried (here or in the earlier 90-variant sweep) expresses: the
+search walker, the merge index and the offsets cursor are all already modelled,
+and the four memory slots plus the argument home are otherwise accounted for.
