@@ -6245,13 +6245,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_TickState_0040bd20",
+      "name": "semantic_TickRecoveryState_0040bd20_0040bd20",
       "source": "src/game/recovery_tick_state_0040bd20.cpp",
-      "symbol": "_asm_Recovery_TickState_0040bd20",
+      "symbol": "?TickRecoveryState_0040bd20@@YGHPAURecoveryTickState_0040bd20@@@Z",
       "address": "0x0040BD20",
       "size": 93,
-      "kind": "asm",
-      "owner": "0x0040BD20"
+      "kind": "semantic",
+      "owner": "0x0040BD20",
+      "previous_record": {
+        "name": "asm_Recovery_TickState_0040bd20",
+        "source": "src/game/recovery_tick_state_0040bd20.cpp",
+        "symbol": "_asm_Recovery_TickState_0040bd20",
+        "address": "0x0040BD20",
+        "size": 93,
+        "kind": "asm",
+        "owner": "0x0040BD20"
+      }
     },
     {
       "name": "text_padding_0040bd7d",
@@ -49111,7 +49120,8 @@
     "layout/ltcg/word_color_00405040.json",
     "layout/ltcg/word_color_channels_004050a0.json",
     "layout/ltcg/anm_object_configure_0043e5a0.json",
-    "layout/ltcg/bullet_manager_load_scripts_0040ae70.json"
+    "layout/ltcg/bullet_manager_load_scripts_0040ae70.json",
+    "layout/ltcg/recovery_tick_state_0040bd20.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

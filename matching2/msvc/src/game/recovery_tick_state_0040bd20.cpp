@@ -1,83 +1,50 @@
-#include <string.h>
+// 0x0040BD20..0x0040BD7C: TickRecoveryState_0040bd20
+//
+// The state this runs on is the ending/credits script object constructed at
+// 0x0040BA90. At +0x04 it carries the FrameTimer shape shared by the whole
+// image: a previous/current integer pair (+0x04/+0x08), an elapsed float
+// (+0x0C) and a pointer (+0x10) to the shared game speed. Retail, in order:
+//
+//     push esi                 ; the state arrives in ESI; the push is the
+//     call 0x0040BD80          ; argument to the finished? query, which pops it
+//     test eax,eax / je
+//     mov eax,1 / ret          ; finished -> report 1
+//     mov edx,[esi+8]          ; current
+//     mov ecx,[esi+10h]        ; speed
+//     mov [esi+4],edx          ; previous = current
+//     ...
+//     xor eax,eax / ret        ; still running -> 0
+//
+// The timer body at +0x04 is the usual frame tick: at normal speed it advances
+// the frame counter and adds 1.0 to the elapsed field, otherwise it converts
+// the elapsed accumulation of the speed pointer into the new counter.
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+extern float g_frame_timer_normal_lower;  // 0x00470B68
+extern float g_frame_timer_normal_upper;  // 0x00470B64
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+extern "C" int __stdcall asm_FUN_0040bd80_0040bd80(void* state);
 
-// 0x0040BD20..0x0040BD7C: ?Recovery_TickState@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_TickState_0040bd20() {
-    __asm {
-    L_0040bd20:
-        push esi
-    L_0040bd21:
-        call asm_FUN_0040bd80_0040bd80
-    L_0040bd26:
-        test eax,eax
-    L_0040bd28:
-        je short L_0040bd30
-    L_0040bd2a:
-        mov eax,1
-    L_0040bd2f:
-        ret
-    L_0040bd30:
-        mov edx,dword ptr [esi+8]
-    L_0040bd33:
-        mov ecx,dword ptr [esi+10h]
-    L_0040bd36:
-        mov dword ptr [esi+4],edx
-    L_0040bd39:
-        fld dword ptr [ecx]
-    L_0040bd3b:
-        fcomp dword ptr [data_00470b68]
-    L_0040bd41:
-        fnstsw ax
-    L_0040bd43:
-        test ah,41h
-    L_0040bd46:
-        jne short L_0040bd6a
-    L_0040bd48:
-        fld dword ptr [ecx]
-    L_0040bd4a:
-        fcomp dword ptr [data_00470b64]
-    L_0040bd50:
-        fnstsw ax
-    L_0040bd52:
-        test ah,5
-    L_0040bd55:
-        jp short L_0040bd6a
-    L_0040bd57:
-        fld dword ptr [esi+0Ch]
-    L_0040bd5a:
-        inc edx
-    L_0040bd5b:
-        fadd dword ptr [data_00470afc]
-    L_0040bd61:
-        mov dword ptr [esi+8],edx
-    L_0040bd64:
-        xor eax,eax
-    L_0040bd66:
-        fstp dword ptr [esi+0Ch]
-    L_0040bd69:
-        ret
-    L_0040bd6a:
-        fld dword ptr [esi+0Ch]
-    L_0040bd6d:
-        fadd dword ptr [ecx]
-    L_0040bd6f:
-        fst dword ptr [esi+0Ch]
-    L_0040bd72:
-        call asm_FUN_00463b2c_00463b2c
-    L_0040bd77:
-        mov dword ptr [esi+8],eax
-    L_0040bd7a:
-        xor eax,eax
-    L_0040bd7c:
-        ret
+struct RecoveryTickState_0040bd20 {
+    int pad_00;             // +0x00
+    int previous;           // +0x04
+    int current;            // +0x08
+    float elapsed;          // +0x0C
+    const float* speed;     // +0x10
+};
+
+#pragma code_seg(".text$01tick")
+__declspec(noinline) int __stdcall TickRecoveryState_0040bd20(RecoveryTickState_0040bd20* state) {
+    if (asm_FUN_0040bd80_0040bd80(state))
+        return 1;
+
+    state->previous = state->current;
+    if (*state->speed > g_frame_timer_normal_lower &&
+        *state->speed < g_frame_timer_normal_upper) {
+        ++state->current;
+        state->elapsed += 1.0f;
+    } else {
+        state->current = int(state->elapsed += *state->speed);
     }
+    return 0;
 }
+#pragma code_seg()
