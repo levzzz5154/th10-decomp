@@ -107,23 +107,27 @@ void __stdcall ScoreFile_InitializeDefaultsRetail_0042acb0(ScoreFile_0042acb0* f
 }
 ```
 
-## Native-LTCG route attempted: blocked on the cluster map validation
+## Native-LTCG route attempted and rejected
 
-The cluster path was exercised for this region in the throwaway copy
-(`/tmp/w42acb0/msvc`, context calling the setter in a loop, the four data
-globals bound through `absolute_symbols`). Two things came out of it:
+The cluster path was exercised end to end for this region in the throwaway copy
+(`/tmp/w42acb0/msvc`, a synthetic context calling the function in a loop, the four
+data globals bound through `absolute_symbols`). Three machinery lessons and one
+measurement came out of it:
 
-1. The model source **must** carry `#pragma code_seg(".text$01accessor")`. Without
-   it the function is emitted into the default `.text` section, the map shows
-   `.text$00layout` starting at offset `0x11A` with the function at the image
-   base, and the entry point collapses to `0000:00000000`. With the pragma the
-   map is correct: `.text$01accessor` `0x11A` at `0x0042ACB0`, context `0x25`.
-2. The build then fails in map validation with **`MAP segment 0000 has no
-   section contribution`**, i.e. the absolute data bindings create a segment-0000
-   entry the validator rejects. That is unresolved; the same binding shape is
-   used by landed layouts (`adjust_power.json` binds `_data_00474c40` the same
-   way), so the difference is something else in this cluster's map.
+- The model source **must** carry `#pragma code_seg(".text$01accessor")`; without
+  it the function is emitted into the default `.text`, the map shows
+  `.text$00layout` starting at offset `0x11A` and the entry point collapses to
+  `0000:00000000`, which the map validator then rejects with *"MAP segment 0000
+  has no section contribution"*.
+- The context symbol in the layout **must be the decorated name**
+  (`?ScoreCompilerContext@@YGHPAPAUScoreFile_0042acb0@@H@Z`); an undecorated name
+  leaves the linker's `/ENTRY` unresolved and produces the same collapsed entry.
+- The declared function size must equal the emitted one — 282 here against the
+  region's 274 — or the map validation stops before any byte comparison.
 
-Until that is resolved the region rests at the model above: 282 bytes against
-274, first sixteen instructions identical, differing only in the parameter's
-home register (`EBP` in retail, `ESI` in the model).
+With all three fixed the cluster builds and compares: **282 bytes, 260 differing,
+first difference at 0x07** (`8b` where retail has `57`, i.e. a different push
+order in the prologue) — *worse* than the plain model's 170. The whole-program
+pass re-allocates registers the same way for this shape, so, as with the vector
+polar setters, retail's extent and prologue match the plain translation unit and
+the LTCG route is not the answer for this region.
