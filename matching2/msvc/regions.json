@@ -12412,13 +12412,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_SplitResourcePath_0041a050",
+      "name": "semantic_SplitResourcePath_0041a050_0041a050",
       "source": "src/game/recovery_split_resource_path_0041a050.cpp",
-      "symbol": "_asm_Recovery_SplitResourcePath_0041a050",
+      "symbol": "_SplitResourcePath_0041a050@12",
       "address": "0x0041A050",
       "size": 75,
-      "kind": "asm",
-      "owner": "0x0041A050"
+      "kind": "semantic",
+      "owner": "0x0041A050",
+      "previous_record": {
+        "name": "asm_Recovery_SplitResourcePath_0041a050",
+        "source": "src/game/recovery_split_resource_path_0041a050.cpp",
+        "symbol": "_asm_Recovery_SplitResourcePath_0041a050",
+        "address": "0x0041A050",
+        "size": 75,
+        "kind": "asm",
+        "owner": "0x0041A050"
+      }
     },
     {
       "name": "text_padding_0041a09b",
@@ -12429,13 +12438,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_TrimWhitespace_0041a0a0",
+      "name": "semantic_TrimWhitespace_0041a0a0_0041a0a0",
       "source": "src/game/recovery_trim_whitespace_0041a0a0.cpp",
-      "symbol": "_asm_Recovery_TrimWhitespace_0041a0a0",
+      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
       "address": "0x0041A0A0",
       "size": 114,
-      "kind": "asm",
-      "owner": "0x0041A0A0"
+      "kind": "semantic",
+      "owner": "0x0041A0A0",
+      "previous_record": {
+        "name": "asm_Recovery_TrimWhitespace_0041a0a0",
+        "source": "src/game/recovery_trim_whitespace_0041a0a0.cpp",
+        "symbol": "_asm_Recovery_TrimWhitespace_0041a0a0",
+        "address": "0x0041A0A0",
+        "size": 114,
+        "kind": "asm",
+        "owner": "0x0041A0A0"
+      }
     },
     {
       "name": "text_padding_0041a112",
@@ -49264,7 +49282,8 @@
     "layout/ltcg/ecl_resolve_int_destination_00412a10.json",
     "layout/ltcg/recovery_linked_cleanup_00417770.json",
     "layout/ltcg/animation_set_active_count_00413790.json",
-    "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json"
+    "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
+    "layout/ltcg/split_resource_path_0041a050.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "name": "split_resource_path_0041a050",
+  "source": "src/game/recovery_split_resource_path_0041a050.cpp",
+  "additional_sources": [
+    "src/game/recovery_trim_whitespace_0041a0a0.cpp"
+  ],
+  "driver": "layout/ltcg/split_resource_path_0041a050_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Resource-path splitter and its trim helper linked with native LTCG so the pass selects retail's EAX/EBX/EDI register convention.",
+  "functions": [
+    {
+      "name": "SplitResourcePath_0041a050",
+      "symbol": "_SplitResourcePath_0041a050@12",
+      "section": ".text$01split",
+      "address": "0x0041A050",
+      "size": 75,
+      "actual_abi": "line in EAX; value in EBX; key in EDI; plain RET through tail jumps",
+      "source": "src/game/recovery_split_resource_path_0041a050.cpp"
+    },
+    {
+      "name": "TrimWhitespace_0041a0a0",
+      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "section": ".text$02trim",
+      "address": "0x0041A0A0",
+      "size": 114,
+      "actual_abi": "text in EAX; result in EAX; plain RET",
+      "source": "src/game/recovery_trim_whitespace_0041a0a0.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "SplitResourcePathCompilerContext@16",
+    "section": ".text$04context",
+    "address": "0x0041A120",
+    "size": 96,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 102480
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x0041A112",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_00452730_00452730",
+      "address": "0x00452730",
+      "kind": "relative_code"
+    }
+  ]
+}

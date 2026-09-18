@@ -1,79 +1,29 @@
+// 0x0041A050..0x0041A09A: Recovery_SplitResourcePath
+//
+// Copy the line into the key buffer, split it at the first colon, move the
+// value into the value buffer and trim both halves.  Retail passes the line in
+// EAX, the value destination in EBX and the key destination in EDI, and every
+// exit is a tail jump into the trim helper at 0x0041A0A0, so the model is
+// compiled as a native-LTCG cluster together with that helper.
 #include <string.h>
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+// 0x00452730: the CRT first-occurrence byte search (strchr shape), bound to the
+// retail address by the layout.  The custom name keeps /Oi from inlining it.
+extern "C" char* __cdecl asm_FUN_00452730_00452730(const char* text, int ch);
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+// 0x0041A0A0: co-compiled whitespace trim (argument and result in EAX).
+char* TrimWhitespace_0041a0a0(char* text);
 
-// 0x0041A050..0x0041A09A: Recovery_SplitResourcePath
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_SplitResourcePath_0041a050() {
-    __asm {
-    L_0041a050:
-        mov edx,edi
-    L_0041a052:
-        sub edx,eax
-    L_0041a054:
-        mov cl,byte ptr [eax]
-    L_0041a056:
-        mov byte ptr [edx+eax],cl
-    L_0041a059:
-        inc eax
-    L_0041a05a:
-        test cl,cl
-    L_0041a05c:
-        jne short L_0041a054
-    L_0041a05e:
-        push 3Ah
-    L_0041a060:
-        push edi
-    L_0041a061:
-        call asm_FUN_00452730_00452730
-    L_0041a066:
-        add esp,8
-    L_0041a069:
-        test eax,eax
-    L_0041a06b:
-        jne short L_0041a074
-    L_0041a06d:
-        mov eax,edi
-    L_0041a06f:
-        jmp asm_Recovery_TrimWhitespace_0041a0a0
-    L_0041a074:
-        push esi
-    L_0041a075:
-        lea ecx,[eax+1]
-    L_0041a078:
-        mov esi,ebx
-    L_0041a07a:
-        sub esi,ecx
-    L_0041a07c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_0041a080:
-        mov dl,byte ptr [ecx]
-    L_0041a082:
-        mov byte ptr [esi+ecx],dl
-    L_0041a085:
-        inc ecx
-    L_0041a086:
-        test dl,dl
-    L_0041a088:
-        jne short L_0041a080
-    L_0041a08a:
-        mov byte ptr [eax],dl
-    L_0041a08c:
-        mov eax,edi
-    L_0041a08e:
-        call asm_Recovery_TrimWhitespace_0041a0a0
-    L_0041a093:
-        mov eax,ebx
-    L_0041a095:
-        pop esi
-    L_0041a096:
-        jmp asm_Recovery_TrimWhitespace_0041a0a0
+#pragma code_seg(".text$01split")
+extern "C" __declspec(noinline) char* __stdcall SplitResourcePath_0041a050(char* line, char* value, char* key) {
+    strcpy(key, line);
+    char* colon = asm_FUN_00452730_00452730(key, ':');
+    if (colon == 0) {
+        return TrimWhitespace_0041a0a0(key);
     }
+    strcpy(value, colon + 1);
+    *colon = 0;
+    TrimWhitespace_0041a0a0(key);
+    return TrimWhitespace_0041a0a0(value);
 }
+#pragma code_seg()
