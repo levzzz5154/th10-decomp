@@ -58,3 +58,17 @@ so the maintained tree is never left in a broken state; only the final, verified
 edit goes into the real tree. `cluster_region.py` in the same copy drives a
 variant sweep and rolls the registration back automatically, and it resets the
 layout file per variant so an adaptive size fix cannot leak between attempts.
+
+## Two more pitfalls found by driving 0x0041F8D0
+
+- **`__declspec(noinline)` is mandatory on the modelled function.** Without it the
+  whole-program pass inlines the function into the synthetic context: no symbol
+  appears in the map, the context grows (120 bytes in that run), and the layout
+  reports an unresolved function rather than anything about inlining.
+- **Never let a gap reach zero.** The machinery synthesises the padding sections
+  from the layout's `gaps` and compiles them; a zero-length array makes MSVC fail
+  with `error C2466: cannot allocate an array of constant size 0` in `layout.cpp`.
+  When a build's emitted context address is read back to correct the layout (the
+  machinery aligns the context itself, so a computed address can be off by up to
+  sixteen bytes), the second gap has to be recomputed from the *emitted* address
+  and kept at least one byte.
