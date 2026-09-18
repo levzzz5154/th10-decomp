@@ -76,3 +76,23 @@ of the bytes.
 The remaining five bytes are in the argument mapping for the three arguments
 forwarded to `FUN_0043c970` (five parameters in, three forwarded), which the
 listing interleaves with stack reloads.
+
+## The last five bytes are two compiler choices
+
+The byte comparison of the 77-byte factory against retail's 82 shows the residual
+is not the argument mapping:
+
+- **Dead-store elimination.** The model's `flags_040 &= ~1u` before the memset is
+  deleted outright (only the `|= 2` survives, `8b 46 40 … 89 46 40`), while retail
+  keeps it (`8b 4e 40 … 83 e1 fe … 89 4e 40`) even though the following inline
+  `rep stosd` covers the field. Both sides have the same inline stosd, so the
+  difference is what the optimiser is willing to prove dead.
+- **The convention re-choice again.** Retail returns `ret 14h` (five stack
+  arguments); the model returns `ret 0c 00` - the whole-program pass moved two of
+  the five arguments into registers, exactly as it did for `0x0041C880`.
+
+Adding the function to the layout's `roots` (the lever that forced the public
+convention for a schema-2 batch in an earlier session) does not transfer to a
+schema-1 context cluster: the run then reports the context collapsed to five
+bytes and the layout stops at validation. Both walls are compiler choices rather
+than model errors, which is where this region now rests.
