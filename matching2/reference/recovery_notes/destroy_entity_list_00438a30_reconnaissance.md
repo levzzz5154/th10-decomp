@@ -81,3 +81,9 @@ reproduce it either - its emitted extent is not the 42 the layout expects, so th
 watch stopped at validation. The next lever is to defeat the strength reduction:
 either a counter type that keeps the pointer live, or a loop bound the compiler
 cannot turn into an index.
+
+A `char*` cursor with `cursor += sizeof(Entity_00438a30*)` and a down counter was
+tried as well, to keep the pointer out of the compiler's index canonicalisation -
+it emits the same 42 bytes with the same 19 differences, so the index conversion
+happens regardless of the cursor's type. Three loop spellings have now produced
+one of two shapes and neither is retail's.
