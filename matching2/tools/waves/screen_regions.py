@@ -29,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 PROJECT = ROOT / "matching2/msvc"
-REGISTER = re.compile(r"\b(eax|ebx|ecx|edx|esi|edi|ebp)\b", re.I)
+REGISTER = re.compile(r"\b(?:e?[abcd]x|e?[sd]i|e?[sb]p|[abcd][lh])\b")
 GAME_LOW, GAME_HIGH = 0x401000, 0x44D000            # above is the static CRT
 CALL_SETUP = re.compile(r"^(mov|lea|movzx|movsx)\s+(ecx|edx)\s*,", re.I)
 
