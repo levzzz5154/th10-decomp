@@ -76,8 +76,11 @@ def _map_section(build_dir, section):
 
 
 def _register(layout_rel, unregister=False):
+    # --project is required: the registration resolves the layout against the
+    # manifest's own directory, so without it a sweep against a throwaway copy
+    # still writes the maintained manifest and then fails to find its layout.
     command = [sys.executable, str(ROOT / 'matching2/tools/waves/register_cluster.py'),
-               '--layout', layout_rel, '--apply']
+               '--project', str(PROJECT), '--layout', layout_rel, '--apply']
     if unregister:
         command.insert(-1, '--unregister')
     return subprocess.run(command, capture_output=True, text=True, cwd=PROJECT, timeout=120)
