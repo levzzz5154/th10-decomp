@@ -322,3 +322,26 @@ one thing this region contributes to that chain is now certain: the convention t
 
 Nothing from the scratch copy `/tmp/AnmObjectConfig` was promoted beyond the four files above;
 no other region, tool or source in the maintained tree was touched.
+
+## 8. Why the merged-link variant of this cluster is not used
+
+`LoadGameThreadRes` measured (`load_game_thread_resources_00401110_unlock.md`) that adding this
+source to its merged `0x00401110` link, with the code section renamed to `.text$06configure`,
+takes `0x00401110` from 326 to 329 bytes of retail's 330 — still one byte short — and that the
+two call sites then snap to retail's `xor %edx,%edx / mov %esi,%eax / mov %edi,%ecx / call`.
+That variant cannot be registered while this standalone cluster exists, for three independent
+reasons, so it must not be landed by simply adding a layout:
+
+* `load_clusters` requires **distinct maintained sources** across clusters
+  (`ltcg_cluster.py:349`), and this cluster now owns
+  `src/game/animation_object_configure_from_resource_0043e5a0.cpp`;
+* `register_cluster.py --apply` refuses a layout whose function's **region source differs** from
+  the layout's own `source`, so `0x0043E5A0` cannot be re-registered from another layout at all —
+  it needs `promote_clusters.py`'s path;
+* this layout declares the function's section as `.text$01configure`, so renaming the pragma in
+  the maintained source would also fail this cluster's contribution check.
+
+Main's decision (2026-09-19): **keep this cluster standalone**. The merge would buy 3 bytes on a
+region that is still not exact, at the cost of a pragma rename, a record re-homing and a layout
+replacement on an already-sound cluster, so `0x00401110` waits on `0x00401DE0` instead.
+

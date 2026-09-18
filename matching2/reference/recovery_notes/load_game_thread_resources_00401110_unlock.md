@@ -3,19 +3,27 @@
 2026-09-19. Third-wave agent `LoadGameThreadRes`. The region was **not landed**:
 every byte of the extent and every internal call site is accounted for, and the
 residual is a single whole-program register-assignment decision (the entry
-register), not a source shape. Two configurations are measured end to end:
+register), not a source shape. Four configurations are measured end to end:
 
 | configuration | `0x00401110` | `0x00401000` | `0x00401440` |
 | --- | ---: | --- | --- |
 | plain translation unit | 332 bytes (+2) | not in the unit | not in the unit |
 | native LTCG `{ctor, loader, factory}` | **332 bytes (+2)**, `this` in ESI | 251 EXACT | **69 EXACT, 0 differing** |
 | native LTCG `{ctor, loader, factory, scheduler_tasks, text_log}` | **326 bytes (-4)**, `this` in EBX | 251 EXACT | 69 bytes, 22 differing |
+| …`+ 0x43E5A0` (landed) `+ 0x401DE0` (throwaway stand-in of the sibling's shape) | **325 bytes (-5)**, `this` in EBX | 251 EXACT | 69 bytes, 22 differing |
+
+Every co-compiled region that is already landed (the constructor, the four
+scheduler functions, `TextLog::Append`, `AnimationObject::ConfigureFromResource`)
+probes EXACT inside these merged links, so the merges do not disturb them.
 
 The middle row is the new result: with the loader's *real* body in the link the
 factory `0x00401440` is **byte-identical**, which the previous note's placeholder
-bodies could not reach (they produced `mov ecx,esi`). The bottom row is the
-configuration the scheduler call sites need, and there the allocator re-picks the
-entry register, which costs the factory its exactness again.
+bodies could not reach (they produced `mov ecx,esi`). The bottom two rows are the
+configurations the callee call sites need, and there the allocator re-picks the
+entry register, which costs the factory its exactness again. In the last row the
+loader's body is retail's instruction sequence **instruction for instruction**:
+87 instructions against retail's 87 (after removing the 5-byte entry/exit
+convention), with no insertion or deletion, and the extent is 325 = 330 − 5.
 
 ## 1. Where the thread pointer goes
 
@@ -57,21 +65,35 @@ configuration measured produces both at once. The pass prefers the strictly
 cheaper pairing in each case (a transparent ESI, or a transparent EBX) over
 retail's EAX-in + EBX-interior + save/restore triple.
 
-## 2. The instruction-level delta in the full link
+## 2. The instruction-level delta
 
-Emitted **326** bytes against retail's **330**. The body is retail's instruction
-sequence from `0x401110` to the success epilogue; the differences are these
-seven, in order of appearance (byte counts are from the two disassemblies):
+**Final stage** (scheduler + text_log + landed animation + entity stand-in):
+emitted **325** bytes against retail's **330**. Removing retail's prologue and
+epilogue (`push ebx` + `mov eax,ebx` at `0x401116`/`0x401121`, and `pop ebx` at
+`0x401182` and `0x401258`) leaves 87 instructions against 87, and the two lists
+differ only in these reorderings of identical instructions (same instruction,
+same encoding size, source and emitted addresses from the two disassemblies):
 
-| # | retail | emitted | bytes |
-| --- | --- | --- | ---: |
-| 1 | `push ebx` + `mov eax,ebx` at entry | absent (`this` arrives in EBX) | -3 |
-| 2 | `pop ebx` in both epilogues (`0x401182` before the failure `ret`, `0x401258` in the success tail) | absent | -2 |
-| 3 | second registration: `mov %ebx,0x20(%esi)` then `mov %eax,0x4(%esi)` | the same two stores transposed | 0 |
-| 4 | third registration: `mov 0x4(%esi),%ecx` / `and $0xfffffffd,%ecx` / `mov %ecx,0x4(%esi)` | `andl $0xfffffffd,0x4(%esi)` (memory form) | -5 |
-| 5 | `mov %esi,%edx` / `call 0x401de0` (twice) | plus `xor %ecx,%ecx` before each call | +4 |
-| 6 | `xor %edx,%edx` / `mov %esi,%eax` / `mov %edi,%ecx` / `mov %edi,0x308(%esi)` / `call 0x43e5a0` | `push %esi` / `push $0x0` / `xor %edx,%edx` / `mov %edi,%ecx` / `mov %edi,0x308(%esi)` / `call` | +2 |
-| 7 | second block loads the resource into EBX (`mov 0x8994(%ebx),%ebx`) | into EDI (`mov 0x8994(%ebx),%edi`) | 0 |
+| retail | emitted |
+| --- | --- |
+| `mov %ebx,0x20(%esi)` then `mov %eax,0x4(%esi)` (registration 2) | the same two stores transposed |
+| `mov %ebx,0x20(%esi)` then `mov %ecx,0x4(%esi)` (registration 3) | the same two stores transposed |
+| `mov %esi,%eax` then `mov %edi,%ecx` (both `ConfigureFromResource` sites) | the same two moves transposed |
+| `lea 0x3c0(%ebx),%esi` then `mov 0x8994(%ebx),%ebx` | the same two transposed, resource into EDI |
+| `mov %ebx,%ecx` / `mov %ebx,0x308(%esi)` (second block) | `%edi` instead of `%ebx` (same encoding) |
+| `pop %esi` then `xor %eax,%eax` (tail) | transposed |
+
+So the source and every call site are now provably right and the *whole* residual
+is the 5 bytes of the entry/exit convention. The intermediate stages show which
+dependency closes which part:
+
+| stage | extent | what changes |
+| --- | ---: | --- |
+| `{ctor, loader, factory}` | 332 | entry EAX ✓, `this` in ESI, every callee call site unexpanded |
+| `+ scheduler_tasks` | 326 | `this` in EBX ✓ and all three registration call sites byte-identical |
+| `+ text_log` | 326 (size-neutral) | the failure call site becomes `push $0x46cb68; mov $0x474f70,%ecx; call; add $0x4,%esp` |
+| `+ 0x43E5A0` (landed) | 329 | the two `ConfigureFromResource` sites snap to retail's `xor %edx,%edx` / `mov %esi,%eax` / `mov %edi,%ecx` / `mov %edi,0x308(%esi)` / `call` (2 bytes shorter), and the third registration's flag clear becomes retail's `mov`/`and`/`mov` triple instead of the memory form (5 bytes longer) |
+| `+ 0x401DE0` body | 325 | the two `xor %ecx,%ecx` before `mov %esi,%edx; call 0x401de0` disappear |
 
 Everything else — the three-load chain and its `test`/member-store/`je`
 scheduling, the merged failure block inline before the success path with the
@@ -80,16 +102,7 @@ third test emitted as `jne`, the `push 0x4014f0/0x401510/0x401520` +
 `mov %ebx,0x20(%esi)` registration bodies, the `lea 0x14(%ebx),%esi` /
 `lea 0x3c0(%ebx),%esi` blocks, `mov 0x8994(%ebx),%edi` before the first
 `InitializeEntity`, and the `pop edi / xor eax,eax / pop esi / ret` tail — is
-byte-identical.
-
-Item 5 is a call-site materialisation: with the entity body visible (whose first
-`__fastcall` slot its own model leaves unused) the `xor %ecx,%ecx` has no
-consumer and the pass drops it, leaving retail's `mov %esi,%edx; call`. Item 6
-is the same kind of site for a callee whose three register arguments
-(ECX/EDX/EAX) no declaration can supply, so it follows the sibling's emitted
-convention rather than mine. Item 4 is a register-pressure cascade of item 1:
-retail has a spare ECX for the read-modify-write because its `this` is one
-register lower in the allocator's order.
+byte-identical in every stage.
 
 ## 3. Why the discrepancy is the third load, not anything else
 
@@ -121,8 +134,8 @@ it was in the link:
 | --- | --- | --- |
 | `src/game/scheduler_tasks.cpp` | `0x00449AE0`, `0x00449B70`, `0x00449F20`, `0x00449F60` (all four must be selected) | the interior register choice (EBX as `this`, ESI for the task, EDI for the priority) and all three registration call sites: `push %eax; mov $4,%edi; mov %ebx,0x20(%esi); call 0x449ae0` |
 | `src/platform/text_log.cpp` | `0x0044B810` | the failure call site: `push $0x46cb68; mov $0x474f70,%ecx; call; add $0x4,%esp` (a variadic member called from a link without its body pushes `this`, emitting `push $0x474f70` + `add $0x8,%esp`) |
-| `src/game/entity.cpp` → `0x00401DE0` (sibling `InitEntity`) | own source | removes the `xor %ecx,%ecx` in front of both calls; retail is `mov %esi,%edx; call` with ECX dead, which needs the callee's unused first `__fastcall` slot visible |
-| `src/game/animation_object_configure_from_resource_0043e5a0.cpp` (sibling `AnmObjectConfig`) | own source | the two call sites: retail is `xor %edx,%edx` / `mov %esi,%eax` / `mov %edi,%ecx` / `mov %edi,0x308(%esi)` / `call` — resource in ECX, index in EDX, object in EAX, none of which a declaration can supply |
+| `src/game/animation_object_configure_from_resource_0043e5a0.cpp` — **landed, EXACT** | `0x0043E5A0` | the two call sites, measured in the merged link: `xor %edx,%edx` / `mov %esi,%eax` / `mov %edi,%ecx` / `mov %edi,0x308(%esi)` / `call 0x43e5a0`. The member call is spelled `((AnimationObject_0043e5a0*)block)->ConfigureFromResource((Resource_0043e5a0*)resource, index)` — its own declaration is exactly the register shape retail's caller uses |
+| `0x00401DE0` (sibling `InitEntity`; region still `asm`) | own source | the two `xor %ecx,%ecx` in front of `mov %esi,%edx; call 0x401de0`. `void __fastcall Entity_Init(void* unused, Entity* entity)` is the right declaration — the body never reads ECX and never writes EDX, so the caller materialises nothing once it is visible. **Not landable today**: the sibling reports 273/273 bytes and 67/67 instructions but 32 differing bytes from `pop` placement, so this dependency cannot be closed yet |
 
 The scheduler functions must be **called** by the cluster's context, not merely
 rooted: with `roots` naming them, LINK keeps their public `__stdcall` shape and
@@ -165,9 +178,17 @@ CachedResource* __fastcall Recovery_LoadCachedResource(int index, void* owner, c
 extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(ScheduleCallback callback);
 extern "C" int __stdcall Scheduler_RegisterPrimary(Scheduler*, SchedulerTask*, int priority);
 extern "C" int __stdcall Scheduler_RegisterSecondary(Scheduler*, SchedulerTask*, int priority);
-extern "C" void __fastcall InitializeEntity_00401de0(void* unused, GameThreadBlock* block);
-extern "C" void __fastcall AnimationObject_ConfigureFromResource_0043e5a0(
-    CachedResource* resource, int index, void* unused_esi, GameThreadBlock* block);
+struct Entity;
+extern "C" void __fastcall Entity_Init_Model(void* unused, Entity* entity);
+// The animation object's landed model declares this class and member; the
+// loader only needs the same names for the call to resolve.
+struct Resource_0043e5a0;
+struct AnimationObject_0043e5a0 {
+    unsigned char pad_000[0x308];
+    Resource_0043e5a0* animation;
+    unsigned char pad_30c[0x3AC - 0x30C];
+    __declspec(noinline) int ConfigureFromResource(Resource_0043e5a0* resource, int index);
+};
 
 struct TextLog_0044b810 {
     char* Append(char* format, ...);
@@ -220,15 +241,15 @@ int GameThread::LoadGameThreadResources_00401110() {
     // for the first player and frame 0x62 for the second.
     CachedResource* resource = this->resource_8994;
     GameThreadBlock* block = &this->blocks[0];
-    InitializeEntity_00401de0(0, block);
+    Entity_Init_Model(0, (Entity*)block);
     block->animation = resource;
-    AnimationObject_ConfigureFromResource_0043e5a0(resource, 0, 0, block);
+    ((AnimationObject_0043e5a0*)block)->ConfigureFromResource((Resource_0043e5a0*)resource, 0);
 
     resource = this->resource_8994;
     block = &this->blocks[1];
-    InitializeEntity_00401de0(0, block);
+    Entity_Init_Model(0, (Entity*)block);
     block->animation = resource;
-    AnimationObject_ConfigureFromResource_0043e5a0(resource, 0x62, 0, block);
+    ((AnimationObject_0043e5a0*)block)->ConfigureFromResource((Resource_0043e5a0*)resource, 0x62);
     return 0;
 }
 #pragma code_seg()
@@ -348,69 +369,104 @@ the full configuration of §1, the 3-source configuration is the same file with
 the five last functions, their sources and the last two gaps removed):
 
 ```json
-{"schema_version": 1, "name": "loader_chain", "source": "src/game/load_game_thread_resources_00401110.cpp",
- "additional_sources": ["src/game/create_game_thread_00401440.cpp", "src/game/game_thread.cpp",
-                        "src/game/scheduler_tasks.cpp", "src/platform/text_log.cpp"],
- "driver": "layout/ltcg/loader_chain_context.cpp",
- "headers": ["include/th10/game/game_thread.hpp", "include/th10/game/scheduler.hpp",
-             "include/th10/platform/thread_sync.hpp"],
- "image_base": "0x00400000",
- "description": "GameThread construction, resource binding and the factory in one native-LTCG link.",
- "functions": [
-  {"name": "GameThread_Construct", "symbol": "??0GameThread@@QAE@XZ", "section": ".text$01thread", "address": "0x00401000", "size": 251, "source": "src/game/game_thread.cpp", "actual_abi": "this in ESI; returns this in EAX; plain RET"},
-  {"name": "LoadGameThreadResources_00401110", "symbol": "?LoadGameThreadResources_00401110@GameThread@@QAEHXZ", "section": ".text$02load", "address": "0x00401110", "size": 326, "source": "src/game/load_game_thread_resources_00401110.cpp", "actual_abi": "thread in EAX; result in EAX; plain RET"},
-  {"name": "CreateGameThread_00401440", "symbol": "?CreateGameThread_00401440@@YGPAUGameThread@@XZ", "section": ".text$04create", "address": "0x00401440", "size": 69, "source": "src/game/create_game_thread_00401440.cpp", "actual_abi": "no arguments; object in EAX; plain RET"},
-  {"name": "Scheduler_RegisterPrimary", "symbol": "_Scheduler_RegisterPrimary@12", "section": ".text$10primary", "address": "0x00449AE0", "size": 131, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"},
-  {"name": "Scheduler_RegisterSecondary", "symbol": "_Scheduler_RegisterSecondary@12", "section": ".text$30secondary", "address": "0x00449B70", "size": 131, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"},
-  {"name": "Scheduler_RemoveLocked", "symbol": "_Scheduler_RemoveLocked@8", "section": ".text$50locked", "address": "0x00449F20", "size": 52, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, scheduler on stack; RET 4"},
-  {"name": "Scheduler_Remove", "symbol": "@Scheduler_Remove@8", "section": ".text$70remove", "address": "0x00449F60", "size": 114, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ECX, scheduler in EDX; plain RET"},
-  {"name": "TextLog_Append", "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ", "section": ".text$85textlog", "address": "0x0044B810", "size": 201, "source": "src/platform/text_log.cpp", "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"}
- ],
- "context": {"symbol": "?CreateGameThreadCompilerContext@@YGHPAUGameThread@@HPAUScheduler@@PAPAUSchedulerTask@@H@Z", "section": ".text$03context", "address": "0x00401270", "size": 124, "description": "Synthetic caller that establishes the observed register conventions; not recovered game code."},
- "gaps": [
-  {"section": ".text$01zgap", "address": "0x004010FB", "size": 21},
-  {"section": ".text$02zgap", "address": "0x00401256", "size": 26},
-  {"section": ".text$03zgap", "address": "0x004012EC", "size": 340},
-  {"section": ".text$04zgap", "address": "0x00401485", "size": 296539},
-  {"section": ".text$40zgap", "address": "0x00449BF3", "size": 813},
-  {"section": ".text$80zgap", "address": "0x00449FD2", "size": 6206}
- ],
- "constants": [], "roots": [],
- "absolute_symbols": [
-  {"symbol": "_data_00491c10", "address": "0x00491C10", "kind": "data"},
-  {"symbol": "_data_00491be4", "address": "0x00491BE4", "kind": "data"},
-  {"symbol": "_data_0046cb80", "address": "0x0046CB80", "kind": "data"},
-  {"symbol": "_data_0046cb5c", "address": "0x0046CB5C", "kind": "data"},
-  {"symbol": "_data_0046cb50", "address": "0x0046CB50", "kind": "data"},
-  {"symbol": "_data_0046cb68", "address": "0x0046CB68", "kind": "data"},
-  {"symbol": "_data_00474f70", "address": "0x00474F70", "kind": "data"},
-  {"symbol": "_callback_004014f0", "address": "0x004014F0", "kind": "data"},
-  {"symbol": "_callback_00401510", "address": "0x00401510", "kind": "data"},
-  {"symbol": "_callback_00401520", "address": "0x00401520", "kind": "data"},
-  {"symbol": "_data_0046cb14", "address": "0x0046CB14", "kind": "data"},
-  {"symbol": "_data_004776e0", "address": "0x004776E0", "kind": "data"},
-  {"symbol": "__fltused", "address": "0x0", "kind": "metadata"},
-  {"symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z", "address": "0x00447280", "kind": "relative_code"},
-  {"symbol": "_SchedulerCallback_Create_00449ed0@4", "address": "0x00449ED0", "kind": "relative_code"},
-  {"symbol": "@InitializeEntity_00401de0@8", "address": "0x00401DE0", "kind": "relative_code"},
-  {"symbol": "@AnimationObject_ConfigureFromResource_0043e5a0@16", "address": "0x0043E5A0", "kind": "relative_code"},
-  {"symbol": "??2@YAPAXI@Z", "address": "0x00452493", "kind": "relative_code"},
-  {"symbol": "_DestroyGameThread_00401260@4", "address": "0x00401260", "kind": "relative_code"},
-  {"symbol": "_Free_004524a1", "address": "0x004524A1", "kind": "relative_code"},
-  {"symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A", "address": "0x00492274", "kind": "data"},
-  {"symbol": "__imp__EnterCriticalSection@4", "address": "0x004660B0", "kind": "data"},
-  {"symbol": "__imp__LeaveCriticalSection@4", "address": "0x004660B4", "kind": "data"},
-  {"symbol": "??3@YAXPAX@Z", "address": "0x004524A1", "kind": "relative_code"},
-  {"symbol": "_data_004922bc", "address": "0x004922BC", "kind": "data"},
-  {"symbol": "_data_0049231f", "address": "0x0049231F", "kind": "data"},
-  {"symbol": "_data_00466280", "address": "0x00466280", "kind": "data"},
-  {"symbol": "_data_0046627c", "address": "0x0046627C", "kind": "data"},
-  {"symbol": "_asm_vsprintf_004524a6", "address": "0x004524A6", "kind": "relative_code"},
-  {"symbol": "__chkstk", "address": "0x00458EC0", "kind": "relative_code"},
-  {"symbol": "___security_cookie", "address": "0x00473660", "kind": "data"},
-  {"symbol": "@__security_check_cookie@4", "address": "0x00458EA5", "kind": "relative_code"}
- ]}
+{
+  "schema_version": 1,
+  "name": "loader_chain",
+  "source": "src/game/load_game_thread_resources_00401110.cpp",
+  "additional_sources": [
+    "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+    "src/game/create_game_thread_00401440.cpp",
+    "src/game/entity.cpp",
+    "src/game/game_thread.cpp",
+    "src/game/scheduler_tasks.cpp",
+    "src/platform/text_log.cpp"
+  ],
+  "driver": "layout/ltcg/loader_chain_context.cpp",
+  "headers": [
+    "include/th10/game/game_thread.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "GameThread construction, resource binding and the factory in one native-LTCG link.",
+  "functions": [
+    {"name": "GameThread_Construct", "symbol": "??0GameThread@@QAE@XZ", "section": ".text$01thread", "address": "0x00401000", "size": 251, "source": "src/game/game_thread.cpp", "actual_abi": "this in ESI; returns this in EAX; plain RET"},
+    {"name": "LoadGameThreadResources_00401110", "symbol": "?LoadGameThreadResources_00401110@GameThread@@QAEHXZ", "section": ".text$02load", "address": "0x00401110", "size": 325, "source": "src/game/load_game_thread_resources_00401110.cpp", "actual_abi": "thread in EAX; result in EAX; plain RET"},
+    {"name": "CreateGameThread_00401440", "symbol": "?CreateGameThread_00401440@@YGPAUGameThread@@XZ", "section": ".text$04create", "address": "0x00401440", "size": 69, "source": "src/game/create_game_thread_00401440.cpp", "actual_abi": "no arguments; object in EAX; plain RET"},
+    {"name": "Entity_Init", "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z", "section": ".text$04zentity", "address": "0x00401DE0", "size": 273, "source": "src/game/entity.cpp", "actual_abi": "entity in EDX; ECX untouched; plain RET"},
+    {"name": "AnimationObject_0043e5a0_ConfigureFromResource", "symbol": "?ConfigureFromResource@AnimationObject_0043e5a0@@QAEHPAUResource_0043e5a0@@H@Z", "section": ".text$06configure", "address": "0x0043E5A0", "size": 356, "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp", "actual_abi": "resource in ECX, object in EAX, index in EDX; result in EAX; plain RET"},
+    {"name": "Scheduler_RegisterPrimary", "symbol": "_Scheduler_RegisterPrimary@12", "section": ".text$10primary", "address": "0x00449AE0", "size": 131, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"},
+    {"name": "Scheduler_RegisterSecondary", "symbol": "_Scheduler_RegisterSecondary@12", "section": ".text$30secondary", "address": "0x00449B70", "size": 131, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"},
+    {"name": "Scheduler_RemoveLocked", "symbol": "_Scheduler_RemoveLocked@8", "section": ".text$50locked", "address": "0x00449F20", "size": 52, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ESI, scheduler on stack; RET 4"},
+    {"name": "Scheduler_Remove", "symbol": "@Scheduler_Remove@8", "section": ".text$70remove", "address": "0x00449F60", "size": 114, "source": "src/game/scheduler_tasks.cpp", "actual_abi": "task in ECX, scheduler in EDX; plain RET"},
+    {"name": "TextLog_Append", "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ", "section": ".text$85textlog", "address": "0x0044B810", "size": 201, "source": "src/platform/text_log.cpp", "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"}
+  ],
+  "context": {"symbol": "?CreateGameThreadCompilerContext@@YGHPAUGameThread@@HPAUScheduler@@PAPAUSchedulerTask@@H@Z", "section": ".text$05context", "address": "0x00401F00", "size": 124, "description": "Synthetic caller that establishes the observed register conventions; not recovered game code."},
+  "gaps": [
+    {"section": ".text$01zgap", "address": "0x004010FB", "size": 21},
+    {"section": ".text$02zgap", "address": "0x00401255", "size": 491},
+    {"section": ".text$04dgap", "address": "0x00401485", "size": 2395},
+    {"section": ".text$04zkgap", "address": "0x00401EF1", "size": 15},
+    {"section": ".text$05zgap", "address": "0x00401F7C", "size": 247332},
+    {"section": ".text$06zgap", "address": "0x0043E704", "size": 46044},
+    {"section": ".text$40zgap", "address": "0x00449BF3", "size": 813},
+    {"section": ".text$80zgap", "address": "0x00449FD2", "size": 6206}
+  ],
+  "constants": [
+    
+  ],
+  "constant_aliases": [
+    {"symbol": "__real@3b800000", "address": "0x00470B7C", "value": 0.00390625}
+  ],
+  "roots": [
+    
+  ],
+  "absolute_symbols": [
+    {"symbol": "_data_00491c10", "address": "0x00491C10", "kind": "data"},
+    {"symbol": "_data_00491be4", "address": "0x00491BE4", "kind": "data"},
+    {"symbol": "_data_0046cb80", "address": "0x0046CB80", "kind": "data"},
+    {"symbol": "_data_0046cb5c", "address": "0x0046CB5C", "kind": "data"},
+    {"symbol": "_data_0046cb50", "address": "0x0046CB50", "kind": "data"},
+    {"symbol": "_data_0046cb68", "address": "0x0046CB68", "kind": "data"},
+    {"symbol": "_data_00474f70", "address": "0x00474F70", "kind": "data"},
+    {"symbol": "_callback_004014f0", "address": "0x004014F0", "kind": "data"},
+    {"symbol": "_callback_00401510", "address": "0x00401510", "kind": "data"},
+    {"symbol": "_callback_00401520", "address": "0x00401520", "kind": "data"},
+    {"symbol": "_data_0046cb14", "address": "0x0046CB14", "kind": "data"},
+    {"symbol": "_data_004776e0", "address": "0x004776E0", "kind": "data"},
+    {"symbol": "__fltused", "address": "0x0", "kind": "metadata"},
+    {"symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z", "address": "0x00447280", "kind": "relative_code"},
+    {"symbol": "_SchedulerCallback_Create_00449ed0@4", "address": "0x00449ED0", "kind": "relative_code"},
+    {"symbol": "@InitializeEntity_00401de0@8", "address": "0x00401DE0", "kind": "relative_code"},
+    {"symbol": "@AnimationObject_ConfigureFromResource_0043e5a0@16", "address": "0x0043E5A0", "kind": "relative_code"},
+    {"symbol": "??2@YAPAXI@Z", "address": "0x00452493", "kind": "relative_code"},
+    {"symbol": "_DestroyGameThread_00401260@4", "address": "0x00401260", "kind": "relative_code"},
+    {"symbol": "_Free_004524a1", "address": "0x004524A1", "kind": "relative_code"},
+    {"symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A", "address": "0x00492274", "kind": "data"},
+    {"symbol": "__imp__EnterCriticalSection@4", "address": "0x004660B0", "kind": "data"},
+    {"symbol": "__imp__LeaveCriticalSection@4", "address": "0x004660B4", "kind": "data"},
+    {"symbol": "??3@YAXPAX@Z", "address": "0x004524A1", "kind": "relative_code"},
+    {"symbol": "_data_004922bc", "address": "0x004922BC", "kind": "data"},
+    {"symbol": "_data_0049231f", "address": "0x0049231F", "kind": "data"},
+    {"symbol": "_data_00466280", "address": "0x00466280", "kind": "data"},
+    {"symbol": "_data_0046627c", "address": "0x0046627C", "kind": "data"},
+    {"symbol": "_asm_vsprintf_004524a6", "address": "0x004524A6", "kind": "relative_code"},
+    {"symbol": "__chkstk", "address": "0x00458EC0", "kind": "relative_code"},
+    {"symbol": "___security_cookie", "address": "0x00473660", "kind": "data"},
+    {"symbol": "@__security_check_cookie@4", "address": "0x00458EA5", "kind": "relative_code"}
+  ]
+}
 ```
+
+The layout above is the plan with the sibling's real 273-byte `0x401DE0`: the
+measured link used a 35-byte throwaway stand-in for that region, which is why
+its scratch link's context address had to be fitted to the emitted sizes; with
+the real body every gap closes on the retail address directly (the section order
+is `01thread`, `02load`, `04create`, `04dgap`→`0x401DE0`, `04zentity`,
+`04zkgap`, `05context` @`0x401F00`, `05zgap`→`0x43E5A0`, `06configure`,
+`06zgap`→`0x449AE0`, then the four scheduler sections, `40zgap`, `80zgap` and
+`85textlog`). Two sections in the *landed* sources have to be renamed for that
+order to be legal — see §7.3.
 
 `layout/ltcg/loader_chain_context.cpp`:
 
@@ -419,7 +475,7 @@ the five last functions, their sources and the last two gaps removed):
 #include "../../src/game/load_game_thread_resources_00401110.cpp"
 #include "th10/game/scheduler.hpp"
 
-#pragma code_seg(".text$03context")
+#pragma code_seg(".text$05context")
 inline void* __cdecl operator new(unsigned int, void* memory) {
     return memory;
 }
@@ -450,40 +506,62 @@ int __stdcall CreateGameThreadCompilerContext(GameThread* threads, int count,
 #pragma code_seg()
 ```
 
-The 3-source configuration uses the same driver without the scheduler loop and
-the 5-argument context (`?CreateGameThreadCompilerContext@@YGHPAUGameThread@@H@Z`,
-emitted 50 bytes at `0x401270`; loader 332 bytes ends `0x40125C` so the gap
-`0x0040125C` is 20 bytes and the trailing gap is 414 bytes).
+The driver's section name has to match the slot its address plan chooses: the
+3-source configuration used `.text$03context` at `0x401270` (emitted 50 bytes,
+loader 332 bytes ending `0x40125C`, so the gap at `0x0040125C` is 20 bytes and
+the trailing gap 414 bytes), while the plan above uses `.text$05context` at
+`0x401F00` because the entity slot sits between the factory and the context.
+Both drivers are otherwise identical apart from the scheduler loop and the
+5-argument context symbol. A synthetic context that merely calls the loader
+directly is not enough — the factory has to be the caller for the result in §1.
 
 ## 7. Integration constraints found while building this
 
-1. **Three clusters have to be dissolved into this one.** `scheduler_tasks.cpp`,
-   `text_log.cpp` and `game_thread.cpp` are each claimed by their own layout and
-   `load_clusters` rejects a source declared twice, so the wave has to replace
-   `layout/ltcg/scheduler_tasks.json`, `layout/ltcg/d3d_text_log_append_0044b810.json`
-   and `layout/ltcg/game_thread.json` with the merged layout
-   (`joystick_probe.cpp` stays where it is; it is not needed here).
+1. **Four clusters have to be dissolved into this one.** `scheduler_tasks.cpp`,
+   `text_log.cpp`, `game_thread.cpp` and
+   `animation_object_configure_from_resource_0043e5a0.cpp` are each claimed by
+   their own layout and `load_clusters` rejects a source declared twice, so the
+   wave has to replace `layout/ltcg/scheduler_tasks.json`,
+   `layout/ltcg/d3d_text_log_append_0044b810.json`, `layout/ltcg/game_thread.json`
+   and `layout/ltcg/anm_object_configure_0043e5a0.json` with the merged layout
+   (`joystick_probe.cpp` stays where it is; it is not needed here). The animation
+   model also carries its float literal as
+   `constant_aliases: [{"symbol": "__real@3b800000", "address": "0x00470B7C", "value": 0.00390625}]`
+   in its own layout, and the merged layout needs that entry (plus `__fltused`),
+   since the compiler pools the literal at a different address for a different
+   translation-unit set.
 2. **`register_cluster.py` cannot register this layout.**
    `its update()` requires every selected function's region to be owned by the
    layout's own `source`, which is false for the five co-compiled regions. Use
    the `promote_clusters.py` path: set the region records (kind `semantic`,
    symbol, source) and append the layout to `ltcg_clusters`, then let
    `load_cluster` validate.
-3. **`text_log.cpp`'s section name must move.** Its `#pragma code_seg` currently
-   says `.text$03textlog`, which sorts before `.text$04create` and would place
-   `0x44B810` in the low 0x4012xx block. All a cluster's section names are
-   laid out in name order, so the text-log section has to sort after
-   `.text$70remove`; the measured build uses `.text$85textlog` (one line in
-   `text_log.cpp`, no byte change), which also means the d3d layout that
-   declares `.text$03textlog` cannot survive beside it.
+3. **Two landed sources' section names must move.** A cluster's sections are
+   laid out in *name* order, and `.text$03textlog` (in `text_log.cpp`) and
+   `.text$01configure` (in the animation source) both sort *before*
+   `0x401440`/`0x401110`, while retail puts them at `0x44B810` and `0x43E5A0`.
+   No gap can repair that. The measured build renames them to `.text$85textlog`
+   and `.text$06configure` (one line each, no byte change in either region), and
+   the two dissolved layouts that declare the old names go with the merge. The
+   same rule is why the loader/factory/entity/context sections are named
+   `01thread`, `02load`, `04create`, `04zentity`, `05context`.
 4. The callback pushes: `0x4014F0` and `0x401510` are landed as a member
    function and a free function respectively, so binding the push to those
    symbols needs the declaration their own sources use, not an invented
    `extern "C"` name (measured byte-identical with the placeholders; the symbol
    names themselves are not observable in the region's bytes, only at final
    link).
-5. `0x00401000` and every co-compiled region stayed EXACT in both merged links,
-   so the header swap and the merges do not disturb their bytes.
+5. `0x00401000` and every co-compiled region that is already landed stayed EXACT
+   in all merged links, so the header swap and the merges do not disturb their
+   bytes.
+6. **`0x401DE0` is the last blocker and it is not landable yet.** The sibling's
+   model is 273/273 bytes and 67/67 instructions with 32 differing bytes (callee
+   -save `pop` placement), so a chain that needs byte-exact `0x401DE0` is still
+   blocked; their note is
+   `recovery_notes/entity_initialize_00401de0_unlock.md`. Its region is also
+   owned by `entity.cpp`, which owns eight regions, so the model has to be
+   carved into its own translation unit before it can join this cluster
+   (`carve_region.py` is the tool the sibling names).
 
 ## 8. Shapes tried
 
@@ -496,14 +574,17 @@ emitted 50 bytes at `0x401270`; loader 332 bytes ends `0x40125C` so the gap
 | native link `{ctor, loader, factory}` | 332 bytes, entry EAX ✓, interior ESI ✗, **factory EXACT** |
 | native link + `scheduler_tasks.cpp` with the four functions **rooted** | rejected: LINK keeps the public `__stdcall` shape, `0x449B70` moved to `0x449B80` |
 | native link + `scheduler_tasks.cpp` + `text_log.cpp`, bodies called by the context | 326 bytes, interior EBX ✓, entry EBX ✗, three scheduler call sites and the `Append` call site byte-identical, all five co-compiled regions EXACT |
+| …+ the landed `0x43E5A0` model, called as its member | 329 bytes, both `ConfigureFromResource` sites snap to retail's `xor edx,edx / mov esi,eax / mov edi,ecx / mov edi,0x308(%esi) / call`, that region EXACT in the merged link |
+| …+ a throwaway stand-in of the sibling's `0x401DE0` shape | **325 bytes**: the two `xor %ecx,%ecx` disappear, the body is retail's 87 instructions with five transposed pairs and one register rename, and the whole residual becomes the 5-byte entry/exit convention |
 
 ## 9. Reproduce
 
 ```bash
 cp -a matching2/msvc /tmp/<id>/msvc
-# scratch only: replace layout/ltcg/{scheduler_tasks,d3d_text_log_append_0044b810,game_thread}.json,
-# set the five merged regions to kind semantic + symbol + source (§7.2), append the merged layout to
-# ltcg_clusters, and rename text_log.cpp's code section to something sorting after .text$70remove (§7.3)
+# scratch only: drop layout/ltcg/{scheduler_tasks,d3d_text_log_append_0044b810,game_thread,
+# anm_object_configure_0043e5a0}.json, set the eight co-compiled regions to kind semantic + symbol +
+# source (§7.2), append the merged layout to ltcg_clusters, and rename the text_log.cpp and animation
+# code sections to .text$85textlog and .text$06configure (§7.3)
 python3 matching2/tools/matching/probe.py --source src/game/load_game_thread_resources_00401110.cpp \
   --project /tmp/<id>/msvc --proposal /tmp/<id>/proposal.json --show 30
 i686-w64-mingw32-objdump -d --no-show-raw-insn --start-address=0x401110 --stop-address=0x40125C \
@@ -522,3 +603,36 @@ Nothing from this run is in the maintained tree: no manifest edit, no layout, no
 source. The scratch copy is `/tmp/LoadGameThreadRes/{msvc,plain/msvc,ltcg}` with
 `run_cluster.py` as the build/compare driver (it re-derives every declared size
 from the link map, which is what makes the gap addresses converge).
+
+## 10. Integration statement
+
+Nothing from this run is in the code tree: the only maintained file this agent
+wrote is this note. No manifest record, layout, header, section pragma or source
+was edited, and no symbol of another agent's region is bound anywhere — the
+merged layout above is measured in a throwaway copy (`/tmp/LoadGameThreadRes`)
+and is a *proposal*, not a registration.
+
+That matters because the merge is a single atomic change and the two landed
+clusters cannot coexist with it:
+
+* `load_clusters` rejects two clusters claiming one maintained source, so
+  `layout/ltcg/anm_object_configure_0043e5a0.json` (owner of
+  `animation_object_configure_from_resource_0043e5a0.cpp`, currently EXACT
+  356/356) and its three siblings have to be dropped from `ltcg_clusters` in the
+  same change that adds the merged layout.
+* those two renamed code sections (`.text$03textlog`, `.text$01configure`)
+  live in maintained sources, and their standalone layouts check the section
+  name of their own contribution, so the rename belongs to whoever drops them.
+* `register_cluster.py --apply` cannot do any of it: it refuses a layout whose
+  selected region is owned by a different source than the layout's own `source`
+  (five of the nine here), so the merge goes through the `promote_clusters.py`
+  path — region records written, layout appended to `ltcg_clusters`, and
+  `load_cluster` left to validate.
+
+The decision is the integration owner's: either this merged cluster replaces
+`anm_object_configure_0043e5a0.json`, `scheduler_tasks.json`,
+`d3d_text_log_append_0044b810.json` and `game_thread.json` (and then owns the two
+pragma renames and the five region records), or those four stay as they are and
+`0x00401110` waits for `0x401DE0` to become registrable. Either way this region
+should not be landed on its own: it is 5 bytes short of exact in every
+configuration measured, and a non-exact layout must never be registered.
