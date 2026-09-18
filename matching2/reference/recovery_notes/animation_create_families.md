@@ -73,3 +73,36 @@ Two facts matter for whoever picks this up:
   before the `mov [eax+304h],cx` store — `1` for `0x00409E50`, `2` for
   `0x0040C480`, and so on — so a single model with one constant parameter covers
   all four members.
+
+## Families B/C/D call shapes: arguments in ESI/EDI, so they need multi-function clusters
+
+Checked after the `0x00449590`/`0x004495E0` pair landed with the fastcall-binding
+trick (declaring a callee `extern "C" __fastcall` and binding its mangled name in
+the layout reproduces retail's ECX/EDX/stack call site exactly). That trick does
+not reach these families. `0x00448D00`, family B:
+
+```
+56            push esi
+8b 35 ..      mov esi,[data_00491c10]
+e8 ..         call FUN_00449950          ; argument is in ESI - not a parameter register
+8b 4c 24 10   mov ecx,[esp+10h]
+8b d8         mov ebx,eax
+...
+51            push ecx
+8b 4c 24 10   mov ecx,[esp+10h]
+81 ce ..      or esi,40000000h
+53            push ebx
+89 43 20      mov [ebx+20h],eax
+89 b3 ..      mov [ebx+35Ch],esi
+e8 ..         call FUN_00449870          ; ECX plus two stack arguments
+...
+8b c7         mov eax,edi                ; the object lives in EDI
+```
+
+Three obstructions, each beyond a single-function source: `FUN_00449950` takes its
+argument in **ESI**, `FUN_00449870` takes **ECX plus two stack arguments** (no
+prototype produces that - `__fastcall` gives ECX/EDX/stack), and the object
+itself is carried in **EDI**. Expressing these therefore needs a *multi-function*
+cluster in which the callees are modelled in the same section so the whole-program
+pass assigns those registers - the `load_archive_file` arrangement - rather than
+the single-function clusters used for the accessors and the flag pair.
