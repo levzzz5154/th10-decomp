@@ -4,6 +4,13 @@
 that compiles to the retail bytes, together with the lookup they call. The two
 bodies differ in one constant (2 against 3), exactly as the brief expected.
 
+Landed as `fc936b3b` (203 bytes of `.text` become semantic). The
+StopAtFrame3 side independently rebuilt the same texts in a fresh copy of the
+maintained tree and probed all five regions exact (`4a8eb97c`). One follow-up
+was needed after the landing: the manual multi-source manifest write left
+`translation_units` stale, which `build_msvc.validate_project` rejects even
+though every probe passes, because `probe.py` never calls it (`b58bfce5`).
+
 ```
 $ python3 matching2/tools/matching/probe.py \
     --source src/render/animation_manager_stop_at_frame2_0040c480.cpp \
@@ -378,8 +385,9 @@ __declspec(noinline) void* __fastcall AnimationManager::Find(
    definition with the comment above it. The lookup's scripts stay byte-identical:
    `SetFlag` reaches it through the existing `_asm_AnimationManager_Find_004491c0`
    binding at `0x004491C0`, which the manifest already carries.
-3. Add the layout and driver; append `layout/ltcg/stop_at_frame_pair_0040c480.json`
-   to `ltcg_clusters`, and set the three regions:
+3. Add the layout `layout/ltcg/stop_at_frame_pair_0040c480.json` and the driver
+   `layout/ltcg/stop_at_frame_pair_0040c480_context.cpp`, append the layout to
+   `ltcg_clusters`, and set the three regions:
 
 ```text
 0x0040C480  source src/render/animation_manager_stop_at_frame2_0040c480.cpp
@@ -391,11 +399,19 @@ __declspec(noinline) void* __fastcall AnimationManager::Find(
             kind semantic
 ```
 
+4. Recompute `translation_units = sorted({region["source"] for region in regions})`
+   in the same write. The registered tools do this themselves
+   (`register_cluster.py`, `promote_clusters.py`, `repair_units.py`); skipping
+   it leaves the build aborting in `build_msvc.validate_project` with
+   "translation unit list disagrees with region ownership" while every per-unit
+   probe still passes, because `probe.py` never calls `validate_project`. It cost
+   a follow-up commit after this landing.
+
 `register_cluster.py` refuses this layout: it compares every function's region
 source with the layout's single `source`, and two of the three functions belong
 to additional sources (the same situation as the registered
 `recovery_select_archive_entry_0043d790` layout). The manifest update therefore
-has to go through the multi-source path.
+has to go through the multi-source path, taking point 4 with it.
 
 Latitude: the two handle types and the two `AnimationHandle`/`AnimationManager`
 declarations are per-file models, so the exact type names only have to agree
