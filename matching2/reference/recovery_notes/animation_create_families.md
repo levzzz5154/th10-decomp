@@ -197,3 +197,29 @@ free function taking the entity in ECX) and then calls `InitializeEntity` at
 `0x00401DE0`, which is still an assembly region. A model therefore needs
 `InitializeEntity` reconstructed as well, or the multi-function cluster has to
 carry it - one more dependency to count before starting that build.
+
+## The dependency chain hits a third register convention
+
+Checking the dependencies before starting the multi-function build turned up a
+further obstacle in the chain: `InitializeEntity` at `0x00401DE0` (273 bytes)
+takes its **entity in EDX** - "every call site is `mov edx,<entity>; call
+0x00401de0` with no other setup", per
+`animation_pool_visibility_boundary_00449950.md`. EDX is a `__fastcall` register,
+but the first argument (ECX) is never initialised, so no prototype reproduces the
+call either.
+
+So the chain carries three different non-standard conventions at once:
+
+| function | convention |
+| --- | --- |
+| `FUN_00449950` (161) | manager in **ESI** |
+| `FUN_00449870` (217) | ECX **plus two stack arguments** |
+| `InitializeEntity` (273) | entity in **EDX**, ECX unset |
+
+and every one of the four `Register*` helpers still needs its own check. A
+multi-function cluster *could* let the whole-program pass assign all of these at
+once - that is the `load_archive_file` arrangement - but it has not been
+demonstrated for ESI/EDX-carried arguments, and the single-function clusters used
+this session never reproduced such a convention. Establishing that capability is
+research, not a bounded edit, so this family stays blocked with the analysis
+recorded rather than half-built.
