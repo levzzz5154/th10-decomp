@@ -75,3 +75,14 @@ int Object_0042a3e0::Test() {
     return 1;
 }
 ```
+
+## Correction: the residual is 55 bytes, not a layout nub
+
+The probe's JSON report measures **55 differing bytes** for the two 68-byte
+shapes (`different_bytes: 55`), not the two implied by "first difference at
+0x42A3E7". Retail jumps forward to a `mov eax,1; ret` at the end of the function
+(`74 35`), while the models lay that return out inline right after the first
+guard (`75 06`) and every subsequent byte shifts. A `goto fail;` spelling
+compiles to **63 bytes** instead, so no tried shape reaches both the extent and
+the layout: the 68-byte shapes have the fail block inline, the 63-byte one has it
+last but drops a materialized `mov eax,1` that retail keeps.
