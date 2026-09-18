@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "particle_seed_combine_00404e10",
+  "source": "src/game/particle_seed.cpp",
+  "driver": "layout/ltcg/particle_seed_combine_00404e10_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Six-float component-wise sum with refreshed random bytes, compiled with native LTCG so the other operand arrives in EAX, the receiver in ECX and the destination in ESI.",
+  "functions": [
+    {
+      "name": "ParticleSeed_Combine",
+      "symbol": "?Combine@ParticleSeed@@QBEPAU1@PBU1@PAU1@@Z",
+      "section": ".text$01seedcombine",
+      "address": "0x00404E10",
+      "size": 92,
+      "actual_abi": "other operand in EAX; receiver in ECX; destination in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?ParticleSeedCombineCompilerContext@@YGHPAPAUParticleSeed@@0PAU1@H@Z",
+    "section": ".text$03context",
+    "address": "0x00404E80",
+    "size": 53,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 15888
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00404E6C",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

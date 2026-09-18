@@ -1612,13 +1612,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ParticleSeed_Combine_00404e10",
+      "name": "semantic_ParticleSeed_Combine_00404e10",
       "source": "src/game/particle_seed.cpp",
-      "symbol": "_asm_ParticleSeed_Combine_00404e10",
+      "symbol": "?Combine@ParticleSeed@@QBEPAU1@PBU1@PAU1@@Z",
       "address": "0x00404E10",
       "size": 92,
-      "kind": "asm",
-      "owner": "0x00404E10"
+      "kind": "semantic",
+      "owner": "0x00404E10",
+      "previous_record": {
+        "name": "asm_ParticleSeed_Combine_00404e10",
+        "source": "src/game/particle_seed.cpp",
+        "symbol": "_asm_ParticleSeed_Combine_00404e10",
+        "address": "0x00404E10",
+        "size": 92,
+        "kind": "asm",
+        "owner": "0x00404E10"
+      }
     },
     {
       "name": "text_padding_00404e6c",
@@ -1782,13 +1791,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_InitializeWordColor_00405040",
+      "name": "semantic_WordColor_00405040_Initialize_00405040",
       "source": "src/game/recovery_initialize_word_color_00405040.cpp",
-      "symbol": "_asm_Recovery_InitializeWordColor_00405040",
+      "symbol": "?Initialize@WordColor_00405040@@QAEPAU1@MMMMMM@Z",
       "address": "0x00405040",
       "size": 94,
-      "kind": "asm",
-      "owner": "0x00405040"
+      "kind": "semantic",
+      "owner": "0x00405040",
+      "previous_record": {
+        "name": "asm_Recovery_InitializeWordColor_00405040",
+        "source": "src/game/recovery_initialize_word_color_00405040.cpp",
+        "symbol": "_asm_Recovery_InitializeWordColor_00405040",
+        "address": "0x00405040",
+        "size": 94,
+        "kind": "asm",
+        "owner": "0x00405040"
+      }
     },
     {
       "name": "text_padding_0040509e",
@@ -1799,13 +1817,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004050a0",
+      "name": "semantic_WordColor_004050a0_UpdateChannels_004050a0",
       "source": "src/unidentified/unassigned_004050a0.cpp",
-      "symbol": "_asm_unassigned_004050a0",
+      "symbol": "?UpdateChannels@WordColor_004050a0@@QAEXXZ",
       "address": "0x004050A0",
       "size": 45,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004050a0",
+        "source": "src/unidentified/unassigned_004050a0.cpp",
+        "symbol": "_asm_unassigned_004050a0",
+        "address": "0x004050A0",
+        "size": 45,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004050cd",
@@ -49036,7 +49063,10 @@
     "layout/ltcg/random_vector_store_rounded_scalar.json",
     "layout/ltcg/matrix_identity_00401f00.json",
     "layout/ltcg/bounds_from_center_004285f0.json",
-    "layout/ltcg/worker_start_0044c1c0.json"
+    "layout/ltcg/worker_start_0044c1c0.json",
+    "layout/ltcg/particle_seed_combine_00404e10.json",
+    "layout/ltcg/word_color_00405040.json",
+    "layout/ltcg/word_color_channels_004050a0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
