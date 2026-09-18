@@ -13752,13 +13752,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041c480_0041c480",
+      "name": "semantic_ScoreRecords_0041c480_AdvanceFrame_0041c480",
       "source": "src/unidentified/FUN_0041c480_0041c480.cpp",
-      "symbol": "_asm_FUN_0041c480_0041c480",
+      "symbol": "?AdvanceFrame@ScoreRecords_0041c480@@QAEHXZ",
       "address": "0x0041C480",
       "size": 91,
-      "kind": "asm",
-      "owner": "0x0041C480"
+      "kind": "semantic",
+      "owner": "0x0041C480",
+      "previous_record": {
+        "name": "asm_FUN_0041c480_0041c480",
+        "source": "src/unidentified/FUN_0041c480_0041c480.cpp",
+        "symbol": "_asm_FUN_0041c480_0041c480",
+        "address": "0x0041C480",
+        "size": 91,
+        "kind": "asm",
+        "owner": "0x0041C480"
+      }
     },
     {
       "name": "text_padding_0041c4db",
@@ -49320,7 +49329,8 @@
     "layout/ltcg/animation_set_active_count_00413790.json",
     "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
     "layout/ltcg/split_resource_path_0041a050.json",
-    "layout/ltcg/ecl_record_reset_0040c730.json"
+    "layout/ltcg/ecl_record_reset_0040c730.json",
+    "layout/ltcg/score_records_advance_frame_0041c480.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

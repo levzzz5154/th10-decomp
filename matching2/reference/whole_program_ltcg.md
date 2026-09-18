@@ -326,6 +326,45 @@ The 17-function batch remains reproducible with separate `/GL` objects and one
 native `/LTCG` link. The whole executable is exact at 462 C++ regions /
 30,826 bytes.
 
+## A callee register no declaration names: layout `anchors`
+
+`0x0041C480` (91 bytes, the score display's per-frame record advance) calls
+`0x0041C330`, which reads its records object from **EDI** — the only register
+its only caller sets, and one no declaration can name: `__fastcall` gives
+ECX/EDX, `__thiscall` gives ECX, `/Gz` stdcall pushes, and an external symbol
+bound absolutely keeps its declared convention because the native pass has no IL
+to re-convention.  Measured on this region, an unmodified callee declaration
+produces 72-79 bytes against retail's 91, with the receiver in EAX/ECX or the
+argument pushed; the declaration-free form loses `mov edi,ecx` and `push edi`
+outright.
+
+The register is reachable only from a body the `/LTCG` pass can see, so schema 1
+now accepts `anchors`: compiled C++ bodies for such callees, selected into the
+native link at the retail address and never exported as recovered code
+(`export_bodies` writes only `functions`).  Each anchor declares `name`,
+`symbol`, `section`, `address` and `size`; the loader requires its symbol and
+section to be distinct from every selected function and the context, includes it
+in the duplicate-symbol and extent-overlap checks, and the validator requires its
+symbol to appear exactly once at the declared address as a complete CODE
+contribution that overlaps no recovered function.  Anchor symbols join the
+`declared` fence, so the check keeps its purpose: still no *undeclared* code.
+Earlier notes proposed a name-fenced `scaffolding` list for the same need
+(`animation_manager_clear_resource_slot_004477d0_cluster.md`,
+`render_stage_select_00405300_wave4.md`); this is the validating form the first
+of them recommends.
+
+Two properties make the mechanism safe.  The anchor's shape, not the caller's,
+decides the register: a body that keeps the pointer live across a loop that calls
+out earns EDI, a body without such a loop puts it in EAX/ESI/EBX, and the
+synthetic context cannot move it.  And because the anchor sits at the retail
+address in the native layout, the modelled region's `call` bakes retail's
+displacement with no binding and no byte patched; the 91 exported bytes of
+`0x0041C480` are byte-identical to retail with nothing masked
+(`sha256 f0cde409e49d51e4…`), and `0x0041C330` itself stays assembly.  Recovery
+note: [`0041c480_wave8.md`](recovery_notes/0041c480_wave8.md).  The remaining
+path to a *second* region there is to recover `0x0041C330` (274 bytes) as an
+ordinary selected function in the same link, which would retire the anchor.
+
 ## Consequence for further recovery
 
 Choose a caller/callee dependency group, put the definitions on both sides of

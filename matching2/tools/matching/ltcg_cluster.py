@@ -15,6 +15,13 @@ binds the compiler's own ``__real@<bits>`` symbol absolutely at the retail
 address instead; the link tolerates the discarded pooled copy and the report
 records that duplicate.  The alias wins the symbol resolution outright, so a
 selected body references the retail address without any byte being patched.
+
+A callee whose parameter register no declaration names (an argument in EDI, for
+instance) can only get that register from a body the /LTCG pass can see, so
+``anchors`` declares such a compiled body: the linker selects it at the retail
+address, the layout's gaps place it there and the modelled caller's call bakes
+the retail displacement.  Anchors are validated like selected functions (symbol,
+address and complete contribution) and are never exported as recovered code.
 """
 
 from __future__ import annotations
@@ -105,7 +112,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     #
     # constant_aliases rebind a compiler-generated float literal to the
     # retail address instead of placing its pooled copy; see the docstring.
-    allowed = required | {'additional_sources', 'roots', 'constant_aliases', 'data_aliases'}
+    allowed = required | {'additional_sources', 'roots', 'constant_aliases', 'data_aliases',
+                          'anchors'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
@@ -214,6 +222,32 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             calls.append(call)
         if len({item['address'] for item in calls}) != len(calls):
             raise LTCGClusterError('duplicate internal call site')
+    # ABI anchors: a compiled C++ body for a callee whose parameter register no
+    # declaration names.  The body is selected into the native /LTCG link (so
+    # the whole-program pass can assign the register) and placed at the retail
+    # address by the layout, but it is never exported as recovered code.
+    anchors = []
+    raw_anchors = spec.get('anchors', [])
+    if not isinstance(raw_anchors, list):
+        raise LTCGClusterError('anchors must be an array')
+    for item in raw_anchors:
+        keys = {'name', 'symbol', 'section', 'address', 'size'}
+        anchor = _fields(item, keys, keys, 'ABI anchor')
+        for key in ('name', 'symbol', 'section'):
+            anchor[key] = _string(anchor[key], 'anchor ' + key)
+        if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', anchor['section']):
+            raise LTCGClusterError('ABI anchors need a dedicated .text$ section')
+        anchor['address'] = _integer(anchor['address'], 'anchor address', minimum=image_base)
+        anchor['size'] = _integer(anchor['size'], 'anchor size', minimum=1)
+        anchors.append(anchor)
+    if len({item['symbol'] for item in anchors}) != len(anchors):
+        raise LTCGClusterError('duplicate ABI anchor symbol')
+    if len({item['section'] for item in anchors}) != len(anchors):
+        raise LTCGClusterError('each ABI anchor needs a distinct complete contribution')
+    taken_symbols = {item['symbol'] for item in functions} | ({context['symbol']} if context else set())
+    taken_sections = {item['section'] for item in functions} | ({context['section']} if context else set())
+    if any(item['symbol'] in taken_symbols or item['section'] in taken_sections for item in anchors):
+        raise LTCGClusterError('an ABI anchor must be distinct from the selected functions and context')
     contexts = [context] if context else []
     gaps = []
     if not isinstance(spec['gaps'], list):
@@ -230,7 +264,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('layout gap exceeds the supported image')
         gap['symbol'] = f'_ltcg_gap_{index}'
         gaps.append(gap)
-    code_sections = [item['section'] for item in functions + contexts]
+    code_sections = [item['section'] for item in functions + contexts + anchors]
     if len(set(code_sections + [item['section'] for item in gaps])) != len(code_sections) + len(gaps):
         raise LTCGClusterError('layout gaps overlap selected/context section ownership')
     constants = []
@@ -307,10 +341,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Native LINK 7.10 applies the image base to absolute REL32 targets.
         symbol['coff_value'] = symbol['address'] - image_base if symbol['kind'] == 'relative_code' else symbol['address']
         absolute.append(symbol)
-    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + data_aliases + absolute + contexts]
+    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + data_aliases + absolute + contexts + anchors]
     if len(set(all_symbols)) != len(all_symbols):
         raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
-    range_items = functions + gaps + constants + aliases + contexts
+    range_items = functions + gaps + constants + aliases + contexts + anchors
     ranges = sorted((item['address'], item['address'] + item['size']) for item in range_items)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
@@ -332,6 +366,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'constant_aliases': aliases,
             'data_aliases': data_aliases,
+            'anchors': anchors,
             'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
             'roots': roots,
             'regions': [dict(region) for region in owned]}
@@ -517,7 +552,21 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         encoded = struct.pack('<I', alias['address'])
         if not any(encoded in item['body'] for item in function_reports):
             raise LTCGClusterError('data alias is not referenced by any selected body: ' + alias['symbol'])
+    for anchor in spec.get('anchors', []):
+        matches = [symbol for symbol in link_map.symbols if symbol.name == anchor['symbol']]
+        if len(matches) != 1 or matches[0].address != anchor['address'] or 'f' not in matches[0].flags:
+            raise LTCGClusterError('native ABI anchor address/origin differs: ' + anchor['symbol'])
+        contributions = [item for item in link_map.contributions if item.name == anchor['section']]
+        if (len(contributions) != 1 or contributions[0].section_class != 'CODE'
+                or contributions[0].segment != matches[0].segment
+                or contributions[0].start != matches[0].offset
+                or contributions[0].length != anchor['size']):
+            raise LTCGClusterError('ABI anchor is not its entire declared compiler contribution: '
+                                   + anchor['symbol'])
+        if any(matches[0].address == int(item['address'], 0) for item in function_reports):
+            raise LTCGClusterError('ABI anchor overlaps a selected recovered function: ' + anchor['symbol'])
     declared = {item['symbol'] for item in spec['functions']}
+    declared |= {item['symbol'] for item in spec.get('anchors', [])}
     if spec['context']:
         context_symbol = spec['context']['symbol']
         declared |= {context_symbol, '_' + context_symbol}
