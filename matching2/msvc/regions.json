@@ -14403,13 +14403,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ReleasePair_0041f930",
+      "name": "semantic_Recovery_ReleasePair_0041f930",
       "source": "src/game/recovery_release_pair_0041f930.cpp",
-      "symbol": "_asm_Recovery_ReleasePair_0041f930",
+      "symbol": "_ReleasePair_0041f930",
       "address": "0x0041F930",
       "size": 91,
-      "kind": "asm",
-      "owner": "0x0041F930"
+      "kind": "semantic",
+      "owner": "0x0041F930",
+      "previous_record": {
+        "name": "asm_Recovery_ReleasePair_0041f930",
+        "source": "src/game/recovery_release_pair_0041f930.cpp",
+        "symbol": "_asm_Recovery_ReleasePair_0041f930",
+        "address": "0x0041F930",
+        "size": 91,
+        "kind": "asm",
+        "owner": "0x0041F930"
+      }
     },
     {
       "name": "text_padding_0041f98b",

@@ -63,7 +63,7 @@ def _map_offset(build_dir, section):
     maps = sorted(build_dir.glob('**/cluster.map'))
     if not maps:
         return None
-    match = re.search(r'([0-9A-F]{8})H\s+' + re.escape(section) + r'\b', maps[-1].read_text())
+    match = re.search(r'([0-9A-Fa-f]{8})H\s+' + re.escape(section) + r'\b', maps[-1].read_text())
     return int(match.group(1), 16) if match else None
 
 
@@ -71,7 +71,7 @@ def _map_section(build_dir, section):
     maps = sorted(build_dir.glob('**/cluster.map'))
     if not maps:
         return None
-    match = re.search(r'([0-9A-F]{8})H\s+' + re.escape(section) + r'\b', maps[-1].read_text())
+    match = re.search(r'([0-9A-Fa-f]{8})H\s+' + re.escape(section) + r'\b', maps[-1].read_text())
     return int(match.group(1), 16) if match else None
 
 

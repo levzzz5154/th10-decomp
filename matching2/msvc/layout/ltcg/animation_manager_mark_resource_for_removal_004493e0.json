@@ -41,13 +41,22 @@
       "address": "0x004493E0",
       "size": 92,
       "actual_abi": "animation manager in EAX; retired resource in EDX; plain RET"
+    },
+    {
+      "name": "Recovery_ReleasePair_0041f930",
+      "symbol": "_ReleasePair_0041f930",
+      "section": ".text$03pair",
+      "address": "0x0041F930",
+      "size": 91,
+      "actual_abi": "no entry register; plain RET with EAX = 0",
+      "source": "src/game/recovery_release_pair_0041f930.cpp"
     }
   ],
   "context": {
     "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@PAPAUAnimationResource_00447810@@PAUAnimationManager_004477d0@@HH@Z",
     "section": ".text$30context",
     "address": "0x00449480",
-    "size": 101,
+    "size": 106,
     "description": "Synthetic array-walking caller; not recovered game code."
   },
   "gaps": [
@@ -59,7 +68,12 @@
     {
       "section": ".text$02layout",
       "address": "0x00405EFD",
-      "size": 268499
+      "size": 105011
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0041F98B",
+      "size": 163397
     },
     {
       "section": ".text$09layout",
@@ -99,6 +113,7 @@
   "additional_sources": [
     "src/game/bullet_pool_reset_retail_00405ed0.cpp",
     "src/render/fun_00447810_00447810.cpp",
-    "src/render/animation_manager_clear_resource_slot_004477d0.cpp"
+    "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
+    "src/game/recovery_release_pair_0041f930.cpp"
   ]
 }

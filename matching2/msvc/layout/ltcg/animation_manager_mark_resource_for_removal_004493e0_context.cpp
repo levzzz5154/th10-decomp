@@ -25,6 +25,8 @@ struct AnimationManager_004477d0 {
     __declspec(noinline) void ClearResourceSlot(int index);
 };
 
+extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930();
+
 #pragma code_seg(".text$30context")
 int __stdcall AnimationManagerHelperCompilerContext(BulletPool** pools,
                                                     AnimationResource_00447810** records,
@@ -42,6 +44,7 @@ int __stdcall AnimationManagerHelperCompilerContext(BulletPool** pools,
         manager->ClearResourceSlot(index);
         index++;
     }
+    index += ReleasePair_0041f930();
     return index;
 }
 #pragma code_seg()
