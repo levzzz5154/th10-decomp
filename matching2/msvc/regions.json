@@ -2184,13 +2184,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405300_00405300",
+      "name": "semantic_RenderStageState_00405300_SelectDefaultStage_00405300",
       "source": "src/game/fun_00405300_00405300.cpp",
-      "symbol": "_asm_FUN_00405300_00405300",
+      "symbol": "?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z",
       "address": "0x00405300",
       "size": 60,
-      "kind": "asm",
-      "owner": "0x00405300"
+      "kind": "semantic",
+      "owner": "0x00405300",
+      "previous_record": {
+        "name": "asm_FUN_00405300_00405300",
+        "source": "src/game/fun_00405300_00405300.cpp",
+        "symbol": "_asm_FUN_00405300_00405300",
+        "address": "0x00405300",
+        "size": 60,
+        "kind": "asm",
+        "owner": "0x00405300"
+      }
     },
     {
       "name": "text_padding_0040533c",
@@ -49330,7 +49339,8 @@
     "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
     "layout/ltcg/split_resource_path_0041a050.json",
     "layout/ltcg/ecl_record_reset_0040c730.json",
-    "layout/ltcg/score_records_advance_frame_0041c480.json"
+    "layout/ltcg/score_records_advance_frame_0041c480.json",
+    "layout/ltcg/render_stage_select_00405300.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

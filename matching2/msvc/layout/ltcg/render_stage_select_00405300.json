@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "render_stage_select_00405300",
+  "source": "src/game/fun_00405300_00405300.cpp",
+  "driver": "layout/ltcg/render_stage_select_00405300_context.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/render/camera_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "RenderStageState_00405300::SelectDefaultStage compiled with native LTCG so the state arrives in ESI, the index in EBX and the camera-default call in EDI. The .text$03camera section is an ABI anchor for the assembly region at 0x00421480: its body is selected into the native link so the whole-program pass can give the callee EDI, and it is never exported as recovered code.",
+  "functions": [
+    {
+      "name": "RenderStageState_00405300_SelectDefaultStage",
+      "symbol": "?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z",
+      "section": ".text$01select",
+      "address": "0x00405300",
+      "size": 60,
+      "actual_abi": "state in ESI; index in EBX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?RenderStageSelectCompilerContext@@YGHH@Z",
+    "section": ".text$05context",
+    "address": "0x004214F0",
+    "size": 48,
+    "description": "Synthetic caller that materialises the state object's link-time address and a literal index, the shape retail's only call site at 0x00402AEC uses; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 17152
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040533C",
+      "size": 115012
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0042149F",
+      "size": 81
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Camera_ApplyRetail_00421480_abi_anchor",
+      "symbol": "_asm_Camera_ApplyRetail_00421480",
+      "section": ".text$03camera",
+      "address": "0x00421480",
+      "size": 31
+    }
+  ]
+}

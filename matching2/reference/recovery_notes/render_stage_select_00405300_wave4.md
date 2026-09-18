@@ -1,14 +1,18 @@
-# 0x00405300 — `RenderStageState_00405300::SelectDefaultStage`, EXACT with one loader allowance
+# 0x00405300 — `RenderStageState_00405300::SelectDefaultStage`, EXACT, landed
 
 2026-09-19. Region `0x00405300` (60 bytes, `asm_FUN_00405300_00405300`,
-`src/game/fun_00405300_00405300.cpp`) is modelled as the render-stage selector
-that reapplies the **default** camera. The emitted body is **byte-identical to
-retail (60/60, 0 differing bytes)** and the maintained probe prints `EXACT`,
-but only after the two-line `scaffolding` allowance in
-`matching2/tools/matching/ltcg_cluster.py` that
-`animation_manager_clear_resource_slot_004477d0_cluster.md` already recommended:
-the cluster needs two support functions (the compiler context and the ABI anchor
-for the callee), and the loader currently admits only the context.
+`src/game/fun_00405300_00405300.cpp`) is recovered as the render-stage selector
+that reapplies the **default** camera. It is registered
+(`layout/ltcg/render_stage_select_00405300.json`) and probes **EXACT** on the
+maintained tree: 60 bytes emitted, 0 differing bytes, including the baked
+`e8 65 c1 01 00`.
+
+The cluster needs one function beyond the region and the compiler context: an
+**ABI anchor** for the callee `0x00421480`, whose record register EDI no
+declaration can name. That allowance is now part of the loader (commit
+`6fc3a071`, the `anchors` field) - it was recommended first by
+`animation_manager_clear_resource_slot_004477d0_cluster.md` and landed with
+`0x0041C480`; this layout uses it the same way.
 
 This region is the **twin of the already landed `0x00401D20`**
 (`RenderStageState::SelectStage`, `render_stage_select_00401d20_wave4.md`): same
@@ -179,7 +183,7 @@ anchor byte reaches the image.
     "include/th10/render/camera_batch.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "RenderStageState_00405300::SelectDefaultStage compiled with native LTCG so the state arrives in ESI, the index in EBX and the camera-default call in EDI. The .text$03camera section is an ABI anchor for the assembly region at 0x00421480 whose bytes are never selected; it is declared through the layout's scaffolding list.",
+  "description": "RenderStageState_00405300::SelectDefaultStage compiled with native LTCG so the state arrives in ESI, the index in EBX and the camera-default call in EDI. The .text$03camera section is an ABI anchor for the assembly region at 0x00421480: its body is selected into the native link so the whole-program pass can give the callee EDI, and it is never exported as recovered code.",
   "functions": [
     {
       "name": "RenderStageState_00405300_SelectDefaultStage",
@@ -208,7 +212,15 @@ anchor byte reaches the image.
     { "symbol": "_entry_free_004524a1", "address": "0x004524A1", "kind": "relative_code" },
     { "symbol": "_data_00491c28", "address": "0x00491C28", "kind": "data" }
   ],
-  "scaffolding": ["_asm_Camera_ApplyRetail_00421480"]
+  "anchors": [
+    {
+      "name": "Camera_ApplyRetail_00421480_abi_anchor",
+      "symbol": "_asm_Camera_ApplyRetail_00421480",
+      "section": ".text$03camera",
+      "address": "0x00421480",
+      "size": 31
+    }
+  ]
 }
 ```
 
@@ -225,71 +237,47 @@ follows it. The link map reads:
 0001:000204f0       ?RenderStageSelectCompilerContext@@YGHH@Z 004214f0 f   cluster.obj
 ```
 
-## The loader allowance (the only blocker)
+## Why an ABI anchor, and what it cost before the loader supported it
 
 A native /LTCG link assigns a private register convention only to functions whose
 IL it can see, and **no declaration names EDI**: `__fastcall` gives ECX/EDX,
 `__thiscall` ECX, `/Gz` stdcall puts arguments on the stack, and an external
 symbol that is bound absolutely (declaration only, no IL) is always compiled with
-its declared convention. Measured here: with the callee declared and bound
-absolutely but **not defined** in the cluster, the body is 62 bytes with the
-record in EAX, the index in EDI and the argument **pushed** — the full delta is
-below. The region can therefore only be reproduced by a callee whose body is in
-the same link, and `validate_native_output` fences that link to the selected
-functions plus the compiler context:
+its declared convention. Measured: with the callee declared and bound absolutely
+but **not defined** in the cluster, the body is 62 bytes with the record in EAX,
+the index in EDI and the argument **pushed** — the full delta is in *Shapes
+tried*. The region can therefore only be reproduced by a callee whose body is in
+the same link.
 
-```python
-declared = {item['symbol'] for item in spec['functions']}
-if spec['context']:
-    context_symbol = spec['context']['symbol']
-    declared |= {context_symbol, '_' + context_symbol}
-if any('f' in symbol.flags and symbol.segment and symbol.name not in declared for symbol in link_map.symbols):
-    raise LTCGClusterError('native compiler emitted an undeclared function')
-```
+Before commit `6fc3a071` that was impossible: `validate_native_output` fenced the
+link to the selected functions plus the compiler context, so the anchor was
+rejected with `native compiler emitted an undeclared function`, and the layout
+itself was refused by `load_cluster` (`cluster manifest has missing or unknown
+fields`). The landing therefore waited on the loader allowance, which the
+0x004477D0 note had already recommended and which the wave-8 agent implemented as
+the `anchors` field: an anchor is validated like a selected function (symbol,
+address, and its entire compiler contribution length), is excluded from
+`export_bodies`, and is the only way to name a register no declaration can.
 
-The two-line allowance (already recommended by the 0x004477D0 note, which needed
-the same function and instead recovered its callee) is exactly:
-
-```python
-# load_cluster(): admit the declared anchor symbols
-    allowed = required | {'additional_sources', 'roots', 'constant_aliases', 'data_aliases',
-                          'scaffolding'}
-
-# validate_native_output(): the layout, not the name fence, declares the anchor
-        declared |= {str(item) for item in spec.get('scaffolding', [])}
-```
-
-With that allowance the maintained probe reports, in the sandbox copy
-(`/tmp/RenderStageLeaf`, tools copied to `/tmp/RenderStageLeaf/matching2/tools`
-and patched with those two lines):
+## Landed result
 
 ```
+$ python3 matching2/tools/waves/register_cluster.py --project .../matching2/msvc \
+      --layout layout/ltcg/render_stage_select_00405300.json --apply
+registered semantic_RenderStageState_00405300_SelectDefaultStage_00405300 as ?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z
+ltcg_clusters: 258 entries
+
 $ python3 matching2/tools/matching/probe.py --source src/game/fun_00405300_00405300.cpp \
-      --project /tmp/RenderStageLeaf/msvc --output /tmp/RenderStageLeaf/out4 --show 30
+      --project .../matching2/msvc --output /tmp/RenderStageLeaf/probe_maintained --show 30
 0x00405300      60 bytes  ?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z  EXACT
 EXACT
 ```
 
-Against the unpatched loader the same layout is refused, before anything is
-built or written:
-
-```
-$ python3 matching2/tools/waves/register_cluster.py --project /tmp/RenderStageLeaf/msvc \
-      --layout layout/ltcg/render_stage_select_00405300.json --apply
-refused: layout rejected by the loader: cluster manifest has missing or unknown fields
-```
-
-Dropping the `scaffolding` line and re-probing with the maintained tools (so the
-loader accepts the layout) shows the anchor is then the only difference left —
-the same failure the 0x004477D0 note recorded:
-
-```
-$ python3 matching2/tools/matching/probe.py --source src/game/fun_00405300_00405300.cpp \
-      --project /tmp/RenderStageLeaf/msvc --output /tmp/RenderStageLeaf/out9 --show 30
-src/game/fun_00405300_00405300.cpp: FAILED TO COMPILE
-native compiler emitted an undeclared function
-NOT EXACT
-```
+The manifest's `symbols` entry `_asm_FUN_00405300_00405300` stays, so the
+assembly caller at `0x00402AEC` (`src/game/game_state.cpp`) keeps resolving to
+`0x00405300`. `roots` is empty: rooting the function would pin its declared
+`__thiscall` ABI and bring the state back in ECX (the twin's landing measured
+that).
 
 ## Shapes tried
 
@@ -366,23 +354,13 @@ different_bytes: 0
 
 Re-probed twice from fresh build directories: identical, `EXACT`.
 
-## Integration options
+## Follow-up: the same region without an anchor
 
-1. **Adopt the allowance** (`scaffolding`, two lines) and register
-   `layout/ltcg/render_stage_select_00405300.json`. It is a standalone cluster
-   with its own driver, so no landed cluster is touched: `register_cluster.py
-   --apply` maps the region to `?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z`
-   and adds the layout to `ltcg_clusters`; the manifest's `symbols` entry
-   `_asm_FUN_00405300_00405300` stays, so the asm caller at 0x00402AEC keeps
-   resolving. `roots` must stay empty — the twin's landing measured that rooting
-   the function pins its declared `__thiscall` ABI and brings the state back in
-   ECX.
-2. **Recover `0x00421480` first** (287 bytes) and then land this region the way
-   `0x00401D20` landed: as an `additional_sources` / one more `functions` entry
-   in the camera cluster (`anm_batch_flush_00442f50`, or wherever `0x00421480`
-   ends up). The driver's anchor then disappears and the source's callee becomes
-   the modelled member. Nothing else in this model changes. That callee is a
-   *real* recovery target, not a shape tweak - see the measurements below.
+**Recover `0x00421480`** (287 bytes) and this region can join the camera cluster
+(`anm_batch_flush_00442f50`, or wherever `0x00421480` ends up) as a second source
+the way `0x00401D20` did: the driver's anchor then disappears and the source's
+callee becomes the modelled member, with nothing else changing. That callee is a
+*real* recovery target, not a shape tweak - see the measurements below.
 
 ### How far `0x00421480` actually is (measured 2026-09-19)
 
@@ -407,22 +385,16 @@ constant (`fld [0x470b0c]; fmul st,st(1)` where retail has
 bytes higher, which moves the whole tail. Reproducing retail needs the x87
 schedule of that block, not another ABI experiment.
 
-The maintained tree was not touched except for this note; every artifact below
-lives in `/tmp/RenderStageLeaf/msvc`.
+## Artifacts (all in the maintained tree, registered)
 
-## Artifacts
-
-* `src/game/fun_00405300_00405300.cpp`
-  sha256 `8945bff799acd508534bcc1d5ba103cc2a7cd23cd0dc05366937d03a5126343b`
-* `layout/ltcg/render_stage_select_00405300_context.cpp`
-  sha256 `c63b20e2492d572968b8c6062b83173d9c89af8485851c74f234d54c8e478b14`
-* `layout/ltcg/render_stage_select_00405300.json`
-  sha256 `e91e55e4636f5729386ef5e5e26279370df590a5c053800d55cc96f347fc9345`
-* driver script and byte comparison: `/tmp/RenderStageLeaf/verify.py`
-  (`python3 verify.py landed` prints the emitted and retail bytes)
-* patched tools copy for the probe: `/tmp/RenderStageLeaf/matching2/tools`
-  (two lines added to `ltcg_cluster.py`, diff in *The loader allowance* above)
+* `matching2/msvc/src/game/fun_00405300_00405300.cpp`
+* `matching2/msvc/layout/ltcg/render_stage_select_00405300_context.cpp`
+* `matching2/msvc/layout/ltcg/render_stage_select_00405300.json`
+  (in `ltcg_clusters`; region `0x00405300` is `semantic`)
+* exploration copies: `/tmp/RenderStageLeaf/msvc` (same three files) with
+  `/tmp/RenderStageLeaf/verify.py` printing the emitted and retail bytes
+  (`python3 verify.py landed`)
 * camera-default harness for the `0x00421480` measurements:
   `/tmp/RenderStageLeaf/camverify.py` over the camera-lab project copied to
   `/tmp/RenderStageLeaf/cam/msvc` (candidates in `/tmp/RenderStageLeaf/variants/`,
-  disassembled comparisons in `/tmp/RenderStageLeaf/{cau,caa,...}_got.bin`)
+  disassembled comparisons in `/tmp/RenderStageLeaf/{cau,cdt,...}_got.bin`)
