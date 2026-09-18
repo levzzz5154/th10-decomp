@@ -7,8 +7,8 @@ retail (60/60, 0 differing bytes)** and the maintained probe prints `EXACT`,
 but only after the two-line `scaffolding` allowance in
 `matching2/tools/matching/ltcg_cluster.py` that
 `animation_manager_clear_resource_slot_004477d0_cluster.md` already recommended:
-the cluster needs one function beyond the region (the compiler context), and
-the cluster loader currently admits exactly one.
+the cluster needs two support functions (the compiler context and the ABI anchor
+for the callee), and the loader currently admits only the context.
 
 This region is the **twin of the already landed `0x00401D20`**
 (`RenderStageState::SelectStage`, `render_stage_select_00401d20_wave4.md`): same
@@ -158,8 +158,9 @@ int __stdcall RenderStageSelectCompilerContext(int count) {
 ```
 
 The anchor's own emitted body reads its record from **EDI**
-(`mov eax,[edi+esi*4]`, `mov [edi],0`), which is what pushes the region's record
-into EDI and leaves ESI for the state. Its symbol is the maintained assembly
+(`mov eax,[edi+esi*4]`, `mov [edi],0`), and with this anchor shape the region's
+record lands in EDI and the state in ESI (measured; other anchor shapes move the
+record to ESI/EBX/EAX, see *Shapes tried*). Its symbol is the maintained assembly
 symbol `_asm_Camera_ApplyRetail_00421480`, laid out at the retail address by the
 layout gaps, so the region's `call` bakes retail's `e8 65 c1 01 00` with no
 binding and no byte patched. `export_bodies` writes only `functions`, so no
@@ -278,6 +279,18 @@ $ python3 matching2/tools/waves/register_cluster.py --project /tmp/RenderStageLe
 refused: layout rejected by the loader: cluster manifest has missing or unknown fields
 ```
 
+Dropping the `scaffolding` line and re-probing with the maintained tools (so the
+loader accepts the layout) shows the anchor is then the only difference left —
+the same failure the 0x004477D0 note recorded:
+
+```
+$ python3 matching2/tools/matching/probe.py --source src/game/fun_00405300_00405300.cpp \
+      --project /tmp/RenderStageLeaf/msvc --output /tmp/RenderStageLeaf/out9 --show 30
+src/game/fun_00405300_00405300.cpp: FAILED TO COMPILE
+native compiler emitted an undeclared function
+NOT EXACT
+```
+
 ## Shapes tried
 
 Every row is a measured cluster build (native /LTCG, wine MSVC 13.10.6030); the
@@ -361,8 +374,9 @@ Re-probed twice from fresh build directories: identical, `EXACT`.
    --apply` maps the region to `?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z`
    and adds the layout to `ltcg_clusters`; the manifest's `symbols` entry
    `_asm_FUN_00405300_00405300` stays, so the asm caller at 0x00402AEC keeps
-   resolving. `roots` must stay empty — rooting the function would pin its
-   declared `__thiscall` ABI and bring the state back in ECX.
+   resolving. `roots` must stay empty — the twin's landing measured that rooting
+   the function pins its declared `__thiscall` ABI and brings the state back in
+   ECX.
 2. **Recover `0x00421480` first** (287 bytes; the camera-lab models in
    `matching2/build/recovery-lab/prepare_camera_default.py` reached 291/292 with
    the correct 44-byte frame) and then land this region the way `0x00401D20`
