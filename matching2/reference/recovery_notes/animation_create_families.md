@@ -141,3 +141,9 @@ edx,[data_00491C10]` → `push ecx` → `call Find`) found three more regions.
 - `0x004496A0` (34 bytes): two stack parameters forwarded to the same callee; the
   cluster emits 36 bytes with 13 differing - the entry convention for a
   two-stack-argument member differs.
+
+A third spelling for `0x004496D0` - copying the stack argument into a local
+before the call so its load precedes the field load - leaves the emitted order
+unchanged (11 differing bytes, first at 0x13). The two independent loads are
+ordered by the compiler, and neither the argument order nor a named local moves
+them; the region stands at retail's exact 36 bytes with that ordering residual.
