@@ -156,7 +156,17 @@ int Object_00445880::Run() {
 
 with `Issue` declared as a member (ECX plus two stack arguments, callee-popped -
 exactly retail's setup) and bound as `relative_code` to `0x004450E0`. The model
-emits **23 bytes against retail's 25**; the two missing bytes are retail's opening
-`mov eax,ecx`, which copies `this` before the first use - a named-self spelling
-does not produce it. Everything else - the push order, the manager load, the
-`xor eax,eax; ret` tail - matches.
+emits **23 bytes against retail's 25**, and the byte comparison shows the entire
+difference is retail's opening `mov eax,ecx`:
+
+```
+mine: 8b 88 58 03 00 00 6a 21 51 8b 0d 10 1c 49 00 e8 .. 33 c0 c3
+want: 8b c1 8b 88 58 03 00 00 6a 21 51 8b 0d 10 1c 49 00 e8 .. 33 c0 c3
+```
+
+Every other instruction - the field load, the two pushes in retail's order, the
+manager load, the call and the `xor eax,eax; ret` tail - is already identical, so
+the region is one instruction from landing. The copy exists so that ECX is free
+for the field load; a named-self spelling does not produce it, and a
+local-value or named-manager split was attempted and did not compile in the
+throwaway driver.
