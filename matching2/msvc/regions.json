@@ -8684,13 +8684,22 @@
       "owner": "0x00412A00"
     },
     {
-      "name": "asm_ECL_ResolveIntDestination_00412a10",
+      "name": "semantic_EclInterpreter_ResolveIntDestination_00412a10",
       "source": "src/script/ecl_resolve_int_destination_00412a10.cpp",
-      "symbol": "_asm_ECL_ResolveIntDestination_00412a10",
+      "symbol": "?ResolveIntDestination@EclInterpreter_00412a10@@QAEPAHH@Z",
       "address": "0x00412A10",
       "size": 75,
-      "kind": "asm",
-      "owner": "0x00412A10"
+      "kind": "semantic",
+      "owner": "0x00412A10",
+      "previous_record": {
+        "name": "asm_ECL_ResolveIntDestination_00412a10",
+        "source": "src/script/ecl_resolve_int_destination_00412a10.cpp",
+        "symbol": "_asm_ECL_ResolveIntDestination_00412a10",
+        "address": "0x00412A10",
+        "size": 75,
+        "kind": "asm",
+        "owner": "0x00412A10"
+      }
     },
     {
       "name": "text_padding_00412a5b",
@@ -49215,7 +49224,8 @@
     "layout/ltcg/bullet_manager_load_scripts_0040ae70.json",
     "layout/ltcg/recovery_tick_state_0040bd20.json",
     "layout/ltcg/stop_at_frame_pair_0040c480.json",
-    "layout/ltcg/recovery_clear_eight_buckets_00419040.json"
+    "layout/ltcg/recovery_clear_eight_buckets_00419040.json",
+    "layout/ltcg/ecl_resolve_int_destination_00412a10.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
