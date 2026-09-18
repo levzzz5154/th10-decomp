@@ -377,13 +377,35 @@ Re-probed twice from fresh build directories: identical, `EXACT`.
    resolving. `roots` must stay empty — the twin's landing measured that rooting
    the function pins its declared `__thiscall` ABI and brings the state back in
    ECX.
-2. **Recover `0x00421480` first** (287 bytes; the camera-lab models in
-   `matching2/build/recovery-lab/prepare_camera_default.py` reached 291/292 with
-   the correct 44-byte frame) and then land this region the way `0x00401D20`
-   landed: as an `additional_sources` / one more `functions` entry in the camera
-   cluster (`anm_batch_flush_00442f50`, or wherever `0x00421480` ends up). The
-   driver's anchor then disappears and the source's callee becomes the modelled
-   member. Nothing else in this model changes.
+2. **Recover `0x00421480` first** (287 bytes) and then land this region the way
+   `0x00401D20` landed: as an `additional_sources` / one more `functions` entry
+   in the camera cluster (`anm_batch_flush_00442f50`, or wherever `0x00421480`
+   ends up). The driver's anchor then disappears and the source's callee becomes
+   the modelled member. Nothing else in this model changes. That callee is a
+   *real* recovery target, not a shape tweak - see the measurements below.
+
+### How far `0x00421480` actually is (measured 2026-09-19)
+
+The camera-lab models are extents of 291/292 bytes, but the *byte* comparison at
+`0x00421480` is nowhere near one byte:
+
+| model | emitted | differing (of 287) |
+| --- | ---: | ---: |
+| `matching2/build/camera-lab/default1` .. `default6` | 300, 298, 329, 329, 291, 292 | 225, 204, 228, 228, 233, 197 |
+| 10 further shapes: float-statement order (width/half-width/height/half-height/aspect, width/height first, aspect first, halves inline as `(float)width * 0.5f`, aspect from the fields) crossed with the vector-declaration order (up/target/eye and target/eye/up) | 291-300 | 196-233, best 196 |
+| the shape left in `matching2/build/camera-lab/project` | 292 | 196 |
+
+The prologue, the `Flush` call and the two `(float)(unsigned)` conversions match
+retail instruction for instruction; the divergence starts at the aspect
+division. Retail divides immediately (`fld [esp+0x8]` + `fdiv [esp+0xc]`, the
+quotient replacing the height slot) and keeps both halves in x87 registers, so
+its frame is two float slots plus three vectors = `0x2C`. Every model built so
+far either spills the aspect (three float slots, frame `0x30`, division
+recomputed at the `CameraPerspective` call) or multiplies through a loaded
+constant (`fld [0x470b0c]; fmul st,st(1)` where retail has
+`fmul DWORD PTR ds:0x470b0c`), and in both cases the eye/target stores land 4
+bytes higher, which moves the whole tail. Reproducing retail needs the x87
+schedule of that block, not another ABI experiment.
 
 The maintained tree was not touched except for this note; every artifact below
 lives in `/tmp/RenderStageLeaf/msvc`.
@@ -400,3 +422,7 @@ lives in `/tmp/RenderStageLeaf/msvc`.
   (`python3 verify.py landed` prints the emitted and retail bytes)
 * patched tools copy for the probe: `/tmp/RenderStageLeaf/matching2/tools`
   (two lines added to `ltcg_cluster.py`, diff in *The loader allowance* above)
+* camera-default harness for the `0x00421480` measurements:
+  `/tmp/RenderStageLeaf/camverify.py` over the camera-lab project copied to
+  `/tmp/RenderStageLeaf/cam/msvc` (candidates in `/tmp/RenderStageLeaf/variants/`,
+  disassembled comparisons in `/tmp/RenderStageLeaf/{cau,caa,...}_got.bin`)
