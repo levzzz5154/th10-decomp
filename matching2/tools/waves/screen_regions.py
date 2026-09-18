@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""Screen the remaining assembly for regions a C++ translation unit can express.
+
+Two independent tests, both derived from the byte text of each region's naked
+body rather than from IDA prototypes:
+
+``--entry``
+    Read-before-write analysis: which registers the region reads before writing
+    them. ``--entry eax`` finds the single-EAX family (cluster path, object in
+    EAX); ``--entry ecx`` finds the ``__thiscall`` family (plain path).
+
+``--call-shape``
+    For every ``call``, inspects the three preceding instructions and reports
+    those whose argument setup touches only ECX, EDX and the stack — the shape
+    ``extern "C" __fastcall`` reproduces and the cluster layout can bind with a
+    ``relative_code`` absolute symbol. Regions whose calls set up ESI/EDI/EBX
+    cannot be expressed and are filtered out.
+
+Usage:
+    python3 screen_regions.py --entry ecx [--min 25] [--max 140] [--calls]
+    python3 screen_regions.py --entry eax --calls --game-only
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+PROJECT = ROOT / "matching2/msvc"
+REGISTER = re.compile(r"\b(eax|ebx|ecx|edx|esi|edi|ebp)\b", re.I)
+GAME_LOW, GAME_HIGH = 0x401000, 0x44D000            # above is the static CRT
+CALL_SETUP = re.compile(r"^(mov|lea|movzx|movsx)\s+(ecx|edx)\s*,", re.I)
+
+
+def region_block(region, cache):
+    source = PROJECT / region["source"]
+    if not source.is_file():
+        return None
+    if source not in cache:
+        cache[source] = source.read_text()
+    index = cache[source].find("L_%08x:" % int(region["address"], 16))
+    if index < 0:
+        return None
+    return cache[source][index:cache[source].find("\n    }\n", index)]
+
+
+def entry_reads(block):
+    """Registers read before first written, stopping at the first call."""
+    written, reads = {"esp"}, set()
+    for line in block.splitlines():
+        line = line.strip()
+        if not line or line.startswith("L_"):
+            continue
+        mnemonic = re.match(r"^([a-z][a-z0-9]*)", line)
+        if not mnemonic:
+            continue
+        parts = line.split(None, 1)
+        operands = [item.strip() for item in parts[1].split(",")] if len(parts) > 1 else []
+        if mnemonic.group(1) == "call":
+            break
+        for operand in operands[1:]:
+            for register in REGISTER.findall(operand):
+                name = register.lower()
+                if name not in written and name != "esp":
+                    reads.add(name)
+        for register in REGISTER.findall(parts[1] if len(parts) > 1 else ""):
+            written.add(register.lower())
+    return reads
+
+
+def calls_expressed(block):
+    """True when every call's argument setup touches only ECX, EDX and the stack."""
+    lines = [line.strip() for line in block.splitlines()
+             if line.strip() and not line.strip().startswith("L_")]
+    calls = 0
+    for index, line in enumerate(lines):
+        if not line.startswith("call"):
+            continue
+        calls += 1
+        for previous in lines[max(0, index - 3):index]:
+            if re.match(r"^(mov|lea|movzx|movsx|xor|and|add|sub|imul)", previous) \
+                    and CALL_SETUP.match(previous) is None:
+                return False, calls
+    return calls > 0, calls
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--entry", choices=["eax", "ecx", "none"], required=True,
+                        help="required entry register family")
+    parser.add_argument("--calls", action="store_true",
+                        help="also require every call's setup to be ECX/EDX/stack only")
+    parser.add_argument("--game-only", action="store_true",
+                        help="exclude the static CRT range above 0x0044D000")
+    parser.add_argument("--min", type=int, default=25)
+    parser.add_argument("--max", type=int, default=140)
+    parser.add_argument("--limit", type=int, default=20)
+    args = parser.parse_args()
+
+    config = json.loads((PROJECT / "regions.json").read_text())
+    cache, rows = {}, []
+    for region in config["regions"]:
+        if region["kind"] != "asm" or region.get("owner") != region["address"]:
+            continue
+        address, size = int(region["address"], 16), region["size"]
+        if not (args.min <= size <= args.max):
+            continue
+        if args.game_only and not (GAME_LOW <= address < GAME_HIGH):
+            continue
+        block = region_block(region, cache)
+        if block is None or "fld" in block:
+            continue
+        reads = entry_reads(block)
+        if args.entry == "eax":
+            if reads - {"eax"}:
+                continue
+        elif args.entry == "ecx":
+            if reads - {"ecx"}:
+                continue
+        call_count = 0
+        if args.calls:
+            ok, call_count = calls_expressed(block)
+            if not ok:
+                continue
+        rows.append((size, call_count, hex(address), region["name"], region["source"]))
+    rows.sort(reverse=True)
+    print(f"{len(rows)} region(s) match")
+    for row in rows[:args.limit]:
+        print(row)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
