@@ -74,13 +74,20 @@ def entry_reads(block):
                     if name not in written and name != "esp":
                         reads.add(name)
             continue
-        for operand in operands[1:]:
+        # A destination writes a register only when it *is* a bare register. A
+        # memory destination such as [eax+230h] reads its base and index
+        # registers, so every register in it is an entry read; treating the
+        # whole operand string as a write marked EAX as written and hid those
+        # dependencies.
+        destination = operands[0].lower() if operands else ""
+        bare = re.fullmatch(r"(?:e?[abcd]x|e?[sd]i|e?[sb]p)", destination)
+        for operand in (operands[1:] if bare else operands):
             for register in REGISTER.findall(operand):
                 name = register.lower()
                 if name not in written and name != "esp":
                     reads.add(name)
-        for register in REGISTER.findall(parts[1] if len(parts) > 1 else ""):
-            written.add(register.lower())
+        if bare:
+            written.add(destination)
     return reads
 
 
