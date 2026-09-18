@@ -33,9 +33,12 @@ Two source facts shape the body and both were confirmed by measurement:
 
 The residual is the encoding of the pointer decrement. Retail's `add ecx,-4` is
 not produced by any spelling tried: `x - 4`, `x + -4`, `-4 + x`, an `unsigned`
-field, `+ (int)0xFFFFFFFC`, a `static const int kStep = -4`, and a `char*` field
-with `pointer + -4` all canonicalise to `sub ecx,4` (and the pointer forms also
-change the extent, to 40 and 38 bytes). Only the opcode and the immediate sign
+field, `+ (int)0xFFFFFFFC`, a `static const int kStep = -4`, a `char*` field
+with `pointer + -4`, an `unsigned` field with `scratch_offset + 0xFFFFFFFCu`,
+with `scratch_offset - 4u`, and with a signed `(int)offset >= 0` test — all
+canonicalise to `sub ecx,4` (the pointer forms also change the extent, to 40 and
+38 bytes). Eleven spellings now leave the region at 41 bytes with the same two
+differing bytes: the opcode and the immediate's sign. Only the opcode and the immediate sign
 differ, so the region sits at 41 bytes with two differing bytes.
 
 ## The model (verbatim, as measured)
