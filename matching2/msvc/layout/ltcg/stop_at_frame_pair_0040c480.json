@@ -1,16 +1,26 @@
 {
   "schema_version": 1,
   "name": "stop_at_frame_pair_0040c480",
-  "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+  "source": "src/render/anm_propagate.cpp",
   "additional_sources": [
+    "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
     "src/render/animation_manager_find_004491c0.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "StopAtFrame2/StopAtFrame3 pair compiled with the animation lookup as an internal callee, so the whole-program pass drops the receiver the lookup never reads and leaves the dereferenced handle pointer in EAX.",
+  "description": "StopAtFrame1/2/3 compiled with the animation lookup as an internal callee, so the whole-program pass drops the receiver the lookup never reads and leaves the dereferenced handle pointer in EAX.",
   "functions": [
+    {
+      "name": "AnimationManager_StopAtFrame1",
+      "symbol": "?StopAtFrame1@AnimationHandle@@QAEXXZ",
+      "section": ".text$05propagate",
+      "address": "0x409e50",
+      "size": 65,
+      "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
+      "source": "src/render/anm_propagate.cpp"
+    },
     {
       "name": "AnimationManager_StopAtFrame2",
       "symbol": "?StopAtFrame2@AnimationHandle@@QAEXXZ",
@@ -43,14 +53,19 @@
     "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@H@Z",
     "section": ".text$70context",
     "address": "0x449220",
-    "size": 43,
+    "size": 50,
     "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
       "address": "0x401000",
-      "size": 46208
+      "size": 36432
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x409e91",
+      "size": 9711
     },
     {
       "section": ".text$20layout",

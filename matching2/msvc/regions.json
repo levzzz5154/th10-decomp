@@ -4706,13 +4706,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00409e50_00409e50",
+      "name": "semantic_AnimationManager_StopAtFrame1_00409e50",
       "source": "src/render/anm_propagate.cpp",
-      "symbol": "_asm_FUN_00409e50_00409e50",
+      "symbol": "?StopAtFrame1@AnimationHandle@@QAEXXZ",
       "address": "0x00409E50",
       "size": 65,
-      "kind": "asm",
-      "owner": "0x00409E50"
+      "kind": "semantic",
+      "owner": "0x00409E50",
+      "previous_record": {
+        "name": "asm_FUN_00409e50_00409e50",
+        "source": "src/render/anm_propagate.cpp",
+        "symbol": "_asm_FUN_00409e50_00409e50",
+        "address": "0x00409E50",
+        "size": 65,
+        "kind": "asm",
+        "owner": "0x00409E50"
+      }
     },
     {
       "name": "text_padding_00409e91",
