@@ -3062,13 +3062,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BulletPool_ResetRetail_00405ed0",
+      "name": "semantic_BulletPool_Reset_00405ed0",
       "source": "src/game/bullet_pool_reset_retail_00405ed0.cpp",
-      "symbol": "_asm_BulletPool_ResetRetail_00405ed0",
+      "symbol": "?Reset@BulletPool@@QAEXXZ",
       "address": "0x00405ED0",
       "size": 45,
-      "kind": "asm",
-      "owner": "0x00405ED0"
+      "kind": "semantic",
+      "owner": "0x00405ED0",
+      "previous_record": {
+        "name": "asm_BulletPool_ResetRetail_00405ed0",
+        "source": "src/game/bullet_pool_reset_retail_00405ed0.cpp",
+        "symbol": "_asm_BulletPool_ResetRetail_00405ed0",
+        "address": "0x00405ED0",
+        "size": 45,
+        "kind": "asm",
+        "owner": "0x00405ED0"
+      }
     },
     {
       "name": "text_padding_00405efd",

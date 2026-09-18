@@ -5,8 +5,17 @@
   "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Semantic retired-resource marking helper compiled with its native internal EAX/EDX ABI.",
+  "description": "The bullet pool reset and the animation-manager retirement helper compiled as one native /LTCG scope so the private call keeps retail's EAX/EDX argument registers and the pool arrives in ESI.",
   "functions": [
+    {
+      "name": "BulletPool_Reset_00405ed0",
+      "symbol": "?Reset@BulletPool@@QAEXXZ",
+      "section": ".text$01reset",
+      "address": "0x00405ED0",
+      "size": 45,
+      "actual_abi": "pool in ESI; plain RET",
+      "source": "src/game/bullet_pool_reset_retail_00405ed0.cpp"
+    },
     {
       "name": "AnimationManager_MarkResourceForRemoval",
       "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
@@ -17,17 +26,22 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUAnimationManager@@PAPAXH@Z",
+    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@H@Z",
     "section": ".text$30context",
     "address": "0x00449480",
-    "size": 53,
-    "description": "Synthetic caller that keeps the member helper live during native LTCG; not recovered game code."
+    "size": 42,
+    "description": "Synthetic array-walking caller that establishes the observed register conventions; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
       "address": "0x00401000",
-      "size": 295904
+      "size": 20176
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00405EFD",
+      "size": 275683
     },
     {
       "section": ".text$25layout",
@@ -36,5 +50,15 @@
     }
   ],
   "constants": [],
-  "absolute_symbols": []
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/game/bullet_pool_reset_retail_00405ed0.cpp"
+  ]
 }
