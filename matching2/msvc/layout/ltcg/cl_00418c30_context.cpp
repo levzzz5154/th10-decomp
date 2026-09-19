@@ -2,6 +2,7 @@
 #include <string.h>
 #include "../../src/unidentified/unassigned_00418c30.cpp"
 
+extern "C" void __cdecl entry_free_004524a1(void* block);
 
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) char __fastcall InitConfigAnchor_00418c40(int reserved, GameConfig_00418c30* config) {
@@ -12,6 +13,7 @@ __declspec(noinline) char __fastcall InitConfigAnchor_00418c40(int reserved, Gam
     *(int*)(config->bytes + 0x30) |= 0x100;
     config->bytes[0x10] = 2;
     config->bytes[0x21] = 0x50;
+    entry_free_004524a1(config);
     return 0;
 }
 #pragma code_seg()

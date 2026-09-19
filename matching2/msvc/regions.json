@@ -3528,13 +3528,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405f40",
+      "name": "semantic_ReleaseCachedResource_00405f40_00405f40",
       "source": "src/unidentified/unassigned_00405f40.cpp",
-      "symbol": "_asm_unassigned_00405f40",
+      "symbol": "?ReleaseCachedResource_00405f40@@YGHXZ",
       "address": "0x00405F40",
       "size": 47,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405f40",
+        "source": "src/unidentified/unassigned_00405f40.cpp",
+        "symbol": "_asm_unassigned_00405f40",
+        "address": "0x00405F40",
+        "size": 47,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405f6f",
@@ -53140,7 +53149,8 @@
     "layout/ltcg/cl_00409e10.json",
     "layout/ltcg/cl_0040c860.json",
     "layout/ltcg/cl_00404cf0.json",
-    "layout/ltcg/cl_00404d10.json"
+    "layout/ltcg/cl_00404d10.json",
+    "layout/ltcg/cl_00405f40.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

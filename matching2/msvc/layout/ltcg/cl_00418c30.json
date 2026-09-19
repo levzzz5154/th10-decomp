@@ -23,14 +23,14 @@
       "symbol": "?InitConfigAnchor_00418c40@@YIDHPAUGameConfig_00418c30@@@Z",
       "section": ".text$03anchor",
       "address": "0x00418C40",
-      "size": 50
+      "size": 64
     }
   ],
   "context": {
     "symbol": "?ResetContext_00418c30@@YGHPAPAUGameConfig_00418c30@@H@Z",
     "section": ".text$05context",
     "address": "0x00418C90",
-    "size": 53,
+    "size": 52,
     "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
   },
   "gaps": [
@@ -46,8 +46,8 @@
     },
     {
       "section": ".text$04zgap",
-      "address": "0x00418C72",
-      "size": 30
+      "address": "0x00418C80",
+      "size": 16
     }
   ],
   "constants": [],

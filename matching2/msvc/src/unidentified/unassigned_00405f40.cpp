@@ -1,43 +1,30 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x00405F40..0x00405F6E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00405f40() {
-    __asm {
-    L_00405f40:
-        push esi
-    L_00405f41:
-        mov esi,dword ptr [data_00491c10]
-    L_00405f47:
-        add esi,3AD088h
-    L_00405f4d:
-        push edi
-    L_00405f4e:
-        mov edi,dword ptr [esi]
-    L_00405f50:
-        test edi,edi
-    L_00405f52:
-        je short L_00405f6a
-    L_00405f54:
-        call asm_FUN_00447810_00447810
-    L_00405f59:
-        mov eax,dword ptr [esi]
-    L_00405f5b:
-        push eax
-    L_00405f5c:
-        call asm_free_004524a1
-    L_00405f61:
-        add esp,4
-    L_00405f64:
-        mov dword ptr [esi],0
-    L_00405f6a:
-        pop edi
-    L_00405f6b:
-        xor eax,eax
-    L_00405f6d:
-        pop esi
-    L_00405f6e:
-        ret
+extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" char* data_00491c10;
+
+struct AnimationResource_00405f40 {
+    unsigned char pad_000[0x108];
+    void* resource_108;
+    int entry_count_10c;
+    unsigned char pad_114[0x118 - 0x110];
+    void* auxiliary_118;
+    void* auxiliary_11c;
+    void* entries_120;
+    __declspec(noinline) void Release();
+};
+
+__declspec(noinline) int ReleaseCachedResource_00405f40();
+
+#pragma code_seg(".text$01release")
+__declspec(noinline) int ReleaseCachedResource_00405f40() {
+    AnimationResource_00405f40** slot =
+        (AnimationResource_00405f40**)(data_00491c10 + 0x3AD088);
+    AnimationResource_00405f40* record = *slot;
+    if (record != 0) {
+        record->Release();
+        entry_free_004524a1(*slot);
+        *slot = 0;
     }
+    return 0;
 }
+#pragma code_seg()
