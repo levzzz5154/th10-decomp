@@ -4,17 +4,17 @@
 wave should read this before re-attempting any of them. Each entry names the note
 holding the full evidence.
 
-## 1. Register-register argument copy order
+## 1. Argument copy order (register pairs and the immediate form)
 
 Blocked regions: `0x00401110` (330 B, 4 bytes), `0x00405620` (137 B, 4 bytes),
-`0x0040D530` (300 B, 4 bytes).
+`0x0040D530` (300 B, 4 bytes), `0x0043CD30` (786 B, 7 bytes at its one site).
 
-Retail emits a call's register-register argument copies in **ascending**
+Retail emits a call's two register-home argument copies in **ascending**
 parameter-home order - the first argument's copy first. This toolkit (cl 13.10.6030,
-and the 13.10.3052 toolkit revision) emits them **descending**, and the first
-emitted copy always targets the *second* parameter's home. Swapping the two homes
-therefore only exchanges the two destination registers, so no assignment of homes
-can produce retail's bytes.
+and the 13.10.3052 toolkit revision) emits them **descending**: the first emitted
+copy always targets the *second* parameter's home, whether that second operand is a
+register or an immediate. Swapping the two homes therefore only exchanges the two
+destination registers, so no assignment of homes can produce retail's bytes.
 
 Evidence in `argument_copy_order_residual_00401110_00405620_0040d530_wave10.md`:
 56 toolkit setups across six translation units (provenance, arity, member and free
@@ -27,9 +27,22 @@ than to the source order, which kills every source-shape explanation.
 
 Consequence: `0x00401440` and `0x0040D6B0` are byte-exact inside links that contain
 these regions but cannot land while their partners carry four wrong bytes. A
-further 22 regions hold the same ECX-before-EDX `Scheduler_Remove` setup, and
-`0x0043CD30` holds the immediate-operand form of the tie-break (under
-investigation in wave 11).
+further 22 regions hold the same ECX-before-EDX `Scheduler_Remove` setup.
+
+`0x0043CD30` holds the **immediate-operand form** of the tie-break
+(`mov %esi,%ecx ; mov $0x492590,%edx ; call 0x43D390`) and wave 11 settled it to the
+same rule: the immediate obeys the descending home order rather than a rule of its
+own. Evidence in `0043cd30_wave11.md` - the mirror call (immediate moved to the
+first home) still writes the *second* home first, so the copy order follows the
+destination home and not the operand kind; 16 plain-copy shapes, 12 pressure and
+retail-tail shapes, both c2 revisions, and both the plain `/O2` and the native
+`/LTCG` codegen paths all emit `mov $imm,%edx` before `mov %esi,%ecx` (7 bytes at
+region-relative `+0x245`), and an image census finds `0x43CF75` to be the *only*
+`(reg,imm)` direct-call setup in `.text`. The one class that does write the first
+home first is a *computed* operand (`mov (%esi),%ecx` / `lea` / `movswl`), which is
+not the site's 2-byte `8b ce`. Moving the region off the list would also need the
+whole 786-byte function modelled: the synthetic tails put the loop's table load in
+EAX where retail uses ECX, so the site's residual is not yet a whole-region count.
 
 If a candidate compiler ever appears, `/tmp/MoveOrder/homes.cpp` from that wave is
 a one-minute acceptance test: retail's order means the first copy is
