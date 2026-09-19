@@ -32,6 +32,9 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) int Flush();
     __declspec(noinline) void SyncRenderState(const RenderEntity* entity);
     __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
+    // 0x00448740: the scheduler task that clears the shake offsets and the
+    // stored sprite origin and then renders render-slot 14.
+    __declspec(noinline) int ResetOriginAndRenderSlot14();
 };
 
 struct RenderTexture {

@@ -28893,13 +28893,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448740_00448740",
+      "name": "semantic_AnimationManager_00442F50_ResetOriginAndRenderSlot14_00448740",
       "source": "src/unidentified/FUN_00448740_00448740.cpp",
-      "symbol": "_asm_FUN_00448740_00448740",
+      "symbol": "?ResetOriginAndRenderSlot14@AnimationManager_00442F50@@QAEHXZ",
       "address": "0x00448740",
       "size": 48,
-      "kind": "asm",
-      "owner": "0x00448740"
+      "kind": "semantic",
+      "owner": "0x00448740",
+      "previous_record": {
+        "name": "asm_FUN_00448740_00448740",
+        "source": "src/unidentified/FUN_00448740_00448740.cpp",
+        "symbol": "_asm_FUN_00448740_00448740",
+        "address": "0x00448740",
+        "size": 48,
+        "kind": "asm",
+        "owner": "0x00448740"
+      }
     },
     {
       "name": "asm_FUN_00448770_00448770",
@@ -49424,7 +49433,8 @@
     "layout/ltcg/score_records_advance_frame_0041c480.json",
     "layout/ltcg/anim_pool_alloc_00449950.json",
     "layout/ltcg/positioned_primary_00448d50_wave10.json",
-    "layout/ltcg/lazy_animation_resource_0040c540_wave11.json"
+    "layout/ltcg/lazy_animation_resource_0040c540_wave11.json",
+    "layout/ltcg/fun_00448740_wave11.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

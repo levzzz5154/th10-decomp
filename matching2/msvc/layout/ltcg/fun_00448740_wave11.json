@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "name": "fun_00448740_wave11",
+  "source": "src/unidentified/FUN_00448740_00448740.cpp",
+  "driver": "layout/ltcg/fun_00448740_wave11_context.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "0x00448740 compiled with native LTCG so the manager stays in ECX, the 0x00448980 call receives it in EDI and the slot index in EAX. The .text$03bucket section is a compiled ABI anchor for the assembly region at 0x00448980: placed at the retail address so the call carries retail's own displacement, validated as a complete contribution, and never exported as recovered code.",
+  "functions": [
+    {
+      "name": "AnimationManager_00442F50_ResetOriginAndRenderSlot14",
+      "symbol": "?ResetOriginAndRenderSlot14@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$01slot14",
+      "address": "0x00448740",
+      "size": 48,
+      "actual_abi": "manager in ECX; the 0x00448980 call receives it in EDI with slot 14 in EAX; the slot walk's result in EAX; plain RET"
+    }
+  ],
+  "roots": [
+    "?ResetOriginAndRenderSlot14@AnimationManager_00442F50@@QAEHXZ"
+  ],
+  "anchors": [
+    {
+      "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
+      "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+      "section": ".text$03bucket",
+      "address": "0x00448980",
+      "size": 68
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationSlotTaskContext@@YGHPAPAUAnimationManager_00442F50@@H@Z",
+    "section": ".text$05context",
+    "address": "0x00448A10",
+    "size": 38,
+    "description": "Synthetic scheduler dispatch that calls the modelled task through an array of manager pointers; establishes the task's register convention. Not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 292672
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00448770",
+      "size": 528
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x004489C4",
+      "size": 76
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e64",
+      "address": "0x00491E64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e68",
+      "address": "0x00491E68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "address": "0x004451C0",
+      "kind": "relative_code"
+    }
+  ]
+}
