@@ -7,7 +7,7 @@
     "include/th10/render/camera_batch.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
+  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
   "functions": [
     {
       "name": "AnimationManager_00442F50_Flush",
@@ -170,6 +170,24 @@
       "size": 60,
       "actual_abi": "state in ESI; stage index in EBX; plain RET",
       "source": "src/render/render_stage_select.cpp"
+    },
+    {
+      "name": "RenderCamera_ApplyDefault",
+      "symbol": "?ApplyDefault@RenderCamera@@QAEXXZ",
+      "section": ".text$00adefault",
+      "address": "0x00421480",
+      "size": 287,
+      "actual_abi": "EDI camera; plain RET",
+      "source": "src/render/camera_setup.cpp"
+    },
+    {
+      "name": "RenderStageState_00405300_SelectDefaultStage",
+      "symbol": "?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z",
+      "section": ".text$000zselect",
+      "address": "0x00405300",
+      "size": 60,
+      "actual_abi": "state in ESI; index in EBX; plain RET",
+      "source": "src/game/fun_00405300_00405300.cpp"
     }
   ],
   "gaps": [
@@ -181,7 +199,17 @@
     {
       "section": ".text$000zlayout",
       "address": "0x00401D5C",
-      "size": 129092
+      "size": 13732
+    },
+    {
+      "section": ".text$000zselectz",
+      "address": "0x40533c",
+      "size": 115012
+    },
+    {
+      "section": ".text$00adefaultz",
+      "address": "0x42159f",
+      "size": 1
     },
     {
       "section": ".text$02alayout",
@@ -262,20 +290,9 @@
       "section": ".text$00clayout",
       "address": "0x004216EA",
       "size": 107862
-    },
-    {
-      "section": ".rdata",
-      "address": "0x00446000",
-      "size": 175000
     }
   ],
-  "constants": [
-    {
-      "symbol": "__real@4f800000",
-      "address": "0x00470B98",
-      "value": 4294967296.0
-    }
-  ],
+  "constants": [],
   "absolute_symbols": [
     {
       "symbol": "_data_00491c10",
@@ -341,26 +358,33 @@
       "symbol": "_data_00491c28",
       "address": "0x00491C28",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ba0",
+      "address": "0x00470BA0",
+      "kind": "data"
     }
   ],
   "additional_sources": [
-    "src/render/render_stage_select.cpp",
-    "src/render/anm_batch_flush.cpp",
-    "src/render/special_quad.cpp",
-    "src/render/default_viewport.cpp",
+    "src/game/fun_00405300_00405300.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
-    "src/render/viewport_apply_default_retail_0043bcd0.cpp",
-    "src/render/render_state_sync.cpp",
+    "src/render/animation_color_multiply_channel_004423c0.cpp",
+    "src/render/anm_batch_flush.cpp",
+    "src/render/camera_apply.cpp",
+    "src/render/camera_setup.cpp",
+    "src/render/default_viewport.cpp",
     "src/render/edge_strip_draw.cpp",
     "src/render/quad_vertex_append.cpp",
-    "src/unidentified/unassigned_00444dc0.cpp",
     "src/render/rect_fan_draw.cpp",
-    "src/unidentified/unassigned_00444e60.cpp",
-    "src/unidentified/unassigned_00444fa0.cpp",
-    "src/render/camera_apply.cpp",
-    "src/render/animation_color_multiply_channel_004423c0.cpp",
+    "src/render/render_stage_select.cpp",
+    "src/render/render_state_sync.cpp",
+    "src/render/special_quad.cpp",
     "src/render/sprite_quad_submit.cpp",
-    "src/render/sprite_quad_submit_mirrored.cpp"
+    "src/render/sprite_quad_submit_mirrored.cpp",
+    "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/unidentified/unassigned_00444dc0.cpp",
+    "src/unidentified/unassigned_00444e60.cpp",
+    "src/unidentified/unassigned_00444fa0.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -371,7 +395,19 @@
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x00445200",
-    "size": 308,
+    "size": 321,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
-  }
+  },
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    }
+  ]
 }

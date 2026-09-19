@@ -6,9 +6,10 @@
 // Retail reaches the body with the state object in ESI and the index in EBX -
 // the only call site (0x00402AEC, the game thread) loads the state's address
 // 0x00491C28 into ESI and zeroes EBX - and 0x00421480 reads its record from
-// EDI. Those are whole-program register choices, so the body is compiled
-// through the native-LTCG cluster
-// layout/ltcg/render_stage_select_00405300.json.
+// EDI.  Those are whole-program register choices, so both the body and its
+// callee are compiled in the native-LTCG cluster
+// layout/ltcg/anm_batch_flush_00442f50.json; the callee is now the recovered
+// member, so no ABI anchor stands in for it.
 #include "th10/render/camera_batch.hpp"
 
 // One render stage record: the camera the default setup rewrites followed by
@@ -34,15 +35,10 @@ struct RenderStageState_00405300 {
     __declspec(noinline) void SelectDefaultStage(int index);
 };
 
-// 0x00421480. Its record arrives in EDI, which no declaration names; the
-// cluster's driver carries the ABI anchor for it. The symbol is the maintained
-// assembly region, so nothing about it is invented.
-extern "C" void __cdecl asm_Camera_ApplyRetail_00421480(RenderCamera* camera);
-
-#pragma code_seg(".text$01select")
+#pragma code_seg(".text$000zselect")
 void RenderStageState_00405300::SelectDefaultStage(int index) {
     active_stage = &stages[index];
-    asm_Camera_ApplyRetail_00421480(&active_stage->camera);
+    active_stage->camera.ApplyDefault();
     device->Viewport(&active_stage->camera.viewport_x);
     stage_index = index;
 }

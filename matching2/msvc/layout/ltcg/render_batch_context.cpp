@@ -10,6 +10,14 @@ struct RenderStageState {
 };
 extern "C" RenderStageState data_00491c28;
 
+// 0x00405300's body is the modelled member of the recovered source; declared
+// here so this context keeps it alive without pinning its declared __thiscall
+// ABI through `roots`, exactly as 0x00401D20 is kept alive by the call below.
+struct RenderStageState_00405300 {
+    unsigned char reserved_000[0x388];
+    __declspec(noinline) void SelectDefaultStage(int index);
+};
+
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
                                   const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
@@ -23,8 +31,10 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         data_00491c10->SubmitSpriteQuad(entities[i], colors[i]);
         data_00491c10->SubmitSpriteQuadMirrored(entities[i], colors[i]);
         cameras[i]->Apply();
+        cameras[i]->ApplyDefault();
     }
     data_00491c28.SelectStage(0);
+    ((RenderStageState_00405300*)&data_00491c28)->SelectDefaultStage(0);
     return count;
 }
 #pragma code_seg()

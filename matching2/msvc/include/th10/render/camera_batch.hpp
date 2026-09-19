@@ -15,6 +15,7 @@ struct RenderCamera {
     float min_z, max_z;
     int unknown_0e4, clip_x, clip_y;
     __declspec(noinline) void Apply();
+    __declspec(noinline) void ApplyDefault();
 };
 extern "C" CameraMatrix* __stdcall CameraLookAt(CameraMatrix*, const CameraVector*, const CameraVector*, const CameraVector*);
 extern "C" CameraMatrix* __stdcall CameraPerspective(CameraMatrix*, float, float, float, float);

@@ -15424,13 +15424,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Camera_ApplyRetail_00421480",
+      "name": "semantic_RenderCamera_ApplyDefault_00421480",
       "source": "src/render/camera_setup.cpp",
-      "symbol": "_asm_Camera_ApplyRetail_00421480",
+      "symbol": "?ApplyDefault@RenderCamera@@QAEXXZ",
       "address": "0x00421480",
       "size": 287,
-      "kind": "asm",
-      "owner": "0x00421480"
+      "kind": "semantic",
+      "owner": "0x00421480",
+      "previous_record": {
+        "name": "asm_Camera_ApplyRetail_00421480",
+        "source": "src/render/camera_setup.cpp",
+        "symbol": "_asm_Camera_ApplyRetail_00421480",
+        "address": "0x00421480",
+        "size": 287,
+        "kind": "asm",
+        "owner": "0x00421480"
+      }
     },
     {
       "name": "text_padding_0042159f",
@@ -49404,7 +49413,6 @@
     "layout/ltcg/split_resource_path_0041a050.json",
     "layout/ltcg/ecl_record_reset_0040c730.json",
     "layout/ltcg/score_records_advance_frame_0041c480.json",
-    "layout/ltcg/render_stage_select_00405300.json",
     "layout/ltcg/anim_pool_alloc_00449950.json",
     "layout/ltcg/positioned_primary_00448d50_wave10.json"
   ],
