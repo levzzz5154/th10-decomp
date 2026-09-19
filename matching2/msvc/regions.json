@@ -33110,13 +33110,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ECL_ResolveFloatDestination_00450070",
+      "name": "semantic_EclVm_ResolveFloatDestination_00450070",
       "source": "src/script/ecl_resolve_float_destination_00450070.cpp",
-      "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+      "symbol": "?ResolveFloatDestination@EclVm_00450070@@QAEPAMH@Z",
       "address": "0x00450070",
       "size": 93,
-      "kind": "asm",
-      "owner": "0x00450070"
+      "kind": "semantic",
+      "owner": "0x00450070",
+      "previous_record": {
+        "name": "asm_ECL_ResolveFloatDestination_00450070",
+        "source": "src/script/ecl_resolve_float_destination_00450070.cpp",
+        "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+        "address": "0x00450070",
+        "size": 93,
+        "kind": "asm",
+        "owner": "0x00450070"
+      }
     },
     {
       "name": "text_padding_004500cd",
@@ -49639,7 +49648,8 @@
     "layout/ltcg/ecl_push_scratch_value_00450690.json",
     "layout/ltcg/score_gauge_publish_00428e10.json",
     "layout/ltcg/recovery_offset_point_00418810.json",
-    "layout/ltcg/restart_midi_0043ad70.json"
+    "layout/ltcg/restart_midi_0043ad70.json",
+    "layout/ltcg/ecl_resolve_float_destination_00450070.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
