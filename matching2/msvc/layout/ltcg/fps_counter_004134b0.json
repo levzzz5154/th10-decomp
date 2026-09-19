@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "name": "fps_counter_004134b0",
+  "source": "src/app/fps_counter.cpp",
+  "driver": "layout/ltcg/fps_counter_004134b0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "FrameRateCounter::Update compiled with native LTCG so the counter object stays in ESI across the FrameTimer_GetDelta call. The compiler-pooled float literals (0.5, 60.0, 2^32, 57.0f, 65.0f) are rebound to the retail pool slots in .rdata instead of being placed; the counter's own .rdata pool has no other member.",
+  "functions": [
+    {
+      "name": "FrameRateCounter_Update",
+      "symbol": "?Update@FrameRateCounter_004134b0@@QAEHXZ",
+      "section": ".text$01update",
+      "address": "0x004134B0",
+      "size": 280,
+      "actual_abi": "counter in ESI; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?FrameRateCounterCompilerContext@@YGHPAUFrameRateCounter_004134b0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004135E0",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 74928
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004135C8",
+      "size": 24
+    }
+  ],
+  "constants": [],
+  "data_aliases": [
+    {
+      "symbol": "__real@3fe0000000000000",
+      "address": "0x00470BC0",
+      "bytes": "000000000000e03f"
+    },
+    {
+      "symbol": "__real@404e000000000000",
+      "address": "0x00470BB0",
+      "bytes": "0000000000004e40"
+    },
+    {
+      "symbol": "__real@41f0000000000000",
+      "address": "0x00470B30",
+      "bytes": "000000000000f041"
+    },
+    {
+      "symbol": "__real@42820000",
+      "address": "0x00470BB8",
+      "bytes": "00008242"
+    },
+    {
+      "symbol": "__real@42640000",
+      "address": "0x00470BA8",
+      "bytes": "00006442"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_FrameTimer_GetDelta",
+      "address": "0x00439540",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00492508",
+      "address": "0x00492508",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492528",
+      "address": "0x00492528",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492530",
+      "address": "0x00492530",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492538",
+      "address": "0x00492538",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492540",
+      "address": "0x00492540",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}
