@@ -1,21 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427C90..0x00427CA2 (19 bytes): subtract from the countdown at +0x08 and
+// clamp it at zero.
+//
+// Retail subtracts the incoming halfword from the signed countdown, reloads the
+// field, clears it when the result went negative and returns zero.  The object
+// arrives in EAX and the value in CX.
 
-// 0x00427C90..0x00427CA2: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427c90() {
-    __asm {
-    L_00427c90:
-        sub word ptr [eax+8],cx
-    L_00427c94:
-        mov cx,word ptr [eax+8]
-    L_00427c98:
-        jns short L_00427ca0
-    L_00427c9a:
-        mov word ptr [eax+8],0
-    L_00427ca0:
-        xor eax,eax
-    L_00427ca2:
-        ret
+struct Countdown_00427c90 {
+    unsigned char unknown_00[0x08];
+    short value;                           // +0x08
+
+    __declspec(noinline) int Subtract(short amount);
+};
+
+#pragma code_seg(".text$01sub")
+int Countdown_00427c90::Subtract(short amount) {
+    value = value - amount;
+    if (value < 0) {
+        value = 0;
     }
+    return 0;
 }
+#pragma code_seg()

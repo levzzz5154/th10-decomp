@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "ratio_remaining_00421f80",
+  "source": "src/unidentified/unassigned_00421f80.cpp",
+  "driver": "layout/ltcg/ratio_remaining_00421f80_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Ratio_00421f80::Remaining compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
+  "functions": [
+    {
+      "name": "ratio_remaining_00421f80",
+      "symbol": "?Remaining@Ratio_00421f80@@QAEMXZ",
+      "section": ".text$01ratio",
+      "address": "0x00421F80",
+      "size": 19,
+      "actual_abi": "record in EAX; float result in ST(0); plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "RatioRemainingContext_00421f80@8",
+    "section": ".text$03context",
+    "address": "0x421fa0",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 135040
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x421f93",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00470b44",
+      "address": "0x00470B44",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": []
+}

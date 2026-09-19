@@ -1,25 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427CC0..0x00427CD5 (22 bytes): the countdown at +0x08 in seconds.
+//
+// Retail sign-extends the 16-bit field and divides by 20 with the magic
+// 0x66666667 and a shift of 3, so the source is a signed short divided by 20.
+// The object arrives in EAX.
 
-// 0x00427CC0..0x00427CD5: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427cc0() {
-    __asm {
-    L_00427cc0:
-        movsx ecx,word ptr [eax+8]
-    L_00427cc4:
-        mov eax,66666667h
-    L_00427cc9:
-        imul ecx
-    L_00427ccb:
-        sar edx,3
-    L_00427cce:
-        mov eax,edx
-    L_00427cd0:
-        shr eax,1Fh
-    L_00427cd3:
-        add eax,edx
-    L_00427cd5:
-        ret
-    }
+struct Countdown_00427cc0 {
+    unsigned char unknown_00[0x08];
+    short value;                   // +0x08
+
+    __declspec(noinline) int Seconds();
+};
+
+#pragma code_seg(".text$01sec")
+int Countdown_00427cc0::Seconds() {
+    return value / 20;
 }
+#pragma code_seg()

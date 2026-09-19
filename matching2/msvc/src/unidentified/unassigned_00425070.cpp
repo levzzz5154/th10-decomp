@@ -1,27 +1,28 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00425070..0x0042508B (27 bytes): scalar deleting destructor.
+//
+// Retail runs the object cleanup at 0x00424ed0 -- the callee takes the object as
+// a stack argument and cleans it (RET 4) -- then, when bit 0 of the incoming
+// flags is set, hands the object to the CRT free entry at 0x004524A1, and
+// finally returns the object in EAX.  The object lives in ESI across both
+// calls, a receiver no C++ declaration names, so the body is compiled in the
+// native-LTCG cluster layout/ltcg/dtor_delete_00425070.json whose array-walking synthetic
+// caller establishes that convention.
 
-// 0x00425070..0x0042508A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00425070() {
-    __asm {
-    L_00425070:
-        push esi
-    L_00425071:
-        call asm_FUN_00424ed0_00424ed0
-    L_00425076:
-        test byte ptr [esp+4],1
-    L_0042507b:
-        je short L_00425086
-    L_0042507d:
-        push esi
-    L_0042507e:
-        call asm_free_004524a1
-    L_00425083:
-        add esp,4
-    L_00425086:
-        mov eax,esi
-    L_00425088:
-        ret 4
+extern "C" void Cleanup_00424ed0(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct Deletable_00425070 {
+    unsigned char unknown_0000[0x04];
+};
+
+__declspec(noinline) void* Deletable_00425070_Delete(Deletable_00425070* object, int flags);
+
+#pragma code_seg(".text$01del")
+void* Deletable_00425070_Delete(Deletable_00425070* object, int flags) {
+    Cleanup_00424ed0(object);
+    if ((flags & 1) != 0) {
+        entry_free_004524a1(object);
     }
+    return object;
 }
+#pragma code_seg()

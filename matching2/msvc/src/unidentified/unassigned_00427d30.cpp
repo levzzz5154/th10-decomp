@@ -1,25 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427D30..0x00427D41 (18 bytes): does the pair hold one value twice?
+//
+// Retail compares both dwords of the pair at +0x00/+0x04 against the incoming
+// value and answers 0 when both match, 1 otherwise.  The pair arrives in ECX
+// and the value in EAX.
 
-// 0x00427D30..0x00427D41: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427d30() {
-    __asm {
-    L_00427d30:
-        cmp dword ptr [ecx],eax
-    L_00427d32:
-        jne short L_00427d3c
-    L_00427d34:
-        cmp dword ptr [ecx+4],eax
-    L_00427d37:
-        jne short L_00427d3c
-    L_00427d39:
-        xor eax,eax
-    L_00427d3b:
-        ret
-    L_00427d3c:
-        mov eax,1
-    L_00427d41:
-        ret
+struct Pair_00427d30 {
+    int first;                             // +0x00
+    int second;                            // +0x04
+};
+
+__declspec(noinline) int Pair_00427d30_Matches(Pair_00427d30* pair, int value);
+
+#pragma code_seg(".text$01match")
+int Pair_00427d30_Matches(Pair_00427d30* pair, int value) {
+    if (pair->first != value || pair->second != value) {
+        return 1;
     }
+    return 0;
 }
+#pragma code_seg()

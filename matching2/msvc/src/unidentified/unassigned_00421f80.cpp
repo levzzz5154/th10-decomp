@@ -1,19 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00421F80..0x00421F92 (19 bytes): complement of the ratio between the two
+// doubles at +0x24 and +0x2C.
+//
+// Retail divides the first double by the second, scales it by the shared float
+// at 0x00470B44 and subtracts the result from it (FSUBR), so the body reads
+// `scale - (first / second) * scale`.  The record arrives in EAX.
 
-// 0x00421F80..0x00421F92: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00421f80() {
-    __asm {
-    L_00421f80:
-        fld qword ptr [eax+24h]
-    L_00421f83:
-        fdiv qword ptr [eax+2Ch]
-    L_00421f86:
-        fmul dword ptr [data_00470b44]
-    L_00421f8c:
-        fsubr dword ptr [data_00470b44]
-    L_00421f92:
-        ret
-    }
+extern "C" float data_00470b44;
+
+#pragma pack(push, 4)
+struct Ratio_00421f80 {
+    unsigned char unknown_0000[0x24];
+    double first;                          // +0x24
+    double second;                         // +0x2C
+
+    __declspec(noinline) float Remaining();
+};
+#pragma pack(pop)
+
+#pragma code_seg(".text$01ratio")
+float Ratio_00421f80::Remaining() {
+    return data_00470b44 - (float)(first / second) * data_00470b44;
 }
+#pragma code_seg()

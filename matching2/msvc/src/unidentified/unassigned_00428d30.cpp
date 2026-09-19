@@ -1,21 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00428D30..0x00428D3C (13 bytes): angle of the vector between two positions.
+//
+// Retail loads the two y floats, subtracts, loads the two x floats, subtracts
+// and takes FPATAN, the compiler's inline expansion of atan2.  The first
+// operand loaded comes from EAX, so the record handed to the function first
+// (in ECX) is the far end and the one in EAX is the near end; both arguments
+// are register arguments.
 
-// 0x00428D30..0x00428D3C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00428d30() {
-    __asm {
-    L_00428d30:
-        fld dword ptr [eax+4]
-    L_00428d33:
-        fsub dword ptr [ecx+4]
-    L_00428d36:
-        fld dword ptr [eax]
-    L_00428d38:
-        fsub dword ptr [ecx]
-    L_00428d3a:
-        fpatan
-    L_00428d3c:
-        ret
-    }
+#include <math.h>
+
+struct Position_00428d30 {
+    float x;                               // +0x00
+    float y;                               // +0x04
+};
+
+__declspec(noinline) float __fastcall Position_00428d30_AngleTo(Position_00428d30* to,
+                                                                Position_00428d30* from);
+
+#pragma code_seg(".text$01angle")
+float __fastcall Position_00428d30_AngleTo(Position_00428d30* to, Position_00428d30* from) {
+    return atan2f(from->y - to->y, from->x - to->x);
 }
+#pragma code_seg()

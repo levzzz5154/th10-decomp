@@ -1,15 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004247D0..0x004247D9 (10 bytes): clear bit 0 of the flag dword at +0x80.
+//
+// Sibling of 0x004247C0 on the same class shape: retail materialises the result
+// in EAX before the in-place clear.  The object arrives in ECX, so this is a
+// plain __thiscall member.
 
-// 0x004247D0..0x004247D9: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004247d0() {
-    __asm {
-    L_004247d0:
-        mov eax,ecx
-    L_004247d2:
-        and dword ptr [eax+80h],0FFFFFFFEh
-    L_004247d9:
-        ret
-    }
+struct FlagOwner_004247d0 {
+    unsigned char unknown_00[0x80];
+    unsigned int flags;                     // +0x80
+
+    __declspec(noinline) FlagOwner_004247d0* ClearFlag();
+};
+
+#pragma code_seg(".text$01clear")
+FlagOwner_004247d0* FlagOwner_004247d0::ClearFlag() {
+    FlagOwner_004247d0* self = this;
+    flags &= ~1u;
+    return self;
 }
+#pragma code_seg()

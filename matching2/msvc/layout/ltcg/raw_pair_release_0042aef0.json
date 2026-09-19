@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "raw_pair_release_0042aef0",
+  "source": "src/unidentified/unassigned_0042aef0.cpp",
+  "driver": "layout/ltcg/raw_pair_release_0042aef0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "RawPair_0042aef0_Release compiled with a synthetic array caller so the native LTCG register allocator keeps the pair in ESI across both frees as retail does.",
+  "functions": [
+    {
+      "name": "RawPair_0042aef0_Release",
+      "symbol": "?RawPair_0042aef0_Release@@YGXPAURawPair_0042aef0@@@Z",
+      "section": ".text$01rel",
+      "address": "0x0042AEF0",
+      "size": 45,
+      "actual_abi": "pair in ESI across both frees; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "RawPairReleaseContext_0042aef0@8",
+    "section": ".text$03context",
+    "address": "0x42af20",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 171760
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x42af1d",
+      "size": 3
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": []
+}

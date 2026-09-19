@@ -1,23 +1,34 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00421B70..0x00421B86 (23 bytes): publish the selected phase record.
+//
+// Retail reads the two dwords at +0x3C and +0x40 of the object in ECX, copies
+// the later one into the earlier, and publishes a pointer to the 0x30-byte
+// record the copied index selects out of the table at 0x00474788 through the
+// shared pointer 0x00477848.  ECX is the object, so the body is an ordinary
+// __thiscall member and compiles as a plain translation unit.
+//
+// `&table[index]` is the shape that emits retail's `lea eax,[eax+eax*2]` /
+// `shl eax,4` (index * 0x30, each record being three dwords) rather than an
+// `imul`.
 
-// 0x00421B70..0x00421B86: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00421b70() {
-    __asm {
-    L_00421b70:
-        mov eax,dword ptr [ecx+40h]
-    L_00421b73:
-        mov dword ptr [ecx+3Ch],eax
-    L_00421b76:
-        lea eax,[eax+eax*2]
-    L_00421b79:
-        shl eax,4
-    L_00421b7c:
-        add eax,474788h
-    L_00421b81:
-        mov dword ptr [data_00477848],eax
-    L_00421b86:
-        ret
-    }
+struct PhaseCursor_00421b70 {
+    unsigned char unknown_00[0x3C];
+    unsigned int published;                 // +0x3C
+    unsigned int selected;                  // +0x40
+
+    __declspec(noinline) void Publish();
+};
+
+struct PhaseRecord_00421b70 {
+    unsigned int values[0xC];               // 0x30 bytes
+};
+
+extern "C" PhaseRecord_00421b70 data_00474788[];
+extern "C" PhaseRecord_00421b70* data_00477848;
+
+#pragma code_seg(".text$01publish")
+void PhaseCursor_00421b70::Publish() {
+    unsigned int index = selected;
+    published = index;
+    data_00477848 = &data_00474788[index];
 }
+#pragma code_seg()

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "countdown_subtract_tick_00427cb0",
+  "source": "src/unidentified/unassigned_00427cb0.cpp",
+  "driver": "layout/ltcg/countdown_subtract_tick_00427cb0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Countdown_00427cb0::SubtractTick compiled with a synthetic array caller so the native LTCG register allocator keeps the countdown in EAX as retail does.",
+  "functions": [
+    {
+      "name": "Countdown_00427cb0_SubtractTick",
+      "symbol": "?SubtractTick@Countdown_00427cb0@@QAEXXZ",
+      "section": ".text$01sub",
+      "address": "0x00427CB0",
+      "size": 6,
+      "actual_abi": "countdown in EAX; nothing returned; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "CountdownSubtractTickContext_00427cb0@8",
+    "section": ".text$03context",
+    "address": "0x427cc0",
+    "size": 34,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 158896
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x427cb6",
+      "size": 10
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": []
+}

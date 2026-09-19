@@ -1,13 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427CB0..0x00427CB5 (6 bytes): subtract 20 from the signed countdown at
+// +0x08.
+//
+// Retail is `add word ptr [eax+8],0FFECh` / `ret`.  The object arrives in EAX
+// and nothing is returned, so the store is the whole body.  The sibling leaves
+// 0x00427C90 (`sub word ptr [eax+8],cx` with a floor at zero) and 0x00427CC0
+// (this field divided by 20) read the same 16-bit field.
 
-// 0x00427CB0..0x00427CB5: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427cb0() {
-    __asm {
-    L_00427cb0:
-        add word ptr [eax+8],0FFECh
-    L_00427cb5:
-        ret
-    }
+struct Countdown_00427cb0 {
+    unsigned char unknown_00[0x08];
+    short value;                   // +0x08
+
+    __declspec(noinline) void SubtractTick();
+};
+
+#pragma code_seg(".text$01sub")
+void Countdown_00427cb0::SubtractTick() {
+    value -= 20;
 }
+#pragma code_seg()

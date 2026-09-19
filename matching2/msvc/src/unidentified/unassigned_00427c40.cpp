@@ -1,13 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427C40..0x00427C43 (4 bytes): subtract from the dword at +0x30.
+//
+// Retail subtracts the incoming value from the field in place and returns
+// nothing.  The object arrives in EAX and the value in ECX, so the two are
+// register arguments no C++ declaration names; the body is compiled in the
+// native-LTCG cluster layout/ltcg/counter_subtract_00427c40.json whose
+// synthetic caller establishes that pair.
 
-// 0x00427C40..0x00427C43: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427c40() {
-    __asm {
-    L_00427c40:
-        sub dword ptr [eax+30h],ecx
-    L_00427c43:
-        ret
-    }
+struct Counter_00427c40 {
+    unsigned char unknown_00[0x30];
+    int value;                             // +0x30
+
+    __declspec(noinline) void Subtract(int amount);
+};
+
+#pragma code_seg(".text$01sub")
+void Counter_00427c40::Subtract(int amount) {
+    value -= amount;
 }
+#pragma code_seg()

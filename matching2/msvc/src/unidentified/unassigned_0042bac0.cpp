@@ -1,21 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042BAC0..0x0042BACD (14 bytes): does the inner record hold a value?
+//
+// Retail walks two pointers: the inner record from +0x04 of the object in EAX,
+// then the pointer at +0x04 of that record, and returns 1 when it is non-null.
+// Neither load is guarded, so the inner record is always present.
 
-// 0x0042BAC0..0x0042BACD: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042bac0() {
-    __asm {
-    L_0042bac0:
-        mov ecx,dword ptr [eax+4]
-    L_0042bac3:
-        mov edx,dword ptr [ecx+4]
-    L_0042bac6:
-        xor eax,eax
-    L_0042bac8:
-        test edx,edx
-    L_0042baca:
-        setne al
-    L_0042bacd:
-        ret
-    }
+struct Inner_0042bac0 {
+    unsigned char unknown_00[0x04];
+    void* value;                   // +0x04
+};
+
+struct Outer_0042bac0 {
+    unsigned char unknown_00[0x04];
+    Inner_0042bac0* inner;         // +0x04
+
+    __declspec(noinline) int HasValue();
+};
+
+#pragma code_seg(".text$01has")
+int Outer_0042bac0::HasValue() {
+    return inner->value != 0;
 }
+#pragma code_seg()

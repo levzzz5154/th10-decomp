@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "cursor_record_index_0042a850",
+  "source": "src/unidentified/unassigned_0042a850.cpp",
+  "driver": "layout/ltcg/cursor_record_index_0042a850_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "CursorState_0042a850::RecordIndex compiled with a synthetic array caller so the native LTCG register allocator keeps the cursor state in EAX as retail does.",
+  "functions": [
+    {
+      "name": "cursor_record_index_0042a850",
+      "symbol": "?RecordIndex@CursorState_0042a850@@QAEHXZ",
+      "section": ".text$01idx",
+      "address": "0x0042A850",
+      "size": 23,
+      "actual_abi": "cursor state in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "CursorRecordIndexContext_0042a850@8",
+    "section": ".text$03context",
+    "address": "0x42a870",
+    "size": 40,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 170064
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x42a867",
+      "size": 9
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": []
+}

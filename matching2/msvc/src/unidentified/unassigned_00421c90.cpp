@@ -1,17 +1,78 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00421C90..0x00421CFD: the seven flag/mode accessors of one UI state
+// record.
+//
+// Each entry reads the record out of EAX and returns either one bit of the
+// flag dword at +0x150 or the mode byte at +0x13D, so seven separate regions
+// share one object and one convention:
+//
+//   0x00421C90  (flags >> 6) & 1        0x00421CA0  (flags >> 5) & 1
+//   0x00421CB0  (flags >> 3) & 1        0x00421CC0  (flags >> 1) & 1
+//   0x00421CD0  mode (zero-extended)    0x00421CE0  flags & 1
+//   0x00421CF0  (flags >> 2) & 1
+//
+// Bits 1..6 of the flag dword are the ones the front-end layout builder
+// (0x00420870, src/app/fun_00420870_00420870.cpp) tests one at a time while it
+// composes the screen, and the byte at +0x13D is the mode it stores with them,
+// so the record is the screen state the option screen publishes.
+//
+// No C++ declaration names EAX, so the seven leaves are compiled in the
+// native-LTCG cluster layout/ltcg/ui_state_accessors_00421c90.json, whose
+// array-walking synthetic caller makes the register allocator hand each
+// accessor its record in EAX.  The bodies themselves are ordinary C++.
 
-// 0x00421C90..0x00421C9C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00421c90() {
-    __asm {
-    L_00421c90:
-        mov eax,dword ptr [eax+150h]
-    L_00421c96:
-        shr eax,6
-    L_00421c99:
-        and eax,1
-    L_00421c9c:
-        ret
-    }
+struct UiState_00421c90 {
+    unsigned char unknown_000[0x13D];
+    unsigned char mode;                     // +0x13D
+    unsigned char unknown_13e[0x12];
+    unsigned int flags;                     // +0x150
+};
+
+__declspec(noinline) int UiState_00421c90_Flag6(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag5(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag3(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag1(UiState_00421c90* state);
+__declspec(noinline) unsigned int UiState_00421c90_Mode(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag0(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag2(UiState_00421c90* state);
+
+#pragma code_seg(".text$01f6")
+int UiState_00421c90_Flag6(UiState_00421c90* state) {
+    return (state->flags >> 6) & 1;
 }
+#pragma code_seg()
+
+#pragma code_seg(".text$03f5")
+int UiState_00421c90_Flag5(UiState_00421c90* state) {
+    return (state->flags >> 5) & 1;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$05f3")
+int UiState_00421c90_Flag3(UiState_00421c90* state) {
+    return (state->flags >> 3) & 1;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$07f1")
+int UiState_00421c90_Flag1(UiState_00421c90* state) {
+    return (state->flags >> 1) & 1;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$09m0")
+unsigned int UiState_00421c90_Mode(UiState_00421c90* state) {
+    return state->mode;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$11f0")
+int UiState_00421c90_Flag0(UiState_00421c90* state) {
+    return state->flags & 1;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$13f2")
+int UiState_00421c90_Flag2(UiState_00421c90* state) {
+    return (state->flags >> 2) & 1;
+}
+#pragma code_seg()

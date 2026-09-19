@@ -1,39 +1,33 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042AA10..0x0042AA41 (50 bytes): initialise the replay header.
+//
+// Retail zeroes the nine dwords at +0x00..+0x20 through one zero register and
+// one shared base, then stamps the record: the magic 0x72303174 ("t10r"), the
+// version word 5 at +0x04 and the size 0x100 at +0x10.  The header arrives in
+// EAX.  The magic and the version are the single-source record header the
+// replay writer and the reader agree on.
 
-// 0x0042AA10..0x0042AA41: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042aa10() {
-    __asm {
-    L_0042aa10:
-        xor ecx,ecx
-    L_0042aa12:
-        mov edx,eax
-    L_0042aa14:
-        mov dword ptr [edx],ecx
-    L_0042aa16:
-        mov dword ptr [edx+4],ecx
-    L_0042aa19:
-        mov dword ptr [edx+8],ecx
-    L_0042aa1c:
-        mov dword ptr [edx+0Ch],ecx
-    L_0042aa1f:
-        mov dword ptr [edx+10h],ecx
-    L_0042aa22:
-        mov dword ptr [edx+14h],ecx
-    L_0042aa25:
-        mov dword ptr [edx+18h],ecx
-    L_0042aa28:
-        mov dword ptr [edx+1Ch],ecx
-    L_0042aa2b:
-        mov dword ptr [edx+20h],ecx
-    L_0042aa2e:
-        mov dword ptr [eax],72303174h
-    L_0042aa34:
-        mov word ptr [eax+4],5
-    L_0042aa3a:
-        mov dword ptr [eax+10h],100h
-    L_0042aa41:
-        ret
-    }
+#include <string.h>
+
+struct ReplayHeader_0042aa10 {
+    int magic;                             // +0x00
+    unsigned short version;                // +0x04
+    unsigned short unknown_06;             // +0x06
+    int unknown_08;                        // +0x08
+    int unknown_0c;                        // +0x0C
+    int size;                              // +0x10
+    int unknown_14;                        // +0x14
+    int unknown_18;                        // +0x18
+    int unknown_1c;                        // +0x1C
+    int unknown_20;                        // +0x20
+
+    __declspec(noinline) void Initialize();
+};
+
+#pragma code_seg(".text$01init")
+void ReplayHeader_0042aa10::Initialize() {
+    memset(this, 0, 0x24);
+    magic = 0x72303174;
+    version = 5;
+    size = 0x100;
 }
+#pragma code_seg()

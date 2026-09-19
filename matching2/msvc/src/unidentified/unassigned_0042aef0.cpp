@@ -1,39 +1,34 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042AEF0..0x0042AF1C (45 bytes): release the two owned blocks.
+//
+// Retail frees the pointer at +0x00 and then the one at +0x04, clearing each
+// slot after the free and skipping a null.  The pair itself lives in ESI, the
+// callee-saved register that survives both calls, and EAX carries the loaded
+// pointer, so the receiver is a register no C++ declaration names: the body is
+// compiled in the native-LTCG cluster
+// layout/ltcg/raw_pair_release_0042aef0.json whose array-walking synthetic
+// caller establishes that convention.
+//
+// The allocator at 0x00452422 is bound as an absolute address, the shape the
+// project uses for a CRT entry point compiled from another unit.
 
-// 0x0042AEF0..0x0042AF1C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042aef0() {
-    __asm {
-    L_0042aef0:
-        mov eax,dword ptr [esi]
-    L_0042aef2:
-        test eax,eax
-    L_0042aef4:
-        je short L_0042af05
-    L_0042aef6:
-        push eax
-    L_0042aef7:
-        call asm_free_00452422
-    L_0042aefc:
-        add esp,4
-    L_0042aeff:
-        mov dword ptr [esi],0
-    L_0042af05:
-        mov eax,dword ptr [esi+4]
-    L_0042af08:
-        test eax,eax
-    L_0042af0a:
-        je short L_0042af1c
-    L_0042af0c:
-        push eax
-    L_0042af0d:
-        call asm_free_00452422
-    L_0042af12:
-        add esp,4
-    L_0042af15:
-        mov dword ptr [esi+4],0
-    L_0042af1c:
-        ret
+extern "C" void __cdecl entry_free_00452422(void* block);
+
+struct RawPair_0042aef0 {
+    void* first;                           // +0x00
+    void* second;                          // +0x04
+};
+
+__declspec(noinline) void RawPair_0042aef0_Release(RawPair_0042aef0* pair);
+
+#pragma code_seg(".text$01rel")
+void RawPair_0042aef0_Release(RawPair_0042aef0* pair) {
+    if (pair->first != 0) {
+        entry_free_00452422(pair->first);
+        pair->first = 0;
+    }
+    if (pair->second != 0) {
+        entry_free_00452422(pair->second);
+        pair->second = 0;
     }
 }
+#pragma code_seg()

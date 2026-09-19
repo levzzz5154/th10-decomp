@@ -1,27 +1,27 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004245D0..0x004245E5 (22 bytes): is the owned child marked?
+//
+// Retail loads the child pointer from +0x08, and answers 1 when the child is
+// present and bit 1 of the dword at the child's +0x04 is set, 0 otherwise.  The
+// object arrives in EAX; nothing on the stack.
 
-// 0x004245D0..0x004245E5: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004245d0() {
-    __asm {
-    L_004245d0:
-        mov eax,dword ptr [eax+8]
-    L_004245d3:
-        test eax,eax
-    L_004245d5:
-        je short L_004245e3
-    L_004245d7:
-        test byte ptr [eax+4],2
-    L_004245db:
-        je short L_004245e3
-    L_004245dd:
-        mov eax,1
-    L_004245e2:
-        ret
-    L_004245e3:
-        xor eax,eax
-    L_004245e5:
-        ret
+struct Child_004245d0 {
+    unsigned char unknown_00[0x04];
+    unsigned int flags;            // +0x04
+};
+
+struct Owner_004245d0 {
+    unsigned char unknown_00[0x08];
+    Child_004245d0* child;         // +0x08
+
+    __declspec(noinline) int IsChildMarked();
+};
+
+#pragma code_seg(".text$01mark")
+int Owner_004245d0::IsChildMarked() {
+    Child_004245d0* child = this->child;
+    if (child != 0 && (child->flags & 2) != 0) {
+        return 1;
     }
+    return 0;
 }
+#pragma code_seg()

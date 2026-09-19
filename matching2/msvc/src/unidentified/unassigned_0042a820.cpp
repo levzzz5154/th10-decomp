@@ -1,17 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A820..0x0042A82D (14 bytes): bytes used in the slot buffer.
+//
+// The object carries a byte cursor at +0x6274 into the buffer that starts at
+// +0x5464 (0x42A900 advances that cursor one byte at a time and stops it at
+// 0x78 bytes).  Retail subtracts the object address and then the literal
+// 0x5464, which is the shape `(cursor - (char*)this) - 0x5464`; writing
+// `cursor - slots` instead would add an `lea` for the base.
+//
+// ECX is the object, so the body compiles as a plain __thiscall member.
 
-// 0x0042A820..0x0042A82D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042a820() {
-    __asm {
-    L_0042a820:
-        mov eax,dword ptr [ecx+6274h]
-    L_0042a826:
-        sub eax,ecx
-    L_0042a828:
-        sub eax,5464h
-    L_0042a82d:
-        ret
-    }
+struct SlotBuffer_0042a820 {
+    unsigned char unknown_00[0x5464];
+    unsigned char slots[0xE10];             // +0x5464 .. +0x6274
+    unsigned char* cursor;                  // +0x6274
+
+    __declspec(noinline) int BytesUsed();
+};
+
+#pragma code_seg(".text$01used")
+int SlotBuffer_0042a820::BytesUsed() {
+    return (int)(cursor - (unsigned char*)this) - 0x5464;
 }
+#pragma code_seg()

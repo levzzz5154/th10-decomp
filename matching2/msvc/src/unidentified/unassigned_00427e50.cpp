@@ -1,27 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00427E50..0x00427E69 (26 bytes): is the state busy?
+//
+// Retail loads the dword at +0x1444, answers 1 when either the low-byte mask
+// 0x11 or the upper mask 0x000C0000 is set, and 0 otherwise.  The object
+// arrives in EAX.
 
-// 0x00427E50..0x00427E69: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00427e50() {
-    __asm {
-    L_00427e50:
-        mov eax,dword ptr [eax+1444h]
-    L_00427e56:
-        test al,11h
-    L_00427e58:
-        jne short L_00427e64
-    L_00427e5a:
-        test eax,0C0000h
-    L_00427e5f:
-        jne short L_00427e64
-    L_00427e61:
-        xor eax,eax
-    L_00427e63:
-        ret
-    L_00427e64:
-        mov eax,1
-    L_00427e69:
-        ret
+struct BusyState_00427e50 {
+    unsigned char unknown_0000[0x1444];
+    unsigned int status;                   // +0x1444
+
+    __declspec(noinline) int IsBusy();
+};
+
+#pragma code_seg(".text$01busy")
+int BusyState_00427e50::IsBusy() {
+    unsigned int status = this->status;
+    if ((status & 0x11) != 0 || (status & 0xC0000) != 0) {
+        return 1;
     }
+    return 0;
 }
+#pragma code_seg()

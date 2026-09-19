@@ -1,13 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00428F20..0x00428F23 (4 bytes): the float at +0x34.
+//
+// Retail is `fld dword ptr [eax+34h]` / `ret`: the record arrives in EAX and
+// the value is left in ST(0).
 
-// 0x00428F20..0x00428F23: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00428f20() {
-    __asm {
-    L_00428f20:
-        fld dword ptr [eax+34h]
-    L_00428f23:
-        ret
-    }
+struct ScalarRecord_00428f20 {
+    unsigned char unknown_00[0x34];
+    float value;                   // +0x34
+
+    __declspec(noinline) float GetValue();
+};
+
+#pragma code_seg(".text$01get")
+float ScalarRecord_00428f20::GetValue() {
+    return value;
 }
+#pragma code_seg()
