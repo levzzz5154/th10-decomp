@@ -1,25 +1,26 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040A430..0x0040A442 (18 bytes): release a possibly-absent object.
+//
+// Retail answers a null object immediately; otherwise it runs the cleanup at
+// 0x0040A1A0 (the callee takes the object as a stack argument and cleans it,
+// RET 4), hands the object to the CRT free entry at 0x004524A1 and returns.
+// The object lives in ESI, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/dtor_release_0040a430.json whose array-walking synthetic caller establishes that
+// convention.
 
-// 0x0040A430..0x0040A441: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040a430() {
-    __asm {
-    L_0040a430:
-        test esi,esi
-    L_0040a432:
-        je short L_0040a441
-    L_0040a434:
-        push esi
-    L_0040a435:
-        call asm_FUN_0040a1a0_0040a1a0
-    L_0040a43a:
-        push esi
-    L_0040a43b:
-        call asm_free_004524a1
-    L_0040a440:
-        pop ecx
-    L_0040a441:
-        ret
+extern "C" void asm_FUN_0040a1a0_0040a1a0(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct Destroyable_0040a430 {
+    unsigned char unknown_0000[0x04];
+};
+
+__declspec(noinline) void Destroyable_0040a430_Release(Destroyable_0040a430* object);
+
+#pragma code_seg(".text$01rel")
+void Destroyable_0040a430_Release(Destroyable_0040a430* object) {
+    if (object != 0) {
+        asm_FUN_0040a1a0_0040a1a0(object);
+        entry_free_004524a1(object);
     }
 }
+#pragma code_seg()

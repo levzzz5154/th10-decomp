@@ -1,61 +1,36 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449530: find the node named by this object's first field, set flag bit 1
+// and clear flag bit 17 on it, and do the same to every node in its child chain
+// when it has no children of its own.
+extern "C" void* data_00491c10;
 
-// 0x00449530..0x0044958B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00449530() {
-    __asm {
-    L_00449530:
-        mov ecx,dword ptr [eax]
-    L_00449532:
-        mov edx,dword ptr [data_00491c10]
-    L_00449538:
-        push ecx
-    L_00449539:
-        call asm_AnimationManager_Find_004491c0
-    L_0044953e:
-        test eax,eax
-    L_00449540:
-        je short L_0044958b
-    L_00449542:
-        mov ecx,dword ptr [eax+35Ch]
-    L_00449548:
-        and ecx,0FFFDFFFFh
-    L_0044954e:
-        mov edx,2
-    L_00449553:
-        or ecx,edx
-    L_00449555:
-        mov dword ptr [eax+35Ch],ecx
-    L_0044955b:
-        mov ecx,dword ptr [eax+18h]
-    L_0044955e:
-        test ecx,ecx
-    L_00449560:
-        jne short L_0044958b
-    L_00449562:
-        mov eax,dword ptr [eax+14h]
-    L_00449565:
-        test eax,eax
-    L_00449567:
-        je short L_0044958b
-    L_00449569:
-        lea esp,[esp+force_disp32_zero]
-    L_00449570:
-        mov ecx,dword ptr [eax]
-    L_00449572:
-        or dword ptr [ecx+35Ch],edx
-    L_00449578:
-        mov ecx,dword ptr [eax]
-    L_0044957a:
-        and dword ptr [ecx+35Ch],0FFFDFFFFh
-    L_00449584:
-        mov eax,dword ptr [eax+4]
-    L_00449587:
-        test eax,eax
-    L_00449589:
-        jne short L_00449570
-    L_0044958b:
-        ret
+struct AnimationNode_00449530 {
+    AnimationNode_00449530* field_000;   // +0x000
+    AnimationNode_00449530* field_004;   // +0x004
+    unsigned char pad_008[0x0C];
+    AnimationNode_00449530* field_014;   // +0x014
+    AnimationNode_00449530* field_018;   // +0x018
+    unsigned char pad_01c[0x340];
+    unsigned int flags_35c;              // +0x35C
+    __declspec(noinline) void Begin();
+};
+
+extern "C" AnimationNode_00449530* __fastcall AnimationManager_Find_004491c0(
+    void* value, void* manager, int unused);
+
+#pragma code_seg(".text$01accessor")
+void AnimationNode_00449530::Begin() {
+    AnimationNode_00449530* node =
+        AnimationManager_Find_004491c0(field_000, data_00491c10, (int)field_000);
+    if (node == 0) {
+        return;
+    }
+    node->flags_35c = (node->flags_35c & ~0x20000u) | 2u;
+    if (node->field_018 != 0) {
+        return;
+    }
+    for (AnimationNode_00449530* child = node->field_014; child != 0; child = child->field_004) {
+        child->field_000->flags_35c |= 2u;
+        child->field_000->flags_35c &= ~0x20000u;
     }
 }
+#pragma code_seg()

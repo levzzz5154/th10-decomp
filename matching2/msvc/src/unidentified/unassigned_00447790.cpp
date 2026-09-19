@@ -1,55 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00447790..0x004477CD: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00447790() {
-    __asm {
-    L_00447790:
-        xor edx,edx
-    L_00447792:
-        add ecx,3AD06Ch
-    L_00447798:
-        push esi
-    L_00447799:
-        lea esp,[esp+force_disp32_zero]
-    L_004477a0:
-        mov eax,dword ptr [ecx]
-    L_004477a2:
-        test eax,eax
-    L_004477a4:
-        je short L_004477ba
-    L_004477a6:
-        mov esi,dword ptr [eax+128h]
-    L_004477ac:
-        test esi,esi
-    L_004477ae:
-        jne short L_004477ca
-    L_004477b0:
-        mov esi,dword ptr [eax+124h]
-    L_004477b6:
-        test esi,esi
-    L_004477b8:
-        jne short L_004477ca
-    L_004477ba:
-        inc edx
-    L_004477bb:
-        add ecx,4
-    L_004477be:
-        cmp edx,21h
-    L_004477c1:
-        jb short L_004477a0
-    L_004477c3:
-        mov eax,1
-    L_004477c8:
-        pop esi
-    L_004477c9:
-        ret
-    L_004477ca:
-        xor eax,eax
-    L_004477cc:
-        pop esi
-    L_004477cd:
-        ret
+// 0x00447790: answer 1 when every slot of the table at this+0x3AD06C is either
+// null or holds a node whose +0x124 and +0x128 fields are both zero.
+struct Node_00447790 {
+    unsigned char pad_000[0x124];
+    void* field_124;
+    void* field_128;
+};
+struct Table_00447790 {
+    unsigned char pad_000[0x3AD06C];
+    Node_00447790* slots[0x21];
+    __declspec(noinline) int AllEmpty() const;
+};
+int Table_00447790::AllEmpty() const {
+    for (unsigned index = 0; index < 0x21; ++index) {
+        Node_00447790* node = slots[index];
+        if (node != 0 && (node->field_128 != 0 || node->field_124 != 0)) {
+            return 0;
+        }
     }
+    return 1;
 }
