@@ -28715,13 +28715,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448620_00448620",
+      "name": "semantic_AnimationManager_00448620_RenderStage0Bucket3_00448620",
       "source": "src/unidentified/FUN_00448620_00448620.cpp",
-      "symbol": "_asm_FUN_00448620_00448620",
+      "symbol": "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
       "address": "0x00448620",
       "size": 115,
-      "kind": "asm",
-      "owner": "0x00448620"
+      "kind": "semantic",
+      "owner": "0x00448620",
+      "previous_record": {
+        "name": "asm_FUN_00448620_00448620",
+        "source": "src/unidentified/FUN_00448620_00448620.cpp",
+        "symbol": "_asm_FUN_00448620_00448620",
+        "address": "0x00448620",
+        "size": 115,
+        "kind": "asm",
+        "owner": "0x00448620"
+      }
     },
     {
       "name": "text_padding_00448693",
@@ -29212,13 +29221,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448e80_00448e80",
+      "name": "semantic_AnimationManager_CreatePositionedPrimaryFront_00448e80_00448e80",
       "source": "src/unidentified/FUN_00448e80_00448e80.cpp",
-      "symbol": "_asm_FUN_00448e80_00448e80",
+      "symbol": "?AnimationManager_CreatePositionedPrimaryFront_00448e80@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448e80@@@Z",
       "address": "0x00448E80",
       "size": 95,
-      "kind": "asm",
-      "owner": "0x00448E80"
+      "kind": "semantic",
+      "owner": "0x00448E80",
+      "previous_record": {
+        "name": "asm_FUN_00448e80_00448e80",
+        "source": "src/unidentified/FUN_00448e80_00448e80.cpp",
+        "symbol": "_asm_FUN_00448e80_00448e80",
+        "address": "0x00448E80",
+        "size": 95,
+        "kind": "asm",
+        "owner": "0x00448E80"
+      }
     },
     {
       "name": "text_padding_00448edf",
@@ -49471,7 +49489,8 @@
     "layout/ltcg/positioned_primary_00448d50_wave10.json",
     "layout/ltcg/lazy_animation_resource_0040c540_wave11.json",
     "layout/ltcg/fun_00448740_wave11.json",
-    "layout/ltcg/load_script_0043e710_wave11.json"
+    "layout/ltcg/load_script_0043e710_wave11.json",
+    "layout/ltcg/positioned_primary_front_00448e80_wave12.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -32,6 +32,9 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) int Flush();
     __declspec(noinline) void SyncRenderState(const RenderEntity* entity);
     __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
+    // 0x00448620: republishes the first render stage and draws animation
+    // bucket 3; see src/unidentified/FUN_00448620_00448620.cpp.
+    __declspec(noinline) int RenderStage0Bucket3();
     // 0x00448770, 0x004487C0 and 0x00448810: the scheduler tasks that
     // republish the second render stage and then draw one animation bucket
     // (0x0F, 0x10 and 0x13); see src/unidentified/FUN_00448770_00448770.cpp.

@@ -215,6 +215,15 @@
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
       "source": "src/unidentified/FUN_00448810_00448810.cpp"
+    },
+    {
+      "name": "AnimationManager_00448620_RenderStage0Bucket3",
+      "symbol": "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$08layer3",
+      "address": "0x00448620",
+      "size": 115,
+      "actual_abi": "manager in ECX; manager in EBX across the mid-body calls; bucket index 3 in EAX and the manager in EDI for the 0x00448980 call; result in EAX; plain RET",
+      "source": "src/unidentified/FUN_00448620_00448620.cpp"
     }
   ],
   "gaps": [
@@ -321,7 +330,12 @@
     {
       "section": ".text$07contextz",
       "address": "0x445341",
-      "size": 13359
+      "size": 13023
+    },
+    {
+      "section": ".text$08layer3z",
+      "address": "0x448693",
+      "size": 221
     },
     {
       "section": ".text$08stage0fz",
@@ -434,6 +448,7 @@
     "src/render/sprite_quad_submit.cpp",
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/unidentified/FUN_00448620_00448620.cpp",
     "src/unidentified/FUN_00448770_00448770.cpp",
     "src/unidentified/FUN_004487c0_004487c0.cpp",
     "src/unidentified/FUN_00448810_00448810.cpp",
@@ -446,7 +461,8 @@
     "?Draw@ColorViewport@@QAEHXZ",
     "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
-    "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ"
+    "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
+    "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
