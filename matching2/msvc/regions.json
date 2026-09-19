@@ -577,13 +577,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_InitializeEntity_00401de0",
-      "source": "src/game/entity.cpp",
-      "symbol": "_asm_InitializeEntity_00401de0",
+      "name": "semantic_Entity_Init_00401de0",
+      "source": "src/game/entity_initialize_00401de0.cpp",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
       "address": "0x00401DE0",
       "size": 273,
-      "kind": "asm",
-      "owner": "0x00401DE0"
+      "kind": "semantic",
+      "owner": "0x00401DE0",
+      "previous_record": {
+        "name": "asm_InitializeEntity_00401de0",
+        "source": "src/game/entity.cpp",
+        "symbol": "_asm_InitializeEntity_00401de0",
+        "address": "0x00401DE0",
+        "size": 273,
+        "kind": "asm",
+        "owner": "0x00401DE0"
+      }
     },
     {
       "name": "text_padding_00401ef1",
@@ -46797,6 +46806,7 @@
     "src/game/entity_angle_from_point_00426660.cpp",
     "src/game/entity_angle_to_point_00426610.cpp",
     "src/game/entity_color_slot.cpp",
+    "src/game/entity_initialize_00401de0.cpp",
     "src/game/entity_movement_slot.cpp",
     "src/game/entity_region_sweep.cpp",
     "src/game/event_script_runtime.cpp",
