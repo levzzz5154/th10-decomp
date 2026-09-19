@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "name": "enemy_slot_advance_004067a0",
+  "source": "src/unidentified/FUN_004067a0_004067a0.cpp",
+  "driver": "layout/ltcg/enemy_slot_advance_004067a0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Per-frame slot advance compiled with native LTCG; the slot advance it calls bare is an ABI anchor earning the EAX/ECX argument pair.",
+  "functions": [
+    {
+      "name": "SlotOwner_004067a0_AdvanceAllSlots",
+      "symbol": "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ",
+      "section": ".text$03run",
+      "address": "0x004067A0",
+      "size": 44,
+      "actual_abi": "owner in ECX; plain RET; 1 in EAX"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SlotOwner_004067a0_AdvanceSlot_abi_anchor",
+      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
+      "section": ".text$01anchor",
+      "address": "0x004066E0",
+      "size": 135
+    }
+  ],
+  "context": {
+    "symbol": "EnemySlotAdvanceContext@8",
+    "section": ".text$05context",
+    "address": "0x00407000",
+    "size": 34,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 22240
+    },
+    {
+      "section": ".text$02zlayout",
+      "address": "0x00406767",
+      "size": 57
+    },
+    {
+      "section": ".text$04zlayout",
+      "address": "0x004067CC",
+      "size": 2100
+    }
+  ],
+  "constants": [],
+  "roots": [
+    "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ"
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00477810",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Angle_NormalizeSum_0044bc10@8",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@DispatchAnm_004451c0@8",
+      "address": "0x004451C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

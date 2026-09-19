@@ -3418,13 +3418,22 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_004067a0_004067a0",
+      "name": "semantic_SlotOwner_004067a0_AdvanceAllSlots_004067a0",
       "source": "src/unidentified/FUN_004067a0_004067a0.cpp",
-      "symbol": "_asm_FUN_004067a0_004067a0",
+      "symbol": "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ",
       "address": "0x004067A0",
       "size": 44,
-      "kind": "asm",
-      "owner": "0x004067A0"
+      "kind": "semantic",
+      "owner": "0x004067A0",
+      "previous_record": {
+        "name": "asm_FUN_004067a0_004067a0",
+        "source": "src/unidentified/FUN_004067a0_004067a0.cpp",
+        "symbol": "_asm_FUN_004067a0_004067a0",
+        "address": "0x004067A0",
+        "size": 44,
+        "kind": "asm",
+        "owner": "0x004067A0"
+      }
     },
     {
       "name": "text_padding_004067cc",
@@ -49669,7 +49678,8 @@
     "layout/ltcg/restart_midi_0043ad70.json",
     "layout/ltcg/ecl_resolve_float_destination_00450070.json",
     "layout/ltcg/player_scheduler_links_00405be0.json",
-    "layout/ltcg/time_value_set_seconds_0043e500.json"
+    "layout/ltcg/time_value_set_seconds_0043e500.json",
+    "layout/ltcg/enemy_slot_advance_004067a0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
