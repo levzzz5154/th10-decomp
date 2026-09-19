@@ -1,13 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x0040E760..0x0040E76A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040e760() {
-    __asm {
-    L_0040e760:
-        add ecx,103Ch
-    L_0040e766:
-        jmp asm_FUN_0040e770_0040e770
-    }
+struct Inner_0040e760 {
+    unsigned char bytes[0x100];
+    __declspec(noinline) void Run();
+};
+
+struct Outer_0040e760 {
+    unsigned char pad_000[0x103C];
+    Inner_0040e760 inner;
+    __declspec(noinline) void Run();
+};
+
+#pragma code_seg(".text$01run")
+void Outer_0040e760::Run() {
+    inner.Run();
 }
+#pragma code_seg()

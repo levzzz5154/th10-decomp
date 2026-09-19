@@ -1,17 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00418C30..0x00418C39: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00418c30() {
-    __asm {
-    L_00418c30:
-        mov edx,esi
-    L_00418c32:
-        call asm_GameConfig_InitializeDefaults_00418c40
-    L_00418c37:
-        mov eax,esi
-    L_00418c39:
-        ret
-    }
+#pragma pack(push, 1)
+struct GameConfig_00418c30 {
+    unsigned char bytes[0x34];
+    __declspec(noinline) GameConfig_00418c30* Reset();
+};
+#pragma pack(pop)
+char __fastcall InitConfigAnchor_00418c40(int reserved, GameConfig_00418c30* config);
+#pragma code_seg(".text$01reset")
+GameConfig_00418c30* GameConfig_00418c30::Reset() {
+    InitConfigAnchor_00418c40(0, this);
+    return this;
 }
+#pragma code_seg()

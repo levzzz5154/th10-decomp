@@ -1,17 +1,9 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" void __cdecl entry_free_00452422(void* block);
 
-// 0x00402040..0x00402047: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00402040() {
-    __asm {
-    L_00402040:
-        push eax
-    L_00402041:
-        call asm_free_00452422
-    L_00402046:
-        pop ecx
-    L_00402047:
-        ret
-    }
+__declspec(noinline) void FreeBlock_00402040(void* block);
+
+#pragma code_seg(".text$01free")
+__declspec(noinline) void FreeBlock_00402040(void* block) {
+    entry_free_00452422(block);
 }
+#pragma code_seg()

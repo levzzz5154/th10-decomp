@@ -1,0 +1,12 @@
+// Compiler context only; never selected as recovered game code.
+#include "../../src/unidentified/unassigned_004088a0.cpp"
+
+#pragma code_seg(".text$03context")
+int __stdcall IndexContext_004088a0(int* indices, int* bases, int count) {
+    int total = 0;
+    for (int i = 0; i < count; ++i) {
+        total += SlotIndex_004088a0(indices[i], bases[i]);
+    }
+    return total;
+}
+#pragma code_seg()

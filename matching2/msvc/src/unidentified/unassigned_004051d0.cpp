@@ -1,15 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x004051D0..0x004051D6: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004051d0() {
-    __asm {
-    L_004051d0:
-        push eax
-    L_004051d1:
-        call asm_FUN_0043ee30_0043ee30
-    L_004051d6:
-        ret
-    }
+extern "C" int __stdcall target_0043ee30(void* object);
+
+__declspec(noinline) int RetireBlock_004051d0(void* object);
+
+#pragma code_seg(".text$01retire")
+__declspec(noinline) int RetireBlock_004051d0(void* object) {
+    return target_0043ee30(object);
 }
+#pragma code_seg()

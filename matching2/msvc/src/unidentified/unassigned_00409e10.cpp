@@ -1,19 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x00409E10..0x00409E1B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00409e10() {
-    __asm {
-    L_00409e10:
-        mov eax,dword ptr [ecx+28h]
-    L_00409e13:
-        mov edx,dword ptr [ecx+2Ch]
-    L_00409e16:
-        lea eax,[eax+eax*2]
-    L_00409e19:
-        add eax,edx
-    L_00409e1b:
-        ret
-    }
+struct Vector_00409e10 {
+    unsigned char pad_000[0x28];
+    int field_28;
+    int field_2C;
+    __declspec(noinline) int Evaluate();
+};
+
+#pragma code_seg(".text$01evaluate")
+int Vector_00409e10::Evaluate() {
+    return field_28 * 3 + field_2C;
 }
+#pragma code_seg()

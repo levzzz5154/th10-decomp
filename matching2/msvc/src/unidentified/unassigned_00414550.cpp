@@ -1,31 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x00414550..0x0041456D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00414550() {
-    __asm {
-    L_00414550:
-        push esi
-    L_00414551:
-        mov esi,eax
-    L_00414553:
-        call asm_AnimationSlot_ReleaseRetail_004136c0
-    L_00414558:
-        test byte ptr [esp+8],1
-    L_0041455d:
-        je short L_00414568
-    L_0041455f:
-        push esi
-    L_00414560:
-        call asm_free_004524a1
-    L_00414565:
-        add esp,4
-    L_00414568:
-        mov eax,esi
-    L_0041456a:
-        pop esi
-    L_0041456b:
-        ret 4
-    }
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct AnimationSlot_00414550 {
+    unsigned char pad_000[0x40];
+    void* field_40;
+    void* field_44;
+    void* field_48;
+    void* field_4c;
+    void* field_50;
+    __declspec(noinline) void ReleaseRetail();
+};
+
+__declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
+        AnimationSlot_00414550* slot, unsigned int flags);
+
+#pragma code_seg(".text$03destroy")
+__declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
+        AnimationSlot_00414550* slot, unsigned int flags) {
+    slot->ReleaseRetail();
+    if (flags & 1) entry_free_004524a1(slot);
+    return slot;
 }
+#pragma code_seg()
