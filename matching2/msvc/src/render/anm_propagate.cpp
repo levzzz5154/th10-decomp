@@ -9,6 +9,8 @@
 // only a native-LTCG cluster reaches; this unit is co-compiled with the
 // StopAtFrame pair that owns 0x004491C0 (layout/ltcg/stop_at_frame_pair_0040c480.json).
 
+#include "th10/render/animation_handle.hpp"
+
 struct AnimationLookupContext;
 
 // The script id is a four-byte record so the lookup reads it from its stack
@@ -32,12 +34,6 @@ public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
 
-struct AnimationHandle {
-    unsigned int value;
-    __declspec(noinline) void StopAtFrame1();
-    __declspec(noinline) void StopAtFrame2();
-    __declspec(noinline) void StopAtFrame3();
-};
 
 extern "C" AnimationLookupContext* data_00491c10;
 

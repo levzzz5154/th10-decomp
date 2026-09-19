@@ -1,59 +1,64 @@
-#include <string.h>
+// 0x00423510..0x00423568: reset a timed game-state record, point its curve
+// timer at the shared speed value and stop both of the animation handles it
+// carries.
+//
+// Retail enters this member with the record in ESI, a receiver no C++
+// declaration names, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/stop_at_frame_pair_0040c480.json whose synthetic caller
+// establishes that register.  The two handles at +0x1D4/+0x1D8 are
+// AnimationHandles, so the calls reach the StopAtFrame1 body that same cluster
+// already carries with its address in EAX.
+//
+// The record repeats the score-timer shape (previous/current/elapsed/speed/
+// flags, see src/game/score_timer_leaves.cpp) at +0x10 instead of +0x2B0, and
+// copies its own speed field out to the shared float the timer reads.
+//
+// The state store reaches the record through a pointer to that field rather
+// than through the member: as ``int* base = &record->state`` the store keeps its
+// place in front of the flag load, while the direct member store sinks into the
+// compare slot (12 bytes away from the retail schedule).
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+#include "th10/render/animation_handle.hpp"
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+extern "C" float data_00476f78;
 
-// 0x00423510..0x00423568: ?Recovery_InitializeTimedState@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeTimedState_00423510() {
-    __asm {
-    L_00423510:
-        mov dword ptr [esi+4],0Dh
-    L_00423517:
-        mov eax,dword ptr [esi+20h]
-    L_0042351a:
-        xor ecx,ecx
-    L_0042351c:
-        test al,1
-    L_0042351e:
-        jne short L_0042353a
-    L_00423520:
-        or eax,1
-    L_00423523:
-        mov dword ptr [esi+14h],ecx
-    L_00423526:
-        mov dword ptr [esi+10h],0FFF0BDC1h
-    L_0042352d:
-        mov dword ptr [esi+18h],ecx
-    L_00423530:
-        mov dword ptr [esi+1Ch],476F78h
-    L_00423537:
-        mov dword ptr [esi+20h],eax
-    L_0042353a:
-        lea eax,[esi+1D8h]
-    L_00423540:
-        mov dword ptr [esi+14h],ecx
-    L_00423543:
-        mov dword ptr [esi+18h],ecx
-    L_00423546:
-        mov dword ptr [esi+10h],0FFFFFFFFh
-    L_0042354d:
-        call asm_FUN_00409e50_00409e50
-    L_00423552:
-        lea eax,[esi+1D4h]
-    L_00423558:
-        call asm_FUN_00409e50_00409e50
-    L_0042355d:
-        mov eax,dword ptr [esi+2C0h]
-    L_00423563:
-        mov dword ptr [data_00476f78],eax
-    L_00423568:
-        ret
+struct RecoveryTimedState_00423510 {
+    unsigned char unknown_00[0x04];
+    int state;                                 // +0x04
+    unsigned char unknown_08[0x08];
+    int timer_previous;                        // +0x10
+    int timer_current;                         // +0x14
+    int timer_elapsed;                         // +0x18
+    float* timer_speed;                        // +0x1C
+    unsigned int timer_flags;                  // +0x20
+    unsigned char unknown_24[0x1B0];
+    AnimationHandle handle_1d4;                // +0x1D4
+    AnimationHandle handle_1d8;                // +0x1D8
+    unsigned char unknown_1dc[0xE4];
+    float speed;                               // +0x2C0
+
+    __declspec(noinline) void InitializeTimedState();
+};
+
+typedef char RecoveryTimedState_00423510_size_must_fit[
+    sizeof(RecoveryTimedState_00423510) == 0x2C4 ? 1 : -1];
+
+#pragma code_seg(".text$45timed")
+void RecoveryTimedState_00423510::InitializeTimedState() {
+    int* record = &state;
+    record[0] = 13;
+    if ((timer_flags & 1) == 0) {
+        timer_current = 0;
+        timer_previous = 0xFFF0BDC1;
+        timer_elapsed = 0;
+        timer_speed = &data_00476f78;
+        timer_flags |= 1;
     }
+    timer_current = 0;
+    timer_elapsed = 0;
+    timer_previous = -1;
+    handle_1d8.StopAtFrame1();
+    handle_1d4.StopAtFrame1();
+    data_00476f78 = speed;
 }
+#pragma code_seg()
