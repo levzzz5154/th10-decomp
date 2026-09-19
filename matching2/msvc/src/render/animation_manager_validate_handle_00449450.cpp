@@ -1,28 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449450..0x00449464: clear a stale animation handle.
+struct AnimationLookupContext;
+struct AnimationScriptId_00449450 {
+    int value;
+};
+struct AnimationHandle_00449450 {
+    unsigned int value;
+};
+extern "C" AnimationLookupContext* data_00491c10;
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+class AnimationManager_00449450 {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId_00449450 id);
+    __declspec(noinline) void ValidateHandle(AnimationHandle_00449450* handle);
+};
 
-// 0x00449450..0x00449464: ?AnimationManager_ValidateHandle@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_ValidateHandle_00449450() {
-    __asm {
-    L_00449450:
-        mov eax,dword ptr [esi]
-    L_00449452:
-        mov edx,dword ptr [data_00491c10]
-    L_00449458:
-        push eax
-    L_00449459:
-        call asm_AnimationManager_Find_004491c0
-    L_0044945e:
-        test eax,eax
-    L_00449460:
-        jne short L_00449464
-    L_00449462:
-        mov dword ptr [esi],eax
-    L_00449464:
-        ret
-    }
+#pragma code_seg(".text$01validate")
+void AnimationManager_00449450::ValidateHandle(AnimationHandle_00449450* handle) {
+    AnimationScriptId_00449450 id = { (int)handle->value };
+    if (Find(data_00491c10, id) == 0)
+        handle->value = 0;
 }
+#pragma code_seg()

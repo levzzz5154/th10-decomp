@@ -1,107 +1,40 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// 0x0043EC70..0x0043ECFF: read an integer-valued animation variable.
+struct AnimationObjectVariables_0043ec70 {
+    unsigned char reserved_000[0x30c];
+    int integer_0;
+    int integer_1;
+    int integer_2;
+    int integer_3;
+    float float_0;
+    float float_1;
+    float float_2;
+    float float_3;
+    int integer_8;
+    int integer_9;
 
+    __declspec(noinline) int ReadIntegerVariable(int variable) const;
+};
 
-
-
-
-
-
-// 0x0043EC70..0x0043ECD7: ?AnimationObject_ReadIntegerVariable@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ReadIntegerVariable_0043ec70() {
-    __asm {
-    L_0043ec70:
-        lea edx,[eax-2710h]
-    L_0043ec76:
-        cmp edx,9
-    L_0043ec79:
-        ja short L_0043ecd7
-    L_0043ec7b:
-        jmp dword ptr [edx*4+43ECD8h]
-    L_0043ec82:
-        mov eax,dword ptr [ecx+30Ch]
-    L_0043ec88:
-        ret
-    L_0043ec89:
-        mov eax,dword ptr [ecx+310h]
-    L_0043ec8f:
-        ret
-    L_0043ec90:
-        mov eax,dword ptr [ecx+314h]
-    L_0043ec96:
-        ret
-    L_0043ec97:
-        mov eax,dword ptr [ecx+318h]
-    L_0043ec9d:
-        ret
-    L_0043ec9e:
-        fld dword ptr [ecx+31Ch]
-    L_0043eca4:
-        jmp asm_FUN_00463b2c_00463b2c
-    L_0043eca9:
-        fld dword ptr [ecx+320h]
-    L_0043ecaf:
-        jmp asm_FUN_00463b2c_00463b2c
-    L_0043ecb4:
-        fld dword ptr [ecx+324h]
-    L_0043ecba:
-        jmp asm_FUN_00463b2c_00463b2c
-    L_0043ecbf:
-        fld dword ptr [ecx+328h]
-    L_0043ecc5:
-        jmp asm_FUN_00463b2c_00463b2c
-    L_0043ecca:
-        mov eax,dword ptr [ecx+32Ch]
-    L_0043ecd0:
-        ret
-    L_0043ecd1:
-        mov eax,dword ptr [ecx+330h]
-    L_0043ecd7:
-        ret
-        _emit 0x82
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0x89
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0x90
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0x97
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0x9e
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0xa9
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0xb4
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0xbf
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0xca
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
-        _emit 0xd1
-        _emit 0xec
-        _emit 0x43
-        _emit 0x00
+#pragma code_seg(".text$01readvar")
+int AnimationObjectVariables_0043ec70::ReadIntegerVariable(int variable) const {
+    switch (variable - 10000) {
+    case 0: return integer_0;
+    case 1: return integer_1;
+    case 2: return integer_2;
+    case 3: return integer_3;
+    case 4: return (int)float_0;
+    case 5: return (int)float_1;
+    case 6: return (int)float_2;
+    case 7: return (int)float_3;
+    case 8: return integer_8;
+    case 9: return integer_9;
+    default: return variable;
     }
 }
+#pragma code_seg()
 
 
 
@@ -175,13 +108,14 @@ struct AnimationLookupContext {
 
 class AnimationManager {
 public:
-    void* __fastcall SetFlag(AnimationLookupContext* context, int id);
+    __declspec(noinline) void* __fastcall SetFlag(AnimationLookupContext* context, int id);
 };
 
 // 0x004492A0: AnimationManager_SetFlag - mark the object registered under a
 // script id, and its not-yet-flagged children, as script owned.
 typedef void* (__fastcall* AnimationFindFn)(AnimationManager*, AnimationLookupContext*, int);
 
+#pragma code_seg(".text$03setflag")
 void* __fastcall AnimationManager::SetFlag(AnimationLookupContext* context, int id) {
     // The lookup is the sibling entry point; the retail call keeps the manager
     // object in ECX and the context in EDX, so it goes through its fixed address.
@@ -195,3 +129,4 @@ void* __fastcall AnimationManager::SetFlag(AnimationLookupContext* context, int 
     }
     return entry;
 }
+#pragma code_seg()

@@ -1,114 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0043ED00..0x0043ED6B: ?AnimationObject_ResolveFloatVariable@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ResolveFloatVariable_0043ed00() {
-    __asm {
-    L_0043ed00:
-        mov eax,1
-    L_0043ed05:
-        shl eax,cl
-    L_0043ed07:
-        movzx ecx,word ptr [esp+4]
-    L_0043ed0c:
-        test eax,ecx
-    L_0043ed0e:
-        je short L_0043ed67
-    L_0043ed10:
-        fld dword ptr [edi]
-    L_0043ed12:
-        call asm_FUN_00463b2c_00463b2c
-    L_0043ed17:
-        add eax,0FFFFD8ECh
-    L_0043ed1c:
-        cmp eax,0Bh
-    L_0043ed1f:
-        ja short L_0043ed67
-    L_0043ed21:
-        jmp dword ptr [eax*4+43ED6Ch]
-    L_0043ed28:
-        lea eax,[esi+31Ch]
-    L_0043ed2e:
-        ret 4
-    L_0043ed31:
-        lea eax,[esi+320h]
-    L_0043ed37:
-        ret 4
-    L_0043ed3a:
-        lea eax,[esi+324h]
-    L_0043ed40:
-        ret 4
-    L_0043ed43:
-        lea eax,[esi+328h]
-    L_0043ed49:
-        ret 4
-    L_0043ed4c:
-        lea eax,[esi+334h]
-    L_0043ed52:
-        ret 4
-    L_0043ed55:
-        lea eax,[esi+338h]
-    L_0043ed5b:
-        ret 4
-    L_0043ed5e:
-        lea eax,[esi+33Ch]
-    L_0043ed64:
-        ret 4
-    L_0043ed67:
-        mov eax,edi
-    L_0043ed69:
-        ret 4
-        _emit 0x28
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x31
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x3a
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x43
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x67
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x4c
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x55
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
-        _emit 0x5e
-        _emit 0xed
-        _emit 0x43
-        _emit 0x00
+#pragma code_seg(".text$01resolvefloat")
+extern "C" __declspec(noinline) float* __stdcall ResolveFloatVariable_0043ed00(
+        unsigned char selector, float* value, unsigned char* object, unsigned short mask) {
+    if (((1u << selector) & mask) != 0) {
+        switch ((int)*value) {
+        case 10004: return (float*)(object + 0x31c);
+        case 10005: return (float*)(object + 0x320);
+        case 10006: return (float*)(object + 0x324);
+        case 10007: return (float*)(object + 0x328);
+        case 10013: return (float*)(object + 0x334);
+        case 10014: return (float*)(object + 0x338);
+        case 10015: return (float*)(object + 0x33c);
+        }
     }
+    return value;
 }
+#pragma code_seg()

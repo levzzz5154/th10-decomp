@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "evaluate_curve_0044c350",
+  "source": "src/game/fun_0044c350_0044c350.cpp",
+  "driver": "layout/ltcg/evaluate_curve_0044c350_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Animation easing switch compiled with native LTCG so the mode selector remains in EAX and the embedded jump table stays in the function contribution.",
+  "functions": [
+    {
+      "name": "EvaluateCurve_0044c350",
+      "symbol": "?EvaluateCurve_0044c350@@YGMIMM@Z",
+      "section": ".text$01ease",
+      "address": "0x0044C350",
+      "size": 576,
+      "actual_abi": "mode in EAX; two float stack arguments; x87 result; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "?EvaluateCurveCompilerContext@@YGMPBIPBM1H@Z",
+    "section": ".text$03context",
+    "address": "0x0044C5A0",
+    "size": 92,
+    "description": "Synthetic array-walking caller that establishes the private selector register; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 308048},
+    {"section": ".text$02layout", "address": "0x0044C590", "size": 16}
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {"symbol": "__real@00000000", "address": "0x00470B04", "value": 0.0},
+    {"symbol": "__real@3f000000", "address": "0x00470B0C", "value": 0.5},
+    {"symbol": "__real@3f800000", "address": "0x00470AFC", "value": 1.0},
+    {"symbol": "__real@40000000", "address": "0x00470B08", "value": 2.0}
+  ],
+  "absolute_symbols": [
+    {"symbol": "__fltused", "address": "0x00000000", "kind": "metadata"}
+  ],
+  "roots": []
+}

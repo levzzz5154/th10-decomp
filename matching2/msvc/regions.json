@@ -14455,13 +14455,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041ab70_0041ab70",
+      "name": "semantic_EntityMovementSlot_Initialise_0041ab70",
       "source": "src/game/entity_movement_slot.cpp",
-      "symbol": "_asm_FUN_0041ab70_0041ab70",
+      "symbol": "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z",
       "address": "0x0041AB70",
       "size": 136,
-      "kind": "asm",
-      "owner": "0x0041AB70"
+      "kind": "semantic",
+      "owner": "0x0041AB70",
+      "previous_record": {
+        "name": "asm_FUN_0041ab70_0041ab70",
+        "source": "src/game/entity_movement_slot.cpp",
+        "symbol": "_asm_FUN_0041ab70_0041ab70",
+        "address": "0x0041AB70",
+        "size": 136,
+        "kind": "asm",
+        "owner": "0x0041AB70"
+      }
     },
     {
       "name": "text_padding_0041abf8",
@@ -16042,12 +16051,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041d2c0_0041d2c0",
+      "name": "semantic_EffectAccel_Update_0041d2c0",
       "source": "src/game/effect_accel.cpp",
-      "symbol": "_asm_FUN_0041d2c0_0041d2c0",
+      "symbol": "?Update@EffectAccel_0041d2c0@@QAEXXZ",
       "address": "0x0041D2C0",
       "size": 269,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0041D2C0"
     },
     {
@@ -28788,13 +28797,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_EntityScript_NextRandomModulo_0043cb80",
+      "name": "semantic_EntityScriptRng_NextRandomModulo_0043cb80",
       "source": "src/script/prng.cpp",
-      "symbol": "_asm_EntityScript_NextRandomModulo_0043cb80",
+      "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
       "address": "0x0043CB80",
       "size": 88,
-      "kind": "asm",
-      "owner": "0x0043CB80"
+      "kind": "semantic",
+      "owner": "0x0043CB80",
+      "previous_record": {
+        "name": "asm_EntityScript_NextRandomModulo_0043cb80",
+        "source": "src/script/prng.cpp",
+        "symbol": "_asm_EntityScript_NextRandomModulo_0043cb80",
+        "address": "0x0043CB80",
+        "size": 88,
+        "kind": "asm",
+        "owner": "0x0043CB80"
+      }
     },
     {
       "name": "text_padding_0043cbd8",
@@ -29667,22 +29685,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationObject_ReadIntegerVariable_0043ec70",
+      "name": "semantic_AnimationObject_ReadIntegerVariable_0043ec70",
       "source": "src/render/animation_manager.cpp",
-      "symbol": "_asm_AnimationObject_ReadIntegerVariable_0043ec70",
+      "symbol": "?ReadIntegerVariable@AnimationObjectVariables_0043ec70@@QBEHH@Z",
       "address": "0x0043EC70",
       "size": 144,
-      "kind": "asm",
-      "owner": "0x0043EC70"
+      "kind": "semantic",
+      "owner": "0x0043EC70",
+      "previous_record": {
+        "name": "asm_AnimationObject_ReadIntegerVariable_0043ec70",
+        "source": "src/render/animation_manager.cpp",
+        "symbol": "_asm_AnimationObject_ReadIntegerVariable_0043ec70",
+        "address": "0x0043EC70",
+        "size": 144,
+        "kind": "asm",
+        "owner": "0x0043EC70"
+      }
     },
     {
-      "name": "asm_AnimationObject_ResolveFloatVariable_0043ed00",
+      "name": "semantic_ResolveFloatVariable_0043ed00_0043ed00",
       "source": "src/render/animation_object_resolve_float_variable_0043ed00.cpp",
-      "symbol": "_asm_AnimationObject_ResolveFloatVariable_0043ed00",
+      "symbol": "_ResolveFloatVariable_0043ed00@16",
       "address": "0x0043ED00",
       "size": 156,
-      "kind": "asm",
-      "owner": "0x0043ED00"
+      "kind": "semantic",
+      "owner": "0x0043ED00",
+      "previous_record": {
+        "name": "asm_AnimationObject_ResolveFloatVariable_0043ed00",
+        "source": "src/render/animation_object_resolve_float_variable_0043ed00.cpp",
+        "symbol": "_asm_AnimationObject_ResolveFloatVariable_0043ed00",
+        "address": "0x0043ED00",
+        "size": 156,
+        "kind": "asm",
+        "owner": "0x0043ED00"
+      }
     },
     {
       "name": "text_padding_0043ed9c",
@@ -29693,13 +29729,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationObject_ResolveIntegerVariable_0043eda0",
+      "name": "semantic_ResolveIntegerVariable_0043eda0_0043eda0",
       "source": "src/render/animation_object_resolve_integer_variable_0043eda0.cpp",
-      "symbol": "_asm_AnimationObject_ResolveIntegerVariable_0043eda0",
+      "symbol": "_ResolveIntegerVariable_0043eda0@16",
       "address": "0x0043EDA0",
       "size": 132,
-      "kind": "asm",
-      "owner": "0x0043EDA0"
+      "kind": "semantic",
+      "owner": "0x0043EDA0",
+      "previous_record": {
+        "name": "asm_AnimationObject_ResolveIntegerVariable_0043eda0",
+        "source": "src/render/animation_object_resolve_integer_variable_0043eda0.cpp",
+        "symbol": "_asm_AnimationObject_ResolveIntegerVariable_0043eda0",
+        "address": "0x0043EDA0",
+        "size": 132,
+        "kind": "asm",
+        "owner": "0x0043EDA0"
+      }
     },
     {
       "name": "text_padding_0043ee24",
@@ -33002,13 +33047,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_ValidateHandle_00449450",
+      "name": "semantic_AnimationManager_ValidateHandle_00449450",
       "source": "src/render/animation_manager_validate_handle_00449450.cpp",
-      "symbol": "_asm_AnimationManager_ValidateHandle_00449450",
+      "symbol": "?ValidateHandle@AnimationManager_00449450@@QAEXPAUAnimationHandle_00449450@@@Z",
       "address": "0x00449450",
       "size": 21,
-      "kind": "asm",
-      "owner": "0x00449450"
+      "kind": "semantic",
+      "owner": "0x00449450",
+      "previous_record": {
+        "name": "asm_AnimationManager_ValidateHandle_00449450",
+        "source": "src/render/animation_manager_validate_handle_00449450.cpp",
+        "symbol": "_asm_AnimationManager_ValidateHandle_00449450",
+        "address": "0x00449450",
+        "size": 21,
+        "kind": "asm",
+        "owner": "0x00449450"
+      }
     },
     {
       "name": "text_padding_00449465",
@@ -35206,13 +35260,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044c350_0044c350",
+      "name": "semantic_EvaluateCurve_0044c350_0044c350",
       "source": "src/game/fun_0044c350_0044c350.cpp",
-      "symbol": "_asm_FUN_0044c350_0044c350",
+      "symbol": "?EvaluateCurve_0044c350@@YGMIMM@Z",
       "address": "0x0044C350",
       "size": 576,
-      "kind": "asm",
-      "owner": "0x0044C350"
+      "kind": "semantic",
+      "owner": "0x0044C350",
+      "previous_record": {
+        "name": "asm_FUN_0044c350_0044c350",
+        "source": "src/game/fun_0044c350_0044c350.cpp",
+        "symbol": "_asm_FUN_0044c350_0044c350",
+        "address": "0x0044C350",
+        "size": 576,
+        "kind": "asm",
+        "owner": "0x0044C350"
+      }
     },
     {
       "name": "asm_FUN_0044c590_0044c590",
@@ -37123,13 +37186,22 @@
       "owner": "0x00452422"
     },
     {
-      "name": "asm_FUN_00452475_00452475",
+      "name": "semantic_FUN_00452475_00452475",
       "source": "src/unidentified/FUN_00452475_00452475.cpp",
       "symbol": "_asm_FUN_00452475_00452475",
       "address": "0x00452475",
       "size": 9,
-      "kind": "asm",
-      "owner": "0x00452475"
+      "kind": "semantic",
+      "owner": "0x00452475",
+      "previous_record": {
+        "name": "asm_FUN_00452475_00452475",
+        "source": "src/unidentified/FUN_00452475_00452475.cpp",
+        "symbol": "_asm_FUN_00452475_00452475",
+        "address": "0x00452475",
+        "size": 9,
+        "kind": "asm",
+        "owner": "0x00452475"
+      }
     },
     {
       "name": "asm_free_part_0045247e",
@@ -53502,7 +53574,12 @@
     "layout/ltcg/copyd_0041c0a0.json",
     "layout/ltcg/insert_0041c0b0.json",
     "layout/ltcg/add_00441e00.json",
-    "layout/ltcg/vec_00441e10.json"
+    "layout/ltcg/vec_00441e10.json",
+    "layout/ltcg/animation_variable_resolvers.json",
+    "layout/ltcg/evaluate_curve_0044c350.json",
+    "layout/ltcg/entity_script_prng_0043cb80.json",
+    "layout/ltcg/animation_validate_handle_00449450.json",
+    "layout/ltcg/animation_read_integer_0043ec70.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

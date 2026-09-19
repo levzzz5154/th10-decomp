@@ -25,16 +25,19 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+
+from matching2.tools.waves.candidates import GAME_TEXT_END, GAME_TEXT_START, is_candidate
+
 PROJECT = ROOT / "matching2/msvc"
 REGISTER = re.compile(r"\b(?:e?[abcd]x|e?[sd]i|e?[sb]p|[abcd][lh])\b")
-# The static CRT block starts at the lowest region match_crt.py resolves to a
-# toolkit library member, 0x00452493 (strrchr), not at the old guess of
-# 0x44D000 - a wave-20 agent found the bound had been excluding real game
-# regions from 0x44D000 upward and including CRT ones above it.
-GAME_LOW, GAME_HIGH = 0x401000, 0x452493
+# Keep the CLI names local for output compatibility; the values come from the
+# scheduler's shared classifier.
+GAME_LOW, GAME_HIGH = GAME_TEXT_START, GAME_TEXT_END
 CALL_SETUP = re.compile(r"^(mov|lea|movzx|movsx)\s+(ecx|edx)\s*,", re.I)
 
 
@@ -124,7 +127,7 @@ def main():
     parser.add_argument("--calls", action="store_true",
                         help="also require every call's setup to be ECX/EDX/stack only")
     parser.add_argument("--game-only", action="store_true",
-                        help="exclude the static CRT range above 0x0044D000")
+                        help="exclude addresses outside game code (0x00401000..0x00452492)")
     parser.add_argument("--min", type=int, default=25)
     parser.add_argument("--max", type=int, default=140)
     parser.add_argument("--virtual", action="store_true",
@@ -135,16 +138,7 @@ def main():
     config = json.loads((PROJECT / "regions.json").read_text())
     cache, rows = {}, []
     for region in config["regions"]:
-        # owner == address marks a region that is an entire function. A region
-        # whose owner is absent or differs from its address was skipped by every
-        # screen for sixteen waves, but spot checks show many are complete
-        # padded functions (the manifest simply never recorded an owner), so the
-        # filter now only excludes regions explicitly owned by another address.
-        owner = region.get("owner")
-        if region["kind"] != "asm":
-            continue
-        if owner and int(owner, 0) != int(region["address"], 0):
-            continue
+        if not is_candidate(region, game_only=args.game_only):
             continue
         address, size = int(region["address"], 16), region["size"]
         if not (args.min <= size <= args.max):

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Split recoverable game regions into per-agent conversion assignments.
 
-A region is a candidate when it is an entire function (``owner == address``), it
-sits in game/app code, and IDA does not report a non-standard parameter register
-(those need a native LTCG cluster instead). Regions of one translation unit stay
-with one agent, because two agents editing one file cannot merge safely.
+The shared candidate classifier accepts self-owned and ownerless assembly in the
+game range. Explicitly foreign-owned records stay in the structural lane.
+Regions of one translation unit stay with one agent, because two agents editing
+one file cannot merge safely.
 """
 import sys
 from pathlib import Path
@@ -20,6 +20,7 @@ import struct
 import subprocess
 
 from matching2.tools.common.pe import PEImage
+from matching2.tools.waves.candidates import GAME_TEXT_END, classify, is_candidate
 
 CONFIG = json.loads((ROOT / "matching2/msvc/regions.json").read_text())
 TEXT_START = int(CONFIG["text_start"], 0)
@@ -101,8 +102,7 @@ def candidates(min_size, max_size, max_address, signatures):
     usable = []
     for region in CONFIG["regions"]:
         address = int(region["address"], 0)
-        if (region["kind"] != "asm" or not region["owner"]
-                or int(region["owner"], 0) != address
+        if (not is_candidate(region)
                 or not min_size <= region["size"] <= max_size
                 or address >= max_address):
             continue
@@ -122,6 +122,198 @@ def candidates(min_size, max_size, max_address, signatures):
                        "ghidra": (ROOT / f"decompiled/ghidra_augmented/functions/{address:08x}.c").is_file()})
     usable.sort(key=lambda item: (item["source"], int(item["address"], 0)))
     return usable
+
+
+LANES = ("mechanical", "structural", "dependency", "hard")
+LANE_PRIORITY = {"mechanical": 0, "hard": 1, "dependency": 2, "structural": 3}
+KNOWN_HARD_ADDRESSES = {
+    0x00401110,  # argument-home copy order
+    0x00405620,  # argument-home copy order
+    0x0040A040,  # mutually exclusive scheduling regions
+    0x0040D530,  # argument-home copy order
+    0x0042A3E0,  # phi/tail compiler tie-break
+    0x004364F0,  # phi/tail pairing
+    0x0043CD30,  # immediate argument-copy variant
+    0x00443080,  # stack-release scheduling
+    0x004445C0,  # induction-variable initialization order
+}
+KNOWN_STRUCTURAL_ADDRESSES = {
+    0x004126D0,  # function plus separately owned jump table
+    0x0041C0D0,  # two complete functions in one region
+    0x00420547,  # function prologue misclassified as text data
+    0x0042453D,  # continuation requiring merge with 0x00424530
+    0x00449C00,  # compiler-local switch table split from function COMDAT
+    0x00449D40,  # compiler-local switch table split from function COMDAT
+    0x004521DC,  # table of independent import thunks
+    0x00452332,  # table of independent import thunks
+}
+
+
+
+
+def _address(value):
+    return f"0x{value:08X}"
+
+
+def _family_key(region):
+    """Return a conservative key for named functions likely to share a recipe."""
+    name = re.sub(r"(?i)(?:0x)?[0-9a-f]{6,8}", "", region["name"])
+    words = [word.lower() for word in re.split(r"[^A-Za-z0-9]+", name) if word]
+    while words and words[0] in {"asm", "semantic"}:
+        words.pop(0)
+    if not words or words[0] in {"fun", "sub", "free", "unassigned", "recovery"}:
+        return None
+    return words[0]
+
+
+def campaign_candidates(signatures, max_address=GAME_TEXT_END, mechanical_max_size=512):
+    """Classify every remaining game-code assembly address for a campaign.
+
+    Dependencies use the same direct CALL/tail-JMP analysis as the legacy wave
+    planner. Scores measure leverage rather than ease: the region's own bytes,
+    all transitively dependent caller bytes, and a small repeat-family bonus,
+    less the coordination cost of unfinished direct callees and awkward ABIs.
+    """
+    selected = []
+    by_address = {}
+    for region in CONFIG["regions"]:
+        address = int(region["address"], 0)
+        category = classify(region)
+        if category not in {"candidate", "structural"} or address >= max_address:
+            continue
+        if address in by_address:
+            raise ValueError(f"duplicate campaign address {_address(address)}")
+        signature = signatures.get(address, "")
+        item = {
+            "source": region["source"],
+            "name": region["name"],
+            "symbol": region["symbol"],
+            "address": _address(address),
+            "size": region["size"],
+            "signature": signature or "no IDA reference",
+            "cluster_needed": bool(awkward_parameters(signature)),
+            "ghidra": (ROOT / f"decompiled/ghidra_augmented/functions/{address:08x}.c").is_file(),
+            "ownership": category,
+        }
+        selected.append(item)
+        by_address[address] = item
+
+    callers = {address: set() for address in by_address}
+    families = {}
+    for address, item in by_address.items():
+        targets = called_targets(address, item["size"])
+        dependencies = sorted(target for target in targets if target in by_address)
+        awkward = sorted(target for target in targets
+                          if awkward_parameters(signatures.get(target, "")))
+        item["_dependency_addresses"] = dependencies
+        item["blocked_by"] = [_address(target) for target in awkward]
+        item["callee_blocked"] = bool(awkward)
+        for target in dependencies:
+            callers[target].add(address)
+        family = _family_key(item)
+        if family:
+            families.setdefault(family, []).append(address)
+        item["_family"] = family
+
+    for address, item in by_address.items():
+        downstream = set()
+        pending = list(callers[address])
+        while pending:
+            caller = pending.pop()
+            if caller == address or caller in downstream:
+                continue
+            downstream.add(caller)
+            pending.extend(callers[caller])
+        downstream_bytes = sum(by_address[caller]["size"] for caller in downstream)
+        family_count = len(families.get(item["_family"], ())) if item["_family"] else 1
+        family_bonus = min(512, 64 * (family_count - 1))
+        blocker_cost = (128 * len(item["_dependency_addresses"])
+                        + 256 * len(item["blocked_by"]))
+        item["dependencies"] = [_address(target) for target in item["_dependency_addresses"]]
+        item["downstream_caller_bytes"] = downstream_bytes
+        item["reusable_family_bonus"] = family_bonus
+        item["blocker_cost"] = blocker_cost
+        item["score"] = item["size"] + downstream_bytes + family_bonus - blocker_cost
+        if item["ownership"] == "structural" or address in KNOWN_STRUCTURAL_ADDRESSES:
+            item["lane"] = "structural"
+        elif address in KNOWN_HARD_ADDRESSES:
+            item["lane"] = "hard"
+        elif downstream_bytes:
+            item["lane"] = "dependency"
+        elif (item["cluster_needed"] or item["callee_blocked"]
+              or item["size"] > mechanical_max_size):
+            item["lane"] = "hard"
+        else:
+            item["lane"] = "mechanical"
+
+    # One source is one editing boundary. Promote the complete source group to
+    # its highest-specialization lane so two agents can never receive one file.
+    by_source = {}
+    for item in selected:
+        by_source.setdefault(item["source"], []).append(item)
+    for units in by_source.values():
+        lane = max((unit["lane"] for unit in units), key=LANE_PRIORITY.__getitem__)
+        for unit in units:
+            unit["lane"] = lane
+    for item in selected:
+        if item["lane"] == "structural":
+            item["expected_path"] = "structural"
+        elif item["callee_blocked"]:
+            item["expected_path"] = "schema2"
+        elif item["cluster_needed"]:
+            item["expected_path"] = "cluster"
+        else:
+            item["expected_path"] = "plain"
+
+
+    for item in selected:
+        del item["_dependency_addresses"]
+        del item["_family"]
+    return sorted(selected, key=lambda item: int(item["address"], 0))
+
+def deal_campaign(items, lane_agents, per_agent, wave):
+    """Claim highest-scoring source groups without sharing a source or address."""
+    assignments = []
+    claimed = set()
+    for lane in LANES:
+        agents = lane_agents[lane]
+        if agents < 1:
+            continue
+        limit = per_agent[lane] if isinstance(per_agent, dict) else per_agent
+        by_source = {}
+        for item in items:
+            if item["lane"] == lane:
+                by_source.setdefault(item["source"], []).append(item)
+        groups = sorted(
+            by_source.values(),
+            key=lambda units: (-max(unit["score"] for unit in units),
+                               -sum(unit["score"] for unit in units),
+                               int(min(unit["address"] for unit in units), 0),
+                               units[0]["source"]))
+        buckets = [[] for _ in range(agents)]
+        for units in groups:
+            choices = [(len(bucket), index) for index, bucket in enumerate(buckets)
+                       if not bucket or len(bucket) + len(units) <= limit]
+            if not choices:
+                continue
+            _, index = min(choices)
+            buckets[index].extend(units)
+        prefix = lane[0].upper()
+        for index, units in enumerate(buckets):
+            if not units:
+                continue
+            units.sort(key=lambda item: (-item["score"], int(item["address"], 0)))
+            for item in units:
+                address = int(item["address"], 0)
+                if address in claimed:
+                    raise ValueError(f"duplicate campaign claim {item['address']}")
+                claimed.add(address)
+            assignments.append({
+                "agent": f"{prefix}{wave}{index + 1:02d}",
+                "lane": lane,
+                "units": units,
+            })
+    return assignments
 
 
 def locally_modified():
@@ -149,7 +341,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--min-size", type=int, default=1)
     parser.add_argument("--size", type=int, default=512)
-    parser.add_argument("--max-address", type=lambda value: int(value, 0), default=0x452000)
+    parser.add_argument("--max-address", type=lambda value: int(value, 0), default=GAME_TEXT_END)
     parser.add_argument("--per-agent", type=int, default=8)
     parser.add_argument("--max-agents", type=int, default=16)
     parser.add_argument("--agents", type=int, default=8, help="number of parallel agents to deal to")

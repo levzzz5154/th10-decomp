@@ -22,13 +22,25 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import os
 import shutil
-import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 MAINTAINED = ROOT / 'matching2/msvc'
+sys.path.insert(0, str(ROOT))
+
+from matching2.tools.waves.integration_gates import (
+    commit_gate,
+    full_hash_gate,
+    manifest_gate,
+    probe_cluster_gate,
+    touched_clusters,
+    write_gate_report,
+)
+from matching2.tools.waves.register_cluster import update as register_cluster
 
 
 def load(path):
@@ -107,6 +119,12 @@ def main():
     parser.add_argument('--scratch', type=Path, required=True)
     parser.add_argument('--address', type=lambda v: int(v, 0), required=True)
     parser.add_argument('--apply', action='store_true')
+    parser.add_argument('--gate-report', type=Path,
+                        help='machine-readable gate record (default: build/waves by address)')
+    parser.add_argument('--full-report', type=Path,
+                        help='existing whole-image port-report.json to inspect; never runs a build')
+    parser.add_argument('--integration-commit',
+                        help='manual commit object id to record after the full hash gate')
     args = parser.parse_args()
 
     scratch = args.scratch.resolve()
@@ -161,37 +179,148 @@ def main():
     for path in files:
         print(f'copy     {path.relative_to(MAINTAINED)}')
 
+    gate_path = args.gate_report or (
+        ROOT / f'matching2/build/waves/promotion-gates-{args.address:08x}.json'
+    )
     if not args.apply:
-        print('\n(dry run; pass --apply)')
+        full_hash = full_hash_gate(MAINTAINED, args.full_report)
+        report = {
+            'schema': 'th10-integration-gates/v1',
+            'batch': {'apply_requested': False, 'applied': False,
+                      'address': f'0x{args.address:08X}', 'status': 'dry_run'},
+            'gates': {
+                'manifest': {'passed': False, 'status': 'not_run'},
+                'touched_cluster_probes': {'passed': False, 'status': 'not_run'},
+                'full_hash': full_hash,
+            },
+        }
+        report['integration_commit'] = commit_gate(args.integration_commit, full_hash)
+        report['release_ready'] = False
+        write_gate_report(gate_path, report)
+        print(f'\n(dry run; pass --apply; gate report: {gate_path})')
         return 0
 
-    for path in files:
-        shutil.copy2(scratch / path.relative_to(MAINTAINED), path)
-    # Take the same exclusive lock register_cluster.py uses, and re-read the
-    # manifest inside it: promoting from a snapshot taken before the lock can drop
-    # a record another agent registered in the meantime.
+    # Hold the registration lock from the current-project snapshot through the
+    # final atomic manifest replacement.  The slow probes run against a staged
+    # copy, but no concurrent promotion can invalidate their manifest input.
+    manifest_result = {'passed': False, 'status': 'not_run'}
+    probes = {'passed': False, 'status': 'not_run', 'cluster_count': 0, 'clusters': []}
+    applied = False
+    problem = ''
     with open(MAINTAINED / 'regions.json.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        # Merge inside the lock, against the current maintained layout, so a
-        # sibling landing into the same span between our read and our write is
-        # carried over instead of reverted.
-        for rel in merges:
-            merged = merge_layout(load(MAINTAINED / rel), load(scratch / rel))
-            (MAINTAINED / rel).write_text(json.dumps(merged, indent=2) + '\n')
-            print(f'merged   {rel}: {len(merged["functions"])} functions, {len(merged["gaps"])} gaps')
-        maintained = load(maintained_path)
-        current = record_of(maintained, args.address)
-        current.clear()
-        current.update(source)
-        maintained['translation_units'] = sorted({r['source'] for r in maintained['regions']})
-        maintained_path.write_text(json.dumps(maintained, indent=2) + '\n')
-    for rel in sorted(set(layouts)):
-        if rel in maintained_clusters:
-            continue
-        result = subprocess.run([sys.executable, str(ROOT / 'matching2/tools/waves/register_cluster.py'),
-                                 '--project', str(MAINTAINED), '--layout', rel, '--apply'],
-                                capture_output=True, text=True, cwd=MAINTAINED, timeout=120)
-        print(result.stdout.strip() or result.stderr.strip())
+        current_manifest = load(maintained_path)
+        current_clusters = set(current_manifest.get('ltcg_clusters') or [])
+        with tempfile.TemporaryDirectory(prefix='th10-promote-') as directory:
+            staged = Path(directory) / 'msvc'
+            shutil.copytree(MAINTAINED, staged)
+
+            # Copy only the explicitly planned artifacts into the staged tree.
+            artifact_rels = {str(path.relative_to(MAINTAINED)) for path in files}
+            artifact_rels.update(layouts)
+            for rel in sorted(artifact_rels):
+                target = staged / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(scratch / rel, target)
+
+            # Merge registered layouts against the lock-protected current copy,
+            # never against the agent's stale snapshot.
+            for rel in sorted(set(layouts)):
+                if rel in current_clusters:
+                    merged = merge_layout(load(MAINTAINED / rel), load(scratch / rel))
+                    (staged / rel).write_text(json.dumps(merged, indent=2) + '\n')
+
+            staged_manifest_path = staged / 'regions.json'
+            staged_manifest = load(staged_manifest_path)
+            staged_record = record_of(staged_manifest, args.address)
+            staged_record.clear()
+            staged_record.update(source)
+            staged_manifest['translation_units'] = sorted(
+                {region['source'] for region in staged_manifest['regions']}
+            )
+            staged_manifest_path.write_text(json.dumps(staged_manifest, indent=2) + '\n')
+
+            # New layouts use the same registration implementation as the
+            # maintained workflow, but only inside the disposable candidate.
+            for rel in sorted(set(layouts)):
+                if rel in current_clusters:
+                    continue
+                registration_problem, _, _ = register_cluster(staged_manifest_path, rel, True)
+                if registration_problem:
+                    problem = f'{rel}: {registration_problem}'
+                    break
+
+            if not problem:
+                try:
+                    manifest_result, clusters, _ = manifest_gate(staged)
+                    touched = touched_clusters(
+                        clusters,
+                        sources={source['source']},
+                        addresses={args.address},
+                        layouts=set(layouts),
+                    )
+                    probes = probe_cluster_gate(
+                        staged, touched,
+                        ROOT / f'matching2/build/waves/promotion-probes-{args.address:08x}',
+                    )
+                except Exception as error:
+                    manifest_result = {'passed': False, 'problem': str(error)}
+                    probes = {'passed': False, 'cluster_count': 0, 'clusters': [],
+                              'problem': 'manifest gate failed'}
+            if not manifest_result.get('passed'):
+                problem = problem or manifest_result.get('problem', 'manifest validation failed')
+            elif not probes.get('passed'):
+                failed = [item for item in probes.get('clusters', []) if not item['passed']]
+                problem = (failed[0].get('problem') if failed
+                           else 'a touched-cluster member probe failed')
+
+            if not problem:
+                # The staged artifacts are precisely what passed.  Copy those
+                # files, then atomically install the staged manifest while the
+                # lock still excludes concurrent registrations.
+                for rel in sorted(artifact_rels):
+                    target = MAINTAINED / rel
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(staged / rel, target)
+                temporary = maintained_path.with_suffix('.json.tmp')
+                shutil.copy2(staged_manifest_path, temporary)
+                os.replace(temporary, maintained_path)
+                applied = True
+
+    full_hash = full_hash_gate(MAINTAINED, args.full_report)
+    report = {
+        'schema': 'th10-integration-gates/v1',
+        'batch': {
+            'apply_requested': True,
+            'applied': applied,
+            'address': f'0x{args.address:08X}',
+            'source': source['source'],
+            'layouts': sorted(set(layouts)),
+            'problem': problem or None,
+            'preintegration_passed': bool(
+                manifest_result.get('passed') and probes.get('passed')
+            ),
+        },
+        'gates': {
+            'manifest': manifest_result,
+            'touched_cluster_probes': probes,
+            'full_hash': full_hash,
+        },
+    }
+    report['integration_commit'] = commit_gate(args.integration_commit, full_hash)
+    report['release_ready'] = bool(
+        applied and manifest_result.get('passed') and probes.get('passed')
+        and report['integration_commit']['passed']
+    )
+    write_gate_report(gate_path, report)
+    print(f'manifest gate: {"passed" if manifest_result.get("passed") else "FAILED"}')
+    print(f'touched-cluster probes: {"passed" if probes.get("passed") else "FAILED"} '
+          f'({probes.get("cluster_count", 0)} cluster(s))')
+    print(f'full hash gate: {full_hash["status"]}')
+    print(f'gate report: {gate_path}')
+    if not applied:
+        print(f'refused: {problem}')
+        return 1
     print(f'promoted {args.address:#010x}')
     return 0
 

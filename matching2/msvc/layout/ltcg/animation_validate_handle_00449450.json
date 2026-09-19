@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "animation_validate_handle_00449450",
+  "source": "src/render/animation_manager_validate_handle_00449450.cpp",
+  "driver": "layout/ltcg/animation_validate_handle_00449450_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Animation handle validation compiled with native LTCG so the handle remains in ESI across the lookup call.",
+  "functions": [
+    {
+      "name": "AnimationManager_ValidateHandle",
+      "symbol": "?ValidateHandle@AnimationManager_00449450@@QAEXPAUAnimationHandle_00449450@@@Z",
+      "section": ".text$01validate",
+      "address": "0x00449450",
+      "size": 21,
+      "actual_abi": "manager in ECX; handle in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationValidateHandleCompilerContext@@YGHPAVAnimationManager_00449450@@PAUAnimationHandle_00449450@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00449470",
+    "size": 44,
+    "description": "Synthetic array-walking caller that establishes the private handle register; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 296016},
+    {"section": ".text$02layout", "address": "0x00449465", "size": 11}
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {"symbol": "?Find@AnimationManager_00449450@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId_00449450@@@Z", "address": "0x004491C0", "kind": "relative_code"},
+    {"symbol": "_data_00491c10", "address": "0x00491C10", "kind": "data"}
+  ],
+  "roots": []
+}
