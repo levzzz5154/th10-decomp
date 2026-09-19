@@ -33301,13 +33301,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ECL_PushScratchValue_00450690",
+      "name": "semantic_EclFrame_PushScratchValue_00450690",
       "source": "src/script/ecl_push_scratch_value_00450690.cpp",
-      "symbol": "_asm_ECL_PushScratchValue_00450690",
+      "symbol": "?Push@EclFrame_00450690@@QAEHH@Z",
       "address": "0x00450690",
       "size": 64,
-      "kind": "asm",
-      "owner": "0x00450690"
+      "kind": "semantic",
+      "owner": "0x00450690",
+      "previous_record": {
+        "name": "asm_ECL_PushScratchValue_00450690",
+        "source": "src/script/ecl_push_scratch_value_00450690.cpp",
+        "symbol": "_asm_ECL_PushScratchValue_00450690",
+        "address": "0x00450690",
+        "size": 64,
+        "kind": "asm",
+        "owner": "0x00450690"
+      }
     },
     {
       "name": "asm_ECL_PopScratchValue_004506d0",
@@ -49528,7 +49537,8 @@
     "layout/ltcg/load_script_0043e710_wave11.json",
     "layout/ltcg/positioned_primary_front_00448e80_wave12.json",
     "layout/ltcg/timer_owner_0042c5c0.json",
-    "layout/ltcg/animation_manager_render_bucket_00448980.json"
+    "layout/ltcg/animation_manager_render_bucket_00448980.json",
+    "layout/ltcg/ecl_push_scratch_value_00450690.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
