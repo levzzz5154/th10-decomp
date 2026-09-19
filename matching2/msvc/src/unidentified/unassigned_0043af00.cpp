@@ -1,25 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043AF00..0x0043AF26: clear the record's control words and store the
+// incoming value.
+struct Object_0043af00 {
+    unsigned char pad_000[0x2c8];
+    unsigned int field_2c8;
+    unsigned char pad_2cc[0x10];
+    unsigned int field_2dc;
+    unsigned int field_2e0;
+    unsigned int field_2e4;
+    unsigned int field_2e8;
+    __declspec(noinline) int Reset(void* value);
+};
 
-// 0x0043AF00..0x0043AF26: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043af00() {
-    __asm {
-    L_0043af00:
-        xor ecx,ecx
-    L_0043af02:
-        mov dword ptr [eax+2C8h],ecx
-    L_0043af08:
-        mov dword ptr [eax+2E4h],edx
-    L_0043af0e:
-        mov dword ptr [eax+2E8h],ecx
-    L_0043af14:
-        mov dword ptr [eax+2DCh],ecx
-    L_0043af1a:
-        mov dword ptr [eax+2E0h],1
-    L_0043af24:
-        xor eax,eax
-    L_0043af26:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int Object_0043af00::Reset(void* value) {
+    field_2c8 = 0;
+    field_2e4 = (unsigned int)value;
+    field_2e8 = 0;
+    field_2dc = 0;
+    field_2e0 = 1;
+    return 0;
 }
+
+#pragma code_seg()

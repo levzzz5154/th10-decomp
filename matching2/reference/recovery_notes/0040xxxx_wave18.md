@@ -5,7 +5,7 @@ region whose `kind` is `asm`, whose `owner` is null, and whose size is 64 bytes 
 less: 179 regions, 3,041 bytes. Work was done in `/tmp/VeinBlock40/msvc`
 (`cp -a matching2/msvc`) and promoted with `promote_scratch.py --apply`.
 
-**88 landed EXACT (1,289 bytes), 91 dropped.** Every landing below was re-probed
+**88 landed EXACT (826 bytes), 91 dropped (2,215 bytes).** Every landing below was re-probed
 against the maintained tree after promotion and reports `EXACT`.
 
 Landed by class:
@@ -22,7 +22,8 @@ Landed by class:
 | EAX-receiver `movzx ...; and eax,ecx` masked loads | 3 | cluster |
 | `__thiscall` predicates (ECX receiver, SETcc) | 6 | plain |
 | `__thiscall` timer/rng forwarders | 3 | plain |
-| vector copy / elementwise float ops / dist-squared | 11 | cluster |
+| vector copy / elementwise float ops / dist-squared | 10 | cluster |
+| EAX-receiver timer decrement (`0x4052B0`) | 1 | cluster |
 | object-returning flag clear | 1 | plain |
 | modulo / accumulate (EAX receiver + stack or ECX arg) | 2 | cluster |
 
@@ -34,7 +35,8 @@ Landed by class:
    also earns EAX for `and/or/test` on a field, for `(field >> k) & 1`, for a
    `float` load (`?LoadValue@@QBEMXZ`), for `(int)this + N`, and for a pointer-
    argument pair (receiver EAX, argument ECX: `LoadMasked`, `DistSq`, `Apply`).
-   57 of the 88 landings are this one cluster shape with a hand-written body.
+   57 of the 88 landings use this one pointer-array-walk driver with a hand-written
+   body (loads, stores, bit fields, masked loads, offsets, float reads, vector ops).
 2. **`add eax,imm` (not `lea`) is what `return (int)this + N;` compiles to.** The
    seven `05/83 c0 xx` accessors only reproduce when the source adds the offset to
    the *integer* value of `this`; a cast to `char*` produces the 6-byte `lea` form
@@ -2195,8 +2197,13 @@ ESI/EDX-receiver families that need a driver earning those registers (16 + 10),
 the x87 vector/scale and scalar-math thunks (10), and 34 inspected-only regions
 whose retail shape is tabulated above.
 
-Landing total for this wave: **88 regions / 826 bytes**, `ltcg_clusters` 275 -> 335,
-every one re-probed `EXACT` on the maintained tree. No manifest field was hand-
+Landing total for this wave: **88 regions / 826 bytes**, 57 new single-source cluster
+layouts. The maintained `ltcg_clusters` list read 335 entries when this note was
+written (274 when this wave started; the rest of the increase is siblings landing into
+their own blocks). Both manifest gates pass on the result:
+`build_msvc.validate_project` 4425 regions / 2376 units, `ltcg_cluster.load_clusters`
+377 clusters, none rejected.
+Every landing was re-probed `EXACT` against the maintained tree after promotion. No manifest field was hand-
 edited; all 88 went through `promote_scratch.py --scratch /tmp/VeinBlock40/msvc
 --address <addr> --apply` (57 of them registering a new single-source cluster and
 30 flipping a plain record). `make` was not run - the owner gates the build once per

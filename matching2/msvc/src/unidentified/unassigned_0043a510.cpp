@@ -1,35 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043A510..0x0043A532: reset and close the MIDI device, reporting success
+// through the return value.
+extern "C" __declspec(dllimport) int __stdcall midiOutReset(void* device);
+extern "C" __declspec(dllimport) int __stdcall midiOutClose(void* device);
 
-// 0x0043A510..0x0043A532: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043a510() {
-    __asm {
-    L_0043a510:
-        mov eax,dword ptr [esi]
-    L_0043a512:
-        test eax,eax
-    L_0043a514:
-        jne short L_0043a51a
-    L_0043a516:
-        or eax,0FFFFFFFFh
-    L_0043a519:
-        ret
-    L_0043a51a:
-        push eax
-    L_0043a51b:
-        call dword ptr [data_004662a8]
-    L_0043a521:
-        mov eax,dword ptr [esi]
-    L_0043a523:
-        push eax
-    L_0043a524:
-        call dword ptr [data_004662a4]
-    L_0043a52a:
-        mov dword ptr [esi],0
-    L_0043a530:
-        xor eax,eax
-    L_0043a532:
-        ret
+struct Object_0043a510 {
+    void* device;                    // +0x00
+    __declspec(noinline) int Close();
+};
+
+#pragma code_seg(".text$01accessor")
+int Object_0043a510::Close() {
+    if (!device) {
+        return -1;
     }
+    midiOutReset(device);
+    midiOutClose(device);
+    device = 0;
+    return 0;
 }
+#pragma code_seg()

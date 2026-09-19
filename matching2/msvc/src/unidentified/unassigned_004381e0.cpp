@@ -1,19 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004381E0..0x004381EF: reset the small-string record to the empty inline form.
+struct Object_004381e0 {
+    unsigned char pad_000[4];
+    char inline_data[0x10];
+    unsigned int length;
+    unsigned int capacity;
+    __declspec(noinline) void Reset();
+};
 
-// 0x004381E0..0x004381EF: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004381e0() {
-    __asm {
-    L_004381e0:
-        xor ecx,ecx
-    L_004381e2:
-        mov dword ptr [eax+18h],0Fh
-    L_004381e9:
-        mov dword ptr [eax+14h],ecx
-    L_004381ec:
-        mov byte ptr [eax+4],cl
-    L_004381ef:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void Object_004381e0::Reset() {
+    capacity = 0xf;
+    length = 0;
+    inline_data[0] = 0;
 }
+
+#pragma code_seg()

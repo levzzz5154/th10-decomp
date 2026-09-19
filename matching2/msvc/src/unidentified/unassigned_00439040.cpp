@@ -1,27 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00439040..0x00439058: destroy the resource manager and release the record
+// when the low bit of the flags argument is set.
+extern "C" void __stdcall d3d_destroy_00438880(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
 
-// 0x00439040..0x0043905A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00439040() {
-    __asm {
-    L_00439040:
-        push esi
-    L_00439041:
-        call asm_D3DResourceManager_Destroy_00438880
-    L_00439046:
-        test byte ptr [esp+4],1
-    L_0043904b:
-        je short L_00439056
-    L_0043904d:
-        push esi
-    L_0043904e:
-        call asm_free_004524a1
-    L_00439053:
-        add esp,4
-    L_00439056:
-        mov eax,esi
-    L_00439058:
-        ret 4
+struct Object_00439040 {
+    __declspec(noinline) void* Destroy(unsigned int flags);
+};
+
+#pragma code_seg(".text$01accessor")
+void* Object_00439040::Destroy(unsigned int flags) {
+    d3d_destroy_00438880(this);
+    if (flags & 1) {
+        entry_free_004524a1(this);
     }
+    return this;
 }
+#pragma code_seg()

@@ -1,15 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043CC30..0x0043CC3C: mark the record ready.
+struct Object_0043cc30 {
+    __declspec(noinline) int Reset();
+};
 
-// 0x0043CC30..0x0043CC3C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043cc30() {
-    __asm {
-    L_0043cc30:
-        mov dword ptr [eax+5224h],2
-    L_0043cc3a:
-        xor eax,eax
-    L_0043cc3c:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int Object_0043cc30::Reset() {
+    *(unsigned int*)((unsigned char*)this + 0x5224) = 2;
+    return 0;
 }
+
+#pragma code_seg()

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "region_0043c930",
+  "source": "src/unidentified/unassigned_0043c930.cpp",
+  "driver": "layout/ltcg/region_0043c930_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so the internal register convention matches retail.",
+  "functions": [
+    {
+      "name": "Object_0043c930_Open",
+      "symbol": "?Open@Object_0043c930@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x43c930",
+      "size": 57,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?RegionCompilerContext@@YGHPAPAUObject_0043c930@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0043C970",
+    "size": 36,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 244016
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043C969",
+      "size": 7
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    }
+  ]
+}

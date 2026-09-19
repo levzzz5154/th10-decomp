@@ -1,21 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00438240..0x0043824D: the small-string pointer for the object arriving in
+// EAX: the heap pointer at +0x04 once the capacity at +0x18 reaches 0x10, the
+// inline buffer at +0x04 otherwise.
+struct Object_00438240 {
+    unsigned char pad_000[4];
+    char* heap;
+    unsigned char pad_008[0x10];
+    unsigned int capacity;
+    __declspec(noinline) const char* Data() const;
+};
 
-// 0x00438240..0x0043824D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00438240() {
-    __asm {
-    L_00438240:
-        cmp dword ptr [eax+18h],10h
-    L_00438244:
-        jb short L_0043824a
-    L_00438246:
-        mov eax,dword ptr [eax+4]
-    L_00438249:
-        ret
-    L_0043824a:
-        add eax,4
-    L_0043824d:
-        ret
+#pragma code_seg(".text$01accessor")
+const char* Object_00438240::Data() const {
+    if (capacity >= 0x10) {
+        return heap;
     }
+    return (const char*)this + 4;
 }
+
+#pragma code_seg()

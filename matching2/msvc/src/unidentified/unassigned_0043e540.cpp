@@ -1,25 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043E540..0x0043E55F: release one slot of the record's pointer table.
+extern "C" void __cdecl entry_free_00452422(void* memory);
 
-// 0x0043E540..0x0043E55F: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043e540() {
-    __asm {
-    L_0043e540:
-        mov eax,dword ptr [edi+esi*4+1EC0h]
-    L_0043e547:
-        test eax,eax
-    L_0043e549:
-        je short L_0043e55f
-    L_0043e54b:
-        push eax
-    L_0043e54c:
-        call asm_free_00452422
-    L_0043e551:
-        add esp,4
-    L_0043e554:
-        mov dword ptr [edi+esi*4+1EC0h],0
-    L_0043e55f:
-        ret
+struct Object_0043e540 {
+    unsigned char pad_000[0x1ec0];
+    void* slots;                     // base of the table is this+0x1EC0
+    __declspec(noinline) void Release(int index);
+};
+
+#pragma code_seg(".text$01accessor")
+void Object_0043e540::Release(int index) {
+    void** table = (void**)((unsigned char*)this + 0x1ec0);
+    if (table[index]) {
+        entry_free_00452422(table[index]);
+        table[index] = 0;
     }
 }
+#pragma code_seg()

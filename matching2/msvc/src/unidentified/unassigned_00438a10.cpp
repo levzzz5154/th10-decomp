@@ -1,25 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00438A10..0x00438A24: run the owned object's second virtual slot and drop
+// the pointer held at +0x08.
+struct Object_00438a10 {
+    unsigned char pad_000[8];
+    void* owner;                     // +0x08
+    __declspec(noinline) void Release();
+};
 
-// 0x00438A10..0x00438A24: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00438a10() {
-    __asm {
-    L_00438a10:
-        mov eax,dword ptr [esi+8]
-    L_00438a13:
-        test eax,eax
-    L_00438a15:
-        je short L_00438a24
-    L_00438a17:
-        mov ecx,dword ptr [eax]
-    L_00438a19:
-        push eax
-    L_00438a1a:
-        call dword ptr [ecx+8]
-    L_00438a1d:
-        mov dword ptr [esi+8],0
-    L_00438a24:
-        ret
+#pragma code_seg(".text$01accessor")
+void Object_00438a10::Release() {
+    if (owner) {
+        void** table = (void**)*(void**)owner;
+        ((void (__stdcall*)(void*))table[2])(owner);
+        owner = 0;
     }
 }
+#pragma code_seg()

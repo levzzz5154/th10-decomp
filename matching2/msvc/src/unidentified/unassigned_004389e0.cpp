@@ -1,13 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004389E0..0x004389E3: the pointer just past the eight-byte header.
+struct Object_004389e0 {
+    unsigned char pad_000[8];
+    __declspec(noinline) unsigned char* Tail();
+};
 
-// 0x004389E0..0x004389E3: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004389e0() {
-    __asm {
-    L_004389e0:
-        add eax,8
-    L_004389e3:
-        ret
-    }
-}
+#pragma code_seg(".text$01accessor")
+unsigned char* Object_004389e0::Tail() { return (unsigned char*)this + 8; }
+
+#pragma code_seg()

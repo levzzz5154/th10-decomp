@@ -1,47 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043CBF0..0x0043CC28: clear the record and start its worker thread.
+#include <string.h>
 
-// 0x0043CBF0..0x0043CC2A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043cbf0() {
-    __asm {
-    L_0043cbf0:
-        push edi
-    L_0043cbf1:
-        xor eax,eax
-    L_0043cbf3:
-        mov ecx,14B4h
-    L_0043cbf8:
-        mov edi,esi
-    L_0043cbfa:
-        rep stosd
-    L_0043cbfc:
-        mov eax,dword ptr [esp+8]
-    L_0043cc00:
-        lea ecx,[esi+5220h]
-    L_0043cc06:
-        push ecx
-    L_0043cc07:
-        push 0
-    L_0043cc09:
-        push esi
-    L_0043cc0a:
-        push 43CCF0h
-    L_0043cc0f:
-        push 0
-    L_0043cc11:
-        push 0
-    L_0043cc13:
-        mov dword ptr [esi+5228h],eax
-    L_0043cc19:
-        call dword ptr [data_00466118]
-    L_0043cc1f:
-        mov dword ptr [esi+5218h],eax
-    L_0043cc25:
-        xor eax,eax
-    L_0043cc27:
-        pop edi
-    L_0043cc28:
-        ret 4
-    }
+extern "C" __declspec(dllimport) void* __stdcall CreateThread(
+    void* attributes, unsigned int stack_size, void* start, void* parameter,
+    unsigned int flags, unsigned int* thread_id);
+
+struct Object_0043cbf0 {
+    unsigned char pad_000[0x5218];
+    void* thread;                    // +0x5218
+    unsigned char pad_521c[4];
+    unsigned int thread_id;          // +0x5220
+    unsigned int field_5224;         // +0x5224
+    unsigned int field_5228;         // +0x5228
+    __declspec(noinline) int Start(unsigned int value);
+};
+
+#pragma code_seg(".text$01accessor")
+int Object_0043cbf0::Start(unsigned int value) {
+    memset(this, 0, 0x14b4 * 4);
+    field_5228 = value;
+    thread = CreateThread(0, 0, (void*)0x43ccf0, this, 0, &thread_id);
+    return 0;
 }
+#pragma code_seg()

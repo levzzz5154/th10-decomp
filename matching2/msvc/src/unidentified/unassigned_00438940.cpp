@@ -1,15 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00438940..0x00438949: point the record at itself and clear its first byte.
+struct Object_00438940 {
+    __declspec(noinline) void Init();
+};
 
-// 0x00438940..0x00438949: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00438940() {
-    __asm {
-    L_00438940:
-        mov dword ptr [eax+2000h],eax
-    L_00438946:
-        mov byte ptr [eax],0
-    L_00438949:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void Object_00438940::Init() {
+    *(Object_00438940**)((unsigned char*)this + 0x2000) = this;
+    *(unsigned char*)this = 0;
 }
+
+#pragma code_seg()

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "region_004390a0",
+  "source": "src/unidentified/unassigned_004390a0.cpp",
+  "driver": "layout/ltcg/region_004390a0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so the internal register convention matches retail.",
+  "functions": [
+    {
+      "name": "Object_004390a0_Destroy",
+      "symbol": "?Destroy@Object_004390a0@@QAEPAXI@Z",
+      "section": ".text$01accessor",
+      "address": "0x4390a0",
+      "size": 63,
+      "actual_abi": "object in EDI; flags at [ESP+4]"
+    }
+  ],
+  "context": {
+    "symbol": "?RegionCompilerContext@@YGHPAPAUObject_004390a0@@HI@Z",
+    "section": ".text$03context",
+    "address": "0x004390E0",
+    "size": 43,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 229536
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004390DF",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": []
+}

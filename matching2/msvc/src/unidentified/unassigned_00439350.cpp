@@ -1,59 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00439350..0x0043938D: push three globals back into the system parameter
+// store, then turn the input method editor off.
+extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(
+    unsigned int action, unsigned int param, void* data, unsigned int flags);
+extern "C" int __stdcall WINNLSEnableIME_0045232c(void* window, int enable);
 
-// 0x00439350..0x0043938D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00439350() {
-    __asm {
-    L_00439350:
-        mov eax,dword ptr [data_0049251c]
-    L_00439355:
-        push esi
-    L_00439356:
-        mov esi,dword ptr [data_00466258]
-    L_0043935c:
-        push 2
-    L_0043935e:
-        push 0
-    L_00439360:
-        push eax
-    L_00439361:
-        push 11h
-    L_00439363:
-        call esi
-    L_00439365:
-        mov ecx,dword ptr [data_00492520]
-    L_0043936b:
-        push 2
-    L_0043936d:
-        push 0
-    L_0043936f:
-        push ecx
-    L_00439370:
-        push 55h
-    L_00439372:
-        call esi
-    L_00439374:
-        mov edx,dword ptr [data_00492524]
-    L_0043937a:
-        push 2
-    L_0043937c:
-        push 0
-    L_0043937e:
-        push edx
-    L_0043937f:
-        push 56h
-    L_00439381:
-        call esi
-    L_00439383:
-        push 1
-    L_00439385:
-        push 0
-    L_00439387:
-        call asm_WINNLSEnableIME_0045232c
-    L_0043938c:
-        pop esi
-    L_0043938d:
-        ret
-    }
+extern "C" unsigned int data_0049251c;
+extern "C" unsigned int data_00492520;
+extern "C" unsigned int data_00492524;
+
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) void ApplySettings_00439350() {
+    SystemParametersInfoA(0x11, data_0049251c, 0, 2);
+    SystemParametersInfoA(0x55, data_00492520, 0, 2);
+    SystemParametersInfoA(0x56, data_00492524, 0, 2);
+    WINNLSEnableIME_0045232c(0, 1);
 }
+#pragma code_seg()

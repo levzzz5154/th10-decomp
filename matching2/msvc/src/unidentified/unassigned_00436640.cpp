@@ -1,21 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00436640..0x00436651: clear the three trailing words and stamp the vtable.
+extern "C" unsigned int data_0046f328;
+struct Object_00436640 {
+    __declspec(noinline) void Construct();
+};
 
-// 0x00436640..0x00436651: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00436640() {
-    __asm {
-    L_00436640:
-        xor ecx,ecx
-    L_00436642:
-        mov dword ptr [eax+4],ecx
-    L_00436645:
-        mov dword ptr [eax+8],ecx
-    L_00436648:
-        mov dword ptr [eax+0Ch],ecx
-    L_0043664b:
-        mov dword ptr [eax],46F328h
-    L_00436651:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void Object_00436640::Construct() {
+    *(unsigned int*)((unsigned char*)this + 4) = 0;
+    *(unsigned int*)((unsigned char*)this + 8) = 0;
+    *(unsigned int*)((unsigned char*)this + 0xc) = 0;
+    *(unsigned int*)this = (unsigned int)&data_0046f328;
 }
+
+#pragma code_seg()

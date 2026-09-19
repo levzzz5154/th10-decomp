@@ -1,19 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00435660..0x00435668: the absolute value of the record's leading word.
+struct Object_00436560 {
+    __declspec(noinline) int Abs() const;
+};
 
-// 0x00436560..0x00436568: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00436560() {
-    __asm {
-    L_00436560:
-        mov eax,dword ptr [eax]
-    L_00436562:
-        test eax,eax
-    L_00436564:
-        jge short L_00436568
-    L_00436566:
-        neg eax
-    L_00436568:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int Object_00436560::Abs() const {
+    int value = *(int*)this;
+    return value < 0 ? -value : value;
 }
+
+#pragma code_seg()

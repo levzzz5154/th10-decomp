@@ -1,39 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004379E0..0x004379FE: create a texture from the device global, returning
+// the created texture rather than the HRESULT.  The height arrives in ECX and
+// the width in EDX.
+extern "C" int __stdcall D3DXCreateTexture_004521a0(
+    void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
+    unsigned int usage, unsigned int format, unsigned int pool, void** texture);
+extern "C" void* data_00491c30;
 
-// 0x004379E0..0x004379FE: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004379e0() {
-    __asm {
-    L_004379e0:
-        push ecx
-    L_004379e1:
-        lea eax,[esp]
-    L_004379e4:
-        push eax
-    L_004379e5:
-        mov eax,dword ptr [data_00491c30]
-    L_004379ea:
-        push 1
-    L_004379ec:
-        push 19h
-    L_004379ee:
-        push 0
-    L_004379f0:
-        push 1
-    L_004379f2:
-        push ecx
-    L_004379f3:
-        push edx
-    L_004379f4:
-        push eax
-    L_004379f5:
-        call asm_D3DXCreateTexture_004521a0
-    L_004379fa:
-        mov eax,dword ptr [esp]
-    L_004379fd:
-        pop ecx
-    L_004379fe:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) void* __fastcall CreateTexture_004379e0(unsigned int height, unsigned int width) {
+    void* device = data_00491c30;
+    void* texture;
+    D3DXCreateTexture_004521a0(device, width, height, 1, 0, 0x19, 1, &texture);
+    return texture;
 }
+#pragma code_seg()

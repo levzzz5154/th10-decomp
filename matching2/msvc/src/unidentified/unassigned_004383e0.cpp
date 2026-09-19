@@ -1,21 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004383E0..0x004383ED: the small-string pointer: the heap pointer when the
+// recorded capacity at +0x18 has reached 0x10, the inline buffer at +0x4
+// otherwise.
+struct LegacyText_004383e0 {
+    unsigned char pad_000[4];
+    char* heap;                      // +0x04
+    unsigned char pad_008[0x10];
+    unsigned int capacity;           // +0x18
 
-// 0x004383E0..0x004383ED: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004383e0() {
-    __asm {
-    L_004383e0:
-        cmp dword ptr [ecx+18h],10h
-    L_004383e4:
-        jb short L_004383ea
-    L_004383e6:
-        mov eax,dword ptr [ecx+4]
-    L_004383e9:
-        ret
-    L_004383ea:
-        lea eax,[ecx+4]
-    L_004383ed:
-        ret
+    __declspec(noinline) const char* Text() const;
+};
+
+const char* LegacyText_004383e0::Text() const {
+    if (capacity >= 0x10) {
+        return heap;
     }
+    return (const char*)this + 4;
 }
