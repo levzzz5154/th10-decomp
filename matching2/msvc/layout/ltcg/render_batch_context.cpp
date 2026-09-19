@@ -86,18 +86,33 @@ extern "C" __declspec(noinline) int EntityDraw_00443f80(RenderEntity* entity, An
 }
 #pragma code_seg()
 
-#pragma code_seg(".text$06b06anchor")
-extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager, RenderEntity* entity) {
-    for (int k = 0; k < 4; ++k) { entry_free_004524a1(entity); if (manager->state_changes) { entry_free_004524a1(manager); } }
+// 0x00443B60's billboard projection enters with the entity in EAX and no
+// arguments; 0x00444240's quad projection enters with the entity in EAX and the
+// manager on the stack.  The two real bodies are recovered in other clusters,
+// which cannot be co-compiled here, so these anchor bodies stand at their
+// retail addresses and earn those conventions: a member whose body touches the
+// receiver first gets the register, and the second statement decides which of
+// the remaining pair goes on the stack.
+struct ProjectionManager_00444240;
+struct ProjectedEntity_00444240 {
+    unsigned char reserved_0000[0x334];
+    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+};
+struct BillboardSource_00443B60 {
+    unsigned char reserved_0000[0x35C];
+    __declspec(noinline) int BuildProjectedQuad();
+};
+
+#pragma code_seg(".text$06b04z01anchor")
+int BillboardSource_00443B60::BuildProjectedQuad() {
+    entry_free_004524a1(this);
     return 0;
 }
 #pragma code_seg()
 
-#pragma code_seg(".text$06b07anchor")
-extern "C" __declspec(noinline) int EntityDraw_00444580(AnimationManager_00442F50* manager, RenderEntity* entity) {
-    entry_free_004524a1(entity);
-    entry_free_004524a1(manager);
-    entry_free_004524a1(entity);
+#pragma code_seg(".text$06b0602anchor")
+int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
+    entry_free_004524a1(this);
     entry_free_004524a1(manager);
     return 0;
 }

@@ -27565,13 +27565,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00443fb0_00443fb0",
+      "name": "semantic_EntityDraw_00443fb0_00443fb0",
       "source": "src/render/anm_distance_color.cpp",
-      "symbol": "_asm_FUN_00443fb0_00443fb0",
+      "symbol": "_EntityDraw_00443fb0@8",
       "address": "0x00443FB0",
       "size": 643,
-      "kind": "asm",
-      "owner": "0x00443FB0"
+      "kind": "semantic",
+      "owner": "0x00443FB0",
+      "previous_record": {
+        "name": "asm_FUN_00443fb0_00443fb0",
+        "source": "src/render/anm_distance_color.cpp",
+        "symbol": "_asm_FUN_00443fb0_00443fb0",
+        "address": "0x00443FB0",
+        "size": 643,
+        "kind": "asm",
+        "owner": "0x00443FB0"
+      }
     },
     {
       "name": "text_padding_00444233",
@@ -27608,13 +27617,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00444580_00444580",
+      "name": "semantic_EntityDraw_00444580_00444580",
       "source": "src/render/fun_00444580_00444580.cpp",
-      "symbol": "_asm_FUN_00444580_00444580",
+      "symbol": "_EntityDraw_00444580@8",
       "address": "0x00444580",
       "size": 60,
-      "kind": "asm",
-      "owner": "0x00444580"
+      "kind": "semantic",
+      "owner": "0x00444580",
+      "previous_record": {
+        "name": "asm_FUN_00444580_00444580",
+        "source": "src/render/fun_00444580_00444580.cpp",
+        "symbol": "_asm_FUN_00444580_00444580",
+        "address": "0x00444580",
+        "size": 60,
+        "kind": "asm",
+        "owner": "0x00444580"
+      }
     },
     {
       "name": "text_padding_004445bc",

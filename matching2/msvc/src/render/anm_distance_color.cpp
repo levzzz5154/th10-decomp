@@ -1,341 +1,110 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00443FB0..0x00444233 (643 bytes): distance-fade one animation entity's
+// quad and submit it.
+//
+// The dispatcher reaches this routine with the entity in EDI and the manager in
+// ESI, which no declaration names, so the body is a selected function of the
+// render-batch cluster (layout/ltcg/anm_batch_flush_00442f50.json).  Both
+// callees enter on registers no prototype expresses either - the billboard
+// projection takes its source in EAX with no arguments, and the quad projection
+// takes its source in EAX with the manager pushed on the stack - so their
+// bodies are co-compiled as ABI anchors placed at their retail addresses; see
+// the anchor block of layout/ltcg/render_batch_context.cpp.
+//
+// Four source shapes are load-bearing, not cosmetic, and each was found by
+// bisecting the emitted code against retail's:
+//
+//   * `span` is folded before the colour select, so the `fld`/`fsub` pair is
+//     scheduled into the `test ah,ah` shadow exactly as retail's is;
+//   * the three `position + base` pairs are summed into `delta` first and the
+//     render offset only then added, into `t`, which is what makes the x87
+//     stack hold all three sums at once and spill the z one;
+//   * `delta` receives the focus subtraction, so the pre-subtraction sums live
+//     in `t`'s slots and the deltas in `delta`'s own - retail's two frames;
+//   * the faded colour is written bytewise into the shared quad while the
+//     un-faded colour is stored whole in the other arm, which is the only form
+//     that lets the store sink past the distance compare the way retail's does.
+//     (Retail without the fade is the same quad with the colour copied
+//     unmodified, so the two arms are equivalent.)
+#include "th10/render/quad_batch.hpp"
+#include <math.h>
 
-// 0x00443FB0..0x00444232: FUN_00443fb0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00443fb0_00443fb0() {
-    __asm {
-    L_00443fb0:
-        sub esp,20h
-    L_00443fb3:
-        mov eax,edi
-    L_00443fb5:
-        call asm_FUN_00443b60_00443b60
-    L_00443fba:
-        test eax,eax
-    L_00443fbc:
-        je short L_00443fc5
-    L_00443fbe:
-        or eax,0FFFFFFFFh
-    L_00443fc1:
-        add esp,20h
-    L_00443fc4:
-        ret
-    L_00443fc5:
-        mov eax,dword ptr [edi+35Ch]
-    L_00443fcb:
-        fld dword ptr [data_00491e78]
-    L_00443fd1:
-        test ah,ah
-    L_00443fd3:
-        fsub dword ptr [data_00491e7c]
-    L_00443fd9:
-        jns short L_00443fe6
-    L_00443fdb:
-        mov eax,dword ptr [edi+300h]
-    L_00443fe1:
-        mov dword ptr [esp],eax
-    L_00443fe4:
-        jmp short L_00443fef
-    L_00443fe6:
-        mov ecx,dword ptr [edi+2FCh]
-    L_00443fec:
-        mov dword ptr [esp],ecx
-    L_00443fef:
-        fld dword ptr [edi+340h]
-    L_00443ff5:
-        push ebx
-    L_00443ff6:
-        fadd dword ptr [edi+334h]
-    L_00443ffc:
-        fld dword ptr [edi+344h]
-    L_00444002:
-        fadd dword ptr [edi+338h]
-    L_00444008:
-        fld dword ptr [edi+348h]
-    L_0044400e:
-        fadd dword ptr [edi+33Ch]
-    L_00444014:
-        fstp dword ptr [esp+20h]
-    L_00444018:
-        fxch
-    L_0044401a:
-        fadd dword ptr [edi+34Ch]
-    L_00444020:
-        fstp dword ptr [esp+0Ch]
-    L_00444024:
-        fadd dword ptr [edi+350h]
-    L_0044402a:
-        fld dword ptr [esp+20h]
-    L_0044402e:
-        fadd dword ptr [edi+354h]
-    L_00444034:
-        fld dword ptr [esp+0Ch]
-    L_00444038:
-        fsub dword ptr [data_00491d7c]
-    L_0044403e:
-        fstp dword ptr [esp+18h]
-    L_00444042:
-        mov edx,dword ptr [esp+18h]
-    L_00444046:
-        fxch
-    L_00444048:
-        mov dword ptr [esp+0Ch],edx
-    L_0044404c:
-        fsub dword ptr [data_00491d80]
-    L_00444052:
-        fstp dword ptr [esp+1Ch]
-    L_00444056:
-        mov eax,dword ptr [esp+1Ch]
-    L_0044405a:
-        mov dword ptr [esp+10h],eax
-    L_0044405e:
-        fsub dword ptr [data_00491d84]
-    L_00444064:
-        mov eax,dword ptr [esi+73245Ch]
-    L_0044406a:
-        test eax,eax
-    L_0044406c:
-        fstp dword ptr [esp+20h]
-    L_00444070:
-        mov ecx,dword ptr [esp+20h]
-    L_00444074:
-        mov dword ptr [esp+14h],ecx
-    L_00444078:
-        fld dword ptr [esp+14h]
-    L_0044407c:
-        fmul dword ptr [esp+14h]
-    L_00444080:
-        fld dword ptr [esp+10h]
-    L_00444084:
-        fmul dword ptr [esp+10h]
-    L_00444088:
-        faddp st(1),st
-    L_0044408a:
-        fld dword ptr [esp+0Ch]
-    L_0044408e:
-        fmul dword ptr [esp+0Ch]
-    L_00444092:
-        faddp st(1),st
-    L_00444094:
-        fsqrt
-    L_00444096:
-        je asm_target_00444128
-    L_0044409c:
-        movzx eax,byte ptr [esi+73245Ah]
-    L_004440a3:
-        movzx edx,byte ptr [esp+6]
-    L_004440a8:
-        imul eax,edx
-    L_004440ab:
-        shr eax,7
-    L_004440ae:
-        cmp eax,100h
-    L_004440b3:
-        jb short L_004440ba
-    L_004440b5:
-        mov eax,0FFh
-    L_004440ba:
-        movzx ecx,byte ptr [esp+5]
-    L_004440bf:
-        mov byte ptr [esp+6],al
-    L_004440c3:
-        movzx eax,byte ptr [esi+732459h]
-    L_004440ca:
-        imul eax,ecx
-    L_004440cd:
-        shr eax,7
-    L_004440d0:
-        cmp eax,100h
-    L_004440d5:
-        jb short L_004440dc
-    L_004440d7:
-        mov eax,0FFh
-    L_004440dc:
-        movzx edx,byte ptr [esp+4]
-    L_004440e1:
-        mov byte ptr [esp+5],al
-    L_004440e5:
-        movzx eax,byte ptr [esi+732458h]
-    L_004440ec:
-        imul eax,edx
-    L_004440ef:
-        shr eax,7
-    L_004440f2:
-        cmp eax,100h
-    L_004440f7:
-        jb short L_004440fe
-    L_004440f9:
-        mov eax,0FFh
-    L_004440fe:
-        movzx ecx,byte ptr [esp+7]
-    L_00444103:
-        mov bl,al
-    L_00444105:
-        movzx eax,byte ptr [esi+73245Bh]
-    L_0044410c:
-        imul eax,ecx
-    L_0044410f:
-        shr eax,7
-    L_00444112:
-        cmp eax,100h
-    L_00444117:
-        mov byte ptr [esp+4],bl
-    L_0044411b:
-        jb short L_00444122
-    L_0044411d:
-        mov eax,0FFh
-    L_00444122:
-        mov byte ptr [esp+7],al
-    L_00444126:
-        jmp short L_0044412c
-    L_00444128:
-        mov bl,byte ptr [esp+4]
-    L_0044412c:
-        fld dword ptr [data_00491e78]
-    L_00444132:
-        fcomp
-    L_00444134:
-        fnstsw ax
-    L_00444136:
-        test ah,5
-    L_00444139:
-        jp asm_target_00444207
-    L_0044413f:
-        fld dword ptr [data_00491e78]
-    L_00444145:
-        fsub st,st(1)
-    L_00444147:
-        fdivrp st(2),st
-    L_00444149:
-        fstp st(0)
-    L_0044414b:
-        fcom dword ptr [data_00470afc]
-    L_00444151:
-        fnstsw ax
-    L_00444153:
-        test ah,1
-    L_00444156:
-        jne short L_00444164
-    L_00444158:
-        fstp st(0)
-    L_0044415a:
-        mov eax,0FFFFFFFFh
-    L_0044415f:
-        pop ebx
-    L_00444160:
-        add esp,20h
-    L_00444163:
-        ret
-    L_00444164:
-        fld dword ptr [data_00491e80]
-    L_0044416a:
-        call asm_FUN_00463b2c_00463b2c
-    L_0044416f:
-        movzx edx,bl
-    L_00444172:
-        sub edx,eax
-    L_00444174:
-        mov dword ptr [esp+8],edx
-    L_00444178:
-        fild dword ptr [esp+8]
-    L_0044417c:
-        fmul st,st(1)
-    L_0044417e:
-        call asm_FUN_00463b2c_00463b2c
-    L_00444183:
-        fld dword ptr [data_00491e84]
-    L_00444189:
-        sub bl,al
-    L_0044418b:
-        mov byte ptr [data_004978d0],bl
-    L_00444191:
-        call asm_FUN_00463b2c_00463b2c
-    L_00444196:
-        mov bl,byte ptr [esp+5]
-    L_0044419a:
-        movzx ecx,bl
-    L_0044419d:
-        sub ecx,eax
-    L_0044419f:
-        mov dword ptr [esp+8],ecx
-    L_004441a3:
-        fild dword ptr [esp+8]
-    L_004441a7:
-        fmul st,st(1)
-    L_004441a9:
-        call asm_FUN_00463b2c_00463b2c
-    L_004441ae:
-        fld dword ptr [data_00491e88]
-    L_004441b4:
-        sub bl,al
-    L_004441b6:
-        mov byte ptr [data_004978d1],bl
-    L_004441bc:
-        call asm_FUN_00463b2c_00463b2c
-    L_004441c1:
-        mov bl,byte ptr [esp+6]
-    L_004441c5:
-        movzx edx,bl
-    L_004441c8:
-        sub edx,eax
-    L_004441ca:
-        mov dword ptr [esp+8],edx
-    L_004441ce:
-        fild dword ptr [esp+8]
-    L_004441d2:
-        fmul st,st(1)
-    L_004441d4:
-        call asm_FUN_00463b2c_00463b2c
-    L_004441d9:
-        fld dword ptr [data_00470afc]
-    L_004441df:
-        sub bl,al
-    L_004441e1:
-        fsub st,st(1)
-    L_004441e3:
-        movzx eax,byte ptr [esp+7]
-    L_004441e8:
-        mov dword ptr [esp+8],eax
-    L_004441ec:
-        mov byte ptr [data_004978d2],bl
-    L_004441f2:
-        fimul dword ptr [esp+8]
-    L_004441f6:
-        call asm_FUN_00463b2c_00463b2c
-    L_004441fb:
-        mov byte ptr [data_004978d3],al
-    L_00444200:
-        mov eax,dword ptr [data_004978d0]
-    L_00444205:
-        jmp short L_00444212
-    L_00444207:
-        mov eax,dword ptr [esp+4]
-    L_0044420b:
-        fstp st(0)
-    L_0044420d:
-        mov dword ptr [data_004978d0],eax
-    L_00444212:
-        mov dword ptr [data_004978ec],eax
-    L_00444217:
-        fstp st(0)
-    L_00444219:
-        mov dword ptr [data_00497908],eax
-    L_0044421e:
-        mov dword ptr [data_00497924],eax
-    L_00444223:
-        push 2
-    L_00444225:
-        mov eax,edi
-    L_00444227:
-        mov ecx,esi
-    L_00444229:
-        call asm_FUN_00442670_00442670
-    L_0044422e:
-        pop ebx
-    L_0044422f:
-        add esp,20h
-    L_00444232:
-        ret
-    }
+struct ProjectionManager_00444240;
+struct ProjectedEntity_00444240 {
+    unsigned char reserved_0000[0x334];
+    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+};
+
+struct BillboardSource_00443B60 {
+    unsigned char reserved_0000[0x35C];
+    __declspec(noinline) int BuildProjectedQuad();
+};
+
+extern "C" float data_00491d7c;
+extern "C" float data_00491d80;
+extern "C" float data_00491d84;
+extern "C" float data_00491e78;
+extern "C" float data_00491e7c;
+extern "C" float data_00491e80;
+extern "C" float data_00491e84;
+extern "C" float data_00491e88;
+
+static __forceinline float DistanceFrom_00443FB0(RenderVec3 delta) {
+    return (float)sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
 }
+
+#pragma code_seg(".text$06b0600distance")
+extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager,
+                                                        RenderEntity* entity) {
+    if (((BillboardSource_00443B60*)entity)->BuildProjectedQuad() != 0) {
+        return -1;
+    }
+    float span = data_00491e78 - data_00491e7c;
+    unsigned int color = (entity->flags & 0x8000u) ? entity->color_secondary : entity->color;
+    RenderVec3 delta;
+    delta.x = entity->position.x + entity->base_position.x;
+    delta.y = entity->position.y + entity->base_position.y;
+    delta.z = entity->position.z + entity->base_position.z;
+    RenderVec3 t;
+    t.x = delta.x + entity->render_offset.x;
+    t.y = delta.y + entity->render_offset.y;
+    t.z = delta.z + entity->render_offset.z;
+    delta.x = t.x - data_00491d7c;
+    delta.y = t.y - data_00491d80;
+    delta.z = t.z - data_00491d84;
+    float distance = DistanceFrom_00443FB0(delta);
+    if (manager->fade_enabled) {
+        unsigned char* channel = (unsigned char*)&color;
+        unsigned int scaled = (unsigned int)(channel[2] * manager->fade_red) >> 7;
+        channel[2] = scaled >= 0x100 ? 0xFF : scaled;
+        scaled = (unsigned int)(channel[1] * manager->fade_green) >> 7;
+        channel[1] = scaled >= 0x100 ? 0xFF : scaled;
+        scaled = (unsigned int)(channel[0] * manager->fade_blue) >> 7;
+        channel[0] = scaled >= 0x100 ? 0xFF : scaled;
+        scaled = (unsigned int)(channel[3] * manager->fade_alpha) >> 7;
+        channel[3] = scaled >= 0x100 ? 0xFF : scaled;
+    }
+    if (data_00491e78 < distance) {
+        float fade = (data_00491e78 - distance) / span;
+        if (fade >= 1.0f) {
+            return -1;
+        }
+        unsigned char* out = (unsigned char*)&data_004978c0[0].color;
+        out[0] = (unsigned char)(((unsigned char*)&color)[0]
+                                 - (unsigned char)(int)((float)(((unsigned char*)&color)[0]
+                                                                - (int)data_00491e80) * fade));
+        out[1] = (unsigned char)(((unsigned char*)&color)[1]
+                                 - (unsigned char)(int)((float)(((unsigned char*)&color)[1]
+                                                                - (int)data_00491e84) * fade));
+        out[2] = (unsigned char)(((unsigned char*)&color)[2]
+                                 - (unsigned char)(int)((float)(((unsigned char*)&color)[2]
+                                                                - (int)data_00491e88) * fade));
+        out[3] = (unsigned char)(int)((1.0f - fade) * (float)((unsigned char*)&color)[3]);
+    } else {
+        data_004978c0[0].color = color;
+    }
+    data_004978c0[1].color = data_004978c0[0].color;
+    data_004978c0[2].color = data_004978c0[0].color;
+    data_004978c0[3].color = data_004978c0[0].color;
+    return manager->SubmitSpriteQuad(entity, 2);
+}
+#pragma code_seg()

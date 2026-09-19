@@ -278,6 +278,24 @@
       "address": "0x443910",
       "size": 591,
       "actual_abi": "manager in ECX; entity in EDX; plain RET"
+    },
+    {
+      "name": "EntityDraw_00443fb0",
+      "source": "src/render/anm_distance_color.cpp",
+      "symbol": "_EntityDraw_00443fb0@8",
+      "section": ".text$06b0600distance",
+      "address": "0x443fb0",
+      "size": 643,
+      "actual_abi": "entity in EDI; manager in ESI; plain RET"
+    },
+    {
+      "name": "EntityDraw_00444580",
+      "source": "src/render/fun_00444580_00444580.cpp",
+      "symbol": "_EntityDraw_00444580@8",
+      "section": ".text$06b07fade",
+      "address": "0x444580",
+      "size": 60,
+      "actual_abi": "entity in ESI; manager in EDI; plain RET"
     }
   ],
   "gaps": [
@@ -399,7 +417,12 @@
     {
       "section": ".text$06b04rotquadz",
       "address": "0x443b5f",
-      "size": 1057
+      "size": 1
+    },
+    {
+      "section": ".text$06b04z02gap",
+      "address": "0x443b6c",
+      "size": 1044
     },
     {
       "section": ".text$06b05zgap",
@@ -407,14 +430,19 @@
       "size": 20
     },
     {
-      "section": ".text$06b06zgap",
-      "address": "0x443fd6",
-      "size": 1450
+      "section": ".text$06b0601gap",
+      "address": "0x444233",
+      "size": 13
+    },
+    {
+      "section": ".text$06b0603gap",
+      "address": "0x444258",
+      "size": 808
     },
     {
       "section": ".text$06b07zgap",
-      "address": "0x44459e",
-      "size": 34
+      "address": "0x4445bc",
+      "size": 4
     },
     {
       "section": ".text$06b08zgap",
@@ -618,6 +646,51 @@
       "symbol": "_data_004660ac",
       "address": "0x004660AC",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d7c",
+      "address": "0x00491D7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d80",
+      "address": "0x00491D80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d84",
+      "address": "0x00491D84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e78",
+      "address": "0x00491E78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e7c",
+      "address": "0x00491E7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e80",
+      "address": "0x00491E80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e84",
+      "address": "0x00491E84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e88",
+      "address": "0x00491E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -628,11 +701,13 @@
     "src/platform/fun_00439390_00439390.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
     "src/render/anm_batch_flush.cpp",
+    "src/render/anm_distance_color.cpp",
     "src/render/anm_vm_draw_dispatch.cpp",
     "src/render/camera_apply.cpp",
     "src/render/camera_setup.cpp",
     "src/render/default_viewport.cpp",
     "src/render/edge_strip_draw.cpp",
+    "src/render/fun_00444580_00444580.cpp",
     "src/render/quad_build_rotated.cpp",
     "src/render/quad_vertex_append.cpp",
     "src/render/rect_fan_draw.cpp",
@@ -687,6 +762,11 @@
       "symbol": "__real@bf000000",
       "address": "0x00470B78",
       "value": -0.5
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
     }
   ],
   "anchors": [
@@ -719,20 +799,6 @@
       "size": 28
     },
     {
-      "name": "EntityDraw_00443fb0_abi_anchor",
-      "symbol": "_EntityDraw_00443fb0@8",
-      "section": ".text$06b06anchor",
-      "address": "0x443fb0",
-      "size": 38
-    },
-    {
-      "name": "EntityDraw_00444580_abi_anchor",
-      "symbol": "_EntityDraw_00444580@8",
-      "section": ".text$06b07anchor",
-      "address": "0x444580",
-      "size": 30
-    },
-    {
       "name": "FadedQuadDraw_004445c0_abi_anchor",
       "symbol": "_FadedQuadDraw_004445c0@8",
       "section": ".text$06b08anchor",
@@ -759,6 +825,20 @@
       "section": ".text$09bucketzf44c150",
       "address": "0x0044C150",
       "size": 95
+    },
+    {
+      "name": "BillboardSource_BuildProjectedQuad_00443b60_abi_anchor",
+      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "section": ".text$06b04z01anchor",
+      "address": "0x443b60",
+      "size": 12
+    },
+    {
+      "name": "ProjectedEntity_ProjectQuad_00444240_abi_anchor",
+      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "section": ".text$06b0602anchor",
+      "address": "0x444240",
+      "size": 24
     }
   ],
   "data_aliases": [
