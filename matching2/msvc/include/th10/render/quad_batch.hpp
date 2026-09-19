@@ -80,6 +80,11 @@ struct RenderEntity {
     unsigned int flags;
     unsigned char reserved_360[0x394 - 0x360];
     RenderTexture* texture;
+
+    // 0x00443F80: project the entity's billboard quad and submit it as a
+    // plain sprite when the projection succeeds; see
+    // src/render/entity_submit_projected_00443f80.cpp.
+    __declspec(noinline) int SubmitProjectedQuad(AnimationManager_00442F50* manager);
 };
 // The shared sprite quad both submit pipelines finish and append.
 extern "C" TexturedVertex data_004978c0[4];
