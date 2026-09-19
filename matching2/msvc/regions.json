@@ -30540,13 +30540,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00444760_00444760",
-      "source": "src/render/quad_transform_draw.cpp",
-      "symbol": "_asm_FUN_00444760_00444760",
+      "name": "semantic_EntityDraw_00444760_00444760",
+      "source": "src/render/quad_transform_draw_00444760.cpp",
+      "symbol": "_EntityDraw_00444760@8",
       "address": "0x00444760",
       "size": 929,
-      "kind": "asm",
-      "owner": "0x00444760"
+      "kind": "semantic",
+      "owner": "0x00444760",
+      "previous_record": {
+        "name": "asm_FUN_00444760_00444760",
+        "source": "src/render/quad_transform_draw.cpp",
+        "symbol": "_asm_FUN_00444760_00444760",
+        "address": "0x00444760",
+        "size": 929,
+        "kind": "asm",
+        "owner": "0x00444760"
+      }
     },
     {
       "name": "text_padding_00444b01",
@@ -50578,7 +50587,7 @@
     "src/render/projection_quads.cpp",
     "src/render/quad_build_anchored.cpp",
     "src/render/quad_build_rotated.cpp",
-    "src/render/quad_transform_draw.cpp",
+    "src/render/quad_transform_draw_00444760.cpp",
     "src/render/quad_vertex_append.cpp",
     "src/render/queued_anm_cleanup.cpp",
     "src/render/rect_fan_draw.cpp",

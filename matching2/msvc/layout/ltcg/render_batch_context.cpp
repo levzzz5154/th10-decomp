@@ -33,6 +33,7 @@ struct ScoreRuntimeState_004091c0 {
     __declspec(noinline) int ReleaseFlaggedEntityArrays();
 };
 
+
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
                                   const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
@@ -112,9 +113,15 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_0044
 }
 #pragma code_seg()
 
-#pragma code_seg(".text$06b09anchor")
-extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity, AnimationManager_00442F50* manager) {
-    entry_free_004524a1(entity);
-    return (int)(size_t)manager;
+
+#pragma code_seg(".text$04ap")
+extern "C" __declspec(noinline) void SyncRenderState_004423e0(
+        AnimationManager_00442F50* manager, RenderEntity* entity) {
+    int a = (int)entity->flags;
+    entry_free_004524a1((void*)1);
+    if (manager->quad_count) manager->Flush();
+    a += (int)entity->strip_count;
+    entry_free_004524a1(entity->texture);
+    entry_free_004524a1((void*)(size_t)a);
 }
 #pragma code_seg()
