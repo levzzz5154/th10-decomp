@@ -44,6 +44,9 @@ struct AnimationManager_00442F50 {
     // 0x00448740: the scheduler task that clears the shake offsets and the
     // stored sprite origin and then renders render-slot 14.
     __declspec(noinline) int ResetOriginAndRenderSlot14();
+    // 0x00448980: walks one animation bucket's entity list and draws every node
+    // in it; see src/render/animation_manager_render_bucket_00448980.cpp.
+    __declspec(noinline) int RenderBucket(int index);
 };
 
 struct RenderTexture {

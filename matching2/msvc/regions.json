@@ -29050,13 +29050,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_RenderBucket_00448980",
+      "name": "semantic_AnimationManager_00442F50_RenderBucket_00448980",
       "source": "src/render/animation_manager_render_bucket_00448980.cpp",
-      "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+      "symbol": "?RenderBucket@AnimationManager_00442F50@@QAEHH@Z",
       "address": "0x00448980",
       "size": 67,
-      "kind": "asm",
-      "owner": "0x00448980"
+      "kind": "semantic",
+      "owner": "0x00448980",
+      "previous_record": {
+        "name": "asm_AnimationManager_RenderBucket_00448980",
+        "source": "src/render/animation_manager_render_bucket_00448980.cpp",
+        "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+        "address": "0x00448980",
+        "size": 67,
+        "kind": "asm",
+        "owner": "0x00448980"
+      }
     },
     {
       "name": "text_padding_004489c3",
@@ -49500,7 +49509,8 @@
     "layout/ltcg/fun_00448740_wave11.json",
     "layout/ltcg/load_script_0043e710_wave11.json",
     "layout/ltcg/positioned_primary_front_00448e80_wave12.json",
-    "layout/ltcg/timer_owner_0042c5c0.json"
+    "layout/ltcg/timer_owner_0042c5c0.json",
+    "layout/ltcg/animation_manager_render_bucket_00448980.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
