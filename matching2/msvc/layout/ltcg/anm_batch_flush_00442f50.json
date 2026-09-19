@@ -188,6 +188,33 @@
       "size": 60,
       "actual_abi": "state in ESI; index in EBX; plain RET",
       "source": "src/game/fun_00405300_00405300.cpp"
+    },
+    {
+      "name": "AnimationManager_00448770_RenderStage1Bucket0F",
+      "symbol": "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$08stage0f",
+      "address": "0x00448770",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/unidentified/FUN_00448770_00448770.cpp"
+    },
+    {
+      "name": "AnimationManager_004487c0_RenderStage1Bucket10",
+      "symbol": "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$08stage10",
+      "address": "0x004487c0",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/unidentified/FUN_004487c0_004487c0.cpp"
+    },
+    {
+      "name": "AnimationManager_00448810_RenderStage1Bucket13",
+      "symbol": "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$08stage13",
+      "address": "0x00448810",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/unidentified/FUN_00448810_00448810.cpp"
     }
   ],
   "gaps": [
@@ -212,19 +239,9 @@
       "size": 1
     },
     {
-      "section": ".text$02alayout",
-      "address": "0x0043BF83",
-      "size": 29
-    },
-    {
-      "section": ".text$04alayout",
-      "address": "0x0043C226",
-      "size": 24986
-    },
-    {
-      "section": ".text$04azlayout",
-      "address": "0x004423D9",
-      "size": 455
+      "section": ".text$00clayout",
+      "address": "0x004216EA",
+      "size": 107862
     },
     {
       "section": ".text$01blayout",
@@ -237,14 +254,24 @@
       "size": 100
     },
     {
+      "section": ".text$02alayout",
+      "address": "0x0043BF83",
+      "size": 29
+    },
+    {
       "section": ".text$02zlayout",
       "address": "0x0043C195",
       "size": 11
     },
     {
-      "section": ".text$06alayout",
-      "address": "0x0044307D",
-      "size": 7267
+      "section": ".text$04alayout",
+      "address": "0x0043C226",
+      "size": 24986
+    },
+    {
+      "section": ".text$04azlayout",
+      "address": "0x004423D9",
+      "size": 455
     },
     {
       "section": ".text$04c1layout",
@@ -267,14 +294,14 @@
       "size": 11
     },
     {
+      "section": ".text$06alayout",
+      "address": "0x0044307D",
+      "size": 7267
+    },
+    {
       "section": ".text$06ealayout",
       "address": "0x00444E51",
       "size": 15
-    },
-    {
-      "section": ".text$06glayout",
-      "address": "0x004451B3",
-      "size": 77
     },
     {
       "section": ".text$06eclayout",
@@ -287,9 +314,29 @@
       "size": 5
     },
     {
-      "section": ".text$00clayout",
-      "address": "0x004216EA",
-      "size": 107862
+      "section": ".text$06glayout",
+      "address": "0x004451B3",
+      "size": 77
+    },
+    {
+      "section": ".text$07contextz",
+      "address": "0x445341",
+      "size": 13359
+    },
+    {
+      "section": ".text$08stage0fz",
+      "address": "0x4487b8",
+      "size": 8
+    },
+    {
+      "section": ".text$08stage10z",
+      "address": "0x448808",
+      "size": 8
+    },
+    {
+      "section": ".text$08stage13z",
+      "address": "0x448858",
+      "size": 296
     }
   ],
   "constants": [],
@@ -363,6 +410,11 @@
       "symbol": "_data_00470ba0",
       "address": "0x00470BA0",
       "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "address": "0x004451C0",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -382,13 +434,19 @@
     "src/render/sprite_quad_submit.cpp",
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/unidentified/FUN_00448770_00448770.cpp",
+    "src/unidentified/FUN_004487c0_004487c0.cpp",
+    "src/unidentified/FUN_00448810_00448810.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
     "src/unidentified/unassigned_00444fa0.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
-    "?Draw@ColorViewport@@QAEHXZ"
+    "?Draw@ColorViewport@@QAEHXZ",
+    "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
+    "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
+    "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -408,6 +466,15 @@
       "symbol": "__real@4f800000",
       "address": "0x00470B98",
       "value": 4294967296.0
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
+      "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+      "section": ".text$09bucket",
+      "address": "0x00448980",
+      "size": 67
     }
   ]
 }

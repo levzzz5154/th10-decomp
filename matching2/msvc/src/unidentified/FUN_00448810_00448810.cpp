@@ -1,49 +1,35 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448810..0x00448857 (72 bytes): one frame render task - republish the
+// second render stage as the active one and draw animation bucket 0x13.
+//
+// Byte-for-byte the same body as 0x00448770 apart from the bucket index; see
+// src/unidentified/FUN_00448770_00448770.cpp for what the body is, why the
+// manager arrives in ECX and why it lives in the camera cluster.
+#include "th10/render/camera_batch.hpp"
 
-// 0x00448810..0x00448857: FUN_00448810
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00448810_00448810() {
-    __asm {
-    L_00448810:
-        push esi
-    L_00448811:
-        push edi
-    L_00448812:
-        mov edi,491E94h
-    L_00448817:
-        mov esi,ecx
-    L_00448819:
-        mov dword ptr [data_00491fac],edi
-    L_0044881f:
-        call asm_Camera_ApplyRetail_00421480
-    L_00448824:
-        mov edx,dword ptr [data_00491fac]
-    L_0044882a:
-        mov eax,dword ptr [data_00491c30]
-    L_0044882f:
-        mov ecx,dword ptr [eax]
-    L_00448831:
-        add edx,0CCh
-    L_00448837:
-        push edx
-    L_00448838:
-        push eax
-    L_00448839:
-        call dword ptr [ecx+0BCh]
-    L_0044883f:
-        mov eax,13h
-    L_00448844:
-        mov edi,esi
-    L_00448846:
-        mov dword ptr [data_00491fb0],1
-    L_00448850:
-        call asm_AnimationManager_RenderBucket_00448980
-    L_00448855:
-        pop edi
-    L_00448856:
-        pop esi
-    L_00448857:
-        ret
-    }
+struct RenderStage_00448810 {
+    RenderCamera camera;
+    unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
+};
+
+struct RenderStageState_00448810 {
+    unsigned char reserved_000[0x08];
+    RenderDevice* device;                        // +0x08
+    unsigned char reserved_00C[0x154 - 0x0C];
+    RenderStage_00448810 stages[2];              // +0x154, stride 0x118
+    RenderStage_00448810* active_stage;          // +0x384
+    int stage_index;                             // +0x388
+};
+extern "C" RenderStageState_00448810 data_00491c28;
+
+extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
+
+#pragma code_seg(".text$08stage13")
+int AnimationManager_00442F50::RenderStage1Bucket13() {
+    RenderStage_00448810* stage = &data_00491c28.stages[1];
+    data_00491c28.active_stage = stage;
+    stage->camera.ApplyDefault();
+    data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
+    data_00491c28.stage_index = 1;
+    return asm_AnimationManager_RenderBucket_00448980(this, 0x13);
 }
+#pragma code_seg()

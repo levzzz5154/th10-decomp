@@ -1,126 +1,91 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043E710..0x0043E7DA (203 bytes): load animation script `index` of
+// `resource` into `object`.
+//
+// The body zeroes the object and returns when the slot is empty or the resource
+// is still loading; otherwise it initialises the entity, records the script
+// resource, the resource's id and the index, clears two bits of the +0x35C flag
+// word, installs the script base and cursor, re-seeds the frame state (frame 0,
+// elapsed 0, previous frame -1, and the 0xFFF0BDC1 / 0x476F78 pair when the
+// +0x6C flag word has not been primed yet), clears bit 0 of +0x35C through a
+// pointer and finally runs the script once (0x0043EE30) and advances the
+// manager's script tick counter.
+//
+// Retail's entry convention is object in EAX, resource in ECX and index in EBX:
+// the resource is copied to ESI and keeps that home for the rest of the body,
+// the object is copied to EDI, the index stays in EBX and the shared zero lives
+// in EBP.  That is a whole-program decision made from this body's own IR - the
+// declaration names no register, and only the *parameter order* matters: the
+// pass hands the first parameter ECX and the second EAX, so the resource must
+// be declared first.
+//
+// Two statement shapes are load-bearing (both measured against the image):
+//
+//  * The first flag mask is a named local stored afterwards
+//    (`mask = flags & 0xFFFFF9FF; ... flags = mask;`).  Written as an in-place
+//    `&=`, MSVC folds it into `andl $imm,mem` and retail's hoisted load /
+//    deferred store is lost.
+//  * The final clear is a read-modify-write through a plain (non-`volatile`)
+//    `uint32_t*`.  The direct `flags &= ~1u;` folds into the wrong in-place
+//    `andl`, while a `volatile` pointer forces the coalesced entry
+//    (resource in ESI) and loses retail's `push esi; mov esi,ecx`.  The plain
+//    pointer keeps both retail's load/and/store shape and retail's entry.
+#include <string.h>
+#include "th10/game/entity.hpp"
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationObject_0043e710 : Entity {
+};
 
-// 0x0043E710..0x0043E7DA: ?AnimationObject_LoadScript@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationObject_LoadScript_0043e710() {
-    __asm {
-    L_0043e710:
-        push ebp
-    L_0043e711:
-        push esi
-    L_0043e712:
-        mov esi,ecx
-    L_0043e714:
-        push edi
-    L_0043e715:
-        mov edi,eax
-    L_0043e717:
-        mov eax,dword ptr [esi+11Ch]
-    L_0043e71d:
-        mov ecx,dword ptr [eax+ebx*4]
-    L_0043e720:
-        xor ebp,ebp
-    L_0043e722:
-        cmp ecx,ebp
-    L_0043e724:
-        je asm_target_0043e7ce
-    L_0043e72a:
-        cmp dword ptr [esi+124h],ebp
-    L_0043e730:
-        jne asm_target_0043e7ce
-    L_0043e736:
-        mov edx,edi
-    L_0043e738:
-        call asm_InitializeEntity_00401de0
-    L_0043e73d:
-        mov edx,dword ptr [edi+35Ch]
-    L_0043e743:
-        mov word ptr [edi+38Ah],bx
-    L_0043e74a:
-        mov cx,word ptr [esi]
-    L_0043e74d:
-        and edx,0FFFFF9FFh
-    L_0043e753:
-        mov word ptr [edi+386h],cx
-    L_0043e75a:
-        mov dword ptr [edi+308h],esi
-    L_0043e760:
-        mov dword ptr [edi+35Ch],edx
-    L_0043e766:
-        mov edx,dword ptr [esi+11Ch]
-    L_0043e76c:
-        mov eax,dword ptr [edx+ebx*4]
-    L_0043e76f:
-        mov dword ptr [edi+38Ch],eax
-    L_0043e775:
-        mov dword ptr [edi+390h],eax
-    L_0043e77b:
-        mov eax,dword ptr [edi+6Ch]
-    L_0043e77e:
-        test al,1
-    L_0043e780:
-        jne short L_0043e79c
-    L_0043e782:
-        or eax,1
-    L_0043e785:
-        mov dword ptr [edi+60h],ebp
-    L_0043e788:
-        mov dword ptr [edi+5Ch],0FFF0BDC1h
-    L_0043e78f:
-        mov dword ptr [edi+64h],ebp
-    L_0043e792:
-        mov dword ptr [edi+68h],476F78h
-    L_0043e799:
-        mov dword ptr [edi+6Ch],eax
-    L_0043e79c:
-        mov dword ptr [edi+60h],ebp
-    L_0043e79f:
-        mov dword ptr [edi+64h],ebp
-    L_0043e7a2:
-        mov dword ptr [edi+5Ch],0FFFFFFFFh
-    L_0043e7a9:
-        mov esi,dword ptr [edi+35Ch]
-    L_0043e7af:
-        and esi,0FFFFFFFEh
-    L_0043e7b2:
-        push edi
-    L_0043e7b3:
-        mov dword ptr [edi+35Ch],esi
-    L_0043e7b9:
-        call asm_FUN_0043ee30_0043ee30
-    L_0043e7be:
-        mov eax,dword ptr [data_00491c10]
-    L_0043e7c3:
-        mov ecx,dword ptr [eax+4Ch]
-    L_0043e7c6:
-        pop edi
-    L_0043e7c7:
-        inc ecx
-    L_0043e7c8:
-        pop esi
-    L_0043e7c9:
-        mov dword ptr [eax+4Ch],ecx
-    L_0043e7cc:
-        pop ebp
-    L_0043e7cd:
-        ret
-    L_0043e7ce:
-        mov ecx,0EBh
-    L_0043e7d3:
-        xor eax,eax
-    L_0043e7d5:
-        rep stosd
-    L_0043e7d7:
-        pop edi
-    L_0043e7d8:
-        pop esi
-    L_0043e7d9:
-        pop ebp
-    L_0043e7da:
-        ret
+struct AnimationResource_0043e710 {
+    uint16_t id;                               // +0x000
+    unsigned char reserved_002[0x11C - 0x002];
+    void** scripts;                            // +0x11C
+    unsigned char reserved_120[0x124 - 0x120];
+    int loading;                               // +0x124
+};
+
+struct AnimationManager_0043e710 {
+    unsigned char reserved_00[0x4C];
+    int script_tick_counter;                   // +0x4C
+};
+
+extern "C" AnimationManager_0043e710* data_00491c10;
+extern "C" float data_00476f78;
+extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
+extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
+                                             AnimationObject_0043e710* object,
+                                             int index);
+
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) void __stdcall LoadScript_0043e710(
+    AnimationResource_0043e710* resource, AnimationObject_0043e710* object,
+    int index) {
+    void* script = resource->scripts[index];
+    if (script == 0 || resource->loading != 0) {
+        memset(object, 0, sizeof(Entity));
+        return;
     }
+    Entity_Init(script, object);               // leading slot is dead in this ABI
+    uint32_t mask = object->AnimationFlags() & 0xFFFFF9FFu;
+    object->ScriptIndex() = static_cast<int16_t>(index);
+    object->ScriptResourceId() = resource->id;
+    object->ScriptResource() = resource;
+    object->AnimationFlags() = mask;
+    void* fresh = resource->scripts[index];
+    object->ScriptBase() = fresh;
+    object->ScriptCursor() = fresh;
+    if ((object->flags_06C & 1) == 0) {
+        object->current_frame = 0;
+        object->previous_frame = static_cast<int32_t>(0xFFF0BDC1u);
+        object->frame_elapsed = 0.0f;
+        object->time_scale = &data_00476f78;
+        object->flags_06C |= 1;
+    }
+    object->current_frame = 0;
+    object->frame_elapsed = 0.0f;
+    object->previous_frame = -1;
+    uint32_t* flag_word = &object->AnimationFlags();
+    *flag_word &= ~1u;
+    asm_FUN_0043ee30_0043ee30(object);
+    ++data_00491c10->script_tick_counter;
 }
+#pragma code_seg()
