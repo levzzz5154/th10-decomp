@@ -1,41 +1,55 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042C5C0..0x0042C612 (83 bytes): point the score timer at a new owner and
+// reset its countdown.
+//
+// Retail enters this member with the timer state in EAX and the owner in ECX, a
+// convention no C++ declaration can name, so the body is compiled in the
+// native-LTCG cluster layout/ltcg/timer_owner_0042c5c0.json, whose synthetic
+// caller establishes that pair.  The body itself is ordinary readable C++.
+//
+// The record is the same 0x2C4-byte score timer the title-options setter
+// (0x0042C620, src/math/timer.cpp) drives: the countdown lives at +0x2B0
+// (previous), +0x2B4 (current), +0x2B8 (elapsed), +0x2BC (speed) and +0x2C0
+// (flags; bit 0 is "running").  This entry additionally records the owner at
+// +0x1C and clears the pending target at +0x20 before the reset.
+//
+// The owner slot and the pending target are written as one pair through a base
+// pointer.  Without the shared base the backend sinks the second store into the
+// compare slot of the flag test (`test cl,1` / store / `jne`), which is two
+// bytes and three instructions away from retail's schedule; with it the two
+// stores stay adjacent before the flag load, exactly as retail emits them.
+extern "C" float data_00476f78;
 
-// 0x0042C5C0..0x0042C612: ?GameState_DisableTimerWithOwner@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameState_DisableTimerWithOwner_0042c5c0() {
-    __asm {
-    L_0042c5c0:
-        xor edx,edx
-    L_0042c5c2:
-        mov dword ptr [eax+1Ch],ecx
-    L_0042c5c5:
-        mov dword ptr [eax+20h],edx
-    L_0042c5c8:
-        mov ecx,dword ptr [eax+2C0h]
-    L_0042c5ce:
-        test cl,1
-    L_0042c5d1:
-        jne short L_0042c5fc
-    L_0042c5d3:
-        or ecx,1
-    L_0042c5d6:
-        mov dword ptr [eax+2B4h],edx
-    L_0042c5dc:
-        mov dword ptr [eax+2B0h],0FFF0BDC1h
-    L_0042c5e6:
-        mov dword ptr [eax+2B8h],edx
-    L_0042c5ec:
-        mov dword ptr [eax+2BCh],476F78h
-    L_0042c5f6:
-        mov dword ptr [eax+2C0h],ecx
-    L_0042c5fc:
-        mov dword ptr [eax+2B4h],edx
-    L_0042c602:
-        mov dword ptr [eax+2B8h],edx
-    L_0042c608:
-        mov dword ptr [eax+2B0h],0FFFFFFFFh
-    L_0042c612:
-        ret
+struct GameStateTimer_0042c5c0 {
+    unsigned char unknown_00[0x1C];
+    int timer_owner;                 // +0x1C
+    int timer_target;                // +0x20
+    unsigned char unknown_24[0x28C];
+    int timer_previous;              // +0x2B0
+    int timer_current;               // +0x2B4
+    int timer_elapsed;               // +0x2B8
+    float* timer_speed;              // +0x2BC
+    unsigned int timer_flags;        // +0x2C0
+
+    __declspec(noinline) void DisableTimerWithOwner(int owner);
+};
+
+typedef char GameStateTimer_0042c5c0_size_must_fit[
+    sizeof(GameStateTimer_0042c5c0) == 0x2C4 ? 1 : -1];
+
+#pragma code_seg(".text$01accessor")
+void GameStateTimer_0042c5c0::DisableTimerWithOwner(int owner) {
+    int* request = &timer_owner;
+    request[0] = owner;
+    request[1] = 0;
+    if ((timer_flags & 1) == 0) {
+        timer_current = 0;
+        timer_previous = 0xFFF0BDC1;
+        timer_elapsed = 0;
+        timer_speed = &data_00476f78;
+        timer_flags |= 1;
     }
+    timer_current = 0;
+    timer_elapsed = 0;
+    timer_previous = -1;
 }
+#pragma code_seg()

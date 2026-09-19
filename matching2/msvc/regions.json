@@ -19888,13 +19888,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameState_DisableTimerWithOwner_0042c5c0",
+      "name": "semantic_GameStateTimer_0042c5c0_DisableTimerWithOwner_0042c5c0",
       "source": "src/game/score_timer_leaves.cpp",
-      "symbol": "_asm_GameState_DisableTimerWithOwner_0042c5c0",
+      "symbol": "?DisableTimerWithOwner@GameStateTimer_0042c5c0@@QAEXH@Z",
       "address": "0x0042C5C0",
       "size": 83,
-      "kind": "asm",
-      "owner": "0x0042C5C0"
+      "kind": "semantic",
+      "owner": "0x0042C5C0",
+      "previous_record": {
+        "name": "asm_GameState_DisableTimerWithOwner_0042c5c0",
+        "source": "src/game/score_timer_leaves.cpp",
+        "symbol": "_asm_GameState_DisableTimerWithOwner_0042c5c0",
+        "address": "0x0042C5C0",
+        "size": 83,
+        "kind": "asm",
+        "owner": "0x0042C5C0"
+      }
     },
     {
       "name": "text_padding_0042c613",
@@ -49490,7 +49499,8 @@
     "layout/ltcg/lazy_animation_resource_0040c540_wave11.json",
     "layout/ltcg/fun_00448740_wave11.json",
     "layout/ltcg/load_script_0043e710_wave11.json",
-    "layout/ltcg/positioned_primary_front_00448e80_wave12.json"
+    "layout/ltcg/positioned_primary_front_00448e80_wave12.json",
+    "layout/ltcg/timer_owner_0042c5c0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
