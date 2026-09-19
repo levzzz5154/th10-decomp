@@ -1,21 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00408880..0x00408894: saturating tick of one counter field.
+//
+// The body is a plain member: `this` arrives in ECX, the field at +0x84 is
+// read, incremented while it is below 99999 and written back. The image leaves
+// the resulting value in EAX, which a void member reproduces exactly; the
+// region has no caller and no pointer to it anywhere in the executable, so the
+// result register is dead.
+//
+// 0x00408860 is the same body one field lower at +0x80 and stays assembly.
 
-// 0x00408880..0x00408894: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00408880() {
-    __asm {
-    L_00408880:
-        mov eax,dword ptr [ecx+84h]
-    L_00408886:
-        cmp eax,1869Fh
-    L_0040888b:
-        jge short L_00408894
-    L_0040888d:
-        inc eax
-    L_0040888e:
-        mov dword ptr [ecx+84h],eax
-    L_00408894:
-        ret
-    }
+struct CounterState_00408880 {
+    char pad_000[0x84];
+    int field_084;
+    __declspec(noinline) void Tick();
+};
+
+void CounterState_00408880::Tick() {
+    if (field_084 < 99999)
+        ++field_084;
 }

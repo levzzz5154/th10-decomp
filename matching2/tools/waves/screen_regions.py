@@ -131,7 +131,16 @@ def main():
     config = json.loads((PROJECT / "regions.json").read_text())
     cache, rows = {}, []
     for region in config["regions"]:
-        if region["kind"] != "asm" or region.get("owner") != region["address"]:
+        # owner == address marks a region that is an entire function. A region
+        # whose owner is absent or differs from its address was skipped by every
+        # screen for sixteen waves, but spot checks show many are complete
+        # padded functions (the manifest simply never recorded an owner), so the
+        # filter now only excludes regions explicitly owned by another address.
+        owner = region.get("owner")
+        if region["kind"] != "asm":
+            continue
+        if owner and int(owner, 0) != int(region["address"], 0):
+            continue
             continue
         address, size = int(region["address"], 16), region["size"]
         if not (args.min <= size <= args.max):

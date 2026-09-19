@@ -4194,13 +4194,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408860",
+      "name": "semantic_CounterState_Tick_00408860",
       "source": "src/unidentified/unassigned_00408860.cpp",
-      "symbol": "_asm_unassigned_00408860",
+      "symbol": "?Tick@CounterState_00408860@@QAEXXZ",
       "address": "0x00408860",
       "size": 21,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00408860",
+      "previous_record": {
+        "name": "asm_unassigned_00408860",
+        "source": "src/unidentified/unassigned_00408860.cpp",
+        "symbol": "_asm_unassigned_00408860",
+        "address": "0x00408860",
+        "size": 21,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408875",
@@ -4211,13 +4220,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408880",
+      "name": "semantic_CounterState_Tick_00408880",
       "source": "src/unidentified/unassigned_00408880.cpp",
-      "symbol": "_asm_unassigned_00408880",
+      "symbol": "?Tick@CounterState_00408880@@QAEXXZ",
       "address": "0x00408880",
       "size": 21,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00408880",
+      "previous_record": {
+        "name": "asm_unassigned_00408880",
+        "source": "src/unidentified/unassigned_00408880.cpp",
+        "symbol": "_asm_unassigned_00408880",
+        "address": "0x00408880",
+        "size": 21,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408895",
