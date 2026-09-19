@@ -29089,13 +29089,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_CreatePositionedPrimary_00448d50",
+      "name": "semantic_AnimationManager_CreatePositionedPrimary_00448d50_00448d50",
       "source": "src/render/animation_manager_create_positioned_primary_00448d50.cpp",
-      "symbol": "_asm_AnimationManager_CreatePositionedPrimary_00448d50",
+      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "address": "0x00448D50",
       "size": 95,
-      "kind": "asm",
-      "owner": "0x00448D50"
+      "kind": "semantic",
+      "owner": "0x00448D50",
+      "previous_record": {
+        "name": "asm_AnimationManager_CreatePositionedPrimary_00448d50",
+        "source": "src/render/animation_manager_create_positioned_primary_00448d50.cpp",
+        "symbol": "_asm_AnimationManager_CreatePositionedPrimary_00448d50",
+        "address": "0x00448D50",
+        "size": 95,
+        "kind": "asm",
+        "owner": "0x00448D50"
+      }
     },
     {
       "name": "text_padding_00448daf",
@@ -49396,7 +49405,8 @@
     "layout/ltcg/ecl_record_reset_0040c730.json",
     "layout/ltcg/score_records_advance_frame_0041c480.json",
     "layout/ltcg/render_stage_select_00405300.json",
-    "layout/ltcg/anim_pool_alloc_00449950.json"
+    "layout/ltcg/anim_pool_alloc_00449950.json",
+    "layout/ltcg/positioned_primary_00448d50_wave10.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

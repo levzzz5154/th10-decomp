@@ -1,68 +1,69 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448D50..0x00448DAE (95 bytes): create a positioned animation object and
+// append it to the manager's primary list.
+//
+// The body takes the object out of the manager's animation pool, marks it
+// positioned (bit 30 of the +0x35C flag word), clears its render bucket at
+// +0x20, copies the caller's 12-byte position record into +0x340, loads the
+// script for the requested index, and hands the object to the primary-list
+// registration, which assigns the handle and stores it through the caller's
+// out slot; the out slot is what the function returns.
+//
+// Retail enters this body with the position record in EDI and the other three
+// arguments on the stack, and returns with `ret 0xC` - the whole-program pass
+// picks that convention for the accessor out of the synthetic caller in the
+// cluster's driver, not out of a declaration.
+//
+// The three calls it makes enter on registers no MSVC declaration can name:
+// 0x00449950 reads its manager from ESI, 0x0043E710 reads the object from EAX
+// with the resource in ECX and the index in EBX, and 0x004489D0 reads the
+// manager from EDX, the entity from EBX and the handle record from EAX.  Only
+// a native /LTCG link that can see the callees' bodies assigns those
+// registers, so the region is compiled in the cluster
+// layout/ltcg/positioned_primary_00448d50_wave10.json, whose driver carries a
+// compiled ABI anchor for each of the three - placed at the retail address,
+// resolving the call displacements without a relocation, and never exported as
+// recovered code.
+#pragma code_seg(".text$05accessor")
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationPosition_00448d50 {
+    float x;
+    float y;
+    float z;
+};
 
-// 0x00448D50..0x00448DAE: ?AnimationManager_CreatePositionedPrimary@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_CreatePositionedPrimary_00448d50() {
-    __asm {
-    L_00448d50:
-        push ebx
-    L_00448d51:
-        push ebp
-    L_00448d52:
-        mov ebp,dword ptr [esp+10h]
-    L_00448d56:
-        push esi
-    L_00448d57:
-        mov esi,dword ptr [data_00491c10]
-    L_00448d5d:
-        call asm_FUN_00449950_00449950
-    L_00448d62:
-        mov ebx,dword ptr [esp+18h]
-    L_00448d66:
-        mov esi,eax
-    L_00448d68:
-        or dword ptr [esi+35Ch],40000000h
-    L_00448d72:
-        mov dword ptr [esi+20h],0
-    L_00448d79:
-        mov ecx,dword ptr [edi]
-    L_00448d7b:
-        lea eax,[esi+340h]
-    L_00448d81:
-        mov dword ptr [eax],ecx
-    L_00448d83:
-        mov edx,dword ptr [edi+4]
-    L_00448d86:
-        mov dword ptr [eax+4],edx
-    L_00448d89:
-        mov ecx,dword ptr [edi+8]
-    L_00448d8c:
-        mov dword ptr [eax+8],ecx
-    L_00448d8f:
-        mov ecx,dword ptr [esp+10h]
-    L_00448d93:
-        mov eax,esi
-    L_00448d95:
-        call asm_AnimationObject_LoadScript_0043e710
-    L_00448d9a:
-        mov edx,dword ptr [data_00491c10]
-    L_00448da0:
-        mov ebx,esi
-    L_00448da2:
-        mov eax,ebp
-    L_00448da4:
-        call asm_AnimationManager_RegisterPrimaryBack_004489d0
-    L_00448da9:
-        pop esi
-    L_00448daa:
-        pop ebp
-    L_00448dab:
-        pop ebx
-    L_00448dac:
-        ret 0Ch
-    }
+// The animation object this region fills in; only the fields it writes are
+// described.
+struct AnimationObject_00448d50 {
+    unsigned char reserved_000[0x20];
+    int render_bucket_020;                          // +0x20
+    unsigned char reserved_024[0x340 - 0x24];
+    AnimationPosition_00448d50 position_340;        // +0x340
+    unsigned char reserved_34c[0x35C - 0x34C];
+    unsigned int flags_035c;                        // +0x35C
+};
+
+extern "C" void* data_00491c10;
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+    void* resource, void* object, int index);
+// The primary-list registration, spelled with the handle record retail keeps in
+// EAX second: it is the object the assigned id is written to, while the entity
+// in EBX is the one whose embedded node is linked.
+extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+    void* manager, void** out, void* entity);
+
+// noinline: the whole-program pass must keep this body as its own contribution
+// at 0x00448D50 instead of inlining it into the synthetic caller.
+__declspec(noinline)
+void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+    void* resource, void** out, int index, const AnimationPosition_00448d50* position) {
+    AnimationObject_00448d50* object =
+        (AnimationObject_00448d50*)asm_FUN_00449950_00449950(data_00491c10);
+    object->flags_035c |= 0x40000000u;
+    object->render_bucket_020 = 0;
+    object->position_340 = *position;
+    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    return out;
 }
+#pragma code_seg()
