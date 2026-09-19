@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "recovery_offset_point_00418810",
+  "source": "src/game/recovery_offset_point_00418810.cpp",
+  "driver": "layout/ltcg/recovery_offset_point_00418810_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "0x418810 compiled with native LTCG so the source point arrives in EAX, which no declaration can name.",
+  "functions": [
+    {
+      "name": "Recovery_OffsetPoint",
+      "symbol": "?OffsetPoint@Vector3_00418810@@QBEPAU1@XZ",
+      "section": ".text$01offsetpoint",
+      "address": "0x00418810",
+      "size": 64,
+      "actual_abi": "source point in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?OffsetPointCompilerContext@@YGPAUVector3_00418810@@PAPAU1@H@Z",
+    "section": ".text$03context",
+    "address": "0x00418860",
+    "size": 34,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 96272
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00418850",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_offset_point_00497d80@@3UVector3_00418810@@A",
+      "address": "0x00497D80",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_offset_point_state_00497d8c@@3IA",
+      "address": "0x00497D8C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": []
+}
