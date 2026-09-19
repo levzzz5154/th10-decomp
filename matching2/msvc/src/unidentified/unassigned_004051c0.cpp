@@ -1,19 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004051C0: read whether the +0x390 field is set.
+//
+// The receiver arrives in ECX - a plain __thiscall member - so the body is
+// an ordinary translation unit, not a cluster.
+struct Predicate_004051c0 {
+    unsigned char pad_000[0x390];
+    int field_390;                          // +0x390
+    __declspec(noinline) int IsNonZero() const;
+};
 
-// 0x004051C0..0x004051CD: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004051c0() {
-    __asm {
-    L_004051c0:
-        mov edx,dword ptr [ecx+390h]
-    L_004051c6:
-        xor eax,eax
-    L_004051c8:
-        test edx,edx
-    L_004051ca:
-        setne al
-    L_004051cd:
-        ret
-    }
+int Predicate_004051c0::IsNonZero() const {
+    return field_390 != 0;
 }

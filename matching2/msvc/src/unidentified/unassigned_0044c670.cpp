@@ -1,33 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0044C670..0x0044C6A3: initialise the nine 16-bit slot indices.
+//
+// Slots 0..3 take their own index and the four reserved slots take -1; the
+// function hands the object back in EAX, so it returns this.
+struct UnassignedSlots_0044c670 {
+    unsigned char pad_00[0x58];
+    short slots[9];  // +0x0058
 
-// 0x0044C670..0x0044C6A3: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044c670() {
-    __asm {
-    L_0044c670:
-        mov eax,ecx
-    L_0044c672:
-        or ecx,0FFFFFFFFh
-    L_0044c675:
-        mov word ptr [eax+58h],0
-    L_0044c67b:
-        mov word ptr [eax+5Ah],1
-    L_0044c681:
-        mov word ptr [eax+5Ch],2
-    L_0044c687:
-        mov word ptr [eax+5Eh],3
-    L_0044c68d:
-        mov word ptr [eax+60h],cx
-    L_0044c691:
-        mov word ptr [eax+62h],cx
-    L_0044c695:
-        mov word ptr [eax+64h],cx
-    L_0044c699:
-        mov word ptr [eax+66h],cx
-    L_0044c69d:
-        mov word ptr [eax+68h],4
-    L_0044c6a3:
-        ret
-    }
+    __declspec(noinline) UnassignedSlots_0044c670* Reset();
+};
+
+UnassignedSlots_0044c670* UnassignedSlots_0044c670::Reset() {
+    slots[0] = 0;
+    slots[1] = 1;
+    slots[2] = 2;
+    slots[3] = 3;
+    slots[4] = -1;
+    slots[5] = -1;
+    slots[6] = -1;
+    slots[7] = -1;
+    slots[8] = 4;
+    return this;
 }

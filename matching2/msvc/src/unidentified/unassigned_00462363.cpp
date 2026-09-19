@@ -1,21 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00462363: the string's own pointer: the pointer member while the string
+// is large, the inline buffer otherwise.
+//
+// std::basic_string keeps a 16-byte buffer and the pointer in one union at
+// +0x10; the capacity at +0x24 chooses between them. The image tests the
+// capacity against the small-string size and leaves the buffer arm out of
+// line, so the large arm is the one written first.
 
-// 0x00462363..0x00462370: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00462363() {
-    __asm {
-    L_00462363:
-        cmp dword ptr [ecx+24h],10h
-    L_00462367:
-        jb short L_0046236d
-    L_00462369:
-        mov eax,dword ptr [ecx+10h]
-    L_0046236c:
-        ret
-    L_0046236d:
-        lea eax,[ecx+10h]
-    L_00462370:
-        ret
-    }
+struct StringBase_00462363 {
+    unsigned char pad_000[0x10];
+    union {
+        char buffer[0x10];
+        char* pointer;
+    } storage;                   // +0x0010
+    unsigned int reserved;       // +0x0020
+    unsigned int capacity;       // +0x0024
+    const char* Myptr() const;
+};
+
+const char* StringBase_00462363::Myptr() const {
+    if (capacity >= 0x10)
+        return storage.pointer;
+    return storage.buffer;
 }

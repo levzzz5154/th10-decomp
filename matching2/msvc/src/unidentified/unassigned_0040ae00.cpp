@@ -1,31 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040AE00: clear bit 1 of the flags word of both +0x8 and +0xC sub-objects.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names, so
+// the body is compiled as a single-function native-LTCG cluster.
+struct ClearTarget_0040ae00 {
+    unsigned char pad_000[4];
+    unsigned int flags;                       // +0x4
+};
 
-// 0x0040AE00..0x0040AE1B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040ae00() {
-    __asm {
-    L_0040ae00:
-        mov ecx,dword ptr [eax+8]
-    L_0040ae03:
-        test ecx,ecx
-    L_0040ae05:
-        mov edx,0FFFFFFFDh
-    L_0040ae0a:
-        je short L_0040ae0f
-    L_0040ae0c:
-        and dword ptr [ecx+4],edx
-    L_0040ae0f:
-        mov ecx,dword ptr [eax+0Ch]
-    L_0040ae12:
-        test ecx,ecx
-    L_0040ae14:
-        je short L_0040ae1b
-    L_0040ae16:
-        mov eax,ecx
-    L_0040ae18:
-        and dword ptr [eax+4],edx
-    L_0040ae1b:
-        ret
-    }
+struct ObjectAccessor_0040ae00 {
+    unsigned char pad_000[8];
+    ClearTarget_0040ae00* first;              // +0x8
+    ClearTarget_0040ae00* second;             // +0xC
+    __declspec(noinline) void Clear();
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0040ae00::Clear() {
+    if (first) first->flags &= ~2u;
+    if (second) second->flags &= ~2u;
 }
+#pragma code_seg()

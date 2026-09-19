@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "name": "acc_004052b0",
+  "source": "src/unidentified/unassigned_004052b0.cpp",
+  "driver": "layout/ltcg/acc_004052b0_context.cpp",
+  "headers": [
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "cluster",
+  "functions": [
+    {
+      "name": "TimerDecrementer_004052b0_Decrement",
+      "symbol": "?Decrement@TimerDecrementer_004052b0@@QAEXH@Z",
+      "section": ".text$01accessor",
+      "address": "0x004052B0",
+      "size": 20,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUTimerDecrementer_004052b0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004052D0",
+    "size": 40,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 17072
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004052C4",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "address": "0x0044BF40",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": []
+}

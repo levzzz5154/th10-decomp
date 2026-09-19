@@ -1,17 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00465950: register a static destructor with the runtime's exit list.
+//
+// The registered function is an ordinary __cdecl void(void) in the image; the
+// runtime keeps it in the atexit table and runs it from doexit.
 
-// 0x00465950..0x0046595B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00465950() {
-    __asm {
-    L_00465950:
-        push 465A30h
-    L_00465955:
-        call asm_atexit_00452e0a
-    L_0046595a:
-        pop ecx
-    L_0046595b:
-        ret
-    }
+extern "C" void __cdecl asm_FUN_00465a30_00465a30(void);
+extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
+
+extern "C" void __cdecl unassigned_00465950(void) {
+    asm_atexit_00452e0a(asm_FUN_00465a30_00465a30);
 }

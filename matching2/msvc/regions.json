@@ -364,13 +364,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401ca0",
+      "name": "semantic_ObjectAccessor_00401ca0_LoadValue_00401ca0",
       "source": "src/unidentified/unassigned_00401ca0.cpp",
-      "symbol": "_asm_unassigned_00401ca0",
+      "symbol": "?LoadValue@ObjectAccessor_00401ca0@@QBEMXZ",
       "address": "0x00401CA0",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401ca0",
+        "source": "src/unidentified/unassigned_00401ca0.cpp",
+        "symbol": "_asm_unassigned_00401ca0",
+        "address": "0x00401CA0",
+        "size": 4,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401ca4",
@@ -509,13 +518,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401d90",
+      "name": "semantic_ObjectAccessor_00401d90_Clear_00401d90",
       "source": "src/unidentified/unassigned_00401d90.cpp",
-      "symbol": "_asm_unassigned_00401d90",
+      "symbol": "?Clear@ObjectAccessor_00401d90@@QAEXXZ",
       "address": "0x00401D90",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401d90",
+        "source": "src/unidentified/unassigned_00401d90.cpp",
+        "symbol": "_asm_unassigned_00401d90",
+        "address": "0x00401D90",
+        "size": 15,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401d9f",
@@ -526,12 +544,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401da0",
+      "name": "semantic_00401da0",
       "source": "src/unidentified/unassigned_00401da0.cpp",
-      "symbol": "_asm_unassigned_00401da0",
+      "symbol": "_Empty_00401da0@0",
       "address": "0x00401DA0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -543,12 +561,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401db0",
+      "name": "semantic_00401db0",
       "source": "src/unidentified/unassigned_00401db0.cpp",
-      "symbol": "_asm_unassigned_00401db0",
+      "symbol": "_Empty_00401db0@0",
       "address": "0x00401DB0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -629,13 +647,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401f40",
+      "name": "semantic_ObjectAccessor_00401f40_Arm_00401f40",
       "source": "src/unidentified/unassigned_00401f40.cpp",
-      "symbol": "_asm_unassigned_00401f40",
+      "symbol": "?Arm@ObjectAccessor_00401f40@@QAEXXZ",
       "address": "0x00401F40",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401f40",
+        "source": "src/unidentified/unassigned_00401f40.cpp",
+        "symbol": "_asm_unassigned_00401f40",
+        "address": "0x00401F40",
+        "size": 15,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401f4f",
@@ -714,13 +741,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401f90",
+      "name": "semantic_ObjectAccessor_00401f90_Set_00401f90",
       "source": "src/unidentified/unassigned_00401f90.cpp",
-      "symbol": "_asm_unassigned_00401f90",
+      "symbol": "?Set@ObjectAccessor_00401f90@@QAEXH@Z",
       "address": "0x00401F90",
       "size": 11,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401f90",
+        "source": "src/unidentified/unassigned_00401f90.cpp",
+        "symbol": "_asm_unassigned_00401f90",
+        "address": "0x00401F90",
+        "size": 11,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401f9b",
@@ -765,12 +801,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401fc0",
+      "name": "semantic_00401fc0",
       "source": "src/unidentified/unassigned_00401fc0.cpp",
-      "symbol": "_asm_unassigned_00401fc0",
+      "symbol": "_Empty_00401fc0@0",
       "address": "0x00401FC0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -910,13 +946,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004020f0",
+      "name": "semantic_ObjectAccessor_004020f0_ClearValue_004020f0",
       "source": "src/unidentified/unassigned_004020f0.cpp",
-      "symbol": "_asm_unassigned_004020f0",
+      "symbol": "?ClearValue@ObjectAccessor_004020f0@@QAEXXZ",
       "address": "0x004020F0",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004020f0",
+        "source": "src/unidentified/unassigned_004020f0.cpp",
+        "symbol": "_asm_unassigned_004020f0",
+        "address": "0x004020F0",
+        "size": 5,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004020f5",
@@ -927,13 +972,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402100",
+      "name": "semantic_ObjectAccessor_00402100_ClearValue_00402100",
       "source": "src/unidentified/unassigned_00402100.cpp",
-      "symbol": "_asm_unassigned_00402100",
+      "symbol": "?ClearValue@ObjectAccessor_00402100@@QAEXXZ",
       "address": "0x00402100",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00402100",
+        "source": "src/unidentified/unassigned_00402100.cpp",
+        "symbol": "_asm_unassigned_00402100",
+        "address": "0x00402100",
+        "size": 5,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00402105",
@@ -944,13 +998,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402110",
+      "name": "semantic_ObjectAccessor_00402110_ClearValue_00402110",
       "source": "src/unidentified/unassigned_00402110.cpp",
-      "symbol": "_asm_unassigned_00402110",
+      "symbol": "?ClearValue@ObjectAccessor_00402110@@QAEXXZ",
       "address": "0x00402110",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00402110",
+        "source": "src/unidentified/unassigned_00402110.cpp",
+        "symbol": "_asm_unassigned_00402110",
+        "address": "0x00402110",
+        "size": 5,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00402115",
@@ -961,12 +1024,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402120",
+      "name": "semantic_00402120",
       "source": "src/unidentified/unassigned_00402120.cpp",
-      "symbol": "_asm_unassigned_00402120",
+      "symbol": "_Empty_00402120@0",
       "address": "0x00402120",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -978,13 +1041,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402130",
+      "name": "semantic_ObjectAccessor_00402130_ClearValue_00402130",
       "source": "src/unidentified/unassigned_00402130.cpp",
-      "symbol": "_asm_unassigned_00402130",
+      "symbol": "?ClearValue@ObjectAccessor_00402130@@QAEXXZ",
       "address": "0x00402130",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00402130",
+        "source": "src/unidentified/unassigned_00402130.cpp",
+        "symbol": "_asm_unassigned_00402130",
+        "address": "0x00402130",
+        "size": 5,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00402135",
@@ -995,12 +1067,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402140",
+      "name": "semantic_00402140",
       "source": "src/unidentified/unassigned_00402140.cpp",
-      "symbol": "_asm_unassigned_00402140",
+      "symbol": "_Empty_00402140@0",
       "address": "0x00402140",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -1012,12 +1084,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402150",
+      "name": "semantic_00402150",
       "source": "src/unidentified/unassigned_00402150.cpp",
-      "symbol": "_asm_unassigned_00402150",
+      "symbol": "_Empty_00402150@0",
       "address": "0x00402150",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -1046,13 +1118,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00402220",
+      "name": "semantic_ObjectAccessor_00402220_ClearValue_00402220",
       "source": "src/unidentified/unassigned_00402220.cpp",
-      "symbol": "_asm_unassigned_00402220",
+      "symbol": "?ClearValue@ObjectAccessor_00402220@@QAEXXZ",
       "address": "0x00402220",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00402220",
+        "source": "src/unidentified/unassigned_00402220.cpp",
+        "symbol": "_asm_unassigned_00402220",
+        "address": "0x00402220",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00402228",
@@ -1707,13 +1788,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00404ec0",
+      "name": "semantic_ObjectAccessor_00404ec0_LoadValue_00404ec0",
       "source": "src/unidentified/unassigned_00404ec0.cpp",
-      "symbol": "_asm_unassigned_00404ec0",
+      "symbol": "?LoadValue@ObjectAccessor_00404ec0@@QBEMXZ",
       "address": "0x00404EC0",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00404ec0",
+        "source": "src/unidentified/unassigned_00404ec0.cpp",
+        "symbol": "_asm_unassigned_00404ec0",
+        "address": "0x00404EC0",
+        "size": 4,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00404ec4",
@@ -1741,13 +1831,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00404f20",
+      "name": "semantic_ObjectAccessor_00404f20_ClearValue_00404f20",
       "source": "src/unidentified/unassigned_00404f20.cpp",
-      "symbol": "_asm_unassigned_00404f20",
+      "symbol": "?ClearValue@ObjectAccessor_00404f20@@QAEXXZ",
       "address": "0x00404F20",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00404f20",
+        "source": "src/unidentified/unassigned_00404f20.cpp",
+        "symbol": "_asm_unassigned_00404f20",
+        "address": "0x00404F20",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00404f28",
@@ -1775,13 +1874,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405000",
+      "name": "semantic_ObjectAccessor_00405000_CopyFrom_00405000",
       "source": "src/unidentified/unassigned_00405000.cpp",
-      "symbol": "_asm_unassigned_00405000",
+      "symbol": "?CopyFrom@ObjectAccessor_00405000@@QAEXPBUVec3_00405000@@@Z",
       "address": "0x00405000",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405000",
+        "source": "src/unidentified/unassigned_00405000.cpp",
+        "symbol": "_asm_unassigned_00405000",
+        "address": "0x00405000",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405014",
@@ -1792,13 +1900,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405020",
+      "name": "semantic_ObjectAccessor_00405020_CopyFrom_00405020",
       "source": "src/unidentified/unassigned_00405020.cpp",
-      "symbol": "_asm_unassigned_00405020",
+      "symbol": "?CopyFrom@ObjectAccessor_00405020@@QAEXPBUVec3_00405020@@@Z",
       "address": "0x00405020",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405020",
+        "source": "src/unidentified/unassigned_00405020.cpp",
+        "symbol": "_asm_unassigned_00405020",
+        "address": "0x00405020",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405034",
@@ -1878,13 +1995,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405110",
+      "name": "semantic_ObjectAccessor_00405110_CopyFrom_00405110",
       "source": "src/unidentified/unassigned_00405110.cpp",
-      "symbol": "_asm_unassigned_00405110",
+      "symbol": "?CopyFrom@ObjectAccessor_00405110@@QAEXPBUVec3_00405110@@@Z",
       "address": "0x00405110",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405110",
+        "source": "src/unidentified/unassigned_00405110.cpp",
+        "symbol": "_asm_unassigned_00405110",
+        "address": "0x00405110",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405124",
@@ -1997,12 +2123,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004051c0",
+      "name": "semantic_004051c0",
       "source": "src/unidentified/unassigned_004051c0.cpp",
-      "symbol": "_asm_unassigned_004051c0",
+      "symbol": "?IsNonZero@Predicate_004051c0@@QBEHXZ",
       "address": "0x004051C0",
       "size": 14,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2133,12 +2259,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004052a0",
+      "name": "semantic_004052a0",
       "source": "src/unidentified/unassigned_004052a0.cpp",
-      "symbol": "_asm_unassigned_004052a0",
+      "symbol": "?Rewind@TimerResetter_004052a0@@QAEXXZ",
       "address": "0x004052A0",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2150,13 +2276,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004052b0",
+      "name": "semantic_TimerDecrementer_004052b0_Decrement_004052b0",
       "source": "src/unidentified/unassigned_004052b0.cpp",
-      "symbol": "_asm_unassigned_004052b0",
+      "symbol": "?Decrement@TimerDecrementer_004052b0@@QAEXH@Z",
       "address": "0x004052B0",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004052b0",
+        "source": "src/unidentified/unassigned_004052b0.cpp",
+        "symbol": "_asm_unassigned_004052b0",
+        "address": "0x004052B0",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004052c4",
@@ -2167,12 +2302,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004052d0",
+      "name": "semantic_004052d0",
       "source": "src/unidentified/unassigned_004052d0.cpp",
-      "symbol": "_asm_unassigned_004052d0",
+      "symbol": "?AdvanceCount@TimerAdvancer_004052d0@@QAEXH@Z",
       "address": "0x004052D0",
       "size": 16,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2279,13 +2414,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405380",
+      "name": "semantic_ObjectAccessor_00405380_LoadValue_00405380",
       "source": "src/unidentified/unassigned_00405380.cpp",
-      "symbol": "_asm_unassigned_00405380",
+      "symbol": "?LoadValue@ObjectAccessor_00405380@@QBEMXZ",
       "address": "0x00405380",
       "size": 3,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405380",
+        "source": "src/unidentified/unassigned_00405380.cpp",
+        "symbol": "_asm_unassigned_00405380",
+        "address": "0x00405380",
+        "size": 3,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405383",
@@ -2313,13 +2457,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004053a0",
+      "name": "semantic_ObjectAccessor_004053a0_LoadValue_004053a0",
       "source": "src/unidentified/unassigned_004053a0.cpp",
-      "symbol": "_asm_unassigned_004053a0",
+      "symbol": "?LoadValue@ObjectAccessor_004053a0@@QBEHXZ",
       "address": "0x004053A0",
       "size": 7,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004053a0",
+        "source": "src/unidentified/unassigned_004053a0.cpp",
+        "symbol": "_asm_unassigned_004053a0",
+        "address": "0x004053A0",
+        "size": 7,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004053a7",
@@ -2364,12 +2517,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004053e0",
+      "name": "semantic_004053e0",
       "source": "src/unidentified/unassigned_004053e0.cpp",
-      "symbol": "_asm_unassigned_004053e0",
+      "symbol": "_Empty_004053e0@0",
       "address": "0x004053E0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2381,12 +2534,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004053f0",
+      "name": "semantic_004053f0",
       "source": "src/unidentified/unassigned_004053f0.cpp",
-      "symbol": "_asm_unassigned_004053f0",
+      "symbol": "_Empty_004053f0@0",
       "address": "0x004053F0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2449,13 +2602,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405490",
+      "name": "semantic_ObjectAccessor_00405490_LoadValue_00405490",
       "source": "src/unidentified/unassigned_00405490.cpp",
-      "symbol": "_asm_unassigned_00405490",
+      "symbol": "?LoadValue@ObjectAccessor_00405490@@QBEMXZ",
       "address": "0x00405490",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405490",
+        "source": "src/unidentified/unassigned_00405490.cpp",
+        "symbol": "_asm_unassigned_00405490",
+        "address": "0x00405490",
+        "size": 4,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405494",
@@ -2466,13 +2628,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004054a0",
+      "name": "semantic_ObjectAccessor_004054a0_Offset_004054a0",
       "source": "src/unidentified/unassigned_004054a0.cpp",
-      "symbol": "_asm_unassigned_004054a0",
+      "symbol": "?Offset@ObjectAccessor_004054a0@@QBEHXZ",
       "address": "0x004054A0",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004054a0",
+        "source": "src/unidentified/unassigned_004054a0.cpp",
+        "symbol": "_asm_unassigned_004054a0",
+        "address": "0x004054A0",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004054a6",
@@ -2518,13 +2689,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405560",
+      "name": "semantic_ObjectAccessor_00405560_LoadValue_00405560",
       "source": "src/unidentified/unassigned_00405560.cpp",
-      "symbol": "_asm_unassigned_00405560",
+      "symbol": "?LoadValue@ObjectAccessor_00405560@@QBEHXZ",
       "address": "0x00405560",
       "size": 10,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405560",
+        "source": "src/unidentified/unassigned_00405560.cpp",
+        "symbol": "_asm_unassigned_00405560",
+        "address": "0x00405560",
+        "size": 10,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040556a",
@@ -2535,12 +2715,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405570",
+      "name": "semantic_00405570",
       "source": "src/unidentified/unassigned_00405570.cpp",
-      "symbol": "_asm_unassigned_00405570",
+      "symbol": "?IsAtLeast60@Predicate_00405570@@QBEHXZ",
       "address": "0x00405570",
       "size": 15,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -2827,13 +3007,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405b40",
+      "name": "semantic_ObjectAccessor_00405b40_DistSq_00405b40",
       "source": "src/unidentified/unassigned_00405b40.cpp",
-      "symbol": "_asm_unassigned_00405b40",
+      "symbol": "?DistSq@ObjectAccessor_00405b40@@QBEMPBUVec3_00405b40@@@Z",
       "address": "0x00405B40",
       "size": 25,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405b40",
+        "source": "src/unidentified/unassigned_00405b40.cpp",
+        "symbol": "_asm_unassigned_00405b40",
+        "address": "0x00405B40",
+        "size": 25,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405b59",
@@ -2878,13 +3067,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405ba0",
+      "name": "semantic_ObjectAccessor_00405ba0_LoadValue_00405ba0",
       "source": "src/unidentified/unassigned_00405ba0.cpp",
-      "symbol": "_asm_unassigned_00405ba0",
+      "symbol": "?LoadValue@ObjectAccessor_00405ba0@@QBEMXZ",
       "address": "0x00405BA0",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405ba0",
+        "source": "src/unidentified/unassigned_00405ba0.cpp",
+        "symbol": "_asm_unassigned_00405ba0",
+        "address": "0x00405BA0",
+        "size": 4,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405ba4",
@@ -2921,12 +3119,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405bc0",
+      "name": "semantic_00405bc0",
       "source": "src/unidentified/unassigned_00405bc0.cpp",
-      "symbol": "_asm_unassigned_00405bc0",
+      "symbol": "_Empty_00405bc0@0",
       "address": "0x00405BC0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -3109,12 +3307,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405e10",
+      "name": "semantic_00405e10",
       "source": "src/unidentified/unassigned_00405e10.cpp",
-      "symbol": "_asm_unassigned_00405e10",
+      "symbol": "?Clear@ObjectClearer_00405e10@@QAEPAU1@XZ",
       "address": "0x00405E10",
       "size": 7,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -3785,13 +3983,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408620",
+      "name": "semantic_ObjectAccessor_00408620_DistSq_00408620",
       "source": "src/unidentified/unassigned_00408620.cpp",
-      "symbol": "_asm_unassigned_00408620",
+      "symbol": "?DistSq@ObjectAccessor_00408620@@QBEMPBUVec3_00408620@@@Z",
       "address": "0x00408620",
       "size": 25,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408620",
+        "source": "src/unidentified/unassigned_00408620.cpp",
+        "symbol": "_asm_unassigned_00408620",
+        "address": "0x00408620",
+        "size": 25,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408639",
@@ -3802,13 +4009,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408640",
+      "name": "semantic_ObjectAccessor_00408640_LengthSq_00408640",
       "source": "src/unidentified/unassigned_00408640.cpp",
-      "symbol": "_asm_unassigned_00408640",
+      "symbol": "?LengthSq@ObjectAccessor_00408640@@QBEMXZ",
       "address": "0x00408640",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408640",
+        "source": "src/unidentified/unassigned_00408640.cpp",
+        "symbol": "_asm_unassigned_00408640",
+        "address": "0x00408640",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408654",
@@ -3939,13 +4155,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408730",
+      "name": "semantic_ObjectAccessor_00408730_Apply_00408730",
       "source": "src/unidentified/unassigned_00408730.cpp",
-      "symbol": "_asm_unassigned_00408730",
+      "symbol": "?Apply@ObjectAccessor_00408730@@QAEXPBUVec3_00408730@@@Z",
       "address": "0x00408730",
       "size": 25,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408730",
+        "source": "src/unidentified/unassigned_00408730.cpp",
+        "symbol": "_asm_unassigned_00408730",
+        "address": "0x00408730",
+        "size": 25,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408749",
@@ -3973,12 +4198,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408770",
+      "name": "semantic_00408770",
       "source": "src/unidentified/unassigned_00408770.cpp",
-      "symbol": "_asm_unassigned_00408770",
+      "symbol": "?Scale@RngScaler_00408770@@QBEMM@Z",
       "address": "0x00408770",
       "size": 12,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -3990,13 +4215,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408780",
+      "name": "semantic_ObjectAccessor_00408780_LoadValue_00408780",
       "source": "src/unidentified/unassigned_00408780.cpp",
-      "symbol": "_asm_unassigned_00408780",
+      "symbol": "?LoadValue@ObjectAccessor_00408780@@QBEHXZ",
       "address": "0x00408780",
       "size": 10,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408780",
+        "source": "src/unidentified/unassigned_00408780.cpp",
+        "symbol": "_asm_unassigned_00408780",
+        "address": "0x00408780",
+        "size": 10,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040878a",
@@ -4007,13 +4241,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408790",
+      "name": "semantic_ObjectAccessor_00408790_LoadValue_00408790",
       "source": "src/unidentified/unassigned_00408790.cpp",
-      "symbol": "_asm_unassigned_00408790",
+      "symbol": "?LoadValue@ObjectAccessor_00408790@@QBEHXZ",
       "address": "0x00408790",
       "size": 14,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408790",
+        "source": "src/unidentified/unassigned_00408790.cpp",
+        "symbol": "_asm_unassigned_00408790",
+        "address": "0x00408790",
+        "size": 14,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040879e",
@@ -4041,13 +4284,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004087c0",
+      "name": "semantic_ObjectAccessor_004087c0_LoadValue_004087c0",
       "source": "src/unidentified/unassigned_004087c0.cpp",
-      "symbol": "_asm_unassigned_004087c0",
+      "symbol": "?LoadValue@ObjectAccessor_004087c0@@QBEHXZ",
       "address": "0x004087C0",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004087c0",
+        "source": "src/unidentified/unassigned_004087c0.cpp",
+        "symbol": "_asm_unassigned_004087c0",
+        "address": "0x004087C0",
+        "size": 9,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004087c9",
@@ -4075,13 +4327,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004087e0",
+      "name": "semantic_ObjectAccessor_004087e0_Apply_004087e0",
       "source": "src/unidentified/unassigned_004087e0.cpp",
-      "symbol": "_asm_unassigned_004087e0",
+      "symbol": "?Apply@ObjectAccessor_004087e0@@QAEXPBUVec3_004087e0@@@Z",
       "address": "0x004087E0",
       "size": 25,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004087e0",
+        "source": "src/unidentified/unassigned_004087e0.cpp",
+        "symbol": "_asm_unassigned_004087e0",
+        "address": "0x004087E0",
+        "size": 25,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004087f9",
@@ -4092,12 +4353,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408800",
+      "name": "semantic_00408800",
       "source": "src/unidentified/unassigned_00408800.cpp",
-      "symbol": "_asm_unassigned_00408800",
+      "symbol": "_Empty_00408800@0",
       "address": "0x00408800",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4109,12 +4370,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408810",
+      "name": "semantic_00408810",
       "source": "src/unidentified/unassigned_00408810.cpp",
-      "symbol": "_asm_unassigned_00408810",
+      "symbol": "_Empty_00408810@0",
       "address": "0x00408810",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4126,13 +4387,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408820",
+      "name": "semantic_ObjectAccessor_00408820_Offset_00408820",
       "source": "src/unidentified/unassigned_00408820.cpp",
-      "symbol": "_asm_unassigned_00408820",
+      "symbol": "?Offset@ObjectAccessor_00408820@@QBEHXZ",
       "address": "0x00408820",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408820",
+        "source": "src/unidentified/unassigned_00408820.cpp",
+        "symbol": "_asm_unassigned_00408820",
+        "address": "0x00408820",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408826",
@@ -4160,13 +4430,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408840",
+      "name": "semantic_ObjectAccessor_00408840_ClearValue_00408840",
       "source": "src/unidentified/unassigned_00408840.cpp",
-      "symbol": "_asm_unassigned_00408840",
+      "symbol": "?ClearValue@ObjectAccessor_00408840@@QAEXXZ",
       "address": "0x00408840",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408840",
+        "source": "src/unidentified/unassigned_00408840.cpp",
+        "symbol": "_asm_unassigned_00408840",
+        "address": "0x00408840",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408848",
@@ -4177,13 +4456,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408850",
+      "name": "semantic_ObjectAccessor_00408850_SetValue_00408850",
       "source": "src/unidentified/unassigned_00408850.cpp",
-      "symbol": "_asm_unassigned_00408850",
+      "symbol": "?SetValue@ObjectAccessor_00408850@@QAEXXZ",
       "address": "0x00408850",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408850",
+        "source": "src/unidentified/unassigned_00408850.cpp",
+        "symbol": "_asm_unassigned_00408850",
+        "address": "0x00408850",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408858",
@@ -4360,12 +4648,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408aa0",
+      "name": "semantic_00408aa0",
       "source": "src/unidentified/unassigned_00408aa0.cpp",
-      "symbol": "_asm_unassigned_00408aa0",
+      "symbol": "_Zero_00408aa0@0",
       "address": "0x00408AA0",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4377,12 +4665,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408ab0",
+      "name": "semantic_00408ab0",
       "source": "src/unidentified/unassigned_00408ab0.cpp",
-      "symbol": "_asm_unassigned_00408ab0",
+      "symbol": "_Zero_00408ab0@0",
       "address": "0x00408AB0",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4394,13 +4682,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408ac0",
+      "name": "semantic_ObjectAccessor_00408ac0_Set_00408ac0",
       "source": "src/unidentified/unassigned_00408ac0.cpp",
-      "symbol": "_asm_unassigned_00408ac0",
+      "symbol": "?Set@ObjectAccessor_00408ac0@@QAEXXZ",
       "address": "0x00408AC0",
       "size": 35,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408ac0",
+        "source": "src/unidentified/unassigned_00408ac0.cpp",
+        "symbol": "_asm_unassigned_00408ac0",
+        "address": "0x00408AC0",
+        "size": 35,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00408ae3",
@@ -4710,12 +5007,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00409e00",
+      "name": "semantic_00409e00",
       "source": "src/unidentified/unassigned_00409e00.cpp",
-      "symbol": "_asm_unassigned_00409e00",
+      "symbol": "?IsOne@Predicate_00409e00@@QBEHXZ",
       "address": "0x00409E00",
       "size": 12,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4761,12 +5058,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00409e40",
+      "name": "semantic_00409e40",
       "source": "src/unidentified/unassigned_00409e40.cpp",
-      "symbol": "_asm_unassigned_00409e40",
+      "symbol": "_Empty_00409e40@0",
       "address": "0x00409E40",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -4804,12 +5101,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00409ea0",
+      "name": "semantic_00409ea0",
       "source": "src/unidentified/unassigned_00409ea0.cpp",
-      "symbol": "_asm_unassigned_00409ea0",
+      "symbol": "_Empty_00409ea0@0",
       "address": "0x00409EA0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -5283,13 +5580,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040acc0",
+      "name": "semantic_ObjectAccessor_0040acc0_LoadMasked_0040acc0",
       "source": "src/unidentified/unassigned_0040acc0.cpp",
-      "symbol": "_asm_unassigned_0040acc0",
+      "symbol": "?LoadMasked@ObjectAccessor_0040acc0@@QBEHH@Z",
       "address": "0x0040ACC0",
       "size": 7,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040acc0",
+        "source": "src/unidentified/unassigned_0040acc0.cpp",
+        "symbol": "_asm_unassigned_0040acc0",
+        "address": "0x0040ACC0",
+        "size": 7,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040acc7",
@@ -5300,13 +5606,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040acd0",
+      "name": "semantic_ObjectAccessor_0040acd0_LoadMasked_0040acd0",
       "source": "src/unidentified/unassigned_0040acd0.cpp",
-      "symbol": "_asm_unassigned_0040acd0",
+      "symbol": "?LoadMasked@ObjectAccessor_0040acd0@@QBEHH@Z",
       "address": "0x0040ACD0",
       "size": 7,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040acd0",
+        "source": "src/unidentified/unassigned_0040acd0.cpp",
+        "symbol": "_asm_unassigned_0040acd0",
+        "address": "0x0040ACD0",
+        "size": 7,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040acd7",
@@ -5479,12 +5794,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040adc0",
+      "name": "semantic_0040adc0",
       "source": "src/unidentified/unassigned_0040adc0.cpp",
-      "symbol": "_asm_unassigned_0040adc0",
+      "symbol": "_Empty_0040adc0@0",
       "address": "0x0040ADC0",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -5513,13 +5828,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ae00",
+      "name": "semantic_ObjectAccessor_0040ae00_Clear_0040ae00",
       "source": "src/unidentified/unassigned_0040ae00.cpp",
-      "symbol": "_asm_unassigned_0040ae00",
+      "symbol": "?Clear@ObjectAccessor_0040ae00@@QAEXXZ",
       "address": "0x0040AE00",
       "size": 28,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040ae00",
+        "source": "src/unidentified/unassigned_0040ae00.cpp",
+        "symbol": "_asm_unassigned_0040ae00",
+        "address": "0x0040AE00",
+        "size": 28,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040ae1c",
@@ -5892,12 +6216,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b290",
+      "name": "semantic_0040b290",
       "source": "src/unidentified/unassigned_0040b290.cpp",
-      "symbol": "_asm_unassigned_0040b290",
+      "symbol": "_Empty_0040b290@0",
       "address": "0x0040B290",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -5926,12 +6250,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b310",
+      "name": "semantic_0040b310",
       "source": "src/unidentified/unassigned_0040b310.cpp",
-      "symbol": "_asm_unassigned_0040b310",
+      "symbol": "_Zero_0040b310@0",
       "address": "0x0040B310",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -5960,13 +6284,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b370",
+      "name": "semantic_ObjectAccessor_0040b370_CopyFrom_0040b370",
       "source": "src/unidentified/unassigned_0040b370.cpp",
-      "symbol": "_asm_unassigned_0040b370",
+      "symbol": "?CopyFrom@ObjectAccessor_0040b370@@QAEXPBUVec3_0040b370@@@Z",
       "address": "0x0040B370",
       "size": 23,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b370",
+        "source": "src/unidentified/unassigned_0040b370.cpp",
+        "symbol": "_asm_unassigned_0040b370",
+        "address": "0x0040B370",
+        "size": 23,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b387",
@@ -5977,12 +6310,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b390",
+      "name": "semantic_0040b390",
       "source": "src/unidentified/unassigned_0040b390.cpp",
-      "symbol": "_asm_unassigned_0040b390",
+      "symbol": "_Empty_0040b390@0",
       "address": "0x0040B390",
       "size": 1,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -6003,13 +6336,22 @@
       "owner": "0x0040B3A0"
     },
     {
-      "name": "asm_unassigned_0040b460",
+      "name": "semantic_ObjectAccessor_0040b460_LoadValue_0040b460",
       "source": "src/unidentified/unassigned_0040b460.cpp",
-      "symbol": "_asm_unassigned_0040b460",
+      "symbol": "?LoadValue@ObjectAccessor_0040b460@@QBEHXZ",
       "address": "0x0040B460",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b460",
+        "source": "src/unidentified/unassigned_0040b460.cpp",
+        "symbol": "_asm_unassigned_0040b460",
+        "address": "0x0040B460",
+        "size": 9,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b469",
@@ -6020,13 +6362,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b470",
+      "name": "semantic_ObjectAccessor_0040b470_LoadValue_0040b470",
       "source": "src/unidentified/unassigned_0040b470.cpp",
-      "symbol": "_asm_unassigned_0040b470",
+      "symbol": "?LoadValue@ObjectAccessor_0040b470@@QBEHXZ",
       "address": "0x0040B470",
       "size": 10,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b470",
+        "source": "src/unidentified/unassigned_0040b470.cpp",
+        "symbol": "_asm_unassigned_0040b470",
+        "address": "0x0040B470",
+        "size": 10,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b47a",
@@ -6080,13 +6431,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b500",
+      "name": "semantic_ObjectAccessor_0040b500_LoadValue_0040b500",
       "source": "src/unidentified/unassigned_0040b500.cpp",
-      "symbol": "_asm_unassigned_0040b500",
+      "symbol": "?LoadValue@ObjectAccessor_0040b500@@QBEHXZ",
       "address": "0x0040B500",
       "size": 7,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b500",
+        "source": "src/unidentified/unassigned_0040b500.cpp",
+        "symbol": "_asm_unassigned_0040b500",
+        "address": "0x0040B500",
+        "size": 7,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b507",
@@ -6097,13 +6457,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b510",
+      "name": "semantic_ObjectAccessor_0040b510_LoadValue_0040b510",
       "source": "src/unidentified/unassigned_0040b510.cpp",
-      "symbol": "_asm_unassigned_0040b510",
+      "symbol": "?LoadValue@ObjectAccessor_0040b510@@QBEHXZ",
       "address": "0x0040B510",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b510",
+        "source": "src/unidentified/unassigned_0040b510.cpp",
+        "symbol": "_asm_unassigned_0040b510",
+        "address": "0x0040B510",
+        "size": 9,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b519",
@@ -6114,13 +6483,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b520",
+      "name": "semantic_ObjectAccessor_0040b520_Offset_0040b520",
       "source": "src/unidentified/unassigned_0040b520.cpp",
-      "symbol": "_asm_unassigned_0040b520",
+      "symbol": "?Offset@ObjectAccessor_0040b520@@QBEHXZ",
       "address": "0x0040B520",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b520",
+        "source": "src/unidentified/unassigned_0040b520.cpp",
+        "symbol": "_asm_unassigned_0040b520",
+        "address": "0x0040B520",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b526",
@@ -6465,13 +6843,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c470",
+      "name": "semantic_ObjectAccessor_0040c470_Remainder_0040c470",
       "source": "src/unidentified/unassigned_0040c470.cpp",
-      "symbol": "_asm_unassigned_0040c470",
+      "symbol": "?Remainder@ObjectAccessor_0040c470@@QBEHH@Z",
       "address": "0x0040C470",
       "size": 13,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c470",
+        "source": "src/unidentified/unassigned_0040c470.cpp",
+        "symbol": "_asm_unassigned_0040c470",
+        "address": "0x0040C470",
+        "size": 13,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c47d",
@@ -6551,13 +6938,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c530",
+      "name": "semantic_ObjectAccessor_0040c530_LoadMasked_0040c530",
       "source": "src/unidentified/unassigned_0040c530.cpp",
-      "symbol": "_asm_unassigned_0040c530",
+      "symbol": "?LoadMasked@ObjectAccessor_0040c530@@QBEHH@Z",
       "address": "0x0040C530",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c530",
+        "source": "src/unidentified/unassigned_0040c530.cpp",
+        "symbol": "_asm_unassigned_0040c530",
+        "address": "0x0040C530",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c536",
@@ -6645,13 +7041,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c5d0",
+      "name": "semantic_ObjectAccessor_0040c5d0_Clear_0040c5d0",
       "source": "src/unidentified/unassigned_0040c5d0.cpp",
-      "symbol": "_asm_unassigned_0040c5d0",
+      "symbol": "?Clear@ObjectAccessor_0040c5d0@@QAEXXZ",
       "address": "0x0040C5D0",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c5d0",
+        "source": "src/unidentified/unassigned_0040c5d0.cpp",
+        "symbol": "_asm_unassigned_0040c5d0",
+        "address": "0x0040C5D0",
+        "size": 15,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c5df",
@@ -6937,13 +7342,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c710",
+      "name": "semantic_ObjectAccessor_0040c710_Init_0040c710",
       "source": "src/unidentified/unassigned_0040c710.cpp",
-      "symbol": "_asm_unassigned_0040c710",
+      "symbol": "?Init@ObjectAccessor_0040c710@@QAEXXZ",
       "address": "0x0040C710",
       "size": 21,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c710",
+        "source": "src/unidentified/unassigned_0040c710.cpp",
+        "symbol": "_asm_unassigned_0040c710",
+        "address": "0x0040C710",
+        "size": 21,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c725",
@@ -7023,13 +7437,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c800",
+      "name": "semantic_ObjectAccessor_0040c800_Clear_0040c800",
       "source": "src/unidentified/unassigned_0040c800.cpp",
-      "symbol": "_asm_unassigned_0040c800",
+      "symbol": "?Clear@ObjectAccessor_0040c800@@QAEXXZ",
       "address": "0x0040C800",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c800",
+        "source": "src/unidentified/unassigned_0040c800.cpp",
+        "symbol": "_asm_unassigned_0040c800",
+        "address": "0x0040C800",
+        "size": 15,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c80f",
@@ -7270,13 +7693,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c920",
+      "name": "semantic_ObjectAccessor_0040c920_Accumulate_0040c920",
       "source": "src/unidentified/unassigned_0040c920.cpp",
-      "symbol": "_asm_unassigned_0040c920",
+      "symbol": "?Accumulate@ObjectAccessor_0040c920@@QAEHH@Z",
       "address": "0x0040C920",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c920",
+        "source": "src/unidentified/unassigned_0040c920.cpp",
+        "symbol": "_asm_unassigned_0040c920",
+        "address": "0x0040C920",
+        "size": 9,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c929",
@@ -7287,12 +7719,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c930",
+      "name": "semantic_0040c930",
       "source": "src/unidentified/unassigned_0040c930.cpp",
-      "symbol": "_asm_unassigned_0040c930",
+      "symbol": "?IsPositive@Predicate_0040c930@@QBEHXZ",
       "address": "0x0040C930",
       "size": 10,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -7304,13 +7736,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040c940",
+      "name": "semantic_ObjectAccessor_0040c940_Clear_0040c940",
       "source": "src/unidentified/unassigned_0040c940.cpp",
-      "symbol": "_asm_unassigned_0040c940",
+      "symbol": "?Clear@ObjectAccessor_0040c940@@QAEXXZ",
       "address": "0x0040C940",
       "size": 11,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040c940",
+        "source": "src/unidentified/unassigned_0040c940.cpp",
+        "symbol": "_asm_unassigned_0040c940",
+        "address": "0x0040C940",
+        "size": 11,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040c94b",
@@ -7449,13 +7890,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cc10",
+      "name": "semantic_ObjectAccessor_0040cc10_Offset_0040cc10",
       "source": "src/unidentified/unassigned_0040cc10.cpp",
-      "symbol": "_asm_unassigned_0040cc10",
+      "symbol": "?Offset@ObjectAccessor_0040cc10@@QAEHXZ",
       "address": "0x0040CC10",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cc10",
+        "source": "src/unidentified/unassigned_0040cc10.cpp",
+        "symbol": "_asm_unassigned_0040cc10",
+        "address": "0x0040CC10",
+        "size": 4,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cc14",
@@ -7466,13 +7916,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cc20",
+      "name": "semantic_ObjectAccessor_0040cc20_Offset_0040cc20",
       "source": "src/unidentified/unassigned_0040cc20.cpp",
-      "symbol": "_asm_unassigned_0040cc20",
+      "symbol": "?Offset@ObjectAccessor_0040cc20@@QBEHXZ",
       "address": "0x0040CC20",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cc20",
+        "source": "src/unidentified/unassigned_0040cc20.cpp",
+        "symbol": "_asm_unassigned_0040cc20",
+        "address": "0x0040CC20",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cc26",
@@ -7483,13 +7942,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cc30",
+      "name": "semantic_ObjectAccessor_0040cc30_Offset_0040cc30",
       "source": "src/unidentified/unassigned_0040cc30.cpp",
-      "symbol": "_asm_unassigned_0040cc30",
+      "symbol": "?Offset@ObjectAccessor_0040cc30@@QBEHXZ",
       "address": "0x0040CC30",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cc30",
+        "source": "src/unidentified/unassigned_0040cc30.cpp",
+        "symbol": "_asm_unassigned_0040cc30",
+        "address": "0x0040CC30",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cc36",
@@ -7578,13 +8046,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cd10",
+      "name": "semantic_ObjectAccessor_0040cd10_ClearValue_0040cd10",
       "source": "src/unidentified/unassigned_0040cd10.cpp",
-      "symbol": "_asm_unassigned_0040cd10",
+      "symbol": "?ClearValue@ObjectAccessor_0040cd10@@QAEXXZ",
       "address": "0x0040CD10",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cd10",
+        "source": "src/unidentified/unassigned_0040cd10.cpp",
+        "symbol": "_asm_unassigned_0040cd10",
+        "address": "0x0040CD10",
+        "size": 5,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cd15",
@@ -7783,12 +8260,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ce30",
+      "name": "semantic_0040ce30",
       "source": "src/unidentified/unassigned_0040ce30.cpp",
-      "symbol": "_asm_unassigned_0040ce30",
+      "symbol": "?IsNonZero@Predicate_0040ce30@@QBEHXZ",
       "address": "0x0040CE30",
       "size": 14,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -7834,13 +8311,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ce70",
+      "name": "semantic_ObjectAccessor_0040ce70_Offset_0040ce70",
       "source": "src/unidentified/unassigned_0040ce70.cpp",
-      "symbol": "_asm_unassigned_0040ce70",
+      "symbol": "?Offset@ObjectAccessor_0040ce70@@QBEHXZ",
       "address": "0x0040CE70",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040ce70",
+        "source": "src/unidentified/unassigned_0040ce70.cpp",
+        "symbol": "_asm_unassigned_0040ce70",
+        "address": "0x0040CE70",
+        "size": 6,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040ce76",
@@ -7851,12 +8337,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ce80",
+      "name": "semantic_0040ce80",
       "source": "src/unidentified/unassigned_0040ce80.cpp",
-      "symbol": "_asm_unassigned_0040ce80",
+      "symbol": "?IsNonZero@Predicate_0040ce80@@QBEHXZ",
       "address": "0x0040CE80",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -7868,13 +8354,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ce90",
+      "name": "semantic_ObjectAccessor_0040ce90_SetValue_0040ce90",
       "source": "src/unidentified/unassigned_0040ce90.cpp",
-      "symbol": "_asm_unassigned_0040ce90",
+      "symbol": "?SetValue@ObjectAccessor_0040ce90@@QAEXXZ",
       "address": "0x0040CE90",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040ce90",
+        "source": "src/unidentified/unassigned_0040ce90.cpp",
+        "symbol": "_asm_unassigned_0040ce90",
+        "address": "0x0040CE90",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040ce98",
@@ -7911,13 +8406,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040ced0",
+      "name": "semantic_ObjectAccessor_0040ced0_LoadValue_0040ced0",
       "source": "src/unidentified/unassigned_0040ced0.cpp",
-      "symbol": "_asm_unassigned_0040ced0",
+      "symbol": "?LoadValue@ObjectAccessor_0040ced0@@QBEHXZ",
       "address": "0x0040CED0",
       "size": 13,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040ced0",
+        "source": "src/unidentified/unassigned_0040ced0.cpp",
+        "symbol": "_asm_unassigned_0040ced0",
+        "address": "0x0040CED0",
+        "size": 13,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cedd",
@@ -7928,13 +8432,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040cee0",
+      "name": "semantic_ObjectAccessor_0040cee0_CopyFrom_0040cee0",
       "source": "src/unidentified/unassigned_0040cee0.cpp",
-      "symbol": "_asm_unassigned_0040cee0",
+      "symbol": "?CopyFrom@ObjectAccessor_0040cee0@@QAEXPBUVec3_0040cee0@@@Z",
       "address": "0x0040CEE0",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040cee0",
+        "source": "src/unidentified/unassigned_0040cee0.cpp",
+        "symbol": "_asm_unassigned_0040cee0",
+        "address": "0x0040CEE0",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040cef4",
@@ -8254,12 +8767,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040d4f0",
+      "name": "semantic_0040d4f0",
       "source": "src/unidentified/unassigned_0040d4f0.cpp",
-      "symbol": "_asm_unassigned_0040d4f0",
+      "symbol": "_Zero_0040d4f0@0",
       "address": "0x0040D4F0",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -8271,12 +8784,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040d500",
+      "name": "semantic_0040d500",
       "source": "src/unidentified/unassigned_0040d500.cpp",
-      "symbol": "_asm_unassigned_0040d500",
+      "symbol": "_Zero_0040d500@0",
       "address": "0x0040D500",
       "size": 3,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": null
     },
     {
@@ -26874,13 +27387,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00441f10",
+      "name": "semantic_FloatAtan_00441f10_00441f10",
       "source": "src/unidentified/unassigned_00441f10.cpp",
-      "symbol": "_asm_unassigned_00441f10",
+      "symbol": "?FloatAtan_00441f10@@YGMM@Z",
       "address": "0x00441F10",
       "size": 11,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00441F10"
     },
     {
       "name": "text_padding_00441f1b",
@@ -26891,13 +27404,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00441f20",
+      "name": "semantic_FloatAsin_00441f20_00441f20",
       "source": "src/unidentified/unassigned_00441f20.cpp",
-      "symbol": "_asm_unassigned_00441f20",
+      "symbol": "?FloatAsin_00441f20@@YGMM@Z",
       "address": "0x00441F20",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00441F20"
     },
     {
       "name": "text_padding_00441f2c",
@@ -26908,13 +27421,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00441f30",
+      "name": "semantic_FloatCos_00441f30_00441f30",
       "source": "src/unidentified/unassigned_00441f30.cpp",
-      "symbol": "_asm_unassigned_00441f30",
+      "symbol": "?FloatCos_00441f30@@YGMM@Z",
       "address": "0x00441F30",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00441F30"
     },
     {
       "name": "text_padding_00441f39",
@@ -27019,13 +27532,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00442010",
-      "source": "src/unidentified/unassigned_00442010.cpp",
-      "symbol": "_asm_unassigned_00442010",
+      "name": "semantic_UnassignedBlock_Reset_00442010",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Reset@UnassignedBlock_00442010@@QAEXXZ",
       "address": "0x00442010",
       "size": 50,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00442010"
     },
     {
       "name": "text_padding_00442042",
@@ -27062,13 +27575,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00442130",
-      "source": "src/unidentified/unassigned_00442130.cpp",
-      "symbol": "_asm_unassigned_00442130",
+      "name": "semantic_UnassignedTriple_CopyInto18_00442130",
+      "source": "src/unidentified/unassigned_records_0044.cpp",
+      "symbol": "?CopyInto@UnassignedTriple_00442130@@QBEXPAUUnassignedHolder_00442130@@@Z",
       "address": "0x00442130",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00442130",
+      "previous_record": {
+        "name": "asm_unassigned_00442130",
+        "source": "src/unidentified/unassigned_00442130.cpp",
+        "symbol": "_asm_unassigned_00442130",
+        "address": "0x00442130",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00442144",
@@ -27079,13 +27601,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00442150",
-      "source": "src/unidentified/unassigned_00442150.cpp",
-      "symbol": "_asm_unassigned_00442150",
+      "name": "semantic_UnassignedTriple_CopyInto24_00442150",
+      "source": "src/unidentified/unassigned_records_0044.cpp",
+      "symbol": "?CopyInto@UnassignedTriple_00442150@@QBEXPAUUnassignedHolder_00442150@@@Z",
       "address": "0x00442150",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00442150",
+      "previous_record": {
+        "name": "asm_unassigned_00442150",
+        "source": "src/unidentified/unassigned_00442150.cpp",
+        "symbol": "_asm_unassigned_00442150",
+        "address": "0x00442150",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00442164",
@@ -27156,13 +27687,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004421c0",
-      "source": "src/unidentified/unassigned_004421c0.cpp",
-      "symbol": "_asm_unassigned_004421c0",
+      "name": "semantic_UnassignedTriple_CopyInto0c_004421c0",
+      "source": "src/unidentified/unassigned_records_0044.cpp",
+      "symbol": "?CopyInto@UnassignedTriple_004421c0@@QBEXPAUUnassignedHolder_004421c0@@@Z",
       "address": "0x004421C0",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004421C0",
+      "previous_record": {
+        "name": "asm_unassigned_004421c0",
+        "source": "src/unidentified/unassigned_004421c0.cpp",
+        "symbol": "_asm_unassigned_004421c0",
+        "address": "0x004421C0",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004421d4",
@@ -27173,13 +27713,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004421e0",
-      "source": "src/unidentified/unassigned_004421e0.cpp",
-      "symbol": "_asm_unassigned_004421e0",
+      "name": "semantic_UnassignedBlock_Reset40_004421e0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Reset@UnassignedBlock_004421e0@@QAEXXZ",
       "address": "0x004421E0",
       "size": 50,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004421E0"
     },
     {
       "name": "text_padding_00442212",
@@ -27267,13 +27807,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004423b0",
+      "name": "semantic_Rng_NextFloatSignedScaled_004423b0",
       "source": "src/unidentified/unassigned_004423b0.cpp",
-      "symbol": "_asm_unassigned_004423b0",
+      "symbol": "?Rng_NextFloatSignedScaled@@YIMPAURngState@@M@Z",
       "address": "0x004423B0",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004423B0"
     },
     {
       "name": "text_padding_004423bc",
@@ -27525,13 +28065,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00443680",
-      "source": "src/unidentified/unassigned_00443680.cpp",
-      "symbol": "_asm_unassigned_00443680",
+      "name": "semantic_UnassignedSpan_Transform_00443680",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Transform@UnassignedSpan_00443680@@QAEXMMMMMM@Z",
       "address": "0x00443680",
       "size": 52,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00443680"
     },
     {
       "name": "text_padding_004436b4",
@@ -27948,13 +28488,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004452a0",
-      "source": "src/unidentified/unassigned_004452a0.cpp",
-      "symbol": "_asm_unassigned_004452a0",
+      "name": "semantic_UnassignedVector_Length_004452a0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Length@UnassignedVector_004452a0@@QBEMXZ",
       "address": "0x004452A0",
       "size": 33,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004452A0"
     },
     {
       "name": "text_padding_004452c1",
@@ -27965,13 +28505,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004452d0",
+      "name": "semantic_FloatSqrt_004452d0_004452d0",
       "source": "src/unidentified/unassigned_004452d0.cpp",
-      "symbol": "_asm_unassigned_004452d0",
+      "symbol": "?FloatSqrt_004452d0@@YGMM@Z",
       "address": "0x004452D0",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004452D0"
     },
     {
       "name": "text_padding_004452d9",
@@ -27982,13 +28522,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004452e0",
-      "source": "src/unidentified/unassigned_004452e0.cpp",
-      "symbol": "_asm_unassigned_004452e0",
+      "name": "semantic_Unassigned_LowBit_004452e0",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?LowBit@UnassignedFlagged_004452e0@@QBEIXZ",
       "address": "0x004452E0",
       "size": 10,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004452E0"
     },
     {
       "name": "text_padding_004452ea",
@@ -29675,13 +30215,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004493c0",
+      "name": "semantic_AnimationManager_FindBlock_004493c0_004493c0",
       "source": "src/unidentified/unassigned_004493c0.cpp",
-      "symbol": "_asm_unassigned_004493c0",
+      "symbol": "@AnimationManager_FindBlock_004493c0@12",
       "address": "0x004493C0",
       "size": 27,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004493C0"
     },
     {
       "name": "text_padding_004493db",
@@ -29769,13 +30309,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004494c0",
-      "source": "src/unidentified/unassigned_004494c0.cpp",
-      "symbol": "_asm_unassigned_004494c0",
+      "name": "semantic_AnimationNode_SetStopFrameAndRun_004494c0",
+      "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+      "symbol": "?SetStopFrameAndRun@AnimationNode_00449@@QAEXXZ",
       "address": "0x004494C0",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004494C0"
     },
     {
       "name": "text_padding_004494cf",
@@ -29906,13 +30446,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00449650",
-      "source": "src/unidentified/unassigned_00449650.cpp",
-      "symbol": "_asm_unassigned_00449650",
+      "name": "semantic_AnimationNode_SetPosition_00449650",
+      "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+      "symbol": "?SetPosition@AnimationNode_00449@@QAEXXZ",
       "address": "0x00449650",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00449650"
     },
     {
       "name": "text_padding_0044965f",
@@ -29923,13 +30463,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00449660",
-      "source": "src/unidentified/unassigned_00449660.cpp",
-      "symbol": "_asm_unassigned_00449660",
+      "name": "semantic_AnimationNode_SetTranslatedPosition_00449660",
+      "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+      "symbol": "?SetTranslatedPosition@AnimationNode_00449@@QAEXXZ",
       "address": "0x00449660",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00449660"
     },
     {
       "name": "text_padding_0044966f",
@@ -31499,13 +32039,13 @@
       "owner": "0x0044BEA0"
     },
     {
-      "name": "asm_unassigned_0044bf20",
-      "source": "src/unidentified/unassigned_0044bf20.cpp",
-      "symbol": "_asm_unassigned_0044bf20",
+      "name": "semantic_Unassigned_ClearLowBit_0044bf20",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?ClearLowBit@UnassignedMasked_0044bf20@@QAEXXZ",
       "address": "0x0044BF20",
       "size": 5,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044BF20"
     },
     {
       "name": "text_padding_0044bf25",
@@ -31516,13 +32056,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044bf30",
+      "name": "semantic_UnassignedSlot_Replace_0044bf30",
       "source": "src/unidentified/unassigned_0044bf30.cpp",
-      "symbol": "_asm_unassigned_0044bf30",
+      "symbol": "@UnassignedSlot_Replace@8",
       "address": "0x0044BF30",
       "size": 14,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044BF30"
     },
     {
       "name": "text_padding_0044bf3e",
@@ -31567,13 +32107,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044bff0",
-      "source": "src/unidentified/unassigned_0044bff0.cpp",
-      "symbol": "_asm_unassigned_0044bff0",
+      "name": "semantic_UnassignedData_Value_0044bff0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Value@UnassignedData_0044bff0@@QBEMXZ",
       "address": "0x0044BFF0",
       "size": 6,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044BFF0"
     },
     {
       "name": "text_padding_0044bff6",
@@ -31601,13 +32141,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c070",
+      "name": "semantic_ByteChecksum_0044c070_0044c070",
       "source": "src/unidentified/unassigned_0044c070.cpp",
-      "symbol": "_asm_unassigned_0044c070",
+      "symbol": "@ByteChecksum_0044c070@8",
       "address": "0x0044C070",
       "size": 13,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C070"
     },
     {
       "name": "text_padding_0044c07d",
@@ -31790,13 +32330,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c240",
-      "source": "src/unidentified/unassigned_0044c240.cpp",
-      "symbol": "_asm_unassigned_0044c240",
+      "name": "semantic_UnassignedHandle_Close_0044c240",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Close@UnassignedHandle_0044c240@@QAEXXZ",
       "address": "0x0044C240",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C240"
     },
     {
       "name": "text_padding_0044c24f",
@@ -31807,13 +32347,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c250",
-      "source": "src/unidentified/unassigned_0044c250.cpp",
-      "symbol": "_asm_unassigned_0044c250",
+      "name": "semantic_Unassigned_MarkBit1_0044c250",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?MarkBit1@UnassignedMarked_0044c250@@QAEXXZ",
       "address": "0x0044C250",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C250"
     },
     {
       "name": "text_padding_0044c254",
@@ -31901,13 +32441,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c5f0",
-      "source": "src/unidentified/unassigned_0044c5f0.cpp",
-      "symbol": "_asm_unassigned_0044c5f0",
+      "name": "semantic_UnassignedScale_Scaled_0044c5f0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Scaled@UnassignedScale_0044c5f0@@QBEMM@Z",
       "address": "0x0044C5F0",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C5F0"
     },
     {
       "name": "text_padding_0044c5f9",
@@ -31918,13 +32458,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c600",
-      "source": "src/unidentified/unassigned_0044c600.cpp",
-      "symbol": "_asm_unassigned_0044c600",
+      "name": "semantic_Unassigned_Release_0044c600",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?Release@UnassignedRef_0044c600@@QAEXXZ",
       "address": "0x0044C600",
       "size": 4,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C600"
     },
     {
       "name": "text_padding_0044c604",
@@ -31935,13 +32475,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c610",
+      "name": "semantic_Unassigned_0044c610_0044c610",
       "source": "src/unidentified/unassigned_0044c610.cpp",
-      "symbol": "_asm_unassigned_0044c610",
+      "symbol": "?Unassigned_0044c610@@YGXXZ",
       "address": "0x0044C610",
       "size": 1,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C610"
     },
     {
       "name": "text_padding_0044c611",
@@ -31978,13 +32518,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c630",
+      "name": "semantic_Unassigned_0044c630_0044c630",
       "source": "src/unidentified/unassigned_0044c630.cpp",
-      "symbol": "_asm_unassigned_0044c630",
+      "symbol": "?Unassigned_0044c630@@YGXXZ",
       "address": "0x0044C630",
       "size": 1,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C630"
     },
     {
       "name": "text_padding_0044c631",
@@ -31995,13 +32535,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c640",
-      "source": "src/unidentified/unassigned_0044c640.cpp",
-      "symbol": "_asm_unassigned_0044c640",
+      "name": "semantic_Unassigned_AttachSelf_0044c640",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?AttachSelf@UnassignedAttach_0044c640@@QAEXXZ",
       "address": "0x0044C640",
       "size": 17,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C640"
     },
     {
       "name": "text_padding_0044c651",
@@ -32012,13 +32552,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c660",
+      "name": "semantic_Unassigned_0044c660_0044c660",
       "source": "src/unidentified/unassigned_0044c660.cpp",
-      "symbol": "_asm_unassigned_0044c660",
+      "symbol": "?Unassigned_0044c660@@YGXXZ",
       "address": "0x0044C660",
       "size": 1,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C660"
     },
     {
       "name": "text_padding_0044c661",
@@ -32029,13 +32569,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c670",
+      "name": "semantic_Reset_0044c670",
       "source": "src/unidentified/unassigned_0044c670.cpp",
-      "symbol": "_asm_unassigned_0044c670",
+      "symbol": "?Reset@UnassignedSlots_0044c670@@QAEPAU1@XZ",
       "address": "0x0044C670",
       "size": 52,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C670"
     },
     {
       "name": "text_padding_0044c6a4",
@@ -32046,13 +32586,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c6b0",
-      "source": "src/unidentified/unassigned_0044c6b0.cpp",
-      "symbol": "_asm_unassigned_0044c6b0",
+      "name": "semantic_UnassignedChain_Find_0044c6b0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Find@UnassignedChain_0044c6b0@@QAEPAU1@I@Z",
       "address": "0x0044C6B0",
       "size": 18,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C6B0"
     },
     {
       "name": "text_padding_0044c6c2",
@@ -32063,13 +32603,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c6d0",
-      "source": "src/unidentified/unassigned_0044c6d0.cpp",
-      "symbol": "_asm_unassigned_0044c6d0",
+      "name": "semantic_UnassignedSeat_Bind_0044c6d0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Bind@UnassignedSeat_0044c6d0@@QAEXI@Z",
       "address": "0x0044C6D0",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C6D0"
     },
     {
       "name": "text_padding_0044c6dc",
@@ -32097,13 +32637,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c760",
-      "source": "src/unidentified/unassigned_0044c760.cpp",
-      "symbol": "_asm_unassigned_0044c760",
+      "name": "semantic_Unassigned_Reset_0044c760",
+      "source": "src/unidentified/unassigned_members_0044.cpp",
+      "symbol": "?Reset@UnassignedZero_0044c760@@QAEXXZ",
       "address": "0x0044C760",
       "size": 7,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044C760"
     },
     {
       "name": "text_padding_0044c767",
@@ -32371,13 +32911,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044d3e0",
+      "name": "semantic_Lookup_0044d3e0",
       "source": "src/unidentified/unassigned_0044d3e0.cpp",
-      "symbol": "_asm_unassigned_0044d3e0",
+      "symbol": "@UnassignedTable_Lookup@8",
       "address": "0x0044D3E0",
       "size": 19,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044D3E0"
     },
     {
       "name": "text_padding_0044d3f3",
@@ -32763,13 +33303,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044dbb0",
-      "source": "src/unidentified/unassigned_0044dbb0.cpp",
-      "symbol": "_asm_unassigned_0044dbb0",
+      "name": "semantic_UnassignedClear_Clear_0044dbb0",
+      "source": "src/unidentified/unassigned_members_b_0044.cpp",
+      "symbol": "?Clear@UnassignedClear_0044dbb0@@QAEXXZ",
       "address": "0x0044DBB0",
       "size": 17,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044DBB0"
     },
     {
       "name": "text_padding_0044dbc1",
@@ -32925,13 +33465,13 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044df10",
+      "name": "semantic_Unassigned_0044df10_0044df10",
       "source": "src/unidentified/unassigned_0044df10.cpp",
-      "symbol": "_asm_unassigned_0044df10",
+      "symbol": "?Unassigned_0044df10@@YGXXZ",
       "address": "0x0044DF10",
       "size": 1,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0044DF10"
     },
     {
       "name": "text_padding_0044df11",
@@ -33258,13 +33798,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004501d0",
+      "name": "semantic_unassigned_004501d0",
       "source": "src/unidentified/unassigned_004501d0.cpp",
-      "symbol": "_asm_unassigned_004501d0",
+      "symbol": "_unassigned_004501d0@0",
       "address": "0x004501D0",
       "size": 1,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004501D0",
+      "previous_record": {
+        "name": "asm_unassigned_004501d0",
+        "source": "src/unidentified/unassigned_004501d0.cpp",
+        "symbol": "_asm_unassigned_004501d0",
+        "address": "0x004501D0",
+        "size": 1,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004501d1",
@@ -34209,22 +34758,40 @@
       "owner": "0x00453111"
     },
     {
-      "name": "asm_unassigned_00453259",
+      "name": "semantic_unassigned_00453259",
       "source": "src/unidentified/unassigned_00453259.cpp",
-      "symbol": "_asm_unassigned_00453259",
+      "symbol": "_unassigned_00453259",
       "address": "0x00453259",
       "size": 20,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00453259",
+      "previous_record": {
+        "name": "asm_unassigned_00453259",
+        "source": "src/unidentified/unassigned_00453259.cpp",
+        "symbol": "_asm_unassigned_00453259",
+        "address": "0x00453259",
+        "size": 20,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
-      "name": "asm_FUN_0045326d_0045326d",
+      "name": "semantic_FUN_0045326d_0045326d",
       "source": "src/unidentified/FUN_0045326d_0045326d.cpp",
-      "symbol": "_asm_FUN_0045326d_0045326d",
+      "symbol": "_unassigned_0045326d",
       "address": "0x0045326D",
       "size": 16,
-      "kind": "asm",
-      "owner": "0x0045326D"
+      "kind": "semantic",
+      "owner": "0x0045326D",
+      "previous_record": {
+        "name": "asm_FUN_0045326d_0045326d",
+        "source": "src/unidentified/FUN_0045326d_0045326d.cpp",
+        "symbol": "_asm_FUN_0045326d_0045326d",
+        "address": "0x0045326D",
+        "size": 16,
+        "kind": "asm",
+        "owner": "0x0045326D"
+      }
     },
     {
       "name": "text_padding_0045327d",
@@ -34685,13 +35252,22 @@
       "owner": "0x00453683"
     },
     {
-      "name": "asm_unassigned_0045370e",
+      "name": "semantic_unassigned_0045370e",
       "source": "src/unidentified/unassigned_0045370e.cpp",
-      "symbol": "_asm_unassigned_0045370e",
+      "symbol": "_unassigned_0045370e",
       "address": "0x0045370E",
       "size": 13,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0045370E",
+      "previous_record": {
+        "name": "asm_unassigned_0045370e",
+        "source": "src/unidentified/unassigned_0045370e.cpp",
+        "symbol": "_asm_unassigned_0045370e",
+        "address": "0x0045370E",
+        "size": 13,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "asm_rand_0045371b",
@@ -35832,13 +36408,22 @@
       "owner": "0x0045770E"
     },
     {
-      "name": "asm_unassigned_0045771d",
+      "name": "semantic_unassigned_0045771d",
       "source": "src/unidentified/unassigned_0045771d.cpp",
-      "symbol": "_asm_unassigned_0045771d",
+      "symbol": "_unassigned_0045771d",
       "address": "0x0045771D",
       "size": 15,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0045771D",
+      "previous_record": {
+        "name": "asm_unassigned_0045771d",
+        "source": "src/unidentified/unassigned_0045771d.cpp",
+        "symbol": "_asm_unassigned_0045771d",
+        "address": "0x0045771D",
+        "size": 15,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "asm_msize_0045772c",
@@ -38342,13 +38927,22 @@
       "owner": "0x0045FE47"
     },
     {
-      "name": "asm_unassigned_0045fe75",
+      "name": "semantic_unassigned_0045fe75",
       "source": "src/unidentified/unassigned_0045fe75.cpp",
-      "symbol": "_asm_unassigned_0045fe75",
+      "symbol": "_unassigned_0045fe75",
       "address": "0x0045FE75",
       "size": 9,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x0045FE75",
+      "previous_record": {
+        "name": "asm_unassigned_0045fe75",
+        "source": "src/unidentified/unassigned_0045fe75.cpp",
+        "symbol": "_asm_unassigned_0045fe75",
+        "address": "0x0045FE75",
+        "size": 9,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "asm_FUN_0045fe7e_0045fe7e",
@@ -38593,13 +39187,22 @@
       "owner": "0x00460B90"
     },
     {
-      "name": "asm_unassigned_00460c1e",
+      "name": "semantic_unassigned_00460c1e",
       "source": "src/unidentified/unassigned_00460c1e.cpp",
-      "symbol": "_asm_unassigned_00460c1e",
+      "symbol": "_unassigned_00460c1e",
       "address": "0x00460C1E",
       "size": 8,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00460C1E",
+      "previous_record": {
+        "name": "asm_unassigned_00460c1e",
+        "source": "src/unidentified/unassigned_00460c1e.cpp",
+        "symbol": "_asm_unassigned_00460c1e",
+        "address": "0x00460C1E",
+        "size": 8,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "asm_tolower_mt_00460c26",
@@ -39006,13 +39609,22 @@
       "owner": "0x00462327"
     },
     {
-      "name": "asm_unassigned_00462363",
+      "name": "semantic_unassigned_00462363",
       "source": "src/unidentified/unassigned_00462363.cpp",
-      "symbol": "_asm_unassigned_00462363",
+      "symbol": "?Myptr@StringBase_00462363@@QBEPBDXZ",
       "address": "0x00462363",
       "size": 14,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00462363",
+      "previous_record": {
+        "name": "asm_unassigned_00462363",
+        "source": "src/unidentified/unassigned_00462363.cpp",
+        "symbol": "_asm_unassigned_00462363",
+        "address": "0x00462363",
+        "size": 14,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "asm_FUN_00462371_00462371",
@@ -41424,13 +42036,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004658c0",
+      "name": "semantic_unassigned_004658c0",
       "source": "src/unidentified/unassigned_004658c0.cpp",
-      "symbol": "_asm_unassigned_004658c0",
+      "symbol": "_unassigned_004658c0",
       "address": "0x004658C0",
       "size": 36,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004658C0",
+      "previous_record": {
+        "name": "asm_unassigned_004658c0",
+        "source": "src/unidentified/unassigned_004658c0.cpp",
+        "symbol": "_asm_unassigned_004658c0",
+        "address": "0x004658C0",
+        "size": 36,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004658e4",
@@ -41458,13 +42079,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00465910",
+      "name": "semantic_unassigned_00465910",
       "source": "src/unidentified/unassigned_00465910.cpp",
-      "symbol": "_asm_unassigned_00465910",
+      "symbol": "_unassigned_00465910",
       "address": "0x00465910",
       "size": 36,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00465910",
+      "previous_record": {
+        "name": "asm_unassigned_00465910",
+        "source": "src/unidentified/unassigned_00465910.cpp",
+        "symbol": "_asm_unassigned_00465910",
+        "address": "0x00465910",
+        "size": 36,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00465934",
@@ -41475,13 +42105,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00465940",
+      "name": "semantic_unassigned_00465940",
       "source": "src/unidentified/unassigned_00465940.cpp",
-      "symbol": "_asm_unassigned_00465940",
+      "symbol": "_unassigned_00465940",
       "address": "0x00465940",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00465940",
+      "previous_record": {
+        "name": "asm_unassigned_00465940",
+        "source": "src/unidentified/unassigned_00465940.cpp",
+        "symbol": "_asm_unassigned_00465940",
+        "address": "0x00465940",
+        "size": 12,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0046594c",
@@ -41492,13 +42131,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00465950",
+      "name": "semantic_unassigned_00465950",
       "source": "src/unidentified/unassigned_00465950.cpp",
-      "symbol": "_asm_unassigned_00465950",
+      "symbol": "_unassigned_00465950",
       "address": "0x00465950",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00465950",
+      "previous_record": {
+        "name": "asm_unassigned_00465950",
+        "source": "src/unidentified/unassigned_00465950.cpp",
+        "symbol": "_asm_unassigned_00465950",
+        "address": "0x00465950",
+        "size": 12,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0046595c",
@@ -41509,13 +42157,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00465960",
+      "name": "semantic_unassigned_00465960",
       "source": "src/unidentified/unassigned_00465960.cpp",
-      "symbol": "_asm_unassigned_00465960",
+      "symbol": "_unassigned_00465960",
       "address": "0x00465960",
       "size": 52,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x00465960",
+      "previous_record": {
+        "name": "asm_unassigned_00465960",
+        "source": "src/unidentified/unassigned_00465960.cpp",
+        "symbol": "_asm_unassigned_00465960",
+        "address": "0x00465960",
+        "size": 52,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00465994",
@@ -41526,13 +42183,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004659a0",
+      "name": "semantic_unassigned_004659a0",
       "source": "src/unidentified/unassigned_004659a0.cpp",
-      "symbol": "_asm_unassigned_004659a0",
+      "symbol": "_unassigned_004659a0",
       "address": "0x004659A0",
       "size": 18,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004659A0",
+      "previous_record": {
+        "name": "asm_unassigned_004659a0",
+        "source": "src/unidentified/unassigned_004659a0.cpp",
+        "symbol": "_asm_unassigned_004659a0",
+        "address": "0x004659A0",
+        "size": 18,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004659b2",
@@ -41543,13 +42209,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004659c0",
+      "name": "semantic_unassigned_004659c0",
       "source": "src/unidentified/unassigned_004659c0.cpp",
-      "symbol": "_asm_unassigned_004659c0",
+      "symbol": "_unassigned_004659c0",
       "address": "0x004659C0",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004659C0",
+      "previous_record": {
+        "name": "asm_unassigned_004659c0",
+        "source": "src/unidentified/unassigned_004659c0.cpp",
+        "symbol": "_asm_unassigned_004659c0",
+        "address": "0x004659C0",
+        "size": 12,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004659cc",
@@ -41560,13 +42235,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004659d0",
+      "name": "semantic_unassigned_004659d0",
       "source": "src/unidentified/unassigned_004659d0.cpp",
-      "symbol": "_asm_unassigned_004659d0",
+      "symbol": "_unassigned_004659d0",
       "address": "0x004659D0",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004659D0",
+      "previous_record": {
+        "name": "asm_unassigned_004659d0",
+        "source": "src/unidentified/unassigned_004659d0.cpp",
+        "symbol": "_asm_unassigned_004659d0",
+        "address": "0x004659D0",
+        "size": 12,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004659dc",
@@ -41577,13 +42261,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004659e0",
+      "name": "semantic_unassigned_004659e0",
       "source": "src/unidentified/unassigned_004659e0.cpp",
-      "symbol": "_asm_unassigned_004659e0",
+      "symbol": "_unassigned_004659e0",
       "address": "0x004659E0",
       "size": 12,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": "0x004659E0",
+      "previous_record": {
+        "name": "asm_unassigned_004659e0",
+        "source": "src/unidentified/unassigned_004659e0.cpp",
+        "symbol": "_asm_unassigned_004659e0",
+        "address": "0x004659E0",
+        "size": 12,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004659ec",
@@ -47014,7 +47707,9 @@
     "_text_padding_0045db55": "0x0045DB55",
     "_text_data_0045db56": "0x0045DB56",
     "_text_padding_00446b39": "0x00446B39",
-    "_text_data_00446b3c": "0x00446B3C"
+    "_text_data_00446b3c": "0x00446B3C",
+    "__CIasin": "0x00463BF0",
+    "@AnimationManager_Find_004491c0@12": "0x004491C0"
   },
   "translation_units": [
     "src/app/fps_counter.cpp",
@@ -49128,22 +49823,14 @@
     "src/unidentified/unassigned_00441f20.cpp",
     "src/unidentified/unassigned_00441f30.cpp",
     "src/unidentified/unassigned_00441f40.cpp",
-    "src/unidentified/unassigned_00442010.cpp",
-    "src/unidentified/unassigned_00442130.cpp",
-    "src/unidentified/unassigned_00442150.cpp",
     "src/unidentified/unassigned_00442180.cpp",
-    "src/unidentified/unassigned_004421c0.cpp",
-    "src/unidentified/unassigned_004421e0.cpp",
     "src/unidentified/unassigned_004423b0.cpp",
     "src/unidentified/unassigned_00443480.cpp",
-    "src/unidentified/unassigned_00443680.cpp",
     "src/unidentified/unassigned_00444cb0.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
     "src/unidentified/unassigned_00444fa0.cpp",
-    "src/unidentified/unassigned_004452a0.cpp",
     "src/unidentified/unassigned_004452d0.cpp",
-    "src/unidentified/unassigned_004452e0.cpp",
     "src/unidentified/unassigned_004464d0.cpp",
     "src/unidentified/unassigned_00446530.cpp",
     "src/unidentified/unassigned_00446570.cpp",
@@ -49152,12 +49839,9 @@
     "src/unidentified/unassigned_00447910.cpp",
     "src/unidentified/unassigned_00448cc0.cpp",
     "src/unidentified/unassigned_004493c0.cpp",
-    "src/unidentified/unassigned_004494c0.cpp",
     "src/unidentified/unassigned_004494d0.cpp",
     "src/unidentified/unassigned_00449510.cpp",
     "src/unidentified/unassigned_00449530.cpp",
-    "src/unidentified/unassigned_00449650.cpp",
-    "src/unidentified/unassigned_00449660.cpp",
     "src/unidentified/unassigned_00449770.cpp",
     "src/unidentified/unassigned_00449780.cpp",
     "src/unidentified/unassigned_004497b0.cpp",
@@ -49174,29 +49858,19 @@
     "src/unidentified/unassigned_0044a160.cpp",
     "src/unidentified/unassigned_0044bcd0.cpp",
     "src/unidentified/unassigned_0044bd00.cpp",
-    "src/unidentified/unassigned_0044bf20.cpp",
     "src/unidentified/unassigned_0044bf30.cpp",
     "src/unidentified/unassigned_0044bfa0.cpp",
-    "src/unidentified/unassigned_0044bff0.cpp",
     "src/unidentified/unassigned_0044c070.cpp",
     "src/unidentified/unassigned_0044c080.cpp",
     "src/unidentified/unassigned_0044c0b0.cpp",
     "src/unidentified/unassigned_0044c0e0.cpp",
     "src/unidentified/unassigned_0044c200.cpp",
-    "src/unidentified/unassigned_0044c240.cpp",
-    "src/unidentified/unassigned_0044c250.cpp",
     "src/unidentified/unassigned_0044c260.cpp",
-    "src/unidentified/unassigned_0044c5f0.cpp",
-    "src/unidentified/unassigned_0044c600.cpp",
     "src/unidentified/unassigned_0044c610.cpp",
     "src/unidentified/unassigned_0044c630.cpp",
-    "src/unidentified/unassigned_0044c640.cpp",
     "src/unidentified/unassigned_0044c660.cpp",
     "src/unidentified/unassigned_0044c670.cpp",
-    "src/unidentified/unassigned_0044c6b0.cpp",
-    "src/unidentified/unassigned_0044c6d0.cpp",
     "src/unidentified/unassigned_0044c6e0.cpp",
-    "src/unidentified/unassigned_0044c760.cpp",
     "src/unidentified/unassigned_0044c770.cpp",
     "src/unidentified/unassigned_0044c790.cpp",
     "src/unidentified/unassigned_0044cbb0.cpp",
@@ -49207,7 +49881,6 @@
     "src/unidentified/unassigned_0044d790.cpp",
     "src/unidentified/unassigned_0044d7d0.cpp",
     "src/unidentified/unassigned_0044d810.cpp",
-    "src/unidentified/unassigned_0044dbb0.cpp",
     "src/unidentified/unassigned_0044dbd0.cpp",
     "src/unidentified/unassigned_0044dcf0.cpp",
     "src/unidentified/unassigned_0044dee0.cpp",
@@ -49390,6 +50063,10 @@
     "src/unidentified/unassigned_004659c0.cpp",
     "src/unidentified/unassigned_004659d0.cpp",
     "src/unidentified/unassigned_004659e0.cpp",
+    "src/unidentified/unassigned_anim_setters_00449.cpp",
+    "src/unidentified/unassigned_members_0044.cpp",
+    "src/unidentified/unassigned_members_b_0044.cpp",
+    "src/unidentified/unassigned_records_0044.cpp",
     "src/unidentified/unlock_file2_0045a0eb.cpp",
     "src/unidentified/updatetlocinfo_00455ade.cpp",
     "src/unidentified/updatetlocinfo_lk_004558cc.cpp",
@@ -49707,7 +50384,68 @@
     "layout/ltcg/player_scheduler_links_00405be0.json",
     "layout/ltcg/time_value_set_seconds_0043e500.json",
     "layout/ltcg/enemy_slot_advance_004067a0.json",
-    "layout/ltcg/fps_counter_004134b0.json"
+    "layout/ltcg/fps_counter_004134b0.json",
+    "layout/ltcg/unassigned_members_0044.json",
+    "layout/ltcg/unassigned_members_b_0044.json",
+    "layout/ltcg/unassigned_anim_setters_00449.json",
+    "layout/ltcg/acc_00401ca0.json",
+    "layout/ltcg/acc_00401d90.json",
+    "layout/ltcg/acc_00401f40.json",
+    "layout/ltcg/acc_00401f90.json",
+    "layout/ltcg/acc_004020f0.json",
+    "layout/ltcg/acc_00402100.json",
+    "layout/ltcg/acc_00402110.json",
+    "layout/ltcg/acc_00402130.json",
+    "layout/ltcg/acc_00402220.json",
+    "layout/ltcg/acc_00404ec0.json",
+    "layout/ltcg/acc_00404f20.json",
+    "layout/ltcg/acc_00405000.json",
+    "layout/ltcg/acc_00405020.json",
+    "layout/ltcg/acc_00405110.json",
+    "layout/ltcg/acc_004052b0.json",
+    "layout/ltcg/acc_00405380.json",
+    "layout/ltcg/acc_004053a0.json",
+    "layout/ltcg/acc_00405490.json",
+    "layout/ltcg/acc_004054a0.json",
+    "layout/ltcg/acc_00405560.json",
+    "layout/ltcg/acc_00405b40.json",
+    "layout/ltcg/acc_00405ba0.json",
+    "layout/ltcg/acc_00408620.json",
+    "layout/ltcg/acc_00408640.json",
+    "layout/ltcg/acc_00408730.json",
+    "layout/ltcg/acc_00408780.json",
+    "layout/ltcg/acc_00408790.json",
+    "layout/ltcg/acc_004087c0.json",
+    "layout/ltcg/acc_004087e0.json",
+    "layout/ltcg/acc_00408820.json",
+    "layout/ltcg/acc_00408840.json",
+    "layout/ltcg/acc_00408ac0.json",
+    "layout/ltcg/acc_0040acc0.json",
+    "layout/ltcg/acc_0040acd0.json",
+    "layout/ltcg/acc_0040ae00.json",
+    "layout/ltcg/acc_0040b370.json",
+    "layout/ltcg/acc_0040b460.json",
+    "layout/ltcg/acc_0040b470.json",
+    "layout/ltcg/acc_0040b500.json",
+    "layout/ltcg/acc_0040b510.json",
+    "layout/ltcg/acc_0040b520.json",
+    "layout/ltcg/acc_0040c470.json",
+    "layout/ltcg/acc_0040c530.json",
+    "layout/ltcg/acc_0040c5d0.json",
+    "layout/ltcg/acc_0040c710.json",
+    "layout/ltcg/acc_0040c800.json",
+    "layout/ltcg/acc_0040c920.json",
+    "layout/ltcg/acc_0040c940.json",
+    "layout/ltcg/acc_0040cc10.json",
+    "layout/ltcg/acc_0040cc20.json",
+    "layout/ltcg/acc_0040cc30.json",
+    "layout/ltcg/acc_0040cd10.json",
+    "layout/ltcg/acc_0040ce70.json",
+    "layout/ltcg/acc_0040ce90.json",
+    "layout/ltcg/acc_0040ced0.json",
+    "layout/ltcg/acc_0040cee0.json",
+    "layout/ltcg/accessor_00408850.json",
+    "layout/ltcg/unassigned_records_0044.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

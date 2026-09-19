@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00408850: raise bit 0 of the object's +0x2A18 flag word.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names, so
+// the body is compiled as a single-function native-LTCG cluster whose synthetic
+// caller walks an array of objects.
+struct ObjectAccessor_00408850 {
+    unsigned char pad_000[0x2A18];
+    unsigned int field_2a18;                 // +0x2A18
+    __declspec(noinline) void SetValue();
+};
 
-// 0x00408850..0x00408857: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00408850() {
-    __asm {
-    L_00408850:
-        or dword ptr [eax+2A18h],1
-    L_00408857:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00408850::SetValue() {
+    field_2a18 |= 1u;
 }
+#pragma code_seg()

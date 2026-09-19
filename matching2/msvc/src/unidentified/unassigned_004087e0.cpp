@@ -1,29 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004087E0: add the argument vector componentwise.
+//
+// The destination vector arrives in EAX and the source vector in ECX - a
+// register pair no C++ declaration names - so the body is compiled as a
+// single-function native-LTCG cluster.
+struct Vec3_004087e0 {
+    float x;                              // +0x0
+    float y;                              // +0x4
+    float z;                              // +0x8
+};
 
-// 0x004087E0..0x004087F8: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004087e0() {
-    __asm {
-    L_004087e0:
-        fld dword ptr [ecx]
-    L_004087e2:
-        fadd dword ptr [eax]
-    L_004087e4:
-        fstp dword ptr [eax]
-    L_004087e6:
-        fld dword ptr [ecx+4]
-    L_004087e9:
-        fadd dword ptr [eax+4]
-    L_004087ec:
-        fstp dword ptr [eax+4]
-    L_004087ef:
-        fld dword ptr [ecx+8]
-    L_004087f2:
-        fadd dword ptr [eax+8]
-    L_004087f5:
-        fstp dword ptr [eax+8]
-    L_004087f8:
-        ret
-    }
+struct ObjectAccessor_004087e0 {
+    float x;                              // +0x0
+    float y;                              // +0x4
+    float z;                              // +0x8
+    __declspec(noinline) void Apply(const Vec3_004087e0* other);
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_004087e0::Apply(const Vec3_004087e0* other) {
+    x = x + other->x;
+    y = y + other->y;
+    z = z + other->z;
 }
+#pragma code_seg()

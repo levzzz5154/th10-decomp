@@ -1,19 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C940: zero the three +0x0/+0x4/+0x8 fields
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster whose
+// synthetic caller walks an array of objects.
+struct ObjectAccessor_0040c940 {
+    int field_0;
+    int field_4;
+    int field_8;
+    __declspec(noinline) void Clear();
+};
 
-// 0x0040C940..0x0040C94A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c940() {
-    __asm {
-    L_0040c940:
-        xor ecx,ecx
-    L_0040c942:
-        mov dword ptr [eax],ecx
-    L_0040c944:
-        mov dword ptr [eax+4],ecx
-    L_0040c947:
-        mov dword ptr [eax+8],ecx
-    L_0040c94a:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0040c940::Clear() {
+    field_0 = 0;
+    field_4 = 0;
+    field_8 = 0;
 }
+#pragma code_seg()

@@ -1,11 +1,3 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0044C660..0x0044C660: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044c660() {
-    __asm {
-    L_0044c660:
-        ret
-    }
+// 0x0044C660: empty function, a lone RET.
+void Unassigned_0044c660() {
 }

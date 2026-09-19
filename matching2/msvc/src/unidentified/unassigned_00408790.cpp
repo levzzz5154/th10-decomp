@@ -1,21 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00408790: read bit 2 of +0x58 via or-fold.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration
+// names, so the body is compiled as a single-function native-LTCG cluster
+// whose synthetic caller walks an array of objects.
+struct ObjectAccessor_00408790 {
+    unsigned char pad_000[0x58];
+    unsigned int field_058;                 // +0x58
+    __declspec(noinline) int LoadValue() const;
+};
 
-// 0x00408790..0x0040879D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00408790() {
-    __asm {
-    L_00408790:
-        mov ecx,dword ptr [eax+58h]
-    L_00408793:
-        mov eax,ecx
-    L_00408795:
-        shr eax,2
-    L_00408798:
-        or eax,ecx
-    L_0040879a:
-        and eax,1
-    L_0040879d:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_00408790::LoadValue() const {
+    return ((field_058 >> 2) | field_058) & 1;
 }
+#pragma code_seg()

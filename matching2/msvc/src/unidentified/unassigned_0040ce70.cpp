@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040CE70: address of the sub-object at +0x9A48.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration
+// names, so the body is compiled as a single-function native-LTCG cluster
+// whose synthetic caller walks an array of objects.
+struct ObjectAccessor_0040ce70 {
+    __declspec(noinline) int Offset() const;
+};
 
-// 0x0040CE70..0x0040CE75: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040ce70() {
-    __asm {
-    L_0040ce70:
-        add eax,9A48h
-    L_0040ce75:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_0040ce70::Offset() const {
+    return (int)this + 0x9A48;
 }
+#pragma code_seg()

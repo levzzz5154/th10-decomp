@@ -1,15 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004052A0: rewind the frame timer one step.
+//
+// The timer pointer arrives in ECX, a plain __thiscall receiver.
+#include "th10/math/timer.hpp"
 
-// 0x004052A0..0x004052AA: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004052a0() {
-    __asm {
-    L_004052a0:
-        push 0BF800000h
-    L_004052a5:
-        call asm_FrameTimer_Advance_0044bf40
-    L_004052aa:
-        ret
-    }
+struct TimerResetter_004052a0 {
+    __declspec(noinline) void Rewind();
+};
+
+void TimerResetter_004052a0::Rewind() {
+    ((FrameTimer*)this)->Advance(-1.0f);
 }

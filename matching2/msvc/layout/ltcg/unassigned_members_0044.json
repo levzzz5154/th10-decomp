@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "name": "unassigned_members_0044",
+  "source": "src/unidentified/unassigned_members_0044.cpp",
+  "driver": "layout/ltcg/unassigned_members_0044_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Six single-field object methods compiled with native LTCG so the object arrives in EAX.",
+  "functions": [
+    {
+      "name": "Unassigned_LowBit",
+      "symbol": "?LowBit@UnassignedFlagged_004452e0@@QBEIXZ",
+      "section": ".text$01flag",
+      "address": "0x004452E0",
+      "size": 10,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "Unassigned_ClearLowBit",
+      "symbol": "?ClearLowBit@UnassignedMasked_0044bf20@@QAEXXZ",
+      "section": ".text$03mask",
+      "address": "0x0044BF20",
+      "size": 5,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "Unassigned_MarkBit1",
+      "symbol": "?MarkBit1@UnassignedMarked_0044c250@@QAEXXZ",
+      "section": ".text$05mark",
+      "address": "0x0044C250",
+      "size": 4,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "Unassigned_Release",
+      "symbol": "?Release@UnassignedRef_0044c600@@QAEXXZ",
+      "section": ".text$07ref",
+      "address": "0x0044C600",
+      "size": 4,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "Unassigned_AttachSelf",
+      "symbol": "?AttachSelf@UnassignedAttach_0044c640@@QAEXXZ",
+      "section": ".text$09attach",
+      "address": "0x0044C640",
+      "size": 17,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "Unassigned_Reset",
+      "symbol": "?Reset@UnassignedZero_0044c760@@QAEXXZ",
+      "section": ".text$0Bzero",
+      "address": "0x0044C760",
+      "size": 7,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?UnassignedMembersCompilerContext@@YGHPAPAXH@Z",
+    "section": ".text$50context",
+    "address": "0x0044C770",
+    "size": 137,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 279264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004452EA",
+      "size": 27702
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044BF25",
+      "size": 811
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x0044C254",
+      "size": 940
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0044C604",
+      "size": 60
+    },
+    {
+      "section": ".text$0Alayout",
+      "address": "0x0044C651",
+      "size": 271
+    },
+    {
+      "section": ".text$0Clayout",
+      "address": "0x0044C767",
+      "size": 9
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

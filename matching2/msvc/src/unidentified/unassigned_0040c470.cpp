@@ -1,19 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C470: return the field at +0x4 modulo the argument.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster.
+struct ObjectAccessor_0040c470 {
+    unsigned char pad_000[0x4];
+    int field_4;                             // +0x4
+    __declspec(noinline) int Remainder(int divisor) const;
+};
 
-// 0x0040C470..0x0040C47C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c470() {
-    __asm {
-    L_0040c470:
-        mov eax,dword ptr [eax+4]
-    L_0040c473:
-        cdq
-    L_0040c474:
-        idiv dword ptr [esp+4]
-    L_0040c478:
-        mov eax,edx
-    L_0040c47a:
-        ret 4
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_0040c470::Remainder(int divisor) const {
+    return field_4 % divisor;
 }
+#pragma code_seg()

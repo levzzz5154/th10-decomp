@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00402100: clear bit 0 of +0x30.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration
+// names, so the body is compiled as a single-function native-LTCG cluster
+// whose synthetic caller walks an array of objects.
+struct ObjectAccessor_00402100 {
+    unsigned char pad_000[0x30];
+    unsigned int field_030;                 // +0x30
+    __declspec(noinline) void ClearValue();
+};
 
-// 0x00402100..0x00402104: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00402100() {
-    __asm {
-    L_00402100:
-        and dword ptr [eax+30h],0FFFFFFFEh
-    L_00402104:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00402100::ClearValue() {
+    field_030 &= ~1u;
 }
+#pragma code_seg()

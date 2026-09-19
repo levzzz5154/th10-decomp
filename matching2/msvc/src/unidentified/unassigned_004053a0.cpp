@@ -1,15 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004053A0: read bit 0 of the +0x60 flags.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster.
+struct ObjectAccessor_004053a0 {
+    unsigned char pad_000[0x60];
+    unsigned int field_60;                    // +0x60
+    __declspec(noinline) int LoadValue() const;
+};
 
-// 0x004053A0..0x004053A6: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004053a0() {
-    __asm {
-    L_004053a0:
-        mov eax,dword ptr [eax+60h]
-    L_004053a3:
-        and eax,1
-    L_004053a6:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_004053a0::LoadValue() const {
+    return field_60 & 1;
 }
+#pragma code_seg()

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "acc_004087e0",
+  "source": "src/unidentified/unassigned_004087e0.cpp",
+  "driver": "layout/ltcg/acc_004087e0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "cluster",
+  "functions": [
+    {
+      "name": "ObjectAccessor_004087e0_Apply",
+      "symbol": "?Apply@ObjectAccessor_004087e0@@QAEXPBUVec3_004087e0@@@Z",
+      "section": ".text$01accessor",
+      "address": "0x004087E0",
+      "size": 25,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_004087e0@@PAUVec3_004087e0@@@Z",
+    "section": ".text$03context",
+    "address": "0x00408800",
+    "size": 35,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 30688
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004087F9",
+      "size": 7
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": []
+}

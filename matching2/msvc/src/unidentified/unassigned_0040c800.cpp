@@ -1,17 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C800: zero the +0x1008/+0x100C pair
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster whose
+// synthetic caller walks an array of objects.
+struct ObjectAccessor_0040c800 {
+    unsigned char pad_000[0x1008];
+    int field_1008;
+    int field_100c;
+    __declspec(noinline) void Clear();
+};
 
-// 0x0040C800..0x0040C80E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c800() {
-    __asm {
-    L_0040c800:
-        xor ecx,ecx
-    L_0040c802:
-        mov dword ptr [eax+1008h],ecx
-    L_0040c808:
-        mov dword ptr [eax+100Ch],ecx
-    L_0040c80e:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0040c800::Clear() {
+    field_1008 = 0;
+    field_100c = 0;
 }
+#pragma code_seg()

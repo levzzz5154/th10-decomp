@@ -1,17 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00401D90: zero the +0x896C/+0x8970 pair
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster whose
+// synthetic caller walks an array of objects.
+struct ObjectAccessor_00401d90 {
+    unsigned char pad_000[0x896C];
+    int field_896c;
+    int field_8970;
+    __declspec(noinline) void Clear();
+};
 
-// 0x00401D90..0x00401D9E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00401d90() {
-    __asm {
-    L_00401d90:
-        xor ecx,ecx
-    L_00401d92:
-        mov dword ptr [eax+896Ch],ecx
-    L_00401d98:
-        mov dword ptr [eax+8970h],ecx
-    L_00401d9e:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00401d90::Clear() {
+    field_896c = 0;
+    field_8970 = 0;
 }
+#pragma code_seg()

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "name": "unassigned_anim_setters_00449",
+  "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+  "driver": "layout/ltcg/unassigned_anim_setters_00449_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Small object methods compiled with native LTCG so the object arrives in EAX.",
+  "functions": [
+    {
+      "name": "AnimationNode_SetStopFrameAndRun",
+      "symbol": "?SetStopFrameAndRun@AnimationNode_00449@@QAEXXZ",
+      "section": ".text$01",
+      "address": "0x004494C0",
+      "size": 15,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "AnimationNode_SetPosition",
+      "symbol": "?SetPosition@AnimationNode_00449@@QAEXXZ",
+      "section": ".text$03",
+      "address": "0x00449650",
+      "size": 15,
+      "actual_abi": "object in EAX; plain RET"
+    },
+    {
+      "name": "AnimationNode_SetTranslatedPosition",
+      "symbol": "?SetTranslatedPosition@AnimationNode_00449@@QAEXXZ",
+      "section": ".text$05",
+      "address": "0x00449660",
+      "size": 15,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationNodeSettersCompilerContext@@YGHPAPAXH@Z",
+    "section": ".text$07context",
+    "address": "0x00449670",
+    "size": 76,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 296128
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x004494CF",
+      "size": 385
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0044965F",
+      "size": 1
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x0044966F",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnimationManager_SetStopFrameAndRun_00449250@12",
+      "address": "0x00449250",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@AnimationManager_SetPosition_004492f0@12",
+      "address": "0x004492F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@AnimationManager_SetTranslatedPosition_00449350@12",
+      "address": "0x00449350",
+      "kind": "relative_code"
+    }
+  ]
+}

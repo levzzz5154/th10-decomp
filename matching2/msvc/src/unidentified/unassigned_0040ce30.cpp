@@ -1,19 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040CE30: read whether the +0x9EB8 field is set.
+//
+// The receiver arrives in ECX - a plain __thiscall member - so the body is
+// an ordinary translation unit, not a cluster.
+struct Predicate_0040ce30 {
+    unsigned char pad_000[0x9EB8];
+    int field_9eb8;                          // +0x9EB8
+    __declspec(noinline) int IsNonZero() const;
+};
 
-// 0x0040CE30..0x0040CE3D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040ce30() {
-    __asm {
-    L_0040ce30:
-        mov edx,dword ptr [ecx+9EB8h]
-    L_0040ce36:
-        xor eax,eax
-    L_0040ce38:
-        test edx,edx
-    L_0040ce3a:
-        setne al
-    L_0040ce3d:
-        ret
-    }
+int Predicate_0040ce30::IsNonZero() const {
+    return field_9eb8 != 0;
 }

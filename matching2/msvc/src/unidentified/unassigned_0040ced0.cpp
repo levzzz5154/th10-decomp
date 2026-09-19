@@ -1,17 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040CED0: read bit 3 of the +0x378C flags.
+//
+// The object pointer arrives in EAX, a convention no C++ declaration
+// names, so the body is compiled as a single-function native-LTCG cluster
+// whose synthetic caller walks an array of objects.
+struct ObjectAccessor_0040ced0 {
+    unsigned char pad_000[0x378C];
+    unsigned int field_378c;                 // +0x378C
+    __declspec(noinline) int LoadValue() const;
+};
 
-// 0x0040CED0..0x0040CEDC: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040ced0() {
-    __asm {
-    L_0040ced0:
-        mov eax,dword ptr [eax+378Ch]
-    L_0040ced6:
-        shr eax,3
-    L_0040ced9:
-        and eax,1
-    L_0040cedc:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_0040ced0::LoadValue() const {
+    return (field_378c >> 3) & 1;
 }
+#pragma code_seg()

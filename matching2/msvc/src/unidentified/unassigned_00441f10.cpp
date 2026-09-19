@@ -1,17 +1,9 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00441F10..0x00441F1A: out-of-line copy of the float arc-tangent wrapper.
+//
+// The body is the MSVC x87 intrinsic expansion of atanf: /O2 folds the call into
+// fld/fld1/fpatan, and the single float argument stays on the stack (/Gz).
+#include <math.h>
 
-// 0x00441F10..0x00441F1A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00441f10() {
-    __asm {
-    L_00441f10:
-        fld dword ptr [esp+4]
-    L_00441f14:
-        fld1
-    L_00441f16:
-        fpatan
-    L_00441f18:
-        ret 4
-    }
+float FloatAtan_00441f10(float value) {
+    return atanf(value);
 }

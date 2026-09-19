@@ -1,33 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405B40: squared distance between the receiver and the argument vector.
+//
+// The receiver arrives in EAX and the argument in ECX - a register pair no
+// C++ declaration names - so the body is compiled as a single-function
+// native-LTCG cluster.
+struct Vec3_00405b40 {
+    float x;                              // +0x0
+    float y;                              // +0x4
+    float z;                              // +0x8
+};
 
-// 0x00405B40..0x00405B58: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00405b40() {
-    __asm {
-    L_00405b40:
-        fld dword ptr [ecx+4]
-    L_00405b43:
-        fsub dword ptr [eax+4]
-    L_00405b46:
-        fld dword ptr [ecx]
-    L_00405b48:
-        fsub dword ptr [eax]
-    L_00405b4a:
-        fld st(0)
-    L_00405b4c:
-        fmul st,st(1)
-    L_00405b4e:
-        fld st(2)
-    L_00405b50:
-        fmul st,st(3)
-    L_00405b52:
-        faddp st(1),st
-    L_00405b54:
-        fstp st(2)
-    L_00405b56:
-        fstp st(0)
-    L_00405b58:
-        ret
-    }
+struct ObjectAccessor_00405b40 {
+    float x;                              // +0x0
+    float y;                              // +0x4
+    float z;                              // +0x8
+    __declspec(noinline) float DistSq(const Vec3_00405b40* other) const;
+};
+
+#pragma code_seg(".text$01accessor")
+float ObjectAccessor_00405b40::DistSq(const Vec3_00405b40* other) const {
+    float dy = y - other->y;
+    float dx = x - other->x;
+    return dx * dx + dy * dy;
 }
+#pragma code_seg()

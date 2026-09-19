@@ -1,25 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00453259..0x0045326C: the default pure-virtual-call handler: run the
+// installed handler if there is one, then report the error and abort.
 
-// 0x00453259..0x0045326C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00453259() {
-    __asm {
-    L_00453259:
-        mov eax,dword ptr [data_00477200]
-    L_0045325e:
-        test eax,eax
-    L_00453260:
-        je short L_00453264
-    L_00453262:
-        call eax
-    L_00453264:
-        push 19h
-    L_00453266:
-        call asm_amsg_exit_0045373d
-    L_0045326b:
-        pop ecx
-    L_0045326c:
-        ret
-    }
+extern "C" void __cdecl asm_amsg_exit_0045373d(int code);
+extern "C" void* data_00477200;
+
+extern "C" void __cdecl unassigned_00453259(void) {
+    if (data_00477200 != 0)
+        ((void (__cdecl*)(void))data_00477200)();
+    asm_amsg_exit_0045373d(25);
 }

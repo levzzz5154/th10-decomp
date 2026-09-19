@@ -1,19 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C710: stamp the +0x0 vtable word and clear the +0x1010/+0x1014 pair
+//
+// The object pointer arrives in EAX, a convention no C++ declaration names,
+// so the body is compiled as a single-function native-LTCG cluster whose
+// synthetic caller walks an array of objects.
+struct ObjectAccessor_0040c710 {
+    int field_0;
+    unsigned char pad_004[0x100C];
+    int field_1010;
+    int field_1014;
+    __declspec(noinline) void Init();
+};
 
-// 0x0040C710..0x0040C724: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c710() {
-    __asm {
-    L_0040c710:
-        xor ecx,ecx
-    L_0040c712:
-        mov dword ptr [eax],46D0D8h
-    L_0040c718:
-        mov dword ptr [eax+1010h],ecx
-    L_0040c71e:
-        mov dword ptr [eax+1014h],ecx
-    L_0040c724:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_0040c710::Init() {
+    field_0 = 0x46D0D8;
+    field_1010 = 0;
+    field_1014 = 0;
 }
+#pragma code_seg()

@@ -1,15 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C530: mask the word at +0x0.
+//
+// The object pointer arrives in EAX and the mask in ECX, a register pair no
+// C++ declaration names, so the body is compiled as a single-function
+// native-LTCG cluster whose synthetic caller walks an array of objects.
+struct ObjectAccessor_0040c530 {
+    unsigned short field_000;               // +0x0
+    __declspec(noinline) int LoadMasked(int mask) const;
+};
 
-// 0x0040C530..0x0040C535: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c530() {
-    __asm {
-    L_0040c530:
-        movzx eax,word ptr [eax]
-    L_0040c533:
-        and eax,ecx
-    L_0040c535:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_0040c530::LoadMasked(int mask) const {
+    return (int)field_000 & mask;
 }
+#pragma code_seg()

@@ -1,15 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405E10: clear bit 0 of the +0x10 flags word and return the object.
+//
+// The receiver arrives in ECX - a plain __thiscall member - so the body is an
+// ordinary translation unit; the returned object is what the caller keeps.
+struct ObjectClearer_00405e10 {
+    unsigned char pad_000[0x10];
+    unsigned int flags;                       // +0x10
+    __declspec(noinline) ObjectClearer_00405e10* Clear();
+};
 
-// 0x00405E10..0x00405E16: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00405e10() {
-    __asm {
-    L_00405e10:
-        mov eax,ecx
-    L_00405e12:
-        and dword ptr [eax+10h],0FFFFFFFEh
-    L_00405e16:
-        ret
-    }
+ObjectClearer_00405e10* ObjectClearer_00405e10::Clear() {
+    flags &= ~1u;
+    return this;
 }

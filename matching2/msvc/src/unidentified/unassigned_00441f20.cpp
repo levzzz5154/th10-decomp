@@ -1,15 +1,9 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00441F20..0x00441F2B: out-of-line copy of the float arc-sine wrapper.
+//
+// asinf has no single FPU instruction, so MSVC passes the argument on the x87
+// stack and calls the CRT helper __CIasin (bound to retail's 0x00463BF0).
+#include <math.h>
 
-// 0x00441F20..0x00441F2B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00441f20() {
-    __asm {
-    L_00441f20:
-        fld dword ptr [esp+4]
-    L_00441f24:
-        call asm_FUN_00463bf0_00463bf0
-    L_00441f29:
-        ret 4
-    }
+float FloatAsin_00441f20(float value) {
+    return asinf(value);
 }

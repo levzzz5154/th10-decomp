@@ -1,25 +1,23 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405110: copy the argument vector into the +0xC field.
+//
+// The receiver arrives in ECX and the source pointer in EAX, and the field
+// offset is added as an integer, so the body is compiled as a single-function
+// native-LTCG cluster.
+struct Vec3_00405110 {
+    float x;                              // +0x0
+    float y;                              // +0x4
+    float z;                              // +0x8
+};
 
-// 0x00405110..0x00405123: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00405110() {
-    __asm {
-    L_00405110:
-        mov edx,dword ptr [eax]
-    L_00405112:
-        add ecx,0Ch
-    L_00405115:
-        mov dword ptr [ecx],edx
-    L_00405117:
-        mov edx,dword ptr [eax+4]
-    L_0040511a:
-        mov dword ptr [ecx+4],edx
-    L_0040511d:
-        mov eax,dword ptr [eax+8]
-    L_00405120:
-        mov dword ptr [ecx+8],eax
-    L_00405123:
-        ret
-    }
+struct ObjectAccessor_00405110 {
+    unsigned char pad_000[0xC];
+    Vec3_00405110 field;                          // +0xC
+    __declspec(noinline) void CopyFrom(const Vec3_00405110* src);
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00405110::CopyFrom(const Vec3_00405110* src) {
+    Vec3_00405110* dst = (Vec3_00405110*)((int)this + 0xC);
+    *dst = *src;
 }
+#pragma code_seg()

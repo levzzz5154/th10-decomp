@@ -1,27 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0044D3E0..0x0044D3F2: bounds-checked element lookup.
+//
+// The table keeps its element array at +0x04 and its element count at +0x10.
+// The index arrives in EDX and nothing is popped, so the model is the free
+// __fastcall form the project uses for register-entry helpers; the two early
+// returns are separate statements because that is the layout c2 gives them.
+struct UnassignedTable_0044d3e0 {
+    unsigned char pad_00[4];
+    void** elements;     // +0x0004
+    unsigned char pad_08[8];
+    unsigned int count;  // +0x0010
+};
 
-// 0x0044D3E0..0x0044D3F2: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044d3e0() {
-    __asm {
-    L_0044d3e0:
-        mov eax,dword ptr [ecx+4]
-    L_0044d3e3:
-        test eax,eax
-    L_0044d3e5:
-        je short L_0044d3ec
-    L_0044d3e7:
-        cmp edx,dword ptr [ecx+10h]
-    L_0044d3ea:
-        jb short L_0044d3ef
-    L_0044d3ec:
-        xor eax,eax
-    L_0044d3ee:
-        ret
-    L_0044d3ef:
-        mov eax,dword ptr [eax+edx*4]
-    L_0044d3f2:
-        ret
-    }
+extern "C" void* __fastcall UnassignedTable_Lookup(UnassignedTable_0044d3e0* table,
+                                                   unsigned int index) {
+    if (table->elements == 0)
+        return 0;
+    if (index >= table->count)
+        return 0;
+    return table->elements[index];
 }
