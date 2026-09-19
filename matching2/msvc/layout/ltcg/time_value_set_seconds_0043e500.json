@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "name": "time_value_set_seconds_0043e500",
+  "source": "src/unidentified/unassigned_0043e500.cpp",
+  "driver": "layout/ltcg/time_value_set_seconds_0043e500_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "0x0043E500 compiled with native LTCG so the value record stays in ESI across the __ftol2 conversion, the seconds argument stays on the stack, and the conversion result is stored twice out of EAX. The scale is written as the float literal 60.0f and its pooled copy is aliased to retail's 0x470B1C: with an extern float object instead, the compiler loads the constant into st(0) and multiplies by the argument, which is the only byte difference this region had.",
+  "functions": [
+    {
+      "name": "TimeValue_0043e500_SetSeconds",
+      "symbol": "?SetSeconds@TimeValue_0043e500@@QAEXM@Z",
+      "section": ".text$01accessor",
+      "address": "0x0043E500",
+      "size": 31,
+      "actual_abi": "value record in ESI; the float argument at [ESP+4]; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?TimeValueCompilerContext@@YGHPAPAUTimeValue_0043e500@@HM@Z",
+    "section": ".text$03context",
+    "address": "0x0043E530",
+    "size": 43,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 251136
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E51F",
+      "size": 17
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@42700000",
+      "address": "0x00470B1C",
+      "value": 60.0
+    }
+  ]
+}

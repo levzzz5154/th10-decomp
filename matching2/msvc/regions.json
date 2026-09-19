@@ -26213,13 +26213,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043e500",
+      "name": "semantic_TimeValue_0043e500_SetSeconds_0043e500",
       "source": "src/unidentified/unassigned_0043e500.cpp",
-      "symbol": "_asm_unassigned_0043e500",
+      "symbol": "?SetSeconds@TimeValue_0043e500@@QAEXM@Z",
       "address": "0x0043E500",
       "size": 31,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0043e500",
+        "source": "src/unidentified/unassigned_0043e500.cpp",
+        "symbol": "_asm_unassigned_0043e500",
+        "address": "0x0043E500",
+        "size": 31,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0043e51f",
@@ -49659,7 +49668,8 @@
     "layout/ltcg/recovery_offset_point_00418810.json",
     "layout/ltcg/restart_midi_0043ad70.json",
     "layout/ltcg/ecl_resolve_float_destination_00450070.json",
-    "layout/ltcg/player_scheduler_links_00405be0.json"
+    "layout/ltcg/player_scheduler_links_00405be0.json",
+    "layout/ltcg/time_value_set_seconds_0043e500.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
