@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "name": "lazy_animation_resource_0040c540_wave11",
+  "source": "src/game/animation_resource_lazy_fetch.cpp",
+  "driver": "layout/ltcg/lazy_animation_resource_0040c540_wave11_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "0x0040C540 compiled with native LTCG so the game thread stays in ESI, the two floats stay on the stack and the returned handle stays in EAX. The .text$03loadscript, .text$05regprimary, .text$07accessor and .text$09alloc sections are compiled ABI anchors for the assembly regions at 0x0043E710, 0x004489D0, 0x00448D50 and 0x00449950: 0x00448D50 takes the position record in EDI and the other three arguments on the stack, and its own three callees keep their retail entry registers. The anchors are placed at the retail addresses so the calls carry retail's displacements, and they are never exported as recovered code.",
+  "functions": [
+    {
+      "name": "GameThread_EnsureAnimationResource_0040c540",
+      "symbol": "?EnsureAnimationResource@GameThread_0040c540@@QAEPAXMM@Z",
+      "section": ".text$01lazy",
+      "address": "0x0040C540",
+      "size": 75,
+      "actual_abi": "game thread in ESI; the two floats on the stack; the handle in EAX; ret 8"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnimationObject_LoadScript_0043e710_abi_anchor",
+      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "section": ".text$03loadscript",
+      "address": "0x0043E710",
+      "size": 207
+    },
+    {
+      "name": "AnimationManager_RegisterPrimaryBack_004489d0_abi_anchor",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$05regprimary",
+      "address": "0x004489D0",
+      "size": 103
+    },
+    {
+      "name": "AnimationManager_CreatePositionedPrimary_00448d50_abi_anchor",
+      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "section": ".text$07accessor",
+      "address": "0x00448D50",
+      "size": 95
+    },
+    {
+      "name": "FUN_00449950_00449950_abi_anchor",
+      "symbol": "_asm_FUN_00449950_00449950",
+      "section": ".text$09alloc",
+      "address": "0x00449950",
+      "size": 171
+    }
+  ],
+  "context": {
+    "symbol": "?LazyResourceCompilerContext@@YGHPAPAUGameThread_0040c540@@H@Z",
+    "section": ".text$0bcontext",
+    "address": "0x449a00",
+    "size": 47,
+    "description": "Synthetic array-walking caller that establishes the region's register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x401000",
+      "size": 46400
+    },
+    {
+      "section": ".text$02alayout",
+      "address": "0x40c58b",
+      "size": 126976
+    },
+    {
+      "section": ".text$02blayout",
+      "address": "0x42b58b",
+      "size": 78213
+    },
+    {
+      "section": ".text$04alayout",
+      "address": "0x43e7df",
+      "size": 41457
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x448a37",
+      "size": 793
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x448daf",
+      "size": 2977
+    },
+    {
+      "section": ".text$0alayout",
+      "address": "0x4499fb",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Constructor_00402050",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Init_00401de0",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_AnimationObject_LoadScriptTail_0043ee30",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}
