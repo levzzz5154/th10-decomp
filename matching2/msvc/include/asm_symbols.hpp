@@ -5272,6 +5272,10 @@ extern "C" void __cdecl asm_tzset_lk_part_00456e0c();
 #define VA_asm_tzset_lk_part_00456e0c 0x00456e0c
 extern "C" void __cdecl asm_umatherr_0045e8e1();
 #define VA_asm_umatherr_0045e8e1 0x0045e8e1
+extern "C" void __cdecl asm_unassigned_00421c0b();
+#define VA_asm_unassigned_00421c0b 0x00421c0b
+extern "C" void __cdecl asm_unassigned_0042453d();
+#define VA_asm_unassigned_0042453d 0x0042453d
 extern "C" void __cdecl asm_unassigned_00449510();
 #define VA_asm_unassigned_00449510 0x00449510
 extern "C" void __cdecl asm_unassigned_00449780();

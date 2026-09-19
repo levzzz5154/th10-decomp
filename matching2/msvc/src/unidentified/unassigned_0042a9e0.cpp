@@ -1,45 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A9E0: zero the 0x1C4-byte record the caller passes in EDX and return it.
+#include <stddef.h>
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
-// 0x0042A9E0..0x0042AA07: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042a9e0() {
-    __asm {
-    L_0042a9e0:
-        push edi
-    L_0042a9e1:
-        xor eax,eax
-    L_0042a9e3:
-        mov ecx,71h
-    L_0042a9e8:
-        mov edi,edx
-    L_0042a9ea:
-        rep stosd
-    L_0042a9ec:
-        mov eax,edx
-    L_0042a9ee:
-        pop edi
-    L_0042a9ef:
-        ret
-    L_0042a9f0:
-        push edi
-    L_0042a9f1:
-        lea edx,[esi+14h]
-    L_0042a9f4:
-        call asm_GameConfig_InitializeDefaults_00418c40
-    L_0042a9f9:
-        xor eax,eax
-    L_0042a9fb:
-        mov ecx,19h
-    L_0042aa00:
-        mov edi,esi
-    L_0042aa02:
-        rep stosd
-    L_0042aa04:
-        mov eax,esi
-    L_0042aa06:
-        pop edi
-    L_0042aa07:
-        ret
-    }
+struct Rec_0042a9e0 { unsigned char pad_000[0x1C4]; };
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) Rec_0042a9e0* __fastcall
+Init_0042a9e0(void* unused, Rec_0042a9e0* obj) {
+    (void)unused;
+    memset(obj, 0, sizeof(Rec_0042a9e0));
+    return obj;
 }
+#pragma code_seg()

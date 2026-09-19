@@ -1,27 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449A30: zero the 0x130-byte record the caller passes in EDX and return it.
+#include <stddef.h>
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
-// 0x00449A30..0x00449A40: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00449a30() {
-    __asm {
-    L_00449a30:
-        push edi
-    L_00449a31:
-        xor eax,eax
-    L_00449a33:
-        mov ecx,4Ch
-    L_00449a38:
-        mov edi,edx
-    L_00449a3a:
-        rep stosd
-    L_00449a3c:
-        mov eax,edx
-    L_00449a3e:
-        pop edi
-    L_00449a3f:
-        ret
-    L_00449a40:
-        ret
-    }
+struct Rec_00449a30 { unsigned char pad_000[0x130]; };
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) Rec_00449a30* __fastcall
+Init_00449a30(void* unused, Rec_00449a30* obj) {
+    (void)unused;
+    memset(obj, 0, sizeof(Rec_00449a30));
+    return obj;
 }
+#pragma code_seg()
