@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "holder_copy_00442180_d",
+  "source": "src/unidentified/holder_copy_00442180.cpp",
+  "driver": "layout/ltcg/holder_copy_00442180_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "holder_copy_00442180_d compiled with native LTCG so the record arrives in EAX.",
+  "functions": [
+    {
+      "name": "Triple_00442180_CopyTo",
+      "symbol": "?CopyTo@Triple_00442180@@QAEXPAUHolder_00442180@@@Z",
+      "section": ".text$01copy",
+      "address": "0x442180",
+      "size": 20,
+      "actual_abi": "source in ECX; dest in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "HolderCopyCompilerContext@12",
+    "section": ".text$09context",
+    "address": "0x4421b0",
+    "size": 45,
+    "description": "Synthetic array-walking caller; not recovered code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00lead",
+      "address": "0x00401000",
+      "size": 266624
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x442194",
+      "size": 28
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": []
+}

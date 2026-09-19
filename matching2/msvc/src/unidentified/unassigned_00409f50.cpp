@@ -1,25 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <stddef.h>
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
-// 0x00409F50..0x00409F5F: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00409f50() {
-    __asm {
-    L_00409f50:
-        push edi
-    L_00409f51:
-        xor eax,eax
-    L_00409f53:
-        mov ecx,10h
-    L_00409f58:
-        mov edi,edx
-    L_00409f5a:
-        rep stosd
-    L_00409f5c:
-        mov eax,edx
-    L_00409f5e:
-        pop edi
-    L_00409f5f:
-        ret
-    }
+struct Rec_00409f50 { int words[0x10]; };
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) Rec_00409f50* __fastcall
+Init_00409f50(void* unused, Rec_00409f50* obj) {
+    (void)unused;
+    memset(obj, 0, sizeof(Rec_00409f50));
+    return obj;
 }
+#pragma code_seg()

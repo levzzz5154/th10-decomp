@@ -1,31 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <stddef.h>
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
-// 0x0040D260..0x0040D27C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040d260() {
-    __asm {
-    L_0040d260:
-        and dword ptr [edx+50h],0FFFFFFFEh
-    L_0040d264:
-        push edi
-    L_0040d265:
-        xor eax,eax
-    L_0040d267:
-        mov ecx,1Ah
-    L_0040d26c:
-        mov edi,edx
-    L_0040d26e:
-        rep stosd
-    L_0040d270:
-        or dword ptr [edx],2
-    L_0040d273:
-        mov dword ptr [data_00477704],edx
-    L_0040d279:
-        mov eax,edx
-    L_0040d27b:
-        pop edi
-    L_0040d27c:
-        ret
-    }
+struct Rec_0040d260 {
+    unsigned int flags_000;
+    unsigned char pad_004[0x50 - 0x04];
+    unsigned int field_050;
+    unsigned char pad_054[0x68 - 0x54];
+};
+extern "C" Rec_0040d260* data_00477704;
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) Rec_0040d260* __fastcall
+Init_0040d260(void* unused, Rec_0040d260* obj) {
+    (void)unused;
+    unsigned int* flag = (unsigned int*)((char*)obj + 0x50);
+    *flag &= ~1u;
+    memset(obj, 0, sizeof(Rec_0040d260));
+    obj->flags_000 |= 2u;
+    data_00477704 = obj;
+    return obj;
 }
+#pragma code_seg()

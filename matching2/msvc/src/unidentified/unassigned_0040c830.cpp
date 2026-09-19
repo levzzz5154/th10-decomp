@@ -1,31 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <stddef.h>
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
-// 0x0040C830..0x0040C851: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040c830() {
-    __asm {
-    L_0040c830:
-        xor eax,eax
-    L_0040c832:
-        push edi
-    L_0040c833:
-        mov dword ptr [edx],46D0F0h
-    L_0040c839:
-        mov dword ptr [edx+1090h],eax
-    L_0040c83f:
-        mov dword ptr [edx+1094h],eax
-    L_0040c845:
-        mov ecx,426h
-    L_0040c84a:
-        mov edi,edx
-    L_0040c84c:
-        rep stosd
-    L_0040c84e:
-        mov eax,edx
-    L_0040c850:
-        pop edi
-    L_0040c851:
-        ret
-    }
+struct Rec_0040c830 {
+    void* vtable_000;
+    unsigned char pad_004[0x1090 - 0x04];
+    unsigned int tail_1090;
+    unsigned int tail_1094;
+};
+extern "C" unsigned char data_0046d0f0;
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) Rec_0040c830* __fastcall
+Init_0040c830(void* unused, Rec_0040c830* obj) {
+    (void)unused;
+    obj->vtable_000 = &data_0046d0f0;
+    unsigned int* tail = (unsigned int*)((char*)obj + 0x1090);
+    tail[0] = 0;
+    tail[1] = 0;
+    memset(obj, 0, sizeof(Rec_0040c830));
+    return obj;
 }
+#pragma code_seg()

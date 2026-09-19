@@ -1,0 +1,14 @@
+struct Indexed_0040ada0 {
+    unsigned char pad_000[0x3c];
+    unsigned int field_03c;              // +0x03C
+    unsigned int field_040;              // +0x040
+};
+extern "C" unsigned int* data_00477848;
+extern "C" __declspec(noinline) void __stdcall Publish_0040ada0(unsigned int index, Indexed_0040ada0* record);
+#pragma code_seg(".text$01pub")
+void __stdcall Publish_0040ada0(unsigned int index, Indexed_0040ada0* record) {
+    data_00477848 = (unsigned int*)(index * 0x30 + 0x00474788);
+    record->field_03c = index;
+    record->field_040 = index;
+}
+#pragma code_seg()
