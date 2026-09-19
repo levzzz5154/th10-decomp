@@ -4477,13 +4477,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0",
+      "name": "semantic_ScoreRuntimeState_ReleaseFlaggedEntityArrays_004091c0",
       "source": "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
-      "symbol": "_asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0",
+      "symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState_004091c0@@QAEHXZ",
       "address": "0x004091C0",
       "size": 95,
-      "kind": "asm",
-      "owner": "0x004091C0"
+      "kind": "semantic",
+      "owner": "0x004091C0",
+      "previous_record": {
+        "name": "asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0",
+        "source": "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
+        "symbol": "_asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0",
+        "address": "0x004091C0",
+        "size": 95,
+        "kind": "asm",
+        "owner": "0x004091C0"
+      }
     },
     {
       "name": "text_padding_0040921f",
@@ -4511,13 +4520,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ReleaseFlaggedEntities_ScoreRuntimeState_00409230",
+      "name": "semantic_ScoreRuntimeState_ReleaseFlaggedEntities_00409230",
       "source": "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
-      "symbol": "_asm_ReleaseFlaggedEntities_ScoreRuntimeState_00409230",
+      "symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
       "address": "0x00409230",
       "size": 50,
-      "kind": "asm",
-      "owner": "0x00409230"
+      "kind": "semantic",
+      "owner": "0x00409230",
+      "previous_record": {
+        "name": "asm_ReleaseFlaggedEntities_ScoreRuntimeState_00409230",
+        "source": "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
+        "symbol": "_asm_ReleaseFlaggedEntities_ScoreRuntimeState_00409230",
+        "address": "0x00409230",
+        "size": 50,
+        "kind": "asm",
+        "owner": "0x00409230"
+      }
     },
     {
       "name": "text_padding_00409262",

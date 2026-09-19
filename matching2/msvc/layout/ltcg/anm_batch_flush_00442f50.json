@@ -242,6 +242,24 @@
       "address": "0x4451c0",
       "size": 216,
       "actual_abi": "manager in ECX; entity in EAX; plain RET"
+    },
+    {
+      "name": "ScoreRuntimeState_ReleaseFlaggedEntityArrays",
+      "source": "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
+      "symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState_004091c0@@QAEHXZ",
+      "section": ".text$001arrays",
+      "address": "0x004091C0",
+      "size": 95,
+      "actual_abi": "receiver in EBX; manager in ECX and VM in EAX at every call; plain RET"
+    },
+    {
+      "name": "ScoreRuntimeState_ReleaseFlaggedEntities",
+      "source": "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
+      "symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
+      "section": ".text$001release",
+      "address": "0x00409230",
+      "size": 50,
+      "actual_abi": "this in ECX; manager in ECX and VM in EAX at both calls; plain RET"
     }
   ],
   "gaps": [
@@ -258,7 +276,17 @@
     {
       "section": ".text$000zselectz",
       "address": "0x40533c",
-      "size": 113044
+      "size": 16004
+    },
+    {
+      "section": ".text$001arraysz",
+      "address": "0x40921f",
+      "size": 17
+    },
+    {
+      "section": ".text$001releasez",
+      "address": "0x409262",
+      "size": 96878
     },
     {
       "section": ".text$00a420cd0z",
@@ -397,8 +425,8 @@
     },
     {
       "section": ".text$07contextz",
-      "address": "0x4453eb",
-      "size": 12853
+      "address": "0x4453f2",
+      "size": 12846
     },
     {
       "section": ".text$08layer3z",
@@ -577,6 +605,8 @@
   "additional_sources": [
     "src/game/fun_00405300_00405300.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
+    "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
+    "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
     "src/platform/fun_00439390_00439390.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
     "src/render/anm_batch_flush.cpp",
@@ -607,14 +637,15 @@
     "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
-    "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ"
+    "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
+    "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x4452a0",
-    "size": 331,
+    "size": 338,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   },
   "constant_aliases": [

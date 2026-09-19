@@ -1,69 +1,52 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/game/score.hpp"
+// 0x004091C0..0x0040921E (95 bytes): release the entities of the score runtime
+// state's two arrays of embedded animation VMs - eight at +0x778 and five at
+// +0x24D8, both with a 0x3AC stride - when its flag byte at +0x378C asks for it.
+//
+// Retail is entered with the state in EBX, not ECX, because its only caller
+// 0x00409270 is a scheduler callback (registered at 0x00408A11) whose body is
+// `push ebx; mov ebx,ecx; call 0x004091C0; pop ebx; ret`: the pair is an /LTCG
+// convention pair in which the caller owns the EBX save and the callee keeps the
+// state in EBX across all four calls without saving it.  That receiver only
+// exists while the callee's body is visible to the whole-program pass *and* the
+// callee is not rooted - rooting pins the declared public __thiscall (ECX) ABI,
+// which is the wrong register.  The synthetic batch context therefore names the
+// call that keeps this model in the link (layout/ltcg/render_batch_context.cpp);
+// the callee itself needs no `roots` entry.
+//
+// Every call uses 0x004451C0's private (manager in ECX, VM in EAX) entry, which
+// is reproducible only because the dispatcher is a definition in this same link
+// (the recovered AnmVmDrawDispatch of src/render/anm_vm_draw_dispatch.cpp).  The
+// manager is reloaded from ds:0x00491C10 inside each loop body and the loop
+// pointer walks the array with `add esi,0x3AC`, so the two loops compile to
+// retail's rotated form; the first one is 16-byte aligned, which is the `jmp`
+// over the `lea esp,[esp]` + `nop` pad at +0x16.
+#include "th10/render/quad_batch.hpp"
 
-// 0x004091C0..0x004091D7: ?ReleaseFlaggedEntityArrays@ScoreRuntimeState@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0() {
-    __asm {
-    L_004091c0:
-        test byte ptr [ebx+378Ch],1
-    L_004091c7:
-        TH10_REL8(0x74, 0x004091c7, VA_asm_target_00409219)
-    L_004091c9:
-        push esi
-    L_004091ca:
-        push edi
-    L_004091cb:
-        lea esi,[ebx+778h]
-    L_004091d1:
-        mov edi,8
-    L_004091d6:
-        TH10_REL8(0xeb, 0x004091d6, VA_asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_part_004091e0)
-        _emit 0x8d
-        _emit 0xa4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x90
+// 0x004451C0: dispatch one animation entity's quad.  Defined in
+// src/render/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
+extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+        AnimationManager_00442F50* manager, RenderEntity* entity);
 
-    L_004091e0:
-        mov ecx,dword ptr [data_00491c10]
-    L_004091e6:
-        mov eax,esi
-    L_004091e8:
-        call asm_FUN_004451c0_004451c0
-    L_004091ed:
-        add esi,3ACh
-    L_004091f3:
-        dec edi
-    L_004091f4:
-        jne short L_004091e0
-    L_004091f6:
-        lea esi,[ebx+24D8h]
-    L_004091fc:
-        mov edi,5
-    L_00409201:
-        mov ecx,dword ptr [data_00491c10]
-    L_00409207:
-        mov eax,esi
-    L_00409209:
-        call asm_FUN_004451c0_004451c0
-    L_0040920e:
-        add esi,3ACh
-    L_00409214:
-        dec edi
-    L_00409215:
-        jne short L_00409201
-    L_00409217:
-        pop edi
-    L_00409218:
-        pop esi
-    L_00409219:
-        mov eax,1
-    L_0040921e:
-        ret
+struct ScoreRuntimeState_004091c0 {
+    unsigned char reserved_0000[0x378C];
+    unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
+    unsigned char reserved_378D[0x400];
+
+    __declspec(noinline) int ReleaseFlaggedEntityArrays();
+};
+
+#pragma code_seg(".text$001arrays")
+int ScoreRuntimeState_004091c0::ReleaseFlaggedEntityArrays() {
+    if (release_flag_378C & 1) {
+        for (int i = 0; i < 8; ++i) {
+            asm_FUN_004451c0_004451c0(data_00491c10,
+                                      (RenderEntity*)((char*)this + 0x778 + i * 0x3AC));
+        }
+        for (int i = 0; i < 5; ++i) {
+            asm_FUN_004451c0_004451c0(data_00491c10,
+                                      (RenderEntity*)((char*)this + 0x24D8 + i * 0x3AC));
+        }
     }
+    return 1;
 }
+#pragma code_seg()
