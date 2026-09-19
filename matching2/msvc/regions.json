@@ -24087,13 +24087,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00439390_00439390",
+      "name": "semantic_GameFrameAdvance_00439390_00439390",
       "source": "src/platform/fun_00439390_00439390.cpp",
-      "symbol": "_asm_FUN_00439390_00439390",
+      "symbol": "?GameFrameAdvance_00439390@@YGHPAUGameFrame_00439390@@@Z",
       "address": "0x00439390",
       "size": 425,
-      "kind": "asm",
-      "owner": "0x00439390"
+      "kind": "semantic",
+      "owner": "0x00439390",
+      "previous_record": {
+        "name": "asm_FUN_00439390_00439390",
+        "source": "src/platform/fun_00439390_00439390.cpp",
+        "symbol": "_asm_FUN_00439390_00439390",
+        "address": "0x00439390",
+        "size": 425,
+        "kind": "asm",
+        "owner": "0x00439390"
+      }
     },
     {
       "name": "text_padding_00439539",

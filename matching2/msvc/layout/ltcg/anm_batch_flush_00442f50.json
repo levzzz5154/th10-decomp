@@ -224,6 +224,15 @@
       "size": 115,
       "actual_abi": "manager in ECX; manager in EBX across the mid-body calls; bucket index 3 in EAX and the manager in EDI for the 0x00448980 call; result in EAX; plain RET",
       "source": "src/unidentified/FUN_00448620_00448620.cpp"
+    },
+    {
+      "name": "GameFrameAdvance_00439390",
+      "symbol": "?GameFrameAdvance_00439390@@YGHPAUGameFrame_00439390@@@Z",
+      "section": ".text$00clayoutfa",
+      "address": "0x00439390",
+      "size": 425,
+      "actual_abi": "frame state on the stack in EBP; ESI/EDI saved; result in EAX; RET 4",
+      "source": "src/platform/fun_00439390_00439390.cpp"
     }
   ],
   "gaps": [
@@ -240,7 +249,12 @@
     {
       "section": ".text$000zselectz",
       "address": "0x40533c",
-      "size": 115012
+      "size": 113044
+    },
+    {
+      "section": ".text$00a420cd0z",
+      "address": "0x420d05",
+      "size": 1915
     },
     {
       "section": ".text$00adefaultz",
@@ -250,7 +264,12 @@
     {
       "section": ".text$00clayout",
       "address": "0x004216EA",
-      "size": 107862
+      "size": 97446
+    },
+    {
+      "section": ".text$00clayoutfaz",
+      "address": "0x439539",
+      "size": 9991
     },
     {
       "section": ".text$01blayout",
@@ -329,8 +348,8 @@
     },
     {
       "section": ".text$07contextz",
-      "address": "0x445341",
-      "size": 13023
+      "address": "0x44534b",
+      "size": 13013
     },
     {
       "section": ".text$08layer3z",
@@ -351,6 +370,11 @@
       "section": ".text$08stage13z",
       "address": "0x448858",
       "size": 296
+    },
+    {
+      "section": ".text$09bucketz",
+      "address": "0x4489c3",
+      "size": 14221
     }
   ],
   "constants": [],
@@ -429,11 +453,77 @@
       "symbol": "_asm_FUN_004451c0_004451c0",
       "address": "0x004451C0",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_FrameTimer_GetDelta",
+      "address": "0x00439540",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_004391f0_004391f0",
+      "address": "0x004391F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00449c00_00449c00@4",
+      "address": "0x00449C00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00449d40_00449d40@4",
+      "address": "0x00449D40",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ddf0_0043ddf0@4",
+      "address": "0x0043DDF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004924f0",
+      "address": "0x004924F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492254",
+      "address": "0x00492254",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004923a0",
+      "address": "0x004923A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d66",
+      "address": "0x00491D66",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660ac",
+      "address": "0x004660AC",
+      "kind": "data"
     }
   ],
   "additional_sources": [
     "src/game/fun_00405300_00405300.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
+    "src/platform/fun_00439390_00439390.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
     "src/render/anm_batch_flush.cpp",
     "src/render/camera_apply.cpp",
@@ -469,7 +559,7 @@
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x00445200",
-    "size": 321,
+    "size": 331,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   },
   "constant_aliases": [
@@ -491,6 +581,27 @@
       "section": ".text$09bucket",
       "address": "0x00448980",
       "size": 67
+    },
+    {
+      "name": "RenderStageState_00439390_RestoreFog",
+      "symbol": "?RestoreFog@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420cd0",
+      "address": "0x00420CD0",
+      "size": 53
+    },
+    {
+      "name": "WorkerThread_00439390_Stop",
+      "symbol": "?Stop@WorkerThread_00439390@@QAEPAXXZ",
+      "section": ".text$09bucketzf44c150",
+      "address": "0x0044C150",
+      "size": 95
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@3f91111111111111",
+      "address": "0x00470C90",
+      "bytes": "111111111111913f"
     }
   ]
 }
