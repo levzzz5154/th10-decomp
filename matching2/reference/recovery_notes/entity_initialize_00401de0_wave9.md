@@ -1,13 +1,13 @@
 # `0x00401DE0` recovered EXACT — wave 9
 
-2026-09-19. `Entity_Init` (273 bytes) is **recovered as C++** and the landing is
-**staged** (`matching2/build/waves/results10/InitEntity/`); applied to a fresh
-copy of the project, `probe.py` reports
+2026-09-19. `Entity_Init` (273 bytes) is **recovered as C++** and **landed** in
+the maintained tree; probing the maintained project reports
 `0x00401de0 273 bytes ?Entity_Init@@YIXPAXPAUEntity@@@Z EXACT` with all 67
 instruction slots and all four callee-save restores in retail's positions, and
-with the emitted body byte-identical to retail (identical sha256, 0 differing
+the emitted body is byte-identical to retail (identical sha256, 0 differing
 bytes). Every consumer of the address and every sibling region of
-`src/game/entity.cpp` was re-probed as well.
+`src/game/entity.cpp` was re-probed as well. The landing package is retained at
+`matching2/build/waves/results10/InitEntity/` for re-application.
 
 ```
 0x00401de0     273 bytes  ?Entity_Init@@YIXPAXPAUEntity@@@Z  EXACT     (+ 7 sibling regions of entity.cpp, and 7 caller units)
@@ -223,7 +223,14 @@ EXACT
 ```
 
 `build_msvc.validate_project` accepts the resulting manifest (4425 regions,
-2394 translation units, `.text` covered to `0x465C00`).
+2394 translation units, `.text` covered to `0x465C00`; 2395 units once the
+carved file is registered).
+
+The same probe run against the **maintained** project after the integration
+owner applied the package gives `0x00401de0 273 bytes
+?Entity_Init@@YIXPAXPAUEntity@@@Z EXACT` together with the unit's seven other
+regions, `0x00401110 330 bytes EXACT`, `0x00445900 2315 bytes EXACT` and
+`0x00449950 161 bytes EXACT`.
 
 The unit was also built the way a co-compiling cluster will build it: both
 `entity_initialize_00401de0.cpp` and a caller TU compiled with `/GL` and linked
@@ -246,21 +253,51 @@ the address (`game_state_init.cpp`,
 `fun_00449950_00449950.cpp`, `animation_object_load_script_0043e710.cpp`,
 `fun_00448bb0_00448bb0.cpp`) were re-probed EXACT as well.
 
-`0x00401110` does **not** land from this change alone, and the reason is on the
-caller's side, measured with the maintained flags: an ordinary C++ call to the
-declared two-slot signature always materialises the dead first slot —
-`Entity_Init(0, entity)` emits `xor %ecx,%ecx` in front of *each* call, and both
-a literal and a forwarded variable do so **even when the callee's body is in the
-same /GL scope and the link runs /LTCG**. Retail's two sites set *neither*:
-`ECX` holds a stale value from unrelated code (the flags word at `0x4011EF` for
-the first site, `%edi` from `0x401220` for the second), which is what an
-argument the whole-program pass knows the callee ignores looks like when the
-value already sits in the argument's own register. So the semantic model of
-`0x401110` must reach the address with a call shape that leaves `ECX` alone —
-inline asm over the existing absolute binding (what the naked region does today,
-EXACT), or a first-slot expression already resident in `ECX`. What this landing
-supplies for that work is the real definition plus the header declaration
-(`?Entity_Init@@YIXPAXPAUEntity@@@Z`, verified to be the mangling the header
-produces) and the carved single-region unit any /GL scope can co-compile: in the
-`/GL` + `/LTCG` link built to check this, the region comes out byte-identical to
-retail (273 bytes, same four `pop` positions), so co-compiling it is safe.
+`0x00401110` does **not** land from this change alone. The remaining gap is on
+the caller's side and the two agents who measured it disagree, so both readings
+are recorded here.
+
+Locally, an ordinary C++ call to the declared two-slot signature always
+materialises the dead first slot. Four shapes, all with the maintained flags and
+`Entity_Init(0, entity)`: (1) separate TU, `/GL` both, `link /LTCG`, callee
+`__declspec(noinline)` → `xor %ecx,%ecx` in front of *each* call; (2) the same
+without `noinline`, both symbols `/INCLUDE`-rooted → `xor %ecx,%ecx`; (3) callee
+and caller in one TU as two distinct emitted functions → `xor %ecx,%ecx`; (4)
+callee bound opaquely → `xor %ecx,%ecx`. Retail's two sites at `0x401217` and
+`0x40123B` set *neither* register: `ECX` holds a stale value from unrelated code
+(the flags word from `0x4011EF` at the first site, `%edi` from `0x401220` at the
+second), which is what an argument the whole-program pass knows the callee
+ignores looks like when the value already occupies that register.
+
+`ThreadChain` reports the opposite for the shape it actually builds: with a
+*compiled ABI anchor* for `0x401DE0` whose body is visible in its `/LTCG` link,
+its loader's two sites come out `lea 0x14(%ebx),%esi` / `mov %esi,%edx` /
+`call 0x401de0` with no `xor %ecx,%ecx` and no materialisation; it explained the
+difference as "caller and callee IL in one /GL input". That explanation does not
+reproduce either: a callee and caller compiled as one `/GL` input (callee a
+distinct emitted body, `__declspec(noinline)`, the `call` surviving, literal `0`
+in the first slot) linked with `/LTCG` still emits `xor %ecx,%ecx` before each
+call. The remaining candidate is what `ECX` already holds at the two sites:
+retail's own body has one early `xor %ecx,%ecx` (`0x40113D`) whose zero is still
+in `ECX` at `0x40121C`, so a model whose surrounding code leaves `ECX`
+known-zero would have the per-site setup CSE'd away. Whichever reading is
+right for a given link, the shape that is *guaranteed* to work is a call that
+leaves `ECX` alone — inline asm over the existing absolute binding (what the
+naked region does today, EXACT), or a first-slot expression already resident in
+`ECX`.
+
+`ThreadChain` has decided to keep its own anchor text rather than select this
+unit, precisely because selecting it is the configuration where the
+materialisation was measured; the address, the `_asm_InitializeEntity_00401de0`
+binding and the header declaration are unchanged by that choice.
+
+What this landing supplies for the `0x401110` work is the real definition plus
+the header declaration (`?Entity_Init@@YIXPAXPAUEntity@@@Z`, verified to be the
+mangling the header produces) and the carved single-region unit such a `/GL`
+scope can co-compile: in the `/GL` + `/LTCG` link built to check this, the
+region comes out byte-identical to retail (273 bytes, same four `pop`
+positions), so co-compiling it is safe. The definition stays
+`__declspec(noinline)` (byte-neutral, measured) so that no `/GL` link can inline
+the 273-byte body into a caller that retail calls; a cluster that selects this
+unit can drop it in its own copy of the body if it needs the linker to analyse
+the call instead.
