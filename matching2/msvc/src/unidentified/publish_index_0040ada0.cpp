@@ -1,3 +1,6 @@
+// 0x0040ADA0: publish the strided record selected by an index and stamp that
+// index into the record's +0x3C/+0x40 fields.  The index arrives in EAX and the
+// record in ECX, the pointer-argument pair convention the EAX driver earns.
 struct Indexed_0040ada0 {
     unsigned char pad_000[0x3c];
     unsigned int field_03c;              // +0x03C

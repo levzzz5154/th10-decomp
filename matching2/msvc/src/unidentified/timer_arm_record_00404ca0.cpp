@@ -1,3 +1,10 @@
+// Two timer-arm leaves of one record family, each entered with its record in
+// EAX (a convention no C++ declaration names).  0x00404CA0 arms the record at
+// +0x70 and 0x0043C930 the identical layout at +0x30: while the flag word is
+// not yet running, the four fields take the stopped sentinels, then the three
+// live fields are forced to the -1/0/0 stopped state.  The leading store of the
+// second arm is spelled through a pointer so the scheduler keeps it ahead of the
+// flag load, which retail does and a direct member store does not.
 struct TimerArmRecord_00404ca0 {
     unsigned char pad_000[0x70];
     int field_070;

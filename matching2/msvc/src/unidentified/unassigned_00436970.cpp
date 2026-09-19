@@ -1,71 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00436970..0x004369BA: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00436970() {
-    __asm {
-    L_00436970:
-        mov eax,dword ptr [esi]
-    L_00436972:
-        test eax,eax
-    L_00436974:
-        je short L_00436983
-    L_00436976:
-        push eax
-    L_00436977:
-        call dword ptr [data_00466030]
-    L_0043697d:
-        mov dword ptr [esi],0
-    L_00436983:
-        cmp dword ptr [esi+24h],10h
-    L_00436987:
-        jb short L_0043698e
-    L_00436989:
-        mov eax,dword ptr [esi+10h]
-    L_0043698c:
-        jmp short L_00436991
-    L_0043698e:
-        lea eax,[esi+10h]
-    L_00436991:
-        push eax
-    L_00436992:
-        mov eax,dword ptr [esi+28h]
-    L_00436995:
-        mov ecx,dword ptr [esi+4]
-    L_00436998:
-        push 30h
-    L_0043699a:
-        mov edx,dword ptr [esi+8]
-    L_0043699d:
-        push 0
-    L_0043699f:
-        push 0
-    L_004369a1:
-        push 0
-    L_004369a3:
-        push 1
-    L_004369a5:
-        push 0
-    L_004369a7:
-        push 0
-    L_004369a9:
-        push 0
-    L_004369ab:
-        push eax
-    L_004369ac:
-        push 0
-    L_004369ae:
-        push 0
-    L_004369b0:
-        push ecx
-    L_004369b1:
-        push edx
-    L_004369b2:
-        call dword ptr [data_00466034]
-    L_004369b8:
-        mov dword ptr [esi],eax
-    L_004369ba:
-        ret
+// 0x00436970: close the record's handle and reopen it through the import slot,
+// passing the record's string storage (inline when the capacity is under 0x10).
+extern "C" void (*data_00466030)(void* handle);
+extern "C" int (*data_00466034)(int a1, int a2, int a3, int a4, int a5, int a6, int a7,
+                                int a8, int a9, int a10, int a11, int a12, int a13, const char* a14);
+struct Record_00436970 {
+    void* field_000;
+    int field_004;
+    int field_008;
+    unsigned char pad_00c[4];
+    void* storage_010;
+    unsigned char pad_014[0x10];
+    unsigned int capacity_024;
+    int field_028;
+    __declspec(noinline) void Reopen();
+};
+#pragma code_seg(".text$01accessor")
+void Record_00436970::Reopen() {
+    if (field_000 != 0) {
+        data_00466030(field_000);
+        field_000 = 0;
     }
+    const char* text;
+    if (capacity_024 >= 0x10) {
+        text = (const char*)storage_010;
+    } else {
+        text = (const char*)((unsigned char*)this + 0x10);
+    }
+    field_000 = (void*)data_00466034(field_008, field_004, 0, 0, field_028, 0, 0, 0,
+                                     1, 0, 0, 0, 0x30, text);
 }
+#pragma code_seg()

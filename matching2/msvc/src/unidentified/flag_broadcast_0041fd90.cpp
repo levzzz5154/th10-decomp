@@ -1,6 +1,9 @@
 // 0x0041FD90: if a record is flagged, raise the running bit of three
 // sub-records, clear a global bit, publish a global mode and clear the flag.
 // Both the early exit and the tail return 1, so MSVC merges them into one.
+// The record arrives in EDX (dead leading __fastcall slot).  The global and the
+// record flag are cleared through pointers to their fields so MSVC emits the
+// read-modify-write `and [mem],imm` retail has instead of a load/and/store.
 struct Sub_0041fd90 { unsigned char pad_000[4]; unsigned int flags_004; };
 struct Owner_0041fd90 {
     unsigned char pad_000[0x0C];
@@ -23,12 +26,12 @@ int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record) {
     owner->a_00c->flags_004 |= 2u;
     owner->b_010->flags_004 |= 2u;
     owner->c_89a8->flags_004 |= 2u;
-        unsigned int* global = &data_00491ff4;
-        *global &= 0xFFFFEFFFu;
-        unsigned int* mode = &data_00491fb8;
-        *mode = 4u;
-        unsigned int* flags = &record->flags_000;
-        *flags &= ~2u;
+    unsigned int* global = &data_00491ff4;
+    *global &= 0xFFFFEFFFu;
+    unsigned int* mode = &data_00491fb8;
+    *mode = 4u;
+    unsigned int* flags = &record->flags_000;
+    *flags &= ~2u;
     return 1;
 }
 #pragma code_seg()

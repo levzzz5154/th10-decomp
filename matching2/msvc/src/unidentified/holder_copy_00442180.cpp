@@ -1,3 +1,7 @@
+// 0x00442180: copy the three bytes of a source triple into the +0/+4/+8 fields
+// of a destination record.  Modelled as a method of the SOURCE type, so the
+// natural __thiscall receiver keeps the source in ECX and the whole-program pass
+// promotes the destination argument to EAX, which is retail's register pair.
 struct Holder_00442180 { unsigned int field_000, field_004, field_008; };
 struct Triple_00442180 {
     unsigned char b0, b1, b2;

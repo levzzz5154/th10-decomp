@@ -25179,13 +25179,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00436970",
+      "name": "semantic_Record_00436970_Reopen_00436970",
       "source": "src/unidentified/unassigned_00436970.cpp",
-      "symbol": "_asm_unassigned_00436970",
+      "symbol": "?Reopen@Record_00436970@@QAEXXZ",
       "address": "0x00436970",
       "size": 75,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00436970",
+        "source": "src/unidentified/unassigned_00436970.cpp",
+        "symbol": "_asm_unassigned_00436970",
+        "address": "0x00436970",
+        "size": 75,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004369bb",
@@ -27617,13 +27626,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043b840",
+      "name": "semantic_Record_0043b840_Renew_0043b840",
       "source": "src/unidentified/unassigned_0043b840.cpp",
-      "symbol": "_asm_unassigned_0043b840",
+      "symbol": "?Renew@Record_0043b840@@QAEXXZ",
       "address": "0x0043B840",
       "size": 65,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0043b840",
+        "source": "src/unidentified/unassigned_0043b840.cpp",
+        "symbol": "_asm_unassigned_0043b840",
+        "address": "0x0043B840",
+        "size": 65,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0043b881",
@@ -52881,7 +52899,9 @@
     "layout/ltcg/publish_index_0040ada0.json",
     "layout/ltcg/record_links_0042.json",
     "layout/ltcg/timer_arm_float_00405450.json",
-    "layout/ltcg/flag_broadcast_0041fd90.json"
+    "layout/ltcg/flag_broadcast_0041fd90.json",
+    "layout/ltcg/renew_0043b840.json",
+    "layout/ltcg/reopen_00436970.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
