@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "acc_00417730",
+  "source": "src/unidentified/unassigned_00417730.cpp",
+  "driver": "layout/ltcg/acc_00417730_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "store the double argument at +0x24 and return it",
+  "functions": [
+    {
+      "name": "ObjectAccessor_00417730_StoreValue",
+      "symbol": "?StoreValue@ObjectAccessor_00417730@@QAENN@Z",
+      "section": ".text$01accessor",
+      "address": "0x00417730",
+      "size": 10,
+      "actual_abi": "object in EAX; double argument on the stack; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorContext_00417730@@YGHPAPAUObjectAccessor_00417730@@HN@Z",
+    "section": ".text$03context",
+    "address": "0x00417750",
+    "size": 46,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 91952
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041773A",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": []
+}

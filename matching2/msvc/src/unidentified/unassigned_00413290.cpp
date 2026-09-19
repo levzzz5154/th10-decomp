@@ -1,15 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00413290: one signed random value scaled by the retail constant at 0x470B18.
+// The receiver in ECX is handed straight to the generator at 0x44BB90.
 
-// 0x00413290..0x0041329B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00413290() {
-    __asm {
-    L_00413290:
-        call asm_Rng_NextFloatSigned_0044bb90
-    L_00413295:
-        fmul dword ptr [data_00470b18]
-    L_0041329b:
-        ret
-    }
+struct RngState;
+
+struct ObjectAccessor_00413290 {
+    __declspec(noinline) float LoadValue() const;
+};
+
+float __fastcall Rng_NextFloatSigned(RngState* state);
+extern "C" float data_00470b18;
+
+float ObjectAccessor_00413290::LoadValue() const {
+    return Rng_NextFloatSigned((RngState*)this) * data_00470b18;
 }

@@ -1,11 +1,4 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0041BEF0..0x0041BEF0: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041bef0() {
-    __asm {
-    L_0041bef0:
-        ret
-    }
+// 0x0041BEF0: empty function. Retail's complete body is a single RET -- the
+// tail an override whose work the whole-program pass removed leaves.
+extern "C" void __cdecl asm_unassigned_0041bef0(void) {
 }

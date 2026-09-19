@@ -1,43 +1,34 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418CC0: clear bit 0, latch it and reload the retail defaults
+// The object pointer arrives in EAX, a convention only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x00418CC0..0x00418CFE: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00418cc0() {
-    __asm {
-    L_00418cc0:
-        mov ecx,dword ptr [eax+24h]
-    L_00418cc3:
-        and ecx,0FFFFFFFEh
-    L_00418cc6:
-        xor edx,edx
-    L_00418cc8:
-        test cl,1
-    L_00418ccb:
-        mov dword ptr [eax+24h],ecx
-    L_00418cce:
-        jne short L_00418cea
-    L_00418cd0:
-        or ecx,1
-    L_00418cd3:
-        mov dword ptr [eax+18h],edx
-    L_00418cd6:
-        mov dword ptr [eax+14h],0FFF0BDC1h
-    L_00418cdd:
-        mov dword ptr [eax+1Ch],edx
-    L_00418ce0:
-        mov dword ptr [eax+20h],476F78h
-    L_00418ce7:
-        mov dword ptr [eax+24h],ecx
-    L_00418cea:
-        mov dword ptr [eax+18h],edx
-    L_00418ced:
-        mov dword ptr [eax+1Ch],edx
-    L_00418cf0:
-        mov dword ptr [eax+14h],0FFFFFFFFh
-    L_00418cf7:
-        mov dword ptr [eax+34h],1
-    L_00418cfe:
-        ret
+struct ObjectAccessor_00418cc0 {
+    unsigned char pad_000[0x14];
+    int field_014;   // +0x14
+    int field_018;   // +0x18
+    int field_01C;   // +0x1C
+    int field_020;   // +0x20
+    unsigned int field_024;  // +0x24
+    unsigned char pad_028[0x34 - 0x28];
+    int field_034;   // +0x34
+};
+
+__declspec(noinline) void Reset_00418cc0(ObjectAccessor_00418cc0* object);
+#pragma code_seg(".text$01accessor")
+void Reset_00418cc0(ObjectAccessor_00418cc0* object) {
+    unsigned int value = object->field_024 & ~1u;
+    object->field_024 = value;
+    if ((value & 1u) == 0) {
+        value |= 1u;
+        object->field_018 = 0;
+        object->field_014 = 0xFFF0BDC1;
+        object->field_01C = 0;
+        object->field_020 = 0x476F78;
+        object->field_024 = value;
     }
+    object->field_018 = 0;
+    object->field_01C = 0;
+    object->field_014 = 0xFFFFFFFF;
+    object->field_034 = 1;
 }
+#pragma code_seg()

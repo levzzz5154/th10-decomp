@@ -1,41 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004131C0: unlink the node and clear its two links
+// The register convention below is only reachable from a native LTCG link,
+// so this region is compiled as a cluster.
 
-// 0x004131C0..0x004131E4: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004131c0() {
-    __asm {
-    L_004131c0:
-        mov ecx,dword ptr [eax+4]
-    L_004131c3:
-        xor edx,edx
-    L_004131c5:
-        cmp ecx,edx
-    L_004131c7:
-        push esi
-    L_004131c8:
-        je short L_004131d0
-    L_004131ca:
-        mov esi,dword ptr [eax+8]
-    L_004131cd:
-        mov dword ptr [ecx+8],esi
-    L_004131d0:
-        mov ecx,dword ptr [eax+8]
-    L_004131d3:
-        cmp ecx,edx
-    L_004131d5:
-        je short L_004131dd
-    L_004131d7:
-        mov esi,dword ptr [eax+4]
-    L_004131da:
-        mov dword ptr [ecx+4],esi
-    L_004131dd:
-        mov dword ptr [eax+4],edx
-    L_004131e0:
-        mov dword ptr [eax+8],edx
-    L_004131e3:
-        pop esi
-    L_004131e4:
-        ret
+struct Node_004131c0 {
+    unsigned char pad_000[0x04];
+    Node_004131c0* prev;   // +0x04
+    Node_004131c0* next;   // +0x08
+    __declspec(noinline) void Remove();
+};
+#pragma code_seg(".text$01accessor")
+void Node_004131c0::Remove() {
+    if (prev) {
+        prev->next = next;
     }
+    if (next) {
+        next->prev = prev;
+    }
+    prev = 0;
+    next = 0;
 }
+#pragma code_seg()

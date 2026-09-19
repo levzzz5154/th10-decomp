@@ -1,27 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041fd50: scalar deleting destructor. Retail keeps the object in ESI and the
+// delete flag in the first stack argument, so this body is a cluster whose
+// synthetic caller walks an array of the objects.
 
-// 0x0041FD50..0x0041FD6A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041fd50() {
-    __asm {
-    L_0041fd50:
-        push esi
-    L_0041fd51:
-        call asm_FUN_0041fb50_0041fb50
-    L_0041fd56:
-        test byte ptr [esp+4],1
-    L_0041fd5b:
-        je short L_0041fd66
-    L_0041fd5d:
-        push esi
-    L_0041fd5e:
-        call asm_free_004524a1
-    L_0041fd63:
-        add esp,4
-    L_0041fd66:
-        mov eax,esi
-    L_0041fd68:
-        ret 4
-    }
+struct OwnedObject_0041fd50;
+extern "C" void asm_FUN_0041fb50_0041fb50(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+__declspec(noinline) void* DestroyOwned_DeletingDestructor_0041fd50(OwnedObject_0041fd50* object, unsigned int flags);
+#pragma code_seg(".text$01delete0041fd50")
+void* DestroyOwned_DeletingDestructor_0041fd50(OwnedObject_0041fd50* object, unsigned int flags) {
+    asm_FUN_0041fb50_0041fb50(object);
+    if (flags & 1) entry_free_004524a1(object);
+    return object;
 }
+#pragma code_seg()

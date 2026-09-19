@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412F50: set bit 0 of the word at +0x28
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00412F50..0x00412F54: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00412f50() {
-    __asm {
-    L_00412f50:
-        or dword ptr [eax+28h],1
-    L_00412f54:
-        ret
-    }
+struct ObjectAccessor_00412f50 {
+    unsigned char pad_000[0x28];
+    unsigned int field_028;
+    __declspec(noinline) void SetFlag();
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00412f50::SetFlag() {
+    field_028 |= 1u;
 }
+#pragma code_seg()

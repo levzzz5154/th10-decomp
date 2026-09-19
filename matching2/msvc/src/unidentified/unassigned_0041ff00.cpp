@@ -1,33 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041FF00: mark the three owned slots with bit 1
+// The leading parameter arrives in EAX, a convention only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x0041FF00..0x0041FF21: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041ff00() {
-    __asm {
-    L_0041ff00:
-        mov ecx,dword ptr [eax+0Ch]
-    L_0041ff03:
-        push esi
-    L_0041ff04:
-        mov esi,dword ptr [ecx+4]
-    L_0041ff07:
-        mov edx,2
-    L_0041ff0c:
-        or esi,edx
-    L_0041ff0e:
-        mov dword ptr [ecx+4],esi
-    L_0041ff11:
-        mov ecx,dword ptr [eax+10h]
-    L_0041ff14:
-        or dword ptr [ecx+4],edx
-    L_0041ff17:
-        mov eax,dword ptr [eax+89A8h]
-    L_0041ff1d:
-        or dword ptr [eax+4],edx
-    L_0041ff20:
-        pop esi
-    L_0041ff21:
-        ret
-    }
+struct Flagged_0041ff00 {
+    unsigned char pad_000[0x04];
+    unsigned int flags;
+};
+
+struct ObjectAccessor_0041ff00 {
+    unsigned char pad_000[0x0C];
+    Flagged_0041ff00* first;
+    Flagged_0041ff00* second;
+    unsigned char pad_014[0x89A8 - 0x14];
+    Flagged_0041ff00* third;
+};
+
+void __declspec(noinline) Mark_0041ff00(ObjectAccessor_0041ff00* object);
+#pragma code_seg(".text$01accessor")
+void Mark_0041ff00(ObjectAccessor_0041ff00* object) {
+    object->first->flags |= 2u;
+    object->second->flags |= 2u;
+    object->third->flags |= 2u;
 }
+#pragma code_seg()

@@ -1,15 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004189F0: increment the counters at +0x48 and +0x4C
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x004189F0..0x004189F6: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004189f0() {
-    __asm {
-    L_004189f0:
-        inc dword ptr [eax+48h]
-    L_004189f3:
-        inc dword ptr [eax+4Ch]
-    L_004189f6:
-        ret
-    }
+struct ObjectAccessor_004189f0 {
+    unsigned char pad_000[0x48];
+    int field_048;
+    int field_04C;
+    __declspec(noinline) void IncrementCounters();
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_004189f0::IncrementCounters() {
+    ++field_048;
+    ++field_04C;
 }
+#pragma code_seg()

@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00417730: store the double argument at +0x24 and return it
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00417730..0x00417739: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00417730() {
-    __asm {
-    L_00417730:
-        fld qword ptr [esp+4]
-    L_00417734:
-        fst qword ptr [eax+24h]
-    L_00417737:
-        ret 8
-    }
+#pragma pack(push, 1)
+struct ObjectAccessor_00417730 {
+    unsigned char pad_000[0x24];
+    double field_024;
+    __declspec(noinline) double StoreValue(double value);
+};
+#pragma pack(pop)
+
+#pragma code_seg(".text$01accessor")
+double ObjectAccessor_00417730::StoreValue(double value) {
+    field_024 = value;
+    return value;
 }
+#pragma code_seg()

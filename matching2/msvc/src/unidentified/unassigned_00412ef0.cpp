@@ -1,33 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412EF0: squared distance to the other vector
+// The register convention below is only reachable from a native LTCG link,
+// so this region is compiled as a cluster.
 
-// 0x00412EF0..0x00412F08: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00412ef0() {
-    __asm {
-    L_00412ef0:
-        fld dword ptr [ecx+4]
-    L_00412ef3:
-        fsub dword ptr [eax+4]
-    L_00412ef6:
-        fld dword ptr [ecx]
-    L_00412ef8:
-        fsub dword ptr [eax]
-    L_00412efa:
-        fld st(0)
-    L_00412efc:
-        fmul st,st(1)
-    L_00412efe:
-        fld st(2)
-    L_00412f00:
-        fmul st,st(3)
-    L_00412f02:
-        faddp st(1),st
-    L_00412f04:
-        fstp st(2)
-    L_00412f06:
-        fstp st(0)
-    L_00412f08:
-        ret
-    }
+struct Vector2_00412ef0 {
+    float x;
+    float y;
+    __declspec(noinline) float DistanceSquared(const Vector2_00412ef0* other) const;
+};
+#pragma code_seg(".text$01accessor")
+float Vector2_00412ef0::DistanceSquared(const Vector2_00412ef0* other) const {
+    float dy = y - other->y;
+    float dx = x - other->x;
+    return dx * dx + dy * dy;
 }
+#pragma code_seg()

@@ -1,17 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412790: store a value into the indexed sixteen-byte record
+// The register convention below is only reachable from a native LTCG link,
+// so this region is compiled as a cluster.
 
-// 0x00412790..0x0041279B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00412790() {
-    __asm {
-    L_00412790:
-        add eax,24Ah
-    L_00412795:
-        shl eax,4
-    L_00412798:
-        mov dword ptr [eax+ecx],edx
-    L_0041279b:
-        ret
-    }
+__declspec(noinline) void SetRecord_00412790(unsigned int value, int index, void* base);
+#pragma code_seg(".text$01accessor")
+void SetRecord_00412790(unsigned int value, int index, void* base) {
+    *(unsigned int*)((char*)base + (index + 0x24A) * 16) = value;
 }
+#pragma code_seg()

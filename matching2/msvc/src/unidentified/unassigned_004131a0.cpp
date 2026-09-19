@@ -1,17 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004131A0: test bit 3 of the word at +0x60
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x004131A0..0x004131A9: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004131a0() {
-    __asm {
-    L_004131a0:
-        mov eax,dword ptr [eax+60h]
-    L_004131a3:
-        shr eax,3
-    L_004131a6:
-        and eax,1
-    L_004131a9:
-        ret
-    }
+struct ObjectAccessor_004131a0 {
+    unsigned char pad_000[0x60];
+    unsigned int field_060;
+    __declspec(noinline) unsigned int LoadFlag() const;
+};
+
+#pragma code_seg(".text$01accessor")
+unsigned int ObjectAccessor_004131a0::LoadFlag() const {
+    return (field_060 >> 3) & 1u;
 }
+#pragma code_seg()

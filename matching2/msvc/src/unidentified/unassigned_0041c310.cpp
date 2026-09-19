@@ -1,25 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041c310: release an owned object and free it. Retail keeps the object in ESI.
 
-// 0x0041C310..0x0041C321: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041c310() {
-    __asm {
-    L_0041c310:
-        test esi,esi
-    L_0041c312:
-        je short L_0041c321
-    L_0041c314:
-        push esi
-    L_0041c315:
-        call asm_ScoreExtendedObject_DestroyRetail_0041c1c0
-    L_0041c31a:
-        push esi
-    L_0041c31b:
-        call asm_free_004524a1
-    L_0041c320:
-        pop ecx
-    L_0041c321:
-        ret
+struct OwnedObject_0041c310;
+extern "C" void asm_ScoreExtendedObject_DestroyRetail_0041c1c0(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+__declspec(noinline) void ReleaseOwned_0041c310(OwnedObject_0041c310* object);
+#pragma code_seg(".text$01release0041c310")
+void ReleaseOwned_0041c310(OwnedObject_0041c310* object) {
+    if (object) {
+        asm_ScoreExtendedObject_DestroyRetail_0041c1c0(object);
+        entry_free_004524a1(object);
     }
 }
+#pragma code_seg()

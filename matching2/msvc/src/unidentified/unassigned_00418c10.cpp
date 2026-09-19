@@ -1,17 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418C10: clear the counters at +0x48 and +0x4C
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00418C10..0x00418C18: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00418c10() {
-    __asm {
-    L_00418c10:
-        xor ecx,ecx
-    L_00418c12:
-        mov dword ptr [eax+48h],ecx
-    L_00418c15:
-        mov dword ptr [eax+4Ch],ecx
-    L_00418c18:
-        ret
-    }
+struct ObjectAccessor_00418c10 {
+    unsigned char pad_000[0x48];
+    int field_048;
+    int field_04C;
+    __declspec(noinline) void ClearCounters();
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00418c10::ClearCounters() {
+    field_048 = 0;
+    field_04C = 0;
 }
+#pragma code_seg()

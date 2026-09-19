@@ -1,21 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004189E0: clear the four state words at +0x4C..+0x58
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x004189E0..0x004189EE: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004189e0() {
-    __asm {
-    L_004189e0:
-        xor ecx,ecx
-    L_004189e2:
-        mov dword ptr [eax+50h],ecx
-    L_004189e5:
-        mov dword ptr [eax+54h],ecx
-    L_004189e8:
-        mov dword ptr [eax+4Ch],ecx
-    L_004189eb:
-        mov dword ptr [eax+58h],ecx
-    L_004189ee:
-        ret
-    }
+struct ObjectAccessor_004189e0 {
+    unsigned char pad_000[0x4C];
+    int field_04C;
+    int field_050;
+    int field_054;
+    int field_058;
+    __declspec(noinline) void ClearState();
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_004189e0::ClearState() {
+    field_050 = 0;
+    field_054 = 0;
+    field_04C = 0;
+    field_058 = 0;
 }
+#pragma code_seg()

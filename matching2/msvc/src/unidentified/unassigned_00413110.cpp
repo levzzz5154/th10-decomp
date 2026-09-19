@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00413110: load the float field at +0x00
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00413110..0x00413112: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00413110() {
-    __asm {
-    L_00413110:
-        fld dword ptr [eax]
-    L_00413112:
-        ret
-    }
+struct ObjectAccessor_00413110 {
+    float field_000;
+    __declspec(noinline) float LoadValue() const;
+};
+
+#pragma code_seg(".text$01accessor")
+float ObjectAccessor_00413110::LoadValue() const {
+    return field_000;
 }
+#pragma code_seg()

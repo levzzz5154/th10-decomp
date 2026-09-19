@@ -1,29 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004132A0: clear the thirty-five-word block, latch bit 1 and publish it as the
+// current global block. The block arrives in EDX, which only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x004132A0..0x004132B8: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004132a0() {
-    __asm {
-    L_004132a0:
-        push edi
-    L_004132a1:
-        xor eax,eax
-    L_004132a3:
-        mov ecx,23h
-    L_004132a8:
-        mov edi,edx
-    L_004132aa:
-        rep stosd
-    L_004132ac:
-        or dword ptr [edx],2
-    L_004132af:
-        mov dword ptr [data_00477708],edx
-    L_004132b5:
-        mov eax,edx
-    L_004132b7:
-        pop edi
-    L_004132b8:
-        ret
-    }
+#include <string.h>
+
+struct Block_004132a0 {
+    unsigned int flags;                    // +0x00
+    unsigned int words[0x23 - 1];          // +0x04
+};
+
+extern "C" Block_004132a0* data_00477708;
+
+__declspec(noinline) Block_004132a0* InitBlock_004132a0(Block_004132a0* block);
+#pragma code_seg(".text$01accessor")
+Block_004132a0* InitBlock_004132a0(Block_004132a0* block) {
+    memset(block, 0, 0x8C);
+    block->flags |= 2u;
+    data_00477708 = block;
+    return block;
 }
+#pragma code_seg()

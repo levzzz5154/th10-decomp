@@ -1,19 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004137F0: complement bit 4 of the word at +0x2480
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x004137F0..0x004137FE: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004137f0() {
-    __asm {
-    L_004137f0:
-        mov eax,dword ptr [eax+2480h]
-    L_004137f6:
-        shr eax,4
-    L_004137f9:
-        not eax
-    L_004137fb:
-        and eax,1
-    L_004137fe:
-        ret
-    }
+struct ObjectAccessor_004137f0 {
+    unsigned char pad_000[0x2480];
+    unsigned int field_2480;
+    __declspec(noinline) unsigned int LoadFlag() const;
+};
+
+#pragma code_seg(".text$01accessor")
+unsigned int ObjectAccessor_004137f0::LoadFlag() const {
+    return ~(field_2480 >> 4) & 1u;
 }
+#pragma code_seg()

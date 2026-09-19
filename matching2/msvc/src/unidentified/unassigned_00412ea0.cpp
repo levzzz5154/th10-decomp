@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412EA0: load the sign-extended object field at +0x38A.
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00412EA0..0x00412EA7: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00412ea0() {
-    __asm {
-    L_00412ea0:
-        movsx eax,word ptr [eax+38Ah]
-    L_00412ea7:
-        ret
-    }
+struct ObjectAccessor_00412ea0 {
+    unsigned char pad_000[0x38A];
+    short field_38A;
+    __declspec(noinline) int LoadValue() const;
+};
+
+#pragma code_seg(".text$01accessor")
+int ObjectAccessor_00412ea0::LoadValue() const {
+    return field_38A;
 }
+#pragma code_seg()

@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00417630: return the address of the field block at +0x2FC
+// The leading parameter arrives in EAX, a convention only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x00417630..0x00417635: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00417630() {
-    __asm {
-    L_00417630:
-        add eax,2FCh
-    L_00417635:
-        ret
-    }
+struct ObjectAccessor_00417630 {
+    unsigned char pad_000[0x2FC];
+};
+
+__declspec(noinline) char* Offset_00417630(ObjectAccessor_00417630* object);
+#pragma code_seg(".text$01accessor")
+char* Offset_00417630(ObjectAccessor_00417630* object) {
+    return (char*)object + 0x2FC;
 }
+#pragma code_seg()

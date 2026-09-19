@@ -1,23 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418B10: assign bit 0 of the word at +0x60 from the argument
+// The object pointer arrives in EAX, which only a native LTCG link chooses, so
+// this region is compiled as a cluster.
 
-// 0x00418B10..0x00418B20: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00418b10() {
-    __asm {
-    L_00418b10:
-        mov ecx,dword ptr [eax+60h]
-    L_00418b13:
-        xor ecx,edx
-    L_00418b15:
-        mov edx,dword ptr [eax+60h]
-    L_00418b18:
-        and ecx,1
-    L_00418b1b:
-        xor edx,ecx
-    L_00418b1d:
-        mov dword ptr [eax+60h],edx
-    L_00418b20:
-        ret
-    }
+struct ObjectAccessor_00418b10 {
+    unsigned char pad_000[0x60];
+    unsigned int field_060;
+    __declspec(noinline) void SetBit0(unsigned int mask);
+};
+
+#pragma code_seg(".text$01accessor")
+void ObjectAccessor_00418b10::SetBit0(unsigned int mask) {
+    field_060 = (field_060 & ~1u) | (mask & 1u);
 }
+#pragma code_seg()

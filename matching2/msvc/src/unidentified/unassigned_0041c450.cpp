@@ -1,43 +1,37 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041C450: dispatch every list entry that is not the primary kind
+// The register convention below is only reachable from a native LTCG link,
+// so this region is compiled as a cluster.
 
-// 0x0041C450..0x0041C47A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041c450() {
-    __asm {
-    L_0041c450:
-        mov ecx,dword ptr [eax+18h]
-    L_0041c453:
-        test ecx,ecx
-    L_0041c455:
-        je short L_0041c475
-    L_0041c457:
-        push esi
-    L_0041c458:
-        jmp short L_0041c460
-    L_0041c45a:
-        lea ebx,[ebx+force_disp32_zero]
-    L_0041c460:
-        cmp dword ptr [ecx+0Ch],1
-    L_0041c464:
-        mov esi,dword ptr [ecx+8]
-    L_0041c467:
-        je short L_0041c46e
-    L_0041c469:
-        mov edx,dword ptr [ecx]
-    L_0041c46b:
-        call dword ptr [edx+0Ch]
-    L_0041c46e:
-        test esi,esi
-    L_0041c470:
-        mov ecx,esi
-    L_0041c472:
-        jne short L_0041c460
-    L_0041c474:
-        pop esi
-    L_0041c475:
-        mov eax,1
-    L_0041c47a:
-        ret
+struct Item_0041c450 {
+    virtual void Slot00();
+    virtual void Slot01();
+    virtual void Slot02();
+    virtual void Slot03();
+    unsigned char pad_004[0x08 - 0x04];
+    Item_0041c450* next;   // +0x08
+    int kind;                                               // +0x0C
+};
+
+struct ObjectAccessor_0041c450 {
+    unsigned char pad_000[0x18];
+    Item_0041c450* head;    // +0x18
+};
+
+__declspec(noinline) void Slot03() {}
+
+__declspec(noinline) int Process_0041c450(ObjectAccessor_0041c450* object);
+#pragma code_seg(".text$01accessor")
+int Process_0041c450(ObjectAccessor_0041c450* object) {
+    Item_0041c450* item = object->head;
+    if (item != 0) {
+        do {
+            Item_0041c450* next = item->next;
+            if (item->kind != 1) {
+                item->Slot03();
+            }
+            item = next;
+        } while (item != 0);
     }
+    return 1;
 }
+#pragma code_seg()

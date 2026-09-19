@@ -1,27 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004148c0: scalar deleting destructor. Retail keeps the object in ESI and the
+// delete flag in the first stack argument, so this body is a cluster whose
+// synthetic caller walks an array of the objects.
 
-// 0x004148C0..0x004148DA: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004148c0() {
-    __asm {
-    L_004148c0:
-        push esi
-    L_004148c1:
-        call asm_FUN_004145f0_004145f0
-    L_004148c6:
-        test byte ptr [esp+4],1
-    L_004148cb:
-        je short L_004148d6
-    L_004148cd:
-        push esi
-    L_004148ce:
-        call asm_free_004524a1
-    L_004148d3:
-        add esp,4
-    L_004148d6:
-        mov eax,esi
-    L_004148d8:
-        ret 4
-    }
+struct OwnedObject_004148c0;
+extern "C" void asm_FUN_004145f0_004145f0(void* object);
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+__declspec(noinline) void* ReleaseComposite_DeletingDestructor_004148c0(OwnedObject_004148c0* object, unsigned int flags);
+#pragma code_seg(".text$01delete004148c0")
+void* ReleaseComposite_DeletingDestructor_004148c0(OwnedObject_004148c0* object, unsigned int flags) {
+    asm_FUN_004145f0_004145f0(object);
+    if (flags & 1) entry_free_004524a1(object);
+    return object;
 }
+#pragma code_seg()

@@ -1,41 +1,34 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041AAD0: walk the bucket selected by the global index at 0x474C7C and
+// retire one count from each element's counter at +0x70.
 
-// 0x0041AAD0..0x0041AAF6: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041aad0() {
-    __asm {
-    L_0041aad0:
-        mov eax,dword ptr [data_00474c7c]
-    L_0041aad5:
-        lea eax,[eax+eax*2]
-    L_0041aad8:
-        mov eax,dword ptr [ecx+eax*4+7Ch]
-    L_0041aadc:
-        test eax,eax
-    L_0041aade:
-        je short L_0041aaf6
-    L_0041aae0:
-        mov edx,dword ptr [eax+4]
-    L_0041aae3:
-        mov eax,dword ptr [eax]
-    L_0041aae5:
-        mov ecx,dword ptr [eax+70h]
-    L_0041aae8:
-        test ecx,ecx
-    L_0041aaea:
-        jle short L_0041aaf0
-    L_0041aaec:
-        dec ecx
-    L_0041aaed:
-        mov dword ptr [eax+70h],ecx
-    L_0041aaf0:
-        test edx,edx
-    L_0041aaf2:
-        mov eax,edx
-    L_0041aaf4:
-        jne short L_0041aae0
-    L_0041aaf6:
-        ret
+struct Chain_0041aad0 {
+    Chain_0041aad0* inner;               // +0x00
+    Chain_0041aad0* next;                // +0x04
+    unsigned char pad_008[0x70 - 0x08];
+    int count;                           // +0x70
+};
+
+struct Entry_0041aad0 {
+    Chain_0041aad0* head;                // +0x00
+    unsigned int reserved[2];
+};
+
+struct ObjectAccessor_0041aad0 {
+    unsigned char pad_000[0x7C];
+    Entry_0041aad0 entries[];            // +0x7C, stride 12
+    __declspec(noinline) void RetireCounts();
+};
+
+extern "C" int data_00474c7c;
+
+void ObjectAccessor_0041aad0::RetireCounts() {
+    Chain_0041aad0* node = entries[data_00474c7c].head;
+    while (node) {
+        Chain_0041aad0* next = node->next;
+        Chain_0041aad0* inner = node->inner;
+        if (inner->count > 0) {
+            --inner->count;
+        }
+        node = next;
     }
 }

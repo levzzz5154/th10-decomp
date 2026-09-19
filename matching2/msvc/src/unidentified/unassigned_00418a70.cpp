@@ -1,31 +1,27 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00418A70: clear bit 1 of the two owned flag words
+// The leading parameter arrives in EAX, a convention only a native LTCG link
+// chooses, so this region is compiled as a cluster.
 
-// 0x00418A70..0x00418A8E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00418a70() {
-    __asm {
-    L_00418a70:
-        mov ecx,dword ptr [eax+1CCh]
-    L_00418a76:
-        test ecx,ecx
-    L_00418a78:
-        mov edx,0FFFFFFFDh
-    L_00418a7d:
-        je short L_00418a82
-    L_00418a7f:
-        and dword ptr [ecx+4],edx
-    L_00418a82:
-        mov ecx,dword ptr [eax+0Ch]
-    L_00418a85:
-        test ecx,ecx
-    L_00418a87:
-        je short L_00418a8e
-    L_00418a89:
-        mov eax,ecx
-    L_00418a8b:
-        and dword ptr [eax+4],edx
-    L_00418a8e:
-        ret
+struct Flagged_00418a70 {
+    unsigned char pad_000[0x04];
+    unsigned int flags;
+};
+
+struct ObjectAccessor_00418a70 {
+    unsigned char pad_000[0x0C];
+    Flagged_00418a70* low;
+    unsigned char pad_010[0x1CC - 0x10];
+    Flagged_00418a70* high;
+};
+
+void __declspec(noinline) ClearFlags_00418a70(ObjectAccessor_00418a70* object);
+#pragma code_seg(".text$01accessor")
+void ClearFlags_00418a70(ObjectAccessor_00418a70* object) {
+    if (object->high) {
+        object->high->flags &= ~2u;
+    }
+    if (object->low) {
+        object->low->flags &= ~2u;
     }
 }
+#pragma code_seg()
