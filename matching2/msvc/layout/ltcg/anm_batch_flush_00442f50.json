@@ -172,6 +172,15 @@
    "actual_abi": "EAX manager; EDX vertices; plain RET"
   },
   {
+   "name": "BuildAnchoredQuad_00443290",
+   "source": "src/render/anchored_quad_build_00443290.cpp",
+   "symbol": "_EntityDraw_00443290@8",
+   "section": ".text$06b02z00build",
+   "address": "0x443290",
+   "size": 486,
+   "actual_abi": "entity in EAX; manager on the stack; RET 4"
+  },
+  {
    "name": "BuildRotatedQuad_004436c0",
    "source": "src/render/quad_build_rotated.cpp",
    "symbol": "_BuildRotatedQuad_004436c0@8",
@@ -414,9 +423,9 @@
    "size": 472
   },
   {
-   "section": ".text$06b02zgap",
-   "address": "0x4432a0",
-   "size": 1056
+   "section": ".text$06b02z00buildz",
+   "address": "0x443476",
+   "size": 586
   },
   {
    "section": ".text$06b03rotquadz",
@@ -708,6 +717,7 @@
   "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
   "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
   "src/platform/fun_00439390_00439390.cpp",
+  "src/render/anchored_quad_build_00443290.cpp",
   "src/render/animation_color_multiply_channel_004423c0.cpp",
   "src/render/anm_batch_flush.cpp",
   "src/render/anm_distance_color.cpp",
@@ -793,13 +803,6 @@
    "section": ".text$06b01anchor",
    "address": "0x443080",
    "size": 56
-  },
-  {
-   "name": "EntityDraw_00443290_abi_anchor",
-   "symbol": "_EntityDraw_00443290@8",
-   "section": ".text$06b02anchor",
-   "address": "0x443290",
-   "size": 16
   },
   {
    "name": "BillboardSource_BuildProjectedQuad_00443b60_abi_anchor",

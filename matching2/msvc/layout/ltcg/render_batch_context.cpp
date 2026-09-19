@@ -71,13 +71,6 @@ extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, An
 }
 #pragma code_seg()
 
-#pragma code_seg(".text$06b02anchor")
-extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity, AnimationManager_00442F50* manager) {
-    entry_free_004524a1(entity);
-    return (int)(size_t)manager;
-}
-#pragma code_seg()
-
 // 0x00443B60's billboard projection enters with the entity in EAX and no
 // arguments; 0x00444240's quad projection enters with the entity in EAX and the
 // manager on the stack.  The two real bodies are recovered in other clusters,
