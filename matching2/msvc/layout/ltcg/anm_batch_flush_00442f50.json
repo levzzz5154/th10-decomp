@@ -260,6 +260,24 @@
       "address": "0x00409230",
       "size": 50,
       "actual_abi": "this in ECX; manager in ECX and VM in EAX at both calls; plain RET"
+    },
+    {
+      "name": "BuildRotatedQuad_004436c0",
+      "source": "src/render/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "section": ".text$06b03rotquad",
+      "address": "0x4436C0",
+      "size": 591,
+      "actual_abi": "manager in ECX; entity in EDX; plain RET"
+    },
+    {
+      "name": "BuildRotatedQuadAlt_00443910",
+      "source": "src/render/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "section": ".text$06b04rotquad",
+      "address": "0x443910",
+      "size": 591,
+      "actual_abi": "manager in ECX; entity in EDX; plain RET"
     }
   ],
   "gaps": [
@@ -371,7 +389,17 @@
     {
       "section": ".text$06b02zgap",
       "address": "0x4432a0",
-      "size": 3296
+      "size": 1056
+    },
+    {
+      "section": ".text$06b03rotquadz",
+      "address": "0x44390f",
+      "size": 1
+    },
+    {
+      "section": ".text$06b04rotquadz",
+      "address": "0x443b5f",
+      "size": 1057
     },
     {
       "section": ".text$06b05zgap",
@@ -590,16 +618,6 @@
       "symbol": "_data_004660ac",
       "address": "0x004660AC",
       "kind": "data"
-    },
-    {
-      "symbol": "@QuadDrawChecked_004436c0@8",
-      "address": "0x004436C0",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "@QuadDrawCheckedAlt_00443910@8",
-      "address": "0x00443910",
-      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -615,6 +633,7 @@
     "src/render/camera_setup.cpp",
     "src/render/default_viewport.cpp",
     "src/render/edge_strip_draw.cpp",
+    "src/render/quad_build_rotated.cpp",
     "src/render/quad_vertex_append.cpp",
     "src/render/rect_fan_draw.cpp",
     "src/render/render_stage_select.cpp",
@@ -658,6 +677,16 @@
       "symbol": "__real@4f800000",
       "address": "0x00470B98",
       "value": 4294967296.0
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    },
+    {
+      "symbol": "__real@bf000000",
+      "address": "0x00470B78",
+      "value": -0.5
     }
   ],
   "anchors": [

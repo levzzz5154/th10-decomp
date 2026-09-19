@@ -11,7 +11,7 @@
 // compiler tail-merges them into retail's single `or eax,-1; ret` block, and it
 // keeps ESI and EDI because the case bodies use them as argument registers.
 //
-// Nine of the ten case targets are still assembly, and each one enters on
+// Eight of the ten case targets are still assembly, and each one enters on
 // registers no MSVC declaration names (EAX, EDX, ESI, EDI or the stack), so
 // each is compiled into this cluster as a compiled ABI anchor placed at its
 // retail address by the layout's gaps: see the dispatcher anchor block in
@@ -30,11 +30,11 @@
 // Two declaration-level levers shape the remaining marshalling:
 //
 //   * 0x004436C0 and 0x00443910 enter on (ECX manager, EDX entity) and are
-//     reached with a tail jump, so they are declared __fastcall.  Retail moves
-//     the entity from EAX to EDX at each site (`mov edx,eax; jmp`) and so does
-//     this model.  Anchoring them instead lets the pass hand them the entry
-//     pair itself, and declaring them with a call convention makes the pass
-//     re-home the dispatcher's own entity in EDX.
+//     reached with a tail jump.  Both are recovered definitions in this same
+//     link now (src/render/quad_build_rotated.cpp), so the pass derives that
+//     pair from their bodies and emits retail's `mov edx,eax; jmp` while the
+//     declarations here carry no convention at all.  While they were assembly
+//     the caller needed an explicit __fastcall to move the entity into EDX.
 //
 //   * 0x00444580 and 0x00443FB0 enter on (ESI entity, EDI manager) and
 //     (EDI entity, ESI manager), which no convention names; the pass derives
@@ -47,11 +47,11 @@
 
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
                                                                AnimationManager_00442F50* manager);
-extern "C" __declspec(noinline) int __fastcall QuadDrawChecked_004436c0(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(AnimationManager_00442F50* manager,
                                                                     RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
                                                                AnimationManager_00442F50* manager);
-extern "C" __declspec(noinline) int __fastcall QuadDrawCheckedAlt_00443910(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(AnimationManager_00442F50* manager,
                                                                        RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00443f80(RenderEntity* entity,
                                                                AnimationManager_00442F50* manager);
@@ -73,7 +73,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;
     switch ((flags >> 22) & 0xF) {
     case 0: return EntityDraw_00443080(entity, manager);
-    case 1: return QuadDrawChecked_004436c0(manager, entity);
+    case 1: return BuildRotatedQuad_004436c0(manager, entity);
     case 4: return EntityDraw_00443f80(entity, manager);
     case 5: return EntityDraw_00444580(manager, entity);
     case 6: return EntityDraw_00443fb0(manager, entity);
@@ -81,7 +81,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     case 8: return EntityDraw_00444760(entity, manager);
     case 9: return manager->DrawStrip(entity, entity->strip_vertices, entity->strip_count * 2);
     case 2: return EntityDraw_00443290(entity, manager);
-    case 3: return QuadDrawCheckedAlt_00443910(manager, entity);
+    case 3: return BuildRotatedQuadAlt_00443910(manager, entity);
     }
     return 0;
 }

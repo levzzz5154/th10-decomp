@@ -55,8 +55,16 @@ struct RenderTexture {
     unsigned char reserved_008[0x20 - 0x08];
     float u0, v0, u1, v1;
 };
+struct RenderVec3 { float x, y, z; };
 struct RenderEntity {
-    unsigned char reserved[0x54];
+    unsigned char reserved_000[0x24];
+    RenderVec3 rotation;                   // 0x24, radians around X/Y/Z
+    unsigned char reserved_030[0x3C - 0x30];
+    float scale_x;                         // 0x3C
+    float scale_y;                         // 0x40
+    unsigned char reserved_044[0x4C - 0x44];
+    float sprite_width;                    // 0x4C
+    float sprite_height;                   // 0x50
     float uv_scroll_x;
     float uv_scroll_y;
     unsigned char reserved_05C[0x2FC - 0x5C];
@@ -64,7 +72,10 @@ struct RenderEntity {
     unsigned int color_secondary;
     unsigned char reserved_304[0x30C - 0x304];
     unsigned int strip_count;
-    unsigned char reserved_310[0x358 - 0x310];
+    unsigned char reserved_310[0x334 - 0x310];
+    RenderVec3 base_position;              // 0x334
+    RenderVec3 position;                   // 0x340
+    RenderVec3 render_offset;              // 0x34C
     const void* strip_vertices;
     unsigned int flags;
     unsigned char reserved_360[0x394 - 0x360];

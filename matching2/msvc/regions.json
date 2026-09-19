@@ -27443,13 +27443,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004436c0_004436c0",
-      "source": "src/unidentified/FUN_004436c0_004436c0.cpp",
-      "symbol": "_asm_FUN_004436c0_004436c0",
+      "name": "semantic_BuildRotatedQuad_004436c0_004436c0",
+      "source": "src/render/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuad_004436c0@8",
       "address": "0x004436C0",
       "size": 591,
-      "kind": "asm",
-      "owner": "0x004436C0"
+      "kind": "semantic",
+      "owner": "0x4436C0",
+      "previous_record": {
+        "name": "asm_FUN_004436c0_004436c0",
+        "source": "src/unidentified/FUN_004436c0_004436c0.cpp",
+        "symbol": "_asm_FUN_004436c0_004436c0",
+        "address": "0x004436C0",
+        "size": 591,
+        "kind": "asm",
+        "owner": "0x004436C0"
+      }
     },
     {
       "name": "text_padding_0044390f",
@@ -27460,13 +27469,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00443910_00443910",
-      "source": "src/unidentified/FUN_00443910_00443910.cpp",
-      "symbol": "_asm_FUN_00443910_00443910",
+      "name": "semantic_BuildRotatedQuadAlt_00443910_00443910",
+      "source": "src/render/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuadAlt_00443910@8",
       "address": "0x00443910",
       "size": 591,
-      "kind": "asm",
-      "owner": "0x00443910"
+      "kind": "semantic",
+      "owner": "0x443910",
+      "previous_record": {
+        "name": "asm_FUN_00443910_00443910",
+        "source": "src/unidentified/FUN_00443910_00443910.cpp",
+        "symbol": "_asm_FUN_00443910_00443910",
+        "address": "0x00443910",
+        "size": 591,
+        "kind": "asm",
+        "owner": "0x00443910"
+      }
     },
     {
       "name": "text_padding_00443b5f",
@@ -47438,6 +47456,7 @@
     "src/render/player_animation_create_00448db0.cpp",
     "src/render/projection_quads.cpp",
     "src/render/quad_build_anchored.cpp",
+    "src/render/quad_build_rotated.cpp",
     "src/render/quad_transform_draw.cpp",
     "src/render/quad_vertex_append.cpp",
     "src/render/queued_anm_cleanup.cpp",
@@ -47896,8 +47915,6 @@
     "src/unidentified/FUN_00442390_00442390.cpp",
     "src/unidentified/FUN_004423a0_004423a0.cpp",
     "src/unidentified/FUN_00442f30_00442f30.cpp",
-    "src/unidentified/FUN_004436c0_004436c0.cpp",
-    "src/unidentified/FUN_00443910_00443910.cpp",
     "src/unidentified/FUN_00445880_00445880.cpp",
     "src/unidentified/FUN_004458a0_004458a0.cpp",
     "src/unidentified/FUN_004458d0_004458d0.cpp",
