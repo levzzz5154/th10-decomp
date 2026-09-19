@@ -1,54 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448D00..0x00448D48: create an animation object and append it to the
+// manager's primary-back list.
+struct AnimationObject_00448d00 {
+    unsigned char reserved_000[0x20];
+    int render_bucket_020;
+    unsigned char reserved_024[0x35C - 0x24];
+    unsigned int flags_035c;
+};
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationResource_00449870 {
+    void* __declspec(noinline) InitializeObject(void* object, int index);
+};
 
-// 0x00448D00..0x00448D48: ?AnimationManager_CreatePrimaryBack@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_CreatePrimaryBack_00448d00() {
-    __asm {
-    L_00448d00:
-        push ebx
-    L_00448d01:
-        push esi
-    L_00448d02:
-        mov esi,dword ptr [data_00491c10]
-    L_00448d08:
-        call asm_FUN_00449950_00449950
-    L_00448d0d:
-        mov ecx,dword ptr [esp+10h]
-    L_00448d11:
-        mov ebx,eax
-    L_00448d13:
-        mov esi,dword ptr [ebx+35Ch]
-    L_00448d19:
-        mov eax,dword ptr [esp+14h]
-    L_00448d1d:
-        push ecx
-    L_00448d1e:
-        mov ecx,dword ptr [esp+10h]
-    L_00448d22:
-        or esi,40000000h
-    L_00448d28:
-        push ebx
-    L_00448d29:
-        mov dword ptr [ebx+20h],eax
-    L_00448d2c:
-        mov dword ptr [ebx+35Ch],esi
-    L_00448d32:
-        call asm_FUN_00449870_00449870
-    L_00448d37:
-        mov edx,dword ptr [data_00491c10]
-    L_00448d3d:
-        mov eax,edi
-    L_00448d3f:
-        call asm_AnimationManager_RegisterPrimaryBack_004489d0
-    L_00448d44:
-        pop esi
-    L_00448d45:
-        pop ebx
-    L_00448d46:
-        ret 0Ch
-    }
+extern "C" void* data_00491c10;
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+    void* manager, void** out, void* entity);
+
+#pragma code_seg(".text$05aa_back")
+__declspec(noinline)
+void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+        void* resource, void** out, int index, int render_bucket) {
+    AnimationObject_00448d00* object =
+        (AnimationObject_00448d00*)asm_FUN_00449950_00449950(data_00491c10);
+    unsigned int flags = object->flags_035c;
+    object->render_bucket_020 = render_bucket;
+    object->flags_035c = flags | 0x40000000u;
+    ((AnimationResource_00449870*)resource)->InitializeObject(object, index);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    return out;
 }
+#pragma code_seg()

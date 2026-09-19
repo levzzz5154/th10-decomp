@@ -1,89 +1,281 @@
-#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00452332..0x00452421: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00452332() {
+// 0x00452332: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452332() {
     __asm {
-    L_00452332:
         jmp dword ptr [data_00466264]
-    L_00452338:
+    }
+}
+
+// 0x00452338: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452338() {
+    __asm {
         jmp dword ptr [data_00466260]
-    L_0045233e:
+    }
+}
+
+// 0x0045233E: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045233e() {
+    __asm {
         jmp dword ptr [data_0046625c]
-    L_00452344:
+    }
+}
+
+// 0x00452344: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452344() {
+    __asm {
         jmp dword ptr [data_00466258]
-    L_0045234a:
+    }
+}
+
+// 0x0045234A: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045234a() {
+    __asm {
         jmp dword ptr [data_00466254]
-    L_00452350:
+    }
+}
+
+// 0x00452350: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452350() {
+    __asm {
         jmp dword ptr [data_00466250]
-    L_00452356:
+    }
+}
+
+// 0x00452356: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452356() {
+    __asm {
         jmp dword ptr [data_0046624c]
-    L_0045235c:
+    }
+}
+
+// 0x0045235C: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045235c() {
+    __asm {
         jmp dword ptr [data_00466248]
-    L_00452362:
+    }
+}
+
+// 0x00452362: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452362() {
+    __asm {
         jmp dword ptr [data_00466244]
-    L_00452368:
+    }
+}
+
+// 0x00452368: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452368() {
+    __asm {
         jmp dword ptr [data_00466240]
-    L_0045236e:
+    }
+}
+
+// 0x0045236E: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045236e() {
+    __asm {
         jmp dword ptr [data_0046623c]
-    L_00452374:
+    }
+}
+
+// 0x00452374: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452374() {
+    __asm {
         jmp dword ptr [data_00466238]
-    L_0045237a:
+    }
+}
+
+// 0x0045237A: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045237a() {
+    __asm {
         jmp dword ptr [data_00466234]
-    L_00452380:
+    }
+}
+
+// 0x00452380: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452380() {
+    __asm {
         jmp dword ptr [data_00466230]
-    L_00452386:
+    }
+}
+
+// 0x00452386: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452386() {
+    __asm {
         jmp dword ptr [data_0046622c]
-    L_0045238c:
+    }
+}
+
+// 0x0045238C: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045238c() {
+    __asm {
         jmp dword ptr [data_00466228]
-    L_00452392:
+    }
+}
+
+// 0x00452392: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452392() {
+    __asm {
         jmp dword ptr [data_004661f0]
-    L_00452398:
+    }
+}
+
+// 0x00452398: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452398() {
+    __asm {
         jmp dword ptr [data_00466224]
-    L_0045239e:
+    }
+}
+
+// 0x0045239E: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045239e() {
+    __asm {
         jmp dword ptr [data_00466220]
-    L_004523a4:
+    }
+}
+
+// 0x004523A4: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523a4() {
+    __asm {
         jmp dword ptr [data_0046621c]
-    L_004523aa:
+    }
+}
+
+// 0x004523AA: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523aa() {
+    __asm {
         jmp dword ptr [data_00466218]
-    L_004523b0:
+    }
+}
+
+// 0x004523B0: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523b0() {
+    __asm {
         jmp dword ptr [data_00466214]
-    L_004523b6:
+    }
+}
+
+// 0x004523B6: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523b6() {
+    __asm {
         jmp dword ptr [data_00466210]
-    L_004523bc:
+    }
+}
+
+// 0x004523BC: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523bc() {
+    __asm {
         jmp dword ptr [data_0046620c]
-    L_004523c2:
+    }
+}
+
+// 0x004523C2: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523c2() {
+    __asm {
         jmp dword ptr [data_00466208]
-    L_004523c8:
+    }
+}
+
+// 0x004523C8: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523c8() {
+    __asm {
         jmp dword ptr [data_00466204]
-    L_004523ce:
+    }
+}
+
+// 0x004523CE: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523ce() {
+    __asm {
         jmp dword ptr [data_00466200]
-    L_004523d4:
+    }
+}
+
+// 0x004523D4: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523d4() {
+    __asm {
         jmp dword ptr [data_00466034]
-    L_004523da:
+    }
+}
+
+// 0x004523DA: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523da() {
+    __asm {
         jmp dword ptr [data_00466030]
-    L_004523e0:
+    }
+}
+
+// 0x004523E0: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523e0() {
+    __asm {
         jmp dword ptr [data_0046602c]
-    L_004523e6:
+    }
+}
+
+// 0x004523E6: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523e6() {
+    __asm {
         jmp dword ptr [data_00466028]
-    L_004523ec:
+    }
+}
+
+// 0x004523EC: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523ec() {
+    __asm {
         jmp dword ptr [data_00466024]
-    L_004523f2:
+    }
+}
+
+// 0x004523F2: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523f2() {
+    __asm {
         jmp dword ptr [data_00466020]
-    L_004523f8:
+    }
+}
+
+// 0x004523F8: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523f8() {
+    __asm {
         jmp dword ptr [data_0046601c]
-    L_004523fe:
+    }
+}
+
+// 0x004523FE: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_004523fe() {
+    __asm {
         jmp dword ptr [data_00466018]
-    L_00452404:
+    }
+}
+
+// 0x00452404: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452404() {
+    __asm {
         jmp dword ptr [data_00466014]
-    L_0045240a:
+    }
+}
+
+// 0x0045240A: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045240a() {
+    __asm {
         jmp dword ptr [data_00466010]
-    L_00452410:
+    }
+}
+
+// 0x00452410: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452410() {
+    __asm {
         jmp dword ptr [data_00466304]
-    L_00452416:
+    }
+}
+
+// 0x00452416: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452416() {
+    __asm {
         jmp dword ptr [data_00466300]
-    L_0045241c:
+    }
+}
+
+// 0x0045241C: import jump thunk.
+extern "C" __declspec(naked) void __cdecl asm_import_thunk_0045241c() {
+    __asm {
         jmp dword ptr [data_00466308]
     }
 }

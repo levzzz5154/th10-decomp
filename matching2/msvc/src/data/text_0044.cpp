@@ -1561,22 +1561,6 @@ extern "C" unsigned char text_padding_00449bf3[] = {
 #pragma data_seg()
 
 
-// padding: 0x00449D11..0x00449D13
-// padding 00449d11..00449d13: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001698")
-extern "C" unsigned char text_padding_00449d11[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
-
-// data: 0x00449D14..0x00449D33
-// data 00449d14..00449d33: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d001699")
-extern "C" unsigned char text_data_00449d14[] = {
-    0xa6, 0x9c, 0x44, 0x00, 0xc7, 0x9c, 0x44, 0x00, 0x96, 0x9c, 0x44, 0x00, 0xde, 0x9c, 0x44, 0x00,
-    0xd4, 0x9c, 0x44, 0x00, 0xe8, 0x9c, 0x44, 0x00, 0x30, 0x9c, 0x44, 0x00, 0xbb, 0x9c, 0x44, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00449D34..0x00449D3F
 // padding 00449d34..00449d3f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
@@ -1586,22 +1570,6 @@ extern "C" unsigned char text_padding_00449d34[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00449E31..0x00449E33
-// padding 00449e31..00449e33: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001701")
-extern "C" unsigned char text_padding_00449e31[] = {
-    0x8d, 0x49, 0x00,
-};
-#pragma data_seg()
-
-// data: 0x00449E34..0x00449E4B
-// data 00449e34..00449e4b: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d001702")
-extern "C" unsigned char text_data_00449e34[] = {
-    0xd4, 0x9d, 0x44, 0x00, 0xdf, 0x9d, 0x44, 0x00, 0xcc, 0x9d, 0x44, 0x00, 0xfe, 0x9d, 0x44, 0x00,
-    0xf4, 0x9d, 0x44, 0x00, 0x08, 0x9e, 0x44, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00449E4C..0x00449E4F
 // padding 00449e4c..00449e4f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]

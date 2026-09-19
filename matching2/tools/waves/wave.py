@@ -171,6 +171,8 @@ def main():
     parser.add_argument("--wave", type=int, default=4)
     parser.add_argument("--dry-run", action="store_true",
                         help="print classifications and claims without writing artifacts")
+    parser.add_argument("--include-deferred", action="store_true",
+                        help="schedule measured blockers even when their required lever has not changed")
     parser.add_argument("--write", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
     if args.hard_agents != 1:
@@ -192,7 +194,8 @@ def main():
         mechanical_max_size=args.mechanical_max_size)
     dirty = plan.locally_modified()
     eligible = [item for item in everything
-                if f"matching2/msvc/{item['source']}" not in dirty]
+                if (args.include_deferred or not item["deferred"])
+                and f"matching2/msvc/{item['source']}" not in dirty]
     per_agent = {lane: args.per_agent for lane in plan.LANES}
     if args.cluster_per_agent is not None:
         per_agent["structural"] = args.cluster_per_agent
@@ -205,8 +208,9 @@ def main():
             "claimed": sum(claim["lane"] == lane for claim in claims),
             "agents": lane_agents[lane],
         }
-
-    print(f"{len(eligible)} eligible regions; {len(dirty)} locally modified file(s) excluded")
+    deferred_count = sum(item["deferred"] for item in everything)
+    print(f"{len(eligible)} eligible regions; {deferred_count} measured blocker(s) deferred; "
+          f"{len(dirty)} locally modified file(s) excluded")
     for lane in plan.LANES:
         counts = lane_counts[lane]
         print(f"  {lane}: {counts['available']} available, {counts['claimed']} claimed, "

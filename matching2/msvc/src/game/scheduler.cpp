@@ -142,7 +142,24 @@ extern "C" __declspec(naked) void __cdecl asm_GameState_DispatchAnimationSlotSec
     }
 }
 
-// 0x00449C00..0x00449C27: FUN_00449c00
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/thread_sync.hpp"
+
+struct SchedulerTaskRaw_00449c00 {
+    int priority;
+    unsigned int flags;
+    TaskRoutine on_tick;
+    TaskRoutine on_register;
+    TaskRoutine on_remove;
+    TaskLink link;
+    void* context;
+};
+
+static SchedulerTaskRaw_00449c00* raw_task_00449c00(TaskLink* link) {
+    return (SchedulerTaskRaw_00449c00*)link->task;
+}
+
+// 0x00449C00..0x00449D33: FUN_00449c00 and compiler-local switch table
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00449c00_00449c00() {
     __asm {
@@ -311,156 +328,91 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00449c00_00449c00() {
         add esp,8
     L_00449d0e:
         ret 4
+        // Compiler-local alignment and switch table, part of this /Gy contribution.
+        _emit 0x8d
+        _emit 0x49
+        _emit 0x00
+        _emit 0xa6
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0xc7
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0x96
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0xde
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0xd4
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0xe8
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0x30
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
+        _emit 0xbb
+        _emit 0x9c
+        _emit 0x44
+        _emit 0x00
     }
 }
 
-// 0x00449D40..0x00449E30: FUN_00449d40
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00449d40_00449d40() {
-    __asm {
-    L_00449d40:
-        sub esp,8
-    L_00449d43:
-        push ebx
-    L_00449d44:
-        push ebp
-    L_00449d45:
-        mov ebp,dword ptr [data_004660b0]
-    L_00449d4b:
-        push 492274h
-    L_00449d50:
-        call ebp
-    L_00449d52:
-        mov dl,byte ptr [data_0049231c]
-    L_00449d58:
-        mov eax,dword ptr [esp+14h]
-    L_00449d5c:
-        mov ebx,dword ptr [data_004660b4]
-    L_00449d62:
-        inc dl
-    L_00449d64:
-        mov byte ptr [data_0049231c],dl
-    L_00449d6a:
-        mov eax,dword ptr [eax+3Ch]
-    L_00449d6d:
-        test eax,eax
-    L_00449d6f:
-        mov dword ptr [esp+8],0
-    L_00449d77:
-        je asm_target_00449e12
-    L_00449d7d:
-        push esi
-    L_00449d7e:
-        push edi
-    L_00449d7f:
-        nop
-    L_00449d80:
-        mov ecx,dword ptr [eax+4]
-    L_00449d83:
-        mov esi,dword ptr [eax]
-    L_00449d85:
-        mov eax,dword ptr [esi+8]
-    L_00449d88:
-        test eax,eax
-    L_00449d8a:
-        mov dword ptr [esp+14h],ecx
-    L_00449d8e:
-        je short L_00449dec
-    L_00449d90:
-        test byte ptr [esi+4],2
-    L_00449d94:
-        je short L_00449ddf
-    L_00449d96:
-        push 492274h
-    L_00449d9b:
-        call ebx
-    L_00449d9d:
-        dec byte ptr [data_0049231c]
-    L_00449da3:
-        mov ecx,dword ptr [esi+20h]
-    L_00449da6:
-        call dword ptr [esi+8]
-    L_00449da9:
-        push 492274h
-    L_00449dae:
-        mov edi,eax
-    L_00449db0:
-        call ebp
-    L_00449db2:
-        mov cl,byte ptr [data_0049231c]
-    L_00449db8:
-        inc cl
-    L_00449dba:
-        cmp edi,5
-    L_00449dbd:
-        mov byte ptr [data_0049231c],cl
-    L_00449dc3:
-        ja short L_00449ddf
-    L_00449dc5:
-        jmp dword ptr [edi*4+449E34h]
-    L_00449dcc:
-        test byte ptr [esi+4],2
-    L_00449dd0:
-        jne short L_00449d96
-    L_00449dd2:
-        jmp short L_00449ddf
-    L_00449dd4:
-        mov edx,dword ptr [esp+1Ch]
-    L_00449dd8:
-        mov ecx,esi
-    L_00449dda:
-        call asm_Scheduler_Remove_00449f60
-    L_00449ddf:
-        mov eax,dword ptr [esp+10h]
-    L_00449de3:
-        mov ecx,dword ptr [esp+14h]
-    L_00449de7:
-        inc eax
-    L_00449de8:
-        mov dword ptr [esp+10h],eax
-    L_00449dec:
-        test ecx,ecx
-    L_00449dee:
-        mov eax,ecx
-    L_00449df0:
-        jne short L_00449d80
-    L_00449df2:
-        jmp short L_00449e10
-    L_00449df4:
-        mov dword ptr [esp+10h],0
-    L_00449dfc:
-        jmp short L_00449e10
-    L_00449dfe:
-        mov dword ptr [esp+10h],1
-    L_00449e06:
-        jmp short L_00449e10
-    L_00449e08:
-        mov dword ptr [esp+10h],0FFFFFFFFh
-    L_00449e10:
-        pop edi
-    L_00449e11:
-        pop esi
-    L_00449e12:
-        push 492274h
-    L_00449e17:
-        call ebx
-    L_00449e19:
-        mov al,byte ptr [data_0049231c]
-    L_00449e1e:
-        dec al
-    L_00449e20:
-        pop ebp
-    L_00449e21:
-        mov byte ptr [data_0049231c],al
-    L_00449e26:
-        mov eax,dword ptr [esp+4]
-    L_00449e2a:
-        pop ebx
-    L_00449e2b:
-        add esp,8
-    L_00449e2e:
-        ret 4
+// 0x00449D40..0x00449E4B: Scheduler_RunSecondary and compiler-local switch table
+extern "C" __declspec(noinline) int __stdcall Scheduler_RunSecondary_00449d40(
+        Scheduler* scheduler) {
+    EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
+    ++g_thread_synchronization.scheduler_lock_depth;
+    int processed = 0;
+    TaskLink* node = scheduler->secondary.link.next;
+    while (node) {
+        TaskLink* next = node->next;
+        SchedulerTaskRaw_00449c00* task = raw_task_00449c00(node);
+        if (task->on_tick) {
+repeat_secondary:
+            if (task->flags & 2) {
+                LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
+                --g_thread_synchronization.scheduler_lock_depth;
+                int result = task->on_tick(task->context);
+                EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
+                ++g_thread_synchronization.scheduler_lock_depth;
+                switch (result) {
+                case 0:
+                    Scheduler_Remove((SchedulerTask*)task, scheduler);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    if (task->flags & 2) goto repeat_secondary;
+                    break;
+                case 4:
+                    processed = 0;
+                    goto done_secondary;
+                case 3:
+                    processed = 1;
+                    goto done_secondary;
+                case 5:
+                    processed = -1;
+                    goto done_secondary;
+                }
+            }
+            ++processed;
+        }
+        node = next;
     }
+done_secondary:
+    LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
+    --g_thread_synchronization.scheduler_lock_depth;
+    return processed;
 }
 
 // 0x00449ED0..0x00449F19: ?SchedulerCallback_Create@@

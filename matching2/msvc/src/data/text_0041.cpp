@@ -73,13 +73,6 @@ extern "C" unsigned char text_padding_004126c4[] = {
 };
 #pragma data_seg()
 
-// data: 0x00412710..0x0041271F
-// data 00412710..0041271f: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d000465")
-extern "C" unsigned char text_data_00412710[] = {
-    0xe5, 0x26, 0x41, 0x00, 0xee, 0x26, 0x41, 0x00, 0xf7, 0x26, 0x41, 0x00, 0x00, 0x27, 0x41, 0x00,
-};
-#pragma data_seg()
 
 // padding: 0x00412788..0x0041278F
 // padding 00412788..0041278f: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]

@@ -1,10 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00420547..0x0042066D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00420547() {
+// 0x00420540..0x0042066D: one complete function. The seven-byte prologue was
+// previously misclassified as embedded .text data.
+extern "C" __declspec(naked) void __cdecl asm_unassigned_00420540() {
     __asm {
+    L_00420540:
+        push ecx
+    L_00420541:
+        push ebp
+    L_00420542:
+        push 492150h
     L_00420547:
         call asm_File_OpenSharedWrite_0044b620
     L_0042054c:

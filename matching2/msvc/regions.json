@@ -9669,21 +9669,32 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004126d0",
+      "name": "semantic_FUN_004126d0_004126d0",
       "source": "src/unidentified/unassigned_004126d0.cpp",
-      "symbol": "_asm_unassigned_004126d0",
+      "symbol": "@FUN_004126d0@12",
       "address": "0x004126D0",
-      "size": 64,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "text_data_00412710",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_00412710",
-      "address": "0x00412710",
-      "size": 16,
-      "kind": "data"
+      "size": 80,
+      "kind": "semantic",
+      "owner": "0x004126D0",
+      "previous_records": [
+        {
+          "name": "asm_unassigned_004126d0",
+          "source": "src/unidentified/unassigned_004126d0.cpp",
+          "symbol": "_asm_unassigned_004126d0",
+          "address": "0x004126D0",
+          "size": 64,
+          "kind": "asm",
+          "owner": null
+        },
+        {
+          "name": "text_data_00412710",
+          "source": "src/data/text_0041.cpp",
+          "symbol": "_text_data_00412710",
+          "address": "0x00412710",
+          "size": 16,
+          "kind": "data"
+        }
+      ]
     },
     {
       "name": "asm_Ecl_SetResourceSlot_00412720",
@@ -15587,13 +15598,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0041c0d0",
+      "name": "semantic_Remove_0041c0d0",
       "source": "src/unidentified/unassigned_0041c0d0.cpp",
-      "symbol": "_asm_unassigned_0041c0d0",
+      "symbol": "?Remove_0041c0d0@@YGXPAUList_0041c0d0@@PAUNode_0041c0d0@@@Z",
       "address": "0x0041C0D0",
-      "size": 78,
-      "kind": "asm",
-      "owner": null
+      "size": 48,
+      "kind": "semantic",
+      "owner": "0x0041C0D0",
+      "previous_record": {
+        "name": "asm_unassigned_0041c0d0",
+        "source": "src/unidentified/unassigned_0041c0d0.cpp",
+        "symbol": "_asm_unassigned_0041c0d0",
+        "address": "0x0041C0D0",
+        "size": 78,
+        "kind": "asm",
+        "owner": null
+      }
+    },
+    {
+      "name": "semantic_InitializeManager_0041c100",
+      "source": "src/unidentified/unassigned_0041c100.cpp",
+      "symbol": "?InitializeManager_0041c100@@YGPAUScoreManager_0041c100@@PAU1@@Z",
+      "address": "0x0041C100",
+      "size": 30,
+      "kind": "semantic",
+      "owner": "0x0041C100",
+      "previous_record": {
+        "name": "asm_unassigned_0041c0d0",
+        "source": "src/unidentified/unassigned_0041c0d0.cpp",
+        "symbol": "_asm_unassigned_0041c0d0",
+        "address": "0x0041C0D0",
+        "size": 78,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0041c11e",
@@ -17051,21 +17089,32 @@
       "kind": "padding"
     },
     {
-      "name": "text_data_00420540",
-      "source": "src/data/text_0042.cpp",
-      "symbol": "_text_data_00420540",
+      "name": "asm_unassigned_00420540",
+      "source": "src/unidentified/unassigned_00420540.cpp",
+      "symbol": "_asm_unassigned_00420540",
       "address": "0x00420540",
-      "size": 7,
-      "kind": "data"
-    },
-    {
-      "name": "asm_unassigned_00420547",
-      "source": "src/unidentified/unassigned_00420547.cpp",
-      "symbol": "_asm_unassigned_00420547",
-      "address": "0x00420547",
-      "size": 295,
+      "size": 302,
       "kind": "asm",
-      "owner": null
+      "owner": "0x00420540",
+      "previous_record": {
+        "name": "text_data_00420540",
+        "source": "src/data/text_0042.cpp",
+        "symbol": "_text_data_00420540",
+        "address": "0x00420540",
+        "size": 7,
+        "kind": "data"
+      },
+      "absorbed_records": [
+        {
+          "name": "asm_unassigned_00420547",
+          "source": "src/unidentified/unassigned_00420547.cpp",
+          "symbol": "_asm_unassigned_00420547",
+          "address": "0x00420547",
+          "size": 295,
+          "kind": "asm",
+          "owner": null
+        }
+      ]
     },
     {
       "name": "text_padding_0042066e",
@@ -18924,31 +18973,42 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00424530",
+      "name": "semantic_InitializeRecord_00424530",
       "source": "src/unidentified/unassigned_00424530.cpp",
-      "symbol": "_asm_unassigned_00424530",
+      "symbol": "?InitializeRecord_00424530@@YGHPAURecord_00424530@@HHHHHHHHHH@Z",
       "address": "0x00424530",
-      "size": 13,
-      "kind": "asm",
+      "size": 84,
+      "kind": "semantic",
       "owner": "0x00424530",
       "previous_record": {
         "name": "asm_unassigned_00424530",
         "source": "src/unidentified/unassigned_00424530.cpp",
         "symbol": "_asm_unassigned_00424530",
         "address": "0x00424530",
-        "size": 84,
+        "size": 13,
         "kind": "asm",
-        "owner": null
-      }
-    },
-    {
-      "name": "asm_unassigned_0042453d",
-      "source": "src/unidentified/unassigned_0042453d.cpp",
-      "symbol": "_asm_unassigned_0042453d",
-      "address": "0x0042453D",
-      "size": 71,
-      "kind": "asm",
-      "owner": "0x0042453D"
+        "owner": "0x00424530",
+        "previous_record": {
+          "name": "asm_unassigned_00424530",
+          "source": "src/unidentified/unassigned_00424530.cpp",
+          "symbol": "_asm_unassigned_00424530",
+          "address": "0x00424530",
+          "size": 84,
+          "kind": "asm",
+          "owner": null
+        }
+      },
+      "absorbed_records": [
+        {
+          "name": "asm_unassigned_0042453d",
+          "source": "src/unidentified/unassigned_0042453d.cpp",
+          "symbol": "_asm_unassigned_0042453d",
+          "address": "0x0042453D",
+          "size": 71,
+          "kind": "asm",
+          "owner": "0x0042453D"
+        }
+      ]
     },
     {
       "name": "text_padding_00424584",
@@ -29599,13 +29659,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationObject_LoadScriptPreservingState_0043e7e0",
+      "name": "semantic_LoadScriptPreservingState_0043e7e0",
       "source": "src/render/animation_object_load_script_preserving_state_0043e7e0.cpp",
-      "symbol": "_asm_AnimationObject_LoadScriptPreservingState_0043e7e0",
+      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "address": "0x0043E7E0",
       "size": 194,
-      "kind": "asm",
-      "owner": "0x0043E7E0"
+      "kind": "semantic",
+      "owner": "0x0043E7E0",
+      "previous_record": {
+        "name": "asm_AnimationObject_LoadScriptPreservingState_0043e7e0",
+        "source": "src/render/animation_object_load_script_preserving_state_0043e7e0.cpp",
+        "symbol": "_asm_AnimationObject_LoadScriptPreservingState_0043e7e0",
+        "address": "0x0043E7E0",
+        "size": 194,
+        "kind": "asm",
+        "owner": "0x0043E7E0"
+      }
     },
     {
       "name": "text_padding_0043e8a2",
@@ -32645,13 +32714,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_CreatePrimaryBack_00448d00",
+      "name": "semantic_AnimationManager_CreatePrimaryBack_00448d00",
       "source": "src/render/animation_manager_create_primary_back_00448d00.cpp",
-      "symbol": "_asm_AnimationManager_CreatePrimaryBack_00448d00",
+      "symbol": "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z",
       "address": "0x00448D00",
       "size": 73,
-      "kind": "asm",
-      "owner": "0x00448D00"
+      "kind": "semantic",
+      "owner": "0x00448D00",
+      "previous_record": {
+        "name": "asm_AnimationManager_CreatePrimaryBack_00448d00",
+        "source": "src/render/animation_manager_create_primary_back_00448d00.cpp",
+        "symbol": "_asm_AnimationManager_CreatePrimaryBack_00448d00",
+        "address": "0x00448D00",
+        "size": 73,
+        "kind": "asm",
+        "owner": "0x00448D00"
+      }
     },
     {
       "name": "text_padding_00448d49",
@@ -33687,25 +33765,36 @@
       "source": "src/game/scheduler.cpp",
       "symbol": "_asm_FUN_00449c00_00449c00",
       "address": "0x00449C00",
-      "size": 273,
+      "size": 308,
       "kind": "asm",
-      "owner": "0x00449C00"
-    },
-    {
-      "name": "text_padding_00449d11",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_00449d11",
-      "address": "0x00449D11",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00449d14",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_00449d14",
-      "address": "0x00449D14",
-      "size": 32,
-      "kind": "data"
+      "owner": "0x00449C00",
+      "previous_records": [
+        {
+          "name": "asm_FUN_00449c00_00449c00",
+          "source": "src/game/scheduler.cpp",
+          "symbol": "_asm_FUN_00449c00_00449c00",
+          "address": "0x00449C00",
+          "size": 273,
+          "kind": "asm",
+          "owner": "0x00449C00"
+        },
+        {
+          "name": "text_padding_00449d11",
+          "source": "src/data/text_0044.cpp",
+          "symbol": "_text_padding_00449d11",
+          "address": "0x00449D11",
+          "size": 3,
+          "kind": "padding"
+        },
+        {
+          "name": "text_data_00449d14",
+          "source": "src/data/text_0044.cpp",
+          "symbol": "_text_data_00449d14",
+          "address": "0x00449D14",
+          "size": 32,
+          "kind": "data"
+        }
+      ]
     },
     {
       "name": "text_padding_00449d34",
@@ -33716,29 +33805,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00449d40_00449d40",
+      "name": "semantic_Scheduler_RunSecondary_00449d40",
       "source": "src/game/scheduler.cpp",
-      "symbol": "_asm_FUN_00449d40_00449d40",
+      "symbol": "_Scheduler_RunSecondary_00449d40@4",
       "address": "0x00449D40",
-      "size": 241,
-      "kind": "asm",
-      "owner": "0x00449D40"
-    },
-    {
-      "name": "text_padding_00449e31",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_00449e31",
-      "address": "0x00449E31",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00449e34",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_data_00449e34",
-      "address": "0x00449E34",
-      "size": 24,
-      "kind": "data"
+      "size": 268,
+      "kind": "semantic",
+      "owner": "0x00449D40",
+      "previous_records": [
+        {
+          "name": "asm_FUN_00449d40_00449d40",
+          "source": "src/game/scheduler.cpp",
+          "symbol": "_asm_FUN_00449d40_00449d40",
+          "address": "0x00449D40",
+          "size": 241,
+          "kind": "asm",
+          "owner": "0x00449D40"
+        },
+        {
+          "name": "text_padding_00449e31",
+          "source": "src/data/text_0044.cpp",
+          "symbol": "_text_padding_00449e31",
+          "address": "0x00449E31",
+          "size": 3,
+          "kind": "padding"
+        },
+        {
+          "name": "text_data_00449e34",
+          "source": "src/data/text_0044.cpp",
+          "symbol": "_text_data_00449e34",
+          "address": "0x00449E34",
+          "size": 24,
+          "kind": "data"
+        }
+      ]
     },
     {
       "name": "text_padding_00449e4c",
@@ -37150,13 +37250,517 @@
       "owner": "0x004521D6"
     },
     {
-      "name": "asm_unassigned_004521dc",
+      "name": "asm_import_thunk_004521dc",
       "source": "src/unidentified/unassigned_004521dc.cpp",
-      "symbol": "_asm_unassigned_004521dc",
+      "symbol": "_asm_import_thunk_004521dc",
       "address": "0x004521DC",
-      "size": 336,
+      "size": 6,
       "kind": "asm",
-      "owner": null
+      "owner": "0x004521DC",
+      "previous_record": {
+        "name": "asm_unassigned_004521dc",
+        "source": "src/unidentified/unassigned_004521dc.cpp",
+        "symbol": "_asm_unassigned_004521dc",
+        "address": "0x004521DC",
+        "size": 336,
+        "kind": "asm",
+        "owner": null
+      }
+    },
+    {
+      "name": "asm_import_thunk_004521e2",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004521e2",
+      "address": "0x004521E2",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004521E2"
+    },
+    {
+      "name": "asm_import_thunk_004521e8",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004521e8",
+      "address": "0x004521E8",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004521E8"
+    },
+    {
+      "name": "asm_import_thunk_004521ee",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004521ee",
+      "address": "0x004521EE",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004521EE"
+    },
+    {
+      "name": "asm_import_thunk_004521f4",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004521f4",
+      "address": "0x004521F4",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004521F4"
+    },
+    {
+      "name": "asm_import_thunk_004521fa",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004521fa",
+      "address": "0x004521FA",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004521FA"
+    },
+    {
+      "name": "asm_import_thunk_00452200",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452200",
+      "address": "0x00452200",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452200"
+    },
+    {
+      "name": "asm_import_thunk_00452206",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452206",
+      "address": "0x00452206",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452206"
+    },
+    {
+      "name": "asm_import_thunk_0045220c",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045220c",
+      "address": "0x0045220C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045220C"
+    },
+    {
+      "name": "asm_import_thunk_00452212",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452212",
+      "address": "0x00452212",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452212"
+    },
+    {
+      "name": "asm_import_thunk_00452218",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452218",
+      "address": "0x00452218",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452218"
+    },
+    {
+      "name": "asm_import_thunk_0045221e",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045221e",
+      "address": "0x0045221E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045221E"
+    },
+    {
+      "name": "asm_import_thunk_00452224",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452224",
+      "address": "0x00452224",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452224"
+    },
+    {
+      "name": "asm_import_thunk_0045222a",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045222a",
+      "address": "0x0045222A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045222A"
+    },
+    {
+      "name": "asm_import_thunk_00452230",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452230",
+      "address": "0x00452230",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452230"
+    },
+    {
+      "name": "asm_import_thunk_00452236",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452236",
+      "address": "0x00452236",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452236"
+    },
+    {
+      "name": "asm_import_thunk_0045223c",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045223c",
+      "address": "0x0045223C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045223C"
+    },
+    {
+      "name": "asm_import_thunk_00452242",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452242",
+      "address": "0x00452242",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452242"
+    },
+    {
+      "name": "asm_import_thunk_00452248",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452248",
+      "address": "0x00452248",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452248"
+    },
+    {
+      "name": "asm_import_thunk_0045224e",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045224e",
+      "address": "0x0045224E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045224E"
+    },
+    {
+      "name": "asm_import_thunk_00452254",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452254",
+      "address": "0x00452254",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452254"
+    },
+    {
+      "name": "asm_import_thunk_0045225a",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045225a",
+      "address": "0x0045225A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045225A"
+    },
+    {
+      "name": "asm_import_thunk_00452260",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452260",
+      "address": "0x00452260",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452260"
+    },
+    {
+      "name": "asm_import_thunk_00452266",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452266",
+      "address": "0x00452266",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452266"
+    },
+    {
+      "name": "asm_import_thunk_0045226c",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045226c",
+      "address": "0x0045226C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045226C"
+    },
+    {
+      "name": "asm_import_thunk_00452272",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452272",
+      "address": "0x00452272",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452272"
+    },
+    {
+      "name": "asm_import_thunk_00452278",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452278",
+      "address": "0x00452278",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452278"
+    },
+    {
+      "name": "asm_import_thunk_0045227e",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045227e",
+      "address": "0x0045227E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045227E"
+    },
+    {
+      "name": "asm_import_thunk_00452284",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452284",
+      "address": "0x00452284",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452284"
+    },
+    {
+      "name": "asm_import_thunk_0045228a",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045228a",
+      "address": "0x0045228A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045228A"
+    },
+    {
+      "name": "asm_import_thunk_00452290",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452290",
+      "address": "0x00452290",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452290"
+    },
+    {
+      "name": "asm_import_thunk_00452296",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452296",
+      "address": "0x00452296",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452296"
+    },
+    {
+      "name": "asm_import_thunk_0045229c",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045229c",
+      "address": "0x0045229C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045229C"
+    },
+    {
+      "name": "asm_import_thunk_004522a2",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522a2",
+      "address": "0x004522A2",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522A2"
+    },
+    {
+      "name": "asm_import_thunk_004522a8",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522a8",
+      "address": "0x004522A8",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522A8"
+    },
+    {
+      "name": "asm_import_thunk_004522ae",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522ae",
+      "address": "0x004522AE",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522AE"
+    },
+    {
+      "name": "asm_import_thunk_004522b4",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522b4",
+      "address": "0x004522B4",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522B4"
+    },
+    {
+      "name": "asm_import_thunk_004522ba",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522ba",
+      "address": "0x004522BA",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522BA"
+    },
+    {
+      "name": "asm_import_thunk_004522c0",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522c0",
+      "address": "0x004522C0",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522C0"
+    },
+    {
+      "name": "asm_import_thunk_004522c6",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522c6",
+      "address": "0x004522C6",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522C6"
+    },
+    {
+      "name": "asm_import_thunk_004522cc",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522cc",
+      "address": "0x004522CC",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522CC"
+    },
+    {
+      "name": "asm_import_thunk_004522d2",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522d2",
+      "address": "0x004522D2",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522D2"
+    },
+    {
+      "name": "asm_import_thunk_004522d8",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522d8",
+      "address": "0x004522D8",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522D8"
+    },
+    {
+      "name": "asm_import_thunk_004522de",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522de",
+      "address": "0x004522DE",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522DE"
+    },
+    {
+      "name": "asm_import_thunk_004522e4",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522e4",
+      "address": "0x004522E4",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522E4"
+    },
+    {
+      "name": "asm_import_thunk_004522ea",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522ea",
+      "address": "0x004522EA",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522EA"
+    },
+    {
+      "name": "asm_import_thunk_004522f0",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522f0",
+      "address": "0x004522F0",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522F0"
+    },
+    {
+      "name": "asm_import_thunk_004522f6",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522f6",
+      "address": "0x004522F6",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522F6"
+    },
+    {
+      "name": "asm_import_thunk_004522fc",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_004522fc",
+      "address": "0x004522FC",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004522FC"
+    },
+    {
+      "name": "asm_import_thunk_00452302",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452302",
+      "address": "0x00452302",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452302"
+    },
+    {
+      "name": "asm_import_thunk_00452308",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452308",
+      "address": "0x00452308",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452308"
+    },
+    {
+      "name": "asm_import_thunk_0045230e",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045230e",
+      "address": "0x0045230E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045230E"
+    },
+    {
+      "name": "asm_import_thunk_00452314",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452314",
+      "address": "0x00452314",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452314"
+    },
+    {
+      "name": "asm_import_thunk_0045231a",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_0045231a",
+      "address": "0x0045231A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045231A"
+    },
+    {
+      "name": "asm_import_thunk_00452320",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452320",
+      "address": "0x00452320",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452320"
+    },
+    {
+      "name": "asm_import_thunk_00452326",
+      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "symbol": "_asm_import_thunk_00452326",
+      "address": "0x00452326",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452326"
     },
     {
       "name": "asm_WINNLSEnableIME_0045232c",
@@ -37168,49 +37772,420 @@
       "owner": "0x0045232C"
     },
     {
-      "name": "asm_unassigned_00452332",
+      "name": "asm_import_thunk_00452332",
       "source": "src/unidentified/unassigned_00452332.cpp",
-      "symbol": "_asm_unassigned_00452332",
+      "symbol": "_asm_import_thunk_00452332",
       "address": "0x00452332",
-      "size": 240,
+      "size": 6,
       "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "asm_free_00452422",
-      "source": "src/unidentified/free_00452422.cpp",
-      "symbol": "_asm_free_00452422",
-      "address": "0x00452422",
-      "size": 83,
-      "kind": "asm",
-      "owner": "0x00452422"
-    },
-    {
-      "name": "semantic_FUN_00452475_00452475",
-      "source": "src/unidentified/FUN_00452475_00452475.cpp",
-      "symbol": "_asm_FUN_00452475_00452475",
-      "address": "0x00452475",
-      "size": 9,
-      "kind": "semantic",
-      "owner": "0x00452475",
+      "owner": "0x00452332",
       "previous_record": {
-        "name": "asm_FUN_00452475_00452475",
-        "source": "src/unidentified/FUN_00452475_00452475.cpp",
-        "symbol": "_asm_FUN_00452475_00452475",
-        "address": "0x00452475",
-        "size": 9,
+        "name": "asm_unassigned_00452332",
+        "source": "src/unidentified/unassigned_00452332.cpp",
+        "symbol": "_asm_unassigned_00452332",
+        "address": "0x00452332",
+        "size": 240,
         "kind": "asm",
-        "owner": "0x00452475"
+        "owner": null
       }
     },
     {
-      "name": "asm_free_part_0045247e",
-      "source": "src/unidentified/free_00452422.cpp",
-      "symbol": "_asm_free_part_0045247e",
-      "address": "0x0045247E",
-      "size": 21,
+      "name": "asm_import_thunk_00452338",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452338",
+      "address": "0x00452338",
+      "size": 6,
       "kind": "asm",
-      "owner": "0x00452422"
+      "owner": "0x00452338"
+    },
+    {
+      "name": "asm_import_thunk_0045233e",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045233e",
+      "address": "0x0045233E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045233E"
+    },
+    {
+      "name": "asm_import_thunk_00452344",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452344",
+      "address": "0x00452344",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452344"
+    },
+    {
+      "name": "asm_import_thunk_0045234a",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045234a",
+      "address": "0x0045234A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045234A"
+    },
+    {
+      "name": "asm_import_thunk_00452350",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452350",
+      "address": "0x00452350",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452350"
+    },
+    {
+      "name": "asm_import_thunk_00452356",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452356",
+      "address": "0x00452356",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452356"
+    },
+    {
+      "name": "asm_import_thunk_0045235c",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045235c",
+      "address": "0x0045235C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045235C"
+    },
+    {
+      "name": "asm_import_thunk_00452362",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452362",
+      "address": "0x00452362",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452362"
+    },
+    {
+      "name": "asm_import_thunk_00452368",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452368",
+      "address": "0x00452368",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452368"
+    },
+    {
+      "name": "asm_import_thunk_0045236e",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045236e",
+      "address": "0x0045236E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045236E"
+    },
+    {
+      "name": "asm_import_thunk_00452374",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452374",
+      "address": "0x00452374",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452374"
+    },
+    {
+      "name": "asm_import_thunk_0045237a",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045237a",
+      "address": "0x0045237A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045237A"
+    },
+    {
+      "name": "asm_import_thunk_00452380",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452380",
+      "address": "0x00452380",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452380"
+    },
+    {
+      "name": "asm_import_thunk_00452386",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452386",
+      "address": "0x00452386",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452386"
+    },
+    {
+      "name": "asm_import_thunk_0045238c",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045238c",
+      "address": "0x0045238C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045238C"
+    },
+    {
+      "name": "asm_import_thunk_00452392",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452392",
+      "address": "0x00452392",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452392"
+    },
+    {
+      "name": "asm_import_thunk_00452398",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452398",
+      "address": "0x00452398",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452398"
+    },
+    {
+      "name": "asm_import_thunk_0045239e",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045239e",
+      "address": "0x0045239E",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045239E"
+    },
+    {
+      "name": "asm_import_thunk_004523a4",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523a4",
+      "address": "0x004523A4",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523A4"
+    },
+    {
+      "name": "asm_import_thunk_004523aa",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523aa",
+      "address": "0x004523AA",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523AA"
+    },
+    {
+      "name": "asm_import_thunk_004523b0",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523b0",
+      "address": "0x004523B0",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523B0"
+    },
+    {
+      "name": "asm_import_thunk_004523b6",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523b6",
+      "address": "0x004523B6",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523B6"
+    },
+    {
+      "name": "asm_import_thunk_004523bc",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523bc",
+      "address": "0x004523BC",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523BC"
+    },
+    {
+      "name": "asm_import_thunk_004523c2",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523c2",
+      "address": "0x004523C2",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523C2"
+    },
+    {
+      "name": "asm_import_thunk_004523c8",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523c8",
+      "address": "0x004523C8",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523C8"
+    },
+    {
+      "name": "asm_import_thunk_004523ce",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523ce",
+      "address": "0x004523CE",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523CE"
+    },
+    {
+      "name": "asm_import_thunk_004523d4",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523d4",
+      "address": "0x004523D4",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523D4"
+    },
+    {
+      "name": "asm_import_thunk_004523da",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523da",
+      "address": "0x004523DA",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523DA"
+    },
+    {
+      "name": "asm_import_thunk_004523e0",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523e0",
+      "address": "0x004523E0",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523E0"
+    },
+    {
+      "name": "asm_import_thunk_004523e6",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523e6",
+      "address": "0x004523E6",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523E6"
+    },
+    {
+      "name": "asm_import_thunk_004523ec",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523ec",
+      "address": "0x004523EC",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523EC"
+    },
+    {
+      "name": "asm_import_thunk_004523f2",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523f2",
+      "address": "0x004523F2",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523F2"
+    },
+    {
+      "name": "asm_import_thunk_004523f8",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523f8",
+      "address": "0x004523F8",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523F8"
+    },
+    {
+      "name": "asm_import_thunk_004523fe",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_004523fe",
+      "address": "0x004523FE",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x004523FE"
+    },
+    {
+      "name": "asm_import_thunk_00452404",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452404",
+      "address": "0x00452404",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452404"
+    },
+    {
+      "name": "asm_import_thunk_0045240a",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045240a",
+      "address": "0x0045240A",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045240A"
+    },
+    {
+      "name": "asm_import_thunk_00452410",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452410",
+      "address": "0x00452410",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452410"
+    },
+    {
+      "name": "asm_import_thunk_00452416",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_00452416",
+      "address": "0x00452416",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x00452416"
+    },
+    {
+      "name": "asm_import_thunk_0045241c",
+      "source": "src/unidentified/unassigned_00452332.cpp",
+      "symbol": "_asm_import_thunk_0045241c",
+      "address": "0x0045241C",
+      "size": 6,
+      "kind": "asm",
+      "owner": "0x0045241C"
+    },
+    {
+      "name": "semantic_free_00452422",
+      "source": "src/unidentified/free_00452422.cpp",
+      "symbol": "_free_00452422",
+      "address": "0x00452422",
+      "size": 113,
+      "kind": "semantic",
+      "owner": "0x00452422",
+      "previous_records": [
+        {
+          "name": "asm_free_00452422",
+          "source": "src/unidentified/free_00452422.cpp",
+          "symbol": "_asm_free_00452422",
+          "address": "0x00452422",
+          "size": 83,
+          "kind": "asm",
+          "owner": "0x00452422"
+        },
+        {
+          "name": "semantic_FUN_00452475_00452475",
+          "source": "src/unidentified/FUN_00452475_00452475.cpp",
+          "symbol": "_asm_FUN_00452475_00452475",
+          "address": "0x00452475",
+          "size": 9,
+          "kind": "semantic",
+          "owner": "0x00452475",
+          "previous_record": {
+            "name": "asm_FUN_00452475_00452475",
+            "source": "src/unidentified/FUN_00452475_00452475.cpp",
+            "symbol": "_asm_FUN_00452475_00452475",
+            "address": "0x00452475",
+            "size": 9,
+            "kind": "asm",
+            "owner": "0x00452475"
+          }
+        },
+        {
+          "name": "asm_free_part_0045247e",
+          "source": "src/unidentified/free_00452422.cpp",
+          "symbol": "_asm_free_part_0045247e",
+          "address": "0x0045247E",
+          "size": 21,
+          "kind": "asm",
+          "owner": "0x00452422"
+        }
+      ]
     },
     {
       "name": "asm_operator_new_00452493",
@@ -51713,7 +52688,6 @@
     "src/unidentified/FUN_00450200_00450200.cpp",
     "src/unidentified/FUN_00450210_00450210.cpp",
     "src/unidentified/FUN_00450500_00450500.cpp",
-    "src/unidentified/FUN_00452475_00452475.cpp",
     "src/unidentified/FUN_004524fd_004524fd.cpp",
     "src/unidentified/FUN_00452577_00452577.cpp",
     "src/unidentified/FUN_00452647_00452647.cpp",
@@ -52521,6 +53495,7 @@
     "src/unidentified/unassigned_0041c0a0.cpp",
     "src/unidentified/unassigned_0041c0b0.cpp",
     "src/unidentified/unassigned_0041c0d0.cpp",
+    "src/unidentified/unassigned_0041c100.cpp",
     "src/unidentified/unassigned_0041c2f0.cpp",
     "src/unidentified/unassigned_0041c310.cpp",
     "src/unidentified/unassigned_0041c450.cpp",
@@ -52535,7 +53510,7 @@
     "src/unidentified/unassigned_0041ff00.cpp",
     "src/unidentified/unassigned_0041ff40.cpp",
     "src/unidentified/unassigned_0041ff50.cpp",
-    "src/unidentified/unassigned_00420547.cpp",
+    "src/unidentified/unassigned_00420540.cpp",
     "src/unidentified/unassigned_00420c90.cpp",
     "src/unidentified/unassigned_00420d10.cpp",
     "src/unidentified/unassigned_00420d50.cpp",
@@ -52560,7 +53535,6 @@
     "src/unidentified/unassigned_00424460.cpp",
     "src/unidentified/unassigned_00424470.cpp",
     "src/unidentified/unassigned_00424530.cpp",
-    "src/unidentified/unassigned_0042453d.cpp",
     "src/unidentified/unassigned_004245b0.cpp",
     "src/unidentified/unassigned_004245d0.cpp",
     "src/unidentified/unassigned_00424610.cpp",
@@ -53579,16 +54553,31 @@
     "layout/ltcg/evaluate_curve_0044c350.json",
     "layout/ltcg/entity_script_prng_0043cb80.json",
     "layout/ltcg/animation_validate_handle_00449450.json",
-    "layout/ltcg/animation_read_integer_0043ec70.json"
+    "layout/ltcg/animation_read_integer_0043ec70.json",
+    "layout/ltcg/remove_0041c0d0.json",
+    "layout/ltcg/initialize_record_00424530.json",
+    "layout/ltcg/load_script_preserving_state_0043e7e0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
       "$T1079": "_LegacyString_Grow_ExceptionInfo"
+    },
+    "src/game/scheduler.cpp": {
+      "?g_thread_synchronization@@3UThreadSynchronization@@A": "_data_00492274"
+    },
+    "src/unidentified/free_00452422.cpp": {
+      "$T517": "_data_0046a690",
+      "__SEH_prolog": "_asm_SEH_prolog_00454bbc",
+      "__SEH_epilog": "_asm_SEH_epilog_00454bf7"
     }
   },
   "source_flags": {
     "src/util/legacy_string.cpp": [
       "/EHs"
+    ],
+    "src/unidentified/free_00452422.cpp": [
+      "/TC",
+      "/O1"
     ]
   }
 }

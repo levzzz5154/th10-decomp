@@ -6,6 +6,8 @@ BulletManagerState_0040af90 *BulletManager_Create_0040af90();
 extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
+struct ScoreManager_0041c100;
+ScoreManager_0041c100 *InitializeManager_0041c100(ScoreManager_0041c100 *manager);
 
 struct RawState_0040a130;
 extern "C" int __stdcall asm_FUN_0040a130_0040a130(RawState_0040a130 *state);
@@ -44,6 +46,11 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         ++created;
     for (int index = 0; index < count; ++index) {
         if (asm_ScoreManager_CreateAndInitRetail_0041c290())
+            ++created;
+    }
+    for (int index = 0; index < count; ++index) {
+        if (InitializeManager_0041c100(
+                (ScoreManager_0041c100 *)slots[index]))
             ++created;
     }
     for (int index = 0; index < count; ++index) {

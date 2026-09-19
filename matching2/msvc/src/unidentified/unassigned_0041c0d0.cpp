@@ -1,63 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0041C0D0..0x0041C11D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041c0d0() {
-    __asm {
-    L_0041c0d0:
-        dec dword ptr [ecx+438h]
-    L_0041c0d6:
-        mov edx,dword ptr [eax+4]
-    L_0041c0d9:
-        push esi
-    L_0041c0da:
-        mov esi,dword ptr [eax+8]
-    L_0041c0dd:
-        mov dword ptr [edx+8],esi
-    L_0041c0e0:
-        mov edx,dword ptr [eax+8]
-    L_0041c0e3:
-        test edx,edx
-    L_0041c0e5:
-        je short L_0041c0ed
-    L_0041c0e7:
-        mov esi,dword ptr [eax+4]
-    L_0041c0ea:
-        mov dword ptr [edx+4],esi
-    L_0041c0ed:
-        cmp dword ptr [ecx+434h],eax
-    L_0041c0f3:
-        pop esi
-    L_0041c0f4:
-        jne short L_0041c0ff
-    L_0041c0f6:
-        mov eax,dword ptr [eax+4]
-    L_0041c0f9:
-        mov dword ptr [ecx+434h],eax
-    L_0041c0ff:
-        ret
-    L_0041c100:
-        push edi
-    L_0041c101:
-        lea edx,[esi+10h]
-    L_0041c104:
-        call asm_ScoreObject_Initialize_0041c030
-    L_0041c109:
-        xor eax,eax
-    L_0041c10b:
-        mov ecx,117h
-    L_0041c110:
-        mov edi,esi
-    L_0041c112:
-        rep stosd
-    L_0041c114:
-        mov dword ptr [data_0047781c],esi
-    L_0041c11a:
-        mov eax,esi
-    L_0041c11c:
-        pop edi
-    L_0041c11d:
-        ret
-    }
+struct Node_0041c0d0 {
+    void* field_000;
+    Node_0041c0d0* previous_004;
+    Node_0041c0d0* next_008;
+};
+struct List_0041c0d0 {
+    unsigned char pad_000[0x434];
+    Node_0041c0d0* head_434;
+    unsigned int count_438;
+};
+__declspec(noinline) void Remove_0041c0d0(List_0041c0d0* list, Node_0041c0d0* node);
+#pragma code_seg(".text$01accessor")
+void Remove_0041c0d0(List_0041c0d0* list, Node_0041c0d0* node) {
+    --list->count_438;
+    node->previous_004->next_008 = node->next_008;
+    if (node->next_008)
+        node->next_008->previous_004 = node->previous_004;
+    if (list->head_434 == node)
+        list->head_434 = node->previous_004;
 }
+#pragma code_seg()

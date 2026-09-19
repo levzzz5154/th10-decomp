@@ -62,14 +62,6 @@ extern "C" unsigned char text_padding_0042053c[] = {
 };
 #pragma data_seg()
 
-// data: 0x00420540..0x00420546
-// data 00420540..00420546: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d000818")
-extern "C" unsigned char text_data_00420540[] = {
-    0x51, 0x55, 0x68, 0x50, 0x21, 0x49, 0x00,
-};
-#pragma data_seg()
-
 // padding: 0x0042066E..0x0042066F
 // padding 0042066e..0042066f: ["live Ghidra disassembly identified INT3/NOP bytes inside a missed-code candidate range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
 #pragma data_seg(".d000819")

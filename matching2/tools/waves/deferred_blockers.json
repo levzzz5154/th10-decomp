@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "records": [
+    {"address": "0x00404610", "wave": 21, "residual_class": "source_shape", "next_lever": "Recover 0x0044C350 and rebuild the real schema-2 trajectory component."},
+    {"address": "0x00441600", "wave": 23, "residual_class": "scheduler", "next_lever": "Use the real 0x0044106B/0x0044111F caller context to force the retail vector temporary lifetimes."},
+    {"address": "0x00441950", "wave": 23, "residual_class": "allocator", "next_lever": "Use a real schema-2 caller that makes EDI unavailable across the Hermite call."},
+    {"address": "0x00441AD0", "wave": 23, "residual_class": "abi", "next_lever": "Close schema 2 with the real 0x004410C0 caller and recovered EvaluateCurve."},
+    {"address": "0x00442050", "wave": 23, "residual_class": "source_shape", "next_lever": "Recover the original color-vector construction that induces the 12-byte spill frame."},
+    {"address": "0x004452F0", "wave": 21, "residual_class": "source_shape", "next_lever": "Recover the complete xorshift inner loop after obtaining an FSINCOS-capable vector dependency."},
+    {"address": "0x004458B0", "wave": 21, "residual_class": "toolkit", "next_lever": "Find provenance or a toolchain mechanism that emits one x87 FSINCOS."},
+    {"address": "0x004489D0", "wave": 21, "residual_class": "allocator", "next_lever": "Find a real caller shape that delays EDI preservation while retaining the private entry ABI."},
+    {"address": "0x00448A50", "wave": 21, "residual_class": "allocator", "next_lever": "Use multiple recovered retail callers instead of a synthetic loop context."},
+    {"address": "0x00448AC0", "wave": 21, "residual_class": "allocator", "next_lever": "Use schema-2 positioned-secondary callers and isolate the remaining counter allocation."},
+    {"address": "0x00448B40", "wave": 21, "residual_class": "allocator", "next_lever": "Find a real caller/source shape that delays EDI preservation in the nonempty-list arm."},
+    {"address": "0x00448E30", "wave": 23, "residual_class": "abi", "next_lever": "Recover 0x00449870 semantically, then close the real caller/callee component."},
+    {"address": "0x00449C00", "wave": 22, "residual_class": "allocator", "next_lever": "Reorder primary restart and case-7 paths to induce the retail EBX/EBP allocation."},
+    {"address": "0x0041F800", "wave": 21, "residual_class": "scheduler", "next_lever": "Revisit only when a new source-shape or compiler scheduling lever is available."}
+  ]
+}

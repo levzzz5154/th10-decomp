@@ -27,6 +27,11 @@ TEXT_START = int(CONFIG["text_start"], 0)
 ORACLE = PEImage((ROOT / "matching2/build/oracle/th10.exe").read_bytes()).read(
     TEXT_START, CONFIG["text_bytes"])
 WAVE = ROOT / "matching2/build/waves"
+DEFERRED_BLOCKERS_PATH = ROOT / "matching2/tools/waves/deferred_blockers.json"
+DEFERRED_BLOCKERS = {
+    int(record["address"], 0): record
+    for record in json.loads(DEFERRED_BLOCKERS_PATH.read_text())["records"]
+}
 BACKUP = WAVE / "backup"
 
 def ida_signatures():
@@ -195,6 +200,9 @@ def campaign_candidates(signatures, max_address=GAME_TEXT_END, mechanical_max_si
             "ghidra": (ROOT / f"decompiled/ghidra_augmented/functions/{address:08x}.c").is_file(),
             "ownership": category,
         }
+        blocker = DEFERRED_BLOCKERS.get(address)
+        item["deferred"] = blocker is not None
+        item["deferred_blocker"] = blocker
         selected.append(item)
         by_address[address] = item
 

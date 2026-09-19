@@ -5,6 +5,8 @@ extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+    void* resource, void** out, int index, int render_bucket);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -14,8 +16,6 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
     return next;
 }
 
-// The animation-manager pool allocator modelled only for its argument shape.
-// These bytes are never selected as recovered code.
 #pragma code_seg(".text$07alloc")
 extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
     unsigned char* bytes = (unsigned char*)manager;
@@ -25,9 +25,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
         *(unsigned int*)(bytes + 0x3AD068) = index;
         if (bytes[0x3AC068 + index] != 0) {
             unsigned char* allocated = (unsigned char*)operator_new_00452493(0x3AC);
-            if (allocated == 0) {
-                return 0;
-            }
+            if (allocated == 0) return 0;
             Entity_Constructor_00402050(allocated);
             Entity_Init_00401de0(0, allocated);
             *(unsigned int*)(bytes + 0x3AD068) =
@@ -43,9 +41,6 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
 }
 #pragma code_seg()
 
-
-// The script loader modelled only for its argument shape.  These bytes are
-// never selected as recovered code.
 #pragma code_seg(".text$01loadscript")
 extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043e710(
         void* resource, void* object, int index) {
@@ -83,26 +78,10 @@ extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043
 }
 #pragma code_seg()
 
-
-// The primary-list registration leaf modelled only for its argument shape.
-// These bytes are never selected as recovered code.
 struct AnmListNode_00448d50 {
     void* owner;
     AnmListNode_00448d50* next;
     AnmListNode_00448d50* previous;
-};
-
-struct AnmListObject_00448d50 {
-    int id;
-    AnmListNode_00448d50 primary_back;
-};
-
-struct AnmListManager_00448d50 {
-    unsigned char reserved_00000000[0x72DAD4];
-    AnmListNode_00448d50* primary_back_head;
-    AnmListNode_00448d50* primary_back_tail;
-    unsigned char reserved_0072DADC[0x732454 - 0x72DADC];
-    int next_id;
 };
 
 #pragma code_seg(".text$03regprimary")
@@ -130,17 +109,14 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 }
 #pragma code_seg()
 
-
-// 0x00448D50's own caller, shaped like the game's animation-object factories.
-// Not recovered game code.
 #pragma code_seg(".text$09context")
 int __stdcall PositionedPrimaryContext(void** resources, void*** outs, int* indexes,
                                        const AnimationPosition_00448d50** positions,
                                        int count) {
     for (int i = 0; i < count; ++i) {
+        AnimationManager_CreatePrimaryBack_00448d00(resources[i], outs[i], indexes[i], 15);
         AnimationManager_CreatePositionedPrimary_00448d50(resources[i], outs[i], indexes[i],
                                                           positions[i]);
     }
     return count;
 }
-
