@@ -517,5 +517,8 @@ Landing sources (17): `src/unidentified/unassigned_004501d0.cpp`,
 The attempted-but-dropped sources keep their last failing body in the throwaway
 copy only; nothing of them is in the tree, and their manifest records are still
 `asm`. No layout, driver or cluster registration from this wave remains: both
-cluster attempts were rolled back or hand-reverted, and the maintained
-`regions.json` still lists 274 clusters (the count it had before this wave).
+cluster attempts were rolled back or hand-reverted in the throwaway copy, and the
+maintained `regions.json` carries no entry whose layout path mentions this
+wave's two names (`layout/ltcg/cxxmatch_0045258f.json`,
+`layout/ltcg/cxxmatch_00462e60.json`) — those files exist only under
+`/tmp/VeinBlock456/keep_*.json`.
