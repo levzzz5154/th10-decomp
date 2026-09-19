@@ -1,35 +1,36 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00429B30..0x00429B53 (36 bytes): reseed a record's timer and store the
+// caller's value into the record it points at.
+//
+// The record's +0x18 pointer leads to a timing block; its +0x0C word is handed
+// to the CRT's _time32 at 0x00452B71, and the new value -- the caller's
+// argument plus seven when it is non-zero, the global at 0x00474C7C otherwise --
+// is stored into the pointed-at record's +0x5C word. The function always
+// returns zero.
+//
+// The record arrives in EDI and the value in ESI, receivers no C++ declaration
+// names, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/reseed_00429b30.json whose synthetic caller establishes that
+// convention. _time32 is an ordinary __cdecl leaf the declaration names.
 
-// 0x00429B30..0x00429B53: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00429b30() {
-    __asm {
-    L_00429b30:
-        mov eax,dword ptr [edi+18h]
-    L_00429b33:
-        add eax,0Ch
-    L_00429b36:
-        push eax
-    L_00429b37:
-        call asm_FID_conflict___time32_00452b71
-    L_00429b3c:
-        add esp,4
-    L_00429b3f:
-        test esi,esi
-    L_00429b41:
-        lea eax,[esi+7]
-    L_00429b44:
-        jne short L_00429b4b
-    L_00429b46:
-        mov eax,dword ptr [data_00474c7c]
-    L_00429b4b:
-        mov ecx,dword ptr [edi+18h]
-    L_00429b4e:
-        mov dword ptr [ecx+5Ch],eax
-    L_00429b51:
-        xor eax,eax
-    L_00429b53:
-        ret
-    }
+struct TimerBlock_00429b30 {
+    unsigned char unknown_0000[0x5C];
+    int field_5C;                       // +0x5C
+};
+
+struct TimerRecord_00429b30 {
+    unsigned char unknown_0000[0x18];
+    TimerBlock_00429b30* block;         // +0x18
+};
+
+extern "C" int __cdecl asm_FID_conflict___time32_00452b71(int* timer);
+extern "C" int data_00474c7c;
+
+__declspec(noinline) int Reseed_00429b30(TimerRecord_00429b30* record, int value);
+
+#pragma code_seg(".text$01reseed")
+int Reseed_00429b30(TimerRecord_00429b30* record, int value) {
+    asm_FID_conflict___time32_00452b71((int*)((char*)record->block + 0x0C));
+    record->block->field_5C = (value != 0) ? value + 7 : data_00474c7c;
+    return 0;
 }
+#pragma code_seg()

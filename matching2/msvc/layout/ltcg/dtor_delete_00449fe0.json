@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "dtor_delete_00449fe0",
+  "source": "src/unidentified/unassigned_00449fe0.cpp",
+  "driver": "layout/ltcg/dtor_delete_00449fe0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Deletable_00449fe0_Delete compiled with a synthetic array caller so the native LTCG register allocator keeps the object in ESI across the cleanup and free as retail does.",
+  "functions": [
+    {
+      "name": "Deletable_00449fe0_Delete",
+      "symbol": "?Deletable_00449fe0_Delete@@YGPAXPAUDeletable_00449fe0@@H@Z",
+      "section": ".text$01del",
+      "address": "0x00449FE0",
+      "size": 32,
+      "actual_abi": "object in ESI; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "DtorDeleteContext_00449fe0@8",
+    "section": ".text$03context",
+    "address": "0x0044A010",
+    "size": 59,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 298976
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x0044A000",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": []
+}

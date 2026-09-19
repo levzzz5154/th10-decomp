@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "polar_update_0044c260",
+  "source": "src/unidentified/unassigned_0044c260.cpp",
+  "driver": "layout/ltcg/polar_update_0044c260_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "PolarMotion_0044c260_Update compiled with a synthetic array caller so the native LTCG register allocator keeps the record in ESI across both callees as retail does.",
+  "functions": [
+    {
+      "name": "PolarMotion_0044c260_Update",
+      "symbol": "?PolarMotion_0044c260_Update@@YGXPAUPolarMotion_0044c260@@@Z",
+      "section": ".text$01polar",
+      "address": "0x0044C260",
+      "size": 58,
+      "actual_abi": "record in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "PolarUpdateContext_0044c260@8",
+    "section": ".text$03context",
+    "address": "0x0044C2C0",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 307808
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x0044C29A",
+      "size": 38
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "@asm_Recovery_PolarToVectorRetail_0044c5d0@12",
+      "address": "0x0044C5D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Angle_Normalize@@YGMM@Z",
+      "address": "0x0044BC70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": []
+}

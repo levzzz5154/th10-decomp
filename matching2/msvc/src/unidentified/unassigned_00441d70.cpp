@@ -1,25 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x00441D70..0x00441D83: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00441d70() {
-    __asm {
-    L_00441d70:
-        fild dword ptr [eax+44h]
-    L_00441d73:
-        push ecx
-    L_00441d74:
-        mov ecx,dword ptr [eax+38h]
-    L_00441d77:
-        mov eax,dword ptr [eax+48h]
-    L_00441d7a:
-        fstp dword ptr [esp]
-    L_00441d7d:
-        push ecx
-    L_00441d7e:
-        call asm_FUN_0044c350_0044c350
-    L_00441d83:
-        ret
-    }
+struct CurveObject_00441d70 {
+    unsigned char pad_000[0x38];
+    float field_38;
+    unsigned char pad_3C[0x44 - 0x3C];
+    int field_44;
+    int field_48;
+    __declspec(noinline) float Evaluate();
+};
+float __stdcall EvaluateCurveAnchor_0044c350(unsigned int op, float first, float second);
+
+#pragma code_seg(".text$01evaluate")
+float CurveObject_00441d70::Evaluate() {
+    return EvaluateCurveAnchor_0044c350(field_48, field_38, (float)field_44);
 }
+#pragma code_seg()

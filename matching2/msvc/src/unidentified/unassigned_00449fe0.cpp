@@ -1,31 +1,31 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449FE0..0x00449FFF (32 bytes): scalar deleting destructor.
+//
+// The body clears the three tail words of the object and, when bit 0 of the
+// incoming flags is set, hands the object to the CRT free entry at 0x004524A1,
+// returning the object in EAX. The object arrives in ESI, a receiver no C++
+// declaration names, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/dtor_delete_00449fe0.json whose array-walking synthetic caller
+// establishes that convention.
 
-// 0x00449FE0..0x00449FFF: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00449fe0() {
-    __asm {
-    L_00449fe0:
-        xor eax,eax
-    L_00449fe2:
-        mov dword ptr [esi+8],eax
-    L_00449fe5:
-        mov dword ptr [esi+0Ch],eax
-    L_00449fe8:
-        mov dword ptr [esi+10h],eax
-    L_00449feb:
-        test byte ptr [esp+4],1
-    L_00449ff0:
-        je short L_00449ffb
-    L_00449ff2:
-        push esi
-    L_00449ff3:
-        call asm_free_004524a1
-    L_00449ff8:
-        add esp,4
-    L_00449ffb:
-        mov eax,esi
-    L_00449ffd:
-        ret 4
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct Deletable_00449fe0 {
+    unsigned char unknown_0000[0x08];
+    int field_08;   // +0x08
+    int field_0C;   // +0x0C
+    int field_10;   // +0x10
+};
+
+__declspec(noinline) void* Deletable_00449fe0_Delete(Deletable_00449fe0* object, int flags);
+
+#pragma code_seg(".text$01del")
+void* Deletable_00449fe0_Delete(Deletable_00449fe0* object, int flags) {
+    object->field_08 = 0;
+    object->field_0C = 0;
+    object->field_10 = 0;
+    if ((flags & 1) != 0) {
+        entry_free_004524a1(object);
     }
+    return object;
 }
+#pragma code_seg()

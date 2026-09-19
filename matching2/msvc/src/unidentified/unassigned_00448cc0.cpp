@@ -1,37 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448CC0..0x00448CF1 (50 bytes): scalar deleting destructor.
+//
+// The body releases the pointer held at +0x358 through the CRT free entry at
+// 0x00452422, clears the field, and -- when bit 0 of the incoming flags is set
+// -- hands the object itself to the CRT free entry at 0x004524A1, returning the
+// object in EAX. The object arrives in ESI, a receiver no C++ declaration
+// names, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/dtor_delete_00448cc0.json whose array-walking synthetic caller
+// establishes that convention.
 
-// 0x00448CC0..0x00448CF1: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00448cc0() {
-    __asm {
-    L_00448cc0:
-        mov eax,dword ptr [esi+358h]
-    L_00448cc6:
-        test eax,eax
-    L_00448cc8:
-        je short L_00448cd3
-    L_00448cca:
-        push eax
-    L_00448ccb:
-        call asm_free_00452422
-    L_00448cd0:
-        add esp,4
-    L_00448cd3:
-        test byte ptr [esp+4],1
-    L_00448cd8:
-        mov dword ptr [esi+358h],0
-    L_00448ce2:
-        je short L_00448ced
-    L_00448ce4:
-        push esi
-    L_00448ce5:
-        call asm_free_004524a1
-    L_00448cea:
-        add esp,4
-    L_00448ced:
-        mov eax,esi
-    L_00448cef:
-        ret 4
+extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl entry_free_004524a1(void* block);
+
+struct Deletable_00448cc0 {
+    unsigned char unknown_0000[0x358];
+    void* field_358;                    // +0x358
+};
+
+__declspec(noinline) void* Deletable_00448cc0_Delete(Deletable_00448cc0* object, int flags);
+
+#pragma code_seg(".text$01del")
+void* Deletable_00448cc0_Delete(Deletable_00448cc0* object, int flags) {
+    if (object->field_358 != 0) {
+        entry_free_00452422(object->field_358);
     }
+    object->field_358 = 0;
+    if ((flags & 1) != 0) {
+        entry_free_004524a1(object);
+    }
+    return object;
 }
+#pragma code_seg()
