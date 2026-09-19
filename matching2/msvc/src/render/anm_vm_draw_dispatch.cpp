@@ -1,212 +1,88 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004451C0..0x00445298 (216 bytes): dispatch one animation entity's quad to
+// the drawing routine its type selects.
+//
+// The routine is entered with the animation manager in ECX and the entity in
+// EAX - every retail call site loads that pair, `mov ecx,[data_00491c10]` then
+// `lea eax,[entity+0x10]`.  It reads the entity's flag word at +0x35C once and
+// rejects the entity unless bits 0 and 1 are set and the alpha byte at +0x2FF
+// is nonzero, then switches on `(flags >> 22) & 0xF` through a ten-entry jump
+// table and returns the selected routine's result, or 0 for a type outside the
+// table.  The guard writes the three rejections as separate early returns; the
+// compiler tail-merges them into retail's single `or eax,-1; ret` block, and it
+// keeps ESI and EDI because the case bodies use them as argument registers.
+//
+// Nine of the ten case targets are still assembly, and each one enters on
+// registers no MSVC declaration names (EAX, EDX, ESI, EDI or the stack), so
+// each is compiled into this cluster as a compiled ABI anchor placed at its
+// retail address by the layout's gaps: see the dispatcher anchor block in
+// layout/ltcg/render_batch_context.cpp.  None of those bodies is recovered
+// code; only their parameter homes matter.
+//
+// The tenth, 0x00444CE0, is the recovered AnimationManager::DrawStrip, whose
+// body is a definition in this same link (layout/ltcg/anm_batch_flush_00442f50
+// .json co-compiles src/render/edge_strip_draw.cpp).  That is what earns case 9
+// the no-move marshalling retail has - `DrawStrip` enters on (ECX manager, EAX
+// entity, two stack arguments) only when its own call graph is visible, and it
+// is also the third case that wants the entity in EAX, which is what keeps the
+// dispatcher's entry pair at (ECX, EAX) instead of letting the pass re-home the
+// entity in ESI.
+//
+// Two declaration-level levers shape the remaining marshalling:
+//
+//   * 0x004436C0 and 0x00443910 enter on (ECX manager, EDX entity) and are
+//     reached with a tail jump, so they are declared __fastcall.  Retail moves
+//     the entity from EAX to EDX at each site (`mov edx,eax; jmp`) and so does
+//     this model.  Anchoring them instead lets the pass hand them the entry
+//     pair itself, and declaring them with a call convention makes the pass
+//     re-home the dispatcher's own entity in EDX.
+//
+//   * 0x00444580 and 0x00443FB0 enter on (ESI entity, EDI manager) and
+//     (EDI entity, ESI manager), which no convention names; the pass derives
+//     both from the anchor bodies.  Their parameters are declared in the order
+//     the callee's register pair implies - (manager, entity) - because the pass
+//     assigns the declared first parameter the *second* register of the pair it
+//     picks: with the natural order it emitted `mov esi,ecx; mov edi,eax`
+//     instead of retail's `mov esi,eax; mov edi,ecx`.
+#include "th10/render/quad_batch.hpp"
 
-// 0x004451C0..0x0044526C: FUN_004451c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004451c0_004451c0() {
-    __asm {
-    L_004451c0:
-        mov edx,dword ptr [eax+35Ch]
-    L_004451c6:
-        test dl,1
-    L_004451c9:
-        je short L_004451dc
-    L_004451cb:
-        test dl,2
-    L_004451ce:
-        je short L_004451dc
-    L_004451d0:
-        push ebx
-    L_004451d1:
-        mov bl,byte ptr [eax+2FFh]
-    L_004451d7:
-        test bl,bl
-    L_004451d9:
-        pop ebx
-    L_004451da:
-        jne short L_004451e0
-    L_004451dc:
-        or eax,0FFFFFFFFh
-    L_004451df:
-        ret
-    L_004451e0:
-        shr edx,16h
-    L_004451e3:
-        and edx,0Fh
-    L_004451e6:
-        cmp edx,9
-    L_004451e9:
-        push esi
-    L_004451ea:
-        push edi
-    L_004451eb:
-        ja short L_00445268
-    L_004451ed:
-        jmp dword ptr [edx*4+445270h]
-    L_004451f4:
-        push ecx
-    L_004451f5:
-        mov esi,eax
-    L_004451f7:
-        call asm_FUN_00443080_00443080
-    L_004451fc:
-        pop edi
-    L_004451fd:
-        pop esi
-    L_004451fe:
-        ret
-    L_004451ff:
-        pop edi
-    L_00445200:
-        mov edx,eax
-    L_00445202:
-        pop esi
-    L_00445203:
-        jmp asm_FUN_004436c0_004436c0
-    L_00445208:
-        push ecx
-    L_00445209:
-        mov esi,eax
-    L_0044520b:
-        call asm_FUN_00443f80_00443f80
-    L_00445210:
-        pop edi
-    L_00445211:
-        pop esi
-    L_00445212:
-        ret
-    L_00445213:
-        mov esi,eax
-    L_00445215:
-        mov edi,ecx
-    L_00445217:
-        call asm_FUN_00444580_00444580
-    L_0044521c:
-        pop edi
-    L_0044521d:
-        pop esi
-    L_0044521e:
-        ret
-    L_0044521f:
-        mov edi,eax
-    L_00445221:
-        mov esi,ecx
-    L_00445223:
-        call asm_FUN_00443fb0_00443fb0
-    L_00445228:
-        pop edi
-    L_00445229:
-        pop esi
-    L_0044522a:
-        ret
-    L_0044522b:
-        push eax
-    L_0044522c:
-        push ecx
-    L_0044522d:
-        call asm_FUN_004445c0_004445c0
-    L_00445232:
-        pop edi
-    L_00445233:
-        pop esi
-    L_00445234:
-        ret
-    L_00445235:
-        push ecx
-    L_00445236:
-        call asm_FUN_00444760_00444760
-    L_0044523b:
-        pop edi
-    L_0044523c:
-        pop esi
-    L_0044523d:
-        ret
-    L_0044523e:
-        mov edx,dword ptr [eax+30Ch]
-    L_00445244:
-        shl edx,1
-    L_00445246:
-        push edx
-    L_00445247:
-        mov edx,dword ptr [eax+358h]
-    L_0044524d:
-        push edx
-    L_0044524e:
-        call asm_FUN_00444ce0_00444ce0
-    L_00445253:
-        pop edi
-    L_00445254:
-        pop esi
-    L_00445255:
-        ret
-    L_00445256:
-        push ecx
-    L_00445257:
-        call asm_FUN_00443290_00443290
-    L_0044525c:
-        pop edi
-    L_0044525d:
-        pop esi
-    L_0044525e:
-        ret
-    L_0044525f:
-        pop edi
-    L_00445260:
-        mov edx,eax
-    L_00445262:
-        pop esi
-    L_00445263:
-        jmp asm_FUN_00443910_00443910
-    L_00445268:
-        pop edi
-    L_00445269:
-        xor eax,eax
-    L_0044526b:
-        pop esi
-    L_0044526c:
-        ret
-        _emit 0x8d
-        _emit 0x49
-        _emit 0x00
-        _emit 0xf4
-        _emit 0x51
-        _emit 0x44
-        _emit 0x00
-        _emit 0xff
-        _emit 0x51
-        _emit 0x44
-        _emit 0x00
-        _emit 0x56
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x5f
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x08
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x13
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x1f
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x2b
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x35
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
-        _emit 0x3e
-        _emit 0x52
-        _emit 0x44
-        _emit 0x00
+extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
+                                                               AnimationManager_00442F50* manager);
+extern "C" __declspec(noinline) int __fastcall QuadDrawChecked_004436c0(AnimationManager_00442F50* manager,
+                                                                    RenderEntity* entity);
+extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
+                                                               AnimationManager_00442F50* manager);
+extern "C" __declspec(noinline) int __fastcall QuadDrawCheckedAlt_00443910(AnimationManager_00442F50* manager,
+                                                                       RenderEntity* entity);
+extern "C" __declspec(noinline) int EntityDraw_00443f80(RenderEntity* entity,
+                                                               AnimationManager_00442F50* manager);
+extern "C" __declspec(noinline) int EntityDraw_00444580(AnimationManager_00442F50* manager,
+                                                               RenderEntity* entity);
+extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager,
+                                                               RenderEntity* entity);
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager,
+                                                                  RenderEntity* entity);
+extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity,
+                                                               AnimationManager_00442F50* manager);
+
+#pragma code_seg(".text$06hdispatch")
+extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+        AnimationManager_00442F50* manager, RenderEntity* entity) {
+    unsigned int flags = entity->flags;
+    if (!(flags & 1)) return -1;
+    if (!(flags & 2)) return -1;
+    if (((const unsigned char*)&entity->color)[3] == 0) return -1;
+    switch ((flags >> 22) & 0xF) {
+    case 0: return EntityDraw_00443080(entity, manager);
+    case 1: return QuadDrawChecked_004436c0(manager, entity);
+    case 4: return EntityDraw_00443f80(entity, manager);
+    case 5: return EntityDraw_00444580(manager, entity);
+    case 6: return EntityDraw_00443fb0(manager, entity);
+    case 7: return FadedQuadDraw_004445c0(manager, entity);
+    case 8: return EntityDraw_00444760(entity, manager);
+    case 9: return manager->DrawStrip(entity, entity->strip_vertices, entity->strip_count * 2);
+    case 2: return EntityDraw_00443290(entity, manager);
+    case 3: return QuadDrawCheckedAlt_00443910(manager, entity);
     }
+    return 0;
 }
+#pragma code_seg()

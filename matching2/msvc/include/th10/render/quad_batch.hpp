@@ -62,7 +62,10 @@ struct RenderEntity {
     unsigned char reserved_05C[0x2FC - 0x5C];
     unsigned int color;
     unsigned int color_secondary;
-    unsigned char reserved_304[0x35C - 0x304];
+    unsigned char reserved_304[0x30C - 0x304];
+    unsigned int strip_count;
+    unsigned char reserved_310[0x358 - 0x310];
+    const void* strip_vertices;
     unsigned int flags;
     unsigned char reserved_360[0x394 - 0x360];
     RenderTexture* texture;

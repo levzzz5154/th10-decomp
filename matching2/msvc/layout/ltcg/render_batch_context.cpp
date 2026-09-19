@@ -43,3 +43,65 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
     return count;
 }
 #pragma code_seg()
+// --- dispatcher ABI anchors (compiled, never exported) ---
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+
+#pragma code_seg(".text$06b01anchor")
+extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, AnimationManager_00442F50* manager) {
+    int a = (int)entity->flags;
+    int b = (int)entity->strip_count;
+    entry_free_004524a1(entity);
+    a += (int)entity->flags;
+    entry_free_004524a1((void*)&manager);
+    b += (int)entity->color;
+    return a + b;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b02anchor")
+extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity, AnimationManager_00442F50* manager) {
+    entry_free_004524a1(entity);
+    return (int)(size_t)manager;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b05anchor")
+extern "C" __declspec(noinline) int EntityDraw_00443f80(RenderEntity* entity, AnimationManager_00442F50* manager) {
+    entry_free_004524a1(entity);
+    entry_free_004524a1((void*)&manager);
+    return (int)entity->strip_count;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b06anchor")
+extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager, RenderEntity* entity) {
+    for (int k = 0; k < 4; ++k) { entry_free_004524a1(entity); if (manager->state_changes) { entry_free_004524a1(manager); } }
+    return 0;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b07anchor")
+extern "C" __declspec(noinline) int EntityDraw_00444580(AnimationManager_00442F50* manager, RenderEntity* entity) {
+    entry_free_004524a1(entity);
+    entry_free_004524a1(manager);
+    entry_free_004524a1(entity);
+    entry_free_004524a1(manager);
+    return 0;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b08anchor")
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager, RenderEntity* entity) {
+    entry_free_004524a1((void*)1);
+    entry_free_004524a1(entity);
+    entry_free_004524a1(manager);
+    return 0;
+}
+#pragma code_seg()
+
+#pragma code_seg(".text$06b09anchor")
+extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity, AnimationManager_00442F50* manager) {
+    entry_free_004524a1(entity);
+    return (int)(size_t)manager;
+}
+#pragma code_seg()

@@ -27769,13 +27769,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004451c0_004451c0",
+      "name": "semantic_AnmVmDrawDispatch_004451c0",
       "source": "src/render/anm_vm_draw_dispatch.cpp",
       "symbol": "_asm_FUN_004451c0_004451c0",
       "address": "0x004451C0",
       "size": 216,
-      "kind": "asm",
-      "owner": "0x004451C0"
+      "kind": "semantic",
+      "owner": "0x004451C0",
+      "previous_record": {
+        "name": "asm_FUN_004451c0_004451c0",
+        "source": "src/render/anm_vm_draw_dispatch.cpp",
+        "symbol": "_asm_FUN_004451c0_004451c0",
+        "address": "0x004451C0",
+        "size": 216,
+        "kind": "asm",
+        "owner": "0x004451C0"
+      }
     },
     {
       "name": "text_padding_00445298",
