@@ -1,110 +1,68 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00449950..0x004499F0 (161 bytes): AnimationPool::Allocate - the animation
+// manager's object-pool allocator.  Every create family in the manager
+// (0x00448D00/0x00448E30/0x00448F60/0x00449090, 0x00448D50/0x00448E80/
+// 0x00448FB0/0x004490E0, 0x00448DB0/0x00448EE0/0x00449010/0x00449140) reaches
+// it as `mov esi,[data_00491C10]; call 0x449950`, i.e. the manager arrives in
+// ESI and the result in EAX.
+//
+// The manager owns a 0x1000-entry ring of Entity-sized (0x3AC) slots at +0x68,
+// a per-slot busy byte array at +0x3AC068 and the ring cursor at +0x3AD068.
+// Allocate starts at the cursor: a free slot is marked busy and handed out; a
+// busy slot advances the cursor once, and only if the successor is busy too is
+// a fresh 0x3AC-byte object taken from the heap and run through the landed
+// Entity_Constructor (0x00402050) and Entity_Init (0x00401DE0).  Either way the
+// tail advances the cursor past the returned slot, so the ring rotates.
+//
+// Retail's modulo is the signed `% 4096` shape (inc/and 0x80000FFF/jns/dec/or
+// 0xFFFFF000/inc); the cursor is re-read from the manager in the tail, which is
+// why the source stores `slot` back before the second probe and re-reads
+// `next_slot` at the end rather than reusing the local.
+//
+// The heap path keeps two variables: the constructed object in `block`'s
+// ternary result (`created`) and the value returned through `object`.  Retail
+// emits `mov edx,eax / mov edi,eax` - the initializer's argument and the
+// result home both copied out of the object's production register - and only
+// the separate temporary reproduces that; assigning straight into `object` and
+// passing `object` makes the backend copy the argument out of the home
+// register instead (`mov edi,eax / mov edx,edi`, two bytes short).
+//
+// The manager's registers are not expressible in a plain translation unit, so
+// the body is compiled in the native-LTCG cluster
+// layout/ltcg/anim_pool_alloc_00449950.json, whose driver also carries the
+// compiled ABI anchor for the Entity_Init call.
+#include "th10/game/entity.hpp"
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+void* __cdecl operator new(unsigned int size);
+Entity* __fastcall Entity_Constructor(Entity* self);
 
-// 0x00449950..0x004499F0: FUN_00449950
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00449950_00449950() {
-    __asm {
-    L_00449950:
-        mov eax,dword ptr [esi+3AD068h]
-    L_00449956:
-        mov ecx,eax
-    L_00449958:
-        imul ecx,3ACh
-    L_0044995e:
-        push edi
-    L_0044995f:
-        lea edi,[ecx+esi+68h]
-    L_00449963:
-        mov cl,byte ptr [eax+esi+3AC068h]
-    L_0044996a:
-        test cl,cl
-    L_0044996c:
-        je short L_004499ca
-    L_0044996e:
-        inc eax
-    L_0044996f:
-        and eax,80000FFFh
-    L_00449974:
-        jns short L_0044997d
-    L_00449976:
-        dec eax
-    L_00449977:
-        or eax,0FFFFF000h
-    L_0044997c:
-        inc eax
-    L_0044997d:
-        mov edx,eax
-    L_0044997f:
-        imul edx,3ACh
-    L_00449985:
-        mov dword ptr [esi+3AD068h],eax
-    L_0044998b:
-        mov cl,byte ptr [eax+esi+3AC068h]
-    L_00449992:
-        test cl,cl
-    L_00449994:
-        lea edi,[edx+esi+68h]
-    L_00449998:
-        je short L_004499ca
-    L_0044999a:
-        push 3ACh
-    L_0044999f:
-        call asm_operator_new_00452493
-    L_004499a4:
-        add esp,4
-    L_004499a7:
-        test eax,eax
-    L_004499a9:
-        je short L_004499bd
-    L_004499ab:
-        mov ecx,eax
-    L_004499ad:
-        call asm_Entity_Constructor_00402050
-    L_004499b2:
-        mov edx,eax
-    L_004499b4:
-        mov edi,eax
-    L_004499b6:
-        call asm_InitializeEntity_00401de0
-    L_004499bb:
-        jmp short L_004499d2
-    L_004499bd:
-        xor eax,eax
-    L_004499bf:
-        mov edx,eax
-    L_004499c1:
-        mov edi,eax
-    L_004499c3:
-        call asm_InitializeEntity_00401de0
-    L_004499c8:
-        jmp short L_004499d2
-    L_004499ca:
-        mov byte ptr [eax+esi+3AC068h],1
-    L_004499d2:
-        mov eax,dword ptr [esi+3AD068h]
-    L_004499d8:
-        inc eax
-    L_004499d9:
-        and eax,80000FFFh
-    L_004499de:
-        jns short L_004499e7
-    L_004499e0:
-        dec eax
-    L_004499e1:
-        or eax,0FFFFF000h
-    L_004499e6:
-        inc eax
-    L_004499e7:
-        mov dword ptr [esi+3AD068h],eax
-    L_004499ed:
-        mov eax,edi
-    L_004499ef:
-        pop edi
-    L_004499f0:
-        ret
+struct AnimationPool {
+    char header[0x68];
+    Entity objects[4096];
+    unsigned char occupied[4096];
+    int next_slot;
+    __declspec(noinline) Entity* Allocate();
+};
+
+#pragma code_seg(".text$03allocate")
+Entity* AnimationPool::Allocate() {
+    int slot = next_slot;
+    Entity* object = &objects[slot];
+    if (occupied[slot]) {
+        slot = (slot + 1) % 4096;
+        next_slot = slot;
+        object = &objects[slot];
+        if (occupied[slot]) {
+            Entity* block = (Entity*)operator new(sizeof(Entity));
+            Entity* created = block != 0 ? Entity_Constructor(block) : (Entity*)0;
+            object = created;
+            Entity_Init(0, created);
+        } else {
+            occupied[slot] = 1;
+        }
+    } else {
+        occupied[slot] = 1;
     }
+    next_slot = (next_slot + 1) % 4096;
+    return object;
 }
+#pragma code_seg()

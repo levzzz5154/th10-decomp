@@ -29857,13 +29857,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00449950_00449950",
+      "name": "semantic_AnimationPool_Allocate_00449950",
       "source": "src/render/fun_00449950_00449950.cpp",
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
       "address": "0x00449950",
       "size": 161,
-      "kind": "asm",
-      "owner": "0x00449950"
+      "kind": "semantic",
+      "owner": "0x00449950",
+      "previous_record": {
+        "name": "asm_FUN_00449950_00449950",
+        "source": "src/render/fun_00449950_00449950.cpp",
+        "symbol": "_asm_FUN_00449950_00449950",
+        "address": "0x00449950",
+        "size": 161,
+        "kind": "asm",
+        "owner": "0x00449950"
+      }
     },
     {
       "name": "text_padding_004499f1",
@@ -49386,7 +49395,8 @@
     "layout/ltcg/split_resource_path_0041a050.json",
     "layout/ltcg/ecl_record_reset_0040c730.json",
     "layout/ltcg/score_records_advance_frame_0041c480.json",
-    "layout/ltcg/render_stage_select_00405300.json"
+    "layout/ltcg/render_stage_select_00405300.json",
+    "layout/ltcg/anim_pool_alloc_00449950.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
