@@ -18181,13 +18181,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428e10_00428e10",
+      "name": "semantic_ScoreState_SetBossGauge_00428e10",
       "source": "src/game/fun_00428e10_00428e10.cpp",
-      "symbol": "_asm_FUN_00428e10_00428e10",
+      "symbol": "?SetBossGauge@ScoreState_00428e10@@QAEPAU1@PBUScoreCounters_00428e10@@@Z",
       "address": "0x00428E10",
       "size": 83,
-      "kind": "asm",
-      "owner": "0x00428E10"
+      "kind": "semantic",
+      "owner": "0x00428E10",
+      "previous_record": {
+        "name": "asm_FUN_00428e10_00428e10",
+        "source": "src/game/fun_00428e10_00428e10.cpp",
+        "symbol": "_asm_FUN_00428e10_00428e10",
+        "address": "0x00428E10",
+        "size": 83,
+        "kind": "asm",
+        "owner": "0x00428E10"
+      }
     },
     {
       "name": "text_padding_00428e63",
@@ -24653,13 +24662,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043a9b0_0043a9b0",
+      "name": "semantic_SoundManager_0043a9b0_LoadTrack_0043a9b0",
       "source": "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
-      "symbol": "_asm_FUN_0043a9b0_0043a9b0",
+      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
       "address": "0x0043A9B0",
       "size": 116,
-      "kind": "asm",
-      "owner": "0x0043A9B0"
+      "kind": "semantic",
+      "owner": "0x0043A9B0",
+      "previous_record": {
+        "name": "asm_FUN_0043a9b0_0043a9b0",
+        "source": "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
+        "symbol": "_asm_FUN_0043a9b0_0043a9b0",
+        "address": "0x0043A9B0",
+        "size": 116,
+        "kind": "asm",
+        "owner": "0x0043A9B0"
+      }
     },
     {
       "name": "text_padding_0043aa24",
@@ -49573,7 +49591,8 @@
     "layout/ltcg/positioned_primary_front_00448e80_wave12.json",
     "layout/ltcg/timer_owner_0042c5c0.json",
     "layout/ltcg/animation_manager_render_bucket_00448980.json",
-    "layout/ltcg/ecl_push_scratch_value_00450690.json"
+    "layout/ltcg/ecl_push_scratch_value_00450690.json",
+    "layout/ltcg/score_gauge_publish_00428e10.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {

@@ -62,6 +62,15 @@
       "address": "0x00426520",
       "size": 229,
       "actual_abi": "ESI this; EAX name; plain RET"
+    },
+    {
+      "name": "SoundManager_0043a9b0_LoadTrack",
+      "source": "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
+      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
+      "section": ".text$03zn9b0track",
+      "address": "0x0043A9B0",
+      "size": 116,
+      "actual_abi": "manager in EAX; index in ESI; name at [ESP+4]; RET 4"
     }
   ],
   "gaps": [
@@ -83,7 +92,17 @@
     {
       "section": ".text$03zlayout",
       "address": "0x0043A28F",
-      "size": 18241
+      "size": 1825
+    },
+    {
+      "section": ".text$03zolayout",
+      "address": "0x0043AA24",
+      "size": 1020
+    },
+    {
+      "section": ".text$03zqlayout",
+      "address": "0x0043AE71",
+      "size": 15199
     },
     {
       "section": ".text$04zlayout",
@@ -94,6 +113,11 @@
       "section": ".text$06layout",
       "address": "0x0044B4C8",
       "size": 56
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0044B58B",
+      "size": 645
     },
     {
       "section": ".text$02zzlayout",
@@ -257,6 +281,36 @@
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -264,7 +318,8 @@
     "src/script/fun_0040cd20_0040cd20.cpp",
     "src/platform/pack_file_loader.cpp",
     "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
-    "src/game/music_room.cpp"
+    "src/game/music_room.cpp",
+    "src/unidentified/FUN_0043a9b0_0043a9b0.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
@@ -272,10 +327,26 @@
   ],
   "driver": "layout/ltcg/archive_callers_context.cpp",
   "context": {
-    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@H@Z",
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDH@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
-    "size": 111,
-    "description": "Synthetic asset/map caller; not recovered game code"
-  }
+    "size": 139,
+    "description": "synthetic archive caller; not recovered game code"
+  },
+  "anchors": [
+    {
+      "name": "SoundManager_0043a9b0_MidiStop",
+      "symbol": "?MidiStop@SoundManager_0043a9b0@@QAEXXZ",
+      "section": ".text$03zpanchor",
+      "address": "0x0043AE20",
+      "size": 81
+    },
+    {
+      "name": "TextLog_0044b810_Append_abi_anchor",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$09append",
+      "address": "0x0044B810",
+      "size": 201
+    }
+  ]
 }

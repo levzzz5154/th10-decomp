@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "name": "score_gauge_publish_00428e10",
+  "source": "src/game/fun_00428e10_00428e10.cpp",
+  "driver": "layout/ltcg/score_gauge_publish_00428e10_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "ScoreState_00428e10::SetBossGauge compiled with native LTCG so the score state arrives in EAX and the counter record in ECX, as the retail call site in slot_snapshot.cpp (0x0042A5C8) sets them up.",
+  "functions": [
+    {
+      "name": "ScoreState_SetBossGauge",
+      "symbol": "?SetBossGauge@ScoreState_00428e10@@QAEPAU1@PBUScoreCounters_00428e10@@@Z",
+      "section": ".text$01accessor",
+      "address": "0x00428E10",
+      "size": 83,
+      "actual_abi": "score state in EAX; counters in ECX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "ScoreGaugeContext00428e10@12",
+    "section": ".text$03context",
+    "address": "0x00428E80",
+    "size": 60,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 163344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00428E63",
+      "size": 29
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    }
+  ],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}
