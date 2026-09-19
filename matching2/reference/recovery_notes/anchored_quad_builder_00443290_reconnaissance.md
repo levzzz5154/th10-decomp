@@ -115,8 +115,8 @@ The model and its header are preserved at
 | ---: | ---: | --- |
 | 0x00443290 | 486 | this note; source model started, not exact |
 | 0x00443080 | 515 | calls only `_floor` (x2, bound at 0x00452FF0) and the pipeline; model at 421/515, see above |
-| 0x004436C0 | 591 | contains `fsincos`; unreachable from C++ on this toolkit |
-| 0x00443910 | 591 | contains `fsincos`; unreachable from C++ on this toolkit |
+| 0x004436C0 | 591 | **EXACT** (wave 13, `004436c0_wave13.md`); the `fsincos` pair is an inline `__asm` block inside the recovered body, entered (ECX manager, EDX entity) |
+| 0x00443910 | 591 | **EXACT** (wave 13, `004436c0_wave13.md`); the same body - the twins differ only in their two call displacements |
 | 0x00443F80 | 33 | calls 0x00443B60 and the pipeline |
 | 0x00443FB0 | 643 | calls 0x00443B60, `__ftol2` (x7) and the pipeline |
 | 0x00444240 | 818 | calls D3DXMatrix*/Vec3Project only; model at 784/818, blocked on its EAX entry convention |
@@ -125,9 +125,12 @@ The model and its header are preserved at
 | 0x00444760 | 929 | calls Flush (recovered), D3DXMatrix* and 0x004423E0 |
 | 0x00444B10 | 201 | no calls at all; a good next candidate |
 
-Everything except the two `fsincos` functions has expressible callees, so the
-family is a cluster-sized batch once the first body's x87 discipline is
-reproduced.
+The two `fsincos` bodies are recovered (wave 13): the combined FSINCOS is
+unreachable from `sinf`/`cosf` on this toolkit, but it is only four lines of the
+original's own `__asm` inside a body that is otherwise the same source shape as
+the recovered `0x00443B60` - which is the template the pair transferred from.
+Everything else in the family has expressible callees, so the rest is a
+cluster-sized batch once each body's x87 discipline is reproduced.
 
 The experiment copy is at `matching2/build/recovery-lab/anchored1/`; iteration
 uses `matching2/build/pipeline-lab/lab.py --names BuildAnchoredQuad` against the
