@@ -9044,7 +9044,7 @@
     {
       "name": "semantic_RemoveNode_0040d200",
       "source": "src/unidentified/unassigned_0040d200.cpp",
-      "symbol": "_RemoveNode_0040d200@8",
+      "symbol": "@RemoveNode_0040d200@8",
       "address": "0x0040D200",
       "size": 82,
       "kind": "semantic",
