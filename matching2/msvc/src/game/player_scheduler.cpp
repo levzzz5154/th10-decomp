@@ -1,63 +1,76 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405BE0..0x00405C7D: reset both player scheduler links.
+//
+// Retail enters this member with the player record in EAX, a convention no C++
+// declaration names, so the body is compiled in the native-LTCG cluster
+// layout/ltcg/player_scheduler_links_00405be0.json, whose synthetic caller
+// walks an array of records and leaves the receiver in EAX.
+//
+// Each link is the same previous/current/elapsed/speed/flags timer block the
+// score timer (src/game/score_timer_leaves.cpp) and the recovery state
+// (src/game/recovery_initialize_timed_state_00423510.cpp) carry: current and
+// elapsed are cleared, previous takes the inactive sentinel -1, and while the
+// block is not yet running the countdown is armed with 0xFFF0BDC1 and the
+// shared float data_00476f78 as its speed before the running bit is raised.
+// The low half of the record's scheduler counter at +0x446 is cleared first.
+//
+// Every write to the record goes through a pointer to the field rather than
+// through the member, and the three clearing stores of each link share one
+// pointer (`tail`) the same way the pair write in
+// src/game/score_timer_leaves.cpp shares one:
+//
+//  * a direct member store (`marker = 0;`) sinks into the compare slot of the
+//    `test cl,1` that follows and is materialised at its use, 45 differing
+//    bytes;
+//  * with only the leading store behind a pointer, the prologue is exact but
+//    the three trailing stores of the first link sink into the second link's
+//    compare slot - the second flag load is hoisted above them - 27 differing
+//    bytes;
+//  * the shared pointer value keeps all three in front of that load: 0.
+extern "C" float data_00476f78;
 
-// 0x00405BE0..0x00405C7D: Player_ResetSchedulerLinksRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Player_ResetSchedulerLinksRetail_00405be0() {
-    __asm {
-    L_00405be0:
-        xor edx,edx
-    L_00405be2:
-        mov word ptr [eax+446h],dx
-    L_00405be9:
-        mov ecx,dword ptr [eax+408h]
-    L_00405bef:
-        test cl,1
-    L_00405bf2:
-        jne short L_00405c1d
-    L_00405bf4:
-        or ecx,1
-    L_00405bf7:
-        mov dword ptr [eax+3FCh],edx
-    L_00405bfd:
-        mov dword ptr [eax+3F8h],0FFF0BDC1h
-    L_00405c07:
-        mov dword ptr [eax+400h],edx
-    L_00405c0d:
-        mov dword ptr [eax+404h],476F78h
-    L_00405c17:
-        mov dword ptr [eax+408h],ecx
-    L_00405c1d:
-        mov dword ptr [eax+3FCh],edx
-    L_00405c23:
-        mov dword ptr [eax+400h],edx
-    L_00405c29:
-        mov dword ptr [eax+3F8h],0FFFFFFFFh
-    L_00405c33:
-        mov ecx,dword ptr [eax+41Ch]
-    L_00405c39:
-        test cl,1
-    L_00405c3c:
-        jne short L_00405c67
-    L_00405c3e:
-        or ecx,1
-    L_00405c41:
-        mov dword ptr [eax+410h],edx
-    L_00405c47:
-        mov dword ptr [eax+40Ch],0FFF0BDC1h
-    L_00405c51:
-        mov dword ptr [eax+414h],edx
-    L_00405c57:
-        mov dword ptr [eax+418h],476F78h
-    L_00405c61:
-        mov dword ptr [eax+41Ch],ecx
-    L_00405c67:
-        mov dword ptr [eax+410h],edx
-    L_00405c6d:
-        mov dword ptr [eax+414h],edx
-    L_00405c73:
-        mov dword ptr [eax+40Ch],0FFFFFFFFh
-    L_00405c7d:
-        ret
+struct Player_00405be0 {
+    unsigned char unknown_0000[0x3F8];
+    int link_1_previous;         // +0x3F8
+    int link_1_current;          // +0x3FC
+    int link_1_elapsed;          // +0x400
+    float* link_1_speed;         // +0x404
+    unsigned int link_1_flags;   // +0x408
+    int link_2_previous;         // +0x40C
+    int link_2_current;          // +0x410
+    int link_2_elapsed;          // +0x414
+    float* link_2_speed;         // +0x418
+    unsigned int link_2_flags;   // +0x41C
+    unsigned char unknown_0420[0x26];
+    unsigned short marker;       // +0x446
+
+    __declspec(noinline) void ResetSchedulerLinks();
+};
+
+#pragma code_seg(".text$01accessor")
+void Player_00405be0::ResetSchedulerLinks() {
+    unsigned short* record = &marker;
+    record[0] = 0;
+    if ((link_1_flags & 1) == 0) {
+        link_1_current = 0;
+        link_1_previous = 0xFFF0BDC1;
+        link_1_elapsed = 0;
+        link_1_speed = &data_00476f78;
+        link_1_flags |= 1;
     }
+    int* tail_1 = &link_1_current;
+    tail_1[0] = 0;
+    tail_1[1] = 0;
+    tail_1[-1] = -1;
+    if ((link_2_flags & 1) == 0) {
+        link_2_current = 0;
+        link_2_previous = 0xFFF0BDC1;
+        link_2_elapsed = 0;
+        link_2_speed = &data_00476f78;
+        link_2_flags |= 1;
+    }
+    int* tail_2 = &link_2_current;
+    tail_2[0] = 0;
+    tail_2[1] = 0;
+    tail_2[-1] = -1;
 }
+#pragma code_seg()

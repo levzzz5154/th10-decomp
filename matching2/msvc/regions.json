@@ -2964,13 +2964,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Player_ResetSchedulerLinksRetail_00405be0",
+      "name": "semantic_Player_SchedulerLinks_00405be0_Reset_00405be0",
       "source": "src/game/player_scheduler.cpp",
-      "symbol": "_asm_Player_ResetSchedulerLinksRetail_00405be0",
+      "symbol": "?ResetSchedulerLinks@Player_00405be0@@QAEXXZ",
       "address": "0x00405BE0",
       "size": 158,
-      "kind": "asm",
-      "owner": "0x00405BE0"
+      "kind": "semantic",
+      "owner": "0x00405BE0",
+      "previous_record": {
+        "name": "asm_Player_ResetSchedulerLinksRetail_00405be0",
+        "source": "src/game/player_scheduler.cpp",
+        "symbol": "_asm_Player_ResetSchedulerLinksRetail_00405be0",
+        "address": "0x00405BE0",
+        "size": 158,
+        "kind": "asm",
+        "owner": "0x00405BE0"
+      }
     },
     {
       "name": "text_padding_00405c7e",
@@ -49649,7 +49658,8 @@
     "layout/ltcg/score_gauge_publish_00428e10.json",
     "layout/ltcg/recovery_offset_point_00418810.json",
     "layout/ltcg/restart_midi_0043ad70.json",
-    "layout/ltcg/ecl_resolve_float_destination_00450070.json"
+    "layout/ltcg/ecl_resolve_float_destination_00450070.json",
+    "layout/ltcg/player_scheduler_links_00405be0.json"
   ],
   "coff_aliases": {
     "src/util/legacy_string.cpp": {
