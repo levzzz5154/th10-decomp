@@ -30,7 +30,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 PROJECT = ROOT / "matching2/msvc"
 REGISTER = re.compile(r"\b(?:e?[abcd]x|e?[sd]i|e?[sb]p|[abcd][lh])\b")
-GAME_LOW, GAME_HIGH = 0x401000, 0x44D000            # above is the static CRT
+# The static CRT block starts at the lowest region match_crt.py resolves to a
+# toolkit library member, 0x00452493 (strrchr), not at the old guess of
+# 0x44D000 - a wave-20 agent found the bound had been excluding real game
+# regions from 0x44D000 upward and including CRT ones above it.
+GAME_LOW, GAME_HIGH = 0x401000, 0x452493
 CALL_SETUP = re.compile(r"^(mov|lea|movzx|movsx)\s+(ecx|edx)\s*,", re.I)
 
 
