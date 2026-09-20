@@ -1,3 +1,12 @@
+// BLOCKED (M2703): closest_byte_count=26; first_diff=unmeasured;
+// residual_class=abi: the range predicate has two live pointer inputs in
+// ECX and EAX; the historical free-__fastcall form cannot express both
+// retail register roles without changing the compare sequence;
+// variants_tested=exact retail naked wrapper, free __fastcall form, and
+// synthetic caller contexts; no readable candidate was byte-measured;
+// next_lever=co-compile the predicate with a native-LTCG caller that pins
+// both pointer operands to the observed ECX/EAX entry tuple.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

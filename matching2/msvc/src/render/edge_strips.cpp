@@ -1,3 +1,14 @@
+// BLOCKED (H2601): closest_byte_count=201; first_diff=unmeasured;
+// residual_class=abi: private three-register entry ABI plus x87 loop
+// scheduling: count is in EAX, surface in ECX, and vertex output in EBX, with
+// ESI/EDI/EBP lifetimes controlling the two interleaved strip loops; no
+// ordinary declaration names that complete entry tuple;
+// variants_tested=exact retail naked wrapper, legacy horizontal-strip semantic
+// model, and the paired vertical-strip implementation at 0x00444BE0;
+// next_lever=build a render-target cluster that exposes the EAX/ECX/EBX entry
+// tuple and co-compiles both strip fillers, then measure the source shape;
+// retain the exact wrapper until that cluster produces the 201-byte extent.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

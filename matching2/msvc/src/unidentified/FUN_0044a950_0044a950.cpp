@@ -1,3 +1,14 @@
+// BLOCKED (H2701): closest_byte_count=127; first_diff=unmeasured;
+// residual_class=abi/allocator: retail promotes the binding-set index in ECX
+// and the 16-bit action word in AX, computes the 0x6A-byte record address,
+// and keeps SI/DI as counter-loop temporaries; ordinary signatures do not
+// preserve that promoted entry and allocation.
+// variants_tested=exact retail naked wrapper, KeyboardBinding counter/edge
+// semantic model, and the paired 0x0044A9D0 binding-reader call shape; no
+// compiler-readable candidate was byte-measured.
+// next_lever=make the binding-reader and this 0x6A-byte record helper one
+// native-LTCG cluster with the ECX/AX entry contract visible to the compiler.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

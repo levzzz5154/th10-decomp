@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2702): closest_byte_count=111; first_diff=unmeasured;
+// residual_class=abi/cluster; retail enters with the animation context in EDX,
+// the source position record in ESI, and the script handle in the stack slot,
+// while the manager object remains in ECX across AnimationManager_Find and the
+// child-list walk.  That private register contract is not expressible by a
+// standalone readable member without compiling the Find/setter cluster.
+// variants_tested=the existing SetPosition/Find semantic structures, a
+// translated-position member candidate using the same +0x340/+0x14/+0x18
+// layout, and the exact retail overlay; no candidate was byte-measured.
+// next_lever=co-compile AnimationManager_Find, SetPosition, this setter, and
+// its real animation callers as one native-LTCG cluster.
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

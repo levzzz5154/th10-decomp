@@ -1,3 +1,13 @@
+// BLOCKED (H2601): closest_byte_count=679; first_diff=unmeasured;
+// residual_class=structural: absolute jump-table layout plus schema-2 dispatch
+// ABI: the 0x004125F8 table is a separately anchored continuation, while
+// leaves return mixed integer/x87 values through the private ECX/global-state
+// convention;
+// variants_tested=exact retail naked wrapper, switch/jump-table semantic model,
+// and the paired 0x00411FC0 accessor family from the same disassembly;
+// next_lever=co-compile this fragment with an address-pinned jump-table anchor
+// and both dispatch families; do not replace the exact wrapper with a C++ switch.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

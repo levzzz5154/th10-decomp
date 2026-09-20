@@ -1,3 +1,13 @@
+// BLOCKED (M2703): closest_byte_count=31; first_diff=unmeasured;
+// residual_class=abi/source_shape: retail consumes a stack float while
+// simultaneously carrying source in ECX and destination in EAX, then emits
+// an x87 three-product/store schedule unavailable to a standalone ordinary
+// declaration;
+// variants_tested=exact retail naked wrapper; no compiler-readable candidate
+// was attempted or byte-measured;
+// next_lever=co-compile the helper with a real caller/native-LTCG context
+// that fixes the ECX source, EAX destination, and stack-argument ownership.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

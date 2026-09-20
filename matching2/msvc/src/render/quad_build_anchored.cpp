@@ -1,3 +1,13 @@
+// BLOCKED (H2501): closest_byte_count=514/515; first_diff=0x004430B7;
+// residual_class=instruction-scheduler tie-break: retail releases the x-case
+// floor-call stack area between the width fadd and sink store, while the
+// toolkit releases it one instruction earlier, shifting the tail by one byte;
+// variants_tested=13 x-case spellings, all 24 vertex-store permutations, 256
+// combined case screens, stepwise/local accumulator forms, address/module
+// shape changes, synthetic callers, plain /O2, and native /GL+/LTCG;
+// next_lever=use a compiler/toolkit scheduler that permits the retail release
+// slot (and the declared 515-byte extent); no further cosmetic source variant.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

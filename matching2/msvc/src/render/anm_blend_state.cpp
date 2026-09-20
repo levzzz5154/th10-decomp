@@ -1,3 +1,14 @@
+// BLOCKED (H2701): closest_byte_count=440; first_diff=unmeasured;
+// residual_class=abi/source_shape: retail carries the entity in EAX and the
+// animation manager in EBX, calls the private flush leaf, and stores packed
+// blend/filter bytes through stack homes before issuing D3D state methods;
+// a standalone member loses those private register and byte-temporary shapes.
+// variants_tested=exact retail naked wrapper, the readable SyncRenderState
+// counterpart at 0x004425A0, and a direct packed-state/D3D-vtable model; no
+// compiler-readable candidate was byte-measured.
+// next_lever=make the 0x00442F50 flush body and its quad-draw caller an
+// IL-visible native-LTCG cluster, preserving EAX/EBX and the packed byte homes.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

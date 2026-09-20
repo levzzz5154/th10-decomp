@@ -2,6 +2,14 @@
 #include "asm_symbols.hpp"
 
 // 0x00449A70..0x00449A8F: unassigned code fragment
+// BLOCKED (M2702): closest_byte_count=32; first_diff=unmeasured;
+// residual_class=abi/source_shape: the retail fragment receives its list
+// object in EAX and its child pointer in ECX, then resets flagged fields;
+// ordinary declarations cannot express both live-ins at this split, and the
+// paired 0x00449A50/0x00449A70 fragments need separate retail symbols.
+// variants_tested=exact retail overlay only; no readable candidate was measured;
+// next_lever=compile the paired list-reset methods in one native-LTCG cluster
+// with separate A50 and A70 entry contexts.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00449a70() {
     __asm {

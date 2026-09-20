@@ -1,3 +1,16 @@
+// BLOCKED (D2701): closest_byte_count=183; first_diff=unmeasured;
+// residual_class=abi+x87: retail promotes the VM receiver into EAX and the
+// operand index into ECX, reads the packed instruction float, and shares the
+// value resolver's local/scratch/private-virtual branches with an x87 return.
+// An ordinary member/free declaration changes the receiver or parameter homes
+// before the branch body and cannot express the observed internal ABI.
+// variants_tested=exact retail wrapper, the legacy ECL_ResolveFloatOperand
+// model, the ECL_ResolveFloatValue sibling model, and the readable float
+// destination accessor; no compiler-readable candidate was byte-measured.
+// next_lever=build a native-LTCG ECL resolver cluster with a synthetic caller
+// carrying EAX/ECX and the real value/scratch callees, then measure the
+// 183-byte body; retain this wrapper until that ABI cluster is available.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

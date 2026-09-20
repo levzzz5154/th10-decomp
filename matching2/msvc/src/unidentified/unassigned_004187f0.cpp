@@ -1,3 +1,12 @@
+// BLOCKED (M2703): closest_byte_count=29; first_diff=0x004187F1;
+// residual_class=abi: four source shapes, including pooled literals, made
+// the native pass place the source in EAX and destination in ECX, while
+// retail requires source in ECX and destination in EAX for both x87 stores;
+// variants_tested=4 source shapes including pooled-literal forms, plus the
+// exact retail naked wrapper;
+// next_lever=use a native-LTCG caller/anchor that assigns the private
+// ECX-source/EAX-destination tuple, then remeasure this 29-byte leaf.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -3,6 +3,13 @@
 
 // 0x00449510..0x00449528: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2701): closest_byte_count=25/25; first_diff=unmeasured;
+// residual_class=structural/abi: this is a loop tail entered by the jump from
+// 0x004494D0 with EAX and EDX live, not an independently callable C++ body.
+// variants_tested=member list-walk model and exact retail wrapper; splitting
+// the tail from its predecessor loses the incoming register/state contract.
+// next_lever=re-carve and recover the coupled 0x004494D0/0x00449510 region
+// (or provide a native-LTCG fragment anchor preserving EAX/EDX).
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00449510() {
     __asm {
     L_00449510:

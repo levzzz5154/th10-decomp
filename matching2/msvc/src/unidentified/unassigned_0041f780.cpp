@@ -3,6 +3,14 @@
 
 // 0x0041F780..0x0041F79E: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2701): closest_byte_count=31/31; first_diff=0x0041F785;
+// residual_class=abi: the retail private convention keeps the destination in
+// EAX and the source vector in ECX, while the nearest native pass selected the
+// opposite homes (the measured delta is the `fmul [ecx+8]`/`[eax+8]` byte).
+// variants_tested=three vector-scale source spellings; all preserved the
+// three stores and RET 4 but selected the wrong declaration-visible homes.
+// next_lever=native-LTCG caller context that pins destination EAX and source
+// ECX for this ret-4 helper; retain the exact wrapper meanwhile.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_0041f780() {
     __asm {
     L_0041f780:

@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2702): closest_byte_count=171; first_diff=unmeasured;
+// residual_class=abi/cluster; the helper receives its motion state in ESI,
+// branches between Cartesian and polar updates, calls the retained
+// PolarToVector FSINCOS leaf, and then runs both coordinates through the
+// private x87 angle-wrapping helper.  Its stack temporaries and register
+// homes are coupled to the polar caller cluster.
+// variants_tested=the recovered six-float motion layout, direct Vector2 polar
+// update source, the existing bullet/effect callers, and the exact retail
+// overlay; no readable candidate was byte-measured.
+// next_lever=compile this helper with PolarToVector, the x87 wrapping callee,
+// and the real bullet/effect callers as one native-LTCG cluster.
 // 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
 // Naked body preserves the retail register/stack ABI.
 

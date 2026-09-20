@@ -1,25 +1,28 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x0044C770..0x0044C782: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044c770() {
-    __asm {
-    L_0044c770:
-        mov eax,dword ptr [esi]
-    L_0044c772:
-        test eax,eax
-    L_0044c774:
-        je short L_0044c782
-    L_0044c776:
-        mov ecx,dword ptr [eax]
-    L_0044c778:
-        push eax
-    L_0044c779:
-        call dword ptr [ecx+8]
-    L_0044c77c:
-        mov dword ptr [esi],0
-    L_0044c782:
-        ret
+// A joystick slot owns an interface whose Release method is the vtable entry
+// at +8.  The native-LTCG context keeps this receiver in ESI, matching the
+// private retail calling convention at 0x0044C770.
+struct JoystickInterface_0044c770 {
+    struct Vtable {
+        void* query_interface;
+        void* add_reference;
+        void (__stdcall *release)(JoystickInterface_0044c770*);
+    };
+    Vtable* vtable;
+};
+
+struct JoystickSlot_0044c770 {
+    JoystickInterface_0044c770* interface_pointer;
+
+    __declspec(noinline) void Release();
+};
+
+#pragma code_seg(".text$01release")
+void JoystickSlot_0044c770::Release() {
+    JoystickInterface_0044c770* interface_pointer = this->interface_pointer;
+    if (interface_pointer != 0) {
+        interface_pointer->vtable->release(interface_pointer);
+        this->interface_pointer = 0;
     }
 }
+#pragma code_seg()

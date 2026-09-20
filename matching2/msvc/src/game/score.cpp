@@ -5,6 +5,15 @@
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size);
 
 
+// BLOCKED (D2601): closest_byte_count=30; first_diff=unmeasured;
+// residual_class=toolkit; the retail member is the canonical 30-byte
+// FSINCOS leaf (this in ECX, angle/scale on the stack), while MSVC source
+// expressions for sin/cos do not emit one FSINCOS instruction.
+// variants_tested=exact retail overlay and the existing Vector2/score polar
+// source spellings; no compiler-readable FSINCOS candidate was measured;
+// next_lever=use a compiler/toolkit mechanism that exposes one x87 FSINCOS
+// operation while retaining the __thiscall return and RET 8 shape.
+
 // 0x00408750..0x0040876D: Score_SetPolarVector
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {
@@ -34,6 +43,16 @@ extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {
     }
 }
 
+
+// BLOCKED (D2601): closest_byte_count=1057; first_diff=unmeasured;
+// residual_class=abi; this large score-runtime state machine enters with its
+// object in EDI and calls private 0x0043EE30/0x00449350/0x00449470 helpers;
+// the exact overlay is retained because those register and callee contracts
+// are not expressible by an ordinary standalone declaration.
+// variants_tested=exact retail overlay and the existing score-state readable
+// field reconstruction; no compiler-readable schema-2 candidate was measured;
+// next_lever=recover the three dependent helpers and compile this routine,
+// its caller, and the animation setters in one schema-2 native-LTCG cluster.
 
 // 0x00408D60..0x00408ED9: FUN_00408d60
 // Naked body preserves the retail register/stack ABI.
@@ -654,6 +673,14 @@ unsigned int __fastcall UpdateBoundedCounter(
     *counter = value;
     return value;
 }
+// BLOCKED (D2601): closest_byte_count=30; first_diff=unmeasured;
+// residual_class=toolkit; this is the same canonical x87 FSINCOS polar leaf
+// as 0x00408750, with the this pointer in ECX and RET 8 stack ownership.
+// variants_tested=exact retail overlay and the existing Vector2/score polar
+// source spellings; no compiler-readable FSINCOS candidate was measured;
+// next_lever=use a compiler/toolkit mechanism that exposes one x87 FSINCOS
+// operation while retaining the __thiscall return and RET 8 shape.
+
 // 0x0041BEB0..0x0041BECD: FUN_0041beb0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {
@@ -682,6 +709,16 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {
         ret 8
     }
 }
+
+// BLOCKED (D2601): closest_byte_count=195; first_diff=unmeasured;
+// residual_class=abi; the destructor combines allocator callbacks from fixed
+// globals, scheduler removal, a virtual release, and an intrusive-list unlink
+// while preserving the retail EBX/EBP/ESI/EDI allocation.  Ordinary C++
+// changes the callback/register schedule before the list walk.
+// variants_tested=exact retail overlay and the existing scheduler/list
+// destructor source shapes; no compiler-readable candidate was measured;
+// next_lever=co-compile the scheduler remove/free bindings and the owning
+// ScoreExtendedObject layout in a native-LTCG destructor cluster.
 
 // 0x0041C1C0..0x0041C282: ScoreExtendedObject_DestroyRetail
 // Naked body preserves the retail register/stack ABI.

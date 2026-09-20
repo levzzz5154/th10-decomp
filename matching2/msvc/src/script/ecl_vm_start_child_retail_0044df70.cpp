@@ -1,3 +1,19 @@
+// BLOCKED (D2701): closest_byte_count=550; first_diff=unmeasured;
+// residual_class=large-schema2 ABI/control-flow translation: this body
+// carries the child VM in EAX, parent instruction/argument state through
+// private stack homes, converts mixed int/float arguments via the value
+// resolvers, marshals return-link words, and finishes through a private
+// virtual label/list path.  Its exact register ownership is coupled to the
+// unresolved resolver, scratch, label, and child-list conventions.
+// variants_tested=exact retail wrapper, the legacy EclVm_StartChild semantic
+// reconstruction, the current spawn-child caller, and the resolved
+// int/float/scratch sibling models; no compiler-readable schema-2 candidate
+// was byte-measured.
+// next_lever=first recover and cluster the 0x0044FF80/0x00450470 resolver and
+// label edges with a real child-spawn caller, then compile this 550-byte body
+// in a schema-2 native-LTCG context; retain the exact wrapper until that
+// complete cluster assigns the private ABI.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

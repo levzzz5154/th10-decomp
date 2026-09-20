@@ -2,6 +2,13 @@
 #include "asm_symbols.hpp"
 
 // 0x004497B0..0x004497CE: unassigned code fragment
+// BLOCKED (M2702): closest_byte_count=31; first_diff=unmeasured;
+// residual_class=abi: retail walks a list with the cursor in EAX and the
+// sought script id in ECX; a normal member/free declaration cannot preserve
+// that two-register entry while retaining the observed loop register order.
+// variants_tested=exact retail overlay only; no readable candidate was measured;
+// next_lever=compile a dedicated native-LTCG two-register list-walk context
+// anchored to the neighboring AnimationManager child-lookup family.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_004497b0() {
     __asm {

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "name": "joystick_slots_0044c770",
+  "source": "src/unidentified/unassigned_0044c770.cpp",
+  "driver": "layout/ltcg/joystick_slots_0044c770_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Joystick slot release and setup operations compiled under one native LTCG context so both private receivers remain in ESI.",
+  "functions": [
+    {
+      "name": "JoystickSlot_0044c770::Release",
+      "symbol": "?Release@JoystickSlot_0044c770@@QAEXXZ",
+      "section": ".text$01release",
+      "address": "0x0044C770",
+      "size": 19,
+      "actual_abi": "slot in ESI; plain RET",
+      "source": "src/unidentified/unassigned_0044c770.cpp"
+    },
+    {
+      "name": "JoystickSlot_0044c790::Configure",
+      "symbol": "?Configure@JoystickSlot_0044c790@@QAEHHHH@Z",
+      "section": ".text$03setup",
+      "address": "0x0044C790",
+      "size": 69,
+      "actual_abi": "slot in ESI; three stack arguments; RET 0xC",
+      "source": "src/unidentified/unassigned_0044c790.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?JoystickSlotsCompilerContext@@YGHPAPAUJoystickSlot_0044c770@@PAPAUJoystickSlot_0044c790@@HHHH@Z",
+    "section": ".text$05context",
+    "address": "0x0044C7E0",
+    "size": 67,
+    "description": "Synthetic paired array caller that establishes the private ESI receiver convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 309104
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044C783",
+      "size": 13
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044C7D5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_Ordinal_11_00452170",
+      "address": "0x00452170",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_Input_SetJoystickPropertyRetail_0044c7e0",
+      "address": "0x0044C7E0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Apply@PropertyOwner_0044c790@@QAEXPAPAUJoystickInterface_0044c790@@@Z",
+      "address": "0x0044C7E0",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/unidentified/unassigned_0044c790.cpp"
+  ]
+}

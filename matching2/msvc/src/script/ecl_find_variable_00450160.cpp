@@ -1,3 +1,17 @@
+// BLOCKED (D2701): closest_byte_count=36; first_diff=unmeasured;
+// residual_class=abi+linked-list-entry: retail starts from a VM pointer in
+// EAX, walks the bound-node chain rooted at +0x1030, compares each pointed
+// object's private identifier at +0x1010 against ECX, and returns the node
+// address.  The receiver and search key are both promoted live-ins that a
+// normal C++ declaration does not preserve.
+// variants_tested=exact retail wrapper, the legacy linked-node
+// ECL_FindVariable model, the ECL_ResetVariableBindings sibling, and the
+// dispatcher call sites that establish the EAX/ECX tuple; no
+// compiler-readable candidate was byte-measured.
+// next_lever=compile the node walk in the existing ECL native-LTCG cluster
+// with a synthetic caller pinning EAX and ECX, preserving the retail
+// aligned-short-jump layout; retain the 36-byte wrapper until measured.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

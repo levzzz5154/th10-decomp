@@ -1,3 +1,14 @@
+// BLOCKED (H2501): closest_byte_count=300/300; first_diff=0x0040D55E
+// (+0x2E), with the mirrored site at 0x0040D592 (+0x62);
+// residual_class=MSVC c2 register-register argument-copy order (retail copies
+// ECX before EDX, while both available toolkit revisions copy EDX before ECX);
+// variants_tested=56 call-setup shapes plus the earlier matrix, both cl 13.10
+// revisions, plain /O2 and native /GL+/LTCG, home permutations, caller/callee
+// visibility, and register-pressure ballast;
+// next_lever=use a compiler/toolkit whose two-register copies schedule in
+// ascending parameter-home order, then rerun the merged EnemyManager/Scheduler
+// cluster; retain this exact wrapper until that ABI lever exists.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

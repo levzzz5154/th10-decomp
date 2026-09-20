@@ -3,6 +3,8 @@
   "name": "bullet_manager_load_scripts_0040ae70",
   "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
   "additional_sources": [
+    "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
+    "src/game/scheduler_create_and_register_0044a000.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
     "src/game/message_host_init.cpp",
     "src/game/object_factories.cpp",
@@ -176,6 +178,24 @@
       "actual_abi": "task in ECX, scheduler in EDX; plain RET"
     },
     {
+      "name": "SchedulerCreatePrimary_0044A000",
+      "source": "src/game/scheduler_create_and_register_0044a000.cpp",
+      "symbol": "?Create@SchedulerCreatePrimary_0044A000@@QAEPAUSchedulerTask@@PAXH@Z",
+      "section": ".text$76schedulerprimary",
+      "address": "0x0044A000",
+      "size": 43,
+      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; Scheduler_RegisterPrimary; RET 4"
+    },
+    {
+      "name": "SchedulerCreateSecondary_0044A030",
+      "source": "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
+      "symbol": "?Create@SchedulerCreateSecondary_0044A030@@QAEPAUSchedulerTask@@PAXH@Z",
+      "section": ".text$78schedulersecondary",
+      "address": "0x0044A030",
+      "size": 43,
+      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; Scheduler_RegisterSecondary; RET 4"
+    },
+    {
       "name": "Joystick_Probe",
       "source": "src/platform/joystick_probe.cpp",
       "symbol": "?Joystick_Probe_0044a0c0@@YGFXZ",
@@ -216,7 +236,7 @@
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 348,
+    "size": 411,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -323,7 +343,17 @@
     {
       "section": ".text$75_layout",
       "address": "0x00449FD2",
-      "size": 238
+      "size": 46
+    },
+    {
+      "section": ".text$77sched_gap_primary",
+      "address": "0x0044A02B",
+      "size": 5
+    },
+    {
+      "section": ".text$79sched_gap_secondary",
+      "address": "0x0044A05B",
+      "size": 101
     },
     {
       "section": ".text$82_layout",

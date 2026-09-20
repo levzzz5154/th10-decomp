@@ -1,4 +1,8 @@
 #include "asm_symbols.hpp"
+// Structural ownership is exactly forty independent six-byte import slots:
+// 0x00452332..0x00452421. The preceding 0x0045232C..0x00452331 bytes
+// are foreign-owned (WINNLSEnableIME), and 0x00452422 starts free().
+// Keep each slot as its own naked wrapper; do not merge across boundaries.
 
 // 0x00452332: import jump thunk.
 extern "C" __declspec(naked) void __cdecl asm_import_thunk_00452332() {

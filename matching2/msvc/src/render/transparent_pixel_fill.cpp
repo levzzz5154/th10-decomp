@@ -1,3 +1,15 @@
+// BLOCKED (D2601): closest_byte_count=946; first_diff=unmeasured;
+// residual_class=source_shape; the 946-byte routine is a nested palette/
+// transparency kernel with retail-only stack temporaries, x87-independent
+// channel accumulation, and multiple hand-shaped backward/forward pixel
+// probes.  A readable reconstruction would change loop boundaries and
+// temporary lifetimes, so the exact retail wrapper remains authoritative.
+// variants_tested=exact retail overlay and the related 0x004465B0 pixel
+// kernel's readable control-flow model; no compiler-readable candidate was
+// measured;
+// next_lever=derive the original pixel-record type and compile this body in
+// a native-LTCG renderer cluster with its real caller and palette helpers.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

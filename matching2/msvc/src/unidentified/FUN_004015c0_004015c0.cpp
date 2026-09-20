@@ -1,3 +1,14 @@
+// BLOCKED (H2701): closest_byte_count=109; first_diff=unmeasured;
+// residual_class=abi/source_shape: retail receives formatted text in ECX,
+// the record source in EBX, and the table/context in ESI, then appends a
+// 0x68-byte entry with a byte-copy loop and three dword field stores; the
+// four-register private contract is not expressible as a normal declaration.
+// variants_tested=exact retail naked wrapper, the 0x00401700 formatted-text
+// caller model, and an explicit 0x68-byte record-struct reconstruction; no
+// compiler-readable candidate was byte-measured.
+// next_lever=co-compile the formatter caller and owning record type in a
+// native-LTCG cluster that makes ECX/EBX/ESI live at this entry.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

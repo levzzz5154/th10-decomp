@@ -6,14 +6,15 @@
     "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
     "src/render/animation_manager_find_004491c0.cpp",
-    "src/game/recovery_initialize_timed_state_00423510.cpp"
+    "src/game/recovery_initialize_timed_state_00423510.cpp",
+    "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
     "include/th10/render/animation_handle.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "StopAtFrame1/2/3 compiled with the animation lookup as an internal callee, so the whole-program pass drops the receiver the lookup never reads and leaves the dereferenced handle pointer in EAX. The same scope carries the timed recovery record's initialiser, whose two handle calls reuse that convention and whose receiver the synthetic array-walking caller places in ESI.",
+  "description": "StopAtFrame1/2/3 and the readable handle stop-frame helper share the animation lookup and child propagation family under native LTCG. The same scope carries Find and the timed recovery initialiser, while the synthetic caller supplies the private EAX handle and SI frame convention for the added helper.",
   "functions": [
     {
       "name": "AnimationManager_StopAtFrame1",
@@ -43,6 +44,15 @@
       "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp"
     },
     {
+      "name": "AnimationHandle_00449470_SetStopFrame",
+      "symbol": "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z",
+      "section": ".text$75stop",
+      "address": "0x00449470",
+      "size": 65,
+      "actual_abi": "handle address in EAX; frame value in SI; plain RET",
+      "source": "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+    },
+    {
       "name": "AnimationManager_Find",
       "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$50find",
@@ -65,7 +75,7 @@
     "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAURecoveryTimedState_00423510@@@Z",
     "section": ".text$70context",
     "address": "0x00449220",
-    "size": 65,
+    "size": 79,
     "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
   },
   "gaps": [
@@ -98,6 +108,11 @@
       "section": ".text$60layout",
       "address": "0x449209",
       "size": 23
+    },
+    {
+      "section": ".text$71layout",
+      "address": "0x0044926F",
+      "size": 513
     }
   ],
   "constants": [],

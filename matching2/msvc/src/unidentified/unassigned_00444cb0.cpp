@@ -1,37 +1,28 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00444CB0..0x00444CD1: copy one source field into a strided destination
+// array. Native LTCG supplies this method's internal register convention:
+// destination in EAX, source in EDX, and count in ECX.
 
-// 0x00444CB0..0x00444CD1: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00444cb0() {
-    __asm {
-    L_00444cb0:
-        test ecx,ecx
-    L_00444cb2:
-        jle short L_00444ccf
-    L_00444cb4:
-        add eax,10h
-    L_00444cb7:
-        push esi
-    L_00444cb8:
-        jmp short L_00444cc0
-    L_00444cba:
-        lea ebx,[ebx+force_disp32_zero]
-    L_00444cc0:
-        mov esi,dword ptr [edx+2FCh]
-    L_00444cc6:
-        mov dword ptr [eax],esi
-    L_00444cc8:
-        add eax,1Ch
-    L_00444ccb:
-        dec ecx
-    L_00444ccc:
-        jne short L_00444cc0
-    L_00444cce:
-        pop esi
-    L_00444ccf:
-        xor eax,eax
-    L_00444cd1:
-        ret
+struct DestinationCopySource_00444cb0 {
+    unsigned char pad_000[0x2fc];
+    int field_2fc;
+};
+
+struct DestinationCopy_00444cb0 {
+    __declspec(noinline) int Copy(const DestinationCopySource_00444cb0* source,
+                                   int count);
+};
+
+#pragma code_seg(".text$01copy")
+int DestinationCopy_00444cb0::Copy(
+    const DestinationCopySource_00444cb0* source, int count) {
+    if (count > 0) {
+        unsigned char* cursor =
+            reinterpret_cast<unsigned char*>(this) + 0x10;
+        do {
+            *reinterpret_cast<int*>(cursor) = source->field_2fc;
+            cursor += 0x1c;
+        } while (--count);
     }
+    return 0;
 }
+#pragma code_seg()

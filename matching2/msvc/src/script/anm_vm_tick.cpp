@@ -1,3 +1,8 @@
+// BLOCKED (D2401): closest_byte_count=9964; first_diff=unmeasured;
+// residual_class=large ANM VM control-flow/ABI translation; variants_tested=
+// legacy_semantic AnmVm_Tick reference and current retail assembly;
+// next_lever=derive the hook/state ABI and land a native-LTCG VM cluster
+// before replacing this exact-overlay body.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2702): closest_byte_count=31; first_diff=unmeasured;
+// residual_class=abi/cluster; the reset receives its ECL instance in EAX,
+// follows the intrusive variable-binding chain rooted at +0x1034, and clears
+// each binding's back-link through the preceding node.  A normal __thiscall
+// or __cdecl member changes that entry register and the retail loop's
+// scheduling, so the readable body needs the real ECL helper cluster.
+// variants_tested=the EclInstance/EclVariableContext intrusive-list shape,
+// the existing ECL_FindVariable and EclVm_TickChildren layouts, and the exact
+// retail overlay; no candidate was byte-measured.
+// next_lever=compile ResetVariableBindings with FindVariable, SpawnChild,
+// StartChild, and the interpreter caller in one ECL native-LTCG cluster.
 // 0x0044DF70..0x0044E195: EclVm_StartChildRetail
 // Naked body preserves the retail register/stack ABI.
 

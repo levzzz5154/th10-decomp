@@ -1,3 +1,17 @@
+// BLOCKED (D2701): closest_byte_count=58; first_diff=unmeasured;
+// residual_class=abi: retail receives the VM in ESI and the variable index in
+// ECX, tests the instruction-table mask, then selects a pooled-frame pointer
+// or a private virtual external-variable pointer.  A standalone C++ member
+// cannot name the promoted ESI receiver while retaining the observed ECX
+// index and EAX return.
+// variants_tested=exact retail wrapper, the legacy ECL_ResolveVariableValue
+// semantic model, the readable integer/float destination accessors, and the
+// ECL variable-table layout recovered from the dispatcher; no
+// compiler-readable candidate was byte-measured.
+// next_lever=co-compile this accessor with ECL_FindVariable, both destination
+// siblings, and a real interpreter caller in the native-LTCG cluster so the
+// receiver remains in ESI and the index in ECX; retain the 58-byte wrapper.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

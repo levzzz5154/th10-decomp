@@ -3,6 +3,15 @@
 
 // 0x00427C10..0x00427C30: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2701): closest_byte_count=15/33; first_diff=0x00427C12;
+// residual_class=toolkit/scheduler: the exact ESI source and EDI destination
+// ABI is private, and the nearest readable scale/truncate candidate differed
+// in 18 bytes because MSVC hoisted/reloaded the 0x00470B44 scale instead of
+// retaining retail's `fld source; fmul [scale]` order.
+// variants_tested=src*K, K*src, source local, scale local; all retained the
+// private-register ABI but missed retail x87 spelling or changed the extent.
+// next_lever=compiler/toolkit mechanism that emits the retail x87 order inside
+// a native-LTCG ESI/EDI context; retain this exact wrapper meanwhile.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00427c10() {
     __asm {
     L_00427c10:

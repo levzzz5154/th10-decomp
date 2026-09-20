@@ -1,3 +1,13 @@
+// BLOCKED (M2703): closest_byte_count=24; first_diff=unmeasured;
+// residual_class=abi/source_shape: the fragment enters with its record in
+// ESI, passes an EDX-derived configuration destination, preserves EDI around
+// the call, then performs a 25-dword clear and returns the ESI record;
+// this private multi-register schedule is not expressible by a standalone
+// ordinary declaration;
+// variants_tested=exact retail naked wrapper; no compiler-readable candidate
+// was attempted or byte-measured;
+// next_lever=co-compile the initializer with its 0x0042A9E0 predecessor and
+// a native-LTCG caller context that exposes ESI/EDX ownership.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

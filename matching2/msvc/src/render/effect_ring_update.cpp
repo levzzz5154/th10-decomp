@@ -1,3 +1,12 @@
+// BLOCKED (H2501): closest_byte_count=554/598; first_diff=unmeasured;
+// residual_class=callee-preserved-register ABI: retail keeps this in EDX
+// across Vector2_SetPolar at 0x004458B0, but that callee remains assembly and
+// the compiler therefore promotes this to EBP and changes the frame;
+// variants_tested=nested-loop model, unrolled-loop model, full particle/ring
+// layout reconstruction, and the available plain source shapes;
+// next_lever=co-compile 0x00445620 with an expressible 0x004458B0 fsincos body
+// or add toolkit metadata for its preserved EDX set; retain this wrapper.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

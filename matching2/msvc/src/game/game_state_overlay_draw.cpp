@@ -1,3 +1,15 @@
+// BLOCKED (H2601): closest_byte_count=724; first_diff=unmeasured;
+// residual_class=source_shape: schema-2 overlay ABI and fixed call/source
+// ordering: retail takes its state on the stack, walks five fixed animation
+// arrays, then emits x87-derived rectangles through 0x0043BDA0 with packed
+// color bytes; the legacy semantic overlay model confirms meaning but not
+// this byte shape;
+// variants_tested=exact retail wrapper, legacy GameStateOverlay_Draw model,
+// and the existing 0x00415AF0 forwarding caller;
+// next_lever=co-compile the overlay body with its real draw-animation and
+// rectangle callees in a schema-2 LTCG context, preserving fixed array strides,
+// stack argument order, and the retail wrapper until measured.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

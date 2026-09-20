@@ -1,3 +1,11 @@
+// BLOCKED (M2703): closest_byte_count=25; first_diff=0x004177F2;
+// residual_class=abi: seven source spellings reached the 25-byte extent,
+// but the second field load/store base landed in ECX (the member receiver)
+// instead of retail's required EAX destination;
+// variants_tested=7 source spellings and the exact retail naked wrapper;
+// next_lever=use a caller/anchor native-LTCG context that forces the second
+// destination pointer into EAX while retaining the ECX receiver.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

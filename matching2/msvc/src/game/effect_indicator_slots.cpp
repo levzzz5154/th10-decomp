@@ -1,3 +1,18 @@
+// BLOCKED (D2701): closest_byte_count=181; first_diff=unmeasured;
+// residual_class=source-shape+ABI: retail uses the manager in EDX (with an
+// unused promoted ECX live-in), scans 32 packed 0x6C-byte slots, performs a
+// redundant second clear after the 0x6C-byte wipe, and stores two stack
+// arguments through an embedded x87 timer initialization sequence.  The
+// ordinary pool/slot model captures the fields but has not produced a
+// measured compiler candidate for this exact register and clear schedule.
+// variants_tested=exact retail wrapper, the legacy EffectIndicatorPool slot
+// model, the EmbeddedTimer_SetCountdown sibling pattern, and both real
+// allocation callers; no compiler-readable candidate was byte-measured.
+// next_lever=compile the manager/slot allocator with a native-LTCG context
+// that pins the manager in EDX and preserves the redundant clear and x87
+// timer stores, then measure the 181-byte extent; retain this exact wrapper
+// until that ABI/source-shape cluster succeeds.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

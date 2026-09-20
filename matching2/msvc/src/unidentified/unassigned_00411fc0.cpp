@@ -1,3 +1,14 @@
+// BLOCKED (H2601): closest_byte_count=616; first_diff=unmeasured;
+// residual_class=structural: absolute jump-table layout plus mixed return ABI:
+// this ownerless fragment dispatches through 0x00412228 and its leaves
+// alternate integer, float, and integer-to-float results while consuming
+// ECX/global state; a normal C++ switch cannot place that table at the retail
+// boundary;
+// variants_tested=exact retail naked wrapper, accessor-family semantic reading,
+// and paired comparison with the sibling 0x00412350 dispatch fragment;
+// next_lever=co-compile an address-pinned 0x00412228 jump-table anchor with
+// both dispatch fragments and the real ECL caller context.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

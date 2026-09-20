@@ -1,3 +1,12 @@
+// BLOCKED (H2501): closest_byte_count=800/833; first_diff=unmeasured;
+// residual_class=MSVC register allocation and reload selection: retail keeps
+// the binding pointer in EBX and flags in ESI, then rematerializes the device
+// argument across joyGetPosEx, while the candidate unifies the loads;
+// variants_tested=about 120 source families, project flag sweeps, aligned
+// state/JOYINFOEX locals, and a native /GL+/LTCG link;
+// next_lever=find a faithful aliasing/source boundary that forces the device
+// reload and retail EBX/ESI homes; retain the exact wrapper until then.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

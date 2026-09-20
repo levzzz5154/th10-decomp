@@ -1,3 +1,14 @@
+// BLOCKED (H2701): closest_byte_count=111; first_diff=unmeasured;
+// residual_class=abi/source_shape: EAX is an indirect device/object entry,
+// the body performs four COM-style vtable operations, clears a byte buffer
+// sized by stack values, and conditionally releases the returned object;
+// ordinary factory and memset expressions change the vtable/temporary order.
+// variants_tested=exact retail naked wrapper, explicit COM-vtable factory
+// model, and readable zero-buffer/conditional-release reconstruction; no
+// compiler-readable candidate was byte-measured.
+// next_lever=co-compile a real caller that supplies the EAX indirect entry
+// with the device vtable and release owner in a native-LTCG surface cluster.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,65 +1,49 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x0044C790..0x0044C7D4: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044c790() {
-    __asm {
-    L_0044c790:
-        mov eax,dword ptr [esi]
-    L_0044c792:
-        test eax,eax
-    L_0044c794:
-        je short L_0044c7a2
-    L_0044c796:
-        mov ecx,dword ptr [eax]
-    L_0044c798:
-        push eax
-    L_0044c799:
-        call dword ptr [ecx+8]
-    L_0044c79c:
-        mov dword ptr [esi],0
-    L_0044c7a2:
-        push 0
-    L_0044c7a4:
-        push esi
-    L_0044c7a5:
-        push 0
-    L_0044c7a7:
-        call asm_Ordinal_11_00452170
-    L_0044c7ac:
-        test eax,eax
-    L_0044c7ae:
-        jl short L_0044c7d2
-    L_0044c7b0:
-        mov ecx,dword ptr [esp+8]
-    L_0044c7b4:
-        mov eax,dword ptr [esi]
-    L_0044c7b6:
-        mov edx,dword ptr [eax]
-    L_0044c7b8:
-        push ecx
-    L_0044c7b9:
-        mov ecx,dword ptr [esp+8]
-    L_0044c7bd:
-        push ecx
-    L_0044c7be:
-        push eax
-    L_0044c7bf:
-        call dword ptr [edx+18h]
-    L_0044c7c2:
-        test eax,eax
-    L_0044c7c4:
-        jl short L_0044c7d2
-    L_0044c7c6:
-        mov ecx,dword ptr [esp+0Ch]
-    L_0044c7ca:
-        push esi
-    L_0044c7cb:
-        call asm_Input_SetJoystickPropertyRetail_0044c7e0
-    L_0044c7d0:
-        xor eax,eax
-    L_0044c7d2:
-        ret 0Ch
+
+extern "C" void __cdecl asm_Ordinal_11_00452170();
+struct JoystickInterface_0044c790;
+struct PropertyOwner_0044c790 {
+    void Apply(JoystickInterface_0044c790** slot);
+};
+
+struct JoystickInterface_0044c790 {
+    struct Vtable {
+        void* query_interface;
+        void* add_reference;
+        void (__stdcall *release)(JoystickInterface_0044c790*);
+        void* reserved_0c;
+        void* reserved_10;
+        void* reserved_14;
+        int (__stdcall *configure)(JoystickInterface_0044c790*, int, int);
+    };
+    Vtable* vtable;
+};
+
+struct JoystickSlot_0044c790 {
+    JoystickInterface_0044c790* interface_pointer;
+
+    __declspec(noinline) int Configure(int device, int flags, int property_owner);
+};
+
+#pragma code_seg(".text$03setup")
+int JoystickSlot_0044c790::Configure(int device, int flags, int property_owner) {
+    JoystickInterface_0044c790* interface_pointer = this->interface_pointer;
+    if (interface_pointer != 0) {
+        interface_pointer->vtable->release(interface_pointer);
+        this->interface_pointer = 0;
     }
+
+    typedef int (__stdcall *Probe)(int, void*, int);
+    int result = reinterpret_cast<Probe>(asm_Ordinal_11_00452170)(0, this, 0);
+    if (result >= 0) {
+        interface_pointer = this->interface_pointer;
+        result = interface_pointer->vtable->configure(interface_pointer, device, flags);
+        if (result >= 0) {
+            reinterpret_cast<PropertyOwner_0044c790*>(property_owner)->Apply(
+                &this->interface_pointer);
+            result = 0;
+        }
+    }
+    return result;
 }
+#pragma code_seg()

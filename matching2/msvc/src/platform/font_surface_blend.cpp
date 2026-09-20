@@ -1,3 +1,14 @@
+// BLOCKED (H2501): closest_byte_count=645; first_diff=unmeasured;
+// residual_class=unexpressible promoted ABI: retail enters with row in EAX,
+// mask in EDX, column in ECX and ret 0xC, while every faithful candidate
+// promotes only two values and leaves the third on the stack;
+// variants_tested=85 native-LTCG contexts, declaration/parameter/calling-
+// convention permutations, dispatch forms, member/free forms, and liveness
+// variants;
+// next_lever=raise register pressure with a semantically faithful body form
+// that promotes all three retail parameters, or use a toolkit with that ABI
+// promotion; no caller can constrain it because the image has no caller.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

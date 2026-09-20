@@ -1,23 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00428EA0..0x00428EB7: indexed two-word copy from a private LTCG ABI.
+//
+// The native-LTCG caller keeps this source object in ECX, the destination
+// base in EDX, and the slot index in EAX.  The fixed +0x32DC anchor and 0x98
+// stride are intentionally spelled out so the selected body retains retail's
+// exact address arithmetic.
+struct IndexedCopySource_00428ea0 {
+    unsigned int first;
+    unsigned int second;
 
-// 0x00428EA0..0x00428EB7: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00428ea0() {
-    __asm {
-    L_00428ea0:
-        imul eax,98h
-    L_00428ea6:
-        lea eax,[eax+edx+32DCh]
-    L_00428ead:
-        mov edx,dword ptr [ecx]
-    L_00428eaf:
-        mov dword ptr [eax],edx
-    L_00428eb1:
-        mov ecx,dword ptr [ecx+4]
-    L_00428eb4:
-        mov dword ptr [eax+4],ecx
-    L_00428eb7:
-        ret
-    }
+    __declspec(noinline) void Copy(void* base, int index);
+};
+
+#pragma code_seg(".text$01ea")
+__declspec(noinline) void IndexedCopySource_00428ea0::Copy(void* base, int index) {
+    unsigned char* destination =
+        reinterpret_cast<unsigned char*>(base) + index * 0x98 + 0x32DC;
+    *reinterpret_cast<unsigned int*>(destination) = first;
+    *reinterpret_cast<unsigned int*>(destination + 4) = second;
 }
+#pragma code_seg()

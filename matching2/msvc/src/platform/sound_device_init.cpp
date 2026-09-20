@@ -1,3 +1,15 @@
+// BLOCKED (H2701): closest_byte_count=786; first_diff=unmeasured;
+// residual_class=abi/source_shape: this __thiscall entry keeps the device
+// object in ECX and HWND on the stack (RET 4), then combines DirectInput
+// vtable calls, a 0x2000-dword clear, security-cookie exits, and fixed
+// stack-struct fields; ordinary constructor/source forms alter that schedule.
+// variants_tested=exact retail naked wrapper, readable DirectInput/device-init
+// reconstruction, and explicit zeroed-buffer plus vtable-interface model
+// against the StartAddress caller; no compiler-readable candidate was
+// byte-measured.
+// next_lever=co-compile the real startup caller, DirectInput interfaces, and
+// device state layout in one native-LTCG cluster while retaining RET 4.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2702): closest_byte_count=142; first_diff=unmeasured;
+// residual_class=abi/cluster; this schema-2 constructor allocates the
+// 0x1024-byte VM instance and its 12-byte intrusive-list node, copies the
+// parent's mask and owner fields, links the node into +0x1030, then invokes
+// StartChild with the retail EDI parent and stack arguments.  Ordinary C++
+// allocation/member syntax cannot preserve that private register lifetime.
+// variants_tested=the ECL instance/node layouts recovered by
+// StartChild/TickChildren, direct operator-new construction, and the exact
+// retail overlay; no schema-2 candidate was byte-measured.
+// next_lever=co-compile SpawnChild, StartChild, ResetVariableBindings, and
+// the interpreter's spawn op with the EDI/ESI cluster ABI.
 // 0x0044DF70..0x0044E195: EclVm_StartChildRetail
 // Naked body preserves the retail register/stack ABI.
 

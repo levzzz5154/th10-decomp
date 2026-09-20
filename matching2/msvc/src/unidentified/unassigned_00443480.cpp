@@ -1,3 +1,14 @@
+// BLOCKED (H2601): closest_byte_count=505; first_diff=unmeasured;
+// residual_class=scheduler: private EAX receiver plus x87 scheduler and
+// stack-temporary ABI: two packed mode fields select long floating-point
+// branches, pooled constants feed the x87 state, and the tail calls
+// 0x00442AD0 with EAX live;
+// variants_tested=exact retail naked wrapper, x87 branch-by-branch source
+// reading, and the adjacent 0x00443080/0x00443290 angle-helper shapes;
+// next_lever=co-compile a schema-2 render cluster with an IL-visible
+// 0x00442AD0 signature and a source form that pins EAX/ESP across both x87
+// mode selectors; do not land a cosmetic floating-point rewrite.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

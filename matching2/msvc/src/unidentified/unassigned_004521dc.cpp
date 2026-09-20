@@ -1,4 +1,10 @@
 #include "asm_symbols.hpp"
+// Structural ownership is intentionally one retail import thunk per six-byte
+// slot: 0x004521DC..0x0045232B. The preceding slots at 0x004521D0 and
+// 0x004521D6 belong to foreign functions, while 0x0045232C..0x00452331 is
+// unclaimed and the next owned slot begins in unassigned_00452332.cpp.
+// Keep these bodies naked: a compiler-generated prologue or indirect call
+// would change the exact six-byte `jmp [IAT]` encoding.
 
 // 0x004521DC: import jump thunk.
 extern "C" __declspec(naked) void __cdecl asm_import_thunk_004521dc() {

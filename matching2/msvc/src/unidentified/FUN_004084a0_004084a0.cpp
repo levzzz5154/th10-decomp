@@ -1,3 +1,14 @@
+// BLOCKED (H2601): closest_byte_count=370; first_diff=unmeasured;
+// residual_class=abi: private register ABI and x87 source shape: retail
+// receives object state in ECX, point data in EDI, and the scalar on the
+// stack, while the 1000-iteration loop depends on those homes and the x87
+// compare chain;
+// variants_tested=exact retail naked wrapper, IDA __userpurge
+// (EAX-return/ECX-object/EDI-point) signature, and the adjacent score-vector
+// helper family; no caller-visible source model was byte-measured;
+// next_lever=build the real score/entity caller cluster with an IL-visible
+// callee carrying ECX/EDI and preserve the x87 compare ordering.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

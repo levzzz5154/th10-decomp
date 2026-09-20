@@ -1,6 +1,10 @@
 // Compiler context only; never selected as recovered game code.
 #include "../../src/render/anm_propagate.cpp"
 
+struct AnimationHandle_00449470 {
+    __declspec(noinline) void SetStopFrame(unsigned short frame);
+};
+
 // The timed recovery record the added function initialises.  Declared here so
 // this driver can call the member without defining it: its body is compiled
 // separately and the whole-program pass still sees it.
@@ -16,6 +20,8 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         handles->StopAtFrame1();
         handles->StopAtFrame2();
         handles->StopAtFrame3();
+        reinterpret_cast<AnimationHandle_00449470*>(handles)->SetStopFrame(
+            *reinterpret_cast<unsigned short*>(states));
         handles++;
         states->InitializeTimedState();
         states++;

@@ -1,3 +1,15 @@
+// BLOCKED (H2701): closest_byte_count=201; first_diff=unmeasured;
+// residual_class=abi/source_shape: retail enters with the strip count in EAX,
+// render-target state in ECX, and the vertex destination in EBX, then relies on
+// ESI/EDI/EBP lifetimes plus x87 stack order across two interleaved loops;
+// ordinary __cdecl/__thiscall declarations cannot name that entry tuple.
+// variants_tested=exact retail naked wrapper, semantic vertical-strip model
+// paired with 0x00444B10, and a direct two-loop vertex-record reconstruction;
+// no compiler-readable candidate was byte-measured.
+// next_lever=build a native-LTCG render-target cluster exposing EAX/ECX/EBX
+// together with both strip fillers and their real caller; retain this wrapper
+// until the cluster reproduces the 201-byte extent.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

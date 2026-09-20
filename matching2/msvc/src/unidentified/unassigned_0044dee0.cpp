@@ -1,3 +1,13 @@
+// BLOCKED (M2703): closest_byte_count=33; first_diff=unmeasured;
+// residual_class=abi: the fragment enters with its object in ESI, performs
+// an indirect import call, and has two retail RET sites; a standalone
+// __cdecl/__thiscall declaration cannot preserve that private receiver.
+// variants_tested=exact retail naked wrapper; no compiler-readable candidate
+// was attempted or byte-measured;
+
+// next_lever=co-compile this body with its real caller in a native-LTCG
+// cluster that exposes the ESI receiver and indirect import binding.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

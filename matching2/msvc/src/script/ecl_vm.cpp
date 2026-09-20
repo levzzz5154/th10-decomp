@@ -1,3 +1,12 @@
+// BLOCKED (H2501): closest_byte_count=14416; first_diff=unmeasured;
+// residual_class=large ECL extended-opcode dispatch/state ABI translation;
+// known semantic gaps include movement, sound-command, manager-cleanup, and
+// state-mixer paths, so the exact retail overlay remains authoritative;
+// variants_tested=legacy ECL VM reconstruction and the current retail
+// assembly overlay;
+// next_lever=derive the complete opcode hook/state ABI and land a native-LTCG
+// VM cluster with its state and helper callees before replacing this wrapper.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

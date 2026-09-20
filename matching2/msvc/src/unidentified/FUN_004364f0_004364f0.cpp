@@ -1,3 +1,15 @@
+// BLOCKED (H2701): closest_byte_count=107; first_diff=0x0043650E;
+// residual_class=allocator: the BufferFile::Seek readable candidate preserves
+// the retail 107-byte extent and control flow, but MSVC chooses EDX for the
+// backward-origin base/limit compare where retail holds the base in ESI.
+// variants_tested=48 materially different BufferFile::Seek switch variants
+// (all six origin orders and break versus return-failure exits), including
+// the tree/goto source shape recorded in memory-file-recovery/seek.cpp; the
+// closest candidate still diverges at 0x0043650E.
+// next_lever=force the backward-origin base value to remain live in ESI with
+// a faithful alias/source boundary or a register-allocation compiler lever;
+// retain the exact wrapper until that single allocator residual is removed.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

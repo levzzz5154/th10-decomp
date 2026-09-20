@@ -2,6 +2,17 @@
 #include "asm_symbols.hpp"
 
 
+// BLOCKED (D2702): closest_byte_count=7020; first_diff=unmeasured;
+// residual_class=source_shape/abi; this schema-2 ECL dispatcher is a
+// 7-KB opcode jump-table state machine with an EAX instance, ESI/EDI scratch
+// homes, x87 comparisons, and private tail targets shared by child ticking.
+// Replacing only this wrapper would lose the dispatcher table and its caller
+// ABI, so no isolated readable translation is safe.
+// variants_tested=the existing opcode/state overlay, the recovered
+// ECL_ResolveIntValue/FindVariable/StartChild helpers, and the exact retail
+// dispatcher; no schema-2 candidate was byte-measured.
+// next_lever=co-compile the complete opcode table with every listed ECL
+// helper and EclVm_TickChildren in one native-LTCG cluster.
 // 0x0044E1A0..0x0044E1D7: FUN_0044e1a0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_0044e1a0() {
@@ -3954,6 +3965,17 @@ struct EclFrame {
     EclStack stack;                    // +0x0008
 };
 
+// BLOCKED (D2702): closest_byte_count=144; first_diff=unmeasured;
+// residual_class=abi/cluster; the resolver's selector arrives in EAX, the
+// ECL frame in EDX, and the callee pops one stack argument.  Indirect slots
+// can consume the value stack, convert a tagged float, or dispatch through a
+// virtual variable context; those paths share private homes with the
+// interpreter and cannot be represented by an isolated ordinary declaration.
+// variants_tested=the EclOperandTable/EclStack/EclVariableContext structures,
+// the existing ECL_ResolveIntValue readable body, and the exact retail
+// overlay; no cluster candidate was byte-measured.
+// next_lever=compile ResolveIntOperand with ResolveIntValue, FindVariable,
+// and the real interpreter callers using the observed EAX/EDX cluster ABI.
 // 0x0044FDB0..0x0044FE3F: ?ECL_ResolveIntOperand@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntOperand_0044fdb0() {
@@ -4103,6 +4125,15 @@ int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* frame, int sel
 
 
 
+// BLOCKED (D2702): closest_byte_count=30; first_diff=unmeasured;
+// residual_class=toolkit; this ECL member is another canonical x87 FSINCOS
+// leaf with ECX as destination and RET 8 stack ownership for angle/magnitude.
+// Standard sin/cos source does not force the single retail FSINCOS operation.
+// variants_tested=the existing Score_SetPolarVector and Recovery_PolarToVector
+// leaves, direct ECL Vector2 source spellings, and the exact retail overlay;
+// no compiler-readable FSINCOS candidate was byte-measured.
+// next_lever=use a compiler/toolkit mechanism that emits FSINCOS while
+// retaining the __thiscall destination and RET-8 argument contract.
 // 0x004501B0..0x004501CD: ?ECL_SetPolarVector@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ECL_SetPolarVector_004501b0() {

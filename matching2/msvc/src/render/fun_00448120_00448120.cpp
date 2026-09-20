@@ -1,3 +1,14 @@
+// BLOCKED (H2701): closest_byte_count=325; first_diff=unmeasured;
+// residual_class=abi/source_shape: the private EBX entry selects a surface
+// slot, while the body uses stack-owned output/RECT temporaries, D3D vtable
+// calls at offsets 0x48/0x70/0x90/0x78, and the D3DX surface-copy thunk;
+// normal C++ surface declarations change the homes and COM call setup.
+// variants_tested=exact retail naked wrapper, IDirect3DSurface-style semantic
+// copy model, and explicit vtable-plus-stack-RECT model; no compiler-readable
+// candidate was byte-measured.
+// next_lever=co-compile this body with the real surface-owner caller and
+// IL-visible D3D9 vtable bindings in a native-LTCG cluster that pins EBX.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

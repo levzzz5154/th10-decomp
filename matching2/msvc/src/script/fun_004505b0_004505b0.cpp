@@ -1,3 +1,18 @@
+// BLOCKED (D2701): closest_byte_count=96; first_diff=unmeasured;
+// residual_class=abi+copy-scheduling: retail receives the scratch VM in EAX,
+// the type byte in DL, and size/source on the stack, then conditionally
+// advances the typed frame and emits one rep-movsd/rep-movsb copy sequence.
+// This mixed register/stack entry convention and its cursor lifetime are not
+// expressible by the ordinary __cdecl wrapper.
+// variants_tested=exact retail wrapper, the legacy ECL_WriteScratch semantic
+// model, memcpy/intrinsic and explicit byte-copy source forms, and the
+// neighboring push/pop scratch cluster models; no compiler-readable candidate
+// was byte-measured.
+// next_lever=build the scratch read/write helpers together in a native-LTCG
+// cluster with a synthetic caller pinning EAX/DL and the two stack arguments,
+// then measure the 96-byte body; retain this wrapper until that ABI and copy
+// schedule are reproduced.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

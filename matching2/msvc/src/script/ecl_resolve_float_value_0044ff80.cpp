@@ -1,3 +1,18 @@
+// BLOCKED (D2701): closest_byte_count=171; first_diff=unmeasured;
+// residual_class=abi+x87: retail enters with the VM receiver in EAX, the
+// operand bit index in CL, and the encoded float on the stack, then combines
+// local-frame loads, scratch-stack type conversion, and a private virtual
+// float resolver while returning through x87.  A normal declaration cannot
+// preserve that complete entry tuple and the retail x87 branch scheduling.
+// variants_tested=exact retail wrapper, the legacy ECL_ResolveFloatValue
+// semantic model, the float-destination sibling layout, and the integer
+// resolver's local/external/scratch source shapes; no compiler-readable
+// candidate was byte-measured.
+// next_lever=compile the value resolver with a synthetic native-LTCG context
+// that pins EAX/CL and its stack float, co-compiling the variable resolver and
+// scratch pop/write helpers; retain this exact wrapper until that cluster
+// produces the 171-byte extent.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

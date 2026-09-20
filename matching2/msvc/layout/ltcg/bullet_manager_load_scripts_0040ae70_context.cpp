@@ -21,11 +21,26 @@ extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
         MessageHost_0040d280 *host, int script_name);
 
 extern "C" void* __cdecl asm_Recovery_CreateResourceState_00419090();
+struct SchedulerCreatePrimary_0044A000 {
+    __declspec(noinline) SchedulerTask* Create(void* context, int priority);
+};
+struct SchedulerCreateSecondary_0044A030 {
+    __declspec(noinline) SchedulerTask* Create(void* context, int priority);
+};
+
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
         BulletManagerState_0040af90 **slots) {
+    for (int index = 0; index < count; ++index) {
+        SchedulerCreatePrimary_0044A000 *primary =
+            (SchedulerCreatePrimary_0044A000 *)tasks[index];
+        primary->Create(slots[index], priority);
+        SchedulerCreateSecondary_0044A030 *secondary =
+            (SchedulerCreateSecondary_0044A030 *)tasks[index];
+        secondary->Create(slots[index], priority);
+    }
     for (int index = 0; index < count; ++index) {
         SchedulerTask *task = tasks[index];
         Scheduler_RegisterPrimary(scheduler, task, priority);

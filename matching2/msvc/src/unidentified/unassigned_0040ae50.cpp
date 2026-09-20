@@ -1,3 +1,13 @@
+// BLOCKED (M2703): closest_byte_count=30; first_diff=unmeasured;
+// residual_class=abi/source_shape: retail receives the state pointer in EAX,
+// clears six dwords through a separate zero register, raises its flag, and
+// publishes the same pointer through a global; ordinary declarations do not
+// preserve this promoted receiver/store schedule;
+// variants_tested=exact retail naked wrapper; no compiler-readable candidate
+// was attempted or byte-measured;
+// next_lever=co-compile the initializer with BulletManager_Create and a
+// native-LTCG caller context that pins the state object in EAX.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

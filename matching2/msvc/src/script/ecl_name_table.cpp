@@ -1,3 +1,14 @@
+// BLOCKED (H2501): closest_byte_count=589; first_diff=unmeasured;
+// residual_class=MSVC stack/register home assignment plus two retail-only
+// tests around free; the recovered control flow, size, frame, and cursor slots
+// are otherwise reproduced;
+// variants_tested=90 cursor/prologue/source-shape variants, plain /O2, native
+// /GL+/LTCG with synthetic caller, and native /GL+/LTCG with the real Load
+// caller and rooted/public-ABI forms;
+// next_lever=find a faithful loop-carried byte/short value that reserves the
+// retail byte register and preserves the redundant old-table test, then rerun
+// the plain schema; do not land the byte-shim variant.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

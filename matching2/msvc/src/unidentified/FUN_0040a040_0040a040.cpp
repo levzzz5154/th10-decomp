@@ -1,3 +1,13 @@
+// BLOCKED (H2601): closest_byte_count=234; first_diff=unmeasured;
+// residual_class=scheduler: MSVC store scheduling and mutually exclusive reset
+// shapes: the supported readable initializer emits the retail 234-byte extent
+// but retains the known 14-byte clear-block/pop-EDI placement delta;
+// variants_tested=the exact retail wrapper, the prior RawState 0x688-byte
+// semantic initializer, and its __fastcall(ignored-ECX, EDX-state) ABI shape;
+// next_lever=obtain a compiler/source scheduling lever for the clear-block
+// stores and pop-EDI placement, then rerun the existing initializer/factory
+// cluster; retain this exact wrapper until that lever exists.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

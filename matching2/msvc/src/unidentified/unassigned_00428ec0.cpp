@@ -1,23 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00428EC0..0x00428ED7: indexed two-word copy from a private LTCG ABI.
+struct IndexedCopySource_00428ec0 {
+    unsigned int first;
+    unsigned int second;
 
-// 0x00428EC0..0x00428ED7: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00428ec0() {
-    __asm {
-    L_00428ec0:
-        imul eax,98h
-    L_00428ec6:
-        lea eax,[eax+edx+32D4h]
-    L_00428ecd:
-        mov edx,dword ptr [ecx]
-    L_00428ecf:
-        mov dword ptr [eax],edx
-    L_00428ed1:
-        mov ecx,dword ptr [ecx+4]
-    L_00428ed4:
-        mov dword ptr [eax+4],ecx
-    L_00428ed7:
-        ret
-    }
+    __declspec(noinline) void Copy(void* base, int index);
+};
+
+#pragma code_seg(".text$03ec")
+__declspec(noinline) void IndexedCopySource_00428ec0::Copy(void* base, int index) {
+    unsigned char* destination =
+        reinterpret_cast<unsigned char*>(base) + index * 0x98 + 0x32D4;
+    *reinterpret_cast<unsigned int*>(destination) = first;
+    *reinterpret_cast<unsigned int*>(destination + 4) = second;
 }
+#pragma code_seg()
