@@ -3,6 +3,8 @@
 /.opencode/
 /.claude/
 /.jspace/
+/.omp/
+/.workbuddy-ai/
 
 # Local game assets and reverse-engineering databases
 /retail-screenshots/
