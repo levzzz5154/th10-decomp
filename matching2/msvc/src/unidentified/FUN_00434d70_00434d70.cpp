@@ -1,3 +1,20 @@
+// BLOCKED (H2801): closest_byte_count=93; first_diff=unmeasured (no
+// compiler-readable candidate reached the private entry symbol);
+// residual_class=private_abi/destructor-shape: retail receives the owned
+// object in ESI and deletion flags on the stack, returns the adjusted object
+// in EAX, and branches between scalar cleanup and the 0x10-byte vector
+// destructor iterator. Ghidra has no function at 00434D70; live boundaries
+// are FUN_00434D10/FUN_00434DD0, and the target's only helper edges are the
+// retail destructor iterator and free entries visible in the bytes.
+// variants_tested=exact retail naked wrapper; ResourceFile/BufferFile
+// destructor model from memory_file.hpp and buffer_file_lifetime.inl;
+// standard __thiscall deleting-destructor declaration; and scalar/vector
+// cleanup order variants. A normal __thiscall requires ECX rather than the
+// observed ESI, so no readable candidate was byte-measured.
+// next_lever=native-LTCG cluster with the real destructor hierarchy and a
+// synthetic caller that pins ESI; this region remains kind=asm in
+// regions.json, so retain the exact wrapper in H2801.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

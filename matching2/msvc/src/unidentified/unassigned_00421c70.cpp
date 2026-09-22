@@ -1,21 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <stddef.h>
 
-// 0x00421C70..0x00421C88: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00421c70() {
-    __asm {
-    L_00421c70:
-        lea eax,[esi+esi*2]
-    L_00421c73:
-        lea ecx,[edi+eax*8+64Ch]
-    L_00421c7a:
-        push ecx
-    L_00421c7b:
-        call dword ptr [data_004660b0]
-    L_00421c81:
-        inc byte ptr [esi+edi+6F4h]
-    L_00421c88:
-        ret
-    }
+// 0x00421C70..0x00421C88: acquire the indexed slot lock and increment its
+// nesting byte.  Native LTCG assigns the table to EDI and the slot to ESI;
+// those private registers are why this is kept in a small cluster context.
+struct SlotLockTable_00421c70 {
+    unsigned char reserved_000[0x64C];
+};
+
+extern "C" void (__stdcall *data_004660b0)(void*);
+
+#pragma code_seg(".text$01slot")
+extern "C" __declspec(noinline) void SlotLockTable_EnterRetail_00421c70(
+        int slot, SlotLockTable_00421c70* table) {
+    data_004660b0((unsigned char*)table + 0x64C + slot * 0x18);
+    ++*((unsigned char*)table + 0x6F4 + slot);
 }
+#pragma code_seg()

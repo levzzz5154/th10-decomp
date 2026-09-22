@@ -1,3 +1,12 @@
+// BLOCKED (D3905): closest_byte_count=192/192 (retained exact ABI scaffold);
+// first_diff=0x0040B3A5 for the first source-level instruction after the EAX
+// entry receiver. residual_class=private EAX entry, forced zero-displacement
+// stack alignment, and internal linked-list labels. variants_tested=MSVC
+// 13.10.6030 /O2 /Gz /MT /Gy /G6 /GF /GS /Zl with typed cdecl/fastcall
+// receiver candidates and reordered list-loop temporaries; none produced a
+// valid fixed-address extent without the private convention. next_lever=schema2
+// native-LTCG cluster using the real caller to force EAX and preserve the
+// internal loop context.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

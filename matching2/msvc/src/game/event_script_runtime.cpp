@@ -3,6 +3,15 @@
 
 // 0x00403C80..0x0040438D: FUN_00403c80
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3901): closest_byte_count=0/1868; first_diff=unmeasured;
+// residual_class=large event-script jump-table state machine, private ESI/EDI
+// state and stack-frame conventions, x87 timer ordering, and six unresolved
+// helper ABIs. variants_tested=exact retail assembly probe (1868/1868),
+// caller topology at 0x004027B0, legacy partial event-script model, and
+// dependency review for 0x00404610/0x004049A0/0x00404ED0/0x00404F30/
+// 0x00405410; no readable candidate was retained. next_lever=schema-2/
+// native-LTCG cluster rooted at the real caller 0x004027B0 with the follow,
+// shake, effect-slot, and scheduler helpers visible.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00403c80_00403c80() {
     __asm {
     L_00403c80:
@@ -1012,6 +1021,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00403c80_00403c80() {
     }
 }
 
+// BLOCKED (D3901): closest_byte_count=0/1568; first_diff=unmeasured;
+// residual_class=private stack-state receiver, jump-table command dispatch,
+// animation/text helper ABIs, and the real caller's ESI handoff. variants_tested=
+// exact retail assembly probe (1568/1568), caller topology at 0x0040BD20,
+// legacy partial event-script model, and the existing synthetic schema-1
+// FrameTimer context; no schema-2 readable candidate was retained.
+// next_lever=schema-2/native-LTCG cluster with real caller 0x0040BD20 and
+// helpers 0x00405410/0x0040C480/0x0040C4D0/0x00417010/0x0043C8B0/
+// 0x00447A50/0x00449630 co-compiled.
 // 0x0040BD80..0x0040BDD9: FUN_0040bd80
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {

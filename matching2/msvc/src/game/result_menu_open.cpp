@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3403): closest_byte_count=411/411; first_diff=none
+// residual_class=private_EDI_menu_receiver_with_ECX_environment_and_multiple
+// animation/resource helper ABIs; live Ghidra decompile confirms the full
+// control flow, but a readable standalone body cannot name the EDI receiver.
+// variants_tested=live Ghidra decompile, caller/callee inspection at
+// 0x00416C4C/0x00416E55 and 0x00449950/0x00449870, plus native-LTCG schema2
+// feasibility analysis. next_lever=co-compile both real callers and the menu
+// helper family in one schema2 cluster, preserving EDI and validating all
+// resource-manager receiver conventions.
 // 0x00423370..0x0042350A: FUN_00423370
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00423370_00423370() {

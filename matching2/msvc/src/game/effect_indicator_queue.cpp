@@ -1,3 +1,16 @@
+// BLOCKED (D3906): closest_byte_count=0/1317; first_diff=0x00419120
+// (standalone readable candidate emitted a 464-byte body, so no byte
+// comparison was admissible).
+// residual_class=private EAX queue receiver, EBX/EBP state registers,
+// callback-function address escapes, float-stack evaluation order, and
+// list-unlink/release cleanup sequencing.
+// variants_tested=live IDA assembly and caller 0x00419650; legacy semantic
+// EffectIndicatorQueue_Drain translation; MSVC 13.10 schema-2/native-LTCG
+// feasibility review plus standalone native probe (464-byte body versus the
+// 1317-byte retail region).
+// next_lever=promote 0x00419650 and this queue leaf together as a schema-2
+// native-LTCG cluster, retaining the real callback leaves and EAX receiver,
+// then change both production regions to semantic.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

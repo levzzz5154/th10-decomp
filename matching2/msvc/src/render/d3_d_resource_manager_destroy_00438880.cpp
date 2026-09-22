@@ -1,3 +1,13 @@
+// BLOCKED (D3702): closest_byte_count=0/103; first_diff=extent (candidate
+// extent 52 vs retail 103).
+// residual_class=abi+scheduler: readable cdecl candidate emitted a 52-byte
+// body while retail requires the EH registration frame, ESI/EDI preservation,
+// private EAX receiver for ReleaseResources, and worker-stop state.
+// variants_tested=live Ghidra decompile, D3D manager semantic model, and MSVC
+// 13.10 readable candidate probe (52-byte extent vs 103-byte retail).
+// next_lever=native-LTCG cluster joining the real window shutdown caller with
+// both resource-list and worker-stop callees.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

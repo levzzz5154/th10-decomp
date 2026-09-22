@@ -4,7 +4,8 @@
   "source": "src/game/asset_buffer.cpp",
   "headers": [
     "include/th10/platform/archive_file.hpp",
-    "include/th10/platform/archive_callers.hpp"
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/platform/stage_ecl_load_00403850.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG archive loader with real script, checksum, asset-buffer, parameter-file, and map-companion callers. The two public script/checksum entries are rooted; the synthetic pointer-array context retains the additional private conventions. No context or layout-gap bytes count as recovered game code.",
@@ -71,13 +72,22 @@
       "address": "0x0043A9B0",
       "size": 116,
       "actual_abi": "manager in EAX; index in ESI; name at [ESP+4]; RET 4"
+    },
+    {
+      "name": "StageEclLoader_00403850_Load",
+      "source": "src/script/stage_ecl_load.cpp",
+      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "section": ".text$00stage",
+      "address": "0x00403850",
+      "size": 308,
+      "actual_abi": "EBX receiver; name on stack; RET 4"
     }
   ],
   "gaps": [
     {
       "section": ".text$00zlayout",
-      "address": "0x00401000",
-      "size": 42112
+      "address": "0x00403984",
+      "size": 31484
     },
     {
       "section": ".text$01zlayout",
@@ -116,13 +126,18 @@
     },
     {
       "section": ".text$08layout",
-      "address": "0x0044B58B",
-      "size": 645
+      "address": "0x44b5ad",
+      "size": 611
     },
     {
       "section": ".text$02zzlayout",
       "address": "0x00426605",
       "size": 80827
+    },
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 10320
     }
   ],
   "constants": [],
@@ -311,6 +326,23 @@
       "symbol": "__imp__LeaveCriticalSection@4",
       "address": "0x004660B4",
       "kind": "data"
+    },
+
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+
+    {
+      "symbol": "@LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -319,7 +351,8 @@
     "src/platform/pack_file_loader.cpp",
     "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/music_room.cpp",
-    "src/unidentified/FUN_0043a9b0_0043a9b0.cpp"
+    "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
+    "src/script/stage_ecl_load.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
@@ -327,10 +360,10 @@
   ],
   "driver": "layout/ltcg/archive_callers_context.cpp",
   "context": {
-    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDH@Z",
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUStageEclLoader_00403850@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
-    "size": 139,
+    "size": 173,
     "description": "synthetic archive caller; not recovered game code"
   },
   "anchors": [

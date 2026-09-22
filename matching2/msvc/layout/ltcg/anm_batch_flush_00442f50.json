@@ -4,10 +4,11 @@
   "source": "src/render/texture_stage_reset.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp",
-    "include/th10/render/camera_batch.hpp"
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/math/angle.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. Only the real ColorViewport::Draw and ApplyDefaultViewport public entries are rooted. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
+  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
   "functions": [
     {
       "name": "RenderStageState_SelectStage_00401d20",
@@ -323,6 +324,51 @@
       "address": "0x444760",
       "size": 929,
       "actual_abi": "entity in EAX; manager on the stack; RET 4"
+    },
+    {
+      "name": "AsciiOverlay_0043C2C0_Draw",
+      "symbol": "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
+      "section": ".text$03w0overlay",
+      "address": "0x0043C2C0",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/game/ascii_overlay_callbacks.cpp"
+    },
+    {
+      "name": "AsciiOverlay_0043C3C0_Draw",
+      "symbol": "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
+      "section": ".text$03w2overlay",
+      "address": "0x0043C3C0",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/unidentified/FUN_0043c3c0_0043c3c0.cpp"
+    },
+    {
+      "name": "AsciiOverlay_0043C410_Draw",
+      "symbol": "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
+      "section": ".text$03w4overlay",
+      "address": "0x0043C410",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/game/ascii_manager_on_draw_retail_0043c410.cpp"
+    },
+    {
+      "name": "BossOverlay_0041D7C0_Draw",
+      "symbol": "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
+      "section": ".text$001z0boss",
+      "address": "0x0041D7C0",
+      "size": 173,
+      "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
+      "source": "src/game/boss_sync_positions_retail_0041d7c0.cpp"
+    },
+    {
+      "name": "BossOverlay_0041EA40_Draw",
+      "symbol": "?Draw@BossOverlay_0041EA40@@QAEHXZ",
+      "section": ".text$001z2boss",
+      "address": "0x0041EA40",
+      "size": 173,
+      "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
+      "source": "src/unidentified/FUN_0041ea40_0041ea40.cpp"
     }
   ],
   "gaps": [
@@ -345,11 +391,6 @@
       "section": ".text$001arraysz",
       "address": "0x40921f",
       "size": 17
-    },
-    {
-      "section": ".text$001releasez",
-      "address": "0x409262",
-      "size": 96878
     },
     {
       "section": ".text$00a420cd0z",
@@ -390,11 +431,6 @@
       "section": ".text$02zlayout",
       "address": "0x43c195",
       "size": 11
-    },
-    {
-      "section": ".text$04alayout",
-      "address": "0x43c226",
-      "size": 24986
     },
     {
       "section": ".text$04an",
@@ -540,6 +576,41 @@
       "section": ".text$09bucketz",
       "address": "0x4489c2",
       "size": 14222
+    },
+    {
+      "section": ".text$03w0layout",
+      "address": "0x43c226",
+      "size": 154
+    },
+    {
+      "section": ".text$03w2layout",
+      "address": "0x43c304",
+      "size": 188
+    },
+    {
+      "section": ".text$03w4layout",
+      "address": "0x43c404",
+      "size": 12
+    },
+    {
+      "section": ".text$04alayout",
+      "address": "0x43c454",
+      "size": 24428
+    },
+    {
+      "section": ".text$001releasez",
+      "address": "0x409262",
+      "size": 83294
+    },
+    {
+      "section": ".text$001z1gap",
+      "address": "0x41d86d",
+      "size": 4563
+    },
+    {
+      "section": ".text$001z3gap",
+      "address": "0x41eaed",
+      "size": 8675
     }
   ],
   "constants": [],
@@ -748,6 +819,11 @@
       "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
       "address": "0x004521B2",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -783,7 +859,12 @@
     "src/unidentified/FUN_00448810_00448810.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
-    "src/unidentified/unassigned_00444fa0.cpp"
+    "src/unidentified/unassigned_00444fa0.cpp",
+    "src/game/ascii_overlay_callbacks.cpp",
+    "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
+    "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
+    "src/game/boss_sync_positions_retail_0041d7c0.cpp",
+    "src/unidentified/FUN_0041ea40_0041ea40.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -792,7 +873,12 @@
     "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
-    "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ"
+    "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
+    "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
+    "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
+    "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
+    "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
+    "?Draw@BossOverlay_0041EA40@@QAEHXZ"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -827,6 +913,16 @@
       "symbol": "__real@3f800000",
       "address": "0x00470AFC",
       "value": 1.0
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
     }
   ],
   "anchors": [

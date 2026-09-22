@@ -1,3 +1,11 @@
+// BLOCKED (D3605): closest_byte_count=26/305; first_diff=0x00407560.
+// residual_class=private ESI receiver, x87 evaluation/order (including
+// FPATAN), compiler-generated temporary homes, and the 00463B2C return ABI.
+// variants_tested=live Ghidra decompilation and MSVC 13.10 typed EnemyMotion
+// cdecl candidate (329-byte extent, 26/305 same-position bytes); exact naked
+// baseline probe=305/305. next_lever=native-LTCG cluster with the real
+// 0x0040639F caller and typed x87-compatible state layout while preserving
+// ESI as the receiver.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

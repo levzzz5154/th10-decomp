@@ -5,7 +5,13 @@
 // Naked body preserves the retail register/stack ABI.
 
 // 0x00418EE0..0x00419039: FUN_00418ee0
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED: closest_byte_count=346/346; first_diff=none (retail assembly baseline);
+// residual_class=caller-sensitive private register ABI for Scheduler_Remove
+// plus compiler-generated stack-local ordering; variants_tested=typed raw-pointer
+// cleanup loop (302-byte extent), cached lock/scheduler pointers with volatile
+// counter (348-byte extent), delayed counter initialization and alternate local
+// declaration order (348-byte extent); next_lever=co-compile this entry with
+// its real caller and Scheduler_Remove in a schema-2 native-LTCG manifest.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00418ee0_00418ee0() {
     __asm {
     L_00418ee0:

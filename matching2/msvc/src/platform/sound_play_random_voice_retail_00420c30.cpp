@@ -2,6 +2,20 @@
 #include "asm_symbols.hpp"
 #include "th10/platform/sound_buffer.hpp"
 
+// BLOCKED (D3102): closest_byte_count=0/84; first_diff=unmeasured;
+// residual_class=abi/x87+cluster: the stdcall caller supplies one stack float,
+// but the body intentionally carries it in x87 through FUCOMPP/FCOMP/FDIV,
+// calls the zero-argument 0x00463B2C helper with ST(0), then passes its EAX
+// result plus EAX=0x00492590 and EDX=0x0046D275 to the private
+// AnimationManager_RegisterResource call.  A normal float expression changes
+// both the x87 compare schedule and the helper's register/stack contract.
+// variants_tested=retail naked baseline, Ghidra's five-caller topology,
+// typed float/global pseudocode, and the 0x00463B2C/0x0043E460 helper
+// signatures; no compiler-readable candidate was byte-measured.
+// next_lever=co-compile this worker with 0x00463B2C and
+// AnimationManager_RegisterResource_0043E460 in a native-LTCG sound cluster
+// that preserves ST(0), EAX, and EDX across the private calls.
+
 // 0x00420C30..0x00420C83: Sound_PlayRandomVoiceRetail
 // Naked body preserves the retail register/stack ABI.
 

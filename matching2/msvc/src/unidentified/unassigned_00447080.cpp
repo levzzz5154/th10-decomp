@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED 00447080 (50 bytes): closest_byte_count=50, first_diff=none;
+// residual_class=unreferenced entry with live EAX/ECX/ESI private ABI.
+// Ghidra has no function boundary/xrefs at this address; the body calls
+// FUN_004470C0 (stdcall, 3 args) and FUN_004473C0 (stdcall, 2 args), then
+// polls the +0x124 cursor field. variants_tested=existing exact naked body,
+// readable register-neutral loop, and ordinary C++ member/callback forms;
+// wrappers changed the entry register contract or extent. next_lever=
+// native LTCG with the owning caller and AnimationObject layout visible.
+
 // 0x00447080..0x004470B1: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00447080() {

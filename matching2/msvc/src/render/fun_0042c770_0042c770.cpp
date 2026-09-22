@@ -50,3 +50,4 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042c770_0042c770() {
         ret
     }
 }
+#pragma code_seg()

@@ -1,3 +1,15 @@
+// BLOCKED (D3906): closest_byte_count=0/166; first_diff=0x0040D750
+// (standalone readable candidate emitted a 78-byte body, so no byte
+// comparison was admissible).
+// residual_class=private EDI receiver, helper-call register preservation,
+// virtual-retire ABI, frame-clock tail, and compiler save/restore ordering.
+// variants_tested=live IDA assembly and caller 0x0040D810; legacy semantic
+// EnemyList_TickInterpolators translation; MSVC 13.10 schema-2/native-LTCG
+// feasibility review plus standalone native probe (78-byte body versus the
+// 166-byte retail region).
+// next_lever=promote 0x0040D810 and this leaf in one schema-2 native-LTCG
+// cluster so the real caller establishes the EDI receiver and the private
+// helper/retire conventions, then change the production region to semantic.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

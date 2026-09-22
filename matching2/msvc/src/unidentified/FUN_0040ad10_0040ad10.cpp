@@ -1,15 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040AD10..0x0040AD15: copy the first dword into the second.
+// Native LTCG selects the object pointer in EAX for this private helper.
+struct CopyPair_0040ad10 {
+    int first_000;
+    int second_004;
 
-// 0x0040AD10..0x0040AD15: FUN_0040ad10
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040ad10_0040ad10() {
-    __asm {
-    L_0040ad10:
-        mov ecx,dword ptr [eax]
-    L_0040ad12:
-        mov dword ptr [eax+4],ecx
-    L_0040ad15:
-        ret
-    }
+    __declspec(noinline) void CopyFirstToSecond();
+};
+
+typedef char CopyPair_0040ad10_size_must_fit[
+    sizeof(CopyPair_0040ad10) == 0x8 ? 1 : -1];
+
+#pragma code_seg(".text$01copy")
+void CopyPair_0040ad10::CopyFirstToSecond() {
+    second_004 = first_000;
 }
+#pragma code_seg()

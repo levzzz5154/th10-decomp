@@ -1,3 +1,15 @@
+// BLOCKED (D3806): closest_byte_count=0/423; first_diff=0x0042b030;
+// residual_class=private EBX archive-state input, packed RC/TS record
+// layouts, and the DecryptDatBuffer/DecompressDatLzss/free/malloc edges,
+// all of which remain asm-owned and determine the native register schedule.
+// variants_tested=retail assembly baseline (423/423 exact), live-Ghidra
+// decompilation, and a disposable schema-2 ownership probe; load_cluster
+// rejected the proposed semantic classification because this exclusive
+// region is still kind asm, before native-LTCG compilation.
+// next_lever=caller-inclusive schema-2/native-LTCG cluster over 0x0042AED8,
+// this body, decryption/decompression, and the allocator edges with the
+// complete archive record layouts; compare all 423 bytes before promotion.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=13/289; first_diff=0x00413A26;
+// residual_class=private cached-resource/string-copy ABI (FUN_0044b360 consumes
+// EAX/ESI/EDI) plus MSVC local-layout and stdcall tail scheduling;
+// variants_tested=live Ghidra decompile/callers (0x00413A20, 0x00413980,
+// 0x00417870) and MSVC 13.10 readable struct/resource-load/copy-loop candidate
+// (300-byte extent, 13 matching bytes); next_lever=schema2 native-LTCG over
+// the real callers with 0x00447280 and 0x0044B360 visible.
 
 // 0x00413A20..0x00413B40: FUN_00413a20
 // Naked body preserves the retail register/stack ABI.

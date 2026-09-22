@@ -1,3 +1,16 @@
+// BLOCKED (D3802): closest_byte_count=63/47; first_diff=0x00435220;
+// residual_class=private EDI string receiver, malloc/copy loop register
+// lifetime, and the undecorated no-stack-argument entry ABI. Live Ghidra
+// decompilation confirms the null-inclusive length calculation and
+// destination-minus-source copy idiom.
+// variants_tested=live Ghidra decompile with callers 0x00434C30 and
+// 0x00434CE0; archived LegacyString_Duplicate semantic source; MSVC 13.10
+// readable cdecl candidate (63-byte body, stack argument in place of EDI);
+// no candidate retained because the callers remain assembly-only edges.
+// next_lever=make both archive callers and this duplicate routine
+// compiler-visible in one cluster, preserving the callers' real ABI, then
+// compare the complete 47-byte body before replacing the exact assembly.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 #include "th10/util/heap.hpp"

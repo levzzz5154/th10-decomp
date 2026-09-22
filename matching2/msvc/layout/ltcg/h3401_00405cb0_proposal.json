@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_H3401_GlobalIndex_00405cb0",
+      "source": "src/unidentified/FUN_00405cb0_00405cb0.cpp",
+      "symbol": "_asm_FUN_00405cb0_00405cb0",
+      "address": "0x00405CB0",
+      "size": 8,
+      "kind": "semantic",
+      "owner": "0x00405CB0"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 8,
+    "different_bytes": 0,
+    "sha256": "e00e6df0579a856f79df8674741542ab661e78b05f3332adb684c64662153e16"
+  }
+}

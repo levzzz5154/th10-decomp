@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3201): closest_byte_count=1/323; first_diff=0x0044B0D0
+// (native MSVC 13.10 /GL /LTCG semantic cluster, authoritative body extent
+// 334 bytes; 322 differing bytes against the 323-byte retail region).
+// residual_class=key byte live-in through AL while five values remain on the
+// stack, plus compiler-selected memcpy/loop shape and malloc/free bindings.
+// variants_tested=legacy readable interleaved-XOR model with synthetic native
+// callers and fixed helper bindings; all nonexact output was restored.
+// next_lever=caller-inclusive native-LTCG cluster over 0042A200, 0042B030,
+// 00434DD0, and 00434F70, preserving AL key flow and the retail cdecl stack
+// order; promote only after the full 323-byte comparison is exact.
 // 0x0044B0D0..0x0044B1BC: DecryptDatBuffer
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_0044b0d0() {

@@ -1,39 +1,27 @@
-// BLOCKED (M2703): closest_byte_count=31; first_diff=unmeasured;
-// residual_class=abi/source_shape: retail consumes a stack float while
-// simultaneously carrying source in ECX and destination in EAX, then emits
-// an x87 three-product/store schedule unavailable to a standalone ordinary
-// declaration;
-// variants_tested=exact retail naked wrapper; no compiler-readable candidate
-// was attempted or byte-measured;
-// next_lever=co-compile the helper with a real caller/native-LTCG context
-// that fixes the ECX source, EAX destination, and stack-argument ownership.
+// 0x00404E70..0x00404E8E: scale a three-component vector.
+//
+// Native LTCG keeps the source object in ECX, the hidden result object in EAX,
+// and the scalar on the stack.  Returning a constructor temporary preserves
+// retail's z/y/x x87 evaluation and direct result stores.
+struct Vector3_00404e70 {
+    float x;
+    float y;
+    float z;
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+    Vector3_00404e70(float x_value, float y_value, float z_value)
+        : x(x_value), y(y_value), z(z_value) {}
+};
 
-// 0x00404E70..0x00404E8E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00404e70() {
-    __asm {
-    L_00404e70:
-        fld dword ptr [esp+4]
-    L_00404e74:
-        fmul dword ptr [ecx+8]
-    L_00404e77:
-        fld dword ptr [esp+4]
-    L_00404e7b:
-        fmul dword ptr [ecx+4]
-    L_00404e7e:
-        fld dword ptr [esp+4]
-    L_00404e82:
-        fmul dword ptr [ecx]
-    L_00404e84:
-        fstp dword ptr [eax]
-    L_00404e86:
-        fstp dword ptr [eax+4]
-    L_00404e89:
-        fstp dword ptr [eax+8]
-    L_00404e8c:
-        ret 4
-    }
+struct VectorScale_00404e70 {
+    float x;
+    float y;
+    float z;
+
+    __declspec(noinline) Vector3_00404e70 Scale(float value) const;
+};
+
+#pragma code_seg(".text$01scale")
+Vector3_00404e70 VectorScale_00404e70::Scale(float value) const {
+    return Vector3_00404e70(x * value, y * value, z * value);
 }
+#pragma code_seg()

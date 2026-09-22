@@ -93,5 +93,3 @@ extern "C" __declspec(naked) void __cdecl asm_ItemFrontRuntime_InitializeRetail_
         ret
     }
 }
-
-

@@ -3,6 +3,15 @@
 
 // 0x00438AD0..0x0043900C: GameMain
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3403): closest_byte_count=2/79; first_diff=0x0043AEB0
+// residual_class=private_ESI_EDX_abi_and_import_call_shape; the readable
+// standalone candidate compiled to a 91-byte ECX/stack-entry body and only
+// preserved the two zero-result bytes in the retail prefix. variants_tested=
+// live Ghidra decompile plus a typed MidiHeader/free/import C++ candidate
+// through the MSVC 13.10 probe; native-LTCG schema2 requires the two real
+// callers (0x0043AE20 and 0x0043B110) in one cluster. next_lever=co-compile
+// those callers and this callee with native LTCG, retaining EDX manager and
+// ESI MIDIHDR register allocation and validating the import thunk binding.
 
 // 0x0043AEB0..0x0043AEFE: FUN_0043aeb0
 // Naked body preserves the retail register/stack ABI.

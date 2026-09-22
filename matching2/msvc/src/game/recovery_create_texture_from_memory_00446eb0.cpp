@@ -1,3 +1,16 @@
+// BLOCKED (D3703): closest_byte_count=0/132; first_diff=unmeasured;
+// residual_class=private EAX mode input, EDX/ESI argument registers, the
+// conditional format-table remap, D3DXCreateTextureFromFileInMemoryEx stack
+// order, and the post-create ESI receiver call all require the real caller
+// under native-LTCG.
+// variants_tested=live Ghidra decompile at 0x00446EB0; caller inspection at
+// 0x00447511; direct callee/dependency inspection at 0x004465B0 and
+// 0x004521CA; unchanged production manifest confirms the exclusive region is
+// kind=asm, so no production-valid schema-2 body can be selected here.
+// next_lever=co-compile 0x00447511, this body, 0x004465B0, and the D3DX
+// import under schema-2 native-LTCG, then promote the region to semantic
+// ownership; do not alter regions.json in this assignment.
+
 #include <string.h>
 
 #include "asm_encoding.hpp"

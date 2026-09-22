@@ -1,3 +1,16 @@
+// BLOCKED (D3802): closest_byte_count=0/211; first_diff=0x004089C0;
+// residual_class=private EBX receiver, callback-function address escapes,
+// EDI priorities, and scheduler registration ABI. Live Ghidra decompilation
+// confirms three callback registrations at 0x00449ED0/0x00449AE0/
+// 0x00449B70 and the trailing frame-timer flag initialization.
+// variants_tested=live Ghidra decompile with callers 0x00408C90 and
+// callees 0x00409220, 0x00409230, 0x00409270, 0x00449AE0, 0x00449B70;
+// archived PlayerScoreRuntime semantic source; no standalone readable
+// candidate retained because the public declaration cannot express EBX/EDI.
+// next_lever=promote the three callback leaves and this initializer in one
+// real-caller schema-2/native-LTCG cluster, leaving the initializer selected
+// from 0x00408C90 so LTCG can infer the retail private receiver.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 #include "th10/game/score.hpp"

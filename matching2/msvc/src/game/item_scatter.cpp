@@ -1,6 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2802): closest_byte_count=325/503; first_diff=0x0040C9D0;
+// residual_class=private-ESI-entry/layout+x87/RNG ABI: the readable model
+// emitted the semantic loop but used an ordinary argument entry and inferred
+// plan/global layout, diverging before the retail helper sequence.
+// variants_tested=self-contained readable field/RNG model, archived semantic
+// model, and exact retail overlay; next_lever=resolve the ESI receiver, shared
+// RNG/global bindings, and 0x0041BB00 private callee contract.
 // 0x0040C9D0..0x0040CBC6: FUN_0040c9d0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0040c9d0_0040c9d0() {

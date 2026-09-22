@@ -1,5 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+ 
+// BLOCKED (D3405): closest_byte_count=32/717; first_diff=0x00427E90;
+// residual_class=stdcall/private register ABI, animation-manager list
+// topology, callback convention, and x87 conversion/order scheduling;
+// variants_tested=live Ghidra decompile/callers/callee (0x00428160 plus
+// 0x0043DD10/004489D0/00449870/00449950/0044BC70/0044C5D0) and MSVC 13.10
+// readable raw-layout stdcall candidate (528-byte extent, 32 matching bytes);
+// next_lever=co-compile the real 0x00428160 caller and typed helper family in
+// native LTCG, then resolve descriptor/slot declarations before another
+// source-shape pass.
 
 // 0x004050D0..0x00405101: ?EmbeddedTimer_Reset@@
 // Naked body preserves the retail register/stack ABI.

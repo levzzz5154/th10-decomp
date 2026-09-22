@@ -1,3 +1,14 @@
+// BLOCKED (D3804): closest_byte_count=0/702; first_diff=0x0044C8F0;
+// residual_class=private EAX/EDX/ECX/stack argument ABI, security-cookie/EH
+// frame, ArchiveCursor_Open result ownership, COM vtable dispatch, and
+// notification-buffer allocation sequencing. variants_tested=live Ghidra
+// decompile for 0x0044C8F0 and real caller 0x0043D690, plus the readable
+// segmented-stream model and callees 0x0044DBF0, 0x0044D6A0, operator_new,
+// and release/query/set-notice slots; no standalone candidate was retained
+// because its public ABI changed the frame, so the exact assembly baseline was
+// restored. next_lever=schema2 native-LTCG cluster rooted at 0x0043D690 with
+// this body, sound-thread caller, ArchiveCursor_Open, stream-record initializer,
+// COM interface callees, and production stream layout co-compiled.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

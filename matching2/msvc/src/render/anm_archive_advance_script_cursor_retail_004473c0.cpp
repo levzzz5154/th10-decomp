@@ -1,3 +1,15 @@
+// BLOCKED (D3907): closest_byte_count=0/174; first_diff=0x004473c0
+// (no readable native-LTCG body retained).
+// residual_class=stdcall outer ABI with FUN_00447470's EAX implicit
+// parameter, five stack arguments, private return convention, and packed
+// animation-record layout.
+// variants_tested=["live Ghidra decompile at 0x004473c0",
+// "live callee 0x00447470 and IDA stack/register signature", "MSVC
+// 13.10.6030 authoritative probe (174/174 exact asm baseline)",
+// "schema-2 native-LTCG feasibility review of the EAX-plus-stack call"].
+// next_lever=compile a schema-2 native-LTCG cluster with a typed cursor
+// body and the real 0x00447470 callee as an ABI anchor; prove the complete
+// call edge before changing production region metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -5,6 +5,10 @@
 // Naked body preserves the retail register/stack ABI.
 
 // 0x004497D0..0x00449815: ?AnimationManager_FindChildByScriptIndex@@
+// BLOCKED: closest_byte_count=0/70, first_diff=0x004497D0,
+// residual_class=private_ECX_EBX_EDI_ESI_ABI_and_forced_disp32_zero_encoding,
+// variants_tested=Ghidra_boundary_callers_callees_xrefs_dataflow_audit,
+// next_lever=cluster_with_real_callers_and_preserved_7_byte_stack_noop
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_AnimationManager_FindChildByScriptIndex_004497d0() {
     __asm {

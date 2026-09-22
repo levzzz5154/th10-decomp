@@ -1,3 +1,13 @@
+// BLOCKED (D3804): closest_byte_count=1/136; first_diff=0x00408C90;
+// residual_class=compiler-generated SEH registration/unregistration and
+// private constructor/destructor ABIs across the 0x37B0-byte PlayerManager
+// layout. variants_tested=live Ghidra decompile for 0x00408C90 and caller
+// 0x00417870 (including 0x00408910, 0x004089C0, 0x00408AF0), plus an MSVC
+// 13.10 standalone readable factory candidate (67-byte extent, 1/136
+// comparable bytes); the exact assembly baseline was restored. next_lever=
+// schema2 native-LTCG cluster rooted at real caller 0x00417870, with this
+// factory, PlayerManager constructor/initializer/destructor, operator_new/free,
+// and production manager layout/EH bindings co-compiled.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

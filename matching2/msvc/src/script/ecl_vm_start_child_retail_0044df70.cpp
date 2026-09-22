@@ -1,18 +1,18 @@
-// BLOCKED (D2701): closest_byte_count=550; first_diff=unmeasured;
-// residual_class=large-schema2 ABI/control-flow translation: this body
-// carries the child VM in EAX, parent instruction/argument state through
-// private stack homes, converts mixed int/float arguments via the value
-// resolvers, marshals return-link words, and finishes through a private
-// virtual label/list path.  Its exact register ownership is coupled to the
-// unresolved resolver, scratch, label, and child-list conventions.
-// variants_tested=exact retail wrapper, the legacy EclVm_StartChild semantic
-// reconstruction, the current spawn-child caller, and the resolved
-// int/float/scratch sibling models; no compiler-readable schema-2 candidate
-// was byte-measured.
-// next_lever=first recover and cluster the 0x0044FF80/0x00450470 resolver and
-// label edges with a real child-spawn caller, then compile this 550-byte body
-// in a schema-2 native-LTCG context; retain the exact wrapper until that
-// complete cluster assigns the private ABI.
+// BLOCKED (D2101): readable semantic source remains nonexact.  The retail
+// wrapper is exact (550/550 bytes in the linked baseline).  Ghidra measures
+// 550 bytes, calls ResolveEclIntValue/ResolveEclFloatValue/FUN_00463b2c and
+// ScriptTable::Resolve at 0x00450470, and has callers at 0x00450154 and
+// 0x0044E360.  The private ABI is EAX child, EDI parent instruction state,
+// stack homes at +0x10/+0x14/+0x18/+0x1C/+0x24/+0x28, and RET 8.
+// native-LTCG probe: the wrapper pair reproduced this body exactly, but no
+// readable candidate was byte-measured; semantic recovery still lacks the
+// resolver/scratch/label cluster and the actual dispatcher register source.
+// residual_class=large private-ABI/control-flow translation;
+// residual_bytes=550 source bytes.
+// variants_tested=legacy semantic reconstruction, resolver sibling models,
+// direct spawn caller, and native-LTCG wrapper pair.
+// next_lever=co-compile the actual dispatcher with resolver, label, and
+// child-list edges; retain this exact wrapper until a readable body matches.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

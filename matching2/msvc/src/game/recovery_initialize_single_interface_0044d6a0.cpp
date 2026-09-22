@@ -9,6 +9,15 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D3301): closest_byte_count=4/109; first_diff=0x0044D6A0;
+// residual_class=schema2 hidden-ESI receiver, Streamer_FillBuffer private
+// argument homes, and virtual-release ABI; variants_tested=live-Ghidra
+// decompile plus callers (0x0044C8F0, 0x0044CBF0) and callees
+// (0x0044D110, operator_new), MSVC 13.10 readable candidate (112-byte
+// extent, 4 matching bytes); native-LTCG was blocked because no real
+// 0x0044D110 caller/callee cluster exists; next_lever=construct that cluster
+// with ESI as the object input and the observed virtual slot-0x34 call.
+
 // 0x0044D6A0..0x0044D70C: Recovery_InitializeSingleInterface
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeSingleInterface_0044d6a0() {

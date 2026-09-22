@@ -1,3 +1,14 @@
+// BLOCKED (D2902): closest_byte_count=22/1472; first_diff=0x004067D5;
+// residual_class=private EBX definition receiver, x87 floating-point sequencing,
+// and large projectile-slot layout. Live Ghidra confirms __fastcall entry with
+// ECX/EDX private values, a 0x7F0 slot stride, indirect helper calls, and
+// several switch/RNG paths whose ABI and data layout are not public.
+// variants_tested=readable slot-allocation/initialization model with typed raw
+// offsets; exact wrapper retained after the 296-byte candidate matched only
+// 22/1472 non-relocation bytes.
+// next_lever=native-LTCG schema-2 cluster containing this body, its 0x004073E0
+// caller, helper callees, x87/RNG calls, and verified projectile record layout.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

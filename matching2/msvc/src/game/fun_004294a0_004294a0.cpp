@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3306): closest_byte_count=0/367; first_diff=0x004294A0
+// residual_class=SEH registration/unwind shape plus private EAX/ECX helper
+// calls and indirect critical-section callbacks in the destructor cluster.
+// variants_tested=readable raw-layout teardown candidate (313-byte standalone
+// extent; omitted retail SEH frame) with free/scheduler/vector-dtor calls, then
+// restored to the exact naked baseline.
+// next_lever=caller cluster 0x00429610/0x004296F0/0x00417C80 with callees
+// 0x0042AB20, 0x00449F60, and 0x004525FF in native-LTCG schema2 context,
+// retaining the compiler-generated SEH contribution.
 
 // 0x00405F70..0x0040605B: ItemManager_DestroyRetail
 // Naked body preserves the retail register/stack ABI.

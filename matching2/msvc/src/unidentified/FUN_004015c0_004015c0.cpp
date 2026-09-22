@@ -1,13 +1,19 @@
-// BLOCKED (H2701): closest_byte_count=109; first_diff=unmeasured;
-// residual_class=abi/source_shape: retail receives formatted text in ECX,
-// the record source in EBX, and the table/context in ESI, then appends a
-// 0x68-byte entry with a byte-copy loop and three dword field stores; the
-// four-register private contract is not expressible as a normal declaration.
-// variants_tested=exact retail naked wrapper, the 0x00401700 formatted-text
-// caller model, and an explicit 0x68-byte record-struct reconstruction; no
-// compiler-readable candidate was byte-measured.
-// next_lever=co-compile the formatter caller and owning record type in a
-// native-LTCG cluster that makes ECX/EBX/ESI live at this entry.
+// BLOCKED (H2801): closest_byte_count=109; first_diff=unmeasured (no
+// compiler-readable candidate reached the private entry symbol);
+// residual_class=private_abi/source_shape: retail receives formatted text in
+// ECX, the record source in EBX, and the table/context in ESI while returning
+// the destination in EAX, then appends a 0x68-byte entry with a byte-copy
+// loop and three dword field stores. Ghidra has no function at 004015C0; the
+// live boundary is the gap between AppendGameThreadRecord at 00401530 and
+// AppendFormattedGameThreadRecord at 00401630, whose caller path supplies
+// the formatter/owner relationship but not the three private registers.
+// variants_tested=exact retail naked wrapper; IDA 0x68-byte record model;
+// formatter-caller model from AppendFormattedGameThreadRecord; and direct
+// standard cdecl/fastcall declarations (rejected because EAX/EBX/ESI cannot
+// be named simultaneously). No readable candidate was byte-measured.
+// next_lever=native-LTCG cluster with the real formatter caller and owning
+// record type, plus a semantic manifest ownership change; this region remains
+// kind=asm in regions.json, so retain the exact wrapper in H2801.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

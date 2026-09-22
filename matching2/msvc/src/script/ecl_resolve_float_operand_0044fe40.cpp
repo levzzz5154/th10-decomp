@@ -1,15 +1,14 @@
-// BLOCKED (D2701): closest_byte_count=183; first_diff=unmeasured;
-// residual_class=abi+x87: retail promotes the VM receiver into EAX and the
-// operand index into ECX, reads the packed instruction float, and shares the
-// value resolver's local/scratch/private-virtual branches with an x87 return.
-// An ordinary member/free declaration changes the receiver or parameter homes
-// before the branch body and cannot express the observed internal ABI.
-// variants_tested=exact retail wrapper, the legacy ECL_ResolveFloatOperand
-// model, the ECL_ResolveFloatValue sibling model, and the readable float
-// destination accessor; no compiler-readable candidate was byte-measured.
-// next_lever=build a native-LTCG ECL resolver cluster with a synthetic caller
-// carrying EAX/ECX and the real value/scratch callees, then measure the
-// 183-byte body; retain this wrapper until that ABI cluster is available.
+// BLOCKED (D2101): shared native-LTCG operand/value/pop scope did not produce
+// a byte-exact readable body. Best private-ABI operand variants measured
+// 169, 178, 183, and 185 bytes against retail's 183-byte extent; the
+// 183-byte variant still differed in register allocation and branch layout.
+// Ghidra decompilation confirms EAX VM, ECX selector, packed displacement,
+// scratch conversion, resolver vtable slot +0xc, and x87 return.
+// variants_tested=EclOperandTable/EclVm member models, shared value/pop
+// native-LTCG context, signed comparisons, selector type/branch ordering,
+// scratch unions, and absolute __ftol2/float-data bindings.
+// next_lever=compile a real 0044E1A0/0040E770 caller schedule or recover the
+// original shared class declaration; do not retain a non-exact proposal.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

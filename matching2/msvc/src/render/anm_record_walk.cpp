@@ -1,3 +1,11 @@
+// BLOCKED (D3605): closest_byte_count=18/592; first_diff=0x00403A35.
+// residual_class=stdcall stack frame versus the retail private record/state
+// layout, x87 float sequencing, D3D vtable calls, and nested packed-record
+// traversal. variants_tested=live Ghidra decompilation plus typed stdcall
+// candidate (434-byte extent, 18/434 same-position bytes) under MSVC 13.10;
+// exact naked baseline probe=592/592. next_lever=native-LTCG schema2 cluster
+// with real callers 0x00402CA0/0x00402990, FUN_00403090, and the animation
+// manager state layout before attempting a readable replacement.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

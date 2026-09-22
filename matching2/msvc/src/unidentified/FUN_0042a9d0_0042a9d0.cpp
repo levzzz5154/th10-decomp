@@ -1,13 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A9D0: load the signed 16-bit value from the object in EAX.
+struct WordLoad_0042a9d0 {
+    unsigned short value;
+    __declspec(noinline) short Load();
+};
+typedef char WordLoad_0042a9d0_size_must_fit[sizeof(WordLoad_0042a9d0) == 2 ? 1 : -1];
 
-// 0x0042A9D0..0x0042A9D3: FUN_0042a9d0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042a9d0_0042a9d0() {
-    __asm {
-    L_0042a9d0:
-        mov ax,word ptr [eax]
-    L_0042a9d3:
-        ret
-    }
+#pragma code_seg(".text$01load0042a9d0")
+short WordLoad_0042a9d0::Load() {
+    return (short)value;
 }
+#pragma code_seg()

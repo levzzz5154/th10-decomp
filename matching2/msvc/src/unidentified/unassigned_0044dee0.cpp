@@ -1,12 +1,12 @@
-// BLOCKED (M2703): closest_byte_count=33; first_diff=unmeasured;
-// residual_class=abi: the fragment enters with its object in ESI, performs
-// an indirect import call, and has two retail RET sites; a standalone
-// __cdecl/__thiscall declaration cannot preserve that private receiver.
-// variants_tested=exact retail naked wrapper; no compiler-readable candidate
-// was attempted or byte-measured;
-
-// next_lever=co-compile this body with its real caller in a native-LTCG
-// cluster that exposes the ESI receiver and indirect import binding.
+// BLOCKED (M2701): closest_byte_count=0; first_diff=0x0044DEE0;
+// residual_class=private ABI: retail enters with its archive object in ESI,
+// performs an indirect import call, and has two retail RET sites. The fixed C
+// symbol cannot preserve the private receiver convention.
+// variants_tested=extern-C cdecl readable cursor/import body (38-byte extent,
+// first diff at byte 0), compiled with the project MSVC 13.10 profile and
+// rejected. Exact naked baseline remains 33 bytes.
+// next_lever=native-LTCG cluster with the real caller/import binding and ESI
+// receiver, followed by semantic manifest ownership migration.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

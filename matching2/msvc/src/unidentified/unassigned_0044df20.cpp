@@ -1,17 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0044DF20..0x0044DF2A: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0044df20() {
-    __asm {
-    L_0044df20:
-        mov eax,dword ptr [ecx+1004h]
-    L_0044df26:
-        add eax,edx
-    L_0044df28:
-        add eax,ecx
-    L_0044df2a:
-        ret
+struct ValueHelper_0044df20 {
+    unsigned char reserved[0x1004];
+    int value;
+    __declspec(noinline) int __fastcall add(int delta) {
+        int result = value;
+        result += delta;
+        result += (int)this;
+        return result;
     }
+};
+extern "C" __declspec(noinline) int force_emit_0044df20(
+        ValueHelper_0044df20* value, int delta) {
+    return value->add(delta);
 }
+

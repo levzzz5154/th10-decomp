@@ -642,3 +642,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     }
 }
 
+// D3603 BLOCKED: native-LTCG readability attempt is not retained. Ghidra
+// identifies an EBX receiver, private scheduler/resource calls, and x87
+// conversion ordering; standalone source cannot preserve those allocations.
+// closest_byte_count: 0/1435; first_diff: 0x004247F0; residual_class:
+// private EBX receiver, scheduler/resource private ABI, x87 order and layout.
+// variants_tested: Ghidra decompile/disassembly; authoritative assembly probe.
+// next_lever: recover FUN_00425020's real caller edge and scheduler/resource
+// callees in one schema-2 native-LTCG cluster.

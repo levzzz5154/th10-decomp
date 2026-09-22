@@ -1,3 +1,17 @@
+// BLOCKED (D3902): closest_byte_count=0/417; first_diff=0x0041FB50
+// (no readable native-LTCG body retained).
+// residual_class=SEH registration/cleanup around the teardown sequence,
+// private EAX/ECX propagation through Scheduler_Remove, ReleasePair, resource
+// release, and thread destruction, plus the manager's two 0x3ad06c/70 slots.
+// variants_tested=["live Ghidra decompile at 0x0041fb50",
+// "live callers 0x0041fd00 and 0x004203f0", "MSVC 13.10 authoritative asm
+// probe (417/417 exact)", "readable typed candidate probe (322-byte extent
+// versus 417)", "schema-2 native-LTCG feasibility review"].
+// next_lever=compile a schema-2 native-LTCG cluster rooted by the real
+// EnemySlot_CreateAndInitRetail caller 0x0041fd00 and the 0x004203f0 teardown
+// path, co-compiling Scheduler_Remove, ReleasePair, FUN_00447810, and
+// DestroyGameThread; preserve the exact EH handler table and private receiver
+// flow before changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

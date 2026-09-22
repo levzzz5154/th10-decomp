@@ -1,3 +1,14 @@
+// BLOCKED (D2902): closest_byte_count=36/204; first_diff=0x00447AEE;
+// residual_class=private ESI receiver, helper ABIs, and security-cookie frame.
+// Live Ghidra confirms ESI is the object receiver while the public stack carries
+// color/format, and the body calls _vsprintf, FUN_00463b2c, and
+// FUN_004479d0 through private register conventions.
+// variants_tested=typed state-offset variadic formatter with ordinary C++ helper
+// declarations; exact wrapper retained after the 220-byte candidate matched
+// only 36/204 non-relocation bytes.
+// next_lever=native-LTCG schema-2 cluster containing this body, its two callers,
+// and the three direct callees, preserving the ESI receiver and cookie layout.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

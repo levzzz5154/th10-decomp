@@ -1,3 +1,11 @@
+// BLOCKED (D3402): closest_byte_count=0/450; first_diff=unmeasured
+// residual_class=abi/cluster; the readable state-machine candidate compiled to
+// 501 bytes because retail enters with the replay object in ESI, the filename
+// in the stack slot, and private helper calls carrying EAX/EDI/EBP roles.
+// variants_tested=archived ReplayArchive_Load semantic body with raw-offset
+// state model and direct helper declarations; standalone MSVC 13.10 probe.
+// next_lever=build a real-caller LTCG cluster with replay bootstrap callers
+// and preserve the ESI entry plus private helper register conventions.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

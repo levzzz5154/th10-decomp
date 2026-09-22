@@ -1,3 +1,17 @@
+// BLOCKED (D3202): closest_byte_count=162/162; first_diff=none (retail
+// assembly baseline only; no readable candidate retained).
+// residual_class=hidden ESI descriptor live-in, private AnimationManager
+// lookup ABI, four ordered __ftol2/x87 conversions, and descriptor field
+// layout/return cleanup. Live Ghidra topology: callers 0x00422B5D,
+// 0x004232A1, 0x00423441; callees 0x004491C0 and 0x00463B2C.
+// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
+// disassembly, variable/storage audit, legacy descriptor model, and all three
+// caller clusters; no compiler-readable candidate was byte-measured or
+// retained.
+// next_lever=schema2 native-LTCG cluster containing the three real callers,
+// FUN_004491C0, and __ftol2 at 0x00463B2C, with ESI descriptor ownership,
+// x87 conversion order, and the 0x2C-byte output layout fixed before cutover.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

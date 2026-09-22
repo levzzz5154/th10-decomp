@@ -1,3 +1,12 @@
+// BLOCKED (D3406): closest_byte_count=0/86; first_diff=unmeasured;
+// residual_class=__usercall ESI archive receiver, vector-destructor element
+// count/allocator ABI, and the virtual-release call through [object]+0x1C.
+// variants_tested=live Ghidra complete decompilation with all callers,
+// callees, xrefs and variable/storage audit; no compiler-readable candidate
+// was byte-measured, so the exact naked overlay remains intact.
+// next_lever=schema2/native-LTCG cluster containing the real archive open/
+// reset callers at 0x00434C20 and 0x00434CA0, this close body, the vector
+// destructor helper, and FileHandle::Release with ESI preserved as receiver.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

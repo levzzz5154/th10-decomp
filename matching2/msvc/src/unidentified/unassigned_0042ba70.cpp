@@ -1,3 +1,11 @@
+// BLOCKED (M2704): closest_byte_count=0; first_diff=0x0042BA70;
+// residual_class=abi: the native-LTCG member candidate emitted both field
+// updates exactly but selected a promoted ECX value and RET, not retail's
+// [esp+4] load and RET 4.
+// variants_tested=direct and __stdcall member candidates under a synthetic
+// native-LTCG array caller; closest body was 11 bytes (retail is 17 bytes).
+// next_lever=preserve a public callee-cleanup boundary while separately
+// forcing the private EAX receiver.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

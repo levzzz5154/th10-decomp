@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3304): closest_byte_count=194/194; first_diff=none;
+// residual_class=private ESI cursor receiver and AL mode flag, with direct
+// SetFilePointer import placement, require the caller's native register
+// context. variants_tested=live Ghidra decompilation, callers/callees/xrefs
+// and variable audit (callers 0x0044D110 and 0x0044D850; callee
+// SetFilePointer), plus MSVC 13.10 exact baseline probe. next_lever=native-
+// LTCG cluster with both real callers and this body, preserving the ESI/AL
+// handoff; current overlay remains exact.
 
 // 0x0044DD40..0x0044DE01: ArchiveCursor_SeekRetail
 // Naked body preserves the retail register/stack ABI.

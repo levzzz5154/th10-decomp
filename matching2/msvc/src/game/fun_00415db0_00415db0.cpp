@@ -4,6 +4,20 @@
 // 0x00412FF0..0x0041304C: FUN_00412ff0
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3102): closest_byte_count=0/124; first_diff=unmeasured;
+// residual_class=abi/SEH+cluster: the only caller at 0x00410DDB sets EDI from
+// 0x0047770C and ESI from the resolved ECL index, with no stack parameters.
+// The body then installs the MSVC SEH chain, allocates 0x90 bytes, calls the
+// private FUN_00415B00 constructor, and stores the result through EDI/ESI.
+// Ordinary __cdecl/__stdcall source cannot preserve that ESI/EDI entry tuple
+// together with the exact fs:[0] registration and RET.
+// variants_tested=retail naked baseline, Ghidra worker pseudocode and
+// 0x00410DDB caller cluster, the 0x90-byte allocation layout, and the
+// local_4 allocation dataflow; no compiler-readable candidate was
+// byte-measured.
+// next_lever=co-compile this worker with FUN_00415B00 and its 0x00410DDB ECL
+// caller in native LTCG, retaining explicit SEH and ESI/EDI live-ins.
+
 // 0x00415DB0..0x00415E2B: FUN_00415db0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00415db0_00415db0() {

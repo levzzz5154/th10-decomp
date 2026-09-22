@@ -1,5 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+ 
+// BLOCKED (D3405): closest_byte_count=90/574; first_diff=0x004145F0;
+// residual_class=SEH registration/prolog shape, thiscall receiver and
+// Scheduler/AnimationManager private helper ABIs, plus vector-destructor
+// cleanup-state ordering;
+// variants_tested=live Ghidra decompile/callers/callees (0x0040A1A0,
+// 0x00414830, 0x00417C80 and 0x00414370/00449F60/004492A0/004493E0)
+// and MSVC 13.10 readable raw-layout fastcall candidate (536-byte extent,
+// 90 matching bytes); next_lever=derive the original exception-state source
+// and exact array-destructor cleanup declarations under schema2 without
+// changing the production ABI.
 
 // 0x00405F70..0x0040605B: ItemManager_DestroyRetail
 // Naked body preserves the retail register/stack ABI.

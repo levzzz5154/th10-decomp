@@ -1,6 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3903): closest_byte_count=20/149; first_diff=0x00448862;
+// residual_class=private EAX manager receiver, list/node traversal, callback
+// dispatch ABI, and compiler register/save order across the animation table.
+// variants_tested=MSVC 13.10 typed standalone loop candidate (161-byte extent,
+// 20/149 same-position bytes) plus exact naked baseline; candidate was restored.
+// next_lever=caller-inclusive schema2 native-LTCG cluster with the real manager
+// owner and 0x00448BB0/0x0043EE30 callees visible to register allocation.
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

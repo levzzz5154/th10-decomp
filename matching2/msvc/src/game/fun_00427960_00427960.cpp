@@ -1,3 +1,17 @@
+// BLOCKED (D3803): closest_byte_count=0/359; first_diff=0x00427960
+// (no readable native-LTCG body retained).
+// residual_class=private ESI receiver, EBX/EDI/EBP register lifetime across
+// the branch and x87 loop, fixed table layout at 0x00477834, and the
+// private FUN_00463B2C call/float-pool placement.
+// variants_tested=live Ghidra complete decompile with caller 0x00427953 and
+// callee 0x00463B2C; MSVC 13.10.6030 authoritative production probe
+// (359/359 exact); native-LTCG cluster feasibility review of the real
+// callback caller, x87 evaluation order, and fixed data/callee topology.
+// next_lever=compile a schema-2 native-LTCG cluster containing the real
+// 0x00427953 caller, 0x00463B2C, the fixed table/data bindings, and the
+// complete float loop; require exact 359-byte body and relocation agreement
+// before changing production metadata.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

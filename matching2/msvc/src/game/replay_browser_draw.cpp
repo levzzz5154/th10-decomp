@@ -1,3 +1,15 @@
+// BLOCKED (D3806): closest_byte_count=0/825; first_diff=0x00431ba0;
+// residual_class=record-array layout and the private GameThread formatting
+// receiver/localtime call edges; the Ghidra body is behaviorally clear but
+// its logger and time conversion dependencies remain asm-owned.
+// variants_tested=retail assembly baseline (825/825 exact), live-Ghidra
+// decompilation, and a disposable schema-2 ownership probe; load_cluster
+// rejected the proposed semantic classification because this exclusive
+// region is still kind asm, before native-LTCG compilation.
+// next_lever=caller-inclusive schema-2/native-LTCG cluster over the browser
+// entry, AppendFormattedGameThreadRecord, localtime, and the record-layout
+// owners, then compare the complete 825-byte contribution.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

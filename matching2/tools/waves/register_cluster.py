@@ -4,8 +4,8 @@
 Several agents run in parallel and all of them have to record a cluster in
 ``matching2/msvc/regions.json``. A plain read-modify-write race loses one of
 them, so every update goes through this tool: it takes an exclusive lock, re-reads
-the manifest, applies only the records that concern one source, and writes it
-back with ``os.replace``.
+the manifest, applies only the records that concern the layout's declared
+sources, and writes it back with ``os.replace``.
 
 Usage:
     python3 register_cluster.py --layout layout/ltcg/<name>.json --apply
@@ -25,6 +25,17 @@ sys.path.insert(0, str(ROOT))
 
 from matching2.tools.matching.ltcg_cluster import LTCGClusterError, load_cluster
 
+def _layout_sources(layout):
+    """Return the primary and additional source names declared by a layout."""
+    return [layout["source"], *layout.get("additional_sources", [])]
+
+
+def _function_source(layout, function):
+    """Use a per-function source override, defaulting to the primary source."""
+    source = function.get("source", layout["source"])
+    if source not in _layout_sources(layout):
+        raise ValueError(f"function source is not declared by the cluster: {source}")
+    return source
 
 def update(manifest_path, layout_rel, apply):
     """Apply the layout's functions to the manifest under an exclusive lock."""
@@ -37,12 +48,16 @@ def update(manifest_path, layout_rel, apply):
         changes = []
         for function in layout["functions"]:
             address = int(function["address"], 0)
+            try:
+                function_source = _function_source(layout, function)
+            except ValueError as error:
+                return str(error), manifest, []
             region = by_address.get(address)
             if region is None:
                 return f"no manifest region at {address:#x}", manifest, []
-            if region["source"] != layout["source"]:
+            if region["source"] != function_source:
                 return (f"region {address:#x} is owned by {region['source']}, "
-                        f"not {layout['source']}"), manifest, []
+                        f"not {function_source}"), manifest, []
             if region["size"] != function["size"]:
                 return (f"region {address:#x} size {region['size']} != "
                         f"layout size {function['size']}"), manifest, []
@@ -88,16 +103,17 @@ def unregister(manifest_path, layout_rel, apply):
         if layout_rel not in manifest["ltcg_clusters"]:
             return f"{layout_rel} is not registered", manifest
         path = manifest_path.parent / layout_rel
-        source = ""
+        sources = []
         if path.is_file():
-            source = json.loads(path.read_text())["source"]
+            layout = json.loads(path.read_text())
+            sources = _layout_sources(layout)
         manifest["ltcg_clusters"] = [item for item in manifest["ltcg_clusters"]
                                      if item != layout_rel]
         restored, unknown = [], []
         for region in manifest["regions"]:
             if region["kind"] != "semantic":
                 continue
-            if source and region["source"] != source:
+            if sources and region["source"] not in sources:
                 continue
             # The registration rewrote the region's name and symbol, and the
             # original inline-assembly symbol cannot be recovered from them, so

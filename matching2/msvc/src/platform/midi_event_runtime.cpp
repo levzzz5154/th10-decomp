@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3606): closest_byte_count=0/1323; first_diff=0x0043B110.
+// residual_class=full MIDI event parser layout plus private ESI/EBP state and
+// helper handoffs to 0x0043A730 and 0x0043AEB0. variants_tested=live Ghidra
+// decompilation, existing readable MIDI track/file models, and schema2/native
+// LTCG dependency review; no nonexact body was retained. next_lever=co-compile
+// the real caller 0x0043AF30, this parser, and both helpers in one native-LTCG
+// cluster while preserving the MidiSequencer/MidiTrack offsets; production
+// ownership remains kind=asm because regions.json is not edited in this lane.
 
 // 0x0043B110..0x0043B63A: FUN_0043b110
 // Naked body preserves the retail register/stack ABI.

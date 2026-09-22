@@ -1,45 +1,21 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct LocaleData {
+    unsigned char padding0[0x28];
+    int categories;
+    unsigned char padding1[0x1c];
+    unsigned char* ctype;
+};
+struct ThreadData {
+    unsigned char padding[0x64];
+    LocaleData* locale;
+};
+extern "C" ThreadData* __cdecl asm_getptd_00456357();
+extern "C" LocaleData* data_0047320c;
+extern "C" LocaleData* __cdecl asm_updatetlocinfo_00455ade();
+extern "C" int __cdecl asm_isctype_mt_00455752(LocaleData*, int, int);
 
-// 0x0045685E..0x00456897: _isdigit
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_isdigit_0045685e() {
-    __asm {
-    L_0045685e:
-        call asm_getptd_00456357
-    L_00456863:
-        mov eax,dword ptr [eax+64h]
-    L_00456866:
-        cmp eax,dword ptr [data_0047320c]
-    L_0045686c:
-        je short L_00456873
-    L_0045686e:
-        call asm_updatetlocinfo_00455ade
-    L_00456873:
-        cmp dword ptr [eax+28h],1
-    L_00456877:
-        jle short L_00456889
-    L_00456879:
-        push 4
-    L_0045687b:
-        push dword ptr [esp+8]
-    L_0045687f:
-        push eax
-    L_00456880:
-        call asm_isctype_mt_00455752
-    L_00456885:
-        add esp,0Ch
-    L_00456888:
-        ret
-    L_00456889:
-        mov eax,dword ptr [eax+48h]
-    L_0045688c:
-        mov ecx,dword ptr [esp+4]
-    L_00456890:
-        movzx eax,byte ptr [eax+ecx*2]
-    L_00456894:
-        and eax,4
-    L_00456897:
-        ret
-    }
+extern "C" int __cdecl asm_isdigit_0045685e(int c) {
+    LocaleData* locale = asm_getptd_00456357()->locale;
+    if (locale != data_0047320c) locale = asm_updatetlocinfo_00455ade();
+    if (locale->categories > 1) return asm_isctype_mt_00455752(locale, c, 4);
+    return locale->ctype[c * 2] & 4;
 }

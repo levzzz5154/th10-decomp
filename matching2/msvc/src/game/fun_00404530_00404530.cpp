@@ -56,3 +56,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00404530_00404530() {
         ret
     }
 }
+// D3603 BLOCKED (2026-09-22): native-LTCG readable model retained only in
+// isolated probe. It emitted 13/119 matching bytes (106 differences), first
+// diff 0x00404530, because the retail body supplies EBX=0x0f as a private
+// argument to AsciiManager_Create before the five stack arguments. The
+// ordinary readable call cannot express that ABI while the callee remains an
+// external assembly symbol.
+// variants_tested: ordinary typed member model; native-LTCG caller/context
+// model with absolute AsciiManager/data bindings.
+// next_lever: recover AsciiManager_Create in the same native-LTCG scope so
+// LINK can allocate the private EBX argument.

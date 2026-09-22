@@ -1,19 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004422F0..0x004422FE: Bytes_004422f0 constructor
+//
+// Native MSVC 13.10/LTCG assigns the aggregate result pointer to EAX and
+// keeps the first two constructor arguments in CL/DL.  The final byte
+// remains on the stack, producing the retail 15-byte constructor body.
+struct Bytes_004422f0 {
+    unsigned char first;
+    unsigned char second;
+    unsigned char third;
 
-// 0x004422F0..0x004422FE: FUN_004422f0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004422f0_004422f0() {
-    __asm {
-    L_004422f0:
-        mov byte ptr [eax],cl
-    L_004422f2:
-        mov cl,byte ptr [esp+4]
-    L_004422f6:
-        mov byte ptr [eax+1],dl
-    L_004422f9:
-        mov byte ptr [eax+2],cl
-    L_004422fc:
-        ret 4
-    }
-}
+    __declspec(noinline) Bytes_004422f0(unsigned char a, unsigned char b,
+                                         unsigned char c);
+};
+
+#pragma code_seg(".text$01target")
+Bytes_004422f0::Bytes_004422f0(unsigned char a, unsigned char b,
+                               unsigned char c)
+    : first(a), second(b), third(c) {}
+#pragma code_seg()

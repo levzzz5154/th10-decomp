@@ -1,3 +1,14 @@
+// BLOCKED (D3804): closest_byte_count=0/295; first_diff=0x0043DB60;
+// residual_class=private EBX sound-manager receiver, indirect vtable calls and
+// loop-carried table offsets, plus x87 BGM-offset arithmetic and signed
+// byte/word globals. variants_tested=live Ghidra decompile for 0x0043DB60 and
+// real caller 0x0041F990 (title-assets startup), with the semantic buffer
+// initialization model and callees 0x0043CC40/0x00463B2C; no readable
+// standalone candidate was byte-measured without the caller's EBX context,
+// so the exact assembly baseline was restored. next_lever=schema2 native-LTCG
+// cluster rooted at 0x0041F990, co-compiling this body, startup caller,
+// Platform_StopSoundWorkers, vtable/import bindings, and production sound
+// manager layout.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

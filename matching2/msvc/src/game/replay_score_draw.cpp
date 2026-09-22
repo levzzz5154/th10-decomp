@@ -1,3 +1,12 @@
+// BLOCKED (D3801): closest_byte_count=0/689; first_diff=none (exact retail
+// naked baseline; no readable candidate retained).
+// residual_class=private EDI receiver, x87/date-field evaluation order,
+// GameThread logger's variadic stack contract, and replay record layout.
+// variants_tested=live Ghidra decompilation with caller xref 0x0042D282,
+// logger/localtime callees, and typed replay-record candidate; exact MSVC
+// 13.10 naked baseline probe=689/689.
+// next_lever=native-LTCG cluster joining caller 0x0042D282, this helper,
+// GameThread_AppendFormatted, localtime, and the replay record schema.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

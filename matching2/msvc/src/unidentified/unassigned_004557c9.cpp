@@ -1,31 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct ThreadData { unsigned char padding[0x64]; void* locale; };
+extern "C" ThreadData* __cdecl asm_getptd_00456357();
+extern "C" void* __cdecl asm_updatetlocinfo_00455ade();
+extern "C" void* data_0047320c;
+extern "C" int __cdecl asm_isctype_mt_00455752(void* locale, int character, int mask);
 
-// 0x004557C9..0x004557EF: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004557c9() {
-    __asm {
-    L_004557c9:
-        call asm_getptd_00456357
-    L_004557ce:
-        mov eax,dword ptr [eax+64h]
-    L_004557d1:
-        cmp eax,dword ptr [data_0047320c]
-    L_004557d7:
-        je short L_004557de
-    L_004557d9:
-        call asm_updatetlocinfo_00455ade
-    L_004557de:
-        push dword ptr [esp+8]
-    L_004557e2:
-        push dword ptr [esp+8]
-    L_004557e6:
-        push eax
-    L_004557e7:
-        call asm_isctype_mt_00455752
-    L_004557ec:
-        add esp,0Ch
-    L_004557ef:
-        ret
-    }
+extern "C" int __cdecl asm_unassigned_004557c9(int character, int mask) {
+    void* locale = asm_getptd_00456357()->locale;
+    if (locale != data_0047320c) locale = asm_updatetlocinfo_00455ade();
+    return asm_isctype_mt_00455752(locale, character, mask);
 }

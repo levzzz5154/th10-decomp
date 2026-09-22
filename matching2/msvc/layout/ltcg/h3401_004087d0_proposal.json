@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_H3401ShortField_004087d0_Set",
+      "source": "src/unidentified/FUN_004087d0_004087d0.cpp",
+      "symbol": "?Set@H3401ShortField_004087d0@@QAEXG@Z",
+      "address": "0x004087D0",
+      "size": 8,
+      "kind": "semantic",
+      "owner": "0x004087D0"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 8,
+    "different_bytes": 0,
+    "sha256": "27d73704b7f35f1c013f1b6122bdea23daa3ab82ea40138b209a7bfef289c13e"
+  }
+}

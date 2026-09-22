@@ -1,3 +1,14 @@
+// BLOCKED (D3406): closest_byte_count=81/232; first_diff=unmeasured because
+// the readable standalone candidate emitted an 81-byte contribution rather
+// than the authoritative 232-byte extent.
+// residual_class=SEH frame/handler shape, two scheduler-removal private ABI
+// calls, and the state/resource cleanup layout. variants_tested=live Ghidra
+// complete decompilation plus an MSVC 13.10 readable candidate (81-byte
+// extent); a schema2 native-LTCG target+scheduler cluster was also attempted
+// but LINK could not retain the decorated target entry and was discarded.
+// next_lever=co-compile this body with the real 0x0040A1A0/0x00417C80 callers,
+// Scheduler_Remove and free_00452422 in a corrected schema2 manifest; retain
+// this exact overlay until the complete 232-byte contribution is exact.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

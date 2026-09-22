@@ -4,6 +4,16 @@
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3401): closest_byte_count=298/298; first_diff=none
+// (authoritative MSVC 13.10 probe exact for the retained retail body).
+// residual_class=private EAX index/ESI owner ABI, archive record stride and
+// division scheduling, CreateEventA/CreateThread import placement, and the
+// 0x0044CBF0 stream worker's native-LTCG callback context. variants_tested=
+// live Ghidra decompile plus xrefs/callers/callees, dependency path analysis,
+// and dataflow request; Ghidra reports no PCode for this private-ABI region.
+// next_lever=construct the required cluster with caller 0x0043DECC, callee
+// 0x0043D790, and 0x0044CBF0, then compile the readable body under native LTCG.
+//
 // 0x0043D950..0x0043DA79: FUN_0043d950
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043d950_0043d950() {

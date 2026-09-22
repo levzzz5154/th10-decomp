@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=4/214; first_diff=0x00404450;
+// residual_class=private userpurge registers for FUN_00404f30 (EAX/ESI/ECX)
+// and duplicated ECX/stack entry state;
+// variants_tested=live Ghidra decompile/callers (0x00404450, 0x00418190)
+// and MSVC 13.10 readable offset-struct/loop candidate (141-byte extent,
+// 4 matching bytes); next_lever=schema2 native-LTCG co-compile with
+// FUN_00404f30 and the stage-update caller.
 
 // 0x00402720..0x0040284F: FUN_00402720
 // Naked body preserves the retail register/stack ABI.

@@ -1,3 +1,15 @@
+// BLOCKED (D2902): closest_byte_count=18/73; first_diff=0x00420B18;
+// residual_class=private RegisterResource call ABI and register setup. Live
+// Ghidra confirms this is a __thiscall receiver with two stack values, while
+// both RegisterResource calls consume EAX/EDX and the retail tail reloads the
+// second index from [ESP+8] into EDX before the indexed store.
+// variants_tested=typed thiscall semantic model with two ordinary C++ helper
+// calls; exact retail wrapper retained after the candidate measured 79 bytes
+// and only 18/73 non-relocation bytes matched.
+// next_lever=native-LTCG schema-2 cluster containing Sound_PlayDummy and the
+// RegisterResource body/callers, so the compiler can recover the EAX/EDX
+// helper convention and the ECX/EDX tail register schedule.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

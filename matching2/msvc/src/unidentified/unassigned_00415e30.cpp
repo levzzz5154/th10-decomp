@@ -1,3 +1,15 @@
+// BLOCKED (M3002): closest_byte_count=92/93; first_diff=unmeasured;
+// residual_class=private ESI/EAX receiver-entry ABI.  Live Ghidra confirms the
+// 0x00415E30..0x00415E8C body pushes ESI, passes that private receiver on the
+// stack to 0x00415E90, then updates +0x04/+0x08/+0x0C through the +0x10 float
+// pointer and calls the x87-input rounding helper 0x00463B2C.  Standalone
+// typed state-offset C++ emitted 101 bytes (first diff +0x01) because MSVC
+// materialized a stack receiver before the required ESI-entry body.
+// variants_tested=current typed state-offset C++ model (101 bytes; first diff
+// +0x01) plus the prior 92-byte ESI-entry sweep; no nonexact candidate retained.
+// next_lever=native-LTCG schema-2 cluster with the real 0x00415E90 caller
+// context and its ESI receiver, preserving the x87 helper ABI.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,13 +1,17 @@
 // BLOCKED (H2701): closest_byte_count=111; first_diff=unmeasured;
-// residual_class=abi/source_shape: EAX is an indirect device/object entry,
-// the body performs four COM-style vtable operations, clears a byte buffer
-// sized by stack values, and conditionally releases the returned object;
-// ordinary factory and memset expressions change the vtable/temporary order.
-// variants_tested=exact retail naked wrapper, explicit COM-vtable factory
-// model, and readable zero-buffer/conditional-release reconstruction; no
-// compiler-readable candidate was byte-measured.
-// next_lever=co-compile a real caller that supplies the EAX indirect entry
-// with the device vtable and release owner in a native-LTCG surface cluster.
+// residual_class=boundary/abi: live Ghidra has no containing function at
+// 0x00449700, models the bytes as DAT_00449700 (128-byte undefined region),
+// and reports no xrefs/dataflow. The adjacent FUN_004497D0 is a real
+// animation-manager function with seven callers and FUN_004491C0 as callee,
+// but it is not a proven caller of this 111-byte body.
+// variants_tested=exact retail naked wrapper, readable COM-device cleanup
+// model, and an adjacent animation-manager caller hypothesis; MSVC 13.10
+// baseline probe is exact (111/111), but no compiler-readable candidate was
+// linked/measured.
+// next_lever=repair the containing-function boundary from the retail
+// disassembly, recover the indirect device/object dispatch and COM vtable
+// owner, then co-compile that real caller cluster before attempting a
+// readable promotion.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

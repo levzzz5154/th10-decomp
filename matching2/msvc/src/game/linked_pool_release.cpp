@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED readable recovery: closest_byte_count=93/93; first_diff=none;
+// residual_class=private EAX selector plus ECX receiver requires schema-2
+// caller/callee placement; variants_tested=live Ghidra callers/callees/xrefs
+// and retail baseline probe; next_lever=add a semantic region and native-LTCG
+// cluster without editing regions.json.
 // 0x0042AB20..0x0042AB7C: FUN_0042ab20
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0042ab20_0042ab20() {

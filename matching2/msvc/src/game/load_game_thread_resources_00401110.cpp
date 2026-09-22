@@ -1,3 +1,15 @@
+// BLOCKED (H3901): closest_byte_count=0/330; first_diff=0x00401110;
+// residual_class=private EAX entry ABI and scheduler callback/register
+// conventions coupled to the resource-object layout. Retail receives the
+// game-thread object in EAX, threads it through three cached-resource loads,
+// then preserves it across scheduler registration and two animation setup
+// calls; a public-ABI C++ translation cannot express that entry shape.
+// variants_tested=["exact retail naked baseline retained",
+// "IDA semantic translation reviewed; no standalone readable candidate retained"];
+// next_lever=caller-inclusive native-LTCG cluster rooted by 0x00401440
+// (which allocates and invokes this entry), with Recovery_LoadCachedResource,
+// SchedulerCallback_Create/Register*, InitializeEntity, and
+// AnimationObject_ConfigureFromResource visible in one schema-2 link.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

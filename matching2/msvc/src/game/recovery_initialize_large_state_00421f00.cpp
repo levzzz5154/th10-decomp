@@ -9,6 +9,20 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (H2901): Ghidra confirms an exact 71-byte worker span at 0x00421F00.
+// The only live incoming context is 0x004658F0..0x00465909: it pushes ESI,
+// loads ESI=0x00491C28, calls this routine, then restores ESI.  The worker
+// therefore receives its state in ESI, takes an unused ECX context, calls
+// 0x00418C40, and returns the same ESI in EAX.  No standalone MSVC 13.10 ABI
+// expresses that ESI/EAX private pair; an ordinary __thiscall/__fastcall
+// declaration necessarily uses ECX for the receiver. variants_tested=live
+// caller ABI inspection plus standalone __thiscall/__fastcall feasibility;
+// no mutation retained because both declarations misplace the state pointer.
+// next_lever=retain the 0x004658F0 caller in a native LTCG cluster and recover
+// the private ESI receiver declaration; do not alter the exact overlay until
+// that context is available.
+// closest_byte_count=71/71 (existing overlay); first_diff=N/A for overlay;
+// residual_class=private-ABI ESI receiver/EAX return.
 // 0x00421F00..0x00421F46: ?Recovery_InitializeLargeState@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeLargeState_00421f00() {

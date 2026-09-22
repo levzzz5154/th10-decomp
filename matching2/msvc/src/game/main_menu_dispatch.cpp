@@ -1,3 +1,48 @@
+// BLOCKED (D3807): closest_byte_count=0/1062; first_diff=unmeasured;
+// residual_class=GameThread logger receiver convention, 25-entry replay
+// record layout, localtime formatting order, x87 date fields, and the
+// state-dependent render-color writes. Live Ghidra decompilation at
+// 0x00422660 is readable, but no standalone candidate can preserve the
+// variants_tested=live Ghidra decompile at 0x00422660; caller inspection at
+// 0x004223F0 and 0x00422AA0; archived menu/result semantic models; ABI and
+// record-layout feasibility review under the production MSVC 13.10 flags.
+// No standalone candidate was retained because its logger/layout dependencies
+// are not production-bindable in this exclusive asm region.
+// next_lever=caller-inclusive schema-2 native-LTCG cluster over 0x004223F0,
+// this body, FUN_004224C0, and GameThread_AppendFormatted_00401630, with
+// replay records and the logger private receiver bound; require exact 1062
+// bytes before promotion.
+
+// BLOCKED (D3807): closest_byte_count=0/1360; first_diff=unmeasured;
+// residual_class=private ECX/EDX:EAX/stack entry, five-state pause/result
+// machine, sound/effect/task helper ABIs, and menu-record offsets. Ghidra
+// decompilation and the archived ResultChoiceMenu_Update model agree on
+// control flow, but the production region remains an exclusive asm owner.
+// variants_tested=live Ghidra decompile at 0x00422C80; real caller
+// 0x004223F0; archived result-choice semantic model; prototype/ABI feasibility
+// review under MSVC 13.10. No standalone candidate was retained because the
+// private-register and helper cleanup contract is caller-dependent.
+// next_lever=caller-inclusive schema-2 native-LTCG cluster over 0x004223F0,
+// 0x00422C80, FUN_00422C30, MenuCursor_Advance, and sound/effect/task
+// callees, with the verified 0x00477810 menu layout; require exact 1360
+// bytes before promotion.
+
+// BLOCKED (D3807): closest_byte_count=0/3260; first_diff=unmeasured;
+// residual_class=large replay/name-entry state layout, security-cookie/EH
+// frame, input edge helpers, replay file/resource ownership, and private
+// callee receiver conventions. Live Ghidra decompilation is complete and
+// the archived RunSubmenuUpdate model is readable, but its environment hooks
+// cannot represent the retail globals and ABI in this standalone owner.
+// variants_tested=live Ghidra decompile at 0x004236F0; callers 0x004223F0
+// and 0x00422660; archived RunSubmenuUpdate semantic model; raw-record and
+// private-ABI feasibility review under MSVC 13.10. No standalone candidate
+// was retained because the real callers and replay helpers must be visible.
+// next_lever=caller-inclusive schema-2 native-LTCG cluster over 0x004223F0,
+// 0x00422660, 0x004236F0, FUN_00423570, replay open/check/release/write,
+// and menu task helpers, with the +0x4/+0x14/+0x24/+0x1EC/+0x2B4 record
+// layout bound; require exact 3260 bytes before promotion.
+
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

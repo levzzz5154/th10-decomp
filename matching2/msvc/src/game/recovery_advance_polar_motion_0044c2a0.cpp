@@ -1,20 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2702): closest_byte_count=171; first_diff=unmeasured;
-// residual_class=abi/cluster; the helper receives its motion state in ESI,
-// branches between Cartesian and polar updates, calls the retained
-// PolarToVector FSINCOS leaf, and then runs both coordinates through the
-// private x87 angle-wrapping helper.  Its stack temporaries and register
-// homes are coupled to the polar caller cluster.
-// variants_tested=the recovered six-float motion layout, direct Vector2 polar
-// update source, the existing bullet/effect callers, and the exact retail
-// overlay; no readable candidate was byte-measured.
-// next_lever=compile this helper with PolarToVector, the x87 wrapping callee,
-// and the real bullet/effect callers as one native-LTCG cluster.
-// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
-// Naked body preserves the retail register/stack ABI.
-
+// BLOCKED (D2701): closest_byte_count=160 (retail extent 171);
+// first_diff=0x0044C2AA; residual_class=source-shape/allocator cluster.  The
+// best native-LTCG readable candidate differed in 81 bytes and was structurally
+// short: its first linear pair loaded velocity before position, it eliminated
+// retail's dead offset.z store, and it moved the tail stack restoration.
+// variants_tested=direct position-plus-velocity statements, reordered sums,
+// direct member stores, local Vector3 result assignment, declaration-order
+// variants, and the full native-LTCG caller cluster; best emitted 160/171 bytes.
+// next_lever=retain the real bullet/effect callers in one native-LTCG cluster
+// and find source/declaration evidence that forces the retail first pair, dead
+// z store, and add-esp placement without inline assembly.
 // 0x0044C2A0..0x0044C34A: Recovery_AdvancePolarMotion
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_AdvancePolarMotion_0044c2a0() {

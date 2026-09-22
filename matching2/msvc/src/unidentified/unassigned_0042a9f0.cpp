@@ -1,13 +1,15 @@
-// BLOCKED (M2703): closest_byte_count=24; first_diff=unmeasured;
-// residual_class=abi/source_shape: the fragment enters with its record in
-// ESI, passes an EDX-derived configuration destination, preserves EDI around
-// the call, then performs a 25-dword clear and returns the ESI record;
-// this private multi-register schedule is not expressible by a standalone
-// ordinary declaration;
-// variants_tested=exact retail naked wrapper; no compiler-readable candidate
-// was attempted or byte-measured;
-// next_lever=co-compile the initializer with its 0x0042A9E0 predecessor and
-// a native-LTCG caller context that exposes ESI/EDX ownership.
+// BLOCKED (M2704): closest_byte_count=0; first_diff=0x0042A9F0;
+// residual_class=private-ABI/control-flow: Ghidra identifies the real callee
+// at 0x00418C40 as __fastcall (destination in EDX), while this fragment
+// enters with the record in ESI, preserves EDI, clears 25 dwords, and returns
+// ESI.  The native-LTCG readable member candidate emitted a 95-byte body,
+// retaining a public thiscall shape and a cdecl call, rather than this
+// private multi-register schedule.
+// variants_tested=readable member with loop clear and native caller context;
+// __fastcall callee link binding and cdecl callee binding; exact retail naked
+// wrapper retained as baseline.
+// next_lever=co-compile a real caller that supplies ESI/EDX and a declared
+// private callee edge, then revisit the loop/return source shape.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

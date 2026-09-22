@@ -169,3 +169,12 @@ extern "C" __declspec(naked) void __cdecl asm_ArchiveCursor_ReadRetail_0044de10(
         ret 8
     }
 }
+// BLOCKED (D3303): closest_byte_count=0/202; first_diff=none;
+// residual_class=private EAX cursor and EDX size ABI, with ReadFile's
+// indirect slot and rep-move codegen required to match exactly.
+// variants_tested=live Ghidra decompilation/topology and MSVC 13.10 readable
+// stdcall translation (260/202 extent); next_lever=native-LTCG
+// cluster/schema2 with callers 0044D110 and 0044D850 plus ReadFile slot
+// binding.
+// Current assembly overlay remains exact.
+

@@ -1,8 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
-
-
-
+// BLOCKED (D3304): closest_byte_count=2452/2452; first_diff=none;
+// residual_class=private EAX object receiver plus ECX selector token and
+// repeated hidden Find/Configure register handoffs; a standalone readable
+// declaration cannot preserve the private ABI or retail loop scheduling.
+// variants_tested=live Ghidra decompilation, callers/callees/xrefs and
+// variable audit (callers 0x0042F540 and 0x00430250; callees 0x004491C0 and
+// 0x0043E5A0), plus MSVC 13.10 exact baseline probe. next_lever=schema2
+// native-LTCG cluster joining both real callers, this body, Find, and
+// ConfigureFromResource; current overlay remains exact.
 
 
 // 0x0042F8B0..0x0042F953: FUN_0042f8b0

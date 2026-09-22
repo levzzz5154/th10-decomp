@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3706): closest_byte_count=25/483; first_diff=0x00433B30
+// residual_class=large replay-menu state/layout model, variadic logger call
+// shape, x87 date/position arithmetic, and private GameThread receiver ABI.
+// variants_tested=live Ghidra decompile plus readable replay-menu candidate
+// under MSVC 13.10; candidate was 483 bytes and the exact assembly baseline
+// was restored.
+// next_lever=schema-2 native-LTCG cluster over the real replay callers and
+// GameThread_AppendFormatted/logger, with all menu/replay record offsets bound.
 
 // 0x00433B30..0x00433D08: FUN_00433b30
 // Naked body preserves the retail register/stack ABI.

@@ -1,41 +1,27 @@
-// BLOCKED (M2703): closest_byte_count=30; first_diff=unmeasured;
-// residual_class=abi/source_shape: retail receives the state pointer in EAX,
-// clears six dwords through a separate zero register, raises its flag, and
-// publishes the same pointer through a global; ordinary declarations do not
-// preserve this promoted receiver/store schedule;
-// variants_tested=exact retail naked wrapper; no compiler-readable candidate
-// was attempted or byte-measured;
-// next_lever=co-compile the initializer with BulletManager_Create and a
-// native-LTCG caller context that pins the state object in EAX.
+// 0x0040AE50..0x0040AE6D: initialize and publish the bullet-manager state.
+//
+// Native LTCG selects the retail private receiver convention (state in EAX)
+// when this member is called from small_private_abi_a_context.cpp.  The
+// memset spelling is intentional: MSVC 13.10 expands it to the retail
+// register-zero/store schedule rather than folding the first field to 2.
+struct BulletManagerState_0040ae50 {
+    unsigned flags;
+    unsigned reserved_004;
+    void *primary;
+    void *secondary;
+    void *resource;
+    unsigned reserved_014;
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+    __declspec(noinline) void Initialize();
+};
 
-// 0x0040AE50..0x0040AE6D: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0040ae50() {
-    __asm {
-    L_0040ae50:
-        xor ecx,ecx
-    L_0040ae52:
-        mov edx,eax
-    L_0040ae54:
-        mov dword ptr [edx],ecx
-    L_0040ae56:
-        mov dword ptr [edx+4],ecx
-    L_0040ae59:
-        mov dword ptr [edx+8],ecx
-    L_0040ae5c:
-        mov dword ptr [edx+0Ch],ecx
-    L_0040ae5f:
-        mov dword ptr [edx+10h],ecx
-    L_0040ae62:
-        mov dword ptr [edx+14h],ecx
-    L_0040ae65:
-        or dword ptr [eax],2
-    L_0040ae68:
-        mov dword ptr [data_004776fc],eax
-    L_0040ae6d:
-        ret
-    }
+extern "C" void *memset(void *, int, unsigned);
+extern "C" BulletManagerState_0040ae50 *data_004776fc;
+
+#pragma code_seg(".text$01init")
+void BulletManagerState_0040ae50::Initialize() {
+    memset(this, 0, sizeof(BulletManagerState_0040ae50));
+    flags |= 2u;
+    data_004776fc = this;
 }
+#pragma code_seg()

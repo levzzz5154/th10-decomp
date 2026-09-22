@@ -3,6 +3,13 @@
 
 // 0x00408910..0x004089BF: PlayerManager_ConstructRetail
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=47/176; first_diff=0x00408910;
+// residual_class=compiler-generated SEH/vector-constructor iterator frame,
+// callback ABI, and constructor zeroing schedule; variants_tested=live Ghidra
+// decompilation with caller 0x00408C90 and constructor callers 0x004296F0,
+// 0x0040D6B0, plus MSVC 13.10 readable candidate (131-byte extent, 47
+// non-relocation bytes equal); next_lever=native-LTCG schema2 with the real
+// caller/context and EH vector-constructor bindings.
 extern "C" __declspec(naked) void __cdecl asm_PlayerManager_ConstructRetail_00408910() {
     __asm {
     L_00408910:
@@ -106,6 +113,13 @@ extern "C" __declspec(naked) void __cdecl asm_PlayerManager_ConstructRetail_0040
 
 // 0x00413810..0x0041397E: FUN_00413810
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=99/367; first_diff=0x00413810;
+// residual_class=compiler-generated SEH/vector-constructor iterator frame,
+// private manager layout, and rep-stosd/flag-reset ordering; variants_tested=live
+// Ghidra decompilation with caller 0x00414830 and six vector-constructor
+// callees, plus MSVC 13.10 readable candidate (377-byte extent, 99
+// non-relocation bytes equal); next_lever=native-LTCG schema2 with the real
+// ItemManager caller and production manager layout.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00413810_00413810() {
     __asm {
     L_00413810:
@@ -295,6 +309,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00413810_00413810() {
 
 // 0x0041AFD0..0x0041B007: FUN_0041afd0
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=128/2320; first_diff=0x0041AFD2;
+// residual_class=large state-machine loop with private register/live-global
+// ABI, x87 angle/position ordering, and ten unresolved helper bindings;
+// variants_tested=live Ghidra decompilation with state caller 0x0041BA29 and
+// callees 0x00404F30, 0x004054B0, 0x00405B60, 0x00412FF0, 0x004188A0,
+// 0x00418930, 0x0041BA50, 0x00426660, 0x0042B9C0, 0x0043DD10, plus MSVC
+// 13.10 readable loop/switch candidate (626-byte extent, 128 non-relocation
+// bytes equal); next_lever=native-LTCG schema2 with the real scene caller,
+// production state layout, and helper prototypes.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     __asm {
     L_0041afd0:

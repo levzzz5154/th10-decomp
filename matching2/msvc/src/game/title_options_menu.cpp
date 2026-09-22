@@ -3,6 +3,17 @@
 
 // 0x0042D920..0x0042DA27: FUN_0042d920
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3901): closest_byte_count=0/3188; first_diff=unmeasured;
+// residual_class=large options state machine, private animation-manager
+// receiver/frame conventions, and timer/input helper ABIs across the handler's
+// jump-table and phase transitions. variants_tested=exact retail assembly
+// probe (3188/3188), legacy semantic title-options model, live caller topology
+// at 0x0042D13F, and dependency review for 0x0042C5C0/0x0042C670/
+// 0x0042C730/0x0042C750/0x0042C770/0x00449250; no readable candidate was
+// byte-measured without changing the fixed-address ownership manifest.
+// next_lever=schema-2/native-LTCG cluster with real caller 0x0042D13F and the
+// timer/animation manager callees co-compiled, retaining the complete
+// 3188-byte contribution.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     __asm {
     L_0042d920:

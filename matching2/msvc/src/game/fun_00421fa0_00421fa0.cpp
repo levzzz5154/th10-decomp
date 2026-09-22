@@ -1,3 +1,13 @@
+// BLOCKED (D3305): closest_byte_count=316/316; first_diff=none
+// (authoritative retail overlay probe exact; no readable candidate retained).
+// residual_class=private EDI receiver/EAX return, caller-owned frame layout,
+// and x87/time helper sequencing around the 0x18-byte history records.
+// variants_tested=live Ghidra decompilation plus callers/callees
+// (0x00423570, 0x00432CB0; __time32 at 0x00452B71); ordinary declarations
+// cannot express the EDI input and EAX result together.
+// next_lever=cluster native-LTCG joining callers 0x00423570 and 0x00432CB0
+// with this member, retaining the exact overlay until the private ABI lands.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

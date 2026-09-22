@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3507): closest_byte_count=0/59; first_diff=extent (readable typed cdecl candidate emitted 74 bytes vs retail 59);
+// residual_class=private-EAX ABI; the retail initializer receives its object in EAX and returns through the private caller context, while standalone cdecl C++ receives it on the stack and reorders flag masking;
+// variants_tested=retail naked baseline (59/59 exact), readable packed-state cdecl initializer (74-byte extent), live Ghidra FUN_00449aa0 decompile, and GameMain caller inspection;
+// next_lever=native-LTCG cluster with GameMain's real EAX caller and a production D3DResourceManager layout, then probe the combined region.
+
 // 0x00438880..0x004388E6: ?D3DResourceManager_Destroy@@
 // Naked body preserves the retail register/stack ABI.
 

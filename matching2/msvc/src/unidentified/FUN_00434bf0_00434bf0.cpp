@@ -1,15 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00434BF0..0x00434BFA: indexed nine-word value lookup.
+//
+// Native LTCG preserves the private object/index pair in ECX/EAX.
+struct H3301Stride9_00434bf0 {
+    unsigned char pad_000[0xB0];
+    int values_0B0[9];
+    __declspec(noinline) int GetValue(int index) const;
+};
 
-// 0x00434BF0..0x00434BFA: FUN_00434bf0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00434bf0_00434bf0() {
-    __asm {
-    L_00434bf0:
-        lea eax,[eax+eax*8]
-    L_00434bf3:
-        mov eax,dword ptr [ecx+eax*4+0B0h]
-    L_00434bfa:
-        ret
-    }
+#pragma code_seg(".text$01target")
+int H3301Stride9_00434bf0::GetValue(int index) const {
+    return values_0B0[index * 9];
 }
+#pragma code_seg()

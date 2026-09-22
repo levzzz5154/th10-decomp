@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3706): closest_byte_count=12/154; first_diff=0x00405E20
+// residual_class=private EBX receiver and scheduler callback ABI; the typed
+// readable candidate emitted 154 bytes versus the 163-byte retail body.
+// variants_tested=live Ghidra decompile plus BulletManager readable member
+// candidate under MSVC 13.10; exact assembly baseline was restored.
+// next_lever=schema-2 native-LTCG cluster over real caller 00406060, this
+// loader, callback factories, and both scheduler registration callees.
 
 // 0x00402720..0x0040284F: FUN_00402720
 // Naked body preserves the retail register/stack ABI.

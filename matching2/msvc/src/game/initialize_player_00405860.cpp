@@ -1,3 +1,14 @@
+// BLOCKED (D3506): closest_byte_count=0/397; first_diff=0x00405860;
+// residual_class=stack object input with private EAX/EDI/ESI live values,
+// compiler-sensitive call sequencing across three animation/player callees,
+// and the caller's real LTCG register context.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee topology, and MSVC 13.10 probe path (the wrapper is exact);
+// no readable candidate was byte-measured without changing the fixed-address
+// ownership manifest.
+// next_lever=native-LTCG schema-2 cluster over caller 0x00425730 and callees
+// 0x00448DB0, 0x0043DD10, 0x004054B0, and 0x00405500, then measure all
+// 397 bytes before ownership promotion.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

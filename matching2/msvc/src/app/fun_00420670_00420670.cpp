@@ -6,6 +6,12 @@
 
 // 0x00420670..0x00420867: FUN_00420670
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3704): closest_byte_count=0/504; first_diff=0x00420670;
+// residual_class=ESI/EAX dual usercall ABI, D3D surface layout, and worker
+// thread/caller visibility; variants_tested=["live Ghidra decompile at
+// 0x00420670", "live caller 0x004391F0", "MSVC 13.10 schema-2 baseline
+// probe"]; next_lever=native-LTCG cluster rooted at 0x004391F0 with typed
+// D3D surface context and co-compiled malloc/thread entry callees.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00420670_00420670() {
     __asm {
     L_00420670:

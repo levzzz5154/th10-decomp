@@ -2,6 +2,17 @@
 #include "asm_symbols.hpp"
 
 
+// BLOCKED (D3401): closest_byte_count=2520/2520; first_diff=none
+// (authoritative MSVC 13.10 probe exact for the retained retail body).
+// residual_class=large schema2 body with private helper ABI/register scheduling
+// (callee inputs include EAX/ECX/EDX and stack temporaries), 0x004489D0/
+// 0x00448E30/0x00449470/0x00449950 layout dependencies, and x87 conversion
+// order in the 0x00463B2C random-offset paths. variants_tested=live Ghidra
+// decompile plus xrefs/callers/callees and dependency paths; Ghidra dataflow
+// confirms the parameter and helper propagation, while no PCode is available
+// for the private-ABI helper regions. next_lever=co-compile this body with
+// the blocked animation-manager helper family in a native-LTCG schema2 context.
+//
 // 0x00426F70..0x00427019: FUN_00426f70
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {

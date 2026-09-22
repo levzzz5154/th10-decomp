@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3903): closest_byte_count=4/151; first_diff=0x00413350;
+// residual_class=private allocation/initialization ABI, EBX manager and ESI
+// task values, scheduler registration ordering, and RET-value convention.
+// variants_tested=MSVC 13.10 typed standalone allocation candidate (104-byte
+// extent, 4/151 comparable bytes after relocation masking) plus exact naked
+// baseline; candidate restored.
+// next_lever=caller-inclusive schema2 native-LTCG cluster with allocator,
+// scheduler registration, and the real task owner visible to LTCG.
 // 0x00413350..0x004133E6: FUN_00413350
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00413350_00413350() {

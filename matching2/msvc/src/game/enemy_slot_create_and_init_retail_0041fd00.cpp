@@ -1,3 +1,18 @@
+// BLOCKED (D3902): closest_byte_count=0/69; first_diff=0x0041FD00
+// (no readable native-LTCG body retained).
+// residual_class=private ESI receiver for state-table initialization, hidden
+// worker-start result flow, and the failure cleanup call into the 417-byte
+// shutdown body; operator-new/free bindings and branch-local EBX ownership
+// must remain exact.
+// variants_tested=["live Ghidra decompile at 0x0041fd00",
+// "live caller 0x00421935 and callees 0x0041f850/0x0041fac0/0x0041fb50",
+// "MSVC 13.10 authoritative asm probe (69/69 exact)", "readable typed
+// candidate probe (63-byte extent versus 69)", "schema-2 native-LTCG
+// feasibility review"].
+// next_lever=compile a schema-2 native-LTCG cluster rooted at the real
+// 0x00421935 caller with this factory, InitializeStateTable, StartWorker, and
+// FUN_0041fb50 visible; preserve ESI/EBX private flow and 0x3f0-byte state
+// layout before changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

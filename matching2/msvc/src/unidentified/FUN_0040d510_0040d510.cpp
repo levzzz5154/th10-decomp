@@ -1,3 +1,12 @@
+// BLOCKED (D3605): closest_byte_count=1/28; first_diff=0x0040D511.
+// residual_class=private EAX input ABI: live Ghidra shows the caller leaves
+// the state object in EAX with no stack argument, while a readable cdecl
+// candidate emitted a 32-byte body whose first four-byte load shifted every
+// retail instruction (the remaining tail matched only after manual alignment).
+// variants_tested=live Ghidra decompilation, real caller 0x0040A450, and MSVC
+// 13.10 readable cdecl struct candidate (32-byte extent, 1/28 same-position
+// bytes); exact naked baseline probe=28/28. next_lever=native-LTCG cluster
+// preserving EAX state handoff and the caller's register context.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

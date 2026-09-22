@@ -1,5 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3502): closest_byte_count=0/564; first_diff=0x0042B1E0;
+// residual_class=private EBX archive receiver, LZSS tree mutation and
+// evaluation order, private allocator/file API bindings, and stack-local
+// overlapped-write cleanup.
+// variants_tested=live Ghidra complete decompile with real callers/callees
+// (0x00417C8D, 0x0041FC6E, 0x004359B0, 0x0044B220, 0x0044B620), plus
+// MSVC 13.10 readable explicit-archive candidate (387-byte extent; no
+// comparable bytes); existing native-LTCG score-save probe also measured
+// zero matching bytes for the 0x004359B0 dependency.
+// next_lever=restore the real LZSS node invariants and compile 0x0042B1E0
+// with both production callers in one native-LTCG cluster.
 
 // 0x0041A200..0x0041AAC6: FUN_0041a200
 // Naked body preserves the retail register/stack ABI.

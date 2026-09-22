@@ -4,6 +4,11 @@
 // 0x0040E770..0x00411D2E: FUN_0040e770
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED readable recovery: closest_byte_count=16/16; first_diff=none;
+// residual_class=private EAX interpreter and ECX operand ABI must be linked
+// with the resolver callee; variants_tested=live Ghidra caller/callee/xrefs
+// and retail baseline probe; next_lever=extend the existing ECL native-LTCG
+// cluster without editing regions.json.
 // 0x00412A00..0x00412A0F: ?ECL_ResolveIntFromEntity@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntFromEntity_00412a00() {

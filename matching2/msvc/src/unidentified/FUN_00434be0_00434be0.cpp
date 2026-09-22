@@ -1,13 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00434BE0..0x00434BE7: indexed resource-slot lookup.
+// Native LTCG preserves the object/index pair in EAX/ECX.
+struct H3401Slots_00434be0 {
+    unsigned char pad_000[0x3AD06C];
+    int slots_3ad06c[0x21];
+    __declspec(noinline) int Get(int index) const;
+};
 
-// 0x00434BE0..0x00434BE7: FUN_00434be0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00434be0_00434be0() {
-    __asm {
-    L_00434be0:
-        mov eax,dword ptr [eax+ecx*4+3AD06Ch]
-    L_00434be7:
-        ret
-    }
+#pragma code_seg(".text$01target")
+int H3401Slots_00434be0::Get(int index) const {
+    return slots_3ad06c[index];
 }
+#pragma code_seg()

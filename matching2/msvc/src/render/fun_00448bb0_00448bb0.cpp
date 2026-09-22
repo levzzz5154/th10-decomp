@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3507): closest_byte_count=0/268; first_diff=extent (readable typed unlink candidate emitted 278 bytes vs retail 268);
+// residual_class=private-ESI/EDI ABI and member register preservation; the standalone cdecl candidate had to save ESI/EDI and could not consume the caller's private registers directly;
+// variants_tested=retail naked baseline (268/268 exact), readable typed linked-list candidate (278-byte extent), live Ghidra FUN_00448bb0 decompile, and callers FUN_00446220/FUN_00448860/FUN_00448900;
+// next_lever=native-LTCG cluster with the real animation-manager caller and production entity/list layouts, preserving ESI/EDI as private inputs.
+
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

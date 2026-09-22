@@ -3,11 +3,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 #include "th10/math/angle.hpp"
-
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
+
+// BLOCKED (D3502): closest_byte_count=0/174; first_diff=0x004281D0;
+// residual_class=private EAX receiver, hidden EBX/ESI schedule state, and
+// private helper call conventions across the stage-dispatch branch.
+// variants_tested=live Ghidra complete decompile with caller/callees
+// (0x004262C7, 0x00428160, 0x00427E90), plus MSVC 13.10 readable explicit
+// state-parameter candidate (161-byte extent; no comparable bytes).
+// next_lever=native-LTCG cluster compiling the real 0x00425730 caller with
+// 0x00428160/0x00427E90 so private register inputs remain live.
 
 // 0x004281D0..0x0042827D: Recovery_UpdateStageSequence
 // Naked body preserves the retail register/stack ABI.

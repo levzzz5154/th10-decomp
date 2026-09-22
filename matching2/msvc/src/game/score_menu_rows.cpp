@@ -1,3 +1,14 @@
+// BLOCKED (D3907): closest_byte_count=0/419; first_diff=0x00431410
+// (no readable native-LTCG body retained).
+// residual_class=EDI receiver ABI, g_pGameThread/global table layouts,
+// private AppendFormatted varargs convention, and float-stack loop state.
+// variants_tested=["live Ghidra decompile at 0x00431410",
+// "live caller 0x0042d260 and callee 0x00401630", "MSVC 13.10.6030
+// authoritative probe (419/419 exact asm baseline)", "schema-2 native-LTCG
+// feasibility review of receiver/formatter register topology"].
+// next_lever=compile a schema-2 native-LTCG cluster containing the real
+// 0x0042d260 caller, a typed score-menu body, and the real formatter callee;
+// establish GameThread/table layouts before changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3706): closest_byte_count=21/421; first_diff=0x00436AF2
+// residual_class=private EAX receiver plus MSVC-selected local BITMAPINFO
+// initialization and Win32 indirect-call layout; readable candidate was 539
+// bytes and cannot enter the fixed 421-byte body without its real caller.
+// variants_tested=live Ghidra decompile and typed GDI/Win32 readable member
+// candidate under MSVC 13.10; candidate comparison was restored to this exact
+// assembly baseline.
+// next_lever=schema-2 native-LTCG cluster over the real 00436A30 caller set,
+// with GdiSurface layout and import-slot declarations promoted together.
 
 // 0x00436AF0..0x00436C94: FUN_00436af0
 // Naked body preserves the retail register/stack ABI.

@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3401): closest_byte_count=1965/1965; first_diff=none
+// (authoritative MSVC 13.10 probe exact for the retained retail body).
+// residual_class=private EDI receiver/ECX input ABI, animation-manager
+// registration/allocation helper conventions, and multi-loop script loading
+// whose object/resource/index homes are fixed in EAX/EBX/ECX. variants_tested=
+// live Ghidra decompile plus xrefs/callers/callees, dependency paths, and
+// dataflow request; Ghidra reports no PCode for this private-ABI region.
+// next_lever=co-compile with 0x0043E5A0/0x0043E710 and the 0x004489D0/
+// 0x00449950 helper family in a native-LTCG cluster using caller 0x00418190.
+//
 // 0x00413BC0..0x00413CA4: FUN_00413bc0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00413bc0_00413bc0() {
@@ -1112,6 +1122,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00413bc0_00413bc0() {
     }
 }
 
+// BLOCKED (D3401): closest_byte_count=1656/1656; first_diff=none
+// (authoritative MSVC 13.10 probe exact for the retained retail body).
+// residual_class=private EDI receiver/EAX input ABI, direction-state switch
+// scheduling, x87 position updates, callback function-pointer fields, and
+// four-slot animation object layout. variants_tested=live Ghidra decompile
+// plus xrefs/callers/callees, dependency paths, and dataflow request; Ghidra
+// exposes the full control flow but no PCode for this private-ABI region.
+// next_lever=co-compile with 0x0043E710, 0x004489D0, 0x00449210,
+// 0x004492F0, 0x00449350, and 0x00449950 in a native-LTCG cluster using
+// caller 0x00425730.
+//
 // 0x004250B0..0x0042558C: FUN_004250b0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004250b0_004250b0() {

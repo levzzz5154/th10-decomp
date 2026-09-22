@@ -1,3 +1,13 @@
+// BLOCKED (H3901): closest_byte_count=0/227; first_diff=0x00448360;
+// residual_class=private four-register ABI plus stack argument home layout:
+// retail enters with a1 in EAX, a2 in EDX, a3 in ECX, a4 in EBX, and five
+// additional arguments on the stack, while the two virtual calls and the
+// D3DXLoadSurfaceFromSurface edge constrain register lifetimes and cleanup.
+// variants_tested=["exact retail naked baseline retained",
+// "IDA semantic translation reviewed; no standalone readable candidate retained"];
+// next_lever=caller-inclusive native-LTCG cluster rooted by the unresolved
+// real caller of 0x00448360, with AnimationManager_FlushQuadBatch_00442F50
+// and D3DXLoadSurfaceFromSurface_004521D6 visible to the same /LTCG link.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

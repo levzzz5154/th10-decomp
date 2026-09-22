@@ -1,17 +1,15 @@
-// BLOCKED (D2701): closest_byte_count=171; first_diff=unmeasured;
-// residual_class=abi+x87: retail enters with the VM receiver in EAX, the
-// operand bit index in CL, and the encoded float on the stack, then combines
-// local-frame loads, scratch-stack type conversion, and a private virtual
-// float resolver while returning through x87.  A normal declaration cannot
-// preserve that complete entry tuple and the retail x87 branch scheduling.
-// variants_tested=exact retail wrapper, the legacy ECL_ResolveFloatValue
-// semantic model, the float-destination sibling layout, and the integer
-// resolver's local/external/scratch source shapes; no compiler-readable
-// candidate was byte-measured.
-// next_lever=compile the value resolver with a synthetic native-LTCG context
-// that pins EAX/CL and its stack float, co-compiling the variable resolver and
-// scratch pop/write helpers; retain this exact wrapper until that cluster
-// produces the 171-byte extent.
+// BLOCKED (D2102): shared native-LTCG operand/value/pop scope reached the
+// exact 171-byte extent in one value candidate, but its first difference was
+// 0x0044FF93 (branch polarity) and 140 bytes differed overall. Other
+// selector/return/scratch variants ranged from 167 to 183 bytes.
+// residual_class=abi+x87/source-shape: retail enters with EAX VM, ECX byte
+// selector, encoded float on the stack, and returns through x87 while
+// scheduling local-frame, scratch, and private-virtual branches.
+// variants_tested=byte/int selector formals, float/long-double returns,
+// value-slot bit stores, type-branch ordering, shared native-LTCG context,
+// and absolute __ftol2/float-data bindings.
+// next_lever=compile a real caller schedule (0044E1A0/0040DF70) with the
+// original shared ECL class; retain the exact wrapper until bytes match.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

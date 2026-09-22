@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3201): closest_byte_count=51/399; first_diff=0x00409C00
+// (standalone readable state model, authoritative probe extent 408 bytes).
+// residual_class=private EAX receiver and ECX parameter, x87/integer
+// evaluation order, and register ABIs for 00409E50, 004172E0, 0043DC90,
+// and 00448D00.
+// variants_tested=typed raw-offset end-state model with stack helper
+// declarations; the candidate was restored after 348 differing bytes in the
+// measured 399-byte prefix.
+// next_lever=schema2 native-LTCG cluster with a real dispatch caller and
+// those four helper anchors; retain this exact body until all 399 bytes match.
 // 0x00409C00..0x00409D8E: FUN_00409c00
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00409c00_00409c00() {

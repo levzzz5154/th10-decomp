@@ -26,3 +26,12 @@ extern "C" __declspec(naked) void __cdecl asm_GameState_DispatchAnimationSlotSec
         ret
     }
 }
+// BLOCKED (D3303): closest_byte_count=0/27; first_diff=none;
+// residual_class=private EAX owner/ECX slot inputs and EDX/EDI live values
+// consumed by SetStopFrameAndRun, requiring caller-inclusive codegen.
+// variants_tested=live Ghidra decompilation/topology and MSVC 13.10 readable
+// stdcall translation (34/27 extent); next_lever=native-LTCG
+// cluster/schema2 with callers 0042D420, 0042D920, 00430320, 004306A0,
+// 00430A60 and callee 00449250.
+// Current assembly overlay remains exact.
+

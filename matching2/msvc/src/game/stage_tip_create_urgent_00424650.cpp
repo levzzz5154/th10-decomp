@@ -1,3 +1,15 @@
+// BLOCKED (D3404): closest_byte_count=0/104; first_diff=0x00424650;
+// residual_class=private ESI receiver and linked-list node layout, plus the
+// caller-selected StageTip_CreateRetail ABI. A standalone readable candidate
+// compiled to 103 bytes before comparison and therefore could not preserve the
+// retail extent; its emitted entry saved ESI from the public stack instead of
+// consuming the caller's ESI receiver.
+// variants_tested=live Ghidra decompilation (node list at +0x7c + index*0xc,
+// object counter +0x70, callers 0x00419120/0x00432690), typed readable
+// candidate with MSVC 13.10 probe (103/104 extent).
+// next_lever=schema2 native-LTCG cluster over callers 0x00419120 and
+// 0x00432690, this body, StageTip_CreateRetail_0041a120, and the verified
+// linked-node layout; preserve the ESI receiver and RET 8.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

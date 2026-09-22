@@ -1,8 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00436210..0x0043625F: ?MemoryFile_RemoveNode@@
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3305): closest_byte_count=29/80; first_diff=0x00436210
+// (standalone readable C++ candidate, authoritative probe extent 80 bytes).
+// residual_class=private ECX/ESI node receiver plus private-register helper
+// ABIs and recursive replacement scheduling over the shared compression tree.
+// variants_tested=live Ghidra decompilation, legacy MemoryFile model,
+// standalone MSVC 13.10 /O2 candidate (29/80), and exact retail overlay.
+// next_lever=schema2 native-LTCG cluster joining the real compression-tree
+// caller at 0x00435C8C with RelinkChild 0x00436260, this member,
+// FindPredecessor 0x00436330, and ReplaceNode 0x004362B0.
 
 // 0x00436210..0x0043625F: ?MemoryFile_RemoveNode@@
 // Naked body preserves the retail register/stack ABI.

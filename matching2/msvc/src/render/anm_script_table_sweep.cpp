@@ -1,3 +1,11 @@
+// BLOCKED (D3805): closest_byte_count=156/154; first_diff=unmeasured.
+// residual_class=private EBX receiver, the FUN_0043EE30 edge, and packed
+// animation-script record layout/evaluation order.
+// variants_tested=["live Ghidra/IDA decompilation", "ordinary EBX-as-stack
+// readable candidate under MSVC 13.10 (156-byte extent)", "retail assembly
+// baseline probe (154/154 exact)"].
+// next_lever=promote the caller and callee into a schema2/native-LTCG cluster
+// with the production EBX receiver and script-record declarations.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

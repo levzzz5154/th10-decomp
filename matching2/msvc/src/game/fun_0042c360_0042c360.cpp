@@ -1,3 +1,16 @@
+// BLOCKED (D3902): closest_byte_count=0/531; first_diff=0x0042C360
+// (no readable native-LTCG body retained).
+// residual_class=private EDI receiver, EBX vararg formatting scratch, and
+// x87 arguments across the 0x00463B2C calls; the formatted logger's private
+// register/stack convention also controls branch-local stack cleanup.
+// variants_tested=["live Ghidra decompile at 0x0042c360",
+// "live caller 0x0042c590", "MSVC 13.10 authoritative asm probe (531/531
+// exact)", "readable typed candidate probe (128-byte extent versus 531)",
+// "schema-2 native-LTCG feasibility review"].
+// next_lever=compile a schema-2 native-LTCG cluster rooted at the real caller
+// 0x0042c590 with this body, AppendFormattedMarkedRetail_00401690, and the
+// x87-returning 0x00463B2C helper visible; preserve EDI/EBX private ABI and
+// branch-local vararg stack order before changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

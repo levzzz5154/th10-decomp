@@ -1,3 +1,14 @@
+// BLOCKED (D2902): closest_byte_count=24/162; first_diff=0x0040E5F0;
+// residual_class=private helper ABIs and register allocation. Live Ghidra
+// confirms __stdcall state-on-stack entry, then ESI/EDI object/slot state and
+// helper calls that consume ESI, EDI, EAX, and ECX without a public prototype.
+// variants_tested=typed state-offset semantic model with ordinary C++ helper
+// declarations; exact wrapper retained after the 165-byte candidate matched
+// only 24/162 non-relocation bytes.
+// next_lever=native-LTCG schema-2 cluster containing this body, its 0x0040DC80
+// caller, and the five direct helper callees, with fixed state offsets and
+// observed ESI/EDI private call conventions.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
@@ -103,4 +114,3 @@ extern "C" __declspec(naked) void __cdecl asm_BossUi_ReleaseIndicatorsRetail_004
         ret 4
     }
 }
-

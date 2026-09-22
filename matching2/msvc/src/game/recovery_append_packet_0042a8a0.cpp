@@ -1,61 +1,32 @@
-#include <string.h>
-
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
-
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
-
 // 0x0042A8A0..0x0042A8F4: Recovery_AppendPacket
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_AppendPacket_0042a8a0() {
-    __asm {
-    L_0042a8a0:
-        mov ecx,dword ptr [eax+5460h]
-    L_0042a8a6:
-        mov word ptr [ecx],dx
-    L_0042a8a9:
-        mov ecx,dword ptr [eax+5460h]
-    L_0042a8af:
-        mov dx,word ptr [esp+4]
-    L_0042a8b4:
-        mov word ptr [ecx+2],dx
-    L_0042a8b8:
-        mov ecx,dword ptr [eax+5460h]
-    L_0042a8be:
-        mov dx,word ptr [esp+8]
-    L_0042a8c3:
-        mov word ptr [ecx+4],dx
-    L_0042a8c7:
-        mov ecx,dword ptr [eax+5460h]
-    L_0042a8cd:
-        add ecx,6
-    L_0042a8d0:
-        mov dword ptr [eax+5460h],ecx
-    L_0042a8d6:
-        sub ecx,eax
-    L_0042a8d8:
-        mov eax,2AAAAAABh
-    L_0042a8dd:
-        imul ecx
-    L_0042a8df:
-        mov eax,edx
-    L_0042a8e1:
-        shr eax,1Fh
-    L_0042a8e4:
-        add eax,edx
-    L_0042a8e6:
-        xor ecx,ecx
-    L_0042a8e8:
-        cmp eax,0E10h
-    L_0042a8ed:
-        setge cl
-    L_0042a8f0:
-        mov eax,ecx
-    L_0042a8f2:
-        ret 8
-    }
+//
+// The retail routine is a native-LTCG member call: the receiver arrives in
+// EAX, the first short in DX, and the remaining two shorts are stack-owned.
+// The cursor is volatile because the original compiler reloads +0x5460 for
+// each packet field before advancing it.
+#include <stddef.h>
+
+struct RecoveryPacketState_0042a8a0 {
+    unsigned char reserved_0000[0x5460];
+    unsigned char* volatile cursor_5460;
+
+    __declspec(noinline) int AppendPacket(short first, short second, short third);
+};
+
+typedef char RecoveryPacketState_cursor_offset_must_be_5460[
+    (offsetof(RecoveryPacketState_0042a8a0, cursor_5460) == 0x5460) ? 1 : -1];
+
+#pragma code_seg(".text$01packet")
+int RecoveryPacketState_0042a8a0::AppendPacket(short first, short second, short third) {
+    unsigned char* cursor = cursor_5460;
+    *(volatile unsigned short*)cursor = (unsigned short)first;
+    cursor = cursor_5460;
+    *(volatile unsigned short*)(cursor + 2) = (unsigned short)second;
+    cursor = cursor_5460;
+    *(volatile unsigned short*)(cursor + 4) = (unsigned short)third;
+    cursor = cursor_5460;
+    cursor += 6;
+    cursor_5460 = cursor;
+    return ((int)(cursor - (unsigned char*)this) / 6) >= 0xe10;
 }
+#pragma code_seg()

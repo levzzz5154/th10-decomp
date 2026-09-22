@@ -1,5 +1,6 @@
 // Compiler context only; no context bytes count as recovered game code.
 #include "../../src/game/asset_buffer.cpp"
+#include "th10/platform/stage_ecl_load_00403850.hpp"
 
 // The manager object 0x0043A9B0 works on.  Only the fields the modelled body
 // reaches are named; the synthetic caller below is what establishes the
@@ -15,12 +16,13 @@ struct SoundManager_0043a9b0 {
 };
 
 #pragma code_seg(".text$07context")
-int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager_0043a9b0** managers, const char* track_name, int count) {
+int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager_0043a9b0** managers, const char* track_name, int count, StageEclLoader_00403850** stages) {
     for (int i = 0; i < count; ++i) {
         LoadAsset(names[i], buffers[i]);
         maps[i]->LoadMap(names[i]);
         parameters[i]->Load(names[i]);
         managers[i]->LoadTrack(i, track_name);
+        stages[i]->Load(names[i]);
     }
     return count;
 }

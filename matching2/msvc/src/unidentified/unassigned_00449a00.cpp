@@ -1,38 +1,18 @@
-// BLOCKED (M2703): closest_byte_count=26; first_diff=unmeasured;
-// residual_class=abi: the range predicate has two live pointer inputs in
-// ECX and EAX; the historical free-__fastcall form cannot express both
-// retail register roles without changing the compare sequence;
-// variants_tested=exact retail naked wrapper, free __fastcall form, and
-// synthetic caller contexts; no readable candidate was byte-measured;
-// next_lever=co-compile the predicate with a native-LTCG caller that pins
-// both pointer operands to the observed ECX/EAX entry tuple.
+// Range predicate used by the private animation-buffer helpers.
+struct ResetRange_00449a00 {
+    unsigned char reserved_0000[0x68];
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+    __declspec(noinline) int Contains(unsigned int address);
+};
 
-// 0x00449A00..0x00449A19: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00449a00() {
-    __asm {
-    L_00449a00:
-        lea edx,[ecx+68h]
-    L_00449a03:
-        cmp eax,edx
-    L_00449a05:
-        jb short L_00449a17
-    L_00449a07:
-        add ecx,3AC068h
-    L_00449a0d:
-        cmp eax,ecx
-    L_00449a0f:
-        jae short L_00449a17
-    L_00449a11:
-        mov eax,1
-    L_00449a16:
-        ret
-    L_00449a17:
-        xor eax,eax
-    L_00449a19:
-        ret
+#pragma code_seg(".text$01predicate")
+int ResetRange_00449a00::Contains(unsigned int address) {
+    unsigned int begin = reinterpret_cast<unsigned int>(this) + 0x68;
+    unsigned int end = reinterpret_cast<unsigned int>(this) + 0x3AC068;
+    if (address >= begin) {
+        if (address < end)
+            return 1;
     }
+    return 0;
 }
+#pragma code_seg()

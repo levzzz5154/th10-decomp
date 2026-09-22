@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=2/327; first_diff=extent (readable
+// candidate emitted 219 bytes, retail extent 327); residual_class=EH/vector
+// constructor ABI and packed-entry source shape; variants_tested=typed
+// ArchiveEntry allocation, constructor-iterator call, strlen/strcpy copy,
+// and live Ghidra/IDA reconstruction under MSVC 13.10; next_lever=define
+// the production HeapBuffer-derived entry class and bind its constructor/
+// destructor callbacks before retrying native readable recovery.
 
 
 

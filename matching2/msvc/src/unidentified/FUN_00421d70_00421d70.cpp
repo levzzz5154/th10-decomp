@@ -1,13 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00421D70: store a 16-bit value through the object pointer.
+// Native LTCG keeps the object in EAX and the short argument in CX.
+struct WordStore_00421d70 {
+    unsigned short value;
+    __declspec(noinline) void Store(short value);
+};
+typedef char WordStore_00421d70_size_must_fit[sizeof(WordStore_00421d70) == 2 ? 1 : -1];
 
-// 0x00421D70..0x00421D73: FUN_00421d70
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00421d70_00421d70() {
-    __asm {
-    L_00421d70:
-        mov word ptr [eax],cx
-    L_00421d73:
-        ret
-    }
+#pragma code_seg(".text$01store00421d70")
+void WordStore_00421d70::Store(short value) {
+    this->value = (unsigned short)value;
 }
+#pragma code_seg()

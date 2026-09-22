@@ -1,9 +1,19 @@
+// BLOCKED (D3801): closest_byte_count=0/151; first_diff=none (exact retail
+// naked baseline; no readable candidate retained).
+// residual_class=compiler-generated SEH registration/handler frame, stdcall
+// ret-8 ABI, and the Construct/Initialize/DestroyGameState constructor
+// cluster called by 0x00417A9E and 0x00417B17.
+// variants_tested=live Ghidra decompilation with callers 0x00417A9E/
+// 0x00417B17 and callee topology; readable operator-new/vector-constructor
+// candidate (MSVC 13.10 C2733/C2664 in the paired ConstructGameState
+// declaration); exact naked baseline probe=151/151.
+// next_lever=typed native-LTCG Create/Construct/Initialize/Destroy cluster
+// with the production stdcall declaration and EH helper ABI.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 // 0x00402160..0x0040221B: ConstructGameState
 // Naked body preserves the retail register/stack ABI.
-
 // 0x00402640..0x004026D6: CreateGameState
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_CreateGameState_00402640() {

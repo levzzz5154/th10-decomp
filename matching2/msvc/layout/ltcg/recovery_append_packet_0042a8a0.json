@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "recovery_append_packet_0042a8a0",
+  "source": "src/game/recovery_append_packet_0042a8a0.cpp",
+  "driver": "layout/ltcg/recovery_append_packet_0042a8a0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Recovery packet append compiled with native LTCG so the receiver and short arguments use the private retail register convention.",
+  "functions": [
+    {
+      "name": "RecoveryPacketState_0042a8a0_AppendPacket",
+      "symbol": "?AppendPacket@RecoveryPacketState_0042a8a0@@QAEHFFF@Z",
+      "section": ".text$01packet",
+      "address": "0x0042A8A0",
+      "size": 85,
+      "actual_abi": "receiver in EAX; first short in DX; second and third shorts at [ESP+4] and [ESP+8]; result in EAX; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "RecoveryAppendPacketContext@20",
+    "section": ".text$03context",
+    "address": "0x0042A960",
+    "size": 67,
+    "description": "Synthetic array caller that establishes the observed private receiver and short-argument convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 170144
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0042A8F5",
+      "size": 101
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

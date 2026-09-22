@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3306): closest_byte_count=0/483; first_diff=0x0044D110
+// residual_class=private EAX/ESI streamer arguments, COM vtable callbacks,
+// archive reader/seek dependencies, and stack-local PCM fill layout.
+// variants_tested=readable raw-vtable/archive candidate (536-byte standalone
+// extent; semantic refill/silence model) plus exact naked baseline.
+// next_lever=caller cluster 0x0043DDF0/0x0044CE80/0x0044D440 with callees
+// 0x0044DD40/0x0044DE10 and real COM callbacks in native-LTCG schema2.
 
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.

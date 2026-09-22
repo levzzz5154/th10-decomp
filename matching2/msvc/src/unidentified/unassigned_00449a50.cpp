@@ -3,14 +3,19 @@
 
 // 0x00449A50..0x00449A6F: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
-// BLOCKED (M2701): closest_byte_count=32/32; first_diff=unmeasured;
-// residual_class=structural/abi: retail contains a member-style nine-field
-// reset at EAX, but the surrounding 0x00449A50 region also contains a second
-// complete reset body at 0x00449A70 with a different register allocation.
-// variants_tested=field-by-field Reset model and the exact retail wrapper;
-// one manifest symbol cannot express both copies as one readable function.
-// next_lever=re-carve at 0x00449A70 and bind the two independent receiver
-// conventions in separate native-LTCG sections.
+// BLOCKED (M2702): closest_byte_count=15/32; first_diff=0x00449A51;
+// residual_class=private ABI/register allocation: the readable field-by-field
+// Reset member matched the operation sequence but used ECX as receiver, while
+// retail enters with the object in EAX and keeps the flags word in EDX.
+// variants_tested=field-by-field Reset member (17 differing bytes), plus a
+// genuinely different real-caller anchor from Ghidra: Unwind@00465350 and
+// Unwind@00465358 load EAX from [EBP+4] (the latter adds 0x24) and tail-jump
+// to the sibling 0x00449A90 EAX-ABI reset. Those are real callers for the
+// adjacent reset family, but Ghidra reports no xref into 0x00449A50 itself,
+// so they cannot legally bind this target's entry.
+// next_lever=promote this region with the real Unwind ABI anchor in a
+// native-LTCG cluster (and re-carve 0x00449A70 separately), or manifest
+// semantic migration.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00449a50() {
     __asm {
     L_00449a50:

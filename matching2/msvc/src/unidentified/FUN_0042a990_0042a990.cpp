@@ -1,3 +1,13 @@
+// BLOCKED (H3101): closest_byte_count=14/19; first_diff=0x0042A991;
+// residual_class=private EAX receiver ABI. Live Ghidra boundary is
+// 0042A990..0042A9A2 and the body copies fields 0->1, 2->3, then clears
+// field 5. Native-LTCG member probes emitted an ECX receiver (19 bytes,
+// five differing bytes); a dummy-argument member emitted stack value
+// traffic and RET 4 (21 bytes).
+// variants_tested=S2A990::Normalize(), S2A990::Normalize(int), repeated
+// native-LTCG caller loops, and existing accessor-style array contexts.
+// next_lever=real caller context that induces EAX as the object register,
+// or a compiler/private-ABI anchor for this no-argument member.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

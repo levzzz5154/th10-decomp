@@ -1,12 +1,15 @@
-// BLOCKED (M2703): closest_byte_count=29; first_diff=0x004187F1;
-// residual_class=abi: four source shapes, including pooled literals, made
-// the native pass place the source in EAX and destination in ECX, while
-// retail requires source in ECX and destination in EAX for both x87 stores;
-// variants_tested=4 source shapes including pooled-literal forms, plus the
-// exact retail naked wrapper;
-// next_lever=use a native-LTCG caller/anchor that assigns the private
-// ECX-source/EAX-destination tuple, then remeasure this 29-byte leaf.
-
+// BLOCKED (M2704): closest_byte_count=2; first_diff=0x004187F0;
+// residual_class=register-allocation/evaluation-order: Ghidra reports no
+// retail xrefs or containing function for this unassigned fragment.  The
+// return-by-value native-LTCG candidate did produce a 29-byte body, but
+// scheduled pooled constants first and selected the wrong x87 source/store
+// order; retail requires source ECX and destination EAX for both stores.
+// variants_tested=member mutator with synthetic array caller, member
+// return-by-value candidate, pooled-literal and external-data forms; exact
+// naked wrapper baseline remains 29/29.
+// next_lever=use a real retail caller/anchor (currently absent from Ghidra
+// xrefs) that forces the private destination-EAX/source-ECX tuple, then retry
+// the return-by-value source with the retail constant aliases.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

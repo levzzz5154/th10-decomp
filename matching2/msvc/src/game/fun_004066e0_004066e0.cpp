@@ -1,3 +1,16 @@
+// BLOCKED (D3906): closest_byte_count=0/134; first_diff=0x004066E0
+// (standalone readable candidate emitted a 145-byte body, so no byte
+// comparison was admissible).
+// residual_class=private EAX table/ECX index ABI, live-in EDI caller state,
+// enemy structure padding, x87 angle-normalization call, and loop/register
+// ordering across six rows.
+// variants_tested=live IDA assembly and callers 0x004065C0/0x004067A0;
+// legacy semantic EnemyList_SyncHitboxes translation; MSVC 13.10
+// schema-2/native-LTCG feasibility review plus standalone native probe
+// (145-byte body versus the 134-byte retail region).
+// next_lever=promote both real callers and this leaf in a schema-2
+// native-LTCG cluster so LTCG can infer EAX/ECX/EDI private inputs, then
+// change the production region to semantic.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

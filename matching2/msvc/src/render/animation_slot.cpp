@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+ 
+// BLOCKED (D3405): closest_byte_count=5/97; first_diff=0x004136C0;
+// residual_class=hidden-ESI receiver plus private AnimationManager_SetFlag
+// register ABI (manager in EDX, caller-live ECX) and repeated handle stores;
+// variants_tested=live Ghidra decompile/callers/callee (0x00414370,
+// 0x00414570, 0x004492A0) and MSVC 13.10 readable raw-layout cdecl
+// candidate (125-byte extent, 5 matching bytes); next_lever=co-compile the
+// real release callers and 0x004492A0 in a native-LTCG cluster that exposes
+// the ESI receiver and helper register convention.
 
 // 0x004136C0..0x00413720: AnimationSlot_ReleaseRetail
 // Naked body preserves the retail register/stack ABI.

@@ -1,6 +1,19 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3801): closest_byte_count=218/465; first_diff=0x0042170E
+// (exact naked baseline retained after readable candidate regression).
+// residual_class=MSVC volatile/global scheduling and the original temporary
+// vector initialization order; the caller 0x004201CB observes only global
+// state and supplies no ABI leverage.
+// variants_tested=live Ghidra leaf decompilation and caller 0x004201CB;
+// direct typed global stores (401-byte object, extent mismatch), volatile
+// temporary-vector candidate (465-byte region, 247 differing bytes);
+// MSVC 13.10 /O2 /Gz probe.
+// next_lever=recover the original camera/vector aggregate source shape or
+// co-compile its real initialization caller under native LTCG; do not change
+// regions.json in this assignment.
+
 // 0x004216F0..0x004218C0: FUN_004216f0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004216f0_004216f0() {

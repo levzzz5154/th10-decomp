@@ -1,3 +1,17 @@
+// BLOCKED (D3807): closest_byte_count=4/121; first_diff=0x00414570;
+// residual_class=private EBX state receiver, ESI-preserved animation-slot
+// helper ABI, the game-state manager +0x3AD0DC side slot, and helper-specific
+// free-call cleanup. Live Ghidra decompilation confirms the branch and slot
+// topology; the readable raw-layout candidate compiled to 107 bytes and only
+// four comparable bytes, so it was restored.
+// variants_tested=live Ghidra decompile at 0x00414570 and caller
+// 0x00417EED; archived Recovery_ReleaseCompositeState raw-layout model;
+// standalone MSVC 13.10 __fastcall candidate (107-byte extent, 4/121).
+// next_lever=caller-inclusive schema-2 native-LTCG cluster over real callers
+// 0x00414370/0x00417EED, this body, AnimationSlot_ReleaseRetail_004136C0,
+// FUN_00447810, and the production manager/entity layouts; preserve EBX/ESI
+// private flow and promote only after all 121 bytes are exact.
+
 #include <string.h>
 
 #include "asm_encoding.hpp"

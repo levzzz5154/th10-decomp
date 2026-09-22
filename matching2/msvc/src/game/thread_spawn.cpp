@@ -3,6 +3,12 @@
 
 // 0x00420EA0..0x00420F15: FUN_00420ea0
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED: closest_byte_count=118/118; first_diff=none (retail assembly baseline);
+// residual_class=EDI receiver with stack StartAddress/ArgList and private
+// PlatformWorker::Stop call; variants_tested=Ghidra pseudocode plus caller
+// register/stack inspection; no source-only candidate accepted; next_lever=co-
+// compile the real GameUi_CreateAndPublish caller and PlatformWorker::Stop in
+// schema-2 native LTCG.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00420ea0_00420ea0() {
     __asm {
     L_00420ea0:

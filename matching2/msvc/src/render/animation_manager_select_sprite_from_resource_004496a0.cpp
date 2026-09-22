@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3304): closest_byte_count=34/34; first_diff=none;
+// residual_class=private EAX receiver plus EDX manager-global handoff and
+// stack argument ordering are not representable by a standalone readable
+// declaration. variants_tested=live Ghidra decompilation, callers/callees/
+// xrefs and variable audit (caller 0x00415E90; callees 0x004491C0 and
+// 0x0043E5A0), plus MSVC 13.10 exact baseline probe. next_lever=schema2
+// native-LTCG cluster with the real 0x00415E90 caller and both callees;
+// current overlay remains exact.
 
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.

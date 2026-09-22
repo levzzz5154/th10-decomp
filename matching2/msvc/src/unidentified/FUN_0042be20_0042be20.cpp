@@ -1,3 +1,15 @@
+// BLOCKED (D3906): closest_byte_count=0/261; first_diff=0x0042BE20
+// (no standalone readable body retained; the exact naked baseline remains
+// the only compiled artifact).
+// residual_class=private ESI receiver, stack-cookie frame, sprintf buffer
+// lifetime, allocator/virtual-interface calls, and object layout spanning
+// variants_tested=live IDA assembly and caller 0x0042BE10; no Ghidra
+// pseudocode; MSVC 13.10 schema-2/native-LTCG feasibility review found no
+// standalone readable candidate because the caller and all helper ABIs
+// remain private-register assembly.
+// next_lever=promote 0x0042BE10, this leaf, and the allocator/interface
+// helpers as one schema-2 native-LTCG cluster with a production object
+// layout, then replace the naked region only after an exact probe.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

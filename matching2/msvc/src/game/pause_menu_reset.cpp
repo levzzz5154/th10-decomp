@@ -1,3 +1,12 @@
+// BLOCKED (D3404): closest_byte_count=0/273; first_diff=0x00424D90;
+// residual_class=private ESI receiver, three repeated flag-record layouts,
+// absolute data bindings, and tail-jump ABI to Animation_SetActiveCount.
+// variants_tested=live Ghidra decompilation plus callers 0x00418190 and
+// 0x0042A450, helper chain 0x004492A0/0x00413790, and typed raw-layout
+// readable candidate under MSVC 13.10 (268/273 extent).
+// next_lever=schema2 native-LTCG over both real callers, this reset body, the
+// animation-manager setter, and the active-count tail callee; preserve ESI,
+// duplicated stores, and the retail absolute literal schedule.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3705): closest_byte_count=0/182; first_diff=0x00406060
+// residual_class=SEH registration/cleanup scaffolding, vector-constructor ABI,
+// and callee-private register lifetime across initialization; the direct typed
+// C++ factory candidate emitted a 107-byte body with no retail fs:[0] frame.
+// variants_tested=explicit allocator, vector-constructor, zero-fill loop,
+// global publication, initializer, destroy, and free declarations; the
+// nonexact 107-byte output was restored.
+// next_lever=caller-inclusive native-LTCG cluster over 00406060, 00405E20,
+// ItemManager_DestroyRetail, and the EH/vector helper with the real exception
+// state and constructor/destructor declarations visible.
+
 // 0x00402720..0x0040284F: FUN_00402720
 // Naked body preserves the retail register/stack ABI.
 

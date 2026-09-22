@@ -1,6 +1,18 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED 00435800 (214 bytes): closest_byte_count=214, first_diff=private
+// SEH/receiver-frame and helper-call ABI divergence in readable candidates;
+// residual_class=readable semantic candidate blocked by private thiscall/SEH
+// frame and unresolved FileHandle_OpenRetail/ReadWhole ABI. Ghidra confirms
+// one caller at 0043640C, thiscall (ECX path, stack output), and callees
+// FUN_004356F0, FUN_00452730, FUN_00434DD0, FUN_00435370, FUN_00435580,
+// GetFileSize, and CloseHandle. variants_tested=legacy Resource_LoadFile
+// model, raw FileHandle stack-owner model, typed import slots, and standalone
+// MSVC 13.10 source probes; all changed private receiver/SEH layout or helper
+// symbols. next_lever=native LTCG cluster containing 004356F0, 00435370,
+// 00435580 and the 0043640C caller, with their exact layouts and ABI roots.
+
 #include <string.h>
 
 // 0x004356F0: find the packed-archive entry whose stored name matches the name

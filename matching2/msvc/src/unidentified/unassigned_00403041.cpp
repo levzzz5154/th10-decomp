@@ -3,6 +3,11 @@
 
 // 0x00403041..0x0040304F: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2801): closest_byte_count=0/15; first_diff=extent mismatch
+// (readable empty function emitted 1 byte); residual_class=pure INT3
+// alignment/padding, not a C++ function; variants_tested=empty extern-C
+// cdecl function; next_lever=none without non-readable byte/padding
+// representation.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00403041() {
     __asm {
     L_00403041:

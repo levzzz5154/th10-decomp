@@ -1,33 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct ThreadData { unsigned char padding[0x64]; void* locale; };
+extern "C" ThreadData* __cdecl asm_getptd_00456357();
+extern "C" void* __cdecl asm_updatetlocinfo_00455ade();
+extern "C" void* data_0047320c;
+extern "C" int __cdecl asm_mbtowc_mt_0045e2b5(void*, unsigned short*, const char*, unsigned int);
 
-// 0x0045E375..0x0045E39F: _mbtowc
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_mbtowc_0045e375() {
-    __asm {
-    L_0045e375:
-        call asm_getptd_00456357
-    L_0045e37a:
-        mov eax,dword ptr [eax+64h]
-    L_0045e37d:
-        cmp eax,dword ptr [data_0047320c]
-    L_0045e383:
-        je short L_0045e38a
-    L_0045e385:
-        call asm_updatetlocinfo_00455ade
-    L_0045e38a:
-        push dword ptr [esp+0Ch]
-    L_0045e38e:
-        push dword ptr [esp+0Ch]
-    L_0045e392:
-        push dword ptr [esp+0Ch]
-    L_0045e396:
-        push eax
-    L_0045e397:
-        call asm_mbtowc_mt_0045e2b5
-    L_0045e39c:
-        add esp,10h
-    L_0045e39f:
-        ret
-    }
+extern "C" int __cdecl asm_mbtowc_0045e375(unsigned short* destination, const char* source, unsigned int size) {
+    void* locale = asm_getptd_00456357()->locale;
+    if (locale != data_0047320c) locale = asm_updatetlocinfo_00455ade();
+    return asm_mbtowc_mt_0045e2b5(locale, destination, source, size);
 }

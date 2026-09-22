@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3606): closest_byte_count=25/100; first_diff=0x00401697.
+// residual_class=private EBX/ESI receiver convention, variadic stack layout,
+// and security-cookie scheduling through 0x00401530. variants_tested=live
+// Ghidra decompilation plus a readable MSVC 13.10 member candidate
+// (134-byte extent; 25/100 bytes matched) and schema2/native-LTCG caller
+// review. next_lever=co-compile this body with real callers
+// 0x0041364E/0x0042C38C and AppendRecord 0x00401530, preserving EBX/ESI;
+// production ownership remains kind=asm because regions.json is not edited.
 
 // 0x00401530..0x004015B3: ?GameThread_AppendRecord@@
 // Naked body preserves the retail register/stack ABI.

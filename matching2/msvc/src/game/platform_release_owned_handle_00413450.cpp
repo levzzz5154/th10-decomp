@@ -9,6 +9,16 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D3505): closest_byte_count=11/84; first_diff=0x00413450;
+// residual_class=private EBX receiver, EDI scheduler/import register homes,
+// and caller-visible no-argument ABI. variants_tested=standalone typed
+// PlatformOwnedHandle::Release (76-byte extent, 0/84 comparable after extent
+// mismatch) and native-LTCG synthetic context with fixed Scheduler_Remove,
+// import, and global bindings (78-byte extent, 11/84 bytes equal, first diff
+// at entry). next_lever=native-LTCG schema2 with the real 0x00420270 caller
+// co-compiled so the global handle remains in EBX and the helper/import
+// register homes are selected.
+
 // 0x00413450..0x004134A3: ?Platform_ReleaseOwnedHandle@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Platform_ReleaseOwnedHandle_00413450() {

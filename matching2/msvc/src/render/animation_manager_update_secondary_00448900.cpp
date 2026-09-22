@@ -1,3 +1,11 @@
+// BLOCKED (D3904): closest_byte_count=0/123; first_diff=extent (readable
+// candidate emitted 154 bytes versus the 123-byte retail body).
+// residual_class=EAX manager entry, EBP/EDI/ESI/EBX linked-list register
+// schedule, and private FUN_0043EE30/FUN_00448BB0 receiver ABI; real xref is
+// 0x004485E2. variants_tested=live Ghidra decompile/xref and MSVC 13.10
+// readable manager/list candidate (154-byte body), with exact naked baseline
+// restored. next_lever=schema-2 native-LTCG cluster retaining 0x004485E2 and
+// both private helper edges.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

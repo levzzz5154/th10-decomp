@@ -1,6 +1,13 @@
 #include <string.h>
 
 #include "asm_encoding.hpp"
+// BLOCKED (D3903): closest_byte_count=23/71; first_diff=0x0042B668;
+// residual_class=private EBX receiver for ResetAndPublish, EAX state/ESI
+// return flow through RuntimeInitialize, and allocator/free helper ABI.
+// variants_tested=MSVC 13.10 typed standalone candidate (65-byte extent,
+// 23/71 same-position bytes) plus exact naked baseline; candidate was restored.
+// next_lever=caller-inclusive schema2 native-LTCG cluster over 0x0042B660,
+// 0x0042B430, 0x0042B4D0, 0x0042B570 with EBX/EAX register topology.
 #include "asm_symbols.hpp"
 #include "th10/math/angle.hpp"
 

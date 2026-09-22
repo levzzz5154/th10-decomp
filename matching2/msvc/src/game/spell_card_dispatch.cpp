@@ -1,5 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=20/356; first_diff=extent (readable
+// candidate emitted 341 bytes, retail extent 356); residual_class=private
+// EBX manager ABI and register-sensitive score-gauge call; variants_tested=
+// raw typed SpellRecord/SpellSlot model from live Ghidra plus legacy schema,
+// standalone MSVC 13.10 probe; next_lever=native-LTCG cluster with the real
+// 0x00417870 caller that establishes EBX and the production spell layout.
 
 // 0x0042A6A0..0x0042A803: FUN_0042a6a0
 // Naked body preserves the retail register/stack ABI.

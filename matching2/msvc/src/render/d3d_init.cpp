@@ -1,3 +1,14 @@
+// BLOCKED (D3504): closest_byte_count=0/1159; first_diff=0x00439890;
+// residual_class=caller-inclusive D3D retry/register topology and variadic
+// logger call scheduling: retail keeps EBX/EBP/ESI/EDI live across COM,
+// D3DX, and TextLog calls while interleaving stack-parameter stores.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and the legacy readable D3D candidate (1199 bytes);
+// the prior native-LTCG logger cluster reached 1191 bytes with first residual
+// at 0x004398F0 (+0x60), so no readable body was retained.
+// next_lever=native-LTCG cluster over real caller 0x00438C2C, this body,
+// TextLog_0044B810, D3DX stubs, and device-default/viewport helpers; retain
+// the logger's caller-pop convention and reproduce all 1159 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

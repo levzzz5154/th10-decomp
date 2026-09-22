@@ -1,3 +1,21 @@
+// BLOCKED (H2801): closest_byte_count=102; first_diff=unmeasured (no
+// compiler-readable candidate reached the private entry symbol);
+// residual_class=private_abi/source_shape: retail receives the owner in EAX,
+// the three-component vector in EBX, and two remaining arguments on the
+// stack (RET 8), then copies owner/vector fields and walks the linked record
+// list through a virtual evaluator. Ghidra has no function at 0041C760;
+// live boundaries are FUN_0041C680/FUN_0041C7D0, while the neighboring
+// semantic ScoreRecords copy/evaluate at 0041C800 independently confirms
+// this EAX/EBX private convention and the required polymorphic record type.
+// variants_tested=exact retail naked wrapper; IDA linked-record
+// reconstruction; ScoreRecords member shape patterned after the exact
+// 0041C800 semantic cluster; and ordinary cdecl/fastcall declarations.
+// The latter cannot name EAX/EBX simultaneously, and no readable candidate
+// was byte-measured outside an LTCG cluster.
+// next_lever=native-LTCG cluster with the real linked-record evaluator and a
+// synthetic caller that pins EAX/EBX; this region is still kind=asm in
+// regions.json, so retain the exact wrapper in H2801.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

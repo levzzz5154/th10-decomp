@@ -1,3 +1,11 @@
+// BLOCKED (D3402): closest_byte_count=0/76; first_diff=unmeasured
+// residual_class=abi/cluster; the readable writer candidate compiled to 98
+// bytes because retail receives source/size/count in EDX/ECX/ESI and invokes
+// Win32 imports through private slots while preserving the caller's ECX home.
+// variants_tested=raw Win32 WriteFile/CloseHandle/LeaveCriticalSection model
+// with ordinary three-argument cdecl entry; standalone MSVC 13.10 probe.
+// next_lever=co-compile score-save callers and the writer in native LTCG so
+// the EDX/ECX/ESI private call convention can be selected by the compiler.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

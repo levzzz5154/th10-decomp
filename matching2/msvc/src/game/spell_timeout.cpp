@@ -1,3 +1,10 @@
+// BLOCKED (D3407): closest_byte_count=0/796; first_diff=extent (bounded readable timeout model emitted 257 bytes vs retail 796 before byte comparison);
+// residual_class=source-shape/private-ABI; the retail body combines fixed-point arithmetic, repeated linked-list
+// traversals, packed animation setup, and a nested four-entry cleanup loop under a private register context.
+// variants_tested=retail naked baseline (796/796 exact), bounded readable timeout model (257 bytes),
+// live Ghidra FUN_004269D0 decompile, and exact probe;
+// next_lever=derive the animation/object/list declarations and compile the complete routine with its real caller cluster.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

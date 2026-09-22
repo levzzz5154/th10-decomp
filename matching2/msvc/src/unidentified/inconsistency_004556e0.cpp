@@ -24,11 +24,8 @@ extern "C" __declspec(naked) void __cdecl asm_inconsistency_004556e0() {
     }
 }
 
-// 0x00455708..0x0045570C: _inconsistency
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_inconsistency_part_00455708() {
-    __asm {
-    L_00455708:
-        jmp asm_terminate_00455693
-    }
+// 0x00455708..0x0045570C: forward to terminate.
+
+extern "C" void __cdecl asm_inconsistency_part_00455708() {
+    asm_terminate_00455693();
 }

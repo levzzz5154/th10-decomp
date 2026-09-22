@@ -1,3 +1,14 @@
+// BLOCKED (D3504): closest_byte_count=0/200; first_diff=0x00430250;
+// residual_class=private EAX key-record receiver with ECX slot index/EDX key
+// value, short-field swap ordering, and exact post-update callee argument
+// setup for 0x0042F8B0 and 0x0043DC90.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and a readable five-slot candidate measured at 128
+// bytes (retail extent is 200); no cluster candidate was retained because the
+// fixed-address region remains assembly-owned.
+// next_lever=native-LTCG cluster over real caller 0x0042F6D8, this body, the
+// 0x0042F8B0 and 0x0043DC90 callees, and the EAX/ECX/EDX entry tuple; then
+// measure all 200 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,3 +1,14 @@
+// BLOCKED (D3307): closest_byte_count=5/27; first_diff=0x0042C731;
+// residual_class=private EAX state/ECX slot-index inputs, EDX manager receiver,
+// EDI stop-frame live-in, and stack-slot lookup ABI at 0x00449250.
+// variants_tested=live Ghidra complete decompilation with callers/xrefs and
+// disassembly/variable audit; ordinary MSVC 13.10 readable cdecl candidate
+// (31-byte extent, 5/27 prefix); no standalone readable body retained because
+// the callee's DI/EDX agreement is compiler-context dependent.
+// next_lever=schema-2 native-LTCG cluster joining the real callers, this body,
+// and 0x00449250, preserving the slot table at +0x2c4 and stop-frame value 2;
+// promote only after the complete 27-byte body and call relocation are exact.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

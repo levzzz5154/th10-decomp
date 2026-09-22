@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "greater_00434b50",
+  "source": "src/unidentified/unassigned_00434b50.cpp",
+  "driver": "layout/ltcg/greater_00434b50_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Greater_00434b50 compiled with native LTCG so the private comparison operands arrive in ECX and EDX.",
+  "functions": [
+    {
+      "name": "Greater_00434b50",
+      "symbol": "_Greater_00434b50@8",
+      "section": ".text$01accessor",
+      "address": "0x00434B50",
+      "size": 16,
+      "actual_abi": "object in ECX, comparison value in stack/private register context"
+    }
+  ],
+  "context": {
+    "symbol": "GreaterContext_00434b50@12",
+    "section": ".text$03context",
+    "address": "0x00434B70",
+    "size": 52,
+    "description": "Synthetic array-walking caller that establishes the observed private register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 211792
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00434B60",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": []
+}

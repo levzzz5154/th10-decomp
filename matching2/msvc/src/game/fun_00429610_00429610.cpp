@@ -1,3 +1,11 @@
+// BLOCKED (D3805): closest_byte_count=116/185; first_diff=unmeasured.
+// residual_class=C++ EH registration and vector-constructor layout, plus the
+// private register ABI and concrete object layout required by FUN_00428F60.
+// variants_tested=["live Ghidra/IDA decompilation", "ordinary __stdcall
+// readable candidate under MSVC 13.10 (116-byte extent)", "retail assembly
+// baseline probe (185/185 exact)"].
+// next_lever=promote a caller-inclusive schema2/native-LTCG build with the
+// production object layout, EH handlers, and FUN_00428F60 edge visible.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

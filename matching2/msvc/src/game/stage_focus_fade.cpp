@@ -1,3 +1,11 @@
+// BLOCKED (D3904): closest_byte_count=0/571; first_diff=extent (readable
+// candidate emitted 444 bytes versus the 571-byte retail body).
+// residual_class=EBX state receiver, x87 stack lifetime/evaluation order,
+// linked-list lookup layout, and callback-private ABI; real caller is
+// InvokeVoidCallback 0x004198A0. variants_tested=live Ghidra decompile,
+// caller/callee inspection, and MSVC 13.10 readable float/list candidate
+// (444-byte body) with the exact naked baseline restored. next_lever=schema-2
+// native-LTCG cluster retaining the callback edge and x87 helper visibility.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

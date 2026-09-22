@@ -4,6 +4,15 @@
 // 0x00405F70..0x0040605B: ItemManager_DestroyRetail
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3301): closest_byte_count=1/118; first_diff=0x00409F91;
+// residual_class=schema2 private-EAX manager receiver, virtual-release ABI,
+// and register/stack local scheduling; variants_tested=live-Ghidra decompile
+// plus callers (0x0040D530, 0x00417C80, 0x00418190) and callee
+// (0x004493E0), MSVC 13.10 readable candidate (114-byte extent, 1 matching
+// byte), and native-LTCG synthetic accessor context at 0x00409F90 (0/37
+// matching bytes); next_lever=compile a real 0x0040D530/0x00417C80 caller
+// cluster that preserves the hidden manager EAX receiver.
+
 // 0x00409F90..0x0040A005: FUN_00409f90
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00409f90_00409f90() {

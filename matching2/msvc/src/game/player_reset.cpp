@@ -125,3 +125,12 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004246c0_004246c0() {
         ret
     }
 }
+// D3603 BLOCKED: native-LTCG readability attempt is not retained. Ghidra
+// confirms an ESI receiver with REP STOSD and two stride loops; a complete
+// readable model requires the production player layout and private caller
+// context, not a standalone ABI declaration.
+// closest_byte_count: 0/244; first_diff: 0x004246C0; residual_class:
+// private ESI receiver, REP STOSD/stride-loop layout.
+// variants_tested: Ghidra decompile/disassembly; authoritative assembly probe.
+// next_lever: co-compile the real player caller and recovered player layout
+// in a native-LTCG cluster.

@@ -1,100 +1,47 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0040E5F0..0x0040E691: BossUi_ReleaseIndicatorsRetail
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0041D7C0..0x0041D86C: Boss_SyncOverlayPositionsRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Boss_SyncPositionsRetail_0041d7c0() {
-    __asm {
-    L_0041d7c0:
-        push esi
-    L_0041d7c1:
-        mov esi,ecx
-    L_0041d7c3:
-        fld dword ptr [esi+24h]
-    L_0041d7c6:
-        push edi
-    L_0041d7c7:
-        fadd dword ptr [data_00470b4c]
-    L_0041d7cd:
-        push 3FC90FDBh
-    L_0041d7d2:
-        lea edi,[esi+600h]
-    L_0041d7d8:
-        fstp dword ptr [esi+934h]
-    L_0041d7de:
-        fld dword ptr [esi+28h]
-    L_0041d7e1:
-        fadd dword ptr [data_00470b48]
-    L_0041d7e7:
-        fstp dword ptr [esi+938h]
-    L_0041d7ed:
-        mov eax,dword ptr [esi+2Ch]
-    L_0041d7f0:
-        mov dword ptr [esi+93Ch],eax
-    L_0041d7f6:
-        mov ecx,dword ptr [esi+3Ch]
-    L_0041d7f9:
-        push ecx
-    L_0041d7fa:
-        call asm_Angle_NormalizeSum_0044bc10
-    L_0041d7ff:
-        fstp dword ptr [edi+2Ch]
-    L_0041d802:
-        mov eax,dword ptr [edi+35Ch]
-    L_0041d808:
-        mov ecx,dword ptr [data_00491c10]
-    L_0041d80e:
-        or eax,4
-    L_0041d811:
-        mov dword ptr [edi+35Ch],eax
-    L_0041d817:
-        mov eax,edi
-    L_0041d819:
-        call asm_FUN_004451c0_004451c0
-    L_0041d81e:
-        fld dword ptr [data_00470b04]
-    L_0041d824:
-        fld dword ptr [esi+4Ch]
-    L_0041d827:
-        fucompp
-    L_0041d829:
-        fnstsw ax
-    L_0041d82b:
-        test ah,44h
-    L_0041d82e:
-        jp short L_0041d868
-    L_0041d830:
-        fld dword ptr [esi+24h]
-    L_0041d833:
-        mov ecx,dword ptr [data_00491c10]
-    L_0041d839:
-        fadd dword ptr [data_00470b4c]
-    L_0041d83f:
-        lea eax,[esi+9ACh]
-    L_0041d845:
-        fstp dword ptr [esi+0CE0h]
-    L_0041d84b:
-        fld dword ptr [esi+28h]
-    L_0041d84e:
-        fadd dword ptr [data_00470b48]
-    L_0041d854:
-        fstp dword ptr [esi+0CE4h]
-    L_0041d85a:
-        mov edx,dword ptr [esi+2Ch]
-    L_0041d85d:
-        mov dword ptr [esi+0CE8h],edx
-    L_0041d863:
-        call asm_FUN_004451c0_004451c0
-    L_0041d868:
-        pop edi
-    L_0041d869:
-        xor eax,eax
-    L_0041d86b:
-        pop esi
-    L_0041d86c:
-        ret
+// 0x0041D7C0: synchronize and draw the boss's embedded overlay VMs.
+// Public ECX scheduler receiver. The render dispatcher is the real definition
+// co-compiled in anm_batch_flush_00442f50, giving it ECX manager / EAX entity.
+// Explicit subobject views preserve the retail load/store ordering; the
+// offsetof checks below tie every view to the actual embedded field layout.
+#include "th10/render/quad_batch.hpp"
+#include "th10/math/angle.hpp"
+#include <stddef.h>
+extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+    AnimationManager_00442F50* manager, RenderEntity* entity);
+struct BossOverlay_0041D7C0 {
+    unsigned char reserved_000[0x24];
+    RenderVec3 position;
+    unsigned char reserved_030[0x3C - 0x30];
+    float angle;
+    unsigned char reserved_040[0x4C - 0x40];
+    float secondary_visibility;
+    unsigned char reserved_050[0x600 - 0x50];
+    RenderEntity primary;
+    unsigned char reserved_between[0x3AC - sizeof(RenderEntity)];
+    RenderEntity secondary;
+    __declspec(noinline) int Draw();
+};
+typedef char BossOverlay_0041D7C0_PrimaryOffset[(offsetof(BossOverlay_0041D7C0, primary) == 0x600) ? 1 : -1];
+typedef char BossOverlay_0041D7C0_SecondaryOffset[(offsetof(BossOverlay_0041D7C0, secondary) == 0x9AC) ? 1 : -1];
+typedef char BossOverlay_0041D7C0_PrimaryPositionOffset[(offsetof(BossOverlay_0041D7C0, primary) + offsetof(RenderEntity, base_position) == 0x934) ? 1 : -1];
+typedef char BossOverlay_0041D7C0_SecondaryPositionOffset[(offsetof(BossOverlay_0041D7C0, secondary) + offsetof(RenderEntity, base_position) == 0xCE0) ? 1 : -1];
+#pragma code_seg(".text$001z0boss")
+int BossOverlay_0041D7C0::Draw() {
+    RenderEntity* vm = (RenderEntity*)((unsigned char*)this + 0x600);
+    RenderVec3& primary_position = *(RenderVec3*)((unsigned char*)this + 0x934);
+    primary_position.x = position.x + 224.0f;
+    primary_position.y = position.y + 16.0f;
+    primary_position.z = position.z;
+    vm->rotation.z = Angle_NormalizeSum(angle, 1.57079632679489661923f);
+    vm->flags |= 4;
+    asm_FUN_004451c0_004451c0(data_00491c10, vm);
+    if (secondary_visibility == 0.0f) {
+        RenderVec3& secondary_position = *(RenderVec3*)((unsigned char*)this + 0xCE0);
+        secondary_position.x = position.x + 224.0f;
+        secondary_position.y = position.y + 16.0f;
+        secondary_position.z = position.z;
+        asm_FUN_004451c0_004451c0(data_00491c10, &secondary);
     }
+    return 0;
 }
+#pragma code_seg()

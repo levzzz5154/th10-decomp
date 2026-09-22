@@ -1,37 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041F780..0x0041F79E: scale a three-component vector into a destination.
+struct Vector3_0041f780 {
+    float x;
+    float y;
+    float z;
 
-// 0x0041F780..0x0041F79E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-// BLOCKED (M2701): closest_byte_count=31/31; first_diff=0x0041F785;
-// residual_class=abi: the retail private convention keeps the destination in
-// EAX and the source vector in ECX, while the nearest native pass selected the
-// opposite homes (the measured delta is the `fmul [ecx+8]`/`[eax+8]` byte).
-// variants_tested=three vector-scale source spellings; all preserved the
-// three stores and RET 4 but selected the wrong declaration-visible homes.
-// next_lever=native-LTCG caller context that pins destination EAX and source
-// ECX for this ret-4 helper; retain the exact wrapper meanwhile.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041f780() {
-    __asm {
-    L_0041f780:
-        fld dword ptr [esp+4]
-    L_0041f784:
-        fmul dword ptr [ecx+8]
-    L_0041f787:
-        fld dword ptr [esp+4]
-    L_0041f78b:
-        fmul dword ptr [ecx+4]
-    L_0041f78e:
-        fld dword ptr [esp+4]
-    L_0041f792:
-        fmul dword ptr [ecx]
-    L_0041f794:
-        fstp dword ptr [eax]
-    L_0041f796:
-        fstp dword ptr [eax+4]
-    L_0041f799:
-        fstp dword ptr [eax+8]
-    L_0041f79c:
-        ret 4
-    }
+    __declspec(noinline) void ScaleBy(float scale, Vector3_0041f780* out) const;
+};
+
+#pragma code_seg(".text$01scale")
+void Vector3_0041f780::ScaleBy(float scale, Vector3_0041f780* out) const {
+    float sz = scale * z;
+    float sy = scale * y;
+    float sx = scale * x;
+    out->x = sx;
+    out->y = sy;
+    out->z = sz;
 }
+#pragma code_seg()

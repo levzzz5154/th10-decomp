@@ -1,15 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" void* __cdecl asm_getptd_00456357();
 
-// 0x00456AF2..0x00456AFA: FUN_00456af2
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00456af2_00456af2() {
-    __asm {
-    L_00456af2:
-        call asm_getptd_00456357
-    L_00456af7:
-        add eax,8
-    L_00456afa:
-        ret
-    }
+// 0x00456AF2..0x00456AFA: Address the thread-local errno word.
+extern "C" int* __cdecl asm_FUN_00456af2_00456af2() {
+    return reinterpret_cast<int*>(static_cast<unsigned char*>(asm_getptd_00456357()) + 8);
 }

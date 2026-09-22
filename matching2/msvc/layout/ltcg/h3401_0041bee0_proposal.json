@@ -1,0 +1,19 @@
+{
+  "regions": [
+    {
+      "name": "semantic_H3401LinkNode_0041bee0_Link",
+      "source": "src/unidentified/FUN_0041bee0_0041bee0.cpp",
+      "symbol": "?Link@H3401LinkNode_0041bee0@@QAEPAU1@PAU1@@Z",
+      "address": "0x0041BEE0",
+      "size": 7,
+      "kind": "semantic",
+      "owner": "0x0041BEE0"
+    }
+  ],
+  "exact_probe": {
+    "compiler": "native-ltcg",
+    "extent": 7,
+    "different_bytes": 0,
+    "sha256": "c25bfe8d514492eaec505f08a9d16d5d954ce68830eb53a5149c4560fa23cb22"
+  }
+}

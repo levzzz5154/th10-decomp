@@ -1,6 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3001): closest_byte_count=673/673; first_diff=none
+// (authoritative probe exact).  Preserve this exact member while the readable
+// candidate is blocked by the private ESI object receiver and the 00450470
+// helper ABI.  variants_tested=retail inline-assembly member only; no failed
+// source variant retained.  next_lever=schema2 native-LTCG cluster with the
+// real caller FUN_0040CFB0 and callee 00450470, using the caller's ESI object
+// and ECX/EDX helper agreement before replacing this exact member.
 // 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
 // Naked body preserves the retail register/stack ABI.
 

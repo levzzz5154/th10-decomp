@@ -149,6 +149,19 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InstallPairSetFlags_00405
     }
 }
 
+// BLOCKED (D2701): closest_byte_count=137; first_diff=0x00405646;
+// residual_class=private-ABI/register-allocation; a readable MSVC 13.10
+// candidate with the recovered pair layout, fixed global bindings, hoisted
+// Enter/Leave function pointers, and the fastcall Scheduler_Remove call
+// emitted the full 137-byte body but differed in 9 bytes.  Retail keeps
+// EnterCriticalSection in EBX, LeaveCriticalSection in EBP, Scheduler in EDI,
+// and calls the imports indirectly; the standalone readable candidate assigns
+// those live values differently.
+// variants_tested=hoisted fixed-global C++ candidate (137 bytes, first diff at
+// the first EnterCriticalSection call); the exact naked overlay remains exact.
+// next_lever=native-LTCG compilation with the real release callers and
+// source-level import/callee graph, or a compiler/toolkit lever that reproduces
+// the private EBX/EBP/EDI allocation and call setup without inline assembly.
 // 0x00405620..0x004056A8: Recovery_ReleaseRawPairAndReset
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_ReleaseRawPairAndReset_00405620() {
@@ -629,6 +642,20 @@ extern "C" __declspec(naked) void __cdecl asm_InitializePlayer_00405860() {
 }
 
 // 0x004059F0..0x00405AB9: Player_HitTestRetail
+// BLOCKED (D2701): closest_byte_count=223; first_diff=0x00405A26;
+// residual_class=private-ABI/cluster; a typed native-LTCG reconstruction of
+// the hit-test arithmetic and branch results emitted 223 bytes, with its first
+// divergence at retail offset +0x36 (the post-FCOMI branch schedule).  The
+// retail entry is a private usercall: ECX carries the player object while EAX
+// carries the tested point, an ABI not expressible by an ordinary C++ function
+// declaration.
+// variants_tested=typed hit-test reconstruction with the player fields and
+// global state/config accesses recovered from Ghidra, including fastcall and
+// native-LTCG candidates (223 bytes, first mismatch +0x36); the exact naked
+// usercall overlay remains the only exact body.
+// next_lever=an actual native-LTCG caller/cluster preserving the incoming EAX
+// point pointer and the original field/global declarations, or a compiler
+// mechanism for this private ECX/EAX entry ABI without inline assembly.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Player_HitTestRetail_004059f0() {
     __asm {

@@ -6,6 +6,12 @@
 
 // 0x0041AED0..0x0041AF88: FUN_0041aed0
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED: closest_byte_count=185/185; first_diff=none (retail assembly baseline);
+// residual_class=compiler-generated SEH registration/vector-constructor frame and
+// EBX-held pair passed to the private installer;
+// variants_tested=Ghidra pseudocode and caller ABI inspection; no source-only
+// candidate accepted; next_lever=co-compile the real StageEntry caller with the
+// installer in schema-2 native LTCG.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041aed0_0041aed0() {
     __asm {
     L_0041aed0:

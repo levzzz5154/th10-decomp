@@ -1,4 +1,12 @@
-#include "asm_encoding.hpp"
+// BLOCKED (D3605): closest_byte_count=6/134; first_diff=0x0042B430.
+// residual_class=private EBX receiver plus compiler-sensitive REP STOSD
+// clearing of two large regions, callee-saved ESI/EDI state, and fixed
+// global publication. variants_tested=live Ghidra decompilation and a typed
+// cdecl pointer/loop candidate under MSVC 13.10 (237-byte extent, 6/134
+// same-position bytes); exact naked baseline probe=134/134. next_lever=
+// native-LTCG cluster with the real 0x0042B6F0 caller and an EBX-pinned
+// EffectManager layout so the two REP STOSD loops and RET ABI are visible.
+// 0x0042B430..0x0042B4B5: EffectManager_ResetAndPublishRetail
 #include "asm_symbols.hpp"
 
 // 0x0042B430..0x0042B4B5: EffectManager_ResetAndPublishRetail

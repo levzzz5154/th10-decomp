@@ -10,6 +10,10 @@
 #include "th10/platform/windows_types.hpp"
 
 // 0x0042C6D0..0x0042C722: ?Recovery_ClearAnimationSlot@@
+// BLOCKED: closest_byte_count=61/83, first_diff=0x0042C6E4,
+// residual_class=private_abi_register_allocation_and_shrink_wrap_tail_merge,
+// variants_tested=9_successful_LTCG_schema1_private_member_candidates,
+// next_lever=derive_original_EC_zero_and_duplicate_store_source_shape_without_new_flags
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_ClearAnimationSlot_0042c6d0() {
     __asm {

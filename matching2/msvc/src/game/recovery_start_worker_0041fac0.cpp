@@ -1,6 +1,13 @@
 #include <string.h>
 
 #include "asm_encoding.hpp"
+// BLOCKED (D3903): closest_byte_count=23/140; first_diff=0x0041FAC0;
+// residual_class=private EBX worker receiver, scheduler callback/register
+// helper ABI, and beginthreadex stack/register ordering.
+// variants_tested=MSVC 13.10 typed standalone candidate (152-byte extent,
+// 23/140 same-position bytes) plus exact naked baseline; candidate was restored.
+// next_lever=caller-inclusive schema2 native-LTCG cluster over 0x0041FAC0,
+// SchedulerCallback_Create/RegisterPrimary/RegisterSecondary and worker start.
 #include "asm_symbols.hpp"
 #include "th10/math/angle.hpp"
 

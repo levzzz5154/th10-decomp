@@ -3,13 +3,15 @@
 
 // 0x00449510..0x00449528: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
-// BLOCKED (M2701): closest_byte_count=25/25; first_diff=unmeasured;
-// residual_class=structural/abi: this is a loop tail entered by the jump from
-// 0x004494D0 with EAX and EDX live, not an independently callable C++ body.
-// variants_tested=member list-walk model and exact retail wrapper; splitting
-// the tail from its predecessor loses the incoming register/state contract.
-// next_lever=re-carve and recover the coupled 0x004494D0/0x00449510 region
-// (or provide a native-LTCG fragment anchor preserving EAX/EDX).
+// BLOCKED (M2702): closest_byte_count=0/25; first_diff=0x00449510;
+// residual_class=structural/private ABI: this loop tail is entered by the
+// jump from 0x004494D0 with EAX as the intrusive-list cursor and EDX as the
+// flag mask; a readable __thiscall member instead uses ECX plus [ESP+4].
+// variants_tested=readable child-list Mark(mask) method; MSVC 13.10 emitted
+// a 43-byte prologue/loop (including an initial null check) rather than the
+// 25-byte retail tail, so no byte prefix is reusable.
+// next_lever=re-carve the coupled 0x004494D0/0x00449510 region and anchor its
+// real caller/callee register state in native LTCG, or migrate the manifest.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00449510() {
     __asm {
     L_00449510:

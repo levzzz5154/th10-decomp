@@ -1,3 +1,14 @@
+// BLOCKED (M2704): closest_byte_count=8; first_diff=0x0040c590;
+// residual_class=register-allocation/function-extent: readable thiscall
+// candidates preserve the branchless bool tail and RET 4, but MSVC assigns
+// the object load to ECX and stack argument to EDX, opposite retail's EDX/ECX
+// schedule; the compiler contribution is 16 bytes while the claimed retail
+// region includes a trailing RET at +0x10.
+// variants_tested=direct member comparison and reversed comparison order;
+// direct candidate measured 16 bytes, with 8 retail bytes matching.
+// next_lever=an externally visible/public member boundary plus a context that
+// prevents whole-program register reassignment and separately models the
+// trailing one-byte RET extent.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

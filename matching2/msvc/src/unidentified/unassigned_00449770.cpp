@@ -1,3 +1,14 @@
+// BLOCKED (M2803): closest_byte_count=0/15; first_diff=0x00449770;
+// residual_class=private ABI/fragment extent: the retail entry receives its
+// linked-list cursor in ECX, preserves ESI, and jumps into the separately
+// owned continuation at 0x00449780/0x00449794 without a normal function
+// boundary.  Ghidra reports no function, callers, callees, xrefs, or PCode.
+// variants_tested=exact retail naked wrapper and a readable linked-list model;
+// the ordinary model used stack arguments and emitted 55 bytes rather than
+// the claimed 15-byte continuation fragment.
+// next_lever=native-LTCG cluster with a proven caller pinning ECX/ESI and
+// co-compiled 0x00449780/0x00449794 continuation ownership; retain the exact
+// wrapper in M2803.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

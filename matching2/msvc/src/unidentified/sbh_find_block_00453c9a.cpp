@@ -1,37 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct CrtHeapBlock { unsigned char prefix[12]; unsigned int base; unsigned char tail[4]; };
+extern "C" unsigned int data_00499328;
+extern "C" CrtHeapBlock* data_0049932c;
 
-// 0x00453C9A..0x00453CC4: ___sbh_find_block
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_sbh_find_block_00453c9a() {
-    __asm {
-    L_00453c9a:
-        mov eax,dword ptr [data_00499328]
-    L_00453c9f:
-        lea ecx,[eax+eax*4]
-    L_00453ca2:
-        mov eax,dword ptr [data_0049932c]
-    L_00453ca7:
-        lea ecx,[eax+ecx*4]
-    L_00453caa:
-        jmp short L_00453cbe
-    L_00453cac:
-        mov edx,dword ptr [esp+4]
-    L_00453cb0:
-        sub edx,dword ptr [eax+0Ch]
-    L_00453cb3:
-        cmp edx,100000h
-    L_00453cb9:
-        jb short L_00453cc4
-    L_00453cbb:
-        add eax,14h
-    L_00453cbe:
-        cmp eax,ecx
-    L_00453cc0:
-        jb short L_00453cac
-    L_00453cc2:
-        xor eax,eax
-    L_00453cc4:
-        ret
+// 0x00453C9A..0x00453CC4: Find the heap block containing an address.
+extern "C" CrtHeapBlock* __cdecl asm_sbh_find_block_00453c9a(unsigned int address) {
+    CrtHeapBlock* end = data_0049932c + data_00499328;
+    CrtHeapBlock* current = data_0049932c;
+    while (current < end) {
+        if (address - current->base < 0x100000) return current;
+        ++current;
     }
+    return 0;
 }

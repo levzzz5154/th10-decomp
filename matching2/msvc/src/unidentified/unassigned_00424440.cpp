@@ -2,7 +2,16 @@
 #include "asm_symbols.hpp"
 
 // 0x00424440..0x00424450: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2703): closest_byte_count=14/17; first_diff=0x00424441;
+// residual_class=private ABI/register allocation: the readable pair compare
+// emits the same three-way result sequence and RET, but a natural member uses
+// ECX as the receiver while retail enters with the pair in EAX.  Ghidra has no
+// containing function or xrefs from this unresolved fragment.
+// variants_tested=natural Pair::IsDifferent member and equivalent inequality
+// forms; all retained the ECX receiver, differing in the three base-register
+// encodings.
+// next_lever=native-LTCG caller topology proving the private EAX receiver;
+// no legal caller was available for this unresolved region.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00424440() {
     __asm {
     L_00424440:

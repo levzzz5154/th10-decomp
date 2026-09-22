@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3403): closest_byte_count=876/876; first_diff=none
+// residual_class=128-slot_effect_record_layout_with_multiple_private_helper
+// ABIs, linked-owner walks, culling geometry, and x87 motion/frame-timer
+// ordering; live Ghidra decompile supplies the complete loop and branches,
+// but the production EffectPool/Animation/VM layouts are not yet typed.
+// variants_tested=live Ghidra decompile plus dataflow/caller-callee inspection
+// and native-LTCG feasibility analysis for 0x00409E50, 0x0044C5D0,
+// 0x0044C2A0, 0x004491C0, 0x004492A0, and 0x00463B2C. next_lever=promote
+// those concrete record layouts and helper receiver conventions, then test a
+// native-LTCG body while preserving the retail x87 expression order.
 // 0x00428280..0x004282A9: FUN_00428280
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00428280_00428280() {

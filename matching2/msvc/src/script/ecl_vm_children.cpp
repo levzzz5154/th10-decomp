@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D2801): closest_byte_count=0/146; first_diff=unmeasured;
+// residual_class=private_abi: legacy EclVm_TickChildren semantics are known,
+// but no readable native-LTCG body was retained without perturbing the EDI
+// owner and userpurge stack ABI.
+// variants_tested=legacy semantic control-flow transcription and Ghidra ABI
+// audit; no candidate survived byte comparison.
+// next_lever=co-compile the 0x0040DC80 caller with explicit owner/register
+// context, then tune the first-pass temporary and list-unlink declaration
+// order against the 0x0044FD20 branch boundary.
 
 // 0x0044FD10..0x0044FDA1: EclVm_TickChildren
 // Naked body preserves the retail register/stack ABI.

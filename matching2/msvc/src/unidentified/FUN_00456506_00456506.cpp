@@ -1,17 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" void __cdecl asm_FUN_00453b3f_00453b3f(int index);
 
-// 0x00456506..0x0045650E: FUN_00456506
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00456506_00456506() {
-    __asm {
-    L_00456506:
-        push 0Ch
-    L_00456508:
-        call asm_FUN_00453b3f_00453b3f
-    L_0045650d:
-        pop ecx
-    L_0045650e:
-        ret
-    }
+// 0x00456506: Release CRT lock 12.
+extern "C" void __cdecl asm_FUN_00456506_00456506() {
+    asm_FUN_00453b3f_00453b3f(12);
 }

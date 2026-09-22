@@ -2,15 +2,19 @@
 #include "asm_symbols.hpp"
 
 // 0x00449A70..0x00449A8F: unassigned code fragment
-// BLOCKED (M2702): closest_byte_count=32; first_diff=unmeasured;
-// residual_class=abi/source_shape: the retail fragment receives its list
-// object in EAX and its child pointer in ECX, then resets flagged fields;
-// ordinary declarations cannot express both live-ins at this split, and the
-// paired 0x00449A50/0x00449A70 fragments need separate retail symbols.
-// variants_tested=exact retail overlay only; no readable candidate was measured;
-// next_lever=compile the paired list-reset methods in one native-LTCG cluster
-// with separate A50 and A70 entry contexts.
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED (M2703): closest_byte_count=24/32; first_diff=0x00449A78;
+// residual_class=compiler scheduling after private-ABI recovery.  A readable
+// ResetRecord::Reset member in a native-LTCG caller context did pin the retail
+// entry (list object in EAX, child pointer in ECX) and matched 24 of 32 bytes,
+// but MSVC hoisted the flags AND ahead of the three zero stores.  Ghidra found
+// no xref into 0x00449A70 itself.  The real adjacent unwind topology is
+// 0x00465350/0x00465358 -> 0x00449A90 (EAX reset), not this entry.
+// variants_tested=field-by-field Reset member standalone (38-byte body),
+// native-LTCG member context with the real EAX/ECX entry pair, volatile-field
+// order controls, and comma-sequenced stores; every non-overlay variant was
+// rejected for extent or instruction scheduling.  The retained body is exact.
+// next_lever=an actual 0x00449A70 caller or a distinct compiler scheduling
+// lever; the available Unwind callers legally anchor only 0x00449A90.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00449a70() {
     __asm {
     L_00449a70:

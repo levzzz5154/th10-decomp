@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3306): closest_byte_count=0/132; first_diff=0x00401530
+// residual_class=private ECX game-thread receiver, EAX string input, and EBX
+// three-word vector input.
+// variants_tested=readable three-argument cdecl candidate (136-byte extent;
+// disassembly compared against 132-byte retail body) and semantic copy loop.
+// next_lever=real callers 0x00401630 and 0x00401690 plus this callee in one
+// native-LTCG cluster so MSVC can recover the private register convention.
+
 // 0x00401530..0x004015B3: ?GameThread_AppendRecord@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_GameThread_AppendRecord_00401530() {
@@ -87,5 +95,3 @@ extern "C" __declspec(naked) void __cdecl asm_GameThread_AppendRecord_00401530()
         ret
     }
 }
-
-

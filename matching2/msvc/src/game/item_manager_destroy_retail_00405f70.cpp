@@ -1,3 +1,14 @@
+// BLOCKED (D3404): closest_byte_count=0/236; first_diff=0x00405F70;
+// residual_class=SEH registration/unregistration frame, __stdcall cleanup,
+// critical-section function-pointer globals, and the +0x3e0b50 archive-owner
+// layout crossing the AnimationManager removal call.
+// variants_tested=live Ghidra decompilation plus callers 0x00406060,
+// 0x0040A1A0, and 0x00417C80, helper chain 0x00449F60/0x004493E0/0x004525FF,
+// and typed readable MSVC 13.10 candidate (197/236 extent).
+// next_lever=schema2 native-LTCG over the real callers, this body, scheduler
+// remove, animation-resource removal, and EH vector destructor; preserve the
+// FS:[0] frame and RET 4.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,3 +1,16 @@
+// BLOCKED (D3703): closest_byte_count=0/260; first_diff=unmeasured;
+// residual_class=production-valid native-LTCG ownership is unavailable because
+// the exclusive region remains kind=asm in regions.json; the readable
+// joystick property body needs the real ESI receiver plus BX/EDI register
+// inputs, COM interface vtable layout, and security-cookie frame.
+// variants_tested=live Ghidra decompile at 0x0044C7E0 and existing joystick
+// native-LTCG receiver cluster at 0x0044C770/0x0044C790; no target body was
+// retained because its required production cluster would overlap the existing
+// 0x0044C7E0 context address.
+// next_lever=promote 0x0044C7E0 to a semantic cluster-owned region and
+// co-compile the real sound-device caller with the property owner and COM
+// callees; do not alter regions.json in this assignment.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

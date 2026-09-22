@@ -1,3 +1,13 @@
+// BLOCKED (D2702): closest_byte_count=24; first_diff=0x00449630;
+// residual_class=private-ESI-entry+callee ABI: retail consumes the handle
+// through ESI and calls SetFlag with the game-state singleton in EDX, while
+// an ordinary compiler-visible declaration assigns the handle to a public
+// argument register and emits a different prologue/call sequence.
+// variants_tested=exact retail wrapper, the legacy semantic
+// AnimationManager_MarkForRemovalAndClearHandle model, and a measured
+// extern-C __fastcall candidate (24 bytes, 22 differing bytes);
+// next_lever=native-LTCG schema-2 caller/callee registration that makes the
+// ESI live-in ABI visible before changing this fixed-address region.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

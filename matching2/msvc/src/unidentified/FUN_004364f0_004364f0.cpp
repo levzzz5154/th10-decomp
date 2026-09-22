@@ -1,14 +1,19 @@
-// BLOCKED (H2701): closest_byte_count=107; first_diff=0x0043650E;
-// residual_class=allocator: the BufferFile::Seek readable candidate preserves
-// the retail 107-byte extent and control flow, but MSVC chooses EDX for the
-// backward-origin base/limit compare where retail holds the base in ESI.
-// variants_tested=48 materially different BufferFile::Seek switch variants
-// (all six origin orders and break versus return-failure exits), including
-// the tree/goto source shape recorded in memory-file-recovery/seek.cpp; the
-// closest candidate still diverges at 0x0043650E.
+// BLOCKED (H2801): closest_byte_count=107; first_diff=0x0043650E;
+// residual_class=allocator/source_shape: the readable BufferFile::Seek
+// candidate preserves the 107-byte extent and all control flow, but MSVC
+// keeps the backward-origin base/limit value in EDX where retail holds it in
+// ESI at 0043650E. Live Ghidra has no function at 004364F0 (the bytes are a
+// boundary gap between FUN_00436430 and FUN_00436570); adjacent BufferFile
+// cleanup confirms this is the four-word BufferFile layout, while the target
+// entry itself has no Ghidra callers/callees/xrefs or PCode.
+// variants_tested=48 materially different BufferFile::Seek source shapes
+// (all six origin orders, break versus return-failure exits, and the
+// tree/goto source in build/memory-file-recovery/seek.cpp), plus direct
+// signed/unsigned and alias variants. The closest candidate still diverges at
+// 0043650E; the exact naked baseline remains byte-identical.
 // next_lever=force the backward-origin base value to remain live in ESI with
-// a faithful alias/source boundary or a register-allocation compiler lever;
-// retain the exact wrapper until that single allocator residual is removed.
+// a faithful alias/source boundary or a compiler register-allocation lever;
+// no such lever is legal without changing this plain source's ABI context.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

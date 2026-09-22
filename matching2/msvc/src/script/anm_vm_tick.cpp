@@ -1,6 +1,10 @@
 // BLOCKED (D2401): closest_byte_count=9964; first_diff=unmeasured;
-// residual_class=large ANM VM control-flow/ABI translation; variants_tested=
-// legacy_semantic AnmVm_Tick reference and current retail assembly;
+// residual_class=large ANM VM control-flow/ABI translation; Ghidra's live
+// th10.exe decompile confirms the 9964-byte state machine, EAX-promoted
+// animation object, x87/vector temporaries, and dozens of private call edges.
+// variants_tested=legacy_semantic AnmVm_Tick reference and current retail
+// assembly; no native-LTCG candidate was attempted because the hook/state ABI
+// and shared dispatcher roots remain unidentified.
 // next_lever=derive the hook/state ABI and land a native-LTCG VM cluster
 // before replacing this exact-overlay body.
 #include "asm_encoding.hpp"

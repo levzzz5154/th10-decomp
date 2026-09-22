@@ -1,8 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00420C00..0x00420C28: ?GameState_DispatchDummy@@
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3505): closest_byte_count=4/41; first_diff=0x00420c02;
+// residual_class=private EAX/EDX helper inputs and ret-8 stack ownership,
+// plus branch-local duplicate call shape. variants_tested=standalone typed
+// register-resource candidate (38-byte extent, 4/41 equal, first diff at
+// the global displacement); live-Ghidra decompile and helper 0x0043E460.
+// next_lever=native-LTCG cluster with a caller that preserves the resource
+// and string values in EAX/EDX while retaining the two helper call sites.
 
 // 0x00420C00..0x00420C28: ?GameState_DispatchDummy@@
 // Naked body preserves the retail register/stack ABI.

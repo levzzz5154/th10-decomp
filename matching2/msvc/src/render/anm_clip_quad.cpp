@@ -1,3 +1,17 @@
+// BLOCKED (D3807): closest_byte_count=24/472; first_diff=0x004462F0;
+// residual_class=private EAX host receiver, D3D device/buffer vtable calls,
+// and the retail 20-dword copy into the fixed render buffer. Live Ghidra
+// decompilation confirms the host offsets and global mirror stores, but an
+// ordinary readable candidate under MSVC 13.10 emitted a 481-byte body
+// (24 comparable bytes), so it was not a production-valid replacement.
+// variants_tested=live Ghidra decompile at 0x004462F0; archived readable
+// ClipQuadHost/ClipQuadEnv model; standalone MSVC 13.10 candidate with raw
+// host offsets and RenderDevice vtable declarations (481-byte extent).
+// next_lever=caller-inclusive schema-2 native-LTCG cluster over real caller
+// 0x0042025B, this body, and the D3D device/vertex-buffer callees, with the
+// 0x3ADA74 buffer and 0x00491C30 device layouts bound; promote only after
+// the complete 472-byte region is exact.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,15 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" void* __cdecl asm_getptd_00456357();
 
-// 0x0045FE7E..0x0045FE86: FUN_0045fe7e
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0045fe7e_0045fe7e() {
-    __asm {
-    L_0045fe7e:
-        call asm_getptd_00456357
-    L_0045fe83:
-        add eax,58h
-    L_0045fe86:
-        ret
-    }
+// 0x0045FE7E..0x0045FE86: Address the thread-local initialization argument.
+extern "C" void** __cdecl asm_FUN_0045fe7e_0045fe7e() {
+    return reinterpret_cast<void**>(static_cast<unsigned char*>(asm_getptd_00456357()) + 0x58);
 }

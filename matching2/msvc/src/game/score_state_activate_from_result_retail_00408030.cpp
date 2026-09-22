@@ -2,6 +2,17 @@
 #include "asm_symbols.hpp"
 #include "th10/game/score.hpp"
 
+// BLOCKED (D2701): closest_byte_count=219 (retail extent 199);
+// first_diff=0x00408030; residual_class=private-ABI/cluster.  A readable
+// typed state-field candidate with cdecl helper calls emitted 219 bytes and
+// diverged immediately because the retail object arrives in ESI while the
+// ordinary declaration receives it from the stack.
+// variants_tested=the corrected state layout with cdecl bounds/animation
+// helper pointers and native MSVC 13.10 probe (219-byte extent, first diff at
+// entry); the exact naked ESI/ECX overlay remains the only exact body.
+// next_lever=native-LTCG compilation of this function with its real callers
+// and recovered helper member declarations, preserving ESI as the object
+// register without inline assembly.
 // 0x00408030..0x004080F6: ScoreState_ActivateFromResultRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ScoreState_ActivateFromResultRetail_00408030() {

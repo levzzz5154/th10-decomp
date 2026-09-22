@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3201): closest_byte_count=4/76; first_diff=0x00449253
+// (standalone readable manager/list model, authoritative probe extent 90 bytes).
+// residual_class=private ECX/EDX lookup inputs, DI stop-frame live-in,
+// stack-script id, and the 0043EE30 stdcall-like helper ABI.
+// variants_tested=typed raw-layout cdecl candidate with Find and helper
+// declarations; the candidate was restored after 72 differing bytes in the
+// measured 76-byte prefix.
+// next_lever=caller-inclusive native-LTCG cluster using 004491C0 and
+// 0043EE30 with real animation callers 0042C730, 0042D420, 0042D920, and
+// 0042F540; preserve this exact body until the 76-byte contribution matches.
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

@@ -6,6 +6,12 @@
 
 // 0x00435610..0x00435688: ?File_ResolvePath@@
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3704): closest_byte_count=0/121; first_diff=0x00435610;
+// residual_class=EAX/ECX usercall ABI, in-place path aliasing, and Win32
+// buffer semantics; variants_tested=["live Ghidra decompile at 0x00435610",
+// "live caller 0x00435370", "MSVC 13.10 schema-2 baseline probe"];
+// next_lever=native-LTCG cluster co-compiling caller 0x00435370 with typed
+// FileHandle/path declarations and the real FUN_00452730/strrchr callees.
 extern "C" __declspec(naked) void __cdecl asm_File_ResolvePath_00435610() {
     __asm {
     L_00435610:

@@ -1,3 +1,16 @@
+// BLOCKED (D3806): closest_byte_count=0/522; first_diff=0x00402230;
+// residual_class=private EAX game-state input plus three scheduler callback
+// registrations and the stage-state helper all remain opaque assembly
+// dependencies, so a readable body cannot be linked through a real schema-2
+// edge without changing unrelated exclusive regions.
+// variants_tested=retail assembly baseline (522/522 exact), live-Ghidra
+// decompilation, and a disposable schema-2 ownership probe; load_cluster
+// rejected the proposed semantic classification because this exclusive
+// region is still kind asm, before native-LTCG compilation.
+// next_lever=caller-inclusive schema-2/native-LTCG cluster after the
+// stage-state and scheduler callees (and their callback roots) are readable,
+// with production layouts declaring the complete 522-byte contribution.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

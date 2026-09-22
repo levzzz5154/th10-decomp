@@ -214,6 +214,12 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00421fa0_00421fa0() {
 
 // 0x0042ACB0..0x0042ACE6: ScoreFile_InitializeDefaultsRetail
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3704): closest_byte_count=0/274; first_diff=0x0042ACB0;
+// residual_class=retail __stdcall ret-4 ABI plus packed 0x437C-byte score
+// layout and table data; variants_tested=["live Ghidra decompile at
+// 0x0042ACB0", "live caller 0x0042AE60", "MSVC 13.10 schema-2 baseline
+// probe"]; next_lever=typed packed ScoreFile layout in the real
+// EffectManager_InitializePoolsRetail 0x0042AE60 native-LTCG caller scope.
 extern "C" __declspec(naked) void __cdecl asm_ScoreFile_InitializeDefaultsRetail_0042acb0() {
     __asm {
     L_0042acb0:

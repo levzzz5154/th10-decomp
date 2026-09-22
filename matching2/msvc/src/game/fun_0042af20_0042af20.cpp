@@ -1,3 +1,15 @@
+// BLOCKED (D3907): closest_byte_count=0/97; first_diff=0x0042af20
+// (no readable native-LTCG body retained).
+// residual_class=MSVC exception-registration lowering plus the private EAX
+// receiver/result convention of EffectManager_InitializePools at 0x0042ae60;
+// constructor/destructor state must remain compatible with the real caller.
+// variants_tested=["live Ghidra decompile at 0x0042af20",
+// "live caller 0x0041f990 and callee 0x0042ae60", "MSVC 13.10.6030
+// authoritative probe (97/97 exact asm baseline)", "schema-2 native-LTCG
+// feasibility review of allocator-to-initializer register flow"].
+// next_lever=compile a schema-2 native-LTCG cluster containing the real
+// 0x0041f990 caller and 0x0042ae60 initializer as a typed ABI anchor; retain
+// compiler EH tables and prove the complete allocation path before metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

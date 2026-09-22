@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405B90..0x00405B94: signed 16-bit field accessor.
+// Native LTCG supplies the object pointer in EAX.
+struct ShortAccessor_00405b90 {
+    unsigned char pad_000[8];
+    short value;
 
-// 0x00405B90..0x00405B94: FUN_00405b90
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00405b90_00405b90() {
-    __asm {
-    L_00405b90:
-        mov ax,word ptr [eax+8]
-    L_00405b94:
-        ret
-    }
+    __declspec(noinline) short Load() const;
+};
+
+#pragma code_seg(".text$01target")
+short ShortAccessor_00405b90::Load() const {
+    return value;
 }
+#pragma code_seg()

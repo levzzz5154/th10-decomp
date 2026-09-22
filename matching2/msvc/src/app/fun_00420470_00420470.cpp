@@ -1,6 +1,19 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3705): closest_byte_count=200/204; first_diff=0x00420470
+// residual_class=private scheduler register ABI (task in ESI, scheduler stack,
+// priority in EDI) and compiler register/save order; standalone readable C++
+// emitted a 200-byte body beginning with push esi/push edi instead of the
+// retail push ebx/push ebp/push esi/push edi/xor eax sequence.
+// variants_tested=typed SchedulerTask/source-level registration candidate with
+// raw helper declarations and a corrected three-argument registration model;
+// first candidate was 135 bytes, corrected candidate was 200 bytes, and all
+// nonexact output was restored.
+// next_lever=caller-inclusive native-LTCG cluster over this function,
+// SchedulerCallback_Create_00449ed0, Scheduler_RegisterPrimary_00449ae0, and
+// Scheduler_RegisterSecondary_00449b70, with the four callback bodies visible.
+
 // 0x0041FF80..0x0041FFF0: FUN_0041ff80
 // Naked body preserves the retail register/stack ABI.
 

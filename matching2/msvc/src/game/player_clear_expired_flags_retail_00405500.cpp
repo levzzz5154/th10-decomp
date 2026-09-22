@@ -1,3 +1,10 @@
+// BLOCKED (D3407): closest_byte_count=0/81; first_diff=extent (best readable member candidate emitted 89 bytes vs retail 81 before byte comparison);
+// residual_class=private-ABI/cluster; the retail function receives and returns its player object in EAX,
+// while standalone MSVC member compilation uses ECX and schedules the value_3790 store after the flag chain.
+// variants_tested=retail naked baseline (81/81 exact), readable nonvolatile padded member (89 bytes),
+// readable volatile padded member (144 bytes), live Ghidra FUN_00405500 pseudocode, and exact probe;
+// next_lever=native-LTCG cluster with initialize_player_00405860 as the real EAX caller and a semantic region classification.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

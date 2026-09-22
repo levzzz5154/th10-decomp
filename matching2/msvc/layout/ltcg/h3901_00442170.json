@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "h3901_00442170",
+  "source": "src/unidentified/FUN_00442170_00442170.cpp",
+  "driver": "layout/ltcg/h3901_00442170_context.cpp",
+  "headers": ["include/asm_encoding.hpp", "include/asm_symbols.hpp"],
+  "image_base": "0x00400000",
+  "description": "Value-returning field store compiled with native LTCG so retail's value-in-EAX/object-in-ECX ABI is retained.",
+  "functions": [
+    {
+      "name": "ObjectAccessor_00442170_StoreValue",
+      "symbol": "?StoreValue@ObjectAccessor_00442170@@QAEHH@Z",
+      "section": ".text$01accessor00442170",
+      "address": "0x00442170",
+      "size": 4,
+      "actual_abi": "value in EAX; object in ECX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?H3901CompilerContext_00442170@@YGHPAPAUObjectAccessor_00442170@@HH@Z",
+    "section": ".text$03context",
+    "address": "0x00442180",
+    "size": 41,
+    "description": "Synthetic caller used only to establish the native LTCG register convention."
+  },
+  "gaps": [
+    {"section":".text$00layout","address":"0x00401000","size":266608},
+    {"section":".text$02layout","address":"0x00442174","size":12}
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

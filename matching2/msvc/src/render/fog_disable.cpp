@@ -1,3 +1,17 @@
+// BLOCKED (D3703): closest_byte_count=15/53; first_diff=0x00420CD1;
+// residual_class=native-LTCG selected ESI for the state receiver in the
+// isolated typed probe (51-byte body), while retail requires EDI and the
+// production RenderStageState/AnimationManager caller pressure that controls
+// branch layout and helper sequencing.
+// variants_tested=live Ghidra decompile at 0x00420CD0; existing native-LTCG
+// render cluster fog anchor; isolated MSVC 13.10 typed fog-state probe with
+// data_00491C10 and the 0x00442F50 Flush binding; unchanged production
+// manifest validation.
+// next_lever=co-compile the real 0x00439390 frame caller, RenderStageState
+// body, and AnimationManager::Flush under schema-2 native-LTCG, then promote
+// this region to semantic ownership; do not alter regions.json in this
+// assignment.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

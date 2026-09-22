@@ -1,6 +1,18 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3705): closest_byte_count=340/350; first_diff=0x00434f70
+// residual_class=private ESI receiver plus virtual-reader call ABI, stack-local
+// header placement, AL key flow, and helper cleanup ordering. The typed
+// explicit-receiver candidate reached a 340-byte body but began with a stack
+// receiver/prologue instead of retail's ESI-based sub-esp/mov sequence.
+// variants_tested=live Ghidra pseudocode translated to typed archive-reader,
+// decrypt/decompress, allocation, index-build, and failure-cleanup calls;
+// candidate extent was 340/350 and was restored.
+// next_lever=caller-inclusive native-LTCG cluster over 00434F70, callers
+// 00434C30/00434DD0, DecryptDatBuffer, and the reader/decompress dependencies,
+// preserving the ESI receiver and AL key convention.
+
 // 0x00434C20..0x00434C29: ?DatArchive_Reset@@
 // Naked body preserves the retail register/stack ABI.
 

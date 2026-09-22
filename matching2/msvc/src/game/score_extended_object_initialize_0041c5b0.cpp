@@ -2,6 +2,15 @@
 #include "asm_symbols.hpp"
 #include "th10/game/score.hpp"
 
+// BLOCKED (D2801): closest_byte_count=0/202; first_diff=0x0041C5B0;
+// residual_class=private_abi: the standalone readable model emitted 363
+// bytes and entered with ECX/EDX instead of retail's EBX/EDX convention.
+// variants_tested=raw-pointer field model, std::memset/loop clears, and volatile
+// flag stores; all nonexact candidates restored.
+// next_lever=co-compile this body with ScoreObject_Initialize and the real
+// 0x0041C510 caller in one native-LTCG cluster, preserving the EBX object
+// register while measuring the three clear-loop contributions.
+
 // 0x0041C5B0..0x0041C679: ScoreExtendedObject_Initialize
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ScoreExtendedObject_Initialize_0041c5b0() {

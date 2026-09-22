@@ -6,6 +6,12 @@
 
 // 0x00407DA0..0x00407E33: Player_WrapHorizontal
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED: closest_byte_count=148/148; first_diff=none (retail assembly baseline);
+// residual_class=EBX receiver with EAX return and private x87/control-flow
+// register state across Entity_PointWithinBoundsInclusive and FrameTimer calls;
+// variants_tested=Ghidra pseudocode plus caller register inspection; no
+// source-only candidate accepted; next_lever=co-compile the real bullet-runtime
+// caller and callee chain in schema-2 native LTCG.
 extern "C" __declspec(naked) void __cdecl asm_Player_WrapHorizontal_00407da0() {
     __asm {
     L_00407da0:

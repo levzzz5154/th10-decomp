@@ -1,3 +1,19 @@
+// BLOCKED (D3202): closest_byte_count=8/117; first_diff=0x004362B2
+// (authoritative native-LTCG scratch body extent was 115 bytes, so the
+// candidate is not promotable despite its exact 8-byte tail).
+// residual_class=private source-index-in-EAX / replacement-in-ECX ABI and
+// compiler source-shape scheduling around parent/source node pointers, plus
+// the shared 0x00477858 compression-tree layout. Live Ghidra topology: caller
+// 0x0043625B; adjacent callees/cluster members 0x00436260 and 0x00436330.
+// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
+// disassembly/variable audit, legacy MemoryFile_ReplaceNode model, and native
+// MSVC 13.10 /GL /LTCG synthetic caller variants. The closest candidate was
+// restored after 8/117 matching bytes and a 115-byte extent.
+// next_lever=schema2 native-LTCG cluster joining the real 0x00436210 caller,
+// 0x00436260 relink, 0x00436330 predecessor, and this body; vary only the
+// source-pointer/parent-pointer expression until the EAX/ECX body reaches
+// 117 bytes and exact retail scheduling.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

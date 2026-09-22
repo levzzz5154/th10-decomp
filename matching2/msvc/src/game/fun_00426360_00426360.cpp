@@ -1,3 +1,13 @@
+// BLOCKED (D3905): closest_byte_count=409/409 (exact assembly retained);
+// first_diff=0x00426364 at the EAX receiver transfer into EDI.
+// residual_class=private EAX/ESI entry ABI, x87 evaluation order and stack
+// slots, indirect callback loop shape, and internal early-return labels.
+// variants_tested=MSVC 13.10.6030 /O2 /Gz /MT /Gy /G6 /GF /GS /Zl with typed
+// cdecl/fastcall receiver models, float/double cast variants, callback-loop
+// forms, and reordered x87 temporaries; no readable candidate preserved the
+// 409-byte extent.
+// next_lever=schema2 native-LTCG cluster with the real game-state caller and
+// callback context, preserving EAX/ESI and the x87 stack schedule.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -8,8 +8,9 @@
 // ABI is private, and the nearest readable scale/truncate candidate differed
 // in 18 bytes because MSVC hoisted/reloaded the 0x00470B44 scale instead of
 // retaining retail's `fld source; fmul [scale]` order.
-// variants_tested=src*K, K*src, source local, scale local; all retained the
-// private-register ABI but missed retail x87 spelling or changed the extent.
+// variants_tested=src*K, K*src, source local, scale local; an additional
+// readable __fastcall ScalePair candidate emitted 51 bytes (vs 33), and all
+// retained the private-register ABI but missed retail x87 spelling or extent.
 // next_lever=compiler/toolkit mechanism that emits the retail x87 order inside
 // a native-LTCG ESI/EDI context; retain this exact wrapper meanwhile.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00427c10() {

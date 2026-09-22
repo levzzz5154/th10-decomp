@@ -1,3 +1,14 @@
+// BLOCKED (D2702): closest_byte_count=120; first_diff=0x00420AAE;
+// residual_class=EAX-carrying private RegisterResource call plus register
+// pressure: a readable 120-byte candidate matched the stack-cookie/copy and
+// string rewrite extent but differed in 60 bytes from the retail body.
+// variants_tested=exact retail wrapper, the legacy recovery semantic model,
+// a stack-copy candidate, and a __stdcall candidate with typed strrchr and
+// RegisterResource declarations; the measured candidate's first mismatch was
+// the compiler's ESI preservation where retail reloads the stack argument.
+// next_lever=native-LTCG schema-2 visibility for RegisterResource's EAX/EDX
+// convention (or a fixed-address semantic registration that permits that
+// private call), then remeasure the 120-byte contribution.
 #include <string.h>
 
 #include "asm_encoding.hpp"

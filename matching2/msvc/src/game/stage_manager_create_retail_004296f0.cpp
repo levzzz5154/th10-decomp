@@ -4,6 +4,16 @@
 // 0x00408910..0x004089BF: PlayerManager_ConstructRetail
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3301): closest_byte_count=6/181; first_diff=0x004296F0;
+// residual_class=schema2 SEH/vector-constructor sequencing and private
+// cleanup-helper ABI; variants_tested=live-Ghidra decompile plus callers
+// (0x004236F0, 0x0042CDF0, 0x004315C0, 0x00433570) and callees
+// (0x004294A0, 0x0042A200, operator_new, vector_constructor, free), MSVC
+// 13.10 readable candidate (106-byte extent, 6 matching bytes), and native-
+// LTCG synthetic dtor/delete context (59/59 bytes differ); next_lever=derive
+// the real 0x0042A200/0x004294A0 caller context and compile schema2 with
+// native-LTCG SEH enabled.
+
 // 0x004296F0..0x004297A4: StageManager_CreateRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_StageManager_CreateRetail_004296f0() {

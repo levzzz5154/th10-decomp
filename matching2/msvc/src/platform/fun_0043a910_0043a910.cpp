@@ -1,11 +1,18 @@
+// BLOCKED (D3801): closest_byte_count=0/156; first_diff=none (exact retail
+// naked baseline; no readable candidate retained).
+// residual_class=private EAX receiver despite the decompiler's __fastcall
+// spelling, caller-preserved ESI/EDI state, and MIDI helper/import scheduling.
+// variants_tested=live Ghidra decompilation at 0x0043A910 with callers
+// GameMain xrefs 0x00438F29/0x00439082; typed receiver cleanup candidate;
+// exact MSVC 13.10 naked baseline probe=156/156.
+// next_lever=native-LTCG cluster joining GameMain, FUN_0043AE20,
+// FUN_0043AA60 and the MIDI import slots; preserve the caller's EAX handoff.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.
-
 // 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043a910_0043a910() {
     __asm {
     L_0043a910:

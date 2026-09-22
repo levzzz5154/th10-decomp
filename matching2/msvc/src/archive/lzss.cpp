@@ -1,3 +1,17 @@
+// BLOCKED (D3202): closest_byte_count=475/475; first_diff=none (retail
+// assembly baseline only; no readable candidate retained).
+// residual_class=global 0x0048F868 dictionary state, bit-reader carry/mask
+// lifetime across three nested loops, output-size allocation ABI, and MSVC
+// byte/word promotion plus loop-shape scheduling. Live Ghidra topology:
+// callers 0x00434EC2, 0x0042A317, 0x0042B08C, 0x0043505E; sole callee
+// _malloc; dictionary writes wrap at 0x1FFF with sentinel offset zero.
+// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
+// disassembly, variable/storage/dataflow audit, and legacy LZSS decoder model;
+// no compiler-readable candidate was byte-measured or retained.
+// next_lever=plain MSVC 13.10 source recovery with an explicitly modelled
+// shared dictionary and one-bit reader, then caller-inclusive probes over all
+// four decompression call sites to preserve RET 10h and byte/word carry flow.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

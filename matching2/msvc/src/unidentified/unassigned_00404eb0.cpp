@@ -1,15 +1,8 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <math.h>
 
-// 0x00404EB0..0x00404EB8: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00404eb0() {
-    __asm {
-    L_00404eb0:
-        fld dword ptr [esp+4]
-    L_00404eb4:
-        fsin
-    L_00404eb6:
-        ret 4
-    }
+// 0x00404EB0..0x00404EB8: MSVC's sinf intrinsic lowers to the retail
+// FLD/FSIN/RET 4 sequence.  Ghidra reports this as an unlabelled span rather
+// than a function; the stdcall prototype is established by the RET 4 ABI.
+extern "C" float __stdcall asm_unassigned_00404eb0(float value) {
+    return sinf(value);
 }

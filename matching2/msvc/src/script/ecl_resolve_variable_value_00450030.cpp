@@ -6,11 +6,14 @@
 // index and EAX return.
 // variants_tested=exact retail wrapper, the legacy ECL_ResolveVariableValue
 // semantic model, the readable integer/float destination accessors, and the
-// ECL variable-table layout recovered from the dispatcher; no
-// compiler-readable candidate was byte-measured.
-// next_lever=co-compile this accessor with ECL_FindVariable, both destination
-// siblings, and a real interpreter caller in the native-LTCG cluster so the
-// receiver remains in ESI and the index in ECX; retain the 58-byte wrapper.
+// ECL variable-table layout recovered from the dispatcher; native-LTCG
+// contexts shaped from the actual interpreter writer/resolver/find call order,
+// live resolver pointers across helper calls, same-TU resolver definition,
+// free/member declarations, widened masks, and dummy pressure parameters all
+// retained EDX as the private receiver; no compiler-readable candidate matched.
+// next_lever=compile the actual interpreter caller body (0x0044E1A0) in the
+// same native-LTCG scope, or use a purpose-built context that genuinely pins
+// the VM in ESI; retain the 58-byte wrapper until that ABI is reproduced.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

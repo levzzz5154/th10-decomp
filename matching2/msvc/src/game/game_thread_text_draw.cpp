@@ -1,3 +1,14 @@
+// BLOCKED (D3404): closest_byte_count=0/194; first_diff=0x00447BB0;
+// residual_class=private ESI receiver, variadic stack homes, x87 text-width
+// arithmetic, and security-cookie frame scheduling. The readable variadic
+// candidate compiled with MSVC 13.10 to 202 bytes versus the 194-byte retail
+// extent before byte comparison.
+// variants_tested=live Ghidra decompilation plus callers 0x00419120 and
+// 0x00432690, helper/callee chain (0x004524A6, 0x00463B2C, 0x004479D0,
+// 0x00458EA5), and standalone typed variadic candidate probe (202/194 extent).
+// next_lever=schema2 native-LTCG over both real callers, this body, the three
+// direct helper callees, and the verified ESI/stack/cookie layout.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

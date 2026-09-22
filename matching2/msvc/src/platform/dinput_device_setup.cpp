@@ -1,3 +1,15 @@
+// BLOCKED (D3906): closest_byte_count=0/439; first_diff=0x0043B8D0
+// (standalone readable candidate emitted a 257-byte body, so no byte
+// comparison was admissible).
+// residual_class=private EAX receiver, DirectInput COM vtable ABI, security
+// cookie/control-flow shape, and callback/log helper register conventions.
+// variants_tested=live IDA assembly and caller 0x0043BA90; legacy semantic
+// Input_InitializeDevices translation; MSVC 13.10 schema-2/native-LTCG
+// feasibility review plus standalone native probe (257-byte body versus
+// the 439-byte retail region).
+// next_lever=promote 0x0043BA90 and 0x0043B8D0 together as a schema-2
+// native-LTCG cluster, with the real EAX receiver and COM helper leaves
+// retained as cluster sources, then change this production region to semantic.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

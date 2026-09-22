@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3505): closest_byte_count=37/213; first_diff=0x0044DAD0;
+// residual_class=private EDI receiver, hidden ECX refill flag, EAX/ESI
+// streamer helper arguments, and virtual-release stack/receiver setup.
+// variants_tested=standalone typed Streamer::Restart candidate (216-byte
+// extent, 37/213 equal, first diff at entry); live-Ghidra decompile, caller
+// 0x0043DDF0, and callees 0x0044D300/0x0044D110/SetFilePointer.
+// next_lever=native-LTCG schema2 cluster with the real 0x0043DDF0 caller,
+// 0x0044D300 and 0x0044D110, and the COM/vtable release edge co-compiled.
+
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.
 

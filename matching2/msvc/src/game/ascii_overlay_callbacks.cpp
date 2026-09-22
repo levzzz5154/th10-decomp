@@ -1,47 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0043C2C0..0x0043C303: FUN_0043c2c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043c2c0_0043c2c0() {
-    __asm {
-    L_0043c2c0:
-        sub esp,10h
-    L_0043c2c3:
-        mov eax,dword ptr [ecx+20h]
-    L_0043c2c6:
-        push ebx
-    L_0043c2c7:
-        mov ebx,dword ptr [ecx+18h]
-    L_0043c2ca:
-        shl ebx,18h
-    L_0043c2cd:
-        push edi
-    L_0043c2ce:
-        or ebx,eax
-    L_0043c2d0:
-        lea edi,[esp+8]
-    L_0043c2d4:
-        mov dword ptr [esp+8],42000000h
-    L_0043c2dc:
-        mov dword ptr [esp+0Ch],41800000h
-    L_0043c2e4:
-        mov dword ptr [esp+10h],43D00000h
-    L_0043c2ec:
-        mov dword ptr [esp+14h],43E80000h
-    L_0043c2f4:
-        call asm_FUN_0043bda0_0043bda0
-    L_0043c2f9:
-        pop edi
-    L_0043c2fa:
-        mov eax,1
-    L_0043c2ff:
-        pop ebx
-    L_0043c300:
-        add esp,10h
-    L_0043c303:
-        ret
-    }
+// 0x0043C2C0: scheduler overlay callback, public ECX receiver.
+#include "th10/render/quad_batch.hpp"
+#include <stddef.h>
+struct AsciiOverlay_0043C2C0 {
+    unsigned char reserved_000[0x18];
+    unsigned int alpha;
+    unsigned int reserved_01c;
+    unsigned int color;
+    __declspec(noinline) int Draw();
+};
+typedef char AsciiOverlay_0043C2C0_AlphaOffset[(offsetof(AsciiOverlay_0043C2C0, alpha) == 0x18) ? 1 : -1];
+typedef char AsciiOverlay_0043C2C0_ColorOffset[(offsetof(AsciiOverlay_0043C2C0, color) == 0x20) ? 1 : -1];
+#pragma code_seg(".text$03w0overlay")
+int AsciiOverlay_0043C2C0::Draw() {
+    ScreenRect rect = {32.0f, 16.0f, 416.0f, 464.0f};
+    DrawSolidQuad(&rect, color | (alpha << 24));
+    return 1;
 }
-
-
+#pragma code_seg()

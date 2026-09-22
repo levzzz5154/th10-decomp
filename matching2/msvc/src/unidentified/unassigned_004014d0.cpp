@@ -1,33 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004014D0..0x004014E9: clear the two pending words, advance the
+// sequence counter, and report success.
+struct WidgetHost_004014d0 {
+    unsigned char unknown_00[0x896C];
+    int field_896C;
+    int field_8970;
+    unsigned char unknown_8974[0x1C];
+    int field_8990;
 
-// 0x004014D0..0x004014EF: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004014d0() {
-    __asm {
-    L_004014d0:
-        xor ecx,ecx
-    L_004014d2:
-        mov dword ptr [eax+896Ch],ecx
-    L_004014d8:
-        mov dword ptr [eax+8970h],ecx
-    L_004014de:
-        inc dword ptr [eax+8990h]
-    L_004014e4:
-        mov eax,1
-    L_004014e9:
-        ret
-    L_004014ea:
-        int 3
-    L_004014eb:
-        int 3
-    L_004014ec:
-        int 3
-    L_004014ed:
-        int 3
-    L_004014ee:
-        int 3
-    L_004014ef:
-        int 3
-    }
+    __declspec(noinline) int ClearPending_004014d0();
+};
+
+#pragma code_seg(".text$01accessor")
+int WidgetHost_004014d0::ClearPending_004014d0() {
+    field_896C = 0;
+    field_8970 = 0;
+    ++field_8990;
+    return 1;
 }
+#pragma code_seg()

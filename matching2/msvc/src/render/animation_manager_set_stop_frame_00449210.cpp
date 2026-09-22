@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3306): closest_byte_count=0/54; first_diff=0x00449210
+// residual_class=private ECX/EDX lookup inputs, SI stop-frame live-in, and
+// private caller/callee convention for AnimationManager_Find.
+// variants_tested=readable opaque-layout cdecl candidate (65-byte standalone
+// extent; disassembly compared against 54-byte retail body) plus the existing
+// naked baseline.
+// next_lever=caller 0x004250B0 plus callee 0x004491C0 in a native-LTCG
+// cluster so MSVC can select the retail private register convention.
+
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

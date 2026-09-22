@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "reset_predicates_00449a00",
+  "source": "src/unidentified/unassigned_00449a00.cpp",
+  "driver": "layout/ltcg/reset_predicates_00449a00_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Loader-valid native-LTCG cluster for the exact 0x00449A00 range predicate. Only the readable 00449A00 member is selected; the legacy 00449A50 and 00449A70 reset wrappers remain outside this cluster and are never rooted or registered here.",
+  "functions": [
+    {
+      "name": "ResetRange_00449a00_Contains",
+      "symbol": "?Contains@ResetRange_00449a00@@QAEHI@Z",
+      "section": ".text$01predicate",
+      "address": "0x00449A00",
+      "size": 26,
+      "actual_abi": "private member entry with receiver in ECX and unsigned address in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "ResetPredicatesCompilerContext@8",
+    "section": ".text$03context",
+    "address": "0x004507C0",
+    "size": 16,
+    "description": "Compiler-only caller context that pins the range receiver and address registers; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 297472
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00449A1A",
+      "size": 28070
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

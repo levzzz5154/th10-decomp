@@ -1,15 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00441FF0: copy the first object word to the destination pointer.
+// Native LTCG selects the observed source/destination register convention.
+struct H3701F10 {
+    __declspec(noinline) void Copy(unsigned int* destination);
+};
 
-// 0x00441FF0..0x00441FF4: FUN_00441ff0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00441ff0_00441ff0() {
-    __asm {
-    L_00441ff0:
-        mov ecx,dword ptr [eax]
-    L_00441ff2:
-        mov dword ptr [edx],ecx
-    L_00441ff4:
-        ret
-    }
+#pragma code_seg(".text$01f")
+void H3701F10::Copy(unsigned int* destination) {
+    *destination = *(unsigned int*)this;
 }
+#pragma code_seg()

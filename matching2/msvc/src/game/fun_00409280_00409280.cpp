@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED readable recovery: closest_byte_count=2432/2432; first_diff=none;
+// residual_class=large schema-2 worker with 22 callees, floating-point state,
+// and retail branch layout; variants_tested=live Ghidra decompilation,
+// call graph/xrefs/dataflow, and retail baseline probe; next_lever=mechanical
+// source recovery in isolated stages, preserving the existing branch targets.
 // 0x00409280..0x004093C7: FUN_00409280
 // Naked body preserves the retail register/stack ABI.
 

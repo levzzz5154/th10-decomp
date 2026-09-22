@@ -1,3 +1,13 @@
+// BLOCKED (D3503): closest_byte_count=376/467; first_diff=0x00401260
+// (ordinary readable candidate compiled but omitted the retail C++ EH
+// registration/state prologue and emitted a 376-byte body).
+// residual_class=compiler-generated destructor/EH frame, private
+// Scheduler_Remove ECX/EDX call, and caller-visible stack layout.
+// variants_tested=live Ghidra decompilation; ordinary __stdcall body with
+// typed lock calls, fastcall Scheduler_Remove cast, and native MSVC probe.
+// next_lever=destructor-shaped schema-2 native-LTCG cluster joining the
+// 0x00401440 caller with this body and recovering the exact EH state model.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

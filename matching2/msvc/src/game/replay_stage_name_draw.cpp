@@ -1,3 +1,11 @@
+// BLOCKED (D3805): closest_byte_count=5/826; first_diff=unmeasured.
+// residual_class=large replay-stage formatting loop, global record layout,
+// x87 conversion order, and private formatter helper 0x00401630/import ABIs.
+// variants_tested=["live Ghidra/IDA decompilation", "ordinary __stdcall
+// readable ABI stub under MSVC 13.10 (5-byte extent)", "retail assembly
+// baseline probe (826/826 exact)"].
+// next_lever=promote the real caller-inclusive schema2/native-LTCG model with
+// production replay records and all formatter/time helper declarations.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

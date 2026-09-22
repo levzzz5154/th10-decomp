@@ -1,3 +1,15 @@
+// BLOCKED (D3307): closest_byte_count=21/41; first_diff=0x00417012;
+// residual_class=private EAX-entry native-LTCG register allocation and loop
+// scheduling (the readable member model selected the input/output registers in
+// the opposite order and folded their pointer difference).
+// variants_tested=live Ghidra complete decompilation with callers/xrefs and
+// disassembly/variable audit; ordinary MSVC 13.10 readable cdecl candidate
+// (43-byte extent); five native MSVC 13.10 schema-1 context builds using the
+// EAX member model and reordered/volatile pointer locals (best 21/41).
+// next_lever=retain the real caller-inclusive native-LTCG cluster and vary only
+// the source expression shape that keeps independent input/output pointers and
+// retail store/update order; promote only after all 41 bytes match.
+
 #include <string.h>
 #include "asm_encoding.hpp"
 

@@ -1,13 +1,8 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0040CD80..0x0040CD84: FUN_0040cd80
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040cd80_0040cd80() {
-    __asm {
-    L_0040cd80:
-        mov dword ptr [ecx+edx*4+30h],eax
-    L_0040cd84:
-        ret
-    }
+// 0x0040CD80: fastcall indexed store with a twelve-element base offset.
+// The source parameter order is intentional; native LTCG selects ECX/EDX/EAX.
+#pragma code_seg(".text$01f")
+extern "C" __declspec(noinline) void __fastcall H3701CD80_Fast2(
+    int index, int* object, int value) {
+    object[index + 12] = value;
 }
+#pragma code_seg()

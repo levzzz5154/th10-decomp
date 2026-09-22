@@ -2,6 +2,16 @@
 #include "asm_symbols.hpp"
 
 
+// BLOCKED (D3501): closest_byte_count=402/402; first_diff=none (retail
+// assembly baseline only; no readable candidate retained);
+// residual_class=SEH registration/handler frame, __thiscall receiver/register
+// setup, three private Scheduler_Remove calls, and three EH vector-destructor
+// helper ABIs with large object offsets.
+// variants_tested=live Ghidra complete-function analysis with callers/callees,
+// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
+// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
+// real 0x00408C90/0x00417C80 callers and vector-destructor helper contexts.
+
 // 0x00408AF0..0x00408C81: FUN_00408af0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00408af0_00408af0() {
@@ -221,6 +231,16 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00408af0_00408af0() {
 
 
 
+
+// BLOCKED (D3501): closest_byte_count=1105/1105; first_diff=none (retail
+// assembly baseline only; no readable candidate retained);
+// residual_class=schema2 manager teardown with private register live-ins,
+// twenty-two helper call contexts, shared global-state layouts, and SEH/EH
+// vector-destructor sequencing.
+// variants_tested=live Ghidra complete-function analysis with callers/callees,
+// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
+// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
+// real 0x00418150/0x004203F0 callers and all teardown callees co-compiled.
 
 // 0x00417C80..0x004180D0: FUN_00417c80
 // Naked body preserves the retail register/stack ABI.
@@ -848,6 +868,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
 }
 
 
+// BLOCKED (D3501): closest_byte_count=216/216; first_diff=none (retail
+// assembly baseline only; no readable candidate retained);
+// residual_class=SEH registration/handler frame, scheduler private receiver
+// ABI, and EH vector-destructor iterator layout for the 0x896 elements.
+// variants_tested=live Ghidra complete-function analysis with callers/callees,
+// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
+// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
+// real 0x0040A1A0/0x00417C80 callers and Scheduler_Remove co-compiled.
+
 // 0x0041ADF0..0x0041AEC7: FUN_0041adf0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041adf0_0041adf0() {
@@ -969,6 +998,16 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041adf0_0041adf0() {
     }
 }
 
+
+// BLOCKED (D3501): closest_byte_count=311/311; first_diff=none (retail
+// assembly baseline only; no readable candidate retained);
+// residual_class=private Scheduler_Remove receiver/register ABI, linked-list
+// node layout at +0x72DAD4/+0x72DADC, and child flag propagation through
+// unresolved game-state structures.
+// variants_tested=live Ghidra complete-function analysis with callers/callees,
+// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
+// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
+// real 0x00422360/0x00417C80 callers and game-state node layouts.
 
 // 0x00422220..0x00422356: FUN_00422220
 // Naked body preserves the retail register/stack ABI.

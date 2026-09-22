@@ -172,7 +172,6 @@ extern "C" __declspec(naked) void __cdecl asm_BulletManager_Release_0040af00() {
         ret 4
     }
 }
-
 // 0x0040AF90..0x0040AFE5: ?BulletManager_Create@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_BulletManager_Create_0040af90() {

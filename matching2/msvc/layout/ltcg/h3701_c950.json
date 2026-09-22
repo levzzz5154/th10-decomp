@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "h3701_c950",
+  "source": "src/unidentified/FUN_0040c950_0040c950.cpp",
+  "driver": "layout/ltcg/h3701_c950_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG typed indexed store preserving the private object/index/value ABI.",
+  "functions": [
+    {
+      "name": "H3701C950_Store",
+      "symbol": "?Store@H3701C950@@QAEXHH@Z",
+      "section": ".text$01f",
+      "address": "0x0040C950",
+      "size": 4,
+      "actual_abi": "object in EAX, index in EDX, value in ECX"
+    }
+  ],
+  "context": {
+    "symbol": "?H3701C950Context@@YGHPAPAUH3701C950@@HHH@Z",
+    "section": ".text$03ctx",
+    "address": "0x0040C970",
+    "size": 42,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00gap", "address": "0x00401000", "size": 47440},
+    {"section": ".text$02gap", "address": "0x0040C954", "size": 28}
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

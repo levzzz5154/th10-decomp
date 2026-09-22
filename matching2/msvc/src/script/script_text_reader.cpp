@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3604): closest_byte_count=0/260; first_diff=unmeasured;
+// residual_class=private EAX input plus caller-owned buffer/length ABI, with
+// helper 0x00452730 and 0x0041A0A0 sequencing across the stage-tip parser.
+// variants_tested=live Ghidra decompilation, caller 0x00419960, and exact
+// retail wrapper baseline; readable public-ABI candidates cannot preserve the
+// EAX live-in without a native caller cluster.
+// next_lever=native-LTCG cluster joining 0x00419960, this reader, and the
+// 0x00452730/0x0041A0A0 helper family.
 // 0x00419F40..0x0041A043: FUN_00419f40
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00419f40_00419f40() {

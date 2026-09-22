@@ -1,3 +1,15 @@
+// BLOCKED (D2702): closest_byte_count=627; first_diff=unmeasured;
+// residual_class=private-callee ABI cluster: activation has two register-
+// sensitive animation-manager calls, a 32-iteration spawn loop, and shared
+// timer/resource state whose exact register schedule depends on the visible
+// callers and callees.
+// variants_tested=exact retail wrapper, live-Ghidra pseudocode/caller-callee
+// and global audits, and the legacy TriggerRegion_Activate semantic model;
+// no compiler-readable candidate was byte-measured without changing the
+// fixed-address ownership manifest.
+// next_lever=native-LTCG schema-2 cluster containing this entry and its real
+// animation/resource callers plus the private callees, then measure the full
+// 627-byte contribution before registration.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

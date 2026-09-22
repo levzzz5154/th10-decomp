@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3001): closest_byte_count=153/153; first_diff=none (authoritative
+// probe exact).  The exact member is preserved; a readable cutover is blocked
+// by the private ESI receiver/EDI mode ABI and the unresolved 0041C5B0/0041C680
+// constructor callees.  variants_tested=retail inline-assembly member only;
+// no nonexact source variant was retained.  next_lever=schema2 native-LTCG
+// cluster of real callers 0041CFD0, 0041D880, 0041EB00, 0041EFA0,
+// 0040E770, 0041DD80 with constructors 0041C5B0/0041C680, then
+// replace this exact member only after the cluster emits the private ABI.
 // 0x0041C510..0x0041C5A8: FUN_0041c510
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041c510_0041c510() {

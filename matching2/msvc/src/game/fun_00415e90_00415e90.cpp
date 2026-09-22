@@ -1,3 +1,11 @@
+// BLOCKED (D3503): closest_byte_count=4480/4480; first_diff=none
+// (retail assembly baseline is exact; no readable candidate retained).
+// residual_class=large state-machine/jump-table body with private caller
+// context, opaque object layout, and many ABI-sensitive helper calls.
+// variants_tested=live Ghidra decompilation at 0x00415E90; caller
+// 0x00414900 inspection; retail assembly probe.
+// next_lever=schema-2 native-LTCG cluster joining 0x00414900 and this
+// member, then recover the state layout and helper prototypes incrementally.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

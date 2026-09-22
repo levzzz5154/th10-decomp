@@ -1,3 +1,15 @@
+// BLOCKED (D3907): closest_byte_count=0/126; first_diff=0x0040c3c0
+// (no readable native-LTCG body retained).
+// residual_class=EBX receiver ABI, in-place strcat-like path construction,
+// packed stage/resource layouts, and private 0x00447280/0x00409e50 callee
+// conventions with global GameThread state.
+// variants_tested=["live Ghidra decompile at 0x0040c3c0",
+// "live callers 0x0040b4f0/0x0040c3a0 and callees 0x00447280/0x00409e50",
+// "MSVC 13.10.6030 authoritative probe (126/126 exact asm baseline)",
+// "schema-2 native-LTCG feasibility review of EBX/resource ABI"].
+// next_lever=compile a schema-2 native-LTCG cluster with the real stage
+// callers, typed stage/resource layouts, and both private callees as ABI
+// anchors; prove the complete path before changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,3 +1,17 @@
+// BLOCKED (D3902): closest_byte_count=0/225; first_diff=0x00421E00
+// (no readable native-LTCG body retained).
+// residual_class=private EAX owner, ESI/EDI countdown state, x87-free integer
+// deadline arithmetic, and the virtual release call through the operation
+// object's +0x48 slot; the four state passes also require exact branch
+// ordering and hidden receiver propagation.
+// variants_tested=["live Ghidra decompile at 0x00421e00",
+// "live caller 0x004218d0 and callee 0x0044d4e0", "MSVC 13.10 authoritative
+// asm probe (225/225 exact)", "readable typed candidate probe (170-byte
+// extent versus 225)", "schema-2 native-LTCG feasibility review"].
+// next_lever=compile a schema-2 native-LTCG cluster with the real caller
+// 0x004218d0, this fade body, and PlatformInterfaceState_0044D4E0::SetOperationDeadline
+// at 0x0044d4e0; preserve the EAX owner ABI and operation virtual layout before
+// changing production metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

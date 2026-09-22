@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=8/534; first_diff=0x00420870;
+// residual_class=private ECX config-default receiver, EBX path input, and EDI
+// size input across FUN_0044B360/File_WriteWholeFile;
+// variants_tested=live Ghidra decompile/callers (0x00420870, 0x00438AD0)
+// and MSVC 13.10 readable config/state candidate (572-byte extent, 8 matching
+// bytes); next_lever=schema2 native-LTCG over the real GameMain caller with
+// config, allocator, and file-writer bodies visible.
 
 // 0x0041FF80..0x0041FFF0: FUN_0041ff80
 // Naked body preserves the retail register/stack ABI.

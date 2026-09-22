@@ -1,3 +1,13 @@
+// BLOCKED (D3702): closest_byte_count=0/306; first_diff=extent (candidate
+// extent 176 vs retail 306).
+// residual_class=abi+structural: readable cdecl candidate emitted a 176-byte
+// body while retail requires ESI live-in state, x87 FPATAN/stack ordering,
+// and private helper register conventions.
+// variants_tested=live Ghidra decompile, archived Enemy_HomingStep model, and
+// MSVC 13.10 readable candidate probe (176-byte extent vs 306-byte retail).
+// next_lever=native-LTCG cluster with the actual bullet runtime caller and
+// typed enemy state plus x87-compatible helper declarations.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

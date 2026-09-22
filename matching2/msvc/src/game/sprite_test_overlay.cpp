@@ -1,3 +1,11 @@
+// BLOCKED (D3904): closest_byte_count=0/664; first_diff=extent (readable
+// candidate emitted 360 bytes versus the 664-byte retail body).
+// residual_class=EDI callback receiver, varargs formatting stack shape,
+// jump-table/string-pool placement, and private GameThread/GameState calls;
+// no direct Ghidra caller (callback is registration-driven). variants_tested=
+// live Ghidra decompile/xref inspection and MSVC 13.10 readable switch
+// candidate (360-byte body), with exact naked baseline restored. next_lever=
+// schema-2 native-LTCG cluster rooted at the callback registration path.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

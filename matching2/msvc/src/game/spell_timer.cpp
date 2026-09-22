@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2802): closest_byte_count=554/593; first_diff=0x004127A0;
+// residual_class=private-ABI/source-shape: the readable slot model was
+// structurally short and differed in prologue/register roles, indexed slot
+// addressing, and flag-store expression shape. The prior source-model round
+// reached shape similarity 0.870; this alternate caller/fastcall model reached
+// 0.792 and was discarded.
+// variants_tested=prior readable slot model, self-contained readable model with
+// fastcall entry, and exact retail overlay; next_lever=resolve the caller's
+// ECX/private slot layout and register roles before another source round.
 // 0x004127A0..0x004129F0: FUN_004127a0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004127a0_004127a0() {

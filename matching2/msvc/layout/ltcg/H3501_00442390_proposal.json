@@ -1,0 +1,11 @@
+{
+  "regions": [{
+    "name": "CopySource_00442390_CopyTo",
+    "source": "src/unidentified/FUN_00442390_00442390.cpp",
+    "symbol": "?CopyTo@CopySource_00442390@@QAEXPAUCopyDestination_00442390@@@Z",
+    "address": "0x00442390",
+    "size": 6,
+    "kind": "semantic",
+    "owner": "0x00442390"
+  }]
+}

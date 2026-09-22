@@ -1,0 +1,12 @@
+{
+  "regions": [
+    {
+      "source": "src/unidentified/unassigned_0042c840.cpp",
+      "address": "0x0042C840",
+      "name": "ByteTable_0042c840_Read",
+      "symbol": "?Read@ByteTable_0042c840@@QAEHH@Z",
+      "kind": "semantic",
+      "owner": "0x0042C840"
+    }
+  ]
+}

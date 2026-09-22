@@ -349,3 +349,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417040_00417040() {
         ret
     }
 }
+// D3603 BLOCKED: native-LTCG readability attempt is not retained. Ghidra
+// identifies an ESI receiver plus animation-manager/configuration callees,
+// x87-free integer formatting, and a second animation-count private edge.
+// closest_byte_count: 0/671; first_diff: 0x00417040; residual_class:
+// private ESI receiver, animation private ABI, loop/stack-slot layout.
+// variants_tested: Ghidra decompile/disassembly; authoritative assembly probe.
+// next_lever: co-compile both real callers and the animation callees in a
+// schema-2 native-LTCG cluster.

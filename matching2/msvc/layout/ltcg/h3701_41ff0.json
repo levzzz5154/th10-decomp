@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "h3701_41ff0",
+  "source": "src/unidentified/FUN_00441ff0_00441ff0.cpp",
+  "driver": "layout/ltcg/h3701_41ff0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG typed pointer copy preserving the private source/destination ABI.",
+  "functions": [
+    {
+      "name": "H3701F10_Copy",
+      "symbol": "?Copy@H3701F10@@QAEXPAI@Z",
+      "section": ".text$01f",
+      "address": "0x00441FF0",
+      "size": 5,
+      "actual_abi": "source in EAX, destination in EDX"
+    }
+  ],
+  "context": {
+    "symbol": "?H3701F10Context@@YGHPAPAUH3701F10@@PAPAIH@Z",
+    "section": ".text$03ctx",
+    "address": "0x00442000",
+    "size": 45,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00gap", "address": "0x00401000", "size": 266224},
+    {"section": ".text$02gap", "address": "0x00441FF5", "size": 11}
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

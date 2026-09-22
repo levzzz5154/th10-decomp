@@ -6,6 +6,13 @@
 
 // 0x004224C0..0x00422653: FUN_004224c0
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3704): closest_byte_count=0/404; first_diff=0x004224C0;
+// residual_class=real-caller ABI and hidden GameThread/score-record layout;
+// variants_tested=["live Ghidra decompile at 0x004224C0",
+// "live caller 0x00422660", "MSVC 13.10 schema-2 baseline probe"];
+// next_lever=native-LTCG cluster rooted by caller 0x00422660 with typed
+// GameThread/score-record declarations; production region currently requires
+// the custom EAX/stack argument shape and cannot be represented as plain C++.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004224c0_004224c0() {
     __asm {
     L_004224c0:

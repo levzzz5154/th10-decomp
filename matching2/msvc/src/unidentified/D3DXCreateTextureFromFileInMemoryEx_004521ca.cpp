@@ -1,11 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
 // 0x004521CA..0x004521CF: D3DXCreateTextureFromFileInMemoryEx
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DXCreateTextureFromFileInMemoryEx_004521ca() {
-    __asm {
-    L_004521ca:
-        jmp dword ptr [data_004662c8]
-    }
+// D3DX9 exposes this fifteen-argument stdcall import through the fixed slot.
+typedef long (__stdcall *D3DXCreateTextureFromFileInMemoryExImport_004521ca)(
+    void* device, const void* source_data, unsigned long source_data_size,
+    unsigned long width, unsigned long height, unsigned long mip_levels,
+    unsigned long usage, unsigned long format, unsigned long pool,
+    unsigned long filter, unsigned long mip_filter, unsigned long color_key,
+    void* source_info, void* palette, void* texture);
+
+extern "C" D3DXCreateTextureFromFileInMemoryExImport_004521ca data_004662c8;
+
+extern "C" long __stdcall D3DXCreateTextureFromFileInMemoryEx_004521ca(
+    void* device, const void* source_data, unsigned long source_data_size,
+    unsigned long width, unsigned long height, unsigned long mip_levels,
+    unsigned long usage, unsigned long format, unsigned long pool,
+    unsigned long filter, unsigned long mip_filter, unsigned long color_key,
+    void* source_info, void* palette, void* texture) {
+    return data_004662c8(device, source_data, source_data_size, width, height,
+                          mip_levels, usage, format, pool, filter, mip_filter,
+                          color_key, source_info, palette, texture);
 }

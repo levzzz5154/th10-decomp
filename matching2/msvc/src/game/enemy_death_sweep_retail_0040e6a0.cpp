@@ -5,6 +5,10 @@
 // Naked body preserves the retail register/stack ABI.
 
 // 0x0040E6A0..0x0040E755: Enemy_DeathSweepRetail
+// BLOCKED: closest_byte_count=0/182, first_diff=0x0040E6A0,
+// residual_class=schema2_stdcall_with_private_EDI_448DB0_and_x87_timer_logic,
+// variants_tested=Ghidra_boundary_callers_callees_xrefs_dataflow_audit,
+// next_lever=compile_schema2_with_real_0040E770_caller_and_00448DB0_private_receiver
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Enemy_DeathSweepRetail_0040e6a0() {
     __asm {

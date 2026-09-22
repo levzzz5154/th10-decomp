@@ -1,3 +1,11 @@
+// BLOCKED (D3805): closest_byte_count=7/648; first_diff=unmeasured.
+// residual_class=C++ EH registration, animation-resource/list layouts, and
+// repeated private helper ABIs (0x004489D0/0x00449950) across initialization.
+// variants_tested=["live Ghidra/IDA decompilation", "ordinary __stdcall
+// readable ABI stub under MSVC 13.10 (7-byte extent)", "retail assembly
+// baseline probe (648/648 exact)"].
+// next_lever=promote a caller-inclusive schema2/native-LTCG recovery with the
+// production animation/resource declarations and EH cleanup paths.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3507): closest_byte_count=0/411; first_diff=extent (readable typed pause candidate emitted 369 bytes vs retail 411);
+// residual_class=private-ECX/EDI ABI plus callee register conventions; the retail routine receives hidden registers and calls private animation/resource helpers, so standalone cdecl scheduling is materially different;
+// variants_tested=retail naked baseline (411/411 exact), readable state-struct cdecl candidate (369-byte extent), live Ghidra FUN_004231d0 decompile, FUN_00425730 caller inspection, and helper-call signature review;
+// next_lever=native-LTCG cluster rooted at FUN_00425730 with production pause-state and animation-manager declarations, then recover the hidden ECX/EDI call contract.
+
 // 0x004231D0..0x0042336A: FUN_004231d0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004231d0_004231d0() {

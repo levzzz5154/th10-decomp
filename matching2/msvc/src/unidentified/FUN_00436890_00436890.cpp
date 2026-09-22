@@ -3,6 +3,14 @@
 
 // 0x00436890..0x004368F2: FUN_00436890
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3901): closest_byte_count=0/99; first_diff=0x00436890;
+// residual_class=compiler-generated SEH registration/handler frame, placement
+// pointer ABI, and LegacyString allocator-cookie layout. variants_tested=
+// exact retail assembly probe (99/99), corrected raw-layout readable candidate
+// (64-byte extent), and reduced raw-layout candidate (63-byte extent); all
+// nonexact output was restored. next_lever=derive the original constructor/
+// exception model and caller-visible third stack argument before retrying the
+// plain readable path.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00436890_00436890() {
     __asm {
     L_00436890:

@@ -1,3 +1,13 @@
+// BLOCKED (D3702): closest_byte_count=0/264; first_diff=extent (candidate
+// extent 130 vs retail 264).
+// residual_class=abi+structural: readable cdecl texture candidate emitted a
+// 130-byte body while retail requires EAX/ECX/EBX live-ins, indirect D3D
+// calls, and the private texture/image layout.
+// variants_tested=live Ghidra decompile, archived semantic model, and MSVC
+// 13.10 readable candidate probe (130-byte extent vs 264-byte retail).
+// next_lever=native-LTCG cluster with the real ANM caller and D3D interface
+// declarations, retaining the EAX/ECX/EBX entry convention.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

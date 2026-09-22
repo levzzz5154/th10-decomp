@@ -1,5 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=5/149; first_diff=extent (readable
+// candidate emitted 196 bytes, retail extent 149); residual_class=private
+// ESI receiver plus imported DeleteObject call scheduling; variants_tested=
+// typed GDI import loop with live Ghidra DeleteObject/FUN_00436a30 topology
+// and MSVC 13.10 probe; next_lever=native-LTCG cluster with
+// FontCache_FlushRetail and its real caller to recover the ESI/EDI schedule.
 
 // 0x00436A30..0x00436A9A: FontCache_FlushRetail
 // Naked body preserves the retail register/stack ABI.

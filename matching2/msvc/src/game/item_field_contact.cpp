@@ -1,3 +1,13 @@
+// BLOCKED (D2702): closest_byte_count=316; first_diff=unmeasured;
+// residual_class=private EAX/EDX/ECX entry plus x87 compare scheduling:
+// the contact point arrives in EAX, the field in EDX, and the position record
+// in ECX, while the body also calls trigger activation on one branch.
+// variants_tested=exact retail wrapper, live-Ghidra callers/callees, dataflow
+// and global audits, and the legacy Item_TestFieldContact semantic model;
+// no compiler-readable candidate was byte-measured without changing fixed
+// region ownership.
+// next_lever=native-LTCG schema-2 cluster with both real contact callers and
+// the 0x00426CF0 callee, then measure x87 ordering and the complete extent.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

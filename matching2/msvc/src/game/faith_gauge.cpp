@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3505): closest_byte_count=8/166; first_diff=0x00418930;
+// residual_class=private EAX receiver/stack delta, EDX/ECX manager and
+// resource argument homes, and two private animation-helper calls.
+// variants_tested=standalone typed FaithGauge::Add candidate (147-byte
+// extent, 8/166 equal, first diff at entry); live-Ghidra decompile, caller
+// 0x0041AFD0, and callees 0x004492A0/0x00448D00. next_lever=native-LTCG
+// schema2 cluster with the real 0x0041AFD0 caller plus both helper edges.
+
 // 0x00418930..0x004189D5: FaithGauge_AddRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FaithGauge_AddRetail_00418930() {

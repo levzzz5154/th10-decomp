@@ -1,3 +1,13 @@
+// BLOCKED (M2803): closest_byte_count=0/11; first_diff=0x00421C00;
+// residual_class=private EAX ABI/fragment extent: the retail branch consumes
+// an object pointer in EAX, conditionally jumps into the separately owned
+// store ladder at 0x00421C0B, and returns with RET 20h.  Ghidra reports no
+// containing function, callers, callees, xrefs, or PCode for this fragment.
+// variants_tested=exact retail naked wrapper and a readable nine-argument
+// stdcall branch model; the readable model loaded the object from the stack,
+// emitted 16 bytes, and could not reproduce the EAX continuation branch.
+// next_lever=native-LTCG context with a real caller pinning EAX and co-
+// compiled 0x00421C0B store-ladder ownership; retain the exact wrapper.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3304): closest_byte_count=74/74; first_diff=none;
+// residual_class=private EDI byte-count plus opaque ECX caller context cannot
+// be expressed by a standalone readable MSVC declaration without an ABI
+// adapter. variants_tested=live Ghidra decompilation, callers/callees/xrefs
+// and variable audit (caller 0x0042A200; callees 0x00452706, CloseHandle,
+// ReadFile), plus MSVC 13.10 exact baseline probe. next_lever=native-LTCG
+// cluster containing the real 0x0042A200 caller and this body so LTCG can
+// preserve the observed EDI/ECX handoff; current overlay remains exact.
 
 // 0x00435370..0x004353AC: FileHandle_OpenRetail
 // Naked body preserves the retail register/stack ABI.

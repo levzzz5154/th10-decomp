@@ -1,43 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" unsigned char data_00473740;
+extern "C" unsigned char data_004739a0;
+extern "C" void __cdecl asm_FUN_00453b3f_00453b3f(unsigned int lock);
+extern "C" void (__stdcall *data_004660b4)(void* section);
 
-// 0x0045A0BC..0x0045A0EA: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0045a0bc() {
-    __asm {
-    L_0045a0bc:
-        mov eax,dword ptr [esp+4]
-    L_0045a0c0:
-        mov ecx,473740h
-    L_0045a0c5:
-        cmp eax,ecx
-    L_0045a0c7:
-        jb short L_0045a0e0
-    L_0045a0c9:
-        cmp eax,4739A0h
-    L_0045a0ce:
-        ja short L_0045a0e0
-    L_0045a0d0:
-        sub eax,ecx
-    L_0045a0d2:
-        sar eax,5
-    L_0045a0d5:
-        add eax,10h
-    L_0045a0d8:
-        push eax
-    L_0045a0d9:
-        call asm_FUN_00453b3f_00453b3f
-    L_0045a0de:
-        pop ecx
-    L_0045a0df:
-        ret
-    L_0045a0e0:
-        add eax,20h
-    L_0045a0e3:
-        push eax
-    L_0045a0e4:
-        call dword ptr [data_004660b4]
-    L_0045a0ea:
-        ret
+extern "C" void __cdecl asm_unassigned_0045a0bc(void* lock) {
+    unsigned char* address = static_cast<unsigned char*>(lock);
+    if (address >= &data_00473740 && address <= &data_004739a0) {
+        asm_FUN_00453b3f_00453b3f(((address - &data_00473740) >> 5) + 0x10);
+    } else {
+        data_004660b4(address + 0x20);
     }
 }

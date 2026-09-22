@@ -1,5 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=6/206; first_diff=extent (readable
+// candidate emitted 130 bytes, retail extent 206); residual_class=private
+// ESI/EDI manager ABI and blocked FUN_00448BB0 callee; variants_tested=
+// typed list-drain/destructor model from live Ghidra and legacy animation
+// layout under MSVC 13.10; next_lever=native-LTCG cluster with the real
+// AnimationManager caller and production list/entity declarations.
 
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.

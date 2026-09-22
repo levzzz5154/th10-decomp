@@ -1,3 +1,13 @@
+// BLOCKED (D3506): closest_byte_count=0/471; first_diff=0x004267F0;
+// residual_class=private EAX position/ECX region inputs, x87 sin/cos
+// evaluation order, and the private activation callee's caller-dependent ABI.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// callers/callees and global topology, and MSVC 13.10 probe path (the
+// wrapper is exact); no readable candidate was byte-measured without changing
+// the fixed-address ownership manifest.
+// next_lever=native-LTCG schema-2 cluster over callers 0x0041D3D0 and
+// 0x0041E700 with the activation callee 0x00426CF0, preserving the EAX/ECX
+// handoff and measuring the full 471-byte contribution.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

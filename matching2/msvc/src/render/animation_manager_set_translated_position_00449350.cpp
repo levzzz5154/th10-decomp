@@ -1,17 +1,21 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2702): closest_byte_count=111; first_diff=unmeasured;
-// residual_class=abi/cluster; retail enters with the animation context in EDX,
-// the source position record in ESI, and the script handle in the stack slot,
-// while the manager object remains in ECX across AnimationManager_Find and the
-// child-list walk.  That private register contract is not expressible by a
-// standalone readable member without compiling the Find/setter cluster.
-// variants_tested=the existing SetPosition/Find semantic structures, a
-// translated-position member candidate using the same +0x340/+0x14/+0x18
-// layout, and the exact retail overlay; no candidate was byte-measured.
-// next_lever=co-compile AnimationManager_Find, SetPosition, this setter, and
-// its real animation callers as one native-LTCG cluster.
+// BLOCKED (D2702): closest_byte_count=111; differing_bytes=63/111;
+// first_diff=0x03; residual_class=abi/cluster+x87-expression-order.
+// Ghidra's live decompile identifies the manager in ECX, animation context in
+// EDX, script id in the stack slot, and the source position record in ESI;
+// callers include FUN_004250b0, FUN_00408d60, FUN_00409280, and FUN_0040dc80,
+// with AnimationManager_Find as the only callee.
+// variants_tested=readable SetTranslatedPosition members with const-reference
+// and by-value position records, reordered formal parameters, explicit x87
+// temporaries, and a native-LTCG context co-compiled with Find plus the exact
+// 00449470 stop-frame member.  The closest candidate promoted the position
+// record to ESI but retained an extra stack slot (RET 8 versus retail RET 4);
+// it also emitted reversed x87 load/add order and a nine-byte longer branch
+// body.  The native candidate was restored; no translated member is retained.
+// next_lever=co-compile this setter with SetPosition and a real caller such as
+// FUN_004250b0 so the optimizer can observe the original private ABI.
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "name": "d3703_slot_lock_00421c50",
+  "source": "src/game/slot_lock_leaves.cpp",
+  "driver": "layout/ltcg/d3703_slot_lock_00421c50_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native LTCG semantic recovery of the slot-lock leave operation with private manager and index registers.",
+  "functions": [
+    {
+      "name": "SlotLockManager_Leave_00421c50",
+      "symbol": "?Leave@SlotLockManager@@QAEXH@Z",
+      "section": ".text$01leave",
+      "address": "0x00421C50",
+      "size": 25,
+      "actual_abi": "manager in EDI; slot index in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "D3703SlotLockContext_00421c50@12",
+    "section": ".text$03context",
+    "address": "0x00421C80",
+    "size": 65,
+    "description": "Synthetic array-walking caller establishing the private manager and index registers; not recovered game code."
+  },
+  "gaps": [
+    {"section": ".text$00layout", "address": "0x00401000", "size": 134224},
+    {"section": ".text$02layout", "address": "0x00421C69", "size": 23}
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {"symbol": "_data_004660b4", "address": "0x004660B4", "kind": "data"}
+  ]
+}

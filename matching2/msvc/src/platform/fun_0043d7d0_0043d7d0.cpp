@@ -1,3 +1,10 @@
+// BLOCKED (D3407): closest_byte_count=0/369; first_diff=extent (readable loader candidate emitted 351 bytes vs retail 369 before byte comparison);
+// residual_class=private-ABI/source-shape; retail carries path in EAX, state in ESI, and slot on the stack,
+// with pointer arithmetic and Win32 indirect calls scheduled around that register tuple.
+// variants_tested=retail naked baseline (369/369 exact), bounded readable loader model (351 bytes),
+// live Ghidra FUN_0043D7D0 decompile, and exact probe;
+// next_lever=native-LTCG cluster with the real path-loading caller and production state layout.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

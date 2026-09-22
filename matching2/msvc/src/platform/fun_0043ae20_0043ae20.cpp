@@ -1,3 +1,12 @@
+// BLOCKED (D3605): closest_byte_count=2/129; first_diff=0x0043AE20.
+// residual_class=private EDI receiver, EDX/ESI handoff to FUN_0043AEB0,
+// import thunk calling convention, and caller-dependent saved-register shape.
+// variants_tested=live Ghidra decompilation, callers 0x0043A910/0x0043A9B0/
+// 0x00438F19, and MSVC 13.10 typed MIDI-state cdecl candidates (140-byte
+// stack-layout variant and 121-byte corrected-layout variant; 2/121
+// same-position bytes); exact naked baseline probe=129/129. next_lever=
+// native-LTCG cluster with FUN_0043AEB0 and the GameMain caller, preserving
+// EDI state and import-slot bindings.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

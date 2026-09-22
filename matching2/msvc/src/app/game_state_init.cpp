@@ -1,6 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3403): closest_byte_count=2315/2315; first_diff=none
+// residual_class=large_constructor_with_EH_vector_iterators_production_layout
+// and twenty scheduler callback registrations; live Ghidra decompile confirms
+// the 0x1000/0x14 entity arrays, identity globals, state flags, and callback
+// sequence, but the readable model lacks the native arena and constructor
+// type declarations needed for matching MSVC frame/EH output.
+// variants_tested=live Ghidra decompile plus constructor/callee inspection and
+// native-LTCG feasibility analysis for InitializeEntity, operator_new, and
+// Scheduler_Register* paths. next_lever=promote the concrete GameState arena,
+// Entity constructor/destructor, and scheduler callback layout as production
+// declarations, then rebuild the complete constructor under MSVC 13.10.
 // 0x00445900..0x00445ADC: GameStateInit
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_GameStateInit_00445900() {

@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3606): closest_byte_count=10/74; first_diff=0x00422C30.
+// residual_class=private ESI entry, EAX/EDX resource-manager handoff, and
+// blocked dependency 0x0043E460. variants_tested=live Ghidra decompilation
+// plus a readable MSVC 13.10 member candidate (81-byte extent; 10/74 bytes
+// matched) and schema2/native-LTCG dependency review. next_lever=co-compile
+// this body with the real caller 0x004231AB and 0x0043E460 in one native-LTCG
+// cluster, retaining the retail ESI convention; production ownership remains
+// kind=asm because regions.json is not edited in this lane.
 
 // 0x00420C00..0x00420C28: ?GameState_DispatchDummy@@
 // Naked body preserves the retail register/stack ABI.

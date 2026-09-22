@@ -1,3 +1,13 @@
+// BLOCKED (D3503): closest_byte_count=1/82; first_diff=0x00449E51
+// (ordinary candidate has exact extent but receives the list in stack ABI;
+// retail receives the list in EAX and the value at [ESP+4]).
+// residual_class=private EAX receiver plus EDX/ECX Scheduler_Remove call,
+// with assembly-only callers at 0x00438880 and 0x00449EB0.
+// variants_tested=live Ghidra decompilation; ordinary __stdcall list/value
+// body with typed lock calls and a __fastcall Scheduler_Remove cast.
+// next_lever=native-LTCG cluster joining 0x00438880/0x00449EB0 callers to
+// this member, or a production-valid readable ABI model for the EAX receiver.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

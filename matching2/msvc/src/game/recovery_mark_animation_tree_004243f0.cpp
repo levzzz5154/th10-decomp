@@ -1,3 +1,16 @@
+// BLOCKED (D3307): closest_byte_count=2/65; first_diff=0x004243F1;
+// residual_class=private EAX input plus EDX animation-manager receiver/stack
+// lookup ABI; the ordinary readable model also changed the child-list field
+// schedule and marker-store width/offsets.
+// variants_tested=live Ghidra complete decompilation with callers/xrefs and
+// disassembly/variable audit; ordinary MSVC 13.10 readable cdecl candidate
+// (62-byte extent, 2/62 prefix); no native-LTCG promotion was retained because
+// the real 0x004491C0 dependency uses the same private register ABI.
+// next_lever=schema-2 native-LTCG cluster joining the real callers, this body,
+// and 0x004491C0 (with its manager/list layout), then vary only typed node
+// declarations and child-link expression until the complete 65-byte body is
+// exact.
+
 #include <string.h>
 
 #include "asm_encoding.hpp"

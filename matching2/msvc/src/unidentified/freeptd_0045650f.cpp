@@ -1,37 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" unsigned int data_00473390;
+extern "C" void* (__stdcall *data_00477378)(unsigned int);
+extern "C" int (__stdcall *data_0047737c)(unsigned int, void*);
+extern "C" void __stdcall asm_freefls_4_004563c8(void*);
 
-// 0x0045650F..0x0045653D: __freeptd
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_freeptd_0045650f() {
-    __asm {
-    L_0045650f:
-        mov ecx,dword ptr [data_00473390]
-    L_00456515:
-        cmp ecx,0FFFFFFFFh
-    L_00456518:
-        je short L_0045653d
-    L_0045651a:
-        mov eax,dword ptr [esp+4]
-    L_0045651e:
-        test eax,eax
-    L_00456520:
-        jne short L_00456529
-    L_00456522:
-        push ecx
-    L_00456523:
-        call dword ptr [data_00477378]
-    L_00456529:
-        push eax
-    L_0045652a:
-        call asm_freefls_4_004563c8
-    L_0045652f:
-        push 0
-    L_00456531:
-        push dword ptr [data_00473390]
-    L_00456537:
-        call dword ptr [data_0047737c]
-    L_0045653d:
-        ret
+extern "C" void __cdecl asm_freeptd_0045650f(void* data) {
+    if (data_00473390 != 0xffffffff) {
+        if (!data) data = data_00477378(data_00473390);
+        asm_freefls_4_004563c8(data);
+        data_0047737c(data_00473390, 0);
     }
 }

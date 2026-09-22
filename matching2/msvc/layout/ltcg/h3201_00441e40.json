@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "h3201_00441e40",
+  "source": "src/unidentified/FUN_00441e40_00441e40.cpp",
+  "driver": "layout/ltcg/h3201_00441e40_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG Triple constructor recovered from the H3201 exact 15-byte context probe.",
+  "functions": [
+    {
+      "name": "Triple_00441e40_Constructor",
+      "symbol": "??0Triple_00441e40@@QAE@HHH@Z",
+      "section": ".text$01target",
+      "address": "0x00441E40",
+      "size": 15,
+      "actual_abi": "aggregate result in EAX; first two arguments in ECX/EDX; final argument on stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "H3201Context_00441e40@16",
+    "section": ".text$03context",
+    "address": "0x00441E50",
+    "size": 57,
+    "description": "Synthetic array-free caller used only to establish the native-LTCG constructor convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 265792
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00441E4F",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": []
+}

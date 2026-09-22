@@ -9,6 +9,13 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D2802): closest_byte_count=67/95; first_diff=0x0042C670;
+// residual_class=private-EDI-index/hidden-global+callee ABI: the readable
+// install model omitted the retail hidden global load and used ordinary
+// argument/callee conventions, changing the final indexed store schedule.
+// variants_tested=typed stdcall install model and exact retail overlay;
+// next_lever=resolve private EDI index delivery and the 0x00449950,
+// 0x00449870, and 0x004489D0 callee contracts in a native caller context.
 // 0x0042C670..0x0042C6CE: ?Recovery_InstallAnimationSlot@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InstallAnimationSlot_0042c670() {

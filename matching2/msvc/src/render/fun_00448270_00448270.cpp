@@ -1,3 +1,16 @@
+// BLOCKED (D3806): closest_byte_count=0/240; first_diff=0x00448270;
+// residual_class=private EAX/EBX/ECX/EDI manager and surface inputs,
+// D3D vtable slot 0x48/0x08 calls, and the 0x00442F50 flush dependency;
+// these compiler-visible ABI choices are still assembly-owned.
+// variants_tested=retail assembly baseline (240/240 exact), live-Ghidra
+// decompilation, and a disposable schema-2 ownership probe; load_cluster
+// rejected the proposed semantic classification because this exclusive
+// region is still kind asm, before native-LTCG compilation.
+// next_lever=caller-inclusive schema-2/native-LTCG cluster over the
+// animation manager caller, 0x00442F50, this body, and the D3D surface
+// wrappers, preserving the complete 240-byte contribution and narrow
+// manager/surface layouts.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

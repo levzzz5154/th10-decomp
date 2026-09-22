@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=129/268; first_diff=0x0042109B;
+// residual_class=AnimationManager_Find consumes EDX context plus a stack id
+// while ECX is ignored, with compiler-selected loop-tail padding;
+// variants_tested=live Ghidra decompile/callers (0x00421070, 0x00417870)
+// and MSVC 13.10 readable node/record candidate (268-byte extent, 129 matching
+// bytes); next_lever=schema2 native-LTCG or a proven private-call declaration
+// that preserves the retail EDX/stack split.
 
 // 0x00421070..0x004210B8: FUN_00421070
 // Naked body preserves the retail register/stack ABI.

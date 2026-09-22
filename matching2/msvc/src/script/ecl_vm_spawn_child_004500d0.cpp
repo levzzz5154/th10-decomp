@@ -1,17 +1,20 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2702): closest_byte_count=142; first_diff=unmeasured;
-// residual_class=abi/cluster; this schema-2 constructor allocates the
-// 0x1024-byte VM instance and its 12-byte intrusive-list node, copies the
-// parent's mask and owner fields, links the node into +0x1030, then invokes
-// StartChild with the retail EDI parent and stack arguments.  Ordinary C++
-// allocation/member syntax cannot preserve that private register lifetime.
-// variants_tested=the ECL instance/node layouts recovered by
-// StartChild/TickChildren, direct operator-new construction, and the exact
-// retail overlay; no schema-2 candidate was byte-measured.
-// next_lever=co-compile SpawnChild, StartChild, ResetVariableBindings, and
-// the interpreter's spawn op with the EDI/ESI cluster ABI.
+// BLOCKED (D2102): readable semantic source remains nonexact.  The current
+// retail wrapper is exact (142/142 bytes in the linked baseline).  Ghidra
+// confirms the private ABI: parent EDI, child VM in ESI after allocation,
+// 0x1024 VM plus 0xC intrusive node, parent mask at +0x101C, and StartChild
+// called at 0x00450154 with EAX child and EDI parent.
+// native-LTCG probe: SpawnChild semantic candidate was 147 bytes (retail 142)
+// and retained ECX thiscall plus ESI/EDI saves; adding a synthetic caller did
+// not select the retail EDI convention.  Retain the exact wrapper; do not
+// claim a readable match.
+// residual_class=private-register ABI; residual_bytes=142 source bytes;
+// variants_tested=direct C++ layout, native-LTCG child/start pair, and a
+// caller-root probe; no readable candidate matched.
+// next_lever=co-compile the actual 0x0044E1A0 dispatcher (which supplies EDI)
+// with this child pair, then remeasure before changing this exact wrapper.
 // 0x0044DF70..0x0044E195: EclVm_StartChildRetail
 // Naked body preserves the retail register/stack ABI.
 

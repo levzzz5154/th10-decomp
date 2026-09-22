@@ -1,3 +1,13 @@
+// BLOCKED (D3406): closest_byte_count=0/377; first_diff=unmeasured;
+// residual_class=private EDI input to FUN_00421FA0, overlapping global
+// state-table symbols, byte-wise string copies/comparisons, and the
+// MenuCursor_Advance call's register/stack convention.
+// variants_tested=live Ghidra complete decompilation with caller/callee,
+// xref and variable/storage audit; no compiler-readable candidate was
+// byte-measured, so the exact naked overlay remains intact.
+// next_lever=native-LTCG schema2 cluster over the real 0x004236F0 caller,
+// this body, FUN_00421FA0, and MenuCursor_Advance, with the verified state
+// record layout and compiler-selected EDI/EBX register flow.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

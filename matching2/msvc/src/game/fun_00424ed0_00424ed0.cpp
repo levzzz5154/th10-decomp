@@ -1,3 +1,10 @@
+// BLOCKED (D3407): closest_byte_count=0/325; first_diff=extent (readable cleanup candidate emitted 306 bytes vs retail 325 before byte comparison);
+// residual_class=SEH/private-ABI; retail installs an fs:[0] registration and preserves the exact stdcall cleanup,
+// while the bounded C++ model lacks the compiler's matching exception-frame schedule and private call receivers.
+// variants_tested=retail naked baseline (325/325 exact), readable raw-offset cleanup model (306 bytes),
+// live Ghidra FUN_00424ED0 decompile, and exact probe;
+// next_lever=reconstruct the owning class/SEH scope and compile with the real cleanup callers in native LTCG.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

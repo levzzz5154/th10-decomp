@@ -1,3 +1,11 @@
+// BLOCKED (D3904): closest_byte_count=0/124; first_diff=extent (readable
+// candidate emitted 110 bytes versus the 124-byte retail body).
+// residual_class=ESI player receiver, EBX position pointer, stage-flag
+// branch shape, and private FUN_00408100/FUN_0041C800 call ABIs; real caller
+// is UpdatePlayer 0x00405750. variants_tested=live Ghidra decompile/caller
+// inspection and MSVC 13.10 typed player candidate (110-byte body), with
+// exact naked baseline restored. next_lever=schema-2 native-LTCG cluster
+// retaining UpdatePlayer and both callee edges.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

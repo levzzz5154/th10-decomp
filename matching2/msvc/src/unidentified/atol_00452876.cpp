@@ -1,11 +1,4 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00452876..0x0045287A: _atol
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_atol_00452876() {
-    __asm {
-    L_00452876:
-        jmp asm_atol_004527ee
-    }
+extern "C" long __cdecl asm_atol_004527ee(const char* text);
+extern "C" long __cdecl asm_atol_00452876(const char* text) {
+    return asm_atol_004527ee(text);
 }

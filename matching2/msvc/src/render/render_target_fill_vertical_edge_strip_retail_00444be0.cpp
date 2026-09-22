@@ -1,14 +1,16 @@
 // BLOCKED (H2701): closest_byte_count=201; first_diff=unmeasured;
-// residual_class=abi/source_shape: retail enters with the strip count in EAX,
-// render-target state in ECX, and the vertex destination in EBX, then relies on
-// ESI/EDI/EBP lifetimes plus x87 stack order across two interleaved loops;
-// ordinary __cdecl/__thiscall declarations cannot name that entry tuple.
+// residual_class=abi/source_shape: live Ghidra classifies 0x00444BE0 and its
+// paired 0x00444B10 filler as leaf __fastcall bodies with no xrefs/callers;
+// both consume count in EAX, target in ECX, and vertex storage in EBX, while
+// the retail body relies on x87 stack order across two interleaved loops.
 // variants_tested=exact retail naked wrapper, semantic vertical-strip model
 // paired with 0x00444B10, and a direct two-loop vertex-record reconstruction;
-// no compiler-readable candidate was byte-measured.
-// next_lever=build a native-LTCG render-target cluster exposing EAX/ECX/EBX
-// together with both strip fillers and their real caller; retain this wrapper
-// until the cluster reproduces the 201-byte extent.
+// MSVC 13.10 baseline probe is exact (201/201), but no compiler-readable
+// candidate was linked/measured.
+// next_lever=derive the indirect render dispatch that owns both leaf bodies
+// (the nearby 0x00444CE0 consumer is a separate EAX/ECX worker), then
+// co-compile that caller with both fillers and expose EAX/ECX/EBX; retain this
+// wrapper until the cluster reproduces the 201-byte extent.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

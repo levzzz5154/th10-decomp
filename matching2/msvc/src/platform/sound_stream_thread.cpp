@@ -1,3 +1,13 @@
+// BLOCKED (D3905): closest_byte_count=241/241 (exact assembly retained);
+// first_diff=0x0043D693 at the EAX receiver transfer into ESI.
+// residual_class=private EAX entry ABI, COM-style indirect calls, unsigned
+// divide scheduling, and stack-local device descriptor construction.
+// variants_tested=MSVC 13.10.6030 /O2 /Gz /MT /Gy /G6 /GF /GS /Zl with typed
+// cdecl/fastcall receiver models, widened/narrowed sample arithmetic, and
+// reordered local descriptor stores; no readable candidate preserved the
+// 241-byte extent and private call sequence.
+// next_lever=schema2 native-LTCG cluster with the real sound-thread caller,
+// forcing EAX/ESI and retaining the indirect device-call ABI.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3706): closest_byte_count=9/172; first_diff=0x00407E40
+// residual_class=private EBX receiver with EDX live from the bounds helper,
+// x87 comparison/order, and caller-selected FrameTimer/animation ABIs.
+// variants_tested=live Ghidra decompile plus typed Player/Entity readable
+// member candidate under MSVC 13.10; candidate was 189 bytes and restored.
+// next_lever=schema-2 native-LTCG cluster over the real player update caller,
+// bounds helper, FrameTimer, and animation queue.
 
 // 0x0040678E..0x00406797: ?Player_ForwardAxisWrap@@
 // Naked body preserves the retail register/stack ABI.

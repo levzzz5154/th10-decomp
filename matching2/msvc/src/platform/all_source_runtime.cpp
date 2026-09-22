@@ -47,4 +47,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004054b0_004054b0() {
         ret 4
     }
 }
+// BLOCKED (D3303): closest_byte_count=0/79; first_diff=none;
+// residual_class=private ESI owner and EDX first-value ABI, plus three
+// compiler-sensitive calls whose callee expects the same live registers.
+// variants_tested=live Ghidra decompilation/topology and MSVC 13.10 readable
+// stdcall candidates (82/79 and 84/79 extents); next_lever=native-LTCG
+// cluster/schema2 with callers 0041AFD0, 00425730, 00405860 and
+// ConfigureFromResource callee.
+// Current assembly overlay remains exact.
+
 

@@ -1,21 +1,6 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" int __cdecl asm_ld12cvt_0045d476(const void*, void*, const void*);
+extern "C" int data_00473c10;
 
-// 0x0045D5E4..0x0045D5F9: FID_conflict:__ld12tod
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FID_conflict___ld12tod_0045d5e4() {
-    __asm {
-    L_0045d5e4:
-        push 473C10h
-    L_0045d5e9:
-        push dword ptr [esp+0Ch]
-    L_0045d5ed:
-        push dword ptr [esp+0Ch]
-    L_0045d5f1:
-        call asm_ld12cvt_0045d476
-    L_0045d5f6:
-        add esp,0Ch
-    L_0045d5f9:
-        ret
-    }
+extern "C" int __cdecl asm_FID_conflict___ld12tod_0045d5e4(const void* source, void* destination) {
+    return asm_ld12cvt_0045d476(source, destination, &data_00473c10);
 }

@@ -1,3 +1,12 @@
+// BLOCKED (D3905): closest_byte_count=281/281 (exact assembly retained);
+// first_diff=0x00434DD0 at the __thiscall entry/early-return split.
+// residual_class=private helper stack/register ABI, encrypted-buffer
+// checksum loop shape, and nonstandard short-branch padding. variants_tested=
+// MSVC 13.10.6030 /O2 /Gz /MT /Gy /G6 /GF /GS /Zl with typed thiscall/cdecl
+// archive-entry models, explicit temporary ordering, and signed-byte checksum
+// variants; no readable candidate reached a fixed 281-byte extent.
+// next_lever=schema2 native-LTCG cluster around DatArchive_Read and its
+// FindEntry/Decrypt/Decompress callers; keep the exact scaffold until then.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

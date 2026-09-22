@@ -1,3 +1,20 @@
+// BLOCKED (H2801): closest_byte_count=103; first_diff=unmeasured (no
+// compiler-readable candidate reached the private entry symbol);
+// residual_class=private_abi/source_shape: retail receives the input cursor
+// in EDX, destination in ESI, and byte count on the stack, while retaining
+// the count in EBP and driving the zero-fill with REP STOSD/STOSB before the
+// multibyte line-copy loop. Ghidra has no function at 0044C000; live
+// disassembly confirms the isolated 103-byte gap between FUN_0044BF40 and
+// FUN_0044C100, with no target xrefs/callers/callees or PCode.
+// variants_tested=exact retail naked wrapper; IDA memset plus multibyte
+// line-copy reconstruction; standard cdecl/fastcall declarations; and
+// unsigned-char versus BYTE pointer/count spellings. The ordinary
+// declarations cannot name EDX/ESI simultaneously, and no readable body was
+// byte-measured without an LTCG context.
+// next_lever=native-LTCG cluster with a synthetic caller that pins EDX/ESI
+// and preserves the REP memset/source-loop shape; this region is still
+// kind=asm in regions.json, so retain the exact wrapper in H2801.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

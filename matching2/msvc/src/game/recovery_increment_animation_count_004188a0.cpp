@@ -9,6 +9,16 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D3401): closest_byte_count=141/141; first_diff=none
+// (authoritative MSVC 13.10 probe exact for the retained retail body).
+// residual_class=private EAX object plus ECX delta entry ABI, callee register
+// conventions at 0x00413790/0x0043DC90/0x00448D00, and state layout at
+// data_0047770C+0x30/+0x9E18/+0x9EC8. variants_tested=live Ghidra decompile,
+// xrefs/callers/callees, dependency path analysis, and dataflow request;
+// Ghidra confirms the EAX live-in but exposes no PCode for this private-ABI
+// region. next_lever=build a native-LTCG cluster with both real callers
+// (0x00417040 and 0x0041AFD0) and the three blocked animation callees.
+//
 // 0x004188A0..0x0041892C: Recovery_IncrementAnimationCount
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_IncrementAnimationCount_004188a0() {

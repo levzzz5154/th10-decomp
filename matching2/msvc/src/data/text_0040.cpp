@@ -52,6 +52,13 @@ extern "C" unsigned char text_padding_004014ab[] = {
 extern "C" unsigned char text_padding_004014c2[] = {
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
+
+// padding: 0x004014EA..0x004014EF
+// padding 004014ea..004014ef: split from the former 0x004014d0 assembly extent after confirming the function ends at RET; retail INT3 bytes retained verbatim
+#pragma data_seg(".d000006a")
+extern "C" unsigned char text_padding_004014ea[] = {
+    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+};
 #pragma data_seg()
 
 // padding: 0x004015B4..0x004015BF

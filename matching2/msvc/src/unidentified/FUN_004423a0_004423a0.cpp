@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004423A0..0x004423A5: copy the source dword into destination +0x0c.
+// Native LTCG supplies the source object in EAX and destination in EDX.
+struct Destination_004423a0 {
+    unsigned char pad_000[0x0c];
+    int value;
+};
 
-// 0x004423A0..0x004423A5: FUN_004423a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004423a0_004423a0() {
-    __asm {
-    L_004423a0:
-        mov ecx,dword ptr [eax]
-    L_004423a2:
-        mov dword ptr [edx+0Ch],ecx
-    L_004423a5:
-        ret
-    }
+struct Source_004423a0 {
+    int value;
+
+    __declspec(noinline) void CopyTo(Destination_004423a0* destination) const;
+};
+
+#pragma code_seg(".text$01target")
+void Source_004423a0::CopyTo(Destination_004423a0* destination) const {
+    destination->value = value;
 }
+#pragma code_seg()

@@ -1,3 +1,14 @@
+// BLOCKED (D3305): closest_byte_count=1984/1984; first_diff=none
+// (authoritative retail overlay probe exact; no readable candidate retained).
+// residual_class=private EAX/EDX/ECX/ESI vector inputs, x87 evaluation order,
+// large stack matrix/box layout, and D3DX helper register conventions.
+// variants_tested=live Ghidra decompilation plus callers/callees
+// (0x00403A30; D3DXMatrixTranslation 0x00452182 and
+// D3DXVec3ProjectArray 0x00452188); current region is kind=asm, so a
+// native-LTCG cluster cannot be selected without semantic ownership.
+// next_lever=cluster native-LTCG joining 0x00403A30 and this member with
+// the two D3DX anchors, then vary only source evaluation order.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

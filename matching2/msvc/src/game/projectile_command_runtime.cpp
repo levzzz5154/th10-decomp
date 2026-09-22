@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3001): closest_byte_count=1454/1454; first_diff=none
+// (authoritative probe exact).  The exact dispatch member is preserved;
+// readable output is blocked by its this/ECX private state, jump-table
+// control flow, and eight private helper ABIs.  variants_tested=retail
+// inline-assembly member only; no failed source variant retained.
+// next_lever=schema2 caller/callee cluster over FUN_004067D0/FUN_00406240,
+// 004073E0, 00408030, 00408750, 0043DD10, 00404F30, 00405410, 00426660,
+// and 0043DC90, preserving the command record's ECX receiver and loop state.
 // 0x00406D90..0x0040733D: FUN_00406d90
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00406d90_00406d90() {

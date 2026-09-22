@@ -1,0 +1,11 @@
+{
+  "regions": [{
+    "name": "Pair_00427d70_Set",
+    "source": "src/unidentified/FUN_00427d70_00427d70.cpp",
+    "symbol": "?Set@Pair_00427d70@@QAEXHH@Z",
+    "address": "0x00427D70",
+    "size": 6,
+    "kind": "semantic",
+    "owner": "0x00427D70"
+  }]
+}

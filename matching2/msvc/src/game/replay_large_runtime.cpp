@@ -1,6 +1,19 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3307): closest_byte_count=0/1681; first_diff=0x00429B60;
+// residual_class=the 0x00429B60 body is a security-cookie worker with a
+// private ECX/EDX/stack entry, nested replay-buffer layout, x87 arithmetic,
+// Win32 import slots, and several compiler-selected helper conventions.
+// variants_tested=live Ghidra complete decompilation with callers/xrefs,
+// callees, disassembly/variable audit, and full pseudocode; exact MSVC 13.10
+// naked baseline (1681/1681); ordinary __fastcall skeleton (5-byte body,
+// decorated @12 symbol) and cdecl/member source-shape review.
+// next_lever=schema-2 native-LTCG cluster over real callers 0x00423F16 and
+// 0x0043399D, this body, and its replay/compression/Win32 helper edges; first
+// recover the state/header/record layouts and private helper ABIs before
+// replacing the exact overlay.
+
 // 0x00429B60..0x0042A1F0: FUN_00429b60
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00429b60_00429b60() {
@@ -1077,6 +1090,18 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00429b60_00429b60() {
         ret 4
     }
 }
+
+// BLOCKED (D3307): closest_byte_count=0/1968; first_diff=0x00431EE0;
+// residual_class=the 0x00431EE0 state-machine worker combines a private
+// EDX:EAX/ECX/stack entry, jump-table control flow, many private animation
+// and input helper ABIs, and a large unresolved replay/game-state layout.
+// variants_tested=live Ghidra complete decompilation with callers/xrefs,
+// callees, disassembly/variable audit, and full pseudocode; exact MSVC 13.10
+// naked baseline (1968/1968); ordinary __stdcall ABI skeleton (8-byte body,
+// decorated @16 symbol) and cdecl/member source-shape review.
+// next_lever=schema-2 native-LTCG cluster over real caller 0x0042D192 and
+// this body plus the animation/input helper family, preserving the EDX:EAX
+// split argument and jump-table state machine before any readable cutover.
 
 // 0x00431EE0..0x004323D6: FUN_00431ee0
 // Naked body preserves the retail register/stack ABI.

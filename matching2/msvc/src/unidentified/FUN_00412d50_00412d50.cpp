@@ -1,13 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412D50: store a value into the +0x38 field and return that value.
+// Native LTCG reproduces the private ABI seen in retail: the value arrives
+// in EAX while the object arrives in ECX.
+struct StoreResult_00412d50 {
+    unsigned char pad_000[0x38];
+    int field_038;
+    __declspec(noinline) int Store(int value);
+};
+typedef char StoreResult_00412d50_size_must_fit[sizeof(StoreResult_00412d50) == 0x3c ? 1 : -1];
 
-// 0x00412D50..0x00412D53: FUN_00412d50
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00412d50_00412d50() {
-    __asm {
-    L_00412d50:
-        mov dword ptr [ecx+38h],eax
-    L_00412d53:
-        ret
-    }
+#pragma code_seg(".text$01store00412d50")
+int StoreResult_00412d50::Store(int value) {
+    field_038 = value;
+    return value;
 }
+#pragma code_seg()

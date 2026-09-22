@@ -1,3 +1,12 @@
+// BLOCKED (H3101): closest_byte_count=0/23; first_diff=0x00427E20;
+// residual_class=three-argument private ABI (result EAX, source EDX,
+// destination ECX) plus ESI preservation. Live Ghidra boundary is
+// 00427E20..00427E36 and the body copies two dwords through ESI.
+// variants_tested=typed free Pair27*(result,source,destination) under
+// native LTCG (32-byte stack-argument body, first diff 0x00427E20);
+// no readable candidate produced the EAX/EDX/ECX register split.
+// next_lever=real coupled caller/callee context that retains the private
+// three-register convention while preserving the ESI save/restore.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

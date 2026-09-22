@@ -5,6 +5,10 @@
 // Naked body preserves the retail register/stack ABI.
 
 // 0x0040CFB0..0x0040D1A4: FUN_0040cfb0
+// BLOCKED: closest_byte_count=0/501, first_diff=0x0040CFB0,
+// residual_class=schema2_hidden_EAX_receiver_with_private_ESI_helper_and_large_object_layout,
+// variants_tested=Ghidra_boundary_callers_callees_xrefs_dataflow_legacy_semantic_audit,
+// next_lever=compile_schema2_with_real_004018190_and_0040E770_caller_contexts
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0040cfb0_0040cfb0() {
     __asm {

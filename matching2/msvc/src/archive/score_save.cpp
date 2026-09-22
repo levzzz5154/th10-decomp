@@ -3,6 +3,15 @@
 
 #ifndef TH10_LZSS_INSERT_CLUSTER
 
+// BLOCKED (D3301): closest_byte_count=3/2247; first_diff=0x0041A200;
+// residual_class=large-schema2 archive traversal/write sequencing and helper
+// ABI; variants_tested=live-Ghidra decompile plus callers/callees (caller
+// 0x00418EE0; callees 0x0044B620, 0x0044B740, 0x00452AE8, 0x00463B2C),
+// MSVC 13.10 readable call-graph probe (41-byte extent, 3 matching bytes);
+// native-LTCG was not applicable without a real caller/layout cluster;
+// next_lever=derive typed stage/tip node layouts and real WriteSharedFile
+// argument homes, then compile a native-LTCG caller/callee cluster.
+
 // 0x0041A200..0x0041AAC6: FUN_0041a200
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
@@ -1550,6 +1559,15 @@ extern "C" __declspec(noinline) int __fastcall Lzss_InsertString_00436000(
 #pragma code_seg()
 
 #ifndef TH10_LZSS_INSERT_CLUSTER
+
+// BLOCKED (D3301): closest_byte_count=0/1029; first_diff=0x004359B0;
+// residual_class=LZSS sliding-window tree mutation, private local/register
+// schedule, and bitstream evaluation order; variants_tested=live-Ghidra
+// decompile plus callers/callees (0x00429B60, 0x0042B1E0; 0x00436000,
+// 0x00436210, 0x00452706), MSVC 13.10 readable allocation probe (9-byte
+// extent, 0 matching bytes), and native-LTCG synthetic accessor context at
+// 0x004359B0 (37/37 bytes differ); next_lever=restore the real LZSS node
+// invariants and compile the 0x0042B1E0/0x00429B60 caller context.
 
 // 0x004359B0..0x00435B2C: FUN_004359b0
 // Naked body preserves the retail register/stack ABI.

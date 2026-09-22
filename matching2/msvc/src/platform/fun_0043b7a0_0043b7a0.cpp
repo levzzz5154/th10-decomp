@@ -1,3 +1,11 @@
+// BLOCKED (D3805): closest_byte_count=110/140; first_diff=unmeasured.
+// residual_class=private EDI receiver, x87 fild/fmul evaluation order, and
+// the indirect midiOutShortMsg ABI at data_00466298.
+// variants_tested=["live Ghidra/IDA decompilation", "ordinary two-argument
+// readable candidate under MSVC 13.10 (110-byte extent)", "retail assembly
+// baseline probe (140/140 exact)"].
+// next_lever=promote the real caller and this callee into one native-LTCG
+// cluster with the production receiver layout and WinMM import binding.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

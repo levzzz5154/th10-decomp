@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3502): closest_byte_count=0/145; first_diff=0x0044D440;
+// residual_class=private EAX receiver, private ESI interface result, hidden
+// ECX/stack argument convention, and COM callback/vtable ABI.
+// variants_tested=live Ghidra complete decompile with callers/callees
+// (0x0043E183, 0x0043DA8E, 0x0044D300, 0x0044D370, 0x0044D110),
+// plus MSVC 13.10 readable explicit-parameter candidate (154-byte extent;
+// no comparable bytes).
+// next_lever=native-LTCG cluster compiling the real sound-command callers
+// with streamer refill and platform interface callees.
+
 // 0x0044D440..0x0044D4D0: SoundStream_Start
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_SoundStream_Start_0044d440() {

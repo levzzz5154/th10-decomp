@@ -1,47 +1,29 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// Reset the intrusive variable-binding chain rooted in the ECL instance.
+struct EclBindingInstance_00450190 {
+    void* field_000;
+    int binding;
+};
 
-// BLOCKED (D2702): closest_byte_count=31; first_diff=unmeasured;
-// residual_class=abi/cluster; the reset receives its ECL instance in EAX,
-// follows the intrusive variable-binding chain rooted at +0x1034, and clears
-// each binding's back-link through the preceding node.  A normal __thiscall
-// or __cdecl member changes that entry register and the retail loop's
-// scheduling, so the readable body needs the real ECL helper cluster.
-// variants_tested=the EclInstance/EclVariableContext intrusive-list shape,
-// the existing ECL_FindVariable and EclVm_TickChildren layouts, and the exact
-// retail overlay; no candidate was byte-measured.
-// next_lever=compile ResetVariableBindings with FindVariable, SpawnChild,
-// StartChild, and the interpreter caller in one ECL native-LTCG cluster.
-// 0x0044DF70..0x0044E195: EclVm_StartChildRetail
-// Naked body preserves the retail register/stack ABI.
+struct EclBindingNode_00450190 {
+    EclBindingInstance_00450190* instance;
+    EclBindingNode_00450190* next;
+};
 
-// 0x00450190..0x004501AE: ?ECL_ResetVariableBindings@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ECL_ResetVariableBindings_00450190() {
-    __asm {
-    L_00450190:
-        mov eax,dword ptr [eax+1034h]
-    L_00450196:
-        xor edx,edx
-    L_00450198:
-        cmp eax,edx
-    L_0045019a:
-        je short L_004501ae
-    L_0045019c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_004501a0:
-        mov ecx,dword ptr [eax+4]
-    L_004501a3:
-        cmp ecx,edx
-    L_004501a5:
-        mov eax,dword ptr [eax]
-    L_004501a7:
-        mov dword ptr [eax+4],edx
-    L_004501aa:
-        mov eax,ecx
-    L_004501ac:
-        jne short L_004501a0
-    L_004501ae:
-        ret
+struct EclVm_00450190 {
+    unsigned char pad_000[0x1034];
+    EclBindingNode_00450190* bindings;
+    __declspec(noinline) void ResetVariableBindings();
+};
+
+typedef char EclVm_00450190_size_must_fit[sizeof(EclVm_00450190) == 0x1038 ? 1 : -1];
+
+#pragma code_seg(".text$01reset")
+void EclVm_00450190::ResetVariableBindings() {
+    EclBindingNode_00450190* node = bindings;
+    while (node != 0) {
+        EclBindingNode_00450190* next = node->next;
+        node->instance->binding = 0;
+        node = next;
     }
 }
+#pragma code_seg()

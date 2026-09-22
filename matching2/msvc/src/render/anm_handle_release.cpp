@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3606): closest_byte_count=30/269; first_diff=0x00421300.
+// residual_class=private manager-find EDX handoff, register pressure, and
+// loop/epilogue scheduling. variants_tested=live Ghidra decompilation plus a
+// readable MSVC 13.10 member candidate (271-byte extent; 30/269 bytes
+// matched) and native-LTCG ABI review. next_lever=co-compile with the real
+// caller 0x00417B4C and AnimationManager_Find 0x004491C0 in schema2/native
+// LTCG; production ownership remains kind=asm because regions.json is not
+// edited in this lane.
 
 // 0x00421300..0x00421349: FUN_00421300
 // Naked body preserves the retail register/stack ABI.

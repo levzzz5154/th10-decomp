@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D2801): closest_byte_count=0/36; first_diff=unmeasured;
+// residual_class=private_call_edges: the wrapper's EAX handle pointer, EDX
+// global manager, and ECX/stack index handoff are known from live Ghidra,
+// but no readable caller/callee native-LTCG compile was retained.
+// variants_tested=Ghidra caller/callee/xref audit and direct private-ABI
+// signature reconstruction; no nonexact candidate survived comparison.
+// next_lever=cluster this wrapper with AnimationObject_ChangeScript_0043E8B0
+// and AnimationManager_Find_004491C0 so LTCG can select the observed register
+// handoff instead of introducing ABI adapters.
 
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.

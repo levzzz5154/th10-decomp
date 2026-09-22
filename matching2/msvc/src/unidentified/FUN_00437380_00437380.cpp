@@ -1,3 +1,13 @@
+// BLOCKED (D3702): closest_byte_count=0/525; first_diff=extent (candidate
+// extent 527 vs retail 525).
+// residual_class=abi+structural: readable Win32 text candidate emitted a
+// 527-byte body (two bytes over retail) while retail uses EAX/EDI/EBX private
+// live-ins, stack-local RECT placement, and indirect GDI import slots.
+// variants_tested=archived Ghidra pseudocode, caller 0x004372A0, and MSVC
+// 13.10 readable candidate probe (527-byte extent vs 525-byte retail).
+// next_lever=restore the missing live Ghidra function boundary, then compile
+// the caller with the exact GDI import declarations and native register ABI.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

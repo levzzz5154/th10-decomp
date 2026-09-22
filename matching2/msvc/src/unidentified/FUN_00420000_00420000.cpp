@@ -1,3 +1,13 @@
+// BLOCKED (H3901): closest_byte_count=0/177; first_diff=0x00420000;
+// residual_class=member entry ABI plus global/object layout and virtual-call
+// scheduling. The IDA model observes the object in ECX, a global manager load,
+// the embedded +0x384/+0x388 state, and two calls through unrelated vtables;
+// preserving those offsets is insufficient to force retail's register/save
+// order in an isolated translation unit.
+// variants_tested=["exact retail naked baseline retained",
+// "IDA __thiscall semantic translation reviewed; no standalone readable candidate retained"];
+// next_lever=caller-inclusive native-LTCG cluster rooted by 0x00420470, with
+// FUN_004215A0 and both virtual callees visible to the same schema-2 link.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

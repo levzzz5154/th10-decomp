@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00408830..0x00408834: indexed dword accessor.
+// Native LTCG supplies the object pointer in EAX and the index in ECX.
+struct IndexAccessor_00408830 {
+    unsigned char pad_000[0x30];
+    int values[1];
 
-// 0x00408830..0x00408834: FUN_00408830
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00408830_00408830() {
-    __asm {
-    L_00408830:
-        mov eax,dword ptr [eax+ecx*4+30h]
-    L_00408834:
-        ret
-    }
+    __declspec(noinline) int Load(int index) const;
+};
+
+#pragma code_seg(".text$01target")
+int IndexAccessor_00408830::Load(int index) const {
+    return values[index];
 }
+#pragma code_seg()

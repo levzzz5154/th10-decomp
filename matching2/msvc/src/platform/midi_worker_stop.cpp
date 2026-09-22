@@ -1,5 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+ 
+// BLOCKED (D3405): closest_byte_count=20/176; first_diff=0x0043DAB0;
+// residual_class=hidden-ESI receiver, imported PostThreadMessageA/
+// WaitForSingleObject/CloseHandle slots, and virtual interface release ABI;
+// variants_tested=live Ghidra decompile/callers/callees (0x0043D120,
+// 0x0043D690, 0x0043DDF0; AggregatePlatformInterfaces and WinAPI imports)
+// and MSVC 13.10 readable state-layout cdecl candidate (179-byte extent,
+// 20 matching bytes); next_lever=co-compile the three real MIDI stop callers
+// with AggregatePlatformInterfaces and the virtual release body in native
+// LTCG so the ESI receiver and imported-slot call shapes are selected.
 
 // 0x0043DAB0..0x0043DB5F: MidiWorker_StopRetail
 // Naked body preserves the retail register/stack ABI.

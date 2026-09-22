@@ -1,3 +1,17 @@
+// BLOCKED (D3202): closest_byte_count=668/668; first_diff=none (retail
+// assembly baseline only; no readable candidate retained).
+// residual_class=hidden EAX mode selector, private AnimationManager receiver
+// conventions, x87/32-bit digit arithmetic ordering, and ResultOverlayState
+// offsets. Live Ghidra topology: caller 0x00409CBD and callees 0x004492A0,
+// 0x00448D00, 0x00449950, 0x00449870, 0x004489D0, 0x004491C0,
+// 0x0043E5A0, 0x00449590, and 0x004495E0.
+// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
+// disassembly, variable/storage audit, and legacy eight-digit overlay model;
+// no compiler-readable candidate was byte-measured or retained.
+// next_lever=schema2 native-LTCG cluster over 0x00409CBD/0x004172E0 with
+// the real mode dispatcher and AnimationManager helper edges, preserving EAX
+// mode entry, stack result/number inputs, and the eight digit-handle layout.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

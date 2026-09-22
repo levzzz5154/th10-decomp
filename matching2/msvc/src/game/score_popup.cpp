@@ -1,3 +1,14 @@
+// BLOCKED (D3504): closest_byte_count=0/167; first_diff=0x0042B9C0;
+// residual_class=private EAX score/ESI queue/EDI position inputs with one
+// caller-cleaned stack color argument, plus retail split-body digit loop,
+// timer record layout, and caller-dependent register allocation.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and a readable ScorePopupQueue/ScorePopupRecord
+// candidate measured at 172 bytes (retail extent is 167); no cluster candidate
+// was retained because the fixed-address region remains assembly-owned.
+// next_lever=native-LTCG cluster over real caller 0x0041AFD0, this body, and
+// the timer/record helpers, with EAX/ESI/EDI plus the RET-4 color argument
+// visible to the compiler; then measure all 167 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

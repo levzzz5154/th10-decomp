@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED: live Ghidra disassembly and the adjacent code boundaries identify
+// 0x00441590..0x004415BB as a 44-byte semantic helper between the 15-byte
+// INT3 padding at 0x00441581 and the next helper beginning at 0x004415C0.
+// It has no incoming xrefs in the live database, but its private ABI consumes
+// closest_byte_count=44; first_diff=none (retail baseline exact);
+// residual_class=private EAX/ECX ABI with an indirect ANM VM callee;
+// variants_tested=retail inline-assembly baseline and ordinary cdecl C++
+// (47-byte extent, rejected); next_lever=derive a native-LTCG caller/context
+// that supplies the private register convention before replacing this body.
 // 0x00441590..0x004415BB: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00441590() {

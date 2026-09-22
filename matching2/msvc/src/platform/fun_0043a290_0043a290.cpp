@@ -1,3 +1,11 @@
+// BLOCKED (D3503): closest_byte_count=272/272; first_diff=none
+// (retail assembly baseline is exact; no readable candidate retained).
+// residual_class=private EBX/EDI/ESI inputs, COM vtable/register ABI,
+// stack-cookie frame, and caller-specific allocation at 0x00439FF0.
+// variants_tested=live Ghidra decompilation at 0x0043A290; caller
+// 0x00439FF0 inspection; retail assembly probe.
+// next_lever=cluster native-LTCG joining 0x00439FF0 and this member with
+// explicit COM/Win32 declarations and the observed register inputs.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

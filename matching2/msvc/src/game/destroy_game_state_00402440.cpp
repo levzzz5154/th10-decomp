@@ -1,3 +1,14 @@
+// BLOCKED (D3406): closest_byte_count=0/499; first_diff=unmeasured;
+// residual_class=SEH registration/handler frame, three scheduler-removal
+// calls with the private scheduler receiver, and two EH vector-destructor
+// helper ABIs plus the state layout spanning offsets 0x180..0x2A44.
+// variants_tested=live Ghidra complete decompilation with callers/callees,
+// disassembly and variable audit; no compiler-readable candidate was
+// byte-measured, so the exact naked overlay remains intact.
+// next_lever=native-LTCG schema2 cluster over this body, its real
+// 0x00417C80/0x00418190 callers, Scheduler_Remove, AnimationResource::Release,
+// and both vector-destructor helpers, preserving the stdcall RET 4 and SEH
+// cookie/handler layout.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

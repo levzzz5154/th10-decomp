@@ -1,3 +1,16 @@
+// BLOCKED (D3802): closest_byte_count=95/95; first_diff=0x0040D6B0;
+// residual_class=private register ABI: retail homes the manager in EBX for
+// 0x0040D280 and passes it in EAX to 0x0040D530, while a standalone readable
+// declaration homes it in ESI and passes it through ECX.
+// variants_tested=live Ghidra decompile with callers 0x0040A350 and
+// 0x00417B33; MSVC 13.10 standalone schema-1 candidate (95 bytes, 9
+// differing register bytes); merged native-LTCG scratch cluster with
+// 0x0040D280/0x0040D530 (95/95 exact, not landable because 0x0040D530
+// retained four argument-copy mismatches).
+// next_lever=promote 0x0040D530 and its EAX-receiver callers together with
+// this factory and 0x0040D280 in one real-caller schema-2/native-LTCG link;
+// do not replace the exact assembly until the complete cluster is exact.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

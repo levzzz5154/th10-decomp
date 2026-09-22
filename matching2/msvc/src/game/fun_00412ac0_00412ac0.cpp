@@ -1,5 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D2801): closest_byte_count=0/652; first_diff=unmeasured;
+// residual_class=floating_point_and_private_abi: the legacy trajectory
+// evaluator matches the retail operations semantically, but its x87
+// evaluation order and ESI/EDI native entry registers were not yet proven by
+// a retained readable compile.
+// variants_tested=legacy Trajectory_Evaluate2D transcription and Ghidra
+// caller/callee/global audit; no nonexact candidate retained.
+// next_lever=use a schema2 caller cluster with the four 0x0040DC80 call edges,
+// then vary one x87 expression grouping at a time around the first fmul/fld
+// boundary while keeping Retail_TruncateI32/Retail_AddI32 edges fixed.
 
 // 0x00404610..0x00404986: FUN_00404610
 // Naked body preserves the retail register/stack ABI.

@@ -9,6 +9,16 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D3705): closest_byte_count=0/128; first_diff=0x0041f850
+// residual_class=private ESI receiver and overlapping initialization schedule;
+// standalone readable C++ with an explicit state pointer compiled to a 202-byte
+// stack-parameter body rather than the 128-byte ESI-entry body.
+// variants_tested=typed 0x3f0-byte state with volatile field stores, selected
+// flag clears, memset loops, final flag publication, and global publication;
+// the nonexact 202-byte output was restored.
+// next_lever=native-LTCG cluster with a caller establishing ESI and the real
+// state-table layout, preserving the retail rep-stosd extents and private ABI.
+
 // 0x0041F850..0x0041F8CF: Recovery_InitializeStateTable
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeStateTable_0041f850() {

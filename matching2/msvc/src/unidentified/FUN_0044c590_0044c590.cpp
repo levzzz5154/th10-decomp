@@ -1,6 +1,18 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (H2901): Ghidra confirms an exact 57-byte leaf span at 0x0044C590
+// with no function boundary, incoming xrefs, or outgoing xrefs.  The body
+// receives its sole Vector3 pointer in ESI, calls 0x00452FF0 twice through
+// x87 double arguments, and writes the converted results back to +0/+4.
+// Standalone __thiscall/__fastcall declarations cannot receive this receiver
+// in ESI, and the x87 call sequence is compiler-sensitive. variants_tested=ABI
+// feasibility inspection and x87 call-shape review; no candidate source was
+// retained because the receiver register and floating-point stack sequence
+// are both unconstrained without a caller cluster. next_lever=retain a real
+// caller/native LTCG context that supplies ESI and the exact helper prototype.
+// closest_byte_count=57/57 (existing overlay); first_diff=N/A for overlay;
+// residual_class=private-ABI ESI receiver plus x87 call shape.
 // 0x0044C590..0x0044C5C8: FUN_0044c590
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0044c590_0044c590() {

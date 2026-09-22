@@ -1,15 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041BEE0..0x0041BEE6: link two intrusive nodes.
+// Native LTCG preserves the receiver in EAX and the peer in ECX.
+struct H3401LinkNode_0041bee0 {
+    unsigned char pad_000[4];
+    H3401LinkNode_0041bee0* peer_004;
+    H3401LinkNode_0041bee0* peer_008;
+    __declspec(noinline) H3401LinkNode_0041bee0* Link(
+        H3401LinkNode_0041bee0* peer);
+};
 
-// 0x0041BEE0..0x0041BEE6: FUN_0041bee0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041bee0_0041bee0() {
-    __asm {
-    L_0041bee0:
-        mov dword ptr [ecx+4],eax
-    L_0041bee3:
-        mov dword ptr [eax+8],ecx
-    L_0041bee6:
-        ret
-    }
+#pragma code_seg(".text$01target")
+H3401LinkNode_0041bee0*
+H3401LinkNode_0041bee0::Link(H3401LinkNode_0041bee0* peer) {
+    peer->peer_004 = this;
+    peer_008 = peer;
+    return this;
 }
+#pragma code_seg()

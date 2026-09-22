@@ -1,3 +1,12 @@
+// BLOCKED (D3905): closest_byte_count=123/214 in the best readable C++
+// candidate; first_diff=0x004472FF (MSVC emitted mov edi,edx before
+// mov ebx,ecx, while retail requires the reverse). residual_class=private
+// EDI receiver for TextLog and EAX-held buffer for FUN_0044B360, plus branch
+// layout. variants_tested=MSVC 13.10.6030 /O2 /Gz /MT /Gy /G6 /GF /GS /Zl:
+// typed __fastcall parameter orders, explicit sprintf/temporary ordering,
+// and the two helper-call stack shapes (207B, 219B, and 214B/91 differing).
+// next_lever=schema2 native-LTCG context for the EDI TextLog receiver and
+// EAX helper argument; restore this asm body until that context exists.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -1,0 +1,22 @@
+{
+  "regions": [
+    {
+      "source": "src/unidentified/Ordinal_11_00452170.cpp",
+      "address": "0x00452170",
+      "name": "semantic_Ordinal_11_00452170",
+      "symbol": "_Ordinal_11_00452170@12",
+      "size": 6,
+      "relocations": [
+        {
+          "offset": 2,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "__imp__Ordinal_11@12",
+          "original_operand": "08604600",
+          "original_target": "0x00466008"
+        }
+      ],
+      "kind": "semantic",
+      "owner": "0x00452170"
+    }
+  ]
+}

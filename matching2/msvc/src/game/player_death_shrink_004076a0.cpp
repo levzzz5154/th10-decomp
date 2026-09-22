@@ -6,6 +6,13 @@
 
 // 0x004076A0..0x00407770: Player_DeathShrink
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=37/209; first_diff=0x004076A1;
+// residual_class=private ESI receiver, x87 stack/evaluation ordering, and
+// helper ABI for NormalizeSum/SetPolarVector/next-frame; variants_tested=live
+// Ghidra decompilation with caller 0x00406240 and callees 0x0044BC10,
+// 0x00408750, 0x00463B2C, plus MSVC 13.10 readable candidate (224-byte
+// extent, 37 non-relocation bytes equal); next_lever=native-LTCG cluster with
+// caller 0x00406240 and the production Player layout.
 extern "C" __declspec(naked) void __cdecl asm_Player_DeathShrink_004076a0() {
     __asm {
     L_004076a0:

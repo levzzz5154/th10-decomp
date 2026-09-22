@@ -1,11 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+typedef void* (__stdcall* D3DXMatrixRotationXFn_004521ac)(
+    void* out, float angle);
+extern "C" D3DXMatrixRotationXFn_004521ac data_004662dc;
 
-// 0x004521AC..0x004521B1: D3DXMatrixRotationX
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DXMatrixRotationX_004521ac() {
-    __asm {
-    L_004521ac:
-        jmp dword ptr [data_004662dc]
-    }
+// 0x004521AC..0x004521B1: imported D3DXMatrixRotationX tail thunk.
+// The typed stdcall import slot produces the retail six-byte indirect jump.
+extern "C" void* __stdcall asm_D3DXMatrixRotationX_004521ac(
+    void* out, float angle) {
+    return data_004662dc(out, angle);
 }

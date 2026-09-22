@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3604): closest_byte_count=0/188; first_diff=compile failure;
+// residual_class=compiler-generated SEH registration/handler frame plus the
+// existing C-linkage declaration and EH vector-constructor ABI.
+// variants_tested=live Ghidra decompilation, caller CreateGameState 0x00402640,
+// readable unsigned-long/vector-constructor candidate (MSVC C2733/C2664), and
+// exact retail wrapper baseline.
+// next_lever=typed native-LTCG constructor cluster with an updated declaration
+// contract for the stdcall entry and EH vector helper.
 
 // 0x00402160..0x0040221B: ConstructGameState
 // Naked body preserves the retail register/stack ABI.
@@ -111,6 +119,15 @@ extern "C" __declspec(naked) void __cdecl asm_ConstructGameState_00402160() {
 
 
 
+
+// BLOCKED (D3604): closest_byte_count=0/1099; first_diff=unmeasured;
+// residual_class=private caller ABI through 0x00403060, renderer/device
+// virtual-call schedule, state layout spanning 0x2A0C..0x2B60, and eight
+// live-in helper clusters (0x00405300, 0x00405410, 0x004451C0, and peers).
+// variants_tested=live Ghidra decompilation, xref caller 0x00403060, native
+// forwarder layout inspection, and exact retail wrapper baseline.
+// next_lever=native-LTCG cluster joining 0x00403060 and this helper with the
+// D3D/device and game-state callees rooted in one schema-2 scope.
 // 0x00402850..0x00402C9A: FUN_00402850
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00402850_00402850() {

@@ -2,6 +2,10 @@
 #include "asm_symbols.hpp"
 
 // 0x004073E0..0x004074A1: EnemyGrid_ScanCellsRetail
+// BLOCKED: closest_byte_count=0/194, first_diff=0x004073E0,
+// residual_class=schema2_hidden_EAX_input_with_x87_control_flow_and_private_callees,
+// variants_tested=Ghidra_boundary_callers_callees_xrefs_dataflow_audit,
+// next_lever=compile_schema2_with_real_00406D90_and_0040E770_call_contexts
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_EnemyGrid_ScanCellsRetail_004073e0() {
     __asm {

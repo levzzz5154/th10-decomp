@@ -4,6 +4,15 @@
 // 0x00421480..0x0042159E: Camera_ApplyRetail
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3901): closest_byte_count=0/379; first_diff=0x00448452;
+// residual_class=private EAX/EBX/ECX/EDI manager and surface inputs, D3D
+// vtable slots 0x48/0x70/0x90, and the 0x00442F50/0x00447F70 dependencies.
+// variants_tested=exact retail assembly probe (379/379), live Ghidra
+// decompilation, legacy render-target model, and caller-inclusive disposable
+// native-LTCG cluster (321-byte candidate; first difference at 0x00448452);
+// all nonexact output was restored. next_lever=schema-2/native-LTCG cluster
+// over real caller 0x00438A60, 0x00442F50, 0x00447F70, this body, and typed
+// D3D surface wrappers, preserving the complete 379-byte contribution.
 // 0x00448450..0x004485CA: FUN_00448450
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00448450_00448450() {

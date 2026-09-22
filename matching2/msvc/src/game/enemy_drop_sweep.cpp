@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3502): closest_byte_count=0/165; first_diff=0x0041BA50;
+// residual_class=private ESI receiver, private caller-preserved loop state,
+// and animation helper argument register allocation.
+// variants_tested=live Ghidra complete decompile with callers/callees
+// (0x0041B889, 0x0041BB00, 0x00448DB0), plus MSVC 13.10 readable explicit
+// state-parameter candidate (127-byte extent; no comparable bytes).
+// next_lever=native-LTCG cluster with the real manager-factory caller so the
+// compiler can select the retail ESI entry convention.
+
 // 0x0041BA50..0x0041BAF4: Enemy_SweepPendingDropsRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Enemy_SweepPendingDropsRetail_0041ba50() {

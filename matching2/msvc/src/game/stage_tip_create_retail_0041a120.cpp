@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3306): closest_byte_count=0/220; first_diff=0x0041A120
+// residual_class=private EBX position vector, ECX/stack manager/text inputs,
+// and retail helper/list-node ABI.
+// variants_tested=readable raw-layout StageTip candidate (319-byte standalone
+// extent; semantic initialization/link/copy model) plus naked baseline.
+// next_lever=caller 0x00424650 with callees 0x00452493 and 0x00452960 in a
+// native-LTCG cluster so MSVC can select the private register convention.
+
 // 0x00418D40..0x00418E2C: StageTipManager_Construct
 // Naked body preserves the retail register/stack ABI.
 

@@ -1,3 +1,17 @@
+// BLOCKED (D3803): closest_byte_count=0/96; first_diff=0x0042CD50
+// (no readable native-LTCG body retained).
+// residual_class=private worker receiver/field layout, the 0x0042C920
+// constructor's EDX receiver convention, the 0x0044C150 stop-worker call,
+// and the six-argument __beginthreadex ABI with the callback at 0x0042C9F0.
+// variants_tested=live Ghidra complete decompile with caller 0x00421986 and
+// callees 0x00452493/0x0042C920/0x0044C150/0x00453683; MSVC 13.10.6030
+// authoritative production probe (96/96 exact); native-LTCG cluster
+// feasibility review using the real caller and constructor/stop-worker
+// dependency topology.
+// next_lever=compile a schema-2 native-LTCG cluster with 0x00421986,
+// 0x0042C920 and 0x0044C150 visible, plus the beginthreadex import binding,
+// then measure the complete body before changing production metadata.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

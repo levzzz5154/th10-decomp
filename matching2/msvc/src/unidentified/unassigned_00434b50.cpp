@@ -1,21 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00434B50..0x00434B5F: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00434b50() {
-    __asm {
-    L_00434b50:
-        mov edx,dword ptr [ecx]
-    L_00434b52:
-        mov ecx,dword ptr [esp+4]
-    L_00434b56:
-        xor eax,eax
-    L_00434b58:
-        cmp edx,ecx
-    L_00434b5a:
-        setg al
-    L_00434b5d:
-        ret 4
-    }
+// 0x00434B50..0x00434B5F: compare a record word against an integer.
+// Native LTCG caller context supplies the register ordering seen in retail.
+struct Object_00434b50 {
+    int value;
+};
+#pragma code_seg(".text$01accessor")
+extern "C" __declspec(noinline) int __stdcall Greater_00434b50(
+        Object_00434b50* self, int other) {
+    return self->value > other;
 }
+#pragma code_seg()

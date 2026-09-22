@@ -1,8 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+// BLOCKED (D2801): closest_byte_count=40/287; first_diff=0x0043E8C3;
+// residual_class=source_shape: a native-LTCG context selected the exact
+// EAX/EDX/ECX private entry registers, but the readable model omitted the
+// retail push ebp and consequently used a different live-register schedule.
+// variants_tested=raw-pointer reset sequence, local flags/timer model, and
+// resource-id/reset-marker temporaries; all nonexact candidates restored.
+// next_lever=co-compile the real 0x004496D0 caller and 0x0043EE30 callee in
+// one native-LTCG cluster, then tune local declaration order from the first
+// push-ebp boundary without changing the selected private register mapping.
 
 // 0x0043E8B0..0x0043E9CE: ?AnimationObject_ChangeScript@@
 // Naked body preserves the retail register/stack ABI.

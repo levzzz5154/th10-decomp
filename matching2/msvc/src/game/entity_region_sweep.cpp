@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3201): closest_byte_count=19/585; first_diff=0x00408212
+// (standalone readable candidate, authoritative probe extent 452 bytes).
+// residual_class=private EBX receiver, x87 evaluation order, and the
+// 0041BB00/00448DB0/004491C0 register-and-stack helper ABIs. variants_tested=
+// legacy semantic rectangle/pool model with typed helper declarations; the
+// candidate was restored after 433 differing bytes in the measured prefix.
+// next_lever=schema2 native-LTCG cluster over the real owner-in-EBX caller,
+// 0041BB00, 00448DB0, and 004491C0; do not replace this exact body until the
+// 585-byte contribution and all relocations match.
 // 0x00408210..0x004082D2: FUN_00408210
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00408210_00408210() {

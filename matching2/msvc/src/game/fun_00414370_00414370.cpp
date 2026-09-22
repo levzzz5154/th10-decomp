@@ -1,3 +1,12 @@
+// BLOCKED (D3402): closest_byte_count=12/476; first_diff=0x00414370
+// residual_class=abi/cluster; a native manager-teardown cluster candidate
+// emitted 484 bytes and differed in 464 bytes of the 476-byte live extent.
+// Retail carries the transition object through EBP/stack homes, selects the
+// manager in ESI/EDX, and shares private AnimationManager/vector callees.
+// variants_tested=archived manager-teardown semantic body plus four-source
+// native MSVC 13.10 LTCG bridge; measured candidate extent 484, 464 diffs.
+// next_lever=derive the shared AnimationManager SetFlag/MarkResource and
+// vector-destructor ABIs, then rebuild the complete manager caller cluster.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

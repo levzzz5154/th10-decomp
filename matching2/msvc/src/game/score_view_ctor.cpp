@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D2802): closest_byte_count=363/219; first_diff=0x0041C680;
+// residual_class=private-ABI/register-allocation: the readable constructor
+// selected ECX/EDX while retail carries the object in EBX/EDX, and volatile
+// flag accesses expanded into load/and/store sequences.
+// variants_tested=raw-pointer field model, memset/loop clears, explicit
+// volatile flag stores, and exact retail overlay;
+// next_lever=resolve the 0x0041C510 caller's EBX object handoff and initialize
+// helper declaration before another readable constructor round.
 // 0x0041C680..0x0041C75A: FUN_0041c680
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041c680_0041c680() {

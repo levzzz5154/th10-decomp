@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED: closest_byte_count=87/301; first_diff=0x0043D122;
+// residual_class=EAX receiver ABI, virtual-release slot shape, and private ESI
+// receiver for MidiWorker_StopRetail (0x0043DAB0);
+// variants_tested=live Ghidra decompile/callers (0x0043D120, 0x00438AD0,
+// 0x0043DAB0) and MSVC 13.10 readable offset-layout/vtable candidate
+// (323-byte extent, 87 matching bytes); next_lever=schema2 native-LTCG with
+// the real window caller and MidiWorker stop body visible.
 
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.

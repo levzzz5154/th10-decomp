@@ -1,3 +1,16 @@
+// BLOCKED (D3803): closest_byte_count=0/145; first_diff=0x0042B4D0
+// (no readable native-LTCG body retained).
+// residual_class=private EAX receiver/EBX manager state, ESI callback state,
+// EDI registration priorities, and the private scheduler/entity/animation
+// callee conventions at 0x00449AE0, 0x00449B70, 0x0043E5A0 and 0x00401DE0.
+// variants_tested=live Ghidra complete decompile with caller 0x0042B683 and
+// callees 0x00449ED0/0x00449AE0/0x00449B70/0x00401DE0/0x0043E5A0; MSVC
+// 13.10.6030 authoritative production probe (145/145 exact); native-LTCG
+// cluster feasibility review of the real caller/callee register topology.
+// next_lever=compile a schema-2 native-LTCG cluster containing the real
+// 0x0042B683 caller and all five private callees, then measure the complete
+// body before changing production metadata.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

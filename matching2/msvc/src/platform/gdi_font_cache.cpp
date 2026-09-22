@@ -1,3 +1,11 @@
+// BLOCKED (D3402): closest_byte_count=0/107; first_diff=unmeasured
+// residual_class=abi/cluster; the readable cache-flush candidate compiled to
+// 114 bytes because retail enters with the cache object in ESI, uses EDI as
+// the zero/return register, and calls the three GDI imports through slots.
+// variants_tested=raw-offset cache model with typed SelectObject/DeleteDC/
+// DeleteObject import calls; standalone MSVC 13.10 probe.
+// next_lever=co-compile FontCache_DeleteGdiObjectsRetail and all real flush
+// callers in native LTCG to recover the ESI receiver and EDI scheduling.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
@@ -63,4 +71,3 @@ extern "C" __declspec(naked) void __cdecl asm_FontCache_FlushRetail_00436a30() {
         ret
     }
 }
-

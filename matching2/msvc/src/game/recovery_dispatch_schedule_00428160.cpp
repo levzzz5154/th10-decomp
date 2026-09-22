@@ -1,5 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+ 
+// BLOCKED (D3405): closest_byte_count=31/105; first_diff=0x00428163;
+// residual_class=hidden EDI/EBX/ESI register inputs, signed schedule-entry
+// loop shape, and private 0x00427E90 call ABI;
+// variants_tested=live Ghidra decompile/callers/callee (0x004281D0,
+// 0x00427E90) and MSVC 13.10 readable state-layout cdecl candidate
+// (120-byte extent, 31 matching bytes); next_lever=co-compile the real
+// 0x004281D0 caller with 0x00427E90 in native LTCG to expose frame in EBX,
+// owner in EDI, and schedule cursor in ESI.
 
 // 0x004050D0..0x00405101: ?EmbeddedTimer_Reset@@
 // Naked body preserves the retail register/stack ABI.

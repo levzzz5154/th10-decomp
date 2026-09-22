@@ -1,11 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0045218E..0x00452193: the D3DXVec3Project import thunk.
+//
+// The retail entry is the stdcall six-argument import tail jump.  The
+// executable's fixed import slot is declared as a typed function pointer so
+// MSVC can emit a readable tail call through that slot.
+typedef void* (__stdcall *D3DXVec3ProjectImport_0045218e)(
+    void* out, const void* vector, const void* viewport,
+    const void* projection, const void* view, const void* world);
 
-// 0x0045218E..0x00452193: D3DXVec3Project
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DXVec3Project_0045218e() {
-    __asm {
-    L_0045218e:
-        jmp dword ptr [data_004662f0]
-    }
+extern "C" D3DXVec3ProjectImport_0045218e data_004662f0;
+
+extern "C" void* __stdcall D3DXVec3Project_0045218e(
+    void* out, const void* vector, const void* viewport,
+    const void* projection, const void* view, const void* world) {
+    return data_004662f0(out, vector, viewport, projection, view, world);
 }

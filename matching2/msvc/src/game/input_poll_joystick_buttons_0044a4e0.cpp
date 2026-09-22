@@ -1,3 +1,14 @@
+// BLOCKED (D3504): closest_byte_count=0/264; first_diff=0x0044A4E0;
+// residual_class=private ECX pad input with ESI live state, stack-owned
+// JOYINFOEX/DIJOYSTATE2 temporaries, security-cookie frame, and WinMM versus
+// DirectInput vtable retry/copy scheduling.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and a readable WinMM/DirectInput candidate measured at
+// 349 bytes (retail extent is 264); no cluster candidate was retained because
+// the fixed-address region remains assembly-owned.
+// next_lever=native-LTCG cluster over real caller 0x0042F6B0, this body, the
+// DirectInput device helpers, and the security-cookie context, preserving the
+// ECX/ESI entry tuple and measuring all 264 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 #include "th10/game/score.hpp"

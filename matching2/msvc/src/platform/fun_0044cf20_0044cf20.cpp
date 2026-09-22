@@ -1,3 +1,12 @@
+// BLOCKED (D3404): closest_byte_count=0/338; first_diff=0x0044CF20;
+// residual_class=private ESI receiver, COM-style virtual slot ABI, object
+// layout at +0x4/+0x10/+0x58, and cleanup/error-path register scheduling.
+// variants_tested=live Ghidra decompilation and caller 0x0043DDF0, typed
+// virtual-dispatch/raw-layout MSVC 13.10 candidate (299/338 extent).
+// next_lever=schema2 native-LTCG over caller 0x0043DDF0, this body, the
+// factory/resource virtual slots, and verified interface layouts; preserve ESI
+// and all HRESULT cleanup paths.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

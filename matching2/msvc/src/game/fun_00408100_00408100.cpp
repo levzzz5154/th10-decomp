@@ -1,6 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3001): closest_byte_count=260/260; first_diff=none
+// (authoritative probe exact).  The exact member remains intact; readable
+// output needs the EAX receiver, EBX point pointer, and private helper ABIs.
+// variants_tested=retail inline-assembly member only; no failed source
+// variant retained.  next_lever=schema2 native-LTCG cluster over real callers
+// FUN_00425730, FUN_0040E770, DrawPlayer and callees 00408030/0041BB00
+// (with 004086B0), preserving the EAX/EBX live-ins before cutover.
 // 0x004066E0..0x00406765: FUN_004066e0
 // Naked body preserves the retail register/stack ABI.
 

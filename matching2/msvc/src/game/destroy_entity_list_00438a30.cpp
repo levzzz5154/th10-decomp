@@ -5,6 +5,16 @@
 // 0x00405D00..0x00405DD6: FUN_00405d00
 // Naked body preserves the retail register/stack ABI.
 
+// BLOCKED (D3501): closest_byte_count=43/43; first_diff=none (retail
+// assembly baseline only; no readable candidate retained);
+// residual_class=__usercall EAX receiver with no stack parameter, virtual
+// release through [slot]+8, and compiler loop/register shape requiring the
+// caller's native context.
+// variants_tested=live Ghidra complete-function analysis with callers/callees,
+// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
+// no readable candidate retained. next_lever=native-LTCG EAX-ABI cluster with
+// real 0x004391F0/GameMain callers and the 32-slot owner layout.
+
 // 0x00438A30..0x00438A5A: DestroyEntityList
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_DestroyEntityList_00438a30() {

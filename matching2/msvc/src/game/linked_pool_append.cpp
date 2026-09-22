@@ -1,5 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// BLOCKED (D3304): closest_byte_count=139/139; first_diff=none;
+// residual_class=private ESI pool-index receiver plus stack list base and
+// EAX returned node pointer; standalone readable calling conventions cannot
+// preserve this ABI. variants_tested=live Ghidra decompilation, callers/
+// callees/xrefs and variable audit (callers 0x00428F60, 0x004297D0,
+// 0x0042A450; callee operator_new), plus MSVC 13.10 exact baseline probe.
+// next_lever=native-LTCG cluster with those three real callers and this body;
+// current overlay remains exact.
 
 // 0x0042AA50..0x0042AADA: LinkedPool_AllocateAndAppendRetail
 // Naked body preserves the retail register/stack ABI.

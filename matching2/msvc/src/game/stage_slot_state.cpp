@@ -1,3 +1,16 @@
+// BLOCKED (D3202): closest_byte_count=683/683; first_diff=none (retail
+// assembly baseline only; no readable candidate retained).
+// residual_class=private constructor/helper ABIs, ESI/EDI live-ins, SEH-like
+// caller state, three timer record layouts, and the 2000-entry 0x7F0-stride
+// sweep. Live Ghidra topology: sole caller 0x00415DB0 and callees
+// 0x00449950, 0x00449870, 0x004489D0, 0x004491C0, 0x00408030, 0x0040E6A0.
+// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
+// disassembly, variable/storage audit, and legacy semantic constructor model;
+// no compiler-readable candidate was byte-measured or retained.
+// next_lever=schema2 native-LTCG cluster over 0x00410DDB -> 0x00415DB0 ->
+// 0x00415B00 with explicit ESI/EDI live-ins, the three timer records, and
+// verified AnimationManager/region-sweep layouts.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

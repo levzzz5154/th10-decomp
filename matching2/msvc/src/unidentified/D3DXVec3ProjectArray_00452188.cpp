@@ -1,11 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x00452188..0x0045218D: D3DXVec3ProjectArray
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DXVec3ProjectArray_00452188() {
-    __asm {
-    L_00452188:
-        jmp dword ptr [data_004662f4]
-    }
+// D3DXVec3ProjectArray is the stdcall nine-argument import entry used by the
+// renderer.  Keeping the slot typed lets MSVC emit the retail indirect tail
+// jump while exposing the real API signature to readable callers.
+typedef void* (__stdcall *D3DXVec3ProjectArrayImport_00452188)(
+    void* out, unsigned int out_stride, const void* vectors,
+    unsigned int vector_stride, unsigned int count, const void* viewport,
+    const void* projection, const void* view, const void* world);
+
+extern "C" D3DXVec3ProjectArrayImport_00452188 data_004662f4;
+
+// 0x00452188..0x0045218D: D3DXVec3ProjectArray import thunk.
+extern "C" void* __stdcall asm_D3DXVec3ProjectArray_00452188(
+    void* out, unsigned int out_stride, const void* vectors,
+    unsigned int vector_stride, unsigned int count, const void* viewport,
+    const void* projection, const void* view, const void* world) {
+    return data_004662f4(out, out_stride, vectors, vector_stride, count,
+                         viewport, projection, view, world);
 }

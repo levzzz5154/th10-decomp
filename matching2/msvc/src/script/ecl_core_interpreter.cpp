@@ -2,17 +2,20 @@
 #include "asm_symbols.hpp"
 
 
-// BLOCKED (D2702): closest_byte_count=7020; first_diff=unmeasured;
-// residual_class=source_shape/abi; this schema-2 ECL dispatcher is a
-// 7-KB opcode jump-table state machine with an EAX instance, ESI/EDI scratch
-// homes, x87 comparisons, and private tail targets shared by child ticking.
-// Replacing only this wrapper would lose the dispatcher table and its caller
-// ABI, so no isolated readable translation is safe.
-// variants_tested=the existing opcode/state overlay, the recovered
-// ECL_ResolveIntValue/FindVariable/StartChild helpers, and the exact retail
-// dispatcher; no schema-2 candidate was byte-measured.
-// next_lever=co-compile the complete opcode table with every listed ECL
-// helper and EclVm_TickChildren in one native-LTCG cluster.
+// BLOCKED (D2102): no readable dispatcher candidate is retained.  Ghidra
+// measures 0x1A1A (6682) bytes, 329 basic blocks, 697 edges, 252 conditional
+// branches, 127 calls, and cyclomatic complexity 370; the maintained retail
+// extent is 7020 bytes including the split tail/labels.  Opcode edges cover
+// 60 switch successors at 0x0044E205 and shared exits 0x0044FB68/77/85/96/
+// B0/B2.  The dispatcher calls SpawnChild at 0x0044E268/2A2 and StartChild
+// at 0x0044E360, supplying the private EDI/EAX child ABI.
+// residual_class=complete schema-2 opcode/state-machine translation;
+// residual_bytes=7020 source bytes.  The exact assembly wrapper remains the
+// only measured implementation; a 5-byte readable skeleton is forbidden.
+// variants_tested=Ghidra decompile, opcode/state overlay, helper models, and
+// native-LTCG child ABI probes; no complete readable candidate matched.
+// next_lever=first recover the full opcode hook/state cluster and the actual
+// dispatcher caller edges, then remeasure the complete body.
 // 0x0044E1A0..0x0044E1D7: FUN_0044e1a0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_0044e1a0() {
@@ -3965,17 +3968,16 @@ struct EclFrame {
     EclStack stack;                    // +0x0008
 };
 
-// BLOCKED (D2702): closest_byte_count=144; first_diff=unmeasured;
-// residual_class=abi/cluster; the resolver's selector arrives in EAX, the
-// ECL frame in EDX, and the callee pops one stack argument.  Indirect slots
-// can consume the value stack, convert a tagged float, or dispatch through a
-// virtual variable context; those paths share private homes with the
-// interpreter and cannot be represented by an isolated ordinary declaration.
-// variants_tested=the EclOperandTable/EclStack/EclVariableContext structures,
-// the existing ECL_ResolveIntValue readable body, and the exact retail
-// overlay; no cluster candidate was byte-measured.
-// next_lever=compile ResolveIntOperand with ResolveIntValue, FindVariable,
-// and the real interpreter callers using the observed EAX/EDX cluster ABI.
+// BLOCKED (D2102): closest_byte_count=141; first_diff=0x0044FDB1 (+0x1:
+// expected 44, candidate 4c); residual_class=abi/cluster; the readable
+// fastcall candidate compiled to 141 bytes but received selector in ECX and
+// retained RET 0xC, while retail carries frame in EDX, selector in EAX, and
+// pops one stack argument with RET 4.
+// variants_tested=EclOperandTable/EclStack/EclVariableContext readable
+// candidate (141-byte body), direct retail wrapper, and existing
+// ECL_ResolveIntValue shape.
+// next_lever=compile this body with its real EAX/EDX caller in one schema-2
+// LTCG cluster.
 // 0x0044FDB0..0x0044FE3F: ?ECL_ResolveIntOperand@@
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntOperand_0044fdb0() {
@@ -4125,14 +4127,14 @@ int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* frame, int sel
 
 
 
-// BLOCKED (D2702): closest_byte_count=30; first_diff=unmeasured;
-// residual_class=toolkit; this ECL member is another canonical x87 FSINCOS
-// leaf with ECX as destination and RET 8 stack ownership for angle/magnitude.
-// Standard sin/cos source does not force the single retail FSINCOS operation.
-// variants_tested=the existing Score_SetPolarVector and Recovery_PolarToVector
-// leaves, direct ECL Vector2 source spellings, and the exact retail overlay;
-// no compiler-readable FSINCOS candidate was byte-measured.
-// next_lever=use a compiler/toolkit mechanism that emits FSINCOS while
+// BLOCKED (D2102): closest_byte_count=28; first_diff=extent mismatch (candidate extent 28, target 30);
+// residual_class=toolkit; a readable cos/sin candidate compiled to 28 bytes,
+// but retail requires the combined x87 FSINCOS sequence and the 30-byte
+// __thiscall body (ECX destination, RET 8 stack ownership).
+// variants_tested=cos/sin C++ candidate (28-byte body, rejected by probe);
+// existing Score_SetPolarVector and Recovery_PolarToVector leaves; exact
+// retail overlay.
+// next_lever=provide a compiler/toolkit intrinsic that emits FSINCOS while
 // retaining the __thiscall destination and RET-8 argument contract.
 // 0x004501B0..0x004501CD: ?ECL_SetPolarVector@@
 // Naked body preserves the retail register/stack ABI.

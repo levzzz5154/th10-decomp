@@ -1,3 +1,13 @@
+// BLOCKED (D3506): closest_byte_count=0/173; first_diff=0x0044DBF0;
+// residual_class=private EAX mode/ECX filename/EDX record/ESI cursor inputs,
+// conditional Win32 import sequencing, and the cursor caller's native ABI.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee and global audits, and MSVC 13.10 probe path (the wrapper is
+// exact); no readable candidate was byte-measured without changing the
+// fixed-address ownership manifest.
+// next_lever=native-LTCG schema-2 cluster over caller 0x0044C8F0 and this
+// body, with 0x004660C4/0x004660C8 and the ArchiveCursor layout bound at
+// retail addresses, then measure all 173 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

@@ -248,3 +248,12 @@ extern "C" __declspec(naked) void __cdecl asm_EncryptDatBuffer_0044b220() {
         ret 14h
     }
 }
+// BLOCKED (D3303): closest_byte_count=0/307; first_diff=none;
+// residual_class=seed in AL plus stack/register-mixed __userpurge inputs,
+// scratch-copy ordering, and reverse/interleaved byte-loop codegen.
+// variants_tested=live Ghidra decompilation/topology and MSVC 13.10 readable
+// stdcall translation (265/307 extent); next_lever=native-LTCG
+// cluster/schema2 with callers 00429B60 and 0042B1E0 plus malloc/free
+// bindings.
+// Current assembly overlay remains exact.
+

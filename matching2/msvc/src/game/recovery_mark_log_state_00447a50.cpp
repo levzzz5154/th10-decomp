@@ -9,6 +9,14 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// BLOCKED (D3001): closest_byte_count=141/141; first_diff=none
+// (authoritative probe exact).  Preserve the exact member: a readable
+// cutover still needs the private ESI receiver, variadic stack walk, helper
+// 004479D0 register agreement, and security-cookie frame.  variants_tested=
+// retail inline-assembly member only; no failed source variant retained.
+// next_lever=schema2 native-LTCG cluster over callers 0040BD80, 00415E90,
+// 00419120, 00433EF0 and callee 004479D0, with _vsprintf/cookie declarations
+// visible to the compiler before replacing this exact member.
 // 0x00447A50..0x00447ADC: Recovery_MarkLogState
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_MarkLogState_00447a50() {

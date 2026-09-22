@@ -1,3 +1,15 @@
+// BLOCKED (D3907): closest_byte_count=0/239; first_diff=0x00435370
+// (no readable native-LTCG body retained).
+// residual_class=ECX thiscall receiver plus EAX/ECX usercall path resolver,
+// Win32 import declarations, and security-cookie/stack-buffer lowering.
+// variants_tested=["live Ghidra decompile at 0x00435370",
+// "live caller 0x00434c30 and callee 0x00435610", "MSVC 13.10.6030
+// authoritative probe (239/239 exact asm baseline)", "schema-2 native-LTCG
+// feasibility review of the resolver ABI"].
+// next_lever=compile a schema-2 native-LTCG cluster with the real caller
+// 0x00434c30, this typed FileHandle body, and 0x00435610's EAX/ECX path
+// resolver; retain the exact resolver/cookie declarations before changing
+// production region metadata.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

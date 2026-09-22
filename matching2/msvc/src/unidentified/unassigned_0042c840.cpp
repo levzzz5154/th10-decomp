@@ -1,13 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042C840..0x0042C848: signed-byte table lookup.
+// Native LTCG keeps the table in ECX and the index in EAX.
+struct ByteTable_0042c840 {
+    unsigned char pad_000[0x1D888];
+    signed char value_1d888[1];
+    __declspec(noinline) int Read(int index);
+};
 
-// 0x0042C840..0x0042C848: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042c840() {
-    __asm {
-    L_0042c840:
-        movsx eax,byte ptr [ecx+eax+1D888h]
-    L_0042c848:
-        ret
-    }
+#pragma code_seg(".text$01read")
+int ByteTable_0042c840::Read(int index) {
+    return value_1d888[index];
 }
+#pragma code_seg()

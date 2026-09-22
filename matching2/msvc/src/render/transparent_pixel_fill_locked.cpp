@@ -1,3 +1,10 @@
+// BLOCKED (D3407): closest_byte_count=0/1463; first_diff=extent (readable surface-loop candidate emitted 90 bytes vs retail 1463 before byte comparison);
+// residual_class=source-shape/private-ABI; Ghidra shows three mode-specific pixel kernels, vtable setup,
+// stack temporaries, and internal branch labels not expressible by the bounded standalone model.
+// variants_tested=retail naked baseline (1463/1463 exact), bounded readable surface loop (90 bytes),
+// live Ghidra FUN_004465B0 decompile, and exact probe;
+// next_lever=derive the original pixel-record and surface interfaces, then compile the full body in a native-LTCG renderer cluster.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

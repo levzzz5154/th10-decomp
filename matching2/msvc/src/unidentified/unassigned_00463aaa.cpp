@@ -1,25 +1,16 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" unsigned char data_004776d8;
+extern "C" unsigned char data_004661d4;
+extern "C" int __stdcall asm_CxxUnhandledExceptionFilter_00463a5c(void*);
+typedef void* (__stdcall *SetUnhandledExceptionFilterFn)(void*);
 
-// 0x00463AAA..0x00463AC9: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00463aaa() {
-    __asm {
-    L_00463aaa:
-        push 463A5Ch
-    L_00463aaf:
-        call dword ptr [data_004661d4]
-    L_00463ab5:
-        mov dword ptr [data_004776d8],eax
-    L_00463aba:
-        xor eax,eax
-    L_00463abc:
-        ret
-    L_00463abd:
-        push dword ptr [data_004776d8]
-    L_00463ac3:
-        call dword ptr [data_004661d4]
-    L_00463ac9:
-        ret
-    }
+extern "C" int __cdecl asm_unassigned_00463aaa() {
+    *reinterpret_cast<void**>(&data_004776d8) =
+        (*reinterpret_cast<SetUnhandledExceptionFilterFn*>(&data_004661d4))(
+            reinterpret_cast<void*>(&asm_CxxUnhandledExceptionFilter_00463a5c));
+    return 0;
+}
+
+extern "C" void* __cdecl asm_unassigned_00463abd() {
+    return (*reinterpret_cast<SetUnhandledExceptionFilterFn*>(&data_004661d4))(
+        *reinterpret_cast<void**>(&data_004776d8));
 }

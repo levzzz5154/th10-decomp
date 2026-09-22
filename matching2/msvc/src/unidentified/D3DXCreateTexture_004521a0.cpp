@@ -1,11 +1,13 @@
 #include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
 
-// 0x004521A0..0x004521A5: D3DXCreateTexture
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DXCreateTexture_004521a0() {
-    __asm {
-    L_004521a0:
-        jmp dword ptr [data_004662e4]
-    }
+typedef long (__stdcall* D3DXCreateTextureFn_004521a0)(
+    void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
+    unsigned int usage, unsigned int format, unsigned int pool, void** texture);
+extern "C" D3DXCreateTextureFn_004521a0 data_004662e4;
+
+// 0x004521A0..0x004521A5: imported D3DXCreateTexture tail thunk.
+extern "C" long __stdcall asm_D3DXCreateTexture_004521a0(
+    void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
+    unsigned int usage, unsigned int format, unsigned int pool, void** texture) {
+    return data_004662e4(device, width, height, mip_levels, usage, format, pool, texture);
 }

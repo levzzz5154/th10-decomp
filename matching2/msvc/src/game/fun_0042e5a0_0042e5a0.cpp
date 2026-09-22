@@ -1,3 +1,15 @@
+// BLOCKED (D3305): closest_byte_count=3999/3999; first_diff=none
+// (authoritative retail overlay probe exact; no readable candidate retained).
+// residual_class=private EDI receiver, private-register AnimationManager
+// helper ABIs, and long repeated control-flow/source-shape scheduling with
+// x87 volume arithmetic and shared animation-object layout.
+// variants_tested=live Ghidra decompilation plus callers/callees
+// (0x0042D920; 0x0043E460, 0x0043E5A0, 0x004491C0, 0x00463B2C);
+// standalone readable conversion was not retained because the current
+// region is kind=asm and native-LTCG selection rejects non-semantic ownership.
+// next_lever=schema2 native-LTCG cluster over 0x0042D920 and this member,
+// with AnimationManager_Find/ConfigureFromResource/RegisterResource visible.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

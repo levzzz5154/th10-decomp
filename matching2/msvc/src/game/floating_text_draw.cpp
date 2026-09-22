@@ -1,6 +1,14 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3903): closest_byte_count=26/540; first_diff=0x0042B782;
+// residual_class=private EDI receiver, x87 stack/evaluation order, glyph
+// table layout, and draw/flush helper ABI across the nested text loops.
+// variants_tested=MSVC 13.10 typed standalone floating-point/loop candidate
+// (458-byte extent, 26/540 comparable bytes after relocation masking) plus
+// exact naked baseline; candidate was restored.
+// next_lever=caller-inclusive schema2 native-LTCG cluster with the real EDI
+// text owner, x87-compatible state layout, and draw helper callees visible.
 // 0x0042B780..0x0042B99B: FUN_0042b780
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0042b780_0042b780() {

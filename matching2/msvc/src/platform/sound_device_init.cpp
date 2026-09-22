@@ -1,15 +1,17 @@
 // BLOCKED (H2701): closest_byte_count=786; first_diff=unmeasured;
-// residual_class=abi/source_shape: this __thiscall entry keeps the device
-// object in ECX and HWND on the stack (RET 4), then combines DirectInput
-// vtable calls, a 0x2000-dword clear, security-cookie exits, and fixed
-// stack-struct fields; ordinary constructor/source forms alter that schedule.
+// residual_class=abi/source_shape: live Ghidra identifies the startup worker
+// caller FUN_0043CCF0 (xref 0x0043CCFB), with callees Ordinal_11,
+// FUN_0044B810, FUN_0043D390, operator_new/free, FUN_0044C7E0, SetTimer,
+// and the security-cookie helper. Retail keeps ECX as the device object,
+// HWND on the stack (RET 4), and a 0x2000-dword clear beside fixed stack
+// structs and DirectInput vtable calls.
 // variants_tested=exact retail naked wrapper, readable DirectInput/device-init
-// reconstruction, and explicit zeroed-buffer plus vtable-interface model
-// against the StartAddress caller; no compiler-readable candidate was
-// byte-measured.
-// next_lever=co-compile the real startup caller, DirectInput interfaces, and
-// device state layout in one native-LTCG cluster while retaining RET 4.
-
+// reconstruction, explicit zeroed-buffer/vtable model, and the StartAddress
+// caller cluster shape; MSVC 13.10 baseline probe is exact (786/786), but no
+// compiler-readable candidate was linked.
+// next_lever=co-compile the real FUN_0043CCF0 startup caller, DirectInput
+// interfaces, and device state layout in one native-LTCG cluster while
+// retaining RET 4 and the cookie failure exits.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

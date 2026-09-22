@@ -1,6 +1,16 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3403): closest_byte_count=651/651; first_diff=none
+// residual_class=COM_streamer_constructor_SEH_frame_vtable_layout_and_private
+// argument homes; live Ghidra decompile resolves the DirectSound notification
+// flow, allocation cleanup, and 0x0044D6A0 handoff, but no production-valid
+// readable interface layout reproduced the retail frame.
+// variants_tested=live Ghidra decompile plus callers/callees and native-LTCG
+// feasibility analysis around 0x0043D950, 0x0044D6A0, operator_new, and the
+// DirectSound vtable slots. next_lever=restore the concrete COM interface
+// declarations and exception-state ownership, then test a real native-LTCG
+// constructor cluster without changing the fixed ABI or SEH scope.
 // 0x0043A910..0x0043A9AB: FUN_0043a910
 // Naked body preserves the retail register/stack ABI.
 

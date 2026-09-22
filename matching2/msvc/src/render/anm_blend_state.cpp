@@ -1,14 +1,16 @@
 // BLOCKED (H2701): closest_byte_count=440; first_diff=unmeasured;
-// residual_class=abi/source_shape: retail carries the entity in EAX and the
-// animation manager in EBX, calls the private flush leaf, and stores packed
-// blend/filter bytes through stack homes before issuing D3D state methods;
-// a standalone member loses those private register and byte-temporary shapes.
-// variants_tested=exact retail naked wrapper, the readable SyncRenderState
-// counterpart at 0x004425A0, and a direct packed-state/D3D-vtable model; no
-// compiler-readable candidate was byte-measured.
-// next_lever=make the 0x00442F50 flush body and its quad-draw caller an
-// IL-visible native-LTCG cluster, preserving EAX/EBX and the packed byte homes.
-
+// residual_class=abi/source_shape: live Ghidra identifies the real caller as
+// FUN_00444760 (xref 0x00444994) and the flush callee as FUN_00442F50;
+// retail carries entity in EAX and the animation manager in EBX, then stores
+// packed blend/filter bytes through stack homes before issuing D3D state calls.
+// variants_tested=exact retail naked wrapper, readable SyncRenderState
+// counterpart, direct packed-state/D3D-vtable model, and a scratch LTCG
+// caller cluster using 0x00444760; MSVC 13.10 baseline probe is exact
+// (440/440), but the readable cluster did not survive existing dispatch
+// contribution validation.
+// next_lever=replace the existing 0x00444760 render-batch ABI anchor with a
+// real caller/callee cluster that preserves EAX/EBX and packed byte homes;
+// retain this wrapper until the complete 440-byte extent is emitted.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

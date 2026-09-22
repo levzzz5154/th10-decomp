@@ -1,3 +1,17 @@
+// BLOCKED (D3802): closest_byte_count=0/107; first_diff=unmeasured;
+// residual_class=private EDX config receiver, private EDI helper/global
+// state, allocation-null path, and the device-vtable call ABI. Live Ghidra
+// decompilation confirms the 0x60-byte allocation, 0x18-dword wipe after
+// 0x00418C40 initialization, device eviction, 0x00477810 publication, and
+// the 0x00420EA0 worker launch.
+// variants_tested=live Ghidra decompile with real callers in
+// 0x00421A14..0x00421AE8; archived GameUi_CreateAndPublish semantic model;
+// no standalone readable candidate retained because 0x00418C40 consumes the
+// object in a private register and 0x00420EA0 has a mixed register/stack ABI.
+// next_lever=compile this source with the five 0x00421Axx callers and
+// 0x00418C40/0x00420EA0 as compiler-visible definitions in one native-LTCG
+// schema-2 cluster, then compare the complete 107-byte contribution.
+
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

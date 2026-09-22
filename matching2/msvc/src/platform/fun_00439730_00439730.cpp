@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3507): closest_byte_count=0/341; first_diff=extent (readable typed Win32 candidate emitted 308 bytes vs retail 341);
+// residual_class=private-EBX HINSTANCE ABI and Win32 import/call scheduling; GameMain passes the instance in EBX and the retail body uses that register directly;
+// variants_tested=retail naked baseline (341/341 exact), readable WNDCLASSA/Win32 cdecl candidate (308-byte extent), live Ghidra FUN_00439730 decompile, and GameMain caller inspection;
+// next_lever=native-LTCG cluster with GameMain as the real EBX caller, preserving the hidden instance register and exact Win32 import declarations.
+
 // 0x00438AD0..0x0043900C: GameMain
 // Naked body preserves the retail register/stack ABI.
 

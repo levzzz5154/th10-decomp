@@ -6,6 +6,12 @@
 
 // 0x004074B0..0x00407553: PlayerAnimation_AdvanceFrame
 // Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3704): closest_byte_count=0/164; first_diff=0x004074B0;
+// residual_class=ESI receiver ABI, x87 evaluation ordering, and private
+// player-animation layout; variants_tested=["live Ghidra decompile at
+// 0x004074B0", "live caller 0x00406240", "MSVC 13.10 schema-2 baseline
+// probe"]; next_lever=native-LTCG cluster with caller 0x00406240, typed
+// Player layout, and co-compiled SetPolarVector/NormalizeFrame callees.
 extern "C" __declspec(naked) void __cdecl asm_PlayerAnimation_AdvanceFrame_004074b0() {
     __asm {
     L_004074b0:

@@ -1,3 +1,14 @@
+// BLOCKED (D3506): closest_byte_count=0/87; first_diff=0x00447F70;
+// residual_class=private EDI manager/ESI index inputs, two virtual-release
+// calls, and the free callee whose native register schedule depends on real
+// animation-manager callers.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee topology, and a readable opaque-layout candidate (103-byte
+// standalone extent; rejected before byte comparison); schema-2/native-LTCG
+// registration cannot proceed while the exclusive region remains kind asm.
+// next_lever=native-LTCG schema-2 cluster over callers 0x0040B7B0 and
+// 0x00448450 with this body and the virtual/free callees, then measure the
+// complete 87-byte contribution before changing ownership.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

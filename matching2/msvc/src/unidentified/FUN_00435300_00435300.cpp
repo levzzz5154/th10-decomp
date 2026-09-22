@@ -1,17 +1,18 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00435300..0x00435314: initialize the FileHandle state.
+// Native LTCG exposes the incoming object pointer in EAX for this free
+// initializer, preserving the retail result-register convention without
+// inline assembly.
+struct FileHandle_00435300 {
+    void* vtable;
+    int handle;
+    int state;
+};
 
-// 0x00435300..0x00435314: FUN_00435300
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00435300_00435300() {
-    __asm {
-    L_00435300:
-        mov dword ptr [eax],46F230h
-    L_00435306:
-        mov dword ptr [eax+4],0FFFFFFFFh
-    L_0043530d:
-        mov dword ptr [eax+8],0
-    L_00435314:
-        ret
-    }
+#pragma code_seg(".text$01file_handle_init")
+extern "C" __declspec(noinline) void FileHandle_Initialize_00435300(
+    FileHandle_00435300* self) {
+    self->vtable = (void*)0x0046F230;
+    self->handle = -1;
+    self->state = 0;
 }
+#pragma code_seg()

@@ -1,6 +1,15 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (D3604): closest_byte_count=0/442; first_diff=unmeasured;
+// residual_class=security-cookie frame, indirect Win32 import slots, local
+// STARTUPINFO/buffer layout, and private caller/callee ABI through 0x0043A290,
+// 0x0044B8E0, and 0x0044B4D0.
+// variants_tested=live Ghidra decompilation, caller GameMain 0x00438AD0,
+// callee cluster inspection, readable import-slot candidate (MSVC C2371/C2040),
+// and exact retail wrapper baseline.
+// next_lever=native-LTCG cluster over GameMain, this entry, 0x0043A290,
+// 0x0044B8E0, and 0x0044B4D0 with import-slot declarations retained.
 // 0x00438AD0..0x0043900C: GameMain
 // Naked body preserves the retail register/stack ABI.
 

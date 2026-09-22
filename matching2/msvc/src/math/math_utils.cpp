@@ -1,3 +1,14 @@
+// BLOCKED (D3504): closest_byte_count=0/688; first_diff=0x004049A0;
+// residual_class=private EBX interpolator receiver with EAX return and EBP
+// stack result, plus x87 evaluation order across timer completion, vector
+// arithmetic, easing, and four-component Hermite temporaries.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and a readable ParamBlockInterp candidate measured at
+// 707 bytes (retail extent is 688); no cluster candidate was retained because
+// the fixed-address region remains assembly-owned.
+// next_lever=native-LTCG cluster over real caller 0x00404327, this body,
+// ParticleSeed/Vec_Scale/Vec_Subtract/Curve_Evaluate callees, and the observed
+// EBX/EAX/ESI entry tuple; then measure all 688 bytes.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
