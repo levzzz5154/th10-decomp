@@ -1,8 +1,9 @@
 # Slot byte append at `0x0042A900`
 
 `0x0042A900..0x0042A925` is a 38-byte leaf that appends one byte through a
-cursor stored at object offset `+0x6274`. The readable model is in
-`matching2/msvc/src/unidentified/unassigned_0042a900.cpp`.
+cursor stored at object offset `+0x6274`. The readable model is preserved in
+`matching2/reference/semantic_candidates/unassigned_0042a900.cpp`; the mapped
+source retains the retail assembly entry until its EAX/DL ABI is bridged.
 
 ## Behavior
 
@@ -37,9 +38,8 @@ results do not rule out an indirect dispatch path.
 
 ## Model status
 
-The source contains ordinary C++ and no inline assembly. Its `__cdecl`
+The archived model contains ordinary C++ and no inline assembly. Its `__cdecl`
 object-and-byte parameters are an explicit semantic interface only; they do
-not model the retail `EAX` receiver and `DL` input. The existing C-linkage
-symbol spelling is retained for the current manifest reference, but this
-change does not promote the manifest region or establish byte equivalence.
+not model the retail `EAX` receiver and `DL` input. The maintained source and
+manifest retain the raw entry symbol because the interface remains unbridged.
 No build, probe, or test was run for this model.

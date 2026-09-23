@@ -1,57 +1,123 @@
-#include "th10/math/angle.hpp"
-#include "th10/math/timer.hpp"
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-extern "C" float data_00470afc;
-extern "C" float data_00470b64;
-extern "C" float data_00470b68;
-extern "C" float data_00476f78;
+// 0x0040678E..0x00406797: ?Player_ForwardAxisWrap@@
+// Naked body preserves the retail register/stack ABI.
 
-struct PolarVector2_00408750 {
-    float x;
-    float y;
-    __declspec(noinline) void SetPolar(float angle, float scale);
-};
-
-struct PlayerDeathShrinkState_004076A0 {
-    unsigned char reserved_000[0x3C0];
-    PolarVector2_00408750 velocity;
-    unsigned char reserved_3C8[0x10];
-    float scalar_3D8;
-    unsigned char reserved_3DC[8];
-    float angle_3E4;
-    unsigned char reserved_3E8[0x54];
-    unsigned int flags_43C;
-    unsigned char reserved_440[0x23C];
-    FrameTimer death_timer;
-    float fall_rate_690;
-    float angle_rate_694;
-    unsigned char reserved_698[0x0C];
-    int death_deadline_6A4;
-
-    __declspec(noinline) void AdvanceDeathShrink();
-};
-
-// 0x004076A0. Ease the angle and scalar while the death clock is active, clear
-// the shrink flag at its deadline, and advance the embedded frame clock. The
-// retail 0x004063AF edge supplies this object in ESI; whole-cluster/LTCG work
-// is still needed before this ordinary member can replace that private entry.
-void PlayerDeathShrinkState_004076A0::AdvanceDeathShrink() {
-    if (death_timer.current < death_deadline_6A4) {
-        angle_3E4 = Angle_NormalizeSum(
-            angle_3E4, data_00476f78 * angle_rate_694);
-        scalar_3D8 = data_00476f78 * fall_rate_690 + scalar_3D8;
-        velocity.SetPolar(angle_3E4, scalar_3D8);
-    } else {
-        flags_43C &= ~0x20u;
-    }
-
-    death_timer.previous = death_timer.current;
-    const float frame_scale = *death_timer.speed;
-    if (data_00470b68 < frame_scale && frame_scale < data_00470b64) {
-        ++death_timer.current;
-        death_timer.elapsed += data_00470afc;
-    } else {
-        death_timer.elapsed = death_timer.elapsed + frame_scale;
-        death_timer.current = (int)death_timer.elapsed;
+// 0x004076A0..0x00407770: Player_DeathShrink
+// Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=37/209; first_diff=0x004076A1;
+// residual_class=private ESI receiver, x87 stack/evaluation ordering, and
+// helper ABI for NormalizeSum/SetPolarVector/next-frame; variants_tested=live
+// Ghidra decompilation with caller 0x00406240 and callees 0x0044BC10,
+// 0x00408750, 0x00463B2C, plus MSVC 13.10 readable candidate (224-byte
+// extent, 37 non-relocation bytes equal); next_lever=native-LTCG cluster with
+// caller 0x00406240 and the production Player layout.
+extern "C" __declspec(naked) void __cdecl asm_Player_DeathShrink_004076a0() {
+    __asm {
+    L_004076a0:
+        push ecx
+    L_004076a1:
+        mov eax,dword ptr [esi+680h]
+    L_004076a7:
+        cmp eax,dword ptr [esi+6A4h]
+    L_004076ad:
+        jl short L_004076b8
+    L_004076af:
+        and dword ptr [esi+43Ch],0FFFFFFDFh
+    L_004076b6:
+        jmp short L_0040770b
+    L_004076b8:
+        fld dword ptr [data_00476f78]
+    L_004076be:
+        push ecx
+    L_004076bf:
+        fmul dword ptr [esi+694h]
+    L_004076c5:
+        mov ecx,dword ptr [esi+3E4h]
+    L_004076cb:
+        fstp dword ptr [esp]
+    L_004076ce:
+        push ecx
+    L_004076cf:
+        call asm_Angle_NormalizeSum_0044bc10
+    L_004076d4:
+        fstp dword ptr [esi+3E4h]
+    L_004076da:
+        fld dword ptr [data_00476f78]
+    L_004076e0:
+        mov eax,dword ptr [esi+3E4h]
+    L_004076e6:
+        fmul dword ptr [esi+690h]
+    L_004076ec:
+        lea ecx,[esi+3C0h]
+    L_004076f2:
+        fadd dword ptr [esi+3D8h]
+    L_004076f8:
+        fst dword ptr [esp]
+    L_004076fb:
+        mov edx,dword ptr [esp]
+    L_004076fe:
+        fstp dword ptr [esi+3D8h]
+    L_00407704:
+        push edx
+    L_00407705:
+        push eax
+    L_00407706:
+        call asm_Score_SetPolarVector_00408750
+    L_0040770b:
+        mov edx,dword ptr [esi+680h]
+    L_00407711:
+        mov ecx,dword ptr [esi+688h]
+    L_00407717:
+        mov dword ptr [esi+67Ch],edx
+    L_0040771d:
+        fld dword ptr [ecx]
+    L_0040771f:
+        fcomp dword ptr [data_00470b68]
+    L_00407725:
+        fnstsw ax
+    L_00407727:
+        test ah,41h
+    L_0040772a:
+        jne short L_00407756
+    L_0040772c:
+        fld dword ptr [ecx]
+    L_0040772e:
+        fcomp dword ptr [data_00470b64]
+    L_00407734:
+        fnstsw ax
+    L_00407736:
+        test ah,5
+    L_00407739:
+        jp short L_00407756
+    L_0040773b:
+        fld dword ptr [esi+684h]
+    L_00407741:
+        inc edx
+    L_00407742:
+        fadd dword ptr [data_00470afc]
+    L_00407748:
+        mov dword ptr [esi+680h],edx
+    L_0040774e:
+        fstp dword ptr [esi+684h]
+    L_00407754:
+        pop ecx
+    L_00407755:
+        ret
+    L_00407756:
+        fld dword ptr [ecx]
+    L_00407758:
+        fadd dword ptr [esi+684h]
+    L_0040775e:
+        fst dword ptr [esi+684h]
+    L_00407764:
+        call asm_FUN_00463b2c_00463b2c
+    L_00407769:
+        mov dword ptr [esi+680h],eax
+    L_0040776f:
+        pop ecx
+    L_00407770:
+        ret
     }
 }

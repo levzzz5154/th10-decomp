@@ -4,10 +4,10 @@
 
 This note records ordinary C++ semantic models for two 43-byte regions:
 
-| Address | Source | Retail extent | List |
-| --- | --- | ---: | --- |
-| `0x0044A060` | `matching2/msvc/src/unidentified/unassigned_0044a060.cpp` | 43 | primary |
-| `0x0044A090` | `matching2/msvc/src/unidentified/unassigned_0044a090.cpp` | 43 | secondary |
+| Address | Candidate source | Retail extent | List |
+| --- | --- | ---: | --- | --- |
+| `0x0044A060` | `matching2/reference/semantic_candidates/unassigned_0044a060.cpp` | 43 | primary |
+| `0x0044A090` | `matching2/reference/semantic_candidates/unassigned_0044a090.cpp` | 43 | secondary |
 
 Both bodies create a scheduler callback task, store its context at `+0x20`,
 clear raw task flag mask `0x2` (bit 1), register it, and return the task
@@ -16,8 +16,10 @@ wrapper uses `Scheduler_RegisterSecondary`. The models follow the neighboring se
 wrappers at `0x0044A000` and `0x0044A030`, which perform the same sequence but
 set raw flag bit 1.
 
-The manifest was not changed: both regions remain `kind=asm` with their prior
-unassigned symbols. No byte comparison or build was run for these models.
+The maintained source files retain the retail assembly and the manifest rows
+remain `kind=asm` with their existing symbols. The readable models are archived
+under `matching2/reference/semantic_candidates`; no byte comparison or build
+was run.
 
 ## ABI evidence
 

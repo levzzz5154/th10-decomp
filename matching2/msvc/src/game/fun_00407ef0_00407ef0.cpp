@@ -1,82 +1,186 @@
-#include <math.h>
-#include "th10/math/angle.hpp"
-#include "th10/math/timer.hpp"
+// BLOCKED (D3702): closest_byte_count=0/306; first_diff=extent (candidate
+// extent 176 vs retail 306).
+// residual_class=abi+structural: readable cdecl candidate emitted a 176-byte
+// body while retail requires ESI live-in state, x87 FPATAN/stack ordering,
+// and private helper register conventions.
+// variants_tested=live Ghidra decompile, archived Enemy_HomingStep model, and
+// MSVC 13.10 readable candidate probe (176-byte extent vs 306-byte retail).
+// next_lever=native-LTCG cluster with the actual bullet runtime caller and
+// typed enemy state plus x87-compatible helper declarations.
 
-extern "C" float data_00470afc;
-extern "C" float data_00470b04;
-extern "C" float data_00470b64;
-extern "C" float data_00470b68;
-extern "C" float data_00476f78;
-extern "C" double __cdecl atan2(double, double);
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-struct PolarVector2_00408750 {
-    float x;
-    float y;
-    __declspec(noinline) void SetPolar(float angle, float scale);
-};
+// 0x00407560..0x00407690: FUN_00407560
+// Naked body preserves the retail register/stack ABI.
 
-struct PlayerAimTarget_00407EF0 {
-    unsigned char reserved_000[0x3C0];
-    float target_x;
-    float target_y;
-};
-extern "C" PlayerAimTarget_00407EF0* data_00477834;
-
-struct PlayerHomingState_00407EF0 {
-    unsigned char reserved_000[0x3B4];
-    float position_x;
-    float position_y;
-    float position_z;
-    PolarVector2_00408750 velocity;
-    float velocity_z;
-    unsigned char reserved_3CC[0x0C];
-    float scalar_3D8;
-    unsigned char reserved_3DC[8];
-    float angle_3E4;
-    unsigned char reserved_3E8[0x54];
-    unsigned int flags_43C;
-    unsigned char reserved_440[0x374];
-    FrameTimer homing_timer;
-    float turn_rate_7C8;
-    float turn_limit_7CC;
-    unsigned char reserved_7D0[0x0C];
-    int homing_deadline_7DC;
-
-    __declspec(noinline) void HomeTowardTarget();
-};
-
-// 0x00407EF0. Aim at the global player target, limit the per-frame turn, write
-// the resulting velocity vector, and advance the embedded homing clock. The
-// retail 0x00406408 edge supplies this object in ESI; whole-cluster/LTCG work
-// is still needed before this ordinary member can replace that private entry.
-void PlayerHomingState_00407EF0::HomeTowardTarget() {
-    if (homing_timer.current < homing_deadline_7DC) {
-        const double dx = (double)data_00477834->target_x - (double)position_x;
-        const double dy = (double)data_00477834->target_y - (double)position_y;
-        float target_angle;
-        if (dy == data_00470b04 && dx == data_00470b04) {
-            target_angle = 1.57079637f;
-        } else {
-            target_angle = (float)atan2(dy, dx);
-        }
-
-        target_angle = Angle_NormalizeSum(turn_limit_7CC, target_angle);
-        const float turn_delta =
-            WrappedAngleDifference(target_angle, angle_3E4) * turn_rate_7C8 *
-            data_00476f78;
-        angle_3E4 = Angle_NormalizeSum(angle_3E4, turn_delta);
-        velocity.SetPolar(angle_3E4, scalar_3D8);
-    } else {
-        flags_43C &= ~0x04000000u;
-    }
-
-    homing_timer.previous = homing_timer.current;
-    const float frame_scale = *homing_timer.speed;
-    if (data_00470b68 < frame_scale && frame_scale < data_00470b64) {
-        ++homing_timer.current;
-        homing_timer.elapsed += data_00470afc;
-    } else {
-        homing_timer.elapsed = homing_timer.elapsed + frame_scale;
-        homing_timer.current = (int)homing_timer.elapsed;
+// 0x00407EF0..0x00408021: FUN_00407ef0
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_00407ef0_00407ef0() {
+    __asm {
+    L_00407ef0:
+        push ecx
+    L_00407ef1:
+        mov eax,dword ptr [esi+7B8h]
+    L_00407ef7:
+        cmp eax,dword ptr [esi+7DCh]
+    L_00407efd:
+        jl short L_00407f0e
+    L_00407eff:
+        and dword ptr [esi+43Ch],0FBFFFFFFh
+    L_00407f09:
+        jmp asm_target_00407fbc
+    L_00407f0e:
+        mov eax,dword ptr [data_00477834]
+    L_00407f13:
+        fld dword ptr [eax+3C0h]
+    L_00407f19:
+        fsub dword ptr [esi+3B4h]
+    L_00407f1f:
+        fld dword ptr [eax+3C4h]
+    L_00407f25:
+        fsub dword ptr [esi+3B8h]
+    L_00407f2b:
+        fld dword ptr [data_00470b04]
+    L_00407f31:
+        fld st(1)
+    L_00407f33:
+        fucompp
+    L_00407f35:
+        fnstsw ax
+    L_00407f37:
+        test ah,44h
+    L_00407f3a:
+        jp short L_00407f5a
+    L_00407f3c:
+        fld dword ptr [data_00470b04]
+    L_00407f42:
+        fld st(2)
+    L_00407f44:
+        fucompp
+    L_00407f46:
+        fnstsw ax
+    L_00407f48:
+        test ah,44h
+    L_00407f4b:
+        jp short L_00407f5a
+    L_00407f4d:
+        fstp st(0)
+    L_00407f4f:
+        mov dword ptr [esp],3FC90FDBh
+    L_00407f56:
+        fstp st(0)
+    L_00407f58:
+        jmp short L_00407f61
+    L_00407f5a:
+        fxch
+    L_00407f5c:
+        fpatan
+    L_00407f5e:
+        fstp dword ptr [esp]
+    L_00407f61:
+        mov ecx,dword ptr [esi+3E4h]
+    L_00407f67:
+        mov edx,dword ptr [esp]
+    L_00407f6a:
+        mov eax,dword ptr [esi+7CCh]
+    L_00407f70:
+        push ecx
+    L_00407f71:
+        push edx
+    L_00407f72:
+        push eax
+    L_00407f73:
+        call asm_Angle_NormalizeSum_0044bc10
+    L_00407f78:
+        push ecx
+    L_00407f79:
+        fstp dword ptr [esp]
+    L_00407f7c:
+        call asm_WrappedAngleDifference_00408660
+    L_00407f81:
+        fmul dword ptr [esi+7C8h]
+    L_00407f87:
+        push ecx
+    L_00407f88:
+        mov ecx,dword ptr [esi+3E4h]
+    L_00407f8e:
+        fmul dword ptr [data_00476f78]
+    L_00407f94:
+        fstp dword ptr [esp]
+    L_00407f97:
+        push ecx
+    L_00407f98:
+        call asm_Angle_NormalizeSum_0044bc10
+    L_00407f9d:
+        fst dword ptr [esp]
+    L_00407fa0:
+        mov edx,dword ptr [esi+3D8h]
+    L_00407fa6:
+        fstp dword ptr [esi+3E4h]
+    L_00407fac:
+        mov eax,dword ptr [esp]
+    L_00407faf:
+        push edx
+    L_00407fb0:
+        push eax
+    L_00407fb1:
+        lea ecx,[esi+3C0h]
+    L_00407fb7:
+        call asm_Score_SetPolarVector_00408750
+    L_00407fbc:
+        mov edx,dword ptr [esi+7B8h]
+    L_00407fc2:
+        mov ecx,dword ptr [esi+7C0h]
+    L_00407fc8:
+        mov dword ptr [esi+7B4h],edx
+    L_00407fce:
+        fld dword ptr [ecx]
+    L_00407fd0:
+        fcomp dword ptr [data_00470b68]
+    L_00407fd6:
+        fnstsw ax
+    L_00407fd8:
+        test ah,41h
+    L_00407fdb:
+        jne short L_00408007
+    L_00407fdd:
+        fld dword ptr [ecx]
+    L_00407fdf:
+        fcomp dword ptr [data_00470b64]
+    L_00407fe5:
+        fnstsw ax
+    L_00407fe7:
+        test ah,5
+    L_00407fea:
+        jp short L_00408007
+    L_00407fec:
+        fld dword ptr [esi+7BCh]
+    L_00407ff2:
+        inc edx
+    L_00407ff3:
+        fadd dword ptr [data_00470afc]
+    L_00407ff9:
+        mov dword ptr [esi+7B8h],edx
+    L_00407fff:
+        fstp dword ptr [esi+7BCh]
+    L_00408005:
+        pop ecx
+    L_00408006:
+        ret
+    L_00408007:
+        fld dword ptr [ecx]
+    L_00408009:
+        fadd dword ptr [esi+7BCh]
+    L_0040800f:
+        fst dword ptr [esi+7BCh]
+    L_00408015:
+        call asm_FUN_00463b2c_00463b2c
+    L_0040801a:
+        mov dword ptr [esi+7B8h],eax
+    L_00408020:
+        pop ecx
+    L_00408021:
+        ret
     }
 }

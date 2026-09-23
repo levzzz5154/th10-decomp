@@ -10,10 +10,11 @@ state, but the retail ESI/EBX call edges still need a whole-cluster/LTCG
 rewrite before the candidates can replace the current private-register entry
 points.
 
-The six owner sources now contain readable, typed C++ method candidates. Their
-manifest rows remain `asm`; no header, symbol-map, manifest, or LTCG-layout
-change was made here. The candidates are source-level models only and were not
-built, probed, or tested.
+The six typed C++ method candidates are preserved under
+`matching2/reference/semantic_candidates`. The mapped files under
+`matching2/msvc/src` retain the retail assembly entries because their callers
+supply the state in ESI or EBX. The manifest rows remain `asm`; these models
+were not built, probed, or tested.
 
 | Address | Direct call in `FUN_00406240` | Recovered state operation |
 | --- | --- | --- |

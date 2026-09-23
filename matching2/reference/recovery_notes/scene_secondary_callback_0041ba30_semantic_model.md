@@ -1,12 +1,11 @@
 # `0x0041BA30` secondary scene callback: semantic model
 
-The source pair
-`matching2/msvc/src/unidentified/FUN_0041ba30_0041ba30.cpp` and
-`matching2/msvc/src/unidentified/FUN_0041b8e0_0041b8e0.cpp` now models the
-callback and its update routine as ordinary C++ `__thiscall` methods on the
-same context. The manifest rows remain unchanged and still classify both
-addresses as assembly. These source candidates have not been compiled or
-probed.
+Typed C++ models for the callback and update routine are preserved in
+`matching2/reference/semantic_candidates/FUN_0041ba30_0041ba30.cpp` and
+`FUN_0041b8e0_0041b8e0.cpp`. The mapped source files under
+`matching2/msvc/src/unidentified` retain the retail assembly entries while the
+private dispatcher call edges are unresolved. Both manifest rows remain
+assembly, and the candidate files have not been compiled or probed.
 
 ## Live Ghidra behavior
 
