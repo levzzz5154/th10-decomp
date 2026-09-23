@@ -1,11 +1,12 @@
-// BLOCKED (D3805): closest_byte_count=5/826; first_diff=unmeasured.
-// residual_class=large replay-stage formatting loop, global record layout,
-// x87 conversion order, and private formatter helper 0x00401630/import ABIs.
-// variants_tested=["live Ghidra/IDA decompilation", "ordinary __stdcall
-// readable ABI stub under MSVC 13.10 (5-byte extent)", "retail assembly
-// baseline probe (826/826 exact)"].
-// next_lever=promote the real caller-inclusive schema2/native-LTCG model with
-// production replay records and all formatter/time helper declarations.
+// BLOCKED (live Ghidra ABI audit): keep the exact body until the hidden
+// GameThread vector-in-EBX call contract and the fixed RET 4 entry alias have
+// a declared bridge. 0x00401630 formats varargs, then calls 0x00401530 with
+// text in EAX, receiver in ECX, and the three-word position vector in EBX;
+// ordinary C++ varargs cannot express that vector argument. The public region
+// alias is currently an undecorated cdecl/no-argument symbol, while the retail
+// entry consumes its stack argument with RET 4. The previous MSVC 13.10
+// readable-stub probe emitted only 5/826 bytes; no probe/build/test was run
+// for this audit. See replay_stage_name_draw_00433230_abi_blocker.md.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

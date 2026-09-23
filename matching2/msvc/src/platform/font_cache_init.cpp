@@ -1,13 +1,13 @@
 // BLOCKED (D3801): closest_byte_count=0/781; first_diff=none (exact retail
 // naked baseline; no readable candidate retained).
-// residual_class=ESI font-cache receiver, EDX/ECX pseudo-random state
-// handoff, CreateFontA import-slot argument scheduling, and the 14-handle
-// initialization sequence observed by the caller 0x00420260.
+// residual_class=private EAX receiver passed to FUN_00436af0, followed by the
+// 256-step seed/palette update and 15 CreateFontA handle initializations.
 // variants_tested=live Ghidra decompilation plus caller xref 0x00420260;
 // typed cache/font loop candidate; exact MSVC 13.10 naked baseline
 // probe=781/781.
-// next_lever=native-LTCG cluster with FontCache_Flush/DeleteGdiObjects and
-// the real startup caller to recover the imported CreateFontA/register shape.
+// next_lever=expose a receiver-aware 00436AF0 surface call, or recover its
+// effects as a verified semantic implementation, before removing this bridge.
+// audit=matching2/reference/recovery_notes/font_cache_init_00437a00.md
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

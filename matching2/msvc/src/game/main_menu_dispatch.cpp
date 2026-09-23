@@ -1,31 +1,31 @@
-// BLOCKED (D3807): closest_byte_count=0/1062; first_diff=unmeasured;
-// residual_class=GameThread logger receiver convention, 25-entry replay
-// record layout, localtime formatting order, x87 date fields, and the
-// state-dependent render-color writes. Live Ghidra decompilation at
-// 0x00422660 is readable, but no standalone candidate can preserve the
-// variants_tested=live Ghidra decompile at 0x00422660; caller inspection at
-// 0x004223F0 and 0x00422AA0; archived menu/result semantic models; ABI and
-// record-layout feasibility review under the production MSVC 13.10 flags.
-// No standalone candidate was retained because its logger/layout dependencies
-// are not production-bindable in this exclusive asm region.
-// next_lever=caller-inclusive schema-2 native-LTCG cluster over 0x004223F0,
-// this body, FUN_004224C0, and GameThread_AppendFormatted_00401630, with
-// replay records and the logger private receiver bound; require exact 1062
-// bytes before promotion.
+// BLOCKED (D3807; static live ABI audit 2026-09-23): 1062-byte exclusive asm
+// region. Ghidra reports `undefined4 __stdcall FUN_00422660(int *state)`;
+// the callback thunk at 0x00422AA0 supplies the one stack pointer and this
+// routine returns 1 with RET 4. It renders replay/result rows and writes the
+// GameThread busy/color fields. Its logger edge at 0x00401630 has a private
+// receiver/stack layout, and the nested 0x004224C0 helper has a separate
+// register/stack contract. The 25 replay entries, localtime field order, x87
+// coordinates, and state-sensitive color writes also need the caller-bound
+// layouts. No C++ body was retained: a standard varargs call would not match
+// the formatter entry. See the focused audit note for the live call graph and
+// integration prototype requirements.
+// next_lever=caller-inclusive cluster over the 0x00422AA0 callback, this
+// body, 0x004224C0, and 0x00401630; establish their concrete receiver/record
+// views before replacing this region.
 
-// BLOCKED (D3807): closest_byte_count=0/1360; first_diff=unmeasured;
-// residual_class=private ECX/EDX:EAX/stack entry, five-state pause/result
-// machine, sound/effect/task helper ABIs, and menu-record offsets. Ghidra
-// decompilation and the archived ResultChoiceMenu_Update model agree on
-// control flow, but the production region remains an exclusive asm owner.
-// variants_tested=live Ghidra decompile at 0x00422C80; real caller
-// 0x004223F0; archived result-choice semantic model; prototype/ABI feasibility
-// review under MSVC 13.10. No standalone candidate was retained because the
-// private-register and helper cleanup contract is caller-dependent.
-// next_lever=caller-inclusive schema-2 native-LTCG cluster over 0x004223F0,
-// 0x00422C80, FUN_00422C30, MenuCursor_Advance, and sound/effect/task
-// callees, with the verified 0x00477810 menu layout; require exact 1360
-// bytes before promotion.
+// BLOCKED (D3807; static live ABI audit 2026-09-23): 1360-byte exclusive asm
+// region. Ghidra reports `void __thiscall FUN_00422C80(void *this, int state)`;
+// the caller at 0x004223F0 pushes the menu-state pointer, inherits ECX, and
+// the entry returns with RET 4. Its five-state result-choice control flow is
+// readable and agrees with the archived semantic model, but its animation,
+// cursor, sound, and timer edges exchange inputs through EAX/ESI/EBX/EDI and
+// inherited ECX. Those private register tuples and the menu/animation layouts
+// cannot be expressed by the current ordinary helper prototypes. No semantic
+// body was retained. See the focused audit note for the helper contracts and
+// integration prototype requirements.
+// next_lever=caller-inclusive cluster over 0x004223F0, this body,
+// 0x00422C30, and the animation/cursor/sound helpers; bind their real helper
+// views and preserve the implicit-ECX plus one-stack-argument entry.
 
 // BLOCKED (D3807): closest_byte_count=0/3260; first_diff=unmeasured;
 // residual_class=large replay/name-entry state layout, security-cookie/EH

@@ -1125,8 +1125,11 @@ extern "C" void __cdecl asm_FUN_0043aeb0_0043aeb0();
 #define VA_asm_FUN_0043aeb0_0043aeb0 0x0043aeb0
 extern "C" void __cdecl asm_FUN_0043af30_part_0043b030();
 #define VA_asm_FUN_0043af30_part_0043b030 0x0043b030
-extern "C" void __cdecl asm_FUN_0043b110_0043b110();
-#define VA_asm_FUN_0043b110_0043b110 0x0043b110
+struct MidiSequencer;
+struct MidiTrack;
+extern "C" void __stdcall ProcessMidiEvent_0043B110(
+    MidiSequencer* sequencer, MidiTrack* track);
+#define VA_ProcessMidiEvent_0043B110 0x0043b110
 extern "C" void __cdecl asm_FUN_0043b7a0_0043b7a0();
 #define VA_asm_FUN_0043b7a0_0043b7a0 0x0043b7a0
 extern "C" void __cdecl asm_FUN_0043b8d0_0043b8d0();
@@ -1418,7 +1421,11 @@ extern "C" void __cdecl asm_FUN_0045d676_0045d676(void* output, const unsigned c
 #define VA_asm_FUN_0045d676_0045d676 0x0045d676
 extern "C" void __cdecl asm_FUN_0045d701_0045d701(void* output, const unsigned char* text);
 #define VA_asm_FUN_0045d701_0045d701 0x0045d701
-extern "C" void __cdecl asm_FUN_0045d746_0045d746();
+extern "C" unsigned int __cdecl asm_FUN_0045d746_0045d746(
+    unsigned char* output, int* parsed_end_address,
+    const unsigned char* text, int retain_rounding_tail,
+    int exponent_adjustment_without_marker,
+    int exponent_adjustment_without_point, int accept_optional_sign);
 #define VA_asm_FUN_0045d746_0045d746 0x0045d746
 extern "C" void __cdecl asm_FUN_0045dd85_0045dd85();
 #define VA_asm_FUN_0045dd85_0045dd85 0x0045dd85
@@ -2318,7 +2325,7 @@ extern "C" void __cdecl asm_free_00452422(void* memory);
 #define VA_asm_free_00452422 0x00452422
 extern "C" void __cdecl asm_free_004524a1(void* memory);
 #define VA_asm_free_004524a1 0x004524a1
-extern "C" void __cdecl asm_free_lc_time_0045b39a();
+extern "C" void __cdecl asm_free_lc_time_0045b39a(void* time_info);
 #define VA_asm_free_lc_time_0045b39a 0x0045b39a
 extern "C" void __cdecl asm_free_lconv_mon_0045b81b(void* monetary_info);
 #define VA_asm_free_lconv_mon_0045b81b 0x0045b81b

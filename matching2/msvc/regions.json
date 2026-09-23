@@ -29155,13 +29155,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043b110_0043b110",
+      "name": "semantic_ProcessMidiEvent_0043B110",
       "source": "src/platform/midi_event_runtime.cpp",
-      "symbol": "_asm_FUN_0043b110_0043b110",
+      "symbol": "_ProcessMidiEvent_0043B110@8",
       "address": "0x0043B110",
       "size": 1323,
-      "kind": "asm",
-      "owner": "0x0043B110"
+      "kind": "semantic",
+      "owner": "0x0043B110",
+      "previous_record": {
+        "name": "asm_FUN_0043b110_0043b110",
+        "source": "src/platform/midi_event_runtime.cpp",
+        "symbol": "_asm_FUN_0043b110_0043b110",
+        "address": "0x0043B110",
+        "size": 1323,
+        "kind": "asm",
+        "owner": "0x0043B110"
+      }
     },
     {
       "name": "text_padding_0043b63b",
@@ -43209,13 +43218,22 @@
       "owner": "0x0045B033"
     },
     {
-      "name": "asm_free_lc_time_0045b39a",
+      "name": "semantic_FreeLocaleTime_0045B39A",
       "source": "src/unidentified/free_lc_time_0045b39a.cpp",
       "symbol": "_asm_free_lc_time_0045b39a",
       "address": "0x0045B39A",
       "size": 400,
-      "kind": "asm",
-      "owner": "0x0045B39A"
+      "kind": "semantic",
+      "owner": "0x0045B39A",
+      "previous_record": {
+        "name": "asm_free_lc_time_0045b39a",
+        "source": "src/unidentified/free_lc_time_0045b39a.cpp",
+        "symbol": "_asm_free_lc_time_0045b39a",
+        "address": "0x0045B39A",
+        "size": 400,
+        "kind": "asm",
+        "owner": "0x0045B39A"
+      }
     },
     {
       "name": "asm_unassigned_0045b52a",
@@ -44440,13 +44458,38 @@
       "owner": "0x0045D701"
     },
     {
-      "name": "asm_FUN_0045d746_0045d746",
+      "name": "semantic_decimal_text_parser_0045d746",
       "source": "src/unidentified/FUN_0045d746_0045d746.cpp",
       "symbol": "_asm_FUN_0045d746_0045d746",
       "address": "0x0045D746",
-      "size": 1088,
-      "kind": "asm",
-      "owner": "0x0045D746"
+      "size": 1039,
+      "kind": "semantic",
+      "owner": "0x0045D746",
+      "previous_record": {
+        "name": "asm_FUN_0045d746_0045d746",
+        "source": "src/unidentified/FUN_0045d746_0045d746.cpp",
+        "symbol": "_asm_FUN_0045d746_0045d746",
+        "address": "0x0045D746",
+        "size": 1088,
+        "kind": "asm",
+        "owner": "0x0045D746"
+      }
+    },
+    {
+      "name": "text_padding_0045db55",
+      "source": "src/data/text_0045.cpp",
+      "symbol": "_text_padding_0045db55",
+      "address": "0x0045DB55",
+      "size": 1,
+      "kind": "padding"
+    },
+    {
+      "name": "text_data_0045db56",
+      "source": "src/data/text_0045.cpp",
+      "symbol": "_text_data_0045db56",
+      "address": "0x0045DB56",
+      "size": 48,
+      "kind": "data"
     },
     {
       "name": "semantic_decimal_conversion_0045db86",
@@ -51077,6 +51120,7 @@
     "_asm_FUN_0043ae20_0043ae20": "0x0043AE20",
     "_asm_FUN_0043aeb0_0043aeb0": "0x0043AEB0",
     "_asm_FUN_0043af30_part_0043b030": "0x0043B030",
+    "_ProcessMidiEvent_0043B110@8": "0x0043B110",
     "_asm_FUN_0043b110_0043b110": "0x0043B110",
     "_asm_FUN_0043b110_0043b110@8": "0x0043B110",
     "_asm_FUN_0043b7a0_0043b7a0": "0x0043B7A0",

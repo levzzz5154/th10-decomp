@@ -1,14 +1,12 @@
-// BLOCKED (D3804): closest_byte_count=0/1344; first_diff=0x00428F60;
-// residual_class=private EBX runtime receiver with EAX mode/ECX path inputs,
-// scheduler callback registration, replay-record layouts, and nested
-// allocation/initialization order. variants_tested=live Ghidra decompile for
-// 0x00428F60 and real callers 0x00429610 and 0x00417870, including
-// 0x0042AB20, 0x0042AA50, 0x00418C40, 0x00449AE0, and 0x00449B70; the
-// readable legacy model was not byte-measured without the production runtime
-// layouts and private caller ABI, so the exact assembly baseline was restored.
-// next_lever=schema2 native-LTCG cluster rooted at 0x00417870, co-compiling
-// 0x00429610 and this body with replay record/config layouts, scheduler
-// registration callees, allocator bindings, and all real caller edges.
+// BLOCKED (D3804): live Ghidra confirms this entry consumes mode in EAX, path
+// in ECX, and its runtime receiver in EBX. The ordinary __fastcall(char*) view
+// omits EAX and EBX, while the sole direct caller sets all three registers in
+// assembly. This ABI cannot be expressed as a plain MSVC C++ function; the
+// replay/config records and scheduler task nodes also lack production types.
+// See matching2/reference/recovery_notes/replay_runtime_bootstrap_00428f60.md
+// for branch behavior, helper evidence, and alias integration. Keep the
+// retail body until a caller-inclusive native-LTCG bridge can supply these
+// dependencies without changing the entry protocol.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

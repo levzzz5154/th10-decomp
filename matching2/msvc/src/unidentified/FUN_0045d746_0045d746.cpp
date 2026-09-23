@@ -1,772 +1,452 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
 
-// 0x0045D746..0x0045DB54: FUN_0045d746
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0045d746_0045d746() {
-    __asm {
-    L_0045d746:
-        push ebp
-    L_0045d747:
-        mov ebp,esp
-    L_0045d749:
-        sub esp,64h
-    L_0045d74c:
-        mov eax,dword ptr [data_00473660]
-    L_0045d751:
-        xor eax,ebp
-    L_0045d753:
-        mov dword ptr [ebp-4],eax
-    L_0045d756:
-        mov eax,dword ptr [ebp+8]
-    L_0045d759:
-        xor ecx,ecx
-    L_0045d75b:
-        mov dword ptr [ebp-64h],eax
-    L_0045d75e:
-        mov eax,dword ptr [ebp+0Ch]
-    L_0045d761:
-        push esi
-    L_0045d762:
-        mov dword ptr [ebp-60h],eax
-    L_0045d765:
-        mov eax,dword ptr [ebp+10h]
-    L_0045d768:
-        lea esi,[ebp-20h]
-    L_0045d76b:
-        push edi
-    L_0045d76c:
-        mov dword ptr [ebp-34h],esi
-    L_0045d76f:
-        mov dword ptr [ebp-50h],ecx
-    L_0045d772:
-        mov dword ptr [ebp-5Ch],1
-    L_0045d779:
-        mov dword ptr [ebp-38h],ecx
-    L_0045d77c:
-        mov dword ptr [ebp-44h],ecx
-    L_0045d77f:
-        mov dword ptr [ebp-54h],ecx
-    L_0045d782:
-        mov dword ptr [ebp-58h],ecx
-    L_0045d785:
-        mov dword ptr [ebp-4Ch],ecx
-    L_0045d788:
-        mov dword ptr [ebp-3Ch],ecx
-    L_0045d78b:
-        mov dword ptr [ebp-48h],ecx
-    L_0045d78e:
-        mov edi,eax
-    L_0045d790:
-        mov dword ptr [ebp-40h],eax
-    L_0045d793:
-        mov al,byte ptr [edi]
-    L_0045d795:
-        cmp al,20h
-    L_0045d797:
-        je short L_0045d7a5
-    L_0045d799:
-        cmp al,9
-    L_0045d79b:
-        je short L_0045d7a5
-    L_0045d79d:
-        cmp al,0Ah
-    L_0045d79f:
-        je short L_0045d7a5
-    L_0045d7a1:
-        cmp al,0Dh
-    L_0045d7a3:
-        jne short L_0045d7a8
-    L_0045d7a5:
-        inc edi
-    L_0045d7a6:
-        jmp short L_0045d793
-    L_0045d7a8:
-        push ebx
-    L_0045d7a9:
-        mov bl,byte ptr [edi]
-    L_0045d7ab:
-        inc edi
-    L_0045d7ac:
-        cmp ecx,0Bh
-    L_0045d7af:
-        ja asm_target_0045da26
-    L_0045d7b5:
-        jmp dword ptr [ecx*4+45DB56h]
-    L_0045d7bc:
-        cmp bl,31h
-    L_0045d7bf:
-        jl short L_0045d7cd
-    L_0045d7c1:
-        cmp bl,39h
-    L_0045d7c4:
-        jg short L_0045d7cd
-    L_0045d7c6:
-        push 3
-    L_0045d7c8:
-        jmp asm_target_0045d9e5
-    L_0045d7cd:
-        cmp bl,byte ptr [data_00473af4]
-    L_0045d7d3:
-        jne short L_0045d7dc
-    L_0045d7d5:
-        push 5
-    L_0045d7d7:
-        jmp asm_target_0045da1c
-    L_0045d7dc:
-        movsx eax,bl
-    L_0045d7df:
-        sub eax,2Bh
-    L_0045d7e2:
-        push 2
-    L_0045d7e4:
-        pop ecx
-    L_0045d7e5:
-        je short L_0045d806
-    L_0045d7e7:
-        sub eax,ecx
-    L_0045d7e9:
-        je short L_0045d7fd
-    L_0045d7eb:
-        sub eax,3
-    L_0045d7ee:
-        je asm_target_0045d890
-    L_0045d7f4:
-        mov dword ptr [ebp-34h],esi
-    L_0045d7f7:
-        dec edi
-    L_0045d7f8:
-        jmp asm_target_0045d9a2
-    L_0045d7fd:
-        mov dword ptr [ebp-50h],8000h
-    L_0045d804:
-        jmp short L_0045d7a9
-    L_0045d806:
-        and dword ptr [ebp-50h],0
-    L_0045d80a:
-        jmp short L_0045d7a9
-    L_0045d80c:
-        xor ecx,ecx
-    L_0045d80e:
-        inc ecx
-    L_0045d80f:
-        cmp bl,31h
-    L_0045d812:
-        mov dword ptr [ebp-44h],ecx
-    L_0045d815:
-        jl short L_0045d81c
-    L_0045d817:
-        cmp bl,39h
-    L_0045d81a:
-        jle short L_0045d7c6
-    L_0045d81c:
-        cmp bl,byte ptr [data_00473af4]
-    L_0045d822:
-        jne short L_0045d82b
-    L_0045d824:
-        push 4
-    L_0045d826:
-        jmp asm_target_0045da1c
-    L_0045d82b:
-        cmp bl,2Bh
-    L_0045d82e:
-        je short L_0045d865
-    L_0045d830:
-        cmp bl,2Dh
-    L_0045d833:
-        je short L_0045d865
-    L_0045d835:
-        cmp bl,30h
-    L_0045d838:
-        je asm_target_0045d7a9
-    L_0045d83e:
-        cmp bl,43h
-    L_0045d841:
-        jle asm_target_0045d99e
-    L_0045d847:
-        cmp bl,45h
-    L_0045d84a:
-        jle short L_0045d85e
-    L_0045d84c:
-        cmp bl,63h
-    L_0045d84f:
-        jle asm_target_0045d99e
-    L_0045d855:
-        cmp bl,65h
-    L_0045d858:
-        jg asm_target_0045d99e
-    L_0045d85e:
-        push 6
-    L_0045d860:
-        jmp asm_target_0045da1c
-    L_0045d865:
-        dec edi
-    L_0045d866:
-        push 0Bh
-    L_0045d868:
-        jmp asm_target_0045da1c
-    L_0045d86d:
-        cmp bl,31h
-    L_0045d870:
-        jl short L_0045d87b
-    L_0045d872:
-        cmp bl,39h
-    L_0045d875:
-        jle asm_target_0045d7c6
-    L_0045d87b:
-        cmp bl,byte ptr [data_00473af4]
-    L_0045d881:
-        je asm_target_0045d7d5
-    L_0045d887:
-        cmp bl,30h
-    L_0045d88a:
-        jne asm_target_0045d9f1
-    L_0045d890:
-        xor ecx,ecx
-    L_0045d892:
-        inc ecx
-    L_0045d893:
-        jmp asm_target_0045d7a9
-    L_0045d898:
-        mov dword ptr [ebp-44h],1
-    L_0045d89f:
-        jmp short L_0045d8b8
-    L_0045d8a1:
-        cmp dword ptr [ebp-38h],19h
-    L_0045d8a5:
-        jae short L_0045d8b2
-    L_0045d8a7:
-        inc dword ptr [ebp-38h]
-    L_0045d8aa:
-        sub bl,30h
-    L_0045d8ad:
-        mov byte ptr [esi],bl
-    L_0045d8af:
-        inc esi
-    L_0045d8b0:
-        jmp short L_0045d8b5
-    L_0045d8b2:
-        inc dword ptr [ebp-3Ch]
-    L_0045d8b5:
-        mov bl,byte ptr [edi]
-    L_0045d8b7:
-        inc edi
-    L_0045d8b8:
-        movzx eax,bl
-    L_0045d8bb:
-        push eax
-    L_0045d8bc:
-        call asm_isdigit_0045685e
-    L_0045d8c1:
-        test eax,eax
-    L_0045d8c3:
-        pop ecx
-    L_0045d8c4:
-        jne short L_0045d8a1
-    L_0045d8c6:
-        cmp bl,byte ptr [data_00473af4]
-    L_0045d8cc:
-        jne short L_0045d914
-    L_0045d8ce:
-        jmp asm_target_0045d824
-    L_0045d8d3:
-        xor eax,eax
-    L_0045d8d5:
-        inc eax
-    L_0045d8d6:
-        cmp dword ptr [ebp-38h],0
-    L_0045d8da:
-        mov dword ptr [ebp-44h],eax
-    L_0045d8dd:
-        mov dword ptr [ebp-54h],eax
-    L_0045d8e0:
-        jne short L_0045d906
-    L_0045d8e2:
-        jmp short L_0045d8ea
-    L_0045d8e4:
-        dec dword ptr [ebp-3Ch]
-    L_0045d8e7:
-        mov bl,byte ptr [edi]
-    L_0045d8e9:
-        inc edi
-    L_0045d8ea:
-        cmp bl,30h
-    L_0045d8ed:
-        je short L_0045d8e4
-    L_0045d8ef:
-        jmp short L_0045d906
-    L_0045d8f1:
-        cmp dword ptr [ebp-38h],19h
-    L_0045d8f5:
-        jae short L_0045d903
-    L_0045d8f7:
-        inc dword ptr [ebp-38h]
-    L_0045d8fa:
-        sub bl,30h
-    L_0045d8fd:
-        mov byte ptr [esi],bl
-    L_0045d8ff:
-        inc esi
-    L_0045d900:
-        dec dword ptr [ebp-3Ch]
-    L_0045d903:
-        mov bl,byte ptr [edi]
-    L_0045d905:
-        inc edi
-    L_0045d906:
-        movzx eax,bl
-    L_0045d909:
-        push eax
-    L_0045d90a:
-        call asm_isdigit_0045685e
-    L_0045d90f:
-        test eax,eax
-    L_0045d911:
-        pop ecx
-    L_0045d912:
-        jne short L_0045d8f1
-    L_0045d914:
-        cmp bl,2Bh
-    L_0045d917:
-        je asm_target_0045d865
-    L_0045d91d:
-        cmp bl,2Dh
-    L_0045d920:
-        je asm_target_0045d865
-    L_0045d926:
-        jmp asm_target_0045d83e
-    L_0045d92b:
-        movzx eax,bl
-    L_0045d92e:
-        push eax
-    L_0045d92f:
-        mov dword ptr [ebp-54h],1
-    L_0045d936:
-        call asm_isdigit_0045685e
-    L_0045d93b:
-        test eax,eax
-    L_0045d93d:
-        pop ecx
-    L_0045d93e:
-        je asm_target_0045d9f1
-    L_0045d944:
-        push 4
-    L_0045d946:
-        jmp asm_target_0045d9e5
-    L_0045d94b:
-        cmp bl,31h
-    L_0045d94e:
-        lea ecx,[edi-2]
-    L_0045d951:
-        mov dword ptr [ebp-40h],ecx
-    L_0045d954:
-        jl short L_0045d95f
-    L_0045d956:
-        cmp bl,39h
-    L_0045d959:
-        jle asm_target_0045d9e3
-    L_0045d95f:
-        movsx eax,bl
-    L_0045d962:
-        sub eax,2Bh
-    L_0045d965:
-        je asm_target_0045da1a
-    L_0045d96b:
-        dec eax
-    L_0045d96c:
-        dec eax
-    L_0045d96d:
-        je asm_target_0045da0e
-    L_0045d973:
-        sub eax,3
-    L_0045d976:
-        jne asm_target_0045da34
-    L_0045d97c:
-        push 8
-    L_0045d97e:
-        jmp asm_target_0045da1c
-    L_0045d983:
-        mov dword ptr [ebp-58h],1
-    L_0045d98a:
-        jmp short L_0045d98f
-    L_0045d98c:
-        mov bl,byte ptr [edi]
-    L_0045d98e:
-        inc edi
-    L_0045d98f:
-        cmp bl,30h
-    L_0045d992:
-        je short L_0045d98c
-    L_0045d994:
-        cmp bl,31h
-    L_0045d997:
-        jl short L_0045d99e
-    L_0045d999:
-        cmp bl,39h
-    L_0045d99c:
-        jle short L_0045d9e3
-    L_0045d99e:
-        dec edi
-    L_0045d99f:
-        mov dword ptr [ebp-34h],esi
-    L_0045d9a2:
-        cmp dword ptr [ebp-44h],0
-    L_0045d9a6:
-        mov eax,dword ptr [ebp-60h]
-    L_0045d9a9:
-        mov dword ptr [eax],edi
-    L_0045d9ab:
-        pop ebx
-    L_0045d9ac:
-        je asm_target_0045db02
-    L_0045d9b2:
-        push 18h
-    L_0045d9b4:
-        pop eax
-    L_0045d9b5:
-        cmp dword ptr [ebp-38h],eax
-    L_0045d9b8:
-        jbe short L_0045d9ca
-    L_0045d9ba:
-        cmp byte ptr [ebp-9],5
-    L_0045d9be:
-        jl short L_0045d9c3
-    L_0045d9c0:
-        inc byte ptr [ebp-9]
-    L_0045d9c3:
-        dec esi
-    L_0045d9c4:
-        inc dword ptr [ebp-3Ch]
-    L_0045d9c7:
-        mov dword ptr [ebp-38h],eax
-    L_0045d9ca:
-        cmp dword ptr [ebp-38h],0
-    L_0045d9ce:
-        jbe asm_target_0045db29
-    L_0045d9d4:
-        jmp asm_target_0045da9e
-    L_0045d9d9:
-        cmp bl,31h
-    L_0045d9dc:
-        jl short L_0045d9ec
-    L_0045d9de:
-        cmp bl,39h
-    L_0045d9e1:
-        jg short L_0045d9ec
-    L_0045d9e3:
-        push 9
-    L_0045d9e5:
-        pop ecx
-    L_0045d9e6:
-        dec edi
-    L_0045d9e7:
-        jmp asm_target_0045d7a9
-    L_0045d9ec:
-        cmp bl,30h
-    L_0045d9ef:
-        je short L_0045d97c
-    L_0045d9f1:
-        mov edi,dword ptr [ebp-40h]
-    L_0045d9f4:
-        jmp short L_0045d99f
-    L_0045d9f6:
-        cmp dword ptr [ebp+20h],0
-    L_0045d9fa:
-        je short L_0045da22
-    L_0045d9fc:
-        movsx eax,bl
-    L_0045d9ff:
-        sub eax,2Bh
-    L_0045da02:
-        lea ecx,[edi-1]
-    L_0045da05:
-        mov dword ptr [ebp-40h],ecx
-    L_0045da08:
-        je short L_0045da1a
-    L_0045da0a:
-        dec eax
-    L_0045da0b:
-        dec eax
-    L_0045da0c:
-        jne short L_0045da34
-    L_0045da0e:
-        or dword ptr [ebp-5Ch],0FFFFFFFFh
-    L_0045da12:
-        push 7
-    L_0045da14:
-        pop ecx
-    L_0045da15:
-        jmp asm_target_0045d7a9
-    L_0045da1a:
-        push 7
-    L_0045da1c:
-        pop ecx
-    L_0045da1d:
-        jmp asm_target_0045d7a9
-    L_0045da22:
-        push 0Ah
-    L_0045da24:
-        pop ecx
-    L_0045da25:
-        dec edi
-    L_0045da26:
-        cmp ecx,0Ah
-    L_0045da29:
-        jne asm_target_0045d7a9
-    L_0045da2f:
-        jmp asm_target_0045d99f
-    L_0045da34:
-        mov dword ptr [ebp-34h],esi
-    L_0045da37:
-        mov edi,ecx
-    L_0045da39:
-        jmp asm_target_0045d9a2
-    L_0045da3e:
-        mov dword ptr [ebp-34h],esi
-    L_0045da41:
-        mov dword ptr [ebp-58h],1
-    L_0045da48:
-        xor esi,esi
-    L_0045da4a:
-        jmp short L_0045da61
-    L_0045da4c:
-        movsx ecx,bl
-    L_0045da4f:
-        lea eax,[esi+esi*4]
-    L_0045da52:
-        lea esi,[ecx+eax*2-30h]
-    L_0045da56:
-        cmp esi,1450h
-    L_0045da5c:
-        jg short L_0045da71
-    L_0045da5e:
-        mov bl,byte ptr [edi]
-    L_0045da60:
-        inc edi
-    L_0045da61:
-        movzx eax,bl
-    L_0045da64:
-        push eax
-    L_0045da65:
-        call asm_isdigit_0045685e
-    L_0045da6a:
-        test eax,eax
-    L_0045da6c:
-        pop ecx
-    L_0045da6d:
-        jne short L_0045da4c
-    L_0045da6f:
-        jmp short L_0045da76
-    L_0045da71:
-        mov esi,1451h
-    L_0045da76:
-        mov dword ptr [ebp-4Ch],esi
-    L_0045da79:
-        movzx eax,bl
-    L_0045da7c:
-        jmp short L_0045da84
-    L_0045da7e:
-        mov al,byte ptr [edi]
-    L_0045da80:
-        inc edi
-    L_0045da81:
-        movzx eax,al
-    L_0045da84:
-        push eax
-    L_0045da85:
-        call asm_isdigit_0045685e
-    L_0045da8a:
-        test eax,eax
-    L_0045da8c:
-        pop ecx
-    L_0045da8d:
-        jne short L_0045da7e
-    L_0045da8f:
-        mov esi,dword ptr [ebp-34h]
-    L_0045da92:
-        dec edi
-    L_0045da93:
-        jmp asm_target_0045d9a2
-    L_0045da98:
-        dec dword ptr [ebp-38h]
-    L_0045da9b:
-        inc dword ptr [ebp-3Ch]
-    L_0045da9e:
-        dec esi
-    L_0045da9f:
-        cmp byte ptr [esi],0
-    L_0045daa2:
-        je short L_0045da98
-    L_0045daa4:
-        lea eax,[ebp-30h]
-    L_0045daa7:
-        push eax
-    L_0045daa8:
-        push dword ptr [ebp-38h]
-    L_0045daab:
-        lea eax,[ebp-20h]
-    L_0045daae:
-        push eax
-    L_0045daaf:
-        call asm_FUN_00460872_00460872
-    L_0045dab4:
-        mov eax,dword ptr [ebp-4Ch]
-    L_0045dab7:
-        xor ecx,ecx
-    L_0045dab9:
-        add esp,0Ch
-    L_0045dabc:
-        cmp dword ptr [ebp-5Ch],ecx
-    L_0045dabf:
-        jge short L_0045dac3
-    L_0045dac1:
-        neg eax
-    L_0045dac3:
-        add eax,dword ptr [ebp-3Ch]
-    L_0045dac6:
-        cmp dword ptr [ebp-58h],ecx
-    L_0045dac9:
-        jne short L_0045dace
-    L_0045dacb:
-        add eax,dword ptr [ebp+18h]
-    L_0045dace:
-        cmp dword ptr [ebp-54h],ecx
-    L_0045dad1:
-        jne short L_0045dad6
-    L_0045dad3:
-        sub eax,dword ptr [ebp+1Ch]
-    L_0045dad6:
-        cmp eax,1450h
-    L_0045dadb:
-        jg short L_0045db0b
-    L_0045dadd:
-        cmp eax,0FFFFEBB0h
-    L_0045dae2:
-        jl short L_0045db22
-    L_0045dae4:
-        push dword ptr [ebp+14h]
-    L_0045dae7:
-        push eax
-    L_0045dae8:
-        lea eax,[ebp-30h]
-    L_0045daeb:
-        push eax
-    L_0045daec:
-        call asm_FUN_00460b90_00460b90
-    L_0045daf1:
-        mov ecx,dword ptr [ebp-30h]
-    L_0045daf4:
-        mov esi,dword ptr [ebp-2Eh]
-    L_0045daf7:
-        mov edx,dword ptr [ebp-2Ah]
-    L_0045dafa:
-        mov eax,dword ptr [ebp-26h]
-    L_0045dafd:
-        add esp,0Ch
-    L_0045db00:
-        jmp short L_0045db31
-    L_0045db02:
-        mov dword ptr [ebp-48h],4
-    L_0045db09:
-        jmp short L_0045db29
-    L_0045db0b:
-        xor esi,esi
-    L_0045db0d:
-        mov eax,7FFFh
-    L_0045db12:
-        mov edx,80000000h
-    L_0045db17:
-        xor ecx,ecx
-    L_0045db19:
-        mov dword ptr [ebp-48h],2
-    L_0045db20:
-        jmp short L_0045db31
-    L_0045db22:
-        mov dword ptr [ebp-48h],1
-    L_0045db29:
-        xor ecx,ecx
-    L_0045db2b:
-        xor eax,eax
-    L_0045db2d:
-        xor edx,edx
-    L_0045db2f:
-        xor esi,esi
-    L_0045db31:
-        mov edi,dword ptr [ebp-64h]
-    L_0045db34:
-        or eax,dword ptr [ebp-50h]
-    L_0045db37:
-        mov word ptr [edi],cx
-    L_0045db3a:
-        mov ecx,dword ptr [ebp-4]
-    L_0045db3d:
-        mov dword ptr [edi+2],esi
-    L_0045db40:
-        mov word ptr [edi+0Ah],ax
-    L_0045db44:
-        mov eax,dword ptr [ebp-48h]
-    L_0045db47:
-        mov dword ptr [edi+6],edx
-    L_0045db4a:
-        pop edi
-    L_0045db4b:
-        xor ecx,ebp
-    L_0045db4d:
-        pop esi
-    L_0045db4e:
-        call asm_security_check_cookie_00458ea5
-    L_0045db53:
-        leave
-    L_0045db54:
-        ret
-        _emit 0x90
-        _emit 0xbc
-        _emit 0xd7
-        _emit 0x45
-        _emit 0x00
-        _emit 0x0c
-        _emit 0xd8
-        _emit 0x45
-        _emit 0x00
-        _emit 0x6d
-        _emit 0xd8
-        _emit 0x45
-        _emit 0x00
-        _emit 0x98
-        _emit 0xd8
-        _emit 0x45
-        _emit 0x00
-        _emit 0xd3
-        _emit 0xd8
-        _emit 0x45
-        _emit 0x00
-        _emit 0x2b
-        _emit 0xd9
-        _emit 0x45
-        _emit 0x00
-        _emit 0x4b
-        _emit 0xd9
-        _emit 0x45
-        _emit 0x00
-        _emit 0xd9
-        _emit 0xd9
-        _emit 0x45
-        _emit 0x00
-        _emit 0x83
-        _emit 0xd9
-        _emit 0x45
-        _emit 0x00
-        _emit 0x3e
-        _emit 0xda
-        _emit 0x45
-        _emit 0x00
-        _emit 0x26
-        _emit 0xda
-        _emit 0x45
-        _emit 0x00
-        _emit 0xf6
-        _emit 0xd9
-        _emit 0x45
-        _emit 0x00
+extern "C" unsigned int data_00473660;
+extern "C" unsigned char data_00473af4;
+
+extern "C" int __cdecl asm_isdigit_0045685e(int character);
+extern "C" void __cdecl asm_FUN_00460872_00460872(
+    char* decimal_digits, int digit_count, std::uint32_t* extended_words);
+extern "C" void __cdecl asm_FUN_00460b90_00460b90(
+    std::uint32_t* extended_words, std::uint32_t decimal_power,
+    int retain_rounding_tail);
+extern "C" void __fastcall asm_security_check_cookie_00458ea5(
+    unsigned int stack_cookie);
+
+namespace {
+
+enum ParseState {
+    ParseInitial = 0,
+    ParseAfterLeadingZero = 1,
+    ParseAfterSign = 2,
+    ParseIntegerDigits = 3,
+    ParseFractionDigits = 4,
+    ParsePointWithoutInteger = 5,
+    ParseAfterExponentMarker = 6,
+    ParseAfterExponentSign = 7,
+    ParseExponentLeadingZero = 8,
+    ParseExponentDigits = 9,
+    ParseStopped = 10,
+    ParseOptionalSign = 11,
+};
+
+bool is_nonzero_ascii_digit(unsigned char value) {
+    return value >= '1' && value <= '9';
+}
+
+bool is_exponent_marker(unsigned char value) {
+    return (value >= 'D' && value <= 'E') ||
+           (value >= 'd' && value <= 'e');
+}
+
+bool is_crt_digit(unsigned char value) {
+    return asm_isdigit_0045685e(static_cast<int>(value)) != 0;
+}
+
+// Interpret a 32-bit x86 arithmetic result as a signed int without relying on
+// signed-overflow behavior in the C++ source.
+std::int32_t signed_from_bits(std::uint32_t bits) {
+    if (bits <= 0x7fffffffu) {
+        return static_cast<std::int32_t>(bits);
     }
+    return -1 - static_cast<std::int32_t>(~bits);
+}
+
+void write_zero_extended_value(unsigned char* output, std::uint16_t sign) {
+    std::memset(output, 0, 12);
+    std::memcpy(output + 10, &sign, sizeof(sign));
+}
+
+}  // namespace
+
+// Parse a decimal spelling into the CRT's 12-byte _LDBL12 intermediate.
+// Keep the raw C-linkage name used by current callers.
+extern "C" __declspec(noinline) std::uint32_t __cdecl
+asm_FUN_0045d746_0045d746(
+    unsigned char* output,
+    int* parsed_end_address,
+    const unsigned char* text,
+    int retain_rounding_tail,
+    int exponent_adjustment_without_marker,
+    int exponent_adjustment_without_point,
+    int accept_optional_sign) {
+    volatile unsigned int saved_cookie = 0;
+    const std::uintptr_t cookie_anchor =
+        reinterpret_cast<std::uintptr_t>(&saved_cookie);
+    saved_cookie = data_00473660 ^ static_cast<unsigned int>(cookie_anchor);
+
+    std::uint16_t sign_word = 0;
+    int exponent_sign = 1;
+    std::uint32_t exponent_magnitude_bits = 0;
+    std::uint32_t exponent_adjustment_bits = 0;
+    unsigned char digits[25] = {};
+    unsigned int digit_count = 0;
+    ParseState state = ParseInitial;
+
+    bool has_numeric_syntax = false;
+    bool has_decimal_point = false;
+    bool has_exponent_value = false;
+    bool parsing_finished = false;
+
+    const unsigned char* const original_text = text;
+    while (*text == 0x20 || *text == 0x09 || *text == 0x0a || *text == 0x0d) {
+        ++text;
+    }
+    const unsigned char* exponent_fallback = text;
+
+    while (!parsing_finished) {
+        const unsigned char character = *text;
+        const unsigned char* const next = text + 1;
+
+        switch (state) {
+        case ParseInitial:
+            if (is_nonzero_ascii_digit(character)) {
+                state = ParseIntegerDigits;
+                continue;
+            }
+            if (character == data_00473af4) {
+                has_decimal_point = true;
+                state = ParsePointWithoutInteger;
+                text = next;
+                continue;
+            }
+            state = ParseAfterSign;
+            if (character == '+') {
+                text = next;
+                continue;
+            }
+            if (character == '-') {
+                sign_word = 0x8000;
+                text = next;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseAfterLeadingZero;
+                text = next;
+                continue;
+            }
+            parsing_finished = true;
+            continue;
+
+        case ParseAfterSign:
+            if (is_nonzero_ascii_digit(character)) {
+                state = ParseIntegerDigits;
+                continue;
+            }
+            if (character == data_00473af4) {
+                has_decimal_point = true;
+                state = ParsePointWithoutInteger;
+                text = next;
+                continue;
+            }
+            text = original_text;
+            if (character == '0') {
+                state = ParseAfterLeadingZero;
+                text = next;
+                continue;
+            }
+            parsing_finished = true;
+            continue;
+
+        case ParseAfterLeadingZero:
+            has_numeric_syntax = true;
+            if (is_nonzero_ascii_digit(character)) {
+                state = ParseIntegerDigits;
+                continue;
+            }
+            if (character == data_00473af4) {
+                has_decimal_point = true;
+                state = ParseFractionDigits;
+                text = next;
+                continue;
+            }
+            if (character == '+' || character == '-') {
+                state = ParseOptionalSign;
+                continue;
+            }
+            if (character == '0') {
+                text = next;
+                continue;
+            }
+            if (is_exponent_marker(character)) {
+                state = ParseAfterExponentMarker;
+                text = next;
+                continue;
+            }
+            parsing_finished = true;
+            continue;
+
+        case ParseIntegerDigits: {
+            const unsigned char* current = text;
+            while (is_crt_digit(*current)) {
+                if (digit_count < 25) {
+                    digits[digit_count++] = static_cast<unsigned char>(
+                        *current - static_cast<unsigned char>('0'));
+                } else {
+                    ++exponent_adjustment_bits;
+                }
+                ++current;
+            }
+            has_numeric_syntax = true;
+            const unsigned char following = *current;
+            if (following == data_00473af4) {
+                has_decimal_point = true;
+                state = ParseFractionDigits;
+                text = current + 1;
+                continue;
+            }
+            if (following == '+' || following == '-') {
+                state = ParseOptionalSign;
+                text = current;
+                continue;
+            }
+            if (is_exponent_marker(following)) {
+                state = ParseAfterExponentMarker;
+                text = current + 1;
+                continue;
+            }
+            text = current;
+            parsing_finished = true;
+            continue;
+        }
+
+        case ParseFractionDigits: {
+            has_decimal_point = true;
+            has_numeric_syntax = true;
+            const unsigned char* current = text;
+            if (digit_count == 0) {
+                while (*current == '0') {
+                    --exponent_adjustment_bits;
+                    ++current;
+                }
+            }
+            while (is_crt_digit(*current)) {
+                if (digit_count < 25) {
+                    digits[digit_count++] = static_cast<unsigned char>(
+                        *current - static_cast<unsigned char>('0'));
+                    --exponent_adjustment_bits;
+                }
+                ++current;
+            }
+            const unsigned char following = *current;
+            if (following == '+' || following == '-') {
+                state = ParseOptionalSign;
+                text = current;
+                continue;
+            }
+            if (is_exponent_marker(following)) {
+                state = ParseAfterExponentMarker;
+                text = current + 1;
+                continue;
+            }
+            text = current;
+            parsing_finished = true;
+            continue;
+        }
+
+        case ParsePointWithoutInteger:
+            has_decimal_point = true;
+            if (is_crt_digit(character)) {
+                state = ParseFractionDigits;
+                continue;
+            }
+            text = original_text;
+            parsing_finished = true;
+            continue;
+
+        case ParseAfterExponentMarker:
+            exponent_fallback = text - 1;
+            if (is_nonzero_ascii_digit(character)) {
+                state = ParseExponentDigits;
+                continue;
+            }
+            if (character == '+') {
+                state = ParseAfterExponentSign;
+                text = next;
+                continue;
+            }
+            if (character == '-') {
+                exponent_sign = -1;
+                state = ParseAfterExponentSign;
+                text = next;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseExponentLeadingZero;
+                text = next;
+                continue;
+            }
+            text = exponent_fallback;
+            parsing_finished = true;
+            continue;
+
+        case ParseAfterExponentSign:
+            if (is_nonzero_ascii_digit(character)) {
+                state = ParseExponentDigits;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseExponentLeadingZero;
+                text = next;
+                continue;
+            }
+            text = exponent_fallback;
+            parsing_finished = true;
+            continue;
+
+        case ParseExponentLeadingZero: {
+            has_exponent_value = true;
+            const unsigned char* current = text;
+            while (*current == '0') {
+                ++current;
+            }
+            if (is_nonzero_ascii_digit(*current)) {
+                state = ParseExponentDigits;
+                text = current;
+                continue;
+            }
+            text = current;
+            parsing_finished = true;
+            continue;
+        }
+
+        case ParseExponentDigits: {
+            has_exponent_value = true;
+            exponent_magnitude_bits = 0;
+            const unsigned char* current = text;
+            bool exponent_saturated = false;
+            while (is_crt_digit(*current)) {
+                const std::int32_t signed_digit =
+                    static_cast<std::int32_t>(
+                        static_cast<signed char>(*current)) - '0';
+                exponent_magnitude_bits = exponent_magnitude_bits * 10u +
+                    static_cast<std::uint32_t>(signed_digit);
+                if (signed_from_bits(exponent_magnitude_bits) > 0x1450) {
+                    exponent_magnitude_bits = 0x1451;
+                    exponent_saturated = true;
+                    break;
+                }
+                ++current;
+            }
+            if (exponent_saturated) {
+                while (is_crt_digit(*current)) {
+                    ++current;
+                }
+            } else if (!is_crt_digit(*current)) {
+                // The loop already leaves the cursor on the first non-digit.
+            }
+            text = current;
+            parsing_finished = true;
+            continue;
+        }
+
+        case ParseOptionalSign:
+            if (accept_optional_sign != 0) {
+                exponent_fallback = text;
+                if (character == '+') {
+                    state = ParseAfterExponentSign;
+                    text = next;
+                    continue;
+                }
+                if (character == '-') {
+                    exponent_sign = -1;
+                    state = ParseAfterExponentSign;
+                    text = next;
+                    continue;
+                }
+            } else {
+                state = ParseStopped;
+            }
+            parsing_finished = true;
+            continue;
+
+        case ParseStopped:
+        default:
+            parsing_finished = true;
+            continue;
+        }
+    }
+
+    *parsed_end_address = static_cast<int>(
+        reinterpret_cast<std::intptr_t>(text));
+
+    std::uint32_t status = 0;
+    std::uint32_t converted_words[3] = {};
+    if (!has_numeric_syntax) {
+        status = 4;
+    } else if (digit_count != 0) {
+        if (digit_count > 24) {
+            if (digits[23] > 4) {
+                ++digits[23];
+            }
+            --digit_count;
+            ++exponent_adjustment_bits;
+        }
+
+        while (digit_count != 0 && digits[digit_count - 1] == 0) {
+            --digit_count;
+            ++exponent_adjustment_bits;
+        }
+
+        if (digit_count != 0) {
+            asm_FUN_00460872_00460872(
+                reinterpret_cast<char*>(digits),
+                static_cast<int>(digit_count), converted_words);
+
+            if (exponent_sign < 0) {
+                exponent_magnitude_bits = 0u - exponent_magnitude_bits;
+            }
+            std::uint32_t effective_exponent_bits =
+                exponent_magnitude_bits + exponent_adjustment_bits;
+            if (!has_exponent_value) {
+                effective_exponent_bits += static_cast<std::uint32_t>(
+                    exponent_adjustment_without_marker);
+            }
+            if (!has_decimal_point) {
+                effective_exponent_bits -= static_cast<std::uint32_t>(
+                    exponent_adjustment_without_point);
+            }
+
+            const std::int32_t effective_exponent =
+                signed_from_bits(effective_exponent_bits);
+            if (effective_exponent > 0x1450) {
+                status = 2;
+                std::memset(output, 0, 12);
+                const std::uint32_t integer_significand = 0x80000000u;
+                const std::uint16_t exponent = static_cast<std::uint16_t>(
+                    0x7fff | sign_word);
+                std::memcpy(output + 6, &integer_significand,
+                            sizeof(integer_significand));
+                std::memcpy(output + 10, &exponent, sizeof(exponent));
+            } else if (effective_exponent > -0x1451) {
+                asm_FUN_00460b90_00460b90(
+                    converted_words, effective_exponent,
+                    retain_rounding_tail);
+                std::memcpy(output, converted_words, 12);
+            } else {
+                status = 1;
+                write_zero_extended_value(output, sign_word);
+            }
+        } else {
+            write_zero_extended_value(output, sign_word);
+        }
+    } else {
+        write_zero_extended_value(output, sign_word);
+    }
+
+    if (status == 0 || status == 1 || status == 4) {
+        std::uint16_t sign_and_exponent = 0;
+        std::memcpy(&sign_and_exponent, output + 10,
+                    sizeof(sign_and_exponent));
+        sign_and_exponent = static_cast<std::uint16_t>(
+            sign_and_exponent | sign_word);
+        std::memcpy(output + 10, &sign_and_exponent,
+                    sizeof(sign_and_exponent));
+    }
+
+    const unsigned int decoded_cookie = static_cast<unsigned int>(saved_cookie) ^
+        static_cast<unsigned int>(cookie_anchor);
+    asm_security_check_cookie_00458ea5(decoded_cookie);
+    return status;
 }

@@ -173,7 +173,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043af30_0043af30() {
     L_0043b048:
         push edi
     L_0043b049:
-        call asm_FUN_0043b110_0043b110
+        call ProcessMidiEvent_0043B110
     L_0043b04e:
         mov ecx,dword ptr [edi+12Ch]
     L_0043b054:

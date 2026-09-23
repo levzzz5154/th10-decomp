@@ -1,8 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00464110..0x00464915: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
+// 0x00464110..0x00464915: x87 extended-precision divide helper, indexed
+// dispatcher, and register-stack adapters. The naked body preserves the
+// 80-bit stack operands, live x87 stack/result, and floating-point control
+// word behavior that ordinary C++ cannot express on this MSVC x86 target.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00464110() {
     __asm {
     L_00464110:

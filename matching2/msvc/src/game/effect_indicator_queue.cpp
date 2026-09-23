@@ -4,6 +4,9 @@
 // residual_class=private EAX queue receiver, EBX/EBP state registers,
 // callback-function address escapes, float-stack evaluation order, and
 // list-unlink/release cleanup sequencing.
+// live_ghidra_audit=FUN_00419120 reads the queue head from entry EAX; caller
+// 0x00419650 pushes release=1 then state=EBX and calls with that head in EAX.
+// The callee returns with RET 8, so no ordinary MSVC x86 convention matches.
 // variants_tested=live IDA assembly and caller 0x00419650; legacy semantic
 // EffectIndicatorQueue_Drain translation; MSVC 13.10 schema-2/native-LTCG
 // feasibility review plus standalone native probe (464-byte body versus the
