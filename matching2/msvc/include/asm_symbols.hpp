@@ -1054,14 +1054,12 @@ extern "C" void __cdecl asm_FUN_004356f0_part_00435730();
 #define VA_asm_FUN_004356f0_part_00435730 0x00435730
 extern "C" void __cdecl asm_FUN_00435800_00435800();
 #define VA_asm_FUN_00435800_00435800 0x00435800
-extern "C" void __cdecl asm_FUN_004359b0_004359b0();
-#define VA_asm_FUN_004359b0_004359b0 0x004359b0
-extern "C" void __cdecl asm_FUN_004359b0_part_00435b30();
-#define VA_asm_FUN_004359b0_part_00435b30 0x00435b30
-extern "C" void __cdecl asm_FUN_00436000_00436000();
-#define VA_asm_FUN_00436000_00436000 0x00436000
-extern "C" void __cdecl asm_FUN_00436000_part_00436020();
-#define VA_asm_FUN_00436000_part_00436020 0x00436020
+extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
+    const unsigned char* input, int input_size, int* output_size);
+#define VA_Lzss_Compress_004359B0 0x004359b0
+extern "C" int __fastcall Lzss_InsertString_00436000(
+    int old_position, int position, int* best_position);
+#define VA_Lzss_InsertString_00436000 0x00436000
 extern "C" void __cdecl asm_FUN_00436890_00436890();
 #define VA_asm_FUN_00436890_00436890 0x00436890
 extern "C" void __cdecl asm_FUN_00436af0_00436af0();

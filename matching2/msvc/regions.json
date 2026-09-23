@@ -25712,13 +25712,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004359b0_004359b0",
+      "name": "semantic_Lzss_Compress_004359B0",
       "source": "src/archive/score_save.cpp",
-      "symbol": "_asm_FUN_004359b0_004359b0",
+      "symbol": "_Lzss_Compress_004359B0@12",
       "address": "0x004359B0",
       "size": 1029,
-      "kind": "asm",
-      "owner": "0x004359B0"
+      "kind": "semantic",
+      "owner": "0x004359B0",
+      "previous_record": {
+        "name": "asm_FUN_004359b0_004359b0",
+        "source": "src/archive/score_save.cpp",
+        "symbol": "_asm_FUN_004359b0_004359b0",
+        "address": "0x004359B0",
+        "size": 1029,
+        "kind": "asm",
+        "owner": "0x004359B0"
+      }
     },
     {
       "name": "text_padding_00435db5",
@@ -50983,10 +50992,8 @@
     "_asm_FUN_004356f0_part_00435730": "0x00435730",
     "_asm_FUN_00435800_00435800": "0x00435800",
     "_asm_FUN_00435800_00435800@4": "0x00435800",
-    "_asm_FUN_004359b0_004359b0": "0x004359B0",
-    "_asm_FUN_004359b0_part_00435b30": "0x00435B30",
-    "_asm_FUN_00436000_00436000": "0x00436000",
-    "_asm_FUN_00436000_part_00436020": "0x00436020",
+    "_Lzss_Compress_004359B0@12": "0x004359B0",
+    "@Lzss_InsertString_00436000@12": "0x00436000",
     "_asm_FUN_004364f0_004364f0@8": "0x004364F0",
     "_asm_FUN_004367a0_004367a0@50014": "0x004367A0",
     "_asm_FUN_00436890_00436890": "0x00436890",

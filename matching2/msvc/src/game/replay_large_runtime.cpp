@@ -491,7 +491,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00429b60_00429b60() {
     L_00429e5c:
         push ebp
     L_00429e5d:
-        call asm_FUN_004359b0_004359b0
+        call Lzss_Compress_004359B0
     L_00429e62:
         push ebp
     L_00429e63:

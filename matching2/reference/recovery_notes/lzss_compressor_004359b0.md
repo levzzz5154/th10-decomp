@@ -2,73 +2,59 @@
 
 Date: 2026-09-23
 
-Status: retained retail assembly. This pass used read-only live Ghidra MCP
-queries against `th10.exe`; it did not change the compressor body, build,
-probe, or test the project.
+Status: semantic C++ implementation integrated in source, header, and manifest.
+It preserves the observed three-argument `__stdcall` entry and uses typed
+LZSS tree helpers. No build, probe, or test was run; byte-for-byte codegen and
+symbol placement remain unverified.
 
 ## Live boundary and ABI
 
 Ghidra reports one function at `0x004359B0` with body ending at
 `0x00435DB4`; the `RET 0x0C` at `0x00435DB2` makes the byte interval
-`[0x004359B0, 0x00435DB5)` exactly 1029 bytes. The current manifest also
-assigns 1029 bytes. The source comment above the retained body has been
-corrected to describe the full extent; the assembly is unchanged.
+`[0x004359B0, 0x00435DB5)` 1029 bytes. The manifest retains that retail extent.
 
-The effective live ABI is `byte * __stdcall(byte *input, int input_size,
-int *output_size)`: it accepts three stack arguments, returns the allocated
-compressed buffer in `EAX`, and pops the arguments itself. Ghidra's function
-metadata types the inputs but leaves the return type undefined; the return
-value follows from the body and both callers rely on it and on callee cleanup:
+The effective ABI is `unsigned char* __stdcall(const unsigned char*, int,
+int*)`: three stack arguments, compressed-buffer return in `EAX`, and callee
+cleanup. Both direct callers depend on the returned pointer and callee cleanup:
 
 | Caller | Call instruction | Evidence after return |
 | --- | --- | --- |
 | `FUN_00429B60` | `0x00429E5D` | Reads the returned pointer from `EAX`; there is no `add esp, 0x0C`. |
 | `FUN_0042B1E0` | `0x0042B315` | Immediately moves `EAX` to `EDI`; there is no caller cleanup. |
 
-`matching2/msvc/include/asm_symbols.hpp` currently declares this entry as
-`void __cdecl asm_FUN_004359b0_004359b0()` with no parameters. A readable
-definition cannot replace that declaration in `score_save.cpp` alone while
-preserving the observed return type, argument layout, stack cleanup, and link
-symbol. Correcting the declaration and the semantic symbol/manifest entry is
-a coordinated change outside this pass's source ownership.
+The typed entry is `Lzss_Compress_004359B0` in the shared header. The manifest
+records its decorated stdcall symbol and keeps the previous asm record for
+history.
 
 ## Behavior and dependencies
 
-Live Ghidra identifies three direct callees: allocator `0x00452706`, match
-tree insertion `0x00436000`, and tree deletion `0x00436210`. The checked-in
-`MemoryFile_RemoveNode` symbol name for `0x00436210` is stale: its live body
-operates on the compressor's match tree. The insertion helper has already been recovered as semantic
-`Lzss_InsertString_00436000` in `score_save.cpp`. The deletion helper remains
-assembly and takes its node index in `ECX`; it calls the predecessor search
-at `0x00436330`, relinking helper at `0x00436260`, itself recursively, and
-replacement helper at `0x004362B0`. These routines mutate the same 12-byte
-node records rooted at `0x00477858`. Their private register contracts are
-not represented by the generic C declarations in `asm_symbols.hpp`.
+The compressor allocates `input_size * 2` bytes. Allocation failure returns
+null before writing `*output_size`; on success, the size is set to zero before
+the global dictionary and tree are initialized. The ring dictionary has
+`0x2000` bytes and uses an 18-byte lookahead. Its binary match tree consists of
+12-byte records rooted at `0x00477858`, with the root at node `0x2000`.
 
-On allocation success, the compressor first writes zero to `*output_size`,
-clears the `0x2000`-byte ring window at `0x0048F868` and the corresponding
-tree storage, initializes the tree/window globals, and primes up to 18 input
-bytes. It emits a literal for match lengths below three; longer matches emit
-an MSB-first flag, a 13-bit ring position, and a four-bit length-minus-three.
-For each consumed byte it removes the expired ring node and asks
-`0x00436000` to update the best match. At end of input it writes the final
-padding bits, stores the produced byte count through `output_size`, and
-returns the allocation. The caller owns and frees the returned buffer.
+The routine emits literal tokens for match lengths below three. Longer matches
+write a zero flag, a 13-bit ring position, and a four-bit length-minus-three;
+literals write a one flag and one byte. Bits are written most-significant
+first. At end of input, a zero flag and zero 13-bit position form the
+terminator. Only complete bytes are written, so any final partial byte is
+implicit and excluded from the returned size.
 
-The allocation-failure path returns null before touching `*output_size`;
-that observable detail should be kept if the function is rewritten. The
-decompiler shows comparisons of zero-extended input bytes with `0xFFFFFFFF`;
-those comparisons cannot match, so this pass does not assign sentinel-byte
-semantics to `0xFF`.
+For each consumed input position, the compressor removes the node that leaves
+the 18-byte window, replenishes that ring slot when input remains, advances the
+cursor, and inserts the next position to calculate the next match. The typed
+helpers are `Lzss_InsertString_00436000` and `Lzss_RemoveNode_00436210`; the
+latter now has a semantic fastcall manifest entry and an explicit ECX input.
+The stale `MemoryFile_RemoveNode` label has been removed from the call edge.
 
-## Recovery decision
+The live body compares zero-extended bytes with `0xFFFFFFFF`; those comparisons
+cannot match. The implementation does not assign sentinel behavior to `0xFF`.
 
-An earlier readable candidate measured 622 bytes against the 1029-byte live
-function and did not preserve the retail compiler schedule. That mismatch
-alone does not prevent a semantic implementation, but a correct production
-replacement still needs a properly declared `__stdcall` public entry and a
-typed route through the register-ABI tree deletion helpers. The current
-`score_save.cpp`-only ownership cannot make the public ABI declaration
-consistent, and the other files that define that ABI were explicitly outside
-this pass. The assembly body is therefore retained until the symbol and
-compression-tree interfaces can be updated together.
+## Verification limit
+
+The compressor source now models the live sliding-window and bitstream logic,
+and its public ABI is represented by a typed `__stdcall` function. The manifest
+still describes the 1029-byte retail interval; the generated function length,
+exact bytes, and final link placement are unverified because no build or probe
+was run.

@@ -220,7 +220,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042b1e0_0042b1e0() {
     L_0042b314:
         push eax
     L_0042b315:
-        call asm_FUN_004359b0_004359b0
+        call Lzss_Compress_004359B0
     L_0042b31a:
         mov edi,eax
     L_0042b31c:

@@ -1560,648 +1560,138 @@ extern "C" __declspec(noinline) int __fastcall Lzss_InsertString_00436000(
 
 #ifndef TH10_LZSS_INSERT_CLUSTER
 
-// BLOCKED (D3301): live-Ghidra extent=1029 bytes [0x004359B0,0x00435DB5);
-// prior readable candidate=622 bytes, 0/1029 exact; residual_class=LZSS
-// sliding-window tree mutation, bitstream scheduling, and a required
-// __stdcall/RET 0x0C entry ABI which conflicts with asm_symbols.hpp's current
-// `void __cdecl()` declaration. Both live callers (0x00429E5D, 0x0042B315)
-// rely on callee stack cleanup. The deletion dependency at 0x00436210 and its
-// tree helpers retain private register ABIs. Next lever=coordinate the
-// correct symbol/prototype and compression-tree dependency cluster before
-// replacing this body; see recovery_notes/lzss_compressor_004359b0.md.
+// 0x004359B0..0x00435DB4: LZSS compression with the retail 0x2000-byte
+// ring dictionary, an 18-byte lookahead, and the binary match tree shared with
+// Lzss_InsertString_00436000 and Lzss_RemoveNode_00436210.
+namespace {
 
-// 0x004359B0..0x00435DB4: FUN_004359b0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004359b0_004359b0() {
-    __asm {
-    L_004359b0:
-        sub esp,2Ch
-    L_004359b3:
-        push ebx
-    L_004359b4:
-        push ebp
-    L_004359b5:
-        mov ebp,dword ptr [esp+3Ch]
-    L_004359b9:
-        lea eax,[ebp+ebp]
-    L_004359bd:
-        push eax
-    L_004359be:
-        mov bl,80h
-    L_004359c0:
-        mov dword ptr [esp+10h],0
-    L_004359c8:
-        call asm_malloc_00452706
-    L_004359cd:
-        add esp,4
-    L_004359d0:
-        test eax,eax
-    L_004359d2:
-        mov dword ptr [esp+30h],eax
-    L_004359d6:
-        jne short L_004359e0
-    L_004359d8:
-        pop ebp
-    L_004359d9:
-        pop ebx
-    L_004359da:
-        add esp,2Ch
-    L_004359dd:
-        ret 0Ch
-    L_004359e0:
-        mov ecx,dword ptr [esp+38h]
-    L_004359e4:
-        mov edx,dword ptr [esp+40h]
-    L_004359e8:
-        push esi
-    L_004359e9:
-        mov esi,eax
-    L_004359eb:
-        push edi
-    L_004359ec:
-        mov dword ptr [esp+1Ch],ecx
-    L_004359f0:
-        xor eax,eax
-    L_004359f2:
-        mov ecx,800h
-    L_004359f7:
-        mov edi,48F868h
-    L_004359fc:
-        mov dword ptr [edx],0
-    L_00435a02:
-        rep stosd
-    L_00435a04:
-        mov dword ptr [esp+18h],esi
-    L_00435a08:
-        mov eax,47785Ch
-    L_00435a0d:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_00435a10:
-        xor ecx,ecx
-    L_00435a12:
-        mov dword ptr [eax-4],ecx
-    L_00435a15:
-        mov dword ptr [eax],ecx
-    L_00435a17:
-        mov dword ptr [eax+4],ecx
-    L_00435a1a:
-        add eax,0Ch
-    L_00435a1d:
-        cmp eax,48F868h
-    L_00435a22:
-        jl short L_00435a10
-    L_00435a24:
-        xor eax,eax
-    L_00435a26:
-        mov dword ptr [esp+24h],1
-    L_00435a2e:
-        xor edx,edx
-    L_00435a30:
-        jmp short L_00435a34
-    L_00435a32:
-        xor ecx,ecx
-    L_00435a34:
-        cmp edx,ebp
-    L_00435a36:
-        jge short L_00435a58
-    L_00435a38:
-        mov edi,dword ptr [esp+1Ch]
-    L_00435a3c:
-        movzx ecx,byte ptr [edi]
-    L_00435a3f:
-        inc edi
-    L_00435a40:
-        inc edx
-    L_00435a41:
-        cmp ecx,0FFFFFFFFh
-    L_00435a44:
-        mov dword ptr [esp+1Ch],edi
-    L_00435a48:
-        je short L_00435a56
-    L_00435a4a:
-        mov byte ptr [eax+48F869h],cl
-    L_00435a50:
-        inc eax
-    L_00435a51:
-        cmp eax,12h
-    L_00435a54:
-        jl short L_00435a32
-    L_00435a56:
-        xor ecx,ecx
-    L_00435a58:
-        xor ebp,ebp
-    L_00435a5a:
-        cmp eax,ecx
-    L_00435a5c:
-        mov edx,eax
-    L_00435a5e:
-        mov dword ptr [esp+28h],edx
-    L_00435a62:
-        mov dword ptr [data_0048f860],1
-    L_00435a6c:
-        mov dword ptr [data_00477864],2000h
-    L_00435a76:
-        mov dword ptr [data_0047786c],ecx
-    L_00435a7c:
-        mov dword ptr [data_00477868],ecx
-    L_00435a82:
-        mov dword ptr [esp+20h],ebp
-    L_00435a86:
-        mov dword ptr [esp+30h],ecx
-    L_00435a8a:
-        jle asm_target_00435d6e
-    L_00435a90:
-        cmp ebp,edx
-    L_00435a92:
-        jle short L_00435a9a
-    L_00435a94:
-        mov dword ptr [esp+20h],edx
-    L_00435a98:
-        mov ebp,edx
-    L_00435a9a:
-        cmp ebp,2
-    L_00435a9d:
-        jg short L_00435b0f
-    L_00435a9f:
-        mov ebp,dword ptr [esp+14h]
-    L_00435aa3:
-        movzx eax,bl
-    L_00435aa6:
-        or ebp,eax
-    L_00435aa8:
-        shr bl,1
-    L_00435aaa:
-        test bl,bl
-    L_00435aac:
-        mov edi,1
-    L_00435ab1:
-        mov dword ptr [esp+14h],ebp
-    L_00435ab5:
-        jne short L_00435ac8
-    L_00435ab7:
-        mov dl,byte ptr [esp+14h]
-    L_00435abb:
-        mov byte ptr [esi],dl
-    L_00435abd:
-        inc esi
-    L_00435abe:
-        mov dword ptr [esp+18h],esi
-    L_00435ac2:
-        mov dword ptr [esp+14h],ecx
-    L_00435ac6:
-        mov bl,80h
-    L_00435ac8:
-        mov eax,80h
-    L_00435acd:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_00435ad0:
-        mov edx,dword ptr [esp+24h]
-    L_00435ad4:
-        test byte ptr [edx+48F868h],al
-    L_00435ada:
-        je short L_00435ae9
-    L_00435adc:
-        mov ebp,dword ptr [esp+14h]
-    L_00435ae0:
-        movzx edx,bl
-    L_00435ae3:
-        or ebp,edx
-    L_00435ae5:
-        mov dword ptr [esp+14h],ebp
-    L_00435ae9:
-        shr bl,1
-    L_00435aeb:
-        test bl,bl
-    L_00435aed:
-        jne short L_00435afc
-    L_00435aef:
-        mov dl,byte ptr [esp+14h]
-    L_00435af3:
-        mov byte ptr [esi],dl
-    L_00435af5:
-        inc esi
-    L_00435af6:
-        mov dword ptr [esp+14h],ecx
-    L_00435afa:
-        mov bl,80h
-    L_00435afc:
-        shr eax,1
-    L_00435afe:
-        cmp eax,ecx
-    L_00435b00:
-        jne short L_00435ad0
-    L_00435b02:
-        mov dword ptr [esp+18h],esi
-    L_00435b06:
-        mov byte ptr [esp+13h],bl
-    L_00435b0a:
-        jmp asm_target_00435bb0
-    L_00435b0f:
-        shr bl,1
-    L_00435b11:
-        test bl,bl
-    L_00435b13:
-        jne short L_00435b26
-    L_00435b15:
-        mov al,byte ptr [esp+14h]
-    L_00435b19:
-        mov byte ptr [esi],al
-    L_00435b1b:
-        inc esi
-    L_00435b1c:
-        mov dword ptr [esp+18h],esi
-    L_00435b20:
-        mov dword ptr [esp+14h],ecx
-    L_00435b24:
-        mov bl,80h
-    L_00435b26:
-        mov eax,1000h
-    L_00435b2b:
-        TH10_REL8(0xeb, 0x00435b2b, VA_asm_FUN_004359b0_part_00435b30)
-        _emit 0x8d
-        _emit 0x49
-        _emit 0x00
-
-    L_00435b30:
-        mov edx,dword ptr [esp+30h]
-    L_00435b34:
-        test eax,edx
-    L_00435b36:
-        je short L_00435b45
-    L_00435b38:
-        mov edi,dword ptr [esp+14h]
-    L_00435b3c:
-        movzx edx,bl
-    L_00435b3f:
-        or edi,edx
-    L_00435b41:
-        mov dword ptr [esp+14h],edi
-    L_00435b45:
-        shr bl,1
-    L_00435b47:
-        test bl,bl
-    L_00435b49:
-        jne short L_00435b58
-    L_00435b4b:
-        mov dl,byte ptr [esp+14h]
-    L_00435b4f:
-        mov byte ptr [esi],dl
-    L_00435b51:
-        inc esi
-    L_00435b52:
-        mov dword ptr [esp+14h],ecx
-    L_00435b56:
-        mov bl,80h
-    L_00435b58:
-        shr eax,1
-    L_00435b5a:
-        cmp eax,ecx
-    L_00435b5c:
-        jne short L_00435b30
-    L_00435b5e:
-        mov dword ptr [esp+18h],esi
-    L_00435b62:
-        mov eax,8
-    L_00435b67:
-        lea edi,[ebp-3]
-    L_00435b6a:
-        lea ebx,[ebx+force_disp32_zero]
-    L_00435b70:
-        test edi,eax
-    L_00435b72:
-        je short L_00435b85
-    L_00435b74:
-        mov ebp,dword ptr [esp+14h]
-    L_00435b78:
-        movzx edx,bl
-    L_00435b7b:
-        or ebp,edx
-    L_00435b7d:
-        mov dword ptr [esp+14h],ebp
-    L_00435b81:
-        mov ebp,dword ptr [esp+20h]
-    L_00435b85:
-        shr bl,1
-    L_00435b87:
-        test bl,bl
-    L_00435b89:
-        jne short L_00435b98
-    L_00435b8b:
-        mov dl,byte ptr [esp+14h]
-    L_00435b8f:
-        mov byte ptr [esi],dl
-    L_00435b91:
-        inc esi
-    L_00435b92:
-        mov dword ptr [esp+14h],ecx
-    L_00435b96:
-        mov bl,80h
-    L_00435b98:
-        shr eax,1
-    L_00435b9a:
-        cmp eax,ecx
-    L_00435b9c:
-        jne short L_00435b70
-    L_00435b9e:
-        cmp ebp,ecx
-    L_00435ba0:
-        mov dword ptr [esp+18h],esi
-    L_00435ba4:
-        mov byte ptr [esp+13h],bl
-    L_00435ba8:
-        mov edi,ebp
-    L_00435baa:
-        jle asm_target_00435d62
-    L_00435bb0:
-        mov eax,dword ptr [esp+1Ch]
-    L_00435bb4:
-        sub eax,dword ptr [esp+40h]
-    L_00435bb8:
-        mov dword ptr [esp+2Ch],eax
-    L_00435bbc:
-        mov dword ptr [esp+34h],edi
-    L_00435bc0:
-        mov ebp,dword ptr [esp+24h]
-    L_00435bc4:
-        add ebp,12h
-    L_00435bc7:
-        and ebp,1FFFh
-    L_00435bcd:
-        lea eax,[ebp+ebp*2]
-    L_00435bd1:
-        shl eax,2
-    L_00435bd4:
-        mov ecx,dword ptr [eax+477858h]
-    L_00435bda:
-        test ecx,ecx
-    L_00435bdc:
-        lea edi,[eax+477858h]
-    L_00435be2:
-        je asm_target_00435cfb
-    L_00435be8:
-        mov edx,dword ptr [eax+477860h]
-    L_00435bee:
-        test edx,edx
-    L_00435bf0:
-        mov eax,dword ptr [eax+47785Ch]
-    L_00435bf6:
-        jne short L_00435c28
-    L_00435bf8:
-        lea edx,[eax+eax*2]
-    L_00435bfb:
-        mov dword ptr [edx*4+477858h],ecx
-    L_00435c02:
-        mov ecx,dword ptr [edi]
-    L_00435c04:
-        lea ecx,[ecx+ecx*2]
-    L_00435c07:
-        shl ecx,2
-    L_00435c0a:
-        cmp dword ptr [ecx+477860h],ebp
-    L_00435c10:
-        jne short L_00435c1d
-    L_00435c12:
-        mov dword ptr [ecx+477860h],eax
-    L_00435c18:
-        jmp asm_target_00435cf5
-    L_00435c1d:
-        mov dword ptr [ecx+47785Ch],eax
-    L_00435c23:
-        jmp asm_target_00435cf5
-    L_00435c28:
-        test eax,eax
-    L_00435c2a:
-        jne short L_00435c5c
-    L_00435c2c:
-        lea eax,[edx+edx*2]
-    L_00435c2f:
-        mov dword ptr [eax*4+477858h],ecx
-    L_00435c36:
-        mov eax,dword ptr [edi]
-    L_00435c38:
-        lea eax,[eax+eax*2]
-    L_00435c3b:
-        shl eax,2
-    L_00435c3e:
-        cmp dword ptr [eax+477860h],ebp
-    L_00435c44:
-        jne short L_00435c51
-    L_00435c46:
-        mov dword ptr [eax+477860h],edx
-    L_00435c4c:
-        jmp asm_target_00435cf5
-    L_00435c51:
-        mov dword ptr [eax+47785Ch],edx
-    L_00435c57:
-        jmp asm_target_00435cf5
-    L_00435c5c:
-        mov esi,eax
-    L_00435c5e:
-        lea eax,[esi+esi*2]
-    L_00435c61:
-        mov ecx,dword ptr [eax*4+477860h]
-    L_00435c68:
-        test ecx,ecx
-    L_00435c6a:
-        lea eax,[eax*4+477860h]
-    L_00435c71:
-        je short L_00435c8a
-    L_00435c73:
-        mov esi,dword ptr [eax]
-    L_00435c75:
-        lea eax,[esi+esi*2]
-    L_00435c78:
-        mov ecx,dword ptr [eax*4+477860h]
-    L_00435c7f:
-        test ecx,ecx
-    L_00435c81:
-        lea eax,[eax*4+477860h]
-    L_00435c88:
-        jne short L_00435c73
-    L_00435c8a:
-        mov ecx,esi
-    L_00435c8c:
-        call Lzss_RemoveNode_00436210
-    L_00435c91:
-        mov eax,dword ptr [edi]
-    L_00435c93:
-        lea eax,[eax+eax*2]
-    L_00435c96:
-        shl eax,2
-    L_00435c99:
-        cmp dword ptr [eax+47785Ch],ebp
-    L_00435c9f:
-        jne short L_00435ca9
-    L_00435ca1:
-        mov dword ptr [eax+47785Ch],esi
-    L_00435ca7:
-        jmp short L_00435caf
-    L_00435ca9:
-        mov dword ptr [eax+477860h],esi
-    L_00435caf:
-        lea eax,[esi+esi*2]
-    L_00435cb2:
-        shl eax,2
-    L_00435cb5:
-        lea ecx,[eax+477858h]
-    L_00435cbb:
-        mov edx,edi
-    L_00435cbd:
-        mov ebx,dword ptr [edx]
-    L_00435cbf:
-        mov dword ptr [ecx],ebx
-    L_00435cc1:
-        mov ebx,dword ptr [edx+4]
-    L_00435cc4:
-        mov dword ptr [ecx+4],ebx
-    L_00435cc7:
-        mov edx,dword ptr [edx+8]
-    L_00435cca:
-        mov bl,byte ptr [esp+13h]
-    L_00435cce:
-        mov dword ptr [ecx+8],edx
-    L_00435cd1:
-        mov ecx,dword ptr [eax+47785Ch]
-    L_00435cd7:
-        lea ecx,[ecx+ecx*2]
-    L_00435cda:
-        mov dword ptr [ecx*4+477858h],esi
-    L_00435ce1:
-        mov eax,dword ptr [eax+477860h]
-    L_00435ce7:
-        lea edx,[eax+eax*2]
-    L_00435cea:
-        mov dword ptr [edx*4+477858h],esi
-    L_00435cf1:
-        mov esi,dword ptr [esp+18h]
-    L_00435cf5:
-        mov dword ptr [edi],0
-    L_00435cfb:
-        mov eax,dword ptr [esp+2Ch]
-    L_00435cff:
-        cmp eax,dword ptr [esp+44h]
-    L_00435d03:
-        jge short L_00435d1f
-    L_00435d05:
-        mov ecx,dword ptr [esp+1Ch]
-    L_00435d09:
-        movzx eax,byte ptr [ecx]
-    L_00435d0c:
-        mov edx,dword ptr [esp+2Ch]
-    L_00435d10:
-        inc ecx
-    L_00435d11:
-        inc edx
-    L_00435d12:
-        cmp eax,0FFFFFFFFh
-    L_00435d15:
-        mov dword ptr [esp+1Ch],ecx
-    L_00435d19:
-        mov dword ptr [esp+2Ch],edx
-    L_00435d1d:
-        jne short L_00435d25
-    L_00435d1f:
-        dec dword ptr [esp+28h]
-    L_00435d23:
-        jmp short L_00435d2b
-    L_00435d25:
-        mov byte ptr [ebp+48F868h],al
-    L_00435d2b:
-        mov ecx,dword ptr [esp+24h]
-    L_00435d2f:
-        mov eax,dword ptr [esp+28h]
-    L_00435d33:
-        lea edx,[ecx+1]
-    L_00435d36:
-        and edx,1FFFh
-    L_00435d3c:
-        test eax,eax
-    L_00435d3e:
-        mov dword ptr [esp+24h],edx
-    L_00435d42:
-        je short L_00435d52
-    L_00435d44:
-        lea eax,[esp+30h]
-    L_00435d48:
-        push eax
-    L_00435d49:
-        call asm_FUN_00436000_00436000
-    L_00435d4e:
-        mov dword ptr [esp+20h],eax
-    L_00435d52:
-        dec dword ptr [esp+34h]
-    L_00435d56:
-        jne asm_target_00435bc0
-    L_00435d5c:
-        mov ebp,dword ptr [esp+20h]
-    L_00435d60:
-        xor ecx,ecx
-    L_00435d62:
-        mov edx,dword ptr [esp+28h]
-    L_00435d66:
-        cmp edx,ecx
-    L_00435d68:
-        jg asm_target_00435a90
-    L_00435d6e:
-        shr bl,1
-    L_00435d70:
-        test bl,bl
-    L_00435d72:
-        jne short L_00435d81
-    L_00435d74:
-        mov dl,byte ptr [esp+14h]
-    L_00435d78:
-        mov byte ptr [esi],dl
-    L_00435d7a:
-        inc esi
-    L_00435d7b:
-        mov dword ptr [esp+14h],ecx
-    L_00435d7f:
-        mov bl,80h
-    L_00435d81:
-        mov eax,1000h
-    L_00435d86:
-        shr bl,1
-    L_00435d88:
-        test bl,bl
-    L_00435d8a:
-        jne short L_00435d99
-    L_00435d8c:
-        mov dl,byte ptr [esp+14h]
-    L_00435d90:
-        mov byte ptr [esi],dl
-    L_00435d92:
-        inc esi
-    L_00435d93:
-        mov dword ptr [esp+14h],ecx
-    L_00435d97:
-        mov bl,80h
-    L_00435d99:
-        shr eax,1
-    L_00435d9b:
-        cmp eax,ecx
-    L_00435d9d:
-        jne short L_00435d86
-    L_00435d9f:
-        mov eax,dword ptr [esp+38h]
-    L_00435da3:
-        mov ecx,dword ptr [esp+48h]
-    L_00435da7:
-        sub esi,eax
-    L_00435da9:
-        pop edi
-    L_00435daa:
-        mov dword ptr [ecx],esi
-    L_00435dac:
-        pop esi
-    L_00435dad:
-        pop ebp
-    L_00435dae:
-        pop ebx
-    L_00435daf:
-        add esp,2Ch
-    L_00435db2:
-        ret 0Ch
+class LzssBitWriter_004359B0 {
+public:
+    explicit LzssBitWriter_004359B0(unsigned char* output)
+        : output_(output), size_(0), current_byte_(0), bit_mask_(0x80) {
     }
+
+    __forceinline void WriteBit(unsigned int bit) {
+        if (bit != 0)
+            current_byte_ |= bit_mask_;
+        bit_mask_ >>= 1;
+        if (bit_mask_ == 0) {
+            output_[size_] = static_cast<unsigned char>(current_byte_);
+            ++size_;
+            current_byte_ = 0;
+            bit_mask_ = 0x80;
+        }
+    }
+
+    __forceinline void WriteBits(unsigned int value, unsigned int count) {
+        while (count != 0) {
+            --count;
+            WriteBit((value >> count) & 1u);
+        }
+    }
+
+    int Size() const {
+        return size_;
+    }
+
+private:
+    unsigned char* output_;
+    int size_;
+    unsigned int current_byte_;
+    unsigned int bit_mask_;
+};
+
+} // namespace
+
+#pragma code_seg(".text$02compress")
+extern "C" __declspec(noinline) unsigned char* __stdcall Lzss_Compress_004359B0(
+    const unsigned char* input, int input_size, int* output_size) {
+    const unsigned int allocation_size =
+        static_cast<unsigned int>(input_size) * 2u;
+    unsigned char* const output = static_cast<unsigned char*>(
+        asm_malloc_00452706(allocation_size));
+    if (output == 0)
+        return 0;
+
+    *output_size = 0;
+
+    volatile unsigned char* const dictionary =
+        reinterpret_cast<volatile unsigned char*>(data_0048f868);
+    for (int i = 0; i < 0x2000; ++i)
+        dictionary[i] = 0;
+
+    volatile int* const tree_words =
+        reinterpret_cast<volatile int*>(data_00477858);
+    for (int node = 1; node <= 0x2000; ++node) {
+        const int word = node * 3;
+        tree_words[word + 0] = 0;
+        tree_words[word + 1] = 0;
+        tree_words[word + 2] = 0;
+    }
+
+    int input_position = 0;
+    int lookahead = 0;
+    while (input_position < input_size && lookahead < 0x12) {
+        dictionary[lookahead + 1] = input[input_position];
+        ++input_position;
+        ++lookahead;
+    }
+
+    const int root = 0x2000;
+    data_00477858[root].right = 1;
+    data_00477858[1].parent = root;
+
+    int ring_position = 1;
+    int match_length = 0;
+    int match_position = 0;
+    LzssBitWriter_004359B0 bits(output);
+
+    while (lookahead > 0) {
+        int token_length = match_length;
+        if (token_length > lookahead)
+            token_length = lookahead;
+
+        int consumed;
+        if (token_length <= 2) {
+            bits.WriteBit(1);
+            bits.WriteBits(dictionary[ring_position], 8);
+            consumed = 1;
+        } else {
+            bits.WriteBit(0);
+            bits.WriteBits(static_cast<unsigned int>(match_position), 13);
+            bits.WriteBits(static_cast<unsigned int>(token_length - 3), 4);
+            consumed = token_length;
+        }
+
+        while (consumed != 0) {
+            const int expired_position = (ring_position + 0x12) & 0x1fff;
+            if (data_00477858[expired_position].parent != 0)
+                Lzss_RemoveNode_00436210(expired_position);
+
+            if (input_position < input_size) {
+                dictionary[expired_position] = input[input_position];
+                ++input_position;
+            } else {
+                --lookahead;
+            }
+
+            const int old_ring_position = ring_position;
+            ring_position = (ring_position + 1) & 0x1fff;
+            if (lookahead != 0) {
+                match_length = Lzss_InsertString_00436000(
+                    old_ring_position, ring_position, &match_position);
+            }
+            --consumed;
+        }
+    }
+
+    // The terminator is a zero flag and a zero 13-bit position. Retail writes
+    // only complete output bytes; a final partial byte remains implicit.
+    bits.WriteBit(0);
+    bits.WriteBits(0, 13);
+    *output_size = bits.Size();
+    return output;
 }
+#pragma code_seg()
+
 #endif
