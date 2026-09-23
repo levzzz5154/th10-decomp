@@ -3,7 +3,8 @@
 
 // 0x0046105E..0x0046108F: __control87
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_control87_0046105e() {
+extern "C" __declspec(naked) unsigned int __cdecl asm_control87_0046105e(
+    unsigned int new_value, unsigned int mask) {
     __asm {
     L_0046105e:
         push ebp

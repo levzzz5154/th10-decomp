@@ -1,7 +1,10 @@
 # `0x00401440` CreateGameThread - decoded, one byte short of the EAX-carried call
 
-2026-09-19. Second-wave agent `CreateGameThread`. The region was **not landed**.
-Measured extent is exact at **69 bytes** in both the plain path and the native
+Historical measurements from 2026-09-19, second-wave agent
+`CreateGameThread`. At that time the region was **not integrated**; it has since
+been promoted as a semantic C++ candidate, with current status documented in
+`create_game_thread_00401440.md`. This note records the earlier candidate
+measurements only. Measured extent is exact at **69 bytes** in both the plain path and the native
 cluster path; the cluster path leaves **exactly one differing byte**, the ModRM
 of the register transfer that hands the object to `LoadGameThreadResources`
 (`0x00401110`), which reads that object from **EAX** and is not co-compilable

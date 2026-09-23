@@ -3,7 +3,7 @@
 
 // 0x00458EFD..0x00459074: FUN_00458efd
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00458efd_00458efd() {
+extern "C" __declspec(naked) void __cdecl asm_FUN_00458efd_00458efd(int) {
     __asm {
     L_00458efd:
         push ebp

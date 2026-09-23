@@ -70,3 +70,28 @@ int EclVm_004506d0::PopScratchValue() {
 }
 #pragma code_seg()
 ```
+
+## Current source candidate (2026-09-23)
+
+`src/script/ecl_pop_scratch_value_004506d0.cpp` now retains the model above as
+ordinary C++ in `EclVm_004506d0::PopScratchValue()`. The source has no inline
+assembly. This edit does not change the `regions.json` record, which remains
+marked ASM pending registration of the C++ symbol and its native-LTCG context.
+
+Ghidra was rechecked at `0x004506D0`: it has two call references, both from the
+interpreter at `0x0044E211` and `0x0044E453`. At the first site the caller forms
+`ESI + 8` in EDI, copies that pointer to EAX, then calls; at the second it forms
+`ESI + 8` directly in EAX before calling. Neither site pushes an argument. The
+body returns zero in EAX and uses a plain `RET`. Ghidra's inferred
+`undefined4 __stdcall PopEclScratchValue(void)` signature does not model the
+live EAX receiver; the caller setup and the body's `[EAX + 0x1000]` /
+`[EAX + 0x1004]` accesses establish the private ABI instead.
+
+The maintained C++ candidate follows that EAX receiver model: it computes the
+candidate offset four bytes earlier, refills the cached scratch value only when
+the offset is nonnegative, restores the saved value into the offset field, and
+returns zero. Exact output for this current source revision has not been
+verified. The earlier measured native-LTCG version of the same model was 41
+bytes, with the known decrement encoding difference (`sub ecx,4` in the
+candidate versus retail's `add ecx,-4`); no build or probe was run for this
+source update.

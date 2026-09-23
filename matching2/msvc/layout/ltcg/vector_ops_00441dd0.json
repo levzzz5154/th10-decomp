@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "name": "vector_ops_00441dd0",
+  "source": "src/unidentified/unassigned_00441dd0.cpp",
+  "driver": "layout/ltcg/vector_ops_00441dd0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Draft native-LTCG Vec2 difference and scale operators. The two target extents and context extent have not been measured by a build or probe; context size is provisional.",
+  "functions": [
+    {
+      "name": "Vec2_00441dd0_operator_minus",
+      "symbol": "??GVec2_00441dd0@@QBE?AU0@ABU0@@Z",
+      "section": ".text$01difference",
+      "address": "0x00441DD0",
+      "size": 16,
+      "actual_abi": "this vector in ECX; explicit vector operand in EDX; hidden result buffer in EAX; returns operand minus this; plain RET"
+    },
+    {
+      "name": "Vec2_00441dd0_operator_multiply",
+      "symbol": "??DVec2_00441dd0@@QBE?AU0@M@Z",
+      "section": ".text$02scale",
+      "address": "0x00441DE0",
+      "size": 21,
+      "actual_abi": "source vector in ECX; float scale at [ESP+4]; hidden result buffer in EAX; callee cleanup RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_VectorOpsCompilerContext@24",
+    "section": ".text$04context",
+    "address": "0x00465C00",
+    "size": 241,
+    "description": "Synthetic array-walking caller for both aggregate-return operators; context contribution size is a provisional placeholder and must be measured before validation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00lead",
+      "address": "0x00401000",
+      "size": 265680
+    },
+    {
+      "section": ".text$03gap",
+      "address": "0x00441DF5",
+      "size": 146955
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

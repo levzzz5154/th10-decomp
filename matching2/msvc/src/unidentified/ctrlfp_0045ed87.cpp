@@ -1,9 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
 // 0x0045ED87..0x0045EDAA: __ctrlfp
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ctrlfp_0045ed87() {
+// This helper edits the raw 16-bit x87 control word. The standard _control87
+// API uses a translated control-word representation, so it cannot replace
+// this operation without changing the meaning of the arguments.
+// cdecl arguments are (new_control_word, mask); EAX returns the old word
+// sign-extended from 16 bits. The caller removes both arguments.
+extern "C" __declspec(naked) int __cdecl asm_ctrlfp_0045ed87(
+    unsigned int new_control_word,
+    unsigned int mask) {
     __asm {
     L_0045ed87:
         push ebp

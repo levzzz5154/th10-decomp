@@ -2132,6 +2132,13 @@ shared-pointer lever (wave-17 `0x00405BE0`) is the documented fix for exactly th
 it needs the two pointers to be distinct values in the source; a cast of `this` is
 coalesced back.
 
+**2026-09-23 resolution for `0x40B530`:** a fixed-size `memset(this, 0,
+sizeof(*this))` in a native-LTCG member context emits the retail `mov edx,eax`
+and ten zero stores, then retains the separate `or [eax],2` instruction. The
+42-byte C++ body passed the focused probe and the whole 487,936-byte executable
+check. `0x40AE50` had already been promoted through the same `memset` source
+shape before this follow-up.
+
 ### 9. `0x40C440` - 24 bytes, ATTEMPTED
 
 `push esi / mov esi,eax / add esi,89A4h / mov eax,esi / call 0x409E50 / mov
@@ -2208,4 +2215,3 @@ edited; all 88 went through `promote_scratch.py --scratch /tmp/VeinBlock40/msvc
 --address <addr> --apply` (57 of them registering a new single-source cluster and
 30 flipping a plain record). `make` was not run - the owner gates the build once per
 wave.
-

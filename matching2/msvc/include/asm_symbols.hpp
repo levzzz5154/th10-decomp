@@ -1,4 +1,15 @@
 #pragma once
+// Opaque tags used by recovered C-linkage entry points below.
+struct AnimationManager_00442F50;
+struct CrtHeapBlock;
+struct File;
+struct FrameInfo;
+struct LocaleInfo;
+struct NameEntry;
+struct RenderEntity;
+struct StageTipManager_00419090;
+struct Stream;
+struct ThreadData;
 // Fixed retail anchors; the linker verifies every placed function.
 extern "C" void __cdecl asm_1FileHandle_00435340();
 #define VA_asm_1FileHandle_00435340 0x00435340
@@ -164,7 +175,7 @@ extern "C" void __cdecl asm_BulletManager_Create_0040af90();
 #define VA_asm_BulletManager_Create_0040af90 0x0040af90
 extern "C" void __cdecl asm_BulletManager_LoadScripts_0040ae70();
 #define VA_asm_BulletManager_LoadScripts_0040ae70 0x0040ae70
-extern "C" void __cdecl asm_BulletManager_Release_0040af00();
+extern "C" void __stdcall asm_BulletManager_Release_0040af00(void* state);
 #define VA_asm_BulletManager_Release_0040af00 0x0040af00
 extern "C" void __cdecl asm_BulletPool_ResetRetail_00405ed0();
 #define VA_asm_BulletPool_ResetRetail_00405ed0 0x00405ed0
@@ -192,11 +203,11 @@ extern "C" void __cdecl asm_ConfigureColorPlaybackState_00442220();
 #define VA_asm_ConfigureColorPlaybackState_00442220 0x00442220
 extern "C" void __cdecl asm_ConstructGameState_00402160();
 #define VA_asm_ConstructGameState_00402160 0x00402160
-extern "C" void __cdecl asm_CopyMan_0045d3bb();
+extern "C" void __cdecl asm_CopyMan_0045d3bb(unsigned int* destination, const unsigned int* source);
 #define VA_asm_CopyMan_0045d3bb 0x0045d3bb
 extern "C" void __cdecl asm_CountPatternMatches_004088c0();
 #define VA_asm_CountPatternMatches_004088c0 0x004088c0
-extern "C" void __cdecl asm_CreateFrameInfo_004629eb();
+extern "C" FrameInfo* __cdecl asm_CreateFrameInfo_004629eb(FrameInfo* frame, void* object);
 #define VA_asm_CreateFrameInfo_004629eb 0x004629eb
 extern "C" void __cdecl asm_CreateGameState_00402640();
 #define VA_asm_CreateGameState_00402640 0x00402640
@@ -234,9 +245,9 @@ extern "C" void __cdecl asm_D3DXMatrixRotationX_004521ac();
 #define VA_asm_D3DXMatrixRotationX_004521ac 0x004521ac
 extern "C" void __cdecl asm_D3DXMatrixRotationY_004521b8();
 #define VA_asm_D3DXMatrixRotationY_004521b8 0x004521b8
-extern "C" void __cdecl asm_D3DXMatrixRotationZ_004521be();
+extern "C" void* __cdecl asm_D3DXMatrixRotationZ_004521be(void* out, float angle);
 #define VA_asm_D3DXMatrixRotationZ_004521be 0x004521be
-extern "C" void __cdecl asm_D3DXMatrixTranslation_00452182();
+extern "C" void* __cdecl asm_D3DXMatrixTranslation_00452182(void* out, float x, float y, float z);
 #define VA_asm_D3DXMatrixTranslation_00452182 0x00452182
 extern "C" void __cdecl asm_D3DXVec3Normalize_0045217c();
 #define VA_asm_D3DXVec3Normalize_0045217c 0x0045217c
@@ -246,6 +257,8 @@ extern "C" void __cdecl asm_D3DXVec3Project_0045218e();
 #define VA_asm_D3DXVec3Project_0045218e 0x0045218e
 extern "C" void __cdecl asm_D3DXVec3Transform_004521c4();
 #define VA_asm_D3DXVec3Transform_004521c4 0x004521c4
+extern "C" void __cdecl asm_DatArchive_Reset_00434c20();
+#define VA_asm_DatArchive_Reset_00434c20 0x00434c20
 extern "C" void __cdecl asm_DatArchive_Close_00434d10();
 #define VA_asm_DatArchive_Close_00434d10 0x00434d10
 extern "C" void __cdecl asm_DatArchive_FindEntry_00434f30();
@@ -304,6 +317,8 @@ extern "C" void __cdecl asm_ECL_ResolveIntValue_0044ff00();
 #define VA_asm_ECL_ResolveIntValue_0044ff00 0x0044ff00
 extern "C" void __cdecl asm_ECL_ResolveVariableValue_00450030();
 #define VA_asm_ECL_ResolveVariableValue_00450030 0x00450030
+// Legacy address alias for the interpreter's raw assembly call.
+// C++ uses the semantic member definition at this address.
 extern "C" void __cdecl asm_ECL_SetPolarVector_004501b0();
 #define VA_asm_ECL_SetPolarVector_004501b0 0x004501b0
 extern "C" void __cdecl asm_EclVm_SpawnChild_004500d0();
@@ -370,15 +385,16 @@ extern "C" void __cdecl asm_FID_conflict__CallMemberFunction1_0046270d();
 #define VA_asm_FID_conflict__CallMemberFunction1_0046270d 0x0046270d
 extern "C" void __cdecl asm_FID_conflict__CallMemberFunction1_00462714();
 #define VA_asm_FID_conflict__CallMemberFunction1_00462714 0x00462714
-extern "C" void __cdecl asm_FID_conflict___ld12tod_0045d5ce();
+extern "C" int __cdecl asm_FID_conflict___ld12tod_0045d5ce(const void* source, void* destination);
 #define VA_asm_FID_conflict___ld12tod_0045d5ce 0x0045d5ce
-extern "C" void __cdecl asm_FID_conflict___ld12tod_0045d5e4();
+extern "C" int __cdecl asm_FID_conflict___ld12tod_0045d5e4(const void* source, void* destination);
 #define VA_asm_FID_conflict___ld12tod_0045d5e4 0x0045d5e4
-extern "C" void __cdecl asm_FID_conflict___set_errno_from_matherr_0045e86c();
+extern "C" unsigned int __cdecl asm_FID_conflict___set_errno_from_matherr_0045e86c(int value);
 #define VA_asm_FID_conflict___set_errno_from_matherr_0045e86c 0x0045e86c
-extern "C" void __cdecl asm_FID_conflict___time32_00452b71();
+extern "C" unsigned int __cdecl asm_FID_conflict___time32_00452b71(unsigned int* output);
 #define VA_asm_FID_conflict___time32_00452b71 0x00452b71
-extern "C" void __cdecl asm_FID_conflict__ungetc_0045e204();
+extern "C" int __cdecl asm_FID_conflict__ungetc_0045e204(
+    int ch, void* stream);
 #define VA_asm_FID_conflict__ungetc_0045e204 0x0045e204
 extern "C" void __cdecl asm_FID_conflict_runtime_error_00462327();
 #define VA_asm_FID_conflict_runtime_error_00462327 0x00462327
@@ -622,7 +638,7 @@ extern "C" void __cdecl asm_FUN_00417c80_00417c80();
 #define VA_asm_FUN_00417c80_00417c80 0x00417c80
 extern "C" void __cdecl asm_FUN_00418190_00418190();
 #define VA_asm_FUN_00418190_00418190 0x00418190
-extern "C" void __cdecl asm_FUN_00418ee0_00418ee0();
+extern "C" void __stdcall asm_FUN_00418ee0_00418ee0(void* manager);
 #define VA_asm_FUN_00418ee0_00418ee0 0x00418ee0
 extern "C" void __cdecl asm_FUN_00419120_00419120();
 #define VA_asm_FUN_00419120_00419120 0x00419120
@@ -746,7 +762,7 @@ extern "C" void __cdecl asm_FUN_00422660_00422660();
 #define VA_asm_FUN_00422660_00422660 0x00422660
 extern "C" void __cdecl asm_FUN_00422660_part_00422920();
 #define VA_asm_FUN_00422660_part_00422920 0x00422920
-extern "C" void __cdecl asm_FUN_00422ab0_00422ab0();
+extern "C" void __stdcall asm_FUN_00422ab0_00422ab0(void* pause_state);
 #define VA_asm_FUN_00422ab0_00422ab0 0x00422ab0
 extern "C" void __cdecl asm_FUN_00422c80_00422c80();
 #define VA_asm_FUN_00422c80_00422c80 0x00422c80
@@ -1174,7 +1190,7 @@ extern "C" void __cdecl asm_FUN_00444ce0_00444ce0();
 #define VA_asm_FUN_00444ce0_00444ce0 0x00444ce0
 extern "C" void __cdecl asm_FUN_004450e0_004450e0();
 #define VA_asm_FUN_004450e0_004450e0 0x004450e0
-extern "C" void __cdecl asm_FUN_004451c0_004451c0();
+extern "C" int __cdecl asm_FUN_004451c0_004451c0(AnimationManager_00442F50* manager, RenderEntity* entity);
 #define VA_asm_FUN_004451c0_004451c0 0x004451c0
 extern "C" void __cdecl asm_FUN_004452f0_004452f0();
 #define VA_asm_FUN_004452f0_004452f0 0x004452f0
@@ -1270,7 +1286,7 @@ extern "C" void __cdecl asm_FUN_004526d1_004526d1();
 #define VA_asm_FUN_004526d1_004526d1 0x004526d1
 extern "C" void __cdecl asm_FUN_00452730_00452730();
 #define VA_asm_FUN_00452730_00452730 0x00452730
-extern "C" void __cdecl asm_FUN_00452abc_00452abc();
+extern "C" int __cdecl asm_FUN_00452abc_00452abc(const char* path);
 #define VA_asm_FUN_00452abc_00452abc 0x00452abc
 extern "C" void __cdecl asm_FUN_00452e04_00452e04();
 #define VA_asm_FUN_00452e04_00452e04 0x00452e04
@@ -1280,11 +1296,12 @@ extern "C" void __cdecl asm_FUN_00453111_00453111();
 #define VA_asm_FUN_00453111_00453111 0x00453111
 extern "C" void __cdecl asm_FUN_00453111_part_004531bf();
 #define VA_asm_FUN_00453111_part_004531bf 0x004531bf
-extern "C" void __cdecl asm_FUN_00453b3f_00453b3f();
+extern "C" void __cdecl asm_FUN_00453b3f_00453b3f(int index);
 #define VA_asm_FUN_00453b3f_00453b3f 0x00453b3f
 extern "C" void __cdecl asm_FUN_00453c03_00453c03();
 #define VA_asm_FUN_00453c03_00453c03 0x00453c03
-extern "C" void __cdecl asm_FUN_00454ed7_00454ed7();
+extern "C" int __cdecl asm_FUN_00454ed7_00454ed7(
+    void* stream, const char* format, void* argument_cursor);
 #define VA_asm_FUN_00454ed7_00454ed7 0x00454ed7
 extern "C" void __cdecl asm_FUN_00455b10_00455b10();
 #define VA_asm_FUN_00455b10_00455b10 0x00455b10
@@ -1304,9 +1321,11 @@ extern "C" void __cdecl asm_FUN_00456674_00456674();
 #define VA_asm_FUN_00456674_00456674 0x00456674
 extern "C" void __cdecl asm_FUN_00456a8c_00456a8c();
 #define VA_asm_FUN_00456a8c_00456a8c 0x00456a8c
-extern "C" void __cdecl asm_FUN_00456af2_00456af2();
+extern "C" void __cdecl asm_fpmath_00456ad4(int set_default_precision);
+#define VA_asm_fpmath_00456ad4 0x00456ad4
+extern "C" int* __cdecl asm_FUN_00456af2_00456af2();
 #define VA_asm_FUN_00456af2_00456af2 0x00456af2
-extern "C" void __cdecl asm_FUN_00456afb_00456afb();
+extern "C" unsigned int* __cdecl asm_FUN_00456afb_00456afb();
 #define VA_asm_FUN_00456afb_00456afb 0x00456afb
 extern "C" void __cdecl asm_FUN_00456e03_00456e03();
 #define VA_asm_FUN_00456e03_00456e03 0x00456e03
@@ -1342,7 +1361,7 @@ extern "C" void __cdecl asm_FUN_00458b1e_00458b1e();
 #define VA_asm_FUN_00458b1e_00458b1e 0x00458b1e
 extern "C" void __cdecl asm_FUN_00458b1e_part_00458b46();
 #define VA_asm_FUN_00458b1e_part_00458b46 0x00458b46
-extern "C" void __cdecl asm_FUN_00458efd_00458efd();
+extern "C" void __cdecl asm_FUN_00458efd_00458efd(int errorCode);
 #define VA_asm_FUN_00458efd_00458efd 0x00458efd
 extern "C" void __cdecl asm_FUN_004597ba_part_004597ee();
 #define VA_asm_FUN_004597ba_part_004597ee 0x004597ee
@@ -1354,17 +1373,18 @@ extern "C" void __cdecl asm_FUN_00459cd2_00459cd2();
 #define VA_asm_FUN_00459cd2_00459cd2 0x00459cd2
 extern "C" void __cdecl asm_FUN_00459f15_00459f15();
 #define VA_asm_FUN_00459f15_00459f15 0x00459f15
-extern "C" void __cdecl asm_FUN_0045af1d_0045af1d();
+extern "C" unsigned int __cdecl asm_FUN_0045af1d_0045af1d(void* crt_locale, char* output, unsigned int capacity, const char* format, const void* time_fields, void* locale_time_data);
 #define VA_asm_FUN_0045af1d_0045af1d 0x0045af1d
 extern "C" void __cdecl asm_FUN_0045bd80_0045bd80();
 #define VA_asm_FUN_0045bd80_0045bd80 0x0045bd80
-extern "C" void __cdecl asm_FUN_0045bd90_0045bd90();
+extern "C" char* __cdecl asm_FUN_0045bd90_0045bd90(
+    char* destination, const char* source);
 #define VA_asm_FUN_0045bd90_0045bd90 0x0045bd90
 extern "C" void __cdecl asm_FUN_0045c377_0045c377();
 #define VA_asm_FUN_0045c377_0045c377 0x0045c377
-extern "C" void __cdecl asm_FUN_0045c3f1_0045c3f1();
+extern "C" int __cdecl asm_FUN_0045c3f1_0045c3f1(short value);
 #define VA_asm_FUN_0045c3f1_0045c3f1 0x0045c3f1
-extern "C" void __cdecl asm_FUN_0045c5dc_0045c5dc();
+extern "C" int __cdecl asm_FUN_0045c5dc_0045c5dc(unsigned int locale_id, int check_locale_text);
 #define VA_asm_FUN_0045c5dc_0045c5dc 0x0045c5dc
 extern "C" void __cdecl asm_FUN_0045cd56_0045cd56();
 #define VA_asm_FUN_0045cd56_0045cd56 0x0045cd56
@@ -1376,9 +1396,9 @@ extern "C" void __cdecl asm_FUN_0045cfb8_0045cfb8();
 #define VA_asm_FUN_0045cfb8_0045cfb8 0x0045cfb8
 extern "C" void __cdecl asm_FUN_0045d2a3_0045d2a3();
 #define VA_asm_FUN_0045d2a3_0045d2a3 0x0045d2a3
-extern "C" void __cdecl asm_FUN_0045d676_0045d676();
+extern "C" void __cdecl asm_FUN_0045d676_0045d676(void* output, const unsigned char* text);
 #define VA_asm_FUN_0045d676_0045d676 0x0045d676
-extern "C" void __cdecl asm_FUN_0045d701_0045d701();
+extern "C" void __cdecl asm_FUN_0045d701_0045d701(void* output, const unsigned char* text);
 #define VA_asm_FUN_0045d701_0045d701 0x0045d701
 extern "C" void __cdecl asm_FUN_0045d746_0045d746();
 #define VA_asm_FUN_0045d746_0045d746 0x0045d746
@@ -1390,7 +1410,7 @@ extern "C" void __cdecl asm_FUN_0045def8_0045def8();
 #define VA_asm_FUN_0045def8_0045def8 0x0045def8
 extern "C" void __cdecl asm_FUN_0045e11a_0045e11a();
 #define VA_asm_FUN_0045e11a_0045e11a 0x0045e11a
-extern "C" void __cdecl asm_FUN_0045e3a0_0045e3a0();
+extern "C" int __cdecl asm_FUN_0045e3a0_0045e3a0();
 #define VA_asm_FUN_0045e3a0_0045e3a0 0x0045e3a0
 extern "C" void __cdecl asm_FUN_0045ea31_0045ea31();
 #define VA_asm_FUN_0045ea31_0045ea31 0x0045ea31
@@ -1410,17 +1430,17 @@ extern "C" void __cdecl asm_FUN_0045f259_part_0045f29d();
 #define VA_asm_FUN_0045f259_part_0045f29d 0x0045f29d
 extern "C" void __cdecl asm_FUN_0045f7ac_0045f7ac();
 #define VA_asm_FUN_0045f7ac_0045f7ac 0x0045f7ac
-extern "C" void __cdecl asm_FUN_0045f7b5_0045f7b5();
+extern "C" void __cdecl asm_FUN_0045f7b5_0045f7b5(int file);
 #define VA_asm_FUN_0045f7b5_0045f7b5 0x0045f7b5
 extern "C" void __cdecl asm_FUN_0045fd21_0045fd21();
 #define VA_asm_FUN_0045fd21_0045fd21 0x0045fd21
 extern "C" void __cdecl asm_FUN_0045fd4d_0045fd4d();
 #define VA_asm_FUN_0045fd4d_0045fd4d 0x0045fd4d
-extern "C" void __cdecl asm_FUN_0045fe7e_0045fe7e();
+extern "C" void** __cdecl asm_FUN_0045fe7e_0045fe7e();
 #define VA_asm_FUN_0045fe7e_0045fe7e 0x0045fe7e
 extern "C" void __cdecl asm_FUN_00460163_00460163();
 #define VA_asm_FUN_00460163_00460163 0x00460163
-extern "C" void __cdecl asm_FUN_004601a1_004601a1();
+extern "C" long __cdecl asm_FUN_004601a1_004601a1(unsigned int locale);
 #define VA_asm_FUN_004601a1_004601a1 0x004601a1
 extern "C" void __cdecl asm_FUN_004601e8_004601e8();
 #define VA_asm_FUN_004601e8_004601e8 0x004601e8
@@ -1516,7 +1536,7 @@ extern "C" void __cdecl asm_FUN_00464f15_00464f15();
 #define VA_asm_FUN_00464f15_00464f15 0x00464f15
 extern "C" void __cdecl asm_FUN_00464f2c_00464f2c();
 #define VA_asm_FUN_00464f2c_00464f2c 0x00464f2c
-extern "C" void __cdecl asm_FUN_00464f88_00464f88();
+extern "C" unsigned int __cdecl asm_FUN_00464f88_00464f88(unsigned int low_word, unsigned int high_word);
 #define VA_asm_FUN_00464f88_00464f88 0x00464f88
 extern "C" void __cdecl asm_FUN_0046508c_0046508c();
 #define VA_asm_FUN_0046508c_0046508c 0x0046508c
@@ -1542,7 +1562,7 @@ extern "C" void __cdecl asm_File_WriteShared_0044b740();
 #define VA_asm_File_WriteShared_0044b740 0x0044b740
 extern "C" void __cdecl asm_File_WriteWholeFile_0044b540();
 #define VA_asm_File_WriteWholeFile_0044b540 0x0044b540
-extern "C" void __cdecl asm_FindAndUnlinkFrame_00462a34();
+extern "C" void __cdecl asm_FindAndUnlinkFrame_00462a34(FrameInfo* frame);
 #define VA_asm_FindAndUnlinkFrame_00462a34 0x00462a34
 extern "C" void __cdecl asm_FindHandlerForForeignException_004636a1();
 #define VA_asm_FindHandlerForForeignException_004636a1 0x004636a1
@@ -1624,7 +1644,7 @@ extern "C" void __cdecl asm_Heap_DestroyOwnedSecondary_0042cdb0();
 #define VA_asm_Heap_DestroyOwnedSecondary_0042cdb0 0x0042cdb0
 extern "C" void __cdecl asm_Heap_DestroyOwned_00418150();
 #define VA_asm_Heap_DestroyOwned_00418150 0x00418150
-extern "C" void __cdecl asm_IncMan_0045d2fc();
+extern "C" void __cdecl asm_IncMan_0045d2fc(unsigned int* words, int bit);
 #define VA_asm_IncMan_0045d2fc 0x0045d2fc
 extern "C" void __cdecl asm_InitializeEntity_00401de0();
 #define VA_asm_InitializeEntity_00401de0 0x00401de0
@@ -1644,9 +1664,9 @@ extern "C" void __cdecl asm_Input_UpdateKeyboardState_0044b010();
 #define VA_asm_Input_UpdateKeyboardState_0044b010 0x0044b010
 extern "C" void __cdecl asm_InternalCxxFrameHandler_00463963();
 #define VA_asm_InternalCxxFrameHandler_00463963 0x00463963
-extern "C" void __cdecl asm_IsExceptionObjectToBeDestroyed_00462a13();
+extern "C" int __cdecl asm_IsExceptionObjectToBeDestroyed_00462a13(void* object);
 #define VA_asm_IsExceptionObjectToBeDestroyed_00462a13 0x00462a13
-extern "C" void __cdecl asm_IsZeroMan_0045d3e2();
+extern "C" int __cdecl asm_IsZeroMan_0045d3e2(const int* words);
 #define VA_asm_IsZeroMan_0045d3e2 0x0045d3e2
 extern "C" void __cdecl asm_ItemFrontRuntime_InitializeRetail_00413980();
 #define VA_asm_ItemFrontRuntime_InitializeRetail_00413980 0x00413980
@@ -1656,9 +1676,10 @@ extern "C" void __cdecl asm_ItemManager_DestroyRetail_00405f70();
 #define VA_asm_ItemManager_DestroyRetail_00405f70 0x00405f70
 extern "C" void __cdecl asm_JumpToContinuation_004626d6();
 #define VA_asm_JumpToContinuation_004626d6 0x004626d6
+// Callback-injected semantic model; this anchor is not a callable C++ ABI.
 extern "C" void __cdecl asm_KeyConfig_ReassignSlotRetail_00430250();
 #define VA_asm_KeyConfig_ReassignSlotRetail_00430250 0x00430250
-extern "C" void __cdecl asm_LcidFromHexString_0045c4f2();
+extern "C" int __fastcall asm_LcidFromHexString_0045c4f2(int ignored_ecx, const char* text);
 #define VA_asm_LcidFromHexString_0045c4f2 0x0045c4f2
 extern "C" void __cdecl asm_LegacyString_Clear_004381f0();
 #define VA_asm_LegacyString_Clear_004381f0 0x004381f0
@@ -1794,13 +1815,13 @@ extern "C" void __cdecl asm_Recovery_ClearAnimationSlot_0042c6d0();
 #define VA_asm_Recovery_ClearAnimationSlot_0042c6d0 0x0042c6d0
 extern "C" void __cdecl asm_Recovery_ClearEightBuckets_00419040();
 #define VA_asm_Recovery_ClearEightBuckets_00419040 0x00419040
-extern "C" void __cdecl asm_Recovery_CreateFixedState_004056b0();
+extern "C" void* __cdecl asm_Recovery_CreateFixedState_004056b0(void);
 #define VA_asm_Recovery_CreateFixedState_004056b0 0x004056b0
 extern "C" void __cdecl asm_Recovery_CreateHugeResourceState_0042b660();
 #define VA_asm_Recovery_CreateHugeResourceState_0042b660 0x0042b660
 extern "C" void __cdecl asm_Recovery_CreateLargeResourceState_00425020();
 #define VA_asm_Recovery_CreateLargeResourceState_00425020 0x00425020
-extern "C" void __cdecl asm_Recovery_CreateResourceState_00419090();
+extern "C" StageTipManager_00419090* __cdecl asm_Recovery_CreateResourceState_00419090(void);
 #define VA_asm_Recovery_CreateResourceState_00419090 0x00419090
 extern "C" void __cdecl asm_Recovery_CreateSmallState_0040b940();
 #define VA_asm_Recovery_CreateSmallState_0040b940 0x0040b940
@@ -1814,7 +1835,7 @@ extern "C" void __cdecl asm_Recovery_DispatchRandomText_004479d0();
 #define VA_asm_Recovery_DispatchRandomText_004479d0 0x004479d0
 extern "C" void __cdecl asm_Recovery_DispatchSchedule_00428160();
 #define VA_asm_Recovery_DispatchSchedule_00428160 0x00428160
-extern "C" void __cdecl asm_Recovery_FindNamedValue_004198c0();
+extern "C" unsigned int __fastcall asm_Recovery_FindNamedValue_004198c0(unsigned int ignored_ecx, const char* key, const void* records, int record_count);
 #define VA_asm_Recovery_FindNamedValue_004198c0 0x004198c0
 extern "C" void __cdecl asm_Recovery_IncrementAnimationCount_004188a0();
 #define VA_asm_Recovery_IncrementAnimationCount_004188a0 0x004188a0
@@ -1840,7 +1861,7 @@ extern "C" void __cdecl asm_Recovery_InstallPairSetFlags_004055c0();
 #define VA_asm_Recovery_InstallPairSetFlags_004055c0 0x004055c0
 extern "C" void __cdecl asm_Recovery_LoadCachedResource_00447280();
 #define VA_asm_Recovery_LoadCachedResource_00447280 0x00447280
-extern "C" void __cdecl asm_Recovery_LoadStartupResources_0041f8d0();
+extern "C" int __cdecl asm_Recovery_LoadStartupResources_0041f8d0();
 #define VA_asm_Recovery_LoadStartupResources_0041f8d0 0x0041f8d0
 extern "C" void __cdecl asm_Recovery_MarkAnimationTree_004243f0();
 #define VA_asm_Recovery_MarkAnimationTree_004243f0 0x004243f0
@@ -1848,6 +1869,8 @@ extern "C" void __cdecl asm_Recovery_MarkLogState_00447a50();
 #define VA_asm_Recovery_MarkLogState_00447a50 0x00447a50
 extern "C" void __cdecl asm_Recovery_OffsetPoint_00418810();
 #define VA_asm_Recovery_OffsetPoint_00418810 0x00418810
+// Legacy address alias for raw assembly and existing ABI-adapter call sites.
+// New typed C++ calls should use the semantic member signature.
 extern "C" void __cdecl asm_Recovery_PolarToVectorRetail_0044c5d0();
 #define VA_asm_Recovery_PolarToVectorRetail_0044c5d0 0x0044c5d0
 extern "C" void __cdecl asm_Recovery_ReleaseCompositeState_00414570();
@@ -1856,9 +1879,9 @@ extern "C" void __cdecl asm_Recovery_ReleaseGlobalStates_004203f0();
 #define VA_asm_Recovery_ReleaseGlobalStates_004203f0 0x004203f0
 extern "C" void __cdecl asm_Recovery_ReleasePair_0041f930();
 #define VA_asm_Recovery_ReleasePair_0041f930 0x0041f930
-extern "C" void __cdecl asm_Recovery_ReleaseRawPairAndReset_00405620();
+extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
 #define VA_asm_Recovery_ReleaseRawPairAndReset_00405620 0x00405620
-extern "C" void __cdecl asm_Recovery_ReleaseRawPair_0043cb00();
+extern "C" void __stdcall asm_Recovery_ReleaseRawPair_0043cb00(void* pair);
 #define VA_asm_Recovery_ReleaseRawPair_0043cb00 0x0043cb00
 extern "C" void __cdecl asm_Recovery_ReplaceExtensionWav_00420a90();
 #define VA_asm_Recovery_ReplaceExtensionWav_00420a90 0x00420a90
@@ -1928,7 +1951,8 @@ extern "C" void __cdecl asm_Scheduler_Remove_00449f60();
 #define VA_asm_Scheduler_Remove_00449f60 0x00449f60
 extern "C" void __cdecl asm_ScoreDisplay_RegisterTasksRetail_0041c120();
 #define VA_asm_ScoreDisplay_RegisterTasksRetail_0041c120 0x0041c120
-extern "C" void __cdecl asm_ScoreExtendedObject_DestroyRetail_0041c1c0();
+extern "C" void __stdcall asm_ScoreExtendedObject_DestroyRetail_0041c1c0(
+    void* object);
 #define VA_asm_ScoreExtendedObject_DestroyRetail_0041c1c0 0x0041c1c0
 extern "C" void __cdecl asm_ScoreExtendedObject_Initialize_0041c5b0();
 #define VA_asm_ScoreExtendedObject_Initialize_0041c5b0 0x0041c5b0
@@ -1944,7 +1968,7 @@ extern "C" void __cdecl asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80();
 #define VA_asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80 0x00418b80
 extern "C" void __cdecl asm_ScoreList_InsertAfter_00413200();
 #define VA_asm_ScoreList_InsertAfter_00413200 0x00413200
-extern "C" void __cdecl asm_ScoreManager_CreateAndInitRetail_0041c290();
+extern "C" void * __cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
 #define VA_asm_ScoreManager_CreateAndInitRetail_0041c290 0x0041c290
 extern "C" void __cdecl asm_ScoreObject_Initialize_0041c030();
 #define VA_asm_ScoreObject_Initialize_0041c030 0x0041c030
@@ -1972,6 +1996,7 @@ extern "C" void __cdecl asm_SetInputMode_0040ac90();
 #define VA_asm_SetInputMode_0040ac90 0x0040ac90
 extern "C" void __cdecl asm_SetLength_LegacyString_00438590();
 #define VA_asm_SetLength_LegacyString_00438590 0x00438590
+// Legacy address alias for raw assembly calls; C++ uses the semantic member.
 extern "C" void __cdecl asm_SetPolar_Vector2_0041f800();
 #define VA_asm_SetPolar_Vector2_0041f800 0x0041f800
 extern "C" void __cdecl asm_ShrMan_0045d3fb();
@@ -2012,7 +2037,7 @@ extern "C" void __cdecl asm_Streamer_FillBufferRetail_0044d110();
 #define VA_asm_Streamer_FillBufferRetail_0044d110 0x0044d110
 extern "C" void __cdecl asm_Streamer_RestartRetail_0044dad0();
 #define VA_asm_Streamer_RestartRetail_0044dad0 0x0044dad0
-extern "C" void __cdecl asm_Strftime_0045afe0();
+extern "C" unsigned int __cdecl asm_Strftime_0045afe0(char* output, unsigned int capacity, const char* format, const void* time, void* locale_data);
 #define VA_asm_Strftime_0045afe0 0x0045afe0
 extern "C" void __cdecl asm_TextLog_AppendLine_0044b8e0();
 #define VA_asm_TextLog_AppendLine_0044b8e0 0x0044b8e0
@@ -2022,7 +2047,7 @@ extern "C" void __cdecl asm_TimerWin32_Release_004203c0();
 #define VA_asm_TimerWin32_Release_004203c0 0x004203c0
 extern "C" void __cdecl asm_Title_RegisterTasksRetail_0042caa0();
 #define VA_asm_Title_RegisterTasksRetail_0042caa0 0x0042caa0
-extern "C" void __cdecl asm_TranslateName_0045c2fd();
+extern "C" int __cdecl asm_TranslateName_0045c2fd(NameEntry* entries, int high, const char** key);
 #define VA_asm_TranslateName_0045c2fd 0x0045c2fd
 extern "C" void __cdecl asm_TranslatorGuardHandler_part_0046296e();
 #define VA_asm_TranslatorGuardHandler_part_0046296e 0x0046296e
@@ -2032,20 +2057,19 @@ extern "C" void __cdecl asm_UnwindNestedFrames_0046271b();
 #define VA_asm_UnwindNestedFrames_0046271b 0x0046271b
 extern "C" void __cdecl asm_UpdateInputState_0040ac20();
 #define VA_asm_UpdateInputState_0040ac20 0x0040ac20
-extern "C" void __cdecl asm_UpdatePlayer_00405750();
-#define VA_asm_UpdatePlayer_00405750 0x00405750
 extern "C" void __cdecl asm_ValidateEH3RN_0045998a();
 #define VA_asm_ValidateEH3RN_0045998a 0x0045998a
-extern "C" void __cdecl asm_ValidateExecute_00463b02();
+extern "C" int __cdecl asm_ValidateExecute_00463b02(const void* ptr);
 #define VA_asm_ValidateExecute_00463b02 0x00463b02
-extern "C" void __cdecl asm_ValidateRead_00463aca();
+extern "C" int __cdecl asm_ValidateRead_00463aca(const void* ptr, unsigned int size);
 #define VA_asm_ValidateRead_00463aca 0x00463aca
-extern "C" void __cdecl asm_ValidateWrite_00463ae6();
+extern "C" int __cdecl asm_ValidateWrite_00463ae6(void* ptr, unsigned int size);
 #define VA_asm_ValidateWrite_00463ae6 0x00463ae6
 extern "C" void __cdecl asm_Vec_Subtract_00404d40();
 #define VA_asm_Vec_Subtract_00404d40 0x00404d40
 extern "C" void __cdecl asm_Vector2_SetAnimationPolar_00441ef0();
 #define VA_asm_Vector2_SetAnimationPolar_00441ef0 0x00441ef0
+// Legacy address aliases for raw assembly calls; C++ uses the semantic members.
 extern "C" void __cdecl asm_Vector2_SetEllipticPolar_00413270();
 #define VA_asm_Vector2_SetEllipticPolar_00413270 0x00413270
 extern "C" void __cdecl asm_Vector2_SetPolar_004458b0();
@@ -2058,33 +2082,33 @@ extern "C" void __cdecl asm_WrappedAngleDifference_00408660();
 #define VA_asm_WrappedAngleDifference_00408660 0x00408660
 extern "C" void __cdecl asm_XcptFilter_004577ce();
 #define VA_asm_XcptFilter_004577ce 0x004577ce
-extern "C" void __cdecl asm_ZeroTail_0045d2ca();
+extern "C" int __cdecl asm_ZeroTail_0045d2ca(const unsigned int* words, int bits);
 #define VA_asm_ZeroTail_0045d2ca 0x0045d2ca
 extern "C" void __cdecl asm_abnormal_termination_00459946();
 #define VA_asm_abnormal_termination_00459946 0x00459946
-extern "C" void __cdecl asm_abort_0045a245();
+extern "C" __declspec(noreturn) void __cdecl asm_abort_0045a245();
 #define VA_asm_abort_0045a245 0x0045a245
 extern "C" void __cdecl asm_abstract_cw_00460ee4();
 #define VA_asm_abstract_cw_00460ee4 0x00460ee4
-extern "C" void __cdecl asm_add_12_004607b9();
+extern "C" void __cdecl asm_add_12_004607b9(unsigned int* destination, const unsigned int* source);
 #define VA_asm_add_12_004607b9 0x004607b9
-extern "C" void __cdecl asm_addl_00460798();
+extern "C" int __cdecl asm_addl_00460798(unsigned int left, unsigned int right, unsigned int* sum_out);
 #define VA_asm_addl_00460798 0x00460798
 extern "C" void __cdecl asm_allmul_00456640();
 #define VA_asm_allmul_00456640 0x00456640
-extern "C" void __cdecl asm_amsg_exit_0045373d();
+extern "C" __declspec(noreturn) void __cdecl asm_amsg_exit_0045373d(int errorCode);
 #define VA_asm_amsg_exit_0045373d 0x0045373d
-extern "C" void __cdecl asm_ascii_stricmp_004603d0();
+extern "C" int __cdecl asm_ascii_stricmp_004603d0(const char* left, const char* right);
 #define VA_asm_ascii_stricmp_004603d0 0x004603d0
-extern "C" void __cdecl asm_ascii_strnicmp_004617e0();
+extern "C" int __cdecl asm_ascii_strnicmp_004617e0(const char* left, const char* right, unsigned int count);
 #define VA_asm_ascii_strnicmp_004617e0 0x004617e0
-extern "C" void __cdecl asm_atexit_00452e0a();
+extern "C" int __cdecl asm_atexit_00452e0a(void* callback);
 #define VA_asm_atexit_00452e0a 0x00452e0a
-extern "C" void __cdecl asm_atof_00452a84();
+extern "C" double __cdecl asm_atof_00452a84(const char* input);
 #define VA_asm_atof_00452a84 0x00452a84
-extern "C" void __cdecl asm_atol_004527ee();
+extern "C" long __cdecl asm_atol_004527ee(const char* text);
 #define VA_asm_atol_004527ee 0x004527ee
-extern "C" void __cdecl asm_atol_00452876();
+extern "C" long __cdecl asm_atol_00452876(const char* text);
 #define VA_asm_atol_00452876 0x00452876
 extern "C" void __cdecl asm_aulldiv_00456b80();
 #define VA_asm_aulldiv_00456b80 0x00456b80
@@ -2096,7 +2120,7 @@ extern "C" void __cdecl asm_beginthread_00452eec();
 #define VA_asm_beginthread_00452eec 0x00452eec
 extern "C" void __cdecl asm_beginthreadex_00453683();
 #define VA_asm_beginthreadex_00453683 0x00453683
-extern "C" void __cdecl asm_callnewh_00455737();
+extern "C" int __cdecl asm_callnewh_00455737(unsigned int size);
 #define VA_asm_callnewh_00455737 0x00455737
 extern "C" void __cdecl asm_cexit_0045770e();
 #define VA_asm_cexit_0045770e 0x0045770e
@@ -2106,29 +2130,30 @@ extern "C" void __cdecl asm_cftof2_0045ddf5();
 #define VA_asm_cftof2_0045ddf5 0x0045ddf5
 extern "C" void __cdecl asm_chkstk_00458ec0();
 #define VA_asm_chkstk_00458ec0 0x00458ec0
-extern "C" void __cdecl asm_cinit_004575bf();
+extern "C" int __cdecl asm_cinit_004575bf(int argument);
 #define VA_asm_cinit_004575bf 0x004575bf
 extern "C" void __cdecl asm_cintrindisp2_00463cc0();
 #define VA_asm_cintrindisp2_00463cc0 0x00463cc0
 extern "C" void __cdecl asm_close_0046218a();
 #define VA_asm_close_0046218a 0x0046218a
-extern "C" void __cdecl asm_close_lk_00462107();
+extern "C" int __cdecl asm_close_lk_00462107(unsigned int file);
 #define VA_asm_close_lk_00462107 0x00462107
 extern "C" void __cdecl asm_close_part_00462209();
 #define VA_asm_close_part_00462209 0x00462209
-extern "C" void __cdecl asm_clrfp_0045ed7b();
+extern "C" int __cdecl asm_clrfp_0045ed7b(void);
 #define VA_asm_clrfp_0045ed7b 0x0045ed7b
 extern "C" void __cdecl asm_commit_004614a9();
 #define VA_asm_commit_004614a9 0x004614a9
 extern "C" void __cdecl asm_commit_part_00461551();
 #define VA_asm_commit_part_00461551 0x00461551
-extern "C" void __cdecl asm_control87_0046105e();
+extern "C" unsigned int __cdecl asm_control87_0046105e(
+    unsigned int new_value, unsigned int mask);
 #define VA_asm_control87_0046105e 0x0046105e
-extern "C" void __cdecl asm_controlfp_00461090();
+extern "C" unsigned int __cdecl asm_controlfp_00461090(unsigned int new_value, unsigned int mask);
 #define VA_asm_controlfp_00461090 0x00461090
 extern "C" void __cdecl asm_copy_environ_00461ed0();
 #define VA_asm_copy_environ_00461ed0 0x00461ed0
-extern "C" void __cdecl asm_crtExitProcess_00457547();
+extern "C" __declspec(noreturn) void __cdecl asm_crtExitProcess_00457547(int exitCode);
 #define VA_asm_crtExitProcess_00457547 0x00457547
 extern "C" void __cdecl asm_crtGetEnvironmentStringsA_0045940a();
 #define VA_asm_crtGetEnvironmentStringsA_0045940a 0x0045940a
@@ -2140,7 +2165,14 @@ extern "C" void __cdecl asm_crtGetLocaleInfoW_00461565();
 #define VA_asm_crtGetLocaleInfoW_00461565 0x00461565
 extern "C" void __cdecl asm_crtGetLocaleInfoW_part_00461634();
 #define VA_asm_crtGetLocaleInfoW_part_00461634 0x00461634
-extern "C" void __cdecl asm_crtGetStringTypeA_0045a25d();
+extern "C" int __cdecl asm_crtGetStringTypeA_0045a25d(
+    unsigned int info_type,
+    const char* source,
+    int source_length,
+    unsigned short* character_types,
+    unsigned int code_page,
+    unsigned int locale_id,
+    int strict);
 #define VA_asm_crtGetStringTypeA_0045a25d 0x0045a25d
 extern "C" void __cdecl asm_crtGetStringTypeA_part_0045a34b();
 #define VA_asm_crtGetStringTypeA_part_0045a34b 0x0045a34b
@@ -2152,7 +2184,8 @@ extern "C" void __cdecl asm_crtMessageBoxA_0045f3d0();
 #define VA_asm_crtMessageBoxA_0045f3d0 0x0045f3d0
 extern "C" void __cdecl asm_ctrandisp2_00463d3b();
 #define VA_asm_ctrandisp2_00463d3b 0x00463d3b
-extern "C" void __cdecl asm_ctrlfp_0045ed87();
+extern "C" int __cdecl asm_ctrlfp_0045ed87(
+    unsigned int new_control_word, unsigned int mask);
 #define VA_asm_ctrlfp_0045ed87 0x0045ed87
 extern "C" void __cdecl asm_cvtdate_00456e90();
 #define VA_asm_cvtdate_00456e90 0x00456e90
@@ -2162,7 +2195,7 @@ extern "C" void __cdecl asm_doexit_00457629();
 #define VA_asm_doexit_00457629 0x00457629
 extern "C" void __cdecl asm_doexit_part_004576e6();
 #define VA_asm_doexit_part_004576e6 0x004576e6
-extern "C" void __cdecl asm_dosmaperr_00456b04();
+extern "C" void __cdecl asm_dosmaperr_00456b04(unsigned int dos_error);
 #define VA_asm_dosmaperr_00456b04 0x00456b04
 extern "C" void __cdecl asm_dtold_00460d87();
 #define VA_asm_dtold_00460d87 0x00460d87
@@ -2176,23 +2209,23 @@ extern "C" void __cdecl asm_endthreadex_004535bd();
 #define VA_asm_endthreadex_004535bd 0x004535bd
 extern "C" void __cdecl asm_entry_part_004539a2();
 #define VA_asm_entry_part_004539a2 0x004539a2
-extern "C" void __cdecl asm_errcode_0045e8b4();
+extern "C" int __cdecl asm_errcode_0045e8b4(unsigned char status_flags);
 #define VA_asm_errcode_0045e8b4 0x0045e8b4
 extern "C" void __cdecl asm_exception_00462c01();
 #define VA_asm_exception_00462c01 0x00462c01
 extern "C" void __cdecl asm_exception_00462cac();
 #define VA_asm_exception_00462cac 0x00462cac
-extern "C" void __cdecl asm_exit_004576ec();
+extern "C" void __cdecl asm_exit_004576ec(int code);
 #define VA_asm_exit_004576ec 0x004576ec
-extern "C" void __cdecl asm_exit_004576fd();
+extern "C" void __cdecl asm_exit_004576fd(int code);
 #define VA_asm_exit_004576fd 0x004576fd
-extern "C" void __cdecl asm_expandtime_0045a82d();
+extern "C" int __cdecl asm_expandtime_0045a82d(signed char conversion, char** output_cursor, unsigned int* remaining_capacity, void* crt_locale, const void* time_fields, const void* locale_time_data, int alternate_format);
 #define VA_asm_expandtime_0045a82d 0x0045a82d
-extern "C" void __cdecl asm_fast_error_exit_00453762();
+extern "C" __declspec(noreturn) void __cdecl asm_fast_error_exit_00453762(int errorCode);
 #define VA_asm_fast_error_exit_00453762 0x00453762
-extern "C" void __cdecl asm_fclose_lk_0046140c();
+extern "C" int __cdecl asm_fclose_lk_0046140c(File* file);
 #define VA_asm_fclose_lk_0046140c 0x0046140c
-extern "C" void __cdecl asm_fflush_lk_0045fc53();
+extern "C" int __cdecl asm_fflush_lk_0045fc53(File* file);
 #define VA_asm_fflush_lk_0045fc53 0x0045fc53
 extern "C" void __cdecl asm_filbuf_0045e123();
 #define VA_asm_filbuf_0045e123 0x0045e123
@@ -2208,7 +2241,7 @@ extern "C" void __cdecl asm_flsall_part_0045fd32();
 #define VA_asm_flsall_part_0045fd32 0x0045fd32
 extern "C" void __cdecl asm_flsbuf_00454d11();
 #define VA_asm_flsbuf_00454d11 0x00454d11
-extern "C" void __cdecl asm_flush_0045fbf6();
+extern "C" int __cdecl asm_flush_0045fbf6(File* file);
 #define VA_asm_flush_0045fbf6 0x0045fbf6
 extern "C" void __cdecl asm_flushall_0045fda6();
 #define VA_asm_flushall_0045fda6 0x0045fda6
@@ -2216,39 +2249,39 @@ extern "C" void __cdecl asm_fptostr_00460d10();
 #define VA_asm_fptostr_00460d10 0x00460d10
 extern "C" void __cdecl asm_free_00452422();
 #define VA_asm_free_00452422 0x00452422
-extern "C" void __cdecl asm_free_004524a1();
+extern "C" void __cdecl asm_free_004524a1(void* memory);
 #define VA_asm_free_004524a1 0x004524a1
 extern "C" void __cdecl asm_free_lc_time_0045b39a();
 #define VA_asm_free_lc_time_0045b39a 0x0045b39a
 extern "C" void __cdecl asm_free_lconv_mon_0045b81b();
 #define VA_asm_free_lconv_mon_0045b81b 0x0045b81b
-extern "C" void __cdecl asm_free_lconv_num_0045b5bc();
+extern "C" void __cdecl asm_free_lconv_num_0045b5bc(void** values);
 #define VA_asm_free_lconv_num_0045b5bc 0x0045b5bc
 extern "C" void __cdecl asm_free_osfhnd_0045f655();
 #define VA_asm_free_osfhnd_0045f655 0x0045f655
 extern "C" void __cdecl asm_free_part_0045247e();
 #define VA_asm_free_part_0045247e 0x0045247e
-extern "C" void __cdecl asm_freebuf_00462225();
+extern "C" void __cdecl asm_freebuf_00462225(Stream* stream);
 #define VA_asm_freebuf_00462225 0x00462225
 extern "C" void __cdecl asm_freefls_4_004563c8();
 #define VA_asm_freefls_4_004563c8 0x004563c8
-extern "C" void __cdecl asm_freeptd_0045650f();
+extern "C" void __cdecl asm_freeptd_0045650f(void* data);
 #define VA_asm_freeptd_0045650f 0x0045650f
-extern "C" void __cdecl asm_freetlocinfo_004557fc();
+extern "C" void __cdecl asm_freetlocinfo_004557fc(void* locale_info);
 #define VA_asm_freetlocinfo_004557fc 0x004557fc
 extern "C" void __cdecl asm_frnd_0045ebba();
 #define VA_asm_frnd_0045ebba 0x0045ebba
 extern "C" void __cdecl asm_get_lc_time_0045b033();
 #define VA_asm_get_lc_time_0045b033 0x0045b033
-extern "C" void __cdecl asm_get_osfhandle_0045f6d4();
+extern "C" int __cdecl asm_get_osfhandle_0045f6d4(int file);
 #define VA_asm_get_osfhandle_0045f6d4 0x0045f6d4
 extern "C" void __cdecl asm_get_qualified_locale_0045ca50();
 #define VA_asm_get_qualified_locale_0045ca50 0x0045ca50
-extern "C" void __cdecl asm_getbuf_00459f39();
+extern "C" void __cdecl asm_getbuf_00459f39(Stream* stream);
 #define VA_asm_getbuf_00459f39 0x00459f39
 extern "C" void __cdecl asm_getenv_lk_0045e063();
 #define VA_asm_getenv_lk_0045e063 0x0045e063
-extern "C" void __cdecl asm_getptd_00456357();
+extern "C" ThreadData* __cdecl asm_getptd_00456357();
 #define VA_asm_getptd_00456357 0x00456357
 extern "C" void __cdecl asm_global_unwind2_0045989c();
 #define VA_asm_global_unwind2_0045989c 0x0045989c
@@ -2260,9 +2293,9 @@ extern "C" void __cdecl asm_handle_qnan1_0045e97f();
 #define VA_asm_handle_qnan1_0045e97f 0x0045e97f
 extern "C" void __cdecl asm_heap_alloc_0045265f();
 #define VA_asm_heap_alloc_0045265f 0x0045265f
-extern "C" void __cdecl asm_heap_init_004539cb();
+extern "C" int __cdecl asm_heap_init_004539cb(int flag);
 #define VA_asm_heap_init_004539cb 0x004539cb
-extern "C" void __cdecl asm_heap_select_004539b1();
+extern "C" int __cdecl asm_heap_select_004539b1();
 #define VA_asm_heap_select_004539b1 0x004539b1
 extern "C" void __cdecl asm_hw_cw_00460f76();
 #define VA_asm_hw_cw_00460f76 0x00460f76
@@ -2272,35 +2305,37 @@ extern "C" void __cdecl asm_inconsistency_004556e0();
 #define VA_asm_inconsistency_004556e0 0x004556e0
 extern "C" void __cdecl asm_inconsistency_part_00455708();
 #define VA_asm_inconsistency_part_00455708 0x00455708
-extern "C" void __cdecl asm_initmbctable_0045d2ac();
+extern "C" int __cdecl asm_initmbctable_0045d2ac();
 #define VA_asm_initmbctable_0045d2ac 0x0045d2ac
-extern "C" void __cdecl asm_initptd_00456344();
+extern "C" void __cdecl asm_initptd_00456344(void* thread_data, void* locale);
 #define VA_asm_initptd_00456344 0x00456344
 extern "C" void __cdecl asm_initterm_00457589();
 #define VA_asm_initterm_00457589 0x00457589
 extern "C" void __cdecl asm_ioinit_0045952c();
 #define VA_asm_ioinit_0045952c 0x0045952c
-extern "C" void __cdecl asm_isatty_00459f7d();
+extern "C" int __cdecl asm_isatty_00459f7d(int handle);
 #define VA_asm_isatty_00459f7d 0x00459f7d
-extern "C" void __cdecl asm_isctype_mt_00455752();
+extern "C" int __cdecl asm_isctype_mt_00455752(void* locale, int c, int mask);
 #define VA_asm_isctype_mt_00455752 0x00455752
-extern "C" void __cdecl asm_isdigit_0045685e();
+extern "C" int __cdecl asm_isdigit_0045685e(int c);
 #define VA_asm_isdigit_0045685e 0x0045685e
 extern "C" void __cdecl asm_isindst_00457250();
 #define VA_asm_isindst_00457250 0x00457250
 extern "C" void __cdecl asm_isindst_lk_00457048();
 #define VA_asm_isindst_lk_00457048 0x00457048
-extern "C" void __cdecl asm_ismbblead_0045f590();
+extern "C" int __cdecl asm_ismbblead_0045f590(unsigned int character);
 #define VA_asm_ismbblead_0045f590 0x0045f590
-extern "C" void __cdecl asm_isspace_004568d7();
+extern "C" int __cdecl asm_isspace_004568d7(int c);
 #define VA_asm_isspace_004568d7 0x004568d7
-extern "C" void __cdecl asm_isxdigit_00456898();
+extern "C" int __cdecl asm_isxdigit_00456898(int c);
 #define VA_asm_isxdigit_00456898 0x00456898
-extern "C" void __cdecl asm_itoa_00460674();
+extern "C" char* __cdecl asm_itoa_00460674(int value, char* destination, int radix);
 #define VA_asm_itoa_00460674 0x00460674
-extern "C" void __cdecl asm_lc_lctostr_00455a90();
+extern "C" char* __cdecl asm_ltoa_0046069e(long value, char* destination, int radix);
+#define VA_asm_ltoa_0046069e 0x0046069e
+extern "C" void __cdecl asm_lc_lctostr_00455a90(char* output, const char* locale);
 #define VA_asm_lc_lctostr_00455a90 0x00455a90
-extern "C" void __cdecl asm_lc_strtolc_004559b4();
+extern "C" int __cdecl asm_lc_strtolc_004559b4(char* fields, const char* text);
 #define VA_asm_lc_strtolc_004559b4 0x004559b4
 extern "C" void __cdecl asm_ld12cvt_0045d476();
 #define VA_asm_ld12cvt_0045d476 0x0045d476
@@ -2310,11 +2345,11 @@ extern "C" void __cdecl asm_local_unwind2_004598de();
 #define VA_asm_local_unwind2_004598de 0x004598de
 extern "C" void __cdecl asm_localtime_00452baa();
 #define VA_asm_localtime_00452baa 0x00452baa
-extern "C" void __cdecl asm_lock_00453c0c();
+extern "C" void __cdecl asm_lock_00453c0c(int number);
 #define VA_asm_lock_00453c0c 0x00453c0c
 extern "C" void __cdecl asm_lock_fhandle_0045f715();
 #define VA_asm_lock_fhandle_0045f715 0x0045f715
-extern "C" void __cdecl asm_lock_file2_0045a099();
+extern "C" void __cdecl asm_lock_file2_0045a099(int number, void* file);
 #define VA_asm_lock_file2_0045a099 0x0045a099
 extern "C" void __cdecl asm_lseek_00459c27();
 #define VA_asm_lseek_00459c27 0x00459c27
@@ -2324,41 +2359,29 @@ extern "C" void __cdecl asm_lseek_part_00459cb6();
 #define VA_asm_lseek_part_00459cb6 0x00459cb6
 extern "C" void __cdecl asm_lseeki64_lk_0045fa1a();
 #define VA_asm_lseeki64_lk_0045fa1a 0x0045fa1a
-extern "C" void __cdecl asm_malloc_00452706();
+extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
 #define VA_asm_malloc_00452706 0x00452706
 extern "C" void __cdecl asm_math_exit_00464fab();
 #define VA_asm_math_exit_00464fab 0x00464fab
 extern "C" void __cdecl asm_mbctoupper_00458d0c();
 #define VA_asm_mbctoupper_00458d0c 0x00458d0c
-extern "C" void __cdecl asm_mbsnbicoll_004610a6();
+extern "C" int __cdecl asm_mbsnbicoll_004610a6(const unsigned char* first, const unsigned char* second, unsigned int count);
 #define VA_asm_mbsnbicoll_004610a6 0x004610a6
-extern "C" void __cdecl asm_mbtowc_0045e375();
+extern "C" int __cdecl asm_mbtowc_0045e375(unsigned short* destination, const char* source, unsigned int size);
 #define VA_asm_mbtowc_0045e375 0x0045e375
 extern "C" void __cdecl asm_mbtowc_mt_0045e2b5();
 #define VA_asm_mbtowc_mt_0045e2b5 0x0045e2b5
-extern "C" void __cdecl asm_memcmp_0045cc10();
+extern "C" int __cdecl asm_memcmp_0045cc10(
+    const void* first, const void* second, unsigned int byte_count);
 #define VA_asm_memcmp_0045cc10 0x0045cc10
-extern "C" void __cdecl asm_memcpy_0045bfc0();
+extern "C" void* __cdecl asm_memcpy_0045bfc0(
+    void* destination, const void* source, unsigned int size);
 #define VA_asm_memcpy_0045bfc0 0x0045bfc0
-extern "C" void __cdecl asm_memcpy_part_0045c01c();
-#define VA_asm_memcpy_part_0045c01c 0x0045c01c
-extern "C" void __cdecl asm_memcpy_part_0045c15c();
-#define VA_asm_memcpy_part_0045c15c 0x0045c15c
-extern "C" void __cdecl asm_memcpy_part_0045c184();
-#define VA_asm_memcpy_part_0045c184 0x0045c184
-extern "C" void __cdecl asm_memcpy_part_0045c190();
-#define VA_asm_memcpy_part_0045c190 0x0045c190
-extern "C" void __cdecl asm_memmove_00453280();
+extern "C" void* __cdecl asm_memmove_00453280(
+    void* destination, const void* source, unsigned int size);
 #define VA_asm_memmove_00453280 0x00453280
-extern "C" void __cdecl asm_memmove_part_004532dc();
-#define VA_asm_memmove_part_004532dc 0x004532dc
-extern "C" void __cdecl asm_memmove_part_0045341c();
-#define VA_asm_memmove_part_0045341c 0x0045341c
-extern "C" void __cdecl asm_memmove_part_00453444();
-#define VA_asm_memmove_part_00453444 0x00453444
-extern "C" void __cdecl asm_memmove_part_00453450();
-#define VA_asm_memmove_part_00453450 0x00453450
-extern "C" void __cdecl asm_memset_0045bed0();
+extern "C" void* __cdecl asm_memset_0045bed0(
+    void* destination, int value, unsigned int size);
 #define VA_asm_memset_0045bed0 0x0045bed0
 extern "C" void __cdecl asm_ms_p5_mp_test_fdiv_0045e03a();
 #define VA_asm_ms_p5_mp_test_fdiv_0045e03a 0x0045e03a
@@ -2368,37 +2391,37 @@ extern "C" void __cdecl asm_msize_0045772c();
 #define VA_asm_msize_0045772c 0x0045772c
 extern "C" void __cdecl asm_mtdeletelocks_00453aea();
 #define VA_asm_mtdeletelocks_00453aea 0x00453aea
-extern "C" void __cdecl asm_mtinit_0045654a();
+extern "C" int __cdecl asm_mtinit_0045654a();
 #define VA_asm_mtinit_0045654a 0x0045654a
 extern "C" void __cdecl asm_mtinitlocknum_00453b6c();
 #define VA_asm_mtinitlocknum_00453b6c 0x00453b6c
-extern "C" void __cdecl asm_mtinitlocks_00453aa1();
+extern "C" int __cdecl asm_mtinitlocks_00453aa1();
 #define VA_asm_mtinitlocks_00453aa1 0x00453aa1
 extern "C" void __cdecl asm_mtterm_00456327();
 #define VA_asm_mtterm_00456327 0x00456327
-extern "C" void __cdecl asm_nh_malloc_004526da();
+extern "C" void* __cdecl asm_nh_malloc_004526da(unsigned int size, int retry);
 #define VA_asm_nh_malloc_004526da 0x004526da
 extern "C" void __cdecl asm_onexit_00452dd2();
 #define VA_asm_onexit_00452dd2 0x00452dd2
 extern "C" void __cdecl asm_onexit_lk_00452d2a();
 #define VA_asm_onexit_lk_00452d2a 0x00452d2a
-extern "C" void __cdecl asm_operator_new_00452493();
+extern "C" void* __cdecl asm_operator_new_00452493(unsigned int size);
 #define VA_asm_operator_new_00452493 0x00452493
 extern "C" void __cdecl asm_parse_cmdline_004591fc();
 #define VA_asm_parse_cmdline_004591fc 0x004591fc
-extern "C" void __cdecl asm_raise_00460028();
+extern "C" int __cdecl asm_raise_00460028(int signal_number);
 #define VA_asm_raise_00460028 0x00460028
 extern "C" void __cdecl asm_raise_exc_0045e3a3();
 #define VA_asm_raise_exc_0045e3a3 0x0045e3a3
 extern "C" void __cdecl asm_raise_part_00460170();
 #define VA_asm_raise_part_00460170 0x00460170
-extern "C" void __cdecl asm_rand_0045371b();
+extern "C" int __cdecl asm_rand_0045371b();
 #define VA_asm_rand_0045371b 0x0045371b
 extern "C" void __cdecl asm_read_00461361();
 #define VA_asm_read_00461361 0x00461361
 extern "C" void __cdecl asm_read_part_004613f0();
 #define VA_asm_read_part_004613f0 0x004613f0
-extern "C" void __cdecl asm_report_failure_00458e74();
+extern "C" __declspec(noreturn) void __cdecl asm_report_failure_00458e74();
 #define VA_asm_report_failure_00458e74 0x00458e74
 extern "C" void __cdecl asm_report_failure_part_00458e98();
 #define VA_asm_report_failure_part_00458e98 0x00458e98
@@ -2410,15 +2433,15 @@ extern "C" void __cdecl asm_sbh_alloc_new_group_00454094();
 #define VA_asm_sbh_alloc_new_group_00454094 0x00454094
 extern "C" void __cdecl asm_sbh_alloc_new_region_00453fdd();
 #define VA_asm_sbh_alloc_new_region_00453fdd 0x00453fdd
-extern "C" void __cdecl asm_sbh_find_block_00453c9a();
+extern "C" CrtHeapBlock* __cdecl asm_sbh_find_block_00453c9a(unsigned int address);
 #define VA_asm_sbh_find_block_00453c9a 0x00453c9a
 extern "C" void __cdecl asm_sbh_free_block_00453cc5();
 #define VA_asm_sbh_free_block_00453cc5 0x00453cc5
-extern "C" void __cdecl asm_sbh_heap_init_00453c52();
+extern "C" int __cdecl asm_sbh_heap_init_00453c52(unsigned int size);
 #define VA_asm_sbh_heap_init_00453c52 0x00453c52
 extern "C" void __cdecl asm_sbh_resize_block_0045419a();
 #define VA_asm_sbh_resize_block_0045419a 0x0045419a
-extern "C" void __cdecl asm_security_check_cookie_00458ea5();
+extern "C" void __fastcall asm_security_check_cookie_00458ea5(unsigned int stack_cookie);
 #define VA_asm_security_check_cookie_00458ea5 0x00458ea5
 extern "C" void __cdecl asm_setSBCS_0045cd85();
 #define VA_asm_setSBCS_0045cd85 0x0045cd85
@@ -2434,55 +2457,57 @@ extern "C" void __cdecl asm_setmbcp_0045d15c();
 #define VA_asm_setmbcp_0045d15c 0x0045d15c
 extern "C" void __cdecl asm_shift_0045dcba();
 #define VA_asm_shift_0045dcba 0x0045dcba
-extern "C" void __cdecl asm_shl_12_00460817();
+extern "C" void __cdecl asm_shl_12_00460817(unsigned int words[3]);
 #define VA_asm_shl_12_00460817 0x00460817
-extern "C" void __cdecl asm_shr_12_00460845();
+extern "C" void __cdecl asm_shr_12_00460845(unsigned int words[3]);
 #define VA_asm_shr_12_00460845 0x00460845
 extern "C" void __cdecl asm_siglookup_0045fe47();
 #define VA_asm_siglookup_0045fe47 0x0045fe47
-extern "C" void __cdecl asm_sprintf_00452ae8();
+extern "C" int __cdecl asm_sprintf_00452ae8(char* destination, const char* format, ...);
 #define VA_asm_sprintf_00452ae8 0x00452ae8
 extern "C" void __cdecl asm_sptype_0045ec59();
 #define VA_asm_sptype_0045ec59 0x0045ec59
-extern "C" void __cdecl asm_sscanf_00452fb9();
+extern "C" int __cdecl asm_sscanf_00452fb9(char* input, const char* format, ...);
 #define VA_asm_sscanf_00452fb9 0x00452fb9
 extern "C" void __cdecl asm_startOneArgErrorHandling_00464eb7();
 #define VA_asm_startOneArgErrorHandling_00464eb7 0x00464eb7
-extern "C" void __cdecl asm_statfp_0045ed70();
+extern "C" int __cdecl asm_statfp_0045ed70(void);
 #define VA_asm_statfp_0045ed70 0x0045ed70
 extern "C" void __cdecl asm_store_num_0045a7b4();
 #define VA_asm_store_num_0045a7b4 0x0045a7b4
-extern "C" void __cdecl asm_store_str_0045a75e();
+extern "C" void __cdecl asm_store_str_0045a75e(char** output_cursor, unsigned int* remaining_capacity, const char* source);
 #define VA_asm_store_str_0045a75e 0x0045a75e
-extern "C" void __cdecl asm_store_winword_0045aa93();
+extern "C" int __cdecl asm_store_winword_0045aa93(void* crt_locale, int format_kind, const void* time_fields, char** output_cursor, unsigned int* remaining_capacity, const void* locale_time_data);
 #define VA_asm_store_winword_0045aa93 0x0045aa93
 extern "C" void __cdecl asm_store_winword_part_0045ab7d();
 #define VA_asm_store_winword_part_0045ab7d 0x0045ab7d
-extern "C" void __cdecl asm_strcats_00455990();
+extern "C" void __cdecl asm_strcats_00455990(void* destination, int count, ...);
 #define VA_asm_strcats_00455990 0x00455990
-extern "C" void __cdecl asm_strcmp_0045bf30();
+extern "C" int __cdecl asm_strcmp_0045bf30(
+    const char* left, const char* right);
 #define VA_asm_strcmp_0045bf30 0x0045bf30
-extern "C" void __cdecl asm_strcmp_part_0045bf74();
-#define VA_asm_strcmp_part_0045bf74 0x0045bf74
-extern "C" void __cdecl asm_strcspn_0045be80();
+extern "C" unsigned int __cdecl asm_strcspn_0045be80(const unsigned char* string, const unsigned char* reject);
 #define VA_asm_strcspn_0045be80 0x0045be80
-extern "C" void __cdecl asm_strdup_00462250();
+extern "C" char* __cdecl asm_strdup_00462250(const char* source);
 #define VA_asm_strdup_00462250 0x00462250
-extern "C" void __cdecl asm_stricmp_0046054e();
+extern "C" int __cdecl asm_stricmp_0046054e(const unsigned char* left, const unsigned char* right);
 #define VA_asm_stricmp_0046054e 0x0046054e
-extern "C" void __cdecl asm_strlen_00456720();
+extern "C" unsigned int __cdecl asm_strlen_00456720(const char* text);
 #define VA_asm_strlen_00456720 0x00456720
-extern "C" void __cdecl asm_strncmp_00452f80();
+extern "C" int __cdecl asm_strncmp_00452f80(
+    const char* first, const char* second, unsigned int max_count);
 #define VA_asm_strncmp_00452f80 0x00452f80
 extern "C" void __cdecl asm_strncnt_00461add();
 #define VA_asm_strncnt_00461add 0x00461add
-extern "C" void __cdecl asm_strncpy_00452960();
+extern "C" char* __cdecl asm_strncpy_00452960(
+    char* destination, const char* source, unsigned int count);
 #define VA_asm_strncpy_00452960 0x00452960
-extern "C" void __cdecl asm_strnicmp_004605b7();
+extern "C" int __cdecl asm_strnicmp_004605b7(const unsigned char* left, const unsigned char* right, unsigned int count);
 #define VA_asm_strnicmp_004605b7 0x004605b7
-extern "C" void __cdecl asm_strpbrk_0045ccd0();
+extern "C" char* __cdecl asm_strpbrk_0045ccd0(const unsigned char* string, const unsigned char* accept);
 #define VA_asm_strpbrk_0045ccd0 0x0045ccd0
-extern "C" void __cdecl asm_strrchr_00452930();
+extern "C" char* __cdecl asm_strrchr_00452930(
+    const char* text, int character);
 #define VA_asm_strrchr_00452930 0x00452930
 extern "C" void __cdecl asm_target_004017a5();
 #define VA_asm_target_004017a5 0x004017a5
@@ -2560,10 +2585,6 @@ extern "C" void __cdecl asm_target_00404bfa();
 #define VA_asm_target_00404bfa 0x00404bfa
 extern "C" void __cdecl asm_target_00404c39();
 #define VA_asm_target_00404c39 0x00404c39
-extern "C" void __cdecl asm_target_0040581b();
-#define VA_asm_target_0040581b 0x0040581b
-extern "C" void __cdecl asm_target_00405825();
-#define VA_asm_target_00405825 0x00405825
 extern "C" void __cdecl asm_target_00406373();
 #define VA_asm_target_00406373 0x00406373
 extern "C" void __cdecl asm_target_0040643e();
@@ -4646,7 +4667,7 @@ extern "C" void __cdecl asm_target_00456318();
 #define VA_asm_target_00456318 0x00456318
 extern "C" void __cdecl asm_target_004564ed();
 #define VA_asm_target_004564ed 0x004564ed
-extern "C" void __cdecl asm_target_0045694b();
+extern "C" int __cdecl asm_target_0045694b(int c);
 #define VA_asm_target_0045694b 0x0045694b
 extern "C" void __cdecl asm_target_00456cf1();
 #define VA_asm_target_00456cf1 0x00456cf1
@@ -4942,12 +4963,6 @@ extern "C" void __cdecl asm_target_0045bcfc();
 #define VA_asm_target_0045bcfc 0x0045bcfc
 extern "C" void __cdecl asm_target_0045bdf5();
 #define VA_asm_target_0045bdf5 0x0045bdf5
-extern "C" void __cdecl asm_target_0045bf40();
-#define VA_asm_target_0045bf40 0x0045bf40
-extern "C" void __cdecl asm_target_0045bf70();
-#define VA_asm_target_0045bf70 0x0045bf70
-extern "C" void __cdecl asm_target_0045bf7c();
-#define VA_asm_target_0045bf7c 0x0045bf7c
 extern "C" void __cdecl asm_target_0045c443();
 #define VA_asm_target_0045c443 0x0045c443
 extern "C" void __cdecl asm_target_0045c453();
@@ -5254,7 +5269,7 @@ extern "C" void __cdecl asm_terminate_00455693();
 #define VA_asm_terminate_00455693 0x00455693
 extern "C" void __cdecl asm_terminate_part_004556bf();
 #define VA_asm_terminate_part_004556bf 0x004556bf
-extern "C" void __cdecl asm_tolower_00460cee();
+extern "C" int __cdecl asm_tolower_00460cee(int character);
 #define VA_asm_tolower_00460cee 0x00460cee
 extern "C" void __cdecl asm_tolower_mt_00460c26();
 #define VA_asm_tolower_mt_00460c26 0x00460c26
@@ -5274,19 +5289,17 @@ extern "C" void __cdecl asm_umatherr_0045e8e1();
 #define VA_asm_umatherr_0045e8e1 0x0045e8e1
 extern "C" void __cdecl asm_unassigned_00421c0b();
 #define VA_asm_unassigned_00421c0b 0x00421c0b
-extern "C" void __cdecl asm_unassigned_00449510();
-#define VA_asm_unassigned_00449510 0x00449510
 extern "C" void __cdecl asm_unassigned_00449780();
 #define VA_asm_unassigned_00449780 0x00449780
-extern "C" void __cdecl asm_unassigned_004567ab();
+extern "C" int __cdecl asm_unassigned_004567ab(int c);
 #define VA_asm_unassigned_004567ab 0x004567ab
 extern "C" void __cdecl asm_unassigned_0045771d();
 #define VA_asm_unassigned_0045771d 0x0045771d
-extern "C" void __cdecl asm_unassigned_0045a0bc();
+extern "C" void __cdecl asm_unassigned_0045a0bc(void* lock);
 #define VA_asm_unassigned_0045a0bc 0x0045a0bc
 extern "C" void __cdecl asm_unassigned_0045f7d7();
 #define VA_asm_unassigned_0045f7d7 0x0045f7d7
-extern "C" void __cdecl asm_unassigned_00461004();
+extern "C" unsigned int __cdecl asm_unassigned_00461004(unsigned int status);
 #define VA_asm_unassigned_00461004 0x00461004
 extern "C" void __cdecl asm_unassigned_00461458();
 #define VA_asm_unassigned_00461458 0x00461458
@@ -5300,7 +5313,7 @@ extern "C" void __cdecl asm_unassigned_00464bce();
 #define VA_asm_unassigned_00464bce 0x00464bce
 extern "C" void __cdecl asm_unassigned_00464f45();
 #define VA_asm_unassigned_00464f45 0x00464f45
-extern "C" void __cdecl asm_unlock_file2_0045a0eb();
+extern "C" void __cdecl asm_unlock_file2_0045a0eb(int number, void* file);
 #define VA_asm_unlock_file2_0045a0eb 0x0045a0eb
 extern "C" void __cdecl asm_updatetlocinfo_00455ade();
 #define VA_asm_updatetlocinfo_00455ade 0x00455ade
@@ -5308,13 +5321,13 @@ extern "C" void __cdecl asm_updatetlocinfo_lk_004558cc();
 #define VA_asm_updatetlocinfo_lk_004558cc 0x004558cc
 extern "C" void __cdecl asm_updatetmbcinfo_0045cf49();
 #define VA_asm_updatetmbcinfo_0045cf49 0x0045cf49
-extern "C" void __cdecl asm_vsprintf_004524a6();
+extern "C" int __cdecl asm_vsprintf_004524a6(char* destination, const char* format, void* arguments);
 #define VA_asm_vsprintf_004524a6 0x004524a6
-extern "C" void __cdecl asm_wctomb_0045a16e();
+extern "C" int __cdecl asm_wctomb_0045a16e(char* destination, unsigned short wide);
 #define VA_asm_wctomb_0045a16e 0x0045a16e
-extern "C" void __cdecl asm_wctomb_mt_0045a10e();
+extern "C" int __cdecl asm_wctomb_mt_0045a10e(LocaleInfo* locale, char* destination, unsigned short wide);
 #define VA_asm_wctomb_mt_0045a10e 0x0045a10e
-extern "C" void __cdecl asm_wincmdln_004590d8();
+extern "C" unsigned char* __cdecl asm_wincmdln_004590d8();
 #define VA_asm_wincmdln_004590d8 0x004590d8
 extern "C" void __cdecl asm_write_00459e8e();
 #define VA_asm_write_00459e8e 0x00459e8e
@@ -5328,7 +5341,7 @@ extern "C" void __cdecl asm_write_string_00454e81();
 #define VA_asm_write_string_00454e81 0x00454e81
 extern "C" void __cdecl asm_wtomb_environ_004610f4();
 #define VA_asm_wtomb_environ_004610f4 0x004610f4
-extern "C" void __cdecl asm_x_ismbbtype_0045f4c9();
+extern "C" int __cdecl asm_x_ismbbtype_0045f4c9(unsigned char character, unsigned int wide_mask, unsigned char byte_mask);
 #define VA_asm_x_ismbbtype_0045f4c9 0x0045f4c9
 extern "C" void __cdecl asm_xtoa_00460636();
 #define VA_asm_xtoa_00460636 0x00460636
@@ -5720,7 +5733,7 @@ extern "C" unsigned char data_00473650;
 extern "C" unsigned char data_00473654;
 extern "C" unsigned char data_00473658;
 extern "C" unsigned char data_0047365c;
-extern "C" unsigned char data_00473660;
+extern "C" unsigned int data_00473660;
 extern "C" unsigned char data_004739c0;
 extern "C" unsigned char data_004739c4;
 extern "C" unsigned char data_004739c8;
@@ -6234,7 +6247,9 @@ extern "C" unsigned char data_00497d8c;
 extern "C" unsigned char data_00497f90;
 extern "C" unsigned char data_00497f94;
 extern "C" unsigned char data_00497f98;
+extern "C" unsigned char data_00497fa0;
 extern "C" unsigned char data_004980a4;
+extern "C" unsigned char data_004980b0;
 extern "C" unsigned char data_004981c0;
 extern "C" unsigned char data_004981c4;
 extern "C" unsigned char data_004981c8;

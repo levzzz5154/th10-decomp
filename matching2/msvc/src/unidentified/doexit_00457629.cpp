@@ -2,7 +2,11 @@
 #include "asm_symbols.hpp"
 
 // 0x00457629..0x004576D2: doexit
-// Naked body preserves the retail register/stack ABI.
+// Ghidra recovers the public shape as __cdecl doexit(UINT code, int quick,
+// int return_to_caller). The entry also installs an MSVC SEH frame through a
+// frame-building prolog and exits through its matching frame epilog; those are
+// stack-transforming sequences, not ordinary helper calls. Keep them intact
+// until a C++/SEH source form is shown to preserve that behavior.
 extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
     __asm {
     L_00457629:
@@ -11,6 +15,7 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
         push 46AB18h
     L_00457630:
         call asm_SEH_prolog_00454bbc
+    // Acquire CRT exit lock 8 (__cdecl; caller removes its argument below).
     L_00457635:
         push 8
     L_00457637:
@@ -29,6 +34,9 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
         cmp dword ptr [data_004774b0],esi
     L_0045764b:
         jne short L_0045765d
+    // A recursive exit request first asks TerminateProcess to stop the process.
+    // The code value is staged before GetCurrentProcess; the latter is stdcall
+    // with no parameters, and TerminateProcess consumes (handle, code).
     L_0045764d:
         push dword ptr [ebp+8]
     L_00457650:
@@ -47,6 +55,8 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
         cmp dword ptr [ebp+0Ch],edi
     L_0045766e:
         jne short L_004576a7
+    // With quick == 0, run registered on-exit callbacks in reverse order,
+    // skipping null slots, then visit the first initializer range.
     L_00457670:
         cmp dword ptr [data_00499310],edi
     L_00457676:
@@ -79,6 +89,7 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
         call asm_initterm_00457589
     L_004576a6:
         pop ecx
+    // This initializer range always runs, including the quick-exit path.
     L_004576a7:
         push 473064h
     L_004576ac:
@@ -89,12 +100,16 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
         pop ecx
     L_004576b7:
         or dword ptr [ebp-4],0FFFFFFFFh
+    // This shared block reads return_to_caller from our EBP frame and releases
+    // lock 8 only when the caller will regain control; it is not an ordinary
+    // no-argument function despite Ghidra's split function boundary here.
     L_004576bb:
         call asm_FUN_004576d8_004576d8
     L_004576c0:
         cmp dword ptr [ebp+10h],edi
     L_004576c3:
         TH10_REL8(0x75, 0x004576c3, VA_asm_doexit_part_004576e6)
+    // The non-returning path marks exit in progress and delegates termination.
     L_004576c5:
         mov dword ptr [data_004774b0],esi
     L_004576cb:
@@ -105,7 +120,7 @@ extern "C" __declspec(naked) void __cdecl asm_doexit_00457629() {
 }
 
 // 0x004576E6..0x004576EB: doexit
-// Naked body preserves the retail register/stack ABI.
+// This is the return_to_caller branch's matching SEH/frame epilog and RET.
 extern "C" __declspec(naked) void __cdecl asm_doexit_part_004576e6() {
     __asm {
     L_004576e6:

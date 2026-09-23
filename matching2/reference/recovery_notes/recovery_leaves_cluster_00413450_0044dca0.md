@@ -69,7 +69,7 @@ under the explicit no-new-address-probes wrap-up instruction.
 | `0x0044D550` | 82 | exact | 0 differing bytes; typed COM slots corrected the prior `ECX`/`EDX` reload delta; final source hash `6ae879c9b176cda5cc14590071830082ba215088b948e5dd8dfd523b432bce90` |
 | `0x0044D600` | 61 | exact | 0 differing bytes; final source hash `e6199af82f14f0bdc7ffde91fc79b4658179b79dccd2345c0ee9a294d7e02af7` |
 | `0x0044D5D0` | 41 | exact | 0 differing bytes; typed slot-`0x30` invocation produced retail's ESI final argument and EDX vtable pointer; final source hash `d7f9175dd6024348cd8ad29d89b4c1b1446462f4f653ba1df03a3eef9280243f` |
-| `0x00441EF0` | 30 | semantic conversion not probed; production asm retained | fixed x87 `FSINCOS` body; VC7.1 native C++ emits separate `FCOS/FSIN`, so no semantic candidate was retained |
+| `0x00441EF0` | 30 | readable semantic C++ retained; not byte-matched | C++ computes the same cosine/sine-scaled components with `cosf`/`sinf`; retail uses one x87 `FSINCOS`, so instruction selection and rounding differ |
 
 ## Probe details and next dependency
 

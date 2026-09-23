@@ -1,77 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// Semantic model for 0x00453AEA..0x00453B3E (__mtdeletelocks).
+// The lock table consists of 36 records, each holding a critical-section
+// pointer followed by a flag. A flag value of 1 denotes a static lock.
+extern "C" void* data_00473080[];
+extern "C" int data_00473084[];
+extern "C" unsigned char data_004660bc;
+extern "C" void __cdecl asm_free_00452422(void* memory);
 
-// 0x00453AEA..0x00453B3E: __mtdeletelocks
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_mtdeletelocks_00453aea() {
-    __asm {
-    L_00453aea:
-        push ebx
-    L_00453aeb:
-        mov ebx,dword ptr [data_004660bc]
-    L_00453af1:
-        push esi
-    L_00453af2:
-        mov esi,473080h
-    L_00453af7:
-        push edi
-    L_00453af8:
-        mov edi,dword ptr [esi]
-    L_00453afa:
-        test edi,edi
-    L_00453afc:
-        je short L_00453b11
-    L_00453afe:
-        cmp dword ptr [esi+4],1
-    L_00453b02:
-        je short L_00453b11
-    L_00453b04:
-        push edi
-    L_00453b05:
-        call ebx
-    L_00453b07:
-        push edi
-    L_00453b08:
-        call asm_free_00452422
-    L_00453b0d:
-        and dword ptr [esi],0
-    L_00453b10:
-        pop ecx
-    L_00453b11:
-        add esi,8
-    L_00453b14:
-        cmp esi,4731A0h
-    L_00453b1a:
-        jl short L_00453af8
-    L_00453b1c:
-        mov esi,473080h
-    L_00453b21:
-        pop edi
-    L_00453b22:
-        mov eax,dword ptr [esi]
-    L_00453b24:
-        test eax,eax
-    L_00453b26:
-        je short L_00453b31
-    L_00453b28:
-        cmp dword ptr [esi+4],1
-    L_00453b2c:
-        jne short L_00453b31
-    L_00453b2e:
-        push eax
-    L_00453b2f:
-        call ebx
-    L_00453b31:
-        add esi,8
-    L_00453b34:
-        cmp esi,4731A0h
-    L_00453b3a:
-        jl short L_00453b22
-    L_00453b3c:
-        pop esi
-    L_00453b3d:
-        pop ebx
-    L_00453b3e:
-        ret
+typedef void (__stdcall *DeleteCriticalSectionFn_00453aea)(void* critical_section);
+
+extern "C" void __cdecl asm_mtdeletelocks_00453aea(void) {
+    DeleteCriticalSectionFn_00453aea delete_critical_section =
+        *(DeleteCriticalSectionFn_00453aea*)&data_004660bc;
+
+    // First release dynamically allocated locks and clear their table slots.
+    for (int index = 0; index != 36; ++index) {
+        void* critical_section = data_00473080[index * 2];
+        if (critical_section != 0 && data_00473084[index * 2] != 1) {
+            delete_critical_section(critical_section);
+            asm_free_00452422(critical_section);
+            data_00473080[index * 2] = 0;
+        }
+    }
+
+    // Static lock storage is owned elsewhere, so only destroy the lock.
+    for (int index = 0; index != 36; ++index) {
+        void* critical_section = data_00473080[index * 2];
+        if (critical_section != 0 && data_00473084[index * 2] == 1) {
+            delete_critical_section(critical_section);
+        }
     }
 }

@@ -241,3 +241,45 @@ one native-LTCG context. The parser also depends on the existing raw
 `Archive_LoadFile`, `StageTip_Initialize`, and append-node contracts. Until
 that coupled context is available, retain the exact helper/parser sources
 above and do not promote the failed semantic candidates.
+
+## Addendum: readable `FindNamedValue` body at `0x004198C0`
+
+Date: 2026-09-23
+
+The source body for `0x004198C0` is now ordinary C++ in
+`src/game/recovery_leaves.cpp`; the region manifest remains ASM pending a
+separate ownership decision. Ghidra shows a linear scan of `recordCount`
+eight-byte entries. Each entry contains a NUL-terminated key pointer followed
+by a 32-bit value. The helper compares the requested key from `EDX` to each
+entry key and returns the matching value in `EAX`, or zero when the count is
+nonpositive or no key matches. A value of zero can also be a real table value
+(the three-entry alignment table begins with zero), so the return convention
+does not distinguish that match from a miss.
+
+The source signature is `unsigned int __fastcall` with an ignored first
+parameter, then `key`, `records`, and `recordCount`. This preserves the
+observed register/stack layout: the ignored first parameter occupies `ECX`,
+`key` occupies `EDX`, the remaining two parameters are stack arguments, and
+the callee removes eight stack bytes (`ret 8`). In parser calls at
+`0x00419D11` and `0x00419D39`, `ECX` contains unrelated parser-local values
+while the key is explicitly placed in `EDX`; the callee never reads `ECX`.
+That dummy parameter exists to keep the actual key in the second fastcall
+register, not because the lookup needs a context object.
+
+The legacy cdecl declaration from `asm_symbols.hpp` is locally renamed while
+that header is included by this translation unit, avoiding a conflicting
+prototype without changing the shared header or its existing fastcall symbol
+alias. No build or byte probe was run for this edit. The semantic body and
+ABI are grounded in Ghidra, but exact compiler output, symbol selection, and
+the 98-byte extent remain unverified; the earlier exactness result above is
+the historical naked-assembly baseline, not evidence for this C++ body.
+
+
+## Named-value helper binding (2026-09-23)
+
+The `0x004198C0` region now binds the ordinary C++ fastcall definition as
+`@asm_Recovery_FindNamedValue_004198c0@16`. `asm_symbols.hpp` declares the
+ignored ECX slot, key in EDX, and two stack arguments. The existing inline
+assembly callers keep their instruction sequences and now resolve the matching
+fastcall symbol. The old cdecl alias is retained in manifest history and its
+raw symbol table. Exact compiler output remains unverified.

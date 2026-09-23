@@ -90,3 +90,17 @@ model revision, so it must be read back from the build), eleven over - either th
 shared tail is not what retail's source had or the log call's convention adds the
 difference, since the same region also showed the `add esp,4` that a plain
 `__fastcall` member does not produce.
+
+## Readable production model
+
+The source body in `src/game/recovery_leaves.cpp` now expresses the two ordered
+lookups, their distinct failure messages, and the `-1`/`0` result in ordinary
+C++. Its exported name and `__cdecl` no-argument ABI remain mapped to
+`0x0041F8D0`; the declaration in `include/asm_symbols.hpp` now records the
+observed integer return. The calls use the existing `__fastcall`
+`Recovery_LoadCachedResource` definition and variadic
+`TextLog_0044b810::Append` member. These signatures express the observed
+ECX/EDX/stack handoffs, but exact generated call placement and stack cleanup
+remain unverified. The historical **91/82** and **93/82** measurements above
+remain the only compiler measurements; this source update was not built or
+probed.

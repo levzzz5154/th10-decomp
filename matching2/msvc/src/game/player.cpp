@@ -1,5 +1,7 @@
 #include "asm_encoding.hpp"
+#define asm_Recovery_ReleaseRawPairAndReset_00405620 asm_Recovery_ReleaseRawPairAndReset_00405620_CdeclAlias
 #include "asm_symbols.hpp"
+#undef asm_Recovery_ReleaseRawPairAndReset_00405620
 
 // 0x00404530..0x004045A6: FUN_00404530
 // Naked body preserves the retail register/stack ABI.
@@ -149,255 +151,49 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InstallPairSetFlags_00405
     }
 }
 
-// BLOCKED (D2701): closest_byte_count=137; first_diff=0x00405646;
-// residual_class=private-ABI/register-allocation; a readable MSVC 13.10
-// candidate with the recovered pair layout, fixed global bindings, hoisted
-// Enter/Leave function pointers, and the fastcall Scheduler_Remove call
-// emitted the full 137-byte body but differed in 9 bytes.  Retail keeps
-// EnterCriticalSection in EBX, LeaveCriticalSection in EBP, Scheduler in EDI,
-// and calls the imports indirectly; the standalone readable candidate assigns
-// those live values differently.
-// variants_tested=hoisted fixed-global C++ candidate (137 bytes, first diff at
-// the first EnterCriticalSection call); the exact naked overlay remains exact.
-// next_lever=native-LTCG compilation with the real release callers and
-// source-level import/callee graph, or a compiler/toolkit lever that reproduces
-// the private EBX/EBP/EDI allocation and call setup without inline assembly.
-// 0x00405620..0x004056A8: Recovery_ReleaseRawPairAndReset
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_ReleaseRawPairAndReset_00405620() {
-    __asm {
-    L_00405620:
-        mov eax,dword ptr [esp+4]
-    L_00405624:
-        push ebx
-    L_00405625:
-        mov ebx,dword ptr [data_004660b0]
-    L_0040562b:
-        push ebp
-    L_0040562c:
-        mov ebp,dword ptr [data_004660b4]
-    L_00405632:
-        push esi
-    L_00405633:
-        mov esi,dword ptr [eax+8]
-    L_00405636:
-        test esi,esi
-    L_00405638:
-        push edi
-    L_00405639:
-        mov edi,dword ptr [data_00491be4]
-    L_0040563f:
-        je short L_00405664
-    L_00405641:
-        push 492274h
-    L_00405646:
-        call ebx
-    L_00405648:
-        inc byte ptr [data_0049231c]
-    L_0040564e:
-        mov ecx,esi
-    L_00405650:
-        mov edx,edi
-    L_00405652:
-        call asm_Scheduler_Remove_00449f60
-    L_00405657:
-        push 492274h
-    L_0040565c:
-        call ebp
-    L_0040565e:
-        dec byte ptr [data_0049231c]
-    L_00405664:
-        mov ecx,dword ptr [esp+14h]
-    L_00405668:
-        mov esi,dword ptr [ecx+0Ch]
-    L_0040566b:
-        test esi,esi
-    L_0040566d:
-        mov edi,dword ptr [data_00491be4]
-    L_00405673:
-        je short L_00405698
-    L_00405675:
-        push 492274h
-    L_0040567a:
-        call ebx
-    L_0040567c:
-        inc byte ptr [data_0049231c]
-    L_00405682:
-        mov ecx,esi
-    L_00405684:
-        mov edx,edi
-    L_00405686:
-        call asm_Scheduler_Remove_00449f60
-    L_0040568b:
-        push 492274h
-    L_00405690:
-        call ebp
-    L_00405692:
-        dec byte ptr [data_0049231c]
-    L_00405698:
-        pop edi
-    L_00405699:
-        pop esi
-    L_0040569a:
-        pop ebp
-    L_0040569b:
-        mov dword ptr [data_004776ec],0
-    L_004056a5:
-        pop ebx
-    L_004056a6:
-        ret 4
-    }
-}
+// 0x00405620..0x004056A8: Recovery_ReleaseRawPairAndReset.
+// The local macro around asm_symbols.hpp hides only its stale cdecl/zero-arg
+// declaration; the stdcall definition below emits the existing @4 alias.
+extern "C" __declspec(noinline) void __stdcall
+asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair_address) {
+    struct RawPair_00405620 {
+        unsigned char opaque_00[8];
+        void* task_08;
+        void* task_0C;
+    };
+    typedef void (__stdcall *CriticalSectionFunction)(void* section);
+    typedef void (__fastcall *SchedulerRemoveFunction)(void* task, void* scheduler);
 
-// 0x00405750..0x0040582E: UpdatePlayer
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_UpdatePlayer_00405750() {
-    __asm {
-    L_00405750:
-        mov eax,dword ptr [edi+28h]
-    L_00405753:
-        sub esp,0Ch
-    L_00405756:
-        push esi
-    L_00405757:
-        xor esi,esi
-    L_00405759:
-        cmp eax,esi
-    L_0040575b:
-        je asm_target_00405825
-    L_00405761:
-        dec eax
-    L_00405762:
-        push ebx
-    L_00405763:
-        push ebp
-    L_00405764:
-        jne asm_target_0040581b
-    L_0040576a:
-        mov eax,dword ptr [edi+2Ch]
-    L_0040576d:
-        mov ebp,dword ptr [data_00491c10]
-    L_00405773:
-        push eax
-    L_00405774:
-        mov edx,ebp
-    L_00405776:
-        call asm_AnimationManager_Find_004491c0
-    L_0040577b:
-        mov ebx,eax
-    L_0040577d:
-        cmp ebx,esi
-    L_0040577f:
-        jne short L_00405793
-    L_00405781:
-        pop ebp
-    L_00405782:
-        mov dword ptr [edi+2Ch],esi
-    L_00405785:
-        pop ebx
-    L_00405786:
-        mov dword ptr [edi+28h],esi
-    L_00405789:
-        mov eax,1
-    L_0040578e:
-        pop esi
-    L_0040578f:
-        add esp,0Ch
-    L_00405792:
-        ret
-    L_00405793:
-        mov eax,dword ptr [data_004776f4]
-    L_00405798:
-        test byte ptr [eax+378Ch],1
-    L_0040579f:
-        je short L_004057c1
-    L_004057a1:
-        mov eax,dword ptr [eax+3788h]
-    L_004057a7:
-        cmp eax,5Dh
-    L_004057aa:
-        jl short L_004057b1
-    L_004057ac:
-        cmp eax,60h
-    L_004057af:
-        jle short L_004057b6
-    L_004057b1:
-        cmp eax,6Dh
-    L_004057b4:
-        jne short L_004057c1
-    L_004057b6:
-        fld dword ptr [edi+34h]
-    L_004057b9:
-        fsub dword ptr [data_00470b0c]
-    L_004057bf:
-        jmp short L_004057db
-    L_004057c1:
-        mov eax,dword ptr [data_00474c68]
-    L_004057c6:
-        fld dword ptr [edi+34h]
-    L_004057c9:
-        cmp eax,esi
-    L_004057cb:
-        jne short L_004057d5
-    L_004057cd:
-        fsub dword ptr [data_00470afc]
-    L_004057d3:
-        jmp short L_004057db
-    L_004057d5:
-        fsub dword ptr [data_00470d34]
-    L_004057db:
-        mov edx,dword ptr [edi+2Ch]
-    L_004057de:
-        fstp dword ptr [edi+34h]
-    L_004057e1:
-        fld dword ptr [edi+30h]
-    L_004057e4:
-        mov ecx,dword ptr [edi+38h]
-    L_004057e7:
-        fadd dword ptr [data_00470b4c]
-    L_004057ed:
-        push edx
-    L_004057ee:
-        lea esi,[esp+10h]
-    L_004057f2:
-        mov edx,ebp
-    L_004057f4:
-        fstp dword ptr [esp+10h]
-    L_004057f8:
-        mov dword ptr [esp+18h],ecx
-    L_004057fc:
-        fld dword ptr [edi+34h]
-    L_004057ff:
-        fadd dword ptr [data_00470b48]
-    L_00405805:
-        fstp dword ptr [esp+14h]
-    L_00405809:
-        call asm_AnimationManager_SetPosition_004492f0
-    L_0040580e:
-        mov eax,dword ptr [ebx+40h]
-    L_00405811:
-        mov esi,edi
-    L_00405813:
-        mov dword ptr [edi+3Ch],eax
-    L_00405816:
-        call asm_Player_Draw_00405ac0
-    L_0040581b:
-        lea esi,[edi+14h]
-    L_0040581e:
-        call asm_FrameTimer_Tick_00404ed0
-    L_00405823:
-        pop ebp
-    L_00405824:
-        pop ebx
-    L_00405825:
-        mov eax,1
-    L_0040582a:
-        pop esi
-    L_0040582b:
-        add esp,0Ch
-    L_0040582e:
-        ret
+    RawPair_00405620* pair = static_cast<RawPair_00405620*>(pair_address);
+    CriticalSectionFunction enter =
+        *reinterpret_cast<CriticalSectionFunction*>(&data_004660b0);
+    CriticalSectionFunction leave =
+        *reinterpret_cast<CriticalSectionFunction*>(&data_004660b4);
+    const SchedulerRemoveFunction remove_task =
+        reinterpret_cast<SchedulerRemoveFunction>(&asm_Scheduler_Remove_00449f60);
+    void* const critical_section = reinterpret_cast<void*>(&data_00492260 + 0x14);
+    void* scheduler = *reinterpret_cast<void**>(&data_00491be4);
+    void* task = pair->task_08;
+
+    if (task != 0) {
+        enter(critical_section);
+        ++data_0049231c;
+        remove_task(task, scheduler);
+        leave(critical_section);
+        --data_0049231c;
     }
+
+    task = pair->task_0C;
+    scheduler = *reinterpret_cast<void**>(&data_00491be4);
+    if (task != 0) {
+        enter(critical_section);
+        ++data_0049231c;
+        remove_task(task, scheduler);
+        leave(critical_section);
+        --data_0049231c;
+    }
+
+    *reinterpret_cast<unsigned int*>(&data_004776ec) = 0;
 }
 
 // 0x00405860..0x004059EC: InitializePlayer

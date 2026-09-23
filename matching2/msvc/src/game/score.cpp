@@ -1,46 +1,28 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/thread_sync.hpp"
 #include "th10/game/score.hpp"
+#include <math.h>
 
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size);
 
 
-// BLOCKED (D2601): closest_byte_count=30; first_diff=unmeasured;
-// residual_class=toolkit; the retail member is the canonical 30-byte
-// FSINCOS leaf (this in ECX, angle/scale on the stack), while MSVC source
-// expressions for sin/cos do not emit one FSINCOS instruction.
-// variants_tested=exact retail overlay and the existing Vector2/score polar
-// source spellings; no compiler-readable FSINCOS candidate was measured;
-// next_lever=use a compiler/toolkit mechanism that exposes one x87 FSINCOS
-// operation while retaining the __thiscall return and RET 8 shape.
+// The same 2D polar setter appears at 0x0041F800 and 0x004458B0. Retail
+// uses one FSINCOS instruction; this readable source captures the component
+// values, while its floating-point instruction sequence remains unverified.
+struct PolarVector2_00408750 {
+    float x;
+    float y;
 
-// 0x00408750..0x0040876D: Score_SetPolarVector
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Score_SetPolarVector_00408750() {
-    __asm {
-    L_00408750:
-        push ecx
-    L_00408751:
-        mov dword ptr [esp],ecx
-    L_00408754:
-        mov eax,dword ptr [esp]
-    L_00408757:
-        fld dword ptr [esp+8]
-    L_0040875b:
-        fsincos
-    L_0040875d:
-        fmul dword ptr [esp+0Ch]
-    L_00408761:
-        fstp dword ptr [eax]
-    L_00408763:
-        fmul dword ptr [esp+0Ch]
-    L_00408767:
-        fstp dword ptr [eax+4]
-    L_0040876a:
-        pop ecx
-    L_0040876b:
-        ret 8
-    }
+    __declspec(noinline) void SetPolar(float angle, float scale);
+};
+
+// 0x00408750..0x0040876D: set x=cos(angle)*scale and y=sin(angle)*scale.
+// The ordinary member signature reflects ECX=this and the two stack floats.
+void PolarVector2_00408750::SetPolar(float angle, float scale) {
+    x = cosf(angle) * scale;
+    y = sinf(angle) * scale;
 }
 
 
@@ -673,182 +655,105 @@ unsigned int __fastcall UpdateBoundedCounter(
     *counter = value;
     return value;
 }
-// BLOCKED (D2601): closest_byte_count=30; first_diff=unmeasured;
-// residual_class=toolkit; this is the same canonical x87 FSINCOS polar leaf
-// as 0x00408750, with the this pointer in ECX and RET 8 stack ownership.
-// variants_tested=exact retail overlay and the existing Vector2/score polar
-// source spellings; no compiler-readable FSINCOS candidate was measured;
-// next_lever=use a compiler/toolkit mechanism that exposes one x87 FSINCOS
-// operation while retaining the __thiscall return and RET 8 shape.
+// 0x0041BEB0: semantic C++ recovery for the two-component polar setter.
+// The retail ABI is __thiscall: ECX is this, and angle and scale are stack
+// floats cleaned by the callee. Retail uses one FSINCOS instruction; this
+// ordinary C++ spelling preserves the component values, not that instruction
+// sequence or its exact x87 rounding behavior.
+struct PolarVector2_0041BEB0 {
+    float x;
+    float y;
 
-// 0x0041BEB0..0x0041BECD: FUN_0041beb0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041beb0_0041beb0() {
-    __asm {
-    L_0041beb0:
-        push ecx
-    L_0041beb1:
-        mov dword ptr [esp],ecx
-    L_0041beb4:
-        mov eax,dword ptr [esp]
-    L_0041beb7:
-        fld dword ptr [esp+8]
-    L_0041bebb:
-        fsincos
-    L_0041bebd:
-        fmul dword ptr [esp+0Ch]
-    L_0041bec1:
-        fstp dword ptr [eax]
-    L_0041bec3:
-        fmul dword ptr [esp+0Ch]
-    L_0041bec7:
-        fstp dword ptr [eax+4]
-    L_0041beca:
-        pop ecx
-    L_0041becb:
-        ret 8
-    }
+    __declspec(noinline) void SetPolar(float angle, float scale);
+};
+
+void PolarVector2_0041BEB0::SetPolar(float angle, float scale) {
+    x = cosf(angle) * scale;
+    y = sinf(angle) * scale;
 }
 
 // BLOCKED (D2601): closest_byte_count=195; first_diff=unmeasured;
-// residual_class=abi; the destructor combines allocator callbacks from fixed
-// globals, scheduler removal, a virtual release, and an intrusive-list unlink
-// while preserving the retail EBX/EBP/ESI/EDI allocation.  Ordinary C++
-// changes the callback/register schedule before the list walk.
-// variants_tested=exact retail overlay and the existing scheduler/list
+// residual_class=abi; the model below expresses the scheduler and resource
+// cleanup, but exact output still depends on the callback and virtual-call
+// schedule plus the retail EBX/EBP/ESI/EDI allocation.
+// variants_tested=exact retail overlay and handwritten scheduler/list
 // destructor source shapes; no compiler-readable candidate was measured;
-// next_lever=co-compile the scheduler remove/free bindings and the owning
-// ScoreExtendedObject layout in a native-LTCG destructor cluster.
+// next_lever=co-compile the scheduler remove/free bindings and owning layout
+// in a native-LTCG destructor cluster.
 
-// 0x0041C1C0..0x0041C282: ScoreExtendedObject_DestroyRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ScoreExtendedObject_DestroyRetail_0041c1c0() {
-    __asm {
-    L_0041c1c0:
-        mov eax,dword ptr [esp+4]
-    L_0041c1c4:
-        push ebx
-    L_0041c1c5:
-        mov ebx,dword ptr [data_004660b0]
-    L_0041c1cb:
-        push ebp
-    L_0041c1cc:
-        mov ebp,dword ptr [data_004660b4]
-    L_0041c1d2:
-        push esi
-    L_0041c1d3:
-        mov esi,dword ptr [eax+8]
-    L_0041c1d6:
-        test esi,esi
-    L_0041c1d8:
-        push edi
-    L_0041c1d9:
-        mov edi,dword ptr [data_00491be4]
-    L_0041c1df:
-        je short L_0041c204
-    L_0041c1e1:
-        push 492274h
-    L_0041c1e6:
-        call ebx
-    L_0041c1e8:
-        inc byte ptr [data_0049231c]
-    L_0041c1ee:
-        mov ecx,esi
-    L_0041c1f0:
-        mov edx,edi
-    L_0041c1f2:
-        call asm_Scheduler_Remove_00449f60
-    L_0041c1f7:
-        push 492274h
-    L_0041c1fc:
-        call ebp
-    L_0041c1fe:
-        dec byte ptr [data_0049231c]
-    L_0041c204:
-        mov ecx,dword ptr [esp+14h]
-    L_0041c208:
-        mov esi,dword ptr [ecx+0Ch]
-    L_0041c20b:
-        test esi,esi
-    L_0041c20d:
-        mov edi,dword ptr [data_00491be4]
-    L_0041c213:
-        je short L_0041c238
-    L_0041c215:
-        push 492274h
-    L_0041c21a:
-        call ebx
-    L_0041c21c:
-        inc byte ptr [data_0049231c]
-    L_0041c222:
-        mov ecx,esi
-    L_0041c224:
-        mov edx,edi
-    L_0041c226:
-        call asm_Scheduler_Remove_00449f60
-    L_0041c22b:
-        push 492274h
-    L_0041c230:
-        call ebp
-    L_0041c232:
-        dec byte ptr [data_0049231c]
-    L_0041c238:
-        mov edx,dword ptr [esp+14h]
-    L_0041c23c:
-        mov esi,dword ptr [edx+18h]
-    L_0041c23f:
-        test esi,esi
-    L_0041c241:
-        je short L_0041c272
-    L_0041c243:
-        mov eax,dword ptr [esi]
-    L_0041c245:
-        mov edi,dword ptr [esi+8]
-    L_0041c248:
-        mov ecx,esi
-    L_0041c24a:
-        call dword ptr [eax+10h]
-    L_0041c24d:
-        mov ecx,dword ptr [esi+4]
-    L_0041c250:
-        mov edx,dword ptr [esi+8]
-    L_0041c253:
-        mov dword ptr [ecx+8],edx
-    L_0041c256:
-        mov eax,dword ptr [esi+8]
-    L_0041c259:
-        test eax,eax
-    L_0041c25b:
-        je short L_0041c263
-    L_0041c25d:
-        mov ecx,dword ptr [esi+4]
-    L_0041c260:
-        mov dword ptr [eax+4],ecx
-    L_0041c263:
-        push esi
-    L_0041c264:
-        call asm_free_004524a1
-    L_0041c269:
-        add esp,4
-    L_0041c26c:
-        test edi,edi
-    L_0041c26e:
-        mov esi,edi
-    L_0041c270:
-        jne short L_0041c243
-    L_0041c272:
-        pop edi
-    L_0041c273:
-        pop esi
-    L_0041c274:
-        pop ebp
-    L_0041c275:
-        mov dword ptr [data_0047781c],0
-    L_0041c27f:
-        pop ebx
-    L_0041c280:
-        ret 4
+// Retail's entry uses one stack pointer and ends in RET 4. The shared alias
+// declaration reflects that stdcall interface.
+struct ScoreExtendedResourceNode_0041c1c0 {
+    void** vtable;
+    ScoreExtendedResourceNode_0041c1c0* previous;
+    ScoreExtendedResourceNode_0041c1c0* next;
+};
+
+struct ScoreExtendedObjectDestroyLayout_0041c1c0 {
+    unsigned char unknown_00[8];
+    SchedulerTask* primary_task;
+    SchedulerTask* secondary_task;
+    unsigned char unknown_10[8];
+    ScoreExtendedResourceNode_0041c1c0* resource_list;
+};
+
+typedef void (__stdcall *ScoreCriticalSectionCallback_0041c1c0)(void*);
+typedef void (__fastcall *ScoreSchedulerRemove_0041c1c0)(SchedulerTask*, Scheduler*);
+typedef void (__thiscall *ScoreResourceRelease_0041c1c0)(
+    ScoreExtendedResourceNode_0041c1c0*);
+typedef void (__cdecl *ScoreResourceFree_0041c1c0)(void*);
+
+// 0x0041C1C0..0x0041C282: ScoreExtendedObject_DestroyRetail.
+extern "C" __declspec(noinline) void __stdcall
+asm_ScoreExtendedObject_DestroyRetail_0041c1c0(void* object_address) {
+    ScoreExtendedObjectDestroyLayout_0041c1c0* object =
+        static_cast<ScoreExtendedObjectDestroyLayout_0041c1c0*>(object_address);
+
+    ScoreCriticalSectionCallback_0041c1c0 enter_critical_section =
+        *reinterpret_cast<ScoreCriticalSectionCallback_0041c1c0*>(&data_004660b0);
+    ScoreCriticalSectionCallback_0041c1c0 leave_critical_section =
+        *reinterpret_cast<ScoreCriticalSectionCallback_0041c1c0*>(&data_004660b4);
+    const ScoreSchedulerRemove_0041c1c0 remove_task =
+        reinterpret_cast<ScoreSchedulerRemove_0041c1c0>(
+            &asm_Scheduler_Remove_00449f60);
+    const ScoreResourceFree_0041c1c0 free_resource =
+        reinterpret_cast<ScoreResourceFree_0041c1c0>(&asm_free_004524a1);
+    void* const critical_section =
+        &g_thread_synchronization.critical_sections[0];
+
+    Scheduler* scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+    if (object->primary_task) {
+        enter_critical_section(critical_section);
+        ++g_thread_synchronization.scheduler_lock_depth;
+        remove_task(object->primary_task, scheduler);
+        leave_critical_section(critical_section);
+        --g_thread_synchronization.scheduler_lock_depth;
     }
+
+    scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+    if (object->secondary_task) {
+        enter_critical_section(critical_section);
+        ++g_thread_synchronization.scheduler_lock_depth;
+        remove_task(object->secondary_task, scheduler);
+        leave_critical_section(critical_section);
+        --g_thread_synchronization.scheduler_lock_depth;
+    }
+
+    ScoreExtendedResourceNode_0041c1c0* node = object->resource_list;
+    while (node) {
+        ScoreExtendedResourceNode_0041c1c0* const iteration_next = node->next;
+        const ScoreResourceRelease_0041c1c0 release =
+            reinterpret_cast<ScoreResourceRelease_0041c1c0>(node->vtable[4]);
+        release(node);
+
+        node->previous->next = node->next;
+        if (node->next)
+            node->next->previous = node->previous;
+        free_resource(node);
+        node = iteration_next;
+    }
+
+    *reinterpret_cast<void**>(&data_0047781c) = 0;
 }
 
 

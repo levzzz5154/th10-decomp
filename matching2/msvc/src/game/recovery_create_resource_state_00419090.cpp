@@ -8,7 +8,7 @@ extern "C" void __cdecl entry_free_004524a1(void* block);
 extern "C" void* __fastcall Construct_00418d40(int unused, StageTipManager_00419090* manager);
 extern "C" int __stdcall asm_StageTipRuntime_InitializeRetail_00418e30(
         StageTipManager_00419090* manager);
-extern "C" int __stdcall asm_FUN_00418ee0_00418ee0(void* manager);
+extern "C" void __stdcall asm_FUN_00418ee0_00418ee0(void* manager);
 
 extern "C" __declspec(noinline) StageTipManager_00419090* __cdecl
 asm_Recovery_CreateResourceState_00419090();

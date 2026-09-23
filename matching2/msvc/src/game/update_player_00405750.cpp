@@ -1,156 +1,149 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/math/timer.hpp"
 
-// 0x00404530..0x004045A6: FUN_00404530
-// Naked body preserves the retail register/stack ABI.
+#include <stddef.h>
 
-// 0x00405750..0x0040582E: UpdatePlayer
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_UpdatePlayer_00405750() {
-    __asm {
-    L_00405750:
-        mov eax,dword ptr [edi+28h]
-    L_00405753:
-        sub esp,0Ch
-    L_00405756:
-        push esi
-    L_00405757:
-        xor esi,esi
-    L_00405759:
-        cmp eax,esi
-    L_0040575b:
-        je asm_target_00405825
-    L_00405761:
-        dec eax
-    L_00405762:
-        push ebx
-    L_00405763:
-        push ebp
-    L_00405764:
-        jne asm_target_0040581b
-    L_0040576a:
-        mov eax,dword ptr [edi+2Ch]
-    L_0040576d:
-        mov ebp,dword ptr [data_00491c10]
-    L_00405773:
-        push eax
-    L_00405774:
-        mov edx,ebp
-    L_00405776:
-        call asm_AnimationManager_Find_004491c0
-    L_0040577b:
-        mov ebx,eax
-    L_0040577d:
-        cmp ebx,esi
-    L_0040577f:
-        jne short L_00405793
-    L_00405781:
-        pop ebp
-    L_00405782:
-        mov dword ptr [edi+2Ch],esi
-    L_00405785:
-        pop ebx
-    L_00405786:
-        mov dword ptr [edi+28h],esi
-    L_00405789:
-        mov eax,1
-    L_0040578e:
-        pop esi
-    L_0040578f:
-        add esp,0Ch
-    L_00405792:
-        ret
-    L_00405793:
-        mov eax,dword ptr [data_004776f4]
-    L_00405798:
-        test byte ptr [eax+378Ch],1
-    L_0040579f:
-        je short L_004057c1
-    L_004057a1:
-        mov eax,dword ptr [eax+3788h]
-    L_004057a7:
-        cmp eax,5Dh
-    L_004057aa:
-        jl short L_004057b1
-    L_004057ac:
-        cmp eax,60h
-    L_004057af:
-        jle short L_004057b6
-    L_004057b1:
-        cmp eax,6Dh
-    L_004057b4:
-        jne short L_004057c1
-    L_004057b6:
-        fld dword ptr [edi+34h]
-    L_004057b9:
-        fsub dword ptr [data_00470b0c]
-    L_004057bf:
-        jmp short L_004057db
-    L_004057c1:
-        mov eax,dword ptr [data_00474c68]
-    L_004057c6:
-        fld dword ptr [edi+34h]
-    L_004057c9:
-        cmp eax,esi
-    L_004057cb:
-        jne short L_004057d5
-    L_004057cd:
-        fsub dword ptr [data_00470afc]
-    L_004057d3:
-        jmp short L_004057db
-    L_004057d5:
-        fsub dword ptr [data_00470d34]
-    L_004057db:
-        mov edx,dword ptr [edi+2Ch]
-    L_004057de:
-        fstp dword ptr [edi+34h]
-    L_004057e1:
-        fld dword ptr [edi+30h]
-    L_004057e4:
-        mov ecx,dword ptr [edi+38h]
-    L_004057e7:
-        fadd dword ptr [data_00470b4c]
-    L_004057ed:
-        push edx
-    L_004057ee:
-        lea esi,[esp+10h]
-    L_004057f2:
-        mov edx,ebp
-    L_004057f4:
-        fstp dword ptr [esp+10h]
-    L_004057f8:
-        mov dword ptr [esp+18h],ecx
-    L_004057fc:
-        fld dword ptr [edi+34h]
-    L_004057ff:
-        fadd dword ptr [data_00470b48]
-    L_00405805:
-        fstp dword ptr [esp+14h]
-    L_00405809:
-        call asm_AnimationManager_SetPosition_004492f0
-    L_0040580e:
-        mov eax,dword ptr [ebx+40h]
-    L_00405811:
-        mov esi,edi
-    L_00405813:
-        mov dword ptr [edi+3Ch],eax
-    L_00405816:
-        call asm_Player_Draw_00405ac0
-    L_0040581b:
-        lea esi,[edi+14h]
-    L_0040581e:
-        call asm_FrameTimer_Tick_00404ed0
-    L_00405823:
-        pop ebp
-    L_00405824:
-        pop ebx
-    L_00405825:
-        mov eax,1
-    L_0040582a:
-        pop esi
-    L_0040582b:
-        add esp,0Ch
-    L_0040582e:
-        ret
+// Globals used by the retail player update.
+extern "C" void* data_00491c10;
+extern "C" void* data_004776f4;
+extern "C" int data_00474c68;
+extern "C" float data_00470b0c;
+extern "C" float data_00470afc;
+extern "C" float data_00470d34;
+extern "C" float data_00470b4c;
+extern "C" float data_00470b48;
+extern "C" float data_00470b68;
+extern "C" float data_00470b64;
+
+struct AnimationNode_00405750;
+
+struct AnimationChildLink_00405750 {
+    AnimationNode_00405750* node;       // +0x00
+    AnimationChildLink_00405750* next;  // +0x04
+};
+
+struct AnimationNode_00405750 {
+    unsigned char unknown_000[0x14];
+    AnimationChildLink_00405750* children_014;
+    int child_count_018;
+    unsigned char unknown_01c[0x24];
+    float value_040;
+    unsigned char unknown_044[0x2FC];
+    float position_340[3];
+};
+
+// The lookup routine's first fastcall input is unused by its body.  At this
+// call site that register still contains the player pointer; the manager is
+// in EDX and the animation handle is the stack argument.
+extern "C" AnimationNode_00405750* __fastcall AnimationManager_Find_004491c0(
+    void* ignored, void* manager, int animation_handle);
+
+// DrawPlayer is an existing leaf with a private ESI receiver.  This source
+// keeps the helper edge; its register-only input is not expressible in an
+// ordinary function prototype, so the native-LTCG context is an ABI candidate
+// rather than proof of the call-site register assignment.
+extern "C" void __cdecl asm_Player_Draw_00405ac0();
+
+struct PlayerUpdate_00405750 {
+    unsigned char unknown_000[0x14];
+    FrameTimer timer_014;
+    int active_state_028;
+    int animation_handle_02c;
+    float position_030[3];
+    float collision_radius_03c;
+    float value_040;
+    int value_044;
+
+};
+
+typedef char AnimationNode_value_offset_must_be_40[
+    offsetof(AnimationNode_00405750, value_040) == 0x40 ? 1 : -1];
+typedef char AnimationNode_position_offset_must_be_340[
+    offsetof(AnimationNode_00405750, position_340) == 0x340 ? 1 : -1];
+typedef char PlayerUpdate_timer_offset_must_be_14[
+    offsetof(PlayerUpdate_00405750, timer_014) == 0x14 ? 1 : -1];
+typedef char PlayerUpdate_state_offset_must_be_28[
+    offsetof(PlayerUpdate_00405750, active_state_028) == 0x28 ? 1 : -1];
+typedef char PlayerUpdate_position_offset_must_be_30[
+    offsetof(PlayerUpdate_00405750, position_030) == 0x30 ? 1 : -1];
+
+static __forceinline void SetAnimationPosition_00405750(
+    AnimationNode_00405750* animation, const float position[3]) {
+    animation->position_340[0] = position[0];
+    animation->position_340[1] = position[1];
+    animation->position_340[2] = position[2];
+
+    // 0x004492F0 also propagates the position through the linked children
+    // when this node has no children of its own.
+    if (animation->child_count_018 == 0) {
+        for (AnimationChildLink_00405750* link = animation->children_014;
+             link != 0; link = link->next) {
+            AnimationNode_00405750* child = link->node;
+            child->position_340[0] = position[0];
+            child->position_340[1] = position[1];
+            child->position_340[2] = position[2];
+        }
     }
 }
+
+static __forceinline void TickPlayerTimer_00405750(FrameTimer* timer) {
+    timer->previous = timer->current;
+    const float speed = *timer->speed;
+    if (speed > data_00470b68 && speed < data_00470b64) {
+        ++timer->current;
+        timer->elapsed += 1.0f;
+    } else {
+        timer->elapsed += speed;
+        timer->current = static_cast<int>(timer->elapsed);
+    }
+}
+
+#pragma code_seg(".text$01update")
+extern "C" __declspec(noinline) int __fastcall UpdatePlayer_00405750(
+    PlayerUpdate_00405750* player) {
+    if (player->active_state_028 == 0) {
+        return 1;
+    }
+
+    if (player->active_state_028 == 1) {
+        AnimationNode_00405750* animation = AnimationManager_Find_004491c0(
+            player, data_00491c10, player->animation_handle_02c);
+        if (animation == 0) {
+            player->animation_handle_02c = 0;
+            player->active_state_028 = 0;
+            return 1;
+        }
+
+        unsigned char* player_state =
+            static_cast<unsigned char*>(data_004776f4);
+        const int input_state =
+            *reinterpret_cast<int*>(player_state + 0x3788);
+        const bool focused =
+            (player_state[0x378C] & 1) != 0 &&
+            ((input_state >= 0x5D && input_state <= 0x60) ||
+             input_state == 0x6D);
+
+        float speed;
+        if (focused) {
+            speed = data_00470b0c;
+        } else if (data_00474c68 == 0) {
+            speed = data_00470afc;
+        } else {
+            speed = data_00470d34;
+        }
+        player->position_030[1] = player->position_030[1] - speed;
+
+        const float render_position[3] = {
+            player->position_030[0] + data_00470b4c,
+            player->position_030[1] + data_00470b48,
+            player->position_030[2]
+        };
+        SetAnimationPosition_00405750(animation, render_position);
+        player->collision_radius_03c = animation->value_040;
+
+        asm_Player_Draw_00405ac0();
+    }
+
+    TickPlayerTimer_00405750(&player->timer_014);
+    return 1;
+}
+#pragma code_seg()

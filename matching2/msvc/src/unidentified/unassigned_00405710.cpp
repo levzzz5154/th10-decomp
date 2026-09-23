@@ -8,7 +8,7 @@
 // native-LTCG cluster layout/ltcg/dtor_delete_00405710.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void asm_Recovery_ReleaseRawPairAndReset_00405620(void* object);
+extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
 struct Deletable_00405710 {

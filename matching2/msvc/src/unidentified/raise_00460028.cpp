@@ -3,7 +3,7 @@
 
 // 0x00460028..0x0046015A: _raise
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_raise_00460028() {
+extern "C" __declspec(naked) int __cdecl asm_raise_00460028(int) {
     __asm {
     L_00460028:
         push 20h

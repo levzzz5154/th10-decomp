@@ -1,47 +1,52 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004494D0: look up the animation object named by field_000 and update
+// bits in its +0x35C word.  When field_018 is zero, apply the same transition
+// to the objects referenced by the +0x14 linked list.
+//
+// The field names and bit meanings remain deliberately numeric.  The retail
+// entry receives this object in EAX; the LTCG context supplies that private
+// receiver convention.  The retail body continues through the loop formerly
+// split into the 0x00449510 assembly region.
+extern "C" void* data_00491c10;
 
-// 0x004494D0..0x0044950E: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004494d0() {
-    __asm {
-    L_004494d0:
-        mov ecx,dword ptr [eax]
-    L_004494d2:
-        mov edx,dword ptr [data_00491c10]
-    L_004494d8:
-        push ecx
-    L_004494d9:
-        call asm_AnimationManager_Find_004491c0
-    L_004494de:
-        test eax,eax
-    L_004494e0:
-        TH10_REL8(0x74, 0x004494e0, VA_asm_target_00449528)
-    L_004494e2:
-        mov ecx,dword ptr [eax+35Ch]
-    L_004494e8:
-        and ecx,0FFFFFFFDh
-    L_004494eb:
-        mov edx,20000h
-    L_004494f0:
-        or ecx,edx
-    L_004494f2:
-        mov dword ptr [eax+35Ch],ecx
-    L_004494f8:
-        mov ecx,dword ptr [eax+18h]
-    L_004494fb:
-        test ecx,ecx
-    L_004494fd:
-        TH10_REL8(0x75, 0x004494fd, VA_asm_target_00449528)
-    L_004494ff:
-        mov eax,dword ptr [eax+14h]
-    L_00449502:
-        test eax,eax
-    L_00449504:
-        TH10_REL8(0x74, 0x00449504, VA_asm_target_00449528)
-    L_00449506:
-        TH10_REL8(0xeb, 0x00449506, VA_asm_unassigned_00449510)
-    L_00449508:
-        lea esp,[esp+force_disp32_zero]
+struct AnimationNode_004494D0;
+
+struct AnimationObjectLink_004494D0 {
+    AnimationNode_004494D0* object;       // +0x00
+    AnimationObjectLink_004494D0* next;   // +0x04
+};
+
+struct AnimationNode_004494D0 {
+    void* field_000;                      // +0x00: value passed to Find
+    unsigned char unknown_004[0x10];      // +0x04
+    AnimationObjectLink_004494D0* field_014;
+    unsigned int field_018;
+    unsigned char unknown_01c[0x340];
+    unsigned int flags_35c;
+
+    __declspec(noinline) void UpdateFlags();
+};
+
+extern "C" AnimationNode_004494D0* __fastcall AnimationManager_Find_004491c0(
+    void* value, void* manager, int unused);
+
+#pragma code_seg(".text$01accessor")
+void AnimationNode_004494D0::UpdateFlags() {
+    AnimationNode_004494D0* node =
+        AnimationManager_Find_004491c0(field_000, data_00491c10, (int)field_000);
+    if (node == 0) {
+        return;
+    }
+
+    node->flags_35c = (node->flags_35c & ~2u) | 0x20000u;
+    if (node->field_018 != 0) {
+        return;
+    }
+
+    for (AnimationObjectLink_004494D0* child = node->field_014;
+         child != 0;
+         child = child->next) {
+        child->object->flags_35c &= ~2u;
+        child->object->flags_35c |= 0x20000u;
     }
 }
+#pragma code_seg()

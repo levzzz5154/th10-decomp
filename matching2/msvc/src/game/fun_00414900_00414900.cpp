@@ -1,22 +1,23 @@
 // BLOCKED (H2501): closest_byte_count=3836; first_diff=unmeasured;
-// residual_class=large front-HUD control-flow/ABI translation coupled to the
-// 0x00415E90, 0x0043EE30, and 0x00449870 register conventions; the exact
-// retail overlay is retained because no readable candidate has been measured;
-// variants_tested=legacy ui_final_runtime semantic counterpart and the current
-// exact retail assembly wrapper;
-// next_lever=build one schema-2 native-LTCG cluster containing this body, its
-// three coupled callees, and a real front-update caller so the private
-// register edges are assigned together.
+// residual_class=large front-HUD update with nonstandard helper live-ins:
+// the traced scheduler ABI is expressible as a one-argument stdcall callback,
+// but FUN_0043E5A0 consumes the target in EAX, FUN_00449950 consumes the
+// manager in ESI, FUN_0043DC90 consumes the sound id in EDI, and FUN_00463B2C
+// consumes x87 ST0. Those effects cannot be called faithfully with ordinary
+// C++ prototypes; keep the exact retail body until their semantics/layouts
+// can replace the hidden-register edges;
+// variants_tested=legacy ui_final_runtime semantic counterpart, live Ghidra
+// decompilation/call graph/disassembly of this body, its scheduler callback,
+// and the coupled helpers;
+// next_lever=integrate typed semantic equivalents for those helpers and their
+// state layouts, then replace the body without an uncompiled sidecar.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 
-// 0x00414900..0x004149EC: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00414900..0x004149EC: FUN_00414900
-// Naked body preserves the retail register/stack ABI.
+// 0x00414900..0x004157DC: FUN_00414900
+// Retail body retained pending semantic equivalents for hidden-register callees.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     __asm {
     L_00414900:

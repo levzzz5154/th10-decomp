@@ -1,8 +1,9 @@
-# Vector polar setters — a six-region family at the exact extent
+# Vector polar setters — a seven-region family at the exact extent
 
 2026-09-18. Screening the remaining assembly for no-call game regions with a
-plain ABI surfaced a uniform family: **six 30-byte `__thiscall` setters**, all 11
-instructions, all with the identical shape modulo their address:
+plain ABI surfaced a family of **seven 30-byte `__thiscall` setters** sharing
+the same `FSINCOS` component pattern. The elliptic variant uses separate
+horizontal and vertical scales:
 
 | region | source file |
 | --- | --- |
@@ -12,6 +13,7 @@ instructions, all with the identical shape modulo their address:
 | `0x0041F800` `SetPolar_Vector2` | `src/math/vector.cpp` |
 | `0x0041BEB0` `FUN_0041beb0` | `src/game/score.cpp` |
 | `0x00413270` `Vector2_SetEllipticPolar` | `src/game/recovery_leaves.cpp` |
+| `0x004501B0` `ECL_SetPolarVector` | `src/script/ecl_core_interpreter.cpp` |
 
 Retail listing (`0x004458B0`):
 
@@ -62,7 +64,7 @@ all already match; exactly two things do not:
    ECX and copies it to EAX. Whatever raises retail's pressure to memory-home
    `this` is the second unknown.
 
-Once either is explained the other five members should follow from the same
+Once either is explained the other six members should follow from the same
 source with only their class names changed — the listings are identical.
 
 ## Native-LTCG path measured for this family: rejected
@@ -103,7 +105,40 @@ blocks in the recovered source:
 
 For `0x00443B60` that is a few lines inside otherwise readable C++. For this
 family the *entire* eleven-instruction body is the sincos sequence and the two
-scaled stores, so an equivalent body would be almost entirely `__asm` — no
-readable C++ is gained. These six regions should therefore stay assembly unless
-the project decides an inline-asm body is worth it; the `this` spill is moot,
-since retail's version is the asm block's own frame.
+scaled stores, so an equivalent exact body would be almost entirely `__asm`.
+The current source policy accepts semantic C++ for these simple setters; exact
+retail instruction selection and x87 rounding therefore remain unverified.
+The `this` spill is moot for that semantic model because it is part of the
+retail instruction sequence rather than the component-level operation.
+
+## Semantic C++ recovery at `0x00441EF0`
+
+The repository goal favors readable, inline-assembly-free C++ even when the
+exact `FSINCOS` encoding is unavailable. `0x00441EF0` is represented by
+`AnimationPolarVector2_00441EF0::SetAnimationPolar` in
+`src/game/recovery_leaves.cpp`; the six remaining entries now have semantic
+C++ setters as well:
+
+| entry | C++ representation | parameters after `this` |
+| --- | --- | --- |
+| `0x0041F800` | `PolarVector2_0041F800::SetPolar` | angle, scale |
+| `0x004458B0` | `PolarVector2_004458B0::SetPolar` | angle, scale |
+| `0x0041BEB0` | `PolarVector2_0041BEB0::SetPolar` | angle, scale |
+| `0x0044C5D0` | `RecoveryPolarVector2_0044C5D0::SetFromPolar` | angle, scale |
+| `0x00413270` | `EllipticPolarVector2_00413270::SetEllipticPolar` | angle, horizontal scale, vertical scale |
+| `0x004501B0` | `EclPolarVector2_004501B0::SetPolar` | angle, scale |
+
+All retain the Ghidra-supported `__thiscall` entry shape and write x at offset
+0 before y at offset 4. The three-parameter elliptic setter uses its second
+and third arguments for the x and y scales respectively. The readable
+`cosf`/`sinf` implementations capture those component semantics; byte
+exactness, the fused instruction sequence and exact rounding remain unverified.
+
+The manifest now selects the decorated C++ member symbols for `0x00413270`,
+`0x0041F800`, `0x004458B0`, and `0x0044C5D0`, preserving each former `_asm_...`
+name as a linker address alias for existing assembly or ABI-adapter callers.
+The semantic rows do not claim retail byte identity.
+
+The ECL setter at `0x004501B0` has the same source-level treatment and uses its
+own decorated member symbol. Its assembly call alias remains available to the
+interpreter's raw call site.

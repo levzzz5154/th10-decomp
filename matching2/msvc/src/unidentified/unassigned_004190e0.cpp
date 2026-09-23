@@ -3,7 +3,7 @@
 // synthetic caller walks an array of the objects.
 
 struct OwnedObject_004190e0;
-extern "C" void asm_FUN_00418ee0_00418ee0(void* object);
+extern "C" void __stdcall asm_FUN_00418ee0_00418ee0(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 __declspec(noinline) void* DestroyOwned_DeletingDestructor_004190e0(OwnedObject_004190e0* object, unsigned int flags);
 #pragma code_seg(".text$01delete004190e0")

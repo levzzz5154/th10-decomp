@@ -1,53 +1,29 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include <cstdint>
 
-// 0x0045C4F2..0x0045C526: _LcidFromHexString
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_LcidFromHexString_0045c4f2() {
-    __asm {
-    L_0045c4f2:
-        xor eax,eax
-    L_0045c4f4:
-        jmp short L_0045c520
-    L_0045c4f6:
-        inc edx
-    L_0045c4f7:
-        cmp cl,61h
-    L_0045c4fa:
-        jl short L_0045c506
-    L_0045c4fc:
-        cmp cl,66h
-    L_0045c4ff:
-        jg short L_0045c506
-    L_0045c501:
-        add cl,0D9h
-    L_0045c504:
-        jmp short L_0045c513
-    L_0045c506:
-        cmp cl,41h
-    L_0045c509:
-        jl short L_0045c513
-    L_0045c50b:
-        cmp cl,46h
-    L_0045c50e:
-        jg short L_0045c513
-    L_0045c510:
-        add cl,0F9h
-    L_0045c513:
-        add eax,0FFFFFFDh
-    L_0045c518:
-        movsx ecx,cl
-    L_0045c51b:
-        shl eax,4
-    L_0045c51e:
-        add eax,ecx
-    L_0045c520:
-        mov cl,byte ptr [edx]
-    L_0045c522:
-        test cl,cl
-    L_0045c524:
-        jne short L_0045c4f6
-    L_0045c526:
-        ret
+// 0x0045C4F2..0x0045C526: _LcidFromHexString.
+// The first fastcall register slot is ignored; the input string arrives in EDX.
+extern "C" int __fastcall asm_LcidFromHexString_0045c4f2(
+    int ignored_ecx, const char* text) {
+    (void)ignored_ecx;
+
+    std::uint32_t result = 0;
+    while (*text != '\0') {
+        const unsigned char byte = static_cast<unsigned char>(*text++);
+        int value = byte < 0x80u ? static_cast<int>(byte)
+                                 : static_cast<int>(byte) - 0x100;
+
+        // The retail routine maps only ASCII A-F/a-f. Other non-NUL bytes
+        // remain signed character values and still participate in the fold.
+        if (value >= 'a' && value <= 'f') {
+            value -= 0x27;
+        } else if (value >= 'A' && value <= 'F') {
+            value -= 0x07;
+        }
+
+        // This is the retail 32-bit recurrence, including its wraparound:
+        // (result - 3) * 16 + the sign-extended, possibly adjusted byte.
+        result = ((result - 3u) << 4) + static_cast<std::uint32_t>(value);
     }
+
+    return static_cast<int>(result);
 }

@@ -1,6 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+void __stdcall ScoreFile_InitializeDefaultsRetail_0042acb0(void* fileStorage);
+
 // 0x00408910..0x004089BF: PlayerManager_ConstructRetail
 // Naked body preserves the retail register/stack ABI.
 
@@ -71,7 +73,7 @@ extern "C" __declspec(naked) void __cdecl asm_EffectManager_InitializePoolsRetai
     L_0042aeb0:
         push esi
     L_0042aeb1:
-        call asm_ScoreFile_InitializeDefaultsRetail_0042acb0
+        call ScoreFile_InitializeDefaultsRetail_0042acb0
     L_0042aeb6:
         add edi,437Ch
     L_0042aebc:

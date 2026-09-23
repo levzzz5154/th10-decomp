@@ -3,7 +3,7 @@
 
 // 0x00457547..0x00457575: ___crtExitProcess
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtExitProcess_00457547() {
+extern "C" __declspec(naked) __declspec(noreturn) void __cdecl asm_crtExitProcess_00457547(int) {
     __asm {
     L_00457547:
         push 46AB0Ch

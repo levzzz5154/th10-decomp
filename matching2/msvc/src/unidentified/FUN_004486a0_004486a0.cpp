@@ -1,21 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004486A0..0x004486AE: render animation bucket 4 for the task's manager.
+#include "th10/render/quad_batch.hpp"
 
-// 0x004486A0..0x004486AE: FUN_004486a0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004486a0_004486a0() {
-    __asm {
-    L_004486a0:
-        push edi
-    L_004486a1:
-        mov eax,4
-    L_004486a6:
-        mov edi,ecx
-    L_004486a8:
-        call asm_AnimationManager_RenderBucket_00448980
-    L_004486ad:
-        pop edi
-    L_004486ae:
-        ret
-    }
+// The derived view adds no fields: the retail manager remains at offset zero.
+struct AnimationManagerBucket4_004486A0 : AnimationManager_00442F50 {
+    __declspec(noinline) int RenderBucket4();
+};
+
+#pragma code_seg(".text$01slot4")
+int AnimationManagerBucket4_004486A0::RenderBucket4() {
+    return RenderBucket(4);
 }
+#pragma code_seg()

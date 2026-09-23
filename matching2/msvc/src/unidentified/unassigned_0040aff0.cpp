@@ -8,7 +8,7 @@
 // native-LTCG cluster layout/ltcg/dtor_delete_0040aff0.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void asm_BulletManager_Release_0040af00(void* object);
+extern "C" void __stdcall asm_BulletManager_Release_0040af00(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
 struct Deletable_0040aff0 {

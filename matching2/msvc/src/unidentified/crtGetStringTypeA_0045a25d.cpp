@@ -3,7 +3,14 @@
 
 // 0x0045A25D..0x0045A335: ___crtGetStringTypeA
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtGetStringTypeA_0045a25d() {
+extern "C" __declspec(naked) int __cdecl asm_crtGetStringTypeA_0045a25d(
+    unsigned int,
+    const char*,
+    int,
+    unsigned short*,
+    unsigned int,
+    unsigned int,
+    int) {
     __asm {
     L_0045a25d:
         push 1Ch

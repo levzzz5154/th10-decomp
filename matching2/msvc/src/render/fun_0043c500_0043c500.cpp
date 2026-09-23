@@ -1,50 +1,74 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043C500: scheduler overlay callback with its record in ECX.
+#include "th10/render/quad_batch.hpp"
+#include <stddef.h>
 
-// 0x0043BDA0..0x0043BF82: FUN_0043bda0
-// Naked body preserves the retail register/stack ABI.
+struct AsciiOverlay_0043C500 {
+    unsigned char reserved_000[0x18];
+    unsigned int alpha;
+    unsigned int reserved_01c;
+    unsigned int reserved_020;
+    unsigned int color;
+    __declspec(noinline) int Draw();
+};
 
-// 0x0043C500..0x0043C549: FUN_0043c500
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043c500_0043c500() {
-    __asm {
-    L_0043c500:
-        sub esp,10h
-    L_0043c503:
-        mov eax,dword ptr [ecx+18h]
-    L_0043c506:
-        push ebx
-    L_0043c507:
-        mov ebx,dword ptr [ecx+24h]
-    L_0043c50a:
-        and ebx,0FFFFFFh
-    L_0043c510:
-        shl eax,18h
-    L_0043c513:
-        push edi
-    L_0043c514:
-        or ebx,eax
-    L_0043c516:
-        lea edi,[esp+8]
-    L_0043c51a:
-        mov dword ptr [esp+8],42000000h
-    L_0043c522:
-        mov dword ptr [esp+0Ch],41800000h
-    L_0043c52a:
-        mov dword ptr [esp+10h],43D00000h
-    L_0043c532:
-        mov dword ptr [esp+14h],43E80000h
-    L_0043c53a:
-        call asm_FUN_0043bda0_0043bda0
-    L_0043c53f:
-        pop edi
-    L_0043c540:
-        mov eax,1
-    L_0043c545:
-        pop ebx
-    L_0043c546:
-        add esp,10h
-    L_0043c549:
-        ret
+typedef char AsciiOverlay_0043C500_AlphaOffset[
+    (offsetof(AsciiOverlay_0043C500, alpha) == 0x18) ? 1 : -1];
+typedef char AsciiOverlay_0043C500_ColorOffset[
+    (offsetof(AsciiOverlay_0043C500, color) == 0x24) ? 1 : -1];
+
+#pragma code_seg(".text$03w5overlay")
+int AsciiOverlay_0043C500::Draw() {
+    ScreenRect rect = {32.0f, 16.0f, 416.0f, 464.0f};
+    unsigned int argb = (color & 0x00ffffffu) | (alpha << 24);
+
+    // Retail passes this rectangle and color to 0x0043BDA0 in EDI and EBX.
+    // That helper in turn calls the batch flush with its manager in ESI.
+    // Keep both register-only edges inside this semantic body.
+    AnimationManager_00442F50* manager = data_00491c10;
+    if (manager->quad_count != 0) {
+        data_00491c30->Stage(0, 6, 0);
+        data_00491c30->Stage(0, 3, 0);
+        data_00491c30->Format(0x144);
+        data_00491c30->Draw(
+            4,
+            static_cast<unsigned int>(manager->quad_count) << 1,
+            manager->batch_start,
+            0x1c);
+        manager->batch_start = manager->cursor;
+        manager->quad_count = 0;
+        ++manager->draw_calls;
     }
+
+    SolidVertex vertices[4];
+    vertices[0].position = SolidPosition(rect.left, rect.top, 0.0f);
+    vertices[1].position = SolidPosition(rect.right, rect.top, 0.0f);
+    vertices[2].position = SolidPosition(rect.left, rect.bottom, 0.0f);
+    vertices[3].position = SolidPosition(rect.right, rect.bottom, 0.0f);
+    vertices[0].rhw = vertices[1].rhw = vertices[2].rhw = vertices[3].rhw = 1.0f;
+    vertices[0].color = argb;
+    vertices[1].color = argb;
+    vertices[2].color = argb;
+    vertices[3].color = argb;
+
+    data_00491c30->Stage(0, 4, 2);
+    data_00491c30->Stage(0, 1, 2);
+    data_00491c30->Stage(0, 5, 0);
+    data_00491c30->Stage(0, 2, 0);
+    data_00491c30->State(20, 6);
+    data_00491c30->Format(0x44);
+    data_00491c30->Draw(5, 2, vertices, sizeof(SolidVertex));
+
+    manager->cached_format = 0xff;
+    manager->cached_texture = 0;
+    manager->cached_color = 0;
+    manager->cached_unknown_69 = 0xff;
+    manager->cached_blend = 3;
+    manager->cached_unknown_6b = 0xff;
+
+    data_00491c30->Stage(0, 4, 4);
+    data_00491c30->Stage(0, 1, 4);
+    data_00491c30->Stage(0, 5, 2);
+    data_00491c30->Stage(0, 2, 2);
+    return 1;
 }
+#pragma code_seg()

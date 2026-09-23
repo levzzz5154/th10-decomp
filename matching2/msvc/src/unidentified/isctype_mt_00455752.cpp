@@ -1,109 +1,51 @@
-#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+struct IsctypeLocaleView {
+    unsigned char reserved_0000[0x4];
+    unsigned int code_page;
+    unsigned char reserved_0008[0xc];
+    unsigned int locale_id;
+    unsigned char reserved_0018[0x30];
+    const unsigned short* ctype_table;
+};
+
 // 0x00455752..0x004557C8: ___isctype_mt
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_isctype_mt_00455752() {
-    __asm {
-    L_00455752:
-        push ebp
-    L_00455753:
-        mov ebp,esp
-    L_00455755:
-        push ecx
-    L_00455756:
-        mov eax,dword ptr [ebp+0Ch]
-    L_00455759:
-        lea ecx,[eax+1]
-    L_0045575c:
-        cmp ecx,100h
-    L_00455762:
-        mov ecx,dword ptr [ebp+8]
-    L_00455765:
-        ja short L_00455770
-    L_00455767:
-        mov ecx,dword ptr [ecx+48h]
-    L_0045576a:
-        movzx eax,word ptr [ecx+eax*2]
-    L_0045576e:
-        jmp short L_004557c4
-    L_00455770:
-        push esi
-    L_00455771:
-        mov edx,eax
-    L_00455773:
-        sar edx,8
-    L_00455776:
-        push edi
-    L_00455777:
-        mov edi,dword ptr [ecx+48h]
-    L_0045577a:
-        movzx esi,dl
-    L_0045577d:
-        test byte ptr [edi+esi*2+1],80h
-    L_00455782:
-        pop edi
-    L_00455783:
-        pop esi
-    L_00455784:
-        je short L_00455795
-    L_00455786:
-        push 2
-    L_00455788:
-        mov byte ptr [ebp-3],al
-    L_0045578b:
-        mov byte ptr [ebp-4],dl
-    L_0045578e:
-        mov byte ptr [ebp-2],0
-    L_00455792:
-        pop eax
-    L_00455793:
-        jmp short L_0045579f
-    L_00455795:
-        mov byte ptr [ebp-4],al
-    L_00455798:
-        xor eax,eax
-    L_0045579a:
-        mov byte ptr [ebp-3],0
-    L_0045579e:
-        inc eax
-    L_0045579f:
-        push 1
-    L_004557a1:
-        push dword ptr [ecx+14h]
-    L_004557a4:
-        push dword ptr [ecx+4]
-    L_004557a7:
-        lea ecx,[ebp+0Eh]
-    L_004557aa:
-        push ecx
-    L_004557ab:
-        push eax
-    L_004557ac:
-        lea eax,[ebp-4]
-    L_004557af:
-        push eax
-    L_004557b0:
-        push 1
-    L_004557b2:
-        call asm_crtGetStringTypeA_0045a25d
-    L_004557b7:
-        add esp,1Ch
-    L_004557ba:
-        test eax,eax
-    L_004557bc:
-        jne short L_004557c0
-    L_004557be:
-        leave
-    L_004557bf:
-        ret
-    L_004557c0:
-        movzx eax,word ptr [ebp+0Eh]
-    L_004557c4:
-        and eax,dword ptr [ebp+10h]
-    L_004557c7:
-        leave
-    L_004557c8:
-        ret
+extern "C" int __cdecl asm_isctype_mt_00455752(void* locale_pointer, int character, int mask) {
+    const IsctypeLocaleView* locale =
+        static_cast<const IsctypeLocaleView*>(locale_pointer);
+    unsigned short character_type;
+
+    if (static_cast<unsigned int>(character) + 1u < 0x101u) {
+        // The table pointer is biased to include the CRT's EOF entry at -1.
+        character_type = locale->ctype_table[character];
+    } else {
+        const unsigned int code = static_cast<unsigned int>(character);
+        const unsigned char low_byte = static_cast<unsigned char>(code);
+        const unsigned char high_byte = static_cast<unsigned char>(code >> 8);
+        const unsigned char* ctype_bytes =
+            reinterpret_cast<const unsigned char*>(locale->ctype_table);
+        const bool is_lead_byte =
+            (ctype_bytes[static_cast<unsigned int>(high_byte) * 2u + 1u] & 0x80u) != 0;
+
+        char source[3];
+        int source_length = 1;
+        if (is_lead_byte) {
+            source[0] = static_cast<char>(high_byte);
+            source[1] = static_cast<char>(low_byte);
+            source[2] = 0;
+            source_length = 2;
+        } else {
+            source[0] = static_cast<char>(low_byte);
+            source[1] = 0;
+            source[2] = 0;
+        }
+
+        character_type = 0;
+        const int succeeded = asm_crtGetStringTypeA_0045a25d(
+            1, source, source_length, &character_type,
+            locale->code_page, locale->locale_id, 1);
+        if (succeeded == 0) return 0;
     }
+
+    return static_cast<int>(character_type & static_cast<unsigned int>(mask));
 }

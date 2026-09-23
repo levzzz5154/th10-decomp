@@ -331,9 +331,13 @@ Probe: `0x00429b30      36 bytes  ?Reseed_00429b30@@YGHPAUTimerRecord_00429b30@@
 
 ### Modelled and reverted, or blocked with no model
 
+Later resolution: `0x00441F40` is the CRT `fmodf` wrapper. The readable
+`__stdcall` call emits the retail 16-byte body; a per-source COFF alias binds
+its `__CIfmod` relocation to the existing helper at `0x00463BBA`. The focused
+probe reports `EXACT`.
+
 | address | size | reason |
 | --- | ---: | --- |
-| `0x00441F40` | 16 | `fld [esp+4]; fld [esp+8]; call 0x00463BBA; ret 8` forwards two floats to the CRT power helper, which takes its inputs on the x87 stack and is not a declaration MSVC emits from source; no spelling attempted beyond reading its entry. |
 | `0x00447910` | 42 | Releases a field through a vtable slot with the object *pushed* (`mov ecx,[eax]; push eax; call [ecx+8]`), not the `mov ecx,obj; call [vtbl+N]` shape the wave-18 virtual-dispatch device produces. |
 | `0x00404420` | 47 | Calls the landed `AnimationManager::SetFlag` twice with ECX left *dead* at both call sites. Every declaration that names the ECX parameter forces a `mov ecx,X` that retail does not have (`SetFlag` forwards ECX through to `Find`, which ignores it); reaching this needs both bodies in one link. |
 | `0x00450610` | 122 | Calls `FUN_00450470`, whose entry reads EAX (an object) and whose own body is a compiler-generated binary-search/copy routine; the caller also reads BL live-in. |

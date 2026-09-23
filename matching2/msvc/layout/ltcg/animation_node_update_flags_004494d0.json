@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "animation_node_update_flags_004494d0",
+  "source": "src/unidentified/unassigned_004494d0.cpp",
+  "driver": "layout/ltcg/animation_node_update_flags_004494d0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Semantic flag update model for the animation object selected by field_000; proposed native-LTCG layout with the private EAX receiver.",
+  "functions": [
+    {
+      "name": "AnimationNode_004494D0_UpdateFlags",
+      "symbol": "?UpdateFlags@AnimationNode_004494D0@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x004494D0",
+      "size": 89,
+      "actual_abi": "this in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimUpdateFlagsFromLookupCompilerContext@@YGHPAPAUAnimationNode_004494D0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00449590",
+    "size": 36,
+    "description": "Synthetic array-walking caller intended to establish the private EAX receiver; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 296144
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00449529",
+      "size": 103
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnimationManager_Find_004491c0@12",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    }
+  ]
+}

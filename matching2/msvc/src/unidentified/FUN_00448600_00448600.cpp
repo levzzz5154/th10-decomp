@@ -1,21 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448600..0x0044860E: render animation bucket 1 for the task's manager.
+// This zero-data derived view gives the slot-specific task a distinct C++ entry
+// while keeping its manager base at offset zero.
+#include "th10/render/quad_batch.hpp"
 
-// 0x00448600..0x0044860E: FUN_00448600
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00448600_00448600() {
-    __asm {
-    L_00448600:
-        push edi
-    L_00448601:
-        mov eax,1
-    L_00448606:
-        mov edi,ecx
-    L_00448608:
-        call asm_AnimationManager_RenderBucket_00448980
-    L_0044860d:
-        pop edi
-    L_0044860e:
-        ret
-    }
+struct AnimationManagerBucket1_00448600 : AnimationManager_00442F50 {
+    __declspec(noinline) int RenderBucket1();
+};
+
+#pragma code_seg(".text$01slot1")
+int AnimationManagerBucket1_00448600::RenderBucket1() {
+    return RenderBucket(1);
 }
+#pragma code_seg()

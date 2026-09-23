@@ -1,5 +1,12 @@
 #include "asm_encoding.hpp"
+
+// The generated declaration for this one entry used a no-argument cdecl type,
+// while the retail body consumes one stack argument and returns with ret 4.
+// Keep the global symbol aliases unchanged; hide only that stale declaration
+// in this translation unit so the definition below can use the observed ABI.
+#define asm_BulletManager_Release_0040af00 asm_BulletManager_Release_0040af00_LegacyDeclaration
 #include "asm_symbols.hpp"
+#undef asm_BulletManager_Release_0040af00
 
 // 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
 // Naked body preserves the retail register/stack ABI.
@@ -87,90 +94,45 @@ extern "C" __declspec(naked) void __cdecl asm_BulletManager_LoadScripts_0040ae70
 }
 
 // 0x0040AF00..0x0040AF88: ?BulletManager_Release@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_BulletManager_Release_0040af00() {
-    __asm {
-    L_0040af00:
-        mov eax,dword ptr [esp+4]
-    L_0040af04:
-        push ebx
-    L_0040af05:
-        mov ebx,dword ptr [data_004660b0]
-    L_0040af0b:
-        push ebp
-    L_0040af0c:
-        mov ebp,dword ptr [data_004660b4]
-    L_0040af12:
-        push esi
-    L_0040af13:
-        mov esi,dword ptr [eax+8]
-    L_0040af16:
-        test esi,esi
-    L_0040af18:
-        push edi
-    L_0040af19:
-        mov edi,dword ptr [data_00491be4]
-    L_0040af1f:
-        je short L_0040af44
-    L_0040af21:
-        push 492274h
-    L_0040af26:
-        call ebx
-    L_0040af28:
-        inc byte ptr [data_0049231c]
-    L_0040af2e:
-        mov ecx,esi
-    L_0040af30:
-        mov edx,edi
-    L_0040af32:
-        call asm_Scheduler_Remove_00449f60
-    L_0040af37:
-        push 492274h
-    L_0040af3c:
-        call ebp
-    L_0040af3e:
-        dec byte ptr [data_0049231c]
-    L_0040af44:
-        mov ecx,dword ptr [esp+14h]
-    L_0040af48:
-        mov esi,dword ptr [ecx+0Ch]
-    L_0040af4b:
-        test esi,esi
-    L_0040af4d:
-        mov edi,dword ptr [data_00491be4]
-    L_0040af53:
-        je short L_0040af78
-    L_0040af55:
-        push 492274h
-    L_0040af5a:
-        call ebx
-    L_0040af5c:
-        inc byte ptr [data_0049231c]
-    L_0040af62:
-        mov ecx,esi
-    L_0040af64:
-        mov edx,edi
-    L_0040af66:
-        call asm_Scheduler_Remove_00449f60
-    L_0040af6b:
-        push 492274h
-    L_0040af70:
-        call ebp
-    L_0040af72:
-        dec byte ptr [data_0049231c]
-    L_0040af78:
-        pop edi
-    L_0040af79:
-        pop esi
-    L_0040af7a:
-        pop ebp
-    L_0040af7b:
-        mov dword ptr [data_004776fc],0
-    L_0040af85:
-        pop ebx
-    L_0040af86:
-        ret 4
+// Ghidra shows a one-pointer stack argument with callee cleanup (ret 4).
+struct BulletManagerReleaseState_0040af00 {
+    unsigned int unknown_00;
+    unsigned int unknown_04;
+    void* scheduler_task_at_08;
+    void* scheduler_task_at_0c;
+};
+
+typedef void (__stdcall *BulletManagerCriticalSectionFn_0040af00)(void* section);
+extern "C" void __fastcall Scheduler_Remove(void* task, void* scheduler);
+
+extern "C" void __stdcall asm_BulletManager_Release_0040af00(
+        BulletManagerReleaseState_0040af00* state) {
+    BulletManagerCriticalSectionFn_0040af00 enter_critical_section =
+        *(BulletManagerCriticalSectionFn_0040af00*)&data_004660b0;
+    BulletManagerCriticalSectionFn_0040af00 leave_critical_section =
+        *(BulletManagerCriticalSectionFn_0040af00*)&data_004660b4;
+    void* const first_task = state->scheduler_task_at_08;
+    void* scheduler = *(void**)&data_00491be4;
+
+    if (first_task != 0) {
+        enter_critical_section(&data_00492274);
+        ++data_0049231c;
+        Scheduler_Remove(first_task, scheduler);
+        leave_critical_section(&data_00492274);
+        --data_0049231c;
     }
+
+    void* const second_task = state->scheduler_task_at_0c;
+    scheduler = *(void**)&data_00491be4;
+    if (second_task != 0) {
+        enter_critical_section(&data_00492274);
+        ++data_0049231c;
+        Scheduler_Remove(second_task, scheduler);
+        leave_critical_section(&data_00492274);
+        --data_0049231c;
+    }
+
+    *(void**)&data_004776fc = 0;
 }
 // 0x0040AF90..0x0040AFE5: ?BulletManager_Create@@
 // Naked body preserves the retail register/stack ABI.

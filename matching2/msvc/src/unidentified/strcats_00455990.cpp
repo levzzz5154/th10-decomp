@@ -1,4 +1,5 @@
-extern "C" void __cdecl asm_FUN_0045bd90_0045bd90(void*, const char*);
+extern "C" char* __cdecl asm_FUN_0045bd90_0045bd90(
+    char* destination, const char* source);
 
 extern "C" void __cdecl asm_strcats_00455990(void* destination, int count, ...) {
     int remaining = count;
@@ -6,7 +7,9 @@ extern "C" void __cdecl asm_strcats_00455990(void* destination, int count, ...) 
         int* argument = &count;
         do {
             ++argument;
-            asm_FUN_0045bd90_0045bd90(destination, reinterpret_cast<const char*>(*argument));
+            asm_FUN_0045bd90_0045bd90(
+                static_cast<char*>(destination),
+                reinterpret_cast<const char*>(*argument));
             --remaining;
         } while (remaining != 0);
     }

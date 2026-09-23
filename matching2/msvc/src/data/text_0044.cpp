@@ -1344,14 +1344,6 @@ extern "C" unsigned char text_padding_004494cf[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0044950F..0x0044950F
-// padding 0044950f..0044950f: ["live Ghidra disassembly identified INT3/NOP bytes inside a missed-code candidate range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d001670")
-extern "C" unsigned char text_padding_0044950f[] = {
-    0x90,
-};
-#pragma data_seg()
-
 // padding: 0x00449529..0x0044952F
 // padding 00449529..0044952f: ["live Ghidra disassembly identified INT3/NOP bytes inside a missed-code candidate range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
 #pragma data_seg(".d001671")

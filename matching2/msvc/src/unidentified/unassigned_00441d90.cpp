@@ -1,25 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct CurveObject_00441d90 {
+    unsigned char padding_000[0x18];
+    float elapsed;
+    unsigned char padding_01c[0x24 - 0x1c];
+    int duration;
+    unsigned int operation;
 
-// 0x00441D90..0x00441DA3: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00441d90() {
-    __asm {
-    L_00441d90:
-        fild dword ptr [eax+24h]
-    L_00441d93:
-        push ecx
-    L_00441d94:
-        mov ecx,dword ptr [eax+18h]
-    L_00441d97:
-        mov eax,dword ptr [eax+28h]
-    L_00441d9a:
-        fstp dword ptr [esp]
-    L_00441d9d:
-        push ecx
-    L_00441d9e:
-        call asm_FUN_0044c350_0044c350
-    L_00441da3:
-        ret
-    }
+    __declspec(noinline) float Evaluate();
+};
+
+// Native LTCG retains the retail EAX receiver and the kernel's x87 result.
+float __stdcall EvaluateCurveAnchor_0044c350(unsigned int operation,
+                                             float elapsed,
+                                             float duration);
+
+#pragma code_seg(".text$01evaluate")
+float CurveObject_00441d90::Evaluate() {
+    return EvaluateCurveAnchor_0044c350(operation, elapsed, (float)duration);
 }
+#pragma code_seg()
