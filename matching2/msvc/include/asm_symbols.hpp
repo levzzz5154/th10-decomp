@@ -3,6 +3,7 @@
 struct AnimationManager_00442F50;
 struct CrtHeapBlock;
 struct CxxUnregisterFrame_004630ce;
+struct DecimalConversionRecord_00461841;
 struct File;
 struct FrameInfo;
 struct FptostrRecord_00460D10;
@@ -1433,7 +1434,15 @@ extern "C" void __cdecl asm_FUN_0045ea31_0045ea31();
 #define VA_asm_FUN_0045ea31_0045ea31 0x0045ea31
 extern "C" void __cdecl asm_FUN_0045edab_0045edab();
 #define VA_asm_FUN_0045edab_0045edab 0x0045edab
-extern "C" void __cdecl asm_FUN_0045ee1d_0045ee1d();
+extern "C" int __cdecl asm_FUN_0045ee1d_0045ee1d(
+    unsigned int locale,
+    unsigned int map_flags,
+    const char* source,
+    int source_count,
+    char* destination,
+    int destination_count,
+    unsigned int code_page,
+    int reject_invalid_multibyte);
 #define VA_asm_FUN_0045ee1d_0045ee1d 0x0045ee1d
 extern "C" void __cdecl asm_FUN_0045ee1d_part_0045ef2e();
 #define VA_asm_FUN_0045ee1d_part_0045ef2e 0x0045ef2e
@@ -1463,7 +1472,11 @@ extern "C" void __cdecl asm_FUN_004601e8_004601e8();
 #define VA_asm_FUN_004601e8_004601e8 0x004601e8
 extern "C" void __cdecl asm_FUN_004601e8_part_004602e0();
 #define VA_asm_FUN_004601e8_part_004602e0 0x004602e0
-extern "C" void __cdecl asm_FUN_0046041e_0046041e();
+extern "C" int __cdecl asm_FUN_0046041e_0046041e(
+    int mode,
+    unsigned int locale_id,
+    unsigned int locale_type,
+    void* output);
 #define VA_asm_FUN_0046041e_0046041e 0x0046041e
 extern "C" void __cdecl asm_FUN_00460872_00460872();
 #define VA_asm_FUN_00460872_00460872 0x00460872
@@ -1483,7 +1496,13 @@ extern "C" void __cdecl asm_FUN_004613e8_004613e8();
 #define VA_asm_FUN_004613e8_004613e8 0x004613e8
 extern "C" void __cdecl asm_FUN_00461549_00461549();
 #define VA_asm_FUN_00461549_00461549 0x00461549
-extern "C" void __cdecl asm_FUN_00461841_00461841();
+extern "C" int __cdecl asm_FUN_00461841_00461841(
+    unsigned int significand_low,
+    unsigned int significand_high,
+    unsigned short sign_and_exponent,
+    int requested_digits,
+    unsigned char flags,
+    DecimalConversionRecord_00461841* output);
 #define VA_asm_FUN_00461841_00461841 0x00461841
 extern "C" void __cdecl asm_FUN_00461af9_00461af9();
 #define VA_asm_FUN_00461af9_00461af9 0x00461af9
@@ -2189,11 +2208,21 @@ extern "C" __declspec(noreturn) void __cdecl asm_crtExitProcess_00457547(int exi
 #define VA_asm_crtExitProcess_00457547 0x00457547
 extern "C" void __cdecl asm_crtGetEnvironmentStringsA_0045940a();
 #define VA_asm_crtGetEnvironmentStringsA_0045940a 0x0045940a
-extern "C" void __cdecl asm_crtGetLocaleInfoA_00461695();
+extern "C" int __cdecl asm_crtGetLocaleInfoA_00461695(
+    unsigned int locale_id,
+    unsigned int locale_type,
+    char* data,
+    int capacity,
+    int code_page);
 #define VA_asm_crtGetLocaleInfoA_00461695 0x00461695
 extern "C" void __cdecl asm_crtGetLocaleInfoA_part_0046175b();
 #define VA_asm_crtGetLocaleInfoA_part_0046175b 0x0046175b
-extern "C" void __cdecl asm_crtGetLocaleInfoW_00461565();
+extern "C" int __cdecl asm_crtGetLocaleInfoW_00461565(
+    unsigned int locale_id,
+    unsigned int locale_type,
+    unsigned short* data,
+    int capacity,
+    int code_page);
 #define VA_asm_crtGetLocaleInfoW_00461565 0x00461565
 extern "C" void __cdecl asm_crtGetLocaleInfoW_part_00461634();
 #define VA_asm_crtGetLocaleInfoW_part_00461634 0x00461634
@@ -2485,6 +2514,8 @@ extern "C" void __cdecl asm_sbh_resize_block_0045419a();
 #define VA_asm_sbh_resize_block_0045419a 0x0045419a
 extern "C" void __fastcall asm_security_check_cookie_00458ea5(unsigned int stack_cookie);
 #define VA_asm_security_check_cookie_00458ea5 0x00458ea5
+extern "C" void __cdecl asm_security_init_cookie_0045f1f3(void);
+#define VA_asm_security_init_cookie_0045f1f3 0x0045f1f3
 extern "C" void __cdecl asm_setSBCS_0045cd85();
 #define VA_asm_setSBCS_0045cd85 0x0045cd85
 extern "C" double __cdecl SetExp_0045EBCB(double value, int exponent);

@@ -1,8 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00463B2C..0x00463BA0: FUN_00463b2c
-// Naked body preserves the retail register/stack ABI.
+// 0x00463B2C..0x00463BA0: __ftol2, the VC x87 floating-to-integer helper.
+// Its private entry consumes the value already in ST(0), takes no stack
+// argument, and returns the 64-bit result in EDX:EAX. It uses FISTP followed
+// by a residual-sign correction to move the rounded integer toward zero;
+// zero and the INT64_MIN/invalid-conversion bit pattern bypass that correction.
+// A normal C++ parameter cannot describe the incoming ST(0) state, so this
+// body remains assembly until its callers and helper ABI can be migrated too.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00463b2c_00463b2c() {
     __asm {
     L_00463b2c:
