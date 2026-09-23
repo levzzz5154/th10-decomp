@@ -1,168 +1,155 @@
-#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+#include "th10/render/quad_batch.hpp"
 
-// 0x0041B8E0..0x0041B8F7: FUN_0041b8e0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041b8e0_0041b8e0() {
-    __asm {
-    L_0041b8e0:
-        push ebx
-    L_0041b8e1:
-        push ebp
-    L_0041b8e2:
-        push esi
-    L_0041b8e3:
-        push edi
-    L_0041b8e4:
-        mov edi,eax
-    L_0041b8e6:
-        add edi,14h
-    L_0041b8e9:
-        lea esi,[edi+338h]
-    L_0041b8ef:
-        mov ebp,896h
-    L_0041b8f4:
-        mov bl,0FFh
-    L_0041b8f6:
-        TH10_REL8(0xeb, 0x0041b8f6, VA_asm_FUN_0041b8e0_part_0041b900)
-        _emit 0x8d
-        _emit 0xa4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x90
+// This definition matches the class definition in
+// FUN_0041ba30_0041ba30.cpp. The recovered callback and its private update
+// routine now use one ordinary __thiscall receiver instead of the retail
+// callback-to-update EAX tail-jump convention.
+struct SceneCallbackContext_0041BA30 {
+    __declspec(noinline) int UpdateSceneSecondaryCallback();
+    __declspec(noinline) int UpdateSceneSecondaryRecords();
+};
 
-    L_0041b900:
-        mov eax,dword ptr [esi+0A4h]
-    L_0041b906:
-        test eax,eax
-    L_0041b908:
-        je asm_target_0041b9dc
-    L_0041b90e:
-        fld dword ptr [esi+74h]
-    L_0041b911:
-        fadd dword ptr [data_00470b4c]
-    L_0041b917:
-        fstp dword ptr [esi-4]
-    L_0041b91a:
-        fld dword ptr [esi+78h]
-    L_0041b91d:
-        fadd dword ptr [data_00470b48]
-    L_0041b923:
-        fstp dword ptr [esi]
-    L_0041b925:
-        mov eax,dword ptr [esi+7Ch]
-    L_0041b928:
-        mov dword ptr [esi+4],eax
-    L_0041b92b:
-        fld dword ptr [esi]
-    L_0041b92d:
-        fcomp dword ptr [data_00470bd0]
-    L_0041b933:
-        fnstsw ax
-    L_0041b935:
-        test ah,5
-    L_0041b938:
-        jp short L_0041b99f
-    L_0041b93a:
-        fld dword ptr [esi]
-    L_0041b93c:
-        mov dword ptr [esi],41C00000h
-    L_0041b942:
-        fsub dword ptr [data_00470bd0]
-    L_0041b948:
-        fcom dword ptr [data_00470bcc]
-    L_0041b94e:
-        fnstsw ax
-    L_0041b950:
-        test ah,1
-    L_0041b953:
-        jne short L_0041b95c
-    L_0041b955:
-        fstp st(0)
-    L_0041b957:
-        mov byte ptr [esi-39h],bl
-    L_0041b95a:
-        jmp short L_0041b970
-    L_0041b95c:
-        fmul dword ptr [data_00470d20]
-    L_0041b962:
-        fmul dword ptr [data_00470bf8]
-    L_0041b968:
-        call asm_FUN_00463b2c_00463b2c
-    L_0041b96d:
-        mov byte ptr [esi-39h],al
-    L_0041b970:
-        mov eax,dword ptr [esi+0ACh]
-    L_0041b976:
-        movsx ecx,word ptr [esi+4Ch]
-    L_0041b97a:
-        lea edx,[eax+161h]
-    L_0041b980:
-        cmp ecx,edx
-    L_0041b982:
-        je short L_0041b9cf
-    L_0041b984:
-        mov ecx,dword ptr [data_004776f0]
-    L_0041b98a:
-        mov ecx,dword ptr [ecx+3E0B50h]
-    L_0041b990:
-        lea edx,[eax+160h]
-    L_0041b996:
-        mov eax,edi
-    L_0041b998:
-        call asm_AnimationObject_ConfigureFromResource_0043e5a0
-    L_0041b99d:
-        jmp short L_0041b9cf
-    L_0041b99f:
-        mov eax,dword ptr [esi+0ACh]
-    L_0041b9a5:
-        movsx edx,word ptr [esi+4Ch]
-    L_0041b9a9:
-        lea ecx,[eax+158h]
-    L_0041b9af:
-        cmp edx,ecx
-    L_0041b9b1:
-        je short L_0041b9cf
-    L_0041b9b3:
-        mov ecx,dword ptr [data_004776f0]
-    L_0041b9b9:
-        mov ecx,dword ptr [ecx+3E0B50h]
-    L_0041b9bf:
-        lea edx,[eax+157h]
-    L_0041b9c5:
-        mov eax,edi
-    L_0041b9c7:
-        call asm_AnimationObject_ConfigureFromResource_0043e5a0
-    L_0041b9cc:
-        mov byte ptr [esi-39h],bl
-    L_0041b9cf:
-        mov ecx,dword ptr [data_00491c10]
-    L_0041b9d5:
-        mov eax,edi
-    L_0041b9d7:
-        call asm_FUN_004451c0_004451c0
-    L_0041b9dc:
-        add edi,3F0h
-    L_0041b9e2:
-        add esi,3F0h
-    L_0041b9e8:
-        dec ebp
-    L_0041b9e9:
-        jne asm_FUN_0041b8e0_part_0041b900
-    L_0041b9ef:
-        pop edi
-    L_0041b9f0:
-        pop esi
-    L_0041b9f1:
-        pop ebp
-    L_0041b9f2:
-        mov eax,1
-    L_0041b9f7:
-        pop ebx
-    L_0041b9f8:
-        ret
+static float ReadSceneUpdateFloat(const unsigned char* address) {
+    return *reinterpret_cast<const float*>(address);
+}
+
+static void SetSceneUpdateMatrixIdentity(float* matrix) {
+    for (int element = 0; element < 16; ++element)
+        matrix[element] = (element % 5 == 0) ? 1.0f : 0.0f;
+}
+
+// Semantic equivalent of the private-register 0x0043E5A0 call used here.
+// Ghidra's body shows the resource/object/index effects directly; spelling
+// those writes here avoids passing its retail ECX/EAX/EDX tuple to a normal
+// C++ function declaration.
+static void ConfigureSceneAnimationObjectFromResource(
+    unsigned char* object, unsigned int recordIndex) {
+    void* gameState = *reinterpret_cast<void**>(&data_004776f0);
+    void* resource = *reinterpret_cast<void**>(
+        reinterpret_cast<unsigned char*>(gameState) + 0x3e0b50);
+    unsigned char* resourceBytes = reinterpret_cast<unsigned char*>(resource);
+    if (*reinterpret_cast<unsigned int*>(resourceBytes + 0x108) == 0 ||
+        *reinterpret_cast<unsigned int*>(resourceBytes + 0x124) != 0)
+        return;
+
+    *reinterpret_cast<unsigned short*>(object + 0x384) =
+        static_cast<unsigned short>(recordIndex);
+    *reinterpret_cast<void**>(object + 0x308) = resource;
+
+    unsigned int recordOffset = recordIndex * 0x44u;
+    unsigned char* record =
+        *reinterpret_cast<unsigned char**>(resourceBytes + 0x118) + recordOffset;
+    *reinterpret_cast<unsigned char**>(object + 0x394) = record;
+
+    float width = *reinterpret_cast<float*>(record + 0x34);
+    float height = *reinterpret_cast<float*>(record + 0x30);
+    *reinterpret_cast<float*>(object + 0x4c) = width;
+    *reinterpret_cast<float*>(object + 0x50) = height;
+
+    float* blockA = reinterpret_cast<float*>(object + 0x23c);
+    float* blockCopy = reinterpret_cast<float*>(object + 0x27c);
+    float* blockB = reinterpret_cast<float*>(object + 0x2bc);
+    SetSceneUpdateMatrixIdentity(blockA);
+    SetSceneUpdateMatrixIdentity(blockB);
+
+    float scale = ReadSceneUpdateFloat(&data_00470b7c);
+    blockA[0] = width * scale;
+    blockA[5] = height * scale;
+    blockB[0] =
+        (*reinterpret_cast<float*>(record + 0x38) /
+         *reinterpret_cast<float*>(record + 0x1c)) * width;
+    blockB[5] =
+        (*reinterpret_cast<float*>(record + 0x3c) /
+         *reinterpret_cast<float*>(record + 0x18)) * height;
+
+    for (int element = 0; element < 16; ++element)
+        blockCopy[element] = blockA[element];
+}
+
+// 0x00463B2C consumes an x87 value and returns a signed 64-bit conversion in
+// EDX:EAX. Its body rounds with FISTP, then adjusts the result to truncate
+// toward zero. This callback uses only AL. The ordinary conversion below
+// preserves that low-byte result for finite values in the signed-64-bit range;
+// the guard also maps x87's invalid-conversion result to its observed low byte
+// of zero.
+static unsigned char TruncateSceneUpdateValueToByte(double value) {
+    const double minSigned64 = -9223372036854775808.0;
+    const double pastMaxSigned64 = 9223372036854775808.0;
+    if (!(value >= minSigned64 && value < pastMaxSigned64))
+        return 0;
+    return static_cast<unsigned char>(static_cast<long long>(value));
+}
+
+// 0x0041B8E0 was entered with this context in EAX and tail-returned to its
+// caller. Its sole caller is 0x0041BA30, so the semantic model uses the same
+// context as an ordinary __thiscall receiver in ECX.
+int SceneCallbackContext_0041BA30::UpdateSceneSecondaryRecords() {
+    unsigned char* firstObject =
+        reinterpret_cast<unsigned char*>(this) + 0x14;
+    const float offsetX = ReadSceneUpdateFloat(&data_00470b4c);
+    const float offsetY = ReadSceneUpdateFloat(&data_00470b48);
+    const float verticalLimit = ReadSceneUpdateFloat(&data_00470bd0);
+    const float transitionRange = ReadSceneUpdateFloat(&data_00470bcc);
+    const float transitionFraction = ReadSceneUpdateFloat(&data_00470d20);
+    const float transitionByteScale = ReadSceneUpdateFloat(&data_00470bf8);
+
+    for (unsigned int index = 0; index < 0x896; ++index) {
+        unsigned char* object = firstObject + index * 0x3f0u;
+        if (*reinterpret_cast<unsigned int*>(object + 0x3dc) == 0)
+            continue;
+
+        float* basePosition = reinterpret_cast<float*>(object + 0x334);
+        basePosition[0] =
+            *reinterpret_cast<float*>(object + 0x3ac) + offsetX;
+        volatile float* basePositionY =
+            reinterpret_cast<volatile float*>(object + 0x338);
+        *basePositionY = *reinterpret_cast<float*>(object + 0x3b0) + offsetY;
+        float previousY = *basePositionY;
+        basePosition[2] = *reinterpret_cast<float*>(object + 0x3b4);
+
+        unsigned int animationIndex =
+            *reinterpret_cast<unsigned int*>(object + 0x3e4);
+        unsigned int currentRecordIndex = static_cast<unsigned int>(
+            static_cast<int>(*reinterpret_cast<short*>(object + 0x384)));
+        unsigned char* alpha = object + 0x2ff;
+
+        // The x87 TEST/J(P) branch treats unordered comparisons like the
+        // non-below path, so spell the predicate as not-less-than.
+        if (!(previousY < verticalLimit)) {
+            unsigned int expectedRecord = animationIndex + 0x158u;
+            if (currentRecordIndex != expectedRecord) {
+                ConfigureSceneAnimationObjectFromResource(
+                    object, animationIndex + 0x157u);
+                *alpha = 0xff;
+            }
+        } else {
+            *basePositionY = 24.0f;
+            double distanceBelowLimit =
+                static_cast<double>(previousY) - verticalLimit;
+            if (!(distanceBelowLimit >= transitionRange)) {
+                double scaledValue = distanceBelowLimit * transitionFraction;
+                scaledValue *= transitionByteScale;
+                *alpha = TruncateSceneUpdateValueToByte(scaledValue);
+            } else {
+                *alpha = 0xff;
+            }
+
+            unsigned int expectedRecord = animationIndex + 0x161u;
+            if (currentRecordIndex != expectedRecord) {
+                ConfigureSceneAnimationObjectFromResource(
+                    object, animationIndex + 0x160u);
+            }
+        }
+
+        // This dispatcher already has a semantic C++ implementation with an
+        // explicit manager/entity interface. Its own case-target ABI recovery
+        // remains tracked with that function and is outside this callback pair.
+        AnimationManager_00442F50* manager =
+            *reinterpret_cast<AnimationManager_00442F50**>(&data_00491c10);
+        asm_FUN_004451c0_004451c0(
+            manager, reinterpret_cast<RenderEntity*>(object));
     }
+
+    return 1;
 }

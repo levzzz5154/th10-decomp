@@ -1,146 +1,93 @@
-// BLOCKED (D2702): closest_byte_count=181; first_diff=unmeasured;
-// residual_class=source-shape+ABI: retail keeps the manager in EDX (with an
-// unused promoted ECX live-in), scans 32 packed 0x6C-byte slots, performs a
-// redundant second clear after the 0x6C-byte wipe, and stores two stack
-// arguments through an embedded x87 timer initialization sequence.  The
-// ordinary pool/slot model captures the fields but has not produced a
-// measured compiler candidate for this exact register and clear schedule.
-// variants_tested=exact retail wrapper, the legacy EffectIndicatorPool slot
-// model, the EmbeddedTimer_SetCountdown sibling pattern, both real allocation
-// callers, and live-Ghidra boundary/caller/global audits;
-// next_lever=compile the manager/slot allocator with a native-LTCG context
-// that pins the manager in EDX and preserves the redundant clear and x87 timer
-// stores, then measure the 181-byte extent; retain this exact wrapper until
-// that ABI/source-shape cluster succeeds.
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" float data_00476f78;
 
-// 0x00427B50..0x00427C04: EffectIndicatorPool_AllocateRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_EffectIndicatorPool_AllocateRetail_00427b50() {
-    __asm {
-    L_00427b50:
-        push ebp
-    L_00427b51:
-        mov ebp,dword ptr [esp+8]
-    L_00427b55:
-        add edx,350Ch
-    L_00427b5b:
-        xor eax,eax
-    L_00427b5d:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_00427b60:
-        test byte ptr [edx+68h],1
-    L_00427b64:
-        je short L_00427b75
-    L_00427b66:
-        inc eax
-    L_00427b67:
-        add edx,6Ch
-    L_00427b6a:
-        cmp eax,20h
-    L_00427b6d:
-        jl short L_00427b60
-    L_00427b6f:
-        mov eax,edx
-    L_00427b71:
-        pop ebp
-    L_00427b72:
-        ret 14h
-    L_00427b75:
-        push esi
-    L_00427b76:
-        push edi
-    L_00427b77:
-        xor eax,eax
-    L_00427b79:
-        mov ecx,1Bh
-    L_00427b7e:
-        mov edi,edx
-    L_00427b80:
-        rep stosd
-    L_00427b82:
-        or dword ptr [edx+68h],3
-    L_00427b86:
-        lea esi,[edx+18h]
-    L_00427b89:
-        mov edi,esi
-    L_00427b8b:
-        mov ecx,0Bh
-    L_00427b90:
-        rep stosd
-    L_00427b92:
-        mov eax,dword ptr [ebp]
-    L_00427b95:
-        mov dword ptr [esi],eax
-    L_00427b97:
-        mov ecx,dword ptr [ebp+4]
-    L_00427b9a:
-        mov dword ptr [esi+4],ecx
-    L_00427b9d:
-        mov eax,dword ptr [ebp+8]
-    L_00427ba0:
-        mov ecx,dword ptr [esp+14h]
-    L_00427ba4:
-        mov dword ptr [esi+8],eax
-    L_00427ba7:
-        mov eax,dword ptr [esp+18h]
-    L_00427bab:
-        mov dword ptr [edx],ecx
-    L_00427bad:
-        mov dword ptr [edx+4],eax
-    L_00427bb0:
-        mov eax,dword ptr [edx+54h]
-    L_00427bb3:
-        pop edi
-    L_00427bb4:
-        xor ecx,ecx
-    L_00427bb6:
-        test al,1
-    L_00427bb8:
-        pop esi
-    L_00427bb9:
-        jne short L_00427bd5
-    L_00427bbb:
-        or eax,1
-    L_00427bbe:
-        mov dword ptr [edx+48h],ecx
-    L_00427bc1:
-        mov dword ptr [edx+44h],0FFF0BDC1h
-    L_00427bc8:
-        mov dword ptr [edx+4Ch],ecx
-    L_00427bcb:
-        mov dword ptr [edx+50h],476F78h
-    L_00427bd2:
-        mov dword ptr [edx+54h],eax
-    L_00427bd5:
-        mov eax,dword ptr [esp+14h]
-    L_00427bd9:
-        fild dword ptr [esp+14h]
-    L_00427bdd:
-        mov dword ptr [edx+48h],eax
-    L_00427be0:
-        dec eax
-    L_00427be1:
-        mov dword ptr [edx+44h],eax
-    L_00427be4:
-        fstp dword ptr [edx+4Ch]
-    L_00427be7:
-        mov eax,dword ptr [esp+18h]
-    L_00427beb:
-        mov dword ptr [edx+58h],eax
-    L_00427bee:
-        mov dword ptr [edx+5Ch],ecx
-    L_00427bf1:
-        mov dword ptr [edx+60h],0F423Fh
-    L_00427bf8:
-        mov dword ptr [edx+64h],4
-    L_00427bff:
-        mov eax,edx
-    L_00427c01:
-        pop ebp
-    L_00427c02:
-        ret 14h
+struct EffectIndicatorTimerRetail {
+    uint32_t target_frame_bits;  // +0x00; -999999 before the first countdown
+    uint32_t current_frame_bits; // +0x04
+    float previous_frame;        // +0x08; retail stores the float image
+    const float* speed;          // +0x0C
+    uint32_t flags;              // +0x10; bit 0 means initialized
+};
+
+struct EffectIndicatorSlotRetail {
+    uint32_t value_00_bits;       // +0x00; caller supplies raw dword bits
+    uint32_t value_04_bits;       // +0x04
+    uint32_t reserved_08[4];      // +0x08..+0x17
+    float position[3];            // +0x18..+0x23
+    uint32_t reserved_24[8];      // +0x24..+0x43
+    EffectIndicatorTimerRetail timer; // +0x44..+0x57
+    uint32_t mode;                // +0x58
+    uint32_t counter;             // +0x5C
+    uint32_t limit;               // +0x60
+    uint32_t phase;               // +0x64
+    uint32_t flags;               // +0x68; bit 0 is occupied, bit 1 is active
+};
+
+struct EffectIndicatorManagerRetail {
+    unsigned char unknown_0000_350b[0x350c];
+    EffectIndicatorSlotRetail slots[0x20];
+};
+
+typedef char EffectIndicatorSlotRetail_size_must_be_0x6c[
+    sizeof(EffectIndicatorSlotRetail) == 0x6c ? 1 : -1];
+typedef char EffectIndicatorSlots_offset_must_be_0x350c[
+    offsetof(EffectIndicatorManagerRetail, slots) == 0x350c ? 1 : -1];
+
+// Ghidra's 0x00427B50 entry is __fastcall-shaped: ECX is unused, the manager
+// is in EDX, and the position plus four scalar words are on the stack. The two
+// scalar payloads are kept as raw bits because callers pass float encodings.
+// The return value is the first available slot, or the one-past-pool pointer.
+extern "C" __declspec(noinline) EffectIndicatorSlotRetail* __fastcall
+EffectIndicatorPool_AllocateRetail_00427b50(
+    uint32_t unused_ecx,
+    EffectIndicatorManagerRetail* manager,
+    const float* position,
+    uint32_t value_00_bits,
+    uint32_t value_04_bits,
+    int32_t countdown_frames,
+    uint32_t mode) {
+    (void)unused_ecx;
+
+    EffectIndicatorSlotRetail* slot = manager->slots;
+    for (uint32_t index = 0; index < 0x20; ++index, ++slot) {
+        if ((slot->flags & 1u) != 0) {
+            continue;
+        }
+
+        // Retail first clears all 27 words, marks the slot, then redundantly
+        // clears words 6 through 16 before copying the position.
+        memset(slot, 0, sizeof(*slot));
+        slot->flags |= 3u;
+        memset(slot->position, 0,
+               sizeof(slot->position) + sizeof(slot->reserved_24));
+
+        slot->position[0] = position[0];
+        slot->position[1] = position[1];
+        slot->position[2] = position[2];
+        slot->value_00_bits = value_00_bits;
+        slot->value_04_bits = value_04_bits;
+
+        if ((slot->timer.flags & 1u) == 0) {
+            slot->timer.current_frame_bits = 0;
+            slot->timer.target_frame_bits = 0xfff0bdc1u;
+            slot->timer.previous_frame = 0.0f;
+            slot->timer.speed = &data_00476f78;
+            slot->timer.flags |= 1u;
+        }
+        slot->timer.current_frame_bits = static_cast<uint32_t>(countdown_frames);
+        slot->timer.target_frame_bits =
+            static_cast<uint32_t>(countdown_frames) - 1u;
+        slot->timer.previous_frame = static_cast<float>(countdown_frames);
+
+        slot->mode = mode;
+        slot->counter = 0;
+        slot->limit = 999999u;
+        slot->phase = 4u;
+        return slot;
     }
+
+    return slot;
 }

@@ -1,127 +1,38 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// Ghidra identifies this as the Visual Studio 2003 CRT helper __RoundMan.
+// Its two cdecl arguments are a three-word (96-bit) mantissa and the number
+// of significant bits to keep.
+extern "C" int __cdecl asm_ZeroTail_0045d2ca(const unsigned int* words, int bits);
 
-// 0x0045D349..0x0045D3BA: __RoundMan
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_RoundMan_0045d349() {
-    __asm {
-    L_0045d349:
-        push ebp
-    L_0045d34a:
-        mov ebp,esp
-    L_0045d34c:
-        push ecx
-    L_0045d34d:
-        and dword ptr [ebp-4],0
-    L_0045d351:
-        push ebx
-    L_0045d352:
-        push esi
-    L_0045d353:
-        push edi
-    L_0045d354:
-        mov edi,dword ptr [ebp+0Ch]
-    L_0045d357:
-        dec edi
-    L_0045d358:
-        push 20h
-    L_0045d35a:
-        lea eax,[edi+1]
-    L_0045d35d:
-        pop ecx
-    L_0045d35e:
-        cdq
-    L_0045d35f:
-        idiv ecx
-    L_0045d361:
-        push 1Fh
-    L_0045d363:
-        pop esi
-    L_0045d364:
-        sub esi,edx
-    L_0045d366:
-        xor edx,edx
-    L_0045d368:
-        inc edx
-    L_0045d369:
-        mov ecx,esi
-    L_0045d36b:
-        shl edx,cl
-    L_0045d36d:
-        mov ebx,eax
-    L_0045d36f:
-        mov eax,dword ptr [ebp+8]
-    L_0045d372:
-        test dword ptr [eax+ebx*4],edx
-    L_0045d375:
-        je short L_0045d398
-    L_0045d377:
-        lea ecx,[edi+1]
-    L_0045d37a:
-        push ecx
-    L_0045d37b:
-        push eax
-    L_0045d37c:
-        call asm_ZeroTail_0045d2ca
-    L_0045d381:
-        test eax,eax
-    L_0045d383:
-        pop ecx
-    L_0045d384:
-        pop ecx
-    L_0045d385:
-        jne short L_0045d395
-    L_0045d387:
-        push edi
-    L_0045d388:
-        push dword ptr [ebp+8]
-    L_0045d38b:
-        call asm_IncMan_0045d2fc
-    L_0045d390:
-        pop ecx
-    L_0045d391:
-        pop ecx
-    L_0045d392:
-        mov dword ptr [ebp-4],eax
-    L_0045d395:
-        mov eax,dword ptr [ebp+8]
-    L_0045d398:
-        or edx,0FFFFFFFFh
-    L_0045d39b:
-        mov ecx,esi
-    L_0045d39d:
-        shl edx,cl
-    L_0045d39f:
-        push 3
-    L_0045d3a1:
-        pop ecx
-    L_0045d3a2:
-        and dword ptr [eax+ebx*4],edx
-    L_0045d3a5:
-        inc ebx
-    L_0045d3a6:
-        cmp ebx,ecx
-    L_0045d3a8:
-        jge short L_0045d3b3
-    L_0045d3aa:
-        lea edi,[eax+ebx*4]
-    L_0045d3ad:
-        sub ecx,ebx
-    L_0045d3af:
-        xor eax,eax
-    L_0045d3b1:
-        rep stosd
-    L_0045d3b3:
-        mov eax,dword ptr [ebp-4]
-    L_0045d3b6:
-        pop edi
-    L_0045d3b7:
-        pop esi
-    L_0045d3b8:
-        pop ebx
-    L_0045d3b9:
-        leave
-    L_0045d3ba:
-        ret
+extern "C" int __cdecl asm_RoundMan_0045d349(unsigned int* words, int bits) {
+    const int wordIndex = bits / 32;
+    const int bitInWord = bits % 32;
+    const int roundingBit = 31 - bitInWord;
+    const unsigned int roundingMask = 1u << roundingBit;
+
+    int overflow = 0;
+    if ((words[wordIndex] & roundingMask) != 0 &&
+        asm_ZeroTail_0045d2ca(words, bits) == 0) {
+        // Increment the last retained mantissa bit.  Carry moves toward the
+        // most significant word, matching the CRT's three-word mantissa.
+        const int incrementBit = bits - 1;
+        int incrementWord = incrementBit / 32;
+        const unsigned int increment = 1u << (31 - incrementBit % 32);
+        unsigned int previous = words[incrementWord];
+        words[incrementWord] = previous + increment;
+        overflow = words[incrementWord] < previous;
+
+        for (--incrementWord; overflow != 0 && incrementWord >= 0; --incrementWord) {
+            previous = words[incrementWord];
+            words[incrementWord] = previous + 1u;
+            overflow = words[incrementWord] == 0;
+        }
     }
+
+    // Discard the rounding bit and all less-significant bits.  The bit at
+    // `roundingBit` is retained; the mask clears only the suffix below it.
+    words[wordIndex] &= 0xffffffffu << roundingBit;
+    for (int i = wordIndex + 1; i < 3; ++i) {
+        words[i] = 0;
+    }
+    return overflow;
 }

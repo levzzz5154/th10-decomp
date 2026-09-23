@@ -1,24 +1,25 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2102): readable semantic source remains nonexact.  The current
-// retail wrapper is exact (142/142 bytes in the linked baseline).  Ghidra
-// confirms the private ABI: parent EDI, child VM in ESI after allocation,
-// 0x1024 VM plus 0xC intrusive node, parent mask at +0x101C, and StartChild
-// called at 0x00450154 with EAX child and EDI parent.
-// native-LTCG probe: SpawnChild semantic candidate was 147 bytes (retail 142)
-// and retained ECX thiscall plus ESI/EDI saves; adding a synthetic caller did
-// not select the retail EDI convention.  Retain the exact wrapper; do not
-// claim a readable match.
-// residual_class=private-register ABI; residual_bytes=142 source bytes;
-// variants_tested=direct C++ layout, native-LTCG child/start pair, and a
-// caller-root probe; no readable candidate matched.
-// next_lever=co-compile the actual 0x0044E1A0 dispatcher (which supplies EDI)
-// with this child pair, then remeasure before changing this exact wrapper.
+// BLOCKED (D2102): 0x004500D0 is still represented by an exact 142-byte
+// wrapper.  The live Ghidra audit confirms a two-argument __stdcall stack
+// shape plus a hidden parent pointer in EDI; MSVC has no ordinary C++ x86
+// convention that passes this third value in EDI.  The two callers at
+// 0x0044E268 and 0x0044E2A2 both load EDI from [ESI+0x1014] first.
+// The wrapper allocates a 0x1024 child VM and a 0xC intrusive-list node,
+// copies the parent's script mask, links the node under EDI+0x1030, then
+// calls 0x0044DF70 with the child in EAX.  StartChild has its own private EAX
+// input, so a standalone C++ replacement cannot express the full call chain.
+// Prior native-LTCG evidence recorded below measured 147 bytes against the
+// 142-byte retail region.  Keep this exact wrapper until the actual
+// 0x0044E1A0 dispatcher and child routines can be modeled as one coherent
+// native cluster.  See the focused Ghidra audit note for call-site details.
+// residual_class=private-register ABI; residual_bytes=142 retail bytes;
+// next_lever=co-compile the real 0x0044E1A0 dispatcher with the child pair.
 // 0x0044DF70..0x0044E195: EclVm_StartChildRetail
 // Naked body preserves the retail register/stack ABI.
 
-// 0x004500D0..0x0045015D: EclVm_SpawnChild
+// 0x004500D0..0x0045015D: EclVm_SpawnChild, exact retail body.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_EclVm_SpawnChild_004500d0() {
     __asm {

@@ -2,7 +2,9 @@
 #include "asm_symbols.hpp"
 
 // 0x00454E5D..0x00454E80: write_multi_char
-// Naked body preserves the retail register/stack ABI.
+// The CRT helper's ABI is not expressible as an ordinary MSVC C++ function:
+// EAX carries the output-count pointer, while its other three arguments are
+// on the stack. It also forwards that pointer to write_char through ESI.
 extern "C" __declspec(naked) void __cdecl asm_write_multi_char_00454e5d() {
     __asm {
     L_00454e5d:

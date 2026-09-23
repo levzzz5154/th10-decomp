@@ -4,13 +4,16 @@
 // 0x00436890..0x004368F2: FUN_00436890
 // Naked body preserves the retail register/stack ABI.
 // BLOCKED (D3901): closest_byte_count=0/99; first_diff=0x00436890;
-// residual_class=compiler-generated SEH registration/handler frame, placement
-// pointer ABI, and LegacyString allocator-cookie layout. variants_tested=
+// residual_class=compiler-generated exception-cleanup frame, explicit
+// destination-pointer ABI, and the unidentified containing record's layout.
+// variants_tested=
 // exact retail assembly probe (99/99), corrected raw-layout readable candidate
 // (64-byte extent), and reduced raw-layout candidate (63-byte extent); all
-// nonexact output was restored. next_lever=derive the original constructor/
-// exception model and caller-visible third stack argument before retrying the
-// plain readable path.
+// nonexact output was restored. Live Ghidra confirms a single stack pointer
+// argument (ret 4), a LegacyString subobject at +0x0c, and EH cleanup for that
+// subobject. The caller xref is at 0x004372b7. See
+// matching2/reference/recovery_notes/FUN_00436890_ghidra_audit.md before
+// attempting another readable conversion.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00436890_00436890() {
     __asm {
     L_00436890:

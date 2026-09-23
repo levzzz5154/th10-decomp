@@ -261,3 +261,13 @@ convention — `push esi / mov 0x8(%esp),%esi / push esi / call / ... / pop esi 
 ret 4` — so the model is register-assignment-neutral and only the synthetic
 caller's shape decides the ESI entry. Shape 3 also confirms the two window
 bounds need nothing special: they stay `fcomps` against the bound globals.
+# Historical layout result
+
+The exact-output result recorded in this note applies to the earlier global
+`__stdcall TickRecoveryState_0040bd20(RecoveryTickState_0040bd20*)` signature.
+The current source defines `RecoveryTickState_0040bd20::Tick()` and the active
+manifest/LTCG symbol is
+`?Tick@RecoveryTickState_0040bd20@@QAEHXZ`; the old byte result does not verify
+this changed member-call path. See
+`recovery_update_emitter_decision_0040b9f0_candidate.md` for the current
+cluster and its remaining compiler-boundary caveat.

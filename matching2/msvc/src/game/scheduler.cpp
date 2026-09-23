@@ -416,38 +416,42 @@ done_secondary:
 }
 
 // 0x00449ED0..0x00449F19: ?SchedulerCallback_Create@@
-// The retail allocator is the project's recovered global operator new.
+// The retail allocator is the project's recovered global operator new. Its
+// null result reaches the common tail, which still dereferences the task.
+// Inline-assembly callers keep the old cdecl reference name; route it to this
+// implementation's one-argument stdcall entry.
+#pragma comment(linker, "/alternatename:_asm_SchedulerCallback_Create_00449ed0=_SchedulerCallback_Create_00449ed0@4")
+#pragma comment(linker, "/alternatename:_asm_SchedulerCallback_Create_00449ed0@4=_SchedulerCallback_Create_00449ed0@4")
 void* __cdecl operator new(unsigned int size);
 
-extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(
-    int callback) {
-    int* result;
-    int final_flags;
-    result = (int*)
-        ::operator new(0x24);
+extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(
+    void* callback) {
+    SchedulerTask* result = (SchedulerTask*)::operator new(0x24);
+    volatile SchedulerTask* task = result;
+    volatile unsigned int* flags =
+        (volatile unsigned int*)((unsigned long)result + 4);
+
     if (result) {
-        __asm {
-            mov edx, dword ptr [eax+4]
-        }
-        *(volatile int*)&result[2] = 0;
-        *(volatile int*)&result[3] = 0;
-        *(volatile int*)&result[4] = 0;
-        *(volatile int*)&result[0] = 0;
-        __asm {
-            and edx, 0FFFFFFFEh
-            mov dword ptr [eax+4], edx
-        }
-        result[5] = (int)result;
-        result[6] = 0;
-        result[7] = 0;
+        unsigned int initial_flags = *flags;
+        task->on_tick = 0;
+        task->on_register = 0;
+        task->on_remove = 0;
+        task->priority = 0;
+        *flags = initial_flags & ~1u;
+        task->link.task = result;
+        task->link.next = 0;
+        task->link.previous = 0;
+        task->context = 0;
     } else {
         result = 0;
     }
-    result[3] = 0;
-    result[4] = 0;
-    final_flags = *(volatile int*)&result[1] | 1;
-    result[2] = callback;
-    result[1] = final_flags;
+
+    TaskRoutine callback_routine = reinterpret_cast<TaskRoutine>(callback);
+    task->on_register = 0;
+    task->on_remove = 0;
+    unsigned int final_flags = *flags | 1u;
+    task->on_tick = callback_routine;
+    *flags = final_flags;
     return result;
 }
 

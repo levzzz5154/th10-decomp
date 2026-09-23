@@ -1,8 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00454E2A..0x00454E5C: write_char
-// Naked body preserves the retail register/stack ABI.
+// 0x00454E2A..0x00454E5C: CRT write_char (51 bytes including both RETs).
+// The live callers pass the stream in ECX, the byte in AL, and the output
+// count pointer in ESI. This mixed live-in ABI cannot be declared as an
+// ordinary MSVC C++ function, so retain the naked body until the callers and
+// this entry can be changed together without losing the retail call contract.
 extern "C" __declspec(naked) void __cdecl asm_write_char_00454e2a() {
     __asm {
     L_00454e2a:

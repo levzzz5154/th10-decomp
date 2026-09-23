@@ -2,7 +2,8 @@
 #include "asm_symbols.hpp"
 
 // 0x00461ADD..0x00461AF8: _strncnt
-// Naked body preserves the retail register/stack ABI.
+// Observed ABI: scan pointer in EAX, one cdecl bound at [ESP+4], result in EAX.
+// Keep the body naked until its two callers are changed to a typed stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_strncnt_00461add() {
     __asm {
     L_00461add:

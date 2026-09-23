@@ -9,6 +9,7 @@
 // candidate (125-byte extent, 5 matching bytes); next_lever=co-compile the
 // real release callers and 0x004492A0 in a native-LTCG cluster that exposes
 // the ESI receiver and helper register convention.
+// Live ABI audit: matching2/reference/recovery_notes/animation_slot_release_004136c0_blocker.md
 
 // 0x004136C0..0x00413720: AnimationSlot_ReleaseRetail
 // Naked body preserves the retail register/stack ABI.

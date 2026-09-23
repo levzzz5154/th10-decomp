@@ -12,9 +12,20 @@
       "symbol": "?Release@Record_0043b890@@QAEXXZ",
       "section": ".text$01release",
       "address": "0x0043B890",
-      "size": 33,
-      "actual_abi": "this in ESI; plain RET followed by retail adjacent RET"
+      "size": 32,
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "Empty_0043b8b0",
+      "symbol": "?Empty_0043b8b0@@YGXXZ",
+      "section": ".text$02adjacentret",
+      "address": "0x0043B8B0",
+      "size": 1,
+      "actual_abi": "no arguments; plain RET"
     }
+  ],
+  "roots": [
+    "?Empty_0043b8b0@@YGXXZ"
   ],
   "context": {
     "symbol": "?RecordReleaseContext_0043b890@@YGHPAPAURecord_0043b890@@H@Z",

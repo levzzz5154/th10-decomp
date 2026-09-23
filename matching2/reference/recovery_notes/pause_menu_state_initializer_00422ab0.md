@@ -24,16 +24,19 @@ The resulting handles go to state `+0x1D8` and `+0x1D4`, respectively. Those
 fields are treated as handles/IDs based on subsequent calls; their higher-level
 names remain unverified.
 
-The first handle is passed with `(0x20, 0x10, 0x180, 0x1C0)` to the source-only
-semantic model for the descriptor helper. The retail helper receives the
-animation-manager pointer in ESI; the model receives that same pointer as an
-explicit ordinary C++ parameter and records the stores without claiming to
-match the retail ABI. The second handle is stopped at frame 3. The initializer
-then queues sound `0x20` with request 0 and registers resource `"Pause"` with
-values 6 and 0. If `[*0x00477810+0x5C]` is nonzero, it searches the first
-handle's children for script index `0x75`, sets the animation flag for a match,
-and clears the temporary result. At the end, state `+0x2C0` receives the
-current bits at `0x00476F78`, and that global is set to `1.0f`.
+The first handle and `(0x20, 0x10, 0x180, 0x1C0)` update the descriptor at the
+animation manager. The source expands this work directly into ordinary C++:
+it resolves the first handle, reads the animation resource, converts floats at
+resource offsets `+0x30`, `+0x34`, `+0x0C`, and `+0x08` in that order, then
+checks the signed dword at manager `+0x04`. If that dword is negative, it
+stores the pointed handle at manager `+0x04`, the four inputs at `+0x08..+0x14`,
+the converted values at `+0x18..+0x24` in retail order, and zero at `+0x28`.
+The second handle is stopped at frame 3. The initializer then queues sound
+`0x20` with request 0 and registers resource `"Pause"` with values 6 and 0. If
+`[*0x00477810+0x5C]` is nonzero, it searches the first handle's children for
+script index `0x75`, sets the animation flag for a match, and clears the
+temporary result. At the end, state `+0x2C0` receives the current bits at
+`0x00476F78`, and that global is set to `1.0f`.
 
 ## Entry ABI and call graph
 
@@ -58,11 +61,11 @@ The direct callees, in retail order, are:
 
 The source expands `0x00448AC0`, `0x0043E460`, and `0x004497D0` into readable
 offset-based operations because their register-only input tuples do not have
-ordinary C++ call signatures. For `0x00424480`, it calls the separate
-source-only model in
-[`sprite_descriptor_update_00424480_semantic.cpp`](../../msvc/src/game/sprite_descriptor_update_00424480_semantic.cpp)
-with the observed receiver and values. The corresponding field and call
-ordering is kept around those operations.
+ordinary C++ call signatures. It also expands the descriptor operations
+inline; there is no C++ call through retail `0x00424480` and no reference to a
+source-only helper symbol. The layout contains the maintained semantic
+`Entity_Init` body through its small compiler-context file, so the allocator's
+heap fallback sees that existing body without adding a synthetic caller.
 
 ## Exactness and integration limits
 
@@ -86,16 +89,53 @@ measured context in
 uses the same `pool->Allocate()` member-call form with the allocator definition
 visible. LTCG selected ESI for the manager and emitted the allocator's
 non-heap path byte-for-byte. That proves the source model need not add inline
-assembly to represent this edge. It does not prove that the complete
-`0x00422AB0` body, with its current register pressure and intervening calls,
-will select the same lowering. The concrete integration step is to compile the
-initializer and allocator together in the native-LTCG context and verify both
-calls enter `0x00449950` with ESI equal to the manager, while keeping the
-initializer's one-pointer stdcall entry and semantic effects.
+assembly to represent this edge. The candidate
+[`pause_menu_animation_pool_00422ab0.json`](../../layout/ltcg/pause_menu_animation_pool_00422ab0.json)
+uses the actual typed initializer as the schema-2 entry and records the two
+Ghidra allocator callsites and the allocator's two real initializer callsites;
+it does not introduce a synthetic caller. `Entity_Init` has a maintained
+semantic owner at `src/game/entity_initialize_00401de0.cpp` and a stable
+`__fastcall` ABI: the entity is in EDX, ECX is not read or written, and the
+function uses plain `RET`. Its fixed target extent is 273 bytes. The layout's
+context file only places that existing body in the candidate's compiler view.
+All extents and addresses in the layout are retail target measurements; native
+context sizes and lowering are unmeasured.
 
-Other private edges remain separate integration limits: the descriptor stores
-are represented by a C++ model, while retail `0x00424480` still requires ESI
-and `RET 0x14` for its other callers; `0x00448AC0` takes EAX/EDX/EBX,
+The allocator's heap path has a known LTCG visibility boundary. The recovery
+measurements in
+[`00449950_wave10.md`](00449950_wave10.md) found 153 bytes with the `Entity_Init`
+body visible, because LTCG keeps the returned object in EDX when it knows that
+the callee preserves EDX; declaration-only compilation produced 163 bytes and
+materialized the dead ECX fastcall slot. Retail is 161 bytes: it omits ECX setup
+but keeps the object in EDI across `Entity_Init`. A single all-`/GL` source
+cluster cannot express that mixed visibility/clobber boundary. The current
+context includes the real semantic body, so heap-path behavior is available to
+LTCG, but it does not claim the 161-byte allocator result. The absolute
+bindings for `Queue`, `StopAtFrame3`, and `SetFlag` are address evidence, not
+proof that their call conventions compose correctly in this combined link.
+This static-only follow-up does not verify either allocator call enters with
+ESI in this full initializer context.
+
+The descriptor evidence from live Ghidra is precise: callsite `0x00422B5D`
+passes the first handle and four dwords to `0x00424480`; ESI is the descriptor
+receiver, while lookup reloads manager global `0x00491C10` and calls
+`0x004491C0`. Four calls to `0x00463B2C` convert the resource floats before the
+signed availability guard. The semantic C++ keeps that lookup, conversion, and
+store order. `static_cast<int>(float)` expresses the normal conversion but does
+not claim identical exceptional behavior for NaN or out-of-range values.
+Retail `0x00424480` remains a private-ESI/`RET 0x14` entry for its other callers;
+this initializer model no longer calls it.
+
+The concrete next integration step is a linker visibility control that lets the
+allocator know the initializer's ECX slot is dead without letting LTCG assume
+EDX survives the call, followed by a native layout check of both real
+`Allocate` callsites for ESI equal to `0x00491C10`, the initializer's one-pointer
+stdcall entry, and unchanged semantic effects. No synthetic caller or assembly
+thunk is needed to state the current source candidate, but its full-context
+lowering remains unverified.
+
+Other private edges remain separate integration limits: retail `0x00424480`
+still requires ESI and `RET 0x14` for its other callers; `0x00448AC0` takes EAX/EDX/EBX,
 `0x0043E460` takes EAX/EDX and stack values, and `0x004497D0` takes ESI/EBX/EDI.
 `0x0043E460` and `0x004497D0` retain dedicated blocker evidence in their source
 files. The sound queue, handle stop, and flag setter already have C++ semantic
@@ -104,10 +144,10 @@ integration.
 
 The recovered function symbol is `_asm_FUN_00422ab0_00422ab0@4`. Its sole
 caller remains inline assembly and pushes the state pointer before calling the
-entry. The allocator call lowering in this full initializer context remains
-unverified; the source uses the typed `AnimationPool::Allocate` member call,
-and the separate visibility-boundary note documents the evidence and limit.
-No build, probe, or test was run.
+entry. The source uses typed `AnimationPool::Allocate` member calls and expands
+the descriptor effects as C++ operations. The 161-byte heap fallback and the
+ESI choice in this full caller remain unverified. No build, probe, or test was
+run.
 
 Ghidra now names the function `InitializePauseMenuState` and records the
 one-pointer `__stdcall` prototype. Its plate comment captures the observed

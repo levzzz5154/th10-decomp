@@ -8,6 +8,8 @@
 // exact retail wrapper baseline.
 // next_lever=typed native-LTCG constructor cluster with an updated declaration
 // contract for the stdcall entry and EH vector helper.
+// Current Ghidra entry/caller/callee audit: see
+// matching2/reference/recovery_notes/construct_game_state_00402160_ghidra_audit.md.
 
 // 0x00402160..0x0040221B: ConstructGameState
 // Naked body preserves the retail register/stack ABI.

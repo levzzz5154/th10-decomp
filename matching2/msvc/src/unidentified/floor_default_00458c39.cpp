@@ -2,8 +2,9 @@
 #include "asm_symbols.hpp"
 
 // 0x00458C39..0x00458D0B: __floor_default
+// CRT fallback: one stack double, x87 ST(0) result, caller cleanup.
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_floor_default_00458c39() {
+extern "C" __declspec(naked) double __cdecl asm_floor_default_00458c39(double value) {
     __asm {
     L_00458c39:
         push ebp

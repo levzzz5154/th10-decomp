@@ -3,7 +3,7 @@
 
 // 0x0045F715..0x0045F7A8: __lock_fhandle
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_lock_fhandle_0045f715() {
+extern "C" __declspec(naked) void __cdecl asm_lock_fhandle_0045f715(int) {
     __asm {
     L_0045f715:
         push 8

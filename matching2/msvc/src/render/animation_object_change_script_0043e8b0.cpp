@@ -1,15 +1,21 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2801): closest_byte_count=40/287; first_diff=0x0043E8C3;
-// residual_class=source_shape: a native-LTCG context selected the exact
-// EAX/EDX/ECX private entry registers, but the readable model omitted the
-// retail push ebp and consequently used a different live-register schedule.
-// variants_tested=raw-pointer reset sequence, local flags/timer model, and
-// resource-id/reset-marker temporaries; all nonexact candidates restored.
-// next_lever=co-compile the real 0x004496D0 caller and 0x0043EE30 callee in
-// one native-LTCG cluster, then tune local declaration order from the first
-// push-ebp boundary without changing the selected private register mapping.
+// BLOCKED (D2801): closest_byte_count=40/287; first_diff=0x0043E8C3.
+// Live Ghidra shows the actual entry is object=EAX, resource=EDX,
+// script_index=ECX, with a plain RET. The sole direct caller at 0x004496D0
+// carries the object in EAX from AnimationManager::Find and immediately
+// consumes no return value from this function. The naked body also calls the
+// large VM at 0x0043EE30 with ECX=0, EDX=object[+0x6C], and object on the stack.
+// A normal standalone C++ signature cannot express the target's EAX object input.
+// variants_tested=prior raw-pointer/reset-state shapes; closest candidate
+// misses the retail delayed push-ebp boundary. See
+// reference/recovery_notes/animation_object_change_script_0043e8b0.md.
+// next_lever=build a dedicated native-LTCG context with the real
+// 0x004496D0 caller and this function together, so the Find result remains a
+// live EAX value across the call; preserve the 0x0043EE30 edge with its
+// verified register/stack contract, then tune against the first differing
+// instruction and the complete 287-byte interval.
 
 // 0x0043E8B0..0x0043E9CE: ?AnimationObject_ChangeScript@@
 // Naked body preserves the retail register/stack ABI.

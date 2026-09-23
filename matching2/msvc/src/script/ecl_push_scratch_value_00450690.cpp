@@ -7,13 +7,7 @@
 // in ECX, a convention only a native LTCG link chooses, so this region is
 // compiled as a cluster.
 
-struct EclFrame_00450690 {
-    unsigned char scratch[0x1000];  // +0x0000
-    int sp;                         // +0x1000
-    int frame_base;                 // +0x1004
-    __declspec(noinline) int Push(int size);
-};
-typedef char EclFrame_00450690_size_must_fit[sizeof(EclFrame_00450690) == 0x1008 ? 1 : -1];
+#include "th10/script/ecl_scratch_frame_00450690.hpp"
 
 #pragma code_seg(".text$01push")
 int EclFrame_00450690::Push(int size) {

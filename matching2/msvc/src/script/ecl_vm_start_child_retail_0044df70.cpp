@@ -1,27 +1,18 @@
-// BLOCKED (D2101): readable semantic source remains nonexact.  The retail
-// wrapper is exact (550/550 bytes in the linked baseline).  Ghidra measures
-// 550 bytes, calls ResolveEclIntValue/ResolveEclFloatValue/FUN_00463b2c and
-// ScriptTable::Resolve at 0x00450470, and has callers at 0x00450154 and
-// 0x0044E360.  The private ABI is EAX child, EDI parent instruction state,
-// stack homes at +0x10/+0x14/+0x18/+0x1C/+0x24/+0x28, and RET 8.
-// native-LTCG probe: the wrapper pair reproduced this body exactly, but no
-// readable candidate was byte-measured; semantic recovery still lacks the
-// resolver/scratch/label cluster and the actual dispatcher register source.
-// residual_class=large private-ABI/control-flow translation;
-// residual_bytes=550 source bytes.
-// variants_tested=legacy semantic reconstruction, resolver sibling models,
-// direct spawn caller, and native-LTCG wrapper pair.
-// next_lever=co-compile the actual dispatcher with resolver, label, and
-// child-list edges; retain this exact wrapper until a readable body matches.
+// BLOCKED (D2101): the linked retail wrapper is exact (550/550 bytes), but
+// there is no byte-measured readable candidate. Ghidra confirms a private
+// EAX VM receiver, two stack arguments (source VM/frame and operand index),
+// and RET 8. The real callers are the 0x0044E1A0 dispatcher and
+// 0x004500D0 SpawnChild; the latter creates the child VM/list node and passes
+// that new VM in EAX. The function reads typed operands from the source
+// operand table, initializes the child value stack, and resolves its script
+// label. See ecl_vm_start_child_0044df70_cluster.md for caller and helper ABI
+// evidence and the proposed cluster. Keep the exact wrapper until the full
+// caller/resolver cluster yields a byte-exact readable body.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 // 0x0044DF70..0x0044E195: EclVm_StartChildRetail
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0044DF70..0x0044E195: EclVm_StartChildRetail
-// Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_EclVm_StartChildRetail_0044df70() {
     __asm {
     L_0044df70:

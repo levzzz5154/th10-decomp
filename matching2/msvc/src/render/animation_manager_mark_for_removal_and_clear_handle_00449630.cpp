@@ -1,13 +1,9 @@
-// BLOCKED (D2702): closest_byte_count=24; first_diff=0x00449630;
-// residual_class=private-ESI-entry+callee ABI: retail consumes the handle
-// through ESI and calls SetFlag with the game-state singleton in EDX, while
-// an ordinary compiler-visible declaration assigns the handle to a public
-// argument register and emits a different prologue/call sequence.
-// variants_tested=exact retail wrapper, the legacy semantic
-// AnimationManager_MarkForRemovalAndClearHandle model, and a measured
-// extern-C __fastcall candidate (24 bytes, 22 differing bytes);
-// next_lever=native-LTCG schema-2 caller/callee registration that makes the
-// ESI live-in ABI visible before changing this fixed-address region.
+// Recovery status: the standalone C++ candidates did not reproduce this
+// private-ESI entry ABI.  Live Ghidra caller evidence and the next
+// whole-call-cluster dependency are recorded in
+// matching2/reference/recovery_notes/animation_manager_mark_for_removal_and_clear_handle_00449630.md.
+// The retail body remains here until the callers and SetFlag helper can be
+// modeled together and the fixed 21-byte contribution is verified.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

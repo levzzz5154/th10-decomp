@@ -1560,16 +1560,17 @@ extern "C" __declspec(noinline) int __fastcall Lzss_InsertString_00436000(
 
 #ifndef TH10_LZSS_INSERT_CLUSTER
 
-// BLOCKED (D3301): closest_byte_count=0/1029; first_diff=0x004359B0;
-// residual_class=LZSS sliding-window tree mutation, private local/register
-// schedule, and bitstream evaluation order; variants_tested=live-Ghidra
-// decompile plus callers/callees (0x00429B60, 0x0042B1E0; 0x00436000,
-// 0x00436210, 0x00452706), MSVC 13.10 readable allocation probe (9-byte
-// extent, 0 matching bytes), and native-LTCG synthetic accessor context at
-// 0x004359B0 (37/37 bytes differ); next_lever=restore the real LZSS node
-// invariants and compile the 0x0042B1E0/0x00429B60 caller context.
+// BLOCKED (D3301): live-Ghidra extent=1029 bytes [0x004359B0,0x00435DB5);
+// prior readable candidate=622 bytes, 0/1029 exact; residual_class=LZSS
+// sliding-window tree mutation, bitstream scheduling, and a required
+// __stdcall/RET 0x0C entry ABI which conflicts with asm_symbols.hpp's current
+// `void __cdecl()` declaration. Both live callers (0x00429E5D, 0x0042B315)
+// rely on callee stack cleanup. The deletion dependency at 0x00436210 and its
+// tree helpers retain private register ABIs. Next lever=coordinate the
+// correct symbol/prototype and compression-tree dependency cluster before
+// replacing this body; see recovery_notes/lzss_compressor_004359b0.md.
 
-// 0x004359B0..0x00435B2C: FUN_004359b0
+// 0x004359B0..0x00435DB4: FUN_004359b0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_004359b0_004359b0() {
     __asm {
@@ -2020,7 +2021,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004359b0_004359b0() {
     L_00435c8a:
         mov ecx,esi
     L_00435c8c:
-        call asm_MemoryFile_RemoveNode_00436210
+        call Lzss_RemoveNode_00436210
     L_00435c91:
         mov eax,dword ptr [edi]
     L_00435c93:

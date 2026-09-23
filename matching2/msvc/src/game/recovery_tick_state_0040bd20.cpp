@@ -1,13 +1,13 @@
 #include "th10/game/recovery_emitter_state.hpp"
 
-// 0x0040BD20..0x0040BD7C: TickRecoveryState_0040bd20
+// 0x0040BD20..0x0040BD7C: RecoveryTickState_0040bd20::Tick
 //
 // The state this runs on is the ending/credits script object constructed at
 // 0x0040BA90. At +0x04 it carries the FrameTimer shape shared by the whole
 // image: a previous/current integer pair (+0x04/+0x08), an elapsed float
 // (+0x0C) and a pointer (+0x10) to the shared game speed. Retail, in order:
 //
-//     push esi                 ; the state arrives in ESI; the push is the
+//     push esi                 ; retail's private receiver is passed to the helper
 //     call 0x0040BD80          ; argument to the finished? query, which pops it
 //     test eax,eax / je
 //     mov eax,1 / ret          ; finished -> report 1
@@ -17,9 +17,11 @@
 //     ...
 //     xor eax,eax / ret        ; still running -> 0
 //
-// The timer body at +0x04 is the usual frame tick: at normal speed it advances
-// the frame counter and adds 1.0 to the elapsed field, otherwise it converts
-// the elapsed accumulation of the speed pointer into the new counter.
+// This C++ member model keeps the same object layout and calculations but uses
+// an ordinary thiscall receiver. UpdateEmitterDecision calls Tick() through
+// the same typed object instead of relying on retail's private ESI handoff.
+// The timer body at +0x04 advances the frame counter and adds 1.0 to elapsed
+// at normal speed; otherwise it converts the accumulated speed to a counter.
 
 extern float g_frame_timer_normal_lower;  // 0x00470B68
 extern float g_frame_timer_normal_upper;  // 0x00470B64
@@ -27,17 +29,17 @@ extern float g_frame_timer_normal_upper;  // 0x00470B64
 extern "C" int __stdcall asm_FUN_0040bd80_0040bd80(void* state);
 
 #pragma code_seg(".text$03tick")
-__declspec(noinline) int __stdcall TickRecoveryState_0040bd20(RecoveryTickState_0040bd20* state) {
-    if (asm_FUN_0040bd80_0040bd80(state))
+__declspec(noinline) int RecoveryTickState_0040bd20::Tick() {
+    if (asm_FUN_0040bd80_0040bd80(this))
         return 1;
 
-    state->previous_004 = state->current_008;
-    if (*state->speed_010 > g_frame_timer_normal_lower &&
-        *state->speed_010 < g_frame_timer_normal_upper) {
-        ++state->current_008;
-        state->elapsed_00c += 1.0f;
+    this->previous_004 = this->current_008;
+    if (*this->speed_010 > g_frame_timer_normal_lower &&
+        *this->speed_010 < g_frame_timer_normal_upper) {
+        ++this->current_008;
+        this->elapsed_00c += 1.0f;
     } else {
-        state->current_008 = int(state->elapsed_00c += *state->speed_010);
+        this->current_008 = int(this->elapsed_00c += *this->speed_010);
     }
     return 0;
 }

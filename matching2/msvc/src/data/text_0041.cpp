@@ -29,9 +29,17 @@ extern "C" unsigned char text_padding_004122f4[] = {
 };
 #pragma data_seg()
 
+// padding: 0x0041233E..0x0041233F
+// padding 0041233e..0041233f: ["Ghidra disassembly identified MOV EDI,EDI after the return"]
+#pragma data_seg(".d000461")
+extern "C" unsigned char text_padding_0041233e[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
 // data: 0x00412340..0x0041234F
 // data 00412340..0041234f: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d000461")
+#pragma data_seg(".d000462")
 extern "C" unsigned char text_data_00412340[] = {
     0x15, 0x23, 0x41, 0x00, 0x1e, 0x23, 0x41, 0x00, 0x27, 0x23, 0x41, 0x00, 0x30, 0x23, 0x41, 0x00,
 };
@@ -39,7 +47,7 @@ extern "C" unsigned char text_data_00412340[] = {
 
 // padding: 0x004125F7..0x004125F7
 // padding 004125f7..004125f7: ["live Ghidra disassembly identified INT3/NOP bytes inside a missed-code candidate range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
-#pragma data_seg(".d000462")
+#pragma data_seg(".d000463")
 extern "C" unsigned char text_padding_004125f7[] = {
     0x90,
 };
@@ -47,7 +55,7 @@ extern "C" unsigned char text_padding_004125f7[] = {
 
 // data: 0x004125F8..0x004126C3
 // data 004125f8..004126c3: ["text_range_map:defined_data", "full+augmented listing typed data"]
-#pragma data_seg(".d000463")
+#pragma data_seg(".d000464")
 extern "C" unsigned char text_data_004125f8[] = {
     0x69, 0x23, 0x41, 0x00, 0x8c, 0x23, 0x41, 0x00, 0xa6, 0x23, 0x41, 0x00, 0x34, 0x24, 0x41, 0x00,
     0x3d, 0x24, 0x41, 0x00, 0x46, 0x24, 0x41, 0x00, 0x4f, 0x24, 0x41, 0x00, 0x58, 0x24, 0x41, 0x00,
@@ -67,7 +75,7 @@ extern "C" unsigned char text_data_004125f8[] = {
 
 // padding: 0x004126C4..0x004126CF
 // padding 004126c4..004126cf: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
-#pragma data_seg(".d000464")
+#pragma data_seg(".d000465")
 extern "C" unsigned char text_padding_004126c4[] = {
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
@@ -1640,6 +1648,14 @@ extern "C" unsigned char text_padding_0041988b[] = {
 // padding 00419896..0041989f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
 #pragma data_seg(".d000677")
 extern "C" unsigned char text_padding_00419896[] = {
+    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+};
+#pragma data_seg()
+
+// padding: 0x004198B6..0x004198BF
+// Live Ghidra shows ten INT3 bytes here, with no function boundary or xrefs.
+#pragma data_seg(".d000677a")
+extern "C" unsigned char text_padding_004198b6[] = {
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
 #pragma data_seg()

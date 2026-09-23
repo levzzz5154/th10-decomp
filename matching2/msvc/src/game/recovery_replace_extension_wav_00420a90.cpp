@@ -1,14 +1,14 @@
-// BLOCKED (D2702): closest_byte_count=120; first_diff=0x00420AAE;
-// residual_class=EAX-carrying private RegisterResource call plus register
-// pressure: a readable 120-byte candidate matched the stack-cookie/copy and
-// string rewrite extent but differed in 60 bytes from the retail body.
-// variants_tested=exact retail wrapper, the legacy recovery semantic model,
-// a stack-copy candidate, and a __stdcall candidate with typed strrchr and
-// RegisterResource declarations; the measured candidate's first mismatch was
-// the compiler's ESI preservation where retail reloads the stack argument.
-// next_lever=native-LTCG schema-2 visibility for RegisterResource's EAX/EDX
-// convention (or a fixed-address semantic registration that permits that
-// private call), then remeasure the 120-byte contribution.
+// BLOCKED (D2702): Ghidra confirms this is __stdcall with two stack arguments
+// and RET 8. It copies the source path, rewrites the three bytes after the last
+// '.', then calls RegisterResource with its manager in EAX, the local name in
+// EDX, and stack arguments 1 and the first wrapper argument. RegisterResource
+// itself uses this private EAX/EDX-plus-two-stack-arguments ABI and RET 8; a
+// normal MSVC C++ prototype cannot issue that call. The prior semantic
+// candidate was 121 bytes and also saved/hoisted the stack argument through
+// ESI; its closest match was 120 bytes. Do not promote until the compiler can
+// express the callee's private ABI across this call and the other
+// RegisterResource callers, then recheck both call-site registers and frame
+// layout. See recovery_replace_extension_wav_00420a90.md.
 #include <string.h>
 
 #include "asm_encoding.hpp"
@@ -21,7 +21,9 @@
 #include "th10/platform/windows_types.hpp"
 
 // 0x00420A90..0x00420B07: Recovery_ReplaceExtensionWav
-// Naked body preserves the retail register/stack ABI.
+// Semantics: (registration selector, source path) -> 1. The selector is passed
+// to RegisterResource as its second stack argument; it is not an output pointer.
+// Naked body preserves the private EAX/EDX RegisterResource call ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_ReplaceExtensionWav_00420a90() {
     __asm {
     L_00420a90:

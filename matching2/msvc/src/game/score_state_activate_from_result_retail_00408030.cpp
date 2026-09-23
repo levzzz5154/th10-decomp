@@ -10,9 +10,11 @@
 // variants_tested=the corrected state layout with cdecl bounds/animation
 // helper pointers and native MSVC 13.10 probe (219-byte extent, first diff at
 // entry); the exact naked ESI/ECX overlay remains the only exact body.
-// next_lever=native-LTCG compilation of this function with its real callers
-// and recovered helper member declarations, preserving ESI as the object
-// register without inline assembly.
+// Live Ghidra recheck: ESI is an unmodelled object live-in; 8 calls arrive from
+// five caller bodies, including unassigned_00408460. Direct callees are
+// 004086B0 and the EDI/stack/register-ABI animation path at 00448DB0.
+// next_lever=co-recover the caller family and animation path in native LTCG;
+// see matching2/reference/recovery_notes/score_state_activate_00408030.md.
 // 0x00408030..0x004080F6: ScoreState_ActivateFromResultRetail
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_ScoreState_ActivateFromResultRetail_00408030() {

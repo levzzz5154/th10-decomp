@@ -14,6 +14,7 @@
 // next_lever=promote this region from asm to semantic and add a native-LTCG
 // constructor cluster/context with an explicit retail symbol/address; that
 // requires a manifest region-kind/symbol change outside this claim.
+// Ghidra ABI/range audit: matching2/reference/recovery_notes/FUN_00412f70_abi.md
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

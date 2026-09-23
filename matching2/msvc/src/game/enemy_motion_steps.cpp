@@ -1,156 +1,68 @@
-// BLOCKED (D3605): closest_byte_count=26/305; first_diff=0x00407560.
-// residual_class=private ESI receiver, x87 evaluation/order (including
-// FPATAN), compiler-generated temporary homes, and the 00463B2C return ABI.
-// variants_tested=live Ghidra decompilation and MSVC 13.10 typed EnemyMotion
-// cdecl candidate (329-byte extent, 26/305 same-position bytes); exact naked
-// baseline probe=305/305. next_lever=native-LTCG cluster with the real
-// 0x0040639F caller and typed x87-compatible state layout while preserving
-// ESI as the receiver.
+// 0x00407560 has a typed semantic source candidate below. The direct 0x0040639F
+// edge still supplies the object in ESI and needs whole-cluster/LTCG integration.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+#include <math.h>
+#include "th10/math/timer.hpp"
 
-// 0x00407560..0x00407690: FUN_00407560
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00407560_00407560() {
-    __asm {
-    L_00407560:
-        mov eax,dword ptr [esi+64Ch]
-    L_00407566:
-        mov ecx,dword ptr [esi+670h]
-    L_0040756c:
-        sub esp,0Ch
-    L_0040756f:
-        cmp eax,ecx
-    L_00407571:
-        jl short L_0040757f
-    L_00407573:
-        and dword ptr [esi+43Ch],0FFFFFFEFh
-    L_0040757a:
-        jmp asm_target_00407627
-    L_0040757f:
-        fld dword ptr [data_00476f78]
-    L_00407585:
-        fmul dword ptr [esi+65Ch]
-    L_0040758b:
-        fadd dword ptr [esi+3D8h]
-    L_00407591:
-        fstp dword ptr [esi+3D8h]
-    L_00407597:
-        fld dword ptr [data_00476f78]
-    L_0040759d:
-        fmul dword ptr [esi+664h]
-    L_004075a3:
-        fld dword ptr [data_00476f78]
-    L_004075a9:
-        fmul dword ptr [esi+668h]
-    L_004075af:
-        fld dword ptr [data_00476f78]
-    L_004075b5:
-        fmul dword ptr [esi+66Ch]
-    L_004075bb:
-        fstp dword ptr [esp+8]
-    L_004075bf:
-        fxch
-    L_004075c1:
-        fadd dword ptr [esi+3C0h]
-    L_004075c7:
-        fstp dword ptr [esi+3C0h]
-    L_004075cd:
-        fadd dword ptr [esi+3C4h]
-    L_004075d3:
-        fstp dword ptr [esi+3C4h]
-    L_004075d9:
-        fld dword ptr [esp+8]
-    L_004075dd:
-        fadd dword ptr [esi+3C8h]
-    L_004075e3:
-        fstp dword ptr [esi+3C8h]
-    L_004075e9:
-        fld dword ptr [esi+3C0h]
-    L_004075ef:
-        fabs
-    L_004075f1:
-        fcomp dword ptr [data_00470c58]
-    L_004075f7:
-        fnstsw ax
-    L_004075f9:
-        test ah,41h
-    L_004075fc:
-        je short L_00407613
-    L_004075fe:
-        fld dword ptr [esi+3C4h]
-    L_00407604:
-        fabs
-    L_00407606:
-        fcomp dword ptr [data_00470c58]
-    L_0040760c:
-        fnstsw ax
-    L_0040760e:
-        test ah,41h
-    L_00407611:
-        jne short L_00407627
-    L_00407613:
-        fld dword ptr [esi+3C4h]
-    L_00407619:
-        fld dword ptr [esi+3C0h]
-    L_0040761f:
-        fpatan
-    L_00407621:
-        fstp dword ptr [esi+3E4h]
-    L_00407627:
-        mov edx,dword ptr [esi+64Ch]
-    L_0040762d:
-        mov ecx,dword ptr [esi+654h]
-    L_00407633:
-        mov dword ptr [esi+648h],edx
-    L_00407639:
-        fld dword ptr [ecx]
-    L_0040763b:
-        fcomp dword ptr [data_00470b68]
-    L_00407641:
-        fnstsw ax
-    L_00407643:
-        test ah,41h
-    L_00407646:
-        jne short L_00407674
-    L_00407648:
-        fld dword ptr [ecx]
-    L_0040764a:
-        fcomp dword ptr [data_00470b64]
-    L_00407650:
-        fnstsw ax
-    L_00407652:
-        test ah,5
-    L_00407655:
-        jp short L_00407674
-    L_00407657:
-        fld dword ptr [esi+650h]
-    L_0040765d:
-        inc edx
-    L_0040765e:
-        fadd dword ptr [data_00470afc]
-    L_00407664:
-        mov dword ptr [esi+64Ch],edx
-    L_0040766a:
-        fstp dword ptr [esi+650h]
-    L_00407670:
-        add esp,0Ch
-    L_00407673:
-        ret
-    L_00407674:
-        fld dword ptr [esi+650h]
-    L_0040767a:
-        fadd dword ptr [ecx]
-    L_0040767c:
-        fst dword ptr [esi+650h]
-    L_00407682:
-        call asm_FUN_00463b2c_00463b2c
-    L_00407687:
-        mov dword ptr [esi+64Ch],eax
-    L_0040768d:
-        add esp,0Ch
-    L_00407690:
-        ret
+extern "C" float data_00470afc, data_00470b64, data_00470b68;
+extern "C" float data_00470c58, data_00476f78;
+extern "C" double __cdecl atan2(double, double);
+
+
+// 0x00407560..0x00407690: ESI-entry motion step, represented by the typed
+// PlayerMotionAccelerationState_00407560 member candidate below.
+struct PlayerMotionAccelerationState_00407560 {
+    unsigned char reserved_000[0x3C0];
+    float velocity_x;
+    float velocity_y;
+    float velocity_z;
+    unsigned char reserved_3CC[0x0C];
+    float scalar_3D8;
+    unsigned char reserved_3DC[8];
+    float angle_3E4;
+    unsigned char reserved_3E8[0x54];
+    unsigned int flags_43C;
+    unsigned char reserved_440[0x208];
+    FrameTimer motion_timer;
+    float scalar_delta_65C;
+    unsigned char reserved_660[4];
+    float acceleration_x;
+    float acceleration_y;
+    float acceleration_z;
+    int motion_deadline_670;
+
+    __declspec(noinline) void AdvanceMotion();
+};
+
+// 0x00407560. Integrate the configured scalar and 3D acceleration, refresh
+// the velocity heading when its planar components exceed the small threshold,
+// clear the running bit at the deadline, and advance the embedded frame clock.
+void PlayerMotionAccelerationState_00407560::AdvanceMotion() {
+    if (motion_timer.current < motion_deadline_670) {
+        scalar_3D8 = data_00476f78 * scalar_delta_65C + scalar_3D8;
+        const float frame_scale_x = data_00476f78 * acceleration_x;
+        const float frame_scale_y = data_00476f78 * acceleration_y;
+        const float frame_scale_z = data_00476f78 * acceleration_z;
+        velocity_x = frame_scale_x + velocity_x;
+        velocity_y = frame_scale_y + velocity_y;
+        velocity_z = frame_scale_z + velocity_z;
+        if (fabs((double)velocity_x) > data_00470c58 ||
+            fabs((double)velocity_y) > data_00470c58) {
+            angle_3E4 = (float)atan2((double)velocity_y, (double)velocity_x);
+        }
+    } else {
+        flags_43C &= ~0x10u;
+    }
+
+    motion_timer.previous = motion_timer.current;
+    const float frame_scale = *motion_timer.speed;
+    if (data_00470b68 < frame_scale && frame_scale < data_00470b64) {
+        ++motion_timer.current;
+        motion_timer.elapsed += data_00470afc;
+    } else {
+        motion_timer.current = (int)(motion_timer.elapsed =
+            frame_scale + motion_timer.elapsed);
     }
 }
 

@@ -6,6 +6,8 @@
 // MSVC 13.10 standalone readable candidates (61 and 71-byte forms), and
 // exact naked baseline. next_lever=schema-2 native-LTCG cluster retaining
 // 0x00417870 with the private initializer/status/cleanup edges.
+// Live Ghidra evidence for retaining this body is recorded in
+// recovery_create_large_resource_state_00425020_ghidra_abi_audit.md.
 #include <string.h>
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

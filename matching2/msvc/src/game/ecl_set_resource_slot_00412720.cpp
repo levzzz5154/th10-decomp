@@ -22,6 +22,8 @@
 // resolvers in a native-LTCG cluster that pins ESI/EDI and RET 4.
 
 // 0x00412720..0x0041274F: Ecl_SetResourceSlot
+// Live Ghidra audit of the sole 0x00410CC0 caller and slot field updates:
+// reference/recovery_notes/ecl_set_resource_slot_00412720.md
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Ecl_SetResourceSlot_00412720() {
     __asm {

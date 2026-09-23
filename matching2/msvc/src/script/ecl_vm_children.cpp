@@ -1,14 +1,18 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
-// BLOCKED (D2801): closest_byte_count=0/146; first_diff=unmeasured;
-// residual_class=private_abi: legacy EclVm_TickChildren semantics are known,
-// but no readable native-LTCG body was retained without perturbing the EDI
-// owner and userpurge stack ABI.
+// BLOCKED (D2801): retain the retail body until the private EDI context can
+// be represented by a coherent compiled caller/callee cluster. Ghidra confirms
+// this is not an ordinary __stdcall(float): the owner record arrives in EDI,
+// the tick delta is one stack dword, and the function returns status in EAX
+// while popping that dword (RET 4). Callers at 0x0040E0FE, 0x0040E205, and
+// 0x0042BFFE all establish EDI immediately before the call. Ordinary MSVC
+// x86 C++ has no source-level calling convention for this EDI argument.
 // variants_tested=legacy semantic control-flow transcription and Ghidra ABI
-// audit; no candidate survived byte comparison.
-// next_lever=co-compile the 0x0040DC80 caller with explicit owner/register
-// context, then tune the first-pass temporary and list-unlink declaration
-// order against the 0x0044FD20 branch boundary.
+// audit; no readable native-LTCG candidate has been retained as byte-exact.
+// next_lever=convert the relevant callers together with an ECL execution
+// context that allows LTCG to inline/schedule this logic without an EDI-based
+// external entry; the 0x0040DC80 and 0x0042BFC0 callers are currently naked,
+// and 0x0044E1A0 itself takes the active VM state in EAX.
 
 // 0x0044FD10..0x0044FDA1: EclVm_TickChildren
 // Naked body preserves the retail register/stack ABI.

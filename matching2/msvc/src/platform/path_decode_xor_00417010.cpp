@@ -1,14 +1,11 @@
-// BLOCKED (D3307): closest_byte_count=21/41; first_diff=0x00417012;
-// residual_class=private EAX-entry native-LTCG register allocation and loop
-// scheduling (the readable member model selected the input/output registers in
-// the opposite order and folded their pointer difference).
-// variants_tested=live Ghidra complete decompilation with callers/xrefs and
-// disassembly/variable audit; ordinary MSVC 13.10 readable cdecl candidate
-// (43-byte extent); five native MSVC 13.10 schema-1 context builds using the
-// EAX member model and reordered/volatile pointer locals (best 21/41).
-// next_lever=retain the real caller-inclusive native-LTCG cluster and vary only
-// the source expression shape that keeps independent input/output pointers and
-// retail store/update order; promote only after all 41 bytes match.
+// BLOCKED: retail entry ABI passes the input pointer in EAX.  All five direct
+// call sites use that register convention; the repository's ordinary MSVC C++
+// calling conventions cannot declare an EAX parameter.  Replacing this body
+// with a typed function would require migrating the caller cluster too.
+//
+// Historical D3307 codegen record: best ordinary-C++ candidate matched 21/41
+// bytes (first difference at 0x00417012); five native MSVC 13.10 context
+// variants were tried.  This pass did not rerun a build or probe.
 
 #include <string.h>
 #include "asm_encoding.hpp"

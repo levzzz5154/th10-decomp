@@ -14,13 +14,5 @@ int ObjectAccessor_00442170::StoreValue(int value) {
     return value;
 }
 #pragma code_seg()
-// Legacy fixed-address owner retained until the semantic region manifest is
-// cut over to ObjectAccessor_00442170::StoreValue.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-extern "C" __declspec(naked) void __cdecl asm_FUN_00442170_00442170() {
-    __asm {
-        mov dword ptr [ecx+48h],eax
-        ret
-    }
-}
+// The former naked entry is retained only as regions.json previous_record
+// history; the live region targets ObjectAccessor_00442170::StoreValue.

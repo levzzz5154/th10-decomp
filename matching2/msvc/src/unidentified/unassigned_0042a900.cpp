@@ -23,14 +23,16 @@ typedef char SlotBuffer_0042a900_layout_check[
 
 extern "C" __declspec(noinline) int __cdecl asm_unassigned_0042a900(
     SlotBuffer_0042a900* buffer, unsigned char value) {
-    unsigned char* write_cursor = buffer->cursor_6274;
-    *write_cursor = value;
+    *buffer->cursor_6274 = value;
 
-    unsigned char* next_cursor = write_cursor + 1;
+    // Retail reloads +0x6274 after the byte write before advancing it.
+    unsigned char* next_cursor = buffer->cursor_6274 + 1;
     buffer->cursor_6274 = next_cursor;
 
-    // For a cursor inside this byte array, this is the retail signed test:
-    // (next_cursor - object - 0x5464) >= 0x78.
-    int bytes_written = static_cast<int>(next_cursor - buffer->bytes_5464);
-    return bytes_written >= 0x78;
+    // Retail performs 32-bit subtraction from the object base, then a signed
+    // comparison. Express that signed >= 0x78 test without pointer subtraction
+    // across distinct C++ objects.
+    unsigned long offset = reinterpret_cast<unsigned long>(next_cursor)
+        - reinterpret_cast<unsigned long>(buffer) - 0x5464UL;
+    return offset < 0x80000000UL && offset >= 0x78UL;
 }

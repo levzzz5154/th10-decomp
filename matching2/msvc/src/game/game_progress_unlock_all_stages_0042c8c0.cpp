@@ -1,11 +1,7 @@
-// BLOCKED (D3402): closest_byte_count=0/93; first_diff=unmeasured
-// residual_class=abi/cluster; the readable loop candidate compiled to 79
-// bytes because retail enters with the GameProgress object in EAX, keeps ESI
-// and EDI live across the nested loops, and retains private alignment slots.
-// variants_tested=raw-offset unsigned-byte loop with ordinary cdecl pointer
-// entry; standalone MSVC 13.10 probe.
-// next_lever=co-compile the real replay-large caller cluster so LTCG can
-// select the EAX entry and reproduce the preserved-register loop schedule.
+// BLOCKED (Ghidra-backed): the sole caller loads the progress pointer into EAX
+// at 0x0043244C and calls here at 0x00432451 from naked assembly. Standalone
+// C++ has no declaration for this EAX-only entry; see
+// matching2/reference/recovery_notes/game_progress_unlock_all_stages_0042c8c0.md.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

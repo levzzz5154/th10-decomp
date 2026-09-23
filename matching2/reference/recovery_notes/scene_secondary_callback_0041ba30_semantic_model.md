@@ -1,9 +1,12 @@
 # `0x0041BA30` secondary scene callback: semantic model
 
-`matching2/msvc/src/unidentified/FUN_0041ba30_0041ba30.cpp` records a readable,
-inline-assembly-free model of the 29-byte retail callback. The manifest still
-classifies this address as assembly. The source candidate has not been compiled
-or probed, and its ordinary C++ call to the fallback is not an ABI bridge.
+The source pair
+`matching2/msvc/src/unidentified/FUN_0041ba30_0041ba30.cpp` and
+`matching2/msvc/src/unidentified/FUN_0041b8e0_0041b8e0.cpp` now models the
+callback and its update routine as ordinary C++ `__thiscall` methods on the
+same context. The manifest rows remain unchanged and still classify both
+addresses as assembly. These source candidates have not been compiled or
+probed.
 
 ## Live Ghidra behavior
 
@@ -27,7 +30,7 @@ the original callback context is passed in `EAX` to the fallback. The context
 is not a stack argument. The callback entry itself receives the context in
 `ECX`, consistent with the scheduler registration at `0x0041AD90`.
 
-The fallback's Ghidra entry disassembly confirms `mov edi,eax`; it then sets
+The retail fallback's Ghidra entry disassembly confirms `mov edi,eax`; it then sets
 `EDI = context + 0x14`, `ESI = context + 0x34c`, and scans `0x896` (2,198)
 records at a `0x3f0` stride. A record is skipped when its dword at
 `ESI + 0xa4` is zero. For an active record it:
@@ -43,7 +46,7 @@ records at a `0x3f0` stride. A record is skipped when its dword at
    `0x0043e5a0`.
 3. Calls `0x004451c0` for the active record.
 
-Those helper calls have their own nonstandard register inputs: `0x0043e5a0`
+In the retail binary, those helper calls have their own nonstandard register inputs: `0x0043e5a0`
 receives the resource in `ECX`, the object in `EAX`, and the index in `EDX`;
 `0x004451c0` receives the manager in `ECX` and object in `EAX`; and
 `0x00463b2c` consumes an x87 value and returns an integer in `EAX`. After all
@@ -55,37 +58,53 @@ Ghidra `get_xrefs_to(0x0041B8E0)` reports only the unconditional transfer at
 the current database. `0x0041BA30` occupies a separate 29-byte manifest row;
 `0x0041B8E0` is a separate 281-byte row.
 
-## Folding and ABI assessment
+## C++ recovery and ABI changes
 
-The fallback's *effects* can be expressed as ordinary C++ using the callback's
-`this` pointer, but folding the whole body into this callback is not a viable
-conversion while these addresses retain their current region ownership. The
-callback is a 29-byte row and the fallback is a separate, noncontiguous
-281-byte row (with `0x0041BA00` between them). Folding the body would require a
-layout/manifest merge before promotion, and the helper calls would still need
-typed semantic replacements or adapters for their register-specific inputs.
-The current source therefore models only the callback check and leaves the
-fallback call marked as a semantic-only declaration, not as a matching ABI.
+The callback's method keeps its scheduler-facing context in the ordinary
+`__thiscall` receiver and delegates to `UpdateSceneSecondaryRecords()`. The
+fallback is now a same-class method that receives the same context in `ECX`.
+This removes the private EAX/tail-jump edge by changing both C++ signatures
+consistently; it preserves the callback's context and result semantics but does
+not reproduce the internal retail control flow or byte layout.
 
-Concrete semantic conversion path: keep the externally registered callback as
-an `int __thiscall` method, convert `0x0041B8E0` to a typed C++ member method
-that takes the same context as `this` in `ECX`, and have the callback call that
-method normally. The sole incoming-reference evidence above supports changing
-this private edge from EAX/tail-jump to ECX/ordinary call while preserving the
-callback's scheduler-facing context and integer result. The fallback body must
-also express its `0x0043E5A0`, `0x004451C0`, and `0x00463B2C` operations through
-typed semantic implementations or explicit ABI adapters. This preserves the
-observable callback behavior; it is not byte-exact and changes the private
-entry ABI of `0x0041B8E0`.
+The source inlines the observed `0x0043E5A0` configuration effects. Ghidra shows
+the resource validity checks, record selection at `resource+0x118 + index*0x44`,
+the object fields at `+0x308`, `+0x384`, and `+0x394`, dimensions at `+0x4c` and
+`+0x50`, and the three 4x4 matrices at `+0x23c`, `+0x27c`, and `+0x2bc`. The
+source initializes and scales those matrices in ordinary C++ rather than
+calling the helper with its retail `(resource in ECX, object in EAX, index in
+EDX)` convention.
 
-If preserving the retail EAX/tail-jump boundary contract is required instead,
-retain a small assembly entry shim at `0x0041BA30` to transfer `ECX` to `EAX` and jump,
-then put a small EAX-to-typed-call adapter at `0x0041B8E0` in front of the C++
-fallback core. A normal `__cdecl` call from the current source cannot substitute
-for that edge: it puts the context on the stack and creates a new return
-address. This ABI-edge option retains assembly at the boundary; the
-semantic-only conversion path above removes that private convention by changing
-both C++ signatures consistently.
+Ghidra memory reads confirm the position offsets are `224.0f` and `16.0f`; the
+branch limit is `8.0f`, transition range is `32.0f`, scale is `0.03125f`, and
+byte maximum is `255.0f`. The inlined configuration helper uses scale
+`0.00390625f` from `0x00470B7C`.
+
+The source also models the observed `0x00463B2C` conversion without passing a
+value through x87 `ST(0)`. Ghidra shows a signed 64-bit conversion truncated
+toward zero with only the low byte consumed here. The C++ helper returns that
+low byte for finite in-range values and maps the x87 invalid-conversion case to
+zero. It computes with `double`; the retail x87 intermediates retain extended
+precision, so byte-for-byte rounding at threshold boundaries is unverified.
+The first x87 compare branches to the high path for greater/equal and unordered
+values (`TEST AH,5; JP`); the C++ predicate is therefore written as not-less
+than. The second compare sends less-than and unordered values through the byte
+conversion (`TEST AH,1; JNZ`), represented by not-greater-or-equal.
+
+For `0x004451C0`, the fallback calls the existing semantic C++ dispatcher with
+its explicit `(manager, entity)` parameters. This C++ source edge is consistent
+with the dispatcher declaration and avoids fabricating an EAX/ECX register
+call. Retail itself passes manager in `ECX` and entity in `EAX`; Ghidra also
+reports multiple other callers to this dispatcher. Its case-target register
+adapters and those existing call edges remain outside this two-source recovery.
+Reconcile them before promoting the dispatcher and fallback together. No
+register adapter or inline assembly remains in these two source files.
+
+No manifest or shared-header changes were made. Before promotion, integration
+must change both manifest symbols to the new decorated member-method symbols
+and reconcile the dispatcher ABI with its other call sites. The semantic
+callback and loop behavior are represented; the x87 precision details and
+build-level symbol/address integration remain unverified.
 
 The sibling callback at `0x0041BA00` checks other bits in the same global scene
 flag word. That supports the callback-family interpretation, but it does not

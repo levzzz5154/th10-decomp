@@ -1,16 +1,30 @@
 #include "asm_encoding.hpp"
+
+// This file now gives the converted teardown entries typed stdcall contracts.
+// Hide their stale zero-argument cdecl declarations from the generated alias
+// header while retaining the rest of its retail symbols.
+#define asm_FUN_0041adf0_0041adf0 asm_FUN_0041adf0_0041adf0_old_decl
+#define asm_FUN_00422220_00422220 asm_FUN_00422220_00422220_old_decl
 #include "asm_symbols.hpp"
+#undef asm_FUN_0041adf0_0041adf0
+#undef asm_FUN_00422220_00422220
+
+#include "th10/game/entity.hpp"
+#include "th10/game/scheduler.hpp"
+
+void __fastcall EntityAnimation_Release(Entity* entity);
+extern "C" __declspec(noinline) void __stdcall BulletManager_Destroy_0041adf0(void* manager);
+extern "C" __declspec(noinline) void __stdcall PauseMenu_Destroy_00422220(void* manager);
 
 
-// BLOCKED (D3501): closest_byte_count=402/402; first_diff=none (retail
-// assembly baseline only; no readable candidate retained);
-// residual_class=SEH registration/handler frame, __thiscall receiver/register
-// setup, three private Scheduler_Remove calls, and three EH vector-destructor
-// helper ABIs with large object offsets.
-// variants_tested=live Ghidra complete-function analysis with callers/callees,
-// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
-// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
-// real 0x00408C90/0x00417C80 callers and vector-destructor helper contexts.
+// BLOCKED (D3501): 0x00408AF0 remains retail assembly because the third
+// AnimationManager::SetFlag call receives ECX left by the preceding callee;
+// the caller/callee evidence does not establish a C++ value for that register.
+// Ghidra reports __thiscall(this, manager) with RET 4; callers include
+// 0x00408C90, 0x00417C80, and two destructor wrappers at 0x00408D20/0x00408D40.
+// The first SetFlag receiver is entry ECX, the second is [manager+0x76C], and
+// the third is the opaque ECX output of the second call. This is not modelled
+// as a typed high-level call sequence.
 
 // 0x00408AF0..0x00408C81: FUN_00408af0
 // Naked body preserves the retail register/stack ABI.
@@ -459,7 +473,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e20:
         push esi
     L_00417e21:
-        call asm_FUN_00422220_00422220
+        call PauseMenu_Destroy_00422220
     L_00417e26:
         push esi
     L_00417e27:
@@ -523,7 +537,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e84:
         push esi
     L_00417e85:
-        call asm_FUN_0041adf0_0041adf0
+        call BulletManager_Destroy_0041adf0
     L_00417e8a:
         push esi
     L_00417e8b:
@@ -868,353 +882,157 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
 }
 
 
-// BLOCKED (D3501): closest_byte_count=216/216; first_diff=none (retail
-// assembly baseline only; no readable candidate retained);
-// residual_class=SEH registration/handler frame, scheduler private receiver
-// ABI, and EH vector-destructor iterator layout for the 0x896 elements.
-// variants_tested=live Ghidra complete-function analysis with callers/callees,
-// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
-// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
-// real 0x0040A1A0/0x00417C80 callers and Scheduler_Remove co-compiled.
+// 0x0041ADF0: BulletManager_Destroy. The retail entry is __stdcall with one
+// manager pointer (RET 4). The two scheduler tasks are embedded at +8/+0xC;
+// the array at +0x14 has 0x896 elements of stride 0x3F0.
+typedef void (__stdcall *ManagerCriticalSectionCall_0041adf0)(void*);
+typedef void (__fastcall *BulletElementDestructor_0041adf0)(Entity*);
+typedef void (__stdcall *BulletVectorDestructor_0041adf0)(
+    void*, unsigned int, int, BulletElementDestructor_0041adf0);
 
-// 0x0041ADF0..0x0041AEC7: FUN_0041adf0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0041adf0_0041adf0() {
-    __asm {
-    L_0041adf0:
-        mov eax,dword ptr fs:[0]
-    L_0041adf6:
-        push 0FFFFFFFFh
-    L_0041adf8:
-        push 46541Ch
-    L_0041adfd:
-        push eax
-    L_0041adfe:
-        mov dword ptr fs:[0],esp
-    L_0041ae05:
-        push ebx
-    L_0041ae06:
-        push ebp
-    L_0041ae07:
-        push esi
-    L_0041ae08:
-        push edi
-    L_0041ae09:
-        mov dword ptr [esp+18h],0
-    L_0041ae11:
-        mov eax,dword ptr [esp+20h]
-    L_0041ae15:
-        mov esi,dword ptr [eax+8]
-    L_0041ae18:
-        test esi,esi
-    L_0041ae1a:
-        mov edi,dword ptr [data_00491be4]
-    L_0041ae20:
-        mov ebx,dword ptr [data_004660b0]
-    L_0041ae26:
-        mov ebp,dword ptr [data_004660b4]
-    L_0041ae2c:
-        je short L_0041ae51
-    L_0041ae2e:
-        push 492274h
-    L_0041ae33:
-        call ebx
-    L_0041ae35:
-        inc byte ptr [data_0049231c]
-    L_0041ae3b:
-        mov ecx,esi
-    L_0041ae3d:
-        mov edx,edi
-    L_0041ae3f:
-        call asm_Scheduler_Remove_00449f60
-    L_0041ae44:
-        push 492274h
-    L_0041ae49:
-        call ebp
-    L_0041ae4b:
-        dec byte ptr [data_0049231c]
-    L_0041ae51:
-        mov ecx,dword ptr [esp+20h]
-    L_0041ae55:
-        mov esi,dword ptr [ecx+0Ch]
-    L_0041ae58:
-        test esi,esi
-    L_0041ae5a:
-        mov edi,dword ptr [data_00491be4]
-    L_0041ae60:
-        je short L_0041ae85
-    L_0041ae62:
-        push 492274h
-    L_0041ae67:
-        call ebx
-    L_0041ae69:
-        inc byte ptr [data_0049231c]
-    L_0041ae6f:
-        mov ecx,esi
-    L_0041ae71:
-        mov edx,edi
-    L_0041ae73:
-        call asm_Scheduler_Remove_00449f60
-    L_0041ae78:
-        push 492274h
-    L_0041ae7d:
-        call ebp
-    L_0041ae7f:
-        dec byte ptr [data_0049231c]
-    L_0041ae85:
-        push 41AD60h
-    L_0041ae8a:
-        mov dword ptr [esp+1Ch],0FFFFFFFFh
-    L_0041ae92:
-        mov edx,dword ptr [esp+24h]
-    L_0041ae96:
-        push 896h
-    L_0041ae9b:
-        push 3F0h
-    L_0041aea0:
-        add edx,14h
-    L_0041aea3:
-        push edx
-    L_0041aea4:
-        mov dword ptr [data_00477818],0
-    L_0041aeae:
-        call asm_eh_vector_destructor_iterator_004525ff
-    L_0041aeb3:
-        mov ecx,dword ptr [esp+10h]
-    L_0041aeb7:
-        pop edi
-    L_0041aeb8:
-        pop esi
-    L_0041aeb9:
-        pop ebp
-    L_0041aeba:
-        mov dword ptr fs:[0],ecx
-    L_0041aec1:
-        pop ebx
-    L_0041aec2:
-        add esp,0Ch
-    L_0041aec5:
-        ret 4
+extern "C" __declspec(noinline) void __stdcall
+BulletManager_Destroy_0041adf0(void* manager) {
+    ManagerCriticalSectionCall_0041adf0 enter =
+        *reinterpret_cast<ManagerCriticalSectionCall_0041adf0*>(&data_004660b0);
+    ManagerCriticalSectionCall_0041adf0 leave =
+        *reinterpret_cast<ManagerCriticalSectionCall_0041adf0*>(&data_004660b4);
+    BulletVectorDestructor_0041adf0 destroy_elements =
+        reinterpret_cast<BulletVectorDestructor_0041adf0>(
+            &asm_eh_vector_destructor_iterator_004525ff);
+    const BulletElementDestructor_0041adf0 destroy_element =
+        reinterpret_cast<BulletElementDestructor_0041adf0>(
+            &EntityAnimation_Release);
+    unsigned char* manager_bytes = static_cast<unsigned char*>(manager);
+
+    void* const element_base = manager_bytes + 0x14;
+    // The retail EH state destroys the element array if an earlier scheduler
+    // call raises a C++ exception. The vector helper owns its own unwind frame,
+    // so keep its normal-path invocation outside this catch scope.
+    try {
+        // Keep task removals in retail order and sample the scheduler global
+        // before each task null check, matching the observed call contexts.
+        Scheduler* scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+        SchedulerTask* task =
+            *reinterpret_cast<SchedulerTask**>(manager_bytes + 8);
+        if (task != 0) {
+            enter(reinterpret_cast<void*>(0x00492274));
+            ++data_0049231c;
+            Scheduler_Remove(task, scheduler);
+            leave(reinterpret_cast<void*>(0x00492274));
+            --data_0049231c;
+        }
+
+        scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+        task = *reinterpret_cast<SchedulerTask**>(manager_bytes + 0xC);
+        if (task != 0) {
+            enter(reinterpret_cast<void*>(0x00492274));
+            ++data_0049231c;
+            Scheduler_Remove(task, scheduler);
+            leave(reinterpret_cast<void*>(0x00492274));
+            --data_0049231c;
+        }
+    } catch (...) {
+        destroy_elements(element_base, 0x3F0, 0x896, destroy_element);
+        throw;
     }
+
+    *reinterpret_cast<void**>(&data_00477818) = 0;
+    destroy_elements(element_base, 0x3F0, 0x896, destroy_element);
 }
 
 
-// BLOCKED (D3501): closest_byte_count=311/311; first_diff=none (retail
-// assembly baseline only; no readable candidate retained);
-// residual_class=private Scheduler_Remove receiver/register ABI, linked-list
-// node layout at +0x72DAD4/+0x72DADC, and child flag propagation through
-// unresolved game-state structures.
-// variants_tested=live Ghidra complete-function analysis with callers/callees,
-// xrefs, disassembly, and variables; MSVC 13.10 scoped probe baseline exact;
-// no readable candidate retained. next_lever=native-LTCG schema2 cluster with
-// real 0x00422360/0x00417C80 callers and game-state node layouts.
+// 0x00422220: PauseMenu_Destroy. The retail entry is __stdcall with one
+// manager pointer (RET 4); it removes two scheduler tasks, destroys 25 owned
+// children, and marks the first matching game-state record for deferred removal.
+typedef void (__stdcall *ManagerCriticalSectionCall_00422220)(void*);
+typedef void (__stdcall *PauseChildDestructor_00422220)(void*);
 
-// 0x00422220..0x00422356: FUN_00422220
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00422220_00422220() {
-    __asm {
-    L_00422220:
-        mov eax,dword ptr [esp+4]
-    L_00422224:
-        push ebx
-    L_00422225:
-        mov ebx,dword ptr [data_004660b0]
-    L_0042222b:
-        push ebp
-    L_0042222c:
-        mov ebp,dword ptr [data_004660b4]
-    L_00422232:
-        push esi
-    L_00422233:
-        mov esi,dword ptr [eax+8]
-    L_00422236:
-        test esi,esi
-    L_00422238:
-        push edi
-    L_00422239:
-        mov edi,dword ptr [data_00491be4]
-    L_0042223f:
-        je short L_00422264
-    L_00422241:
-        push 492274h
-    L_00422246:
-        call ebx
-    L_00422248:
-        inc byte ptr [data_0049231c]
-    L_0042224e:
-        mov ecx,esi
-    L_00422250:
-        mov edx,edi
-    L_00422252:
-        call asm_Scheduler_Remove_00449f60
-    L_00422257:
-        push 492274h
-    L_0042225c:
-        call ebp
-    L_0042225e:
-        dec byte ptr [data_0049231c]
-    L_00422264:
-        mov ecx,dword ptr [esp+14h]
-    L_00422268:
-        mov esi,dword ptr [ecx+0Ch]
-    L_0042226b:
-        test esi,esi
-    L_0042226d:
-        mov edi,dword ptr [data_00491be4]
-    L_00422273:
-        je short L_00422298
-    L_00422275:
-        push 492274h
-    L_0042227a:
-        call ebx
-    L_0042227c:
-        inc byte ptr [data_0049231c]
-    L_00422282:
-        mov ecx,esi
-    L_00422284:
-        mov edx,edi
-    L_00422286:
-        call asm_Scheduler_Remove_00449f60
-    L_0042228b:
-        push 492274h
-    L_00422290:
-        call ebp
-    L_00422292:
-        dec byte ptr [data_0049231c]
-    L_00422298:
-        mov edi,dword ptr [esp+14h]
-    L_0042229c:
-        add edi,1ECh
-    L_004222a2:
-        mov ebx,19h
-    L_004222a7:
-        mov esi,dword ptr [edi]
-    L_004222a9:
-        test esi,esi
-    L_004222ab:
-        je short L_004222bc
-    L_004222ad:
-        push esi
-    L_004222ae:
-        call asm_FUN_004294a0_004294a0
-    L_004222b3:
-        push esi
-    L_004222b4:
-        call asm_free_004524a1
-    L_004222b9:
-        add esp,4
-    L_004222bc:
-        add edi,4
-    L_004222bf:
-        dec ebx
-    L_004222c0:
-        jne short L_004222a7
-    L_004222c2:
-        mov edx,dword ptr [esp+14h]
-    L_004222c6:
-        mov ecx,dword ptr [edx+1DCh]
-    L_004222cc:
-        test ecx,ecx
-    L_004222ce:
-        je short L_0042233f
-    L_004222d0:
-        mov edx,dword ptr [data_00491c10]
-    L_004222d6:
-        mov eax,dword ptr [edx+72DAD4h]
-    L_004222dc:
-        test eax,eax
-    L_004222de:
-        je short L_004222ed
-    L_004222e0:
-        mov esi,dword ptr [eax]
-    L_004222e2:
-        cmp dword ptr [esi],ecx
-    L_004222e4:
-        je short L_00422306
-    L_004222e6:
-        mov eax,dword ptr [eax+4]
-    L_004222e9:
-        test eax,eax
-    L_004222eb:
-        jne short L_004222e0
-    L_004222ed:
-        mov eax,dword ptr [edx+72DADCh]
-    L_004222f3:
-        test eax,eax
-    L_004222f5:
-        je short L_0042233f
-    L_004222f7:
-        mov edx,dword ptr [eax]
-    L_004222f9:
-        cmp dword ptr [edx],ecx
-    L_004222fb:
-        je short L_00422306
-    L_004222fd:
-        mov eax,dword ptr [eax+4]
-    L_00422300:
-        test eax,eax
-    L_00422302:
-        jne short L_004222f7
-    L_00422304:
-        jmp short L_0042233f
-    L_00422306:
-        mov eax,dword ptr [eax]
-    L_00422308:
-        test eax,eax
-    L_0042230a:
-        je short L_0042233f
-    L_0042230c:
-        mov esi,dword ptr [eax+35Ch]
-    L_00422312:
-        mov ecx,dword ptr [eax+18h]
-    L_00422315:
-        mov edx,4000000h
-    L_0042231a:
-        or esi,edx
-    L_0042231c:
-        test ecx,ecx
-    L_0042231e:
-        mov dword ptr [eax+35Ch],esi
-    L_00422324:
-        jne short L_0042233f
-    L_00422326:
-        mov eax,dword ptr [eax+14h]
-    L_00422329:
-        test eax,eax
-    L_0042232b:
-        je short L_0042233f
-    L_0042232d:
-        TH10_NOP_LEA_ECX_DISP8()
-    L_00422330:
-        mov ecx,dword ptr [eax]
-    L_00422332:
-        or dword ptr [ecx+35Ch],edx
-    L_00422338:
-        mov eax,dword ptr [eax+4]
-    L_0042233b:
-        test eax,eax
-    L_0042233d:
-        jne short L_00422330
-    L_0042233f:
-        mov ecx,dword ptr [esp+14h]
-    L_00422343:
-        pop edi
-    L_00422344:
-        pop esi
-    L_00422345:
-        xor eax,eax
-    L_00422347:
-        pop ebp
-    L_00422348:
-        mov dword ptr [ecx+1DCh],eax
-    L_0042234e:
-        mov dword ptr [data_00477830],eax
-    L_00422353:
-        pop ebx
-    L_00422354:
-        ret 4
+struct PauseResourceNode_00422220 {
+    void* record;
+    PauseResourceNode_00422220* next;
+};
+
+extern "C" __declspec(noinline) void __stdcall
+PauseMenu_Destroy_00422220(void* manager) {
+    ManagerCriticalSectionCall_00422220 enter =
+        *reinterpret_cast<ManagerCriticalSectionCall_00422220*>(&data_004660b0);
+    ManagerCriticalSectionCall_00422220 leave =
+        *reinterpret_cast<ManagerCriticalSectionCall_00422220*>(&data_004660b4);
+    PauseChildDestructor_00422220 destroy_child =
+        reinterpret_cast<PauseChildDestructor_00422220>(
+            &asm_FUN_004294a0_004294a0);
+    unsigned char* manager_bytes = static_cast<unsigned char*>(manager);
+
+    Scheduler* scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+    SchedulerTask* task = *reinterpret_cast<SchedulerTask**>(manager_bytes + 8);
+    if (task != 0) {
+        enter(reinterpret_cast<void*>(0x00492274));
+        ++data_0049231c;
+        Scheduler_Remove(task, scheduler);
+        leave(reinterpret_cast<void*>(0x00492274));
+        --data_0049231c;
     }
+
+    scheduler = *reinterpret_cast<Scheduler**>(&data_00491be4);
+    task = *reinterpret_cast<SchedulerTask**>(manager_bytes + 0xC);
+    if (task != 0) {
+        enter(reinterpret_cast<void*>(0x00492274));
+        ++data_0049231c;
+        Scheduler_Remove(task, scheduler);
+        leave(reinterpret_cast<void*>(0x00492274));
+        --data_0049231c;
+    }
+
+    void** child_slots = reinterpret_cast<void**>(manager_bytes + 0x1EC);
+    for (int child_index = 0; child_index != 25; ++child_index) {
+        void* child = child_slots[child_index];
+        if (child != 0) {
+            destroy_child(child);
+            asm_free_004524a1(child);
+        }
+    }
+
+    const unsigned int resource_key =
+        *reinterpret_cast<unsigned int*>(manager_bytes + 0x1DC);
+    if (resource_key != 0) {
+        unsigned char* game_state = static_cast<unsigned char*>(
+            *reinterpret_cast<void**>(&data_00491c10));
+        const unsigned int list_offsets[] = { 0x72DAD4, 0x72DADC };
+        PauseResourceNode_00422220* match = 0;
+
+        for (int list_index = 0; list_index != 2 && match == 0; ++list_index) {
+            PauseResourceNode_00422220* node =
+                *reinterpret_cast<PauseResourceNode_00422220**>(
+                    game_state + list_offsets[list_index]);
+            while (node != 0) {
+                unsigned char* record = static_cast<unsigned char*>(node->record);
+                if (*reinterpret_cast<unsigned int*>(record) == resource_key) {
+                    match = node;
+                    break;
+                }
+                node = node->next;
+            }
+        }
+
+        if (match != 0) {
+            unsigned char* record = static_cast<unsigned char*>(match->record);
+            if (record != 0) {
+                *reinterpret_cast<unsigned int*>(record + 0x35C) |= 0x04000000;
+                if (*reinterpret_cast<void**>(record + 0x18) == 0) {
+                    PauseResourceNode_00422220* related =
+                        *reinterpret_cast<PauseResourceNode_00422220**>(record + 0x14);
+                    while (related != 0) {
+                        unsigned char* related_record =
+                            static_cast<unsigned char*>(related->record);
+                        *reinterpret_cast<unsigned int*>(related_record + 0x35C) |=
+                            0x04000000;
+                        related = related->next;
+                    }
+                }
+            }
+        }
+    }
+
+    *reinterpret_cast<unsigned int*>(manager_bytes + 0x1DC) = 0;
+    *reinterpret_cast<void**>(&data_00477830) = 0;
 }
-
-
-

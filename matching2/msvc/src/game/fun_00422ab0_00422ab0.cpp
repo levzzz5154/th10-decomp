@@ -6,6 +6,7 @@
 
 #include "th10/game/entity.hpp"
 #include "th10/platform/sound_queue.hpp"
+#include "th10/render/animation_handle.hpp"
 
 typedef unsigned int uint32_00422ab0;
 
@@ -61,12 +62,6 @@ struct AnimationManager {
         AnimationLookupContext* context, int id);
 };
 
-struct AnimationHandle {
-    uint32_00422ab0 value;
-    __declspec(noinline) void StopAtFrame2();
-    __declspec(noinline) void StopAtFrame3();
-};
-
 struct AnimationBackLink_00422ab0 {
     void* object;
     AnimationBackLink_00422ab0* next;
@@ -80,13 +75,6 @@ struct AnimationChildLink_00422ab0 {
 
 typedef void (__thiscall *InitializeAnimation_00422ab0)(
     void* resource, void* object, int script_index);
-
-// Source-only semantic model of the 0x00424480 work. Its ordinary signature
-// takes the retail ESI receiver explicitly; it is not an ABI-compatible call
-// to the retail entry, which remains assembly for other callers.
-extern "C" int UpdateSpriteDescriptorModel_00424480(
-    void* descriptor, int handle, int value_08, int value_0C,
-    int value_10, int value_14);
 
 extern "C" unsigned char data_00476f78;
 extern "C" unsigned char data_004776e0;
@@ -214,7 +202,10 @@ static uint32_00422ab0 FindPauseChild_00422ab0(
 
 // 0x00422AB0 has one stack pointer argument and callee cleanup (RET 4).
 // There are no private register inputs at entry. The retail caller is
-// FUN_004223F0 at 0x0042243B.
+// FUN_004223F0 at 0x0042243B. The schema-2 whole-program layout
+// layout/ltcg/pause_menu_animation_pool_00422ab0.json keeps both real
+// AnimationPool::Allocate call edges visible to native LTCG.
+#pragma code_seg(".text$01pause")
 extern "C" __declspec(noinline) void __stdcall
 asm_FUN_00422ab0_00422ab0(void* pause_state) {
     PauseMenuState_00422ab0* state =
@@ -267,12 +258,43 @@ asm_FUN_00422ab0_00422ab0(void* pause_state) {
         animation_manager, first_object, &first_handle);
     state->offset_1d8 = first_handle;
 
-    // Retail 0x00424480 receives animation_manager in ESI. Use the separate
-    // semantic model with that receiver explicit rather than making an
-    // ordinary C++ call through the private-ABI assembly entry.
-    UpdateSpriteDescriptorModel_00424480(
-        animation_manager, static_cast<int>(first_handle),
-        0x20, 0x10, 0x180, 0x1c0);
+    // Inline the semantic effects of retail 0x00424480. Its binary entry
+    // receives the descriptor through ESI, so this source does not call that
+    // private-ABI entry. The helper looks the handle up through the manager
+    // global, reads the resource, and converts all four floats before testing
+    // the signed descriptor slot, in the observed retail order.
+    AnimationLookupContext* descriptor_context =
+        *reinterpret_cast<AnimationLookupContext**>(&data_00491c10);
+    unsigned char* descriptor_animation =
+        static_cast<unsigned char*>(FindAnimationByHandle_00422ab0(
+            descriptor_context, first_handle));
+    unsigned char* descriptor_resource =
+        *reinterpret_cast<unsigned char**>(descriptor_animation + 0x394);
+    int converted_30 = static_cast<int>(
+        *reinterpret_cast<const float*>(descriptor_resource + 0x30));
+    int converted_34 = static_cast<int>(
+        *reinterpret_cast<const float*>(descriptor_resource + 0x34));
+    int converted_0c = static_cast<int>(
+        *reinterpret_cast<const float*>(descriptor_resource + 0x0c));
+    int converted_08 = static_cast<int>(
+        *reinterpret_cast<const float*>(descriptor_resource + 0x08));
+
+    int* descriptor_words = static_cast<int*>(animation_manager);
+    if (descriptor_words[1] < 0) {
+        uint32_00422ab0* stored_handle =
+            *reinterpret_cast<uint32_00422ab0**>(
+                descriptor_animation + 0x308);
+        descriptor_words[1] = static_cast<int>(*stored_handle);
+        descriptor_words[2] = 0x20;
+        descriptor_words[6] = converted_08;
+        descriptor_words[3] = 0x10;
+        descriptor_words[4] = 0x180;
+        descriptor_words[9] = converted_30;
+        descriptor_words[7] = converted_0c;
+        descriptor_words[5] = 0x1c0;
+        descriptor_words[8] = converted_34;
+        descriptor_words[10] = 0;
+    }
 
     void* game_state = *reinterpret_cast<void**>(&data_0047770c);
     void* second_resource = *reinterpret_cast<void**>(
@@ -320,3 +342,4 @@ asm_FUN_00422ab0_00422ab0(void* pause_state) {
     state->offset_2c0 = *reinterpret_cast<uint32_00422ab0*>(global_float);
     *global_float = 1.0f;
 }
+#pragma code_seg()

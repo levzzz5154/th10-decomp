@@ -1,57 +1,38 @@
-// BLOCKED (D3703): closest_byte_count=15/53; first_diff=0x00420CD1;
-// residual_class=native-LTCG selected ESI for the state receiver in the
-// isolated typed probe (51-byte body), while retail requires EDI and the
-// production RenderStageState/AnimationManager caller pressure that controls
-// branch layout and helper sequencing.
-// variants_tested=live Ghidra decompile at 0x00420CD0; existing native-LTCG
-// render cluster fog anchor; isolated MSVC 13.10 typed fog-state probe with
-// data_00491C10 and the 0x00442F50 Flush binding; unchanged production
-// manifest validation.
-// next_lever=co-compile the real 0x00439390 frame caller, RenderStageState
-// body, and AnimationManager::Flush under schema-2 native-LTCG, then promote
-// this region to semantic ownership; do not alter regions.json in this
-// assignment.
+#include <stddef.h>
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/render/quad_batch.hpp"
 
-// 0x00420CD0..0x00420D04: FUN_00420cd0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00420cd0_00420cd0() {
-    __asm {
-    L_00420cd0:
-        mov eax,dword ptr [edi+750h]
-    L_00420cd6:
-        test eax,eax
-    L_00420cd8:
-        je short L_00420d02
-    L_00420cda:
-        push esi
-    L_00420cdb:
-        mov esi,dword ptr [data_00491c10]
-    L_00420ce1:
-        call asm_AnimationManager_FlushQuadBatch_00442f50
-    L_00420ce6:
-        mov eax,dword ptr [edi+8]
-    L_00420ce9:
-        push 0
-    L_00420ceb:
-        push 1Ch
-    L_00420ced:
-        mov dword ptr [edi+750h],0
-    L_00420cf7:
-        mov ecx,dword ptr [eax]
-    L_00420cf9:
-        push eax
-    L_00420cfa:
-        call dword ptr [ecx+0E4h]
-    L_00420d00:
-        pop esi
-    L_00420d01:
-        ret
-    L_00420d02:
-        xor eax,eax
-    L_00420d04:
-        ret
-    }
+// Existing assembly callers use the old C entry label.  Both live callers
+// supply the same singleton state object in EDI; this fallback keeps that
+// no-argument call target while the implementation names the state directly.
+#pragma comment(linker, "/alternatename:_asm_FUN_00420cd0_00420cd0=_RenderStageState_DisableFog_00420CD0")
+
+extern "C" unsigned char data_00491c28;
+
+struct RenderStageFogState_00420CD0 {
+    unsigned char reserved_000[0x08];
+    RenderDevice* device;                 // +0x08
+    unsigned char reserved_00C[0x750 - 0x0C];
+    int fog_dirty;                        // +0x750
+};
+
+static_assert(offsetof(RenderStageFogState_00420CD0, fog_dirty) == 0x750,
+              "retail fog flag offset changed");
+
+// 0x00420CD0: flush pending animation quads, clear the pending fog flag, and
+// disable D3D render state 28.  At the retail boundary EDI carries
+// &data_00491c28; reading that singleton directly expresses the behavior in
+// ordinary C++ without depending on a compiler-specific EDI calling
+// convention.  The two callers and their EDI setup are documented in
+// reference/recovery_notes/fog_disable_00420cd0.md.
+extern "C" int __cdecl RenderStageState_DisableFog_00420CD0(void) {
+    RenderStageFogState_00420CD0* const state =
+            reinterpret_cast<RenderStageFogState_00420CD0*>(&data_00491c28);
+    if (!state->fog_dirty)
+        return 0;
+
+    data_00491c10->Flush();
+    RenderDevice* const device = state->device;
+    state->fog_dirty = 0;
+    return device->State(28, 0);
 }

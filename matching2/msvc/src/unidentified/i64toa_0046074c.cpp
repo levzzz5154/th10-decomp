@@ -1,51 +1,33 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
 // 0x0046074C..0x0046077C: __i64toa
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_i64toa_0046074c() {
-    __asm {
-    L_0046074c:
-        push ebp
-    L_0046074d:
-        mov ebp,esp
-    L_0046074f:
-        xor eax,eax
-    L_00460751:
-        cmp dword ptr [ebp+14h],0Ah
-    L_00460755:
-        jne short L_00460766
-    L_00460757:
-        cmp dword ptr [ebp+0Ch],eax
-    L_0046075a:
-        jg short L_00460766
-    L_0046075c:
-        jl short L_00460763
-    L_0046075e:
-        cmp dword ptr [ebp+8],eax
-    L_00460761:
-        jae short L_00460766
-    L_00460763:
-        xor eax,eax
-    L_00460765:
-        inc eax
-    L_00460766:
-        push eax
-    L_00460767:
-        push dword ptr [ebp+14h]
-    L_0046076a:
-        mov eax,dword ptr [ebp+10h]
-    L_0046076d:
-        push dword ptr [ebp+0Ch]
-    L_00460770:
-        push dword ptr [ebp+8]
-    L_00460773:
-        call asm_FID_conflict_x64toa_20_004606df
-    L_00460778:
-        mov eax,dword ptr [ebp+10h]
-    L_0046077b:
-        pop ebp
-    L_0046077c:
-        ret
+// Standard cdecl wrapper.  The body spells out the conversion performed by
+// the retail register-ABI x64toa helper so this entry has a typed C++ body.
+extern "C" char* __cdecl asm_i64toa_0046074c(
+    long long value, char* buffer, int radix) {
+    const bool negative = radix == 10 && value < 0;
+    unsigned long long magnitude = static_cast<unsigned long long>(value);
+    if (negative)
+        magnitude = 0ULL - magnitude;
+
+    const unsigned int base = static_cast<unsigned int>(radix);
+    unsigned char* output = reinterpret_cast<unsigned char*>(buffer);
+    if (negative)
+        *output++ = '-';
+
+    unsigned char* first_digit = output;
+    do {
+        const unsigned int remainder =
+            static_cast<unsigned int>(magnitude % base);
+        magnitude /= base;
+        *output++ = static_cast<unsigned char>(
+            remainder < 10 ? remainder + 0x30 : remainder + 0x57);
+    } while (magnitude != 0);
+
+    *output = 0;
+    unsigned char* last_digit = output - 1;
+    while (first_digit < last_digit) {
+        const unsigned char digit = *first_digit;
+        *first_digit++ = *last_digit;
+        *last_digit-- = digit;
     }
+    return buffer;
 }

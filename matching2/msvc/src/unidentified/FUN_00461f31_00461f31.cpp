@@ -3,7 +3,8 @@
 
 // 0x00461F31..0x00462106: FUN_00461f31
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00461f31_00461f31() {
+extern "C" __declspec(naked) int __cdecl asm_FUN_00461f31_00461f31(
+    char** environment_entry, int mode) {
     __asm {
     L_00461f31:
         push ebp

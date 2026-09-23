@@ -1,17 +1,19 @@
-// BLOCKED (D2401): closest_byte_count=9964; first_diff=unmeasured;
-// residual_class=large ANM VM control-flow/ABI translation; Ghidra's live
-// th10.exe decompile confirms the 9964-byte state machine, EAX-promoted
-// animation object, x87/vector temporaries, and dozens of private call edges.
-// variants_tested=legacy_semantic AnmVm_Tick reference and current retail
-// assembly; no native-LTCG candidate was attempted because the hook/state ABI
-// and shared dispatcher roots remain unidentified.
-// next_lever=derive the hook/state ABI and land a native-LTCG VM cluster
-// before replacing this exact-overlay body.
+// BLOCKED (D2401): retail region=9964 bytes; the live Ghidra body spans
+// 0x0043EE30..0x004413A2, followed in the region by alignment and its
+// 94-entry opcode table. The boundary is one stack object pointer/RET 4; the
+// body itself is a 532-block interpreter with 203 direct
+// calls and x87/EAX/ECX/EDX/EDI helper ABIs. The legacy semantic model uses a
+// separate hook-driven state object and cannot be installed as this body.
+// See anm_vm_tick_0043ee30_dependency_audit.md for the verified call graph,
+// state flow, and smallest useful conversion cluster.
+// next_lever=convert the complete dispatcher and its nonstandard helper call
+// surfaces as one semantic cluster; individual opcode cases share PC, timing,
+// interrupt, and frame-update paths and are not independent cut points.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 
-// 0x0043EE30..0x004411C2: FUN_0043ee30
+// Ghidra body 0x0043EE30..0x004413A2; RET 4 at 0x004413A0.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     __asm {

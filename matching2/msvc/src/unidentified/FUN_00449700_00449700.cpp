@@ -1,23 +1,23 @@
-// BLOCKED (H2701): closest_byte_count=111; first_diff=unmeasured;
-// residual_class=boundary/abi: live Ghidra has no containing function at
-// 0x00449700, models the bytes as DAT_00449700 (128-byte undefined region),
-// and reports no xrefs/dataflow. The adjacent FUN_004497D0 is a real
-// animation-manager function with seven callers and FUN_004491C0 as callee,
-// but it is not a proven caller of this 111-byte body.
-// variants_tested=exact retail naked wrapper, readable COM-device cleanup
-// model, and an adjacent animation-manager caller hypothesis; MSVC 13.10
-// baseline probe is exact (111/111), but no compiler-readable candidate was
-// linked/measured.
-// next_lever=repair the containing-function boundary from the retail
-// disassembly, recover the indirect device/object dispatch and COM vtable
-// owner, then co-compile that real caller cluster before attempting a
-// readable promotion.
+// Semantic model: take the address of a texture pointer in EAX, fetch texture
+// level zero, query its surface description, lock the full surface, clear
+// pitch*height bytes at the returned bits pointer, unlock, and Release the
+// temporary surface. HRESULTs are ignored. EAX is the private input register;
+// on the non-null path the return value left in EAX is Release's refcount.
+//
+// BLOCKED: Ghidra currently has no function at 0x00449700 and reports no xrefs
+// to the entry. The 111-byte span nevertheless has a balanced local frame,
+// returns at 0x0044976E, and is followed by an INT3 and the next 16-byte
+// boundary at 0x00449770, strongly supporting a complete function body. The
+// EAX-only input is not expressible by an ordinary MSVC x86 C++ function
+// signature, so retain the byte-exact wrapper until an ABI-aware caller/cluster
+// route is available. See recovery_notes/texture_surface_clear_00449700.md.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 // 0x00449700..0x0044976E: FUN_00449700
-// Naked body preserves the retail register/stack ABI.
+// The naked body preserves the retail private EAX-input ABI. The C declaration
+// is only the linker-facing shell; it does not describe that register input.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00449700_00449700() {
     __asm {
     L_00449700:

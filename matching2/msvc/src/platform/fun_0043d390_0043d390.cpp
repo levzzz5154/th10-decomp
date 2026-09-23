@@ -7,12 +7,14 @@
 // 0x0043D390..0x0043D63B: FUN_0043d390
 // Naked body preserves the retail register/stack ABI.
 // BLOCKED (D3601): closest_byte_count=61/684; first_diff=0x0043D390;
-// residual_class=fastcall index/state ABI, security-cookie frame, resource
-// parser object/vtable layout, and lock-buffer callback sequencing;
+// Ghidra confirms a declared __fastcall boundary: index in ECX, manager in
+// EDX, resource name on the stack. The remaining blockers are the nested
+// Resource_FindChunk call's EAX/ECX/EDI inputs, security-cookie frame, and
+// DirectSound vtable/copy sequencing; this is not a hidden-entry-register ABI.
 // variants_tested=live Ghidra decompilation with caller 0x0043CD30 and callee
 // 0x0043D250, plus MSVC 13.10 readable RIFF candidate (281-byte extent, 61
-// non-relocation bytes equal); next_lever=native-LTCG schema2 with the real
-// sound-device caller, Resource_FindChunk contract, and buffer vtable layout.
+// non-relocation bytes equal); next_lever=native-LTCG with the real sound-device
+// caller and a typed resource-chunk / DirectSound call context.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043d390_0043d390() {
     __asm {
     L_0043d390:

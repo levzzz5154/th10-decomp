@@ -2,7 +2,9 @@
 #include "asm_symbols.hpp"
 
 // 0x0043BA90..0x0043BAE2: FUN_0043ba90
-// Naked body preserves the retail register/stack ABI.
+// The nested 0x0043B8D0 call takes its receiver in EAX, which standard C++
+// cannot express with the current callee entry point. Preserve that register
+// contract and the exact no-argument callback entry in this naked body.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043ba90_0043ba90() {
     __asm {
     L_0043ba90:

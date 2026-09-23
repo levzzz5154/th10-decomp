@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "name": "pause_menu_animation_pool_00422ab0",
+  "source": "src/game/fun_00422ab0_00422ab0.cpp",
+  "additional_sources": [
+    "src/render/fun_00449950_00449950.cpp",
+    "layout/ltcg/pause_menu_animation_pool_00422ab0_context.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/animation_handle.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Edge-focused whole-program layout for the typed pause initializer, AnimationPool::Allocate, and its maintained Entity_Init callee. The real initializer is the entry; allocator and Entity_Init call edges use retail callsites, with no synthetic caller. Descriptor effects are ordinary C++ in the initializer. Target extents are Ghidra measurements; native context sizes and lowering are unmeasured.",
+  "entry": "_asm_FUN_00422ab0_00422ab0@4",
+  "functions": [
+    {
+      "name": "Entity_Init_00401DE0",
+      "source": "src/game/entity_initialize_00401de0.cpp",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$01entity",
+      "address": "0x00401DE0",
+      "size": 273,
+      "actual_abi": "__fastcall; entity in EDX, ECX unread and unwritten; plain RET"
+    },
+    {
+      "name": "PauseMenuStateInitializer_00422AB0",
+      "source": "src/game/fun_00422ab0_00422ab0.cpp",
+      "symbol": "_asm_FUN_00422ab0_00422ab0@4",
+      "section": ".text$01pause",
+      "address": "0x00422AB0",
+      "size": 382,
+      "actual_abi": "one state pointer at [ESP+4], __stdcall RET 4; no private entry register input"
+    },
+    {
+      "name": "AnimationPool_Allocate_00449950",
+      "source": "src/render/fun_00449950_00449950.cpp",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$03allocate",
+      "address": "0x00449950",
+      "size": 161,
+      "actual_abi": "manager in ESI; result in EAX; EDI saved/restored"
+    }
+  ],
+  "calls": [
+    {
+      "caller": "_asm_FUN_00422ab0_00422ab0@4",
+      "callee": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "address": "0x00422B09",
+      "instruction": "call"
+    },
+    {
+      "caller": "_asm_FUN_00422ab0_00422ab0@4",
+      "callee": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "address": "0x00422B74",
+      "instruction": "call"
+    },
+    {
+      "caller": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "callee": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x004499B6",
+      "instruction": "call"
+    },
+    {
+      "caller": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "callee": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x004499C3",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x00401EF1",
+      "size": 134079
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00422C2E",
+      "size": 159010
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?StopAtFrame3@AnimationHandle@@QAEXXZ",
+      "address": "0x0040C4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "address": "0x0043DC90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "address": "0x004492A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

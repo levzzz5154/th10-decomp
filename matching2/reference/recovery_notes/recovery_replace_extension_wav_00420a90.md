@@ -1,83 +1,85 @@
-# 0x00420A90 Recovery_ReplaceExtensionWav - nearly all readable C++
+# 0x00420A90 — WAV resource path rewrite
 
-2026-09-18. From the `--entry none` prime class (no register read before writing
-one). 120 bytes, two stack arguments, and the body is almost entirely
-compiler-generated from ordinary C++:
+Updated 2026-09-23 from the live `th10.exe` Ghidra analysis. The 120-byte
+function at `0x00420A90..0x00420B07` is an ordinary two-argument operation
+wrapped around a call with a private register convention. The local string work
+is expressible in C++; the resource-registration call currently prevents an
+exact inline-assembly-free version.
 
-```
-sub esp,104h                     ; frame
-mov eax,[data_00473660] / xor eax,esp / mov [esp+100h],eax    ; the /GS cookie
-...inlined strcpy into the 0x100-byte buffer...
-lea eax,[esp] / push 2Eh / push eax / call strrchr_00452930   ; strrchr(buffer, '.')
-mov byte [eax+1],77h / [eax+2],61h / [eax+3],76h              ; ".wav"
-push <out> / push 1 / lea edx,[esp+8] / mov eax,492590h
-call AnimationManager_RegisterResource_0043e460
-mov ecx,[esp+100h] / xor ecx,esp / mov eax,1
-call security_check_cookie_00458ea5                          ; the /GS check
-```
+## Verified entry and return contract
 
-So the recovered source is:
+Ghidra identifies `undefined4 __stdcall FUN_00420a90(undefined4, char *)`.
+The raw body ends in `RET 8`, so the function accepts two 32-bit stack
+arguments and removes them itself. Its direct xrefs contain ten call sites in
+eight functions. For example, `FUN_00417870` calls it twice, with `(0, pathA)`
+and `(1, pathB)`, and makes no post-call stack adjustment. `FUN_0040bd80`
+passes `0` with the path stored in the event record.
+
+The source-level behavior is:
 
 ```cpp
-int Recovery_ReplaceExtensionWav_00420a90(int unused, const char* source, void* out) {
-    char buffer[0x100];
-    strcpy(buffer, source);                 // inlined by the compiler, delta form
-    char* dot = strrchr(buffer, '.');
-    dot[1] = 'w'; dot[2] = 'a'; dot[3] = 'v';
-    AnimationManager_RegisterResource(0x00492590, buffer, out, 1);
-    return 1;
-}
+int __stdcall Recovery_ReplaceExtensionWav(int selector, const char* source);
 ```
 
-Everything except the `RegisterResource` call is plain C++ that the compiler
-generates verbatim - the inlined strcpy, the strrchr call (bindable through the
-manifest's `symbols` table as `_asm_strrchr_00452930`), the three byte stores, the
-`/GS` prologue and epilogue. The call itself is the obstacle: the caller sets
-**EAX = 0x00492590** and **EDX = the buffer**, pushes **out** and **1**, and leaves
-ECX unset, which is the same convention the two dummy registrations at
-`0x00420B10`/`0x00420C00` use - and no prototype produces an argument in EAX.
+The first argument is not an output pointer. Callers use `0` or `1`, and this
+value is forwarded to a registration record. The function returns `1` after
+the registration call; it does not return the record or registration result.
 
-Two ways forward, both already precedented in this project: declare the callee
-with the closest `__fastcall` prototype and measure the delta (one probe run), or
-write the call as a four-line inline `__asm` block inside otherwise readable C++,
-exactly as the landed `0x00443B60` does for its `fsincos` sequences. Here the
-trade is favourable - the asm would be a few lines of a body that is otherwise
-pure C++ - which is why this region is recorded as an open candidate rather than a
-blocked one.
+## Body behavior
 
-The sibling `0x00420B80` (125 bytes) has the same structure - inlined strcpy,
-strrchr, the three `.wav` stores - so whatever lands here lands there too.
+The instructions establish a `0x100`-byte local buffer and a stack cookie.
+The loop at `0x00420AA4..0x00420AB8` copies the second argument, including its
+terminator, into that buffer; it is an inlined `strcpy`-shaped loop. The call at
+`0x00420AC0` is the CRT `strrchr(buffer, '.')` at `0x00452930`. That function
+uses the cdecl ABI and returns the last dot in EAX. The wrapper unconditionally
+writes `'w'`, `'a'`, and `'v'` to the next three bytes. It does not check for a
+missing dot or explicitly write another terminator.
 
-## Measured result
+Then the wrapper calls `0x0043E460` with:
 
-Written out and probed in a throwaway copy (`cp -a matching2/msvc /tmp/ae/msvc`,
-the manifest entry flipped to `semantic`, declarations of the two callees with the
-asm-style symbol names, no `asm_symbols.hpp` since its `void f()` prototypes
-conflict, and the function itself `extern "C"` under the name the manifest
-expects). The whole body compiles and emits **121 bytes against the region's 120**,
-with everything matching except two things:
+| Location at callee entry | Value |
+| --- | --- |
+| EAX | manager address `0x00492590` |
+| EDX | rewritten name in the local buffer |
+| first stack argument | `1` |
+| second stack argument | the wrapper's `selector` |
 
-```
-1e: push %esi                     ; +1 byte, retail has no callee-saved use
-1f: mov 0x114(%esp),%esi          ; out hoisted into ESI across the strrchr call
-...
-41: push %esi / 42: push $0x1     ; retail: push ecx / push $0x1
-48: mov $0x492590,%ecx            ; retail: mov $0x492590,%eax
-```
+ECX is not an input to this call. `0x0043E460` removes its two stack arguments
+with `RET 8`. Its Ghidra body confirms the data effect: it scans 31 records
+starting at manager offset `+0x1F88`, with `0x10C` bytes per record; in the
+first free record it writes `1` at `+0x1F88`, copies `selector` to `+0x1F8C`,
+copies the rewritten path to `+0x1F94`, and clears `+0x1F90`. If no record is
+free, it makes no record update. The wrapper ignores that outcome and returns
+`1`.
 
-The push order was corrected by passing the flag third and `out` fourth (MSVC
-pushes stack arguments right-to-left), which left the ESI spill as the structural
-delta: retail reloads `out` from the stack after the call, where this compiler
-version hoists it into a callee-saved register. That is one byte, and it is the
-same class of scheduler decision as the other near-misses in this project.
+Ghidra's decompiler confirms the stack-cookie check and `return 1`; its
+disassembly confirms the exact `RET 8`, cdecl `strrchr` call, argument pushes,
+EAX/EDX setup, and the private registration call. The sibling registration
+helper has 23 xrefs across 13 callers, so changing only this wrapper would not
+remove the shared ABI blocker.
 
-The register difference is the real blocker, and it is not a size question: the
-`mov` is five bytes either way, so a prototype with the resource in ECX would be
-**byte-exact and semantically wrong** - `RegisterResource` reads its resource from
-EAX, as the two dummy registrations at `0x00420B10`/`0x00420C00` show, and no
-prototype produces an EAX argument. Landing this region therefore needs the call
-expressed as an inline `__asm` block, which in turn needs a frame pointer to name
-`buffer` and `out` - and the landed `0x00443B60` precedent works only because its
-`fsincos` sequences address no stack slots. So the region is blocked on the same
-EAX-carrying convention as `AnimationManager_RegisterResource` itself, now with a
-concrete 121-byte model and the exact two-instruction delta as evidence.
+## Why the current source retains assembly
+
+The registered body remains in
+[`recovery_replace_extension_wav_00420a90.cpp`](../../msvc/src/game/recovery_replace_extension_wav_00420a90.cpp)
+as a naked retail body. A normal MSVC x86 `__fastcall` declaration places
+arguments in ECX and EDX; it cannot put this manager receiver in EAX while
+keeping the name in EDX and two more arguments on the stack. Declaring the
+manager as an ordinary C++ parameter would therefore change the call's meaning.
+
+A previous throwaway measurement of a semantic candidate produced 121 bytes
+for the 120-byte retail region. The candidate's closest byte count was 120,
+but it saved the selector in ESI across `strrchr` where retail reloads it from
+the stack. It also moved the manager value to ECX, which would be byte-sized
+similarly but semantically wrong for `0x0043E460`. That experiment is historical
+evidence; this update did not run a build, probe, or test.
+
+## Next step
+
+The next step toward an inline-assembly-free result is to add or use compiler
+support for the actual private call shape—EAX receiver, EDX name, two stack
+arguments, and callee `RET 8`—and make that ABI visible across
+`0x0043E460` and its callers. Then re-evaluate this wrapper's selector reload
+and frame-cookie layout. With ordinary MSVC calling conventions alone, the
+current obstacle remains; retaining the retail body is more accurate than a
+readable but misdirected call.

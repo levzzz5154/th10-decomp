@@ -282,16 +282,21 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00406240_00406240() {
     L_00406486:
         test al,2
     L_00406488:
-        je asm_target_00406519
+        je L_00406519
     L_0040648e:
         mov edx,dword ptr [data_00477834]
     L_00406494:
         lea eax,[ebp+3F0h]
     L_0040649a:
         mov ecx,edi
+    // Explicit stack arguments replace the retail EAX/ECX/EDX private ABI.
     L_0040649c:
+        push edx
+        push eax
+        push ecx
         call asm_FUN_004266b0_004266b0
-    L_004064a1:
+        add esp,0Ch
+    L_item_field_contact_result_004064a1:
         cmp eax,ebx
     L_004064a3:
         jne short L_004064d9

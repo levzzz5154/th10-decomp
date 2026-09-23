@@ -10,6 +10,9 @@
 // next_lever=compiler/toolkit mechanism or a coupled native-LTCG caller/callee
 // context that exposes the private EAX receiver while retaining the exact
 // seven-byte MOV EAX,ECX / JMP 0x0042D260 bridge.
+// The live byte-level Ghidra recheck confirms this register contract and the
+// callback-registration xref from FUN_0042CAA0; details are in
+// recovery_notes/menu_dispatch_callback_thunks_0042d2e0_0042d2f0.md.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

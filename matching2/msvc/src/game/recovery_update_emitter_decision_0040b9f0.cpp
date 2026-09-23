@@ -10,7 +10,7 @@ __declspec(noinline) int
 RecoveryUpdateEmitterState_0040b9f0::UpdateEmitterDecision() {
     RecoveryTickState_0040bd20* tick_state = this->tick_state_018;
 
-    if (TickRecoveryState_0040bd20(tick_state) != 0) {
+    if (tick_state->Tick() != 0) {
         // Retail's NEG/SBB/AND/ADD sequence selects 2 when the 0x1000 input
         // flag is set and 15 otherwise.
         data_00491fb8 = (data_00491ff4 & 0x1000u) ? 2u : 15u;

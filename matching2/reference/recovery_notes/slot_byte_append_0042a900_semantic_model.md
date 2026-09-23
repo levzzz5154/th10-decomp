@@ -6,13 +6,13 @@ cursor stored at object offset `+0x6274`. The readable model is in
 
 ## Behavior
 
-The retail instructions load the current cursor, write the input byte to
-`*cursor`, increment the pointer, and store it back at `+0x6274`. They then
+The retail instructions load the cursor and write the input byte through it,
+then reload the cursor at `+0x6274`, increment it, and store it back. They
 compute the advanced cursor's signed 32-bit offset from the object, subtract
-`0x5464`, and return whether the result is at least `0x78`. With a valid cursor
-into the byte array beginning at `+0x5464`, the model expresses the same test
-as `next_cursor - bytes_5464 >= 0x78`. The function therefore reports true
-after the cursor has advanced 120 bytes from that start.
+`0x5464`, and return whether the result is at least `0x78`. The model now
+preserves that reload order and expresses the signed comparison with 32-bit
+address arithmetic. For a valid cursor into the byte array beginning at
+`+0x5464`, the function reports true after the cursor advances 120 bytes.
 
 The layout places the byte array at `+0x5464` and the cursor pointer at
 `+0x6274`, matching the neighboring cursor accessor documented in
@@ -37,7 +37,7 @@ results do not rule out an indirect dispatch path.
 
 ## Model status
 
-The source now contains ordinary C++ and no inline assembly. Its `__cdecl`
+The source contains ordinary C++ and no inline assembly. Its `__cdecl`
 object-and-byte parameters are an explicit semantic interface only; they do
 not model the retail `EAX` receiver and `DL` input. The existing C-linkage
 symbol spelling is retained for the current manifest reference, but this

@@ -1,9 +1,19 @@
 # Sprite quad submit pipelines at 0x00442670 and 0x00442AD0
 
-2026-09-13. The last two direct `SyncRenderState` callers are now ordinary C++.
-Both 1,111-byte sprite pipelines, and the 25-byte colour helper they call, are
-byte-exact in the existing native-LTCG render batch. That is 2,247 bytes: the
-largest single-step recovery since the render cluster was created.
+Historical snapshot, 2026-09-13: the last two direct `SyncRenderState` callers
+were converted to ordinary C++. Both 1,111-byte sprite pipelines and the
+25-byte colour helper they call matched the retail image while the snap path
+still used inline x87 assembly.
+
+Current source update, 2026-09-23: both inline `FRNDINT` blocks were replaced
+with ordinary C++ calls to `rint`, followed by the same half-pixel adjustment
+and duplicated corner writes. Microsoft documents `rint` as following the
+active floating-point rounding mode and raising `FE_INEXACT` when rounding
+changes the value, matching the x87 operation's normal rounding and inexact
+behavior ([Microsoft CRT `rint` documentation](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/rint-rintf-rintl?view=msvc-170)).
+The current source therefore has no inline assembly in either pipeline. The
+new version has not been compiled or compared with retail; byte identity and
+exceptional-value equivalence remain unverified.
 
 ## What the two pipelines do
 
@@ -67,17 +77,19 @@ standalone unit the same body compiles to a `movzx`-from-stack prologue instead.
   literals. The compiler pools one `__real@3f000000` per link, so a single
   literal can only ever reference one address; retail's two pipelines each read
   their own preserved `.rdata` slot.
-- The pixel snap cannot be expressed in C++98 on this toolkit. The image
-  contains a bare `frndint` only in these two functions, in the CRT's
-  hand-written `__frnd` (`0x0045EBBA`) and in the `_exp` tail (`0x00464F00`).
-  `floor`, `floorf`, `ceilf`, `rint`-style spellings and every integer-cast
-  round trip emit CRT calls or `fistp` sequences instead (26 spellings probed
-  against `cl 13.10.6030` with the retail flags). The snap block is therefore
-  kept as the original source's own `__asm` block, assembled unmodified, while
-  everything around it is C++. It is the only inline assembly inside recovered
-  game code.
+- The prior implementation kept the pixel snap in inline assembly because
+  earlier source-shape measurements focused on exact instruction output. The
+  current implementation instead prioritizes the semantic C++ requirement and
+  computes the four source edges as `rint(float-as-double) - half_pixel`, then
+  stores them to the same paired corners in the retail order. The regular and
+  mirrored paths preserve their distinct half-pixel constants.
 
-## Validation
+## Historical validation before the source update
+
+The following byte-exact measurements describe the 2026-09-13 version with the
+inline x87 snap blocks still present. They do not validate the current `rint`
+implementation; no build, probe, or test was run for the 2026-09-23 source
+change.
 
 `python3 matching2/tools/matching/probe.py --source src/render/sprite_quad_submit.cpp`
 reports all 17 batch functions EXACT. `make MSVC_ARGS='--jobs 32'` passes: the

@@ -1,19 +1,21 @@
 // BLOCKED (D2702): closest_byte_count=627; first_diff=unmeasured;
-// residual_class=private-callee ABI cluster: activation has two register-
-// sensitive animation-manager calls, a 32-iteration spawn loop, and shared
-// timer/resource state whose exact register schedule depends on the visible
-// callers and callees.
+// residual_class=private-register callee ABI cluster: this 627-byte
+// __stdcall entry is called with one stack pointer and RET 4, but its body
+// calls helpers with ESI, EBX/EDX/EAX, ESI-plus-stack, EDI-plus-stack, and
+// EAX/ECX/EBX contracts. Those register inputs cannot be expressed by
+// standalone MSVC C++ calling-convention declarations.
 // variants_tested=exact retail wrapper, live-Ghidra pseudocode/caller-callee
 // and global audits, and the legacy TriggerRegion_Activate semantic model;
 // no compiler-readable candidate was byte-measured without changing the
 // fixed-address ownership manifest.
-// next_lever=native-LTCG schema-2 cluster containing this entry and its real
-// animation/resource callers plus the private callees, then measure the full
-// 627-byte contribution before registration.
+// next_lever=native-LTCG schema-2 cluster containing callers 0x004266B0 and
+// 0x004267F0, this entry, and the register-sensitive allocation, list,
+// position, resource, and script callees; preserve their visible register
+// handoffs, then measure the full 627-byte contribution before registration.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00426CF0..0x00426D98: FUN_00426cf0
+// 0x00426CF0..0x00426F62: FUN_00426cf0 (627 bytes; stdcall, one stack arg).
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00426cf0_00426cf0() {
     __asm {

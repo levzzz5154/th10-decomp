@@ -1890,21 +1890,26 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e2cc:
         test eax,eax
     L_0040e2ce:
-        jg short L_0040e2e4
+        jg short L_item_field_contact_skipped_0040e2e4
     L_0040e2d0:
         mov edx,dword ptr [data_00477834]
     L_0040e2d6:
         lea eax,[ebp+0B8h]
     L_0040e2dc:
         lea ecx,[ebp+2Ch]
+    // Explicit stack arguments replace the retail EAX/ECX/EDX private ABI.
     L_0040e2df:
+        push edx
+        push eax
+        push ecx
         call asm_FUN_004266b0_004266b0
-    L_0040e2e4:
+        add esp,0Ch
+    L_item_field_contact_skipped_0040e2e4:
         mov eax,dword ptr [ebp+1444h]
     L_0040e2ea:
         test ah,10h
     L_0040e2ed:
-        je asm_target_0040e379
+        je L_0040e379
     L_0040e2f3:
         fld dword ptr [ebp+38h]
     L_0040e2f6:

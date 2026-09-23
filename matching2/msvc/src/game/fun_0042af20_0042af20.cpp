@@ -10,6 +10,11 @@
 // next_lever=compile a schema-2 native-LTCG cluster containing the real
 // 0x0041f990 caller and 0x0042ae60 initializer as a typed ABI anchor; retain
 // compiler EH tables and prove the complete allocation path before metadata.
+// Focused Ghidra audit: retain assembly. The only caller invokes this with no
+// stack arguments and ignores EAX; on success this function passes the
+// allocation pointer to 0x0042ae60 in EAX, then publishes its EAX result.
+// That initializer's private register convention and this function's SEH
+// registration are detailed in recovery_notes/fun_0042af20_ghidra_audit.md.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

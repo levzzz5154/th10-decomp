@@ -1,11 +1,16 @@
 {
   "schema_version": 1,
-  "name": "ecl_push_scratch_value_00450690",
+  "name": "ecl_scratch_stack_00450690_004506d0",
   "source": "src/script/ecl_push_scratch_value_00450690.cpp",
   "driver": "layout/ltcg/ecl_push_scratch_value_00450690_context.cpp",
-  "headers": [],
+  "additional_sources": [
+    "src/script/ecl_pop_scratch_value_004506d0.cpp"
+  ],
+  "headers": [
+    "include/th10/script/ecl_scratch_frame_00450690.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "ECL scratch push compiled with native LTCG so the interpreter frame arrives in EAX and the byte count in ECX, as retail's call site in the ECL interpreter does.",
+  "description": "ECL scratch push and pop share one frame layout and native-LTCG context. Retail passes the frame in EAX to both entries and the push size in ECX.",
   "functions": [
     {
       "name": "EclFrame_PushScratchValue",
@@ -14,14 +19,23 @@
       "address": "0x00450690",
       "size": 64,
       "actual_abi": "frame in EAX; byte count in ECX; result in EAX; plain RET"
+    },
+    {
+      "name": "EclFrame_PopScratchValue",
+      "symbol": "?PopScratchValue@EclFrame_00450690@@QAEHXZ",
+      "section": ".text$02pop",
+      "address": "0x004506D0",
+      "size": 41,
+      "source": "src/script/ecl_pop_scratch_value_004506d0.cpp",
+      "actual_abi": "frame in EAX; no stack arguments; result 0 in EAX; plain RET"
     }
   ],
   "context": {
     "symbol": "EclPushScratchValueContext@12",
-    "section": ".text$03context",
-    "address": "0x004506E0",
+    "section": ".text$04context",
+    "address": "0x00450700",
     "size": 42,
-    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+    "description": "Synthetic array-walking caller of both frame methods; not recovered game code. The modified driver's emitted size is not measured in this no-build pass."
   },
   "gaps": [
     {
@@ -30,9 +44,9 @@
       "size": 325264
     },
     {
-      "section": ".text$02layout",
-      "address": "0x004506D0",
-      "size": 16
+      "section": ".text$03layout",
+      "address": "0x004506F9",
+      "size": 7
     }
   ],
   "constants": [],

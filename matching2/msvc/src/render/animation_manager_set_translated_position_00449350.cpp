@@ -1,21 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2702): closest_byte_count=111; differing_bytes=63/111;
-// first_diff=0x03; residual_class=abi/cluster+x87-expression-order.
-// Ghidra's live decompile identifies the manager in ECX, animation context in
-// EDX, script id in the stack slot, and the source position record in ESI;
-// callers include FUN_004250b0, FUN_00408d60, FUN_00409280, and FUN_0040dc80,
-// with AnimationManager_Find as the only callee.
-// variants_tested=readable SetTranslatedPosition members with const-reference
-// and by-value position records, reordered formal parameters, explicit x87
-// temporaries, and a native-LTCG context co-compiled with Find plus the exact
-// 00449470 stop-frame member.  The closest candidate promoted the position
-// record to ESI but retained an extra stack slot (RET 8 versus retail RET 4);
-// it also emitted reversed x87 load/add order and a nine-byte longer branch
-// body.  The native candidate was restored; no translated member is retained.
-// next_lever=co-compile this setter with SetPosition and a real caller such as
-// FUN_004250b0 so the optimizer can observe the original private ABI.
+// Recovery status: the standalone C++ candidates did not reproduce this
+// private-ESI entry ABI.  Live Ghidra evidence and the next whole-call-cluster
+// dependency are recorded in
+// matching2/reference/recovery_notes/animation_manager_set_translated_position_00449350.md.
+// The retail body remains here until the caller and helper ABI can be modeled
+// together and the fixed 111-byte contribution is verified.
 // 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
 // Naked body preserves the retail register/stack ABI.
 

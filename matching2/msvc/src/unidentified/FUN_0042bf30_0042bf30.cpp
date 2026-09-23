@@ -2,6 +2,9 @@
 #include "asm_symbols.hpp"
 
 // 0x0042BF30..0x0042BF72: FUN_0042bf30
+// Builds the 0x2E4-byte effect-pool state and registers its scheduler callbacks.
+// FUN_0042bbd0 consumes the state through EBX, which standard C++ cannot express;
+// see matching2/reference/recovery_notes/effect_pool_factory_0042bf30_abi_audit.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0042bf30_0042bf30() {
     __asm {

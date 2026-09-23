@@ -18,7 +18,7 @@ SchedulerCreateSecondaryClearFlag_0044A090::Create(
     SchedulerTask* task =
         SchedulerCallback_Create_00449ed0((void*)this);
     task->context = context;
-    *(unsigned int*)((char*)task + 4) &= ~2u;
+    task->reserved_flags &= ~1u;
     Scheduler_RegisterSecondary(data_00491be4, task, priority);
     return task;
 }

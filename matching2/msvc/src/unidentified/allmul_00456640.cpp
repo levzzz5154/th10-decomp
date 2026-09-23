@@ -1,47 +1,29 @@
-#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00456640..0x00456673: __allmul
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_allmul_00456640() {
-    __asm {
-    L_00456640:
-        mov eax,dword ptr [esp+8]
-    L_00456644:
-        mov ecx,dword ptr [esp+10h]
-    L_00456648:
-        or ecx,eax
-    L_0045664a:
-        mov ecx,dword ptr [esp+0Ch]
-    L_0045664e:
-        jne short L_00456659
-    L_00456650:
-        mov eax,dword ptr [esp+4]
-    L_00456654:
-        mul ecx
-    L_00456656:
-        ret 10h
-    L_00456659:
-        push ebx
-    L_0045665a:
-        mul ecx
-    L_0045665c:
-        mov ebx,eax
-    L_0045665e:
-        mov eax,dword ptr [esp+8]
-    L_00456662:
-        mul dword ptr [esp+14h]
-    L_00456666:
-        add ebx,eax
-    L_00456668:
-        mov eax,dword ptr [esp+8]
-    L_0045666c:
-        mul ecx
-    L_0045666e:
-        add edx,ebx
-    L_00456670:
-        pop ebx
-    L_00456671:
-        ret 10h
-    }
+// Existing assembly callers keep their raw symbol through regions.json.
+extern "C" unsigned __int64 __stdcall Allmul_00456640(
+    unsigned int leftLow,
+    unsigned int leftHigh,
+    unsigned int rightLow,
+    unsigned int rightHigh) {
+    // Form the low 64 bits of the 32-by-32 product without a wide multiply.
+    // Splitting into 16-bit limbs keeps every product within 32-bit arithmetic
+    // and avoids recursively invoking this runtime helper.
+    const unsigned int leftLowLow16 = leftLow & 0xFFFF;
+    const unsigned int leftLowHigh16 = leftLow >> 16;
+    const unsigned int rightLowLow16 = rightLow & 0xFFFF;
+    const unsigned int rightLowHigh16 = rightLow >> 16;
+
+    const unsigned int limb00 = leftLowLow16 * rightLowLow16;
+    const unsigned int limb01 = leftLowLow16 * rightLowHigh16;
+    const unsigned int limb10 = leftLowHigh16 * rightLowLow16;
+    const unsigned int limb11 = leftLowHigh16 * rightLowHigh16;
+    const unsigned int middle = (limb00 >> 16) + (limb01 & 0xFFFF) + (limb10 & 0xFFFF);
+
+    const unsigned int productLow = (middle << 16) | (limb00 & 0xFFFF);
+    const unsigned int productHigh = limb11 + (limb01 >> 16) + (limb10 >> 16) + (middle >> 16);
+
+    // Cross-products contribute only to the high half of the 64-bit result.
+    const unsigned int resultHigh = productHigh + leftHigh * rightLow + leftLow * rightHigh;
+    return (static_cast<unsigned __int64>(resultHigh) << 32) | productLow;
 }

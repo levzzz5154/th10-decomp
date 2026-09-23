@@ -2,8 +2,9 @@
 #include "asm_symbols.hpp"
 
 // 0x00452FF0..0x00453110: FUN_00452ff0
+// CRT floor dispatcher: one stack double, x87 ST(0) result, caller cleanup.
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00452ff0_00452ff0() {
+extern "C" __declspec(naked) double __cdecl asm_FUN_00452ff0_00452ff0(double value) {
     __asm {
     L_00452ff0:
         cmp dword ptr [data_00499300],0

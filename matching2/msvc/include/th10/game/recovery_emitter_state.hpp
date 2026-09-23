@@ -8,10 +8,9 @@ struct RecoveryTickState_0040bd20 {
     const float* speed_010;
     unsigned char reserved_014[0x74 - 0x14];
     unsigned int flags_074;
-};
 
-__declspec(noinline) int __stdcall TickRecoveryState_0040bd20(
-    RecoveryTickState_0040bd20* state);
+    __declspec(noinline) int Tick();
+};
 
 struct RecoveryUpdateEmitterState_0040b9f0 {
     unsigned char reserved_000[0x18];

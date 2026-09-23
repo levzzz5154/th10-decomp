@@ -1,12 +1,12 @@
-// BLOCKED (H3301): closest_byte_count=14/14; first_diff=none (authoritative
-// retail wrapper remains exact). residual_class=private AX live-in/live-out,
-// ECX preservation, and the compiler's two-byte temporary/aggregate schedule.
-// variants_tested=live Ghidra decompile/xref audit (no function or references),
-// exact 14-byte Ghidra disassembly, MSVC 13.10 short and byte-pair probes, and
-// a native-LTCG aggregate candidate; the readable candidates changed the
-// temporary schedule or extent and were not retained. next_lever=native-LTCG
-// cluster with the real AX/ECX caller context and the original aggregate
-// source shape, then compare the complete 14-byte contribution.
+// BLOCKED (H3301): the exact 14-byte retail body remains authoritative.
+// Live Ghidra has no Function at 0x0043A6F0; it classifies 0x0043A6F0..0x0043A6FF
+// as undefined data with no xrefs, and a whole-program direct-call scan found
+// no call site. The body round-trips AX and restores ECX, but no actual caller
+// contract is available to ground an ordinary C++ signature. It calls no
+// helpers. See matching2/reference/recovery_notes/fun_0043a6f0_private_abi_audit.md.
+// closest_byte_count=14/14; first_diff=none; residual_class=unmodeled AX
+// live-in/live-out and ECX preservation. Earlier MSVC and native-LTCG source
+// candidates did not reproduce the complete 14-byte contribution.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

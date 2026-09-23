@@ -1,16 +1,11 @@
-// BLOCKED (H2701): closest_byte_count=201; first_diff=unmeasured;
-// residual_class=abi/source_shape: live Ghidra classifies 0x00444BE0 and its
-// paired 0x00444B10 filler as leaf __fastcall bodies with no xrefs/callers;
-// both consume count in EAX, target in ECX, and vertex storage in EBX, while
-// the retail body relies on x87 stack order across two interleaved loops.
-// variants_tested=exact retail naked wrapper, semantic vertical-strip model
-// paired with 0x00444B10, and a direct two-loop vertex-record reconstruction;
-// MSVC 13.10 baseline probe is exact (201/201), but no compiler-readable
-// candidate was linked/measured.
-// next_lever=derive the indirect render dispatch that owns both leaf bodies
-// (the nearby 0x00444CE0 consumer is a separate EAX/ECX worker), then
-// co-compile that caller with both fillers and expose EAX/ECX/EBX; retain this
-// wrapper until the cluster reproduces the 201-byte extent.
+// BLOCKED: 0x00444BE0 has no Ghidra callers or xrefs. The entry tuple is
+// count in EAX, target in ECX, and output storage in EBX; ordinary MSVC x86
+// declarations cannot name that tuple. The paired 0x00444B10 filler has the
+// same private ABI. Both bodies also schedule their coordinate interpolation
+// through x87 across interleaved output loops. The nearby 0x00444CE0 textured
+// strip renderer is not a caller. See
+// reference/recovery_notes/render_target_fill_vertical_edge_strip_00444be0.md
+// for the verified field writes and the remaining ABI blocker.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

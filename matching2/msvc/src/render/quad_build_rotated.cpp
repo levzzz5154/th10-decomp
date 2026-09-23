@@ -20,9 +20,12 @@
 // centred (-half / +half), left-anchored (0 / size) and right-anchored
 // (-size / 0), and the same value used for the two corners of an edge.
 //
-// The trigonometric pair is the original source's own assembly: no C++ spelling
-// on this toolkit emits the combined FSINCOS the bodies use.
+// Retail calculates the trigonometric pair with x87 FSINCOS.  This semantic
+// translation uses ordinary cosf/sinf calls and retains the same corner
+// equations, but separate calls may differ in rounding and exceptional-input
+// behavior; this source does not claim byte-exact output or generated code.
 #include "th10/render/quad_batch.hpp"
+#include <math.h>
 
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
                                                        AnimationManager_00442F50* manager);
@@ -40,12 +43,8 @@ extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
     }
 
     angle = entity->rotation.z;
-    __asm {
-        fld angle
-        fsincos
-        fstp ca
-        fstp sa
-    }
+    ca = cosf(angle);
+    sa = sinf(angle);
 
     px = entity->render_offset.x + entity->position.x + entity->base_position.x;
     py = entity->render_offset.y + entity->position.y + entity->base_position.y;
@@ -113,12 +112,8 @@ extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(
     }
 
     angle = entity->rotation.z;
-    __asm {
-        fld angle
-        fsincos
-        fstp ca
-        fstp sa
-    }
+    ca = cosf(angle);
+    sa = sinf(angle);
 
     px = entity->render_offset.x + entity->position.x + entity->base_position.x;
     py = entity->render_offset.y + entity->position.y + entity->base_position.y;

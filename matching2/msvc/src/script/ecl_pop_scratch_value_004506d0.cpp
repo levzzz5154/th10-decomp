@@ -1,23 +1,16 @@
 // 0x004506D0..0x004506F8: pop the current value from the ECL scratch stack.
-// The interpreter passes the VM/frame pointer in EAX and supplies no stack
-// arguments. This is a private register ABI; a native-LTCG context is needed to
-// keep the receiver in EAX instead of the ordinary __thiscall ECX register.
-struct EclVm_004506d0 {
-    unsigned char pad_000[0x1000];
-    unsigned int scratch_offset; // +0x1000
-    int scratch_value;           // +0x1004
-    __declspec(noinline) int PopScratchValue();
-};
+// The interpreter passes &vm->frame in EAX and supplies no stack arguments.
+#include "th10/script/ecl_scratch_frame_00450690.hpp"
 
-#pragma code_seg(".text$01accessor")
-int EclVm_004506d0::PopScratchValue() {
-    int offset = -4 + scratch_offset;
-    int value = scratch_value;
+#pragma code_seg(".text$02pop")
+int EclFrame_00450690::PopScratchValue() {
+    int offset = -4 + sp;
+    int previous_frame_base = frame_base;
     if (offset >= 0) {
-        scratch_offset = offset;
-        scratch_value = *(int*)((unsigned char*)this + offset);
+        sp = offset;
+        frame_base = *(int*)((unsigned char*)this + offset);
     }
-    scratch_offset = value;
+    sp = previous_frame_base;
     return 0;
 }
 #pragma code_seg()

@@ -85,31 +85,24 @@ purely the instruction selection inside a plain `/O2 /G6` build (`fsincos`
 instead of `fcos`+`fsin`, and the `this` spill), exactly as recorded above.
 
 
-## The `fsincos` discriminator is closed by an existing precedent
+## `0x00443B60` now uses semantic C++ trig calls
 
-`wave8_large_region_blockers.md` records the finding directly for the landed
-`0x00443B60` (1047 bytes, `src/render/projection_quads.cpp`): *MSVC never emits
-`fsincos` from `sinf`/`cosf`* — the compiler always produces an FSIN/FCOS pair.
-That region landed only because its two `fsincos` sequences are inline `__asm`
-blocks in the recovered source:
+As of 2026-09-23, both inline `FSINCOS` blocks in the already-landed
+`0x00443B60` (`src/render/projection_quads.cpp`, 1047 bytes) have been replaced
+with `cosf(angle)` and `sinf(angle)`. This removes inline assembly from that
+semantic source and keeps the recovered rotation calculation readable. The
+compiler output and numerical equivalence, including exceptional inputs and
+x87 rounding details, have not been rebuilt or probed for this change.
 
-```cpp
-    angle = this->rotation;
-    __asm {
-        fld angle
-        fsincos
-        fstp ca
-        fstp sa
-    }
-```
-
-For `0x00443B60` that is a few lines inside otherwise readable C++. For this
-family the *entire* eleven-instruction body is the sincos sequence and the two
-scaled stores, so an equivalent exact body would be almost entirely `__asm`.
-The current source policy accepts semantic C++ for these simple setters; exact
-retail instruction selection and x87 rounding therefore remain unverified.
-The `this` spill is moot for that semantic model because it is part of the
-retail instruction sequence rather than the component-level operation.
+The earlier observation in `wave8_large_region_blockers.md` that MSVC does not
+emit `FSINCOS` from `sinf`/`cosf` still applies to exact retail reproduction:
+MSVC produces separate FSIN/FCOS operations. For this family, the *entire*
+eleven-instruction body is the sincos sequence and two scaled stores, so an
+equivalent exact body would be almost entirely inline assembly. The current
+source goal accepts semantic C++ for these simple setters; exact retail
+instruction selection therefore remains unverified. The `this` spill is moot
+for that semantic model because it is part of the retail instruction sequence
+rather than the component-level operation.
 
 ## Semantic C++ recovery at `0x00441EF0`
 

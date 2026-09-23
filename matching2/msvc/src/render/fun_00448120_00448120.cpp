@@ -1,14 +1,20 @@
-// BLOCKED (H2701): closest_byte_count=325; first_diff=unmeasured;
-// residual_class=abi/source_shape: live Ghidra sees a __stdcall worker with
-// no xrefs/callers and only D3DXLoadSurfaceFromSurface as a named callee;
-// retail instead carries the surface-slot index in EBX and keeps output,
-// RECT, and COM temporaries in stack homes across four device vtable calls.
+// BLOCKED (H2701): live Ghidra confirms 0x00448120..0x00448264 (325 bytes),
+// __stdcall cleanup of 0x1C, and seven caller stack words, but the body also
+// consumes an incoming slot index in EBX. It uses the first stack word as a
+// temporary GetBackBuffer output, then selects per-slot surfaces and dimensions
+// through the manager in that word. The D3D9 calls are GetBackBuffer (+0x48),
+// CreateRenderTarget (+0x70), CreateOffscreenPlainSurface (+0x90), and
+// UpdateSurface (+0x78); the only named direct callee is D3DXLoadSurfaceFromSurface.
+// Ghidra reports no caller or xref, and a raw search for the entry address found
+// no embedded pointer. No known source-local callsite can turn EBX into an
+// explicit C++ argument, so this worker's ABI cannot yet be represented by a
+// standalone ordinary C++ function. See the focused Ghidra audit note.
 // variants_tested=exact retail naked wrapper, semantic surface-copy model,
-// and explicit vtable-plus-stack-RECT reconstruction; MSVC 13.10 baseline
-// probe is exact (325/325), but no compiler-readable candidate was linked.
-// next_lever=recover the indirect render dispatcher that supplies EBX and
-// expose that owner plus the D3D9 interface bindings in one native-LTCG
-// cluster; retain this wrapper until the complete 325-byte extent is emitted.
+// and explicit vtable-plus-stack-RECT reconstruction; the naked baseline
+// matched 325/325 bytes, while the closest candidate was 325 bytes with its
+// first mismatch unmeasured. No compiler-readable candidate was linked.
+// next_lever=locate the indirect dispatcher that supplies EBX and all seven
+// stack words, then recover the owner and this worker as one native-LTCG cluster.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
