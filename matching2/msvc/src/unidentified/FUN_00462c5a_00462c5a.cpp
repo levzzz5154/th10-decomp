@@ -6,7 +6,7 @@ struct RuntimeException_00462c5a {
 };
 extern "C" unsigned int __cdecl asm_strlen_00456720(const char*);
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
-extern "C" void __cdecl asm_FUN_0045bd80_0045bd80(void*, const char*);
+extern "C" char* __cdecl asm_FUN_0045bd80_0045bd80(char*, const char*);
 RuntimeException_00462c5a* RuntimeException_00462c5a::Init(const RuntimeException_00462c5a* source) {
     vtable = reinterpret_cast<void*>(0x46ca68);
     char* incoming;

@@ -5274,13 +5274,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_RunArrayReleaseCallback_ScoreRuntimeState_00409270",
+      "name": "semantic_ScoreRuntimeState_RunArrayReleaseCallback_00409270",
       "source": "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
-      "symbol": "_asm_RunArrayReleaseCallback_ScoreRuntimeState_00409270",
+      "symbol": "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
       "address": "0x00409270",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x00409270"
+      "kind": "semantic",
+      "owner": "0x00409270",
+      "previous_record": {
+        "name": "asm_RunArrayReleaseCallback_ScoreRuntimeState_00409270",
+        "source": "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
+        "symbol": "_asm_RunArrayReleaseCallback_ScoreRuntimeState_00409270",
+        "address": "0x00409270",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x00409270"
+      }
     },
     {
       "name": "text_padding_0040927a",
@@ -40774,13 +40783,22 @@
       "owner": null
     },
     {
-      "name": "asm_FUN_00453b60_00453b60",
+      "name": "semantic_FUN_00453b60_00453b60",
       "source": "src/unidentified/FUN_00453b60_00453b60.cpp",
       "symbol": "_asm_FUN_00453b60_00453b60",
       "address": "0x00453B60",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x00453B60"
+      "kind": "semantic",
+      "owner": "0x00453B60",
+      "previous_record": {
+        "name": "asm_FUN_00453b60_00453b60",
+        "source": "src/unidentified/FUN_00453b60_00453b60.cpp",
+        "symbol": "_asm_FUN_00453b60_00453b60",
+        "address": "0x00453B60",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x00453B60"
+      }
     },
     {
       "name": "asm_unassigned_00453b6a",
@@ -42976,13 +42994,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0045bd80_0045bd80",
+      "name": "semantic_FUN_0045bd80_0045bd80",
       "source": "src/unidentified/FUN_0045bd80_0045bd80.cpp",
       "symbol": "_asm_FUN_0045bd80_0045bd80",
       "address": "0x0045BD80",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x0045BD80"
+      "kind": "semantic",
+      "owner": "0x0045BD80",
+      "previous_record": {
+        "name": "asm_FUN_0045bd80_0045bd80",
+        "source": "src/unidentified/FUN_0045bd80_0045bd80.cpp",
+        "symbol": "_asm_FUN_0045bd80_0045bd80",
+        "address": "0x0045BD80",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x0045BD80"
+      }
     },
     {
       "name": "asm_unassigned_0045bd87",

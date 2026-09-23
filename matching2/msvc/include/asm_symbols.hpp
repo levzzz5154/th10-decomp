@@ -1375,7 +1375,7 @@ extern "C" void __cdecl asm_FUN_00459f15_00459f15();
 #define VA_asm_FUN_00459f15_00459f15 0x00459f15
 extern "C" unsigned int __cdecl asm_FUN_0045af1d_0045af1d(void* crt_locale, char* output, unsigned int capacity, const char* format, const void* time_fields, void* locale_time_data);
 #define VA_asm_FUN_0045af1d_0045af1d 0x0045af1d
-extern "C" void __cdecl asm_FUN_0045bd80_0045bd80();
+extern "C" char* __cdecl asm_FUN_0045bd80_0045bd80(char* destination, const char* source);
 #define VA_asm_FUN_0045bd80_0045bd80 0x0045bd80
 extern "C" char* __cdecl asm_FUN_0045bd90_0045bd90(
     char* destination, const char* source);

@@ -1,4 +1,4 @@
-extern "C" void __cdecl asm_FUN_0045bd80_0045bd80(char*, const char*);
+extern "C" char* __cdecl asm_FUN_0045bd80_0045bd80(char*, const char*);
 extern "C" void __cdecl asm_strcats_00455990(char*, int, ...);
 
 extern "C" void __cdecl asm_lc_lctostr_00455a90(char* output, const char* locale) {
