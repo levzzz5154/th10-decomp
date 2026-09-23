@@ -1899,14 +1899,10 @@ extern "C" void __cdecl asm_Recovery_StartWorker_0041fac0();
 #define VA_asm_Recovery_StartWorker_0041fac0 0x0041fac0
 extern "C" void __cdecl asm_Recovery_SwitchPlaybackState_00427ae0();
 #define VA_asm_Recovery_SwitchPlaybackState_00427ae0 0x00427ae0
-extern "C" void __cdecl asm_Recovery_TickState_0040bd20();
-#define VA_asm_Recovery_TickState_0040bd20 0x0040bd20
 extern "C" void __cdecl asm_Recovery_TrimWhitespace_0041a0a0();
 #define VA_asm_Recovery_TrimWhitespace_0041a0a0 0x0041a0a0
 extern "C" void __cdecl asm_Recovery_TrimWhitespace_part_0041a0e0();
 #define VA_asm_Recovery_TrimWhitespace_part_0041a0e0 0x0041a0e0
-extern "C" void __cdecl asm_Recovery_UpdateEmitterDecision_0040b9f0();
-#define VA_asm_Recovery_UpdateEmitterDecision_0040b9f0 0x0040b9f0
 extern "C" void __cdecl asm_Recovery_UpdateStageSequence_004281d0();
 #define VA_asm_Recovery_UpdateStageSequence_004281d0 0x004281d0
 extern "C" void __cdecl asm_ReleaseFlaggedEntityArrays_ScoreRuntimeState_004091c0();

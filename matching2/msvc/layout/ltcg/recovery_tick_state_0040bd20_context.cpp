@@ -1,14 +1,14 @@
 // Compiler context only; never selected as recovered game code.
-// The array-walking caller is what makes the whole-program pass pick the
-// observed retail convention: the state in ESI, plain RET.
+// The callback route gives LTCG visibility of the public ECX receiver and
+// both private calls through the emitter decision and tick bodies.
 #include "../../src/game/recovery_tick_state_0040bd20.cpp"
 
-#pragma code_seg(".text$03context")
-int __stdcall RecoveryTickStateCompilerContext_0040bd20(RecoveryTickState_0040bd20** states,
-                                                       int count) {
+#pragma code_seg(".text$04context")
+int __stdcall RecoveryEmitterStateCompilerContext_0040bd20(
+        RecoveryUpdateEmitterState_0040b9f0** states, int count) {
     int result = 0;
     for (int index = 0; index < count; ++index)
-        result = TickRecoveryState_0040bd20(states[index]);
+        result = states[index]->RunDecisionCallback();
     return result;
 }
 #pragma code_seg()

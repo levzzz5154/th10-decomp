@@ -7185,13 +7185,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_UpdateEmitterDecision_0040b9f0",
+      "name": "semantic_RecoveryUpdateEmitterState_UpdateEmitterDecision_0040b9f0",
       "source": "src/game/recovery_update_emitter_decision_0040b9f0.cpp",
-      "symbol": "_asm_Recovery_UpdateEmitterDecision_0040b9f0",
+      "symbol": "?UpdateEmitterDecision@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
       "address": "0x0040B9F0",
       "size": 111,
-      "kind": "asm",
-      "owner": "0x0040B9F0"
+      "kind": "semantic",
+      "owner": "0x0040B9F0",
+      "previous_record": {
+        "name": "asm_Recovery_UpdateEmitterDecision_0040b9f0",
+        "source": "src/game/recovery_update_emitter_decision_0040b9f0.cpp",
+        "symbol": "_asm_Recovery_UpdateEmitterDecision_0040b9f0",
+        "address": "0x0040B9F0",
+        "size": 111,
+        "kind": "asm",
+        "owner": "0x0040B9F0"
+      }
     },
     {
       "name": "text_padding_0040ba5f",
@@ -7228,13 +7237,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ba70_0040ba70",
+      "name": "semantic_RecoveryUpdateEmitterState_RunDecisionCallback_0040ba70",
       "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp",
-      "symbol": "_asm_FUN_0040ba70_0040ba70",
+      "symbol": "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
       "address": "0x0040BA70",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0040BA70"
+      "kind": "semantic",
+      "owner": "0x0040BA70",
+      "previous_record": {
+        "name": "asm_FUN_0040ba70_0040ba70",
+        "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp",
+        "symbol": "_asm_FUN_0040ba70_0040ba70",
+        "address": "0x0040BA70",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0040BA70"
+      }
     },
     {
       "name": "text_padding_0040ba7a",
@@ -49585,10 +49603,8 @@
     "_data_004918a4": "0x004918A4",
     "_asm_FUN_0040b560_0040b560": "0x0040B560",
     "_asm_FUN_0040b7b0_0040b7b0": "0x0040B7B0",
-    "_asm_Recovery_TickState_0040bd20": "0x0040BD20",
     "_data_00491ff4": "0x00491FF4",
     "_data_00491fb8": "0x00491FB8",
-    "_asm_Recovery_UpdateEmitterDecision_0040b9f0": "0x0040B9F0",
     "_asm_target_0040bb10": "0x0040BB10",
     "_asm_FUN_0040bd80_0040bd80": "0x0040BD80",
     "_asm_target_0040c27c": "0x0040C27C",
@@ -54618,9 +54634,12 @@
     "@InitializeProgressWorkerStorageAt0042C920@8": "0x0042C920",
     "?ParseAnimationChunk@ScriptFileChunkContext_0040d400@@QAEHPAD@Z": "0x0040D400",
     "_WindowProcedure_004390e0@16": "0x004390E0",
-    "?Draw@AsciiOverlay_0043C500@@QAEHXZ": "0x0043C500"
+    "?Draw@AsciiOverlay_0043C500@@QAEHXZ": "0x0043C500",
+    "?UpdateEmitterDecision@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ": "0x0040B9F0",
+    "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ": "0x0040BA70"
   },
   "translation_units": [
+    "include/th10/game/recovery_emitter_state.hpp",
     "src/app/fps_counter.cpp",
     "src/app/frame_clock.cpp",
     "src/app/fun_004135d0_004135d0.cpp",

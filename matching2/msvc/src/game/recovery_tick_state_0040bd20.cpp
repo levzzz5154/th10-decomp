@@ -1,3 +1,5 @@
+#include "th10/game/recovery_emitter_state.hpp"
+
 // 0x0040BD20..0x0040BD7C: TickRecoveryState_0040bd20
 //
 // The state this runs on is the ending/credits script object constructed at
@@ -24,26 +26,18 @@ extern float g_frame_timer_normal_upper;  // 0x00470B64
 
 extern "C" int __stdcall asm_FUN_0040bd80_0040bd80(void* state);
 
-struct RecoveryTickState_0040bd20 {
-    int pad_00;             // +0x00
-    int previous;           // +0x04
-    int current;            // +0x08
-    float elapsed;          // +0x0C
-    const float* speed;     // +0x10
-};
-
-#pragma code_seg(".text$01tick")
+#pragma code_seg(".text$03tick")
 __declspec(noinline) int __stdcall TickRecoveryState_0040bd20(RecoveryTickState_0040bd20* state) {
     if (asm_FUN_0040bd80_0040bd80(state))
         return 1;
 
-    state->previous = state->current;
-    if (*state->speed > g_frame_timer_normal_lower &&
-        *state->speed < g_frame_timer_normal_upper) {
-        ++state->current;
-        state->elapsed += 1.0f;
+    state->previous_004 = state->current_008;
+    if (*state->speed_010 > g_frame_timer_normal_lower &&
+        *state->speed_010 < g_frame_timer_normal_upper) {
+        ++state->current_008;
+        state->elapsed_00c += 1.0f;
     } else {
-        state->current = int(state->elapsed += *state->speed);
+        state->current_008 = int(state->elapsed_00c += *state->speed_010);
     }
     return 0;
 }

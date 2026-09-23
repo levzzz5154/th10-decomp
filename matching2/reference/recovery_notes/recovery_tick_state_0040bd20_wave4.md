@@ -1,4 +1,12 @@
-# 0x0040BD20 landed as a native-LTCG cluster: the ending-script state tick
+# Historical measurement: `0x0040BD20` as an isolated native-LTCG cluster
+
+**This is the 2026-09-19 measurement of the former one-function cluster.** On
+2026-09-23, that layout was expanded to co-compile the emitter callback path
+at `0x0040B9F0` and `0x0040BA70`; its former synthetic array caller was
+replaced. The merged cluster has not been rebuilt, so the exactness reported
+below applies only to the earlier isolated configuration. See
+`recovery_update_emitter_decision_0040b9f0_candidate.md` for current ownership
+and validation limits.
 
 Date: 2026-09-19
 Region: `0x0040BD20..0x0040BD7C`, 93 bytes, source
