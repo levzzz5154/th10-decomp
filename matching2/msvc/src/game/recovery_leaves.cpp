@@ -1,10 +1,7 @@
 #include <string.h>
-#include <math.h>
 
 #include "asm_encoding.hpp"
-#define asm_Recovery_FindNamedValue_004198c0 asm_Recovery_FindNamedValue_004198c0_legacy_cdecl_declaration
 #include "asm_symbols.hpp"
-#undef asm_Recovery_FindNamedValue_004198c0
 #include "th10/math/angle.hpp"
 
 // Recovered semantic definitions: the platform prototypes they call and the
@@ -16,8 +13,8 @@ void __cdecl operator delete(void*);
 void* __cdecl operator new(unsigned int size);
 extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 
-// The raw-pair release uses one stack argument and callee cleanup, matching the
-// retail stdcall entry. Keep the callback type explicit at this call site.
+// The raw-pair release still lives in inline assembly, so it is called through its
+// fixed retail prototype (one stack argument, callee cleans).
 typedef void (__stdcall* RawPairReleaseFn)(void* pair);
 // CRT heap release reached by the state teardown below.
 extern "C" void __cdecl entry_free_004524a1(void* memory);
@@ -129,6 +126,164 @@ void* Recovery_CreateSmallState_0040b940() {
         return 0;
     }
     return state;
+}
+
+// 0x0040B9F0..0x0040BA5E: Recovery_UpdateEmitterDecision
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_UpdateEmitterDecision_0040b9f0() {
+    __asm {
+    L_0040b9f0:
+        push esi
+    L_0040b9f1:
+        mov esi,dword ptr [edi+18h]
+    L_0040b9f4:
+        call asm_Recovery_TickState_0040bd20
+    L_0040b9f9:
+        test eax,eax
+    L_0040b9fb:
+        je short L_0040ba1d
+    L_0040b9fd:
+        mov eax,dword ptr [data_00491ff4]
+    L_0040ba02:
+        and eax,1000h
+    L_0040ba07:
+        neg eax
+    L_0040ba09:
+        sbb eax,eax
+    L_0040ba0b:
+        and eax,0FFFFFFF3h
+    L_0040ba0e:
+        add eax,0Fh
+    L_0040ba11:
+        mov dword ptr [data_00491fb8],eax
+    L_0040ba16:
+        mov eax,1
+    L_0040ba1b:
+        pop esi
+    L_0040ba1c:
+        ret
+    L_0040ba1d:
+        mov esi,dword ptr [edi+24h]
+    L_0040ba20:
+        mov ecx,dword ptr [edi+18h]
+    L_0040ba23:
+        inc esi
+    L_0040ba24:
+        mov dword ptr [edi+24h],esi
+    L_0040ba27:
+        mov ecx,dword ptr [ecx+74h]
+    L_0040ba2a:
+        test cl,4
+    L_0040ba2d:
+        mov eax,esi
+    L_0040ba2f:
+        jne short L_0040ba58
+    L_0040ba31:
+        test byte ptr [edi+20h],2
+    L_0040ba35:
+        jne short L_0040ba58
+    L_0040ba37:
+        test cl,2
+    L_0040ba3a:
+        je short L_0040ba58
+    L_0040ba3c:
+        mov ecx,dword ptr [data_00474e30]
+    L_0040ba42:
+        test ch,1
+    L_0040ba45:
+        je short L_0040ba58
+    L_0040ba47:
+        cdq
+    L_0040ba48:
+        mov ecx,0Ch
+    L_0040ba4d:
+        idiv ecx
+    L_0040ba4f:
+        mov eax,6
+    L_0040ba54:
+        test edx,edx
+    L_0040ba56:
+        jne short L_0040ba5d
+    L_0040ba58:
+        mov eax,1
+    L_0040ba5d:
+        pop esi
+    L_0040ba5e:
+        ret
+    }
+}
+
+// 0x0040BD20..0x0040BD7C: ?Recovery_TickState@@
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_TickState_0040bd20() {
+    __asm {
+    L_0040bd20:
+        push esi
+    L_0040bd21:
+        call asm_FUN_0040bd80_0040bd80
+    L_0040bd26:
+        test eax,eax
+    L_0040bd28:
+        je short L_0040bd30
+    L_0040bd2a:
+        mov eax,1
+    L_0040bd2f:
+        ret
+    L_0040bd30:
+        mov edx,dword ptr [esi+8]
+    L_0040bd33:
+        mov ecx,dword ptr [esi+10h]
+    L_0040bd36:
+        mov dword ptr [esi+4],edx
+    L_0040bd39:
+        fld dword ptr [ecx]
+    L_0040bd3b:
+        fcomp dword ptr [data_00470b68]
+    L_0040bd41:
+        fnstsw ax
+    L_0040bd43:
+        test ah,41h
+    L_0040bd46:
+        jne short L_0040bd6a
+    L_0040bd48:
+        fld dword ptr [ecx]
+    L_0040bd4a:
+        fcomp dword ptr [data_00470b64]
+    L_0040bd50:
+        fnstsw ax
+    L_0040bd52:
+        test ah,5
+    L_0040bd55:
+        jp short L_0040bd6a
+    L_0040bd57:
+        fld dword ptr [esi+0Ch]
+    L_0040bd5a:
+        inc edx
+    L_0040bd5b:
+        fadd dword ptr [data_00470afc]
+    L_0040bd61:
+        mov dword ptr [esi+8],edx
+    L_0040bd64:
+        xor eax,eax
+    L_0040bd66:
+        fstp dword ptr [esi+0Ch]
+    L_0040bd69:
+        ret
+    L_0040bd6a:
+        fld dword ptr [esi+0Ch]
+    L_0040bd6d:
+        fadd dword ptr [ecx]
+    L_0040bd6f:
+        fst dword ptr [esi+0Ch]
+    L_0040bd72:
+        call asm_FUN_00463b2c_00463b2c
+    L_0040bd77:
+        mov dword ptr [esi+8],eax
+    L_0040bd7a:
+        xor eax,eax
+    L_0040bd7c:
+        ret
+    }
 }
 
 // 0x0040C9A0..0x0040C9CF: Recovery_ResetEmitter
@@ -287,21 +442,33 @@ extern "C" __declspec(naked) void __cdecl asm_ScoreList_InsertAfter_00413200() {
     }
 }
 
-// Ghidra confirms __thiscall with angle, horizontal scale and vertical scale
-// on the stack, in that order. The stores target this+0 then this+4.
-struct EllipticPolarVector2_00413270 {
-    float x;
-    float y;
-
-    __declspec(noinline) void __thiscall SetEllipticPolar(
-        float angle, float horizontalScale, float verticalScale);
-};
-
 // 0x00413270..0x0041328D: Vector2_SetEllipticPolar
-void __thiscall EllipticPolarVector2_00413270::SetEllipticPolar(
-    float angle, float horizontalScale, float verticalScale) {
-    x = cosf(angle) * horizontalScale;
-    y = sinf(angle) * verticalScale;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Vector2_SetEllipticPolar_00413270() {
+    __asm {
+    L_00413270:
+        push ecx
+    L_00413271:
+        mov dword ptr [esp],ecx
+    L_00413274:
+        mov eax,dword ptr [esp]
+    L_00413277:
+        fld dword ptr [esp+8]
+    L_0041327b:
+        fsincos
+    L_0041327d:
+        fmul dword ptr [esp+0Ch]
+    L_00413281:
+        fstp dword ptr [eax]
+    L_00413283:
+        fmul dword ptr [esp+10h]
+    L_00413287:
+        fstp dword ptr [eax+4]
+    L_0041328a:
+        pop ecx
+    L_0041328b:
+        ret 0Ch
+    }
 }
 
 // 0x00413450..0x004134A3: ?Platform_ReleaseOwnedHandle@@
@@ -891,36 +1058,104 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InvokeVoid_004198a0() {
 }
 
 // 0x004198C0..0x00419921: Recovery_FindNamedValue
-// The table layout is only the observed pair of a key pointer and 32-bit value.
-struct RecoveryNamedValueRecord_004198C0 {
-    const char* key;
-    unsigned int value;
-};
-
-// ECX is retained as an ignored first fastcall parameter so key stays in EDX;
-// callers leave parser-local values there, and the retail body never reads it.
-extern "C" unsigned int __fastcall asm_Recovery_FindNamedValue_004198c0(
-    unsigned int ignoredEcX,
-    const char* key,
-    const RecoveryNamedValueRecord_004198C0* records,
-    int recordCount) {
-    (void)ignoredEcX;
-
-    for (int index = 0; index < recordCount; ++index) {
-        const unsigned char* query =
-            reinterpret_cast<const unsigned char*>(key);
-        const unsigned char* candidate =
-            reinterpret_cast<const unsigned char*>(records[index].key);
-
-        while (*query != 0 && *query == *candidate) {
-            ++query;
-            ++candidate;
-        }
-        if (*query == *candidate) {
-            return records[index].value;
-        }
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_FindNamedValue_004198c0() {
+    __asm {
+    L_004198c0:
+        mov eax,dword ptr [esp+8]
+    L_004198c4:
+        push ebx
+    L_004198c5:
+        push ebp
+    L_004198c6:
+        mov ebp,dword ptr [esp+0Ch]
+    L_004198ca:
+        push esi
+    L_004198cb:
+        push edi
+    L_004198cc:
+        xor edi,edi
+    L_004198ce:
+        test eax,eax
+    L_004198d0:
+        jle short L_0041990e
+    L_004198d2:
+        mov esi,dword ptr [ebp+edi*8]
+    L_004198d6:
+        mov eax,edx
+    L_004198d8:
+        mov bl,byte ptr [eax]
+    L_004198da:
+        mov cl,bl
+    L_004198dc:
+        cmp bl,byte ptr [esi]
+    L_004198de:
+        jne short L_004198fc
+    L_004198e0:
+        test cl,cl
+    L_004198e2:
+        je short L_004198f8
+    L_004198e4:
+        mov bl,byte ptr [eax+1]
+    L_004198e7:
+        mov cl,bl
+    L_004198e9:
+        cmp bl,byte ptr [esi+1]
+    L_004198ec:
+        jne short L_004198fc
+    L_004198ee:
+        add eax,2
+    L_004198f1:
+        add esi,2
+    L_004198f4:
+        test cl,cl
+    L_004198f6:
+        jne short L_004198d8
+    L_004198f8:
+        xor eax,eax
+    L_004198fa:
+        jmp short L_00419901
+    L_004198fc:
+        sbb eax,eax
+    L_004198fe:
+        sbb eax,0FFFFFFFFh
+    L_00419901:
+        test eax,eax
+    L_00419903:
+        je short L_00419917
+    L_00419905:
+        mov eax,dword ptr [esp+18h]
+    L_00419909:
+        inc edi
+    L_0041990a:
+        cmp edi,eax
+    L_0041990c:
+        jl short L_004198d2
+    L_0041990e:
+        pop edi
+    L_0041990f:
+        pop esi
+    L_00419910:
+        pop ebp
+    L_00419911:
+        xor eax,eax
+    L_00419913:
+        pop ebx
+    L_00419914:
+        ret 8
+    L_00419917:
+        mov eax,dword ptr [ebp+edi*8+4]
+    L_0041991b:
+        pop edi
+    L_0041991c:
+        pop esi
+    L_0041991d:
+        pop ebp
+    L_0041991e:
+        pop ebx
+    L_0041991f:
+        ret 8
     }
-    return 0;
 }
 
 // 0x0041A050..0x0041A09A: Recovery_SplitResourcePath
@@ -1284,42 +1519,55 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeStateTable_0041
     }
 }
 
-// The manager pointer is stored at data_00491c10. The fastcall resource
-// loader uses ECX=id, EDX=manager, and a stack name; the variadic log member
-// uses ECX=this and a stack message, matching the recovered call sites.
-struct CachedResource;
-CachedResource* __fastcall Recovery_LoadCachedResource(
-        int index, void* owner, const char* name);
-
-struct TextLog_0044b810 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
-
 // 0x0041F8D0..0x0041F921: ?Recovery_LoadStartupResources@@
-extern "C" __declspec(noinline) int __cdecl
-asm_Recovery_LoadStartupResources_0041f8d0() {
-    CachedResource* front = Recovery_LoadCachedResource(
-            6, *reinterpret_cast<void**>(&data_00491c10),
-            reinterpret_cast<const char*>(0x0046D254));
-    if (front == 0) {
-        ((TextLog_0044b810*)0x00474F70)->Append(
-                reinterpret_cast<char*>(0x0046CB68));
-        return -1;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_LoadStartupResources_0041f8d0() {
+    __asm {
+    L_0041f8d0:
+        mov edx,dword ptr [data_00491c10]
+    L_0041f8d6:
+        push 46D254h
+    L_0041f8db:
+        mov ecx,6
+    L_0041f8e0:
+        call asm_Recovery_LoadCachedResource_00447280
+    L_0041f8e5:
+        test eax,eax
+    L_0041f8e7:
+        jne short L_0041f8f0
+    L_0041f8e9:
+        push 46CB68h
+    L_0041f8ee:
+        jmp short L_0041f90e
+    L_0041f8f0:
+        mov edx,dword ptr [data_00491c10]
+    L_0041f8f6:
+        push 46CD88h
+    L_0041f8fb:
+        mov ecx,7
+    L_0041f900:
+        call asm_Recovery_LoadCachedResource_00447280
+    L_0041f905:
+        test eax,eax
+    L_0041f907:
+        jne short L_0041f91f
+    L_0041f909:
+        push 46CD54h
+    L_0041f90e:
+        mov ecx,474F70h
+    L_0041f913:
+        call asm_TextLog_Append_0044b810
+    L_0041f918:
+        add esp,4
+    L_0041f91b:
+        or eax,0FFFFFFFFh
+    L_0041f91e:
+        ret
+    L_0041f91f:
+        xor eax,eax
+    L_0041f921:
+        ret
     }
-
-    CachedResource* bullet = Recovery_LoadCachedResource(
-            7, *reinterpret_cast<void**>(&data_00491c10),
-            reinterpret_cast<const char*>(0x0046CD88));
-    if (bullet == 0) {
-        ((TextLog_0044b810*)0x00474F70)->Append(
-                reinterpret_cast<char*>(0x0046CD54));
-        return -1;
-    }
-
-    return 0;
 }
 
 // 0x0041F930..0x0041F98A: ?Recovery_ReleasePair@@
@@ -2534,38 +2782,87 @@ int __fastcall Platform_DeletingDestructorNoReturn(void* pair) {
 }
 
 // 0x0043CB00..0x0043CB7E: ?Recovery_ReleaseRawPair@@
-// The pair is passed on the stack; scheduler removal uses ECX=entry, EDX=scheduler.
-extern "C" void __stdcall asm_Recovery_ReleaseRawPair_0043cb00(void* pair) {
-    typedef void (__stdcall *CriticalSectionCallback)(void* section);
-    typedef void (__fastcall *SchedulerRemoveCallback)(void* entry,
-                                                        void* scheduler);
-
-    CriticalSectionCallback enterCriticalSection =
-        *reinterpret_cast<CriticalSectionCallback*>(&data_004660b0);
-    CriticalSectionCallback leaveCriticalSection =
-        *reinterpret_cast<CriticalSectionCallback*>(&data_004660b4);
-    SchedulerRemoveCallback removeScheduledEntry =
-        reinterpret_cast<SchedulerRemoveCallback>(asm_Scheduler_Remove_00449f60);
-    void* criticalSection = reinterpret_cast<void*>(0x00492274);
-    void** pairFields = reinterpret_cast<void**>(pair);
-    void* firstEntry = pairFields[2];
-    void* scheduler = *reinterpret_cast<void**>(&data_00491be4);
-    if (firstEntry != 0) {
-        enterCriticalSection(criticalSection);
-        ++data_0049231c;
-        removeScheduledEntry(firstEntry, scheduler);
-        leaveCriticalSection(criticalSection);
-        --data_0049231c;
-    }
-
-    void* secondEntry = pairFields[3];
-    scheduler = *reinterpret_cast<void**>(&data_00491be4);
-    if (secondEntry != 0) {
-        enterCriticalSection(criticalSection);
-        ++data_0049231c;
-        removeScheduledEntry(secondEntry, scheduler);
-        leaveCriticalSection(criticalSection);
-        --data_0049231c;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Recovery_ReleaseRawPair_0043cb00() {
+    __asm {
+    L_0043cb00:
+        mov eax,dword ptr [esp+4]
+    L_0043cb04:
+        push ebx
+    L_0043cb05:
+        mov ebx,dword ptr [data_004660b0]
+    L_0043cb0b:
+        push ebp
+    L_0043cb0c:
+        mov ebp,dword ptr [data_004660b4]
+    L_0043cb12:
+        push esi
+    L_0043cb13:
+        mov esi,dword ptr [eax+8]
+    L_0043cb16:
+        test esi,esi
+    L_0043cb18:
+        push edi
+    L_0043cb19:
+        mov edi,dword ptr [data_00491be4]
+    L_0043cb1f:
+        je short L_0043cb44
+    L_0043cb21:
+        push 492274h
+    L_0043cb26:
+        call ebx
+    L_0043cb28:
+        inc byte ptr [data_0049231c]
+    L_0043cb2e:
+        mov ecx,esi
+    L_0043cb30:
+        mov edx,edi
+    L_0043cb32:
+        call asm_Scheduler_Remove_00449f60
+    L_0043cb37:
+        push 492274h
+    L_0043cb3c:
+        call ebp
+    L_0043cb3e:
+        dec byte ptr [data_0049231c]
+    L_0043cb44:
+        mov ecx,dword ptr [esp+14h]
+    L_0043cb48:
+        mov esi,dword ptr [ecx+0Ch]
+    L_0043cb4b:
+        test esi,esi
+    L_0043cb4d:
+        mov edi,dword ptr [data_00491be4]
+    L_0043cb53:
+        je short L_0043cb78
+    L_0043cb55:
+        push 492274h
+    L_0043cb5a:
+        call ebx
+    L_0043cb5c:
+        inc byte ptr [data_0049231c]
+    L_0043cb62:
+        mov ecx,esi
+    L_0043cb64:
+        mov edx,edi
+    L_0043cb66:
+        call asm_Scheduler_Remove_00449f60
+    L_0043cb6b:
+        push 492274h
+    L_0043cb70:
+        call ebp
+    L_0043cb72:
+        dec byte ptr [data_0049231c]
+    L_0043cb78:
+        pop edi
+    L_0043cb79:
+        pop esi
+    L_0043cb7a:
+        pop ebp
+    L_0043cb7b:
+        pop ebx
+    L_0043cb7c:
+        ret 4
     }
 }
 
@@ -2617,20 +2914,32 @@ extern "C" __declspec(naked) void __cdecl asm_Recovery_SelectArchiveEntry_0043d7
 }
 
 // 0x00441EF0..0x00441F0D: Vector2_SetAnimationPolar
-// Retail uses __thiscall: ECX is the receiver, angle and length are stack
-// floats, and the callee removes both arguments with RET 8. Its single
-// FSINCOS instruction is not reproduced by this ordinary C++ math spelling.
-struct AnimationPolarVector2_00441EF0 {
-    float x;
-    float y;
-
-    __declspec(noinline) void SetAnimationPolar(float angle, float length);
-};
-
-void AnimationPolarVector2_00441EF0::SetAnimationPolar(float angle,
-                                                        float length) {
-    x = cosf(angle) * length;
-    y = sinf(angle) * length;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Vector2_SetAnimationPolar_00441ef0() {
+    __asm {
+    L_00441ef0:
+        push ecx
+    L_00441ef1:
+        mov dword ptr [esp],ecx
+    L_00441ef4:
+        mov eax,dword ptr [esp]
+    L_00441ef7:
+        fld dword ptr [esp+8]
+    L_00441efb:
+        fsincos
+    L_00441efd:
+        fmul dword ptr [esp+0Ch]
+    L_00441f01:
+        fstp dword ptr [eax]
+    L_00441f03:
+        fmul dword ptr [esp+0Ch]
+    L_00441f07:
+        fstp dword ptr [eax+4]
+    L_00441f0a:
+        pop ecx
+    L_00441f0b:
+        ret 8
+    }
 }
 
 // 0x00441F50..0x00441FC3: ?RecoveryState_Configure41F50@@

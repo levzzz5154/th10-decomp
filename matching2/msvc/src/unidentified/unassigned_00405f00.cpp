@@ -1,25 +1,37 @@
-// 0x00405F00..0x00405F31: load one cached resource and report a missing entry.
-// Keep the existing C-linkage name while regions.json still maps this address
-// to _asm_unassigned_00405f00; the body below is ordinary C++.
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-struct TextLog_0044b810 {
-    char text[0x2000];
-    char *cursor;
-    unsigned char dirty;
-    char *Append(char *format, ...);
-};
-
-extern "C" void * __fastcall Recovery_LoadCachedResource_00447280(
-        int id, void *cache, const char *name);
-extern "C" void *data_00491c10;
-
-extern "C" __declspec(noinline) int __cdecl asm_unassigned_00405f00() {
-    void *resource = Recovery_LoadCachedResource_00447280(
-            7, data_00491c10, (const char *)0x0046CD88);
-    if (!resource) {
-        ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CD54);
-        return -1;
+// 0x00405F00..0x00405F31: unassigned code fragment
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_unassigned_00405f00() {
+    __asm {
+    L_00405f00:
+        mov edx,dword ptr [data_00491c10]
+    L_00405f06:
+        push 46CD88h
+    L_00405f0b:
+        mov ecx,7
+    L_00405f10:
+        call asm_Recovery_LoadCachedResource_00447280
+    L_00405f15:
+        test eax,eax
+    L_00405f17:
+        jne short L_00405f2f
+    L_00405f19:
+        push 46CD54h
+    L_00405f1e:
+        mov ecx,474F70h
+    L_00405f23:
+        call asm_TextLog_Append_0044b810
+    L_00405f28:
+        add esp,4
+    L_00405f2b:
+        or eax,0FFFFFFFFh
+    L_00405f2e:
+        ret
+    L_00405f2f:
+        xor eax,eax
+    L_00405f31:
+        ret
     }
-
-    return 0;
 }

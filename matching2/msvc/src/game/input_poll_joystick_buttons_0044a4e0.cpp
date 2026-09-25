@@ -1,116 +1,181 @@
-#include <string.h>
+// BLOCKED (D3504): closest_byte_count=0/264; first_diff=0x0044A4E0;
+// residual_class=private ECX pad input with ESI live state, stack-owned
+// JOYINFOEX/DIJOYSTATE2 temporaries, security-cookie frame, and WinMM versus
+// DirectInput vtable retry/copy scheduling.
+// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
+// caller/callee graph, and a readable WinMM/DirectInput candidate measured at
+// 349 bytes (retail extent is 264); no cluster candidate was retained because
+// the fixed-address region remains assembly-owned.
+// next_lever=native-LTCG cluster over real caller 0x0042F6B0, this body, the
+// DirectInput device helpers, and the security-cookie context, preserving the
+// ECX/ESI entry tuple and measuring all 264 bytes.
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
+#include "th10/game/score.hpp"
 
-// Existing inline-assembly callers name the old cdecl symbol. The routine's
-// retail entry uses ECX and returns its state buffer in EAX.
-#pragma comment(linker, "/alternatename:_asm_Input_PollJoystickButtons_0044a4e0=@Input_PollJoystickButtons_0044A4E0@4")
-#pragma comment(linker, "/alternatename:@asm_Input_PollJoystickButtons_0044a4e0@4=@Input_PollJoystickButtons_0044A4E0@4")
-
-// The WinMM branch needs the retail JOYINFOEX fields through dwButtons.
-struct JoystickInfoEx_0044a4e0 {
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwXpos;
-    unsigned int dwYpos;
-    unsigned int dwZpos;
-    unsigned int dwRpos;
-    unsigned int dwUpos;
-    unsigned int dwVpos;
-    unsigned int dwButtons;
-    unsigned int dwButtonNumber;
-    unsigned int dwPOV;
-    unsigned int dwReserved1;
-    unsigned int dwReserved2;
-};
-
-typedef unsigned int (__stdcall *JoyGetPosEx_0044a4e0)(
-        unsigned int device, JoystickInfoEx_0044a4e0* info);
-typedef long (__stdcall *DirectInputPoll_0044a4e0)(void* device);
-typedef long (__stdcall *DirectInputAcquire_0044a4e0)(void* device);
-typedef long (__stdcall *DirectInputGetState_0044a4e0)(
-        void* device, unsigned int size, void* state);
-
-extern "C" unsigned char data_00466280; // joyGetPosEx import slot
-extern "C" unsigned char data_00491c3c; // DirectInput device pointer table
-extern "C" unsigned int data_00491ff4; // input mode flags
-extern "C" unsigned char data_00497bb0; // 128-byte button state
-
-// 0x0044A4E0..0x0044A5E7: return the shared byte-per-button state buffer.
-// The pad index arrives in ECX. The only caller passes zero, but the
-// DirectInput branch indexes the device table with the supplied value.
-extern "C" unsigned char* __fastcall
-Input_PollJoystickButtons_0044A4E0(int pad_index) {
-    unsigned char* const output = &data_00497bb0;
-
-    // Retail clears all 32 dwords (128 bytes) before selecting a backend.
-    for (unsigned int index = 0; index != 128; ++index)
-        output[index] = 0;
-
-    if ((data_00491ff4 & 0x400u) == 0) {
-        JoystickInfoEx_0044a4e0 info = {};
-        info.dwSize = sizeof(info);
-        info.dwFlags = 0xFF;
-
-        // The WinMM path always queries device zero; pad_index is ignored.
-        JoyGetPosEx_0044a4e0 get_position =
-                *reinterpret_cast<JoyGetPosEx_0044a4e0*>(&data_00466280);
-        if (get_position(0, &info) == 0) {
-            unsigned int buttons = info.dwButtons;
-            for (unsigned int index = 0; index != 32; ++index) {
-                if ((buttons & 1u) != 0)
-                    output[index] = 0x80;
-                buttons >>= 1;
-            }
-        }
-        // A failed joyGetPosEx leaves the already-cleared buffer untouched.
-    } else {
-        // Retail dereferences this table entry and its vtable without null or
-        // range checks. The three method slots correspond to +0x64, +0x1C,
-        // and +0x24 in the live listing.
-        void* device = reinterpret_cast<void**>(&data_00491c3c)[pad_index];
-        void** vtable = *reinterpret_cast<void***>(device);
-        DirectInputPoll_0044a4e0 poll =
-                reinterpret_cast<DirectInputPoll_0044a4e0>(vtable[0x64 / 4]);
-
-        if (poll(device) >= 0) {
-            // The retail success path reloads the table entry after Poll.
-            device = reinterpret_cast<void**>(&data_00491c3c)[pad_index];
-            vtable = *reinterpret_cast<void***>(device);
-            DirectInputGetState_0044a4e0 get_state =
-                    reinterpret_cast<DirectInputGetState_0044a4e0>(
-                            vtable[0x24 / 4]);
-
-            // Retail does not initialize this 0x110-byte stack state buffer,
-            // checks no GetDeviceState result, and copies all 128 rgbButtons.
-            unsigned char direct_input_state[0x110];
-            get_state(device, 0x110, direct_input_state);
-            memcpy(output, direct_input_state + 0x30, 128);
-        } else {
-            // The first Acquire also reloads the table entry; each retry
-            // below repeats that load before reaching the vtable slot.
-            device = reinterpret_cast<void**>(&data_00491c3c)[pad_index];
-            vtable = *reinterpret_cast<void***>(device);
-            DirectInputAcquire_0044a4e0 acquire =
-                    reinterpret_cast<DirectInputAcquire_0044a4e0>(
-                            vtable[0x1C / 4]);
-            const unsigned int input_lost = 0x8007001Eu;
-            long acquire_result = acquire(device);
-
-            // One initial Acquire is followed by at most 400 retries, and
-            // only DIERR_INPUTLOST causes another call. Retail does not poll
-            // or fetch state again after acquisition succeeds.
-            for (unsigned int retry = 0;
-                 static_cast<unsigned int>(acquire_result) == input_lost &&
-                         retry != 400;
-                 ++retry) {
-                device = reinterpret_cast<void**>(
-                        &data_00491c3c)[pad_index];
-                vtable = *reinterpret_cast<void***>(device);
-                acquire = reinterpret_cast<DirectInputAcquire_0044a4e0>(
-                        vtable[0x1C / 4]);
-                acquire_result = acquire(device);
-            }
-        }
+// 0x0044A4E0..0x0044A5E7: Input_PollJoystickButtons
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Input_PollJoystickButtons_0044a4e0() {
+    __asm {
+    L_0044a4e0:
+        sub esp,148h
+    L_0044a4e6:
+        mov eax,dword ptr [data_00473660]
+    L_0044a4eb:
+        xor eax,esp
+    L_0044a4ed:
+        push ebx
+    L_0044a4ee:
+        mov dword ptr [esp+148h],eax
+    L_0044a4f5:
+        push edi
+    L_0044a4f6:
+        mov ebx,ecx
+    L_0044a4f8:
+        xor eax,eax
+    L_0044a4fa:
+        mov ecx,20h
+    L_0044a4ff:
+        mov edi,497BB0h
+    L_0044a504:
+        rep stosd
+    L_0044a506:
+        mov eax,dword ptr [data_00491ff4]
+    L_0044a50b:
+        test ah,4
+    L_0044a50e:
+        jne short L_0044a55d
+    L_0044a510:
+        xor eax,eax
+    L_0044a512:
+        mov ecx,0Dh
+    L_0044a517:
+        lea edi,[esp+8]
+    L_0044a51b:
+        rep stosd
+    L_0044a51d:
+        lea eax,[esp+8]
+    L_0044a521:
+        push eax
+    L_0044a522:
+        push 0
+    L_0044a524:
+        mov dword ptr [esp+10h],34h
+    L_0044a52c:
+        mov dword ptr [esp+14h],0FFh
+    L_0044a534:
+        call dword ptr [data_00466280]
+    L_0044a53a:
+        test eax,eax
+    L_0044a53c:
+        jne asm_target_0044a5cc
+    L_0044a542:
+        mov ecx,dword ptr [esp+28h]
+    L_0044a546:
+        mov dl,80h
+    L_0044a548:
+        test cl,1
+    L_0044a54b:
+        je short L_0044a553
+    L_0044a54d:
+        mov byte ptr [eax+497BB0h],dl
+    L_0044a553:
+        inc eax
+    L_0044a554:
+        shr ecx,1
+    L_0044a556:
+        cmp eax,20h
+    L_0044a559:
+        jb short L_0044a548
+    L_0044a55b:
+        jmp short L_0044a5cc
+    L_0044a55d:
+        mov eax,dword ptr [ebx*4+491C3Ch]
+    L_0044a564:
+        mov ecx,dword ptr [eax]
+    L_0044a566:
+        push esi
+    L_0044a567:
+        push eax
+    L_0044a568:
+        call dword ptr [ecx+64h]
+    L_0044a56b:
+        test eax,eax
+    L_0044a56d:
+        jge short L_0044a5a4
+    L_0044a56f:
+        mov eax,dword ptr [ebx*4+491C3Ch]
+    L_0044a576:
+        mov edx,dword ptr [eax]
+    L_0044a578:
+        push eax
+    L_0044a579:
+        xor esi,esi
+    L_0044a57b:
+        call dword ptr [edx+1Ch]
+    L_0044a57e:
+        cmp eax,8007001Eh
+    L_0044a583:
+        jne short L_0044a5cb
+    L_0044a585:
+        mov eax,dword ptr [ebx*4+491C3Ch]
+    L_0044a58c:
+        mov ecx,dword ptr [eax]
+    L_0044a58e:
+        push eax
+    L_0044a58f:
+        call dword ptr [ecx+1Ch]
+    L_0044a592:
+        inc esi
+    L_0044a593:
+        cmp esi,190h
+    L_0044a599:
+        jge short L_0044a5cb
+    L_0044a59b:
+        cmp eax,8007001Eh
+    L_0044a5a0:
+        je short L_0044a585
+    L_0044a5a2:
+        jmp short L_0044a5cb
+    L_0044a5a4:
+        mov ebx,dword ptr [ebx*4+491C3Ch]
+    L_0044a5ab:
+        mov edx,dword ptr [ebx]
+    L_0044a5ad:
+        lea eax,[esp+40h]
+    L_0044a5b1:
+        push eax
+    L_0044a5b2:
+        push 110h
+    L_0044a5b7:
+        push ebx
+    L_0044a5b8:
+        call dword ptr [edx+24h]
+    L_0044a5bb:
+        mov ecx,20h
+    L_0044a5c0:
+        lea esi,[esp+70h]
+    L_0044a5c4:
+        mov edi,497BB0h
+    L_0044a5c9:
+        rep movsd
+    L_0044a5cb:
+        pop esi
+    L_0044a5cc:
+        mov ecx,dword ptr [esp+14Ch]
+    L_0044a5d3:
+        pop edi
+    L_0044a5d4:
+        pop ebx
+    L_0044a5d5:
+        xor ecx,esp
+    L_0044a5d7:
+        mov eax,497BB0h
+    L_0044a5dc:
+        call asm_security_check_cookie_00458ea5
+    L_0044a5e1:
+        add esp,148h
+    L_0044a5e7:
+        ret
     }
-
-    return output;
 }

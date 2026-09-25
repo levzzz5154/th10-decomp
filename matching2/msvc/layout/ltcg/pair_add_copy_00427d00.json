@@ -20,7 +20,7 @@
     "symbol": "_PairAddCopyCompilerContext@16",
     "section": ".text$03context",
     "address": "0x00427D40",
-    "size": 48,
+    "size": 76,
     "description": "Provisional size and placement for a synthetic array caller. The context is intended to preserve a distinct output pair, mutable target pair, and delta pair while invoking AddAndCopy; it has not been compiled or measured."
   },
   "gaps": [

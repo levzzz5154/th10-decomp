@@ -1,46 +1,112 @@
 #include "asm_encoding.hpp"
-#include <string.h>
-
-// Rename the historical no-argument declaration in this translation unit so
-// the recovered __stdcall definition can keep its typed signature.
-#define asm_PlayerManager_ConstructRetail_00408910 asm_PlayerManager_ConstructRetail_00408910_legacy_decl
 #include "asm_symbols.hpp"
-#undef asm_PlayerManager_ConstructRetail_00408910
 
 // 0x00408910..0x004089BF: PlayerManager_ConstructRetail
-typedef void (__thiscall *EntityLifecycleCallback)(void* entity);
-typedef void (__stdcall *EntityVectorConstructorIterator)(
-    void* first_entity,
-    unsigned int entity_stride,
-    int entity_count,
-    EntityLifecycleCallback constructor,
-    EntityLifecycleCallback destructor);
-
-extern "C" void* __stdcall asm_PlayerManager_ConstructRetail_00408910(
-    void* manager_storage) {
-    unsigned char* manager_bytes = static_cast<unsigned char*>(manager_storage);
-    const EntityVectorConstructorIterator construct_entities =
-        reinterpret_cast<EntityVectorConstructorIterator>(
-            &asm_eh_vector_constructor_iterator_0045252d);
-    const EntityLifecycleCallback construct_entity =
-        reinterpret_cast<EntityLifecycleCallback>(
-            &asm_Entity_Constructor_00402050);
-    const EntityLifecycleCallback destroy_entity =
-        reinterpret_cast<EntityLifecycleCallback>(
-            &asm_Entity_Destructor_00401ff0);
-
-    construct_entities(manager_bytes + 0x10, 0x3AC, 2,
-                       construct_entity, destroy_entity);
-    construct_entities(manager_bytes + 0x778, 0x3AC, 8,
-                       construct_entity, destroy_entity);
-    construct_entities(manager_bytes + 0x24D8, 0x3AC, 5,
-                       construct_entity, destroy_entity);
-
-    *reinterpret_cast<unsigned int*>(manager_bytes + 0x3744) &= ~1u;
-    memset(manager_storage, 0, 0x37B0);
-    *static_cast<unsigned int*>(manager_storage) |= 2u;
-    *reinterpret_cast<void**>(&data_004776f4) = manager_storage;
-    return manager_storage;
+// Naked body preserves the retail register/stack ABI.
+// BLOCKED (D3601): closest_byte_count=47/176; first_diff=0x00408910;
+// residual_class=compiler-generated SEH/vector-constructor iterator frame,
+// callback ABI, and constructor zeroing schedule; variants_tested=live Ghidra
+// decompilation with caller 0x00408C90 and constructor callers 0x004296F0,
+// 0x0040D6B0, plus MSVC 13.10 readable candidate (131-byte extent, 47
+// non-relocation bytes equal); next_lever=native-LTCG schema2 with the real
+// caller/context and EH vector-constructor bindings.
+extern "C" __declspec(naked) void __cdecl asm_PlayerManager_ConstructRetail_00408910() {
+    __asm {
+    L_00408910:
+        mov eax,dword ptr fs:[0]
+    L_00408916:
+        push 0FFFFFFFFh
+    L_00408918:
+        push 465514h
+    L_0040891d:
+        push eax
+    L_0040891e:
+        mov dword ptr fs:[0],esp
+    L_00408925:
+        push esi
+    L_00408926:
+        mov esi,dword ptr [esp+14h]
+    L_0040892a:
+        push edi
+    L_0040892b:
+        push 401FF0h
+    L_00408930:
+        push 402050h
+    L_00408935:
+        push 2
+    L_00408937:
+        push 3ACh
+    L_0040893c:
+        lea eax,[esi+10h]
+    L_0040893f:
+        push eax
+    L_00408940:
+        call asm_eh_vector_constructor_iterator_0045252d
+    L_00408945:
+        push 401FF0h
+    L_0040894a:
+        push 402050h
+    L_0040894f:
+        push 8
+    L_00408951:
+        push 3ACh
+    L_00408956:
+        lea ecx,[esi+778h]
+    L_0040895c:
+        push ecx
+    L_0040895d:
+        mov dword ptr [esp+24h],0
+    L_00408965:
+        call asm_eh_vector_constructor_iterator_0045252d
+    L_0040896a:
+        push 401FF0h
+    L_0040896f:
+        push 402050h
+    L_00408974:
+        push 5
+    L_00408976:
+        push 3ACh
+    L_0040897b:
+        lea edx,[esi+24D8h]
+    L_00408981:
+        push edx
+    L_00408982:
+        mov byte ptr [esp+24h],1
+    L_00408987:
+        call asm_eh_vector_constructor_iterator_0045252d
+    L_0040898c:
+        and dword ptr [esi+3744h],0FFFFFFFEh
+    L_00408993:
+        xor eax,eax
+    L_00408995:
+        mov edi,esi
+    L_00408997:
+        mov ecx,0DECh
+    L_0040899c:
+        rep stosd
+    L_0040899e:
+        mov eax,dword ptr [esi]
+    L_004089a0:
+        mov ecx,dword ptr [esp+8]
+    L_004089a4:
+        or eax,2
+    L_004089a7:
+        mov dword ptr [esi],eax
+    L_004089a9:
+        pop edi
+    L_004089aa:
+        mov dword ptr [data_004776f4],esi
+    L_004089b0:
+        mov eax,esi
+    L_004089b2:
+        mov dword ptr fs:[0],ecx
+    L_004089b9:
+        pop esi
+    L_004089ba:
+        add esp,0Ch
+    L_004089bd:
+        ret 4
+    }
 }
 
 
@@ -1528,6 +1594,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
         _emit 0x00
     }
 }
+
+
+
 
 
 

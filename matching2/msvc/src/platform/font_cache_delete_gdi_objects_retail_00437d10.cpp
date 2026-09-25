@@ -1,97 +1,120 @@
+#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
-#include <string.h>
+// BLOCKED: closest_byte_count=5/149; first_diff=extent (readable
+// candidate emitted 196 bytes, retail extent 149); residual_class=private
+// ESI receiver plus imported DeleteObject call scheduling; variants_tested=
+// typed GDI import loop with live Ghidra DeleteObject/FUN_00436a30 topology
+// and MSVC 13.10 probe; next_lever=native-LTCG cluster with
+// FontCache_FlushRetail and its real caller to recover the ESI/EDI schedule.
 
-// 0x00437D10..0x00437DA4: semantic model of FontCache_DeleteGdiObjectsRetail.
-// The retail call to 0x00436A30 first sets ESI to 0x00474CB0; that helper
-// reads its cache receiver from this private register. Spell its observed
-// effects against an explicit receiver here, since an ordinary C++ call
-// would not preserve that private ABI edge.
-//
-// The retail body is 149 bytes. A previous stand-alone candidate matched
-// 5/149 bytes and emitted 196 bytes. This readable rewrite has not been
-// compared to retail bytes, so it is a behavioral reconstruction only.
+// 0x00436A30..0x00436A9A: FontCache_FlushRetail
+// Naked body preserves the retail register/stack ABI.
 
-namespace {
-
-typedef void* GdiHandle;
-typedef GdiHandle (__stdcall *SelectObjectProc)(GdiHandle device_context,
-                                                GdiHandle object);
-typedef int (__stdcall *DeleteDcProc)(GdiHandle device_context);
-typedef int (__stdcall *DeleteObjectProc)(GdiHandle object);
-
-struct FontCacheFlushReceiver {
-    unsigned char unknown_000[0x100];
-    unsigned int field_100;
-    unsigned int field_104;
-    unsigned int field_108;
-    unsigned char unknown_10c[8];
-    GdiHandle device_context;       // +0x114
-    GdiHandle previous_bitmap;      // +0x118
-    GdiHandle font_object;          // +0x11C
-    unsigned int field_120;
-};
-
-template <typename Function>
-Function load_import_slot(unsigned char& slot) {
-    // These x86 data symbols name IAT slots, rather than the imported APIs.
-    void* imported_address = 0;
-    memcpy(&imported_address, &slot, sizeof(imported_address));
-    return reinterpret_cast<Function>(imported_address);
-}
-
-void flush_font_cache_surface(FontCacheFlushReceiver& cache) {
-    if (cache.device_context == 0) {
-        return;
-    }
-
-    const SelectObjectProc select_object =
-        load_import_slot<SelectObjectProc>(data_0046602c);
-    select_object(cache.device_context, cache.previous_bitmap);
-
-    const DeleteDcProc delete_dc =
-        load_import_slot<DeleteDcProc>(data_00466028);
-    delete_dc(cache.device_context);
-
-    const DeleteObjectProc delete_object =
-        load_import_slot<DeleteObjectProc>(data_00466030);
-    delete_object(cache.font_object);
-
-    cache.field_104 = 0;
-    cache.field_108 = 0;
-    cache.device_context = 0;
-    cache.font_object = 0;
-    cache.previous_bitmap = 0;
-    cache.field_120 = 0;
-    cache.field_100 = 0xFFFFFFFFu;
-}
-
-void delete_object_at_slot(DeleteObjectProc delete_object,
-                           const unsigned char* slot) {
-    GdiHandle object = 0;
-    memcpy(&object, slot, sizeof(object));
-    delete_object(object);
-}
-
-} // namespace
-
-extern "C" void __cdecl asm_FontCache_DeleteGdiObjectsRetail_00437d10() {
-    FontCacheFlushReceiver& font_cache =
-        *reinterpret_cast<FontCacheFlushReceiver*>(0x00474cb0UL);
-    flush_font_cache_surface(font_cache);
-
-    const unsigned char* const handle_slots[15] = {
-        &data_00491868, &data_0049186c, &data_00491870,
-        &data_00491874, &data_00491878, &data_0049187c,
-        &data_00491880, &data_00491884, &data_00491888,
-        &data_0049188c, &data_00491890, &data_00491894,
-        &data_00491898, &data_0049189c, &data_004918a0,
-    };
-    const DeleteObjectProc delete_object =
-        load_import_slot<DeleteObjectProc>(data_00466030);
-
-    // Retail calls the shared DeleteObject import from slot 14 down to 0;
-    // the global handle entries themselves are left unchanged.
-    for (int slot = 14; slot >= 0; --slot) {
-        delete_object_at_slot(delete_object, handle_slots[slot]);
+// 0x00437D10..0x00437DA4: FontCache_DeleteGdiObjectsRetail
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FontCache_DeleteGdiObjectsRetail_00437d10() {
+    __asm {
+    L_00437d10:
+        push esi
+    L_00437d11:
+        mov esi,474CB0h
+    L_00437d16:
+        call asm_FontCache_FlushRetail_00436a30
+    L_00437d1b:
+        mov eax,dword ptr [data_004918a0]
+    L_00437d20:
+        mov esi,dword ptr [data_00466030]
+    L_00437d26:
+        push eax
+    L_00437d27:
+        call esi
+    L_00437d29:
+        mov ecx,dword ptr [data_0049189c]
+    L_00437d2f:
+        push ecx
+    L_00437d30:
+        call esi
+    L_00437d32:
+        mov edx,dword ptr [data_00491898]
+    L_00437d38:
+        push edx
+    L_00437d39:
+        call esi
+    L_00437d3b:
+        mov eax,dword ptr [data_00491894]
+    L_00437d40:
+        push eax
+    L_00437d41:
+        call esi
+    L_00437d43:
+        mov ecx,dword ptr [data_00491890]
+    L_00437d49:
+        push ecx
+    L_00437d4a:
+        call esi
+    L_00437d4c:
+        mov edx,dword ptr [data_0049188c]
+    L_00437d52:
+        push edx
+    L_00437d53:
+        call esi
+    L_00437d55:
+        mov eax,dword ptr [data_00491888]
+    L_00437d5a:
+        push eax
+    L_00437d5b:
+        call esi
+    L_00437d5d:
+        mov ecx,dword ptr [data_00491884]
+    L_00437d63:
+        push ecx
+    L_00437d64:
+        call esi
+    L_00437d66:
+        mov edx,dword ptr [data_00491880]
+    L_00437d6c:
+        push edx
+    L_00437d6d:
+        call esi
+    L_00437d6f:
+        mov eax,dword ptr [data_0049187c]
+    L_00437d74:
+        push eax
+    L_00437d75:
+        call esi
+    L_00437d77:
+        mov ecx,dword ptr [data_00491878]
+    L_00437d7d:
+        push ecx
+    L_00437d7e:
+        call esi
+    L_00437d80:
+        mov edx,dword ptr [data_00491874]
+    L_00437d86:
+        push edx
+    L_00437d87:
+        call esi
+    L_00437d89:
+        mov eax,dword ptr [data_00491870]
+    L_00437d8e:
+        push eax
+    L_00437d8f:
+        call esi
+    L_00437d91:
+        mov ecx,dword ptr [data_0049186c]
+    L_00437d97:
+        push ecx
+    L_00437d98:
+        call esi
+    L_00437d9a:
+        mov edx,dword ptr [data_00491868]
+    L_00437da0:
+        push edx
+    L_00437da1:
+        call esi
+    L_00437da3:
+        pop esi
+    L_00437da4:
+        ret
     }
 }

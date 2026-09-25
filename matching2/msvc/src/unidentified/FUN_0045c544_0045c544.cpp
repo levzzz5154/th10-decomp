@@ -1,52 +1,113 @@
-#include <cstdint>
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-// 0x0045C544..0x0045C5DB: country-only locale-enumeration callback.
-using GetLocaleInfoAFunction_0045c544 = int (__stdcall *)(
-    std::uint32_t locale, std::uint32_t type, char* buffer, int buffer_size);
-
-extern "C" unsigned char data_00477628;
-extern "C" unsigned char data_0047762c;
-extern "C" unsigned char data_00477630;
-extern "C" unsigned char data_00477638;
-extern "C" unsigned char data_0047763c;
-extern "C" unsigned char data_00477648;
-
-extern "C" int __fastcall asm_LcidFromHexString_0045c4f2(
-    int ignored_ecx, const char* text);
-extern "C" int __cdecl asm_FUN_0045c3f1_0045c3f1(short value);
-extern "C" int __cdecl asm_stricmp_0046054e(
-    const unsigned char* left, const unsigned char* right);
-
-extern "C" int __stdcall asm_FUN_0045c544_0045c544(char* locale_name) {
-    char locale_info[120];
-    const char* const country_text =
-        *reinterpret_cast<const char* const*>(&data_0047763c);
-    std::uint32_t& match_state =
-        *reinterpret_cast<std::uint32_t*>(&data_00477628);
-    const bool country_text_has_three_characters =
-        *reinterpret_cast<std::uint32_t*>(&data_00477638) != 0;
-    const std::uint32_t locale_id = static_cast<std::uint32_t>(
-        asm_LcidFromHexString_0045c4f2(0, locale_name));
-    const GetLocaleInfoAFunction_0045c544 get_locale_info =
-        *reinterpret_cast<GetLocaleInfoAFunction_0045c544 const*>(
-            &data_00477648);
-    const std::uint32_t country_name_type =
-        country_text_has_three_characters ? 7u : 0x1002u;
-
-    if (get_locale_info(locale_id, country_name_type, locale_info,
-                        static_cast<int>(sizeof(locale_info))) == 0) {
-        match_state = 0;
-        return 1;
+// 0x0045C544..0x0045C5DB: FUN_0045c544
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_0045c544_0045c544() {
+    __asm {
+    L_0045c544:
+        push ebp
+    L_0045c545:
+        mov ebp,esp
+    L_0045c547:
+        sub esp,7Ch
+    L_0045c54a:
+        mov eax,dword ptr [data_00473660]
+    L_0045c54f:
+        mov edx,dword ptr [ebp+8]
+    L_0045c552:
+        xor eax,ebp
+    L_0045c554:
+        push esi
+    L_0045c555:
+        mov dword ptr [ebp-4],eax
+    L_0045c558:
+        call asm_LcidFromHexString_0045c4f2
+    L_0045c55d:
+        mov esi,eax
+    L_0045c55f:
+        push 78h
+    L_0045c561:
+        lea eax,[ebp-7Ch]
+    L_0045c564:
+        push eax
+    L_0045c565:
+        mov eax,dword ptr [data_00477638]
+    L_0045c56a:
+        neg eax
+    L_0045c56c:
+        sbb eax,eax
+    L_0045c56e:
+        and eax,0FFFFF005h
+    L_0045c573:
+        add eax,1002h
+    L_0045c578:
+        push eax
+    L_0045c579:
+        push esi
+    L_0045c57a:
+        call dword ptr [data_00477648]
+    L_0045c580:
+        test eax,eax
+    L_0045c582:
+        jne short L_0045c58d
+    L_0045c584:
+        and dword ptr [data_00477628],eax
+    L_0045c58a:
+        inc eax
+    L_0045c58b:
+        jmp short L_0045c5cd
+    L_0045c58d:
+        lea eax,[ebp-7Ch]
+    L_0045c590:
+        push eax
+    L_0045c591:
+        push dword ptr [data_0047763c]
+    L_0045c597:
+        call asm_stricmp_0046054e
+    L_0045c59c:
+        test eax,eax
+    L_0045c59e:
+        pop ecx
+    L_0045c59f:
+        pop ecx
+    L_0045c5a0:
+        jne short L_0045c5c0
+    L_0045c5a2:
+        push esi
+    L_0045c5a3:
+        call asm_FUN_0045c3f1_0045c3f1
+    L_0045c5a8:
+        test eax,eax
+    L_0045c5aa:
+        pop ecx
+    L_0045c5ab:
+        je short L_0045c5c0
+    L_0045c5ad:
+        or dword ptr [data_00477628],4
+    L_0045c5b4:
+        mov dword ptr [data_00477630],esi
+    L_0045c5ba:
+        mov dword ptr [data_0047762c],esi
+    L_0045c5c0:
+        mov eax,dword ptr [data_00477628]
+    L_0045c5c5:
+        shr eax,2
+    L_0045c5c8:
+        not eax
+    L_0045c5ca:
+        and eax,1
+    L_0045c5cd:
+        mov ecx,dword ptr [ebp-4]
+    L_0045c5d0:
+        xor ecx,ebp
+    L_0045c5d2:
+        pop esi
+    L_0045c5d3:
+        call asm_security_check_cookie_00458ea5
+    L_0045c5d8:
+        leave
+    L_0045c5d9:
+        ret 4
     }
-
-    if (asm_stricmp_0046054e(
-            reinterpret_cast<const unsigned char*>(country_text),
-            reinterpret_cast<const unsigned char*>(locale_info)) == 0 &&
-        asm_FUN_0045c3f1_0045c3f1(static_cast<short>(locale_id)) != 0) {
-        match_state |= 4u;
-        *reinterpret_cast<std::uint32_t*>(&data_00477630) = locale_id;
-        *reinterpret_cast<std::uint32_t*>(&data_0047762c) = locale_id;
-    }
-
-    return static_cast<int>((~(match_state >> 2)) & 1u);
 }

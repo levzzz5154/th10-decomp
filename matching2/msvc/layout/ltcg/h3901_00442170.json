@@ -3,7 +3,7 @@
   "name": "h3901_00442170",
   "source": "src/unidentified/FUN_00442170_00442170.cpp",
   "driver": "layout/ltcg/h3901_00442170_context.cpp",
-  "headers": ["include/asm_encoding.hpp", "include/asm_symbols.hpp"],
+  "headers": [],
   "image_base": "0x00400000",
   "description": "Value-returning field store compiled with native LTCG so retail's value-in-EAX/object-in-ECX ABI is retained.",
   "functions": [

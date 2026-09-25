@@ -2,70 +2,35 @@
   "schema_version": 1,
   "name": "recovery_tick_state_0040bd20",
   "source": "src/game/recovery_tick_state_0040bd20.cpp",
-  "additional_sources": [
-    "src/game/recovery_update_emitter_decision_0040b9f0.cpp",
-    "src/unidentified/FUN_0040ba70_0040ba70.cpp"
-  ],
   "driver": "layout/ltcg/recovery_tick_state_0040bd20_context.cpp",
-  "headers": [
-    "include/th10/game/recovery_emitter_state.hpp"
-  ],
+  "headers": [],
   "image_base": "0x00400000",
-  "description": "Native-LTCG recovery callback cluster. The public update callback keeps its ECX receiver. The emitter decision and tick helper now use ordinary C++ member receivers inside this semantic path; the retail tick helper's private ESI input is normalized to ECX.",
+  "description": "Ending-script state tick compiled with native LTCG so the state arrives in ESI and the call returns with a plain RET.",
   "functions": [
     {
-      "name": "RecoveryUpdateEmitterState_UpdateEmitterDecision",
-      "source": "src/game/recovery_update_emitter_decision_0040b9f0.cpp",
-      "symbol": "?UpdateEmitterDecision@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
-      "section": ".text$01decision",
-      "address": "0x0040B9F0",
-      "size": 111,
-      "actual_abi": "retail emitter receiver in EDI; returns 1 or 6 in EAX; plain RET"
-    },
-    {
-      "name": "RecoveryUpdateEmitterState_RunDecisionCallback",
-      "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp",
-      "symbol": "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
-      "section": ".text$02callback",
-      "address": "0x0040BA70",
-      "size": 10,
-      "actual_abi": "callback receiver in ECX; result in EAX; EDI preserved; plain RET"
-    },
-    {
-      "name": "RecoveryTickState_0040bd20_Tick",
-      "source": "src/game/recovery_tick_state_0040bd20.cpp",
-      "symbol": "?Tick@RecoveryTickState_0040bd20@@QAEHXZ",
-      "section": ".text$03tick",
+      "name": "TickRecoveryState_0040bd20",
+      "symbol": "?TickRecoveryState_0040bd20@@YGHPAURecoveryTickState_0040bd20@@@Z",
+      "section": ".text$01tick",
       "address": "0x0040BD20",
       "size": 93,
-      "actual_abi": "source-level member receiver in ECX; retail used a private ESI input; returns 0 or 1 in EAX; plain RET"
+      "actual_abi": "state in ESI; plain RET"
     }
   ],
   "context": {
-    "symbol": "?RecoveryEmitterStateCompilerContext_0040bd20@@YGHPAPAURecoveryUpdateEmitterState_0040b9f0@@H@Z",
-    "section": ".text$04context",
+    "symbol": "?RecoveryTickStateCompilerContext_0040bd20@@YGHPAPAURecoveryTickState_0040bd20@@H@Z",
+    "section": ".text$03context",
     "address": "0x0040BD90",
     "size": 41,
-    "description": "Synthetic callback walker that roots the recovered update callback and its two private callees; not recovered game code."
+    "description": "Synthetic array-walking caller that establishes the observed internal register convention; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
       "address": "0x00401000",
-      "size": 43504
+      "size": 44320
     },
     {
-      "section": ".text$01zgap",
-      "address": "0x0040BA5F",
-      "size": 17
-    },
-    {
-      "section": ".text$02zgap",
-      "address": "0x0040BA7A",
-      "size": 678
-    },
-    {
-      "section": ".text$03zlayout",
+      "section": ".text$02layout",
       "address": "0x0040BD7D",
       "size": 19
     }
@@ -87,21 +52,6 @@
     {
       "symbol": "?g_frame_timer_normal_upper@@3MA",
       "address": "0x00470B64",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00474e30",
-      "address": "0x00474E30",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00491fb8",
-      "address": "0x00491FB8",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00491ff4",
-      "address": "0x00491FF4",
       "kind": "data"
     },
     {

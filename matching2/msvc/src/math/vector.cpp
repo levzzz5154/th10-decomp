@@ -1,31 +1,60 @@
-#include <math.h>
-
-// Both retail entries use __thiscall: this is in ECX, followed by angle and
-// scale on the stack. The semantic C++ spelling preserves the two field
-// writes; sinf/cosf do not reproduce the fused FSINCOS instruction or its
-// exact floating-point rounding.
-struct PolarVector2_0041F800 {
-    float x;
-    float y;
-
-    __declspec(noinline) void __thiscall SetPolar(float angle, float scale);
-};
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
 // 0x0041F800..0x0041F81D: ?SetPolar@Vector2@@
-void __thiscall PolarVector2_0041F800::SetPolar(float angle, float scale) {
-    x = cosf(angle) * scale;
-    y = sinf(angle) * scale;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_SetPolar_Vector2_0041f800() {
+    __asm {
+    L_0041f800:
+        push ecx
+    L_0041f801:
+        mov dword ptr [esp],ecx
+    L_0041f804:
+        mov eax,dword ptr [esp]
+    L_0041f807:
+        fld dword ptr [esp+8]
+    L_0041f80b:
+        fsincos
+    L_0041f80d:
+        fmul dword ptr [esp+0Ch]
+    L_0041f811:
+        fstp dword ptr [eax]
+    L_0041f813:
+        fmul dword ptr [esp+0Ch]
+    L_0041f817:
+        fstp dword ptr [eax+4]
+    L_0041f81a:
+        pop ecx
+    L_0041f81b:
+        ret 8
+    }
 }
 
-struct PolarVector2_004458B0 {
-    float x;
-    float y;
-
-    __declspec(noinline) void __thiscall SetPolar(float angle, float scale);
-};
-
 // 0x004458B0..0x004458CD: Vector2_SetPolar
-void __thiscall PolarVector2_004458B0::SetPolar(float angle, float scale) {
-    x = cosf(angle) * scale;
-    y = sinf(angle) * scale;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_Vector2_SetPolar_004458b0() {
+    __asm {
+    L_004458b0:
+        push ecx
+    L_004458b1:
+        mov dword ptr [esp],ecx
+    L_004458b4:
+        mov eax,dword ptr [esp]
+    L_004458b7:
+        fld dword ptr [esp+8]
+    L_004458bb:
+        fsincos
+    L_004458bd:
+        fmul dword ptr [esp+0Ch]
+    L_004458c1:
+        fstp dword ptr [eax]
+    L_004458c3:
+        fmul dword ptr [esp+0Ch]
+    L_004458c7:
+        fstp dword ptr [eax+4]
+    L_004458ca:
+        pop ecx
+    L_004458cb:
+        ret 8
+    }
 }

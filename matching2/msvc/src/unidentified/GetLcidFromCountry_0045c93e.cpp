@@ -1,7 +1,7 @@
 #include <cstdint>
 
-using EnumLocaleCallback_0045c93e = int (__stdcall *)(char* locale_name);
-using EnumSystemLocalesAFunction_0045c93e = int (__stdcall *)(
+typedef int (__stdcall *EnumLocaleCallback_0045c93e)(char* locale_name);
+typedef int (__stdcall *EnumSystemLocalesAFunction_0045c93e)(
     EnumLocaleCallback_0045c93e callback, std::uint32_t flags);
 
 extern "C" unsigned char data_00466058;

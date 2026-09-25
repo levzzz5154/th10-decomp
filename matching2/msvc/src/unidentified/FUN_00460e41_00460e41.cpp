@@ -1,90 +1,111 @@
-#include <cstddef>
-#include <cstdint>
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-// Existing assembly callers use the old cdecl entry label.
-#pragma comment(linker, "/alternatename:_asm_FUN_00460e41_00460e41=_DecimalConversionRecord_00460E41")
-
-extern "C" unsigned int data_00473660;
-extern "C" void __cdecl asm_dtold_00460d87(
-    std::uint32_t* extended_words, const std::uint32_t* binary64_words);
-extern "C" int __cdecl asm_FUN_00461841_00461841(
-    std::uint32_t significand_low,
-    std::uint32_t significand_high,
-    std::uint16_t sign_and_exponent,
-    int precision,
-    unsigned char flags,
-    std::int16_t* output_record);
-extern "C" char* __cdecl asm_FUN_0045bd80_0045bd80(
-    char* destination, const char* source);
-extern "C" void __fastcall asm_security_check_cookie_00458ea5(
-    unsigned int stack_cookie);
-
-namespace {
-
-// ___dtold writes the x87 extended value as three little-endian words. The
-// first ten bytes are significant; the 32-bit alignment may leave two bytes
-// of tail padding in this C++ object, which no helper reads or writes.
-struct Extended80Words {
-    std::uint32_t significand_low;
-    std::uint32_t significand_high;
-    std::uint16_t sign_and_exponent;
-};
-
-struct DecimalTextRecord {
-    std::int16_t exponent;
-    signed char sign;
-    unsigned char digit_count;
-    char digits[20];
-};
-
-static_assert(offsetof(Extended80Words, sign_and_exponent) == 8,
-              "the retail extended-float exponent is at byte offset 8");
-static_assert(offsetof(DecimalTextRecord, digits) == 4,
-              "the retail digit string starts four bytes into its record");
-static_assert(sizeof(DecimalTextRecord) == 24,
-              "the retail scratch record occupies six dwords");
-
-}  // namespace
-
-// The two leading dwords are the exact 64-bit input representation on the
-// x86 stack. The caller supplies a four-int result record and a digit buffer.
-extern "C" __declspec(noinline) int* __cdecl DecimalConversionRecord_00460E41(
-    std::uint32_t binary64_low,
-    std::uint32_t binary64_high,
-    int* result_record,
-    char* digit_buffer) {
-    // Retain the retail stack-cookie check in ordinary C++: the saved word is
-    // XORed with a stable address in this frame and decoded before checking.
-    volatile unsigned int saved_cookie = 0;
-    const std::uintptr_t cookie_anchor =
-        reinterpret_cast<std::uintptr_t>(&saved_cookie);
-    saved_cookie = data_00473660 ^ static_cast<unsigned int>(cookie_anchor);
-
-    const std::uint32_t binary64_words[2] = {
-        binary64_low,
-        binary64_high,
-    };
-    Extended80Words extended{};
-    asm_dtold_00460d87(&extended.significand_low, binary64_words);
-
-    DecimalTextRecord decimal_text{};
-    const int conversion_status = asm_FUN_00461841_00461841(
-        extended.significand_low,
-        extended.significand_high,
-        extended.sign_and_exponent,
-        0x11,
-        0,
-        &decimal_text.exponent);
-
-    result_record[2] = conversion_status;
-    result_record[0] = static_cast<int>(decimal_text.sign);
-    result_record[1] = static_cast<int>(decimal_text.exponent);
-    asm_FUN_0045bd80_0045bd80(digit_buffer, decimal_text.digits);
-    result_record[3] = static_cast<int>(
-        reinterpret_cast<std::intptr_t>(digit_buffer));
-
-    const unsigned int decoded_cookie = saved_cookie ^
-        static_cast<unsigned int>(cookie_anchor);
-    asm_security_check_cookie_00458ea5(decoded_cookie);
-    return result_record;
+// 0x00460E41..0x00460EB8: FUN_00460e41
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_00460e41_00460e41() {
+    __asm {
+    L_00460e41:
+        push ebp
+    L_00460e42:
+        mov ebp,esp
+    L_00460e44:
+        sub esp,30h
+    L_00460e47:
+        mov eax,dword ptr [data_00473660]
+    L_00460e4c:
+        xor eax,ebp
+    L_00460e4e:
+        mov dword ptr [ebp-4],eax
+    L_00460e51:
+        mov eax,dword ptr [ebp+14h]
+    L_00460e54:
+        push ebx
+    L_00460e55:
+        mov ebx,dword ptr [ebp+10h]
+    L_00460e58:
+        push esi
+    L_00460e59:
+        mov dword ptr [ebp-30h],eax
+    L_00460e5c:
+        push edi
+    L_00460e5d:
+        lea eax,[ebp+8]
+    L_00460e60:
+        push eax
+    L_00460e61:
+        lea eax,[ebp-10h]
+    L_00460e64:
+        push eax
+    L_00460e65:
+        call asm_dtold_00460d87
+    L_00460e6a:
+        pop ecx
+    L_00460e6b:
+        pop ecx
+    L_00460e6c:
+        lea eax,[ebp-2Ch]
+    L_00460e6f:
+        push eax
+    L_00460e70:
+        push 0
+    L_00460e72:
+        push 11h
+    L_00460e74:
+        sub esp,0Ch
+    L_00460e77:
+        lea esi,[ebp-10h]
+    L_00460e7a:
+        mov edi,esp
+    L_00460e7c:
+        movsd
+    L_00460e7d:
+        movsd
+    L_00460e7e:
+        movsw
+    L_00460e80:
+        call asm_FUN_00461841_00461841
+    L_00460e85:
+        mov esi,dword ptr [ebp-30h]
+    L_00460e88:
+        mov dword ptr [ebx+8],eax
+    L_00460e8b:
+        movsx eax,byte ptr [ebp-2Ah]
+    L_00460e8f:
+        mov dword ptr [ebx],eax
+    L_00460e91:
+        movsx eax,word ptr [ebp-2Ch]
+    L_00460e95:
+        mov dword ptr [ebx+4],eax
+    L_00460e98:
+        lea eax,[ebp-28h]
+    L_00460e9b:
+        push eax
+    L_00460e9c:
+        push esi
+    L_00460e9d:
+        call asm_FUN_0045bd80_0045bd80
+    L_00460ea2:
+        mov ecx,dword ptr [ebp-4]
+    L_00460ea5:
+        add esp,20h
+    L_00460ea8:
+        pop edi
+    L_00460ea9:
+        mov dword ptr [ebx+0Ch],esi
+    L_00460eac:
+        pop esi
+    L_00460ead:
+        mov eax,ebx
+    L_00460eaf:
+        xor ecx,ebp
+    L_00460eb1:
+        pop ebx
+    L_00460eb2:
+        call asm_security_check_cookie_00458ea5
+    L_00460eb7:
+        leave
+    L_00460eb8:
+        ret
+    }
 }

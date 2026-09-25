@@ -29,13 +29,6 @@ extern "C" unsigned char text_padding_004122f4[] = {
 };
 #pragma data_seg()
 
-// padding: 0x0041233E..0x0041233F
-// padding 0041233e..0041233f: ["Ghidra disassembly identified MOV EDI,EDI after the return"]
-#pragma data_seg(".d000461")
-extern "C" unsigned char text_padding_0041233e[] = {
-    0x8b, 0xff,
-};
-#pragma data_seg()
 
 // data: 0x00412340..0x0041234F
 // data 00412340..0041234f: ["text_range_map:defined_data", "full+augmented listing typed data"]

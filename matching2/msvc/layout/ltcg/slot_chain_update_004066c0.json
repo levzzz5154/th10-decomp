@@ -29,7 +29,7 @@
     "symbol": "SlotChainUpdateContext@8",
     "section": ".text$05context",
     "address": "0x00407000",
-    "size": 34,
+    "size": 36,
     "description": "Synthetic owner-array caller used to expose the method and its helper to native LTCG; not recovered game code."
   },
   "gaps": [
@@ -49,6 +49,7 @@
       "size": 2201
     }
   ],
+  "constants": [],
   "absolute_symbols": [
     {
       "symbol": "_data_00491c10",

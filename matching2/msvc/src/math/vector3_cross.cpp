@@ -2,14 +2,17 @@
 #include "asm_symbols.hpp"
 
 // BLOCKED (H2901): Ghidra disassembles an exact 77-byte leaf span at
-// 0x00421B90 with no incoming xrefs/callers and no callees. Its private ABI
-// takes the destination pointer in EAX, the left vector in ECX, and the right
-// vector in EDX. MSVC 13.10's ordinary x86 C++ conventions cannot declare an
-// incoming EAX parameter; __fastcall uses ECX and EDX for its first two
-// parameters and EAX for the return value. Keep the naked entry until a C++
-// ABI that preserves this register placement is available. See
-// reference/recovery_notes/vector3_cross_00421b90.md for the live Ghidra
-// evidence and recovered component formulas.
+// 0x00421B90 with no incoming xrefs/callers and no callees.  Its ABI is the
+// private triple-pointer form result=EAX, left=ECX, right=EDX; a standalone
+// MSVC 13.10 C++ declaration cannot express that register placement (the
+// ordinary __fastcall candidate makes ECX the result and shifts the inputs).
+// variants_tested=retail private-ABI overlay only; standalone __fastcall ABI
+// feasibility rejected before source mutation because it cannot supply EAX as
+// an input result pointer. next_lever=an LTCG cluster with a real caller that
+// preserves EAX/ECX/EDX simultaneously; Ghidra reports no such caller in the
+// current retail image, so the exact readable replacement is blocked.
+// closest_byte_count=77/77 (existing overlay); first_diff=N/A for overlay;
+// residual_class=private-ABI register placement.
 // 0x00421B90..0x00421BDC: Vector3_Cross
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Vector3_Cross_00421b90() {

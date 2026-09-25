@@ -1,66 +1,75 @@
-// The live entry at 0x00436210 is the LZSS match-tree deletion routine.
-// Its node index arrives in ECX; the old `MemoryFile_RemoveNode` label is stale.
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-struct LzssMatchNode_00436000 {
-    int parent;
-    int left;
-    int right;
-};
+// BLOCKED (D3305): closest_byte_count=29/80; first_diff=0x00436210
+// (standalone readable C++ candidate, authoritative probe extent 80 bytes).
+// residual_class=private ECX/ESI node receiver plus private-register helper
+// ABIs and recursive replacement scheduling over the shared compression tree.
+// variants_tested=live Ghidra decompilation, legacy MemoryFile model,
+// standalone MSVC 13.10 /O2 candidate (29/80), and exact retail overlay.
+// next_lever=schema2 native-LTCG cluster joining the real compression-tree
+// caller at 0x00435C8C with RelinkChild 0x00436260, this member,
+// FindPredecessor 0x00436330, and ReplaceNode 0x004362B0.
 
-extern "C" LzssMatchNode_00436000 data_00477858[];
-
-namespace {
-
-void RelinkChild(LzssMatchNode_00436000* nodes, int source, int replacement) {
-    const int parent = nodes[source].parent;
-    nodes[replacement].parent = parent;
-    if (nodes[parent].right == source)
-        nodes[parent].right = replacement;
-    else
-        nodes[parent].left = replacement;
-    nodes[source].parent = 0;
-}
-
-int FindPredecessor(const LzssMatchNode_00436000* nodes, int node) {
-    int predecessor = nodes[node].left;
-    while (nodes[predecessor].right != 0)
-        predecessor = nodes[predecessor].right;
-    return predecessor;
-}
-
-void ReplaceNode(LzssMatchNode_00436000* nodes, int source, int replacement) {
-    const int parent = nodes[source].parent;
-    if (nodes[parent].left == source)
-        nodes[parent].left = replacement;
-    else
-        nodes[parent].right = replacement;
-
-    nodes[replacement] = nodes[source];
-    nodes[nodes[replacement].left].parent = replacement;
-    nodes[nodes[replacement].right].parent = replacement;
-    nodes[source].parent = 0;
-}
-
-} // namespace
-
-// The single explicit parameter uses the observed ECX input register. Calls
-// recurse through this typed entry instead of relying on private register
-// conventions in the old relink, predecessor, and replace helpers.
-extern "C" __declspec(noinline) void __fastcall Lzss_RemoveNode_00436210(int node) {
-    LzssMatchNode_00436000* const nodes = data_00477858;
-    if (nodes[node].parent == 0)
-        return;
-
-    if (nodes[node].right == 0) {
-        RelinkChild(nodes, node, nodes[node].left);
-        return;
+// 0x00436210..0x0043625F: ?MemoryFile_RemoveNode@@
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_MemoryFile_RemoveNode_00436210() {
+    __asm {
+    L_00436210:
+        push esi
+    L_00436211:
+        mov esi,ecx
+    L_00436213:
+        lea eax,[esi+esi*2]
+    L_00436216:
+        shl eax,2
+    L_00436219:
+        mov ecx,dword ptr [eax+477858h]
+    L_0043621f:
+        test ecx,ecx
+    L_00436221:
+        je short L_00436238
+    L_00436223:
+        mov edx,dword ptr [eax+477860h]
+    L_00436229:
+        test edx,edx
+    L_0043622b:
+        jne short L_0043623a
+    L_0043622d:
+        mov edx,dword ptr [eax+47785Ch]
+    L_00436233:
+        call asm_MemoryFile_RelinkChild_00436260
+    L_00436238:
+        pop esi
+    L_00436239:
+        ret
+    L_0043623a:
+        mov ecx,dword ptr [eax+47785Ch]
+    L_00436240:
+        test ecx,ecx
+    L_00436242:
+        je short L_00436233
+    L_00436244:
+        push edi
+    L_00436245:
+        mov eax,esi
+    L_00436247:
+        call asm_MemoryFile_FindPredecessor_00436330
+    L_0043624c:
+        mov edi,eax
+    L_0043624e:
+        mov ecx,edi
+    L_00436250:
+        call asm_MemoryFile_RemoveNode_00436210
+    L_00436255:
+        mov ecx,edi
+    L_00436257:
+        pop edi
+    L_00436258:
+        mov eax,esi
+    L_0043625a:
+        pop esi
+    L_0043625b:
+        jmp asm_MemoryFile_ReplaceNode_004362b0
     }
-    if (nodes[node].left == 0) {
-        RelinkChild(nodes, node, nodes[node].right);
-        return;
-    }
-
-    const int predecessor = FindPredecessor(nodes, node);
-    Lzss_RemoveNode_00436210(predecessor);
-    ReplaceNode(nodes, node, predecessor);
 }

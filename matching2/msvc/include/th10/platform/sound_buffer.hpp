@@ -3,11 +3,15 @@
 struct DirectSoundBuffer;
 
 typedef int (__stdcall *DirectSoundBufferStop)(DirectSoundBuffer* self);
+typedef int (__stdcall *DirectSoundBufferGetStatus)(
+    DirectSoundBuffer* self, unsigned int* status);
 
 // The operation used here is IDirectSoundBuffer::Stop, the nineteenth vtable
 // entry (byte offset 0x48).
 struct DirectSoundBufferVtable {
-    void* methods_before_stop[18];
+    void* methods_before_get_status[9];
+    DirectSoundBufferGetStatus get_status;
+    void* methods_between_status_and_stop[8];
     DirectSoundBufferStop stop;
 };
 
@@ -24,7 +28,12 @@ struct PlatformOwnedArray {
 // guessing at fields that these functions do not touch.
 struct SoundBuffer : PlatformOwnedArray {
     DirectSoundBuffer** buffers;       // +0x04
-    unsigned int reserved_08[10];      // +0x08..+0x2F
+    unsigned int reserved_08[2];       // +0x08..+0x0F
+    unsigned int buffer_count;         // +0x10
+    int fade_remaining;                 // +0x14
+    int fade_duration;                  // +0x18
+    unsigned int fade_mode;             // +0x1C
+    unsigned int reserved_20[4];       // +0x20..+0x2F
     unsigned int is_playing;           // +0x30
 };
 

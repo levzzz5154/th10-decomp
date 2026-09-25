@@ -649,6 +649,216 @@ extern "C" unsigned char text_padding_0045327d[] = {
 };
 #pragma data_seg()
 
+// padding: 0x004532DB..0x004532DB
+// padding 004532db..004532db: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001870")
+extern "C" unsigned char text_padding_004532db[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x004532E3..0x004532E3
+// padding 004532e3..004532e3: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001871")
+extern "C" unsigned char text_padding_004532e3[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// data: 0x004532E4..0x004532EF
+// data 004532e4..004532ef: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001872")
+extern "C" unsigned char text_data_004532e4[] = {
+    0xf0, 0x32, 0x45, 0x00, 0x1c, 0x33, 0x45, 0x00, 0x40, 0x33, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x00453319..0x0045331B
+// padding 00453319..0045331b: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001873")
+extern "C" unsigned char text_padding_00453319[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045333F..0x0045333F
+// padding 0045333f..0045333f: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001874")
+extern "C" unsigned char text_padding_0045333f[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045335D..0x0045335F
+// padding 0045335d..0045335f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001875")
+extern "C" unsigned char text_padding_0045335d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// data: 0x00453360..0x0045337F
+// data 00453360..0045337f: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001876")
+extern "C" unsigned char text_data_00453360[] = {
+    0xc3, 0x33, 0x45, 0x00, 0xb0, 0x33, 0x45, 0x00, 0xa8, 0x33, 0x45, 0x00, 0xa0, 0x33, 0x45, 0x00,
+    0x98, 0x33, 0x45, 0x00, 0x90, 0x33, 0x45, 0x00, 0x88, 0x33, 0x45, 0x00, 0x80, 0x33, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x004533CA..0x004533CB
+// padding 004533ca..004533cb: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001877")
+extern "C" unsigned char text_padding_004533ca[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// data: 0x004533CC..0x004533DB
+// data 004533cc..004533db: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001878")
+extern "C" unsigned char text_data_004533cc[] = {
+    0xdc, 0x33, 0x45, 0x00, 0xe4, 0x33, 0x45, 0x00, 0xf0, 0x33, 0x45, 0x00, 0x04, 0x34, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x004533E3..0x004533E3
+// padding 004533e3..004533e3: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001879")
+extern "C" unsigned char text_padding_004533e3[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x004533EF..0x004533EF
+// padding 004533ef..004533ef: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001880")
+extern "C" unsigned char text_padding_004533ef[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x00453401..0x00453403
+// padding 00453401..00453403: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001881")
+extern "C" unsigned char text_padding_00453401[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045341B..0x0045341B
+// padding 0045341b..0045341b: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001882")
+extern "C" unsigned char text_padding_0045341b[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x00453442..0x00453443
+// padding 00453442..00453443: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001883")
+extern "C" unsigned char text_padding_00453442[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// padding: 0x0045344D..0x0045344F
+// padding 0045344d..0045344f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001884")
+extern "C" unsigned char text_padding_0045344d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045346F..0x0045346F
+// padding 0045346f..0045346f: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001885")
+extern "C" unsigned char text_padding_0045346f[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// data: 0x00453470..0x0045347B
+// data 00453470..0045347b: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001886")
+extern "C" unsigned char text_data_00453470[] = {
+    0x7c, 0x34, 0x45, 0x00, 0xa0, 0x34, 0x45, 0x00, 0xc8, 0x34, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045349D..0x0045349F
+// padding 0045349d..0045349f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001887")
+extern "C" unsigned char text_padding_0045349d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x004534C7..0x004534C7
+// padding 004534c7..004534c7: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001888")
+extern "C" unsigned char text_padding_004534c7[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x004534F9..0x004534FB
+// padding 004534f9..004534fb: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001889")
+extern "C" unsigned char text_padding_004534f9[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// data: 0x004534FC..0x0045351B
+// data 004534fc..0045351b: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001890")
+extern "C" unsigned char text_data_004534fc[] = {
+    0x1c, 0x35, 0x45, 0x00, 0x24, 0x35, 0x45, 0x00, 0x2c, 0x35, 0x45, 0x00, 0x34, 0x35, 0x45, 0x00,
+    0x3c, 0x35, 0x45, 0x00, 0x44, 0x35, 0x45, 0x00, 0x4c, 0x35, 0x45, 0x00, 0x5f, 0x35, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x00453566..0x00453567
+// padding 00453566..00453567: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001891")
+extern "C" unsigned char text_padding_00453566[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// data: 0x00453568..0x00453577
+// data 00453568..00453577: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001892")
+extern "C" unsigned char text_data_00453568[] = {
+    0x78, 0x35, 0x45, 0x00, 0x80, 0x35, 0x45, 0x00, 0x90, 0x35, 0x45, 0x00, 0xa4, 0x35, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045357F..0x0045357F
+// padding 0045357f..0045357f: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001893")
+extern "C" unsigned char text_padding_0045357f[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045358D..0x0045358F
+// padding 0045358d..0045358f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001894")
+extern "C" unsigned char text_padding_0045358d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x004535A3..0x004535A3
+// padding 004535a3..004535a3: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001895")
+extern "C" unsigned char text_padding_004535a3[] = {
+    0x90,
+};
+#pragma data_seg()
+
 // padding: 0x00453682..0x00453682
 // padding 00453682..00453682: ["live Ghidra disassembly identified INT3/NOP bytes inside an unresolved range", "retail bytes retained verbatim; candidate is not promoted to instruction"]
 #pragma data_seg(".d001896")
@@ -756,11 +966,229 @@ extern "C" unsigned char text_padding_0045bec6[] = {
 #pragma data_seg()
 
 
+// padding: 0x0045BF73..0x0045BF73
+// padding 0045bf73..0045bf73: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001911")
+extern "C" unsigned char text_padding_0045bf73[] = {
+    0x90,
+};
+#pragma data_seg()
+
 // padding: 0x0045BFB8..0x0045BFBF
 // padding 0045bfb8..0045bfbf: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
 #pragma data_seg(".d001912")
 extern "C" unsigned char text_padding_0045bfb8[] = {
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+};
+#pragma data_seg()
+
+// padding: 0x0045C01B..0x0045C01B
+// padding 0045c01b..0045c01b: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001913")
+extern "C" unsigned char text_padding_0045c01b[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C023..0x0045C023
+// padding 0045c023..0045c023: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001914")
+extern "C" unsigned char text_padding_0045c023[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// data: 0x0045C024..0x0045C02F
+// data 0045c024..0045c02f: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001915")
+extern "C" unsigned char text_data_0045c024[] = {
+    0x30, 0xc0, 0x45, 0x00, 0x5c, 0xc0, 0x45, 0x00, 0x80, 0xc0, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C059..0x0045C05B
+// padding 0045c059..0045c05b: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001916")
+extern "C" unsigned char text_padding_0045c059[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C07F..0x0045C07F
+// padding 0045c07f..0045c07f: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001917")
+extern "C" unsigned char text_padding_0045c07f[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C09D..0x0045C09F
+// padding 0045c09d..0045c09f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001918")
+extern "C" unsigned char text_padding_0045c09d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// data: 0x0045C0A0..0x0045C0BF
+// data 0045c0a0..0045c0bf: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001919")
+extern "C" unsigned char text_data_0045c0a0[] = {
+    0x03, 0xc1, 0x45, 0x00, 0xf0, 0xc0, 0x45, 0x00, 0xe8, 0xc0, 0x45, 0x00, 0xe0, 0xc0, 0x45, 0x00,
+    0xd8, 0xc0, 0x45, 0x00, 0xd0, 0xc0, 0x45, 0x00, 0xc8, 0xc0, 0x45, 0x00, 0xc0, 0xc0, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C10A..0x0045C10B
+// padding 0045c10a..0045c10b: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001920")
+extern "C" unsigned char text_padding_0045c10a[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// data: 0x0045C10C..0x0045C11B
+// data 0045c10c..0045c11b: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001921")
+extern "C" unsigned char text_data_0045c10c[] = {
+    0x1c, 0xc1, 0x45, 0x00, 0x24, 0xc1, 0x45, 0x00, 0x30, 0xc1, 0x45, 0x00, 0x44, 0xc1, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C123..0x0045C123
+// padding 0045c123..0045c123: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001922")
+extern "C" unsigned char text_padding_0045c123[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C12F..0x0045C12F
+// padding 0045c12f..0045c12f: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001923")
+extern "C" unsigned char text_padding_0045c12f[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C141..0x0045C143
+// padding 0045c141..0045c143: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001924")
+extern "C" unsigned char text_padding_0045c141[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C15B..0x0045C15B
+// padding 0045c15b..0045c15b: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001925")
+extern "C" unsigned char text_padding_0045c15b[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C182..0x0045C183
+// padding 0045c182..0045c183: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001926")
+extern "C" unsigned char text_padding_0045c182[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// padding: 0x0045C18D..0x0045C18F
+// padding 0045c18d..0045c18f: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001927")
+extern "C" unsigned char text_padding_0045c18d[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C1AF..0x0045C1AF
+// padding 0045c1af..0045c1af: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001928")
+extern "C" unsigned char text_padding_0045c1af[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// data: 0x0045C1B0..0x0045C1BB
+// data 0045c1b0..0045c1bb: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001929")
+extern "C" unsigned char text_data_0045c1b0[] = {
+    0xbc, 0xc1, 0x45, 0x00, 0xe0, 0xc1, 0x45, 0x00, 0x08, 0xc2, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C1DD..0x0045C1DF
+// padding 0045c1dd..0045c1df: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001930")
+extern "C" unsigned char text_padding_0045c1dd[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C207..0x0045C207
+// padding 0045c207..0045c207: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001931")
+extern "C" unsigned char text_padding_0045c207[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C239..0x0045C23B
+// padding 0045c239..0045c23b: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001932")
+extern "C" unsigned char text_padding_0045c239[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// data: 0x0045C23C..0x0045C25B
+// data 0045c23c..0045c25b: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001933")
+extern "C" unsigned char text_data_0045c23c[] = {
+    0x5c, 0xc2, 0x45, 0x00, 0x64, 0xc2, 0x45, 0x00, 0x6c, 0xc2, 0x45, 0x00, 0x74, 0xc2, 0x45, 0x00,
+    0x7c, 0xc2, 0x45, 0x00, 0x84, 0xc2, 0x45, 0x00, 0x8c, 0xc2, 0x45, 0x00, 0x9f, 0xc2, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C2A6..0x0045C2A7
+// padding 0045c2a6..0045c2a7: ["exact MSVC alignment NOP encoding (retail bytes are 0x8BFF)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001934")
+extern "C" unsigned char text_padding_0045c2a6[] = {
+    0x8b, 0xff,
+};
+#pragma data_seg()
+
+// data: 0x0045C2A8..0x0045C2B7
+// data 0045c2a8..0045c2b7: ["text_range_map:defined_data", "full+augmented listing typed data"]
+#pragma data_seg(".d001935")
+extern "C" unsigned char text_data_0045c2a8[] = {
+    0xb8, 0xc2, 0x45, 0x00, 0xc0, 0xc2, 0x45, 0x00, 0xd0, 0xc2, 0x45, 0x00, 0xe4, 0xc2, 0x45, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C2BF..0x0045C2BF
+// padding 0045c2bf..0045c2bf: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001936")
+extern "C" unsigned char text_padding_0045c2bf[] = {
+    0x90,
+};
+#pragma data_seg()
+
+// padding: 0x0045C2CD..0x0045C2CF
+// padding 0045c2cd..0045c2cf: ["exact MSVC alignment NOP encoding (retail bytes are 0x8D4900)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001937")
+extern "C" unsigned char text_padding_0045c2cd[] = {
+    0x8d, 0x49, 0x00,
+};
+#pragma data_seg()
+
+// padding: 0x0045C2E3..0x0045C2E3
+// padding 0045c2e3..0045c2e3: ["exact MSVC alignment NOP encoding (retail bytes are 0x90)", "neighboring authenticated control flow is an unconditional JMP or RET, so the span is unreachable padding", "retail bytes are preserved verbatim; candidate is not promoted to instruction"]
+#pragma data_seg(".d001938")
+extern "C" unsigned char text_padding_0045c2e3[] = {
+    0x90,
 };
 #pragma data_seg()
 
@@ -780,42 +1208,6 @@ extern "C" unsigned char text_padding_0045ccc8[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00455671..0x00455672
-// Ghidra decodes these two post-RET bytes as the hotpatch NOP `mov edi,edi`.
-#pragma data_seg(".d001941")
-extern "C" unsigned char text_padding_00455671[] = {
-    0x8b, 0xff,
-};
-#pragma data_seg()
 
-// data: 0x00455673..0x00455692
-// Eight 32-bit switch targets used by the retail printf-format parser.
-#pragma data_seg(".d001942")
-extern "C" unsigned char text_data_00455673[] = {
-    0xf3, 0x50, 0x45, 0x00, 0x75, 0x4f, 0x45, 0x00,
-    0x92, 0x4f, 0x45, 0x00, 0xde, 0x4f, 0x45, 0x00,
-    0x19, 0x50, 0x45, 0x00, 0x22, 0x50, 0x45, 0x00,
-    0x5a, 0x50, 0x45, 0x00, 0x2c, 0x51, 0x45, 0x00,
-};
-#pragma data_seg()
 
-// padding: 0x0045DB55
-// The parser's retail epilogue is followed by a one-byte NOP.
-#pragma data_seg(".d001943")
-extern "C" unsigned char text_padding_0045db55[] = {
-    0x90,
-};
-#pragma data_seg()
 
-// data: 0x0045DB56..0x0045DB85
-// Twelve absolute state-dispatch targets used by the original parser.
-#pragma data_seg(".d001944")
-extern "C" unsigned char text_data_0045db56[] = {
-    0xbc, 0xd7, 0x45, 0x00, 0x0c, 0xd8, 0x45, 0x00,
-    0x6d, 0xd8, 0x45, 0x00, 0x98, 0xd8, 0x45, 0x00,
-    0xd3, 0xd8, 0x45, 0x00, 0x2b, 0xd9, 0x45, 0x00,
-    0x4b, 0xd9, 0x45, 0x00, 0xd9, 0xd9, 0x45, 0x00,
-    0x83, 0xd9, 0x45, 0x00, 0x3e, 0xda, 0x45, 0x00,
-    0x26, 0xda, 0x45, 0x00, 0xf6, 0xd9, 0x45, 0x00,
-};
-#pragma data_seg()

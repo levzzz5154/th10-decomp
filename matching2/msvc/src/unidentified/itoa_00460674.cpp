@@ -1,32 +1,47 @@
+#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
 // 0x00460674..0x0046069D: __itoa
-// The cdecl wrapper implements xtoa's formatting directly. The retail xtoa
-// helper itself takes its value and destination through EAX and ECX.
-extern "C" char* __cdecl asm_itoa_00460674(int value, char* destination, int radix) {
-    char* const result = destination;
-    unsigned int remaining = static_cast<unsigned int>(value);
-    const bool negative = radix == 10 && value < 0;
-    if (negative) {
-        *destination++ = '-';
-        remaining = 0u - remaining;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_itoa_00460674() {
+    __asm {
+    L_00460674:
+        push ebp
+    L_00460675:
+        mov ebp,esp
+    L_00460677:
+        cmp dword ptr [ebp+10h],0Ah
+    L_0046067b:
+        mov eax,dword ptr [ebp+8]
+    L_0046067e:
+        jne short L_0046068a
+    L_00460680:
+        test eax,eax
+    L_00460682:
+        jge short L_0046068a
+    L_00460684:
+        push 1
+    L_00460686:
+        push 0Ah
+    L_00460688:
+        jmp short L_0046068f
+    L_0046068a:
+        push 0
+    L_0046068c:
+        push dword ptr [ebp+10h]
+    L_0046068f:
+        mov ecx,dword ptr [ebp+0Ch]
+    L_00460692:
+        call asm_xtoa_00460636
+    L_00460697:
+        mov eax,dword ptr [ebp+0Ch]
+    L_0046069a:
+        pop ecx
+    L_0046069b:
+        pop ecx
+    L_0046069c:
+        pop ebp
+    L_0046069d:
+        ret
     }
-
-    char* const first_digit = destination;
-    const unsigned int base = static_cast<unsigned int>(radix);
-    do {
-        const unsigned int digit = remaining % base;
-        remaining /= base;
-        *destination++ = static_cast<char>(digit < 10 ? '0' + digit : 'W' + digit);
-    } while (remaining != 0);
-
-    *destination = '\0';
-    char* left = first_digit;
-    char* right = destination - 1;
-    while (left < right) {
-        const char temporary = *left;
-        *left++ = *right;
-        *right-- = temporary;
-    }
-    return result;
 }

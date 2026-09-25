@@ -1,107 +1,55 @@
-#include <cstddef>
-#include <cstdint>
-#include <cstring>
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-// Prefix fields used by the CRT's FILE-like stream at offsets 0 through 0xF.
-struct WriteStringStreamPrefix {
-    char* current;
-    int remaining;
-    char* base;
-    unsigned int flags;
-};
-
-static_assert(offsetof(WriteStringStreamPrefix, current) == 0x0, "stream layout");
-static_assert(offsetof(WriteStringStreamPrefix, remaining) == 0x4, "stream layout");
-static_assert(offsetof(WriteStringStreamPrefix, base) == 0x8, "stream layout");
-static_assert(offsetof(WriteStringStreamPrefix, flags) == 0xc, "stream layout");
-
-extern "C" int __cdecl asm_flsbuf_00454d11(
-    int character,
-    WriteStringStreamPrefix* stream);
-
-namespace {
-
-int add32(int left, int right) {
-    std::uint32_t leftBits;
-    std::uint32_t rightBits;
-    std::uint32_t resultBits;
-    int result;
-    std::memcpy(&leftBits, &left, sizeof(leftBits));
-    std::memcpy(&rightBits, &right, sizeof(rightBits));
-    resultBits = leftBits + rightBits;
-    std::memcpy(&result, &resultBits, sizeof(result));
-    return result;
-}
-
-int subtract32(int left, int right) {
-    std::uint32_t leftBits;
-    std::uint32_t rightBits;
-    std::uint32_t resultBits;
-    int result;
-    std::memcpy(&leftBits, &left, sizeof(leftBits));
-    std::memcpy(&rightBits, &right, sizeof(rightBits));
-    resultBits = leftBits - rightBits;
-    std::memcpy(&result, &resultBits, sizeof(result));
-    return result;
-}
-
-bool isCountOnly(const WriteStringStreamPrefix* stream) {
-    return (stream->flags & 0x40) != 0 && stream->base == nullptr;
-}
-
-void writeCharacter(
-    WriteStringStreamPrefix* stream,
-    int* outputCount,
-    unsigned char character) {
-    if (isCountOnly(stream)) {
-        *outputCount = add32(*outputCount, 1);
-        return;
-    }
-
-    stream->remaining = subtract32(stream->remaining, 1);
-    int result;
-    if (stream->remaining >= 0) {
-        *stream->current = static_cast<char>(character);
-        ++stream->current;
-        result = character;
-    } else {
-        result = asm_flsbuf_00454d11(
-            static_cast<signed char>(character), stream);
-    }
-
-    if (result == -1) {
-        *outputCount = -1;
-    } else {
-        *outputCount = add32(*outputCount, 1);
-    }
-}
-
-} // namespace
-
-// The retail helper used EAX=count, ECX=bytes, EDI=stream, and one stack
-// argument for length. This typed cdecl signature is the conventional form of
-// that data flow; the semantic formatter has local writers with the same
-// behavior and does not depend on the old register entry.
-extern "C" void __cdecl asm_write_string_00454e81(
-    WriteStringStreamPrefix* stream,
-    int* outputCount,
-    const char* bytes,
-    int length) {
-    if (isCountOnly(stream)) {
-        *outputCount = add32(*outputCount, length);
-        return;
-    }
-
-    // Retail enters the loop based on length alone. It tests the error count
-    // only after writing one byte, so a preexisting -1 still permits that
-    // first attempt when length is positive.
-    while (length > 0) {
-        const unsigned char character = static_cast<unsigned char>(*bytes);
-        length = subtract32(length, 1);
-        writeCharacter(stream, outputCount, character);
-        ++bytes;
-        if (*outputCount == -1) {
-            break;
-        }
+// 0x00454E81..0x00454EB7: write_string
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_write_string_00454e81() {
+    __asm {
+    L_00454e81:
+        test byte ptr [edi+0Ch],40h
+    L_00454e85:
+        push ebx
+    L_00454e86:
+        push esi
+    L_00454e87:
+        mov esi,eax
+    L_00454e89:
+        mov ebx,ecx
+    L_00454e8b:
+        je short L_00454eae
+    L_00454e8d:
+        cmp dword ptr [edi+8],0
+    L_00454e91:
+        jne short L_00454eae
+    L_00454e93:
+        mov eax,dword ptr [esp+0Ch]
+    L_00454e97:
+        add dword ptr [esi],eax
+    L_00454e99:
+        jmp short L_00454eb5
+    L_00454e9b:
+        mov al,byte ptr [ebx]
+    L_00454e9d:
+        dec dword ptr [esp+0Ch]
+    L_00454ea1:
+        mov ecx,edi
+    L_00454ea3:
+        call asm_write_char_00454e2a
+    L_00454ea8:
+        inc ebx
+    L_00454ea9:
+        cmp dword ptr [esi],0FFFFFFFFh
+    L_00454eac:
+        je short L_00454eb5
+    L_00454eae:
+        cmp dword ptr [esp+0Ch],0
+    L_00454eb3:
+        jg short L_00454e9b
+    L_00454eb5:
+        pop esi
+    L_00454eb6:
+        pop ebx
+    L_00454eb7:
+        ret
     }
 }

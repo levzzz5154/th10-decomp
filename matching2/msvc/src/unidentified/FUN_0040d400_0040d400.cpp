@@ -1,91 +1,203 @@
-// 0x0040D400..0x0040D4EE: load the ANIM chunk in a script file.
-//
-// The retail entry is a normal x86 thiscall: the loader object arrives in ECX,
-// the chunk pointer is the single stack argument, and the function returns an
-// int in EAX with RET 4.  The object is opaque here; the code only reads its
-// vtable to dispatch the ECL body names through slot 2.
+#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-struct CachedResource {
-    unsigned char unknown_000[0x124];
-    int busy;
-};
-
-extern CachedResource* __fastcall Recovery_LoadCachedResource(
-    int index, void* cache, const char* name);
-
-struct TextLog_0044b810 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-
-    char* Append(char* format, ...);
-};
-
-// 0x0040CD20 is ScriptFileLoader::Load.  The receiver and string use the
-// ordinary __thiscall layout (ECX plus one stack argument); the loader returns
-// with RET 4.  Slot 2 is observed in the 0x0046D0B4 dispatch table.
-typedef int (__thiscall *ScriptLoadMethod_0040d400)(
-    void* receiver, const char* name);
-
-struct ScriptFileChunkContext_0040d400 {
-    int ParseAnimationChunk(char* chunk);
-};
-
-__declspec(noinline) int
-ScriptFileChunkContext_0040d400::ParseAnimationChunk(char* chunk) {
-    unsigned char* const bytes = reinterpret_cast<unsigned char*>(chunk);
-    if (*reinterpret_cast<unsigned int*>(bytes) != 0x4D494E41u) // 'ANIM'
-        return 0;
-
-    const unsigned int resource_count =
-        *reinterpret_cast<unsigned int*>(bytes + 4);
-    unsigned char* name = bytes + 8;
-
-    for (unsigned int i = 0; i != resource_count; ++i) {
-        CachedResource* const resource =
-            Recovery_LoadCachedResource(
-                static_cast<int>(i + 9u),
-                *reinterpret_cast<void**>(&data_00491c10),
-                reinterpret_cast<const char*>(name));
-        unsigned char* const resource_manager =
-            *reinterpret_cast<unsigned char**>(&data_00477704);
-        CachedResource** const resource_slots =
-            reinterpret_cast<CachedResource**>(resource_manager + 0x34);
-        resource_slots[i] = resource;
-        if (resource == 0) {
-            reinterpret_cast<TextLog_0044b810*>(0x00474F70)->Append(
-                reinterpret_cast<char*>(0x0046CB68));
-            return -1;
-        }
-
-        do {
-            ++name;
-        } while (name[-1] != 0);
+// 0x0040D400..0x0040D4EE: FUN_0040d400
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_0040d400_0040d400() {
+    __asm {
+    L_0040d400:
+        push ecx
+    L_0040d401:
+        push ebp
+    L_0040d402:
+        mov ebp,dword ptr [esp+0Ch]
+    L_0040d406:
+        cmp dword ptr [ebp],4D494E41h
+    L_0040d40d:
+        mov dword ptr [esp+4],ecx
+    L_0040d411:
+        je short L_0040d41a
+    L_0040d413:
+        xor eax,eax
+    L_0040d415:
+        pop ebp
+    L_0040d416:
+        pop ecx
+    L_0040d417:
+        ret 4
+    L_0040d41a:
+        mov eax,dword ptr [ebp+4]
+    L_0040d41d:
+        push ebx
+    L_0040d41e:
+        push esi
+    L_0040d41f:
+        push edi
+    L_0040d420:
+        xor edi,edi
+    L_0040d422:
+        test eax,eax
+    L_0040d424:
+        lea esi,[ebp+8]
+    L_0040d427:
+        jbe short L_0040d46d
+    L_0040d429:
+        mov ebx,34h
+    L_0040d42e:
+        mov edi,edi
+    L_0040d430:
+        mov edx,dword ptr [data_00491c10]
+    L_0040d436:
+        push esi
+    L_0040d437:
+        lea ecx,[edi+9]
+    L_0040d43a:
+        call asm_Recovery_LoadCachedResource_00447280
+    L_0040d43f:
+        test eax,eax
+    L_0040d441:
+        mov ecx,dword ptr [data_00477704]
+    L_0040d447:
+        mov dword ptr [ebx+ecx],eax
+    L_0040d44a:
+        je short L_0040d4a0
+    L_0040d44c:
+        mov eax,esi
+    L_0040d44e:
+        lea edx,[eax+1]
+    L_0040d451:
+        mov cl,byte ptr [eax]
+    L_0040d453:
+        inc eax
+    L_0040d454:
+        test cl,cl
+    L_0040d456:
+        jne short L_0040d451
+    L_0040d458:
+        sub eax,edx
+    L_0040d45a:
+        lea esi,[esi+eax+1]
+    L_0040d45e:
+        mov eax,dword ptr [ebp+4]
+    L_0040d461:
+        inc edi
+    L_0040d462:
+        add ebx,4
+    L_0040d465:
+        cmp edi,eax
+    L_0040d467:
+        jb short L_0040d430
+    L_0040d469:
+        mov ecx,dword ptr [esp+10h]
+    L_0040d46d:
+        mov eax,esi
+    L_0040d46f:
+        sub eax,ebp
+    L_0040d471:
+        and eax,80000003h
+    L_0040d476:
+        jns short L_0040d47d
+    L_0040d478:
+        dec eax
+    L_0040d479:
+        or eax,0FFFFFFFCh
+    L_0040d47c:
+        inc eax
+    L_0040d47d:
+        je short L_0040d488
+    L_0040d47f:
+        mov edx,4
+    L_0040d484:
+        sub edx,eax
+    L_0040d486:
+        add esi,edx
+    L_0040d488:
+        cmp dword ptr [esi],494C4345h
+    L_0040d48e:
+        mov ebx,esi
+    L_0040d490:
+        jne short L_0040d4e5
+    L_0040d492:
+        mov eax,dword ptr [ebx+4]
+    L_0040d495:
+        add esi,8
+    L_0040d498:
+        xor edi,edi
+    L_0040d49a:
+        test eax,eax
+    L_0040d49c:
+        jbe short L_0040d4e5
+    L_0040d49e:
+        jmp short L_0040d4c1
+    L_0040d4a0:
+        push 46CB68h
+    L_0040d4a5:
+        mov ecx,474F70h
+    L_0040d4aa:
+        call asm_TextLog_Append_0044b810
+    L_0040d4af:
+        add esp,4
+    L_0040d4b2:
+        pop edi
+    L_0040d4b3:
+        pop esi
+    L_0040d4b4:
+        pop ebx
+    L_0040d4b5:
+        or eax,0FFFFFFFFh
+    L_0040d4b8:
+        pop ebp
+    L_0040d4b9:
+        pop ecx
+    L_0040d4ba:
+        ret 4
+    L_0040d4bd:
+        mov ecx,dword ptr [esp+10h]
+    L_0040d4c1:
+        mov eax,dword ptr [ecx]
+    L_0040d4c3:
+        push esi
+    L_0040d4c4:
+        call dword ptr [eax+8]
+    L_0040d4c7:
+        mov eax,esi
+    L_0040d4c9:
+        lea edx,[eax+1]
+    L_0040d4cc:
+        TH10_NOP_LEA_ESP_DISP8()
+    L_0040d4d0:
+        mov cl,byte ptr [eax]
+    L_0040d4d2:
+        inc eax
+    L_0040d4d3:
+        test cl,cl
+    L_0040d4d5:
+        jne short L_0040d4d0
+    L_0040d4d7:
+        sub eax,edx
+    L_0040d4d9:
+        lea esi,[esi+eax+1]
+    L_0040d4dd:
+        mov eax,dword ptr [ebx+4]
+    L_0040d4e0:
+        inc edi
+    L_0040d4e1:
+        cmp edi,eax
+    L_0040d4e3:
+        jb short L_0040d4bd
+    L_0040d4e5:
+        pop edi
+    L_0040d4e6:
+        pop esi
+    L_0040d4e7:
+        pop ebx
+    L_0040d4e8:
+        xor eax,eax
+    L_0040d4ea:
+        pop ebp
+    L_0040d4eb:
+        pop ecx
+    L_0040d4ec:
+        ret 4
     }
-
-    // The optional ECLI chunk starts at the next 4-byte offset relative to the
-    // beginning of the ANIM chunk, after the counted NUL-terminated names.
-    const unsigned int consumed = static_cast<unsigned int>(name - bytes);
-    const unsigned int padding = (0u - consumed) & 3u;
-    const unsigned char* const ecli = name + padding;
-    if (*reinterpret_cast<const unsigned int*>(ecli) != 0x494C4345u) // 'ECLI'
-        return 0;
-
-    const unsigned int script_count =
-        *reinterpret_cast<const unsigned int*>(ecli + 4);
-    const char* script_name = reinterpret_cast<const char*>(ecli + 8);
-    void* const receiver = this;
-    void** const vtable = *reinterpret_cast<void***>(receiver);
-    const ScriptLoadMethod_0040d400 load_script =
-        reinterpret_cast<ScriptLoadMethod_0040d400>(vtable[2]);
-
-    for (unsigned int i = 0; i != script_count; ++i) {
-        load_script(receiver, script_name);
-        do {
-            ++script_name;
-        } while (script_name[-1] != '\0');
-    }
-
-    return 0;
 }

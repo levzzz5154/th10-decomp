@@ -1,11 +1,23 @@
-// 0x00464F88..0x00464F9D: classify the upper word of a binary64 value.
-// Keep the existing C symbol while the manifest still refers to its asm name.
-extern "C" unsigned int __cdecl asm_FUN_00464f88_00464f88(
-    unsigned int low_word, unsigned int high_word) {
-    (void)low_word;
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-    const unsigned int exponent = high_word & 0x7FF00000u;
-    if (exponent == 0x7FF00000u)
-        return high_word;
-    return exponent;
+// 0x00464F88..0x00464F9D: FUN_00464f88
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_00464f88_00464f88() {
+    __asm {
+    L_00464f88:
+        mov eax,dword ptr [esp+8]
+    L_00464f8c:
+        and eax,7FF00000h
+    L_00464f91:
+        cmp eax,7FF00000h
+    L_00464f96:
+        je short L_00464f99
+    L_00464f98:
+        ret
+    L_00464f99:
+        mov eax,dword ptr [esp+8]
+    L_00464f9d:
+        ret
+    }
 }

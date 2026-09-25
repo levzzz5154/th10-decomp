@@ -1,54 +1,113 @@
-struct CloseLkFileEntry {
-    int os_handle;
-    unsigned char flags;
-    unsigned char padding[31];
-};
-
-extern "C" unsigned int data_004991e4;
-extern "C" CloseLkFileEntry* data_00499200[];
-
-extern "C" int __cdecl asm_get_osfhandle_0045f6d4(int file);
-extern "C" int __cdecl asm_free_osfhnd_0045f655(int file);
-extern "C" void __cdecl asm_dosmaperr_00456b04(unsigned int dos_error);
-
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* handle);
-extern "C" __declspec(dllimport) unsigned int __stdcall GetLastError(void);
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
 // 0x00462107..0x00462189: __close_lk
-// EAX return; one cdecl file-descriptor argument on the stack.
-extern "C" int __cdecl asm_close_lk_00462107(unsigned int file) {
-    unsigned int os_error = 0;
-    const int initial_handle = asm_get_osfhandle_0045f6d4(static_cast<int>(file));
-
-    if (initial_handle != -1) {
-        bool shared_standard_handle = false;
-        if (file == 1 || file == 2) {
-            const int stderr_handle = asm_get_osfhandle_0045f6d4(2);
-            const int stdout_handle = asm_get_osfhandle_0045f6d4(1);
-            shared_standard_handle = stdout_handle == stderr_handle;
-        }
-
-        if (!shared_standard_handle) {
-            const int os_handle = asm_get_osfhandle_0045f6d4(static_cast<int>(file));
-            void* handle = reinterpret_cast<void*>(
-                static_cast<unsigned int>(os_handle));
-            if (CloseHandle(handle) == 0) {
-                os_error = GetLastError();
-            }
-        }
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_close_lk_00462107() {
+    __asm {
+    L_00462107:
+        push esi
+    L_00462108:
+        mov esi,dword ptr [esp+8]
+    L_0046210c:
+        push edi
+    L_0046210d:
+        push esi
+    L_0046210e:
+        call asm_get_osfhandle_0045f6d4
+    L_00462113:
+        cmp eax,0FFFFFFFFh
+    L_00462116:
+        pop ecx
+    L_00462117:
+        je short L_00462155
+    L_00462119:
+        cmp esi,1
+    L_0046211c:
+        je short L_00462123
+    L_0046211e:
+        cmp esi,2
+    L_00462121:
+        jne short L_00462139
+    L_00462123:
+        push 2
+    L_00462125:
+        call asm_get_osfhandle_0045f6d4
+    L_0046212a:
+        push 1
+    L_0046212c:
+        mov edi,eax
+    L_0046212e:
+        call asm_get_osfhandle_0045f6d4
+    L_00462133:
+        cmp eax,edi
+    L_00462135:
+        pop ecx
+    L_00462136:
+        pop ecx
+    L_00462137:
+        je short L_00462155
+    L_00462139:
+        push esi
+    L_0046213a:
+        call asm_get_osfhandle_0045f6d4
+    L_0046213f:
+        pop ecx
+    L_00462140:
+        push eax
+    L_00462141:
+        call dword ptr [data_004660cc]
+    L_00462147:
+        test eax,eax
+    L_00462149:
+        jne short L_00462155
+    L_0046214b:
+        call dword ptr [data_0046610c]
+    L_00462151:
+        mov edi,eax
+    L_00462153:
+        jmp short L_00462157
+    L_00462155:
+        xor edi,edi
+    L_00462157:
+        push esi
+    L_00462158:
+        call asm_free_osfhnd_0045f655
+    L_0046215d:
+        mov eax,esi
+    L_0046215f:
+        sar eax,5
+    L_00462162:
+        mov eax,dword ptr [eax*4+499200h]
+    L_00462169:
+        and esi,1Fh
+    L_0046216c:
+        test edi,edi
+    L_0046216e:
+        pop ecx
+    L_0046216f:
+        lea ecx,[esi+esi*8]
+    L_00462172:
+        mov byte ptr [eax+ecx*4+4],0
+    L_00462177:
+        je short L_00462185
+    L_00462179:
+        push edi
+    L_0046217a:
+        call asm_dosmaperr_00456b04
+    L_0046217f:
+        pop ecx
+    L_00462180:
+        or eax,0FFFFFFFFh
+    L_00462183:
+        jmp short L_00462187
+    L_00462185:
+        xor eax,eax
+    L_00462187:
+        pop edi
+    L_00462188:
+        pop esi
+    L_00462189:
+        ret
     }
-
-    asm_free_osfhnd_0045f655(static_cast<int>(file));
-
-    // The retail body clears the per-descriptor flag byte after freeing its
-    // OS handle. The table is grouped in blocks of 32 records, each 0x24 bytes.
-    const int block_index = static_cast<int>(file) >> 5;
-    const unsigned int slot_index = file & 0x1f;
-    data_00499200[block_index][slot_index].flags = 0;
-
-    if (os_error != 0) {
-        asm_dosmaperr_00456b04(os_error);
-        return -1;
-    }
-    return 0;
 }

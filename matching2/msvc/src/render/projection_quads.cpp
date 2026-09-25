@@ -79,12 +79,16 @@ int BillboardSource_00443B60::BuildProjectedQuad() {
     float half;
     float xs[4], ys[4];
 
-    // Retail computes this pair with x87 FSINCOS. Separate cosf/sinf calls keep
-    // the semantic result readable but can differ in rounding and exceptional-
-    // input behavior.
+    // Retail keeps the trigonometric pair in inline assembly: for sin/cos of one
+    // value the compiler emits an FSIN/FCOS pair, never the combined FSINCOS the
+    // renderer's projection uses.
     angle = this->rotation;
-    ca = cosf(angle);
-    sa = sinf(angle);
+    __asm {
+        fld angle
+        fsincos
+        fstp ca
+        fstp sa
+    }
 
     origin.x = 0.0f;
     origin.y = 0.0f;
@@ -120,9 +124,12 @@ int BillboardSource_00443B60::BuildProjectedQuad() {
     data_004978c0[1].z = center.z;
     data_004978c0[0].z = center.z;
 
-    // Preserve the retail body's second trigonometric computation point.
-    ca = cosf(angle);
-    sa = sinf(angle);
+    __asm {
+        fld angle
+        fsincos
+        fstp ca
+        fstp sa
+    }
 
     // (flags >> 18) & 3 anchors the two horizontal corners, (flags >> 20) & 3
     // the vertical ones. The two-valued cases leave the fourth corner in the

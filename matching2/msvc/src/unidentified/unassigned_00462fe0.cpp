@@ -1,8 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x00462FE0..0x004630CD: retained assembly entry fragments.
-// Naked body preserves their retail register/stack ABI.
+// 0x00462FE0..0x0046316B: unassigned code fragment
+// Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_00462fe0() {
     __asm {
     L_00462fe0:
@@ -159,62 +159,97 @@ extern "C" __declspec(naked) void __cdecl asm_unassigned_00462fe0() {
         xor eax,eax
     L_004630cd:
         ret
+    L_004630ce:
+        push esi
+    L_004630cf:
+        mov esi,dword ptr [esp+8]
+    L_004630d3:
+        cmp dword ptr [esi+8],0FFFFFFFFh
+    L_004630d7:
+        je asm_target_0046316a
+    L_004630dd:
+        push esi
+    L_004630de:
+        call asm_FindAndUnlinkFrame_00462a34
+    L_004630e3:
+        cmp dword ptr [esp+10h],0
+    L_004630e8:
+        pop ecx
+    L_004630e9:
+        jne short L_00463151
+    L_004630eb:
+        call asm_getptd_00456357
+    L_004630f0:
+        mov eax,dword ptr [eax+7Ch]
+    L_004630f3:
+        cmp dword ptr [eax],0E06D7363h
+    L_004630f9:
+        jne short L_00463151
+    L_004630fb:
+        call asm_getptd_00456357
+    L_00463100:
+        mov eax,dword ptr [eax+7Ch]
+    L_00463103:
+        cmp dword ptr [eax+10h],3
+    L_00463107:
+        jne short L_00463151
+    L_00463109:
+        call asm_getptd_00456357
+    L_0046310e:
+        mov eax,dword ptr [eax+7Ch]
+    L_00463111:
+        cmp dword ptr [eax+14h],19930520h
+    L_00463118:
+        je short L_0046312b
+    L_0046311a:
+        call asm_getptd_00456357
+    L_0046311f:
+        mov eax,dword ptr [eax+7Ch]
+    L_00463122:
+        cmp dword ptr [eax+14h],19930521h
+    L_00463129:
+        jne short L_00463151
+    L_0046312b:
+        call asm_getptd_00456357
+    L_00463130:
+        mov eax,dword ptr [eax+7Ch]
+    L_00463133:
+        push dword ptr [eax+18h]
+    L_00463136:
+        call asm_IsExceptionObjectToBeDestroyed_00462a13
+    L_0046313b:
+        test eax,eax
+    L_0046313d:
+        pop ecx
+    L_0046313e:
+        je short L_00463151
+    L_00463140:
+        push 1
+    L_00463142:
+        call asm_getptd_00456357
+    L_00463147:
+        push dword ptr [eax+7Ch]
+    L_0046314a:
+        call asm_DestructExceptionObject_00462f7c
+    L_0046314f:
+        pop ecx
+    L_00463150:
+        pop ecx
+    L_00463151:
+        call asm_getptd_00456357
+    L_00463156:
+        mov ecx,dword ptr [esi+8]
+    L_00463159:
+        mov dword ptr [eax+7Ch],ecx
+    L_0046315c:
+        call asm_getptd_00456357
+    L_00463161:
+        mov ecx,dword ptr [esi+0Ch]
+    L_00463164:
+        mov dword ptr [eax+80h],ecx
+    L_0046316a:
+        pop esi
+    L_0046316b:
+        ret
     }
-}
-
-struct CxxUnregisterFrame_004630ce {
-    void* object;
-    void* previous;
-    void* saved_exception;
-    void* saved_translator;
-};
-
-struct CxxExceptionRecord_004630ce {
-    unsigned int code;
-    unsigned int flags;
-    void* nested_record;
-    void* address;
-    unsigned int parameter_count;
-    unsigned int magic;
-    void* object;
-    void* throw_information;
-};
-
-static CxxExceptionRecord_004630ce* CurrentExceptionRecord_004630ce() {
-    unsigned char* thread_data =
-        reinterpret_cast<unsigned char*>(asm_getptd_00456357());
-    return *reinterpret_cast<CxxExceptionRecord_004630ce**>(thread_data + 0x7c);
-}
-
-static void* CurrentTranslator_004630ce() {
-    unsigned char* thread_data =
-        reinterpret_cast<unsigned char*>(asm_getptd_00456357());
-    return *reinterpret_cast<void**>(thread_data + 0x80);
-}
-
-extern "C" void __cdecl CxxUnregisterExceptionObject_004630ce(
-    CxxUnregisterFrame_004630ce* frame, int unwind) {
-    if (frame->saved_exception == reinterpret_cast<void*>(0xffffffffu))
-        return;
-
-    asm_FindAndUnlinkFrame_00462a34(reinterpret_cast<FrameInfo*>(frame));
-
-    if (unwind == 0) {
-        CxxExceptionRecord_004630ce* exception = CurrentExceptionRecord_004630ce();
-        if (exception->code == 0xe06d7363u &&
-            CurrentExceptionRecord_004630ce()->parameter_count == 3 &&
-            (CurrentExceptionRecord_004630ce()->magic == 0x19930520u ||
-             CurrentExceptionRecord_004630ce()->magic == 0x19930521u) &&
-            asm_IsExceptionObjectToBeDestroyed_00462a13(
-                CurrentExceptionRecord_004630ce()->object)) {
-            typedef void (__cdecl *DestroyExceptionObject_004630ce)(void*, int);
-            DestroyExceptionObject_004630ce destroy_exception_object =
-                reinterpret_cast<DestroyExceptionObject_004630ce>(
-                    &asm_DestructExceptionObject_00462f7c);
-            destroy_exception_object(CurrentExceptionRecord_004630ce(), 1);
-        }
-    }
-
-    frame->saved_exception = CurrentExceptionRecord_004630ce();
-    frame->saved_translator = CurrentTranslator_004630ce();
 }

@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_0041adf0_0041adf0@4",
+      "symbol": "_BulletManager_Destroy_0041adf0@4",
       "address": "0x0041ADF0",
       "kind": "relative_code"
     },

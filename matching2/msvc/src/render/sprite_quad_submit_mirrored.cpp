@@ -5,7 +5,6 @@
 // snaps the shared edges to the pixel grid, maps the sprite's texture
 // coordinates onto them, culls the result against the active viewport and
 // finally hands the quad to the state synchronizer and the batch appender.
-#include <math.h>
 #include "th10/render/quad_batch.hpp"
 
 #pragma code_seg(".text$04c4mirror")
@@ -15,22 +14,32 @@ int AnimationManager_00442F50::SubmitSpriteQuadMirrored(const RenderEntity* enti
         data_004978c0[corner].y += origin_y;
     }
     if (mode & 1) {
-        // rint follows the active floating-point rounding mode, like x87
-        // FRNDINT. Capture the four original edge coordinates before copying
-        // each snapped value to its paired corner.
-        const double snapped_left = rint(data_004978c0[0].x) - data_00470e8;
-        const double snapped_right = rint(data_004978c0[1].x) - data_00470e8;
-        const double snapped_top = rint(data_004978c0[0].y) - data_00470e8;
-        const double snapped_bottom = rint(data_004978c0[2].y) - data_00470e8;
-
-        data_004978c0[2].y = (float)snapped_bottom;
-        data_004978c0[3].y = (float)snapped_bottom;
-        data_004978c0[0].y = (float)snapped_top;
-        data_004978c0[1].y = (float)snapped_top;
-        data_004978c0[1].x = (float)snapped_right;
-        data_004978c0[3].x = (float)snapped_right;
-        data_004978c0[0].x = (float)snapped_left;
-        data_004978c0[2].x = (float)snapped_left;
+        // Retail's pixel snap is hand-written x87: round the left, right, top
+        // and bottom edges to whole pixels and pull each back by a half pixel.
+        // No C++98 spelling on this toolkit emits a bare `frndint`, so the
+        // block is the original source's own assembly, assembled unmodified.
+        __asm {
+            fld  dword ptr [data_004978c0 + 0x00]
+            frndint
+            fsub dword ptr [data_00470e8]
+            fld  dword ptr [data_004978c0 + 0x1C]
+            frndint
+            fsub dword ptr [data_00470e8]
+            fld  dword ptr [data_004978c0 + 0x04]
+            frndint
+            fsub dword ptr [data_00470e8]
+            fld  dword ptr [data_004978c0 + 0x3C]
+            frndint
+            fsub dword ptr [data_00470e8]
+            fst  dword ptr [data_004978c0 + 0x3C]
+            fstp dword ptr [data_004978c0 + 0x58]
+            fst  dword ptr [data_004978c0 + 0x04]
+            fstp dword ptr [data_004978c0 + 0x20]
+            fst  dword ptr [data_004978c0 + 0x1C]
+            fstp dword ptr [data_004978c0 + 0x54]
+            fst  dword ptr [data_004978c0 + 0x00]
+            fstp dword ptr [data_004978c0 + 0x38]
+        }
     }
     data_004978c0[0].u = data_004978c0[2].u = entity->texture->u1 + entity->uv_scroll_x;
     data_004978c0[1].u = data_004978c0[3].u = entity->texture->u0 + entity->uv_scroll_x;

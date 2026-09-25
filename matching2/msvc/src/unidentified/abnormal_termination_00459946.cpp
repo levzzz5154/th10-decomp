@@ -1,35 +1,29 @@
-#include <intrin.h>
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
-// Existing assembly callers use the former naked entry name.
-#pragma comment(linker, "/alternatename:_asm_abnormal_termination_00459946=_AbnormalTermination_00459946")
-
-struct AbnormalTerminationRegistration_00459946 {
-    AbnormalTerminationRegistration_00459946* next; // +0x00
-    void* handler;                                  // +0x04
-    int state;                                      // +0x08
-    const unsigned char* scope_data;                // +0x0C
-};
-
-struct AbnormalTerminationScopeData_00459946 {
-    unsigned long reserved_000[3];
-    int state;                                      // +0x0C
-};
-
-typedef char AbnormalTerminationRegistration_size_must_be_16_bytes[
-    sizeof(AbnormalTerminationRegistration_00459946) == 0x10 ? 1 : -1];
-
-// Ghidra shows this test in the sole caller's C++ EH path. The active x86
-// registration record qualifies only when its handler and scope state match.
-extern "C" int __cdecl AbnormalTermination_00459946(void) {
-    const AbnormalTerminationRegistration_00459946* const registration =
-        reinterpret_cast<const AbnormalTerminationRegistration_00459946*>(
-            __readfsdword(0));
-
-    if (registration->handler != reinterpret_cast<void*>(0x004598BC))
-        return 0;
-
-    const AbnormalTerminationScopeData_00459946* const scope_data =
-        reinterpret_cast<const AbnormalTerminationScopeData_00459946*>(
-            registration->scope_data);
-    return registration->state == scope_data->state;
+// 0x00459946..0x00459968: __abnormal_termination
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_abnormal_termination_00459946() {
+    __asm {
+    L_00459946:
+        xor eax,eax
+    L_00459948:
+        mov ecx,dword ptr fs:[0]
+    L_0045994f:
+        cmp dword ptr [ecx+4],4598BCh
+    L_00459956:
+        jne short L_00459968
+    L_00459958:
+        mov edx,dword ptr [ecx+0Ch]
+    L_0045995b:
+        mov edx,dword ptr [edx+0Ch]
+    L_0045995e:
+        cmp dword ptr [ecx+8],edx
+    L_00459961:
+        jne short L_00459968
+    L_00459963:
+        mov eax,1
+    L_00459968:
+        ret
+    }
 }

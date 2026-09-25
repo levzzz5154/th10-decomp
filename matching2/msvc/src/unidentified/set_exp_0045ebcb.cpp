@@ -1,24 +1,41 @@
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
+
 // 0x0045EBCB..0x0045EBF4: __set_exp
-// Replace the exponent bits of a double with the biased exponent requested by
-// the caller, retaining its sign and fraction bits.
-extern "C" double __cdecl SetExp_0045EBCB(double value, int exponent) {
-    union DoubleRepresentation {
-        double value;
-        unsigned __int64 bits;
-    } representation;
-
-    representation.value = value;
-
-    const unsigned int old_high_word =
-        static_cast<unsigned int>(representation.bits >> 48);
-    const unsigned int new_high_word =
-        ((static_cast<unsigned int>(exponent) + 0x3FEu) << 4) |
-        (old_high_word & 0x800Fu);
-    const unsigned __int64 low_48_bits =
-        (static_cast<unsigned __int64>(0xFFFFu) << 32) | 0xFFFFFFFFu;
-
-    representation.bits =
-        (representation.bits & low_48_bits) |
-        (static_cast<unsigned __int64>(static_cast<unsigned short>(new_high_word)) << 48);
-    return representation.value;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_set_exp_0045ebcb() {
+    __asm {
+    L_0045ebcb:
+        push ebp
+    L_0045ebcc:
+        mov ebp,esp
+    L_0045ebce:
+        push ecx
+    L_0045ebcf:
+        push ecx
+    L_0045ebd0:
+        mov eax,dword ptr [ebp+10h]
+    L_0045ebd3:
+        fld qword ptr [ebp+8]
+    L_0045ebd6:
+        mov ecx,dword ptr [ebp+0Eh]
+    L_0045ebd9:
+        fstp qword ptr [ebp-8]
+    L_0045ebdc:
+        add eax,3FEh
+    L_0045ebe1:
+        shl eax,4
+    L_0045ebe4:
+        and ecx,0FFFF800Fh
+    L_0045ebea:
+        or eax,ecx
+    L_0045ebec:
+        mov word ptr [ebp-2],ax
+    L_0045ebf0:
+        fld qword ptr [ebp-8]
+    L_0045ebf3:
+        leave
+    L_0045ebf4:
+        ret
+    }
 }

@@ -1,64 +1,73 @@
+#include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-namespace {
-
-struct SecurityFileTime_0045F1F3 {
-    unsigned int low;
-    unsigned int high;
-};
-
-struct SecurityPerformanceCounter_0045F1F3 {
-    unsigned int low;
-    unsigned int high;
-};
-
-typedef void (__stdcall *GetSystemTimeAsFileTime_0045F1F3)(
-    SecurityFileTime_0045F1F3* file_time);
-typedef unsigned int (__stdcall *GetProcessId_0045F1F3)(void);
-typedef unsigned int (__stdcall *GetThreadId_0045F1F3)(void);
-typedef unsigned int (__stdcall *GetTickCount_0045F1F3)(void);
-typedef int (__stdcall *QueryPerformanceCounter_0045F1F3)(
-    SecurityPerformanceCounter_0045F1F3* counter);
-
-template <typename FunctionPointer>
-FunctionPointer import_at(unsigned char* slot) {
-    return *reinterpret_cast<FunctionPointer*>(slot);
-}
-
-}  // namespace
-
-// Visual Studio 2003 CRT __security_init_cookie.
-// The import calls and xor inputs follow the order in the retail routine.
-extern "C" __declspec(noinline) void __cdecl
-asm_security_init_cookie_0045f1f3(void) {
-    const unsigned int current_cookie = data_00473660;
-    if (current_cookie != 0 && current_cookie != 0xBB40E64E) {
-        return;
-    }
-
-    SecurityFileTime_0045F1F3 file_time = {0, 0};
-    SecurityPerformanceCounter_0045F1F3 performance_counter = {0, 0};
-    const GetSystemTimeAsFileTime_0045F1F3 get_system_time =
-        import_at<GetSystemTimeAsFileTime_0045F1F3>(&data_004661b0);
-    get_system_time(&file_time);
-
-    unsigned int cookie = file_time.high ^ file_time.low;
-    const GetProcessId_0045F1F3 get_process_id =
-        import_at<GetProcessId_0045F1F3>(&data_004661b4);
-    cookie ^= get_process_id();
-    const GetThreadId_0045F1F3 get_thread_id =
-        import_at<GetThreadId_0045F1F3>(&data_0046619c);
-    cookie ^= get_thread_id();
-    const GetTickCount_0045F1F3 get_tick_count =
-        import_at<GetTickCount_0045F1F3>(&data_004660f0);
-    cookie ^= get_tick_count();
-    const QueryPerformanceCounter_0045F1F3 query_performance_counter =
-        import_at<QueryPerformanceCounter_0045F1F3>(&data_004660fc);
-    query_performance_counter(&performance_counter);
-    cookie ^= performance_counter.high ^ performance_counter.low;
-
-    data_00473660 = cookie;
-    if (cookie == 0) {
-        data_00473660 = 0xBB40E64E;
+// 0x0045F1F3..0x0045F258: ___security_init_cookie
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_security_init_cookie_0045f1f3() {
+    __asm {
+    L_0045f1f3:
+        push ebp
+    L_0045f1f4:
+        mov ebp,esp
+    L_0045f1f6:
+        sub esp,10h
+    L_0045f1f9:
+        mov eax,dword ptr [data_00473660]
+    L_0045f1fe:
+        test eax,eax
+    L_0045f200:
+        je short L_0045f209
+    L_0045f202:
+        cmp eax,0BB40E64Eh
+    L_0045f207:
+        jne short L_0045f257
+    L_0045f209:
+        push esi
+    L_0045f20a:
+        lea eax,[ebp-8]
+    L_0045f20d:
+        push eax
+    L_0045f20e:
+        call dword ptr [data_004661b0]
+    L_0045f214:
+        mov esi,dword ptr [ebp-4]
+    L_0045f217:
+        xor esi,dword ptr [ebp-8]
+    L_0045f21a:
+        call dword ptr [data_004661b4]
+    L_0045f220:
+        xor esi,eax
+    L_0045f222:
+        call dword ptr [data_0046619c]
+    L_0045f228:
+        xor esi,eax
+    L_0045f22a:
+        call dword ptr [data_004660f0]
+    L_0045f230:
+        xor esi,eax
+    L_0045f232:
+        lea eax,[ebp-10h]
+    L_0045f235:
+        push eax
+    L_0045f236:
+        call dword ptr [data_004660fc]
+    L_0045f23c:
+        mov eax,dword ptr [ebp-0Ch]
+    L_0045f23f:
+        xor eax,dword ptr [ebp-10h]
+    L_0045f242:
+        xor esi,eax
+    L_0045f244:
+        mov dword ptr [data_00473660],esi
+    L_0045f24a:
+        jne short L_0045f256
+    L_0045f24c:
+        mov dword ptr [data_00473660],0BB40E64Eh
+    L_0045f256:
+        pop esi
+    L_0045f257:
+        leave
+    L_0045f258:
+        ret
     }
 }

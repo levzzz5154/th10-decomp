@@ -21,12 +21,19 @@
 // retail's rotated form; the first one is 16-byte aligned, which is the `jmp`
 // over the `lea esp,[esp]` + `nop` pad at +0x16.
 #include "th10/render/quad_batch.hpp"
-#include "th10/game/score_runtime_state_release.hpp"
 
 // 0x004451C0: dispatch one animation entity's quad.  Defined in
 // src/render/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
+
+struct ScoreRuntimeState_004091c0 {
+    unsigned char reserved_0000[0x378C];
+    unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
+    unsigned char reserved_378D[0x400];
+
+    __declspec(noinline) int ReleaseFlaggedEntityArrays();
+};
 
 #pragma code_seg(".text$001arrays")
 int ScoreRuntimeState_004091c0::ReleaseFlaggedEntityArrays() {

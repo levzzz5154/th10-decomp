@@ -2,41 +2,141 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// Preserve the raw entry name for any assembly source that still refers to it.
-#pragma comment(linker, "/alternatename:_asm_FUN_00405d00_00405d00=@Entity_ResetRuntimeState_00405D00@4")
-
-// 0x00405D00..0x00405DD6: reset one 0x7F0-byte runtime object.
-// The retail entry takes its object in ECX, returns that same pointer in EAX,
-// and uses a plain RET.  A single-argument fastcall expresses that ABI.
-// Keep the bytes opaque here: this reset reaches beyond the 0x3AC-byte Entity
-// base into the owning runtime object's flags.
-extern "C" unsigned char* __fastcall Entity_ResetRuntimeState_00405D00(
-    unsigned char* entity) {
-    const unsigned int clear_registration_bit = 0xFFFFFFFEu;
-
-    // Retail performs these nine clears first.  The following zero-fill
-    // supersedes them, but retaining the sequence documents the observed
-    // machine-code effects and their order.
-    *(unsigned int*)(entity + 0x074) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x0B8) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x104) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x130) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x17C) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x1B8) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x204) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x230) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x380) &= clear_registration_bit;
-
-    memset(entity + 8, 0, 0x3AC);
-    *(unsigned short*)(entity + 0x38C) = 0xFFFF;
-
-    *(unsigned int*)(entity + 0x408) &= clear_registration_bit;
-    *(unsigned int*)(entity + 0x41C) &= clear_registration_bit;
-    for (unsigned int slot = 0; slot != 9; ++slot)
-        *(unsigned int*)(entity + 0x624 + slot * 0x34) &=
-            clear_registration_bit;
-
-    return entity;
+// 0x00405D00..0x00405DD6: FUN_00405d00
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_FUN_00405d00_00405d00() {
+    __asm {
+    L_00405d00:
+        push ebx
+    L_00405d01:
+        mov ebx,ecx
+    L_00405d03:
+        mov eax,dword ptr [ebx+74h]
+    L_00405d06:
+        lea edx,[ebx+8]
+    L_00405d09:
+        push esi
+    L_00405d0a:
+        mov esi,0FFFFFFFEh
+    L_00405d0f:
+        and eax,esi
+    L_00405d11:
+        mov dword ptr [edx+6Ch],eax
+    L_00405d14:
+        push edi
+    L_00405d15:
+        and dword ptr [edx+0B0h],esi
+    L_00405d1b:
+        and dword ptr [edx+0FCh],esi
+    L_00405d21:
+        and dword ptr [edx+128h],esi
+    L_00405d27:
+        and dword ptr [edx+174h],esi
+    L_00405d2d:
+        and dword ptr [edx+1B0h],esi
+    L_00405d33:
+        and dword ptr [edx+1FCh],esi
+    L_00405d39:
+        and dword ptr [edx+228h],esi
+    L_00405d3f:
+        mov ecx,dword ptr [edx+378h]
+    L_00405d45:
+        xor eax,eax
+    L_00405d47:
+        and ecx,esi
+    L_00405d49:
+        mov dword ptr [edx+378h],ecx
+    L_00405d4f:
+        mov edi,edx
+    L_00405d51:
+        mov ecx,0EBh
+    L_00405d56:
+        rep stosd
+    L_00405d58:
+        mov word ptr [edx+384h],0FFFFh
+    L_00405d61:
+        and dword ptr [ebx+408h],esi
+    L_00405d67:
+        and dword ptr [ebx+41Ch],esi
+    L_00405d6d:
+        mov edx,dword ptr [ebx+624h]
+    L_00405d73:
+        lea eax,[ebx+614h]
+    L_00405d79:
+        add eax,34h
+    L_00405d7c:
+        and edx,esi
+    L_00405d7e:
+        mov dword ptr [eax-24h],edx
+    L_00405d81:
+        mov edi,dword ptr [eax+10h]
+    L_00405d84:
+        add eax,34h
+    L_00405d87:
+        and edi,esi
+    L_00405d89:
+        mov dword ptr [eax-24h],edi
+    L_00405d8c:
+        mov ecx,dword ptr [eax+10h]
+    L_00405d8f:
+        add eax,34h
+    L_00405d92:
+        and ecx,esi
+    L_00405d94:
+        mov dword ptr [eax-24h],ecx
+    L_00405d97:
+        mov edx,dword ptr [eax+10h]
+    L_00405d9a:
+        add eax,34h
+    L_00405d9d:
+        and edx,esi
+    L_00405d9f:
+        mov dword ptr [eax-24h],edx
+    L_00405da2:
+        and dword ptr [eax+10h],esi
+    L_00405da5:
+        mov ecx,dword ptr [eax+44h]
+    L_00405da8:
+        add eax,34h
+    L_00405dab:
+        and ecx,esi
+    L_00405dad:
+        mov dword ptr [eax+10h],ecx
+    L_00405db0:
+        mov edx,dword ptr [eax+44h]
+    L_00405db3:
+        add eax,34h
+    L_00405db6:
+        and edx,esi
+    L_00405db8:
+        mov dword ptr [eax+10h],edx
+    L_00405dbb:
+        mov edi,dword ptr [eax+44h]
+    L_00405dbe:
+        add eax,34h
+    L_00405dc1:
+        and edi,esi
+    L_00405dc3:
+        mov dword ptr [eax+10h],edi
+    L_00405dc6:
+        mov ecx,dword ptr [eax+44h]
+    L_00405dc9:
+        add eax,34h
+    L_00405dcc:
+        and ecx,esi
+    L_00405dce:
+        mov dword ptr [eax+10h],ecx
+    L_00405dd1:
+        mov eax,ebx
+    L_00405dd3:
+        pop edi
+    L_00405dd4:
+        pop esi
+    L_00405dd5:
+        pop ebx
+    L_00405dd6:
+        ret
+    }
 }
 
 

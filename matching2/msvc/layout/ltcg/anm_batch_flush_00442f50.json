@@ -5,11 +5,10 @@
   "headers": [
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/camera_batch.hpp",
-    "include/th10/math/angle.hpp",
-    "include/th10/game/score_runtime_state_release.hpp"
+    "include/th10/math/angle.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, ScoreRuntimeState_004091c0::RunArrayReleaseCallback, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
+  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
   "functions": [
     {
       "name": "RenderStageState_SelectStage_00401d20",
@@ -46,15 +45,6 @@
       "address": "0x00409230",
       "size": 50,
       "actual_abi": "this in ECX; manager in ECX and VM in EAX at both calls; plain RET"
-    },
-    {
-      "name": "ScoreRuntimeState_RunArrayReleaseCallback",
-      "source": "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
-      "symbol": "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
-      "section": ".text$001callback",
-      "address": "0x00409270",
-      "size": 10,
-      "actual_abi": "this in ECX; forwards the receiver in EBX to ReleaseFlaggedEntityArrays; returns its result; plain RET"
     },
     {
       "name": "RenderCamera_ApplyDefault",
@@ -841,7 +831,6 @@
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
     "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
     "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
-    "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
     "src/platform/fun_00439390_00439390.cpp",
     "src/render/anchored_quad_build_00443290.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
@@ -885,7 +874,6 @@
     "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
     "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
-    "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C410@@QAEHXZ",

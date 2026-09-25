@@ -3,7 +3,9 @@
 
 // 0x00461565..0x0046161C: ___crtGetLocaleInfoW
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_crtGetLocaleInfoW_00461565() {
+extern "C" __declspec(naked) int __cdecl asm_crtGetLocaleInfoW_00461565(
+    unsigned int locale_id, unsigned int locale_type, unsigned short* data,
+    int capacity, int code_page) {
     __asm {
     L_00461565:
         push 18h

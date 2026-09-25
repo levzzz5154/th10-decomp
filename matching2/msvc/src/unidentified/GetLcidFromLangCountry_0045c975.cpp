@@ -1,62 +1,81 @@
-#include <cstdint>
+#include "asm_encoding.hpp"
+#include "asm_symbols.hpp"
 
 // 0x0045C975..0x0045C9FA: _GetLcidFromLangCountry
-// Prepares language and country length state, enumerates system locales, and
-// retains the match state only when the callback found all required matches.
-using EnumLocaleCallback_0045c975 = int (__stdcall *)(char* locale_name);
-using EnumSystemLocalesAFunction_0045c975 = int (__stdcall *)(
-    EnumLocaleCallback_0045c975 callback, std::uint32_t flags);
-
-extern "C" unsigned char data_00466058;
-extern "C" unsigned char data_00477628;
-extern "C" unsigned char data_0047762c;
-extern "C" unsigned char data_00477634;
-extern "C" unsigned char data_00477638;
-extern "C" unsigned char data_0047763c;
-extern "C" unsigned char data_00477640;
-extern "C" unsigned char data_00477644;
-
-extern "C" unsigned int __cdecl asm_strlen_00456720(const char* text);
-extern "C" int __fastcall asm_GetPrimaryLen_0045c527(
-    int ignored_ecx, const char* text);
-extern "C" int __stdcall asm_FUN_0045c651_0045c651(char* locale_name);
-
-extern "C" void __cdecl asm_GetLcidFromLangCountry_0045c975() {
-    const char* const language_text =
-        *reinterpret_cast<const char* const*>(&data_00477644);
-    const unsigned int language_text_length =
-        asm_strlen_00456720(language_text);
-    const bool language_text_has_three_characters =
-        language_text_length == 3;
-    *reinterpret_cast<std::uint32_t*>(&data_00477634) =
-        language_text_has_three_characters ? 1u : 0u;
-
-    const char* const country_text =
-        *reinterpret_cast<const char* const*>(&data_0047763c);
-    const unsigned int country_text_length =
-        asm_strlen_00456720(country_text);
-    const bool country_text_has_three_characters = country_text_length == 3;
-    *reinterpret_cast<std::uint32_t*>(&data_0047762c) = 0;
-    *reinterpret_cast<std::uint32_t*>(&data_00477638) =
-        country_text_has_three_characters ? 1u : 0u;
-
-    *reinterpret_cast<std::uint32_t*>(&data_00477640) =
-        language_text_has_three_characters
-            ? 2u
-            : static_cast<std::uint32_t>(
-                  asm_GetPrimaryLen_0045c527(0, language_text));
-
-    const EnumLocaleCallback_0045c975 callback = &asm_FUN_0045c651_0045c651;
-    const EnumSystemLocalesAFunction_0045c975 enum_system_locales_a =
-        *reinterpret_cast<EnumSystemLocalesAFunction_0045c975 const*>(
-            &data_00466058);
-    enum_system_locales_a(callback, 1);
-
-    const std::uint32_t locale_match_state =
-        *reinterpret_cast<const std::uint32_t*>(&data_00477628);
-    if ((locale_match_state & 0x100u) == 0 ||
-        (locale_match_state & 0x200u) == 0 ||
-        (locale_match_state & 0x7u) == 0) {
-        *reinterpret_cast<std::uint32_t*>(&data_00477628) = 0;
+// Naked body preserves the retail register/stack ABI.
+extern "C" __declspec(naked) void __cdecl asm_GetLcidFromLangCountry_0045c975() {
+    __asm {
+    L_0045c975:
+        push dword ptr [data_00477644]
+    L_0045c97b:
+        call asm_strlen_00456720
+    L_0045c980:
+        push dword ptr [data_0047763c]
+    L_0045c986:
+        sub eax,3
+    L_0045c989:
+        neg eax
+    L_0045c98b:
+        sbb eax,eax
+    L_0045c98d:
+        inc eax
+    L_0045c98e:
+        mov dword ptr [data_00477634],eax
+    L_0045c993:
+        call asm_strlen_00456720
+    L_0045c998:
+        sub eax,3
+    L_0045c99b:
+        neg eax
+    L_0045c99d:
+        sbb eax,eax
+    L_0045c99f:
+        and dword ptr [data_0047762c],0
+    L_0045c9a6:
+        inc eax
+    L_0045c9a7:
+        cmp dword ptr [data_00477634],0
+    L_0045c9ae:
+        pop ecx
+    L_0045c9af:
+        pop ecx
+    L_0045c9b0:
+        mov dword ptr [data_00477638],eax
+    L_0045c9b5:
+        je short L_0045c9c3
+    L_0045c9b7:
+        mov dword ptr [data_00477640],2
+    L_0045c9c1:
+        jmp short L_0045c9d3
+    L_0045c9c3:
+        mov edx,dword ptr [data_00477644]
+    L_0045c9c9:
+        call asm_GetPrimaryLen_0045c527
+    L_0045c9ce:
+        mov dword ptr [data_00477640],eax
+    L_0045c9d3:
+        push 1
+    L_0045c9d5:
+        push 45C651h
+    L_0045c9da:
+        call dword ptr [data_00466058]
+    L_0045c9e0:
+        mov eax,dword ptr [data_00477628]
+    L_0045c9e5:
+        test ah,1
+    L_0045c9e8:
+        je short L_0045c9f3
+    L_0045c9ea:
+        test ah,2
+    L_0045c9ed:
+        je short L_0045c9f3
+    L_0045c9ef:
+        test al,7
+    L_0045c9f1:
+        jne short L_0045c9fa
+    L_0045c9f3:
+        and dword ptr [data_00477628],0
+    L_0045c9fa:
+        ret
     }
 }

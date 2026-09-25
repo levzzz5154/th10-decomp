@@ -6,7 +6,6 @@
 // coordinates onto them, culls the result against the active viewport and
 // finally hands the quad to the state synchronizer and the batch appender.
 #include "th10/render/quad_batch.hpp"
-#include <math.h>
 
 #pragma code_seg(".text$04c2quad")
 int AnimationManager_00442F50::SubmitSpriteQuad(const RenderEntity* entity, unsigned int mode) {
@@ -15,26 +14,32 @@ int AnimationManager_00442F50::SubmitSpriteQuad(const RenderEntity* entity, unsi
         data_004978c0[corner].y += origin_y;
     }
     if (mode & 1) {
-        // rint follows the active floating-point rounding mode, like x87
-        // FRNDINT. Keep the rounded values in double precision until the
-        // destination vertex fields receive their original float stores.
-        const double snapped_left =
-            rint(static_cast<double>(data_004978c0[0].x)) - data_00470ec;
-        const double snapped_right =
-            rint(static_cast<double>(data_004978c0[1].x)) - data_00470ec;
-        const double snapped_top =
-            rint(static_cast<double>(data_004978c0[0].y)) - data_00470ec;
-        const double snapped_bottom =
-            rint(static_cast<double>(data_004978c0[2].y)) - data_00470ec;
-
-        data_004978c0[2].y = static_cast<float>(snapped_bottom);
-        data_004978c0[3].y = static_cast<float>(snapped_bottom);
-        data_004978c0[0].y = static_cast<float>(snapped_top);
-        data_004978c0[1].y = static_cast<float>(snapped_top);
-        data_004978c0[1].x = static_cast<float>(snapped_right);
-        data_004978c0[3].x = static_cast<float>(snapped_right);
-        data_004978c0[0].x = static_cast<float>(snapped_left);
-        data_004978c0[2].x = static_cast<float>(snapped_left);
+        // Retail's pixel snap is hand-written x87: round the left, right, top
+        // and bottom edges to whole pixels and pull each back by a half pixel.
+        // No C++98 spelling on this toolkit emits a bare `frndint`, so the
+        // block is the original source's own assembly, assembled unmodified.
+        __asm {
+            fld  dword ptr [data_004978c0 + 0x00]
+            frndint
+            fsub dword ptr [data_00470ec]
+            fld  dword ptr [data_004978c0 + 0x1C]
+            frndint
+            fsub dword ptr [data_00470ec]
+            fld  dword ptr [data_004978c0 + 0x04]
+            frndint
+            fsub dword ptr [data_00470ec]
+            fld  dword ptr [data_004978c0 + 0x3C]
+            frndint
+            fsub dword ptr [data_00470ec]
+            fst  dword ptr [data_004978c0 + 0x3C]
+            fstp dword ptr [data_004978c0 + 0x58]
+            fst  dword ptr [data_004978c0 + 0x04]
+            fstp dword ptr [data_004978c0 + 0x20]
+            fst  dword ptr [data_004978c0 + 0x1C]
+            fstp dword ptr [data_004978c0 + 0x54]
+            fst  dword ptr [data_004978c0 + 0x00]
+            fstp dword ptr [data_004978c0 + 0x38]
+        }
     }
     data_004978c0[0].u = data_004978c0[2].u = entity->texture->u0 + entity->uv_scroll_x;
     data_004978c0[1].u = data_004978c0[3].u = entity->texture->u1 + entity->uv_scroll_x;
