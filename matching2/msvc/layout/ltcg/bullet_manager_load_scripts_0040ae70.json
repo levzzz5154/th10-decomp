@@ -20,11 +20,15 @@
     "src/platform/joystick_probe.cpp",
     "src/platform/text_log.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp",
-    "src/unidentified/unassigned_0041c100.cpp"
+    "src/unidentified/unassigned_0041c100.cpp",
+    "src/unidentified/unassigned_00405f00.cpp",
+    "src/unidentified/unassigned_00413b50.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
-    "?Joystick_Probe_0044a0c0@@YGFXZ"
+    "?Joystick_Probe_0044a0c0@@YGFXZ",
+    "_LoadBulletAnm_00405f00",
+    "_LoadFrontAnm_00413b50"
   ],
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -230,6 +234,24 @@
       "size": 67,
       "actual_abi": "no arguments; manager in EAX; plain RET",
       "source": "src/game/recovery_create_resource_state_00419090.cpp"
+    },
+    {
+      "name": "LoadBulletAnm_00405f00",
+      "source": "src/unidentified/unassigned_00405f00.cpp",
+      "symbol": "_LoadBulletAnm_00405f00",
+      "section": ".text$00_xload",
+      "address": "0x00405F00",
+      "size": 50,
+      "actual_abi": "no live-in registers; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
+    },
+    {
+      "name": "LoadFrontAnm_00413b50",
+      "source": "src/unidentified/unassigned_00413b50.cpp",
+      "symbol": "_LoadFrontAnm_00413b50",
+      "section": ".text$00d_clload",
+      "address": "0x00413B50",
+      "size": 50,
+      "actual_abi": "no live-in registers; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
     }
   ],
   "context": {
@@ -252,8 +274,8 @@
     },
     {
       "section": ".text$00_ylayout",
-      "address": "0x00405705",
-      "size": 18747
+      "address": "0x00405F32",
+      "size": 16654
     },
     {
       "section": ".text$00_ystateinitz",
@@ -283,7 +305,7 @@
     {
       "section": ".text$00d_cgap",
       "address": "0x0040D3CE",
-      "size": 47474
+      "size": 26498
     },
     {
       "section": ".text$00d_cxctorz",
@@ -364,6 +386,16 @@
       "section": ".text$87_layout",
       "address": "0x0044B8D9",
       "size": 39
+    },
+    {
+      "section": ".text$00_xgap",
+      "address": "0x00405705",
+      "size": 2043
+    },
+    {
+      "section": ".text$00d_cmgap",
+      "address": "0x00413B82",
+      "size": 20926
     }
   ],
   "constants": [],

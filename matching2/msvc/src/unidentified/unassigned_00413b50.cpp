@@ -1,37 +1,25 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00413B50: load front.anm into cached resource slot 6; when it is
+// missing, log that the data is corrupt and return -1.
+// Compiled inside the bullet-manager native-LTCG cluster, which co-compiles
+// TextLog::Append so its variadic receiver stays in ECX with caller cleanup.
+struct TextLog_0044b810 {
+    char text[0x2000];
+    char *cursor;
+    unsigned char dirty;
+    char *Append(char *format, ...);
+};
 
-// 0x00413B50..0x00413B81: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00413b50() {
-    __asm {
-    L_00413b50:
-        mov edx,dword ptr [data_00491c10]
-    L_00413b56:
-        push 46D254h
-    L_00413b5b:
-        mov ecx,6
-    L_00413b60:
-        call asm_Recovery_LoadCachedResource_00447280
-    L_00413b65:
-        test eax,eax
-    L_00413b67:
-        jne short L_00413b7f
-    L_00413b69:
-        push 46CB68h
-    L_00413b6e:
-        mov ecx,474F70h
-    L_00413b73:
-        call asm_TextLog_Append_0044b810
-    L_00413b78:
-        add esp,4
-    L_00413b7b:
-        or eax,0FFFFFFFFh
-    L_00413b7e:
-        ret
-    L_00413b7f:
-        xor eax,eax
-    L_00413b81:
-        ret
+extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
+        int index, void *owner, const char *name);
+extern "C" void *data_00491c10;
+
+#pragma code_seg(".text$00d_clload")
+extern "C" __declspec(noinline) int __cdecl LoadFrontAnm_00413b50() {
+    if (!Recovery_LoadCachedResource_00447280(
+            6, data_00491c10, (const char *)0x0046D254)) {
+        ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CB68);
+        return -1;
     }
+    return 0;
 }
+#pragma code_seg()

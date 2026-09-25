@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "advance_past_aligned_string_00435280",
+  "source": "src/unidentified/unassigned_00435280.cpp",
+  "driver": "layout/ltcg/advance_past_aligned_string_00435280_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Aligned string-cursor advance compiled under native LTCG, whose whole-program convention passes the cursor address in EDX.",
+  "functions": [
+    {
+      "name": "AdvancePastAlignedString",
+      "symbol": "?AdvancePastAlignedString_00435280@@YGPADPAPAD@Z",
+      "section": ".text$01accessor",
+      "address": "0x00435280",
+      "size": 51,
+      "actual_abi": "cursor address in EDX; new cursor in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AdvancePastAlignedStringContext_00435280@@YGHPAPADH@Z",
+    "section": ".text$03context",
+    "address": "0x004352D0",
+    "size": 36,
+    "description": "Synthetic caller that keeps the observed entry convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 213632
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004352B3",
+      "size": 29
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": []
+}
