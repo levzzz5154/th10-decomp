@@ -1,7 +1,7 @@
 # `0x004559B4` `___lc_strtolc` semantic model
 
 The ordinary C++ model is in
-[`lc_strtolc_004559b4.cpp`](../../msvc/src/unidentified/lc_strtolc_004559b4.cpp).
+[`lc_strtolc_004559b4.cpp`](../semantic_candidates/lc_strtolc_004559b4.cpp).
 It keeps the C-linkage `asm_lc_strtolc_004559b4` symbol with a recovered
 `int __cdecl(char* fields, const char* text)` signature.
 
@@ -35,3 +35,5 @@ The active manifest now marks `0x004559B4` as semantic and retains the prior
 assembly row in `previous_record`. Its C-linkage entry and helper calls match
 the recovered cdecl ABI. This is a behavior-level model; retail byte identity
 and exact compiler output remain unverified. No build, probe, or test was run.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

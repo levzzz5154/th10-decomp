@@ -1,7 +1,7 @@
 # `0x00453AEA` `__mtdeletelocks` semantic model
 
 The ordinary C++ model is in
-[`mtdeletelocks_00453aea.cpp`](../../msvc/src/unidentified/mtdeletelocks_00453aea.cpp).
+[`mtdeletelocks_00453aea.cpp`](../semantic_candidates/mtdeletelocks_00453aea.cpp).
 It keeps the existing C-linkage entry name and `void __cdecl(void)` ABI.
 
 ## Behavior
@@ -38,3 +38,5 @@ under the unchanged `_asm_mtdeletelocks_00453aea` symbol and preserves the old
 assembly record in `previous_record`. Ghidra's plate comment records the
 two-pass algorithm, no-argument ABI, caller, and callees. No build or tests
 were run for this model.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

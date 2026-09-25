@@ -1,7 +1,7 @@
 # `0x00454479` small-block heap region release
 
 The readable C++ model is in
-[`unassigned_00454479.cpp`](../../msvc/src/unidentified/unassigned_00454479.cpp).
+[`unassigned_00454479.cpp`](../semantic_candidates/unassigned_00454479.cpp).
 It preserves the existing C-linkage entry symbol and implements a no-argument
 `__cdecl` procedure.
 
@@ -41,3 +41,5 @@ The manifest now classifies the full 209-byte range as semantic C++ and keeps
 the raw entry symbol as its link name. The shared symbol header declares the
 observed no-argument cdecl ABI; the routine's exact original name remains
 unidentified.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

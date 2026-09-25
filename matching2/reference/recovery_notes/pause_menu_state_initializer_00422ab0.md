@@ -2,7 +2,7 @@
 
 The 382-byte region (`0x00422AB0..0x00422C2D`) now has an inline-assembly-free
 C++ semantic model in
-[`matching2/msvc/src/game/fun_00422ab0_00422ab0.cpp`](../../msvc/src/game/fun_00422ab0_00422ab0.cpp).
+[`matching2/msvc/src/game/fun_00422ab0_00422ab0.cpp`](../semantic_candidates/fun_00422ab0_00422ab0.cpp).
 The manifest marks the row semantic and binds its recovered stdcall symbol;
 `asm_symbols.hpp` declares the one-pointer `__stdcall` entry.
 
@@ -152,3 +152,5 @@ run.
 Ghidra now names the function `InitializePauseMenuState` and records the
 one-pointer `__stdcall` prototype. Its plate comment captures the observed
 state changes and the helper-call register caveats.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

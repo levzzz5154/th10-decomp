@@ -2,7 +2,7 @@
 
 `0x00418EE0` occupies 346 bytes (`0x00418EE0..0x00419039`) in the retail
 `.text` region. The current C++ source is
-[`matching2/msvc/src/game/fun_00418ee0_00418ee0.cpp`](../../msvc/src/game/fun_00418ee0_00418ee0.cpp).
+[`matching2/msvc/src/game/fun_00418ee0_00418ee0.cpp`](../semantic_candidates/fun_00418ee0_00418ee0.cpp).
 The manifest now records this region as a semantic C++ source and points its
 symbol at the one-argument stdcall entry. The shared declaration and the
 source-level callers now use that same ABI. Existing address aliases for the
@@ -83,3 +83,5 @@ byte-exact build. Existing naked code established the retail extent and ABI,
 and prior readable-code probes did not reproduce the full region. The private
 `EAX` receiver call to `0x00419040`, code-generation order, and symbol binding
 remain integration points. No build or tests were run for this semantic model.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

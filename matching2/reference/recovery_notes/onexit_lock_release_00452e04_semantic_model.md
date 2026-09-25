@@ -1,7 +1,7 @@
 # `0x00452E04` on-exit lock release semantic model
 
 The ordinary C++ model is in
-[`FUN_00452e04_00452e04.cpp`](../../msvc/src/unidentified/FUN_00452e04_00452e04.cpp).
+[`FUN_00452e04_00452e04.cpp`](../semantic_candidates/FUN_00452e04_00452e04.cpp).
 It keeps the existing C-linkage symbol and zero-argument calling convention.
 
 ## Behavior and call path
@@ -24,3 +24,5 @@ run, so exact machine-code identity is unverified.
 The manifest records the row as semantic under the unchanged
 `_asm_FUN_00452e04_00452e04` symbol and retains the prior assembly row in
 `previous_record`.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.

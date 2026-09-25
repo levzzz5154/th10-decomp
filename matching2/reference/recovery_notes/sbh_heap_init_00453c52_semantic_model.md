@@ -1,7 +1,7 @@
 # `0x00453C52` `___sbh_heap_init` semantic model
 
 The ordinary C++ model is in
-[`sbh_heap_init_00453c52.cpp`](../../msvc/src/unidentified/sbh_heap_init_00453c52.cpp).
+[`sbh_heap_init_00453c52.cpp`](../semantic_candidates/sbh_heap_init_00453c52.cpp).
 It preserves the C-linkage symbol with the recovered
 `int __cdecl asm_sbh_heap_init_00453c52(unsigned int size)` ABI.
 
@@ -36,3 +36,5 @@ semantic under the unchanged `_asm_sbh_heap_init_00453c52` symbol and preserves
 the old assembly record in `previous_record`. Ghidra's plate comment records
 the algorithm, cdecl stack input, both callsite forms, and the HeapAlloc callee.
 No build or tests were run for this model.
+
+**Build status (2026-09-25):** the full byte-verified build showed that this model does not reproduce the retail bytes. The maintained source keeps the exact assembly, and the model is preserved in `reference/semantic_candidates/`.
