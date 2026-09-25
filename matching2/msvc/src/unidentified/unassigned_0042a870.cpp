@@ -1,33 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A870..0x0042A899: total replay bytes buffered so far. The record
+// cursor counts whole six-byte records from the start of the state, and the
+// byte cursor counts pending bytes in the trailing byte buffer.
+struct ReplayRecord_0042a870 {
+    unsigned char bytes[6];
+};
 
-// 0x0042A870..0x0042A899: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042a870() {
-    __asm {
-    L_0042a870:
-        mov edx,dword ptr [ecx+5460h]
-    L_0042a876:
-        sub edx,ecx
-    L_0042a878:
-        mov eax,2AAAAAABh
-    L_0042a87d:
-        imul edx
-    L_0042a87f:
-        mov eax,edx
-    L_0042a881:
-        shr eax,1Fh
-    L_0042a884:
-        lea eax,[edx+eax+2AAA9C9Ah]
-    L_0042a88b:
-        lea edx,[eax+eax*2]
-    L_0042a88e:
-        mov eax,dword ptr [ecx+6274h]
-    L_0042a894:
-        lea eax,[eax+edx*2]
-    L_0042a897:
-        sub eax,ecx
-    L_0042a899:
-        ret
-    }
+struct ReplayBufferState_0042a870 {
+    unsigned char earlier_fields[0x5460];
+    ReplayRecord_0042a870* record_cursor;  // +0x5460
+    unsigned char byte_buffer[0xE10];      // +0x5464
+    unsigned char* byte_cursor;            // +0x6274
+
+    __declspec(noinline) int GetBufferedBytes() const;
+};
+
+#pragma code_seg(".text$01accessor")
+int ReplayBufferState_0042a870::GetBufferedBytes() const {
+    const ReplayRecord_0042a870* records =
+        reinterpret_cast<const ReplayRecord_0042a870*>(this);
+    return (int)(record_cursor - records) * sizeof(ReplayRecord_0042a870) +
+           (int)(byte_cursor - byte_buffer);
 }
+#pragma code_seg()

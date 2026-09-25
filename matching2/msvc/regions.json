@@ -2412,13 +2412,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405280",
+      "name": "semantic_PlayerValueAtMost_00405280_00405280",
       "source": "src/unidentified/unassigned_00405280.cpp",
-      "symbol": "_asm_unassigned_00405280",
+      "symbol": "?IsUnknownValueAt0004AtMost@PlayerLeafComparison_00405280@@QBEHH@Z",
       "address": "0x00405280",
       "size": 17,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405280",
+        "source": "src/unidentified/unassigned_00405280.cpp",
+        "symbol": "_asm_unassigned_00405280",
+        "address": "0x00405280",
+        "size": 17,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405291",
@@ -10925,13 +10934,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00413050",
+      "name": "semantic_FieldComparison_00413050_00413050",
       "source": "src/unidentified/unassigned_00413050.cpp",
-      "symbol": "_asm_unassigned_00413050",
+      "symbol": "?IsValueAt0004LessThan@FieldComparison_00413050@@QBEHH@Z",
       "address": "0x00413050",
       "size": 17,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00413050",
+        "source": "src/unidentified/unassigned_00413050.cpp",
+        "symbol": "_asm_unassigned_00413050",
+        "address": "0x00413050",
+        "size": 17,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00413061",
@@ -12750,13 +12768,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00417660",
+      "name": "semantic_IntFieldNotEqual_00417660_00417660",
       "source": "src/unidentified/unassigned_00417660.cpp",
-      "symbol": "_asm_unassigned_00417660",
+      "symbol": "?IsNotEqualTo@UnidentifiedIntField_00417660@@QBEHH@Z",
       "address": "0x00417660",
       "size": 16,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00417660",
+        "source": "src/unidentified/unassigned_00417660.cpp",
+        "symbol": "_asm_unassigned_00417660",
+        "address": "0x00417660",
+        "size": 16,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "semantic_FUN_00417670_00417670",
@@ -13622,13 +13649,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00418a50",
+      "name": "semantic_FieldComparison_00418a50_00418a50",
       "source": "src/unidentified/unassigned_00418a50.cpp",
-      "symbol": "_asm_unassigned_00418a50",
+      "symbol": "?IsValueAt0004EqualTo@FieldComparison_00418a50@@QBEHH@Z",
       "address": "0x00418A50",
       "size": 17,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00418a50",
+        "source": "src/unidentified/unassigned_00418a50.cpp",
+        "symbol": "_asm_unassigned_00418a50",
+        "address": "0x00418A50",
+        "size": 17,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00418a61",
@@ -21791,13 +21827,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0042a870",
+      "name": "semantic_ReplayBufferState_GetBufferedBytes_0042a870",
       "source": "src/unidentified/unassigned_0042a870.cpp",
-      "symbol": "_asm_unassigned_0042a870",
+      "symbol": "?GetBufferedBytes@ReplayBufferState_0042a870@@QBEHXZ",
       "address": "0x0042A870",
       "size": 42,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0042a870",
+        "source": "src/unidentified/unassigned_0042a870.cpp",
+        "symbol": "_asm_unassigned_0042a870",
+        "address": "0x0042A870",
+        "size": 42,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0042a89a",
@@ -35929,13 +35974,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c080",
+      "name": "semantic_SumAlternateBytes_0044c080_0044c080",
       "source": "src/unidentified/unassigned_0044c080.cpp",
-      "symbol": "_asm_unassigned_0044c080",
+      "symbol": "@SumAlternateBytes_0044c080@8",
       "address": "0x0044C080",
       "size": 36,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0044c080",
+        "source": "src/unidentified/unassigned_0044c080.cpp",
+        "symbol": "_asm_unassigned_0044c080",
+        "address": "0x0044C080",
+        "size": 36,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0044c0a4",
@@ -35946,13 +36000,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0044c0b0",
+      "name": "semantic_SumEveryFourthByte_0044c0b0_0044c0b0",
       "source": "src/unidentified/unassigned_0044c0b0.cpp",
-      "symbol": "_asm_unassigned_0044c0b0",
+      "symbol": "@SumEveryFourthByte_0044c0b0@8",
       "address": "0x0044C0B0",
       "size": 36,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0044c0b0",
+        "source": "src/unidentified/unassigned_0044c0b0.cpp",
+        "symbol": "_asm_unassigned_0044c0b0",
+        "address": "0x0044C0B0",
+        "size": 36,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0044c0d4",
@@ -56649,7 +56712,14 @@
     "layout/ltcg/slot_chain_update_004066c0.json",
     "layout/ltcg/animation_node_update_flags_004494d0.json",
     "layout/ltcg/animation_manager_render_bucket1_00448600.json",
-    "layout/ltcg/pair_add_copy_00427d00.json"
+    "layout/ltcg/pair_add_copy_00427d00.json",
+    "layout/ltcg/int_field_not_equal_00417660.json",
+    "layout/ltcg/player_value_at_most_00405280.json",
+    "layout/ltcg/field_less_than_00413050.json",
+    "layout/ltcg/field_equal_00418a50.json",
+    "layout/ltcg/sum_alternate_bytes_0044c080.json",
+    "layout/ltcg/sum_every_fourth_byte_0044c0b0.json",
+    "layout/ltcg/replay_buffered_bytes_0042a870.json"
   ],
   "coff_aliases": {
     "src/unidentified/FID_conflict___time32_00452b71.cpp": {
