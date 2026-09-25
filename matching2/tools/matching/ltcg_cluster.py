@@ -112,7 +112,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     #
     # constant_aliases rebind a compiler-generated float literal to the
     # retail address instead of placing its pooled copy; see the docstring.
-    allowed = required | {'additional_sources', 'roots', 'constant_aliases', 'data_aliases',
+    allowed = required | {'additional_sources', 'included_sources', 'roots', 'constant_aliases', 'data_aliases',
                           'anchors'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
     name = _string(spec['name'], 'cluster name')
@@ -132,6 +132,12 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     source_names = [spec['source'], *additional_names]
     source_paths = [source, *additional_paths]
     spec['additional_sources'] = additional_names
+    included_names = spec.get('included_sources', [])
+    if not isinstance(included_names, list) or any(not isinstance(item, str) for item in included_names):
+        raise LTCGClusterError('included_sources must be an array of project C++ sources')
+    included_paths = [_project_file(project, item, 'included source', '.cpp') for item in included_names]
+    if len(included_paths) != len(set(included_paths)) or any(item in source_paths for item in included_paths):
+        raise LTCGClusterError('included_sources must be distinct from maintained cluster sources and each other')
     if not isinstance(spec['headers'], list):
         raise LTCGClusterError('headers must be an array')
     headers = [_project_file(project, item, 'header', '.hpp') for item in spec['headers']]
@@ -362,7 +368,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     return {**spec, 'path': path, 'project': project, 'source_path': source,
             'source_paths': source_paths, 'source_names': source_names,
             'additional_source_paths': additional_paths, 'driver_path': driver,
-            'header_paths': headers, 'image_base': image_base, 'functions': functions,
+            'header_paths': headers, 'included_source_paths': included_paths,
+            'image_base': image_base, 'functions': functions,
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'constant_aliases': aliases,
             'data_aliases': data_aliases,
@@ -387,7 +394,7 @@ def load_clusters(project: Path, config: Mapping[str, Any], regions: Sequence[Ma
 
 
 def _snapshot(spec: Mapping[str, Any]) -> dict[str, str]:
-    paths = [spec['path'], *spec['source_paths'], *spec['header_paths']]
+    paths = [spec['path'], *spec['source_paths'], *spec['included_source_paths'], *spec['header_paths']]
     if spec['driver_path']:
         paths.append(spec['driver_path'])
     return {str(path): sha(path.read_bytes()) for path in paths}
@@ -633,7 +640,7 @@ def export_bodies(path: Path, functions: Sequence[Mapping[str, Any]]) -> dict[st
 
 def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path,
                      direct_sources: Sequence[Path] = ()) -> list[dict[str, str]]:
-    permitted = {path.resolve() for path in [*spec['source_paths'], *spec['header_paths']]}
+    permitted = {path.resolve() for path in [*spec['source_paths'], *spec['included_source_paths'], *spec['header_paths']]}
     roots = [(winpath(spec['project']).rstrip('\\'), spec['project']),
              (winpath(toolkit).rstrip('\\'), toolkit)]
     found = {path.resolve() for path in direct_sources}
@@ -738,8 +745,12 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
         '\n'.join(include_logs), spec, toolkit, direct_sources)
     layout_report = _prepare_padding_object(work / 'layout-original.obj', work / 'layout.obj', spec['gaps'])
     executable, map_path = work / 'cluster.exe', work / 'cluster.map'
+    # LINK decorates an x86 C entry name supplied with /ENTRY.  The manifest
+    # stores its COFF spelling (leading underscore), so remove that underscore
+    # for this option while retaining the decorated name for symbol checks.
+    entry_option = spec['entry_symbol'][1:] if spec['entry_symbol'].startswith('_') else spec['entry_symbol']
     link_command = ['wine', str(linker), '/nologo', '/LTCG', '/MACHINE:X86', '/BASE:0x400000',
-                    '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + spec['entry_symbol'],
+                    '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + entry_option,
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
                     # A constant alias replaces a compiler-pooled definition
                     # with the absolute binding; /FORCE:MULTIPLE keeps that
