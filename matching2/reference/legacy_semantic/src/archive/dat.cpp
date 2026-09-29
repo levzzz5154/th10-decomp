@@ -45,6 +45,9 @@ char* DuplicateString(const char* text, uint32_t size) {
 // Clean reconstruction of 0x00434F70. The retail routine opens the selected
 // FileInterface, decodes the 16-byte THA1 header, then reads the compressed
 // entry table from the end of the file and installs the parsed entries.
+// Historical model: its strict read/seek checks and cleanup differ from
+// retail. Use the tested reference/semantic_candidates/dat_archive_load_index.cpp
+// and its recovery note for the original sequence and state updates.
 bool DatArchive_LoadIndex(DatArchive* archive, const char* path) {
     if (!archive->file || !archive->file->Open(path, "r")) {
         return false;
@@ -125,7 +128,10 @@ void DatArchive_Reset(DatArchive* archive) {
     DatArchive_Close(archive);
 }
 
-// Clean reconstruction of 0x00434D10.
+// Historical model of 0x00434D10. The tested semantic candidate in
+// reference/semantic_candidates/dat_archive_close_00434d10.cpp supersedes
+// this count-based walk and field-clear order with retail's array-cookie
+// destructor helper and current-file reload behavior.
 void DatArchive_Close(DatArchive* archive) {
     if (archive->filename) {
         _free(archive->filename);
@@ -164,6 +170,10 @@ bool DatArchive_Open(
 }
 
 // Clean reconstruction of 0x00434DD0.
+// Historical ownership model: the retail-tested candidate in
+// reference/semantic_candidates/dat_archive_read.cpp also frees an allocated
+// raw buffer before returning its address. Consult its recovery note before
+// reusing this older cleanup condition.
 uint8_t* DatArchive_Read(
         DatArchive* archive,
         const char* name,
@@ -277,7 +287,9 @@ bool DatArchive_DecodeHeader(
     return true;
 }
 
-// Clean reconstruction of 0x004350D0. Retail allocates entry_count + 1
+// Historical model; reference/semantic_candidates/dat.cpp supersedes this
+// parser's allocation/cookie, name-rescan and sentinel-metadata behavior.
+// Reconstruction of 0x004350D0. Retail allocates entry_count + 1
 // records, copies each aligned packed name and its three metadata words, then
 // appends a sentinel whose offset marks the end of the final data payload.
 DatEntry* DatArchive_ParseEntries(

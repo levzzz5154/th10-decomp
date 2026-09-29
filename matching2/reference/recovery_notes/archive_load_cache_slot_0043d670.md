@@ -1,36 +1,40 @@
-# Archive-load cache slot helper at `0x0043D670`
+# Music-table publication at `0x0043D670`
 
-## Recovered behavior
+The 32-byte wrapper now builds from ordinary C++ in
+`msvc/src/unidentified/unassigned_0043d670.cpp`. Its native MSVC 13.10 LTCG
+probe matches every retail byte and relocation in the archive-loader cluster.
+The earlier standalone Clang candidate in `semantic_candidates/` did not match.
 
-Ghidra identifies a 32-byte routine spanning `0x0043D670..0x0043D68F`. Its
-direct call at `0x0043D674` reaches `0x0044B360`; after the call, the returned
-pointer is stored at `owner + 0x1F84`. The helper stores null on failure and
-returns `0` for a non-null pointer or `-1` for null. The final bytes are
-`C2 04 00` (`RET 4`). Ghidra reports no incoming callers or xrefs to this
-entry.
+The wrapper calls `Archive_LoadFile(filename, 0, 0)` and stores its result at
+`manager + 0x1f84`, the loaded music metadata image. It returns 0 for nonnull
+or -1 for null. It stores null too, overwrites any old pointer without freeing
+it and does not validate the loaded bytes as music metadata. The loader's
+zero mode selects the cached DAT path, not a direct disk open.
 
-The callee's Ghidra decompilation exposes an implicit `in_EAX` filename. The
-two zero values pushed by this routine are its size-output pointer and
-`fromDisk` flag. A zero flag selects the packed-archive lookup/load path; the
-loaded buffer is returned to the caller.
+Retail takes filename in EAX and manager as one stack argument with RET 4.
+The native LTCG cluster compiles two explicit stdcall source arguments into
+that private convention, including the EAX filename forwarded to
+`Archive_LoadFile` and the same RET 4. The synthetic compiler context keeps
+this transformation live; the standalone Clang candidate produced 37 bytes
+and RET 8 rather than retail's 32 bytes.
 
-The readable source model is in
-`msvc/src/unidentified/unassigned_0043d670.cpp`. It calls
-`Archive_LoadFile(file_name, 0, 0)`, stores the resulting pointer at byte
-offset `0x1F84`, and returns the retail success/failure values.
+The [music-cache differential suite](sound_music_cache_0043d7d0.md) tests this
+wrapper alongside music caching. Its wrapper cases cover local/global manager
+objects, null/non-null loader results, previous field values, changes to the
+metadata field during the loader callback and null-owner faults. Even an
+invalid owner invokes Archive_LoadFile before the pointer store faults. No
+extra free or input check was introduced.
 
-## ABI and exactness
+Saved Ghidra and maintained instruction evidence are checked against the
+verified retail image. The suite observes complete manager/data state,
+loader arguments, results, faults, preserved registers and stack cleanup.
+The wrapper's Archive_LoadFile call is scripted in this suite; the maintained
+loader and DAT closure have separate full integration coverage described in
+[sound_preload_worker_0043d080.md](sound_preload_worker_0043d080.md).
 
-At retail entry, EAX holds the filename and `[ESP+4]` holds the owner. The
-routine pushes two zero arguments for `0x0044B360`; that callee cleans those
-arguments with `RET 8`. The wrapper then returns with `RET 4`, cleaning the
-owner argument. There are no direct incoming xrefs in Ghidra, so a caller that
-supplies the EAX filename was not recovered in this pass.
-
-The ordinary C++ model makes the filename and owner explicit parameters and
-uses the shared `Archive_LoadFile` interface. That signature does not by
-itself express the retail EAX filename / stack owner split, nor guarantee the
-helper's EAX-plus-stack calling sequence. The body is behaviorally readable,
-but its byte extent and custom ABI remain unverified. The manifest now
-classifies this span as semantic and preserves its former assembly record. No
-build, probe, or test was run.
+`probe.py --source src/unidentified/unassigned_0043d670.cpp` reports EXACT
+for the wrapper and all selected archive-loader functions. The production
+region and LTCG layout now select this C++ body instead of inline assembly.
+The whole-image `make` gate also passed: 487,936 executable bytes matched
+retail. Overall progress remains 1,771 C++ regions and 532 inline-assembly
+regions; this conversion does not make the executable assembly-free.

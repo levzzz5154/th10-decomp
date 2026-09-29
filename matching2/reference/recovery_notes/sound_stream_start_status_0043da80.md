@@ -1,41 +1,30 @@
-# Sound stream start/status at `0x0043DA80`
+# Sound-stream command publication at `0x0043DA80`
 
-## Algorithm
+2026-09-26. The complete 44-byte wrapper is now a tested ordinary C++ candidate
+in `semantic_candidates/unassigned_0043da80.cpp`. It reads the stream at manager
+`+0x5208`, calls start with priority 0 and flags 1, and maps a missing stream or
+negative start status to -1. After nonnegative status it stores the full 32-bit
+command at `+0x5210` and returns zero. The field is written after the callback,
+so a callback's command-field change is overwritten only on success.
 
-The routine reads a stream pointer from the owner at `+0x5208`. A null pointer
-returns `-1`. Otherwise it calls `0x0044D440` with arguments `0` and `1` and
-returns `-1` if the helper status is negative. On a nonnegative status, it
-copies the one stack argument to the owner field at `+0x5210` and returns `0`.
+The prior interpretation of inherited ECX as a helper context was incorrect.
+In `0x44D440`, the saved word is passed as the restore-output local to
+`0x44D300`, which initializes it before start inspects it. The helper's semantic
+inputs are stream, priority and flags. The old function-pointer cast has been
+removed from the candidate; it now uses the explicit typed start declaration.
+See [stream-start evidence and tests](sound_stream_start_0044d440.md).
 
-## Parameters and return
+Retail still takes the manager in ESI and command as a stack argument with
+RET 4. The candidate instead uses two explicit stdcall arguments and RET 8.
+Retail start takes stream in EAX plus two stack arguments with RET 8; its
+candidate uses three explicit stdcall arguments and RET 12. No native ABI
+bridge or byte identity is claimed. Clang emits 54 bytes for the wrapper.
 
-- Owner/context: implicit in `ESI`; the observed accesses are `ESI+0x5208` and
-  `ESI+0x5210`.
-- Value: one 32-bit value in the single 4-byte x86 stack slot. The retail
-  load and store operate on the full 32-bit slot/field, so the recovered source
-  keeps the value as `unsigned int` without truncation.
-- Return: `0` when the start helper succeeds, `-1` for a missing stream or a
-  negative helper status. Retail removes the argument slot with `RET 4`.
-
-## Ghidra evidence
-
-Ghidra analysis of `0x0043DA80` shows the edge at `0x0043DA8E` to
-`0x0044D440`, with pushed constants `0` and `1`, and the two branches described
-above. The helper analysis confirms it takes its stream from `EAX`
-(`mov edi,eax` at entry), also reads the inherited `ECX` interface context,
-returns an `int`, and uses `RET 8`. Ghidra reports no incoming references to
-`0x0043DA80`; the helper has two direct call sites, `0x0043DA8E` and
-`0x0043E183`.
-
-## ABI and exactness limitation
-
-This is a readable semantic body, not a byte-equivalent replacement. Retail
-passes the owner privately in `ESI`, while the helper expects its stream in
-`EAX`, two stack arguments, and the inherited `ECX` interface context. MSVC's
-ordinary C++ calling conventions cannot express these private register
-inputs. The helper function-pointer alias expresses the semantic receiver and
-two arguments as a `__thiscall`; that places the receiver in `ECX`, while
-retail requires it in `EAX` and also consumes an `ECX` context. It documents
-the operation only and is not safe as a native ABI bridge without an adapter.
-No caller references to `0x0043DA80` were found, and no build or probe was run
-for this source.
+The shared stream-start suite passes 222 individual and 73 integrated
+comparisons. Wrapper cases cover null streams, HRESULT signs, complete command
+values, callback changes to the stream/command fields, and execution through
+the actual compiled start/selection/restoration/rewind/volume bodies. Refill is
+scripted. Original instruction bytes supply the comparison; live Ghidra access
+is currently denied and native MSVC/Wine execution remains unavailable.
+Production retains the assembly pending complete-region and whole-executable
+verification.

@@ -9,18 +9,18 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
-// BLOCKED (D3102): closest_byte_count=0/26; first_diff=unmeasured;
-// residual_class=abi/cluster+x87: the 13 ECL VM call sites load the VM in EAX,
-// push opcode/value pairs, and expect this wrapper to dereference +0x14D8,
-// promote +4 into EAX, forward the value through ECX, then return with RET 8.
-// That promoted receiver and the resolver's x87 result are not expressible by
-// a standalone __stdcall function.
+// BLOCKED (D3102): closest_byte_count=25/26; first_diff=0x00412AA0;
+// residual_class=register scheduling and stack-value forwarding. Clang
+// regparm(2)/stdcall can express the EAX VM plus two stack arguments and the
+// resolver's EAX/ECX inputs; using the operand's raw float bits keeps its
+// payload unchanged. Its 25-byte body loads the selector first and pushes
+// the value directly from the stack, while retail loads the value into ECX,
+// dereferences the VM, pushes ECX, then reloads the selector. Using a float
+// argument instead adds an unwanted x87 load/store and yields 29 bytes.
 // variants_tested=retail naked baseline, Ghidra ForwardEclFloat pseudocode,
-// the 0x0040E82B..0x0040EC7C caller cluster, and the existing
-// ECL_ResolveFloatValue declaration; no compiler-readable candidate was
-// byte-measured.
-// next_lever=co-compile ForwardEclFloat, ECL_ResolveFloatValue, and the
-// ECL VM opcode cluster with native-LTCG EAX pinning and x87 return flow.
+// caller cluster, Clang raw-bit and float forwarding, GCC raw-bit forwarding.
+// next_lever=match the 26-byte register scheduling without handwritten
+// instructions; retain the exact wrapper.
 
 // 0x00412AA0..0x00412AB9: Ecl_ForwardFloat
 // Naked body preserves the retail register/stack ABI.

@@ -1,3 +1,7 @@
+// Arithmetic-explicit candidate: reference/semantic_candidates/buffer_file_seek.cpp.
+// It passes 8,466 retail comparisons, including wrapping and LONG_MIN; native
+// MSVC matching is unverified. See recovery_notes/buffer_file_seek_004364f0.md.
+// The historical blocker below predates the later seven-byte wave-16 near match.
 // BLOCKED (H2801): closest_byte_count=107; first_diff=0x0043650E;
 // residual_class=allocator/source_shape: the readable BufferFile::Seek
 // candidate preserves the 107-byte extent and all control flow, but MSVC

@@ -1,3 +1,7 @@
+// Complete candidate: reference/semantic_candidates/sound_stream_recreate.cpp.
+// See recovery_notes/sound_stream_initialization_and_creation.md for current
+// ownership, callback, notification and differential evidence. Native matching
+// remains pending; the following byte probe is historical.
 // BLOCKED (D3404): closest_byte_count=0/338; first_diff=0x0044CF20;
 // residual_class=private ESI receiver, COM-style virtual slot ABI, object
 // layout at +0x4/+0x10/+0x58, and cleanup/error-path register scheduling.
@@ -9,9 +13,6 @@
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
-
-// 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
 
 // 0x0044CF20..0x0044D071: FUN_0044cf20
 // Naked body preserves the retail register/stack ABI.

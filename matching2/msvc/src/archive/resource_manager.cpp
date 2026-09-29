@@ -1,5 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Resource Load now has an exception-aware candidate with retail differential
+// coverage; see reference/recovery_notes/resource_paths_004357d0_0043599d.md.
+// The exact overlay remains pending native MSVC frame/ABI matching.
 
 // BLOCKED 00435800 (214 bytes): retain the naked body until its archive-read
 // and FileHandle helper contracts can be compiled together. The live Ghidra
@@ -11,8 +14,9 @@
 #include <string.h>
 
 // 0x004356F0: find the packed-archive entry whose stored name matches the name
-// this string object holds, with the directory prefix stripped and everything
-// from the last '/' on replaced by the five-byte marker at 0x0046F274.
+// this string object holds, with everything from the first '/' on replaced by
+// the five-byte marker at 0x0046F274. The helper at 0x00452730 finds the first
+// matching byte; nested suffixes belong to the selected archive's entry name.
 
 struct ArchiveEntry_004356f0 {
     unsigned int field_00;   // +0x00

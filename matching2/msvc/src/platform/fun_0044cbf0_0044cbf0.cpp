@@ -1,6 +1,12 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// Complete candidate: reference/semantic_candidates/sound_stream_create_memory.cpp.
+// See recovery_notes/sound_stream_initialization_and_creation.md: 121 factory
+// comparisons plus 65 table-selected unwind checks. The candidate preserves
+// the raw stream-allocation cleanup; native MSVC matching is still pending.
+// The 651/651 result below refers to the retained assembly baseline.
+
 // BLOCKED (D3403): closest_byte_count=651/651; first_diff=none
 // residual_class=COM_streamer_constructor_SEH_frame_vtable_layout_and_private
 // argument homes; live Ghidra decompile resolves the DirectSound notification
@@ -11,9 +17,6 @@
 // DirectSound vtable slots. next_lever=restore the concrete COM interface
 // declarations and exception-state ownership, then test a real native-LTCG
 // constructor cluster without changing the fixed ABI or SEH scope.
-// 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
-
 // 0x0044CBF0..0x0044CE7A: FUN_0044cbf0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0044cbf0_0044cbf0() {

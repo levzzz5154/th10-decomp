@@ -1,5 +1,13 @@
 # Sprite quad submit pipelines at 0x00442670 and 0x00442AD0
 
+Current maintained-source status, 2026-09-27: both routines contain their inline
+`FRNDINT` blocks and pass the current full executable comparison. Removing
+those blocks while preserving byte identity remains unresolved. The active
+goal requires both byte matching and freedom from inline assembly. The source
+updates and scope statements below describe earlier snapshots, not the current
+maintained files. See the
+[verified checkpoint](native_recoveries_2026-09-27_third.md).
+
 Historical snapshot, 2026-09-13: the last two direct `SyncRenderState` callers
 were converted to ordinary C++. Both 1,111-byte sprite pipelines and the
 25-byte colour helper they call matched the retail image while the snap path

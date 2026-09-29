@@ -9,6 +9,10 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// Complete candidate: reference/semantic_candidates/sound_stream_initialize.cpp.
+// The +0x34 COM slot is SetCurrentPosition(0). Allocation is unchecked and
+// refill/position results are ignored. See sound_stream_initialization_and_creation.md.
+
 // 0x0044CE80..0x0044CEF5: Recovery_InitializeInterfaceArray
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_Recovery_InitializeInterfaceArray_0044ce80() {

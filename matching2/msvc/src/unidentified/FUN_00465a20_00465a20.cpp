@@ -1,19 +1,10 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct GdiSurface_00436a30;
+extern "C" GdiSurface_00436a30 data_00474cb0;
+bool __stdcall ReleaseSurface_00436a30(GdiSurface_00436a30* surface);
 
-// 0x00465A20..0x00465A2C: FUN_00465a20
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00465a20_00465a20() {
-    __asm {
-    L_00465a20:
-        push esi
-    L_00465a21:
-        mov esi,474CB0h
-    L_00465a26:
-        call asm_FontCache_FlushRetail_00436a30
-    L_00465a2b:
-        pop esi
-    L_00465a2c:
-        ret
-    }
+// Static-exit callback: the linked surface releaser receives this object in ESI.
+#pragma code_seg(".text$05wrapper")
+extern "C" __declspec(noinline) void __cdecl ReleaseGlobalGdiSurface_00465a20() {
+    ReleaseSurface_00436a30(&data_00474cb0);
 }
+#pragma code_seg()

@@ -1,82 +1,28 @@
-// BLOCKED (D3503): closest_byte_count=1/82; first_diff=0x00449E51
-// (ordinary candidate has exact extent but receives the list in stack ABI;
-// retail receives the list in EAX and the value at [ESP+4]).
-// residual_class=private EAX receiver plus EDX/ECX Scheduler_Remove call,
-// with assembly-only callers at 0x00438880 and 0x00449EB0.
-// variants_tested=live Ghidra decompilation; ordinary __stdcall list/value
-// body with typed lock calls and a __fastcall Scheduler_Remove cast.
-// next_lever=native-LTCG cluster joining 0x00438880/0x00449EB0 callers to
-// this member, or a production-valid readable ABI model for the EAX receiver.
+// Release each queued scheduler resource under the shared scheduler lock.
+// Native LTCG supplies the receiver in EAX and the owner on the stack (RET 4).
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/thread_sync.hpp"
+#include "th10/game/resource_list_00449e50.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x00438880..0x004388E6: ?D3DResourceManager_Destroy@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00449E50..0x00449EA1: ?D3DResourceList_ReleaseResources@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DResourceList_ReleaseResources_00449e50() {
-    __asm {
-    L_00449e50:
-        mov eax,dword ptr [eax+18h]
-    L_00449e53:
-        test eax,eax
-    L_00449e55:
-        je short L_00449e9f
-    L_00449e57:
-        push ebx
-    L_00449e58:
-        mov ebx,dword ptr [data_004660b0]
-    L_00449e5e:
-        push ebp
-    L_00449e5f:
-        mov ebp,dword ptr [data_004660b4]
-    L_00449e65:
-        push esi
-    L_00449e66:
-        push edi
-    L_00449e67:
-        mov esi,dword ptr [eax]
-    L_00449e69:
-        test esi,esi
-    L_00449e6b:
-        mov edi,dword ptr [eax+4]
-    L_00449e6e:
-        je short L_00449e95
-    L_00449e70:
-        push 492274h
-    L_00449e75:
-        call ebx
-    L_00449e77:
-        inc byte ptr [data_0049231c]
-    L_00449e7d:
-        mov edx,dword ptr [esp+14h]
-    L_00449e81:
-        mov ecx,esi
-    L_00449e83:
-        call asm_Scheduler_Remove_00449f60
-    L_00449e88:
-        push 492274h
-    L_00449e8d:
-        call ebp
-    L_00449e8f:
-        dec byte ptr [data_0049231c]
-    L_00449e95:
-        test edi,edi
-    L_00449e97:
-        mov eax,edi
-    L_00449e99:
-        jne short L_00449e67
-    L_00449e9b:
-        pop edi
-    L_00449e9c:
-        pop esi
-    L_00449e9d:
-        pop ebp
-    L_00449e9e:
-        pop ebx
-    L_00449e9f:
-        ret 4
+#pragma code_seg(".text$01release")
+void ResourceList_00449e50::Release(ResourceListOwner_00449e50 owner) {
+    TaskLink* node = first;
+    if (node) {
+        void (__stdcall *enter)(CriticalSection*) = EnterCriticalSection;
+        void (__stdcall *leave)(CriticalSection*) = LeaveCriticalSection;
+        do {
+            SchedulerTask* resource = node->task;
+            // Save the successor before removal can change the current link.
+            TaskLink* next = node->next;
+            if (resource) {
+                enter(&g_thread_synchronization.critical_sections[0]);
+                ++g_thread_synchronization.scheduler_lock_depth;
+                Scheduler_RemoveTask(resource, owner.scheduler);
+                leave(&g_thread_synchronization.critical_sections[0]);
+                --g_thread_synchronization.scheduler_lock_depth;
+            }
+            node = next;
+        } while (node);
     }
 }
+#pragma code_seg()

@@ -6,6 +6,9 @@ extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
 
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
+    void* resource, void** out, int index, int render_bucket);
+
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
     if ((int)next < 0) {
@@ -151,6 +154,7 @@ int __stdcall PositionedPrimaryFrontContext(void** resources, void*** outs, int*
                                             const AnimationPosition_00448e80** positions,
                                             int count) {
     for (int i = 0; i < count; ++i) {
+        AnimationManager_CreatePrimaryFront_00448e30(resources[i], outs[i], indexes[i], 15);
         AnimationManager_CreatePositionedPrimaryFront_00448e80(resources[i], outs[i], indexes[i],
                                                                positions[i]);
     }

@@ -1,5 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Complete typed candidate: reference/semantic_candidates/music_cursor.cpp.
+// File mode subtracts the request before ReadFile and ignores its BOOL. Memory
+// mode preserves forward word-copy overlap and output aliasing. See current
+// recovery_notes/music_cursor_and_stream_refill.md for differential evidence.
 
 // 0x0044DE10..0x0044DED9: ArchiveCursor_ReadRetail
 // Naked body preserves the retail register/stack ABI.
@@ -177,4 +181,3 @@ extern "C" __declspec(naked) void __cdecl asm_ArchiveCursor_ReadRetail_0044de10(
 // cluster/schema2 with callers 0044D110 and 0044D850 plus ReadFile slot
 // binding.
 // Current assembly overlay remains exact.
-

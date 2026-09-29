@@ -1,132 +1,713 @@
 {
   "schema": 1,
   "records": [
-    {"address": "0x00404610", "wave": 21, "residual_class": "source_shape", "next_lever": "Recover 0x0044C350 and rebuild the real schema-2 trajectory component."},
-    {"address": "0x00441600", "wave": 23, "residual_class": "scheduler", "next_lever": "Use the real 0x0044106B/0x0044111F caller context to force the retail vector temporary lifetimes."},
-    {"address": "0x00441950", "wave": 23, "residual_class": "allocator", "next_lever": "Use a real schema-2 caller that makes EDI unavailable across the Hermite call."},
-    {"address": "0x00441AD0", "wave": 23, "residual_class": "abi", "next_lever": "Close schema 2 with the real 0x004410C0 caller and recovered EvaluateCurve."},
-    {"address": "0x00442050", "wave": 23, "residual_class": "source_shape", "next_lever": "Recover the original color-vector construction that induces the 12-byte spill frame."},
-    {"address": "0x004452F0", "wave": 21, "residual_class": "source_shape", "next_lever": "Recover the complete xorshift inner loop after obtaining an FSINCOS-capable vector dependency."},
-    {"address": "0x004458B0", "wave": 21, "residual_class": "toolkit", "next_lever": "Find provenance or a toolchain mechanism that emits one x87 FSINCOS."},
-    {"address": "0x004489D0", "wave": 21, "residual_class": "allocator", "next_lever": "Find a real caller shape that delays EDI preservation while retaining the private entry ABI."},
-    {"address": "0x00448A50", "wave": 21, "residual_class": "allocator", "next_lever": "Use multiple recovered retail callers instead of a synthetic loop context."},
-    {"address": "0x00448AC0", "wave": 21, "residual_class": "allocator", "next_lever": "Use schema-2 positioned-secondary callers and isolate the remaining counter allocation."},
-    {"address": "0x00448B40", "wave": 21, "residual_class": "allocator", "next_lever": "Find a real caller/source shape that delays EDI preservation in the nonempty-list arm."},
-    {"address": "0x00448E30", "wave": 23, "residual_class": "abi", "next_lever": "Recover 0x00449870 semantically, then close the real caller/callee component."},
-    {"address": "0x00449C00", "wave": 22, "residual_class": "allocator", "next_lever": "Reorder primary restart and case-7 paths to induce the retail EBX/EBP allocation."},
-    {"address": "0x0041F800", "wave": 21, "residual_class": "scheduler", "next_lever": "Revisit only when a new source-shape or compiler scheduling lever is available."},
-    {"address": "0x0043C550", "wave": 25, "residual_class": "scheduler", "next_lever": "Purpose-built MSVC/LTCG x87 scheduling lever."},
-    {"address": "0x00436570", "wave": 25, "residual_class": "abi", "next_lever": "Compiler source-scheduling lever with stable dllimport bindings."},
-    {"address": "0x00405D00", "wave": 25, "residual_class": "abi", "next_lever": "Original pool-entry type plus source scheduling/LTCG lever."},
-    {"address": "0x00441520", "wave": 25, "residual_class": "abi", "next_lever": "Purpose-built register-context/LTCG cluster."},
-    {"address": "0x00413300", "wave": 25, "residual_class": "scheduler", "next_lever": "Source scheduling/compiler lever."},
-    {"address": "0x00412300", "wave": 25, "residual_class": "layout", "next_lever": "Layout/LTCG jump-table anchor."},
-    {"address": "0x00429A30", "wave": 25, "residual_class": "source_shape", "next_lever": "Custom branch-shape/compiler lever."},
-    {"address": "0x00446530", "wave": 25, "residual_class": "abi", "next_lever": "Purpose-built three-register context/LTCG cluster."},
-    {"address": "0x0043A750", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x0040D400", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x00437590", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x004133F0", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x0040C600", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x00421C0B", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x00449820", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x00446570", "wave": 25, "residual_class": "abi", "next_lever": "Derive the exact ABI/compiler shape."},
-    {"address": "0x00420540", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0041E4D0", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00437670", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0044D640", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0043A4C0", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x004494D0", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00412750", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0041ACB0", "wave": 25, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00428B10", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG cluster preserving the entry and x87 scheduling."},
-    {"address": "0x0041F670", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG cluster preserving x87 order and ret-8 convention."},
-    {"address": "0x00447FD0", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG cluster pinning the D3D9 vtable ABI and full extent."},
-    {"address": "0x0044BFA0", "wave": 25, "residual_class": "scheduler", "next_lever": "Caller/cluster ABI forcing retail register loads and x87 order."},
-    {"address": "0x00418850", "wave": 25, "residual_class": "scheduler", "next_lever": "Compiler/ABI lever for the backward scan and post-loop saves."},
-    {"address": "0x004043D0", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG caller cluster pinning the three live-in registers."},
-    {"address": "0x00436D60", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG caller cluster naming and pinning the three live-ins."},
-    {"address": "0x0043DDB0", "wave": 25, "residual_class": "abi", "next_lever": "Native-LTCG caller cluster pinning the three live-ins."},
-    {"address": "0x00449870", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x00448F60", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x00449090", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x00404F30", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x00448DB0", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x0043E460", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x004492F0", "wave": 25, "residual_class": "abi", "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."},
-    {"address": "0x004521A6", "wave": 25, "residual_class": "import_thunk", "next_lever": "Retain exact six-byte D3DX import thunk."},
-    {"address": "0x00442220", "wave": 25, "residual_class": "abi", "next_lever": "Derive coupled recovery cluster entry ABI."},
-    {"address": "0x00442300", "wave": 25, "residual_class": "abi", "next_lever": "Derive exact stack-byte ownership and cleanup."},
-    {"address": "0x00441F50", "wave": 25, "residual_class": "allocator", "next_lever": "Force the retail compact-parameter register assignment in a caller cluster."},
-    {"address": "0x00441EF0", "wave": 25, "residual_class": "toolkit", "next_lever": "Find an FSINCOS and this-home compiler or inline-assembly lever."},
-    {"address": "0x004479D0", "wave": 25, "residual_class": "abi", "next_lever": "Derive recovery-leaf cluster ABI and ordering."},
-    {"address": "0x00413270", "wave": 25, "residual_class": "toolkit", "next_lever": "Find an FSINCOS and this-home compiler lever."},
-    {"address": "0x004198C0", "wave": 25, "residual_class": "allocator", "next_lever": "Preserve the entry register and stack table/count ordering in a caller cluster."},
-    {"address": "0x0041F8D0", "wave": 25, "residual_class": "abi", "next_lever": "Bind exact TextLog/LoadCachedResource conventions in the cluster context."},
-    {"address": "0x0043CB00", "wave": 25, "residual_class": "abi", "next_lever": "Derive recovery-leaf release/free cluster ABI and ordering."},
-    {"address": "0x0040D530", "wave": 25, "residual_class": "scheduler", "next_lever": "Compiler/LTCG cluster lever for the copy-order residual."},
-    {"address": "0x00443080", "wave": 25, "residual_class": "scheduler", "next_lever": "Compiler/LTCG cluster lever for release/fadd scheduling."},
-    {"address": "0x00414900", "wave": 25, "residual_class": "abi", "next_lever": "Recover a coupled schema-2 caller/callee cluster."},
-    {"address": "0x0040E770", "wave": 25, "residual_class": "abi", "next_lever": "Recover the ECL VM caller/state ABI in a native-LTCG cluster."},
-    {"address": "0x0044A190", "wave": 25, "residual_class": "allocator", "next_lever": "Compiler allocator lever for the joystick register/reload shape."},
-    {"address": "0x00437750", "wave": 25, "residual_class": "abi", "next_lever": "Recover the three-argument promotion ABI in a cluster."},
-    {"address": "0x00450220", "wave": 25, "residual_class": "allocator", "next_lever": "Compiler allocator lever for redundant-test and register shape."},
-    {"address": "0x00445620", "wave": 25, "residual_class": "abi", "next_lever": "Recover the callee-preserved EDX effect-ring cluster."},
-    {"address": "0x0044D400", "wave": 26, "residual_class": "abi", "next_lever": "Purpose-built register-context/LTCG cluster preserving the EAX/EDX/ECX entry."},
-    {"address": "0x00405F00", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile TextLog::Append with the cached-resource caller in native LTCG."},
-    {"address": "0x00427DC0", "wave": 26, "residual_class": "abi", "next_lever": "Split the dual-entry region and recover both caller register contracts."},
-    {"address": "0x0040B530", "wave": 26, "residual_class": "abi", "next_lever": "Purpose-built EAX-entry/LTCG cluster."},
-    {"address": "0x00447910", "wave": 26, "residual_class": "abi", "next_lever": "Callee-preserved ESI register-context cluster."},
-    {"address": "0x0043A700", "wave": 26, "residual_class": "source_shape", "next_lever": "A compiler or toolkit mechanism for the retail stack-home byte-swap sequence."},
-    {"address": "0x00449780", "wave": 26, "residual_class": "abi", "next_lever": "Three-register caller cluster preserving the ESI loop temporary."},
-    {"address": "0x00441E90", "wave": 26, "residual_class": "abi", "next_lever": "Register-context/LTCG cluster preserving the ECX/EDI/EAX contract."},
-    {"address": "0x0044DCF0", "wave": 26, "residual_class": "abi", "next_lever": "Purpose-built native-LTCG context establishing EAX object/result and stack args."},
-    {"address": "0x00413B50", "wave": 26, "residual_class": "abi", "next_lever": "Bind TextLog and cached-resource calls in one native-LTCG cluster."},
-    {"address": "0x00441EC0", "wave": 26, "residual_class": "abi", "next_lever": "Purpose-built native-LTCG context pinning EAX/ECX/EDX."},
-    {"address": "0x00428F30", "wave": 26, "residual_class": "structural", "next_lever": "Layout/linker mechanism anchoring the EH vector-constructor address."},
-    {"address": "0x004051F0", "wave": 26, "residual_class": "abi", "next_lever": "Native-LTCG caller/context pinning the output and reciprocal x87 ordering."},
-    {"address": "0x00441DD0", "wave": 26, "residual_class": "structural", "next_lever": "Re-carve the two complete functions at their second entry boundary."},
-    {"address": "0x0044C080", "wave": 26, "residual_class": "source_shape", "next_lever": "Compiler lever emitting the retail stride/parity prelude and accumulator homes."},
-    {"address": "0x00427D00", "wave": 26, "residual_class": "abi", "next_lever": "Purpose-built native-LTCG context for EAX/ECX/EDX convention."},
-    {"address": "0x00405CC0", "wave": 26, "residual_class": "structural", "next_lever": "MSVC/linker mechanism emitting the absolute image-base EH immediates."},
-    {"address": "0x00404420", "wave": 26, "residual_class": "abi", "next_lever": "Native-LTCG caller/callee cluster preserving the dead ECX."},
-    {"address": "0x00401CE0", "wave": 26, "residual_class": "structural", "next_lever": "Re-carve into two independently anchored setter/getter functions."},
-    {"address": "0x0042A870", "wave": 26, "residual_class": "source_shape", "next_lever": "Force the retail folded LEA constant or use an exact supported mechanism."},
-    {"address": "0x0044BCD0", "wave": 26, "residual_class": "toolkit", "next_lever": "FSIN/FCOS mechanism preserving the retail x87 stack order."},
-    {"address": "0x0044A130", "wave": 26, "residual_class": "abi", "next_lever": "Native-LTCG context pinning EAX/ECX/ESI/EDX."},
-    {"address": "0x0044C0B0", "wave": 26, "residual_class": "source_shape", "next_lever": "Force the retail stride-rounding prelude and accumulator homes."},
-    {"address": "0x00444CB0", "wave": 26, "residual_class": "abi", "next_lever": "Native-LTCG context pinning EAX destination, EDX source, and ECX count."},
-    {"address": "0x00435280", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0043A590", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0044A160", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x004464D0", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x0042A900", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00435FA0", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00404C60", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00401D60", "wave": 26, "residual_class": "wrapper", "next_lever": "Retain exact wrapper; no new compiler lever tested."},
-    {"address": "0x00436DA0", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile the atlas-pixel dependency cluster with a real caller."},
-    {"address": "0x00436CA0", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile the resource-file dependency cluster with a real caller."},
-    {"address": "0x0041BEB0", "wave": 26, "residual_class": "toolkit", "next_lever": "Resolve the FSINCOS toolkit wall in a native cluster."},
-    {"address": "0x00449470", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile the handle and stop-frame caller/callee cluster."},
-    {"address": "0x0043C970", "wave": 26, "residual_class": "abi", "next_lever": "Close the scheduler-create dependencies 0x0044A000/0x0044A030."},
-    {"address": "0x00408750", "wave": 26, "residual_class": "toolkit", "next_lever": "Resolve the FSINCOS toolkit wall in a native cluster."},
-    {"address": "0x0041C1C0", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile allocator/scheduler globals and intrusive unlink callers."},
-    {"address": "0x00408D60", "wave": 26, "residual_class": "abi", "next_lever": "Recover the dependent 0x0043EE30/0x00449350/0x00449470 cluster."},
-    {"address": "0x00437160", "wave": 26, "residual_class": "source_shape", "next_lever": "Co-compile the semantic atlas-pixel type with its real caller."},
-    {"address": "0x00437FE0", "wave": 26, "residual_class": "abi", "next_lever": "Cluster the GDI/import ABI with the resource dependencies."},
-    {"address": "0x0043DD10", "wave": 26, "residual_class": "abi", "next_lever": "Cluster the sound queue with real sound-event callers."},
-    {"address": "0x0041BB00", "wave": 26, "residual_class": "source_shape", "next_lever": "Cluster item spawn with the score and animation dependencies."},
-    {"address": "0x0044A000", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile scheduler callback creation and primary registration."},
-    {"address": "0x0044A030", "wave": 26, "residual_class": "abi", "next_lever": "Co-compile scheduler callback creation and secondary registration."},
-    {"address": "0x0043C8B0", "wave": 26, "residual_class": "abi", "next_lever": "Cluster operator-new, constructor, and real manager callers."},
-    {"address": "0x00450470", "wave": 26, "residual_class": "source_shape", "next_lever": "Cluster the script-table owner with real runtime callers."},
-    {"address": "0x00412350", "wave": 26, "residual_class": "structural", "next_lever": "Co-compile the address-pinned jump-table anchor and dispatch families."},
-    {"address": "0x004084A0", "wave": 26, "residual_class": "abi", "next_lever": "Build the real score/entity caller cluster."},
-    {"address": "0x00411FC0", "wave": 26, "residual_class": "structural", "next_lever": "Co-compile the address-pinned ECL jump-table anchor."},
-    {"address": "0x0040A040", "wave": 26, "residual_class": "scheduler", "next_lever": "Recover the clear-block stores and pop-EDI scheduling lever."},
-    {"address": "0x0041C330", "wave": 26, "residual_class": "abi", "next_lever": "Make the score-records body an IL-visible cluster anchor."},
-    {"address": "0x00443480", "wave": 26, "residual_class": "scheduler", "next_lever": "Co-compile the render cluster with its IL-visible signature."},
-    {"address": "0x00415800", "wave": 26, "residual_class": "source_shape", "next_lever": "Co-compile real draw-animation and rectangle callees."},
-    {"address": "0x00444B10", "wave": 26, "residual_class": "abi", "next_lever": "Build the render-target cluster exposing the three live-ins."}
+    {
+      "address": "0x00404610",
+      "wave": 21,
+      "residual_class": "source_shape",
+      "next_lever": "Recover 0x0044C350 and rebuild the real schema-2 trajectory component."
+    },
+    {
+      "address": "0x00441600",
+      "wave": 23,
+      "residual_class": "scheduler",
+      "next_lever": "Use the real 0x0044106B/0x0044111F caller context to force the retail vector temporary lifetimes."
+    },
+    {
+      "address": "0x00441950",
+      "wave": 23,
+      "residual_class": "allocator",
+      "next_lever": "Use a real schema-2 caller that makes EDI unavailable across the Hermite call."
+    },
+    {
+      "address": "0x00441AD0",
+      "wave": 23,
+      "residual_class": "abi",
+      "next_lever": "Close schema 2 with the real 0x004410C0 caller and recovered EvaluateCurve."
+    },
+    {
+      "address": "0x00442050",
+      "wave": 23,
+      "residual_class": "source_shape",
+      "next_lever": "Recover the original color-vector construction that induces the 12-byte spill frame."
+    },
+    {
+      "address": "0x004452F0",
+      "wave": 21,
+      "residual_class": "source_shape",
+      "next_lever": "Recover the complete xorshift inner loop after obtaining an FSINCOS-capable vector dependency."
+    },
+    {
+      "address": "0x004458B0",
+      "wave": 21,
+      "residual_class": "toolkit",
+      "next_lever": "Find provenance or a toolchain mechanism that emits one x87 FSINCOS."
+    },
+    {
+      "address": "0x004489D0",
+      "wave": 21,
+      "residual_class": "allocator",
+      "next_lever": "Find a real caller shape that delays EDI preservation while retaining the private entry ABI."
+    },
+    {
+      "address": "0x00448A50",
+      "wave": 21,
+      "residual_class": "allocator",
+      "next_lever": "Use multiple recovered retail callers instead of a synthetic loop context."
+    },
+    {
+      "address": "0x00448AC0",
+      "wave": 21,
+      "residual_class": "allocator",
+      "next_lever": "Use schema-2 positioned-secondary callers and isolate the remaining counter allocation."
+    },
+    {
+      "address": "0x00448B40",
+      "wave": 21,
+      "residual_class": "allocator",
+      "next_lever": "Find a real caller/source shape that delays EDI preservation in the nonempty-list arm."
+    },
+    {
+      "address": "0x00449C00",
+      "wave": 22,
+      "residual_class": "allocator",
+      "next_lever": "Reorder primary restart and case-7 paths to induce the retail EBX/EBP allocation."
+    },
+    {
+      "address": "0x0041F800",
+      "wave": 21,
+      "residual_class": "scheduler",
+      "next_lever": "Revisit only when a new source-shape or compiler scheduling lever is available."
+    },
+    {
+      "address": "0x0043C550",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Purpose-built MSVC/LTCG x87 scheduling lever."
+    },
+    {
+      "address": "0x00436570",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Compiler source-scheduling lever with stable dllimport bindings."
+    },
+    {
+      "address": "0x00405D00",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Original pool-entry type plus source scheduling/LTCG lever."
+    },
+    {
+      "address": "0x00441520",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built register-context/LTCG cluster."
+    },
+    {
+      "address": "0x00413300",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Source scheduling/compiler lever."
+    },
+    {
+      "address": "0x00412300",
+      "wave": 25,
+      "residual_class": "layout",
+      "next_lever": "Layout/LTCG jump-table anchor."
+    },
+    {
+      "address": "0x00429A30",
+      "wave": 25,
+      "residual_class": "source_shape",
+      "next_lever": "Custom branch-shape/compiler lever."
+    },
+    {
+      "address": "0x00446530",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built three-register context/LTCG cluster."
+    },
+    {
+      "address": "0x0043A750",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x0040D400",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x00437590",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x004133F0",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x0040C600",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x00421C0B",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x00449820",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x00446570",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive the exact ABI/compiler shape."
+    },
+    {
+      "address": "0x00420540",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00437670",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0044D640",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0043A4C0",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x004494D0",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00412750",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0041ACB0",
+      "wave": 25,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00428B10",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG cluster preserving the entry and x87 scheduling."
+    },
+    {
+      "address": "0x00447FD0",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG cluster pinning the D3D9 vtable ABI and full extent."
+    },
+    {
+      "address": "0x0044BFA0",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Caller/cluster ABI forcing retail register loads and x87 order."
+    },
+    {
+      "address": "0x00418850",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Compiler/ABI lever for the backward scan and post-loop saves."
+    },
+    {
+      "address": "0x004043D0",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG caller cluster pinning the three live-in registers."
+    },
+    {
+      "address": "0x00436D60",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG caller cluster naming and pinning the three live-ins."
+    },
+    {
+      "address": "0x00449870",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."
+    },
+    {
+      "address": "0x00404F30",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."
+    },
+    {
+      "address": "0x00448DB0",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."
+    },
+    {
+      "address": "0x0043E460",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Compiler/ABI-compatible native-LTCG cluster evidence."
+    },
+    {
+      "address": "0x004521A6",
+      "wave": 25,
+      "residual_class": "import_thunk",
+      "next_lever": "Retain exact six-byte D3DX import thunk."
+    },
+    {
+      "address": "0x00442220",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive coupled recovery cluster entry ABI."
+    },
+    {
+      "address": "0x00442300",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive exact stack-byte ownership and cleanup."
+    },
+    {
+      "address": "0x00441F50",
+      "wave": 25,
+      "residual_class": "allocator",
+      "next_lever": "Force the retail compact-parameter register assignment in a caller cluster."
+    },
+    {
+      "address": "0x00441EF0",
+      "wave": 25,
+      "residual_class": "toolkit",
+      "next_lever": "Find an FSINCOS and this-home compiler or inline-assembly lever."
+    },
+    {
+      "address": "0x004479D0",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive recovery-leaf cluster ABI and ordering."
+    },
+    {
+      "address": "0x00413270",
+      "wave": 25,
+      "residual_class": "toolkit",
+      "next_lever": "Find an FSINCOS and this-home compiler lever."
+    },
+    {
+      "address": "0x004198C0",
+      "wave": 25,
+      "residual_class": "allocator",
+      "next_lever": "Preserve the entry register and stack table/count ordering in a caller cluster."
+    },
+    {
+      "address": "0x0043CB00",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Derive recovery-leaf release/free cluster ABI and ordering."
+    },
+    {
+      "address": "0x0040D530",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Compiler/LTCG cluster lever for the copy-order residual."
+    },
+    {
+      "address": "0x00443080",
+      "wave": 25,
+      "residual_class": "scheduler",
+      "next_lever": "Compiler/LTCG cluster lever for release/fadd scheduling."
+    },
+    {
+      "address": "0x00414900",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Recover a coupled schema-2 caller/callee cluster."
+    },
+    {
+      "address": "0x0040E770",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Recover the ECL VM caller/state ABI in a native-LTCG cluster."
+    },
+    {
+      "address": "0x0044A190",
+      "wave": 25,
+      "residual_class": "allocator",
+      "next_lever": "Compiler allocator lever for the joystick register/reload shape."
+    },
+    {
+      "address": "0x00437750",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Recover the three-argument promotion ABI in a cluster."
+    },
+    {
+      "address": "0x00450220",
+      "wave": 25,
+      "residual_class": "allocator",
+      "next_lever": "Compiler allocator lever for redundant-test and register shape."
+    },
+    {
+      "address": "0x00445620",
+      "wave": 25,
+      "residual_class": "abi",
+      "next_lever": "Recover the callee-preserved EDX effect-ring cluster."
+    },
+    {
+      "address": "0x0044D400",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built register-context/LTCG cluster preserving the EAX/EDX/ECX entry."
+    },
+    {
+      "address": "0x00405F00",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile TextLog::Append with the cached-resource caller in native LTCG."
+    },
+    {
+      "address": "0x00427DC0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Split the dual-entry region and recover both caller register contracts."
+    },
+    {
+      "address": "0x0040B530",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built EAX-entry/LTCG cluster."
+    },
+    {
+      "address": "0x00447910",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Callee-preserved ESI register-context cluster."
+    },
+    {
+      "address": "0x0043A700",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "A compiler or toolkit mechanism for the retail stack-home byte-swap sequence."
+    },
+    {
+      "address": "0x00449780",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Three-register caller cluster preserving the ESI loop temporary."
+    },
+    {
+      "address": "0x00441E90",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Register-context/LTCG cluster preserving the ECX/EDI/EAX contract."
+    },
+    {
+      "address": "0x0044DCF0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built native-LTCG context establishing EAX object/result and stack args."
+    },
+    {
+      "address": "0x00413B50",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Bind TextLog and cached-resource calls in one native-LTCG cluster."
+    },
+    {
+      "address": "0x00441EC0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built native-LTCG context pinning EAX/ECX/EDX."
+    },
+    {
+      "address": "0x00428F30",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "Layout/linker mechanism anchoring the EH vector-constructor address."
+    },
+    {
+      "address": "0x004051F0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG caller/context pinning the output and reciprocal x87 ordering."
+    },
+    {
+      "address": "0x00441DD0",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "Re-carve the two complete functions at their second entry boundary."
+    },
+    {
+      "address": "0x0044C080",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Compiler lever emitting the retail stride/parity prelude and accumulator homes."
+    },
+    {
+      "address": "0x00427D00",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Purpose-built native-LTCG context for EAX/ECX/EDX convention."
+    },
+    {
+      "address": "0x00405CC0",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "MSVC/linker mechanism emitting the absolute image-base EH immediates."
+    },
+    {
+      "address": "0x00404420",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG caller/callee cluster preserving the dead ECX."
+    },
+    {
+      "address": "0x00401CE0",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "Re-carve into two independently anchored setter/getter functions."
+    },
+    {
+      "address": "0x0042A870",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Force the retail folded LEA constant or use an exact supported mechanism."
+    },
+    {
+      "address": "0x0044BCD0",
+      "wave": 26,
+      "residual_class": "toolkit",
+      "next_lever": "FSIN/FCOS mechanism preserving the retail x87 stack order."
+    },
+    {
+      "address": "0x0044A130",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG context pinning EAX/ECX/ESI/EDX."
+    },
+    {
+      "address": "0x0044C0B0",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Force the retail stride-rounding prelude and accumulator homes."
+    },
+    {
+      "address": "0x00444CB0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Native-LTCG context pinning EAX destination, EDX source, and ECX count."
+    },
+    {
+      "address": "0x00435280",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0043A590",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0044A160",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x004464D0",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x0042A900",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00435FA0",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00404C60",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00401D60",
+      "wave": 26,
+      "residual_class": "wrapper",
+      "next_lever": "Retain exact wrapper; no new compiler lever tested."
+    },
+    {
+      "address": "0x00436DA0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile the atlas-pixel dependency cluster with a real caller."
+    },
+    {
+      "address": "0x00436CA0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile the resource-file dependency cluster with a real caller."
+    },
+    {
+      "address": "0x0041BEB0",
+      "wave": 26,
+      "residual_class": "toolkit",
+      "next_lever": "Resolve the FSINCOS toolkit wall in a native cluster."
+    },
+    {
+      "address": "0x00449470",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile the handle and stop-frame caller/callee cluster."
+    },
+    {
+      "address": "0x0043C970",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Close the scheduler-create dependencies 0x0044A000/0x0044A030."
+    },
+    {
+      "address": "0x00408750",
+      "wave": 26,
+      "residual_class": "toolkit",
+      "next_lever": "Resolve the FSINCOS toolkit wall in a native cluster."
+    },
+    {
+      "address": "0x0041C1C0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile allocator/scheduler globals and intrusive unlink callers."
+    },
+    {
+      "address": "0x00408D60",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Recover the dependent 0x0043EE30 cluster; position setter 0x00449350 and stop-frame helper 0x00449470 are now exact semantic bodies."
+    },
+    {
+      "address": "0x00437FE0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Cluster the GDI/import ABI with the resource dependencies."
+    },
+    {
+      "address": "0x0043DD10",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Cluster the sound queue with real sound-event callers."
+    },
+    {
+      "address": "0x0041BB00",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Cluster item spawn with the score and animation dependencies."
+    },
+    {
+      "address": "0x0044A000",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile scheduler callback creation and primary registration."
+    },
+    {
+      "address": "0x0044A030",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Co-compile scheduler callback creation and secondary registration."
+    },
+    {
+      "address": "0x0043C8B0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Cluster operator-new, constructor, and real manager callers."
+    },
+    {
+      "address": "0x00450470",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Cluster the script-table owner with real runtime callers."
+    },
+    {
+      "address": "0x00412350",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "Co-compile the address-pinned jump-table anchor and dispatch families."
+    },
+    {
+      "address": "0x004084A0",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Build the real score/entity caller cluster."
+    },
+    {
+      "address": "0x00411FC0",
+      "wave": 26,
+      "residual_class": "structural",
+      "next_lever": "Co-compile the address-pinned ECL jump-table anchor."
+    },
+    {
+      "address": "0x0040A040",
+      "wave": 26,
+      "residual_class": "scheduler",
+      "next_lever": "Recover the clear-block stores and pop-EDI scheduling lever."
+    },
+    {
+      "address": "0x0041C330",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Make the score-records body an IL-visible cluster anchor."
+    },
+    {
+      "address": "0x00443480",
+      "wave": 26,
+      "residual_class": "scheduler",
+      "next_lever": "Co-compile the render cluster with its IL-visible signature."
+    },
+    {
+      "address": "0x00415800",
+      "wave": 26,
+      "residual_class": "source_shape",
+      "next_lever": "Co-compile real draw-animation and rectangle callees."
+    },
+    {
+      "address": "0x00444B10",
+      "wave": 26,
+      "residual_class": "abi",
+      "next_lever": "Build the render-target cluster exposing the three live-ins."
+    }
   ]
 }

@@ -1,14 +1,14 @@
 # ECL entity integer resolver wrapper: live Ghidra ABI audit
 
-Audited the live Ghidra program `th10.exe` on 2026-09-23. This was a static
-review only; no build, probe, or test was run.
+The 2026-09-23 audit below established the live register ABI; the later
+ordinary C++ conversion was checked with a focused byte-for-byte probe.
 
 ## Region and call evidence
 
-The manifest entry is `asm_ECL_ResolveIntFromEntity_00412a00`, source
-`src/script/ecl_resolve_int_from_entity_00412a00.cpp`, at `0x00412A00`, size
-16, kind `asm`. Ghidra identifies the function body as `0x00412A00` through
-`0x00412A0F` inclusive (the next entry is `0x00412A10`). The body is:
+The manifest entry is now `semantic_ECL_ResolveIntFromEntity_00412a00`,
+source `src/script/ecl_resolve_int_from_entity_00412a00.cpp`, at `0x00412A00`,
+size 16. Ghidra identifies the body as `0x00412A00` through `0x00412A0F`
+inclusive (the next entry is `0x00412A10`). Its retail instructions are:
 
 ```asm
 00412A00  mov eax,[eax+0x14D8]
@@ -42,16 +42,16 @@ ECL state through `[entity+0x14D8]`, obtains its frame/cursor through
 `[state+4]`, pushes the ECX selector, and lets the callee consume that one
 stack argument. The wrapper then returns with the result still in EAX.
 
-Keep the current naked body. A faithful ordinary C++ prototype cannot express
-both wrapper inputs: the entity arrives in EAX, and the selector arrives in
-ECX. Under the supported 32-bit Microsoft C++ conventions, cdecl/stdcall pass
-arguments on the stack, thiscall uses ECX for `this`, and fastcall uses ECX
-then EDX; none accepts this EAX/ECX pair. The callee also requires the wrapper
-to move the derived frame into EDX and push the selector for its callee-cleaned
-stack ABI. Making those values ordinary C++ parameters would require changing
-the caller ABI or retaining assembly to capture EAX, so the existing assembly
-is the faithful representation at this boundary.
+The pinned Clang i386 COFF profile represents both public live-ins using
+`regparm(3)`: the entity arrives in EAX, the unused middle input in EDX,
+and the selector in ECX. The resolver declaration uses `regparm(2)` plus
+`stdcall`: the derived frame stays in EAX, its interpreter goes to EDX,
+and the selector is pushed as its single callee-cleaned stack argument.
+The compiled wrapper exactly matches all 16 retail bytes, including the
+call relocation and unchanged integer return in EAX. The COFF decorator
+`_asm_ECL_ResolveIntOperand_0044fdb0@12` is bound to the resolver's existing
+`0x0044FDB0` address; the machine-level stack cleanup remains `RET 4`.
 
-Keep the existing call alias `asm_ECL_ResolveIntFromEntity_00412a00`, declared
-in `include/asm_symbols.hpp` and mapped to `0x00412A00` by the manifest. No new
-alias is needed while the routine remains assembly.
+The wrapper retains its `_asm_ECL_ResolveIntFromEntity_00412a00` symbol for
+existing assembly callers. Its previous assembly manifest row remains as
+`previous_record`; no source-level assembly is needed at this entry.

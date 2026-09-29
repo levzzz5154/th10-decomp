@@ -1,3 +1,6 @@
+// Historical environment-based approximation. The complete layout-faithful
+// candidate and retail tests are documented in
+// reference/recovery_notes/sound_device_init_0043cd30.md.
 #include "th10/platform/sound_device_init.hpp"
 
 #include <cstring>

@@ -5,7 +5,8 @@
   "headers": [
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/camera_batch.hpp",
-    "include/th10/math/angle.hpp"
+    "include/th10/math/angle.hpp",
+    "include/th10/game/score_runtime_state_004091c0.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
@@ -45,6 +46,15 @@
       "address": "0x00409230",
       "size": 50,
       "actual_abi": "this in ECX; manager in ECX and VM in EAX at both calls; plain RET"
+    },
+    {
+      "name": "ScoreRuntimeState_RunArrayReleaseCallback",
+      "symbol": "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
+      "section": ".text$001releasezc",
+      "address": "0x00409270",
+      "size": 10,
+      "actual_abi": "state in ECX; saves EBX and passes the state in EBX to 0x004091C0; plain RET",
+      "source": "src/game/run_array_release_callback_score_runtime_state_00409270.cpp"
     },
     {
       "name": "RenderCamera_ApplyDefault",
@@ -369,6 +379,78 @@
       "size": 173,
       "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
       "source": "src/unidentified/FUN_0041ea40_0041ea40.cpp"
+    },
+    {
+      "name": "GameStateOverlay_Draw_00415800",
+      "source": "src/game/game_state_overlay_draw.cpp",
+      "symbol": "_GameStateOverlay_Draw_00415800@4",
+      "section": ".text$001soverlay",
+      "address": "0x00415800",
+      "size": 724,
+      "actual_abi": "state on stack; result1 in EAX; RET4"
+    },
+    {
+      "name": "DrawFan33_00445880",
+      "symbol": "?DrawFan33@RenderEntity@@QAEHXZ",
+      "section": ".text$07contextzb",
+      "address": "0x00445880",
+      "size": 25,
+      "actual_abi": "entity in ECX; passes the manager in ECX and the entity in EAX to 0x004450E0; returns 0; plain RET",
+      "source": "src/unidentified/FUN_00445880_00445880.cpp"
+    },
+    {
+      "name": "Run_004200d0",
+      "symbol": "?Run@FlushCallback_004200d0@@QAEHXZ",
+      "section": ".text$001z3gapb",
+      "address": "0x004200D0",
+      "size": 39,
+      "actual_abi": "saves ESI and passes the manager in ESI to 0x00442F50; returns 1; plain RET",
+      "source": "src/unidentified/FUN_004200d0_004200d0.cpp"
+    },
+    {
+      "name": "RenderStageState_EnableFog",
+      "symbol": "?EnableFog@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420c90",
+      "address": "0x00420C90",
+      "size": 52,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/platform/fun_00439390_00439390.cpp"
+    },
+    {
+      "name": "RenderStageState_DisableFog",
+      "symbol": "?DisableFog@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420cd0",
+      "address": "0x00420CD0",
+      "size": 53,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/platform/fun_00439390_00439390.cpp"
+    },
+    {
+      "name": "RenderStageState_EnableDepthWrite",
+      "symbol": "?EnableDepthWrite@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420d10",
+      "address": "0x00420D10",
+      "size": 52,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/platform/fun_00439390_00439390.cpp"
+    },
+    {
+      "name": "RenderStageState_DisableDepthWrite",
+      "symbol": "?DisableDepthWrite@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420d50",
+      "address": "0x00420D50",
+      "size": 53,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/platform/fun_00439390_00439390.cpp"
+    },
+    {
+      "name": "RenderStageState_SetRenderState",
+      "symbol": "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
+      "section": ".text$00a420d90",
+      "address": "0x00420D90",
+      "size": 32,
+      "actual_abi": "__stdcall (stage, state, value); saves ESI for 0x00442F50 and tail-jumps to IDirect3DDevice9::SetRenderState",
+      "source": "src/platform/fun_00439390_00439390.cpp"
     }
   ],
   "gaps": [
@@ -391,11 +473,6 @@
       "section": ".text$001arraysz",
       "address": "0x40921f",
       "size": 17
-    },
-    {
-      "section": ".text$00a420cd0z",
-      "address": "0x420d05",
-      "size": 1915
     },
     {
       "section": ".text$00adefaultz",
@@ -549,8 +626,8 @@
     },
     {
       "section": ".text$07contextz",
-      "address": "0x4453f2",
-      "size": 12846
+      "address": "0x00445408",
+      "size": 1144
     },
     {
       "section": ".text$08layer3z",
@@ -600,7 +677,12 @@
     {
       "section": ".text$001releasez",
       "address": "0x409262",
-      "size": 83294
+      "size": 14
+    },
+    {
+      "section": ".text$001soverlayz",
+      "address": "0x415ad4",
+      "size": 31980
     },
     {
       "section": ".text$001z1gap",
@@ -610,7 +692,47 @@
     {
       "section": ".text$001z3gap",
       "address": "0x41eaed",
-      "size": 8675
+      "size": 5603
+    },
+    {
+      "section": ".text$001releasezd",
+      "address": "0x40927a",
+      "size": 50566
+    },
+    {
+      "section": ".text$07contextzbz",
+      "address": "0x00445899",
+      "size": 11655
+    },
+    {
+      "section": ".text$001z3gapbz",
+      "address": "0x004200F7",
+      "size": 2969
+    },
+    {
+      "section": ".text$00a420c90z",
+      "address": "0x00420CC4",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420cd0z",
+      "address": "0x00420D05",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d10z",
+      "address": "0x00420D44",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420d50z",
+      "address": "0x00420D85",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d90z",
+      "address": "0x00420DB0",
+      "size": 1744
     }
   ],
   "constants": [],
@@ -824,13 +946,38 @@
       "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
       "address": "0x0044BC10",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c58",
+      "address": "0x00474C58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e64",
+      "address": "0x00491E64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e68",
+      "address": "0x00491E68",
+      "kind": "data"
     }
   ],
   "additional_sources": [
+    "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
+    "src/game/ascii_overlay_callbacks.cpp",
+    "src/game/boss_sync_positions_retail_0041d7c0.cpp",
     "src/game/fun_00405300_00405300.cpp",
+    "src/game/game_state_overlay_draw.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
     "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
     "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
+    "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
     "src/platform/fun_00439390_00439390.cpp",
     "src/render/anchored_quad_build_00443290.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
@@ -853,18 +1000,17 @@
     "src/render/sprite_quad_submit.cpp",
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/unidentified/FUN_0041ea40_0041ea40.cpp",
+    "src/unidentified/FUN_004200d0_004200d0.cpp",
+    "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
+    "src/unidentified/FUN_00445880_00445880.cpp",
     "src/unidentified/FUN_00448620_00448620.cpp",
     "src/unidentified/FUN_00448770_00448770.cpp",
     "src/unidentified/FUN_004487c0_004487c0.cpp",
     "src/unidentified/FUN_00448810_00448810.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
-    "src/unidentified/unassigned_00444fa0.cpp",
-    "src/game/ascii_overlay_callbacks.cpp",
-    "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
-    "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
-    "src/game/boss_sync_positions_retail_0041d7c0.cpp",
-    "src/unidentified/FUN_0041ea40_0041ea40.cpp"
+    "src/unidentified/unassigned_00444fa0.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -878,14 +1024,19 @@
     "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
     "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
-    "?Draw@BossOverlay_0041EA40@@QAEHXZ"
+    "?Draw@BossOverlay_0041EA40@@QAEHXZ",
+    "_GameStateOverlay_Draw_00415800@4",
+    "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
+    "?DrawFan33@RenderEntity@@QAEHXZ",
+    "?Run@FlushCallback_004200d0@@QAEHXZ",
+    "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x4452a0",
-    "size": 338,
+    "size": 360,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   },
   "constant_aliases": [
@@ -923,16 +1074,34 @@
       "symbol": "__real@41800000",
       "address": "0x00470B48",
       "value": 16.0
+    },
+    {
+      "symbol": "__real@3e95a95b",
+      "address": "0x00470CB8",
+      "value": 0.29230770468711853
+    },
+    {
+      "symbol": "__real@424c0000",
+      "address": "0x00470D2C",
+      "value": 51.0
+    },
+    {
+      "symbol": "__real@43ab0000",
+      "address": "0x00470D28",
+      "value": 342.0
+    },
+    {
+      "symbol": "__real@42240000",
+      "address": "0x00470D24",
+      "value": 41.0
+    },
+    {
+      "symbol": "__real@42200000",
+      "address": "0x00470C64",
+      "value": 40.0
     }
   ],
   "anchors": [
-    {
-      "name": "RenderStageState_00439390_RestoreFog",
-      "symbol": "?RestoreFog@RenderStageState_00439390@@QAEHXZ",
-      "section": ".text$00a420cd0",
-      "address": "0x00420CD0",
-      "size": 53
-    },
     {
       "name": "EntityDraw_00443080_abi_anchor",
       "symbol": "_EntityDraw_00443080@8",

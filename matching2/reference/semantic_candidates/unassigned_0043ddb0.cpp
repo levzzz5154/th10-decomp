@@ -1,3 +1,5 @@
+// Historical generic sketch. The tested typed sound-effect stop producer is
+// now in sound_effect_queue.cpp; see recovery_notes/sound_commands_and_effect_queue.md.
 // 0x0043DDB0..0x0043DDE3: 12-slot key lookup/update.
 // The retail body takes its owner in ESI and the key in EDI.  This ordinary
 // C++ signature is a readable behavioral model; it uses the normal C calling

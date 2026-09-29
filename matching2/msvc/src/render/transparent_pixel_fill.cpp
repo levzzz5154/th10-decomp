@@ -1,14 +1,13 @@
-// BLOCKED (D2601): closest_byte_count=946; first_diff=unmeasured;
-// residual_class=source_shape; the 946-byte routine is a nested palette/
-// transparency kernel with retail-only stack temporaries, x87-independent
-// channel accumulation, and multiple hand-shaped backward/forward pixel
-// probes.  A readable reconstruction would change loop boundaries and
-// temporary lifetimes, so the exact retail wrapper remains authoritative.
-// variants_tested=exact retail overlay and the related 0x004465B0 pixel
-// kernel's readable control-flow model; no compiler-readable candidate was
-// measured;
-// next_lever=derive the original pixel-record type and compile this body in
-// a native-LTCG renderer cluster with its real caller and palette helpers.
+// BLOCKED (near miss, 2026-09-28): stdcall (surface, rows) -> true.  For the
+// A4R4G4B4 (0x1A) and A8R8G8B8 (0x15) formats every texel with zero alpha
+// takes the average colour of its opaque left/right/up/down neighbours (the
+// 4444 branch also halves each channel).  A switch with case 0x1A first,
+// per-channel bitfield stores through (unsigned char) casts, and function-scope
+// accumulators reproduce the control flow and the store sequence exactly; the
+// remaining difference is register allocation (retail keeps the surface in ESI
+// and spills the blue sum, the model spills the width).  Declaration order,
+// a __stdcall member form and per-format __forceinline helpers all compile to
+// the same allocation.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

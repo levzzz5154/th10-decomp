@@ -1,5 +1,7 @@
 # OrientedRect 0x0041E4D0 — variant sweep, prior model still best
 
+Superseded on 2026-09-27 by an exact C++ recovery. See [the contact-test proof](oriented_rect_hit_test_0041e4d0_0041f670_exact.md) and the current maintained source/manifest. The measurements below are historical.
+
 2026-09-17. Re-measured the retained model against six new source shapes; none
 beat the recorded 207/226.
 

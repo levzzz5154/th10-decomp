@@ -1,5 +1,7 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Shared-layout candidate passes 40 direct size-lookup comparisons and the
+// resource-size path tests. See reference/recovery_notes/resource_paths_004357d0_0043599d.md.
 
 // 0x00434C20..0x00434C29: ?DatArchive_Reset@@
 // Naked body preserves the retail register/stack ABI.

@@ -1,4 +1,7 @@
 // 0x0043D790 - Resolve a 0x34-byte archive record and select its stream.
+// Executed in the cached-launch differential suite; it reloads table/stream
+// after name lookup and ignores cursor selection errors. See
+// reference/recovery_notes/sound_cached_stream_launch_0043d950.md.
 struct PlatformStreamRecord_0044DCA0 {
     unsigned char unknown_000[0x10];
     unsigned int offset_010;

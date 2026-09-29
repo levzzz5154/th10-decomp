@@ -1,6 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// Behavioral candidate: reference/semantic_candidates/file_resolve_path.cpp.
+// Tests preserve overlap, byte/dword copy order and the missing-separator fault.
+// See recovery_notes/file_open_and_resolve.md; private ABI/native bytes remain pending.
+
 // 0x00435370..0x004353AC: FileHandle_OpenRetail
 // Naked body preserves the retail register/stack ABI.
 

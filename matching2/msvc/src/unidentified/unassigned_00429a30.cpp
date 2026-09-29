@@ -1,45 +1,26 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00429A30..0x00429A69: pick 6 instead of 1 while the game UI is up, the
+// entity is in state 1, flag 0x100 of the global flags at 0x00474E30 is set,
+// and the entity's frame counter is not a multiple of four.  Nothing calls
+// it any more; the entity arrives in EAX, a convention only a native LTCG
+// link chooses, so the region is compiled in its own cluster.
+struct GameUi_00429a30;
+struct Entity_00429a30 {
+    char pad_0000[0x10];
+    int state;
+    char pad_0014[0x1c8 - 0x14];
+    int frame;
 
-// 0x00429A30..0x00429A69: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00429a30() {
-    __asm {
-    L_00429a30:
-        mov ecx,dword ptr [data_00477810]
-    L_00429a36:
-        test ecx,ecx
-    L_00429a38:
-        je short L_00429a64
-    L_00429a3a:
-        cmp dword ptr [eax+10h],1
-    L_00429a3e:
-        jne short L_00429a64
-    L_00429a40:
-        mov ecx,dword ptr [data_00474e30]
-    L_00429a46:
-        test ch,1
-    L_00429a49:
-        je short L_00429a64
-    L_00429a4b:
-        mov eax,dword ptr [eax+1C8h]
-    L_00429a51:
-        and eax,80000003h
-    L_00429a56:
-        jns short L_00429a5d
-    L_00429a58:
-        dec eax
-    L_00429a59:
-        or eax,0FFFFFFFCh
-    L_00429a5c:
-        inc eax
-    L_00429a5d:
-        mov eax,6
-    L_00429a62:
-        jne short L_00429a69
-    L_00429a64:
-        mov eax,1
-    L_00429a69:
-        ret
-    }
+    int SelectFrameStep();
+};
+
+extern "C" GameUi_00429a30* data_00477810;
+extern "C" unsigned int data_00474e30;
+
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) int Entity_00429a30::SelectFrameStep() {
+    if (data_00477810 != 0 && state == 1 && (data_00474e30 & 0x100) &&
+        frame % 4 != 0)
+        return 6;
+    return 1;
 }
+#pragma code_seg()

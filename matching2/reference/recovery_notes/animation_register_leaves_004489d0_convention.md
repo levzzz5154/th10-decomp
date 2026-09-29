@@ -1,9 +1,10 @@
-# Animation list registration leaves: sources ready, entry convention blocked
+# Animation list registration leaves: ABI and codegen blocked
 
-2026-09-13. The four registration leaves at `0x004489D0`, `0x00448A50`,
-`0x00448AC0` and `0x00448B40` (118 + 112 + 118 + 112 = 460 bytes) are now fully
-reconstructed as readable C++. They are leaves — no calls at all — so nothing
-but their own entry convention blocks them.
+2026-09-13 experiment, revisited against all four live retail bodies: the
+four registration leaves at `0x004489D0`, `0x00448A50`, `0x00448AC0`, and
+`0x00448B40` total 460 bytes. The early lab models capture the list actions
+but use incorrect per-variant node offsets; they are not ready for promotion.
+The private entry convention and exact instruction schedule also remain open.
 
 ## What the disassembly fixes
 
@@ -14,19 +15,24 @@ owns the embedded node, and the manager (`0x00491C10` at every call site).
 | address | function | node | list head/tail | insert |
 | --- | --- | --- | --- | --- |
 | 0x004489D0 | RegisterPrimaryBack | `entity+0x04` | `manager+0x72DAD4` / `+0x72DAD8` | at the tail |
-| 0x00448A50 | RegisterPrimaryFront | `entity+0x14` | `manager+0x72DAD4` / `+0x72DAD8` | at the head |
-| 0x00448AC0 | RegisterSecondaryBack | `entity+0x24` | `manager+0x72DADC` / `+0x72DAE0` | at the tail |
-| 0x00448B40 | RegisterSecondaryFront | `entity+0x34` | `manager+0x72DADC` / `+0x72DAE0` | at the head |
+| 0x00448A50 | RegisterPrimaryFront | `entity+0x04` | `manager+0x72DAD4` / `+0x72DAD8` | at the head |
+| 0x00448AC0 | RegisterSecondaryBack | `entity+0x04` | `manager+0x72DADC` / `+0x72DAE0` | at the tail |
+| 0x00448B40 | RegisterSecondaryFront | `entity+0x04` | `manager+0x72DADC` / `+0x72DAE0` | at the head |
 
 The body: clear the node, set `owner = entity`, link it into the list (both the
 empty case and the non-empty case), store the new tail/head, then
 
 ```c
-    int id = ++manager->next_id;         // +0x732454
+    uint32_t id = ++manager->next_id;    // +0x732454, wraps modulo 2^32
     if (id == 0) id = ++manager->next_id;
     entity->id = id;
-    object->id = id;
+    *out_id = id;
 ```
+
+The front variants clear `node.next` before testing it in their nonempty-list
+branch. A normal unaliased C++ model can fold the apparent always-zero arm;
+the retail instruction sequence and possible aliasing must be preserved when
+matching source is revisited.
 
 `next_id` is `+0x732454`, four bytes before the fade block, and the four list
 head/tail pointers fill `+0x72DAD4..+0x72DAE0` — both inside the manager header

@@ -1,5 +1,11 @@
 # Stream refill loop `0x0044D850` / `0x0044D9F0`
 
+2026-09-26: the full function now has a typed candidate and differential
+coverage with its actual restoration/refill/cursor dependencies and worker
+caller. See [restart, service and worker recovery](sound_stream_restart_service_worker.md).
+This supersedes the old behavioral sketches; both production rows still await
+native helper ABI and byte gates.
+
 Live Ghidra analysis of `th10.exe` identifies `FUN_0044D850` with a
 `uint __stdcall` display signature and one recovered pointer parameter. Its
 only caller is `FUN_0043E3A0`; the call at `0x0043E435` pushes the global stream

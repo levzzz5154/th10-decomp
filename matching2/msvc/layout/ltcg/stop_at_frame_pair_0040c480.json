@@ -3,11 +3,15 @@
   "name": "stop_at_frame_pair_0040c480",
   "source": "src/render/anm_propagate.cpp",
   "additional_sources": [
+    "src/game/recovery_initialize_timed_state_00423510.cpp",
+    "src/game/recovery_mark_animation_tree_004243f0.cpp",
+    "src/render/animation_manager_find_004491c0.cpp",
+    "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
+    "src/render/animation_manager_set_stop_frame_00449210.cpp",
+    "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
     "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-    "src/render/animation_manager_find_004491c0.cpp",
-    "src/game/recovery_initialize_timed_state_00423510.cpp",
-    "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+    "src/unidentified/unassigned_00449820.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
@@ -69,13 +73,49 @@
       "address": "0x00423510",
       "size": 89,
       "actual_abi": "record in ESI; plain RET"
+    },
+    {
+      "name": "AnimationManager_SetStopFrame",
+      "symbol": "?AnimationManager_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$60layoutb",
+      "address": "0x00449210",
+      "size": 54,
+      "actual_abi": "context in EDX; script id on the stack; frame in SI; RET 4",
+      "source": "src/render/animation_manager_set_stop_frame_00449210.cpp"
+    },
+    {
+      "name": "StopAtFrame6_004243f0",
+      "symbol": "?StopAtFrame6@AnimationHandle_004243f0@@QAEXXZ",
+      "section": ".text$45timedzb",
+      "address": "0x004243F0",
+      "size": 65,
+      "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
+      "source": "src/game/recovery_mark_animation_tree_004243f0.cpp"
+    },
+    {
+      "name": "FindChild_00449820",
+      "symbol": "?FindChild@AnimationHandle_00449820@@QAEPAUAnimationChild_00449820@@H@Z",
+      "section": ".text$85child",
+      "address": "0x00449820",
+      "size": 58,
+      "actual_abi": "handle address in ESI; script id in EDI; child in EAX; plain RET",
+      "source": "src/unidentified/unassigned_00449820.cpp"
+    },
+    {
+      "name": "FindChildRef_004497d0",
+      "symbol": "?FindChildRef@AnimationHandle_004497d0@@QAE?AUAnimationRef_004497d0@@H@Z",
+      "section": ".text$84childref",
+      "address": "0x004497D0",
+      "size": 70,
+      "actual_abi": "handle in ESI, script id in EBX, result pointer in EDI",
+      "source": "src/render/animation_manager_find_child_by_script_index_004497d0.cpp"
     }
   ],
   "context": {
     "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAURecoveryTimedState_00423510@@@Z",
-    "section": ".text$70context",
-    "address": "0x00449220",
-    "size": 79,
+    "section": ".text$80context",
+    "address": "0x004494C0",
+    "size": 126,
     "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
   },
   "gaps": [
@@ -102,17 +142,37 @@
     {
       "section": ".text$45timedz",
       "address": "0x00423569",
-      "size": 154711
+      "size": 3719
     },
     {
       "section": ".text$60layout",
       "address": "0x449209",
-      "size": 23
+      "size": 7
     },
     {
-      "section": ".text$71layout",
-      "address": "0x0044926F",
-      "size": 513
+      "section": ".text$60layoutbz",
+      "address": "0x00449246",
+      "size": 554
+    },
+    {
+      "section": ".text$75stopz",
+      "address": "0x004494B1",
+      "size": 15
+    },
+    {
+      "section": ".text$45timedzbz",
+      "address": "0x00424431",
+      "size": 150927
+    },
+    {
+      "section": ".text$80contextz",
+      "address": "0x0044953E",
+      "size": 658
+    },
+    {
+      "section": ".text$84childrefz",
+      "address": "0x00449816",
+      "size": 10
     }
   ],
   "constants": [],

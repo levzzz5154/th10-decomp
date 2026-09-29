@@ -24,6 +24,10 @@ from typing import Any, Mapping, Optional, Sequence
 IMAGE_SYM_CLASS_EXTERNAL = 2
 IMAGE_SYM_CLASS_STATIC = 3
 IMAGE_SYM_CLASS_WEAK_EXTERNAL = 105
+# ``.bf``/``.lf``/``.ef`` line-number records, present in debug-built library
+# objects.  They mark function extents for debuggers and are never linked to.
+IMAGE_SYM_CLASS_FUNCTION = 101
+IMAGE_SCN_CNT_UNINITIALIZED_DATA = 0x80
 IMAGE_SCN_LNK_COMDAT = 0x00001000
 
 
@@ -140,7 +144,9 @@ def _read_object(path: Path) -> dict[str, Any]:
         raw_offset = fields[4]
         reloc_offset = fields[5]
         reloc_count = fields[7]
-        if raw_size:
+        if raw_size and raw_offset == 0 and fields[9] & IMAGE_SCN_CNT_UNINITIALIZED_DATA:
+            raw = b""  # .bss: an extent with no file data
+        elif raw_size:
             if raw_offset == 0 or raw_offset + raw_size > len(data):
                 raise CoffRegionError(f"{path}: section {number} has invalid raw-data range")
             raw = data[raw_offset:raw_offset + raw_size]
@@ -211,11 +217,16 @@ def _read_object(path: Path) -> dict[str, Any]:
     }
 
 
-def _defined_by_name(obj: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+def _defined_by_name(obj: dict[str, Any], bindings: Optional[Mapping[str, Any]] = None
+                     ) -> dict[str, list[dict[str, Any]]]:
+    """Index definitions by spelling, and also by any alias the unit gives them."""
     result: dict[str, list[dict[str, Any]]] = {}
     for record in obj["records"]:
         if record["section_number"] > 0 and record["name"]:
             result.setdefault(record["name"], []).append(record)
+            alias = _canonical_binding(record["name"], bindings)
+            if alias != record["name"]:
+                result.setdefault(alias, []).append(record)
     return result
 
 
@@ -236,9 +247,11 @@ def _region_specs(regions: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     return result
 
 
-def _select_sections(obj: dict[str, Any], regions: list[dict[str, Any]]) -> tuple[dict[int, dict[str, Any]], list[dict[str, Any]]]:
+def _select_sections(obj: dict[str, Any], regions: list[dict[str, Any]],
+                     bindings: Optional[Mapping[str, Any]] = None
+                     ) -> tuple[dict[int, dict[str, Any]], list[dict[str, Any]]]:
     sections = {section["number"]: section for section in obj["sections"]}
-    by_name = _defined_by_name(obj)
+    by_name = _defined_by_name(obj, bindings)
     selected: dict[int, dict[str, Any]] = {}
     selected_regions: list[dict[str, Any]] = []
     for region in regions:
@@ -331,6 +344,8 @@ def _build_symbol_plan(
         section_number = record["section_number"]
         if section_number not in selected_numbers or not record["name"]:
             continue
+        if record["storage_class"] == IMAGE_SYM_CLASS_FUNCTION:
+            continue
         # MSVC emits a static section symbol (usually named ``.text``) for
         # every /Gy COMDAT section.  Those symbols are local metadata, not
         # competing global definitions.  Rename each one to its normalized
@@ -351,7 +366,7 @@ def _build_symbol_plan(
             "type": record["type"],
             # Explicitly selected entries, including compiler-generated EH
             # handlers, must be visible to the fixed-address linker script.
-            "storage_class": (IMAGE_SYM_CLASS_EXTERNAL if record["name"] in exported_symbols
+            "storage_class": (IMAGE_SYM_CLASS_EXTERNAL if name in exported_symbols or record["name"] in exported_symbols
                               else record["storage_class"]),
             "input_index": record["index"],
         }
@@ -497,7 +512,7 @@ def normalize_object(
     destination = Path(output_path)
     obj = _read_object(source)
     specs = _region_specs(regions)
-    selected, selected_regions = _select_sections(obj, specs)
+    selected, selected_regions = _select_sections(obj, specs, bindings)
     selected_numbers = sorted(selected)
     output_section_names = {
         number: f".r{position:06d}" for position, number in enumerate(selected_numbers, 1)

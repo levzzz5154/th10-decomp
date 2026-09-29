@@ -100,8 +100,10 @@ BYTE FileHandle::Seek(LONG distance, DWORD origin) {
 }
 
 // 0x00435580 - Read the whole file into a fresh heap block when the file is
-// no larger than the caller's capacity; the position is restored around the
-// read and the block is released if either step fails.
+// no larger than the caller's capacity. Read starts at the current position;
+// a nonzero read is success and attempts to restore that position. A zero
+// read frees the block, but an initial failed Seek returns without freeing it.
+// Retail comparisons: reference/recovery_notes/resource_loose_file_integration.md.
 void* FileHandle::ReadWhole(DWORD capacity) {
     if (access != kReadAccess)
         return 0;

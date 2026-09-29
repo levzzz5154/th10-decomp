@@ -1,3 +1,7 @@
+// Complete candidate: reference/semantic_candidates/sound_stream_launch.cpp.
+// See recovery_notes/sound_file_stream_open_create_launch.md: 256 launch
+// comparisons pass, including 53 executing shutdown through initial PCM refill.
+// Native private ABI and byte matching remain pending; historical record below.
 // BLOCKED (D3905): closest_byte_count=241/241 (exact assembly retained);
 // first_diff=0x0043D693 at the EAX receiver transfer into ESI.
 // residual_class=private EAX entry ABI, COM-style indirect calls, unsigned

@@ -1,6 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// Complete candidate: reference/semantic_candidates/sound_effect_queue.cpp.
+// See recovery_notes/sound_commands_and_effect_queue.md: 472 producer and
+// producer-to-consumer comparisons cover pan scaling, aliases and stop requests.
+// The private EBX/ESI entry and native byte match remain pending.
 // 0x0043DD10..0x0043DDA4: FUN_0043dd10
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043dd10_0043dd10() {

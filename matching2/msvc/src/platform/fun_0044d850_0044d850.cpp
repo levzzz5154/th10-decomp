@@ -1,8 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0044D850..0x0044D9EC: FUN_0044d850
-// Naked body preserves the retail register/stack ABI.
+// Full typed candidate (including the 0x0044D9F0 continuation):
+// reference/semantic_candidates/sound_stream_service.cpp. The busy check uses
+// the DirectSound write cursor. Repeat reads rewind to the music loop start.
+// See recovery_notes/sound_stream_restart_service_worker.md; native matching
+// remains pending for both manifest rows and their private helper edges.
 
 // 0x0044D850..0x0044D9EC: FUN_0044d850
 // Naked body preserves the retail register/stack ABI.

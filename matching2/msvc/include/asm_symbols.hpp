@@ -1610,8 +1610,8 @@ extern "C" void __cdecl asm_FindHandlerForForeignException_004636a1();
 #define VA_asm_FindHandlerForForeignException_004636a1 0x004636a1
 extern "C" void __cdecl asm_FindHandler_0046375f();
 #define VA_asm_FindHandler_0046375f 0x0046375f
-extern "C" void __cdecl asm_FontCache_DeleteGdiObjectsRetail_00437d10();
-#define VA_asm_FontCache_DeleteGdiObjectsRetail_00437d10 0x00437d10
+extern "C" void __cdecl DeleteFontCacheObjects_00437d10();
+#define VA_DeleteFontCacheObjects_00437d10 0x00437d10
 extern "C" void __cdecl asm_FontCache_FlushRetail_00436a30();
 #define VA_asm_FontCache_FlushRetail_00436a30 0x00436a30
 extern "C" void __cdecl asm_FrameRateCounter_UpdateRetail_004134b0();

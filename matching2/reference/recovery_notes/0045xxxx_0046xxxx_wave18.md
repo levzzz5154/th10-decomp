@@ -260,17 +260,17 @@ only in the two addresses):
 // The registered function is an ordinary __cdecl void(void) in the image; the
 // runtime keeps it in the atexit table and runs it from doexit.
 
-extern "C" void __cdecl asm_FUN_00465a20_00465a20(void);
+extern "C" void __cdecl ReleaseGlobalGdiSurface_00465a20(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
 
 extern "C" void __cdecl unassigned_00465940(void) {
-    asm_atexit_00452e0a(asm_FUN_00465a20_00465a20);
+    asm_atexit_00452e0a(ReleaseGlobalGdiSurface_00465a20);
 }
 ```
 
-The region symbol has to be spelled in full (`_asm_FUN_00465a20_00465a20`): an
-abbreviated `asm_FUN_00465a20` is a *different* name and the probe reports the
-relocation as unbound.
+The registered cleanup callback is now ordinary C++ in the native GDI LTCG
+batch, with the same 13-byte retail body. The 12-byte registration wrapper
+still points to that exact address through `_ReleaseGlobalGdiSurface_00465a20`.
 
 ### 0x00465960 — clear the onexit table (52 bytes)
 

@@ -1,6 +1,13 @@
 # `0x00441520` — entity state update gated by animation resource
 
-Status: **semantic C++ region; private entry ABI and byte exactness unresolved**.
+Current status, 2026-09-27: **all 97 bytes recovered exactly in typed C++**,
+including the private EAX/ECX inputs and stack state word. The complete native
+probe passes without inline assembly or byte rewriting. See the
+[current recovery note](entity_state_apply_00441520_2026-09-27.md).
+
+The rest of this note records the earlier unverified model and its limitations.
+
+Earlier status: **semantic C++ region; private entry ABI and byte exactness unresolved**.
 The source is `src/unidentified/unassigned_00441520.cpp`; the manifest now
 classifies its 97-byte region as semantic while retaining the original C
 symbol name for the source definition.

@@ -1,87 +1,37 @@
-// BLOCKED (M3002): closest_byte_count=92/93; first_diff=unmeasured;
-// residual_class=private ESI/EAX receiver-entry ABI.  Live Ghidra confirms the
-// 0x00415E30..0x00415E8C body pushes ESI, passes that private receiver on the
-// stack to 0x00415E90, then updates +0x04/+0x08/+0x0C through the +0x10 float
-// pointer and calls the x87-input rounding helper 0x00463B2C.  Standalone
-// typed state-offset C++ emitted 101 bytes (first diff +0x01) because MSVC
-// materialized a stack receiver before the required ESI-entry body.
-// variants_tested=current typed state-offset C++ model (101 bytes; first diff
-// +0x01) plus the prior 92-byte ESI-entry sweep; no nonexact candidate retained.
-// next_lever=native-LTCG schema-2 cluster with the real 0x00415E90 caller
-// context and its ESI receiver, preserving the x87 helper ABI.
+// 0x00415E30..0x00415E8C: TickRecoveryState_00415e30
+//
+// This guarded script-state tick first asks 0x00415E90 whether to stop. If it
+// keeps running, it copies the current frame counter to the previous counter
+// and advances the timer using the shared speed pointer. At normal speed it
+// advances by one frame; otherwise it truncates the accumulated elapsed time.
+// Native LTCG assigns the state to ESI and emits plain RET, as in retail.
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern float g_frame_timer_normal_lower;  // 0x00470B68
+extern float g_frame_timer_normal_upper;  // 0x00470B64
 
-// 0x00415E30..0x00415E8C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00415e30() {
-    __asm {
-    L_00415e30:
-        push esi
-    L_00415e31:
-        call asm_FUN_00415e90_00415e90
-    L_00415e36:
-        test eax,eax
-    L_00415e38:
-        je short L_00415e40
-    L_00415e3a:
-        mov eax,1
-    L_00415e3f:
-        ret
-    L_00415e40:
-        mov edx,dword ptr [esi+8]
-    L_00415e43:
-        mov ecx,dword ptr [esi+10h]
-    L_00415e46:
-        mov dword ptr [esi+4],edx
-    L_00415e49:
-        fld dword ptr [ecx]
-    L_00415e4b:
-        fcomp dword ptr [data_00470b68]
-    L_00415e51:
-        fnstsw ax
-    L_00415e53:
-        test ah,41h
-    L_00415e56:
-        jne short L_00415e7a
-    L_00415e58:
-        fld dword ptr [ecx]
-    L_00415e5a:
-        fcomp dword ptr [data_00470b64]
-    L_00415e60:
-        fnstsw ax
-    L_00415e62:
-        test ah,5
-    L_00415e65:
-        jp short L_00415e7a
-    L_00415e67:
-        fld dword ptr [esi+0Ch]
-    L_00415e6a:
-        inc edx
-    L_00415e6b:
-        fadd dword ptr [data_00470afc]
-    L_00415e71:
-        mov dword ptr [esi+8],edx
-    L_00415e74:
-        xor eax,eax
-    L_00415e76:
-        fstp dword ptr [esi+0Ch]
-    L_00415e79:
-        ret
-    L_00415e7a:
-        fld dword ptr [esi+0Ch]
-    L_00415e7d:
-        fadd dword ptr [ecx]
-    L_00415e7f:
-        fst dword ptr [esi+0Ch]
-    L_00415e82:
-        call asm_FUN_00463b2c_00463b2c
-    L_00415e87:
-        mov dword ptr [esi+8],eax
-    L_00415e8a:
-        xor eax,eax
-    L_00415e8c:
-        ret
+extern "C" int __stdcall asm_FUN_00415e90_00415e90(void* state);
+
+struct RecoveryTickState_00415e30 {
+    int pad_00;             // +0x00
+    int previous;           // +0x04
+    int current;            // +0x08
+    float elapsed;          // +0x0C
+    const float* speed;     // +0x10
+};
+
+#pragma code_seg(".text$01tick")
+__declspec(noinline) int __stdcall TickRecoveryState_00415e30(RecoveryTickState_00415e30* state) {
+    if (asm_FUN_00415e90_00415e90(state))
+        return 1;
+
+    state->previous = state->current;
+    if (*state->speed > g_frame_timer_normal_lower &&
+        *state->speed < g_frame_timer_normal_upper) {
+        ++state->current;
+        state->elapsed += 1.0f;
+    } else {
+        state->current = int(state->elapsed += *state->speed);
     }
+    return 0;
 }
+#pragma code_seg()

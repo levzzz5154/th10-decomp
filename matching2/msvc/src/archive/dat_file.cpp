@@ -1,5 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// The typed resource-opener candidate passes 97 retail comparisons and full
+// DAT lifecycle tests. See reference/recovery_notes/dat_archive_open_00434c30_00434ca0.md.
+// The production body retains its exact assembly pending ABI/MSVC recovery.
 
 // 0x00434CA0..0x00434D03: DatArchive_OpenResource
 // Naked body preserves the retail register/stack ABI.

@@ -20,7 +20,12 @@ The open `th10.exe` program reports these original signatures:
 | `0x0041EB00` | `int __thiscall (this, float*, float*, int)` | Same box predicate, with the alternate leading-hit handling. |
 | `0x0041EFA0` | `int __thiscall (this, float*, float, int)` | Same radius predicate, with the alternate leading-hit handling. |
 
-All sample from the laser position at `this + 0x24`, use the angle at `this + 0x3c`, and read length at `this + 0x40`. The live data bytes identify `0x00470B0C` as `0.5f`, `0x00470CD8` as `12.0f`, `0x00470D1C` as `24.0f`, and `0x00470C0C` as `18.0f`. The vector helper at `0x0041F800` is already a semantic `PolarVector2_0041F800::SetPolar` definition in `src/math/vector.cpp`; the recovered bodies call it to make the initial six-unit sample offset.
+All sample from the laser position at `this + 0x24`, use the angle at
+`this + 0x3c`, and read length at `this + 0x40`. The live data bytes identify
+`0x00470B0C` as `0.5f`, `0x00470CD8` as `12.0f`, `0x00470D1C` as `24.0f`,
+and `0x00470C0C` as `18.0f`. The vector helper at `0x0041F800` is now
+byte-exact C++ in `src/math/x87_polar_setters.cpp`; the recovered bodies call
+it to make the initial six-unit sample offset.
 
 The standard pair (`D880`, `DD80`) moves the primary object past leading hit samples, reduces its length, and retains the first clear run after that. Its state writes include the dead byte at `+0x50`, prior visible length at `+0x434`, and removed distance at `+0x4c`. The alternate pair (`EB00`, `EFA0`) instead sets the length at `+0x40` to zero when the first sampled span is hit, or keeps the initial clear run when sampling begins outside the collision area.
 

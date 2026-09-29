@@ -1,72 +1,48 @@
-// BLOCKED (D3307): closest_byte_count=2/65; first_diff=0x004243F1;
-// residual_class=private EAX input plus EDX animation-manager receiver/stack
-// lookup ABI; the ordinary readable model also changed the child-list field
-// schedule and marker-store width/offsets.
-// variants_tested=live Ghidra complete decompilation with callers/xrefs and
-// disassembly/variable audit; ordinary MSVC 13.10 readable cdecl candidate
-// (62-byte extent, 2/62 prefix); no native-LTCG promotion was retained because
-// the real 0x004491C0 dependency uses the same private register ABI.
-// next_lever=schema-2 native-LTCG cluster joining the real callers, this body,
-// and 0x004491C0 (with its manager/list layout), then vary only typed node
-// declarations and child-link expression until the complete 65-byte body is
-// exact.
+// 0x004243F0..0x00424430: set the stop frame of the animation a handle names,
+// and of its children unless they were already flagged, to 6.  The same body
+// as 0x00449470 with the frame fixed; compiled in that native-LTCG cluster so
+// the handle arrives in EAX and the lookup keeps its private entry.
+struct AnimationLookupContext;
 
-#include <string.h>
+struct AnimationScriptId {
+    int value;
+};
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+struct AnimationTreeNode {
+    AnimationTreeNode* object;              // +0x000
+    AnimationTreeNode* next;                // +0x004
+    unsigned char reserved_008[0x0C];
+    AnimationTreeNode* children;            // +0x014
+    int children_flagged;                   // +0x018
+    unsigned char reserved_01c[0x2E8];
+    unsigned short stop_frame;              // +0x304
+};
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
+class AnimationManager {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
+};
 
-// 0x004243F0..0x00424430: Recovery_MarkAnimationTree
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_MarkAnimationTree_004243f0() {
-    __asm {
-    L_004243f0:
-        mov eax,dword ptr [eax]
-    L_004243f2:
-        mov edx,dword ptr [data_00491c10]
-    L_004243f8:
-        push eax
-    L_004243f9:
-        call asm_AnimationManager_Find_004491c0
-    L_004243fe:
-        test eax,eax
-    L_00424400:
-        je short L_00424430
-    L_00424402:
-        mov edx,dword ptr [eax+18h]
-    L_00424405:
-        test edx,edx
-    L_00424407:
-        mov ecx,6
-    L_0042440c:
-        mov word ptr [eax+304h],cx
-    L_00424413:
-        jne short L_00424430
-    L_00424415:
-        mov eax,dword ptr [eax+14h]
-    L_00424418:
-        test eax,eax
-    L_0042441a:
-        je short L_00424430
-    L_0042441c:
-        TH10_NOP_LEA_ESP_DISP8()
-    L_00424420:
-        mov edx,dword ptr [eax]
-    L_00424422:
-        mov word ptr [edx+304h],cx
-    L_00424429:
-        mov eax,dword ptr [eax+4]
-    L_0042442c:
-        test eax,eax
-    L_0042442e:
-        jne short L_00424420
-    L_00424430:
-        ret
+extern "C" AnimationLookupContext* data_00491c10;
+
+struct AnimationHandle_004243f0 {
+    unsigned int value;
+    __declspec(noinline) void StopAtFrame6();
+};
+
+#pragma code_seg(".text$45timedzb")
+void AnimationHandle_004243f0::StopAtFrame6() {
+    AnimationScriptId id;
+    id.value = (int)value;
+    AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
+        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+    if (node != 0) {
+        node->stop_frame = 6;
+        if (!node->children_flagged) {
+            for (AnimationTreeNode* child = node->children;
+                 child != 0; child = child->next)
+                child->object->stop_frame = 6;
+        }
     }
 }
+#pragma code_seg()

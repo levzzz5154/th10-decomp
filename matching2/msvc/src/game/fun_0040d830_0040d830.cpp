@@ -1,301 +1,198 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040D830: initialize an enemy script record and bind its first instruction.
+// The record embeds the interpreter instance at +0x8, its own instance link at
+// +0x1030, and the animation/entity payload at +0x103C. The retail entry uses
+// ESI for the record and a single stack word for the script name, returning
+// the record in EAX with RET4. The native LTCG context supplies that private
+// convention from a legal fastcall declaration. Its first argument preserves
+// the caller's ECX for ClearAnims, whose ordinary fastcall interface ignores it.
+#include "th10/game/enemy_script_bind_0040d830.hpp"
+#include <string.h>
 
-// BLOCKED (D3001): closest_byte_count=673/673; first_diff=none
-// (authoritative probe exact).  Preserve this exact member while the readable
-// candidate is blocked by the private ESI object receiver and the 00450470
-// helper ABI.  variants_tested=retail inline-assembly member only; no failed
-// source variant retained.  next_lever=schema2 native-LTCG cluster with the
-// real caller FUN_0040CFB0 and callee 00450470, using the caller's ESI object
-// and ECX/EDX helper agreement before replacing this exact member.
-// 0x0040AE70..0x0040AEF5: ?BulletManager_LoadScripts@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0040D830..0x0040DAD0: FUN_0040d830
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040d830_0040d830() {
-    __asm {
-    L_0040d830:
-        push ebx
-    L_0040d831:
-        push ebp
-    L_0040d832:
-        push edi
-    L_0040d833:
-        xor ebx,ebx
-    L_0040d835:
-        lea edi,[esi+103Ch]
-    L_0040d83b:
-        mov dword ptr [esi+1010h],ebx
-    L_0040d841:
-        mov dword ptr [esi+1014h],ebx
-    L_0040d847:
-        mov edx,edi
-    L_0040d849:
-        mov dword ptr [esi],46D0C0h
-    L_0040d84f:
-        call asm_Entity_ClearAnims_0040cc70
-    L_0040d854:
-        xor eax,eax
-    L_0040d856:
-        mov ecx,537h
-    L_0040d85b:
-        rep stosd
-    L_0040d85d:
-        mov ecx,dword ptr [esi+1028h]
-    L_0040d863:
-        mov dword ptr [esi+8],ebx
-    L_0040d866:
-        mov dword ptr [esi+0Ch],ebx
-    L_0040d869:
-        mov dword ptr [esi+101Ch],esi
-    L_0040d86f:
-        and ecx,0FFFFFFFEh
-    L_0040d872:
-        mov dword ptr [esi+1028h],ecx
-    L_0040d878:
-        mov dword ptr [esi+1020h],ebx
-    L_0040d87e:
-        lea eax,[esi+8]
-    L_0040d881:
-        mov dword ptr [esi+4],eax
-    L_0040d884:
-        or ebp,0FFFFFFFFh
-    L_0040d887:
-        mov dword ptr [esi+1018h],ebp
-    L_0040d88d:
-        mov dword ptr [esi+1030h],eax
-    L_0040d893:
-        mov dword ptr [esi+1034h],ebx
-    L_0040d899:
-        mov dword ptr [esi+1038h],ebx
-    L_0040d89f:
-        mov dword ptr [esi+2514h],esi
-    L_0040d8a5:
-        mov dword ptr [esi+11BCh],ebx
-    L_0040d8ab:
-        mov dword ptr [esi+1208h],ebx
-    L_0040d8b1:
-        mov dword ptr [esi+1244h],ebx
-    L_0040d8b7:
-        mov dword ptr [esi+1280h],ebx
-    L_0040d8bd:
-        mov dword ptr [esi+12BCh],ebx
-    L_0040d8c3:
-        mov dword ptr [esi+12F8h],ebx
-    L_0040d8c9:
-        xor eax,eax
-    L_0040d8cb:
-        mov ecx,0Bh
-    L_0040d8d0:
-        lea edi,[esi+10C0h]
-    L_0040d8d6:
-        rep stosd
-    L_0040d8d8:
-        mov ecx,0Bh
-    L_0040d8dd:
-        lea edi,[esi+1094h]
-    L_0040d8e3:
-        rep stosd
-    L_0040d8e5:
-        mov ecx,0Bh
-    L_0040d8ea:
-        lea edi,[esi+1068h]
-    L_0040d8f0:
-        rep stosd
-    L_0040d8f2:
-        mov eax,41C00000h
-    L_0040d8f7:
-        mov dword ptr [esi+10ECh],eax
-    L_0040d8fd:
-        mov dword ptr [esi+10F0h],eax
-    L_0040d903:
-        mov dword ptr [esi+10F4h],eax
-    L_0040d909:
-        mov dword ptr [esi+10F8h],eax
-    L_0040d90f:
-        mov dword ptr [esi+248Ch],ebp
-    L_0040d915:
-        lea edx,[esi+2408h]
-    L_0040d91b:
-        xor eax,eax
-    L_0040d91d:
-        mov dword ptr [esi+116Ch],esi
-    L_0040d923:
-        mov dword ptr [esi+1170h],ebx
-    L_0040d929:
-        mov dword ptr [esi+1174h],ebx
-    L_0040d92f:
-        mov edi,edx
-    L_0040d931:
-        mov ecx,0Fh
-    L_0040d936:
-        rep stosd
-    L_0040d938:
-        mov eax,42000000h
-    L_0040d93d:
-        mov dword ptr [edx+38h],eax
-    L_0040d940:
-        mov dword ptr [edx+34h],eax
-    L_0040d943:
-        mov eax,dword ptr [esi+1168h]
-    L_0040d949:
-        test al,1
-    L_0040d94b:
-        mov edx,0FFF0BDC1h
-    L_0040d950:
-        mov ecx,476F78h
-    L_0040d955:
-        jne short L_0040d978
-    L_0040d957:
-        or eax,1
-    L_0040d95a:
-        mov dword ptr [esi+115Ch],ebx
-    L_0040d960:
-        mov dword ptr [esi+1158h],edx
-    L_0040d966:
-        mov dword ptr [esi+1160h],ebx
-    L_0040d96c:
-        mov dword ptr [esi+1164h],ecx
-    L_0040d972:
-        mov dword ptr [esi+1168h],eax
-    L_0040d978:
-        mov dword ptr [esi+115Ch],ebx
-    L_0040d97e:
-        mov dword ptr [esi+1160h],ebx
-    L_0040d984:
-        mov dword ptr [esi+1158h],ebp
-    L_0040d98a:
-        mov eax,dword ptr [esi+2468h]
-    L_0040d990:
-        test al,1
-    L_0040d992:
-        jne short L_0040d9b5
-    L_0040d994:
-        or eax,1
-    L_0040d997:
-        mov dword ptr [esi+245Ch],ebx
-    L_0040d99d:
-        mov dword ptr [esi+2458h],edx
-    L_0040d9a3:
-        mov dword ptr [esi+2460h],ebx
-    L_0040d9a9:
-        mov dword ptr [esi+2464h],ecx
-    L_0040d9af:
-        mov dword ptr [esi+2468h],eax
-    L_0040d9b5:
-        mov dword ptr [esi+245Ch],ebx
-    L_0040d9bb:
-        mov dword ptr [esi+2460h],ebx
-    L_0040d9c1:
-        mov dword ptr [esi+2458h],ebp
-    L_0040d9c7:
-        mov eax,dword ptr [esi+247Ch]
-    L_0040d9cd:
-        test al,1
-    L_0040d9cf:
-        jne short L_0040d9f2
-    L_0040d9d1:
-        or eax,1
-    L_0040d9d4:
-        mov dword ptr [esi+2470h],ebx
-    L_0040d9da:
-        mov dword ptr [esi+246Ch],edx
-    L_0040d9e0:
-        mov dword ptr [esi+2474h],ebx
-    L_0040d9e6:
-        mov dword ptr [esi+2478h],ecx
-    L_0040d9ec:
-        mov dword ptr [esi+247Ch],eax
-    L_0040d9f2:
-        mov eax,dword ptr [data_00477704]
-    L_0040d9f7:
-        mov ecx,dword ptr [esp+10h]
-    L_0040d9fb:
-        mov dword ptr [esi+2470h],ebx
-    L_0040da01:
-        mov dword ptr [esi+2474h],ebx
-    L_0040da07:
-        mov dword ptr [esi+246Ch],ebp
-    L_0040da0d:
-        mov eax,dword ptr [eax+54h]
-    L_0040da10:
-        push ecx
-    L_0040da11:
-        mov dword ptr [esi+102Ch],eax
-    L_0040da17:
-        call asm_FUN_00450470_00450470
-    L_0040da1c:
-        mov edx,dword ptr [esi+4]
-    L_0040da1f:
-        mov dword ptr [edx+4],eax
-    L_0040da22:
-        mov eax,dword ptr [esi+4]
-    L_0040da25:
-        mov dword ptr [eax],ebx
-    L_0040da27:
-        mov dword ptr [esi+23FCh],ebx
-    L_0040da2d:
-        mov dword ptr [esi+2400h],ebx
-    L_0040da33:
-        mov dword ptr [esi+2404h],ebx
-    L_0040da39:
-        pop edi
-    L_0040da3a:
-        mov dword ptr [esi+2494h],ebp
-    L_0040da40:
-        mov dword ptr [esi+2498h],ebp
-    L_0040da46:
-        mov dword ptr [esi+24A4h],ebp
-    L_0040da4c:
-        mov dword ptr [esi+24A8h],ebp
-    L_0040da52:
-        mov dword ptr [esi+24B4h],ebp
-    L_0040da58:
-        mov dword ptr [esi+24B8h],ebp
-    L_0040da5e:
-        mov dword ptr [esi+24C4h],ebp
-    L_0040da64:
-        mov dword ptr [esi+24C8h],ebp
-    L_0040da6a:
-        mov dword ptr [esi+24D4h],ebp
-    L_0040da70:
-        mov dword ptr [esi+24D8h],ebp
-    L_0040da76:
-        mov dword ptr [esi+24E4h],ebp
-    L_0040da7c:
-        mov dword ptr [esi+24E8h],ebp
-    L_0040da82:
-        mov dword ptr [esi+24F4h],ebp
-    L_0040da88:
-        mov dword ptr [esi+24F8h],ebp
-    L_0040da8e:
-        mov dword ptr [esi+2504h],ebp
-    L_0040da94:
-        mov dword ptr [esi+2508h],ebp
-    L_0040da9a:
-        pop ebp
-    L_0040da9b:
-        mov dword ptr [esi+249Ch],ebx
-    L_0040daa1:
-        mov dword ptr [esi+24ACh],ebx
-    L_0040daa7:
-        mov dword ptr [esi+24BCh],ebx
-    L_0040daad:
-        mov dword ptr [esi+24CCh],ebx
-    L_0040dab3:
-        mov dword ptr [esi+24DCh],ebx
-    L_0040dab9:
-        mov dword ptr [esi+24ECh],ebx
-    L_0040dabf:
-        mov dword ptr [esi+24FCh],ebx
-    L_0040dac5:
-        mov dword ptr [esi+250Ch],ebx
-    L_0040dacb:
-        mov eax,esi
-    L_0040dacd:
-        pop ebx
-    L_0040dace:
-        ret 4
+extern "C" float data_00476f78;
+extern "C" unsigned char data_0046d0c0;
+struct BindGameState_0040d830 {
+    unsigned char reserved[0x54];
+    BindScriptTable_0040d830* table;
+};
+extern "C" BindGameState_0040d830* data_00477704;
+struct EnemyScriptEntity_0040d830;
+struct BindScriptName_0040d830 { const char* value; };
+struct BindFrameTimer_0040d830 {
+    int previous, current;
+    float elapsed;
+    const float* speed;
+    unsigned int flags;
+    // Initialize the timer once, then reset its current and previous values.
+    __forceinline void Reset() {
+        if ((flags & 1) == 0) {
+            current = 0;
+            previous = 0xFFF0BDC1;
+            elapsed = 0.0f;
+            speed = &data_00476f78;
+            flags |= 1;
+        }
+        int* tail = &current;
+        tail[0] = 0;
+        tail[1] = 0;
+        tail[-1] = -1;
     }
+};
+struct BindInstance_0040d830 {
+    float timer;
+    void* instruction;
+    unsigned char reserved_008[0x1008 - 8];
+    int scratch_cursor;
+    int unknown_100c;
+    int name;
+    EnemyScriptEntity_0040d830* owner;
+    int unknown_1018;
+    unsigned char mask;
+    unsigned char reserved_101d[3];
+    unsigned int flags;
+    __forceinline void Reset(EnemyScriptEntity_0040d830* entity, unsigned int retained_flags) {
+        timer = 0.0f;
+        instruction = 0;
+        owner = entity;
+        flags = retained_flags & ~1u;
+        int* reset_tail = &unknown_1018;
+        reset_tail[0] = 0;
+    }
+};
+struct BindInstanceNode_0040d830 {
+    BindInstance_0040d830* instance;
+    BindInstanceNode_0040d830* next;
+    BindInstanceNode_0040d830* prev;
+};
+struct BindOwnerLink_0040d830 {
+    EnemyScriptEntity_0040d830* owner;
+    void* next;
+    void* prev;
+};
+struct BindMarker_0040d830 { int reserved, first, second, flags; };
+struct BindPayload_0040d830 {
+    unsigned char reserved_103c[0x2C];
+    unsigned int snapshot_a[11]; // +0x1068
+    unsigned int snapshot_b[11]; // +0x1094
+    unsigned int snapshot_c[11]; // +0x10C0
+    float bounds[4]; // +0x10EC
+    unsigned char reserved_10fc[0x5C];
+    BindFrameTimer_0040d830 timer; // +0x1158
+    BindOwnerLink_0040d830 manager_link; // +0x116C
+    unsigned char reserved_1178[0x44];
+    int field_11bc; // +0x11BC
+    unsigned char reserved_11c0[0x48];
+    int field_1208; // +0x1208
+    unsigned char reserved_120c[0x38];
+    int field_1244; // +0x1244
+    unsigned char reserved_1248[0x38];
+    int field_1280; // +0x1280
+    unsigned char reserved_1284[0x38];
+    int field_12bc; // +0x12BC
+    unsigned char reserved_12c0[0x38];
+    int field_12f8; // +0x12F8
+    unsigned char reserved_12fc[0x1100];
+    float position[3]; // +0x23FC
+    float auxiliary_bounds[15]; // +0x2408
+    unsigned char reserved_2444[0x14];
+    BindFrameTimer_0040d830 auxiliary_timer; // +0x2458
+    BindFrameTimer_0040d830 second_auxiliary_timer; // +0x246C
+    unsigned char reserved_2480[0xC];
+    int identifier; // +0x248C
+    BindMarker_0040d830 markers[8]; // +0x2490
+    unsigned char reserved_2510[0x4];
+    EnemyScriptEntity_0040d830* owner; // +0x2514
+};
+struct EnemyScriptEntity_0040d830 {
+    void* vtable;
+    BindInstance_0040d830* running;
+    BindInstance_0040d830 instance;
+    BindScriptTable_0040d830* table;
+    BindInstanceNode_0040d830 self;
+    BindPayload_0040d830 payload;
+};
+
+#pragma code_seg(".text$30bind")
+__declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScriptEntity_0040d830(int unused, EnemyScriptEntity_0040d830* entity, BindScriptName_0040d830 label) {
+    // These adjacent words belong to the embedded instance's scratch state.
+    int* scratch_words = &entity->instance.scratch_cursor;
+    scratch_words[0] = 0;
+    scratch_words[1] = 0;
+    entity->vtable = &data_0046d0c0;
+    ClearBoundAnimations_0040d830(unused, reinterpret_cast<BindAnimationOwner_0040d830*>(&entity->payload));
+    memset(&entity->payload, 0, sizeof(entity->payload));
+    // The entity starts with its embedded instance as the only chain entry.
+    entity->instance.Reset(entity, entity->instance.flags);
+    entity->running = &entity->instance;
+    int* name_slot = &entity->instance.name;
+    name_slot[0] = -1;
+    entity->self.instance = &entity->instance;
+    entity->self.next = 0;
+    entity->self.prev = 0;
+    entity->payload.owner = entity;
+    // Keep typed word views for the payload's six independently reset fields.
+    int* field_11bc_slot = &entity->payload.field_11bc;
+    field_11bc_slot[0] = 0;
+    int* field_1208_slot = &entity->payload.field_1208;
+    field_1208_slot[0] = 0;
+    int* field_1244_slot = &entity->payload.field_1244;
+    field_1244_slot[0] = 0;
+    int* field_1280_slot = &entity->payload.field_1280;
+    field_1280_slot[0] = 0;
+    int* field_12bc_slot = &entity->payload.field_12bc;
+    field_12bc_slot[0] = 0;
+    int* field_12f8_slot = &entity->payload.field_12f8;
+    field_12f8_slot[0] = 0;
+    memset(entity->payload.snapshot_c, 0, sizeof(entity->payload.snapshot_c));
+    memset(entity->payload.snapshot_b, 0, sizeof(entity->payload.snapshot_b));
+    memset(entity->payload.snapshot_a, 0, sizeof(entity->payload.snapshot_a));
+    entity->payload.bounds[0] = 24.0f;
+    entity->payload.bounds[1] = 24.0f;
+    entity->payload.bounds[2] = 24.0f;
+    entity->payload.bounds[3] = 24.0f;
+    int* identifier_slot = &entity->payload.identifier;
+    identifier_slot[0] = -1;
+    entity->payload.manager_link.owner = entity;
+    entity->payload.manager_link.next = 0;
+    entity->payload.manager_link.prev = 0;
+    float* auxiliary_bounds = entity->payload.auxiliary_bounds;
+    memset(auxiliary_bounds, 0, sizeof(entity->payload.auxiliary_bounds));
+    auxiliary_bounds[14] = 32.0f;
+    auxiliary_bounds[13] = 32.0f;
+    entity->payload.timer.Reset();
+    entity->payload.auxiliary_timer.Reset();
+    entity->payload.second_auxiliary_timer.Reset();
+    // Resolve the script in the active game's table and start at time zero.
+    entity->table = data_00477704->table;
+    entity->running->instruction = reinterpret_cast<void*>(entity->table->Resolve(label.value));
+    entity->running->timer = 0.0f;
+    float* position = entity->payload.position;
+    position[0] = 0.0f;
+    position[1] = 0.0f;
+    position[2] = 0.0f;
+    entity->payload.markers[0].first = -1;
+    entity->payload.markers[0].second = -1;
+    entity->payload.markers[1].first = -1;
+    entity->payload.markers[1].second = -1;
+    entity->payload.markers[2].first = -1;
+    entity->payload.markers[2].second = -1;
+    entity->payload.markers[3].first = -1;
+    entity->payload.markers[3].second = -1;
+    entity->payload.markers[4].first = -1;
+    entity->payload.markers[4].second = -1;
+    entity->payload.markers[5].first = -1;
+    entity->payload.markers[5].second = -1;
+    entity->payload.markers[6].first = -1;
+    entity->payload.markers[6].second = -1;
+    entity->payload.markers[7].first = -1;
+    entity->payload.markers[7].second = -1;
+    entity->payload.markers[0].flags = 0;
+    entity->payload.markers[1].flags = 0;
+    entity->payload.markers[2].flags = 0;
+    entity->payload.markers[3].flags = 0;
+    entity->payload.markers[4].flags = 0;
+    entity->payload.markers[5].flags = 0;
+    entity->payload.markers[6].flags = 0;
+    entity->payload.markers[7].flags = 0;
+    return entity;
 }
+#pragma code_seg()

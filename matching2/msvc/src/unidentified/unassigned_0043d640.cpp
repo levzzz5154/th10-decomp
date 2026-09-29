@@ -1,7 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043D640..0x0043D664: unassigned code fragment
+// 0x0043D640..0x0043D664: load an archive buffer into an unchecked pending-WAVE slot.
+// Tested C++: reference/semantic_candidates/unassigned_0043d640.cpp.
+// See reference/recovery_notes/archive_load_cache_slot_0043d640.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_0043d640() {
     __asm {

@@ -3,40 +3,62 @@
   "name": "bullet_manager_load_scripts_0040ae70",
   "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
   "additional_sources": [
-    "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
-    "src/game/scheduler_create_and_register_0044a000.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
+    "src/game/bullet_manager_release_0040af00.cpp",
+    "src/game/load_startup_resources_0041f8d0.cpp",
+    "src/game/manager_release_00422220.cpp",
     "src/game/message_host_init.cpp",
     "src/game/object_factories.cpp",
+    "src/game/platform_release_owned_handle_00413450.cpp",
     "src/game/recovery_create_fixed_state_004056b0.cpp",
     "src/game/recovery_create_resource_state_00419090.cpp",
     "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
     "src/game/recovery_install_pair_set_flags_004055c0.cpp",
+    "src/game/recovery_release_raw_pair_and_reset_00405620.cpp",
+    "src/game/scheduler_create_and_register_0044a000.cpp",
+    "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
+    "src/game/scheduler_release_task_pair_0043cb00.cpp",
     "src/game/scheduler_tasks.cpp",
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
+    "src/game/score_extended_object_destroy_0041c1c0.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/stage_tip_manager.cpp",
     "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
+    "src/game/task_registration.cpp",
     "src/platform/joystick_probe.cpp",
     "src/platform/text_log.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp",
-    "src/unidentified/unassigned_0041c100.cpp",
     "src/unidentified/unassigned_00405f00.cpp",
-    "src/unidentified/unassigned_00413b50.cpp"
+    "src/unidentified/unassigned_00413300.cpp",
+    "src/unidentified/unassigned_004133f0.cpp",
+    "src/unidentified/unassigned_00413b50.cpp",
+    "src/unidentified/unassigned_0041c100.cpp",
+    "src/unidentified/unassigned_0044a060.cpp",
+    "src/unidentified/unassigned_0044a090.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
     "?Joystick_Probe_0044a0c0@@YGFXZ",
     "_LoadBulletAnm_00405f00",
-    "_LoadFrontAnm_00413b50"
+    "_LoadFrontAnm_00413b50",
+    "_LoadStartupResources_0041f8d0",
+    "_Recovery_ReleaseRawPair@4",
+    "_Recovery_ReleaseRawPairAndReset@4",
+    "_BulletManager_Release@4",
+    "_ScoreExtendedObject_DestroyRetail@4",
+    "_Manager_Release_00422220@4"
   ],
   "headers": [
+    "include/th10/game/item_front_initialize_00413980.hpp",
+    "include/th10/game/published_block.hpp",
     "include/th10/game/scheduler.hpp",
+    "include/th10/game/scheduler_remove_locked.hpp",
+    "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/render/animation_mark_for_removal.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement.",
+  "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement. The ItemFront initializer uses EBX and calls the public score setup callback before its two scheduler registrations.",
   "functions": [
     {
       "name": "Recovery_InstallPairSetFlags_004055c0",
@@ -175,7 +197,7 @@
     {
       "name": "Scheduler_Remove",
       "source": "src/game/scheduler_tasks.cpp",
-      "symbol": "@Scheduler_Remove@8",
+      "symbol": "_Scheduler_Remove@8",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114,
@@ -252,13 +274,121 @@
       "address": "0x00413B50",
       "size": 50,
       "actual_abi": "no live-in registers; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
+    },
+    {
+      "name": "LoadStartupResources_0041f8d0",
+      "source": "src/game/load_startup_resources_0041f8d0.cpp",
+      "symbol": "_LoadStartupResources_0041f8d0",
+      "section": ".text$00hbstartup",
+      "address": "0x0041F8D0",
+      "size": 82,
+      "actual_abi": "no arguments; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
+    },
+    {
+      "name": "ItemFront_Initialize_00413980",
+      "symbol": "_ItemFront_Initialize_00413980@4",
+      "source": "src/game/task_registration.cpp",
+      "section": ".text$00d_ciitem",
+      "address": "0x00413980",
+      "size": 147,
+      "actual_abi": "state in EBX; int result in EAX; no stack argument; plain RET"
+    },
+    {
+      "name": "Create_0044a060",
+      "symbol": "?Create@SchedulerCreatePrimaryClear_0044a060@@QAEPAUSchedulerTask@@PAXH@Z",
+      "section": ".text$79sched_gap_secondaryb",
+      "address": "0x0044A060",
+      "size": 43,
+      "actual_abi": "callback in EAX; priority in EDI; context at [ESP+4]; returns the task; RET 4",
+      "source": "src/unidentified/unassigned_0044a060.cpp"
+    },
+    {
+      "name": "Create_0044a090",
+      "symbol": "?Create@SchedulerCreateSecondaryClear_0044a090@@QAEPAUSchedulerTask@@PAXH@Z",
+      "section": ".text$79sched_gap_secondaryc",
+      "address": "0x0044A090",
+      "size": 43,
+      "actual_abi": "callback in EAX; priority in EDI; context at [ESP+4]; returns the task; RET 4",
+      "source": "src/unidentified/unassigned_0044a090.cpp"
+    },
+    {
+      "name": "Release_00413300",
+      "symbol": "?Release@PublishedBlock@@QAEXXZ",
+      "section": ".text$00d_chrelease",
+      "address": "0x00413300",
+      "size": 71,
+      "actual_abi": "block in EAX",
+      "source": "src/unidentified/unassigned_00413300.cpp"
+    },
+    {
+      "name": "Destroy_004133f0",
+      "symbol": "?Destroy@PublishedBlock@@QAEPAU1@I@Z",
+      "section": ".text$00d_chsdestroy",
+      "address": "0x004133F0",
+      "size": 91,
+      "actual_abi": "block in EBX; flags on the stack; callee pops 4",
+      "source": "src/unidentified/unassigned_004133f0.cpp"
+    },
+    {
+      "name": "DeletePublishedBlock_00413450",
+      "symbol": "?DeletePublishedBlock@@YGXPAUPublishedBlock@@@Z",
+      "section": ".text$00d_chtdelete",
+      "address": "0x00413450",
+      "size": 84,
+      "actual_abi": "block in EBX",
+      "source": "src/game/platform_release_owned_handle_00413450.cpp"
+    },
+    {
+      "name": "Recovery_ReleaseRawPair_0043cb00",
+      "symbol": "_Recovery_ReleaseRawPair@4",
+      "section": ".text$00hcpairrelease",
+      "address": "0x0043CB00",
+      "size": 127,
+      "actual_abi": "stdcall; pair on the stack",
+      "source": "src/game/scheduler_release_task_pair_0043cb00.cpp"
+    },
+    {
+      "name": "Recovery_ReleaseRawPairAndReset_00405620",
+      "symbol": "_Recovery_ReleaseRawPairAndReset@4",
+      "section": ".text$00_wmpairreset",
+      "address": "0x00405620",
+      "size": 137,
+      "actual_abi": "stdcall; pair on the stack",
+      "source": "src/game/recovery_release_raw_pair_and_reset_00405620.cpp"
+    },
+    {
+      "name": "BulletManager_Release_0040af00",
+      "symbol": "_BulletManager_Release@4",
+      "section": ".text$00b_mbulletrelease",
+      "address": "0x0040AF00",
+      "size": 137,
+      "actual_abi": "stdcall; pair on the stack",
+      "source": "src/game/bullet_manager_release_0040af00.cpp"
+    },
+    {
+      "name": "ScoreExtendedObject_DestroyRetail_0041c1c0",
+      "symbol": "_ScoreExtendedObject_DestroyRetail@4",
+      "section": ".text$00gascoredisplayzd",
+      "address": "0x0041C1C0",
+      "size": 195,
+      "actual_abi": "stdcall; object on the stack",
+      "source": "src/game/score_extended_object_destroy_0041c1c0.cpp"
+    },
+    {
+      "name": "Manager_Release_00422220_00422220",
+      "symbol": "_Manager_Release_00422220@4",
+      "section": ".text$00hbstartupzm",
+      "address": "0x00422220",
+      "size": 311,
+      "actual_abi": "stdcall; manager on the stack",
+      "source": "src/game/manager_release_00422220.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 411,
+    "size": 503,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -270,7 +400,7 @@
     {
       "section": ".text$00_wlayout",
       "address": "0x00405614",
-      "size": 156
+      "size": 12
     },
     {
       "section": ".text$00_ylayout",
@@ -295,7 +425,7 @@
     {
       "section": ".text$00b_layout",
       "address": "0x0040AEF6",
-      "size": 154
+      "size": 10
     },
     {
       "section": ".text$00d_agap",
@@ -305,7 +435,12 @@
     {
       "section": ".text$00d_cgap",
       "address": "0x0040D3CE",
-      "size": 26498
+      "size": 24370
+    },
+    {
+      "section": ".text$00d_ckgap",
+      "address": "0x00413A13",
+      "size": 317
     },
     {
       "section": ".text$00d_cxctorz",
@@ -340,12 +475,17 @@
     {
       "section": ".text$00gascoredisplayz",
       "address": "0x0041C1B2",
-      "size": 222
+      "size": 14
     },
     {
       "section": ".text$00h_layout",
       "address": "0x0041C2EB",
-      "size": 186357
+      "size": 13797
+    },
+    {
+      "section": ".text$00hbstartupz",
+      "address": "0x41f922",
+      "size": 10494
     },
     {
       "section": ".text$20_layout",
@@ -375,7 +515,7 @@
     {
       "section": ".text$79sched_gap_secondary",
       "address": "0x0044A05B",
-      "size": 101
+      "size": 5
     },
     {
       "section": ".text$82_layout",
@@ -396,6 +536,56 @@
       "section": ".text$00d_cmgap",
       "address": "0x00413B82",
       "size": 20926
+    },
+    {
+      "section": ".text$79sched_gap_secondarybz",
+      "address": "0x0044A08B",
+      "size": 5
+    },
+    {
+      "section": ".text$79sched_gap_secondarycz",
+      "address": "0x0044A0BB",
+      "size": 5
+    },
+    {
+      "section": ".text$00d_chreleasez",
+      "address": "0x00413347",
+      "size": 169
+    },
+    {
+      "section": ".text$00d_chsdestroyz",
+      "address": "0x0041344B",
+      "size": 5
+    },
+    {
+      "section": ".text$00d_chtdeletez",
+      "address": "0x004134A4",
+      "size": 1244
+    },
+    {
+      "section": ".text$00hcpairreleasez",
+      "address": "0x0043CB7F",
+      "size": 53089
+    },
+    {
+      "section": ".text$00_wmpairresetz",
+      "address": "0x004056A9",
+      "size": 7
+    },
+    {
+      "section": ".text$00b_mbulletreleasez",
+      "address": "0x0040AF89",
+      "size": 7
+    },
+    {
+      "section": ".text$00gascoredisplayzdz",
+      "address": "0x0041C283",
+      "size": 13
+    },
+    {
+      "section": ".text$00hbstartupzmz",
+      "address": "0x00422357",
+      "size": 108457
     }
   ],
   "constants": [],
@@ -598,6 +788,51 @@
     {
       "symbol": "_asm_operator_new_00452493",
       "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d254",
+      "address": "0x0046D254",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "address": "0x00413A20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ItemFront_UpdateThunk_00415ae0@4",
+      "address": "0x00415AE0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ItemFront_RenderThunk_00415af0@4",
+      "address": "0x00415AF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477708",
+      "address": "0x00477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477830",
+      "address": "0x00477830",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ManagerOwned_Destroy_004294a0@4",
+      "address": "0x004294A0",
       "kind": "relative_code"
     }
   ]

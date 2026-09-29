@@ -7,8 +7,17 @@
     "include/th10/game/compression_tree.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Score compression tree relinking and predecessor traversal in ordinary C++. The full predecessor contribution includes its compiler-generated loop alignment; the synthetic caller and layout gaps are excluded.",
+  "description": "LZSS match-tree node deletion, child relinking, node transplantation and predecessor traversal compiled together with native LTCG. The recursive deletion entry is rooted to preserve ECX; its real calls establish the helper register conventions. Only the four complete retail function contributions count as recovered code.",
   "functions": [
+    {
+      "name": "Lzss_RemoveNode",
+      "symbol": "@Lzss_RemoveNode_00436210@4",
+      "section": ".text$05remove",
+      "address": "0x00436210",
+      "size": 80,
+      "actual_abi": "node in ECX; no result; plain RET",
+      "source": "src/archive/lzss_tree_remove.cpp"
+    },
     {
       "name": "CompressionTree_RelinkChild",
       "symbol": "?CompressionTree_RelinkChild@@YGXHH@Z",
@@ -16,6 +25,15 @@
       "address": "0x00436260",
       "size": 79,
       "actual_abi": "source in ESI; replacement in EDX; plain RET"
+    },
+    {
+      "name": "CompressionTree_ReplaceNode",
+      "symbol": "?CompressionTree_ReplaceNode@@YGXHH@Z",
+      "section": ".text$25replace",
+      "address": "0x004362B0",
+      "size": 117,
+      "actual_abi": "source in EAX; replacement in ECX; no result; plain RET",
+      "source": "src/archive/lzss_tree_replace.cpp"
     },
     {
       "name": "CompressionTree_FindPredecessor",
@@ -37,12 +55,17 @@
     {
       "section": ".text$00layout",
       "address": "0x00401000",
-      "size": 217696
+      "size": 217616
     },
     {
       "section": ".text$20layout",
       "address": "0x004362AF",
-      "size": 129
+      "size": 1
+    },
+    {
+      "section": ".text$28layout",
+      "address": "0x00436325",
+      "size": 11
     },
     {
       "section": ".text$40layout",
@@ -57,5 +80,12 @@
       "address": "0x00477858",
       "kind": "data"
     }
+  ],
+  "additional_sources": [
+    "src/archive/lzss_tree_remove.cpp",
+    "src/archive/lzss_tree_replace.cpp"
+  ],
+  "roots": [
+    "@Lzss_RemoveNode_00436210@4"
   ]
 }

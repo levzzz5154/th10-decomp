@@ -1,106 +1,56 @@
-#include <string.h>
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/worker.hpp"
 
-#include "asm_encoding.hpp"
-// BLOCKED (D3903): closest_byte_count=23/140; first_diff=0x0041FAC0;
-// residual_class=private EBX worker receiver, scheduler callback/register
-// helper ABI, and beginthreadex stack/register ordering.
-// variants_tested=MSVC 13.10 typed standalone candidate (152-byte extent,
-// 23/140 same-position bytes) plus exact naked baseline; candidate was restored.
-// next_lever=caller-inclusive schema2 native-LTCG cluster over 0x0041FAC0,
-// SchedulerCallback_Create/RegisterPrimary/RegisterSecondary and worker start.
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
-
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
-
-// 0x0041FAC0..0x0041FB4B: Recovery_StartWorker
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_StartWorker_0041fac0() {
-    __asm {
-    L_0041fac0:
-        push esi
-    L_0041fac1:
-        push edi
-    L_0041fac2:
-        push 41FEB0h
-    L_0041fac7:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0041facc:
-        mov esi,eax
-    L_0041face:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0041fad2:
-        mov eax,dword ptr [data_00491be4]
-    L_0041fad7:
-        push eax
-    L_0041fad8:
-        mov edi,3
-    L_0041fadd:
-        mov dword ptr [esi+20h],ebx
-    L_0041fae0:
-        call asm_Scheduler_RegisterPrimary_00449ae0
-    L_0041fae5:
-        push 41FEF0h
-    L_0041faea:
-        mov dword ptr [ebx+8],esi
-    L_0041faed:
-        call asm_SchedulerCallback_Create_00449ed0
-    L_0041faf2:
-        mov esi,eax
-    L_0041faf4:
-        and dword ptr [esi+4],0FFFFFFFDh
-    L_0041faf8:
-        mov ecx,dword ptr [data_00491be4]
-    L_0041fafe:
-        push ecx
-    L_0041faff:
-        mov edi,2
-    L_0041fb04:
-        mov dword ptr [esi+20h],ebx
-    L_0041fb07:
-        call asm_Scheduler_RegisterSecondary_00449b70
-    L_0041fb0c:
-        mov dword ptr [ebx+0Ch],esi
-    L_0041fb0f:
-        lea esi,[ebx+10h]
-    L_0041fb12:
-        call asm_Platform_StopWorker_0044c150
-    L_0041fb17:
-        lea edx,[esi+8]
-    L_0041fb1a:
-        push edx
-    L_0041fb1b:
-        push 0
-    L_0041fb1d:
-        push ebx
-    L_0041fb1e:
-        push 41F990h
-    L_0041fb23:
-        push 0
-    L_0041fb25:
-        push 0
-    L_0041fb27:
-        mov dword ptr [esi+18h],41F990h
-    L_0041fb2e:
-        mov dword ptr [esi+10h],1
-    L_0041fb35:
-        mov dword ptr [esi+0Ch],0
-    L_0041fb3c:
-        call asm_beginthreadex_00453683
-    L_0041fb41:
-        add esp,18h
-    L_0041fb44:
-        mov dword ptr [esi+4],eax
-    L_0041fb47:
-        pop edi
-    L_0041fb48:
-        xor eax,eax
-    L_0041fb4a:
-        pop esi
-    L_0041fb4b:
-        ret
-    }
+extern "C" {
+SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
+extern Scheduler* data_00491be4;
+int __fastcall TitleWorkerPrimary(void* owner);
+int __fastcall TitleWorkerSecondary(void* owner);
+unsigned int __stdcall TitleWorkerThreadMain(void* owner);
+unsigned int __cdecl asm_beginthreadex_00453683(
+    void* security, unsigned int stack_size, PlatformWorkerEntry start,
+    void* context, unsigned int initflag, unsigned int* thread_id);
 }
+
+struct TitleWorkerOwner {
+    unsigned char reserved_00[8];
+    SchedulerTask* primary_task;             // +0x08
+    SchedulerTask* secondary_task;           // +0x0c
+    PlatformWorker worker;                  // +0x10
+
+    __declspec(noinline) int StartWorker();
+};
+
+typedef char TitleWorkerOwner_primary_offset[
+    offsetof(TitleWorkerOwner, primary_task) == 8 ? 1 : -1];
+typedef char TitleWorkerOwner_secondary_offset[
+    offsetof(TitleWorkerOwner, secondary_task) == 12 ? 1 : -1];
+typedef char TitleWorkerOwner_worker_offset[
+    offsetof(TitleWorkerOwner, worker) == 16 ? 1 : -1];
+
+// 0x0041FAC0 (140 bytes): register two tasks and start their owner's worker.
+#pragma code_seg(".text$02starter")
+int TitleWorkerOwner::StartWorker() {
+    SchedulerTask* primary = SchedulerCallback_Create_00449ed0(TitleWorkerPrimary);
+    // Clear callback flag 0x2 before registration.
+    *(unsigned int*)((unsigned char*)primary + 4) &= ~2u;
+    primary->context = this;
+    Scheduler_RegisterPrimary(data_00491be4, primary, 3);
+    primary_task = primary;
+
+    SchedulerTask* secondary = SchedulerCallback_Create_00449ed0(TitleWorkerSecondary);
+    *(unsigned int*)((unsigned char*)secondary + 4) &= ~2u;
+    secondary->context = this;
+    Scheduler_RegisterSecondary(data_00491be4, secondary, 2);
+    secondary_task = secondary;
+
+    PlatformWorker* active_worker = &worker;
+    active_worker->Stop();
+    active_worker->entry = TitleWorkerThreadMain;
+    active_worker->running = 1;
+    active_worker->stop_requested = 0;
+    active_worker->thread = (void*)asm_beginthreadex_00453683(
+        0, 0, TitleWorkerThreadMain, this, 0, &active_worker->thread_id);
+    return 0;
+}
+#pragma code_seg()

@@ -45,3 +45,16 @@ implicit ESI live-in. A synthetic one-call array context has not reproduced
 those assignments. The integer operand retains its raw assembly alias for
 existing assembly call sites while the manifest points at the semantic C++
 symbol; byte identity is a separate, unverified claim.
+
+## Tail-thunk update
+
+`0x0040C650`, `0x0040C680`, and `0x00412A60` now have exact ordinary C++
+bodies compiled with the pinned Clang i386 COFF profile. The first two load
+their resolver receiver with `MOV EAX, [register+4]`: the first receives its
+frame in EAX, and the second in EDX with its original EAX input unused. The
+third loads `[EAX+0x14D8]` and then `[EAX+4]`, chasing the VM's operand frame.
+Each tail-jumps to its existing assembly resolver, retaining the live ECX
+selector, the second resolver's stack float argument, and the x87 result.
+The focused probe matched all three complete regions, including target
+relocations. This does not change the assembly status of the resolver bodies
+at `0x0044FE40` and `0x0044FF80`.

@@ -48,12 +48,15 @@ recovered behavior for those rows.
   EAX; `0x0043D690` takes a path on the stack and a manager in EAX; `0x0043D7D0`
   uses path in EAX and manager in ESI; `0x0043D950` uses index in EAX and
   manager in ESI; `0x0043DAB0` uses manager in ESI; `0x0043DB60` uses manager
-  in EBX; and `0x0043DD10` uses index/manager in EBX/ESI plus x87 ST(0). These
+  in EBX; and `0x0043DD10` uses index/manager in EBX/ESI plus a stack float
+  (loaded into x87 by the callee, RET 4). These
   rows need caller-inclusive register contexts. Existing evidence is in the
   sound-streaming note above, [`platform_tail_cluster_0043d790_0044d6a0.md`](platform_tail_cluster_0043d790_0044d6a0.md),
   and [`sound_queue_deceleration_0041d170_0043dc90.md`](sound_queue_deceleration_0041d170_0043dc90.md).
-* `0x0043DDF0` has a one-pointer stack boundary but dispatches a 94-entry
-  command table and installs register-based callback values. `0x0043E460`
+* `0x0043DDF0` has a one-pointer stack boundary and an eight-entry command
+  table, with private register conventions for several callees. The complete
+  tested candidate is documented in [sound_commands_and_effect_queue.md](sound_commands_and_effect_queue.md).
+  `0x0043E460`
   uses the receiver in EAX, name in EDX, and stack values; `0x0043E8B0` uses
   object/resource/index in EAX/EDX/ECX; `0x0043EE30` is the 532-block ANM
   interpreter whose helper calls use private GPR and x87 inputs. See

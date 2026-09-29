@@ -1,13 +1,14 @@
-// 0x00435DC0..0x00435F9A: DecompressDatLzss.
+// Semantic candidate for 0x00435DC0..0x00435F9A: DecompressDatLzss.
+// Not selected by the exact-build manifest.
 // The x86 entry contract is four stack arguments, EAX pointer return, and
 // callee cleanup of 16 bytes (__stdcall).
 
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" unsigned char data_0048f868[0x2000];
 
 namespace {
 
 enum {
-    kLzssDictionaryAddress = 0x0048f868,
     kLzssDictionaryMask = 0x1fff,
     kLzssFirstDictionaryPosition = 1
 };
@@ -15,38 +16,33 @@ enum {
 class LzssBitReader {
 public:
     LzssBitReader(const unsigned char* source, int sourceLength)
-        : source_(source), sourceLength_(sourceLength), sourcePosition_(0),
+        : source_(source), cursor_(source), sourceLength_(sourceLength),
           currentByte_(0), bitMask_(0x80) {
     }
 
-    unsigned int readBits(unsigned int count) {
+    __forceinline unsigned int readBits(unsigned int mask) {
         unsigned int value = 0;
-        while (count != 0) {
-            value <<= 1;
+        do {
             if (readBit()) {
-                value |= 1;
+                value |= mask;
             }
-            --count;
-        }
+            mask >>= 1;
+        } while (mask);
         return value;
     }
 
 private:
-    bool readBit() {
+    __forceinline bool readBit() {
         if (bitMask_ == 0x80) {
             // Retail reads the input byte before checking sourceLength, then
             // discards the loaded byte when the cursor is out of range. Keep
             // the raw x86 memory read visible, including its fault behavior
             // for a truncated buffer at an inaccessible address.
-            const unsigned int source_address =
-                reinterpret_cast<unsigned int>(source_)
-                + static_cast<unsigned int>(sourcePosition_);
-            const volatile unsigned char* raw_source_byte =
-                reinterpret_cast<const volatile unsigned char*>(source_address);
-            const unsigned char loaded_byte = *raw_source_byte;
-            if (sourcePosition_ < sourceLength_) {
+            const unsigned char loaded_byte =
+                *static_cast<const volatile unsigned char*>(cursor_);
+            if (cursor_ - source_ < sourceLength_) {
                 currentByte_ = loaded_byte;
-                ++sourcePosition_;
+                ++cursor_;
             } else {
                 currentByte_ = 0;
             }
@@ -61,9 +57,9 @@ private:
     }
 
     const unsigned char* source_;
+    const unsigned char* cursor_;
     int sourceLength_;
-    int sourcePosition_;
-    unsigned char currentByte_;
+    unsigned int currentByte_;
     unsigned char bitMask_;
 };
 
@@ -82,15 +78,16 @@ extern "C" unsigned char* __stdcall DecompressDatLzss_00435dc0(
     }
 
     LzssBitReader bits(source, sourceLength);
-    volatile unsigned char* const dictionary =
-        reinterpret_cast<volatile unsigned char*>(kLzssDictionaryAddress);
+    // The decoder preserves the shared dictionary between calls. Matches may
+    // refer to earlier output in this call or to bytes already in the ring.
+    unsigned char* const dictionary = data_0048f868;
     unsigned char* outputPosition = output;
     unsigned int dictionaryPosition = kLzssFirstDictionaryPosition;
 
     for (;;) {
         if (bits.readBits(1) != 0) {
             const unsigned char value =
-                static_cast<unsigned char>(bits.readBits(8));
+                static_cast<unsigned char>(bits.readBits(0x80));
             *outputPosition = value;
             ++outputPosition;
             dictionary[dictionaryPosition] = value;
@@ -98,12 +95,12 @@ extern "C" unsigned char* __stdcall DecompressDatLzss_00435dc0(
             continue;
         }
 
-        unsigned int matchPosition = bits.readBits(13);
+        unsigned int matchPosition = bits.readBits(0x1000);
         if (matchPosition == 0) {
             break;
         }
 
-        const unsigned int matchLength = bits.readBits(4) + 3;
+        const unsigned int matchLength = bits.readBits(8) + 3;
         unsigned int copied = 0;
         while (copied < matchLength) {
             const unsigned int sourcePosition =

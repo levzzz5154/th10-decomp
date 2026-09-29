@@ -1,3 +1,7 @@
+// Current typed entry-deletion candidate passes 560 retail comparisons. The
+// saved Ghidra 00434D70 body is complete; see
+// reference/recovery_notes/archive_cleanup_00434c20_00434d10.md. Private ESI
+// receiver and MSVC bytes remain unrecovered. The block below records history.
 // BLOCKED (H2801): closest_byte_count=93; first_diff=unmeasured (no
 // compiler-readable candidate reached the private entry symbol);
 // residual_class=private_abi/destructor-shape: retail receives the owned

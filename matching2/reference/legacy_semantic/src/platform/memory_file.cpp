@@ -206,6 +206,10 @@ from_start:
 }
 
 
+// Historical approximate model of 0x0043D390, not a faithful retail recovery:
+// it changes chunk-count arithmetic, bounds-checks/zero-fills the format, and
+// abstracts the volatile pending handoff. The tested complete candidate is
+// reference/semantic_candidates/sound_wave_load.cpp; see its recovery note.
 // 0x0043D390 - Build one secondary sound buffer from an owned RIFF/WAVE image.
 int SoundWave_LoadPending(int enabled, void** buffer_slot,
                           unsigned char** pending_wave_slot,

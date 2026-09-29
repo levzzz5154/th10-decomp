@@ -47,7 +47,14 @@ extern "C" {
 __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(Scheduler*, SchedulerTask*, int priority);
 __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(Scheduler*, SchedulerTask*, int priority);
 __declspec(noinline) void __stdcall Scheduler_RemoveLocked(Scheduler*, SchedulerTask*);
-__declspec(noinline) void __fastcall Scheduler_Remove(SchedulerTask*, Scheduler*);
+// 0x00449F60 is compiled inside its native-LTCG link with a private
+// convention: the pass keeps the task in ECX and the scheduler in EDX (it gives
+// the first declared parameter the second register) and loads ECX first at
+// every call in that link, which is what retail's inlined lock-and-remove
+// sequences do.
+__declspec(noinline) void __stdcall Scheduler_Remove(Scheduler*, SchedulerTask*);
+// The same entry as code compiled outside that link reaches it.
+__declspec(noinline) void __fastcall Scheduler_RemoveTask(SchedulerTask*, Scheduler*);
 }
 
 typedef char SchedulerTask_size_must_be_36[sizeof(SchedulerTask) == 36 ? 1 : -1];

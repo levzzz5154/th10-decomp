@@ -3,7 +3,9 @@
   "name": "ecl_resolve_float_destination_00450070",
   "source": "src/script/ecl_resolve_float_destination_00450070.cpp",
   "driver": "layout/ltcg/ecl_resolve_float_destination_00450070_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/script/ecl_float_destination.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Float destination resolution compiled with native LTCG so the VM arrives in EAX and the variable index in ECX, as retail's call sites do.",
   "functions": [
@@ -14,25 +16,39 @@
       "address": "0x00450070",
       "size": 93,
       "actual_abi": "VM in EAX; index in ECX; plain RET"
+    },
+    {
+      "name": "ResolveIntDestination_00450030",
+      "symbol": "?ResolveIntDestination@EclVm_00450070@@QAEPAHH@Z",
+      "section": ".text$00layoutb",
+      "address": "0x00450030",
+      "size": 58,
+      "actual_abi": "VM in ESI; index in CL; pointer in EAX; plain RET",
+      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
     }
   ],
   "context": {
     "symbol": "EclResolveFloatDestinationContext@12",
     "section": ".text$03context",
     "address": "0x4500D0",
-    "size": 42,
+    "size": 76,
     "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
       "address": "0x00401000",
-      "size": 323696
+      "size": 323632
     },
     {
       "section": ".text$02layout",
       "address": "0x004500CD",
       "size": 3
+    },
+    {
+      "section": ".text$00layoutbz",
+      "address": "0x0045006A",
+      "size": 6
     }
   ],
   "constants": [],
@@ -54,5 +70,8 @@
       "address": "0x00000000",
       "kind": "metadata"
     }
+  ],
+  "additional_sources": [
+    "src/script/ecl_resolve_variable_value_00450030.cpp"
   ]
 }

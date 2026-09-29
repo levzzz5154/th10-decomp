@@ -9,9 +9,13 @@
 #include "th10/platform/sound_buffer.hpp"
 #include "th10/platform/windows_types.hpp"
 
+// Complete candidate: reference/semantic_candidates/sound_stream_initialize.cpp.
+// Current integrated evidence is in sound_stream_initialization_and_creation.md;
+// the native probe below is historical. The +0x34 slot resets playback position.
+
 // BLOCKED (D3301): closest_byte_count=4/109; first_diff=0x0044D6A0;
 // residual_class=schema2 hidden-ESI receiver, Streamer_FillBuffer private
-// argument homes, and virtual-release ABI; variants_tested=live-Ghidra
+// argument homes, and SetCurrentPosition ABI; variants_tested=live-Ghidra
 // decompile plus callers (0x0044C8F0, 0x0044CBF0) and callees
 // (0x0044D110, operator_new), MSVC 13.10 readable candidate (112-byte
 // extent, 4 matching bytes); native-LTCG was blocked because no real

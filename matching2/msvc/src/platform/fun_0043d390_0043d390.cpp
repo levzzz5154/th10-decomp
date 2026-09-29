@@ -1,6 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// Assembly-free behavioral candidate: reference/semantic_candidates/sound_wave_load.cpp.
+// It passes 396 retail comparisons, including eight matching memory faults.
+// See recovery_notes/sound_wave_load_0043d390.md; native frame/bytes and helper
+// ABIs remain unverified. The older blocker below predates this full recovery.
+
 // 0x00436210..0x0043625F: ?MemoryFile_RemoveNode@@
 // Naked body preserves the retail register/stack ABI.
 

@@ -1,12 +1,8 @@
-#include "../../layout/ltcg/archive_cleanup_00434c20_00434d10_types.hpp"
+// Semantic candidate for 0x00434C20..0x00434C29 (10 bytes).
+// The ECX receiver matches retail. Its call to the ESI-based Close entry
+// still requires native LTCG recovery before exact-build integration.
+#include "dat_archive_types.hpp"
 
-// 0x00434C20 receives the archive in ECX. The matching Close body has a
-// private ESI receiver in retail, so the native-LTCG pair context keeps this
-// call together with Close while the compiler chooses its internal register
-// assignment. That register assignment has not been byte-probed yet.
-#pragma code_seg(".text$01reset")
-__declspec(noinline) void __fastcall DatArchive_Reset(
-    DatArchiveCleanup_00434c20_00434d10* archive) {
-    DatArchive_Close(archive);
+extern "C" void __fastcall DatArchive_Reset_00434c20(DatArchive* archive) {
+    DatArchive_Close_00434d10(archive);
 }
-#pragma code_seg()

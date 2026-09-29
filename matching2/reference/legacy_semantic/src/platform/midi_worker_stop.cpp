@@ -1,5 +1,10 @@
 #include "th10/platform/midi_worker_stop.hpp"
 
+// Historical injected model, not a faithful retail ABI/layout reconstruction.
+// Null callback fallbacks, import capture timing and the destructor receiver
+// differ. The tested candidate is semantic_candidates/sound_midi_stop.cpp;
+// see recovery_notes/sound_shutdown_0043d120_0043dab0.md.
+
 
 // 0x0043DAB0 - Stop the MIDI worker. Retail guards on the device slot
 // (context+0x5208): when it is set, it flushes playback (0x0044D550),

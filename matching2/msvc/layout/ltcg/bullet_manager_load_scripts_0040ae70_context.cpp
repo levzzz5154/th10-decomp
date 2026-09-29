@@ -1,5 +1,6 @@
 // Compiler context only: this caller is not recovered application code.
 #include "../../src/game/bullet_manager_load_scripts_0040ae70.cpp"
+#include "th10/game/item_front_initialize_00413980.hpp"
 
 struct BulletManagerState_0040af90;
 BulletManagerState_0040af90 *BulletManager_Create_0040af90();
@@ -27,7 +28,19 @@ struct SchedulerCreatePrimary_0044A000 {
 struct SchedulerCreateSecondary_0044A030 {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
+struct SchedulerCreatePrimaryClear_0044a060 {
+    __declspec(noinline) SchedulerTask* Create(void* context, int priority);
+};
+struct SchedulerCreateSecondaryClear_0044a090 {
+    __declspec(noinline) SchedulerTask* Create(void* context, int priority);
+};
 
+
+struct PublishedBlock {
+    __declspec(noinline) void Release();
+    __declspec(noinline) PublishedBlock* Destroy(unsigned int flags);
+};
+__declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
@@ -40,6 +53,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         SchedulerCreateSecondary_0044A030 *secondary =
             (SchedulerCreateSecondary_0044A030 *)tasks[index];
         secondary->Create(slots[index], priority);
+        ((SchedulerCreatePrimaryClear_0044a060 *)tasks[index])->Create(slots[index], priority);
+        ((SchedulerCreateSecondaryClear_0044a090 *)tasks[index])->Create(slots[index], priority);
     }
     for (int index = 0; index < count; ++index) {
         SchedulerTask *task = tasks[index];
@@ -47,8 +62,10 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler_RegisterSecondary(scheduler, task, priority);
         Scheduler_RemoveLocked(scheduler, task);
     }
-    void (__fastcall * volatile remove)(SchedulerTask *, Scheduler *) = &Scheduler_Remove;
-    remove(tasks[0], scheduler);
+    Scheduler_Remove(scheduler, tasks[0]);
+    reinterpret_cast<PublishedBlock*>(slots[0])->Release();
+    reinterpret_cast<PublishedBlock*>(slots[1])->Destroy(priority);
+    DeletePublishedBlock(reinterpret_cast<PublishedBlock*>(slots[2]));
     int created = 0;
     for (int index = 0; index < count; ++index) {
         slots[index] = BulletManager_Create_0040af90();
@@ -87,6 +104,9 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         if (asm_Recovery_CreateResourceState_00419090())
             ++created;
     }
+    for (int index = 0; index < count; ++index)
+        created += ItemFront_Initialize_00413980(
+            reinterpret_cast<ItemFrontState_00413980*>(slots[index])) == 0;
     return created;
 }
 #pragma code_seg()

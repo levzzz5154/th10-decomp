@@ -1,33 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004051F0: a vector divided by a scalar, through its reciprocal.
+struct Vec3_004051f0 {
+    float x, y, z;
+    Vec3_004051f0(float x_value, float y_value, float z_value) : x(x_value), y(y_value), z(z_value) {}
+};
 
-// 0x004051F0..0x00405218: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_004051f0() {
-    __asm {
-    L_004051f0:
-        fld dword ptr [data_00470afc]
-    L_004051f6:
-        fdiv dword ptr [esp+4]
-    L_004051fa:
-        fst dword ptr [esp+4]
-    L_004051fe:
-        fmul dword ptr [ecx+8]
-    L_00405201:
-        fld dword ptr [esp+4]
-    L_00405205:
-        fmul dword ptr [ecx+4]
-    L_00405208:
-        fld dword ptr [esp+4]
-    L_0040520c:
-        fmul dword ptr [ecx]
-    L_0040520e:
-        fstp dword ptr [eax]
-    L_00405210:
-        fstp dword ptr [eax+4]
-    L_00405213:
-        fstp dword ptr [eax+8]
-    L_00405216:
-        ret 4
-    }
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) Vec3_004051f0 __stdcall Divided_004051f0(const Vec3_004051f0* v, float divisor) {
+    divisor = 1.0f / divisor;
+    return Vec3_004051f0(v->x * divisor, v->y * divisor, v->z * divisor);
 }
+#pragma code_seg()

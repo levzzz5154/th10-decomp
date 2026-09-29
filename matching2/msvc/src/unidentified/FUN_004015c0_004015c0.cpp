@@ -1,94 +1,44 @@
-// BLOCKED (H2801): closest_byte_count=109; first_diff=unmeasured (no
-// compiler-readable candidate reached the private entry symbol);
-// residual_class=private_abi/source_shape: retail receives formatted text in
-// ECX, the record source in EBX, and the table/context in ESI while returning
-// the destination in EAX, then appends a 0x68-byte entry with a byte-copy
-// loop and three dword field stores. Ghidra has no function at 004015C0; the
-// live boundary is the gap between AppendGameThreadRecord at 00401530 and
-// AppendFormattedGameThreadRecord at 00401630, whose caller path supplies
-// the formatter/owner relationship but not the three private registers.
-// variants_tested=exact retail naked wrapper; IDA 0x68-byte record model;
-// formatter-caller model from AppendFormattedGameThreadRecord; and direct
-// standard cdecl/fastcall declarations (rejected because EAX/EBX/ESI cannot
-// be named simultaneously). No readable candidate was byte-measured.
-// next_lever=native-LTCG cluster with the real formatter caller and owning
-// record type, plus a semantic manifest ownership change; this region remains
-// kind=asm in regions.json, so retain the exact wrapper in H2801.
+// 0x004015C0: append a named record to the game thread late queue.
+#include <string.h>
+struct Vec3_004015c0 {
+    float x, y, z;
+};
+struct QueueRecord_004015c0 {
+    char name[0x40];
+    Vec3_004015c0 position;
+    int value_4c;
+    int value_50;
+    int value_54;
+    int unknown_58;
+    int value_5c;
+    int value_60;
+    int value_64;
+};
+struct GameThread_004015c0 {
+    unsigned char reserved_0000[0x76C];
+    QueueRecord_004015c0 records[0x100];
+    QueueRecord_004015c0 late_records[0x40];
+    int record_count;
+    int late_record_count;
+    int current_4c;
+    int current_50;
+    int current_54;
+    int current_5c;
+    int unknown_8984;
+    int current_64;
+};
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x004015C0..0x0040162C: FUN_004015c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004015c0_004015c0() {
-    __asm {
-    L_004015c0:
-        mov edx,dword ptr [esi+8970h]
-    L_004015c6:
-        cmp edx,40h
-    L_004015c9:
-        jge short L_0040162c
-    L_004015cb:
-        mov eax,edx
-    L_004015cd:
-        imul eax,68h
-    L_004015d0:
-        push edi
-    L_004015d1:
-        lea eax,[eax+esi+6F6Ch]
-    L_004015d8:
-        inc edx
-    L_004015d9:
-        mov edi,eax
-    L_004015db:
-        mov dword ptr [esi+8970h],edx
-    L_004015e1:
-        sub edi,ecx
-    L_004015e3:
-        mov dl,byte ptr [ecx]
-    L_004015e5:
-        mov byte ptr [edi+ecx],dl
-    L_004015e8:
-        inc ecx
-    L_004015e9:
-        test dl,dl
-    L_004015eb:
-        jne short L_004015e3
-    L_004015ed:
-        mov edx,dword ptr [ebx]
-    L_004015ef:
-        lea ecx,[eax+40h]
-    L_004015f2:
-        mov dword ptr [ecx],edx
-    L_004015f4:
-        mov edx,dword ptr [ebx+4]
-    L_004015f7:
-        mov dword ptr [ecx+4],edx
-    L_004015fa:
-        mov edx,dword ptr [ebx+8]
-    L_004015fd:
-        mov dword ptr [ecx+8],edx
-    L_00401600:
-        mov ecx,dword ptr [esi+8974h]
-    L_00401606:
-        mov dword ptr [eax+4Ch],ecx
-    L_00401609:
-        mov edx,dword ptr [esi+8978h]
-    L_0040160f:
-        mov dword ptr [eax+50h],edx
-    L_00401612:
-        mov ecx,dword ptr [esi+897Ch]
-    L_00401618:
-        mov dword ptr [eax+54h],ecx
-    L_0040161b:
-        mov edx,dword ptr [esi+8980h]
-    L_00401621:
-        mov dword ptr [eax+5Ch],edx
-    L_00401624:
-        mov dword ptr [eax+60h],0
-    L_0040162b:
-        pop edi
-    L_0040162c:
-        ret
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) void __stdcall AppendLateRecord_004015c0(GameThread_004015c0* thread, const char* name, const Vec3_004015c0* position) {
+    if (thread->late_record_count < 0x40) {
+        QueueRecord_004015c0* record = &thread->late_records[thread->late_record_count++];
+        strcpy(record->name, name);
+        record->position = *position;
+        record->value_4c = thread->current_4c;
+        record->value_50 = thread->current_50;
+        record->value_54 = thread->current_54;
+        record->value_5c = thread->current_5c;
+        record->value_60 = 0;
     }
 }
+#pragma code_seg()

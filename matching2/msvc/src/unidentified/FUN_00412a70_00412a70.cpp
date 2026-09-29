@@ -1,15 +1,22 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00412A70: forward a float-variable lookup to the ECL VM of the object
+// referenced at +0x14D8.
+#include "th10/script/ecl_float_destination.hpp"
 
-// 0x00412A70..0x00412A7D: FUN_00412a70
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00412a70_00412a70() {
-    __asm {
-    L_00412a70:
-        mov eax,dword ptr [eax+14D8h]
-    L_00412a76:
-        mov eax,dword ptr [eax+4]
-    L_00412a79:
-        jmp asm_ECL_ResolveFloatDestination_00450070
-    }
+struct EclOwner_00412a70 {
+    void* field_000;
+    EclVm_00450070* vm;  // +0x0004
+};
+
+struct EclHolder_00412a70 {
+    unsigned char unknown_0000[0x14D8];
+    EclOwner_00412a70* owner;  // +0x14D8
+
+    float* ResolveFloatDestination(int index);
+};
+
+#pragma code_seg(".text$01_")
+__declspec(noinline) float* EclHolder_00412a70::ResolveFloatDestination(int index) {
+    EclOwner_00412a70* target = owner;
+    return target->vm->ResolveFloatDestination(index);
 }
+#pragma code_seg()

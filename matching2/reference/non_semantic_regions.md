@@ -1,5 +1,10 @@
 # Non-semantic region ledger
 
+Historical snapshot: the ledger counts and manifest hashes below predate the
+current worktree. Use `make progress` and `msvc/regions.json` for current
+accounting; [the eighth 2026-09-28 recovery checkpoint](recovery_notes/native_recoveries_2026-09-28_eighth.md)
+records the latest verified conversions.
+
 This snapshot includes the exact worker-shutdown, joystick/logger-cluster, and
 FrameTimer/cursor-cluster promotions through 2026-09-13, including the third
 animation cursor at `0x0043C460` and its rebound compiler literal. The machine-readable JSON is the authoritative

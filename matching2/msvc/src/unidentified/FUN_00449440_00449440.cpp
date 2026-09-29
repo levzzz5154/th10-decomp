@@ -1,13 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// The draw dispatcher receives the entity in EAX and its manager in ECX.
+// Its first instruction replaces EDX, so that register can pass through
+// unchanged while the wrapper loads the manager from the global.
+extern "C" void* data_00491c10;
+extern "C" __attribute__((regparm(3))) int
+asm_FUN_004451c0_004451c0(void* entity, unsigned int unused_edx, void* manager);
 
-// 0x00449440..0x0044944A: FUN_00449440
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00449440_00449440() {
-    __asm {
-    L_00449440:
-        mov ecx,dword ptr [data_00491c10]
-    L_00449446:
-        jmp asm_FUN_004451c0_004451c0
-    }
+extern "C" __attribute__((regparm(2), noinline, used,
+                           section(".text$global_draw_00449440"), aligned(1)))
+int DrawGlobalAnimation_00449440(void* entity, unsigned int unused_edx) {
+    return asm_FUN_004451c0_004451c0(entity, unused_edx, data_00491c10);
 }

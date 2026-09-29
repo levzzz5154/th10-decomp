@@ -1,3 +1,7 @@
+// Complete behavioral recovery: reference/semantic_candidates/sound_device_init.cpp.
+// 354 individual comparisons and 30 integrated startup scenarios pass. See
+// recovery_notes/sound_device_init_0043cd30.md; native frame/bytes remain pending.
+// The old DirectInput terminology below predates the typed DirectSound recovery.
 // BLOCKED (H2701): closest_byte_count=786; first_diff=unmeasured;
 // residual_class=abi/source_shape: live Ghidra identifies the startup worker
 // caller FUN_0043CCF0 (xref 0x0043CCFB), with callees Ordinal_11,

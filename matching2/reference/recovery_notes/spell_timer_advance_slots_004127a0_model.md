@@ -1,5 +1,7 @@
 # 0x004127A0 — spell-timer slot advance
 
+Superseded on 2026-09-27 by an exact C++ recovery. See [the native spell-timer proof](spell_timer_advance_slots_004127a0_native_ltcg.md) and the current maintained source/manifest. The measurements below are historical.
+
 The source now models `FUN_004127a0` as ordinary C++ in
 `msvc/src/game/spell_timer.cpp`. The receiver and slot layout are local to that
 translation unit so the function does not need a guessed shared class

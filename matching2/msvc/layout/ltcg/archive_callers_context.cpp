@@ -15,6 +15,9 @@ struct SoundManager_0043a9b0 {
     int LoadTrack(int index, const char* name);
 };
 
+extern "C" int __stdcall Sound_LoadMusicTable_0043d670(
+        const char* filename, void* owner);
+
 #pragma code_seg(".text$07context")
 int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager_0043a9b0** managers, const char* track_name, int count, StageEclLoader_00403850** stages) {
     for (int i = 0; i < count; ++i) {
@@ -23,6 +26,7 @@ int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, M
         parameters[i]->Load(names[i]);
         managers[i]->LoadTrack(i, track_name);
         stages[i]->Load(names[i]);
+        Sound_LoadMusicTable_0043d670(track_name, managers[i]);
     }
     return count;
 }

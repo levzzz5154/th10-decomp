@@ -1,8 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0044B0D0..0x0044B1BC: DecryptDatBuffer
-// Naked body preserves the retail register/stack ABI.
+// Semantic candidate and retail comparisons are documented in
+// reference/recovery_notes/dat_crypt_0044b0d0_0044b220.md. The private
+// AL key input and RET 20 entry still require native-LTCG recovery.
 
 // 0x0044B220..0x0044B352: EncryptDatBuffer
 // Naked body preserves the retail register/stack ABI.
@@ -256,4 +257,3 @@ extern "C" __declspec(naked) void __cdecl asm_EncryptDatBuffer_0044b220() {
 // cluster/schema2 with callers 00429B60 and 0042B1E0 plus malloc/free
 // bindings.
 // Current assembly overlay remains exact.
-

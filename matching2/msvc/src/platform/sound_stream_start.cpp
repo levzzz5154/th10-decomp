@@ -3,7 +3,8 @@
 
 // BLOCKED (D3502): closest_byte_count=0/145; first_diff=0x0044D440;
 // residual_class=private EAX receiver, private ESI interface result, hidden
-// ECX/stack argument convention, and COM callback/vtable ABI.
+// restoration-flag stack local, and COM callback/vtable ABI. The earlier
+// inherited-ECX-context interpretation was disproved by the helper data flow.
 // variants_tested=live Ghidra complete decompile with callers/callees
 // (0x0043E183, 0x0043DA8E, 0x0044D300, 0x0044D370, 0x0044D110),
 // plus MSVC 13.10 readable explicit-parameter candidate (154-byte extent;
@@ -12,6 +13,8 @@
 // with streamer refill and platform interface callees.
 
 // 0x0044D440..0x0044D4D0: SoundStream_Start
+// Tested C++: reference/semantic_candidates/sound_stream_start.cpp.
+// See reference/recovery_notes/sound_stream_start_0044d440.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_SoundStream_Start_0044d440() {
     __asm {

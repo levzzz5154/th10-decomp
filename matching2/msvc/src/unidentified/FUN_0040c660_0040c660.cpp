@@ -1,13 +1,15 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0040C660: forward a float-variable lookup to the owner's ECL VM.
+#include "th10/script/ecl_float_destination.hpp"
 
-// 0x0040C660..0x0040C667: FUN_0040c660
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040c660_0040c660() {
-    __asm {
-    L_0040c660:
-        mov eax,dword ptr [eax+4]
-    L_0040c663:
-        jmp asm_ECL_ResolveFloatDestination_00450070
-    }
+struct EclOwner_0040c660 {
+    void* field_000;
+    EclVm_00450070* vm;  // +0x0004
+
+    float* ResolveFloatDestination(int index);
+};
+
+#pragma code_seg(".text$01_")
+__declspec(noinline) float* EclOwner_0040c660::ResolveFloatDestination(int index) {
+    return vm->ResolveFloatDestination(index);
 }
+#pragma code_seg()

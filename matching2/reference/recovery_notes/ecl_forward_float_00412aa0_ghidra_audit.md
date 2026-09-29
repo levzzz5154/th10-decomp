@@ -2,7 +2,11 @@
 
 ## Decision
 
-Keep the entry as retail assembly. The ordinary C++ signature suggested by the decompiler does not describe its live ABI: the entry consumes the VM pointer from `EAX`, translates two stack arguments into a second nonstandard register/stack call, and leaves the resolver's x87 result in `ST(0)` for the caller. A source-level `__stdcall` or `__thiscall` function cannot express that input register contract. Replacing the entry with an adapter would require inline/naked assembly or changing its callers, neither of which is an ordinary C++ conversion of this entry.
+Keep the entry as retail assembly. The decompiler's `__stdcall` signature
+omits its EAX VM input, its two stack inputs, the resolver's ECX selector,
+and the x87 result in `ST(0)`. Clang `regparm` can express those inputs, but
+the measured ordinary C++ candidate does not reproduce the exact retail
+register schedule and 26-byte body; see the probe comparison below.
 
 ## Ghidra boundary and references
 
@@ -38,6 +42,16 @@ The 26-byte body is:
 
 ## Legacy names to preserve
 
-`regions.json` assigns this 26-byte region to `src/game/ecl_forward_float_00412aa0.cpp`, under `asm_Ecl_ForwardFloat_00412aa0` / `_asm_Ecl_ForwardFloat_00412aa0`. `include/asm_symbols.hpp` declares the C-linkage entry and its `VA_asm_Ecl_ForwardFloat_00412aa0` address macro. The manifest also maps both decorated legacy names, `_asm_Ecl_ForwardFloat_00412aa0@8` and `@asm_Ecl_ForwardFloat_00412aa0@8`, to `0x00412AA0`. Keep these aliases at the same address if the implementation or declaration is revisited; the decorated aliases do not make the `EAX` receiver convention representable in C++.
+`regions.json` assigns this 26-byte region to
+`src/game/ecl_forward_float_00412aa0.cpp`. The manifest's undecorated and
+`@8` call aliases still resolve to `0x00412AA0`. The redundant, unselected
+assembly clone in `src/game/recovery_leaves.cpp` was removed; the dedicated
+source still owns the exact assembly region.
 
-The current tree also has an identical non-static definition in `src/game/recovery_leaves.cpp` at lines 224–240, while the manifest assigns this entry to the dedicated source above. This audit leaves that out-of-scope file untouched; whether it participates in the same link was not checked.
+The original audit only considered Microsoft calling conventions. A pinned
+Clang i386 `regparm(2)`/`stdcall` source can represent the EAX VM input,
+two stack arguments, and `RET 8`, but does not byte-match: forwarding the
+operand as raw float bits emits 25 bytes and loads the selector first, whereas
+retail first loads the operand into ECX. A float-typed parameter also adds
+unwanted x87 load/store instructions. Keep the dedicated region as assembly
+until a compiler-generated 26-byte version matches the complete sequence.

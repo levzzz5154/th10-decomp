@@ -1,80 +1,20 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// BLOCKED readable recovery: closest_byte_count=93/93; first_diff=none;
-// residual_class=private EAX selector plus ECX receiver requires schema-2
-// caller/callee placement; variants_tested=live Ghidra callers/callees/xrefs
-// and retail baseline probe; next_lever=add a semantic region and native-LTCG
-// cluster without editing regions.json.
-// 0x0042AB20..0x0042AB7C: FUN_0042ab20
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042ab20_0042ab20() {
-    __asm {
-    L_0042ab20:
-        lea eax,[eax+eax*2]
-    L_0042ab23:
-        mov eax,dword ptr [ecx+eax*4+40h]
-    L_0042ab27:
-        push edi
-    L_0042ab28:
-        xor edi,edi
-    L_0042ab2a:
-        cmp eax,edi
-    L_0042ab2c:
-        je short L_0042ab7b
-    L_0042ab2e:
-        push esi
-    L_0042ab2f:
-        nop
-    L_0042ab30:
-        mov esi,dword ptr [eax+4]
-    L_0042ab33:
-        mov eax,dword ptr [eax]
-    L_0042ab35:
-        cmp eax,edi
-    L_0042ab37:
-        je short L_0042ab74
-    L_0042ab39:
-        mov ecx,dword ptr [eax+627Ch]
-    L_0042ab3f:
-        cmp ecx,edi
-    L_0042ab41:
-        je short L_0042ab4c
-    L_0042ab43:
-        mov edx,dword ptr [eax+6280h]
-    L_0042ab49:
-        mov dword ptr [ecx+8],edx
-    L_0042ab4c:
-        mov ecx,dword ptr [eax+6280h]
-    L_0042ab52:
-        cmp ecx,edi
-    L_0042ab54:
-        je short L_0042ab5f
-    L_0042ab56:
-        mov edx,dword ptr [eax+627Ch]
-    L_0042ab5c:
-        mov dword ptr [ecx+4],edx
-    L_0042ab5f:
-        push eax
-    L_0042ab60:
-        mov dword ptr [eax+627Ch],edi
-    L_0042ab66:
-        mov dword ptr [eax+6280h],edi
-    L_0042ab6c:
-        call asm_free_004524a1
-    L_0042ab71:
-        add esp,4
-    L_0042ab74:
-        cmp esi,edi
-    L_0042ab76:
-        mov eax,esi
-    L_0042ab78:
-        jne short L_0042ab30
-    L_0042ab7a:
-        pop esi
-    L_0042ab7b:
-        pop edi
-    L_0042ab7c:
-        ret
+#include "th10/game/replay_pool_append_0042aa50.hpp"
+#include <stdlib.h>
+#pragma code_seg(".text$40release")
+extern "C" __declspec(noinline) void __stdcall
+ReplayPool_Clear_0042ab20(int stage, ReplayPoolLists_0042aa50* lists) {
+    ReplayPoolLink_0042aa50* current = lists->stages[stage].next;
+    while (current) {
+        ReplayPoolLink_0042aa50* next = current->next;
+        ReplayPool_0042aa50* pool = current->pool;
+        if (pool) {
+            if (pool->link.next) pool->link.next->previous = pool->link.previous;
+            if (pool->link.previous) pool->link.previous->next = pool->link.next;
+            pool->link.next = 0;
+            pool->link.previous = 0;
+            free(pool);
+        }
+        current = next;
     }
 }
+#pragma code_seg()

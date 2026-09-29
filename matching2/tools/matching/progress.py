@@ -8,10 +8,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "matching2/msvc/regions.json"
-KINDS = ("semantic", "asm", "data", "padding")
+KINDS = ("semantic", "asm", "library", "data", "padding")
 LABELS = {
     "semantic": "Ordinary C++",
     "asm": "Inline assembly",
+    "library": "Toolkit runtime library",
     "data": "Embedded .text data",
     "padding": "Padding",
 }

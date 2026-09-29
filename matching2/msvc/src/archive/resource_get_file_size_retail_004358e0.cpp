@@ -1,5 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Exception-aware semantic candidate and 178 retail size-path comparisons:
+// reference/recovery_notes/resource_paths_004357d0_0043599d.md. Private ABI
+// and native MSVC frame/byte matching remain outstanding.
 
 // 0x004356F0..0x0043572C: FUN_004356f0
 // Naked body preserves the retail register/stack ABI.

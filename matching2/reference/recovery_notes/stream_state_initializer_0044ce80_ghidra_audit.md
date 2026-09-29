@@ -1,5 +1,10 @@
 # Stream interface array initializer `0x0044CE80`
 
+2026-09-26 follow-up: complete typed array/single-buffer candidates now execute
+with the recovered refill/cursor path. Notification recreation and the memory
+factory are covered too. See [initialization and creation recovery](sound_stream_initialization_and_creation.md)
+for current behavior, differential evidence and remaining native ABI gates.
+
 Live Ghidra analysis of `th10.exe` identifies a 118-byte function at
 `0x0044CE80`. Its displayed signature is `__stdcall` with two stack dwords,
 but the decompiler also reports live-in `EAX`, `ESI`, and `EDI`; there are no

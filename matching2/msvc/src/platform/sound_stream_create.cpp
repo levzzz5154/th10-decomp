@@ -1,3 +1,8 @@
+// Complete candidate: reference/semantic_candidates/sound_stream_create_file.cpp.
+// See recovery_notes/sound_file_stream_open_create_launch.md: 150 factory
+// comparisons and 81 table-selected unwind checks pass. Both retail body ranges
+// are covered; native private ABI, EH/frame and byte matching remain pending.
+// Historical matching record follows; the candidate is now retained separately.
 // BLOCKED (D3804): closest_byte_count=0/702; first_diff=0x0044C8F0;
 // residual_class=private EAX/EDX/ECX/stack argument ABI, security-cookie/EH
 // frame, ArchiveCursor_Open result ownership, COM vtable dispatch, and

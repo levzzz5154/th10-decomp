@@ -1,6 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// 2026-09-26: the new semantic candidate passes 623 retail caller/state
+// comparisons. See reference/recovery_notes/dat_archive_load_index_00434f70.md.
+// Its private ABI and MSVC bytes remain unverified; older probes follow.
 // BLOCKED (D3705): closest_byte_count=340/350; first_diff=0x00434f70
 // residual_class=private ESI receiver plus virtual-reader call ABI, stack-local
 // header placement, AL key flow, and helper cleanup ordering. The typed
@@ -10,7 +13,7 @@
 // decrypt/decompress, allocation, index-build, and failure-cleanup calls;
 // candidate extent was 340/350 and was restored.
 // next_lever=caller-inclusive native-LTCG cluster over 00434F70, callers
-// 00434C30/00434DD0, DecryptDatBuffer, and the reader/decompress dependencies,
+// 00434C30/00434CA0, DecryptDatBuffer, and the reader/decompress dependencies,
 // preserving the ESI receiver and AL key convention.
 
 // 0x00434C20..0x00434C29: ?DatArchive_Reset@@

@@ -1,33 +1,19 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00401CE0: set the sprite size and mark the transform dirty.
+// The object arrives in EAX and both floats on the stack (RET 8): native LTCG
+// never gives a float argument an integer register. Nothing in retail calls it.
+struct AnmVm_00401ce0 {
+    unsigned char reserved_000[0x4C];
+    float sprite_width;            // +0x4C
+    float sprite_height;           // +0x50
+    unsigned char reserved_054[0x35C - 0x54];
+    unsigned int flags;                 // +0x35C
+    __declspec(noinline) void SetSpriteSize(float sprite_width_value, float sprite_height_value);
+};
 
-// 0x00401CE0..0x00401D0B: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00401ce0() {
-    __asm {
-    L_00401ce0:
-        mov ecx,dword ptr [esp+4]
-    L_00401ce4:
-        mov edx,dword ptr [esp+8]
-    L_00401ce8:
-        mov dword ptr [eax+4Ch],ecx
-    L_00401ceb:
-        mov ecx,dword ptr [eax+35Ch]
-    L_00401cf1:
-        or ecx,8
-    L_00401cf4:
-        mov dword ptr [eax+50h],edx
-    L_00401cf7:
-        mov dword ptr [eax+35Ch],ecx
-    L_00401cfd:
-        ret 8
-    L_00401d00:
-        mov edx,dword ptr [ecx+118h]
-    L_00401d06:
-        imul eax,44h
-    L_00401d09:
-        add eax,edx
-    L_00401d0b:
-        ret
-    }
+#pragma code_seg(".text$01accessor")
+void AnmVm_00401ce0::SetSpriteSize(float sprite_width_value, float sprite_height_value) {
+    sprite_width = sprite_width_value;
+    sprite_height = sprite_height_value;
+    flags |= 8;
 }
+#pragma code_seg()

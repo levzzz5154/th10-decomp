@@ -1,3 +1,6 @@
+// Executed with maintained name lookup/selection by the cached-launch suite.
+// See reference/recovery_notes/sound_cached_stream_launch_0043d950.md for
+// invalid/null handles, callback record reloads and ignored Seek failure.
 extern "C" unsigned int data_004977a4;
 extern "C" __declspec(dllimport) unsigned int __stdcall SetFilePointer(
         void*, int, int*, unsigned int);

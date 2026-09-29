@@ -48,12 +48,12 @@ extern "C" __declspec(noinline) void __stdcall Scheduler_RemoveLocked(
         return;
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;
-    Scheduler_Remove(task, scheduler);
+    Scheduler_Remove(scheduler, task);
     LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
     --g_thread_synchronization.scheduler_lock_depth;
 }
 #pragma code_seg(".text$70remove")
-extern "C" __declspec(noinline) void __fastcall Scheduler_Remove(SchedulerTask* task, Scheduler* scheduler) {
+extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {

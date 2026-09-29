@@ -1,5 +1,9 @@
 #include "th10/archive/crypt.hpp"
 
+// Historical model. The signed byte-limit stopping condition is corrected
+// and retail-tested in reference/semantic_candidates/dat_crypt.cpp; see
+// recovery_notes/dat_crypt_0044b0d0_0044b220.md before reusing these bodies.
+
 extern "C" void* __cdecl _malloc(uint32_t size);
 extern "C" void __cdecl _free(void* memory);
 

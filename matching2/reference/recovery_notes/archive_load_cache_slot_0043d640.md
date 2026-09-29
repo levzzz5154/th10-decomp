@@ -1,34 +1,42 @@
-# Archive-load cache slot helper at `0x0043D640`
+# Archive-load pending slot helper at `0x0043D640`
 
-## Recovered behavior
+2026-09-26. The 37-byte helper now has a tested ordinary C++ candidate in
+`semantic_candidates/unassigned_0043d640.cpp`. Production still uses the
+original assembly in `msvc/src/unidentified/unassigned_0043d640.cpp`; the
+earlier note's semantic-promotion claim does not describe the current manifest.
 
-Ghidra's disassembly covers 37 bytes, `0x0043D640..0x0043D664`. The routine
-calls `0x0044B360` with two zero stack arguments, stores the returned pointer at
-`owner + 0x5230 + slot_index * 4`, then returns `0` for a non-null pointer or
-`-1` for null. The null result is stored as well. Ghidra reports no incoming
-xrefs to this entry; the direct call to `0x0044B360` is present at
-`0x0043D644`.
+The helper calls `Archive_LoadFile(filename, 0, 0)`, stores the returned pointer
+at `owner + 0x5230 + index * 4`, and returns 0 for nonnull or -1 for null. It
+stores null too, does not free an existing pointer and does not bound the index.
+The candidate computes the slot address with unsigned 32-bit arithmetic to
+preserve wraparound, including negative indices and multiplication wrap. It
+uses shared sound manager types and a volatile pending-pointer store.
 
-The helper's decompilation identifies its hidden EAX input as the filename.
-With the two zero stack arguments, `0x0044B360` performs a packed-archive
-lookup/load (its `fromDisk` argument is zero) with no size-out pointer. Its
-return value is the loaded buffer. The readable source model is in
-`msvc/src/unidentified/unassigned_0043d640.cpp` and calls the existing
-`Archive_LoadFile(file_name, 0, 0)` semantic interface.
+Retail supplies filename in EAX and owner/index on the stack, returning with
+RET 8. The candidate exposes three stdcall arguments with RET 12. The loader
+also has a private EAX filename input in retail. Neither convention is claimed
+recovered by Clang behavioral compilation. The candidate occupies 44 bytes,
+compared with retail's 37.
 
-## ABI and exactness
+`tests/sound_preload_worker_differential.py` tests this helper together with the
+[37-slot producer](sound_preload_worker_0043d080.md): 167 comparisons include
+negative/out-of-range/wrapping indices, null results, overwritten pointers,
+callback mutations, two matching null-owner invalid writes, stack cleanup and
+preserved registers. Null-owner cases invoke the loader before the invalid
+store, matching retail.
 
-At retail entry, the filename is already in EAX; `[ESP+4]` is the owner and
-`[ESP+8]` is the slot index. The routine returns with `RET 8`, cleaning those
-two stack arguments. The helper call separately pushes its two zero arguments,
-which the helper cleans with its own `RET 8`. This mixed convention cannot be
-spelled by the ordinary C++ signature used for the semantic model, so the
-source makes the filename an explicit parameter and uses a C `__cdecl`
-symbol to retain the manifest's existing C-linkage symbol spelling. The
-`Archive_LoadFile` header records that its retail name input is also EAX and
-that its other two inputs are stack arguments; the current source signature
-alone does not force this wrapper/helper pair to reproduce those register
-roles or either `RET 8`. Matching them would require native-LTCG evidence for
-the complete call topology. Byte-exactness and ABI matching are therefore
-unverified. The manifest now classifies this span as semantic and preserves
-its former assembly record. No build, probe, or test was run.
+`tests/sound_archive_preload_integration.py` executes five helper calls through
+the maintained cached loader and recovered DAT closure. Four resulting buffers
+pass through actual WAVE parsing and PCM copying. Publishing twice to one
+pending slot loses the first allocation without freeing it; the fixture records
+that ownership explicitly. Existing secondary COM buffers are released when
+the WAVE consumer later replaces them.
+
+Live Ghidra confirms the retail wrapper's two stack loads after the archive
+call: owner into ECX from `[ESP+4]`, index into EDX from `[ESP+8]`, then a
+single indexed pointer store. A native MSVC 13.10 LTCG trial with the same
+loader cluster generated an exact 37-byte extent and control flow, but loaded
+index into ECX and owner into EDX instead. Making both parameters volatile
+added an address LEA and increased the body to 39 bytes. Neither trial was
+promoted; the production region remains inline assembly. The neighboring
+32-byte music-table wrapper at `0x0043D670` now matches as ordinary C++.

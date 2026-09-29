@@ -8,7 +8,7 @@
     "include/th10/platform/stage_ecl_load_00403850.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG archive loader with real script, checksum, asset-buffer, parameter-file, and map-companion callers. The two public script/checksum entries are rooted; the synthetic pointer-array context retains the additional private conventions. No context or layout-gap bytes count as recovered game code.",
+  "description": "Native-LTCG archive loader with real script, checksum, asset-buffer, parameter-file, and map-companion callers. The two public script/checksum entries are rooted; the synthetic pointer-array context retains the additional private conventions. No context or layout-gap bytes count as recovered game code. The public score task setup callback shares the loader and logger conventions.",
   "functions": [
     {
       "name": "LoadAsset",
@@ -74,6 +74,15 @@
       "actual_abi": "manager in EAX; index in ESI; name at [ESP+4]; RET 4"
     },
     {
+      "name": "Sound_LoadMusicTable_0043d670",
+      "source": "src/unidentified/unassigned_0043d670.cpp",
+      "symbol": "_Sound_LoadMusicTable_0043d670@8",
+      "section": ".text$03zrc_music",
+      "address": "0x0043D670",
+      "size": 32,
+      "actual_abi": "filename in EAX; owner on stack; RET 4"
+    },
+    {
       "name": "StageEclLoader_00403850_Load",
       "source": "src/script/stage_ecl_load.cpp",
       "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
@@ -81,6 +90,15 @@
       "address": "0x00403850",
       "size": 308,
       "actual_abi": "EBX receiver; name on stack; RET 4"
+    },
+    {
+      "name": "ScoreTask_Setup_00413a20",
+      "source": "src/game/score_tasks.cpp",
+      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "section": ".text$02xscore",
+      "address": "0x00413A20",
+      "size": 289,
+      "actual_abi": "state pointer at [ESP+4]; int result in EAX; RET 4"
     }
   ],
   "gaps": [
@@ -95,11 +113,6 @@
       "size": 6198
     },
     {
-      "section": ".text$02ylayout",
-      "address": "0x0040CD7F",
-      "size": 104353
-    },
-    {
       "section": ".text$03zlayout",
       "address": "0x0043A28F",
       "size": 1825
@@ -112,7 +125,12 @@
     {
       "section": ".text$03zqlayout",
       "address": "0x0043AE71",
-      "size": 15199
+      "size": 10239
+    },
+    {
+      "section": ".text$03zrd_gap",
+      "address": "0x0043D690",
+      "size": 4928
     },
     {
       "section": ".text$04zlayout",
@@ -126,8 +144,8 @@
     },
     {
       "section": ".text$08layout",
-      "address": "0x44b5ad",
-      "size": 611
+      "address": "0x0044B5BD",
+      "size": 595
     },
     {
       "section": ".text$02zzlayout",
@@ -138,6 +156,16 @@
       "section": ".text$00alayout",
       "address": "0x00401000",
       "size": 10320
+    },
+    {
+      "section": ".text$02ylayout",
+      "address": "0x00413B41",
+      "size": 76255
+    },
+    {
+      "section": ".text$02wlayout",
+      "address": "0x0040CD7F",
+      "size": 27809
     }
   ],
   "constants": [],
@@ -327,13 +355,11 @@
       "address": "0x004660B4",
       "kind": "data"
     },
-
     {
       "symbol": "_data_00491c10",
       "address": "0x00491c10",
       "kind": "data"
     },
-
     {
       "symbol": "@LoadCachedResource_00447280@12",
       "address": "0x00447280",
@@ -343,6 +369,41 @@
       "symbol": "_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -352,18 +413,21 @@
     "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/music_room.cpp",
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
-    "src/script/stage_ecl_load.cpp"
+    "src/script/stage_ecl_load.cpp",
+    "src/game/score_tasks.cpp",
+    "src/unidentified/unassigned_0043d670.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
-    "?ComputeExecutableChecksum@@YGHXZ"
+    "?ComputeExecutableChecksum@@YGHXZ",
+    "_ScoreTask_Setup_00413a20@4"
   ],
   "driver": "layout/ltcg/archive_callers_context.cpp",
   "context": {
     "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUStageEclLoader_00403850@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
-    "size": 173,
+    "size": 189,
     "description": "synthetic archive caller; not recovered game code"
   },
   "anchors": [

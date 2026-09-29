@@ -37,7 +37,7 @@
     {
       "address": "0x00449F60",
       "name": "Scheduler_Remove",
-      "symbol": "@Scheduler_Remove@8",
+      "symbol": "_Scheduler_Remove@8",
       "section": ".text$70remove",
       "size": 114,
       "actual_abi": "task in ECX, scheduler in EDX; plain RET"

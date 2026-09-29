@@ -1,43 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0043DDB0: queue a stop request for one of twelve pending sound effects.
+// Native LTCG selects the retail convention: owner in ESI, sound ID in EDI.
+// The body also leaves the selected slot (or twelve when full) in EAX.
 
-// 0x0043DDB0..0x0043DDE3: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0043ddb0() {
-    __asm {
-    L_0043ddb0:
-        xor eax,eax
-    L_0043ddb2:
-        lea ecx,[esi+620h]
-    L_0043ddb8:
-        mov edx,dword ptr [ecx]
-    L_0043ddba:
-        test edx,edx
-    L_0043ddbc:
-        jl short L_0043ddcc
-    L_0043ddbe:
-        cmp edx,edi
-    L_0043ddc0:
-        je short L_0043ddd8
-    L_0043ddc2:
-        inc eax
-    L_0043ddc3:
-        add ecx,4
-    L_0043ddc6:
-        cmp eax,0Ch
-    L_0043ddc9:
-        jl short L_0043ddb8
-    L_0043ddcb:
-        ret
-    L_0043ddcc:
-        cmp eax,0Ch
-    L_0043ddcf:
-        jge short L_0043dde3
-    L_0043ddd1:
-        mov dword ptr [esi+eax*4+620h],edi
-    L_0043ddd8:
-        mov dword ptr [esi+eax*4+650h],0FFFFFFFFh
-    L_0043dde3:
-        ret
+struct StopQueue_0043ddb0 {
+    unsigned char unknown_0000_061f[0x620];
+    int pending_sound_indices[12];
+    int pending_pan_count[12];
+
+    __declspec(noinline) void QueueEffectStop(int sound_index);
+};
+typedef char StopQueue_0043ddb0_size_must_match[
+    sizeof(StopQueue_0043ddb0) == 0x680 ? 1 : -1];
+
+#pragma code_seg(".text$01stop")
+void StopQueue_0043ddb0::QueueEffectStop(int sound_index) {
+    int pending = 0;
+    int* cursor = pending_sound_indices;
+    for (; pending < 12; ++pending, ++cursor) {
+        const int existing = *cursor;
+        if (existing < 0)
+            break;
+        if (existing == sound_index)
+            goto store_stop;
     }
+    if (pending >= 12)
+        return;
+    pending_sound_indices[pending] = sound_index;
+store_stop:
+    pending_pan_count[pending] = -1;
 }
+#pragma code_seg()

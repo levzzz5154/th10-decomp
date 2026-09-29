@@ -1,5 +1,10 @@
 # Non-semantic ledger handoff
 
+Historical snapshot: the ledger counts and manifest hashes below predate the
+current worktree. Use `make progress` and `msvc/regions.json` for current
+accounting; [the eighth 2026-09-28 recovery checkpoint](recovery_notes/native_recoveries_2026-09-28_eighth.md)
+records the latest verified conversions.
+
 Refreshed 2026-09-17 from the current manifest. The 2026-09-15 continuation
 task is complete: both ledger snapshots were re-derived and the four regions
 the 2026-09-15 measurement flagged as semantic-with-naked-assembly

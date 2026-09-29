@@ -1,5 +1,11 @@
 # ResourcePath::Load at `0x00435800`
 
+Historical live-Ghidra audit, updated for the first-slash correction. Readable
+candidates now pass 518 resource/registration/size comparisons, including
+stack-file unwind actions; see
+[the current resource recovery](resource_paths_004357d0_0043599d.md).
+The private ABIs and native MSVC bytes remain unverified.
+
 ## Live Ghidra boundary and ABI
 
 The live Ghidra `th10.exe` listing places one function at `0x00435800`; the
@@ -24,7 +30,7 @@ buffer.
 The function has two paths:
 
 1. It calls `0x004356F0` with the path. If an archive record is found, it
-   locates the last slash with `0x00452730`, chooses the suffix after the
+   locates the first slash with `0x00452730`, chooses the suffix after the
    slash (or the full path when there is no slash), and calls
    `0x00434DD0` with the record and optional destination buffer. The suffix
    remains live in ECX for this call.
@@ -40,7 +46,7 @@ The direct helper contracts established from Ghidra are:
 
 | Address | Observed contract |
 | --- | --- |
-| `0x004356F0` | Path in ECX, archive-entry pointer in EAX; scans the archive table after replacing the last path component with the archive marker. |
+| `0x004356F0` | Path in ECX, archive-entry pointer in EAX; scans the archive table after replacing the first slash and remaining suffix with the archive marker. |
 | `0x00452730` | Cdecl string search: the path and `'/'` are pushed; the result pointer is in EAX. |
 | `0x00434DD0` | Archive read/decode helper; the caller supplies a suffix in ECX and two stack values (entry and optional output buffer). The helper's maintained naked body and decompiler expose further private register/stack dependencies. |
 | `0x00435370` | File open: stack `FileHandle*` in ECX, path and mode on stack, Boolean result in AL, `ret 8`. Its body also owns the security-cookie frame and calls the path resolver with a private EAX/ECX contract. |

@@ -96,13 +96,31 @@
       "address": "0x0044BEA0",
       "size": 128,
       "actual_abi": "this in EAX; delta at [ESP+4]; result in EAX; RET 4"
+    },
+    {
+      "name": "StepMenuCursor_004243c0",
+      "symbol": "?StepMenuCursor@@YGHHPAUMenuCursor@@@Z",
+      "section": ".text$12layoutb",
+      "address": "0x004243C0",
+      "size": 13,
+      "actual_abi": "step in EAX; cursor at [ESP+4]; passes the cursor in EAX and the step on the stack to 0x0044BEA0; RET 4",
+      "source": "src/unidentified/menu_cursor_step_004243c0.cpp"
+    },
+    {
+      "name": "StepMenuCursorBack_004243d0",
+      "symbol": "?StepMenuCursorBack@@YGHHPAUMenuCursor@@@Z",
+      "section": ".text$12layoutc",
+      "address": "0x004243D0",
+      "size": 15,
+      "actual_abi": "step in EAX; cursor at [ESP+4]; negates the step and passes the cursor in EAX to 0x0044BEA0; RET 4",
+      "source": "src/unidentified/menu_cursor_step_004243c0.cpp"
     }
   ],
   "context": {
     "symbol": "?MenuCursorCompilerContext@@YGHPAPAUMenuCursor@@HHH@Z",
     "section": ".text$23context",
     "address": "0x0044BF20",
-    "size": 145,
+    "size": 186,
     "description": "Synthetic array-processing caller that establishes the observed register conventions; not recovered game code."
   },
   "gaps": [
@@ -139,7 +157,7 @@
     {
       "section": ".text$12layout",
       "address": "0x0040ADF2",
-      "size": 171390
+      "size": 103886
     },
     {
       "section": ".text$14layout",
@@ -160,8 +178,21 @@
       "section": ".text$20layout",
       "address": "0x0044BE9F",
       "size": 1
+    },
+    {
+      "section": ".text$12layoutbz",
+      "address": "0x004243CD",
+      "size": 3
+    },
+    {
+      "section": ".text$12layoutcz",
+      "address": "0x004243DF",
+      "size": 67473
     }
   ],
   "constants": [],
-  "absolute_symbols": []
+  "absolute_symbols": [],
+  "additional_sources": [
+    "src/unidentified/menu_cursor_step_004243c0.cpp"
+  ]
 }

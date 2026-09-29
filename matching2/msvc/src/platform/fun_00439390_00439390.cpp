@@ -42,7 +42,7 @@ struct GameFrame_00439390 {
 
 // The game-wide render state at 0x00491C28: the device at +0x08, the
 // 0x118-byte stage records at +0x154, the active stage at +0x384, the stage
-// index at +0x388 and the pending-fog flag at +0x750.
+// index at +0x388, and at +0x750/+0x754 whether fog and depth writes are on.
 struct RenderStage_00439390 {
     RenderCamera camera;
     unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
@@ -55,9 +55,15 @@ struct RenderStageState_00439390 {
     RenderStage_00439390* active_stage;          // +0x384
     int stage_index;                             // +0x388
     unsigned char reserved_38C[0x750 - 0x38C];
-    int fog_dirty;                               // +0x750
+    int fog_enabled;                             // +0x750
+    int depth_write_enabled;                     // +0x754
 
-    __declspec(noinline) int RestoreFog();
+    // 0x00420C90..0x00420D50: flush the pending animation batch, then switch
+    // D3DRS_FOGENABLE (28) or D3DRS_ZWRITEENABLE (14) when it changes.
+    __declspec(noinline) int EnableFog();
+    __declspec(noinline) int DisableFog();
+    __declspec(noinline) int EnableDepthWrite();
+    __declspec(noinline) int DisableDepthWrite();
 };
 
 // The worker thread object at 0x00492254: the Win32 handle at +0x04 plus the
@@ -135,8 +141,8 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
             manager->quad_count = 0;
             manager->cursor = buffer;
             manager->batch_start = buffer;
-            data_00491c28.fog_dirty = 0xFF;
-            data_00491c28.RestoreFog();
+            data_00491c28.fog_enabled = 0xFF;
+            data_00491c28.DisableFog();
             asm_FUN_00449d40_00449d40(data_00491be4);
             data_00491c10->Flush();
             data_00491c30->Texture(0, 0);
@@ -161,16 +167,55 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
 
 extern "C" int __cdecl entry_free_004524a1(void*);
 
-// 0x00420CD0: the fog-state restore, read through the render state's own
-// pointer at +0x08.  The state stays live across 0x00442F50, which is the
-// pressure that earns the receiver EDI in retail.
+// 0x00420C90..0x00420D50: the fog and depth-write switches, read through the
+// render state's own device pointer at +0x08.  The state stays live across
+// 0x00442F50, which is the pressure that earns the receiver EDI in retail.
+#pragma code_seg(".text$00a420c90")
+int RenderStageState_00439390::EnableFog() {
+    if (fog_enabled != 1) {
+        data_00491c10->Flush();
+        RenderDevice* dev = device;
+        fog_enabled = 1;
+        return dev->State(28, 1);
+    }
+    return 0;
+}
 #pragma code_seg(".text$00a420cd0")
-__declspec(noinline) int RenderStageState_00439390::RestoreFog() {
-    if (!fog_dirty) return 0;
+int RenderStageState_00439390::DisableFog() {
+    if (fog_enabled) {
+        data_00491c10->Flush();
+        RenderDevice* dev = device;
+        fog_enabled = 0;
+        return dev->State(28, 0);
+    }
+    return 0;
+}
+#pragma code_seg(".text$00a420d10")
+int RenderStageState_00439390::EnableDepthWrite() {
+    if (depth_write_enabled != 1) {
+        data_00491c10->Flush();
+        RenderDevice* dev = device;
+        depth_write_enabled = 1;
+        return dev->State(14, 1);
+    }
+    return 0;
+}
+#pragma code_seg(".text$00a420d50")
+int RenderStageState_00439390::DisableDepthWrite() {
+    if (depth_write_enabled) {
+        data_00491c10->Flush();
+        RenderDevice* dev = device;
+        depth_write_enabled = 0;
+        return dev->State(14, 0);
+    }
+    return 0;
+}
+#pragma code_seg(".text$00a420d90")
+// 0x00420D90: flush the pending animation batch, then set one render state.
+int __stdcall RenderStageState_SetRenderState(RenderStageState_00439390* stage,
+                                              unsigned int state, unsigned int value) {
     data_00491c10->Flush();
-    RenderDevice* dev = device;
-    fog_dirty = 0;
-    return dev->State(28, 0);
+    return stage->device->State(state, value);
 }
 #pragma code_seg()
 

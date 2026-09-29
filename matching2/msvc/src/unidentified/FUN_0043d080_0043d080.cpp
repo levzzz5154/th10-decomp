@@ -1,7 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043D080..0x0043D0EA: FUN_0043d080
+// 0x0043D080..0x0043D0EA: publish 37 archived WAVE buffers, then await shutdown.
+// Tested C++: reference/semantic_candidates/sound_preload_worker.cpp.
+// See reference/recovery_notes/sound_preload_worker_0043d080.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043d080_0043d080() {
     __asm {

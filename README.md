@@ -9,10 +9,12 @@ make             # Compile and require exact .text and whole-executable hashes
 make progress    # Show C++ and remaining assembly counts
 ```
 
-Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, and GNU
-x86 PE binutils (`i686-w64-mingw32-ld`). The default MSVC toolkit directory is
-`~/.local/share/th10-toolchains/msvc-13.10.6030/`, containing `bin/`, `include/`,
-and `lib/`. Override it with `make MSVC_ARGS='--toolkit /path/to/toolkit'`.
+Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, GNU
+x86 PE binutils (`i686-w64-mingw32-ld`), and the pinned GCC, Clang, and
+LLVM-MC binaries required by the selected optional compiler profiles. The
+default MSVC toolkit directory is `~/.local/share/th10-toolchains/msvc-13.10.6030/`,
+containing `bin/`, `include/`, and `lib/`. Override it with
+`make MSVC_ARGS='--toolkit /path/to/toolkit'`.
 Run `./matching2/build_msvc.sh --help` for build options.
 
 The output is `matching2/build/msvc/th10.exe`. Every build checks all bytes;
@@ -31,8 +33,28 @@ python3 matching2/tools/matching/probe.py --source src/game/score.cpp
 It compiles the unit through the build's own compile path, requires every region
 the unit owns to equal the retail bytes, and checks that each linker-filled field
 resolves to the address retail points it at. A converted function replaces its
-`__declspec(naked)` body and changes the region's `symbol` to the name MSVC emits;
-`--proposal` applies a candidate region list before the comparison.
+`__declspec(naked)` body and changes the region's `symbol` to the name its
+selected compiler emits; `--proposal` applies a candidate region list before
+the comparison.
+
+`regions.json` identifies the authoritative source for each address. A second
+naked body in a non-owning source does not contribute to the executable; remove
+such duplicates rather than treating their presence as an unrecovered region.
+
+`regions.json` selects per-source GCC/LLVM-COFF or Clang/LLVM-COFF profiles
+under `source_compilers` when MSVC cannot express a recovered register ABI.
+Each profile pins its compiler and assembler binaries; the build assembles
+the compiler's output unchanged and applies the same exact-byte gate.
+
+The statically linked C/C++ runtime is not transcribed. A `library` region
+names a whole section of a member of the toolkit's own `libcmt.lib`,
+`libcpmt.lib`, `libc.lib` or `libcp.lib` (translation unit
+`lib/<library>/<member>`), and the build links that section at its retail
+address, as the original linker did. `matching2/tools/waves/adopt_crt_library.py`
+finds sections equal to retail outside their relocation fields, derives each
+relocation target's address into the manifest symbol table, and replaces the
+assembly transcription. See the
+[runtime library note](matching2/reference/recovery_notes/runtime_library_sections_2026-09-28.md).
 
 Caller/callee pairs with private LTCG register conventions can now be recovered
 together. A schema-2 LTCG manifest compiles each real source with `/GL`, links

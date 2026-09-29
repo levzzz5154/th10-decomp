@@ -1,137 +1,176 @@
-// Readable models removed from matching2/msvc/src/archive/score_save.cpp: they compiled but did
-// not reproduce the retail bytes, so that file keeps the exact assembly.
+// Semantic candidate for 0x004359B0..0x00435DB4. Not an exact-build input.
+// The compressor shares an 8 KiB ring and a binary match tree with the
+// maintained insertion/deletion helpers. See recovery_notes/lzss_compressor_004359b0.md.
+#include <string.h>
+#include "th10/game/compression_tree.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" unsigned char data_0048f868[0x2000];
+extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" int __fastcall Lzss_InsertString_00436000(int previous_position,
+                                                  int position, int* best_position);
 
-// 0x004359B0..0x00435DB4: LZSS compression with the retail 0x2000-byte
-// ring dictionary, an 18-byte lookahead, and the binary match tree shared with
-// Lzss_InsertString_00436000 and Lzss_RemoveNode_00436210.
 namespace {
 
-class LzssBitWriter_004359B0 {
+class LzssInput {
 public:
-    explicit LzssBitWriter_004359B0(unsigned char* output)
-        : output_(output), size_(0), current_byte_(0), bit_mask_(0x80) {
+    LzssInput(const unsigned char* data, int size)
+        : begin_(data), cursor_(data), size_(size) {}
+
+    __forceinline int ReadByte() {
+        if (cursor_ - begin_ >= size_)
+            return -1;
+        return *cursor_++;
     }
 
+private:
+    const unsigned char* begin_;
+    const unsigned char* cursor_;
+    int size_;
+};
+
+class LzssBitWriter {
+public:
+    LzssBitWriter() : cursor_(0), current_byte_(0), bit_mask_(0x80) {}
+    void SetOutput(unsigned char* output) { cursor_ = output; }
+
     __forceinline void WriteBit(unsigned int bit) {
-        if (bit != 0)
+        if (bit)
             current_byte_ |= bit_mask_;
         bit_mask_ >>= 1;
-        if (bit_mask_ == 0) {
-            output_[size_] = static_cast<unsigned char>(current_byte_);
-            ++size_;
+        if (!bit_mask_) {
+            *cursor_++ = static_cast<unsigned char>(current_byte_);
             current_byte_ = 0;
             bit_mask_ = 0x80;
         }
     }
 
-    __forceinline void WriteBits(unsigned int value, unsigned int count) {
-        while (count != 0) {
-            --count;
-            WriteBit((value >> count) & 1u);
-        }
+    // The argument is the highest bit to emit, not a bit count.
+    __forceinline void WriteBits(unsigned int value, unsigned int mask) {
+        do {
+            WriteBit(value & mask);
+            mask >>= 1;
+        } while (mask);
     }
 
-    int Size() const {
-        return size_;
-    }
+    unsigned char* Cursor() const { return cursor_; }
 
 private:
-    unsigned char* output_;
-    int size_;
+    unsigned char* cursor_;
     unsigned int current_byte_;
-    unsigned int bit_mask_;
+    unsigned char bit_mask_;
 };
+
+// Retail inlines one deletion level into the compressor. Only predecessor
+// removal recurses through the separately recovered ECX-entry helper.
+__forceinline void RemoveExpiredNode(int node) {
+    CompressionTreeNode* old_node = &g_compression_tree.nodes[node];
+    if (!old_node->parent)
+        return;
+
+    if (!old_node->right) {
+        int replacement = old_node->left;
+        g_compression_tree.nodes[replacement].parent = old_node->parent;
+        int parent = old_node->parent;
+        if (g_compression_tree.nodes[parent].right == node)
+            g_compression_tree.nodes[parent].right = replacement;
+        else
+            g_compression_tree.nodes[parent].left = replacement;
+    } else if (!old_node->left) {
+        int replacement = old_node->right;
+        g_compression_tree.nodes[replacement].parent = old_node->parent;
+        int parent = old_node->parent;
+        if (g_compression_tree.nodes[parent].right == node)
+            g_compression_tree.nodes[parent].right = replacement;
+        else
+            g_compression_tree.nodes[parent].left = replacement;
+    } else {
+        int predecessor = old_node->left;
+        while (g_compression_tree.nodes[predecessor].right)
+            predecessor = g_compression_tree.nodes[predecessor].right;
+        Lzss_RemoveNode_00436210(predecessor);
+        int parent = old_node->parent;
+        if (g_compression_tree.nodes[parent].left == node)
+            g_compression_tree.nodes[parent].left = predecessor;
+        else
+            g_compression_tree.nodes[parent].right = predecessor;
+        g_compression_tree.nodes[predecessor] = *old_node;
+        g_compression_tree.nodes[g_compression_tree.nodes[predecessor].left].parent = predecessor;
+        g_compression_tree.nodes[g_compression_tree.nodes[predecessor].right].parent = predecessor;
+    }
+    old_node->parent = 0;
+}
 
 } // namespace
 
-extern "C" __declspec(noinline) unsigned char* __stdcall Lzss_Compress_004359B0(
-    const unsigned char* input, int input_size, int* output_size) {
-    const unsigned int allocation_size =
-        static_cast<unsigned int>(input_size) * 2u;
-    unsigned char* const output = static_cast<unsigned char*>(
-        asm_malloc_00452706(allocation_size));
-    if (output == 0)
+extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
+        const unsigned char* input, int input_size, int* output_size) {
+    LzssBitWriter bits;
+    unsigned char* output = static_cast<unsigned char*>(
+        asm_malloc_00452706(static_cast<unsigned int>(input_size) * 2u));
+    if (!output)
         return 0;
 
+    LzssInput source(input, input_size);
     *output_size = 0;
-
-    volatile unsigned char* const dictionary =
-        reinterpret_cast<volatile unsigned char*>(data_0048f868);
-    for (int i = 0; i < 0x2000; ++i)
-        dictionary[i] = 0;
-
-    volatile int* const tree_words =
-        reinterpret_cast<volatile int*>(data_00477858);
-    for (int node = 1; node <= 0x2000; ++node) {
-        const int word = node * 3;
-        tree_words[word + 0] = 0;
-        tree_words[word + 1] = 0;
-        tree_words[word + 2] = 0;
+    bits.SetOutput(output);
+    memset(data_0048f868, 0, sizeof(data_0048f868));
+    for (int node = 0; node <= 0x2000; ++node) {
+        g_compression_tree.nodes[node].parent = 0;
+        g_compression_tree.nodes[node].left = 0;
+        g_compression_tree.nodes[node].right = 0;
     }
-
-    int input_position = 0;
-    int lookahead = 0;
-    while (input_position < input_size && lookahead < 0x12) {
-        dictionary[lookahead + 1] = input[input_position];
-        ++input_position;
-        ++lookahead;
-    }
-
-    const int root = 0x2000;
-    data_00477858[root].right = 1;
-    data_00477858[1].parent = root;
 
     int ring_position = 1;
+    int lookahead = 0;
+    for (; lookahead < 18; ++lookahead) {
+        int value = source.ReadByte();
+        if (value == -1)
+            break;
+        data_0048f868[ring_position + lookahead] = static_cast<unsigned char>(value);
+    }
+
+    g_compression_tree.nodes[0x2000].right = ring_position;
+    g_compression_tree.nodes[ring_position].parent = 0x2000;
+    g_compression_tree.nodes[ring_position].right = 0;
+    g_compression_tree.nodes[ring_position].left = 0;
+
     int match_length = 0;
     int match_position = 0;
-    LzssBitWriter_004359B0 bits(output);
-
     while (lookahead > 0) {
-        int token_length = match_length;
-        if (token_length > lookahead)
-            token_length = lookahead;
-
+        if (match_length > lookahead)
+            match_length = lookahead;
         int consumed;
-        if (token_length <= 2) {
+        if (match_length <= 2) {
             bits.WriteBit(1);
-            bits.WriteBits(dictionary[ring_position], 8);
+            bits.WriteBits(data_0048f868[ring_position], 0x80);
             consumed = 1;
         } else {
             bits.WriteBit(0);
-            bits.WriteBits(static_cast<unsigned int>(match_position), 13);
-            bits.WriteBits(static_cast<unsigned int>(token_length - 3), 4);
-            consumed = token_length;
+            bits.WriteBits(match_position, 0x1000);
+            bits.WriteBits(match_length - 3, 8);
+            consumed = match_length;
         }
 
-        while (consumed != 0) {
-            const int expired_position = (ring_position + 0x12) & 0x1fff;
-            if (data_00477858[expired_position].parent != 0)
-                Lzss_RemoveNode_00436210(expired_position);
-
-            if (input_position < input_size) {
-                dictionary[expired_position] = input[input_position];
-                ++input_position;
-            } else {
+        for (int i = 0; i < consumed; ++i) {
+            int expired_position = (ring_position + 18) & 0x1fff;
+            RemoveExpiredNode(expired_position);
+            int value = source.ReadByte();
+            if (value == -1)
                 --lookahead;
-            }
-
-            const int old_ring_position = ring_position;
+            else
+                data_0048f868[expired_position] = static_cast<unsigned char>(value);
+            int previous_position = ring_position;
             ring_position = (ring_position + 1) & 0x1fff;
-            if (lookahead != 0) {
+            if (lookahead)
                 match_length = Lzss_InsertString_00436000(
-                    old_ring_position, ring_position, &match_position);
-            }
-            --consumed;
+                    previous_position, ring_position, &match_position);
         }
     }
 
-    // The terminator is a zero flag and a zero 13-bit position. Retail writes
-    // only complete output bytes; a final partial byte remains implicit.
+    // Only complete bytes are emitted. The zero flag and zero 13-bit position
+    // terminate the stream; the decoder supplies zero bits after input ends.
     bits.WriteBit(0);
-    bits.WriteBits(0, 13);
-    *output_size = bits.Size();
+    bits.WriteBits(0, 0x1000);
+    *output_size = static_cast<int>(bits.Cursor() - output);
     return output;
 }

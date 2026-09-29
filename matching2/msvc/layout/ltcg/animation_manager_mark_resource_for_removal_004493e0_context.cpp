@@ -27,6 +27,13 @@ struct AnimationManager_004477d0 {
 
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930();
 
+struct AnimationResourceEntry_00447810 {
+    void* handle;
+    void* allocation;
+    unsigned char pad_008[8];
+    __declspec(noinline) void Release();
+};
+
 #pragma code_seg(".text$30context")
 int __stdcall AnimationManagerHelperCompilerContext(BulletPool** pools,
                                                     AnimationResource_00447810** records,
@@ -45,6 +52,7 @@ int __stdcall AnimationManagerHelperCompilerContext(BulletPool** pools,
         index++;
     }
     index += ReleasePair_0041f930();
+    ((AnimationResourceEntry_00447810*)records[index])->Release();
     return index;
 }
 #pragma code_seg()

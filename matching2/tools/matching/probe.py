@@ -32,6 +32,7 @@ from matching2.tools.common.process import sha
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
 from matching2.tools.matching.build_msvc import ROOT, compile_raw, normalize_unit
 from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
+from matching2.tools.matching.gcc_llvm_backend import validate_source_compilers
 from matching2.tools.matching.mismatch import instruction_at
 
 DEFAULT_PROJECT = ROOT / "matching2/msvc"
@@ -127,6 +128,11 @@ def resolve_regions(regions, object_path):
     defined = defined_functions(object_path)
     resolved, problems = [], []
     for region in regions:
+        if region.get("kind") == "library":
+            # Toolkit sections can begin with bytes before their first function.
+            # The normalizer validates the selected section and its base symbol.
+            resolved.append(region)
+            continue
         if region["symbol"] in defined:
             resolved.append(region)
             continue
@@ -281,13 +287,17 @@ def extra_sections(object_path, normalization):
     return extra
 
 
-def probe_unit(project, toolkit, output, config, source, regions, cluster_by_source, index):
+def probe_unit(project, toolkit, output, config, source, regions, cluster_by_source, index,
+               compiler_profiles=None):
     """Compile one unit and resolve its region symbols against the emitted object."""
     if source in cluster_by_source:
+        if compiler_profiles is None and config.get('source_compilers'):
+            validate_source_compilers(project, config, list(cluster_by_source.values()))
         cluster = cluster_by_source[source]
         unit = build_cluster(cluster, toolkit, output / "clusters" / cluster["name"], config["flags"])
         return unit, [dict(region) for region in cluster["regions"]]
-    raw = compile_raw(project, toolkit, output, index, source, config)
+    raw = compile_raw(project, toolkit, output, index, source, config,
+                      compiler_profiles=compiler_profiles)
     resolved = resolve_regions(regions, raw["object"])
     normalized = output / "objects" / f"unit{index:04d}.normalized.obj"
     unit = {**raw, **normalize_unit(raw["object"], normalized, source, config, resolved)}
@@ -327,6 +337,7 @@ def main():
     for source in args.source:
         regions_by_source.setdefault(source, owned_regions(config, source))
     clusters = load_clusters(project, config, config["regions"])
+    compiler_profiles = validate_source_compilers(project, config, clusters)
     cluster_by_source = {
         source: cluster for cluster in clusters for source in cluster["source_names"]
     }
@@ -342,7 +353,8 @@ def main():
         regions = apply_proposals(owned_regions(config, source), proposals[source], source)
         try:
             unit, resolved = probe_unit(project, args.toolkit.resolve(), args.output.resolve(),
-                                        config, source, regions, cluster_by_source, index)
+                                        config, source, regions, cluster_by_source, index,
+                                        compiler_profiles)
         except Exception as error:  # compiler and region-extent failures are data, not crashes
             log = args.output / "logs" / f"unit{index:04d}.log"
             detail = log.read_text().strip() if log.is_file() else ""

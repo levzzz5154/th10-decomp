@@ -1,25 +1,12 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00445880: draw callback installed at 0x00445337 for entities whose strip
+// vertices form a 33-point triangle fan.  Compiled in the anm_batch_flush
+// native-LTCG cluster so the call into 0x004450E0 uses its private entry
+// (manager in ECX, entity in EAX).
+#include "th10/render/quad_batch.hpp"
 
-// 0x00445880..0x00445898: FUN_00445880
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00445880_00445880() {
-    __asm {
-    L_00445880:
-        mov eax,ecx
-    L_00445882:
-        mov ecx,dword ptr [eax+358h]
-    L_00445888:
-        push 21h
-    L_0044588a:
-        push ecx
-    L_0044588b:
-        mov ecx,dword ptr [data_00491c10]
-    L_00445891:
-        call asm_FUN_004450e0_004450e0
-    L_00445896:
-        xor eax,eax
-    L_00445898:
-        ret
-    }
+#pragma code_seg(".text$07contextzb")
+__declspec(noinline) int RenderEntity::DrawFan33() {
+    data_00491c10->DrawFan(this, strip_vertices, 0x21);
+    return 0;
 }
+#pragma code_seg()

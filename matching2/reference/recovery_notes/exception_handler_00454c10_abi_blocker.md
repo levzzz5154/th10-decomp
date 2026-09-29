@@ -1,28 +1,21 @@
-# `0x00454C08` exception-handler region screen
+# `0x00454C08`: original EH3 runtime section
 
-The region currently stored in
-[`unassigned_00454c08.cpp`](../../msvc/src/unidentified/unassigned_00454c08.cpp)
-is not a single code body. Ghidra's data-region analysis identifies
-`0x00454C08..0x00454C0F` as the eight-byte string `VC20XC00`. The function body
-starts at `0x00454C10` and ends at the plain `RET` at `0x00454CF5`.
+Ghidra separates an eight-byte `VC20XC00` prefix at `0x00454C08`, the
+`__except_handler3` entry at `0x00454C10`, and
+`__seh_longjmp_unwind@4` at `0x00454CF6`. These are one 265-byte `.text`
+section (number 1) of the toolkit's
+`libcmt.lib/build/intel/mt_obj/exsup3.obj`, not three independently compiled
+game functions. Its 241 non-relocation bytes match retail; all six REL32
+fields resolve to the original exception-runtime functions. A focused
+`probe.py --source lib/libcmt.lib/build/intel/mt_obj/exsup3.obj` comparison
+verifies the complete section and relocations.
 
-## ABI blocker
-
-The source at `0x00454BBC` is `__SEH_prolog`; it pushes the address
-`0x00454C10` as an exception-handler callback. Ghidra also reports an incoming
-data xref from `0x00471070`. It does not currently define a function at
-`0x00454C10`, so the callback ABI is not captured by a decompiler signature.
-
-The body reads three stack values (`[EBP+8]`, `[EBP+0xC]`, and `[EBP+0x10]`),
-then calls filter and termination funclets through addresses loaded from the
-exception metadata. Before these indirect calls it sets `EBP` to the frame
-record at `EBX+0x10` and clears `EBX`, `ECX`, `EDX`, `ESI`, and `EDI`. The
-funclets therefore run under the compiler's exception-frame/register
-convention; an ordinary C++ function pointer call cannot establish that EBP
-frame while preserving its own normal stack frame. The `__SEH_prolog` entry
-and this callback body need to be recovered as a coordinated ABI cluster before
-removing the handler's inline assembly.
-
-Keep `0x00454C08..0x00454C0F` classified as data and retain the naked handler
-body at `0x00454C10..0x00454CF5` for now. No source or manifest change was made
-for this candidate.
+The section has no function symbol at offset zero. Its static `.text`
+section symbol is selected via the unit's `.text`/`.r000001` aliases and
+exported as `_crt_exsup3_text_base_00454c08`; the original
+`__except_handler3` symbol remains at +8, with a private alias to avoid
+colliding with the manifest's existing absolute binding. The original
+`__seh_longjmp_unwind@4` symbol remains at +238. The two obsolete naked
+transcriptions are no longer build inputs. The linker incorporates the
+toolkit's unmodified section, so there is no need to invent a C++ signature
+for its private SEH frame/register convention.

@@ -1,131 +1,63 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// D3DFMT_A1R5G5B5: the high bit is alpha; the lower 15 bits hold color.
+struct Pixel1555 {
+    unsigned short colors : 15;
+    unsigned short alpha : 1;
+};
 
-// 0x00437160..0x004371FC: FUN_00437160
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00437160_00437160() {
-    __asm {
-    L_00437160:
-        mov eax,dword ptr [ecx+110h]
-    L_00437166:
-        mov edx,dword ptr [ecx+120h]
-    L_0043716c:
-        imul eax,dword ptr [esp+4]
-    L_00437171:
-        mov ecx,dword ptr [ecx+100h]
-    L_00437177:
-        sub ecx,15h
-    L_0043717a:
-        push esi
-    L_0043717b:
-        je short L_004371df
-    L_0043717d:
-        sub ecx,4
-    L_00437180:
-        je short L_004371a5
-    L_00437182:
-        dec ecx
-    L_00437183:
-        je short L_0043718b
-    L_00437185:
-        xor al,al
-    L_00437187:
-        pop esi
-    L_00437188:
-        ret 4
-    L_0043718b:
-        mov ecx,1
-    L_00437190:
-        cmp eax,ecx
-    L_00437192:
-        jle short L_004371f7
-    L_00437194:
-        xor byte ptr [ecx+edx],0F0h
-    L_00437198:
-        add ecx,2
-    L_0043719b:
-        cmp ecx,eax
-    L_0043719d:
-        jl short L_00437194
-    L_0043719f:
-        mov al,1
-    L_004371a1:
-        pop esi
-    L_004371a2:
-        ret 4
-    L_004371a5:
-        test eax,eax
-    L_004371a7:
-        jle short L_004371f7
-    L_004371a9:
-        lea esi,[eax-1]
-    L_004371ac:
-        shr esi,1
-    L_004371ae:
-        inc esi
-    L_004371af:
-        nop
-    L_004371b0:
-        xor ecx,ecx
-    L_004371b2:
-        mov cx,word ptr [edx]
-    L_004371b5:
-        mov eax,ecx
-    L_004371b7:
-        not eax
-    L_004371b9:
-        xor eax,ecx
-    L_004371bb:
-        and eax,7FFFh
-    L_004371c0:
-        not ecx
-    L_004371c2:
-        xor eax,ecx
-    L_004371c4:
-        test ah,ah
-    L_004371c6:
-        mov word ptr [edx],ax
-    L_004371c9:
-        js short L_004371d3
-    L_004371cb:
-        and eax,8000h
-    L_004371d0:
-        mov word ptr [edx],ax
-    L_004371d3:
-        add edx,2
-    L_004371d6:
-        dec esi
-    L_004371d7:
-        jne short L_004371b0
-    L_004371d9:
-        mov al,1
-    L_004371db:
-        pop esi
-    L_004371dc:
-        ret 4
-    L_004371df:
-        mov esi,3
-    L_004371e4:
-        cmp eax,esi
-    L_004371e6:
-        jle short L_004371f7
-    L_004371e8:
-        mov cl,byte ptr [esi+edx]
-    L_004371eb:
-        not cl
-    L_004371ed:
-        mov byte ptr [esi+edx],cl
-    L_004371f0:
-        add esi,4
-    L_004371f3:
-        cmp esi,eax
-    L_004371f5:
-        jl short L_004371e8
-    L_004371f7:
-        mov al,1
-    L_004371f9:
-        pop esi
-    L_004371fa:
-        ret 4
+// Ghidra observes a surface receiver in ECX, row_count at [ESP+4], and a
+// byte-sized success result in AL. Only the accessed fields are laid out here.
+struct ImageSurface_00437160 {
+    unsigned char pad_000[0x100];
+    int format;                       // +0x100
+    unsigned char pad_104[0x0C];
+    int pitch;                        // +0x110
+    unsigned char pad_114[0x0C];
+    unsigned char* pixels;            // +0x120
+
+    __declspec(noinline) char InvertAlpha(int row_count);
+};
+
+// 0x00437160: modify the alpha representation for the selected pixel format.
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) char ImageSurface_00437160::InvertAlpha(int row_count) {
+    int byte_count = pitch * row_count;
+    unsigned char* bytes = pixels;
+
+    switch (format) {
+    case 0x1A:
+        // Transform the high nibble at byte offsets 1, 3, 5, and so on.
+        for (int index = 1; index < byte_count; index += 2) {
+            bytes[index] ^= 0xF0;
+        }
+        break;
+
+    case 0x19:
+        // 16-bit pixels: toggle the high alpha bit; clear the pixel when its
+        // previous alpha bit was set.
+        if (byte_count <= 0) {
+            break;
+        }
+        {
+            for (int index = 0; index < byte_count; index += 2, bytes += 2) {
+                ((Pixel1555*)bytes)->alpha = !((Pixel1555*)bytes)->alpha;
+                if (!((Pixel1555*)bytes)->alpha) {
+                    ((Pixel1555*)bytes)->colors = 0;
+                }
+            }
+        }
+        break;
+
+    case 0x15:
+        // Four-byte pixels: invert the fourth byte in each pixel.
+        for (int index = 3; index < byte_count; index += 4) {
+            bytes[index] = ~bytes[index];
+        }
+        break;
+
+    default:
+        return 0;
     }
+    return 1;
 }
+
+#pragma code_seg()

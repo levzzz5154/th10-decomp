@@ -1,3 +1,7 @@
+// This is DirectSound primary-buffer format setup, not a joystick property.
+// Tested candidate: reference/semantic_candidates/sound_primary_format.cpp.
+// 436 comparisons pass; see recovery_notes/sound_primary_format_0044c7e0.md.
+// The register-role guesses in the historical blocker below are superseded.
 // BLOCKED (D3703): closest_byte_count=0/260; first_diff=unmeasured;
 // residual_class=production-valid native-LTCG ownership is unavailable because
 // the exclusive region remains kind=asm in regions.json; the readable

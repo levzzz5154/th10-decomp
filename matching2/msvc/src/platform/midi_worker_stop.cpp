@@ -12,6 +12,9 @@
 // LTCG so the ESI receiver and imported-slot call shapes are selected.
 
 // 0x0043DAB0..0x0043DB5F: MidiWorker_StopRetail
+// Behavioral C++: reference/semantic_candidates/sound_midi_stop.cpp.
+// See reference/recovery_notes/sound_shutdown_0043d120_0043dab0.md for the
+// tested import capture order, current handles and integrated aggregate path.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_MidiWorker_StopRetail_0043dab0() {
     __asm {

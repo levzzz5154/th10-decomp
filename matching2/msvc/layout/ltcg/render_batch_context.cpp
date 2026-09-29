@@ -34,6 +34,14 @@ struct ScoreRuntimeState_004091c0 {
 };
 
 
+// 0x00420C90/0x00420D10/0x00420D50 have no retail caller; these calls keep the
+// switches in the link without pinning their EDI receiver.
+struct RenderStageState_00439390 {
+    __declspec(noinline) int EnableFog();
+    __declspec(noinline) int EnableDepthWrite();
+    __declspec(noinline) int DisableDepthWrite();
+};
+
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
                                   const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
@@ -54,6 +62,9 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
     ((RenderStageState_00405300*)&data_00491c28)->SelectDefaultStage(0);
     // keeps the 0x004091C0 model in the link without pinning its receiver
     ((ScoreRuntimeState_004091c0*)&data_00491c28)->ReleaseFlaggedEntityArrays();
+    count += ((RenderStageState_00439390*)&data_00491c28)->EnableFog();
+    count += ((RenderStageState_00439390*)&data_00491c28)->EnableDepthWrite();
+    count += ((RenderStageState_00439390*)&data_00491c28)->DisableDepthWrite();
     return count;
 }
 #pragma code_seg()

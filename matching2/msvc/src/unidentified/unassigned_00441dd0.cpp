@@ -1,37 +1,11 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00441DD0: the vector from one point to another.
+struct Vec2_00441dd0 {
+    float x, y;
+    Vec2_00441dd0(float x_value, float y_value) : x(x_value), y(y_value) {}
+};
 
-// 0x00441DD0..0x00441DF4: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00441dd0() {
-    __asm {
-    L_00441dd0:
-        fld dword ptr [edx+4]
-    L_00441dd3:
-        fsub dword ptr [ecx+4]
-    L_00441dd6:
-        fld dword ptr [edx]
-    L_00441dd8:
-        fsub dword ptr [ecx]
-    L_00441dda:
-        fstp dword ptr [eax]
-    L_00441ddc:
-        fstp dword ptr [eax+4]
-    L_00441ddf:
-        ret
-    L_00441de0:
-        fld dword ptr [esp+4]
-    L_00441de4:
-        fmul dword ptr [ecx+4]
-    L_00441de7:
-        fld dword ptr [esp+4]
-    L_00441deb:
-        fmul dword ptr [ecx]
-    L_00441ded:
-        fstp dword ptr [eax]
-    L_00441def:
-        fstp dword ptr [eax+4]
-    L_00441df2:
-        ret 4
-    }
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) Vec2_00441dd0 __stdcall Difference_00441dd0(const Vec2_00441dd0* to, const Vec2_00441dd0* from) {
+    return Vec2_00441dd0(to->x - from->x, to->y - from->y);
 }
+#pragma code_seg()

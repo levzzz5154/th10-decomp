@@ -3,13 +3,26 @@
   "name": "dtor_delete_0040b920",
   "source": "src/unidentified/unassigned_0040b920.cpp",
   "driver": "layout/ltcg/dtor_delete_0040b920_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/bullet_anim_owner.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/render/animation_mark_for_removal.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "Deletable_0040b920_Delete compiled with the 0x0040B3A0 cleanup as an internal ABI anchor, so the object stays in ESI across the call and the call receives it in EAX as retail does.",
+  "description": "BulletAnimOwner deleting destructor compiled with its teardown at 0x0040B3A0 and PlatformWorker::Stop, so the object stays in ESI across the call and the teardown receives it in EAX as retail does.",
   "functions": [
     {
+      "name": "BulletAnimOwner_Destroy",
+      "symbol": "?Destroy@BulletAnimOwner@@QAEXXZ",
+      "section": ".text$01destroy",
+      "address": "0x0040B3A0",
+      "size": 192,
+      "actual_abi": "object in EAX",
+      "source": "src/game/bullet_anim_release.cpp"
+    },
+    {
       "name": "Deletable_0040b920_Delete",
-      "symbol": "?Deletable_0040b920_Delete@@YGPAXPAUDeletable_0040b920@@H@Z",
+      "symbol": "?Deletable_0040b920_Delete@@YGPAXPAUBulletAnimOwner@@H@Z",
       "section": ".text$03del",
       "address": "0x0040B920",
       "size": 28,
@@ -31,13 +44,18 @@
     },
     {
       "section": ".text$02layout",
-      "address": "0x0040B3A8",
-      "size": 1400
+      "address": "0x0040B460",
+      "size": 1216
     },
     {
       "section": ".text$04layout",
       "address": "0x0040B93C",
       "size": 20
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x0040B98B",
+      "size": 264133
     }
   ],
   "constants": [],
@@ -47,16 +65,46 @@
       "symbol": "_entry_free_004524a1",
       "address": "0x004524A1",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
     }
   ],
   "anchors": [
     {
-      "name": "asm_FUN_0040b3a0_0040b3a0_abi_anchor",
-      "symbol": "_asm_FUN_0040b3a0_0040b3a0",
-      "section": ".text$01anchor",
-      "address": "0x0040B3A0",
-      "size": 8
+      "name": "PlatformWorker_Stop_abi_anchor",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
     }
   ],
-  "additional_sources": []
+  "additional_sources": [
+    "src/game/bullet_anim_release.cpp"
+  ],
+  "included_sources": [
+    "src/platform/platform_stop_worker_0044c150.cpp"
+  ]
 }

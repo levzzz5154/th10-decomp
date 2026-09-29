@@ -1,59 +1,44 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// BLOCKED (D3507): closest_byte_count=0/59; first_diff=extent (readable typed cdecl candidate emitted 74 bytes vs retail 59);
-// residual_class=private-EAX ABI; the retail initializer receives its object in EAX and returns through the private caller context, while standalone cdecl C++ receives it on the stack and reorders flag masking;
-// variants_tested=retail naked baseline (59/59 exact), readable packed-state cdecl initializer (74-byte extent), live Ghidra FUN_00449aa0 decompile, and GameMain caller inspection;
-// next_lever=native-LTCG cluster with GameMain's real EAX caller and a production D3DResourceManager layout, then probe the combined region.
-
-// 0x00438880..0x004388E6: ?D3DResourceManager_Destroy@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00449AA0..0x00449ADA: ?D3DResourceManager_Initialize@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_D3DResourceManager_Initialize_00449aa0() {
-    __asm {
-    L_00449aa0:
-        mov ecx,dword ptr [eax+4]
-    L_00449aa3:
-        xor edx,edx
-    L_00449aa5:
-        mov dword ptr [eax+8],edx
-    L_00449aa8:
-        mov dword ptr [eax+0Ch],edx
-    L_00449aab:
-        mov dword ptr [eax+10h],edx
-    L_00449aae:
-        mov dword ptr [eax],edx
-    L_00449ab0:
-        and ecx,0FFFFFFFEh
-    L_00449ab3:
-        mov dword ptr [eax+4],ecx
-    L_00449ab6:
-        lea ecx,[eax+24h]
-    L_00449ab9:
-        mov dword ptr [eax+14h],eax
-    L_00449abc:
-        mov dword ptr [eax+18h],edx
-    L_00449abf:
-        mov dword ptr [eax+1Ch],edx
-    L_00449ac2:
-        and dword ptr [ecx+4],0FFFFFFFEh
-    L_00449ac6:
-        mov dword ptr [ecx+8],edx
-    L_00449ac9:
-        mov dword ptr [ecx+0Ch],edx
-    L_00449acc:
-        mov dword ptr [ecx+10h],edx
-    L_00449acf:
-        mov dword ptr [ecx],edx
-    L_00449ad1:
-        mov dword ptr [ecx+14h],ecx
-    L_00449ad4:
-        mov dword ptr [ecx+18h],edx
-    L_00449ad7:
-        mov dword ptr [ecx+1Ch],edx
-    L_00449ada:
-        ret
-    }
+// Initializes the primary and secondary D3D resource lists.
+// Native LTCG retains the private manager-in-EAX entry convention.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+struct D3DResourceList_00449AA0 {
+    unsigned int reserved, flags;
+    void* pendingFirst;
+    void* pendingLast;
+    void* pendingCursor;
+    D3DResourceList_00449AA0* owner;
+    void* first;
+    void* last;
+    unsigned int unused;
+};
+struct D3DResourceManager_00449AA0 {
+    D3DResourceList_00449AA0 primary, secondary;
+    __declspec(noinline) void Initialize();
+};
+#pragma code_seg(".text$01init")
+void D3DResourceManager_00449AA0::Initialize() {
+    unsigned int flags = primary.flags;
+    primary.pendingFirst = 0;
+    primary.pendingLast = 0;
+    primary.pendingCursor = 0;
+    primary.reserved = 0;
+    // Finish clearing pending state before publishing the reset flags.
+    _ReadWriteBarrier();
+    primary.flags = flags & ~1u;
+    D3DResourceList_00449AA0* list = &secondary;
+    primary.owner = &primary;
+    primary.first = 0;
+    primary.last = 0;
+    // Keep each embedded list initialization as a separate compiler phase.
+    _ReadWriteBarrier();
+    list->flags &= ~1u;
+    list->pendingFirst = 0;
+    list->pendingLast = 0;
+    list->pendingCursor = 0;
+    list->reserved = 0;
+    list->owner = list;
+    list->first = 0;
+    list->last = 0;
 }
+#pragma code_seg()

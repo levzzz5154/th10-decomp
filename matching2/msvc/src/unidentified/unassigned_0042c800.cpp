@@ -1,41 +1,27 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042C800..0x0042C82C: release resource slot 1 of the animation manager,
+// freeing its allocation and clearing the slot.  Compiled in the
+// animation_manager_mark_resource_for_removal_004493e0 native-LTCG cluster,
+// like 0x0041F930, so the call into 0x00447810 passes the record in EDI.
 
-// 0x0042C800..0x0042C82C: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042c800() {
-    __asm {
-    L_0042c800:
-        push esi
-    L_0042c801:
-        mov esi,dword ptr [data_00491c10]
-    L_0042c807:
-        add esi,3AD070h
-    L_0042c80d:
-        push edi
-    L_0042c80e:
-        mov edi,dword ptr [esi]
-    L_0042c810:
-        test edi,edi
-    L_0042c812:
-        je short L_0042c82a
-    L_0042c814:
-        call asm_FUN_00447810_00447810
-    L_0042c819:
-        mov eax,dword ptr [esi]
-    L_0042c81b:
-        push eax
-    L_0042c81c:
-        call asm_free_004524a1
-    L_0042c821:
-        add esp,4
-    L_0042c824:
-        mov dword ptr [esi],0
-    L_0042c82a:
-        pop edi
-    L_0042c82b:
-        pop esi
-    L_0042c82c:
-        ret
+struct AnimationResource_00447810 {
+    __declspec(noinline) void Release();
+};
+
+struct AnimationManager_0042c800 {
+    unsigned char pad_000[0x3AD06C];
+    AnimationResource_00447810* slots_3ad06c[0x21];
+};
+
+extern "C" AnimationManager_0042c800* data_00491c10;
+extern "C" void __cdecl entry_free_004524a1(void* memory);
+
+#pragma code_seg(".text$04layoutb")
+extern "C" __declspec(noinline) void __cdecl ReleaseSlot1_0042c800() {
+    AnimationResource_00447810** slot = &data_00491c10->slots_3ad06c[1];
+    if (*slot != 0) {
+        (*slot)->Release();
+        entry_free_004524a1(*slot);
+        *slot = 0;
     }
 }
+#pragma code_seg()

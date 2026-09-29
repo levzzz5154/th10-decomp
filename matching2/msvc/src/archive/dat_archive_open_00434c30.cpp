@@ -1,5 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Typed candidate: reference/semantic_candidates/dat_archive_open.cpp. Both
+// opener bodies and their string-copy helper pass isolated and complete DAT
+// lifecycle comparisons. See reference/recovery_notes/dat_archive_open_00434c30_00434ca0.md;
+// private register conventions and MSVC matching still prevent promotion.
 
 // 0x00434C20..0x00434C29: ?DatArchive_Reset@@
 // Naked body preserves the retail register/stack ABI.

@@ -1,4 +1,8 @@
 // 0x0044D370 - Select the first idle interface, or a random fallback.
+// The native matched expression below permits Clang to read entries_004
+// before rand. Explicitly sequenced candidate and differential evidence:
+// reference/semantic_candidates/sound_stream_select.cpp and
+// reference/recovery_notes/sound_stream_start_0044d440.md.
 extern "C" int __cdecl asm_rand_0045371b();
 
 struct PlatformD370Entry {

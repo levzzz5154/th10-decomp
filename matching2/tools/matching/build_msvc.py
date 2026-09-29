@@ -17,11 +17,16 @@ from matching2.tools.common.pe import PEImage
 from matching2.tools.common.process import run, sha
 from matching2.tools.common.coff_regions import normalize_object
 from matching2.tools.common.coff import read_coff_function
+from matching2.tools.common.library import is_library_source, read_library_member
 from matching2.tools.matching.pack_asm_pe import build_image
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
 from matching2.tools.matching.progress import summarize
 from matching2.tools.matching.mismatch import describe_mismatch
 from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
+from matching2.tools.matching.gcc_llvm_backend import (
+    compile_gcc_llvm, validate_source_compilers,
+)
+from matching2.tools.matching.clang_llvm_backend import compile_clang_llvm
 
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PROJECT = ROOT / 'matching2/msvc'
@@ -41,8 +46,11 @@ def validate_project(config, reference):
             raise ValueError(f'project partition has a gap, overlap or invalid extent at {cursor:#x}')
         if region['symbol'] in symbols:
             raise ValueError('duplicate selected symbol: ' + region['symbol'])
-        if region['kind'] not in ('semantic', 'asm', 'data', 'padding'):
+        if region['kind'] not in ('semantic', 'asm', 'data', 'padding', 'library'):
             raise ValueError('unclassified C++ region')
+        if (region['kind'] == 'library') != is_library_source(region['source']):
+            raise ValueError('library regions and only library regions come from a toolkit library: '
+                             + region['name'])
         symbols.add(region['symbol'])
         cursor += region['size']
     if cursor != 0x465c00:
@@ -105,8 +113,28 @@ def verify_linked(path, config, oracle=None):
     return raw
 
 
-def compile_raw(project, toolkit, output, index, source, config):
+def extract_library_unit(toolkit, output, index, source):
+    """Copy the toolkit library member a library translation unit names."""
+    blob = read_library_member(toolkit, source)
+    objects = output / 'objects'
+    objects.mkdir(parents=True, exist_ok=True)
+    obj = objects / f'unit{index:04d}.obj'
+    obj.write_bytes(blob)
+    return {'source': source, 'object': str(obj), 'command': None, 'member_sha256': sha(blob)}
+
+
+def compile_raw(project, toolkit, output, index, source, config, *, compiler_profiles=None):
     """Compile one maintained source to a raw COFF object without selecting regions."""
+    profiles = (validate_source_compilers(project, config) if compiler_profiles is None
+                else compiler_profiles)
+    if source in profiles:
+        if profiles[source]['kind'] == 'gcc-llvm-coff':
+            return compile_gcc_llvm(project, output, index, source, profiles[source])
+        if profiles[source]['kind'] == 'clang-llvm-coff':
+            return compile_clang_llvm(project, output, index, source, profiles[source])
+        raise ValueError('unsupported compiler profile kind: ' + profiles[source]['kind'])
+    if is_library_source(source):
+        return extract_library_unit(toolkit, output, index, source)
     source_path = (project / source).resolve()
     if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
         raise ValueError('translation unit must be a project C++ source: ' + source)
@@ -138,16 +166,20 @@ def normalize_unit(object_path, destination, source, config, regions):
     return {'object': str(destination), 'normalization': report}
 
 
-def compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index, source):
+def compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index, source,
+                 compiler_profiles=None):
     """Compile one maintained unit into the normalized COFF object the link consumes.
 
     Shared by the exact-match build and by per-unit probes so both consume one
     compile path. ``by_source`` maps a source to the region records it owns.
     """
     if source in cluster_by_source:
+        if compiler_profiles is None and config.get('source_compilers'):
+            validate_source_compilers(project, config, list(cluster_by_source.values()))
         cluster = cluster_by_source[source]
         return build_cluster(cluster, toolkit, output / 'clusters' / cluster['name'], config['flags'])
-    raw = compile_raw(project, toolkit, output, index, source, config)
+    raw = compile_raw(project, toolkit, output, index, source, config,
+                      compiler_profiles=compiler_profiles)
     normalized = output / 'objects' / f'unit{index:04d}.normalized.obj'
     return {**raw, **normalize_unit(raw['object'], normalized, source, config, by_source[source])}
 
@@ -170,6 +202,7 @@ def main():
     reference = json.loads((project / 'pe_layout.json').read_text())['reference']
     regions, units = validate_project(config, reference)
     clusters = load_clusters(project, config, regions)
+    compiler_profiles = validate_source_compilers(project, config, clusters)
     cluster_by_source = {source: cluster for cluster in clusters for source in cluster['source_names']}
     cluster_additional_sources = {
         source for cluster in clusters for source in cluster['additional_sources']
@@ -192,10 +225,11 @@ def main():
     for region in regions + dos_regions:
         by_source[region['source']].append(region)
     compiled, failures = [], []
-    print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}...', flush=True)
+    print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}'
+          f' and {len(config.get("source_compilers", {}))} optional compiler sources...', flush=True)
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
         pending = {executor.submit(compile_unit, project, toolkit, output, config, by_source,
-                                   cluster_by_source, index, source): source
+                                   cluster_by_source, index, source, compiler_profiles): source
                    for index, source in enumerate(units)}
         for index, future in enumerate(as_completed(pending), 1):
             try:
@@ -240,11 +274,12 @@ def main():
                           for path in sorted(project.rglob('*')) if path.is_file()},
         'link_command': command, 'package': package, 'masked_bytes': 0,
         'retail_executable_used_for_build': False,
-        'note': 'Exact output from MSVC sources, including inline-assembly scaffolding. Only semantic regions count as ordinary C++ recovery.'}
+        'note': 'Exact output from maintained C++ sources using the recorded compilers, including inline-assembly scaffolding. Only semantic regions count as ordinary C++ recovery.'}
     (output / 'port-report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(f"Whole EXE exact: {package['size']:,} bytes.")
     print(f"Ordinary C++: {summary['regions'].get('semantic', 0):,} regions / {summary['bytes']['semantic']:,} bytes.")
     print(f"Remaining assembly: {summary['regions'].get('asm', 0):,} regions / {summary['bytes']['asm']:,} bytes.")
+    print(f"Toolkit runtime library: {summary['regions']['library']:,} regions / {summary['bytes']['library']:,} bytes.")
     print(f"Embedded .text data: {summary['bytes']['data']:,} bytes; padding: {summary['bytes']['padding']:,} bytes.")
     print(output / 'th10.exe')
 

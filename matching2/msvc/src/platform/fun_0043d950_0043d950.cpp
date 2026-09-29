@@ -1,8 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
+// Complete candidate: reference/semantic_candidates/sound_stream_launch_cached.cpp.
+// See recovery_notes/sound_cached_stream_launch_0043d950.md: 373 comparisons
+// pass, including integrated memory creation and maintained file-track selection.
+// Native private ABI and bytes remain pending. Historical assembly record below.
 
 // BLOCKED (D3401): closest_byte_count=298/298; first_diff=none
 // (authoritative MSVC 13.10 probe exact for the retained retail body).

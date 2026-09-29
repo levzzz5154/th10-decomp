@@ -53,3 +53,15 @@ shim. The scheduler dispatcher becomes a later cluster candidate if its
 callback/register context and switch-table ownership are modeled together;
 the existing exact-output attempt must be treated as failed evidence, not as
 an exact C++ replacement.
+
+## Update: exact global draw adapter
+
+The `0x00449440` near-miss is now ordinary C++ in
+[`FUN_00449440_00449440.cpp`](../../msvc/src/unidentified/FUN_00449440_00449440.cpp).
+Its `regparm(2)` entry receives the animation entity in EAX and passes EDX
+through; the `regparm(3)` declaration for the dispatcher places the global
+manager in ECX. The dispatcher immediately overwrites EDX before reading it.
+Pinned GCC 16.2, with EDX caller-saved, emits the exact 11-byte global load
+and tail jump. The focused probe checks both the DIR32 global load and REL32
+dispatcher binding. The original no-argument cdecl model above did not express
+this entry contract.

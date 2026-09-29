@@ -387,7 +387,7 @@ repeat_secondary:
                 ++g_thread_synchronization.scheduler_lock_depth;
                 switch (result) {
                 case 0:
-                    Scheduler_Remove((SchedulerTask*)task, scheduler);
+                    Scheduler_RemoveTask((SchedulerTask*)task, scheduler);
                     break;
                 case 1:
                     break;

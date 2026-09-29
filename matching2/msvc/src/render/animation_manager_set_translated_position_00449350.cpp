@@ -1,84 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/render/position_setter_pair.hpp"
 
-// Recovery status: the standalone C++ candidates did not reproduce this
-// private-ESI entry ABI.  Live Ghidra evidence and the next whole-call-cluster
-// dependency are recorded in
-// matching2/reference/recovery_notes/animation_manager_set_translated_position_00449350.md.
-// The retail body remains here until the caller and helper ABI can be modeled
-// together and the fixed 111-byte contribution is verified.
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00449350..0x004493BE: ?AnimationManager_SetTranslatedPosition@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_SetTranslatedPosition_00449350() {
-    __asm {
-    L_00449350:
-        mov eax,dword ptr [esp+4]
-    L_00449354:
-        push eax
-    L_00449355:
-        call asm_AnimationManager_Find_004491c0
-    L_0044935a:
-        test eax,eax
-    L_0044935c:
-        je short L_004493bc
-    L_0044935e:
-        fld dword ptr [esi]
-    L_00449360:
-        fadd dword ptr [data_00470b4c]
-    L_00449366:
-        fstp dword ptr [eax+340h]
-    L_0044936c:
-        fld dword ptr [esi+4]
-    L_0044936f:
-        fadd dword ptr [data_00470b48]
-    L_00449375:
-        fstp dword ptr [eax+344h]
-    L_0044937b:
-        mov ecx,dword ptr [esi+8]
-    L_0044937e:
-        mov dword ptr [eax+348h],ecx
-    L_00449384:
-        mov ecx,dword ptr [eax+18h]
-    L_00449387:
-        test ecx,ecx
-    L_00449389:
-        jne short L_004493bc
-    L_0044938b:
-        mov ecx,dword ptr [eax+14h]
-    L_0044938e:
-        test ecx,ecx
-    L_00449390:
-        je short L_004493bc
-    L_00449392:
-        fld dword ptr [esi]
-    L_00449394:
-        mov eax,dword ptr [ecx]
-    L_00449396:
-        fadd dword ptr [data_00470b4c]
-    L_0044939c:
-        add eax,340h
-    L_004493a1:
-        fstp dword ptr [eax]
-    L_004493a3:
-        fld dword ptr [esi+4]
-    L_004493a6:
-        fadd dword ptr [data_00470b48]
-    L_004493ac:
-        fstp dword ptr [eax+4]
-    L_004493af:
-        mov edx,dword ptr [esi+8]
-    L_004493b2:
-        mov dword ptr [eax+8],edx
-    L_004493b5:
-        mov ecx,dword ptr [ecx+4]
-    L_004493b8:
-        test ecx,ecx
-    L_004493ba:
-        jne short L_00449392
-    L_004493bc:
-        ret 4
+// 0x00449350: translate x/y, copy z, and apply the same position to children.
+#pragma code_seg(".text$50translated")
+void __fastcall SetAnimationTranslatedPosition_00449350(
+        const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,
+        PositionScriptId_004492f0 id) {
+    PositionEntry_004492f0* entry = reinterpret_cast<PositionEntry_004492f0*>(
+        reinterpret_cast<PositionManager_004492f0*>(context)->Find(context, id));
+    if (entry != 0) {
+        entry->position.x = position->x + 224.0f;
+        entry->position.y = position->y + 16.0f;
+        entry->position.z = position->z;
+        if (!entry->children_flagged) {
+            for (PositionEntry_004492f0* child = entry->children; child; child = child->next) {
+                PositionVector_004492f0* destination = &child->object->position;
+                destination->x = position->x + 224.0f;
+                destination->y = position->y + 16.0f;
+                destination->z = position->z;
+            }
+        }
     }
 }
+#pragma code_seg()

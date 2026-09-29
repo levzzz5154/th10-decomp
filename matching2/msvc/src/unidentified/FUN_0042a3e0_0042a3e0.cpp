@@ -1,6 +1,19 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// BLOCKED (near miss): frame-step callback stored twice by 0x00428F60; this in
+// ECX.  Returns 6 when the game UI (0x00477810) exists without flag 4 in +0x58,
+// state (+0x10) == 1, bit 0x100 of 0x00474E30 is set and frame (+0x1C8) % 4 != 0,
+// else 1.  Best source (plain /O2 and native LTCG agree):
+//   if (ui) { if (ui->flags & 4) return 1;
+//             if (state == 1 && (flags & 0x100) && frame % 4) return 6;
+//             return 1; }
+//   return 1;
+// Every instruction matches; only the four failure branches target the final
+// ret (+0x43) instead of the ret after `mov eax,6` (+0x3D).  Variants using a
+// result variable move that ret right but hoist `mov eax,1` above the null
+// check (UI pointer in EDX).  About 20 shapes were tried.
+
 // BLOCKED (H2901): retail is exact only with the existing private-ABI overlay.
 // Ghidra confirms a 68-byte span at 0x0042A3E0 with no function boundary, two
 // data reads (0x00477810 and 0x00474E30), and incoming xrefs from 0x004291B5

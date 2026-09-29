@@ -4,11 +4,21 @@
   "source": "src/platform/worker_start.cpp",
   "driver": "layout/ltcg/worker_start_0044c1c0_context.cpp",
   "headers": [
-    "include/th10/platform/worker.hpp"
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/ui_thread_host.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "The retail /LTCG worker link rebuilt as one cluster: the two public callers keep their ECX receiver, Stop keeps the shared ESI receiver, and a synthetic array caller establishes the EAX receiver of Start.",
+  "description": "The retail worker and UI-thread spawn family rebuilt as one native LTCG cluster: shutdown callers retain public ECX receivers, Stop shares ESI, worker Start variants use EAX receivers and EDI entries, and UI-thread Spawn consumes an EDI host plus two stack arguments. UI creation retains its public stdcall entry and uses the genuine complete configuration initializer as an unselected anchor.",
   "functions": [
+    {
+      "name": "GameUiThreadHost_Spawn",
+      "symbol": "?Spawn@GameUiThreadHost@@QAEHP6GIPAX@Z0@Z",
+      "source": "src/game/thread_spawn.cpp",
+      "section": ".text$02spawn",
+      "address": "0x00420EA0",
+      "size": 118,
+      "actual_abi": "receiver in EDI; entry/context at stack +4/+8; RET8"
+    },
     {
       "name": "PlatformWorker_Destroy",
       "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
@@ -44,20 +54,53 @@
       "address": "0x0044C1C0",
       "size": 56,
       "actual_abi": "receiver in EAX; entry in EDI; context at [ESP+4]; RET 4"
+    },
+    {
+      "name": "PlatformWorker_StartSuspended",
+      "symbol": "?StartSuspended@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "source": "src/unidentified/unassigned_0044c200.cpp",
+      "section": ".text$46suspended",
+      "address": "0x0044C200",
+      "size": 56,
+      "actual_abi": "receiver in EAX; entry in EDI; context at [ESP+4]; RET 4"
+    },
+    {
+      "name": "GameUi_CreateAndPublish",
+      "symbol": "_GameUi_CreateAndPublish_004180e0@4",
+      "source": "src/game/game_ui_create.cpp",
+      "section": ".text$00uicreate",
+      "address": "0x004180E0",
+      "size": 107,
+      "actual_abi": "one stack argument; return pointer EAX; RET4"
     }
   ],
   "context": {
     "symbol": "WorkerStartCompilerContext",
     "section": ".text$50context",
-    "address": "0x0044C200",
-    "size": 69,
-    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+    "address": "0x0044C240",
+    "size": 113,
+    "description": "Synthetic array-walking caller that reaches both worker Start variants and the UI thread Spawn member, establishing their observed register conventions; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
       "address": "0x00401000",
-      "size": 307456
+      "size": 94432
+    },
+    {
+      "section": ".text$00uicreatez",
+      "address": "0x41814b",
+      "size": 2805
+    },
+    {
+      "section": ".text$01uiconfigz",
+      "address": "0x418cbd",
+      "size": 33251
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x00420F16",
+      "size": 176618
     },
     {
       "section": ".text$07layout",
@@ -78,12 +121,18 @@
       "section": ".text$45layout",
       "address": "0x0044C1F8",
       "size": 8
+    },
+    {
+      "section": ".text$47layout",
+      "address": "0x0044C238",
+      "size": 8
     }
   ],
   "constants": [],
   "roots": [
     "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
-    "?StopNoDelete@PlatformWorker@@QAEXXZ"
+    "?StopNoDelete@PlatformWorker@@QAEXXZ",
+    "_GameUi_CreateAndPublish_004180e0@4"
   ],
   "absolute_symbols": [
     {
@@ -115,11 +164,66 @@
       "symbol": "__imp__CloseHandle@4",
       "address": "0x004660CC",
       "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_FUN_00417c70",
+      "address": "0x00417C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e88",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
     }
   ],
   "additional_sources": [
+    "src/game/game_ui_create.cpp",
+    "src/game/thread_spawn.cpp",
     "src/platform/platform_destroy_worker_0044c100.cpp",
+    "src/platform/platform_stop_worker_0044c150.cpp",
     "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/unidentified/unassigned_0044c200.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "GameUi_ConfigAnchor",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
+      "section": ".text$01uiconfig",
+      "address": "0x00418C40",
+      "size": 125
+    }
+  ],
+  "included_sources": [
+    "src/game/game_config_defaults.cpp"
   ]
 }

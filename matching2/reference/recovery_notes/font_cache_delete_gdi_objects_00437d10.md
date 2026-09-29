@@ -24,24 +24,19 @@ existing summary in
 the declaration/comment in
 `matching2/reference/legacy_semantic/include/th10/platform/gdi_font_cache.hpp`.
 
-## C++ model
+## C++ model and exactness
 
 `matching2/msvc/src/platform/font_cache_delete_gdi_objects_retail_00437d10.cpp`
-models the private receiver explicitly as the cache surface at `0x00474CB0`
-and applies the observed `0x00436A30` effects before deleting the fifteen
-global handles from highest slot to lowest. It reads the GDI function
-pointers from their IAT slots (`0x00466028`, `0x0046602C`, and `0x00466030`).
-During the cache flush each pointer is read immediately before its API call.
-Afterward the retail body loads `DeleteObject` once into `ESI` and reuses it
-for all fifteen global handles; the C++ loop does the same. The helper is
-spelled out in C++ instead of called with the wrong ordinary calling
-convention: the retail helper consumes `ESI`, and C++ does not express that
-private register argument.
+calls the existing `ReleaseSurface_00436a30` C++ body for the global surface at
+`0x00474CB0`, then calls the `DeleteObject` pointer loaded once from IAT slot
+`0x00466030` for the fifteen handles at `0x00491868..0x004918A0` in descending
+order. It does not clear those handle slots. The same native LTCG cluster also
+contains the 13-byte static-exit surface-release callback at `0x00465A20`;
+seeing the real releaser body lets both callers supply its private ESI argument
+without inline assembly.
 
-## Byte status
-
-The manifest now classifies this readable ordinary-C++ body as a semantic
-region. This is not an exact-byte claim: the previous stand-alone candidate
-emitted 196 bytes and matched 5 of the 149 retail bytes, and the new semantic
-spelling has not been byte-compared. No build, probe, or test was run for this
-change.
+The focused probe matches all 149 teardown bytes, all 107 releaser bytes, all
+13 callback bytes, and the 293-byte game shutdown caller after its symbol
+cutover. A host runtime smoke checks reverse handle order and unmodified slots,
+both null-DC and populated-DC paths, and the surface releaser's GDI calls.
+The full build is byte-identical to the 487,936-byte retail executable.

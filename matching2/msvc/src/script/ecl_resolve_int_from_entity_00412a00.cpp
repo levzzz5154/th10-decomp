@@ -1,27 +1,24 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// The VM arrives in EAX and its integer selector in ECX. Follow the entity's
+// ECL frame at +0x14D8 and pass its +4 interpreter in EDX; the resolver
+// consumes the selector from the stack and returns its integer result in EAX.
+struct EclEntityOperandFrame {
+    int previous;
+    void* interpreter;
+};
 
-// 0x0040E770..0x00411D2E: FUN_0040e770
-// Naked body preserves the retail register/stack ABI.
+struct EclEntityOperandVm {
+    char prior[0x14d8];
+    EclEntityOperandFrame* frame;
+};
 
-// BLOCKED readable recovery: closest_byte_count=16/16; first_diff=none;
-// residual_class=private EAX interpreter and ECX operand ABI must be linked
-// with the resolver callee; variants_tested=live Ghidra caller/callee/xrefs
-// and retail baseline probe; next_lever=extend the existing ECL native-LTCG
-// cluster without editing regions.json.
-// 0x00412A00..0x00412A0F: ?ECL_ResolveIntFromEntity@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntFromEntity_00412a00() {
-    __asm {
-    L_00412a00:
-        mov eax,dword ptr [eax+14D8h]
-    L_00412a06:
-        mov edx,dword ptr [eax+4]
-    L_00412a09:
-        push ecx
-    L_00412a0a:
-        call asm_ECL_ResolveIntOperand_0044fdb0
-    L_00412a0f:
-        ret
-    }
+extern "C" int __attribute__((regparm(2), stdcall))
+asm_ECL_ResolveIntOperand_0044fdb0(EclEntityOperandFrame* frame,
+                                     void* interpreter, int selector);
+
+extern "C" __attribute__((regparm(3), noinline, used))
+int asm_ECL_ResolveIntFromEntity_00412a00(EclEntityOperandVm* vm,
+                                            void* unused, int selector) {
+    EclEntityOperandFrame* frame = vm->frame;
+    return asm_ECL_ResolveIntOperand_0044fdb0(frame, frame->interpreter,
+                                                selector);
 }

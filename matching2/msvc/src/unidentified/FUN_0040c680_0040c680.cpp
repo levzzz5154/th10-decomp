@@ -1,13 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// The interpreter arrives in EDX; the original EAX is unused. Pass its
+// +4 slot to the resolver in EAX, preserving the remaining live-in registers.
+struct EclValueSlot {
+    int previous;
+    void* interpreter;
+};
 
-// 0x0040C680..0x0040C687: FUN_0040c680
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0040c680_0040c680() {
-    __asm {
-    L_0040c680:
-        mov eax,dword ptr [edx+4]
-    L_0040c683:
-        jmp asm_ECL_ResolveFloatValue_0044ff80
-    }
+extern "C" float __attribute__((regparm(1)))
+asm_ECL_ResolveFloatValue_0044ff80(void* interpreter);
+
+extern "C" __attribute__((regparm(2), noinline, used))
+float asm_FUN_0040c680_0040c680(void* unused, EclValueSlot* slot) {
+    return asm_ECL_ResolveFloatValue_0044ff80(slot->interpreter);
 }

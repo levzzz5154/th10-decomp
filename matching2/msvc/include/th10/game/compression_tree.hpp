@@ -20,6 +20,8 @@ extern CompressionTree g_compression_tree;
 
 __declspec(noinline) void CompressionTree_RelinkChild(int source, int replacement);
 __declspec(noinline) int CompressionTree_FindPredecessor(int node);
+__declspec(noinline) void CompressionTree_ReplaceNode(int source, int replacement);
+extern "C" __declspec(noinline) void __fastcall Lzss_RemoveNode_00436210(int node);
 
 typedef char CompressionTreeNode_size_must_be_12[sizeof(CompressionTreeNode) == 12 ? 1 : -1];
 typedef char CompressionTreeNode_left_offset_must_be_4[offsetof(CompressionTreeNode, left) == 4 ? 1 : -1];

@@ -1,120 +1,115 @@
-// BLOCKED (D3404): closest_byte_count=0/273; first_diff=0x00424D90;
-// residual_class=private ESI receiver, three repeated flag-record layouts,
-// absolute data bindings, and tail-jump ABI to Animation_SetActiveCount.
-// variants_tested=live Ghidra decompilation plus callers 0x00418190 and
-// 0x0042A450, helper chain 0x004492A0/0x00413790, and typed raw-layout
-// readable candidate under MSVC 13.10 (268/273 extent).
-// next_lever=schema2 native-LTCG over both real callers, this reset body, the
-// animation-manager setter, and the active-count tail callee; preserve ESI,
-// duplicated stores, and the retail absolute literal schedule.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// Complete pause timer/animation reset, 0x00424D90..0x00424EA0.
+// Source declaration is ordinary C++; native LTCG selects the observed ESI
+// owner and plain RET. The active-count dependency below is the complete
+// genuine 77-byte routine at 0x00413790, not an abbreviated ABI anchor.
+#include <stddef.h>
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 
-// 0x00424D90..0x00424EA0: FUN_00424d90
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00424d90_00424d90() {
-    __asm {
-    L_00424d90:
-        mov dword ptr [esi+458h],1
-    L_00424d9a:
-        mov eax,dword ptr [esi+470h]
-    L_00424da0:
-        push edi
-    L_00424da1:
-        xor edi,edi
-    L_00424da3:
-        test al,1
-    L_00424da5:
-        mov edx,0FFF0BDC1h
-    L_00424daa:
-        mov ecx,476F78h
-    L_00424daf:
-        jne short L_00424dd2
-    L_00424db1:
-        or eax,1
-    L_00424db4:
-        mov dword ptr [esi+464h],edi
-    L_00424dba:
-        mov dword ptr [esi+460h],edx
-    L_00424dc0:
-        mov dword ptr [esi+468h],edi
-    L_00424dc6:
-        mov dword ptr [esi+46Ch],ecx
-    L_00424dcc:
-        mov dword ptr [esi+470h],eax
-    L_00424dd2:
-        mov dword ptr [esi+464h],0FFFFFFFFh
-    L_00424ddc:
-        mov dword ptr [esi+468h],0BF800000h
-    L_00424de6:
-        mov dword ptr [esi+460h],0FFFFFFFEh
-    L_00424df0:
-        mov eax,dword ptr [esi+484h]
-    L_00424df6:
-        test al,1
-    L_00424df8:
-        jne short L_00424e1b
-    L_00424dfa:
-        or eax,1
-    L_00424dfd:
-        mov dword ptr [esi+478h],edi
-    L_00424e03:
-        mov dword ptr [esi+474h],edx
-    L_00424e09:
-        mov dword ptr [esi+47Ch],edi
-    L_00424e0f:
-        mov dword ptr [esi+480h],ecx
-    L_00424e15:
-        mov dword ptr [esi+484h],eax
-    L_00424e1b:
-        mov dword ptr [esi+478h],edi
-    L_00424e21:
-        mov dword ptr [esi+47Ch],edi
-    L_00424e27:
-        mov dword ptr [esi+474h],0FFFFFFFFh
-    L_00424e31:
-        mov eax,dword ptr [esi+498h]
-    L_00424e37:
-        test al,1
-    L_00424e39:
-        jne short L_00424e5c
-    L_00424e3b:
-        or eax,1
-    L_00424e3e:
-        mov dword ptr [esi+48Ch],edi
-    L_00424e44:
-        mov dword ptr [esi+488h],edx
-    L_00424e4a:
-        mov dword ptr [esi+490h],edi
-    L_00424e50:
-        mov dword ptr [esi+494h],ecx
-    L_00424e56:
-        mov dword ptr [esi+498h],eax
-    L_00424e5c:
-        mov edx,dword ptr [data_00491c10]
-    L_00424e62:
-        mov dword ptr [esi+48Ch],edi
-    L_00424e68:
-        mov dword ptr [esi+490h],edi
-    L_00424e6e:
-        mov dword ptr [esi+488h],0FFFFFFFFh
-    L_00424e78:
-        mov eax,dword ptr [esi+329Ch]
-    L_00424e7e:
-        push eax
-    L_00424e7f:
-        call asm_AnimationManager_SetFlag_004492a0
-    L_00424e84:
-        mov eax,dword ptr [data_0047770c]
-    L_00424e89:
-        mov dword ptr [esi+329Ch],edi
-    L_00424e8f:
-        mov dword ptr [esi+329Ch],edi
-    L_00424e95:
-        mov ecx,dword ptr [data_00474c70]
-    L_00424e9b:
-        pop edi
-    L_00424e9c:
-        jmp asm_Animation_SetActiveCount_00413790
-    }
+struct PauseFrameTimer_00424d90 {
+    int previous;
+    int current;
+    float elapsed;
+    const float* speed;
+    unsigned int flags;
+};
+struct PauseState_00424d90 {
+    unsigned char reserved_000[0x458];
+    int state;
+    unsigned char reserved_45c[4];
+    PauseFrameTimer_00424d90 timers[3];
+    unsigned char reserved_49c[0x329c-0x49c];
+    int animation_handle;
+};
+typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer_00424d90)==0x14?1:-1];
+typedef char PauseResetTimerOffset[offsetof(PauseState_00424d90,timers)==0x460?1:-1];
+typedef char PauseResetHandleOffset[offsetof(PauseState_00424d90,animation_handle)==0x329c?1:-1];
+
+struct PauseAnimationRecord_00413790 {
+    unsigned int flags;
+    unsigned char reserved_004[0x3ac-4];
+};
+struct PauseAnimationCountManager_00413790 {
+    unsigned char reserved_000[0x4cdc];
+    PauseAnimationRecord_00413790 records[9];
+    __declspec(noinline) void SetActiveCount(int count);
+};
+#pragma code_seg(".text$01count")
+void PauseAnimationCountManager_00413790::SetActiveCount(int count) {
+    int index=0;
+    for (;index<count;++index) records[index].flags|=2;
+    if (index>=9) return;
+    for (;index<9;++index) records[index].flags&=~2u;
 }
+#pragma code_seg()
+
+struct PauseAnimationLookupContext_00424d90;
+// Genuine public fastcall contract: EDX contains the lookup context, one ID
+// is on the stack, and the helper returns with RET4. ECX is an ignored value.
+extern "C" void* __fastcall PauseMarkAnimation_004492a0(
+    const void* ignored_ecx, PauseAnimationLookupContext_00424d90* context, int id);
+extern "C" {
+extern float pause_timer_speed_00476f78;
+extern PauseAnimationLookupContext_00424d90* pause_animation_context_00491c10;
+extern PauseAnimationCountManager_00413790* pause_count_manager_0047770c;
+extern int pause_active_count_00474c70;
+}
+
+#pragma code_seg(".text$03pause")
+extern "C" __declspec(noinline) void __stdcall ReplayPauseReset_00424d90(PauseState_00424d90* owner) {
+    int* state=&owner->state;
+    state[0]=1;
+    unsigned int flags=owner->timers[0].flags;
+    if (!(flags&1)) {
+        flags|=1;
+        owner->timers[0].current=0;
+        owner->timers[0].previous=(int)0xfff0bdc1;
+        owner->timers[0].elapsed=0;
+        owner->timers[0].speed=&pause_timer_speed_00476f78;
+        owner->timers[0].flags=flags;
+    }
+    _ReadWriteBarrier();
+    owner->timers[0].current=-1;
+    owner->timers[0].elapsed=-1.0f;
+    owner->timers[0].previous=-2;
+    _ReadWriteBarrier();
+    flags=owner->timers[1].flags;
+    if (!(flags&1)) {
+        flags|=1;
+        owner->timers[1].current=0;
+        owner->timers[1].previous=(int)0xfff0bdc1;
+        owner->timers[1].elapsed=0;
+        owner->timers[1].speed=&pause_timer_speed_00476f78;
+        owner->timers[1].flags=flags;
+    }
+    _ReadWriteBarrier();
+    owner->timers[1].current=0;
+    owner->timers[1].elapsed=0;
+    owner->timers[1].previous=-1;
+    _ReadWriteBarrier();
+    flags=owner->timers[2].flags;
+    if (!(flags&1)) {
+        flags|=1;
+        owner->timers[2].current=0;
+        owner->timers[2].previous=(int)0xfff0bdc1;
+        owner->timers[2].elapsed=0;
+        owner->timers[2].speed=&pause_timer_speed_00476f78;
+        owner->timers[2].flags=flags;
+    }
+    _ReadWriteBarrier();
+    PauseAnimationLookupContext_00424d90* context=pause_animation_context_00491c10;
+    _ReadWriteBarrier();
+    owner->timers[2].current=0;
+    owner->timers[2].elapsed=0;
+    owner->timers[2].previous=-1;
+    _ReadWriteBarrier();
+    PauseMarkAnimation_004492a0(&pause_timer_speed_00476f78,context,owner->animation_handle);
+    PauseAnimationCountManager_00413790* manager=pause_count_manager_0047770c;
+    _ReadWriteBarrier();
+    owner->animation_handle=0;
+    _ReadWriteBarrier();
+    owner->animation_handle=0;
+    _ReadWriteBarrier();
+    manager->SetActiveCount(pause_active_count_00474c70);
+}
+#pragma code_seg()

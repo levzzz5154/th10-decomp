@@ -1,3 +1,7 @@
+// Current candidate passes 276 string-copy cases and complete DAT lifecycle
+// comparisons with both callers. See
+// reference/recovery_notes/dat_archive_open_00434c30_00434ca0.md. Native MSVC
+// matching remains outstanding; the historical probe below predates this model.
 // BLOCKED (D3802): closest_byte_count=63/47; first_diff=0x00435220;
 // residual_class=private EDI string receiver, malloc/copy loop register
 // lifetime, and the undecorated no-stack-argument entry ABI. Live Ghidra

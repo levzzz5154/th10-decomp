@@ -1,66 +1,56 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004497D0..0x00449815: look up the animation a handle names and return a
+// reference to its child whose script id matches, or a null reference.  A
+// handle whose animation is gone is cleared.  The by-value twin of 0x00449820:
+// the reference comes back through a hidden pointer, which the native-LTCG
+// link of the 0x004491C0 cluster passes in EDI.
+struct AnimationLookupContext;
 
-// 0x0040C480..0x0040C4C0: ?AnimationManager_StopAtFrame2@@
-// Naked body preserves the retail register/stack ABI.
+struct AnimationScriptId {
+    int value;
+};
 
-// 0x004497D0..0x00449815: ?AnimationManager_FindChildByScriptIndex@@
-// BLOCKED: closest_byte_count=0/70, first_diff=0x004497D0,
-// residual_class=private_ECX_EBX_EDI_ESI_ABI_and_forced_disp32_zero_encoding,
-// variants_tested=Ghidra_boundary_callers_callees_xrefs_dataflow_audit,
-// next_lever=cluster_with_real_callers_and_preserved_7_byte_stack_noop
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_AnimationManager_FindChildByScriptIndex_004497d0() {
-    __asm {
-    L_004497d0:
-        mov eax,dword ptr [esi]
-    L_004497d2:
-        mov edx,dword ptr [data_00491c10]
-    L_004497d8:
-        push eax
-    L_004497d9:
-        call asm_AnimationManager_Find_004491c0
-    L_004497de:
-        test eax,eax
-    L_004497e0:
-        jne short L_004497e4
-    L_004497e2:
-        mov dword ptr [esi],eax
-    L_004497e4:
-        add eax,10h
-    L_004497e7:
-        je short L_00449804
-    L_004497e9:
-        lea esp,[esp+force_disp32_zero]
-    L_004497f0:
-        mov ecx,dword ptr [eax]
-    L_004497f2:
-        movsx edx,word ptr [ecx+38Ah]
-    L_004497f9:
-        cmp edx,ebx
-    L_004497fb:
-        je short L_0044980d
-    L_004497fd:
-        mov eax,dword ptr [eax+4]
-    L_00449800:
-        test eax,eax
-    L_00449802:
-        jne short L_004497f0
-    L_00449804:
-        mov dword ptr [edi],0
-    L_0044980a:
-        mov eax,edi
-    L_0044980c:
-        ret
-    L_0044980d:
-        mov eax,dword ptr [eax]
-    L_0044980f:
-        mov ecx,dword ptr [eax]
-    L_00449811:
-        mov dword ptr [edi],ecx
-    L_00449813:
-        mov eax,edi
-    L_00449815:
-        ret
-    }
+struct AnimationRef_004497d0 {
+    int value;
+    AnimationRef_004497d0(int value) : value(value) {}
+};
+
+struct AnimationChild_004497d0 {
+    AnimationRef_004497d0 ref;              // +0x000
+    unsigned char reserved_004[0x386];
+    short script_id;                        // +0x38A
+};
+
+struct AnimationChildLink_004497d0 {
+    AnimationChild_004497d0* object;
+    AnimationChildLink_004497d0* next;
+};
+
+struct AnimationNode_004497d0 {
+    unsigned char reserved_000[0x10];
+    AnimationChildLink_004497d0 children;   // +0x010
+};
+
+class AnimationManager {
+public:
+    void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
+};
+
+extern "C" AnimationLookupContext* data_00491c10;
+
+struct AnimationHandle_004497d0 {
+    AnimationScriptId id;
+    __declspec(noinline) AnimationRef_004497d0 FindChildRef(int script_id);
+};
+
+#pragma code_seg(".text$84childref")
+AnimationRef_004497d0 AnimationHandle_004497d0::FindChildRef(int script_id) {
+    AnimationNode_004497d0* node = reinterpret_cast<AnimationNode_004497d0*>(
+        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+    if (node == 0)
+        id.value = 0;
+    for (AnimationChildLink_004497d0* link = &node->children; link != 0; link = link->next)
+        if (link->object->script_id == script_id)
+            return link->object->ref;
+    return AnimationRef_004497d0(0);
 }
+#pragma code_seg()

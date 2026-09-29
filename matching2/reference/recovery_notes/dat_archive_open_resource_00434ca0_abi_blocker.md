@@ -2,6 +2,13 @@
 
 Date: 2026-09-23
 
+Historical ABI audit. A typed candidate now passes 97 resource-opening
+comparisons and complete synthetic archive lifecycle tests; see
+[the current opener recovery](dat_archive_open_00434c30_00434ca0.md).
+The private ABI and MSVC byte gates remain outstanding, so the production
+body is still assembly. The no-candidate/no-test statements below describe
+the earlier audit only.
+
 ## Decision
 
 Retain the naked body in `src/archive/dat_file.cpp`. Ghidra confirms the

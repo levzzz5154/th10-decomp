@@ -8,10 +8,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0043D7D0..0x0043D940: FUN_0043d7d0
+// 0x0043D7D0..0x0043D940: cache a music slot from the current container file.
+// Tested C++: reference/semantic_candidates/sound_music_cache.cpp.
+// See reference/recovery_notes/sound_music_cache_0043d7d0.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043d7d0_0043d7d0() {
     __asm {

@@ -1,5 +1,11 @@
 # DAT index builder at `0x004350D0`
 
+Historical recovery record. Its final promotion and source-location claims
+are no longer current: the production region remains assembly. See
+[the tested parser recovery](dat_archive_parser_004350d0.md) for the repaired
+candidate, 174 normal-path comparisons, and 278 registered-state/unwind-action
+comparisons. Native MSVC frame and byte matching remain outstanding.
+
 ## Ghidra evidence
 
 Connected Ghidra `th10.exe` reports `FUN_004350d0` as a non-thunk function with

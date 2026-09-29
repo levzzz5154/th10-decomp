@@ -1,7 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043DA80..0x0043DAAB: unassigned code fragment
+// 0x0043DA80..0x0043DAAB: start the music stream, then publish its command.
+// Tested C++: reference/semantic_candidates/unassigned_0043da80.cpp.
+// See reference/recovery_notes/sound_stream_start_status_0043da80.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_0043da80() {
     __asm {

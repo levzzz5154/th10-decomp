@@ -7,7 +7,12 @@ succeeds. It has no capacity check or extra initialization. The path enters in
 EAX, the archive receiver is passed in ECX, and the result is returned in AL.
 Ghidra reports no direct callers or references.
 
-The maintained source now expresses the operation as
-`Resource_RegisterArchive(path)`. Its LTCG layout contains a compiler-only
-`Open` ABI anchor and a synthetic path-array caller. The anchor/context extents
-and the EAX convention are unverified; no build or probe was run.
+The repaired candidate at `reference/semantic_candidates/unassigned_004357d0.cpp`
+now calls the actual recovered opener interface and shares the archive types.
+It passes 120 retail comparisons, including count changes during Open and
+32-bit increment wrapping. See
+[resource dispatch recovery](resource_paths_004357d0_0043599d.md).
+
+The earlier compiler-only Open anchor was an unverified proposal. The current
+production region remains assembly; the explicit candidate path parameter
+has not been lowered to the retail EAX entry under native MSVC.

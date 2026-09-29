@@ -2,6 +2,10 @@
 // The shared native LTCG unit recovers EAX as the cursor pointer for all methods.
 #include "../../src/game/menu.cpp"
 
+// 0x004243C0/0x004243D0 are a separate translation unit of this link.
+int StepMenuCursor(int step, MenuCursor* cursor);
+int StepMenuCursorBack(int step, MenuCursor* cursor);
+
 #pragma code_seg(".text$23context")
 int __stdcall MenuCursorCompilerContext(MenuCursor** cursors, int count, int delta, int wrap) {
     int result = 0;
@@ -17,6 +21,8 @@ int __stdcall MenuCursorCompilerContext(MenuCursor** cursors, int count, int del
         result += cursors[index]->Advance(delta);
         cursors[index]->PopSelection();
         result += cursors[index]->GetSelection();
+        result += StepMenuCursor(delta, cursors[index]);
+        result += StepMenuCursorBack(delta, cursors[index]);
     }
     return result;
 }

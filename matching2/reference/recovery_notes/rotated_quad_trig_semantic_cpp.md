@@ -1,5 +1,7 @@
 # Rotated quad trigonometry in ordinary C++
 
+> Current maintained status (2026-09-27): both 591-byte functions in `matching2/msvc/src/render/quad_build_rotated.cpp` still contain inline `FSINCOS`. The `cosf`/`sinf` conversion described below is historical and does not describe the current byte-matching source. Removing that assembly while retaining exact code remains part of the active goal. See [the fourth checkpoint](native_recoveries_2026-09-27_fourth.md).
+
 `src/render/quad_build_rotated.cpp` now computes the angle pair in both
 `BuildRotatedQuad_004436c0` (`0x004436C0`) and
 `BuildRotatedQuadAlt_00443910` (`0x00443910`) with `cosf(angle)` and

@@ -3,17 +3,57 @@
   "name": "platform_set_operation_deadline_0044d4e0",
   "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp",
   "driver": "layout/ltcg/platform_set_operation_deadline_0044d4e0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/platform/sound_fade_0044d4e0.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Exact native-LTCG recovery of the x87 randomized interface deadline with retail constant placement and EAX owner ABI.",
-  "functions": [{
-    "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
-    "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
-    "section": ".text$01deadline",
-    "address": "0x0044D4E0",
-    "size": 106,
-    "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4"
-  }],
+  "functions": [
+    {
+      "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
+      "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "section": ".text$01deadline",
+      "address": "0x0044D4E0",
+      "size": 106,
+      "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4"
+    },
+    {
+      "name": "FadeOutAndStop_0044d740",
+      "symbol": "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutb",
+      "address": "0x0044D740",
+      "size": 67,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeDownHalf_0044d790",
+      "symbol": "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutc",
+      "address": "0x0044D790",
+      "size": 51,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeDownSlight_0044d7d0",
+      "symbol": "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutd",
+      "address": "0x0044D7D0",
+      "size": 51,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeUpSlight_0044d810",
+      "symbol": "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoute",
+      "address": "0x0044D810",
+      "size": 56,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+    }
+  ],
   "context": {
     "symbol": "?PlatformSetOperationDeadline0044D4E0CompilerContext@@YGHPAUPlatformInterfaceState_0044D4E0@@H@Z",
     "section": ".text$03context",
@@ -22,18 +62,83 @@
     "description": "Direct caller establishes the EAX owner and stack deadline argument."
   },
   "gaps": [
-    {"section": ".text$00layout", "address": "0x00401000", "size": 312544},
-    {"section": ".text$02layout", "address": "0x0044D54A", "size": 2742},
-    {"section": ".text$04layout", "address": "0x0044E011", "size": 135152},
-    {"section": ".rdata", "address": "0x00470000", "size": 2812}
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 312544
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044D54A",
+      "size": 502
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044E011",
+      "size": 135152
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    },
+    {
+      "section": ".text$02layoutbz",
+      "address": "0x0044D783",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutcz",
+      "address": "0x0044D7C3",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutdz",
+      "address": "0x0044D803",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutez",
+      "address": "0x0044D848",
+      "size": 1976
+    }
   ],
   "constants": [
-    {"symbol": "__real@3f800000", "address": "0x00470AFC", "value": 1.0},
-    {"symbol": "__real@3c23d70a", "address": "0x00470B00", "value": 0.01}
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    }
   ],
   "absolute_symbols": [
-    {"symbol": "_data_00497854", "address": "0x00497854", "kind": "data"},
-    {"symbol": "__ftol2", "address": "0x00463B2C", "kind": "relative_code"},
-    {"symbol": "__fltused", "address": "0x00000000", "kind": "metadata"}
+    {
+      "symbol": "_data_00497854",
+      "address": "0x00497854",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [
+    "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ"
+  ],
+  "additional_sources": [
+    "src/platform/sound_fade_steps_0044d740.cpp"
   ]
 }

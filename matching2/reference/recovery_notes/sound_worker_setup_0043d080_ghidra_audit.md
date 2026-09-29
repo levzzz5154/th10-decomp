@@ -2,6 +2,11 @@
 
 Date: 2026-09-23. Read-only review of the live `th10.exe` Ghidra program.
 
+2026-09-26 follow-up: the [tested producer recovery](sound_preload_worker_0043d080.md)
+now connects this routine to the maintained cached loader and recovered DAT
+read/decode closure. The original ABI audit below remains relevant to native
+matching; its closure requirement is now met for behavioral testing.
+
 ## Function and call behavior
 
 Ghidra places one function at `0x0043D080..0x0043D0EA` (107 bytes). Its
@@ -30,7 +35,8 @@ does not use its ordinary disk-file branch. It enters the archive branch:
 
 1. It holds the critical section at `0x004922A4` and updates the active-reader
    count at `0x0049231E`.
-2. It strips the final path component and scans the cached archive records at
+2. It searches for a final forward slash after the last backslash; when none
+   exists it uses the original path, including any backslashes. It scans the cached archive records at
    `0x00497990` (`0x00497994` is the count), comparing names case-insensitively.
 3. It takes the uncompressed size from the matching record, allocates that
    buffer, and calls `0x00434DD0` to read and decode the archived payload.

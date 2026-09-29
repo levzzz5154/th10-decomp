@@ -1,6 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
-
+// Continuation of 0x0044D850, not a separately callable C++ function. The full
+// candidate is reference/semantic_candidates/sound_stream_service.cpp; see
+// recovery_notes/sound_stream_restart_service_worker.md for loop-start reads,
+// silent tails, callback reloads and remaining native byte gates.
 
 // 0x0044D9F0..0x0044DACC: FUN_0044d850
 // Naked body preserves the retail register/stack ABI.

@@ -1,5 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// The typed registration candidate passes 120 retail comparisons, including
+// count mutation/wrapping. See reference/recovery_notes/resource_paths_004357d0_0043599d.md.
+// The EAX path convention remains an exact-build recovery requirement.
 
 // 0x004357D0..0x004357F3: unassigned code fragment
 // Naked body preserves the retail register/stack ABI.

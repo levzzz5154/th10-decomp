@@ -1,181 +1,88 @@
-// BLOCKED (D3504): closest_byte_count=0/264; first_diff=0x0044A4E0;
-// residual_class=private ECX pad input with ESI live state, stack-owned
-// JOYINFOEX/DIJOYSTATE2 temporaries, security-cookie frame, and WinMM versus
-// DirectInput vtable retry/copy scheduling.
-// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
-// caller/callee graph, and a readable WinMM/DirectInput candidate measured at
-// 349 bytes (retail extent is 264); no cluster candidate was retained because
-// the fixed-address region remains assembly-owned.
-// next_lever=native-LTCG cluster over real caller 0x0042F6B0, this body, the
-// DirectInput device helpers, and the security-cookie context, preserving the
-// ECX/ESI entry tuple and measuring all 264 bytes.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/game/score.hpp"
+// Poll the selected joystick backend and return the shared 128-byte button state.
+// The retail ABI is ordinary fastcall: pad index in ECX, result pointer in EAX.
+// Both stack records stay distinct; DirectInput's state is not preinitialized.
+#include <string.h>
+struct JoystickInfo_0044a4e0 {
+    unsigned int size, flags;
+    unsigned int x, y, z, r, u, v;
+    unsigned int buttons, buttonNumber, pov, reserved1, reserved2;
+};
+struct DirectJoystickState_0044a4e0 {
+    int position[6];
+    int sliders[2];
+    unsigned int pov[4];
+    unsigned char buttons[128];
+    unsigned char otherState[96];
+};
+// Unused methods preserve the observed COM vtable slots. The three called
+// methods have their real stdcall signatures and offsets (+1C/+24/+64).
+struct DirectJoystick_0044a4e0 {
+    virtual void __stdcall Slot00() = 0;
+    virtual void __stdcall Slot01() = 0;
+    virtual void __stdcall Slot02() = 0;
+    virtual void __stdcall Slot03() = 0;
+    virtual void __stdcall Slot04() = 0;
+    virtual void __stdcall Slot05() = 0;
+    virtual void __stdcall Slot06() = 0;
+    virtual long __stdcall Acquire() = 0;
+    virtual void __stdcall Slot08() = 0;
+    virtual long __stdcall GetDeviceState(unsigned int size, DirectJoystickState_0044a4e0* state) = 0;
+    virtual void __stdcall Slot10() = 0;
+    virtual void __stdcall Slot11() = 0;
+    virtual void __stdcall Slot12() = 0;
+    virtual void __stdcall Slot13() = 0;
+    virtual void __stdcall Slot14() = 0;
+    virtual void __stdcall Slot15() = 0;
+    virtual void __stdcall Slot16() = 0;
+    virtual void __stdcall Slot17() = 0;
+    virtual void __stdcall Slot18() = 0;
+    virtual void __stdcall Slot19() = 0;
+    virtual void __stdcall Slot20() = 0;
+    virtual void __stdcall Slot21() = 0;
+    virtual void __stdcall Slot22() = 0;
+    virtual void __stdcall Slot23() = 0;
+    virtual void __stdcall Slot24() = 0;
+    virtual long __stdcall Poll() = 0;
+};
+typedef char JoystickInfoSize_0044a4e0[(sizeof(JoystickInfo_0044a4e0) == 0x34) ? 1 : -1];
+typedef char DirectJoystickStateSize_0044a4e0[(sizeof(DirectJoystickState_0044a4e0) == 0x110) ? 1 : -1];
 
-// 0x0044A4E0..0x0044A5E7: Input_PollJoystickButtons
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Input_PollJoystickButtons_0044a4e0() {
-    __asm {
-    L_0044a4e0:
-        sub esp,148h
-    L_0044a4e6:
-        mov eax,dword ptr [data_00473660]
-    L_0044a4eb:
-        xor eax,esp
-    L_0044a4ed:
-        push ebx
-    L_0044a4ee:
-        mov dword ptr [esp+148h],eax
-    L_0044a4f5:
-        push edi
-    L_0044a4f6:
-        mov ebx,ecx
-    L_0044a4f8:
-        xor eax,eax
-    L_0044a4fa:
-        mov ecx,20h
-    L_0044a4ff:
-        mov edi,497BB0h
-    L_0044a504:
-        rep stosd
-    L_0044a506:
-        mov eax,dword ptr [data_00491ff4]
-    L_0044a50b:
-        test ah,4
-    L_0044a50e:
-        jne short L_0044a55d
-    L_0044a510:
-        xor eax,eax
-    L_0044a512:
-        mov ecx,0Dh
-    L_0044a517:
-        lea edi,[esp+8]
-    L_0044a51b:
-        rep stosd
-    L_0044a51d:
-        lea eax,[esp+8]
-    L_0044a521:
-        push eax
-    L_0044a522:
-        push 0
-    L_0044a524:
-        mov dword ptr [esp+10h],34h
-    L_0044a52c:
-        mov dword ptr [esp+14h],0FFh
-    L_0044a534:
-        call dword ptr [data_00466280]
-    L_0044a53a:
-        test eax,eax
-    L_0044a53c:
-        jne asm_target_0044a5cc
-    L_0044a542:
-        mov ecx,dword ptr [esp+28h]
-    L_0044a546:
-        mov dl,80h
-    L_0044a548:
-        test cl,1
-    L_0044a54b:
-        je short L_0044a553
-    L_0044a54d:
-        mov byte ptr [eax+497BB0h],dl
-    L_0044a553:
-        inc eax
-    L_0044a554:
-        shr ecx,1
-    L_0044a556:
-        cmp eax,20h
-    L_0044a559:
-        jb short L_0044a548
-    L_0044a55b:
-        jmp short L_0044a5cc
-    L_0044a55d:
-        mov eax,dword ptr [ebx*4+491C3Ch]
-    L_0044a564:
-        mov ecx,dword ptr [eax]
-    L_0044a566:
-        push esi
-    L_0044a567:
-        push eax
-    L_0044a568:
-        call dword ptr [ecx+64h]
-    L_0044a56b:
-        test eax,eax
-    L_0044a56d:
-        jge short L_0044a5a4
-    L_0044a56f:
-        mov eax,dword ptr [ebx*4+491C3Ch]
-    L_0044a576:
-        mov edx,dword ptr [eax]
-    L_0044a578:
-        push eax
-    L_0044a579:
-        xor esi,esi
-    L_0044a57b:
-        call dword ptr [edx+1Ch]
-    L_0044a57e:
-        cmp eax,8007001Eh
-    L_0044a583:
-        jne short L_0044a5cb
-    L_0044a585:
-        mov eax,dword ptr [ebx*4+491C3Ch]
-    L_0044a58c:
-        mov ecx,dword ptr [eax]
-    L_0044a58e:
-        push eax
-    L_0044a58f:
-        call dword ptr [ecx+1Ch]
-    L_0044a592:
-        inc esi
-    L_0044a593:
-        cmp esi,190h
-    L_0044a599:
-        jge short L_0044a5cb
-    L_0044a59b:
-        cmp eax,8007001Eh
-    L_0044a5a0:
-        je short L_0044a585
-    L_0044a5a2:
-        jmp short L_0044a5cb
-    L_0044a5a4:
-        mov ebx,dword ptr [ebx*4+491C3Ch]
-    L_0044a5ab:
-        mov edx,dword ptr [ebx]
-    L_0044a5ad:
-        lea eax,[esp+40h]
-    L_0044a5b1:
-        push eax
-    L_0044a5b2:
-        push 110h
-    L_0044a5b7:
-        push ebx
-    L_0044a5b8:
-        call dword ptr [edx+24h]
-    L_0044a5bb:
-        mov ecx,20h
-    L_0044a5c0:
-        lea esi,[esp+70h]
-    L_0044a5c4:
-        mov edi,497BB0h
-    L_0044a5c9:
-        rep movsd
-    L_0044a5cb:
-        pop esi
-    L_0044a5cc:
-        mov ecx,dword ptr [esp+14Ch]
-    L_0044a5d3:
-        pop edi
-    L_0044a5d4:
-        pop ebx
-    L_0044a5d5:
-        xor ecx,esp
-    L_0044a5d7:
-        mov eax,497BB0h
-    L_0044a5dc:
-        call asm_security_check_cookie_00458ea5
-    L_0044a5e1:
-        add esp,148h
-    L_0044a5e7:
-        ret
+extern "C" __declspec(dllimport) unsigned int __stdcall joyGetPosEx(unsigned int, JoystickInfo_0044a4e0*);
+extern "C" unsigned int data_00491ff4;
+extern "C" DirectJoystick_0044a4e0* data_00491c3c[];
+extern "C" unsigned char data_00497bb0[128];
+
+extern "C" unsigned char* __fastcall Input_PollJoystickButtons_0044a4e0(int padIndex) {
+    // Keep the 0x34-byte WinMM and 0x110-byte DirectInput stack records.
+    JoystickInfo_0044a4e0 info;
+    DirectJoystickState_0044a4e0 state;
+    memset(data_00497bb0, 0, sizeof(data_00497bb0));
+    if (!(data_00491ff4 & 0x400)) {
+        memset(&info, 0, sizeof(info));
+        info.size = sizeof(info);
+        info.flags = 0xff;
+        if (joyGetPosEx(0, &info) == 0) {
+            unsigned int buttons = info.buttons;
+            unsigned int i = 0;
+            do {
+                if (buttons & 1) data_00497bb0[i] = 0x80;
+                ++i;
+                buttons >>= 1;
+            } while (i < 32);
+        }
+    } else {
+        if (data_00491c3c[padIndex]->Poll() < 0) {
+            // Poll failure attempts acquisition only; no state read follows.
+            long result = data_00491c3c[padIndex]->Acquire();
+            int retries = 0;
+            while ((unsigned long)result == 0x8007001e) {
+                result = data_00491c3c[padIndex]->Acquire();
+                if (++retries >= 400) break;
+            }
+        } else {
+            data_00491c3c[padIndex]->GetDeviceState(sizeof(state), &state);
+            memcpy(data_00497bb0, state.buttons, sizeof(state.buttons));
+        }
     }
+    return data_00497bb0;
 }

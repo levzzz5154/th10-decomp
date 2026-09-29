@@ -1,5 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// Normal-path recovery now passes 174 retail comparisons, including the real
+// vector helper and entry constructors. See reference/semantic_candidates/dat.cpp
+// and reference/recovery_notes/dat_archive_parser_004350d0.md. A C++ allocation
+// guard now also passes 278 registered-state/unwind-action comparisons. Windows
+// exception dispatch and native MSVC frame/bytes remain unverified; the old probe
+// below is history, not a measurement of the current candidate.
 // BLOCKED: closest_byte_count=2/327; first_diff=extent (readable
 // candidate emitted 219 bytes, retail extent 327); residual_class=EH/vector
 // constructor ABI and packed-entry source shape; variants_tested=typed

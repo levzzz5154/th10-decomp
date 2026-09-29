@@ -1,14 +1,7 @@
 // 0x004493E0: mark animation objects that reference a retired script resource.
 // The native-LTCG cluster preserves the retail internal EAX/EDX call ABI.
 
-struct AnimationListNode {
-    void* object;
-    AnimationListNode* next;
-};
-
-struct AnimationManager {
-    void MarkResourceForRemoval(void* resource);
-};
+#include "th10/render/animation_resource_removal.hpp"
 
 #pragma code_seg(".text$20helper")
 __declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {

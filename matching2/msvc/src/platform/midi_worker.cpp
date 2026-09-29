@@ -3,10 +3,12 @@
 
 
 // 0x0043E3A0..0x0043E45C: MidiWorker_MessageLoopRetail
-// MIDI worker thread loop: wait for the stop event or a window message, drain
-// the message queue when one arrives, and stop the running stream when the
-// wait reported the event. The wait handle and the worker state are both
-// reached through their global slots, exactly as the retail loop does.
+// DirectSound music worker: service notification events while playing and
+// drain queued messages, finishing after WM_QUIT or a missing global stream.
+// Historical field names below: stream at +0x30 means playing; stopping at
+// +0x74 means servicing. The called 0x44D850 routine refills one segment.
+// See reference/recovery_notes/sound_stream_restart_service_worker.md and its
+// typed candidate for explicit cached imports and the direct stdcall callee.
 struct MidiWorkerState {
     unsigned char pad_00[0x30];
     unsigned int stream;

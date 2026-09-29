@@ -81,7 +81,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00420270_00420270() {
     L_004202ea:
         call asm_AnimationManager_RegisterResource_0043e460
     L_004202ef:
-        call asm_FontCache_DeleteGdiObjectsRetail_00437d10
+        call DeleteFontCacheObjects_00437d10
     L_004202f4:
         mov eax,dword ptr [edi+10h]
     L_004202f7:

@@ -1,6 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// 2026-09-26: semantic encryption/decryption candidates now pass retail
+// differential tests. See reference/recovery_notes/dat_crypt_0044b0d0_0044b220.md.
+// Their conventional six-argument test ABI is not a recovered retail entry.
 // BLOCKED (D3201): closest_byte_count=1/323; first_diff=0x0044B0D0
 // (native MSVC 13.10 /GL /LTCG semantic cluster, authoritative body extent
 // 334 bytes; 322 differing bytes against the 323-byte retail region).
@@ -9,9 +12,9 @@
 // variants_tested=legacy readable interleaved-XOR model with synthetic native
 // callers and fixed helper bindings; all nonexact output was restored.
 // next_lever=caller-inclusive native-LTCG cluster over 0042A200, 0042B030,
-// 00434DD0, and 00434F70, preserving AL key flow and the retail cdecl stack
-// order; promote only after the full 323-byte comparison is exact.
-// 0x0044B0D0..0x0044B1BC: DecryptDatBuffer
+// 00434DD0, and 00434F70, preserving AL key flow, five stack arguments and
+// RET 20; promote only after the full 323-byte comparison is exact.
+// 0x0044B0D0..0x0044B212: DecryptDatBuffer
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_0044b0d0() {
     __asm {
@@ -265,4 +268,3 @@ extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_0044b0d0() {
         ret 14h
     }
 }
-

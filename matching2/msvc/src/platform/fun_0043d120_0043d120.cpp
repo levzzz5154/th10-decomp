@@ -8,10 +8,9 @@
 // (323-byte extent, 87 matching bytes); next_lever=schema2 native-LTCG with
 // the real window caller and MidiWorker stop body visible.
 
-// 0x0043A910..0x0043A9AB: FUN_0043a910
-// Naked body preserves the retail register/stack ABI.
-
-// 0x0043D120..0x0043D24C: FUN_0043d120
+// 0x0043D120..0x0043D24C: sound cleanup, including the MIDI worker stop path.
+// Behavioral C++: reference/semantic_candidates/sound_cleanup.cpp.
+// See reference/recovery_notes/sound_shutdown_0043d120_0043dab0.md.
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043d120_0043d120() {
     __asm {

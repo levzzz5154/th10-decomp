@@ -1,5 +1,7 @@
-// BLOCKED (D3907): closest_byte_count=0/239; first_diff=0x00435370
-// (no readable native-LTCG body retained).
+// Behavioral candidate: reference/semantic_candidates/file_handle_open.cpp.
+// Open/resolver tests pass 554 comparisons; native MSVC frame/bytes and the
+// resolver's private ABI remain unverified. See recovery_notes/file_open_and_resolve.md.
+// Historical blocker (D3907): closest_byte_count=0/239; first_diff=0x00435370.
 // residual_class=ECX thiscall receiver plus EAX/ECX usercall path resolver,
 // Win32 import declarations, and security-cookie/stack-buffer lowering.
 // variants_tested=["live Ghidra decompile at 0x00435370",

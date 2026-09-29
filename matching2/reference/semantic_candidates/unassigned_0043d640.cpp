@@ -1,14 +1,17 @@
 #include "th10/platform/archive_file.hpp"
+#include "sound_wave_types.hpp"
 
-// Semantic model of the 0x0043D640 retail routine. Its private entry ABI has
-// the filename in EAX, then the owner and slot index on the stack. The C++
-// signature below names all three inputs explicitly; it does not encode that
-// register/stack split or the retail RET 8.
-extern "C" __declspec(noinline) int __cdecl asm_unassigned_0043d640(
-        const char* file_name, void* owner, int slot_index) {
-    char* data = Archive_LoadFile(file_name, 0, 0);
+// 0x0043D640: filename in EAX, owner/index on the stack, RET 8. This explicit
+// stdcall interface is a behavioral candidate, not the recovered private ABI.
+extern "C" int __stdcall Sound_LoadPendingSlot_0043d640(
+        const char* file_name, WaveSoundManager* owner, int slot_index) {
+    unsigned char* data = reinterpret_cast<unsigned char*>(Archive_LoadFile(file_name, 0, 0));
 
-    char** slot = (char**)((char*)owner + 0x5230 + slot_index * 4);
+    // Retail does not range-check the index. Preserve its wrapping address
+    // calculation without signed multiplication or bounded-array arithmetic.
+    unsigned int address = reinterpret_cast<unsigned int>(owner) + 0x5230 +
+        static_cast<unsigned int>(slot_index) * 4;
+    unsigned char* volatile* slot = reinterpret_cast<unsigned char* volatile*>(address);
     *slot = data;
     return data ? 0 : -1;
 }

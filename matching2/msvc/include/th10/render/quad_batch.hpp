@@ -44,6 +44,20 @@ struct AnimationManager_00442F50 {
     // 0x00448740: the scheduler task that clears the shake offsets and the
     // stored sprite origin and then renders render-slot 14.
     __declspec(noinline) int ResetOriginAndRenderSlot14();
+    // 0x004485F0, 0x00448610 and 0x004486A0..0x00448730: scheduler tasks that
+    // draw one animation bucket; see src/render/animation_bucket_tasks.cpp.
+    __declspec(noinline) int DrawBucket0();
+    __declspec(noinline) int DrawBucket2();
+    __declspec(noinline) int DrawBucket4();
+    __declspec(noinline) int DrawBucket5();
+    __declspec(noinline) int DrawBucket6();
+    __declspec(noinline) int DrawBucket7();
+    __declspec(noinline) int DrawBucket8();
+    __declspec(noinline) int DrawBucket9();
+    __declspec(noinline) int DrawBucket10();
+    __declspec(noinline) int DrawBucket11();
+    __declspec(noinline) int DrawBucket12();
+    __declspec(noinline) int DrawBucket13();
     // 0x00448980: walks one animation bucket's entity list and draws every node
     // in it; see src/render/animation_manager_render_bucket_00448980.cpp.
     __declspec(noinline) int RenderBucket(int index);
@@ -85,6 +99,9 @@ struct RenderEntity {
     // plain sprite when the projection succeeds; see
     // src/render/entity_submit_projected_00443f80.cpp.
     __declspec(noinline) int SubmitProjectedQuad(AnimationManager_00442F50* manager);
+    // 0x00445880: draw the strip vertices as a 33-point fan; see
+    // src/unidentified/FUN_00445880_00445880.cpp.
+    __declspec(noinline) int DrawFan33();
 };
 // The shared sprite quad both submit pipelines finish and append.
 extern "C" TexturedVertex data_004978c0[4];

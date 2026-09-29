@@ -1,10 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-
-
-
-
+// Complete candidate: reference/semantic_candidates/sound_commands.cpp.
+// See recovery_notes/sound_commands_and_effect_queue.md: 840 dispatcher
+// comparisons include actual create/play/shutdown. Both instruction ranges
+// and all eight command cases are covered; native byte matching is pending.
 // 0x0043DDF0..0x0043DE24: FUN_0043ddf0
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0043ddf0_0043ddf0() {
@@ -864,7 +864,6 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ddf0_0043ddf0() {
         _emit 0x00
     }
 }
-
 
 
 

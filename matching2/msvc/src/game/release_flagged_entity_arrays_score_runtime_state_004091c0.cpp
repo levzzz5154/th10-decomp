@@ -27,13 +27,7 @@
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
 
-struct ScoreRuntimeState_004091c0 {
-    unsigned char reserved_0000[0x378C];
-    unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
-    unsigned char reserved_378D[0x400];
-
-    __declspec(noinline) int ReleaseFlaggedEntityArrays();
-};
+#include "th10/game/score_runtime_state_004091c0.hpp"
 
 #pragma code_seg(".text$001arrays")
 int ScoreRuntimeState_004091c0::ReleaseFlaggedEntityArrays() {

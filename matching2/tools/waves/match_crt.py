@@ -26,46 +26,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
+from matching2.tools.common.library import ar_members
 from matching2.tools.common.pe import PEImage
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
 
 MANIFEST = ROOT / "matching2/msvc/regions.json"
 ORACLE = ROOT / "matching2/build/oracle/th10.exe"
-
-
-def ar_members(path):
-    """Yield (name, blob) for every member of an ar archive.
-
-    MSVC writes a long member name as an offset into the ``//`` string table,
-    terminated by ``\\0`` when it holds a path and by ``/`` when it holds a flat
-    name, so both terminators are accepted.
-    """
-    data = path.read_bytes()
-    if data[:8] != b"!<arch>\n":
-        return
-    offset, longnames = 8, b""
-    while offset + 60 <= len(data):
-        header = data[offset:offset + 60]
-        offset += 60
-        name = header[:16].decode("latin1").rstrip()
-        try:
-            size = int(header[48:58].decode().strip())
-        except ValueError:
-            return
-        body = data[offset:offset + size]
-        offset += size + (size & 1)
-        if name == "//":
-            longnames = body
-            continue
-        if name in ("/", "/SYM64/") or name == "":
-            continue
-        if name.startswith("/") and longnames:
-            start = int(name[1:])
-            stop = start
-            while stop < len(longnames) and longnames[stop] not in (0x00, 0x2F, 0x0A):
-                stop += 1
-            name = longnames[start:stop].decode("latin1").replace("\\", "/")
-        yield name, body
 
 
 def coff_sections(blob):

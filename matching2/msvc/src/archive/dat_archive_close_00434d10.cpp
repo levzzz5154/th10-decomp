@@ -1,3 +1,7 @@
+// Current semantic candidate passes 256 retail comparisons and complete DAT
+// lifecycle tests with the real vector-destructor helper. See
+// reference/recovery_notes/archive_cleanup_00434c20_00434d10.md. Private ABI
+// and native MSVC byte recovery remain outstanding; the probe below is history.
 // BLOCKED (D3406): closest_byte_count=0/86; first_diff=unmeasured;
 // residual_class=__usercall ESI archive receiver, vector-destructor element
 // count/allocator ABI, and the virtual-release call through [object]+0x1C.

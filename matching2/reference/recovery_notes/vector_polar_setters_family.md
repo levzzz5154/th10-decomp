@@ -1,5 +1,12 @@
 # Vector polar setters — a seven-region family at the exact extent
 
+Current maintained-source status, 2026-09-27: `projection_quads.cpp` still
+contains its two inline `FSINCOS` blocks and passes the current full executable
+comparison. Its conversion remains incomplete. The active goal requires both
+byte matching and freedom from inline assembly; later passages accepting
+unverified semantic-only output describe an earlier scope and source snapshot.
+See the [verified checkpoint](native_recoveries_2026-09-27_third.md).
+
 2026-09-18. Screening the remaining assembly for no-call game regions with a
 plain ABI surfaced a family of **seven 30-byte `__thiscall` setters** sharing
 the same `FSINCOS` component pattern. The elliptic variant uses separate
@@ -7,13 +14,13 @@ horizontal and vertical scales:
 
 | region | source file |
 | --- | --- |
-| `0x004458B0` `Vector2_SetPolar` | `src/math/vector.cpp` |
-| `0x0044C5D0` `Recovery_PolarToVectorRetail` | `src/math/vector2_polar.cpp` |
-| `0x00441EF0` `Vector2_SetAnimationPolar` | `src/game/recovery_leaves.cpp` |
-| `0x0041F800` `SetPolar_Vector2` | `src/math/vector.cpp` |
-| `0x0041BEB0` `FUN_0041beb0` | `src/game/score.cpp` |
-| `0x00413270` `Vector2_SetEllipticPolar` | `src/game/recovery_leaves.cpp` |
-| `0x004501B0` `ECL_SetPolarVector` | `src/script/ecl_core_interpreter.cpp` |
+| `0x004458B0` `Vector2_SetPolar` | `src/math/x87_polar_setters.cpp` |
+| `0x0044C5D0` `Recovery_PolarToVectorRetail` | `src/math/x87_polar_setters.cpp` |
+| `0x00441EF0` `Vector2_SetAnimationPolar` | `src/math/x87_polar_setters.cpp` |
+| `0x0041F800` `SetPolar_Vector2` | `src/math/x87_polar_setters.cpp` |
+| `0x0041BEB0` `FUN_0041beb0` | `src/math/x87_polar_setters.cpp` |
+| `0x00413270` `Vector2_SetEllipticPolar` | `src/math/x87_polar_setters.cpp` |
+| `0x004501B0` `ECL_SetPolarVector` | `src/math/x87_polar_setters.cpp` |
 
 Retail listing (`0x004458B0`):
 
@@ -104,13 +111,11 @@ instruction selection therefore remains unverified. The `this` spill is moot
 for that semantic model because it is part of the retail instruction sequence
 rather than the component-level operation.
 
-## Semantic C++ recovery at `0x00441EF0`
+## Historical semantic C++ proposals at `0x00441EF0`
 
-The repository goal favors readable, inline-assembly-free C++ even when the
-exact `FSINCOS` encoding is unavailable. `0x00441EF0` is represented by
-`AnimationPolarVector2_00441EF0::SetAnimationPolar` in
-`src/game/recovery_leaves.cpp`; the six remaining entries now have semantic
-C++ setters as well:
+Earlier exploratory `cosf`/`sinf` models described the seven setters as
+semantic-only C++; the table records those proposals, not current manifest
+ownership:
 
 | entry | C++ representation | parameters after `this` |
 | --- | --- | --- |
@@ -121,17 +126,14 @@ C++ setters as well:
 | `0x00413270` | `EllipticPolarVector2_00413270::SetEllipticPolar` | angle, horizontal scale, vertical scale |
 | `0x004501B0` | `EclPolarVector2_004501B0::SetPolar` | angle, scale |
 
-All retain the Ghidra-supported `__thiscall` entry shape and write x at offset
-0 before y at offset 4. The three-parameter elliptic setter uses its second
-and third arguments for the x and y scales respectively. The readable
-`cosf`/`sinf` implementations capture those component semantics; byte
-exactness, the fused instruction sequence and exact rounding remain unverified.
-
-The manifest now selects the decorated C++ member symbols for `0x00413270`,
-`0x0041F800`, `0x004458B0`, and `0x0044C5D0`, preserving each former `_asm_...`
-name as a linker address alias for existing assembly or ABI-adapter callers.
-The semantic rows do not claim retail byte identity.
-
-The ECL setter at `0x004501B0` has the same source-level treatment and uses its
-own decorated member symbol. Its assembly call alias remains available to the
-interpreter's raw call site.
+The historical `cosf`/`sinf` proposals above did not reproduce retail's
+`FSINCOS` or x87 precision. The maintained
+[`x87_polar_setters.cpp`](../../msvc/src/math/x87_polar_setters.cpp) now
+defines all seven original setters plus `0x00408750` as byte-exact ordinary
+C++. GCC's `__builtin_sincosl` emits `FSINCOS`, and the pinned generic
+stack-home pass matches retail's receiver spill. The elliptic setter loads
+separate horizontal and vertical scales and returns with `RET 12`; the others
+return with `RET 8`. A focused probe matched all eight complete 30-byte
+bodies and their affected source units. The migrated external symbols keep
+existing callers bound to the compiled definitions. The unrelated
+`projection_quads.cpp` inline trigonometry remains to be recovered.

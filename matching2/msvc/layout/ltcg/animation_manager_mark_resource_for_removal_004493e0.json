@@ -3,7 +3,9 @@
   "name": "animation_manager_mark_resource_for_removal_004493e0",
   "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
   "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/render/animation_resource_removal.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "AnimationManagerMarkResourceForRemoval, BulletPool::Reset, the resource release and its slot caller in one native /LTCG scope.",
   "functions": [
@@ -50,13 +52,31 @@
       "size": 91,
       "actual_abi": "no entry register; plain RET with EAX = 0",
       "source": "src/game/recovery_release_pair_0041f930.cpp"
+    },
+    {
+      "name": "ReleaseSlot1_0042c800_0042c800",
+      "symbol": "_ReleaseSlot1_0042c800",
+      "section": ".text$04layoutb",
+      "address": "0x0042C800",
+      "size": 45,
+      "actual_abi": "no entry register; holds the slot in ESI and passes the record in EDI to 0x00447810; plain RET",
+      "source": "src/unidentified/unassigned_0042c800.cpp"
+    },
+    {
+      "name": "Release_00447910",
+      "symbol": "?Release@AnimationResourceEntry_00447810@@QAEXXZ",
+      "section": ".text$15layoutb",
+      "address": "0x00447910",
+      "size": 42,
+      "actual_abi": "entry in ESI; plain RET",
+      "source": "src/unidentified/unassigned_00447910.cpp"
     }
   ],
   "context": {
     "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@PAPAUAnimationResource_00447810@@PAUAnimationManager_004477d0@@HH@Z",
     "section": ".text$30context",
     "address": "0x00449480",
-    "size": 106,
+    "size": 129,
     "description": "Synthetic array-walking caller; not recovered game code."
   },
   "gaps": [
@@ -73,7 +93,7 @@
     {
       "section": ".text$04layout",
       "address": "0x0041F98B",
-      "size": 163397
+      "size": 52853
     },
     {
       "section": ".text$09layout",
@@ -83,16 +103,28 @@
     {
       "section": ".text$15layout",
       "address": "0x00447902",
-      "size": 6878
+      "size": 14
     },
     {
       "section": ".text$25layout",
       "address": "0x0044943C",
       "size": 68
+    },
+    {
+      "section": ".text$04layoutbz",
+      "address": "0x0042C82D",
+      "size": 110499
+    },
+    {
+      "section": ".text$15layoutbz",
+      "address": "0x0044793A",
+      "size": 6822
     }
   ],
   "constants": [],
-  "roots": [],
+  "roots": [
+    "_ReleaseSlot1_0042c800"
+  ],
   "absolute_symbols": [
     {
       "symbol": "_data_00491c10",
@@ -112,8 +144,10 @@
   ],
   "additional_sources": [
     "src/game/bullet_pool_reset_retail_00405ed0.cpp",
-    "src/render/fun_00447810_00447810.cpp",
+    "src/game/recovery_release_pair_0041f930.cpp",
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
-    "src/game/recovery_release_pair_0041f930.cpp"
+    "src/render/fun_00447810_00447810.cpp",
+    "src/unidentified/unassigned_0042c800.cpp",
+    "src/unidentified/unassigned_00447910.cpp"
   ]
 }

@@ -1,3 +1,7 @@
+// 2026-09-26: the typed candidate now passes 671 retail caller/control-flow
+// comparisons, including short reads and cleanup of supplied buffers. See
+// reference/recovery_notes/dat_archive_read_00434dd0.md. Its private ABIs and
+// MSVC byte match remain outstanding; the note below describes older probes.
 // BLOCKED (D3905): closest_byte_count=281/281 (exact assembly retained);
 // first_diff=0x00434DD0 at the __thiscall entry/early-return split.
 // residual_class=private helper stack/register ABI, encrypted-buffer

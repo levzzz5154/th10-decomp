@@ -6,34 +6,7 @@
 // ECX, a convention only a native LTCG link chooses, so this region is
 // compiled as a cluster.
 
-struct EclVarTable_00450070 {
-    unsigned char pad_000[8];
-    unsigned short valid_mask;  // +0x0008
-    unsigned char pad_00a[6];
-    float displacements[1];     // +0x0010
-};
-
-struct EclValueOwner_00450070 {
-    virtual void Reserved0();
-    virtual void Reserved1();
-    virtual void Reserved2();
-    virtual void Reserved3();
-    virtual float* ResolveExternalFloat(int displacement);
-};
-
-struct EclFrame_00450070 {
-    unsigned char pad_000[0x1004];
-    int frame_base;                 // +0x1004
-    unsigned char pad_1008[4];
-    EclValueOwner_00450070* owner;  // +0x100C
-};
-
-struct EclVm_00450070 {
-    void* field_000;
-    EclVarTable_00450070* table;  // +0x0004
-    EclFrame_00450070 frame;      // +0x0008
-    __declspec(noinline) float* ResolveFloatDestination(int index);
-};
+#include "th10/script/ecl_float_destination.hpp"
 
 #pragma code_seg(".text$01accessor")
 float* EclVm_00450070::ResolveFloatDestination(int index) {

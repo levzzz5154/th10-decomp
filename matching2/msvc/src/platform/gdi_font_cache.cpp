@@ -1,73 +1,35 @@
-// BLOCKED (D3402): closest_byte_count=0/107; first_diff=unmeasured
-// residual_class=abi/cluster; the readable cache-flush candidate compiled to
-// 114 bytes because retail enters with the cache object in ESI, uses EDI as
-// the zero/return register, and calls the three GDI imports through slots.
-// variants_tested=raw-offset cache model with typed SelectObject/DeleteDC/
-// DeleteObject import calls; standalone MSVC 13.10 probe.
-// next_lever=co-compile FontCache_DeleteGdiObjectsRetail and all real flush
-// callers in native LTCG to recover the ESI receiver and EDI scheduling.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00436A30: release a GDI drawing surface's DC and DIB section.
+extern "C" void* (__stdcall* data_0046602c)(void* dc, void* object);
+extern "C" int (__stdcall* data_00466028)(void* dc);
+extern "C" int (__stdcall* data_00466030)(void* object);
 
-// 0x00436A30..0x00436A9A: FontCache_FlushRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FontCache_FlushRetail_00436a30() {
-    __asm {
-    L_00436a30:
-        mov eax,dword ptr [esi+114h]
-    L_00436a36:
-        push edi
-    L_00436a37:
-        xor edi,edi
-    L_00436a39:
-        cmp eax,edi
-    L_00436a3b:
-        je short L_00436a97
-    L_00436a3d:
-        mov ecx,dword ptr [esi+118h]
-    L_00436a43:
-        push ecx
-    L_00436a44:
-        push eax
-    L_00436a45:
-        call dword ptr [data_0046602c]
-    L_00436a4b:
-        mov edx,dword ptr [esi+114h]
-    L_00436a51:
-        push edx
-    L_00436a52:
-        call dword ptr [data_00466028]
-    L_00436a58:
-        mov eax,dword ptr [esi+11Ch]
-    L_00436a5e:
-        push eax
-    L_00436a5f:
-        call dword ptr [data_00466030]
-    L_00436a65:
-        mov dword ptr [esi+104h],edi
-    L_00436a6b:
-        mov dword ptr [esi+108h],edi
-    L_00436a71:
-        mov dword ptr [esi+114h],edi
-    L_00436a77:
-        mov dword ptr [esi+11Ch],edi
-    L_00436a7d:
-        mov dword ptr [esi+118h],edi
-    L_00436a83:
-        mov dword ptr [esi+120h],edi
-    L_00436a89:
-        mov dword ptr [esi+100h],0FFFFFFFFh
-    L_00436a93:
-        mov al,1
-    L_00436a95:
-        pop edi
-    L_00436a96:
-        ret
-    L_00436a97:
-        xor al,al
-    L_00436a99:
-        pop edi
-    L_00436a9a:
-        ret
+struct GdiSurface_00436a30 {
+    unsigned char unknown_000[0x100];
+    int font_index;
+    int width;
+    int height;
+    unsigned char unknown_10c[8];
+    void* dc;
+    void* previous_bitmap;
+    void* bitmap;
+    void* pixels;
+};
+
+#pragma code_seg(".text$01accessor")
+__declspec(noinline) bool __stdcall ReleaseSurface_00436a30(GdiSurface_00436a30* surface) {
+    if (surface->dc) {
+        data_0046602c(surface->dc, surface->previous_bitmap);
+        data_00466028(surface->dc);
+        data_00466030(surface->bitmap);
+        surface->width = 0;
+        surface->height = 0;
+        surface->dc = 0;
+        surface->bitmap = 0;
+        surface->previous_bitmap = 0;
+        surface->pixels = 0;
+        surface->font_index = -1;
+        return true;
     }
+    return false;
 }
+#pragma code_seg()

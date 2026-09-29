@@ -1,3 +1,7 @@
+// 2026-09-26: the revised semantic candidate is compiled and behavior-tested
+// against retail; see reference/recovery_notes/lzss_decoder_00435dc0.md.
+// It is not yet an MSVC byte match. The historical recovery note below
+// describes the earlier probe, not the current candidate's validation state.
 // BLOCKED (D3202): closest_byte_count=475/475; first_diff=none (retail
 // assembly baseline only; no readable candidate retained).
 // residual_class=global 0x0048F868 dictionary state, bit-reader carry/mask

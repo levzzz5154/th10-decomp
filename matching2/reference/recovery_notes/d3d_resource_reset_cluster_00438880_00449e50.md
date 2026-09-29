@@ -1,5 +1,11 @@
 # D3D resource/reset cluster recovery note
 
+Historical attempt. On 2026-09-27, the complete 59-byte initializer and
+82-byte list-release body were recovered and promoted as exact readable C++.
+See `d3d_resource_manager_initialize_00449aa0_native_ltcg_2026-09-27.md` and
+`d3d_resource_list_release_00449e50_native_ltcg_2026-09-27.md` for the current
+sources and compiler contexts. The other functions below remain separate work.
+
 Date: 2026-09-12
 
 Scope: `0x00438880` (103 bytes), `0x00449E50` (82 bytes), `0x00449AA0` (59 bytes),

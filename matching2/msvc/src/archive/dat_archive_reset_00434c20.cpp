@@ -1,5 +1,8 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
+// The repaired Reset/Close candidates pass 256 Reset comparisons and DAT
+// lifecycle tests. See reference/recovery_notes/archive_cleanup_00434c20_00434d10.md.
+// The production pair retains assembly pending private ABI and MSVC matching.
 
 // 0x00434C20..0x00434C29: ?DatArchive_Reset@@
 // Naked body preserves the retail register/stack ABI.
