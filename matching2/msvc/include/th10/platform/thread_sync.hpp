@@ -3,11 +3,15 @@
 
 struct CriticalSection { unsigned char storage[24]; };
 
-// GameMain initializes seven contiguous Win32 critical sections at 0x492274.
-// The scheduler uses the first section and the depth byte immediately after them.
+// GameMain initializes seven contiguous Win32 critical sections at 0x492274,
+// each with a nesting-depth byte after the array. The scheduler uses the first
+// section and the text log the fourth.
 struct ThreadSynchronization {
     CriticalSection critical_sections[7];
-    unsigned char scheduler_lock_depth;
+    unsigned char scheduler_lock_depth;     // depth of critical_sections[0]
+    unsigned char lock_depth_1;
+    unsigned char lock_depth_2;
+    unsigned char text_log_lock_depth;      // depth of critical_sections[3]
 };
 extern ThreadSynchronization g_thread_synchronization;
 

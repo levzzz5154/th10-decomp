@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "name": "runtime_selector_0043c970",
+  "source": "src/game/fun_0043c970_0043c970.cpp",
+  "driver": "layout/ltcg/runtime_selector_0043c970_context.cpp",
+  "included_sources": [
+    "layout/ltcg/runtime_selector_0043c970_scheduler_create.cpp"
+  ],
+  "headers": [
+    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Full screen-effect selector with genuine allocation caller and scheduler dependencies. Only selector contribution including nine-way switch table is selected.",
+  "functions": [
+    {
+      "name": "RuntimeSelector_Configure",
+      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "section": ".text$03selector",
+      "address": "0x0043C970",
+      "size": 396,
+      "actual_abi": "owner ESI; priority EBX; selected mode and four parameters on stack; RET 20"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Factory",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "section": ".text$01factory",
+      "address": "0x43c8b0",
+      "size": 77
+    },
+    {
+      "name": "PrimaryRegister",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x449ae0",
+      "size": 131
+    },
+    {
+      "name": "SecondaryRegister",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$30secondary",
+      "address": "0x449b70",
+      "size": 131
+    },
+    {
+      "name": "PrimaryCreate",
+      "symbol": "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$76schedulerprimary",
+      "address": "0x44a000",
+      "size": 43
+    },
+    {
+      "name": "SecondaryCreate",
+      "symbol": "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$78schedulersecondary",
+      "address": "0x44a030",
+      "size": 43
+    }
+  ],
+  "context": {
+    "symbol": "_RuntimeSelectorCompilerContext@12",
+    "section": ".text$90context",
+    "address": "0x0044A060",
+    "size": 71,
+    "description": "Synthetic repeated allocation caller holding priority across the loop."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 243888
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0043c8fd",
+      "size": 115
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x43cafc",
+      "size": 53220
+    },
+    {
+      "section": ".text$20gap",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$40gap",
+      "address": "0x449bf3",
+      "size": 1037
+    },
+    {
+      "section": ".text$77gap",
+      "address": "0x44a02b",
+      "size": 5
+    },
+    {
+      "section": ".text$79gap",
+      "address": "0x44a05b",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "address": "0x43bd40",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "address": "0x43c1a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeInUpdate_0043c230@4",
+      "address": "0x43c230",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "address": "0x43c2c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "address": "0x43c310",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "address": "0x43c3c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "address": "0x43c410",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "address": "0x43c460",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseDraw_0043c500@4",
+      "address": "0x43c500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "address": "0x43c550",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "address": "0x43c710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "address": "0x43c870",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "name": "enemy_script_bind_0040d830",
+  "source": "src/game/fun_0040d830_0040d830.cpp",
+  "driver": "layout/ltcg/enemy_script_bind_0040d830_context.cpp",
+  "headers": [
+    "include/th10/game/enemy_script_bind_0040d830.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/enemy_script_bind_resolve_anchor.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Enemy script entity initialization with a legal fastcall animation-clear dependency and compiler-visible script-resolver anchor.",
+  "functions": [
+    {
+      "name": "EnemyScriptEntity_Initialize_0040d830",
+      "symbol": "?InitializeEnemyScriptEntity_0040d830@@YIPAUEnemyScriptEntity_0040d830@@HPAU1@UBindScriptName_0040d830@@@Z",
+      "section": ".text$30bind",
+      "address": "0x0040D830",
+      "size": 673,
+      "actual_abi": "receiver ESI; script-name aggregate on stack; returned receiver EAX; RET4"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ResolveBoundScript",
+      "symbol": "?Resolve@BindScriptTable_0040d830@@QAEHPBD@Z",
+      "section": ".text$50resolve",
+      "address": "0x00450470",
+      "size": 136
+    }
+  ],
+  "context": {
+    "symbol": "?EnemyScriptBindCompilerContext_0040d830@@YGPAUEnemyScriptEntity_0040d830@@PAPAU1@PAUBindScriptName_0040d830@@HH@Z",
+    "section": ".text$70context",
+    "address": "0x00450510",
+    "size": 60,
+    "description": "Synthetic receiver and label array caller; unselected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 51248
+    },
+    {
+      "section": ".text$40layout",
+      "address": "0x0040DAD1",
+      "size": 272799
+    },
+    {
+      "section": ".text$60layout",
+      "address": "0x004504F8",
+      "size": 24
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d0c0",
+      "address": "0x0046D0C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?ClearBoundAnimations_0040d830@@YIPAUBindAnimationOwner_0040d830@@HPAU1@@Z",
+      "address": "0x0040CC70",
+      "kind": "relative_code"
+    }
+  ]
+}

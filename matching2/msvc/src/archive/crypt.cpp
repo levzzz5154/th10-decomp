@@ -1,19 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 2026-09-26: semantic encryption/decryption candidates now pass retail
-// differential tests. See reference/recovery_notes/dat_crypt_0044b0d0_0044b220.md.
-// Their conventional six-argument test ABI is not a recovered retail entry.
-// BLOCKED (D3201): closest_byte_count=1/323; first_diff=0x0044B0D0
-// (native MSVC 13.10 /GL /LTCG semantic cluster, authoritative body extent
-// 334 bytes; 322 differing bytes against the 323-byte retail region).
-// residual_class=key byte live-in through AL while five values remain on the
-// stack, plus compiler-selected memcpy/loop shape and malloc/free bindings.
-// variants_tested=legacy readable interleaved-XOR model with synthetic native
-// callers and fixed helper bindings; all nonexact output was restored.
-// next_lever=caller-inclusive native-LTCG cluster over 0042A200, 0042B030,
-// 00434DD0, and 00434F70, preserving AL key flow, five stack arguments and
-// RET 20; promote only after the full 323-byte comparison is exact.
+// 2026-09-30: native-LTCG attempt (reference/semantic_candidates/
+// dat_decrypt_ltcg_0044b0d0.cpp with its _context.cpp driver).  A plain
+// six-argument C++ signature compiled in a synthetic-caller cluster already
+// receives the key in AL and keeps data/size/step/block/limit on the stack
+// with RET 20; the frame (two locals: output cursor, snapshot) and the whole
+// prologue through the memcpy match once `in = snapshot` is assigned right
+// after malloc.  Best result 226/323 bytes, first difference 0x0044B170:
+// retail caches block_size in ESI and the block end in EDI, native swaps the
+// two, which also moves the first inner loop's counter out of EAX.  Loop
+// shapes, declaration order, parameter order, statement order and
+// out/end placement did not flip the assignment.
 // 0x0044B0D0..0x0044B212: DecryptDatBuffer
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_DecryptDatBuffer_0044b0d0() {

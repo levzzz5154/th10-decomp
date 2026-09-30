@@ -1,10 +1,10 @@
-# Enemy manager factory `0x0040D6B0` semantic recovery
+# Enemy manager factory `0x0040D6B0` semantic candidate
 
-The source expresses the manager factory as ordinary C++ in
-`matching2/msvc/src/game/enemy_manager_create_retail_0040d6b0.cpp`. The
-95-byte span is now classified as semantic in `matching2/msvc/regions.json`,
-with its earlier assembly record preserved. This is a behavior recovery; it
-does not claim that the ordinary C++ reproduces the retail bytes.
+The active `regions.json` still classifies this 95-byte span as assembly, and
+`matching2/msvc/src/game/enemy_manager_create_retail_0040d6b0.cpp` still emits
+the retail naked body. The readable factory model is kept in
+`matching2/reference/semantic_candidates/enemy_manager_create_retail_0040d6b0.cpp`;
+it is not integrated as recovered code.
 
 ## Observed behavior
 
@@ -42,12 +42,23 @@ homes it in ESI and passes teardown's pointer in ECX. Those private callee
 conventions are not expressible through the ordinary C++ declarations used by
 the model.
 
-The prior scratch LTCG attempt also produced a 95-byte factory body, but the
+The earlier scratch LTCG attempt produced a 95-byte factory body, but the
 `0x0040D530` callee still had four argument-copy mismatches, so that cluster
-was not landable. The recorded next lever is to promote `0x0040D530`, its
-EAX-receiver callers, this factory, and `0x0040D280` together in a real-caller
-LTCG cluster. See
+was not registered. A later wave-9 note records the factory itself as exact in
+a wider merged native-LTCG link while `0x0040D530` retained those four
+mismatches; that historical probe did not land a reusable layout. See
 [`recovery_enemy_manager_create_0040d6b0_wave5.md`](recovery_enemy_manager_create_0040d6b0_wave5.md)
-for the earlier model and experiment details.
+and [`0040d530_wave9.md`](0040d530_wave9.md) for the experiment history.
 
-No build, probe, or tests were run for this source edit.
+The reference candidate now uses the same 0x68-byte manager type as the timer
+sweep candidate. Ghidra shows that the factory passes this object to
+`FUN_0040d280`, which installs the callback records at `+0x08/+0x0C`, the frame
+timer at `+0x40`, and the parser at `+0x54`; the sweep and teardown use the
+enemy-list fields beginning at `+0x58`. The shared candidate layout and its
+offset checks are in
+[`enemy_timer_sweep_0040d750.hpp`](../semantic_candidates/enemy_timer_sweep_0040d750.hpp).
+
+The shared candidate source was compiled with Clang's 32-bit MSVC target to
+check syntax and layout. This is not an MSVC byte-match test. A current native
+probe remains unavailable because Wine cannot bind its local socket in the
+sandbox.

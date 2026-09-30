@@ -7,9 +7,12 @@ import tempfile
 import unittest
 
 from matching2.tools.matching.ltcg_cluster import (
-    LTCGClusterError, _verify_duplicates, load_cluster, validate_internal_calls,
+    LTCGClusterError, _validate_generated_contributions, _verify_duplicates,
+    load_cluster, validate_internal_calls,
 )
-from matching2.tools.matching.ltcg_semantic import LTCGSemanticError, PEImage, parse_map, validate_map_pe
+from matching2.tools.matching.ltcg_semantic import (
+    LTCGSemanticError, LinkMap, MapContribution, PEImage, parse_map, validate_map_pe,
+)
 
 
 class ClusterSourceOwnershipTests(unittest.TestCase):
@@ -352,6 +355,65 @@ class NativeExportMapTests(unittest.TestCase):
         for rva, size in ((0, 0), (0x2001, 0x3f), (0x2000, 0x3f)):
             with self.subTest(rva=rva, size=size), self.assertRaises(LTCGSemanticError):
                 validate_map_pe(link_map, self._image(rva, size))
+
+
+class GeneratedUnwindContributionTests(unittest.TestCase):
+    def _check(self, offsets=(0, 11), sizes=(11, 10), length=21):
+        functions = [{'symbol': name, 'section': '.text$x', 'generated': True}
+                     for name in ('_unwind', '_handler')]
+        reports = [{'symbol': name, 'map_segment': '0001', 'map_offset': hex(offset), 'size': size}
+                   for name, offset, size in zip(('_unwind', '_handler'), offsets, sizes)]
+        link_map = LinkMap(0x400000, None, 1, 0,
+                           (MapContribution(1, 0, length, '.text$x', 'CODE'),), ())
+        _validate_generated_contributions(functions, reports, link_map)
+
+    def test_complete_unwind_and_handler_contribution_is_accepted(self):
+        self._check()
+
+    def test_missing_prefix_middle_or_suffix_is_rejected(self):
+        for offsets, sizes, length in [((1, 11), (10, 10), 21),
+                                       ((0, 12), (11, 9), 21),
+                                       ((0, 11), (11, 9), 21),
+                                       ((0, 11), (11, 10), 22)]:
+            with self.subTest(offsets=offsets, sizes=sizes, length=length):
+                with self.assertRaises(LTCGClusterError):
+                    self._check(offsets, sizes, length)
+
+    def test_overlapping_functions_are_rejected(self):
+        with self.assertRaises(LTCGClusterError):
+            self._check((0, 10))
+
+
+class NativeExceptionMapTests(unittest.TestCase):
+    def _map(self, table_class='DATA', include_rdata=True):
+        data_prefix = ' 0002:00000000 00000020H .rdata$00config DATA\n' if include_rdata else ''
+        return parse_map(''' cluster
+ Timestamp is 00000000
+ Preferred load address is 00400000
+ Start         Length     Name                   Class
+ 0001:00000000 00000010H .text$10caller CODE
+''' + data_prefix + f''' 0002:00000020 00000020H .xdata$x {table_class}
+ Address         Publics by Value              Rva+Base     Lib:Object
+ 0001:00000000 _entry 00401000 f caller.obj
+ entry point at 0001:00000000
+ Static symbols
+''')
+
+    def test_exception_tables_share_the_readonly_rdata_segment(self):
+        validate_map_pe(self._map(), NativeExportMapTests()._image(0, 0))
+
+    def test_exception_tables_cannot_be_code_or_guess_a_segment(self):
+        for table_class, include_rdata in [('CODE', True), ('DATA', False)]:
+            with self.subTest(table_class=table_class, include_rdata=include_rdata):
+                with self.assertRaises(LTCGSemanticError):
+                    validate_map_pe(self._map(table_class, include_rdata),
+                                    NativeExportMapTests()._image(0, 0))
+
+    def test_exception_tables_cannot_use_writable_data(self):
+        image = bytearray(NativeExportMapTests()._image(0, 0).data)
+        struct.pack_into('<I', image, 0x98 + 0xe0 + 40 + 36, 0xc0000040)
+        with self.assertRaises(LTCGSemanticError):
+            validate_map_pe(self._map(), PEImage(bytes(image)))
 
 
 if __name__ == "__main__":

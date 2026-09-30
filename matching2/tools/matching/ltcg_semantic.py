@@ -307,6 +307,20 @@ def _segment_section(link_map: LinkMap, pe: PEImage, segment: int) -> PESection:
         _canonical_section_name(item.name)
         for item in contributions
     }
+    # x86 LINK 7.10 merges compiler C++ exception tables into .rdata. Unlike
+    # x64 unwind information, these have no PE exception-directory entry.
+    # Their MAP segment must also contain .rdata contributions; validate all
+    # coordinates against that same read-only, non-executable PE section.
+    if '.xdata' in names and not any(section.name == '.xdata' for section in pe.sections):
+        if '.rdata' not in names:
+            raise LTCGSemanticError('merged exception tables have no MAP .rdata segment')
+        section = pe.section_named('.rdata')
+        tables = [item for item in contributions if _canonical_section_name(item.name) == '.xdata']
+        if (section.characteristics & (0x80000000 | 0x20000000)
+                or not section.characteristics & 0x40000000
+                or any(item.section_class != 'DATA' for item in tables)):
+            raise LTCGSemanticError('merged exception tables are not read-only PE data')
+        names = (names - {'.xdata'}) | {'.rdata'}
     # LINK 7.10 describes its synthesized export directory as .edata in the
     # MAP even when the PE stores it in .rdata. Prove that mapping from the
     # PE export data directory; do not guess a section from its ordinal.

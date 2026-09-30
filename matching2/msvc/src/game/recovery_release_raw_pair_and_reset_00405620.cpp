@@ -1,0 +1,13 @@
+// 0x00405620..0x004056A8: remove both scheduler tasks of a task pair and clear
+// the global pointer at 0x004776EC.  Compiled in the scheduler's native-LTCG
+// cluster so that its calls to 0x00449F60 load the task register first.
+#include "th10/game/scheduler_remove_locked.hpp"
+
+extern "C" void* data_004776ec;
+
+#pragma code_seg(".text$00_wmpairreset")
+extern "C" __declspec(noinline) void __stdcall Recovery_ReleaseRawPairAndReset(SchedulerTaskPair* pair) {
+    RemoveScheduledTaskPair(pair);
+    data_004776ec = 0;
+}
+#pragma code_seg()

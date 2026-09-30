@@ -2,29 +2,104 @@
   "schema_version": 2,
   "name": "effect_pool_update_batch",
   "source": "src/game/weather_pool.cpp",
-  "additional_sources": ["src/unidentified/FUN_0042b9a0_0042b9a0.cpp"],
-  "headers": ["include/th10/game/effect_pool_0042b6f0.hpp"],
+  "additional_sources": [
+    "src/unidentified/FUN_0042b9a0_0042b9a0.cpp"
+  ],
+  "headers": [
+    "include/th10/game/effect_pool_0042b6f0.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Real tail wrapper and drop-update callee linked together so LTCG selects retail's EAX pool convention.",
   "functions": [
-    {"name":"EffectPool_UpdateDrops","symbol":"?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ","section":".text$01drops","address":"0x0042B6F0","size":134,"actual_abi":"pool in EAX; result in EAX; plain RET","source":"src/game/weather_pool.cpp"},
-    {"name":"EffectPool_Update","symbol":"?Update@EffectPool_0042b6f0@@QAEHXZ","section":".text$02wrapper","address":"0x0042B9A0","size":7,"actual_abi":"this in ECX; moves to EAX and tail-jumps to UpdateDrops","source":"src/unidentified/FUN_0042b9a0_0042b9a0.cpp"}
+    {
+      "name": "EffectPool_UpdateDrops",
+      "symbol": "?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ",
+      "section": ".text$01drops",
+      "address": "0x0042B6F0",
+      "size": 134,
+      "actual_abi": "pool in EAX; result in EAX; plain RET",
+      "source": "src/game/weather_pool.cpp"
+    },
+    {
+      "name": "EffectPool_Update",
+      "symbol": "?Update@EffectPool_0042b6f0@@QAEHXZ",
+      "section": ".text$02wrapper",
+      "address": "0x0042B9A0",
+      "size": 7,
+      "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdateDrops",
+      "source": "src/unidentified/FUN_0042b9a0_0042b9a0.cpp"
+    }
   ],
   "entry": "?Update@EffectPool_0042b6f0@@QAEHXZ",
-  "calls": [{"caller":"?Update@EffectPool_0042b6f0@@QAEHXZ","callee":"?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ","address":"0x0042B9A2","instruction":"jmp"}],
-  "gaps": [
-    {"section":".text$00layout","address":"0x00401000","size":173808},
-    {"section":".text$01zlayout","address":"0x0042B776","size":554},
-    {"section":".text$03layout","address":"0x0042B9A7","size":280153},
-    {"section":".rdata","address":"0x00470000","size":2812}
+  "calls": [
+    {
+      "caller": "?Update@EffectPool_0042b6f0@@QAEHXZ",
+      "callee": "?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ",
+      "address": "0x0042B9A2",
+      "instruction": "jmp"
+    }
   ],
-  "constants": [{"symbol":"__real@3f800000","address":"0x00470AFC","value":1.0}],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 173808
+    },
+    {
+      "section": ".text$01zlayout",
+      "address": "0x0042B776",
+      "size": 554
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x0042B9A7",
+      "size": 280153
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
   "absolute_symbols": [
-    {"symbol":"_data_00476f78","address":"0x00476F78","kind":"data"},
-    {"symbol":"_data_00470b0c","address":"0x00470B0C","kind":"data"},
-    {"symbol":"?g_frame_timer_normal_lower@@3MA","address":"0x00470B68","kind":"data"},
-    {"symbol":"?g_frame_timer_normal_upper@@3MA","address":"0x00470B64","kind":"data"},
-    {"symbol":"__ftol2","address":"0x00463B2C","kind":"relative_code"},
-    {"symbol":"__fltused","address":"0x00000000","kind":"metadata"}
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
   ]
 }

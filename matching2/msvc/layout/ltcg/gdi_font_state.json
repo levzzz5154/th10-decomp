@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "name": "gdi_font_state",
+  "source": "src/render/gdi_font_state.cpp",
+  "driver": "layout/ltcg/gdi_font_state_context.cpp",
+  "headers": [
+    "include/th10/render/gdi_font_state.hpp",
+    "include/th10/util/heap.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native GDI font-state constructor with its complete C++ generated unwind contribution and exception table. The placement caller and loader record are compiler context only.",
+  "exceptions": true,
+  "functions": [
+    {
+      "name": "GdiFontState_Construct",
+      "symbol": "??0GdiFontState@@QAE@XZ",
+      "section": ".text$01font",
+      "address": "0x00436890",
+      "size": 99,
+      "actual_abi": "destination at [ESP+4]; result EAX; RET 4"
+    },
+    {
+      "name": "GdiFontState_UnwindFace",
+      "symbol": "_GdiFontState_UnwindFace_00465580",
+      "section": ".text$x",
+      "address": "0x00465580",
+      "size": 11,
+      "actual_abi": "exception-frame EBP; destination at [EBP+4]; tail-call string clear through ECX",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "GdiFontState_ExceptionHandler",
+      "symbol": "__ehhandler$??0GdiFontState@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x0046558B",
+      "size": 10,
+      "actual_abi": "compiler C++ EH handler; FuncInfo in EAX; tail-call ___CxxFrameHandler",
+      "generated": true
+    }
+  ],
+  "context": {
+    "symbol": "_GdiFontStateCompilerContext@4",
+    "section": ".text$03context",
+    "address": "0x00436900",
+    "size": 22,
+    "description": "Unselected placement-construction caller; keeps the real constructor destination on the stack."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 219280
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004368F3",
+      "size": 13
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00436916",
+      "size": 191594
+    },
+    {
+      "section": ".rdata$01layout",
+      "address": "0x00466048",
+      "size": 46508
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?AssignRange@LegacyString@@QAEPAU1@PBDI@Z",
+      "address": "0x00438420",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1GdiFontFaceName@@QAE@XZ",
+      "address": "0x004381F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_default_font_face_cp932@@3QBDB",
+      "address": "0x0046F36C",
+      "kind": "data"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".rdata$00config",
+      "address": "0x00466000",
+      "bytes": "480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "description": "Unselected native-image loader scaffold."
+    },
+    {
+      "section": ".xdata$x",
+      "address": "0x004715F4",
+      "bytes": "ffffffff805546002005931901000000f415470000000000000000000000000000000000",
+      "description": "Compiler-generated unwind map and FuncInfo; must equal the preserved final-image metadata."
+    }
+  ]
+}

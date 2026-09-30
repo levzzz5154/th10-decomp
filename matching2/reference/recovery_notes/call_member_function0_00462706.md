@@ -40,4 +40,13 @@ unwind callbacks at nearby addresses are different: Ghidra shows them loading
 data from the caller's live EBP, and xrefs to those entries point to EH data
 rather than direct call instructions. Those callbacks were not changed.
 
-No build, probe, or test was run, and byte-for-byte identity is not verified.
+## Byte-matching check
+
+An isolated i686 Clang probe on 2026-09-30 tested the ordinary `__stdcall`
+wrapper calling a `__thiscall` function pointer. Clang emitted
+`mov ecx, [esp+4]; call [esp+8]; ret 8` (11 bytes), while retail uses the
+7-byte `pop eax; pop ecx; xchg [esp], eax; jmp eax` tail-call shuffle. `clang-cl`
+with the MSVC x86 target emitted the same ordinary-call sequence. The GNU COFF
+probe also hit its existing stdcall section-name parsing issue when the
+decorated symbol was used directly. This candidate remains semantic-only; no
+byte-exact promotion was made.

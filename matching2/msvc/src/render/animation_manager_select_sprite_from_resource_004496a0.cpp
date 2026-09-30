@@ -15,6 +15,6 @@ __declspec(noinline) void AnimationHandle_004496a0::ConfigureFromResource(Resour
     AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(
         reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
     if (object != 0)
-        object->ConfigureFromResource(resource, index);
+        resource->ConfigureObject(object, index);
 }
 #pragma code_seg()

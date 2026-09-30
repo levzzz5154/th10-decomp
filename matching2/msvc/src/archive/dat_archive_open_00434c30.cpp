@@ -1,98 +1,57 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-// Typed candidate: reference/semantic_candidates/dat_archive_open.cpp. Both
-// opener bodies and their string-copy helper pass isolated and complete DAT
-// lifecycle comparisons. See reference/recovery_notes/dat_archive_open_00434c30_00434ca0.md;
-// private register conventions and MSVC matching still prevent promotion.
+// DAT archive openers: 0x00434C30 opens an archive file on disk and
+// 0x00434CA0 opens one embedded as an RCDATA resource.
+//
+// Both drop whatever the archive held, attach a fresh file backend, read the
+// index through LoadIndex and keep a private copy of the path.  Any failure
+// after the backend is attached closes the archive again.  The disk opener
+// then reopens its backend by the owned filename so later reads can seek in
+// it; that second Open's result is ignored.
+//
+// Retail passes the archive in ECX and the path in EAX, and the callees take
+// the archive in ESI and the path copy's source in EDI.  Native LTCG picks
+// those registers, so both bodies are compiled in the cluster
+// layout/ltcg/dat_archive_open_00434c30.json.
+#include "th10/archive/dat_archive_types.hpp"
+#include "th10/platform/memory_file.hpp"
 
-// 0x00434C20..0x00434C29: ?DatArchive_Reset@@
-// Naked body preserves the retail register/stack ABI.
+extern "C" void* __cdecl asm_operator_new_00452493(unsigned int size);
+char* LegacyString_Duplicate(const char* text);
+extern "C" const char* g_dat_archive_read_mode;
 
-// 0x00434C30..0x00434C9B: ?DatArchive_Open@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DatArchive_Open_00434c30() {
-    __asm {
-    L_00434c30:
-        push esi
-    L_00434c31:
-        push edi
-    L_00434c32:
-        mov esi,ecx
-    L_00434c34:
-        mov edi,eax
-    L_00434c36:
-        call asm_DatArchive_Close_00434d10
-    L_00434c3b:
-        push 0Ch
-    L_00434c3d:
-        call asm_operator_new_00452493
-    L_00434c42:
-        add esp,4
-    L_00434c45:
-        test eax,eax
-    L_00434c47:
-        je short L_00434c5f
-    L_00434c49:
-        mov dword ptr [eax],46F230h
-    L_00434c4f:
-        mov dword ptr [eax+4],0FFFFFFFFh
-    L_00434c56:
-        mov dword ptr [eax+8],0
-    L_00434c5d:
-        jmp short L_00434c61
-    L_00434c5f:
-        xor eax,eax
-    L_00434c61:
-        test eax,eax
-    L_00434c63:
-        mov dword ptr [esi+0Ch],eax
-    L_00434c66:
-        je short L_00434c97
-    L_00434c68:
-        push edi
-    L_00434c69:
-        call asm_DatArchive_LoadIndex_00434f70
-    L_00434c6e:
-        test al,al
-    L_00434c70:
-        je short L_00434c92
-    L_00434c72:
-        call asm_LegacyString_Duplicate_00435220
-    L_00434c77:
-        test eax,eax
-    L_00434c79:
-        mov dword ptr [esi+8],eax
-    L_00434c7c:
-        je short L_00434c92
-    L_00434c7e:
-        mov ecx,dword ptr [esi+0Ch]
-    L_00434c81:
-        mov esi,dword ptr [data_00474908]
-    L_00434c87:
-        mov edx,dword ptr [ecx]
-    L_00434c89:
-        push esi
-    L_00434c8a:
-        push eax
-    L_00434c8b:
-        call dword ptr [edx]
-    L_00434c8d:
-        pop edi
-    L_00434c8e:
-        mov al,1
-    L_00434c90:
-        pop esi
-    L_00434c91:
-        ret
-    L_00434c92:
-        call asm_DatArchive_Close_00434d10
-    L_00434c97:
-        pop edi
-    L_00434c98:
-        xor al,al
-    L_00434c9a:
-        pop esi
-    L_00434c9b:
-        ret
+inline void* __cdecl operator new(size_t, void* storage) { return storage; }
+
+#pragma code_seg(".text$01open")
+__declspec(noinline) bool DatArchive::Open(const char* path) {
+    Close();
+    void* storage = asm_operator_new_00452493(sizeof(FileHandle));
+    file = storage ? new (storage) FileHandle : 0;
+    if (!file)
+        return false;
+    if (LoadIndex(path)) {
+        filename = LegacyString_Duplicate(path);
+        if (filename) {
+            file->Open(filename, g_dat_archive_read_mode);
+            return true;
+        }
     }
+    Close();
+    return false;
 }
+#pragma code_seg()
+
+#pragma code_seg(".text$01openresource")
+__declspec(noinline) bool DatArchive::OpenResource(const char* resource_name) {
+    Close();
+    void* storage = asm_operator_new_00452493(sizeof(ResourceFile));
+    file = storage ? new (storage) ResourceFile : 0;
+    if (!file)
+        return false;
+    if (LoadIndex(resource_name)) {
+        filename = LegacyString_Duplicate(resource_name);
+        if (filename)
+            return true;
+    }
+    Close();
+    return false;
+}
+#pragma code_seg()

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "ecl_resource_slot_bind_00412720",
+  "source": "src/game/ecl_set_resource_slot_00412720.cpp",
+  "driver": "layout/ltcg/ecl_resource_slot_bind_00412720_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Compiled with native LTCG under a synthetic caller, so the whole-program pass assigns the register convention retail uses. The one retail caller is at 0x00410CC0.",
+  "functions": [
+    {
+      "name": "ecl_resource_slot_bind_00412720",
+      "symbol": "?BindSlot_00412720@@YGXPAUSlotTable_00412720@@HHHPBD@Z",
+      "section": ".text$01accessor",
+      "address": "0x00412720",
+      "size": 48,
+      "actual_abi": "table in ESI; index in EDX; id in ECX; data in EDI; value on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUSlotTable_00412720@@PAHPAPBDH@Z",
+    "section": ".text$03context",
+    "address": "0x00412760",
+    "size": 92,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 71456
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00412750",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

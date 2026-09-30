@@ -1,41 +1,24 @@
-// BLOCKED (M2704): closest_byte_count=0; first_diff=0x0042A9F0;
-// residual_class=private-ABI/control-flow: Ghidra identifies the real callee
-// at 0x00418C40 as __fastcall (destination in EDX), while this fragment
-// enters with the record in ESI, preserves EDI, clears 25 dwords, and returns
-// ESI.  The native-LTCG readable member candidate emitted a 95-byte body,
-// retaining a public thiscall shape and a cdecl call, rather than this
-// private multi-register schedule.
-// variants_tested=readable member with loop clear and native caller context;
-// __fastcall callee link binding and cdecl callee binding; exact retail naked
-// wrapper retained as baseline.
-// next_lever=co-compile a real caller that supplies ESI/EDX and a declared
-// private callee edge, then revisit the loop/return source shape.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0042A9F0: construct a zeroed configuration holder. The embedded
+// configuration is filled with its defaults first and then cleared again by
+// the holder's own memset, exactly as the retail constructor orders it.
+// Native LTCG passes the holder in ESI and returns it in EAX.
+#include <string.h>
 
-// 0x0042A9F0..0x0042AA07: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0042a9f0() {
-    __asm {
-    L_0042a9f0:
-        push edi
-    L_0042a9f1:
-        lea edx,[esi+14h]
-    L_0042a9f4:
-        call asm_GameConfig_InitializeDefaults_00418c40
-    L_0042a9f9:
-        xor eax,eax
-    L_0042a9fb:
-        mov ecx,19h
-    L_0042aa00:
-        mov edi,esi
-    L_0042aa02:
-        rep stosd
-    L_0042aa04:
-        mov eax,esi
-    L_0042aa06:
-        pop edi
-    L_0042aa07:
-        ret
-    }
+struct GameConfig;
+__declspec(noinline) char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config);
+
+struct GameConfigHolder_0042a9f0 {
+    unsigned char reserved_00[0x14];
+    unsigned char config[0x34];             // +0x14: GameConfig
+    unsigned char reserved_48[0x64 - 0x48];
+
+    __declspec(noinline) GameConfigHolder_0042a9f0* Construct();
+};
+
+#pragma code_seg(".text$00xfn")
+GameConfigHolder_0042a9f0* GameConfigHolder_0042a9f0::Construct() {
+    GameConfig_InitializeDefaults(0, reinterpret_cast<GameConfig*>(config));
+    memset(this, 0, sizeof(*this));
+    return this;
 }
+#pragma code_seg()

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "name": "worker_owner_stop_0041ff60",
+  "source": "src/unidentified/FUN_0041ff60_0041ff60.cpp",
+  "driver": "layout/ltcg/worker_owner_stop_0041ff60_context.cpp",
+  "additional_sources": [
+    "src/unidentified/FUN_00465a30_00465a30.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/worker.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Stop the embedded owner worker and the global worker; native LTCG preserves the owner in EAX and passes each worker in ESI to PlatformWorker::Stop.",
+  "functions": [
+    {
+      "name": "worker_owner_stop_0041ff60",
+      "symbol": "?StopWorker@WorkerOwner_0041ff60@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x0041FF60",
+      "size": 22,
+      "actual_abi": "owner in EAX; saves ESI and passes the worker in ESI to 0x0044C150; plain RET"
+    },
+    {
+      "name": "global_worker_stop_00465a30",
+      "source": "src/unidentified/FUN_00465a30_00465a30.cpp",
+      "symbol": "?StopGlobalWorker_00465a30@@YAXXZ",
+      "section": ".text$zzworker",
+      "address": "0x00465A30",
+      "size": 23,
+      "actual_abi": "No arguments; installs the base worker vtable and calls PlatformWorker::Stop with the worker in ESI."
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGXPAPAUWorkerOwner_0041ff60@@H@Z",
+    "section": ".text$zzcontext",
+    "address": "0x0044C1E0",
+    "size": 36,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 126816
+    },
+    {
+      "section": ".text$01accessorz",
+      "address": "0x0041FF76",
+      "size": 180698
+    },
+    {
+      "section": ".text$20calleez",
+      "address": "0x0044C1B5",
+      "size": 43
+    },
+    {
+      "section": ".text$zzcontextz",
+      "address": "0x0044C204",
+      "size": 104492
+    },
+    {
+      "section": ".text$zzworkerz",
+      "address": "0x00465A47",
+      "size": 441
+    }
+  ],
+  "constants": [],
+  "roots": [
+    "?StopGlobalWorker_00465a30@@YAXXZ"
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474dd4",
+      "address": "0x00474DD4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+    "src/platform/platform_stop_worker_0044c150.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "PlatformWorker_Stop_abi_anchor",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ]
+}

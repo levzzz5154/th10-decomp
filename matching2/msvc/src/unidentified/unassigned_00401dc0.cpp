@@ -1,25 +1,14 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00401DC0: reinitialize an entity and bind it to one sprite of an
+// animation resource. Native LTCG passes the entity in ESI and the resource
+// in EDI; only the sprite index stays on the stack.
+#include "th10/game/entity.hpp"
+#include "th10/render/animation_object_0043e5a0.hpp"
 
-// 0x00401DC0..0x00401DDC: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_00401dc0() {
-    __asm {
-    L_00401dc0:
-        mov edx,esi
-    L_00401dc2:
-        call asm_InitializeEntity_00401de0
-    L_00401dc7:
-        mov edx,dword ptr [esp+4]
-    L_00401dcb:
-        mov eax,esi
-    L_00401dcd:
-        mov ecx,edi
-    L_00401dcf:
-        mov dword ptr [esi+308h],edi
-    L_00401dd5:
-        call asm_AnimationObject_ConfigureFromResource_0043e5a0
-    L_00401dda:
-        ret 4
-    }
+#pragma code_seg(".text$00fn")
+__declspec(noinline) int __stdcall Entity_InitFromResource(
+        Entity* entity, Resource_0043e5a0* resource, int sprite) {
+    Entity_Init(0, entity);
+    entity->script_resource = resource;
+    return resource->ConfigureObject(reinterpret_cast<AnimationObject_0043e5a0*>(entity), sprite);
 }
+#pragma code_seg()

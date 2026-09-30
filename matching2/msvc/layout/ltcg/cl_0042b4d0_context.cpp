@@ -1,0 +1,22 @@
+// Compiler context only; never selected as recovered game code.
+#include "../../src/game/effect_pool_initialize_0042b4d0.cpp"
+
+#pragma code_seg(".text$00h_init")
+#include "../../src/game/entity_initialize_00401de0.cpp"
+#pragma code_seg()
+
+#include "../../src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "scheduler_register_anchors.cpp"
+
+void* __cdecl operator new(unsigned int size);
+
+#pragma code_seg(".text$30context")
+int __stdcall EffectPoolContext_0042b4d0(unsigned int size, SchedulerTask* task) {
+    // Keeps the full registration anchors in the link.
+    int result = Scheduler_RegisterPrimary(data_00491be4, task, size);
+    EffectPool_0042b6f0* pool = static_cast<EffectPool_0042b6f0*>(operator new(size));
+    if (pool->Initialize())
+        return result;
+    return (int)pool;
+}
+#pragma code_seg()

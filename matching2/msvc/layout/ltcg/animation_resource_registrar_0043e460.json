@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "name": "animation_resource_registrar_0043e460",
+  "source": "src/render/animation_manager_register_resource_0043e460.cpp",
+  "driver": "layout/ltcg/animation_resource_registrar_0043e460_context.cpp",
+  "headers": [
+    "include/th10/render/resource_registrar_0043e460.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete 31-slot resource registrar compiled through native LTCG; the source-cursor result keeps the private EAX manager and EDX name inputs. The synthetic context is compiler-only and unselected.",
+  "functions": [
+    {
+      "name": "Music_Load",
+      "symbol": "?Music_Load@@YGHHPBD@Z",
+      "section": ".text$00b_load",
+      "address": "0x00420A90",
+      "size": 120,
+      "actual_abi": "slot and file name on the stack; RET 8",
+      "source": "src/game/music_requests_00420a90.cpp"
+    },
+    {
+      "name": "Music_Stop",
+      "symbol": "?Music_Stop@@YGHXZ",
+      "section": ".text$00d_stop",
+      "address": "0x00420C00",
+      "size": 41,
+      "actual_abi": "no arguments; plain RET",
+      "source": "src/game/music_requests_00420a90.cpp"
+    },
+    {
+      "name": "Music_FadeOut",
+      "symbol": "?Music_FadeOut@@YGHM@Z",
+      "section": ".text$00f_fade",
+      "address": "0x00420C30",
+      "size": 84,
+      "source": "src/game/music_requests_00420a90.cpp",
+      "actual_abi": "one stack float; RET 4"
+    },
+    {
+      "name": "AnimationManager_RegisterResource",
+      "symbol": "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z",
+      "section": ".text$01accessor",
+      "address": "0x0043E460",
+      "size": 104,
+      "actual_abi": "manager in EAX; name in EDX; resource and parameter at ESP+4/ESP+8; RET 8; source cursor result in EAX",
+      "source": "src/render/animation_manager_register_resource_0043e460.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "_RegistrarContext_0043e460@20",
+    "section": ".text$03context",
+    "address": "0x0043E4E0",
+    "size": 87,
+    "description": "Synthetic array-walking compiler context, never selected as recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x00401000",
+      "size": 129680
+    },
+    {
+      "section": ".text$00c",
+      "address": "0x00420B08",
+      "size": 248
+    },
+    {
+      "section": ".text$00e",
+      "address": "0x00420C29",
+      "size": 7
+    },
+    {
+      "section": ".text$00g",
+      "address": "0x00420C84",
+      "size": 120796
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E4C8",
+      "size": 24
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_music_requests@@3UAnimationManager_0043e460@@A",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_config_flags@@3EA",
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_game_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_strrchr",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": [
+    "src/game/music_requests_00420a90.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_05JLNEMJLN@dummy?$AA@",
+      "address": "0x0046DF98",
+      "bytes": "64756d6d7900"
+    },
+    {
+      "symbol": "??_C@_00CNPNBAHC@?$AA@",
+      "address": "0x0046D275",
+      "bytes": "00"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0
+    }
+  ]
+}

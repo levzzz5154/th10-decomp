@@ -9,32 +9,11 @@
 // result from EAX, so the object pointer is the second __fastcall parameter.
 extern "C" void* data_00477830;
 
-struct TimerState_00422360 {
-    unsigned flags;              // +0x000
-    char pad_004[0x1C];
-    unsigned field_20;           // +0x020
-    int field_24;                // +0x024
-    char pad_028[0x04];
-    int field_2C;                // +0x02C
-    char pad_030[0x80];
-    int field_B0;                // +0x0B0
-    char pad_0B4[0x40];
-    int field_F4;                // +0x0F4
-    int field_F8;                // +0x0F8
-    int field_FC;                // +0x0FC
-    char pad_100[0x04];
-    int field_104;               // +0x104
-    char pad_108[0x80];
-    int field_188;               // +0x188
-    char pad_18C[0x40];
-    int field_1CC;               // +0x1CC
-    int field_1D0;               // +0x1D0
-    char pad_1D4[0xF4];
-};
+#include "th10/game/timer_state_00422360.hpp"
 
 #pragma code_seg(".text$10construct")
 void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* state) {
-    state->field_20 &= ~1u;
+    state->timer.flags &= ~1u;
     state->field_B0 = 0;
     state->field_24 = 0;
     state->field_F8 = 0;
@@ -58,47 +37,8 @@ void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* 
 }
 #pragma code_seg()
 
-#include "th10/game/scheduler.hpp"
-extern "C" unsigned char data_00491be4;
-extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(int);
-struct TimerState_00422360;
 #pragma code_seg(".text$20runtime")
-__declspec(noinline) int __cdecl RegisterTimerState_00422150(TimerState_00422360* owner) {
-    unsigned char* bytes = (unsigned char*)owner;
-    SchedulerTask* first = (SchedulerTask*)SchedulerCallback_Create_00449ed0(0x422a90);
-    unsigned int* first_flag_word =
-        (unsigned int*)((unsigned char*)first + 4);
-    unsigned int first_flags = *first_flag_word;
-    Scheduler* scheduler = *(Scheduler**)&data_00491be4;
-    first_flags &= ~2u;
-    *first_flag_word = first_flags;
-    first->context = owner;
-    Scheduler_RegisterPrimary(scheduler, first, 9);
-    *(SchedulerTask**)(bytes + 8) = first;
-    void* created = (void*)SchedulerCallback_Create_00449ed0(0x422aa0);
-    SchedulerTask* second = (SchedulerTask*)created;
-    unsigned int* second_flag_word =
-        (unsigned int*)((unsigned char*)second + 4);
-    unsigned int second_flags = *second_flag_word;
-    scheduler = *(Scheduler**)&data_00491be4;
-    second->context = owner;
-    second_flags &= ~2u;
-    *second_flag_word = second_flags;
-    Scheduler_RegisterSecondary(scheduler, second, 0x2e);
-    *(SchedulerTask**)(bytes + 0xc) = second;
-    unsigned int flags = *(unsigned int*)(bytes + 0x20);
-    if (!(flags & 1)) {
-        *(int*)(bytes + 0x14) = 0;
-        *(int*)(bytes + 0x10) = -999999;
-        *(int*)(bytes + 0x18) = 0;
-        *(unsigned int*)(bytes + 0x1c) = 0x476f78;
-        *(unsigned int*)(bytes + 0x20) = flags | 1;
-    }
-    *(int*)(bytes + 0x14) = 0;
-    *(int*)(bytes + 0x18) = 0;
-    *(int*)(bytes + 0x10) = -1;
-    return 0;
-}
+#include "../../src/game/timer_state_register_tasks_00422150.cpp"
 #pragma code_seg()
 
 #include "th10/game/scheduler.hpp"

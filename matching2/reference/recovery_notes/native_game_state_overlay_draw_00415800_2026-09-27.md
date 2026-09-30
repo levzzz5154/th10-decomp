@@ -1,0 +1,28 @@
+# Native front-overlay draw callback at `0x00415800`
+
+> Integration status (2026-09-27): the exact routine(s) described here are now integrated in the maintained project. The combined 487,936-byte executable matches retail byte for byte. See [the fourth checkpoint](native_recoveries_2026-09-27_fourth.md) for current proof and remaining work. Scratch-only and promotion instructions below describe the original recovery handoff. Unmatched candidates remain in scratch.
+
+2026-09-27. The full 724-byte callback has an ordinary typed C++ native-LTCG implementation. The fresh standard probe in `matching2/build/experiments/task_callback_00415800_2026_09_27/final.json` checks all 41 complete selected contributions in the expanded registered render batch, including the callback and all 40 earlier functions. Every byte matches the retail oracle, with no comparison masking, instruction rewriting or address-operand rewriting. Source/body hashes are recorded in `exact-summary.json`. The new callback source contains no inline assembly, naked body or encoded instruction bytes.
+
+Live Ghidra MCP confirms a single state pointer, the ordered animation-bank passes, the progress/gauge rectangle passes, the input-owner checks and a return value of one. Its only direct helpers are the already-recovered draw dispatcher `0x004451C0` and solid rectangle renderer `0x0043BDA0`. Their real C++ definitions remain in the registered `anm_batch_flush_00442f50` cluster, earning their private call conventions: manager in ECX and entity in EAX for the dispatcher, rectangle in EDI and packed color in EBX for the solid renderer. The callback itself retains a public stack parameter and RET 4; no synthetic caller changes its entry ABI.
+
+The typed state layout covers all five animation banks and the later prompt/late-pair records at retail's exact `0x3AC` stride. Each element holds the shared `RenderEntity` view plus its reserved tail. Offset assertions tie the state layout to the paired-bank start at `+0x24C8`, the nine-record bank at `+0x4980`, the gauge at `+0x9E84` and the four eight-byte gauge segments at `+0x9E94`. The input owner/device views describe only the observed pointer/flag fields; actual reserved extents remain explicit.
+
+The first pass draws ten primary/secondary pairs; subsequent passes draw nine, four and seven records. A nonzero overlay counter draws the two lower progress rectangles using the byte alpha at state `+0x8393`. A positive gauge draws its two outer rectangles and up to four colored segment rectangles, capping each nonzero segment at the gauge value. Input flags select the single prompt; an active stage with a device and no hidden prompt selects two later records. The full source preserves ordered global reloads, signed comparisons, x87 NaN-aware comparisons and the result one.
+
+The initial fully typed candidate already emitted exactly 724 bytes, and all 40 older cluster functions remained exact, but the callback differed by 335 bytes. Its first 191 bytes and final input/prompt logic already matched. Reading the alpha through its unsigned byte rather than masking a whole color word, and using literal float constants bound through compiler constant aliases, reduced the differences to only 24 bytes. Those were two instruction-order swaps in the first progress rectangle: FMUL versus LEA, and FADD versus its bottom-coordinate store.
+
+An isolated caller-only native relink sweep reused unchanged compiler objects for exploration; these links were measurements, not the final gate. Plain assignment permutations, aggregate initializers and local edge/color forms retained 24 differences. Splitting the multiplication and addition reduced the residual to ten bytes. The winning readable sequence stores left/top, converts the signed counter into right, multiplies right by `0.2923077f`, stores bottom, then adds the screen origin `51.0f` to right. This produces the retail x87 operation scheduling and all 724 bytes. Fresh normal `probe.py` builds then recompiled the complete source set and proved all 41 selected bodies exact, including after the final literal/binding cleanup.
+
+The existing render context and all prior selected sources remain unchanged. The cluster extension adds this source, its public root `_GameStateOverlay_Draw_00415800@4`, its complete selected function contribution `.text$001soverlay`, and a split of the old gap around `0x00415800..0x00415AD3`. Two absolute data bindings describe the overlay counter and input owner; five new compiler float aliases bind the existing retail constants at `0x00470CB8`, `0x00470D2C`, `0x00470D28`, `0x00470D24` and `0x00470C64`. The existing zero and one aliases are reused.
+
+Promotion artifacts are `promotion.diff` and `promotion.json` under the experiment directory. Copy the recovered `src/game/game_state_overlay_draw.cpp`, merge the additions into the existing registered render layout, and mark its region semantic with the new stdcall symbol. No carve, header change or new cluster registration is required. Preserve concurrent edits to the shared render layout. Maintained-project probe and whole-executable gates remain the integration step. Maintained files were untouched during experimentation. The new source is asm-free; this note makes no claim that every pre-existing render-cluster source is already asm-free.
+
+The exact final probe command is:
+
+```sh
+python3 matching2/tools/matching/probe.py \
+  --project matching2/build/experiments/task_callback_00415800_2026_09_27/project \
+  --source src/game/game_state_overlay_draw.cpp \
+  --output matching2/build/experiments/task_callback_00415800_2026_09_27/final --json
+```

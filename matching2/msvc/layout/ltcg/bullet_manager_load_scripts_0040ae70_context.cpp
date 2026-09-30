@@ -42,6 +42,9 @@ struct PublishedBlock {
 };
 __declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 
+struct TitleState_0042caa0;
+extern "C" int __stdcall Title_RegisterTasks_0042caa0(TitleState_0042caa0 *title);
+
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
@@ -107,6 +110,9 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     for (int index = 0; index < count; ++index)
         created += ItemFront_Initialize_00413980(
             reinterpret_cast<ItemFrontState_00413980*>(slots[index])) == 0;
+    for (int index = 0; index < count; ++index)
+        created += Title_RegisterTasks_0042caa0(
+            reinterpret_cast<TitleState_0042caa0*>(slots[index])) == 0;
     return created;
 }
 #pragma code_seg()

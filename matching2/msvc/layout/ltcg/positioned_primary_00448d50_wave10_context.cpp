@@ -8,6 +8,9 @@ extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object
 __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
     void* resource, void** out, int index, int render_bucket);
 
+struct AnimationPosition_00448db0;
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary_00448db0(void*, void**, int, const AnimationPosition_00448db0*);
+
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
     if ((int)next < 0) {
@@ -117,6 +120,7 @@ int __stdcall PositionedPrimaryContext(void** resources, void*** outs, int* inde
         AnimationManager_CreatePrimaryBack_00448d00(resources[i], outs[i], indexes[i], 15);
         AnimationManager_CreatePositionedPrimary_00448d50(resources[i], outs[i], indexes[i],
                                                           positions[i]);
+        AnimationManager_CreateScreenPositionedPrimary_00448db0(resources[i], outs[i], indexes[i], (const AnimationPosition_00448db0*)positions[i]);
     }
     return count;
 }

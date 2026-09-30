@@ -62,13 +62,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_LoadGameThreadResources_00401110",
-      "source": "src/game/load_game_thread_resources_00401110.cpp",
-      "symbol": "_asm_LoadGameThreadResources_00401110",
+      "name": "semantic_AsciiManager_LoadResources_00401110",
+      "source": "src/game/ascii_manager_load_resources_00401110.cpp",
+      "symbol": "?LoadResources@AsciiManager_00401110@@QAEHXZ",
       "address": "0x00401110",
       "size": 330,
-      "kind": "asm",
-      "owner": "0x00401110"
+      "kind": "semantic",
+      "owner": "0x00401110",
+      "previous_record": {
+        "name": "asm_LoadGameThreadResources_00401110",
+        "source": "src/game/load_game_thread_resources_00401110.cpp",
+        "symbol": "_asm_LoadGameThreadResources_00401110",
+        "address": "0x00401110",
+        "size": 330,
+        "kind": "asm",
+        "owner": "0x00401110"
+      }
     },
     {
       "name": "text_padding_0040125a",
@@ -96,13 +105,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_CreateGameThread_00401440",
-      "source": "src/game/create_game_thread_00401440.cpp",
-      "symbol": "_asm_CreateGameThread_00401440",
+      "name": "semantic_GameThread_Create_00401440",
+      "source": "src/game/game_thread_create_00401440.cpp",
+      "symbol": "_GameThread_Create_00401440@0",
       "address": "0x00401440",
       "size": 69,
-      "kind": "asm",
-      "owner": "0x00401440"
+      "kind": "semantic",
+      "owner": "0x00401440",
+      "previous_record": {
+        "name": "asm_CreateGameThread_00401440",
+        "source": "src/game/create_game_thread_00401440.cpp",
+        "symbol": "_asm_CreateGameThread_00401440",
+        "address": "0x00401440",
+        "size": 69,
+        "kind": "asm",
+        "owner": "0x00401440"
+      }
     },
     {
       "name": "text_padding_00401485",
@@ -676,13 +694,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00401dc0",
+      "name": "semantic_Entity_InitFromResource_00401dc0",
       "source": "src/unidentified/unassigned_00401dc0.cpp",
-      "symbol": "_asm_unassigned_00401dc0",
+      "symbol": "?Entity_InitFromResource@@YGHPAUEntity@@PAUResource_0043e5a0@@H@Z",
       "address": "0x00401DC0",
       "size": 29,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00401dc0",
+        "source": "src/unidentified/unassigned_00401dc0.cpp",
+        "symbol": "_asm_unassigned_00401dc0",
+        "address": "0x00401DC0",
+        "size": 29,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00401ddd",
@@ -1599,13 +1626,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00404420",
+      "name": "semantic_AnimationPairOwner_ReleaseAnimations_00404420",
       "source": "src/unidentified/unassigned_00404420.cpp",
-      "symbol": "_asm_unassigned_00404420",
+      "symbol": "?ReleaseAnimations@AnimationPairOwner_00404420@@QAEXXZ",
       "address": "0x00404420",
       "size": 47,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00404420",
+        "source": "src/unidentified/unassigned_00404420.cpp",
+        "symbol": "_asm_unassigned_00404420",
+        "address": "0x00404420",
+        "size": 47,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040444f",
@@ -3632,13 +3668,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00405cc0",
+      "name": "semantic_0BulletManager_00405cc0_00405cc0",
       "source": "src/unidentified/unassigned_00405cc0.cpp",
-      "symbol": "_asm_unassigned_00405cc0",
+      "symbol": "??0BulletManager_00405cc0@@QAE@XZ",
       "address": "0x00405CC0",
       "size": 51,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00405cc0",
+        "source": "src/unidentified/unassigned_00405cc0.cpp",
+        "symbol": "_asm_unassigned_00405cc0",
+        "address": "0x00405CC0",
+        "size": 51,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00405cf3",
@@ -3717,13 +3762,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405e20_00405e20",
-      "source": "src/game/fun_00405e20_00405e20.cpp",
-      "symbol": "_asm_FUN_00405e20_00405e20",
+      "name": "semantic_BulletManager_Initialize_00405e20",
+      "source": "src/game/bullet_manager_initialize_00405e20.cpp",
+      "symbol": "_BulletManager_Initialize_00405e20@4",
       "address": "0x00405E20",
       "size": 163,
-      "kind": "asm",
-      "owner": "0x00405E20"
+      "kind": "semantic",
+      "owner": "0x00405E20",
+      "previous_record": {
+        "name": "asm_FUN_00405e20_00405e20",
+        "source": "src/game/fun_00405e20_00405e20.cpp",
+        "symbol": "_asm_FUN_00405e20_00405e20",
+        "address": "0x00405E20",
+        "size": 163,
+        "kind": "asm",
+        "owner": "0x00405E20"
+      }
     },
     {
       "name": "text_padding_00405ec3",
@@ -7369,13 +7423,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040ba70_0040ba70",
+      "name": "semantic_RecoveryEmitter_RunCallback_0040ba70",
       "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp",
-      "symbol": "_asm_FUN_0040ba70_0040ba70",
+      "symbol": "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
       "address": "0x0040BA70",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0040BA70"
+      "kind": "semantic",
+      "owner": "0x0040BA70",
+      "previous_record": {
+        "name": "asm_FUN_0040ba70_0040ba70",
+        "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp",
+        "symbol": "_asm_FUN_0040ba70_0040ba70",
+        "address": "0x0040BA70",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0040BA70"
+      }
     },
     {
       "name": "text_padding_0040ba7a",
@@ -12020,13 +12083,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004132c0",
+      "name": "semantic_TaskOwner_InstallDrawTask_004132c0",
       "source": "src/unidentified/unassigned_004132c0.cpp",
-      "symbol": "_asm_unassigned_004132c0",
+      "symbol": "?InstallDrawTask@TaskOwner_004132c0@@QAEHXZ",
       "address": "0x004132C0",
       "size": 50,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004132c0",
+        "source": "src/unidentified/unassigned_004132c0.cpp",
+        "symbol": "_asm_unassigned_004132c0",
+        "address": "0x004132C0",
+        "size": 50,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004132f2",
@@ -12898,13 +12970,22 @@
       "owner": "0x00415E90"
     },
     {
-      "name": "asm_Path_DecodeXor_00417010",
+      "name": "semantic_Path_DecodeXor_00417010",
       "source": "src/platform/path_decode_xor_00417010.cpp",
-      "symbol": "_asm_Path_DecodeXor_00417010",
+      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
       "address": "0x00417010",
       "size": 41,
-      "kind": "asm",
-      "owner": "0x00417010"
+      "kind": "semantic",
+      "owner": "0x00417010",
+      "previous_record": {
+        "name": "asm_Path_DecodeXor_00417010",
+        "source": "src/platform/path_decode_xor_00417010.cpp",
+        "symbol": "_asm_Path_DecodeXor_00417010",
+        "address": "0x00417010",
+        "size": 41,
+        "kind": "asm",
+        "owner": "0x00417010"
+      }
     },
     {
       "name": "text_padding_00417039",
@@ -15479,13 +15560,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0041acb0",
+      "name": "semantic_0EffectManager_0041acb0_0041acb0",
       "source": "src/unidentified/unassigned_0041acb0.cpp",
-      "symbol": "_asm_unassigned_0041acb0",
+      "symbol": "??0EffectManager_0041acb0@@QAE@XZ",
       "address": "0x0041ACB0",
       "size": 54,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0041acb0",
+        "source": "src/unidentified/unassigned_0041acb0.cpp",
+        "symbol": "_asm_unassigned_0041acb0",
+        "address": "0x0041ACB0",
+        "size": 54,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0041ace6",
@@ -18039,13 +18129,22 @@
       }
     },
     {
-      "name": "asm_FUN_00420470_00420470",
-      "source": "src/app/fun_00420470_00420470.cpp",
-      "symbol": "_asm_FUN_00420470_00420470",
+      "name": "semantic_App_RegisterTasks_00420470_00420470",
+      "source": "src/app/app_register_tasks_00420470.cpp",
+      "symbol": "_App_RegisterTasks_00420470@0",
       "address": "0x00420470",
       "size": 204,
-      "kind": "asm",
-      "owner": "0x00420470"
+      "kind": "semantic",
+      "owner": "0x00420470",
+      "previous_record": {
+        "name": "asm_FUN_00420470_00420470",
+        "source": "src/app/fun_00420470_00420470.cpp",
+        "symbol": "_asm_FUN_00420470_00420470",
+        "address": "0x00420470",
+        "size": 204,
+        "kind": "asm",
+        "owner": "0x00420470"
+      }
     },
     {
       "name": "text_padding_0042053c",
@@ -18146,13 +18245,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ReplaceExtensionWav_00420a90",
-      "source": "src/game/recovery_replace_extension_wav_00420a90.cpp",
-      "symbol": "_asm_Recovery_ReplaceExtensionWav_00420a90",
+      "name": "semantic_Music_Load_00420a90",
+      "source": "src/game/music_requests_00420a90.cpp",
+      "symbol": "?Music_Load@@YGHHPBD@Z",
       "address": "0x00420A90",
       "size": 120,
-      "kind": "asm",
-      "owner": "0x00420A90"
+      "kind": "semantic",
+      "owner": "0x00420A90",
+      "previous_record": {
+        "name": "asm_Recovery_ReplaceExtensionWav_00420a90",
+        "source": "src/game/recovery_replace_extension_wav_00420a90.cpp",
+        "symbol": "_asm_Recovery_ReplaceExtensionWav_00420a90",
+        "address": "0x00420A90",
+        "size": 120,
+        "kind": "asm",
+        "owner": "0x00420A90"
+      }
     },
     {
       "name": "text_padding_00420b08",
@@ -18223,13 +18331,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameState_DispatchDummy_00420c00",
-      "source": "src/game/game_state_dispatch_dummy_00420c00.cpp",
-      "symbol": "_asm_GameState_DispatchDummy_00420c00",
+      "name": "semantic_Music_Stop_00420c00",
+      "source": "src/game/music_requests_00420a90.cpp",
+      "symbol": "?Music_Stop@@YGHXZ",
       "address": "0x00420C00",
       "size": 41,
-      "kind": "asm",
-      "owner": "0x00420C00"
+      "kind": "semantic",
+      "owner": "0x00420C00",
+      "previous_record": {
+        "name": "asm_GameState_DispatchDummy_00420c00",
+        "source": "src/game/game_state_dispatch_dummy_00420c00.cpp",
+        "symbol": "_asm_GameState_DispatchDummy_00420c00",
+        "address": "0x00420C00",
+        "size": 41,
+        "kind": "asm",
+        "owner": "0x00420C00"
+      }
     },
     {
       "name": "text_padding_00420c29",
@@ -18240,13 +18357,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Sound_PlayRandomVoiceRetail_00420c30",
-      "source": "src/platform/sound_play_random_voice_retail_00420c30.cpp",
-      "symbol": "_asm_Sound_PlayRandomVoiceRetail_00420c30",
+      "name": "Music_FadeOut",
+      "source": "src/game/music_requests_00420a90.cpp",
+      "symbol": "?Music_FadeOut@@YGHM@Z",
       "address": "0x00420C30",
       "size": 84,
-      "kind": "asm",
-      "owner": "0x00420C30"
+      "kind": "semantic",
+      "owner": "0x00420C30",
+      "previous_record": {
+        "name": "asm_Sound_PlayRandomVoiceRetail_00420c30",
+        "source": "src/platform/sound_play_random_voice_retail_00420c30.cpp",
+        "symbol": "_asm_Sound_PlayRandomVoiceRetail_00420c30",
+        "address": "0x00420C30",
+        "size": 84,
+        "kind": "asm",
+        "owner": "0x00420C30"
+      }
     },
     {
       "name": "text_padding_00420c84",
@@ -19562,13 +19688,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_MainMenu_RegisterTasksRetail_00422150",
-      "source": "src/game/main_menu_register_tasks_retail_00422150.cpp",
-      "symbol": "_asm_MainMenu_RegisterTasksRetail_00422150",
+      "name": "semantic_RegisterTimerState_00422150_00422150",
+      "source": "src/game/timer_state_register_tasks_00422150.cpp",
+      "symbol": "?RegisterTimerState_00422150@@YAHPAUTimerState_00422360@@@Z",
       "address": "0x00422150",
       "size": 142,
-      "kind": "asm",
-      "owner": "0x00422150"
+      "kind": "semantic",
+      "owner": "0x00422150",
+      "previous_record": {
+        "name": "asm_MainMenu_RegisterTasksRetail_00422150",
+        "source": "src/game/main_menu_register_tasks_retail_00422150.cpp",
+        "symbol": "_asm_MainMenu_RegisterTasksRetail_00422150",
+        "address": "0x00422150",
+        "size": 142,
+        "kind": "asm",
+        "owner": "0x00422150"
+      }
     },
     {
       "name": "text_padding_004221de",
@@ -19874,13 +20009,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_GameState_Unpause_00422c30",
+      "name": "PauseOwner_Unpause",
       "source": "src/game/game_state_unpause_00422c30.cpp",
-      "symbol": "_asm_GameState_Unpause_00422c30",
+      "symbol": "?Unpause@PauseOwner_00422c30@@QAEXXZ",
       "address": "0x00422C30",
       "size": 74,
-      "kind": "asm",
-      "owner": "0x00422C30"
+      "kind": "semantic",
+      "owner": "0x00422C30",
+      "previous_record": {
+        "name": "asm_GameState_Unpause_00422c30",
+        "source": "src/game/game_state_unpause_00422c30.cpp",
+        "symbol": "_asm_GameState_Unpause_00422c30",
+        "address": "0x00422C30",
+        "size": 74,
+        "kind": "asm",
+        "owner": "0x00422C30"
+      }
     },
     {
       "name": "text_padding_00422c7a",
@@ -21064,13 +21208,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00427c10",
+      "name": "semantic_ScaleToHundredths_00427c10",
       "source": "src/unidentified/unassigned_00427c10.cpp",
-      "symbol": "_asm_unassigned_00427c10",
+      "symbol": "?ScaleToHundredths_00427c10@@YGXPAUIntPair_00427c10@@PBUFloatPair_00427c10@@@Z",
       "address": "0x00427C10",
       "size": 33,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00427c10",
+        "source": "src/unidentified/unassigned_00427c10.cpp",
+        "symbol": "_asm_unassigned_00427c10",
+        "address": "0x00427C10",
+        "size": 33,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00427c31",
@@ -22207,13 +22360,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00428f30",
+      "name": "semantic_0PoolBlockOwner_00428f30_00428f30",
       "source": "src/unidentified/unassigned_00428f30.cpp",
-      "symbol": "_asm_unassigned_00428f30",
+      "symbol": "??0PoolBlockOwner_00428f30@@QAE@XZ",
       "address": "0x00428F30",
       "size": 42,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00428f30",
+        "source": "src/unidentified/unassigned_00428f30.cpp",
+        "symbol": "_asm_unassigned_00428f30",
+        "address": "0x00428F30",
+        "size": 42,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_00428f5a",
@@ -22905,13 +23067,22 @@
       }
     },
     {
-      "name": "asm_unassigned_0042a9f0",
+      "name": "semantic_GameConfigHolder_Construct_0042a9f0",
       "source": "src/unidentified/unassigned_0042a9f0.cpp",
-      "symbol": "_asm_unassigned_0042a9f0",
+      "symbol": "?Construct@GameConfigHolder_0042a9f0@@QAEPAU1@XZ",
       "address": "0x0042A9F0",
       "size": 24,
-      "kind": "asm",
-      "owner": "0x0042A9F0"
+      "kind": "semantic",
+      "owner": "0x0042A9F0",
+      "previous_record": {
+        "name": "asm_unassigned_0042a9f0",
+        "source": "src/unidentified/unassigned_0042a9f0.cpp",
+        "symbol": "_asm_unassigned_0042a9f0",
+        "address": "0x0042A9F0",
+        "size": 24,
+        "kind": "asm",
+        "owner": "0x0042A9F0"
+      }
     },
     {
       "name": "text_padding_0042aa08",
@@ -23431,13 +23602,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_EffectManagerRuntime_InitializeRetail_0042b4d0",
-      "source": "src/game/effect_manager_runtime_initialize_retail_0042b4d0.cpp",
-      "symbol": "_asm_EffectManagerRuntime_InitializeRetail_0042b4d0",
+      "name": "semantic_EffectPool_Initialize_0042b4d0",
+      "source": "src/game/effect_pool_initialize_0042b4d0.cpp",
+      "symbol": "?Initialize@EffectPool_0042b6f0@@QAEHXZ",
       "address": "0x0042B4D0",
       "size": 145,
-      "kind": "asm",
-      "owner": "0x0042B4D0"
+      "kind": "semantic",
+      "owner": "0x0042B4D0",
+      "previous_record": {
+        "name": "asm_EffectManagerRuntime_InitializeRetail_0042b4d0",
+        "source": "src/game/effect_manager_runtime_initialize_retail_0042b4d0.cpp",
+        "symbol": "_asm_EffectManagerRuntime_InitializeRetail_0042b4d0",
+        "address": "0x0042B4D0",
+        "size": 145,
+        "kind": "asm",
+        "owner": "0x0042B4D0"
+      }
     },
     {
       "name": "text_padding_0042b561",
@@ -23801,13 +23981,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042bbd0_0042bbd0",
-      "source": "src/unidentified/FUN_0042bbd0_0042bbd0.cpp",
-      "symbol": "_asm_FUN_0042bbd0_0042bbd0",
+      "name": "semantic_InstallTasks_0042bbd0",
+      "source": "src/unidentified/effect_pool_install_tasks_0042bbd0.cpp",
+      "symbol": "?InstallTasks@EffectPool_0042bbd0@@QAEHXZ",
       "address": "0x0042BBD0",
       "size": 84,
-      "kind": "asm",
-      "owner": "0x0042BBD0"
+      "kind": "semantic",
+      "owner": "0x0042BBD0",
+      "previous_record": {
+        "name": "asm_FUN_0042bbd0_0042bbd0",
+        "source": "src/unidentified/FUN_0042bbd0_0042bbd0.cpp",
+        "symbol": "_asm_FUN_0042bbd0_0042bbd0",
+        "address": "0x0042BBD0",
+        "size": 84,
+        "kind": "asm",
+        "owner": "0x0042BBD0"
+      }
     },
     {
       "name": "text_padding_0042bc24",
@@ -24465,13 +24654,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Title_RegisterTasksRetail_0042caa0",
-      "source": "src/game/title_register_tasks_retail_0042caa0.cpp",
-      "symbol": "_asm_Title_RegisterTasksRetail_0042caa0",
+      "name": "semantic_Title_RegisterTasks_0042caa0",
+      "source": "src/game/title_register_tasks_0042caa0.cpp",
+      "symbol": "_Title_RegisterTasks_0042caa0@4",
       "address": "0x0042CAA0",
       "size": 192,
-      "kind": "asm",
-      "owner": "0x0042CAA0"
+      "kind": "semantic",
+      "owner": "0x0042CAA0",
+      "previous_record": {
+        "name": "asm_Title_RegisterTasksRetail_0042caa0",
+        "source": "src/game/title_register_tasks_retail_0042caa0.cpp",
+        "symbol": "_asm_Title_RegisterTasksRetail_0042caa0",
+        "address": "0x0042CAA0",
+        "size": 192,
+        "kind": "asm",
+        "owner": "0x0042CAA0"
+      }
     },
     {
       "name": "asm_FUN_0042cb60_0042cb60",
@@ -25275,12 +25473,12 @@
       }
     },
     {
-      "name": "asm_DatArchive_Reset_00434c20",
+      "name": "semantic_DatArchive_Reset_00434c20",
       "source": "src/archive/dat_archive_reset_00434c20.cpp",
-      "symbol": "_asm_DatArchive_Reset_00434c20",
+      "symbol": "?Reset@DatArchive@@QAEXXZ",
       "address": "0x00434C20",
       "size": 10,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00434C20"
     },
     {
@@ -25292,13 +25490,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_DatArchive_Open_00434c30",
+      "name": "semantic_DatArchive_Open_00434c30",
       "source": "src/archive/dat_archive_open_00434c30.cpp",
-      "symbol": "_asm_DatArchive_Open_00434c30",
+      "symbol": "?Open@DatArchive@@QAE_NPBD@Z",
       "address": "0x00434C30",
       "size": 108,
-      "kind": "asm",
-      "owner": "0x00434C30"
+      "kind": "semantic",
+      "owner": "0x00434C30",
+      "previous_record": {
+        "name": "asm_DatArchive_Open_00434c30",
+        "source": "src/archive/dat_archive_open_00434c30.cpp",
+        "symbol": "_asm_DatArchive_Open_00434c30",
+        "address": "0x00434C30",
+        "size": 108,
+        "kind": "asm",
+        "owner": "0x00434C30"
+      }
     },
     {
       "name": "text_padding_00434c9c",
@@ -25309,13 +25516,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_DatArchive_OpenResource_00434ca0",
-      "source": "src/archive/dat_file.cpp",
-      "symbol": "_asm_DatArchive_OpenResource_00434ca0",
+      "name": "semantic_DatArchive_OpenResource_00434ca0",
+      "source": "src/archive/dat_archive_open_00434c30.cpp",
+      "symbol": "?OpenResource@DatArchive@@QAE_NPBD@Z",
       "address": "0x00434CA0",
       "size": 100,
-      "kind": "asm",
-      "owner": "0x00434CA0"
+      "kind": "semantic",
+      "owner": "0x00434CA0",
+      "previous_record": {
+        "name": "asm_DatArchive_OpenResource_00434ca0",
+        "source": "src/archive/dat_file.cpp",
+        "symbol": "_asm_DatArchive_OpenResource_00434ca0",
+        "address": "0x00434CA0",
+        "size": 100,
+        "kind": "asm",
+        "owner": "0x00434CA0"
+      }
     },
     {
       "name": "text_padding_00434d04",
@@ -25326,12 +25542,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_DatArchive_Close_00434d10",
+      "name": "semantic_DatArchive_Close_00434d10",
       "source": "src/archive/dat_archive_close_00434d10.cpp",
-      "symbol": "_asm_DatArchive_Close_00434d10",
+      "symbol": "?Close@DatArchive@@QAEXXZ",
       "address": "0x00434D10",
       "size": 86,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00434D10"
     },
     {
@@ -25377,12 +25593,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_DatArchive_FindSize_00434ef0",
+      "name": "semantic_DatArchive_FindSize_00434ef0",
       "source": "src/archive/dat_archive_find_size_00434ef0.cpp",
-      "symbol": "_asm_DatArchive_FindSize_00434ef0",
+      "symbol": "?DatArchive_FindSize@@YGIPAUDatArchive@@PBD@Z",
       "address": "0x00434EF0",
       "size": 51,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00434EF0"
     },
     {
@@ -25454,13 +25670,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_LegacyString_Duplicate_00435220",
+      "name": "semantic_LegacyString_Duplicate_00435220",
       "source": "src/util/legacy_string_duplicate_00435220.cpp",
-      "symbol": "_asm_LegacyString_Duplicate_00435220",
+      "symbol": "?LegacyString_Duplicate@@YGPADPBD@Z",
       "address": "0x00435220",
       "size": 47,
-      "kind": "asm",
-      "owner": "0x00435220"
+      "kind": "semantic",
+      "owner": "0x00435220",
+      "previous_record": {
+        "name": "asm_LegacyString_Duplicate_00435220",
+        "source": "src/util/legacy_string_duplicate_00435220.cpp",
+        "symbol": "_asm_LegacyString_Duplicate_00435220",
+        "address": "0x00435220",
+        "size": 47,
+        "kind": "asm",
+        "owner": "0x00435220"
+      }
     },
     {
       "name": "text_padding_0043524f",
@@ -26157,13 +26382,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_004357d0",
-      "source": "src/unidentified/unassigned_004357d0.cpp",
-      "symbol": "_asm_unassigned_004357d0",
+      "name": "semantic_DatArchive_OpenNext_004357d0",
+      "source": "src/archive/dat_archive_open_next_004357d0.cpp",
+      "symbol": "?DatArchive_OpenNext@@YG_NPBD@Z",
       "address": "0x004357D0",
       "size": 36,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_004357d0",
+        "source": "src/unidentified/unassigned_004357d0.cpp",
+        "symbol": "_asm_unassigned_004357d0",
+        "address": "0x004357D0",
+        "size": 36,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_004357f4",
@@ -27165,12 +27399,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436890_00436890",
-      "source": "src/unidentified/FUN_00436890_00436890.cpp",
-      "symbol": "_asm_FUN_00436890_00436890",
+      "name": "GdiFontState_Construct",
+      "source": "src/render/gdi_font_state.cpp",
+      "symbol": "??0GdiFontState@@QAE@XZ",
       "address": "0x00436890",
       "size": 99,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00436890"
     },
     {
@@ -28471,13 +28705,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00438950",
-      "source": "src/unidentified/unassigned_00438950.cpp",
-      "symbol": "_asm_unassigned_00438950",
+      "name": "semantic_TextLog_WriteToFile_00438950",
+      "source": "src/platform/text_log_write_to_file_00438950.cpp",
+      "symbol": "?WriteToFile@TextLog_0044b810@@QAEXXZ",
       "address": "0x00438950",
       "size": 79,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00438950",
+        "source": "src/unidentified/unassigned_00438950.cpp",
+        "symbol": "_asm_unassigned_00438950",
+        "address": "0x00438950",
+        "size": 79,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0043899f",
@@ -30871,13 +31114,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043d080_0043d080",
-      "source": "src/unidentified/FUN_0043d080_0043d080.cpp",
-      "symbol": "_asm_FUN_0043d080_0043d080",
+      "name": "semantic_Sound_PreloadWorker_0043d080",
+      "source": "src/platform/sound_preload_worker_0043d080.cpp",
+      "symbol": "_Sound_PreloadWorker_0043d080",
       "address": "0x0043D080",
       "size": 107,
-      "kind": "asm",
-      "owner": "0x0043D080"
+      "kind": "semantic",
+      "owner": "0x0043D080",
+      "previous_record": {
+        "name": "asm_FUN_0043d080_0043d080",
+        "source": "src/unidentified/FUN_0043d080_0043d080.cpp",
+        "symbol": "_asm_FUN_0043d080_0043d080",
+        "address": "0x0043D080",
+        "size": 107,
+        "kind": "asm",
+        "owner": "0x0043D080"
+      }
     },
     {
       "name": "text_padding_0043d0eb",
@@ -31249,13 +31501,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_RegisterResource_0043e460",
+      "name": "semantic_AnimationManager_RegisterResource_0043e460",
       "source": "src/render/animation_manager_register_resource_0043e460.cpp",
-      "symbol": "_asm_AnimationManager_RegisterResource_0043e460",
+      "symbol": "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z",
       "address": "0x0043E460",
       "size": 104,
-      "kind": "asm",
-      "owner": "0x0043E460"
+      "kind": "semantic",
+      "owner": "0x0043E460",
+      "previous_record": {
+        "name": "asm_AnimationManager_RegisterResource_0043e460",
+        "source": "src/render/animation_manager_register_resource_0043e460.cpp",
+        "symbol": "_asm_AnimationManager_RegisterResource_0043e460",
+        "address": "0x0043E460",
+        "size": 104,
+        "kind": "asm",
+        "owner": "0x0043E460"
+      }
     },
     {
       "name": "text_padding_0043e4c8",
@@ -31433,7 +31694,7 @@
     {
       "name": "semantic_AnimationObject_0043e5a0_ConfigureFromResource_0043e5a0",
       "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
-      "symbol": "?ConfigureFromResource@AnimationObject_0043e5a0@@QAEHPAUResource_0043e5a0@@H@Z",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
       "address": "0x0043E5A0",
       "size": 356,
       "kind": "semantic",
@@ -34294,13 +34555,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004485d0_004485d0",
-      "source": "src/unidentified/FUN_004485d0_004485d0.cpp",
-      "symbol": "_asm_FUN_004485d0_004485d0",
+      "name": "semantic_AnmManager_UpdatePrimaryTask_004485d0",
+      "source": "src/render/anm_manager_update.cpp",
+      "symbol": "@AnmManager_UpdatePrimaryTask_004485d0@4",
       "address": "0x004485D0",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x004485D0"
+      "kind": "semantic",
+      "owner": "0x004485D0",
+      "previous_record": {
+        "name": "asm_FUN_004485d0_004485d0",
+        "source": "src/unidentified/FUN_004485d0_004485d0.cpp",
+        "symbol": "_asm_FUN_004485d0_004485d0",
+        "address": "0x004485D0",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x004485D0"
+      }
     },
     {
       "name": "text_padding_004485d7",
@@ -34311,13 +34581,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004485e0_004485e0",
-      "source": "src/unidentified/FUN_004485e0_004485e0.cpp",
-      "symbol": "_asm_FUN_004485e0_004485e0",
+      "name": "semantic_AnmManager_UpdateSecondaryTask_004485e0",
+      "source": "src/render/anm_manager_update.cpp",
+      "symbol": "@AnmManager_UpdateSecondaryTask_004485e0@4",
       "address": "0x004485E0",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x004485E0"
+      "kind": "semantic",
+      "owner": "0x004485E0",
+      "previous_record": {
+        "name": "asm_FUN_004485e0_004485e0",
+        "source": "src/unidentified/FUN_004485e0_004485e0.cpp",
+        "symbol": "_asm_FUN_004485e0_004485e0",
+        "address": "0x004485E0",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x004485E0"
+      }
     },
     {
       "name": "text_padding_004485e7",
@@ -34788,13 +35067,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_UpdatePrimary_00448860",
-      "source": "src/render/animation_manager_update_primary_00448860.cpp",
-      "symbol": "_asm_AnimationManager_UpdatePrimary_00448860",
+      "name": "semantic_AnmManager_UpdatePrimary_00448860",
+      "source": "src/render/anm_manager_update.cpp",
+      "symbol": "?UpdatePrimary@AnmManager@@QAEHXZ",
       "address": "0x00448860",
       "size": 149,
-      "kind": "asm",
-      "owner": "0x00448860"
+      "kind": "semantic",
+      "owner": "0x00448860",
+      "previous_record": {
+        "name": "asm_AnimationManager_UpdatePrimary_00448860",
+        "source": "src/render/animation_manager_update_primary_00448860.cpp",
+        "symbol": "_asm_AnimationManager_UpdatePrimary_00448860",
+        "address": "0x00448860",
+        "size": 149,
+        "kind": "asm",
+        "owner": "0x00448860"
+      }
     },
     {
       "name": "text_padding_004488f5",
@@ -34805,13 +35093,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_UpdateSecondary_00448900",
-      "source": "src/render/animation_manager_update_secondary_00448900.cpp",
-      "symbol": "_asm_AnimationManager_UpdateSecondary_00448900",
+      "name": "semantic_AnmManager_UpdateSecondary_00448900",
+      "source": "src/render/anm_manager_update.cpp",
+      "symbol": "?UpdateSecondary@AnmManager@@QAEHXZ",
       "address": "0x00448900",
       "size": 123,
-      "kind": "asm",
-      "owner": "0x00448900"
+      "kind": "semantic",
+      "owner": "0x00448900",
+      "previous_record": {
+        "name": "asm_AnimationManager_UpdateSecondary_00448900",
+        "source": "src/render/animation_manager_update_secondary_00448900.cpp",
+        "symbol": "_asm_AnimationManager_UpdateSecondary_00448900",
+        "address": "0x00448900",
+        "size": 123,
+        "kind": "asm",
+        "owner": "0x00448900"
+      }
     },
     {
       "name": "text_padding_0044897b",
@@ -34900,13 +35197,22 @@
       "owner": "0x00448B40"
     },
     {
-      "name": "asm_FUN_00448bb0_00448bb0",
-      "source": "src/render/fun_00448bb0_00448bb0.cpp",
-      "symbol": "_asm_FUN_00448bb0_00448bb0",
+      "name": "semantic_AnmManager_RemoveVm_00448bb0",
+      "source": "src/render/anm_manager_update.cpp",
+      "symbol": "?RemoveVm@AnmManager@@QAEHPAUAnmManagerVm@@@Z",
       "address": "0x00448BB0",
       "size": 268,
-      "kind": "asm",
-      "owner": "0x00448BB0"
+      "kind": "semantic",
+      "owner": "0x00448BB0",
+      "previous_record": {
+        "name": "asm_FUN_00448bb0_00448bb0",
+        "source": "src/render/fun_00448bb0_00448bb0.cpp",
+        "symbol": "_asm_FUN_00448bb0_00448bb0",
+        "address": "0x00448BB0",
+        "size": 268,
+        "kind": "asm",
+        "owner": "0x00448BB0"
+      }
     },
     {
       "name": "text_padding_00448cbc",
@@ -34995,13 +35301,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_PlayerAnimation_Create_00448db0",
+      "name": "semantic_AnimationManager_CreateScreenPositionedPrimary_00448db0",
       "source": "src/render/player_animation_create_00448db0.cpp",
-      "symbol": "_asm_PlayerAnimation_Create_00448db0",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary_00448db0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
       "address": "0x00448DB0",
       "size": 118,
-      "kind": "asm",
-      "owner": "0x00448DB0"
+      "kind": "semantic",
+      "owner": "0x00448DB0",
+      "previous_record": {
+        "name": "asm_PlayerAnimation_Create_00448db0",
+        "source": "src/render/player_animation_create_00448db0.cpp",
+        "symbol": "_asm_PlayerAnimation_Create_00448db0",
+        "address": "0x00448DB0",
+        "size": 118,
+        "kind": "asm",
+        "owner": "0x00448DB0"
+      }
     },
     {
       "name": "text_padding_00448e26",
@@ -35064,13 +35379,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448ee0_00448ee0",
+      "name": "semantic_AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0",
       "source": "src/unidentified/FUN_00448ee0_00448ee0.cpp",
-      "symbol": "_asm_FUN_00448ee0_00448ee0",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
       "address": "0x00448EE0",
       "size": 118,
-      "kind": "asm",
-      "owner": "0x00448EE0"
+      "kind": "semantic",
+      "owner": "0x00448EE0",
+      "previous_record": {
+        "name": "asm_FUN_00448ee0_00448ee0",
+        "source": "src/unidentified/FUN_00448ee0_00448ee0.cpp",
+        "symbol": "_asm_FUN_00448ee0_00448ee0",
+        "address": "0x00448EE0",
+        "size": 118,
+        "kind": "asm",
+        "owner": "0x00448EE0"
+      }
     },
     {
       "name": "text_padding_00448f56",
@@ -35133,13 +35457,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00449010_00449010",
+      "name": "semantic_AnimationManager_CreateScreenPositionedSecondaryBack_00449010",
       "source": "src/unidentified/FUN_00449010_00449010.cpp",
-      "symbol": "_asm_FUN_00449010_00449010",
+      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryBack_00449010@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449010@@@Z",
       "address": "0x00449010",
       "size": 118,
-      "kind": "asm",
-      "owner": "0x00449010"
+      "kind": "semantic",
+      "owner": "0x00449010",
+      "previous_record": {
+        "name": "asm_FUN_00449010_00449010",
+        "source": "src/unidentified/FUN_00449010_00449010.cpp",
+        "symbol": "_asm_FUN_00449010_00449010",
+        "address": "0x00449010",
+        "size": 118,
+        "kind": "asm",
+        "owner": "0x00449010"
+      }
     },
     {
       "name": "text_padding_00449086",
@@ -35202,13 +35535,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00449140_00449140",
+      "name": "semantic_AnimationManager_CreateScreenPositionedSecondaryFront_00449140",
       "source": "src/unidentified/FUN_00449140_00449140.cpp",
-      "symbol": "_asm_FUN_00449140_00449140",
+      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryFront_00449140@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449140@@@Z",
       "address": "0x00449140",
       "size": 118,
-      "kind": "asm",
-      "owner": "0x00449140"
+      "kind": "semantic",
+      "owner": "0x00449140",
+      "previous_record": {
+        "name": "asm_FUN_00449140_00449140",
+        "source": "src/unidentified/FUN_00449140_00449140.cpp",
+        "symbol": "_asm_FUN_00449140_00449140",
+        "address": "0x00449140",
+        "size": 118,
+        "kind": "asm",
+        "owner": "0x00449140"
+      }
     },
     {
       "name": "text_padding_004491b6",
@@ -35608,13 +35950,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationManager_MarkForRemovalAndClearHandle_00449630",
+      "name": "semantic_MarkForRemovalAndClear_00449630",
       "source": "src/render/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp",
-      "symbol": "_asm_AnimationManager_MarkForRemovalAndClearHandle_00449630",
+      "symbol": "?MarkForRemovalAndClear@AnimationHandle_00449630@@QAIXPAVAnimationManager@@@Z",
       "address": "0x00449630",
       "size": 21,
-      "kind": "asm",
-      "owner": "0x00449630"
+      "kind": "semantic",
+      "owner": "0x00449630",
+      "previous_record": {
+        "name": "asm_AnimationManager_MarkForRemovalAndClearHandle_00449630",
+        "source": "src/render/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp",
+        "symbol": "_asm_AnimationManager_MarkForRemovalAndClearHandle_00449630",
+        "address": "0x00449630",
+        "size": 21,
+        "kind": "asm",
+        "owner": "0x00449630"
+      }
     },
     {
       "name": "text_padding_00449645",
@@ -39744,13 +40095,22 @@
       }
     },
     {
-      "name": "asm_ECL_PopScratchValue_004506d0",
+      "name": "semantic_Pop_004506d0",
       "source": "src/script/ecl_pop_scratch_value_004506d0.cpp",
-      "symbol": "_asm_ECL_PopScratchValue_004506d0",
+      "symbol": "?Pop@EclFrame_00450690@@QAEHXZ",
       "address": "0x004506D0",
       "size": 41,
-      "kind": "asm",
-      "owner": "0x004506D0"
+      "kind": "semantic",
+      "owner": "0x004506D0",
+      "previous_record": {
+        "name": "asm_ECL_PopScratchValue_004506d0",
+        "source": "src/script/ecl_pop_scratch_value_004506d0.cpp",
+        "symbol": "_asm_ECL_PopScratchValue_004506d0",
+        "address": "0x004506D0",
+        "size": 41,
+        "kind": "asm",
+        "owner": "0x004506D0"
+      }
     },
     {
       "name": "text_padding_004506f9",
@@ -41429,12 +41789,12 @@
       "library_entry": "__amsg_exit"
     },
     {
-      "name": "asm_fast_error_exit_00453762",
+      "name": "fast_error_exit_00453762",
       "source": "src/unidentified/fast_error_exit_00453762.cpp",
-      "symbol": "_asm_fast_error_exit_00453762",
+      "symbol": "_fast_error_exit_00453762",
       "address": "0x00453762",
       "size": 33,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00453762"
     },
     {
@@ -48035,25 +48395,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465580_00465580",
-      "source": "src/unidentified/Unwind_00465580_00465580.cpp",
-      "symbol": "_asm_Unwind_00465580_00465580",
+      "name": "GdiFontState_UnwindFace",
+      "source": "src/render/gdi_font_state.cpp",
+      "symbol": "_GdiFontState_UnwindFace_00465580",
       "address": "0x00465580",
       "size": 11,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00465580"
     },
     {
-      "name": "library_ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z_0046558b",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
-      "symbol": "__ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z",
+      "name": "GdiFontState_ExceptionHandler",
+      "source": "src/render/gdi_font_state.cpp",
+      "symbol": "__ehhandler$??0GdiFontState@@QAE@XZ",
       "address": "0x0046558B",
       "size": 10,
-      "kind": "library",
-      "owner": "0x0046558B",
-      "library_section": ".text$x",
-      "library_section_number": 821,
-      "library_entry": "__ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z"
+      "kind": "semantic",
+      "owner": "0x0046558B"
     },
     {
       "name": "text_padding_00465595",
@@ -48994,12 +49351,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00465a60_00465a60",
+      "name": "semantic_CloseGlobalArchive_00465a60",
       "source": "src/unidentified/FUN_00465a60_00465a60.cpp",
-      "symbol": "_asm_FUN_00465a60_00465a60",
+      "symbol": "_CloseGlobalArchive_00465a60",
       "address": "0x00465A60",
       "size": 13,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00465A60"
     },
     {
@@ -51068,7 +51425,6 @@
     "_asm_exit_004576ec": "0x004576EC",
     "_asm_exit_004576fd": "0x004576FD",
     "_asm_expandtime_0045a82d": "0x0045A82D",
-    "_asm_fast_error_exit_00453762": "0x00453762",
     "_asm_fclose_lk_0046140c": "0x0046140C",
     "_asm_fflush_lk_0045fc53": "0x0045FC53",
     "_asm_filbuf_0045e123": "0x0045E123",
@@ -55450,7 +55806,10 @@
     "_crt_libcmt_frame_T19981": "0x0046CAA8",
     "_crt_libcmt_frame_FrameUnwindFilter_YAHPAU_EXCEPTION_POINTERS_Z": "0x00462E60",
     "_crt_libcmt_tzset_T20372": "0x0046AAC0",
-    "_crt_libcmt_tzset_first_time_1_tzset_9_9": "0x00477444"
+    "_crt_libcmt_tzset_first_time_1_tzset_9_9": "0x00477444",
+    "_fast_error_exit_00453762": "0x00453762",
+    "_asm_Unwind_00465580_00465580": "0x00465580",
+    "__ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z": "0x0046558B"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -55616,11 +55975,11 @@
     "lib/libcpmt.lib/build/intel/mt_obj/wcout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/xlocale.obj",
+    "src/app/app_register_tasks_00420470.cpp",
     "src/app/fps_counter.cpp",
     "src/app/frame_clock.cpp",
     "src/app/fun_004135d0_004135d0.cpp",
     "src/app/fun_00420270_00420270.cpp",
-    "src/app/fun_00420470_00420470.cpp",
     "src/app/fun_00420670_00420670.cpp",
     "src/app/fun_00420870_00420870.cpp",
     "src/app/game_state_byte_test_00420b60.cpp",
@@ -55635,9 +55994,9 @@
     "src/archive/dat_archive_find_size_00434ef0.cpp",
     "src/archive/dat_archive_load_index_00434f70.cpp",
     "src/archive/dat_archive_open_00434c30.cpp",
+    "src/archive/dat_archive_open_next_004357d0.cpp",
     "src/archive/dat_archive_read_00434dd0.cpp",
     "src/archive/dat_archive_reset_00434c20.cpp",
-    "src/archive/dat_file.cpp",
     "src/archive/encrypt_dat_buffer_0044b220.cpp",
     "src/archive/fun_0042b1e0_0042b1e0.cpp",
     "src/archive/lzss.cpp",
@@ -55662,6 +56021,7 @@
     "src/game/archive_cursor_read.cpp",
     "src/game/archive_cursor_reset_0044dbd0.cpp",
     "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+    "src/game/ascii_manager_load_resources_00401110.cpp",
     "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
     "src/game/ascii_overlay_callbacks.cpp",
     "src/game/asset_buffer.cpp",
@@ -55677,6 +56037,7 @@
     "src/game/bullet_entity_set_animation_vector_0040cf60.cpp",
     "src/game/bullet_manager.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
+    "src/game/bullet_manager_initialize_00405e20.cpp",
     "src/game/bullet_manager_load_scripts_0040ae70.cpp",
     "src/game/bullet_manager_release_0040af00.cpp",
     "src/game/bullet_pool_reset_retail_00405ed0.cpp",
@@ -55685,7 +56046,6 @@
     "src/game/cell_pair_scale_00427d80.cpp",
     "src/game/compression_tree.cpp",
     "src/game/create_game_state_00402640.cpp",
-    "src/game/create_game_thread_00401440.cpp",
     "src/game/destroy_entity_list_00438a30.cpp",
     "src/game/destroy_game_state_00402440.cpp",
     "src/game/destroy_game_thread_00401260.cpp",
@@ -55698,7 +56058,7 @@
     "src/game/effect_manager_destroy.cpp",
     "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
     "src/game/effect_manager_reset_and_publish_retail_0042b430.cpp",
-    "src/game/effect_manager_runtime_initialize_retail_0042b4d0.cpp",
+    "src/game/effect_pool_initialize_0042b4d0.cpp",
     "src/game/effect_pool_update.cpp",
     "src/game/embedded_timer_reset_004050d0.cpp",
     "src/game/embedded_timer_set_countdown_retail_0042a930.cpp",
@@ -55734,7 +56094,6 @@
     "src/game/fun_00404530_00404530.cpp",
     "src/game/fun_00404f30_00404f30.cpp",
     "src/game/fun_00405300_00405300.cpp",
-    "src/game/fun_00405e20_00405e20.cpp",
     "src/game/fun_00406060_00406060.cpp",
     "src/game/fun_004065c0_004065c0.cpp",
     "src/game/fun_004066e0_004066e0.cpp",
@@ -55792,13 +56151,13 @@
     "src/game/game_state.cpp",
     "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
     "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
-    "src/game/game_state_dispatch_dummy_00420c00.cpp",
     "src/game/game_state_overlay_draw.cpp",
     "src/game/game_state_unpause_00422c30.cpp",
     "src/game/game_state_update_frame_maximum_00421f60.cpp",
     "src/game/game_thread.cpp",
     "src/game/game_thread_append_formatted_00401630.cpp",
     "src/game/game_thread_append_formatted_marked_retail_00401690.cpp",
+    "src/game/game_thread_create_00401440.cpp",
     "src/game/game_thread_queue.cpp",
     "src/game/game_thread_run_queue_leaf_00401520.cpp",
     "src/game/game_thread_text_draw.cpp",
@@ -55822,10 +56181,8 @@
     "src/game/line_effect_sweep.cpp",
     "src/game/linked_pool_append.cpp",
     "src/game/linked_pool_release.cpp",
-    "src/game/load_game_thread_resources_00401110.cpp",
     "src/game/load_startup_resources_0041f8d0.cpp",
     "src/game/main_menu_dispatch.cpp",
-    "src/game/main_menu_register_tasks_retail_00422150.cpp",
     "src/game/manager_factories.cpp",
     "src/game/manager_release_00422220.cpp",
     "src/game/manager_teardown.cpp",
@@ -55833,6 +56190,7 @@
     "src/game/menu_flow_updates.cpp",
     "src/game/message_host_init.cpp",
     "src/game/message_manager_init.cpp",
+    "src/game/music_requests_00420a90.cpp",
     "src/game/music_room.cpp",
     "src/game/name_entry.cpp",
     "src/game/named_value_lookup_004198c0.cpp",
@@ -55908,7 +56266,6 @@
     "src/game/recovery_release_composite_state_00414570.cpp",
     "src/game/recovery_release_pair_0041f930.cpp",
     "src/game/recovery_release_raw_pair_and_reset_00405620.cpp",
-    "src/game/recovery_replace_extension_wav_00420a90.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
     "src/game/recovery_reset_emitter_0040c9a0.cpp",
     "src/game/recovery_right_aligned_text_00447ae0.cpp",
@@ -55994,11 +56351,12 @@
     "src/game/stats_task.cpp",
     "src/game/task_registration.cpp",
     "src/game/thread_spawn.cpp",
+    "src/game/timer_state_register_tasks_00422150.cpp",
     "src/game/title_assets.cpp",
     "src/game/title_main_menu.cpp",
     "src/game/title_menu_runtime.cpp",
     "src/game/title_options_menu.cpp",
-    "src/game/title_register_tasks_retail_0042caa0.cpp",
+    "src/game/title_register_tasks_0042caa0.cpp",
     "src/game/trajectory_evaluate.cpp",
     "src/game/trigger_activation.cpp",
     "src/game/trigger_region.cpp",
@@ -56086,7 +56444,7 @@
     "src/platform/sound_fade_steps_0044d740.cpp",
     "src/platform/sound_float_forward.cpp",
     "src/platform/sound_leaves.cpp",
-    "src/platform/sound_play_random_voice_retail_00420c30.cpp",
+    "src/platform/sound_preload_worker_0043d080.cpp",
     "src/platform/sound_stream_create.cpp",
     "src/platform/sound_stream_start.cpp",
     "src/platform/sound_stream_thread.cpp",
@@ -56096,6 +56454,7 @@
     "src/platform/streamer_restart_retail_0044dad0.cpp",
     "src/platform/text_log.cpp",
     "src/platform/text_log_append_line_0044b8e0.cpp",
+    "src/platform/text_log_write_to_file_00438950.cpp",
     "src/platform/win32_timer.cpp",
     "src/platform/window.cpp",
     "src/platform/worker_start.cpp",
@@ -56133,8 +56492,6 @@
     "src/render/animation_manager_set_translated_position_00449350.cpp",
     "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-    "src/render/animation_manager_update_primary_00448860.cpp",
-    "src/render/animation_manager_update_secondary_00448900.cpp",
     "src/render/animation_manager_validate_handle_00449450.cpp",
     "src/render/animation_object_change_script_0043e8b0.cpp",
     "src/render/animation_object_load_script_0043e710.cpp",
@@ -56151,6 +56508,7 @@
     "src/render/anm_distance_color.cpp",
     "src/render/anm_entry_load.cpp",
     "src/render/anm_handle_release.cpp",
+    "src/render/anm_manager_update.cpp",
     "src/render/anm_pending_service.cpp",
     "src/render/anm_propagate.cpp",
     "src/render/anm_record_walk.cpp",
@@ -56187,11 +56545,11 @@
     "src/render/fun_00448120_00448120.cpp",
     "src/render/fun_00448270_00448270.cpp",
     "src/render/fun_00448450_00448450.cpp",
-    "src/render/fun_00448bb0_00448bb0.cpp",
     "src/render/fun_004496d0_004496d0.cpp",
     "src/render/fun_00449870_00449870.cpp",
     "src/render/fun_00449950_00449950.cpp",
     "src/render/game_render_targets.cpp",
+    "src/render/gdi_font_state.cpp",
     "src/render/image_alpha_transform.cpp",
     "src/render/player_animation_create_00448db0.cpp",
     "src/render/projection_quads.cpp",
@@ -56552,7 +56910,6 @@
     "src/unidentified/FUN_0042baa0_0042baa0.cpp",
     "src/unidentified/FUN_0042bad0_0042bad0.cpp",
     "src/unidentified/FUN_0042bb30_0042bb30.cpp",
-    "src/unidentified/FUN_0042bbd0_0042bbd0.cpp",
     "src/unidentified/FUN_0042bc30_0042bc30.cpp",
     "src/unidentified/FUN_0042be10_0042be10.cpp",
     "src/unidentified/FUN_0042be20_0042be20.cpp",
@@ -56585,7 +56942,6 @@
     "src/unidentified/FUN_00436830_00436830.cpp",
     "src/unidentified/FUN_00436840_00436840.cpp",
     "src/unidentified/FUN_00436850_00436850.cpp",
-    "src/unidentified/FUN_00436890_00436890.cpp",
     "src/unidentified/FUN_00436d30_00436d30.cpp",
     "src/unidentified/FUN_004372a0_004372a0.cpp",
     "src/unidentified/FUN_00437380_00437380.cpp",
@@ -56615,7 +56971,6 @@
     "src/unidentified/FUN_0043c550_0043c550.cpp",
     "src/unidentified/FUN_0043c710_0043c710.cpp",
     "src/unidentified/FUN_0043ccf0_0043ccf0.cpp",
-    "src/unidentified/FUN_0043d080_0043d080.cpp",
     "src/unidentified/FUN_0043e520_0043e520.cpp",
     "src/unidentified/FUN_0043e530_0043e530.cpp",
     "src/unidentified/FUN_0043e560_0043e560.cpp",
@@ -56646,8 +57001,6 @@
     "src/unidentified/FUN_00447c80_00447c80.cpp",
     "src/unidentified/FUN_00447ec0_00447ec0.cpp",
     "src/unidentified/FUN_00448360_00448360.cpp",
-    "src/unidentified/FUN_004485d0_004485d0.cpp",
-    "src/unidentified/FUN_004485e0_004485e0.cpp",
     "src/unidentified/FUN_00448600_00448600.cpp",
     "src/unidentified/FUN_00448620_00448620.cpp",
     "src/unidentified/FUN_00448740_00448740.cpp",
@@ -56787,7 +57140,6 @@
     "src/unidentified/Unwind_004654f9_004654f9.cpp",
     "src/unidentified/Unwind_00465520_00465520.cpp",
     "src/unidentified/Unwind_00465550_00465550.cpp",
-    "src/unidentified/Unwind_00465580_00465580.cpp",
     "src/unidentified/Unwind_004655a0_004655a0.cpp",
     "src/unidentified/Unwind_004655c0_004655c0.cpp",
     "src/unidentified/Unwind_004655d9_004655d9.cpp",
@@ -56835,6 +57187,7 @@
     "src/unidentified/copy_second_block_00404c70.cpp",
     "src/unidentified/crtInitCritSecNoSpinCount_8_004597fe.cpp",
     "src/unidentified/dosmaperr_00456b04.cpp",
+    "src/unidentified/effect_pool_install_tasks_0042bbd0.cpp",
     "src/unidentified/empty_bodies_00420dc0.cpp",
     "src/unidentified/entry_at_00401d00.cpp",
     "src/unidentified/exception_00462c01.cpp",
@@ -57317,7 +57670,6 @@
     "src/unidentified/unassigned_004352e0.cpp",
     "src/unidentified/unassigned_004352f0.cpp",
     "src/unidentified/unassigned_004356d0.cpp",
-    "src/unidentified/unassigned_004357d0.cpp",
     "src/unidentified/unassigned_00435fd0.cpp",
     "src/unidentified/unassigned_00436380.cpp",
     "src/unidentified/unassigned_00436560.cpp",
@@ -57347,7 +57699,6 @@
     "src/unidentified/unassigned_00438870.cpp",
     "src/unidentified/unassigned_00438910.cpp",
     "src/unidentified/unassigned_00438940.cpp",
-    "src/unidentified/unassigned_00438950.cpp",
     "src/unidentified/unassigned_004389a0.cpp",
     "src/unidentified/unassigned_004389e0.cpp",
     "src/unidentified/unassigned_004389f0.cpp",
@@ -57754,8 +58105,10 @@
     "layout/ltcg/stage_text_extract_line_00434a20.json",
     "layout/ltcg/entity_angle_to_point_00426610.json",
     "layout/ltcg/entity_angle_from_point_00426660.json",
+    "layout/ltcg/animation_resource_registrar_0043e460.json",
     "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json",
     "layout/ltcg/archive_find_entry_followup.json",
+    "layout/ltcg/archive_find_size_native.json",
     "layout/ltcg/small_state_init_0040b530.json",
     "layout/ltcg/anm_batch_flush_00442f50.json",
     "layout/ltcg/platform_query_interfaces_0044d600.json",
@@ -58341,7 +58694,32 @@
     "layout/ltcg/vector_snap_hundredths_0044c590.json",
     "layout/ltcg/select_frame_step_00429a30.json",
     "layout/ltcg/midi_out_device_name_0043a5c0.json",
-    "layout/ltcg/ecl_owner_resolve_int_0040c600.json"
+    "layout/ltcg/ecl_owner_resolve_int_0040c600.json",
+    "layout/ltcg/dat_archive_close_shutdown.json",
+    "layout/ltcg/gdi_font_state.json",
+    "layout/ltcg/cl_00427c10.json",
+    "layout/ltcg/cl_00401dc0.json",
+    "layout/ltcg/cl_004506d0.json",
+    "layout/ltcg/cl_00449630.json",
+    "layout/ltcg/cl_00404420.json",
+    "layout/ltcg/cl_0042a9f0.json",
+    "layout/ltcg/cl_00428f30.json",
+    "layout/ltcg/cl_00405cc0.json",
+    "layout/ltcg/cl_0041acb0.json",
+    "layout/ltcg/cl_004132c0.json",
+    "layout/ltcg/cl_0042bbd0.json",
+    "layout/ltcg/cl_00422150.json",
+    "layout/ltcg/cl_0042b4d0.json",
+    "layout/ltcg/cl_00420470.json",
+    "layout/ltcg/cl_00401110.json",
+    "layout/ltcg/anm_manager_update.json",
+    "layout/ltcg/cl_00405e20.json",
+    "layout/ltcg/cl_0043d080.json",
+    "layout/ltcg/cl_00438950.json",
+    "layout/ltcg/path_decode_xor_00417010.json",
+    "layout/ltcg/legacy_string_duplicate_00435220.json",
+    "layout/ltcg/dat_archive_open_00434c30.json",
+    "layout/ltcg/pause_unpause_00422c30.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -58806,6 +59184,9 @@
     },
     "lib/libcmt.lib/../build/intel/mt_obj/typinfo.obj": {
       "$T19215": "_crt_libcmt_typinfo_T19215"
+    },
+    "src/unidentified/fast_error_exit_00453762.cpp": {
+      "_asm_FUN_00458efd_00458efd@4": "_asm_FUN_00458efd_00458efd"
     }
   },
   "source_flags": {
@@ -59304,6 +59685,7 @@
     "src/unidentified/FUN_00449440_00449440.cpp": "layout/compiler/gcc_i386_regparm.json",
     "src/unidentified/FUN_0043a6f0_0043a6f0.cpp": "layout/compiler/gcc_x87_polar.json",
     "src/unidentified/unassigned_00454eb8.cpp": "layout/compiler/gcc_x87_polar.json",
-    "src/unidentified/unassigned_00454ec1.cpp": "layout/compiler/clang_i386_fetch.json"
+    "src/unidentified/unassigned_00454ec1.cpp": "layout/compiler/clang_i386_fetch.json",
+    "src/unidentified/fast_error_exit_00453762.cpp": "layout/compiler/clang_i386_fetch.json"
   }
 }

@@ -45,4 +45,41 @@ passes that argument in EDI. Keep the naked register transfer unless the helper
 is recovered in a caller-inclusive compiler context that removes this private
 ABI boundary.
 
-No build, probe, or tests were run.
+## Native C++ recovery experiment (2026-09-30)
+
+The semantic candidate now models the sweep as a free function taking the
+manager pointer and the callback as a member that calls it. A schema-1 native
+LTCG experiment also supplies a synthetic manager-array caller so the compiler
+can choose the private register convention seen in the two retail regions.
+Offline cluster-manifest and ownership validation passes for the scratch
+experiment under `matching2/build/experiments/enemy_timer_sweep_0040d750_20260930`.
+
+That check validates the declared candidate regions and their source ownership;
+it does not compile the cluster or compare emitted bytes. The scratch link places
+its synthetic caller at `0x0040D830`, which overlaps the maintained
+`EnemyScriptEntity_Initialize_0040D830` region in the production manifest. The
+caller exists only in the isolated scratch link and is not exported with the
+recovered function bodies, so the production initializer remains untouched.
+This scratch layout is evidence about the proposed source cluster, not a
+whole-image integration result.
+
+The candidate's list and object layout is now grounded by neighboring Ghidra
+functions. `FUN_0040d830` stores the enemy's own pointer at `enemy+0x116C` and
+initializes the forward/back links at `+0x1170` and `+0x1174`; `FUN_0040dae0`
+uses that same embedded link to update the manager's head, tail, and count.
+`FUN_0040d6b0` allocates a 0x68-byte manager, while `FUN_0040d280` initializes
+the frame timer at `+0x40` and stores the callback records at `+0x08` and
+`+0x0C`. The candidate header records these extents and asserts the recovered
+offsets. The corresponding local link declaration in
+`src/game/enemy_lifecycle.cpp` now names its first field `owner`. A Clang
+MSVC-target rebuild produced the same sweep section bytes as the earlier, less
+descriptive candidate, so this type refinement did not change that compiler's
+output.
+
+The native MSVC probe did not reach compilation in this environment:
+`winepath` cannot start Wine because the sandbox rejects Wine's local Unix
+socket bind with `Operation not permitted`. A Clang MSVC-target object was
+compiled for diagnostic purposes only; it uses a different compiler and does
+not establish byte equality. The production regions at `0x0040D750` and
+`0x0040D810` remain assembly until a native MSVC probe proves both complete
+bodies exact.

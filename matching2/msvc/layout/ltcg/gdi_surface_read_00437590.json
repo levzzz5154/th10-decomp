@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "gdi_surface_read_00437590",
+  "source": "src/unidentified/unassigned_00437590.cpp",
+  "driver": "layout/ltcg/gdi_surface_read_00437590_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Compiled with native LTCG under a synthetic caller, so the whole-program pass assigns the register convention retail uses.",
+  "functions": [
+    {
+      "name": "gdi_surface_read_00437590",
+      "symbol": "?ReadFrom_00437590@@YG_NPAUGdiSurface_00437590@@PAUSurface_00437590@@@Z",
+      "section": ".text$01accessor",
+      "address": "0x00437590",
+      "size": 214,
+      "actual_abi": "GDI surface in EBX; Direct3D surface on the stack; result in AL; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUGdiSurface_00437590@@PAPAUSurface_00437590@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00437680",
+    "size": 72,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 222608
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00437666",
+      "size": 26
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

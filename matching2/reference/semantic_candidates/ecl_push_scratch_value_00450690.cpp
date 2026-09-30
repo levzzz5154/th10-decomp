@@ -7,7 +7,7 @@
 // in ECX, a convention only a native LTCG link chooses, so this region is
 // compiled as a cluster.
 
-#include "th10/script/ecl_scratch_frame_00450690.hpp"
+#include "ecl_scratch_frame_00450690.hpp"
 
 #pragma code_seg(".text$01push")
 int EclFrame_00450690::Push(int size) {

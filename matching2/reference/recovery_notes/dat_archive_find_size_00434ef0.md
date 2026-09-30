@@ -1,46 +1,37 @@
-# DatArchive_FindSize at 0x00434EF0
+# `DatArchive_FindSize` at `0x00434EF0`
 
-The 2026-09-23 measurements below are historical results from the live Ghidra
-`th10.exe` program and an MSVC 13.10 native LTCG probe. The source and region
-manifest now contain a readable C++ candidate; its current ABI and bytes have
-not been built or measured.
+`DatArchive_FindSize` is now recovered as ordinary C++ and matches its 51-byte
+retail body exactly. It receives the archive in EAX and the requested name in
+EBX, scans the archive's 16-byte entries using the existing case-insensitive
+comparison helper, and returns the matching entry's uncompressed size from
+offset 8, or zero if there is no match.
 
-Ghidra decompiles a lookup over 16-byte archive records. The archive index
-arrives in EAX and the requested name in EBX. It checks the entry pointer,
-then scans `entry_count` records, compares names with `__stricmp`, and returns
-the matching record's dword at offset 8 (uncompressed size), or zero. Ghidra
-reports `Resource_GetFileSizeRetail` at `0x004358E0` as its caller. The caller
-puts the archive in EAX and the name in EBX before the call.
+The implementation is in
+[`dat_archive_find_size_00434ef0.cpp`](../../msvc/src/archive/dat_archive_find_size_00434ef0.cpp).
+The archive and entry layouts are shared with the other archive recoveries in
+[`dat_archive_types.hpp`](../../msvc/include/th10/archive/dat_archive_types.hpp).
+The C++ declaration uses ordinary parameters, but the generated body preserves
+the retail register interface and plain `RET`.
 
-The adjacent `DatArchive_FindEntry` at `0x00434F30` already compiles exactly
-from C++ through `archive_find_entry_followup.json`. Reusing its record layout,
-case-insensitive compare adapter, and synthetic array-walking LTCG caller
-produced a 51-byte `FindSize` body, matching the retail extent and control-flow
-shape. The closest result differed in 12 bytes. Retail begins
-`56 57 8b 38 85 ff 74 20 8b 70 04`; the compiled body begins
-`56 8b 30 85 f6 57 74 20 8b 78 04`. MSVC keeps the record pointer in ESI
-and the count in EDI, while retail keeps the pointer in EDI and count in ESI.
-The compare call and loop layout stayed aligned. At the time, no candidate was
-promoted because the full byte comparison was not exact.
+## Native LTCG context
 
-The current source candidate in `src/archive/dat_archive_find_size_00434ef0.cpp`
-models the entry scan and returns the matched record's uncompressed size. It
-uses ordinary C++ parameters for clarity, while retail callers pass the archive
-index in EAX and the requested name in EBX. The source declaration therefore
-does not establish the actual calling convention, and the candidate is not
-claimed to match retail bytes.
+MSVC 13.10.6030 initially generated the correct 51-byte extent with a 12-byte
+register-allocation difference. Reusing the typed archive layout and changing
+the successful-match path to a label outside the scan loop produced the exact
+body. The production cluster is described by
+[`archive_find_size_native.json`](../../msvc/layout/ltcg/archive_find_size_native.json).
+Its synthetic caller keeps the return value live to establish the compiler
+context; that caller is not recovered application code and contributes no
+selected bytes.
 
-Source forms measured under the same compiler setup included an early null
-return, count-first `do` loop, `for` loop, indexed loop, local return value,
-raw dword access, copied index, reordered decrement, const pointer, `goto`
-on match, `break` on match, `register` locals, volatile count, and a separate
-boolean for the compare. Most retained the 12-byte register swap; some changed
-the function extent and did not reach byte comparison.
+The focused probe reports all 51 bytes exact, zero differing bytes, no
+relocations, no masking, and the expected ABI. The function body SHA-256 is
+`50e729e597b4fbe49a9d5b5c32d71f84a441000ca0ecf84e9bfd46781b8d091c`.
+Its report is under
+`matching2/build/probe_archive_find_size_exact_20260930`.
 
-A future compiler investigation could compile the real `0x004358E0` caller
-with this function in a schema-2 LTCG batch, retaining its SEH and archive
-selection behavior. It may supply the context that made retail select EDI for
-the record pointer. Another bounded option is to vary the synthetic caller's
-use of the returned size while retaining the 51-byte callee extent. The
-existing single-function probe alone does not establish that readable C++ is
-impossible.
+The complete build compiled all 1,945 maintained sources and reproduced the
+exact 487,936-byte executable with SHA-256
+`2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`.
+The failed first attempt was a transient Wine launch error for an unrelated
+cluster; the retry completed without compile failures.

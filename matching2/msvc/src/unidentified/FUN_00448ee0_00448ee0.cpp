@@ -1,71 +1,54 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00448EE0..0x00448F55 (118 bytes): create an animation object at a
+// playfield position and prepend it to the primary-front list.
+//
+// The twin of 0x00448E80, except that the caller's position is in playfield
+// coordinates: the playfield origin sits at (224, 16) on screen, so x and y are
+// shifted by that before the record is stored at +0x340.
+//
+// Like its twin, the body enters with the position in EDI and the other three
+// arguments on the stack, and its callees take registers no declaration can
+// name, so it is compiled in the cluster layout/ltcg/positioned_primary_front_00448e80_wave12.json.
+#pragma code_seg(".text$05ad_screen")
 
-// 0x00448EE0..0x00448F55: FUN_00448ee0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00448ee0_00448ee0() {
-    __asm {
-    L_00448ee0:
-        push ebx
-    L_00448ee1:
-        push ebp
-    L_00448ee2:
-        mov ebp,dword ptr [esp+10h]
-    L_00448ee6:
-        push esi
-    L_00448ee7:
-        mov esi,dword ptr [data_00491c10]
-    L_00448eed:
-        call asm_FUN_00449950_00449950
-    L_00448ef2:
-        mov esi,eax
-    L_00448ef4:
-        mov eax,dword ptr [esi+35Ch]
-    L_00448efa:
-        mov ebx,dword ptr [esp+18h]
-    L_00448efe:
-        mov ecx,dword ptr [esp+10h]
-    L_00448f02:
-        mov dword ptr [esi+20h],0
-    L_00448f09:
-        or eax,40000000h
-    L_00448f0e:
-        mov dword ptr [esi+35Ch],eax
-    L_00448f14:
-        fld dword ptr [edi]
-    L_00448f16:
-        fadd dword ptr [data_00470b4c]
-    L_00448f1c:
-        fstp dword ptr [esi+340h]
-    L_00448f22:
-        fld dword ptr [edi+4]
-    L_00448f25:
-        fadd dword ptr [data_00470b48]
-    L_00448f2b:
-        fstp dword ptr [esi+344h]
-    L_00448f31:
-        mov eax,dword ptr [edi+8]
-    L_00448f34:
-        mov dword ptr [esi+348h],eax
-    L_00448f3a:
-        mov eax,esi
-    L_00448f3c:
-        call asm_AnimationObject_LoadScript_0043e710
-    L_00448f41:
-        mov edx,dword ptr [data_00491c10]
-    L_00448f47:
-        mov ebx,esi
-    L_00448f49:
-        mov eax,ebp
-    L_00448f4b:
-        call asm_AnimationManager_RegisterPrimaryFront_00448a50
-    L_00448f50:
-        pop esi
-    L_00448f51:
-        pop ebp
-    L_00448f52:
-        pop ebx
-    L_00448f53:
-        ret 0Ch
-    }
+struct AnimationPosition_00448ee0 {
+    float x;
+    float y;
+    float z;
+};
+
+// The animation object this region fills in; only the fields it writes are
+// described.
+struct AnimationObject_00448ee0 {
+    unsigned char reserved_000[0x20];
+    int render_bucket_020;                          // +0x20
+    unsigned char reserved_024[0x340 - 0x24];
+    AnimationPosition_00448ee0 position_340;        // +0x340
+    unsigned char reserved_34c[0x35C - 0x34C];
+    unsigned int flags_035c;                       // +0x35C
+};
+
+extern "C" void* data_00491c10;
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+    void* resource, void* object, int index);
+extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryFront_00448a50(
+    void* manager, void** out, void* entity);
+
+enum { kAnimationPositioned = 0x40000000 };
+
+__declspec(noinline)
+void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(
+    void* resource, void** out, int index, const AnimationPosition_00448ee0* position) {
+    AnimationObject_00448ee0* object =
+        (AnimationObject_00448ee0*)asm_FUN_00449950_00449950(data_00491c10);
+    unsigned int flags = *(volatile unsigned int*)&object->flags_035c;
+    *(volatile int*)&object->render_bucket_020 = 0;
+    *(volatile unsigned int*)&object->flags_035c = flags | kAnimationPositioned;
+    object->position_340.x = position->x + 224.0f;
+    object->position_340.y = position->y + 16.0f;
+    object->position_340.z = position->z;
+    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
+    asm_AnimationManager_RegisterPrimaryFront_00448a50(data_00491c10, out, object);
+    return out;
 }
+#pragma code_seg()

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "name": "counter_state_construct_0040a040",
+  "source": "src/unidentified/FUN_0040a040_0040a040.cpp",
+  "driver": "layout/ltcg/counter_state_construct_0040a040_context.cpp",
+  "headers": [
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/counter_block.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Compiled with native LTCG under a synthetic caller, so the whole-program pass assigns the register convention retail uses. The inlined timer, counter-block and animation-VM constructors run before the object-wide memset, as in retail.",
+  "functions": [
+    {
+      "name": "counter_state_construct_0040a040",
+      "symbol": "??0CounterState_0040a040@@QAE@XZ",
+      "section": ".text$01accessor",
+      "address": "0x0040A040",
+      "size": 234,
+      "actual_abi": "this in EDX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAXH@Z",
+    "section": ".text$03context",
+    "address": "0x0040A140",
+    "size": 53,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 36928
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040A12A",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f8",
+      "address": "0x004776F8",
+      "kind": "data"
+    }
+  ]
+}

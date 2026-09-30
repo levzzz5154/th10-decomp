@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "name": "cl_00422150",
+  "source": "src/game/timer_state_register_tasks_00422150.cpp",
+  "driver": "layout/ltcg/cl_00422150_context.cpp",
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/game/timer_state_00422360.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Scheduler task installer compiled with native LTCG against the full scheduler registration anchors.",
+  "functions": [
+    {
+      "name": "RegisterTimerState_00422150_00422150",
+      "symbol": "?RegisterTimerState_00422150@@YAHPAUTimerState_00422360@@@Z",
+      "section": ".text$00fn",
+      "address": "0x00422150",
+      "size": 142,
+      "actual_abi": "owner in EBX; plain RET",
+      "source": "src/game/timer_state_register_tasks_00422150.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?TimerStateContext_00422150@@YGHPAPAUTimerState_00422360@@H@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 42,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 135504
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x004221DE",
+      "size": 162050
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@TimerStateUpdate_00422a90@4",
+      "address": "0x00422A90",
+      "kind": "data"
+    },
+    {
+      "symbol": "@TimerStateDraw_00422aa0@4",
+      "address": "0x00422AA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": []
+}

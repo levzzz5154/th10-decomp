@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "name": "timer_constructor_0043a750",
+  "source": "src/unidentified/unassigned_0043a750.cpp",
+  "driver": "layout/ltcg/timer_constructor_0043a750_context.cpp",
+  "headers": [
+    "include/th10/platform/derived_timer_state_0043a750.hpp",
+    "include/th10/platform/win32_timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete multimedia-derived timer state constructor. Native placement construction reproduces private ESI receiver ABI; synthetic caller remains unselected.",
+  "functions": [
+    {
+      "name": "DerivedTimerState_Construct",
+      "symbol": "??0DerivedTimerState@@QAE@XZ",
+      "section": ".text$01construct",
+      "address": "0x0043A750",
+      "size": 436,
+      "actual_abi": "receiver ESI, result EAX, plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?DerivedTimerCompilerContext@@YGHPAUDerivedTimerState@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0043A910",
+    "size": 41,
+    "description": "Synthetic array placement-construction loop; unselected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 235344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043A904",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_base_timer_vtable@@3UTimerStateVtable@@A",
+      "address": "0x0046F810",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_derived_timer_vtable@@3UTimerStateVtable@@A",
+      "address": "0x0046F80C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeGetDevCaps@8",
+      "address": "0x00466290",
+      "kind": "data"
+    }
+  ]
+}

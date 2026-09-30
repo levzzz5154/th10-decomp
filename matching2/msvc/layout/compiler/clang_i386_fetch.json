@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "clang-llvm-coff",
+  "description": "Pinned Clang i686 GNU COFF profile using size-optimized code; emitted compiler assembly is assembled unchanged.",
+  "flags": [
+    "-Oz",
+    "-mno-sse",
+    "-mno-sse2",
+    "-ffunction-sections"
+  ],
+  "tools": {
+    "clangxx": {
+      "path": "/usr/bin/clang++",
+      "sha256": "955bd814c506adcea90adb82ad5aca6c2271ce60db5519d702e7cd60818b39aa"
+    },
+    "llvm_mc": {
+      "path": "/usr/bin/llvm-mc",
+      "sha256": "bba45da0c1b09df344127809f9adf7d55a03571b3a0ec2975a1e58d808917d96"
+    }
+  }
+}

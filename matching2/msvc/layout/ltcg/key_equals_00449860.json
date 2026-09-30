@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "key_equals_00449860",
+  "source": "src/unidentified/unassigned_00449860.cpp",
+  "driver": "layout/ltcg/key_equals_00449860_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Compiled with native LTCG under a synthetic caller, so the whole-program pass assigns the register convention retail uses.",
+  "functions": [
+    {
+      "name": "key_equals_00449860",
+      "symbol": "?Equals@Handle_00449860@@QBEHPBU1@@Z",
+      "section": ".text$01accessor",
+      "address": "0x00449860",
+      "size": 10,
+      "actual_abi": "this in EAX; other in ECX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUHandle_00449860@@0H@Z",
+    "section": ".text$03context",
+    "address": "0x00449880",
+    "size": 49,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 297056
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044986A",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

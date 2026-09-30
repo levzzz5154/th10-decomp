@@ -2,16 +2,19 @@
 
 ## Status
 
-The requested 15-region, 2274-byte animation-manager cluster remains
-production assembly. No region passed the independent exact extent/byte gate,
-so no production semantic source, task-local LTCG layout/context, or
-integration proposal was retained. `matching2/msvc/regions.json` was not
-modified.
+The requested 15-region, 2274-byte animation-manager cluster is now mixed:
+the 104-byte `RegisterResource` leaf at `0x0043E460` has passed the independent
+exact extent/byte gate and is promoted to semantic C++ with a maintained
+native-LTCG layout/context. The other 14 regions, totaling 2170 bytes, remain
+assembly. The earlier full-cluster and wrapper attempts below remain useful
+historical measurements; they did not establish exact candidates for those
+remaining regions.
 
-The production sources remain the existing naked-assembly owners for:
+Among the original 15 functions, `RegisterResource` is the only semantic
+owner so far. The following other 14 production functions remain in their
+existing naked-assembly owners:
 
 ```text
-0x0043E460  104  RegisterResource
 0x00449950  161  AllocateObject
 0x00448BB0  268  RemoveObject
 0x00447810  242  ReleaseResourceBatch

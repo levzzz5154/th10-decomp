@@ -1,0 +1,31 @@
+#ifndef TH10_POSITION_SETTER_PAIR_HPP
+#define TH10_POSITION_SETTER_PAIR_HPP
+struct PositionVector_004492f0 { float x, y, z; };
+struct PositionEntry_004492f0 {
+    PositionEntry_004492f0* object;
+    PositionEntry_004492f0* next;
+    unsigned char reserved_08[0x0C];
+    PositionEntry_004492f0* children;
+    int children_flagged;
+    unsigned char reserved_1c[0x324];
+    PositionVector_004492f0 position;
+};
+struct PositionLookupContext_004492f0 {
+    unsigned char reserved[0x72DAD4];
+    PositionEntry_004492f0* primary_bucket;
+    int reserved_2;
+    PositionEntry_004492f0* secondary_bucket;
+};
+struct PositionScriptId_004492f0 { int value; };
+class PositionManager_004492f0 {
+public:
+    __declspec(noinline) void* __fastcall Find(PositionLookupContext_004492f0* context,
+                                             PositionScriptId_004492f0 id);
+};
+__declspec(noinline) void __fastcall SetAnimationPosition_004492f0(
+    const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,
+    PositionScriptId_004492f0 id);
+__declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
+    const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,
+    PositionScriptId_004492f0 id);
+#endif

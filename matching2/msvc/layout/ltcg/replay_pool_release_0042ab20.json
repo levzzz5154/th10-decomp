@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "replay_pool_release_0042ab20",
+  "source": "src/game/linked_pool_release.cpp",
+  "driver": "layout/ltcg/replay_pool_release_0042ab20_context.cpp",
+  "headers": [
+    "include/th10/game/replay_pool_append_0042aa50.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete list release with a genuine two-argument synthetic forwarding caller; no abbreviated register anchor.",
+  "functions": [
+    {
+      "name": "ReplayPool_Clear_0042ab20",
+      "symbol": "_ReplayPool_Clear_0042ab20@8",
+      "section": ".text$40release",
+      "address": "0x0042AB20",
+      "size": 93,
+      "actual_abi": "stage EAX, lists ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_ReplayPoolReleaseCompilerContext_0042ab20@8",
+    "section": ".text$50context",
+    "address": "0x0042AB90",
+    "size": 18,
+    "description": "Synthetic forwarding caller with the actual stage and lists arguments; unselected compiler context."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 170784
+    },
+    {
+      "section": ".text$41layout",
+      "address": "0x0042AB7D",
+      "size": 19
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ]
+}

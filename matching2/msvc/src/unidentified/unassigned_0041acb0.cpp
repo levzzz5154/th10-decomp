@@ -1,43 +1,32 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0041ACB0: construct the effect manager. Its 2198 effect entities are
+// built by their own constructor (0x0041ACF0, destructor 0x0041AD60) through
+// the compiler's exception-aware vector iterator; the constructor body then
+// clears the whole manager, marks it active and publishes it. Native LTCG
+// passes the manager in ESI.
+#include <string.h>
 
-// 0x0041ACB0..0x0041ACE5: unassigned code fragment
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_unassigned_0041acb0() {
-    __asm {
-    L_0041acb0:
-        push edi
-    L_0041acb1:
-        push 41AD60h
-    L_0041acb6:
-        push 41ACF0h
-    L_0041acbb:
-        push 896h
-    L_0041acc0:
-        push 3F0h
-    L_0041acc5:
-        lea eax,[esi+14h]
-    L_0041acc8:
-        push eax
-    L_0041acc9:
-        call asm_eh_vector_constructor_iterator_0045252d
-    L_0041acce:
-        xor eax,eax
-    L_0041acd0:
-        mov ecx,873B0h
-    L_0041acd5:
-        mov edi,esi
-    L_0041acd7:
-        rep stosd
-    L_0041acd9:
-        or dword ptr [esi],2
-    L_0041acdc:
-        mov dword ptr [data_00477818],esi
-    L_0041ace2:
-        mov eax,esi
-    L_0041ace4:
-        pop edi
-    L_0041ace5:
-        ret
-    }
+struct EffectEntity_0041acb0 {
+    unsigned char bytes[0x3F0];
+
+    EffectEntity_0041acb0();
+    ~EffectEntity_0041acb0();
+};
+
+struct EffectManager_0041acb0 {
+    unsigned int flags;                     // +0x00
+    unsigned char reserved_004[0x10];
+    EffectEntity_0041acb0 effects[2198];    // +0x14
+    unsigned char reserved_tail[0x873B0 * 4 - 0x14 - 2198 * 0x3F0];
+
+    __declspec(noinline) EffectManager_0041acb0();
+};
+
+extern "C" EffectManager_0041acb0* data_00477818;
+
+#pragma code_seg(".text$01fn")
+EffectManager_0041acb0::EffectManager_0041acb0() {
+    memset(this, 0, sizeof(*this));
+    flags |= 2;
+    data_00477818 = this;
 }
+#pragma code_seg()

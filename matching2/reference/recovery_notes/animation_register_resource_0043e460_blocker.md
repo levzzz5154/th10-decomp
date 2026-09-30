@@ -1,11 +1,29 @@
-# 0x0043E460 — resource registration: body recovered, ABI promotion blocked
+# 0x0043E460 — resource registration: exact native-LTCG recovery
 
-2026-09-16. `AnimationManager_RegisterResource` (104 bytes, `this` in EAX, name
-in EDX, resource and parameter on the stack, `ret 8`) was reconstructed
-completely: the body is byte-for-byte the retail instruction sequence, and the
-remaining blocker is that MSVC will not promote the receiver to EAX for this
-shape. The region stays assembly; the scratch layout, context and source were
-removed.
+## Current status (2026-09-28)
+
+`AnimationManager_RegisterResource` is now promoted to semantic C++ in
+`matching2/msvc/src/render/animation_manager_register_resource_0043e460.cpp`.
+The maintained native-LTCG layout and compiler-only context are
+`matching2/msvc/layout/ltcg/animation_resource_registrar_0043e460.json` and
+`matching2/msvc/layout/ltcg/animation_resource_registrar_0043e460_context.cpp`.
+The selected function is exactly 104 bytes and matches the retail body byte for
+byte (SHA-256
+`1fb0f8ecc1ee16a87ccc68249d28819cf573965964f3fdb6d7f0fd695e57359a`; no
+relocations). Its private ABI is the manager in EAX, name in EDX, resource and
+parameter at ESP+4/ESP+8, `RET 8`, and the source-cursor result in EAX. The
+existing assembly symbol aliases remain bound to their retail addresses for
+callers that still use them.
+
+The measurements below document earlier failed compilation shapes. Their
+conclusion that promotion was blocked is superseded by the exact native-LTCG
+result above.
+
+## Historical recovery attempts (2026-09-16)
+
+`AnimationManager_RegisterResource` (104 bytes, `this` in EAX, name in EDX,
+resource and parameter on the stack, `ret 8`) was reconstructed completely,
+but ordinary translation-unit builds could not reproduce the private ABI.
 
 ## Recovered body
 
@@ -93,7 +111,7 @@ fixed-ABI caller in the same scope does not constrain the pair's convention, so
 this region joins `0x00437750` and `0x00450220` in the class where the recovered
 sequence cannot be expressed with the required register roles.
 
-## Next experiments
+## Experiments planned before the exact context was found (superseded)
 
 1. Find a *body* change that raises the receiver's priority without changing the
    instruction sequence (the pressure family that worked for the accessors).

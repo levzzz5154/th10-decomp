@@ -283,22 +283,6 @@ struct EntityManager {
 };
 
 // ============================================================================
-// Scheduler Task - 0x24 bytes (9 dwords)
-// ============================================================================
-struct SchedulerTask {
-    SchedulerTask* next;
-    SchedulerTask* prev;
-    uint32_t       reserved_008;
-    uint32_t       timer;
-    uint32_t       reserved_010;
-    uint32_t       reserved_014;
-    uint32_t       reserved_018;
-    uint32_t       reserved_01C;
-    uint32_t       reserved_020;
-};
-// sizeof(SchedulerTask) == 0x24
-
-// ============================================================================
 // Type aliases (MSVC 7.1: no 'using' declarations, use typedefs)
 // ============================================================================
 typedef uint8_t  u8;

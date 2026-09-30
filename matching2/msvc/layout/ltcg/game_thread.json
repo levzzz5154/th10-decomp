@@ -3,7 +3,9 @@
   "name": "game_thread",
   "source": "src/game/game_thread.cpp",
   "driver": "layout/ltcg/game_thread_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/game_thread.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "GameThread in-place constructor compiled with native LTCG so the object pointer arrives in ESI and is returned in EAX.",
   "functions": [

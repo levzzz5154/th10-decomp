@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "stop_queue",
+  "source": "src/unidentified/unassigned_0043ddb0.cpp",
+  "driver": "layout/ltcg/stop_queue_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native C++ stop queue with compiler context imposing private ESI owner and EDI sound index registers.",
+  "functions": [
+    {
+      "name": "Sound_QueueEffectStop_0043ddb0",
+      "symbol": "?QueueEffectStop@StopQueue_0043ddb0@@QAEXH@Z",
+      "section": ".text$01stop",
+      "address": "0x0043DDB0",
+      "size": 52,
+      "actual_abi": "owner in ESI; key in EDI; plain RET; EAX selected slot or twelve"
+    }
+  ],
+  "context": {
+    "symbol": "?StopQueueCompilerContext@@YGHPAPAUStopQueue_0043ddb0@@HH@Z",
+    "section": ".text$03context",
+    "address": "0x0043DDF0",
+    "size": 42,
+    "description": "Synthetic array traversal; never recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 249264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043DDE4",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": []
+}

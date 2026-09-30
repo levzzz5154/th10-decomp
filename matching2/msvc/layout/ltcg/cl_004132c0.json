@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "name": "cl_004132c0",
+  "source": "src/unidentified/unassigned_004132c0.cpp",
+  "driver": "layout/ltcg/cl_004132c0_context.cpp",
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Draw-task installer compiled with native LTCG against the full scheduler registration anchors.",
+  "functions": [
+    {
+      "name": "TaskOwner_InstallDrawTask_004132c0",
+      "symbol": "?InstallDrawTask@TaskOwner_004132c0@@QAEHXZ",
+      "section": ".text$00fn",
+      "address": "0x004132C0",
+      "size": 50,
+      "actual_abi": "owner in EBX; EAX zero; plain RET",
+      "source": "src/unidentified/unassigned_004132c0.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?TaskOwnerContext_004132c0@@YGHPAPAUTaskOwner_004132c0@@HPAUSchedulerTask@@@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 57,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 74432
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x004132F2",
+      "size": 223214
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@TaskOwnerDraw_00413690@4",
+      "address": "0x00413690",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": []
+}

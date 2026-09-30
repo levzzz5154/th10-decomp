@@ -1,0 +1,10 @@
+// Compiler context only; its bytes are not recovered game code.
+#include "../../src/game/archive_cursor.cpp"
+
+#pragma code_seg(".text$03context")
+int __stdcall Ctx(ArchiveCursor_0044dd40** c, bool* s, int n) {
+    int r = 0;
+    for (int i = 0; i < n; ++i) r += Rewind_0044dd40(c[i], s[i]);
+    return r;
+}
+#pragma code_seg()

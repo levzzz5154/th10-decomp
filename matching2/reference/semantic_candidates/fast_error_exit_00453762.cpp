@@ -1,5 +1,8 @@
 // 0x00453762: emit the runtime error and terminate the process.
 // Ghidra identifies a one-int cdecl input and a non-returning exit path.
+// This reference keeps the helper's actual cdecl type; the maintained exact
+// source models the terminal call's dead cleanup separately, as documented
+// in recovery_notes/fast_error_exit_00453762.md.
 extern "C" int data_0047720c;
 extern "C" void __cdecl asm_FF_MSGBANNER_0045909f();
 extern "C" void __cdecl asm_FUN_00458efd_00458efd(int errorCode);

@@ -25,6 +25,7 @@
     "src/game/stage_tip_manager.cpp",
     "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
     "src/game/task_registration.cpp",
+    "src/game/title_register_tasks_0042caa0.cpp",
     "src/platform/joystick_probe.cpp",
     "src/platform/text_log.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp",
@@ -54,6 +55,7 @@
     "include/th10/game/scheduler.hpp",
     "include/th10/game/scheduler_remove_locked.hpp",
     "include/th10/math/timer.hpp",
+    "include/th10/platform/text_log.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/animation_mark_for_removal.hpp"
   ],
@@ -382,13 +384,22 @@
       "size": 311,
       "actual_abi": "stdcall; manager on the stack",
       "source": "src/game/manager_release_00422220.cpp"
+    },
+    {
+      "name": "Title_RegisterTasks_0042caa0",
+      "symbol": "_Title_RegisterTasks_0042caa0@4",
+      "section": ".text$00hbstartupzmzt",
+      "address": "0x0042CAA0",
+      "size": 192,
+      "actual_abi": "title state in EBX; result in EAX; plain RET",
+      "source": "src/game/title_register_tasks_0042caa0.cpp"
     }
   ],
   "context": {
     "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
-    "size": 503,
+    "size": 553,
     "description": "Synthetic array-walking caller that establishes the loader's, the fixed-state factory's and the stage-tip initializer's register conventions; not recovered game code."
   },
   "gaps": [
@@ -585,7 +596,12 @@
     {
       "section": ".text$00hbstartupzmz",
       "address": "0x00422357",
-      "size": 108457
+      "size": 42825
+    },
+    {
+      "section": ".text$00hbstartupzmzu",
+      "address": "0x0042CB60",
+      "size": 65440
     }
   ],
   "constants": [],
@@ -756,16 +772,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004922bc",
-      "address": "0x004922BC",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_0049231f",
-      "address": "0x0049231F",
-      "kind": "data"
-    },
-    {
       "symbol": "_asm_FUN_00418ee0_00418ee0@4",
       "address": "0x00418EE0",
       "kind": "relative_code"
@@ -834,6 +840,23 @@
       "symbol": "_ManagerOwned_Destroy_004294a0@4",
       "address": "0x004294A0",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004918a4",
+      "address": "0x004918A4",
+      "kind": "data"
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_09EAFDFAEF@title?4anm?$AA@",
+      "address": "0x0046F0AC",
+      "bytes": "7469746c652e616e6d00"
+    },
+    {
+      "symbol": "??_C@_0M@DCJGFHGK@title_v?4anm?$AA@",
+      "address": "0x0046F0A0",
+      "bytes": "7469746c655f762e616e6d00"
     }
   ]
 }

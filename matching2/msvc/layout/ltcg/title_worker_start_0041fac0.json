@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "name": "title_worker_start_0041fac0",
+  "source": "src/game/recovery_start_worker_0041fac0.cpp",
+  "driver": "layout/ltcg/title_worker_start_0041fac0_context.cpp",
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/worker.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Title worker starter compiled with genuine C++ scheduler registration and worker stop ABI anchors. Only the 140-byte starter is selected; callback entry symbols use full absolute addresses for pointer immediates.",
+  "functions": [
+    {
+      "name": "TitleWorkerOwner_StartWorker",
+      "symbol": "?StartWorker@TitleWorkerOwner@@QAEHXZ",
+      "section": ".text$02starter",
+      "address": "0x0041FAC0",
+      "size": 140,
+      "actual_abi": "receiver in EBX; returns zero in EAX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20stop",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "context": {
+    "symbol": "TitleWorkerStartCompilerContext",
+    "section": ".text$30context",
+    "address": "0x0044C1C0",
+    "size": 35,
+    "description": "Synthetic array-walking caller establishing the receiver register; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 125632
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x0041FB4C",
+      "size": 171924
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 9565
+    },
+    {
+      "section": ".text$21layout",
+      "address": "0x0044C1B5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@TitleWorkerPrimary@4",
+      "address": "0x0041FEB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@TitleWorkerSecondary@4",
+      "address": "0x0041FEF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_TitleWorkerThreadMain@4",
+      "address": "0x0041F990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    }
+  ]
+}

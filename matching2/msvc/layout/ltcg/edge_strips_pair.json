@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "name": "edge_strips_pair",
+  "source": "src/render/edge_strips.cpp",
+  "additional_sources": [
+    "src/render/render_target_fill_vertical_edge_strip_retail_00444be0.cpp"
+  ],
+  "driver": "layout/ltcg/edge_strips_pair_context.cpp",
+  "headers": [
+    "include/th10/render/edge_strip_fillers.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG edge strip pair with count in EAX, receiver in ECX and output in EBX. Synthetic context is not game code.",
+  "functions": [
+    {
+      "name": "FillHorizontal",
+      "symbol": "?FillHorizontal@EdgeStripSurface@@QBEHHPAUEdgeStripVertex@@@Z",
+      "section": ".text$01horizontal",
+      "address": "0x00444B10",
+      "size": 201,
+      "actual_abi": "count EAX; target ECX; output EBX; plain RET"
+    },
+    {
+      "name": "FillVertical",
+      "symbol": "?FillVertical@EdgeStripSurface@@QBEHHPAUEdgeStripVertex@@@Z",
+      "source": "src/render/render_target_fill_vertical_edge_strip_retail_00444be0.cpp",
+      "section": ".text$03vertical",
+      "address": "0x00444BE0",
+      "size": 201,
+      "actual_abi": "count EAX; target ECX; output EBX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?EdgeStripCompilerContext@@YGHHPAUEdgeStripSurface@@PAUEdgeStripVertex@@H@Z",
+    "section": ".text$05context",
+    "address": "0x00444CC0",
+    "size": 39,
+    "description": "Synthetic conditional caller establishing private ABI; never recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 277264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00444BD9",
+      "size": 7
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00444CA9",
+      "size": 23
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

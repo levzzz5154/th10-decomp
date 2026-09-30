@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "name": "queued_cleanup_pair",
+  "source": "src/render/queued_anm_cleanup.cpp",
+  "additional_sources": [
+    "src/render/anm_handle_release.cpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/queued_cleanup_find_anchor.cpp"
+  ],
+  "driver": "layout/ltcg/queued_cleanup_pair_context.cpp",
+  "headers": [
+    "include/th10/render/queued_cleanup_pair.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Queued animation cleanup and handle release co-compiled with the full animation lookup ABI anchor.",
+  "roots": [
+    "_QueuedAnimationCleanup_00421070@4",
+    "_ReleaseAnimationHandles_00421300@4"
+  ],
+  "functions": [
+    {
+      "name": "QueuedAnimationCleanup_00421070",
+      "symbol": "_QueuedAnimationCleanup_00421070@4",
+      "section": ".text$10cleanup",
+      "address": "0x00421070",
+      "size": 268,
+      "actual_abi": "state stack argument; public stdcall RET4"
+    },
+    {
+      "name": "ReleaseAnimationHandles_00421300",
+      "source": "src/render/anm_handle_release.cpp",
+      "symbol": "_ReleaseAnimationHandles_00421300@4",
+      "section": ".text$30release",
+      "address": "0x00421300",
+      "size": 269,
+      "actual_abi": "state stack argument; public stdcall RET4"
+    }
+  ],
+  "context": {
+    "symbol": "?QueuedCleanupCompilerContext_00421070@@YGHPAPAUQueuedAnmState_00421070@@H@Z",
+    "section": ".text$70context",
+    "address": "0x00449220",
+    "size": 48,
+    "description": "Synthetic caller; not selected as recovered code."
+  },
+  "anchors": [
+    {
+      "name": "CleanupLookup",
+      "symbol": "?Find@QueuedCleanupManager_00421070@@QAIPAXPAUQueuedCleanupContext_00421070@@UQueuedCleanupScriptId_00421070@@@Z",
+      "section": ".text$50find",
+      "address": "0x004491C0",
+      "size": 73
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 131184
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x0042117C",
+      "size": 388
+    },
+    {
+      "section": ".text$40layout",
+      "address": "0x0042140D",
+      "size": 163251
+    },
+    {
+      "section": ".text$60layout",
+      "address": "0x00449209",
+      "size": 23
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00477824",
+      "address": "0x00477824",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477828",
+      "address": "0x00477828",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047782c",
+      "address": "0x0047782C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bec",
+      "address": "0x00491BEC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ]
+}

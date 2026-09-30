@@ -1,24 +1,26 @@
-# `_fast_error_exit` at `0x00453762`
+# `fast_error_exit` at `0x00453762`
 
-The production entry remains a 33-byte assembly region at
-`matching2/msvc/src/unidentified/fast_error_exit_00453762.cpp`. A readable
-ordinary C++ candidate lives under `matching2/reference/semantic_candidates/`.
-Ghidra identifies it as `void __cdecl fast_error_exit(int errorCode)`. It calls
-`FF_MSGBANNER` only when `data_0047720c` equals 1, reports the supplied error
-code through `0x00458EFD`, then terminates with exit code `0xFF` through
-`0x00457547`.
+Updated 2026-09-30. The active region is now semantic and is owned by
+`src/unidentified/fast_error_exit_00453762.cpp`. The function checks the
+runtime error-message mode at `0x0047720C`, optionally calls
+`FF_MSGBANNER`, reports the supplied stack argument through `0x00458EFD`,
+then enters the non-returning `___crtExitProcess(0xFF)` path. The Ghidra
+listing at `decompiled/ghidra_augmented/functions/00453762.asm` confirms the
+33-byte control flow and argument reread from `[ESP+4]` after the banner call.
 
-The CRT entry at `0x004537DC` calls this routine with error codes `0x1C` and
-`0x10`; both sites push one stack argument, matching the recovered cdecl
-boundary. Ghidra's disassembly places the conditional banner call at
-`0x0045376B`, the error-report call at `0x00453774`, and the process-exit call
-at `0x0045377E`. The model preserves that order and treats the process-exit
-helper as non-returning.
+The maintained source is ordinary C++ with no inline assembly. Its pinned
+Clang i386 GNU COFF profile passes `probe.py` exactly for all 33 bytes, and
+all three call relocations resolve to the retail targets: `0x0045909F`,
+`0x00458EFD`, and `0x00457547`.
+An ABI-honest behavioral model using the helper's true cdecl declaration
+remains in `reference/semantic_candidates/fast_error_exit_00453762.cpp`.
 
-The candidate has not been promoted. MSVC 13.10 emits a separate stack load,
-push, and caller cleanup around `__NMSG_WRITE`, whereas retail directly pushes
-`[ESP+4]` and proceeds to the non-returning process-exit call. The live
-`__NMSG_WRITE` body ends in plain `RET`, not `RET 4`; declaring it `__stdcall`
-to suppress the cleanup would falsely describe its real ABI. Clang's measured
-candidate also changes the prologue and global access. Byte identity and the
-callee's actual cdecl contract take precedence over a merely behavioral model.
+One local call edge preserves an unusual but verified terminal stack state.
+The real `0x00458EFD` handler uses cdecl and ends in plain `RET`; retail leaves
+its pushed error argument on the stack, then pushes `0xFF` and calls the
+non-returning process-exit routine. The maintained source declares that one
+call edge with the callee-pop attribute so Clang omits cleanup that retail also
+omits. A COFF alias maps the decorated reference back to the real cdecl
+symbol. This is safe only because the next operation terminates the process;
+the function never returns with an imbalanced stack. Keep that caveat beside
+the source declaration if the exit path changes.

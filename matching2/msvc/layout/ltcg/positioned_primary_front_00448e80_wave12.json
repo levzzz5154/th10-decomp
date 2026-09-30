@@ -23,6 +23,15 @@
       "address": "0x00448E80",
       "size": 95,
       "actual_abi": "position in EDI; resource, out and index on the stack; out returned in EAX; ret 0xC"
+    },
+    {
+      "name": "AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
+      "section": ".text$05ad_screen",
+      "address": "0x00448EE0",
+      "size": 118,
+      "source": "src/unidentified/FUN_00448ee0_00448ee0.cpp",
+      "actual_abi": "position EDI; three stack args; RET 12"
     }
   ],
   "anchors": [
@@ -52,7 +61,7 @@
     "symbol": "?PositionedPrimaryFrontContext@@YGHPAPAXPAPAPAXPAHPAPBUAnimationPosition_00448e80@@H@Z",
     "section": ".text$09context",
     "address": "0x00449A00",
-    "size": 113,
+    "size": 136,
     "description": "Synthetic array-walking caller that establishes the region's register convention; not recovered game code."
   },
   "gaps": [
@@ -78,8 +87,8 @@
     },
     {
       "section": ".text$06layout",
-      "address": "0x00448EDF",
-      "size": 2673
+      "address": "0x00448F56",
+      "size": 2554
     },
     {
       "section": ".text$08layout",
@@ -90,6 +99,11 @@
       "section": ".text$05ab_frontgap",
       "address": "0x00448E79",
       "size": 7
+    },
+    {
+      "section": ".text$05acz_gap",
+      "address": "0x00448EDF",
+      "size": 1
     }
   ],
   "constants": [],
@@ -132,6 +146,19 @@
     }
   ],
   "additional_sources": [
-    "src/render/animation_manager_create_primary_front_00448e30.cpp"
+    "src/render/animation_manager_create_primary_front_00448e30.cpp",
+    "src/unidentified/FUN_00448ee0_00448ee0.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    }
   ]
 }

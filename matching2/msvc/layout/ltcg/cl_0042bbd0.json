@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "name": "cl_0042bbd0",
+  "source": "src/unidentified/effect_pool_install_tasks_0042bbd0.cpp",
+  "driver": "layout/ltcg/cl_0042bbd0_context.cpp",
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Scheduler task installer compiled with native LTCG against the full scheduler registration anchors.",
+  "functions": [
+    {
+      "name": "InstallTasks_0042bbd0",
+      "symbol": "?InstallTasks@EffectPool_0042bbd0@@QAEHXZ",
+      "section": ".text$00fn",
+      "address": "0x0042BBD0",
+      "size": 84,
+      "actual_abi": "owner in EBX; plain RET",
+      "source": "src/unidentified/effect_pool_install_tasks_0042bbd0.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?EffectPoolContext_0042bbd0@@YGHPAPAUEffectPool_0042bbd0@@H@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 42,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 175056
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x0042BC24",
+      "size": 122556
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EffectPoolUpdate_0042c580@4",
+      "address": "0x0042C580",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EffectPoolDraw_0042c590@4",
+      "address": "0x0042C590",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": []
+}

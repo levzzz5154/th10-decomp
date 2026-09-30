@@ -7,7 +7,7 @@ int __stdcall AnimationObjectConfigureCompilerContext(
     Resource_0043e5a0* resource) {
     int result = 0;
     for (int slot = 0; slot < count; ++slot)
-        result += objects[slot]->ConfigureFromResource(resource, slot);
+        result += resource->ConfigureObject(objects[slot], slot);
     return result;
 }
 #pragma code_seg()

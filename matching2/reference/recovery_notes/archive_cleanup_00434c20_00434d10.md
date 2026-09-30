@@ -1,9 +1,8 @@
 # Archive and entry cleanup
 
-2026-09-26. Readable, assembly-free candidates now pass 1,072 retail comparisons
-for archive close, reset, and entry deletion. These regions remain assembly
-in the exact-build manifest. Earlier wording claiming promotion referred to
-an abandoned proposal; its referenced layout header is no longer present.
+2026-09-30. Readable, assembly-free archive cleanup now includes exact native
+MSVC LTCG implementations for Reset, Close, and the global shutdown callback.
+The entry deleting destructor remains assembly in the exact-build manifest.
 
 ## Sources and interfaces
 
@@ -86,13 +85,31 @@ Clang body sizes are 102/7/88 bytes for Close/Reset/entry deletion; retail is
 native MSVC byte match is claimed. The local tests require `clang++` and
 Python's `unicorn`; they used `matching2/build/lzss-compressor-recovery/venv/bin/python`.
 
-## Remaining work
+## Exact native-LTCG promotion
 
-Live Ghidra access and Wine's compiler tools are now available. Ghidra
-confirms Reset's ECX receiver, while Close reads its archive exclusively
-through an implicit ESI live-in; Reset, both openers, and shutdown callers
-establish ESI before the Close call. The standalone ordinary Reset candidate
-became a five-byte tail jump, not retail's ten-byte ESI-preserving call.
-Reconstruct a real caller-inclusive native-LTCG context that makes the ESI
-receiver visible to MSVC, then require exact region bytes, relocations, and
-the whole-executable gate before promotion.
+`msvc/layout/ltcg/dat_archive_close_shutdown.json` builds the real Reset and
+global shutdown callers together with Close. This caller-inclusive context
+lets MSVC 13.10.6030 generate the retail private ESI receiver convention from
+ordinary C++ member calls. The selected bodies match all 109 retail bytes:
+
+| Address | Body | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `0x00434C20` | `DatArchive::Reset` | 10 | `9b7525ae89285115cea7416e385513c326bcee313902b996646bb915359dad9f` |
+| `0x00434D10` | `DatArchive::Close` | 86 | `da50b83421f2a16f917a656ad4f6154bb966f0f2511a8bf745ae1143d601375e` |
+| `0x00465A60` | global archive shutdown callback | 13 | `ef9e3ee15ec8eead44d8d51e375942e2b30955349640a55fcb657cf413d60846` |
+
+The production focused probe reported exact bytes for every body, zero byte
+masks, no relocation rewrites, and no failures. Its normalized object retained
+both internal calls to Close at their retail addresses. The callback pointer
+for `HeapBuffer_Release` is bound as an absolute address so its `DIR32`
+relocation also matches the retail operand exactly. The atexit-registration
+caller now names the semantic callback and independently matches all 12 bytes,
+including the callback-address relocation. The full build compiled all 1,945
+maintained sources and produced the exact 487,936-byte executable with SHA-256
+`2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`.
+Focused reports are under `matching2/build/probe_dat_archive_close_shutdown`
+and `matching2/build/probe_archive_shutdown_registration`.
+
+The manifest now marks Reset, Close, and the shutdown callback as semantic C++
+regions. Entry deletion at `0x00434D70` remains assembly and is the next
+assembly body in this cleanup family.

@@ -4,28 +4,12 @@
 // section, then appends the result when it fits in the log's 8 KiB ring.
 #include <stdarg.h>
 #include <string.h>
+#include "th10/platform/text_log.hpp"
+#include "th10/platform/thread_sync.hpp"
 
 extern "C" int __cdecl asm_vsprintf_004524a6(
     char* buffer, const char* format, char* arguments);
 
-struct CriticalSection_0044b810 { unsigned char storage[24]; };
-
-extern "C" {
-__declspec(dllimport) void __stdcall EnterCriticalSection(
-    CriticalSection_0044b810* section);
-__declspec(dllimport) void __stdcall LeaveCriticalSection(
-    CriticalSection_0044b810* section);
-extern CriticalSection_0044b810 data_004922bc;
-extern unsigned char data_0049231f;
-}
-
-struct TextLog_0044b810 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-
-    char* Append(char* format, ...);
-};
 
 #pragma code_seg(".text$85textlog")
 __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
@@ -33,8 +17,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
     va_list arguments;
     va_start(arguments, format);
 
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_thread_synchronization.critical_sections[3]);
+    ++g_thread_synchronization.text_log_lock_depth;
     asm_vsprintf_004524a6(staging, format, arguments);
 
     unsigned int length = strlen(staging);
@@ -46,8 +30,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
         *cursor = 0;
     }
 
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_thread_synchronization.critical_sections[3]);
+    --g_thread_synchronization.text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

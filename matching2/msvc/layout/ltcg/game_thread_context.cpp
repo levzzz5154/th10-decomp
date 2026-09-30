@@ -1,5 +1,7 @@
 // Compiler context only; never selected as recovered game code.
+#pragma code_seg(".text$01thread")
 #include "../../src/game/game_thread.cpp"
+#pragma code_seg()
 
 #pragma code_seg(".text$03context")
 inline void* __cdecl operator new(unsigned int, void* memory) {

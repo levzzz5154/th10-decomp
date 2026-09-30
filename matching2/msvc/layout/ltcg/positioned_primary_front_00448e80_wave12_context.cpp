@@ -149,6 +149,9 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 
 // 0x00448E80's own caller, shaped like the game's animation-object factories.
 // Not recovered game code.
+struct AnimationPosition_00448ee0;
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(void*, void**, int, const AnimationPosition_00448ee0*);
+
 #pragma code_seg(".text$09context")
 int __stdcall PositionedPrimaryFrontContext(void** resources, void*** outs, int* indexes,
                                             const AnimationPosition_00448e80** positions,
@@ -157,6 +160,7 @@ int __stdcall PositionedPrimaryFrontContext(void** resources, void*** outs, int*
         AnimationManager_CreatePrimaryFront_00448e30(resources[i], outs[i], indexes[i], 15);
         AnimationManager_CreatePositionedPrimaryFront_00448e80(resources[i], outs[i], indexes[i],
                                                                positions[i]);
+        AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(resources[i], outs[i], indexes[i], (const AnimationPosition_00448ee0*)positions[i]);
     }
     return count;
 }

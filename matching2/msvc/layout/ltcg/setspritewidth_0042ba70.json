@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "setspritewidth_0042ba70",
+  "source": "src/unidentified/unassigned_0042ba70.cpp",
+  "driver": "layout/ltcg/setspritewidth_0042ba70_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Setter with the object in EAX and one float on the stack. Float arguments are never given integer registers, so native LTCG keeps them on the stack with callee cleanup while moving the receiver to EAX; nothing in retail calls this body.",
+  "functions": [
+    {
+      "name": "AnmVm_0042ba70_SetSpriteWidth",
+      "symbol": "?SetSpriteWidth@AnmVm_0042ba70@@QAEXM@Z",
+      "section": ".text$01accessor",
+      "address": "0x0042BA70",
+      "size": 17,
+      "actual_abi": "object in EAX; one float on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUAnmVm_0042ba70@@HM@Z",
+    "section": ".text$03context",
+    "address": "0x0042BAA0",
+    "size": 39,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 174704
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0042BA81",
+      "size": 31
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "name": "path_decode_xor_00417010",
+  "source": "src/platform/path_decode_xor_00417010.cpp",
+  "driver": "layout/ltcg/path_decode_xor_00417010_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Script string decoder compiled with native LTCG so the encoded text arrives in EAX.",
+  "functions": [
+    {
+      "name": "Path_DecodeXor",
+      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
+      "section": ".text$01decode",
+      "address": "0x00417010",
+      "size": 41,
+      "actual_abi": "encoded text in EAX; plain RET",
+      "source": "src/platform/path_decode_xor_00417010.cpp"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "?PathDecodeContext_00417010@@YGHPAPBDH@Z",
+    "section": ".text$02context",
+    "address": "0x00417040",
+    "size": 47,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x00401000",
+      "size": 90128
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_decoded_text_00497d40@@3PADA",
+      "address": "0x00497D40",
+      "kind": "data"
+    },
+    {
+      "symbol": "?PathDecodeSink_00417040@@YGXPBD@Z",
+      "address": "0x00417100",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": []
+}

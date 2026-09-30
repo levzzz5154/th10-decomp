@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "name": "cl_00405cc0",
+  "source": "src/unidentified/unassigned_00405cc0.cpp",
+  "driver": "layout/ltcg/cl_00405cc0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so its entry registers are retail's.",
+  "functions": [
+    {
+      "name": "0BulletManager_00405cc0_00405cc0",
+      "symbol": "??0BulletManager_00405cc0@@QAE@XZ",
+      "section": ".text$01fn",
+      "address": "0x00405CC0",
+      "size": 51,
+      "actual_abi": "manager in ESI; manager returned in EAX; plain RET",
+      "source": "src/unidentified/unassigned_00405cc0.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?BulletManagerContext_00405cc0@@YGHPAPAUBulletManager_00405cc0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00405D00",
+    "size": 44,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 19648
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00405CF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??0BulletEntity_00405cc0@@QAE@XZ",
+      "address": "0x00405D00",
+      "kind": "data"
+    },
+    {
+      "symbol": "??1BulletEntity_00405cc0@@QAE@XZ",
+      "address": "0x00405DE0",
+      "kind": "data"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "exceptions": true
+}

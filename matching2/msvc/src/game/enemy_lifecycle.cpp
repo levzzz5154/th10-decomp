@@ -17,7 +17,7 @@ extern "C" void __cdecl entry_free_004524a1(void* block);
 struct Enemy_0040dae0;
 
 struct EnemyLink_0040dae0 {
-    int unknown_00;               // +0x00
+    Enemy_0040dae0* owner;        // +0x00, points back to the containing enemy
     EnemyLink_0040dae0* next;     // +0x04
     EnemyLink_0040dae0* prev;     // +0x08
 
@@ -159,4 +159,3 @@ void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
         block = next;
     }
 }
-

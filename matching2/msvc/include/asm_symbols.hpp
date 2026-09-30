@@ -2269,8 +2269,8 @@ extern "C" void __cdecl asm_exit_004576fd(int code);
 #define VA_asm_exit_004576fd 0x004576fd
 extern "C" void __cdecl asm_expandtime_0045a82d();
 #define VA_asm_expandtime_0045a82d 0x0045a82d
-extern "C" void __cdecl asm_fast_error_exit_00453762();
-#define VA_asm_fast_error_exit_00453762 0x00453762
+extern "C" __declspec(noreturn) void __cdecl fast_error_exit_00453762(int errorCode);
+#define VA_fast_error_exit_00453762 0x00453762
 extern "C" int __cdecl asm_fclose_lk_0046140c(File* file);
 #define VA_asm_fclose_lk_0046140c 0x0046140c
 extern "C" int __cdecl asm_fflush_lk_0045fc53(File* file);

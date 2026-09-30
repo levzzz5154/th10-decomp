@@ -3,7 +3,9 @@
   "name": "ecl_push_scratch_value_00450690",
   "source": "src/script/ecl_push_scratch_value_00450690.cpp",
   "driver": "layout/ltcg/ecl_push_scratch_value_00450690_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/script/ecl_frame.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "ECL scratch push compiled with native LTCG so the interpreter frame arrives in EAX and the byte count in ECX, as retail's call site in the ECL interpreter does.",
   "functions": [

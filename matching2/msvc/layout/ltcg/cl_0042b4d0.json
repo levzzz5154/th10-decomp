@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "name": "cl_0042b4d0",
+  "source": "src/game/effect_pool_initialize_0042b4d0.cpp",
+  "driver": "layout/ltcg/cl_0042b4d0_context.cpp",
+  "headers": [
+    "include/th10/game/effect_pool_0042b6f0.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/render/animation_object_0043e5a0.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Effect pool initializer compiled with native LTCG against the entity, resource and scheduler anchors.",
+  "functions": [
+    {
+      "name": "EffectPool_Initialize_0042b4d0",
+      "symbol": "?Initialize@EffectPool_0042b6f0@@QAEHXZ",
+      "section": ".text$00yfn",
+      "address": "0x0042B4D0",
+      "size": 145,
+      "actual_abi": "pool in EAX; plain RET",
+      "source": "src/game/effect_pool_initialize_0042b4d0.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Entity_Init",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00h_init",
+      "address": "0x00401DE0",
+      "size": 273
+    },
+    {
+      "name": "ConfigureObject",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
+      "section": ".text$01configure",
+      "address": "0x0043E5A0",
+      "size": 356
+    },
+    {
+      "name": "Scheduler_RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?EffectPoolContext_0042b4d0@@YGHIPAUSchedulerTask@@@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 54,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00m_layout",
+      "address": "0x00401EF1",
+      "size": 169439
+    },
+    {
+      "section": ".text$00zlayout",
+      "address": "0x0042B561",
+      "size": 77887
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E704",
+      "size": 46044
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EffectPoolUpdate_0042b9a0@4",
+      "address": "0x0042B9A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EffectPoolDraw_0042b9b0@4",
+      "address": "0x0042B9B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": [
+    "src/game/entity_initialize_00401de0.cpp",
+    "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+    "layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": []
+}

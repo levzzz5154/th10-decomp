@@ -4,9 +4,10 @@
 MSVC 7.1 can choose internal register conventions only during native /LTCG
 linking. Schema 1 uses a synthetic compiler context; schema 2 compiles the
 real callers and callees as separate /GL inputs with a real function as the
-link entry. Zero-filled layout gaps are never recovered game code. Only complete
-named function contributions from the freshly compiled native PE enter the outer
-fixed-address COFF link.  No instruction or address operand is rewritten.
+link entry. Zero-filled layout gaps are never recovered game code. Complete
+named function contributions and complete declared C++ unwind contributions
+from the freshly compiled native PE enter the outer fixed-address COFF link.
+No instruction or address operand is rewritten.
 
 A compiler pools each distinct float literal once, and the pool address depends
 on the whole translation-unit set, not on the cluster layout.  When retail put
@@ -15,6 +16,12 @@ binds the compiler's own ``__real@<bits>`` symbol absolutely at the retail
 address instead; the link tolerates the discarded pooled copy and the report
 records that duplicate.  The alias wins the symbol resolution outright, so a
 selected body references the retail address without any byte being patched.
+
+Exception-enabled clusters also validate the compiler's static unwind funclets
+as one complete .text$x contribution, and their native .xdata$x bytes against
+the preserved final-image metadata. The compiler's $L numbers may vary with
+declarations; selection checks their static origin, address, bounds and complete
+contribution coverage, then gives the exported COFF symbol a stable name.
 
 A callee whose parameter register no declaration names (an argument in EDI, for
 instance) can only get that register from a body the /LTCG pass can see, so
@@ -113,8 +120,11 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     # constant_aliases rebind a compiler-generated float literal to the
     # retail address instead of placing its pooled copy; see the docstring.
     allowed = required | {'additional_sources', 'included_sources', 'roots', 'constant_aliases', 'data_aliases',
-                          'anchors'}
+                          'anchors', 'exceptions', 'native_data'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
+    exceptions = spec.get('exceptions', False)
+    if type(exceptions) is not bool:
+        raise LTCGClusterError('exceptions must be a boolean')
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
         raise LTCGClusterError('cluster name must be a lowercase identifier')
@@ -152,7 +162,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     functions = []
     for item in spec['functions']:
         required_keys = {'name', 'symbol', 'section', 'address', 'size', 'actual_abi'}
-        function = _fields(item, required_keys | {'source'}, required_keys, 'function')
+        function = _fields(item, required_keys | {'source', 'generated', 'native_symbol_pattern'}, required_keys, 'function')
         for key in ('name', 'symbol', 'section', 'actual_abi'):
             function[key] = _string(function[key], 'function ' + key)
         if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', function['section']):
@@ -163,11 +173,22 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         if function_source not in source_names:
             raise LTCGClusterError('function source is not declared by the cluster: ' + function_source)
         function['_source'] = function_source
+        generated = function.get('generated', False)
+        if type(generated) is not bool:
+            raise LTCGClusterError('generated function flag must be a boolean')
+        if generated and (not exceptions or function['section'] != '.text$x'):
+            raise LTCGClusterError('generated functions require exception handling and .text$x')
+        if 'native_symbol_pattern' in function:
+            if not generated or function['native_symbol_pattern'] != r'\$L[0-9]+':
+                raise LTCGClusterError('only generated unwind funclets may select a native $L number')
         functions.append(function)
     if len({item['symbol'] for item in functions}) != len(functions):
         raise LTCGClusterError('duplicate cluster function symbol')
-    if len({item['section'] for item in functions}) != len(functions):
-        raise LTCGClusterError('each function needs a distinct complete contribution')
+    for section in {item['section'] for item in functions}:
+        members = [item for item in functions if item['section'] == section]
+        if len(members) > 1 and (not all(item.get('generated') for item in members)
+                                or len({item['_source'] for item in members}) != 1):
+            raise LTCGClusterError('each function needs a distinct complete contribution')
     owned = [region for region in regions if region['source'] in source_names]
     if (len(owned) != len(functions)
             or {region['symbol'] for region in owned} != {item['symbol'] for item in functions}):
@@ -189,6 +210,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         root_symbol = _string(item, 'root symbol')
         if root_symbol not in by_symbol:
             raise LTCGClusterError('whole-program root must be a selected real function')
+        if by_symbol[root_symbol].get('generated'):
+            raise LTCGClusterError('generated unwind functions cannot be whole-program roots')
         roots.append(root_symbol)
     if len(set(roots)) != len(roots):
         raise LTCGClusterError('whole-program roots must be distinct')
@@ -262,15 +285,15 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         keys = {'section', 'address', 'size'}
         gap = _fields(item, keys, keys, 'layout gap')
         gap['section'] = _string(gap['section'], 'gap section')
-        if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+|\.rdata', gap['section']):
-            raise LTCGClusterError('layout gaps must use .text$ sections or .rdata')
+        if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+|\.rdata(?:\$[a-zA-Z0-9_]+)?', gap['section']):
+            raise LTCGClusterError('layout gaps must use .text$ or .rdata sections')
         gap['address'] = _integer(gap['address'], 'gap address', minimum=image_base)
         gap['size'] = _integer(gap['size'], 'gap size', minimum=1)
         if gap['size'] > 0x100000:
             raise LTCGClusterError('layout gap exceeds the supported image')
         gap['symbol'] = f'_ltcg_gap_{index}'
         gaps.append(gap)
-    code_sections = [item['section'] for item in functions + contexts + anchors]
+    code_sections = list({item['section'] for item in functions}) + [item['section'] for item in contexts + anchors]
     if len(set(code_sections + [item['section'] for item in gaps])) != len(code_sections) + len(gaps):
         raise LTCGClusterError('layout gaps overlap selected/context section ownership')
     constants = []
@@ -332,6 +355,30 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         alias['bytes_value'] = bytes.fromhex(alias['bytes'])
         alias['size'] = len(alias['bytes_value'])
         data_aliases.append(alias)
+    native_data = []
+    raw_data = spec.get('native_data', [])
+    if not isinstance(raw_data, list):
+        raise LTCGClusterError('native_data must be an array')
+    for item in raw_data:
+        keys = {'section', 'address', 'bytes', 'description'}
+        datum = _fields(item, keys, keys, 'native compiler data')
+        _string(datum['section'], 'native compiler data section')
+        if not exceptions or not re.fullmatch(r'\.xdata\$x|\.rdata\$[a-zA-Z0-9_]+', datum['section']):
+            raise LTCGClusterError('native compiler data requires declared exception data sections')
+        datum['address'] = _integer(datum['address'], 'native compiler data address', minimum=image_base)
+        _string(datum['description'], 'native compiler data description')
+        if (not isinstance(datum['bytes'], str) or len(datum['bytes']) % 2
+                or not re.fullmatch(r'[0-9a-fA-F]+', datum['bytes'])):
+            raise LTCGClusterError('native compiler data bytes must be nonempty hexadecimal octets')
+        datum['bytes_value'] = bytes.fromhex(datum['bytes'])
+        datum['size'] = len(datum['bytes_value'])
+        native_data.append(datum)
+    if len({item['section'] for item in native_data}) != len(native_data):
+        raise LTCGClusterError('native compiler data contributions must be distinct')
+    if any(item['section'] in {gap['section'] for gap in gaps} for item in native_data):
+        raise LTCGClusterError('native compiler data overlaps layout section ownership')
+    if any(item.get('generated') for item in functions) and not any(item['section'] == '.xdata$x' for item in native_data):
+        raise LTCGClusterError('generated unwind functions require their complete native exception table')
     absolute = []
     if not isinstance(spec['absolute_symbols'], list):
         raise LTCGClusterError('absolute_symbols must be an array')
@@ -350,7 +397,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + data_aliases + absolute + contexts + anchors]
     if len(set(all_symbols)) != len(all_symbols):
         raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
-    range_items = functions + gaps + constants + aliases + contexts + anchors
+    range_items = functions + gaps + constants + aliases + contexts + anchors + native_data
     ranges = sorted((item['address'], item['address'] + item['size']) for item in range_items)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
@@ -373,6 +420,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
             'constant_aliases': aliases,
             'data_aliases': data_aliases,
+            'exceptions': exceptions, 'native_data': native_data,
             'anchors': anchors,
             'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
             'roots': roots,
@@ -493,9 +541,18 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
     if any(section.name not in ('.text', '.rdata') for section in pe.sections):
         raise LTCGClusterError('native cluster contains an undeclared PE section')
     function_reports = []
+    native_symbols = set()
     contexts = [{**spec['context'], 'name': 'compiler context'}] if spec['context'] else []
     for function in [*spec['functions'], *contexts]:
         map_symbol = function['symbol']
+        generated = function.get('generated', False)
+        if 'native_symbol_pattern' in function:
+            matches = [item for item in link_map.symbols
+                       if re.fullmatch(function['native_symbol_pattern'], item.name)
+                       and item.address == function['address']]
+            if len(matches) != 1:
+                raise LTCGClusterError('generated unwind function has no unique native symbol: ' + function['symbol'])
+            map_symbol = matches[0].name
         is_context = bool(spec['context'] and function['symbol'] == spec['context']['symbol'])
         if is_context:
             exact = [item for item in link_map.symbols if item.name == map_symbol]
@@ -505,20 +562,47 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
         reports = extract_functions([{'name': function['name'], 'symbol': map_symbol,
                                       'visibility': 'either', 'size': function['size']}], link_map, pe)
         report = reports[0]
-        if int(report['address'], 0) != function['address'] or report['map_origin'] not in allowed_origins:
+        origin_valid = report['map_origin'] in allowed_origins
+        if generated:
+            origin_valid = (report['map_origin'] == 'CIL library: CIL module'
+                            and report['visibility'] == 'static')
+        if int(report['address'], 0) != function['address'] or not origin_valid:
             raise LTCGClusterError('native function address or compiler origin differs: ' + function['symbol'])
-        if (source_origins is not None and not is_context
+        if (source_origins is not None and not is_context and not generated
                 and report['map_origin'] != source_origins[function['_source']]):
             raise LTCGClusterError('native function was not emitted by its declared source: ' + function['symbol'])
         contributions = [item for item in link_map.contributions if item.name == function['section']]
         if (len(contributions) != 1 or contributions[0].section_class != 'CODE'
                 or contributions[0].segment != int(report['map_segment'], 16)
-                or contributions[0].start != int(report['map_offset'], 0)
-                or contributions[0].length != function['size']):
+                or (not generated and (contributions[0].start != int(report['map_offset'], 0)
+                                       or contributions[0].length != function['size']))
+                or (generated and not contributions[0].start <= int(report['map_offset'], 0)
+                    < int(report['map_offset'], 0) + function['size'] <= contributions[0].end)):
             raise LTCGClusterError('function is not its entire declared compiler contribution: ' + function['symbol'])
+        native_symbols.add(map_symbol)
         if not is_context:
             body, _, _ = pe.read(function['address'], function['size'])
-            function_reports.append({**report, 'body': body, 'actual_abi': function['actual_abi']})
+            function_reports.append({**report, 'symbol': function['symbol'],
+                                     'native_symbol': map_symbol, 'body': body,
+                                     'actual_abi': function['actual_abi']})
+    _validate_generated_contributions(spec['functions'], function_reports, link_map)
+    native_data_reports = []
+    for datum in spec.get('native_data', []):
+        contributions = [item for item in link_map.contributions if item.name == datum['section']]
+        body, section, offset = pe.read(datum['address'], datum['size'])
+        if (len(contributions) != 1 or contributions[0].section_class != 'DATA'
+                or section.name != '.rdata'
+                or contributions[0].start != datum['address'] - section.address
+                or contributions[0].length != datum['size']
+                or body != datum['bytes_value']):
+            raise LTCGClusterError('native compiler data address, complete extent or bytes differ: ' + datum['section'])
+        native_data_reports.append({'section': datum['section'], 'address': f"0x{datum['address']:08X}",
+                                    'size': datum['size'], 'sha256': sha(body), 'verified': True,
+                                    'selected': False, 'file_offset': offset})
+    declared_tables = {item['section'] for item in spec.get('native_data', [])}
+    if any(item.name.startswith('.xdata$') and item.name not in declared_tables
+           for item in link_map.contributions):
+        raise LTCGClusterError('native compiler emitted an undeclared exception table')
     for gap in spec['gaps']:
         matches = [symbol for symbol in link_map.symbols if symbol.name == gap['symbol']]
         if (len(matches) != 1 or matches[0].address != gap['address'] or matches[0].origin != 'layout.obj'
@@ -572,7 +656,7 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
                                    + anchor['symbol'])
         if any(matches[0].address == int(item['address'], 0) for item in function_reports):
             raise LTCGClusterError('ABI anchor overlaps a selected recovered function: ' + anchor['symbol'])
-    declared = {item['symbol'] for item in spec['functions']}
+    declared = native_symbols
     declared |= {item['symbol'] for item in spec.get('anchors', [])}
     if spec['context']:
         context_symbol = spec['context']['symbol']
@@ -582,7 +666,32 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
     calls = validate_internal_calls(spec['calls'], function_reports)
     return function_reports, {'pe_sha256': sha(pe.data), 'map_sha256': sha(map_path.read_bytes()),
                               'entry_address': f'0x{pe.entry:08X}', 'image_base': f'0x{pe.image_base:08X}',
-                              'internal_calls': calls}
+                              'internal_calls': calls, 'native_data': native_data_reports}
+
+
+def _validate_generated_contributions(functions, reports, link_map):
+    """Every byte of a compiler .text$x contribution must be accounted for.
+
+    C++ unwinding emits several static functions in one contribution. Select
+    each bounded function, then require their union to equal that entire
+    contribution. This does not permit slicing arbitrary ordinary code.
+    """
+    by_symbol = {item['symbol']: item for item in reports}
+    sections = {item['section'] for item in functions if item.get('generated')}
+    for section in sections:
+        members = [by_symbol[item['symbol']] for item in functions
+                   if item.get('generated') and item['section'] == section]
+        contributions = [item for item in link_map.contributions if item.name == section]
+        if len(contributions) != 1:
+            raise LTCGClusterError('generated functions have no unique compiler contribution')
+        contribution = contributions[0]
+        cursor = contribution.start
+        for member in sorted(members, key=lambda item: int(item['map_offset'], 0)):
+            if int(member['map_segment'], 16) != contribution.segment or int(member['map_offset'], 0) != cursor:
+                raise LTCGClusterError('generated functions omit or overlap compiler contribution bytes')
+            cursor += member['size']
+        if cursor != contribution.end:
+            raise LTCGClusterError('generated functions omit compiler contribution suffix bytes')
 
 
 def validate_internal_calls(calls: Sequence[Mapping[str, Any]],
@@ -733,7 +842,9 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
         (source, 'layout-original.obj', []),
     ]:
         obj = work / object_name
-        command = ['wine', str(compiler), *flags, *extra, '/I' + winpath(spec['project'] / 'include'),
+        command = ['wine', str(compiler), *flags,
+                   *(['/EHsc'] if spec.get('exceptions') and '/GL' in extra else []),
+                   *extra, '/I' + winpath(spec['project'] / 'include'),
                    '/Fo' + winpath(obj), winpath(input_path)]
         result = _run_logged(command, env, work, work / (object_name + '.log'), 180)
         _require_fresh_output(obj)
@@ -752,6 +863,7 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     link_command = ['wine', str(linker), '/nologo', '/LTCG', '/MACHINE:X86', '/BASE:0x400000',
                     '/FILEALIGN:512', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + entry_option,
                     '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
+                    *(['/SAFESEH:NO'] if spec.get('exceptions') else []),
                     # A constant alias replaces a compiler-pooled definition
                     # with the absolute binding; /FORCE:MULTIPLE keeps that
                     # conflict from being fatal.  _verify_duplicates then

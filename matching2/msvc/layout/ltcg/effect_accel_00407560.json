@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "name": "effect_accel_00407560",
+  "source": "src/game/enemy_motion_steps.cpp",
+  "driver": "layout/ltcg/effect_accel_00407560_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Enemy acceleration and timer update with native LTCG selecting the observed ESI receiver.",
+  "functions": [
+    {
+      "name": "EnemyAccelerationUpdate_00407560",
+      "symbol": "?Update@EffectAccel_00407560@@QAEXXZ",
+      "section": ".text$01update",
+      "address": "0x00407560",
+      "size": 305,
+      "actual_abi": "receiver in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?EffectAccelCompilerContext_00407560@@YGHPAPAUEffectAccel_00407560@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004076A0",
+    "size": 41,
+    "description": "Synthetic receiver array walker; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 25952
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00407691",
+      "size": 15
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00470afc",
+      "address": "0x00470AFC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c58",
+      "address": "0x00470C58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ]
+}

@@ -3,13 +3,15 @@
   "name": "anm_object_configure_0043e5a0",
   "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
   "driver": "layout/ltcg/anm_object_configure_0043e5a0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/render/animation_object_0043e5a0.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Animation-object resource configuration compiled with native LTCG so the object arrives in EAX, the resource in ECX and the index in EDX.",
   "functions": [
     {
       "name": "AnimationObject_0043e5a0_ConfigureFromResource",
-      "symbol": "?ConfigureFromResource@AnimationObject_0043e5a0@@QAEHPAUResource_0043e5a0@@H@Z",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
       "section": ".text$01configure",
       "address": "0x0043E5A0",
       "size": 356,
