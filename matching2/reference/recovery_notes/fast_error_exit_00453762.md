@@ -1,5 +1,7 @@
 # `fast_error_exit` at `0x00453762`
 
+Superseded 2026-09-30: the 36-byte `wincrt0.obj` `_fast_error_exit` section is now linked from `libcmt.lib`; see [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+
 Updated 2026-09-30. The active region is now semantic and is owned by
 `src/unidentified/fast_error_exit_00453762.cpp`. The function checks the
 runtime error-message mode at `0x0047720C`, optionally calls

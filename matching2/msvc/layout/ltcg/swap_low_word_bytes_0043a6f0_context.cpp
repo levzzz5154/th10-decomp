@@ -1,0 +1,12 @@
+// Compiler context only; never selected as recovered game code.
+#include "../../src/unidentified/FUN_0043a6f0_0043a6f0.cpp"
+
+#pragma code_seg(".text$03context")
+int __stdcall SwapCompilerContext(unsigned short* values, int count) {
+    while (count--) {
+        *values = SwapLowWordBytes_0043a6f0(*values);
+        ++values;
+    }
+    return 0;
+}
+#pragma code_seg()

@@ -1,5 +1,7 @@
 # ECL operand/value resolver family: live Ghidra ABI audit
 
+Update 2026-09-30: `0x0040C650`, `0x0040C680` and `0x00412A00` are now MSVC C++ in the `ecl_operand_thunks` LTCG layout; `0x00412A60` remains Clang. See [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+
 Audited against the connected Ghidra program `th10.exe` on 2026-09-23. No
 build, probe, or test was run. The integer operand is now classified as a
 semantic C++ region in the manifest; its emitted bytes remain unverified. The

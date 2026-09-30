@@ -1,5 +1,13 @@
 # MIDI event parser recovery at `0x0043B110`
 
+Historical implementation/promotion note: the live manifest now retains this
+1323-byte region as assembly. The readable model is archived at
+`reference/semantic_candidates/midi_event_runtime.cpp`, outside production
+inputs. Its 2026-09-30 retail audit corrected several behaviors and removed
+inlined replacement helpers; see `midi_event_parser_followup_2026-09-30.md`.
+The old integration claims below do not describe the current worktree, and
+neither the historical model nor its updated candidate is proven byte exact.
+
 ## Result
 
 `matching2/msvc/src/platform/midi_event_runtime.cpp` now contains a readable

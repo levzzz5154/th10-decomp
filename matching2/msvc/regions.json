@@ -4665,7 +4665,7 @@
     {
       "name": "semantic_SetScorePolar_00408750",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "__ZN24ScoreGameplayPolarVector13SetScorePolarEff",
+      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
       "address": "0x00408750",
       "size": 30,
       "kind": "semantic",
@@ -7926,7 +7926,7 @@
     {
       "name": "semantic_FUN_0040c650_0040c650",
       "source": "src/unidentified/FUN_0040c650_0040c650.cpp",
-      "symbol": "_asm_FUN_0040c650_0040c650",
+      "symbol": "?ResolveSlotFloatOperand_0040c650@@YGMPAUEclOperandSlot@@H@Z",
       "address": "0x0040C650",
       "size": 8,
       "kind": "semantic",
@@ -8004,7 +8004,7 @@
     {
       "name": "semantic_FUN_0040c680_0040c680",
       "source": "src/unidentified/FUN_0040c680_0040c680.cpp",
-      "symbol": "_asm_FUN_0040c680_0040c680",
+      "symbol": "?ResolveSlotFloatValue_0040c680@@YIMHPAUEclOperandSlot@@M@Z",
       "address": "0x0040C680",
       "size": 8,
       "kind": "semantic",
@@ -10413,7 +10413,7 @@
     {
       "name": "semantic_ECL_ResolveIntFromEntity_00412a00",
       "source": "src/script/ecl_resolve_int_from_entity_00412a00.cpp",
-      "symbol": "_asm_ECL_ResolveIntFromEntity_00412a00",
+      "symbol": "?ResolveEntityIntOperand_00412a00@@YGHPAUEclEntityVm@@H@Z",
       "address": "0x00412A00",
       "size": 16,
       "kind": "semantic",
@@ -12007,7 +12007,7 @@
     {
       "name": "semantic_EllipticPolar_00413270",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "_asm_Vector2_SetEllipticPolar_00413270",
+      "symbol": "?SetEllipticPolar@EllipticPolarVector@@QAEPAU1@MMM@Z",
       "address": "0x00413270",
       "size": 30,
       "kind": "semantic",
@@ -15916,7 +15916,7 @@
     {
       "name": "semantic_SetItemPolar_0041beb0",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "__ZN20ScoreItemPolarVector12SetItemPolarEff",
+      "symbol": "?SetItemPolar@ScoreItemPolarVector@@QAEPAU1@MM@Z",
       "address": "0x0041BEB0",
       "size": 30,
       "kind": "semantic",
@@ -17475,7 +17475,7 @@
     {
       "name": "semantic_SetPathPolar_0041f800",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "__ZN15PathPolarVector12SetPathPolarEff",
+      "symbol": "?SetPathPolar@PathPolarVector@@QAEPAU1@MM@Z",
       "address": "0x0041F800",
       "size": 30,
       "kind": "semantic",
@@ -29043,13 +29043,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004390e0_004390e0",
+      "name": "WindowProcedure_004390e0",
       "source": "src/platform/fun_004390e0_004390e0.cpp",
-      "symbol": "_asm_FUN_004390e0_004390e0",
+      "symbol": "_WindowProcedure_004390e0@16",
       "address": "0x004390E0",
       "size": 265,
-      "kind": "asm",
-      "owner": "0x004390E0"
+      "kind": "semantic",
+      "owner": "0x004390E0",
+      "previous_record": {
+        "name": "asm_FUN_004390e0_004390e0",
+        "source": "src/platform/fun_004390e0_004390e0.cpp",
+        "symbol": "_asm_FUN_004390e0_004390e0",
+        "address": "0x004390E0",
+        "size": 265,
+        "kind": "asm",
+        "owner": "0x004390E0"
+      }
     },
     {
       "name": "text_padding_004391e9",
@@ -29676,7 +29685,7 @@
     {
       "name": "semantic_SwapLowWordBytes_0043a6f0",
       "source": "src/unidentified/FUN_0043a6f0_0043a6f0.cpp",
-      "symbol": "_SwapLowWordBytes_0043a6f0",
+      "symbol": "?SwapLowWordBytes_0043a6f0@@YGGG@Z",
       "address": "0x0043A6F0",
       "size": 14,
       "kind": "semantic",
@@ -29760,13 +29769,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043a910_0043a910",
+      "name": "CleanupMidi_0043a910",
       "source": "src/platform/fun_0043a910_0043a910.cpp",
-      "symbol": "_asm_FUN_0043a910_0043a910",
+      "symbol": "_CleanupMidi_0043a910@4",
       "address": "0x0043A910",
       "size": 156,
-      "kind": "asm",
-      "owner": "0x0043A910"
+      "kind": "semantic",
+      "owner": "0x0043A910",
+      "previous_record": {
+        "name": "asm_FUN_0043a910_0043a910",
+        "source": "src/platform/fun_0043a910_0043a910.cpp",
+        "symbol": "_asm_FUN_0043a910_0043a910",
+        "address": "0x0043A910",
+        "size": 156,
+        "kind": "asm",
+        "owner": "0x0043A910"
+      }
     },
     {
       "name": "text_padding_0043a9ac",
@@ -29855,13 +29873,22 @@
       "owner": "0x0043AAD0"
     },
     {
-      "name": "asm_FUN_0043ac90_0043ac90",
+      "name": "LoadTemporaryTrack_0043ac90",
       "source": "src/unidentified/FUN_0043ac90_0043ac90.cpp",
-      "symbol": "_asm_FUN_0043ac90_0043ac90",
+      "symbol": "?LoadTemporaryTrack_0043ac90@@YGHPAUMidiSequencer@@PBD@Z",
       "address": "0x0043AC90",
       "size": 72,
-      "kind": "asm",
-      "owner": "0x0043AC90"
+      "kind": "semantic",
+      "owner": "0x0043AC90",
+      "previous_record": {
+        "name": "asm_FUN_0043ac90_0043ac90",
+        "source": "src/unidentified/FUN_0043ac90_0043ac90.cpp",
+        "symbol": "_asm_FUN_0043ac90_0043ac90",
+        "address": "0x0043AC90",
+        "size": 72,
+        "kind": "asm",
+        "owner": "0x0043AC90"
+      }
     },
     {
       "name": "text_padding_0043acd8",
@@ -29915,13 +29942,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043ae20_0043ae20",
+      "name": "ShutdownMidi_0043ae20",
       "source": "src/platform/fun_0043ae20_0043ae20.cpp",
-      "symbol": "_asm_FUN_0043ae20_0043ae20",
+      "symbol": "_ShutdownMidi_0043ae20@4",
       "address": "0x0043AE20",
       "size": 129,
-      "kind": "asm",
-      "owner": "0x0043AE20"
+      "kind": "semantic",
+      "owner": "0x0043AE20",
+      "previous_record": {
+        "name": "asm_FUN_0043ae20_0043ae20",
+        "source": "src/platform/fun_0043ae20_0043ae20.cpp",
+        "symbol": "_asm_FUN_0043ae20_0043ae20",
+        "address": "0x0043AE20",
+        "size": 129,
+        "kind": "asm",
+        "owner": "0x0043AE20"
+      }
     },
     {
       "name": "text_padding_0043aea1",
@@ -29932,13 +29968,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043aeb0_0043aeb0",
+      "name": "CompleteMidiHeader_0043aeb0",
       "source": "src/platform/fun_0043aeb0_0043aeb0.cpp",
-      "symbol": "_asm_FUN_0043aeb0_0043aeb0",
+      "symbol": "_CompleteMidiHeader_0043aeb0@8",
       "address": "0x0043AEB0",
       "size": 79,
-      "kind": "asm",
-      "owner": "0x0043AEB0"
+      "kind": "semantic",
+      "owner": "0x0043AEB0",
+      "previous_record": {
+        "name": "asm_FUN_0043aeb0_0043aeb0",
+        "source": "src/platform/fun_0043aeb0_0043aeb0.cpp",
+        "symbol": "_asm_FUN_0043aeb0_0043aeb0",
+        "address": "0x0043AEB0",
+        "size": 79,
+        "kind": "asm",
+        "owner": "0x0043AEB0"
+      }
     },
     {
       "name": "text_padding_0043aeff",
@@ -32343,7 +32388,7 @@
     {
       "name": "semantic_AnimationPolar_00441ef0",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "_asm_Vector2_SetAnimationPolar_00441ef0",
+      "symbol": "?SetAnimationPolar@AnimationLeafPolarVector@@QAEPAU1@MM@Z",
       "address": "0x00441EF0",
       "size": 30,
       "kind": "semantic",
@@ -33706,7 +33751,7 @@
     {
       "name": "semantic_SetAnimationPolar_004458b0",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "__ZN20AnimationPolarVector17SetAnimationPolarEff",
+      "symbol": "?SetAnimationPolar@AnimationPolarVector@@QAEPAU1@MM@Z",
       "address": "0x004458B0",
       "size": 30,
       "kind": "semantic",
@@ -35753,7 +35798,7 @@
     {
       "name": "semantic_DrawGlobalAnimation_00449440",
       "source": "src/unidentified/FUN_00449440_00449440.cpp",
-      "symbol": "_DrawGlobalAnimation_00449440",
+      "symbol": "?DrawGlobalAnimation_00449440@@YGHPAURenderEntity_00449440@@@Z",
       "address": "0x00449440",
       "size": 11,
       "kind": "semantic",
@@ -38248,7 +38293,7 @@
     {
       "name": "semantic_PolarToVector_0044c5d0",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "_asm_Recovery_PolarToVectorRetail_0044c5d0",
+      "symbol": "?SetPolar@RecoveryPolarVector@@QAEPAU1@MM@Z",
       "address": "0x0044C5D0",
       "size": 30,
       "kind": "semantic",
@@ -39767,7 +39812,7 @@
     {
       "name": "semantic_EclPolar_004501b0",
       "source": "src/math/x87_polar_setters.cpp",
-      "symbol": "_asm_ECL_SetPolarVector_004501b0",
+      "symbol": "?SetPolar@EclPolarVector@@QAEPAU1@MM@Z",
       "address": "0x004501B0",
       "size": 30,
       "kind": "semantic",
@@ -41789,22 +41834,28 @@
       "library_entry": "__amsg_exit"
     },
     {
-      "name": "fast_error_exit_00453762",
-      "source": "src/unidentified/fast_error_exit_00453762.cpp",
-      "symbol": "_fast_error_exit_00453762",
+      "name": "library_fast_error_exit_00453762",
+      "source": "lib/libcmt.lib/build/intel/mt_obj/wincrt0.obj",
+      "symbol": "_crt_libcmt_wincrt0_fast_error_exit",
       "address": "0x00453762",
-      "size": 33,
-      "kind": "semantic",
-      "owner": "0x00453762"
+      "size": 36,
+      "kind": "library",
+      "owner": "0x00453762",
+      "library_section": ".text",
+      "library_section_number": 7,
+      "library_entry": "_fast_error_exit"
     },
     {
-      "name": "asm_unassigned_00453783",
-      "source": "src/unidentified/unassigned_00453783.cpp",
-      "symbol": "_asm_unassigned_00453783",
-      "address": "0x00453783",
-      "size": 89,
-      "kind": "asm",
-      "owner": null
+      "name": "library_check_managed_app_00453786",
+      "source": "lib/libcmt.lib/build/intel/mt_obj/wincrt0.obj",
+      "symbol": "_check_managed_app",
+      "address": "0x00453786",
+      "size": 86,
+      "kind": "library",
+      "owner": "0x00453786",
+      "library_section": ".text",
+      "library_section_number": 10,
+      "library_entry": "_check_managed_app"
     },
     {
       "name": "library_WinMainCRTStartup_004537dc",
@@ -42124,58 +42175,40 @@
       "library_entry": "_write_string"
     },
     {
-      "name": "cursor_read_word_00454eb8",
-      "source": "src/unidentified/unassigned_00454eb8.cpp",
-      "symbol": "_Cursor_ReadWord_00454eb8",
+      "name": "library_get_int_arg_00454eb8",
+      "source": "lib/libcmt.lib/build/intel/mt_obj/output.obj",
+      "symbol": "_get_int_arg",
       "address": "0x00454EB8",
       "size": 9,
-      "kind": "semantic",
+      "kind": "library",
       "owner": "0x00454EB8",
-      "previous_record": {
-        "name": "asm_unassigned_00454eb8",
-        "source": "src/unidentified/unassigned_00454eb8.cpp",
-        "symbol": "_asm_unassigned_00454eb8",
-        "address": "0x00454EB8",
-        "size": 31,
-        "kind": "asm",
-        "owner": null
-      }
+      "library_section": ".text",
+      "library_section_number": 14,
+      "library_entry": "_get_int_arg"
     },
     {
-      "name": "cursor_read_pair_00454ec1",
-      "source": "src/unidentified/unassigned_00454ec1.cpp",
-      "symbol": "_Cursor_ReadPair_00454ec1",
+      "name": "library_get_int64_arg_00454ec1",
+      "source": "lib/libcmt.lib/build/intel/mt_obj/output.obj",
+      "symbol": "_get_int64_arg",
       "address": "0x00454EC1",
       "size": 12,
-      "kind": "semantic",
+      "kind": "library",
       "owner": "0x00454EC1",
-      "previous_record": {
-        "name": "asm_unassigned_00454eb8",
-        "source": "src/unidentified/unassigned_00454eb8.cpp",
-        "symbol": "_asm_unassigned_00454eb8",
-        "address": "0x00454EB8",
-        "size": 31,
-        "kind": "asm",
-        "owner": null
-      }
+      "library_section": ".text",
+      "library_section_number": 17,
+      "library_entry": "_get_int64_arg"
     },
     {
-      "name": "cursor_read_half_00454ecd",
-      "source": "src/unidentified/unassigned_00454eb8.cpp",
-      "symbol": "_Cursor_ReadHalf_00454ecd",
+      "name": "library_get_short_arg_00454ecd",
+      "source": "lib/libcmt.lib/build/intel/mt_obj/output.obj",
+      "symbol": "_get_short_arg",
       "address": "0x00454ECD",
       "size": 10,
-      "kind": "semantic",
+      "kind": "library",
       "owner": "0x00454ECD",
-      "previous_record": {
-        "name": "asm_unassigned_00454eb8",
-        "source": "src/unidentified/unassigned_00454eb8.cpp",
-        "symbol": "_asm_unassigned_00454eb8",
-        "address": "0x00454EB8",
-        "size": 31,
-        "kind": "asm",
-        "owner": null
-      }
+      "library_section": ".text",
+      "library_section_number": 20,
+      "library_entry": "_get_short_arg"
     },
     {
       "name": "library_output_00454ed7",
@@ -55809,7 +55842,29 @@
     "_crt_libcmt_tzset_first_time_1_tzset_9_9": "0x00477444",
     "_fast_error_exit_00453762": "0x00453762",
     "_asm_Unwind_00465580_00465580": "0x00465580",
-    "__ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z": "0x0046558B"
+    "__ehhandler$?_Init@?$numpunct@_W@std@@IAEXABV_Locinfo@2@@Z": "0x0046558B",
+    "_IatDefWindowProcA": "0x00466248",
+    "_IatSetForegroundWindow": "0x004661F0",
+    "_IatShowCursor": "0x00466230",
+    "_IatSetCursor": "0x00466224",
+    "_IatWindowLoadCursorA": "0x00466260",
+    "_IatmidiOutUnprepareHeader": "0x00466284",
+    "_window_midi_manager": "0x00491FE8",
+    "_window_flags": "0x00491FF4",
+    "_window_cursor_enabled": "0x00491D65",
+    "_window_active": "0x004924FC",
+    "_window_inactive": "0x00492500",
+    "_CompleteMidiHeader_0043aeb0@8": "0x0043AEB0",
+    "_asm_unassigned_00453783": "0x00453783",
+    "_asm_unassigned_00453786": "0x00453786",
+    "_Cursor_ReadWord_00454eb8": "0x00454EB8",
+    "_Cursor_ReadPair_00454ec1": "0x00454EC1",
+    "_Cursor_ReadHalf_00454ecd": "0x00454ECD",
+    "_SwapLowWordBytes_0043a6f0": "0x0043A6F0",
+    "_DrawGlobalAnimation_00449440": "0x00449440",
+    "_asm_FUN_0040c650_0040c650": "0x0040C650",
+    "_asm_FUN_0040c680_0040c680": "0x0040C680",
+    "_asm_ECL_ResolveFloatValue_0044ff80@12": "0x0044FF80"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -57195,7 +57250,6 @@
     "src/unidentified/exit_004576ec.cpp",
     "src/unidentified/exit_004576fd.cpp",
     "src/unidentified/fassign_0045dc7c.cpp",
-    "src/unidentified/fast_error_exit_00453762.cpp",
     "src/unidentified/fclose_lk_0046140c.cpp",
     "src/unidentified/fflush_lk_0045fc53.cpp",
     "src/unidentified/flag_broadcast_0041fd90.cpp",
@@ -57825,11 +57879,8 @@
     "src/unidentified/unassigned_00452332.cpp",
     "src/unidentified/unassigned_00453259.cpp",
     "src/unidentified/unassigned_0045370e.cpp",
-    "src/unidentified/unassigned_00453783.cpp",
     "src/unidentified/unassigned_00453c3d.cpp",
     "src/unidentified/unassigned_00454863.cpp",
-    "src/unidentified/unassigned_00454eb8.cpp",
-    "src/unidentified/unassigned_00454ec1.cpp",
     "src/unidentified/unassigned_0045570d.cpp",
     "src/unidentified/unassigned_004557c9.cpp",
     "src/unidentified/unassigned_0045653e.cpp",
@@ -58719,7 +58770,12 @@
     "layout/ltcg/path_decode_xor_00417010.json",
     "layout/ltcg/legacy_string_duplicate_00435220.json",
     "layout/ltcg/dat_archive_open_00434c30.json",
-    "layout/ltcg/pause_unpause_00422c30.json"
+    "layout/ltcg/pause_unpause_00422c30.json",
+    "layout/ltcg/window_midi_native.json",
+    "layout/ltcg/temporary_track_native.json",
+    "layout/ltcg/swap_low_word_bytes_0043a6f0.json",
+    "layout/ltcg/draw_global_animation_00449440.json",
+    "layout/ltcg/ecl_operand_thunks.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -59184,9 +59240,6 @@
     },
     "lib/libcmt.lib/../build/intel/mt_obj/typinfo.obj": {
       "$T19215": "_crt_libcmt_typinfo_T19215"
-    },
-    "src/unidentified/fast_error_exit_00453762.cpp": {
-      "_asm_FUN_00458efd_00458efd@4": "_asm_FUN_00458efd_00458efd"
     }
   },
   "source_flags": {
@@ -59677,15 +59730,6 @@
     ]
   },
   "source_compilers": {
-    "src/script/ecl_resolve_int_from_entity_00412a00.cpp": "layout/compiler/clang_i386_fetch.json",
-    "src/unidentified/FUN_00412a60_00412a60.cpp": "layout/compiler/clang_i386_fetch.json",
-    "src/unidentified/FUN_0040c650_0040c650.cpp": "layout/compiler/clang_i386_fetch.json",
-    "src/unidentified/FUN_0040c680_0040c680.cpp": "layout/compiler/clang_i386_fetch.json",
-    "src/math/x87_polar_setters.cpp": "layout/compiler/gcc_x87_polar.json",
-    "src/unidentified/FUN_00449440_00449440.cpp": "layout/compiler/gcc_i386_regparm.json",
-    "src/unidentified/FUN_0043a6f0_0043a6f0.cpp": "layout/compiler/gcc_x87_polar.json",
-    "src/unidentified/unassigned_00454eb8.cpp": "layout/compiler/gcc_x87_polar.json",
-    "src/unidentified/unassigned_00454ec1.cpp": "layout/compiler/clang_i386_fetch.json",
-    "src/unidentified/fast_error_exit_00453762.cpp": "layout/compiler/clang_i386_fetch.json"
+    "src/unidentified/FUN_00412a60_00412a60.cpp": "layout/compiler/clang_i386_fetch.json"
   }
 }

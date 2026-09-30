@@ -1,0 +1,121 @@
+{
+  "commands": [
+    "wine",
+    "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+    "/nologo",
+    "/LTCG",
+    "/MACHINE:X86",
+    "/BASE:0x400000",
+    "/FILEALIGN:512",
+    "/SUBSYSTEM:WINDOWS",
+    "/ENTRY:?D3DResourceManager_Destroy_00438880@@YGXPAU0@@Z",
+    "/FIXED",
+    "/INCREMENTAL:NO",
+    "/NODEFAULTLIB",
+    "/OPT:REF",
+    "/OPT:NOICF",
+    "/SAFESEH:NO",
+    "/INCLUDE:?StopNoDelete@PlatformWorker@@QAEXXZ",
+    "/INCLUDE:?ReleaseContext@@YGXPAPAUResourceList_DestroyABI_00449e50@@HPAUScheduler@@@Z",
+    "/INCLUDE:_gap0",
+    "/INCLUDE:_gap1",
+    "/INCLUDE:_gap2",
+    "/INCLUDE:_gap3",
+    "/INCLUDE:_gap4",
+    "/INCLUDE:_gap5",
+    "/INCLUDE:_gap6",
+    "/OUT:Z:\\home\\levzzz\\.hermes\\cache\\scratch\\d3d-destroy-native\\parent-repeat\\cluster.exe",
+    "/MAP:Z:\\home\\levzzz\\.hermes\\cache\\scratch\\d3d-destroy-native\\parent-repeat\\cluster.map",
+    "Z:\\home\\levzzz\\.hermes\\cache\\scratch\\d3d-destroy-native\\parent-repeat\\cluster.obj",
+    "Z:\\home\\levzzz\\.hermes\\cache\\scratch\\d3d-destroy-native\\parent-repeat\\bindings.obj",
+    "Z:\\home\\levzzz\\.hermes\\cache\\scratch\\d3d-destroy-native\\parent-repeat\\layout-fixed.obj"
+  ],
+  "contributions": {
+    ".text$000gap": 227456,
+    ".text$00destroy": 101,
+    ".text$00destroyz": 70059,
+    ".text$00listclear": 12,
+    ".text$00listclearz": 948,
+    ".text$01release": 82,
+    ".text$01releasez": 8846,
+    ".text$10caller": 16,
+    ".text$10callerz": 16,
+    ".text$20callee": 101,
+    ".text$30context": 39,
+    ".text$40wrapper": 5,
+    ".text$90gap": 102747,
+    ".text$x": 29,
+    ".xdata$0gap": 46004,
+    ".xdata$x": 44,
+    ".edata": 0
+  },
+  "functions": [
+    {
+      "symbol": "??1D3DResourceManager_Destroy_00438880@@QAE@XZ",
+      "address": "0x438880",
+      "extent": 101,
+      "expected_extent": 103,
+      "first_diff": 53,
+      "candidate_hex": "64a1000000006aff6863534600506489250000000056578b7c2418be54224900c744241001000000e8a3380100578bc7e89b150100578d4724e8921501008b4c240833c089472c89473089473489470889470c8947105f64890d000000005e83c40cc20400",
+      "retail_hex": "64a1000000006aff6863534600506489250000000056578b7c2418be54224900c744241001000000e8a3380100578bc7e89b1501008d7724578bc6e8901501008b4c240833c089460889460c89461089470889470c8947105f64890d000000005e83c40cc20400",
+      "exact": false
+    },
+    {
+      "symbol": "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUScheduler@@@Z",
+      "address": "0x449e50",
+      "extent": 82,
+      "expected_extent": 82,
+      "first_diff": null,
+      "candidate_hex": "8b401885c07448538b1db0604600558b2db460460056578b3085f68b780474256874224900ffd3fe051c2349008b5424148bcee8d80000006874224900ffd5fe0d1c23490085ff8bc775cc5f5e5d5bc20400",
+      "retail_hex": "8b401885c07448538b1db0604600558b2db460460056578b3085f68b780474256874224900ffd3fe051c2349008b5424148bcee8d80000006874224900ffd5fe0d1c23490085ff8bc775cc5f5e5d5bc20400",
+      "exact": true
+    },
+    {
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "address": "0x44c150",
+      "extent": 101,
+      "expected_extent": 101,
+      "first_diff": null,
+      "candidate_hex": "8b46045533ed3bc57459578b3d1c61460068c800000050c7460c01000000896e10ffd73d020100007528538b1dac6046006a01c7460c01000000896e10ffd38b460468c800000050ffd73d0201000074e05b8b4e0451ff15cc604600896e04896e185f5dc3",
+      "retail_hex": "8b46045533ed3bc57459578b3d1c61460068c800000050c7460c01000000896e10ffd73d020100007528538b1dac6046006a01c7460c01000000896e10ffd38b460468c800000050ffd73d0201000074e05b8b4e0451ff15cc604600896e04896e185f5dc3",
+      "exact": true
+    }
+  ],
+  "eh_evidence": [
+    {
+      "address": "0x449a90",
+      "size": 12,
+      "exact": true,
+      "candidate_hex": "33c989480889480c894810c3",
+      "retail_hex": "33c989480889480c894810c3"
+    },
+    {
+      "address": "0x465350",
+      "size": 29,
+      "exact": true,
+      "candidate_hex": "8b4504e93847feff8b450483c024e92d47feffb8c4134700e900d4ffff",
+      "retail_hex": "8b4504e93847feff8b450483c024e92d47feffb8c4134700e900d4ffff"
+    },
+    {
+      "address": "0x4713b4",
+      "size": 44,
+      "exact": true,
+      "candidate_hex": "ffffffff5053460000000000585346002005931902000000b413470000000000000000000000000000000000",
+      "retail_hex": "ffffffff5053460000000000585346002005931902000000b413470000000000000000000000000000000000"
+    }
+  ],
+  "inputs": {
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/render/d3_d_resource_manager_destroy_00438880.cpp": "d5387c00e1643bac02eef8f1f34e4b6bfed14e1c3182393e3fb95246cc150799",
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/layout/ltcg/destroy_release_adapter.cpp": "edff7d04ccb6c1b7c4c48c3cdef185fcf80a48321b5283f0979297f5407f47ed",
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker_0044c150.cpp": "0db30c169785c3f5389aaa0ee652a1b35d0e2623c600c0a9e42f663fe33bc82d",
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker_no_delete_0044c130.cpp": "3d2314d404646fe38156346165c317cee09f0a1d6faa1dcfb17d6ab79fa86ba8"
+  },
+  "toolchain": {
+    "cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+    "c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+    "c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+    "c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5",
+    "link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20"
+  },
+  "candidate_exact_requires_extent_and_address": true
+}

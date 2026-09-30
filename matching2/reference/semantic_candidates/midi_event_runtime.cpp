@@ -1,25 +1,39 @@
+// Unverified candidate, outside the production translation-unit inventory.
+// Current retail audit: recovery_notes/midi_event_parser_followup_2026-09-30.md.
 #include "asm_symbols.hpp"
 #include "th10/platform/midi_sequencer.hpp"
 
 // This is the Win32 layout used by midiOutPrepareHeader and midiOutLongMsg.
 // MidiSequencer's public header deliberately leaves the header array opaque.
-struct midihdr_tag {
+struct MidiEventHeader {
     char* lpData;
     unsigned int dwBufferLength;
     unsigned int dwBytesRecorded;
     unsigned int dwUser;
     unsigned int dwFlags;
-    midihdr_tag* lpNext;
+    MidiEventHeader* lpNext;
     unsigned int dwReserved;
     unsigned int dwOffset;
     unsigned int dwReserved2[8];
 };
 
-typedef char MidiHeader_must_be_0x40_bytes[sizeof(midihdr_tag) == 0x40 ? 1 : -1];
+typedef char MidiHeader_must_be_0x40_bytes[sizeof(MidiEventHeader) == 0x40 ? 1 : -1];
+typedef char MidiHeader_flags_offset[offsetof(MidiEventHeader, dwFlags) == 0x10 ? 1 : -1];
 
-typedef unsigned int (__stdcall *MidiOutPrepareHeaderCall)(void*, midihdr_tag*, unsigned int);
-typedef unsigned int (__stdcall *MidiOutLongMsgCall)(void*, midihdr_tag*, unsigned int);
-typedef unsigned int (__stdcall *MidiOutUnprepareHeaderCall)(void*, midihdr_tag*, unsigned int);
+// The loop clock at +0x2ec is only DWORD aligned in the retail object.
+#pragma pack(push, 4)
+struct MidiLoopClock {
+    int tempo_microseconds;
+    unsigned __int64 elapsed_timer_ticks;
+    unsigned __int64 event_tick_base;
+};
+#pragma pack(pop)
+typedef char MidiLoopClock_size[sizeof(MidiLoopClock) == 20 ? 1 : -1];
+typedef char MidiLoopClock_elapsed_offset[offsetof(MidiLoopClock, elapsed_timer_ticks) == 4 ? 1 : -1];
+typedef char MidiLoopClock_base_offset[offsetof(MidiLoopClock, event_tick_base) == 12 ? 1 : -1];
+
+typedef unsigned int (__stdcall *MidiOutPrepareHeaderCall)(void*, MidiEventHeader*, unsigned int);
+typedef unsigned int (__stdcall *MidiOutLongMsgCall)(void*, MidiEventHeader*, unsigned int);
 typedef unsigned int (__stdcall *MidiOutShortMsgCall)(void*, unsigned int);
 
 static __forceinline MidiOutPrepareHeaderCall MidiOutPrepareHeaderAtRetail() {
@@ -28,10 +42,6 @@ static __forceinline MidiOutPrepareHeaderCall MidiOutPrepareHeaderAtRetail() {
 
 static __forceinline MidiOutLongMsgCall MidiOutLongMsgAtRetail() {
     return *reinterpret_cast<volatile MidiOutLongMsgCall*>(&data_0046629c);
-}
-
-static __forceinline MidiOutUnprepareHeaderCall MidiOutUnprepareHeaderAtRetail() {
-    return *reinterpret_cast<volatile MidiOutUnprepareHeaderCall*>(&data_00466284);
 }
 
 static __forceinline MidiOutShortMsgCall MidiOutShortMsgAtRetail() {
@@ -48,71 +58,19 @@ static __forceinline unsigned int ReadMidiEventValue(const unsigned char*& curso
     return value;
 }
 
-static __forceinline void ReleaseQueuedMidiHeader(
-    MidiSequencer* sequencer,
-    midihdr_tag* header) {
-    int index;
-    for (index = 0; index < 32; ++index) {
-        if (sequencer->midi_headers[index] == header)
-            break;
-    }
-    if (index == 32)
-        return;
-
-    sequencer->midi_headers[index] = 0;
-    void* output = *reinterpret_cast<void**>(
-        reinterpret_cast<unsigned char*>(sequencer) + 0x13c);
-    MidiOutUnprepareHeaderAtRetail()(output, header, 0x40);
-    if (header->lpData != 0) {
-        asm_free_00452422(header->lpData);
-        header->lpData = 0;
-    }
-    asm_free_00452422(header);
-}
-
-// The game runtime helper implements unsigned 64-bit division by a positive
-// 32-bit tempo.  Keeping the division in 32-bit limbs avoids acquiring a
-// compiler-private __aulldiv dependency in this source region.
-static __forceinline unsigned __int64 DivideMidiTicksByTempo(
-    unsigned __int64 numerator,
-    unsigned int tempo) {
-    const unsigned int numeratorLow = static_cast<unsigned int>(numerator);
-    const unsigned int numeratorHigh = static_cast<unsigned int>(numerator >> 32);
-    unsigned int quotientHigh = numeratorHigh / tempo;
-    unsigned int remainder = numeratorHigh % tempo;
-    unsigned int quotientLow = 0;
-    int bit = 31;
-
-    for (; bit >= 0; --bit) {
-        const unsigned int carry = remainder >> 31;
-        remainder = (remainder << 1) | ((numeratorLow >> bit) & 1);
-        if (carry || remainder >= tempo) {
-            remainder -= tempo;
-            quotientLow |= 1u << bit;
-        }
-    }
-
-    return (static_cast<unsigned __int64>(quotientHigh) << 32) | quotientLow;
-}
+// Co-compile the maintained helper bodies to derive their private register
+// ABIs. An ordinary external declaration alone cannot prove those boundaries.
+extern "C" __declspec(noinline) int CompleteMidiHeader_0043aeb0(
+    MidiSequencer*, midihdr_tag*);
 
 static __forceinline unsigned __int64 MidiEventElapsedTicks(MidiSequencer* sequencer) {
-    const unsigned int ticksPerQuarter =
-        static_cast<unsigned int>(sequencer->ticks_per_quarter_note);
-    const unsigned int ticksPerQuarterHigh =
-        sequencer->ticks_per_quarter_note < 0 ? 0xffffffffu : 0;
-    const unsigned __int64 scaledByDivision = Allmul_00456640(
-        ticksPerQuarter,
-        ticksPerQuarterHigh,
-        static_cast<unsigned int>(sequencer->elapsed_timer_ticks),
-        static_cast<unsigned int>(sequencer->elapsed_timer_ticks >> 32));
-    const unsigned __int64 milliseconds = Allmul_00456640(
-        static_cast<unsigned int>(scaledByDivision),
-        static_cast<unsigned int>(scaledByDivision >> 32),
-        1000,
-        0);
-    return DivideMidiTicksByTempo(
-        milliseconds,
-        static_cast<unsigned int>(sequencer->tempo_microseconds));
+    // Retail CDQ sign-extends both 32-bit inputs; its division is unsigned.
+    // Native operators let MSVC emit the original runtime-helper calls.
+    return (static_cast<unsigned __int64>(static_cast<__int64>(
+                sequencer->ticks_per_quarter_note)) *
+            sequencer->elapsed_timer_ticks * 1000) /
+        static_cast<unsigned __int64>(static_cast<__int64>(
+            sequencer->tempo_microseconds));
 }
 
 // 0x0043B110 parses and applies one MIDI event from a track.  The live caller
@@ -124,6 +82,9 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
     unsigned char status = *track->cursor;
     unsigned char data1 = 0;
     unsigned char data2 = 0;
+    // Retail packs the output into the incoming track-pointer stack slot.
+    // Controller 7 overwrites that slot with its zero-extended input first.
+    unsigned int message_storage = reinterpret_cast<unsigned int>(track);
     if (status < 0x80) {
         status = track->running_status;
     } else {
@@ -141,13 +102,14 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
         data1 = *track->cursor++;
     } else if (messageType == 0xf0) {
         if (status == 0xf0) {
-            const int headerIndex = sequencer->midi_header_index;
-            if (sequencer->midi_headers[headerIndex] != 0)
-                ReleaseQueuedMidiHeader(sequencer, sequencer->midi_headers[headerIndex]);
+            if (sequencer->midi_headers[sequencer->midi_header_index] != 0)
+                CompleteMidiHeader_0043aeb0(sequencer,
+                    sequencer->midi_headers[sequencer->midi_header_index]);
 
-            midihdr_tag* header = static_cast<midihdr_tag*>(asm_malloc_00452706(0x40));
-            sequencer->midi_headers[headerIndex] = header;
-            const int sysexLength = static_cast<int>(ReadMidiEventValue(track->cursor));
+            MidiEventHeader* header = static_cast<MidiEventHeader*>(asm_malloc_00452706(0x40));
+            sequencer->midi_headers[sequencer->midi_header_index] =
+                reinterpret_cast<midihdr_tag*>(header);
+            const int sysexLength = ReadMidiVariableLength(track->cursor);
 
             unsigned int* headerWords = reinterpret_cast<unsigned int*>(header);
             int word;
@@ -163,7 +125,7 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
             for (byteIndex = 0; byteIndex < sysexLength; ++byteIndex)
                 header->lpData[byteIndex + 1] = static_cast<char>(*track->cursor++);
 
-            void* output = *reinterpret_cast<void**>(
+            void*& output = *reinterpret_cast<void**>(
                 reinterpret_cast<unsigned char*>(sequencer) + 0x13c);
             if (output != 0 &&
                 (MidiOutPrepareHeaderAtRetail()(output, header, 0x40) != 0 ||
@@ -173,13 +135,15 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
                     header->lpData = 0;
                 }
                 asm_free_00452422(header);
-                sequencer->midi_headers[headerIndex] = 0;
+                sequencer->midi_headers[sequencer->midi_header_index] = 0;
             }
 
-            sequencer->midi_header_index = (headerIndex + 1) & 0x1f;
+            // Retail uses signed remainder, including its negative-index path.
+            sequencer->midi_header_index = static_cast<int>(
+                static_cast<unsigned int>(sequencer->midi_header_index) + 1) % 32;
         } else if (status == 0xff) {
             const unsigned char metaType = *track->cursor++;
-            const int metaLength = static_cast<int>(ReadMidiEventValue(track->cursor));
+            const int metaLength = ReadMidiVariableLength(track->cursor);
             if (metaType == '/') {
                 track->active = 0;
                 return;
@@ -192,7 +156,8 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
                 int byteIndex;
                 for (byteIndex = 0; byteIndex < metaLength; ++byteIndex) {
                     sequencer->tempo_microseconds =
-                        sequencer->tempo_microseconds * 0x101 + *track->cursor++;
+                        static_cast<int>(static_cast<unsigned int>(
+                            sequencer->tempo_microseconds) * 0x101u + *track->cursor++);
                 }
             } else {
                 track->cursor += metaLength;
@@ -204,12 +169,14 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
     unsigned char* channelState = state + 0x154 + channel * 0x17;
     if (messageType == 0x90 && data2 != 0) {
         const signed char transpose = *reinterpret_cast<signed char*>(state + 0x2c4);
-        const unsigned char note = static_cast<unsigned char>(data1 + transpose);
+        data1 = static_cast<unsigned char>(data1 + transpose);
+        const unsigned char note = data1;
         unsigned char* noteBits = channelState + (note >> 3);
         *noteBits |= static_cast<unsigned char>(1u << (note & 7));
     } else if (messageType == 0x80 || messageType == 0x90) {
         const signed char transpose = *reinterpret_cast<signed char*>(state + 0x2c4);
-        const unsigned char note = static_cast<unsigned char>(data1 + transpose);
+        data1 = static_cast<unsigned char>(data1 + transpose);
+        const unsigned char note = data1;
         unsigned char* noteBits = channelState + (note >> 3);
         *noteBits &= static_cast<unsigned char>(~(1u << (note & 7)));
     } else if (messageType == 0xb0) {
@@ -224,10 +191,10 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
                 sequencer->tracks[index].saved_loop_time =
                     sequencer->tracks[index].next_event_time;
             }
-            unsigned int* savedClock = reinterpret_cast<unsigned int*>(state + 0x2ec);
-            const unsigned int* clock = reinterpret_cast<const unsigned int*>(state + 0x124);
-            for (index = 0; index < 5; ++index)
-                savedClock[index] = clock[index];
+            MidiLoopClock& savedClock = *reinterpret_cast<MidiLoopClock*>(state + 0x2ec);
+            savedClock.tempo_microseconds = sequencer->tempo_microseconds;
+            savedClock.elapsed_timer_ticks = sequencer->elapsed_timer_ticks;
+            savedClock.event_tick_base = sequencer->event_tick_base;
             break;
         }
         case 4: {
@@ -237,16 +204,17 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
                 sequencer->tracks[index].next_event_time =
                     sequencer->tracks[index].saved_loop_time;
             }
-            unsigned int* clock = reinterpret_cast<unsigned int*>(state + 0x124);
-            const unsigned int* savedClock = reinterpret_cast<const unsigned int*>(state + 0x2ec);
-            for (index = 0; index < 5; ++index)
-                clock[index] = savedClock[index];
+            const MidiLoopClock& savedClock = *reinterpret_cast<const MidiLoopClock*>(state + 0x2ec);
+            sequencer->tempo_microseconds = savedClock.tempo_microseconds;
+            sequencer->elapsed_timer_ticks = savedClock.elapsed_timer_ticks;
+            sequencer->event_tick_base = savedClock.event_tick_base;
             break;
         }
         case 7: {
             channelState[0x15] = data2;
-            const float adjustedVolume = static_cast<float>(data2) * sequencer->fade_volume;
-            int volume = static_cast<int>(adjustedVolume);
+            message_storage = data2;
+            int volume = static_cast<int>(static_cast<__int64>(
+                static_cast<float>(data2) * sequencer->fade_volume));
             if (volume < 0) {
                 channelState[0x16] = 0;
                 data2 = 0;
@@ -274,11 +242,11 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
 
     void* output = *reinterpret_cast<void**>(state + 0x13c);
     if (status < 0xf0 && output != 0) {
-        const unsigned int message =
-            static_cast<unsigned int>(status) |
-            (static_cast<unsigned int>(data1) << 8) |
-            (static_cast<unsigned int>(data2) << 16);
-        MidiOutShortMsgAtRetail()(output, message);
+        unsigned char* message_bytes = reinterpret_cast<unsigned char*>(&message_storage);
+        message_bytes[1] = data1;
+        message_bytes[0] = status;
+        message_bytes[2] = data2;
+        MidiOutShortMsgAtRetail()(output, message_storage);
     }
 
     track->running_status = status;

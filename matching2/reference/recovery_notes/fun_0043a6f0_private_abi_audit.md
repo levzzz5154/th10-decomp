@@ -1,5 +1,7 @@
 # 0x0043A6F0 private-ABI audit
 
+Superseded 2026-09-30: the region is now MSVC C++ in a native-LTCG layout; see [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+
 ## Boundary and references
 
 The live Ghidra program is `th10.exe` (`x86:LE:32:default`, image base

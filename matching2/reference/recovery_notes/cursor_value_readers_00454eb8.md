@@ -1,5 +1,7 @@
 # Three cursor value readers at 0x00454EB8
 
+Superseded 2026-09-30: the three readers are `libcmt.lib` `output.obj` `get_int_arg`, `get_int64_arg` and `get_short_arg`, now linked from the library; see [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+
 Ghidra identifies three independent functions in the old 31-byte assembly
 region, with no incoming xrefs:
 

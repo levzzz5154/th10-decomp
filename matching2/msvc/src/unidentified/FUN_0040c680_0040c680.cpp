@@ -1,14 +1,11 @@
-// The interpreter arrives in EDX; the original EAX is unused. Pass its
-// +4 slot to the resolver in EAX, preserving the remaining live-in registers.
-struct EclValueSlot {
-    int previous;
-    void* interpreter;
-};
+// 0x0040C680: resolve a float value through the interpreter an operand slot
+// records. The slot arrives in EDX; the selector in ECX and the stack operand
+// pass through to the resolver unchanged, so the body is a load and a tail jump.
+#include "th10/script/ecl_operand_thunks.hpp"
 
-extern "C" float __attribute__((regparm(1)))
-asm_ECL_ResolveFloatValue_0044ff80(void* interpreter);
-
-extern "C" __attribute__((regparm(2), noinline, used))
-float asm_FUN_0040c680_0040c680(void* unused, EclValueSlot* slot) {
-    return asm_ECL_ResolveFloatValue_0044ff80(slot->interpreter);
+#pragma code_seg(".text$03slot_value")
+__declspec(noinline) float __fastcall ResolveSlotFloatValue_0040c680(
+        int selector, EclOperandSlot* slot, float operand) {
+    return asm_ECL_ResolveFloatValue_0044ff80(slot->interpreter, selector, operand);
 }
+#pragma code_seg()

@@ -12,8 +12,9 @@ an inline-assembly transcription of it.
 A candidate is adopted only when:
 
 * the whole section equals retail outside its relocation fields and exactly
-  covers consecutive manifest regions, at least one of them assembly (a
-  runtime function recovered as C++ is replaced only together with assembly);
+  covers consecutive manifest regions, at least one of them assembly or C++
+  built by a non-toolkit ``source_compilers`` profile (other runtime functions
+  recovered as C++ are kept);
 * every relocation target it implies agrees with the manifest's existing symbol
   addresses and with every other adopted section;
 * no symbol it defines collides with a definition elsewhere.
@@ -71,6 +72,7 @@ def scan(toolkit, manifest, text):
         return covered if cursor == address + size else None
 
     starts = sorted(address for address in index_of if address >= CRT_START)
+    foreign = set(manifest.get("source_compilers", {}))
     with tempfile.TemporaryDirectory() as scratch:
         path = Path(scratch) / "member.obj"
         for rank, library in enumerate(LIBRARIES):
@@ -99,9 +101,11 @@ def scan(toolkit, manifest, text):
                             continue
                         covered = cover(address, len(raw))
                         # Hand-recovered C++ of a runtime function is kept unless
-                        # the section also retires assembly: the library body
-                        # is then that function's own source.
-                        if not covered or not any(region["kind"] == "asm" for region in covered):
+                        # the section also retires assembly, or the C++ needs a
+                        # non-toolkit compiler profile: the library body is
+                        # then that function's own source.
+                        if not covered or not any(region["kind"] == "asm" or region["source"] in foreign
+                                                  for region in covered):
                             continue
                         yield plan_candidate(obj, section, library, member, rank, address, text, text_start,
                                              covered)
@@ -293,7 +297,7 @@ def rewrite(manifest, chosen, project, dry_run):
     units = set(manifest["translation_units"]) - set(orphaned)
     units |= {region["source"] for region in regions}
     manifest["translation_units"] = sorted(units)
-    for key in ("coff_aliases", "source_flags"):
+    for key in ("coff_aliases", "source_flags", "source_compilers"):
         for source in orphaned:
             manifest.get(key, {}).pop(source, None)
     if not dry_run:

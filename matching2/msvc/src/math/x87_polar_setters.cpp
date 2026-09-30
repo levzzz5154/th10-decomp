@@ -1,160 +1,54 @@
-// Complete retail x87 polar setters. Compiler-generated FSINCOS preserves
-// extended intermediates until the two final float stores.
+// Retail x87 polar setters. Each sets (x, y) = (cos(angle), sin(angle)) scaled
+// by the radius with one FSINCOS, keeping both results in extended precision
+// until the float stores, and returns the receiver in EAX. No C++ spelling
+// makes MSVC 7.1 fuse sine and cosine into FSINCOS, so the computation is
+// the original-style inline block. Referencing `this` from it is what makes
+// the compiler home the receiver in a stack slot (`push ecx; mov [esp],ecx`)
+// and reload it into EAX, which also serves as the return value.
 
-struct ScoreItemPolarVector {
-    float x;
-    float y;
-    __attribute__((thiscall, noinline)) ScoreItemPolarVector *SetItemPolar(float angle, float scale);
-};
+#define POLAR_VECTOR_SETTER(Type, Method)                                  \
+    struct Type {                                                          \
+        float x;                                                           \
+        float y;                                                           \
+        Type* Method(float angle, float radius);                           \
+    };                                                                     \
+    Type* Type::Method(float angle, float radius) {                        \
+        __asm mov eax, this                                                \
+        __asm fld angle                                                    \
+        __asm fsincos                                                      \
+        __asm fmul radius                                                  \
+        __asm fstp [eax]Type.x                                             \
+        __asm fmul radius                                                  \
+        __asm fstp [eax]Type.y                                             \
+    }
 
-ScoreItemPolarVector *ScoreItemPolarVector::SetItemPolar(float angle, float scale) {
-    ScoreItemPolarVector *volatile storedReceiver = this;
-    ScoreItemPolarVector *destination = storedReceiver;
-    volatile float &radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float &radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
+// Returns through EAX without a C++ return statement.
+#pragma warning(disable : 4035)
 
-struct AnimationPolarVector {
-    float x;
-    float y;
-    __attribute__((thiscall, noinline)) AnimationPolarVector *SetAnimationPolar(float angle, float scale);
-};
+POLAR_VECTOR_SETTER(ScoreGameplayPolarVector, SetScorePolar)   // 0x00408750
+POLAR_VECTOR_SETTER(ScoreItemPolarVector, SetItemPolar)        // 0x0041BEB0
+POLAR_VECTOR_SETTER(PathPolarVector, SetPathPolar)             // 0x0041F800
+POLAR_VECTOR_SETTER(AnimationLeafPolarVector, SetAnimationPolar) // 0x00441EF0
+POLAR_VECTOR_SETTER(AnimationPolarVector, SetAnimationPolar)   // 0x004458B0
+POLAR_VECTOR_SETTER(RecoveryPolarVector, SetPolar)             // 0x0044C5D0
+POLAR_VECTOR_SETTER(EclPolarVector, SetPolar)                  // 0x004501B0
 
-AnimationPolarVector *AnimationPolarVector::SetAnimationPolar(float angle, float scale) {
-    AnimationPolarVector *volatile storedReceiver = this;
-    AnimationPolarVector *destination = storedReceiver;
-    volatile float &radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float &radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
-
-struct ScoreGameplayPolarVector {
-    float x;
-    float y;
-    __attribute__((thiscall, noinline)) ScoreGameplayPolarVector *SetScorePolar(float angle, float scale);
-};
-
-ScoreGameplayPolarVector *ScoreGameplayPolarVector::SetScorePolar(float angle, float scale) {
-    ScoreGameplayPolarVector *volatile storedReceiver = this;
-    ScoreGameplayPolarVector *destination = storedReceiver;
-    volatile float &radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float &radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
-
-struct PathPolarVector {
-    float x;
-    float y;
-    __attribute__((thiscall, noinline)) PathPolarVector *SetPathPolar(float angle, float scale);
-};
-
-PathPolarVector *PathPolarVector::SetPathPolar(float angle, float scale) {
-    PathPolarVector *volatile storedReceiver = this;
-    PathPolarVector *destination = storedReceiver;
-    volatile float &radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float &radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
-
-struct RecoveryPolarVector {
-    float x;
-    float y;
-};
-
-// The first argument arrives in ECX; the two floats are popped by RET 8.
-extern "C" __attribute__((thiscall, noinline, used,
-                           section(".text$recovery_polar"), aligned(1)))
-RecoveryPolarVector* asm_Recovery_PolarToVectorRetail_0044c5d0(
-        RecoveryPolarVector* receiver, float angle, float scale) {
-    RecoveryPolarVector* volatile storedReceiver = receiver;
-    RecoveryPolarVector* destination = storedReceiver;
-    volatile float& radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float& radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
-
-extern "C" __attribute__((thiscall, noinline, used,
-                           section(".text$animation_polar_leaf"), aligned(1)))
-AnimationPolarVector* asm_Vector2_SetAnimationPolar_00441ef0(
-        AnimationPolarVector* receiver, float angle, float scale) {
-    AnimationPolarVector* volatile storedReceiver = receiver;
-    AnimationPolarVector* destination = storedReceiver;
-    volatile float& radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float& radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
-
+// 0x00413270: separate horizontal and vertical radii; returns with RET 12.
 struct EllipticPolarVector {
     float x;
     float y;
+    EllipticPolarVector* SetEllipticPolar(float angle, float horizontal, float vertical);
 };
 
-extern "C" __attribute__((thiscall, noinline, used,
-                           section(".text$elliptic_polar"), aligned(1)))
-EllipticPolarVector* asm_Vector2_SetEllipticPolar_00413270(
-        EllipticPolarVector* receiver, float angle,
-        float horizontalScale, float verticalScale) {
-    EllipticPolarVector* volatile storedReceiver = receiver;
-    EllipticPolarVector* destination = storedReceiver;
-    volatile float& radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float& horizontal = horizontalScale;
-    volatile float& vertical = verticalScale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(horizontal));
-    destination->y = static_cast<float>(sine * static_cast<long double>(vertical));
-    return destination;
+EllipticPolarVector* EllipticPolarVector::SetEllipticPolar(float angle, float horizontal,
+                                                           float vertical) {
+    __asm mov eax, this
+    __asm fld angle
+    __asm fsincos
+    __asm fmul horizontal
+    __asm fstp [eax]EllipticPolarVector.x
+    __asm fmul vertical
+    __asm fstp [eax]EllipticPolarVector.y
 }
 
-struct EclPolarVector {
-    float x;
-    float y;
-};
-
-extern "C" __attribute__((thiscall, noinline, used,
-                           section(".text$ecl_polar"), aligned(1)))
-EclPolarVector* asm_ECL_SetPolarVector_004501b0(
-        EclPolarVector* receiver, float angle, float scale) {
-    EclPolarVector* volatile storedReceiver = receiver;
-    EclPolarVector* destination = storedReceiver;
-    volatile float& radians = angle;
-    long double sine;
-    long double cosine;
-    __builtin_sincosl(static_cast<long double>(radians), &sine, &cosine);
-    volatile float& radius = scale;
-    destination->x = static_cast<float>(cosine * static_cast<long double>(radius));
-    destination->y = static_cast<float>(sine * static_cast<long double>(radius));
-    return destination;
-}
+#pragma warning(default : 4035)

@@ -1,0 +1,19 @@
+{
+  ".text$000gap": 227456,
+  ".text$00destroy": 101,
+  ".text$00destroyz": 70059,
+  ".text$00listclear": 12,
+  ".text$00listclearz": 948,
+  ".text$01release": 82,
+  ".text$01releasez": 8846,
+  ".text$10caller": 16,
+  ".text$10callerz": 16,
+  ".text$20callee": 101,
+  ".text$30context": 39,
+  ".text$40wrapper": 5,
+  ".text$90gap": 102747,
+  ".text$x": 29,
+  ".xdata$0gap": 46004,
+  ".xdata$x": 44,
+  ".edata": 0
+}

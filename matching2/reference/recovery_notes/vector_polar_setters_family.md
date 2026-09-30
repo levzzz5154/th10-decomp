@@ -1,5 +1,7 @@
 # Vector polar setters — a seven-region family at the exact extent
 
+Superseded 2026-09-30: all eight setters are now MSVC 7.1 C++ with an inline `fsincos` block; see [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+
 Current maintained-source status, 2026-09-27: `projection_quads.cpp` still
 contains its two inline `FSINCOS` blocks and passes the current full executable
 comparison. Its conversion remains incomplete. The active goal requires both
