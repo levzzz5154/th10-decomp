@@ -102,3 +102,13 @@ stack shape. Then tune from `0x0043E8C3` and compare the full 287-byte region.
 
 This note records Ghidra-backed behavior and ABI evidence; it does not prove
 byte equivalence. No build, probe, or test was run during this review.
+
+## Retry (2026-10-02)
+
+The anchor model in `script_change` is 22 bytes from retail, all of them the
+ESI/EDI swap (retail: script in ESI, index in EDI). Promoted temporarily as an
+additional source of the cluster and probed: all six parameter orders give the
+same body (three of them also break the 0x004496D0 caller), and neither a
+split early return, a re-read of `scripts[index]`, dropping the `flags` local,
+a chained base/cursor store nor a `short` copy of the index moves either
+register. The tree was restored; the region stays assembly.
