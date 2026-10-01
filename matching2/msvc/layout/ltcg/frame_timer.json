@@ -8,7 +8,8 @@
     "src/unidentified/FUN_0043c230_0043c230.cpp",
     "src/unidentified/FUN_0043c460_0043c460.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
-    "src/game/replay_progress.cpp"
+    "src/game/replay_progress.cpp",
+    "src/game/stage_sequence_schedule.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
   "roots": [
@@ -18,10 +19,11 @@
   ],
   "headers": [
     "include/th10/game/score.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/stage_schedule.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "FrameTimer methods, the three animation cursors, the scheduler store and the gauge-timer clamp compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX, the score state whose gauge timer is clamped in EDI and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
+  "description": "FrameTimer methods, the three animation cursors, the scheduler store, the gauge-timer clamp and the stage sequence schedule compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX, the score state whose gauge timer is clamped in EDI and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
   "functions": [
     {
       "name": "FrameTimer_Tick",
@@ -100,13 +102,31 @@
       "address": "0x0044BF40",
       "size": 88,
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
+    },
+    {
+      "name": "StageSequence_Dispatch",
+      "source": "src/game/stage_sequence_schedule.cpp",
+      "symbol": "?Dispatch@StageSequence@@QAEHH@Z",
+      "section": ".text$04zzm_dispatch",
+      "address": "0x00428160",
+      "size": 105,
+      "actual_abi": "this in EDI; frame in EBX; plain RET"
+    },
+    {
+      "name": "StageSequence_Update",
+      "source": "src/game/stage_sequence_schedule.cpp",
+      "symbol": "?Update@StageSequence@@QAEHXZ",
+      "section": ".text$04zzn_update",
+      "address": "0x004281D0",
+      "size": 174,
+      "actual_abi": "this in EAX; plain RET"
     }
   ],
   "context": {
-    "symbol": "AnimationTimerSchedulerCompilerContext@32",
+    "symbol": "AnimationTimerSchedulerCompilerContext@36",
     "section": ".text$15context",
     "address": "0x0044BFA0",
-    "size": 179,
+    "size": 192,
     "description": "Synthetic caller roots every cursor, timer, gauge and scheduler edge; not recovered game code."
   },
   "gaps": [
@@ -133,7 +153,7 @@
     {
       "section": ".text$04zzlayout",
       "address": "0x00418A41",
-      "size": 66447
+      "size": 63263
     },
     {
       "section": ".text$06layout",
@@ -162,13 +182,23 @@
     },
     {
       "section": ".text$16layout",
-      "address": "0x0044C053",
-      "size": 147373
+      "address": "0x0044C060",
+      "size": 147360
     },
     {
       "section": ".rdata",
       "address": "0x00470000",
       "size": 2812
+    },
+    {
+      "section": ".text$04zzm_dispatchz",
+      "address": "0x004281C9",
+      "size": 7
+    },
+    {
+      "section": ".text$04zzn_updatez",
+      "address": "0x0042827E",
+      "size": 2898
     }
   ],
   "constants": [
@@ -224,6 +254,21 @@
     {
       "symbol": "?g_score_default_speed@@3MA",
       "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "address": "0x00427E90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c48",
+      "address": "0x00474C48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e5c",
+      "address": "0x00474E5C",
       "kind": "data"
     }
   ]

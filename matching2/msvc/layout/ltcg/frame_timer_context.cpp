@@ -8,6 +8,7 @@
 // stay private.
 #include "../../src/math/frame_timer.cpp"
 #include "th10/game/score.hpp"
+#include "th10/game/stage_schedule.hpp"
 
 struct PlayerSchedulerRecord {
     void SetSchedulerValue(int value);
@@ -23,7 +24,7 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         AnimationCursor_0043c230* cursor_c230,
         AnimationCursor_0043c460* cursor_c460,
         PlayerSchedulerRecord* scheduler,
-        ScoreState* scores) {
+        ScoreState* scores, StageSequence* sequence) {
     for (int index = 0; index < count; ++index) {
         timers[index].Tick();
         timers[index].Advance(float(delta));
@@ -45,5 +46,7 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         for (int index = 0; index < count; ++index)
             scores[index].AdvanceGaugeTimer(delta);
     }
+    if (sequence != 0)
+        sequence->Update();
 }
 #pragma code_seg()

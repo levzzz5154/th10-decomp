@@ -22380,13 +22380,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_DispatchSchedule_00428160",
-      "source": "src/game/recovery_dispatch_schedule_00428160.cpp",
-      "symbol": "_asm_Recovery_DispatchSchedule_00428160",
+      "name": "semantic_StageSequence_Dispatch_00428160",
+      "source": "src/game/stage_sequence_schedule.cpp",
+      "symbol": "?Dispatch@StageSequence@@QAEHH@Z",
       "address": "0x00428160",
       "size": 105,
-      "kind": "asm",
-      "owner": "0x00428160"
+      "kind": "semantic",
+      "owner": "0x00428160",
+      "previous_record": {
+        "name": "asm_Recovery_DispatchSchedule_00428160",
+        "source": "src/game/recovery_dispatch_schedule_00428160.cpp",
+        "symbol": "_asm_Recovery_DispatchSchedule_00428160",
+        "address": "0x00428160",
+        "size": 105,
+        "kind": "asm",
+        "owner": "0x00428160"
+      }
     },
     {
       "name": "text_padding_004281c9",
@@ -22397,13 +22406,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_UpdateStageSequence_004281d0",
-      "source": "src/game/recovery_update_stage_sequence_004281d0.cpp",
-      "symbol": "_asm_Recovery_UpdateStageSequence_004281d0",
+      "name": "semantic_StageSequence_Update_004281d0",
+      "source": "src/game/stage_sequence_schedule.cpp",
+      "symbol": "?Update@StageSequence@@QAEHXZ",
       "address": "0x004281D0",
       "size": 174,
-      "kind": "asm",
-      "owner": "0x004281D0"
+      "kind": "semantic",
+      "owner": "0x004281D0",
+      "previous_record": {
+        "name": "asm_Recovery_UpdateStageSequence_004281d0",
+        "source": "src/game/recovery_update_stage_sequence_004281d0.cpp",
+        "symbol": "_asm_Recovery_UpdateStageSequence_004281d0",
+        "address": "0x004281D0",
+        "size": 174,
+        "kind": "asm",
+        "owner": "0x004281D0"
+      }
     },
     {
       "name": "text_padding_0042827e",
@@ -58422,7 +58440,6 @@
     "src/game/recovery_create_large_resource_state_00425020.cpp",
     "src/game/recovery_create_timer_state_00422360.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
-    "src/game/recovery_dispatch_schedule_00428160.cpp",
     "src/game/recovery_increment_animation_count_004188a0.cpp",
     "src/game/recovery_initialize_large_state_00421f00.cpp",
     "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
@@ -58455,7 +58472,6 @@
     "src/game/recovery_timer_reset_00412db0.cpp",
     "src/game/recovery_trim_whitespace_0041a0a0.cpp",
     "src/game/recovery_update_emitter_decision_0040b9f0.cpp",
-    "src/game/recovery_update_stage_sequence_004281d0.cpp",
     "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
     "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
     "src/game/replay_browser_draw.cpp",
@@ -60029,7 +60045,8 @@
     "src/platform/sound_stream_service.cpp",
     "src/platform/sound_cleanup_0043d120.cpp",
     "src/archive/dat_archive_entry_delete.cpp",
-    "src/game/title_load_thread_0042c9f0.cpp"
+    "src/game/title_load_thread_0042c9f0.cpp",
+    "src/game/stage_sequence_schedule.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
