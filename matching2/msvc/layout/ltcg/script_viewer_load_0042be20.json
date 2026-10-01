@@ -9,7 +9,8 @@
     "layout/ltcg/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
-    "include/th10/platform/windows_types.hpp"
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/game/menu_cursor.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Script viewer loader with the viewer in ESI and its argument-less callback, compiled with the real archive reader so the file name is passed in EAX.",

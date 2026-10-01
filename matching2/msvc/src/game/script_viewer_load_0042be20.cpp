@@ -7,7 +7,7 @@
 #pragma code_seg(".text$01load")
 int ScriptViewer_0042be20::LoadScript() {
     char path[260];
-    sprintf(path, "%s", script_names[script_index]);
+    sprintf(path, "%s", script_names[file_cursor.selection]);
     int selected = 0;
     if (resource) {
         resource->Retire(1);
@@ -21,9 +21,9 @@ int ScriptViewer_0042be20::LoadScript() {
     script_data = Archive_LoadFile(path, 0, 0);
     parser = new ScriptParser_0042be20;
     parser->Load(script_data);
-    selection.count = parser->entry_count;
-    selection.Clamp(selected);
-    selection.cursor = selected;
+    entry_cursor.item_count = parser->entry_count;
+    ScriptViewer_ClampSelection(entry_cursor, selected);
+    entry_cursor.selection = selected;
     state = 1;
     return 0;
 }

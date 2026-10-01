@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <string.h>
 #include "th10/platform/archive_file.hpp"
+#include "th10/game/menu_cursor.hpp"
 
 extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 extern "C" void __cdecl free(void* block);
@@ -36,6 +37,8 @@ struct ScriptParser_0042be20 {
     ScriptParser_0042be20() {
         memset(this, 0, sizeof(ScriptParser_0042be20));
     }
+    // 0x00450500: create an interpreter positioned at the named entry.
+    __declspec(noinline) struct ScriptViewerResource_0042be20* CreateVm(const char* name);
     ~ScriptParser_0042be20() {
         if (entries) {
             free(entries);
@@ -45,7 +48,15 @@ struct ScriptParser_0042be20 {
 };
 typedef char ScriptParserSize_0042be20[sizeof(ScriptParser_0042be20) == 0x1098 ? 1 : -1];
 
-// Only the retire entry in slot 5 of the previously loaded object is used.
+// The interpreter state the running script is in; `running` stays nonzero
+// until the script ends.
+struct ScriptViewerVmState_0042be20 {
+    int time;
+    int running;
+};
+
+// The script interpreter the screen runs an entry with. Only its retire entry
+// in slot 5 is called.
 struct ScriptViewerResource_0042be20 {
     virtual void Slot00() = 0;
     virtual void Slot04() = 0;
@@ -53,19 +64,15 @@ struct ScriptViewerResource_0042be20 {
     virtual void Slot0C() = 0;
     virtual void Slot10() = 0;
     virtual void Retire(int release) = 0;
+
+    ScriptViewerVmState_0042be20* active;
 };
 
-// A menu cursor over `count` entries; the cursor is clamped to the last one.
-struct ScriptSelection_0042be20 {
-    int cursor;
-    int previous;
-    int count;
-
-    void Clamp(int& index) const {
-        if (count != 0 && index >= count)
-            index = count - 1;
-    }
-};
+// Clamp a wanted selection to a cursor's last item.
+inline void ScriptViewer_ClampSelection(const MenuCursor& cursor, int& index) {
+    if (cursor.item_count != 0 && index >= cursor.item_count)
+        index = cursor.item_count - 1;
+}
 
 struct SchedulerTask;
 
@@ -95,26 +102,26 @@ struct ScriptViewer_0042be20 {
     int state;                 // 1 = menu, 2 = loading, 3 = running
     const char** script_names;
     int script_count;
-    int menu_row;
-    unsigned char reserved_040[0x114 - 0x40];
-    int script_index;
-    unsigned char reserved_118[0x1EC - 0x118];
-    ScriptSelection_0042be20 selection;
-    unsigned char reserved_1f8[0x2C4 - 0x1F8];
+    MenuCursor menu;           // File / Ecl / Quit
+    MenuCursor file_cursor;    // which script file
+    MenuCursor entry_cursor;   // which entry of the loaded script
     float position_x;
     float position_y;
-    unsigned char reserved_2cc[0x2D8 - 0x2CC];
+    float position_z;
+    int field_2d0;
+    unsigned int flags;
     ScriptParser_0042be20* parser;
     ScriptViewerResource_0042be20* resource;
     char* script_data;
 
     __declspec(noinline) ~ScriptViewer_0042be20();
     __declspec(noinline) void ClearScriptNames();
+    __declspec(noinline) int Update();
     __declspec(noinline) int LoadScript();
     __declspec(noinline) int Draw();
 };
 typedef char ScriptViewerStateOffset_0042be20[offsetof(ScriptViewer_0042be20, state) == 0x30 ? 1 : -1];
-typedef char ScriptViewerCursorOffset_0042be20[offsetof(ScriptViewer_0042be20, selection) == 0x1EC ? 1 : -1];
+typedef char ScriptViewerCursorOffset_0042be20[offsetof(ScriptViewer_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
 typedef char ScriptViewerParserOffset_0042be20[offsetof(ScriptViewer_0042be20, parser) == 0x2D8 ? 1 : -1];
 
 extern "C" ScriptViewer_0042be20* data_00477844;

@@ -24747,13 +24747,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042bfc0_0042bfc0",
-      "source": "src/unidentified/FUN_0042bfc0_0042bfc0.cpp",
-      "symbol": "_asm_FUN_0042bfc0_0042bfc0",
+      "name": "semantic_ScriptViewer_Update_0042bfc0",
+      "source": "src/game/script_viewer_update_0042bfc0.cpp",
+      "symbol": "?Update@ScriptViewer_0042be20@@QAEHXZ",
       "address": "0x0042BFC0",
       "size": 926,
-      "kind": "asm",
-      "owner": "0x0042BFC0"
+      "kind": "semantic",
+      "owner": "0x0042BFC0",
+      "previous_record": {
+        "name": "asm_FUN_0042bfc0_0042bfc0",
+        "source": "src/unidentified/FUN_0042bfc0_0042bfc0.cpp",
+        "symbol": "_asm_FUN_0042bfc0_0042bfc0",
+        "address": "0x0042BFC0",
+        "size": 926,
+        "kind": "asm",
+        "owner": "0x0042BFC0"
+      }
     },
     {
       "name": "text_padding_0042c35e",
@@ -24790,21 +24799,30 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_thunk_FUN_0042bfc0_0042c580",
-      "source": "src/unidentified/thunk_FUN_0042bfc0_0042c580.cpp",
-      "symbol": "_thunk_FUN_0042bfc0_0042c580",
+      "name": "semantic_ScriptViewer_UpdateTask_0042c580",
+      "source": "src/game/script_viewer_update_0042bfc0.cpp",
+      "symbol": "?ScriptViewer_UpdateTask_0042c580@@YIHPAUScriptViewer_0042be20@@@Z",
       "address": "0x0042C580",
       "size": 5,
       "kind": "semantic",
       "owner": "0x0042C580",
       "previous_record": {
-        "name": "asm_thunk_FUN_0042bfc0_0042c580",
+        "name": "semantic_thunk_FUN_0042bfc0_0042c580",
         "source": "src/unidentified/thunk_FUN_0042bfc0_0042c580.cpp",
-        "symbol": "_asm_thunk_FUN_0042bfc0_0042c580",
+        "symbol": "_thunk_FUN_0042bfc0_0042c580",
         "address": "0x0042C580",
         "size": 5,
-        "kind": "asm",
-        "owner": "0x0042C580"
+        "kind": "semantic",
+        "owner": "0x0042C580",
+        "previous_record": {
+          "name": "asm_thunk_FUN_0042bfc0_0042c580",
+          "source": "src/unidentified/thunk_FUN_0042bfc0_0042c580.cpp",
+          "symbol": "_asm_thunk_FUN_0042bfc0_0042c580",
+          "address": "0x0042C580",
+          "size": 5,
+          "kind": "asm",
+          "owner": "0x0042C580"
+        }
       }
     },
     {
@@ -58472,7 +58490,6 @@
     "src/unidentified/FUN_0042baa0_0042baa0.cpp",
     "src/unidentified/FUN_0042bb30_0042bb30.cpp",
     "src/unidentified/FUN_0042bf30_0042bf30.cpp",
-    "src/unidentified/FUN_0042bfc0_0042bfc0.cpp",
     "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
     "src/unidentified/FUN_0042c830_0042c830.cpp",
     "src/unidentified/FUN_0042c9f0_0042c9f0.cpp",
@@ -58788,7 +58805,6 @@
     "src/unidentified/strdup_00462250.cpp",
     "src/unidentified/stricmp_0046054e.cpp",
     "src/unidentified/strnicmp_004605b7.cpp",
-    "src/unidentified/thunk_FUN_0042bfc0_0042c580.cpp",
     "src/unidentified/thunk_FUN_00436a30_00436a20.cpp",
     "src/unidentified/thunk_FUN_0043e5a0_00405bd0.cpp",
     "src/unidentified/timer_arm_float_00405450.cpp",
@@ -59464,7 +59480,8 @@
     "src/game/script_viewer_load_0042be20.cpp",
     "src/game/script_viewer_draw_0042c360.cpp",
     "src/game/sprite_viewer_draw_0040a940.cpp",
-    "src/game/script_viewer_teardown_0042bc30.cpp"
+    "src/game/script_viewer_teardown_0042bc30.cpp",
+    "src/game/script_viewer_update_0042bfc0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60341,7 +60358,8 @@
     "layout/ltcg/script_viewer_draw_0042c360.json",
     "layout/ltcg/sprite_viewer_draw_0040a940.json",
     "layout/ltcg/floating_text_draw_0042b780.json",
-    "layout/ltcg/script_viewer_teardown_0042bc30.json"
+    "layout/ltcg/script_viewer_teardown_0042bc30.json",
+    "layout/ltcg/script_viewer_update_0042bfc0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

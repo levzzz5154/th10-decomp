@@ -9,7 +9,8 @@
     "include/th10/platform/archive_file.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/platform/worker.hpp"
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/menu_cursor.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Spt Test screen destructor with its compiler-generated worker-member cleanup and the ESI script-name clear; real scheduler unlink and worker stop, an EDI stand-in for the animation release and the owned-delete caller.",

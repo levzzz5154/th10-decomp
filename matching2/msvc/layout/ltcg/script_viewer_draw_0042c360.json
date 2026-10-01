@@ -6,7 +6,8 @@
   "headers": [
     "include/th10/game/script_viewer_load_0042be20.hpp",
     "include/th10/platform/archive_file.hpp",
-    "include/th10/game/game_thread_queue_native.hpp"
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/game/menu_cursor.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Spt Test debug text draw with the viewer in EDI and its ECX scheduler callback, compiled with the real marked-text writer (thread ESI, position EBX).",

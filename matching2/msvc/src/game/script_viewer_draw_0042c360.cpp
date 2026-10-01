@@ -17,18 +17,18 @@ int ScriptViewer_0042be20::Draw() {
         position.y = 16.0f;
         position.z = 0.0f;
         if (script_count)
-            AppendMarked_00401690(data_004776e0, &position, "File %s", script_names[script_index]);
+            AppendMarked_00401690(data_004776e0, &position, "File %s", script_names[file_cursor.selection]);
         else
             AppendMarked_00401690(data_004776e0, &position, "File not found.");
         position.y = 26.0f;
         if (parser)
-            AppendMarked_00401690(data_004776e0, &position, "Ecl %s", parser->entries[selection.cursor].name);
+            AppendMarked_00401690(data_004776e0, &position, "Ecl %s", parser->entries[entry_cursor.selection].name);
         else
             AppendMarked_00401690(data_004776e0, &position, "Ecl not load");
         position.y = 36.0f;
         AppendMarked_00401690(data_004776e0, &position, "Quit");
         position.x = 32.0f;
-        position.y = menu_row * 10.0f + 16.0f;
+        position.y = menu.selection * 10.0f + 16.0f;
         AppendMarked_00401690(data_004776e0, &position, ">");
         data_004776e0->current_4c = 0xFFFFFFFF;
         break;
@@ -37,7 +37,7 @@ int ScriptViewer_0042be20::Draw() {
         position.x = 32.0f;
         position.y = 16.0f;
         position.z = 0.0f;
-        AppendMarked_00401690(data_004776e0, &position, "Loading %s", script_names[script_index]);
+        AppendMarked_00401690(data_004776e0, &position, "Loading %s", script_names[file_cursor.selection]);
         data_004776e0->current_4c = 0xFFFFFFFF;
         break;
     case 3: {
