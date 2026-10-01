@@ -25872,13 +25872,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00431410_00431410",
-      "source": "src/game/score_menu_rows.cpp",
-      "symbol": "_asm_FUN_00431410_00431410",
+      "name": "semantic_TitleMenu_DrawPracticeRows_00431410",
+      "source": "src/game/title_practice_rows_00431410.cpp",
+      "symbol": "?DrawPracticeRows@TitleMenu_00431410@@QAEHXZ",
       "address": "0x00431410",
       "size": 419,
-      "kind": "asm",
-      "owner": "0x00431410"
+      "kind": "semantic",
+      "owner": "0x00431410",
+      "previous_record": {
+        "name": "asm_FUN_00431410_00431410",
+        "source": "src/game/score_menu_rows.cpp",
+        "symbol": "_asm_FUN_00431410_00431410",
+        "address": "0x00431410",
+        "size": 419,
+        "kind": "asm",
+        "owner": "0x00431410"
+      }
     },
     {
       "name": "text_padding_004315b3",
@@ -58539,7 +58548,6 @@
     "src/game/score_file.cpp",
     "src/game/score_hud_update.cpp",
     "src/game/score_list_insert_after_00413200.cpp",
-    "src/game/score_menu_rows.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_owned_destroy_0040b9d0.cpp",
     "src/game/score_queue.cpp",
@@ -60079,7 +60087,8 @@
     "src/archive/dat_archive_entry_delete.cpp",
     "src/game/title_load_thread_0042c9f0.cpp",
     "src/game/stage_sequence_schedule.cpp",
-    "src/render/animation_texture_surface_copy.cpp"
+    "src/render/animation_texture_surface_copy.cpp",
+    "src/game/title_practice_rows_00431410.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60979,7 +60988,8 @@
     "layout/ltcg/sound_stream_service.json",
     "layout/ltcg/midi_channel_volume.json",
     "layout/ltcg/archive_entry_delete.json",
-    "layout/ltcg/animation_texture_surface_copy.json"
+    "layout/ltcg/animation_texture_surface_copy.json",
+    "layout/ltcg/title_practice_rows_00431410.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
