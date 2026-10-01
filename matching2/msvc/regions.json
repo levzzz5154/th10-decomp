@@ -22987,13 +22987,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00429610_00429610",
-      "source": "src/game/fun_00429610_00429610.cpp",
-      "symbol": "_asm_FUN_00429610_00429610",
+      "name": "semantic_ReplayManager_CreateStarted_00429610",
+      "source": "src/game/replay_manager_create_00429610.cpp",
+      "symbol": "?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
       "address": "0x00429610",
       "size": 185,
-      "kind": "asm",
-      "owner": "0x00429610"
+      "kind": "semantic",
+      "owner": "0x00429610",
+      "previous_record": {
+        "name": "asm_FUN_00429610_00429610",
+        "source": "src/game/fun_00429610_00429610.cpp",
+        "symbol": "_asm_FUN_00429610_00429610",
+        "address": "0x00429610",
+        "size": 185,
+        "kind": "asm",
+        "owner": "0x00429610"
+      }
     },
     {
       "name": "text_padding_004296c9",
@@ -23030,9 +23039,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_StageManager_Create_004296f0",
-      "source": "src/game/stage_manager_create_004296f0.cpp",
-      "symbol": "?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
+      "name": "semantic_ReplayManager_Create_004296f0",
+      "source": "src/game/replay_manager_create_004296f0.cpp",
+      "symbol": "?ReplayManager_Create_004296f0@@YGPAUReplayManager_004296f0@@PBD@Z",
       "address": "0x004296F0",
       "size": 181,
       "kind": "semantic",
@@ -50117,9 +50126,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_StageManagerCreateUnwind_00465640",
-      "source": "src/game/stage_manager_create_004296f0.cpp",
-      "symbol": "_StageManagerCreateUnwind_00465640",
+      "name": "semantic_ReplayManagerCreateUnwind_00465640",
+      "source": "src/game/replay_manager_create_004296f0.cpp",
+      "symbol": "_ReplayManagerCreateUnwind_00465640",
       "address": "0x00465640",
       "size": 11,
       "kind": "semantic",
@@ -50135,9 +50144,9 @@
       }
     },
     {
-      "name": "semantic_StageManagerCreateHandler_0046564b",
-      "source": "src/game/stage_manager_create_004296f0.cpp",
-      "symbol": "__ehhandler$?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
+      "name": "semantic_ReplayManagerCreateHandler_0046564b",
+      "source": "src/game/replay_manager_create_004296f0.cpp",
+      "symbol": "__ehhandler$?ReplayManager_Create_004296f0@@YGPAUReplayManager_004296f0@@PBD@Z",
       "address": "0x0046564B",
       "size": 10,
       "kind": "semantic",
@@ -50164,25 +50173,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465660_00465660",
-      "source": "src/unidentified/Unwind_00465660_00465660.cpp",
-      "symbol": "_asm_Unwind_00465660_00465660",
+      "name": "semantic_ReplayManagerCreateStartedUnwind_00465660",
+      "source": "src/game/replay_manager_create_00429610.cpp",
+      "symbol": "_ReplayManagerCreateStartedUnwind_00465660",
       "address": "0x00465660",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00465660"
+      "kind": "semantic",
+      "owner": "0x00465660",
+      "previous_record": {
+        "name": "asm_Unwind_00465660_00465660",
+        "source": "src/unidentified/Unwind_00465660_00465660.cpp",
+        "symbol": "_asm_Unwind_00465660_00465660",
+        "address": "0x00465660",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x00465660"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z_0046566b",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
-      "symbol": "__ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z",
+      "name": "semantic_ReplayManagerCreateStartedHandler_0046566b",
+      "source": "src/game/replay_manager_create_00429610.cpp",
+      "symbol": "__ehhandler$?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
       "address": "0x0046566B",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x0046566B",
-      "library_section": ".text$x",
-      "library_section_number": 1359,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z_0046566b",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
+        "symbol": "__ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z",
+        "address": "0x0046566B",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x0046566B",
+        "library_section": ".text$x",
+        "library_section_number": 1359,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_00465675",
@@ -57965,7 +57992,6 @@
     "src/game/fun_00427e90_00427e90.cpp",
     "src/game/fun_00428e10_00428e10.cpp",
     "src/game/fun_004294a0_004294a0.cpp",
-    "src/game/fun_00429610_00429610.cpp",
     "src/game/fun_0042b030_0042b030.cpp",
     "src/game/fun_0042cb60_0042cb60.cpp",
     "src/game/fun_0042e5a0_0042e5a0.cpp",
@@ -58904,7 +58930,6 @@
     "src/unidentified/Unwind_004655d9_004655d9.cpp",
     "src/unidentified/Unwind_004655f4_004655f4.cpp",
     "src/unidentified/Unwind_00465620_00465620.cpp",
-    "src/unidentified/Unwind_00465660_00465660.cpp",
     "src/unidentified/Unwind_00465680_00465680.cpp",
     "src/unidentified/Unwind_0046568b_0046568b.cpp",
     "src/unidentified/Unwind_004656a0_004656a0.cpp",
@@ -59685,7 +59710,8 @@
     "src/game/player_manager_create_00408c90.cpp",
     "src/game/native_effect_manager_create_0041aed0.cpp",
     "src/game/bullet_manager_create_00406060.cpp",
-    "src/game/stage_manager_create_004296f0.cpp"
+    "src/game/replay_manager_create_004296f0.cpp",
+    "src/game/replay_manager_create_00429610.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60571,7 +60597,8 @@
     "layout/ltcg/player_manager_create_00408c90.json",
     "layout/ltcg/native_effect_manager_create_0041aed0.json",
     "layout/ltcg/bullet_manager_create_00406060.json",
-    "layout/ltcg/stage_manager_create_004296f0.json"
+    "layout/ltcg/replay_manager_create_004296f0.json",
+    "layout/ltcg/replay_manager_create_00429610.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

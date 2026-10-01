@@ -1,80 +1,86 @@
 {
   "schema_version": 1,
-  "name": "stage_manager_create_004296f0",
-  "source": "src/game/stage_manager_create_004296f0.cpp",
-  "driver": "layout/ltcg/stage_manager_create_004296f0/context.cpp",
+  "name": "replay_manager_create_00429610",
+  "source": "src/game/replay_manager_create_00429610.cpp",
+  "driver": "layout/ltcg/replay_manager_create_00429610/context.cpp",
   "headers": [
-    "include/th10/game/stage_manager_create_004296f0.hpp",
-    "include/th10/platform/thread_sync.hpp"
+    "include/th10/game/replay_manager_create_004296f0.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/scheduler.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Stage manager factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with stand-in destructor and initializer shaped for their receivers.",
+  "description": "Replay manager start factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with stand-in starter and destructor shaped for their receivers.",
   "functions": [
     {
-      "name": "StageManager_Create",
-      "symbol": "?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
+      "name": "ReplayManager_CreateStarted",
+      "symbol": "?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
       "section": ".text$04create",
-      "address": "0x004296F0",
-      "actual_abi": "stage path on the stack, RET 4; manager returned in EAX; compiler-generated EH frame",
-      "size": 181
+      "address": "0x00429610",
+      "actual_abi": "mode and path on the stack, RET 8; manager returned in EAX; compiler-generated EH frame",
+      "size": 185
     },
     {
-      "name": "StageManagerCreateUnwind",
-      "symbol": "_StageManagerCreateUnwind_00465640",
+      "name": "ReplayManagerCreateStartedUnwind",
+      "symbol": "_ReplayManagerCreateStartedUnwind_00465660",
       "section": ".text$x",
-      "address": "0x00465640",
+      "address": "0x00465660",
       "actual_abi": "frees the block when a node constructor throws",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+",
       "size": 11
     },
     {
-      "name": "StageManagerCreateHandler",
-      "symbol": "__ehhandler$?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
+      "name": "ReplayManagerCreateStartedHandler",
+      "symbol": "__ehhandler$?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
       "section": ".text$x",
-      "address": "0x0046564B",
+      "address": "0x0046566B",
       "actual_abi": "compiler-generated EH handler",
       "generated": true,
       "size": 10
     }
   ],
   "context": {
-    "symbol": "?StageManagerCreateCompilerContext@@YGHPBD@Z",
+    "symbol": "?ReplayManagerStartCompilerContext@@YGHHPBD@Z",
     "section": ".text$05context",
-    "address": "0x004297B0",
-    "size": 19,
+    "address": "0x004296D0",
+    "size": 24,
     "description": "Synthetic caller; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00before",
       "address": 4198400,
-      "size": 165024
+      "size": 163680
     },
     {
-      "section": ".text$01dtorz",
+      "section": ".text$01startz",
+      "address": 4362174,
+      "size": 1250
+    },
+    {
+      "section": ".text$03dtorz",
       "address": 4363586,
-      "size": 430
+      "size": 206
     },
     {
       "section": ".text$04createz",
-      "address": 4364197,
-      "size": 11
+      "address": 4363977,
+      "size": 7
     },
     {
       "section": ".text$05contextz",
-      "address": 4364227,
-      "size": 2621
+      "address": 4364008,
+      "size": 132088
     },
     {
-      "section": ".text$06initz",
-      "address": 4366900,
-      "size": 242700
+      "section": ".text$06primaryz",
+      "address": 4496227,
+      "size": 113405
     },
     {
       "section": ".rdata$0before",
       "address": 4612096,
-      "size": 46740
+      "size": 46776
     }
   ],
   "constants": [],
@@ -110,12 +116,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??0StageManagerNode_004296f0@@QAE@XZ",
+      "symbol": "??0ReplayManagerNode_004296f0@@QAE@XZ",
       "address": "0x0042AC20",
       "kind": "data"
     },
     {
-      "symbol": "??1StageManagerNode_004296f0@@QAE@XZ",
+      "symbol": "??1ReplayManagerNode_004296f0@@QAE@XZ",
       "address": "0x0042AC60",
       "kind": "data"
     },
@@ -140,13 +146,18 @@
       "kind": "data"
     },
     {
-      "symbol": "_StageManagerStandIn_Remove@8",
+      "symbol": "_ReplayManagerStandIn_Remove@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     },
     {
-      "symbol": "_StageManagerStandIn_Load@4",
+      "symbol": "_ReplayManagerStandIn_Load@4",
       "address": "0x0042A400",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Task@4",
+      "address": "0x00449ED0",
       "kind": "relative_code"
     }
   ],
@@ -154,25 +165,32 @@
   "native_data": [
     {
       "section": ".xdata$x",
-      "address": "0x00471694",
-      "bytes": "ffffffff4056460020059319010000009416470000000000000000000000000000000000",
+      "address": "0x004716B8",
+      "bytes": "ffffffff605646002005931901000000b816470000000000000000000000000000000000",
       "description": "Unwind map and FuncInfo of the factory; validation only"
     }
   ],
   "anchors": [
     {
+      "name": "StartStandIn",
+      "symbol": "?Start@ReplayManager_004296f0@@QAEHHPBD@Z",
+      "section": ".text$01start",
+      "address": "0x00428F60",
+      "size": 94
+    },
+    {
       "name": "DestructorStandIn",
-      "symbol": "??1StageManager_004296f0@@QAE@XZ",
-      "section": ".text$01dtor",
+      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
+      "section": ".text$03dtor",
       "address": "0x004294A0",
       "size": 162
     },
     {
-      "name": "InitializeStandIn",
-      "symbol": "?Initialize@StageManager_004296f0@@QAEHPBD@Z",
-      "section": ".text$06init",
-      "address": "0x0042A200",
-      "size": 52
+      "name": "ActualSchedulerRegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$06primary",
+      "address": "0x00449AE0",
+      "size": 131
     }
   ]
 }
