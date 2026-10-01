@@ -139,3 +139,14 @@ OS imports, COM methods, allocation/free and file I/O remain scripted.
 Arbitrary concurrent schedules, real Windows handles/audio, exception dispatch,
 native private ABIs and full frame/byte matching remain unverified. Complete
 region and whole-executable gates are still required before any promotion.
+
+
+## Complete native cleanup promotion (2026-10-02)
+
+`src/platform/sound_cleanup_0043d120.cpp` now owns all 301 bytes at 0x0043D120.
+The existing `native_sound_shutdown` cluster selects this source alongside
+the verified worker stop routine. A separate translation unit and synthetic
+array-walking caller recover the cleanup receiver in EAX and preserve the
+worker stop receiver in ESI; the caller itself is never selected as game code.
+The previous assembly cleanup owner and duplicate native context body have
+been removed. Incremental `make` verified the entire 487,936-byte EXE exactly.

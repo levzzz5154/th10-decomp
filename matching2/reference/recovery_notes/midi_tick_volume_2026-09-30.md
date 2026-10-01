@@ -80,3 +80,59 @@ volume argument-slot reuse, clamp branch shape, x87 scheduling, and the tick's
 live track-table reloads after ProcessMidiEvent. Only after both regions are
 exact may their complete manifest records be promoted. Whole-image validation
 remains required for a production landing when rebuilding is authorized.
+
+
+## Native channel-volume promotion (2026-10-02)
+
+`src/platform/midi_channel_volumes.cpp` reproduces all 140 bytes at
+0x0043B7A0 under the `midi_channel_volume` native LTCG cluster. The compiler
+chooses the retail EDI receiver and stack adjustment, emits the same x87
+FILD/FMUL sequence and float-to-64-bit helper call at 0x00463B2C, and retains
+the sixteen-channel loop and signed clamp. The status is computed before the
+conversion, preserving the retail temporary and instruction schedule.
+
+The three-byte message is left with an uninitialized fourth byte. Native MSVC
+reuses the incoming adjustment slot for this local, exactly preserving that
+argument's high byte in the emitted instructions. Explicitly addressing the
+argument instead caused MSVC to pass the receiver on the stack and failed
+the byte gate; it was rejected. Layout assertions cover the channel stride,
+output handle, channel array, fade scale and suppression flag.
+
+Incremental `make` verified the entire 487,936-byte EXE exactly after promotion:
+2,046 ordinary C++ regions / 125,749 bytes; 274 assembly regions / 197,382 bytes.
+The obsolete assembly owner was removed. Tick remains a separate recovery
+task; this result supersedes only the channel-volume blockers above.
+
+
+## Native tick follow-up (2026-10-02)
+
+The snapshot in `semantic_candidates/midi_tick_native/` mirrors the MSVC
+source/layout tree and reproduces a 473-byte tick with 466 matching bytes.
+All bytes outside 0x0043B031..0x0043B03B match, including the public ECX
+receiver, fade calculation and conversion sequence, runtime arithmetic calls,
+callback-time track-table reloads, loop alignment, and both return paths.
+The companion volume helper still matches all 140 bytes in this cluster.
+Native evidence is under `matching2/build/probes/midi_tick/`.
+
+The remaining block is twelve bytes long in both images. Retail uses:
+`mov eax,[edi+138h]; lea ecx,[eax+ebp]; mov eax,[ecx+4]`.
+The candidate uses:
+`mov ecx,[edi+138h]; mov eax,[ecx+ebp+4]; add ecx,ebp`.
+Seven bytes differ within those equivalent address/load sequences.
+Pointer/reference forms, volatile next-event reads, explicit unsigned address
+arithmetic, and a reference spelling of the event-parser argument did not
+resolve the difference. Production retains its verified assembly tick owner.
+
+Initializing the active-track flag before event-time calculation recovered
+the retail early zero register and local lifetime. Inverting the fade-duration
+condition recovered the out-of-line completed-fade return. Reading the track
+table through a volatile pointer view at each decision recovered the 473-byte
+extent and retail reload/loop structure; a per-iteration track pointer is shared
+by the time comparison and event-parser call. No instruction rewriting, inline
+assembly, relocation masking, or oracle-byte inclusion was used.
+
+
+A further native retry on 2026-10-02 moved the due-event comparison/call into
+a force-inlined helper; it retained the same seven-byte mismatch. Rewriting
+the inner do/while as a while loop changed the extent/layout and failed the
+native gate. The existing 466/473-byte snapshot remains the preferred candidate.

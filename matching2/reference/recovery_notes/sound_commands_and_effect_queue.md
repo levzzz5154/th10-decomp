@@ -235,3 +235,40 @@ and preserved registers. The dispatcher module is 1,840 Clang bytes; the two
 producer bodies share a 788-byte module. These are behavioral measurements,
 not byte matches. Full-region and whole-executable gates remain required, and
 no region was promoted or exactness rule relaxed.
+
+
+## Native effect-buffer setup follow-up (2026-10-02)
+
+The snapshot in `semantic_candidates/sound_effects_native/` mirrors the MSVC
+source/layout tree for the 295-byte initialization at 0x0043DB60. The most
+readable native candidate emits 300 bytes, and is not selected in production.
+Native evidence is under `matching2/build/probes/sound_effects/`; the
+`native-rjnti7fn` build contains the matching snapshot's 300-byte member body.
+The snapshot's manifest declares retail extents deliberately, so a probe fails
+the extent/address gate rather than admitting an incomplete contribution.
+
+Both the same-translation-unit and separate-GL worker/caller builds recover
+the full 175-byte worker-stop extent and its ESI receiver. Literal 1.0f, 0.01f
+and -5000.0f with compiler constant aliases reproduce the retail x87 scale,
+fourth-power curve, conversion call and residual stack cleanup. Explicit
+twelve-slot sentinel stores are needed for the unrolled retail initialization:
+a volatile loop emitted a loop, while intrinsic memset emitted REP STOS.
+The duplicated-buffer loop retains the source index, 47-buffer count, eight-byte
+settings stride, per-buffer position reset and signed volume update.
+
+Remaining blockers are native register allocation and the music-volume reload.
+The candidate selects EDI for the manager and retains -1 in EBX across the
+worker call, whereas retail uses EBX for the manager and EAX for initialization.
+Its indirect DuplicateSoundBuffer call uses ECX for the source and EDX for the
+vtable; retail uses EDX and ECX respectively. The candidate spills the copied
+music-volume setting to a stack temporary for FILD instead of loading the
+manager field directly, adding a stack slot and return cleanup. Marking that
+field volatile forced an additional integer load and spill rather than the
+retail memory-form FILD. Signed field and integer-view casts, free/member
+entry spellings, repeated-call contexts and separate translation units did not
+resolve these differences. A presence-to-error calculation changed the constant
+lifetime but introduced SETNE/test/DEC instructions; it was rejected.
+
+The verified assembly owner and independent native worker cluster remain
+active. No recovered-code credit is assigned to this candidate, and no exact
+byte gate was relaxed.

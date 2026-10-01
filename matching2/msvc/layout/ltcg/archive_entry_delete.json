@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "name": "archive_entry_delete",
+  "source": "src/archive/dat_archive_entry_delete.cpp",
+  "driver": "layout/ltcg/archive_entry_delete_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Readable archive entry scalar/vector deletion with the original cookie and destructor helper.",
+  "functions": [
+    {
+      "name": "ArchiveEntryDelete",
+      "symbol": "?Delete@ArchiveEntryOwner@@QAEPAXUEntryDeletionFlags@@@Z",
+      "section": ".text$01delete",
+      "address": "0x00434D70",
+      "size": 93,
+      "actual_abi": "entry ESI; low flags byte on stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_ArchiveDeleteContext@12",
+    "section": ".text$03context",
+    "address": "0x00434DE0",
+    "size": 63,
+    "description": "Synthetic repeated caller, never selected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 212336
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x00434DCD",
+      "size": 19
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_ReleaseName",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReleaseAllocation",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DestroyEntryArray@16",
+      "address": "0x4525ff",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ReleaseArchiveEntry@4",
+      "address": "0x435250",
+      "kind": "data"
+    }
+  ]
+}

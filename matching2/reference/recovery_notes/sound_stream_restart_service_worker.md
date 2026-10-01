@@ -166,3 +166,20 @@ establish real Windows scheduling, live audio, arbitrary concurrent mutation,
 or exception dispatch. Native MSVC helper ABIs, frames, full-region bytes and
 whole-executable gates remain pending. No manifest region was promoted and no
 byte gate was relaxed.
+
+
+## Native service promotion (2026-10-02)
+
+`src/platform/sound_stream_service.cpp` now owns the complete 637-byte native
+service extent at 0x0044D850 through 0x0044DACC, including the aligned refill
+loop formerly split into a 221-byte assembly continuation at 0x0044D9F0.
+`layout/ltcg/sound_stream_service.json` compiles readable C++ with the native
+fill, restore, rewind and read helpers to recover their private register ABIs.
+The selected function is ordinary two-argument stdcall with RET 8.
+
+The short-read branch follows both the read and silence paths, retaining the
+retail loop alignment. Standard intrinsic memset supplies the silence fill.
+The retired assembly sources and obsolete three-byte padding owner have been
+removed. Incremental `make` verified the entire 487,936-byte EXE exactly.
+This native result supersedes the service byte/ABI blockers above; the
+separate worker behavioral limitations are unchanged.

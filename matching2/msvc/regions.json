@@ -26431,13 +26431,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00434d70_00434d70",
-      "source": "src/unidentified/FUN_00434d70_00434d70.cpp",
-      "symbol": "_asm_FUN_00434d70_00434d70",
+      "name": "semantic_ArchiveEntryDelete_00434d70",
+      "source": "src/archive/dat_archive_entry_delete.cpp",
+      "symbol": "?Delete@ArchiveEntryOwner@@QAEPAXUEntryDeletionFlags@@@Z",
       "address": "0x00434D70",
       "size": 93,
-      "kind": "asm",
-      "owner": "0x00434D70"
+      "kind": "semantic",
+      "owner": "0x00434D70",
+      "legacy": {
+        "name": "asm_FUN_00434d70_00434d70",
+        "source": "src/unidentified/FUN_00434d70_00434d70.cpp",
+        "symbol": "_asm_FUN_00434d70_00434d70",
+        "address": "0x00434D70",
+        "size": 93,
+        "kind": "asm",
+        "owner": "0x00434D70"
+      }
     },
     {
       "name": "text_padding_00434dcd",
@@ -31032,13 +31041,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043b7a0_0043b7a0",
-      "source": "src/platform/fun_0043b7a0_0043b7a0.cpp",
-      "symbol": "_asm_FUN_0043b7a0_0043b7a0",
+      "name": "semantic_MidiChannelVolume_0043b7a0",
+      "source": "src/platform/midi_channel_volumes.cpp",
+      "symbol": "?ApplyChannelVolumes@MidiVolumeState@@QAEXH@Z",
       "address": "0x0043B7A0",
       "size": 140,
-      "kind": "asm",
-      "owner": "0x0043B7A0"
+      "kind": "semantic",
+      "owner": "0x0043B7A0",
+      "legacy": {
+        "name": "asm_FUN_0043b7a0_0043b7a0",
+        "source": "src/platform/fun_0043b7a0_0043b7a0.cpp",
+        "symbol": "_asm_FUN_0043b7a0_0043b7a0",
+        "address": "0x0043B7A0",
+        "size": 140,
+        "kind": "asm",
+        "owner": "0x0043B7A0"
+      }
     },
     {
       "name": "text_padding_0043b82c",
@@ -32209,13 +32227,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043d120_0043d120",
-      "source": "src/platform/fun_0043d120_0043d120.cpp",
-      "symbol": "_asm_FUN_0043d120_0043d120",
+      "name": "semantic_SoundCleanup_0043d120",
+      "source": "src/platform/sound_cleanup_0043d120.cpp",
+      "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
       "address": "0x0043D120",
       "size": 301,
-      "kind": "asm",
-      "owner": "0x0043D120"
+      "kind": "semantic",
+      "owner": "0x0043D120",
+      "legacy": {
+        "name": "asm_FUN_0043d120_0043d120",
+        "source": "src/platform/fun_0043d120_0043d120.cpp",
+        "symbol": "_asm_FUN_0043d120_0043d120",
+        "address": "0x0043D120",
+        "size": 301,
+        "kind": "asm",
+        "owner": "0x0043D120"
+      }
     },
     {
       "name": "text_padding_0043d24d",
@@ -40596,30 +40623,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044d850_0044d850",
-      "source": "src/platform/fun_0044d850_0044d850.cpp",
-      "symbol": "_asm_FUN_0044d850_0044d850",
+      "name": "semantic_SoundStream_Service_0044d850",
+      "source": "src/platform/sound_stream_service.cpp",
+      "symbol": "_SoundStream_Service_0044d850@8",
       "address": "0x0044D850",
-      "size": 413,
-      "kind": "asm",
-      "owner": "0x0044D850"
-    },
-    {
-      "name": "text_padding_0044d9ed",
-      "source": "src/data/text_0044.cpp",
-      "symbol": "_text_padding_0044d9ed",
-      "address": "0x0044D9ED",
-      "size": 3,
-      "kind": "padding"
-    },
-    {
-      "name": "asm_FUN_0044d850_part_0044d9f0",
-      "source": "src/platform/bgm_streamer_refill.cpp",
-      "symbol": "_asm_FUN_0044d850_part_0044d9f0",
-      "address": "0x0044D9F0",
-      "size": 221,
-      "kind": "asm",
-      "owner": "0x0044D850"
+      "size": 637,
+      "kind": "semantic",
+      "owner": "0x0044D850",
+      "legacy": {
+        "name": "asm_FUN_0044d850_0044d850",
+        "source": "src/platform/fun_0044d850_0044d850.cpp",
+        "symbol": "_asm_FUN_0044d850_0044d850",
+        "address": "0x0044D850",
+        "size": 413,
+        "kind": "asm",
+        "owner": "0x0044D850"
+      }
     },
     {
       "name": "text_padding_0044dacd",
@@ -57991,7 +58010,11 @@
     "??1EffectAnimation_00401FF0@@QAE@XZ": "0x00401FF0",
     "??1EffectManager_0042B570@@QAE@XZ": "0x0042B570",
     "_EffectManagerAnimationUnwind_00465230": "0x00465230",
-    "__ehhandler$??1EffectManager_0042B570@@QAE@XZ": "0x0046523B"
+    "__ehhandler$??1EffectManager_0042B570@@QAE@XZ": "0x0046523B",
+    "_SoundStream_Service_0044d850@8": "0x0044D850",
+    "?Cleanup@WaveSoundManager@@QAEHXZ": "0x0043D120",
+    "?ApplyChannelVolumes@MidiVolumeState@@QAEXH@Z": "0x0043B7A0",
+    "?Delete@ArchiveEntryOwner@@QAEPAXUEntryDeletionFlags@@@Z": "0x00434D70"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -58519,7 +58542,6 @@
     "src/math/vec_subtract_00404d40.cpp",
     "src/math/vector3_cross.cpp",
     "src/math/x87_polar_setters.cpp",
-    "src/platform/bgm_streamer_refill.cpp",
     "src/platform/buffer_file_open.cpp",
     "src/platform/file.cpp",
     "src/platform/file_handle_open_00435370.cpp",
@@ -58541,13 +58563,11 @@
     "src/platform/fun_0043a910_0043a910.cpp",
     "src/platform/fun_0043ae20_0043ae20.cpp",
     "src/platform/fun_0043aeb0_0043aeb0.cpp",
-    "src/platform/fun_0043b7a0_0043b7a0.cpp",
-    "src/platform/fun_0043d120_0043d120.cpp",
+    "src/platform/midi_channel_volumes.cpp",
     "src/platform/fun_0043d390_0043d390.cpp",
     "src/platform/fun_0043d7d0_0043d7d0.cpp",
     "src/platform/fun_0043d950_0043d950.cpp",
     "src/platform/fun_0044cbf0_0044cbf0.cpp",
-    "src/platform/fun_0044d850_0044d850.cpp",
     "src/platform/gdi_font_cache.cpp",
     "src/platform/gdi_surface.cpp",
     "src/platform/joystick_poll.cpp",
@@ -59025,7 +59045,6 @@
     "src/unidentified/FUN_00434be0_00434be0.cpp",
     "src/unidentified/FUN_00434bf0_00434bf0.cpp",
     "src/unidentified/FUN_00434c10_00434c10.cpp",
-    "src/unidentified/FUN_00434d70_00434d70.cpp",
     "src/unidentified/FUN_00435300_00435300.cpp",
     "src/unidentified/FUN_004356c0_004356c0.cpp",
     "src/unidentified/FUN_004359a0_004359a0.cpp",
@@ -59998,7 +60017,10 @@
     "src/game/bullet_slot_construct_00405d00.cpp",
     "src/game/item_score_display_create_00415db0.cpp",
     "src/platform/sound_stream_construct_0044ce80.cpp",
-    "src/platform/sound_stream_recreate_buffers_0044cf20.cpp"
+    "src/platform/sound_stream_recreate_buffers_0044cf20.cpp",
+    "src/platform/sound_stream_service.cpp",
+    "src/platform/sound_cleanup_0043d120.cpp",
+    "src/archive/dat_archive_entry_delete.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60894,7 +60916,10 @@
     "layout/ltcg/bullet_slot_construct_00405d00.json",
     "layout/ltcg/item_score_display_create_00415db0.json",
     "layout/ltcg/sound_stream_construct_0044ce80.json",
-    "layout/ltcg/sound_stream_recreate_buffers_0044cf20.json"
+    "layout/ltcg/sound_stream_recreate_buffers_0044cf20.json",
+    "layout/ltcg/sound_stream_service.json",
+    "layout/ltcg/midi_channel_volume.json",
+    "layout/ltcg/archive_entry_delete.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

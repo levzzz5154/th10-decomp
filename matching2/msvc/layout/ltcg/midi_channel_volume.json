@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "midi_channel_volume",
+  "source": "src/platform/midi_channel_volumes.cpp",
+  "driver": "layout/ltcg/midi_volume_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native MIDI channel volume adjustment with x87 integer conversion and the original partial message writes.",
+  "functions": [
+    {
+      "name": "ApplyChannelVolumes",
+      "symbol": "?ApplyChannelVolumes@MidiVolumeState@@QAEXH@Z",
+      "section": ".text$01volume",
+      "address": "0x0043B7A0",
+      "size": 140,
+      "actual_abi": "receiver EDI; stack adjustment; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_MidiVolumeContext@12",
+    "section": ".text$03context",
+    "address": "0x0043B840",
+    "size": 46,
+    "description": "Synthetic compiler caller, never selected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 239520
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0043B82C",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_IatTickMidiOutShortMsg",
+      "address": "0x00466298",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": []
+}

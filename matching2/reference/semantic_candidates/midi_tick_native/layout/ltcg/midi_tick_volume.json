@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "name": "midi_tick_volume",
+  "source": "src/platform/midi_tick.cpp",
+  "driver": "layout/ltcg/midi_tick_context.cpp",
+  "headers": [
+    "include/th10/platform/midi_sequencer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native MIDI channel volume adjustment with x87 integer conversion and the original partial message writes.",
+  "functions": [
+    {
+      "name": "Tick",
+      "symbol": "?Tick@MidiTickState@@QAEXXZ",
+      "section": ".text$03tick",
+      "address": "0x0043AF30",
+      "size": 473,
+      "actual_abi": "receiver ECX; plain RET"
+    },
+    {
+      "name": "ApplyChannelVolumes",
+      "symbol": "?ApplyChannelVolumes@MidiTickState@@QAEXH@Z",
+      "section": ".text$05volume",
+      "address": "0x0043B7A0",
+      "size": 140,
+      "actual_abi": "receiver EDI; stack adjustment; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_MidiTickContext@12",
+    "section": ".text$07context",
+    "address": "0x0043B840",
+    "size": 59,
+    "description": "Synthetic compiler caller, never selected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 236768
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0043AD64",
+      "size": 460
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0043B109",
+      "size": 1687
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x0043B82C",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_IatTickMidiOutShortMsg",
+      "address": "0x00466298",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "__allmul",
+      "address": "0x00456640",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__aulldiv",
+      "address": "0x00456B80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ProcessMidiEvent_0043B110@8",
+      "address": "0x0043B110",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "?Tick@MidiTickState@@QAEXXZ"
+  ],
+  "included_sources": [
+    "layout/ltcg/midi_tick_reset.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "Reset",
+      "symbol": "?ResetTracks@MidiSequencer@@QAEXXZ",
+      "section": ".text$01reset",
+      "address": "0x0043ACE0",
+      "size": 132
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@43000000",
+      "address": "0x00470BF4",
+      "value": 128.0
+    }
+  ]
+}

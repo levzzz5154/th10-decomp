@@ -110,3 +110,28 @@ Windows exception dispatch or general concurrent execution is exercised.
 Native MSVC stack-cookie/frame matching and whole-executable verification are
 still required before promotion. The archived environment-based loader is an
 older approximate model and is not evidence for the behavior above.
+
+
+## Native MSVC follow-up (2026-10-02)
+
+The native candidate in `semantic_candidates/sound_wave_load_native/` emits
+the correct 684-byte extent, stack frame and helper ABIs. The best probe
+matched 682 of 684 bytes without relocation exclusions. At 0x0043D4AA retail
+emits `83 C5 F4` (ADD EBP,-12); the candidate emits `83 ED 0C` (SUB EBP,12).
+All other bytes match, including both helper calls and buffer copies. The
+production manifest retains the verified assembly implementation pending
+resolution of that encoding difference. No compiler-output patching was used.
+
+The snapshot mirrors `matching2/msvc/`: it contains the source, private type
+header, native helper/context sources and cluster specification needed to
+reproduce the probe after temporarily registering the cluster and semantic
+region in regions.json. Native probe evidence remains under
+`matching2/build/probes/sound_wave_load/`.
+
+Key compiler constraints: explicit early parse-error exits retain the retail
+frame; intrinsic memcpy reproduces the 18-byte format snapshot; staged cursor
+advances retain the initial LEA/add pair; the chunk helper declaration orders
+arguments as data, output size, byte count, tag to recover ECX/EDI/EAX inputs
+and the retail caller move order. Integer subtraction/addition variants still
+emit SUB 12. Pointer-distance and disabled-global-optimization probes changed
+other code and were rejected.

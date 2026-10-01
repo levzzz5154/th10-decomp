@@ -2,7 +2,8 @@
 
 2026-09-30. Readable, assembly-free archive cleanup now includes exact native
 MSVC LTCG implementations for Reset, Close, and the global shutdown callback.
-The entry deleting destructor remains assembly in the exact-build manifest.
+The entry deleting destructor was also promoted after the 2026-10-02 native
+verification documented below.
 
 ## Sources and interfaces
 
@@ -113,3 +114,36 @@ and `matching2/build/probe_archive_shutdown_registration`.
 The manifest now marks Reset, Close, and the shutdown callback as semantic C++
 regions. Entry deletion at `0x00434D70` remains assembly and is the next
 assembly body in this cleanup family.
+
+
+## Native entry deletion promotion (2026-10-02)
+
+`matching2/msvc/src/archive/dat_archive_entry_delete.cpp` now owns the complete
+93-byte entry at 0x00434D70. The `archive_entry_delete` native LTCG cluster
+selects its ESI receiver, one four-byte flags stack slot, BL snapshot, both
+return paths and RET 4 exactly. The entry layout is asserted as sixteen bytes.
+The retired inline-assembly source has been removed from the manifest and tree.
+
+A one-byte `EntryDeletionFlags` value record preserves the argument's stack
+allocation under MSVC's aggregate parameter rules; only its low byte is used,
+and the stack slot is rounded to four bytes. This is ordinary C++ parameter
+modelling, not an instruction or register adapter. A primitive byte argument
+was instead passed privately in BL, producing an 82-byte body; volatile reads
+and caller accumulation did not restore the required stack boundary. The
+record form reproduces all 93 bytes directly from native compiler output.
+
+The callback remains bound at 0x00435250, and the real vector destructor helper
+at 0x004525FF performs reverse-order destruction and its exception handling.
+Scalar mode retains name release/clear before optional object deallocation.
+Array mode retains the cookie address as its return value, including when
+flag bit zero disables deallocation. No helper code was replaced or copied
+from the oracle; no byte masks, output rewriting or inline assembly are used.
+The synthetic repeated caller is not selected as game code.
+
+The focused probe reported EXACT. Native region SHA-256:
+`6bfd35aca859347fde485897b0994d0c19232d657c86ca40a2b0d329af4fbeb5`.
+Incremental `make` verified the entire 487,936-byte executable exactly, reusing
+1,645 unchanged units and compiling three. Current game-source progress is
+2,047 C++ regions / 125,842 bytes (88.23% of regions, 38.94% of bytes), with
+273 assembly regions / 197,289 bytes remaining. The earlier entry-deletion
+native blocker above is superseded by this verification.

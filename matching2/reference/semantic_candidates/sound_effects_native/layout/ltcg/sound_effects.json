@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "name": "sound_effects",
+  "source": "src/platform/sound_worker.cpp",
+  "driver": "layout/ltcg/sound_effects/context.cpp",
+  "headers": [
+    "layout/ltcg/sound_effects/sound_wave_types.hpp",
+    "layout/ltcg/sound_effects/workers.hpp"
+  ],
+  "included_sources": [],
+  "image_base": "0x00400000",
+  "description": "Sound effect buffer duplication and volume initialization using the native worker stop helper.",
+  "functions": [
+    {
+      "name": "StopWorkers",
+      "symbol": "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ",
+      "section": ".text$01stop",
+      "address": "0x0043CC40",
+      "size": 175,
+      "actual_abi": "worker state ESI; plain RET"
+    },
+    {
+      "name": "InitializeEffects",
+      "symbol": "?InitializeEffects@WaveSoundManager@@QAEHXZ",
+      "section": ".text$03effects",
+      "address": "0x0043DB60",
+      "size": 295,
+      "actual_abi": "manager EBX; plain RET",
+      "source": "src/platform/sound_effect_buffers.cpp"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "_SoundEffectsContext@8",
+    "section": ".text$05context",
+    "address": "0x0043DCA0",
+    "size": 35,
+    "description": "Synthetic repeated caller; never selected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 244800
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0043CCEF",
+      "size": 3697
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0043DC87",
+      "size": 25
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_sound_manager",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_effect_settings",
+      "address": "0x4749c8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_volume_setting",
+      "address": "0x491d68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_effect_volume_setting",
+      "address": "0x491d69",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_volume_scale",
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_volume_one",
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_volume_range",
+      "address": "0x470b80",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    },
+    {
+      "symbol": "__real@c59c4000",
+      "address": "0x00470B80",
+      "value": -5000.0
+    }
+  ],
+  "additional_sources": [
+    "src/platform/sound_effect_buffers.cpp"
+  ]
+}

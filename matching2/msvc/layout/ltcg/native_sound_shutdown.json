@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "native_sound_shutdown",
   "source": "src/platform/midi_worker_stop.cpp",
-  "driver": "layout/ltcg/native_sound_shutdown/cleanup_context.cpp",
+  "driver": "layout/ltcg/native_sound_shutdown/cleanup_recovery_context.cpp",
   "headers": [
     "include/th10/platform/native_sound_shutdown.hpp"
   ],
@@ -10,7 +10,7 @@
     "layout/ltcg/native_sound_shutdown/aggregate.cpp"
   ],
   "image_base": "0x00400000",
-  "description": "Complete real Cleanup301 caller, Stop176 and genuine aggregate82 with typed COM. Original Cleanup EAX may remain native ECX diagnostic; no surrogate.",
+  "description": "Complete sound cleanup and worker shutdown compiled together; caller context exposes their native EAX and ESI receiver registers.",
   "functions": [
     {
       "name": "StopMusicWorker",
@@ -19,6 +19,15 @@
       "address": "0x0043DAB0",
       "size": 176,
       "actual_abi": "Original ESI receiver, no stack arguments/plainRET"
+    },
+    {
+      "name": "SoundCleanup",
+      "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
+      "source": "src/platform/sound_cleanup_0043d120.cpp",
+      "section": ".text$a00cleanup",
+      "address": "0x0043D120",
+      "size": 301,
+      "actual_abi": "manager in EAX; plain RET"
     }
   ],
   "anchors": [
@@ -31,11 +40,11 @@
     }
   ],
   "context": {
-    "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
-    "section": ".text$a00cleanup",
-    "address": "0x0043D120",
-    "size": 301,
-    "description": "Actual complete original Cleanup301 caller, never synthetic. Entry receiver originalEAX versus ordinary native declared member."
+    "symbol": "_SoundCleanupContext@8",
+    "section": ".text$a06context",
+    "address": "0x0044E000",
+    "size": 40,
+    "description": "Synthetic array-walking caller; not selected as game code."
   },
   "gaps": [
     {
@@ -52,6 +61,11 @@
       "section": ".text$a03gap",
       "address": "0x0043DB60",
       "size": 63984
+    },
+    {
+      "section": ".text$a05gap",
+      "address": "0x0044D5A2",
+      "size": 2654
     }
   ],
   "constants": [],
@@ -86,5 +100,8 @@
       "address": "0x004524A1",
       "kind": "relative_code"
     }
+  ],
+  "additional_sources": [
+    "src/platform/sound_cleanup_0043d120.cpp"
   ]
 }

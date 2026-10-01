@@ -1,5 +1,5 @@
+// 0x0043D120: release loaded sound data, both buffer banks and streaming state.
 #include "th10/platform/native_sound_shutdown.hpp"
-#include "../../../src/platform/midi_worker_stop.cpp"
 #pragma code_seg(".text$a00cleanup")
 int WaveSoundManager::Cleanup() {
     if (loaded) {

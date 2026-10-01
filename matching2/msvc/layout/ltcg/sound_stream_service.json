@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "name": "sound_stream_service",
+  "source": "src/platform/sound_stream_service.cpp",
+  "driver": "layout/ltcg/sound_stream_service/context.cpp",
+  "headers": [
+    "include/th10/game/sound_stream_service.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/sound_stream_service/fill.cpp",
+    "layout/ltcg/sound_stream_service/restore.cpp",
+    "layout/ltcg/sound_stream_service/rewind.cpp",
+    "layout/ltcg/sound_stream_service/read.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete streaming notification service, including its aligned loop and native read/rewind/restore/fill helpers.",
+  "functions": [
+    {
+      "name": "SoundStream_Service",
+      "symbol": "_SoundStream_Service_0044d850@8",
+      "section": ".text$05service",
+      "address": "0x0044D850",
+      "size": 637,
+      "actual_abi": "two stack arguments; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "_StreamServiceContext@12",
+    "section": ".text$11context",
+    "address": "0x0044E100",
+    "size": 53,
+    "description": "Synthetic caller, never selected as game code."
+  },
+  "anchors": [
+    {
+      "name": "_SoundStreamFill@12",
+      "symbol": "_SoundStreamFill@12",
+      "section": ".text$01fill",
+      "address": "0x44d110",
+      "size": 483
+    },
+    {
+      "name": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "section": ".text$03run",
+      "address": "0x44d300",
+      "size": 98
+    },
+    {
+      "name": "_ArchiveRewind@8",
+      "symbol": "_ArchiveRewind@8",
+      "section": ".text$07rewind",
+      "address": "0x44dd40",
+      "size": 194
+    },
+    {
+      "name": "_ArchiveRead@16",
+      "symbol": "_ArchiveRead@16",
+      "section": ".text$09read",
+      "address": "0x44de10",
+      "size": 202
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 311568
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x44d2f3",
+      "size": 13
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x44d362",
+      "size": 1262
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x44dacd",
+      "size": 627
+    },
+    {
+      "section": ".text$08gap",
+      "address": "0x44de02",
+      "size": 14
+    },
+    {
+      "section": ".text$10gap",
+      "address": "0x44deda",
+      "size": 550
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004660ac",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c8",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004977a4",
+      "address": "0x004977A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x004660D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "_SoundStream_Service_0044d850@8"
+  ]
+}
