@@ -106,3 +106,14 @@ loader thread at +0x10); the compiler generates the unwind funclet and handler.
   its own register while the global's cached value dies at the call.
 - A callee whose "out" pointer arrives in a register after the pushes returns
   a small class by value (give the id type a constructor).
+
+## Parked: animation list registrations (0x4489D0, 0x448A50, 0x448AC0, 0x448B40)
+
+Manager in EDX, object in EBX, returned id slot in EAX (the id type has a
+constructor). `node->InsertAfter(tail)` / `head->InsertAfter(&object->node)`
+plus `int id = ++last_id; if (id == 0) { ++id; last_id = id; }` reproduces all
+four bodies except one tie-break: retail keeps the incremented id in ESI and
+saves EDI only inside the insert branch, the rebuild keeps it in EDI and saves
+EDI at entry (9 differing lines per function). Id-expression variants, head or
+tail locals, duplicated tail stores and by-reference list helpers did not move
+it.
