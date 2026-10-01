@@ -22536,13 +22536,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428b10_00428b10",
-      "source": "src/unidentified/FUN_00428b10_00428b10.cpp",
-      "symbol": "_asm_FUN_00428b10_00428b10",
+      "name": "semantic_HomingShot_Update_00428b10",
+      "source": "src/game/homing_shot_update_00428b10.cpp",
+      "symbol": "?HomingShot_Update_00428b10@@YIHPAXPAUHomingShot_00428b10@@@Z",
       "address": "0x00428B10",
       "size": 266,
-      "kind": "asm",
-      "owner": "0x00428B10"
+      "kind": "semantic",
+      "owner": "0x00428B10",
+      "previous_record": {
+        "name": "asm_FUN_00428b10_00428b10",
+        "source": "src/unidentified/FUN_00428b10_00428b10.cpp",
+        "symbol": "_asm_FUN_00428b10_00428b10",
+        "address": "0x00428B10",
+        "size": 266,
+        "kind": "asm",
+        "owner": "0x00428B10"
+      }
     },
     {
       "name": "text_padding_00428c1a",
@@ -59159,7 +59168,7 @@
     "src/unidentified/FUN_00427e10_00427e10.cpp",
     "src/unidentified/FUN_00427e20_00427e20.cpp",
     "src/unidentified/FUN_00428ad0_00428ad0.cpp",
-    "src/unidentified/FUN_00428b10_00428b10.cpp",
+    "src/game/homing_shot_update_00428b10.cpp",
     "src/unidentified/FUN_00428ce0_00428ce0.cpp",
     "src/unidentified/FUN_0042a3d0_0042a3d0.cpp",
     "src/unidentified/FUN_0042a430_0042a430.cpp",
@@ -60450,6 +60459,7 @@
     "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
     "layout/ltcg/split_resource_path_0041a050.json",
     "layout/ltcg/stage_tip_create_0041a120.json",
+    "layout/ltcg/homing_shot_update_00428b10.json",
     "layout/ltcg/ecl_record_reset_0040c730.json",
     "layout/ltcg/score_records_advance_frame_0041c480.json",
     "layout/ltcg/anim_pool_alloc_00449950.json",
