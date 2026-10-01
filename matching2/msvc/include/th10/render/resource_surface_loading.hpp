@@ -24,6 +24,9 @@ struct AnimationManagerIndexed_00447f70 {
     __declspec(noinline) void Clear(int index);
     // 0x00447FD0
     __declspec(noinline) void CopyToBackBuffer(int index, int left, int top, int x, int y);
+    __declspec(noinline) void CaptureBackBufferImage(int index, int left, int top, int width, int height,
+                                                     int target_left, int target_top,
+                                                     int target_width, int target_height);
 };
 struct SurfaceDevice_00447c80 {
     virtual long __stdcall QueryInterface(const void*, void**) = 0;

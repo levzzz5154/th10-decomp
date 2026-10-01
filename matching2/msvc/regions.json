@@ -35834,22 +35834,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448270_00448270",
-      "source": "src/render/fun_00448270_00448270.cpp",
-      "symbol": "_asm_FUN_00448270_00448270",
+      "name": "semantic_AnimationTextureManager_CaptureBackBuffer_00448270",
+      "source": "src/render/animation_texture_surface_copy.cpp",
+      "symbol": "?CaptureBackBuffer@AnimationTextureManager_00448270@@QAEXHHHHHHHHHH@Z",
       "address": "0x00448270",
       "size": 240,
-      "kind": "asm",
-      "owner": "0x00448270"
+      "kind": "semantic",
+      "owner": "0x00448270",
+      "previous_record": {
+        "name": "asm_FUN_00448270_00448270",
+        "source": "src/render/fun_00448270_00448270.cpp",
+        "symbol": "_asm_FUN_00448270_00448270",
+        "address": "0x00448270",
+        "size": 240,
+        "kind": "asm",
+        "owner": "0x00448270"
+      }
     },
     {
-      "name": "asm_FUN_00448360_00448360",
-      "source": "src/unidentified/FUN_00448360_00448360.cpp",
-      "symbol": "_asm_FUN_00448360_00448360",
+      "name": "semantic_AnimationTextureManager_CopyTexture_00448360",
+      "source": "src/render/animation_texture_surface_copy.cpp",
+      "symbol": "?CopyTexture@AnimationTextureManager_00448270@@QAEXHHHHPBUSurfaceRect_00447fd0@@0@Z",
       "address": "0x00448360",
       "size": 227,
-      "kind": "asm",
-      "owner": "0x00448360"
+      "kind": "semantic",
+      "owner": "0x00448360",
+      "previous_record": {
+        "name": "asm_FUN_00448360_00448360",
+        "source": "src/unidentified/FUN_00448360_00448360.cpp",
+        "symbol": "_asm_FUN_00448360_00448360",
+        "address": "0x00448360",
+        "size": 227,
+        "kind": "asm",
+        "owner": "0x00448360"
+      }
     },
     {
       "name": "text_padding_00448443",
@@ -35860,13 +35878,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448450_00448450",
-      "source": "src/render/fun_00448450_00448450.cpp",
-      "symbol": "_asm_FUN_00448450_00448450",
+      "name": "semantic_AnimationManagerIndexed_CaptureBackBufferImage_00448450",
+      "source": "src/render/animation_texture_surface_copy.cpp",
+      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed_00447f70@@QAEXHHHHHHHHH@Z",
       "address": "0x00448450",
       "size": 379,
-      "kind": "asm",
-      "owner": "0x00448450"
+      "kind": "semantic",
+      "owner": "0x00448450",
+      "previous_record": {
+        "name": "asm_FUN_00448450_00448450",
+        "source": "src/render/fun_00448450_00448450.cpp",
+        "symbol": "_asm_FUN_00448450_00448450",
+        "address": "0x00448450",
+        "size": 379,
+        "kind": "asm",
+        "owner": "0x00448450"
+      }
     },
     {
       "name": "text_padding_004485cb",
@@ -58716,8 +58743,6 @@
     "src/render/fun_00446220_00446220.cpp",
     "src/render/fun_00447810_00447810.cpp",
     "src/render/fun_00448120_00448120.cpp",
-    "src/render/fun_00448270_00448270.cpp",
-    "src/render/fun_00448450_00448450.cpp",
     "src/render/fun_00449950_00449950.cpp",
     "src/render/gdi_font_state.cpp",
     "src/render/image_alpha_transform.cpp",
@@ -59136,7 +59161,6 @@
     "src/unidentified/FUN_00446210_00446210.cpp",
     "src/unidentified/FUN_00446500_00446500.cpp",
     "src/unidentified/FUN_00447ec0_00447ec0.cpp",
-    "src/unidentified/FUN_00448360_00448360.cpp",
     "src/unidentified/FUN_00448600_00448600.cpp",
     "src/unidentified/FUN_00448620_00448620.cpp",
     "src/unidentified/FUN_00448740_00448740.cpp",
@@ -60046,7 +60070,8 @@
     "src/platform/sound_cleanup_0043d120.cpp",
     "src/archive/dat_archive_entry_delete.cpp",
     "src/game/title_load_thread_0042c9f0.cpp",
-    "src/game/stage_sequence_schedule.cpp"
+    "src/game/stage_sequence_schedule.cpp",
+    "src/render/animation_texture_surface_copy.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60945,7 +60970,8 @@
     "layout/ltcg/sound_stream_recreate_buffers_0044cf20.json",
     "layout/ltcg/sound_stream_service.json",
     "layout/ltcg/midi_channel_volume.json",
-    "layout/ltcg/archive_entry_delete.json"
+    "layout/ltcg/archive_entry_delete.json",
+    "layout/ltcg/animation_texture_surface_copy.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
