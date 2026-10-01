@@ -16,7 +16,7 @@ struct GdiSurface_00436a30 {
     void* pixels;
 };
 
-#pragma code_seg(".text$a02release")
+#pragma code_seg(".text$a04release")
 __declspec(noinline) bool __stdcall ReleaseSurface_00436a30(GdiSurface_00436a30* surface) {
     if (surface->dc) {
         data_0046602c(surface->dc, surface->previous_bitmap);

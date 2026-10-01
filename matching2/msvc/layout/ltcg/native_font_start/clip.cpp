@@ -1,6 +1,6 @@
 #include <string.h>
 #include "th10/render/clip_worker_native.hpp"
-#pragma code_seg(".text$a08clip")
+#pragma code_seg(".text$a14clip")
 void ClipHost_004462f0::InitializeClip() {
     // Four XYZ/UV vertices; the color words belong only to the mirror.
     vertices[0].position.z=0.0f;vertices[3].position.z=0.0f;

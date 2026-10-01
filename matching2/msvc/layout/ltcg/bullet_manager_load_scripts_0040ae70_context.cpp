@@ -13,14 +13,12 @@ ScoreManager_0041c100 *InitializeManager_0041c100(ScoreManager_0041c100 *manager
 struct RawState_0040a130;
 extern "C" int __stdcall asm_FUN_0040a130_0040a130(RawState_0040a130 *state);
 
-struct RawStageTipManager_00418e30;
-extern "C" int __stdcall asm_StageTipRuntime_InitializeRetail_00418e30(
-        RawStageTipManager_00418e30 *manager);
-
 struct MessageHost_0040d280;
 extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
         MessageHost_0040d280 *host, int script_name);
 
+// Address-only alias of the independently proven complete genuine zero-argument
+// StageTipCreate419090 entry; pointer in EAX, ordinary cdecl/plainRET.
 extern "C" void* __cdecl asm_Recovery_CreateResourceState_00419090();
 struct SchedulerCreatePrimary_0044A000 {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
@@ -89,11 +87,6 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     for (int index = 0; index < count; ++index) {
         if (InitializeManager_0041c100(
                 (ScoreManager_0041c100 *)slots[index]))
-            ++created;
-    }
-    for (int index = 0; index < count; ++index) {
-        if (asm_StageTipRuntime_InitializeRetail_00418e30(
-                (RawStageTipManager_00418e30 *)slots[index]) == 0)
             ++created;
     }
     for (int index = 0; index < count; ++index) {

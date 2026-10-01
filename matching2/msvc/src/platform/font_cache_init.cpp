@@ -1,7 +1,7 @@
 #include "th10/platform/native_font_start.hpp"
 #include "../../layout/ltcg/native_font_start/release_surface.cpp"
 #include "../../layout/ltcg/native_font_start/create_surface.cpp"
-#pragma code_seg(".text$a06font")
+#pragma code_seg(".text$a08font")
 extern "C" void __cdecl InitializeFontCache_00437a00() {
     if (!FontSurface_Create_00436af0(&data_00474cb0,0x400,0x40,0x1a))
         FontSurface_Create_00436af0(&data_00474cb0,0x400,0x40,0x15);
@@ -31,3 +31,9 @@ extern "C" void __cdecl InitializeFontCache_00437a00() {
 #include "../../layout/ltcg/native_font_start/clip.cpp"
 #include "../../layout/ltcg/native_font_start/stop_worker.cpp"
 #include "../unidentified/FUN_004201b0_004201b0.cpp"
+
+#include "th10/platform/native_game_input.hpp"
+#include "../../layout/ltcg/native_game_input/logger.cpp"
+#include "../../layout/ltcg/native_game_input/release_input.cpp"
+#include "dinput_device_setup.cpp"
+#include "../unidentified/FUN_0043ba90_0043ba90.cpp"

@@ -1,7 +1,7 @@
 #include "th10/platform/worker.hpp"
 
 // ESI is selected by native LTCG from the real caller/callee relationship.
-#pragma code_seg(".text$a10stop")
+#pragma code_seg(".text$a18stop")
 __declspec(noinline) void PlatformWorker::Stop() {
     if (thread) {
         stop_requested = 1;

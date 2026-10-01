@@ -14920,8 +14920,8 @@
     },
     {
       "name": "semantic_Construct_00418d40_00418d40",
-      "source": "src/game/stage_tip_manager.cpp",
-      "symbol": "@Construct_00418d40@8",
+      "source": "src/game/native_stage_tip.cpp",
+      "symbol": "?InitializeLayout@StageTipManager@@QAEPAU1@XZ",
       "address": "0x00418D40",
       "size": 237,
       "kind": "semantic",
@@ -14946,8 +14946,8 @@
     },
     {
       "name": "semantic_StageTipRuntime_InitializeRetail_00418e30_00418e30",
-      "source": "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
-      "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
+      "source": "src/game/native_stage_tip.cpp",
+      "symbol": "_StageTipInitialize@4",
       "address": "0x00418E30",
       "size": 131,
       "kind": "semantic",
@@ -15050,8 +15050,8 @@
     },
     {
       "name": "semantic_Recovery_CreateResourceState_00419090_00419090",
-      "source": "src/game/recovery_create_resource_state_00419090.cpp",
-      "symbol": "_asm_Recovery_CreateResourceState_00419090",
+      "source": "src/game/native_stage_tip.cpp",
+      "symbol": "?StageTipCreate@@YAPAUStageTipManager@@XZ",
       "address": "0x00419090",
       "size": 67,
       "kind": "semantic",
@@ -30578,13 +30578,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043b8d0_0043b8d0",
-      "source": "src/platform/dinput_device_setup.cpp",
-      "symbol": "_asm_FUN_0043b8d0_0043b8d0",
+      "name": "semantic_GameInputInitializeDevices_0043b8d0",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "?InitializeDevices@GameInputSystem@@QAEHXZ",
       "address": "0x0043B8D0",
       "size": 439,
-      "kind": "asm",
-      "owner": "0x0043B8D0"
+      "kind": "semantic",
+      "owner": "0x0043B8D0",
+      "previous_record": {
+        "name": "asm_FUN_0043b8d0_0043b8d0",
+        "source": "src/platform/dinput_device_setup.cpp",
+        "symbol": "_asm_FUN_0043b8d0_0043b8d0",
+        "address": "0x0043B8D0",
+        "size": 439,
+        "kind": "asm",
+        "owner": "0x0043B8D0"
+      }
     },
     {
       "name": "text_padding_0043ba87",
@@ -30595,13 +30604,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043ba90_0043ba90",
-      "source": "src/unidentified/FUN_0043ba90_0043ba90.cpp",
-      "symbol": "_asm_FUN_0043ba90_0043ba90",
+      "name": "semantic_GameWorker_0043ba90",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "_GameWorker_0043ba90",
       "address": "0x0043BA90",
       "size": 83,
-      "kind": "asm",
-      "owner": "0x0043BA90"
+      "kind": "semantic",
+      "owner": "0x0043BA90",
+      "previous_record": {
+        "name": "asm_FUN_0043ba90_0043ba90",
+        "source": "src/unidentified/FUN_0043ba90_0043ba90.cpp",
+        "symbol": "_asm_FUN_0043ba90_0043ba90",
+        "address": "0x0043BA90",
+        "size": 83,
+        "kind": "asm",
+        "owner": "0x0043BA90"
+      }
     },
     {
       "name": "text_padding_0043bae3",
@@ -56594,7 +56612,9 @@
     "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z": "0x00429A70",
     "_StartGameWorkers_004201b0": "0x004201B0",
     "_InitializeFontCache_00437a00": "0x00437A00",
-    "_asm_FUN_004201b0_004201b0": "0x004201B0"
+    "_asm_FUN_004201b0_004201b0": "0x004201B0",
+    "?InitializeDevices@GameInputSystem@@QAEHXZ": "0x0043B8D0",
+    "_GameWorker_0043ba90": "0x0043BA90"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -56971,6 +56991,7 @@
     "src/game/music_room.cpp",
     "src/game/name_entry.cpp",
     "src/game/named_value_lookup_004198c0.cpp",
+    "src/game/native_stage_tip.cpp",
     "src/game/object_factories.cpp",
     "src/game/particle_seed.cpp",
     "src/game/path_state_reset_00417800.cpp",
@@ -57017,7 +57038,6 @@
     "src/game/recovery_create_fixed_state_004056b0.cpp",
     "src/game/recovery_create_huge_resource_state_0042b660.cpp",
     "src/game/recovery_create_large_resource_state_00425020.cpp",
-    "src/game/recovery_create_resource_state_00419090.cpp",
     "src/game/recovery_create_texture_from_memory_00446eb0.cpp",
     "src/game/recovery_create_timer_state_00422360.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
@@ -57122,9 +57142,7 @@
     "src/game/stage_text_skip_line_004349e0.cpp",
     "src/game/stage_tip_create_retail_0041a120.cpp",
     "src/game/stage_tip_create_urgent_00424650.cpp",
-    "src/game/stage_tip_manager.cpp",
     "src/game/stage_tip_parser.cpp",
-    "src/game/stage_tip_runtime_initialize_retail_00418e30.cpp",
     "src/game/stage_tips.cpp",
     "src/game/stage_update.cpp",
     "src/game/stats_task.cpp",
@@ -57161,7 +57179,6 @@
     "src/platform/all_source_runtime.cpp",
     "src/platform/bgm_streamer_refill.cpp",
     "src/platform/buffer_file_open.cpp",
-    "src/platform/dinput_device_setup.cpp",
     "src/platform/file.cpp",
     "src/platform/file_handle_open_00435370.cpp",
     "src/platform/file_read_shared_0044b790.cpp",
@@ -57735,7 +57752,6 @@
     "src/unidentified/FUN_0043a6f0_0043a6f0.cpp",
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
     "src/unidentified/FUN_0043ac90_0043ac90.cpp",
-    "src/unidentified/FUN_0043ba90_0043ba90.cpp",
     "src/unidentified/FUN_0043baf0_0043baf0.cpp",
     "src/unidentified/FUN_0043bb30_0043bb30.cpp",
     "src/unidentified/FUN_0043bbf0_0043bbf0.cpp",
@@ -59513,7 +59529,8 @@
     "layout/ltcg/large_player.json",
     "layout/ltcg/sound_interfaces.json",
     "layout/ltcg/score_manager_native.json",
-    "layout/ltcg/native_font_start_closure.json"
+    "layout/ltcg/native_font_start_closure.json",
+    "layout/ltcg/native_stage_tip.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

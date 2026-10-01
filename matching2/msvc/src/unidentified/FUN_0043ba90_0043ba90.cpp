@@ -1,55 +1,13 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x0043BA90..0x0043BAE2: FUN_0043ba90
-// The nested 0x0043B8D0 call takes its receiver in EAX, which standard C++
-// cannot express with the current callee entry point. Preserve that register
-// contract and the exact no-argument callback entry in this naked body.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043ba90_0043ba90() {
-    __asm {
-    L_0043ba90:
-        and dword ptr [data_00491ff4],0FFFFF9FFh
-    L_0043ba9a:
-        mov eax,491C28h
-    L_0043ba9f:
-        call asm_FUN_0043b8d0_0043b8d0
-    L_0043baa4:
-        mov edx,dword ptr [data_00491c38]
-    L_0043baaa:
-        mov eax,dword ptr [data_00491ff4]
-    L_0043baaf:
-        xor ecx,ecx
-    L_0043bab1:
-        test edx,edx
-    L_0043bab3:
-        setne cl
-    L_0043bab6:
-        xor edx,edx
-    L_0043bab8:
-        shl ecx,9
-    L_0043babb:
-        xor ecx,eax
-    L_0043babd:
-        and ecx,200h
-    L_0043bac3:
-        xor eax,ecx
-    L_0043bac5:
-        mov ecx,dword ptr [data_00491c3c]
-    L_0043bacb:
-        test ecx,ecx
-    L_0043bacd:
-        setne dl
-    L_0043bad0:
-        shl edx,0Ah
-    L_0043bad3:
-        xor edx,eax
-    L_0043bad5:
-        and edx,400h
-    L_0043badb:
-        xor eax,edx
-    L_0043badd:
-        mov dword ptr [data_00491ff4],eax
-    L_0043bae2:
-        ret
-    }
+#include "th10/platform/native_game_input.hpp"
+// Real underlying thread entry: no arguments, final flags in EAX, plain RET.
+#pragma code_seg(".text$a12game")
+extern "C" unsigned int __cdecl GameWorker_0043ba90() {
+    data_00491ff4&=~0x600U;
+    data_00491c28.InitializeDevices();
+    unsigned int flags=data_00491ff4;
+    flags^=(((unsigned int)(data_00491c28.keyboard!=0)<<9)^flags)&0x200U;
+    flags^=(((unsigned int)(data_00491c28.joystick!=0)<<10)^flags)&0x400U;
+    data_00491ff4=flags;
+    return flags;
 }
+#pragma code_seg()

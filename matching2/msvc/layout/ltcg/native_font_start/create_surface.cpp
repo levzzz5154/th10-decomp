@@ -1,5 +1,5 @@
 #include "th10/platform/native_font_start.hpp"
-#pragma code_seg(".text$a04surface")
+#pragma code_seg(".text$a06surface")
 bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30* surface,int width,int height,int format) {
     ReleaseSurface_00436a30(surface);
     FontBitmapV4 bitmap;

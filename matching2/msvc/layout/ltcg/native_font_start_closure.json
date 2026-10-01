@@ -5,22 +5,29 @@
   "headers": [
     "include/th10/platform/native_font_start.hpp",
     "include/th10/platform/worker.hpp",
-    "include/th10/render/clip_worker_native.hpp"
+    "include/th10/render/clip_worker_native.hpp",
+    "include/th10/platform/native_game_input.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp"
   ],
   "included_sources": [
     "layout/ltcg/native_font_start/release_surface.cpp",
     "layout/ltcg/native_font_start/create_surface.cpp",
     "layout/ltcg/native_font_start/clip.cpp",
     "layout/ltcg/native_font_start/stop_worker.cpp",
-    "src/unidentified/FUN_004201b0_004201b0.cpp"
+    "src/unidentified/FUN_004201b0_004201b0.cpp",
+    "layout/ltcg/native_game_input/logger.cpp",
+    "layout/ltcg/native_game_input/release_input.cpp",
+    "src/platform/dinput_device_setup.cpp",
+    "src/unidentified/FUN_0043ba90_0043ba90.cpp"
   ],
   "image_base": "0x00400000",
-  "description": "Two complete real no-argument functions: genuine worker startup and font initialization. Full actual Surface421 and Clip472 models are diagnostic only; Release107 and Stop101 exact. Address-only callback aliases use full VA.",
+  "description": "Full genuine worker186/font781/thread-entry83 with whole actual DirectInput setup, cached-release and logger models. GameWorker original noarg/cdecl/plainRET, callbackcast only real thread API boundary.",
   "functions": [
     {
       "name": "FontInitialize",
       "symbol": "_InitializeFontCache_00437a00",
-      "section": ".text$a06font",
+      "section": ".text$a08font",
       "address": "0x00437a00",
       "size": 781,
       "actual_abi": "Original actual no-argument font initializer, plainRET."
@@ -32,36 +39,66 @@
       "address": "0x4201b0",
       "size": 186,
       "actual_abi": "Genuine complete no-argument worker-start caller, EAX0/plainRET; actual call to Font at420260."
+    },
+    {
+      "name": "GameWorker",
+      "symbol": "_GameWorker_0043ba90",
+      "section": ".text$a12game",
+      "address": "0x43ba90",
+      "size": 83,
+      "actual_abi": "Original underlying noarg cdecl entry; flags resultEAX/plainRET. Real beginthreadex callback cast holds original address."
+    },
+    {
+      "name": "InputSetup",
+      "symbol": "?InitializeDevices@GameInputSystem@@QAEHXZ",
+      "section": ".text$a10input",
+      "address": "0x43b8d0",
+      "size": 439,
+      "actual_abi": "Complete genuine input-state receiverEAX, statusEAX/plainRET, no stack inputs; actual GameWorker call43BA9F."
     }
   ],
   "anchors": [
     {
       "name": "SurfaceCreate",
       "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
-      "section": ".text$a04surface",
+      "section": ".text$a06surface",
       "address": "0x436af0",
       "size": 421
     },
     {
       "name": "ReleaseSurface",
       "symbol": "?ReleaseSurface_00436a30@@YG_NPAUGdiSurface_00436a30@@@Z",
-      "section": ".text$a02release",
+      "section": ".text$a04release",
       "address": "0x436a30",
       "size": 107
     },
     {
       "name": "Clip",
       "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
-      "section": ".text$a08clip",
+      "section": ".text$a14clip",
       "address": "0x4462f0",
       "size": 472
     },
     {
       "name": "StopWorker",
       "symbol": "?Stop@PlatformWorker@@QAEXXZ",
-      "section": ".text$a10stop",
+      "section": ".text$a18stop",
       "address": "0x44c150",
       "size": 101
+    },
+    {
+      "name": "InputRelease",
+      "symbol": "?ReleaseInput@GameInputSystem@@QAEXXZ",
+      "section": ".text$a02cached",
+      "address": "0x421d20",
+      "size": 21
+    },
+    {
+      "name": "TextLog",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$a16logger",
+      "address": "0x44b810",
+      "size": 201
     }
   ],
   "roots": [],
@@ -74,27 +111,47 @@
     {
       "section": ".text$a01gap",
       "address": "0x42026a",
-      "size": 92102
+      "size": 6838
     },
     {
       "section": ".text$a03gap",
+      "address": "0x421d35",
+      "size": 85243
+    },
+    {
+      "section": ".text$a05gap",
       "address": "0x436a9b",
       "size": 85
     },
     {
-      "section": ".text$a05gap",
+      "section": ".text$a07gap",
       "address": "0x436c95",
       "size": 3435
     },
     {
-      "section": ".text$a07gap",
+      "section": ".text$a09gap",
       "address": "0x437d0d",
-      "size": 58851
+      "size": 15299
     },
     {
-      "section": ".text$a09gap",
+      "section": ".text$a11gap",
+      "address": "0x43ba87",
+      "size": 9
+    },
+    {
+      "section": ".text$a13gap",
+      "address": "0x43bae3",
+      "size": 43021
+    },
+    {
+      "section": ".text$a15gap",
       "address": "0x4464c8",
-      "size": 23688
+      "size": 21320
+    },
+    {
+      "section": ".text$a17gap",
+      "address": "0x44b8d9",
+      "size": 2167
     }
   ],
   "constants": [],
@@ -190,11 +247,6 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_GameWorker_0043ba90@4",
-      "address": "0x43ba90",
-      "kind": "data"
-    },
-    {
       "symbol": "_beginthreadex_00453683",
       "address": "0x453683",
       "kind": "relative_code"
@@ -273,6 +325,121 @@
       "symbol": "__fltused",
       "address": "0x0",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491ff4",
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046621c",
+      "address": "0x46621c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_DirectInput8Create_0045071e@20",
+      "address": "0x45071e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_GameInput_EnumDevice_0043baf0@8",
+      "address": "0x43baf0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_GameInput_EnumObject_0043bb30@8",
+      "address": "0x43bb30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00467aac",
+      "address": "0x467aac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046793c",
+      "address": "0x46793c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004664fc",
+      "address": "0x4664fc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466704",
+      "address": "0x466704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f9e0",
+      "address": "0x46f9e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f9b0",
+      "address": "0x46f9b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f97c",
+      "address": "0x46f97c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f954",
+      "address": "0x46f954",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f934",
+      "address": "0x46f934",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x458ec0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
     }
   ],
   "entry": "_StartGameWorkers_004201b0",
@@ -281,6 +448,12 @@
       "caller": "_StartGameWorkers_004201b0",
       "callee": "_InitializeFontCache_00437a00",
       "address": "0x420260",
+      "instruction": "call"
+    },
+    {
+      "caller": "_GameWorker_0043ba90",
+      "callee": "?InitializeDevices@GameInputSystem@@QAEHXZ",
+      "address": "0x43ba9f",
       "instruction": "call"
     }
   ]

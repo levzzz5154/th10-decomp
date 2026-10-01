@@ -1,5 +1,7 @@
 # Current source audit and finite native scheduling diagnostics
 
+Historical ac4ee4fe checkpoint: current counts and the later callback ABI correction are in [the game-worker/StageTip checkpoint](resumed_game_worker_and_genuine_stage_tip_2026-10-01.md).
+
 The correct current syntactic assembly-free count is 1,902 semantic ownership
 regions / 101,136 bytes, or 24.507599% of the 412,672-byte text section. The prior
 wave14 count of 1,903 / 101,210 excluded only five x87 functions. A complete
