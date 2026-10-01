@@ -1,0 +1,270 @@
+{
+  "scope": "Current source-owner integrity correction and seventeen finite genuine native source/context hypotheses",
+  "new_wave_functions": 0,
+  "new_wave_bytes": 0,
+  "permissions_baseline_functions": 40,
+  "permissions_baseline_bytes": 5200,
+  "summary": {
+    "regions": {
+      "semantic": 1908,
+      "asm": 395,
+      "library": 320,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 105661,
+      "asm": 217287,
+      "library": 66450,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "syntactic_assembly_free": {
+    "regions": 1902,
+    "bytes": 101136
+  },
+  "syntactic_assembly_free_text_percent": 24.507599255583127,
+  "mixed_semantic_regions": 6,
+  "mixed_semantic_bytes": 4525,
+  "mixed_semantic_owners": [
+    {
+      "region": {
+        "name": "semantic_SubmitSpriteQuad_00442670",
+        "source": "src/render/sprite_quad_submit.cpp",
+        "symbol": "?SubmitSpriteQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442670",
+        "size": 1111,
+        "kind": "semantic",
+        "owner": "0x00442670",
+        "previous_record": {
+          "name": "asm_FUN_00442670_00442670",
+          "source": "src/render/final_quad_pipeline.cpp",
+          "symbol": "_asm_FUN_00442670_00442670",
+          "address": "0x00442670",
+          "size": 1111,
+          "kind": "asm",
+          "owner": "0x00442670"
+        }
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/sprite_quad_submit.cpp",
+      "body_first_line": 11,
+      "last_line": 94,
+      "body_sha256": "36f2cb139c95db3fb2117d8b4e7dcb1780e009cd4f843850d7d53d4dd18e2e89",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 488,
+          "line": 21
+        }
+      ]
+    },
+    {
+      "region": {
+        "name": "semantic_SubmitSpriteQuadMirrored_00442ad0",
+        "source": "src/render/sprite_quad_submit_mirrored.cpp",
+        "symbol": "?SubmitSpriteQuadMirrored@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442AD0",
+        "size": 1111,
+        "kind": "semantic",
+        "owner": "0x00442AD0",
+        "previous_record": {
+          "name": "asm_FUN_00442ad0_00442ad0",
+          "source": "src/unidentified/FUN_00442ad0_00442ad0.cpp",
+          "symbol": "_asm_FUN_00442ad0_00442ad0",
+          "address": "0x00442AD0",
+          "size": 1111,
+          "kind": "asm",
+          "owner": "0x00442AD0"
+        }
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/sprite_quad_submit_mirrored.cpp",
+      "body_first_line": 11,
+      "last_line": 94,
+      "body_sha256": "863d69c720ae477b33bdf2db7cf773d445774d18290a560d93aaa14cc35e014c",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 488,
+          "line": 21
+        }
+      ]
+    },
+    {
+      "region": {
+        "name": "semantic_BuildRotatedQuad_004436c0_004436c0",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuad_004436c0@8",
+        "address": "0x004436C0",
+        "size": 591,
+        "kind": "semantic",
+        "owner": "0x4436C0",
+        "previous_record": {
+          "name": "asm_FUN_004436c0_004436c0",
+          "source": "src/unidentified/FUN_004436c0_004436c0.cpp",
+          "symbol": "_asm_FUN_004436c0_004436c0",
+          "address": "0x004436C0",
+          "size": 591,
+          "kind": "asm",
+          "owner": "0x004436C0"
+        }
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/quad_build_rotated.cpp",
+      "body_first_line": 32,
+      "last_line": 100,
+      "body_sha256": "e7af9786fff6df375eafe1409f49928cc2b8d51aebce6bf7d96a6f888e19b45c",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 233,
+          "line": 43
+        }
+      ]
+    },
+    {
+      "region": {
+        "name": "semantic_BuildRotatedQuadAlt_00443910_00443910",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuadAlt_00443910@8",
+        "address": "0x00443910",
+        "size": 591,
+        "kind": "semantic",
+        "owner": "0x443910",
+        "previous_record": {
+          "name": "asm_FUN_00443910_00443910",
+          "source": "src/unidentified/FUN_00443910_00443910.cpp",
+          "symbol": "_asm_FUN_00443910_00443910",
+          "address": "0x00443910",
+          "size": 591,
+          "kind": "asm",
+          "owner": "0x00443910"
+        }
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/quad_build_rotated.cpp",
+      "body_first_line": 105,
+      "last_line": 173,
+      "body_sha256": "e7af9786fff6df375eafe1409f49928cc2b8d51aebce6bf7d96a6f888e19b45c",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 233,
+          "line": 116
+        }
+      ]
+    },
+    {
+      "region": {
+        "name": "semantic_Billboard_BuildProjectedQuad_00443b60",
+        "source": "src/render/projection_quads.cpp",
+        "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+        "address": "0x00443B60",
+        "size": 1047,
+        "kind": "semantic",
+        "owner": "0x00443B60",
+        "previous_record": {
+          "name": "asm_FUN_00443b60_00443b60",
+          "source": "src/render/projection_quads.cpp",
+          "symbol": "_asm_FUN_00443b60_00443b60",
+          "address": "0x00443B60",
+          "size": 1047,
+          "kind": "asm",
+          "owner": "0x00443B60"
+        }
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/projection_quads.cpp",
+      "body_first_line": 69,
+      "last_line": 175,
+      "body_sha256": "10b3c5c4c8d70a807686aae0c0846ea1fb8468e0d8dfc1c36ccbc2a8bea2d458",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 507,
+          "line": 86
+        },
+        {
+          "token": "__asm",
+          "offset": 1914,
+          "line": 127
+        }
+      ]
+    },
+    {
+      "region": {
+        "name": "semantic_SchedulerCallback_Create_00449ed0",
+        "source": "src/game/scheduler.cpp",
+        "symbol": "_SchedulerCallback_Create_00449ed0@4",
+        "address": "0x00449ED0",
+        "size": 74,
+        "kind": "semantic",
+        "owner": "0x00449ED0"
+      },
+      "source_file": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/scheduler.cpp",
+      "body_first_line": 293,
+      "last_line": 322,
+      "body_sha256": "2c2b94add7f0fd54d1b0e054b3cacbd63e71975008f1577eb3073a66b40d9621",
+      "asm_hits": [
+        {
+          "token": "__asm",
+          "offset": 116,
+          "line": 299
+        },
+        {
+          "token": "__asm",
+          "offset": 341,
+          "line": 306
+        }
+      ]
+    }
+  ],
+  "corrected_prior_overcount_regions": 1,
+  "corrected_prior_overcount_bytes": 74,
+  "actual_compiled_owner_bindings_verified": 1908,
+  "semantic_sources_hash_verified": 1526,
+  "uniquely_bound_named_bodies": 1860,
+  "other_assembly_absence_proven_owners": 48,
+  "unresolved_assembly_owner_bindings": 0,
+  "volatile_access_review_regions": 37,
+  "volatile_access_review_bytes": 6970,
+  "volatile_intent_review_exhaustive": false,
+  "stats_hypotheses": 5,
+  "stats_complete_native_bodies": 55,
+  "stats_complete_native_bytes": 8599,
+  "stats_literal_exact_bodies": 44,
+  "stats_literal_exact_bytes": 6675,
+  "stats_actual_worker_context_complete_bodies": 15,
+  "stats_actual_worker_context_exact_bodies": 12,
+  "stats_actual_worker_context_exact_bytes": 2275,
+  "surface_hypotheses": 6,
+  "surface_new_recovery_bytes": 0,
+  "clip_hypotheses": 6,
+  "clip_new_recovery_bytes": 0,
+  "whole_exe_size": 487936,
+  "whole_exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "whole_exe_literal_exact": true,
+  "source_hashes_current": true,
+  "main_compiled_sources_changed": false,
+  "new_whole_build_required": false,
+  "masked_bytes": 0,
+  "instruction_bytes_changed": 0,
+  "reference_bytes_used_for_build": false,
+  "goal_complete": false,
+  "proof_hashes": {
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave15_verified.json": "6a4d33fd39d4f47a8ab9777d3ef9e5c729f2b12da560ac96d657b863a90f12eb",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave15_build.py": "0f8028307bb11df0336ba99c1d2fecd9b4049bd3a7b526f676b2f924c52f21ff",
+    "matching2/build/experiments/semantic_inline_owner_audit_2026_10_01/evidence.json": "71ca417027ec18b5d3c695dda3bcc6f4daa2f802a4ea5c8b4443957c6115722a",
+    "matching2/build/experiments/semantic_inline_owner_audit_2026_10_01/verify.py": "b4b7e7e7587b4d9336608b5a564603b8786780cbdfe10ecd84ba0e46207165df",
+    "matching2/build/experiments/semantic_inline_owner_audit_2026_10_01/audit.py": "42827dbc2dd8c741493de78938013bad0be1fe407051cb1fb747fca0d8b39116",
+    "matching2/build/experiments/semantic_inline_owner_audit_2026_10_01/annotate.py": "33c783e6e901272c9b9977d21304dcca49d418a27c2de1e06fb9a2a03d7effa8",
+    "matching2/build/experiments/semantic_inline_owner_audit_2026_10_01/README.md": "0cad032bf60af8ef5cb4739734049d66e7ea221643a4fe0ad4534269ca7bdd38",
+    "matching2/build/experiments/native_stats_constructor_schedule_2026_10_01/evidence.json": "09ca4b9b73f50654767ee5cc97a17c92189df89152fd1b7e2ad960107aae34ed",
+    "matching2/build/experiments/native_stats_constructor_schedule_2026_10_01/verify.py": "4e1aa584b8cee763da6ba846d591643482cd429dde0441dc64bf92168e5f5662",
+    "matching2/build/experiments/native_stats_constructor_schedule_2026_10_01/README.md": "d2e8dbf26eb0e464e6e6caec25f81ca27de3b8ad3664a251e31cdc41767d5ced",
+    "matching2/build/experiments/native_stats_constructor_schedule_2026_10_01/independent_review.json": "f7d9636c87143fa6d2d526da764fb2fde757f33eaf49cc6fe9343672cf835f86",
+    "matching2/build/experiments/native_surface_publication_2026_10_01/evidence.json": "d563919588d8195704fdd2a49ab59fd5d87ce0feee83483efc2b2c2e33befcd4",
+    "matching2/build/experiments/native_surface_publication_2026_10_01/verify_family.py": "8cf5b2195e80bd68d2c745c745517c837d3d716354cd672a0aa15e3beded4afb",
+    "matching2/build/experiments/native_surface_publication_2026_10_01/audit.md": "9fd350f3e1fc95208278e23ad684942b62452675a6cf2c42aa45ab3166d8c169",
+    "matching2/build/experiments/native_clip_publication_2026_10_01/evidence.json": "77ad433d3b4015a77290bba9091ad001d0f6916a2b879483e565285cf62fd287",
+    "matching2/build/experiments/native_clip_publication_2026_10_01/verify.py": "6ca5d73b2e82dd3aa173c76688e2c66ada95f90501d7d7f697303363020931d2",
+    "matching2/build/experiments/native_clip_publication_2026_10_01/README.md": "70418ccff6b4a50cf09d9474e78fcbb95558c887dc0a817967cb81e9d5206371"
+  }
+}

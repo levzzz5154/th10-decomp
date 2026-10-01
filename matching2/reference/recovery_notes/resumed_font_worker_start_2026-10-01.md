@@ -1,5 +1,11 @@
 # Verified checkpoint: genuine worker startup and font initialization
 
+Source-audit correction: the current assembly-free total is 1,902 regions /
+101,136 bytes (24.507599%). The historical count below excluded five mixed
+x87 owners but missed the 74-byte callback at 0x00449ED0, whose selected body
+also contains inline assembly. Recovery credit and executable bytes are
+unchanged. See [the complete source-owner audit](resumed_native_schedule_and_source_audit_2026-10-01.md).
+
 Two complete functions are now ordinary C++: worker startup at 0x004201B0
 (186 bytes) and font initialization at 0x00437A00 (781 bytes). Their complete
 967 bytes match literally. The original startup function calls the font
