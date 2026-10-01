@@ -26028,13 +26028,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00433230_00433230",
-      "source": "src/game/replay_stage_name_draw.cpp",
-      "symbol": "_asm_FUN_00433230_00433230",
+      "name": "semantic_TitleMenu_DrawScoreEntry_00433230",
+      "source": "src/game/title_score_entry_00433230.cpp",
+      "symbol": "_TitleMenu_DrawScoreEntry_00433230@4",
       "address": "0x00433230",
       "size": 826,
-      "kind": "asm",
-      "owner": "0x00433230"
+      "kind": "semantic",
+      "owner": "0x00433230",
+      "previous_record": {
+        "name": "asm_FUN_00433230_00433230",
+        "source": "src/game/replay_stage_name_draw.cpp",
+        "symbol": "_asm_FUN_00433230_00433230",
+        "address": "0x00433230",
+        "size": 826,
+        "kind": "asm",
+        "owner": "0x00433230"
+      }
     },
     {
       "name": "text_padding_0043356a",
@@ -58562,7 +58571,6 @@
     "src/game/replay_progress.cpp",
     "src/game/replay_runtime_bootstrap.cpp",
     "src/game/replay_spell_list.cpp",
-    "src/game/replay_stage_name_draw.cpp",
     "src/game/resource_manager_cleanup_00418ee0.cpp",
     "src/game/result_menu_open.cpp",
     "src/game/result_overlay.cpp",
@@ -60123,7 +60131,8 @@
     "src/game/title_practice_rows_00431410.cpp",
     "src/game/title_score_rows_004329f0.cpp",
     "src/game/title_menu_draw_0042d260.cpp",
-    "src/game/title_replay_browser_00431ba0.cpp"
+    "src/game/title_replay_browser_00431ba0.cpp",
+    "src/game/title_score_entry_00433230.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

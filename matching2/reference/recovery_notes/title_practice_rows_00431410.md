@@ -57,3 +57,25 @@ data pointer is held in a local for the two formatted fields. A replay or slot
 pointer local keeps the 0x24 stride in a register and folds it into indexed
 addressing; the full path leaves the stride in the dead argument's stack home
 and forms `replay + stride` once, as retail does.
+
+## High score name entry page at `0x00433230` (2026-10-02)
+
+`src/game/title_score_entry_00433230.cpp` owns the 826-byte page (case 15 of
+the overlay dispatch; earlier notes called it a replay stage page). It is a
+rooted one-argument stdcall in section `.text$08entry`, placed after the
+synthetic context. The menu gained the typed name (+0x58DC), its length
+(+0x58E8), the confirmed flag (+0x58EC) and the chosen grid cell (+0x58F4);
+`data_004746d8` is the grid's character string.
+
+The compiler decides per function whether to build an 8-byte aligned EBP frame
+for the `double` varargs. Probes showed the decision weighs the double
+conversions inside loops against the conditional structure of those loops: one
+more compare, select or branch in either loop removes the frame, plain stores
+and loads do not. Retail has no frame, and the source that reproduces it draws
+the grid with two calls (letters, and the three trailing symbols through a
+nested conditional); the compiler tail-merges them into the single retail call.
+A single call with a `symbol` local gives identical code inside an aligned
+frame.
+
+This supersedes `replay_stage_name_draw_00433230_abi_blocker.md`: the formatter's
+EBX position argument comes from compiling the real formatter in the cluster.

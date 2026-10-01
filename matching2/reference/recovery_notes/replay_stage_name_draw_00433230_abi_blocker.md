@@ -78,3 +78,6 @@ live listing is authoritative for this region.
    replacement also preserves its CRT date semantics. Byte-offset views can
    describe the page and archive data without introducing an unverified
    shared record layout.
+
+
+Superseded 2026-10-02: recovered natively, see title_practice_rows_00431410.md.

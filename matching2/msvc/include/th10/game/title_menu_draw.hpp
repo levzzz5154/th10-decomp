@@ -94,7 +94,13 @@ struct TitleMenu_00431410 {
     unsigned char pad_1D8[0x2B4 - 0x1D8];
     int phase_frames;                    // +0x2B4
     float phase_elapsed;                 // +0x2B8
-    unsigned char pad_2BC[0x59DC - 0x2BC];
+    unsigned char pad_2BC[0x58DC - 0x2BC];
+    char name[12];                       // +0x58DC: high score name being typed
+    int name_length;                     // +0x58E8
+    int name_confirmed;                  // +0x58EC
+    int unknown_58f0;
+    int name_cell;                       // +0x58F4: chosen cell of the character grid
+    unsigned char pad_58F8[0x59DC - 0x58F8];
     int selected_replay;                 // +0x59DC
     int unknown_59e0;
     ReplayFile_00431ba0* replays[25];    // +0x59E4
@@ -108,6 +114,7 @@ extern "C" {
 extern GameThread_00401530* data_004776e0;
 extern GameSelection_00431410 data_00474c68;
 extern ScoreCharacter_00431410* data_0047783c;
+extern const char* data_004746d8;        // the name entry character grid
 extern const char* data_0047471c[];      // "test", "Stage 1" .. "Stage 6", "Extra"
 extern const char* data_004746dc[];      // "ReimuA" .. "MarisaC"
 extern const char* data_004746f4[];      // "Easy" .. "Extra"

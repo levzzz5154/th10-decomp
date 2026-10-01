@@ -6,9 +6,9 @@
 #include "th10/game/title_menu_draw.hpp"
 
 extern "C" {
-// The replay pages still take the menu on the stack.
+// These pages take the menu on the stack.
 int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleMenu_00431410* menu);
-int __stdcall TitleMenu_DrawReplayStages_00433230(TitleMenu_00431410* menu);
+int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleMenu_00431410* menu);
 int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleMenu_00431410* menu);
 }
 
@@ -22,7 +22,7 @@ int TitleMenu_00431410::DrawOverlay() {
         DrawScoreRows();
         return 1;
     case 15:
-        TitleMenu_DrawReplayStages_00433230(this);
+        TitleMenu_DrawScoreEntry_00433230(this);
         return 1;
     case 16:
         TitleMenu_DrawReplaySave_00433b30(this);
