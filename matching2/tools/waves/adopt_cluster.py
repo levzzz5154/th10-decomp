@@ -54,7 +54,7 @@ def main():
               'description': spec['description'], 'functions': spec['functions'],
               'context': spec['context'], 'gaps': gaps, 'constants': spec.get('constants', []),
               'absolute_symbols': spec.get('absolute_symbols', [])}
-    for key in ('anchors', 'included_sources', 'roots', 'additional_sources'):
+    for key in ('anchors', 'included_sources', 'roots', 'additional_sources', 'data_aliases', 'constant_aliases'):
         if spec.get(key):
             layout[key] = spec[key]
     layout_name = 'layout/ltcg/' + spec['name'] + '.json'

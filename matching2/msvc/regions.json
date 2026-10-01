@@ -24562,22 +24562,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042be10_0042be10",
-      "source": "src/unidentified/FUN_0042be10_0042be10.cpp",
-      "symbol": "_asm_FUN_0042be10_0042be10",
+      "name": "semantic_ScriptViewer_LoadTask_0042be10",
+      "source": "src/game/script_viewer_load_0042be20.cpp",
+      "symbol": "?ScriptViewer_LoadTask_0042be10@@YGHXZ",
       "address": "0x0042BE10",
       "size": 16,
-      "kind": "asm",
-      "owner": "0x0042BE10"
+      "kind": "semantic",
+      "owner": "0x0042BE10",
+      "previous_record": {
+        "name": "asm_FUN_0042be10_0042be10",
+        "source": "src/unidentified/FUN_0042be10_0042be10.cpp",
+        "symbol": "_asm_FUN_0042be10_0042be10",
+        "address": "0x0042BE10",
+        "size": 16,
+        "kind": "asm",
+        "owner": "0x0042BE10"
+      }
     },
     {
-      "name": "asm_FUN_0042be20_0042be20",
-      "source": "src/unidentified/FUN_0042be20_0042be20.cpp",
-      "symbol": "_asm_FUN_0042be20_0042be20",
+      "name": "semantic_ScriptViewer_LoadScript_0042be20",
+      "source": "src/game/script_viewer_load_0042be20.cpp",
+      "symbol": "?LoadScript@ScriptViewer_0042be20@@QAEHXZ",
       "address": "0x0042BE20",
       "size": 261,
-      "kind": "asm",
-      "owner": "0x0042BE20"
+      "kind": "semantic",
+      "owner": "0x0042BE20",
+      "previous_record": {
+        "name": "asm_FUN_0042be20_0042be20",
+        "source": "src/unidentified/FUN_0042be20_0042be20.cpp",
+        "symbol": "_asm_FUN_0042be20_0042be20",
+        "address": "0x0042BE20",
+        "size": 261,
+        "kind": "asm",
+        "owner": "0x0042BE20"
+      }
     },
     {
       "name": "text_padding_0042bf25",
@@ -24683,13 +24701,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042c360_0042c360",
-      "source": "src/game/fun_0042c360_0042c360.cpp",
-      "symbol": "_asm_FUN_0042c360_0042c360",
+      "name": "semantic_ScriptViewer_Draw_0042c360",
+      "source": "src/game/script_viewer_draw_0042c360.cpp",
+      "symbol": "?Draw@ScriptViewer_0042be20@@QAEHXZ",
       "address": "0x0042C360",
       "size": 531,
-      "kind": "asm",
-      "owner": "0x0042C360"
+      "kind": "semantic",
+      "owner": "0x0042C360",
+      "previous_record": {
+        "name": "asm_FUN_0042c360_0042c360",
+        "source": "src/game/fun_0042c360_0042c360.cpp",
+        "symbol": "_asm_FUN_0042c360_0042c360",
+        "address": "0x0042C360",
+        "size": 531,
+        "kind": "asm",
+        "owner": "0x0042C360"
+      }
     },
     {
       "name": "text_padding_0042c573",
@@ -24726,13 +24753,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042c590_0042c590",
-      "source": "src/unidentified/FUN_0042c590_0042c590.cpp",
-      "symbol": "_asm_FUN_0042c590_0042c590",
+      "name": "semantic_ScriptViewer_DrawTask_0042c590",
+      "source": "src/game/script_viewer_draw_0042c360.cpp",
+      "symbol": "?ScriptViewer_DrawTask_0042c590@@YIHPAUScriptViewer_0042be20@@@Z",
       "address": "0x0042C590",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0042C590"
+      "kind": "semantic",
+      "owner": "0x0042C590",
+      "previous_record": {
+        "name": "asm_FUN_0042c590_0042c590",
+        "source": "src/unidentified/FUN_0042c590_0042c590.cpp",
+        "symbol": "_asm_FUN_0042c590_0042c590",
+        "address": "0x0042C590",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0042C590"
+      }
     },
     {
       "name": "text_padding_0042c59a",
@@ -57623,7 +57659,6 @@
     "src/game/fun_004294a0_004294a0.cpp",
     "src/game/fun_00429610_00429610.cpp",
     "src/game/fun_0042b030_0042b030.cpp",
-    "src/game/fun_0042c360_0042c360.cpp",
     "src/game/fun_0042cb60_0042cb60.cpp",
     "src/game/fun_0042e5a0_0042e5a0.cpp",
     "src/game/fun_0042f8b0_0042f8b0.cpp",
@@ -58362,11 +58397,8 @@
     "src/unidentified/FUN_0042bad0_0042bad0.cpp",
     "src/unidentified/FUN_0042bb30_0042bb30.cpp",
     "src/unidentified/FUN_0042bc30_0042bc30.cpp",
-    "src/unidentified/FUN_0042be10_0042be10.cpp",
-    "src/unidentified/FUN_0042be20_0042be20.cpp",
     "src/unidentified/FUN_0042bf30_0042bf30.cpp",
     "src/unidentified/FUN_0042bfc0_0042bfc0.cpp",
-    "src/unidentified/FUN_0042c590_0042c590.cpp",
     "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
     "src/unidentified/FUN_0042c830_0042c830.cpp",
     "src/unidentified/FUN_0042c9f0_0042c9f0.cpp",
@@ -59355,7 +59387,9 @@
     "src/unidentified/FUN_00447c80_00447c80.cpp",
     "src/game/bullet_manager_teardown_00405f70.cpp",
     "src/game/effect_manager_teardown_0042b570.cpp",
-    "src/game/stage_state_update_00402720.cpp"
+    "src/game/stage_state_update_00402720.cpp",
+    "src/game/script_viewer_load_0042be20.cpp",
+    "src/game/script_viewer_draw_0042c360.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60228,7 +60262,9 @@
     "layout/ltcg/effect_manager_teardown_0042b570.json",
     "layout/ltcg/reverse_dword_bytes_0043a700.json",
     "layout/ltcg/stage_state_update_00402720.json",
-    "layout/ltcg/enemy_timer_sweep_0040d750.json"
+    "layout/ltcg/enemy_timer_sweep_0040d750.json",
+    "layout/ltcg/script_viewer_load_0042be20.json",
+    "layout/ltcg/script_viewer_draw_0042c360.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

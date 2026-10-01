@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "name": "script_viewer_load_0042be20",
+  "source": "src/game/script_viewer_load_0042be20.cpp",
+  "driver": "layout/ltcg/script_viewer_load_0042be20/context.cpp",
+  "headers": [
+    "include/th10/game/script_viewer_load_0042be20.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Script viewer loader with the viewer in ESI and its argument-less callback, compiled with the real archive reader so the file name is passed in EAX.",
+  "functions": [
+    {
+      "name": "ScriptViewer_LoadTask",
+      "symbol": "?ScriptViewer_LoadTask_0042be10@@YGHXZ",
+      "section": ".text$00task",
+      "address": "0x0042BE10",
+      "actual_abi": "no arguments; loads the global viewer into ESI; plain RET",
+      "size": 16
+    },
+    {
+      "name": "ScriptViewer_LoadScript",
+      "symbol": "?LoadScript@ScriptViewer_0042be20@@QAEHXZ",
+      "section": ".text$01load",
+      "address": "0x0042BE20",
+      "actual_abi": "viewer in ESI; plain RET",
+      "size": 261
+    }
+  ],
+  "context": {
+    "symbol": "?ScriptViewerCompilerContext@@YGPAXXZ",
+    "section": ".text$z9context",
+    "address": "0x0044B4D0",
+    "size": 6,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 175632
+    },
+    {
+      "section": ".text$01loadz",
+      "address": 4374309,
+      "size": 36523
+    },
+    {
+      "section": ".text$a00readz",
+      "address": 4411111,
+      "size": 73
+    },
+    {
+      "section": ".text$a02findz",
+      "address": 4411237,
+      "size": 90475
+    },
+    {
+      "section": ".text$a04decryptz",
+      "address": 4502035,
+      "size": 333
+    },
+    {
+      "section": ".text$a06loadz",
+      "address": 4502728,
+      "size": 8
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Load@ScriptParser_0042be20@@UAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Slot04@ScriptParser_0042be20@@UAEXXZ",
+      "address": "0x0040C810",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477844",
+      "address": "0x00477844",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$a00read"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$a02find"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$a04decrypt"
+    },
+    {
+      "name": "ArchiveLoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x44b360",
+      "size": 360,
+      "section": ".text$a06load"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/native_archive_read/read.cpp",
+    "layout/ltcg/native_archive_read/find.cpp",
+    "layout/ltcg/native_archive_read/decrypt.cpp",
+    "layout/ltcg/native_archive_read/load.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_02DKCKIIND@?$CFs?$AA@",
+      "address": "0x0046E1C8",
+      "bytes": "257300"
+    },
+    {
+      "symbol": "??_7ScriptParser_0042be20@@6B@",
+      "address": "0x0046D0F0",
+      "bytes": "2002450010c84000"
+    }
+  ]
+}

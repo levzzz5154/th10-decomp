@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "name": "script_viewer_draw_0042c360",
+  "source": "src/game/script_viewer_draw_0042c360.cpp",
+  "driver": "layout/ltcg/script_viewer_draw_0042c360_context.cpp",
+  "headers": [
+    "include/th10/game/script_viewer_load_0042be20.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/game/game_thread_queue_native.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Spt Test debug text draw with the viewer in EDI and its ECX scheduler callback, compiled with the real marked-text writer (thread ESI, position EBX).",
+  "functions": [
+    {
+      "name": "ScriptViewer_Draw",
+      "symbol": "?Draw@ScriptViewer_0042be20@@QAEHXZ",
+      "section": ".text$05draw",
+      "address": "0x0042C360",
+      "actual_abi": "viewer in EDI; plain RET",
+      "size": 531
+    },
+    {
+      "name": "ScriptViewer_DrawTask",
+      "symbol": "?ScriptViewer_DrawTask_0042c590@@YIHPAUScriptViewer_0042be20@@@Z",
+      "section": ".text$06task",
+      "address": "0x0042C590",
+      "actual_abi": "context in ECX; moved to EDI around the call",
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?ScriptViewerDrawCompilerContext@@YGPAXXZ",
+    "section": ".text$07context",
+    "address": "0x0042C5A0",
+    "size": 6,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 1328
+    },
+    {
+      "section": ".text$01appendz",
+      "address": 4199860,
+      "size": 220
+    },
+    {
+      "section": ".text$03markedz",
+      "address": 4200180,
+      "size": 175212
+    },
+    {
+      "section": ".text$05drawz",
+      "address": 4375923,
+      "size": 29
+    },
+    {
+      "section": ".text$06taskz",
+      "address": 4375962,
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_vsprintf",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x0045BD80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AppendRecord",
+      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "section": ".text$01append",
+      "address": "0x00401530",
+      "size": 132
+    },
+    {
+      "name": "AppendMarked",
+      "symbol": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "section": ".text$03marked",
+      "address": "0x00401690",
+      "size": 100
+    }
+  ],
+  "included_sources": [
+    "src/game/game_thread_queue.cpp",
+    "src/game/game_thread_append_formatted_marked_retail_00401690.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_09EPACFKEJ@Spt?5Test?6?$AA@",
+      "address": "0x0046E8D4",
+      "bytes": "53707420546573740a00"
+    },
+    {
+      "symbol": "??_C@_07NPEDNENG@File?5?$CFs?$AA@",
+      "address": "0x0046CE3C",
+      "bytes": "46696c6520257300"
+    },
+    {
+      "symbol": "??_C@_0BA@DOIDIGMK@File?5not?5found?4?$AA@",
+      "address": "0x0046CE2C",
+      "bytes": "46696c65206e6f7420666f756e642e00"
+    },
+    {
+      "symbol": "??_C@_06DMKEJMOH@Ecl?5?$CFs?$AA@",
+      "address": "0x0046CE24",
+      "bytes": "45636c20257300"
+    },
+    {
+      "symbol": "??_C@_0N@OPJEEJJA@Ecl?5not?5load?$AA@",
+      "address": "0x0046E8C4",
+      "bytes": "45636c206e6f74206c6f616400"
+    },
+    {
+      "symbol": "??_C@_04GMBKPCGK@Quit?$AA@",
+      "address": "0x0046CE14",
+      "bytes": "5175697400"
+    },
+    {
+      "symbol": "??_C@_01PPODPGHN@?$DO?$AA@",
+      "address": "0x0046CE10",
+      "bytes": "3e00"
+    },
+    {
+      "symbol": "??_C@_0L@OKBLGMCB@Loading?5?$CFs?$AA@",
+      "address": "0x0046CE44",
+      "bytes": "4c6f6164696e6720257300"
+    },
+    {
+      "symbol": "??_C@_0O@LKELLPF@Pos?5?$CF?43d?5?$CF?43d?$AA@",
+      "address": "0x0046CDF4",
+      "bytes": "506f7320252e336420252e336400"
+    },
+    {
+      "symbol": "__real@41200000",
+      "address": "0x00470C1C",
+      "bytes": "00002041"
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "bytes": "00008041"
+    }
+  ]
+}
