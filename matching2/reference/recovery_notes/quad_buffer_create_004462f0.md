@@ -13,3 +13,16 @@ produces retail's grouping and order directly.
 
 Worth repeating elsewhere: an anchor model written to mirror the disassembly
 can sit a few bytes from exact for a reason the source's natural shape removes.
+
+## Other near-exact anchor models (same day)
+
+A scan of every cluster anchor that sits on a still-assembly region, compared
+with retail: 0x004076A0 (8 bytes), 0x004078E0 (21), 0x0043E8B0 (22),
+0x00436AF0 (33); everything else is 30% or more off.
+
+0x004076A0 was tried and left as an anchor. Its model needs
+`_ReadWriteBarrier()` to stop the compiler forwarding the normalised angle to
+the `SetPolar` argument (retail re-reads the member); without it the frame
+grows by 8 bytes. A double-returning helper, reference/pointer/accessor
+helpers and a local copy do not block the forwarding. With the barrier the
+only difference is `mov eax,[esi+0x3e4]` and `fmul [esi+0x690]` swapped.
