@@ -40001,13 +40001,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_InitializeInterfaceArray_0044ce80",
-      "source": "src/game/recovery_initialize_interface_array_0044ce80.cpp",
-      "symbol": "_asm_Recovery_InitializeInterfaceArray_0044ce80",
+      "name": "semantic_SoundStream_Construct_0044ce80",
+      "source": "src/platform/sound_stream_construct_0044ce80.cpp",
+      "symbol": "_SoundStream_Construct_0044ce80@20",
       "address": "0x0044CE80",
       "size": 118,
-      "kind": "asm",
-      "owner": "0x0044CE80"
+      "kind": "semantic",
+      "owner": "0x0044CE80",
+      "previous_record": {
+        "name": "asm_Recovery_InitializeInterfaceArray_0044ce80",
+        "source": "src/game/recovery_initialize_interface_array_0044ce80.cpp",
+        "symbol": "_asm_Recovery_InitializeInterfaceArray_0044ce80",
+        "address": "0x0044CE80",
+        "size": 118,
+        "kind": "asm",
+        "owner": "0x0044CE80"
+      }
     },
     {
       "name": "text_padding_0044cef6",
@@ -58374,7 +58383,6 @@
     "src/game/recovery_decay_counter_00418a00.cpp",
     "src/game/recovery_dispatch_schedule_00428160.cpp",
     "src/game/recovery_increment_animation_count_004188a0.cpp",
-    "src/game/recovery_initialize_interface_array_0044ce80.cpp",
     "src/game/recovery_initialize_large_state_00421f00.cpp",
     "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
     "src/game/recovery_initialize_state_table_0041f850.cpp",
@@ -59980,7 +59988,8 @@
     "src/game/item_manager_teardown_004145f0.cpp",
     "src/game/replay_manager_teardown_004294a0.cpp",
     "src/game/bullet_slot_construct_00405d00.cpp",
-    "src/game/item_score_display_create_00415db0.cpp"
+    "src/game/item_score_display_create_00415db0.cpp",
+    "src/platform/sound_stream_construct_0044ce80.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60874,7 +60883,8 @@
     "layout/ltcg/item_manager_teardown_004145f0.json",
     "layout/ltcg/replay_manager_teardown_004294a0.json",
     "layout/ltcg/bullet_slot_construct_00405d00.json",
-    "layout/ltcg/item_score_display_create_00415db0.json"
+    "layout/ltcg/item_score_display_create_00415db0.json",
+    "layout/ltcg/sound_stream_construct_0044ce80.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

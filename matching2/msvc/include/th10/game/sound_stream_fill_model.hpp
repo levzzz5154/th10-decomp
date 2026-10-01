@@ -32,7 +32,9 @@ struct WaveMethods {
         WaveBuffer*, unsigned int, unsigned int,
         unsigned char**, unsigned int*, unsigned char**, unsigned int*,
         unsigned int);
-    void* reserved30[7];
+    void* reserved30;
+    int (__stdcall* set_current_position)(WaveBuffer*, unsigned int); // +0x34
+    void* reserved38[5];
     int (__stdcall* unlock)(            // +0x4c
         WaveBuffer*, unsigned char*, unsigned int, unsigned char*, unsigned int);
     int (__stdcall* restore)(WaveBuffer*); // +0x50
@@ -45,6 +47,13 @@ struct SoundStream {
     WaveBuffer** buffers;               // +0x04
     unsigned int buffer_bytes;          // +0x08
     MusicCursor* reader;                // +0x0c
+};
+
+// The stream as its constructor at 0x0044CE80 fills it in.
+struct SoundStreamState : SoundStream {
+    unsigned int buffer_count;          // +0x10
+    unsigned char reserved_14[0x30 - 0x14];
+    unsigned int last_play_position;    // +0x30
 };
 
 typedef void (__stdcall* StreamSleep)(unsigned int);
@@ -75,4 +84,5 @@ typedef char LayoutReader[offsetof(SoundStream, reader) == 0x0c ? 1 : -1];
 typedef char LayoutStatus[offsetof(WaveMethods, get_status) == 0x24 ? 1 : -1];
 typedef char LayoutLock[offsetof(WaveMethods, lock) == 0x2c ? 1 : -1];
 typedef char LayoutUnlock[offsetof(WaveMethods, unlock) == 0x4c ? 1 : -1];
+typedef char LayoutSetPosition[offsetof(WaveMethods, set_current_position) == 0x34 ? 1 : -1];
 typedef char LayoutRestore[offsetof(WaveMethods, restore) == 0x50 ? 1 : -1];
