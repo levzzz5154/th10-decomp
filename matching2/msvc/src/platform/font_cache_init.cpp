@@ -28,7 +28,7 @@ extern "C" void __cdecl InitializeFontCache_00437a00() {
 }
 #pragma code_seg()
 
-#include "../../layout/ltcg/native_font_start/clip.cpp"
+#include "../render/quad_buffer_create_004462f0.cpp"
 #include "../../layout/ltcg/native_font_start/stop_worker.cpp"
 #include "../unidentified/FUN_004201b0_004201b0.cpp"
 

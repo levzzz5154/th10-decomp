@@ -35118,13 +35118,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004462f0_004462f0",
-      "source": "src/render/anm_clip_quad.cpp",
-      "symbol": "_asm_FUN_004462f0_004462f0",
+      "name": "semantic_ClipHost_InitializeClip_004462f0",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
       "address": "0x004462F0",
       "size": 472,
-      "kind": "asm",
-      "owner": "0x004462F0"
+      "kind": "semantic",
+      "owner": "0x004462F0",
+      "previous_record": {
+        "name": "asm_FUN_004462f0_004462f0",
+        "source": "src/render/anm_clip_quad.cpp",
+        "symbol": "_asm_FUN_004462f0_004462f0",
+        "address": "0x004462F0",
+        "size": 472,
+        "kind": "asm",
+        "owner": "0x004462F0"
+      }
     },
     {
       "name": "text_padding_004464c8",
@@ -58823,7 +58832,6 @@
     "src/render/animation_texture_create_00447050.cpp",
     "src/render/anm_batch_flush.cpp",
     "src/render/anm_blend_state.cpp",
-    "src/render/anm_clip_quad.cpp",
     "src/render/anm_distance_color.cpp",
     "src/render/anm_handle_release.cpp",
     "src/render/anm_manager_update.cpp",

@@ -13,7 +13,7 @@
   "included_sources": [
     "layout/ltcg/native_font_start/release_surface.cpp",
     "layout/ltcg/native_font_start/create_surface.cpp",
-    "layout/ltcg/native_font_start/clip.cpp",
+    "src/render/quad_buffer_create_004462f0.cpp",
     "layout/ltcg/native_font_start/stop_worker.cpp",
     "src/unidentified/FUN_004201b0_004201b0.cpp",
     "layout/ltcg/native_game_input/logger.cpp",
@@ -55,6 +55,14 @@
       "address": "0x43b8d0",
       "size": 439,
       "actual_abi": "Complete genuine input-state receiverEAX, statusEAX/plainRET, no stack inputs; actual GameWorker call43BA9F."
+    },
+    {
+      "name": "QuadBufferCreate",
+      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
+      "section": ".text$a14clip",
+      "address": "0x4462f0",
+      "size": 472,
+      "actual_abi": "host in EAX; no stack inputs; plain RET"
     }
   ],
   "anchors": [
@@ -71,13 +79,6 @@
       "section": ".text$a04release",
       "address": "0x436a30",
       "size": 107
-    },
-    {
-      "name": "Clip",
-      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
-      "section": ".text$a14clip",
-      "address": "0x4462f0",
-      "size": 472
     },
     {
       "name": "StopWorker",
