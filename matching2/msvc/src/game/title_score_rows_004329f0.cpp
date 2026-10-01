@@ -21,7 +21,7 @@ int TitleMenu_00431410::DrawScoreRows() {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};
         int selected = difficulty;
         data_004776e0->current_64 = 1;
-        if (!rows_hidden) {
+        if (!spell_page) {
             for (int row = 0; row < 10; ++row) {
                 int shade = 0xFF - row * 0x10;
                 int rank = row + 1;

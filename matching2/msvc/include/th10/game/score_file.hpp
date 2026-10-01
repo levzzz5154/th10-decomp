@@ -43,7 +43,9 @@ struct ScoreRankEntry {
 };
 
 struct ScoreSpellRecord {
-    unsigned char reserved[0x88];
+    char name[0x80];                    // +0x00
+    int captures;                       // +0x80
+    int attempts;                       // +0x84
     int spell_id;                       // +0x88
     int difficulty;                     // +0x8C
 };

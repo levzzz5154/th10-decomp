@@ -90,11 +90,15 @@ struct TitleMenu_00431410 {
     unsigned char pad_028[0xFC - 0x28];
     int difficulty;                      // +0x0FC
     unsigned char pad_100[0x1D4 - 0x100];
-    int rows_hidden;                     // +0x1D4
-    unsigned char pad_1D8[0x2B4 - 0x1D8];
+    int spell_page;                      // +0x1D4: 0 shows the score rows
+    unsigned char pad_1D8[0x2AC - 0x1D8];
+    int listed_spells;                   // +0x2AC
+    int unknown_2b0;
     int phase_frames;                    // +0x2B4
     float phase_elapsed;                 // +0x2B8
-    unsigned char pad_2BC[0x58DC - 0x2BC];
+    unsigned char pad_2BC[0x5D4 - 0x2BC];
+    unsigned int spell_lines[10];        // +0x5D4: text animation ids
+    unsigned char pad_5FC[0x58DC - 0x5FC];
     char name[12];                       // +0x58DC: high score name being typed
     int name_length;                     // +0x58E8
     int name_confirmed;                  // +0x58EC
