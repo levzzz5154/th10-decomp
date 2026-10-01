@@ -44,6 +44,15 @@
       "address": "0x0042D2F0",
       "size": 7,
       "actual_abi": "fastcall menu ECX; tail jump with the menu in EAX"
+    },
+    {
+      "name": "TitleMenu_DrawReplayBrowser",
+      "symbol": "_TitleMenu_DrawReplayBrowser_00431ba0@4",
+      "source": "src/game/title_replay_browser_00431ba0.cpp",
+      "section": ".text$05s_browser",
+      "address": "0x00431BA0",
+      "size": 825,
+      "actual_abi": "menu on the stack; returns 1; RET 4"
     }
   ],
   "context": {
@@ -72,7 +81,7 @@
     {
       "section": ".text$05rowsz",
       "address": 4396467,
-      "size": 5181
+      "size": 1517
     },
     {
       "section": ".text$06scoresz",
@@ -88,6 +97,11 @@
       "section": ".text$04callbackz",
       "address": "0x0042D2F7",
       "size": 16665
+    },
+    {
+      "section": ".text$05s_browserz",
+      "address": "0x00431ED9",
+      "size": 2839
     }
   ],
   "constants": [],
@@ -143,11 +157,6 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_TitleMenu_DrawReplayBrowser_00431ba0@4",
-      "address": "0x00431BA0",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_TitleMenu_DrawReplayStages_00433230@4",
       "address": "0x00433230",
       "kind": "relative_code"
@@ -156,6 +165,21 @@
       "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
       "address": "0x00433B30",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004746dc",
+      "address": "0x004746DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004746f4",
+      "address": "0x004746F4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474744",
+      "address": "0x00474744",
+      "kind": "data"
     }
   ],
   "anchors": [
@@ -180,7 +204,8 @@
   "additional_sources": [
     "layout/ltcg/title_practice_rows_00431410/append.cpp",
     "src/game/title_score_rows_004329f0.cpp",
-    "src/game/title_menu_draw_0042d260.cpp"
+    "src/game/title_menu_draw_0042d260.cpp",
+    "src/game/title_replay_browser_00431ba0.cpp"
   ],
   "data_aliases": [
     {
@@ -217,9 +242,45 @@
       "symbol": "??_C@_0DH@CLJLDOJ@?$CF2d?5?5?$CFs?5?5?$CF9ld?$CFd?5?5?$CF?44d?1?$CF?42d?1?$CF?42d?5@",
       "address": "0x0046EE84",
       "bytes": "25326420202573202025396c6425642020252e34642f252e32642f252e326420252e32643a252e326420202573202025322e3166252500"
+    },
+    {
+      "symbol": "__real@41200000",
+      "address": "0x00470C1C",
+      "bytes": "00002041"
+    },
+    {
+      "symbol": "__real@3dcccccd",
+      "address": "0x00470C18",
+      "bytes": "cdcccc3d"
+    },
+    {
+      "symbol": "__real@42a00000",
+      "address": "0x00470C28",
+      "bytes": "0000a042"
+    },
+    {
+      "symbol": "__real@41700000",
+      "address": "0x00470C08",
+      "bytes": "00007041"
+    },
+    {
+      "symbol": "??_C@_0DK@OAGCHDAP@No?4?$CF?42d?5?9?9?9?9?9?9?9?9?5?9?9?1?9?9?1?9?9?5?9?9?3?9?9?5@",
+      "address": "0x0046EF74",
+      "bytes": "4e6f2e252e3264202d2d2d2d2d2d2d2d202d2d2f2d2d2f2d2d202d2d3a2d2d202d2d2d2d2d2d2d202d2d2d2d2d2d2d202d2d2d202d2d2d252500"
+    },
+    {
+      "symbol": "??_C@_0L@LPGLHICO@?$CFs?5?5?$CF?48d?$CFd?$AA@",
+      "address": "0x0046EF68",
+      "bytes": "25732020252e3864256400"
+    },
+    {
+      "symbol": "??_C@_0DF@HIIJNJLG@No?4?$CF?42d?5?$CFs?5?$CF?42d?1?$CF?42d?1?$CF?42d?5?$CF?42d?3?$CF@",
+      "address": "0x0046EFB0",
+      "bytes": "4e6f2e252e326420257320252e32642f252e32642f252e326420252e32643a252e32642025732025732025732025322e3166252500"
     }
   ],
   "roots": [
-    "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z"
+    "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
+    "_TitleMenu_DrawReplayBrowser_00431ba0@4"
   ]
 }

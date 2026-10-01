@@ -44,3 +44,16 @@ What decided the score table's bytes:
 
 The three replay pages the switch calls (0x00431BA0, 0x00433230,
 0x00433B30) are still assembly and take the menu on the stack.
+
+## Replay browser draw at `0x00431BA0` (2026-10-02)
+
+`src/game/title_replay_browser_00431ba0.cpp` owns the 825-byte replay browser
+page (case 12 of the overlay dispatch): the 25-slot list in phase 2 and the
+selected replay's stage list in phase 4. It is a rooted one-argument stdcall.
+
+The stage loop only matches when every stage slot access spells the whole
+`menu->replays[menu->selected_replay]->stages[...]` path and the next stage's
+data pointer is held in a local for the two formatted fields. A replay or slot
+pointer local keeps the 0x24 stride in a register and folds it into indexed
+addressing; the full path leaves the stride in the dead argument's stack home
+and forms `replay + stride` once, as retail does.

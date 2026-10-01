@@ -47,6 +47,41 @@ struct GameSelection_00431410 {
     int difficulty;                      // 0x00474C74
 };
 
+// The header block of a loaded replay.
+struct ReplayHeader_00431ba0 {
+    char name[12];                       // +0x00
+    time_t date;                         // +0x0C
+    int score;                           // +0x10
+    unsigned char pad_14[0x48 - 0x14];
+    float slowdown;                      // +0x48
+    unsigned char pad_4C[4];
+    int character;                       // +0x50
+    int shot_type;                       // +0x54
+    int difficulty;                      // +0x58
+    int stage;                           // +0x5C
+    int final_value_60;                  // +0x60
+};
+
+// A replay's per-stage starting state.
+struct ReplayStage_00431ba0 {
+    unsigned char pad_000[0x0C];
+    int score;                           // +0x00C
+    unsigned char pad_010[0x1B4 - 0x10];
+    int value_1b4;                       // +0x1B4
+};
+
+struct ReplayStageSlot_00431ba0 {
+    ReplayStage_00431ba0* data;          // +0x00
+    unsigned char pad_04[0x20];
+};
+
+struct ReplayFile_00431ba0 {
+    unsigned char pad_00[0x18];
+    ReplayHeader_00431ba0* header;       // +0x18
+    unsigned char pad_1C[0xB0 - 0x1C];
+    ReplayStageSlot_00431ba0 stages[8];  // +0xB0, indexed by stage number
+};
+
 struct TitleMenu_00431410 {
     unsigned char pad_000[0x1C];
     int page;                            // +0x01C
@@ -58,6 +93,11 @@ struct TitleMenu_00431410 {
     int rows_hidden;                     // +0x1D4
     unsigned char pad_1D8[0x2B4 - 0x1D8];
     int phase_frames;                    // +0x2B4
+    float phase_elapsed;                 // +0x2B8
+    unsigned char pad_2BC[0x59DC - 0x2BC];
+    int selected_replay;                 // +0x59DC
+    int unknown_59e0;
+    ReplayFile_00431ba0* replays[25];    // +0x59E4
 
     __declspec(noinline) int DrawOverlay();
     __declspec(noinline) int DrawPracticeRows();
@@ -69,6 +109,9 @@ extern GameThread_00401530* data_004776e0;
 extern GameSelection_00431410 data_00474c68;
 extern ScoreCharacter_00431410* data_0047783c;
 extern const char* data_0047471c[];      // "test", "Stage 1" .. "Stage 6", "Extra"
+extern const char* data_004746dc[];      // "ReimuA" .. "MarisaC"
+extern const char* data_004746f4[];      // "Easy" .. "Extra"
+extern const char* data_00474744[];      // "tst", "St1" .. "Ex", "All", "ExA"
 }
 
 typedef char ScoreEntry_size[sizeof(ScoreEntry_004329f0) == 0x18 ? 1 : -1];
