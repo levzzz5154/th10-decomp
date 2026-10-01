@@ -215,13 +215,6 @@ Entity* __fastcall Entity_Constructor(Entity* entity) {
     return entity;
 }
 
-void __fastcall Entity_Destructor(Entity* entity) {
-    void* resource = entity->resource;
-    if (resource != 0)
-        entry_free_00452422(resource);
-    entity->resource = 0;
-}
-
 void __fastcall EntitySecondaryResource_Release(Entity* entity) {
     void* resource = entity->secondary_resource;
     if (resource != 0)

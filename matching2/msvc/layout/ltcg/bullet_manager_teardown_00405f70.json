@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "name": "bullet_manager_teardown_00405f70",
+  "source": "src/game/bullet_manager_teardown_00405f70.cpp",
+  "driver": "layout/ltcg/bullet_manager_teardown_00405f70/context.cpp",
+  "image_base": "0x00400000",
+  "description": "Complete ordinary C++ bullet manager destructor with its genuine member array, element cleanup, scheduler and animation-removal bodies; real owned-delete caller is unselected.",
+  "exceptions": true,
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": 4531347,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": 4531361,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": 4531234,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": 4531501,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": 4531711,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": 4597613,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": 0,
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": 4791268,
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": 4792948,
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": 4612272,
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": 4612276,
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": 4666976,
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": 4558501,
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "headers": [
+    "include/th10/game/bullet_manager_teardown_00405f70.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/animation_resource_removal.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/bullet_manager_teardown_00405f70/element.cpp",
+    "layout/ltcg/bullet_manager_teardown_00405f70/owned_delete.cpp",
+    "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
+    "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp"
+  ],
+  "functions": [
+    {
+      "name": "BulletManagerDestructor",
+      "symbol": "??1BulletManager_00405F70@@QAE@XZ",
+      "section": ".text$03manager_dtor",
+      "address": "0x00405F70",
+      "size": 236,
+      "actual_abi": "receiver on stack, RET4; actual 2001x2032 bullet-slot member destruction"
+    },
+    {
+      "name": "BulletManagerArrayUnwind",
+      "symbol": "_BulletManagerArrayUnwind_00465520",
+      "section": ".text$x",
+      "address": "0x00465520",
+      "size": 28,
+      "actual_abi": "Actual 2001x2032 member array at receiver+0x60",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "BulletManagerArrayHandler",
+      "symbol": "__ehhandler$??1BulletManager_00405F70@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x0046553C",
+      "size": 10,
+      "actual_abi": "Actual compiler-generated EH handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ActualItemElementDestructor",
+      "symbol": "??1BulletSlot_00405DE0@@QAE@XZ",
+      "section": ".text$01element_dtor",
+      "address": "0x00405DE0",
+      "size": 34
+    },
+    {
+      "name": "ActualAnimationResourceMarker",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "section": ".text$20helper",
+      "address": "0x004493E0",
+      "size": 92
+    },
+    {
+      "name": "ActualSchedulerRemove",
+      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "section": ".text$70remove",
+      "address": "0x00449F60",
+      "size": 114
+    }
+  ],
+  "context": {
+    "symbol": "?BulletManager_DestroyOwned_00406140@@YGXPAUBulletManager_00405F70@@@Z",
+    "section": ".text$05owned_delete",
+    "address": "0x00406140",
+    "size": 28,
+    "description": "Complete genuine owned-delete caller, natural extent unselected."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 19936
+    },
+    {
+      "section": ".text$01element_dtorz",
+      "address": 4218370,
+      "size": 366
+    },
+    {
+      "section": ".text$03manager_dtorz",
+      "address": 4218972,
+      "size": 228
+    },
+    {
+      "section": ".text$05owned_deletez",
+      "address": 4219228,
+      "size": 275076
+    },
+    {
+      "section": ".text$20helperz",
+      "address": 4494396,
+      "size": 2852
+    },
+    {
+      "section": ".text$70removez",
+      "address": 4497362,
+      "size": 111950
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 46508
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004715AC",
+      "bytes": "ffffffff205546002005931901000000ac15470000000000000000000000000000000000",
+      "description": "Expected original unwindmap8 and FuncInfo28, validation only"
+    }
+  ]
+}

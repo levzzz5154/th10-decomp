@@ -978,9 +978,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_Entity_Destructor_00401ff0",
-      "source": "src/game/entity.cpp",
-      "symbol": "?Entity_Destructor@@YIXPAUEntity@@@Z",
+      "name": "semantic_EffectAnimation_Destructor_00401FF0",
+      "source": "src/game/effect_manager_teardown_0042b570.cpp",
+      "symbol": "??1EffectAnimation_00401FF0@@QAE@XZ",
       "address": "0x00401FF0",
       "size": 34,
       "relocations": [
@@ -994,13 +994,30 @@
       ],
       "kind": "semantic",
       "previous_record": {
-        "name": "asm_FUN_00405d00_00405d00",
+        "name": "semantic_Entity_Destructor_00401ff0",
         "source": "src/game/entity.cpp",
-        "symbol": "_asm_FUN_00405d00_00405d00",
+        "symbol": "?Entity_Destructor@@YIXPAUEntity@@@Z",
         "address": "0x00401FF0",
         "size": 34,
-        "kind": "asm",
-        "owner": null
+        "relocations": [
+          {
+            "offset": 15,
+            "type": "IMAGE_REL_I386_REL32",
+            "symbol": "_entry_free_00452422",
+            "original_operand": "1f040500",
+            "original_target": "0x00452422"
+          }
+        ],
+        "kind": "semantic",
+        "previous_record": {
+          "name": "asm_FUN_00405d00_00405d00",
+          "source": "src/game/entity.cpp",
+          "symbol": "_asm_FUN_00405d00_00405d00",
+          "address": "0x00401FF0",
+          "size": 34,
+          "kind": "asm",
+          "owner": null
+        }
       }
     },
     {
@@ -3947,13 +3964,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ItemManager_DestroyRetail_00405f70",
-      "source": "src/game/item_manager_destroy_retail_00405f70.cpp",
-      "symbol": "_asm_ItemManager_DestroyRetail_00405f70",
+      "name": "semantic_BulletManager_Destructor_00405F70",
+      "source": "src/game/bullet_manager_teardown_00405f70.cpp",
+      "symbol": "??1BulletManager_00405F70@@QAE@XZ",
       "address": "0x00405F70",
       "size": 236,
-      "kind": "asm",
-      "owner": "0x00405F70"
+      "kind": "semantic",
+      "owner": "0x00405F70",
+      "previous_record": {
+        "name": "asm_ItemManager_DestroyRetail_00405f70",
+        "source": "src/game/item_manager_destroy_retail_00405f70.cpp",
+        "symbol": "_asm_ItemManager_DestroyRetail_00405f70",
+        "address": "0x00405F70",
+        "size": 236,
+        "kind": "asm",
+        "owner": "0x00405F70"
+      }
     },
     {
       "name": "text_padding_0040605c",
@@ -24060,13 +24086,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042b570_0042b570",
-      "source": "src/game/effect_manager_destroy.cpp",
-      "symbol": "_asm_FUN_0042b570_0042b570",
+      "name": "semantic_EffectManager_Destructor_0042B570",
+      "source": "src/game/effect_manager_teardown_0042b570.cpp",
+      "symbol": "??1EffectManager_0042B570@@QAE@XZ",
       "address": "0x0042B570",
       "size": 232,
-      "kind": "asm",
-      "owner": "0x0042B570"
+      "kind": "semantic",
+      "owner": "0x0042B570",
+      "previous_record": {
+        "name": "asm_FUN_0042b570_0042b570",
+        "source": "src/game/effect_manager_destroy.cpp",
+        "symbol": "_asm_FUN_0042b570_0042b570",
+        "address": "0x0042B570",
+        "size": 232,
+        "kind": "asm",
+        "owner": "0x0042B570"
+      }
     },
     {
       "name": "text_padding_0042b658",
@@ -48901,25 +48936,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465230_00465230",
-      "source": "src/unidentified/Unwind_00465230_00465230.cpp",
-      "symbol": "_asm_Unwind_00465230_00465230",
+      "name": "semantic_EffectManagerAnimationUnwind_00465230",
+      "source": "src/game/effect_manager_teardown_0042b570.cpp",
+      "symbol": "_EffectManagerAnimationUnwind_00465230",
       "address": "0x00465230",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00465230"
+      "kind": "semantic",
+      "owner": "0x00465230",
+      "previous_record": {
+        "name": "asm_Unwind_00465230_00465230",
+        "source": "src/unidentified/Unwind_00465230_00465230.cpp",
+        "symbol": "_asm_Unwind_00465230_00465230",
+        "address": "0x00465230",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x00465230"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046523b",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/cerr.obj",
-      "symbol": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
+      "name": "semantic_EffectManagerHandler_0046523B",
+      "source": "src/game/effect_manager_teardown_0042b570.cpp",
+      "symbol": "__ehhandler$??1EffectManager_0042B570@@QAE@XZ",
       "address": "0x0046523B",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x0046523B",
-      "library_section": ".text$x",
-      "library_section_number": 368,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046523b",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/cerr.obj",
+        "symbol": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
+        "address": "0x0046523B",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x0046523B",
+        "library_section": ".text$x",
+        "library_section_number": 368,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_00465245",
@@ -49560,25 +49613,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465520_00465520",
-      "source": "src/unidentified/Unwind_00465520_00465520.cpp",
-      "symbol": "_asm_Unwind_00465520_00465520",
+      "name": "semantic_BulletManagerArrayUnwind_00465520",
+      "source": "src/game/bullet_manager_teardown_00405f70.cpp",
+      "symbol": "_BulletManagerArrayUnwind_00465520",
       "address": "0x00465520",
       "size": 28,
-      "kind": "asm",
-      "owner": "0x00465520"
+      "kind": "semantic",
+      "owner": "0x00465520",
+      "previous_record": {
+        "name": "asm_Unwind_00465520_00465520",
+        "source": "src/unidentified/Unwind_00465520_00465520.cpp",
+        "symbol": "_asm_Unwind_00465520_00465520",
+        "address": "0x00465520",
+        "size": 28,
+        "kind": "asm",
+        "owner": "0x00465520"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046553c",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/wclog.obj",
-      "symbol": "_crt_libcpmt_wclog_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_BulletManagerArrayHandler_0046553C",
+      "source": "src/game/bullet_manager_teardown_00405f70.cpp",
+      "symbol": "__ehhandler$??1BulletManager_00405F70@@QAE@XZ",
       "address": "0x0046553C",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x0046553C",
-      "library_section": ".text$x",
-      "library_section_number": 378,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046553c",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/wclog.obj",
+        "symbol": "_crt_libcpmt_wclog_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x0046553C",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x0046553C",
+        "library_section": ".text$x",
+        "library_section_number": 378,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_00465546",
@@ -57184,7 +57255,14 @@
     "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z": "0x004473C0",
     "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z": "0x00447080",
     "_AnmManager_ServicePending_00447700@4": "0x00447700",
-    "?CopyToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHH@Z": "0x00447FD0"
+    "?CopyToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHH@Z": "0x00447FD0",
+    "??1BulletManager_00405F70@@QAE@XZ": "0x00405F70",
+    "_BulletManagerArrayUnwind_00465520": "0x00465520",
+    "__ehhandler$??1BulletManager_00405F70@@QAE@XZ": "0x0046553C",
+    "??1EffectAnimation_00401FF0@@QAE@XZ": "0x00401FF0",
+    "??1EffectManager_0042B570@@QAE@XZ": "0x0042B570",
+    "_EffectManagerAnimationUnwind_00465230": "0x00465230",
+    "__ehhandler$??1EffectManager_0042B570@@QAE@XZ": "0x0046523B"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -57342,7 +57420,6 @@
     "lib/libcpmt.lib/build/intel/mt_obj/ushcout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcerr.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcin.obj",
-    "lib/libcpmt.lib/build/intel/mt_obj/wclog.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/xlocale.obj",
@@ -57426,7 +57503,6 @@
     "src/game/effect_accel.cpp",
     "src/game/effect_indicator_queue.cpp",
     "src/game/effect_indicator_slots.cpp",
-    "src/game/effect_manager_destroy.cpp",
     "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
     "src/game/effect_manager_reset_and_publish_retail_0042b430.cpp",
     "src/game/effect_pool_initialize_0042b4d0.cpp",
@@ -57534,7 +57610,6 @@
     "src/game/input_poll_joystick_buttons_0044a4e0.cpp",
     "src/game/input_recorder.cpp",
     "src/game/item_manager_create_retail_00414830.cpp",
-    "src/game/item_manager_destroy_retail_00405f70.cpp",
     "src/game/item_scatter.cpp",
     "src/game/item_spawn.cpp",
     "src/game/key_config.cpp",
@@ -58442,7 +58517,6 @@
     "src/unidentified/Unwind_004651e0_004651e0.cpp",
     "src/unidentified/Unwind_004651fc_004651fc.cpp",
     "src/unidentified/Unwind_0046520a_0046520a.cpp",
-    "src/unidentified/Unwind_00465230_00465230.cpp",
     "src/unidentified/Unwind_00465250_00465250.cpp",
     "src/unidentified/Unwind_00465280_00465280.cpp",
     "src/unidentified/Unwind_004652a0_004652a0.cpp",
@@ -58459,7 +58533,6 @@
     "src/unidentified/Unwind_004654c0_004654c0.cpp",
     "src/unidentified/Unwind_004654e0_004654e0.cpp",
     "src/unidentified/Unwind_004654f9_004654f9.cpp",
-    "src/unidentified/Unwind_00465520_00465520.cpp",
     "src/unidentified/Unwind_00465550_00465550.cpp",
     "src/unidentified/Unwind_004655c0_004655c0.cpp",
     "src/unidentified/Unwind_004655d9_004655d9.cpp",
@@ -59237,7 +59310,9 @@
     "src/render/anm_manager_load_file_now_00447080.cpp",
     "src/render/anm_manager_service_pending_00447700.cpp",
     "src/render/animation_manager_copy_to_back_buffer_00447fd0.cpp",
-    "src/unidentified/FUN_00447c80_00447c80.cpp"
+    "src/unidentified/FUN_00447c80_00447c80.cpp",
+    "src/game/bullet_manager_teardown_00405f70.cpp",
+    "src/game/effect_manager_teardown_0042b570.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60105,7 +60180,9 @@
     "layout/ltcg/listener_owner_broadcast_0041c760.json",
     "layout/ltcg/anm_texture_upload_00446c70.json",
     "layout/ltcg/animation_manager_copy_to_back_buffer_00447fd0.json",
-    "layout/ltcg/native_archive_index.json"
+    "layout/ltcg/native_archive_index.json",
+    "layout/ltcg/bullet_manager_teardown_00405f70.json",
+    "layout/ltcg/effect_manager_teardown_0042b570.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
