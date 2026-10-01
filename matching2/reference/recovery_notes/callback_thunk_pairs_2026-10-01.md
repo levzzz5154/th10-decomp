@@ -74,3 +74,20 @@ loader thread at +0x10); the compiler generates the unwind funclet and handler.
   rejecting overlap with real contributions.
 - `adopt_cluster.py` passes `exceptions` and `native_data` through and adds the
   `.rdata$0before` gap up to the exception table.
+
+## SprtView destructor (0x40A1A0) and update (0x40A450)
+
+- A stand-in destructor only keeps its receiver on the stack when its body
+  mirrors the real one: the two inlined scheduler removals keep all four
+  callee-saved registers busy, so `this` is reloaded from the stack.
+- `delete global;` loads the pointer into EAX and copies it; an inline helper
+  taking `T* const&` and copying to a local loads straight into ESI.
+- Two destructible array members in one stand-in struct give that stand-in its
+  own EH funclets, which displace the real ones in `.text$x`; use one struct
+  per array.
+- Update: with no `roots` entry the member function takes its receiver on the
+  stack (RET 4) and the fastcall task becomes `push ecx; call; ret`.
+- A stand-in whose `this` must arrive in EAX (0x40CFB0) needs a `rep movs` in
+  its body: ESI is then taken by the copy and the receiver moves EAX -> EBX.
+- Parameter structs passed "in EAX after the pushes" are the callee's `this`
+  (`spawn.Create(manager, name)`), not an argument.

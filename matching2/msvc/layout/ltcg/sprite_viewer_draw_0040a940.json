@@ -7,7 +7,8 @@
     "include/th10/game/sprite_viewer_draw_0040a940.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/render/camera_batch.hpp",
-    "include/th10/render/quad_batch.hpp"
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/game/menu_cursor.hpp"
   ],
   "image_base": "0x00400000",
   "description": "SprtView debug text and sprite draw with the viewer in EDI and its ECX scheduler callback, compiled with the real marked-text writer and an ESI-entity stand-in for the entity draw.",

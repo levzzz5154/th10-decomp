@@ -11,7 +11,8 @@
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/platform/worker.hpp",
-    "include/th10/render/quad_batch.hpp"
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/game/menu_cursor.hpp"
   ],
   "image_base": "0x00400000",
   "description": "SprtView screen destructor with its two compiler-generated member cleanups and the ESI script-name clear; real scheduler unlink and worker stop, stand-in manager destructors and the owned-delete caller.",

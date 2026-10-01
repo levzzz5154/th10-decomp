@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include "th10/game/game_thread_queue_native.hpp"
 #include "th10/render/camera_batch.hpp"
+#include "th10/game/menu_cursor.hpp"
 
 struct AnimationManager_00442F50;
 
@@ -14,13 +15,36 @@ struct SpriteViewerParser_0040a940 {
     SpriteViewerEntry_0040a940* entries;
 };
 // The enemy manager at 0x00477704, as far as the viewer reads it.
-struct SpriteViewerEnemies_0040a940 {
-    unsigned char reserved_000[0x54];
+// A scheduler task, as far as the screen touches it: bit 1 of the flags
+// suspends the task.
+struct SpriteViewerTask_0040a940 {
+    int priority;
+    unsigned int flags;
+};
+// Every game manager starts with its update and draw tasks.
+struct SpriteViewerTaskPair_0040a940 {
+    unsigned char reserved_000[8];
+    SpriteViewerTask_0040a940* update_task;
+    SpriteViewerTask_0040a940* draw_task;
+
+    // 0x00409E20: suspend both tasks.
+    __declspec(noinline) void Suspend();
+    void Resume() {
+        if (update_task) update_task->flags &= ~2u;
+        if (draw_task) draw_task->flags &= ~2u;
+    }
+};
+struct SpriteViewerEnemies_0040a940 : SpriteViewerTaskPair_0040a940 {
+    unsigned char reserved_010[0x54 - 0x10];
     SpriteViewerParser_0040a940* parser;
     unsigned char reserved_058[8];
     int enemy_count;
 
     __declspec(noinline) ~SpriteViewerEnemies_0040a940();   // 0x0040D530
+    // 0x0040D510: suspend both tasks.
+    __declspec(noinline) void SuspendTasks();
+    // 0x00409F90: remove every enemy.
+    __declspec(noinline) void Clear();
 };
 
 // The viewed sprite is an animation entity; its base position is at +0x334.
@@ -60,22 +84,23 @@ struct SpriteViewer_0040a940 {
     int state;                 // 1 = menu, 2 = loading, 3 = viewing, 4 = enemy count
     const char** script_names;
     int script_count;
-    int menu_row;
-    unsigned char reserved_040[0x114 - 0x40];
-    int script_index;
-    unsigned char reserved_118[0x1EC - 0x118];
-    int selection;
-    unsigned char reserved_1f0[0x2C8 - 0x1F0];
+    MenuCursor menu;           // File / Ecl / Quit
+    MenuCursor file_cursor;    // which script file
+    MenuCursor entry_cursor;   // which entry of the loaded script
+    unsigned char reserved_2c4[4];
     SpriteViewerSprite_0040a940 sprite;
     float position_x;
     float position_y;
-    unsigned char reserved_67c[8];
+    float position_z;
+    int field_680;
     unsigned int flags;
 
     __declspec(noinline) ~SpriteViewer_0040a940();
     __declspec(noinline) void ClearScriptNames();
+    __declspec(noinline) int Update();
     __declspec(noinline) int Draw();
 };
+typedef char SpriteViewerCursorOffset_0040a940[offsetof(SpriteViewer_0040a940, entry_cursor) == 0x1EC ? 1 : -1];
 typedef char SpriteViewerStateOffset_0040a940[offsetof(SpriteViewer_0040a940, state) == 0x30 ? 1 : -1];
 typedef char SpriteViewerSpriteOffset_0040a940[offsetof(SpriteViewer_0040a940, sprite) == 0x2C8 ? 1 : -1];
 typedef char SpriteViewerFlagsOffset_0040a940[offsetof(SpriteViewer_0040a940, flags) == 0x684 ? 1 : -1];
