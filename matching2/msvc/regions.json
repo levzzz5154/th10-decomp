@@ -13358,13 +13358,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00415db0_00415db0",
-      "source": "src/game/fun_00415db0_00415db0.cpp",
-      "symbol": "_asm_FUN_00415db0_00415db0",
+      "name": "semantic_ItemManager_CreateScoreDisplay_00415db0",
+      "source": "src/game/item_score_display_create_00415db0.cpp",
+      "symbol": "?CreateScoreDisplay@ItemManager_00415db0@@QAEXH@Z",
       "address": "0x00415DB0",
       "size": 124,
-      "kind": "asm",
-      "owner": "0x00415DB0"
+      "kind": "semantic",
+      "owner": "0x00415DB0",
+      "previous_record": {
+        "name": "asm_FUN_00415db0_00415db0",
+        "source": "src/game/fun_00415db0_00415db0.cpp",
+        "symbol": "_asm_FUN_00415db0_00415db0",
+        "address": "0x00415DB0",
+        "size": 124,
+        "kind": "asm",
+        "owner": "0x00415DB0"
+      }
     },
     {
       "name": "text_padding_00415e2c",
@@ -50782,25 +50791,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465820_00465820",
-      "source": "src/unidentified/Unwind_00465820_00465820.cpp",
-      "symbol": "_asm_Unwind_00465820_00465820",
+      "name": "semantic_ItemScoreDisplayCreateUnwind_00465820",
+      "source": "src/game/item_score_display_create_00415db0.cpp",
+      "symbol": "_ItemScoreDisplayCreateUnwind_00465820",
       "address": "0x00465820",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00465820"
+      "kind": "semantic",
+      "owner": "0x00465820",
+      "previous_record": {
+        "name": "asm_Unwind_00465820_00465820",
+        "source": "src/unidentified/Unwind_00465820_00465820.cpp",
+        "symbol": "_asm_Unwind_00465820_00465820",
+        "address": "0x00465820",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x00465820"
+      }
     },
     {
-      "name": "library_ehhandler$??2@YAPAXIABUnothrow_t@std@@@Z_0046582b",
-      "source": "lib/libc.lib/build/intel/st_obj/newopnt.obj",
-      "symbol": "_crt_libc_newopnt_ehhandler_2_YAPAXIABUnothrow_t_std_Z",
+      "name": "semantic_ItemScoreDisplayCreateHandler_0046582b",
+      "source": "src/game/item_score_display_create_00415db0.cpp",
+      "symbol": "__ehhandler$?CreateScoreDisplay@ItemManager_00415db0@@QAEXH@Z",
       "address": "0x0046582B",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x0046582B",
-      "library_section": ".text$x",
-      "library_section_number": 4,
-      "library_entry": "__ehhandler$??2@YAPAXIABUnothrow_t@std@@@Z"
+      "previous_record": {
+        "name": "library_ehhandler$??2@YAPAXIABUnothrow_t@std@@@Z_0046582b",
+        "source": "lib/libc.lib/build/intel/st_obj/newopnt.obj",
+        "symbol": "_crt_libc_newopnt_ehhandler_2_YAPAXIABUnothrow_t_std_Z",
+        "address": "0x0046582B",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x0046582B",
+        "library_section": ".text$x",
+        "library_section_number": 4,
+        "library_entry": "__ehhandler$??2@YAPAXIABUnothrow_t@std@@@Z"
+      }
     },
     {
       "name": "text_padding_00465835",
@@ -57951,7 +57978,6 @@
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
     "lib/libc.lib/build/intel/st_obj/getqloc.obj",
-    "lib/libc.lib/build/intel/st_obj/newopnt.obj",
     "lib/libc.lib/build/intel/st_obj/setlocal.obj",
     "lib/libcmt.lib/../build/intel/mt_obj/87cdisp.obj",
     "lib/libcmt.lib/../build/intel/mt_obj/87disp.obj",
@@ -58232,7 +58258,6 @@
     "src/game/fun_00412ac0_00412ac0.cpp",
     "src/game/fun_00414370_00414370.cpp",
     "src/game/fun_00414900_00414900.cpp",
-    "src/game/fun_00415db0_00415db0.cpp",
     "src/game/fun_00415e90_00415e90.cpp",
     "src/game/fun_0041c330_0041c330.cpp",
     "src/game/fun_0041f400_0041f400.cpp",
@@ -59181,7 +59206,6 @@
     "src/unidentified/Unwind_0046577c_0046577c.cpp",
     "src/unidentified/Unwind_0046578a_0046578a.cpp",
     "src/unidentified/Unwind_004657b0_004657b0.cpp",
-    "src/unidentified/Unwind_00465820_00465820.cpp",
     "src/unidentified/Unwind_00465880_00465880.cpp",
     "src/unidentified/ValidateExecute_00463b02.cpp",
     "src/unidentified/ValidateRead_00463aca.cpp",
@@ -59955,7 +59979,8 @@
     "src/game/player_manager_teardown_00408af0.cpp",
     "src/game/item_manager_teardown_004145f0.cpp",
     "src/game/replay_manager_teardown_004294a0.cpp",
-    "src/game/bullet_slot_construct_00405d00.cpp"
+    "src/game/bullet_slot_construct_00405d00.cpp",
+    "src/game/item_score_display_create_00415db0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60848,7 +60873,8 @@
     "layout/ltcg/player_manager_teardown_00408af0.json",
     "layout/ltcg/item_manager_teardown_004145f0.json",
     "layout/ltcg/replay_manager_teardown_004294a0.json",
-    "layout/ltcg/bullet_slot_construct_00405d00.json"
+    "layout/ltcg/bullet_slot_construct_00405d00.json",
+    "layout/ltcg/item_score_display_create_00415db0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
