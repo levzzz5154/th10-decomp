@@ -85,6 +85,15 @@
       "address": "0x00413A20",
       "size": 289,
       "actual_abi": "state pointer at [ESP+4]; int result in EAX; RET 4"
+    },
+    {
+      "name": "Sound_LoadPendingSlot_0043d640",
+      "source": "src/platform/sound_load_pending_slot_0043d640.cpp",
+      "symbol": "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z",
+      "section": ".text$03zr5_slot",
+      "address": "0x0043D640",
+      "size": 37,
+      "actual_abi": "filename in EAX; owner and index on stack; RET 8"
     }
   ],
   "gaps": [
@@ -106,7 +115,7 @@
     {
       "section": ".text$03zqlayout",
       "address": "0x0043AE71",
-      "size": 10239
+      "size": 10191
     },
     {
       "section": ".text$03zrd_gap",
@@ -120,8 +129,8 @@
     },
     {
       "section": ".text$08layout",
-      "address": "0x0044B5BD",
-      "size": 595
+      "address": "0x0044B5CB",
+      "size": 581
     },
     {
       "section": ".text$00alayout",
@@ -162,6 +171,11 @@
       "section": ".text$04zdecryptz",
       "address": "0x44b213",
       "size": 333
+    },
+    {
+      "section": ".text$03zr7_gap",
+      "address": "0x0043D665",
+      "size": 11
     }
   ],
   "constants": [],
@@ -414,7 +428,8 @@
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
     "src/script/stage_ecl_load.cpp",
     "src/game/score_tasks.cpp",
-    "src/unidentified/unassigned_0043d670.cpp"
+    "src/unidentified/unassigned_0043d670.cpp",
+    "src/platform/sound_load_pending_slot_0043d640.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
@@ -425,7 +440,7 @@
     "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUStageEclLoader_00403850@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
-    "size": 189,
+    "size": 203,
     "description": "synthetic archive caller; not recovered game code"
   },
   "anchors": [

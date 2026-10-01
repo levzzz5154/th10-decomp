@@ -4,7 +4,10 @@
   "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
   "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
   "headers": [
-    "include/th10/render/animation_resource_removal.hpp"
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/render/anm_file_004470c0.hpp",
+    "include/th10/render/anm_texture_00446c70.hpp",
+    "include/th10/render/animation_position_record_00447940.hpp"
   ],
   "image_base": "0x00400000",
   "description": "AnimationManagerMarkResourceForRemoval, BulletPool::Reset, the resource release and its slot caller in one native /LTCG scope.",
@@ -70,6 +73,15 @@
       "size": 42,
       "actual_abi": "entry in ESI; plain RET",
       "source": "src/unidentified/unassigned_00447910.cpp"
+    },
+    {
+      "name": "AnmManager_ServicePending_00447700",
+      "symbol": "_AnmManager_ServicePending_00447700@4",
+      "section": ".text$05service",
+      "address": "0x00447700",
+      "size": 135,
+      "actual_abi": "manager on the stack; RET 4",
+      "source": "src/render/anm_manager_service_pending_00447700.cpp"
     }
   ],
   "context": {
@@ -113,17 +125,23 @@
     {
       "section": ".text$04layoutbz",
       "address": "0x0042C82D",
-      "size": 110499
+      "size": 110291
     },
     {
       "section": ".text$15layoutbz",
       "address": "0x0044793A",
       "size": 6822
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x00447787",
+      "size": 73
     }
   ],
   "constants": [],
   "roots": [
-    "_ReleaseSlot1_0042c800"
+    "_ReleaseSlot1_0042c800",
+    "_AnmManager_ServicePending_00447700@4"
   ],
   "absolute_symbols": [
     {
@@ -140,6 +158,11 @@
       "symbol": "_entry_free_004524a1",
       "address": "0x004524A1",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
+      "address": "0x004473C0",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -148,6 +171,7 @@
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
     "src/render/fun_00447810_00447810.cpp",
     "src/unidentified/unassigned_0042c800.cpp",
-    "src/unidentified/unassigned_00447910.cpp"
+    "src/unidentified/unassigned_00447910.cpp",
+    "src/render/anm_manager_service_pending_00447700.cpp"
   ]
 }

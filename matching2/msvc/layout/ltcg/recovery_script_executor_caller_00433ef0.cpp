@@ -82,19 +82,8 @@ void RecoveryMusicRoom_00433ef0::SetTimerTarget(int target) {
     phase = target;
     MusicResetTimer(&timer);
 }
-#pragma code_seg(".text$0042c670_fn")
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
-        RecoveryMusicRoom_00433ef0* room, int index) {
-    void* resource = room->animation_resource;
-    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
-        asm_FUN_00449950_00449950(data_00491c10));
-    object->flags |= 0x40000000u;
-    object->render_bucket = 15;
-    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, index);
-    void* handle;
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, &handle, object);
-    room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
-}
+// 0x0042C670: src/game/recovery_install_animation_slot_0042c670.cpp.
+void __stdcall RecoveryMusicInstallSlot_0042c670(RecoveryMusicRoom_00433ef0* room, int index);
 #pragma code_seg(".text$004349e0_fn")
 __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor, int* remaining) {
     while (*cursor != '\n' && *cursor != '\r') {

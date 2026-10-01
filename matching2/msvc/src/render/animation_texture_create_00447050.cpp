@@ -8,7 +8,10 @@ extern "C" int __stdcall asm_D3DXCreateTexture_004521a0(
         void*, unsigned int, unsigned int, unsigned int, unsigned int,
         unsigned int, unsigned int, void**);
 
-#pragma code_seg(".text$01anim")
+#ifndef ANIMATION_TEXTURE_CREATE_SECTION
+#define ANIMATION_TEXTURE_CREATE_SECTION ".text$01anim"
+#endif
+#pragma code_seg(ANIMATION_TEXTURE_CREATE_SECTION)
 __declspec(noinline) int AnimationTextureCreate_00447050(
         int width, int height, void* output, int format_index) {
     int format = data_0046f288[format_index];

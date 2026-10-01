@@ -16,6 +16,8 @@ struct AnchorEntity_0040d710 {
 extern "C" __declspec(noinline) void __cdecl asm_FUN_0040d530_0040d530(void* object) {
     AnchorEntity_0040d710* entity = (AnchorEntity_0040d710*)object;
     entity->slot = 0;
+    // The real teardown calls out, so it preserves none of EAX/ECX/EDX.
+    entry_free_004524a1(0);
 }
 #pragma code_seg()
 
@@ -23,6 +25,7 @@ extern "C" __declspec(noinline) void __cdecl asm_FUN_0040d530_0040d530(void* obj
 extern "C" int __stdcall DtorDeleteContext_0040d710(Deletable_0040d710** items, int count) {
     int freed = 0;
     while (count--) {
+        Deletable_0040d710_DeleteIfPresent(*items);
         freed += Deletable_0040d710_Delete(*items++, 1) != 0;
     }
     return freed;

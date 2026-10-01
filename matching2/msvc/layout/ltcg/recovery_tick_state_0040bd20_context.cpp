@@ -2,7 +2,6 @@
 // The array-walking caller is what makes the whole-program pass pick the
 // observed retail convention: the state in ESI, plain RET.
 #include "../../src/game/recovery_tick_state_0040bd20.cpp"
-#include "recovery_emitter_decision_anchor_0040b9f0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryTickStateCompilerContext_0040bd20(RecoveryTickState_0040bd20** states,

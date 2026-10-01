@@ -71,3 +71,9 @@ next meaningful recovery is to give all six callers typed interfaces, recover
 this helper with the shared `0x0043E5A0` callee in a native-LTCG schema-2
 cluster, then compare the resulting call contracts and bytes. Until then, the
 current retail assembly preserves the live register and stack contract.
+
+## Update 2026-10-01
+
+Recovered as `PowerDisplayOwner_004054b0::SetPowerDigits` in
+`msvc/src/game/power_display_set_digits_004054b0.cpp` (cluster
+`layout/ltcg/power_display_set_digits_004054b0.json`), probe EXACT.

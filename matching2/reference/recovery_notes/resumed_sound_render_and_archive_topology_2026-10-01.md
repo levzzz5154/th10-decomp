@@ -1,3 +1,5 @@
+> Historical Wave18 checkpoint. Current verification is [resumed_animation_scheduler_and_archive_2026-10-01](resumed_animation_scheduler_and_archive_2026-10-01.md).
+
 # Complete native sound/render recovery and archive topology repair
 
 This wave replaces five complete assembly routines with ordinary C++, adding

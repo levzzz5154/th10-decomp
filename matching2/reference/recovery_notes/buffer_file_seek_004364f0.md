@@ -60,3 +60,13 @@ native-MSVC investigations are preserved in the
 source differed in seven bytes around tail ownership/register allocation.
 This new arithmetic-explicit candidate has not passed the native region or
 whole-executable gates. Production stays assembly until those checks succeed.
+
+## 2026-10-01 retry
+
+Fourteen more shapes (per-case stores with `break`, shared `base` after the
+switch, `goto` into the end-origin tail, descending case order, `optimize("s")`)
+all produce the right instructions per case.  None reproduces retail's block
+ownership: retail lets the current-origin case jump *back* into the
+end-origin store (`jg 0x43651a`) and keeps the failure block between it and
+the start-origin case, whereas MSVC here either clones the store into the
+current-origin case or moves the shared store into the start-origin case.

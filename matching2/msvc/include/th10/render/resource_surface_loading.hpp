@@ -8,6 +8,12 @@ struct Resource_00447f70 {
 struct ImageInfo_00447c80 {
     unsigned int width, height, depth, mipLevels, format, resourceType, fileFormat;
 };
+struct SurfaceRect_00447fd0 {
+    int left, top, right, bottom;
+};
+struct SurfacePoint_00447fd0 {
+    int x, y;
+};
 struct AnimationManagerIndexed_00447f70 {
     unsigned char pad[0x3ad4e0];
     Resource_00447f70* primary[32];
@@ -16,6 +22,8 @@ struct AnimationManagerIndexed_00447f70 {
     int memorySize[32];
     ImageInfo_00447c80 info[32];
     __declspec(noinline) void Clear(int index);
+    // 0x00447FD0
+    __declspec(noinline) void CopyToBackBuffer(int index, int left, int top, int x, int y);
 };
 struct SurfaceDevice_00447c80 {
     virtual long __stdcall QueryInterface(const void*, void**) = 0;
@@ -36,7 +44,7 @@ struct SurfaceDevice_00447c80 {
     virtual void __stdcall Reserved15() = 0;
     virtual void __stdcall Reserved16() = 0;
     virtual void __stdcall Reserved17() = 0;
-    virtual void __stdcall Reserved18() = 0;
+    virtual long __stdcall GetBackBuffer(unsigned int swap_chain, unsigned int index, int type, Resource_00447f70** result) = 0;
     virtual void __stdcall Reserved19() = 0;
     virtual void __stdcall Reserved20() = 0;
     virtual void __stdcall Reserved21() = 0;
@@ -48,7 +56,7 @@ struct SurfaceDevice_00447c80 {
     virtual void __stdcall Reserved27() = 0;
     virtual long __stdcall CreateRenderTarget(unsigned int width, unsigned int height, int format, int multisample, unsigned int quality, int lockable, Resource_00447f70** result, void* shared) = 0;
     virtual void __stdcall Reserved29() = 0;
-    virtual void __stdcall Reserved30() = 0;
+    virtual long __stdcall UpdateSurface(Resource_00447f70* source, const SurfaceRect_00447fd0* source_rect, Resource_00447f70* destination, const SurfacePoint_00447fd0* destination_point) = 0;
     virtual void __stdcall Reserved31() = 0;
     virtual void __stdcall Reserved32() = 0;
     virtual void __stdcall Reserved33() = 0;

@@ -26,3 +26,17 @@ void* Deletable_0040d710_Delete(Deletable_0040d710* object, int flags) {
     return object;
 }
 #pragma code_seg()
+
+// 0x0040D730..0x0040D742 (19 bytes): destroy and free the object when there is
+// one -- a `delete` of the same class with the null check kept. The object is
+// again in ESI.
+__declspec(noinline) void Deletable_0040d710_DeleteIfPresent(Deletable_0040d710* object);
+
+#pragma code_seg(".text$04m_delete")
+void Deletable_0040d710_DeleteIfPresent(Deletable_0040d710* object) {
+    if (object != 0) {
+        asm_FUN_0040d530_0040d530(object);
+        entry_free_004524a1(object);
+    }
+}
+#pragma code_seg()

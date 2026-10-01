@@ -25,6 +25,15 @@
       "size": 10,
       "actual_abi": "receiver ECX; EAX result; plain RET",
       "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp"
+    },
+    {
+      "name": "RecoveryEmitter_UpdateDecision",
+      "symbol": "?UpdateEmitterDecision@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
+      "section": ".text$00xdecision",
+      "address": "0x0040B9F0",
+      "size": 111,
+      "actual_abi": "object in EDI; script state handed on in ESI; plain RET",
+      "source": "src/game/recovery_update_emitter_decision_0040b9f0.cpp"
     }
   ],
   "context": {
@@ -107,21 +116,11 @@
     }
   ],
   "additional_sources": [
-    "src/unidentified/FUN_0040ba70_0040ba70.cpp"
+    "src/unidentified/FUN_0040ba70_0040ba70.cpp",
+    "src/game/recovery_update_emitter_decision_0040b9f0.cpp"
   ],
   "roots": [
     "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ"
   ],
-  "included_sources": [
-    "layout/ltcg/recovery_emitter_decision_anchor_0040b9f0.cpp"
-  ],
-  "anchors": [
-    {
-      "name": "RecoveryEmitter_UpdateDecision_anchor",
-      "symbol": "?UpdateEmitterDecision@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ",
-      "section": ".text$00xdecision",
-      "address": "0x0040B9F0",
-      "size": 111
-    }
-  ]
+  "included_sources": []
 }

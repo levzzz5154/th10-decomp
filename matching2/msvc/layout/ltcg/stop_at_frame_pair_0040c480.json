@@ -16,7 +16,9 @@
     "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
     "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
     "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
-    "src/game/recovery_switch_playback_state_00427ae0.cpp"
+    "src/game/recovery_switch_playback_state_00427ae0.cpp",
+    "src/game/playback_state_on_switch_00427ad0.cpp",
+    "src/game/game_state_find_slot_child_0042c7c0.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
@@ -162,13 +164,31 @@
       "size": 99,
       "section": ".text$45timedzbd",
       "actual_abi": "receiver EDI; plain RET"
+    },
+    {
+      "name": "PlaybackState_OnSwitch_00427ad0",
+      "symbol": "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z",
+      "source": "src/game/playback_state_on_switch_00427ad0.cpp",
+      "address": "0x00427AD0",
+      "size": 12,
+      "section": ".text$45timedzbc5",
+      "actual_abi": "public fastcall callback: state in ECX; returns 0"
+    },
+    {
+      "name": "FindAnimationSlotChild_0042c7c0",
+      "symbol": "?FindAnimationSlotChild_0042c7c0@@YI?AUAnimationRef_004497d0@@HPAUGameAnimationSlots@@H@Z",
+      "source": "src/game/game_state_find_slot_child_0042c7c0.cpp",
+      "address": "0x0042C7C0",
+      "size": 25,
+      "section": ".text$47dispatchz3",
+      "actual_abi": "state EAX, slot ECX, script id EBX, result pointer on the stack; RET 4"
     }
   ],
   "context": {
     "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAURecoveryTimedState_00423510@@@Z",
     "section": ".text$80context",
     "address": "0x004494E0",
-    "size": 169,
+    "size": 185,
     "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
   },
   "gaps": [
@@ -200,7 +220,7 @@
     {
       "section": ".text$45timedzbc",
       "address": "0x00424431",
-      "size": 13999
+      "size": 13983
     },
     {
       "section": ".text$46dispatchz",
@@ -210,7 +230,7 @@
     {
       "section": ".text$47dispatchz",
       "address": "0x0042C76B",
-      "size": 117333
+      "size": 85
     },
     {
       "section": ".text$60layout",
@@ -239,8 +259,8 @@
     },
     {
       "section": ".text$80contextz",
-      "address": "0x00449589",
-      "size": 583
+      "address": "0x00449599",
+      "size": 567
     },
     {
       "section": ".text$84childrefz",
@@ -251,6 +271,16 @@
       "section": ".text$45timedzbe",
       "address": "0x00427B43",
       "size": 19437
+    },
+    {
+      "section": ".text$45timedzbc7",
+      "address": "0x00427ADC",
+      "size": 4
+    },
+    {
+      "section": ".text$47dispatchz5",
+      "address": "0x0042C7D9",
+      "size": 117223
     }
   ],
   "constants": [],
@@ -280,5 +310,8 @@
       "address": "0x00477834",
       "kind": "data"
     }
+  ],
+  "roots": [
+    "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z"
   ]
 }

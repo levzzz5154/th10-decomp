@@ -1,76 +1,30 @@
-#include <string.h>
+// 0x0042C670 (95 bytes): create a script-owned animation object in render
+// bucket 15, start script `index` of the room's animation resource on it,
+// register it at the back of the primary list and remember its handle in the
+// room's slot `index`.
+//
+// Native LTCG passes the index in EDI; the room stays on the stack.
+#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-#include "th10/math/angle.hpp"
+extern "C" void* data_00491c10;
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+    void* manager, void** out, void* object);
+struct AnimationResource_00449870 {
+    __declspec(noinline) void* InitializeObject(void* object, int index);
+};
 
-// Recovered semantic definitions: the platform prototypes they call and the
-// kernel32 entry point reached through a dllimport slot.
-#include "th10/platform/sound_buffer.hpp"
-#include "th10/platform/windows_types.hpp"
-
-// BLOCKED (D2802): closest_byte_count=67/95; first_diff=0x0042C670;
-// residual_class=private-EDI-index/hidden-global+callee ABI: the readable
-// install model omitted the retail hidden global load and used ordinary
-// argument/callee conventions, changing the final indexed store schedule.
-// variants_tested=typed stdcall install model and exact retail overlay;
-// next_lever=resolve private EDI index delivery and the 0x00449950,
-// 0x00449870, and 0x004489D0 callee contracts in a native caller context.
-// 0x0042C670..0x0042C6CE: ?Recovery_InstallAnimationSlot@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Recovery_InstallAnimationSlot_0042c670() {
-    __asm {
-    L_0042c670:
-        push ebx
-    L_0042c671:
-        push ebp
-    L_0042c672:
-        mov ebp,dword ptr [esp+0Ch]
-    L_0042c676:
-        mov eax,dword ptr [ebp+14h]
-    L_0042c679:
-        push esi
-    L_0042c67a:
-        mov esi,dword ptr [data_00491c10]
-    L_0042c680:
-        mov dword ptr [esp+10h],eax
-    L_0042c684:
-        call asm_FUN_00449950_00449950
-    L_0042c689:
-        mov ecx,dword ptr [esp+10h]
-    L_0042c68d:
-        mov ebx,eax
-    L_0042c68f:
-        mov edx,dword ptr [ebx+35Ch]
-    L_0042c695:
-        push edi
-    L_0042c696:
-        or edx,40000000h
-    L_0042c69c:
-        push ebx
-    L_0042c69d:
-        mov dword ptr [ebx+20h],0Fh
-    L_0042c6a4:
-        mov dword ptr [ebx+35Ch],edx
-    L_0042c6aa:
-        call asm_FUN_00449870_00449870
-    L_0042c6af:
-        mov edx,dword ptr [data_00491c10]
-    L_0042c6b5:
-        lea eax,[esp+10h]
-    L_0042c6b9:
-        call asm_AnimationManager_RegisterPrimaryBack_004489d0
-    L_0042c6be:
-        mov ecx,dword ptr [esp+10h]
-    L_0042c6c2:
-        pop esi
-    L_0042c6c3:
-        mov dword ptr [ebp+edi*4+2C4h],ecx
-    L_0042c6ca:
-        pop ebp
-    L_0042c6cb:
-        pop ebx
-    L_0042c6cc:
-        ret 4
-    }
+#pragma code_seg(".text$0042c670_fn")
+__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
+        RecoveryMusicRoom_00433ef0* room, int index) {
+    void* resource = room->animation_resource;
+    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+        asm_FUN_00449950_00449950(data_00491c10));
+    object->render_bucket = 15;
+    object->flags |= 0x40000000u;
+    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, index);
+    void* handle;
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, &handle, object);
+    room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
 }
+#pragma code_seg()

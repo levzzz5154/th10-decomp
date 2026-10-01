@@ -1,0 +1,45 @@
+// 0x00446B70 (245 bytes): create an ANM texture from an image file in the
+// archive. The file stays loaded and is recorded on the texture together with
+// its size and the pixel size of the format actually used; when the renderer
+// is restricted to 16-bit textures the format is narrowed first.
+//
+// The first stack argument is a pointer the body never dereferences: its slot
+// is reused to receive the file size. Retail makes the /GS shadow copy of it
+// (parameter copied below the path buffer right after the cookie is stored),
+// which the compiler only does for pointer-typed parameters.
+//
+// Native LTCG passes the texture in ESI and the format index in ECX; the
+// reused pointer, file name and colour key stay on the stack. Nothing in the
+// retail image calls it.
+#include "th10/render/anm_texture_00446c70.hpp"
+#include "th10/platform/archive_file.hpp"
+
+#pragma code_seg(".text$01loadfile")
+int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name, unsigned int color_key) {
+    char path[260];
+    int stored_format = format;
+    if (data_00491d78 & 1) {
+        int d3d_format = data_0046f288[format];
+        if (d3d_format == 21 || d3d_format == 0)
+            stored_format = 5;
+        else if (d3d_format == 20)
+            stored_format = 3;
+    }
+    sprintf(path, data_0046e1c8, name);
+    char* file = Archive_LoadFile(path, reinterpret_cast<int*>(&size_slot), 1);
+    if (!file)
+        return -1;
+    data_size = reinterpret_cast<int>(size_slot);
+    if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
+            data_00491c30, file, reinterpret_cast<unsigned int>(size_slot), 0, 0, 0, 0,
+            data_0046f288[stored_format], 1, 3,
+            0xFFFFFFFF, color_key, 0, 0, &texture) != 0) {
+        entry_free_00452422(file);
+        return -1;
+    }
+    FillTransparentPixels();
+    bytes_per_pixel = data_0046f2a0[stored_format];
+    file_data = file;
+    return 0;
+}
+#pragma code_seg()

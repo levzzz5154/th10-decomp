@@ -38,6 +38,8 @@ struct AnimationRunHandle {
 struct GameAnimationSlots;
 void __fastcall DispatchAnimationSlot(int slot, GameAnimationSlots* state);
 void __fastcall DispatchAnimationSlotSecondary(int slot, GameAnimationSlots* state);
+AnimationRef_004497d0 __fastcall FindAnimationSlotChild_0042c7c0(int slot, GameAnimationSlots* state,
+                                                                int script_id);
 
 #pragma code_seg(".text$80context")
 int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
@@ -58,6 +60,7 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         DispatchAnimationSlotSecondary(count, reinterpret_cast<GameAnimationSlots*>(states));
         reinterpret_cast<AnimationRunHandle*>(handles)->SetStopFrameAndRun(
             *reinterpret_cast<unsigned short*>(states));
+        FindAnimationSlotChild_0042c7c0(count, reinterpret_cast<GameAnimationSlots*>(states), count);
         handles++;
         reinterpret_cast<PlaybackState*>(states)->SwitchPlaybackState();
         states->InitializeTimedState();
