@@ -36,6 +36,12 @@ struct ScriptParser_0042be20 {
     ScriptParser_0042be20() {
         memset(this, 0, sizeof(ScriptParser_0042be20));
     }
+    ~ScriptParser_0042be20() {
+        if (entries) {
+            free(entries);
+            entries = 0;
+        }
+    }
 };
 typedef char ScriptParserSize_0042be20[sizeof(ScriptParser_0042be20) == 0x1098 ? 1 : -1];
 
@@ -61,10 +67,31 @@ struct ScriptSelection_0042be20 {
     }
 };
 
+struct SchedulerTask;
+
+// The screen's loader thread: a PlatformWorker (th10/platform/worker.hpp).
+// Its destructor (0x0044C130) republishes the worker dispatch table and stops
+// the thread.
+struct ScriptViewerWorker_0042be20 {
+    const void* vtable;
+    void* thread;
+    unsigned int thread_id;
+    unsigned int stop_requested;
+    unsigned int running;
+    unsigned int reserved_14;
+    void* entry;
+
+    ~ScriptViewerWorker_0042be20();
+};
+
 // The "Spt Test" debug screen: picks a script file, loads it and shows one of
 // its entries.
 struct ScriptViewer_0042be20 {
-    unsigned char reserved_000[0x30];
+    unsigned char reserved_000[8];
+    SchedulerTask* update_task;
+    SchedulerTask* draw_task;
+    ScriptViewerWorker_0042be20 worker;
+    unsigned char reserved_02c[4];
     int state;                 // 1 = menu, 2 = loading, 3 = running
     const char** script_names;
     int script_count;
@@ -81,9 +108,12 @@ struct ScriptViewer_0042be20 {
     ScriptViewerResource_0042be20* resource;
     char* script_data;
 
+    __declspec(noinline) ~ScriptViewer_0042be20();
+    __declspec(noinline) void ClearScriptNames();
     __declspec(noinline) int LoadScript();
     __declspec(noinline) int Draw();
 };
+typedef char ScriptViewerStateOffset_0042be20[offsetof(ScriptViewer_0042be20, state) == 0x30 ? 1 : -1];
 typedef char ScriptViewerCursorOffset_0042be20[offsetof(ScriptViewer_0042be20, selection) == 0x1EC ? 1 : -1];
 typedef char ScriptViewerParserOffset_0042be20[offsetof(ScriptViewer_0042be20, parser) == 0x2D8 ? 1 : -1];
 

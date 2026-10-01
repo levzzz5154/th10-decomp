@@ -13,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2] / 'msvc'
 TEXT_START, RDATA_START = 0x401000, 0x470000
+XDATA_BASE = 0x466000
 
 
 def main():
@@ -49,12 +50,16 @@ def main():
         gaps.append({'section': section, 'address': cursor, 'size': RDATA_START - cursor})
         gaps.append({'section': '.rdata', 'address': RDATA_START,
                      'size': int(constants[0]['address'], 16) - RDATA_START})
+    if spec.get('native_data'):
+        # Exception tables live in .xdata$x; one .rdata gap places them.
+        table = min(int(item['address'], 16) for item in spec['native_data'])
+        gaps.append({'section': '.rdata$0before', 'address': XDATA_BASE, 'size': table - XDATA_BASE})
     layout = {'schema_version': 1, 'name': spec['name'], 'source': spec['source'], 'driver': spec['driver'],
               'headers': spec.get('headers', []), 'image_base': '0x00400000',
               'description': spec['description'], 'functions': spec['functions'],
               'context': spec['context'], 'gaps': gaps, 'constants': spec.get('constants', []),
               'absolute_symbols': spec.get('absolute_symbols', [])}
-    for key in ('anchors', 'included_sources', 'roots', 'additional_sources', 'data_aliases', 'constant_aliases'):
+    for key in ('exceptions', 'native_data', 'anchors', 'included_sources', 'roots', 'additional_sources', 'data_aliases', 'constant_aliases'):
         if spec.get(key):
             layout[key] = spec[key]
     layout_name = 'layout/ltcg/' + spec['name'] + '.json'

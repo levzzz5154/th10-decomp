@@ -401,11 +401,18 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     ranges = sorted((item['address'], item['address'] + item['size']) for item in range_items)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
+    # A data alias binds a symbol to a retail address without contributing
+    # bytes, so it may lie inside an .rdata filler gap (the gap that positions
+    # exception tables spans the whole read-only data); it must still stay
+    # clear of every real contribution.
+    solid_items = [item for item in range_items
+                   if not (item in gaps and item['section'].startswith('.rdata'))]
+    solid_ranges = [(item['address'], item['address'] + item['size']) for item in solid_items]
     for alias in data_aliases:
         if alias['address'] + alias['size'] > 0x100000000:
             raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
         if any(alias['address'] < end and start < alias['address'] + alias['size']
-               for start, end in ranges):
+               for start, end in solid_ranges):
             raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
     for index, alias in enumerate(data_aliases):
         for other in data_aliases[index + 1:]:

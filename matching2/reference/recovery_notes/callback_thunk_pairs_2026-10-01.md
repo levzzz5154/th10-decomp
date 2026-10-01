@@ -57,3 +57,20 @@ Cluster `floating_text_draw_0042b780`. Three source-shape levers were measured:
 The spawner's digit split needs the zero fix-up *after* the sign test
 (`if (length == 0) { glyphs[0] = 0; length = 1; }` as a separate statement) so
 the negative block is laid out after the return.
+
+## Spt Test screen destructor (0x0042BC30, 0x0042BAD0, unwind 0x004653E0)
+
+Cluster `script_viewer_teardown_0042bc30` (`exceptions: true`). The destructor
+is an ordinary C++ destructor of a class with one destructible member (the
+loader thread at +0x10); the compiler generates the unwind funclet and handler.
+
+- The worker destructor must keep its public ECX receiver for the funclet's
+  `jmp`. It cannot be a whole-program root (0x0044C130 belongs to another
+  cluster), so the driver destroys a two-element worker array: the vector
+  destructor iterator takes the destructor's address, which pins `__thiscall`.
+- The parser vtable is bound with a data alias. The alias lies inside the
+  `.rdata` filler that positions `.xdata$x`; `ltcg_cluster.py` now allows a
+  data alias inside an `.rdata` gap (it contributes no bytes) while still
+  rejecting overlap with real contributions.
+- `adopt_cluster.py` passes `exceptions` and `native_data` through and adds the
+  `.rdata$0before` gap up to the exception table.

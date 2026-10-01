@@ -24504,13 +24504,22 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_OwnedPointerArray_0042bad0_Clear",
-      "source": "src/unidentified/FUN_0042bad0_0042bad0.cpp",
-      "symbol": "?Clear@OwnedPointerArray_0042bad0@@QAEXXZ",
+      "name": "semantic_ScriptViewer_ClearScriptNames_0042bad0",
+      "source": "src/game/script_viewer_teardown_0042bc30.cpp",
+      "symbol": "?ClearScriptNames@ScriptViewer_0042be20@@QAEXXZ",
       "address": "0x0042BAD0",
       "size": 86,
       "kind": "semantic",
-      "owner": "0x0042BAD0"
+      "owner": "0x0042BAD0",
+      "previous_record": {
+        "name": "semantic_OwnedPointerArray_0042bad0_Clear",
+        "source": "src/unidentified/FUN_0042bad0_0042bad0.cpp",
+        "symbol": "?Clear@OwnedPointerArray_0042bad0@@QAEXXZ",
+        "address": "0x0042BAD0",
+        "size": 86,
+        "kind": "semantic",
+        "owner": "0x0042BAD0"
+      }
     },
     {
       "name": "text_padding_0042bb26",
@@ -24564,13 +24573,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042bc30_0042bc30",
-      "source": "src/unidentified/FUN_0042bc30_0042bc30.cpp",
-      "symbol": "_asm_FUN_0042bc30_0042bc30",
+      "name": "semantic_ScriptViewer_Destructor_0042bc30",
+      "source": "src/game/script_viewer_teardown_0042bc30.cpp",
+      "symbol": "??1ScriptViewer_0042be20@@QAE@XZ",
       "address": "0x0042BC30",
       "size": 405,
-      "kind": "asm",
-      "owner": "0x0042BC30"
+      "kind": "semantic",
+      "owner": "0x0042BC30",
+      "previous_record": {
+        "name": "asm_FUN_0042bc30_0042bc30",
+        "source": "src/unidentified/FUN_0042bc30_0042bc30.cpp",
+        "symbol": "_asm_FUN_0042bc30_0042bc30",
+        "address": "0x0042BC30",
+        "size": 405,
+        "kind": "asm",
+        "owner": "0x0042BC30"
+      }
     },
     {
       "name": "text_padding_0042bdc5",
@@ -49531,25 +49549,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_004653e0_004653e0",
-      "source": "src/unidentified/Unwind_004653e0_004653e0.cpp",
-      "symbol": "_asm_Unwind_004653e0_004653e0",
+      "name": "semantic_ScriptViewerWorkerUnwind_004653e0",
+      "source": "src/game/script_viewer_teardown_0042bc30.cpp",
+      "symbol": "_ScriptViewerWorkerUnwind_004653e0",
       "address": "0x004653E0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x004653E0"
+      "kind": "semantic",
+      "owner": "0x004653E0",
+      "previous_record": {
+        "name": "asm_Unwind_004653e0_004653e0",
+        "source": "src/unidentified/Unwind_004653e0_004653e0.cpp",
+        "symbol": "_asm_Unwind_004653e0_004653e0",
+        "address": "0x004653E0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x004653E0"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004653eb",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/ushcout.obj",
-      "symbol": "_crt_libcpmt_ushcout_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_ScriptViewerHandler_004653eb",
+      "source": "src/game/script_viewer_teardown_0042bc30.cpp",
+      "symbol": "__ehhandler$??1ScriptViewer_0042be20@@QAE@XZ",
       "address": "0x004653EB",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x004653EB",
-      "library_section": ".text$x",
-      "library_section_number": 378,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004653eb",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/ushcout.obj",
+        "symbol": "_crt_libcpmt_ushcout_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x004653EB",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x004653EB",
+        "library_section": ".text$x",
+        "library_section_number": 378,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_004653f5",
@@ -57543,7 +57579,6 @@
     "lib/libcpmt.lib/build/intel/mt_obj/ios.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/string.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/ushclog.obj",
-    "lib/libcpmt.lib/build/intel/mt_obj/ushcout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcerr.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcin.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcout.obj",
@@ -58435,9 +58470,7 @@
     "src/unidentified/FUN_0042b9a0_0042b9a0.cpp",
     "src/unidentified/FUN_0042ba90_0042ba90.cpp",
     "src/unidentified/FUN_0042baa0_0042baa0.cpp",
-    "src/unidentified/FUN_0042bad0_0042bad0.cpp",
     "src/unidentified/FUN_0042bb30_0042bb30.cpp",
-    "src/unidentified/FUN_0042bc30_0042bc30.cpp",
     "src/unidentified/FUN_0042bf30_0042bf30.cpp",
     "src/unidentified/FUN_0042bfc0_0042bfc0.cpp",
     "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
@@ -58639,7 +58672,6 @@
     "src/unidentified/Unwind_004652e0_004652e0.cpp",
     "src/unidentified/Unwind_004652eb_004652eb.cpp",
     "src/unidentified/Unwind_00465330_00465330.cpp",
-    "src/unidentified/Unwind_004653e0_004653e0.cpp",
     "src/unidentified/Unwind_00465430_00465430.cpp",
     "src/unidentified/Unwind_00465449_00465449.cpp",
     "src/unidentified/Unwind_00465464_00465464.cpp",
@@ -59431,7 +59463,8 @@
     "src/game/stage_state_update_00402720.cpp",
     "src/game/script_viewer_load_0042be20.cpp",
     "src/game/script_viewer_draw_0042c360.cpp",
-    "src/game/sprite_viewer_draw_0040a940.cpp"
+    "src/game/sprite_viewer_draw_0040a940.cpp",
+    "src/game/script_viewer_teardown_0042bc30.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -59683,7 +59716,6 @@
     "layout/ltcg/copy_block_00413220.json",
     "layout/ltcg/copy_block_004421a0.json",
     "layout/ltcg/owned_pointer_array_00409eb0.json",
-    "layout/ltcg/owned_pointer_array_0042bad0.json",
     "layout/ltcg/embedded_timer_reset_004050d0.json",
     "layout/ltcg/destroy_owned_004148e0.json",
     "layout/ltcg/destroy_owned_00418150.json",
@@ -60308,7 +60340,8 @@
     "layout/ltcg/script_viewer_load_0042be20.json",
     "layout/ltcg/script_viewer_draw_0042c360.json",
     "layout/ltcg/sprite_viewer_draw_0040a940.json",
-    "layout/ltcg/floating_text_draw_0042b780.json"
+    "layout/ltcg/floating_text_draw_0042b780.json",
+    "layout/ltcg/script_viewer_teardown_0042bc30.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
