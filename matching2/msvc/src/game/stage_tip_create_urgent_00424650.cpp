@@ -1,90 +1,28 @@
-// BLOCKED (D3404): closest_byte_count=0/104; first_diff=0x00424650;
-// residual_class=private ESI receiver and linked-list node layout, plus the
-// caller-selected StageTip_CreateRetail ABI. A standalone readable candidate
-// compiled to 103 bytes before comparison and therefore could not preserve the
-// retail extent; its emitted entry saved ESI from the public stack instead of
-// consuming the caller's ESI receiver.
-// variants_tested=live Ghidra decompilation (node list at +0x7c + index*0xc,
-// object counter +0x70, callers 0x00419120/0x00432690), typed readable
-// candidate with MSVC 13.10 probe (103/104 extent).
-// next_lever=schema2 native-LTCG cluster over callers 0x00419120 and
-// 0x00432690, this body, StageTip_CreateRetail_0041a120, and the verified
-// linked-node layout; preserve the ESI receiver and RET 8.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00424650: create a tip that hurries the ones already showing.
+//
+// Every tip in the current list has its countdown stepped once, then the new
+// tip is created with a shorter stay, a red tint and a second less to show.
+//
+// Native LTCG passes the manager in ESI.
+#include "th10/game/stage_tip_create.hpp"
 
-// 0x00418D40..0x00418E2C: StageTipManager_Construct
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00424650..0x004246B7: StageTip_CreateUrgent
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_StageTip_CreateUrgent_00424650() {
-    __asm {
-    L_00424650:
-        mov eax,dword ptr [data_00474c7c]
-    L_00424655:
-        lea eax,[eax+eax*2]
-    L_00424658:
-        mov eax,dword ptr [esi+eax*4+7Ch]
-    L_0042465c:
-        test eax,eax
-    L_0042465e:
-        je short L_00424676
-    L_00424660:
-        mov edx,dword ptr [eax+4]
-    L_00424663:
-        mov eax,dword ptr [eax]
-    L_00424665:
-        mov ecx,dword ptr [eax+70h]
-    L_00424668:
-        test ecx,ecx
-    L_0042466a:
-        jle short L_00424670
-    L_0042466c:
-        dec ecx
-    L_0042466d:
-        mov dword ptr [eax+70h],ecx
-    L_00424670:
-        test edx,edx
-    L_00424672:
-        mov eax,edx
-    L_00424674:
-        jne short L_00424660
-    L_00424676:
-        mov ecx,dword ptr [esp+4]
-    L_0042467a:
-        push ebx
-    L_0042467b:
-        mov ebx,dword ptr [esp+0Ch]
-    L_0042467f:
-        push ecx
-    L_00424680:
-        push esi
-    L_00424681:
-        call asm_StageTip_CreateRetail_0041a120
-    L_00424686:
-        mov edx,dword ptr [eax+60h]
-    L_00424689:
-        add edx,0FFFFFFC4h
-    L_0042468c:
-        mov ecx,edx
-    L_0042468e:
-        test ecx,ecx
-    L_00424690:
-        mov dword ptr [eax+60h],edx
-    L_00424693:
-        pop ebx
-    L_00424694:
-        jg short L_0042469d
-    L_00424696:
-        mov dword ptr [eax+60h],1
-    L_0042469d:
-        mov dword ptr [eax+6Ch],5Ah
-    L_004246a4:
-        mov dword ptr [eax+84h],0FFFF8080h
-    L_004246ae:
-        mov dword ptr [eax+70h],1Eh
-    L_004246b5:
-        ret 8
+#pragma code_seg(".text$03urgent")
+__declspec(noinline) StageTip* __stdcall StageTip_CreateUrgent_00424650(
+        StageTipManager* manager, const char* text, const StageTipPosition* position) {
+    StageTipNode* next;
+    for (StageTipNode* node = manager->lists[8 + GameState()->list].next; node; node = next) {
+        next = node->next;
+        StageTip* shown = node->owner;
+        if (shown->selection > 0)
+            shown->selection--;
     }
+    StageTip* tip = StageTip_Create_0041a120(manager, text, position);
+    int value = tip->display_value -= 60;
+    if (value <= 0)
+        tip->display_value = 1;
+    tip->duration = 90;
+    tip->state = 0xFFFF8080;
+    tip->selection = 30;
+    return tip;
 }
+#pragma code_seg()

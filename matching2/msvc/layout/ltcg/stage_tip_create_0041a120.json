@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "name": "stage_tip_create_0041a120",
+  "source": "src/game/stage_tip_create_retail_0041a120.cpp",
+  "additional_sources": [
+    "src/game/stage_tip_create_urgent_00424650.cpp"
+  ],
+  "driver": "layout/ltcg/stage_tip_create_0041a120_context.cpp",
+  "headers": [
+    "include/th10/game/stage_tips.hpp",
+    "include/th10/game/stage_tip_create.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Tip creation and its urgent wrapper linked with native LTCG so the pass selects retail's EBX position and ESI manager.",
+  "functions": [
+    {
+      "name": "StageTip_Create_0041a120",
+      "symbol": "?StageTip_Create_0041a120@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "section": ".text$01create",
+      "address": "0x0041A120",
+      "size": 220,
+      "actual_abi": "manager and text on the stack; position in EBX; RET 8",
+      "source": "src/game/stage_tip_create_retail_0041a120.cpp"
+    },
+    {
+      "name": "StageTip_CreateUrgent_00424650",
+      "symbol": "?StageTip_CreateUrgent_00424650@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "section": ".text$03urgent",
+      "address": "0x00424650",
+      "size": 104,
+      "actual_abi": "manager in ESI; text and position on the stack; RET 8",
+      "source": "src/game/stage_tip_create_urgent_00424650.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "_StageTipCreateCompilerContext@8",
+    "section": ".text$05context",
+    "address": "0x004269D0",
+    "size": 45,
+    "description": "Synthetic caller shaped like the spell timeout's call; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 102688
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041A1FC",
+      "size": 42068
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x004246B8",
+      "size": 8984
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strncpy",
+      "address": "0x00452960",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477814",
+      "address": "0x00477814",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    }
+  ]
+}

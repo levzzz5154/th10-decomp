@@ -15664,13 +15664,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageTip_CreateRetail_0041a120",
+      "name": "semantic_StageTip_Create_0041a120",
       "source": "src/game/stage_tip_create_retail_0041a120.cpp",
-      "symbol": "_asm_StageTip_CreateRetail_0041a120",
+      "symbol": "?StageTip_Create_0041a120@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
       "address": "0x0041A120",
       "size": 220,
-      "kind": "asm",
-      "owner": "0x0041A120"
+      "kind": "semantic",
+      "owner": "0x0041A120",
+      "previous_record": {
+        "name": "asm_StageTip_CreateRetail_0041a120",
+        "source": "src/game/stage_tip_create_retail_0041a120.cpp",
+        "symbol": "_asm_StageTip_CreateRetail_0041a120",
+        "address": "0x0041A120",
+        "size": 220,
+        "kind": "asm",
+        "owner": "0x0041A120"
+      }
     },
     {
       "name": "text_padding_0041a1fc",
@@ -21166,13 +21175,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageTip_CreateUrgent_00424650",
+      "name": "semantic_StageTip_CreateUrgent_00424650",
       "source": "src/game/stage_tip_create_urgent_00424650.cpp",
-      "symbol": "_asm_StageTip_CreateUrgent_00424650",
+      "symbol": "?StageTip_CreateUrgent_00424650@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
       "address": "0x00424650",
       "size": 104,
-      "kind": "asm",
-      "owner": "0x00424650"
+      "kind": "semantic",
+      "owner": "0x00424650",
+      "previous_record": {
+        "name": "asm_StageTip_CreateUrgent_00424650",
+        "source": "src/game/stage_tip_create_urgent_00424650.cpp",
+        "symbol": "_asm_StageTip_CreateUrgent_00424650",
+        "address": "0x00424650",
+        "size": 104,
+        "kind": "asm",
+        "owner": "0x00424650"
+      }
     },
     {
       "name": "text_padding_004246b8",
@@ -60431,6 +60449,7 @@
     "layout/ltcg/animation_set_active_count_00413790.json",
     "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
     "layout/ltcg/split_resource_path_0041a050.json",
+    "layout/ltcg/stage_tip_create_0041a120.json",
     "layout/ltcg/ecl_record_reset_0040c730.json",
     "layout/ltcg/score_records_advance_frame_0041c480.json",
     "layout/ltcg/anim_pool_alloc_00449950.json",
