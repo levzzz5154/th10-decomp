@@ -62,6 +62,15 @@
       "address": "0x00433230",
       "size": 826,
       "actual_abi": "menu on the stack; returns 1; RET 4"
+    },
+    {
+      "name": "TitleMenu_DrawReplaySave",
+      "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
+      "source": "src/game/title_replay_save_00433b30.cpp",
+      "section": ".text$09save",
+      "address": "0x00433B30",
+      "size": 955,
+      "actual_abi": "menu on the stack; returns 1; RET 4"
     }
   ],
   "context": {
@@ -116,6 +125,11 @@
       "section": ".text$07contextz",
       "address": "0x00432D0C",
       "size": 1316
+    },
+    {
+      "section": ".text$08entryz",
+      "address": "0x0043356A",
+      "size": 1478
     }
   ],
   "constants": [],
@@ -171,11 +185,6 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
-      "address": "0x00433B30",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_data_004746dc",
       "address": "0x004746DC",
       "kind": "data"
@@ -193,6 +202,11 @@
     {
       "symbol": "_data_004746d8",
       "address": "0x004746D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x00477838",
       "kind": "data"
     }
   ],
@@ -220,7 +234,8 @@
     "src/game/title_score_rows_004329f0.cpp",
     "src/game/title_menu_draw_0042d260.cpp",
     "src/game/title_replay_browser_00431ba0.cpp",
-    "src/game/title_score_entry_00433230.cpp"
+    "src/game/title_score_entry_00433230.cpp",
+    "src/game/title_replay_save_00433b30.cpp"
   ],
   "data_aliases": [
     {
@@ -327,11 +342,27 @@
       "symbol": "??_C@_01IDAFKMJL@_?$AA@",
       "address": "0x0046E1C4",
       "bytes": "5f00"
+    },
+    {
+      "symbol": "__real@42e00000",
+      "address": "0x00470C14",
+      "bytes": "0000e042"
+    },
+    {
+      "symbol": "__real@43700000",
+      "address": "0x00470BFC",
+      "bytes": "00007043"
+    },
+    {
+      "symbol": "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@",
+      "address": "0x0046E354",
+      "bytes": "202020202020202000"
     }
   ],
   "roots": [
     "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
     "_TitleMenu_DrawReplayBrowser_00431ba0@4",
-    "_TitleMenu_DrawScoreEntry_00433230@4"
+    "_TitleMenu_DrawScoreEntry_00433230@4",
+    "_TitleMenu_DrawReplaySave_00433b30@4"
   ]
 }

@@ -114,6 +114,7 @@ extern "C" {
 extern GameThread_00401530* data_004776e0;
 extern GameSelection_00431410 data_00474c68;
 extern ScoreCharacter_00431410* data_0047783c;
+extern ReplayFile_00431ba0* data_00477838;  // the replay just played
 extern const char* data_004746d8;        // the name entry character grid
 extern const char* data_0047471c[];      // "test", "Stage 1" .. "Stage 6", "Extra"
 extern const char* data_004746dc[];      // "ReimuA" .. "MarisaC"

@@ -79,3 +79,14 @@ frame.
 
 This supersedes `replay_stage_name_draw_00433230_abi_blocker.md`: the formatter's
 EBX position argument comes from compiling the real formatter in the cluster.
+
+## Replay save page at `0x00433B30` (2026-10-02)
+
+`src/game/title_replay_save_00433b30.cpp` owns the 955-byte page (case 16 of
+the overlay dispatch), a rooted one-argument stdcall in `.text$09save`. Phase 2
+lists the 25 slots exactly as the browser does. Phase 3 describes the replay
+just played (`data_00477838->header`) on the chosen slot's line, with an
+eight-space name and the fixed stage label `data_00474744[8]`, sliding from the
+slot's list row to y=240, then the same name entry and character grid as the
+high score page. The grid again needs the two-call form. The explicit white
+colour store after the grid loop is retail's; the shared tail repeats it.

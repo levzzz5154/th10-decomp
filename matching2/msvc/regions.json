@@ -26071,13 +26071,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00433b30_00433b30",
-      "source": "src/game/replay_menu_draw.cpp",
-      "symbol": "_asm_FUN_00433b30_00433b30",
+      "name": "semantic_TitleMenu_DrawReplaySave_00433b30",
+      "source": "src/game/title_replay_save_00433b30.cpp",
+      "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
       "address": "0x00433B30",
       "size": 955,
-      "kind": "asm",
-      "owner": "0x00433B30"
+      "kind": "semantic",
+      "owner": "0x00433B30",
+      "previous_record": {
+        "name": "asm_FUN_00433b30_00433b30",
+        "source": "src/game/replay_menu_draw.cpp",
+        "symbol": "_asm_FUN_00433b30_00433b30",
+        "address": "0x00433B30",
+        "size": 955,
+        "kind": "asm",
+        "owner": "0x00433B30"
+      }
     },
     {
       "name": "text_padding_00433eeb",
@@ -58566,7 +58575,6 @@
     "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
     "src/game/replay_file_load.cpp",
     "src/game/replay_large_runtime.cpp",
-    "src/game/replay_menu_draw.cpp",
     "src/game/replay_menu_runtime.cpp",
     "src/game/replay_progress.cpp",
     "src/game/replay_runtime_bootstrap.cpp",
@@ -60132,6 +60140,7 @@
     "src/game/title_score_rows_004329f0.cpp",
     "src/game/title_menu_draw_0042d260.cpp",
     "src/game/title_replay_browser_00431ba0.cpp",
+    "src/game/title_replay_save_00433b30.cpp",
     "src/game/title_score_entry_00433230.cpp"
   ],
   "notes": [
