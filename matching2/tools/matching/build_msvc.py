@@ -10,7 +10,10 @@ if __package__ in (None, ""):
 import argparse
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import hashlib
 import json
+import re
+import shutil
 import subprocess
 
 from matching2.tools.common.pe import PEImage
@@ -184,6 +187,118 @@ def compile_unit(project, toolkit, output, config, by_source, cluster_by_source,
     return {**raw, **normalize_unit(raw['object'], normalized, source, config, by_source[source])}
 
 
+INCLUDE_PATTERN = re.compile(rb'^[ \t]*#[ \t]*include[ \t]*["<]([^">]+)[">]', re.MULTILINE)
+
+
+class UnitCache:
+    """Reuse a unit's normalized object while everything that produced it is unchanged.
+
+    A unit's key covers the build tools, the compiler binaries, the compile
+    profile, the regions it owns and the content of every project file it can
+    read: its sources and the transitive closure of their project includes
+    (conditional includes are all followed, so the closure only over-approximates).
+    The link and the whole-image comparison always run, so a reused object is
+    still verified as part of the exact executable.
+    """
+
+    def __init__(self, project, toolkit, directory, config):
+        self.project, self.directory = project, directory
+        self.file_digests, self.closures = {}, {}
+        tools = hashlib.sha256()
+        for path in sorted((ROOT / 'matching2/tools').rglob('*.py')):
+            tools.update(str(path.relative_to(ROOT)).encode() + b'\0' + path.read_bytes())
+        for path in sorted((toolkit / 'bin').iterdir()):
+            if path.is_file():
+                tools.update(path.name.encode() + b'\0' + path.read_bytes())
+        self.base = {'tools': tools.hexdigest(), 'flags': config['flags'],
+                     'compiler_version': config['compiler_version']}
+
+    def digest(self, path):
+        path = Path(path)
+        if path not in self.file_digests:
+            self.file_digests[path] = sha(path.read_bytes())
+        return self.file_digests[path]
+
+    def closure(self, path):
+        """Project files reachable from a source through #include."""
+        path = Path(path).resolve()
+        if path in self.closures:
+            return self.closures[path]
+        seen, stack = set(), [path]
+        while stack:
+            current = stack.pop()
+            if current in seen:
+                continue
+            seen.add(current)
+            for name in INCLUDE_PATTERN.findall(current.read_bytes()):
+                name = name.decode('latin-1').replace('\\', '/')
+                for base in (current.parent, self.project / 'include'):
+                    candidate = (base / name).resolve()
+                    if candidate.is_file() and candidate.is_relative_to(self.project):
+                        stack.append(candidate)
+                        break
+        self.closures[path] = seen
+        return seen
+
+    def key(self, source, config, regions, cluster, profile):
+        if cluster is not None:
+            roots = [cluster['path'], *cluster['source_paths'], *cluster['included_source_paths'],
+                     *cluster['header_paths'], *cluster['additional_source_paths']]
+            if cluster['driver_path']:
+                roots.append(cluster['driver_path'])
+        else:
+            roots = [self.project / source]
+        files = set()
+        for root in roots:
+            root = Path(root).resolve()
+            files |= self.closure(root) if root.suffix in ('.cpp', '.hpp', '.h') else {root}
+        record = {**self.base, 'source': source, 'regions': regions,
+                  'source_flags': config.get('source_flags', {}).get(source),
+                  'coff_aliases': config.get('coff_aliases', {}).get(source),
+                  'profile': profile, 'cluster': cluster,
+                  'files': {str(path.relative_to(self.project)): self.digest(path)
+                            for path in sorted(files)}}
+        return sha(json.dumps(record, sort_keys=True, default=str).encode())
+
+    def load(self, key):
+        entry = self.directory / key[:2] / key
+        try:
+            result = json.loads((entry / 'result.json').read_text())
+            if sha(Path(result['object']).read_bytes()) != result['cached_object_sha256']:
+                return None
+        except (OSError, ValueError, KeyError):
+            return None
+        return result
+
+    def store(self, key, result):
+        entry = self.directory / key[:2] / key
+        staging = entry.with_name(entry.name + '.partial')
+        shutil.rmtree(staging, ignore_errors=True)
+        staging.mkdir(parents=True)
+        shutil.copyfile(result['object'], staging / 'unit.obj')
+        result = {**result, 'object': str(entry / 'unit.obj'),
+                  'cached_object_sha256': sha((staging / 'unit.obj').read_bytes())}
+        (staging / 'result.json').write_text(json.dumps(result) + '\n')
+        shutil.rmtree(entry, ignore_errors=True)
+        staging.rename(entry)
+        return result
+
+
+def compile_unit_cached(cache, project, toolkit, output, config, by_source, cluster_by_source, index,
+                        source, compiler_profiles):
+    """compile_unit, skipped when an identical unit was already built."""
+    if cache is None or is_library_source(source) or source in compiler_profiles:
+        return compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index,
+                            source, compiler_profiles), False
+    key = cache.key(source, config, by_source[source], cluster_by_source.get(source), None)
+    result = cache.load(key)
+    if result is not None:
+        return result, True
+    result = compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index,
+                          source, compiler_profiles)
+    return cache.store(key, result), False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -191,6 +306,8 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'matching2/build/msvc')
     parser.add_argument('--verify', type=Path, help='optional post-build comparison with retail')
     parser.add_argument('--jobs', type=int, default=4)
+    parser.add_argument('--no-cache', action='store_true',
+                        help='recompile every unit instead of reusing unchanged ones')
     args = parser.parse_args()
     project, toolkit, output = args.project.resolve(), args.toolkit.resolve(), args.output.resolve()
     if args.jobs < 1 or args.jobs > 32:
@@ -224,20 +341,27 @@ def main():
     by_source = defaultdict(list)
     for region in regions + dos_regions:
         by_source[region['source']].append(region)
-    compiled, failures = [], []
+    compiled, failures, reused = [], [], 0
+    cache = None if args.no_cache else UnitCache(project, toolkit, output / 'cache', config)
     print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}'
           f' and {len(config.get("source_compilers", {}))} optional compiler sources...', flush=True)
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        pending = {executor.submit(compile_unit, project, toolkit, output, config, by_source,
-                                   cluster_by_source, index, source, compiler_profiles): source
+        pending = {executor.submit(compile_unit_cached, cache, project, toolkit, output, config,
+                                   by_source, cluster_by_source, index, source,
+                                   compiler_profiles): source
                    for index, source in enumerate(units)}
         for index, future in enumerate(as_completed(pending), 1):
             try:
-                compiled.append(future.result())
+                unit, hit = future.result()
+                compiled.append(unit)
+                reused += hit
             except Exception as error:
                 failures.append({'source': pending[future], 'error': str(error)})
             if index % 100 == 0 or index == len(units):
                 print(f'Built {index}/{len(units)} sources; {len(failures)} failures', flush=True)
+    uncached = sum(is_library_source(source) for source in units)
+    print(f'Reused {reused} unchanged units; compiled {len(units) - reused - uncached - len(failures)};'
+          f' {uncached} library members extracted.', flush=True)
     if failures:
         (output / 'compile-failures.json').write_text(json.dumps(failures, indent=2) + '\n')
         raise ValueError(f'{len(failures)} C++ units failed; see {output / "compile-failures.json"}')
