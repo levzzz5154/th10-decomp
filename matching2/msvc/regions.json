@@ -5319,13 +5319,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_PlayerManager_ConstructRetail_00408910",
-      "source": "src/game/manager_factories.cpp",
-      "symbol": "_asm_PlayerManager_ConstructRetail_00408910",
+      "name": "semantic_PlayerManager_Construct_00408910",
+      "source": "src/game/player_manager_construct_00408910.cpp",
+      "symbol": "??0PlayerManager_00408910@@QAE@XZ",
       "address": "0x00408910",
       "size": 176,
-      "kind": "asm",
-      "owner": "0x00408910"
+      "kind": "semantic",
+      "owner": "0x00408910",
+      "previous_record": {
+        "name": "asm_PlayerManager_ConstructRetail_00408910",
+        "source": "src/game/manager_factories.cpp",
+        "symbol": "_asm_PlayerManager_ConstructRetail_00408910",
+        "address": "0x00408910",
+        "size": 176,
+        "kind": "asm",
+        "owner": "0x00408910"
+      }
     },
     {
       "name": "semantic_PlayerManagerTasks_InitializeTasks_004089c0",
@@ -12917,13 +12926,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00413810_00413810",
-      "source": "src/game/manager_factories.cpp",
-      "symbol": "_asm_FUN_00413810_00413810",
+      "name": "semantic_ItemManager_Construct_00413810",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "??0ItemManager_00413810@@QAE@XZ",
       "address": "0x00413810",
       "size": 367,
-      "kind": "asm",
-      "owner": "0x00413810"
+      "kind": "semantic",
+      "owner": "0x00413810",
+      "previous_record": {
+        "name": "asm_FUN_00413810_00413810",
+        "source": "src/game/manager_factories.cpp",
+        "symbol": "_asm_FUN_00413810_00413810",
+        "address": "0x00413810",
+        "size": 367,
+        "kind": "asm",
+        "owner": "0x00413810"
+      }
     },
     {
       "name": "text_padding_0041397f",
@@ -49769,61 +49787,115 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465430_00465430",
-      "source": "src/unidentified/Unwind_00465430_00465430.cpp",
-      "symbol": "_asm_Unwind_00465430_00465430",
+      "name": "semantic_ItemManagerConstructUnwindFirst_00465430",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "_ItemManagerConstructUnwindFirst_00465430",
       "address": "0x00465430",
       "size": 25,
-      "kind": "asm",
-      "owner": "0x00465430"
+      "kind": "semantic",
+      "owner": "0x00465430",
+      "previous_record": {
+        "name": "asm_Unwind_00465430_00465430",
+        "source": "src/unidentified/Unwind_00465430_00465430.cpp",
+        "symbol": "_asm_Unwind_00465430_00465430",
+        "address": "0x00465430",
+        "size": 25,
+        "kind": "asm",
+        "owner": "0x00465430"
+      }
     },
     {
-      "name": "asm_Unwind_00465449_00465449",
-      "source": "src/unidentified/Unwind_00465449_00465449.cpp",
-      "symbol": "_asm_Unwind_00465449_00465449",
+      "name": "semantic_ItemManagerConstructUnwindSecond_00465449",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "_ItemManagerConstructUnwindSecond_00465449",
       "address": "0x00465449",
       "size": 27,
-      "kind": "asm",
-      "owner": "0x00465449"
+      "kind": "semantic",
+      "owner": "0x00465449",
+      "previous_record": {
+        "name": "asm_Unwind_00465449_00465449",
+        "source": "src/unidentified/Unwind_00465449_00465449.cpp",
+        "symbol": "_asm_Unwind_00465449_00465449",
+        "address": "0x00465449",
+        "size": 27,
+        "kind": "asm",
+        "owner": "0x00465449"
+      }
     },
     {
-      "name": "asm_Unwind_00465464_00465464",
-      "source": "src/unidentified/Unwind_00465464_00465464.cpp",
-      "symbol": "_asm_Unwind_00465464_00465464",
+      "name": "semantic_ItemManagerConstructUnwindThird_00465464",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "_ItemManagerConstructUnwindThird_00465464",
       "address": "0x00465464",
       "size": 27,
-      "kind": "asm",
-      "owner": "0x00465464"
+      "kind": "semantic",
+      "owner": "0x00465464",
+      "previous_record": {
+        "name": "asm_Unwind_00465464_00465464",
+        "source": "src/unidentified/Unwind_00465464_00465464.cpp",
+        "symbol": "_asm_Unwind_00465464_00465464",
+        "address": "0x00465464",
+        "size": 27,
+        "kind": "asm",
+        "owner": "0x00465464"
+      }
     },
     {
-      "name": "asm_Unwind_0046547f_0046547f",
-      "source": "src/unidentified/Unwind_0046547f_0046547f.cpp",
-      "symbol": "_asm_Unwind_0046547f_0046547f",
+      "name": "semantic_ItemManagerConstructUnwindFourth_0046547f",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "_ItemManagerConstructUnwindFourth_0046547f",
       "address": "0x0046547F",
       "size": 27,
-      "kind": "asm",
-      "owner": "0x0046547F"
+      "kind": "semantic",
+      "owner": "0x0046547F",
+      "previous_record": {
+        "name": "asm_Unwind_0046547f_0046547f",
+        "source": "src/unidentified/Unwind_0046547f_0046547f.cpp",
+        "symbol": "_asm_Unwind_0046547f_0046547f",
+        "address": "0x0046547F",
+        "size": 27,
+        "kind": "asm",
+        "owner": "0x0046547F"
+      }
     },
     {
-      "name": "asm_Unwind_0046549a_0046549a",
-      "source": "src/unidentified/Unwind_0046549a_0046549a.cpp",
-      "symbol": "_asm_Unwind_0046549a_0046549a",
+      "name": "semantic_ItemManagerConstructUnwindFifth_0046549a",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "_ItemManagerConstructUnwindFifth_0046549a",
       "address": "0x0046549A",
       "size": 27,
-      "kind": "asm",
-      "owner": "0x0046549A"
+      "kind": "semantic",
+      "owner": "0x0046549A",
+      "previous_record": {
+        "name": "asm_Unwind_0046549a_0046549a",
+        "source": "src/unidentified/Unwind_0046549a_0046549a.cpp",
+        "symbol": "_asm_Unwind_0046549a_0046549a",
+        "address": "0x0046549A",
+        "size": 27,
+        "kind": "asm",
+        "owner": "0x0046549A"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004654b5",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/ushclog.obj",
-      "symbol": "_crt_libcpmt_ushclog_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_ItemManagerConstructHandler_004654b5",
+      "source": "src/game/item_manager_construct_00413810.cpp",
+      "symbol": "__ehhandler$??0ItemManager_00413810@@QAE@XZ",
       "address": "0x004654B5",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x004654B5",
-      "library_section": ".text$x",
-      "library_section_number": 378,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004654b5",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/ushclog.obj",
+        "symbol": "_crt_libcpmt_ushclog_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x004654B5",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x004654B5",
+        "library_section": ".text$x",
+        "library_section_number": 378,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_004654bf",
@@ -49863,34 +49935,61 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_004654e0_004654e0",
-      "source": "src/unidentified/Unwind_004654e0_004654e0.cpp",
-      "symbol": "_asm_Unwind_004654e0_004654e0",
+      "name": "semantic_PlayerManagerConstructUnwindFirst_004654e0",
+      "source": "src/game/player_manager_construct_00408910.cpp",
+      "symbol": "_PlayerManagerConstructUnwindFirst_004654e0",
       "address": "0x004654E0",
       "size": 25,
-      "kind": "asm",
-      "owner": "0x004654E0"
+      "kind": "semantic",
+      "owner": "0x004654E0",
+      "previous_record": {
+        "name": "asm_Unwind_004654e0_004654e0",
+        "source": "src/unidentified/Unwind_004654e0_004654e0.cpp",
+        "symbol": "_asm_Unwind_004654e0_004654e0",
+        "address": "0x004654E0",
+        "size": 25,
+        "kind": "asm",
+        "owner": "0x004654E0"
+      }
     },
     {
-      "name": "asm_Unwind_004654f9_004654f9",
-      "source": "src/unidentified/Unwind_004654f9_004654f9.cpp",
-      "symbol": "_asm_Unwind_004654f9_004654f9",
+      "name": "semantic_PlayerManagerConstructUnwindSecond_004654f9",
+      "source": "src/game/player_manager_construct_00408910.cpp",
+      "symbol": "_PlayerManagerConstructUnwindSecond_004654f9",
       "address": "0x004654F9",
       "size": 27,
-      "kind": "asm",
-      "owner": "0x004654F9"
+      "kind": "semantic",
+      "owner": "0x004654F9",
+      "previous_record": {
+        "name": "asm_Unwind_004654f9_004654f9",
+        "source": "src/unidentified/Unwind_004654f9_004654f9.cpp",
+        "symbol": "_asm_Unwind_004654f9_004654f9",
+        "address": "0x004654F9",
+        "size": 27,
+        "kind": "asm",
+        "owner": "0x004654F9"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465514",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/wcin.obj",
-      "symbol": "_crt_libcpmt_wcin_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_PlayerManagerConstructHandler_00465514",
+      "source": "src/game/player_manager_construct_00408910.cpp",
+      "symbol": "__ehhandler$??0PlayerManager_00408910@@QAE@XZ",
       "address": "0x00465514",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x00465514",
-      "library_section": ".text$x",
-      "library_section_number": 378,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465514",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/wcin.obj",
+        "symbol": "_crt_libcpmt_wcin_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x00465514",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x00465514",
+        "library_section": ".text$x",
+        "library_section_number": 378,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_0046551e",
@@ -57836,9 +57935,7 @@
     "lib/libcpmt.lib/build/intel/mt_obj/cout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/ios.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/string.obj",
-    "lib/libcpmt.lib/build/intel/mt_obj/ushclog.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcerr.obj",
-    "lib/libcpmt.lib/build/intel/mt_obj/wcin.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wcout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/xlocale.obj",
@@ -58917,14 +59014,7 @@
     "src/unidentified/Unwind_004652e0_004652e0.cpp",
     "src/unidentified/Unwind_004652eb_004652eb.cpp",
     "src/unidentified/Unwind_00465330_00465330.cpp",
-    "src/unidentified/Unwind_00465430_00465430.cpp",
-    "src/unidentified/Unwind_00465449_00465449.cpp",
-    "src/unidentified/Unwind_00465464_00465464.cpp",
-    "src/unidentified/Unwind_0046547f_0046547f.cpp",
-    "src/unidentified/Unwind_0046549a_0046549a.cpp",
     "src/unidentified/Unwind_004654c0_004654c0.cpp",
-    "src/unidentified/Unwind_004654e0_004654e0.cpp",
-    "src/unidentified/Unwind_004654f9_004654f9.cpp",
     "src/unidentified/Unwind_00465550_00465550.cpp",
     "src/unidentified/Unwind_004655c0_004655c0.cpp",
     "src/unidentified/Unwind_004655d9_004655d9.cpp",
@@ -59711,7 +59801,9 @@
     "src/game/native_effect_manager_create_0041aed0.cpp",
     "src/game/bullet_manager_create_00406060.cpp",
     "src/game/replay_manager_create_004296f0.cpp",
-    "src/game/replay_manager_create_00429610.cpp"
+    "src/game/replay_manager_create_00429610.cpp",
+    "src/game/player_manager_construct_00408910.cpp",
+    "src/game/item_manager_construct_00413810.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60598,7 +60690,9 @@
     "layout/ltcg/native_effect_manager_create_0041aed0.json",
     "layout/ltcg/bullet_manager_create_00406060.json",
     "layout/ltcg/replay_manager_create_004296f0.json",
-    "layout/ltcg/replay_manager_create_00429610.json"
+    "layout/ltcg/replay_manager_create_00429610.json",
+    "layout/ltcg/player_manager_construct_00408910.json",
+    "layout/ltcg/item_manager_construct_00413810.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
