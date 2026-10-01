@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "name": "native_sound_shutdown",
+  "source": "src/platform/midi_worker_stop.cpp",
+  "driver": "layout/ltcg/native_sound_shutdown/cleanup_context.cpp",
+  "headers": [
+    "include/th10/platform/native_sound_shutdown.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/native_sound_shutdown/aggregate.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete real Cleanup301 caller, Stop176 and genuine aggregate82 with typed COM. Original Cleanup EAX may remain native ECX diagnostic; no surrogate.",
+  "functions": [
+    {
+      "name": "StopMusicWorker",
+      "symbol": "?StopMusicWorker@WaveSoundManager@@QAEXXZ",
+      "section": ".text$a02stop",
+      "address": "0x0043DAB0",
+      "size": 176,
+      "actual_abi": "Original ESI receiver, no stack arguments/plainRET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Aggregate",
+      "symbol": "?Aggregate@SoundStream@@QAEHXZ",
+      "section": ".text$a04aggregate",
+      "address": "0x0044D550",
+      "size": 82
+    }
+  ],
+  "context": {
+    "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
+    "section": ".text$a00cleanup",
+    "address": "0x0043D120",
+    "size": 301,
+    "description": "Actual complete original Cleanup301 caller, never synthetic. Entry receiver originalEAX versus ordinary native declared member."
+  },
+  "gaps": [
+    {
+      "section": ".text$a000gap",
+      "address": "0x00401000",
+      "size": 246048
+    },
+    {
+      "section": ".text$a01gap",
+      "address": "0x0043D24D",
+      "size": 2147
+    },
+    {
+      "section": ".text$a03gap",
+      "address": "0x0043DB60",
+      "size": 63984
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00466210",
+      "address": "0x00466210",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046611c",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466214",
+      "address": "0x00466214",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_owner_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Native game worker and genuine StageTip caller verification
 
+Historical c72143f8 checkpoint: current counts and later Sound Stop recovery are in [the sound-shutdown checkpoint](resumed_sound_shutdown_and_allocator_diagnostics_2026-10-01.md).
+
 This wave replaces two complete assembly routines with ordinary C++:
 GameWorker at 0x0043BA90 / 83 bytes and DirectInput setup at 0x0043B8D0 / 439
 bytes. Both whole native bodies match literally, adding 522 recovered bytes.

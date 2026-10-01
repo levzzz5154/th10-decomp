@@ -31831,13 +31831,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_MidiWorker_StopRetail_0043dab0",
+      "name": "semantic_SoundStopMusicWorker_0043dab0",
       "source": "src/platform/midi_worker_stop.cpp",
-      "symbol": "_asm_MidiWorker_StopRetail_0043dab0",
+      "symbol": "?StopMusicWorker@WaveSoundManager@@QAEXXZ",
       "address": "0x0043DAB0",
       "size": 176,
-      "kind": "asm",
-      "owner": "0x0043DAB0"
+      "kind": "semantic",
+      "owner": "0x0043DAB0",
+      "previous_record": {
+        "name": "asm_MidiWorker_StopRetail_0043dab0",
+        "source": "src/platform/midi_worker_stop.cpp",
+        "symbol": "_asm_MidiWorker_StopRetail_0043dab0",
+        "address": "0x0043DAB0",
+        "size": 176,
+        "kind": "asm",
+        "owner": "0x0043DAB0"
+      }
     },
     {
       "name": "asm_FUN_0043db60_0043db60",
@@ -56614,7 +56623,8 @@
     "_InitializeFontCache_00437a00": "0x00437A00",
     "_asm_FUN_004201b0_004201b0": "0x004201B0",
     "?InitializeDevices@GameInputSystem@@QAEHXZ": "0x0043B8D0",
-    "_GameWorker_0043ba90": "0x0043BA90"
+    "_GameWorker_0043ba90": "0x0043BA90",
+    "?StopMusicWorker@WaveSoundManager@@QAEXXZ": "0x0043DAB0"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -59530,7 +59540,8 @@
     "layout/ltcg/sound_interfaces.json",
     "layout/ltcg/score_manager_native.json",
     "layout/ltcg/native_font_start_closure.json",
-    "layout/ltcg/native_stage_tip.json"
+    "layout/ltcg/native_stage_tip.json",
+    "layout/ltcg/native_sound_shutdown.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
