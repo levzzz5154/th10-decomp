@@ -1,0 +1,124 @@
+#pragma once
+#include <stddef.h>
+#include "th10/game/entity.hpp"
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/thread_sync.hpp"
+#include "th10/render/animation_resource_removal.hpp"
+
+void __cdecl operator delete(void* block);
+extern "C" void __cdecl entry_free_00452422(void* block);
+
+struct AnimationLookupContext;
+struct AnimationScriptId {
+    int value;
+};
+// 0x004492A0: let the animation with this id, and its children, be removed.
+void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
+__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler* scheduler, SchedulerTask* task);
+
+extern "C" AnimationLookupContext* data_00491c10;
+extern "C" void* data_00491be4;
+
+// The same manager object, seen by the resource-removal marker.
+inline AnimationManager* AnimationRemoval(AnimationLookupContext* animations) {
+    return reinterpret_cast<AnimationManager*>(animations);
+}
+
+// The animation manager's two lists of live animations, as the lookup at
+// 0x004491C0 walks them.
+struct AnimationListEntry_004145f0 {
+    AnimationListEntry_004145f0* object;
+    AnimationListEntry_004145f0* next;
+    unsigned char reserved_08[0x0C];
+    AnimationListEntry_004145f0* children;
+    int children_flagged;
+    unsigned char reserved_1c[0x340];
+    unsigned int flags;
+};
+struct AnimationLists_004145f0 {
+    unsigned char reserved[0x72DAD4];
+    AnimationListEntry_004145f0* primary;
+    int reserved_2;
+    AnimationListEntry_004145f0* secondary;
+};
+
+// The lookup and the flag setter again, written out so that they can be
+// expanded in place: the destructor's loop holds a copy of both.
+__forceinline AnimationListEntry_004145f0* AnimationLists_Find(AnimationLookupContext* context, AnimationScriptId id) {
+    AnimationLists_004145f0* lists = reinterpret_cast<AnimationLists_004145f0*>(context);
+    AnimationListEntry_004145f0* node;
+    int* object;
+    if (!id.value)
+        return 0;
+    for (node = lists->primary; node != 0; node = node->next) {
+        object = (int*)node->object;
+        if (*object == id.value)
+            return node->object;
+    }
+    for (node = lists->secondary; node != 0; node = node->next) {
+        object = (int*)node->object;
+        if (*object == id.value)
+            return node->object;
+    }
+    return 0;
+}
+__forceinline void AnimationLists_SetFlag(AnimationLookupContext* context, AnimationScriptId id) {
+    AnimationListEntry_004145f0* entry = AnimationLists_Find(context, id);
+    if (entry) {
+        entry->flags |= 0x4000000;
+        if (!entry->children_flagged)
+            for (entry = entry->children; entry != 0; entry = entry->next)
+                entry->object->flags |= 0x4000000;
+    }
+}
+
+// An animation the manager owns, named by its id.
+struct ItemManagerAnimation_004145f0 {
+    AnimationScriptId id;
+
+    // Let the animation manager dispose of the animation and forget it.
+    void Release(AnimationLookupContext* animations) {
+        AnimationManager_SetFlag_004492a0(animations, id);
+        id.value = 0;
+    }
+    // The same, with the setter expanded in place.
+    __forceinline void ReleaseInPlace(AnimationLookupContext* animations) {
+        AnimationLists_SetFlag(animations, id);
+        id.value = 0;
+    }
+};
+
+// One sprite of the item manager: an Entity whose destructor is 0x00401FF0.
+struct ItemManagerSprite_004145f0 : Entity {
+    ~ItemManagerSprite_004145f0();
+};
+
+// The 0x9ED0-byte item manager, as its destructor sees it.
+struct ItemManager_004145f0 {
+    unsigned int flags;
+    unsigned int reserved_0004;
+    SchedulerTask* update_task;
+    SchedulerTask* draw_task;
+    ItemManagerSprite_004145f0 sprites_0010[10];
+    ItemManagerSprite_004145f0 sprites_24c8[10];
+    ItemManagerSprite_004145f0 sprites_4980[9];
+    ItemManagerSprite_004145f0 sprites_6a8c[4];
+    ItemManagerSprite_004145f0 sprites_793c[2];
+    ItemManagerSprite_004145f0 sprites_8094[7];
+    ItemManagerSprite_004145f0 sprite_9a48;
+    ItemManagerAnimation_004145f0 effects[8];      // +0x9DF4
+    unsigned char reserved_9e14[0x9E50 - 0x9E14];
+    ItemManagerAnimation_004145f0 banner;          // +0x9E50
+    unsigned char reserved_9e54[0x9EC8 - 0x9E54];
+    void* captions;                                // +0x9EC8, animation file
+    unsigned int reserved_9ecc;
+
+    __declspec(noinline) ~ItemManager_004145f0();    // 0x004145F0
+};
+typedef char ItemManagerSize_004145f0[sizeof(ItemManager_004145f0) == 0x9ED0 ? 1 : -1];
+typedef char ItemManagerEffects_004145f0[offsetof(ItemManager_004145f0, effects) == 0x9DF4 ? 1 : -1];
+
+// 0x00414370: release everything the manager's items and score texts hold.
+void __stdcall ItemManager_ReleaseContents_00414370(ItemManager_004145f0* manager);
+
+extern "C" ItemManager_004145f0* data_0047770c;
