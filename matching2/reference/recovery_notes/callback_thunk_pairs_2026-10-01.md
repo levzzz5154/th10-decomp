@@ -91,3 +91,18 @@ loader thread at +0x10); the compiler generates the unwind funclet and handler.
   its body: ESI is then taken by the copy and the receiver moves EAX -> EBX.
 - Parameter structs passed "in EAX after the pushes" are the callee's `this`
   (`spawn.Create(manager, name)`), not an argument.
+
+## Spell card end (0x409C00)
+
+- A stand-in keeps an argument on the stack when the argument's address is
+  taken; do it after the dispatch so the argument is not loaded into EAX
+  early, which leaves EAX to the register argument.
+- A value that retail reloads after a store to a global means the global's
+  address escapes somewhere in the program: pass `&global` to an extern in the
+  context function.
+- `lea esi,[edi+off]` next to a folded `[edi+off]` load: the code reads the
+  global pointer directly, not through a local. The slot reference is bound
+  before a call that may change the global, so the address has to survive in
+  its own register while the global's cached value dies at the call.
+- A callee whose "out" pointer arrives in a register after the pushes returns
+  a small class by value (give the id type a constructor).

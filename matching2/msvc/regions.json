@@ -5638,13 +5638,22 @@
       "owner": "0x00409280"
     },
     {
-      "name": "asm_FUN_00409c00_00409c00",
-      "source": "src/game/spell_card_end.cpp",
-      "symbol": "_asm_FUN_00409c00_00409c00",
+      "name": "semantic_SpellCard_End_00409c00",
+      "source": "src/game/spell_card_end_00409c00.cpp",
+      "symbol": "?End@SpellCard_00409c00@@QAEXXZ",
       "address": "0x00409C00",
       "size": 399,
-      "kind": "asm",
-      "owner": "0x00409C00"
+      "kind": "semantic",
+      "owner": "0x00409C00",
+      "previous_record": {
+        "name": "asm_FUN_00409c00_00409c00",
+        "source": "src/game/spell_card_end.cpp",
+        "symbol": "_asm_FUN_00409c00_00409c00",
+        "address": "0x00409C00",
+        "size": 399,
+        "kind": "asm",
+        "owner": "0x00409C00"
+      }
     },
     {
       "name": "text_padding_00409d8f",
@@ -58012,7 +58021,6 @@
     "src/game/slot_snapshot.cpp",
     "src/game/sound_stream_fill_model.cpp",
     "src/game/spell_card_dispatch.cpp",
-    "src/game/spell_card_end.cpp",
     "src/game/spell_timeout.cpp",
     "src/game/spell_timer.cpp",
     "src/game/sprite_descriptor.cpp",
@@ -59549,7 +59557,8 @@
     "src/game/script_viewer_update_0042bfc0.cpp",
     "src/game/sprite_viewer_teardown_0040a1a0.cpp",
     "src/game/sprite_viewer_update_0040a450.cpp",
-    "src/game/enemy_manager_clear_00409f90.cpp"
+    "src/game/enemy_manager_clear_00409f90.cpp",
+    "src/game/spell_card_end_00409c00.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60429,7 +60438,8 @@
     "layout/ltcg/script_viewer_update_0042bfc0.json",
     "layout/ltcg/sprite_viewer_teardown_0040a1a0.json",
     "layout/ltcg/sprite_viewer_update_0040a450.json",
-    "layout/ltcg/enemy_manager_clear_00409f90.json"
+    "layout/ltcg/enemy_manager_clear_00409f90.json",
+    "layout/ltcg/spell_card_end_00409c00.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
