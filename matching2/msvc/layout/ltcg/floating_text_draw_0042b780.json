@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "name": "floating_text_draw_0042b780",
+  "source": "src/game/floating_text_draw.cpp",
+  "driver": "layout/ltcg/floating_text_draw_0042b780_context.cpp",
+  "headers": [
+    "include/th10/game/floating_text_draw_0042b780.hpp",
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/render/animation_byte_interpolator.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Floating number draw with the pool in EDI, its ECX scheduler callback and the EAX/ESI/EDI spawner, compiled with the real ESI-receiver batch flush, an ESI-entity stand-in for the entity draw and a stand-in for the spawner's caller.",
+  "functions": [
+    {
+      "name": "FloatingTextPool_Draw",
+      "symbol": "?Draw@FloatingTextPool_0042b780@@QAEHXZ",
+      "section": ".text$01draw",
+      "address": "0x0042B780",
+      "actual_abi": "pool in EDI; plain RET",
+      "size": 540
+    },
+    {
+      "name": "FloatingTextPool_DrawTask",
+      "symbol": "?FloatingTextPool_DrawTask_0042b9b0@@YIHPAUFloatingTextPool_0042b780@@@Z",
+      "section": ".text$02task",
+      "address": "0x0042B9B0",
+      "actual_abi": "context in ECX; moved to EDI around the call",
+      "size": 10
+    },
+    {
+      "name": "FloatingTextPool_Spawn",
+      "symbol": "?Spawn@FloatingTextPool_0042b780@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
+      "section": ".text$03spawn",
+      "address": "0x0042B9C0",
+      "actual_abi": "value in EAX, pool in ESI, position in EDI, colour on the stack; RET 4",
+      "size": 167
+    }
+  ],
+  "context": {
+    "symbol": "?FloatingTextDrawCompilerContext@@YGPAXPAPAX@Z",
+    "section": ".text$04context",
+    "address": "0x0042BA70",
+    "size": 18,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 173952
+    },
+    {
+      "section": ".text$01drawz",
+      "address": 4372892,
+      "size": 20
+    },
+    {
+      "section": ".text$02taskz",
+      "address": 4372922,
+      "size": 6
+    },
+    {
+      "section": ".text$03spawnz",
+      "address": 4373095,
+      "size": 9
+    },
+    {
+      "section": ".text$04contextz",
+      "address": 4373122,
+      "size": 14
+    },
+    {
+      "section": ".text$04zcallerz",
+      "address": 4373273,
+      "size": 95287
+    },
+    {
+      "section": ".text$05flushz",
+      "address": 4468693,
+      "size": 171
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477840",
+      "address": "0x00477840",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SpawnCallerStandIn",
+      "symbol": "?FloatingTextSpawnCaller@@YGHPAUFloatingTextPosition_0042b780@@H@Z",
+      "section": ".text$04zcaller",
+      "address": "0x0042BA90",
+      "size": 137
+    },
+    {
+      "name": "AnimationManager_Flush",
+      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$05flush",
+      "address": "0x00442F50",
+      "size": 133
+    },
+    {
+      "name": "DrawEntityStandIn",
+      "symbol": "_FloatingText_DrawEntity_00443080@8",
+      "section": ".text$08entity",
+      "address": "0x00443080",
+      "size": 70
+    }
+  ],
+  "included_sources": [
+    "src/render/anm_batch_flush.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "bytes": "00000041"
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "bytes": "0000003f"
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "bytes": "00006043"
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "bytes": "00008041"
+    }
+  ]
+}

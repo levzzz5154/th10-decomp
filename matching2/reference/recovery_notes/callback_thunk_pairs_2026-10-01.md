@@ -32,3 +32,28 @@ spelling tried so far reuses the first address and so allocates registers
 differently. Passing the two sums by value to an inline setter gives retail's
 load order (`offset.y`, `cursor.y`, `offset.x`, `cursor.x`) but not the
 recomputed address.
+
+## Floating number pool (0x0042B780 / 0x0042B9B0 / 0x0042B9C0)
+
+Cluster `floating_text_draw_0042b780`. Three source-shape levers were measured:
+
+- **Duplicated tail statement.** The glyph loop picks one of three sprite
+  ranges; retail keeps the fade alpha in EBX and spills the glyph cursor. That
+  only reproduces when `sprite.alpha = alpha` is written in each of the three
+  branches (the compiler tail-merges the stores back into one). With a single
+  store after the branches the cursor wins EBX and the alpha is spilled.
+- **Escaping render state.** The fog reset `fog_dirty = 0; device->State(...)`
+  keeps retail's order (store between the constant pushes and the vtable load)
+  only when the address of the render state `data_00491c28` escapes somewhere
+  in the cluster. Otherwise whole-program analysis proves the store cannot
+  alias the device and sinks it below the vtable load. The entity-draw stand-in
+  passes `&data_00491c28` to an external for that reason.
+- **Caller stand-in selects the argument registers.** The spawner's
+  EAX/ESI/EDI convention came out of an ordinary `__thiscall` member once a
+  stand-in for its only caller (0x0041AFD0) was co-compiled: the caller keeps
+  the position live in a callee-saved register and reloads the pool global
+  before each call.
+
+The spawner's digit split needs the zero fix-up *after* the sign test
+(`if (length == 0) { glyphs[0] = 0; length = 1; }` as a separate statement) so
+the negative block is laid out after the return.

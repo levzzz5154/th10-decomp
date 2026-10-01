@@ -24270,13 +24270,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042b780_0042b780",
+      "name": "semantic_FloatingTextPool_Draw_0042b780",
       "source": "src/game/floating_text_draw.cpp",
-      "symbol": "_asm_FUN_0042b780_0042b780",
+      "symbol": "?Draw@FloatingTextPool_0042b780@@QAEHXZ",
       "address": "0x0042B780",
       "size": 540,
-      "kind": "asm",
-      "owner": "0x0042B780"
+      "kind": "semantic",
+      "owner": "0x0042B780",
+      "previous_record": {
+        "name": "asm_FUN_0042b780_0042b780",
+        "source": "src/game/floating_text_draw.cpp",
+        "symbol": "_asm_FUN_0042b780_0042b780",
+        "address": "0x0042B780",
+        "size": 540,
+        "kind": "asm",
+        "owner": "0x0042B780"
+      }
     },
     {
       "name": "text_padding_0042b99c",
@@ -24313,13 +24322,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042b9b0_0042b9b0",
-      "source": "src/unidentified/FUN_0042b9b0_0042b9b0.cpp",
-      "symbol": "_asm_FUN_0042b9b0_0042b9b0",
+      "name": "semantic_FloatingTextPool_DrawTask_0042b9b0",
+      "source": "src/game/floating_text_draw.cpp",
+      "symbol": "?FloatingTextPool_DrawTask_0042b9b0@@YIHPAUFloatingTextPool_0042b780@@@Z",
       "address": "0x0042B9B0",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0042B9B0"
+      "kind": "semantic",
+      "owner": "0x0042B9B0",
+      "previous_record": {
+        "name": "asm_FUN_0042b9b0_0042b9b0",
+        "source": "src/unidentified/FUN_0042b9b0_0042b9b0.cpp",
+        "symbol": "_asm_FUN_0042b9b0_0042b9b0",
+        "address": "0x0042B9B0",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0042B9B0"
+      }
     },
     {
       "name": "text_padding_0042b9ba",
@@ -24330,13 +24348,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042b9c0_0042b9c0",
-      "source": "src/game/score_popup.cpp",
-      "symbol": "_asm_FUN_0042b9c0_0042b9c0",
+      "name": "semantic_FloatingTextPool_Spawn_0042b9c0",
+      "source": "src/game/floating_text_draw.cpp",
+      "symbol": "?Spawn@FloatingTextPool_0042b780@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
       "address": "0x0042B9C0",
       "size": 167,
-      "kind": "asm",
-      "owner": "0x0042B9C0"
+      "kind": "semantic",
+      "owner": "0x0042B9C0",
+      "previous_record": {
+        "name": "asm_FUN_0042b9c0_0042b9c0",
+        "source": "src/game/score_popup.cpp",
+        "symbol": "_asm_FUN_0042b9c0_0042b9c0",
+        "address": "0x0042B9C0",
+        "size": 167,
+        "kind": "asm",
+        "owner": "0x0042B9C0"
+      }
     },
     {
       "name": "text_padding_0042ba67",
@@ -57846,7 +57873,6 @@
     "src/game/score_menu_rows.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_owned_destroy_0040b9d0.cpp",
-    "src/game/score_popup.cpp",
     "src/game/score_queue.cpp",
     "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
     "src/game/score_records_mark_eligible_0041c7d0.cpp",
@@ -58407,7 +58433,6 @@
     "src/unidentified/FUN_0042ac60_0042ac60.cpp",
     "src/unidentified/FUN_0042b6d0_0042b6d0.cpp",
     "src/unidentified/FUN_0042b9a0_0042b9a0.cpp",
-    "src/unidentified/FUN_0042b9b0_0042b9b0.cpp",
     "src/unidentified/FUN_0042ba90_0042ba90.cpp",
     "src/unidentified/FUN_0042baa0_0042baa0.cpp",
     "src/unidentified/FUN_0042bad0_0042bad0.cpp",
@@ -60282,7 +60307,8 @@
     "layout/ltcg/enemy_timer_sweep_0040d750.json",
     "layout/ltcg/script_viewer_load_0042be20.json",
     "layout/ltcg/script_viewer_draw_0042c360.json",
-    "layout/ltcg/sprite_viewer_draw_0040a940.json"
+    "layout/ltcg/sprite_viewer_draw_0040a940.json",
+    "layout/ltcg/floating_text_draw_0042b780.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
