@@ -40053,13 +40053,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044cf20_0044cf20",
-      "source": "src/platform/fun_0044cf20_0044cf20.cpp",
-      "symbol": "_asm_FUN_0044cf20_0044cf20",
+      "name": "semantic_SoundStream_RecreateBuffers_0044cf20",
+      "source": "src/platform/sound_stream_recreate_buffers_0044cf20.cpp",
+      "symbol": "_SoundStream_RecreateBuffers_0044cf20@4",
       "address": "0x0044CF20",
       "size": 338,
-      "kind": "asm",
-      "owner": "0x0044CF20"
+      "kind": "semantic",
+      "owner": "0x0044CF20",
+      "previous_record": {
+        "name": "asm_FUN_0044cf20_0044cf20",
+        "source": "src/platform/fun_0044cf20_0044cf20.cpp",
+        "symbol": "_asm_FUN_0044cf20_0044cf20",
+        "address": "0x0044CF20",
+        "size": 338,
+        "kind": "asm",
+        "owner": "0x0044CF20"
+      }
     },
     {
       "name": "text_padding_0044d072",
@@ -58538,7 +58547,6 @@
     "src/platform/fun_0043d7d0_0043d7d0.cpp",
     "src/platform/fun_0043d950_0043d950.cpp",
     "src/platform/fun_0044cbf0_0044cbf0.cpp",
-    "src/platform/fun_0044cf20_0044cf20.cpp",
     "src/platform/fun_0044d850_0044d850.cpp",
     "src/platform/gdi_font_cache.cpp",
     "src/platform/gdi_surface.cpp",
@@ -59989,7 +59997,8 @@
     "src/game/replay_manager_teardown_004294a0.cpp",
     "src/game/bullet_slot_construct_00405d00.cpp",
     "src/game/item_score_display_create_00415db0.cpp",
-    "src/platform/sound_stream_construct_0044ce80.cpp"
+    "src/platform/sound_stream_construct_0044ce80.cpp",
+    "src/platform/sound_stream_recreate_buffers_0044cf20.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60884,7 +60893,8 @@
     "layout/ltcg/replay_manager_teardown_004294a0.json",
     "layout/ltcg/bullet_slot_construct_00405d00.json",
     "layout/ltcg/item_score_display_create_00415db0.json",
-    "layout/ltcg/sound_stream_construct_0044ce80.json"
+    "layout/ltcg/sound_stream_construct_0044ce80.json",
+    "layout/ltcg/sound_stream_recreate_buffers_0044cf20.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

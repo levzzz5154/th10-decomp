@@ -25,7 +25,10 @@ struct MusicCursor {
 
 struct WaveBuffer;
 struct WaveMethods {
-    void* reserved00[9];
+    int (__stdcall* query_interface)(WaveBuffer*, const void* iid, void** object); // +0x00
+    void* add_ref;
+    unsigned int (__stdcall* release)(WaveBuffer*);                  // +0x08
+    void* reserved0c[6];
     int (__stdcall* get_status)(WaveBuffer*, unsigned int*); // +0x24
     void* reserved28;
     int (__stdcall* lock)(              // +0x2c
@@ -49,12 +52,49 @@ struct SoundStream {
     MusicCursor* reader;                // +0x0c
 };
 
-// The stream as its constructor at 0x0044CE80 fills it in.
+// The sound device: creates the buffers a stream plays through.
+struct SoundDevice;
+struct SoundDeviceMethods {
+    void* reserved00[3];
+    int (__stdcall* create_sound_buffer)(SoundDevice*, const void* description,
+        WaveBuffer** buffer, void* outer);                           // +0x0C
+};
+struct SoundDevice {
+    SoundDeviceMethods* methods;
+};
+struct SoundDeviceOwner {
+    SoundDevice* device;
+};
+
+// A buffer's play-position notifications.
+struct SoundNotifyPosition {
+    unsigned int offset;
+    void* event;
+};
+struct SoundNotify;
+struct SoundNotifyMethods {
+    void* query_interface;
+    void* add_ref;
+    unsigned int (__stdcall* release)(SoundNotify*);                 // +0x08
+    int (__stdcall* set_notification_positions)(SoundNotify*, unsigned int count,
+        const SoundNotifyPosition* positions);                       // +0x0C
+};
+struct SoundNotify {
+    SoundNotifyMethods* methods;
+};
+
+// The whole streaming sound.
 struct SoundStreamState : SoundStream {
     unsigned int buffer_count;          // +0x10
     unsigned char reserved_14[0x30 - 0x14];
     unsigned int last_play_position;    // +0x30
+    unsigned char buffer_description[0x24];     // +0x34
+    SoundDeviceOwner* owner;            // +0x58
+    unsigned char reserved_5c[0x6C - 0x5C];
+    unsigned int notify_bytes;          // +0x6C
+    void* notify_event;                 // +0x70
 };
+typedef char LayoutOwner[offsetof(SoundStreamState, owner) == 0x58 ? 1 : -1];
 
 typedef void (__stdcall* StreamSleep)(unsigned int);
 extern "C" {
