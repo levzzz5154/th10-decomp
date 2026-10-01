@@ -25648,13 +25648,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042d260_0042d260",
-      "source": "src/unidentified/FUN_0042d260_0042d260.cpp",
-      "symbol": "_asm_FUN_0042d260_0042d260",
+      "name": "semantic_TitleMenu_DrawOverlay_0042d260",
+      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "symbol": "?DrawOverlay@TitleMenu_00431410@@QAEHXZ",
       "address": "0x0042D260",
       "size": 116,
-      "kind": "asm",
-      "owner": "0x0042D260"
+      "kind": "semantic",
+      "owner": "0x0042D260",
+      "previous_record": {
+        "name": "asm_FUN_0042d260_0042d260",
+        "source": "src/unidentified/FUN_0042d260_0042d260.cpp",
+        "symbol": "_asm_FUN_0042d260_0042d260",
+        "address": "0x0042D260",
+        "size": 116,
+        "kind": "asm",
+        "owner": "0x0042D260"
+      }
     },
     {
       "name": "text_padding_0042d2d4",
@@ -25682,13 +25691,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042d2f0_0042d2f0",
-      "source": "src/unidentified/FUN_0042d2f0_0042d2f0.cpp",
-      "symbol": "_asm_FUN_0042d2f0_0042d2f0",
+      "name": "semantic_TitleMenu_DrawCallback_0042d2f0",
+      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "symbol": "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
       "address": "0x0042D2F0",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x0042D2F0"
+      "kind": "semantic",
+      "owner": "0x0042D2F0",
+      "previous_record": {
+        "name": "asm_FUN_0042d2f0_0042d2f0",
+        "source": "src/unidentified/FUN_0042d2f0_0042d2f0.cpp",
+        "symbol": "_asm_FUN_0042d2f0_0042d2f0",
+        "address": "0x0042D2F0",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x0042D2F0"
+      }
     },
     {
       "name": "text_padding_0042d2f7",
@@ -25958,13 +25976,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004329f0_004329f0",
-      "source": "src/game/replay_score_draw.cpp",
-      "symbol": "_asm_FUN_004329f0_004329f0",
+      "name": "semantic_TitleMenu_DrawScoreRows_004329f0",
+      "source": "src/game/title_score_rows_004329f0.cpp",
+      "symbol": "?DrawScoreRows@TitleMenu_00431410@@QAEHXZ",
       "address": "0x004329F0",
       "size": 689,
-      "kind": "asm",
-      "owner": "0x004329F0"
+      "kind": "semantic",
+      "owner": "0x004329F0",
+      "previous_record": {
+        "name": "asm_FUN_004329f0_004329f0",
+        "source": "src/game/replay_score_draw.cpp",
+        "symbol": "_asm_FUN_004329f0_004329f0",
+        "address": "0x004329F0",
+        "size": 689,
+        "kind": "asm",
+        "owner": "0x004329F0"
+      }
     },
     {
       "name": "text_padding_00432ca1",
@@ -58526,7 +58553,6 @@
     "src/game/replay_menu_runtime.cpp",
     "src/game/replay_progress.cpp",
     "src/game/replay_runtime_bootstrap.cpp",
-    "src/game/replay_score_draw.cpp",
     "src/game/replay_spell_list.cpp",
     "src/game/replay_stage_name_draw.cpp",
     "src/game/resource_manager_cleanup_00418ee0.cpp",
@@ -59103,9 +59129,7 @@
     "src/unidentified/FUN_0042bf30_0042bf30.cpp",
     "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
     "src/unidentified/FUN_0042c830_0042c830.cpp",
-    "src/unidentified/FUN_0042d260_0042d260.cpp",
     "src/unidentified/FUN_0042d2e0_0042d2e0.cpp",
-    "src/unidentified/FUN_0042d2f0_0042d2f0.cpp",
     "src/unidentified/FUN_00434b60_00434b60.cpp",
     "src/unidentified/FUN_00434be0_00434be0.cpp",
     "src/unidentified/FUN_00434bf0_00434bf0.cpp",
@@ -60088,7 +60112,9 @@
     "src/game/title_load_thread_0042c9f0.cpp",
     "src/game/stage_sequence_schedule.cpp",
     "src/render/animation_texture_surface_copy.cpp",
-    "src/game/title_practice_rows_00431410.cpp"
+    "src/game/title_practice_rows_00431410.cpp",
+    "src/game/title_score_rows_004329f0.cpp",
+    "src/game/title_menu_draw_0042d260.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

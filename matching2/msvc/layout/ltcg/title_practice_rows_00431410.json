@@ -4,10 +4,11 @@
   "source": "src/game/title_practice_rows_00431410.cpp",
   "driver": "layout/ltcg/title_practice_rows_00431410/context.cpp",
   "headers": [
-    "include/th10/game/game_thread_queue_native.hpp"
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/game/title_menu_draw.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Practice menu rows compiled with the real record writer and formatter under native LTCG; a synthetic array caller supplies the menu.",
+  "description": "Practice menu rows and the high score table compiled with the real record writer and formatter under native LTCG; a synthetic array caller supplies the menu.",
   "functions": [
     {
       "name": "TitleMenu_DrawPracticeRows",
@@ -16,13 +17,40 @@
       "address": "0x00431410",
       "actual_abi": "menu EDI; returns 1; plain RET",
       "size": 419
+    },
+    {
+      "name": "TitleMenu_DrawScoreRows",
+      "symbol": "?DrawScoreRows@TitleMenu_00431410@@QAEHXZ",
+      "source": "src/game/title_score_rows_004329f0.cpp",
+      "section": ".text$06scores",
+      "address": "0x004329F0",
+      "size": 689,
+      "actual_abi": "menu EDI; returns 1; plain RET"
+    },
+    {
+      "name": "TitleMenu_DrawOverlay",
+      "symbol": "?DrawOverlay@TitleMenu_00431410@@QAEHXZ",
+      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "section": ".text$03dispatch",
+      "address": "0x0042D260",
+      "size": 116,
+      "actual_abi": "menu EAX; returns 1; plain RET; jump table follows the body"
+    },
+    {
+      "name": "TitleMenu_DrawCallback",
+      "symbol": "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
+      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "section": ".text$04callback",
+      "address": "0x0042D2F0",
+      "size": 7,
+      "actual_abi": "fastcall menu ECX; tail jump with the menu in EAX"
     }
   ],
   "context": {
     "symbol": "_TitlePracticeRowsContext@12",
     "section": ".text$07context",
-    "address": "0x004315C0",
-    "size": 60,
+    "address": "0x00432CB0",
+    "size": 92,
     "description": "Synthetic array caller; not recovered game code."
   },
   "gaps": [
@@ -39,12 +67,27 @@
     {
       "section": ".text$02bformattedz",
       "address": 4200069,
-      "size": 195979
+      "size": 179163
     },
     {
       "section": ".text$05rowsz",
       "address": 4396467,
-      "size": 13
+      "size": 5181
+    },
+    {
+      "section": ".text$06scoresz",
+      "address": "0x00432CA1",
+      "size": 15
+    },
+    {
+      "section": ".text$03dispatchz",
+      "address": "0x0042D2D4",
+      "size": 28
+    },
+    {
+      "section": ".text$04callbackz",
+      "address": "0x0042D2F7",
+      "size": 16665
     }
   ],
   "constants": [],
@@ -93,6 +136,26 @@
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_localtime",
+      "address": "0x00452BAA",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_TitleMenu_DrawReplayBrowser_00431ba0@4",
+      "address": "0x00431BA0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_TitleMenu_DrawReplayStages_00433230@4",
+      "address": "0x00433230",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
+      "address": "0x00433B30",
+      "kind": "relative_code"
     }
   ],
   "anchors": [
@@ -115,7 +178,9 @@
     "layout/ltcg/title_practice_rows_00431410/formatted.cpp"
   ],
   "additional_sources": [
-    "layout/ltcg/title_practice_rows_00431410/append.cpp"
+    "layout/ltcg/title_practice_rows_00431410/append.cpp",
+    "src/game/title_score_rows_004329f0.cpp",
+    "src/game/title_menu_draw_0042d260.cpp"
   ],
   "data_aliases": [
     {
@@ -132,6 +197,29 @@
       "symbol": "__real@41900000",
       "address": "0x00470C0C",
       "bytes": "00009041"
+    },
+    {
+      "symbol": "??_C@_0O@KNKEDLDP@?$CF3d?3?$CF?42d?3?$CF?42d?$AA@",
+      "address": "0x0046EE38",
+      "bytes": "2533643a252e32643a252e326400"
+    },
+    {
+      "symbol": "??_C@_07NOKGIHLK@?5?5?5?5?$CF5d?$AA@",
+      "address": "0x0046EE48",
+      "bytes": "2020202025356400"
+    },
+    {
+      "symbol": "??_C@_0DC@NJLIKHNP@?$CF2d?5?5?$CFs?5?5?$CF9ld?$CFd?5?5?9?9?9?9?1?9?9?1?9?9?5?9?9?3?9@",
+      "address": "0x0046EE50",
+      "bytes": "25326420202573202025396c64256420202d2d2d2d2f2d2d2f2d2d202d2d3a2d2d20205374616765202d20202d2d2d252500"
+    },
+    {
+      "symbol": "??_C@_0DH@CLJLDOJ@?$CF2d?5?5?$CFs?5?5?$CF9ld?$CFd?5?5?$CF?44d?1?$CF?42d?1?$CF?42d?5@",
+      "address": "0x0046EE84",
+      "bytes": "25326420202573202025396c6425642020252e34642f252e32642f252e326420252e32643a252e326420202573202025322e3166252500"
     }
+  ],
+  "roots": [
+    "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z"
   ]
 }

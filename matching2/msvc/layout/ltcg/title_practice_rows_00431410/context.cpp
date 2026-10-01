@@ -11,6 +11,8 @@ extern "C" int __stdcall TitlePracticeRowsContext(TitleMenu_00431410** menus, in
     int total = 0;
     for (int i = 0; i < count; ++i)
         total += menus[i]->DrawPracticeRows();
+    for (int i = 0; i < count; ++i)
+        total += menus[i]->DrawScoreRows();
     return total;
 }
 #pragma code_seg()
