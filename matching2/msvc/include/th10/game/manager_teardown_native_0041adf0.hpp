@@ -23,6 +23,8 @@ struct NativeEffectManager_0041ADF0 {
  unsigned char tail[12];
  NativeEffectManager_0041ADF0() { memset(this,0,sizeof(*this));flags|=2;data_00477818=this; }
  __declspec(noinline) ~NativeEffectManager_0041ADF0();
+ // 0x0041AD90: register the update and draw tasks; nonzero on failure.
+ __declspec(noinline) int Initialize();
 };
 typedef char ElementSize[sizeof(NativeEffectElement_0041AD60)==0x3F0?1:-1];
 typedef char ManagerSize[sizeof(NativeEffectManager_0041ADF0)==0x21CEC0?1:-1];

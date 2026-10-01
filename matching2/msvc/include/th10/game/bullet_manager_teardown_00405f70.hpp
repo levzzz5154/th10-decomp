@@ -13,6 +13,7 @@ struct BulletSlot_00405DE0 {
  unsigned char prefix[0x360];
  void* secondary_resource;
  unsigned char suffix[0x7F0-0x364];
+ __declspec(noinline) BulletSlot_00405DE0();    // 0x00405D00
  __declspec(noinline) ~BulletSlot_00405DE0();
 };
 struct BulletManager_00405F70 {
@@ -21,7 +22,10 @@ struct BulletManager_00405F70 {
  unsigned char reserved_010[0x60-0x10];
  BulletSlot_00405DE0 items[0x7D1];
  void* archive;
+ BulletManager_00405F70() { memset(this,0,sizeof(*this));data_004776f0=this; }
  __declspec(noinline) ~BulletManager_00405F70();
+ // 0x00405E20: load the bullet scripts and register the tasks; nonzero on failure.
+ __declspec(noinline) int Initialize();
 };
 typedef char ItemSize[sizeof(BulletSlot_00405DE0)==0x7F0?1:-1];
 typedef char ManagerSize[sizeof(BulletManager_00405F70)==0x3E0B54?1:-1];
