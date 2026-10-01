@@ -17731,13 +17731,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041e5c0_0041e5c0",
-      "source": "src/unidentified/FUN_0041e5c0_0041e5c0.cpp",
-      "symbol": "_asm_FUN_0041e5c0_0041e5c0",
+      "name": "semantic_Laser_Initialize_0041e5c0",
+      "source": "src/game/laser_initialize_0041e5c0.cpp",
+      "symbol": "?Initialize@Laser_0041e5c0@@QAEHPBULaserParams_0041e5c0@@@Z",
       "address": "0x0041E5C0",
       "size": 309,
-      "kind": "asm",
-      "owner": "0x0041E5C0"
+      "kind": "semantic",
+      "owner": "0x0041E5C0",
+      "previous_record": {
+        "name": "asm_FUN_0041e5c0_0041e5c0",
+        "source": "src/unidentified/FUN_0041e5c0_0041e5c0.cpp",
+        "symbol": "_asm_FUN_0041e5c0_0041e5c0",
+        "address": "0x0041E5C0",
+        "size": 309,
+        "kind": "asm",
+        "owner": "0x0041E5C0"
+      }
     },
     {
       "name": "text_padding_0041e6f5",
@@ -59127,7 +59136,7 @@
     "src/unidentified/FUN_0041c8c0_0041c8c0.cpp",
     "src/unidentified/FUN_0041d170_0041d170.cpp",
     "src/unidentified/FUN_0041d870_0041d870.cpp",
-    "src/unidentified/FUN_0041e5c0_0041e5c0.cpp",
+    "src/game/laser_initialize_0041e5c0.cpp",
     "src/unidentified/FUN_0041ea40_0041ea40.cpp",
     "src/unidentified/FUN_0041eaf0_0041eaf0.cpp",
     "src/unidentified/FUN_0041f670_0041f670.cpp",
