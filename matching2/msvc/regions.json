@@ -35776,13 +35776,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00447bb0_00447bb0",
-      "source": "src/game/game_thread_text_draw.cpp",
-      "symbol": "_asm_FUN_00447bb0_00447bb0",
+      "name": "semantic_RecoveryIndicatorVm_FormatCentered_00447bb0",
+      "source": "src/game/recovery_centered_text_00447bb0.cpp",
+      "symbol": "?FormatCentered@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
       "address": "0x00447BB0",
       "size": 194,
-      "kind": "asm",
-      "owner": "0x00447BB0"
+      "kind": "semantic",
+      "owner": "0x00447BB0",
+      "previous_record": {
+        "name": "asm_FUN_00447bb0_00447bb0",
+        "source": "src/game/game_thread_text_draw.cpp",
+        "symbol": "_asm_FUN_00447bb0_00447bb0",
+        "address": "0x00447BB0",
+        "size": 194,
+        "kind": "asm",
+        "owner": "0x00447BB0"
+      }
     },
     {
       "name": "text_padding_00447c72",
@@ -58461,7 +58470,7 @@
     "src/game/game_thread_create_00401440.cpp",
     "src/game/game_thread_queue.cpp",
     "src/game/game_thread_run_queue_leaf_00401520.cpp",
-    "src/game/game_thread_text_draw.cpp",
+    "src/game/recovery_centered_text_00447bb0.cpp",
     "src/game/game_ui_create.cpp",
     "src/game/gameplay_final_runtime.cpp",
     "src/game/initialize_game_state_00402230.cpp",

@@ -1,5 +1,8 @@
-// Genuine complete models of the right-aligned and centered VM formatters.
-// The caller cluster and real DispatchText body determine their private ABI.
+// 0x00447BB0: format text and draw it centred on an animation's text surface.
+//
+// The text is centred on half the surface width; a character is taken to be
+// half the font height wide. Native LTCG passes the animation in ESI, leaving
+// the unused manager, the colour, the format and its arguments on the stack.
 
 #include <stdarg.h>
 #include <string.h>
@@ -12,9 +15,10 @@ extern "C" int __cdecl recovery_vsprintf_004524a6(
 void __cdecl RecoveryIndicatorVm_00419120::FormatCentered(
     void* manager, ...) {
     char buffer[128];
-    unsigned int height = font_height;
-    if (height == 0)
-        height = 17;
+    const unsigned char font = font_height;
+    unsigned int height = 17;
+    if (font > 0)
+        height = font;
     va_list args;
     va_start(args, manager);
     va_list color_home = args;
