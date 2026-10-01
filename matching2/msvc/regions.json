@@ -5860,13 +5860,22 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_OwnedPointerArray_00409eb0_Clear",
-      "source": "src/unidentified/FUN_00409eb0_00409eb0.cpp",
-      "symbol": "?Clear@OwnedPointerArray_00409eb0@@QAEXXZ",
+      "name": "semantic_SpriteViewer_ClearScriptNames_00409eb0",
+      "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+      "symbol": "?ClearScriptNames@SpriteViewer_0040a940@@QAEXXZ",
       "address": "0x00409EB0",
       "size": 86,
       "kind": "semantic",
-      "owner": "0x00409EB0"
+      "owner": "0x00409EB0",
+      "previous_record": {
+        "name": "semantic_OwnedPointerArray_00409eb0_Clear",
+        "source": "src/unidentified/FUN_00409eb0_00409eb0.cpp",
+        "symbol": "?Clear@OwnedPointerArray_00409eb0@@QAEXXZ",
+        "address": "0x00409EB0",
+        "size": 86,
+        "kind": "semantic",
+        "owner": "0x00409EB0"
+      }
     },
     {
       "name": "text_padding_00409f06",
@@ -6110,13 +6119,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040a1a0_0040a1a0",
-      "source": "src/unidentified/FUN_0040a1a0_0040a1a0.cpp",
-      "symbol": "_asm_FUN_0040a1a0_0040a1a0",
+      "name": "semantic_SpriteViewer_Destructor_0040a1a0",
+      "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+      "symbol": "??1SpriteViewer_0040a940@@QAE@XZ",
       "address": "0x0040A1A0",
       "size": 412,
-      "kind": "asm",
-      "owner": "0x0040A1A0"
+      "kind": "semantic",
+      "owner": "0x0040A1A0",
+      "previous_record": {
+        "name": "asm_FUN_0040a1a0_0040a1a0",
+        "source": "src/unidentified/FUN_0040a1a0_0040a1a0.cpp",
+        "symbol": "_asm_FUN_0040a1a0_0040a1a0",
+        "address": "0x0040A1A0",
+        "size": 412,
+        "kind": "asm",
+        "owner": "0x0040A1A0"
+      }
     },
     {
       "name": "text_padding_0040a33c",
@@ -50265,34 +50283,61 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_004657d0_004657d0",
-      "source": "src/unidentified/Unwind_004657d0_004657d0.cpp",
-      "symbol": "_asm_Unwind_004657d0_004657d0",
+      "name": "semantic_SpriteViewerWorkerUnwind_004657d0",
+      "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+      "symbol": "_SpriteViewerWorkerUnwind_004657d0",
       "address": "0x004657D0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x004657D0"
+      "kind": "semantic",
+      "owner": "0x004657D0",
+      "previous_record": {
+        "name": "asm_Unwind_004657d0_004657d0",
+        "source": "src/unidentified/Unwind_004657d0_004657d0.cpp",
+        "symbol": "_asm_Unwind_004657d0_004657d0",
+        "address": "0x004657D0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x004657D0"
+      }
     },
     {
-      "name": "asm_Unwind_004657db_004657db",
-      "source": "src/unidentified/Unwind_004657db_004657db.cpp",
-      "symbol": "_asm_Unwind_004657db_004657db",
+      "name": "semantic_SpriteViewerSpriteUnwind_004657db",
+      "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+      "symbol": "_SpriteViewerSpriteUnwind_004657db",
       "address": "0x004657DB",
       "size": 14,
-      "kind": "asm",
-      "owner": "0x004657DB"
+      "kind": "semantic",
+      "owner": "0x004657DB",
+      "previous_record": {
+        "name": "asm_Unwind_004657db_004657db",
+        "source": "src/unidentified/Unwind_004657db_004657db.cpp",
+        "symbol": "_asm_Unwind_004657db_004657db",
+        "address": "0x004657DB",
+        "size": 14,
+        "kind": "asm",
+        "owner": "0x004657DB"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004657e9",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/xlocale.obj",
-      "symbol": "_crt_libcpmt_xlocale_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_SpriteViewerHandler_004657e9",
+      "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+      "symbol": "__ehhandler$??1SpriteViewer_0040a940@@QAE@XZ",
       "address": "0x004657E9",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x004657E9",
-      "library_section": ".text$x",
-      "library_section_number": 389,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004657e9",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/xlocale.obj",
+        "symbol": "_crt_libcpmt_xlocale_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x004657E9",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x004657E9",
+        "library_section": ".text$x",
+        "library_section_number": 389,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_004657f3",
@@ -58274,7 +58319,6 @@
     "src/unidentified/FUN_00409dd0_00409dd0.cpp",
     "src/unidentified/FUN_00409de0_00409de0.cpp",
     "src/unidentified/FUN_00409df0_00409df0.cpp",
-    "src/unidentified/FUN_00409eb0_00409eb0.cpp",
     "src/unidentified/FUN_00409f30_00409f30.cpp",
     "src/unidentified/FUN_00409f40_00409f40.cpp",
     "src/unidentified/FUN_00409f60_00409f60.cpp",
@@ -58283,7 +58327,6 @@
     "src/unidentified/FUN_0040a010_0040a010.cpp",
     "src/unidentified/FUN_0040a040_0040a040.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp",
-    "src/unidentified/FUN_0040a1a0_0040a1a0.cpp",
     "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
     "src/unidentified/FUN_0040a450_0040a450.cpp",
     "src/unidentified/FUN_0040abe0_0040abe0.cpp",
@@ -58717,8 +58760,6 @@
     "src/unidentified/Unwind_0046577c_0046577c.cpp",
     "src/unidentified/Unwind_0046578a_0046578a.cpp",
     "src/unidentified/Unwind_004657b0_004657b0.cpp",
-    "src/unidentified/Unwind_004657d0_004657d0.cpp",
-    "src/unidentified/Unwind_004657db_004657db.cpp",
     "src/unidentified/Unwind_00465800_00465800.cpp",
     "src/unidentified/Unwind_00465820_00465820.cpp",
     "src/unidentified/Unwind_00465840_00465840.cpp",
@@ -59481,7 +59522,8 @@
     "src/game/script_viewer_draw_0042c360.cpp",
     "src/game/sprite_viewer_draw_0040a940.cpp",
     "src/game/script_viewer_teardown_0042bc30.cpp",
-    "src/game/script_viewer_update_0042bfc0.cpp"
+    "src/game/script_viewer_update_0042bfc0.cpp",
+    "src/game/sprite_viewer_teardown_0040a1a0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -59732,7 +59774,6 @@
     "layout/ltcg/copy_block_0041ac30.json",
     "layout/ltcg/copy_block_00413220.json",
     "layout/ltcg/copy_block_004421a0.json",
-    "layout/ltcg/owned_pointer_array_00409eb0.json",
     "layout/ltcg/embedded_timer_reset_004050d0.json",
     "layout/ltcg/destroy_owned_004148e0.json",
     "layout/ltcg/destroy_owned_00418150.json",
@@ -60359,7 +60400,8 @@
     "layout/ltcg/sprite_viewer_draw_0040a940.json",
     "layout/ltcg/floating_text_draw_0042b780.json",
     "layout/ltcg/script_viewer_teardown_0042bc30.json",
-    "layout/ltcg/script_viewer_update_0042bfc0.json"
+    "layout/ltcg/script_viewer_update_0042bfc0.json",
+    "layout/ltcg/sprite_viewer_teardown_0040a1a0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

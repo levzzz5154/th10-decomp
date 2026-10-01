@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "name": "sprite_viewer_teardown_0040a1a0",
+  "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+  "driver": "layout/ltcg/sprite_viewer_teardown_0040a1a0/context.cpp",
+  "headers": [
+    "include/th10/game/sprite_viewer_teardown_0040a1a0.hpp",
+    "include/th10/game/sprite_viewer_draw_0040a940.hpp",
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "SprtView screen destructor with its two compiler-generated member cleanups and the ESI script-name clear; real scheduler unlink and worker stop, stand-in manager destructors and the owned-delete caller.",
+  "functions": [
+    {
+      "name": "SpriteViewer_ClearScriptNames",
+      "symbol": "?ClearScriptNames@SpriteViewer_0040a940@@QAEXXZ",
+      "section": ".text$01names",
+      "address": "0x00409EB0",
+      "actual_abi": "screen in ESI; plain RET",
+      "size": 86
+    },
+    {
+      "name": "SpriteViewer_Destructor",
+      "symbol": "??1SpriteViewer_0040a940@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x0040A1A0",
+      "actual_abi": "receiver on the stack; RET 4; compiler-generated EH frame",
+      "size": 412
+    },
+    {
+      "name": "SpriteViewerWorkerUnwind",
+      "symbol": "_SpriteViewerWorkerUnwind_004657d0",
+      "section": ".text$x",
+      "address": "0x004657D0",
+      "actual_abi": "worker member at receiver+0x10, destructor 0x0044C130",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 11
+    },
+    {
+      "name": "SpriteViewerSpriteUnwind",
+      "symbol": "_SpriteViewerSpriteUnwind_004657db",
+      "section": ".text$x",
+      "address": "0x004657DB",
+      "actual_abi": "sprite member at receiver+0x2C8, destructor 0x00401FF0",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 14
+    },
+    {
+      "name": "SpriteViewerHandler",
+      "symbol": "__ehhandler$??1SpriteViewer_0040a940@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x004657E9",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?SpriteViewer_DestroyOwned_0040a1a0@@YGXPAUSpriteViewer_0040a940@@PAUSpriteViewerWorkerArrayStandIn@@PAUSpriteViewerSpriteArrayStandIn@@@Z",
+    "section": ".text$05owned_delete",
+    "address": "0x0040A410",
+    "size": 46,
+    "description": "Owned-delete caller; not selected as recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 4080
+    },
+    {
+      "section": ".text$00spritez",
+      "address": 4202514,
+      "size": 13838
+    },
+    {
+      "section": ".text$00x1z",
+      "address": 4216479,
+      "size": 2257
+    },
+    {
+      "section": ".text$00x2z",
+      "address": 4218863,
+      "size": 16065
+    },
+    {
+      "section": ".text$01namesz",
+      "address": 4235014,
+      "size": 666
+    },
+    {
+      "section": ".text$03dtorz",
+      "address": 4236092,
+      "size": 212
+    },
+    {
+      "section": ".text$05owned_deletez",
+      "address": 4236350,
+      "size": 2
+    },
+    {
+      "section": ".text$05zspritesz",
+      "address": 4236387,
+      "size": 12493
+    },
+    {
+      "section": ".text$06az",
+      "address": 4249010,
+      "size": 28734
+    },
+    {
+      "section": ".text$06bz",
+      "address": 4277871,
+      "size": 26497
+    },
+    {
+      "section": ".text$06cz",
+      "address": 4304495,
+      "size": 41057
+    },
+    {
+      "section": ".text$06dz",
+      "address": 4345679,
+      "size": 26145
+    },
+    {
+      "section": ".text$06ez",
+      "address": 4371951,
+      "size": 125297
+    },
+    {
+      "section": ".text$07removez",
+      "address": 4497362,
+      "size": 8542
+    },
+    {
+      "section": ".text$10workerz",
+      "address": 4505920,
+      "size": 16
+    },
+    {
+      "section": ".text$20calleez",
+      "address": 4506037,
+      "size": 103963
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 47028
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776ec",
+      "address": "0x004776EC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477818",
+      "address": "0x00477818",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477840",
+      "address": "0x00477840",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f8",
+      "address": "0x004776F8",
+      "kind": "data"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004717B4",
+      "bytes": "ffffffffd057460000000000db5746002005931902000000b417470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the destructor; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SpriteDestructor",
+      "symbol": "??1SpriteViewerSprite_0040a940@@QAE@XZ",
+      "section": ".text$00sprite",
+      "address": "0x00401FF0",
+      "size": 34
+    },
+    {
+      "name": "LasersStandIn",
+      "symbol": "??1SpriteViewerLasers_0040a1a0@@QAE@XZ",
+      "section": ".text$00x1",
+      "address": "0x00405620",
+      "size": 127
+    },
+    {
+      "name": "BulletsStandIn",
+      "symbol": "??1SpriteViewerBullets_0040a1a0@@QAE@XZ",
+      "section": ".text$00x2",
+      "address": "0x00405F70",
+      "size": 127
+    },
+    {
+      "name": "ArrayStandIn",
+      "symbol": "??1SpriteViewerWorkerArrayStandIn@@QAE@XZ",
+      "section": ".text$05zarray",
+      "address": "0x0040A440",
+      "size": 16
+    },
+    {
+      "name": "SpriteArrayStandIn",
+      "symbol": "??1SpriteViewerSpriteArrayStandIn@@QAE@XZ",
+      "section": ".text$05zsprites",
+      "address": "0x0040A450",
+      "size": 19
+    },
+    {
+      "name": "EnemiesStandIn",
+      "symbol": "??1SpriteViewerEnemies_0040a940@@QAE@XZ",
+      "section": ".text$06a",
+      "address": "0x0040D530",
+      "size": 130
+    },
+    {
+      "name": "ItemsStandIn",
+      "symbol": "??1SpriteViewerItems_0040a1a0@@QAE@XZ",
+      "section": ".text$06b",
+      "address": "0x004145F0",
+      "size": 127
+    },
+    {
+      "name": "EffectsStandIn",
+      "symbol": "??1SpriteViewerEffects_0040a1a0@@QAE@XZ",
+      "section": ".text$06c",
+      "address": "0x0041ADF0",
+      "size": 127
+    },
+    {
+      "name": "PlayerStandIn",
+      "symbol": "??1SpriteViewerPlayer_0040a1a0@@QAE@XZ",
+      "section": ".text$06d",
+      "address": "0x00424ED0",
+      "size": 127
+    },
+    {
+      "name": "PopupsStandIn",
+      "symbol": "??1SpriteViewerPopups_0040a1a0@@QAE@XZ",
+      "section": ".text$06e",
+      "address": "0x0042B570",
+      "size": 127
+    },
+    {
+      "name": "ActualSchedulerRemove",
+      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "section": ".text$07remove",
+      "address": "0x00449F60",
+      "size": 114
+    },
+    {
+      "name": "WorkerDestructor",
+      "symbol": "??1SpriteViewerWorker_0040a940@@QAE@XZ",
+      "section": ".text$10worker",
+      "address": "0x0044C130",
+      "size": 16
+    },
+    {
+      "name": "WorkerStop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp",
+    "src/platform/platform_stop_worker_0044c150.cpp"
+  ]
+}

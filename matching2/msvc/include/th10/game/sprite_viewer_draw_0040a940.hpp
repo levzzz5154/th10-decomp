@@ -19,18 +19,44 @@ struct SpriteViewerEnemies_0040a940 {
     SpriteViewerParser_0040a940* parser;
     unsigned char reserved_058[8];
     int enemy_count;
+
+    __declspec(noinline) ~SpriteViewerEnemies_0040a940();   // 0x0040D530
 };
 
 // The viewed sprite is an animation entity; its base position is at +0x334.
 struct SpriteViewerSprite_0040a940 {
     unsigned char reserved_000[0x334];
     CameraVector base_position;
-    unsigned char reserved_340[0x3AC - 0x340];
+    unsigned char reserved_340[0x358 - 0x340];
+    void* resource;            // +0x358, owned
+    unsigned char reserved_35c[0x3AC - 0x35C];
+
+    ~SpriteViewerSprite_0040a940();   // 0x00401FF0
+};
+
+struct SchedulerTask;
+
+// The screen's loader thread: a PlatformWorker (th10/platform/worker.hpp),
+// destroyed by 0x0044C130.
+struct SpriteViewerWorker_0040a940 {
+    const void* vtable;
+    void* thread;
+    unsigned int thread_id;
+    unsigned int stop_requested;
+    unsigned int running;
+    unsigned int reserved_14;
+    void* entry;
+
+    ~SpriteViewerWorker_0040a940();
 };
 
 // The 0x688-byte "SprtView" debug screen.
 struct SpriteViewer_0040a940 {
-    unsigned char reserved_000[0x30];
+    unsigned char reserved_000[8];
+    SchedulerTask* update_task;
+    SchedulerTask* draw_task;
+    SpriteViewerWorker_0040a940 worker;
+    unsigned char reserved_02c[4];
     int state;                 // 1 = menu, 2 = loading, 3 = viewing, 4 = enemy count
     const char** script_names;
     int script_count;
@@ -46,8 +72,11 @@ struct SpriteViewer_0040a940 {
     unsigned char reserved_67c[8];
     unsigned int flags;
 
+    __declspec(noinline) ~SpriteViewer_0040a940();
+    __declspec(noinline) void ClearScriptNames();
     __declspec(noinline) int Draw();
 };
+typedef char SpriteViewerStateOffset_0040a940[offsetof(SpriteViewer_0040a940, state) == 0x30 ? 1 : -1];
 typedef char SpriteViewerSpriteOffset_0040a940[offsetof(SpriteViewer_0040a940, sprite) == 0x2C8 ? 1 : -1];
 typedef char SpriteViewerFlagsOffset_0040a940[offsetof(SpriteViewer_0040a940, flags) == 0x684 ? 1 : -1];
 typedef char SpriteViewerSize_0040a940[sizeof(SpriteViewer_0040a940) == 0x688 ? 1 : -1];
