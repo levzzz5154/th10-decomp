@@ -6266,13 +6266,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040a940_0040a940",
-      "source": "src/game/sprite_test_overlay.cpp",
-      "symbol": "_asm_FUN_0040a940_0040a940",
+      "name": "semantic_SpriteViewer_Draw_0040a940",
+      "source": "src/game/sprite_viewer_draw_0040a940.cpp",
+      "symbol": "?Draw@SpriteViewer_0040a940@@QAEHXZ",
       "address": "0x0040A940",
       "size": 664,
-      "kind": "asm",
-      "owner": "0x0040A940"
+      "kind": "semantic",
+      "owner": "0x0040A940",
+      "previous_record": {
+        "name": "asm_FUN_0040a940_0040a940",
+        "source": "src/game/sprite_test_overlay.cpp",
+        "symbol": "_asm_FUN_0040a940_0040a940",
+        "address": "0x0040A940",
+        "size": 664,
+        "kind": "asm",
+        "owner": "0x0040A940"
+      }
     },
     {
       "name": "text_padding_0040abd8",
@@ -6309,13 +6318,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040abf0_0040abf0",
-      "source": "src/unidentified/FUN_0040abf0_0040abf0.cpp",
-      "symbol": "_asm_FUN_0040abf0_0040abf0",
+      "name": "semantic_SpriteViewer_DrawTask_0040abf0",
+      "source": "src/game/sprite_viewer_draw_0040a940.cpp",
+      "symbol": "?SpriteViewer_DrawTask_0040abf0@@YIHPAUSpriteViewer_0040a940@@@Z",
       "address": "0x0040ABF0",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0040ABF0"
+      "kind": "semantic",
+      "owner": "0x0040ABF0",
+      "previous_record": {
+        "name": "asm_FUN_0040abf0_0040abf0",
+        "source": "src/unidentified/FUN_0040abf0_0040abf0.cpp",
+        "symbol": "_asm_FUN_0040abf0_0040abf0",
+        "address": "0x0040ABF0",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0040ABF0"
+      }
     },
     {
       "name": "text_padding_0040abfa",
@@ -57848,7 +57866,6 @@
     "src/game/spell_timeout.cpp",
     "src/game/spell_timer.cpp",
     "src/game/sprite_descriptor.cpp",
-    "src/game/sprite_test_overlay.cpp",
     "src/game/stage_background.cpp",
     "src/game/stage_entry.cpp",
     "src/game/stage_focus_fade.cpp",
@@ -58191,7 +58208,6 @@
     "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
     "src/unidentified/FUN_0040a450_0040a450.cpp",
     "src/unidentified/FUN_0040abe0_0040abe0.cpp",
-    "src/unidentified/FUN_0040abf0_0040abf0.cpp",
     "src/unidentified/FUN_0040ac00_0040ac00.cpp",
     "src/unidentified/FUN_0040ac10_0040ac10.cpp",
     "src/unidentified/FUN_0040ad10_0040ad10.cpp",
@@ -59389,7 +59405,8 @@
     "src/game/effect_manager_teardown_0042b570.cpp",
     "src/game/stage_state_update_00402720.cpp",
     "src/game/script_viewer_load_0042be20.cpp",
-    "src/game/script_viewer_draw_0042c360.cpp"
+    "src/game/script_viewer_draw_0042c360.cpp",
+    "src/game/sprite_viewer_draw_0040a940.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60264,7 +60281,8 @@
     "layout/ltcg/stage_state_update_00402720.json",
     "layout/ltcg/enemy_timer_sweep_0040d750.json",
     "layout/ltcg/script_viewer_load_0042be20.json",
-    "layout/ltcg/script_viewer_draw_0042c360.json"
+    "layout/ltcg/script_viewer_draw_0042c360.json",
+    "layout/ltcg/sprite_viewer_draw_0040a940.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

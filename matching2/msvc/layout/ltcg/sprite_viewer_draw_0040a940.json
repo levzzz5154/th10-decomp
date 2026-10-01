@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "name": "sprite_viewer_draw_0040a940",
+  "source": "src/game/sprite_viewer_draw_0040a940.cpp",
+  "driver": "layout/ltcg/sprite_viewer_draw_0040a940_context.cpp",
+  "headers": [
+    "include/th10/game/sprite_viewer_draw_0040a940.hpp",
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "SprtView debug text and sprite draw with the viewer in EDI and its ECX scheduler callback, compiled with the real marked-text writer and an ESI-entity stand-in for the entity draw.",
+  "functions": [
+    {
+      "name": "SpriteViewer_Draw",
+      "symbol": "?Draw@SpriteViewer_0040a940@@QAEHXZ",
+      "section": ".text$05draw",
+      "address": "0x0040A940",
+      "actual_abi": "viewer in EDI; plain RET; switch table follows the body",
+      "size": 664
+    },
+    {
+      "name": "SpriteViewer_DrawTask",
+      "symbol": "?SpriteViewer_DrawTask_0040abf0@@YIHPAUSpriteViewer_0040a940@@@Z",
+      "section": ".text$06task",
+      "address": "0x0040ABF0",
+      "actual_abi": "context in ECX; moved to EDI around the call",
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?SpriteViewerDrawCompilerContext@@YGPAXXZ",
+    "section": ".text$07context",
+    "address": "0x0040AC00",
+    "size": 6,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 1328
+    },
+    {
+      "section": ".text$01appendz",
+      "address": 4199860,
+      "size": 220
+    },
+    {
+      "section": ".text$03markedz",
+      "address": 4200180,
+      "size": 37452
+    },
+    {
+      "section": ".text$05drawz",
+      "address": 4238296,
+      "size": 24
+    },
+    {
+      "section": ".text$06taskz",
+      "address": 4238330,
+      "size": 6
+    },
+    {
+      "section": ".text$07contextz",
+      "address": 4238342,
+      "size": 230522
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_vsprintf",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x0045BD80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AppendRecord",
+      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "section": ".text$01append",
+      "address": "0x00401530",
+      "size": 132
+    },
+    {
+      "name": "AppendMarked",
+      "symbol": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "section": ".text$03marked",
+      "address": "0x00401690",
+      "size": 100
+    },
+    {
+      "name": "DrawEntityStandIn",
+      "symbol": "_SpriteViewer_DrawEntity_00443080@8",
+      "section": ".text$08entity",
+      "address": "0x00443080",
+      "size": 63
+    }
+  ],
+  "included_sources": [
+    "src/game/game_thread_queue.cpp",
+    "src/game/game_thread_append_formatted_marked_retail_00401690.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_07NPEDNENG@File?5?$CFs?$AA@",
+      "address": "0x0046CE3C",
+      "bytes": "46696c6520257300"
+    },
+    {
+      "symbol": "??_C@_0BA@DOIDIGMK@File?5not?5found?4?$AA@",
+      "address": "0x0046CE2C",
+      "bytes": "46696c65206e6f7420666f756e642e00"
+    },
+    {
+      "symbol": "??_C@_06DMKEJMOH@Ecl?5?$CFs?$AA@",
+      "address": "0x0046CE24",
+      "bytes": "45636c20257300"
+    },
+    {
+      "symbol": "??_C@_04GMBKPCGK@Quit?$AA@",
+      "address": "0x0046CE14",
+      "bytes": "5175697400"
+    },
+    {
+      "symbol": "??_C@_01PPODPGHN@?$DO?$AA@",
+      "address": "0x0046CE10",
+      "bytes": "3e00"
+    },
+    {
+      "symbol": "??_C@_0L@OKBLGMCB@Loading?5?$CFs?$AA@",
+      "address": "0x0046CE44",
+      "bytes": "4c6f6164696e6720257300"
+    },
+    {
+      "symbol": "??_C@_0O@LKELLPF@Pos?5?$CF?43d?5?$CF?43d?$AA@",
+      "address": "0x0046CDF4",
+      "bytes": "506f7320252e336420252e336400"
+    },
+    {
+      "symbol": "__real@41200000",
+      "address": "0x00470C1C",
+      "bytes": "00002041"
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "bytes": "00008041"
+    },
+    {
+      "symbol": "??_C@_09KBPLGEHK@SprtView?6?$AA@",
+      "address": "0x0046CE50",
+      "bytes": "53707274566965770a00"
+    },
+    {
+      "symbol": "??_C@_06DJCHBIHB@Ecl?5?$CFd?$AA@",
+      "address": "0x0046CE1C",
+      "bytes": "45636c20256400"
+    },
+    {
+      "symbol": "??_C@_08EOJBGHHO@Enemy?5?$CFd?$AA@",
+      "address": "0x0046CE04",
+      "bytes": "456e656d7920256400"
+    }
+  ]
+}
