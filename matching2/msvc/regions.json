@@ -25482,13 +25482,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042c9f0_0042c9f0",
-      "source": "src/unidentified/FUN_0042c9f0_0042c9f0.cpp",
-      "symbol": "_asm_FUN_0042c9f0_0042c9f0",
+      "name": "semantic_TitleLoadThread_0042c9f0",
+      "source": "src/game/title_load_thread_0042c9f0.cpp",
+      "symbol": "_TitleLoadThread_0042c9f0",
       "address": "0x0042C9F0",
       "size": 168,
-      "kind": "asm",
-      "owner": "0x0042C9F0"
+      "kind": "semantic",
+      "owner": "0x0042C9F0",
+      "previous_record": {
+        "name": "asm_FUN_0042c9f0_0042c9f0",
+        "source": "src/unidentified/FUN_0042c9f0_0042c9f0.cpp",
+        "symbol": "_asm_FUN_0042c9f0_0042c9f0",
+        "address": "0x0042C9F0",
+        "size": 168,
+        "kind": "asm",
+        "owner": "0x0042C9F0"
+      }
     },
     {
       "name": "text_padding_0042ca98",
@@ -59037,7 +59046,6 @@
     "src/unidentified/FUN_0042bf30_0042bf30.cpp",
     "src/unidentified/FUN_0042c5b0_0042c5b0.cpp",
     "src/unidentified/FUN_0042c830_0042c830.cpp",
-    "src/unidentified/FUN_0042c9f0_0042c9f0.cpp",
     "src/unidentified/FUN_0042d260_0042d260.cpp",
     "src/unidentified/FUN_0042d2e0_0042d2e0.cpp",
     "src/unidentified/FUN_0042d2f0_0042d2f0.cpp",
@@ -60020,7 +60028,8 @@
     "src/platform/sound_stream_recreate_buffers_0044cf20.cpp",
     "src/platform/sound_stream_service.cpp",
     "src/platform/sound_cleanup_0043d120.cpp",
-    "src/archive/dat_archive_entry_delete.cpp"
+    "src/archive/dat_archive_entry_delete.cpp",
+    "src/game/title_load_thread_0042c9f0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

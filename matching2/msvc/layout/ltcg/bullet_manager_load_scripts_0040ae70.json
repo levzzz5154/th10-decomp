@@ -34,7 +34,10 @@
     "src/unidentified/unassigned_0044a060.cpp",
     "src/unidentified/unassigned_0044a090.cpp",
     "src/unidentified/FUN_0040a040_0040a040.cpp",
-    "src/unidentified/FUN_0040a3c0_0040a3c0.cpp"
+    "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+    "src/game/title_load_thread_0042c9f0.cpp",
+    "layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
+    "layout/ltcg/bullet_manager_load_scripts_0040ae70_mark.cpp"
   ],
   "driver": "layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
@@ -46,7 +49,8 @@
     "_Recovery_ReleaseRawPairAndReset@4",
     "_BulletManager_Release@4",
     "_ScoreExtendedObject_DestroyRetail@4",
-    "_Manager_Release_00422220@4"
+    "_Manager_Release_00422220@4",
+    "_TitleLoadThread_0042c9f0"
   ],
   "headers": [
     "include/th10/game/item_front_initialize_00413980.hpp",
@@ -59,7 +63,8 @@
     "include/th10/render/animation_mark_for_removal.hpp",
     "include/th10/game/anm_vm.hpp",
     "include/th10/game/counter_block.hpp",
-    "include/th10/game/counter_state_0040a040.hpp"
+    "include/th10/game/counter_state_0040a040.hpp",
+    "include/th10/render/animation_resource_removal.hpp"
   ],
   "image_base": "0x00400000",
   "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement. The ItemFront initializer uses EBX and calls the public score setup callback before its two scheduler registrations.",
@@ -386,6 +391,15 @@
       "address": "0x0040A3C0",
       "size": 67,
       "actual_abi": "no arguments; state home EBX; EAX pointer result; RET"
+    },
+    {
+      "name": "TitleLoadThread",
+      "symbol": "_TitleLoadThread_0042c9f0",
+      "section": ".text$00hbstartupzmzl",
+      "address": "0x0042C9F0",
+      "size": 168,
+      "actual_abi": "no arguments; plain RET",
+      "source": "src/game/title_load_thread_0042c9f0.cpp"
     }
   ],
   "context": {
@@ -569,7 +583,7 @@
     {
       "section": ".text$00hcpairreleasez",
       "address": "0x0043CB7F",
-      "size": 53089
+      "size": 44177
     },
     {
       "section": ".text$00_wmpairresetz",
@@ -589,7 +603,7 @@
     {
       "section": ".text$00hbstartupzmz",
       "address": "0x00422357",
-      "size": 42825
+      "size": 42649
     },
     {
       "section": ".text$00hbstartupzmzu",
@@ -610,6 +624,21 @@
       "section": ".text$00d_fcreate",
       "address": "0x00419090",
       "size": 67
+    },
+    {
+      "section": ".text$00hbstartupzmzlz",
+      "address": "0x0042CA98",
+      "size": 8
+    },
+    {
+      "section": ".text$00hd_releasez",
+      "address": "0x00447902",
+      "size": 6878
+    },
+    {
+      "section": ".text$00he_markz",
+      "address": "0x0044943C",
+      "size": 1700
     }
   ],
   "constants": [],
@@ -873,6 +902,36 @@
       "symbol": "_asm_Recovery_CreateResourceState_00419090",
       "address": "0x00419090",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047784c",
+      "address": "0x0047784C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477820",
+      "address": "0x00477820",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491ff4",
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x00491FB8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
     }
   ],
   "data_aliases": [
@@ -885,6 +944,22 @@
       "symbol": "??_C@_0M@DCJGFHGK@title_v?4anm?$AA@",
       "address": "0x0046F0A0",
       "bytes": "7469746c655f762e616e6d00"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnimationResource_Release",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "section": ".text$00hd_release",
+      "address": "0x00447810",
+      "size": 242
+    },
+    {
+      "name": "AnimationManager_MarkResourceForRemoval",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "section": ".text$00he_mark",
+      "address": "0x004493E0",
+      "size": 92
     }
   ]
 }
