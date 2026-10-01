@@ -180,3 +180,38 @@ live audio, asynchronous thread scheduling, Windows exception dispatch, or nativ
 MSVC ABI/frame/byte equivalence. The session also prevents Wine socket startup,
 so the native compiler could not be exercised. Full-region and whole-executable
 byte gates remain required. No region was promoted or exactness rule relaxed.
+
+
+## Native attempt, parked (2026-10-02)
+
+`reference/semantic_candidates/sound_stream_create_file_native/` holds a
+native-LTCG candidate for the launch (0x0043D690) and the file factory
+(0x0044C8F0) with its unwind funclets (0x00465330 / 0x0046533B), plus the
+adopt spec. Neither is exact; nothing in the manifest changed.
+
+Established:
+
+* The factory keeps declared `__fastcall` (output ECX, flags EDX, RET 40)
+  only when it is listed in `roots`. Unrooted, LTCG passes flags in ECX and
+  the name in EDX instead.
+* The launch's failure-return layout needs
+  `if (!device_owner) return -1; if (!device) return -1;` and
+  `if (Create(...) < 0) return -1; return 0;`.
+* The read cursor is `new`ed with an inline constructor (record, methods,
+  total, buffered cleared in that order) and discarded with an inline
+  destructor that closes the file handle; `SAFE_DELETE` shape.
+* The body follows the SDK `CreateStreaming` order; the rooted candidate has
+  the retail frame (0x50) and the same slots, 210 instructions against 214.
+* The handler region at 0x0046533B is 10 bytes plus one INT3; adopting it
+  needs the padding region moved to 0x00465345.
+
+Open (same symptom in the memory factory 0x0044CBF0 model):
+
+* Retail loads the segment count into EBP at entry and keeps it there, so the
+  zero constant stays in ECX and the cursor stays in its stack slot. The
+  candidate loads the count only after the cursor open. Declaring the count
+  with any pointer type reproduces the entry load (`unsigned int`, `int`,
+  `unsigned long`, `size_t` and a one-field struct do not), but then the
+  track pointer loses its register to the zero constant.
+* Launch: retail stores the event before loading the worker argument and
+  loads the owner after the name (EDX), leaving ECX for the result test.

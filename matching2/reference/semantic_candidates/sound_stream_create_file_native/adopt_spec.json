@@ -1,0 +1,244 @@
+{
+ "name": "sound_stream_create_file_0044c8f0",
+ "source": "src/platform/sound_stream_create_file_0044c8f0.cpp",
+ "driver": "layout/ltcg/sound_stream_create_file_0044c8f0/context.cpp",
+ "headers": [
+  "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+ ],
+ "included_sources": [
+  "layout/ltcg/sound_stream_create_file_0044c8f0/stop.cpp",
+  "layout/ltcg/sound_stream_create_file_0044c8f0/open.cpp",
+  "layout/ltcg/sound_interfaces_dependencies/fill.cpp",
+  "layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
+  "layout/ltcg/sound_interfaces_dependencies/read.cpp",
+  "src/game/recovery_initialize_single_interface_0044d6a0.cpp"
+ ],
+ "additional_sources": [
+  "src/platform/sound_music_launch_0043d690.cpp"
+ ],
+ "description": "Music stream launch and the file stream factory with its new-expression cleanup, compiled with the real worker stop, cursor open, stream constructor and refill bodies.",
+ "exceptions": true,
+ "functions": [
+  {
+   "name": "SoundLaunchMusic",
+   "symbol": "?LaunchMusic@WaveSoundManager@@QAEHPBD@Z",
+   "source": "src/platform/sound_music_launch_0043d690.cpp",
+   "section": ".text$00launch",
+   "address": "0x0043D690",
+   "actual_abi": "manager in EAX; name on the stack; RET 4"
+  },
+  {
+   "name": "SoundStreamCreateFile",
+   "symbol": "?SoundStream_CreateFile_0044c8f0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+   "section": ".text$02factory",
+   "address": "0x0044C8F0",
+   "actual_abi": "fastcall; compiler-generated EH frame; RET 40"
+  },
+  {
+   "name": "SoundStreamCreateFileUnwind",
+   "symbol": "_SoundStreamCreateFileUnwind_00465330",
+   "section": ".text$x",
+   "address": "0x00465330",
+   "actual_abi": "frees the block when the constructor throws",
+   "generated": true,
+   "native_symbol_pattern": "\\$L[0-9]+"
+  },
+  {
+   "name": "SoundStreamCreateFileHandler",
+   "symbol": "__ehhandler$?SoundStream_CreateFile_0044c8f0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+   "section": ".text$x",
+   "address": "0x0046533B",
+   "actual_abi": "compiler-generated EH handler",
+   "generated": true,
+   "size": 10
+  }
+ ],
+ "anchors": [
+  {
+   "name": "StopMusicWorker",
+   "symbol": "?StopMusicWorker@WaveSoundManager@@QAEXXZ",
+   "section": ".text$01stop",
+   "address": "0x0043DAB0",
+   "size": 176
+  },
+  {
+   "name": "fill",
+   "symbol": "_SoundStreamFill@12",
+   "section": ".text$03fill",
+   "address": "0x0044D110",
+   "size": 483
+  },
+  {
+   "name": "StopAndRewind",
+   "symbol": "?StopAndRewind@SoundStream@@QAEHXZ",
+   "section": ".text$04aggregate",
+   "address": "0x0044D550",
+   "size": 82
+  },
+  {
+   "name": "single",
+   "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
+   "section": ".text$05single",
+   "address": "0x0044D6A0",
+   "size": 109
+  },
+  {
+   "name": "open",
+   "symbol": "_MusicCursor_Open_0044dbf0@16",
+   "section": ".text$06open",
+   "address": "0x0044DBF0",
+   "size": 173
+  },
+  {
+   "name": "rewind",
+   "symbol": "_ArchiveRewind@8",
+   "section": ".text$07rewind",
+   "address": "0x0044DD40",
+   "size": 194
+  },
+  {
+   "name": "read",
+   "symbol": "_ArchiveRead@16",
+   "section": ".text$09read",
+   "address": "0x0044DE10",
+   "size": 202
+  }
+ ],
+ "context": {
+  "symbol": "_SoundLaunchContext@12",
+  "section": ".text$10context",
+  "address": "0x0044E100",
+  "size": 48,
+  "description": "Synthetic array-walking caller; not recovered game code."
+ },
+ "native_data": [
+  {
+   "section": ".xdata$x",
+   "address": "0x00471390",
+   "bytes": "ffffffff3053460020059319010000009013470000000000000000000000000000000000",
+   "description": "Unwind map and FuncInfo of the factory; validation only"
+  }
+ ],
+ "absolute_symbols": [
+  {
+   "symbol": "??2@YAPAXI@Z",
+   "address": "0x00452493",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "??_U@YAPAXI@Z",
+   "address": "0x00452493",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "??3@YAXPAX@Z",
+   "address": "0x004524A1",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "??_V@YAXPAX@Z",
+   "address": "0x004524A1",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "___CxxFrameHandler",
+   "address": "0x0046276D",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__except_list",
+   "address": "0x00000000",
+   "kind": "metadata"
+  },
+  {
+   "symbol": "___security_cookie",
+   "address": "0x00473660",
+   "kind": "data"
+  },
+  {
+   "symbol": "@__security_check_cookie@4",
+   "address": "0x00458EA5",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_g_sound_base_methods",
+   "address": "0x004705D8",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_sound_streaming_methods",
+   "address": "0x004705D4",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_wave_notification_iid",
+   "address": "0x0046743C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_004660ac",
+   "address": "0x004660AC",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_004660c8",
+   "address": "0x004660C8",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_004977a4",
+   "address": "0x004977A4",
+   "kind": "data"
+  },
+  {
+   "symbol": "__imp__ReadFile@20",
+   "address": "0x004660D0",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_004660c4",
+   "address": "0x004660C4",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_004660cc",
+   "address": "0x004660CC",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00466210",
+   "address": "0x00466210",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_0046611c",
+   "address": "0x0046611C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00466120",
+   "address": "0x00466120",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00466118",
+   "address": "0x00466118",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00491c70",
+   "address": "0x00491C70",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_0046a67c",
+   "address": "0x0046A67C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_SoundStream_Worker_0043e3a0@4",
+   "address": "0x0043E3A0",
+   "kind": "data"
+  }
+ ]
+}
