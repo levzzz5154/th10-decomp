@@ -90,3 +90,14 @@ After restoring the baseline, `make` succeeded for all 1,944 maintained
 sources and verified the entire 487,936-byte executable as exact. Current
 counts remain 1,794 ordinary C++ regions (91,442 bytes), 509 assembly regions
 (231,598 bytes), and 321 toolkit runtime library regions (66,357 bytes).
+
+## Recovered (2026-10-01)
+
+The body is exact once it is compiled inside a native `/LTCG` link. Reading the
+argument's bytes through its address (`bytes[0] = ((unsigned char*)&value)[3]`,
+and so on) keeps the argument on the stack and gives the result its own word;
+the whole-program pass then loads the argument once and emits the retail
+`CL`/`DL`/`AH`/`AL` stores. Ordinary per-unit compilation of the same source
+reloads the argument three times, which is why every earlier probe missed.
+The source is `src/platform/midi_reverse_dword_bytes_0043a700.cpp` with the
+layout `layout/ltcg/reverse_dword_bytes_0043a700.json`.

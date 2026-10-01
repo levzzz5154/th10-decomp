@@ -1443,13 +1443,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00402720_00402720",
-      "source": "src/game/bullet_manager.cpp",
-      "symbol": "_asm_FUN_00402720_00402720",
+      "name": "semantic_StageState_Update_00402720",
+      "source": "src/game/stage_state_update_00402720.cpp",
+      "symbol": "?Update@StageState_00402720@@QAEHXZ",
       "address": "0x00402720",
       "size": 304,
-      "kind": "asm",
-      "owner": "0x00402720"
+      "kind": "semantic",
+      "owner": "0x00402720",
+      "previous_record": {
+        "name": "asm_FUN_00402720_00402720",
+        "source": "src/game/bullet_manager.cpp",
+        "symbol": "_asm_FUN_00402720_00402720",
+        "address": "0x00402720",
+        "size": 304,
+        "kind": "asm",
+        "owner": "0x00402720"
+      }
     },
     {
       "name": "asm_FUN_00402850_00402850",
@@ -1486,13 +1495,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00403050_00403050",
-      "source": "src/unidentified/FUN_00403050_00403050.cpp",
-      "symbol": "_asm_FUN_00403050_00403050",
+      "name": "semantic_StageState_UpdateTask_00403050",
+      "source": "src/game/stage_state_update_00402720.cpp",
+      "symbol": "?StageState_UpdateTask_00403050@@YIHPAUStageState_00402720@@@Z",
       "address": "0x00403050",
       "size": 7,
-      "kind": "asm",
-      "owner": "0x00403050"
+      "kind": "semantic",
+      "owner": "0x00403050",
+      "previous_record": {
+        "name": "asm_FUN_00403050_00403050",
+        "source": "src/unidentified/FUN_00403050_00403050.cpp",
+        "symbol": "_asm_FUN_00403050_00403050",
+        "address": "0x00403050",
+        "size": 7,
+        "kind": "asm",
+        "owner": "0x00403050"
+      }
     },
     {
       "name": "semantic_unassigned_00403057",
@@ -10175,13 +10193,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Enemy_TimerSweepRetail_0040d750",
+      "name": "semantic_EnemyTimerSweep_0040d750",
       "source": "src/game/enemy_timer_sweep_retail_0040d750.cpp",
-      "symbol": "_asm_Enemy_TimerSweepRetail_0040d750",
+      "symbol": "?Sweep@EnemyTimerSweepManager_0040d750@@QAEHXZ",
       "address": "0x0040D750",
       "size": 166,
-      "kind": "asm",
-      "owner": "0x0040D750"
+      "kind": "semantic",
+      "owner": "0x0040D750",
+      "previous_record": {
+        "name": "asm_Enemy_TimerSweepRetail_0040d750",
+        "source": "src/game/enemy_timer_sweep_retail_0040d750.cpp",
+        "symbol": "_asm_Enemy_TimerSweepRetail_0040d750",
+        "address": "0x0040D750",
+        "size": 166,
+        "kind": "asm",
+        "owner": "0x0040D750"
+      }
     },
     {
       "name": "text_padding_0040d7f6",
@@ -10218,13 +10245,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040d810_0040d810",
-      "source": "src/unidentified/FUN_0040d810_0040d810.cpp",
-      "symbol": "_asm_FUN_0040d810_0040d810",
+      "name": "semantic_EnemyTimerSweep_Task_0040d810",
+      "source": "src/game/enemy_timer_sweep_retail_0040d750.cpp",
+      "symbol": "?EnemyTimerSweep_Task_0040d810@@YIHPAUEnemyTimerSweepManager_0040d750@@@Z",
       "address": "0x0040D810",
       "size": 10,
-      "kind": "asm",
-      "owner": "0x0040D810"
+      "kind": "semantic",
+      "owner": "0x0040D810",
+      "previous_record": {
+        "name": "asm_FUN_0040d810_0040d810",
+        "source": "src/unidentified/FUN_0040d810_0040d810.cpp",
+        "symbol": "_asm_FUN_0040d810_0040d810",
+        "address": "0x0040D810",
+        "size": 10,
+        "kind": "asm",
+        "owner": "0x0040D810"
+      }
     },
     {
       "name": "text_padding_0040d81a",
@@ -30338,13 +30374,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0043a700",
-      "source": "src/unidentified/unassigned_0043a700.cpp",
-      "symbol": "_asm_unassigned_0043a700",
+      "name": "semantic_ReverseDwordBytes_0043a700",
+      "source": "src/platform/midi_reverse_dword_bytes_0043a700.cpp",
+      "symbol": "?ReverseDwordBytes_0043a700@@YGII@Z",
       "address": "0x0043A700",
       "size": 37,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0043a700",
+        "source": "src/unidentified/unassigned_0043a700.cpp",
+        "symbol": "_asm_unassigned_0043a700",
+        "address": "0x0043A700",
+        "size": 37,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0043a725",
@@ -57216,7 +57261,7 @@
     "__ehhandler$??1NativeEffectManager_0041ADF0@@QAE@XZ": "0x0046541C",
     "??1NativeEffectElement_0041AD60@@QAE@XZ": "0x0041AD60",
     "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z": "0x00449F60",
-    "_asm_unassigned_0043a700": "0x0043A700",
+    "_ReverseDwordBytes_0043a700": "0x0043A700",
     "?DrawSprites@Player_00409190@@QAEHXZ": "0x00409190",
     "?Music_PlayFile@@YGHHPBD@Z": "0x00420B80",
     "?MusicRequests_Unpause@@YGXPAUAnimationManager_0043e460@@@Z": "0x00424460",
@@ -57483,7 +57528,6 @@
     "src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp",
     "src/game/bullet_entity_release_resource_0040d680.cpp",
     "src/game/bullet_entity_set_animation_vector_0040cf60.cpp",
-    "src/game/bullet_manager.cpp",
     "src/game/bullet_manager_create_0040af90.cpp",
     "src/game/bullet_manager_initialize_00405e20.cpp",
     "src/game/bullet_manager_load_scripts_0040ae70.cpp",
@@ -58057,7 +58101,6 @@
     "src/unidentified/FUN_00401fa0_00401fa0.cpp",
     "src/unidentified/FUN_00401fb0_00401fb0.cpp",
     "src/unidentified/FUN_00401fd0_00401fd0.cpp",
-    "src/unidentified/FUN_00403050_00403050.cpp",
     "src/unidentified/FUN_00403060_00403060.cpp",
     "src/unidentified/FUN_00403070_00403070.cpp",
     "src/unidentified/FUN_00404410_00404410.cpp",
@@ -58175,7 +58218,6 @@
     "src/unidentified/FUN_0040d400_0040d400.cpp",
     "src/unidentified/FUN_0040d510_0040d510.cpp",
     "src/unidentified/FUN_0040d800_0040d800.cpp",
-    "src/unidentified/FUN_0040d810_0040d810.cpp",
     "src/unidentified/FUN_0040d820_0040d820.cpp",
     "src/unidentified/FUN_00412a60_00412a60.cpp",
     "src/unidentified/FUN_00412a70_00412a70.cpp",
@@ -59276,7 +59318,7 @@
     "src/util/runtime_pool.cpp",
     "src/game/item_manager_draw_0041b8e0.cpp",
     "src/game/manager_teardown_native_0041adf0.cpp",
-    "src/unidentified/unassigned_0043a700.cpp",
+    "src/platform/midi_reverse_dword_bytes_0043a700.cpp",
     "src/game/player_draw_sprites_00409190.cpp",
     "src/game/entity_start_script_00404f30.cpp",
     "src/unidentified/FUN_0042a3e0_0042a3e0.cpp",
@@ -59312,7 +59354,8 @@
     "src/render/animation_manager_copy_to_back_buffer_00447fd0.cpp",
     "src/unidentified/FUN_00447c80_00447c80.cpp",
     "src/game/bullet_manager_teardown_00405f70.cpp",
-    "src/game/effect_manager_teardown_0042b570.cpp"
+    "src/game/effect_manager_teardown_0042b570.cpp",
+    "src/game/stage_state_update_00402720.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60182,7 +60225,10 @@
     "layout/ltcg/animation_manager_copy_to_back_buffer_00447fd0.json",
     "layout/ltcg/native_archive_index.json",
     "layout/ltcg/bullet_manager_teardown_00405f70.json",
-    "layout/ltcg/effect_manager_teardown_0042b570.json"
+    "layout/ltcg/effect_manager_teardown_0042b570.json",
+    "layout/ltcg/reverse_dword_bytes_0043a700.json",
+    "layout/ltcg/stage_state_update_00402720.json",
+    "layout/ltcg/enemy_timer_sweep_0040d750.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

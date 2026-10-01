@@ -16,6 +16,11 @@ struct EnemyTimerSweepFrame_0040d750 {
     int current_frame;
     float elapsed;
     const float* speed;
+
+    float Speed() const { return *speed; }
+    // The usual frame tick; this copy adds the elapsed time to the speed
+    // value returned by the accessor, which fixes the x87 operand order.
+    void Tick();
 };
 
 // One 0x68-byte manager object is allocated at 0x0040D6B0 and initialized by
@@ -37,11 +42,26 @@ struct EnemyTimerSweepManager_0040d750 {
     int enemy_count_060;
     unsigned char reserved_064[4];
 
-    __declspec(noinline) unsigned __int64 RunCallback();
+    __declspec(noinline) int Sweep();
 };
 
-__declspec(noinline) unsigned __int64 __stdcall EnemyTimerSweepRetail(
-    EnemyTimerSweepManager_0040d750* manager);
+extern "C" {
+// 0x0040DC80: one enemy update step over the context at enemy+0x103C;
+// nonzero when the enemy has finished.
+int __stdcall EnemyUpdate_0040dc80(void* update_context);
+}
+extern float g_frame_timer_normal_lower;
+extern float g_frame_timer_normal_upper;
+
+inline void EnemyTimerSweepFrame_0040d750::Tick() {
+    previous_frame = current_frame;
+    if (Speed() > g_frame_timer_normal_lower && Speed() < g_frame_timer_normal_upper) {
+        ++current_frame;
+        elapsed += 1.0f;
+    } else {
+        current_frame = int(elapsed = Speed() + elapsed);
+    }
+}
 
 struct EnemyTimerSweepEntity_0040d750 {
     virtual void UnknownVtable00() = 0;
