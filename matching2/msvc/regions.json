@@ -23006,13 +23006,22 @@
       "owner": "0x00428F60"
     },
     {
-      "name": "asm_FUN_004294a0_004294a0",
-      "source": "src/game/fun_004294a0_004294a0.cpp",
-      "symbol": "_asm_FUN_004294a0_004294a0",
+      "name": "semantic_ReplayManager_Destroy_004294a0",
+      "source": "src/game/replay_manager_teardown_004294a0.cpp",
+      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
       "address": "0x004294A0",
       "size": 367,
-      "kind": "asm",
-      "owner": "0x004294A0"
+      "kind": "semantic",
+      "owner": "0x004294A0",
+      "previous_record": {
+        "name": "asm_FUN_004294a0_004294a0",
+        "source": "src/game/fun_004294a0_004294a0.cpp",
+        "symbol": "_asm_FUN_004294a0_004294a0",
+        "address": "0x004294A0",
+        "size": 367,
+        "kind": "asm",
+        "owner": "0x004294A0"
+      }
     },
     {
       "name": "text_padding_0042960f",
@@ -49289,25 +49298,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465250_00465250",
-      "source": "src/unidentified/Unwind_00465250_00465250.cpp",
-      "symbol": "_asm_Unwind_00465250_00465250",
+      "name": "semantic_ReplayManagerDestroyUnwind_00465250",
+      "source": "src/game/replay_manager_teardown_004294a0.cpp",
+      "symbol": "_ReplayManagerDestroyUnwind_00465250",
       "address": "0x00465250",
       "size": 24,
-      "kind": "asm",
-      "owner": "0x00465250"
+      "kind": "semantic",
+      "owner": "0x00465250",
+      "previous_record": {
+        "name": "asm_Unwind_00465250_00465250",
+        "source": "src/unidentified/Unwind_00465250_00465250.cpp",
+        "symbol": "_asm_Unwind_00465250_00465250",
+        "address": "0x00465250",
+        "size": 24,
+        "kind": "asm",
+        "owner": "0x00465250"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465268",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/cin.obj",
-      "symbol": "_crt_libcpmt_cin_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_ReplayManagerDestroyHandler_00465268",
+      "source": "src/game/replay_manager_teardown_004294a0.cpp",
+      "symbol": "__ehhandler$??1ReplayManager_004296f0@@QAE@XZ",
       "address": "0x00465268",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x00465268",
-      "library_section": ".text$x",
-      "library_section_number": 365,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465268",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/cin.obj",
+        "symbol": "_crt_libcpmt_cin_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x00465268",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x00465268",
+        "library_section": ".text$x",
+        "library_section_number": 365,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_00465272",
@@ -58056,7 +58083,6 @@
     "lib/libcp.lib/build/intel/st_obj/ios.obj",
     "lib/libcp.lib/build/intel/st_obj/string.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/cerr.obj",
-    "lib/libcpmt.lib/build/intel/mt_obj/cin.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/clog.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/cout.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/ios.obj",
@@ -58213,7 +58239,6 @@
     "src/game/fun_00427960_00427960.cpp",
     "src/game/fun_00427e90_00427e90.cpp",
     "src/game/fun_00428e10_00428e10.cpp",
-    "src/game/fun_004294a0_004294a0.cpp",
     "src/game/fun_0042b030_0042b030.cpp",
     "src/game/fun_0042cb60_0042cb60.cpp",
     "src/game/fun_0042e5a0_0042e5a0.cpp",
@@ -59132,7 +59157,6 @@
     "src/unidentified/Unwind_004651e0_004651e0.cpp",
     "src/unidentified/Unwind_004651fc_004651fc.cpp",
     "src/unidentified/Unwind_0046520a_0046520a.cpp",
-    "src/unidentified/Unwind_00465250_00465250.cpp",
     "src/unidentified/Unwind_00465280_00465280.cpp",
     "src/unidentified/Unwind_004652a0_004652a0.cpp",
     "src/unidentified/Unwind_004652bb_004652bb.cpp",
@@ -59920,7 +59944,8 @@
     "src/game/player_manager_construct_00408910.cpp",
     "src/game/item_manager_construct_00413810.cpp",
     "src/game/player_manager_teardown_00408af0.cpp",
-    "src/game/item_manager_teardown_004145f0.cpp"
+    "src/game/item_manager_teardown_004145f0.cpp",
+    "src/game/replay_manager_teardown_004294a0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60811,7 +60836,8 @@
     "layout/ltcg/player_manager_construct_00408910.json",
     "layout/ltcg/item_manager_construct_00413810.json",
     "layout/ltcg/player_manager_teardown_00408af0.json",
-    "layout/ltcg/item_manager_teardown_004145f0.json"
+    "layout/ltcg/item_manager_teardown_004145f0.json",
+    "layout/ltcg/replay_manager_teardown_004294a0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

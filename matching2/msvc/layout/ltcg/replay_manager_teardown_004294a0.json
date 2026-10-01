@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "name": "replay_manager_teardown_004294a0",
+  "source": "src/game/replay_manager_teardown_004294a0.cpp",
+  "driver": "layout/ltcg/replay_manager_teardown_004294a0/context.cpp",
+  "headers": [
+    "include/th10/game/replay_manager_create_004296f0.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/replay_pool_append_0042aa50.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Replay manager destructor with its member list nodes and compiler-generated unwind cleanup, compiled with the real pool release and scheduler removal and a deleting caller.",
+  "functions": [
+    {
+      "name": "ReplayManager_Destroy",
+      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
+      "section": ".text$01a_dtor",
+      "address": "0x004294A0",
+      "actual_abi": "receiver on the stack, RET 4; compiler-generated EH frame",
+      "size": 367
+    },
+    {
+      "name": "ReplayManagerDestroyUnwind",
+      "symbol": "_ReplayManagerDestroyUnwind_00465250",
+      "section": ".text$x",
+      "address": "0x00465250",
+      "actual_abi": "destroys the list nodes",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 24
+    },
+    {
+      "name": "ReplayManagerDestroyHandler",
+      "symbol": "__ehhandler$??1ReplayManager_004296f0@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x00465268",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?ReplayManagerTeardownCompilerContext@@YGXPAUReplayManager_004296f0@@@Z",
+    "section": ".text$01b_context",
+    "address": "0x00429610",
+    "size": 28,
+    "description": "Synthetic deleting caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 165024
+    },
+    {
+      "section": ".text$01a_dtorz",
+      "address": 4363791,
+      "size": 1
+    },
+    {
+      "section": ".text$01b_contextz",
+      "address": 4363820,
+      "size": 5364
+    },
+    {
+      "section": ".text$40releasez",
+      "address": 4369277,
+      "size": 127971
+    },
+    {
+      "section": ".text$70removez",
+      "address": 4497362,
+      "size": 111230
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 45772
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1ReplayManagerNode_004296f0@@QAE@XZ",
+      "address": "0x0042AC60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004712CC",
+      "bytes": "ffffffff505246002005931901000000cc12470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the destructor; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ActualReplayPoolClear",
+      "symbol": "_ReplayPool_Clear_0042ab20@8",
+      "section": ".text$40release",
+      "address": "0x0042AB20",
+      "size": 93
+    },
+    {
+      "name": "ActualSchedulerRemove",
+      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "section": ".text$70remove",
+      "address": "0x00449F60",
+      "size": 114
+    }
+  ],
+  "included_sources": [
+    "src/game/linked_pool_release.cpp",
+    "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp"
+  ]
+}

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #pragma code_seg(".text$40release")
 extern "C" __declspec(noinline) void __stdcall
-ReplayPool_Clear_0042ab20(int stage, ReplayPoolLists_0042aa50* lists) {
+ReplayPool_Clear_0042ab20(ReplayPoolLists_0042aa50* lists, int stage) {
     ReplayPoolLink_0042aa50* current = lists->stages[stage].next;
     while (current) {
         ReplayPoolLink_0042aa50* next = current->next;

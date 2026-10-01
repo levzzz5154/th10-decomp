@@ -5,7 +5,6 @@
 #include "th10/platform/thread_sync.hpp"
 #include "../../../src/game/replay_manager_create_00429610.cpp"
 
-extern "C" void* data_00491be4;
 // C linkage: calls the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the node array.
 extern "C" void __stdcall ReplayManagerStandIn_Remove(void* scheduler, void* task);
@@ -61,7 +60,7 @@ int ReplayManager_004296f0::Start(int start_mode, const char* replay_path) {
     if (start_mode != 0)
         return -1;
     void** tasks = reinterpret_cast<void**>(reserved_000);
-    SchedulerTask* update = ReplayManagerStandIn_Task(reserved_014);
+    SchedulerTask* update = ReplayManagerStandIn_Task(path);
     update->context = this;
     Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), update, 0x10);
     tasks[2] = update;
