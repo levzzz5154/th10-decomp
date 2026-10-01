@@ -23030,13 +23030,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageManager_CreateRetail_004296f0",
-      "source": "src/game/stage_manager_create_retail_004296f0.cpp",
-      "symbol": "_asm_StageManager_CreateRetail_004296f0",
+      "name": "semantic_StageManager_Create_004296f0",
+      "source": "src/game/stage_manager_create_004296f0.cpp",
+      "symbol": "?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
       "address": "0x004296F0",
       "size": 181,
-      "kind": "asm",
-      "owner": "0x004296F0"
+      "kind": "semantic",
+      "owner": "0x004296F0",
+      "previous_record": {
+        "name": "asm_StageManager_CreateRetail_004296f0",
+        "source": "src/game/stage_manager_create_retail_004296f0.cpp",
+        "symbol": "_asm_StageManager_CreateRetail_004296f0",
+        "address": "0x004296F0",
+        "size": 181,
+        "kind": "asm",
+        "owner": "0x004296F0"
+      }
     },
     {
       "name": "text_padding_004297a5",
@@ -50108,25 +50117,43 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Unwind_00465640_00465640",
-      "source": "src/unidentified/Unwind_00465640_00465640.cpp",
-      "symbol": "_asm_Unwind_00465640_00465640",
+      "name": "semantic_StageManagerCreateUnwind_00465640",
+      "source": "src/game/stage_manager_create_004296f0.cpp",
+      "symbol": "_StageManagerCreateUnwind_00465640",
       "address": "0x00465640",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x00465640"
+      "kind": "semantic",
+      "owner": "0x00465640",
+      "previous_record": {
+        "name": "asm_Unwind_00465640_00465640",
+        "source": "src/unidentified/Unwind_00465640_00465640.cpp",
+        "symbol": "_asm_Unwind_00465640_00465640",
+        "address": "0x00465640",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x00465640"
+      }
     },
     {
-      "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046564b",
-      "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
-      "symbol": "_crt_libcpmt_wlocale_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+      "name": "semantic_StageManagerCreateHandler_0046564b",
+      "source": "src/game/stage_manager_create_004296f0.cpp",
+      "symbol": "__ehhandler$?StageManager_Create_004296f0@@YGPAUStageManager_004296f0@@PBD@Z",
       "address": "0x0046564B",
       "size": 10,
-      "kind": "library",
+      "kind": "semantic",
       "owner": "0x0046564B",
-      "library_section": ".text$x",
-      "library_section_number": 1048,
-      "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      "previous_record": {
+        "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_0046564b",
+        "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
+        "symbol": "_crt_libcpmt_wlocale_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+        "address": "0x0046564B",
+        "size": 10,
+        "kind": "library",
+        "owner": "0x0046564B",
+        "library_section": ".text$x",
+        "library_section_number": 1048,
+        "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+      }
     },
     {
       "name": "text_padding_00465655",
@@ -58128,7 +58155,6 @@
     "src/game/stage_background.cpp",
     "src/game/stage_entry.cpp",
     "src/game/stage_focus_fade.cpp",
-    "src/game/stage_manager_create_retail_004296f0.cpp",
     "src/game/stage_slot_state.cpp",
     "src/game/stage_text.cpp",
     "src/game/stage_text_extract_line_00434a20.cpp",
@@ -58878,7 +58904,6 @@
     "src/unidentified/Unwind_004655d9_004655d9.cpp",
     "src/unidentified/Unwind_004655f4_004655f4.cpp",
     "src/unidentified/Unwind_00465620_00465620.cpp",
-    "src/unidentified/Unwind_00465640_00465640.cpp",
     "src/unidentified/Unwind_00465660_00465660.cpp",
     "src/unidentified/Unwind_00465680_00465680.cpp",
     "src/unidentified/Unwind_0046568b_0046568b.cpp",
@@ -59659,7 +59684,8 @@
     "src/game/item_manager_create_00414830.cpp",
     "src/game/player_manager_create_00408c90.cpp",
     "src/game/native_effect_manager_create_0041aed0.cpp",
-    "src/game/bullet_manager_create_00406060.cpp"
+    "src/game/bullet_manager_create_00406060.cpp",
+    "src/game/stage_manager_create_004296f0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60544,7 +60570,8 @@
     "layout/ltcg/item_manager_create_00414830.json",
     "layout/ltcg/player_manager_create_00408c90.json",
     "layout/ltcg/native_effect_manager_create_0041aed0.json",
-    "layout/ltcg/bullet_manager_create_00406060.json"
+    "layout/ltcg/bullet_manager_create_00406060.json",
+    "layout/ltcg/stage_manager_create_004296f0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
