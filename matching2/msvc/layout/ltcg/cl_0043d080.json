@@ -6,10 +6,14 @@
   "headers": [
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/text_log.hpp",
-    "include/th10/platform/thread_sync.hpp"
+    "include/th10/platform/thread_sync.hpp",
+    "layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Sound-effect preload thread compiled with native LTCG against the archive loader and text-log anchors.",
+  "description": "Existing complete sound preload107 owner and text-log201 anchor preserved. Loader360 uses a genuine free Read call, backed by complete Read279/Find53/cipher323 native ABI anchors. Read279/cipher323 remain unmatched diagnostics, never selected recovery. The inherited thread-start address context remains explicit.",
   "functions": [
     {
       "name": "Sound_PreloadWorker_0043d080",
@@ -35,6 +39,27 @@
       "section": ".text$85textlog",
       "address": "0x0044B810",
       "size": 201
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$01read"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$02find"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$04decrypt"
     }
   ],
   "context": {
@@ -46,16 +71,6 @@
   },
   "gaps": [
     {
-      "section": ".text$00",
-      "address": "0x00401000",
-      "size": 245888
-    },
-    {
-      "section": ".text$04",
-      "address": "0x0043D0EB",
-      "size": 57973
-    },
-    {
       "section": ".text$06",
       "address": "0x0044B4C8",
       "size": 840
@@ -64,6 +79,31 @@
       "section": ".text$86layout",
       "address": "0x0044B8D9",
       "size": 39
+    },
+    {
+      "section": ".text$00",
+      "address": "0x401000",
+      "size": 212432
+    },
+    {
+      "section": ".text$01readz",
+      "address": "0x434ee7",
+      "size": 73
+    },
+    {
+      "section": ".text$02findz",
+      "address": "0x434f65",
+      "size": 33051
+    },
+    {
+      "section": ".text$04",
+      "address": "0x43d0eb",
+      "size": 57317
+    },
+    {
+      "section": ".text$04decryptz",
+      "address": "0x44b213",
+      "size": 333
     }
   ],
   "constants": [],
@@ -72,11 +112,6 @@
     {
       "symbol": "_data_00497990",
       "address": "0x00497990",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00497994",
-      "address": "0x00497994",
       "kind": "data"
     },
     {
@@ -132,11 +167,6 @@
     {
       "symbol": "_asm_malloc_00452706",
       "address": "0x00452706",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
-      "address": "0x00434DD0",
       "kind": "relative_code"
     },
     {
@@ -313,11 +343,34 @@
       "symbol": "_g_text_log",
       "address": "0x00474F70",
       "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SoundThread_Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
     }
   ],
   "included_sources": [
-    "src/platform/fun_0044b360_0044b360.cpp",
-    "src/platform/text_log.cpp"
+    "src/platform/text_log.cpp",
+    "layout/ltcg/native_archive_read/read.cpp",
+    "layout/ltcg/native_archive_read/find.cpp",
+    "layout/ltcg/native_archive_read/decrypt.cpp",
+    "layout/ltcg/native_archive_read/load.cpp"
   ],
   "roots": []
 }

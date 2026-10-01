@@ -1,0 +1,23 @@
+// Full original private lifetime leaves used by the real mode update.
+extern "C" void __stdcall ModeDestroyUiWave18(void*);
+extern "C" void __stdcall ModeDestroyScriptWave18(void*);
+extern "C" void __stdcall ModeDestroySmallWave18(void*);
+extern "C" void __cdecl ModeFreeWave18(void*);
+#pragma code_seg(".text$00a_score_destroy")
+void ScoreOwnedObject_Destroy(ScoreOwnedObject* object) {
+    if (object) { ModeDestroySmallWave18(object); ModeFreeWave18(object); }
+}
+#pragma code_seg(".text$00b0_ui_destroy")
+void DestroyOwned_00418150(OwnedObject_00418150* object) {
+    if (object) { ModeDestroyUiWave18(object); ModeFreeWave18(object); }
+}
+#pragma code_seg(".text$00d_leave")
+void MainTaskStateWave18::LeaveSlot(int index) {
+    data_004660b4(critical_sections[index]);
+    --lock_depth[index];
+}
+#pragma code_seg(".text$00f_script_destroy")
+void DestroyOwned_0042cdb0(OwnedObject_0042cdb0* object) {
+    if (object) { ModeDestroyScriptWave18(object); ModeFreeWave18(object); }
+}
+#pragma code_seg()

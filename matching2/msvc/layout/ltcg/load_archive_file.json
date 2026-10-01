@@ -5,10 +5,14 @@
   "headers": [
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/archive_callers.hpp",
-    "include/th10/platform/stage_ecl_load_00403850.hpp"
+    "include/th10/platform/stage_ecl_load_00403850.hpp",
+    "layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native-LTCG archive loader with real script, checksum, asset-buffer, parameter-file, and map-companion callers. The two public script/checksum entries are rooted; the synthetic pointer-array context retains the additional private conventions. No context or layout-gap bytes count as recovered game code. The public score task setup callback shares the loader and logger conventions.",
+  "description": "Inherited archive caller cluster retains its eight unrelated selected owners. LoadFile360 is now a complete truthful free-Read ABI anchor with complete Read279/Find53/cipher323 bodies; checksum207 and LoadFile360 are selected by the genuine native_archive_read cluster. Other inherited synthetic caller conventions remain explicit.",
   "functions": [
     {
       "name": "LoadAsset",
@@ -29,15 +33,6 @@
       "actual_abi": "this in ECX; name on stack; RET 4"
     },
     {
-      "name": "ComputeExecutableChecksum",
-      "source": "src/platform/pack_file_loader.cpp",
-      "symbol": "?ComputeExecutableChecksum@@YGHXZ",
-      "section": ".text$03checksum",
-      "address": "0x0043A1C0",
-      "size": 207,
-      "actual_abi": "zero-argument stdcall; int result in EAX"
-    },
-    {
       "name": "MapResource_LoadMap",
       "source": "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
       "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
@@ -45,15 +40,6 @@
       "address": "0x0043E9D0",
       "size": 228,
       "actual_abi": "ESI this; name on stack; RET 4"
-    },
-    {
-      "name": "Archive_LoadFile",
-      "symbol": "_Archive_LoadFile@12",
-      "section": ".text$05load",
-      "address": "0x0044B360",
-      "size": 360,
-      "actual_abi": "name in EAX; outSize at [ESP+4]; fromDisk at [ESP+8]; RET 8",
-      "source": "src/platform/fun_0044b360_0044b360.cpp"
     },
     {
       "name": "ParameterLoader_Load",
@@ -113,11 +99,6 @@
       "size": 6198
     },
     {
-      "section": ".text$03zlayout",
-      "address": "0x0043A28F",
-      "size": 1825
-    },
-    {
       "section": ".text$03zolayout",
       "address": "0x0043AA24",
       "size": 1020
@@ -133,11 +114,6 @@
       "size": 4928
     },
     {
-      "section": ".text$04zlayout",
-      "address": "0x0043EAB4",
-      "size": 51372
-    },
-    {
       "section": ".text$06layout",
       "address": "0x0044B4C8",
       "size": 56
@@ -146,11 +122,6 @@
       "section": ".text$08layout",
       "address": "0x0044B5BD",
       "size": 595
-    },
-    {
-      "section": ".text$02zzlayout",
-      "address": "0x00426605",
-      "size": 80827
     },
     {
       "section": ".text$00alayout",
@@ -166,6 +137,31 @@
       "section": ".text$02wlayout",
       "address": "0x0040CD7F",
       "size": 27809
+    },
+    {
+      "section": ".text$02zzlayout",
+      "address": "0x426605",
+      "size": 59339
+    },
+    {
+      "section": ".text$03areadz",
+      "address": "0x434ee7",
+      "size": 73
+    },
+    {
+      "section": ".text$03bfindz",
+      "address": "0x434f65",
+      "size": 23115
+    },
+    {
+      "section": ".text$04ylayout",
+      "address": "0x43eab4",
+      "size": 50716
+    },
+    {
+      "section": ".text$04zdecryptz",
+      "address": "0x44b213",
+      "size": 333
     }
   ],
   "constants": [],
@@ -173,11 +169,6 @@
     {
       "symbol": "_data_00497990",
       "address": "0x00497990",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00497994",
-      "address": "0x00497994",
       "kind": "data"
     },
     {
@@ -233,11 +224,6 @@
     {
       "symbol": "_asm_malloc_00452706",
       "address": "0x00452706",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
-      "address": "0x00434DD0",
       "kind": "relative_code"
     },
     {
@@ -404,12 +390,25 @@
       "symbol": "_data_0046cb68",
       "address": "0x0046CB68",
       "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
     }
   ],
   "additional_sources": [
-    "src/platform/fun_0044b360_0044b360.cpp",
     "src/script/fun_0040cd20_0040cd20.cpp",
-    "src/platform/pack_file_loader.cpp",
     "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/music_room.cpp",
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
@@ -419,7 +418,6 @@
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
-    "?ComputeExecutableChecksum@@YGHXZ",
     "_ScoreTask_Setup_00413a20@4"
   ],
   "driver": "layout/ltcg/archive_callers_context.cpp",
@@ -444,6 +442,40 @@
       "section": ".text$09append",
       "address": "0x0044B810",
       "size": 201
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$03aread"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$03bfind"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$04zdecrypt"
+    },
+    {
+      "name": "ArchiveLoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x44b360",
+      "size": 360,
+      "section": ".text$05load"
     }
+  ],
+  "included_sources": [
+    "layout/ltcg/native_archive_read/read.cpp",
+    "layout/ltcg/native_archive_read/find.cpp",
+    "layout/ltcg/native_archive_read/decrypt.cpp",
+    "layout/ltcg/native_archive_read/load.cpp"
   ]
 }

@@ -1,5 +1,7 @@
 # Complete native sound shutdown and finite compiler diagnostics
 
+Historical 3e5683c2 checkpoint: current counts and later recoveries are in [the sound/render/archive checkpoint](resumed_sound_render_and_archive_topology_2026-10-01.md).
+
 This wave replaces Sound StopMusicWorker at 0x0043DAB0 / 176 bytes with ordinary
 C++. The entire native compiler contribution matches literally. The full real
 Cleanup301 caller establishes the private ESI receiver through LTCG; no dummy

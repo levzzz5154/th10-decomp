@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "name": "native_primary_format",
+  "source": "src/platform/joystick_property.cpp",
+  "driver": "layout/ltcg/native_primary_format/configure_context.cpp",
+  "headers": [
+    "include/th10/platform/native_primary_format.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/native_primary_format/configure.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete real dynamic DirectSound device-owner Configure caller (original69, native full85 unselected) and selected whole primary format260. Genuine bits/channels/rate/window/level/owner inputs, no fabricated compiler caller or qualifier/barrier/gate changes.",
+  "functions": [
+    {
+      "name": "SoundPrimaryFormat",
+      "symbol": "@Sound_SetPrimaryFormat_0044c7e0@16",
+      "section": ".text$a06format",
+      "address": "0x0044C7E0",
+      "size": 260,
+      "actual_abi": "Original bitsCX, channelsBX, rateEDI, owner cell on stack; RET4"
+    }
+  ],
+  "context": {
+    "symbol": "?Configure@NativeDeviceOwner@@QAEHPAXIGGI@Z",
+    "section": ".text$a04configure",
+    "address": "0x0044C780",
+    "size": 85,
+    "description": "Complete real Configure caller: original69/privateESI+3stack+channelsBX/rateEDI; whole public ordinary member native85 with five genuine logical inputs. Unselected native context placed16bytes earlier so its full extent does not overlap selected260."
+  },
+  "anchors": [],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$a000gap",
+      "address": "0x00401000",
+      "size": 309120
+    },
+    {
+      "section": ".text$a05gap",
+      "address": "0x0044C7D5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_Ordinal_11_00452170@12",
+      "address": "0x452170",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+#include "../../layout/ltcg/native_archive_read/read.cpp"
+#include "../../layout/ltcg/native_archive_read/find.cpp"
+#include "../../layout/ltcg/native_archive_read/decrypt.cpp"
+#include "../../layout/ltcg/native_archive_read/load.cpp"
+#include "../../layout/ltcg/native_archive_read/checksum.cpp"

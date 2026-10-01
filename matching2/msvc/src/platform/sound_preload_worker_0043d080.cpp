@@ -5,11 +5,14 @@
 // loading early.
 #include "th10/platform/archive_file.hpp"
 #include "th10/platform/text_log.hpp"
+#include "th10/platform/windows_types.hpp"
 
 enum { kSoundEffectCount = 37, kSoundThreadShutdown = 2 };
 
 extern "C" {
-__declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+// Same real Sleep import slot0x4660AC, named here to avoid the
+// independent minimal Windows header declaration.
+__declspec(dllimport) void __stdcall SoundThread_Sleep(DWORD milliseconds);
 extern const char* g_sound_effect_files[kSoundEffectCount];     // "se_plst00.wav", ...
 extern char* g_pending_sound_effects[kSoundEffectCount];
 extern volatile int g_sound_thread_state;
@@ -29,6 +32,6 @@ extern "C" __declspec(noinline) void __cdecl Sound_PreloadWorker_0043d080() {
         }
     }
     while (!g_sound_thread_state)
-        Sleep(1);
+        SoundThread_Sleep(1);
 }
 #pragma code_seg()

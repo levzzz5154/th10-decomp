@@ -1,19 +1,7 @@
 // 0x0044B360: load a named file either from the packed archive index or from disk.
-#include "th10/platform/archive_file.hpp"
+#include "archive.hpp"
 
-struct ArchiveEntry {
-    const char* name;       // +0x00
-    unsigned int unknown;   // +0x04
-    unsigned int size;      // +0x08
-    unsigned int unknown2;  // +0x0C
-};
-
-struct ArchiveReader {
-    char* Read(const void* table, char* block);
-};
-
-extern "C" ArchiveEntry* data_00497990;
-extern "C" int data_00497994;
+extern "C" DatArchive data_00497990;
 extern "C" unsigned char data_0049231e;
 extern "C" unsigned char data_004922a4[];
 
@@ -29,7 +17,10 @@ extern "C" char* __cdecl asm_strrchr_00452930(const char*, int);
 extern "C" int __cdecl asm_stricmp_0046054e(const char*, const char*);
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
 
-#pragma code_seg(".text$05load")
+#ifndef ARCHIVE_LOAD_SECTION
+#define ARCHIVE_LOAD_SECTION ".text$a06load"
+#endif
+#pragma code_seg(ARCHIVE_LOAD_SECTION)
 extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* name, int* outSize,
                                                                  int fromDisk) {
     char* buffer;
@@ -43,16 +34,16 @@ extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* nam
         if (forward == 0) forward = name; else ++forward;
         base = forward;
 
-        if (data_00497990 != 0 && data_00497994 > 0) {
-            ArchiveEntry* entry = data_00497990;
-            int remaining = data_00497994;
+        if (data_00497990.entries != 0 && data_00497990.entry_count > 0) {
+            DatArchiveEntry* entry = data_00497990.entries;
+            int remaining = data_00497990.entry_count;
             do {
                 if (asm_stricmp_0046054e(base, entry->name) == 0) {
-                    size = entry->size;
+                    size = entry->uncompressed_size;
                     goto looked_up;
                 }
                 --remaining;
-                entry = (ArchiveEntry*)((char*)entry + 16);
+                entry = (DatArchiveEntry*)((char*)entry + 16);
             } while (remaining > 0);
         }
         size = 0;
@@ -64,7 +55,7 @@ looked_up:
         buffer = (char*)asm_malloc_00452706(size);
         if (!buffer)
             goto failed;
-        ((ArchiveReader*)base)->Read(&data_00497990, buffer);
+        DatArchiveRead(&data_00497990, base, reinterpret_cast<unsigned char*>(buffer));
         goto done;
     }
 

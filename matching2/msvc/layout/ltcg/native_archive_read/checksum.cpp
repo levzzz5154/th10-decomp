@@ -1,10 +1,11 @@
 // 0x0043A1C0: checksum the executable, excluding its final complete dword.
+#include "archive.hpp"
 #include "th10/platform/archive_file.hpp"
 extern "C" unsigned long (__stdcall *data_004660dc)(void*, char*, unsigned long);
 extern "C" void __cdecl entry_free_00452422(void*);
 extern "C" int data_00492380;
 extern "C" int data_00492384;
-#pragma code_seg(".text$03checksum")
+#pragma code_seg(".text$a03checksum")
 __declspec(noinline) int __stdcall ComputeExecutableChecksum() {
     int size;
     char filename[264];

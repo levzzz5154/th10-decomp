@@ -31,3 +31,13 @@ int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, M
     return count;
 }
 #pragma code_seg()
+
+// Complete real archive closure, supplying the actual internal reader contract.
+#define ARCHIVE_READ_SECTION ".text$03aread"
+#define ARCHIVE_FIND_SECTION ".text$03bfind"
+#define ARCHIVE_DECRYPT_SECTION ".text$04zdecrypt"
+#define ARCHIVE_LOAD_SECTION ".text$05load"
+#include "native_archive_read/read.cpp"
+#include "native_archive_read/find.cpp"
+#include "native_archive_read/decrypt.cpp"
+#include "native_archive_read/load.cpp"
