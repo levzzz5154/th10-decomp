@@ -23,6 +23,9 @@ extern "C" int __stdcall AnimationTextureSurfaceCopyContext(
         images[i]->CaptureBackBufferImage(values[i], i, count - i, count + i, count ^ i,
                                           values[i + 1], values[i + 2], values[i + 3],
                                           values[i + 4]);
+    for (int i = 0; i < count; ++i)
+        images[i]->CopyRectToBackBuffer(values[i], i, count - i, count + i, count ^ i,
+                                        values[i + 1], values[i + 2]);
     return count;
 }
 #pragma code_seg()

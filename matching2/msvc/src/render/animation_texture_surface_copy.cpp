@@ -1,5 +1,10 @@
-// 0x00448270, 0x00448360 and 0x00448450: fill a loaded animation texture or an
-// indexed image surface from another surface.
+// 0x00448120, 0x00448270, 0x00448360 and 0x00448450: copies between the back
+// buffer, loaded animation textures and indexed image surfaces.
+//
+// CopyRectToBackBuffer blits a rectangle of one indexed image to (x, y) on the
+// back buffer, creating the image's device-side surface on first use. The
+// manager arrives on the stack and the index in EBX. Nothing in the retail
+// image calls it.
 //
 // CaptureBackBuffer copies a rectangle of the back buffer into the top level
 // of one texture; CopyTexture copies between the top levels of two textures.
@@ -73,6 +78,40 @@ struct AnimationTextureManager_00448270 {
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
 static inline SurfaceDevice_00447c80* Device() { return data_00491c30; }
+
+#pragma code_seg(".text$02rect")
+void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, int y,
+                                                            int left, int top,
+                                                            int width, int height) {
+    if (!secondary[index])
+        return;
+    Resource_00447f70* back_buffer;
+    if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
+        return;
+    if (!primary[index]) {
+        if (Device()->CreateRenderTarget(info[index].width, info[index].height, data_00491d14,
+                                         0, 0, 1, &primary[index], 0) != 0 &&
+            Device()->CreateOffscreenPlainSurface(info[index].width, info[index].height,
+                                                  data_00491d14, 3, &primary[index], 0) != 0) {
+            back_buffer->Release();
+            return;
+        }
+        if (LoadSurfaceCopy_004521d6(primary[index], 0, 0, secondary[index], 0, 0, 1, 0) != 0) {
+            back_buffer->Release();
+            return;
+        }
+    }
+    SurfaceRect_00447fd0 rect;
+    rect.left = left;
+    rect.top = top;
+    rect.right = left + width;
+    rect.bottom = top + height;
+    SurfacePoint_00447fd0 point;
+    point.x = x;
+    point.y = y;
+    Device()->UpdateSurface(primary[index], &rect, back_buffer, &point);
+    back_buffer->Release();
+}
 
 #pragma code_seg(".text$03capture")
 void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry,

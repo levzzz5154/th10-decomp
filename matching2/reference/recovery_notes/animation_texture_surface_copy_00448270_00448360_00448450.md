@@ -1,10 +1,10 @@
-# Animation texture and image surface copies (0x00448270, 0x00448360, 0x00448450)
+# Animation texture and image surface copies (0x00448120, 0x00448270, 0x00448360, 0x00448450)
 
-2026-10-02. `src/render/animation_texture_surface_copy.cpp` owns all three as
+2026-10-02. `src/render/animation_texture_surface_copy.cpp` owns all four as
 ordinary C++ in the new `animation_texture_surface_copy` native-LTCG cluster.
 The cluster compiles unselected copies of the batch flush (0x00442F50) and
 the indexed-resource clear (0x00447F70) and a synthetic array caller; the
-private register conventions of all three bodies fall out of that without
+private register conventions of all four bodies fall out of that without
 roots. Incremental `make` verifies the whole EXE exactly.
 
 Findings that decided the bytes:
@@ -28,4 +28,5 @@ Findings that decided the bytes:
   device still has to be read through an inline accessor so it is loaded
   ahead of the arguments.
 
-0x00448360 has no caller in the retail image.
+0x00448120 (the rectangle variant of 0x00447FD0, exact as first written) and
+0x00448360 have no caller in the retail image.

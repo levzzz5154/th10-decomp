@@ -11,6 +11,14 @@
   "description": "Back buffer captures and texture-to-texture copy compiled with the real batch flush and indexed-resource clear under native LTCG; a synthetic array caller supplies the private register arguments.",
   "functions": [
     {
+      "name": "AnimationManagerIndexed_CopyRectToBackBuffer",
+      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHHHH@Z",
+      "section": ".text$02rect",
+      "address": "0x00448120",
+      "size": 325,
+      "actual_abi": "manager on the stack; index EBX; six further stack arguments; RET 28"
+    },
+    {
       "name": "AnimationTextureManager_CaptureBackBuffer",
       "symbol": "?CaptureBackBuffer@AnimationTextureManager_00448270@@QAEXHHHHHHHHHH@Z",
       "section": ".text$03capture",
@@ -39,7 +47,7 @@
     "symbol": "_AnimationTextureSurfaceCopyContext@24",
     "section": ".text$07context",
     "address": "0x004485D0",
-    "size": 236,
+    "size": 309,
     "description": "Synthetic array caller; not recovered game code."
   },
   "gaps": [
@@ -56,7 +64,7 @@
     {
       "section": ".text$02clearz",
       "address": "0x00447FC7",
-      "size": 681
+      "size": 345
     },
     {
       "section": ".text$05copyz",
@@ -67,6 +75,11 @@
       "section": ".text$06imagez",
       "address": "0x004485CB",
       "size": 5
+    },
+    {
+      "section": ".text$02rectz",
+      "address": "0x00448265",
+      "size": 11
     }
   ],
   "constants": [],

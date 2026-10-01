@@ -35817,13 +35817,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00448120_00448120",
-      "source": "src/render/fun_00448120_00448120.cpp",
-      "symbol": "_asm_FUN_00448120_00448120",
+      "name": "semantic_AnimationManagerIndexed_CopyRectToBackBuffer_00448120",
+      "source": "src/render/animation_texture_surface_copy.cpp",
+      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHHHH@Z",
       "address": "0x00448120",
       "size": 325,
-      "kind": "asm",
-      "owner": "0x00448120"
+      "kind": "semantic",
+      "owner": "0x00448120",
+      "previous_record": {
+        "name": "asm_FUN_00448120_00448120",
+        "source": "src/render/fun_00448120_00448120.cpp",
+        "symbol": "_asm_FUN_00448120_00448120",
+        "address": "0x00448120",
+        "size": 325,
+        "kind": "asm",
+        "owner": "0x00448120"
+      }
     },
     {
       "name": "text_padding_00448265",
@@ -58742,7 +58751,6 @@
     "src/render/fun_00444580_00444580.cpp",
     "src/render/fun_00446220_00446220.cpp",
     "src/render/fun_00447810_00447810.cpp",
-    "src/render/fun_00448120_00448120.cpp",
     "src/render/fun_00449950_00449950.cpp",
     "src/render/gdi_font_state.cpp",
     "src/render/image_alpha_transform.cpp",
