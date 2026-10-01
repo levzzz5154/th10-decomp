@@ -5,9 +5,21 @@ Development happens on `main`. The project currently combines recovered C++
 with inline assembly that still needs to be replaced.
 
 ```sh
-make             # Compile and require exact .text and whole-executable hashes
+make             # Compile what changed and require exact .text and whole-executable hashes
+make rebuild     # The same, recompiling every unit from scratch
 make progress    # Show C++ and remaining assembly counts
 ```
+
+The build is incremental by default. Each compiled unit is kept in a
+content-addressed cache under `matching2/build/msvc/cache/`, keyed by the
+build tools, the toolkit binaries, the compiler flags, the unit's manifest
+entries and cluster layout, and the contents of its sources and every project
+header they include. An unchanged unit is reused; anything else is recompiled.
+The link and the whole-image comparison always run, so an incremental build
+proves exactly what a full one does. A build with nothing to recompile takes a
+few seconds; editing any script under `matching2/tools/` invalidates the whole
+cache. `make rebuild` (or `make MSVC_ARGS=--no-cache`) ignores the cache, and
+deleting the cache directory is always safe.
 
 Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, GNU
 x86 PE binutils (`i686-w64-mingw32-ld`), and the pinned GCC, Clang, and
@@ -17,14 +29,14 @@ containing `bin/`, `include/`, and `lib/`. Override it with
 `make MSVC_ARGS='--toolkit /path/to/toolkit'`.
 Run `./matching2/build_msvc.sh --help` for build options.
 
-The output is `matching2/build/msvc/th10.exe`. Every build checks all bytes;
-`make verify` is an alias for the same build. To compare directly with a retail
+The output is `matching2/build/msvc/th10.exe`. Every build, incremental or
+not, checks all bytes; `make verify` is an alias for the same build. To compare directly with a retail
 copy and get detailed mismatch diagnostics, use
 `make MSVC_ARGS='--verify /path/to/th10.exe'`.
 
 `matching2/tools/matching/probe.py` gives the same byte gate for one
-translation unit in about a second, which is how a single function is recovered
-and checked without a full rebuild:
+translation unit, which is how a single function is recovered and checked
+before running `make`:
 
 ```sh
 python3 matching2/tools/matching/probe.py --source src/game/score.cpp
