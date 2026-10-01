@@ -117,3 +117,22 @@ saves EDI only inside the insert branch, the rebuild keeps it in EDI and saves
 EDI at entry (9 differing lines per function). Id-expression variants, head or
 tail locals, duplicated tail stores and by-reference list helpers did not move
 it.
+
+## Parked: item manager resource release (0x00414570)
+
+The 121-byte release (receiver EBX) is two instructions from exact. The source
+that gets closest frees the score display through an inline destructor, frees
+the cached item animation file unless bits 0 and 3 of 0x00474CA0 are set, then
+`table = score_table; item_file = 0; if (table) free(table); score_table = 0;`
+inside that block and `score_table = 0;` again after it. Retail ends
+`mov [ebx+0x9ebc],ebp; mov [ebx+0x9ebc],ebp; pop esi; pop ebp; ret`; every
+variant tried emits the second store after `pop esi`. Variants that did not
+move it: both-arms and early-return forms, a member object with a `Free()`
+method, a reference helper, a 4-byte `memset`, an `int` cast and a volatile
+field. 0x00414370 (the full contents release) has the same doubled store, there
+adjacent in one block, so it is likely to need the same answer.
+
+The stand-ins that give the right receivers are worth keeping: a display
+release written as six sequential `SetFlag` calls takes its receiver in ESI,
+and a file release copied from the 0x00447810 body takes it in EDI, which
+together leave EBX to the manager.
