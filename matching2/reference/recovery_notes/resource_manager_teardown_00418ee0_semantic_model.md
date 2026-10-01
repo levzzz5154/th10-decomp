@@ -1,7 +1,9 @@
 # `0x00418EE0` resource-manager teardown semantic model
 
+Updated 2026-10-01: the maintained implementation is now `src/game/resource_manager_cleanup_00418ee0.cpp`, with a shared typed manager and genuine maintained helper sources in its native scope. All 346 bytes match; all 39 affected regions / 4,718 bytes match; the whole 487,936-byte EXE is exact. See [current recovery and verification](resource_cleanup_and_ecl_spawn_2026-10-01.md). The original semantic model and measurements below are historical.
+
 `0x00418EE0` occupies 346 bytes (`0x00418EE0..0x00419039`) in the retail
-`.text` region. The current C++ source is
+`.text` region. The original model's C++ source was
 [`matching2/msvc/src/game/fun_00418ee0_00418ee0.cpp`](../semantic_candidates/fun_00418ee0_00418ee0.cpp).
 The manifest now records this region as a semantic C++ source and points its
 symbol at the one-argument stdcall entry. The shared declaration and the

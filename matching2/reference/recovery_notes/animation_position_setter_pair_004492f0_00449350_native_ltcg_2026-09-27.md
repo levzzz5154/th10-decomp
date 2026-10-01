@@ -1,5 +1,12 @@
 # Animation position setter pair: native-LTCG EXACT
 
+**Current forwarding correction (2026-10-01):** Both 15-byte position wrappers
+now explicitly forward the inherited ESI position and are compiled with their
+real setters in `position_setter_pair`. The old wrapper-only cluster is removed.
+See [current recovery and evidence](embedded_child_and_position_wrappers_2026-10-01.md).
+The older prototypes and wrapper-only context below are historical.
+
+
 Integrated on 2026-09-27. The maintained pair probe and whole-executable
 byte comparison both passed; the current addendum checkpoint records the gate.
 The experiment and promotion instructions below describe the retained evidence.

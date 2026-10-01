@@ -1,9 +1,18 @@
 # Menu dispatch callback thunk audit: `0x0042D2E0` and `0x0042D2F0`
 
-Status: both manifest regions remain assembly. The live Ghidra project
-`th10.exe` confirms their byte boundaries, callback registration references,
-and private register bridge. Neither thunk can be promoted as a standalone
-ordinary C++ function while its target requires the receiver in `EAX`.
+Status: both manifest regions remain assembly. A fresh pinned GCC ordinary
+probe now compiles both complete seven-byte adapters using a fastcall ECX
+entry and a regparm(1) EAX dispatcher declaration. Both target relocations
+pass; each body has exactly two differing instruction bytes: the assembler
+emits `89 C8` for MOV EAX,ECX while retail uses `8B C1`. The ABI bridge itself
+is now expressible without assembly, but equivalent MOV encodings do not
+satisfy literal byte matching. No source, alias, or ownership was promoted.
+The probe is under
+`matching2/build/experiments/private_eax_callbacks_gcc_2026_10_01` and is
+documented in [the compiler follow-up](remaining_compiler_constraints_2026-10-01.md).
+The historical Ghidra/MSVC audit below establishes the original boundaries,
+registration references, and private register contract; its ABI limitation
+is superseded by this diagnostic, not by an exact integration.
 
 ## Ghidra evidence
 

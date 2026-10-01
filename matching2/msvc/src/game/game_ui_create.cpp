@@ -6,7 +6,9 @@
 struct GameConfig;
 __declspec(noinline) char __fastcall GameConfig_InitializeDefaults(int, GameConfig*);
 #pragma code_seg(".text$01uiconfig")
+#define TH10_GAME_CONFIG_KEEP_SECTION
 #include "game_config_defaults.cpp"
+#undef TH10_GAME_CONFIG_KEEP_SECTION
 #pragma code_seg()
 
 void* __cdecl operator new(unsigned int size);

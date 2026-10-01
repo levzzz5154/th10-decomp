@@ -1,0 +1,82 @@
+{
+  "scope": "No maintained code or ownership changes; fresh non-exact compiler experiments and complete uncompiled player closure preparation.",
+  "new_verified_bytes": 0,
+  "current_manifest_sha256": "66b689363ef88df2c03f4c6bb4e7801be2595211725498142b146a1593539c7f",
+  "current_summary": {
+    "regions": {
+      "semantic": 1868,
+      "asm": 432,
+      "library": 323,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 100461,
+      "asm": 222457,
+      "library": 66480,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "evidence_artifacts": [
+    {
+      "path": "matching2/build/experiments/retained_candidate_inventory_2026_10_01/inventory.evidence.json",
+      "sha256": "5ae7fbbf41c4bf1e54ea15100c7f1dc6424b4be11ba47919524a39c86b88a161"
+    },
+    {
+      "path": "matching2/build/experiments/defined_mask_gcc_2026_10_01/evidence.json",
+      "sha256": "c46bc57c8da478d3835b8f73bbc5a804886778e1b25e6a1bd8f4bdb9150ba9f6"
+    },
+    {
+      "path": "matching2/build/experiments/defined_mask_clang_regcall_2026_10_01/evidence.json",
+      "sha256": "8f064c1e3d654c9af3e6f07fbcef47fc7ec69401d2cafd2356374e060ccddfe3"
+    },
+    {
+      "path": "matching2/build/experiments/x87_comparison_isa_2026_10_01/measurements.json",
+      "sha256": "453db8dcd7e9b02030f4d14e37e3b4a4cb177e4df4cf67b6fe2b298cc13d4f2e"
+    },
+    {
+      "path": "matching2/build/experiments/player_update_continuation_2026_10_01/evidence.json",
+      "sha256": "878176b3a6926d72aec6bcb832cb7eb217b61b863977a680d3943a66c7a3ac5c"
+    },
+    {
+      "path": "matching2/build/experiments/private_eax_callbacks_gcc_2026_10_01/ordinary_probe.evidence.json",
+      "sha256": "373ba1da6322c82550d03b6aa0c03cc7e5d64b4d3b6560a218abeb70e0fda030"
+    }
+  ],
+  "blocked_actions": [
+    "MSVC compilation: wineserver bind Operation not permitted.",
+    "Fresh Ghidra calls: approval required under never policy."
+  ],
+  "native_gcc_clang_available": true,
+  "rejected_exact_source": "ReadBitMaskFlag43 unmasked shift has undefined behavior for indices>=32.",
+  "residuals": {
+    "defined_mask_GCC": {
+      "native_bytes": 44,
+      "original_bytes": 43,
+      "exact": false
+    },
+    "defined_mask_Clang_regcall": {
+      "native_bytes": 33,
+      "original_bytes": 43,
+      "exact": false
+    },
+    "rotated_quad_i586": {
+      "native_bytes": 603,
+      "original_bytes": 591,
+      "exact": false
+    },
+    "menu_callbacks_GCC_O2": {
+      "functions": 2,
+      "native_bytes_each": 7,
+      "original_bytes_each": 7,
+      "different_bytes_each": 2,
+      "exact": false
+    },
+    "player_update": {
+      "original_bytes": 223,
+      "native_compiled": false,
+      "syntax_translation_units_passed": 10
+    }
+  }
+}

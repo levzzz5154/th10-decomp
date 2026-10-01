@@ -1,5 +1,6 @@
 #pragma once
 #include <stddef.h>
+#include <string.h>
 #include "th10/game/scheduler.hpp"
 #include "th10/math/timer.hpp"
 struct ScreenEffectController_0043c970 {
@@ -16,6 +17,14 @@ struct ScreenEffectController_0043c970 {
     int parameter28;
     unsigned int release_phase; // two-phase fade release trigger +2C
     FrameTimer timer;
+    ScreenEffectController_0043c970() {
+        // Retail accesses the timer flag word before clearing the entire state.
+        // Keep both accesses even though the wipe replaces the cleared flag.
+        timer.flags &= ~1u;
+        memset(this, 0, sizeof(*this));
+        flags |= 2u;
+    }
+
     __declspec(noinline) void Configure(int priority, int mode, int duration_or_strength,
         int parameter20, int parameter24, int parameter28);
 };

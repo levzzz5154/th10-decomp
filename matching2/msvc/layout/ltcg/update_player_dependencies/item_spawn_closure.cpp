@@ -1,0 +1,5 @@
+#include "item_spawn_caller_allocator_2026_09_28.cpp"
+#include "item_spawn_0041bb00_loader.cpp"
+#include "item_spawn_0041bb00_configure.cpp"
+#include "item_spawn_0041bb00_create.cpp"
+#include "item_spawn_0041bb00_dependencies.cpp"

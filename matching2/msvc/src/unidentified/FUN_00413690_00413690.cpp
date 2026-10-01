@@ -1,19 +1,8 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "th10/app/frame_rate_counter_native.hpp"
 
-// 0x00413690..0x00413699: FUN_00413690
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_00413690_00413690() {
-    __asm {
-    L_00413690:
-        push edi
-    L_00413691:
-        mov edi,ecx
-    L_00413693:
-        call asm_FUN_004135d0_004135d0
-    L_00413698:
-        pop edi
-    L_00413699:
-        ret
-    }
+// Actual scheduler callback: counter in ECX, result in EAX, plain RET.
+#pragma code_seg(".text$09callback")
+__declspec(noinline) int __fastcall FpsDrawCallback_00413690(FrameRateCounter_004134b0 *counter) {
+    return counter->Draw();
 }
+#pragma code_seg()

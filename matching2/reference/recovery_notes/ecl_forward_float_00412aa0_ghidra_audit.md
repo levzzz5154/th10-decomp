@@ -1,5 +1,11 @@
 # `Ecl_ForwardFloat` audit at `0x00412AA0`
 
+Current 2026-09-30: the dedicated source now contains exact C++ without inline
+assembly. A native-LTCG batch compiles this real caller with the complete value
+resolver at `0x0044FF80`. A named operand-slot local and integer selector yield
+all 26 retail bytes; the callee remains exact at 171 bytes. The decisions below
+predate that recovery. See [the source and byte evidence](ecl_float_values_and_forward_2026-09-30.md).
+
 ## Decision
 
 Keep the entry as retail assembly. The decompiler's `__stdcall` signature

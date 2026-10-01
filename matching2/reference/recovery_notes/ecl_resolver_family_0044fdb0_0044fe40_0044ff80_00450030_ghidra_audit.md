@@ -1,5 +1,15 @@
 # ECL operand/value resolver family: live Ghidra ABI audit
 
+Current 2026-09-30: **all four resolvers in the historical audit below are
+verified exact C++ without inline assembly**. The integer operand matches 144
+bytes, float operand 183, float value 171, and integer destination 58. The
+26-byte forwarding caller at `0x00412AA0` also matches with the real float-value
+callee. The float models preserve the explicit scratch-pop cursor updates and
+use native LTCG for the private register conventions. See the
+[integer recovery](ecl_int_operand_and_polar_2026-09-30.md) and the
+[float/caller recovery](ecl_float_values_and_forward_2026-09-30.md).
+The blocker decisions and unverified measurements below are historical.
+
 Update 2026-09-30: `0x0040C650`, `0x0040C680` and `0x00412A00` are now MSVC C++ in the `ecl_operand_thunks` LTCG layout; `0x00412A60` remains Clang. See [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
 
 Audited against the connected Ghidra program `th10.exe` on 2026-09-23. No

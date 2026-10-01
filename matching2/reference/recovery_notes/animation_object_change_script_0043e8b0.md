@@ -1,6 +1,30 @@
 # Animation object script change at `0x0043E8B0`
 
-## Current disposition
+## 2026-10-01 caller recovery
+
+The real handle wrapper at `0x004496D0` is now ordinary C++ in
+`src/render/animation_handle_change_script_004496d0.cpp`. Its complete
+36-byte body passes the focused native-LTCG probe, with handle EAX, script
+index on the stack, and RET 4. The global manager goes into EDX; the four-byte
+ID record stays on the stack for the real `0x004491C0` lookup. The returned
+object stays in EAX for the real `0x0043E8B0` script changer, with index ECX
+and resource EDX.
+
+`layout/ltcg/script_change.json` selects only that wrapper. The compiler sees
+a complete C++ script-change body and the real lookup as unselected ABI
+anchors. The lookup anchor's entire 73 bytes match retail. The script-change
+anchor has the original 287-byte extent and correct entry/call conventions;
+22 bytes differ in register homes and entry scheduling, so its body is not exported
+or classified as recovered. The genuine 287-byte assembly region remains the
+callee in the final executable. The compiler context and layout gaps are also
+unselected. Neither instruction nor address bytes are patched.
+
+The caller-inclusive experiments supersede the old standalone 40-byte match.
+See `embedded_child_and_position_wrappers_2026-10-01.md` for the preceding
+animation recovery and `animation_array_tick_and_script_change_handle_2026-10-01.md` and its
+companion evidence record for this interval. The older discussion below describes the prior checkpoint.
+
+## Prior disposition
 
 Keep `src/render/animation_object_change_script_0043e8b0.cpp` as the retail
 assembly overlay until a caller-inclusive native-LTCG replacement is

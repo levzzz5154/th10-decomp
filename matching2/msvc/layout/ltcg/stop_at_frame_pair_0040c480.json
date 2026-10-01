@@ -11,20 +11,28 @@
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
     "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-    "src/unidentified/unassigned_00449820.cpp"
+    "src/unidentified/unassigned_00449820.cpp",
+    "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+    "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
+    "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
+    "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
+    "src/game/recovery_switch_playback_state_00427ae0.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
-    "include/th10/render/animation_handle.hpp"
+    "include/th10/render/animation_handle.hpp",
+    "include/th10/render/animation_stop_run.hpp",
+    "include/th10/render/animation_stop_frame_handle.hpp",
+    "include/th10/game/playback_state.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "StopAtFrame1/2/3 and the readable handle stop-frame helper share the animation lookup and child propagation family under native LTCG. The same scope carries Find and the timed recovery initialiser, while the synthetic caller supplies the private EAX handle and SI frame convention for the added helper.",
+  "description": "Animation lookup and stop-frame propagation with complete stop-and-run helper, two genuine slot callers, and a handle wrapper that forwards the inherited DI frame. Native LTCG derives the private registers; all selected contributions are complete functions. Playback-state switching co-compiles its genuine stop-frame callee and derives the EDI receiver convention.",
   "functions": [
     {
       "name": "AnimationManager_StopAtFrame1",
       "symbol": "?StopAtFrame1@AnimationHandle@@QAEXXZ",
       "section": ".text$05propagate",
-      "address": "0x409e50",
+      "address": "0x00409E50",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
       "source": "src/render/anm_propagate.cpp"
@@ -33,7 +41,7 @@
       "name": "AnimationManager_StopAtFrame2",
       "symbol": "?StopAtFrame2@AnimationHandle@@QAEXXZ",
       "section": ".text$10stop2",
-      "address": "0x40c480",
+      "address": "0x0040C480",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
       "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp"
@@ -42,7 +50,7 @@
       "name": "AnimationManager_StopAtFrame3",
       "symbol": "?StopAtFrame3@AnimationHandle@@QAEXXZ",
       "section": ".text$30stop3",
-      "address": "0x40c4d0",
+      "address": "0x0040C4D0",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
       "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp"
@@ -60,7 +68,7 @@
       "name": "AnimationManager_Find",
       "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$50find",
-      "address": "0x4491c0",
+      "address": "0x004491C0",
       "size": 73,
       "actual_abi": "context in EDX; script id on the stack; RET 4",
       "source": "src/render/animation_manager_find_004491c0.cpp"
@@ -109,29 +117,74 @@
       "size": 70,
       "actual_abi": "handle in ESI, script id in EBX, result pointer in EDI",
       "source": "src/render/animation_manager_find_child_by_script_index_004497d0.cpp"
+    },
+    {
+      "name": "semantic_AnimationManager_SetStopFrameAndRun",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$65stoprun",
+      "address": "0x00449250",
+      "size": 76,
+      "actual_abi": "frame DI, context EDX, id stack; RET4",
+      "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+    },
+    {
+      "name": "semantic_DispatchAnimationSlot",
+      "symbol": "?DispatchAnimationSlot@@YIXHPAUGameAnimationSlots@@@Z",
+      "section": ".text$46dispatch",
+      "address": "0x0042C730",
+      "size": 27,
+      "actual_abi": "state EAX, slot ECX; plain RET",
+      "source": "src/game/game_state_dispatch_animation_slot_0042c730.cpp"
+    },
+    {
+      "name": "semantic_DispatchAnimationSlotSecondary",
+      "symbol": "?DispatchAnimationSlotSecondary@@YIXHPAUGameAnimationSlots@@@Z",
+      "section": ".text$47dispatch",
+      "address": "0x0042C750",
+      "size": 27,
+      "actual_abi": "state EAX, slot ECX; plain RET",
+      "source": "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp"
+    },
+    {
+      "name": "AnimationRunHandle_SetStopFrameAndRun",
+      "symbol": "?SetStopFrameAndRun@AnimationRunHandle@@QAEXG@Z",
+      "section": ".text$77stoprunhandle",
+      "address": "0x004494C0",
+      "size": 15,
+      "actual_abi": "handle EAX, frame DI; plain RET",
+      "source": "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp"
+    },
+    {
+      "name": "PlaybackState_SwitchPlaybackState",
+      "symbol": "?SwitchPlaybackState@PlaybackState@@QAEXXZ",
+      "source": "src/game/recovery_switch_playback_state_00427ae0.cpp",
+      "address": "0x00427AE0",
+      "size": 99,
+      "section": ".text$45timedzbd",
+      "actual_abi": "receiver EDI; plain RET"
     }
   ],
   "context": {
     "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAURecoveryTimedState_00423510@@@Z",
     "section": ".text$80context",
-    "address": "0x004494C0",
-    "size": 126,
+    "address": "0x004494E0",
+    "size": 169,
     "description": "Synthetic caller that establishes the internal register convention; not recovered game code."
   },
   "gaps": [
     {
       "section": ".text$00layout",
-      "address": "0x401000",
+      "address": "0x00401000",
       "size": 36432
     },
     {
       "section": ".text$08layout",
-      "address": "0x409e91",
+      "address": "0x00409E91",
       "size": 9711
     },
     {
       "section": ".text$20layout",
-      "address": "0x40c4c1",
+      "address": "0x0040C4C1",
       "size": 15
     },
     {
@@ -145,14 +198,34 @@
       "size": 3719
     },
     {
+      "section": ".text$45timedzbc",
+      "address": "0x00424431",
+      "size": 13999
+    },
+    {
+      "section": ".text$46dispatchz",
+      "address": "0x0042C74B",
+      "size": 5
+    },
+    {
+      "section": ".text$47dispatchz",
+      "address": "0x0042C76B",
+      "size": 117333
+    },
+    {
       "section": ".text$60layout",
-      "address": "0x449209",
+      "address": "0x00449209",
       "size": 7
     },
     {
       "section": ".text$60layoutbz",
       "address": "0x00449246",
-      "size": 554
+      "size": 10
+    },
+    {
+      "section": ".text$65stoprunz",
+      "address": "0x0044929C",
+      "size": 468
     },
     {
       "section": ".text$75stopz",
@@ -160,19 +233,24 @@
       "size": 15
     },
     {
-      "section": ".text$45timedzbz",
-      "address": "0x00424431",
-      "size": 150927
+      "section": ".text$77stoprunhandlez",
+      "address": "0x004494CF",
+      "size": 17
     },
     {
       "section": ".text$80contextz",
-      "address": "0x0044953E",
-      "size": 658
+      "address": "0x00449589",
+      "size": 583
     },
     {
       "section": ".text$84childrefz",
       "address": "0x00449816",
       "size": 10
+    },
+    {
+      "section": ".text$45timedzbe",
+      "address": "0x00427B43",
+      "size": 19437
     }
   ],
   "constants": [],
@@ -191,6 +269,16 @@
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_RunAnimationVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
     }
   ]
 }

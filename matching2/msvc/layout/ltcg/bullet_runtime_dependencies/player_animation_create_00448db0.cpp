@@ -1,0 +1,55 @@
+extern "C" const float data_00470b48;
+extern "C" const float data_00470b4c;
+// 0x00448DB0..0x00448E25 (118 bytes): create an animation object at a
+// playfield position and append it to the primary list.
+//
+// The twin of 0x00448D50, except that the caller's position is in playfield
+// coordinates: the playfield origin sits at (224, 16) on screen, so x and y are
+// shifted by that before the record is stored at +0x340.
+//
+// Like its twin, the body enters with the position in EDI and the other three
+// arguments on the stack, and its callees take registers no declaration can
+// name, so it is compiled in the cluster layout/ltcg/positioned_primary_00448d50_wave10.json.
+#pragma code_seg(".text$09create")
+
+struct AnimationPosition_00448db0 {
+    float x;
+    float y;
+    float z;
+};
+
+// The animation object this region fills in; only the fields it writes are
+// described.
+struct AnimationObject_00448db0 {
+    unsigned char reserved_000[0x20];
+    int render_bucket_020; // +0x20
+    unsigned char reserved_024[0x340 - 0x24];
+    AnimationPosition_00448db0 position_340; // +0x340
+    unsigned char reserved_34c[0x35C - 0x34C];
+    unsigned int flags_035c; // +0x35C
+};
+
+extern "C" void* data_00491c10;
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(void* resource, void* object,
+                                                                int index);
+extern "C" void** __cdecl
+asm_AnimationManager_RegisterPrimaryBack_004489d0(void* manager, void** out, void* entity);
+
+enum { kAnimationPositioned = 0x40000000 };
+
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary_00448db0(
+    void* resource, void** out, int index, const AnimationPosition_00448db0* position) {
+    AnimationObject_00448db0* object =
+        (AnimationObject_00448db0*)asm_FUN_00449950_00449950(data_00491c10);
+    unsigned int flags = *(volatile unsigned int*)&object->flags_035c;
+    *(volatile int*)&object->render_bucket_020 = 0;
+    *(volatile unsigned int*)&object->flags_035c = flags | kAnimationPositioned;
+    object->position_340.x = position->x + data_00470b4c;
+    object->position_340.y = position->y + data_00470b48;
+    object->position_340.z = position->z;
+    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    return out;
+}
+#pragma code_seg()

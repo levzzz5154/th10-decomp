@@ -1,5 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "../../src/render/anm_propagate.cpp"
+#include "th10/game/playback_state.hpp"
 
 // 0x00449210, a separate translation unit of this link.
 void __fastcall AnimationManager_SetStopFrame(unsigned short frame, AnimationLookupContext* context,
@@ -22,10 +23,6 @@ struct AnimationHandle_004243f0 {
     __declspec(noinline) void StopAtFrame6();
 };
 
-struct AnimationHandle_00449470 {
-    __declspec(noinline) void SetStopFrame(unsigned short frame);
-};
-
 // The timed recovery record the added function initialises.  Declared here so
 // this driver can call the member without defining it: its body is compiled
 // separately and the whole-program pass still sees it.
@@ -33,6 +30,14 @@ struct RecoveryTimedState_00423510 {
     unsigned char unknown[0x2C4];
     __declspec(noinline) void InitializeTimedState();
 };
+
+struct AnimationRunHandle {
+    AnimationScriptId value;
+    __declspec(noinline) void SetStopFrameAndRun(unsigned short frame);
+};
+struct GameAnimationSlots;
+void __fastcall DispatchAnimationSlot(int slot, GameAnimationSlots* state);
+void __fastcall DispatchAnimationSlotSecondary(int slot, GameAnimationSlots* state);
 
 #pragma code_seg(".text$80context")
 int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
@@ -49,7 +54,12 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         reinterpret_cast<AnimationHandle_004243f0*>(handles)->StopAtFrame6();
         reinterpret_cast<AnimationHandle_00449820*>(handles)->FindChild(count);
         reinterpret_cast<AnimationHandle_004497d0*>(handles)->FindChildRef(count);
+        DispatchAnimationSlot(count, reinterpret_cast<GameAnimationSlots*>(states));
+        DispatchAnimationSlotSecondary(count, reinterpret_cast<GameAnimationSlots*>(states));
+        reinterpret_cast<AnimationRunHandle*>(handles)->SetStopFrameAndRun(
+            *reinterpret_cast<unsigned short*>(states));
         handles++;
+        reinterpret_cast<PlaybackState*>(states)->SwitchPlaybackState();
         states->InitializeTimedState();
         states++;
     }

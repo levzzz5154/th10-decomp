@@ -1,5 +1,7 @@
 # Player motion helper models at 0x004074B0–0x00407EF0
 
+The [animation checkpoint](player_motion_and_field_contact_2026-10-01.md) recovers `0x004074B0` (164 bytes), and the [runtime and helper checkpoint](runtime_and_helpers_2026-10-01.md) recovers `0x00407EF0` (306 bytes) and their complete 885-byte caller at `0x00406240`. `0x00407560` is also maintained semantic C++. DeathShrink and both wraps remain assembly; DeathShrink's separately measured 209-byte candidate has eight differing bytes. The sections below describe the earlier semantic-candidate stage, whose unrecovered status is superseded for the promoted functions.
+
 Live `th10.exe` inspection confirms that the six region entries are leaf state
 updates reached directly from `FUN_00406240`. Its call sites load the player
 object into ESI before calling `0x004074B0`, `0x00407560`, `0x004076A0`, and
@@ -23,7 +25,7 @@ were not built, probed, or tested.
 | `0x004076A0` | `0x004063AF`, ESI = player | Before deadline `+0x6A4`, normalize heading `+0x3E4` by the scaled rate at `+0x694`, advance scalar `+0x3D8` by the scaled rate at `+0x690`, and set the polar vector at `+0x3C0`. At the deadline clear flag `0x20`. Then advance the timer at `+0x67C`. |
 | `0x00407DA0` | `0x00406533`, EBX = player | Check position `+0x3B4` against the bounds object at `+0x39C`; if outside, wrap its x coordinate using bounds field `+0x34` and playfield limits `0x00470B40`/`0x00470B3C`. A wrap advances the timer at `+0x74C` by -1 and queues the resource in `+0x458` when nonnegative. If the timer count is nonpositive, toggle flag `0x100000`. |
 | `0x00407E40` | `0x00406546`, EBX = player | The vertical counterpart checks position `+0x3B8`, wraps using bounds field `+0x30` and limits `0x00470B70`/`0x00470B38`, advances timer `+0x780` by -1, queues the same resource, and toggles flag `0x200000` when the timer count is nonpositive. |
-| `0x00407EF0` | `0x00406408`, ESI = player | Before deadline `+0x7DC`, aim from player position `+0x3B4/+0x3B8` toward the pointed target's `+0x3C0/+0x3C4`, limit the angle step with fields `+0x7CC` and `+0x7C8`, normalize the heading, and update the polar vector. At the deadline clear flag `0x04000000`. Then advance timer `+0x7B4`. |
+| `0x00407EF0` | `0x00406408`, ESI = player | Before deadline `+0x7DC`, aim from player position `+0x3B4/+0x3B8` toward the pointed target's `+0x3C0/+0x3C4`, add heading offset `+0x7CC`, scale the wrapped angle difference by `+0x7C8` and frame scale, normalize the heading, and update the polar vector. At the deadline clear flag `0x04000000`. Then advance timer `+0x7B4`. |
 
 ## Callee contracts at the call edges
 

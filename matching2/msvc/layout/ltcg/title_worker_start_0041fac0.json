@@ -6,10 +6,13 @@
   "headers": [
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/platform/worker.hpp"
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/state_table_0041f850.hpp",
+    "include/th10/game/title_worker_owner_0041fac0.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Title worker starter compiled with genuine C++ scheduler registration and worker stop ABI anchors. Only the 140-byte starter is selected; callback entry symbols use full absolute addresses for pointer immediates.",
+  "description": "Complete state constructor, worker starter, and factory with genuine C++ scheduler registration and worker stop ABI anchors; full absolute callback addresses.",
   "functions": [
     {
       "name": "TitleWorkerOwner_StartWorker",
@@ -18,6 +21,24 @@
       "address": "0x0041FAC0",
       "size": 140,
       "actual_abi": "receiver in EBX; returns zero in EAX; plain RET"
+    },
+    {
+      "name": "StateTable_Construct_0041f850",
+      "symbol": "??0StateTable_0041f850@@QAE@XZ",
+      "section": ".text$00bstatector",
+      "address": "0x0041F850",
+      "size": 128,
+      "source": "src/game/recovery_initialize_state_table_0041f850.cpp",
+      "actual_abi": "this ESI; EAX result; RET"
+    },
+    {
+      "name": "TitleState_Create_0041fd00",
+      "symbol": "_asm_EnemySlot_CreateAndInitRetail_0041fd00",
+      "section": ".text$04factory",
+      "address": "0x0041FD00",
+      "size": 69,
+      "source": "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp",
+      "actual_abi": "no arguments; state EBX; EAX result; RET"
     }
   ],
   "anchors": [
@@ -47,19 +68,19 @@
     "symbol": "TitleWorkerStartCompilerContext",
     "section": ".text$30context",
     "address": "0x0044C1C0",
-    "size": 35,
+    "size": 44,
     "description": "Synthetic array-walking caller establishing the receiver register; not recovered game code."
   },
   "gaps": [
     {
-      "section": ".text$00layout",
+      "section": ".text$00astatelayout",
       "address": "0x00401000",
-      "size": 125632
+      "size": 125008
     },
     {
       "section": ".text$03layout",
       "address": "0x0041FB4C",
-      "size": 171924
+      "size": 436
     },
     {
       "section": ".text$11layout",
@@ -75,6 +96,16 @@
       "section": ".text$21layout",
       "address": "0x0044C1B5",
       "size": 11
+    },
+    {
+      "section": ".text$00cstatectorz",
+      "address": "0x0041F8D0",
+      "size": 496
+    },
+    {
+      "section": ".text$05factoryz",
+      "address": "0x0041FD45",
+      "size": 171419
     }
   ],
   "constants": [],
@@ -138,6 +169,40 @@
       "symbol": "__imp__CloseHandle@4",
       "address": "0x004660CC",
       "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477820",
+      "address": "0x00477820",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0041fb50_0041fb50@4",
+      "address": "0x0041FB50",
+      "kind": "relative_code"
     }
+  ],
+  "additional_sources": [
+    "src/game/recovery_initialize_state_table_0041f850.cpp",
+    "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp"
   ]
 }

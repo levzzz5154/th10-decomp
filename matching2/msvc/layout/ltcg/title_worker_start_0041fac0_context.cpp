@@ -66,11 +66,14 @@ __declspec(noinline) void PlatformWorker::Stop() {
 }
 #pragma code_seg()
 
+struct StateTable_0041f850;
+extern "C" StateTable_0041f850* __cdecl asm_EnemySlot_CreateAndInitRetail_0041fd00();
+
 #pragma code_seg(".text$30context")
 extern "C" int __cdecl TitleWorkerStartCompilerContext(TitleWorkerOwner** owners, int count) {
     while (count--) {
         (*owners++)->StartWorker();
     }
-    return 0;
+    return asm_EnemySlot_CreateAndInitRetail_0041fd00() != 0;
 }
 #pragma code_seg()

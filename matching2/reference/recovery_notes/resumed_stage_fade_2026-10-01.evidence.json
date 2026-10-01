@@ -1,0 +1,139 @@
+{
+  "scope": "Current whole executable and four complete C++ recoveries in this continuation",
+  "goal_status": "active",
+  "goal_complete": false,
+  "new_asm_to_cpp_regions": 4,
+  "new_asm_to_cpp_bytes": 596,
+  "whole_exe_literal_exact": true,
+  "exe_bytes": 487936,
+  "exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "summary": {
+    "regions": {
+      "semantic": 1890,
+      "asm": 411,
+      "library": 322,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 103327,
+      "asm": 219601,
+      "library": 66470,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "fully_assembly_free": {
+    "regions": 1885,
+    "bytes": 98876
+  },
+  "native_contributions_checked": 17,
+  "native_literal_exact_bytes": 2548,
+  "new_regions": [
+    {
+      "name": "semantic_GameState_BeginFade_00404530",
+      "source": "src/game/fun_00404530_00404530.cpp",
+      "symbol": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
+      "address": "0x00404530",
+      "size": 119,
+      "kind": "semantic",
+      "owner": "0x00404530",
+      "previous_record": {
+        "name": "asm_FUN_00404530_00404530",
+        "source": "src/game/fun_00404530_00404530.cpp",
+        "symbol": "_asm_FUN_00404530_00404530",
+        "address": "0x00404530",
+        "size": 119,
+        "kind": "asm",
+        "owner": "0x00404530"
+      }
+    },
+    {
+      "name": "semantic_EnemyManager_Destroy_0040d530",
+      "source": "src/game/fun_0040d530_0040d530.cpp",
+      "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "address": "0x0040D530",
+      "size": 300,
+      "kind": "semantic",
+      "owner": "0x0040D530",
+      "previous_record": {
+        "name": "asm_FUN_0040d530_0040d530",
+        "source": "src/game/fun_0040d530_0040d530.cpp",
+        "symbol": "_asm_FUN_0040d530_0040d530",
+        "address": "0x0040D530",
+        "size": 300,
+        "kind": "asm",
+        "owner": "0x0040D530"
+      }
+    },
+    {
+      "name": "semantic_EnemyManager_CreateRetail_0040d6b0",
+      "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+      "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "address": "0x0040D6B0",
+      "size": 95,
+      "kind": "semantic",
+      "owner": "0x0040D6B0",
+      "previous_record": {
+        "name": "asm_EnemyManager_CreateRetail_0040d6b0",
+        "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+        "symbol": "_asm_EnemyManager_CreateRetail_0040d6b0",
+        "address": "0x0040D6B0",
+        "size": 95,
+        "kind": "asm",
+        "owner": "0x0040D6B0"
+      }
+    },
+    {
+      "name": "semantic_AsciiFactory_0043c8b0",
+      "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "address": "0x0043C8B0",
+      "size": 82,
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_AsciiManager_CreateRetail_0043c8b0",
+        "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+        "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
+        "address": "0x0043C8B0",
+        "size": 82,
+        "kind": "asm",
+        "owner": null
+      }
+    }
+  ],
+  "unselected_contexts": [
+    {
+      "symbol": "_StageContextUpdate_00418190@4",
+      "native_address": "0x44a060",
+      "complete_native_extent": 1570,
+      "original_extent": 1544,
+      "literal_exact": false,
+      "selected": false,
+      "recovered_bytes": 0
+    },
+    {
+      "symbol": "_EnemyFactoryCaller_0040a350@4",
+      "native_address": "0x40a350",
+      "complete_native_extent": 109,
+      "original_extent": 101,
+      "literal_exact": false,
+      "selected": false,
+      "recovered_bytes": 0
+    }
+  ],
+  "instruction_bytes_changed": 0,
+  "masked_bytes": 0,
+  "reference_bytes_used_for_build": false,
+  "checkpoint_sha256": {
+    "matching2/msvc/regions.json": "6ca7ba4ebc90d06027fc58d6639563920c06b38487deeedf326d600920bc0e8e",
+    "matching2/build/resumed_wave6_msvc_2026_10_01/port-report.json": "39768ca054b01dabf44087eb22ebb9e6d9d1de01f875cd6fe1acfab086a34857",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave6_verified.json": "52d3e9a63527ca7a6d016d05ec1c3e535821a34ba47f5f40150283c5a8752fb0",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave6_native_verified.json": "6064dbf6717bec8a3d30c878feab847626204e8cc70b7c57c003079713728bc3",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave6_regions_before_build.json": "6ca7ba4ebc90d06027fc58d6639563920c06b38487deeedf326d600920bc0e8e",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave5_before_integration/regions.json": "ecfc0764094e518300be11de3ee31f4a3f5c2b874c97b6719db455a35142fdd0",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave6_before_integration/regions.json": "513d5088b7f13a2da26d4554743b1f35be40cc314f0bb6ec845f36816d0934ce",
+    "matching2/reference/recovery_notes/resumed_stage_fade_2026-10-01.md": "71cb9aec42667297d7a842d333268a3a301b656f0b45089ce853eff844f0ec49"
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "scope": "Wave14: complete genuine worker startup and font initializer; full executable and native contribution checks",
+  "new_wave_functions": 2,
+  "new_wave_bytes": 967,
+  "permissions_baseline_functions": 40,
+  "permissions_baseline_bytes": 5200,
+  "asm_to_cpp_functions": 37,
+  "asm_to_cpp_bytes": 5170,
+  "corrected_library_functions": 3,
+  "corrected_library_bytes": 30,
+  "summary": {
+    "regions": {
+      "semantic": 1908,
+      "asm": 395,
+      "library": 320,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 105661,
+      "asm": 217287,
+      "library": 66450,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "fully_assembly_free": {
+    "regions": 1903,
+    "bytes": 101210
+  },
+  "fully_assembly_free_text_percent": 24.525531172456574,
+  "whole_exe_size": 487936,
+  "whole_exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "whole_exe_literal_exact": true,
+  "maintained_sources_built": 1875,
+  "native_complete_bodies": 59,
+  "native_exact_bodies": 51,
+  "native_exact_bytes": 8266,
+  "unselected_nonmatching_models": 8,
+  "unselected_other_contexts": 3,
+  "native_historical_subset_new_bytes": 2930,
+  "integrated_files": [
+    {
+      "path": "src/platform/font_cache_init.cpp",
+      "before_sha256": "cb6118c25cd575fe1a01aa3447e1e9b0069086189d967ee3b53ed0cac223f69c",
+      "after_sha256": "1ae9f5f4a4e0a10aee6d968f0ecf371e9ad809122af50f98ba7e4964683f7a29",
+      "frozen_candidate_sha256": "1ae9f5f4a4e0a10aee6d968f0ecf371e9ad809122af50f98ba7e4964683f7a29"
+    },
+    {
+      "path": "src/unidentified/FUN_004201b0_004201b0.cpp",
+      "before_sha256": "6933d5321132b48989509aaf0bb1d3b924732a94437b52650f03d2b926c59e87",
+      "after_sha256": "85d6a517980335ab81cf739e881708384099c089209a785521a934169f300e78",
+      "frozen_candidate_sha256": "85d6a517980335ab81cf739e881708384099c089209a785521a934169f300e78"
+    },
+    {
+      "path": "include/th10/platform/native_font_start.hpp",
+      "before_sha256": null,
+      "after_sha256": "361ac1de450bdf48ba499330705148ea8b532c91c149911855efdf3b3627dab5",
+      "frozen_candidate_sha256": "99a2c4c12e19162dcba77818be62c3fb128a59e257c6c87c470aa3bc9a16b2a9"
+    },
+    {
+      "path": "include/th10/render/clip_worker_native.hpp",
+      "before_sha256": null,
+      "after_sha256": "d6c924d56db1f369458d4089b5fd2dc2d062c75f2068c98a431edab5b308a2c2",
+      "frozen_candidate_sha256": "d6c924d56db1f369458d4089b5fd2dc2d062c75f2068c98a431edab5b308a2c2"
+    },
+    {
+      "path": "layout/ltcg/native_font_start/release_surface.cpp",
+      "before_sha256": null,
+      "after_sha256": "ad3f2b973a38ad36fbdddcdac3c745d4eab088cf9cf7b99966491cc21455ec41",
+      "frozen_candidate_sha256": "ad3f2b973a38ad36fbdddcdac3c745d4eab088cf9cf7b99966491cc21455ec41"
+    },
+    {
+      "path": "layout/ltcg/native_font_start/create_surface.cpp",
+      "before_sha256": null,
+      "after_sha256": "7f1b36d438d7fe8a30eb5fec6b77ef8359f6950e157d6c05bc1b709386d6c1be",
+      "frozen_candidate_sha256": "7f1b36d438d7fe8a30eb5fec6b77ef8359f6950e157d6c05bc1b709386d6c1be"
+    },
+    {
+      "path": "layout/ltcg/native_font_start/clip.cpp",
+      "before_sha256": null,
+      "after_sha256": "e6b5c25bb5875c236acaaf6d24800e529ac2e9eeacf83096d2363c69110f994b",
+      "frozen_candidate_sha256": "e6b5c25bb5875c236acaaf6d24800e529ac2e9eeacf83096d2363c69110f994b"
+    },
+    {
+      "path": "layout/ltcg/native_font_start/stop_worker.cpp",
+      "before_sha256": null,
+      "after_sha256": "fc094b667c43141d37a64a6a1ffb6aba194967fec1ef4b5de5307eeeb6ac865f",
+      "frozen_candidate_sha256": "fc094b667c43141d37a64a6a1ffb6aba194967fec1ef4b5de5307eeeb6ac865f"
+    },
+    {
+      "path": "layout/ltcg/native_font_start_closure.json",
+      "before_sha256": null,
+      "after_sha256": "7a721e10372c9304b58643c7b10174e7e47d1b681c797c0c0a596f018e60c6e4",
+      "frozen_candidate_sha256": "7a721e10372c9304b58643c7b10174e7e47d1b681c797c0c0a596f018e60c6e4"
+    }
+  ],
+  "post_integration_whitespace_cleanup": {
+    "files": [
+      {
+        "path": "matching2/msvc/include/th10/game/effect_pool_state_0042bb30.hpp",
+        "before_sha256": "b63f774cabfed9d1ad166236947cca9c30fc1c58ad08e1a5068a63a3e705088e",
+        "after_sha256": "ba071345b764597f811c8d23adfcac64d009e1b81ddf7d55345de2f40af22862",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/include/th10/game/effect_pool_tasks_0042bbd0.hpp",
+        "before_sha256": "57da441304def6074d253f7cc135695f090685f7cf693d462094f4e63a1276b9",
+        "after_sha256": "35feae5264c53b678cd7e17c9f18540f4ffc2ab7e187d894a8cb1db3eebe97a1",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/include/th10/game/player_update_score.hpp",
+        "before_sha256": "182fd2f38835522a9d1226fe40b93c340f0c46ae5814eea506abdb3c9de1db17",
+        "after_sha256": "184af7339a49274d6b50f15b03665f9c3f49270ea8a63e6942d9243e3bc966ed",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/include/th10/game/title_worker_owner_0041fac0.hpp",
+        "before_sha256": "d761624cbdcaa9915268b55473a97b2674e6073471d4c72a468d29a58e80a7b7",
+        "after_sha256": "ef6e18d1cabc48bf7748b93df1425bfc3b31d3696cf5ecdb004fb33242924a97",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/include/th10/platform/native_font_start.hpp",
+        "before_sha256": "99a2c4c12e19162dcba77818be62c3fb128a59e257c6c87c470aa3bc9a16b2a9",
+        "after_sha256": "361ac1de450bdf48ba499330705148ea8b532c91c149911855efdf3b3627dab5",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/layout/ltcg/player_update_callback10_dependencies/timer_tick.cpp",
+        "before_sha256": "7bf52d3b6e153404d3569f34e849f11892c2985aacab24d6863c83eb4813fe50",
+        "after_sha256": "29b46b10c69b2a18788e0f7e3e51ac1c6ba9fe8af3d4fd505ed820dd465488f0",
+        "only_trailing_whitespace_changed": true
+      },
+      {
+        "path": "matching2/msvc/layout/ltcg/update_player_dependencies/timer_tick.cpp",
+        "before_sha256": "7bf52d3b6e153404d3569f34e849f11892c2985aacab24d6863c83eb4813fe50",
+        "after_sha256": "29b46b10c69b2a18788e0f7e3e51ac1c6ba9fe8af3d4fd505ed820dd465488f0",
+        "only_trailing_whitespace_changed": true
+      }
+    ],
+    "new_recovery_bytes": 0
+  },
+  "selected_functions": [
+    {
+      "name": "semantic_StartGameWorkers_004201b0",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "_StartGameWorkers_004201b0",
+      "address": "0x004201B0",
+      "size": 186,
+      "kind": "semantic",
+      "owner": "0x004201B0",
+      "previous_record": {
+        "name": "asm_FUN_004201b0_004201b0",
+        "source": "src/unidentified/FUN_004201b0_004201b0.cpp",
+        "symbol": "_asm_FUN_004201b0_004201b0",
+        "address": "0x004201B0",
+        "size": 186,
+        "kind": "asm",
+        "owner": "0x004201B0"
+      }
+    },
+    {
+      "name": "semantic_FontCacheInitialize_00437a00",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "_InitializeFontCache_00437a00",
+      "address": "0x00437A00",
+      "size": 781,
+      "kind": "semantic",
+      "owner": "0x00437A00",
+      "previous_record": {
+        "name": "asm_FUN_00437a00_00437a00",
+        "source": "src/platform/font_cache_init.cpp",
+        "symbol": "_asm_FUN_00437a00_00437a00",
+        "address": "0x00437A00",
+        "size": 781,
+        "kind": "asm",
+        "owner": "0x00437A00"
+      }
+    }
+  ],
+  "preserved_helper_owners": [
+    {
+      "name": "semantic_gdi_surface_release_00436a30_00436a30",
+      "source": "src/platform/gdi_font_cache.cpp",
+      "symbol": "?ReleaseSurface_00436a30@@YG_NPAUGdiSurface_00436a30@@@Z",
+      "address": "0x00436A30",
+      "size": 107,
+      "kind": "semantic",
+      "owner": "0x00436A30",
+      "previous_record": {
+        "name": "asm_FontCache_FlushRetail_00436a30",
+        "source": "src/platform/gdi_font_cache.cpp",
+        "symbol": "_asm_FontCache_FlushRetail_00436a30",
+        "address": "0x00436A30",
+        "size": 107,
+        "kind": "asm",
+        "owner": "0x00436A30"
+      }
+    },
+    {
+      "name": "asm_FUN_00436af0_00436af0",
+      "source": "src/platform/gdi_surface.cpp",
+      "symbol": "_asm_FUN_00436af0_00436af0",
+      "address": "0x00436AF0",
+      "size": 421,
+      "kind": "asm",
+      "owner": "0x00436AF0"
+    },
+    {
+      "name": "asm_FUN_004462f0_004462f0",
+      "source": "src/render/anm_clip_quad.cpp",
+      "symbol": "_asm_FUN_004462f0_004462f0",
+      "address": "0x004462F0",
+      "size": 472,
+      "kind": "asm",
+      "owner": "0x004462F0"
+    },
+    {
+      "name": "semantic_PlatformWorker_Stop_0044c150",
+      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "address": "0x0044C150",
+      "size": 101,
+      "kind": "semantic",
+      "owner": "0x0044C150"
+    }
+  ],
+  "diagnostics_new_bytes": 0,
+  "masked_bytes": 0,
+  "instruction_bytes_changed": 0,
+  "reference_bytes_used_for_build": false,
+  "goal_complete": false,
+  "proof_hashes": {
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave14_verified.json": "8be5d7fcd0a16597be4458668dbbd009242f696a0622c61a364418a28fe8aabd",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave14_native_verified.json": "dd24a4321816e5fe0d5f5cbad8b247851c2ebb8fb695fb50a69e4909e85f2f7c",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave14_regions_before_build.json": "89d4b956626729e3966b3b5147f5189b2b0b9566fa184fd5b533c7fb7234e5ee",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave14_main_probe.json": "afe7fdb596b7a7945c3b85767f19b0c4c9a657adc0f5552a4618eef021670069",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave14_build.py": "98acb87bd251e393f745c565da34679fe68ec451b97cf1d2be43efb22a769a65",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave14_native.py": "ebd76b3b423adfdb9f86477b8aace62ca355be36baee7f14c19531a327ac1e88",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave14_whitespace_cleanup.json": "530d0bf3a186869a962495cee6b3a2dcbe854fab9c245b8b7602978416cdb12b",
+    "matching2/build/experiments/native_font_worker_context_2026_10_01/evidence.json": "2b3138ec5be7b46c9c40ced6b6f94a9a5f15ae10445814648a9d34ecaee421c2",
+    "matching2/build/experiments/native_font_worker_context_2026_10_01/integration_recipe.json": "1ef844f606fd4d46650106ac817ed4669b8646fb40eaafbb9f73c13db9e39fdf",
+    "matching2/build/experiments/native_font_worker_context_2026_10_01/independent_child_review.json": "d1fc6ba6693bccf5e3b66ae055e7152829f7d23d8fa3acba4108b1cb6d4795cc",
+    "matching2/build/experiments/native_font_worker_context_2026_10_01/independent_child_review.py": "be37f1fab0c93318c9815a955fbea2148f20c7b09fd9ef823d805f893a981def",
+    "matching2/build/experiments/native_fps_task_owner_2026_10_01/followup_evidence.json": "b5aaf469d83945b36ea5a61ef767add8a8081f0f3efa069b4f7c61aa0aaf4588",
+    "matching2/build/experiments/native_game_state_throw_contract_2026_10_01/evidence.json": "9bef8de7a884ae7a1af868bfeaa8a7c9682e49203be97e13f7f056129d5fe122",
+    "matching2/build/experiments/native_game_state_throw_contract_2026_10_01/separate_factory/evidence.json": "6301767be9adc6555cf01e32b86b07c24101ad1878ccb89e8d327f173e342d6e",
+    "matching2/build/experiments/stage_slot_factory_boundary_2026_10_01/evidence.json": "0e1ef52bd520345ae3f19c955272c24e407a9d07cbc811167918753cd70918f9"
+  }
+}

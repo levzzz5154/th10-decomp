@@ -1,21 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2801): closest_byte_count=40/287; first_diff=0x0043E8C3.
-// Live Ghidra shows the actual entry is object=EAX, resource=EDX,
-// script_index=ECX, with a plain RET. The sole direct caller at 0x004496D0
-// carries the object in EAX from AnimationManager::Find and immediately
-// consumes no return value from this function. The naked body also calls the
-// large VM at 0x0043EE30 with ECX=0, EDX=object[+0x6C], and object on the stack.
-// A normal standalone C++ signature cannot express the target's EAX object input.
-// variants_tested=prior raw-pointer/reset-state shapes; closest candidate
-// misses the retail delayed push-ebp boundary. See
-// reference/recovery_notes/animation_object_change_script_0043e8b0.md.
-// next_lever=build a dedicated native-LTCG context with the real
-// 0x004496D0 caller and this function together, so the Find result remains a
-// live EAX value across the call; preserve the 0x0043EE30 edge with its
-// verified register/stack contract, then tune against the first differing
-// instruction and the complete 287-byte interval.
+// Caller-inclusive native LTCG now reproduces 265/287 bytes, with the first
+// difference at 0x0043E8B1. The complete 287-byte candidate has the right
+// object=EAX, resource=EDX, index=ECX entry and real stack-object VM call.
+// Its script/index homes are EDI/ESI instead of retail ESI/EDI. Paired script
+// fields and slot references restore the retail mask/clock store schedule.
+// The real 36-byte handle caller is recovered in ordinary C++ separately.
+// Its native scope sees this candidate as an unselected semantic ABI anchor;
+// this assembly region remains the genuine callee until all 287 bytes match.
+// Next lever: scalar lifetime/flag-helper pressure that retains EBP while
+// allocating the script to ESI and index/temporary flags to EDI.
+// See reference/recovery_notes/animation_object_change_script_0043e8b0.md.
 
 // 0x0043E8B0..0x0043E9CE: ?AnimationObject_ChangeScript@@
 // Naked body preserves the retail register/stack ABI.

@@ -1,0 +1,4013 @@
+{
+  "focused_exact": true,
+  "focused_region_count": 26,
+  "focused_regions": [
+    {
+      "region": "semantic_Entity_AttachResourceSnapshot_0040b250",
+      "address": 4239952,
+      "size": 60,
+      "symbol": "?Entity_AttachResourceSnapshot@@YIHPAUEntity@@PBUEntityResourceSnapshot@@@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 10,
+          "kind": "rel32",
+          "symbol": "_operator_new",
+          "target": 4531347,
+          "bound": 4531347,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "region": "semantic_Entity_ClearAnims_0040cc70",
+      "address": 4246640,
+      "size": 145,
+      "symbol": "?Entity_ClearAnims_0040cc70@@YIPAUClearAnimsOwner@@HPAU1@@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "region": "semantic_BulletSpawnParameters_Initialize_0040cf40",
+      "address": 4247360,
+      "size": 23,
+      "symbol": "?BulletSpawnParameters_Initialize@@YIPAUBulletSpawnParameters@@PAXPAU1@@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "region": "asm_FUN_0040dc80_0040dc80",
+      "address": 4250752,
+      "size": 2412,
+      "symbol": "_asm_FUN_0040dc80_0040dc80",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 74,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00412ac0_00412ac0",
+          "target": 4270784,
+          "bound": 4270784,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 84,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 119,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00412ac0_00412ac0",
+          "target": 4270784,
+          "bound": 4270784,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 158,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00412ac0_00412ac0",
+          "target": 4270784,
+          "bound": 4270784,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 168,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 209,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00412ac0_00412ac0",
+          "target": 4270784,
+          "bound": 4270784,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 254,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00404610_00404610",
+          "target": 4212240,
+          "bound": 4212240,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 333,
+          "kind": "rel32",
+          "symbol": "_asm_Recovery_PolarToVectorRetail_0044c5d0",
+          "target": 4507088,
+          "bound": 4507088,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 366,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 401,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00404610_00404610",
+          "target": 4212240,
+          "bound": 4212240,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 479,
+          "kind": "rel32",
+          "symbol": "_asm_Recovery_PolarToVectorRetail_0044c5d0",
+          "target": 4507088,
+          "bound": 4507088,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 512,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 525,
+          "kind": "rel32",
+          "symbol": "_asm_Recovery_AdvancePolarMotion_0044c2a0",
+          "target": 4506272,
+          "bound": 4506272,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 543,
+          "kind": "dir32",
+          "symbol": "_data_00491e6c",
+          "target": 4791916,
+          "bound": 4791916,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 553,
+          "kind": "dir32",
+          "symbol": "_data_00491e70",
+          "target": 4791920,
+          "bound": 4791920,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 565,
+          "kind": "dir32",
+          "symbol": "_data_00491e74",
+          "target": 4791924,
+          "bound": 4791924,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 578,
+          "kind": "rel32",
+          "symbol": "_asm_Recovery_AdvancePolarMotion_0044c2a0",
+          "target": 4506272,
+          "bound": 4506272,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 655,
+          "kind": "rel32",
+          "symbol": "_asm_Recovery_AdvancePolarMotion_0044c2a0",
+          "target": 4506272,
+          "bound": 4506272,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 670,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040dfda",
+          "target": 4251610,
+          "bound": 4251610,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 682,
+          "kind": "dir32",
+          "symbol": "_data_00470b0c",
+          "target": 4655884,
+          "bound": 4655884,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 748,
+          "kind": "dir32",
+          "symbol": "_data_00470b0c",
+          "target": 4655884,
+          "bound": 4655884,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 866,
+          "kind": "dir32",
+          "symbol": "_data_00470b0c",
+          "target": 4655884,
+          "bound": 4655884,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 876,
+          "kind": "dir32",
+          "symbol": "_data_00470b40",
+          "target": 4655936,
+          "bound": 4655936,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 887,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e09b",
+          "target": 4251803,
+          "bound": 4251803,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 897,
+          "kind": "dir32",
+          "symbol": "_data_00470b3c",
+          "target": 4655932,
+          "bound": 4655932,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 910,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e09d",
+          "target": 4251805,
+          "bound": 4251805,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 922,
+          "kind": "dir32",
+          "symbol": "_data_00470b0c",
+          "target": 4655884,
+          "bound": 4655884,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 933,
+          "kind": "dir32",
+          "symbol": "_data_00470b04",
+          "target": 4655876,
+          "bound": 4655876,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 951,
+          "kind": "dir32",
+          "symbol": "_data_00470b38",
+          "target": 4655928,
+          "bound": 4655928,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 990,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e0e9",
+          "target": 4251881,
+          "bound": 4251881,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 995,
+          "kind": "dir32",
+          "symbol": "_data_004776ec",
+          "target": 4683500,
+          "bound": 4683500,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1034,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004496d0_004496d0",
+          "target": 4495056,
+          "bound": 4495056,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1108,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004496d0_004496d0",
+          "target": 4495056,
+          "bound": 4495056,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1151,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_TickChildren_0044fd10",
+          "target": 4521232,
+          "bound": 4521232,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1188,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e275",
+          "target": 4252277,
+          "bound": 4252277,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1194,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1213,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00428630_00428630",
+          "target": 4359728,
+          "bound": 4359728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1220,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1259,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e26b",
+          "target": 4252267,
+          "bound": 4252267,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1265,
+          "kind": "dir32",
+          "symbol": "_data_004776f4",
+          "target": 4683508,
+          "bound": 4683508,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1347,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004127a0_004127a0",
+          "target": 4269984,
+          "bound": 4269984,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1364,
+          "kind": "rel32",
+          "symbol": "_asm_BulletEntity_ClearResourceList_0040c6e0",
+          "target": 4245216,
+          "bound": 4245216,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1375,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0040c730_0040c730",
+          "target": 4245296,
+          "bound": 4245296,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1388,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00450700_00450700",
+          "target": 4523776,
+          "bound": 4523776,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1414,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_TickChildren_0044fd10",
+          "target": 4521232,
+          "bound": 4521232,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1422,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e0a7",
+          "target": 4251815,
+          "bound": 4251815,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1470,
+          "kind": "rel32",
+          "symbol": "_asm_AddScaled_GameScore_00409d90",
+          "target": 4234640,
+          "bound": 4234640,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1482,
+          "kind": "rel32",
+          "symbol": "_asm_BossUi_ReleaseIndicatorsRetail_0040e5f0",
+          "target": 4253168,
+          "bound": 4253168,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1517,
+          "kind": "dir32",
+          "symbol": "_data_00474c50",
+          "target": 4672592,
+          "bound": 4672592,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1532,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004127a0_004127a0",
+          "target": 4269984,
+          "bound": 4269984,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1549,
+          "kind": "rel32",
+          "symbol": "_asm_BulletEntity_ClearResourceList_0040c6e0",
+          "target": 4245216,
+          "bound": 4245216,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1560,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0040c730_0040c730",
+          "target": 4245296,
+          "bound": 4245296,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1578,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00450470_00450470",
+          "target": 4523120,
+          "bound": 4523120,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1618,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1632,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004266b0_004266b0",
+          "target": 4351664,
+          "bound": 4351664,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1647,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e379",
+          "target": 4252537,
+          "bound": 4252537,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1658,
+          "kind": "dir32",
+          "symbol": "_data_00470d30",
+          "target": 4656432,
+          "bound": 4656432,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1681,
+          "kind": "dir32",
+          "symbol": "_data_00470c18",
+          "target": 4656152,
+          "bound": 4656152,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1781,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004496d0_004496d0",
+          "target": 4495056,
+          "bound": 4495056,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1809,
+          "kind": "dir32",
+          "symbol": "_data_00491c10",
+          "target": 4791312,
+          "bound": 4791312,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1822,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_SetTranslatedPosition_00449350",
+          "target": 4494160,
+          "bound": 4494160,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1848,
+          "kind": "dir32",
+          "symbol": "_data_00491c10",
+          "target": 4791312,
+          "bound": 4791312,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1865,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_SetPosition_004492f0",
+          "target": 4494064,
+          "bound": 4494064,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1902,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1992,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_Find_004491c0",
+          "target": 4493760,
+          "bound": 4493760,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2016,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e510",
+          "target": 4252944,
+          "bound": 4252944,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2031,
+          "kind": "rel32",
+          "symbol": "_asm_target_0040e53e",
+          "target": 4252990,
+          "bound": 4252990,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2084,
+          "kind": "dir32",
+          "symbol": "_data_004776f4",
+          "target": 4683508,
+          "bound": 4683508,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2165,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043dd10_0043dd10",
+          "target": 4447504,
+          "bound": 4447504,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2186,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043dd10_0043dd10",
+          "target": 4447504,
+          "bound": 4447504,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2222,
+          "kind": "dir32",
+          "symbol": "_data_0047770c",
+          "target": 4683532,
+          "bound": 4683532,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2260,
+          "kind": "rel32",
+          "symbol": "_asm_FrameTimer_Advance_0044bf40",
+          "target": 4505408,
+          "bound": 4505408,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2286,
+          "kind": "rel32",
+          "symbol": "_asm_FrameTimer_Advance_0044bf40",
+          "target": 4505408,
+          "bound": 4505408,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2312,
+          "kind": "dir32",
+          "symbol": "_data_00470b68",
+          "target": 4655976,
+          "bound": 4655976,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2327,
+          "kind": "dir32",
+          "symbol": "_data_00470b64",
+          "target": 4655972,
+          "bound": 4655972,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2347,
+          "kind": "dir32",
+          "symbol": "_data_00470afc",
+          "target": 4655868,
+          "bound": 4655868,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2390,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/bullet.cpp"
+    },
+    {
+      "region": "asm_Player_HitTestRetail_004059f0",
+      "address": 4217328,
+      "size": 202,
+      "symbol": "_asm_Player_HitTestRetail_004059f0",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 61,
+          "kind": "dir32",
+          "symbol": "_data_004776f4",
+          "target": 4683508,
+          "bound": 4683508,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 100,
+          "kind": "dir32",
+          "symbol": "_data_00477704",
+          "target": 4683524,
+          "bound": 4683524,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 121,
+          "kind": "dir32",
+          "symbol": "_data_004776f4",
+          "target": 4683508,
+          "bound": 4683508,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 142,
+          "kind": "dir32",
+          "symbol": "_data_00474c68",
+          "target": 4672616,
+          "bound": 4672616,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 160,
+          "kind": "dir32",
+          "symbol": "_data_00477704",
+          "target": 4683524,
+          "bound": 4683524,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 181,
+          "kind": "dir32",
+          "symbol": "_data_00474c68",
+          "target": 4672616,
+          "bound": 4672616,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/player.cpp"
+    },
+    {
+      "region": "asm_FUN_00449c00_00449c00",
+      "address": 4496384,
+      "size": 308,
+      "symbol": "_asm_FUN_00449c00_00449c00",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 6,
+          "kind": "dir32",
+          "symbol": "_data_004660b0",
+          "target": 4612272,
+          "bound": 4612272,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 21,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 27,
+          "kind": "dir32",
+          "symbol": "_data_004660b4",
+          "target": 4612276,
+          "bound": 4612276,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 34,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 68,
+          "kind": "rel32",
+          "symbol": "_asm_target_00449cf0",
+          "target": 4496624,
+          "bound": 4496624,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 105,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 126,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 137,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 173,
+          "kind": "rel32",
+          "symbol": "_asm_Scheduler_Remove_00449f60",
+          "target": 4497248,
+          "bound": 4497248,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 208,
+          "kind": "rel32",
+          "symbol": "_asm_target_00449c40",
+          "target": 4496448,
+          "bound": 4496448,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 248,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 258,
+          "kind": "dir32",
+          "symbol": "_data_0049231c",
+          "target": 4793116,
+          "bound": 4793116,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "region": "semantic_Scheduler_RunSecondary_00449d40",
+      "address": 4496704,
+      "size": 268,
+      "symbol": "_Scheduler_RunSecondary_00449d40@4",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 7,
+          "kind": "dir32",
+          "symbol": "__imp__EnterCriticalSection@4",
+          "target": 4612272,
+          "bound": 4612272,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 12,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4792948,
+          "bound": 4792948,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 20,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 30,
+          "kind": "dir32",
+          "symbol": "__imp__LeaveCriticalSection@4",
+          "target": 4612276,
+          "bound": 4612276,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 38,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 87,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4792948,
+          "bound": 4792948,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 95,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 106,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4792948,
+          "bound": 4792948,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 116,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 127,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 136,
+          "kind": "dir32",
+          "symbol": "$L4401",
+          "target": 4496948,
+          "bound": 4496948,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 155,
+          "kind": "rel32",
+          "symbol": "_Scheduler_Remove@8",
+          "target": 4497248,
+          "bound": 4497248,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 211,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4792948,
+          "bound": 4792948,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 218,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 226,
+          "kind": "dir32",
+          "symbol": "_data_00492274",
+          "target": 4793116,
+          "bound": 4792948,
+          "addend": 168,
+          "matches": true
+        },
+        {
+          "offset": 244,
+          "kind": "dir32",
+          "symbol": "$L4345",
+          "target": 4496852,
+          "bound": 4496852,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 248,
+          "kind": "dir32",
+          "symbol": "$L4396",
+          "target": 4496863,
+          "bound": 4496863,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 252,
+          "kind": "dir32",
+          "symbol": "$L4348",
+          "target": 4496844,
+          "bound": 4496844,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 256,
+          "kind": "dir32",
+          "symbol": "$L4353",
+          "target": 4496894,
+          "bound": 4496894,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 260,
+          "kind": "dir32",
+          "symbol": "$L4350",
+          "target": 4496884,
+          "bound": 4496884,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 264,
+          "kind": "dir32",
+          "symbol": "$L4355",
+          "target": 4496904,
+          "bound": 4496904,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "region": "semantic_SchedulerCallback_Create_00449ed0",
+      "address": 4497104,
+      "size": 74,
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 3,
+          "kind": "rel32",
+          "symbol": "??2@YAPAXI@Z",
+          "target": 4531347,
+          "bound": 4531347,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/scheduler.cpp"
+    },
+    {
+      "region": "asm_FUN_00408d60_00408d60",
+      "address": 4230496,
+      "size": 1057,
+      "symbol": "_asm_FUN_00408d60_00408d60",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 13,
+          "kind": "rel32",
+          "symbol": "_asm_target_00409178",
+          "target": 4231544,
+          "bound": 4231544,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 27,
+          "kind": "dir32",
+          "symbol": "_data_004776e8",
+          "target": 4683496,
+          "bound": 4683496,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 135,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043ee30_0043ee30",
+          "target": 4451888,
+          "bound": 4451888,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 147,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043ee30_0043ee30",
+          "target": 4451888,
+          "bound": 4451888,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 173,
+          "kind": "dir32",
+          "symbol": "_data_00470b68",
+          "target": 4655976,
+          "bound": 4655976,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 188,
+          "kind": "dir32",
+          "symbol": "_data_00470b64",
+          "target": 4655972,
+          "bound": 4655972,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 208,
+          "kind": "dir32",
+          "symbol": "_data_00470afc",
+          "target": 4655868,
+          "bound": 4655868,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 241,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 260,
+          "kind": "rel32",
+          "symbol": "_asm_target_00408f7c",
+          "target": 4231036,
+          "bound": 4231036,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 273,
+          "kind": "rel32",
+          "symbol": "_asm_target_00408efb",
+          "target": 4230907,
+          "bound": 4230907,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 279,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 291,
+          "kind": "dir32",
+          "symbol": "_data_00470c80",
+          "target": 4656256,
+          "bound": 4656256,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 302,
+          "kind": "rel32",
+          "symbol": "_asm_target_00408f7c",
+          "target": 4231036,
+          "bound": 4231036,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 328,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_SetStopFrameFromHandleRetail_00449470",
+          "target": 4494448,
+          "bound": 4494448,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 407,
+          "kind": "rel32",
+          "symbol": "_asm_target_00408f76",
+          "target": 4231030,
+          "bound": 4231030,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 413,
+          "kind": "dir32",
+          "symbol": "_data_00477834",
+          "target": 4683828,
+          "bound": 4683828,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 425,
+          "kind": "dir32",
+          "symbol": "_data_00470bf4",
+          "target": 4656116,
+          "bound": 4656116,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 456,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_SetStopFrameFromHandleRetail_00449470",
+          "target": 4494448,
+          "bound": 4494448,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 583,
+          "kind": "dir32",
+          "symbol": "_data_0047770c",
+          "target": 4683532,
+          "bound": 4683532,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 601,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 607,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043ee30_0043ee30",
+          "target": 4451888,
+          "bound": 4451888,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 653,
+          "kind": "dir32",
+          "symbol": "_data_0047770c",
+          "target": 4683532,
+          "bound": 4683532,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 677,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 683,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043ee30_0043ee30",
+          "target": 4451888,
+          "bound": 4451888,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 688,
+          "kind": "dir32",
+          "symbol": "_data_00474c68",
+          "target": 4672616,
+          "bound": 4672616,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 694,
+          "kind": "dir32",
+          "symbol": "_data_00474c6c",
+          "target": 4672620,
+          "bound": 4672620,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 700,
+          "kind": "dir32",
+          "symbol": "_data_0047783c",
+          "target": 4683836,
+          "bound": 4683836,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 756,
+          "kind": "dir32",
+          "symbol": "_data_0047770c",
+          "target": 4683532,
+          "bound": 4683532,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 780,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 800,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 805,
+          "kind": "dir32",
+          "symbol": "_data_00474c68",
+          "target": 4672616,
+          "bound": 4672616,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 811,
+          "kind": "dir32",
+          "symbol": "_data_00474c6c",
+          "target": 4672620,
+          "bound": 4672620,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 817,
+          "kind": "dir32",
+          "symbol": "_data_0047783c",
+          "target": 4683836,
+          "bound": 4683836,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 889,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 909,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationObject_ConfigureFromResource_0043e5a0",
+          "target": 4449696,
+          "bound": 4449696,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 920,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0043ee30_0043ee30",
+          "target": 4451888,
+          "bound": 4451888,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 935,
+          "kind": "dir32",
+          "symbol": "_data_00477704",
+          "target": 4683524,
+          "bound": 4683524,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 966,
+          "kind": "dir32",
+          "symbol": "_data_00491c10",
+          "target": 4791312,
+          "bound": 4791312,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 987,
+          "kind": "dir32",
+          "symbol": "_data_00470c84",
+          "target": 4656260,
+          "bound": 4656260,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 997,
+          "kind": "dir32",
+          "symbol": "_data_00470c84",
+          "target": 4656260,
+          "bound": 4656260,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1007,
+          "kind": "dir32",
+          "symbol": "_data_00470c84",
+          "target": 4656260,
+          "bound": 4656260,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1041,
+          "kind": "rel32",
+          "symbol": "_asm_AnimationManager_SetTranslatedPosition_00449350",
+          "target": 4494160,
+          "bound": 4494160,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/score.cpp"
+    },
+    {
+      "region": "semantic_UpdateInputState",
+      "address": 4238368,
+      "size": 109,
+      "symbol": "?Update@KeyRepeatState@@QAEGXZ",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/score.cpp"
+    },
+    {
+      "region": "semantic_UpdateBoundedCounter_0040ad20",
+      "address": 4238624,
+      "size": 33,
+      "symbol": "?UpdateBoundedCounter@@YIIIPAI@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/score.cpp"
+    },
+    {
+      "region": "asm_ScoreFile_InitializeDefaultsRetail_0042acb0",
+      "address": 4369584,
+      "size": 274,
+      "symbol": "_asm_ScoreFile_InitializeDefaultsRetail_0042acb0",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 72,
+          "kind": "dir32",
+          "symbol": "_data_0046e858",
+          "target": 4647000,
+          "bound": 4647000,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 83,
+          "kind": "dir32",
+          "symbol": "_data_0046e85c",
+          "target": 4647004,
+          "bound": 4647004,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 92,
+          "kind": "dir32",
+          "symbol": "_data_0046e860",
+          "target": 4647008,
+          "bound": 4647008,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/game/score_file.cpp"
+    },
+    {
+      "region": "semantic_SetScorePolar_00408750",
+      "address": 4228944,
+      "size": 30,
+      "symbol": "__ZN24ScoreGameplayPolarVector13SetScorePolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_EllipticPolar_00413270",
+      "address": 4272752,
+      "size": 30,
+      "symbol": "__ZN19EllipticPolarVector16SetEllipticPolarEfff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_SetItemPolar_0041beb0",
+      "address": 4308656,
+      "size": 30,
+      "symbol": "__ZN20ScoreItemPolarVector12SetItemPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_SetPathPolar_0041f800",
+      "address": 4323328,
+      "size": 30,
+      "symbol": "__ZN15PathPolarVector12SetPathPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_AnimationPolar_00441ef0",
+      "address": 4464368,
+      "size": 30,
+      "symbol": "__ZN24AnimationLeafPolarVector17SetAnimationPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_SetAnimationPolar_004458b0",
+      "address": 4479152,
+      "size": 30,
+      "symbol": "__ZN20AnimationPolarVector17SetAnimationPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_PolarToVector_0044c5d0",
+      "address": 4507088,
+      "size": 30,
+      "symbol": "__ZN19RecoveryPolarVector8SetPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "semantic_EclPolar_004501b0",
+      "address": 4522416,
+      "size": 30,
+      "symbol": "__ZN14EclPolarVector8SetPolarEff",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/math/x87_polar_setters.cpp"
+    },
+    {
+      "region": "asm_FUN_0044e1a0_0044e1a0",
+      "address": 4514208,
+      "size": 7020,
+      "symbol": "_asm_FUN_0044e1a0_0044e1a0",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 50,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb96",
+          "target": 4520854,
+          "bound": 4520854,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 77,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 90,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb68",
+          "target": 4520808,
+          "bound": 4520808,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 114,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PopScratchValue_004506d0",
+          "target": 4523728,
+          "bound": 4523728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 126,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb0",
+          "target": 4520880,
+          "bound": 4520880,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 182,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb2",
+          "target": 4520882,
+          "bound": 4520882,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 187,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 201,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_SpawnChild_004500d0",
+          "target": 4522192,
+          "bound": 4522192,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 206,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 217,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResetVariableBindings_00450190",
+          "target": 4522384,
+          "bound": 4522384,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 222,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 247,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntValue_0044ff00",
+          "target": 4521728,
+          "bound": 4521728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 259,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_SpawnChild_004500d0",
+          "target": 4522192,
+          "bound": 4522192,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 264,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 272,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 285,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 293,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 303,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 311,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 324,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 332,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 346,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 354,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 367,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 375,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 389,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 397,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 410,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 418,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 429,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 440,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 449,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_StartChildRetail_0044df70",
+          "target": 4513648,
+          "bound": 4513648,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 457,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb2",
+          "target": 4520882,
+          "bound": 4520882,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 462,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb85",
+          "target": 4520837,
+          "bound": 4520837,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 520,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 541,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 599,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 619,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 634,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb81",
+          "target": 4520833,
+          "bound": 4520833,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 642,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 659,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 667,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 679,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PushScratchValue_00450690",
+          "target": 4523664,
+          "bound": 4523664,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 684,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 692,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PopScratchValue_004506d0",
+          "target": 4523728,
+          "bound": 4523728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 697,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 705,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 726,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 731,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 738,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveVariableValue_00450030",
+          "target": 4522032,
+          "bound": 4522032,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 757,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 797,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 804,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 811,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 820,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 841,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 846,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 855,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 872,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 914,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 923,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 932,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 991,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1048,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1085,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1090,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1143,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1197,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1231,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1236,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1295,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1352,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1380,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1385,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1417,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1422,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1475,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1529,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1554,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1559,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1588,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1593,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1652,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1709,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1737,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1774,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1779,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1912,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1917,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1943,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1948,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2093,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2098,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2127,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2132,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2265,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2270,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2296,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2301,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2446,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2451,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2480,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2485,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2538,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2598,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2643,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2648,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2701,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2761,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2806,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2811,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2870,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2933,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2981,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2986,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3045,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3108,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3156,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3161,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3214,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3274,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3319,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3324,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3383,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3446,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3494,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3499,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3558,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3599,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3604,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3784,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3789,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3941,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3961,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3966,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4104,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4124,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4129,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4267,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4287,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4292,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4430,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4450,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4455,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4617,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4637,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4642,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4714,
+          "kind": "dir32",
+          "symbol": "_data_00470b04",
+          "target": 4655876,
+          "bound": 4655876,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4762,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4767,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4826,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4889,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4942,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4947,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5006,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5069,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5122,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5127,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5186,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5249,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5290,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5295,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5354,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5417,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5458,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5463,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5522,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5585,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5626,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5631,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5684,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5706,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5711,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5737,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5825,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5830,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5838,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5851,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveVariableValue_00450030",
+          "target": 4522032,
+          "bound": 4522032,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5871,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5876,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6050,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6055,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6067,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6083,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6092,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6108,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_SetPolarVector_004501b0",
+          "target": 4522416,
+          "bound": 4522416,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6117,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6138,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6152,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6164,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6180,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6193,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6218,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6227,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6238,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6247,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6254,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6266,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6279,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6299,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6315,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6338,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6349,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6362,
+          "kind": "rel32",
+          "symbol": "_asm_malloc_00452706",
+          "target": 4531974,
+          "bound": 4531974,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6380,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb5d",
+          "target": 4520797,
+          "bound": 4520797,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6406,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00452730_00452730",
+          "target": 4532016,
+          "bound": 4532016,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6421,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb57",
+          "target": 4520791,
+          "bound": 4520791,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6523,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntValue_0044ff00",
+          "target": 4521728,
+          "bound": 4521728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6549,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatValue_0044ff80",
+          "target": 4521856,
+          "bound": 4521856,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6579,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044faa2",
+          "target": 4520610,
+          "bound": 4520610,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6591,
+          "kind": "rel32",
+          "symbol": "_asm_free_00452422",
+          "target": 4531234,
+          "bound": 4531234,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6642,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0044e1a0_part_0044e1e0",
+          "target": 4514272,
+          "bound": 4514272,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntOperand_0044fdb0",
+      "address": 4521392,
+      "size": 144,
+      "symbol": "?ECL_ResolveIntOperand_0044fdb0@@YIHHPAUEclFrame@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 106,
+          "kind": "rel32",
+          "symbol": "__ftol2",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntValue_0044ff00",
+      "address": 4521728,
+      "size": 124,
+      "symbol": "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 102,
+          "kind": "rel32",
+          "symbol": "__ftol2",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_FUN_0040c650_0040c650",
+      "address": 4245072,
+      "size": 8,
+      "symbol": "?ResolveSlotFloatOperand_0040c650@@YGMPAUEclOperandSlot@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    },
+    {
+      "region": "semantic_FUN_0040c680_0040c680",
+      "address": 4245120,
+      "size": 8,
+      "symbol": "?ResolveSlotFloatValue_0040c680@@YIMHPAUEclOperandSlot@@M@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntFromEntity_00412a00",
+      "address": 4270592,
+      "size": 16,
+      "symbol": "?ResolveEntityIntOperand_00412a00@@YGHPAUEclEntityVm@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    }
+  ],
+  "source_sha256": {
+    "regions.json": "87c62928bd99655e8fb3f05c71ca01427df10113b203ee2cad2a2191bf5d401b",
+    "src/math/x87_polar_setters.cpp": "483c018b4dd5cff74c56c5abbf3be5ee84c9cbe6867395cd9b73f7801bf6debc",
+    "src/script/ecl_core_interpreter.cpp": "3b4324853cbf736ee3685015d21db67ddafa22c3cdc26d81202f5225ad65e758",
+    "src/game/bullet.cpp": "83e602a18a2bf7dad651b76738977abf03ea61c0e6bff476ac70f9134e873aaf",
+    "src/game/player.cpp": "def6035d5e666eba5cd8df35d92485f0fc5cde0e4efdad95f597387827254d3c",
+    "src/game/scheduler.cpp": "8af4728ac0dfb8edbc9306a88ba5cc17771b3fffbc5add1860fef236b65c65a5",
+    "src/game/score.cpp": "fc853d8360f9c3db6da568d1685cf45651f314cb01a88f423ede4d1e53a9f93b",
+    "src/game/score_file.cpp": "fee0d172a10242007eee6f503414e0c9004c03260e28368aa1d06eaf484f3871"
+  },
+  "resolver_variants": {
+    "baseline": {
+      "compiled_extent": 124,
+      "unlinked_code_sha256": "b8c4f84c49dba16ca1ab1cf022ac3e909aaa9e9583578715620a777e4e43902e",
+      "relocation_offsets": [
+        102,
+        103,
+        104,
+        105
+      ]
+    },
+    "mask_first": {
+      "compiled_extent": 142,
+      "unlinked_code_sha256": "06a234ba6072b2703a091c964df617e11f79f6791893eb9856e189e5f94e375b",
+      "relocation_offsets": [
+        104,
+        105,
+        106,
+        107
+      ]
+    },
+    "pointer_decrement": {
+      "compiled_extent": 144,
+      "unlinked_code_sha256": "589f3356e385979c856f38b4c3339e7dc88808c34d4e9fcf3ec7f2c8ff85770a",
+      "relocation_offsets": [
+        106,
+        107,
+        108,
+        109
+      ]
+    },
+    "field_decrement": {
+      "compiled_extent": 144,
+      "unlinked_code_sha256": "921f63de75219190e3a76a55f3020c0238eae4e36481f7309681bdf7a58f544c",
+      "relocation_offsets": [
+        106,
+        107,
+        108,
+        109
+      ]
+    }
+  },
+  "removed_duplicate_bodies": {
+    "src/game/bullet.cpp": [
+      {
+        "symbol": "asm_BulletManager_LoadScripts_0040ae70",
+        "address": "0x0040AE70",
+        "size": 134,
+        "owner_source": "src/game/bullet_manager_load_scripts_0040ae70.cpp"
+      },
+      {
+        "symbol": "asm_BulletManager_Create_0040af90",
+        "address": "0x0040AF90",
+        "size": 86,
+        "owner_source": "src/game/bullet_manager_create_0040af90.cpp"
+      },
+      {
+        "symbol": "asm_BulletEntity_ClearResourceList_0040c6e0",
+        "address": "0x0040C6E0",
+        "size": 45,
+        "owner_source": "src/game/bullet_entity_clear_resource_list_0040c6e0.cpp"
+      },
+      {
+        "symbol": "asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
+        "address": "0x0040CEA0",
+        "size": 36,
+        "owner_source": "src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp"
+      },
+      {
+        "symbol": "asm_BulletEntity_SetAnimationVector_0040cf60",
+        "address": "0x0040CF60",
+        "size": 23,
+        "owner_source": "src/game/bullet_entity_set_animation_vector_0040cf60.cpp"
+      },
+      {
+        "symbol": "asm_BulletEntity_FindById_0040cf90",
+        "address": "0x0040CF90",
+        "size": 22,
+        "owner_source": "src/game/bullet_entity_find_by_id_0040cf90.cpp"
+      },
+      {
+        "symbol": "asm_BulletEntity_ReleaseResource_0040d680",
+        "address": "0x0040D680",
+        "size": 36,
+        "owner_source": "src/game/bullet_entity_release_resource_0040d680.cpp"
+      },
+      {
+        "symbol": "asm_FUN_0040d830_0040d830",
+        "address": "0x0040D830",
+        "size": 673,
+        "owner_source": "src/game/fun_0040d830_0040d830.cpp"
+      },
+      {
+        "symbol": "asm_FUN_0040cfb0_0040cfb0",
+        "address": "0x0040CFB0",
+        "size": 501,
+        "owner_source": "src/game/fun_0040cfb0_0040cfb0.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_Recovery_AdvancePolarMotion_0044c2a0",
+        "address": "0x0044C2A0",
+        "size": 171,
+        "owner_source": "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
+        "owner_kind": "asm"
+      }
+    ],
+    "src/game/player.cpp": [
+      {
+        "symbol": "asm_Recovery_InstallPairSetFlags_004055c0",
+        "address": "0x004055C0",
+        "size": 84,
+        "owner_source": "src/game/recovery_install_pair_set_flags_004055c0.cpp"
+      },
+      {
+        "symbol": "asm_FUN_00404530_00404530",
+        "address": "0x00404530",
+        "size": 119,
+        "owner_source": "src/game/fun_00404530_00404530.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_Player_ClearExpiredFlagsRetail_00405500",
+        "address": "0x00405500",
+        "size": 81,
+        "owner_source": "src/game/player_clear_expired_flags_retail_00405500.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_UpdatePlayer_00405750",
+        "address": "0x00405750",
+        "size": 223,
+        "owner_source": "src/game/update_player_00405750.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_InitializePlayer_00405860",
+        "address": "0x00405860",
+        "size": 397,
+        "owner_source": "src/game/initialize_player_00405860.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_Player_Draw_00405ac0",
+        "address": "0x00405AC0",
+        "size": 124,
+        "owner_source": "src/game/player_draw_00405ac0.cpp",
+        "owner_kind": "asm"
+      }
+    ],
+    "src/game/scheduler.cpp": [
+      {
+        "symbol": "asm_GameState_DispatchDummy_00420c00",
+        "address": "0x00420C00",
+        "size": 41,
+        "owner_source": "src/game/music_requests_00420a90.cpp"
+      },
+      {
+        "symbol": "asm_GameState_UpdateFrameMaximum_00421f60",
+        "address": "0x00421F60",
+        "size": 28,
+        "owner_source": "src/game/game_state_update_frame_maximum_00421f60.cpp"
+      },
+      {
+        "symbol": "asm_GameState_Unpause_00422c30",
+        "address": "0x00422C30",
+        "size": 74,
+        "owner_source": "src/game/game_state_unpause_00422c30.cpp"
+      },
+      {
+        "symbol": "asm_Scheduler_CreateAndRegister_0044a000",
+        "address": "0x0044A000",
+        "size": 43,
+        "owner_source": "src/game/scheduler_create_and_register_0044a000.cpp"
+      },
+      {
+        "symbol": "asm_Scheduler_CreateAndRegisterSecondary_0044a030",
+        "address": "0x0044A030",
+        "size": 43,
+        "owner_source": "src/game/scheduler_create_and_register_secondary_0044a030.cpp"
+      },
+      {
+        "symbol": "asm_GameState_DispatchAnimationSlot_0042c730",
+        "address": "0x0042C730",
+        "size": 27,
+        "owner_source": "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_GameState_DispatchAnimationSlotSecondary_0042c750",
+        "address": "0x0042C750",
+        "size": 27,
+        "owner_source": "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
+        "owner_kind": "asm"
+      }
+    ],
+    "src/game/score.cpp": [
+      {
+        "symbol": "asm_Input_UpdateKeyboardState_0044b010",
+        "address": "0x0044B010",
+        "size": 103,
+        "owner_source": "src/platform/keyboard_state.cpp"
+      },
+      {
+        "symbol": "asm_Input_NormalizeKeyboardState_0044b080",
+        "address": "0x0044B080",
+        "size": 75,
+        "owner_source": "src/platform/keyboard_state.cpp"
+      }
+    ],
+    "src/game/score_file.cpp": [
+      {
+        "symbol": "asm_FUN_00421fa0_00421fa0",
+        "address": "0x00421FA0",
+        "size": 316,
+        "owner_source": "src/game/fun_00421fa0_00421fa0.cpp",
+        "owner_kind": "asm"
+      },
+      {
+        "symbol": "asm_FUN_0042b030_0042b030",
+        "address": "0x0042B030",
+        "size": 423,
+        "owner_source": "src/game/fun_0042b030_0042b030.cpp",
+        "owner_kind": "asm"
+      }
+    ]
+  },
+  "polar_compilation": {
+    "source_sha256": "483c018b4dd5cff74c56c5abbf3be5ee84c9cbe6867395cd9b73f7801bf6debc",
+    "compiler_kind": "gcc-llvm-coff",
+    "compiler_profile": {
+      "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/compiler/gcc_x87_polar.json",
+      "sha256": "af6e35d340442a0c626b36fa48cf8b9ffc9491d87128adc286f11d1126f54a6e"
+    },
+    "compiler_tools": {
+      "gcc": {
+        "path": "/usr/bin/i686-w64-mingw32-g++",
+        "resolved_path": "/usr/bin/i686-w64-mingw32-g++",
+        "sha256": "0bf6128d4f161da3a8a9a9b480bbdaa4b403ebd2b65035e9819035284559f6cd"
+      },
+      "cc1plus": {
+        "path": "/usr/lib/gcc/i686-w64-mingw32/16.2.0/cc1plus",
+        "resolved_path": "/usr/lib/gcc/i686-w64-mingw32/16.2.0/cc1plus",
+        "sha256": "1b0d277fb325f46537ae645118bbeb81804beee8f46a72b57c4195d95aeab76a"
+      },
+      "llvm_mc": {
+        "path": "/usr/bin/llvm-mc",
+        "resolved_path": "/usr/bin/llvm-mc",
+        "sha256": "bba45da0c1b09df344127809f9adf7d55a03571b3a0ec2975a1e58d808917d96"
+      },
+      "host_cxx": {
+        "path": "/usr/bin/g++",
+        "resolved_path": "/usr/bin/g++",
+        "sha256": "ec99e5202f3f819997a480cb3cbc95505e07213be0ffe6a51f8900b91a5b716a"
+      },
+      "host_cc1plus": {
+        "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus",
+        "resolved_path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus",
+        "sha256": "8576390823ffa374373b0918bef305c1da0638148587689a5b4f0bd1aa11162d"
+      },
+      "host_as": {
+        "path": "/usr/bin/as",
+        "resolved_path": "/usr/bin/as",
+        "sha256": "e6a1297b03cf3318b6a0f889bdecbdd9d41201fc888b11e05e8acd2f7aa145fd"
+      },
+      "host_ld": {
+        "path": "/usr/bin/ld",
+        "resolved_path": "/usr/bin/ld",
+        "sha256": "239eadb638b144619992d527efbd85cb545977807cee349606b8ade9bc0a47aa"
+      },
+      "host_collect2": {
+        "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2",
+        "resolved_path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2",
+        "sha256": "d32bc494c707259e3ef7bf671ded789d6a25a211fa49e5476ade9e8ddd08f1e8"
+      }
+    },
+    "assembly_unchanged": true,
+    "post_emission_code_rewrites": 0,
+    "masked_bytes": 0,
+    "retail_executable_used_for_build": false
+  },
+  "whole_executable": {
+    "size": 487936,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "reference_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "direct_reference_comparison": true,
+    "changed_source_hashes_match_build": true,
+    "masked_bytes": 0,
+    "retail_executable_used_for_build": false,
+    "summary": {
+      "regions": {
+        "semantic": 1837,
+        "asm": 462,
+        "library": 325,
+        "data": 7,
+        "padding": 1771
+      },
+      "bytes": {
+        "semantic": 95927,
+        "asm": 226970,
+        "library": 66500,
+        "data": 7779,
+        "padding": 15496
+      }
+    }
+  }
+}

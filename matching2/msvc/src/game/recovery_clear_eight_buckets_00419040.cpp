@@ -8,27 +8,12 @@
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);   // 0x004524A1
 
-// One releasing chain node: the block to release, then the link to the next.
-struct ChainNode_00419040 {
-    void* block;
-    ChainNode_00419040* next;
-};
+#include "th10/game/resource_cleanup.hpp"
 
-// One bucket: a chain head.  The rest of the element lies outside this region.
-struct Bucket_00419040 {
-    ChainNode_00419040* head;
-    unsigned reserved_004[2];
-};
-
-struct Manager_00419040 {
-    unsigned char reserved_000[0x1C];
-    Bucket_00419040 primary[8];
-    Bucket_00419040 secondary[8];
-
-    __declspec(noinline) void ClearBuckets();
-};
-
-#pragma code_seg(".text$01accessor")
+#ifndef TH10_CLEAR_BUCKETS_CODE_SEG
+#define TH10_CLEAR_BUCKETS_CODE_SEG ".text$01accessor"
+#endif
+#pragma code_seg(TH10_CLEAR_BUCKETS_CODE_SEG)
 void Manager_00419040::ClearBuckets() {
     for (int index = 0; index < 8; ++index) {
         for (ChainNode_00419040* node = primary[index].head; node != 0; ) {

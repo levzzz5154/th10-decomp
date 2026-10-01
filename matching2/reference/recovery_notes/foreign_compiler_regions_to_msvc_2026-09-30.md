@@ -1,5 +1,10 @@
 # GCC/Clang regions moved back to the retail toolchain
 
+Historical port checkpoint: the polar setters have since returned to the pinned
+GCC path to satisfy the no-inline-assembly objective. Their current C++ bodies
+match all eight 30-byte regions. Other ports below remain in place. See
+[the later checkpoint](ecl_int_operand_and_polar_2026-09-30.md).
+
 2026-09-30. Ten sources were built by the pinned GCC or Clang profiles under
 `source_compilers`. Nine of them are now either toolkit library sections or
 MSVC 13.10 C++; each converted unit probes EXACT and the complete executable

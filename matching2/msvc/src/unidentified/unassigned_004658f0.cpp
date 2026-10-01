@@ -1,7 +1,7 @@
 
-extern "C" void __stdcall Init_00421f00(void* object);
+#include "th10/game/large_initialization_state_00421f00.hpp"
 extern "C" void __cdecl Register_00452e0a(void* entry);
-extern "C" char data_00491c28;
+extern "C" LargeInitializationState_00421f00 data_00491c28;
 #pragma code_seg(".text$03start")
 __declspec(noinline) void StartThread_004658f0() {
     Init_00421f00(&data_00491c28);

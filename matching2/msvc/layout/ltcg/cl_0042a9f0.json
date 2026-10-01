@@ -3,7 +3,9 @@
   "name": "cl_0042a9f0",
   "source": "src/unidentified/unassigned_0042a9f0.cpp",
   "driver": "layout/ltcg/cl_0042a9f0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/large_initialization_state_00421f00.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Configuration holder constructor compiled with native LTCG against the real defaults routine as a compiled ABI anchor.",
   "functions": [

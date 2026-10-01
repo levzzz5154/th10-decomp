@@ -1,5 +1,7 @@
 # ECL child spawn at `0x004500D0`
 
+Updated 2026-10-01: the complete 142-byte SpawnChild is now maintained exact C++ in `src/script/ecl_child_pair.cpp`. Native LTCG derives the private EDI parent convention from the genuine complete callee scope. The whole EXE remains exact. See [current recovery and verification](resource_cleanup_and_ecl_spawn_2026-10-01.md); the original standalone audit below is retained as history.
+
 ## Live Ghidra evidence
 
 Audited `th10.exe` function `FUN_004500d0` with decompilation, instruction

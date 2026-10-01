@@ -1,186 +1,52 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x0044DAD0, complete 213-byte restart. Native LTCG passes the stream in
+// EDI and emits plain RET; the exported spelling records the source prototype.
+#include "th10/game/sound_start_context.hpp"
+#include "../../layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp"
 
-// Complete typed candidate: reference/semantic_candidates/sound_stream_restart.cpp.
-// The saved ECX word is a local restoration flag, not an incoming parameter.
-// The final COM call is SetCurrentPosition(buffer, 0), returning its HRESULT.
-// See recovery_notes/sound_stream_restart_service_worker.md for the current
-// differential/integrated evidence. The native probe below is historical.
-
-// BLOCKED (D3505): closest_byte_count=37/213; first_diff=0x0044DAD0;
-// residual_class=private EDI receiver, restoration flag frame slot, EAX/ESI
-// helper arguments, and SetCurrentPosition stack/receiver setup.
-// variants_tested=standalone typed Streamer::Restart candidate (216-byte
-// extent, 37/213 equal, first diff at entry); live-Ghidra decompile, caller
-// 0x0043DDF0, and callees 0x0044D300/0x0044D110/SetFilePointer.
-// next_lever=native-LTCG schema2 cluster with the real 0x0043DDF0 caller,
-// 0x0044D300 and 0x0044D110, and the SetCurrentPosition edge co-compiled.
-
-// 0x0044DAD0..0x0044DBA4: Streamer_RestartRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_Streamer_RestartRetail_0044dad0() {
-    __asm {
-    L_0044dad0:
-        push ecx
-    L_0044dad1:
-        mov eax,dword ptr [edi+4]
-    L_0044dad4:
-        mov ecx,dword ptr [eax]
-    L_0044dad6:
-        push ebp
-    L_0044dad7:
-        xor ebp,ebp
-    L_0044dad9:
-        cmp ecx,ebp
-    L_0044dadb:
-        je asm_target_0044db9d
-    L_0044dae1:
-        cmp dword ptr [edi+0Ch],ebp
-    L_0044dae4:
-        je asm_target_0044db9d
-    L_0044daea:
-        push ebx
-    L_0044daeb:
-        push esi
-    L_0044daec:
-        mov dword ptr [edi+5Ch],ebp
-    L_0044daef:
-        mov dword ptr [edi+60h],ebp
-    L_0044daf2:
-        mov dword ptr [edi+64h],ebp
-    L_0044daf5:
-        mov dword ptr [edi+68h],ebp
-    L_0044daf8:
-        mov esi,dword ptr [eax]
-    L_0044dafa:
-        lea ebx,[esp+0Ch]
-    L_0044dafe:
-        call asm_Platform_RunInterface_0044d300
-    L_0044db03:
-        cmp eax,ebp
-    L_0044db05:
-        jl asm_target_0044db98
-    L_0044db0b:
-        cmp dword ptr [esp+0Ch],ebp
-    L_0044db0f:
-        je short L_0044db23
-    L_0044db11:
-        mov eax,dword ptr [edi+4]
-    L_0044db14:
-        mov ecx,dword ptr [eax]
-    L_0044db16:
-        push ebp
-    L_0044db17:
-        push ecx
-    L_0044db18:
-        mov eax,edi
-    L_0044db1a:
-        call asm_Streamer_FillBufferRetail_0044d110
-    L_0044db1f:
-        cmp eax,ebp
-    L_0044db21:
-        jl short L_0044db98
-    L_0044db23:
-        mov esi,dword ptr [edi+0Ch]
-    L_0044db26:
-        cmp dword ptr [esi+7Ch],ebp
-    L_0044db29:
-        je short L_0044db5b
-    L_0044db2b:
-        mov edx,dword ptr [esi+80h]
-    L_0044db31:
-        mov eax,dword ptr [esi+90h]
-    L_0044db37:
-        mov dword ptr [esi+84h],edx
-    L_0044db3d:
-        mov eax,dword ptr [eax+1Ch]
-    L_0044db40:
-        cmp eax,ebp
-    L_0044db42:
-        jle short L_0044db8c
-    L_0044db44:
-        mov dword ptr [esi+88h],eax
-    L_0044db4a:
-        mov edx,dword ptr [edi+4]
-    L_0044db4d:
-        mov eax,dword ptr [edx]
-    L_0044db4f:
-        mov ecx,dword ptr [eax]
-    L_0044db51:
-        push ebp
-    L_0044db52:
-        push eax
-    L_0044db53:
-        call dword ptr [ecx+34h]
-    L_0044db56:
-        pop esi
-    L_0044db57:
-        pop ebx
-    L_0044db58:
-        pop ebp
-    L_0044db59:
-        pop ecx
-    L_0044db5a:
-        ret
-    L_0044db5b:
-        mov eax,dword ptr [esi+8Ch]
-    L_0044db61:
-        cmp eax,ebp
-    L_0044db63:
-        je short L_0044db8c
-    L_0044db65:
-        mov ecx,dword ptr [esi+90h]
-    L_0044db6b:
-        mov edx,dword ptr [ecx+10h]
-    L_0044db6e:
-        mov ecx,dword ptr [data_004977a4]
-    L_0044db74:
-        push ebp
-    L_0044db75:
-        push ebp
-    L_0044db76:
-        add edx,ecx
-    L_0044db78:
-        push edx
-    L_0044db79:
-        push eax
-    L_0044db7a:
-        call dword ptr [data_004660c8]
-    L_0044db80:
-        mov eax,dword ptr [esi+90h]
-    L_0044db86:
-        mov ecx,dword ptr [eax+1Ch]
-    L_0044db89:
-        mov dword ptr [esi+8],ecx
-    L_0044db8c:
-        mov edx,dword ptr [edi+4]
-    L_0044db8f:
-        mov eax,dword ptr [edx]
-    L_0044db91:
-        mov ecx,dword ptr [eax]
-    L_0044db93:
-        push ebp
-    L_0044db94:
-        push eax
-    L_0044db95:
-        call dword ptr [ecx+34h]
-    L_0044db98:
-        pop esi
-    L_0044db99:
-        pop ebx
-    L_0044db9a:
-        pop ebp
-    L_0044db9b:
-        pop ecx
-    L_0044db9c:
-        ret
-    L_0044db9d:
-        mov eax,800401F0h
-    L_0044dba2:
-        pop ebp
-    L_0044dba3:
-        pop ecx
-    L_0044dba4:
-        ret
-    }
+typedef unsigned int (__stdcall* RestartSeekFile)(void*, int, int*, unsigned int);
+extern "C" {
+    extern RestartSeekFile data_004660c8;
+    extern unsigned int data_004977a4;
 }
+
+#pragma code_seg(".text$07restart")
+extern "C" __declspec(noinline) int __stdcall SoundStream_Restart_0044dad0(SoundStreamingState* stream) {
+    // Retail dereferences the array before checking its first buffer.
+    if (!stream->buffers[0] || !stream->reader)
+        return static_cast<int>(0x800401f0u);
+    stream->last_play_position = 0;
+    stream->played_bytes = 0;
+    stream->write_offset = 0;
+    stream->end_of_stream = 0;
+
+    unsigned int restored;
+    int result = reinterpret_cast<PlatformD300Entry*>(stream->buffers[0])->Run(&restored);
+    if (result < 0)
+        return result;
+    if (restored) {
+        result = SoundStreamFill(reinterpret_cast<SoundStream*>(stream), reinterpret_cast<WaveBuffer*>(stream->buffers[0]), 0);
+        if (result < 0)
+            return result;
+    }
+
+    // Use the existing native cursor view. Reload it after restore/refill,
+    // since callbacks can replace the stream reader and its metadata.
+    MusicCursor* reader = reinterpret_cast<MusicCursor*>(stream->reader);
+    if (reader->buffered) {
+        unsigned char* begin = reader->base;
+        MusicRecord* record = reader->record;
+        reader->position = begin;
+        if (record->end > 0)
+            reader->memory_end = static_cast<unsigned int>(record->end);
+    } else {
+        void* file = reader->file;
+        if (file) {
+            data_004660c8(file, static_cast<int>(reader->record->offset + data_004977a4), 0, 0);
+            reader->remaining = static_cast<unsigned int>(reader->record->end);
+        }
+    }
+    WaveSecondaryBuffer* buffer = stream->buffers[0];
+    return buffer->methods->set_position(buffer, 0);
+}
+
+#pragma code_seg()

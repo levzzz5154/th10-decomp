@@ -1,5 +1,7 @@
 # EclVm_StartChildRetail at 0x0044DF70
 
+Updated 2026-10-01: a complete readable native candidate now measures 549 bytes against retail's 550, with 416 differences including the extent. It supplies unselected compiler scope for the newly exact 142-byte SpawnChild. StartChild remains assembly-owned in the final EXE. The genuine int, float-value, and script resolver bodies are exact in that scope. See [current recovery and verification](resource_cleanup_and_ecl_spawn_2026-10-01.md). The earlier audit below predates this measured candidate.
+
 ## Decision
 
 Keep the 550-byte exact inline-assembly body while the semantic implementation is recovered as part of the ECL caller/resolver cluster. This is not an isolated `__stdcall` function: Ghidra's nominal prototype omits the live EAX receiver. No readable body has been measured against the retail bytes.

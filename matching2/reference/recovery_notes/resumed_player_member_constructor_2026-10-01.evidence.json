@@ -1,0 +1,1509 @@
+{
+  "scope": "Current wave10 literal whole executable and complete native routines; one new player constructor and an existing RNG context correction",
+  "whole_build": {
+    "scope": "Current whole EXE, source snapshot, and complete new native owners verified",
+    "manifest_sha256": "fed7e74b6ee8536d486678b16f37fa10b6faca3584267c2ba87d9c747a60c914",
+    "manifest_snapshot": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave10_regions_before_build.json",
+    "build_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/port-report.json",
+    "build_report_sha256": "7cfb2999647ebccbea57f4b42111cc10813bcb638822f48a3effcfe21fe27182",
+    "exe": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/th10.exe",
+    "exe_size": 487936,
+    "exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "whole_exe_literal_exact": true,
+    "source_hashes_current": true,
+    "source_file_count": 4045,
+    "summary": {
+      "regions": {
+        "semantic": 1899,
+        "asm": 404,
+        "library": 320,
+        "data": 7,
+        "padding": 1770
+      },
+      "bytes": {
+        "semantic": 104020,
+        "asm": 218928,
+        "library": 66450,
+        "data": 7779,
+        "padding": 15495
+      }
+    },
+    "new_functions": 31,
+    "new_semantic_bytes": 3559,
+    "new_native_clusters": 19,
+    "selected": [
+      {
+        "region": {
+          "name": "semantic_GameState_BeginFade_00404530",
+          "source": "src/game/fun_00404530_00404530.cpp",
+          "symbol": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
+          "address": "0x00404530",
+          "size": 119,
+          "kind": "semantic",
+          "owner": "0x00404530",
+          "previous_record": {
+            "name": "asm_FUN_00404530_00404530",
+            "source": "src/game/fun_00404530_00404530.cpp",
+            "symbol": "_asm_FUN_00404530_00404530",
+            "address": "0x00404530",
+            "size": 119,
+            "kind": "asm",
+            "owner": "0x00404530"
+          }
+        },
+        "complete_native_sha256": "3f94cf08f6752c41dc53baa25ab11d787db6b66976c3224232f26603e7a3bf8f",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/native_ascii_factory_0043c8b0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_PlayerUpdateCallback_00405840",
+          "source": "src/unidentified/FUN_00405840_00405840.cpp",
+          "symbol": "?PlayerUpdateCallback_00405840@@YIHPAX@Z",
+          "address": "0x00405840",
+          "size": 10,
+          "kind": "semantic",
+          "owner": "0x00405840",
+          "previous_record": {
+            "name": "asm_FUN_00405840_00405840",
+            "source": "src/unidentified/FUN_00405840_00405840.cpp",
+            "symbol": "_asm_FUN_00405840_00405840",
+            "address": "0x00405840",
+            "size": 10,
+            "kind": "asm",
+            "owner": "0x00405840"
+          }
+        },
+        "complete_native_sha256": "3d1ba67037f5e08082ea9ba2ef845d2ba4d1ced0e8f033db4ae3742a1a7fec7f",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/player_update_callback10/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_Player_Draw_00405ac0",
+          "source": "src/game/player_draw_00405ac0.cpp",
+          "symbol": "?Draw@PlayerUpdateState_00405750@@QAEHXZ",
+          "address": "0x00405AC0",
+          "size": 124,
+          "kind": "semantic",
+          "owner": "0x00405AC0",
+          "previous_record": {
+            "name": "asm_Player_Draw_00405ac0",
+            "source": "src/game/player_draw_00405ac0.cpp",
+            "symbol": "_asm_Player_Draw_00405ac0",
+            "address": "0x00405AC0",
+            "size": 124,
+            "kind": "asm",
+            "owner": "0x00405AC0"
+          }
+        },
+        "complete_native_sha256": "364a596efb37c054d809c0c73b760642d3532ae4aafcb3941c2e69d1f5d115e6",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/player_draw_and_collision_complete/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_CollisionCheck_00408100",
+          "source": "src/game/fun_00408100_00408100.cpp",
+          "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
+          "address": "0x00408100",
+          "size": 260,
+          "kind": "semantic",
+          "owner": "0x00408100",
+          "previous_record": {
+            "name": "asm_FUN_00408100_00408100",
+            "source": "src/game/fun_00408100_00408100.cpp",
+            "symbol": "_asm_FUN_00408100_00408100",
+            "address": "0x00408100",
+            "size": 260,
+            "kind": "asm",
+            "owner": "0x00408100"
+          }
+        },
+        "complete_native_sha256": "f099f1395e6458b13b4d35cbede812f4003e2be1a24600f8f238172139fe61bc",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/player_draw_and_collision_complete/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_CounterState_Create_0040a3c0",
+          "source": "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+          "symbol": "_asm_FUN_0040a3c0_0040a3c0",
+          "address": "0x0040A3C0",
+          "size": 67,
+          "kind": "semantic",
+          "owner": "0x0040A3C0",
+          "previous_record": {
+            "name": "asm_FUN_0040a3c0_0040a3c0",
+            "source": "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+            "symbol": "_asm_FUN_0040a3c0_0040a3c0",
+            "address": "0x0040A3C0",
+            "size": 67,
+            "kind": "asm",
+            "owner": "0x0040A3C0"
+          }
+        },
+        "complete_native_sha256": "b0c55a4c255b15c44f97e3f82239113df7c857deee6a344a7dc6147fa6b5dd5c",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/bullet_manager_load_scripts_0040ae70/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_EnemyManager_Destroy_0040d530",
+          "source": "src/game/fun_0040d530_0040d530.cpp",
+          "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+          "address": "0x0040D530",
+          "size": 300,
+          "kind": "semantic",
+          "owner": "0x0040D530",
+          "previous_record": {
+            "name": "asm_FUN_0040d530_0040d530",
+            "source": "src/game/fun_0040d530_0040d530.cpp",
+            "symbol": "_asm_FUN_0040d530_0040d530",
+            "address": "0x0040D530",
+            "size": 300,
+            "kind": "asm",
+            "owner": "0x0040D530"
+          }
+        },
+        "complete_native_sha256": "5b32093f768d49d2beb9c1bf8689f3f87e6ad3c89c4d0d9e90f7637250cce4dd",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/enemy_factory/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_EnemyManager_CreateRetail_0040d6b0",
+          "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+          "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+          "address": "0x0040D6B0",
+          "size": 95,
+          "kind": "semantic",
+          "owner": "0x0040D6B0",
+          "previous_record": {
+            "name": "asm_EnemyManager_CreateRetail_0040d6b0",
+            "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+            "symbol": "_asm_EnemyManager_CreateRetail_0040d6b0",
+            "address": "0x0040D6B0",
+            "size": 95,
+            "kind": "asm",
+            "owner": "0x0040D6B0"
+          }
+        },
+        "complete_native_sha256": "17c08edb9514ca78f1da0aa8c2fd0565f0db2f0a631738f35bc9e0d93c645103",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/enemy_factory/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_StageReadLine_00419f40",
+          "source": "src/script/script_text_reader.cpp",
+          "symbol": "_ReadLine@16",
+          "address": "0x00419F40",
+          "size": 260,
+          "kind": "semantic",
+          "owner": "0x00419F40",
+          "previous_record": {
+            "name": "asm_FUN_00419f40_00419f40",
+            "source": "src/script/script_text_reader.cpp",
+            "symbol": "_asm_FUN_00419f40_00419f40",
+            "address": "0x00419F40",
+            "size": 260,
+            "kind": "asm",
+            "owner": "0x00419F40"
+          }
+        },
+        "complete_native_sha256": "fce33c706918c5f1be75aad9baaebbaf91aa096e7c126ca74cfa5147460e9142",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/stage_reader_parser/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_TitleState_Create_0041fd00",
+          "source": "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp",
+          "symbol": "_asm_EnemySlot_CreateAndInitRetail_0041fd00",
+          "address": "0x0041FD00",
+          "size": 69,
+          "kind": "semantic",
+          "owner": "0x0041FD00",
+          "previous_record": {
+            "name": "asm_EnemySlot_CreateAndInitRetail_0041fd00",
+            "source": "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp",
+            "symbol": "_asm_EnemySlot_CreateAndInitRetail_0041fd00",
+            "address": "0x0041FD00",
+            "size": 69,
+            "kind": "asm",
+            "owner": "0x0041FD00"
+          }
+        },
+        "complete_native_sha256": "5e7fea8c37562dff1665104c0eeec9956e59c2d2c0dda6c4c0109a425af8ce50",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/title_worker_start_0041fac0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_LargeState_Initialize_00421f00",
+          "source": "src/game/recovery_initialize_large_state_00421f00.cpp",
+          "symbol": "_Init_00421f00@4",
+          "address": "0x00421F00",
+          "size": 71,
+          "kind": "semantic",
+          "owner": "0x00421F00",
+          "previous_record": {
+            "name": "asm_Recovery_InitializeLargeState_00421f00",
+            "source": "src/game/recovery_initialize_large_state_00421f00.cpp",
+            "symbol": "_asm_Recovery_InitializeLargeState_00421f00",
+            "address": "0x00421F00",
+            "size": 71,
+            "kind": "asm",
+            "owner": "0x00421F00"
+          }
+        },
+        "complete_native_sha256": "d70fcc80198d6e859a7fa0efc40493ea90e69bac1fc96b74cbe951a3c33b00ce",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/start_004658f0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_PlayerResetBlock_constructor_004246c0",
+          "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+          "symbol": "??0PlayerResetBlock@@QAE@XZ",
+          "address": "0x004246C0",
+          "size": 244,
+          "kind": "semantic",
+          "owner": "0x004246C0",
+          "previous_record": {
+            "name": "asm_FUN_004246c0_004246c0",
+            "source": "src/game/player_reset.cpp",
+            "symbol": "_asm_FUN_004246c0_004246c0",
+            "address": "0x004246C0",
+            "size": 244,
+            "kind": "asm",
+            "owner": "0x004246C0"
+          }
+        },
+        "complete_native_sha256": "3cb7342902c69e8581681565d5270dcc9b7f131bc311041118fcc84b146a9351",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/large_player/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_CreateLargeResourceState_00425020",
+          "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+          "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
+          "address": "0x00425020",
+          "size": 69,
+          "kind": "semantic",
+          "owner": "0x00425020",
+          "previous_record": {
+            "name": "asm_Recovery_CreateLargeResourceState_00425020",
+            "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+            "symbol": "_asm_Recovery_CreateLargeResourceState_00425020",
+            "address": "0x00425020",
+            "size": 69,
+            "kind": "asm",
+            "owner": "0x00425020"
+          }
+        },
+        "complete_native_sha256": "e52b769a322c35c21cb37b8ee6cb1e45d3530534a6d03cb9287a4ddc48ff74ec",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/large_player/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ScoreArchiveManager_Construct_0042ae60",
+          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+          "address": "0x0042AE60",
+          "size": 132,
+          "kind": "semantic",
+          "owner": "0x0042AE60",
+          "previous_record": {
+            "name": "asm_EffectManager_InitializePoolsRetail_0042ae60",
+            "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+            "symbol": "_asm_EffectManager_InitializePoolsRetail_0042ae60",
+            "address": "0x0042AE60",
+            "size": 132,
+            "kind": "asm",
+            "owner": "0x0042AE60"
+          }
+        },
+        "complete_native_sha256": "2632d5c243e11512951354b7e4b402183c99bd350f5e6f1d3f1e8eb697915467",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ScoreManager_Create_0042af20",
+          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "symbol": "?ScoreManager_Create_0042af20@@YGXXZ",
+          "address": "0x0042AF20",
+          "size": 97,
+          "kind": "semantic",
+          "owner": "0x0042AF20",
+          "previous_record": {
+            "name": "asm_FUN_0042af20_0042af20",
+            "source": "src/game/fun_0042af20_0042af20.cpp",
+            "symbol": "_asm_FUN_0042af20_0042af20",
+            "address": "0x0042AF20",
+            "size": 97,
+            "kind": "asm",
+            "owner": "0x0042AF20"
+          }
+        },
+        "complete_native_sha256": "a5e8f3a017b36066d964fc1bd0e64d373830ad572c1a797fa9051dff0c6c6755",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_HugeResource_Create_0042b660",
+          "source": "src/game/recovery_create_huge_resource_state_0042b660.cpp",
+          "symbol": "_asm_Recovery_CreateHugeResourceState_0042b660",
+          "address": "0x0042B660",
+          "size": 71,
+          "kind": "semantic",
+          "owner": "0x0042B660",
+          "previous_record": {
+            "name": "asm_Recovery_CreateHugeResourceState_0042b660",
+            "source": "src/game/recovery_create_huge_resource_state_0042b660.cpp",
+            "symbol": "_asm_Recovery_CreateHugeResourceState_0042b660",
+            "address": "0x0042B660",
+            "size": 71,
+            "kind": "asm",
+            "owner": "0x0042B660"
+          }
+        },
+        "complete_native_sha256": "0e3422b0efbd13c44c09fce6d6b2ba9216975b0c700a3ff868d65ab8c41d50d8",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/cl_0042b4d0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_EffectPool_Create_0042bf30",
+          "source": "src/unidentified/FUN_0042bf30_0042bf30.cpp",
+          "symbol": "_asm_FUN_0042bf30_0042bf30",
+          "address": "0x0042BF30",
+          "size": 67,
+          "kind": "semantic",
+          "owner": "0x0042BF30",
+          "previous_record": {
+            "name": "asm_FUN_0042bf30_0042bf30",
+            "source": "src/unidentified/FUN_0042bf30_0042bf30.cpp",
+            "symbol": "_asm_FUN_0042bf30_0042bf30",
+            "address": "0x0042BF30",
+            "size": 67,
+            "kind": "asm",
+            "owner": "0x0042BF30"
+          }
+        },
+        "complete_native_sha256": "327f5e5c96ecfacee4b35055a90e493f69a369508412d7f03ee6ede9514c25f0",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/cl_0042bbd0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ProgressManager_CreateAndStartWorker_0042cd50",
+          "source": "src/game/progress_worker.cpp",
+          "symbol": "_asm_ProgressManager_CreateAndStartWorker_0042cd50",
+          "address": "0x0042CD50",
+          "size": 96,
+          "kind": "semantic",
+          "owner": "0x0042CD50",
+          "previous_record": {
+            "name": "asm_ProgressManager_CreateAndStartWorker_0042cd50",
+            "source": "src/game/progress_worker.cpp",
+            "symbol": "_asm_ProgressManager_CreateAndStartWorker_0042cd50",
+            "address": "0x0042CD50",
+            "size": 96,
+            "kind": "asm",
+            "owner": "0x0042CD50"
+          }
+        },
+        "complete_native_sha256": "d4adb36116de8d5dd517708eae9a88236a1a4e19a9452ac853a7a3b471ee9685",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/worker_start_0044c1c0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_D3DResourceManager_Destroy_00438880",
+          "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+          "symbol": "??1D3DResourceManager_Destroy_00438880@@QAE@XZ",
+          "address": "0x00438880",
+          "size": 103,
+          "kind": "semantic",
+          "owner": "0x00438880",
+          "previous_record": {
+            "name": "asm_D3DResourceManager_Destroy_00438880",
+            "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+            "symbol": "_asm_D3DResourceManager_Destroy_00438880",
+            "address": "0x00438880",
+            "size": 103,
+            "kind": "asm",
+            "owner": "0x00438880"
+          }
+        },
+        "complete_native_sha256": "619fbf065fecca209980112162791e8b706727dfe25474990a0c125134ed202b",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/d3d_destroy_00438880/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_AsciiFactory_0043c8b0",
+          "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+          "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+          "address": "0x0043C8B0",
+          "size": 82,
+          "kind": "semantic",
+          "owner": null,
+          "previous_record": {
+            "name": "asm_AsciiManager_CreateRetail_0043c8b0",
+            "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+            "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
+            "address": "0x0043C8B0",
+            "size": 82,
+            "kind": "asm",
+            "owner": null
+          }
+        },
+        "complete_native_sha256": "ca758f1261dda73399a1ba52c8151b1a1e78e4d1a18d39678425666e432eb60d",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/native_ascii_factory_0043c8b0/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundStreamFill_0044d110",
+          "source": "src/game/sound_stream_fill_model.cpp",
+          "symbol": "_SoundStreamFill@12",
+          "address": "0x0044D110",
+          "size": 483,
+          "kind": "semantic",
+          "owner": "0x0044D110",
+          "previous_record": {
+            "name": "asm_Streamer_FillBufferRetail_0044d110",
+            "source": "src/platform/streamer_fill_buffer_retail_0044d110.cpp",
+            "symbol": "_asm_Streamer_FillBufferRetail_0044d110",
+            "address": "0x0044D110",
+            "size": 483,
+            "kind": "asm",
+            "owner": "0x0044D110"
+          }
+        },
+        "complete_native_sha256": "e96be572edc182ca43ab3a7dbcfc0ac5ad5eee69c9edb86af9988852f6ee3d3e",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_stream_fill/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundStreamStart_0044d440",
+          "source": "src/platform/sound_stream_start.cpp",
+          "symbol": "_SoundStreamStart@12",
+          "address": "0x0044D440",
+          "size": 145,
+          "kind": "semantic",
+          "owner": "0x0044D440",
+          "previous_record": {
+            "name": "asm_SoundStream_Start_0044d440",
+            "source": "src/platform/sound_stream_start.cpp",
+            "symbol": "_asm_SoundStream_Start_0044d440",
+            "address": "0x0044D440",
+            "size": 145,
+            "kind": "asm",
+            "owner": "0x0044D440"
+          }
+        },
+        "complete_native_sha256": "c82a978bc553d717e42229ceeb4ba44b5999c5f66f19dd4688f4838aecb7187d",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_start_context/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundStreamInitializeSingle_0044d6a0",
+          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
+          "address": "0x0044D6A0",
+          "size": 109,
+          "kind": "semantic",
+          "owner": "0x0044D6A0",
+          "previous_record": {
+            "name": "asm_Recovery_InitializeSingleInterface_0044d6a0",
+            "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+            "symbol": "_asm_Recovery_InitializeSingleInterface_0044d6a0",
+            "address": "0x0044D6A0",
+            "size": 109,
+            "kind": "asm",
+            "owner": "0x0044D6A0"
+          }
+        },
+        "complete_native_sha256": "6fb18cc3d899edbe095de1c6adf4fdac2d61b15fb4d31a06d0bf6625636d8808",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_interfaces/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundStreamRestart_0044dad0",
+          "source": "src/platform/streamer_restart_retail_0044dad0.cpp",
+          "symbol": "_SoundStream_Restart_0044dad0@4",
+          "address": "0x0044DAD0",
+          "size": 213,
+          "kind": "semantic",
+          "owner": "0x0044DAD0",
+          "previous_record": {
+            "name": "asm_Streamer_RestartRetail_0044dad0",
+            "source": "src/platform/streamer_restart_retail_0044dad0.cpp",
+            "symbol": "_asm_Streamer_RestartRetail_0044dad0",
+            "address": "0x0044DAD0",
+            "size": 213,
+            "kind": "asm",
+            "owner": "0x0044DAD0"
+          }
+        },
+        "complete_native_sha256": "bbb8d86f430ee99af854a2cac19b7a70da6dd2f1a07be4c69c0c89859f4a76f0",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_restart_context/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ArchiveCursor_Read_0044de10",
+          "source": "src/game/archive_cursor_read_model.cpp",
+          "symbol": "_ArchiveCursorRead@16",
+          "address": "0x0044DE10",
+          "size": 202,
+          "kind": "semantic",
+          "owner": "0x0044DE10",
+          "previous_record": {
+            "name": "asm_ArchiveCursor_ReadRetail_0044de10",
+            "source": "src/game/archive_cursor_read.cpp",
+            "symbol": "_asm_ArchiveCursor_ReadRetail_0044de10",
+            "address": "0x0044DE10",
+            "size": 202,
+            "kind": "asm",
+            "owner": "0x0044DE10"
+          }
+        },
+        "complete_native_sha256": "13a7096f3c1648c420bc47be6951bf3f06afa14b981ad08d6a7c6f17696f3931",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/archive_cursor_read/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundMemoryConstructionCleanup_00465310",
+          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "symbol": "_SoundMemoryNativeUnwind_00465310",
+          "address": "0x00465310",
+          "size": 11,
+          "kind": "semantic",
+          "owner": "0x00465310",
+          "previous_record": {
+            "name": "asm_Unwind_00465310_00465310",
+            "source": "src/unidentified/Unwind_00465310_00465310.cpp",
+            "symbol": "_asm_Unwind_00465310_00465310",
+            "address": "0x00465310",
+            "size": 11,
+            "kind": "asm",
+            "owner": "0x00465310"
+          }
+        },
+        "complete_native_sha256": "7c62c2d4a0df837429451ac9331dd967587049c351b9802d2258458813292a2b",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_interfaces/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_SoundMemoryFactoryHandler_0046531b",
+          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "symbol": "__ehhandler$?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
+          "address": "0x0046531B",
+          "size": 10,
+          "kind": "semantic",
+          "owner": "0x0046531B",
+          "previous_record": {
+            "name": "library_ehhandler$?_Init@?$numpunct@D@std@@IAEXABV_Locinfo@2@@Z_0046531b",
+            "source": "lib/libcpmt.lib/build/intel/mt_obj/locale.obj",
+            "symbol": "__ehhandler$?_Init@?$numpunct@D@std@@IAEXABV_Locinfo@2@@Z",
+            "address": "0x0046531B",
+            "size": 10,
+            "kind": "library",
+            "owner": "0x0046531B",
+            "library_section": ".text$x",
+            "library_section_number": 330,
+            "library_entry": "__ehhandler$?_Init@?$numpunct@D@std@@IAEXABV_Locinfo@2@@Z"
+          }
+        },
+        "complete_native_sha256": "b925c5d88fa14ef4b14917d557fccc37d5771cc92cdd50d569a83b9efafd8aa0",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_interfaces/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_D3DResourceManager_UnwindPrimary_00465350",
+          "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+          "symbol": "_D3DManagerUnwindPrimary_00465350",
+          "address": "0x00465350",
+          "size": 8,
+          "kind": "semantic",
+          "owner": "0x00465350",
+          "previous_record": {
+            "name": "asm_Unwind_00465350_00465350",
+            "source": "src/unidentified/Unwind_00465350_00465350.cpp",
+            "symbol": "_asm_Unwind_00465350_00465350",
+            "address": "0x00465350",
+            "size": 8,
+            "kind": "asm",
+            "owner": "0x00465350"
+          }
+        },
+        "complete_native_sha256": "441e61dee8bda28fbb8d86cd0efa74ab47b13479dfdb51d846ea0fe72f6793f1",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/d3d_destroy_00438880/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_D3DResourceManager_UnwindSecondary_00465358",
+          "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+          "symbol": "_D3DManagerUnwindSecondary_00465358",
+          "address": "0x00465358",
+          "size": 11,
+          "kind": "semantic",
+          "owner": "0x00465358",
+          "previous_record": {
+            "name": "asm_Unwind_00465358_00465358",
+            "source": "src/unidentified/Unwind_00465358_00465358.cpp",
+            "symbol": "_asm_Unwind_00465358_00465358",
+            "address": "0x00465358",
+            "size": 11,
+            "kind": "asm",
+            "owner": "0x00465358"
+          }
+        },
+        "complete_native_sha256": "db811a1866d6e070bb501aebee9ae37ec30519ea6c892250be9f1cb115b72eaa",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/d3d_destroy_00438880/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_D3DResourceManager_ExceptionHandler_00465363",
+          "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+          "symbol": "__ehhandler$??1D3DResourceManager_Destroy_00438880@@QAE@XZ",
+          "address": "0x00465363",
+          "size": 10,
+          "kind": "semantic",
+          "owner": "0x00465363",
+          "previous_record": {
+            "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465363",
+            "source": "lib/libcpmt.lib/build/intel/mt_obj/locale.obj",
+            "symbol": "_crt_libcpmt_locale_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+            "address": "0x00465363",
+            "size": 10,
+            "kind": "library",
+            "owner": "0x00465363",
+            "library_section": ".text$x",
+            "library_section_number": 411,
+            "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+          }
+        },
+        "complete_native_sha256": "6dc29ec7e685a4061c183ec873e214a7ca7094ef04338772cbfa51efad51c3b3",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/d3d_destroy_00438880/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ScoreManager_AllocationCleanup_004655a0",
+          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "symbol": "_ScoreManagerNativeUnwind_004655a0",
+          "address": "0x004655A0",
+          "size": 11,
+          "kind": "semantic",
+          "owner": "0x004655A0",
+          "previous_record": {
+            "name": "asm_Unwind_004655a0_004655a0",
+            "source": "src/unidentified/Unwind_004655a0_004655a0.cpp",
+            "symbol": "_asm_Unwind_004655a0_004655a0",
+            "address": "0x004655A0",
+            "size": 11,
+            "kind": "asm",
+            "owner": "0x004655A0"
+          }
+        },
+        "complete_native_sha256": "6f66af2ce0074676cf22460b36f6b14ab439485d379368952b2b3a359bbc0da1",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/report.json",
+        "different_bytes": 0
+      },
+      {
+        "region": {
+          "name": "semantic_ScoreManager_AllocationHandler_004655ab",
+          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "symbol": "__ehhandler$?ScoreManager_Create_0042af20@@YGXXZ",
+          "address": "0x004655AB",
+          "size": 10,
+          "kind": "semantic",
+          "owner": "0x004655AB",
+          "previous_record": {
+            "name": "library_ehhandler$?_Init@?$numpunct@G@std@@IAEXABV_Locinfo@2@@Z_004655ab",
+            "source": "lib/libcpmt.lib/build/intel/mt_obj/wlocale.obj",
+            "symbol": "__ehhandler$?_Init@?$numpunct@G@std@@IAEXABV_Locinfo@2@@Z",
+            "address": "0x004655AB",
+            "size": 10,
+            "kind": "library",
+            "owner": "0x004655AB",
+            "library_section": ".text$x",
+            "library_section_number": 845,
+            "library_entry": "__ehhandler$?_Init@?$numpunct@G@std@@IAEXABV_Locinfo@2@@Z"
+          }
+        },
+        "complete_native_sha256": "048625279df2c10a156396f1664ce5e68a76a7035ef4f78549a5dd2357873300",
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/report.json",
+        "different_bytes": 0
+      }
+    ],
+    "asm_to_cpp_regions": 28,
+    "asm_to_cpp_bytes": 3529,
+    "corrected_library_regions": 3,
+    "corrected_library_bytes": 30,
+    "fully_assembly_free": {
+      "regions": 1894,
+      "bytes": 99569
+    },
+    "instruction_bytes_changed": 0,
+    "masked_bytes": 0,
+    "reference_bytes_used_for_build": false,
+    "goal_complete": false,
+    "verifier_sha256": "8755c24602f152ac4b9f3432010b9558f6f740416ab8ab7c3eff4d80c674a71c"
+  },
+  "native_contexts": {
+    "scope": "Five current native clusters: complete bodies, explicit model comparisons",
+    "bodies": [
+      {
+        "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+        "address": "0x43c970",
+        "complete_native_extent": 396,
+        "complete_original_extent": 396,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "9e40ac9bc381add1419309a8693d4098703383a1c1eb36c294b74b11522acd3b",
+        "original_sha256": "9e40ac9bc381add1419309a8693d4098703383a1c1eb36c294b74b11522acd3b"
+      },
+      {
+        "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+        "address": "0x43c8b0",
+        "complete_native_extent": 82,
+        "complete_original_extent": 82,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "ca758f1261dda73399a1ba52c8151b1a1e78e4d1a18d39678425666e432eb60d",
+        "original_sha256": "ca758f1261dda73399a1ba52c8151b1a1e78e4d1a18d39678425666e432eb60d"
+      },
+      {
+        "symbol": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
+        "address": "0x404530",
+        "complete_native_extent": 119,
+        "complete_original_extent": 119,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_001.obj",
+        "native_sha256": "3f94cf08f6752c41dc53baa25ab11d787db6b66976c3224232f26603e7a3bf8f",
+        "original_sha256": "3f94cf08f6752c41dc53baa25ab11d787db6b66976c3224232f26603e7a3bf8f"
+      },
+      {
+        "symbol": "_Scheduler_RegisterPrimary@12",
+        "address": "0x449ae0",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec",
+        "original_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec"
+      },
+      {
+        "symbol": "_Scheduler_RegisterSecondary@12",
+        "address": "0x449b70",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4",
+        "original_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4"
+      },
+      {
+        "symbol": "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+        "address": "0x44a000",
+        "complete_native_extent": 43,
+        "complete_original_extent": 43,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "a222d605a8486a52189614058db5e90d08c88dd265211312a2a43bd4f7f6aed0",
+        "original_sha256": "a222d605a8486a52189614058db5e90d08c88dd265211312a2a43bd4f7f6aed0"
+      },
+      {
+        "symbol": "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+        "address": "0x44a030",
+        "complete_native_extent": 43,
+        "complete_original_extent": 43,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "d586063726c0cfc9c5de320189a3395991f51eaad8f1479fa0b84c0b90b1f9f3",
+        "original_sha256": "d586063726c0cfc9c5de320189a3395991f51eaad8f1479fa0b84c0b90b1f9f3"
+      },
+      {
+        "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+        "address": "0x40d6b0",
+        "complete_native_extent": 95,
+        "complete_original_extent": 95,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "17c08edb9514ca78f1da0aa8c2fd0565f0db2f0a631738f35bc9e0d93c645103",
+        "original_sha256": "17c08edb9514ca78f1da0aa8c2fd0565f0db2f0a631738f35bc9e0d93c645103"
+      },
+      {
+        "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+        "address": "0x40d530",
+        "complete_native_extent": 300,
+        "complete_original_extent": 300,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_005.obj",
+        "native_sha256": "5b32093f768d49d2beb9c1bf8689f3f87e6ad3c89c4d0d9e90f7637250cce4dd",
+        "original_sha256": "5b32093f768d49d2beb9c1bf8689f3f87e6ad3c89c4d0d9e90f7637250cce4dd"
+      },
+      {
+        "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+        "address": "0x40d280",
+        "complete_native_extent": 334,
+        "complete_original_extent": 334,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "44636abe27ea4ae8c9a663215e30975d088513ed3f607f397d7691c3de432551",
+        "original_sha256": "44636abe27ea4ae8c9a663215e30975d088513ed3f607f397d7691c3de432551"
+      },
+      {
+        "symbol": "_Scheduler_RegisterPrimary@12",
+        "address": "0x449ae0",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_001.obj",
+        "native_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec",
+        "original_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec"
+      },
+      {
+        "symbol": "_Scheduler_RegisterSecondary@12",
+        "address": "0x449b70",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_001.obj",
+        "native_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4",
+        "original_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4"
+      },
+      {
+        "symbol": "_Scheduler_Remove@8",
+        "address": "0x449f60",
+        "complete_native_extent": 114,
+        "complete_original_extent": 114,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_001.obj",
+        "native_sha256": "b6c63fce3caf5de3a6979693075ebb4aa0c5b0ad8158c2d2af336013c76e6b21",
+        "original_sha256": "b6c63fce3caf5de3a6979693075ebb4aa0c5b0ad8158c2d2af336013c76e6b21"
+      },
+      {
+        "symbol": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
+        "address": "0x40d680",
+        "complete_native_extent": 36,
+        "complete_original_extent": 36,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_002.obj",
+        "native_sha256": "cb24872443d6af3810b37a28e4cbbd46ba39252503bc3d9dd8829ead99d15941",
+        "original_sha256": "cb24872443d6af3810b37a28e4cbbd46ba39252503bc3d9dd8829ead99d15941"
+      },
+      {
+        "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+        "address": "0x447810",
+        "complete_native_extent": 242,
+        "complete_original_extent": 242,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_003.obj",
+        "native_sha256": "4b5c726a5ccfd93707e41e0a826a6bfb4d01b63251123ac884bfd3681dc7b3bb",
+        "original_sha256": "4b5c726a5ccfd93707e41e0a826a6bfb4d01b63251123ac884bfd3681dc7b3bb"
+      },
+      {
+        "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+        "address": "0x4493e0",
+        "complete_native_extent": 92,
+        "complete_original_extent": 92,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_004.obj",
+        "native_sha256": "a9a42d5ac94f0eaabfbcf277f043db7d1c183a3da6d472ec14488ca3a1960ad1",
+        "original_sha256": "a9a42d5ac94f0eaabfbcf277f043db7d1c183a3da6d472ec14488ca3a1960ad1"
+      },
+      {
+        "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+        "address": "0x44bea0",
+        "complete_native_extent": 128,
+        "complete_original_extent": 128,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_006.obj",
+        "native_sha256": "88fb7c4b6160b6a62813effb64653e1673704b0b17fb55a7a9e3179ef8992c4e",
+        "original_sha256": "88fb7c4b6160b6a62813effb64653e1673704b0b17fb55a7a9e3179ef8992c4e"
+      },
+      {
+        "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
+        "address": "0x425020",
+        "complete_native_extent": 69,
+        "complete_original_extent": 69,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "e52b769a322c35c21cb37b8ee6cb1e45d3530534a6d03cb9287a4ddc48ff74ec",
+        "original_sha256": "e52b769a322c35c21cb37b8ee6cb1e45d3530534a6d03cb9287a4ddc48ff74ec"
+      },
+      {
+        "symbol": "??0PlayerResetBlock@@QAE@XZ",
+        "address": "0x4246c0",
+        "complete_native_extent": 244,
+        "complete_original_extent": 244,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "3cb7342902c69e8581681565d5270dcc9b7f131bc311041118fcc84b146a9351",
+        "original_sha256": "3cb7342902c69e8581681565d5270dcc9b7f131bc311041118fcc84b146a9351"
+      },
+      {
+        "symbol": "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z",
+        "address": "0x404f30",
+        "complete_native_extent": 204,
+        "complete_original_extent": 202,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 178,
+        "length_difference": 2,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "bcf533fd42f82a0a1020cca6304bac3ba7f4c7d7ec89eb21c4b2bdfd939029f7",
+        "original_sha256": "a315bc4a4020d02fa2b151ba92b7ce1e74923a1670beef7afd512a43edcc4266"
+      },
+      {
+        "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+        "address": "0x426520",
+        "complete_native_extent": 229,
+        "complete_original_extent": 229,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "268307c702403c47448c68e49efadd0d668ace2f4f79b31d24be149456f21e96",
+        "original_sha256": "268307c702403c47448c68e49efadd0d668ace2f4f79b31d24be149456f21e96"
+      },
+      {
+        "symbol": "_LoadScript_0043e710@12",
+        "address": "0x43e710",
+        "complete_native_extent": 203,
+        "complete_original_extent": 203,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "ec498225f483c09d8325796dfd1cca72c6d69762eb3c5f61fe85fec03e4ab640",
+        "original_sha256": "ec498225f483c09d8325796dfd1cca72c6d69762eb3c5f61fe85fec03e4ab640"
+      },
+      {
+        "symbol": "_Scheduler_RegisterPrimary@12",
+        "address": "0x449ae0",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec",
+        "original_sha256": "bf70ba48cf45961564fc701b8b54b43d059178378df2fad00bcfb27744b3dfec"
+      },
+      {
+        "symbol": "_Scheduler_RegisterSecondary@12",
+        "address": "0x449b70",
+        "complete_native_extent": 131,
+        "complete_original_extent": 131,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4",
+        "original_sha256": "7fc612f1386105ce42d8f95fe4c6f4f431bde3838cb8ab23af989efa560656c4"
+      },
+      {
+        "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+        "address": "0x44bea0",
+        "complete_native_extent": 128,
+        "complete_original_extent": 128,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "88fb7c4b6160b6a62813effb64653e1673704b0b17fb55a7a9e3179ef8992c4e",
+        "original_sha256": "88fb7c4b6160b6a62813effb64653e1673704b0b17fb55a7a9e3179ef8992c4e"
+      },
+      {
+        "symbol": "_LargePlayerCallbackCreate@4",
+        "address": "0x449ed0",
+        "complete_native_extent": 74,
+        "complete_original_extent": 74,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 22,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "b0518c6c4a81c258cd22a49938d3b54c10076d673c5037b75b664bb7d6194656",
+        "original_sha256": "ba418a4cac6fd95983097a39b37ad50b81f11e2b701a4dbb5337a613e2406a8c"
+      },
+      {
+        "symbol": "_Archive_LoadFile@12",
+        "address": "0x44b360",
+        "complete_native_extent": 360,
+        "complete_original_extent": 360,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "e5c582565fa1219981c8e4b4ae48b1538af2fe669f954175b390c320f45b3d9a",
+        "original_sha256": "e5c582565fa1219981c8e4b4ae48b1538af2fe669f954175b390c320f45b3d9a"
+      },
+      {
+        "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+        "address": "0x44b810",
+        "complete_native_extent": 201,
+        "complete_original_extent": 201,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "e656c1d4e04a4fe1113db4f817c541683da7b711b7a93fbe82fb20b8fdf2cbbb",
+        "original_sha256": "e656c1d4e04a4fe1113db4f817c541683da7b711b7a93fbe82fb20b8fdf2cbbb"
+      },
+      {
+        "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
+        "address": "0x4247f0",
+        "complete_native_extent": 1234,
+        "complete_original_extent": 1435,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 1107,
+        "length_difference": -201,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "eb5393e82c8c5499cf94da2bf262874229e530706d200a4d658b533903836882",
+        "original_sha256": "d7afacbf04a5b593f0d22ba7d4878f94755ca85a00673ea8b17c22921ccfc607"
+      },
+      {
+        "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
+        "address": "0x44d6a0",
+        "complete_native_extent": 109,
+        "complete_original_extent": 109,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "6fb18cc3d899edbe095de1c6adf4fdac2d61b15fb4d31a06d0bf6625636d8808",
+        "original_sha256": "6fb18cc3d899edbe095de1c6adf4fdac2d61b15fb4d31a06d0bf6625636d8808"
+      },
+      {
+        "symbol": "_SoundMemoryNativeUnwind_00465310",
+        "address": "0x465310",
+        "complete_native_extent": 11,
+        "complete_original_extent": 11,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "CIL library: CIL module",
+        "native_sha256": "7c62c2d4a0df837429451ac9331dd967587049c351b9802d2258458813292a2b",
+        "original_sha256": "7c62c2d4a0df837429451ac9331dd967587049c351b9802d2258458813292a2b"
+      },
+      {
+        "symbol": "__ehhandler$?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
+        "address": "0x46531b",
+        "complete_native_extent": 10,
+        "complete_original_extent": 10,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "CIL library: CIL module",
+        "native_sha256": "b925c5d88fa14ef4b14917d557fccc37d5771cc92cdd50d569a83b9efafd8aa0",
+        "original_sha256": "b925c5d88fa14ef4b14917d557fccc37d5771cc92cdd50d569a83b9efafd8aa0"
+      },
+      {
+        "symbol": "_SoundStreamFill@12",
+        "address": "0x44d110",
+        "complete_native_extent": 483,
+        "complete_original_extent": 483,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "e96be572edc182ca43ab3a7dbcfc0ac5ad5eee69c9edb86af9988852f6ee3d3e",
+        "original_sha256": "e96be572edc182ca43ab3a7dbcfc0ac5ad5eee69c9edb86af9988852f6ee3d3e"
+      },
+      {
+        "symbol": "_ArchiveRewind@8",
+        "address": "0x44dd40",
+        "complete_native_extent": 194,
+        "complete_original_extent": 194,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "f05be32db963f80692faa1600ab2da92e30d10e6dfa7c2cbde634df8e602bc6c",
+        "original_sha256": "f05be32db963f80692faa1600ab2da92e30d10e6dfa7c2cbde634df8e602bc6c"
+      },
+      {
+        "symbol": "_ArchiveRead@16",
+        "address": "0x44de10",
+        "complete_native_extent": 202,
+        "complete_original_extent": 202,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "13a7096f3c1648c420bc47be6951bf3f06afa14b981ad08d6a7c6f17696f3931",
+        "original_sha256": "13a7096f3c1648c420bc47be6951bf3f06afa14b981ad08d6a7c6f17696f3931"
+      },
+      {
+        "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+        "address": "0x42ae60",
+        "complete_native_extent": 132,
+        "complete_original_extent": 132,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "2632d5c243e11512951354b7e4b402183c99bd350f5e6f1d3f1e8eb697915467",
+        "original_sha256": "2632d5c243e11512951354b7e4b402183c99bd350f5e6f1d3f1e8eb697915467"
+      },
+      {
+        "symbol": "?ScoreManager_Create_0042af20@@YGXXZ",
+        "address": "0x42af20",
+        "complete_native_extent": 97,
+        "complete_original_extent": 97,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "a5e8f3a017b36066d964fc1bd0e64d373830ad572c1a797fa9051dff0c6c6755",
+        "original_sha256": "a5e8f3a017b36066d964fc1bd0e64d373830ad572c1a797fa9051dff0c6c6755"
+      },
+      {
+        "symbol": "_ScoreManagerNativeUnwind_004655a0",
+        "address": "0x4655a0",
+        "complete_native_extent": 11,
+        "complete_original_extent": 11,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "CIL library: CIL module",
+        "native_sha256": "6f66af2ce0074676cf22460b36f6b14ab439485d379368952b2b3a359bbc0da1",
+        "original_sha256": "6f66af2ce0074676cf22460b36f6b14ab439485d379368952b2b3a359bbc0da1"
+      },
+      {
+        "symbol": "__ehhandler$?ScoreManager_Create_0042af20@@YGXXZ",
+        "address": "0x4655ab",
+        "complete_native_extent": 10,
+        "complete_original_extent": 10,
+        "selected": true,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "CIL library: CIL module",
+        "native_sha256": "048625279df2c10a156396f1664ce5e68a76a7035ef4f78549a5dd2357873300",
+        "original_sha256": "048625279df2c10a156396f1664ce5e68a76a7035ef4f78549a5dd2357873300"
+      },
+      {
+        "symbol": "_ScoreFile_Defaults_0042acb0@4",
+        "address": "0x42acb0",
+        "complete_native_extent": 268,
+        "complete_original_extent": 274,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 208,
+        "length_difference": -6,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "6a97fd1a6adf1d58609d53c58c1bd686679c487bd831fa4e5707414739057b94",
+        "original_sha256": "62905fe172fb66ca164498ab8964b6d0f9e8b09d783ceca25ebe2a1062712953"
+      },
+      {
+        "symbol": "@Recovery_InitializeRandomTable_0042add0@8",
+        "address": "0x42add0",
+        "complete_native_extent": 142,
+        "complete_original_extent": 142,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "5d9b0c581cec994bcee97198a6a86bee3f166939c548fd219defa9562fc35a54",
+        "original_sha256": "5d9b0c581cec994bcee97198a6a86bee3f166939c548fd219defa9562fc35a54"
+      },
+      {
+        "symbol": "?LoadSections@ScoreArchiveManager_0042ae60@@QAEHXZ",
+        "address": "0x42b030",
+        "complete_native_extent": 434,
+        "complete_original_extent": 423,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 312,
+        "length_difference": 11,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "9125b9a7ff633fe55ca187d7588016a1eb4b6e0f6583e648973fca2d893bb823",
+        "original_sha256": "1ebbd57ae84c54c0e98aa6e066ff8ab268815a644d00c809b9aab1aae0417f04"
+      },
+      {
+        "symbol": "?Dat_Decrypt@@YGPAEPAEHEEHH@Z",
+        "address": "0x44b0d0",
+        "complete_native_extent": 323,
+        "complete_original_extent": 323,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 97,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "290c434bc862367da2b21800c80ab440dfa365500dce567ed7ba2c72ea0b5e19",
+        "original_sha256": "2ec87a418db788d3c185af1b4f46bd96b92bcee77fdf880dd91ab17453b48ade"
+      },
+      {
+        "symbol": "?Archive_LoadFile@@YGPADPBDPAHH@Z",
+        "address": "0x44b360",
+        "complete_native_extent": 360,
+        "complete_original_extent": 360,
+        "selected": false,
+        "literal_exact": true,
+        "different_bytes_in_common_extent": 0,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "e5c582565fa1219981c8e4b4ae48b1538af2fe669f954175b390c320f45b3d9a",
+        "original_sha256": "e5c582565fa1219981c8e4b4ae48b1538af2fe669f954175b390c320f45b3d9a"
+      }
+    ],
+    "literal_exact_bytes": 6005,
+    "literal_exact_bodies": 38,
+    "nonmatching_unselected_models": [
+      {
+        "symbol": "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z",
+        "address": "0x404f30",
+        "complete_native_extent": 204,
+        "complete_original_extent": 202,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 178,
+        "length_difference": 2,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "bcf533fd42f82a0a1020cca6304bac3ba7f4c7d7ec89eb21c4b2bdfd939029f7",
+        "original_sha256": "a315bc4a4020d02fa2b151ba92b7ce1e74923a1670beef7afd512a43edcc4266"
+      },
+      {
+        "symbol": "_LargePlayerCallbackCreate@4",
+        "address": "0x449ed0",
+        "complete_native_extent": 74,
+        "complete_original_extent": 74,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 22,
+        "length_difference": 0,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "b0518c6c4a81c258cd22a49938d3b54c10076d673c5037b75b664bb7d6194656",
+        "original_sha256": "ba418a4cac6fd95983097a39b37ad50b81f11e2b701a4dbb5337a613e2406a8c"
+      },
+      {
+        "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
+        "address": "0x4247f0",
+        "complete_native_extent": 1234,
+        "complete_original_extent": 1435,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 1107,
+        "length_difference": -201,
+        "compiler_origin": "cluster.obj",
+        "native_sha256": "eb5393e82c8c5499cf94da2bf262874229e530706d200a4d658b533903836882",
+        "original_sha256": "d7afacbf04a5b593f0d22ba7d4878f94755ca85a00673ea8b17c22921ccfc607"
+      },
+      {
+        "symbol": "_ScoreFile_Defaults_0042acb0@4",
+        "address": "0x42acb0",
+        "complete_native_extent": 268,
+        "complete_original_extent": 274,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 208,
+        "length_difference": -6,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "6a97fd1a6adf1d58609d53c58c1bd686679c487bd831fa4e5707414739057b94",
+        "original_sha256": "62905fe172fb66ca164498ab8964b6d0f9e8b09d783ceca25ebe2a1062712953"
+      },
+      {
+        "symbol": "?LoadSections@ScoreArchiveManager_0042ae60@@QAEHXZ",
+        "address": "0x42b030",
+        "complete_native_extent": 434,
+        "complete_original_extent": 423,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 312,
+        "length_difference": 11,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "9125b9a7ff633fe55ca187d7588016a1eb4b6e0f6583e648973fca2d893bb823",
+        "original_sha256": "1ebbd57ae84c54c0e98aa6e066ff8ab268815a644d00c809b9aab1aae0417f04"
+      },
+      {
+        "symbol": "?Dat_Decrypt@@YGPAEPAEHEEHH@Z",
+        "address": "0x44b0d0",
+        "complete_native_extent": 323,
+        "complete_original_extent": 323,
+        "selected": false,
+        "literal_exact": false,
+        "different_bytes_in_common_extent": 97,
+        "length_difference": 0,
+        "compiler_origin": "source_000.obj",
+        "native_sha256": "290c434bc862367da2b21800c80ab440dfa365500dce567ed7ba2c72ea0b5e19",
+        "original_sha256": "2ec87a418db788d3c185af1b4f46bd96b92bcee77fdf880dd91ab17453b48ade"
+      }
+    ],
+    "new_recovery_bytes": 1289,
+    "unselected_contexts": [
+      {
+        "symbol": "_StageContextUpdate_00418190@4",
+        "native_address": "0x44a060",
+        "complete_native_extent": 1570,
+        "complete_original_extent": 1544,
+        "literal_exact": false,
+        "selected": false,
+        "recovered_bytes": 0
+      },
+      {
+        "symbol": "_EnemyFactoryCaller_0040a350@4",
+        "native_address": "0x40a350",
+        "complete_native_extent": 109,
+        "complete_original_extent": 101,
+        "literal_exact": false,
+        "selected": false,
+        "recovered_bytes": 0
+      },
+      {
+        "symbol": "_EnemyFactoryCaller_0040a350@4",
+        "native_address": "0x40a350",
+        "complete_native_extent": 109,
+        "complete_original_extent": 101,
+        "literal_exact": false,
+        "selected": false,
+        "recovered_bytes": 0
+      },
+      {
+        "symbol": "?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
+        "native_address": "0x44cbf0",
+        "complete_native_extent": 636,
+        "complete_original_extent": 651,
+        "literal_exact": false,
+        "selected": false,
+        "recovered_bytes": 0
+      }
+    ],
+    "artifact_hashes": {
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/native_ascii_factory_0043c8b0/native-e38bov3s/cluster.exe": "d7abb58ece0f3a0f1030e72b9b65c53823b22dbb2753490eb97fcaa8957394e2",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/native_ascii_factory_0043c8b0/native-e38bov3s/cluster.map": "2ef719c465d0038863361fe8bb2b4eefb8d58380d782ea160172225667d0f4b6",
+      "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+      "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+      "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+      "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+      "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/enemy_factory/native-d76z4_0u/cluster.exe": "a7a166a9dba9d351359163160a5ffcf57ca7b6623d86e12c49f5df73a65d44df",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/enemy_factory/native-d76z4_0u/cluster.map": "106f62cd60e22b94832d475be52b2eba8668d14cc5e212bf385f1f3d92d60251",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/large_player/native-q8js8dmz/cluster.exe": "e034e77ff1f7e924331569ff4a835d9d64968d21237ff3c05ff30c554ccbe156",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/large_player/native-q8js8dmz/cluster.map": "bf74740be4dd49b1392170126e33f54e81f6384fb9bf15bce19a3f7e870e6fc3",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_interfaces/native-0ru_8wmc/cluster.exe": "ffb26cffee8d322400b69fdf94d780a16d0c522e9cdabb62bad7c691c6243ef1",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/sound_interfaces/native-0ru_8wmc/cluster.map": "9af22b49b1cbef4e637824bb7257dcdbe314e867e46b1c94872c56a82c44c6b6",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/native-dtbc28ff/cluster.exe": "e70f6d8ab64bb2dc023c4ed51db83dd0ef74f673fd46047d43274bb7c980e50e",
+      "/home/levzzz/Games/th10Decomp/matching2/build/resumed_wave10_msvc_2026_10_01/clusters/score_manager_native/native-dtbc28ff/cluster.map": "2835a785a48288c8eabe590db3d205abb711bb40d2e2226b46bc204d439436f0"
+    },
+    "verifier_sha256": "0c629507e62755039b730c903d2b19d6abc97c280f870d7d6f4528239fcfe9cc"
+  },
+  "this_wave": {
+    "new_complete_cpp_routines": 1,
+    "new_cpp_bytes": 244,
+    "player_constructor": "0x004246C0",
+    "existing_rng_context_bytes": 142,
+    "rng_additional_recovery_credit": 0,
+    "sound_factory_additional_recovery_credit": 0,
+    "score_defaults_additional_recovery_credit": 0
+  },
+  "receipts": {
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave10_verified.json": "da7cadb27f4fd7afb6d8c65bcbca8b308e8818039943f8fe925d5576f1eb5433",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave10_native_verified.json": "bc7f12400a03e22d8245b6d7b59b7f0859d47ca802ce3a9077d62a8a4cee13f3",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave10_build.py": "8755c24602f152ac4b9f3432010b9558f6f740416ab8ab7c3eff4d80c674a71c",
+    "matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave10_native.py": "0c629507e62755039b730c903d2b19d6abc97c280f870d7d6f4528239fcfe9cc",
+    "matching2/build/experiments/native_large_player_member_ctors_2026_10_01/evidence.json": "1d8ada67255cde9d57185d7664ca744e5174e808220dcbf289d171c8e89bf765",
+    "matching2/build/experiments/native_large_player_member_ctors_2026_10_01/integration_recipe.json": "e6d4e8bb2aa9c319cb5028d4f6f8dd9c620953b82d1d265d2af0bf3989a009e5",
+    "matching2/build/experiments/native_score_rng_2026_10_01/native_evidence.json": "125cdc002ee21199ae2ef4c8596e62e9d87bcb5086e6c1e5b1139700ca70f38c",
+    "matching2/build/experiments/native_sound_factory_2026_10_01/evidence.json": "fc4b12ec076575ca9e15168e9a4721699c39746c66d33487dc511de759c3cb1e",
+    "matching2/build/experiments/native_score_defaults_2026_10_01/evidence.json": "ce4a3ea68f4aa4ee367cbb410a3dd73ffa9eb2f44f7d8f1e604ba83d48c16aaf"
+  },
+  "goal_complete": false
+}

@@ -1,5 +1,7 @@
 # Item field contact at 0x004266B0
 
+The historical attempt below is superseded by the [native recovery checkpoint](player_motion_and_field_contact_2026-10-01.md). The current complete 316-byte C++ body is `matching2/msvc/src/game/field_contact_004266b0.cpp`, with position in ECX, target in EDX, size in EAX, and plain RET. Both original callers retain their retail bytes. The maintained probe is exact, including unordered comparison behavior and the genuine activation call; the old stack-normalized attempt below does not describe current source or caller code.
+
 ## Recovery and ABI
 
 The 316-byte retail body has been represented as readable C++ in

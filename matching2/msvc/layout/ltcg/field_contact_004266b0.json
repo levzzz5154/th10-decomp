@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "name": "field_contact_004266b0",
+  "source": "src/game/field_contact_004266b0.cpp",
+  "driver": "layout/ltcg/field_contact_004266b0_context.cpp",
+  "headers": [
+    "include/th10/game/field_contact_004266b0.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete field contact with unordered-accepting overlap predicates and genuine external activation binding",
+  "functions": [
+    {
+      "name": "FieldContact004266B0",
+      "symbol": "@FieldContact004266B0@12",
+      "section": ".text$01contact",
+      "address": "0x004266B0",
+      "size": 316,
+      "actual_abi": "position ECX,target EDX,size EAX; resultEAX; plainRET"
+    }
+  ],
+  "context": {
+    "symbol": "_FieldContactContext@16",
+    "section": ".text$03context",
+    "address": "0x00426800",
+    "size": 55,
+    "description": "Synthetic pointer-array compiler context, unselected"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 153264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004267EC",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470be8",
+      "address": "0x00470BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ActivateField00426CF0@4",
+      "address": "0x00426CF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@41c00000",
+      "address": "0x00470BE8",
+      "value": 24.0
+    }
+  ]
+}

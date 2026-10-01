@@ -1,0 +1,588 @@
+{
+  "schema_version": 1,
+  "scope": "Integrated current sources validated against retained exact native probes; no fresh whole build.",
+  "current_manifest_sha256": "66b689363ef88df2c03f4c6bb4e7801be2595211725498142b146a1593539c7f",
+  "current_summary": {
+    "regions": {
+      "semantic": 1868,
+      "asm": 432,
+      "library": 323,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 100461,
+      "asm": 222457,
+      "library": 66480,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "fully_assembly_free": {
+    "regions": 1863,
+    "bytes": 96010
+  },
+  "new_complete_regions": 7,
+  "new_semantic_bytes": 514,
+  "former_asm_bytes": 494,
+  "former_library_bytes": 20,
+  "probes": [
+    {
+      "name": "resource_size",
+      "probe": "matching2/build/experiments/resource_size_2026_10_01/probe.json",
+      "probe_sha256": "bf4781eb7c3b86980ac29c4483f6d4620c8b4c964c13d0ac3f78894a14647452",
+      "mapped_current_inputs": [
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_size.json",
+          "main_path": "layout/ltcg/resource_size.json",
+          "sha256": "ab715b780aa57f91e2ba56da9df6b2b86a56e99de02707fcbabf95f802e2ac71"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/resource_get_file_size_retail_004358e0.cpp",
+          "main_path": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+          "sha256": "b42dcb4fd1530b1cbc7ccb9bb4e7f965a7e421c23744d582f9a325417ed29f67"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/dat_archive_find_size_00434ef0.cpp",
+          "main_path": "src/archive/dat_archive_find_size_00434ef0.cpp",
+          "sha256": "6eaf6d7b82c8e41daa89287c2edfad941fe5b2994c3b20806769c080d8a3b557"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/archive/dat_archive_types.hpp",
+          "main_path": "include/th10/archive/dat_archive_types.hpp",
+          "sha256": "0ded9ea20ed0d02f92e60b94a617a693bd358baaf20fa77498413227bc0ba3bb"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp",
+          "main_path": "include/th10/platform/file.hpp",
+          "sha256": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp",
+          "main_path": "include/th10/platform/windows_types.hpp",
+          "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_size_file.hpp",
+          "main_path": "layout/ltcg/resource_size_file.hpp",
+          "sha256": "d0b2305d70748ec9da2ae04791f3a355741150d93bb193d51f51e7e504c20326"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_size_context.cpp",
+          "main_path": "layout/ltcg/resource_size_context.cpp",
+          "sha256": "2b552017ec1424e722671eeaaa396dfedc90489150ea78db660eb89f04201cdd"
+        }
+      ],
+      "selected_complete_regions": [
+        {
+          "region": {
+            "name": "semantic_Resource_GetFileSize_004358e0",
+            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "symbol": "?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+            "address": "0x004358E0",
+            "size": 190,
+            "kind": "semantic",
+            "owner": "0x004358E0",
+            "previous_record": {
+              "name": "asm_Resource_GetFileSizeRetail_004358e0",
+              "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+              "symbol": "_asm_Resource_GetFileSizeRetail_004358e0",
+              "address": "0x004358E0",
+              "size": 190,
+              "kind": "asm",
+              "owner": "0x004358E0"
+            }
+          },
+          "complete_native_sha256": "5b84cad8670d602faf30ce71c624b7045f455b29017b6eaeec63d5fed13d39df",
+          "different_bytes": 0
+        },
+        {
+          "region": {
+            "name": "semantic_Resource_GetFileSize_UnwindFile_00465380",
+            "symbol": "_ResourceSizeUnwind_00465380",
+            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "address": "0x465380",
+            "size": 8,
+            "kind": "semantic",
+            "owner": "0x004358E0",
+            "previous_record": {
+              "name": "asm_Unwind_00465380_00465380",
+              "source": "src/unidentified/Unwind_00465380_00465380.cpp",
+              "symbol": "_asm_Unwind_00465380_00465380",
+              "address": "0x00465380",
+              "size": 8,
+              "kind": "asm",
+              "owner": "0x00465380"
+            }
+          },
+          "complete_native_sha256": "b32609a6fe071f554a5c080badd060dab393cbff7cdd56ad66c4c327124e6c9f",
+          "different_bytes": 0
+        },
+        {
+          "region": {
+            "name": "semantic_Resource_GetFileSize_ExceptionHandler_00465388",
+            "symbol": "__ehhandler$?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "address": "0x465388",
+            "size": 10,
+            "kind": "semantic",
+            "owner": "0x004358E0",
+            "previous_record": {
+              "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_00465388",
+              "source": "lib/libcpmt.lib/build/intel/mt_obj/locale0.obj",
+              "symbol": "_crt_libcpmt_locale0_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+              "address": "0x00465388",
+              "size": 10,
+              "kind": "library",
+              "owner": "0x00465388",
+              "library_section": ".text$x",
+              "library_section_number": 186,
+              "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+            }
+          },
+          "complete_native_sha256": "521a3855fb949e3f0e1272f414653ce44b5a1abb36c674aba4602457d5a2ea0b",
+          "different_bytes": 0
+        }
+      ],
+      "unselected_anchors": [
+        {
+          "address": "0x434ef0",
+          "size": 51,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_DatArchive_FindSize_00434ef0",
+            "source": "src/archive/dat_archive_find_size_00434ef0.cpp",
+            "symbol": "?DatArchive_FindSize@@YGIPAUDatArchive@@PBD@Z",
+            "address": "0x00434EF0",
+            "size": 51,
+            "kind": "semantic",
+            "owner": "0x00434EF0"
+          }
+        },
+        {
+          "address": "0x435340",
+          "size": 46,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_q_q_1FileHandle_00435340",
+            "source": "src/platform/file.cpp",
+            "symbol": "??1FileHandle@@UAE@XZ",
+            "address": "0x00435340",
+            "size": 46,
+            "relocations": [
+              {
+                "offset": 11,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "??_7FileHandle@@6B@",
+                "original_operand": "30f24600",
+                "original_target": "0x0046F230"
+              },
+              {
+                "offset": 20,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "__imp__CloseHandle@4",
+                "original_operand": "cc604600",
+                "original_target": "0x004660CC"
+              },
+              {
+                "offset": 40,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "??_7FileInterface@@6B@",
+                "original_operand": "10f24600",
+                "original_target": "0x0046F210"
+              }
+            ],
+            "kind": "semantic",
+            "previous_record": {
+              "name": "asm_FileHandle_OpenRetail_00435370",
+              "source": "src/platform/file.cpp",
+              "symbol": "_asm_FileHandle_OpenRetail_00435370",
+              "address": "0x00435340",
+              "size": 46,
+              "kind": "asm",
+              "owner": null
+            }
+          }
+        }
+      ],
+      "unselected_native_data": [
+        {
+          "section": ".xdata$x",
+          "address": "0x00471464",
+          "size": 36,
+          "sha256": "54a72020772802cb3c998d93bb53e1d5a2e5982085aaab9b2f5e78fc39ec6523",
+          "verified": true,
+          "selected": false,
+          "file_offset": 457828,
+          "bytes_hex": "ffffffff8053460020059319010000006414470000000000000000000000000000000000",
+          "recovered_code_bytes": 0
+        }
+      ],
+      "native_pe_sha256": "ebfd7e25cab4d6ee56e407b50996c81e8cf39e602c355af23ee3599d7aa04beb",
+      "native_map_sha256": "883d26f2b70eb80b71c796f2b67a46b3538dadfa7ab5003b29ba9ac426642c26"
+    },
+    {
+      "name": "resource_load",
+      "probe": "matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/probe.json",
+      "probe_sha256": "5746afab7bff5d66aad2554d4146531078330c34b0c5122d2a2c5c2ff0089e82",
+      "mapped_current_inputs": [
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/layout/ltcg/resource_load.json",
+          "main_path": "layout/ltcg/resource_load.json",
+          "sha256": "736b93e75d35abef9bdff3ca62d5be14ec0fb7a8449629edd937ed517c9073bb"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/src/archive/resource_load_00435800.cpp",
+          "main_path": "src/archive/resource_load_00435800.cpp",
+          "sha256": "936216ca64742b4b8b5de93e5bf6699872c979b3e9162314dc2f575e171cbc95"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/layout/ltcg/resource_load_lifetime.cpp",
+          "main_path": "layout/ltcg/resource_load_lifetime.cpp",
+          "sha256": "1dfeef9ca18ab92de6205d96c3f548f09bca6ce7c6f625179b549a9036cd813f"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/layout/ltcg/resource_load_buffer_caller.cpp",
+          "main_path": "layout/ltcg/resource_load_buffer_caller.cpp",
+          "sha256": "f37c7cb184d941c9a553ca69ae0fa91cf286ae34708f5800eb4014a4220b7f4b"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/include/th10/archive/dat_archive_types.hpp",
+          "main_path": "include/th10/archive/dat_archive_types.hpp",
+          "sha256": "0ded9ea20ed0d02f92e60b94a617a693bd358baaf20fa77498413227bc0ba3bb"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/include/th10/platform/file.hpp",
+          "main_path": "include/th10/platform/file.hpp",
+          "sha256": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/include/th10/platform/windows_types.hpp",
+          "main_path": "include/th10/platform/windows_types.hpp",
+          "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/include/th10/platform/memory_file.hpp",
+          "main_path": "include/th10/platform/memory_file.hpp",
+          "sha256": "ef9f7763e206270fc1b6681da40c94c68739a99f20da706ae761d5edcb526f03"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/layout/ltcg/resource_load_context.cpp",
+          "main_path": "layout/ltcg/resource_load_context.cpp",
+          "sha256": "701d2b7ee89729ae52955de3a49653df55964fabbffaa1775ef3e606c1f99302"
+        }
+      ],
+      "selected_complete_regions": [
+        {
+          "region": {
+            "name": "semantic_ResourceLoad_00435800",
+            "source": "src/archive/resource_load_00435800.cpp",
+            "symbol": "?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+            "address": "0x00435800",
+            "size": 214,
+            "kind": "semantic",
+            "owner": "0x00435800",
+            "previous_record": {
+              "name": "asm_FUN_00435800_00435800",
+              "source": "src/archive/resource_manager.cpp",
+              "symbol": "_asm_FUN_00435800_00435800",
+              "address": "0x00435800",
+              "size": 214,
+              "kind": "asm",
+              "owner": "0x00435800"
+            }
+          },
+          "complete_native_sha256": "341b14ad3552217b4a490128c9a9dd965b87a21ad89acca84abd2a4c9c127141",
+          "different_bytes": 0
+        },
+        {
+          "region": {
+            "name": "semantic_ResourceLoadUnwind_004653a0",
+            "source": "src/archive/resource_load_00435800.cpp",
+            "symbol": "_ResourceLoadUnwind_004653a0",
+            "address": "0x004653A0",
+            "size": 8,
+            "kind": "semantic",
+            "owner": "0x00435800",
+            "previous_record": {
+              "name": "asm_Unwind_004653a0_004653a0",
+              "source": "src/unidentified/Unwind_004653a0_004653a0.cpp",
+              "symbol": "_asm_Unwind_004653a0_004653a0",
+              "address": "0x004653A0",
+              "size": 8,
+              "kind": "asm",
+              "owner": "0x004653A0"
+            }
+          },
+          "complete_native_sha256": "bde3e85526f579fd31dd217e904f0cc874a7d58705d4687c2c32b48ed397319d",
+          "different_bytes": 0
+        },
+        {
+          "region": {
+            "name": "semantic_ResourceLoadExceptionHandler_004653a8",
+            "source": "src/archive/resource_load_00435800.cpp",
+            "symbol": "__ehhandler$?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+            "address": "0x004653A8",
+            "size": 10,
+            "kind": "semantic",
+            "owner": "0x00435800",
+            "previous_record": {
+              "name": "library_ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z_004653a8",
+              "source": "lib/libcpmt.lib/build/intel/mt_obj/string.obj",
+              "symbol": "_crt_libcpmt_string_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z",
+              "address": "0x004653A8",
+              "size": 10,
+              "kind": "library",
+              "owner": "0x004653A8",
+              "library_section": ".text$x",
+              "library_section_number": 102,
+              "library_entry": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z"
+            }
+          },
+          "complete_native_sha256": "412bd17a8e82e5bb35b4d2492b5c3bba0464cbe2745b0849091aa968c91ac57c",
+          "different_bytes": 0
+        }
+      ],
+      "unselected_anchors": [
+        {
+          "address": "0x435340",
+          "size": 46,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_q_q_1FileHandle_00435340",
+            "source": "src/platform/file.cpp",
+            "symbol": "??1FileHandle@@UAE@XZ",
+            "address": "0x00435340",
+            "size": 46,
+            "relocations": [
+              {
+                "offset": 11,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "??_7FileHandle@@6B@",
+                "original_operand": "30f24600",
+                "original_target": "0x0046F230"
+              },
+              {
+                "offset": 20,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "__imp__CloseHandle@4",
+                "original_operand": "cc604600",
+                "original_target": "0x004660CC"
+              },
+              {
+                "offset": 40,
+                "type": "IMAGE_REL_I386_DIR32",
+                "symbol": "??_7FileInterface@@6B@",
+                "original_operand": "10f24600",
+                "original_target": "0x0046F210"
+              }
+            ],
+            "kind": "semantic",
+            "previous_record": {
+              "name": "asm_FileHandle_OpenRetail_00435370",
+              "source": "src/platform/file.cpp",
+              "symbol": "_asm_FileHandle_OpenRetail_00435370",
+              "address": "0x00435340",
+              "size": 46,
+              "kind": "asm",
+              "owner": null
+            }
+          }
+        },
+        {
+          "address": "0x00436400",
+          "size": 46,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_Open_at_BufferFile_00436400",
+            "source": "src/platform/buffer_file_open.cpp",
+            "symbol": "?Open@BufferFile@@UAEEPBD0@Z",
+            "address": "0x00436400",
+            "size": 46,
+            "relocations": [
+              {
+                "offset": 13,
+                "type": "IMAGE_REL_I386_REL32",
+                "symbol": "?Load@ResourcePath@@QAEPAEH@Z",
+                "original_operand": "eff3ffff",
+                "original_target": "0x00435800"
+              },
+              {
+                "offset": 23,
+                "type": "IMAGE_REL_I386_REL32",
+                "symbol": "?GetFileSize@ResourcePath@@QAEIXZ",
+                "original_operand": "c5f4ffff",
+                "original_target": "0x004358E0"
+              }
+            ],
+            "kind": "semantic",
+            "owner": "0x00436400"
+          }
+        }
+      ],
+      "unselected_native_data": [
+        {
+          "section": ".xdata$x",
+          "address": "0x00471488",
+          "size": 36,
+          "sha256": "6005e9fc5e957d883df3747f74a70c64634f9f600bdaf7c234a71267879d9dff",
+          "verified": true,
+          "selected": false,
+          "file_offset": 457864,
+          "bytes_hex": "ffffffffa053460020059319010000008814470000000000000000000000000000000000",
+          "recovered_code_bytes": 0
+        }
+      ],
+      "native_pe_sha256": "94cf8c072217545c5a161dd7a496aaa3ed9f0b450c992c7f8d1e5c54305b4144",
+      "native_map_sha256": "681309ddfc8fb47a0889c787ab296063ee917a7e249803c1c8996818f2fae4c3"
+    },
+    {
+      "name": "ascii_overlay_draw_0043c500",
+      "probe": "matching2/build/experiments/subagent_overlay_draw_2026_10_01/production_probe.json",
+      "probe_sha256": "43f10f9bda05506e04f03d8f5d58f1af1036bd7b72060061d657ab63931ae6f8",
+      "mapped_current_inputs": [
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/layout/ltcg/ascii_overlay_draw_0043c500.json",
+          "main_path": "layout/ltcg/ascii_overlay_draw_0043c500.json",
+          "sha256": "869dd8b370f1d6c9e436d4d44ba6f316ee149c44f9ea3ac16f31e98a7c4929f1"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/src/render/fun_0043c500_0043c500.cpp",
+          "main_path": "src/render/fun_0043c500_0043c500.cpp",
+          "sha256": "42468e50114b8f89e9fb0dfa06bd8022e8678a0767901b17cf331ac229c09ccf"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/src/render/special_quad.cpp",
+          "main_path": "src/render/special_quad.cpp",
+          "sha256": "a24fdfd34aed9c00078915b6dcc6a95ed546430ea88ea96e8399962d8966cd14"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/src/render/anm_batch_flush.cpp",
+          "main_path": "src/render/anm_batch_flush.cpp",
+          "sha256": "5b334a3349f76d2b535047d981df3c2a54c44d09f66cca7386c4e07221376f77"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/include/th10/render/quad_batch.hpp",
+          "main_path": "include/th10/render/quad_batch.hpp",
+          "sha256": "de09e3dc19eb0702e34f4548176be34d7118e4d6a3210c9602d159a010b79e04"
+        },
+        {
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/layout/ltcg/ascii_overlay_draw_context.cpp",
+          "main_path": "layout/ltcg/ascii_overlay_draw_context.cpp",
+          "sha256": "51687deedbc5078d71697a77af44472a15a47566b1328b045df53bf701b7c322"
+        }
+      ],
+      "selected_complete_regions": [
+        {
+          "region": {
+            "name": "semantic_AsciiOverlay_Draw_0043c500",
+            "source": "src/render/fun_0043c500_0043c500.cpp",
+            "symbol": "?Draw@AsciiOverlay_0043C500@@QAEHXZ",
+            "address": "0x0043C500",
+            "size": 74,
+            "kind": "semantic",
+            "owner": "0x0043C500",
+            "previous_record": {
+              "name": "asm_FUN_0043c500_0043c500",
+              "source": "src/render/fun_0043c500_0043c500.cpp",
+              "symbol": "_asm_FUN_0043c500_0043c500",
+              "address": "0x0043C500",
+              "size": 74,
+              "kind": "asm",
+              "owner": "0x0043C500"
+            }
+          },
+          "complete_native_sha256": "c1adff75a07c3b8c4a9ca3bd287d253b57f984dedb4a00c90af800725438b975",
+          "different_bytes": 0
+        }
+      ],
+      "unselected_anchors": [
+        {
+          "address": "0x0043BDA0",
+          "size": 483,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_DrawSolidQuad_0043bda0",
+            "source": "src/render/special_quad.cpp",
+            "symbol": "?DrawSolidQuad@@YGHPBUScreenRect@@I@Z",
+            "address": "0x0043BDA0",
+            "size": 483,
+            "kind": "semantic",
+            "owner": "0x0043BDA0",
+            "previous_record": {
+              "name": "asm_FUN_0043bda0_0043bda0",
+              "source": "src/render/special_quad.cpp",
+              "symbol": "_asm_FUN_0043bda0_0043bda0",
+              "address": "0x0043BDA0",
+              "size": 483,
+              "kind": "asm",
+              "owner": "0x0043BDA0"
+            }
+          }
+        },
+        {
+          "address": "0x00442F50",
+          "size": 133,
+          "complete_native_exact": true,
+          "selected": false,
+          "maintained_owner": {
+            "name": "semantic_AnimationManager_FlushQuadBatch_00442f50",
+            "source": "src/render/anm_batch_flush.cpp",
+            "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+            "address": "0x00442F50",
+            "size": 133,
+            "kind": "semantic",
+            "owner": "0x00442F50",
+            "previous_record": {
+              "name": "asm_AnimationManager_FlushQuadBatch_00442f50",
+              "source": "src/render/anm_batch_flush.cpp",
+              "symbol": "_asm_AnimationManager_FlushQuadBatch_00442f50",
+              "address": "0x00442F50",
+              "size": 133,
+              "kind": "asm",
+              "owner": "0x00442F50"
+            }
+          }
+        }
+      ],
+      "unselected_native_data": [],
+      "native_pe_sha256": "6235cd9050c45d6ea602e01941926b0dbc9fd6e9aeb6faa9c1cf0a45b1fa337f",
+      "native_map_sha256": "bfe9bc5058393cabe06e494d60f865ce19c946250e66c242f8ff0525e1d0de4d"
+    }
+  ],
+  "project_validation": {
+    "regions": 4400,
+    "manifest_translation_units": 2084,
+    "native_clusters": 819
+  },
+  "historical_whole_build": {
+    "size": 487936,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "literal_exact": true,
+    "report_sha256": "c8f9be70af41495b435889609bd034342e76522e666034c8d75a31608785f2c7",
+    "source_snapshot_current": false,
+    "changed_or_removed_snapshot_paths": [
+      "regions.json",
+      "src/archive/resource_get_file_size_retail_004358e0.cpp",
+      "src/archive/resource_manager.cpp",
+      "src/render/fun_0043c500_0043c500.cpp",
+      "src/unidentified/Unwind_00465380_00465380.cpp",
+      "src/unidentified/Unwind_004653a0_004653a0.cpp"
+    ]
+  },
+  "current_whole_build_verified": false,
+  "pending": [
+    "Fresh native compiler and whole-project build after Wine becomes available.",
+    "ArchiveCursor_Read202 ordinary production probe after context bound100 to90 correction."
+  ],
+  "limitations": {
+    "wine": "wineserver bind: Operation not permitted",
+    "ghidra": "MCP tool call requires approval, but approval policy is never"
+  },
+  "verifier_sha256": "073a5ba7a240e2c28f870e08cea4b3c51720ab32cc648e40d811c813104483c0"
+}

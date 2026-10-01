@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "ecl_float_operand_recovery",
+  "source": "src/script/ecl_resolve_float_operand_0044fe40.cpp",
+  "driver": "layout/ltcg/ecl_float_operand_recovery_context.cpp",
+  "headers": [
+    "include/th10/script/ecl_float_values.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "ECL float operand resolution compiled with native LTCG to reproduce the EAX VM, ECX selector and x87 result.",
+  "functions": [
+    {
+      "name": "ResolveFloatOperand",
+      "symbol": "?ResolveFloatOperand@EclFloatVm@@QAEMH@Z",
+      "section": ".text$01accessor",
+      "address": "0x0044FE40",
+      "size": 183,
+      "actual_abi": "VM in EAX, selector in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "EclFloatOperandContext@12",
+    "section": ".text$03context",
+    "address": "0x0044FF10",
+    "size": 66,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 323136
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044FEF7",
+      "size": 25
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b60",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "kind": "data"
+    }
+  ]
+}

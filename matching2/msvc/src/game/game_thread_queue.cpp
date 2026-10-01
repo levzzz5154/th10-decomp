@@ -1,34 +1,8 @@
-// 0x00401530: append a named record to the game thread queue.
+// Complete queue writer0x00401530, with the real FPS caller in the native closure.
 #include <string.h>
-struct Vec3_00401530 {
-    float x, y, z;
-};
-struct QueueRecord_00401530 {
-    char name[0x40];
-    Vec3_00401530 position;
-    int value_4c;
-    int value_50;
-    int value_54;
-    int unknown_58;
-    int value_5c;
-    int value_60;
-    int value_64;
-};
-struct GameThread_00401530 {
-    unsigned char reserved_0000[0x76C];
-    QueueRecord_00401530 records[0x100];
-    QueueRecord_00401530 late_records[0x40];
-    int record_count;
-    int late_record_count;
-    int current_4c;
-    int current_50;
-    int current_54;
-    int current_5c;
-    int unknown_8984;
-    int current_64;
-};
+#include "th10/game/game_thread_queue_native.hpp"
 
-#pragma code_seg(".text$01accessor")
+#pragma code_seg(".text$01append")
 __declspec(noinline) void __stdcall AppendRecord_00401530(GameThread_00401530* thread, const char* name, const Vec3_00401530* position) {
     if (thread->record_count < 0x100) {
         QueueRecord_00401530* record = &thread->records[thread->record_count++];

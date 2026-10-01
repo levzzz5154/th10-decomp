@@ -1,0 +1,1182 @@
+{
+  "new_complete_functions": [
+    {
+      "region": {
+        "name": "semantic_FileHandle_Open_00435370",
+        "source": "src/platform/file_handle_open_00435370.cpp",
+        "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+        "address": "0x00435370",
+        "size": 239,
+        "kind": "semantic",
+        "owner": "0x00435370",
+        "previous_record": {
+          "name": "asm_FileHandle_OpenRetail_00435370",
+          "source": "src/platform/file_handle_open_retail_00435370.cpp",
+          "symbol": "_asm_FileHandle_OpenRetail_00435370",
+          "address": "0x00435370",
+          "size": 239,
+          "kind": "asm",
+          "owner": "0x00435370"
+        }
+      },
+      "whole_build_native_unit": {
+        "source": "src/platform/file_handle_open_00435370.cpp",
+        "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+        "compiler_kind": "native-ltcg",
+        "compiler_translation_unit_count": 3,
+        "command": [
+          "wine",
+          "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+          "/nologo",
+          "/c",
+          "/O2",
+          "/Gz",
+          "/MT",
+          "/Gy",
+          "/G6",
+          "/GF",
+          "/GS",
+          "/Zl",
+          "/GL",
+          "/showIncludes",
+          "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+          "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+          "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\file_handle_open_00435370_context.cpp"
+        ],
+        "source_sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+        "normalization": {
+          "input": "fresh native /LTCG PE",
+          "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+          "regions": [
+            {
+              "name": "FileHandle_Open",
+              "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "address": 4412272,
+              "size": 239,
+              "source_section": ".text",
+              "section": ".r000001",
+              "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "section_sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "original_relocations": [],
+              "relocation_count": 0
+            },
+            {
+              "name": "ResolvePath435610",
+              "symbol": "@ResolvePath435610@8",
+              "address": 4412944,
+              "size": 121,
+              "source_section": ".text",
+              "section": ".r000002",
+              "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "section_sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "original_relocations": [],
+              "relocation_count": 0
+            }
+          ],
+          "output_sha256": "64408719a022e75bcd1cfae4ed36258a3b1d0773b4098ae81a9035aeaa794fba",
+          "instruction_bytes_changed": 0,
+          "address_operands_changed": 0
+        },
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/report.json",
+        "native_report_sha256": "8721017bdc8c2374d976fe98aafc1681396f488496a112e0b1ea68c6a9af6aee",
+        "native_build": {
+          "schema_version": 1,
+          "name": "file_handle_open_00435370",
+          "compiler_kind": "native-ltcg",
+          "source": "src/platform/file_handle_open_00435370.cpp",
+          "sources": [
+            "src/platform/file_handle_open_00435370.cpp",
+            "src/platform/file_resolve_path_00435610.cpp"
+          ],
+          "roots": [
+            "?Open@FileHandle@@UAEEPBD0@Z"
+          ],
+          "driver": "layout/ltcg/file_handle_open_00435370_context.cpp",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json",
+          "input_sha256": {
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9"
+          },
+          "compiler_includes": [
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp",
+              "sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp",
+              "sha256": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp",
+              "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+            },
+            {
+              "path": "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/string.h",
+              "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp",
+              "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+            }
+          ],
+          "tool_sha256": {
+            "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+            "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+            "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+            "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+            "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+          },
+          "compile_commands": [
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\file_handle_open_00435370_context.cpp"
+              ],
+              "source_sha256": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9",
+              "object_sha256": "ade999ebb447b0a5241f523933dfec0ddde6dbed56814423d3e2a57d2e564ab6"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/source_000.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path_00435610.cpp"
+              ],
+              "source_sha256": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+              "object_sha256": "c8c35a0dd9e2e9646b3d8001d4fd95600b200ee6cf8778e56792933bb71c41d2"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/layout.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/layout-original.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout-original.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout.cpp"
+              ],
+              "source_sha256": "319841dd63f7f2839be3359f3c27656b50174b4426f94e8d8c8fed1076073589",
+              "object_sha256": "a909a17a4eef9d80437d295502ea9c53f324d3332d7933f3a27bf99c5089aa23"
+            }
+          ],
+          "link_command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+            "/nologo",
+            "/LTCG",
+            "/MACHINE:X86",
+            "/BASE:0x400000",
+            "/FILEALIGN:512",
+            "/SUBSYSTEM:WINDOWS",
+            "/ENTRY:FileOpenContext@12",
+            "/FIXED",
+            "/INCREMENTAL:NO",
+            "/NODEFAULTLIB",
+            "/OPT:REF",
+            "/OPT:NOICF",
+            "/INCLUDE:_ltcg_gap_0",
+            "/INCLUDE:_ltcg_gap_1",
+            "/INCLUDE:_ltcg_gap_2",
+            "/INCLUDE:?Open@FileHandle@@UAEEPBD0@Z",
+            "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.exe",
+            "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.map",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\bindings.obj"
+          ],
+          "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.exe",
+          "native_map": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.map",
+          "pe_sha256": "5a8b018f66eb3e0f83dd52bf5133589ae5abf34e203f3a7918a6bf5abba536d0",
+          "map_sha256": "92e525a7e146d277763fb960a2ab9eb490a45170cf16bb1fbb73647122dc4af4",
+          "entry_address": "0x00435690",
+          "image_base": "0x00400000",
+          "internal_calls": [],
+          "native_data": [],
+          "functions": [
+            {
+              "name": "FileHandle_Open",
+              "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x00034370",
+              "address": "0x00435370",
+              "rva": "0x00035370",
+              "section": ".text",
+              "file_offset": "0x34570",
+              "size": 239,
+              "bytes_hex": "81 ec 0c 01 00 00 a1 60 36 47 00 33 c4 53 55 8b ac 24 18 01 00 00 56 57 8b f1 89 84 24 18 01 00 00 8b 06 33 ff 89 7c 24 10 ff 50 04 8b 84 24 24 01 00 00 8b d8 8a 00 84 c0 74 4b eb 03 8d 49 00 3c 72 74 12 3c 77 74 1c 3c 61 74 26 8a 43 01 43 84 c0 75 ec eb 7e c7 46 08 00 00 00 80 bf 03 00 00 00 eb 22 55 ff 15 c0 60 46 00 bf 02 00 00 00 eb 0d c7 44 24 10 01 00 00 00 bf 04 00 00 00 c7 46 08 00 00 00 40 80 3b 00 74 2e 8b c5 8d 4c 24 14 e8 0a 02 00 00 8b 4e 08 6a 00 68 80 00 00 08 57 6a 00 6a 01 51 8d 54 24 2c 52 ff 15 c4 60 46 00 83 f8 ff 89 46 04 75 04 32 c0 eb 17 8b 4c 24 10 85 c9 74 0d 6a 02 6a 00 6a 00 50 ff 15 c8 60 46 00 b0 01 8b 8c 24 18 01 00 00 5f 5e 5d 5b 33 cc e8 4f 3a 02 00 81 c4 0c 01 00 00 c2 08 00",
+              "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "map_origin": "cluster.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "actual_abi": "receiver ECX,path/mode stack,resultAL,RET8"
+            },
+            {
+              "name": "ResolvePath435610",
+              "symbol": "@ResolvePath435610@8",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x00034610",
+              "address": "0x00435610",
+              "rva": "0x00035610",
+              "section": ".text",
+              "file_offset": "0x34810",
+              "size": 121,
+              "bytes_hex": "56 57 8b f0 6a 3a 56 8b f9 e8 12 d1 01 00 83 c4 08 85 c0 74 18 8b c6 2b fe 8d a4 24 00 00 00 00 8a 08 88 0c 07 40 84 c9 75 f6 5f 5e c3 68 04 01 00 00 57 6a 00 ff 15 dc 60 46 00 6a 5c 57 e8 dd d2 01 00 83 c4 08 85 c0 75 02 88 07 c6 40 01 00 8b c6 8b ce 8a 10 40 84 d2 75 f9 2b c1 8b f1 4f 8a 4f 01 47 84 c9 75 f8 8b c8 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 5f 5e c3",
+              "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "map_origin": "source_000.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "@ResolvePath435610@8",
+              "actual_abi": "source EAX,destination ECX; plain RET"
+            }
+          ],
+          "compiler_context": {
+            "symbol": "_FileOpenContext@12",
+            "section": ".text$05context",
+            "address": 4413072,
+            "size": 22,
+            "description": "Direct caller compiler context, never selected as recovered code",
+            "selected": false,
+            "recovered_code_bytes": 0
+          },
+          "layout_gaps": {
+            "input_sha256": "a909a17a4eef9d80437d295502ea9c53f324d3332d7933f3a27bf99c5089aa23",
+            "output_sha256": "5d91a4c72202a1c8a2156dcddc884bd8e7b95d017da97137725804e84db9d076",
+            "sections": [
+              {
+                "section": ".text$00layout",
+                "size": 213872,
+                "sha256": "720a897e0d3a3cac63ed0cd582d310dd5dae9c72a90253dc5874334997507beb",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$02layout",
+                "size": 433,
+                "sha256": "dde160a442976ba664a8ad92c3e685aa60fb1907ed26e51166ca8878ab778fbb",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$04layout",
+                "size": 7,
+                "sha256": "837885c8f8091aeaeb9ec3c3f85a6ff470a415e610b8ba3e49f9b33c9cf9d619",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              }
+            ],
+            "payload_bytes_changed": 0,
+            "recovered_code_bytes": 0
+          },
+          "absolute_symbols": [
+            {
+              "symbol": "__imp__DeleteFileA@4",
+              "address": 4612288,
+              "kind": "data",
+              "coff_value": 4612288
+            },
+            {
+              "symbol": "__imp__CreateFileA@28",
+              "address": 4612292,
+              "kind": "data",
+              "coff_value": 4612292
+            },
+            {
+              "symbol": "__imp__SetFilePointer@16",
+              "address": 4612296,
+              "kind": "data",
+              "coff_value": 4612296
+            },
+            {
+              "symbol": "__imp__GetModuleFileNameA@12",
+              "address": 4612316,
+              "kind": "data",
+              "coff_value": 4612316
+            },
+            {
+              "symbol": "_FirstByteSearch_00452730",
+              "address": 4532016,
+              "kind": "relative_code",
+              "coff_value": 337712
+            },
+            {
+              "symbol": "_strrchr",
+              "address": 4532528,
+              "kind": "relative_code",
+              "coff_value": 338224
+            },
+            {
+              "symbol": "___security_cookie",
+              "address": 4666976,
+              "kind": "data",
+              "coff_value": 4666976
+            },
+            {
+              "symbol": "@__security_check_cookie@4",
+              "address": 4558501,
+              "kind": "relative_code",
+              "coff_value": 364197
+            }
+          ],
+          "constant_aliases": [],
+          "data_aliases": [],
+          "duplicate_definitions": [],
+          "normalization": {
+            "input": "fresh native /LTCG PE",
+            "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+            "regions": [
+              {
+                "name": "FileHandle_Open",
+                "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+                "address": 4412272,
+                "size": 239,
+                "source_section": ".text",
+                "section": ".r000001",
+                "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+                "section_sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+                "original_relocations": [],
+                "relocation_count": 0
+              },
+              {
+                "name": "ResolvePath435610",
+                "symbol": "@ResolvePath435610@8",
+                "address": 4412944,
+                "size": 121,
+                "source_section": ".text",
+                "section": ".r000002",
+                "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+                "section_sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+                "original_relocations": [],
+                "relocation_count": 0
+              }
+            ],
+            "output_sha256": "64408719a022e75bcd1cfae4ed36258a3b1d0773b4098ae81a9035aeaa794fba",
+            "instruction_bytes_changed": 0,
+            "address_operands_changed": 0
+          },
+          "instruction_bytes_changed": 0,
+          "masked_bytes": 0,
+          "reference_bytes_used_for_build": false
+        }
+      },
+      "source_sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+      "complete_function_sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+      "native_complete_function_exact": true,
+      "preserved_alias": "_asm_FileHandle_OpenRetail_00435370"
+    },
+    {
+      "region": {
+        "name": "semantic_File_ResolvePath_00435610",
+        "source": "src/platform/file_resolve_path_00435610.cpp",
+        "symbol": "@ResolvePath435610@8",
+        "address": "0x00435610",
+        "size": 121,
+        "kind": "semantic",
+        "owner": "0x00435610",
+        "previous_record": {
+          "name": "asm_File_ResolvePath_00435610",
+          "source": "src/platform/file_resolve_path_00435610.cpp",
+          "symbol": "_asm_File_ResolvePath_00435610",
+          "address": "0x00435610",
+          "size": 121,
+          "kind": "asm",
+          "owner": "0x00435610"
+        }
+      },
+      "whole_build_native_unit": {
+        "source": "src/platform/file_handle_open_00435370.cpp",
+        "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+        "compiler_kind": "native-ltcg",
+        "compiler_translation_unit_count": 3,
+        "command": [
+          "wine",
+          "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+          "/nologo",
+          "/c",
+          "/O2",
+          "/Gz",
+          "/MT",
+          "/Gy",
+          "/G6",
+          "/GF",
+          "/GS",
+          "/Zl",
+          "/GL",
+          "/showIncludes",
+          "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+          "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+          "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\file_handle_open_00435370_context.cpp"
+        ],
+        "source_sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+        "normalization": {
+          "input": "fresh native /LTCG PE",
+          "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+          "regions": [
+            {
+              "name": "FileHandle_Open",
+              "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "address": 4412272,
+              "size": 239,
+              "source_section": ".text",
+              "section": ".r000001",
+              "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "section_sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "original_relocations": [],
+              "relocation_count": 0
+            },
+            {
+              "name": "ResolvePath435610",
+              "symbol": "@ResolvePath435610@8",
+              "address": 4412944,
+              "size": 121,
+              "source_section": ".text",
+              "section": ".r000002",
+              "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "section_sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "original_relocations": [],
+              "relocation_count": 0
+            }
+          ],
+          "output_sha256": "64408719a022e75bcd1cfae4ed36258a3b1d0773b4098ae81a9035aeaa794fba",
+          "instruction_bytes_changed": 0,
+          "address_operands_changed": 0
+        },
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/report.json",
+        "native_report_sha256": "8721017bdc8c2374d976fe98aafc1681396f488496a112e0b1ea68c6a9af6aee",
+        "native_build": {
+          "schema_version": 1,
+          "name": "file_handle_open_00435370",
+          "compiler_kind": "native-ltcg",
+          "source": "src/platform/file_handle_open_00435370.cpp",
+          "sources": [
+            "src/platform/file_handle_open_00435370.cpp",
+            "src/platform/file_resolve_path_00435610.cpp"
+          ],
+          "roots": [
+            "?Open@FileHandle@@UAEEPBD0@Z"
+          ],
+          "driver": "layout/ltcg/file_handle_open_00435370_context.cpp",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json",
+          "input_sha256": {
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9"
+          },
+          "compiler_includes": [
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp",
+              "sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp",
+              "sha256": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp",
+              "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+            },
+            {
+              "path": "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/string.h",
+              "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp",
+              "sha256": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29"
+            }
+          ],
+          "tool_sha256": {
+            "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+            "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+            "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+            "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+            "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+          },
+          "compile_commands": [
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\file_handle_open_00435370_context.cpp"
+              ],
+              "source_sha256": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9",
+              "object_sha256": "ade999ebb447b0a5241f523933dfec0ddde6dbed56814423d3e2a57d2e564ab6"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/source_000.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path_00435610.cpp"
+              ],
+              "source_sha256": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+              "object_sha256": "c8c35a0dd9e2e9646b3d8001d4fd95600b200ee6cf8778e56792933bb71c41d2"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/layout.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/layout-original.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout-original.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout.cpp"
+              ],
+              "source_sha256": "319841dd63f7f2839be3359f3c27656b50174b4426f94e8d8c8fed1076073589",
+              "object_sha256": "a909a17a4eef9d80437d295502ea9c53f324d3332d7933f3a27bf99c5089aa23"
+            }
+          ],
+          "link_command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+            "/nologo",
+            "/LTCG",
+            "/MACHINE:X86",
+            "/BASE:0x400000",
+            "/FILEALIGN:512",
+            "/SUBSYSTEM:WINDOWS",
+            "/ENTRY:FileOpenContext@12",
+            "/FIXED",
+            "/INCREMENTAL:NO",
+            "/NODEFAULTLIB",
+            "/OPT:REF",
+            "/OPT:NOICF",
+            "/INCLUDE:_ltcg_gap_0",
+            "/INCLUDE:_ltcg_gap_1",
+            "/INCLUDE:_ltcg_gap_2",
+            "/INCLUDE:?Open@FileHandle@@UAEEPBD0@Z",
+            "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.exe",
+            "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.map",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\layout.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\bindings.obj"
+          ],
+          "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.exe",
+          "native_map": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/cluster.map",
+          "pe_sha256": "5a8b018f66eb3e0f83dd52bf5133589ae5abf34e203f3a7918a6bf5abba536d0",
+          "map_sha256": "92e525a7e146d277763fb960a2ab9eb490a45170cf16bb1fbb73647122dc4af4",
+          "entry_address": "0x00435690",
+          "image_base": "0x00400000",
+          "internal_calls": [],
+          "native_data": [],
+          "functions": [
+            {
+              "name": "FileHandle_Open",
+              "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x00034370",
+              "address": "0x00435370",
+              "rva": "0x00035370",
+              "section": ".text",
+              "file_offset": "0x34570",
+              "size": 239,
+              "bytes_hex": "81 ec 0c 01 00 00 a1 60 36 47 00 33 c4 53 55 8b ac 24 18 01 00 00 56 57 8b f1 89 84 24 18 01 00 00 8b 06 33 ff 89 7c 24 10 ff 50 04 8b 84 24 24 01 00 00 8b d8 8a 00 84 c0 74 4b eb 03 8d 49 00 3c 72 74 12 3c 77 74 1c 3c 61 74 26 8a 43 01 43 84 c0 75 ec eb 7e c7 46 08 00 00 00 80 bf 03 00 00 00 eb 22 55 ff 15 c0 60 46 00 bf 02 00 00 00 eb 0d c7 44 24 10 01 00 00 00 bf 04 00 00 00 c7 46 08 00 00 00 40 80 3b 00 74 2e 8b c5 8d 4c 24 14 e8 0a 02 00 00 8b 4e 08 6a 00 68 80 00 00 08 57 6a 00 6a 01 51 8d 54 24 2c 52 ff 15 c4 60 46 00 83 f8 ff 89 46 04 75 04 32 c0 eb 17 8b 4c 24 10 85 c9 74 0d 6a 02 6a 00 6a 00 50 ff 15 c8 60 46 00 b0 01 8b 8c 24 18 01 00 00 5f 5e 5d 5b 33 cc e8 4f 3a 02 00 81 c4 0c 01 00 00 c2 08 00",
+              "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+              "map_origin": "cluster.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+              "actual_abi": "receiver ECX,path/mode stack,resultAL,RET8"
+            },
+            {
+              "name": "ResolvePath435610",
+              "symbol": "@ResolvePath435610@8",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x00034610",
+              "address": "0x00435610",
+              "rva": "0x00035610",
+              "section": ".text",
+              "file_offset": "0x34810",
+              "size": 121,
+              "bytes_hex": "56 57 8b f0 6a 3a 56 8b f9 e8 12 d1 01 00 83 c4 08 85 c0 74 18 8b c6 2b fe 8d a4 24 00 00 00 00 8a 08 88 0c 07 40 84 c9 75 f6 5f 5e c3 68 04 01 00 00 57 6a 00 ff 15 dc 60 46 00 6a 5c 57 e8 dd d2 01 00 83 c4 08 85 c0 75 02 88 07 c6 40 01 00 8b c6 8b ce 8a 10 40 84 d2 75 f9 2b c1 8b f1 4f 8a 4f 01 47 84 c9 75 f8 8b c8 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 5f 5e c3",
+              "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+              "map_origin": "source_000.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "@ResolvePath435610@8",
+              "actual_abi": "source EAX,destination ECX; plain RET"
+            }
+          ],
+          "compiler_context": {
+            "symbol": "_FileOpenContext@12",
+            "section": ".text$05context",
+            "address": 4413072,
+            "size": 22,
+            "description": "Direct caller compiler context, never selected as recovered code",
+            "selected": false,
+            "recovered_code_bytes": 0
+          },
+          "layout_gaps": {
+            "input_sha256": "a909a17a4eef9d80437d295502ea9c53f324d3332d7933f3a27bf99c5089aa23",
+            "output_sha256": "5d91a4c72202a1c8a2156dcddc884bd8e7b95d017da97137725804e84db9d076",
+            "sections": [
+              {
+                "section": ".text$00layout",
+                "size": 213872,
+                "sha256": "720a897e0d3a3cac63ed0cd582d310dd5dae9c72a90253dc5874334997507beb",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$02layout",
+                "size": 433,
+                "sha256": "dde160a442976ba664a8ad92c3e685aa60fb1907ed26e51166ca8878ab778fbb",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$04layout",
+                "size": 7,
+                "sha256": "837885c8f8091aeaeb9ec3c3f85a6ff470a415e610b8ba3e49f9b33c9cf9d619",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              }
+            ],
+            "payload_bytes_changed": 0,
+            "recovered_code_bytes": 0
+          },
+          "absolute_symbols": [
+            {
+              "symbol": "__imp__DeleteFileA@4",
+              "address": 4612288,
+              "kind": "data",
+              "coff_value": 4612288
+            },
+            {
+              "symbol": "__imp__CreateFileA@28",
+              "address": 4612292,
+              "kind": "data",
+              "coff_value": 4612292
+            },
+            {
+              "symbol": "__imp__SetFilePointer@16",
+              "address": 4612296,
+              "kind": "data",
+              "coff_value": 4612296
+            },
+            {
+              "symbol": "__imp__GetModuleFileNameA@12",
+              "address": 4612316,
+              "kind": "data",
+              "coff_value": 4612316
+            },
+            {
+              "symbol": "_FirstByteSearch_00452730",
+              "address": 4532016,
+              "kind": "relative_code",
+              "coff_value": 337712
+            },
+            {
+              "symbol": "_strrchr",
+              "address": 4532528,
+              "kind": "relative_code",
+              "coff_value": 338224
+            },
+            {
+              "symbol": "___security_cookie",
+              "address": 4666976,
+              "kind": "data",
+              "coff_value": 4666976
+            },
+            {
+              "symbol": "@__security_check_cookie@4",
+              "address": 4558501,
+              "kind": "relative_code",
+              "coff_value": 364197
+            }
+          ],
+          "constant_aliases": [],
+          "data_aliases": [],
+          "duplicate_definitions": [],
+          "normalization": {
+            "input": "fresh native /LTCG PE",
+            "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
+            "regions": [
+              {
+                "name": "FileHandle_Open",
+                "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+                "address": 4412272,
+                "size": 239,
+                "source_section": ".text",
+                "section": ".r000001",
+                "sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+                "section_sha256": "05dc50c99573e1bdd328d51e29cc1d71bd8182fc6424b1c5cbdc9e68c595295f",
+                "original_relocations": [],
+                "relocation_count": 0
+              },
+              {
+                "name": "ResolvePath435610",
+                "symbol": "@ResolvePath435610@8",
+                "address": 4412944,
+                "size": 121,
+                "source_section": ".text",
+                "section": ".r000002",
+                "sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+                "section_sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+                "original_relocations": [],
+                "relocation_count": 0
+              }
+            ],
+            "output_sha256": "64408719a022e75bcd1cfae4ed36258a3b1d0773b4098ae81a9035aeaa794fba",
+            "instruction_bytes_changed": 0,
+            "address_operands_changed": 0
+          },
+          "instruction_bytes_changed": 0,
+          "masked_bytes": 0,
+          "reference_bytes_used_for_build": false
+        }
+      },
+      "source_sha256": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+      "complete_function_sha256": "cbad1de042ca403bcb9e0034d514363a5bd019da1a1a479c4c2eb4b8d89a1354",
+      "native_complete_function_exact": true,
+      "preserved_alias": "_asm_File_ResolvePath_00435610"
+    }
+  ],
+  "new_recovered_bytes": 360,
+  "previous_checkpoint_recoveries_reverified": [
+    {
+      "region": {
+        "name": "semantic_SoundQueue_QueuePan_0043dd10",
+        "source": "src/platform/sound_queue_pan_0043dd10.cpp",
+        "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+        "address": "0x0043DD10",
+        "size": 149,
+        "kind": "semantic",
+        "owner": "0x0043DD10",
+        "previous_record": {
+          "name": "asm_FUN_0043dd10_0043dd10",
+          "source": "src/platform/sound_event_queue.cpp",
+          "symbol": "_asm_FUN_0043dd10_0043dd10",
+          "address": "0x0043DD10",
+          "size": 149,
+          "kind": "asm",
+          "owner": "0x0043DD10"
+        }
+      },
+      "source_sha256": "26c6d268fac084c71a2a930cc24dd79ebbcad0365c0203056922bef5af178940",
+      "current_native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/native-s3_1cquw/cluster.exe",
+      "complete_function_sha256": "d9c92e8fca661f63f3dfbaafa74d8854bc1c675f9009260bce3f967450a798e4",
+      "current_native_complete_extent_exact": true
+    },
+    {
+      "region": {
+        "name": "semantic_FrameTimer_TickReturningFrame_0044bfa0",
+        "source": "src/math/timer_return.cpp",
+        "symbol": "?TickReturningFrame@ReturningFrameTimer@@QAEHXZ",
+        "address": "0x0044BFA0",
+        "size": 74,
+        "kind": "semantic",
+        "owner": "0x0044BFA0",
+        "previous_record": {
+          "name": "asm_unassigned_0044bfa0",
+          "source": "src/unidentified/unassigned_0044bfa0.cpp",
+          "symbol": "_asm_unassigned_0044bfa0",
+          "address": "0x0044BFA0",
+          "size": 74,
+          "kind": "asm",
+          "owner": null
+        }
+      },
+      "source_sha256": "1d2d11520081253dd16b3a06925d4b9aa02cfbee81df42cfb9649c8f82f1ce66",
+      "current_native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/timer_return/native-cl9ryz0q/cluster.exe",
+      "complete_function_sha256": "fa5fe6e02245d8b844dfcec95d26359851f5bd167f0c69cad2b6ef2a0560caa1",
+      "current_native_complete_extent_exact": true
+    },
+    {
+      "region": {
+        "name": "semantic_PlayerHoming_HomeTowardTarget_00407ef0",
+        "source": "src/game/player_homing_00407ef0.cpp",
+        "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
+        "address": "0x00407EF0",
+        "size": 306,
+        "kind": "semantic",
+        "owner": "0x00407EF0",
+        "previous_record": {
+          "name": "asm_FUN_00407ef0_00407ef0",
+          "source": "src/game/fun_00407ef0_00407ef0.cpp",
+          "symbol": "_asm_FUN_00407ef0_00407ef0",
+          "address": "0x00407EF0",
+          "size": 306,
+          "kind": "asm",
+          "owner": "0x00407EF0"
+        }
+      },
+      "source_sha256": "dea31979d6e9f07610f78b7aab18ea44118b2e8f6db31206874dad7827afecf9",
+      "current_native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/player_homing/native-d1w_b1bo/cluster.exe",
+      "complete_function_sha256": "69a4c4c7a7492411885b8ed225fa0ef8edb9890c0390b15799a28ba05b091e8e",
+      "current_native_complete_extent_exact": true
+    },
+    {
+      "region": {
+        "name": "semantic_KeyConfig_ReassignSlot_00430250",
+        "source": "src/game/key_config.cpp",
+        "symbol": "_KeyConfigReassignSlot_00430250@12",
+        "address": "0x00430250",
+        "size": 200,
+        "kind": "semantic",
+        "owner": "0x00430250",
+        "previous_record": {
+          "name": "asm_KeyConfig_ReassignSlotRetail_00430250",
+          "source": "src/game/key_config.cpp",
+          "symbol": "_asm_KeyConfig_ReassignSlotRetail_00430250",
+          "address": "0x00430250",
+          "size": 200,
+          "kind": "asm",
+          "owner": "0x00430250"
+        }
+      },
+      "source_sha256": "bb105278fec8f0017896def1332f6e733cce6f4641c9d59e13225ed03de19cbc",
+      "current_native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/key_config_reassign/native-tjnrvola/cluster.exe",
+      "complete_function_sha256": "8ef21a17e81609fe1a18d5d278ac366723610d5789eb782f6ba04268b0d7f713",
+      "current_native_complete_extent_exact": true
+    },
+    {
+      "region": {
+        "name": "semantic_BulletRuntimeTick_00406240",
+        "source": "src/game/bullet_runtime_update.cpp",
+        "symbol": "_BulletRuntimeTick@4",
+        "address": "0x00406240",
+        "size": 885,
+        "kind": "semantic",
+        "owner": "0x00406240",
+        "previous_record": {
+          "name": "asm_FUN_00406240_00406240",
+          "source": "src/game/bullet_runtime_update.cpp",
+          "symbol": "_asm_FUN_00406240_00406240",
+          "address": "0x00406240",
+          "size": 885,
+          "kind": "asm",
+          "owner": "0x00406240"
+        }
+      },
+      "source_sha256": "1a6482ff51a6a1f5972a2cd9f0a14f650d89ab941fa3391fbe03105e21f5d8d2",
+      "current_native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wrgpzbc3/cluster.exe",
+      "complete_function_sha256": "13986ff488344721e7d8a4cd26e053cce8e639e7e3791844d807305f9a24ccc2",
+      "current_native_complete_extent_exact": true
+    }
+  ],
+  "cumulative_with_previous_checkpoint": {
+    "complete_functions": 7,
+    "bytes": 1974
+  },
+  "focused_probes": [
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/probe.json",
+      "sha256": "1abf66e81161f8ab58763c437f63abf149500faedf745e1edafd11a0dd75da0d",
+      "regions": [
+        {
+          "region": "semantic_FileHandle_Open_00435370",
+          "address": 4412272,
+          "size": 239,
+          "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/platform/file_handle_open_00435370.cpp"
+        },
+        {
+          "region": "semantic_File_ResolvePath_00435610",
+          "address": 4412944,
+          "size": 121,
+          "symbol": "@ResolvePath435610@8",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/platform/file_handle_open_00435370.cpp"
+        }
+      ]
+    }
+  ],
+  "genuine_call_targets": [
+    {
+      "address": "0x435401",
+      "target": "0x435610",
+      "instruction_hex": "e80a020000"
+    },
+    {
+      "address": "0x435451",
+      "target": "0x458ea5",
+      "instruction_hex": "e84f3a0200"
+    },
+    {
+      "address": "0x435619",
+      "target": "0x452730",
+      "instruction_hex": "e812d10100"
+    },
+    {
+      "address": "0x43564e",
+      "target": "0x452930",
+      "instruction_hex": "e8ddd20100"
+    }
+  ],
+  "complete_unselected_abi_anchors": [],
+  "win32_import_calls": [
+    {
+      "address": "0x4353d5",
+      "iat_target": "0x4660c0",
+      "instruction_hex": "ff15c0604600"
+    },
+    {
+      "address": "0x43541b",
+      "iat_target": "0x4660c4",
+      "instruction_hex": "ff15c4604600"
+    },
+    {
+      "address": "0x43543c",
+      "iat_target": "0x4660c8",
+      "instruction_hex": "ff15c8604600"
+    },
+    {
+      "address": "0x435645",
+      "iat_target": "0x4660dc",
+      "instruction_hex": "ff15dc604600"
+    }
+  ],
+  "complete_disassemblies": [
+    {
+      "address": "0x435370",
+      "bytes": 239,
+      "original_disassembly": "\n/home/levzzz/Games/th10Decomp/matching2/build/experiments/file_open_and_resolve_2026_10_01/original_0x435370.bin:     file format binary\n\n\nDisassembly of section .data:\n\n00435370 <.data>:\n  435370:\t81 ec 0c 01 00 00    \tsub    esp,0x10c\n  435376:\ta1 60 36 47 00       \tmov    eax,ds:0x473660\n  43537b:\t33 c4                \txor    eax,esp\n  43537d:\t53                   \tpush   ebx\n  43537e:\t55                   \tpush   ebp\n  43537f:\t8b ac 24 18 01 00 00 \tmov    ebp,DWORD PTR [esp+0x118]\n  435386:\t56                   \tpush   esi\n  435387:\t57                   \tpush   edi\n  435388:\t8b f1                \tmov    esi,ecx\n  43538a:\t89 84 24 18 01 00 00 \tmov    DWORD PTR [esp+0x118],eax\n  435391:\t8b 06                \tmov    eax,DWORD PTR [esi]\n  435393:\t33 ff                \txor    edi,edi\n  435395:\t89 7c 24 10          \tmov    DWORD PTR [esp+0x10],edi\n  435399:\tff 50 04             \tcall   DWORD PTR [eax+0x4]\n  43539c:\t8b 84 24 24 01 00 00 \tmov    eax,DWORD PTR [esp+0x124]\n  4353a3:\t8b d8                \tmov    ebx,eax\n  4353a5:\t8a 00                \tmov    al,BYTE PTR [eax]\n  4353a7:\t84 c0                \ttest   al,al\n  4353a9:\t74 4b                \tje     0x4353f6\n  4353ab:\teb 03                \tjmp    0x4353b0\n  4353ad:\t8d 49 00             \tlea    ecx,[ecx+0x0]\n  4353b0:\t3c 72                \tcmp    al,0x72\n  4353b2:\t74 12                \tje     0x4353c6\n  4353b4:\t3c 77                \tcmp    al,0x77\n  4353b6:\t74 1c                \tje     0x4353d4\n  4353b8:\t3c 61                \tcmp    al,0x61\n  4353ba:\t74 26                \tje     0x4353e2\n  4353bc:\t8a 43 01             \tmov    al,BYTE PTR [ebx+0x1]\n  4353bf:\t43                   \tinc    ebx\n  4353c0:\t84 c0                \ttest   al,al\n  4353c2:\t75 ec                \tjne    0x4353b0\n  4353c4:\teb 7e                \tjmp    0x435444\n  4353c6:\tc7 46 08 00 00 00 80 \tmov    DWORD PTR [esi+0x8],0x80000000\n  4353cd:\tbf 03 00 00 00       \tmov    edi,0x3\n  4353d2:\teb 22                \tjmp    0x4353f6\n  4353d4:\t55                   \tpush   ebp\n  4353d5:\tff 15 c0 60 46 00    \tcall   DWORD PTR ds:0x4660c0\n  4353db:\tbf 02 00 00 00       \tmov    edi,0x2\n  4353e0:\teb 0d                \tjmp    0x4353ef\n  4353e2:\tc7 44 24 10 01 00 00 \tmov    DWORD PTR [esp+0x10],0x1\n  4353e9:\t00 \n  4353ea:\tbf 04 00 00 00       \tmov    edi,0x4\n  4353ef:\tc7 46 08 00 00 00 40 \tmov    DWORD PTR [esi+0x8],0x40000000\n  4353f6:\t80 3b 00             \tcmp    BYTE PTR [ebx],0x0\n  4353f9:\t74 2e                \tje     0x435429\n  4353fb:\t8b c5                \tmov    eax,ebp\n  4353fd:\t8d 4c 24 14          \tlea    ecx,[esp+0x14]\n  435401:\te8 0a 02 00 00       \tcall   0x435610\n  435406:\t8b 4e 08             \tmov    ecx,DWORD PTR [esi+0x8]\n  435409:\t6a 00                \tpush   0x0\n  43540b:\t68 80 00 00 08       \tpush   0x8000080\n  435410:\t57                   \tpush   edi\n  435411:\t6a 00                \tpush   0x0\n  435413:\t6a 01                \tpush   0x1\n  435415:\t51                   \tpush   ecx\n  435416:\t8d 54 24 2c          \tlea    edx,[esp+0x2c]\n  43541a:\t52                   \tpush   edx\n  43541b:\tff 15 c4 60 46 00    \tcall   DWORD PTR ds:0x4660c4\n  435421:\t83 f8 ff             \tcmp    eax,0xffffffff\n  435424:\t89 46 04             \tmov    DWORD PTR [esi+0x4],eax\n  435427:\t75 04                \tjne    0x43542d\n  435429:\t32 c0                \txor    al,al\n  43542b:\teb 17                \tjmp    0x435444\n  43542d:\t8b 4c 24 10          \tmov    ecx,DWORD PTR [esp+0x10]\n  435431:\t85 c9                \ttest   ecx,ecx\n  435433:\t74 0d                \tje     0x435442\n  435435:\t6a 02                \tpush   0x2\n  435437:\t6a 00                \tpush   0x0\n  435439:\t6a 00                \tpush   0x0\n  43543b:\t50                   \tpush   eax\n  43543c:\tff 15 c8 60 46 00    \tcall   DWORD PTR ds:0x4660c8\n  435442:\tb0 01                \tmov    al,0x1\n  435444:\t8b 8c 24 18 01 00 00 \tmov    ecx,DWORD PTR [esp+0x118]\n  43544b:\t5f                   \tpop    edi\n  43544c:\t5e                   \tpop    esi\n  43544d:\t5d                   \tpop    ebp\n  43544e:\t5b                   \tpop    ebx\n  43544f:\t33 cc                \txor    ecx,esp\n  435451:\te8 4f 3a 02 00       \tcall   0x458ea5\n  435456:\t81 c4 0c 01 00 00    \tadd    esp,0x10c\n  43545c:\tc2 08 00             \tret    0x8\n"
+    },
+    {
+      "address": "0x435610",
+      "bytes": 121,
+      "original_disassembly": "\n/home/levzzz/Games/th10Decomp/matching2/build/experiments/file_open_and_resolve_2026_10_01/original_0x435610.bin:     file format binary\n\n\nDisassembly of section .data:\n\n00435610 <.data>:\n  435610:\t56                   \tpush   esi\n  435611:\t57                   \tpush   edi\n  435612:\t8b f0                \tmov    esi,eax\n  435614:\t6a 3a                \tpush   0x3a\n  435616:\t56                   \tpush   esi\n  435617:\t8b f9                \tmov    edi,ecx\n  435619:\te8 12 d1 01 00       \tcall   0x452730\n  43561e:\t83 c4 08             \tadd    esp,0x8\n  435621:\t85 c0                \ttest   eax,eax\n  435623:\t74 18                \tje     0x43563d\n  435625:\t8b c6                \tmov    eax,esi\n  435627:\t2b fe                \tsub    edi,esi\n  435629:\t8d a4 24 00 00 00 00 \tlea    esp,[esp+0x0]\n  435630:\t8a 08                \tmov    cl,BYTE PTR [eax]\n  435632:\t88 0c 07             \tmov    BYTE PTR [edi+eax*1],cl\n  435635:\t40                   \tinc    eax\n  435636:\t84 c9                \ttest   cl,cl\n  435638:\t75 f6                \tjne    0x435630\n  43563a:\t5f                   \tpop    edi\n  43563b:\t5e                   \tpop    esi\n  43563c:\tc3                   \tret\n  43563d:\t68 04 01 00 00       \tpush   0x104\n  435642:\t57                   \tpush   edi\n  435643:\t6a 00                \tpush   0x0\n  435645:\tff 15 dc 60 46 00    \tcall   DWORD PTR ds:0x4660dc\n  43564b:\t6a 5c                \tpush   0x5c\n  43564d:\t57                   \tpush   edi\n  43564e:\te8 dd d2 01 00       \tcall   0x452930\n  435653:\t83 c4 08             \tadd    esp,0x8\n  435656:\t85 c0                \ttest   eax,eax\n  435658:\t75 02                \tjne    0x43565c\n  43565a:\t88 07                \tmov    BYTE PTR [edi],al\n  43565c:\tc6 40 01 00          \tmov    BYTE PTR [eax+0x1],0x0\n  435660:\t8b c6                \tmov    eax,esi\n  435662:\t8b ce                \tmov    ecx,esi\n  435664:\t8a 10                \tmov    dl,BYTE PTR [eax]\n  435666:\t40                   \tinc    eax\n  435667:\t84 d2                \ttest   dl,dl\n  435669:\t75 f9                \tjne    0x435664\n  43566b:\t2b c1                \tsub    eax,ecx\n  43566d:\t8b f1                \tmov    esi,ecx\n  43566f:\t4f                   \tdec    edi\n  435670:\t8a 4f 01             \tmov    cl,BYTE PTR [edi+0x1]\n  435673:\t47                   \tinc    edi\n  435674:\t84 c9                \ttest   cl,cl\n  435676:\t75 f8                \tjne    0x435670\n  435678:\t8b c8                \tmov    ecx,eax\n  43567a:\tc1 e9 02             \tshr    ecx,0x2\n  43567d:\tf3 a5                \trep movs DWORD PTR es:[edi],DWORD PTR ds:[esi]\n  43567f:\t8b c8                \tmov    ecx,eax\n  435681:\t83 e1 03             \tand    ecx,0x3\n  435684:\tf3 a4                \trep movs BYTE PTR es:[edi],BYTE PTR ds:[esi]\n  435686:\t5f                   \tpop    edi\n  435687:\t5e                   \tpop    esi\n  435688:\tc3                   \tret\n"
+    }
+  ],
+  "manifest_sha256": "baf2c80350f962a6da61f4360f9b67fac7232393c78f010325ee3010e61800cf",
+  "contiguous_text_partition": true,
+  "source_ownership_consistent": true,
+  "whole_build_current_native_inputs_verified": 3065,
+  "whole_build_current_project_files_verified": 3916,
+  "whole_executable": {
+    "exact": true,
+    "bytes": 487936,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "oracle_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "text_bytes": 412672,
+    "text_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+    "port_report_sha256": "c8f9be70af41495b435889609bd034342e76522e666034c8d75a31608785f2c7",
+    "package": {
+      "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/th10.exe",
+      "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+      "size": 487936,
+      "text_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+      "text_bytes": 412672,
+      "sections": [
+        {
+          "name": ".text",
+          "raw_offset": 1024,
+          "raw_size": 412672
+        },
+        {
+          "name": ".rdata",
+          "raw_offset": 413696,
+          "raw_size": 52224
+        },
+        {
+          "name": ".data",
+          "raw_offset": 465920,
+          "raw_size": 16896
+        },
+        {
+          "name": ".rsrc",
+          "raw_offset": 482816,
+          "raw_size": 5120
+        }
+      ],
+      "verified_against_oracle": true
+    },
+    "masked_bytes": 0,
+    "retail_executable_used_for_build": false
+  },
+  "progress": {
+    "regions": {
+      "semantic": 1861,
+      "padding": 1770,
+      "asm": 437,
+      "data": 7,
+      "library": 325
+    },
+    "bytes": {
+      "semantic": 99947,
+      "padding": 15495,
+      "asm": 222951,
+      "data": 7779,
+      "library": 66500
+    },
+    "fully_asm_free_semantic_regions": 1856,
+    "fully_asm_free_semantic_bytes": 95496,
+    "remaining_semantic_inline_x87_regions": [
+      {
+        "name": "semantic_SubmitSpriteQuad_00442670",
+        "source": "src/render/sprite_quad_submit.cpp",
+        "symbol": "?SubmitSpriteQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442670",
+        "size": 1111,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_SubmitSpriteQuadMirrored_00442ad0",
+        "source": "src/render/sprite_quad_submit_mirrored.cpp",
+        "symbol": "?SubmitSpriteQuadMirrored@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442AD0",
+        "size": 1111,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_BuildRotatedQuad_004436c0_004436c0",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuad_004436c0@8",
+        "address": "0x004436C0",
+        "size": 591,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_BuildRotatedQuadAlt_00443910_00443910",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuadAlt_00443910@8",
+        "address": "0x00443910",
+        "size": 591,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_Billboard_BuildProjectedQuad_00443b60",
+        "source": "src/render/projection_quads.cpp",
+        "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+        "address": "0x00443B60",
+        "size": 1047,
+        "kind": "semantic"
+      }
+    ]
+  },
+  "retained_analysis": [
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/file_open_ghidra.json",
+      "sha256": "5562bbcdd7a8967b04807c384351702826e9919d0b0fe66c8a64a197c74970c2"
+    },
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/file_resolve_ghidra.json",
+      "sha256": "880106225bacb5f4d566c1215495182bd80a9805e48b83493c58b552554b918a"
+    },
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/ghidra_plate_readback.json",
+      "sha256": "0d3f7d325b6ef5d199f812f8b8c38edf2717db0644237f88dbf47e1330be5ca4"
+    },
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/port_report_snapshot.json",
+      "sha256": "c8f9be70af41495b435889609bd034342e76522e666034c8d75a31608785f2c7"
+    },
+    {
+      "path": "matching2/build/experiments/file_open_and_resolve_2026_10_01/regions_snapshot.json",
+      "sha256": "baf2c80350f962a6da61f4360f9b67fac7232393c78f010325ee3010e61800cf"
+    },
+    {
+      "path": "matching2/reference/recovery_notes/runtime_and_helpers_2026-10-01.evidence.json",
+      "sha256": "3462cbe4796ffe1c07bd1ec8ca9a176a8d27a75d5d1c0c629579b387f5129db0"
+    },
+    {
+      "path": "matching2/build/experiments/subagent_independent_2026_10_01/file_open_2026_10_01/paired_production/exact.evidence.json",
+      "sha256": "96bf9c0e386ef86689b1583c321dd77f1d8ca05806f39ca6e430307ec56c0d45"
+    },
+    {
+      "path": "matching2/build/experiments/subagent_independent_2026_10_01/file_open_2026_10_01/paired_production/ghidra_evidence.json",
+      "sha256": "34540feec7078ac41cfdc59c12b28855102701721a3a1eca6fff331dafe61e66"
+    }
+  ]
+}

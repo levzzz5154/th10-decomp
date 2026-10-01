@@ -5,7 +5,11 @@
   "driver": "layout/ltcg/worker_start_0044c1c0_context.cpp",
   "headers": [
     "include/th10/platform/worker.hpp",
-    "include/th10/game/ui_thread_host.hpp"
+    "include/th10/game/ui_thread_host.hpp",
+    "include/th10/game/progress_worker_0042c920.hpp",
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/counter_block.hpp",
+    "include/th10/game/large_initialization_state_00421f00.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The retail worker and UI-thread spawn family rebuilt as one native LTCG cluster: shutdown callers retain public ECX receivers, Stop shares ESI, worker Start variants use EAX receivers and EDI entries, and UI-thread Spawn consumes an EDI host plus two stack arguments. UI creation retains its public stdcall entry and uses the genuine complete configuration initializer as an unselected anchor.",
@@ -27,15 +31,6 @@
       "address": "0x0044C100",
       "size": 36,
       "actual_abi": "this in ECX; should_free at stack +4; passes this in ESI to Stop; returns this; RET 4"
-    },
-    {
-      "name": "PlatformWorker_StopNoDelete",
-      "symbol": "?StopNoDelete@PlatformWorker@@QAEXXZ",
-      "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-      "section": ".text$10caller",
-      "address": "0x0044C130",
-      "size": 16,
-      "actual_abi": "this in ECX; saves ESI and passes this in ESI to Stop; plain RET"
     },
     {
       "name": "PlatformWorker_Stop",
@@ -72,13 +67,31 @@
       "address": "0x004180E0",
       "size": 107,
       "actual_abi": "one stack argument; return pointer EAX; RET4"
+    },
+    {
+      "name": "ProgressWorker_Construct_0042c920",
+      "symbol": "??0ProgressWorker_0042c920@@QAE@XZ",
+      "section": ".text$03aprogressctor",
+      "address": "0x0042C920",
+      "size": 204,
+      "source": "src/game/progress_worker_construct_0042c920.cpp",
+      "actual_abi": "this EDX; EAX result; RET"
+    },
+    {
+      "name": "ProgressWorker_Create_0042cd50",
+      "symbol": "_asm_ProgressManager_CreateAndStartWorker_0042cd50",
+      "section": ".text$03cprogressfactory",
+      "address": "0x0042CD50",
+      "size": 96,
+      "source": "src/game/progress_worker.cpp",
+      "actual_abi": "no arguments; state EDI, worker ESI; EAX result; RET"
     }
   ],
   "context": {
     "symbol": "WorkerStartCompilerContext",
     "section": ".text$50context",
     "address": "0x0044C240",
-    "size": 113,
+    "size": 122,
     "description": "Synthetic array-walking caller that reaches both worker Start variants and the UI thread Spawn member, establishing their observed register conventions; not recovered game code."
   },
   "gaps": [
@@ -98,19 +111,14 @@
       "size": 33251
     },
     {
-      "section": ".text$03layout",
+      "section": ".text$03_uilayout",
       "address": "0x00420F16",
-      "size": 176618
+      "size": 47626
     },
     {
       "section": ".text$07layout",
       "address": "0x0044C124",
-      "size": 12
-    },
-    {
-      "section": ".text$15layout",
-      "address": "0x0044C140",
-      "size": 16
+      "size": 44
     },
     {
       "section": ".text$25layout",
@@ -126,12 +134,21 @@
       "section": ".text$47layout",
       "address": "0x0044C238",
       "size": 8
+    },
+    {
+      "section": ".text$03bprogressctorz",
+      "address": "0x0042C9EC",
+      "size": 868
+    },
+    {
+      "section": ".text$03dprogressfactoryz",
+      "address": "0x0042CDB0",
+      "size": 127824
     }
   ],
   "constants": [],
   "roots": [
     "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
-    "?StopNoDelete@PlatformWorker@@QAEXXZ",
     "_GameUi_CreateAndPublish_004180e0@4"
   ],
   "absolute_symbols": [
@@ -204,6 +221,31 @@
       "symbol": "_data_00491c28",
       "address": "0x00491C28",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046ecf0",
+      "address": "0x0046ECF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047784c",
+      "address": "0x0047784C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ProgressWorker_Thread_0042c9f0@4",
+      "address": "0x0042C9F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
     }
   ],
   "additional_sources": [
@@ -211,8 +253,9 @@
     "src/game/thread_spawn.cpp",
     "src/platform/platform_destroy_worker_0044c100.cpp",
     "src/platform/platform_stop_worker_0044c150.cpp",
-    "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-    "src/unidentified/unassigned_0044c200.cpp"
+    "src/unidentified/unassigned_0044c200.cpp",
+    "src/game/progress_worker_construct_0042c920.cpp",
+    "src/game/progress_worker.cpp"
   ],
   "anchors": [
     {

@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "name": "stage_reader_parser",
+  "source": "src/script/script_text_reader.cpp",
+  "headers": [
+    "include/stage_parser_model.hpp",
+    "include/th10/platform/archive_file.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Real stage-tip parser closure. Helper bodies are ABI anchors; parser complete extent and exact bytes are required.",
+  "functions": [
+    {
+      "name": "ReadLine",
+      "symbol": "_ReadLine@16",
+      "section": ".text$p03reader",
+      "address": "0x00419f40",
+      "size": 260,
+      "actual_abi": "cursor in EAX; output, remaining and capacity on stack; RET 12"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Clear",
+      "symbol": "?Clear@TipManager@@QAEXXZ",
+      "section": ".text$p00clear",
+      "address": "0x419040",
+      "size": 79
+    },
+    {
+      "name": "Splitter",
+      "symbol": "_SplitResourcePath_0041a050@12",
+      "section": ".text$p05split",
+      "address": "0x41a050",
+      "size": 75
+    },
+    {
+      "name": "Trimmer",
+      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "section": ".text$p07trim",
+      "address": "0x41a0a0",
+      "size": 114
+    },
+    {
+      "name": "Append",
+      "symbol": "?Append@TipNode@@QAEXPAU1@@Z",
+      "section": ".text$p09append",
+      "address": "0x41ab10",
+      "size": 52
+    },
+    {
+      "name": "Loader",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$p11load",
+      "address": "0x44b360",
+      "size": 360
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$p00aclear",
+      "address": "0x401000",
+      "size": 98368
+    },
+    {
+      "section": ".text$p00zclear",
+      "address": "0x41908f",
+      "size": 2257
+    },
+    {
+      "section": ".text$p02gap",
+      "address": "0x00419F2E",
+      "size": 18
+    },
+    {
+      "section": ".text$p04gap",
+      "address": "0x41a044",
+      "size": 12
+    },
+    {
+      "section": ".text$p06gap",
+      "address": "0x41a09b",
+      "size": 5
+    },
+    {
+      "section": ".text$p08gap",
+      "address": "0x41a112",
+      "size": 2558
+    },
+    {
+      "section": ".text$p10gap",
+      "address": "0x41ab44",
+      "size": 198684
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "data_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_FUN_00452730_00452730",
+      "address": "0x452730",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_atol",
+      "address": "0x452876",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_atof",
+      "address": "0x452a84",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_strrchr",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_strncpy",
+      "address": "0x452960",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_free",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@StageTip_Initialize@8",
+      "address": "0x418d00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@FindName@16",
+      "address": "0x4198c0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x00434DD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/stage_archive_loader.cpp"
+  ],
+  "driver": "layout/ltcg/stage_reader_parser_context.cpp",
+  "context": {
+    "symbol": "ParseStageTips@12",
+    "section": ".text$p01parser",
+    "address": "0x00419960",
+    "size": 1486,
+    "description": "Complete real stage-tip parser model as a compiler context. Its 1486-byte body differs from retail1498 and is not exported/recovered."
+  }
+}

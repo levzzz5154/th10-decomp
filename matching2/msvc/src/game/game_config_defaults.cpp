@@ -13,24 +13,11 @@
 
 extern "C" char data_00474e88[];
 
-struct GameConfig {
-    int version_marker;            // +0x00
-    char version_prefix[0x12];     // +0x04 .. +0x15
-    unsigned short window_width;   // +0x16
-    unsigned short window_height;  // +0x18
-    unsigned char field_1a;        // +0x1A
-    unsigned char field_1b;        // +0x1B
-    unsigned char field_1c;        // +0x1C
-    unsigned char field_1d;        // +0x1D
-    unsigned char field_1e;        // +0x1E
-    unsigned char field_1f;        // +0x1F
-    unsigned char field_20;        // +0x20
-    unsigned char field_21;        // +0x21
-    unsigned char field_22;        // +0x22
-    char unknown_23[0x0D];         // +0x23 .. +0x2F
-    int flags;                     // +0x30
-};
+#include "th10/game/large_initialization_state_00421f00.hpp"
 
+#ifndef TH10_GAME_CONFIG_KEEP_SECTION
+#pragma code_seg(".text$00bconfig")
+#endif
 char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
     memset(config, 0, 0x34);
     config->field_1a = 0;
@@ -49,3 +36,7 @@ char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
     config->field_21 = 0x50;
     return 0;
 }
+
+#ifndef TH10_GAME_CONFIG_KEEP_SECTION
+#pragma code_seg()
+#endif

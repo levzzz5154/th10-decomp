@@ -1,38 +1,107 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "name": "fps_counter_004134b0",
   "source": "src/app/fps_counter.cpp",
-  "driver": "layout/ltcg/fps_counter_004134b0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/app/frame_rate_counter_native.hpp",
+    "include/th10/game/game_thread_queue_native.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "FrameRateCounter::Update compiled with native LTCG so the counter object stays in ESI across the FrameTimer_GetDelta call. The compiler-pooled float literals (0.5, 60.0, 2^32, 57.0f, 65.0f) are rebound to the retail pool slots in .rdata instead of being placed; the counter's own .rdata pool has no other member.",
+  "description": "Seven complete real routines: scheduler/FPS path, ordinary and marked variadic formatters, panel-value display and shared queue writer. No synthetic compiler context.",
   "functions": [
     {
       "name": "FrameRateCounter_Update",
       "symbol": "?Update@FrameRateCounter_004134b0@@QAEHXZ",
-      "section": ".text$01update",
+      "section": ".text$05update",
       "address": "0x004134B0",
       "size": 280,
       "actual_abi": "counter in ESI; result in EAX; plain RET"
+    },
+    {
+      "name": "AppendMarked",
+      "symbol": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "section": ".text$03marked",
+      "address": "0x00401690",
+      "size": 100,
+      "actual_abi": "Original named thread ESI/position EBX, format and variadics on stack; complete body."
+    },
+    {
+      "name": "Draw",
+      "symbol": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "section": ".text$07draw",
+      "address": "0x004135D0",
+      "size": 180,
+      "actual_abi": "Original counter EDI; return1/EAX plain RET; actual scheduler adapter."
+    },
+    {
+      "name": "Callback",
+      "symbol": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+      "section": ".text$09callback",
+      "address": "0x00413690",
+      "size": 10,
+      "actual_abi": "Actual scheduler boundary counterECX; EAX result/plainRET."
+    },
+    {
+      "name": "AppendRecord",
+      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "section": ".text$01append",
+      "address": "0x00401530",
+      "size": 132,
+      "source": "src/game/game_thread_queue.cpp",
+      "actual_abi": "Original full writer: thread ECX, name EAX, position EBX, plain RET."
+    },
+    {
+      "name": "AppendFormatted",
+      "symbol": "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "section": ".text$02bformatted",
+      "address": "0x00401630",
+      "size": 85,
+      "actual_abi": "Actual thread stack+4, position EBX, format stack+8 and varargs; full routine."
+    },
+    {
+      "name": "PanelDraw",
+      "symbol": "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z",
+      "section": ".text$11panel",
+      "address": "0x00429a70",
+      "size": 182,
+      "actual_abi": "Real callback phase/context slots ECX(dead)/EDX(panel), EAX result/plain RET; complete genuine caller."
     }
   ],
-  "context": {
-    "symbol": "?FrameRateCounterCompilerContext@@YGHPAUFrameRateCounter_004134b0@@H@Z",
-    "section": ".text$03context",
-    "address": "0x004135E0",
-    "size": 37,
-    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
-  },
   "gaps": [
     {
       "section": ".text$00layout",
-      "address": "0x00401000",
-      "size": 74928
+      "address": "0x401000",
+      "size": 1328
     },
     {
-      "section": ".text$02layout",
-      "address": "0x004135C8",
-      "size": 24
+      "section": ".text$04layout",
+      "address": "0x4016f4",
+      "size": 73148
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x4135c8",
+      "size": 8
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x413684",
+      "size": 12
+    },
+    {
+      "section": ".text$02alayout",
+      "address": "0x4015b4",
+      "size": 124
+    },
+    {
+      "section": ".text$02clayout",
+      "address": "0x401685",
+      "size": 11
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x41369a",
+      "size": 91094
     }
   ],
   "constants": [],
@@ -103,6 +172,119 @@
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x491fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d66",
+      "address": "0x491d66",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c30",
+      "address": "0x470c30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c64",
+      "address": "0x470c64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d198",
+      "address": "0x46d198",
+      "kind": "data"
+    },
+    {
+      "symbol": "_vsprintf",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c2c",
+      "address": "0x470c2c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e658",
+      "address": "0x46e658",
+      "kind": "data"
     }
+  ],
+  "entry": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+  "anchors": [],
+  "calls": [
+    {
+      "caller": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+      "callee": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "address": "0x413693",
+      "instruction": "call"
+    },
+    {
+      "caller": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "callee": "?Update@FrameRateCounter_004134b0@@QAEHXZ",
+      "address": "0x4135d6",
+      "instruction": "call"
+    },
+    {
+      "caller": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "callee": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "address": "0x41364e",
+      "instruction": "call"
+    },
+    {
+      "caller": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "callee": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "address": "0x4016c6",
+      "instruction": "call"
+    },
+    {
+      "caller": "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "callee": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "address": "0x40166b",
+      "instruction": "call"
+    },
+    {
+      "caller": "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z",
+      "callee": "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "address": "0x429b04",
+      "instruction": "call"
+    }
+  ],
+  "additional_sources": [
+    "src/game/game_thread_queue.cpp"
+  ],
+  "included_sources": [
+    "src/game/game_thread_append_formatted_marked_retail_00401690.cpp",
+    "src/app/fun_004135d0_004135d0.cpp",
+    "src/unidentified/FUN_00413690_00413690.cpp",
+    "src/game/game_thread_append_formatted_00401630.cpp",
+    "src/unidentified/FUN_00429a70_00429a70.cpp"
+  ],
+  "roots": [
+    "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z"
   ]
 }

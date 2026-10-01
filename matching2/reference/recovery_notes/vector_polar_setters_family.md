@@ -1,6 +1,11 @@
 # Vector polar setters — a seven-region family at the exact extent
 
-Superseded 2026-09-30: all eight setters are now MSVC 7.1 C++ with an inline `fsincos` block; see [the MSVC port note](foreign_compiler_regions_to_msvc_2026-09-30.md).
+Current 2026-09-30: all eight maintained setters are again **C++ without inline
+assembly**, using the pinned GCC `sincosl` intrinsic and generic word-home pass.
+The MSVC inline-block port described below was byte exact but violated the
+active no-inline-assembly objective. The current implementation uses the same
+class/method API for all eight functions and explicitly returns the receiver.
+See [the new recovery checkpoint](ecl_int_operand_and_polar_2026-09-30.md).
 
 Current maintained-source status, 2026-09-27: `projection_quads.cpp` still
 contains its two inline `FSINCOS` blocks and passes the current full executable

@@ -1,66 +1,17 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-// BLOCKED (D3606): closest_byte_count=25/100; first_diff=0x00401697.
-// residual_class=private EBX/ESI receiver convention, variadic stack layout,
-// and security-cookie scheduling through 0x00401530. variants_tested=live
-// Ghidra decompilation plus a readable MSVC 13.10 member candidate
-// (134-byte extent; 25/100 bytes matched) and schema2/native-LTCG caller
-// review. next_lever=co-compile this body with real callers
-// 0x0041364E/0x0042C38C and AppendRecord 0x00401530, preserving EBX/ESI;
-// production ownership remains kind=asm because regions.json is not edited.
+#include <stdio.h>
+#include <stdarg.h>
+#include "th10/game/game_thread_queue_native.hpp"
 
-// 0x00401530..0x004015B3: ?GameThread_AppendRecord@@
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00401690..0x004016F3: GameThread_AppendFormattedMarkedRetail
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_GameThread_AppendFormattedMarkedRetail_00401690() {
-    __asm {
-    L_00401690:
-        sub esp,204h
-    L_00401696:
-        mov eax,dword ptr [data_00473660]
-    L_0040169b:
-        mov ecx,dword ptr [esp+208h]
-    L_004016a2:
-        xor eax,esp
-    L_004016a4:
-        mov dword ptr [esp+200h],eax
-    L_004016ab:
-        lea eax,[esp+20Ch]
-    L_004016b2:
-        push eax
-    L_004016b3:
-        push ecx
-    L_004016b4:
-        lea edx,[esp+8]
-    L_004016b8:
-        push edx
-    L_004016b9:
-        call asm_vsprintf_004524a6
-    L_004016be:
-        add esp,0Ch
-    L_004016c1:
-        lea eax,[esp]
-    L_004016c4:
-        mov ecx,esi
-    L_004016c6:
-        call asm_GameThread_AppendRecord_00401530
-    L_004016cb:
-        mov eax,dword ptr [esi+896Ch]
-    L_004016d1:
-        mov ecx,dword ptr [esp+200h]
-    L_004016d8:
-        imul eax,68h
-    L_004016db:
-        xor ecx,esp
-    L_004016dd:
-        mov dword ptr [eax+esi+764h],1
-    L_004016e8:
-        call asm_security_check_cookie_00458ea5
-    L_004016ed:
-        add esp,204h
-    L_004016f3:
-        ret
-    }
+// Complete marked-text writer100: thread ESI, position EBX, format/varargs stack.
+#pragma code_seg(".text$03marked")
+__declspec(noinline) void __cdecl AppendMarked_00401690(GameThread_00401530 *thread,
+                const Vec3_00401530 *position, const char *format, ...) {
+    char text[0x200];
+    va_list args;
+    va_start(args,format);
+    vsprintf(text,format,args);
+    va_end(args);
+    AppendRecord_00401530(thread,text,position);
+    thread->records[thread->record_count-1].value_60=1;
 }
+#pragma code_seg()

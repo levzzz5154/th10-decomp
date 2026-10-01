@@ -7,6 +7,8 @@
 // layout/ltcg/stop_at_frame_pair_0040c480_context.cpp establishes that private
 // register convention.
 
+#include "th10/render/animation_stop_frame_handle.hpp"
+
 struct AnimationLookupContext;
 
 struct AnimationScriptId {
@@ -29,11 +31,6 @@ public:
 };
 
 extern "C" AnimationLookupContext* data_00491c10;
-
-struct AnimationHandle_00449470 {
-    unsigned int value;
-    __declspec(noinline) void SetStopFrame(unsigned short frame);
-};
 
 #pragma code_seg(".text$75stop")
 void AnimationHandle_00449470::SetStopFrame(unsigned short frame) {

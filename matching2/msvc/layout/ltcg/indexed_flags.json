@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "indexed_flags",
+  "source": "src/input/indexed_flags.cpp",
+  "driver": "layout/ltcg/indexed_flags_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "functions": [
+    {
+      "name": "ReadSignedByteFlag",
+      "symbol": "_ReadSignedByteFlag@16",
+      "section": ".text$01byte",
+      "address": "0x44a130",
+      "size": 37,
+      "actual_abi": "signed index AX, byte table ECX, output word EDX, selected bit SI; result EAX, plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_IndexedFlagsContext@24",
+    "section": ".text$05context",
+    "address": "0x44a200",
+    "size": 72,
+    "description": "Array walker, unselected compiler context."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 299312
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044A155",
+      "size": 171
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "description": "Complete signed-index byte-table flag reader, recovered with its native private register ABI. Unselected context supplies compiler scope."
+}

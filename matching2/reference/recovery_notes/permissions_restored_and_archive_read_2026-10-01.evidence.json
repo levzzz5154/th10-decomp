@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scope": "Fresh ordinary archive gate, integrated main focused gate, and complete current whole executable verified",
+  "manifest_sha256": "b2c81c3dca11527855091806b1a09098452aedf2ce8daf1dbc738c9ffa1fc2dc",
+  "manifest_snapshot": "matching2/build/experiments/archive_cursor_production_ready_2026_10_01/verified_regions.json",
+  "exe": "matching2/build/archive_read_msvc_2026_10_01/th10.exe",
+  "exe_size": 487936,
+  "exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "whole_exe_literal_exact": true,
+  "whole_report": "matching2/build/archive_read_msvc_2026_10_01/port-report.json",
+  "whole_report_sha256": "f0ac461a794b9a0abe434c10233ad04a2491713ce564890ea48df770f6d8c462",
+  "source_hashes_current": true,
+  "source_file_count": 3927,
+  "summary": {
+    "regions": {
+      "semantic": 1869,
+      "asm": 431,
+      "library": 323,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 100663,
+      "asm": 222255,
+      "library": 66480,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "fully_assembly_free": {
+    "regions": 1864,
+    "bytes": 96212
+  },
+  "incremental_semantic_regions": 1,
+  "incremental_semantic_bytes": 202,
+  "probe_sha256": "70fc9431168025c4cb72315531741429b08d3b23a79c5c4da049fa348e03dfe3",
+  "main_probe_sha256": "d66f2cfdc5cfca3287a07d9cf10685e655ee90b262fe29b0d745159ee6fb21f4",
+  "verifier": "matching2/build/experiments/archive_cursor_production_ready_2026_10_01/verify_ordinary.py",
+  "verifier_sha256": "1aa7da86a2fb382ef2f42509cb9c9d0765267bf5f8f1dfc1d30e94513741aeeb",
+  "instruction_bytes_changed": 0,
+  "masked_bytes": 0,
+  "retail_executable_used_for_build": false,
+  "semantics_scope": "Pinned MSVC target intrinsic-copy bytes; no portable ISO overlap guarantee or new dynamic test claimed",
+  "goal_complete": false
+}

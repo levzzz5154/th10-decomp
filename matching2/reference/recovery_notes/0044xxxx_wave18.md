@@ -1,5 +1,20 @@
 # 0x0044xxxx wave 18 - 36 of 95 regions landed
 
+**Current forwarding correction (2026-10-01):** Both 15-byte position wrappers
+now explicitly forward the inherited ESI position and are compiled with their
+real setters in `position_setter_pair`. The old wrapper-only cluster is removed.
+See [current recovery and evidence](embedded_child_and_position_wrappers_2026-10-01.md).
+The older prototypes and wrapper-only context below are historical.
+
+
+**Current correction (2026-10-01):** The stop-frame/run wrapper at 0x004494C0
+now explicitly forwards its inherited DI frame and is compiled with the actual
+0x00449250 helper and lookup in the stop-frame family. Its 15-byte body remains
+exact. The `unassigned_anim_setters_00449` source/cluster now owns only the two
+position wrappers. See [current recovery and evidence](animation_stop_run_native_2026-10-01.md).
+The tables and prototypes below describe the historical batch.
+
+
 2026-09-19. Block `0x00441590..0x0044DF30`, 95 candidate regions (2,539 bytes) that
 the repaired `screen_regions.py` owner filter had just unlocked. Worked in
 `/tmp/VeinBlock44/msvc`, landed through the maintained tree's own tools; the five

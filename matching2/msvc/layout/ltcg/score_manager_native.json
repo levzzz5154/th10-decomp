@@ -1,0 +1,303 @@
+{
+  "schema_version": 2,
+  "name": "score_manager_native",
+  "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+  "headers": [
+    "include/th10/game/score_archive_manager_0042ae60.hpp",
+    "include/th10/game/score_file.hpp"
+  ],
+  "additional_sources": [],
+  "image_base": "0x00400000",
+  "description": "Complete scoreth10.dat manager constructor and genuine exception-aware allocating factory; all private helper bodies complete, nonmatching helpers unselected with zero credit.",
+  "functions": [
+    {
+      "name": "ScoreArchiveManager_Construct",
+      "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "address": "0x0042AE60",
+      "size": 132,
+      "section": ".text$02b",
+      "actual_abi": "receiver/result EAX; manager home EBX; RET"
+    },
+    {
+      "symbol": "?ScoreManager_Create_0042af20@@YGXXZ",
+      "address": "0x0042AF20",
+      "size": 97,
+      "section": ".text$03b",
+      "name": "ScoreManager_Create",
+      "actual_abi": "No arguments/result ignored; full genuine allocating caller with native constructor cleanup and null publication."
+    },
+    {
+      "name": "ScoreManager_AllocationCleanup",
+      "symbol": "_ScoreManagerNativeUnwind_004655a0",
+      "address": "0x004655A0",
+      "size": 11,
+      "section": ".text$x",
+      "actual_abi": "Actual allocation at EBP-10; genuine compiler-generated cleanup calls delete4524A1.",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "ScoreManager_AllocationHandler",
+      "symbol": "__ehhandler$?ScoreManager_Create_0042af20@@YGXXZ",
+      "address": "0x004655AB",
+      "size": 10,
+      "section": ".text$x",
+      "actual_abi": "Native handler loads FuncInfo471620 and tail calls __CxxFrameHandler46276D.",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Defaults",
+      "symbol": "_ScoreFile_Defaults_0042acb0@4",
+      "address": "0x0042ACB0",
+      "size": 268,
+      "section": ".text$00b"
+    },
+    {
+      "name": "RandomTable",
+      "symbol": "@Recovery_InitializeRandomTable_0042add0@8",
+      "address": "0x0042ADD0",
+      "size": 142,
+      "section": ".text$01b"
+    },
+    {
+      "name": "LoadSections",
+      "symbol": "?LoadSections@ScoreArchiveManager_0042ae60@@QAEHXZ",
+      "address": "0x0042B030",
+      "size": 434,
+      "section": ".text$04b"
+    },
+    {
+      "name": "Decrypt",
+      "symbol": "?Dat_Decrypt@@YGPAEPAEHEEHH@Z",
+      "address": "0x0044B0D0",
+      "size": 323,
+      "section": ".text$05b"
+    },
+    {
+      "name": "ArchiveLoader",
+      "symbol": "?Archive_LoadFile@@YGPADPBDPAHH@Z",
+      "address": "0x0044B360",
+      "size": 360,
+      "section": ".text$06b"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x401000",
+      "size": 171184
+    },
+    {
+      "section": ".text$01a",
+      "address": "0x42adbc",
+      "size": 20
+    },
+    {
+      "section": ".text$02a",
+      "address": "0x42ae5e",
+      "size": 2
+    },
+    {
+      "section": ".text$03a",
+      "address": "0x42aee4",
+      "size": 60
+    },
+    {
+      "section": ".text$04a",
+      "address": "0x42af81",
+      "size": 175
+    },
+    {
+      "section": ".text$05a",
+      "address": "0x42b1e2",
+      "size": 130798
+    },
+    {
+      "section": ".text$06a",
+      "address": "0x44b213",
+      "size": 333
+    },
+    {
+      "section": ".text$90gap",
+      "address": "0x44b4c8",
+      "size": 106712
+    },
+    {
+      "section": ".rdata$01gap",
+      "address": "0x00466000",
+      "size": 46616
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x434dd0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x47783c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e848",
+      "address": "0x46e848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e858",
+      "address": "0x46e858",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_difficulty",
+      "address": "0x4743c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e354",
+      "address": "0x46e354",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x4918b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b4",
+      "address": "0x4918b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?DecompressDatLzss_00435dc0@@YGPAEPAEH0I@Z",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004743bf",
+      "address": "0x4743bf",
+      "kind": "data"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471618",
+      "bytes": "ffffffffa055460020059319010000001816470000000000000000000000000000000000",
+      "description": "Whole original36-byte allocating-factory exception table and FuncInfo. Native bytes must match literally."
+    }
+  ],
+  "entry": "?ScoreManager_Create_0042af20@@YGXXZ",
+  "calls": [
+    {
+      "caller": "?ScoreManager_Create_0042af20@@YGXXZ",
+      "callee": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "address": "0x0042AF52",
+      "instruction": "call"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/score_manager_factory_context.cpp",
+    "layout/ltcg/score_manager_dependencies/defaults.cpp",
+    "layout/ltcg/score_manager_dependencies/random_table.cpp",
+    "layout/ltcg/score_manager_dependencies/load_sections.cpp",
+    "layout/ltcg/score_manager_dependencies/decrypt.cpp",
+    "layout/ltcg/score_manager_dependencies/archive_load.cpp"
+  ]
+}

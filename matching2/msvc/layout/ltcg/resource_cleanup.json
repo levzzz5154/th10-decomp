@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "name": "resource_cleanup",
+  "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+  "driver": "layout/ltcg/resource_cleanup_context.cpp",
+  "headers": [
+    "include/th10/game/scheduler_remove_locked.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/animation_mark_for_removal.hpp",
+    "include/th10/game/resource_cleanup.hpp"
+  ],
+  "included_sources": [
+    "src/game/recovery_clear_eight_buckets_00419040.cpp",
+    "src/game/scheduler_tasks.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete resource manager cleanup with genuine scheduler removal and bucket clear context.",
+  "functions": [
+    {
+      "name": "ResourceCleanup",
+      "symbol": "_ResourceCleanup@4",
+      "section": ".text$01cleanup",
+      "address": "0x00418EE0",
+      "size": 346,
+      "actual_abi": "manager stack, RET4"
+    }
+  ],
+  "roots": [
+    "_ResourceCleanup@4"
+  ],
+  "anchors": [
+    {
+      "name": "ClearBuckets",
+      "symbol": "?ClearBuckets@Manager_00419040@@QAEXXZ",
+      "section": ".text$03buckets",
+      "address": "0x00419040",
+      "size": 79
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_Scheduler_Remove@8",
+      "section": ".text$05remove",
+      "address": "0x00449F60",
+      "size": 114
+    }
+  ],
+  "context": {
+    "symbol": "_ResourceCleanupContext@8",
+    "section": ".text$07context",
+    "address": "0x00449FE0",
+    "size": 35,
+    "description": "Synthetic manager walker, unselected"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 98016
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041903A",
+      "size": 6
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0041908F",
+      "size": 200401
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x00449FD2",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d6a",
+      "address": "0x00491D6A",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477814",
+      "address": "0x00477814",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d6d8",
+      "address": "0x0046D6D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_SaveHints@8",
+      "address": "0x0041A200",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ]
+}

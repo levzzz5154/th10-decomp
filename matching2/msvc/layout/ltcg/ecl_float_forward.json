@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "name": "ecl_float_forward",
+  "source": "src/game/ecl_forward_float_00412aa0.cpp",
+  "driver": "layout/ltcg/ecl_float_forward_context.cpp",
+  "headers": [
+    "include/th10/script/ecl_float_values.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Entity float forwarding and its real value resolver compiled together with native LTCG; complete functions reproduce the EAX receiver, stack payload forwarding and x87 return.",
+  "functions": [
+    {
+      "name": "ForwardEclFloat",
+      "symbol": "?ForwardEclFloat@@YGMPAUEclFloatEntityVm@@HM@Z",
+      "section": ".text$01bridge",
+      "address": "0x00412AA0",
+      "size": 26,
+      "actual_abi": "VM in EAX, selector and float operand on stack; RET 8"
+    },
+    {
+      "name": "ResolveFloatValue",
+      "symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
+      "section": ".text$05value",
+      "address": "0x0044FF80",
+      "size": 171,
+      "actual_abi": "VM in EAX, selector in ECX (only CL read), float operand on stack; RET 4",
+      "source": "src/script/ecl_resolve_float_value_0044ff80.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "EclFloatForwardContext@16",
+    "section": ".text$07context",
+    "address": "0x00450040",
+    "size": 68,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 72352
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00412ABA",
+      "size": 251078
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x0045002B",
+      "size": 21
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b60",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/script/ecl_resolve_float_value_0044ff80.cpp"
+  ]
+}

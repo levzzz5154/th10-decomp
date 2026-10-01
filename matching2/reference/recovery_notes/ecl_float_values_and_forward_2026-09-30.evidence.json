@@ -1,0 +1,2682 @@
+{
+  "focused_exact": true,
+  "focused_region_count": 11,
+  "focused_regions": [
+    {
+      "region": "semantic_ForwardEclFloat_00412aa0",
+      "address": 4270752,
+      "size": 26,
+      "symbol": "?ForwardEclFloat@@YGMPAUEclFloatEntityVm@@HM@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/ecl_forward_float_00412aa0.cpp"
+    },
+    {
+      "region": "semantic_ResolveFloatValue_0044ff80",
+      "address": 4521856,
+      "size": 171,
+      "symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/game/ecl_forward_float_00412aa0.cpp"
+    },
+    {
+      "region": "asm_FUN_0044e1a0_0044e1a0",
+      "address": 4514208,
+      "size": 7020,
+      "symbol": "_asm_FUN_0044e1a0_0044e1a0",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 50,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb96",
+          "target": 4520854,
+          "bound": 4520854,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 77,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 90,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb68",
+          "target": 4520808,
+          "bound": 4520808,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 114,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PopScratchValue_004506d0",
+          "target": 4523728,
+          "bound": 4523728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 126,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb0",
+          "target": 4520880,
+          "bound": 4520880,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 182,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb2",
+          "target": 4520882,
+          "bound": 4520882,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 187,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 201,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_SpawnChild_004500d0",
+          "target": 4522192,
+          "bound": 4522192,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 206,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 217,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResetVariableBindings_00450190",
+          "target": 4522384,
+          "bound": 4522384,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 222,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 247,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntValue_0044ff00",
+          "target": 4521728,
+          "bound": 4521728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 259,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_SpawnChild_004500d0",
+          "target": 4522192,
+          "bound": 4522192,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 264,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 272,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 285,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 293,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 303,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 311,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 324,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 332,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 346,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 354,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 367,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 375,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 389,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 397,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 410,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_FindVariable_00450160",
+          "target": 4522336,
+          "bound": 4522336,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 418,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 429,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 440,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 449,
+          "kind": "rel32",
+          "symbol": "_asm_EclVm_StartChildRetail_0044df70",
+          "target": 4513648,
+          "bound": 4513648,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 457,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fbb2",
+          "target": 4520882,
+          "bound": 4520882,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 462,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb85",
+          "target": 4520837,
+          "bound": 4520837,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 520,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 541,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 599,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 619,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 634,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb81",
+          "target": 4520833,
+          "bound": 4520833,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 642,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 659,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 667,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 679,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PushScratchValue_00450690",
+          "target": 4523664,
+          "bound": 4523664,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 684,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 692,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_PopScratchValue_004506d0",
+          "target": 4523728,
+          "bound": 4523728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 697,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 705,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 726,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 731,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 738,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveVariableValue_00450030",
+          "target": 4522032,
+          "bound": 4522032,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 757,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 797,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 804,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 811,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 820,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 841,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 846,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 855,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 872,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 914,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 923,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 932,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 991,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1048,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1085,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1090,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1143,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1197,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1231,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1236,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1295,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1352,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1380,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1385,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1417,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1422,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1475,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1529,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1554,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1559,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1588,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1593,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1652,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1709,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1737,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1774,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1779,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1912,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1917,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1943,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 1948,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2093,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2098,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2127,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2132,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2265,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2270,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2296,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2301,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2446,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2451,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2480,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2485,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2538,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2598,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2643,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2648,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2701,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2761,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2806,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2811,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2870,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2933,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2981,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 2986,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3045,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3108,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3156,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3161,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3214,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3274,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3319,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3324,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3383,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3446,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3494,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3499,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3558,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3599,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3604,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3784,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3789,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3941,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3961,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 3966,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4104,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4124,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4129,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4267,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4287,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4292,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4430,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4450,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4455,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4617,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4637,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4642,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4714,
+          "kind": "dir32",
+          "symbol": "_data_00470b04",
+          "target": 4655876,
+          "bound": 4655876,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044f05c",
+          "target": 4517980,
+          "bound": 4517980,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4762,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4767,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4826,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4889,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4942,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 4947,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5006,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5069,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5122,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5127,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5186,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5249,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5290,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5295,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5354,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5417,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5458,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5463,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5522,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5585,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5626,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5631,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5684,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00463b2c_00463b2c",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5706,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5711,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5737,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5742,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5825,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5830,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5838,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntOperand_0044fdb0",
+          "target": 4521392,
+          "bound": 4521392,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5851,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveVariableValue_00450030",
+          "target": 4522032,
+          "bound": 4522032,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5871,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 5876,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6050,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_004505b0_004505b0",
+          "target": 4523440,
+          "bound": 4523440,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6055,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6067,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6083,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6092,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6108,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_SetPolarVector_004501b0",
+          "target": 4522416,
+          "bound": 4522416,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6117,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6138,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6152,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6164,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6180,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6193,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6218,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6227,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6238,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6247,
+          "kind": "rel32",
+          "symbol": "_asm_Angle_Normalize_0044bc70",
+          "target": 4504688,
+          "bound": 4504688,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6254,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6266,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6279,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6299,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6315,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatOperand_0044fe40",
+          "target": 4521536,
+          "bound": 4521536,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6338,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatDestination_00450070",
+          "target": 4522096,
+          "bound": 4522096,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6349,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb77",
+          "target": 4520823,
+          "bound": 4520823,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6362,
+          "kind": "rel32",
+          "symbol": "_asm_malloc_00452706",
+          "target": 4531974,
+          "bound": 4531974,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6380,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb5d",
+          "target": 4520797,
+          "bound": 4520797,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6406,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_00452730_00452730",
+          "target": 4532016,
+          "bound": 4532016,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6421,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044fb57",
+          "target": 4520791,
+          "bound": 4520791,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6523,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveIntValue_0044ff00",
+          "target": 4521728,
+          "bound": 4521728,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6549,
+          "kind": "rel32",
+          "symbol": "_asm_ECL_ResolveFloatValue_0044ff80",
+          "target": 4521856,
+          "bound": 4521856,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6579,
+          "kind": "rel32",
+          "symbol": "_asm_target_0044faa2",
+          "target": 4520610,
+          "bound": 4520610,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6591,
+          "kind": "rel32",
+          "symbol": "_asm_free_00452422",
+          "target": 4531234,
+          "bound": 4531234,
+          "addend": 0,
+          "matches": true
+        },
+        {
+          "offset": 6642,
+          "kind": "rel32",
+          "symbol": "_asm_FUN_0044e1a0_part_0044e1e0",
+          "target": 4514272,
+          "bound": 4514272,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntOperand_0044fdb0",
+      "address": 4521392,
+      "size": 144,
+      "symbol": "?ECL_ResolveIntOperand_0044fdb0@@YIHHPAUEclFrame@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 106,
+          "kind": "rel32",
+          "symbol": "__ftol2",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntValue_0044ff00",
+      "address": 4521728,
+      "size": 124,
+      "symbol": "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [
+        {
+          "offset": 102,
+          "kind": "rel32",
+          "symbol": "__ftol2",
+          "target": 4602668,
+          "bound": 4602668,
+          "addend": 0,
+          "matches": true
+        }
+      ],
+      "source": "src/script/ecl_core_interpreter.cpp"
+    },
+    {
+      "region": "semantic_ResolveFloatOperand_0044fe40",
+      "address": 4521536,
+      "size": 183,
+      "symbol": "?ResolveFloatOperand@EclFloatVm@@QAEMH@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/script/ecl_resolve_float_operand_0044fe40.cpp"
+    },
+    {
+      "region": "semantic_ResolveIntDestination_00450030",
+      "address": 4522032,
+      "size": 58,
+      "symbol": "?ResolveIntDestination@EclVm_00450070@@QAEPAHH@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
+    },
+    {
+      "region": "semantic_EclVm_ResolveFloatDestination_00450070",
+      "address": 4522096,
+      "size": 93,
+      "symbol": "?ResolveFloatDestination@EclVm_00450070@@QAEPAMH@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
+    },
+    {
+      "region": "semantic_FUN_0040c650_0040c650",
+      "address": 4245072,
+      "size": 8,
+      "symbol": "?ResolveSlotFloatOperand_0040c650@@YGMPAUEclOperandSlot@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    },
+    {
+      "region": "semantic_FUN_0040c680_0040c680",
+      "address": 4245120,
+      "size": 8,
+      "symbol": "?ResolveSlotFloatValue_0040c680@@YIMHPAUEclOperandSlot@@M@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    },
+    {
+      "region": "semantic_ECL_ResolveIntFromEntity_00412a00",
+      "address": 4270592,
+      "size": 16,
+      "symbol": "?ResolveEntityIntOperand_00412a00@@YGHPAUEclEntityVm@@H@Z",
+      "different_bytes": 0,
+      "exact": true,
+      "relocations": [],
+      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+    }
+  ],
+  "changed_source_sha256": {
+    "regions.json": "ddbba2ab440d3f35223273b71f2ab934f12562f84be8d37fdd7ee3bd80d7cfa2",
+    "include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
+    "src/game/ecl_forward_float_00412aa0.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
+    "src/script/ecl_resolve_float_operand_0044fe40.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
+    "src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+    "layout/ltcg/ecl_float_operand_recovery.json": "68ae0369858dd895d6a0d564a7c0bfe264f2d2e4b354ddb0a0a75e940db4f2e3",
+    "layout/ltcg/ecl_float_operand_recovery_context.cpp": "ece773666adf2751fa04a1ab63248654037ea620351018d40b5509dbab83486b",
+    "layout/ltcg/ecl_float_forward.json": "0e3cee60bfe91bb99f549ed11f96bd7bd644894073e52c1dc1754f76f41dd269",
+    "layout/ltcg/ecl_float_forward_context.cpp": "13db86bbd7cae4eeb39080bd013cba64b4f6bf12862981de84909c8723883e3d",
+    "layout/ltcg/ecl_operand_thunks_context.cpp": "0d352d8f180be0a89e3b88fbbc6467d47b607dd1ca58967e42f63b3ee0e473b0"
+  },
+  "recovered_compiler_units": {
+    "src/game/ecl_forward_float_00412aa0.cpp": {
+      "compiler_kind": "native-ltcg",
+      "sources": null,
+      "input_sha256": {
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_forward.json": "0e3cee60bfe91bb99f549ed11f96bd7bd644894073e52c1dc1754f76f41dd269",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/ecl_forward_float_00412aa0.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_forward_context.cpp": "13db86bbd7cae4eeb39080bd013cba64b4f6bf12862981de84909c8723883e3d"
+      },
+      "tool_sha256": {
+        "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+        "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+        "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+        "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+        "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+      },
+      "functions": [
+        {
+          "name": "ForwardEclFloat",
+          "symbol": "?ForwardEclFloat@@YGMPAUEclFloatEntityVm@@HM@Z",
+          "visibility": "public",
+          "map_segment": "0001",
+          "map_offset": "0x00011AA0",
+          "address": "0x00412AA0",
+          "rva": "0x00012AA0",
+          "section": ".text",
+          "file_offset": "0x11CA0",
+          "size": 26,
+          "bytes_hex": "8b 4c 24 08 8b 80 d8 14 00 00 8b 40 04 51 8b 4c 24 08 e8 c9 d4 03 00 c2 08 00",
+          "sha256": "7d9f7ac705c667da213ec6f2fa250f968a14a7ac0d6e330543272186e75f8316",
+          "map_origin": "cluster.obj",
+          "expected_bytes_checked": false,
+          "expected_sha256_checked": false,
+          "native_symbol": "?ForwardEclFloat@@YGMPAUEclFloatEntityVm@@HM@Z",
+          "actual_abi": "VM in EAX, selector and float operand on stack; RET 8"
+        },
+        {
+          "name": "ResolveFloatValue",
+          "symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
+          "visibility": "public",
+          "map_segment": "0001",
+          "map_offset": "0x0004EF80",
+          "address": "0x0044FF80",
+          "rva": "0x0004FF80",
+          "section": ".text",
+          "file_offset": "0x4F180",
+          "size": 171,
+          "bytes_hex": "56 8b f0 8b 46 04 0f b7 50 08 b8 01 00 00 00 d3 e0 85 d0 74 71 d9 44 24 08 d8 1d 04 0b 47 00 df e0 f6 c4 01 75 17 d9 44 24 08 e8 7d 3b 01 00 03 86 0c 10 00 00 d9 44 30 08 5e c2 04 00 d9 05 60 0b 47 00 d9 44 24 08 da e9 df e0 f6 c4 44 7a 3e 8b 86 08 10 00 00 83 c0 fc 78 2b 89 86 08 10 00 00 8b 4c 30 08 83 c0 fc 89 86 08 10 00 00 8a 44 30 08 3c 66 89 4c 24 08 74 0c 3c 69 75 08 db 44 24 08 d9 5c 24 08 d9 44 24 08 5e c2 04 00 8b b6 14 10 00 00 d9 44 24 08 57 8b 3e e8 0c 3b 01 00 50 8b ce ff 57 0c 5f 5e c2 04 00",
+          "sha256": "a5d002df2a338ac482ceb008546447eac1fb0ff526f5acd035282dc7dedcb4c8",
+          "map_origin": "source_000.obj",
+          "expected_bytes_checked": false,
+          "expected_sha256_checked": false,
+          "native_symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
+          "actual_abi": "VM in EAX, selector in ECX (only CL read), float operand on stack; RET 4"
+        }
+      ],
+      "compile_commands": [
+        {
+          "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_forward_context.cpp",
+          "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_forward/native-xx6oyp6x/cluster.obj",
+          "command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+            "/nologo",
+            "/c",
+            "/O2",
+            "/Gz",
+            "/MT",
+            "/Gy",
+            "/G6",
+            "/GF",
+            "/GS",
+            "/Zl",
+            "/GL",
+            "/showIncludes",
+            "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+            "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_float_forward_context.cpp"
+          ],
+          "source_sha256": "13db86bbd7cae4eeb39080bd013cba64b4f6bf12862981de84909c8723883e3d",
+          "object_sha256": "09be95c72a392e168986d64bb9342db23b8c7ac9f612d94323042ba52e1e3f27"
+        },
+        {
+          "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp",
+          "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_forward/native-xx6oyp6x/source_000.obj",
+          "command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+            "/nologo",
+            "/c",
+            "/O2",
+            "/Gz",
+            "/MT",
+            "/Gy",
+            "/G6",
+            "/GF",
+            "/GS",
+            "/Zl",
+            "/GL",
+            "/showIncludes",
+            "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+            "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\source_000.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\script\\ecl_resolve_float_value_0044ff80.cpp"
+          ],
+          "source_sha256": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+          "object_sha256": "7a89701c20a4231b2f377281c768bd84ed0f827fa0885ee753f1867d546e4ab5"
+        },
+        {
+          "source": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_forward/native-xx6oyp6x/layout.cpp",
+          "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_forward/native-xx6oyp6x/layout-original.obj",
+          "command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+            "/nologo",
+            "/c",
+            "/O2",
+            "/Gz",
+            "/MT",
+            "/Gy",
+            "/G6",
+            "/GF",
+            "/GS",
+            "/Zl",
+            "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+            "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\layout-original.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\layout.cpp"
+          ],
+          "source_sha256": "926c34c5875f154f6b68591eccd7d0a8ca2bbb7126e43014d6399f32975b4a4c",
+          "object_sha256": "317d5ccdafd013025bc660897f1cac01a889a7bd070249658dd849891323d73f"
+        }
+      ],
+      "link_command": [
+        "wine",
+        "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+        "/nologo",
+        "/LTCG",
+        "/MACHINE:X86",
+        "/BASE:0x400000",
+        "/FILEALIGN:512",
+        "/SUBSYSTEM:WINDOWS",
+        "/ENTRY:EclFloatForwardContext@16",
+        "/FIXED",
+        "/INCREMENTAL:NO",
+        "/NODEFAULTLIB",
+        "/OPT:REF",
+        "/OPT:NOICF",
+        "/INCLUDE:_ltcg_gap_0",
+        "/INCLUDE:_ltcg_gap_1",
+        "/INCLUDE:_ltcg_gap_2",
+        "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\cluster.exe",
+        "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\cluster.map",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\cluster.obj",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\source_000.obj",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\layout.obj",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\bindings.obj"
+      ],
+      "compiler_context": {
+        "symbol": "EclFloatForwardContext@16",
+        "section": ".text$07context",
+        "address": 4522048,
+        "size": 68,
+        "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code.",
+        "selected": false,
+        "recovered_code_bytes": 0
+      },
+      "layout_gaps": {
+        "input_sha256": "317d5ccdafd013025bc660897f1cac01a889a7bd070249658dd849891323d73f",
+        "output_sha256": "f204b37c05e607dfc2964ff2c4dbd771f624b6d78fc18217a02edaeff8c5df32",
+        "sections": [
+          {
+            "section": ".text$00layout",
+            "size": 72352,
+            "sha256": "8696c172a69015341497d0705bc6fcfeee24b4ff36ecaeaa592bc7859730be29",
+            "original_characteristics": 1615855680,
+            "characteristics": 1611661344
+          },
+          {
+            "section": ".text$02layout",
+            "size": 251078,
+            "sha256": "6adf33c97560de84db91fe978aed07fabf254a6cc67ad805939b26aef9cc034c",
+            "original_characteristics": 1615855680,
+            "characteristics": 1611661344
+          },
+          {
+            "section": ".text$06layout",
+            "size": 21,
+            "sha256": "c90232586b801f9558a76f2f963eccd831d9fe6775e4c8f1446b2331aa2132f2",
+            "original_characteristics": 1615855680,
+            "characteristics": 1611661344
+          }
+        ],
+        "payload_bytes_changed": 0,
+        "recovered_code_bytes": 0
+      },
+      "absolute_symbols": [
+        {
+          "symbol": "__ftol2",
+          "address": 4602668,
+          "kind": "relative_code",
+          "coff_value": 408364
+        },
+        {
+          "symbol": "__fltused",
+          "address": 0,
+          "kind": "metadata",
+          "coff_value": 0
+        },
+        {
+          "symbol": "_data_00470b04",
+          "address": 4655876,
+          "kind": "data",
+          "coff_value": 4655876
+        },
+        {
+          "symbol": "_data_00470b60",
+          "address": 4655968,
+          "kind": "data",
+          "coff_value": 4655968
+        },
+        {
+          "symbol": "__real@00000000",
+          "address": 4655876,
+          "kind": "data",
+          "coff_value": 4655876
+        }
+      ]
+    },
+    "src/script/ecl_resolve_float_operand_0044fe40.cpp": {
+      "compiler_kind": "native-ltcg",
+      "sources": null,
+      "input_sha256": {
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_operand_recovery.json": "68ae0369858dd895d6a0d564a7c0bfe264f2d2e4b354ddb0a0a75e940db4f2e3",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_operand_0044fe40.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_operand_recovery_context.cpp": "ece773666adf2751fa04a1ab63248654037ea620351018d40b5509dbab83486b"
+      },
+      "tool_sha256": {
+        "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+        "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+        "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+        "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+        "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+      },
+      "functions": [
+        {
+          "name": "ResolveFloatOperand",
+          "symbol": "?ResolveFloatOperand@EclFloatVm@@QAEMH@Z",
+          "visibility": "public",
+          "map_segment": "0001",
+          "map_offset": "0x0004EE40",
+          "address": "0x0044FE40",
+          "rva": "0x0004FE40",
+          "section": ".text",
+          "file_offset": "0x4F040",
+          "size": 183,
+          "bytes_hex": "51 56 57 8b f0 8b 56 04 0f b7 42 08 bf 01 00 00 00 d3 e7 85 c7 0f 84 94 00 00 00 d9 44 8a 10 d8 1d 04 0b 47 00 df e0 f6 c4 01 75 17 d9 44 8a 10 e8 b7 3c 01 00 03 86 0c 10 00 00 d9 44 30 08 5f 5e 59 c3 d9 05 60 0b 47 00 d9 44 8a 10 da e9 df e0 f6 c4 44 7a 3e 8b 86 08 10 00 00 83 c0 fc 78 2b 89 86 08 10 00 00 8b 4c 30 08 83 c0 fc 89 86 08 10 00 00 8a 44 30 08 3c 66 89 4c 24 08 74 0c 3c 69 75 08 db 44 24 08 5f 5e 59 c3 d9 44 24 08 5f 5e 59 c3 8b b6 14 10 00 00 d9 44 8a 10 8b 3e e8 47 3c 01 00 50 8b ce ff 57 0c 5f 5e 59 c3 d9 44 8a 10 5f 5e 59 c3",
+          "sha256": "2ca538193891653fac19d37bf3da384a61d399b71e590c34be12a3f1222d54d9",
+          "map_origin": "cluster.obj",
+          "expected_bytes_checked": false,
+          "expected_sha256_checked": false,
+          "native_symbol": "?ResolveFloatOperand@EclFloatVm@@QAEMH@Z",
+          "actual_abi": "VM in EAX, selector in ECX; plain RET"
+        }
+      ],
+      "compile_commands": [
+        {
+          "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_operand_recovery_context.cpp",
+          "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_operand_recovery/native-jfp35cs7/cluster.obj",
+          "command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+            "/nologo",
+            "/c",
+            "/O2",
+            "/Gz",
+            "/MT",
+            "/Gy",
+            "/G6",
+            "/GF",
+            "/GS",
+            "/Zl",
+            "/GL",
+            "/showIncludes",
+            "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+            "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_float_operand_recovery_context.cpp"
+          ],
+          "source_sha256": "ece773666adf2751fa04a1ab63248654037ea620351018d40b5509dbab83486b",
+          "object_sha256": "e7d5b7d0974a40176925637c3c34ef292e43fe071605d9c69789af4b0801cb0e"
+        },
+        {
+          "source": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_operand_recovery/native-jfp35cs7/layout.cpp",
+          "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_operand_recovery/native-jfp35cs7/layout-original.obj",
+          "command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+            "/nologo",
+            "/c",
+            "/O2",
+            "/Gz",
+            "/MT",
+            "/Gy",
+            "/G6",
+            "/GF",
+            "/GS",
+            "/Zl",
+            "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+            "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\layout-original.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\layout.cpp"
+          ],
+          "source_sha256": "df4748b5878931a3a6d1d7f469975aa5c2921d046cc8f90cb1bb6960ca5eae74",
+          "object_sha256": "32cb24fbb453f069ef0c7bcc5d2e4045dacd73c29f1aafd388e271b26ef7d56f"
+        }
+      ],
+      "link_command": [
+        "wine",
+        "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+        "/nologo",
+        "/LTCG",
+        "/MACHINE:X86",
+        "/BASE:0x400000",
+        "/FILEALIGN:512",
+        "/SUBSYSTEM:WINDOWS",
+        "/ENTRY:EclFloatOperandContext@12",
+        "/FIXED",
+        "/INCREMENTAL:NO",
+        "/NODEFAULTLIB",
+        "/OPT:REF",
+        "/OPT:NOICF",
+        "/INCLUDE:_ltcg_gap_0",
+        "/INCLUDE:_ltcg_gap_1",
+        "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\cluster.exe",
+        "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\cluster.map",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\cluster.obj",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\layout.obj",
+        "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_operand_recovery\\native-jfp35cs7\\bindings.obj"
+      ],
+      "compiler_context": {
+        "symbol": "EclFloatOperandContext@12",
+        "section": ".text$03context",
+        "address": 4521744,
+        "size": 66,
+        "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code.",
+        "selected": false,
+        "recovered_code_bytes": 0
+      },
+      "layout_gaps": {
+        "input_sha256": "32cb24fbb453f069ef0c7bcc5d2e4045dacd73c29f1aafd388e271b26ef7d56f",
+        "output_sha256": "ca9913f06db3ed54bd2829b601892ad8aeab774137fb8c4c6a1438c077c1bcb2",
+        "sections": [
+          {
+            "section": ".text$00layout",
+            "size": 323136,
+            "sha256": "1104c41c4758f94261574f11028a747f7f91f8674ff84bac2a8c7cb86a79d4b8",
+            "original_characteristics": 1615855680,
+            "characteristics": 1611661344
+          },
+          {
+            "section": ".text$02layout",
+            "size": 25,
+            "sha256": "61126de1b795b976f3ac878f48e88fa77a87d7308ba57c7642b9e1068403a496",
+            "original_characteristics": 1615855680,
+            "characteristics": 1611661344
+          }
+        ],
+        "payload_bytes_changed": 0,
+        "recovered_code_bytes": 0
+      },
+      "absolute_symbols": [
+        {
+          "symbol": "__ftol2",
+          "address": 4602668,
+          "kind": "relative_code",
+          "coff_value": 408364
+        },
+        {
+          "symbol": "__fltused",
+          "address": 0,
+          "kind": "metadata",
+          "coff_value": 0
+        },
+        {
+          "symbol": "_data_00470b04",
+          "address": 4655876,
+          "kind": "data",
+          "coff_value": 4655876
+        },
+        {
+          "symbol": "_data_00470b60",
+          "address": 4655968,
+          "kind": "data",
+          "coff_value": 4655968
+        },
+        {
+          "symbol": "__real@00000000",
+          "address": 4655876,
+          "kind": "data",
+          "coff_value": 4655876
+        }
+      ]
+    }
+  },
+  "forward_variants": [
+    {
+      "variant": "vm_last",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 26,
+          "different_bytes": 9,
+          "first": [
+            1,
+            5,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ]
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/vm_last-1/native-tgirlc0x/cluster.exe"
+    },
+    {
+      "variant": "vm_middle",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 26,
+          "different_bytes": 9,
+          "first": [
+            1,
+            5,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ]
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/vm_middle-1/native-1tcu7jxs/cluster.exe"
+    },
+    {
+      "variant": "raw_operand",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 22,
+          "different_bytes": 25,
+          "first": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/raw_operand-1/native-4b26yhlq/cluster.exe"
+    },
+    {
+      "variant": "raw_vm_last",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 22,
+          "different_bytes": 25,
+          "first": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/raw_vm_last-1/native-8i9ubm65/cluster.exe"
+    },
+    {
+      "variant": "pointer_local",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 26,
+          "different_bytes": 15,
+          "first": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            11,
+            13,
+            14
+          ]
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/pointer_local-1/native-frzp_phv/cluster.exe"
+    },
+    {
+      "variant": "slot_local",
+      "results": [
+        {
+          "name": "ForwardFloat",
+          "size": 26,
+          "different_bytes": 0,
+          "first": []
+        },
+        {
+          "name": "ResolveFloatValue",
+          "size": 171,
+          "different_bytes": 0,
+          "first": []
+        }
+      ],
+      "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/ecl_float_forward_2026_09_30/sweep/slot_local-1/native-dpjm1hbj/cluster.exe"
+    }
+  ],
+  "whole_executable": {
+    "size": 487936,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "reference_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "direct_reference_comparison": true,
+    "changed_source_hashes_match_build": true,
+    "masked_bytes": 0,
+    "retail_executable_used_for_build": false,
+    "summary": {
+      "regions": {
+        "semantic": 1840,
+        "asm": 459,
+        "library": 325,
+        "data": 7,
+        "padding": 1771
+      },
+      "bytes": {
+        "semantic": 96307,
+        "asm": 226590,
+        "library": 66500,
+        "data": 7779,
+        "padding": 15496
+      }
+    }
+  }
+}

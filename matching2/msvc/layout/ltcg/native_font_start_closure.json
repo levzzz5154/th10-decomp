@@ -1,0 +1,287 @@
+{
+  "schema_version": 2,
+  "name": "native_font_start_closure",
+  "source": "src/platform/font_cache_init.cpp",
+  "headers": [
+    "include/th10/platform/native_font_start.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/render/clip_worker_native.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/native_font_start/release_surface.cpp",
+    "layout/ltcg/native_font_start/create_surface.cpp",
+    "layout/ltcg/native_font_start/clip.cpp",
+    "layout/ltcg/native_font_start/stop_worker.cpp",
+    "src/unidentified/FUN_004201b0_004201b0.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Two complete real no-argument functions: genuine worker startup and font initialization. Full actual Surface421 and Clip472 models are diagnostic only; Release107 and Stop101 exact. Address-only callback aliases use full VA.",
+  "functions": [
+    {
+      "name": "FontInitialize",
+      "symbol": "_InitializeFontCache_00437a00",
+      "section": ".text$a06font",
+      "address": "0x00437a00",
+      "size": 781,
+      "actual_abi": "Original actual no-argument font initializer, plainRET."
+    },
+    {
+      "name": "StartGameWorkers",
+      "symbol": "_StartGameWorkers_004201b0",
+      "section": ".text$a00worker",
+      "address": "0x4201b0",
+      "size": 186,
+      "actual_abi": "Genuine complete no-argument worker-start caller, EAX0/plainRET; actual call to Font at420260."
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SurfaceCreate",
+      "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
+      "section": ".text$a04surface",
+      "address": "0x436af0",
+      "size": 421
+    },
+    {
+      "name": "ReleaseSurface",
+      "symbol": "?ReleaseSurface_00436a30@@YG_NPAUGdiSurface_00436a30@@@Z",
+      "section": ".text$a02release",
+      "address": "0x436a30",
+      "size": 107
+    },
+    {
+      "name": "Clip",
+      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
+      "section": ".text$a08clip",
+      "address": "0x4462f0",
+      "size": 472
+    },
+    {
+      "name": "StopWorker",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$a10stop",
+      "address": "0x44c150",
+      "size": 101
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$a000gap",
+      "address": "0x401000",
+      "size": 127408
+    },
+    {
+      "section": ".text$a01gap",
+      "address": "0x42026a",
+      "size": 92102
+    },
+    {
+      "section": ".text$a03gap",
+      "address": "0x436a9b",
+      "size": 85
+    },
+    {
+      "section": ".text$a05gap",
+      "address": "0x436c95",
+      "size": 3435
+    },
+    {
+      "section": ".text$a07gap",
+      "address": "0x437d0d",
+      "size": 58851
+    },
+    {
+      "section": ".text$a09gap",
+      "address": "0x4464c8",
+      "size": 23688
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474918",
+      "address": "0x474918",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474cb0",
+      "address": "0x474cb0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x4918b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491868",
+      "address": "0x491868",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f36c",
+      "address": "0x46f36c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466024",
+      "address": "0x466024",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466020",
+      "address": "0x466020",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateFontA@56",
+      "address": "0x466034",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046602c",
+      "address": "0x46602c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466028",
+      "address": "0x466028",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466030",
+      "address": "0x466030",
+      "kind": "data"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeVersionMarker_00420100@@YAXXZ",
+      "address": "0x420100",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RenderCamera_InitializeDefaults_004216f0",
+      "address": "0x4216f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__timeGetTime@0",
+      "address": "0x466270",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateThread@24",
+      "address": "0x466118",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Sound_PreloadWorker_0043d080",
+      "address": "0x43d080",
+      "kind": "data"
+    },
+    {
+      "symbol": "?CreateStatsTaskOwner_00413350@@YAPAUStatsTaskOwner@@XZ",
+      "address": "0x413350",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_GameWorker_0043ba90@4",
+      "address": "0x43ba90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_beginthreadex_00453683",
+      "address": "0x453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004923a8",
+      "address": "0x4923a8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491ff8",
+      "address": "0x491ff8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918a8",
+      "address": "0x4918a8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x491c28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004977ac",
+      "address": "0x4977ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474dd4",
+      "address": "0x474dd4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x491c30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497930",
+      "address": "0x497930",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ],
+  "entry": "_StartGameWorkers_004201b0",
+  "calls": [
+    {
+      "caller": "_StartGameWorkers_004201b0",
+      "callee": "_InitializeFontCache_00437a00",
+      "address": "0x420260",
+      "instruction": "call"
+    }
+  ]
+}

@@ -3968,128 +3968,39 @@ struct EclFrame {
     EclStack stack;                    // +0x0008
 };
 
-// BLOCKED (D2102): closest_byte_count=141; first_diff=0x0044FDB1 (+0x1:
-// expected 44, candidate 4c); residual_class=abi/cluster; the readable
-// fastcall candidate compiled to 141 bytes but received selector in ECX and
-// retained RET 0xC, while retail carries frame in EDX, selector in EAX, and
-// pops one stack argument with RET 4.
-// variants_tested=EclOperandTable/EclStack/EclVariableContext readable
-// candidate (141-byte body), direct retail wrapper, and existing
-// ECL_ResolveIntValue shape.
-// next_lever=compile this body with its real EAX/EDX caller in one schema-2
-// LTCG cluster.
-// 0x0044FDB0..0x0044FE3F: ?ECL_ResolveIntOperand@@
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_ECL_ResolveIntOperand_0044fdb0() {
-    __asm {
-    L_0044fdb0:
-        mov eax,dword ptr [esp+4]
-    L_0044fdb4:
-        push ebx
-    L_0044fdb5:
-        push esi
-    L_0044fdb6:
-        mov esi,dword ptr [edx+4]
-    L_0044fdb9:
-        mov ebx,1
-    L_0044fdbe:
-        mov ecx,eax
-    L_0044fdc0:
-        push edi
-    L_0044fdc1:
-        movzx edi,word ptr [esi+8]
-    L_0044fdc5:
-        shl ebx,cl
-    L_0044fdc7:
-        test edi,ebx
-    L_0044fdc9:
-        je short L_0044fe36
-    L_0044fdcb:
-        mov esi,dword ptr [esi+eax*4+10h]
-    L_0044fdcf:
-        test esi,esi
-    L_0044fdd1:
-        jl short L_0044fde5
-    L_0044fdd3:
-        mov eax,dword ptr [edx+100Ch]
-    L_0044fdd9:
-        pop edi
-    L_0044fdda:
-        add eax,esi
-    L_0044fddc:
-        mov eax,dword ptr [eax+edx+8]
-    L_0044fde0:
-        pop esi
-    L_0044fde1:
-        pop ebx
-    L_0044fde2:
-        ret 4
-    L_0044fde5:
-        cmp esi,0FFFFFFFFh
-    L_0044fde8:
-        jne short L_0044fe24
-    L_0044fdea:
-        mov ecx,dword ptr [edx+1008h]
-    L_0044fdf0:
-        lea esi,[ecx-4]
-    L_0044fdf3:
-        test esi,esi
-    L_0044fdf5:
-        jl short L_0044fe3a
-    L_0044fdf7:
-        mov dword ptr [edx+1008h],esi
-    L_0044fdfd:
-        mov eax,dword ptr [esi+edx+8]
-    L_0044fe01:
-        add esi,0FFFFFFFCh
-    L_0044fe04:
-        mov dword ptr [edx+1008h],esi
-    L_0044fe0a:
-        cmp byte ptr [esi+edx+8],66h
-    L_0044fe0f:
-        mov dword ptr [esp+10h],eax
-    L_0044fe13:
-        jne short L_0044fe3a
-    L_0044fe15:
-        fld dword ptr [esp+10h]
-    L_0044fe19:
-        call asm_FUN_00463b2c_00463b2c
-    L_0044fe1e:
-        pop edi
-    L_0044fe1f:
-        pop esi
-    L_0044fe20:
-        pop ebx
-    L_0044fe21:
-        ret 4
-    L_0044fe24:
-        mov ecx,dword ptr [edx+1014h]
-    L_0044fe2a:
-        mov edx,dword ptr [ecx]
-    L_0044fe2c:
-        push esi
-    L_0044fe2d:
-        call dword ptr [edx+4]
-    L_0044fe30:
-        pop edi
-    L_0044fe31:
-        pop esi
-    L_0044fe32:
-        pop ebx
-    L_0044fe33:
-        ret 4
-    L_0044fe36:
-        mov eax,dword ptr [esi+eax*4+10h]
-    L_0044fe3a:
-        pop edi
-    L_0044fe3b:
-        pop esi
-    L_0044fe3c:
-        pop ebx
-    L_0044fe3d:
-        ret 4
+// 0x0044FDB0: resolve an integer operand from its immediate, frame-relative,
+// scratch-stack, or external-variable representation. ECX is ignored, the VM
+// is in EDX, and the stack-passed selector is removed by RET 4.
+// Popping a scratch value consumes its value word, then its tag word. Keep the
+// cursor updates as separate pops; float-tagged values are converted through x87.
+int __fastcall ECL_ResolveIntOperand_0044fdb0(
+        int unused, EclFrame* frame, int selector) {
+    EclOperandTable* table = frame->operand_table;
+    unsigned short mask = table->indirect_mask;
+    if ((mask & (1 << selector)) != 0) {
+        int value = table->slots[selector];
+        if (value >= 0) {
+            return *(int*)&frame->stack.data[frame->stack.frame_base + value];
+        } else if (value == -1) {
+            int stack_offset;
+            if (frame->stack.stack_pointer - 4 >= 0) {
+                frame->stack.stack_pointer -= 4;
+                stack_offset = frame->stack.stack_pointer;
+                selector = *(int*)&frame->stack.data[stack_offset];
+                frame->stack.stack_pointer -= 4;
+                stack_offset = frame->stack.stack_pointer;
+                if (frame->stack.data[stack_offset] == 'f') {
+                    return (int)*(float*)&selector;
+                }
+            }
+            return selector;
+        } else {
+            return frame->stack.context->ResolveSlot(value);
+        }
     }
+    return table->slots[selector];
 }
+
 
 
 // 0x0044FF00..0x0044FF7B: ?ECL_ResolveIntValue@@

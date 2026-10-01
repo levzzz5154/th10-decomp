@@ -1,5 +1,7 @@
 # Fixed-angle step with complete motion callers, 2026-09-28
 
+The [2026-10-01 runtime checkpoint](runtime_and_helpers_2026-10-01.md) subsequently recovers all 885 bytes of the genuine caller using complete private helper models. The fixed-angle step remains assembly. The measurements below are retained as historical failed candidates.
+
 **Outcome: no promotion.** The complete 335-byte `BulletDeceleration::FixedAngleStep` is C++ without inline assembly, but its normal original-address gate still has four register-allocation byte differences. The result is a measured compiler residual, not a claim of recovered code.
 
 The frozen experiment is `matching2/build/experiments/fixed_angle_real_caller_2026_09_28/`. `terminal_summary.json`, `measured_terminal_input_hashes.json`, and `probe04_original_target_positions.json` identify the exact inputs and final gate. The current maintained source, manifest, backend, and prior checkpoint artifacts were not edited.

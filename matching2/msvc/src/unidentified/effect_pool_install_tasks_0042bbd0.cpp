@@ -10,13 +10,7 @@ int __fastcall EffectPoolDraw_0042c590(void* pool);
 extern Scheduler* data_00491be4;
 }
 
-struct EffectPool_0042bbd0 {
-    unsigned char reserved_00[0x08];
-    SchedulerTask* update_task;             // +0x08
-    SchedulerTask* draw_task;               // +0x0C
-
-    __declspec(noinline) int InstallTasks();
-};
+#include "th10/game/effect_pool_tasks_0042bbd0.hpp"
 
 #pragma code_seg(".text$00fn")
 int EffectPool_0042bbd0::InstallTasks() {

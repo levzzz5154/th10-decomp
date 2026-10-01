@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "name": "sound_interfaces",
+  "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+  "driver": "layout/ltcg/sound_interfaces_context.cpp",
+  "included_sources": [
+    "layout/ltcg/sound_interfaces_dependencies/fill.cpp",
+    "layout/ltcg/sound_interfaces_dependencies/read.cpp",
+    "layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
+    "layout/ltcg/sound_interfaces_dependencies/factory.cpp"
+  ],
+  "headers": [
+    "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "layout/ltcg/sound_interfaces_dependencies/sound_memory_words.hpp"
+  ],
+  "description": "Real initializer caller and native refill closure; no fabricated context.",
+  "image_base": "0x00400000",
+  "functions": [
+    {
+      "name": "single",
+      "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
+      "address": "0x44d6a0",
+      "size": 109,
+      "section": ".text$05single",
+      "actual_abi": "ESI stream and four stack arguments; RET16 expected"
+    },
+    {
+      "name": "semantic_SoundMemoryConstructionCleanup_00465310",
+      "symbol": "_SoundMemoryNativeUnwind_00465310",
+      "address": "0x00465310",
+      "size": 11,
+      "section": ".text$x",
+      "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+      "actual_abi": "Complete compiler-generated factory construction cleanup, original EBP-0x48 allocation; all11 bytes proven.",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "semantic_SoundMemoryFactoryHandler_0046531b",
+      "symbol": "__ehhandler$?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
+      "address": "0x0046531B",
+      "size": 10,
+      "section": ".text$x",
+      "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+      "actual_abi": "Complete compiler-generated factory handler, FuncInfo471374 in EAX; all10 bytes proven",
+      "generated": true
+    }
+  ],
+  "context": {
+    "symbol": "?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
+    "address": "0x44cbf0",
+    "size": 636,
+    "section": ".text$01factory",
+    "description": "Full actual fastcall memory factory with genuine GUID by-value and native exception semantics; complete native636 vs original651, unselected zero credit."
+  },
+  "anchors": [
+    {
+      "name": "fill",
+      "symbol": "_SoundStreamFill@12",
+      "address": "0x44d110",
+      "size": 483,
+      "section": ".text$03fill"
+    },
+    {
+      "name": "rewind",
+      "symbol": "_ArchiveRewind@8",
+      "address": "0x44dd40",
+      "size": 194,
+      "section": ".text$07rewind"
+    },
+    {
+      "name": "read",
+      "symbol": "_ArchiveRead@16",
+      "address": "0x44de10",
+      "size": 202,
+      "section": ".text$09read"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 310256
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x44ce6c",
+      "size": 676
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x44d2f3",
+      "size": 941
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x44d70d",
+      "size": 1587
+    },
+    {
+      "section": ".text$08gap",
+      "address": "0x44de02",
+      "size": 14
+    },
+    {
+      "section": ".text$10gap",
+      "address": "0x0044DEDA",
+      "size": 95286
+    },
+    {
+      "section": ".rdata$01gap",
+      "address": "0x00466000",
+      "size": 45932
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sound_base_methods",
+      "address": "0x4705d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_streaming_methods",
+      "address": "0x4705d4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_notification_iid",
+      "address": "0x46743c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660ac",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c8",
+      "address": "0x4660c8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004977a4",
+      "address": "0x4977a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x0047136C",
+      "bytes": "ffffffff1053460020059319010000006c13470000000000000000000000000000000000",
+      "description": "Genuine one-state factory unwind map and FuncInfo validation only; no source bytes emitted by oracle."
+    }
+  ]
+}

@@ -1,0 +1,1502 @@
+{
+  "new_complete_functions": [
+    {
+      "region": {
+        "name": "semantic_ResourceCleanup_00418ee0",
+        "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+        "symbol": "_ResourceCleanup@4",
+        "address": "0x00418EE0",
+        "size": 346,
+        "kind": "semantic",
+        "owner": "0x00418EE0",
+        "previous_record": {
+          "name": "asm_FUN_00418ee0_00418ee0",
+          "source": "src/game/fun_00418ee0_00418ee0.cpp",
+          "symbol": "_asm_FUN_00418ee0_00418ee0",
+          "address": "0x00418EE0",
+          "size": 346,
+          "kind": "asm",
+          "owner": "0x00418EE0"
+        }
+      },
+      "sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+      "source_sha256": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
+      "whole_build_native_unit": {
+        "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+        "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/bodies.obj",
+        "compiler_kind": "native-ltcg",
+        "compiler_translation_unit_count": 2,
+        "command": [
+          "wine",
+          "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+          "/nologo",
+          "/c",
+          "/O2",
+          "/Gz",
+          "/MT",
+          "/Gy",
+          "/G6",
+          "/GF",
+          "/GS",
+          "/Zl",
+          "/GL",
+          "/showIncludes",
+          "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+          "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\cluster.obj",
+          "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\resource_cleanup_context.cpp"
+        ],
+        "source_sha256": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
+        "normalization": {
+          "input": "fresh native /LTCG PE",
+          "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/bodies.obj",
+          "regions": [
+            {
+              "name": "ResourceCleanup",
+              "symbol": "_ResourceCleanup@4",
+              "address": 4296416,
+              "size": 346,
+              "source_section": ".text",
+              "section": ".r000001",
+              "sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+              "section_sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+              "original_relocations": [],
+              "relocation_count": 0
+            }
+          ],
+          "output_sha256": "bd30d9809dbc8b7dbee124af0c744ac9208a32528de0309af86c99517b52b5ae",
+          "instruction_bytes_changed": 0,
+          "address_operands_changed": 0
+        },
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/report.json",
+        "native_report_sha256": "a75bb994b456f28350dd6932657faea42d1531760d9e90175b50e054609a3b79",
+        "native_build": {
+          "schema_version": 1,
+          "name": "resource_cleanup",
+          "compiler_kind": "native-ltcg",
+          "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+          "sources": [
+            "src/game/resource_manager_cleanup_00418ee0.cpp"
+          ],
+          "roots": [
+            "_ResourceCleanup@4"
+          ],
+          "driver": "layout/ltcg/resource_cleanup_context.cpp",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup.json",
+          "input_sha256": {
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup.json": "a6a9fd9e1601ca61bdd860d77399ede351a13d013db6515c65c71177a081ab8d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup_00418ee0.cpp": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets_00419040.cpp": "6817e6a4779321471e0b8f65dd4791cafe856fd9c53d982a577abf8eae72a757",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/scheduler_tasks.cpp": "d53aed2de4a8d6dfc987a374ad1fbfcf625a502303889f5d2d0273ae5e8c94dc",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler_remove_locked.hpp": "072be953f3baf5d13ff43dd24183035ced78c31922d78259f08a2e862843fa3c",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler.hpp": "e90bbeec43c2d9885fc2586a99bd3db23423d908f54feeaa76308d8beb294538",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/thread_sync.hpp": "6fc5fce3af505857e51c2bdf055cf2c05afbf6e51132e188e42bf192ab0b17e4",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_mark_for_removal.hpp": "1b9188f82ac6dc0813423ab4ca6dc895db904ce446a3f99eaadf5e85462295f7",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/resource_cleanup.hpp": "3b2b35c6f6ba57a224c2defbcb149ed8e69748aa8d71196e999c9cca53e0557d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup_context.cpp": "336755ad779426a4b3ea1dfad3095496d1e1d90a58e04373d13944c48e0b0927"
+          },
+          "compiler_includes": [
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets_00419040.cpp",
+              "sha256": "6817e6a4779321471e0b8f65dd4791cafe856fd9c53d982a577abf8eae72a757"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/resource_cleanup.hpp",
+              "sha256": "3b2b35c6f6ba57a224c2defbcb149ed8e69748aa8d71196e999c9cca53e0557d"
+            },
+            {
+              "path": "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/stddef.h",
+              "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler_remove_locked.hpp",
+              "sha256": "072be953f3baf5d13ff43dd24183035ced78c31922d78259f08a2e862843fa3c"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler.hpp",
+              "sha256": "e90bbeec43c2d9885fc2586a99bd3db23423d908f54feeaa76308d8beb294538"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/thread_sync.hpp",
+              "sha256": "6fc5fce3af505857e51c2bdf055cf2c05afbf6e51132e188e42bf192ab0b17e4"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup_00418ee0.cpp",
+              "sha256": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/resource_cleanup.hpp",
+              "sha256": "3b2b35c6f6ba57a224c2defbcb149ed8e69748aa8d71196e999c9cca53e0557d"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_mark_for_removal.hpp",
+              "sha256": "1b9188f82ac6dc0813423ab4ca6dc895db904ce446a3f99eaadf5e85462295f7"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/scheduler_tasks.cpp",
+              "sha256": "d53aed2de4a8d6dfc987a374ad1fbfcf625a502303889f5d2d0273ae5e8c94dc"
+            }
+          ],
+          "tool_sha256": {
+            "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+            "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+            "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+            "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+            "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+          },
+          "compile_commands": [
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup_context.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/native-5n4dd6f3/cluster.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\cluster.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\resource_cleanup_context.cpp"
+              ],
+              "source_sha256": "336755ad779426a4b3ea1dfad3095496d1e1d90a58e04373d13944c48e0b0927",
+              "object_sha256": "817086770b3fe2d175a0b3d06769b0152c51c7a8fd4b6de4e74d10b1ecb98e68"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/native-5n4dd6f3/layout.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/native-5n4dd6f3/layout-original.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\layout-original.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\layout.cpp"
+              ],
+              "source_sha256": "f9261dadb9f96eaed07b69708746f9ffec620438d28a559af8fa098fe074e42f",
+              "object_sha256": "11d1fbd373ab9b740bdbd42057b59bcad4ba7ae7246096386357a1e51b2dd81d"
+            }
+          ],
+          "link_command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+            "/nologo",
+            "/LTCG",
+            "/MACHINE:X86",
+            "/BASE:0x400000",
+            "/FILEALIGN:512",
+            "/SUBSYSTEM:WINDOWS",
+            "/ENTRY:ResourceCleanupContext@8",
+            "/FIXED",
+            "/INCREMENTAL:NO",
+            "/NODEFAULTLIB",
+            "/OPT:REF",
+            "/OPT:NOICF",
+            "/INCLUDE:_ltcg_gap_0",
+            "/INCLUDE:_ltcg_gap_1",
+            "/INCLUDE:_ltcg_gap_2",
+            "/INCLUDE:_ltcg_gap_3",
+            "/INCLUDE:_ResourceCleanup@4",
+            "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\cluster.exe",
+            "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\cluster.map",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\layout.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\resource_cleanup\\native-5n4dd6f3\\bindings.obj"
+          ],
+          "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/native-5n4dd6f3/cluster.exe",
+          "native_map": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/native-5n4dd6f3/cluster.map",
+          "pe_sha256": "1f667b23a189dba189172dc6bf130cda23e9c66b7b6123fe55e0e9c176c9c930",
+          "map_sha256": "1c5b6ac802831eb8b4f2dc496ce752caf54d95f4966c04e25758b0d132f457d4",
+          "entry_address": "0x00449FE0",
+          "image_base": "0x00400000",
+          "internal_calls": [],
+          "native_data": [],
+          "functions": [
+            {
+              "name": "ResourceCleanup",
+              "symbol": "_ResourceCleanup@4",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x00017EE0",
+              "address": "0x00418EE0",
+              "rva": "0x00018EE0",
+              "section": ".text",
+              "file_offset": "0x180E0",
+              "size": 346,
+              "bytes_hex": "51 8b 54 24 08 53 8b 1d b0 60 46 00 55 8b 2d b4 60 46 00 56 8b 72 08 85 f6 57 8b 3d e4 1b 49 00 74 2d 68 74 22 49 00 ff d3 fe 05 1c 23 49 00 8b ce 8b d7 e8 48 10 03 00 68 74 22 49 00 ff d5 a0 1c 23 49 00 8b 54 24 18 fe c8 a2 1c 23 49 00 8b 72 0c 85 f6 8b 3d e4 1b 49 00 74 2d 68 74 22 49 00 ff d3 fe 05 1c 23 49 00 8b ce 8b d7 e8 0e 10 03 00 68 74 22 49 00 ff d5 a0 1c 23 49 00 8b 54 24 18 fe c8 a2 1c 23 49 00 8b 1d 10 1c 49 00 8d b2 dc 00 00 00 c7 44 24 10 0a 00 00 00 bf 00 00 00 04 8b 0e 85 c9 74 69 8b 83 d4 da 72 00 85 c0 74 0e 8b 28 39 4d 00 74 27 8b 40 04 85 c0 75 f2 8b 83 dc da 72 00 85 c0 74 47 8d 9b 00 00 00 00 8b 28 39 4d 00 74 09 8b 40 04 85 c0 75 f2 eb 31 8b 00 85 c0 74 2b 8b a8 5c 03 00 00 8b 48 18 0b ef 85 c9 89 a8 5c 03 00 00 75 16 8b 40 14 85 c0 74 0f 8b 08 09 b9 5c 03 00 00 8b 40 04 85 c0 75 f1 8b 44 24 10 c7 06 00 00 00 00 83 c6 04 48 89 44 24 10 0f 85 79 ff ff ff 80 3d 6a 1d 49 00 02 5f 5e 5d 5b 75 0f 68 d8 d6 46 00 52 e8 df 11 00 00 8b 54 24 08 8b c2 e8 14 00 00 00 c7 05 14 78 47 00 00 00 00 00 59 c2 04 00",
+              "sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+              "map_origin": "cluster.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "_ResourceCleanup@4",
+              "actual_abi": "manager stack, RET4"
+            }
+          ],
+          "compiler_context": {
+            "symbol": "_ResourceCleanupContext@8",
+            "section": ".text$07context",
+            "address": 4497376,
+            "size": 35,
+            "description": "Synthetic manager walker, unselected",
+            "selected": false,
+            "recovered_code_bytes": 0
+          },
+          "layout_gaps": {
+            "input_sha256": "11d1fbd373ab9b740bdbd42057b59bcad4ba7ae7246096386357a1e51b2dd81d",
+            "output_sha256": "d83e4fc210bb3dd08872878ce41adc08df9d938289f8dd602066d3d272fc61f0",
+            "sections": [
+              {
+                "section": ".text$00layout",
+                "size": 98016,
+                "sha256": "4461fa23e22467aad20a5c614522e75b8166cf9dc591be30512f23648e3464d2",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$02layout",
+                "size": 6,
+                "sha256": "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$04layout",
+                "size": 200401,
+                "sha256": "4c1d46ef7c59f7f73ae7f772d6947c323bd4e08c4d94e2174d10ec4995bd7d41",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$06layout",
+                "size": 14,
+                "sha256": "e7ecebbc590bc88b3761fa6cd03d749f87463dabb67021a5c6768c25ec68b3f2",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              }
+            ],
+            "payload_bytes_changed": 0,
+            "recovered_code_bytes": 0
+          },
+          "absolute_symbols": [
+            {
+              "symbol": "__imp__EnterCriticalSection@4",
+              "address": 4612272,
+              "kind": "data",
+              "coff_value": 4612272
+            },
+            {
+              "symbol": "__imp__LeaveCriticalSection@4",
+              "address": 4612276,
+              "kind": "data",
+              "coff_value": 4612276
+            },
+            {
+              "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+              "address": 4792948,
+              "kind": "data",
+              "coff_value": 4792948
+            },
+            {
+              "symbol": "_data_00491be4",
+              "address": 4791268,
+              "kind": "data",
+              "coff_value": 4791268
+            },
+            {
+              "symbol": "_data_00491c10",
+              "address": 4791312,
+              "kind": "data",
+              "coff_value": 4791312
+            },
+            {
+              "symbol": "_data_00491d6a",
+              "address": 4791658,
+              "kind": "data",
+              "coff_value": 4791658
+            },
+            {
+              "symbol": "_data_00477814",
+              "address": 4683796,
+              "kind": "data",
+              "coff_value": 4683796
+            },
+            {
+              "symbol": "_data_0046d6d8",
+              "address": 4642520,
+              "kind": "data",
+              "coff_value": 4642520
+            },
+            {
+              "symbol": "_SaveHints@8",
+              "address": 4301312,
+              "kind": "relative_code",
+              "coff_value": 107008
+            },
+            {
+              "symbol": "_entry_free_004524a1",
+              "address": 4531361,
+              "kind": "relative_code",
+              "coff_value": 337057
+            },
+            {
+              "symbol": "??3@YAXPAX@Z",
+              "address": 4531361,
+              "kind": "relative_code",
+              "coff_value": 337057
+            }
+          ],
+          "constant_aliases": [],
+          "data_aliases": [],
+          "duplicate_definitions": [],
+          "normalization": {
+            "input": "fresh native /LTCG PE",
+            "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/bodies.obj",
+            "regions": [
+              {
+                "name": "ResourceCleanup",
+                "symbol": "_ResourceCleanup@4",
+                "address": 4296416,
+                "size": 346,
+                "source_section": ".text",
+                "section": ".r000001",
+                "sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+                "section_sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
+                "original_relocations": [],
+                "relocation_count": 0
+              }
+            ],
+            "output_sha256": "bd30d9809dbc8b7dbee124af0c744ac9208a32528de0309af86c99517b52b5ae",
+            "instruction_bytes_changed": 0,
+            "address_operands_changed": 0
+          },
+          "instruction_bytes_changed": 0,
+          "masked_bytes": 0,
+          "reference_bytes_used_for_build": false
+        }
+      }
+    },
+    {
+      "region": {
+        "name": "semantic_EclSpawnChild_004500d0",
+        "source": "src/script/ecl_child_pair.cpp",
+        "symbol": "_EclSpawnChild@12",
+        "address": "0x004500D0",
+        "size": 142,
+        "kind": "semantic",
+        "owner": "0x004500D0",
+        "previous_record": {
+          "name": "asm_EclVm_SpawnChild_004500d0",
+          "source": "src/script/ecl_vm_spawn_child_004500d0.cpp",
+          "symbol": "_asm_EclVm_SpawnChild_004500d0",
+          "address": "0x004500D0",
+          "size": 142,
+          "kind": "asm",
+          "owner": "0x004500D0"
+        }
+      },
+      "sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+      "source_sha256": "fea84973c9d06927e2b9ca433c2b20fb869d1359c537968602c72d210188e791",
+      "whole_build_native_unit": {
+        "source": "src/script/ecl_child_pair.cpp",
+        "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/bodies.obj",
+        "compiler_kind": "native-ltcg",
+        "compiler_translation_unit_count": 5,
+        "command": [
+          "wine",
+          "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+          "/nologo",
+          "/c",
+          "/O2",
+          "/Gz",
+          "/MT",
+          "/Gy",
+          "/G6",
+          "/GF",
+          "/GS",
+          "/Zl",
+          "/GL",
+          "/showIncludes",
+          "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+          "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\cluster.obj",
+          "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_child_pair_context.cpp"
+        ],
+        "source_sha256": "fea84973c9d06927e2b9ca433c2b20fb869d1359c537968602c72d210188e791",
+        "normalization": {
+          "input": "fresh native /LTCG PE",
+          "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/bodies.obj",
+          "regions": [
+            {
+              "name": "SpawnChild",
+              "symbol": "_EclSpawnChild@12",
+              "address": 4522192,
+              "size": 142,
+              "source_section": ".text",
+              "section": ".r000001",
+              "sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+              "section_sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+              "original_relocations": [],
+              "relocation_count": 0
+            }
+          ],
+          "output_sha256": "358faec07041548b18fd90b8933d894fda0db82726fa73876f70c7eb6dec21a1",
+          "instruction_bytes_changed": 0,
+          "address_operands_changed": 0
+        },
+        "native_report": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/report.json",
+        "native_report_sha256": "ea9b158702141214aa2c55a4e776fc38cbfc749d6a98ec8d4f2e72132c1984d5",
+        "native_build": {
+          "schema_version": 1,
+          "name": "ecl_child_pair",
+          "compiler_kind": "native-ltcg",
+          "source": "src/script/ecl_child_pair.cpp",
+          "sources": [
+            "src/script/ecl_child_pair.cpp",
+            "layout/ltcg/ecl_child_int_anchor.cpp",
+            "layout/ltcg/ecl_child_float_anchor.cpp",
+            "layout/ltcg/ecl_child_script_anchor.cpp"
+          ],
+          "roots": [],
+          "driver": "layout/ltcg/ecl_child_pair_context.cpp",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_pair.json",
+          "input_sha256": {
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_pair.json": "0853addf5eaf3e9c52efa1e41a23fee5d1c8ec182119cb7c8e80b0f13dfa0218",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_child_pair.cpp": "fea84973c9d06927e2b9ca433c2b20fb869d1359c537968602c72d210188e791",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_int_anchor.cpp": "8109ddc0464a82568f2196b1b8f74c5f6858cdfdbd735be27f909e9fd3fcaeb6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_float_anchor.cpp": "7f60e54849201490cb7496fd59bb7bcbe7339fc78bf0767e01dd339553e7861e",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_script_anchor.cpp": "e945c6b6beddec7471ed624612ea34bd45b8bba21950d7066db1e2cd0793f4cf",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_children.hpp": "4394b41482bec018d9192729b20b0ae0c8a80148fa9bf070ab4545809f54bbcd",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_pair_context.cpp": "c240927332c37f5a7dc0c866affc86a9d1cef05c72e7edf0b72630fdc591be47"
+          },
+          "compiler_includes": [
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_child_pair.cpp",
+              "sha256": "fea84973c9d06927e2b9ca433c2b20fb869d1359c537968602c72d210188e791"
+            },
+            {
+              "path": "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/stddef.h",
+              "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_children.hpp",
+              "sha256": "4394b41482bec018d9192729b20b0ae0c8a80148fa9bf070ab4545809f54bbcd"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp",
+              "sha256": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp",
+              "sha256": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp",
+              "sha256": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp",
+              "sha256": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55"
+            },
+            {
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp",
+              "sha256": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230"
+            }
+          ],
+          "tool_sha256": {
+            "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+            "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+            "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+            "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+            "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+          },
+          "compile_commands": [
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_pair_context.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/cluster.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\cluster.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_child_pair_context.cpp"
+              ],
+              "source_sha256": "c240927332c37f5a7dc0c866affc86a9d1cef05c72e7edf0b72630fdc591be47",
+              "object_sha256": "4725b705e9e95a13798f547313874f3b87700565400aa9e4043f29fd32feb313"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_int_anchor.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/source_000.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_000.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_child_int_anchor.cpp"
+              ],
+              "source_sha256": "8109ddc0464a82568f2196b1b8f74c5f6858cdfdbd735be27f909e9fd3fcaeb6",
+              "object_sha256": "b8ab799319f6311a367ccc25e68c6d1fdf48d585d41ee9d6ded11a5979cf1761"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_float_anchor.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/source_001.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_001.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_child_float_anchor.cpp"
+              ],
+              "source_sha256": "7f60e54849201490cb7496fd59bb7bcbe7339fc78bf0767e01dd339553e7861e",
+              "object_sha256": "7a66bfcd0fe4e29645f35d6a72baafd0fe63998c770e986f5176acba47732d8f"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_script_anchor.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/source_002.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/GL",
+                "/showIncludes",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_002.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\ecl_child_script_anchor.cpp"
+              ],
+              "source_sha256": "e945c6b6beddec7471ed624612ea34bd45b8bba21950d7066db1e2cd0793f4cf",
+              "object_sha256": "5870da31bbb4c20078ef5d856d82841a3f956ccc07cdaac3eb6051dec6a88be3"
+            },
+            {
+              "source": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/layout.cpp",
+              "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/layout-original.obj",
+              "command": [
+                "wine",
+                "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/cl.exe",
+                "/nologo",
+                "/c",
+                "/O2",
+                "/Gz",
+                "/MT",
+                "/Gy",
+                "/G6",
+                "/GF",
+                "/GS",
+                "/Zl",
+                "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
+                "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\layout-original.obj",
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\layout.cpp"
+              ],
+              "source_sha256": "12cde6b3d4da1189eadffba96186109b1ab072fb30d558be76fc1798afa59a54",
+              "object_sha256": "66b5f538478575c3cc4cf5886460c1538d79111bf7c51820cbf5add33a0ad8b3"
+            }
+          ],
+          "link_command": [
+            "wine",
+            "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/bin/link.exe",
+            "/nologo",
+            "/LTCG",
+            "/MACHINE:X86",
+            "/BASE:0x400000",
+            "/FILEALIGN:512",
+            "/SUBSYSTEM:WINDOWS",
+            "/ENTRY:EclChildPairContext@16",
+            "/FIXED",
+            "/INCREMENTAL:NO",
+            "/NODEFAULTLIB",
+            "/OPT:REF",
+            "/OPT:NOICF",
+            "/INCLUDE:_ltcg_gap_0",
+            "/INCLUDE:_ltcg_gap_1",
+            "/INCLUDE:_ltcg_gap_2",
+            "/INCLUDE:_ltcg_gap_3",
+            "/INCLUDE:_ltcg_gap_4",
+            "/INCLUDE:_ltcg_gap_5",
+            "/OUT:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\cluster.exe",
+            "/MAP:Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\cluster.map",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\cluster.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_000.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_001.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\source_002.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\layout.obj",
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\ecl_child_pair\\native-356vkxs4\\bindings.obj"
+          ],
+          "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/cluster.exe",
+          "native_map": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/native-356vkxs4/cluster.map",
+          "pe_sha256": "8acffcc679cd31b5d2f97403c46417bb2963659f75ad0851b07eaa365c5f2912",
+          "map_sha256": "f810b2e095f3cc6ebe8ce0674772828a43fa44caba9c472bc6d593da679eba20",
+          "entry_address": "0x00450600",
+          "image_base": "0x00400000",
+          "internal_calls": [],
+          "native_data": [],
+          "functions": [
+            {
+              "name": "SpawnChild",
+              "symbol": "_EclSpawnChild@12",
+              "visibility": "public",
+              "map_segment": "0001",
+              "map_offset": "0x0004F0D0",
+              "address": "0x004500D0",
+              "rva": "0x000500D0",
+              "section": ".text",
+              "file_offset": "0x4F4D0",
+              "size": 142,
+              "bytes_hex": "53 56 68 24 10 00 00 e8 b7 23 00 00 33 db 83 c4 04 3b c3 74 10 89 98 08 10 00 00 89 98 0c 10 00 00 8b f0 eb 02 33 f6 6a 0c e8 95 23 00 00 8b 4c 24 10 89 8e 10 10 00 00 89 be 14 10 00 00 89 1e 89 5e 04 8b 57 04 8a 8a 1c 10 00 00 88 8e 1c 10 00 00 8d 8f 30 10 00 00 89 30 89 58 04 89 58 08 8b 51 04 83 c4 04 3b d3 74 09 89 50 04 8b 51 04 89 42 08 89 41 04 89 48 08 8b 44 24 10 8b 4f 04 50 51 8b c6 e8 17 de ff ff 5e 5b c2 08 00",
+              "sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+              "map_origin": "cluster.obj",
+              "expected_bytes_checked": false,
+              "expected_sha256_checked": false,
+              "native_symbol": "_EclSpawnChild@12",
+              "actual_abi": "owner EDI; id and operand index on stack; status EAX; RET8"
+            }
+          ],
+          "compiler_context": {
+            "symbol": "_EclChildPairContext@16",
+            "section": ".text$11context",
+            "address": 4523520,
+            "size": 91,
+            "description": "Unselected compiler context exercising both real call shapes.",
+            "selected": false,
+            "recovered_code_bytes": 0
+          },
+          "layout_gaps": {
+            "input_sha256": "66b5f538478575c3cc4cf5886460c1538d79111bf7c51820cbf5add33a0ad8b3",
+            "output_sha256": "b5df836de2bb5301c27bbf8e17e02c4b043dc34c95fc1efd2ae595749f105c54",
+            "sections": [
+              {
+                "section": ".text$00layout",
+                "size": 315248,
+                "sha256": "33daf4720fb62f9884698cba8586843c46c64845055ce5965c949b38a1233575",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$02layout",
+                "size": 7531,
+                "sha256": "4683c1ee213b1b31407356d3134feeaa77aadcabdba867d2da365c7622b376fe",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$04layout",
+                "size": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$06layout",
+                "size": 165,
+                "sha256": "2aa1fd6b1e4d7e4352751c0a8b7acb6fd9aa3a3a4c994f52b0a214c6f346277d",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$08layout",
+                "size": 786,
+                "sha256": "4d65e31d6fd5ccdec4912203ab2f4f6b7cefb19e48b27099a4b453daf1411002",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              },
+              {
+                "section": ".text$10layout",
+                "size": 264,
+                "sha256": "44b8aa4d28701168922acf61435ea4bb442f97b0b14ad7a2510ed68874ee2a72",
+                "original_characteristics": 1615855680,
+                "characteristics": 1611661344
+              }
+            ],
+            "payload_bytes_changed": 0,
+            "recovered_code_bytes": 0
+          },
+          "absolute_symbols": [
+            {
+              "symbol": "__ftol2",
+              "address": 4602668,
+              "kind": "relative_code",
+              "coff_value": 408364
+            },
+            {
+              "symbol": "__fltused",
+              "address": 0,
+              "kind": "metadata",
+              "coff_value": 0
+            },
+            {
+              "symbol": "_data_00470b04",
+              "address": 4655876,
+              "kind": "data",
+              "coff_value": 4655876
+            },
+            {
+              "symbol": "_data_00470b60",
+              "address": 4655968,
+              "kind": "data",
+              "coff_value": 4655968
+            },
+            {
+              "symbol": "__real@00000000",
+              "address": 4655876,
+              "kind": "data",
+              "coff_value": 4655876
+            },
+            {
+              "symbol": "_operator_new_child",
+              "address": 4531347,
+              "kind": "relative_code",
+              "coff_value": 337043
+            }
+          ],
+          "constant_aliases": [],
+          "data_aliases": [],
+          "duplicate_definitions": [],
+          "normalization": {
+            "input": "fresh native /LTCG PE",
+            "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/ecl_child_pair/bodies.obj",
+            "regions": [
+              {
+                "name": "SpawnChild",
+                "symbol": "_EclSpawnChild@12",
+                "address": 4522192,
+                "size": 142,
+                "source_section": ".text",
+                "section": ".r000001",
+                "sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+                "section_sha256": "e8412558e41852c384b4d4dfcc95a1cd43d742e3ab4cc60050280b2b5f9d836b",
+                "original_relocations": [],
+                "relocation_count": 0
+              }
+            ],
+            "output_sha256": "358faec07041548b18fd90b8933d894fda0db82726fa73876f70c7eb6dec21a1",
+            "instruction_bytes_changed": 0,
+            "address_operands_changed": 0
+          },
+          "instruction_bytes_changed": 0,
+          "masked_bytes": 0,
+          "reference_bytes_used_for_build": false
+        }
+      }
+    }
+  ],
+  "new_recovered_bytes": 488,
+  "focused_probes": [
+    {
+      "path": "matching2/build/experiments/resource_cleanup_shared_2026_10_01/maintained_probe.json",
+      "sha256": "adcec72c14ce8ac44126cc5bc50b99aeeb2c17fecf3661d6102c06f8cc0779fd",
+      "exact_regions": 39,
+      "exact_bytes": 4718,
+      "regions": [
+        {
+          "region": "semantic_ClearBuckets_00419040",
+          "address": 4296768,
+          "size": 79,
+          "symbol": "?ClearBuckets@Manager_00419040@@QAEXXZ",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/recovery_clear_eight_buckets_00419040.cpp"
+        },
+        {
+          "region": "semantic_ResourceCleanup_00418ee0",
+          "address": 4296416,
+          "size": 346,
+          "symbol": "_ResourceCleanup@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/resource_manager_cleanup_00418ee0.cpp"
+        },
+        {
+          "region": "semantic_Recovery_InstallPairSetFlags_004055c0_004055c0",
+          "address": 4216256,
+          "size": 84,
+          "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Recovery_ReleaseRawPairAndReset_00405620",
+          "address": 4216352,
+          "size": 137,
+          "symbol": "_Recovery_ReleaseRawPairAndReset@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Recovery_CreateFixedState_004056b0_004056b0",
+          "address": 4216496,
+          "size": 85,
+          "symbol": "_asm_Recovery_CreateFixedState_004056b0",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_LoadBulletAnm_00405f00_00405f00",
+          "address": 4218624,
+          "size": 50,
+          "symbol": "_LoadBulletAnm_00405f00",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_State_RegisterTasks_0040a130_0040a130",
+          "address": 4235568,
+          "size": 106,
+          "symbol": "_asm_FUN_0040a130_0040a130@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_BulletManager_LoadScripts_0040ae70_0040ae70",
+          "address": 4238960,
+          "size": 134,
+          "symbol": "_BulletManager_LoadScripts_0040ae70@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_BulletManager_Release_0040af00",
+          "address": 4239104,
+          "size": 137,
+          "symbol": "_BulletManager_Release@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_BulletManager_Create_0040af90_0040af90",
+          "address": 4239248,
+          "size": 86,
+          "symbol": "?BulletManager_Create_0040af90@@YGPAUBulletManagerState_0040af90@@XZ",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_asm_MessageHost_InitRetail_0040d280_0040d280",
+          "address": 4248192,
+          "size": 334,
+          "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_block_release_00413300",
+          "address": 4272896,
+          "size": 71,
+          "symbol": "?Release@PublishedBlock@@QAEXXZ",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Destroy_004133f0",
+          "address": 4273136,
+          "size": 91,
+          "symbol": "?Destroy@PublishedBlock@@QAEPAU1@I@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_DeletePublishedBlock_00413450",
+          "address": 4273232,
+          "size": 84,
+          "symbol": "?DeletePublishedBlock@@YGXPAUPublishedBlock@@@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_ItemFront_Initialize_00413980",
+          "address": 4274560,
+          "size": 147,
+          "symbol": "_ItemFront_Initialize_00413980@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_LoadFrontAnm_00413b50_00413b50",
+          "address": 4275024,
+          "size": 50,
+          "symbol": "_LoadFrontAnm_00413b50",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Construct_00418d40_00418d40",
+          "address": 4296000,
+          "size": 237,
+          "symbol": "@Construct_00418d40@8",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_StageTipRuntime_InitializeRetail_00418e30_00418e30",
+          "address": 4296240,
+          "size": 131,
+          "symbol": "_asm_StageTipRuntime_InitializeRetail_00418e30@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Recovery_CreateResourceState_00419090_00419090",
+          "address": 4296848,
+          "size": 67,
+          "symbol": "_asm_Recovery_CreateResourceState_00419090",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Recovery_InstallPairClearFlags_0041ad90_0041ad90",
+          "address": 4304272,
+          "size": 84,
+          "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_ScoreObject_Initialize_0041c030_0041c030",
+          "address": 4309040,
+          "size": 98,
+          "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_InitializeManager_0041c100_0041c100",
+          "address": 4309248,
+          "size": 30,
+          "symbol": "?InitializeManager_0041c100@@YGPAUScoreManager_0041c100@@PAU1@@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_ScoreDisplay_RegisterTasks_0041c120_0041c120",
+          "address": 4309280,
+          "size": 146,
+          "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_ScoreExtendedObject_DestroyRetail_0041c1c0",
+          "address": 4309440,
+          "size": 195,
+          "symbol": "_ScoreExtendedObject_DestroyRetail@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_ScoreManager_CreateAndInit_0041c290_0041c290",
+          "address": 4309648,
+          "size": 91,
+          "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_LoadStartupResources_0041f8d0_0041f8d0",
+          "address": 4323536,
+          "size": 82,
+          "symbol": "_LoadStartupResources_0041f8d0",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Manager_Release_00422220_00422220",
+          "address": 4334112,
+          "size": 311,
+          "symbol": "_Manager_Release_00422220@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Title_RegisterTasks_0042caa0",
+          "address": 4377248,
+          "size": 192,
+          "symbol": "_Title_RegisterTasks_0042caa0@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Recovery_ReleaseRawPair_0043cb00",
+          "address": 4442880,
+          "size": 127,
+          "symbol": "_Recovery_ReleaseRawPair@4",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Scheduler_RegisterPrimary_00449ae0",
+          "address": 4496096,
+          "size": 131,
+          "symbol": "_Scheduler_RegisterPrimary@12",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Scheduler_RegisterSecondary_00449b70",
+          "address": 4496240,
+          "size": 131,
+          "symbol": "_Scheduler_RegisterSecondary@12",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Scheduler_RemoveLocked_00449f20",
+          "address": 4497184,
+          "size": 52,
+          "symbol": "_Scheduler_RemoveLocked@8",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Scheduler_Remove_00449f60",
+          "address": 4497248,
+          "size": 114,
+          "symbol": "_Scheduler_Remove@8",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_SchedulerCreatePrimary_0044A000_0044a000",
+          "address": 4497408,
+          "size": 43,
+          "symbol": "?Create@SchedulerCreatePrimary_0044A000@@QAEPAUSchedulerTask@@PAXH@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_SchedulerCreateSecondary_0044A030_0044a030",
+          "address": 4497456,
+          "size": 43,
+          "symbol": "?Create@SchedulerCreateSecondary_0044A030@@QAEPAUSchedulerTask@@PAXH@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Create_0044a060",
+          "address": 4497504,
+          "size": 43,
+          "symbol": "?Create@SchedulerCreatePrimaryClear_0044a060@@QAEPAUSchedulerTask@@PAXH@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Create_0044a090",
+          "address": 4497552,
+          "size": 43,
+          "symbol": "?Create@SchedulerCreateSecondaryClear_0044a090@@QAEPAUSchedulerTask@@PAXH@Z",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_Joystick_Probe_0044a0c0",
+          "address": 4497600,
+          "size": 105,
+          "symbol": "?Joystick_Probe_0044a0c0@@YGFXZ",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        },
+        {
+          "region": "semantic_TextLog_Append_0044b810",
+          "address": 4503568,
+          "size": 201,
+          "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/game/scheduler_tasks.cpp"
+        }
+      ]
+    },
+    {
+      "path": "matching2/build/experiments/subagent_ecl_child_pair_2026_10_01/maintained_probe.json",
+      "sha256": "e83fd139a303f10af26b91649224bb77b321cf3c69794aee379fc349d2aa1194",
+      "exact_regions": 1,
+      "exact_bytes": 142,
+      "regions": [
+        {
+          "region": "semantic_EclSpawnChild_004500d0",
+          "address": 4522192,
+          "size": 142,
+          "symbol": "_EclSpawnChild@12",
+          "different_bytes": 0,
+          "exact": true,
+          "relocations": [],
+          "source": "src/script/ecl_child_pair.cpp"
+        }
+      ]
+    }
+  ],
+  "unselected_genuine_anchor_comparisons": [
+    {
+      "name": "ClearBuckets",
+      "symbol": "?ClearBuckets@Manager_00419040@@QAEXXZ",
+      "address": "0x419040",
+      "native_size": 79,
+      "retail_size": 79,
+      "different_bytes_including_extent": 0,
+      "exact": true,
+      "selected": false,
+      "native_sha256": "5cd598d7f143e2f28989f20f8c65212c4d1121c4077fec7eb1976764bb9e97e1",
+      "retail_sha256": "5cd598d7f143e2f28989f20f8c65212c4d1121c4077fec7eb1976764bb9e97e1"
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_Scheduler_Remove@8",
+      "address": "0x449f60",
+      "native_size": 114,
+      "retail_size": 114,
+      "different_bytes_including_extent": 0,
+      "exact": true,
+      "selected": false,
+      "native_sha256": "b6c63fce3caf5de3a6979693075ebb4aa0c5b0ad8158c2d2af336013c76e6b21",
+      "retail_sha256": "b6c63fce3caf5de3a6979693075ebb4aa0c5b0ad8158c2d2af336013c76e6b21"
+    },
+    {
+      "name": "EclStartChild_full_unselected_candidate",
+      "symbol": "_EclStartChild@12",
+      "address": "0x44df70",
+      "native_size": 549,
+      "retail_size": 550,
+      "different_bytes_including_extent": 416,
+      "exact": false,
+      "selected": false,
+      "native_sha256": "8d6ce620fe3562e9867853594afcdc8c415e681571ab8fa254f1e95603ae94ac",
+      "retail_sha256": "fad5c1cac622213f87751b3c86912d3145a84ccbcc2f2c1dd6f0c80a66d0f6fe"
+    },
+    {
+      "name": "Complete genuine C++ callee; unselected.",
+      "symbol": "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z",
+      "address": "0x44ff00",
+      "native_size": 124,
+      "retail_size": 124,
+      "different_bytes_including_extent": 0,
+      "exact": true,
+      "selected": false,
+      "native_sha256": "6e1d448146ac92d1779388e0d07179a95950b94a8a9013fdf662518bf1edf0f9",
+      "retail_sha256": "6e1d448146ac92d1779388e0d07179a95950b94a8a9013fdf662518bf1edf0f9"
+    },
+    {
+      "name": "Complete genuine C++ callee; unselected.",
+      "symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
+      "address": "0x44ff80",
+      "native_size": 171,
+      "retail_size": 171,
+      "different_bytes_including_extent": 0,
+      "exact": true,
+      "selected": false,
+      "native_sha256": "a5d002df2a338ac482ceb008546447eac1fb0ff526f5acd035282dc7dedcb4c8",
+      "retail_sha256": "a5d002df2a338ac482ceb008546447eac1fb0ff526f5acd035282dc7dedcb4c8"
+    },
+    {
+      "name": "Complete genuine C++ callee; unselected.",
+      "symbol": "?Resolve@ScriptTable_00450470@@QAEHPBD@Z",
+      "address": "0x450470",
+      "native_size": 136,
+      "retail_size": 136,
+      "different_bytes_including_extent": 0,
+      "exact": true,
+      "selected": false,
+      "native_sha256": "5ea23088502ec5b49dbc60f5a561e6bd9c1faba5854152679f91960c3634b03b",
+      "retail_sha256": "5ea23088502ec5b49dbc60f5a561e6bd9c1faba5854152679f91960c3634b03b"
+    }
+  ],
+  "genuine_call_targets": [
+    {
+      "address": "0x418f13",
+      "target": "0x449f60",
+      "instruction_hex": "e848100300"
+    },
+    {
+      "address": "0x418f4d",
+      "target": "0x449f60",
+      "instruction_hex": "e80e100300"
+    },
+    {
+      "address": "0x41901c",
+      "target": "0x41a200",
+      "instruction_hex": "e8df110000"
+    },
+    {
+      "address": "0x419027",
+      "target": "0x419040",
+      "instruction_hex": "e814000000"
+    },
+    {
+      "address": "0x4500d7",
+      "target": "0x452493",
+      "instruction_hex": "e8b7230000"
+    },
+    {
+      "address": "0x4500f9",
+      "target": "0x452493",
+      "instruction_hex": "e895230000"
+    },
+    {
+      "address": "0x450154",
+      "target": "0x44df70",
+      "instruction_hex": "e817deffff"
+    }
+  ],
+  "preserved_aliases": {
+    "_asm_FUN_00418ee0_00418ee0": "0x00418EE0",
+    "_asm_EclVm_SpawnChild_004500d0": "0x004500D0"
+  },
+  "manifest_sha256": "bc675aff48729e55a1bec1f3866f23756922ce99026288d75d457d90ccec8edf",
+  "contiguous_text_partition": true,
+  "source_ownership_consistent": true,
+  "whole_executable": {
+    "exact": true,
+    "bytes": 487936,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "oracle_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "text_bytes": 412672,
+    "text_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+    "port_report_sha256": "e263f94cf84fc4ac0df52a120967b501c104f2439217700f13de44fdc42ec2bb",
+    "package": {
+      "output": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/th10.exe",
+      "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+      "size": 487936,
+      "text_sha256": "c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998",
+      "text_bytes": 412672,
+      "sections": [
+        {
+          "name": ".text",
+          "raw_offset": 1024,
+          "raw_size": 412672
+        },
+        {
+          "name": ".rdata",
+          "raw_offset": 413696,
+          "raw_size": 52224
+        },
+        {
+          "name": ".data",
+          "raw_offset": 465920,
+          "raw_size": 16896
+        },
+        {
+          "name": ".rsrc",
+          "raw_offset": 482816,
+          "raw_size": 5120
+        }
+      ],
+      "verified_against_oracle": true
+    },
+    "masked_bytes": 0,
+    "retail_executable_used_for_build": false
+  },
+  "progress": {
+    "regions": {
+      "semantic": 1852,
+      "padding": 1770,
+      "asm": 446,
+      "data": 7,
+      "library": 325
+    },
+    "bytes": {
+      "semantic": 97493,
+      "padding": 15495,
+      "asm": 225405,
+      "data": 7779,
+      "library": 66500
+    },
+    "fully_asm_free_semantic_regions": 1847,
+    "fully_asm_free_semantic_bytes": 93042,
+    "remaining_semantic_inline_x87_regions": [
+      {
+        "name": "semantic_SubmitSpriteQuad_00442670",
+        "source": "src/render/sprite_quad_submit.cpp",
+        "symbol": "?SubmitSpriteQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442670",
+        "size": 1111,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_SubmitSpriteQuadMirrored_00442ad0",
+        "source": "src/render/sprite_quad_submit_mirrored.cpp",
+        "symbol": "?SubmitSpriteQuadMirrored@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+        "address": "0x00442AD0",
+        "size": 1111,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_BuildRotatedQuad_004436c0_004436c0",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuad_004436c0@8",
+        "address": "0x004436C0",
+        "size": 591,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_BuildRotatedQuadAlt_00443910_00443910",
+        "source": "src/render/quad_build_rotated.cpp",
+        "symbol": "_BuildRotatedQuadAlt_00443910@8",
+        "address": "0x00443910",
+        "size": 591,
+        "kind": "semantic"
+      },
+      {
+        "name": "semantic_Billboard_BuildProjectedQuad_00443b60",
+        "source": "src/render/projection_quads.cpp",
+        "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+        "address": "0x00443B60",
+        "size": 1047,
+        "kind": "semantic"
+      }
+    ]
+  },
+  "retained_followup_evidence": {
+    "cleanup_ghidra": {
+      "path": "matching2/build/experiments/resource_cleanup_shared_2026_10_01/ghidra.json",
+      "sha256": "a45762af4a4bb92abbb28fe0cf7d7f2182c37981e4fe33c8c216cbf87c141b67"
+    },
+    "spawn_ghidra": {
+      "path": "matching2/build/experiments/subagent_ecl_child_pair_2026_10_01/ghidra_fresh.json",
+      "sha256": "d92172c967b978a3f9f9c3f0544250d2375bfb89092d7301fc2ead129c08c44f"
+    },
+    "ghidra_comment_updates": {
+      "path": "matching2/build/experiments/resource_cleanup_and_ecl_spawn_2026_10_01/ghidra_comments.json",
+      "sha256": "08671e360b54c36a15b469e8309984bf703566f3f2c1b0222442f538f7245d64"
+    },
+    "original_cleanup_compiler_proof": {
+      "path": "matching2/build/experiments/subagent_resource_cleanup_2026_10_01/complete_function_evidence.json",
+      "sha256": "49e87446bc27632b5f032e6634c684a8957b9763ebfb3b1cee773f3f380dcb4f"
+    },
+    "spawn_compiler_proof": {
+      "path": "matching2/build/experiments/subagent_ecl_child_pair_2026_10_01/spawn_recovery.evidence.json",
+      "sha256": "5d8d4c8930be7f5abba43bfb72b98dbf17edcd70108fba0c96d4ce4b48908207"
+    }
+  }
+}

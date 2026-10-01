@@ -28,4 +28,10 @@ __declspec(noinline) void __fastcall SetAnimationPosition_004492f0(
 __declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
     const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,
     PositionScriptId_004492f0 id);
+struct AnimationPositionHandle {
+    PositionScriptId_004492f0 value;
+    __declspec(noinline) void SetPosition(const PositionVector_004492f0* position);
+    __declspec(noinline) void SetTranslatedPosition(const PositionVector_004492f0* position);
+};
+extern "C" PositionLookupContext_004492f0* data_00491c10;
 #endif

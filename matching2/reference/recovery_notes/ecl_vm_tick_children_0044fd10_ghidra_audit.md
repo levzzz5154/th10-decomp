@@ -1,10 +1,12 @@
 # ECL child tick `0x0044FD10` Ghidra audit
 
-**Result:** Keep the 146-byte region in its current exact assembly form. Its
-control flow is recoverable, but its public entry depends on a private EDI
-argument that ordinary MSVC x86 C++ cannot declare. Converting it in isolation
-would require changing the callers or preserving assembly glue, so this needs
-a wider compiled ECL execution cluster.
+**Current result (2026-09-30):** The complete 146-byte region is recovered as
+ordinary C++ in `src/script/ecl_vm_children.cpp`. Native LTCG reproduces the
+EDI owner, stack float, EAX result and RET 4 without assembly glue or caller
+changes. See [the recovery and verification record](ecl_tick_children_native_2026-09-30.md).
+The dispatcher at `0x0044E1A0` remains assembly; its unselected compiler-only
+stand-in establishes the ABI for this cluster. The earlier audit below records
+the entry contract and behavior; its conversion-blocker conclusion is superseded.
 
 ## Entry and callers
 
@@ -62,8 +64,9 @@ state enters in EAX, the delta is stack-passed, and it returns with `RET 4`.
 Its execution body calls the ECL operand/value resolvers, scratch-stack
 helpers, child-spawn logic, and other private-register helpers. The adjacent
 resolver notes for `0x0044FE40`, `0x0044FF80`, and `0x00450030` document the
-same EAX/ESI/ECX register-flow constraints. These boundaries make a small
-`0x0044FD10`-only native-C++ conversion unsupported by the observed ABI.
+same EAX/ESI/ECX register-flow constraints. The 2026-09-30 native-LTCG cluster now reproduces these call boundaries and
+selects only the complete child traversal. Its dispatcher stand-in is explicitly
+unselected; the actual dispatcher body remains separately owned.
 
-No source body or manifest mapping was changed for this audit; no build,
-probe, or test was run.
+The original audit changed no source or manifest and ran no compiler probe.
+The linked 2026-09-30 recovery supplies the current native build evidence.

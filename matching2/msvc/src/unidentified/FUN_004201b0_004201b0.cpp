@@ -1,91 +1,40 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
-
-// 0x004201B0..0x00420269: FUN_004201b0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004201b0_004201b0() {
-    __asm {
-    L_004201b0:
-        push ecx
-    L_004201b1:
-        push esi
-    L_004201b2:
-        call asm_FUN_00420100_00420100
-    L_004201b7:
-        mov dword ptr [data_00476f78],3F800000h
-    L_004201c1:
-        mov dword ptr [data_004923a8],0FF000000h
-    L_004201cb:
-        call asm_FUN_004216f0_004216f0
-    L_004201d0:
-        call dword ptr [data_00466270]
-    L_004201d6:
-        mov dword ptr [data_00491ff8],eax
-    L_004201db:
-        mov word ptr [data_004918b0],ax
-    L_004201e1:
-        mov word ptr [data_004918a8],ax
-    L_004201e7:
-        lea eax,[esp+4]
-    L_004201eb:
-        push eax
-    L_004201ec:
-        push 0
-    L_004201ee:
-        push 492590h
-    L_004201f3:
-        push 43D080h
-    L_004201f8:
-        push 0
-    L_004201fa:
-        push 0
-    L_004201fc:
-        call dword ptr [data_00466118]
-    L_00420202:
-        mov dword ptr [data_004977ac],eax
-    L_00420207:
-        call asm_FUN_00413350_00413350
-    L_0042020c:
-        mov esi,474DD4h
-    L_00420211:
-        call asm_Platform_StopWorker_0044c150
-    L_00420216:
-        push 474DDCh
-    L_0042021b:
-        push 0
-    L_0042021d:
-        push 491C28h
-    L_00420222:
-        push 43BA90h
-    L_00420227:
-        push 0
-    L_00420229:
-        push 0
-    L_0042022b:
-        mov dword ptr [data_00474dec],43BA90h
-    L_00420235:
-        mov dword ptr [data_00474de4],1
-    L_0042023f:
-        mov dword ptr [data_00474de0],0
-    L_00420249:
-        call asm_beginthreadex_00453683
-    L_0042024e:
-        mov dword ptr [data_00474dd8],eax
-    L_00420253:
-        mov eax,dword ptr [data_00491c10]
-    L_00420258:
-        add esp,18h
-    L_0042025b:
-        call asm_FUN_004462f0_004462f0
-    L_00420260:
-        call asm_FUN_00437a00_00437a00
-    L_00420265:
-        xor eax,eax
-    L_00420267:
-        pop esi
-    L_00420268:
-        pop ecx
-    L_00420269:
-        ret
-    }
+#include "th10/platform/worker.hpp"
+#include "th10/render/clip_worker_native.hpp"
+#include "th10/platform/native_font_start.hpp"
+struct StatsTaskOwner;
+StatsTaskOwner *__cdecl CreateStatsTaskOwner_00413350();
+void __cdecl InitializeVersionMarker_00420100();
+extern "C" {
+void __cdecl RenderCamera_InitializeDefaults_004216f0();
+void __cdecl Sound_PreloadWorker_0043d080();
+unsigned int __stdcall GameWorker_0043ba90(void*);
+__declspec(dllimport) unsigned long __stdcall timeGetTime();
+typedef unsigned long (__stdcall *RawThreadEntry)(void*);
+__declspec(dllimport) void *__stdcall CreateThread(void*,unsigned long,RawThreadEntry,void*,unsigned long,unsigned long*);
+unsigned int __cdecl beginthreadex_00453683(void*,unsigned int,PlatformWorkerEntry,void*,unsigned int,unsigned int*);
+extern float data_00476f78;
+extern unsigned int data_004923a8,data_00491ff8;
+extern unsigned short data_004918a8;
+extern unsigned char data_00492590,data_00491c28;
+extern void *data_004977ac;
+extern PlatformWorker data_00474dd4;
 }
+#pragma code_seg(".text$a00worker")
+extern "C" __declspec(noinline) int __cdecl StartGameWorkers_004201b0() {
+    InitializeVersionMarker_00420100();
+    data_00476f78=1.0f;data_004923a8=0xff000000;
+    RenderCamera_InitializeDefaults_004216f0();
+    unsigned long now=timeGetTime();data_00491ff8=now;
+    data_004918b0.seed=(unsigned short)now;data_004918a8=(unsigned short)now;
+    unsigned long thread_id;
+    data_004977ac=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&data_00492590,0,&thread_id);
+    CreateStatsTaskOwner_00413350();
+    data_00474dd4.Stop();
+    data_00474dd4.entry=&GameWorker_0043ba90;
+    data_00474dd4.running=1;data_00474dd4.stop_requested=0;
+    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,&GameWorker_0043ba90,&data_00491c28,0,&data_00474dd4.thread_id));
+    data_00491c10->InitializeClip();
+    InitializeFontCache_00437a00();
+    return 0;
+}
+#pragma code_seg()

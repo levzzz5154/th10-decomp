@@ -1,0 +1,513 @@
+{
+  "schema_version": 2,
+  "name": "enemy_factory",
+  "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+  "headers": [
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/enemy_manager_factory_0040d6b0.hpp",
+    "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
+    "include/th10/game/startup_managers_0040a350.hpp"
+  ],
+  "image_base": "0x00400000",
+  "functions": [
+    {
+      "name": "EnemyManager_CreateRetail",
+      "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "address": "0x0040D6B0",
+      "size": 95,
+      "section": ".text$04b",
+      "actual_abi": "one script argument on stack, RET4, EAX result; manager EBX"
+    },
+    {
+      "name": "EnemyManager_Destroy",
+      "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "address": "0x0040D530",
+      "size": 300,
+      "section": ".text$02b",
+      "actual_abi": "manager in EAX; RET; full 300-byte teardown"
+    },
+    {
+      "name": "StartupManagers",
+      "symbol": "_StartupManagers_0040a340",
+      "section": ".text$00ab",
+      "address": "0x40a340",
+      "size": 16,
+      "actual_abi": "Original no-argument callback; load global into ESI, plain RET, EAX result0."
+    },
+    {
+      "name": "InitializeManagers",
+      "symbol": "?InitializeManagers@FactoryCallerState@@QAEHXZ",
+      "section": ".text$00b",
+      "address": "0x40a350",
+      "size": 101,
+      "actual_abi": "Original member receiver ESI, preserved across factories; EAX result0, plain RET."
+    }
+  ],
+  "anchors": [
+    {
+      "name": "_asm_MessageHost_InitRetail_0040d280@8",
+      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+      "address": "0x40d280",
+      "size": 334,
+      "section": ".text$01b"
+    },
+    {
+      "name": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "address": "0x449ae0",
+      "size": 131,
+      "section": ".text$07b"
+    },
+    {
+      "name": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "address": "0x449b70",
+      "size": 131,
+      "section": ".text$08b"
+    },
+    {
+      "name": "_Scheduler_Remove@8",
+      "symbol": "_Scheduler_Remove@8",
+      "address": "0x449f60",
+      "size": 114,
+      "section": ".text$10b"
+    },
+    {
+      "name": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
+      "symbol": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
+      "address": "0x40d680",
+      "size": 36,
+      "section": ".text$03b"
+    },
+    {
+      "name": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "address": "0x447810",
+      "size": 242,
+      "section": ".text$05b"
+    },
+    {
+      "name": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "address": "0x4493e0",
+      "size": 92,
+      "section": ".text$06b"
+    },
+    {
+      "name": "MenuCursor_Advance",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "address": "0x0044BEA0",
+      "size": 128,
+      "section": ".text$12b"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x401000",
+      "size": 37696
+    },
+    {
+      "section": ".text$01a",
+      "address": "0x40a3b5",
+      "size": 11979
+    },
+    {
+      "section": ".text$02a",
+      "address": "0x40d3ce",
+      "size": 354
+    },
+    {
+      "section": ".text$03a",
+      "address": "0x40d65c",
+      "size": 36
+    },
+    {
+      "section": ".text$04a",
+      "address": "0x40d6a4",
+      "size": 12
+    },
+    {
+      "section": ".text$05a",
+      "address": "0x40d70f",
+      "size": 237825
+    },
+    {
+      "section": ".text$06a",
+      "address": "0x447902",
+      "size": 6878
+    },
+    {
+      "section": ".text$07a",
+      "address": "0x44943c",
+      "size": 1700
+    },
+    {
+      "section": ".text$08a",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$10a",
+      "address": "0x449bf3",
+      "size": 877
+    },
+    {
+      "section": ".text$12a",
+      "address": "0x449fd2",
+      "size": 7886
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "address": "0x00405620",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "address": "0x0040AF00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00419960_00419960@12",
+      "address": "0x00419960",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "address": "0x0041C1C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@Recovery_LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046627c",
+      "address": "0x0046627C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466280",
+      "address": "0x00466280",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d0b4",
+      "address": "0x0046D0B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dab0",
+      "address": "0x0046DAB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x00474C7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c80",
+      "address": "0x00474C80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776ec",
+      "address": "0x004776EC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776fc",
+      "address": "0x004776FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d6a",
+      "address": "0x00491D6A",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_00418ee0_00418ee0@4",
+      "address": "0x00418EE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477814",
+      "address": "0x00477814",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "address": "0x00449AE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "address": "0x00449B70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d254",
+      "address": "0x0046D254",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "address": "0x00413A20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ItemFront_UpdateThunk_00415ae0@4",
+      "address": "0x00415AE0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ItemFront_RenderThunk_00415af0@4",
+      "address": "0x00415AF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477708",
+      "address": "0x00477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477830",
+      "address": "0x00477830",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ManagerOwned_Destroy_004294a0@4",
+      "address": "0x004294A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004918a4",
+      "address": "0x004918A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f8",
+      "address": "0x004776F8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0040a1a0_0040a1a0@4",
+      "address": "0x0040A1A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474ca0",
+      "address": "0x474ca0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EnemyManager_ReleaseLists_00409f90@4",
+      "address": "0x409f90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_00425020",
+      "address": "0x425020",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_00406060",
+      "address": "0x406060",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_004056b0",
+      "address": "0x4056b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_0041aed0",
+      "address": "0x41aed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_0042b660",
+      "address": "0x42b660",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_00414830",
+      "address": "0x414830",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "_EnemyManager_CreateRetail_0040d6b0@4"
+  ],
+  "description": "Complete enemy factory and teardown with genuine startup wrapper and member initializer; all four complete bodies selected.",
+  "included_sources": [
+    "src/unidentified/FUN_0040a350_0040a350.cpp",
+    "src/unidentified/FUN_0040a340_0040a340.cpp",
+    "layout/ltcg/enemy_factory_dependencies/message_host_init.cpp",
+    "layout/ltcg/enemy_factory_dependencies/scheduler_tasks.cpp",
+    "layout/ltcg/enemy_factory_dependencies/bullet_entity_release_resource_0040d680.cpp",
+    "layout/ltcg/enemy_factory_dependencies/fun_00447810_00447810.cpp",
+    "layout/ltcg/enemy_factory_dependencies/animation_manager_mark_resource_for_removal_004493e0.cpp",
+    "src/game/fun_0040d530_0040d530.cpp",
+    "layout/ltcg/enemy_factory_dependencies/menu_advance.cpp"
+  ],
+  "entry": "_StartupManagers_0040a340",
+  "calls": [
+    {
+      "caller": "_StartupManagers_0040a340",
+      "callee": "?InitializeManagers@FactoryCallerState@@QAEHXZ",
+      "address": "0x40a347",
+      "instruction": "call"
+    },
+    {
+      "caller": "?InitializeManagers@FactoryCallerState@@QAEHXZ",
+      "callee": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "address": "0x40a377",
+      "instruction": "call"
+    },
+    {
+      "caller": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "callee": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "address": "0x40d6f5",
+      "instruction": "call"
+    }
+  ]
+}

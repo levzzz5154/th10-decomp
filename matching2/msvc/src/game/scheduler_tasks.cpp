@@ -3,6 +3,7 @@
 
 void __cdecl operator delete(void*);
 
+#ifndef TH10_SCHEDULER_REMOVE_ONLY
 #pragma code_seg(".text$10primary")
 extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
         Scheduler* scheduler, SchedulerTask* task, int priority) {
@@ -52,7 +53,12 @@ extern "C" __declspec(noinline) void __stdcall Scheduler_RemoveLocked(
     LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
     --g_thread_synchronization.scheduler_lock_depth;
 }
-#pragma code_seg(".text$70remove")
+#endif
+
+#ifndef TH10_SCHEDULER_REMOVE_CODE_SEG
+#define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$70remove"
+#endif
+#pragma code_seg(TH10_SCHEDULER_REMOVE_CODE_SEG)
 extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;

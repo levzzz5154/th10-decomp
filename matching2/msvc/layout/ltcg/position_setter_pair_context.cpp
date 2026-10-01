@@ -8,6 +8,8 @@ int __stdcall PositionSetterCompilerContext_004492f0(
     while (count--) {
         SetAnimationPosition_004492f0(positions, context, ids[0]);
         SetAnimationTranslatedPosition_00449350(positions, context, ids[1]);
+        reinterpret_cast<AnimationPositionHandle*>(ids)->SetPosition(positions);
+        reinterpret_cast<AnimationPositionHandle*>(ids + 1)->SetTranslatedPosition(positions);
         ++positions;
         ids += 2;
     }

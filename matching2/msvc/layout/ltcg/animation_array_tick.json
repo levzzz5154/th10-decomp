@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "animation_array_tick",
+  "source": "src/render/animation_array_tick_00441590.cpp",
+  "driver": "layout/ltcg/animation_array_tick_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native recovery of complete animation array loop",
+  "functions": [
+    {
+      "name": "TickAnimationArray",
+      "symbol": "_TickAnimationArray",
+      "section": ".text$01tick",
+      "address": "0x00441590",
+      "size": 44,
+      "actual_abi": "count EAX, array ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?TickAnimationArrayContext@@YIXPAUBatchAnimation@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00441600",
+    "size": 7,
+    "description": "Synthetic array-walker compiler context, unselected"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 263568
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004415BC",
+      "size": 68
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_RunBatchAnimation@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    }
+  ]
+}

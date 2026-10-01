@@ -1,31 +1,7 @@
-// 0x004134B0..0x004135C8 (280 bytes): FrameRateCounter::Update.
-//
-// The counter's per-frame update: clamp the timer delta that
-// 0x00439540 `FrameTimer_GetDelta` reports, refuse the frame when less than half
-// a second of it elapsed, turn the frame interval into a frame rate, and adjust
-// the frame-skip bookkeeping when the rate leaves the 57/65 Hz band.
-//
-// The counter object arrives in ESI - the dispatcher 0x004135D0 marshals it with
-// `mov esi,edi` before the call and overwrites ESI immediately after - which only
-// the whole-program pass of a native /LTCG link can select, so this body is a
-// single-function cluster (layout/ltcg/fps_counter_004134b0.json).
-//
-// Three measured shape levers, not recovered style:
-//
-//   * `__declspec(align(8)) float rate` is the construct that makes MSVC frame
-//     this function with `and esp,-8` and a 4-byte 8-aligned local (`push ecx`).
-//     The value still lives in an x87 register - the frame slot is never read -
-//     so the lever costs no instruction.
-//   * the stall guard is spelled `if (delta >= 0.5) { ... return 1; }` with the
-//     shared `return 1;` after it. That is the only spelling of the guard that
-//     puts its exit block out of line at the end of the function, where retail
-//     jumps to it with `test ah,1; jne 0x4135BC` (the natural `if (delta < 0.5)
-//     return 1;` inlines the exit and emits the inverted `test ah,5; jp`, four
-//     bytes short).
-//   * the frame-event counter is cleared inside the `== 4` arm as well as in the
-//     `else` arm, so the two arms keep their own timer snapshot. Written with a
-//     single `else` the compiler merges the two identical snapshot tails into
-//     one and the body shrinks by 15 bytes.
+// Complete frame-rate update0x004134B0, with its real FPS draw and scheduler callback.
+// Native LTCG preserves the original ESI receiver in Update, EDI receiver in Draw,
+// and ECX scheduler boundary. The original variadic formatter and queue writer
+// are part of this same genuine caller/callee closure.
 
 extern "C" double __cdecl FrameTimer_GetDelta(void);   // 0x00439540
 
@@ -47,20 +23,9 @@ extern "C" RecoverySlotOwner_004134b0* data_00477810;  // 0x00477810
 
 // 4-byte packing is what puts the two doubles at +0x24/+0x2C: their retail
 // offsets are 4 mod 8.
-#pragma pack(push, 4)
-struct FrameRateCounter_004134b0 {
-    unsigned char pad_0000[0x14];
-    double time_last;          // +0x14  clamped timer sample
-    int frame_events;          // +0x1C  consecutive high-rate frames
-    unsigned int frame_count;  // +0x20  game frames inside the interval
-    double measured;           // +0x24
-    double budget;             // +0x2C
-    float fps;                 // +0x34
-    __declspec(noinline) int Update();
-};
-#pragma pack(pop)
+#include "th10/app/frame_rate_counter_native.hpp"
 
-#pragma code_seg(".text$01update")
+#pragma code_seg(".text$05update")
 int FrameRateCounter_004134b0::Update() {
     double now = FrameTimer_GetDelta();
     if (now < time_last)
@@ -99,3 +64,11 @@ int FrameRateCounter_004134b0::Update() {
     return 1;
 }
 #pragma code_seg()
+
+
+#include "../game/game_thread_append_formatted_marked_retail_00401690.cpp"
+#include "fun_004135d0_004135d0.cpp"
+#include "../unidentified/FUN_00413690_00413690.cpp"
+
+#include "../game/game_thread_append_formatted_00401630.cpp"
+#include "../unidentified/FUN_00429a70_00429a70.cpp"

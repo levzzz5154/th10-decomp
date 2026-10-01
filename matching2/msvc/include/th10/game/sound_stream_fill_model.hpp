@@ -1,0 +1,78 @@
+#pragma once
+#include <stddef.h>
+
+struct MusicRecord {
+    unsigned char name[16];
+    unsigned int offset;                 // +0x10: offset within the music file
+    unsigned int data_bytes;             // +0x14
+    int start;                           // +0x18: optional signed loop start
+    int end;                             // +0x1c: signed loop end
+    unsigned char format[14];            // +0x20: first WAVEFORMAT fields
+    unsigned short bits;                 // +0x2e: bits per sample
+};
+
+struct MusicCursor {
+    unsigned char reserved[8];
+    unsigned int remaining;              // +0x08: remaining file bytes
+    unsigned char reserved0c[0x70];
+    unsigned int buffered;               // +0x7c: nonzero selects memory mode
+    unsigned char* base;                 // +0x80
+    unsigned char* position;             // +0x84
+    unsigned int memory_end;             // +0x88: relative to base
+    void* file;                          // +0x8c
+    MusicRecord* record;                 // +0x90
+};
+
+struct WaveBuffer;
+struct WaveMethods {
+    void* reserved00[9];
+    int (__stdcall* get_status)(WaveBuffer*, unsigned int*); // +0x24
+    void* reserved28;
+    int (__stdcall* lock)(              // +0x2c
+        WaveBuffer*, unsigned int, unsigned int,
+        unsigned char**, unsigned int*, unsigned char**, unsigned int*,
+        unsigned int);
+    void* reserved30[7];
+    int (__stdcall* unlock)(            // +0x4c
+        WaveBuffer*, unsigned char*, unsigned int, unsigned char*, unsigned int);
+    int (__stdcall* restore)(WaveBuffer*); // +0x50
+};
+struct WaveBuffer {
+    WaveMethods* methods;
+};
+struct SoundStream {
+    void* methods;
+    WaveBuffer** buffers;               // +0x04
+    unsigned int buffer_bytes;          // +0x08
+    MusicCursor* reader;                // +0x0c
+};
+
+typedef void (__stdcall* StreamSleep)(unsigned int);
+extern "C" {
+    extern StreamSleep data_004660ac;
+    extern unsigned int data_004977a4;
+    extern unsigned int (__stdcall* data_004660c8)(
+        void*, int, int*, unsigned int);
+    __declspec(dllimport) int __stdcall ReadFile(
+        void*, void*, unsigned int, unsigned int*, void*);
+}
+extern "C" __declspec(noinline) int __stdcall ArchiveRead(
+    MusicCursor*, unsigned int, unsigned int, unsigned int*);
+extern "C" __declspec(noinline) int __stdcall ArchiveRewind(MusicCursor*, bool);
+
+typedef char LayoutOffset[offsetof(MusicRecord, offset) == 0x10 ? 1 : -1];
+typedef char LayoutStart[offsetof(MusicRecord, start) == 0x18 ? 1 : -1];
+typedef char LayoutEnd[offsetof(MusicRecord, end) == 0x1c ? 1 : -1];
+typedef char LayoutBits[offsetof(MusicRecord, bits) == 0x2e ? 1 : -1];
+typedef char LayoutRemaining[offsetof(MusicCursor, remaining) == 8 ? 1 : -1];
+typedef char LayoutBuffered[offsetof(MusicCursor, buffered) == 0x7c ? 1 : -1];
+typedef char LayoutBase[offsetof(MusicCursor, base) == 0x80 ? 1 : -1];
+typedef char LayoutPosition[offsetof(MusicCursor, position) == 0x84 ? 1 : -1];
+typedef char LayoutMemoryEnd[offsetof(MusicCursor, memory_end) == 0x88 ? 1 : -1];
+typedef char LayoutFile[offsetof(MusicCursor, file) == 0x8c ? 1 : -1];
+typedef char LayoutRecord[offsetof(MusicCursor, record) == 0x90 ? 1 : -1];
+typedef char LayoutReader[offsetof(SoundStream, reader) == 0x0c ? 1 : -1];
+typedef char LayoutStatus[offsetof(WaveMethods, get_status) == 0x24 ? 1 : -1];
+typedef char LayoutLock[offsetof(WaveMethods, lock) == 0x2c ? 1 : -1];
+typedef char LayoutUnlock[offsetof(WaveMethods, unlock) == 0x4c ? 1 : -1];
+typedef char LayoutRestore[offsetof(WaveMethods, restore) == 0x50 ? 1 : -1];

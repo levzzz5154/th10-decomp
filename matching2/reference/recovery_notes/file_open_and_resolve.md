@@ -1,5 +1,7 @@
 # FileHandle Open and path resolution
 
+The [2026-10-01 exact native checkpoint](file_open_and_resolve_2026-10-01.md) supersedes the unpromoted status below: both complete functions are now maintained C++ and match all 360 bytes, including private resolver registers and the opener's security-cookie frame. The whole executable is exact. The following measurements describe the earlier behavioral-only candidates.
+
 2026-09-26. Assembly-free candidates for FileHandle Open (`0x00435370`, 239
 bytes) and path resolution (`0x00435610`, 121 bytes) pass **239 opener and 315
 resolver comparisons**, including **50 matching memory faults**. The sources

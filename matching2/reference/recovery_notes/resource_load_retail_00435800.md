@@ -1,5 +1,18 @@
 # ResourcePath::Load at `0x00435800`
 
+The loader is now maintained C++ with an exact retained ordinary MSVC/LTCG
+probe: its complete 214-byte body, generated 8-byte cleanup, and generated
+10-byte exception handler match all **232 selected bytes**. Integrated
+source hashes, aliases, full previous records, genuine 46-byte lifetime and
+46-byte BufferFile caller anchors, and 36 bytes of exception metadata also
+pass. See [the current resource and overlay checkpoint](resource_load_size_and_overlay_2026-10-01.md).
+A fresh whole-project build remains pending. The historical audit below
+predates this conversion; its unresolved-status statements are superseded.
+
+The [file-opening checkpoint](file_open_and_resolve_2026-10-01.md) separately
+verified the complete native opener and path resolver, including their
+private call edge and security-cookie frame.
+
 Historical live-Ghidra audit, updated for the first-slash correction. Readable
 candidates now pass 518 resource/registration/size comparisons, including
 stack-file unwind actions; see

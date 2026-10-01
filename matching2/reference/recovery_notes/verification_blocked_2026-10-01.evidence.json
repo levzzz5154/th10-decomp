@@ -1,0 +1,83 @@
+{
+  "scope": "Blocked audit for the full unchanged decompilation objective. No new code promotion.",
+  "goal_incomplete": true,
+  "blocked_audit_threshold_satisfied": true,
+  "consecutive_goal_continuations_with_same_wine_restriction": 3,
+  "current_manifest_sha256": "66b689363ef88df2c03f4c6bb4e7801be2595211725498142b146a1593539c7f",
+  "summary": {
+    "regions": {
+      "semantic": 1868,
+      "asm": 432,
+      "library": 323,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 100461,
+      "asm": 222457,
+      "library": 66480,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "completion_audit": {
+    "readable_cpp_complete": false,
+    "remaining_asm_regions": 432,
+    "remaining_asm_bytes": 222457,
+    "inline_asm_free_complete": false,
+    "semantic_inline_x87_regions": 5,
+    "semantic_inline_x87_bytes": 4451,
+    "current_whole_build_verified": false,
+    "last_historical_whole_build_literal_exact": true,
+    "historical_whole_exe_size": 487936,
+    "historical_whole_exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040"
+  },
+  "tool_blockers": {
+    "wine": "wineserver: bind: Operation not permitted",
+    "ghidra": "MCP tool call requires approval, but approval policy is never"
+  },
+  "native_alternative_results": {
+    "intel_dialect_callbacks_exact": false,
+    "bounded_small_asm_rows_scanned": 100,
+    "full_reset_native_compilations": 6,
+    "full_reset_exact_candidates": 0,
+    "maintained_files_changed": false
+  },
+  "supporting_evidence": [
+    {
+      "path": "matching2/reference/recovery_notes/resource_load_size_and_overlay_2026-10-01.evidence.json",
+      "sha256": "906911f623796bbb78c38d0a375f11515c856556e9a594b380fb91a47354b8bd"
+    },
+    {
+      "path": "matching2/reference/recovery_notes/remaining_compiler_constraints_2026-10-01.evidence.json",
+      "sha256": "998be2850ee562df4dc4bfb648f333eb84d44205f374cbd0a4f7d56d0c1b3fb4"
+    },
+    {
+      "path": "matching2/build/experiments/callback_intel_dialect_2026_10_01/evidence.json",
+      "sha256": "b3061ed199129ea8ac6fd4190b6372cdcab6e7144ab70f04074136fc15aa4562"
+    },
+    {
+      "path": "matching2/build/experiments/callback_intel_dialect_2026_10_01/wine_preflight.log",
+      "sha256": "25c383c6ce115b45e00fa5949d68367c516721a703498ab98b8c92b1ccc3b2b7"
+    },
+    {
+      "path": "matching2/build/experiments/callback_intel_dialect_2026_10_01/ghidra_preflight.json",
+      "sha256": "9bf589b69e9160013b3447ac8a40fec4e6d6d63627309cd2bb1c3b7fc6da2d6d"
+    },
+    {
+      "path": "matching2/build/experiments/native_small_function_scan_2026_10_01/scan.json",
+      "sha256": "1d27b0a96b0c7168a50a92c9ef93e204ce121ee1a8fa9f1ad9f54b919bcdb295"
+    },
+    {
+      "path": "matching2/build/experiments/native_small_function_scan_2026_10_01/reset_results.json",
+      "sha256": "2d9ecf79dea4a7fb9932ac3573519706a71f4d1d4dcd100ac6326a78e7810484"
+    }
+  ],
+  "pending": [
+    "Restore Wine local-server startup and read-only Ghidra MCP execution.",
+    "Fresh whole current-source build into a separate output directory, full487936-byte verification.",
+    "ArchiveCursor_Read202 ordinary gate; no main promotion yet.",
+    "UpdatePlayer223 complete MSVC closure gate; no main promotion yet.",
+    "Continue all remaining ASM owners and five inline-x87 removals; objective unchanged."
+  ]
+}

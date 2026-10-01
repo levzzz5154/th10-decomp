@@ -1,0 +1,49 @@
+{
+  "scope": "Wave13: complete ordinary formatter and real panel display; full executable and native contribution checks",
+  "new_wave_functions": 2,
+  "new_wave_bytes": 267,
+  "permissions_baseline_functions": 38,
+  "permissions_baseline_bytes": 4233,
+  "summary": {
+    "regions": {
+      "semantic": 1906,
+      "asm": 397,
+      "library": 320,
+      "data": 7,
+      "padding": 1770
+    },
+    "bytes": {
+      "semantic": 104694,
+      "asm": 218254,
+      "library": 66450,
+      "data": 7779,
+      "padding": 15495
+    }
+  },
+  "fully_assembly_free": {
+    "regions": 1901,
+    "bytes": 100243
+  },
+  "whole_exe_size": 487936,
+  "whole_exe_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+  "whole_exe_literal_exact": true,
+  "native_exact_bodies": 47,
+  "native_exact_bytes": 7091,
+  "unselected_nonmatching_models": 6,
+  "unselected_other_contexts": 3,
+  "stats_factory_diagnostic_new_bytes": 0,
+  "eh_owner_inventory_new_bytes": 0,
+  "goal_complete": false,
+  "proof_hashes": {
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave13_verified.json": "ce5b66c58e4f762aee1d6ea5c7bae90943a478cc82067da17207ff1bec1ac8e4",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave13_native_verified.json": "5b3559d89983790b526db6f23fbd99a5377a7d75f299dfc1e6f98f318f434579",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave13_regions_before_build.json": "dee1cdea921b8dd3adcf28d74ac20c64e28b7b84e12b226828d051e6ad60aaa5",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/wave13_main_probe.json": "b1e3b5b06af0c1a1f3ad51e0f3dac254a0dabe0f820df92e622ed9cb58d9cd4a",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave13_build.py": "3eff72e581fa701f0dbe8e49ba76b582fe8406a3178196be8cd5780eee814354",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/wine_startup_diagnosis_2026_10_01/verify_wave13_native.py": "de8f859b21f5208534547b73948b6c9b44a1b9e98d536675b7455b70faa90dba",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_formatted_panel_caller_2026_10_01/evidence.json": "3ce43cde7b3bb775323f1a79ebebd6d754fd3052778f1c8b6c57e05bfcf78fa5",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_formatted_panel_caller_2026_10_01/integration_recipe.json": "ecfe13378c3e446ad0147a74d414d2a7884c1298a690f84c1c76cda24da508ac",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_fps_task_owner_2026_10_01/evidence.json": "4d3f55d72f3607d3e953bf7e8ea055f1643660ca9e6db14ce4fc17900b1c0605",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/constructor_eh_owner_inventory_2026_10_01/evidence.json": "f3c7d3e1c1c5e5d9d0496c35d5b2db2e50c9910de557a8db80012353f2580253"
+  }
+}

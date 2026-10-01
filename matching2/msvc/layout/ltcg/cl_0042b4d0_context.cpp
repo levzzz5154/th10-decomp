@@ -5,10 +5,12 @@
 #include "../../src/game/entity_initialize_00401de0.cpp"
 #pragma code_seg()
 
-#include "../../src/game/animation_object_configure_from_resource_0043e5a0.cpp"
 #include "scheduler_register_anchors.cpp"
 
 void* __cdecl operator new(unsigned int size);
+
+struct EffectManager_0042b430;
+extern "C" EffectManager_0042b430* __cdecl asm_Recovery_CreateHugeResourceState_0042b660();
 
 #pragma code_seg(".text$30context")
 int __stdcall EffectPoolContext_0042b4d0(unsigned int size, SchedulerTask* task) {
@@ -17,6 +19,6 @@ int __stdcall EffectPoolContext_0042b4d0(unsigned int size, SchedulerTask* task)
     EffectPool_0042b6f0* pool = static_cast<EffectPool_0042b6f0*>(operator new(size));
     if (pool->Initialize())
         return result;
-    return (int)pool;
+    return (int)asm_Recovery_CreateHugeResourceState_0042b660();
 }
 #pragma code_seg()

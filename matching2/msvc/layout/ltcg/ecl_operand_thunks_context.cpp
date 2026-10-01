@@ -4,8 +4,8 @@
 float __fastcall ResolveSlotFloatValue_0040c680(int selector, EclOperandSlot* slot, float operand);
 int ResolveEntityIntOperand_00412a00(EclEntityVm* vm, int selector);
 
-// Stand-ins for the two float resolvers, which are still assembly and enter
-// on (EAX interpreter, ECX selector). The layout places them at the retail
+// ABI stand-ins for the two float resolvers recovered in separate clusters.
+// They enter on (EAX interpreter, ECX selector). This layout places them at retail
 // addresses so the thunks' tail jumps bake retail's displacements; only their
 // parameter homes matter. Shifting by the selector keeps it in CL.
 struct EclInterpreter {
