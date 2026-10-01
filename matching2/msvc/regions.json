@@ -3810,13 +3810,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00405d00_00405d00",
-      "source": "src/game/entity.cpp",
-      "symbol": "_asm_FUN_00405d00_00405d00",
+      "name": "semantic_BulletSlot_Construct_00405d00",
+      "source": "src/game/bullet_slot_construct_00405d00.cpp",
+      "symbol": "??0BulletSlot_00405d00@@QAE@XZ",
       "address": "0x00405D00",
       "size": 215,
-      "kind": "asm",
-      "owner": "0x00405D00"
+      "kind": "semantic",
+      "owner": "0x00405D00",
+      "previous_record": {
+        "name": "asm_FUN_00405d00_00405d00",
+        "source": "src/game/entity.cpp",
+        "symbol": "_asm_FUN_00405d00_00405d00",
+        "address": "0x00405D00",
+        "size": 215,
+        "kind": "asm",
+        "owner": "0x00405D00"
+      }
     },
     {
       "name": "text_padding_00405dd7",
@@ -59945,7 +59954,8 @@
     "src/game/item_manager_construct_00413810.cpp",
     "src/game/player_manager_teardown_00408af0.cpp",
     "src/game/item_manager_teardown_004145f0.cpp",
-    "src/game/replay_manager_teardown_004294a0.cpp"
+    "src/game/replay_manager_teardown_004294a0.cpp",
+    "src/game/bullet_slot_construct_00405d00.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -60837,7 +60847,8 @@
     "layout/ltcg/item_manager_construct_00413810.json",
     "layout/ltcg/player_manager_teardown_00408af0.json",
     "layout/ltcg/item_manager_teardown_004145f0.json",
-    "layout/ltcg/replay_manager_teardown_004294a0.json"
+    "layout/ltcg/replay_manager_teardown_004294a0.json",
+    "layout/ltcg/bullet_slot_construct_00405d00.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

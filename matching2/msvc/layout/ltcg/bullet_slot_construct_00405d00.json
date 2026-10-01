@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "bullet_slot_construct_00405d00",
+  "source": "src/game/bullet_slot_construct_00405d00.cpp",
+  "driver": "layout/ltcg/bullet_slot_construct_00405d00/context.cpp",
+  "headers": [
+    "include/th10/game/bullet_slot_construct_00405d00.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Bullet slot constructor, compiled with an in-place constructing caller.",
+  "functions": [
+    {
+      "name": "BulletSlot_Construct",
+      "symbol": "??0BulletSlot_00405d00@@QAE@XZ",
+      "section": ".text$01construct",
+      "address": "0x00405D00",
+      "actual_abi": "__thiscall; receiver returned in EAX",
+      "size": 215
+    }
+  ],
+  "context": {
+    "symbol": "?BulletSlotConstructCompilerContext@@YGPAUBulletSlot_00405d00@@PAU1@H@Z",
+    "section": ".text$05context",
+    "address": "0x00405DE0",
+    "size": 53,
+    "description": "Synthetic array-building caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 19712
+    },
+    {
+      "section": ".text$01constructz",
+      "address": 4218327,
+      "size": 9
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [
+    "??0BulletSlot_00405d00@@QAE@XZ"
+  ]
+}
