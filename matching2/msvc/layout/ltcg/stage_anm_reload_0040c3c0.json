@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "name": "stage_anm_reload_0040c3c0",
+  "source": "src/game/stage_anm_reload_0040c3c0.cpp",
+  "driver": "layout/ltcg/stage_anm_reload_0040c3c0_context.cpp",
+  "headers": [
+    "include/th10/game/stage_anm_reload.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Stage animation reload with its thread entry and owner wrapper, compiled with native LTCG; the handle stop it calls bare is an ABI anchor.",
+  "functions": [
+    {
+      "name": "StageOwner_ReloadStageAnm",
+      "symbol": "?ReloadStageAnm@StageOwner_0040c3c0@@QAEHXZ",
+      "section": ".text$01owner",
+      "address": "0x0040B4F0",
+      "size": 11,
+      "actual_abi": "owner in EAX; plain RET"
+    },
+    {
+      "name": "Stage_ReloadAnmThread",
+      "symbol": "_Stage_ReloadAnmThread_0040c3a0",
+      "section": ".text$03thread",
+      "address": "0x0040C3A0",
+      "size": 18,
+      "actual_abi": "no arguments; plain RET; 0 in EAX"
+    },
+    {
+      "name": "Stage_ReloadAnm",
+      "symbol": "?ReloadAnm@Stage_0040c3c0@@QAEHXZ",
+      "section": ".text$05reload",
+      "address": "0x0040C3C0",
+      "size": 126,
+      "actual_abi": "stage in EBX; plain RET; 0 in EAX"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StopHandleAnchor",
+      "symbol": "?StopHandle_00409e50@@YGXPAUAnimationHandle_0040c3c0@@@Z",
+      "section": ".text$00anchor",
+      "address": "0x00409E50",
+      "size": 65
+    }
+  ],
+  "context": {
+    "symbol": "?StageAnmReloadContext@@YGHPAPAUStageOwner_0040c3c0@@HPAP6AIXZ@Z",
+    "section": ".text$07context",
+    "address": "0x0040C440",
+    "size": 57,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a_gap",
+      "address": "0x00401000",
+      "size": 36432
+    },
+    {
+      "section": ".text$00z",
+      "address": "0x00409E91",
+      "size": 5727
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0040B4FB",
+      "size": 3749
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0040C3B2",
+      "size": 14
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x0040C43E",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_find_opaque_004491c0@4",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477700",
+      "address": "0x00477700",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "_Stage_ReloadAnmThread_0040c3a0"
+  ],
+  "additional_sources": []
+}

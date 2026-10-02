@@ -7516,13 +7516,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040b4f0_0040b4f0",
-      "source": "src/unidentified/FUN_0040b4f0_0040b4f0.cpp",
-      "symbol": "_asm_FUN_0040b4f0_0040b4f0",
+      "name": "semantic_StageOwner_ReloadStageAnm_0040b4f0",
+      "source": "src/game/stage_anm_reload_0040c3c0.cpp",
+      "symbol": "?ReloadStageAnm@StageOwner_0040c3c0@@QAEHXZ",
       "address": "0x0040B4F0",
       "size": 11,
-      "kind": "asm",
-      "owner": "0x0040B4F0"
+      "kind": "semantic",
+      "owner": "0x0040B4F0",
+      "previous_record": {
+        "name": "asm_FUN_0040b4f0_0040b4f0",
+        "source": "src/unidentified/FUN_0040b4f0_0040b4f0.cpp",
+        "symbol": "_asm_FUN_0040b4f0_0040b4f0",
+        "address": "0x0040B4F0",
+        "size": 11,
+        "kind": "asm",
+        "owner": "0x0040B4F0"
+      }
     },
     {
       "name": "text_padding_0040b4fb",
@@ -7922,13 +7931,22 @@
       "owner": "0x0040BD80"
     },
     {
-      "name": "asm_FUN_0040c3a0_0040c3a0",
-      "source": "src/unidentified/FUN_0040c3a0_0040c3a0.cpp",
-      "symbol": "_asm_FUN_0040c3a0_0040c3a0",
+      "name": "semantic_Stage_ReloadAnmThread_0040c3a0",
+      "source": "src/game/stage_anm_reload_0040c3c0.cpp",
+      "symbol": "_Stage_ReloadAnmThread_0040c3a0",
       "address": "0x0040C3A0",
       "size": 18,
-      "kind": "asm",
-      "owner": "0x0040C3A0"
+      "kind": "semantic",
+      "owner": "0x0040C3A0",
+      "previous_record": {
+        "name": "asm_FUN_0040c3a0_0040c3a0",
+        "source": "src/unidentified/FUN_0040c3a0_0040c3a0.cpp",
+        "symbol": "_asm_FUN_0040c3a0_0040c3a0",
+        "address": "0x0040C3A0",
+        "size": 18,
+        "kind": "asm",
+        "owner": "0x0040C3A0"
+      }
     },
     {
       "name": "text_padding_0040c3b2",
@@ -7939,13 +7957,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_StageBackground_RebindTextureRetail_0040c3c0",
-      "source": "src/game/stage_background.cpp",
-      "symbol": "_asm_StageBackground_RebindTextureRetail_0040c3c0",
+      "name": "semantic_Stage_ReloadAnm_0040c3c0",
+      "source": "src/game/stage_anm_reload_0040c3c0.cpp",
+      "symbol": "?ReloadAnm@Stage_0040c3c0@@QAEHXZ",
       "address": "0x0040C3C0",
       "size": 126,
-      "kind": "asm",
-      "owner": "0x0040C3C0"
+      "kind": "semantic",
+      "owner": "0x0040C3C0",
+      "previous_record": {
+        "name": "asm_StageBackground_RebindTextureRetail_0040c3c0",
+        "source": "src/game/stage_background.cpp",
+        "symbol": "_asm_StageBackground_RebindTextureRetail_0040c3c0",
+        "address": "0x0040C3C0",
+        "size": 126,
+        "kind": "asm",
+        "owner": "0x0040C3C0"
+      }
     },
     {
       "name": "text_padding_0040c43e",
@@ -58769,7 +58796,6 @@
     "src/game/spell_timeout.cpp",
     "src/game/spell_timer.cpp",
     "src/game/sprite_descriptor.cpp",
-    "src/game/stage_background.cpp",
     "src/game/stage_entry.cpp",
     "src/game/stage_focus_fade.cpp",
     "src/game/stage_slot_state.cpp",
@@ -59109,11 +59135,9 @@
     "src/unidentified/FUN_0040b060_0040b060.cpp",
     "src/unidentified/FUN_0040b070_0040b070.cpp",
     "src/unidentified/FUN_0040b1b0_0040b1b0.cpp",
-    "src/unidentified/FUN_0040b4f0_0040b4f0.cpp",
     "src/unidentified/FUN_0040ba60_0040ba60.cpp",
     "src/unidentified/FUN_0040ba70_0040ba70.cpp",
     "src/unidentified/FUN_0040ba80_0040ba80.cpp",
-    "src/unidentified/FUN_0040c3a0_0040c3a0.cpp",
     "src/unidentified/FUN_0040c460_0040c460.cpp",
     "src/unidentified/FUN_0040c520_0040c520.cpp",
     "src/unidentified/FUN_0040c5b0_0040c5b0.cpp",
@@ -60291,7 +60315,8 @@
     "src/game/title_score_entry_00433230.cpp",
     "src/platform/font_surface_create_fallback_00436aa0.cpp",
     "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
-    "src/game/polar_motion_step_0040b320.cpp"
+    "src/game/polar_motion_step_0040b320.cpp",
+    "src/game/stage_anm_reload_0040c3c0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -61196,7 +61221,8 @@
     "layout/ltcg/animation_texture_surface_copy.json",
     "layout/ltcg/title_practice_rows_00431410.json",
     "layout/ltcg/font_surface_fallback_00436aa0.json",
-    "layout/ltcg/polar_motion_step_0040b320.json"
+    "layout/ltcg/polar_motion_step_0040b320.json",
+    "layout/ltcg/stage_anm_reload_0040c3c0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
