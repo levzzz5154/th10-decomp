@@ -13251,13 +13251,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ReleaseCompositeState_00414570",
-      "source": "src/game/recovery_release_composite_state_00414570.cpp",
-      "symbol": "_asm_Recovery_ReleaseCompositeState_00414570",
+      "name": "semantic_SidePanel_ReleaseStageParts_00414570",
+      "source": "src/game/side_panel_release_00414570.cpp",
+      "symbol": "?ReleaseStageParts@SidePanel_00414570@@QAEXXZ",
       "address": "0x00414570",
       "size": 121,
-      "kind": "asm",
-      "owner": "0x00414570"
+      "kind": "semantic",
+      "owner": "0x00414570",
+      "previous_record": {
+        "name": "asm_Recovery_ReleaseCompositeState_00414570",
+        "source": "src/game/recovery_release_composite_state_00414570.cpp",
+        "symbol": "_asm_Recovery_ReleaseCompositeState_00414570",
+        "address": "0x00414570",
+        "size": 121,
+        "kind": "asm",
+        "owner": "0x00414570"
+      }
     },
     {
       "name": "text_padding_004145e9",
@@ -58805,7 +58814,7 @@
     "src/game/recovery_mark_animation_tree_004243f0.cpp",
     "src/game/recovery_mark_text_and_dispatcher_004479d0.cpp",
     "src/game/recovery_offset_point_00418810.cpp",
-    "src/game/recovery_release_composite_state_00414570.cpp",
+    "src/game/side_panel_release_00414570.cpp",
     "src/game/recovery_release_pair_0041f930.cpp",
     "src/game/recovery_release_raw_pair_and_reset_00405620.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
@@ -61295,7 +61304,8 @@
     "layout/ltcg/linked_pool_append_0042aa50.json",
     "layout/ltcg/life_stock_add_004188a0.json",
     "layout/ltcg/sprite_region_bind_00424480.json",
-    "layout/ltcg/laser_spawn_0041c510.json"
+    "layout/ltcg/laser_spawn_0041c510.json",
+    "layout/ltcg/side_panel_release_00414570.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
