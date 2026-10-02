@@ -18780,13 +18780,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00420100_00420100",
-      "source": "src/app/version_marker.cpp",
-      "symbol": "_asm_FUN_00420100_00420100",
+      "name": "semantic_DataVersion_Load_00420100",
+      "source": "src/app/data_version_load_00420100.cpp",
+      "symbol": "?DataVersion_Load_00420100@@YAHXZ",
       "address": "0x00420100",
       "size": 174,
-      "kind": "asm",
-      "owner": "0x00420100"
+      "kind": "semantic",
+      "owner": "0x00420100",
+      "previous_record": {
+        "name": "asm_FUN_00420100_00420100",
+        "source": "src/app/version_marker.cpp",
+        "symbol": "_asm_FUN_00420100_00420100",
+        "address": "0x00420100",
+        "size": 174,
+        "kind": "asm",
+        "owner": "0x00420100"
+      }
     },
     {
       "name": "text_padding_004201ae",
@@ -58600,7 +58609,7 @@
     "src/app/game_state_init.cpp",
     "src/app/main_task_tick_wave18.cpp",
     "src/app/tan_pair_00421be0.cpp",
-    "src/app/version_marker.cpp",
+    "src/app/data_version_load_00420100.cpp",
     "src/archive/crypt.cpp",
     "src/archive/dat.cpp",
     "src/archive/dat_archive_close_00434d10.cpp",
@@ -61340,7 +61349,8 @@
     "layout/ltcg/life_stock_add_004188a0.json",
     "layout/ltcg/sprite_region_bind_00424480.json",
     "layout/ltcg/laser_spawn_0041c510.json",
-    "layout/ltcg/side_panel_release_00414570.json"
+    "layout/ltcg/side_panel_release_00414570.json",
+    "layout/ltcg/data_version_load_00420100.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
