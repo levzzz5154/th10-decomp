@@ -16,7 +16,8 @@
     "src/game/item_drops_flush_0040c9a0.cpp",
     "layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
     "src/game/enemy_death_release_0040e5f0.cpp",
-    "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
+    "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp",
+    "src/game/item_convert_sweep_0041ba50.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
@@ -108,6 +109,15 @@
       "size": 182,
       "actual_abi": "manager on the stack; RET 4",
       "source": "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
+    },
+    {
+      "name": "ItemConvertSweep",
+      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+      "section": ".text$079zz_convert",
+      "address": "0x41ba50",
+      "size": 165,
+      "actual_abi": "manager in ESI; plain RET",
+      "source": "src/game/item_convert_sweep_0041ba50.cpp"
     }
   ],
   "anchors": [
@@ -221,7 +231,7 @@
   "context": {
     "symbol": "?PlayerUpdateContext@@YGHPAPAUPlayerUpdateState_00405750@@H@Z",
     "address": "0x00449A20",
-    "size": 80,
+    "size": 91,
     "section": ".text$160context",
     "description": "Pointer-array context only."
   },
@@ -499,7 +509,7 @@
     {
       "section": ".text$079z",
       "address": "0x4130a8",
-      "size": 35416
+      "size": 35240
     },
     {
       "section": ".text$089gap",

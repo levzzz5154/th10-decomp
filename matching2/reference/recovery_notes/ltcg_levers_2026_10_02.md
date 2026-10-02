@@ -31,3 +31,17 @@
   Using it in both switch cases (link + virtual set-up duplicated per case,
   then tail-merged by the compiler) moves it to EDI as in retail.
 - Sprite flag clears go through a pointer helper to keep `and [mem],reg`.
+
+## Later the same day
+
+- A pointer cleared after `delete` may sit inside the `if`: compare the `je`
+  target with the store, not only the instruction list (0x00414570).
+- The `update_player` cluster already holds the real item spawn, scatter and
+  animation-create bodies, so callers of those (0x0040E5F0, 0x0040E6A0,
+  0x0041BA50) match there on the first shape; copies of the sound queue pan
+  and gauge hold bodies live in `update_player_dependencies/enemy_death_callees.cpp`.
+- Reading a field into a local (`int kind = item->kind`) changes which field
+  address the loop's strength-reduced pointer walks (0x0041BA50: position
+  instead of kind), which in turn frees ESI for the receiver.
+- The inlined slow timer step `fld [speed]; fadd [elapsed]` needed the volatile
+  read of the speed in a free function (0x0040E6A0); accessors did not help.

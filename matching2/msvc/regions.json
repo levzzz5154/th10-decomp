@@ -16476,13 +16476,22 @@
       "owner": "0x0041BA4D"
     },
     {
-      "name": "asm_Enemy_SweepPendingDropsRetail_0041ba50",
-      "source": "src/game/enemy_drop_sweep.cpp",
-      "symbol": "_asm_Enemy_SweepPendingDropsRetail_0041ba50",
+      "name": "semantic_ItemSpawnManager_ConvertItems_0041ba50",
+      "source": "src/game/item_convert_sweep_0041ba50.cpp",
+      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
       "address": "0x0041BA50",
       "size": 165,
-      "kind": "asm",
-      "owner": "0x0041BA50"
+      "kind": "semantic",
+      "owner": "0x0041BA50",
+      "previous_record": {
+        "name": "asm_Enemy_SweepPendingDropsRetail_0041ba50",
+        "source": "src/game/enemy_drop_sweep.cpp",
+        "symbol": "_asm_Enemy_SweepPendingDropsRetail_0041ba50",
+        "address": "0x0041BA50",
+        "size": 165,
+        "kind": "asm",
+        "owner": "0x0041BA50"
+      }
     },
     {
       "name": "text_padding_0041baf5",
@@ -58663,7 +58672,7 @@
     "src/game/ending_screen.cpp",
     "src/game/ending_text.cpp",
     "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp",
-    "src/game/enemy_drop_sweep.cpp",
+    "src/game/item_convert_sweep_0041ba50.cpp",
     "src/game/enemy_grid_scan.cpp",
     "src/game/enemy_lifecycle.cpp",
     "src/game/enemy_manager_create_retail_0040d6b0.cpp",

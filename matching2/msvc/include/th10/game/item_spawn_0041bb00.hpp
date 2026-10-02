@@ -32,6 +32,8 @@ struct ItemSpawnManager_0041bb00 {
     int special_count;
     __declspec(noinline) int Spawn(const float* position,
         int kind,int identifier,float angle,float speed);
+    // 0x0041BA50: turn the live items of kinds 1 and 4 into kind 9.
+    __declspec(noinline) int ConvertItems();
 };
 typedef char ItemSizeCheck_0041bb00[sizeof(SpawnItem_0041bb00)==0x3f0?1:-1];
 typedef char ItemStateOffsetCheck_0041bb00[offsetof(SpawnItem_0041bb00,state)==0x3dc?1:-1];
