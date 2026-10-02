@@ -10653,13 +10653,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Enemy_DeathSweepRetail_0040e6a0",
-      "source": "src/game/enemy_death_sweep_retail_0040e6a0.cpp",
-      "symbol": "_asm_Enemy_DeathSweepRetail_0040e6a0",
+      "name": "semantic_EnemyManager_SweepDeaths_0040e6a0",
+      "source": "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp",
+      "symbol": "?EnemyManager_SweepDeaths_0040e6a0@@YGXPAUEnemyManager_0040e5f0@@@Z",
       "address": "0x0040E6A0",
       "size": 182,
-      "kind": "asm",
-      "owner": "0x0040E6A0"
+      "kind": "semantic",
+      "owner": "0x0040E6A0",
+      "previous_record": {
+        "name": "asm_Enemy_DeathSweepRetail_0040e6a0",
+        "source": "src/game/enemy_death_sweep_retail_0040e6a0.cpp",
+        "symbol": "_asm_Enemy_DeathSweepRetail_0040e6a0",
+        "address": "0x0040E6A0",
+        "size": 182,
+        "kind": "asm",
+        "owner": "0x0040E6A0"
+      }
     },
     {
       "name": "text_padding_0040e756",
@@ -58653,7 +58662,7 @@
     "src/game/empty_callback_0044df00.cpp",
     "src/game/ending_screen.cpp",
     "src/game/ending_text.cpp",
-    "src/game/enemy_death_sweep_retail_0040e6a0.cpp",
+    "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp",
     "src/game/enemy_drop_sweep.cpp",
     "src/game/enemy_grid_scan.cpp",
     "src/game/enemy_lifecycle.cpp",

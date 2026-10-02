@@ -8,7 +8,10 @@
 // The enemy manager at 0x00477704, as far as a dying enemy reads it.
 struct EnemyManager_0040e5f0 {
     unsigned char reserved_00[0x30];
-    void* animation_files[1];                 // +0x30
+    void* animation_files[4];                 // +0x30
+    FrameTimer clock;                         // +0x40
+    int reserved_54;
+    struct EnemyNode_0040e6a0* first;         // +0x58
 };
 
 // An enemy, as far as its death touches it.
@@ -20,6 +23,14 @@ struct Enemy_0040e5f0 {
     int death_sound;                          // +0x2444: negative for none
     int death_script;                         // +0x2448: negative for none
     int death_file;                           // +0x244C
+    unsigned char reserved_2450[0x2480 - 0x2450];
+    unsigned int flags;                       // +0x2480
+};
+
+// A link of the manager's enemy list.
+struct EnemyNode_0040e6a0 {
+    Enemy_0040e5f0* enemy;
+    EnemyNode_0040e6a0* next;
 };
 
 extern "C" EnemyManager_0040e5f0* data_00477704;
@@ -27,5 +38,8 @@ extern "C" ScoreState data_00474c40;
 
 // 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
 int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy);
+
+// 0x0040E6A0: start the bursts of the enemies that just died and tick the clock.
+void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager_0040e5f0* manager);
 
 #endif

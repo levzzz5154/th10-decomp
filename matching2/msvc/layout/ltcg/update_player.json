@@ -15,7 +15,8 @@
     "src/game/collision_engine_activate_all_00408460.cpp",
     "src/game/item_drops_flush_0040c9a0.cpp",
     "layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
-    "src/game/enemy_death_release_0040e5f0.cpp"
+    "src/game/enemy_death_release_0040e5f0.cpp",
+    "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
@@ -98,6 +99,15 @@
       "size": 162,
       "actual_abi": "enemy on the stack; RET 4",
       "source": "src/game/enemy_death_release_0040e5f0.cpp"
+    },
+    {
+      "name": "EnemyManagerSweepDeaths",
+      "symbol": "?EnemyManager_SweepDeaths_0040e6a0@@YGXPAUEnemyManager_0040e5f0@@@Z",
+      "section": ".text$079kz_sweep",
+      "address": "0x40e6a0",
+      "size": 182,
+      "actual_abi": "manager on the stack; RET 4",
+      "source": "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
     }
   ],
   "anchors": [
@@ -211,7 +221,7 @@
   "context": {
     "symbol": "?PlayerUpdateContext@@YGHPAPAUPlayerUpdateState_00405750@@H@Z",
     "address": "0x00449A20",
-    "size": 71,
+    "size": 80,
     "section": ".text$160context",
     "description": "Pointer-array context only."
   },
@@ -543,8 +553,8 @@
     },
     {
       "section": ".text$079l_gap",
-      "address": "0x40e692",
-      "size": 18782
+      "address": "0x40e756",
+      "size": 18586
     },
     {
       "section": ".text$099q_gap",

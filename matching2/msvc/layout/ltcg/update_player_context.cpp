@@ -7,6 +7,7 @@ int __stdcall PlayerUpdateContext(PlayerUpdateState_00405750** players,int count
     data_004776f0->ActivateAll(count);
     ((DropSource_0040c9a0*)players[0])->FlushDrops((ItemDrops_0040c9a0*)players[1]);
     Enemy_ReleaseOnDeath_0040e5f0((Enemy_0040e5f0*)players[2]);
+    EnemyManager_SweepDeaths_0040e6a0((EnemyManager_0040e5f0*)players[3]);
     return count;
 }
 #pragma code_seg()
