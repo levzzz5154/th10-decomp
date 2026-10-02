@@ -23955,13 +23955,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_LinkedPool_AllocateAndAppendRetail_0042aa50",
-      "source": "src/game/linked_pool_append.cpp",
-      "symbol": "_asm_LinkedPool_AllocateAndAppendRetail_0042aa50",
+      "name": "semantic_LinkedPool_AppendPage_0042aa50",
+      "source": "src/game/linked_pool_append_0042aa50.cpp",
+      "symbol": "?AppendPage@PoolOwner_0042aa50@@QAEPAUPoolLink_0042aa50@@H@Z",
       "address": "0x0042AA50",
       "size": 139,
-      "kind": "asm",
-      "owner": "0x0042AA50"
+      "kind": "semantic",
+      "owner": "0x0042AA50",
+      "previous_record": {
+        "name": "asm_LinkedPool_AllocateAndAppendRetail_0042aa50",
+        "source": "src/game/linked_pool_append.cpp",
+        "symbol": "_asm_LinkedPool_AllocateAndAppendRetail_0042aa50",
+        "address": "0x0042AA50",
+        "size": 139,
+        "kind": "asm",
+        "owner": "0x0042AA50"
+      }
     },
     {
       "name": "text_padding_0042aadb",
@@ -58673,7 +58682,7 @@
     "src/game/laser_line.cpp",
     "src/game/laser_segment_cut.cpp",
     "src/game/line_effect_sweep.cpp",
-    "src/game/linked_pool_append.cpp",
+    "src/game/linked_pool_append_0042aa50.cpp",
     "src/game/linked_pool_release.cpp",
     "src/game/load_startup_resources_0041f8d0.cpp",
     "src/game/main_menu_dispatch.cpp",
@@ -61239,7 +61248,8 @@
     "layout/ltcg/title_practice_rows_00431410.json",
     "layout/ltcg/font_surface_fallback_00436aa0.json",
     "layout/ltcg/polar_motion_step_0040b320.json",
-    "layout/ltcg/stage_anm_reload_0040c3c0.json"
+    "layout/ltcg/stage_anm_reload_0040c3c0.json",
+    "layout/ltcg/linked_pool_append_0042aa50.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
