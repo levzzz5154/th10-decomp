@@ -102,3 +102,16 @@ The previous `projectile_runtime_004067d0_00406d90.md` note already identifies
 the 0x408030 / 0x4086B0 / 0x448DB0 relationship; this audit adds the omitted
 0x408460 call site and the full live xref inventory. Until that cluster can
 replace the ESI entry without an assembly shim, retain the byte-exact body.
+
+## Recovered (2026-10-02)
+
+`CollisionRecord_00408100::Activate`, 199 bytes, promoted from the anchor model
+in the `update_player` cluster (`src/game/collision_record_activate_00408030.cpp`).
+
+The model kept the bounds result in a local, wrote the two state words, then
+branched. That made the zero constant live across the test (EBX, pushed
+early, `cmp eax, ebx`). Retail tests the call result directly and keeps the
+zero in EBP only inside the on-field path. Writing the two state stores in
+both branches (`state = 3; animation_state = 1;`, in that order) lets the
+compiler hoist them between the `test` and the `jne` as retail has them, and
+the off-field path stays last.

@@ -4595,13 +4595,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreState_ActivateFromResultRetail_00408030",
-      "source": "src/game/score_state_activate_from_result_retail_00408030.cpp",
-      "symbol": "_asm_ScoreState_ActivateFromResultRetail_00408030",
+      "name": "semantic_CollisionRecord_Activate_00408030",
+      "source": "src/game/collision_record_activate_00408030.cpp",
+      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
       "address": "0x00408030",
       "size": 199,
-      "kind": "asm",
-      "owner": "0x00408030"
+      "kind": "semantic",
+      "owner": "0x00408030",
+      "previous_record": {
+        "name": "asm_ScoreState_ActivateFromResultRetail_00408030",
+        "source": "src/game/score_state_activate_from_result_retail_00408030.cpp",
+        "symbol": "_asm_ScoreState_ActivateFromResultRetail_00408030",
+        "address": "0x00408030",
+        "size": 199,
+        "kind": "asm",
+        "owner": "0x00408030"
+      }
     },
     {
       "name": "text_padding_004080f7",
@@ -58712,7 +58721,7 @@
     "src/game/score_records_mark_eligible_0041c7d0.cpp",
     "src/game/score_retire_callbacks_00409e20.cpp",
     "src/game/score_set_mode_00412ed0.cpp",
-    "src/game/score_state_activate_from_result_retail_00408030.cpp",
+    "src/game/collision_record_activate_00408030.cpp",
     "src/game/score_tasks.cpp",
     "src/game/score_timer_leaves.cpp",
     "src/game/score_view_ctor.cpp",

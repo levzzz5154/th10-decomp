@@ -8,7 +8,7 @@
     "layout/ltcg/update_player_dependencies/score_evaluate.cpp",
     "layout/ltcg/update_player_dependencies/position_find.cpp",
     "layout/ltcg/update_player_dependencies/position_setter.cpp",
-    "layout/ltcg/update_player_dependencies/collision_activate.cpp",
+    "src/game/collision_record_activate_00408030.cpp",
     "src/game/fun_00408100_00408100.cpp",
     "layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp"
@@ -44,6 +44,15 @@
       "section": ".text$060collision",
       "actual_abi": "EAX collision owner, EBX point, radius/spawn/filter stack, RET12, zero EAX result",
       "source": "src/game/fun_00408100_00408100.cpp"
+    },
+    {
+      "name": "CollisionActivate",
+      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
+      "address": "0x408030",
+      "size": 199,
+      "section": ".text$050activate",
+      "actual_abi": "record in ESI; plain RET",
+      "source": "src/game/collision_record_activate_00408030.cpp"
     }
   ],
   "anchors": [
@@ -81,13 +90,6 @@
       "address": "0x404f30",
       "size": 204,
       "section": ".text$020configure"
-    },
-    {
-      "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
-      "address": "0x408030",
-      "size": 200,
-      "section": ".text$050activate"
     },
     {
       "name": "PlayfieldBounds",
@@ -350,8 +352,8 @@
     },
     {
       "section": ".text$059gap",
-      "address": "0x4080f8",
-      "size": 8
+      "address": "0x4080f7",
+      "size": 9
     },
     {
       "section": ".text$069gap",
