@@ -37,4 +37,5 @@ extern "C" {
  __declspec(dllimport) void* __stdcall CreateFontA(int,int,int,int,int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,const char*);
 }
 __declspec(noinline) bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30*,int,int,int);
+bool __stdcall FontSurface_CreateWithFallback_00436aa0(GdiSurface_00436a30*,int,int,int);
 extern "C" __declspec(noinline) void __cdecl InitializeFontCache_00437a00();

@@ -28713,13 +28713,31 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00436aa0",
-      "source": "src/unidentified/unassigned_00436aa0.cpp",
-      "symbol": "_asm_unassigned_00436aa0",
+      "name": "semantic_FontSurface_CreateWithFallback_00436aa0",
+      "source": "src/platform/font_surface_create_fallback_00436aa0.cpp",
+      "symbol": "?FontSurface_CreateWithFallback_00436aa0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "address": "0x00436AA0",
       "size": 76,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "semantic_FontSurface_CreateWithFallback_00436aa0",
+        "source": "src/unidentified/unassigned_00436aa0.cpp",
+        "symbol": "?FontSurface_CreateWithFallback_00436aa0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
+        "address": "0x00436AA0",
+        "size": 76,
+        "kind": "semantic",
+        "owner": null,
+        "previous_record": {
+          "name": "asm_unassigned_00436aa0",
+          "source": "src/unidentified/unassigned_00436aa0.cpp",
+          "symbol": "_asm_unassigned_00436aa0",
+          "address": "0x00436AA0",
+          "size": 76,
+          "kind": "asm",
+          "owner": null
+        }
+      }
     },
     {
       "name": "text_padding_00436aec",
@@ -59985,7 +60003,6 @@
     "src/unidentified/unassigned_00436970.cpp",
     "src/unidentified/unassigned_004369c0.cpp",
     "src/unidentified/unassigned_004369e0.cpp",
-    "src/unidentified/unassigned_00436aa0.cpp",
     "src/unidentified/unassigned_00436cf0.cpp",
     "src/unidentified/unassigned_00436d60.cpp",
     "src/unidentified/unassigned_00437200.cpp",
@@ -60264,7 +60281,8 @@
     "src/game/title_menu_draw_0042d260.cpp",
     "src/game/title_replay_browser_00431ba0.cpp",
     "src/game/title_replay_save_00433b30.cpp",
-    "src/game/title_score_entry_00433230.cpp"
+    "src/game/title_score_entry_00433230.cpp",
+    "src/platform/font_surface_create_fallback_00436aa0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -61167,7 +61185,8 @@
     "layout/ltcg/midi_channel_volume.json",
     "layout/ltcg/archive_entry_delete.json",
     "layout/ltcg/animation_texture_surface_copy.json",
-    "layout/ltcg/title_practice_rows_00431410.json"
+    "layout/ltcg/title_practice_rows_00431410.json",
+    "layout/ltcg/font_surface_fallback_00436aa0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
