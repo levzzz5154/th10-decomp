@@ -7351,13 +7351,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0040b320",
-      "source": "src/unidentified/unassigned_0040b320.cpp",
-      "symbol": "_asm_unassigned_0040b320",
+      "name": "semantic_PolarMotion_Step_0040b320",
+      "source": "src/game/polar_motion_step_0040b320.cpp",
+      "symbol": "?Step@PolarMotion@@QAEXXZ",
       "address": "0x0040B320",
       "size": 73,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_0040b320",
+        "source": "src/unidentified/unassigned_0040b320.cpp",
+        "symbol": "_asm_unassigned_0040b320",
+        "address": "0x0040B320",
+        "size": 73,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040b369",
@@ -58672,7 +58681,6 @@
     "src/game/projectile_bounce.cpp",
     "src/game/projectile_command_runtime.cpp",
     "src/game/rank_level.cpp",
-    "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
     "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
     "src/game/recovery_append_node_0041ab10.cpp",
     "src/game/recovery_append_packet_0042a8a0.cpp",
@@ -59709,7 +59717,6 @@
     "src/unidentified/unassigned_0040b290.cpp",
     "src/unidentified/unassigned_0040b2a0.cpp",
     "src/unidentified/unassigned_0040b310.cpp",
-    "src/unidentified/unassigned_0040b320.cpp",
     "src/unidentified/unassigned_0040b370.cpp",
     "src/unidentified/unassigned_0040b390.cpp",
     "src/unidentified/unassigned_0040b460.cpp",
@@ -60282,7 +60289,9 @@
     "src/game/title_replay_browser_00431ba0.cpp",
     "src/game/title_replay_save_00433b30.cpp",
     "src/game/title_score_entry_00433230.cpp",
-    "src/platform/font_surface_create_fallback_00436aa0.cpp"
+    "src/platform/font_surface_create_fallback_00436aa0.cpp",
+    "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
+    "src/game/polar_motion_step_0040b320.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -61186,7 +61195,8 @@
     "layout/ltcg/archive_entry_delete.json",
     "layout/ltcg/animation_texture_surface_copy.json",
     "layout/ltcg/title_practice_rows_00431410.json",
-    "layout/ltcg/font_surface_fallback_00436aa0.json"
+    "layout/ltcg/font_surface_fallback_00436aa0.json",
+    "layout/ltcg/polar_motion_step_0040b320.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "name": "polar_motion_step_0040b320",
+  "source": "src/game/polar_motion_step_0040b320.cpp",
+  "driver": "layout/ltcg/polar_motion_step_0040b320_context.cpp",
+  "headers": [
+    "include/th10/game/polar_motion.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Polar motion step compiled with native LTCG; a model of the advance it calls bare is an ABI anchor earning the ESI record.",
+  "functions": [
+    {
+      "name": "PolarMotion_Step",
+      "symbol": "?Step@PolarMotion@@QAEXXZ",
+      "section": ".text$01step",
+      "address": "0x0040B320",
+      "size": 73,
+      "actual_abi": "record in EAX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "PolarMotion_Advance_model",
+      "symbol": "?Advance@PolarMotion@@QAEXXZ",
+      "section": ".text$03advance",
+      "address": "0x0044C2A0",
+      "size": 176
+    }
+  ],
+  "context": {
+    "symbol": "?PolarMotionContext@@YGXPAPAUPolarMotion@@H@Z",
+    "section": ".text$05context",
+    "address": "0x0044C360",
+    "size": 36,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 41760
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0040B369",
+      "size": 266039
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0044C350",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_floor",
+      "address": "0x00452FF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Angle_Normalize_0044bc70@4",
+      "address": "0x0044BC70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPolar@PolarVec3@@QAEPAU1@MM@Z",
+      "address": "0x0044C5D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b44",
+      "address": "0x00470B44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b00",
+      "address": "0x00470B00",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "additional_sources": []
+}
