@@ -19,3 +19,15 @@
 - The synthetic caller should pass the real global receiver when retail does:
   with arbitrary receivers the pass reorders a global read ahead of a store
   through `this`.
+
+## Laser spawn and constructors (0x41C510, 0x41C5B0, 0x41C680)
+
+- When the real body of a leaf callee is in the cluster, the pass knows which
+  registers it leaves alone and keeps the caller's pointer in EDX across the
+  call. Retail keeps it in EBX, so the common constructor 0x41C030 is anchored
+  as a stand-in that forwards to an opaque absolute body: EDX stays the
+  argument register and nothing is assumed to survive.
+- A pointer used once after calls is passed on the stack, even as `this`.
+  Using it in both switch cases (link + virtual set-up duplicated per case,
+  then tail-merged by the compiler) moves it to EDI as in retail.
+- Sprite flag clears go through a pointer helper to keep `and [mem],reg`.

@@ -17436,13 +17436,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041c510_0041c510",
-      "source": "src/game/score_queue.cpp",
-      "symbol": "_asm_FUN_0041c510_0041c510",
+      "name": "semantic_LaserSpawnParameters_SpawnIn_0041c510",
+      "source": "src/game/laser_spawn_0041c510.cpp",
+      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
       "address": "0x0041C510",
       "size": 153,
-      "kind": "asm",
-      "owner": "0x0041C510"
+      "kind": "semantic",
+      "owner": "0x0041C510",
+      "previous_record": {
+        "name": "asm_FUN_0041c510_0041c510",
+        "source": "src/game/score_queue.cpp",
+        "symbol": "_asm_FUN_0041c510_0041c510",
+        "address": "0x0041C510",
+        "size": 153,
+        "kind": "asm",
+        "owner": "0x0041C510"
+      }
     },
     {
       "name": "text_padding_0041c5a9",
@@ -17453,13 +17462,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_ScoreExtendedObject_Initialize_0041c5b0",
-      "source": "src/game/score_extended_object_initialize_0041c5b0.cpp",
-      "symbol": "_asm_ScoreExtendedObject_Initialize_0041c5b0",
+      "name": "semantic_LineLaser_Construct_0041c5b0",
+      "source": "src/game/laser_spawn_0041c510.cpp",
+      "symbol": "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z",
       "address": "0x0041C5B0",
       "size": 202,
-      "kind": "asm",
-      "owner": "0x0041C5B0"
+      "kind": "semantic",
+      "owner": "0x0041C5B0",
+      "previous_record": {
+        "name": "asm_ScoreExtendedObject_Initialize_0041c5b0",
+        "source": "src/game/score_extended_object_initialize_0041c5b0.cpp",
+        "symbol": "_asm_ScoreExtendedObject_Initialize_0041c5b0",
+        "address": "0x0041C5B0",
+        "size": 202,
+        "kind": "asm",
+        "owner": "0x0041C5B0"
+      }
     },
     {
       "name": "text_padding_0041c67a",
@@ -17470,13 +17488,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041c680_0041c680",
-      "source": "src/game/score_view_ctor.cpp",
-      "symbol": "_asm_FUN_0041c680_0041c680",
+      "name": "semantic_BeamLaser_Construct_0041c680",
+      "source": "src/game/laser_spawn_0041c510.cpp",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
       "address": "0x0041C680",
       "size": 219,
-      "kind": "asm",
-      "owner": "0x0041C680"
+      "kind": "semantic",
+      "owner": "0x0041C680",
+      "previous_record": {
+        "name": "asm_FUN_0041c680_0041c680",
+        "source": "src/game/score_view_ctor.cpp",
+        "symbol": "_asm_FUN_0041c680_0041c680",
+        "address": "0x0041C680",
+        "size": 219,
+        "kind": "asm",
+        "owner": "0x0041C680"
+      }
     },
     {
       "name": "text_padding_0041c75b",
@@ -58816,13 +58843,11 @@
     "src/game/score_cleanup.cpp",
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
     "src/game/score_extended_object_destroy_0041c1c0.cpp",
-    "src/game/score_extended_object_initialize_0041c5b0.cpp",
     "src/game/score_file.cpp",
     "src/game/score_hud_update.cpp",
     "src/game/score_list_insert_after_00413200.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_owned_destroy_0040b9d0.cpp",
-    "src/game/score_queue.cpp",
     "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
     "src/game/score_records_mark_eligible_0041c7d0.cpp",
     "src/game/score_retire_callbacks_00409e20.cpp",
@@ -58830,7 +58855,6 @@
     "src/game/collision_record_activate_00408030.cpp",
     "src/game/score_tasks.cpp",
     "src/game/score_timer_leaves.cpp",
-    "src/game/score_view_ctor.cpp",
     "src/game/set_input_mode_0040ac90.cpp",
     "src/game/shot_practice_menu.cpp",
     "src/game/slot_lock_leaves.cpp",
@@ -60360,7 +60384,8 @@
     "src/platform/font_surface_create_fallback_00436aa0.cpp",
     "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
     "src/game/polar_motion_step_0040b320.cpp",
-    "src/game/stage_anm_reload_0040c3c0.cpp"
+    "src/game/stage_anm_reload_0040c3c0.cpp",
+    "src/game/laser_spawn_0041c510.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -61269,7 +61294,8 @@
     "layout/ltcg/stage_anm_reload_0040c3c0.json",
     "layout/ltcg/linked_pool_append_0042aa50.json",
     "layout/ltcg/life_stock_add_004188a0.json",
-    "layout/ltcg/sprite_region_bind_00424480.json"
+    "layout/ltcg/sprite_region_bind_00424480.json",
+    "layout/ltcg/laser_spawn_0041c510.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
