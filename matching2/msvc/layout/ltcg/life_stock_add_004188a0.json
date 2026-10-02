@@ -17,13 +17,21 @@
       "address": "0x004188A0",
       "size": 141,
       "actual_abi": "counters in EAX, amount in ECX; plain RET"
+    },
+    {
+      "name": "RunCounters_AddPower",
+      "symbol": "?AddPower@RunCounters_004188a0@@QAEHH@Z",
+      "section": ".text$00418930_fn",
+      "address": "0x00418930",
+      "size": 166,
+      "actual_abi": "counters in EAX, amount on the stack; RET 4"
     }
   ],
   "context": {
     "symbol": "_LifeStockAddContext@8",
     "section": ".text$0040a000_context",
     "address": "0x0040A000",
-    "size": 43,
+    "size": 75,
     "description": "Synthetic caller compiled with inlining off; not recovered game code."
   },
   "anchors": [
@@ -70,9 +78,9 @@
       "size": 36864
     },
     {
-      "section": ".text$0040a02b_gap",
-      "address": "0x0040A02B",
-      "size": 38757
+      "section": ".text$0040a04b_gap",
+      "address": "0x0040A04B",
+      "size": 38725
     },
     {
       "section": ".text$004137dd_gap",
@@ -80,9 +88,9 @@
       "size": 20675
     },
     {
-      "section": ".text$0041892d_gap",
-      "address": "0x0041892D",
-      "size": 152419
+      "section": ".text$004189d6_gap",
+      "address": "0x004189D6",
+      "size": 152250
     },
     {
       "section": ".text$0043dd0b_gap",

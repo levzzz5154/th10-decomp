@@ -60,10 +60,15 @@ struct AnimationManager_00413790 {
 
 extern "C" AnimationManager_00413790* data_0047770c;
 
-// The run's counters; the life stock sits at +0x30.
+// The run's counters; the power sits at +0x08 and the life stock at +0x30.
 struct RunCounters_004188a0 {
-    unsigned char reserved_00[0x30];
+    unsigned char reserved_00[8];
+    short power;                         // +0x08: 100 is full, 20 per level
+    unsigned char reserved_0a[0x30 - 0x0A];
     int lives;                           // +0x30
+
+    // 0x00418930: add power, capped at 100; true when the level changed.
+    __declspec(noinline) int AddPower(int amount);
 
     // 0x004188A0: add lives, capped at nine.
     __declspec(noinline) void AddLives(int amount);

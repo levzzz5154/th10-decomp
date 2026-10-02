@@ -14712,13 +14712,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FaithGauge_AddRetail_00418930",
-      "source": "src/game/faith_gauge.cpp",
-      "symbol": "_asm_FaithGauge_AddRetail_00418930",
+      "name": "semantic_RunCounters_AddPower_00418930",
+      "source": "src/game/life_stock_add_004188a0.cpp",
+      "symbol": "?AddPower@RunCounters_004188a0@@QAEHH@Z",
       "address": "0x00418930",
       "size": 166,
-      "kind": "asm",
-      "owner": "0x00418930"
+      "kind": "semantic",
+      "owner": "0x00418930",
+      "previous_record": {
+        "name": "asm_FaithGauge_AddRetail_00418930",
+        "source": "src/game/faith_gauge.cpp",
+        "symbol": "_asm_FaithGauge_AddRetail_00418930",
+        "address": "0x00418930",
+        "size": 166,
+        "kind": "asm",
+        "owner": "0x00418930"
+      }
     },
     {
       "name": "text_padding_004189d6",
@@ -58687,7 +58696,6 @@
     "src/game/entity_movement_slot.cpp",
     "src/game/entity_region_sweep.cpp",
     "src/game/event_script_runtime.cpp",
-    "src/game/faith_gauge.cpp",
     "src/game/field_contact_004266b0.cpp",
     "src/game/floating_text_draw.cpp",
     "src/game/frame_counter.cpp",
