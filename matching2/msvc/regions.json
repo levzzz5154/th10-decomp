@@ -28667,13 +28667,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436af0_00436af0",
-      "source": "src/platform/gdi_surface.cpp",
-      "symbol": "_asm_FUN_00436af0_00436af0",
+      "name": "semantic_FontSurface_Create_00436af0",
+      "source": "src/platform/font_cache_init.cpp",
+      "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "address": "0x00436AF0",
       "size": 421,
-      "kind": "asm",
-      "owner": "0x00436AF0"
+      "kind": "semantic",
+      "owner": "0x00436AF0",
+      "previous_record": {
+        "name": "asm_FUN_00436af0_00436af0",
+        "source": "src/platform/gdi_surface.cpp",
+        "symbol": "_asm_FUN_00436af0_00436af0",
+        "address": "0x00436AF0",
+        "size": 421,
+        "kind": "asm",
+        "owner": "0x00436AF0"
+      }
     },
     {
       "name": "text_padding_00436c95",
@@ -58742,7 +58751,6 @@
     "src/platform/fun_0043d950_0043d950.cpp",
     "src/platform/fun_0044cbf0_0044cbf0.cpp",
     "src/platform/gdi_font_cache.cpp",
-    "src/platform/gdi_surface.cpp",
     "src/platform/joystick_poll.cpp",
     "src/platform/joystick_probe.cpp",
     "src/platform/joystick_property.cpp",

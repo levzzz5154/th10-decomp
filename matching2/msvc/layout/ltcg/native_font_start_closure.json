@@ -12,7 +12,7 @@
   ],
   "included_sources": [
     "layout/ltcg/native_font_start/release_surface.cpp",
-    "layout/ltcg/native_font_start/create_surface.cpp",
+    "src/platform/font_surface_create_00436af0.cpp",
     "src/render/quad_buffer_create_004462f0.cpp",
     "layout/ltcg/native_font_start/stop_worker.cpp",
     "src/unidentified/FUN_004201b0_004201b0.cpp",
@@ -63,16 +63,17 @@
       "address": "0x4462f0",
       "size": 472,
       "actual_abi": "host in EAX; no stack inputs; plain RET"
-    }
-  ],
-  "anchors": [
+    },
     {
       "name": "SurfaceCreate",
       "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "section": ".text$a06surface",
       "address": "0x436af0",
-      "size": 421
-    },
+      "size": 421,
+      "actual_abi": "surface, width, height and format on the stack; RET 16"
+    }
+  ],
+  "anchors": [
     {
       "name": "ReleaseSurface",
       "symbol": "?ReleaseSurface_00436a30@@YG_NPAUGdiSurface_00436a30@@@Z",

@@ -26,3 +26,10 @@ the `SetPolar` argument (retail re-reads the member); without it the frame
 grows by 8 bytes. A double-returning helper, reference/pointer/accessor
 helpers and a local copy do not block the forwarding. With the barrier the
 only difference is `mov eax,[esi+0x3e4]` and `fmul [esi+0x690]` swapped.
+
+0x00436AF0 (font surface create) was promoted the same way. Its model was 33
+bytes off, all in the final nine member stores. Holding the `SelectObject`
+result in a local and searching the store order by single moves found the one
+exact order: pixels, previous_bitmap, stride, image_size, dc, bitmap, width,
+height, font_index. With the call written directly into the first store the
+search stalls 15 diff lines away.

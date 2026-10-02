@@ -1,6 +1,6 @@
 #include "th10/platform/native_font_start.hpp"
 #include "../../layout/ltcg/native_font_start/release_surface.cpp"
-#include "../../layout/ltcg/native_font_start/create_surface.cpp"
+#include "font_surface_create_00436af0.cpp"
 #pragma code_seg(".text$a08font")
 extern "C" void __cdecl InitializeFontCache_00437a00() {
     if (!FontSurface_Create_00436af0(&data_00474cb0,0x400,0x40,0x1a))

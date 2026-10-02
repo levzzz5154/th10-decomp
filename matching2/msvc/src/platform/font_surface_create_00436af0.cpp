@@ -1,3 +1,8 @@
+// 0x00436AF0: give a font surface a fresh top-down DIB of the requested size
+// and pixel format, selected into a new memory DC.
+//
+// The last nine assignments are scheduled by the compiler; this is the one
+// source order that reproduces retail's.
 #include "th10/platform/native_font_start.hpp"
 #pragma code_seg(".text$a06surface")
 bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30* surface,int width,int height,int format) {
@@ -25,9 +30,16 @@ bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30* surface,int widt
     if (!dib) return false;
     memset(pixels,0,bitmap.image_size);
     void* dc=data_00466020(0);
-    surface->previous_bitmap=data_0046602c(dc,dib);
-    surface->stride=stride;surface->pixels=pixels;surface->image_size=bitmap.image_size;
-    surface->dc=dc;surface->bitmap=dib;surface->width=width;
-    surface->height=height;surface->font_index=format;return true;
+    void* previous=data_0046602c(dc,dib);
+    surface->pixels=pixels;
+    surface->previous_bitmap=previous;
+    surface->stride=stride;
+    surface->image_size=bitmap.image_size;
+    surface->dc=dc;
+    surface->bitmap=dib;
+    surface->width=width;
+    surface->height=height;
+    surface->font_index=format;
+    return true;
 }
 #pragma code_seg()
