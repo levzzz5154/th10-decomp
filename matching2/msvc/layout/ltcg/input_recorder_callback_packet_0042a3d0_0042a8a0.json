@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "name": "input_recorder_callback_packet_0042a3d0_0042a8a0",
+  "source": "src/unidentified/FUN_0042a3d0_0042a3d0.cpp",
+  "additional_sources": [
+    "src/game/recovery_append_packet_0042a8a0.cpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/input_recorder_helpers.cpp"
+  ],
+  "headers": [
+    "layout/ltcg/input_recorder.hpp",
+    "layout/ltcg/input_recorder_dependencies.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Genuine registered ECX InputRecorder scheduler callback and ordinary typed packet serialization compiled with the complete real recorder context, KeyRepeat and linked-pool helpers. Main596 remains unselected; existing helper owners unchanged. No synthetic caller, volatile, ASM, barriers, byte patches or masks.",
+  "roots": [
+    "?InputRecorder_Tick_0042A3D0@@YIHPAUInputRecorder_004297D0@@@Z"
+  ],
+  "functions": [
+    {
+      "name": "InputRecorderCallback",
+      "symbol": "?InputRecorder_Tick_0042A3D0@@YIHPAUInputRecorder_004297D0@@@Z",
+      "section": ".text$05callback",
+      "address": "0x0042A3D0",
+      "size": 10,
+      "actual_abi": "Genuine scheduler context in ECX, forwards whole recorder result, plain RET"
+    },
+    {
+      "name": "AppendPacket",
+      "symbol": "?AppendPacket@RecorderPool@@QAEHGGG@Z",
+      "section": ".text$07packet",
+      "address": "0x0042A8A0",
+      "size": 85,
+      "source": "src/game/recovery_append_packet_0042a8a0.cpp",
+      "actual_abi": "Genuine recorder caller supplies receiver in EAX, first word in DX, two stack words; result in EAX, RET 8"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "KeyRepeatUpdate",
+      "symbol": "?Update@RecorderKeyRepeatState@@QAEGXZ",
+      "section": ".text$01key",
+      "address": "0x0040AC20",
+      "size": 109
+    },
+    {
+      "name": "InputRecorderUpdate",
+      "symbol": "?Update@InputRecorder_004297D0@@QAEHXZ",
+      "section": ".text$03update",
+      "address": "0x004297D0",
+      "size": 596
+    },
+    {
+      "name": "AppendPage",
+      "symbol": "?AppendPage@RecorderPoolLists@@QAEPAURecorderPoolLink@@H@Z",
+      "section": ".text$09page",
+      "address": "0x0042AA50",
+      "size": 139
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 39968
+    },
+    {
+      "section": ".text$01keyz",
+      "address": "0x40ac8d",
+      "size": 87091
+    },
+    {
+      "section": ".text$02presentz",
+      "address": "0x4200c6",
+      "size": 38666
+    },
+    {
+      "section": ".text$03updatez",
+      "address": "0x429a24",
+      "size": 2476
+    },
+    {
+      "section": ".text$05callbackz",
+      "address": "0x42a3da",
+      "size": 1222
+    },
+    {
+      "section": ".text$07packetz",
+      "address": "0x42a8f5",
+      "size": 347
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477708",
+      "address": "0x477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d78",
+      "address": "0x491d78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e30",
+      "address": "0x474e30",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ],
+  "constant_aliases": [],
+  "driver": "layout/ltcg/input_recorder_context.cpp",
+  "context": {
+    "symbol": "?AppPresent_004200c0@@YIHPAX@Z",
+    "section": ".text$02present",
+    "address": "0x004200C0",
+    "size": 6,
+    "description": "Complete actual independent no-op scheduler callback registered by App creation; task context in ECX, returns1 EAX and plainRET. No call edge to recorder or synthetic input/pressure."
+  }
+}

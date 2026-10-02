@@ -1,237 +1,167 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x004445C0..0x00444751: project an animation entity's quad, transform its
+// four fade probes, and attenuate RGB by distance while preserving alpha.
+// Submit mode 2, then restore the four shared RHW values to one.
+//
+// Retail and this native link use manager/entity on the stack and RET 8.
+// The dedicated driver contains only genuine complete helper implementations
+// and the real draw dispatcher; only this 402-byte body is selected here.
+#include "th10/render/quad_batch.hpp"
+#include <math.h>
 
-// 0x004445C0..0x00444751: FUN_004445c0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004445c0_004445c0() {
-    __asm {
-    L_004445c0:
-        sub esp,4Ch
-    L_004445c3:
-        push ebx
-    L_004445c4:
-        push ebp
-    L_004445c5:
-        mov ebp,dword ptr [esp+58h]
-    L_004445c9:
-        push esi
-    L_004445ca:
-        mov esi,dword ptr [esp+60h]
-    L_004445ce:
-        push edi
-    L_004445cf:
-        push ebp
-    L_004445d0:
-        mov eax,esi
-    L_004445d2:
-        call asm_FUN_00444240_00444240
-    L_004445d7:
-        fld dword ptr [data_00491e78]
-    L_004445dd:
-        fsub dword ptr [data_00491e7c]
-    L_004445e3:
-        mov eax,dword ptr [esi+35Ch]
-    L_004445e9:
-        test ah,ah
-    L_004445eb:
-        fstp dword ptr [esp+14h]
-    L_004445ef:
-        jns short L_004445f9
-    L_004445f1:
-        mov ebx,dword ptr [esi+300h]
-    L_004445f7:
-        jmp short L_004445ff
-    L_004445f9:
-        mov ebx,dword ptr [esi+2FCh]
-    L_004445ff:
-        mov dword ptr [esp+10h],ebx
-    L_00444603:
-        mov esi,4978D3h
-    L_00444608:
-        lea edi,[esp+1Ch]
-    L_0044460c:
-        add ebp,3ADA78h
-    L_00444612:
-        mov eax,dword ptr [esp+60h]
-    L_00444616:
-        add eax,3AD0F0h
-    L_0044461b:
-        push eax
-    L_0044461c:
-        push ebp
-    L_0044461d:
-        push edi
-    L_0044461e:
-        call asm_D3DXVec3Transform_004521c4
-    L_00444623:
-        fld dword ptr [edi]
-    L_00444625:
-        fsub dword ptr [data_00491d7c]
-    L_0044462b:
-        fld dword ptr [edi+4]
-    L_0044462e:
-        fsub dword ptr [data_00491d80]
-    L_00444634:
-        fld dword ptr [edi+8]
-    L_00444637:
-        fsub dword ptr [data_00491d84]
-    L_0044463d:
-        fld st(0)
-    L_0044463f:
-        fmul st,st(1)
-    L_00444641:
-        fld st(2)
-    L_00444643:
-        fmul st,st(3)
-    L_00444645:
-        faddp st(1),st
-    L_00444647:
-        fld st(3)
-    L_00444649:
-        fmul st,st(4)
-    L_0044464b:
-        faddp st(1),st
-    L_0044464d:
-        fsqrt
-    L_0044464f:
-        fstp st(3)
-    L_00444651:
-        fstp st(0)
-    L_00444653:
-        fstp st(0)
-    L_00444655:
-        fld dword ptr [data_00491e78]
-    L_0044465b:
-        fcomp
-    L_0044465d:
-        fnstsw ax
-    L_0044465f:
-        test ah,5
-    L_00444662:
-        jp asm_target_004446f7
-    L_00444668:
-        fsubr dword ptr [data_00491e78]
-    L_0044466e:
-        fdiv dword ptr [esp+14h]
-    L_00444672:
-        fcom dword ptr [data_00470afc]
-    L_00444678:
-        fnstsw ax
-    L_0044467a:
-        test ah,1
-    L_0044467d:
-        jne short L_0044468f
-    L_0044467f:
-        mov eax,dword ptr [data_00491e90]
-    L_00444684:
-        mov cl,byte ptr [esp+13h]
-    L_00444688:
-        mov dword ptr [esi-3],eax
-    L_0044468b:
-        mov byte ptr [esi],cl
-    L_0044468d:
-        jmp short L_004446fa
-    L_0044468f:
-        movzx edx,bl
-    L_00444692:
-        mov dword ptr [esp+18h],edx
-    L_00444696:
-        fild dword ptr [esp+18h]
-    L_0044469a:
-        fsub dword ptr [data_00491e80]
-    L_004446a0:
-        fmul st,st(1)
-    L_004446a2:
-        call asm_FUN_00463b2c_00463b2c
-    L_004446a7:
-        movzx edx,bh
-    L_004446aa:
-        mov dword ptr [esp+18h],edx
-    L_004446ae:
-        mov cl,bl
-    L_004446b0:
-        sub cl,al
-    L_004446b2:
-        fild dword ptr [esp+18h]
-    L_004446b6:
-        mov byte ptr [esi-3],cl
-    L_004446b9:
-        fsub dword ptr [data_00491e84]
-    L_004446bf:
-        fmul st,st(1)
-    L_004446c1:
-        call asm_FUN_00463b2c_00463b2c
-    L_004446c6:
-        movzx edx,byte ptr [esp+12h]
-    L_004446cb:
-        mov dword ptr [esp+18h],edx
-    L_004446cf:
-        mov cl,bh
-    L_004446d1:
-        sub cl,al
-    L_004446d3:
-        fild dword ptr [esp+18h]
-    L_004446d7:
-        mov byte ptr [esi-2],cl
-    L_004446da:
-        fsub dword ptr [data_00491e88]
-    L_004446e0:
-        fmul st,st(1)
-    L_004446e2:
-        call asm_FUN_00463b2c_00463b2c
-    L_004446e7:
-        mov cx,word ptr [esp+12h]
-    L_004446ec:
-        mov dl,cl
-    L_004446ee:
-        sub dl,al
-    L_004446f0:
-        mov byte ptr [esi-1],dl
-    L_004446f3:
-        mov byte ptr [esi],ch
-    L_004446f5:
-        jmp short L_004446fa
-    L_004446f7:
-        mov dword ptr [esi-3],ebx
-    L_004446fa:
-        add esi,1Ch
-    L_004446fd:
-        fstp st(0)
-    L_004446ff:
-        add ebp,14h
-    L_00444702:
-        add edi,10h
-    L_00444705:
-        cmp esi,497943h
-    L_0044470b:
-        jl asm_target_00444612
-    L_00444711:
-        mov eax,dword ptr [esp+64h]
-    L_00444715:
-        mov ecx,dword ptr [esp+60h]
-    L_00444719:
-        push 2
-    L_0044471b:
-        call asm_FUN_00442670_00442670
-    L_00444720:
-        pop edi
-    L_00444721:
-        pop esi
-    L_00444722:
-        pop ebp
-    L_00444723:
-        mov dword ptr [data_00497920],3F800000h
-    L_0044472d:
-        mov dword ptr [data_00497904],3F800000h
-    L_00444737:
-        mov dword ptr [data_004978e8],3F800000h
-    L_00444741:
-        mov dword ptr [data_004978cc],3F800000h
-    L_0044474b:
-        pop ebx
-    L_0044474c:
-        add esp,4Ch
-    L_0044474f:
-        ret 8
-    }
+// Genuine projection helper's complete object views. The dedicated driver
+// defines its unchanged projection algorithm with compatible views of the
+// shared vertex/camera globals and a layout-specific contribution name.
+struct ProjectionMatrix_00444240 {
+    float m[16];
+};
+
+struct ProjectionVec3_00444240 {
+    float x, y, z;
+};
+
+struct D3DViewport_00444240 {
+    unsigned int x, y, width, height;
+    float min_z, max_z;
+};
+
+// The camera state global the projection pipeline reads: two matrices followed
+// by the active D3D viewport.
+struct ProjectionEnvironment_00444240 {
+    unsigned char reserved_000[0x4C];
+    ProjectionMatrix_00444240 view;        // +0x4C
+    ProjectionMatrix_00444240 projection;  // +0x8C
+    D3DViewport_00444240 viewport;         // +0xCC
+};
+
+// One entry of the shared sprite quad the projection writes into.
+struct ProjectedVertex_00444240 {
+    float x, y, z, rhw;
+    unsigned int color;
+    float u, v;
+};
+
+// The compiler's pooled double 0.0 the three rotation guards compare against.
+extern "C" double data_00470b70;
+
+struct ProjectionManager_00444240 {
+    unsigned char reserved_00000000[0x3AD0F0];
+    ProjectionMatrix_00444240 projected_world;  // +0x3AD0F0
+};
+
+struct ProjectedEntity_00444240 {
+    unsigned char reserved_00000000[0x24];
+    float rotation_x;               // +0x24
+    float rotation_y;               // +0x28
+    float rotation_z;               // +0x2C
+    unsigned char reserved_00000030[0x3C - 0x30];
+    float scale_x;                  // +0x3C
+    float scale_y;                  // +0x40
+    unsigned char reserved_00000044[0x23C - 0x44];
+    ProjectionMatrix_00444240 source_matrix;  // +0x23C
+    ProjectionMatrix_00444240 world_matrix;   // +0x27C
+    unsigned char reserved_000002BC[0x334 - 0x2BC];
+    ProjectionVec3_00444240 offset_position;  // +0x334
+    ProjectionVec3_00444240 layer_position;   // +0x340
+    ProjectionVec3_00444240 base_position;    // +0x34C
+    float unknown_00000358;                   // +0x358
+    unsigned int flags;                       // +0x35C
+
+    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+};
+
+// The D3DX entry thunks at 0x45218E/0x4521AC..0x4521BE; their targets pop the
+// arguments, so every call site is a plain stdcall with no cleanup.
+extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(ProjectionMatrix_00444240* out, float angle);
+extern "C" void __stdcall asm_D3DXMatrixRotationY_004521b8(ProjectionMatrix_00444240* out, float angle);
+extern "C" void __stdcall asm_D3DXMatrixRotationZ_004521be(ProjectionMatrix_00444240* out, float angle);
+extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(ProjectionMatrix_00444240* out,
+                                                          const ProjectionMatrix_00444240* left,
+                                                          const ProjectionMatrix_00444240* right);
+extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* vector,
+                                                       const D3DViewport_00444240* viewport,
+                                                       const ProjectionMatrix_00444240* projection,
+                                                       const ProjectionMatrix_00444240* view,
+                                                       const ProjectionMatrix_00444240* world);
+
+// The published world matrix and the four fade probes it was built from live in
+// the animation manager; this view names only the two spans this body reads.
+struct FadeMatrix_004445C0 { float m[16]; };
+struct FadeProbe_004445C0 { float x, y, z, u, v; };
+struct FadeProbe4_004445C0 { float x, y, z, w; };
+struct FadeManagerView_004445C0 {
+    unsigned char reserved_003AD0F0[0x3AD0F0];
+    FadeMatrix_004445C0 projected_world;                 // +0x3AD0F0
+    unsigned char reserved_003AD130[0x3ADA78 - 0x3AD130];
+    FadeProbe_004445C0 probes[4];                        // +0x3ADA78
+};
+
+// The camera focus at 0x491D7C, the near/far distances at 0x491E78, the fade
+// colour channels at 0x491E80 and the packed fade colour at 0x491E90.
+extern "C" float data_00491d7c;
+extern "C" float data_00491d80;
+extern "C" float data_00491d84;
+extern "C" float data_00491e78;
+extern "C" float data_00491e7c;
+extern "C" float data_00491e80;
+extern "C" float data_00491e84;
+extern "C" float data_00491e88;
+extern "C" unsigned int data_00491e90;
+
+// The D3DX entry thunk at 0x4521C4; it jumps to the imported D3DXVec3Transform,
+// which pops its own three arguments.
+extern "C" void __stdcall D3DXVec3Transform_004521c4(FadeProbe4_004445C0* out,
+                                                     const float* vector,
+                                                     const FadeMatrix_004445C0* matrix);
+
+static __forceinline float DistanceFrom_004445C0(float dx, float dy, float dz) {
+    return (float)sqrt(dx * dx + dy * dy + dz * dz);
 }
+
+#pragma code_seg(".text$06b0800fadequad")
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager,
+                                                           RenderEntity* entity) {
+    FadeManagerView_004445C0* view = (FadeManagerView_004445C0*)manager;
+    ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
+    float span = data_00491e78 - data_00491e7c;
+    unsigned int color = (entity->flags & 0x8000u) ? entity->color_secondary : entity->color;
+    FadeProbe4_004445C0 projected[4];
+    // Traverse packed colors by their alpha-byte address, at one vertex stride.
+    // Keep a signed integer sentinel so it never forms a pointer past the quad.
+    int color_cursor = (int)&data_004978c0[0].color + 3;
+    int color_end = color_cursor + sizeof(data_004978c0);
+    for (int i = 0; color_cursor < color_end; ++i, color_cursor += sizeof(TexturedVertex)) {
+        unsigned char* out = (unsigned char*)(color_cursor - 3);
+        D3DXVec3Transform_004521c4(&projected[i], &view->probes[i].x, &view->projected_world);
+        float dx = projected[i].x - data_00491d7c;
+        float dy = projected[i].y - data_00491d80;
+        float dz = projected[i].z - data_00491d84;
+        float distance = DistanceFrom_004445C0(dx, dy, dz);
+        if (data_00491e78 < distance) {
+            float fade = (data_00491e78 - distance) / span;
+            if (fade >= 1.0f) {
+                *(unsigned int*)out = data_00491e90;
+                out[3] = ((unsigned char*)&color)[3];
+            } else {
+                out[0] = (unsigned char)(((unsigned char*)&color)[0]
+                        - (unsigned char)(int)(((float)((unsigned char*)&color)[0]
+                                                - data_00491e80) * fade));
+                out[1] = (unsigned char)(((unsigned char*)&color)[1]
+                        - (unsigned char)(int)(((float)((unsigned char*)&color)[1]
+                                                - data_00491e84) * fade));
+                unsigned short tail = *(const unsigned short*)((const unsigned char*)&color + 2);
+                out[2] = (unsigned char)((unsigned char)tail
+                        - (unsigned char)(int)(((float)(unsigned char)tail - data_00491e88) * fade));
+                out[3] = (unsigned char)(tail >> 8);
+            }
+        } else {
+            *(unsigned int*)out = color;
+        }
+    }
+    int result = manager->SubmitSpriteQuad(entity, 2);
+    data_004978c0[3].rhw = 1.0f;
+    data_004978c0[2].rhw = 1.0f;
+    data_004978c0[1].rhw = 1.0f;
+    data_004978c0[0].rhw = 1.0f;
+    return result;
+}
+#pragma code_seg()

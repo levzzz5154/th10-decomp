@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "name": "projectile_bounce_0041cfd0",
+  "source": "src/game/projectile_bounce.cpp",
+  "driver": "layout/ltcg/projectile_bounce_context.cpp",
+  "included_sources": [
+    "layout/ltcg/projectile_bounce/base.cpp",
+    "layout/ltcg/projectile_bounce/spawn.cpp",
+    "layout/ltcg/projectile_bounce/queue.cpp"
+  ],
+  "headers": [
+    "include/th10/game/laser_spawn_0041c510.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/types.hpp",
+    "include/th10/platform/sound_queue.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete public virtual line-laser bounce with the genuine complete common constructor, spawn, both concrete constructors and sound queue. Dependencies are unselected and receive no recovery credit.",
+  "functions": [
+    {
+      "name": "LineLaserBounce",
+      "symbol": "?Bounce@LineLaserBounce_0041cfd0@@UAEXXZ",
+      "section": ".text$a09bounce",
+      "address": "0x0041CFD0",
+      "size": 410,
+      "actual_abi": "ECX receiver; no stack parameters; plain RET"
+    }
+  ],
+  "roots": [
+    "?Bounce@LineLaserBounce_0041cfd0@@UAEXXZ"
+  ],
+  "context": {
+    "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAU1@@Z",
+    "section": ".text$a01base",
+    "address": "0x0041C030",
+    "size": 100,
+    "description": "Complete actual common laser constructor with one genuine object argument; unselected context, no recovery credit."
+  },
+  "anchors": [
+    {
+      "name": "SpawnIn",
+      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      "section": ".text$a03spawn",
+      "address": "0x0041C510",
+      "size": 153
+    },
+    {
+      "name": "LineConstructor",
+      "symbol": "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z",
+      "section": ".text$a05line",
+      "address": "0x0041C5B0",
+      "size": 202
+    },
+    {
+      "name": "BeamConstructor",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      "section": ".text$a07beam",
+      "address": "0x0041C680",
+      "size": 219
+    },
+    {
+      "name": "SoundQueue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$a11queue",
+      "address": "0x0043DC90",
+      "size": 123
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$a00gap",
+      "address": "0x401000",
+      "size": 110640
+    },
+    {
+      "section": ".text$a02gap",
+      "address": "0x41c094",
+      "size": 1148
+    },
+    {
+      "section": ".text$a04gap",
+      "address": "0x41c5a9",
+      "size": 7
+    },
+    {
+      "section": ".text$a06gap",
+      "address": "0x41c67a",
+      "size": 6
+    },
+    {
+      "section": ".text$a08gap",
+      "address": "0x41c75b",
+      "size": 2165
+    },
+    {
+      "section": ".text$a10gap",
+      "address": "0x41d16a",
+      "size": 133926
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_0046dab0",
+      "address": "0x46dab0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046da60",
+      "address": "0x46da60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046da10",
+      "address": "0x46da10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x47781c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPolar@BounceVector2@@QAEXMM@Z",
+      "address": "0x41f800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Angle_Normalize_0044bc70@4",
+      "address": "0x44bc70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00470b40",
+      "address": "0x470b40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b3c",
+      "address": "0x470b3c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x470b04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b38",
+      "address": "0x470b38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b18",
+      "address": "0x470b18",
+      "kind": "data"
+    }
+  ]
+}

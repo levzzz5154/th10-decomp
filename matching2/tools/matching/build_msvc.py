@@ -243,7 +243,8 @@ class UnitCache:
     def key(self, source, config, regions, cluster, profile):
         if cluster is not None:
             roots = [cluster['path'], *cluster['source_paths'], *cluster['included_source_paths'],
-                     *cluster['header_paths'], *cluster['additional_source_paths']]
+                     *cluster['header_paths'], *cluster['additional_source_paths'],
+                     *cluster.get('ordinary_source_paths', [])]
             if cluster['driver_path']:
                 roots.append(cluster['driver_path'])
         else:

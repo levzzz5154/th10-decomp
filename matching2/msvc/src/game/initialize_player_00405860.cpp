@@ -1,257 +1,143 @@
-// BLOCKED (D3506): closest_byte_count=0/397; first_diff=0x00405860;
-// residual_class=stack object input with private EAX/EDI/ESI live values,
-// compiler-sensitive call sequencing across three animation/player callees,
-// and the caller's real LTCG register context.
-// variants_tested=exact retail wrapper, live-Ghidra decompilation plus
-// caller/callee topology, and MSVC 13.10 probe path (the wrapper is exact);
-// no readable candidate was byte-measured without changing the fixed-address
-// ownership manifest.
-// next_lever=native-LTCG schema-2 cluster over caller 0x00425730 and callees
-// 0x00448DB0, 0x0043DD10, 0x004054B0, and 0x00405500, then measure all
-// 397 bytes before ownership promotion.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// 0x00405860: initialize a player runtime and its animation, sound and power display.
+#include <stddef.h>
+#include "th10/game/entity.hpp"
+#include "th10/platform/sound_queue.hpp"
+extern "C" void* data_00491c10;
+extern "C" const float data_00470b4c;
+extern "C" const float data_00470b48;
+extern "C" const float data_00470b20;
+extern "C" const float data_00470b7c;
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/entity_init.cpp"
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/allocate.cpp"
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/load_script.cpp"
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/configure.cpp"
+#include "th10/game/power_display_004054b0.hpp"
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/clear_flags.cpp"
+#include "../../layout/ltcg/player_initialize_00405860_dependencies/sound_pan.cpp"
 
-// 0x00404530..0x004045A6: FUN_00404530
-// Naked body preserves the retail register/stack ABI.
-
-// 0x00405860..0x004059EC: InitializePlayer
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_InitializePlayer_00405860() {
-    __asm {
-    L_00405860:
-        push ebp
-    L_00405861:
-        mov ebp,dword ptr [esp+8]
-    L_00405865:
-        mov eax,dword ptr [ebp+28h]
-    L_00405868:
-        xor ecx,ecx
-    L_0040586a:
-        cmp eax,ecx
-    L_0040586c:
-        je short L_00405875
-    L_0040586e:
-        or eax,0FFFFFFFFh
-    L_00405871:
-        pop ebp
-    L_00405872:
-        ret 4
-    L_00405875:
-        mov edx,1
-    L_0040587a:
-        mov dword ptr [ebp+28h],edx
-    L_0040587d:
-        mov eax,dword ptr [ebp+24h]
-    L_00405880:
-        test al,dl
-    L_00405882:
-        jne short L_0040589d
-    L_00405884:
-        or eax,edx
-    L_00405886:
-        mov dword ptr [ebp+18h],ecx
-    L_00405889:
-        mov dword ptr [ebp+14h],0FFF0BDC1h
-    L_00405890:
-        mov dword ptr [ebp+1Ch],ecx
-    L_00405893:
-        mov dword ptr [ebp+20h],476F78h
-    L_0040589a:
-        mov dword ptr [ebp+24h],eax
-    L_0040589d:
-        mov eax,dword ptr [data_00477834]
-    L_004058a2:
-        mov dword ptr [ebp+18h],ecx
-    L_004058a5:
-        mov dword ptr [ebp+1Ch],ecx
-    L_004058a8:
-        mov dword ptr [ebp+14h],0FFFFFFFFh
-    L_004058af:
-        push esi
-    L_004058b0:
-        add eax,3C0h
-    L_004058b5:
-        mov dword ptr [ebp+3Ch],42000000h
-    L_004058bc:
-        mov dword ptr [ebp+40h],40800000h
-    L_004058c3:
-        mov esi,dword ptr [eax]
-    L_004058c5:
-        push edi
-    L_004058c6:
-        lea edi,[ebp+30h]
-    L_004058c9:
-        mov ecx,edi
-    L_004058cb:
-        mov dword ptr [ecx],esi
-    L_004058cd:
-        mov esi,dword ptr [eax+4]
-    L_004058d0:
-        mov dword ptr [ecx+4],esi
-    L_004058d3:
-        mov eax,dword ptr [eax+8]
-    L_004058d6:
-        mov dword ptr [ecx+8],eax
-    L_004058d9:
-        mov eax,dword ptr [data_004776f4]
-    L_004058de:
-        test byte ptr [eax+378Ch],dl
-    L_004058e4:
-        je short L_004058f6
-    L_004058e6:
-        mov ecx,dword ptr [eax+3788h]
-    L_004058ec:
-        cmp ecx,5Dh
-    L_004058ef:
-        jl short L_004058f6
-    L_004058f1:
-        cmp ecx,60h
-    L_004058f4:
-        jle short L_00405912
-    L_004058f6:
-        cmp dword ptr [eax+3788h],6Dh
-    L_004058fd:
-        je short L_00405912
-    L_004058ff:
-        mov eax,dword ptr [data_00474c68]
-    L_00405904:
-        neg eax
-    L_00405906:
-        sbb eax,eax
-    L_00405908:
-        and eax,7
-    L_0040590b:
-        add eax,190h
-    L_00405910:
-        jmp short L_00405917
-    L_00405912:
-        mov eax,1B9h
-    L_00405917:
-        mov edx,dword ptr [data_004776f0]
-    L_0040591d:
-        push ebx
-    L_0040591e:
-        push eax
-    L_0040591f:
-        mov eax,dword ptr [edx+3E0B50h]
-    L_00405925:
-        lea ecx,[esp+18h]
-    L_00405929:
-        push ecx
-    L_0040592a:
-        push eax
-    L_0040592b:
-        call asm_PlayerAnimation_Create_00448db0
-    L_00405930:
-        mov edx,dword ptr [edi]
-    L_00405932:
-        mov ecx,dword ptr [eax]
-    L_00405934:
-        push edx
-    L_00405935:
-        mov ebx,26h
-    L_0040593a:
-        mov esi,492590h
-    L_0040593f:
-        mov dword ptr [ebp+2Ch],ecx
-    L_00405942:
-        call asm_FUN_0043dd10_0043dd10
-    L_00405947:
-        movsx eax,word ptr [data_00474c48]
-    L_0040594e:
-        cdq
-    L_0040594f:
-        mov ecx,14h
-    L_00405954:
-        idiv ecx
-    L_00405956:
-        mov esi,dword ptr [data_0047770c]
-    L_0040595c:
-        imul edx,64h
-    L_0040595f:
-        mov ecx,eax
-    L_00405961:
-        mov eax,66666667h
-    L_00405966:
-        imul edx
-    L_00405968:
-        sar edx,3
-    L_0040596b:
-        mov eax,edx
-    L_0040596d:
-        shr eax,1Fh
-    L_00405970:
-        add eax,edx
-    L_00405972:
-        push eax
-    L_00405973:
-        mov edx,ecx
-    L_00405975:
-        call asm_FUN_004054b0_004054b0
-    L_0040597a:
-        mov esi,dword ptr [data_004776f4]
-    L_00405980:
-        mov eax,esi
-    L_00405982:
-        call asm_Player_ClearExpiredFlagsRetail_00405500
-    L_00405987:
-        mov eax,dword ptr [data_00474c98]
-    L_0040598c:
-        sub eax,80h
-    L_00405991:
-        cmp eax,400h
-    L_00405996:
-        mov dword ptr [data_00474c98],eax
-    L_0040599b:
-        pop ebx
-    L_0040599c:
-        jle short L_004059aa
-    L_0040599e:
-        mov dword ptr [data_00474c98],400h
-    L_004059a8:
-        jmp short L_004059bb
-    L_004059aa:
-        cmp eax,0FFFFFC00h
-    L_004059af:
-        jge short L_004059bb
-    L_004059b1:
-        mov dword ptr [data_00474c98],0FFFFFC00h
-    L_004059bb:
-        mov cl,byte ptr [esi+378Ch]
-    L_004059c1:
-        mov eax,1
-    L_004059c6:
-        test cl,al
-    L_004059c8:
-        je short L_004059de
-    L_004059ca:
-        cmp dword ptr [esi+3738h],3Ch
-    L_004059d1:
-        jl short L_004059de
-    L_004059d3:
-        pop edi
-    L_004059d4:
-        mov dword ptr [ebp+44h],eax
-    L_004059d7:
-        pop esi
-    L_004059d8:
-        xor eax,eax
-    L_004059da:
-        pop ebp
-    L_004059db:
-        ret 4
-    L_004059de:
-        pop edi
-    L_004059df:
-        pop esi
-    L_004059e0:
-        mov dword ptr [ebp+44h],0
-    L_004059e7:
-        xor eax,eax
-    L_004059e9:
-        pop ebp
-    L_004059ea:
-        ret 4
+struct PrimaryListNode {
+    Entity* owner;
+    PrimaryListNode* next;
+    PrimaryListNode* previous;
+};
+struct AnimationPrimaryLists {
+    unsigned char pad_000000[0x72DAD4];
+    PrimaryListNode* head;
+    PrimaryListNode* tail;
+    unsigned char pad_72dadc[0x732454-0x72DADC];
+    int serial;
+    __declspec(noinline) int* RegisterPrimaryBack(int* out, Entity* entity);
+};
+#pragma code_seg(".text$a08register")
+int* AnimationPrimaryLists::RegisterPrimaryBack(int* out, Entity* entity) {
+    PrimaryListNode* node = reinterpret_cast<PrimaryListNode*>(&entity->manager_node_animation);
+    node->owner = entity;
+    node->next = 0;
+    node->previous = 0;
+    if (!head) head = node;
+    else {
+        PrimaryListNode* old = tail;
+        if (old->next) {
+            node->next = old->next;
+            old->next->previous = node;
+        }
+        old->next = node;
+        node->previous = old;
     }
+    tail = node;
+    ++serial;
+    if (!serial) ++serial;
+    entity->animation_handle = serial;
+    *out = serial;
+    return out;
 }
+#pragma code_seg(".text$a09create")
+__declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
+    AnimationResource_0043e710* resource, int* out, int index, const Vector3* position) {
+    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    unsigned int flags = object->flags_35C;
+    object->render_bucket = 0;
+    object->flags_35C = flags | 0x40000000;
+    object->position.x = position->x + data_00470b4c;
+    object->position.y = position->y + data_00470b48;
+    object->position.z = position->z;
+    LoadScript_0043e710(resource, static_cast<AnimationObject_0043e710*>(object), index);
+    reinterpret_cast<AnimationPrimaryLists*>(data_00491c10)->RegisterPrimaryBack(out, object);
+    return out;
+}
+
+struct PlayerInitializationTimer {
+    int previous, current;
+    float elapsed;
+    float* speed;
+    unsigned int flags;
+    void Reset(int previous_frame) {
+        if (!(flags & 1)) {
+            current = 0;
+            previous = static_cast<int>(0xFFF0BDC1u);
+            elapsed = 0;
+            speed = &data_00476f78;
+            flags |= 1;
+        }
+        current = 0;
+        elapsed = 0;
+        previous = previous_frame;
+    }
+};
+struct PlayerInitialization {
+    unsigned char pad00[0x14];
+    PlayerInitializationTimer timer;
+    int initialized;
+    int animation_handle;
+    Vector3 position;
+    float width, height;
+    int pending_animation;
+};
+struct PlayerPositionSource {
+    unsigned char pad00[0x3C0];
+    Vector3 position;
+};
+struct PlayerAnimationResources {
+    unsigned char pad00[0x3E0B50];
+    AnimationResource_0043e710* resource;
+};
+typedef PlayerFlags_00405500 PlayerInitializeGlobal;
+extern "C" PlayerPositionSource* data_00477834;
+extern "C" PlayerAnimationResources* data_004776f0;
+extern "C" PlayerInitializeGlobal* data_004776f4;
+extern "C" PowerDisplayOwner_004054b0* data_0047770c;
+extern "C" int data_00474c68;
+extern "C" short data_00474c48;
+extern "C" int data_00474c98;
+#pragma code_seg(".text$a04initialize")
+extern "C" __declspec(noinline) int __stdcall InitializePlayer_00405860(PlayerInitialization* player) {
+    if (player->initialized) return -1;
+    player->initialized = 1;
+    player->timer.Reset(-1);
+    player->width = 32.0f;
+    player->height = 4.0f;
+    player->position = data_00477834->position;
+    int index;
+    if ((!(data_004776f4->flags & 1) ||
+         data_004776f4->animation_state < 0x5D ||
+         data_004776f4->animation_state > 0x60) &&
+        data_004776f4->animation_state != 0x6D)
+        index = data_00474c68 ? 0x197 : 0x190;
+    else
+        index = 0x1B9;
+    int handle;
+    player->animation_handle = *CreateScreenPositionedPrimary_00448db0(
+        data_004776f0->resource, &handle, index, &player->position);
+    data_00492590.QueuePan(0x26, player->position.x);
+    int power = data_00474c48;
+    data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+    PlayerInitializeGlobal* state = data_004776f4;
+    state->ClearExpiredFlags();
+    data_00474c98 -= 0x80;
+    if (data_00474c98 > 0x400) data_00474c98 = 0x400;
+    else if (data_00474c98 < -0x400) data_00474c98 = -0x400;
+    if ((state->flags & 1) && state->elapsed_frames >= 60) player->pending_animation = 1;
+    else player->pending_animation = 0;
+    return 0;
+}
+#pragma code_seg()

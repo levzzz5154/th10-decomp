@@ -1,12 +1,10 @@
 # 0x0042A3D0 — ECX-to-EDI callback bridge
 
-## Disposition
+## Current disposition
 
-Keep the existing naked definition in
-`matching2/msvc/src/unidentified/FUN_0042a3d0_0042a3d0.cpp`. The wrapper's
-entry supplies a context in ECX, while its direct callee consumes that context
-in EDI. An ordinary MSVC C++ call cannot express the callee's EDI input without
-an assembly/register shim.
+The complete 10-byte callback is now maintained ordinary C++. Its genuine complete update graph lets LTCG derive the private EDI receiver from the real callback. Fresh probing and literal whole-EXE comparison pass. See [input_recorder_callback_packet_0042a3d0_0042a8a0.md](input_recorder_callback_packet_0042a3d0_0042a8a0.md) and `matching2/build/experiments/input_recorder_2026_10_02/whole_verification.json`. The existing 85-byte packet owner was also cleaned to ordinary typed stores and cursor source, adding zero new credit.
+
+The remaining sections preserve the earlier investigation and its unsuccessful isolated-call model. The earlier conclusion that an assembly bridge was required is superseded by the complete real call graph.
 
 ## Live Ghidra evidence
 

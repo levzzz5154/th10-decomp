@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "name": "pause_menu_update_004223f0",
+  "source": "src/game/fun_004223f0_004223f0.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Actual pause menu update and registered scheduler callback; no synthetic caller.",
+  "functions": [
+    {
+      "name": "PauseMenuUpdate_004223f0",
+      "symbol": "?Update@PauseMenuState_004223f0@@QAEHXZ",
+      "section": ".text$01update",
+      "address": "0x004223F0",
+      "size": 206,
+      "actual_abi": "state in ESI; EAX int; plain RET"
+    },
+    {
+      "name": "PauseMenuUpdateCallback_00422a90",
+      "symbol": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+      "section": ".text$03callback",
+      "address": "0x00422A90",
+      "size": 10,
+      "actual_abi": "scheduler state in ECX; plain RET"
+    }
+  ],
+  "entry": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+  "calls": [
+    {
+      "caller": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+      "callee": "?Update@PauseMenuState_004223f0@@QAEHXZ",
+      "address": "0x00422A93",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 136176
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x004224BE",
+      "size": 1490
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474ca0",
+      "address": "0x474ca0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e36",
+      "address": "0x474e36",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491ff4",
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_PauseMenu_Initialize_00422ab0@4",
+      "address": "0x422ab0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_PauseMenu_Update_00422c80@4",
+      "address": "0x422c80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayMenu_Update_004236f0@4",
+      "address": "0x4236f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ]
+}

@@ -1,5 +1,17 @@
 # Main-menu dispatch ABI audit: `0x00422660` and `0x00422C80`
 
+2026-10-02 update: the nested `0x004224C0` renderer is now complete,
+asm-free native C++ and has passed the whole-EXE byte gate. Its public
+boundary is `State*, Vec3` by value with RET16, proven by both actual callers;
+the earlier custom-register claim below is superseded. The complete
+formatter85 and queue132 bodies also compile exactly in its genuine graph.
+See [the verified recovery](name_entry_draw_native_004224c0_2026_10_02.md).
+The `0x00422C80` choice updater is also now complete, asm-free C++: its actual
+boundary is one state pointer with RET4, and all 1,360 bytes pass the maintained
+probe and whole-EXE gate. See [its verified recovery](pause_choice_update_native_00422c80_2026_10_02.md).
+Only `0x00422660` remains assembly among these two regions. The historical
+status and ABI conclusions below predate these recovered graphs.
+
 Date: 2026-09-23
 
 ## Status

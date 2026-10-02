@@ -1,14 +1,16 @@
-// BLOCKED (D2902): closest_byte_count=18/73; first_diff=0x00420B18;
-// residual_class=private RegisterResource call ABI and register setup. Live
-// Ghidra confirms this is a __thiscall receiver with two stack values, while
-// both RegisterResource calls consume EAX/EDX and the retail tail reloads the
-// second index from [ESP+8] into EDX before the indexed store.
-// variants_tested=typed thiscall semantic model with two ordinary C++ helper
-// calls; exact retail wrapper retained after the candidate measured 79 bytes
-// and only 18/73 non-relocation bytes matched.
-// next_lever=native-LTCG schema-2 cluster containing Sound_PlayDummy and the
-// RegisterResource body/callers, so the compiler can recover the EAX/EDX
-// helper convention and the ECX/EDX tail register schedule.
+// Music_Play: queue a music-slot play request and unlock its music-room entry.
+// Native-LTCG residual (2026-10-02): closest_byte_count=63/73;
+// first_diff=0x00420B43. Both RegisterResource calls reproduce the private
+// EAX/EDX convention. Only the final indexed store differs: C++ loads the
+// heard index into ECX before loading the progress pointer into EDX, while
+// retail loads the pointer into ECX and then the index into EDX.
+// Ghidra disassembly and seven real callers confirm two stack arguments and
+// RET 8; incoming ECX is unused. The decompiler's thiscall receiver is spurious.
+// Ordinary member setters/getters, char/bool and signed/unsigned types, byte
+// memcpy/memset, integer/pointer address expressions, and separate-TU helpers
+// inlined by native LTCG all retain the same 73-byte residual. A schema-2
+// cluster with real music-request callers and the registrar does too.
+// Proof: build/experiments/music_play_tail_20261002/NOTES.txt.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"

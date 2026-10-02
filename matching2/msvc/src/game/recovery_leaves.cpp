@@ -108,35 +108,7 @@ void Recovery_ReleaseGlobalStates() {
     }
 }
 
-// 0x0042ADD0..0x0042AE5D - Recovery_InitializeRandomTable
-//
-// Fills a 0x448-byte string table: an 8-space blank entry, then 512 generated
-// 16-bit words from the game's LCG. The recurrence matches RngState::NextWord
-// but reads the seed as a whole 32-bit word and shifts the whole word left, so
-// the source used a 32-bit local rather than the 16-bit field rng.hpp wraps.
-// The loop head is 16-byte aligned by the compiler, which is where the jump
-// over the alignment padding inside the region comes from.
-extern "C" void __fastcall Recovery_InitializeRandomTable_0042add0(int unused, char* table) {
-    memset(table, 0, 0x448);
-    *(unsigned short*)(table + 2) = 0;
-    *(unsigned short*)table = 0x5453;
-    *(unsigned int*)(table + 8) = 0x448;
-    memcpy(table + 12, &data_0046e354, 9);
-    unsigned short* out = (unsigned short*)(table + 70);
-    int remaining = 512;
-    do {
-        unsigned short word;
-        unsigned int value = *(unsigned int*)&data_004918b0;
-        value ^= 0x9630;
-        value -= 0x6553;
-        unsigned int high = ((unsigned short)value) >> 14;
-        word = (unsigned short)(high + (value << 2));
-        *(unsigned short*)&data_004918b0 = word;
-        ++*(unsigned int*)&data_004918b4;
-        *out++ = word;
-        --remaining;
-    } while (remaining);
-}
+// 0x0042ADD0: maintained in src/game/score_settings_initialize_defaults_0042add0.cpp.
 
 // 0x0043C870..0x0043C889: Platform_DeletingDestructorNoReturn
 // Scalar deleting destructor for the platform-owned raw pair: release the pair,

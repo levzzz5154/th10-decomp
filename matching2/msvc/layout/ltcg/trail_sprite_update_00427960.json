@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "name": "trail_sprite_update_00427960",
+  "source": "src/game/fun_00427960_00427960.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Actual trail sprite update callback and complete worker body.",
+  "entry": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+  "functions": [
+    {
+      "name": "TrailSpriteUpdateCallback_00427950",
+      "symbol": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+      "address": "0x00427950",
+      "size": 12,
+      "section": ".text$01callback",
+      "actual_abi": "callback context ECX; int result0"
+    },
+    {
+      "name": "TrailSpriteUpdate_00427960",
+      "symbol": "?Update@TrailSprite_00427960@@QAEXXZ",
+      "address": "0x00427960",
+      "size": 359,
+      "section": ".text$03worker",
+      "actual_abi": "sprite ESI; plain RET"
+    }
+  ],
+  "calls": [
+    {
+      "caller": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+      "callee": "?Update@TrailSprite_00427960@@QAEXXZ",
+      "address": "0x00427953",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 158032
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0042795C",
+      "size": 4
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3e000000",
+      "address": "0x00470B90",
+      "value": 0.125
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}

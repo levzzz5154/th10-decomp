@@ -1,0 +1,232 @@
+{
+  "schema_version": 2,
+  "name": "player_render_pair_00426360",
+  "source": "src/game/player_render_pair_00426360.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "included_sources": [
+    "src/render/special_quad.cpp",
+    "src/render/anm_batch_flush.cpp",
+    "src/render/anm_vm_draw_dispatch.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Actual player draw worker and registered scheduler callback. Complete maintained rectangle, flush and dispatcher bodies are co-compiled unchanged as unselected helpers; there is no synthetic caller or fabricated ABI body. In this visibility context the dispatcher naturally emits a complete 192-byte contribution, rather than its selected owner's 216-byte body; it receives no recovery credit here. Its manager-ECX/entity-EAX entry is the real private ABI observed at every retail call site. Only the full 409-byte worker and 7-byte callback are exported.",
+  "functions": [
+    {
+      "name": "PlayerRender_Draw_00426360",
+      "symbol": "?Draw@PlayerRenderState@@QAEHXZ",
+      "section": ".text$0001worker",
+      "address": "0x00426360",
+      "size": 409,
+      "actual_abi": "player in EAX; int result in EAX; plain RET"
+    },
+    {
+      "name": "PlayerRender_Callback_00426510",
+      "symbol": "?PlayerDrawCallback@@YIHPAUPlayerRenderState@@@Z",
+      "section": ".text$0003callback",
+      "address": "0x00426510",
+      "size": 7,
+      "actual_abi": "scheduler player state in ECX; transfers to worker in EAX; tail JMP"
+    }
+  ],
+  "entry": "?PlayerDrawCallback@@YIHPAUPlayerRenderState@@@Z",
+  "calls": [
+    {
+      "caller": "?PlayerDrawCallback@@YIHPAUPlayerRenderState@@@Z",
+      "callee": "?Draw@PlayerRenderState@@QAEHXZ",
+      "address": "0x00426512",
+      "instruction": "jmp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "DrawSolidQuad_complete_genuine_helper",
+      "symbol": "?DrawSolidQuad@@YGHPBUScreenRect@@I@Z",
+      "section": ".text$01quad",
+      "address": "0x0043BDA0",
+      "size": 483
+    },
+    {
+      "name": "Flush_complete_genuine_helper",
+      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "section": ".text$05flush",
+      "address": "0x00442F50",
+      "size": 133
+    },
+    {
+      "name": "AnmVmDrawDispatch_complete_genuine_helper",
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "section": ".text$06hdispatch",
+      "address": "0x004451C0",
+      "size": 192
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$0000layout",
+      "address": "0x00401000",
+      "size": 152416
+    },
+    {
+      "section": ".text$0002layout",
+      "address": "0x004264F9",
+      "size": 23
+    },
+    {
+      "section": ".text$0004layout",
+      "address": "0x00426517",
+      "size": 88201
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043BF83",
+      "size": 28621
+    },
+    {
+      "section": ".text$06glayout",
+      "address": "0x00442FD5",
+      "size": 8683
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477830",
+      "address": "0x477830",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c58",
+      "address": "0x474c58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x491c30",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_FloorPixelCoordinate@4",
+      "address": "0x427c50",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw_00443080@8",
+      "address": "0x443080",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "address": "0x4436c0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw_00443290@8",
+      "address": "0x443290",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "address": "0x443910",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw_00444580@8",
+      "address": "0x444580",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw_00443fb0@8",
+      "address": "0x443fb0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_FadedQuadDraw_004445c0@8",
+      "address": "0x4445c0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw_00444760@8",
+      "address": "0x444760",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUAnimationManager_00442F50@@@Z",
+      "address": "0x443f80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "address": "0x444ce0",
+      "kind": "relative_code"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x470b4c",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x470b48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@43610000",
+      "address": "0x470cbc",
+      "value": 225.0
+    },
+    {
+      "symbol": "__real@3e95a95b",
+      "address": "0x470cb8",
+      "value": 0.29230770468711853
+    },
+    {
+      "symbol": "__real@41880000",
+      "address": "0x470cb4",
+      "value": 17.0
+    },
+    {
+      "symbol": "__real@41c00000",
+      "address": "0x470be8",
+      "value": 24.0
+    },
+    {
+      "symbol": "__real@40000000",
+      "address": "0x470b08",
+      "value": 2.0
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x470afc",
+      "value": 1.0
+    }
+  ]
+}

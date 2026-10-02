@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "name": "title_teardown_0041fb50",
+  "source": "src/game/fun_0041fb50_0041fb50.cpp",
+  "driver": "layout/ltcg/title_teardown_0041fb50_context.cpp",
+  "included_sources": [
+    "layout/ltcg/title_teardown_0041fb50/message_teardown_helpers.cpp",
+    "layout/ltcg/title_teardown_0041fb50/title_score.cpp",
+    "layout/ltcg/title_teardown_0041fb50/title_encrypt.cpp",
+    "layout/ltcg/title_teardown_0041fb50/manager_remove.cpp",
+    "layout/ltcg/title_teardown_0041fb50/manager_entity_init.cpp"
+  ],
+  "headers": [
+    "layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp",
+    "layout/ltcg/title_teardown_0041fb50/title_score_archive.hpp",
+    "layout/ltcg/title_teardown_0041fb50/message_teardown_dependencies.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/bullet_anim_owner.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/native_render_targets.hpp",
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/game/score_file.hpp",
+    "include/th10/render/anm_manager_lists.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete genuine title/global teardown graph plus independently reachable one-receiver ordinary array-manager owner. The ordinary manager193/private-retail206 ABI difference is unselected compiler context. Its real member-array CRT callbacks take the Entity destructor address, yielding exact public-ECX Entity34 and selected Title417/EH32. All emitted unwind groups and exact44/52-byte metadata islands are validated; only Title417/EH32 exported.",
+  "exceptions": true,
+  "functions": [
+    {
+      "name": "TitleStateDestructor",
+      "symbol": "??1TitleState_0041FB50@@QAE@XZ",
+      "section": ".text$03title",
+      "address": "0x0041FB50",
+      "size": 417,
+      "actual_abi": "Genuine title destructor, one logical receiver stack, RET4"
+    },
+    {
+      "name": "TitleWorkerUnwind",
+      "symbol": "_TitleWorkerUnwind_00465680",
+      "section": ".text$x",
+      "address": "0x00465680",
+      "size": 11,
+      "actual_abi": "Actual worker member +0x10",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "TitleAnimationUnwind",
+      "symbol": "_TitleAnimationUnwind_0046568b",
+      "section": ".text$x",
+      "address": "0x0046568B",
+      "size": 11,
+      "actual_abi": "Actual animation member +0x30",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "TitleDestructorHandler",
+      "symbol": "__ehhandler$??1TitleState_0041FB50@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x00465696",
+      "size": 10,
+      "actual_abi": "Complete native title destructor EH handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnimationDestructor",
+      "symbol": "??1TitleAnimation_00401FF0@@QAE@XZ",
+      "section": ".text$01entity",
+      "address": "0x00401FF0",
+      "size": 34
+    },
+    {
+      "name": "ReleasePair",
+      "symbol": "_ReleasePair_0041f930",
+      "section": ".text$02pair",
+      "address": "0x0041F930",
+      "size": 91
+    },
+    {
+      "name": "ScoreArchiveSave",
+      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
+      "section": ".text$06score",
+      "address": "0x0042B1E0",
+      "size": 566
+    },
+    {
+      "name": "AnimationResourceRelease",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "section": ".text$07release",
+      "address": "0x00447810",
+      "size": 242
+    },
+    {
+      "name": "MarkResource",
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "section": ".text$11mark",
+      "address": "0x004493E0",
+      "size": 92
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_Scheduler_Remove@8",
+      "section": ".text$13remove",
+      "address": "0x00449F60",
+      "size": 114
+    },
+    {
+      "name": "EncryptDatBuffer",
+      "symbol": "_EncryptDatBuffer@24",
+      "section": ".text$13zencrypt",
+      "address": "0x0044B220",
+      "size": 307
+    },
+    {
+      "name": "WorkerDestructor",
+      "symbol": "??1TitleWorker_0044C130@@UAE@XZ",
+      "section": ".text$14worker",
+      "address": "0x0044C130",
+      "size": 16
+    },
+    {
+      "name": "StopWorker",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$15stop",
+      "address": "0x0044C150",
+      "size": 101
+    },
+    {
+      "name": "EntityInitializer",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$00init",
+      "address": "0x00401DE0",
+      "size": 273
+    },
+    {
+      "name": "AnimationManagerDestructor",
+      "symbol": "??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "section": ".text$06zmanager",
+      "address": "0x00446220",
+      "size": 193,
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp"
+    },
+    {
+      "name": "RemoveVm",
+      "symbol": "?RemoveVm@AnmManager@@QAEHPAUAnmManagerVm@@@Z",
+      "section": ".text$10removevm",
+      "address": "0x00448BB0",
+      "size": 282
+    },
+    {
+      "name": "ManagerPoolUnwind",
+      "symbol": "_ManagerPoolUnwind_004651e0",
+      "section": ".text$m",
+      "address": "0x4651e0",
+      "size": 28,
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "ManagerMiddleUnwind",
+      "symbol": "_ManagerMiddleUnwind_004651fc",
+      "section": ".text$m",
+      "address": "0x4651fc",
+      "size": 14,
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "ManagerLayersUnwind",
+      "symbol": "_ManagerLayersUnwind_0046520a",
+      "section": ".text$m",
+      "address": "0x46520a",
+      "size": 27,
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "ManagerDestructorHandler",
+      "symbol": "__ehhandler$??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "section": ".text$m",
+      "address": "0x465225",
+      "size": 10,
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "generated": true
+    }
+  ],
+  "context": {
+    "symbol": "?Recovery_ReleaseGlobalStates@@YGXXZ",
+    "section": ".text$05globals",
+    "address": "0x004203F0",
+    "size": 128,
+    "description": "Actual complete global-state teardown; only title destructor has new ownership."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00initz",
+      "address": "0x401ef1",
+      "size": 255
+    },
+    {
+      "section": ".text$01entityz",
+      "address": "0x402012",
+      "size": 121118
+    },
+    {
+      "section": ".text$02pairz",
+      "address": "0x41f98b",
+      "size": 453
+    },
+    {
+      "section": ".text$03titlez",
+      "address": "0x41fcf1",
+      "size": 1791
+    },
+    {
+      "section": ".text$05globalsz",
+      "address": "0x420470",
+      "size": 44400
+    },
+    {
+      "section": ".text$06scorez",
+      "address": "0x42b416",
+      "size": 110090
+    },
+    {
+      "section": ".text$06zmanagerz",
+      "address": "0x4462e1",
+      "size": 5423
+    },
+    {
+      "section": ".text$07releasez",
+      "address": "0x447902",
+      "size": 4782
+    },
+    {
+      "section": ".text$10removevmz",
+      "address": "0x448cca",
+      "size": 1814
+    },
+    {
+      "section": ".text$11markz",
+      "address": "0x44943c",
+      "size": 2852
+    },
+    {
+      "section": ".text$13removez",
+      "address": "0x449fd2",
+      "size": 4686
+    },
+    {
+      "section": ".text$13zencryptz",
+      "address": "0x44b353",
+      "size": 3549
+    },
+    {
+      "section": ".text$14workerz",
+      "address": "0x44c140",
+      "size": 16
+    },
+    {
+      "section": ".text$15stopz",
+      "address": "0x44c1b5",
+      "size": 102443
+    },
+    {
+      "section": ".text$mz",
+      "address": "0x46522f",
+      "size": 1105
+    },
+    {
+      "section": ".rdata$l",
+      "address": "0x00466000",
+      "size": 45684
+    },
+    {
+      "section": ".rdata$w",
+      "address": "0x004712A8",
+      "size": 1076
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477700",
+      "address": "0x477700",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918a4",
+      "address": "0x4918a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047784c",
+      "address": "0x47784c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477820",
+      "address": "0x477820",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x4703e4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReleaseGlobalManager_00417c80@4",
+      "address": "0x417c80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReleaseGlobalScript_0042cb60@4",
+      "address": "0x42cb60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReleaseGlobalPending_004294a0@4",
+      "address": "0x4294a0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x47783c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_DestroyGameThread_00401260@4",
+      "address": "0x401260",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReleaseGlobalMessage_0040b7b0@4",
+      "address": "0x40b7b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CompressScore@12",
+      "address": "0x4359b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_OpenSharedFileWrite@4",
+      "address": "0x44b620",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d4",
+      "address": "0x4660d4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c38",
+      "address": "0x474c38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e848",
+      "address": "0x46e848",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525ff",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004716DC",
+      "bytes": "ffffffff80564600000000008b5646002005931902000000dc16470000000000000000000000000000000000",
+      "description": "Expected complete native two-member unwind map and FuncInfo, validation only"
+    },
+    {
+      "section": ".rdata$m",
+      "address": "0x00471274",
+      "bytes": "ffffffffe051460000000000fc514600010000000a52460020059319030000007412470000000000000000000000000000000000",
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "description": "Complete ordinary manager unwind map and FuncInfo; unselected validation only."
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_7TitleWorker_0044C130@@6B@",
+      "address": "0x004703E4",
+      "bytes": "00c14400"
+    }
+  ],
+  "ordinary_sources": [
+    {
+      "source": "layout/ltcg/title_teardown_0041fb50/animation_manager_complete.cpp",
+      "section_renames": [
+        {
+          "from": ".text$x",
+          "to": ".text$m"
+        },
+        {
+          "from": ".xdata$x",
+          "to": ".rdata$m"
+        }
+      ]
+    }
+  ],
+  "anchor_roots": [
+    "??1AnimationManagerStorage_00446220@@QAE@XZ"
+  ]
+}

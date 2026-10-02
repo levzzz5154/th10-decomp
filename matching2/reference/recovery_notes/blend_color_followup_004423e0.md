@@ -49,3 +49,24 @@ context is counted as recovered code. No masks, substitutions, or aliases were
 used. Retry with a distinct source model for the four-channel multiplication,
 or with its real transformed-quad caller at 0x00444760, rather than repeating
 commutative-expression variants.
+
+## 2026-10-02 genuine transformed-quad graph
+
+The resumed native graph now includes the complete maintained 929-byte
+transformed-quad caller, the complete 133-byte flusher, and the complete real
+draw dispatcher as an unselected 236-byte context. The worker's manager is
+in EAX and its entity in EBX, confirmed by the live Ghidra body and emitted
+code. This reproduces the complete 440-byte baseline with the same 33
+differing bytes. Thus genuine caller visibility resolves the private ABI but
+does not by itself resolve color modulation.
+
+Eight new ordinary C++ variants covered byte-destination references, tint
+references, packed-source references, a packed-color inline member, explicit
+byte extraction, and a tint-first compound accumulator. All 440-byte variants
+retain the same 33-byte mismatch. Two wider packed-source variants emit 444
+bytes and are rejected on complete extent; their raw diagnostics also contain
+following-helper address drift. No variant was promoted.
+
+Complete sources, native PE/maps and disassemblies are preserved under
+`matching2/build/experiments/blend_color_native_20261002`; `final_evidence.json`
+records the bounded matrix. The assembly body remains authoritative.

@@ -1,6 +1,13 @@
 # Archive entry reader `0x00434DD0`
 
-2026-09-26. `reference/semantic_candidates/dat_archive_read.cpp` now contains a
+Current state, 2026-10-02: the complete reader now passes the ordinary native
+LTCG probe for all 281 literal retail bytes. See the
+[native recovery receipt](dat_archive_read_native_00434dd0_2026_10_02.md)
+for source, genuine caller graph, private ABI, and integration status. The
+September tool-access limitations and remaining matching work below are
+historical.
+
+Historical receipt, 2026-09-26. `reference/semantic_candidates/dat_archive_read.cpp` contains a
 self-contained typed C++ model of the complete 281-byte reader. It compiles
 with native Clang and passes 671 differential scenarios. The maintained
 assembly region is unchanged; private entry and helper ABIs are not recovered

@@ -6,7 +6,9 @@
     "include/th10/game/score_archive_manager_0042ae60.hpp",
     "include/th10/game/score_file.hpp"
   ],
-  "additional_sources": [],
+  "additional_sources": [
+    "src/game/score_settings_initialize_defaults_0042add0.cpp"
+  ],
   "image_base": "0x00400000",
   "description": "Complete scoreth10.dat manager constructor and genuine exception-aware allocating factory; all private helper bodies complete, nonmatching helpers unselected with zero credit.",
   "functions": [
@@ -44,6 +46,15 @@
       "section": ".text$x",
       "actual_abi": "Native handler loads FuncInfo471620 and tail calls __CxxFrameHandler46276D.",
       "generated": true
+    },
+    {
+      "name": "ScoreSettings_InitializeDefaults",
+      "symbol": "_Recovery_InitializeRandomTable_0042add0@4",
+      "address": "0x0042ADD0",
+      "size": 142,
+      "section": ".text$01b",
+      "source": "src/game/score_settings_initialize_defaults_0042add0.cpp",
+      "actual_abi": "One actual settings-section pointer, privately EDX, plain RET; only realcaller42AE8Apresents LEAEDX[EBX+1D86C], no unused ECX formal."
     }
   ],
   "anchors": [
@@ -51,15 +62,8 @@
       "name": "Defaults",
       "symbol": "_ScoreFile_Defaults_0042acb0@4",
       "address": "0x0042ACB0",
-      "size": 268,
+      "size": 274,
       "section": ".text$00b"
-    },
-    {
-      "name": "RandomTable",
-      "symbol": "@Recovery_InitializeRandomTable_0042add0@8",
-      "address": "0x0042ADD0",
-      "size": 142,
-      "section": ".text$01b"
     },
     {
       "name": "LoadSections",
@@ -91,8 +95,8 @@
     },
     {
       "section": ".text$01a",
-      "address": "0x42adbc",
-      "size": 20
+      "address": "0x42adc2",
+      "size": 14
     },
     {
       "section": ".text$02a",
@@ -290,12 +294,17 @@
       "callee": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
       "address": "0x0042AF52",
       "instruction": "call"
+    },
+    {
+      "caller": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "callee": "_Recovery_InitializeRandomTable_0042add0@4",
+      "address": "0x0042AE8A",
+      "instruction": "call"
     }
   ],
   "included_sources": [
     "layout/ltcg/score_manager_factory_context.cpp",
     "layout/ltcg/score_manager_dependencies/defaults.cpp",
-    "layout/ltcg/score_manager_dependencies/random_table.cpp",
     "layout/ltcg/score_manager_dependencies/load_sections.cpp",
     "layout/ltcg/score_manager_dependencies/decrypt.cpp",
     "layout/ltcg/score_manager_dependencies/archive_load.cpp"

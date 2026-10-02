@@ -1,3 +1,9 @@
+# Verified update, 2026-10-02
+
+The earlier model-status statements below are historical. The complete 239-byte
+entry is now byte-exact C++ and the whole EXE gate passes. See
+[the native recovery receipt](animation_chunk_native_0040d400_2026_10_02.md).
+
 # `ScriptFileChunkContext::ParseAnimationChunk` at `0x0040D400`
 
 This is a focused semantic model of the 239-byte retail entry. The source is

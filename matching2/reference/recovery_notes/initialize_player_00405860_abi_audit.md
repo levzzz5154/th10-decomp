@@ -1,5 +1,12 @@
 # `InitializePlayer` (`0x00405860`) ABI audit
 
+2026-10-02 update: the historical recommendation below is superseded by the
+verified complete native-LTCG recovery documented in
+[initialize_player_native_00405860_2026_10_02.md](initialize_player_native_00405860_2026_10_02.md).
+The maintained 397-byte C++ body and the full rebuilt EXE now match retail
+byte for byte. The earlier caller and helper ABI observations remain useful
+evidence for the genuine graph.
+
 ## Result
 
 Keep `0x00405860` as naked assembly for now. The entry and its two direct

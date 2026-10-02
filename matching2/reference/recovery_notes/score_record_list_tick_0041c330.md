@@ -89,3 +89,23 @@ Do not change the maintained manifest or replace the assembly body with these
 models. The next useful lever is to preserve the separate early dispatch setup
 while merging the first two virtual destruction calls into one forward call
 site, retaining the distinct post-update retirement tail and exact caller ABI.
+
+## 2026-10-02 genuine-caller resume
+
+The resumed scratch layout is schema 2: the real 91-byte `AdvanceFrame`
+callback is the entry and its two retail calls reach the complete tick model.
+The earlier synthetic context has been removed. This reproduces the same
+272-byte baseline, with the callback still byte-exact.
+
+Seven new ordinary C++ variants were measured: an inline early-dispatch bool
+helper; that helper with predecessor setters taking a pointer by value or
+const reference; the baseline with each setter; a nested traversal loop; and
+an embedded timer with inline `Advance`. The dispatch and timer variants emit
+277 bytes, setters on the baseline emit 272, and the nested loop emits 283.
+None reproduces the required complete 274-byte contribution. The maintained
+assembly body and its ownership remain unchanged.
+
+Reproducible source, disassembly and unmasked byte evidence are retained in
+`matching2/build/experiments/score_tick_resume_20261002/final_evidence.json`.
+The register allocation around the two early virtual calls still differs;
+these failed candidates receive no recovery credit.

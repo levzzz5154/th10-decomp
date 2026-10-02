@@ -1,5 +1,9 @@
 # THA1 index loader `0x00434F70`
 
+2026-10-02 update: the maintained loader is now complete byte-exact, asm-free C++. The whole EXE gate passes. See [native recovery](dat_archive_load_index_native_00434f70_2026_10_02.md) for the genuine caller graph, alias proof, and verification receipts.
+
+The remaining text records the historical 2026-09-26 candidate and its differential evidence.
+
 2026-09-26. `reference/semantic_candidates/dat_archive_load_index.cpp` is a
 typed, assembly-free model of the complete 350-byte loader. It shares archive
 and entry layouts with the reader through `dat_archive_types.hpp`. Its 623

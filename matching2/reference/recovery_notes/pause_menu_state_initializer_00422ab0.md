@@ -1,10 +1,8 @@
 # Pause-menu/state initializer `0x00422AB0`
 
-The 382-byte region (`0x00422AB0..0x00422C2D`) now has an inline-assembly-free
-C++ semantic model in
-[`matching2/msvc/src/game/fun_00422ab0_00422ab0.cpp`](../semantic_candidates/fun_00422ab0_00422ab0.cpp).
-The manifest marks the row semantic and binds its recovered stdcall symbol;
-`asm_symbols.hpp` declares the one-pointer `__stdcall` entry.
+The complete 382-byte maintained owner is now verified ordinary C++, with the true one-state-pointer stack boundary and the full real helper graph. See [pause_initializer_native_00422ab0_2026_10_02.md](pause_initializer_native_00422ab0_2026_10_02.md) and `matching2/build/experiments/pause_initializer_real_graph_20261002/whole_verification.json`. The fresh maintained probe and literal whole-EXE comparison both pass.
+
+The material below records the earlier semantic-model investigation. Its former graph and ABI assumptions are superseded by the verified native recovery above.
 
 ## Behavior and state offsets
 

@@ -1,16 +1,9 @@
-// BLOCKED (H2701): closest_byte_count=440; first_diff=unmeasured;
-// residual_class=abi/source_shape: live Ghidra identifies the real caller as
-// FUN_00444760 (xref 0x00444994) and the flush callee as FUN_00442F50;
-// retail carries entity in EAX and the animation manager in EBX, then stores
-// packed blend/filter bytes through stack homes before issuing D3D state calls.
-// variants_tested=exact retail naked wrapper, readable SyncRenderState
-// counterpart, direct packed-state/D3D-vtable model, and a scratch LTCG
-// caller cluster using 0x00444760; MSVC 13.10 baseline probe is exact
-// (440/440), but the readable cluster did not survive existing dispatch
-// contribution validation.
-// next_lever=replace the existing 0x00444760 render-batch ABI anchor with a
-// real caller/callee cluster that preserves EAX/EBX and packed byte homes;
-// retain this wrapper until the complete 440-byte extent is emitted.
+// 0x004423E0: cached blend, texture-factor color, and filtering updates.
+// Retail receives the manager in EAX and entity in EBX; the real caller is
+// EntityDraw_00444760 (call at 0x00444994). Complete genuine caller visibility
+// emits the correct 440-byte C++ extent, but 33 color-modulation bytes differ.
+// See reference/recovery_notes/blend_color_followup_004423e0.md and the
+// preserved native probe matrix; retain this exact assembly body meanwhile.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
