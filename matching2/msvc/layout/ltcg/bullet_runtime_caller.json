@@ -15,7 +15,7 @@
     "layout/ltcg/bullet_runtime_dependencies/player_death_shrink_004076a0.cpp",
     "layout/ltcg/bullet_runtime_dependencies/enemy_motion_steps.cpp",
     "layout/ltcg/bullet_runtime_dependencies/sound_queue_pan_0043dd10.cpp",
-    "layout/ltcg/bullet_runtime_dependencies/player_ease_004078e0.cpp",
+    "src/game/bullet_ease_step_004078e0.cpp",
     "layout/ltcg/bullet_runtime_dependencies/player_homing_00407ef0.cpp"
   ],
   "headers": [
@@ -42,6 +42,15 @@
       "size": 885,
       "actual_abi": "state stack; RET4",
       "source": "src/game/bullet_runtime_update.cpp"
+    },
+    {
+      "name": "EaseStep",
+      "symbol": "?EaseStep@BulletRuntimeDeceleration@@QAEXXZ",
+      "section": ".text$01gease",
+      "address": "0x4078e0",
+      "size": 335,
+      "actual_abi": "state in ESI; plain RET",
+      "source": "src/game/bullet_ease_step_004078e0.cpp"
     }
   ],
   "gaps": [
@@ -510,13 +519,6 @@
       "section": ".text$05rpan",
       "address": "0x0043DD10",
       "size": 149
-    },
-    {
-      "name": "EaseStep",
-      "symbol": "?EaseStep@BulletRuntimeDeceleration@@QAEXXZ",
-      "section": ".text$01gease",
-      "address": "0x4078e0",
-      "size": 335
     },
     {
       "name": "HomeTowardTarget",

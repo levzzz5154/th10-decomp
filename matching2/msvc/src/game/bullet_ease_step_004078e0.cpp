@@ -1,7 +1,6 @@
-// 0x004078E0: decelerate between scalar and heading resets.
+// 0x004078E0: decelerate a bullet until its step runs out, then load the
+// next speed and heading and restart the step timer.
 #include <math.h>
-extern "C" void _ReadWriteBarrier();
-#pragma intrinsic(_ReadWriteBarrier)
 #include "th10/math/angle.hpp"
 #include "th10/platform/sound_queue.hpp"
 extern "C" float data_00470b68, data_00470b64, data_00476f78;
@@ -16,11 +15,11 @@ void BulletRuntimeDeceleration::EaseStep() {
             data_00492590.Queue(sound_id, 0);
         if (++iteration >= limit)
             flags &= ~0x100u;
-        float next_heading = angle_step;
-        magnitude = speed = next_speed;
-        _ReadWriteBarrier();
-        angle = next_heading;
+        angle = angle_step;
+        float reset_speed = next_speed;
+        speed = reset_speed;
         unsigned int initial_flags = timer_flags;
+        magnitude = reset_speed;
         if (!(initial_flags & 1)) {
             current = 0;
             previous = -999999;

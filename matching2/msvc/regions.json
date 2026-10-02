@@ -4421,13 +4421,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004078e0_004078e0",
-      "source": "src/game/fun_004078e0_004078e0.cpp",
-      "symbol": "_asm_FUN_004078e0_004078e0",
+      "name": "semantic_BulletRuntimeDeceleration_EaseStep_004078e0",
+      "source": "src/game/bullet_ease_step_004078e0.cpp",
+      "symbol": "?EaseStep@BulletRuntimeDeceleration@@QAEXXZ",
       "address": "0x004078E0",
       "size": 335,
-      "kind": "asm",
-      "owner": "0x004078E0"
+      "kind": "semantic",
+      "owner": "0x004078E0",
+      "previous_record": {
+        "name": "asm_FUN_004078e0_004078e0",
+        "source": "src/game/fun_004078e0_004078e0.cpp",
+        "symbol": "_asm_FUN_004078e0_004078e0",
+        "address": "0x004078E0",
+        "size": 335,
+        "kind": "asm",
+        "owner": "0x004078E0"
+      }
     },
     {
       "name": "text_padding_00407a2f",
@@ -58475,7 +58484,7 @@
     "src/game/fun_004065c0_004065c0.cpp",
     "src/game/fun_004066e0_004066e0.cpp",
     "src/game/fun_00407780_00407780.cpp",
-    "src/game/fun_004078e0_004078e0.cpp",
+    "src/game/bullet_ease_step_004078e0.cpp",
     "src/game/fun_00407a30_00407a30.cpp",
     "src/game/fun_00407be0_00407be0.cpp",
     "src/game/fun_00408100_00408100.cpp",
