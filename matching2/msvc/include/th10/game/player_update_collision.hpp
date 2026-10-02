@@ -39,6 +39,7 @@ struct CollisionEngine_00408100 {
     void* item_animation;
     __declspec(noinline) int Check(const PositionVector_004492f0* point,
         float radius, int spawn_item, int filter_countdown);
+    __declspec(noinline) void ActivateAll(int idle_only);
 };
 extern "C" CollisionEngine_00408100* data_004776f0;
 extern "C" ItemSpawnManager_0041bb00* data_00477818;

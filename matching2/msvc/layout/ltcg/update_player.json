@@ -11,7 +11,8 @@
     "src/game/collision_record_activate_00408030.cpp",
     "src/game/fun_00408100_00408100.cpp",
     "layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
-    "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp"
+    "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
+    "src/game/collision_engine_activate_all_00408460.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
@@ -53,6 +54,15 @@
       "section": ".text$050activate",
       "actual_abi": "record in ESI; plain RET",
       "source": "src/game/collision_record_activate_00408030.cpp"
+    },
+    {
+      "name": "CollisionActivateAll",
+      "symbol": "?ActivateAll@CollisionEngine_00408100@@QAEXH@Z",
+      "address": "0x408460",
+      "size": 62,
+      "section": ".text$069h_all",
+      "actual_abi": "engine in EAX, flag in EBX; plain RET",
+      "source": "src/game/collision_engine_activate_all_00408460.cpp"
     }
   ],
   "anchors": [
@@ -145,7 +155,7 @@
   "context": {
     "symbol": "?PlayerUpdateContext@@YGHPAPAUPlayerUpdateState_00405750@@H@Z",
     "address": "0x00449A20",
-    "size": 41,
+    "size": 51,
     "section": ".text$160context",
     "description": "Pointer-array context only."
   },
@@ -358,7 +368,12 @@
     {
       "section": ".text$069gap",
       "address": "0x408204",
-      "size": 1196
+      "size": 604
+    },
+    {
+      "section": ".text$069z",
+      "address": "0x40849e",
+      "size": 530
     },
     {
       "section": ".text$079gap",

@@ -4664,13 +4664,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_00408460",
-      "source": "src/unidentified/unassigned_00408460.cpp",
-      "symbol": "_asm_unassigned_00408460",
+      "name": "semantic_CollisionEngine_ActivateAll_00408460",
+      "source": "src/game/collision_engine_activate_all_00408460.cpp",
+      "symbol": "?ActivateAll@CollisionEngine_00408100@@QAEXH@Z",
       "address": "0x00408460",
       "size": 62,
-      "kind": "asm",
-      "owner": null
+      "kind": "semantic",
+      "owner": null,
+      "previous_record": {
+        "name": "asm_unassigned_00408460",
+        "source": "src/unidentified/unassigned_00408460.cpp",
+        "symbol": "_asm_unassigned_00408460",
+        "address": "0x00408460",
+        "size": 62,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0040849e",
@@ -59637,7 +59646,7 @@
     "src/unidentified/unassigned_00406120.cpp",
     "src/unidentified/unassigned_004066c0.cpp",
     "src/unidentified/unassigned_00406798.cpp",
-    "src/unidentified/unassigned_00408460.cpp",
+    "src/game/collision_engine_activate_all_00408460.cpp",
     "src/unidentified/unassigned_00408620.cpp",
     "src/unidentified/unassigned_00408640.cpp",
     "src/unidentified/unassigned_00408710.cpp",
