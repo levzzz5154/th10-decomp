@@ -10627,13 +10627,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_BossUi_ReleaseIndicatorsRetail_0040e5f0",
-      "source": "src/game/boss_overlays.cpp",
-      "symbol": "_asm_BossUi_ReleaseIndicatorsRetail_0040e5f0",
+      "name": "semantic_Enemy_ReleaseOnDeath_0040e5f0",
+      "source": "src/game/enemy_death_release_0040e5f0.cpp",
+      "symbol": "?Enemy_ReleaseOnDeath_0040e5f0@@YGHPAUEnemy_0040e5f0@@@Z",
       "address": "0x0040E5F0",
       "size": 162,
-      "kind": "asm",
-      "owner": "0x0040E5F0"
+      "kind": "semantic",
+      "owner": "0x0040E5F0",
+      "previous_record": {
+        "name": "asm_BossUi_ReleaseIndicatorsRetail_0040e5f0",
+        "source": "src/game/boss_overlays.cpp",
+        "symbol": "_asm_BossUi_ReleaseIndicatorsRetail_0040e5f0",
+        "address": "0x0040E5F0",
+        "size": 162,
+        "kind": "asm",
+        "owner": "0x0040E5F0"
+      }
     },
     {
       "name": "text_padding_0040e692",
@@ -58605,7 +58614,7 @@
     "src/game/ascii_overlay_callbacks.cpp",
     "src/game/asset_buffer.cpp",
     "src/game/boss_gauge.cpp",
-    "src/game/boss_overlays.cpp",
+    "src/game/enemy_death_release_0040e5f0.cpp",
     "src/game/boss_sync_positions_retail_0041d7c0.cpp",
     "src/game/bullet.cpp",
     "src/game/bullet_anim_release.cpp",

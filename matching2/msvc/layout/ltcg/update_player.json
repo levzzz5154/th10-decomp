@@ -13,7 +13,9 @@
     "layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
     "src/game/collision_engine_activate_all_00408460.cpp",
-    "src/game/item_drops_flush_0040c9a0.cpp"
+    "src/game/item_drops_flush_0040c9a0.cpp",
+    "layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
+    "src/game/enemy_death_release_0040e5f0.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
@@ -26,7 +28,10 @@
     "include/th10/render/position_setter_pair.hpp",
     "include/th10/types.hpp",
     "include/th10/game/item_scatter_flush.hpp",
-    "include/th10/math/rng.hpp"
+    "include/th10/math/rng.hpp",
+    "include/th10/game/enemy_death_release_0040e5f0.hpp",
+    "include/th10/game/score.hpp",
+    "include/th10/platform/sound_queue.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete original Draw124 and Collision260 selected together. Full native Update218/activation200/spawn823 and all genuine animation/helper operations remain unselected context. A private context header avoids changing any existing shared header.",
@@ -84,6 +89,15 @@
       "size": 503,
       "actual_abi": "position in ESI, drops on the stack; RET 4",
       "source": "src/game/item_drops_flush_0040c9a0.cpp"
+    },
+    {
+      "name": "EnemyReleaseOnDeath",
+      "symbol": "?Enemy_ReleaseOnDeath_0040e5f0@@YGHPAUEnemy_0040e5f0@@@Z",
+      "section": ".text$079k_death",
+      "address": "0x40e5f0",
+      "size": 162,
+      "actual_abi": "enemy on the stack; RET 4",
+      "source": "src/game/enemy_death_release_0040e5f0.cpp"
     }
   ],
   "anchors": [
@@ -170,13 +184,34 @@
       "address": "0x405750",
       "size": 218,
       "section": ".text$030update"
+    },
+    {
+      "name": "GaugeHold",
+      "symbol": "?AdvanceGaugeTimer@ScoreState@@QAEXH@Z",
+      "section": ".text$079m_gauge",
+      "address": "0x412ff0",
+      "size": 93
+    },
+    {
+      "name": "TimerAdvance",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$079n_advance",
+      "address": "0x413050",
+      "size": 88
+    },
+    {
+      "name": "SoundQueuePan",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$099p_pan",
+      "address": "0x43dd10",
+      "size": 149
     }
   ],
   "driver": "layout/ltcg/update_player_context.cpp",
   "context": {
     "symbol": "?PlayerUpdateContext@@YGHPAPAUPlayerUpdateState_00405750@@H@Z",
     "address": "0x00449A20",
-    "size": 62,
+    "size": 71,
     "section": ".text$160context",
     "description": "Pointer-array context only."
   },
@@ -373,6 +408,36 @@
       "symbol": "_data_004918b0",
       "address": "0x004918B0",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b20",
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
     }
   ],
   "gaps": [
@@ -423,8 +488,8 @@
     },
     {
       "section": ".text$079z",
-      "address": "0x40cbc7",
-      "size": 61241
+      "address": "0x4130a8",
+      "size": 35416
     },
     {
       "section": ".text$089gap",
@@ -434,7 +499,7 @@
     {
       "section": ".text$099gap",
       "address": "0x41c84c",
-      "size": 138948
+      "size": 136388
     },
     {
       "section": ".text$109gap",
@@ -470,6 +535,21 @@
       "section": ".rdata",
       "address": "0x0044A000",
       "size": 158460
+    },
+    {
+      "section": ".text$079j_gap",
+      "address": "0x40cbc7",
+      "size": 6697
+    },
+    {
+      "section": ".text$079l_gap",
+      "address": "0x40e692",
+      "size": 18782
+    },
+    {
+      "section": ".text$099q_gap",
+      "address": "0x43dda5",
+      "size": 2411
     }
   ],
   "included_sources": [

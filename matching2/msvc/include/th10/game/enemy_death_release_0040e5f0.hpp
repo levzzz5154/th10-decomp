@@ -1,0 +1,31 @@
+#ifndef TH10_GAME_ENEMY_DEATH_RELEASE_0040E5F0_HPP
+#define TH10_GAME_ENEMY_DEATH_RELEASE_0040E5F0_HPP
+
+#include "th10/game/item_scatter_flush.hpp"
+#include "th10/game/score.hpp"
+#include "th10/platform/sound_queue.hpp"
+
+// The enemy manager at 0x00477704, as far as a dying enemy reads it.
+struct EnemyManager_0040e5f0 {
+    unsigned char reserved_00[0x30];
+    void* animation_files[1];                 // +0x30
+};
+
+// An enemy, as far as its death touches it.
+struct Enemy_0040e5f0 {
+    unsigned char reserved_0000[0x1068];
+    DropSource_0040c9a0 position;             // +0x1068
+    unsigned char reserved_1074[0x2408 - 0x1074];
+    ItemDrops_0040c9a0 drops;                 // +0x2408
+    int death_sound;                          // +0x2444: negative for none
+    int death_script;                         // +0x2448: negative for none
+    int death_file;                           // +0x244C
+};
+
+extern "C" EnemyManager_0040e5f0* data_00477704;
+extern "C" ScoreState data_00474c40;
+
+// 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
+int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy);
+
+#endif
