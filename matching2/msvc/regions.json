@@ -9157,22 +9157,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_ResetEmitter_0040c9a0",
-      "source": "src/game/recovery_reset_emitter_0040c9a0.cpp",
-      "symbol": "_asm_Recovery_ResetEmitter_0040c9a0",
+      "name": "semantic_ItemDrops_Flush_0040c9a0",
+      "source": "src/game/item_drops_flush_0040c9a0.cpp",
+      "symbol": "?FlushDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "address": "0x0040C9A0",
       "size": 48,
-      "kind": "asm",
-      "owner": "0x0040C9A0"
+      "kind": "semantic",
+      "owner": "0x0040C9A0",
+      "previous_record": {
+        "name": "asm_Recovery_ResetEmitter_0040c9a0",
+        "source": "src/game/recovery_reset_emitter_0040c9a0.cpp",
+        "symbol": "_asm_Recovery_ResetEmitter_0040c9a0",
+        "address": "0x0040C9A0",
+        "size": 48,
+        "kind": "asm",
+        "owner": "0x0040C9A0"
+      }
     },
     {
-      "name": "asm_FUN_0040c9d0_0040c9d0",
-      "source": "src/game/item_scatter.cpp",
-      "symbol": "_asm_FUN_0040c9d0_0040c9d0",
+      "name": "semantic_ItemDrops_Scatter_0040c9d0",
+      "source": "src/game/item_drops_flush_0040c9a0.cpp",
+      "symbol": "?ScatterDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "address": "0x0040C9D0",
       "size": 503,
-      "kind": "asm",
-      "owner": "0x0040C9D0"
+      "kind": "semantic",
+      "owner": "0x0040C9D0",
+      "previous_record": {
+        "name": "asm_FUN_0040c9d0_0040c9d0",
+        "source": "src/game/item_scatter.cpp",
+        "symbol": "_asm_FUN_0040c9d0_0040c9d0",
+        "address": "0x0040C9D0",
+        "size": 503,
+        "kind": "asm",
+        "owner": "0x0040C9D0"
+      }
     },
     {
       "name": "text_padding_0040cbc7",
@@ -58649,7 +58667,6 @@
     "src/game/input_pattern_count.cpp",
     "src/game/input_poll_joystick_buttons_0044a4e0.cpp",
     "src/game/input_recorder.cpp",
-    "src/game/item_scatter.cpp",
     "src/game/item_spawn.cpp",
     "src/game/key_config.cpp",
     "src/game/laser_grow_update.cpp",
@@ -60258,7 +60275,7 @@
     "src/render/animation_start_byte_interpolation_00441f50.cpp",
     "src/unidentified/unassigned_00449a70.cpp",
     "src/unidentified/unassigned_00449a50.cpp",
-    "src/game/recovery_reset_emitter_0040c9a0.cpp",
+    "src/game/item_drops_flush_0040c9a0.cpp",
     "src/game/listener_owner_broadcast_0041c760.cpp",
     "src/unidentified/FUN_004364f0_004364f0.cpp",
     "src/render/anm_texture_upload_00446c70.cpp",

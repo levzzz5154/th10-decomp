@@ -12,7 +12,8 @@
     "src/game/fun_00408100_00408100.cpp",
     "layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
-    "src/game/collision_engine_activate_all_00408460.cpp"
+    "src/game/collision_engine_activate_all_00408460.cpp",
+    "src/game/item_drops_flush_0040c9a0.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
@@ -23,7 +24,9 @@
     "include/th10/math/timer.hpp",
     "include/th10/game/player_update_animation_context.hpp",
     "include/th10/render/position_setter_pair.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/game/item_scatter_flush.hpp",
+    "include/th10/math/rng.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete original Draw124 and Collision260 selected together. Full native Update218/activation200/spawn823 and all genuine animation/helper operations remain unselected context. A private context header avoids changing any existing shared header.",
@@ -63,6 +66,24 @@
       "section": ".text$069h_all",
       "actual_abi": "engine in EAX, flag in EBX; plain RET",
       "source": "src/game/collision_engine_activate_all_00408460.cpp"
+    },
+    {
+      "name": "ItemDropsFlush",
+      "symbol": "?FlushDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "address": "0x40c9a0",
+      "size": 48,
+      "section": ".text$079h_flush",
+      "actual_abi": "position in EAX, drops in EDI; plain RET",
+      "source": "src/game/item_drops_flush_0040c9a0.cpp"
+    },
+    {
+      "name": "ItemDropsScatter",
+      "symbol": "?ScatterDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "section": ".text$079i_scatter",
+      "address": "0x40c9d0",
+      "size": 503,
+      "actual_abi": "position in ESI, drops on the stack; RET 4",
+      "source": "src/game/item_drops_flush_0040c9a0.cpp"
     }
   ],
   "anchors": [
@@ -155,7 +176,7 @@
   "context": {
     "symbol": "?PlayerUpdateContext@@YGHPAPAUPlayerUpdateState_00405750@@H@Z",
     "address": "0x00449A20",
-    "size": 51,
+    "size": 62,
     "section": ".text$160context",
     "description": "Pointer-array context only."
   },
@@ -332,6 +353,26 @@
       "symbol": "?g_playfield_max_y@@3MA",
       "address": "0x470b38",
       "kind": "data"
+    },
+    {
+      "symbol": "?Rng_NextFloatSigned@@YIMPAURngState@@@Z",
+      "address": "0x0044BB90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Angle_Normalize_0044bc70@4",
+      "address": "0x0044BC70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetEllipticPolar@ScatterOffset_0040c9d0@@QAEPAU1@MMM@Z",
+      "address": "0x00413270",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x004918B0",
+      "kind": "data"
     }
   ],
   "gaps": [
@@ -378,7 +419,12 @@
     {
       "section": ".text$079gap",
       "address": "0x40870b",
-      "size": 78837
+      "size": 17045
+    },
+    {
+      "section": ".text$079z",
+      "address": "0x40cbc7",
+      "size": 61241
     },
     {
       "section": ".text$089gap",
@@ -434,5 +480,42 @@
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_dependencies.cpp",
     "layout/ltcg/update_player_dependencies/player_update.cpp"
   ],
-  "constant_aliases": []
+  "constant_aliases": [],
+  "data_aliases": [
+    {
+      "symbol": "__real@40490fdb",
+      "address": "0x00470B18",
+      "bytes": "db0f4940"
+    },
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "bytes": "0000804f"
+    },
+    {
+      "symbol": "__real@2f000000",
+      "address": "0x00470D18",
+      "bytes": "0000002f"
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "bytes": "0000003f"
+    },
+    {
+      "symbol": "__real@30000000",
+      "address": "0x00470BEC",
+      "bytes": "00000030"
+    },
+    {
+      "symbol": "__real@3f490fdb",
+      "address": "0x00470C48",
+      "bytes": "db0f493f"
+    },
+    {
+      "symbol": "__real@3fc90fdb",
+      "address": "0x00470B94",
+      "bytes": "db0fc93f"
+    }
+  ]
 }
