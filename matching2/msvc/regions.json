@@ -21040,13 +21040,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00424480_00424480",
-      "source": "src/game/sprite_descriptor.cpp",
-      "symbol": "_asm_FUN_00424480_00424480",
+      "name": "semantic_SpriteRegion_BindToAnimation_00424480",
+      "source": "src/game/sprite_region_bind_00424480.cpp",
+      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "address": "0x00424480",
       "size": 162,
-      "kind": "asm",
-      "owner": "0x00424480"
+      "kind": "semantic",
+      "owner": "0x00424480",
+      "previous_record": {
+        "name": "asm_FUN_00424480_00424480",
+        "source": "src/game/sprite_descriptor.cpp",
+        "symbol": "_asm_FUN_00424480_00424480",
+        "address": "0x00424480",
+        "size": 162,
+        "kind": "asm",
+        "owner": "0x00424480"
+      }
     },
     {
       "name": "text_padding_00424522",
@@ -58830,7 +58839,7 @@
     "src/game/spell_card_dispatch.cpp",
     "src/game/spell_timeout.cpp",
     "src/game/spell_timer.cpp",
-    "src/game/sprite_descriptor.cpp",
+    "src/game/sprite_region_bind_00424480.cpp",
     "src/game/stage_entry.cpp",
     "src/game/stage_focus_fade.cpp",
     "src/game/stage_slot_state.cpp",
@@ -61259,7 +61268,8 @@
     "layout/ltcg/polar_motion_step_0040b320.json",
     "layout/ltcg/stage_anm_reload_0040c3c0.json",
     "layout/ltcg/linked_pool_append_0042aa50.json",
-    "layout/ltcg/life_stock_add_004188a0.json"
+    "layout/ltcg/life_stock_add_004188a0.json",
+    "layout/ltcg/sprite_region_bind_00424480.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
