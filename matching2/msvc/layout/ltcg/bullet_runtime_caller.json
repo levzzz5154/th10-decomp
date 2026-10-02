@@ -6,9 +6,9 @@
     "layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource_0043dc90.cpp",
     "layout/ltcg/bullet_runtime_dependencies/fun_00407a30_00407a30.cpp",
     "layout/ltcg/bullet_runtime_dependencies/fun_00407be0_00407be0.cpp",
-    "layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal_00407da0.cpp",
+    "src/game/player_wrap_horizontal_00407da0.cpp",
     "layout/ltcg/bullet_runtime_dependencies/fun_00407780_00407780.cpp",
-    "layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical_00407e40.cpp",
+    "src/game/player_wrap_vertical_00407e40.cpp",
     "layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame_004074b0.cpp",
     "layout/ltcg/bullet_runtime_dependencies/field_contact_004266b0.cpp",
     "layout/ltcg/bullet_runtime_dependencies/player_animation_create_00448db0.cpp",
@@ -60,6 +60,24 @@
       "size": 209,
       "actual_abi": "state in ESI; plain RET",
       "source": "src/game/player_death_shrink_004076a0.cpp"
+    },
+    {
+      "name": "Player_WrapHorizontal",
+      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "section": ".text$01lwrap",
+      "address": "0x00407DA0",
+      "size": 148,
+      "actual_abi": "object in EBX; plain RET",
+      "source": "src/game/player_wrap_horizontal_00407da0.cpp"
+    },
+    {
+      "name": "Player_WrapVertical",
+      "symbol": "?WrapVertical@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "section": ".text$01mvertical",
+      "address": "0x00407E40",
+      "size": 172,
+      "actual_abi": "object in EBX; plain RET",
+      "source": "src/game/player_wrap_vertical_00407e40.cpp"
     }
   ],
   "gaps": [
@@ -474,20 +492,6 @@
       "size": 123
     },
     {
-      "name": "Player_WrapHorizontal",
-      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
-      "section": ".text$01lwrap",
-      "address": "0x00407DA0",
-      "size": 148
-    },
-    {
-      "name": "Player_WrapVertical",
-      "symbol": "?WrapVertical@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
-      "section": ".text$01mvertical",
-      "address": "0x00407E40",
-      "size": 172
-    },
-    {
       "name": "ActualFieldContact",
       "symbol": "@FieldContact004266B0@12",
       "section": ".text$03fcontact",
@@ -584,6 +588,33 @@
       "symbol": "__real@3f000000",
       "address": "0x00470B0C",
       "value": 0.5
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@43c00000",
+      "address": "0x00470B54",
+      "bytes": "0000c043"
+    },
+    {
+      "symbol": "__real@c3400000",
+      "address": "0x00470B40",
+      "bytes": "000040c3"
+    },
+    {
+      "symbol": "__real@43400000",
+      "address": "0x00470B3C",
+      "bytes": "00004043"
+    },
+    {
+      "symbol": "__real@43e00000",
+      "address": "0x00470B38",
+      "bytes": "0000e043"
+    },
+    {
+      "symbol": "__real@0000000000000000",
+      "address": "0x00470B70",
+      "bytes": "0000000000000000"
     }
   ]
 }
