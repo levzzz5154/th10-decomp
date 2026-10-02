@@ -5,8 +5,16 @@
   "driver": "layout/ltcg/enemy_slot_advance_004067a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Per-frame slot advance compiled with native LTCG; the slot advance it calls bare is an ABI anchor earning the EAX/ECX argument pair.",
+  "description": "Per-frame slot advance and the per-slot chain walk it calls bare, compiled with native LTCG; the draw dispatcher is an ABI anchor earning the EAX/ECX argument pair.",
   "functions": [
+    {
+      "name": "SlotOwner_004067a0_AdvanceSlot",
+      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
+      "section": ".text$01anchor",
+      "address": "0x004066E0",
+      "size": 134,
+      "actual_abi": "owner in EAX, slot in ECX; plain RET; 1 in EAX"
+    },
     {
       "name": "SlotOwner_004067a0_AdvanceAllSlots",
       "symbol": "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ",
@@ -18,17 +26,17 @@
   ],
   "anchors": [
     {
-      "name": "SlotOwner_004067a0_AdvanceSlot_abi_anchor",
-      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
-      "section": ".text$01anchor",
-      "address": "0x004066E0",
-      "size": 135
+      "name": "AnmVmDrawDispatch_anchor",
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "section": ".text$05dispatch",
+      "address": "0x004451C0",
+      "size": 15
     }
   ],
   "context": {
     "symbol": "EnemySlotAdvanceContext@8",
-    "section": ".text$05context",
-    "address": "0x00407000",
+    "section": ".text$07context",
+    "address": "0x004451D0",
     "size": 34,
     "description": "Synthetic array-walking caller; not recovered game code."
   },
@@ -40,13 +48,18 @@
     },
     {
       "section": ".text$02zlayout",
-      "address": "0x00406767",
-      "size": 57
+      "address": "0x00406766",
+      "size": 58
     },
     {
       "section": ".text$04zlayout",
       "address": "0x004067CC",
-      "size": 2100
+      "size": 256500
+    },
+    {
+      "section": ".text$06zlayout",
+      "address": "0x004451CF",
+      "size": 1
     }
   ],
   "constants": [],
@@ -70,14 +83,21 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@DispatchAnm_004451c0@8",
-      "address": "0x004451C0",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "__fltused",
       "address": "0x00000000",
       "kind": "metadata"
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "bytes": "00006043"
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "bytes": "00008041"
     }
   ]
 }

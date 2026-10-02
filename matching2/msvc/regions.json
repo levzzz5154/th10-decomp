@@ -4216,13 +4216,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004066e0_004066e0",
-      "source": "src/game/fun_004066e0_004066e0.cpp",
-      "symbol": "_asm_FUN_004066e0_004066e0",
+      "name": "semantic_SlotOwner_AdvanceSlot_004066e0",
+      "source": "src/unidentified/FUN_004067a0_004067a0.cpp",
+      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
       "address": "0x004066E0",
       "size": 134,
-      "kind": "asm",
-      "owner": "0x004066E0"
+      "kind": "semantic",
+      "owner": "0x004066E0",
+      "previous_record": {
+        "name": "asm_FUN_004066e0_004066e0",
+        "source": "src/game/fun_004066e0_004066e0.cpp",
+        "symbol": "_asm_FUN_004066e0_004066e0",
+        "address": "0x004066E0",
+        "size": 134,
+        "kind": "asm",
+        "owner": "0x004066E0"
+      }
     },
     {
       "name": "text_padding_00406766",
@@ -58509,7 +58518,6 @@
     "src/game/fun_00404530_00404530.cpp",
     "src/game/fun_00405300_00405300.cpp",
     "src/game/fun_004065c0_004065c0.cpp",
-    "src/game/fun_004066e0_004066e0.cpp",
     "src/game/fun_00407780_00407780.cpp",
     "src/game/bullet_ease_step_004078e0.cpp",
     "src/game/fun_00407a30_00407a30.cpp",
