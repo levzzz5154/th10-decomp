@@ -14659,13 +14659,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Recovery_IncrementAnimationCount_004188a0",
-      "source": "src/game/recovery_increment_animation_count_004188a0.cpp",
-      "symbol": "_asm_Recovery_IncrementAnimationCount_004188a0",
+      "name": "semantic_RunCounters_AddLives_004188a0",
+      "source": "src/game/life_stock_add_004188a0.cpp",
+      "symbol": "?AddLives@RunCounters_004188a0@@QAEXH@Z",
       "address": "0x004188A0",
       "size": 141,
-      "kind": "asm",
-      "owner": "0x004188A0"
+      "kind": "semantic",
+      "owner": "0x004188A0",
+      "previous_record": {
+        "name": "asm_Recovery_IncrementAnimationCount_004188a0",
+        "source": "src/game/recovery_increment_animation_count_004188a0.cpp",
+        "symbol": "_asm_Recovery_IncrementAnimationCount_004188a0",
+        "address": "0x004188A0",
+        "size": 141,
+        "kind": "asm",
+        "owner": "0x004188A0"
+      }
     },
     {
       "name": "text_padding_0041892d",
@@ -58743,7 +58752,7 @@
     "src/game/recovery_create_large_resource_state_00425020.cpp",
     "src/game/recovery_create_timer_state_00422360.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
-    "src/game/recovery_increment_animation_count_004188a0.cpp",
+    "src/game/life_stock_add_004188a0.cpp",
     "src/game/recovery_initialize_large_state_00421f00.cpp",
     "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
     "src/game/recovery_initialize_state_table_0041f850.cpp",
@@ -61249,7 +61258,8 @@
     "layout/ltcg/font_surface_fallback_00436aa0.json",
     "layout/ltcg/polar_motion_step_0040b320.json",
     "layout/ltcg/stage_anm_reload_0040c3c0.json",
-    "layout/ltcg/linked_pool_append_0042aa50.json"
+    "layout/ltcg/linked_pool_append_0042aa50.json",
+    "layout/ltcg/life_stock_add_004188a0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
