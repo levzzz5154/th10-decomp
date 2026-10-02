@@ -7197,13 +7197,22 @@
       "owner": "0x0040B066"
     },
     {
-      "name": "asm_FUN_0040b070_0040b070",
-      "source": "src/unidentified/FUN_0040b070_0040b070.cpp",
-      "symbol": "_asm_FUN_0040b070_0040b070",
+      "name": "semantic_EffectFileOwner_SpawnEffect_0040b070",
+      "source": "src/game/effect_kind_spawn_0040b070.cpp",
+      "symbol": "?SpawnEffect@EffectFileOwner_0040b070@@QAG?AUAnimationHandle_0040b070@@PAXH@Z",
       "address": "0x0040B070",
       "size": 159,
-      "kind": "asm",
-      "owner": "0x0040B070"
+      "kind": "semantic",
+      "owner": "0x0040B070",
+      "previous_record": {
+        "name": "asm_FUN_0040b070_0040b070",
+        "source": "src/unidentified/FUN_0040b070_0040b070.cpp",
+        "symbol": "_asm_FUN_0040b070_0040b070",
+        "address": "0x0040B070",
+        "size": 159,
+        "kind": "asm",
+        "owner": "0x0040B070"
+      }
     },
     {
       "name": "text_padding_0040b10f",
@@ -58722,7 +58731,6 @@
     "src/game/fun_00408100_00408100.cpp",
     "src/game/fun_004089c0_004089c0.cpp",
     "src/game/fun_00409280_00409280.cpp",
-    "src/game/fun_0040b110_0040b110.cpp",
     "src/game/fun_0040b7b0_0040b7b0.cpp",
     "src/game/fun_0040cfb0_0040cfb0.cpp",
     "src/game/fun_0040d830_0040d830.cpp",
@@ -59254,7 +59262,7 @@
     "src/unidentified/FUN_0040b040_0040b040.cpp",
     "src/unidentified/FUN_0040b050_0040b050.cpp",
     "src/unidentified/FUN_0040b060_0040b060.cpp",
-    "src/unidentified/FUN_0040b070_0040b070.cpp",
+    "src/game/effect_kind_spawn_0040b070.cpp",
     "src/unidentified/FUN_0040b1b0_0040b1b0.cpp",
     "src/unidentified/FUN_0040ba60_0040ba60.cpp",
     "src/unidentified/FUN_0040ba70_0040ba70.cpp",
@@ -60438,7 +60446,8 @@
     "src/game/recovery_advance_polar_motion_0044c2a0.cpp",
     "src/game/polar_motion_step_0040b320.cpp",
     "src/game/stage_anm_reload_0040c3c0.cpp",
-    "src/game/laser_spawn_0041c510.cpp"
+    "src/game/laser_spawn_0041c510.cpp",
+    "src/game/fun_0040b110_0040b110.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -61350,7 +61359,8 @@
     "layout/ltcg/sprite_region_bind_00424480.json",
     "layout/ltcg/laser_spawn_0041c510.json",
     "layout/ltcg/side_panel_release_00414570.json",
-    "layout/ltcg/data_version_load_00420100.json"
+    "layout/ltcg/data_version_load_00420100.json",
+    "layout/ltcg/effect_kind_spawn_0040b070.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
