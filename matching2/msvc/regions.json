@@ -4378,13 +4378,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Player_DeathShrink_004076a0",
+      "name": "semantic_PlayerDeathShrinkState_AdvanceDeathShrink_004076a0",
       "source": "src/game/player_death_shrink_004076a0.cpp",
-      "symbol": "_asm_Player_DeathShrink_004076a0",
+      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState_004076A0@@QAEXXZ",
       "address": "0x004076A0",
       "size": 209,
-      "kind": "asm",
-      "owner": "0x004076A0"
+      "kind": "semantic",
+      "owner": "0x004076A0",
+      "previous_record": {
+        "name": "asm_Player_DeathShrink_004076a0",
+        "source": "src/game/player_death_shrink_004076a0.cpp",
+        "symbol": "_asm_Player_DeathShrink_004076a0",
+        "address": "0x004076A0",
+        "size": 209,
+        "kind": "asm",
+        "owner": "0x004076A0"
+      }
     },
     {
       "name": "text_padding_00407771",
